@@ -28,42 +28,42 @@ namespace rss_core {
 /**
  * @brief Calculate the distance covered by a non-ego vehicle when applying the \a "stated breaking pattern"
  *        Calls \sa calculateDistanceAfterStatedBreakingPattern()
- * @param[in]  currentVelocity   is the current vehicle velocity [m/s]
+ * @param[in]  currentSpeed   is the current vehicle speed [m/s]
  * @param[out] coveredDistance  is the covered distance [m]
  * @return true on successful calculation, false otherwise
  */
-bool calculateDistanceAfterStatedBreakingPatternOtherVehicle(Velocity const currentVelocity, Distance &coveredDistance);
+bool calculateDistanceAfterStatedBreakingPatternOtherVehicle(Speed const currentSpeed, Distance &coveredDistance);
 
 /**
  * @brief Calculate the distance covered by the ego vehicle when applying the \a "stated breaking pattern"
  *        Calls \sa calculateDistanceAfterStatedBreakingPattern()
- * @param[in]  currentVelocity   is the current vehicle velocity [m/s]
+ * @param[in]  currentSpeed   is the current vehicle speed [m/s]
  * @param[out] coveredDistance   is the covered distance [m]
  * @return true on successful calculation, false otherwise
  */
-bool calculateDistanceAfterStatedBreakingPatternEgoVehicle(Velocity const currentVelocity, Distance &coveredDistance);
+bool calculateDistanceAfterStatedBreakingPatternEgoVehicle(Speed const currentSpeed, Distance &coveredDistance);
 
 /**
  * @brief Calculate the distance covered by a vehicle when applying the \a "stated breaking pattern"
- * @param[in]  currentVelocity   is the current vehicle velocity [m/s]
+ * @param[in]  currentSpeed   is the current vehicle speed [m/s]
  * @param[in]  responseTime      is the response time of the vehicle [s]
  * @param[out] coveredDistance   is the covered distance [m]
  * @return true on successful calculation, false otherwise
  */
-bool calculateDistanceAfterStatedBreakingPattern(Velocity const currentVelocity,
+bool calculateDistanceAfterStatedBreakingPattern(Speed const currentSpeed,
                                                  Duration const responseTime,
                                                  Distance &coveredDistance);
 
 /**
  * @brief Calculate the distance covered by a vehicle when applying the \a "stated breaking pattern" with given
  *        deceleration
- * @param[in]  currentVelocity   is the current vehicle velocity [m/s]
+ * @param[in]  currentSpeed   is the current vehicle speed [m/s]
  * @param[in]  responseTime      is the response time of the vehicle [s]
  * @param[in]  deceleration      is the applied breaking deceleration [m/s^2]
  * @param[out] coveredDistance   is the covered distance [m]
  * @return true on successful calculation, false otherwise
  */
-bool calculateDistanceAfterStatedBreakingPattern(Velocity const currentVelocity,
+bool calculateDistanceAfterStatedBreakingPattern(Speed const currentSpeed,
                                                  Duration const responseTime,
                                                  Acceleration const deceleration,
                                                  Distance &coveredDistance);
@@ -78,13 +78,13 @@ bool calculateDistanceAfterStatedBreakingPattern(Velocity const currentVelocity,
  *
  *        ======================================================
  *
- * @param[in]  egoVelocity      is the velocity of the ego vehicle [m/s]
- * @param[in]  otherVelocity    is the velocity of the other vehicle [m/s]
+ * @param[in]  egoSpeed      is the speed of the ego vehicle [m/s]
+ * @param[in]  otherSpeed    is the speed of the other vehicle [m/s]
  * @param[out] safeDistance     is the calculated safe longitudinal distance [m]
  * @return true on successful calculation, false otherwise
  */
-bool calculateSafeLongitudinalDistanceSameDirectionLeadingOther(Velocity const egoVelocity,
-                                                                Velocity const otherVelocity,
+bool calculateSafeLongitudinalDistanceSameDirectionLeadingOther(Speed const egoSpeed,
+                                                                Speed const otherSpeed,
                                                                 Distance &safeDistance);
 
 /**
@@ -97,13 +97,13 @@ bool calculateSafeLongitudinalDistanceSameDirectionLeadingOther(Velocity const e
  *
  *        ======================================================
  *
- * @param[in]  egoVelocity      is the velocity of the ego vehicle [m/s]
- * @param[in]  otherVelocity    is the velocity of the other vehicle [m/s]
+ * @param[in]  egoSpeed      is the speed of the ego vehicle [m/s]
+ * @param[in]  otherSpeed    is the speed of the other vehicle [m/s]
  * @param[out] safeDistance     is the calculated safe longitudinal distance [m]
  * @return true on successful calculation, false otherwise
  */
-bool calculateSafeLongitudinalDistanceSameDirectionLeadingEgo(Velocity const egoVelocity,
-                                                              Velocity const otherVelocity,
+bool calculateSafeLongitudinalDistanceSameDirectionLeadingEgo(Speed const egoSpeed,
+                                                              Speed const otherSpeed,
                                                               Distance &safeDistance);
 /**
  * @brief Calculate the \a "safe longitudinal distance" between the ego vehicle and another, approaching, vehicle,
@@ -116,13 +116,13 @@ bool calculateSafeLongitudinalDistanceSameDirectionLeadingEgo(Velocity const ego
  *
  *        ======================================================
  *
- * @param[in]  egoVelocity      is the velocity of the ego vehicle [m/s]
- * @param[in]  otherVelocity    is the velocity of the other vehicle [m/s]
+ * @param[in]  egoSpeed      is the speed of the ego vehicle [m/s]
+ * @param[in]  otherSpeed    is the speed of the other vehicle [m/s]
  * @param[out] safeDistance     is the calculated safe longitudinal distance [m]
  * @return true on successful calculation, false otherwise
  */
-bool calculateSafeLongitudinalDistanceOppositeDirectionOnCorrectLane(Velocity const egoVelocity,
-                                                                     Velocity const otherVelocity,
+bool calculateSafeLongitudinalDistanceOppositeDirectionOnCorrectLane(Speed const egoSpeed,
+                                                                     Speed const otherSpeed,
                                                                      Distance &safeDistance);
 
 /**
@@ -136,13 +136,13 @@ bool calculateSafeLongitudinalDistanceOppositeDirectionOnCorrectLane(Velocity co
  *
  *        ======================================================
  *
- * @param[in]  egoVelocity      is the velocity of the ego vehicle [m/s]
- * @param[in]  otherVelocity    is the velocity of the other vehicle [m/s]
+ * @param[in]  egoSpeed      is the speed of the ego vehicle [m/s]
+ * @param[in]  otherSpeed    is the speed of the other vehicle [m/s]
  * @param[out] safeDistance     is the calculated safe longitudinal distance [m]
  * @return true on successful calculation, false otherwise
  */
-bool calculateSafeLongitudinalDistanceOppositeDirectionOnOppositeLane(Velocity const egoVelocity,
-                                                                      Velocity const otherVelocity,
+bool calculateSafeLongitudinalDistanceOppositeDirectionOnOppositeLane(Speed const egoSpeed,
+                                                                      Speed const otherSpeed,
                                                                       Distance &safeDistance);
 
 } // namespace rss_core

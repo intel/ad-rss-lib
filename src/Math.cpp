@@ -21,9 +21,9 @@
 
 namespace rss_core {
 
-bool calculateStoppingDistance(Velocity const velocity, Acceleration const deceleration, Distance &stoppingDistance)
+bool calculateStoppingDistance(Speed const speed, Acceleration const deceleration, Distance &stoppingDistance)
 {
-  if (velocity < 0.)
+  if (speed < 0.)
   {
     return false;
   }
@@ -41,16 +41,16 @@ bool calculateStoppingDistance(Velocity const velocity, Acceleration const decel
   /**
    * s = v^2 / 2 *a
    */
-  stoppingDistance = (velocity * velocity) / (2.0 * deceleration);
+  stoppingDistance = (speed * speed) / (2.0 * deceleration);
   return true;
 }
 
-bool calculateVelocityAfterResponseTime(Velocity const currentVelocity,
-                                        Acceleration const acceleration,
-                                        Duration const responseTime,
-                                        Velocity &resultingVelocity)
+bool calculateSpeedAfterResponseTime(Speed const currentSpeed,
+                                     Acceleration const acceleration,
+                                     Duration const responseTime,
+                                     Speed &resultingSpeed)
 {
-  if (currentVelocity < 0.)
+  if (currentSpeed < 0.)
   {
     return false;
   }
@@ -71,20 +71,20 @@ bool calculateVelocityAfterResponseTime(Velocity const currentVelocity,
   }
 
   // v(t) =v0 + a * t
-  resultingVelocity = currentVelocity + acceleration * responseTime;
+  resultingSpeed = currentSpeed + acceleration * responseTime;
 
   // Only deceleration till stop is allowed
-  resultingVelocity = std::max(0., resultingVelocity);
+  resultingSpeed = std::max(0., resultingSpeed);
 
   return true;
 }
 
-bool calculateDistanceAfterResponseTime(Velocity const currentVelocity,
+bool calculateDistanceAfterResponseTime(Speed const currentSpeed,
                                         Acceleration const acceleration,
                                         Duration const responseTime,
                                         Distance &coveredDistance)
 {
-  if (currentVelocity < 0.)
+  if (currentSpeed < 0.)
   {
     return false;
   }
@@ -107,14 +107,14 @@ bool calculateDistanceAfterResponseTime(Velocity const currentVelocity,
   Duration resultingResponseTime = responseTime;
   if (acceleration < 0)
   {
-    resultingResponseTime = -1. * currentVelocity / acceleration;
+    resultingResponseTime = -1. * currentSpeed / acceleration;
     resultingResponseTime = std::min(resultingResponseTime, responseTime);
   }
 
   // s(t) =(a/2) * t^2 + v0 * t
 
   coveredDistance
-    = acceleration * 0.5 * resultingResponseTime * resultingResponseTime + currentVelocity * resultingResponseTime;
+    = acceleration * 0.5 * resultingResponseTime * resultingResponseTime + currentSpeed * resultingResponseTime;
 
   return true;
 }

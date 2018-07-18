@@ -28,7 +28,6 @@ set(CMAKE_CXX_STANDARD 14)
 add_compile_options(-Werror -Wall -Wextra)
 
 
-
 add_library(${PROJECT_NAME} SHARED
   src/Math.cpp
   src/RSSFormulas.cpp
@@ -55,13 +54,6 @@ target_compile_options(${PROJECT_NAME} PRIVATE ${TARGET_COMPILE_OPTIONS})
 ################################################################################
 # Install section
 ################################################################################
-set(PROJECT_PUBLIC_HEADER_LIST
-  include/rss_core/Math.hpp
-  include/rss_core/RSSFormulas.hpp
-  include/rss_core/RSSParameters.hpp
-  include/rss_core/RSSTypes.hpp
-)
-set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${PROJECT_PUBLIC_HEADER_LIST}")
 if(IS_ABSOLUTE "${CMAKE_INSTALL_LIBDIR}")
   file(RELATIVE_PATH CMAKE_INSTALL_LIBDIR_RELATIVE "${CMAKE_INSTALL_PREFIX}" "${CMAKE_INSTALL_LIBDIR}")
 else()
@@ -70,8 +62,10 @@ endif()
 
 install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}_EXPORT
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR_RELATIVE}
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR_RELATIVE}
-  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/rss_core)
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR_RELATIVE})
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/rss_core
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR_RELATIVE}/cmake/${PROJECT_NAME}")
 
@@ -126,4 +120,3 @@ if(BUILD_DOC)
     message(FATAL_ERROR, "Doxygen needs to be installed")
   endif()
 endif()
-

@@ -22,45 +22,45 @@
 
 namespace rss_core {
 
-bool calculateDistanceAfterStatedBreakingPatternOtherVehicle(Velocity const currentVelocity, Distance &coveredDistance)
+bool calculateDistanceAfterStatedBreakingPatternOtherVehicle(Speed const currentSpeed, Distance &coveredDistance)
 {
-  return calculateDistanceAfterStatedBreakingPattern(currentVelocity, cResponseTimeOtherVehicles, coveredDistance);
+  return calculateDistanceAfterStatedBreakingPattern(currentSpeed, cResponseTimeOtherVehicles, coveredDistance);
 }
 
-bool calculateDistanceAfterStatedBreakingPatternEgoVehicle(Velocity const currentVelocity, Distance &coveredDistance)
+bool calculateDistanceAfterStatedBreakingPatternEgoVehicle(Speed const currentSpeed, Distance &coveredDistance)
 {
-  return calculateDistanceAfterStatedBreakingPattern(currentVelocity, cResponseTimeEgoVehicle, coveredDistance);
+  return calculateDistanceAfterStatedBreakingPattern(currentSpeed, cResponseTimeEgoVehicle, coveredDistance);
 }
 
-bool calculateDistanceAfterStatedBreakingPattern(Velocity const currentVelocity,
+bool calculateDistanceAfterStatedBreakingPattern(Speed const currentSpeed,
                                                  Duration const responseTime,
                                                  Distance &coveredDistance)
 {
   return calculateDistanceAfterStatedBreakingPattern(
-    currentVelocity, responseTime, cMinimumBreakingDeceleleration, coveredDistance);
+    currentSpeed, responseTime, cMinimumBreakingDeceleleration, coveredDistance);
 }
 
-bool calculateDistanceAfterStatedBreakingPattern(Velocity const currentVelocity,
+bool calculateDistanceAfterStatedBreakingPattern(Speed const currentSpeed,
                                                  Duration const responseTime,
                                                  Acceleration const deceleration,
                                                  Distance &coveredDistance)
 {
-  Velocity resultingVelocity = 0.;
-  bool resultCalculateVelocity
-    = calculateVelocityAfterResponseTime(currentVelocity, cMaximumAcceleration, responseTime, resultingVelocity);
+  Speed resultingSpeed = 0.;
+  bool resultCalculateSpeed
+    = calculateSpeedAfterResponseTime(currentSpeed, cMaximumAcceleration, responseTime, resultingSpeed);
 
-  if (!resultCalculateVelocity)
+  if (!resultCalculateSpeed)
   {
     return false;
   }
   bool result = false;
 
   Distance distanceAfterResponseTime = 0.;
-  bool resultCalculateResponseDistance = calculateDistanceAfterResponseTime(
-    currentVelocity, cMaximumAcceleration, responseTime, distanceAfterResponseTime);
+  bool resultCalculateResponseDistance
+    = calculateDistanceAfterResponseTime(currentSpeed, cMaximumAcceleration, responseTime, distanceAfterResponseTime);
 
   Distance distanceToStop = 0.;
-  bool resultCaluclateStoppingDistance = calculateStoppingDistance(resultingVelocity, deceleration, distanceToStop);
+  bool resultCaluclateStoppingDistance = calculateStoppingDistance(resultingSpeed, deceleration, distanceToStop);
 
   if (resultCalculateResponseDistance && resultCaluclateStoppingDistance)
   {
@@ -71,18 +71,16 @@ bool calculateDistanceAfterStatedBreakingPattern(Velocity const currentVelocity,
   return result;
 }
 
-bool calculateSafeLongitudinalDistanceSameDirectionLeadingOther(Velocity const egoVelocity,
-                                                                Velocity const otherVelocity,
+bool calculateSafeLongitudinalDistanceSameDirectionLeadingOther(Speed const egoSpeed,
+                                                                Speed const otherSpeed,
                                                                 Distance &safeDistance)
 {
   bool result = false;
   Distance distanceStatedBreaking = 0.;
-  bool resultStatedBreaking
-    = calculateDistanceAfterStatedBreakingPatternEgoVehicle(egoVelocity, distanceStatedBreaking);
+  bool resultStatedBreaking = calculateDistanceAfterStatedBreakingPatternEgoVehicle(egoSpeed, distanceStatedBreaking);
 
   Distance distanceMaxBreak = 0.;
-  bool resultStoppingDistance
-    = calculateStoppingDistance(otherVelocity, cMaximumBreakingDeceleleration, distanceMaxBreak);
+  bool resultStoppingDistance = calculateStoppingDistance(otherSpeed, cMaximumBreakingDeceleleration, distanceMaxBreak);
 
   if (resultStatedBreaking && resultStoppingDistance)
   {
@@ -93,18 +91,17 @@ bool calculateSafeLongitudinalDistanceSameDirectionLeadingOther(Velocity const e
   return result;
 }
 
-bool calculateSafeLongitudinalDistanceSameDirectionLeadingEgo(Velocity const egoVelocity,
-                                                              Velocity const otherVelocity,
+bool calculateSafeLongitudinalDistanceSameDirectionLeadingEgo(Speed const egoSpeed,
+                                                              Speed const otherSpeed,
                                                               Distance &safeDistance)
 {
   bool result = false;
   Distance distanceStatedBreaking = 0.;
   bool resultStatedBreaking
-    = calculateDistanceAfterStatedBreakingPatternOtherVehicle(otherVelocity, distanceStatedBreaking);
+    = calculateDistanceAfterStatedBreakingPatternOtherVehicle(otherSpeed, distanceStatedBreaking);
 
   Distance distanceMaxBreak = 0.;
-  bool resultStoppingDistance
-    = calculateStoppingDistance(egoVelocity, cMaximumBreakingDeceleleration, distanceMaxBreak);
+  bool resultStoppingDistance = calculateStoppingDistance(egoSpeed, cMaximumBreakingDeceleleration, distanceMaxBreak);
 
   if (resultStatedBreaking && resultStoppingDistance)
   {
@@ -115,18 +112,18 @@ bool calculateSafeLongitudinalDistanceSameDirectionLeadingEgo(Velocity const ego
   return result;
 }
 
-bool calculateSafeLongitudinalDistanceOppositeDirectionOnCorrectLane(Velocity const egoVelocity,
-                                                                     Velocity const otherVelocity,
+bool calculateSafeLongitudinalDistanceOppositeDirectionOnCorrectLane(Speed const egoSpeed,
+                                                                     Speed const otherSpeed,
                                                                      Distance &safeDistance)
 {
   bool result = false;
   Distance distanceStatedBreakingEgo = 0.;
   bool resultStatedBreakingEgo = calculateDistanceAfterStatedBreakingPattern(
-    egoVelocity, cResponseTimeEgoVehicle, cMinimumBreakingDecelelerationCorrect, distanceStatedBreakingEgo);
+    egoSpeed, cResponseTimeEgoVehicle, cMinimumBreakingDecelelerationCorrect, distanceStatedBreakingEgo);
 
   Distance distanceStatedBreakingOther = 0.;
   bool resultStatedBreakingOther
-    = calculateDistanceAfterStatedBreakingPatternOtherVehicle(otherVelocity, distanceStatedBreakingOther);
+    = calculateDistanceAfterStatedBreakingPatternOtherVehicle(otherSpeed, distanceStatedBreakingOther);
 
   if (resultStatedBreakingEgo && resultStatedBreakingOther)
   {
@@ -137,18 +134,18 @@ bool calculateSafeLongitudinalDistanceOppositeDirectionOnCorrectLane(Velocity co
   return result;
 }
 
-bool calculateSafeLongitudinalDistanceOppositeDirectionOnOppositeLane(Velocity const egoVelocity,
-                                                                      Velocity const otherVelocity,
+bool calculateSafeLongitudinalDistanceOppositeDirectionOnOppositeLane(Speed const egoSpeed,
+                                                                      Speed const otherSpeed,
                                                                       Distance &safeDistance)
 {
   bool result = false;
   Distance distanceStatedBreakingEgo = 0.;
   bool resultStatedBreakingEgo
-    = calculateDistanceAfterStatedBreakingPatternEgoVehicle(egoVelocity, distanceStatedBreakingEgo);
+    = calculateDistanceAfterStatedBreakingPatternEgoVehicle(egoSpeed, distanceStatedBreakingEgo);
 
   Distance distanceStatedBreakingOther = 0.;
   bool resultStatedBreakingOther = calculateDistanceAfterStatedBreakingPattern(
-    otherVelocity, cResponseTimeOtherVehicles, cMinimumBreakingDecelelerationCorrect, distanceStatedBreakingOther);
+    otherSpeed, cResponseTimeOtherVehicles, cMinimumBreakingDecelelerationCorrect, distanceStatedBreakingOther);
 
   if (resultStatedBreakingEgo && resultStatedBreakingOther)
   {

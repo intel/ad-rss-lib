@@ -20,7 +20,7 @@
 #include "rss_core/Math.hpp"
 #include "rss_core/RSSParameters.hpp"
 
-TEST(MathUnitTestsDistanceAfterResponseTime, negative_velocity)
+TEST(MathUnitTestsDistanceAfterResponseTime, negative_speed)
 {
   rss_core::Distance coveredDistance = 0.;
 

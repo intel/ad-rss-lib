@@ -21,26 +21,15 @@
 
 #pragma once
 
+#include "rss_core/types/Acceleration.hpp"
+#include "rss_core/types/Distance.hpp"
+#include "rss_core/types/Duration.hpp"
+#include "rss_core/types/Speed.hpp"
+
 namespace rss_core {
 
-/**
- * @brief Velocity in meters per seconds
- */
-typedef double Velocity;
-
-/**
- * @brief Acceleration in meters per seconds^2
- */
-typedef double Acceleration;
-
-/**
- * @brief Distance in meters
- */
-typedef double Distance;
-
-/**
- * @brief Duration in seconds
- */
-typedef double Duration;
-
-} // namespace rss_core
+using types::Acceleration;
+using types::Distance;
+using types::Duration;
+using types::Speed;
+}

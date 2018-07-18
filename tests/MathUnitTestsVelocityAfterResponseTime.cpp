@@ -20,62 +20,62 @@
 #include "rss_core/Math.hpp"
 #include "rss_core/RSSParameters.hpp"
 
-TEST(MathUnitTestsVelocityAfterResponseTime, negative_velocity)
+TEST(MathUnitTestsSpeedAfterResponseTime, negative_speed)
 {
-  rss_core::Velocity resultingVelocity = 0.;
-  ASSERT_FALSE(rss_core::calculateVelocityAfterResponseTime(-10., 1., 1., resultingVelocity));
+  rss_core::Speed resultingSpeed = 0.;
+  ASSERT_FALSE(rss_core::calculateSpeedAfterResponseTime(-10., 1., 1., resultingSpeed));
 }
 
-TEST(MathUnitTestsVelocityAfterResponseTime, acceleration_too_big)
+TEST(MathUnitTestsSpeedAfterResponseTime, acceleration_too_big)
 {
-  rss_core::Velocity resultingVelocity = 0.;
+  rss_core::Speed resultingSpeed = 0.;
   ASSERT_FALSE(
-    rss_core::calculateVelocityAfterResponseTime(10., rss_core::cMaximumAcceleration + 0.1, 1., resultingVelocity));
+    rss_core::calculateSpeedAfterResponseTime(10., rss_core::cMaximumAcceleration + 0.1, 1., resultingSpeed));
 }
 
-TEST(MathUnitTestsVelocityAfterResponseTime, acceleration_too_small)
+TEST(MathUnitTestsSpeedAfterResponseTime, acceleration_too_small)
 {
-  rss_core::Velocity resultingVelocity = 0.;
-  ASSERT_FALSE(rss_core::calculateVelocityAfterResponseTime(
-    10., -1.1 * rss_core::cMaximumBreakingDeceleleration, 1, resultingVelocity));
+  rss_core::Speed resultingSpeed = 0.;
+  ASSERT_FALSE(
+    rss_core::calculateSpeedAfterResponseTime(10., -1.1 * rss_core::cMaximumBreakingDeceleleration, 1, resultingSpeed));
 }
 
-TEST(MathUnitTestsVelocityAfterResponseTime, zero_deceleration)
+TEST(MathUnitTestsSpeedAfterResponseTime, zero_deceleration)
 {
-  rss_core::Velocity startVelocity = 10.;
-  rss_core::Velocity resultingVelocity = 0.;
-  ASSERT_TRUE(rss_core::calculateVelocityAfterResponseTime(startVelocity, 0., 1., resultingVelocity));
-  ASSERT_NEAR(startVelocity, resultingVelocity, cDoubleNear);
+  rss_core::Speed startSpeed = 10.;
+  rss_core::Speed resultingSpeed = 0.;
+  ASSERT_TRUE(rss_core::calculateSpeedAfterResponseTime(startSpeed, 0., 1., resultingSpeed));
+  ASSERT_NEAR(startSpeed, resultingSpeed, cDoubleNear);
 }
 
-TEST(MathUnitTestsVelocityAfterResponseTime, checks_acceleration_1sec)
+TEST(MathUnitTestsSpeedAfterResponseTime, checks_acceleration_1sec)
 {
-  rss_core::Velocity startVelocity = 10.;
-  rss_core::Velocity resultingVelocity = 0.;
-  ASSERT_TRUE(rss_core::calculateVelocityAfterResponseTime(startVelocity, 1., 1., resultingVelocity));
-  ASSERT_NEAR(startVelocity + 1, resultingVelocity, cDoubleNear);
+  rss_core::Speed startSpeed = 10.;
+  rss_core::Speed resultingSpeed = 0.;
+  ASSERT_TRUE(rss_core::calculateSpeedAfterResponseTime(startSpeed, 1., 1., resultingSpeed));
+  ASSERT_NEAR(startSpeed + 1, resultingSpeed, cDoubleNear);
 }
 
-TEST(MathUnitTestsVelocityAfterResponseTime, checks_acceleration_2sec)
+TEST(MathUnitTestsSpeedAfterResponseTime, checks_acceleration_2sec)
 {
-  rss_core::Velocity startVelocity = 10.;
-  rss_core::Velocity resultingVelocity = 0.;
-  ASSERT_TRUE(rss_core::calculateVelocityAfterResponseTime(startVelocity, 1., 2., resultingVelocity));
-  ASSERT_NEAR(startVelocity + 2., resultingVelocity, cDoubleNear);
+  rss_core::Speed startSpeed = 10.;
+  rss_core::Speed resultingSpeed = 0.;
+  ASSERT_TRUE(rss_core::calculateSpeedAfterResponseTime(startSpeed, 1., 2., resultingSpeed));
+  ASSERT_NEAR(startSpeed + 2., resultingSpeed, cDoubleNear);
 }
 
-TEST(MathUnitTestsVelocityAfterResponseTime, negative_acceleration)
+TEST(MathUnitTestsSpeedAfterResponseTime, negative_acceleration)
 {
-  rss_core::Velocity startVelocity = 10.;
-  rss_core::Velocity resultingVelocity = 0.;
-  ASSERT_TRUE(rss_core::calculateVelocityAfterResponseTime(startVelocity, -1., 2., resultingVelocity));
-  ASSERT_NEAR(startVelocity - 2., resultingVelocity, cDoubleNear);
+  rss_core::Speed startSpeed = 10.;
+  rss_core::Speed resultingSpeed = 0.;
+  ASSERT_TRUE(rss_core::calculateSpeedAfterResponseTime(startSpeed, -1., 2., resultingSpeed));
+  ASSERT_NEAR(startSpeed - 2., resultingSpeed, cDoubleNear);
 }
 
-TEST(MathUnitTestsVelocityAfterResponseTime, negative_acceleration_till_stop)
+TEST(MathUnitTestsSpeedAfterResponseTime, negative_acceleration_till_stop)
 {
-  rss_core::Velocity startVelocity = 10.;
-  rss_core::Velocity resultingVelocity = 0.;
-  ASSERT_TRUE(rss_core::calculateVelocityAfterResponseTime(startVelocity, -1., 20., resultingVelocity));
-  ASSERT_NEAR(0., resultingVelocity, cDoubleNear);
+  rss_core::Speed startSpeed = 10.;
+  rss_core::Speed resultingSpeed = 0.;
+  ASSERT_TRUE(rss_core::calculateSpeedAfterResponseTime(startSpeed, -1., 20., resultingSpeed));
+  ASSERT_NEAR(0., resultingSpeed, cDoubleNear);
 }

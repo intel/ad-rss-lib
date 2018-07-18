@@ -20,14 +20,14 @@
 #include "rss_core/RSSFormulas.hpp"
 #include "rss_core/RSSParameters.hpp"
 
-TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirectionLeadingEgo, negative_ego_velocity)
+TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirectionLeadingEgo, negative_ego_speed)
 {
   rss_core::Distance safeDistance = 0.;
 
   ASSERT_FALSE(rss_core::calculateSafeLongitudinalDistanceSameDirectionLeadingEgo(-10., 1, safeDistance));
 }
 
-TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirectionLeadingEgo, negative_other_velocity)
+TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirectionLeadingEgo, negative_other_speed)
 {
   rss_core::Distance safeDistance = 0.;
 

@@ -26,36 +26,36 @@
 namespace rss_core {
 
 /**
- * @brief Calculate the stopping distance for a given velocity and deceleration
- * @param[in]  velocity               is the current velocity of the vehicle [m/s]
+ * @brief Calculate the stopping distance for a given speed and deceleration
+ * @param[in]  speed               is the current speed of the vehicle [m/s]
  * @param[in]  deceleration           is the applied deceleration [m/s^2]
  * @param[out] stoppingDistance       is the resulting stopping distance [m]
- * @return true on success, false otherwise (e.g. if velocity < 0)
+ * @return true on success, false otherwise (e.g. if speed < 0)
  */
-bool calculateStoppingDistance(Velocity const velocity, Acceleration const deceleration, Distance &stoppingDistance);
+bool calculateStoppingDistance(Speed const speed, Acceleration const deceleration, Distance &stoppingDistance);
 
 /**
- * @brief Calculate the vehicle velocity after a given period of time (i.e. response time)
- * @param[in]  currentVelocity         is the current velocity of the vehicle [m/s]
+ * @brief Calculate the vehicle speed after a given period of time (i.e. response time)
+ * @param[in]  currentSpeed         is the current speed of the vehicle [m/s]
  * @param[in]  acceleration            is the acceleration of the vehicle [m/s^2]
  * @param[in]  responseTime            is the period of time the vehicle keeps accelerating [s]
- * @param[out] resultingVelocity       is the resulting velocity after \a responseTime [m]
- * @return true on success, false otherwise (e.g. if velocity < 0)
+ * @param[out] resultingSpeed       is the resulting speed after \a responseTime [m]
+ * @return true on success, false otherwise (e.g. if speed < 0)
  */
-bool calculateVelocityAfterResponseTime(Velocity const currentVelocity,
-                                        Acceleration const acceleration,
-                                        Duration const responseTime,
-                                        Velocity &resultingVelocity);
+bool calculateSpeedAfterResponseTime(Speed const currentSpeed,
+                                     Acceleration const acceleration,
+                                     Duration const responseTime,
+                                     Speed &resultingSpeed);
 
 /**
  * @brief Calculate the covered distance of a vehicle after a given period of time (i.e. reponse time)
- * @param[in]  currentVelocity         is the current velocity of the vehicle [m/s]
+ * @param[in]  currentSpeed         is the current speed of the vehicle [m/s]
  * @param[in]  acceleration            is the acceleration of the vehicle [m/s^2]
  * @param[in]  responseTime            is the period of time the vehicle keeps accelerating [s]
  * @param[out] coveredDistance         is the covered distance [m]
- * @return true on success, false otherwise (e.g. if velocity < 0)
+ * @return true on success, false otherwise (e.g. if speed < 0)
  */
-bool calculateDistanceAfterResponseTime(Velocity const currentVelocity,
+bool calculateDistanceAfterResponseTime(Speed const currentSpeed,
                                         Acceleration const acceleration,
                                         Duration const responseTime,
                                         Distance &coveredDistance);

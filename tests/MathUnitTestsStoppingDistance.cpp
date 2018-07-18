@@ -20,7 +20,7 @@
 #include "rss_core/Math.hpp"
 #include "rss_core/RSSParameters.hpp"
 
-TEST(MathUnitTestsStoppingDistance, negative_velocity)
+TEST(MathUnitTestsStoppingDistance, negative_speed)
 {
   rss_core::Distance stoppingDistance = 0.;
   ASSERT_FALSE(rss_core::calculateStoppingDistance(-10., 4., stoppingDistance));

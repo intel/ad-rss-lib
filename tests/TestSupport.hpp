@@ -20,7 +20,7 @@
 
 const double cDoubleNear = 0.01;
 
-inline rss_core::Velocity kmhToMeterPerSec(rss_core::Velocity velocity)
+inline rss_core::Speed kmhToMeterPerSec(rss_core::Speed speed)
 {
-  return velocity / 3.6;
+  return speed / 3.6;
 }

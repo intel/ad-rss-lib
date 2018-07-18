@@ -20,7 +20,7 @@
 #include "rss_core/RSSFormulas.hpp"
 #include "rss_core/RSSParameters.hpp"
 
-TEST(RSSFormulaTestsCalculateDistanceAfterStatedBreakingPattern, negative_velocity)
+TEST(RSSFormulaTestsCalculateDistanceAfterStatedBreakingPattern, negative_speed)
 {
   rss_core::Distance coveredDistance = 0.;
 
