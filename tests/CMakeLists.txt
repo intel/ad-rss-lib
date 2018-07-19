@@ -25,8 +25,9 @@ set(RSS_CORE_TEST_SOURCES
   MathUnitTestsStoppingDistance.cpp
   MathUnitTestsVelocityAfterResponseTime.cpp
   RSSFormulaTestsCalculateDistanceAfterStatedBreakingPattern.cpp
-  RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
   RSSFormulaTestsCalculateSafeLongitudinalDistanceOppositeDirection.cpp
+  RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirectionLeadingEgo.cpp
+  RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirectionLeadingOther.cpp
 )
 
 add_executable(${EXEC_NAME} ${RSS_CORE_TEST_SOURCES})

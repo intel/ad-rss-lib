@@ -28,9 +28,13 @@ bool calculateDistanceAfterStatedBreakingPattern(Velocity const currentVelocity,
                                                  Duration const responseTime,
                                                  Distance &coveredDistance);
 
-bool calculateSafeLongitudinalDistanceSameDirection(Velocity const egoVelocity,
-                                                    Velocity const otherVelocity,
-                                                    Distance &safeDistance);
+bool calculateSafeLongitudinalDistanceSameDirectionLeadingOther(Velocity const egoVelocity,
+                                                                Velocity const otherVelocity,
+                                                                Distance &safeDistance);
+
+bool calculateSafeLongitudinalDistanceSameDirectionLeadingEgo(Velocity const egoVelocity,
+                                                              Velocity const otherVelocity,
+                                                              Distance &safeDistance);
 
 bool calculateSafeLongitudinalDistanceOppositeDirection(Velocity const egoVelocity,
                                                         Velocity const otherVelocity,

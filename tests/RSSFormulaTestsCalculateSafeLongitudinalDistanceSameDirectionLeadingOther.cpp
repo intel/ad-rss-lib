@@ -20,24 +20,24 @@
 #include "rss_core/RSSFormulas.hpp"
 #include "rss_core/RSSParameters.hpp"
 
-TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection, negative_ego_velocity)
+TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirectionLeadingOther, negative_ego_velocity)
 {
   rss_core::Distance safeDistance = 0.;
 
-  ASSERT_FALSE(rss_core::calculateSafeLongitudinalDistanceSameDirection(-10., 1, safeDistance));
+  ASSERT_FALSE(rss_core::calculateSafeLongitudinalDistanceSameDirectionLeadingOther(-10., 1, safeDistance));
 }
 
-TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection, negative_other_velocity)
+TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirectionLeadingOther, negative_other_velocity)
 {
   rss_core::Distance safeDistance = 0.;
 
-  ASSERT_FALSE(rss_core::calculateSafeLongitudinalDistanceSameDirection(10., -10, safeDistance));
+  ASSERT_FALSE(rss_core::calculateSafeLongitudinalDistanceSameDirectionLeadingOther(10., -10, safeDistance));
 }
 
-TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection, checks_leading_vehicle_much_faster)
+TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirectionLeadingOther, checks_leading_vehicle_much_faster)
 {
   rss_core::Distance safeDistance = 0.;
-  ASSERT_TRUE(
-    rss_core::calculateSafeLongitudinalDistanceSameDirection(kmhToMeterPerSec(0), kmhToMeterPerSec(100), safeDistance));
+  ASSERT_TRUE(rss_core::calculateSafeLongitudinalDistanceSameDirectionLeadingOther(
+    kmhToMeterPerSec(0), kmhToMeterPerSec(100), safeDistance));
   ASSERT_NEAR(safeDistance, 0, cDoubleNear);
 }

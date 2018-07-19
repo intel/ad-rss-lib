@@ -63,9 +63,9 @@ bool calculateDistanceAfterStatedBreakingPattern(Velocity const currentVelocity,
   return result;
 }
 
-bool calculateSafeLongitudinalDistanceSameDirection(Velocity const egoVelocity,
-                                                    Velocity const otherVelocity,
-                                                    Distance &safeDistance)
+bool calculateSafeLongitudinalDistanceSameDirectionLeadingOther(Velocity const egoVelocity,
+                                                                Velocity const otherVelocity,
+                                                                Distance &safeDistance)
 {
   bool result = false;
   Distance distanceStatedBreaking = 0.;
@@ -75,6 +75,28 @@ bool calculateSafeLongitudinalDistanceSameDirection(Velocity const egoVelocity,
   Distance distanceMaxBreak = 0.;
   bool resultStoppingDistance
     = calculateStoppingDistance(otherVelocity, cMaximumBreakingDeceleleration, distanceMaxBreak);
+
+  if (resultStatedBreaking && resultStoppingDistance)
+  {
+    result = true;
+    safeDistance = distanceStatedBreaking - distanceMaxBreak;
+    safeDistance = std::max(safeDistance, 0.);
+  }
+  return result;
+}
+
+bool calculateSafeLongitudinalDistanceSameDirectionLeadingEgo(Velocity const egoVelocity,
+                                                              Velocity const otherVelocity,
+                                                              Distance &safeDistance)
+{
+  bool result = false;
+  Distance distanceStatedBreaking = 0.;
+  bool resultStatedBreaking
+    = calculateDistanceAfterStatedBreakingPatternOtherVehicle(otherVelocity, distanceStatedBreaking);
+
+  Distance distanceMaxBreak = 0.;
+  bool resultStoppingDistance
+    = calculateStoppingDistance(egoVelocity, cMaximumBreakingDeceleleration, distanceMaxBreak);
 
   if (resultStatedBreaking && resultStoppingDistance)
   {
