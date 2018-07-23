@@ -14,32 +14,33 @@
 // implied warranties, other than those that are expressly stated in the License.
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
+
+/**
+ * @file
+ */
+
 #pragma once
 
 namespace rss_core {
 
-/*
- * @brief velocity
- * meter per seconds
+/**
+ * @brief Velocity in meters per seconds
  */
-typedef double Velocity; // m per seconds
+typedef double Velocity;
 
-/*
- * @brief acceleration
- * meter per seconds^2
+/**
+ * @brief Acceleration in meters per seconds^2
  */
-typedef double Acceleration; // m/s^2
+typedef double Acceleration;
 
-/*
- * @brief distance
- * meter
+/**
+ * @brief Distance in meters
  */
-typedef double Distance; // meter
+typedef double Distance;
 
-/*
- * @brief duration
- * seconds
+/**
+ * @brief Duration in seconds
  */
-typedef double Duration; // seconds
+typedef double Duration;
 
 } // namespace rss_core

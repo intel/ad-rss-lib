@@ -14,17 +14,23 @@
 // implied warranties, other than those that are expressly stated in the License.
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
+
+/**
+ * @file
+ */
+
 #pragma once
 
 #include "rss_core/RSSTypes.hpp"
 
 namespace rss_core {
 
-const Duration cResponseTimeEgoVehicle = 1;            // seconds
-const Duration cResponseTimeOtherVehicles = 2;         // seconds
-const Acceleration cMaximumAcceleration = 3.5;         // m/s^2 this might need to be changed to be velocity dependent
-const Acceleration cMinimumBreakingDeceleleration = 4; // m/s^2
-const Acceleration cMaximumBreakingDeceleleration = 8; // m/s^2
-const Acceleration cMinimumBreakingDecelelerationCorrect = 3; // m/s^2
+const Duration cResponseTimeEgoVehicle = 1;            /*!< Response time of the ego vehicle in seconds. */
+const Duration cResponseTimeOtherVehicles = 2;         /*!< Response time of non-ego vehicles in seconds. */
+const Acceleration cMaximumAcceleration = 3.5;         /*!< Maximum allowed acceleration in m/s^2. */
+                                                       /*!< This might need to be changed to be velocity dependent. */
+const Acceleration cMinimumBreakingDeceleleration = 4; /*!< Minimum breaking force applied in m/s^2. */
+const Acceleration cMaximumBreakingDeceleleration = 8; /*!< Maximum breaking force applied in m/s^2. */
+const Acceleration cMinimumBreakingDecelelerationCorrect = 3; /*!< Minimum correct breaking force applied in m/s^2. */
 
 } // namespace rss_core

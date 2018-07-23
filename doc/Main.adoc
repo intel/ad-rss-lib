@@ -1,0 +1,43 @@
+# RSS Documentation
+:toc: left
+:toclevels: 3
+:imagesdir: ./images
+:includedir: ./includes
+:source-highlighter: coderay
+:icons: font
+
+// Include the Disclaimer
+include::{includedir}/Disclaimer.adoc[]
+
+## Build RSS library and documentation
+The RSS library is built with a standard cmake toolchain. Therefore, run the
+following commands, to build the library and documentation:
+
+[source, Bash]
+----
+mkdir build
+cd build
+cmake ..
+make
+make apidoc # optional, if API documentation is desired
+----
+
+
+
+### Section 1
+Text, text, text, ...
+
+[source, C++]
+----
+#include <iostream>
+int main() {
+  std::cout << "Hallo world!" << std::endl;
+
+  return 0;
+}
+----
+
+More text, text, text, ...
+
+### Section 2
+Text, text, text, ...

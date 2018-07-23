@@ -114,13 +114,14 @@ endif()
 if(BUILD_DOC)
   find_package(Doxygen REQUIRED)
   if (DOXYGEN_FOUND)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile.in
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doc/apidoc/Doxyfile.in
                    ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
                    @ONLY)
     add_custom_target(apidoc
                       COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
                       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
                       COMMENT "Build doxygen documentation")
+    file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doc/apidoc)
   else()
     message(FATAL_ERROR, "Doxygen needs to be installed")
   endif()
