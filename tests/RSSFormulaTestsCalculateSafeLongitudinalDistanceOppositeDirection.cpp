@@ -20,24 +20,24 @@
 #include "rss_core/RSSFormulas.hpp"
 #include "rss_core/RSSParameters.hpp"
 
-TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceOppositeDirection, negative_ego_velocity)
+TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceOppositeDirectionOnCorrectLane, negative_ego_velocity)
 {
   rss_core::Distance safeDistance = 0.;
 
-  ASSERT_FALSE(rss_core::calculateSafeLongitudinalDistanceOppositeDirection(-10., 1, safeDistance));
+  ASSERT_FALSE(rss_core::calculateSafeLongitudinalDistanceOppositeDirectionOnCorrectLane(-10., 1, safeDistance));
 }
 
-TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceOppositeDirection, negative_other_velocity)
+TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceOppositeDirectionOnCorrectLane, negative_other_velocity)
 {
   rss_core::Distance safeDistance = 0.;
 
-  ASSERT_FALSE(rss_core::calculateSafeLongitudinalDistanceOppositeDirection(10., -10, safeDistance));
+  ASSERT_FALSE(rss_core::calculateSafeLongitudinalDistanceOppositeDirectionOnCorrectLane(10., -10, safeDistance));
 }
 
-TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceOppositeDirection, checks_100kmh)
+TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceOppositeDirectionOnCorrectLane, checks_100kmh)
 {
   rss_core::Distance safeDistance = 0.;
-  ASSERT_TRUE(rss_core::calculateSafeLongitudinalDistanceOppositeDirection(
+  ASSERT_TRUE(rss_core::calculateSafeLongitudinalDistanceOppositeDirectionOnCorrectLane(
     kmhToMeterPerSec(100), kmhToMeterPerSec(100), safeDistance));
-  ASSERT_NEAR(safeDistance, 365.55, cDoubleNear);
+  ASSERT_NEAR(safeDistance, 406.32, cDoubleNear);
 }

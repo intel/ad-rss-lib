@@ -38,11 +38,6 @@ bool calculateStoppingDistance(Velocity const velocity, Acceleration const decel
     return false;
   }
 
-  if (deceleration < cMinimumBreakingDeceleleration)
-  {
-    return false;
-  }
-
   /**
    * s = v^2 / 2 *a
    */

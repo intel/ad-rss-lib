@@ -25,5 +25,6 @@ const Duration cResponseTimeOtherVehicles = 2;         // seconds
 const Acceleration cMaximumAcceleration = 3.5;         // m/s^2 this might need to be changed to be velocity dependent
 const Acceleration cMinimumBreakingDeceleleration = 4; // m/s^2
 const Acceleration cMaximumBreakingDeceleleration = 8; // m/s^2
+const Acceleration cMinimumBreakingDecelelerationCorrect = 3; // m/s^2
 
 } // namespace rss_core

@@ -28,6 +28,11 @@ bool calculateDistanceAfterStatedBreakingPattern(Velocity const currentVelocity,
                                                  Duration const responseTime,
                                                  Distance &coveredDistance);
 
+bool calculateDistanceAfterStatedBreakingPattern(Velocity const currentVelocity,
+                                                 Duration const responseTime,
+                                                 Acceleration const deceleration,
+                                                 Distance &coveredDistance);
+
 bool calculateSafeLongitudinalDistanceSameDirectionLeadingOther(Velocity const egoVelocity,
                                                                 Velocity const otherVelocity,
                                                                 Distance &safeDistance);
@@ -36,8 +41,12 @@ bool calculateSafeLongitudinalDistanceSameDirectionLeadingEgo(Velocity const ego
                                                               Velocity const otherVelocity,
                                                               Distance &safeDistance);
 
-bool calculateSafeLongitudinalDistanceOppositeDirection(Velocity const egoVelocity,
-                                                        Velocity const otherVelocity,
-                                                        Distance &safeDistance);
+bool calculateSafeLongitudinalDistanceOppositeDirectionOnCorrectLane(Velocity const egoVelocity,
+                                                                     Velocity const otherVelocity,
+                                                                     Distance &safeDistance);
+
+bool calculateSafeLongitudinalDistanceOppositeDirectionOnOppositeLane(Velocity const egoVelocity,
+                                                                      Velocity const otherVelocity,
+                                                                      Distance &safeDistance);
 
 } // namespace rss_core

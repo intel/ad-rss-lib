@@ -41,14 +41,8 @@ TEST(MathUnitTestsStoppingDistance, zero_deceleration)
 TEST(MathUnitTestsStoppingDistance, deceleration_too_big)
 {
   rss_core::Distance stoppingDistance = 0.;
-  ASSERT_FALSE(rss_core::calculateStoppingDistance(10., rss_core::cMaximumAcceleration + 0.001, stoppingDistance));
-}
-
-TEST(MathUnitTestsStoppingDistance, deceleration_too_small)
-{
-  rss_core::Distance stoppingDistance = 0.;
   ASSERT_FALSE(
-    rss_core::calculateStoppingDistance(10., rss_core::cMinimumBreakingDeceleleration - 0.001, stoppingDistance));
+    rss_core::calculateStoppingDistance(10., rss_core::cMaximumBreakingDeceleleration + 0.001, stoppingDistance));
 }
 
 TEST(MathUnitTestsStoppingDistance, checks_100kmh)
