@@ -9,16 +9,19 @@
 :pdf-stylesdir: ./doc/resources/themes
 :pdf-style: custom
 :pdf-fontsdir: /var/lib/gems/2.3.0/gems/asciidoctor-pdf-1.5.0.alpha.16/data/fonts
-
-
-// Include the Disclaimer
-[discrete]
-include::{includedir}/Disclaimer.adoc[]
+:stem:
+:figure-caption: Logo
 
 toc::[]
+
+This document will describe the content of the first implementation of the RSS Module.
+The resulting implementation will provide a standalone C++-library.
 
 include::{includedir}/HighLevelDesign.adoc[]
 
 include::{includedir}/InterfaceComponentDescription.adoc[]
 
 include::{includedir}/BuildInstructions.adoc[]
+
+// Include the Disclaimer
+include::{includedir}/Disclaimer.adoc[]

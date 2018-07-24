@@ -1,4 +1,5 @@
-# INTEL CONFIDENTIAL
+****
+*INTEL CONFIDENTIAL*
 
 Copyright (c) 2018 Intel Corporation
 
@@ -10,3 +11,5 @@ the related documents without Intel's prior written permission.
 
 This software and the related documents are provided as is, with no express or
 implied warranties, other than those that are expressly stated in the License.
+
+****

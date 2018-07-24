@@ -14,11 +14,23 @@ make apidoc # optional, if API documentation is desired
 ----
 
 ## Generate PDF document
-To generate a PDF for this document, the following commands have to be executed:
+To generate a PDF for this document, it is recommended to use asciidoctor-pdf
+(https://asciidoctor.org[Asciidoctor]).
+Therefore, the following commands have to be executed:
 
 [source, Bash]
 ----
-gem install asciidoctor-pdf --pre
-gem install coderay
-asciidoctor-pdf ./doc/Main.adoc
+sudo apt-get install asciidoctor
+sudo -E gem install asciidoctor-pdf --pre
+sudo -E gem install coderay
+asciidoctor-pdf ./doc/Main.adoc -n
+----
+
+## Generate HTML document
+To generate a HTML for this document, the following commands have to be executed:
+
+[source, Bash]
+----
+sudo apt-get install asciidoctor
+asciidoctor doc/Main.adoc -d book -b html5 -n
 ----
