@@ -1,7 +1,127 @@
-# High-Level Design
+# High Level Design
 
-This is about the paper content, general discussions, problems we see when
+## Introduction
+
+### Purpose and Scope
+This HLD is about the paper content, general discussions, problems we see when
 transferring the papers into an actual implementation, etc.
 
-## First Section
-Text
+### Terminology
+.Terminology
+[width="100%",frame="topbot",options="header"]
+|======================
+| Term | Description
+| HLD  | High Level Design
+| RSS  | Responsibility-Sensitive Safety
+|======================
+
+### References
+.References
+[width="100%",frame="topbot",options="header"]
+|======================
+| Ref | Document Name | Version | Location
+| 1   | On a Formal Model of Safe and Scalable Self-driving Cars | v5  | https://arxiv.org/abs/1708.06374
+| 2   | Implementing the RSS Model on NHTSA Pre-Crash Scenarios | July 2018  | https://www.mobileye.com/responsibility-sensitive-safety/rss_on_nhtsa.pdf
+|======================
+
+
+## Assumptions, Dependencies & Risks
+
+### Assumptions
+.Assumptions
+[width="100%",frame="topbot",options="header"]
+|======================
+| Assumption # | Detailed Description
+| 1   |
+| 2   |
+|======================
+
+### Dependencies
+.Dependencies
+[width="100%",frame="topbot",options="header"]
+|======================
+| Dependency # | Detailed Description
+| 1   |
+| 2   |
+|======================
+
+
+### Risks
+.Risks
+[width="100%",frame="topbot",options="header"]
+|======================
+| Risk # | Detailed Description
+| 1   |
+| 2   |
+|======================
+
+## Key Design Decisions and Alternatives
+
+### Lane-Based Coordinate System
+The RSS definitions assume that the road is comprised by adjacent,
+straight lanes of constant width.
+To cope with general lane geometries a lane-based coordinate system is introduced
+which allows to apply the RSS definitions to any lane geometry.
+
+The transformation into the lane-based coordinate system is described by a bijective function.
+Therein, the lateral position of a vehicle within the lane is mapped to a
+parametric interval [0; 1].
+
+
+#### Design Alternative Iterative Approach
+
+
+#### Design Alternative Closed Form
+
+
+## Open Issues or Unresolved Tradeoff Decisions
+
+
+## Architecture Overview
+### Platform Architecture Analysis
+How is RSS incorporated into the platform?
+
+### Platform Architecture Overview
+Platform architecture diagrams and description.
+
+### Software Architecture Overview
+Software architecture diagrams and description.
+
+
+## High Level Design
+### Static View
+The static view on the system.
+Add here e.g. block diagrams.
+
+#### Modules
+
+##### RSS-Core
+
+##### RSS-Environment
+
+#### Interfaces
+
+##### External interfaces used
+
+##### External interfaces provided
+
+##### Internal interfaces
+
+##### Configuration interfaces
+
+##### Debug and Diagnostics interfaces
+
+
+### Dynamic View
+
+#### Partition to Tasks
+#### Memory Management
+#### Usage of Infrastructure
+#### Resources Constraints
+#### Error Handling
+#### Flows
+#### Initialization and Reset
+
+### Design for Security
+
+### Design for Safety
