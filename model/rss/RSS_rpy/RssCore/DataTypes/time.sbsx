@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RhapsodyArchive>
+	<MagicNumber></MagicNumber>
+	<CODE-PAGE>1252</CODE-PAGE>
+	<version>10.0</version>
+	<lang>C++</lang>
+	<BuildNo>9831324</BuildNo>
+	
+	<RHAPSODY-MODEL>
+	<ISubsystem type="e">
+			<_id type="a">GUID 27b7a770-8509-4213-92ba-685dfa41beaf</_id>
+			<_myState type="a">8192</_myState>
+			<_name type="a">time</_name>
+			<_modifiedTimeWeak type="a">7.24.2018::8:4:52</_modifiedTimeWeak>
+			<_modifiedTime type="a">7.24.2018::8:4:52</_modifiedTime>
+			<_lastID type="a">1</_lastID>
+			<weakCGTime type="a">7.24.2018::8:4:52</weakCGTime>
+			<strongCGTime type="a">7.24.2018::8:4:15</strongCGTime>
+			<_defaultComposite type="s">GUID 24559f98-b592-4289-9d9b-6551547ff287</_defaultComposite>
+			<_eventsBaseID type="a">-1</_eventsBaseID>
+			<_configurationRelatedTime type="a">1.1.1970::1:0:0</_configurationRelatedTime>
+			<AggregatesList type="e">
+				<value>GUID 24559f98-b592-4289-9d9b-6551547ff287</value>
+				<value>GUID 6b923bb7-dad5-438a-82e6-427dc155e9d9</value>
+			</AggregatesList>
+		</ISubsystem>
+		<IClass type="e">
+			<_id type="a">GUID 24559f98-b592-4289-9d9b-6551547ff287</_id>
+			<_myState type="a">40960</_myState>
+			<_name type="a">TopLevel</_name>
+			<_modifiedTimeWeak type="a">1.2.1990::0:0:0</_modifiedTimeWeak>
+			<_modifiedTime type="a">1.1.1970::1:0:0</_modifiedTime>
+			<weakCGTime type="a">1.2.1990::0:0:0</weakCGTime>
+			<strongCGTime type="a">1.2.1990::0:0:0</strongCGTime>
+			<_itsStateChart type="r">
+				<IHandle type="e">
+				</IHandle>
+			</_itsStateChart>
+			<_classModifier type="a">Unspecified</_classModifier>
+		</IClass>
+		<IType type="e">
+			<_id type="a">GUID 6b923bb7-dad5-438a-82e6-427dc155e9d9</_id>
+			<_myState type="a">8192</_myState>
+			<_properties type="p"><IPropertyContainer type="e">
+				<Subjects type="c">
+					<IRPYRawContainer type="e">
+						<size type="a">1</size>
+						<IPropertySubject type="e">
+							<_Name type="a">CPP_CG</_Name>
+							<Metaclasses type="c">
+								<IRPYRawContainer type="e">
+									<size type="a">1</size>
+									<IPropertyMetaclass type="e">
+										<_Name type="a">Type</_Name>
+										<Properties type="c">
+											<IRPYRawContainer type="e">
+												<size type="a">1</size>
+												<IProperty type="e">
+													<_Name type="a">DefaultValue</_Name>
+													<_Value type="a">0.0</_Value>
+													<_Type type="a">String</_Type>
+												</IProperty>
+												
+											</IRPYRawContainer>
+										</Properties>
+									</IPropertyMetaclass>
+									
+								</IRPYRawContainer>
+							</Metaclasses>
+						</IPropertySubject>
+						
+					</IRPYRawContainer>
+				</Subjects>
+			</IPropertyContainer>
+			</_properties>
+			<_name type="a">Duration</_name>
+			<Stereotypes type="c">
+				<IRPYRawContainer type="e">
+					<size type="a">1</size>
+					
+						<IHandle type="e">
+							<_hm2Class type="a">IStereotype</_hm2Class>
+							<_hfilename type="a">$OMROOT\Profiles\SysML\SysMLProfile_rpy\SysML.sbs</_hfilename>
+							<_hsubsystem type="a">SysML::Blocks</_hsubsystem>
+							<_hname type="a">ValueType</_hname>
+							<_hid type="a">GUID 07facaa0-2de4-4089-b5bb-64e56e4ae04f</_hid>
+						</IHandle>
+					
+				</IRPYRawContainer>
+			</Stereotypes>
+			<_modifiedTimeWeak type="a">7.24.2018::8:4:19</_modifiedTimeWeak>
+			<_description type="p"><IDescription type="e">
+				<_text type="a">A duration represents a time interval%0D
+%0D
+Unit: second%0D
+</_text>
+			</IDescription>
+			</_description>
+			<_modifiedTime type="a">7.24.2018::8:4:19</_modifiedTime>
+			<_typedefBaseType type="r">
+				<IClassifierHandle type="e">
+					<_hm2Class type="a">IType</_hm2Class>
+					<_hfilename type="a">.\..\..\..\..\asd_ad_arch-mo2iveml\Mo2iveML_rpy\Mo2iveMLLibrary\DataTypesML\DataTypesML.sbsx</_hfilename>
+					<_hsubsystem type="a">Mo2iveMLLibrary::DataTypesML</_hsubsystem>
+					<_hname type="a">float64_t</_hname>
+					<_hid type="a">GUID 26c04c22-f646-4505-abf9-eb30e8fb7855</_hid>
+				</IClassifierHandle>
+			</_typedefBaseType>
+			<_typedefMultiplicity type="a">1</_typedefMultiplicity>
+			<_typedefIsOrdered type="a">0</_typedefIsOrdered>
+			<_typedefIsReference type="a">0</_typedefIsReference>
+			<_typedefIsConstant type="a">0</_typedefIsConstant>
+			<_kind type="a">Typedef</_kind>
+			<AggregatesList type="e">
+				<value>GUID 773a383f-f62c-4fc6-a959-4c247188d5f8</value>
+				<value>GUID d20940c7-585a-4a87-9b3f-de7c24cada2c</value>
+			</AggregatesList>
+		</IType>
+		<ITag type="e">
+			<_id type="a">GUID 773a383f-f62c-4fc6-a959-4c247188d5f8</_id>
+			<_myState type="a">8192</_myState>
+			<_name type="a">unit</_name>
+			<_modifiedTimeWeak type="a">7.18.2018::12:25:17</_modifiedTimeWeak>
+			<_modifiedTime type="a">7.18.2018::12:25:17</_modifiedTime>
+			<_typeOf type="r">
+				<IHandle type="e">
+					<_hm2Class type="a">IStereotype</_hm2Class>
+					<_hfilename type="a">$OMROOT\Profiles\SysML\SysMLProfile_rpy\SysML.sbs</_hfilename>
+					<_hsubsystem type="a">SysML::Blocks</_hsubsystem>
+					<_hname type="a">Unit</_hname>
+					<_hid type="a">GUID 8169396c-a860-42b8-bbb1-8a88cbab3805</_hid>
+				</IHandle>
+			</_typeOf>
+			<_isOrdered type="a">0</_isOrdered>
+			<_base type="r">
+				<IHandle type="e">
+					<_hm2Class type="a">ITag</_hm2Class>
+					<_hfilename type="a">$OMROOT\Profiles\SysML\SysMLProfile_rpy\SysML.sbs</_hfilename>
+					<_hsubsystem type="a">SysML::Blocks</_hsubsystem>
+					<_hclass type="a">ValueType</_hclass>
+					<_hname type="a">unit</_hname>
+					<_hid type="a">GUID a917d01d-ef68-4da5-9550-ff96ae3934dc</_hid>
+				</IHandle>
+			</_base>
+			<AggregatesList type="e">
+				<value>GUID 1891f4f1-c704-4216-a7ad-bd7f2b75c427</value>
+			</AggregatesList>
+		</ITag>
+		<IInstanceValue type="e">
+			<_id type="a">GUID 1891f4f1-c704-4216-a7ad-bd7f2b75c427</_id>
+			<_modifiedTimeWeak type="a">1.2.1990::0:0:0</_modifiedTimeWeak>
+			<_modifiedTime type="a">1.2.1990::0:0:0</_modifiedTime>
+			<_value type="r">
+				<IHandle type="e">
+					<_hm2Class type="a">IType</_hm2Class>
+					<_hfilename type="a">$OMROOT\Profiles\SysML\SysMLProfile_rpy\SysML.sbs</_hfilename>
+					<_hsubsystem type="a">SysML::SIDefinitions::BaseSIUnits</_hsubsystem>
+					<_hname type="a">Second</_hname>
+					<_hid type="a">GUID 3949bc39-f8eb-4ee5-96b9-5eab14943561</_hid>
+				</IHandle>
+			</_value>
+		</IInstanceValue>
+		<ITag type="e">
+			<_id type="a">GUID d20940c7-585a-4a87-9b3f-de7c24cada2c</_id>
+			<_myState type="a">8192</_myState>
+			<_name type="a">dimension</_name>
+			<_modifiedTimeWeak type="a">7.18.2018::12:25:11</_modifiedTimeWeak>
+			<_modifiedTime type="a">7.18.2018::12:25:11</_modifiedTime>
+			<_typeOf type="r">
+				<IHandle type="e">
+					<_hm2Class type="a">IStereotype</_hm2Class>
+					<_hfilename type="a">$OMROOT\Profiles\SysML\SysMLProfile_rpy\SysML.sbs</_hfilename>
+					<_hsubsystem type="a">SysML::Blocks</_hsubsystem>
+					<_hname type="a">Dimension</_hname>
+					<_hid type="a">GUID 3499da9d-b593-4f52-afb7-e4d36eb9e8ed</_hid>
+				</IHandle>
+			</_typeOf>
+			<_isOrdered type="a">0</_isOrdered>
+			<_base type="r">
+				<IHandle type="e">
+					<_hm2Class type="a">ITag</_hm2Class>
+					<_hfilename type="a">$OMROOT\Profiles\SysML\SysMLProfile_rpy\SysML.sbs</_hfilename>
+					<_hsubsystem type="a">SysML::Blocks</_hsubsystem>
+					<_hclass type="a">ValueType</_hclass>
+					<_hname type="a">dimension</_hname>
+					<_hid type="a">GUID 76fc0a78-ac96-412f-904d-e66ac47669ca</_hid>
+				</IHandle>
+			</_base>
+			<AggregatesList type="e">
+				<value>GUID b7b32d1b-8afb-48f1-ac01-9bce94c6734b</value>
+			</AggregatesList>
+		</ITag>
+		<IInstanceValue type="e">
+			<_id type="a">GUID b7b32d1b-8afb-48f1-ac01-9bce94c6734b</_id>
+			<_modifiedTimeWeak type="a">1.2.1990::0:0:0</_modifiedTimeWeak>
+			<_modifiedTime type="a">1.2.1990::0:0:0</_modifiedTime>
+			<_value type="r">
+				<IHandle type="e">
+					<_hm2Class type="a">IType</_hm2Class>
+					<_hfilename type="a">$OMROOT\Profiles\SysML\SysMLProfile_rpy\SysML.sbs</_hfilename>
+					<_hsubsystem type="a">SysML::SIDefinitions::BaseSIUnits</_hsubsystem>
+					<_hname type="a">Time</_hname>
+					<_hid type="a">GUID 33e3251a-3d43-4b00-b6f5-ae0817cd626d</_hid>
+				</IHandle>
+			</_value>
+		</IInstanceValue>
+		
+	</RHAPSODY-MODEL>
+	<OslcLinks type="c">
+		<IRPYRawContainer type="e">
+			<size type="a">0</size>
+		</IRPYRawContainer>
+	</OslcLinks>
+
+<INCLUDES-RHAPSODY-INDEX>false</INCLUDES-RHAPSODY-INDEX>
+</RhapsodyArchive>
+

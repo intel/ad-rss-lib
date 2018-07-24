@@ -25,15 +25,17 @@
 #pragma once
 
 namespace rss_core {
-namespace types {
+namespace lane {
 /*!
- * \brief Type definition  Acceleration
+ * \brief Type definition  Speed
  *
- * The rate of change of Speed of an object with respect to time.
+ * The rate of change of an object's position with respect to time.
  *
- * Unit: meter per second squared
+ * The speed of an object is the magnitude of its velocity.
+ *
+ * Unit: lane coordinate system units per second
  */
-using Acceleration = double;
+using Speed = double;
 
-} // namespace types
+} // namespace lane
 } // namespace rss_core

@@ -135,8 +135,8 @@ POST_PROCESSING=0
 if [ -f ${GEN_JAR} ]; then
   if [[ "${JAVA_EXE}" ]]; then
     if [[ "$@" == "" ]]; then
-      ${JAVA_EXE} -jar ${GEN_JAR} -D "${GEN_MODEL_TARGET_ELEMENT}" -p "${GEN_OUTPUT_DIR}" -c "${COPYRIGHT_FILE}" ${GEN_MODEL_FILE}
       POST_PROCESSING=1
+      ${JAVA_EXE} -jar ${GEN_JAR} -D "${GEN_MODEL_TARGET_ELEMENT}" -p "${GEN_OUTPUT_DIR}" -c "${COPYRIGHT_FILE}" ${GEN_MODEL_FILE}
     else
       ${JAVA_EXE} -jar ${GEN_JAR} "$@"
     fi
@@ -151,7 +151,8 @@ if (( POST_PROCESSING && ! RESULT )); then
   if [ -e ${GEN_OUTPUT_DIR} ]; then
     echo "Post process generated files"
     # adapt generated files
-    process_and_copy_header_files "${GEN_OUTPUT_DIR}/rss_core_data_type_lib/include" "rss_core/types"
+    process_and_copy_header_files "${GEN_OUTPUT_DIR}/rss_core_lane_lib/include" "rss_core/lane"
+    process_and_copy_header_files "${GEN_OUTPUT_DIR}/rss_core_time_lib/include" "rss_core/time"
   fi
 fi
 

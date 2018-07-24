@@ -25,15 +25,15 @@
 #pragma once
 
 namespace rss_core {
-namespace types {
+namespace lane {
 /*!
- * \brief Type definition  Duration
+ * \brief Type definition  Distance
  *
- * A duration represents a time interval
+ * The length of a specific path traveled between two points.
  *
- * Unit: second
+ * Unit: lane coordinate system unit
  */
-using Duration = double;
+using Distance = double;
 
-} // namespace types
+} // namespace lane
 } // namespace rss_core

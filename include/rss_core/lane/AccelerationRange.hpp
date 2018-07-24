@@ -24,16 +24,21 @@
 
 #pragma once
 
-namespace rss_core {
-namespace types {
+#include "rss_core/lane/Acceleration.hpp"
 /*!
- * \brief Type definition  Distance
- *
- * The length of a specific path traveled between two points.
- *
- * Unit: meter
+ * @brief namespace rss_core
  */
-using Distance = double;
+namespace rss_core {
+/*!
+ * @brief namespace lane
+ */
+namespace lane {
 
-} // namespace types
+struct AccelerationRange
+{
+  ::rss_core::lane::Acceleration minimum{0.0};
+  ::rss_core::lane::Acceleration maximum{0.0};
+};
+
+} // namespace lane
 } // namespace rss_core

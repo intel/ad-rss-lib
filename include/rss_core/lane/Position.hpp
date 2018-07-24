@@ -24,18 +24,21 @@
 
 #pragma once
 
-namespace rss_core {
-namespace types {
+#include "rss_core/lane/Distance.hpp"
 /*!
- * \brief Type definition  Speed
- *
- * The rate of change of an object's position with respect to time.
- *
- * The speed of an object is the magnitude of its velocity.
- *
- * Unit: meter per second
+ * @brief namespace rss_core
  */
-using Speed = double;
+namespace rss_core {
+/*!
+ * @brief namespace lane
+ */
+namespace lane {
 
-} // namespace types
+struct Position
+{
+  ::rss_core::lane::Distance offsetLon{0.0};
+  ::rss_core::lane::Distance offestLat{0.0};
+};
+
+} // namespace lane
 } // namespace rss_core

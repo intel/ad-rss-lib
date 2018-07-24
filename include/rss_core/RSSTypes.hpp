@@ -21,15 +21,26 @@
 
 #pragma once
 
-#include "rss_core/types/Acceleration.hpp"
-#include "rss_core/types/Distance.hpp"
-#include "rss_core/types/Duration.hpp"
-#include "rss_core/types/Speed.hpp"
+#include "rss_core/lane/Acceleration.hpp"
+#include "rss_core/lane/AccelerationRange.hpp"
+#include "rss_core/lane/Distance.hpp"
+#include "rss_core/lane/Dynamics.hpp"
+#include "rss_core/lane/Position.hpp"
+#include "rss_core/lane/Speed.hpp"
+#include "rss_core/lane/VehicleState.hpp"
+#include "rss_core/lane/Velocity.hpp"
+#include "rss_core/time/Duration.hpp"
 
 namespace rss_core {
 
-using types::Acceleration;
-using types::Distance;
-using types::Duration;
-using types::Speed;
+using lane::Acceleration;
+using lane::AccelerationRange;
+using lane::Distance;
+using lane::Dynamics;
+using lane::Position;
+using lane::Speed;
+using lane::VehicleState;
+using lane::Velocity;
+
+using time::Duration;
 }
