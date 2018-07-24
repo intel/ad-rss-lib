@@ -1,0 +1,7 @@
+# High-Level Design
+
+This is about the paper content, general discussions, problems we see when
+transferring the papers into an actual implementation, etc.
+
+## First Section
+Text

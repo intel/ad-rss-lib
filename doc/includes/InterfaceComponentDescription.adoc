@@ -1,0 +1,31 @@
+# Interface Component Description
+
+This part covers the description of all components of the RSS core library.
+Briefly spoken, there are in total seven steps that are covered by different library
+components.
+
+1. Analyze a given scenery and extract all ego-vehicle - object pairs.
+2. For each pair, extract all relevant object relations, i.e. on which lanes are
+   the objects located, is it an intersection, etc.
+   This information together with the object states describes a unique _Situation_.
+3. Transform each situation from the global coordinate system to a local lane
+   coordinate system.
+4. Extract the allowed acceleration, deceleration parameters, based on the new
+   coordinate system.
+5. Perform the longitudinal and lateral _RSS checks_ for each situation.
+6. Calculate the _proper response_ for each situation.
+7. Transform the calculated response back to a global coordinate system
+
+Consequently, there are three core components of the RSS library.
+
+1. RSS environment
+2. RSS checker
+3. RSS response calculator
+
+image::rss_library_components.svg[RSS library components]
+
+## RSS environment
+
+## RSS checker
+
+## RSS response calculator

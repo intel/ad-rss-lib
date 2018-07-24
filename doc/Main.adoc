@@ -5,39 +5,20 @@
 :includedir: ./includes
 :source-highlighter: coderay
 :icons: font
+:doctype: book
+:pdf-stylesdir: ./doc/resources/themes
+:pdf-style: custom
+:pdf-fontsdir: /var/lib/gems/2.3.0/gems/asciidoctor-pdf-1.5.0.alpha.16/data/fonts
+
 
 // Include the Disclaimer
+[discrete]
 include::{includedir}/Disclaimer.adoc[]
 
-## Build RSS library and documentation
-The RSS library is built with a standard cmake toolchain. Therefore, run the
-following commands, to build the library and documentation:
+toc::[]
 
-[source, Bash]
-----
-mkdir build
-cd build
-cmake ..
-make
-make apidoc # optional, if API documentation is desired
-----
+include::{includedir}/HighLevelDesign.adoc[]
 
+include::{includedir}/InterfaceComponentDescription.adoc[]
 
-
-### Section 1
-Text, text, text, ...
-
-[source, C++]
-----
-#include <iostream>
-int main() {
-  std::cout << "Hallo world!" << std::endl;
-
-  return 0;
-}
-----
-
-More text, text, text, ...
-
-### Section 2
-Text, text, text, ...
+include::{includedir}/BuildInstructions.adoc[]
