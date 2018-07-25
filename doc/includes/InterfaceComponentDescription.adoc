@@ -1,5 +1,6 @@
 # Interface Component Description
 
+## Overview
 This part covers the description of all components of the RSS core library.
 Briefly spoken, there are in total seven steps that are covered by different library
 components.
@@ -24,8 +25,17 @@ Consequently, there are three core components of the RSS library.
 
 image::rss_library_components.svg[RSS library components]
 
-## RSS environment
+### RSS environment
 
-## RSS checker
+### RSS checker
 
-## RSS response calculator
+### RSS response calculator
+
+## Interfaces
+This section describes the interfaces for using RSS.
+
+## Configuration
+This section contains the configuration capabilities for using RSS.
+
+## Analysis
+This section contains the anaylsis capabilities for using RSS.

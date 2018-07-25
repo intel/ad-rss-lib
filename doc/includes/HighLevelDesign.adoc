@@ -1,6 +1,8 @@
 # High Level Design
+// intended empty
 
 ## Introduction
+// intended empty
 
 ### Purpose and Scope
 FILLME with text about purpose
@@ -12,8 +14,9 @@ other vehicles. It will cover multi-lane roads and intersections.
 
 [IMPORTANT]
 ====
-The design does not cover:
+The initial design does not yet cover:
 
+* Respecting occlusions
 * Checks with Vulnerable Road Users
 * Checks for unstructured roads, e.g. parking spaces
 ====
@@ -40,6 +43,7 @@ The design does not cover:
 
 
 ## Assumptions, Dependencies & Risks
+// intended empty
 
 ### Assumptions
 .Assumptions
@@ -70,6 +74,7 @@ The design does not cover:
 |======================
 
 ## Key Design Decisions and Alternatives
+// intended empty
 
 ### RSS checking of the current state
 The RSS module, which is the entity performing all RSS checks and operations,
@@ -251,7 +256,7 @@ image::accelSafety.png[caption="Figure {counter:figure}. "]
 Nevertheless the assumption that a car can always accelerate at &alpha;~𝑎𝑐𝑐𝑒𝑙,𝑚𝑎𝑥~
 during the reponse time, leads to a significant increase of the required safety distance.
 Figure 1 shows the required safety distance for different acceleration values.
-So acceleration about 4 𝑚/𝑠^2^ doubles the required safety distance form 40 m to
+So acceleration about 4 𝑚/𝑠^2^ doubles the required safety distance from 40 m to
 about 80 m at city speeds.
 
 Another possibility to decrease the required safety distance to the leading
@@ -319,17 +324,22 @@ Software architecture diagrams and description.
 
 
 ## High Level Design
+// intended empty
+
 ### Static View
 The static view on the system.
 Add here e.g. block diagrams.
 
 #### Modules
+:todo: Here the blocks (or SW modules) from static view described, but only briefly
 
 ##### RSS-Core
 
 ##### RSS-Environment
 
 #### Interfaces
+// intended empty
+:todo: Where the last section focuses on what blocks there are, this section describes the interfaces used, provided
 
 ##### External interfaces used
 
