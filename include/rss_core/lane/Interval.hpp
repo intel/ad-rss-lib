@@ -24,7 +24,7 @@
 
 #pragma once
 
-#include "rss_core/lane/Interval.hpp"
+#include "rss_core/lane/Distance.hpp"
 /*!
  * @brief namespace rss_core
  */
@@ -34,10 +34,10 @@ namespace rss_core {
  */
 namespace lane {
 
-struct Position
+struct Interval
 {
-  ::rss_core::lane::Interval lonInterval;
-  ::rss_core::lane::Interval latInterval;
+  ::rss_core::lane::Distance minimum{0.0};
+  ::rss_core::lane::Distance maximum{0.0};
 };
 
 } // namespace lane

@@ -22,10 +22,13 @@
 #pragma once
 
 #include "rss_core/lane/Acceleration.hpp"
-#include "rss_core/lane/AccelerationRange.hpp"
 #include "rss_core/lane/Distance.hpp"
 #include "rss_core/lane/Dynamics.hpp"
+#include "rss_core/lane/Interval.hpp"
 #include "rss_core/lane/Position.hpp"
+#include "rss_core/lane/RssAccelerationValues.hpp"
+#include "rss_core/lane/Situation.hpp"
+#include "rss_core/lane/SituationVector.hpp"
 #include "rss_core/lane/Speed.hpp"
 #include "rss_core/lane/VehicleState.hpp"
 #include "rss_core/lane/Velocity.hpp"
@@ -34,10 +37,13 @@
 namespace rss_core {
 
 using lane::Acceleration;
-using lane::AccelerationRange;
 using lane::Distance;
 using lane::Dynamics;
+using lane::Interval;
 using lane::Position;
+using lane::RssAccelerationValues;
+using lane::Situation;
+using lane::SituationVector;
 using lane::Speed;
 using lane::VehicleState;
 using lane::Velocity;

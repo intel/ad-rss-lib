@@ -24,7 +24,7 @@
 
 #pragma once
 
-#include "rss_core/lane/Interval.hpp"
+#include "rss_core/lane/VehicleState.hpp"
 /*!
  * @brief namespace rss_core
  */
@@ -34,10 +34,10 @@ namespace rss_core {
  */
 namespace lane {
 
-struct Position
+struct Situation
 {
-  ::rss_core::lane::Interval lonInterval;
-  ::rss_core::lane::Interval latInterval;
+  ::rss_core::lane::VehicleState egoVehicleState;
+  ::rss_core::lane::VehicleState otherVehicleState;
 };
 
 } // namespace lane

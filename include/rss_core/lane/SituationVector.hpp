@@ -24,7 +24,8 @@
 
 #pragma once
 
-#include "rss_core/lane/Acceleration.hpp"
+#include <vector>
+#include "rss_core/lane/Situation.hpp"
 /*!
  * @brief namespace rss_core
  */
@@ -34,11 +35,7 @@ namespace rss_core {
  */
 namespace lane {
 
-struct AccelerationRange
-{
-  ::rss_core::lane::Acceleration minimum{0.0};
-  ::rss_core::lane::Acceleration maximum{0.0};
-};
+using SituationVector = std::vector<::rss_core::lane::Situation>;
 
 } // namespace lane
 } // namespace rss_core

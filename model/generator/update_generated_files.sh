@@ -70,6 +70,10 @@ function process_and_copy_header_files
 {
   BASEDIR=$1
   INCDIR=$2
+  if [ -e ${INCLUDE_TARGET_LOCATION}/${INCDIR} ]; then
+    mv ${INCLUDE_TARGET_LOCATION}/${INCDIR} ${BASEDIR}/${INCDIR}.bak
+    mkdir ${INCLUDE_TARGET_LOCATION}/${INCDIR}
+  fi
   for HEADER_FILE in ${BASEDIR}/${INCDIR}/*.hpp; do
     FILENAME=$(basename ${HEADER_FILE})
     echo "Updating include file: ${INCLUDE_TARGET_LOCATION}/${INCDIR}/${FILENAME}"
