@@ -26,20 +26,6 @@ TEST(MathUnitTestsSpeedAfterResponseTime, negative_speed)
   ASSERT_FALSE(rss_core::calculateSpeedAfterResponseTime(-10., 1., 1., resultingSpeed));
 }
 
-TEST(MathUnitTestsSpeedAfterResponseTime, acceleration_too_big)
-{
-  rss_core::Speed resultingSpeed = 0.;
-  ASSERT_FALSE(
-    rss_core::calculateSpeedAfterResponseTime(10., rss_core::cMaximumAcceleration + 0.1, 1., resultingSpeed));
-}
-
-TEST(MathUnitTestsSpeedAfterResponseTime, acceleration_too_small)
-{
-  rss_core::Speed resultingSpeed = 0.;
-  ASSERT_FALSE(
-    rss_core::calculateSpeedAfterResponseTime(10., -1.1 * rss_core::cMaximumBreakingDeceleleration, 1, resultingSpeed));
-}
-
 TEST(MathUnitTestsSpeedAfterResponseTime, zero_deceleration)
 {
   rss_core::Speed startSpeed = 10.;

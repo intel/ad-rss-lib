@@ -26,6 +26,13 @@
 namespace rss_core {
 
 /**
+ * @brief checks if the given vehicle state contains valid values
+ *
+ * @return true if state is valid, false otherwise
+ */
+bool checkVehicleState(lane::VehicleState const &state);
+
+/**
  * @brief Calculate the distance covered by a non-ego vehicle when applying the \a "stated breaking pattern"
  *        Calls \sa calculateDistanceAfterStatedBreakingPattern()
  * @param[in]  currentSpeed   is the current vehicle speed [m/s]
@@ -57,54 +64,57 @@ bool calculateDistanceAfterStatedBreakingPattern(Speed const currentSpeed,
 /**
  * @brief Calculate the distance covered by a vehicle when applying the \a "stated breaking pattern" with given
  *        deceleration
- * @param[in]  currentSpeed   is the current vehicle speed [m/s]
+ * @param[in]  currentSpeed      is the current vehicle speed [lane coordinate system units per second]
  * @param[in]  responseTime      is the response time of the vehicle [s]
- * @param[in]  deceleration      is the applied breaking deceleration [m/s^2]
+ * @param[in] acceleration       the acceleration of the vehicle during responseTime
+ * @param[in]  deceleration      is the applied breaking deceleration [lane coordinate system unit per second squared]
  * @param[out] coveredDistance   is the covered distance [m]
  * @return true on successful calculation, false otherwise
  */
 bool calculateDistanceAfterStatedBreakingPattern(Speed const currentSpeed,
                                                  Duration const responseTime,
+                                                 Acceleration const acceleration,
                                                  Acceleration const deceleration,
                                                  Distance &coveredDistance);
 
 /**
- * @brief Calculate the \a "safe longitudinal distance" between the ego vehicle and another, leading, vehicle
- *        Assuming: Maximum deceleration for leading vehicle, and \a "stated breaking pattern" for ego vehicle
+ * @brief Calculate the \a "safe longitudinal distance" between the two vehicles,
+ *        Assuming: Maximum deceleration for leading vehicle, and \a "stated breaking pattern" for following vehicle
  *
  *        ======================================================
  *
- *             EgoVehicle --->          OtherVehicle --->
+ *             FollowingVehicle --->          LeadingVehicle --->
  *
  *        ======================================================
  *
- * @param[in]  egoSpeed      is the speed of the ego vehicle [m/s]
- * @param[in]  otherSpeed    is the speed of the other vehicle [m/s]
- * @param[out] safeDistance     is the calculated safe longitudinal distance [m]
+ * @param[in]  leadingVehicle      is the state of the leading vehicle
+ * @param[in]  followingVehicle    is the state of the following vehicle
+ * @param[out] safeDistance     is the calculated safe longitudinal distance [lane coordinate system unit]
  * @return true on successful calculation, false otherwise
  */
-bool calculateSafeLongitudinalDistanceSameDirectionLeadingOther(Speed const egoSpeed,
-                                                                Speed const otherSpeed,
-                                                                Distance &safeDistance);
+bool calculateSafeLongitudinalDistanceSameDirection(lane::VehicleState const &leadingVehicle,
+                                                    lane::VehicleState const &followingVehicle,
+                                                    Distance &safeDistance);
 
 /**
- * @brief Calculate the \a "safe longitudinal distance" between the leading ego vehicle and another vehicle
- *        Assuming: Maximum deceleration for ego vehicle, and \a "stated breaking pattern" for the other vehicle
+ * @brief Check if the longitudinal distance between the two vehicles is safe.
+ *        Assuming: Maximum deceleration for leading vehicle, and \a "stated breaking pattern" for following vehicle
  *
  *        ======================================================
  *
- *             OtherVehicle --->          EgoVehicle --->
+ *             FollowingVehicle --->          LeadingVehicle --->
  *
  *        ======================================================
  *
- * @param[in]  egoSpeed      is the speed of the ego vehicle [m/s]
- * @param[in]  otherSpeed    is the speed of the other vehicle [m/s]
- * @param[out] safeDistance     is the calculated safe longitudinal distance [m]
+ * @param[in]  leadingVehicle      is the state of the leading vehicle
+ * @param[in]  followingVehicle    is the state of the following vehicle
+ * @param[out] isDistanceSafe     true if the distance is safe, false otherwise
  * @return true on successful calculation, false otherwise
  */
-bool calculateSafeLongitudinalDistanceSameDirectionLeadingEgo(Speed const egoSpeed,
-                                                              Speed const otherSpeed,
-                                                              Distance &safeDistance);
+bool checkSafeLongitudinalDistanceSameDirection(lane::VehicleState const &leadingVehicle,
+                                                lane::VehicleState const &followingVehicle,
+                                                bool &isDistanceSafe);
+
 /**
  * @brief Calculate the \a "safe longitudinal distance" between the ego vehicle and another, approaching, vehicle,
  *        where the ego vehicle is on the correct lane.

@@ -33,11 +33,6 @@ bool calculateStoppingDistance(Speed const speed, Acceleration const deceleratio
     return false;
   }
 
-  if (deceleration > cMaximumBreakingDeceleleration)
-  {
-    return false;
-  }
-
   /**
    * s = v^2 / 2 *a
    */
@@ -56,16 +51,6 @@ bool calculateSpeedAfterResponseTime(Speed const currentSpeed,
   }
 
   if (responseTime < 0)
-  {
-    return false;
-  }
-
-  if (acceleration > cMaximumAcceleration)
-  {
-    return false;
-  }
-
-  if (acceleration < -1. * cMaximumBreakingDeceleleration)
   {
     return false;
   }
@@ -90,16 +75,6 @@ bool calculateDistanceAfterResponseTime(Speed const currentSpeed,
   }
 
   if (responseTime < 0)
-  {
-    return false;
-  }
-
-  if (acceleration > cMaximumAcceleration)
-  {
-    return false;
-  }
-
-  if (acceleration < -1. * cMaximumBreakingDeceleleration)
   {
     return false;
   }

@@ -24,10 +24,11 @@ set(RSS_CORE_TEST_SOURCES
   MathUnitTestsDistanceAfterResponseTime.cpp
   MathUnitTestsStoppingDistance.cpp
   MathUnitTestsVelocityAfterResponseTime.cpp
+  RSSCheckerTests.cpp
   RSSFormulaTestsCalculateDistanceAfterStatedBreakingPattern.cpp
   RSSFormulaTestsCalculateSafeLongitudinalDistanceOppositeDirection.cpp
-  RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirectionLeadingEgo.cpp
-  RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirectionLeadingOther.cpp
+  RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
+  RSSFormulaTestsCheckVehicleState.cpp
 )
 
 add_executable(${EXEC_NAME} ${RSS_CORE_TEST_SOURCES})

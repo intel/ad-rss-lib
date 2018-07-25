@@ -30,7 +30,9 @@ add_compile_options(-Werror -Wall -Wextra)
 
 add_library(${PROJECT_NAME} SHARED
   src/Math.cpp
+  src/RSSChecker.cpp
   src/RSSFormulas.cpp
+  src/RSSResponseFunctions.cpp
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES

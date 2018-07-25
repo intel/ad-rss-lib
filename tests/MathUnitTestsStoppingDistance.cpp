@@ -38,13 +38,6 @@ TEST(MathUnitTestsStoppingDistance, zero_deceleration)
   ASSERT_FALSE(rss_core::calculateStoppingDistance(10., 0., stoppingDistance));
 }
 
-TEST(MathUnitTestsStoppingDistance, deceleration_too_big)
-{
-  rss_core::Distance stoppingDistance = 0.;
-  ASSERT_FALSE(
-    rss_core::calculateStoppingDistance(10., rss_core::cMaximumBreakingDeceleleration + 0.001, stoppingDistance));
-}
-
 TEST(MathUnitTestsStoppingDistance, checks_100kmh)
 {
   rss_core::Distance stoppingDistance = 0.;

@@ -16,6 +16,7 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 #pragma once
 
+#include "rss_core/RSSParameters.hpp"
 #include "rss_core/RSSTypes.hpp"
 
 const double cDoubleNear = 0.01;
@@ -23,4 +24,22 @@ const double cDoubleNear = 0.01;
 inline rss_core::Speed kmhToMeterPerSec(rss_core::Speed speed)
 {
   return speed / 3.6;
+}
+
+inline rss_core::lane::VehicleState createVehicleState(double velocity)
+{
+  rss_core::lane::VehicleState state;
+
+  state.velocity.speedLon = kmhToMeterPerSec(velocity);
+  state.dynamics.alphaLon.accelMax = rss_core::cMaximumAcceleration;
+  state.dynamics.alphaLon.brakeMax = rss_core::cMaximumBreakingDeceleleration;
+  state.dynamics.alphaLon.brakeMin = rss_core::cMinimumBreakingDeceleleration;
+
+  state.dynamics.alphaLat.accelMax = rss_core::cMaximumAcceleration;
+  state.dynamics.alphaLat.brakeMax = rss_core::cMaximumBreakingDeceleleration;
+  state.dynamics.alphaLat.brakeMin = rss_core::cMinimumBreakingDeceleleration;
+
+  state.responseTime = rss_core::cResponseTimeOtherVehicles;
+
+  return state;
 }

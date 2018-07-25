@@ -34,21 +34,6 @@ TEST(MathUnitTestsDistanceAfterResponseTime, negative_time)
   ASSERT_FALSE(rss_core::calculateDistanceAfterResponseTime(1., 2, -1, coveredDistance));
 }
 
-TEST(MathUnitTestsDistanceAfterResponseTime, acceleration_too_big)
-{
-  rss_core::Distance coveredDistance = 0.;
-
-  ASSERT_FALSE(
-    rss_core::calculateDistanceAfterResponseTime(1., rss_core::cMaximumAcceleration + 0.1, 1, coveredDistance));
-}
-
-TEST(MathUnitTestsDistanceAfterResponseTime, deceleration_too_small)
-{
-  rss_core::Distance coveredDistance = 0.;
-  ASSERT_FALSE(rss_core::calculateDistanceAfterResponseTime(
-    10., -1.1 * rss_core::cMaximumBreakingDeceleleration, 1, coveredDistance));
-}
-
 TEST(MathUnitTestsDistanceAfterResponseTime, deceleration_to_stop_equal_response_time)
 {
   rss_core::Distance coveredDistanceA = 0.;

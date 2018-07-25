@@ -24,27 +24,34 @@ TEST(RSSFormulaTestsCalculateDistanceAfterStatedBreakingPattern, negative_speed)
 {
   rss_core::Distance coveredDistance = 0.;
 
-  ASSERT_FALSE(rss_core::calculateDistanceAfterStatedBreakingPattern(-10., 1, coveredDistance));
+  ASSERT_FALSE(rss_core::calculateDistanceAfterStatedBreakingPattern(-10., 1, 3.5, 4., coveredDistance));
 }
 
 TEST(RSSFormulaTestsCalculateDistanceAfterStatedBreakingPattern, negative_time)
 {
   rss_core::Distance coveredDistance = 0.;
 
-  ASSERT_FALSE(rss_core::calculateDistanceAfterStatedBreakingPattern(1., -1, coveredDistance));
+  ASSERT_FALSE(rss_core::calculateDistanceAfterStatedBreakingPattern(1., -1, 3.5, 4., coveredDistance));
 }
 
-TEST(RSSFormulaTestsCalculateDistanceAfterStatedBreakingPatternOtherVehicle, checks_100kmh)
+TEST(RSSFormulaTestsCalculateDistanceAfterStatedBreakingPatternOtherVehicle, leading_ego_checks_100kmh)
 {
   rss_core::Distance coveredDistance = 0.;
-  ASSERT_TRUE(
-    rss_core::calculateDistanceAfterStatedBreakingPatternOtherVehicle(kmhToMeterPerSec(100), coveredDistance));
+  ASSERT_TRUE(rss_core::calculateDistanceAfterStatedBreakingPattern(kmhToMeterPerSec(100),
+                                                                    rss_core::cResponseTimeOtherVehicles,
+                                                                    rss_core::cMaximumAcceleration,
+                                                                    rss_core::cMinimumBreakingDeceleleration,
+                                                                    coveredDistance));
   ASSERT_NEAR(coveredDistance, 213.74, cDoubleNear);
 }
 
-TEST(RSSFormulaTestsCalculateDistanceAfterStatedBreakingPatternEgoVehicle, checks_100kmh)
+TEST(RSSFormulaTestsCalculateDistanceAfterStatedBreakingPatternEgoVehicle, leading_other_checks_100kmh)
 {
   rss_core::Distance coveredDistance = 0.;
-  ASSERT_TRUE(rss_core::calculateDistanceAfterStatedBreakingPatternEgoVehicle(kmhToMeterPerSec(100), coveredDistance));
+  ASSERT_TRUE(rss_core::calculateDistanceAfterStatedBreakingPattern(kmhToMeterPerSec(100),
+                                                                    rss_core::cResponseTimeEgoVehicle,
+                                                                    rss_core::cMaximumAcceleration,
+                                                                    rss_core::cMinimumBreakingDeceleleration,
+                                                                    coveredDistance));
   ASSERT_NEAR(coveredDistance, 151.81, cDoubleNear);
 }
