@@ -1,3 +1,6 @@
 [submodule "model/asd_ad_arch-mo2iveml"]
 	path = model/asd_ad_arch-mo2iveml
 	url = ssh://git-ger-3.devtools.intel.com:29418/asd_ad_arch-mo2iveml.git
+[submodule "model/asd_ad-rss_model"]
+	path = model/asd_ad-rss_model
+	url = ssh://git-ger-3.devtools.intel.com:29418/asd_ad-rss_model.git
