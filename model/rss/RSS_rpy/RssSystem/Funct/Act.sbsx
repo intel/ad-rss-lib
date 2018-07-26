@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RhapsodyArchive>
+	<MagicNumber></MagicNumber>
+	<CODE-PAGE>1252</CODE-PAGE>
+	<version>10.0</version>
+	<lang>C++</lang>
+	<BuildNo>9831324</BuildNo>
+	
+	<RHAPSODY-MODEL>
+	<ISubsystem type="e">
+			<_id type="a">GUID 56c6daf7-393e-4cfb-b558-2502e00ad0f5</_id>
+			<_myState type="a">8192</_myState>
+			<_name type="a">Act</_name>
+			<_modifiedTimeWeak type="a">7.25.2018::7:46:32</_modifiedTimeWeak>
+			<_modifiedTime type="a">7.25.2018::8:5:41</_modifiedTime>
+			<weakCGTime type="a">7.25.2018::7:46:32</weakCGTime>
+			<strongCGTime type="a">7.25.2018::7:43:40</strongCGTime>
+			<_defaultComposite type="s">GUID 77a7bfe9-74c9-4e6b-8af3-daf718fcbb22</_defaultComposite>
+			<_eventsBaseID type="a">-1</_eventsBaseID>
+			<_configurationRelatedTime type="a">1.2.1990::0:0:0</_configurationRelatedTime>
+			<AggregatesList type="e">
+				<value>GUID 77a7bfe9-74c9-4e6b-8af3-daf718fcbb22</value>
+				<value>GUID ea2d1db0-8200-4f46-ac00-ce3d2aa40f24</value>
+			</AggregatesList>
+		</ISubsystem>
+		<IClass type="e">
+			<_id type="a">GUID 77a7bfe9-74c9-4e6b-8af3-daf718fcbb22</_id>
+			<_myState type="a">40960</_myState>
+			<_name type="a">TopLevel</_name>
+			<_modifiedTimeWeak type="a">1.2.1990::0:0:0</_modifiedTimeWeak>
+			<_modifiedTime type="a">1.2.1990::0:0:0</_modifiedTime>
+			<weakCGTime type="a">1.2.1990::0:0:0</weakCGTime>
+			<strongCGTime type="a">1.2.1990::0:0:0</strongCGTime>
+			<_itsStateChart type="r">
+				<IHandle type="e">
+				</IHandle>
+			</_itsStateChart>
+			<_classModifier type="a">Unspecified</_classModifier>
+		</IClass>
+		<IClass type="e">
+			<_id type="a">GUID ea2d1db0-8200-4f46-ac00-ce3d2aa40f24</_id>
+			<_myState type="a">8192</_myState>
+			<_name type="a">Actuators</_name>
+			<Stereotypes type="c">
+				<IRPYRawContainer type="e">
+					<size type="a">1</size>
+					
+						<IHandle type="e">
+							<_hm2Class type="a">IStereotype</_hm2Class>
+							<_hfilename type="a">.\..\..\..\..\asd_ad_arch-mo2iveml\Mo2iveML_rpy\Mo2iveML\Funct\Funct.sbsx</_hfilename>
+							<_hsubsystem type="a">Mo2iveML::Funct</_hsubsystem>
+							<_hname type="a">Mo2iveML_Subsystem</_hname>
+							<_hid type="a">GUID 22844820-47db-4ae4-b8b9-7dba6bd98fd3</_hid>
+						</IHandle>
+					
+				</IRPYRawContainer>
+			</Stereotypes>
+			<_modifiedTimeWeak type="a">7.25.2018::7:46:32</_modifiedTimeWeak>
+			<_description type="p"><IDescription type="e">
+				<_text type="a">The Actuator subsystem is receiving the ActuatorControlCommands controlling i.e. acceleration, braking and steering to execute the plan.</_text>
+			</IDescription>
+			</_description>
+			<_modifiedTime type="a">7.25.2018::7:46:32</_modifiedTime>
+			<_lastID type="a">2</_lastID>
+			<weakCGTime type="a">7.25.2018::7:46:32</weakCGTime>
+			<strongCGTime type="a">7.24.2018::15:34:2</strongCGTime>
+			<_itsStateChart type="r">
+				<IHandle type="e">
+				</IHandle>
+			</_itsStateChart>
+			<_classModifier type="a">Unspecified</_classModifier>
+			<AggregatesList type="e">
+				<value>GUID c655a43b-19d3-424c-b74f-b23d06b28e5a</value>
+			</AggregatesList>
+		</IClass>
+		<IPort type="e">
+			<_id type="a">GUID c655a43b-19d3-424c-b74f-b23d06b28e5a</_id>
+			<_myState type="a">8192</_myState>
+			<_name type="a">ActuatorControlCommand</_name>
+			<Stereotypes type="c">
+				<IRPYRawContainer type="e">
+					<size type="a">1</size>
+					
+						<IHandle type="e">
+							<_hm2Class type="a">IStereotype</_hm2Class>
+							<_hfilename type="a">.\..\..\..\..\asd_ad_arch-mo2iveml\Mo2iveML_rpy\Mo2iveML\Funct\Funct.sbsx</_hfilename>
+							<_hsubsystem type="a">Mo2iveML::Funct</_hsubsystem>
+							<_hname type="a">Mo2iveML_ProxyInputPort</_hname>
+							<_hid type="a">GUID 39265f0a-7c32-495f-a5b2-ddabbf867f42</_hid>
+						</IHandle>
+					
+				</IRPYRawContainer>
+			</Stereotypes>
+			<_modifiedTimeWeak type="a">7.24.2018::15:26:19</_modifiedTimeWeak>
+			<_modifiedTime type="a">7.24.2018::15:26:19</_modifiedTime>
+			<_multiplicity type="a">1</_multiplicity>
+			<_otherClass type="r">
+				<IClassifierHandle type="e">
+					<_hm2Class type="a">IClass</_hm2Class>
+					<_hid type="a">GUID 71690260-222a-4b08-b8be-a144571e63e0</_hid>
+				</IClassifierHandle>
+			</_otherClass>
+			<_inverse type="r">
+				<IHandle type="e">
+				</IHandle>
+			</_inverse>
+			<_implicitClass type="p"><IClass type="e">
+				<_id type="a">GUID 71690260-222a-4b08-b8be-a144571e63e0</_id>
+				<_myState type="a">10240</_myState>
+				<_name type="a">ActuatorControlCommand_implicitContract</_name>
+				<Stereotypes type="c">
+					<IRPYRawContainer type="e">
+						<size type="a">1</size>
+						
+							<IHandle type="e">
+								<_hm2Class type="a">IStereotype</_hm2Class>
+								<_hsubsystem type="a">PredefinedTypes</_hsubsystem>
+								<_hname type="a">Interface</_hname>
+								<_hid type="a">GUID 2a7b8a63-f54f-4379-bab0-02800a5084e1</_hid>
+							</IHandle>
+						
+					</IRPYRawContainer>
+				</Stereotypes>
+				<_modifiedTimeWeak type="a">7.24.2018::15:26:19</_modifiedTimeWeak>
+				<_modifiedTime type="a">7.24.2018::15:26:19</_modifiedTime>
+				<weakCGTime type="a">7.24.2018::15:26:19</weakCGTime>
+				<strongCGTime type="a">7.24.2018::15:26:19</strongCGTime>
+				<_itsStateChart type="r">
+					<IHandle type="e">
+					</IHandle>
+				</_itsStateChart>
+				<_classModifier type="a">Unspecified</_classModifier>
+			</IClass>
+			</_implicitClass>
+		</IPort>
+		
+	</RHAPSODY-MODEL>
+	<OslcLinks type="c">
+		<IRPYRawContainer type="e">
+			<size type="a">0</size>
+		</IRPYRawContainer>
+	</OslcLinks>
+
+<INCLUDES-RHAPSODY-INDEX>false</INCLUDES-RHAPSODY-INDEX>
+</RhapsodyArchive>
+

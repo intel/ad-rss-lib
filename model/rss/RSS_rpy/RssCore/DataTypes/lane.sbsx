@@ -10,16 +10,17 @@
 	<ISubsystem type="e">
 			<_id type="a">GUID 39b3a897-3938-4067-9887-0969ba22d6e3</_id>
 			<_name type="a">lane</_name>
-			<_modifiedTimeWeak type="a">7.25.2018::10:54:27</_modifiedTimeWeak>
-			<_modifiedTime type="a">7.25.2018::10:54:27</_modifiedTime>
-			<_lastID type="a">6</_lastID>
-			<weakCGTime type="a">7.25.2018::10:54:27</weakCGTime>
+			<_modifiedTimeWeak type="a">7.25.2018::13:7:42</_modifiedTimeWeak>
+			<_modifiedTime type="a">7.25.2018::13:7:42</_modifiedTime>
+			<_lastID type="a">7</_lastID>
+			<weakCGTime type="a">7.25.2018::13:7:42</weakCGTime>
 			<strongCGTime type="a">1.2.1990::0:0:0</strongCGTime>
 			<_defaultComposite type="s">GUID 53c8ae50-c0de-4ec7-b921-087fc9be4965</_defaultComposite>
 			<_eventsBaseID type="a">-1</_eventsBaseID>
 			<_configurationRelatedTime type="a">1.2.1990::0:0:0</_configurationRelatedTime>
 			<AggregatesList type="e">
 				<value>GUID 53c8ae50-c0de-4ec7-b921-087fc9be4965</value>
+				<value>GUID c81da5c0-75e2-476d-b0e2-025c64cf3d43</value>
 				<value>GUID 05662579-faa2-44a1-bc3e-84e93b71b27f</value>
 				<value>GUID 9dbe32f2-9c96-40ef-b13a-ca5d282b816e</value>
 				<value>GUID 225b3d3f-f835-498c-8488-3e9b8c5cd700</value>
@@ -50,6 +51,70 @@
 			</_itsStateChart>
 			<_classModifier type="a">Unspecified</_classModifier>
 		</IClass>
+		<IClass type="e">
+			<_id type="a">GUID c81da5c0-75e2-476d-b0e2-025c64cf3d43</_id>
+			<_myState type="a">8192</_myState>
+			<_name type="a">ibSituationVector</_name>
+			<Stereotypes type="c">
+				<IRPYRawContainer type="e">
+					<size type="a">1</size>
+					
+						<IHandle type="e">
+							<_hm2Class type="a">IStereotype</_hm2Class>
+							<_hfilename type="a">$OMROOT\Profiles\SysML\SysMLProfile_rpy\SysML.sbs</_hfilename>
+							<_hsubsystem type="a">SysML::PortsAndFlows</_hsubsystem>
+							<_hname type="a">interfaceBlock</_hname>
+							<_hid type="a">GUID b2944aa1-daf4-4596-9707-d7ae5b2f2976</_hid>
+						</IHandle>
+					
+				</IRPYRawContainer>
+			</Stereotypes>
+			<_modifiedTimeWeak type="a">1.2.1990::0:0:0</_modifiedTimeWeak>
+			<_modifiedTime type="a">7.25.2018::12:44:33</_modifiedTime>
+			<_lastID type="a">2</_lastID>
+			<weakCGTime type="a">7.25.2018::12:44:33</weakCGTime>
+			<strongCGTime type="a">1.2.1990::0:0:0</strongCGTime>
+			<_itsStateChart type="r">
+				<IHandle type="e">
+				</IHandle>
+			</_itsStateChart>
+			<_classModifier type="a">Unspecified</_classModifier>
+			<AggregatesList type="e">
+				<value>GUID 5c6a5f3a-c501-4f7c-ae61-5c56193c2a53</value>
+			</AggregatesList>
+		</IClass>
+		<IAttribute type="e">
+			<_id type="a">GUID 5c6a5f3a-c501-4f7c-ae61-5c56193c2a53</_id>
+			<_myState type="a">8192</_myState>
+			<_name type="a">situationVector</_name>
+			<Stereotypes type="c">
+				<IRPYRawContainer type="e">
+					<size type="a">1</size>
+					
+						<IHandle type="e">
+							<_hm2Class type="a">IStereotype</_hm2Class>
+							<_hfilename type="a">$OMROOT\Profiles\SysML\SysMLProfile_rpy\SysML.sbs</_hfilename>
+							<_hsubsystem type="a">SysML::PortsAndFlows</_hsubsystem>
+							<_hname type="a">flowProperty</_hname>
+							<_hid type="a">GUID eab7d550-8820-4016-84c4-5f9d822752a1</_hid>
+						</IHandle>
+					
+				</IRPYRawContainer>
+			</Stereotypes>
+			<_modifiedTimeWeak type="a">7.25.2018::12:44:33</_modifiedTimeWeak>
+			<_modifiedTime type="a">7.25.2018::12:44:33</_modifiedTime>
+			<_typeOf type="r">
+				<IHandle type="e">
+					<_hm2Class type="a">IType</_hm2Class>
+					<_hid type="a">GUID 86180bbd-3afd-414f-ba57-ca20d4d447e1</_hid>
+				</IHandle>
+			</_typeOf>
+			<_isOrdered type="a">0</_isOrdered>
+			<_protection type="a">iPublic</_protection>
+			<_static type="a">0</_static>
+			<_isReferenceAttr type="a">0</_isReferenceAttr>
+			<_isConstant type="a">0</_isConstant>
+		</IAttribute>
 		<IType type="e">
 			<_id type="a">GUID 05662579-faa2-44a1-bc3e-84e93b71b27f</_id>
 			<_myState type="a">8192</_myState>
@@ -789,7 +854,7 @@ The velocity consists of a longitudinal and a lateral component.</_text>
 					
 				</IRPYRawContainer>
 			</Stereotypes>
-			<_modifiedTimeWeak type="a">7.25.2018::10:54:27</_modifiedTimeWeak>
+			<_modifiedTimeWeak type="a">7.25.2018::13:7:42</_modifiedTimeWeak>
 			<_description type="p"><IDescription type="e">
 				<_text type="a">Describes the position of an object within the lane coordinate system.%0D
 Objects extend in width and length.%0D
@@ -797,7 +862,7 @@ An object on a lane is described by the range it spans in each of the two lane c
 </_text>
 			</IDescription>
 			</_description>
-			<_modifiedTime type="a">7.25.2018::10:54:27</_modifiedTime>
+			<_modifiedTime type="a">7.25.2018::13:7:42</_modifiedTime>
 			<_lastID type="a">2</_lastID>
 			<_kind type="a">Structure</_kind>
 			<AggregatesList type="e">
@@ -823,12 +888,12 @@ An object on a lane is described by the range it spans in each of the two lane c
 					
 				</IRPYRawContainer>
 			</Stereotypes>
-			<_modifiedTimeWeak type="a">7.25.2018::10:54:7</_modifiedTimeWeak>
+			<_modifiedTimeWeak type="a">7.25.2018::13:7:36</_modifiedTimeWeak>
 			<_description type="p"><IDescription type="e">
 				<_text type="a">The interval an object spans in longitudinal direction of the lane coordinate system.</_text>
 			</IDescription>
 			</_description>
-			<_modifiedTime type="a">7.25.2018::10:54:7</_modifiedTime>
+			<_modifiedTime type="a">7.25.2018::13:7:36</_modifiedTime>
 			<_typeOf type="r">
 				<IHandle type="e">
 					<_hm2Class type="a">IType</_hm2Class>
@@ -840,16 +905,7 @@ An object on a lane is described by the range it spans in each of the two lane c
 			<_static type="a">0</_static>
 			<_isReferenceAttr type="a">0</_isReferenceAttr>
 			<_isConstant type="a">0</_isConstant>
-			<AggregatesList type="e">
-				<value>GUID 3504672a-1439-4506-a922-d9ad9a986b8d</value>
-			</AggregatesList>
 		</IAttribute>
-		<ILiteralSpecification type="e">
-			<_id type="a">GUID 3504672a-1439-4506-a922-d9ad9a986b8d</_id>
-			<_modifiedTimeWeak type="a">1.2.1990::0:0:0</_modifiedTimeWeak>
-			<_modifiedTime type="a">7.24.2018::7:57:48</_modifiedTime>
-			<_value type="a">0.0</_value>
-		</ILiteralSpecification>
 		<IAttribute type="e">
 			<_id type="a">GUID 098a4f4e-4495-421b-b164-14fb55e6b1a8</_id>
 			<_myState type="a">8192</_myState>
@@ -868,12 +924,12 @@ An object on a lane is described by the range it spans in each of the two lane c
 					
 				</IRPYRawContainer>
 			</Stereotypes>
-			<_modifiedTimeWeak type="a">7.25.2018::10:54:27</_modifiedTimeWeak>
+			<_modifiedTimeWeak type="a">7.25.2018::13:7:42</_modifiedTimeWeak>
 			<_description type="p"><IDescription type="e">
 				<_text type="a">The interval an object spans in lateral direction of the lane coordinate system.</_text>
 			</IDescription>
 			</_description>
-			<_modifiedTime type="a">7.25.2018::10:54:27</_modifiedTime>
+			<_modifiedTime type="a">7.25.2018::13:7:42</_modifiedTime>
 			<_typeOf type="r">
 				<IHandle type="e">
 					<_hm2Class type="a">IType</_hm2Class>
@@ -885,16 +941,7 @@ An object on a lane is described by the range it spans in each of the two lane c
 			<_static type="a">0</_static>
 			<_isReferenceAttr type="a">0</_isReferenceAttr>
 			<_isConstant type="a">0</_isConstant>
-			<AggregatesList type="e">
-				<value>GUID c5218dce-eef9-4f78-8f44-555edcccc59a</value>
-			</AggregatesList>
 		</IAttribute>
-		<ILiteralSpecification type="e">
-			<_id type="a">GUID c5218dce-eef9-4f78-8f44-555edcccc59a</_id>
-			<_modifiedTimeWeak type="a">1.2.1990::0:0:0</_modifiedTimeWeak>
-			<_modifiedTime type="a">7.24.2018::7:57:55</_modifiedTime>
-			<_value type="a">0.0</_value>
-		</ILiteralSpecification>
 		<IType type="e">
 			<_id type="a">GUID 1b3bb0fe-d28b-4a2d-a004-230d145d3723</_id>
 			<_myState type="a">8192</_myState>

@@ -15,7 +15,7 @@
 				<_text type="a">Artifact deployment package for RssCore</_text>
 			</IDescription>
 			</_description>
-			<_modifiedTime type="a">7.25.2018::10:56:31</_modifiedTime>
+			<_modifiedTime type="a">7.25.2018::13:29:33</_modifiedTime>
 			<_lastID type="a">4</_lastID>
 			<weakCGTime type="a">7.25.2018::10:56:31</weakCGTime>
 			<strongCGTime type="a">1.2.1990::0:0:0</strongCGTime>
@@ -372,8 +372,8 @@
 				<value>GUID 572316fc-b863-489b-9d85-ad08372e8884</value>
 				<value>GUID 5147685e-2c93-41c1-98d8-1a9b152990e3</value>
 				<value>GUID 8d6269d1-a9ac-44d4-a5ea-ea7be7942e58</value>
-				<value>GUID f668ff81-adb8-4ad3-bdd7-05936d475485</value>
-				<value>GUID bab6afbf-2327-429f-87bf-8531b33d6192</value>
+				<value>GUID d910b206-ca8d-41c7-940c-95eadac22185</value>
+				<value>GUID 747e3632-212a-4d6f-975d-9d09a79f641d</value>
 			</AggregatesList>
 		</CGIClassChart>
 		<CGIClass type="e">
@@ -691,11 +691,11 @@
 			<frameset type="a">&lt;frameset rows=100%25&gt;
 &lt;frame name=TagListCompartment&gt;</frameset>
 			<AggregatesList type="e">
-				<value>GUID 2c7ce7f0-f5ff-41d7-8846-f0dbdfc951b7</value>
+				<value>GUID 978ace09-d41e-4182-9c79-9ad9957db620</value>
 			</AggregatesList>
 		</CGIGenericElement>
 		<CGICompartment type="e">
-			<_id type="a">GUID 2c7ce7f0-f5ff-41d7-8846-f0dbdfc951b7</_id>
+			<_id type="a">GUID 978ace09-d41e-4182-9c79-9ad9957db620</_id>
 			<m_name type="a">Tag</m_name>
 			<m_displayOption type="a">All</m_displayOption>
 			<m_bShowInherited type="a">0</m_bShowInherited>
@@ -815,11 +815,11 @@
 			<frameset type="a">&lt;frameset rows=100%25&gt;
 &lt;frame name=TagListCompartment&gt;</frameset>
 			<AggregatesList type="e">
-				<value>GUID f14c72bf-7095-4407-90c9-61b0a663f586</value>
+				<value>GUID 5806624f-99fa-420b-b168-6fcbd41b0694</value>
 			</AggregatesList>
 		</CGIGenericElement>
 		<CGICompartment type="e">
-			<_id type="a">GUID f14c72bf-7095-4407-90c9-61b0a663f586</_id>
+			<_id type="a">GUID 5806624f-99fa-420b-b168-6fcbd41b0694</_id>
 			<m_name type="a">Tag</m_name>
 			<m_displayOption type="a">All</m_displayOption>
 			<m_bShowInherited type="a">0</m_bShowInherited>
@@ -915,11 +915,11 @@
 			<frameset type="a">&lt;frameset rows=100%25&gt;
 &lt;frame name=TagListCompartment&gt;</frameset>
 			<AggregatesList type="e">
-				<value>GUID d45e2ec3-07ef-4767-974d-5877f6a09142</value>
+				<value>GUID 00403a2f-43e1-4a5b-970f-1784e77889de</value>
 			</AggregatesList>
 		</CGIGenericElement>
 		<CGICompartment type="e">
-			<_id type="a">GUID d45e2ec3-07ef-4767-974d-5877f6a09142</_id>
+			<_id type="a">GUID 00403a2f-43e1-4a5b-970f-1784e77889de</_id>
 			<m_name type="a">Tag</m_name>
 			<m_displayOption type="a">All</m_displayOption>
 			<m_bShowInherited type="a">0</m_bShowInherited>
@@ -1314,11 +1314,11 @@
 			<frameset type="a">&lt;frameset rows=100%25&gt;
 &lt;frame name=TagListCompartment&gt;</frameset>
 			<AggregatesList type="e">
-				<value>GUID 012b6b6d-04f0-4132-8a1e-5daeb3e03e1c</value>
+				<value>GUID 1dc38e89-9d55-48a7-9598-a3c64c9cef3e</value>
 			</AggregatesList>
 		</CGIGenericElement>
 		<CGICompartment type="e">
-			<_id type="a">GUID 012b6b6d-04f0-4132-8a1e-5daeb3e03e1c</_id>
+			<_id type="a">GUID 1dc38e89-9d55-48a7-9598-a3c64c9cef3e</_id>
 			<m_name type="a">Tag</m_name>
 			<m_displayOption type="a">All</m_displayOption>
 			<m_bShowInherited type="a">0</m_bShowInherited>
@@ -1438,11 +1438,11 @@
 			<frameset type="a">&lt;frameset rows=100%25&gt;
 &lt;frame name=TagListCompartment&gt;</frameset>
 			<AggregatesList type="e">
-				<value>GUID 935a1590-fe6e-46da-ba54-83502e96e24e</value>
+				<value>GUID 52f4af1f-f02a-4365-ab33-6f23c20e0c61</value>
 			</AggregatesList>
 		</CGIGenericElement>
 		<CGICompartment type="e">
-			<_id type="a">GUID 935a1590-fe6e-46da-ba54-83502e96e24e</_id>
+			<_id type="a">GUID 52f4af1f-f02a-4365-ab33-6f23c20e0c61</_id>
 			<m_name type="a">Tag</m_name>
 			<m_displayOption type="a">All</m_displayOption>
 			<m_bShowInherited type="a">0</m_bShowInherited>
@@ -1562,11 +1562,11 @@
 			<frameset type="a">&lt;frameset rows=100%25&gt;
 &lt;frame name=TagListCompartment&gt;</frameset>
 			<AggregatesList type="e">
-				<value>GUID 7fef8185-a19f-4e79-9ef3-3cf2240b75b8</value>
+				<value>GUID 1dc42a08-0e0a-4deb-9540-73a8b7216fd2</value>
 			</AggregatesList>
 		</CGIGenericElement>
 		<CGICompartment type="e">
-			<_id type="a">GUID 7fef8185-a19f-4e79-9ef3-3cf2240b75b8</_id>
+			<_id type="a">GUID 1dc42a08-0e0a-4deb-9540-73a8b7216fd2</_id>
 			<m_name type="a">Tag</m_name>
 			<m_displayOption type="a">All</m_displayOption>
 			<m_bShowInherited type="a">0</m_bShowInherited>
@@ -1686,11 +1686,11 @@
 			<frameset type="a">&lt;frameset rows=100%25&gt;
 &lt;frame name=TagListCompartment&gt;</frameset>
 			<AggregatesList type="e">
-				<value>GUID d2229006-9dbc-4c9d-832b-627b90cb7af4</value>
+				<value>GUID e5ce0589-5c21-4de2-84e4-93a6386a34db</value>
 			</AggregatesList>
 		</CGIGenericElement>
 		<CGICompartment type="e">
-			<_id type="a">GUID d2229006-9dbc-4c9d-832b-627b90cb7af4</_id>
+			<_id type="a">GUID e5ce0589-5c21-4de2-84e4-93a6386a34db</_id>
 			<m_name type="a">Tag</m_name>
 			<m_displayOption type="a">All</m_displayOption>
 			<m_bShowInherited type="a">0</m_bShowInherited>
@@ -1810,11 +1810,11 @@
 			<frameset type="a">&lt;frameset rows=100%25&gt;
 &lt;frame name=TagListCompartment&gt;</frameset>
 			<AggregatesList type="e">
-				<value>GUID c42200b9-e683-4f38-be59-67afea4ad405</value>
+				<value>GUID 5be1dc57-1d95-4ed8-b115-f8c7b22d0a6e</value>
 			</AggregatesList>
 		</CGIGenericElement>
 		<CGICompartment type="e">
-			<_id type="a">GUID c42200b9-e683-4f38-be59-67afea4ad405</_id>
+			<_id type="a">GUID 5be1dc57-1d95-4ed8-b115-f8c7b22d0a6e</_id>
 			<m_name type="a">Tag</m_name>
 			<m_displayOption type="a">All</m_displayOption>
 			<m_bShowInherited type="a">0</m_bShowInherited>
@@ -2369,11 +2369,11 @@
 			<frameset type="a">&lt;frameset rows=100%25&gt;
 &lt;frame name=TagListCompartment&gt;</frameset>
 			<AggregatesList type="e">
-				<value>GUID 7b495c7b-4f7c-42d9-8416-a20a02d09108</value>
+				<value>GUID f65fbef6-6459-4091-a9b8-d1f042db808b</value>
 			</AggregatesList>
 		</CGIGenericElement>
 		<CGICompartment type="e">
-			<_id type="a">GUID 7b495c7b-4f7c-42d9-8416-a20a02d09108</_id>
+			<_id type="a">GUID f65fbef6-6459-4091-a9b8-d1f042db808b</_id>
 			<m_name type="a">Tag</m_name>
 			<m_displayOption type="a">All</m_displayOption>
 			<m_bShowInherited type="a">0</m_bShowInherited>
@@ -2469,11 +2469,11 @@
 			<frameset type="a">&lt;frameset rows=100%25&gt;
 &lt;frame name=TagListCompartment&gt;</frameset>
 			<AggregatesList type="e">
-				<value>GUID 24c30bb5-108c-41ef-a3bb-a83740de1db6</value>
+				<value>GUID 58a3b8de-63c7-4e19-9810-f7f004739fec</value>
 			</AggregatesList>
 		</CGIGenericElement>
 		<CGICompartment type="e">
-			<_id type="a">GUID 24c30bb5-108c-41ef-a3bb-a83740de1db6</_id>
+			<_id type="a">GUID 58a3b8de-63c7-4e19-9810-f7f004739fec</_id>
 			<m_name type="a">Tag</m_name>
 			<m_displayOption type="a">All</m_displayOption>
 			<m_bShowInherited type="a">0</m_bShowInherited>
@@ -2483,7 +2483,7 @@
 			<_fontPropValues type="a">Tahoma 8 400 0 0 0 0</_fontPropValues>
 		</CGICompartment>
 		<CGIInheritance type="e">
-			<_id type="a">GUID f668ff81-adb8-4ad3-bdd7-05936d475485</_id>
+			<_id type="a">GUID d910b206-ca8d-41c7-940c-95eadac22185</_id>
 			<_properties type="p"><IPropertyContainer type="e">
 				<Subjects type="c">
 					<IRPYRawContainer type="e">
@@ -2574,7 +2574,7 @@
 			<m_ShowStereotype type="a">1</m_ShowStereotype>
 		</CGIInheritance>
 		<CGIInheritance type="e">
-			<_id type="a">GUID bab6afbf-2327-429f-87bf-8531b33d6192</_id>
+			<_id type="a">GUID 747e3632-212a-4d6f-975d-9d09a79f641d</_id>
 			<_properties type="p"><IPropertyContainer type="e">
 				<Subjects type="c">
 					<IRPYRawContainer type="e">
@@ -3188,11 +3188,11 @@
 				</IRPYRawContainer>
 			</Operations>
 			<AggregatesList type="e">
-				<value>GUID d5b61d1d-8816-4dfe-b83b-366f088e644d</value>
+				<value>GUID 9a7f3de2-e609-44e4-888d-7aa5559a35af</value>
 			</AggregatesList>
 		</CGIClass>
 		<CGICompartment type="e">
-			<_id type="a">GUID d5b61d1d-8816-4dfe-b83b-366f088e644d</_id>
+			<_id type="a">GUID 9a7f3de2-e609-44e4-888d-7aa5559a35af</_id>
 			<m_name type="a">Tag</m_name>
 			<m_displayOption type="a">All</m_displayOption>
 			<m_bShowInherited type="a">0</m_bShowInherited>
@@ -3285,11 +3285,11 @@
 			<frameset type="a">&lt;frameset rows=100%25&gt;
 &lt;frame name=TagListCompartment&gt;</frameset>
 			<AggregatesList type="e">
-				<value>GUID a0c9a7e1-f09a-472e-9654-2aa988000d00</value>
+				<value>GUID d7ba3b85-c93c-4ca1-8f3b-de62c0b1c766</value>
 			</AggregatesList>
 		</CGIGenericElement>
 		<CGICompartment type="e">
-			<_id type="a">GUID a0c9a7e1-f09a-472e-9654-2aa988000d00</_id>
+			<_id type="a">GUID d7ba3b85-c93c-4ca1-8f3b-de62c0b1c766</_id>
 			<m_name type="a">Tag</m_name>
 			<m_displayOption type="a">All</m_displayOption>
 			<m_bShowInherited type="a">0</m_bShowInherited>

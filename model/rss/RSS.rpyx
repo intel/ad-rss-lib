@@ -108,8 +108,8 @@
 					
 				</IRPYRawContainer>
 			</Stereotypes>
-			<_modifiedTimeWeak type="a">7.18.2018::11:40:8</_modifiedTimeWeak>
-			<_modifiedTime type="a">7.18.2018::11:40:8</_modifiedTime>
+			<_modifiedTimeWeak type="a">7.24.2018::11:29:32</_modifiedTimeWeak>
+			<_modifiedTime type="a">7.24.2018::11:29:32</_modifiedTime>
 			<_lastID type="a">17</_lastID>
 			<_UserColors type="w">
 				<IRPYRawContainer type="e">
@@ -185,6 +185,7 @@
 				<value>GUID e3496db7-4430-4795-9495-0a38c4e58fbf</value>
 				<value>GUID a36d00cb-11d5-4892-8a9a-11f16318d35a</value>
 				<value>GUID 3427ebbe-98ee-42fa-be67-bf0bbd583361</value>
+				<value>GUID 6f58e2bd-30b2-48c9-98cb-3f4b96c67a53</value>
 				<value>GUID 7afc88a6-29f3-4b63-bf72-89b828accaa8</value>
 				<value>GUID dcf2e78f-b51e-48ad-ad02-15ea0f881ff8</value>
 			</AggregatesList>
@@ -637,6 +638,11 @@ It is necessary for Rhapsody to have at least one Package to avoid potential iss
 			<fileName type="a">RssCore</fileName>
 			<_persistAs type="a">RssCore</_persistAs>
 			<_id type="a">GUID 3427ebbe-98ee-42fa-be67-bf0bbd583361</_id>
+		</ISubsystem>
+		<ISubsystem type="e">
+			<fileName type="a">RssSystem</fileName>
+			<_persistAs type="a">RssSystem</_persistAs>
+			<_id type="a">GUID 6f58e2bd-30b2-48c9-98cb-3f4b96c67a53</_id>
 		</ISubsystem>
 		<IDiagram type="e">
 			<_id type="a">GUID 7afc88a6-29f3-4b63-bf72-89b828accaa8</_id>

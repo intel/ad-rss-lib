@@ -25,14 +25,23 @@
 					
 				</IRPYRawContainer>
 			</Stereotypes>
-			<_modifiedTimeWeak type="a">7.18.2018::11:45:15</_modifiedTimeWeak>
+			<_modifiedTimeWeak type="a">7.24.2018::11:25:55</_modifiedTimeWeak>
+			<_theMainDiagram type="r">
+				<IHandle type="e">
+					<_hm2Class type="a">IDiagram</_hm2Class>
+					<_hfilename type="a">.\..\RssCore.sbsx</_hfilename>
+					<_hsubsystem type="a">RssCore</_hsubsystem>
+					<_hname type="a">RssCore</_hname>
+					<_hid type="a">GUID 9de6dec9-2540-46da-8245-736bd908e74d</_hid>
+				</IHandle>
+			</_theMainDiagram>
 			<_description type="p"><IDescription type="e">
 				<_text type="a">Definition of DataTypes used within the RssCore implementation.</_text>
 			</IDescription>
 			</_description>
-			<_modifiedTime type="a">7.18.2018::11:45:15</_modifiedTime>
+			<_modifiedTime type="a">7.24.2018::11:25:55</_modifiedTime>
 			<_lastID type="a">1</_lastID>
-			<weakCGTime type="a">7.18.2018::11:45:15</weakCGTime>
+			<weakCGTime type="a">7.24.2018::11:25:55</weakCGTime>
 			<strongCGTime type="a">4.23.2018::13:20:59</strongCGTime>
 			<_defaultComposite type="s">GUID 1c2a27b5-b196-475b-a7fd-cc7d366537e3</_defaultComposite>
 			<_eventsBaseID type="a">-1</_eventsBaseID>
