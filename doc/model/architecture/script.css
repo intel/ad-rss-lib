@@ -1,0 +1,111 @@
+/*******************************************************************************
+ * Licensed Materials - Property of IBM
+ * (c) Copyright IBM Corporation 2012, 2015. All Rights Reserved.
+ *
+ * Note to U.S. Government Users Restricted Rights:  
+ * Use, duplication or disclosure restricted by GSA ADP Schedule 
+ * Contract with IBM Corp. 
+ *******************************************************************************/
+
+body
+{
+	margin: 0px;
+}
+#mainMenu
+{
+   padding-top: 8px;
+   padding-left: 8px;
+   width: 100%;
+   position: fixed;
+   font-size: 1.1em;
+   background: #fff;
+}
+
+#mainMenu a
+{
+   padding-left: 8px;
+   padding-right: 8px;
+   padding-bottom: 8px;
+   font-weight: bold;
+}
+
+#mainMenu .activeMenuItem
+{
+   background: #eee;
+   border-left: 1px solid #000;
+   border-top: 1px solid #000;
+   border-right: 1px solid #000;
+   cursor: pointer;
+   z-index: -1;
+}
+
+#mainMenu .inactiveMenuItem
+{
+   cursor: pointer;
+}
+
+#submenu
+{
+   margin-left: 8px;
+   z-index:100;
+   background: #fff;
+   width: 20%;
+   height: 95%;
+   overflow: auto;
+   border: 1px solid;
+   position: fixed;
+   top:30px;
+}
+
+#submenu a
+{
+   text-decoration: none;
+}
+
+#main_div
+{
+	float: right;
+	width: 79%;
+	z-index: 1;
+	padding-top: 30px;
+}
+
+#main_iframe
+{
+	width: 98%;
+	border: 0px none;
+	height: 95%;
+}
+
+#breadcrumbs
+{
+	position: fixed;
+	left: 21%;
+	font-size: 0.8em;
+}
+
+.backlink
+{
+	visibility: hidden;
+	cursor: pointer;
+	font-size: 26px;
+	line-height: 0px;
+}
+
+.collapsibleList
+{
+	padding-left: 6px;
+	white-space: pre;
+}
+
+.collapsibleList li 
+{
+	padding-left: 20px;
+	white-space: pre;
+}
+
+.collapsibleList li#listsubmenu 
+{ 
+	background: url(minus.gif) no-repeat; 
+	cursor: pointer;
+}

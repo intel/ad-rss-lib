@@ -1,0 +1,82 @@
+
+li
+{
+list-style-position:inside;
+}
+li p
+{
+display:inline;
+}
+
+.Title
+{
+font-weight: bold;
+font-size: 18px;
+}
+
+.HeaderCell
+{
+font-weight: bold;
+}
+
+.LabelItalic
+{
+font-style: italic;
+text-decoration: underline;
+}
+
+.LabelStrong
+{
+font-weight: bold;
+text-decoration: underline;
+}
+
+.InternalHyperlink
+{
+color: #0000FF;
+text-decoration: underline;
+}
+
+.paragraph_class1
+{
+}
+
+.text_class2
+{
+}
+
+.paragraph_class3
+{
+}
+
+.image_class4
+{
+}
+
+.paragraph_class5
+{
+}
+
+.figure_caption_class6
+{
+}
+
+.paragraph_class7
+{
+}
+
+.paragraph_class8
+{
+}
+
+.text_class9
+{
+}
+
+.figure_caption_class10
+{
+}
+
+.text_class11
+{
+}
