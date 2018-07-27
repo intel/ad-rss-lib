@@ -116,7 +116,7 @@ conflicts with this object.
 
 ### Lateral evasive maneuvers
 If the car finds itself in a dangerous situation one possible action is always
-to break. According to the RSS papers, this should always result
+to brake. According to the RSS papers, this should always result
 in a safe state, but might lead in worst case to a complete stop of the vehicle.
 The RSS paper proposes that the car may perform also lateral maneuvers as a
 response to certain dangerous situations. To do so, it must be assured that
@@ -149,7 +149,7 @@ opposite direction e.g. on an adjacent lane to avoid a collision.
 
 If two vehicles are approaching each other in opposite direction and the lateral
 distance between them is not safe, the RSS paper defines that the car that is on
-its own lane can break with lower force than the car on the opposite direction.
+its own lane can brake with lower force than the car on the opposite direction.
 This definition leads to a correct behavior, if it is obvious that one car is on
 its own lane and the other car is driving on the lane belonging to the other car.
 
@@ -167,29 +167,26 @@ even worse.
 As sensing will never be 100% accurate, small errors in the perception
 system can lead to an interpretation that one or even both cars
 believe that they are themselves on the correct lane and the other car is
-on the wrong lane. Therefore, each car will break with low force and expects
-the other car to break more strongly. Consequently, this dangerous situation
+on the wrong lane. Therefore, each car will brake with low force and expects
+the other car to brake more strongly. Consequently, this dangerous situation
 will never be solved and the cars will crash.
 
 To avoid such a catastrophic situation, the RSS module
 will extend the rule given by the paper to the following.
 
+Given a situation that two cars approach each other with
+a lateral conflict, the following rules apply:
 
- 1. In case that one car is on the correct lane and the other car on the lane
- belonging to the first car and there is a lateral conflict. If there is
-no  longitudinal conflict if both cars break according to the stated
-breaking pattern, but the longitudinal distance is not safe according to the
-"Safe Longitudinal Distance for Opposite Directions", given in the paper,
-the car on the correct lane is allowed to break with the lower breaking force,
-whether the other car must break according to the stated breaking pattern.
-(This is the situation described in the RSS paper).
+1. Both cars must brake according to the "stated braking pattern",
+   if the longitudinal distance is not safe given that both cars
+   accelerate at maximum during their response time and brake with
+   &alpha;~min,brake~ (as defined in the paper).
 
-  2. Given a situation that there are two cars approaching each other with
-  lateral conflict  and  the longitudinal distance is no longer safe,
-  if both cars accelerate at maximum   during their response time and break with
-  minimum required breaking force.
-  Both cars must break according to the stated breaking pattern.
-
+2. If case 1 does not apply, and the longitudinal distance is not safe
+   according to the definition in "Safe Longitudinal Distance for Opposite Directions",
+   the vehicle on the correct lane has to brake with &alpha;~min,brake,correct~,
+   and the vehicle on the wrong lane has to conduct the "stated braking pattern"
+   (This is the situation described in the RSS paper).
 
 ### Response Time
 According to the papers each traffic participant has a response time.
@@ -202,7 +199,7 @@ it would be possible to accelerate for at most t < response time, as this
 acceleration is already considered.
 
 Nevertheless, the RSS module will immediately issue a response action (longitudinal
-or lateral breaking maneuver). To ensure that the dangerous situation is evaded
+or lateral braking maneuver). To ensure that the dangerous situation is evaded
 as fast as possible.
 
 
@@ -257,8 +254,8 @@ discussed. The used parameters are:
   As it might not be possible to determine whether another object is an AV vehicle
   or has a human driver, the RSS module will safely assume that all other objects
   are driven by humans. Hence, two parameters for the response time are used.
-** &rho;~𝑒𝑔𝑜~ for the ego vehicle
-** &rho;~𝑜𝑡ℎ𝑒𝑟~ for all other objects
+** &rho;~ego~ for the ego vehicle
+** &rho;~other~ for all other objects
 
 * Acceleration &alpha;.
   RSS proposes several different acceleration/deceleration
@@ -276,10 +273,10 @@ discussed. The used parameters are:
   its checks with the globally defined accelerations values even if the vehicle
   does not intend to utilize them to its limits.
   The parameters used for acceleration are:
-** &alpha;~𝑎𝑐𝑐𝑒𝑙,𝑚𝑎𝑥~ maximum possible acceleration
-** &alpha;~𝑏𝑟𝑒𝑎𝑘,𝑚𝑖𝑛~ minimum allowed breaking deceleration for most scenarios
-** &alpha;~𝑏𝑟𝑒𝑎𝑘,𝑚𝑎𝑥~ maximum allowed deceleration
-** &alpha;~𝑏𝑟𝑒𝑎𝑘,𝑚𝑖𝑛,𝑐𝑜𝑟𝑟𝑒𝑐𝑡~ minimum allowed deceleration for a car on its lane with
+** &alpha;~accel,max~ maximum possible acceleration
+** &alpha;~brake,min~ minimum allowed braking deceleration for most scenarios
+** &alpha;~brake,max~ maximum allowed deceleration
+** &alpha;~brake,min,correct~ minimum allowed deceleration for a car on its lane with
    another car approaching on the same lane in wrong driving direction
 
 
@@ -298,16 +295,16 @@ Finding meaningful acceleration values is more complicated.
 At the one hand the values should be as close as possible or even exceed
 the maximum physically possible values. The minimum deceleration values must
 also not exceed normal human driving behavior. So assuming a too high deceleration
-for other cars may lead to a false interpretation of the situtation.
+for other cars may lead to a false interpretation of the situation.
 
 On the other hand a too big difference between the minimum and maximum acceleration
 values will lead to a very defensive driving style. As a result, participating
 in dense traffic, will not be possible (see Figure 1). A rule of thumb for deceleration in German
-driving schools is: &alpha;~𝑏𝑟𝑒𝑎𝑘,𝑚𝑖𝑛~ = 4 𝑚/s^2^ and &alpha;~𝑏𝑟𝑒𝑎𝑘,𝑚𝑎𝑥~ = 8 𝑚/𝑠^2^
+driving schools is: &alpha;~brake,min~ = 4 𝑚/s^2^ and &alpha;~brake,max~ = 8 𝑚/𝑠^2^
 
 But on the other hand, modern cars are able to decelerate with up to 12 𝑚/𝑠^2^.
 Especially for deceleration, it is questionable whether it is possible and tolerable
-to restrict maximum breaking below physically possible breaking force.
+to restrict maximum braking below physically possible braking force.
 
 For the maximum acceleration at low speeds a standard car will be in the range
 of 3.4 𝑚/𝑠^2^ to 7 𝑚/𝑠^2^. But there are also sport cars that can go faster than that.
@@ -316,10 +313,10 @@ for deceleration.
 
 ##### Restricting velocity to the current speed limit
 
-.Required safety distance for cars driving at 50 km/h (city speed) in same direction with &alpha;~break,min~ = 4 m/s^2^ and &alpha;~break,max~ = 8 m/s^2^ and &rho; = 2 s
+.Required safety distance for cars driving at 50 km/h (city speed) in same direction with &alpha;~brake,min~ = 4 m/s^2^ and &alpha;~brake,max~ = 8 m/s^2^ and &rho; = 2 s
 image::accelSafety.png[caption="Figure {counter:figure}. "]
 
-The assumption that a car can always accelerate at &alpha;~𝑎𝑐𝑐𝑒𝑙,𝑚𝑎𝑥~
+The assumption that a car can always accelerate at &alpha;~accel,max~
 during the reponse time, leads to a significant increase of the required safety distance.
 Figure 1 shows the required safety distance for different acceleration values.
 So acceleration about 4 𝑚/𝑠^2^ doubles the required safety distance from 40 m to
@@ -351,12 +348,12 @@ As a starting point the values are set to:
 [width="100%",frame="topbot",options="header"]
 |======================
 | Parameter           | Value
-| &rho;~𝑒𝑔𝑜~           | 1 𝑠
-| &rho;~𝑜𝑡ℎ𝑒𝑟~          | 2 𝑠
-| &alpha;~𝑎𝑐𝑐𝑒𝑙,𝑚𝑎𝑥~      | 3.5 𝑚/𝑠^2^
-| &alpha;~𝑏𝑟𝑒𝑎𝑘,𝑚𝑖𝑛~      | 4 𝑚/𝑠^2^
-| &alpha;~𝑏𝑟𝑒𝑎𝑘,𝑚𝑎𝑥~      | 8 𝑚/𝑠^2^
-| &alpha;~𝑏𝑟𝑒𝑎𝑘,𝑚𝑖𝑛,𝑐𝑜𝑟𝑟𝑒𝑐𝑡~   | 3 𝑚/𝑠^2^
+| &rho;~ego~           | 1 𝑠
+| &rho;~other~          | 2 𝑠
+| &alpha;~accel,max~      | 3.5 𝑚/𝑠^2^
+| &alpha;~brake,min~      | 4 𝑚/𝑠^2^
+| &alpha;~brake,max~      | 8 𝑚/𝑠^2^
+| &alpha;~brake,min,correct~   | 3 𝑚/𝑠^2^
 |======================
 
 
@@ -365,7 +362,7 @@ As a starting point the values are set to:
 ### Summary
 * Use parameters specified in Table 6
 * RSS checks are performed on the current state, not on a future state
-* In dangerous situations, a longitudinal response (breaking maneuver) is always
+* In dangerous situations, a longitudinal response (braking maneuver) is always
   issued, even if a lateral response is also possible.
 
 
@@ -376,17 +373,27 @@ As a starting point the values are set to:
   achievable velocities are always below the maximum allowed speed limit.
 
 * When two vehicles are driving in opposite direction, but both cars "believe"
-  that they are on the correct lane, both cars will brake with &alpha;~𝑏𝑟𝑒𝑎𝑘,𝑚𝑖𝑛,𝑐𝑜𝑟𝑟𝑒𝑐𝑡~
-  assuming that the other car slows down with &alpha;~𝑏𝑟𝑒𝑎𝑘,𝑚𝑖𝑛~. However, this will
-  not clear the dangerous situation, but will it make it even more severe.
-  Therefore, it is important to introduce a special treatment for the case of
-  opposing cars that both are on the correct lane.
+  that they are on the correct lane, both cars will brake with &alpha;~brake,min,correct~
+  assuming that the other car slows down with &alpha;~brake,min~. However, this may
+  not clear the dangerous situation. Therefore, it is important to introduce a
+  special treatment for the case of opposing cars that both are on the correct lane.
+  This handling is explained in Section 3.3.
 
 * It cannot be determined whether lateral evasive maneuvers are actually possible.
 Therefore, the RSS Module will not initiate such maneuvers, but will not hinder the
 driving policy to execute lateral evasive maneuvers.
 
 ## Architecture Overview
+
+++++
+<iframe
+  src="../model/architecture/RSS-ArchitectureOverview.html"
+  width="1024"
+  height="4000"
+  frameBorder="0">
+</iframe>
+++++
+
 ### Platform Architecture Analysis
 How is RSS incorporated into the platform?
 
