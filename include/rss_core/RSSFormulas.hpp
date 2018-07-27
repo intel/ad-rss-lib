@@ -33,36 +33,36 @@ namespace rss_core {
 bool checkVehicleState(lane::VehicleState const &state);
 
 /**
- * @brief Calculate the distance covered by a non-ego vehicle when applying the \a "stated breaking pattern"
+ * @brief Calculate the distance covered by a non-ego vehicle when applying the \a "stated braking pattern"
  *        Calls \sa calculateDistanceAfterStatedBreakingPattern()
  * @param[in]  currentSpeed   is the current vehicle speed [m/s]
  * @param[out] coveredDistance  is the covered distance [m]
  * @return true on successful calculation, false otherwise
  */
-bool calculateDistanceAfterStatedBreakingPatternOtherVehicle(Speed const currentSpeed, Distance &coveredDistance);
+bool calculateDistanceAfterStatedBrakingPatternOtherVehicle(Speed const currentSpeed, Distance &coveredDistance);
 
 /**
  * @brief Calculate the distance covered by the ego vehicle when applying the \a "stated breaking pattern"
- *        Calls \sa calculateDistanceAfterStatedBreakingPattern()
+ *        Calls \sa calculateDistanceAfterStatedBrakingPattern()
  * @param[in]  currentSpeed   is the current vehicle speed [m/s]
  * @param[out] coveredDistance   is the covered distance [m]
  * @return true on successful calculation, false otherwise
  */
-bool calculateDistanceAfterStatedBreakingPatternEgoVehicle(Speed const currentSpeed, Distance &coveredDistance);
+bool calculateDistanceAfterStatedBrakingPatternEgoVehicle(Speed const currentSpeed, Distance &coveredDistance);
 
 /**
- * @brief Calculate the distance covered by a vehicle when applying the \a "stated breaking pattern"
+ * @brief Calculate the distance covered by a vehicle when applying the \a "stated braking pattern"
  * @param[in]  currentSpeed   is the current vehicle speed [m/s]
  * @param[in]  responseTime      is the response time of the vehicle [s]
  * @param[out] coveredDistance   is the covered distance [m]
  * @return true on successful calculation, false otherwise
  */
-bool calculateDistanceAfterStatedBreakingPattern(Speed const currentSpeed,
-                                                 Duration const responseTime,
-                                                 Distance &coveredDistance);
+bool calculateDistanceAfterStatedBrakingPattern(Speed const currentSpeed,
+                                                Duration const responseTime,
+                                                Distance &coveredDistance);
 
 /**
- * @brief Calculate the distance covered by a vehicle when applying the \a "stated breaking pattern" with given
+ * @brief Calculate the distance covered by a vehicle when applying the \a "stated braking pattern" with given
  *        deceleration
  * @param[in]  currentSpeed      is the current vehicle speed [lane coordinate system units per second]
  * @param[in]  responseTime      is the response time of the vehicle [s]
@@ -71,11 +71,11 @@ bool calculateDistanceAfterStatedBreakingPattern(Speed const currentSpeed,
  * @param[out] coveredDistance   is the covered distance [m]
  * @return true on successful calculation, false otherwise
  */
-bool calculateDistanceAfterStatedBreakingPattern(Speed const currentSpeed,
-                                                 Duration const responseTime,
-                                                 Acceleration const acceleration,
-                                                 Acceleration const deceleration,
-                                                 Distance &coveredDistance);
+bool calculateDistanceAfterStatedBrakingPattern(Speed const currentSpeed,
+                                                Duration const responseTime,
+                                                Acceleration const acceleration,
+                                                Acceleration const deceleration,
+                                                Distance &coveredDistance);
 
 /**
  * @brief Calculate the \a "safe longitudinal distance" between the two vehicles,

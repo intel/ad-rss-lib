@@ -77,29 +77,29 @@ bool checkVehicleState(lane::VehicleState const &state)
   return true;
 }
 
-bool calculateDistanceAfterStatedBreakingPatternOtherVehicle(Speed const currentSpeed, Distance &coveredDistance)
+bool calculateDistanceAfterStatedBrakingPatternOtherVehicle(Speed const currentSpeed, Distance &coveredDistance)
 {
-  return calculateDistanceAfterStatedBreakingPattern(currentSpeed, cResponseTimeOtherVehicles, coveredDistance);
+  return calculateDistanceAfterStatedBrakingPattern(currentSpeed, cResponseTimeOtherVehicles, coveredDistance);
 }
 
-bool calculateDistanceAfterStatedBreakingPatternEgoVehicle(Speed const currentSpeed, Distance &coveredDistance)
+bool calculateDistanceAfterStatedBrakingPatternEgoVehicle(Speed const currentSpeed, Distance &coveredDistance)
 {
-  return calculateDistanceAfterStatedBreakingPattern(currentSpeed, cResponseTimeEgoVehicle, coveredDistance);
+  return calculateDistanceAfterStatedBrakingPattern(currentSpeed, cResponseTimeEgoVehicle, coveredDistance);
 }
 
-bool calculateDistanceAfterStatedBreakingPattern(Speed const currentSpeed,
-                                                 Duration const responseTime,
-                                                 Distance &coveredDistance)
+bool calculateDistanceAfterStatedBrakingPattern(Speed const currentSpeed,
+                                                Duration const responseTime,
+                                                Distance &coveredDistance)
 {
-  return calculateDistanceAfterStatedBreakingPattern(
-    currentSpeed, responseTime, cMaximumAcceleration, cMinimumBreakingDeceleleration, coveredDistance);
+  return calculateDistanceAfterStatedBrakingPattern(
+    currentSpeed, responseTime, cMaximumAcceleration, cMinimumBrakingDeceleleration, coveredDistance);
 }
 
-bool calculateDistanceAfterStatedBreakingPattern(Speed const currentSpeed,
-                                                 Duration const responseTime,
-                                                 Acceleration const acceleration,
-                                                 Acceleration const deceleration,
-                                                 Distance &coveredDistance)
+bool calculateDistanceAfterStatedBrakingPattern(Speed const currentSpeed,
+                                                Duration const responseTime,
+                                                Acceleration const acceleration,
+                                                Acceleration const deceleration,
+                                                Distance &coveredDistance)
 {
   Speed resultingSpeed = 0.;
   bool resultCalculateSpeed = calculateSpeedAfterResponseTime(currentSpeed, acceleration, responseTime, resultingSpeed);
@@ -141,22 +141,22 @@ bool calculateSafeLongitudinalDistanceSameDirection(lane::VehicleState const &le
   }
 
   bool result = false;
-  Distance distanceStatedBreaking = 0.;
+  Distance distanceStatedBraking = 0.;
 
-  bool resultStatedBreaking = calculateDistanceAfterStatedBreakingPattern(followingVehicle.velocity.speedLon,
-                                                                          followingVehicle.responseTime,
-                                                                          followingVehicle.dynamics.alphaLon.accelMax,
-                                                                          followingVehicle.dynamics.alphaLon.brakeMin,
-                                                                          distanceStatedBreaking);
+  bool resultStatedBraking = calculateDistanceAfterStatedBrakingPattern(followingVehicle.velocity.speedLon,
+                                                                        followingVehicle.responseTime,
+                                                                        followingVehicle.dynamics.alphaLon.accelMax,
+                                                                        followingVehicle.dynamics.alphaLon.brakeMin,
+                                                                        distanceStatedBraking);
 
-  Distance distanceMaxBreak = 0.;
+  Distance distanceMaxBrake = 0.;
   bool resultStoppingDistance = calculateStoppingDistance(
-    leadingVehicle.velocity.speedLon, leadingVehicle.dynamics.alphaLon.brakeMax, distanceMaxBreak);
+    leadingVehicle.velocity.speedLon, leadingVehicle.dynamics.alphaLon.brakeMax, distanceMaxBrake);
 
-  if (resultStatedBreaking && resultStoppingDistance)
+  if (resultStatedBraking && resultStoppingDistance)
   {
     result = true;
-    safeDistance = distanceStatedBreaking - distanceMaxBreak;
+    safeDistance = distanceStatedBraking - distanceMaxBrake;
     safeDistance = std::max(safeDistance, 0.);
   }
   return result;
@@ -191,17 +191,16 @@ bool calculateSafeLongitudinalDistanceSameDirectionLeadingEgo(Speed const egoSpe
                                                               Distance &safeDistance)
 {
   bool result = false;
-  Distance distanceStatedBreaking = 0.;
-  bool resultStatedBreaking
-    = calculateDistanceAfterStatedBreakingPatternOtherVehicle(otherSpeed, distanceStatedBreaking);
+  Distance distanceStatedBraking = 0.;
+  bool resultStatedBraking = calculateDistanceAfterStatedBrakingPatternOtherVehicle(otherSpeed, distanceStatedBraking);
 
-  Distance distanceMaxBreak = 0.;
-  bool resultStoppingDistance = calculateStoppingDistance(egoSpeed, cMaximumBreakingDeceleleration, distanceMaxBreak);
+  Distance distanceMaxBrake = 0.;
+  bool resultStoppingDistance = calculateStoppingDistance(egoSpeed, cMaximumBrakingDeceleleration, distanceMaxBrake);
 
-  if (resultStatedBreaking && resultStoppingDistance)
+  if (resultStatedBraking && resultStoppingDistance)
   {
     result = true;
-    safeDistance = distanceStatedBreaking - distanceMaxBreak;
+    safeDistance = distanceStatedBraking - distanceMaxBrake;
     safeDistance = std::max(safeDistance, 0.);
   }
   return result;
@@ -212,21 +211,21 @@ bool calculateSafeLongitudinalDistanceOppositeDirectionOnCorrectLane(Speed const
                                                                      Distance &safeDistance)
 {
   bool result = false;
-  Distance distanceStatedBreakingEgo = 0.;
-  bool resultStatedBreakingEgo = calculateDistanceAfterStatedBreakingPattern(egoSpeed,
-                                                                             cResponseTimeEgoVehicle,
-                                                                             cMaximumAcceleration,
-                                                                             cMinimumBreakingDecelelerationCorrect,
-                                                                             distanceStatedBreakingEgo);
+  Distance distanceStatedBrakingEgo = 0.;
+  bool resultStatedBrakingEgo = calculateDistanceAfterStatedBrakingPattern(egoSpeed,
+                                                                           cResponseTimeEgoVehicle,
+                                                                           cMaximumAcceleration,
+                                                                           cMinimumBrakingDecelelerationCorrect,
+                                                                           distanceStatedBrakingEgo);
 
-  Distance distanceStatedBreakingOther = 0.;
-  bool resultStatedBreakingOther
-    = calculateDistanceAfterStatedBreakingPatternOtherVehicle(otherSpeed, distanceStatedBreakingOther);
+  Distance distanceStatedBrakingOther = 0.;
+  bool resultStatedBrakingOther
+    = calculateDistanceAfterStatedBrakingPatternOtherVehicle(otherSpeed, distanceStatedBrakingOther);
 
-  if (resultStatedBreakingEgo && resultStatedBreakingOther)
+  if (resultStatedBrakingEgo && resultStatedBrakingOther)
   {
     result = true;
-    safeDistance = distanceStatedBreakingEgo + distanceStatedBreakingOther;
+    safeDistance = distanceStatedBrakingEgo + distanceStatedBrakingOther;
   }
 
   return result;
@@ -237,21 +236,21 @@ bool calculateSafeLongitudinalDistanceOppositeDirectionOnOppositeLane(Speed cons
                                                                       Distance &safeDistance)
 {
   bool result = false;
-  Distance distanceStatedBreakingEgo = 0.;
-  bool resultStatedBreakingEgo
-    = calculateDistanceAfterStatedBreakingPatternEgoVehicle(egoSpeed, distanceStatedBreakingEgo);
+  Distance distanceStatedBrakingEgo = 0.;
+  bool resultStatedBrakingEgo
+    = calculateDistanceAfterStatedBrakingPatternEgoVehicle(egoSpeed, distanceStatedBrakingEgo);
 
-  Distance distanceStatedBreakingOther = 0.;
-  bool resultStatedBreakingOther = calculateDistanceAfterStatedBreakingPattern(otherSpeed,
-                                                                               cResponseTimeOtherVehicles,
-                                                                               cMaximumAcceleration,
-                                                                               cMinimumBreakingDecelelerationCorrect,
-                                                                               distanceStatedBreakingOther);
+  Distance distanceStatedBrakingOther = 0.;
+  bool resultStatedBrakingOther = calculateDistanceAfterStatedBrakingPattern(otherSpeed,
+                                                                             cResponseTimeOtherVehicles,
+                                                                             cMaximumAcceleration,
+                                                                             cMinimumBrakingDecelelerationCorrect,
+                                                                             distanceStatedBrakingOther);
 
-  if (resultStatedBreakingEgo && resultStatedBreakingOther)
+  if (resultStatedBrakingEgo && resultStatedBrakingOther)
   {
     result = true;
-    safeDistance = distanceStatedBreakingEgo + distanceStatedBreakingOther;
+    safeDistance = distanceStatedBrakingEgo + distanceStatedBrakingOther;
   }
 
   return result;

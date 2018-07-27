@@ -25,7 +25,7 @@ set(RSS_CORE_TEST_SOURCES
   MathUnitTestsStoppingDistance.cpp
   MathUnitTestsVelocityAfterResponseTime.cpp
   RSSCheckerTests.cpp
-  RSSFormulaTestsCalculateDistanceAfterStatedBreakingPattern.cpp
+  RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
   RSSFormulaTestsCalculateSafeLongitudinalDistanceOppositeDirection.cpp
   RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
   RSSFormulaTestsCheckVehicleState.cpp

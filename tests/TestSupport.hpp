@@ -32,12 +32,12 @@ inline rss_core::lane::VehicleState createVehicleState(double velocity)
 
   state.velocity.speedLon = kmhToMeterPerSec(velocity);
   state.dynamics.alphaLon.accelMax = rss_core::cMaximumAcceleration;
-  state.dynamics.alphaLon.brakeMax = rss_core::cMaximumBreakingDeceleleration;
-  state.dynamics.alphaLon.brakeMin = rss_core::cMinimumBreakingDeceleleration;
+  state.dynamics.alphaLon.brakeMax = rss_core::cMaximumBrakingDeceleleration;
+  state.dynamics.alphaLon.brakeMin = rss_core::cMinimumBrakingDeceleleration;
 
   state.dynamics.alphaLat.accelMax = rss_core::cMaximumAcceleration;
-  state.dynamics.alphaLat.brakeMax = rss_core::cMaximumBreakingDeceleleration;
-  state.dynamics.alphaLat.brakeMin = rss_core::cMinimumBreakingDeceleleration;
+  state.dynamics.alphaLat.brakeMax = rss_core::cMaximumBrakingDeceleleration;
+  state.dynamics.alphaLat.brakeMin = rss_core::cMinimumBrakingDeceleleration;
 
   state.responseTime = rss_core::cResponseTimeOtherVehicles;
 

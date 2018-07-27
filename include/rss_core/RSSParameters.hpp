@@ -25,12 +25,12 @@
 
 namespace rss_core {
 
-const Duration cResponseTimeEgoVehicle = 1;            /*!< Response time of the ego vehicle in seconds. */
-const Duration cResponseTimeOtherVehicles = 2;         /*!< Response time of non-ego vehicles in seconds. */
-const Acceleration cMaximumAcceleration = 3.5;         /*!< Maximum allowed acceleration in m/s^2. */
-                                                       /*!< This might need to be changed to be speed dependent. */
-const Acceleration cMinimumBreakingDeceleleration = 4; /*!< Minimum breaking force applied in m/s^2. */
-const Acceleration cMaximumBreakingDeceleleration = 8; /*!< Maximum breaking force applied in m/s^2. */
-const Acceleration cMinimumBreakingDecelelerationCorrect = 3; /*!< Minimum correct breaking force applied in m/s^2. */
+const Duration cResponseTimeEgoVehicle = 1;           /*!< Response time of the ego vehicle in seconds. */
+const Duration cResponseTimeOtherVehicles = 2;        /*!< Response time of non-ego vehicles in seconds. */
+const Acceleration cMaximumAcceleration = 3.5;        /*!< Maximum allowed acceleration in m/s^2. */
+                                                      /*!< This might need to be changed to be speed dependent. */
+const Acceleration cMinimumBrakingDeceleleration = 4; /*!< Minimum braking force applied in m/s^2. */
+const Acceleration cMaximumBrakingDeceleleration = 8; /*!< Maximum braking force applied in m/s^2. */
+const Acceleration cMinimumBrakingDecelelerationCorrect = 3; /*!< Minimum correct braking force applied in m/s^2. */
 
 } // namespace rss_core

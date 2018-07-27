@@ -31,8 +31,8 @@ enum class LongitudinalResponse
 {
   Safe,           //!< State is longitudinal safe
   None,           //!< State is longitudinal not safe, but no action required. E.g. ego vehicle is the leading vehicle
-  BreakMin,       //!< State is longitudinal not safe, vehicle needs to decelerate at least with break min
-  BreakMinCorrect //!< State is longitudinal not safe, vehicle needs to decelerate at least with break min correct
+  BrakeMin,       //!< State is longitudinal not safe, vehicle needs to decelerate at least with brake min
+  BrakeMinCorrect //!< State is longitudinal not safe, vehicle needs to decelerate at least with brake min correct
 };
 
 /**
@@ -43,10 +43,10 @@ enum class LateralResponse
 {
   Safe, //!< State is lateral safe
   None, //!< State is lateral not safe, but no action required.
-  //!< State is lateral not safe, vehicle needs to decelerate at least with break min its movement to the left
-  BreakMinLeft,
-  //!< State is lateral not safe, vehicle needs to decelerate at least with break min its movement to the  right
-  BreakMinRight,
+  //!< State is lateral not safe, vehicle needs to decelerate at least with brake min its movement to the left
+  BrakeMinLeft,
+  //!< State is lateral not safe, vehicle needs to decelerate at least with brake min its movement to the  right
+  BrakeMinRight,
 };
 
 /**
@@ -60,7 +60,7 @@ public:
   /**
    * @brief Required longitudinal response
    */
-  LongitudinalResponse mLongitudinalResponse{LongitudinalResponse::BreakMin};
+  LongitudinalResponse mLongitudinalResponse{LongitudinalResponse::BrakeMin};
 
   /**
     * @brief Required lateral response

@@ -53,7 +53,7 @@ bool calculateLongitudinalResponseNonIntersectionSameDirection(lane::VehicleStat
 {
   bool result = false;
 
-  response = LongitudinalResponse::BreakMin;
+  response = LongitudinalResponse::BrakeMin;
   bool isDistanceSafe = false;
 
   if (isVehicleInFront(egoVehicle, otherVehicle))
@@ -84,7 +84,7 @@ bool calculateLongitudinalResponseNonIntersectionOppositeDirection(lane::Vehicle
   (void)otherVehicle;
   //@todo Implement calculateLongitudinalResponseNonIntersectionOppositeDirection
 
-  response = LongitudinalResponse::BreakMin;
+  response = LongitudinalResponse::BrakeMin;
   return false;
 }
 
@@ -97,7 +97,7 @@ bool calculateLateralResponse(lane::VehicleState const &egoVehicle,
   /**
    * @todo Implement proper check -> Next Sprint
    */
-  response = LateralResponse::BreakMinLeft;
+  response = LateralResponse::BrakeMinLeft;
   return true;
 }
 
