@@ -387,23 +387,12 @@ driving policy to execute lateral evasive maneuvers.
 
 ++++
 <iframe
-  src="../model/architecture/RSS-ArchitectureOverview.html"
+  src="model/architecture/RSS-ArchitectureOverview.html"
   width="1024"
-  height="4000"
+  height="4300"
   frameBorder="0">
 </iframe>
 ++++
-
-### Platform Architecture Analysis
-How is RSS incorporated into the platform?
-
-### Platform Architecture Overview
-Platform architecture diagrams and description.
-
-
-### Software Architecture Overview
-Software architecture diagrams and description.
-
 
 ## High Level Design
 // intended empty
