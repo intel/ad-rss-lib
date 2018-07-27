@@ -77,80 +77,139 @@ The initial design does not yet cover:
 // intended empty
 
 ### RSS checking of the current state
-The RSS module, which is the entity performing all RSS checks and operations,
-will perform checks on the current state of the environment
+The RSS module is the entity performing all RSS checks and operations.
+It will perform checks on the current state of the environment,
 in order to determine if the ego vehicle is currently in a safe state.
 If the ego vehicle is not in a safe state, the RSS module will provide a response
 action that will bring the car back into a safe state.
 
-As the checks are performed on _state~t~_ and the RSS module will not do any
-predictions, this implies that the current output of the driving policy will
-not be directly validated by RSS. RSS will only monitor the result of the policy
-implicitly, when receiving _𝑠𝑡𝑎𝑡𝑒~𝑡+1~_.
-Therefore, RSS will not assure that the driving policy
-may issue a dangerous command. Instead, it will take action one time step later,
-if the vehicle entered a dangerous situation.
+The state is regarded as safe, if the ego vehicle is not causing a collision with
+another object, under the worst case assumption that the ego vehicle will
+accelerate at maximum possible speed during its response time.
+Hence for this check the RSS module does not take the current desired behavior
+as given by the driving policy into account.
+However as the RSS modules makes a worst case assumption, it is guaranteed that
+if the RSS module regards the situation as safe, no valid action of
+the driving policy can bring the vehicle into an unsafe state.
+
+
+If the vehicle is in a dangerous situation, RSS will assure a proper reaction
+that will bring the car back into a safe state.
+Therefore, it will check whether the driving policy responds correctly to the
+situation.
+If yes the command given by the driving policy will be executed. But if the
+driving policy command is conflicting with the response that RSS expects,
+RSS will prevent the command from being executed and will provide a proper
+command instead.
+
+This will assure that the vehicle reacts correctly. But the driving policy still
+has the chance to solve the dangerous situation
+on a more elaborate way than RSS would be able to, as RSS only has basic
+information about the environment.
 
 To check whether the ego vehicle is in a safe state, all the objects in the
 surrounding must be respected. To do so the RSS module will perform an analysis
 against all the objects in the environment individually. Meaning, for each
-object in the environment the RSS module will check whether the ego vehicle conflicts
-with this object.
+object in the environment the RSS module will check whether the ego vehicle
+conflicts with this object.
 
-#### Alternative: Checking future state
-To avoid that the driving policy may issue a command that leads to a dangerous
-situation, the RSS module could check the output of the driving policy, i.e. the
-future state _state~predicted,t+1~_., instead of the current state.
 
-However, the drawback of this alternative is that RSS would rely on predictions,
-which are prone to uncertainties. Consequently, in the design at hand, the current
-state is checked by RSS.
-
-### Lateral Response vs. Longitudinal Response
+### Lateral evasive maneuvers
 If the car finds itself in a dangerous situation one possible action is always
-to break longitudinally. According to the RSS papers, this should always result
+to break. According to the RSS papers, this should always result
 in a safe state, but might lead in worst case to a complete stop of the vehicle.
-The RSS paper therefore proposes that the car may perform also lateral maneuvers as a
+The RSS paper proposes that the car may perform also lateral maneuvers as a
 response to certain dangerous situations. To do so, it must be assured that
 this lateral movement brings the vehicle into a safe state and does not conflict
-with another vehicle. To be sure that a lateral movement is not conflicting
-the RSS module would need to predict the vehicle state according to the proposed
-movement and check against all objects. However, as stated earlier, predictions
-are prone to errors and thus, the RSS module will not do
-any state predictions. In addition, the check of the predicted state would require
-an additional check against all the objects in the surrounding (the objects need
-to be predicted as well).
+with another vehicle.
+In order to determine whether a lateral movement solves the conflict a
+prediction of the state would be necessary.
+However, such a prediction for all objects comes with a high uncertainty,
+and therefore, would not be reliable.
+In addition to that RSS just has only visibility of the objects in
+the environment. It cannot determine that a lateral movement initiated by RSS
+will cause an accident with static obstacles.
 
-Therefore, it is impossible for the RSS module to detect whether a lateral evasion
-is really feasible. Nevertheless it is possible to try
-to make a lateral movement. In fact, this is similar to a wrong driving
-policy. The wrong (lateral) movement will not be avoided, but RSS will
-correct it in the next time step.
+Therefore, it is impossible for the RSS module to detect whether a lateral
+evasion is really feasible.
+In order to guarantee that the dangerous situation is solved, RSS will restrict
+the movement in the dangerous direction. Though, to allow the driving policy to
+find a better escape for the current situation, the RSS response will not be
+send directly to the actuators.
+It will just make sure the command of the driving policy is not conflicting
+with the response given by RSS.
+With this approach e.g. in a scenario where another vehicle cuts into
+the lane of the ego vehicle, RSS will propose a lateral deceleration towards
+the intersecting car. Hence, it will neglect steering towards direction
+of the other vehicle. But the driving policy can still steer to the
+opposite direction e.g. on an adjacent lane to avoid a collision.
 
-One thing that must be assured is that the initial dangerous situation is resolved
-regardless whether the lateral movement is possible or not. Therefore the car must
-always brake longitudinally, even if a lateral evasion is initiated.
 
-*TODO* Write something about lateral/longitudinal restrictions. If driving policy
-has better result, use it.
+### Response for vehicles driving in opposite directions
+
+If two vehicles are approaching each other in opposite direction and the lateral
+distance between them is not safe, the RSS paper defines that the car that is on
+its own lane can break with lower force than the car on the opposite direction.
+This definition leads to a correct behavior, if it is obvious that one car is on
+its own lane and the other car is driving on the lane belonging to the other car.
+
+However, there are situations where this cannot be determined.
+One situation e.g. is that there is a bidirectional single lane road.
+For sure on such a road each car should drive on the right side, but it cannot
+ be easily detected which car is no longer on its side of the road.
+
+Another situation is that there is a two lane road with one lane for each
+direction. If each car drives on its own lane but is very close to the left
+border, it could lead to a lateral conflict, as the safe lateral distance
+requires a safety margin. In this situation both cars are on the correct lane,
+but still there is a lateral conflict. In a real world scenario things can get
+even worse.
+As sensing will never be 100% accurate, small errors in the perception
+system can lead to an interpretation that one or even both cars
+believe that they are themselves on the correct lane and the other car is
+on the wrong lane. Therefore, each car will break with low force and expects
+the other car to break more strongly. Consequently, this dangerous situation
+will never be solved and the cars will crash.
+
+To avoid such a catastrophic situation, the RSS module
+will extend the rule given by the paper to the following.
+
+
+ 1. In case that one car is on the correct lane and the other car on the lane
+ belonging to the first car and there is a lateral conflict. If there is
+no  longitudinal conflict if both cars break according to the stated
+breaking pattern, but the longitudinal distance is not safe according to the
+"Safe Longitudinal Distance for Opposite Directions", given in the paper,
+the car on the correct lane is allowed to break with the lower breaking force,
+whether the other car must break according to the stated breaking pattern.
+(This is the situation described in the RSS paper).
+
+  2. Given a situation that there are two cars approaching each other with
+  lateral conflict  and  the longitudinal distance is no longer safe,
+  if both cars accelerate at maximum   during their response time and break with
+  minimum required breaking force.
+  Both cars must break according to the stated breaking pattern.
+
 
 ### Response Time
 According to the papers each traffic participant has a response time.
 Within this response time the participants (including the ego vehicle) are allowed
 to accelerate, and thus increase their velocity.
 
-In addition, the distance covered during the response time is part of the safe distance, as
-defined by RSS. Hence, upon entering a dangerous situation, it would be possible
-to accelerate for at most t < response time, as this acceleration is already
-considered.
+In addition, the distance covered during the response time is part of the safe
+distance, as defined by RSS. Hence, upon entering a dangerous situation,
+it would be possible to accelerate for at most t < response time, as this
+acceleration is already considered.
 
 Nevertheless, the RSS module will immediately issue a response action (longitudinal
 or lateral breaking maneuver). To ensure that the dangerous situation is evaded
 as fast as possible.
 
+
+
 ### Lane-Based Coordinate System
 As described in the paper RSS assumes that all cars drive in parallel and
-follow a straight line. Therefore it is required to transform the object
+follow a straight line. Therefore, it is required to transform the object
 states from Cartesian into Lane space. To be able to compare the velocities
 of the objects both objects need to be in the same coordinate system. Therefore,
 the RSS module will do the transformation into a space that covers both objects
@@ -177,14 +236,15 @@ parametric interval [0; 1].
 
 
 #### Design Alternative Iterative Approach
-
+@todo delete empty chapter
 
 #### Design Alternative Closed Form
+@todo delete empty chapter
 
 ### Parameter Definition and Alternatives
 The RSS papers use a few constants required for the safety calculations.
 The values for these constants are not defined and open for discussion/regulation.
-Nevertheless the implementation of the RSS modules needs to define initial values
+Nevertheless, the implementation of the RSS modules needs to define initial values
 for these functions. The parameters will be implemented as configuration values
 so these can be easily adjusted during evaluation or after the release.
 
@@ -225,10 +285,14 @@ discussed. The used parameters are:
 
 #### Decision on Initial Parameter Values
 
+##### Response time
+
 For the response times a common sense value for human drivers is about 2 seconds.
 For an AV vehicle the response time could be way lower. In order to be not too
 restrictive the initial value for the ego vehicle response time will be assumed
 as 1 second. Hence, &rho;~other~ = 2 seconds and &rho;~ego~ = 1 second.
+
+##### Acceleration
 
 Finding meaningful acceleration values is more complicated.
 At the one hand the values should be as close as possible or even exceed
@@ -250,20 +314,27 @@ of 3.4 𝑚/𝑠^2^ to 7 𝑚/𝑠^2^. But there are also sport cars that can go
 But for acceleration a regulation to a maximum value seems to be more likely than
 for deceleration.
 
+##### Restricting velocity to the current speed limit
+
 .Required safety distance for cars driving at 50 km/h (city speed) in same direction with &alpha;~break,min~ = 4 m/s^2^ and &alpha;~break,max~ = 8 m/s^2^ and &rho; = 2 s
 image::accelSafety.png[caption="Figure {counter:figure}. "]
 
-Nevertheless the assumption that a car can always accelerate at &alpha;~𝑎𝑐𝑐𝑒𝑙,𝑚𝑎𝑥~
+The assumption that a car can always accelerate at &alpha;~𝑎𝑐𝑐𝑒𝑙,𝑚𝑎𝑥~
 during the reponse time, leads to a significant increase of the required safety distance.
 Figure 1 shows the required safety distance for different acceleration values.
 So acceleration about 4 𝑚/𝑠^2^ doubles the required safety distance from 40 m to
 about 80 m at city speeds.
 
+Therefore, it might be advisable to add a restriction that are car is only allowed to accelerate
+up to the maximum allowed velocity.
+
+##### Further possible restrictions
+
 Another possibility to decrease the required safety distance to the leading
 vehicle would be to take the intention of the ego vehicle into account.
 E.g. if the ego vehicle is following another vehicle and is not intending
 to accelerate. There is no need to assume that the ego vehicle is accelerating
-during its response time. Nevertheless there are several issues with that approach:
+during its response time. Nevertheless, there are several issues with that approach:
 
 1. It needs to be assured that all intended and unintended accelerations
    (e.g. driving down a slope) are known to RSS
@@ -298,7 +369,7 @@ As a starting point the values are set to:
   issued, even if a lateral response is also possible.
 
 
-## Open Issues or Unresolved Trade-Off Decisions
+## Proposed changes / extensions to definitions in RSS paper
 
 * To overcome the issue of enormous safety distances, even at low speeds (see
   Figure 1.), it might be advisable to restrict the acceleration such that the
@@ -310,6 +381,10 @@ As a starting point the values are set to:
   not clear the dangerous situation, but will it make it even more severe.
   Therefore, it is important to introduce a special treatment for the case of
   opposing cars that both are on the correct lane.
+
+* It cannot be determined whether lateral evasive maneuvers are actually possible.
+Therefore, the RSS Module will not initiate such maneuvers, but will not hinder the
+driving policy to execute lateral evasive maneuvers.
 
 ## Architecture Overview
 ### Platform Architecture Analysis
