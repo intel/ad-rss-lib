@@ -37,6 +37,8 @@ The initial design does not yet cover:
 [width="100%",frame="topbot",options="header"]
 |======================
 | Term       | Description
+| AD         | Automated Driving
+| ADS        | Automated Driving System
 | HLD        | High Level Design
 | RSS        | Responsibility-Sensitive Safety
 | RSS Module | This is the entity performing all RSS operations
