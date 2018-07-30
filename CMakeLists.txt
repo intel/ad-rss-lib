@@ -33,6 +33,7 @@ add_library(${PROJECT_NAME} SHARED
   src/RSSChecker.cpp
   src/RSSFormulas.cpp
   src/RSSResponseFunctions.cpp
+  src/RSSResponseProvider.cpp
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES

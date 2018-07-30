@@ -30,7 +30,8 @@ bool RSSChecker::checkSituation(lane::Situation const &situation, Response &resp
   bool result = false;
 
   LongitudinalResponse longitudinalResponse = LongitudinalResponse::BrakeMin;
-  LateralResponse lateralResponse = LateralResponse::BrakeMinLeft;
+  LateralResponse lateralResponseLeft = LateralResponse::BrakeMin;
+  LateralResponse lateralResponseRight = LateralResponse::BrakeMin;
   // If one vehicle has priority we're in an intersection scenario
   if (!situation.egoVehicleState.hasPriority && !situation.otherVehicleState.hasPriority)
   {
@@ -42,14 +43,17 @@ bool RSSChecker::checkSituation(lane::Situation const &situation, Response &resp
 
     if (result)
     {
-      result = calculateLateralResponse(situation.egoVehicleState, situation.otherVehicleState, lateralResponse);
+      result = calculateLateralResponse(
+        situation.egoVehicleState, situation.otherVehicleState, lateralResponseLeft, lateralResponseRight);
     }
   }
 
   if (result)
   {
+    response.id = situation.id;
     response.mLongitudinalResponse = longitudinalResponse;
-    response.mLateralResponse = lateralResponse;
+    response.mLateralResponseLeft = lateralResponseLeft;
+    response.mLateralResponseRight = lateralResponseRight;
   }
   return result;
 }

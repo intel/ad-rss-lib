@@ -40,6 +40,7 @@ inline rss_core::lane::VehicleState createVehicleState(double velocity)
   state.dynamics.alphaLat.brakeMin = rss_core::cMinimumBrakingDeceleleration;
 
   state.responseTime = rss_core::cResponseTimeOtherVehicles;
+  state.hasPriority = false;
 
   return state;
 }

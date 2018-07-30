@@ -26,13 +26,16 @@ namespace rss_core {
 
 /**
  * @brief Possible longitudinal responses
+ *
+ * Order of the enum must be according to strictness or response.
  */
 enum class LongitudinalResponse
 {
-  Safe,           //!< State is longitudinal safe
-  None,           //!< State is longitudinal not safe, but no action required. E.g. ego vehicle is the leading vehicle
-  BrakeMin,       //!< State is longitudinal not safe, vehicle needs to decelerate at least with brake min
-  BrakeMinCorrect //!< State is longitudinal not safe, vehicle needs to decelerate at least with brake min correct
+  Safe = 0, //!< State is longitudinal safe
+  None = 1, //!< State is longitudinal not safe, but no action required. E.g. ego vehicle is the leading vehicle
+  BrakeMinCorrect = 2, //!< State is longitudinal not safe, vehicle needs to decelerate at least with brake min correct
+  BrakeMin = 3,        //!< State is longitudinal not safe, vehicle needs to decelerate at least with brake min
+
 };
 
 /**
@@ -41,12 +44,10 @@ enum class LongitudinalResponse
  */
 enum class LateralResponse
 {
-  Safe, //!< State is lateral safe
-  None, //!< State is lateral not safe, but no action required.
-  //!< State is lateral not safe, vehicle needs to decelerate at least with brake min its movement to the left
-  BrakeMinLeft,
-  //!< State is lateral not safe, vehicle needs to decelerate at least with brake min its movement to the  right
-  BrakeMinRight,
+  Safe = 0, //!< State is lateral safe
+  None = 1, //!< State is lateral not safe, but no action required.
+  //!< State is lateral not safe, vehicle needs to decelerate at least with brake min its lateral movement
+  BrakeMin = 2,
 };
 
 /**
@@ -63,10 +64,125 @@ public:
   LongitudinalResponse mLongitudinalResponse{LongitudinalResponse::BrakeMin};
 
   /**
-    * @brief Required lateral response
+    * @brief Required lateral response to the left
     */
-  LateralResponse mLateralResponse{LateralResponse::None};
+  LateralResponse mLateralResponseLeft{LateralResponse::None};
+
+  /**
+    * @brief Required lateral response to the right
+    */
+  LateralResponse mLateralResponseRight{LateralResponse::None};
+
+  /**
+   * @brief unique Id of the ego vehicle / object pair the response belongs to
+   *
+   * This Id must remain unique during the processing as it is used to track the state for the
+   * ego vehicle / object constellation
+   */
+  lane::Id id;
 };
+
+/**
+ * @brief is response longitudinal safe
+ *
+ * @param[in] response to check
+ *
+ * true if safe, false if not
+ */
+inline bool isLongitudinalSafe(Response const &response)
+{
+  return response.mLongitudinalResponse == LongitudinalResponse::Safe;
+}
+
+/**
+ * @brief is response lateral safe to the left
+ *
+ * @param[in] response to check
+ *
+ * true if safe, false if not
+ */
+inline bool isLateralSafeLeft(Response const &response)
+{
+  return response.mLateralResponseLeft == LateralResponse::Safe;
+}
+
+/**
+ * @brief is response lateral safe to the right
+ *
+ * @param[in] response to check
+ *
+ * true if safe, false if not
+ */
+inline bool isLateralSafeRight(Response const &response)
+{
+  return response.mLateralResponseRight == LateralResponse::Safe;
+}
+
+/**
+ * @brief is response lateral safe
+ * @param[in] response to check
+ *
+ * true if safe, false if not
+ */
+inline bool isLateralSafe(Response const &response)
+{
+  return isLateralSafeRight(response) && isLateralSafeLeft(response);
+}
+
+/**
+ * @brief is response safe
+ *
+ * @param[in] response to check
+ *
+ * true if safe, false if not
+ */
+inline bool isDangerous(Response const &response)
+{
+  return !isLongitudinalSafe(response) && !isLateralSafe(response);
+}
+
+/**
+ * @brief determine the resulting response
+ *
+ * @param[in] previousResponse the previous value of the response
+ * @param[in] newResponse the additionalResponse
+ *
+ * Check will be performed on the enum values of the LongitudinalResponse. Therefore, these values need to be in the
+ * right order
+ *
+ * @returns the resulting response
+ */
+inline LongitudinalResponse combineLongitudinalResponse(LongitudinalResponse previousResponse,
+                                                        LongitudinalResponse newResponse)
+{
+  if (previousResponse > newResponse)
+  {
+    return previousResponse;
+  }
+
+  return newResponse;
+}
+
+/**
+ * @brief determine the resulting response
+ *
+ * @param[in] previousResponse the previous value of the response
+ * @param[in] newResponse the additionalResponse
+ *
+ * Check will be performed on the enum values of the LateralResponse. Therefore, these values need to be in the right
+ * order
+ *
+ * @returns the resulting response
+ */
+inline LateralResponse combineLateralResponse(LateralResponse previousResponse, LateralResponse newResponse)
+{
+  if (previousResponse > newResponse)
+  {
+    return previousResponse;
+  }
+
+  return newResponse;
+}
 
 /**
  * @brief Calculate safety checks and determine required response for longitudinal direction for non intersection
@@ -118,13 +234,15 @@ bool calculateLongitudinalResponseNonIntersectionOppositeDirection(lane::Vehicle
  *
  * @param[in] egoVehicle state of ego vehicle
  * @param[in] otherVehicle state of other vehicle
- * @param[out] response required response of the ego vehicle
+ * @param[out] responseLeft required response of the ego vehicle to avoid collision to the left
+ * @param[out] responseRight required response of the ego vehicle to avoid collision to the right
  *
  * @returns false if a failure occured during calculations, true otherwise
  *
  */
 bool calculateLateralResponse(lane::VehicleState const &egoVehicle,
                               lane::VehicleState const &otherVehicle,
-                              LateralResponse &response);
+                              LateralResponse &responseLeft,
+                              LateralResponse &responseRight);
 
 } // namespace rss_core

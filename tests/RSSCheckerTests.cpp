@@ -36,5 +36,5 @@ TEST(RSSCheckerTests, same_direction_leading_ego_safe_distance)
   rss_core::RSSChecker checker;
 
   ASSERT_TRUE(checker.checkSituation(situation, response));
-  ASSERT_TRUE(response.mLongitudinalResponse == rss_core::LongitudinalResponse::Safe);
+  ASSERT_EQ(response.mLongitudinalResponse, rss_core::LongitudinalResponse::Safe);
 }

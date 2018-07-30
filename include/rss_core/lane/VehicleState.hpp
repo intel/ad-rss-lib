@@ -28,6 +28,7 @@
 #include "rss_core/lane/Position.hpp"
 #include "rss_core/lane/Velocity.hpp"
 #include "rss_core/time/Duration.hpp"
+
 /*!
  * @brief namespace rss_core
  */

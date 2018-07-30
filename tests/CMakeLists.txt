@@ -29,6 +29,9 @@ set(RSS_CORE_TEST_SOURCES
   RSSFormulaTestsCalculateSafeLongitudinalDistanceOppositeDirection.cpp
   RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
   RSSFormulaTestsCheckVehicleState.cpp
+  RSSResponseCombineResponseTests.cpp
+  RSSResponseIsSafeTests.cpp
+  RSSResponseProviderTests.cpp
 )
 
 add_executable(${EXEC_NAME} ${RSS_CORE_TEST_SOURCES})

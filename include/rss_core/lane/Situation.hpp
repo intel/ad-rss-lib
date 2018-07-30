@@ -24,20 +24,31 @@
 
 #pragma once
 
+#include <cstdint>
 #include "rss_core/lane/VehicleState.hpp"
 /*!
  * @brief namespace rss_core
  */
 namespace rss_core {
+
 /*!
  * @brief namespace lane
  */
 namespace lane {
 
+/**
+ * @brief Id of the situation.
+ * This id needs to be unique and should not change over time
+ *
+ * @todo move to model and another namespace --> lane::id might be confusing
+ */
+using Id = uint32_t;
+
 struct Situation
 {
   ::rss_core::lane::VehicleState egoVehicleState;
   ::rss_core::lane::VehicleState otherVehicleState;
+  ::rss_core::lane::Id id;
 };
 
 } // namespace lane

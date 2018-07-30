@@ -90,14 +90,16 @@ bool calculateLongitudinalResponseNonIntersectionOppositeDirection(lane::Vehicle
 
 bool calculateLateralResponse(lane::VehicleState const &egoVehicle,
                               lane::VehicleState const &otherVehicle,
-                              LateralResponse &response)
+                              LateralResponse &responseLeft,
+                              LateralResponse &responseRight)
 {
   (void)egoVehicle;
   (void)otherVehicle;
   /**
    * @todo Implement proper check -> Next Sprint
    */
-  response = LateralResponse::BrakeMinLeft;
+  responseLeft = LateralResponse::BrakeMin;
+  responseRight = LateralResponse::BrakeMin;
   return true;
 }
 
