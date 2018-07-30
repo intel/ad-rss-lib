@@ -389,8 +389,8 @@ driving policy to execute lateral evasive maneuvers.
 <iframe
   src="model/architecture/RSS-ArchitectureOverview.html"
   width="1024"
-  height="4300"
-  frameBorder="0">
+  onload="this.style.height=(this.contentDocument.body.scrollHeight + 15) + 'px';"
+  frameBorder="0" >
 </iframe>
 ++++
 
