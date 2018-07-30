@@ -1,82 +1,10 @@
 # High Level Design
 // intended empty
 
-## Introduction
-// intended empty
-
-### Purpose and Scope
-FILLME with text about purpose
-
-The design is based on the academic paper
-_"On a Formal Model of Safe and Scalable Self-driving Cars"_.
-The library will contain checks for longitudinal and lateral safe distance with
-other vehicles. It will cover multi-lane roads and intersections.
-
-[IMPORTANT]
-====
-The initial design does not yet cover:
-
-* Respecting occlusions
-* Checks with Vulnerable Road Users
-* Checks for unstructured roads, e.g. parking spaces
-====
-
-
-### Terminology
-.Terminology
-[width="100%",frame="topbot",options="header"]
-|======================
-| Term       | Description
-| HLD        | High Level Design
-| RSS        | Responsibility-Sensitive Safety
-| RSS Module | This is the entity performing all RSS operations
-|======================
-
-### References
-.References
-[width="100%",frame="topbot",options="header"]
-|======================
-| Ref | Document Name | Version | Location
-| 1   | On a Formal Model of Safe and Scalable Self-driving Cars | v5  | https://arxiv.org/abs/1708.06374
-| 2   | Implementing the RSS Model on NHTSA Pre-Crash Scenarios | July 2018  | https://www.mobileye.com/responsibility-sensitive-safety/rss_on_nhtsa.pdf
-|======================
-
-
-## Assumptions, Dependencies & Risks
-// intended empty
-
-### Assumptions
-.Assumptions
-[width="100%",frame="topbot",options="header"]
-|======================
-| Assumption # | Detailed Description
-| 1   |
-| 2   |
-|======================
-
-### Dependencies
-.Dependencies
-[width="100%",frame="topbot",options="header"]
-|======================
-| Dependency # | Detailed Description
-| 1   |
-| 2   |
-|======================
-
-
-### Risks
-.Risks
-[width="100%",frame="topbot",options="header"]
-|======================
-| Risk # | Detailed Description
-| 1   |
-| 2   |
-|======================
-
 ## Key Design Decisions and Alternatives
 // intended empty
 
-### RSS checking of the current state
+### RSS checks and response
 The RSS module is the entity performing all RSS checks and operations.
 It will perform checks on the current state of the environment,
 in order to determine if the ego vehicle is currently in a safe state.
@@ -91,7 +19,6 @@ as given by the driving policy into account.
 However as the RSS modules makes a worst case assumption, it is guaranteed that
 if the RSS module regards the situation as safe, no valid action of
 the driving policy can bring the vehicle into an unsafe state.
-
 
 If the vehicle is in a dangerous situation, RSS will assure a proper reaction
 that will bring the car back into a safe state.
@@ -360,13 +287,16 @@ As a starting point the values are set to:
 ====
 
 ### Summary
-* Use parameters specified in Table 6
-* RSS checks are performed on the current state, not on a future state
-* In dangerous situations, a longitudinal response (braking maneuver) is always
-  issued, even if a lateral response is also possible.
+
+#### Key decisions
+* RSS checks are performed on the current state on a ego vehicle - object pair basis
+* In dangerous situations only braking maneuvers are issued. RSS does not initiate
+  lateral evasive maneuvers.
+* Lane-CS: TODO fill
+* Proposed initial parameters are specified in Table 6.
 
 
-## Proposed changes / extensions to definitions in RSS paper
+#### Proposed changes / extensions to definitions in RSS paper
 
 * To overcome the issue of enormous safety distances, even at low speeds (see
   Figure 1.), it might be advisable to restrict the acceleration such that the

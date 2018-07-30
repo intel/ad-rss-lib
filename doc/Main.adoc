@@ -26,14 +26,12 @@
 
 toc::[]
 
-This document will describe the content of the first implementation of the RSS Module.
-The resulting implementation will provide a standalone C++-library.
+include::{includedir}/Disclaimer.adoc[]
+
+include::{includedir}/Overview.adoc[]
 
 include::{includedir}/HighLevelDesign.adoc[]
 
-include::{includedir}/InterfaceComponentDescription.adoc[]
+//include::{includedir}/InterfaceComponentDescription.adoc[]
 
-include::{includedir}/BuildInstructions.adoc[]
-
-// Include the Disclaimer
-include::{includedir}/Disclaimer.adoc[]
+//include::{includedir}/BuildInstructions.adoc[]

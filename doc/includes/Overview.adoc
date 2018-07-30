@@ -1,0 +1,84 @@
+# Overview
+// intended empty
+
+## Introduction
+The Responsibility-Sensitive Safety (RSS) model is designed to formalize
+and contextualize human judgment regarding all multi-agent driving
+situations and dilemmas. RSS formalizes terms like dangerous situations,
+proper response and notion of blame in a mathematical way. From planning
+and decision-making perspective, RSS ensures that the AD system will not
+issue a command that would lead to an accident.
+
+### Purpose and Scope
+The design of the library at hand is based on the academic paper
+_"On a Formal Model of Safe and Scalable Self-driving Cars"_.
+The library will contain checks for longitudinal and lateral safe distance with
+other vehicles. It will cover multi-lane roads and intersections.
+
+The scope of the planned for end of Q3'2018 is:
+
+ * Standalone C++-library containing the implementation as described below
+ * Code quality will be ensured by automated testing with test coverage 80/50
+   and static code analysis
+ * Set of CarMaker scenarios to demonstrate functionality of library
+
+[IMPORTANT]
+====
+The initial design does not yet cover:
+
+* Respecting occlusions
+* Checks with Vulnerable Road Users
+* Checks for unstructured roads, e.g. parking spaces
+====
+
+
+### Terminology
+.Terminology
+[width="100%",frame="topbot",options="header"]
+|======================
+| Term       | Description
+| HLD        | High Level Design
+| RSS        | Responsibility-Sensitive Safety
+| RSS Module | This is the entity performing all RSS operations
+|======================
+
+### References
+.References
+[width="100%",frame="topbot",options="header"]
+|======================
+| Ref | Document Name | Version | Location
+| 1   | On a Formal Model of Safe and Scalable Self-driving Cars | v5  | https://arxiv.org/abs/1708.06374
+| 2   | Implementing the RSS Model on NHTSA Pre-Crash Scenarios | July 2018  | https://www.mobileye.com/responsibility-sensitive-safety/rss_on_nhtsa.pdf
+|======================
+
+
+//## Assumptions, Dependencies & Risks
+// intended empty
+
+//### Assumptions
+//.Assumptions
+//[width="100%",frame="topbot",options="header"]
+//|======================
+//| Assumption # | Detailed Description
+//| 1   |
+//| 2   |
+//|======================
+//
+//### Dependencies
+//.Dependencies
+//[width="100%",frame="topbot",options="header"]
+//|======================
+//| Dependency # | Detailed Description
+//| 1   |
+//| 2   |
+//|======================
+//
+//
+//### Risks
+//.Risks
+//[width="100%",frame="topbot",options="header"]
+//|======================
+//| Risk # | Detailed Description
+//| 1   |
+//| 2   |
+//|======================
