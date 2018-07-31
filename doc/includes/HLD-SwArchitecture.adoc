@@ -1,0 +1,39 @@
+## Software Architecture
+// intended empty
+
+### Static View
+The static view on the system.
+Add here e.g. block diagrams.
+Might also be generated directly from Rhapsody
+
+#### Modules
+Here the blocks (or SW modules) from static view described, but only briefly
+
+##### RSS-Core
+
+##### RSS-Environment
+
+#### Interfaces
+// intended empty
+Where the last section focuses on what blocks there are, this section describes the interfaces used, provided
+
+##### External interfaces used
+
+##### External interfaces provided
+
+##### Internal interfaces
+
+##### Configuration interfaces
+
+##### Debug and Diagnostics interfaces
+
+
+### Dynamic View
+
+#### Partition to Tasks
+#### Memory Management
+#### Usage of Infrastructure
+#### Resources Constraints
+#### Error Handling
+#### Flows
+#### Initialization and Reset
