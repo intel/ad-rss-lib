@@ -107,11 +107,11 @@ a lateral conflict, the following rules apply:
 1. Both cars must brake according to the "stated braking pattern",
    if the longitudinal distance is not safe given that both cars
    accelerate at maximum during their response time and brake with
-   &alpha;~min,brake~ (as defined in the paper).
+   _{alpha}~min,brake~_ (as defined in the paper).
 
 2. If case 1 does not apply, and the longitudinal distance is not safe
    according to the definition in "Safe Longitudinal Distance for Opposite Directions",
-   the vehicle on the correct lane has to brake with &alpha;~min,brake,correct~,
+   the vehicle on the correct lane has to brake with _{alpha}~min,brake,correct~_,
    and the vehicle on the wrong lane has to conduct the "stated braking pattern"
    (This is the situation described in the RSS paper).
 
@@ -130,7 +130,7 @@ or lateral braking maneuver). To ensure that the dangerous situation is evaded
 as fast as possible.
 
 
-
+[[Section::LaneBasedCS]]
 ### Lane-Based Coordinate System
 As described in the paper, RSS assumes that the road is comprised by adjacent,
 straight lanes, of constant width. Therefore, it is required to transform the object
@@ -138,9 +138,9 @@ states from Cartesian into Lane space.
 
 The transformation into a lane-based coordinate system is described by a
 bijective function. Therein, the lateral position of a vehicle within the lane is mapped to a
-parametric interval _[-^1^/~2~; ^1^/~2~]_, where the lane boundaries are fixed at the borders of the interval.
+parametric interval [_-0.5; 0.5_], where the lane boundaries are fixed at the borders of the interval.
 
-[[comparing_velocities]]
+[[Section:comparing_velocities]]
 #### Comparing velocities and accelerations between lane-based coordinate systems
 As a consequence, besides the position also the velocities and accelerations have to be
 transformed into the lane-based coordinate system.
@@ -214,7 +214,7 @@ The following subsections describe the selected approach in more detail.
 ##### Two parallel lanes, different width
 *TODO* create and insert image for explanation
 
-As described in section <<comparing_velocities>>, the border between neighboring lanes
+As described in <<Section:comparing_velocities>>, the border between neighboring lanes
 of different width introduces discontinuities of the lateral acceleration values.
 
 As the RSS module judges the relative situation between the ego vehicle
@@ -227,15 +227,15 @@ _LCS~i~_ resolves all discontinuities.
 Coming back to the concrete example from above, left lane A having a constant
 width of _4 m_ and right lane B having a constant width of _2 m_, both lanes
 together have a resulting width of _6 m_. A Cartesian lateral acceleration value of
-_&alpha; = 1 m/s^2^_ becomes an acceleration value of
-_&alpha;~i~ = 1/6 lat/s^2^ = 0.167 lat/s^2^_ within the individual situation specific
+_{alpha} = 1 m/s^2^_ becomes an acceleration value of
+_{alpha}~i~ = 1/6 lat/s^2^ = 0.167 lat/s^2^_ within the individual situation specific
 lane-based coordinate system _LCS~i~_.
 
 The check of the ego vehicle with another object _o~j~_ which might be
 two lanes at the right of the ego vehicle in a lane C having a constant width
 of _3 m_, has to take all three lanes into account with resulting width of _9 m_.
 Therefore, a different lane-based coordinate system _LCS~j~_ is required using
-a different acceleration value of _&alpha;~j~ = 1/9 lat/s^2^ = 0.111 lat/s^2^_.
+a different acceleration value of _{alpha}~j~ = 1/9 lat/s^2^ = 0.111 lat/s^2^_.
 
 ##### Lane is widening or has a narrow curve
 The individual situation specific lane-based coordinate system _LCS_ does
@@ -269,14 +269,14 @@ between ego vehicle and the actual object.
 
 In case the ego vehicle is following object _o~k~_ within the same lane,
 the acceleration value of the ego vehicle
-(_&alpha;^ego^~accel,k~ = &alpha;~accel~ * scale^lon^~k,max~_)
+(_{alpha}^ego^~accel,k~ = {alpha}~accel~ * scale^lon^~k,max~_)
 as well as the deceleration values of the object _o~k~_
-(_&alpha;^o^~brake,k~ = &alpha;~brake~ * scale^lon^~k,max~_)
+(_{alpha}^o^~brake,k~ = {alpha}~brake~ * scale^lon^~k,max~_)
 have to be scaled with the maximum scale factor _1.04_, whereas the deceleration
 of the ego vehicle
-(_&alpha;^ego^~brake,k~ = &alpha;~brake~ * scale^lon^~k,min~_)
+(_{alpha}^ego^~brake,k~ = {alpha}~brake~ * scale^lon^~k,min~_)
 and the acceleration of the object
-(_&alpha;^o^~accel,k~ = &alpha;~accel~ * scale^lon^~k,min~_)
+(_{alpha}^o^~accel,k~ = {alpha}~accel~ * scale^lon^~k,min~_)
 have to be scaled with the minimum scale factor _0.96_.
 This has to be adapted in case the ego vehicle is the vehicle in front or the
 object is approaching from the opposite direction.
@@ -333,16 +333,16 @@ so these can be easily adjusted during evaluation or after the release.
 In the following, the key parameters and the decision for their initial values are
 discussed. The used parameters are:
 
-* Response time &rho;.
+* Response time _{rho}_.
   It is assumed that an AV vehicle has a shorter response
   time than a human driver. Therefore, there is a need to have two different parameters.
   As it might not be possible to determine whether another object is an AV vehicle
   or has a human driver, the RSS module will safely assume that all other objects
   are driven by humans. Hence, two parameters for the response time are used.
-** &rho;~ego~ for the ego vehicle
-** &rho;~other~ for all other objects
+** _{rho}~ego~_ for the ego vehicle
+** _{rho}~other~_ for all other objects
 
-* Acceleration &alpha;.
+* Acceleration _{alpha}_.
   RSS proposes several different acceleration/deceleration
   values. One could argue that acceleration/deceleration differs with the type
   of vehicle. Also at least the acceleration is dependent on the current vehicle speed.
@@ -358,10 +358,10 @@ discussed. The used parameters are:
   its checks with the globally defined accelerations values even if the vehicle
   does not intend to utilize them to its limits.
   The parameters used for acceleration are:
-** &alpha;~accel,max~ maximum possible acceleration
-** &alpha;~brake,min~ minimum allowed braking deceleration for most scenarios
-** &alpha;~brake,max~ maximum allowed deceleration
-** &alpha;~brake,min,correct~ minimum allowed deceleration for a car on its lane with
+** _{alpha}~accel,max~_ maximum possible acceleration
+** _{alpha}~brake,min~_ minimum allowed braking deceleration for most scenarios
+** _{alpha}~brake,max~_ maximum allowed deceleration
+** _{alpha}~brake,min,correct~_ minimum allowed deceleration for a car on its lane with
    another car approaching on the same lane in wrong driving direction
 
 
@@ -372,7 +372,7 @@ discussed. The used parameters are:
 For the response times a common sense value for human drivers is about 2 seconds.
 For an AV vehicle the response time could be way lower. In order to be not too
 restrictive the initial value for the ego vehicle response time will be assumed
-as 1 second. Hence, &rho;~other~ = 2 seconds and &rho;~ego~ = 1 second.
+as 1 second. Hence, _{rho}~other~ = 2 s_ and _{rho}~ego~ = 1 s_.
 
 ##### Acceleration
 
@@ -384,28 +384,29 @@ for other cars may lead to a false interpretation of the situation.
 
 On the other hand a too big difference between the minimum and maximum acceleration
 values will lead to a very defensive driving style. As a result, participating
-in dense traffic, will not be possible (see Figure 1). A rule of thumb for deceleration in German
-driving schools is: &alpha;~brake,min~ = 4 𝑚/s^2^ and &alpha;~brake,max~ = 8 𝑚/𝑠^2^
+in dense traffic, will not be possible (see <<Figure:SafetyDistanceCity>>). A rule of thumb for deceleration in German
+driving schools is: _{alpha}~brake,min~ = 4 m/s^2^_ and _{alpha}~brake,max~ = 8 m/s^2^_
 
-But on the other hand, modern cars are able to decelerate with up to 12 𝑚/𝑠^2^.
+But on the other hand, modern cars are able to decelerate with up to _12 m/s^2^_.
 Especially for deceleration, it is questionable whether it is possible and tolerable
 to restrict maximum braking below physically possible braking force.
 
 For the maximum acceleration at low speeds a standard car will be in the range
-of 3.4 𝑚/𝑠^2^ to 7 𝑚/𝑠^2^. But there are also sport cars that can go faster than that.
+of _3.4 m/s^2^_ to _7 m/s^2^_. But there are also sport cars that can go faster than that.
 But for acceleration a regulation to a maximum value seems to be more likely than
 for deceleration.
 
 ##### Restricting velocity to the current speed limit
 
-.Required safety distance for cars driving at 50 km/h (city speed) in same direction with &alpha;~brake,min~ = 4 m/s^2^ and &alpha;~brake,max~ = 8 m/s^2^ and &rho; = 2 s
+[[Figure:SafetyDistanceCity]]
+.Required safety distance for cars driving at 50 km/h (city speed) in same direction with _α~brake,min~ = 4 m/s^2^_ and _α~brake,max~ = 8 m/s^2^_ and _ρ = 2 s_
 image::accelSafety.png[caption="Figure {counter:figure}. "]
 
-The assumption that a car can always accelerate at &alpha;~accel,max~
+The assumption that a car can always accelerate at _{alpha}~accel,max~_
 during the reponse time, leads to a significant increase of the required safety distance.
-Figure 1 shows the required safety distance for different acceleration values.
-So acceleration about 4 𝑚/𝑠^2^ doubles the required safety distance from 40 m to
-about 80 m at city speeds.
+<<Figure:SafetyDistanceCity>> shows the required safety distance for different acceleration values.
+So acceleration about _4 m/s^2^_ doubles the required safety distance from _40 m_ to
+about _80 m_ at city speeds.
 
 Therefore, it might be advisable to add a restriction that are car is only allowed to accelerate
 up to the maximum allowed velocity.
@@ -429,16 +430,17 @@ Therefore, in the current implementation this approach will not be applied.
 ====
 As a starting point the values are set to:
 
+[[Table:InitialParameters]]
 .Chosen Default Parameters
 [width="100%",frame="topbot",options="header"]
 |======================
-| Parameter           | Value
-| &rho;~ego~           | 1 𝑠
-| &rho;~other~          | 2 𝑠
-| &alpha;~accel,max~      | 3.5 𝑚/𝑠^2^
-| &alpha;~brake,min~      | 4 𝑚/𝑠^2^
-| &alpha;~brake,max~      | 8 𝑚/𝑠^2^
-| &alpha;~brake,min,correct~   | 3 𝑚/𝑠^2^
+| Parameter                       | Value
+| _{rho}~ego~_                    | _1 s_
+| _{rho}~other~_                  | _2 s_
+| _{alpha}~accel,max~_            | _3.5 m/s^2^_
+| _{alpha}~brake,min~_            | _4 m/s^2^_
+| _{alpha}~brake,max~_            | _8 m/s^2^_
+| _{alpha}~brake,min,correct~_    | _3 m/s^2^_
 |======================
 
 
@@ -451,21 +453,21 @@ As a starting point the values are set to:
 * In dangerous situations only braking maneuvers are issued. RSS does not initiate
   lateral evasive maneuvers.
 * Lane-CS: TODO fill
-* Proposed initial parameters are specified in Table 6.
+* Proposed initial parameters are specified in <<Table:InitialParameters>>.
 
 
 #### Proposed changes / extensions to definitions in RSS paper
 
 * To overcome the issue of enormous safety distances, even at low speeds (see
-  Figure 1.), it might be advisable to restrict the acceleration such that the
+  <<Figure:SafetyDistanceCity>>.), it might be advisable to restrict the acceleration such that the
   achievable velocities are always below the maximum allowed speed limit.
 
 * When two vehicles are driving in opposite direction, but both cars "believe"
-  that they are on the correct lane, both cars will brake with &alpha;~brake,min,correct~
-  assuming that the other car slows down with &alpha;~brake,min~. However, this may
+  that they are on the correct lane, both cars will brake with _{alpha}~brake,min,correct~_
+  assuming that the other car slows down with _{alpha}~brake,min~_. However, this may
   not clear the dangerous situation. Therefore, it is important to introduce a
   special treatment for the case of opposing cars that both are on the correct lane.
-  This handling is explained in Section 3.3.
+  This handling is explained in <<Section::LaneBasedCS>>.
 
 * It cannot be determined whether lateral evasive maneuvers are actually possible.
 Therefore, the RSS Module will not initiate such maneuvers, but will not hinder the
@@ -476,8 +478,9 @@ driving policy to execute lateral evasive maneuvers.
 ++++
 <iframe
   src="model/architecture/RSS-ArchitectureOverview.html"
-  width="1024"
+  width="100%"
   onload="this.style.height=(this.contentDocument.body.scrollHeight + 15) + 'px';"
+  scrolling="no"
   frameBorder="0" >
 </iframe>
 ++++

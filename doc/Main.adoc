@@ -12,6 +12,8 @@
 // figure caption and icon style
 :figure-caption: Logo
 :icons: font
+// referencing style
+:xrefstyle: short
 // document type
 :doctype: book
 // math mode
@@ -21,8 +23,12 @@
 :pdf-style: custom
 :pdf-fontsdir: /var/lib/gems/2.3.0/gems/asciidoctor-pdf-1.5.0.alpha.16/data/fonts
 // html ressources
+:revnumber: 0.0.1
 :stylesheet: documentation_style.css
 :stylesdir: ./resources/css
+
+:alpha: &#945;
+:rho: &#961;
 
 toc::[]
 

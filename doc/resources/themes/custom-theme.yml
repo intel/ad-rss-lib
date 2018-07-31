@@ -235,6 +235,22 @@ toc:
     #content: ". "
     font_color: a9a9a9
     #levels: 2 3
+header:
+  font_size: $base_font_size_small
+  # NOTE if background_color is set, background and border will span width of page
+  border_color: dddddd
+  border_width: 0.25
+  height: $base_line_height_length * 2.5
+  line_height: 1
+  padding: [$base_line_height_length, 1, 0, 1]
+  vertical_align: top
+  recto:
+    right:
+      content: '{section-or-chapter-title}'
+  verso:
+    #columns: $footer_recto_columns
+    left:
+      content: $header_recto_right_content
 # NOTE in addition to footer, header is also supported
 footer:
   font_size: $base_font_size_small
@@ -258,7 +274,7 @@ footer:
     #columns: "<50% =0% >50%"
     right:
       #content: '{page-number}'
-      content: '{section-or-chapter-title} | {page-number}'
+      content: '{page-number}'
       #content: '{document-title} | {page-number}'
     center:
       content: '{document-title}'
