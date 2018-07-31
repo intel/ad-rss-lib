@@ -361,11 +361,14 @@ discussed. The used parameters are:
   does not intend to utilize them to its limits.
   The parameters used for acceleration are:
 ** _{alpha}~accel,max~_ maximum possible acceleration
-** _{alpha}~brake,min~_ minimum allowed braking deceleration for most scenarios
-** _{alpha}~brake,max~_ maximum allowed deceleration
-** _{alpha}~brake,min,correct~_ minimum allowed deceleration for a car on its lane with
+** _{alpha}~brake,min~_ minimum allowed braking deceleration in longitudinal direction for most scenarios
+** _{alpha}~brake,max~_ maximum allowed deceleration in longitudinal direction
+** _{alpha}~brake,min,correct~_ minimum allowed deceleration in longitudinal direction for a car on its lane with
    another car approaching on the same lane in wrong driving direction
-
+** _{alpha}^lat^~brake,min~_ minimum allowed braking deceleration in lateral direction
+** _{alpha}^lat^~accel,max~_ maximum allowed acceleration in lateral direction
+** _{delta}^lat^~min~_ fluctuation margin for that needs to be respected when
+calculating lateral safe distance
 
 #### Decision on Initial Parameter Values
 
@@ -376,7 +379,7 @@ For an AV vehicle the response time could be way lower. In order to be not too
 restrictive the initial value for the ego vehicle response time will be assumed
 as 1 second. Hence, _{rho}~other~ = 2 s_ and _{rho}~ego~ = 1 s_.
 
-##### Acceleration
+##### Longitudinal Acceleration
 
 Finding meaningful acceleration values is more complicated.
 At the one hand the values should be as close as possible or even exceed
@@ -398,11 +401,11 @@ of _3.4 m/s^2^_ to _7 m/s^2^_. But there are also sport cars that can go faster 
 But for acceleration a regulation to a maximum value seems to be more likely than
 for deceleration.
 
-##### Restricting velocity to the current speed limit
+###### Restricting velocity to the current speed limit
 
 [[Figure:SafetyDistanceCity]]
 .Required safety distance for cars driving at 50 km/h (city speed) in same direction with _α~brake,min~ = 4 m/s^2^_ and _α~brake,max~ = 8 m/s^2^_ and _ρ = 2 s_
-image::accelSafety.png[caption="Figure {counter:figure}. "]
+image::accelSafety.svg[caption="Figure {counter:figure}. "]
 
 The assumption that a car can always accelerate at _{alpha}~accel,max~_
 during the reponse time, leads to a significant increase of the required safety distance.
@@ -413,7 +416,7 @@ about _80 m_ at city speeds.
 Therefore, it might be advisable to add a restriction that are car is only allowed to accelerate
 up to the maximum allowed velocity.
 
-##### Further possible restrictions
+###### Further possible restrictions
 
 Another possibility to decrease the required safety distance to the leading
 vehicle would be to take the intention of the ego vehicle into account.
@@ -427,6 +430,60 @@ during its response time. Nevertheless, there are several issues with that appro
    regardless to the intent of the vehicle.
 
 Therefore, in the current implementation this approach will not be applied.
+
+
+##### Lateral Acceleration
+
+When defining the parameters for lateral acceleration and deceleration, it is
+import to keep in mind that the definition must allow bypassing of vehicles.
+Physically high lateral accelerations are possible, especially as the transform
+to the lane coordinate system could add additional lateral acceleration.
+In order to be able to bypass a vehicle that is driving on a parallel lane,
+the safe lateral distance needs to be safe during the complete response time of
+the other vehicle.
+
+Let us consider two identical vehicles driving on the centerline of two adjacent
+lanes with zero lateral velocity.
+There is no lateral conflict, if the distance between the border of the car and the
+adjacent lane is bigger than the distance that the vehicle will cover when
+accelerating laterally at maximum during its response time and then decelerating to
+zero lateral velocity.
+
+[[Figure:LateralDistance]]
+.Distance a vehicle will cover when applying the "Stated Braking Pattern" with _ρ~vehicle~ = 2 s_
+image::accelLat.svg[caption="Figure {counter:figure}. "]
+
+
+<<Figure:LateralDistance>> shows the required safety distance, without considering
+the fluctuation margin, each car needs to keep to the lane border so the vehicles
+can pass without lateral conflict.
+With an assumed minimal lane width of 3 meters and an assumed vehicle width of
+2 meters, the distance from vehicle edge to lane border is 0.5 meter if the car
+is driving exactly in the middle of the lane.
+
+Hence, the required safety distance must be at most 0.5 meter.
+When using the same values for
+acceleration and deceleration this will lead to _{alpha}^lat^~accel,max~ < 0.1 m/s^2^_.
+But when restricting the acceleration to that value a lane change will take almost
+8 seconds.
+
+As a result it is advisable, to use a higher deceleration than acceleration
+to keep the required safety margin and allow for faster lane changes.
+E.g. _{alpha}^lat^~brake,min~ = 0.8 m/s^2^_ and
+_{alpha}^lat^~accel,max~ = 0.2 m/s^2^_ will fullfill the given safety distance
+requirement. An increase to higher acceleration values is for the given constraints
+not possible, as the distance covered during response time is already 0.4 meters.
+
+It is obvious that given the lateral safety definition a lane change will at
+least have a duration of two times the response time.
+
+The lateral distance requirement is very strict, therefore it is
+required to also come up with a desirably small value for the required lateral
+safety margin _{delta}^lat^~min~_. As this should only cover for fluctuations,
+there is also no need for a huge margin. Thus initially this value will be set to
+_{delta}^lat^~min~ = 10 cm_. This value should be able to cover small fluctuations,
+but will not have a big impact on the safety distance.
+
 
 [NOTE]
 ====
@@ -443,6 +500,9 @@ As a starting point the values are set to:
 | _{alpha}~brake,min~_            | _4 m/s^2^_
 | _{alpha}~brake,max~_            | _8 m/s^2^_
 | _{alpha}~brake,min,correct~_    | _3 m/s^2^_
+| _{alpha}^lat^~brake,min~_       | _0.8 m/s^2^_
+| _{alpha}^lat^~accel,max~_       | _0.2 m/s^2^_
+| _{delta}^lat^~min~_             | _10 cm_
 |======================
 
 

@@ -1,4 +1,5 @@
 # RSS Documentation
+Cornelius Buerkle, Bernd Gassmann, Fabian Oboril
 // table of content
 :toc: left
 :toclevels: 3
@@ -24,11 +25,13 @@
 :pdf-fontsdir: /var/lib/gems/2.3.0/gems/asciidoctor-pdf-1.5.0.alpha.16/data/fonts
 // html ressources
 :revnumber: 0.0.1
+:revdate: {localdate}
 :stylesheet: documentation_style.css
 :stylesdir: ./resources/css
 
 :alpha: &#945;
 :rho: &#961;
+:delta: &#948;
 
 toc::[]
 
