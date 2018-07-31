@@ -26,7 +26,7 @@ GEN_VERSION="8.3.1-1478"
 
 GEN_OUTPUT_DIR=$(readlink -m ${FILE_DIR}/../../build/generated)
 GEN_MODEL_FILE=$(readlink -m ${FILE_DIR}/../export/RSS.xmi)
-GEN_MODEL_TARGET_ELEMENT="RSS.RssCore"
+GEN_MODEL_TARGET_ELEMENT="RSS.RssModule"
 
 INCLUDE_TARGET_LOCATION=$(readlink -m ${FILE_DIR}/../../include)
 SRC_TARGET_LOCATION=$(readlink -m ${FILE_DIR}/../../src)
@@ -155,8 +155,10 @@ if (( POST_PROCESSING && ! RESULT )); then
   if [ -e ${GEN_OUTPUT_DIR} ]; then
     echo "Post process generated files"
     # adapt generated files
-    process_and_copy_header_files "${GEN_OUTPUT_DIR}/rss_core_lane_lib/include" "rss_core/lane"
-    process_and_copy_header_files "${GEN_OUTPUT_DIR}/rss_core_time_lib/include" "rss_core/time"
+    process_and_copy_header_files "${GEN_OUTPUT_DIR}/rss_lane_lib/include" "rss/lane"
+    process_and_copy_header_files "${GEN_OUTPUT_DIR}/rss_time_lib/include" "rss/time"
+    process_and_copy_header_files "${GEN_OUTPUT_DIR}/rss_check_lib/include" "rss/check"
+    process_and_copy_header_files "${GEN_OUTPUT_DIR}/rss_object_lib/include" "rss/object"
   fi
 fi
 

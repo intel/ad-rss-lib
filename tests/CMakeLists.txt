@@ -21,23 +21,25 @@
 set(EXEC_NAME rss_core_tests)
 
 set(RSS_CORE_TEST_SOURCES
-  MathUnitTestsDistanceAfterResponseTime.cpp
-  MathUnitTestsStoppingDistance.cpp
-  MathUnitTestsVelocityAfterResponseTime.cpp
-  RSSCheckerTests.cpp
-  RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
-  RSSFormulaTestsCalculateSafeLongitudinalDistanceOppositeDirection.cpp
-  RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
-  RSSFormulaTestsCheckVehicleState.cpp
-  RSSResponseCombineResponseTests.cpp
-  RSSResponseIsSafeTests.cpp
-  RSSResponseProviderTests.cpp
+  check/RSSResponseCombineResponseTests.cpp
+  check/RSSResponseIsSafeTests.cpp
+  core/RSSCheckerTests.cpp
+  core/RSSResponseProviderTests.cpp
+  lane/MathUnitTestsDistanceAfterResponseTime.cpp
+  lane/MathUnitTestsStoppingDistance.cpp
+  lane/MathUnitTestsVelocityAfterResponseTime.cpp
+  lane/RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
+  lane/RSSFormulaTestsCalculateSafeLongitudinalDistanceOppositeDirection.cpp
+  lane/RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
+  lane/RSSFormulaTestsCheckVehicleState.cpp
 )
 
 add_executable(${EXEC_NAME} ${RSS_CORE_TEST_SOURCES})
 
 target_include_directories(${EXEC_NAME}
   PRIVATE
+  ../src
+  test_support
 )
 
 target_link_libraries(${EXEC_NAME} PRIVATE

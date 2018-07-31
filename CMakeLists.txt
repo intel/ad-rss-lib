@@ -29,11 +29,11 @@ add_compile_options(-Werror -Wall -Wextra)
 
 
 add_library(${PROJECT_NAME} SHARED
-  src/Math.cpp
-  src/RSSChecker.cpp
-  src/RSSFormulas.cpp
-  src/RSSResponseFunctions.cpp
-  src/RSSResponseProvider.cpp
+  src/check/RSSResponseFunctions.cpp
+  src/core/RSSChecker.cpp
+  src/core/RSSResponseProvider.cpp
+  src/lane/Math.cpp
+  src/lane/RSSFormulas.cpp
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -45,6 +45,8 @@ target_include_directories(${PROJECT_NAME}
   PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+  PRIVATE
+  src
 )
 
 target_link_libraries(${PROJECT_NAME}
