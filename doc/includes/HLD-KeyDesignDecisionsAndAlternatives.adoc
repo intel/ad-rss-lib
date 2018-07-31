@@ -146,7 +146,9 @@ and thus, velocities and accelerations of different lane-based coordinate system
 cannot be compared to each other anymore.
 
 ##### Two parallel lanes, different width
-*TODO* create and insert image for explanation
+[[Figure:LanesWithDifferentWidth]]
+.Two parallel lanes with different width causing a discontinuity in lateral acceleration
+image::lanes_with_different_width.svg[caption="Figure {counter:figure}. "]
 
 Let us illustrate this on a simple example with two parallel lanes of different width.
 Let the left lane A have a constant width of _4 m_ where the right lane B
@@ -159,8 +161,10 @@ This situation is getting even worse, if a car is changing the lane from lane A 
 then the closed formula for constant accelerated movement to calculate the lateral
 distance over time cannot be applied anymore directly.
 
-##### Lane is widening
-*TODO* create and insert image for explanation
+##### Lane is widening/narrowing
+[[Figure:LaneWidthNarrowing]]
+.Changing lane width and its impact on the lateral acceleration
+image::lane_width_narrowing.svg[caption="Figure {counter:figure}. "]
 
 Let us consider a lane with changing width in another example.
 If the lane's width at the beginning is _4 m_ and _100 m_ away the lane is narrowing
@@ -169,7 +173,9 @@ changing from _0.25 lat/s^2^_ at the beginning towards _0.5 lat/s^2^_ while adva
 within the lane.
 
 ##### Lane with a narrow curve
-*TODO* create and insert image for explanation
+[[Figure:LaneConstantCurve]]
+.Lane describing a narrow 180° curve
+image::lane_constant_curve.png[caption="Figure {counter:figure}. "]
 
 This section illustrates a longitudinal situation similar to the lane widening
 example. Let's assume the lane has a constant width of _4 m_ describing a curve with
@@ -209,10 +215,9 @@ nevertheless this might lead to a more cautious behavior of the vehicle.
 The following subsections describe the selected approach in more detail.
 
 ##### Two parallel lanes, different width
-*TODO* create and insert image for explanation
-
 As described in <<Section:comparing_velocities>>, the border between neighboring lanes
-of different width introduces discontinuities of the lateral acceleration values.
+of different width introduces discontinuities of the lateral acceleration values
+(see <<Figure:LanesWithDifferentWidth>>).
 
 As the RSS module judges the relative situation between the ego vehicle
 and the other objects one by one individually, it is not required to distinguish
