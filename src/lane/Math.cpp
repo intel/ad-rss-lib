@@ -90,7 +90,7 @@ bool calculateDistanceAfterResponseTime(Speed const currentSpeed,
   // s(t) =(a/2) * t^2 + v0 * t
 
   coveredDistance
-    = acceleration * 0.5 * resultingResponseTime * resultingResponseTime + currentSpeed * resultingResponseTime;
+    = (acceleration * 0.5 * resultingResponseTime * resultingResponseTime) + (currentSpeed * resultingResponseTime);
 
   return true;
 }

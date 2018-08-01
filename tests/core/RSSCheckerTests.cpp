@@ -26,22 +26,123 @@ using check::Response;
 using check::LateralResponse;
 using check::LongitudinalResponse;
 
-TEST(RSSCheckerTests, same_direction_leading_ego_safe_distance)
+class RSSCheckerTests : public testing::Test
 {
-  lane::VehicleState leadingVehicle = createVehicleState(100);
+protected:
+  virtual void SetUp()
+  {
+  }
+
+  virtual void TearDown()
+  {
+  }
+  lane::VehicleState leadingVehicle;
+  lane::VehicleState followingVehicle;
+  lane::Situation situation;
+  Response response;
+};
+
+TEST_F(RSSCheckerTests, same_direction_leading_ego_safe_distance)
+{
+  leadingVehicle = createVehicleState(100);
+  followingVehicle = createVehicleState(10);
+
   leadingVehicle.position.lonInterval.minimum = 100;
   leadingVehicle.position.lonInterval.maximum = 106;
-  lane::VehicleState followingVehicle = createVehicleState(10);
+
   followingVehicle.position.lonInterval.minimum = 0;
   followingVehicle.position.lonInterval.maximum = 5;
-  Response response;
-
-  lane::Situation situation;
   situation.egoVehicleState = leadingVehicle;
   situation.otherVehicleState = followingVehicle;
 
   ASSERT_TRUE(checkSituation(situation, response));
   ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::Safe);
+}
+
+TEST_F(RSSCheckerTests, same_direction_leading_other_50kmh_safe)
+{
+  leadingVehicle = createVehicleState(50);
+  followingVehicle = createVehicleState(50);
+  followingVehicle.dynamics.alphaLon.accelMax = 2.;
+  followingVehicle.dynamics.alphaLon.brakeMin = 4.;
+
+  leadingVehicle.position.lonInterval.minimum = 60;
+  leadingVehicle.position.lonInterval.maximum = 65;
+
+  situation.egoVehicleState = followingVehicle;
+  situation.otherVehicleState = leadingVehicle;
+
+  ASSERT_TRUE(checkSituation(situation, response));
+  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::Safe);
+}
+
+TEST_F(RSSCheckerTests, same_direction_leading_other_50kmh_unsafe)
+{
+  leadingVehicle = createVehicleState(50);
+  followingVehicle = createVehicleState(50);
+  followingVehicle.dynamics.alphaLon.accelMax = 0.;
+  followingVehicle.dynamics.alphaLon.brakeMin = 4.;
+
+  leadingVehicle.position.lonInterval.minimum = 39;
+  leadingVehicle.position.lonInterval.maximum = 44;
+
+  situation.egoVehicleState = followingVehicle;
+  situation.otherVehicleState = leadingVehicle;
+
+  ASSERT_TRUE(checkSituation(situation, response));
+  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMin);
+}
+
+TEST_F(RSSCheckerTests, same_direction_leading_other_50kmh_other_standing)
+{
+  leadingVehicle = createVehicleState(0);
+  followingVehicle = createVehicleState(50);
+  followingVehicle.dynamics.alphaLon.accelMax = 2.;
+  followingVehicle.dynamics.alphaLon.brakeMin = 4.;
+
+  leadingVehicle.position.lonInterval.minimum = 71.8;
+  leadingVehicle.position.lonInterval.maximum = 73.;
+
+  situation.egoVehicleState = followingVehicle;
+  situation.otherVehicleState = leadingVehicle;
+
+  ASSERT_TRUE(checkSituation(situation, response));
+  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::Safe);
+
+  leadingVehicle.position.lonInterval.minimum = 71.6;
+  leadingVehicle.position.lonInterval.maximum = 73.;
+
+  situation.egoVehicleState = followingVehicle;
+  situation.otherVehicleState = leadingVehicle;
+
+  ASSERT_TRUE(checkSituation(situation, response));
+  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMin);
+}
+
+TEST_F(RSSCheckerTests, same_direction_leading_other_0kmh_other_standing)
+{
+  leadingVehicle = createVehicleState(0);
+  followingVehicle = createVehicleState(0);
+  followingVehicle.dynamics.alphaLon.accelMax = 2.;
+  followingVehicle.dynamics.alphaLon.brakeMin = 4.;
+
+  leadingVehicle.position.lonInterval.minimum = 6.01;
+  leadingVehicle.position.lonInterval.maximum = 8.;
+
+  situation.egoVehicleState = followingVehicle;
+  situation.otherVehicleState = leadingVehicle;
+
+  ASSERT_TRUE(checkSituation(situation, response));
+  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::Safe);
+
+  leadingVehicle.position.lonInterval.minimum = 6;
+  leadingVehicle.position.lonInterval.maximum = 8;
+
+  situation.egoVehicleState = followingVehicle;
+  situation.otherVehicleState = leadingVehicle;
+
+  ASSERT_TRUE(checkSituation(situation, response));
+  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMin);
 }
 
 } // namespace RSSChecker

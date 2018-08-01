@@ -53,5 +53,20 @@ TEST(MathUnitTestsStoppingDistance, checks_0kmh)
   ASSERT_NEAR(stoppingDistance, 0, cDoubleNear);
 }
 
+TEST(MathUnitTestsStoppingDistance, checks_value_range)
+{
+  Acceleration deceleration = 2.;
+
+  for (int i = 0; i < 300; i++)
+  {
+    lane::Speed startVelocity = kmhToMeterPerSec(static_cast<lane::Speed>(i));
+    double resultingDistance = startVelocity * startVelocity / (2. * deceleration);
+
+    Distance stoppingDistance = 0.;
+    ASSERT_TRUE(calculateStoppingDistance(startVelocity, deceleration, stoppingDistance));
+    ASSERT_NEAR(stoppingDistance, resultingDistance, cDoubleNear);
+  }
+}
+
 } // namespace lane
 } // namespace rss

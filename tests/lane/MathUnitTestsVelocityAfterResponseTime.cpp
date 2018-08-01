@@ -67,5 +67,13 @@ TEST(MathUnitTestsSpeedAfterResponseTime, negative_acceleration_till_stop)
   ASSERT_NEAR(0., resultingSpeed, cDoubleNear);
 }
 
+TEST(MathUnitTestsSpeedAfterResponseTime, acceleration_accel_max_2m_s2_50kmh)
+{
+  Speed startSpeed = kmhToMeterPerSec(50);
+  Speed resultingSpeed = 0.;
+  ASSERT_TRUE(calculateSpeedAfterResponseTime(startSpeed, 2., 2., resultingSpeed));
+  ASSERT_NEAR(startSpeed + 4., resultingSpeed, cDoubleNear);
+}
+
 } // namespace lane
 } // namespace rss

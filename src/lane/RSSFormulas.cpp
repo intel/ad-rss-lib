@@ -113,7 +113,7 @@ bool calculateDistanceAfterStatedBrakingPattern(Speed const currentSpeed,
 
   Distance distanceAfterResponseTime = 0.;
   bool resultCalculateResponseDistance
-    = calculateDistanceAfterResponseTime(currentSpeed, cMaximumAcceleration, responseTime, distanceAfterResponseTime);
+    = calculateDistanceAfterResponseTime(currentSpeed, acceleration, responseTime, distanceAfterResponseTime);
 
   Distance distanceToStop = 0.;
   bool resultCaluclateStoppingDistance = calculateStoppingDistance(resultingSpeed, deceleration, distanceToStop);

@@ -57,5 +57,13 @@ TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPatternEgoVehicle, leadin
   ASSERT_NEAR(coveredDistance, 151.81, cDoubleNear);
 }
 
+TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPatternEgoVehicle, leading_other_checks_500kmh)
+{
+  Distance coveredDistance = 0.;
+  ASSERT_TRUE(calculateDistanceAfterStatedBrakingPattern(
+    kmhToMeterPerSec(50), cResponseTimeOtherVehicles, 2., 4., coveredDistance));
+  ASSERT_NEAR(coveredDistance, 71.77, cDoubleNear);
+}
+
 } // namespace lane
 } // namespace rss

@@ -23,6 +23,7 @@ set(EXEC_NAME rss_core_tests)
 set(RSS_CORE_TEST_SOURCES
   check/RSSResponseCombineResponseTests.cpp
   check/RSSResponseIsSafeTests.cpp
+  core/RSSCheckerInputRangeTests.cpp
   core/RSSCheckerTests.cpp
   core/RSSResponseProviderTests.cpp
   lane/MathUnitTestsDistanceAfterResponseTime.cpp
