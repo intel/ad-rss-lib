@@ -174,8 +174,8 @@ within the lane.
 
 ##### Lane with a narrow curve
 [[Figure:LaneConstantCurve]]
-.Lane describing a narrow 180° curve
-image::lane_constant_curve.png[caption="Figure {counter:figure}. "]
+.Lane describing a narrow 180° curve and its impact on driven distances
+image::lane_constant_curve.svg[caption="Figure {counter:figure}. "]
 
 This section illustrates a longitudinal situation similar to the lane widening
 example. Let's assume the lane has a constant width of _4 m_ describing a curve with
@@ -192,14 +192,16 @@ lateral acceleration values within the lane-based coordinate system cannot be
 considered as constant anymore.
 
 #### Design alternative: Iterative Approach [optional]
-*TODO* create and insert image for explanation
+[[Figure:LanesWithDifferentWidthIterative]]
+.Illustration of an iterative approach to calculate non-constant acceleration, velocity etc.
+image::lanes_with_different_width_iterative.svg[caption="Figure {counter:figure}. "]
 
 One possible way to handle these non-constant acceleration values
 would be an iterative approach: based on the
 position, the velocity and the acceleration values at the given position at time
 _t~0~_, the position at time _t~1~_ is calculated. The smaller the time
 interval between the iteration steps is chosen, the smaller the calculation error
-gets.
+gets (see <<Figure:LanesWithDifferentWidthIterative>>).
 
 One drawback of the iterative approach is that the RSS implementation has to get
 to know the lane geometries in detail to be able to calculate the acceleration
@@ -224,7 +226,11 @@ and the other objects one by one individually, it is not required to distinguish
 between the actual lanes within the individual distance calculations.
 Combining all lanes relevant for the individual situation _s~i~_
 between ego vehicle and object _o~i~_ into one single lane-based coordinate system
-_LCS~i~_ resolves all discontinuities.
+_LCS~i~_ resolves all discontinuities, as depicted in <<Figure:LanesWithDifferentWidthSameCS>>
+
+[[Figure:LanesWithDifferentWidthSameCS]]
+.Avoid discontinuities by using one single lane-based coordinate system
+image::lanes_with_different_width_same_cs.svg[caption="Figure {counter:figure}. "]
 
 Coming back to the concrete example from above, left lane A having a constant
 width of _4 m_ and right lane B having a constant width of _2 m_, both lanes
@@ -257,8 +263,6 @@ of the vehicles towards each other nor overestimate the deceleration of the
 vehicles while braking. As a result, it is ensured that under all conditions,
 the safety distances are calculated in a conservative manner.
 
-*TODO* create and insert image for explanation
-
 In a similar way, it is possible to transform the longitudinal acceleration values
 into a lane-based coordinate system _LCS~k~_.
 Taking the nominal center line length (in the above example: _163.4 m_) as basis,
@@ -290,9 +294,6 @@ used. Therefore, detailed knowledge of the actual lane geometry is not required.
 The absolute maximum and minimum width and length values of the lane
 segments is sufficient to calculate a proper transformation into the
 space of the individual lane-based coordinate systems.
-
-*TODO* create and insert image for explanation, that also curvy and strange lane
-borders are covered easily
 
 ##### Summary
 The presented construction of a continuous lane-based coordinates system
@@ -405,7 +406,7 @@ for deceleration.
 
 [[Figure:SafetyDistanceCity]]
 .Required safety distance for cars driving at 50 km/h (city speed) in same direction with _α~brake,min~ = 4 m/s^2^_ and _α~brake,max~ = 8 m/s^2^_ and _ρ = 2 s_
-image::accelSafety.svg[caption="Figure {counter:figure}. "]
+image::accelSafety.svg[pdfwidth=90%, caption="Figure {counter:figure}. "]
 
 The assumption that a car can always accelerate at _{alpha}~accel,max~_
 during the reponse time, leads to a significant increase of the required safety distance.
@@ -451,7 +452,7 @@ zero lateral velocity.
 
 [[Figure:LateralDistance]]
 .Distance a vehicle will cover when applying the "Stated Braking Pattern" with _ρ~vehicle~ = 2 s_
-image::accelLat.svg[caption="Figure {counter:figure}. "]
+image::accelLat.svg[pdfwidth=90%, caption="Figure {counter:figure}. "]
 
 
 <<Figure:LateralDistance>> shows the required safety distance, without considering
@@ -514,7 +515,7 @@ As a starting point the values are set to:
 * RSS checks are performed on the current state on a ego vehicle - object pair basis
 * In dangerous situations only braking maneuvers are issued. RSS does not initiate
   lateral evasive maneuvers.
-* Lane-CS: TODO fill
+* Lane-CS: *TODO* fill
 * Proposed initial parameters are specified in <<Table:InitialParameters>>.
 
 
