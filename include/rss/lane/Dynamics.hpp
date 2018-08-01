@@ -24,7 +24,8 @@
 
 #pragma once
 
-#include "rss/lane/RssAccelerationValues.hpp"
+#include "rss/lane/LateralRssAccelerationValues.hpp"
+#include "rss/lane/LongitudinalRssAccelerationValues.hpp"
 /*!
  * @brief namespace rss
  */
@@ -36,8 +37,8 @@ namespace lane {
 
 struct Dynamics
 {
-  ::rss::lane::RssAccelerationValues alphaLon;
-  ::rss::lane::RssAccelerationValues alphaLat;
+  ::rss::lane::LongitudinalRssAccelerationValues alphaLon;
+  ::rss::lane::LateralRssAccelerationValues alphaLat;
 };
 
 } // namespace lane

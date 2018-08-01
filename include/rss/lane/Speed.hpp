@@ -29,10 +29,8 @@ namespace lane {
 /*!
  * \brief Type definition  Speed
  *
- * The rate of change of an object's position with respect to time.
- *
- * The speed of an object is the magnitude of its velocity.
- *
+ * The rate of change of an object's Distance with respect to time. The speed of an
+ * object is the magnitude of its velocity.
  * Unit: lane coordinate system units per second
  */
 using Speed = double;

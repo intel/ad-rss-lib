@@ -37,6 +37,10 @@ GEN_NAME=${GEN_BASENAME}-${GEN_VERSION}.jar
 GEN_JAR=${FILE_DIR}/${GEN_NAME}
 
 JAVA_EXE=
+
+CODEFORMATTING_SCRIPT=${FILE_DIR}/codeformat.py
+CODEFORMATTING_CLANG_FILE=${FILE_DIR}/clang-format
+
 RESULT=0
 
 #
@@ -66,17 +70,27 @@ function call_sed_inplace
   #echo "Done."
 }
 
-function process_and_copy_header_files
+#
+# defines a function to perform code formatting
+#
+function call_code_formatting
 {
-  BASEDIR=$1
-  INCDIR=$2
-  if [ -e ${INCLUDE_TARGET_LOCATION}/${INCDIR} ]; then
-    mv ${INCLUDE_TARGET_LOCATION}/${INCDIR} ${BASEDIR}/${INCDIR}.bak
-    mkdir ${INCLUDE_TARGET_LOCATION}/${INCDIR}
+  ${CODEFORMATTING_SCRIPT} --yes "$1"
+}
+
+function process_and_copy_generated_files
+{
+  BASE_INC_DIR=${1}/include
+  BASE_SRC_DIR=${1}/src
+  SUBDIR=$2
+  if [ -e ${INCLUDE_TARGET_LOCATION}/${SUBDIR} ]; then
+    mv ${INCLUDE_TARGET_LOCATION}/${SUBDIR} ${BASE_INC_DIR}/${SUBDIR}.bak
   fi
-  for HEADER_FILE in ${BASEDIR}/${INCDIR}/*.hpp; do
+  cp ${CODEFORMATTING_CLANG_FILE} ${BASE_INC_DIR}/${SUBDIR}/.clang-format
+  mkdir -p ${INCLUDE_TARGET_LOCATION}/${SUBDIR}
+  for HEADER_FILE in ${BASE_INC_DIR}/${SUBDIR}/*.hpp; do
     FILENAME=$(basename ${HEADER_FILE})
-    echo "Updating include file: ${INCLUDE_TARGET_LOCATION}/${INCDIR}/${FILENAME}"
+    echo "Updating include file: ${INCLUDE_TARGET_LOCATION}/${SUBDIR}/${FILENAME}"
     # include guard -> pragma once
     call_sed_inplace "${HEADER_FILE}" "#ifndef.*PIPES.*" "#pragma once"
     call_sed_inplace "${HEADER_FILE}" "#define.*PIPES.*$" ""
@@ -89,12 +103,38 @@ function process_and_copy_header_files
     call_sed_inplace "${HEADER_FILE}" " \* Model Library.*$" ""
     call_sed_inplace "${HEADER_FILE}" " \* Model Version.*$" ""
     call_sed_inplace "${HEADER_FILE}" " \* Generator.*$" ""
-    call_sed_inplace "${HEADER_FILE}" " \* Model Library.*$" ""
     call_sed_inplace "${HEADER_FILE}" " \* Generator Version.*$" ""
-    if [ -e ${INCLUDE_TARGET_LOCATION}/${INCDIR} ]; then
-      cp ${HEADER_FILE} ${INCLUDE_TARGET_LOCATION}/${INCDIR}
+    # replace invalid consts on return types of getter functions
+    call_sed_inplace "${HEADER_FILE}" " const get" " get"
+    # code formatting
+    call_code_formatting "${HEADER_FILE}"
+    if [ -e ${INCLUDE_TARGET_LOCATION}/${SUBDIR} ]; then
+      cp ${HEADER_FILE} ${INCLUDE_TARGET_LOCATION}/${SUBDIR}
     fi
   done
+
+  if [ -e ${BASE_SRC_DIR}/${SUBDIR} ]; then
+    cp ${CODEFORMATTING_CLANG_FILE} ${BASE_SRC_DIR}/${SUBDIR}/.clang-format
+    if [ -e ${SRC_TARGET_LOCATION}/${SUBDIR} ]; then
+      mv ${SRC_TARGET_LOCATION}/${SUBDIR} ${BASE_SRC_DIR}/${SUBDIR}.bak
+    fi
+    mkdir -p ${SRC_TARGET_LOCATION}/${SUBDIR}
+    for SOURCE_FILE in ${BASE_SRC_DIR}/${SUBDIR}/*.cpp; do
+      FILENAME=$(basename ${SOURCE_FILE})
+      echo "Updating source file: ${SRC_TARGET_LOCATION}/${SUBDIR}/${FILENAME}"
+      # replace generated file header parts
+      call_sed_inplace "${SOURCE_FILE}" " \* Generated file.*$" ""
+      call_sed_inplace "${SOURCE_FILE}" " \* Model Library.*$" ""
+      call_sed_inplace "${SOURCE_FILE}" " \* Model Version.*$" ""
+      call_sed_inplace "${SOURCE_FILE}" " \* Generator.*$" ""
+      call_sed_inplace "${SOURCE_FILE}" " \* Generator Version.*$" ""
+      # code formatting
+      call_code_formatting "${SOURCE_FILE}"
+      if [ -e ${SRC_TARGET_LOCATION}/${SUBDIR} ]; then
+        cp ${SOURCE_FILE} ${SRC_TARGET_LOCATION}/${SUBDIR}
+      fi
+    done
+  fi
 }
 
 if [[ -n "${JAVA_HOME}" ]] && [[ -x "${JAVA_HOME}/bin/java" ]];  then
@@ -134,7 +174,6 @@ if [ -e ${GEN_OUTPUT_DIR} ]; then
 fi
 mkdir -p ${GEN_OUTPUT_DIR}
 
-
 POST_PROCESSING=0
 if [ -f ${GEN_JAR} ]; then
   if [[ "${JAVA_EXE}" ]]; then
@@ -155,10 +194,9 @@ if (( POST_PROCESSING && ! RESULT )); then
   if [ -e ${GEN_OUTPUT_DIR} ]; then
     echo "Post process generated files"
     # adapt generated files
-    process_and_copy_header_files "${GEN_OUTPUT_DIR}/rss_lane_lib/include" "rss/lane"
-    process_and_copy_header_files "${GEN_OUTPUT_DIR}/rss_time_lib/include" "rss/time"
-    process_and_copy_header_files "${GEN_OUTPUT_DIR}/rss_check_lib/include" "rss/check"
-    process_and_copy_header_files "${GEN_OUTPUT_DIR}/rss_object_lib/include" "rss/object"
+    process_and_copy_generated_files "${GEN_OUTPUT_DIR}/rss_lane_lib" "rss/lane"
+    process_and_copy_generated_files "${GEN_OUTPUT_DIR}/rss_time_lib" "rss/time"
+    process_and_copy_generated_files "${GEN_OUTPUT_DIR}/rss_check_lib" "rss/check"
   fi
 fi
 

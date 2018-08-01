@@ -26,7 +26,7 @@
 
 #include "rss/check/LateralResponse.hpp"
 #include "rss/check/LongitudinalResponse.hpp"
-#include "rss/object/Id.hpp"
+#include "rss/lane/SituationId.hpp"
 /*!
  * @brief namespace rss
  */
@@ -41,7 +41,7 @@ struct Response
   ::rss::check::LongitudinalResponse longitudinalResponse{::rss::check::LongitudinalResponse::BrakeMin};
   ::rss::check::LateralResponse lateralResponseLeft{::rss::check::LateralResponse::None};
   ::rss::check::LateralResponse lateralResponseRight{::rss::check::LateralResponse::None};
-  ::rss::object::Id id{0u};
+  ::rss::lane::SituationId situationId{0u};
 
   ::rss::check::LongitudinalResponse getLongitudinalResponse() const
   {

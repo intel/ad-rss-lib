@@ -24,15 +24,23 @@
 
 #pragma once
 
-#include <cstdint>
-namespace rss {
-namespace object {
+#include "rss/lane/Acceleration.hpp"
 /*!
- * \brief Type definition  Id
- *
- * The id of an object.
+ * @brief namespace rss
  */
-using Id = uint64_t;
+namespace rss {
+/*!
+ * @brief namespace lane
+ */
+namespace lane {
 
-} // namespace object
+struct LongitudinalRssAccelerationValues
+{
+  ::rss::lane::Acceleration accelMax{0.0};
+  ::rss::lane::Acceleration brakeMax{0.0};
+  ::rss::lane::Acceleration brakeMin{0.0};
+  ::rss::lane::Acceleration brakeMinCorrect{0.0};
+};
+
+} // namespace lane
 } // namespace rss

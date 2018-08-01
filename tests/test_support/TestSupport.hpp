@@ -37,9 +37,9 @@ inline lane::VehicleState createVehicleState(double velocity)
   state.dynamics.alphaLon.accelMax = lane::cMaximumAcceleration;
   state.dynamics.alphaLon.brakeMax = lane::cMaximumBrakingDeceleleration;
   state.dynamics.alphaLon.brakeMin = lane::cMinimumBrakingDeceleleration;
+  state.dynamics.alphaLon.brakeMinCorrect = lane::cMinimumBrakingDecelelerationCorrect;
 
   state.dynamics.alphaLat.accelMax = lane::cMaximumAcceleration;
-  state.dynamics.alphaLat.brakeMax = lane::cMaximumBrakingDeceleleration;
   state.dynamics.alphaLat.brakeMin = lane::cMinimumBrakingDeceleleration;
 
   state.responseTime = lane::cResponseTimeOtherVehicles;

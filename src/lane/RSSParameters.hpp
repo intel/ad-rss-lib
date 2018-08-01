@@ -43,5 +43,7 @@ const Acceleration cMinimumBrakingDeceleleration = 4; /*!< Minimum braking force
 const Acceleration cMaximumBrakingDeceleleration = 8; /*!< Maximum braking force applied in m/s^2. */
 const Acceleration cMinimumBrakingDecelelerationCorrect = 3; /*!< Minimum correct braking force applied in m/s^2. */
 
+const Acceleration cLatFluctationMargin = 0.5;
+
 } // namespace lane
 } // namespace rss

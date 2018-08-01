@@ -59,7 +59,7 @@ private:
   /**
    * @brief typedef for the mapping of object id to the corresponding RssState before the blame time
    */
-  typedef std::map<object::Id, check::RssState> RssStateBeforeBlameTimeMap;
+  typedef std::map<lane::SituationId, check::RssState> RssStateBeforeBlameTimeMap;
 
   /**
    * @brief the state of all responses before the blame time of each response

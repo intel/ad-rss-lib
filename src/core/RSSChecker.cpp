@@ -52,7 +52,7 @@ bool checkSituation(lane::Situation const &situation, Response &response)
 
   if (result)
   {
-    response.id = situation.id;
+    response.situationId = situation.situationId;
     response.longitudinalResponse = longitudinalResponse;
     response.lateralResponseLeft = lateralResponseLeft;
     response.lateralResponseRight = lateralResponseRight;

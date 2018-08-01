@@ -30,7 +30,6 @@ namespace lane {
  * \brief Type definition  Acceleration
  *
  * The rate of change of Speed of an object with respect to time.
- *
  * Unit: lane coordinate system unit per second squared
  */
 using Acceleration = double;

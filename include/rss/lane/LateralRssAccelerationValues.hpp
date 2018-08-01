@@ -24,8 +24,7 @@
 
 #pragma once
 
-#include "rss/lane/SituationId.hpp"
-#include "rss/lane/VehicleState.hpp"
+#include "rss/lane/Acceleration.hpp"
 /*!
  * @brief namespace rss
  */
@@ -35,11 +34,10 @@ namespace rss {
  */
 namespace lane {
 
-struct Situation
+struct LateralRssAccelerationValues
 {
-  ::rss::lane::VehicleState egoVehicleState;
-  ::rss::lane::VehicleState otherVehicleState;
-  ::rss::lane::SituationId situationId;
+  ::rss::lane::Acceleration accelMax{0.0};
+  ::rss::lane::Acceleration brakeMin{0.0};
 };
 
 } // namespace lane

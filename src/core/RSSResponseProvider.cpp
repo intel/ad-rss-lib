@@ -46,7 +46,7 @@ bool RSSResponseProvider::provideProperResponse(check::ResponseVector const &cur
     check::RssState nonDangerousStateToRemember;
     if (check::isDangerous(currentResponse))
     {
-      auto previousNonDangerousState = mStatesBeforeBlameTime.find(currentResponse.id);
+      auto previousNonDangerousState = mStatesBeforeBlameTime.find(currentResponse.situationId);
       if (previousNonDangerousState != mStatesBeforeBlameTime.end())
       {
         if (previousNonDangerousState->second.lateralSafe)
@@ -93,7 +93,7 @@ bool RSSResponseProvider::provideProperResponse(check::ResponseVector const &cur
 
     // store state for the next iteration
     auto insertResult = newStatesBeforeBlameTime.insert(
-      RssStateBeforeBlameTimeMap::value_type(currentResponse.id, nonDangerousStateToRemember));
+      RssStateBeforeBlameTimeMap::value_type(currentResponse.situationId, nonDangerousStateToRemember));
 
     if (result)
     {

@@ -25,31 +25,38 @@ namespace lane {
 
 bool checkVehicleDynamics(Dynamics const &dynamics)
 {
-  // acceleration must be >=0
+  // acceleration has to be >=0
   if (dynamics.alphaLon.accelMax < 0)
   {
     return false;
   }
 
-  // deceleration must be > 0
-  if (dynamics.alphaLon.brakeMax <= 0 || dynamics.alphaLon.brakeMin <= 0
-      || dynamics.alphaLon.brakeMax < dynamics.alphaLon.brakeMin)
+  // deceleration has to be > 0
+  if ((dynamics.alphaLon.brakeMax <= 0) || (dynamics.alphaLon.brakeMin <= 0)
+      || (dynamics.alphaLon.brakeMinCorrect <= 0))
   {
     return false;
   }
 
-  // acceleration must be >=0
+  // deceleration has to be ordered properly
+  if ((dynamics.alphaLon.brakeMax < dynamics.alphaLon.brakeMin)
+      || (dynamics.alphaLon.brakeMin < dynamics.alphaLon.brakeMinCorrect))
+  {
+    return false;
+  }
+
+  // acceleration has to be >=0
   if (dynamics.alphaLat.accelMax < 0)
   {
     return false;
   }
 
-  // deceleration must be > 0
-  if (dynamics.alphaLat.brakeMax <= 0 || dynamics.alphaLat.brakeMin <= 0
-      || dynamics.alphaLat.brakeMax < dynamics.alphaLat.brakeMin)
+  // deceleration has to be > 0
+  if (dynamics.alphaLat.brakeMin <= 0)
   {
     return false;
   }
+
   return true;
 }
 

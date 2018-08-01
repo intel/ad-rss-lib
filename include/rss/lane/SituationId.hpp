@@ -24,22 +24,15 @@
 
 #pragma once
 
-#include "rss/lane/Acceleration.hpp"
-/*!
- * @brief namespace rss
- */
+#include <cstdint>
 namespace rss {
-/*!
- * @brief namespace lane
- */
 namespace lane {
-
-struct RssAccelerationValues
-{
-  ::rss::lane::Acceleration accelMax{0.0};
-  ::rss::lane::Acceleration brakeMax{0.0};
-  ::rss::lane::Acceleration brakeMin{0.0};
-};
+/*!
+ * \brief Type definition  SituationId
+ *
+ * The id of an situation.
+ */
+using SituationId = uint64_t;
 
 } // namespace lane
 } // namespace rss

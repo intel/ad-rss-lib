@@ -27,13 +27,14 @@ set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 14)
 add_compile_options(-Werror -Wall -Wextra)
 
-
 add_library(${PROJECT_NAME} SHARED
   src/check/RSSResponseFunctions.cpp
   src/core/RSSChecker.cpp
   src/core/RSSResponseProvider.cpp
   src/lane/Math.cpp
   src/lane/RSSFormulas.cpp
+  src/rss/check/LateralResponse.cpp
+  src/rss/check/LongitudinalResponse.cpp
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES

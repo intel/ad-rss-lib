@@ -30,7 +30,6 @@ namespace lane {
  * \brief Type definition  Distance
  *
  * The length of a specific path traveled between two points.
- *
  * Unit: lane coordinate system unit
  */
 using Distance = double;

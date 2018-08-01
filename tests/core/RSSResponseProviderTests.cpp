@@ -30,7 +30,7 @@ class RSSResponseProviderTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    firstResponse.id = 1u;
+    firstResponse.situationId = 1u;
     firstResponse.longitudinalResponse = LongitudinalResponse::Safe;
     firstResponse.lateralResponseLeft = LateralResponse::Safe;
     firstResponse.lateralResponseRight = LateralResponse::Safe;

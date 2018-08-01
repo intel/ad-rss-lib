@@ -42,8 +42,9 @@ struct VehicleState
   ::rss::lane::Position position;
   ::rss::lane::Velocity velocity;
   ::rss::lane::Dynamics dynamics;
-  ::rss::time::Duration responseTime;
-  bool hasPriority;
+  ::rss::time::Duration responseTime{0.0};
+  bool hasPriority{false};
+  bool isInCorrectLane{false};
 };
 
 } // namespace lane
