@@ -129,18 +129,6 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_max_ne
   }
 }
 
-/**
- * break max < break min
- */
-
-TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_max_smaller_brake_min)
-{
-  situation.egoVehicleState.dynamics.alphaLon.brakeMax = 1.;
-  situation.egoVehicleState.dynamics.alphaLon.brakeMin = 2.;
-
-  ASSERT_FALSE(checkSituation(situation, response));
-}
-
 TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_max_zero_other)
 {
   situation.otherVehicleState.dynamics.alphaLon.brakeMax = 0.;
@@ -155,6 +143,74 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_max_ne
     situation.otherVehicleState.dynamics.alphaLon.brakeMax = -1. * (static_cast<double>(i) / 100.);
     ASSERT_FALSE(checkSituation(situation, response));
   }
+}
+
+/**
+ * Invalid longitudinal brake min correct
+ */
+
+TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_correct_zero_ego)
+{
+  situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = 0.;
+
+  ASSERT_FALSE(checkSituation(situation, response));
+}
+
+TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_correct_negative_ego)
+{
+  for (int i = 1; i < 1000; i++)
+  {
+    situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = -1. * (static_cast<double>(i) / 100.);
+    ASSERT_FALSE(checkSituation(situation, response));
+  }
+}
+
+TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_correct_zero_other)
+{
+  situation.otherVehicleState.dynamics.alphaLon.brakeMinCorrect = 0.;
+
+  ASSERT_FALSE(checkSituation(situation, response));
+}
+
+TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_correct_negative_other)
+{
+  for (int i = 1; i < 1000; i++)
+  {
+    situation.otherVehicleState.dynamics.alphaLon.brakeMinCorrect = -1. * (static_cast<double>(i) / 100.);
+    ASSERT_FALSE(checkSituation(situation, response));
+  }
+}
+
+/**
+ * break max < break min
+ */
+
+TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_max_smaller_brake_min)
+{
+  situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = 1;
+  situation.egoVehicleState.dynamics.alphaLon.brakeMax = 2.;
+  situation.egoVehicleState.dynamics.alphaLon.brakeMin = 3.;
+
+  ASSERT_FALSE(checkSituation(situation, response));
+}
+
+TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_max_smaller_brake_min_correct)
+{
+  situation.egoVehicleState.dynamics.alphaLon.brakeMax = 1.;
+
+  situation.egoVehicleState.dynamics.alphaLon.brakeMin = 1.;
+  situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = 2.;
+
+  ASSERT_FALSE(checkSituation(situation, response));
+}
+
+TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_smaller_brake_min_correct)
+{
+  situation.egoVehicleState.dynamics.alphaLon.brakeMin = 1.;
+  situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = 2.;
+  situation.egoVehicleState.dynamics.alphaLon.brakeMax = 4.;
+
+  ASSERT_FALSE(checkSituation(situation, response));
 }
 
 /**
@@ -231,8 +287,26 @@ TEST_F(RSSCheckerInputRangeTests, invalid_response_time_negative_ego)
 
 TEST_F(RSSCheckerInputRangeTests, longitudinal_correct_deceleration_brake_max_equals_brake_min)
 {
-  situation.egoVehicleState.dynamics.alphaLon.brakeMax = 1.;
-  situation.egoVehicleState.dynamics.alphaLon.brakeMin = 1.;
+  situation.egoVehicleState.dynamics.alphaLon.brakeMax = 4.;
+  situation.egoVehicleState.dynamics.alphaLon.brakeMin = 4.;
+
+  ASSERT_TRUE(checkSituation(situation, response));
+}
+
+TEST_F(RSSCheckerInputRangeTests, longitudinal_correct_deceleration_brake_min_equals_brake_min_correct)
+{
+  situation.egoVehicleState.dynamics.alphaLon.brakeMax = 4.;
+  situation.egoVehicleState.dynamics.alphaLon.brakeMin = 3.;
+  situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = 3.;
+
+  ASSERT_TRUE(checkSituation(situation, response));
+}
+
+TEST_F(RSSCheckerInputRangeTests, longitudinal_correct_deceleration_brake_min_equals_brake_min_correct_equals_brake_max)
+{
+  situation.egoVehicleState.dynamics.alphaLon.brakeMax = 3.;
+  situation.egoVehicleState.dynamics.alphaLon.brakeMin = 3.;
+  situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = 3.;
 
   ASSERT_TRUE(checkSituation(situation, response));
 }
