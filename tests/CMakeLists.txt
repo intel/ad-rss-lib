@@ -16,11 +16,11 @@
 # ----------------- END LICENSE BLOCK -----------------------------------
 
 #####################################################################
-# rss_core_tests - executable setup
+# rss_module_tests - executable setup
 #####################################################################
-set(EXEC_NAME rss_core_tests)
+set(EXEC_NAME rss_module_tests)
 
-set(RSS_CORE_TEST_SOURCES
+set(RSS_MODULE_TEST_SOURCES
   check/RSSResponseCombineResponseTests.cpp
   check/RSSResponseIsSafeTests.cpp
   core/RSSCheckerInputRangeTests.cpp
@@ -37,7 +37,7 @@ set(RSS_CORE_TEST_SOURCES
   rss/check/LongitudinalResponseTests.cpp
 )
 
-add_executable(${EXEC_NAME} ${RSS_CORE_TEST_SOURCES})
+add_executable(${EXEC_NAME} ${RSS_MODULE_TEST_SOURCES})
 
 target_include_directories(${EXEC_NAME}
   PRIVATE
@@ -53,4 +53,3 @@ target_link_libraries(${EXEC_NAME} PRIVATE
 target_compile_options(${PROJECT_NAME} PRIVATE ${TARGET_COMPILE_OPTIONS})
 
 add_test(NAME ${EXEC_NAME} COMMAND ${EXEC_NAME})
-

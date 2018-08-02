@@ -1,39 +1,374 @@
-## Software Architecture
-// intended empty
+// the below is generated out of the Rhapsody model (into HTML)
+// and converted to asciidoc using HtmlToAsciidoc
+// only images, figures were manually edited!
+// headings below level 6 are not possible
 
-### Static View
-The static view on the system.
-Add here e.g. block diagrams.
-Might also be generated directly from Rhapsody
+== Software Architecture
 
-#### Modules
-Here the blocks (or SW modules) from static view described, but only briefly
+=== Static View
 
-##### RSS-Core
+[[Figure:RssModule]]
+.The packages within the RssModule.
+image::ddf576a2-dbad-4b5f-9ae3-8349d435a6fc_url_a27ef59f-8440-437d-bcad-0f90e3033816.tmp[caption="Figure {counter:figure}. "]
 
-##### RSS-Environment
+The RssModule is implemented in C++. Based on a set of datatype definitions the interfaces are provided to:
 
-#### Interfaces
-// intended empty
-Where the last section focuses on what blocks there are, this section describes the interfaces used, provided
+1. prepare the RSS situations between individual pairs of ego vehicle and objects
+2. trigger the situation specific RSS calculations
+3. resolve the situation specific responses to one global response
+4. translate the global response into concrete restrictions of the actuator control commands
 
-##### External interfaces used
+Finally, the implementation of the RssModule is deployed within a set of artifacts.
 
-##### External interfaces provided
+==== DataTypes
 
-##### Internal interfaces
+Definition of DataTypes used within the RssModule implementation.
+The RssModule is implemented as a whole within the namespace rss.
 
-##### Configuration interfaces
+[[Figure:RssDatatypeNamespaces]]
+.The RSS datatypes are organized within several sub-namespaces.
+image::494e0811-6250-4748-9a30-9cb94e41bae0_url_3e173017-9ef0-4b9c-8589-a9b9c7c3b3ac.tmp[caption="Figure {counter:figure}. "]
 
-##### Debug and Diagnostics interfaces
+===== Namespace rss::time
 
+Namespace for RSS time datatypes.
+This contains types declaring physical measures refering to the time.
 
-### Dynamic View
+====== Duration (Typedef)
 
-#### Partition to Tasks
-#### Memory Management
-#### Usage of Infrastructure
-#### Resources Constraints
-#### Error Handling
-#### Flows
-#### Initialization and Reset
+A duration represents a time interval
+
+Unit: second
+
+|====
+|unit |Second
+|dimension |Time
+|float64_t |1
+|====
+
+===== Namespace rss::lane
+
+Namespace for RSS lane coordinate system datatypes.
+This contains types that are used within the calculation of the RSS formulas which are performed within the lane based coordinate system.
+
+[[Figure:LcsBaseTypes]]
+.The base types used within the lane based coordinate system.
+image::28e41c25-c32c-442c-83c0-7c65f989a195_url_a2dedb06-263e-4969-8515-0746a449d952.tmp[caption="Figure {counter:figure}. "]
+
+[[Figure:LcsVehicleStates]]
+.The types describing the vehicle state used within the lane based coordinate system.
+image::c616faff-b84b-4eef-a9ae-49cc975cb030_url_055bec3e-025c-44ef-8542-e116e8e1a82b.tmp[caption="Figure {counter:figure}. "]
+
+[[Figure:LcsSituation]]
+.The types describing a situations used within the lane based coordinate system.
+image::38494834-b51e-4121-86ab-1e87b7faa82a_url_bcdf610f-3f96-4ba1-bbc3-15f9031996f3.tmp[caption="Figure {counter:figure}. "]
+
+====== Units
+
+|====
+|LaneCoordinateSystemUnit |Defines a unit in the lane coordinate system.The lane coordinate system has two dimensions:- longitudinal axis- lateral axis
+|LaneCoordinateSystemUnitPerSecond |Defines a unit in the lane coordinate system per second.
+|LaneCoordinateSystemUnitPerSecondSquared |Defines a unit in the lane coordinate system per second squared.
+|====
+
+====== Acceleration (Typedef)
+
+The rate of change of Speed of an object with respect to time.
+
+Unit: lane coordinate system unit per second squared
+
+|====
+|dimension |Acceleration
+|unit |LaneCoordinateSystemUnitPerSecondSquared
+|float64_t |1
+|====
+
+====== Distance (Typedef)
+
+The length of a specific path traveled between two points.
+
+Unit: lane coordinate system unit
+
+|====
+|dimension |Length
+|unit |LaneCoordinateSystemUnit
+|float64_t |1
+|====
+
+====== Speed (Typedef)
+
+The rate of change of an object's Distance with respect to time. The speed of an object is the magnitude of its velocity.
+
+Unit: lane coordinate system units per second
+
+|====
+|dimension |Velocity
+|unit |LaneCoordinateSystemUnitPerSecond
+|float64_t |1
+|====
+
+====== Velocity (Structure)
+
+Defines the velocity of an object in the lane coordinate system. The velocity consists of a longitudinal and a lateral component.
+
+|====
+|speedLon |Speed |The longitudinal speed component of the velocity vector
+|speedLat |Speed |The lateral speed component of the velocity vector
+|====
+
+====== Interval (Structure)
+
+An interval [minimum, maximum] on a lane coordinate system axis.
+
+|====
+|minimum |Distance |The minimum value of the interval
+|maximum |Distance |The maximum value of the interval
+|====
+
+====== Position (Structure)
+
+Describes the position of an object within the lane coordinate system.
+
+Objects extend in width and length. An object on a lane is described by the range it spans in each of the two lane coordinate system directions.
+
+|====
+|lonInterval |Interval |The interval an object spans in longitudinal direction of the lane coordinate system.
+|latInterval |Interval |The interval an object spans in lateral direction of the lane coordinate system including the fluctuation margin.
+|====
+
+====== Dynamics (Structure)
+
+Describes the RSS dynamics values to be applied for an object within the lane coordinate system. The dynamics consist of a longitudinal and a lateral component.
+
+|====
+|alphaLon |LongitudinalRssAccelerationValues |RSS dynamics values along longitudinal coordinate system axis
+|alphaLat |LateralRssAccelerationValues |RSS dynamics values along lateral coordinate system axis
+
+|====
+
+====== LongitudinalRssAccelerationValues (Structure)
+
+Collection of the RSS acceleration values in longitudinal direction.
+
+|====
+|accelMax |Acceleration |absolute amount of the maximum allowed acceleration
+|brakeMax |Acceleration |absolute amount of the maximum allowed braking deceleration
+|brakeMin |Acceleration |absolute amount of the minimum allowed breaking deceleration
+
+|brakeMinCorrect |Acceleration |absolute amount of the minimum allowed breaking deceleration when driving on the correct lane
+|====
+
+====== LateralRssAccelerationValues (Structure)
+
+Collection of the RSS acceleration values in lateral direction.
+
+|====
+|accelMax |Acceleration |absolute amount of the maximum allowed acceleration
+|brakeMin |Acceleration |absolute amount of the minimum allowed breaking deceleration
+|====
+
+====== VehicleState (Structure)
+
+The state of an object in a RSS situation.
+
+The state consists of the following components in respect to the situation specific lane coordinate system: the position, the velocity, the dynamics, the response time and a Right-of-Way priority value.
+
+|====
+|position |Position |The situation specific position.
+|velocity |Velocity |The situation specific velocity.
+|dynamics |Dynamics |The situation specific dynamics.
+|responseTime |Duration |The situation specific response time.
+|hasPriority |bool |The situation specific Right-of-Way relation
+|isInCorrectLane |bool |Is the vehicle driving in the correct lane
+
+|====
+
+====== Situation (Structure)
+
+Describes a RSS situation.
+
+A situation always considers exactly the relative relation between two objects: the ego vehicle and one other vehicle. In general, the lane coordinate system is unique for one specific situation. As a consequence the vehicle state of the ego vehicle in different RSS situations cannot be compared to each other. Consists of the VehicleState of the ego vehicle and the VehicleState of the other vehicle.
+
+|====
+|egoVehicleState |VehicleState |The vehicle state of the ego vehicle
+|otherVehicleState |VehicleState |The vehicle state of the other vehicle within the situation.
+|situationId |SituationId |The unique id of the situation.The situation id has to be constant over time for a pair of ego vehicle and specific other vehicle.
+E.g. might be filled with an id identifying the other vehicle unambiguously.
+|====
+
+====== SituationId (Typedef)
+
+The id of an situation.
+
+|====
+|uint64_t |1
+|====
+
+====== SituationVector (Typedef)
+
+A vector of situations
+
+|====
+|rss::lane::Situation |*
+|====
+
+===== Namespace rss::check
+
+Namespace for RSS check datatypes.
+This contains types used within the RSS check functions not depending on the lane based coordinate system.
+
+[[Figure:RssCheckTypes]]
+.The types describing the RSS response and the RSS state.
+image::326c492f-4e14-4366-845c-20edb6a9dffe_url_e93f905a-4d59-4718-a7b4-87e264973de7.tmp[caption="Figure {counter:figure}. "]
+
+====== LongitudinalResponse (Enumeration)
+
+Enumeration defining the possible longitudinal responses
+
+Be aware: there has to be a strict order of the enumeration values according to the strictness of the response
+
+|====
+|Safe |0 |State is longitudinal safe
+|None |1 |State is longitudinal not safe, but no action required. E.g. ego vehicle is the leading vehicle.
+|BrakeMinCorrect |2 |State is longitudinal not safe, vehicle has to decerate at least with brake min correct longitudinally
+|BrakeMin |3 |State is longitudinal not safe, vehicle has to decerate at least with brake min longitudinally
+|====
+
+====== LateralResponse (Enumeration)
+
+Enumeration defining the possible lateral responses
+
+Be aware: there has to be a strict order of the enumeration values according to the strictness of the response
+
+|====
+|Safe |0 |State is lateral safe.
+|None |1 |State is lateral not safe, but no action required.
+|BrakeMin |2 |State is lateral not safe, vehicle has to decerate at least with brake min laterally
+|====
+
+====== Response (Structure)
+
+Struct defining the response of a single object.
+
+|====
+|longitudinalResponse |LongitudinalResponse |required response in longitudinal direction
+|lateralResponseLeft |LateralResponse |required response in lateral direction left in respect to ego-vehicle driving direction
+|lateralResponseRight |LateralResponse |required response in lateral direction right in respect to ego-vehicle driving direction
+|situationId |SituationId |Id of the situation this response refers to.The id has to remain unique over time representing the situation (ego-vehicle / object pair) which is investigated.
+It is used to track the state of the ego-vehicle / object constellation i.e. at point of blame time.
+|====
+
+====== RssState (Structure)
+
+Struct to store the RSS state
+
+|====
+|longitudinalSafe |bool |Flag to indicate if the state is longitudinal safe.
+|lateralSafe |bool |Flag to indicate if the state is lateral safe.
+|====
+
+====== ResponseVector (Typedef)
+
+a vector of responses
+
+|====
+|rss::check::Response |*
+|====
+
+===== Namespace rss::map
+
+Namespace for RSS map datatypes.
+This contains types used within the RSS world model describing knowledge on map data.
+
+===== Namespace rss::object
+
+Namespace for RSS object datatypes.
+This contains types used within the RSS world model describing knowledge on object data including ego vehicle and other vehicles.
+
+===== Namespace rss::world
+
+Namespace for RSS world datatypes.
+This contains types to describe the RSS world model.
+
+====== WorldModel (Structure)
+
+The world model RSS requires as input.
+
+<todo: to be defined in detail>
+
+|====
+|tbd |bool |not yet defined
+|====
+
+==== Interfaces
+
+Definition of Interfaces provided within the RssModule implementation.
+The RssModule is implemented as a whole within the namespace rss.
+
+===== Namespace rss::core
+
+Namespace for RSS core interfaces and operations.
+This contains the interfaces including the operations the RssModule provides to the user to perform the RSS functionality.
+
+[[Figure:RssModuleInterfaces]]
+.The interfaces provided by the RssModule.
+image::5ebcdab8-bd22-4b18-816c-5d6f09810e61_url_b87d27fa-3345-4400-bdbc-c2096d8964eb.tmp[caption="Figure {counter:figure}. "]
+
+====== RSSChecker
+
+Namespace providing functions required for the RSS checks.
+
+*checkSituation*
+
+Checks if the current situation is safe. Returns true if the situation could be analyzed, false if an error occurred during evaluation.
+
+|====
+|returns |bool |Out |false on failure
+|situation |Situation |In |the situation that should be analyzed
+|response |Response |Out |the response for the current situation
+|====
+
+====== RSSResponseProvider
+
+Class to handle responses. The class tracks the RSS situation responses over time and especially stores the individual RssState before the blame time. By this, the proper response for the individual situation as well as the overall proper response is calculated.
+
+*provideProperResponse*
+
+Calculate the proper response out of the current individual situation responses.
+
+Return true if the response could be calculated, false otherwise.
+
+|====
+|returns |bool |Out |false on failure
+|currentResponses |ResponseVector |In |All the responses gather for the current individual situations.
+|response |Response |Out |The proper overall response.
+|====
+
+==== Artifact Deployment
+
+Definition of artifacts the RssModule is deployed to.
+
+[[Figure:RssModuleArtifacts]]
+.Artifacts to be deployed of the RssModule.
+image::14b811f4-b6a1-4861-9ac2-b5dc64d7c56f_url_c7ec2eee-822b-46ce-99b6-0d5edfef0e22.tmp[caption="Figure {counter:figure}. "]
+
+===== rss_module
+
+This library contains the RssModule implementation.
+
+===== rss_support
+
+This library contains functionality supporting the integration of the RssModule into a system.
+
+//##### External interfaces used
+//##### Internal interfaces
+//##### Configuration interfaces
+//##### Debug and Diagnostics interfaces
+//### Dynamic View
+//#### Partition to Tasks
+//#### Memory Management
+//#### Usage of Infrastructure
+//#### Resources Constraints
+//#### Error Handling
+//#### Flows
+//#### Initialization and Reset

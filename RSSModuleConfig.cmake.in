@@ -15,7 +15,7 @@
 #
 # ----------------- END LICENSE BLOCK -----------------------------------
 
-set(RSSCore__VERSION @RSSCore_VERSION@)
+set(RSSModule__VERSION @RSSModule_VERSION@)
 
 @PACKAGE_INIT@
 

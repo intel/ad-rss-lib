@@ -35,8 +35,8 @@ namespace check {
 
 struct RssState
 {
-  bool longitudinalSafe{true};
-  bool lateralSafe{true};
+  bool longitudinalSafe{false};
+  bool lateralSafe{false};
 };
 
 } // namespace check

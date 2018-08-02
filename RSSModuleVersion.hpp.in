@@ -17,10 +17,8 @@
 
 #pragma once
 
-// the configured options and settings for RSSCore
-#define RSS_CORE_MAJOR @RSSCore_VERSION_MAJOR@
-#define RSS_CORE_MINOR @RSSCore_VERSION_MINOR@
-#define RSS_CORE_VERSION_REV @RSSCore_VERSION_PATCH@
-#define RSS_CORE_VERSION_STRING "@RSSCore_VERSION_MAJOR@.@RSSCore_VERSION_MINOR@.@RSSCore_VERSION_PATCH@"
-
-
+// the configured options and settings for RSSModule
+#define RSS_MODULE_MAJOR @RSSModule_VERSION_MAJOR@
+#define RSS_MODULE_MINOR @RSSModule_VERSION_MINOR@
+#define RSS_MODULE_VERSION_REV @RSSModule_VERSION_PATCH@
+#define RSS_MODULE_VERSION_STRING "@RSSModule_VERSION_MAJOR@.@RSSModule_VERSION_MINOR@.@RSSModule_VERSION_PATCH@"

@@ -80,61 +80,93 @@ function call_code_formatting
 
 function process_and_copy_generated_files
 {
-  BASE_INC_DIR=${1}/include
-  BASE_SRC_DIR=${1}/src
-  SUBDIR=$2
-  if [ -e ${INCLUDE_TARGET_LOCATION}/${SUBDIR} ]; then
-    mv ${INCLUDE_TARGET_LOCATION}/${SUBDIR} ${BASE_INC_DIR}/${SUBDIR}.bak
-  fi
-  cp ${CODEFORMATTING_CLANG_FILE} ${BASE_INC_DIR}/${SUBDIR}/.clang-format
-  mkdir -p ${INCLUDE_TARGET_LOCATION}/${SUBDIR}
-  for HEADER_FILE in ${BASE_INC_DIR}/${SUBDIR}/*.hpp; do
-    FILENAME=$(basename ${HEADER_FILE})
-    echo "Updating include file: ${INCLUDE_TARGET_LOCATION}/${SUBDIR}/${FILENAME}"
-    # include guard -> pragma once
-    call_sed_inplace "${HEADER_FILE}" "#ifndef.*PIPES.*" "#pragma once"
-    call_sed_inplace "${HEADER_FILE}" "#define.*PIPES.*$" ""
-    call_sed_inplace "${HEADER_FILE}" "#endif.*PIPES.*$" ""
-    # remove unnecessary boost dependency
-    call_sed_inplace "${HEADER_FILE}" "#include.*boost.*$" ""
-    call_sed_inplace "${HEADER_FILE}" "using.*boost.*$" ""
-    # replace generated file header parts
-    call_sed_inplace "${HEADER_FILE}" " \* Generated file.*$" ""
-    call_sed_inplace "${HEADER_FILE}" " \* Model Library.*$" ""
-    call_sed_inplace "${HEADER_FILE}" " \* Model Version.*$" ""
-    call_sed_inplace "${HEADER_FILE}" " \* Generator.*$" ""
-    call_sed_inplace "${HEADER_FILE}" " \* Generator Version.*$" ""
-    # replace invalid consts on return types of getter functions
-    call_sed_inplace "${HEADER_FILE}" " const get" " get"
-    # code formatting
-    call_code_formatting "${HEADER_FILE}"
-    if [ -e ${INCLUDE_TARGET_LOCATION}/${SUBDIR} ]; then
-      cp ${HEADER_FILE} ${INCLUDE_TARGET_LOCATION}/${SUBDIR}
-    fi
-  done
+  IGNORE_FILES="RSSChecker RSSResponse"
 
-  if [ -e ${BASE_SRC_DIR}/${SUBDIR} ]; then
-    cp ${CODEFORMATTING_CLANG_FILE} ${BASE_SRC_DIR}/${SUBDIR}/.clang-format
-    if [ -e ${SRC_TARGET_LOCATION}/${SUBDIR} ]; then
-      mv ${SRC_TARGET_LOCATION}/${SUBDIR} ${BASE_SRC_DIR}/${SUBDIR}.bak
+  BASE_INC_DIR=${1}/include
+  for SUBPATH in ${BASE_INC_DIR}/rss/*; do
+    SUBDIR=${SUBPATH##${BASE_INC_DIR}/}
+    if [ -e ${INCLUDE_TARGET_LOCATION}/${SUBDIR} ]; then
+      mv ${INCLUDE_TARGET_LOCATION}/${SUBDIR} ${BASE_INC_DIR}/${SUBDIR}.bak
     fi
-    mkdir -p ${SRC_TARGET_LOCATION}/${SUBDIR}
-    for SOURCE_FILE in ${BASE_SRC_DIR}/${SUBDIR}/*.cpp; do
-      FILENAME=$(basename ${SOURCE_FILE})
-      echo "Updating source file: ${SRC_TARGET_LOCATION}/${SUBDIR}/${FILENAME}"
-      # replace generated file header parts
-      call_sed_inplace "${SOURCE_FILE}" " \* Generated file.*$" ""
-      call_sed_inplace "${SOURCE_FILE}" " \* Model Library.*$" ""
-      call_sed_inplace "${SOURCE_FILE}" " \* Model Version.*$" ""
-      call_sed_inplace "${SOURCE_FILE}" " \* Generator.*$" ""
-      call_sed_inplace "${SOURCE_FILE}" " \* Generator Version.*$" ""
-      # code formatting
-      call_code_formatting "${SOURCE_FILE}"
-      if [ -e ${SRC_TARGET_LOCATION}/${SUBDIR} ]; then
-        cp ${SOURCE_FILE} ${SRC_TARGET_LOCATION}/${SUBDIR}
+    cp ${CODEFORMATTING_CLANG_FILE} ${BASE_INC_DIR}/${SUBDIR}/.clang-format
+    mkdir -p ${INCLUDE_TARGET_LOCATION}/${SUBDIR}
+    for IGNORE_FILE in ${IGNORE_FILES}; do
+      for FILE in ${BASE_INC_DIR}/${SUBDIR}.bak/${IGNORE_FILE}*; do
+        if [ -e ${FILE} ]; then
+          cp ${FILE} ${INCLUDE_TARGET_LOCATION}/${SUBDIR}
+        fi
+      done
+    done
+    for HEADER_FILE in ${BASE_INC_DIR}/${SUBDIR}/*.hpp; do
+      FILENAME=$(basename ${HEADER_FILE})
+      ignore=0
+      for IGNORE_FILE in ${IGNORE_FILES}; do
+        if [[ ${FILENAME} == ${IGNORE_FILE}* ]]; then
+          ignore=1
+        fi
+        echo "Check ignore '${FILENAME}' and '${IGNORE_FILE}' results in ${ignore}"
+      done
+      if (( !ignore )); then
+        echo "Updating include file: ${INCLUDE_TARGET_LOCATION}/${SUBDIR}/${FILENAME}"
+        # include guard -> pragma once
+        call_sed_inplace "${HEADER_FILE}" "#ifndef.*PIPES.*" "#pragma once"
+        call_sed_inplace "${HEADER_FILE}" "#define.*PIPES.*$" ""
+        call_sed_inplace "${HEADER_FILE}" "#endif.*PIPES.*$" ""
+        # remove unnecessary boost dependency
+        call_sed_inplace "${HEADER_FILE}" "#include.*boost.*$" ""
+        call_sed_inplace "${HEADER_FILE}" "using.*boost.*$" ""
+        # replace generated file header parts
+        call_sed_inplace "${HEADER_FILE}" " \* Generated file.*$" ""
+        call_sed_inplace "${HEADER_FILE}" " \* Model Library.*$" ""
+        call_sed_inplace "${HEADER_FILE}" " \* Model Version.*$" ""
+        call_sed_inplace "${HEADER_FILE}" " \* Generator.*$" ""
+        call_sed_inplace "${HEADER_FILE}" " \* Generator Version.*$" ""
+        # replace invalid consts on return types of getter functions
+        call_sed_inplace "${HEADER_FILE}" " const get" " get"
+        # code formatting
+        call_code_formatting "${HEADER_FILE}"
+        if [ -e ${INCLUDE_TARGET_LOCATION}/${SUBDIR} ]; then
+          cp ${HEADER_FILE} ${INCLUDE_TARGET_LOCATION}/${SUBDIR}
+        fi
       fi
     done
-  fi
+  done
+
+  BASE_SRC_DIR=${1}/src
+  for SUBPATH in ${BASE_SRC_DIR}/rss/*; do
+    SUBDIR=${SUBPATH##${BASE_SRC_DIR}/}
+    if [ -e ${BASE_SRC_DIR}/${SUBDIR} ]; then
+      cp ${CODEFORMATTING_CLANG_FILE} ${BASE_SRC_DIR}/${SUBDIR}/.clang-format
+      if [ -e ${SRC_TARGET_LOCATION}/${SUBDIR} ]; then
+        mv ${SRC_TARGET_LOCATION}/${SUBDIR} ${BASE_SRC_DIR}/${SUBDIR}.bak
+      fi
+      mkdir -p ${SRC_TARGET_LOCATION}/${SUBDIR}
+      for SOURCE_FILE in ${BASE_SRC_DIR}/${SUBDIR}/*.cpp; do
+        FILENAME=$(basename ${SOURCE_FILE})
+        ignore=0
+        for IGNORE_FILE in ${IGNORE_FILES}; do
+          if [[ ${FILENAME} == ${IGNORE_FILE}* ]]; then
+            ignore=1
+          fi
+          echo "Check ignore '${FILENAME}' and '${IGNORE_FILE}' results in ${ignore}"
+        done
+        if (( !ignore )); then
+          echo "Updating source file: ${SRC_TARGET_LOCATION}/${SUBDIR}/${FILENAME}"
+          # replace generated file header parts
+          call_sed_inplace "${SOURCE_FILE}" " \* Generated file.*$" ""
+          call_sed_inplace "${SOURCE_FILE}" " \* Model Library.*$" ""
+          call_sed_inplace "${SOURCE_FILE}" " \* Model Version.*$" ""
+          call_sed_inplace "${SOURCE_FILE}" " \* Generator.*$" ""
+          call_sed_inplace "${SOURCE_FILE}" " \* Generator Version.*$" ""
+          # code formatting
+          call_code_formatting "${SOURCE_FILE}"
+          if [ -e ${SRC_TARGET_LOCATION}/${SUBDIR} ]; then
+            cp ${SOURCE_FILE} ${SRC_TARGET_LOCATION}/${SUBDIR}
+          fi
+        fi
+      done
+    fi
+  done
 }
 
 if [[ -n "${JAVA_HOME}" ]] && [[ -x "${JAVA_HOME}/bin/java" ]];  then
@@ -194,9 +226,7 @@ if (( POST_PROCESSING && ! RESULT )); then
   if [ -e ${GEN_OUTPUT_DIR} ]; then
     echo "Post process generated files"
     # adapt generated files
-    process_and_copy_generated_files "${GEN_OUTPUT_DIR}/rss_lane_lib" "rss/lane"
-    process_and_copy_generated_files "${GEN_OUTPUT_DIR}/rss_time_lib" "rss/time"
-    process_and_copy_generated_files "${GEN_OUTPUT_DIR}/rss_check_lib" "rss/check"
+    process_and_copy_generated_files "${GEN_OUTPUT_DIR}/rss_module"
   fi
 fi
 

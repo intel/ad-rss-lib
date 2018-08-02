@@ -1,14 +1,14 @@
-## Architecture Overview
 // the below is generated out of the Rhapsody model (into HTML)
 // and converted to asciidoc using HtmlToAsciidoc
 // only images and figures were manually edited!
 
+== Architecture Overview
+
 [[Figure:AdsSystem]]
-.Integration of RSS Subsystem into an ADS System
-image::269bea70-5e48-4807-bd2e-0342ea36caaf_url_a3fa7b92-fbe4-4590-981f-dd2efd240431.tmp[caption="Figure {counter:figure}. "]
+.Integration of RSS into a system architecture
+image::1ea0dbee-ebb5-4358-846f-e17cf6b8b4c2_url_82b42b86-66d8-415a-8d56-d10ed61f3eae.tmp[caption="Figure {counter:figure}. "]
 
 From high level view the architecture of an ADS consists of three main parts: Sense, Plan, Act.
-
 RSS is integrated into such an architecture by placing it in between the Plan and Act parts to provide an safety envelope around the planning output.
 
 === Sense
@@ -90,8 +90,8 @@ RssWorldModelData: The world model data required to calculate the RSS checks
 ActuatorControlCommandOut: The adapted control commands from the PlanningSubsystem to control the vehicle actuator system in a safe manner.
 
 [[Figure:RssSubsystem]]
-.RSS Subsystem and processing steps
-image::adfd479f-4e10-4fdc-893d-0e50b2ec95bb_url_d10726ad-12ee-45e4-a8c2-758e5c5e8337.tmp[caption="Figure {counter:figure}. "]
+.RSS internal processing steps to perform RSS checks and execute the RSS proper response
+image::6021bed8-d0ab-41a9-9262-54331d43b6f4_url_987712d6-331e-44a1-9bff-b51c9b56badb.tmp[caption="Figure {counter:figure}. "]
 
 ===== RssSituationExtraction
 
@@ -101,7 +101,6 @@ The RssSituationExtraction processing entity transforms the global Cartesian wor
 
 RssWorldModelData: Global Cartesian world model data providing information on the local surrounding environment.
 Local map data: lanes, intersections, priority rules
-
 EgoVehicle and Objects: position, velocity
 
 ====== Output Ports
@@ -129,17 +128,17 @@ This results in restrictions for the actuator commands.
 
 ====== Input Ports
 
+RssResponses: The list of RSS responses as provided by the RssSituationChecking
+
 RssWorldModelData: Global Cartesian world model data providing information on the local surrounding environment.
 Local map data: lanes, intersections, priority rules
 EgoVehicle and Objects: position, velocity
-
-RssResponses: The list of RSS responses as provided by the RssSituationChecking
 
 ====== Output Ports
 
 ActuatorControlCommandRestrictions: The resulting restrictions of the actuator control command
 
-===== RssActuatorCommandLimiter
+===== RssActuatorCommandLimitation
 
 The RssActuatorCommandLimiter processing entity receives the actuator control commands from the Planning subsystem and restricts the control values according to the restrictions calculated by RSS.
 

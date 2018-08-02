@@ -30,7 +30,6 @@ namespace time {
  * \brief Type definition  Duration
  *
  * A duration represents a time interval
- *
  * Unit: second
  */
 using Duration = double;

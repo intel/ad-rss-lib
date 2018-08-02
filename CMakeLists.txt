@@ -21,7 +21,7 @@ set(BUILD_DOC "OFF" CACHE BOOL "Enable compilation of doxygen documentation")
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-project(RSSCore VERSION 0.0.1)
+project(RSSModule VERSION 0.0.1)
 
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 14)
@@ -38,7 +38,7 @@ add_library(${PROJECT_NAME} SHARED
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-  OUTPUT_NAME rss_core
+  OUTPUT_NAME rss_module
   VERSION ${PROJECT_VERSION}
   SOVERSION ${PROJECT_VERSION_MAJOR})
 
