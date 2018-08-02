@@ -5,6 +5,7 @@ Cornelius Buerkle, Bernd Gassmann, Fabian Oboril
 :toclevels: 3
 // use section numbers
 :sectnums:
+:sectnumlevels: 5
 // include directories
 :imagesdir: ./images
 :includedir: ./includes

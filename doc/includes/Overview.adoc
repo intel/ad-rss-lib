@@ -40,10 +40,13 @@ The initial design does not yet cover:
 | AD         | Automated Driving
 | ADS        | Automated Driving System
 | HLD        | High Level Design
+| Long       | Longitudinal
+| Lat        | Lateral
 | RSS        | Responsibility-Sensitive Safety
 | RSS Module | This is the entity performing all RSS operations
 |======================
 
+<<<
 ### References
 .References
 [width="100%",frame="topbot",options="header"]

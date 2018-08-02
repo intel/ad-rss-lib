@@ -178,7 +178,7 @@ within the lane.
 image::lane_constant_curve.svg[caption="Figure {counter:figure}. "]
 
 This section illustrates a longitudinal situation similar to the lane widening
-example. Let's assume the lane has a constant width of _4 m_ describing a curve with
+example. Let us assume the lane has a constant width of _4 m_ describing a curve with
 inner radius of _50 m_ covering _180°_. The inner border of the lane has a length
 of about _157.1 m_, the center line _163.4 m_ the outer border _169.7 m_.
 In that situation a longitudinal acceleration value will evaluate
@@ -208,6 +208,7 @@ to know the lane geometries in detail to be able to calculate the acceleration
 values to be used for every position within the lane-based coordinate systems.
 Therefore, this design approach is not selected by this RSS module implementation.
 
+[[Section::ChosenLaneBasedCS]]
 #### Design alternative: Individual lane-based coordinate system with properly scaled acceleration values
 Since RSS performs a worst case assessment the idea followed by this RSS module implementation
 is to scale the min/max acceleration values for calculation of the safe distances
@@ -232,12 +233,12 @@ _LCS~i~_ resolves all discontinuities, as depicted in <<Figure:LanesWithDifferen
 .Avoid discontinuities by using one single lane-based coordinate system
 image::lanes_with_different_width_same_cs.svg[caption="Figure {counter:figure}. "]
 
-Coming back to the concrete example from above, left lane A having a constant
+Coming back to the concrete example from <<Figure:LanesWithDifferentWidth>>, left lane A having a constant
 width of _4 m_ and right lane B having a constant width of _2 m_, both lanes
 together have a resulting width of _6 m_. A Cartesian lateral acceleration value of
 _{alpha} = 1 m/s^2^_ becomes an acceleration value of
 _{alpha}~i~ = 1/6 lat/s^2^ = 0.167 lat/s^2^_ within the individual situation specific
-lane-based coordinate system _LCS~i~_.
+lane-based coordinate system _LCS~i~_ (see also illustration in <<Figure:LanesWithDifferentWidthSameCS>>).
 
 The check of the ego vehicle with another object _o~j~_ which might be
 two lanes at the right of the ego vehicle in a lane C having a constant width
@@ -251,17 +252,19 @@ not yet cover the situations of widening lanes or narrow curves.
 To take the variation of the lane width and length into account, it is required
 to scale the applied acceleration values within the respective _LCS_ accordingly.
 
-*TODO* create and insert image for explanation
-
-Again, coming back to the examples from above, let's have a lane with non constant width
+Again, coming back to the examples from above, let us have a lane with non constant width
 between _2 m_ and _4 m_. Then the transformation of the maximum possible acceleration
 into the lane coordinate system _LCS_ has to take the minimum width of _2 m_
 into account, while the transformation of the deceleration values has to be
-transformed with the maximum width of the lane of _4 m_.
-Like this it's guaranteed that we neither underestimate the acceleration
+transformed with the maximum width of the lane of _4 m_ (see <<Figure:LaneWidthNarrowingAccelTransform>>).
+Like this it is guaranteed that we neither underestimate the acceleration
 of the vehicles towards each other nor overestimate the deceleration of the
 vehicles while braking. As a result, it is ensured that under all conditions,
 the safety distances are calculated in a conservative manner.
+
+[[Figure:LaneWidthNarrowingAccelTransform]]
+.Changing lane width and the resulting deceleration and acceleration transformations
+image::lane_width_narrowing_accel_transform.svg[caption="Figure {counter:figure}. "]
 
 In a similar way, it is possible to transform the longitudinal acceleration values
 into a lane-based coordinate system _LCS~k~_.
@@ -272,6 +275,10 @@ minimum and maximum lane length of _157.1 m_ and _169.7 m_.
 The decision on which of the two factors has to be selected for which of the
 acceleration/deceleration values depends also on the situation
 between ego vehicle and the actual object.
+
+[[Figure:LaneConstantCurveAccelTransform]]
+.Lane describing a narrow 180° curve and the resulting deceleration/acceleration for a leading vehicle and the following ego vehicle
+image::lane_constant_curve_accel_transform.svg[caption="Figure {counter:figure}. "]
 
 In case the ego vehicle is following object _o~k~_ within the same lane,
 the acceleration value of the ego vehicle
@@ -295,6 +302,33 @@ The absolute maximum and minimum width and length values of the lane
 segments is sufficient to calculate a proper transformation into the
 space of the individual lane-based coordinate systems.
 
+##### Considerations on reverse transformation of the proper response
+As the proper response is referring to the individual lane-based coordinate
+systems, the response has to be transformed back into Cartesian space.
+A simple example illustrates this: a vehicle driving in a curve will for sure
+have to perform a lateral acceleration in Cartesian space
+otherwise it will leave the lane because of the centripetal force, as illustrated
+in <<Figure:LaneConstantCurveResponseTransform>>.
+
+[[Figure:LaneConstantCurveResponseTransform]]
+.Constant drive around a curve will result in a zero lateral acceleration in a lane-based coordinate system and in a non-zero acceleration in a cartesian system
+image::lane_constant_curve_response_transform.svg[caption="Figure {counter:figure}. "]
+
+Because the proper response of RSS is defined with respect to the actual lane the
+vehicle is driving in, it is required to assure that the reverse transformation of the
+proper response considers only the ego-lane and not the individual lane-based
+coordinate systems.
+For example, let us consider a scenario as depicted in <<Figure:LaneWidthNarrowingResponseTransform>>,
+where one widening lane A and one narrowing lane B are neighbors in such a way
+that the overall width of the road is constantly _6 m_. Lane A starts with _2 m_
+and ends with _4 m_ width, whereas lane B starts with _4 m_ and ends with _2 m_
+width. A lateral velocity of 0 in respect to the whole road differs from the
+definition of a lateral velocity of 0 in lane A/lane B in Cartesian space.
+
+[[Figure:LaneWidthNarrowingResponseTransform]]
+.Different lateral accelerations in a lane-based system and Cartesian system for a vehicle following the centerline of lane B
+image::lane_width_narrowing_response_transform.svg[caption="Figure {counter:figure}. "]
+
 ##### Summary
 The presented construction of a continuous lane-based coordinates system
 will allow the pairwise calculation of the safe distances between ego vehicle
@@ -304,27 +338,6 @@ This lane-based coordinate system in conjunction with the situation specific
 scaling of the applied acceleration and braking values allows the calculation
 of the safe distances, the decision on dangerous situations and deduction of
 a proper response.
-
-##### Considerations on reverse transformation of the proper response
-As the proper response is referring to the individual lane-based coordinate
-systems, the response has to be transformed back into Cartesian space.
-A simple example illustrates this: a vehicle driving in a curve will for sure
-have to perform a lateral acceleration in Cartesian space
-otherwise it will leave the lane because of the centripedal force.
-
-*TODO* create and insert image for explanation
-
-Because the proper response of RSS is defined with respect to the actual lane the
-vehicle is driving in, it is required to assure that the reverse transformation of the
-proper response considers only the ego-lane and not the individual lane-based
-coordinate systems.
-For example, one widening lane A and one narrowing lane B are neighbors in such a way
-that the overall width of the road is constantly _6 m_. Lane A starts with _2 m_
-and ends with _4 m_ width, whereas lane B starts with _4 m_ and ends with _2 m_
-width. A lateral velocity of 0 in respect to the whole road differs from the
-definition of a lateral velocity of 0 in lane A/lane B in Cartesian space.
-
-*TODO* create and insert image for explanation
 
 ### Parameter Definition and Alternatives
 The RSS papers use a few constants required for the safety calculations.
@@ -515,7 +528,10 @@ As a starting point the values are set to:
 * RSS checks are performed on the current state on a ego vehicle - object pair basis
 * In dangerous situations only braking maneuvers are issued. RSS does not initiate
   lateral evasive maneuvers.
-* Lane-CS: *TODO* fill
+* To handle changing lateral/longitudinal acceleration parameters when transforming
+  the Cartesian space into the lane-based system, the acceleration and deceleration
+  parameters are chosen in such a way that these are constant within the lane-based system,
+  but guarantee safe operation (see <<Section::ChosenLaneBasedCS>>).
 * Proposed initial parameters are specified in <<Table:InitialParameters>>.
 
 
@@ -533,5 +549,5 @@ As a starting point the values are set to:
   This handling is explained in <<Section::LaneBasedCS>>.
 
 * It cannot be determined whether lateral evasive maneuvers are actually possible.
-Therefore, the RSS Module will not initiate such maneuvers, but will not hinder the
-driving policy to execute lateral evasive maneuvers.
+  Therefore, the RSS Module will not initiate such maneuvers, but will not hinder the
+  driving policy to execute lateral evasive maneuvers.
