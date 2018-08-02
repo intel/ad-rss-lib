@@ -44,6 +44,7 @@ inline lane::VehicleState createVehicleState(double velocity)
 
   state.responseTime = lane::cResponseTimeOtherVehicles;
   state.hasPriority = false;
+  state.isInCorrectLane = true;
 
   return state;
 }

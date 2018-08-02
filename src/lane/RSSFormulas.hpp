@@ -40,6 +40,24 @@ namespace lane {
 bool checkVehicleState(VehicleState const &state);
 
 /**
+ * @brief checks if the vehicle is completely in front of other vehicle
+ *
+ * Back bumper of the vehicle is in front of the front bumper of the other vehicle
+ *
+ * @return true if is in front, false otherwise
+ */
+bool isVehicleInFront(lane::VehicleState const &vehicle, lane::VehicleState const &otherVehicle);
+
+/**
+ * @brief calculates the longitudinal distance of the positions of the vehicles
+ *
+ * @returns the distance between the two vehicles or zero if the vehicles do overlap longitudinally
+ *
+ */
+Distance calculateLongitudinaltDistanceBetweenVehicles(lane::VehicleState const &vehicle,
+                                                       lane::VehicleState const &otherVehicle);
+
+/**
  * @brief Calculate the distance covered by a non-ego vehicle when applying the \a "stated braking pattern"
  *        Calls \sa calculateDistanceAfterStatedBreakingPattern()
  * @param[in]  currentSpeed   is the current vehicle speed [m/s]
@@ -123,44 +141,58 @@ bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehic
                                                 bool &isDistanceSafe);
 
 /**
- * @brief Calculate the \a "safe longitudinal distance" between the ego vehicle and another, approaching, vehicle,
- *        where the ego vehicle is on the correct lane.
- *        Assuming: Both vehicles apply \a "stated breaking pattern"
+ * @brief Calculate  the safe longitudinal distance between to vehicles driving in opposite direction
+ * If consider correct is true the calculation will assume that the correctVehicle is on the correct lane
+ * and oppositeVehicle on an opposite lane
+ *
+ * So calculation for the correctVehicle will be performed with brakeMinCorrect
+ *
+ * If consider correct is false its assumed that both vehicles are either on a correct or an opposite lane
+ * So calculation will be performed with BrakeMin for both vehicles
  *
  *        ======================================================
  *
- *            EgoVehicle --->      <--- OtherVehicle
+ *             CorrectVehicle --->        <---  oppositeVehicle
  *
  *        ======================================================
  *
- * @param[in]  egoSpeed      is the speed of the ego vehicle [m/s]
- * @param[in]  otherSpeed    is the speed of the other vehicle [m/s]
- * @param[out] safeDistance     is the calculated safe longitudinal distance [m]
+ * @param[in] considerCorrect     should the check respect that one of the vehicles is on the correct lane or not
+ * @param[in]  correctVehicle     is the state of the vehicle driving in the correct lane
+ * @param[in]  oppositeVehicle    is the state of the vehicle driving in the wrong lane
+ * @param[out] isDistanceSafe     true if the distance is safe, false otherwise
  * @return true on successful calculation, false otherwise
  */
-bool calculateSafeLongitudinalDistanceOppositeDirectionOnCorrectLane(Speed const egoSpeed,
-                                                                     Speed const otherSpeed,
-                                                                     Distance &safeDistance);
+bool calculateSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
+                                                        VehicleState const &correctVehicle,
+                                                        VehicleState const &oppositeVehicle,
+                                                        Distance &safeDistance);
 
 /**
- * @brief Calculate the \a "safe longitudinal distance" between the ego vehicle and another, approaching, vehicle,
- *        where the other vehicle is on its correct lane
- *        Assuming: Both vehicles apply \a "stated breaking pattern"
+ * @brief Check if the longitudinal distance between to vehicles driving in opposite direction is safe.
+ * If consider correct is true the check will assume that the correctVehicle is on the correct lane
+ * and oppositeVehicle on an opposite lane
+ *
+ * So check for the correctVehcile will be performed with brakeMinCorrect
+ *
+ * If consider correct is false its assumed that both vehicles are either on a correct or an opposite lane
+ * So check will be performed with BrakeMin
  *
  *        ======================================================
  *
- *            EgoVehicle --->      <--- OtherVehicle
+ *             CorrectVehicle --->        <---  oppositeVehicle
  *
  *        ======================================================
  *
- * @param[in]  egoSpeed      is the speed of the ego vehicle [m/s]
- * @param[in]  otherSpeed    is the speed of the other vehicle [m/s]
- * @param[out] safeDistance     is the calculated safe longitudinal distance [m]
+ * @param[in] considerCorrect     should the check respect that one of the vehicles is on the correct lane or not
+ * @param[in]  correctVehicle     is the state of the vehicle driving in the correct lane
+ * @param[in]  oppositeVehicle    is the state of the vehicle driving in the wrong lane
+ * @param[out] isDistanceSafe     true if the distance is safe, false otherwise
  * @return true on successful calculation, false otherwise
  */
-bool calculateSafeLongitudinalDistanceOppositeDirectionOnOppositeLane(Speed const egoSpeed,
-                                                                      Speed const otherSpeed,
-                                                                      Distance &safeDistance);
+bool checkSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
+                                                    VehicleState const &correctVehicle,
+                                                    VehicleState const &oppositeVehicle,
+                                                    bool &isDistanceSafe);
 
 } // namespace lane
 } // namespace rss

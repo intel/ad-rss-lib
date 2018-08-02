@@ -27,11 +27,6 @@ bool doVehiclesHaveSameDirection(lane::VehicleState const &egoVehicle, lane::Veh
   return std::signbit(egoVehicle.velocity.speedLon) == std::signbit(otherVehicle.velocity.speedLon);
 }
 
-bool isVehicleInFront(lane::VehicleState const &vehicle, lane::VehicleState const &otherVehicle)
-{
-  return vehicle.position.lonInterval.minimum > otherVehicle.position.lonInterval.maximum;
-}
-
 bool calculateLongitudinalResponseNonIntersection(lane::VehicleState const &egoVehicle,
                                                   lane::VehicleState const &otherVehicle,
                                                   LongitudinalResponse &response)
@@ -81,12 +76,41 @@ bool calculateLongitudinalResponseNonIntersectionOppositeDirection(lane::Vehicle
                                                                    lane::VehicleState const &otherVehicle,
                                                                    LongitudinalResponse &response)
 {
-  (void)egoVehicle;
-  (void)otherVehicle;
-  //@todo Implement calculateLongitudinalResponseNonIntersectionOppositeDirection
+  bool result = false;
+  bool isSafe = false;
 
   response = LongitudinalResponse::BrakeMin;
-  return false;
+
+  /**
+   * 1. Check if state is dangerous if both vehicles use brake min
+   */
+  result = checkSafeLongitudinalDistanceOppositeDirection(false, egoVehicle, otherVehicle, isSafe);
+
+  /**
+   * 2. If state is safe if both vehicles use brake min,
+   *    check if one of the vehicles is on correct lane and the other not
+   * This check is in addition to the check proposed in the original paper
+   */
+  if (result && isSafe && (egoVehicle.isInCorrectLane != otherVehicle.isInCorrectLane))
+  {
+    if (egoVehicle.isInCorrectLane)
+    {
+      result = checkSafeLongitudinalDistanceOppositeDirection(true, egoVehicle, otherVehicle, isSafe);
+      response = LongitudinalResponse::BrakeMinCorrect;
+    }
+    else
+    {
+      result = checkSafeLongitudinalDistanceOppositeDirection(true, otherVehicle, egoVehicle, isSafe);
+      response = LongitudinalResponse::BrakeMin;
+    }
+  }
+
+  if (isSafe)
+  {
+    response = LongitudinalResponse::Safe;
+  }
+
+  return result;
 }
 
 bool calculateLateralResponse(lane::VehicleState const &egoVehicle,
