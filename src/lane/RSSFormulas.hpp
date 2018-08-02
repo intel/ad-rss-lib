@@ -58,35 +58,6 @@ Distance calculateLongitudinaltDistanceBetweenVehicles(lane::VehicleState const 
                                                        lane::VehicleState const &otherVehicle);
 
 /**
- * @brief Calculate the distance covered by a non-ego vehicle when applying the \a "stated braking pattern"
- *        Calls \sa calculateDistanceAfterStatedBreakingPattern()
- * @param[in]  currentSpeed   is the current vehicle speed [m/s]
- * @param[out] coveredDistance  is the covered distance [m]
- * @return true on successful calculation, false otherwise
- */
-bool calculateDistanceAfterStatedBrakingPatternOtherVehicle(Speed const currentSpeed, Distance &coveredDistance);
-
-/**
- * @brief Calculate the distance covered by the ego vehicle when applying the \a "stated breaking pattern"
- *        Calls \sa calculateDistanceAfterStatedBrakingPattern()
- * @param[in]  currentSpeed   is the current vehicle speed [m/s]
- * @param[out] coveredDistance   is the covered distance [m]
- * @return true on successful calculation, false otherwise
- */
-bool calculateDistanceAfterStatedBrakingPatternEgoVehicle(Speed const currentSpeed, Distance &coveredDistance);
-
-/**
- * @brief Calculate the distance covered by a vehicle when applying the \a "stated braking pattern"
- * @param[in]  currentSpeed   is the current vehicle speed [m/s]
- * @param[in]  responseTime      is the response time of the vehicle [s]
- * @param[out] coveredDistance   is the covered distance [m]
- * @return true on successful calculation, false otherwise
- */
-bool calculateDistanceAfterStatedBrakingPattern(Speed const currentSpeed,
-                                                time::Duration const responseTime,
-                                                Distance &coveredDistance);
-
-/**
  * @brief Calculate the distance covered by a vehicle when applying the \a "stated braking pattern" with given
  *        deceleration
  * @param[in]  currentSpeed      is the current vehicle speed [lane coordinate system units per second]

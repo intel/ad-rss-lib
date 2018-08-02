@@ -68,7 +68,7 @@ the intersecting car. Hence, it will neglect steering towards direction
 of the other vehicle. But the driving policy can still steer to the
 opposite direction e.g. on an adjacent lane to avoid a collision.
 
-
+[[Section:ResponseForVehiclesDrivingInOppositeDirections]]
 ### Response for vehicles driving in opposite directions
 
 If two vehicles are approaching each other in opposite direction and the lateral
@@ -546,7 +546,7 @@ As a starting point the values are set to:
   assuming that the other car slows down with _{alpha}~brake,min~_. However, this may
   not clear the dangerous situation. Therefore, it is important to introduce a
   special treatment for the case of opposing cars that both are on the correct lane.
-  This handling is explained in <<Section::LaneBasedCS>>.
+  This handling is explained in <<Section:ResponseForVehiclesDrivingInOppositeDirections>>.
 
 * It cannot be determined whether lateral evasive maneuvers are actually possible.
   Therefore, the RSS Module will not initiate such maneuvers, but will not hinder the

@@ -17,7 +17,6 @@
 
 #include "Math.hpp"
 #include <algorithm>
-#include "RSSParameters.hpp"
 
 namespace rss {
 namespace lane {

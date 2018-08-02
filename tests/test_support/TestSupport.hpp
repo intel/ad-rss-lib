@@ -17,7 +17,7 @@
 #pragma once
 
 #include <gtest/gtest.h>
-#include "lane/RSSParameters.hpp"
+#include "RSSParameters.hpp"
 #include "rss/lane/VehicleState.hpp"
 
 namespace rss {

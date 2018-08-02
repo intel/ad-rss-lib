@@ -18,7 +18,6 @@
 #include "RSSFormulas.hpp"
 #include <algorithm>
 #include "Math.hpp"
-#include "RSSParameters.hpp"
 
 namespace rss {
 namespace lane {
@@ -111,24 +110,6 @@ Distance calculateLongitudinaltDistanceBetweenVehicles(lane::VehicleState const 
   }
 
   return resultingDistance;
-}
-
-bool calculateDistanceAfterStatedBrakingPatternOtherVehicle(Speed const currentSpeed, Distance &coveredDistance)
-{
-  return calculateDistanceAfterStatedBrakingPattern(currentSpeed, cResponseTimeOtherVehicles, coveredDistance);
-}
-
-bool calculateDistanceAfterStatedBrakingPatternEgoVehicle(Speed const currentSpeed, Distance &coveredDistance)
-{
-  return calculateDistanceAfterStatedBrakingPattern(currentSpeed, cResponseTimeEgoVehicle, coveredDistance);
-}
-
-bool calculateDistanceAfterStatedBrakingPattern(Speed const currentSpeed,
-                                                time::Duration const responseTime,
-                                                Distance &coveredDistance)
-{
-  return calculateDistanceAfterStatedBrakingPattern(
-    currentSpeed, responseTime, cMaximumAcceleration, cMinimumBrakingDeceleleration, coveredDistance);
 }
 
 bool calculateDistanceAfterStatedBrakingPattern(Speed const currentSpeed,

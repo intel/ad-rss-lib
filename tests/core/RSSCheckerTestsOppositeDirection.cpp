@@ -123,7 +123,7 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_response_1s_safe)
   ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::Safe);
 }
 
-TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min_correct_ego_vehicle_inf_front)
+TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min_correct_ego_vehicle_in_front)
 {
   correctVehicle = createVehicleState(-50);
   oppositeVehicle = createVehicleState(50);
@@ -190,6 +190,22 @@ TEST_F(RSSCheckerTestsOppositeDirection, incorrect_vehicle_state_other)
   situation.otherVehicleState = oppositeVehicle;
 
   ASSERT_FALSE(checkSituation(situation, response));
+}
+
+TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min_ego_opposite)
+{
+  correctVehicle = createVehicleState(50);
+  oppositeVehicle = createVehicleState(-50);
+  oppositeVehicle.isInCorrectLane = false;
+
+  oppositeVehicle.position.lonInterval.minimum = 178.7;
+  oppositeVehicle.position.lonInterval.maximum = 180;
+
+  situation.egoVehicleState = oppositeVehicle;
+  situation.otherVehicleState = correctVehicle;
+
+  ASSERT_TRUE(checkSituation(situation, response));
+  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMin);
 }
 
 } // namespace RSSChecker

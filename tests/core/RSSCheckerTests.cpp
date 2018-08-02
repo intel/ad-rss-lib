@@ -145,6 +145,20 @@ TEST_F(RSSCheckerTests, same_direction_leading_other_0kmh_other_standing)
   ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMin);
 }
 
+TEST_F(RSSCheckerTests, same_direction_both_negative_velocity)
+{
+  leadingVehicle = createVehicleState(-50);
+  followingVehicle = createVehicleState(-50);
+
+  leadingVehicle.position.lonInterval.minimum = 71.6;
+  leadingVehicle.position.lonInterval.maximum = 73.;
+
+  situation.egoVehicleState = followingVehicle;
+  situation.otherVehicleState = leadingVehicle;
+
+  ASSERT_FALSE(checkSituation(situation, response));
+}
+
 } // namespace RSSChecker
 } // namespace core
 } // namespace rss

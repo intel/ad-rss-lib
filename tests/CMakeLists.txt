@@ -33,6 +33,8 @@ set(RSS_CORE_TEST_SOURCES
   lane/RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
   lane/RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
   lane/RSSFormulaTestsCheckVehicleState.cpp
+  rss/check/LateralResponseTests.cpp
+  rss/check/LongitudinalResponseTests.cpp
 )
 
 add_executable(${EXEC_NAME} ${RSS_CORE_TEST_SOURCES})
