@@ -40,17 +40,43 @@ bool RSSResponseProvider::provideProperResponse(check::ResponseVector const &cur
 
   RssStateBeforeBlameTimeMap newStatesBeforeBlameTime;
 
-  for (auto currentResponse : currentResponses)
+  try
   {
-    // The response belonging to the last state before the blame time
-    check::RssState nonDangerousStateToRemember;
-    if (check::isDangerous(currentResponse))
+    for (auto currentResponse : currentResponses)
     {
-      auto previousNonDangerousState = mStatesBeforeBlameTime.find(currentResponse.situationId);
-      if (previousNonDangerousState != mStatesBeforeBlameTime.end())
+      // The response belonging to the last state before the blame time
+      check::RssState nonDangerousStateToRemember;
+      if (check::isDangerous(currentResponse))
       {
-        if (previousNonDangerousState->second.lateralSafe)
+        auto previousNonDangerousState = mStatesBeforeBlameTime.find(currentResponse.situationId);
+        if (previousNonDangerousState != mStatesBeforeBlameTime.end())
         {
+          if (previousNonDangerousState->second.lateralSafe)
+          {
+            // we might need to check here if left or right is the dangerous side
+            // but for the combineLateralResponse will only respect the more severe response
+            // omitting the check should have the same result
+            response.lateralResponseLeft
+              = check::combineLateralResponse(currentResponse.lateralResponseLeft, response.lateralResponseLeft);
+
+            response.lateralResponseRight
+              = combineLateralResponse(currentResponse.lateralResponseRight, response.lateralResponseRight);
+          }
+          if (previousNonDangerousState->second.longitudinalSafe)
+          {
+            response.longitudinalResponse
+              = check::combineLongitudinalResponse(currentResponse.longitudinalResponse, response.longitudinalResponse);
+          }
+
+          nonDangerousStateToRemember = previousNonDangerousState->second;
+        }
+        else
+        {
+          // There is a lateral and a longitudinal conflict so both longitudinal and lateral distances became
+          // dangerous at the same time
+          response.longitudinalResponse
+            = check::combineLongitudinalResponse(currentResponse.longitudinalResponse, response.longitudinalResponse);
+
           // we might need to check here if left or right is the dangerous side
           // but for the combineLateralResponse will only respect the more severe response
           // omitting the check should have the same result
@@ -58,52 +84,36 @@ bool RSSResponseProvider::provideProperResponse(check::ResponseVector const &cur
             = check::combineLateralResponse(currentResponse.lateralResponseLeft, response.lateralResponseLeft);
 
           response.lateralResponseRight
-            = combineLateralResponse(currentResponse.lateralResponseRight, response.lateralResponseRight);
+            = check::combineLateralResponse(currentResponse.lateralResponseRight, response.lateralResponseRight);
         }
-        if (previousNonDangerousState->second.longitudinalSafe)
-        {
-          response.longitudinalResponse
-            = check::combineLongitudinalResponse(currentResponse.longitudinalResponse, response.longitudinalResponse);
-        }
-
-        nonDangerousStateToRemember = previousNonDangerousState->second;
       }
       else
       {
-        // There is a lateral and a longitudinal conflict so both longitudinal and lateral distances became
-        // dangerous at the same time
-        response.longitudinalResponse
-          = check::combineLongitudinalResponse(currentResponse.longitudinalResponse, response.longitudinalResponse);
+        nonDangerousStateToRemember.longitudinalSafe = isLongitudinalSafe(currentResponse);
+        nonDangerousStateToRemember.lateralSafe = isLateralSafe(currentResponse);
+      }
 
-        // we might need to check here if left or right is the dangerous side
-        // but for the combineLateralResponse will only respect the more severe response
-        // omitting the check should have the same result
-        response.lateralResponseLeft
-          = check::combineLateralResponse(currentResponse.lateralResponseLeft, response.lateralResponseLeft);
+      // store state for the next iteration
+      auto insertResult = newStatesBeforeBlameTime.insert(
+        RssStateBeforeBlameTimeMap::value_type(currentResponse.situationId, nonDangerousStateToRemember));
 
-        response.lateralResponseRight
-          = check::combineLateralResponse(currentResponse.lateralResponseRight, response.lateralResponseRight);
+      if (result)
+      {
+        result = insertResult.second;
       }
     }
-    else
-    {
-      nonDangerousStateToRemember.longitudinalSafe = isLongitudinalSafe(currentResponse);
-      nonDangerousStateToRemember.lateralSafe = isLateralSafe(currentResponse);
-    }
-
-    // store state for the next iteration
-    auto insertResult = newStatesBeforeBlameTime.insert(
-      RssStateBeforeBlameTimeMap::value_type(currentResponse.situationId, nonDangerousStateToRemember));
 
     if (result)
     {
-      result = insertResult.second;
+      // Determine resulting response
+      mStatesBeforeBlameTime.clear();
+      mStatesBeforeBlameTime.swap(newStatesBeforeBlameTime);
     }
   }
-
-  // Determine resulting response
-  mStatesBeforeBlameTime.clear();
-  mStatesBeforeBlameTime.swap(newStatesBeforeBlameTime);
+  catch (...)
+  {
+    result = false;
+  }
 
   return result;
 }

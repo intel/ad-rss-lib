@@ -52,6 +52,8 @@ public:
    * @param[out] response the proper overall response
    *
    * @return true if response could be calculated, false otherwise
+   *
+   * When false is returned the internal state has not been updated
    */
   bool provideProperResponse(check::ResponseVector const &currentResponses, check::Response &response);
 
