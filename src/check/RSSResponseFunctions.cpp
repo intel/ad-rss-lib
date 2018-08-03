@@ -22,14 +22,14 @@
 namespace rss {
 namespace check {
 
-bool doVehiclesHaveSameDirection(lane::VehicleState const &egoVehicle, lane::VehicleState const &otherVehicle)
+bool doVehiclesHaveSameDirection(lane::VehicleState const &egoVehicle, lane::VehicleState const &otherVehicle) noexcept
 {
   return std::signbit(egoVehicle.velocity.speedLon) == std::signbit(otherVehicle.velocity.speedLon);
 }
 
 bool calculateLongitudinalResponseNonIntersection(lane::VehicleState const &egoVehicle,
                                                   lane::VehicleState const &otherVehicle,
-                                                  LongitudinalResponse &response)
+                                                  LongitudinalResponse &response) noexcept
 {
   bool result = false;
   if (doVehiclesHaveSameDirection(egoVehicle, otherVehicle))
@@ -45,7 +45,7 @@ bool calculateLongitudinalResponseNonIntersection(lane::VehicleState const &egoV
 
 bool calculateLongitudinalResponseNonIntersectionSameDirection(lane::VehicleState const &egoVehicle,
                                                                lane::VehicleState const &otherVehicle,
-                                                               LongitudinalResponse &response)
+                                                               LongitudinalResponse &response) noexcept
 {
   bool result = false;
 
@@ -74,7 +74,7 @@ bool calculateLongitudinalResponseNonIntersectionSameDirection(lane::VehicleStat
 
 bool calculateLongitudinalResponseNonIntersectionOppositeDirection(lane::VehicleState const &egoVehicle,
                                                                    lane::VehicleState const &otherVehicle,
-                                                                   LongitudinalResponse &response)
+                                                                   LongitudinalResponse &response) noexcept
 {
   bool result = false;
   bool isSafe = false;
@@ -116,7 +116,7 @@ bool calculateLongitudinalResponseNonIntersectionOppositeDirection(lane::Vehicle
 bool calculateLateralResponse(lane::VehicleState const &egoVehicle,
                               lane::VehicleState const &otherVehicle,
                               LateralResponse &responseLeft,
-                              LateralResponse &responseRight)
+                              LateralResponse &responseRight) noexcept
 {
   (void)egoVehicle;
   (void)otherVehicle;

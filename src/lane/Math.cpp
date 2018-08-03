@@ -21,7 +21,7 @@
 namespace rss {
 namespace lane {
 
-bool calculateStoppingDistance(Speed const speed, Acceleration const deceleration, Distance &stoppingDistance)
+bool calculateStoppingDistance(Speed const speed, Acceleration const deceleration, Distance &stoppingDistance) noexcept
 {
   if (speed < 0.)
   {
@@ -43,7 +43,7 @@ bool calculateStoppingDistance(Speed const speed, Acceleration const deceleratio
 bool calculateSpeedAfterResponseTime(Speed const currentSpeed,
                                      Acceleration const acceleration,
                                      time::Duration const responseTime,
-                                     Speed &resultingSpeed)
+                                     Speed &resultingSpeed) noexcept
 {
   if (currentSpeed < 0.)
   {
@@ -67,7 +67,7 @@ bool calculateSpeedAfterResponseTime(Speed const currentSpeed,
 bool calculateDistanceAfterResponseTime(Speed const currentSpeed,
                                         Acceleration const acceleration,
                                         time::Duration const responseTime,
-                                        Distance &coveredDistance)
+                                        Distance &coveredDistance) noexcept
 {
   if (currentSpeed < 0.)
   {

@@ -46,7 +46,7 @@ namespace RSSChecker {
  *
  * @return true if situation could be analyzed, false if there was an error during evaluation
  */
-bool checkSituation(lane::Situation const &situation, check::Response &response);
+bool checkSituation(lane::Situation const &situation, check::Response &response) noexcept;
 
 } // namespace RSSChecker
 } // namespace core

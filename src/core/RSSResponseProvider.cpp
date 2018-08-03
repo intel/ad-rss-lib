@@ -30,7 +30,7 @@ RSSResponseProvider::RSSResponseProvider()
 }
 
 bool RSSResponseProvider::provideProperResponse(check::ResponseVector const &currentResponses,
-                                                check::Response &response)
+                                                check::Response &response) noexcept
 {
   response.lateralResponseRight = LateralResponse::Safe;
   response.lateralResponseLeft = LateralResponse::Safe;

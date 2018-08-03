@@ -22,7 +22,7 @@
 namespace rss {
 namespace lane {
 
-bool checkVehicleDynamics(Dynamics const &dynamics)
+bool checkVehicleDynamics(Dynamics const &dynamics) noexcept
 {
   // acceleration has to be >=0
   if (dynamics.alphaLon.accelMax < 0)
@@ -59,7 +59,7 @@ bool checkVehicleDynamics(Dynamics const &dynamics)
   return true;
 }
 
-bool checkVehicleVelocity(Velocity const &velocity)
+bool checkVehicleVelocity(Velocity const &velocity) noexcept
 {
   if (velocity.speedLon < 0)
   {
@@ -69,7 +69,7 @@ bool checkVehicleVelocity(Velocity const &velocity)
   return true;
 }
 
-bool checkVehicleState(VehicleState const &state)
+bool checkVehicleState(VehicleState const &state) noexcept
 {
   if (!checkVehicleDynamics(state.dynamics))
   {
@@ -84,13 +84,13 @@ bool checkVehicleState(VehicleState const &state)
   return true;
 }
 
-bool isVehicleInFront(lane::VehicleState const &vehicle, lane::VehicleState const &otherVehicle)
+bool isVehicleInFront(lane::VehicleState const &vehicle, lane::VehicleState const &otherVehicle) noexcept
 {
   return vehicle.position.lonInterval.minimum > otherVehicle.position.lonInterval.maximum;
 }
 
 Distance calculateLongitudinaltDistanceBetweenVehicles(lane::VehicleState const &vehicle,
-                                                       lane::VehicleState const &otherVehicle)
+                                                       lane::VehicleState const &otherVehicle) noexcept
 {
   Distance resultingDistance = 0.;
 
@@ -116,7 +116,7 @@ bool calculateDistanceAfterStatedBrakingPattern(Speed const currentSpeed,
                                                 time::Duration const responseTime,
                                                 Acceleration const acceleration,
                                                 Acceleration const deceleration,
-                                                Distance &coveredDistance)
+                                                Distance &coveredDistance) noexcept
 {
   Speed resultingSpeed = 0.;
   bool resultCalculateSpeed = calculateSpeedAfterResponseTime(currentSpeed, acceleration, responseTime, resultingSpeed);
@@ -145,7 +145,7 @@ bool calculateDistanceAfterStatedBrakingPattern(Speed const currentSpeed,
 
 bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehicle,
                                                     VehicleState const &followingVehicle,
-                                                    Distance &safeDistance)
+                                                    Distance &safeDistance) noexcept
 {
   if (!checkVehicleState(leadingVehicle) || !checkVehicleState(followingVehicle))
   {
@@ -181,7 +181,7 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
 
 bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehicle,
                                                 VehicleState const &followingVehicle,
-                                                bool &isDistanceSafe)
+                                                bool &isDistanceSafe) noexcept
 {
   bool result = false;
   isDistanceSafe = false;
@@ -206,7 +206,7 @@ bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehic
 bool calculateSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
                                                         VehicleState const &correctVehicle,
                                                         VehicleState const &oppositeVehicle,
-                                                        Distance &safeDistance)
+                                                        Distance &safeDistance) noexcept
 {
   bool result = false;
 
@@ -261,7 +261,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
 bool checkSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
                                                     VehicleState const &correctVehicle,
                                                     VehicleState const &oppositeVehicle,
-                                                    bool &isDistanceSafe)
+                                                    bool &isDistanceSafe) noexcept
 {
   bool result = false;
 

@@ -55,7 +55,7 @@ public:
    *
    * When false is returned the internal state has not been updated
    */
-  bool provideProperResponse(check::ResponseVector const &currentResponses, check::Response &response);
+  bool provideProperResponse(check::ResponseVector const &currentResponses, check::Response &response) noexcept;
 
 private:
   /**

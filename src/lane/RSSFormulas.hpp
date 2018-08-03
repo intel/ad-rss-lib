@@ -37,7 +37,7 @@ namespace lane {
  *
  * @return true if state is valid, false otherwise
  */
-bool checkVehicleState(VehicleState const &state);
+bool checkVehicleState(VehicleState const &state) noexcept;
 
 /**
  * @brief checks if the vehicle is completely in front of other vehicle
@@ -46,7 +46,7 @@ bool checkVehicleState(VehicleState const &state);
  *
  * @return true if is in front, false otherwise
  */
-bool isVehicleInFront(lane::VehicleState const &vehicle, lane::VehicleState const &otherVehicle);
+bool isVehicleInFront(lane::VehicleState const &vehicle, lane::VehicleState const &otherVehicle) noexcept;
 
 /**
  * @brief calculates the longitudinal distance of the positions of the vehicles
@@ -55,7 +55,7 @@ bool isVehicleInFront(lane::VehicleState const &vehicle, lane::VehicleState cons
  *
  */
 Distance calculateLongitudinaltDistanceBetweenVehicles(lane::VehicleState const &vehicle,
-                                                       lane::VehicleState const &otherVehicle);
+                                                       lane::VehicleState const &otherVehicle) noexcept;
 
 /**
  * @brief Calculate the distance covered by a vehicle when applying the \a "stated braking pattern" with given
@@ -71,7 +71,7 @@ bool calculateDistanceAfterStatedBrakingPattern(Speed const currentSpeed,
                                                 time::Duration const responseTime,
                                                 Acceleration const acceleration,
                                                 Acceleration const deceleration,
-                                                Distance &coveredDistance);
+                                                Distance &coveredDistance) noexcept;
 
 /**
  * @brief Calculate the \a "safe longitudinal distance" between the two vehicles,
@@ -90,7 +90,7 @@ bool calculateDistanceAfterStatedBrakingPattern(Speed const currentSpeed,
  */
 bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehicle,
                                                     VehicleState const &followingVehicle,
-                                                    Distance &safeDistance);
+                                                    Distance &safeDistance) noexcept;
 
 /**
  * @brief Check if the longitudinal distance between the two vehicles is safe.
@@ -109,7 +109,7 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
  */
 bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehicle,
                                                 VehicleState const &followingVehicle,
-                                                bool &isDistanceSafe);
+                                                bool &isDistanceSafe) noexcept;
 
 /**
  * @brief Calculate  the safe longitudinal distance between to vehicles driving in opposite direction
@@ -136,7 +136,7 @@ bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehic
 bool calculateSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
                                                         VehicleState const &correctVehicle,
                                                         VehicleState const &oppositeVehicle,
-                                                        Distance &safeDistance);
+                                                        Distance &safeDistance) noexcept;
 
 /**
  * @brief Check if the longitudinal distance between to vehicles driving in opposite direction is safe.
@@ -163,7 +163,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
 bool checkSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
                                                     VehicleState const &correctVehicle,
                                                     VehicleState const &oppositeVehicle,
-                                                    bool &isDistanceSafe);
+                                                    bool &isDistanceSafe) noexcept;
 
 } // namespace lane
 } // namespace rss

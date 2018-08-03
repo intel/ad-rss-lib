@@ -42,7 +42,7 @@ namespace lane {
  * @param[out] stoppingDistance       is the resulting stopping distance [m]
  * @return true on success, false otherwise (e.g. if speed < 0)
  */
-bool calculateStoppingDistance(Speed const speed, Acceleration const deceleration, Distance &stoppingDistance);
+bool calculateStoppingDistance(Speed const speed, Acceleration const deceleration, Distance &stoppingDistance) noexcept;
 
 /**
  * @brief Calculate the vehicle speed after a given period of time (i.e. response time)
@@ -55,7 +55,7 @@ bool calculateStoppingDistance(Speed const speed, Acceleration const deceleratio
 bool calculateSpeedAfterResponseTime(Speed const currentSpeed,
                                      Acceleration const acceleration,
                                      time::Duration const responseTime,
-                                     Speed &resultingSpeed);
+                                     Speed &resultingSpeed) noexcept;
 
 /**
  * @brief Calculate the covered distance of a vehicle after a given period of time (i.e. reponse time)
@@ -68,6 +68,6 @@ bool calculateSpeedAfterResponseTime(Speed const currentSpeed,
 bool calculateDistanceAfterResponseTime(Speed const currentSpeed,
                                         Acceleration const acceleration,
                                         time::Duration const responseTime,
-                                        Distance &coveredDistance);
+                                        Distance &coveredDistance) noexcept;
 } // namespace lane
 } // namespace rss

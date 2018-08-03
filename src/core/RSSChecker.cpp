@@ -27,7 +27,7 @@ using check::Response;
 using check::LateralResponse;
 using check::LongitudinalResponse;
 
-bool checkSituation(lane::Situation const &situation, Response &response)
+bool checkSituation(lane::Situation const &situation, Response &response) noexcept
 {
   bool result = false;
 

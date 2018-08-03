@@ -39,7 +39,7 @@ namespace check {
  *
  * true if safe, false if not
  */
-inline bool isLongitudinalSafe(Response const &response)
+inline bool isLongitudinalSafe(Response const &response) noexcept
 {
   return response.longitudinalResponse == LongitudinalResponse::Safe;
 }
@@ -51,7 +51,7 @@ inline bool isLongitudinalSafe(Response const &response)
  *
  * true if safe, false if not
  */
-inline bool isLateralSafeLeft(Response const &response)
+inline bool isLateralSafeLeft(Response const &response) noexcept
 {
   return response.lateralResponseLeft == LateralResponse::Safe;
 }
@@ -63,7 +63,7 @@ inline bool isLateralSafeLeft(Response const &response)
  *
  * true if safe, false if not
  */
-inline bool isLateralSafeRight(Response const &response)
+inline bool isLateralSafeRight(Response const &response) noexcept
 {
   return response.lateralResponseRight == LateralResponse::Safe;
 }
@@ -74,7 +74,7 @@ inline bool isLateralSafeRight(Response const &response)
  *
  * true if safe, false if not
  */
-inline bool isLateralSafe(Response const &response)
+inline bool isLateralSafe(Response const &response) noexcept
 {
   return isLateralSafeRight(response) && isLateralSafeLeft(response);
 }
@@ -86,7 +86,7 @@ inline bool isLateralSafe(Response const &response)
  *
  * true if safe, false if not
  */
-inline bool isDangerous(Response const &response)
+inline bool isDangerous(Response const &response) noexcept
 {
   return !isLongitudinalSafe(response) && !isLateralSafe(response);
 }
@@ -103,7 +103,7 @@ inline bool isDangerous(Response const &response)
  * @returns the resulting response
  */
 inline LongitudinalResponse combineLongitudinalResponse(LongitudinalResponse previousResponse,
-                                                        LongitudinalResponse newResponse)
+                                                        LongitudinalResponse newResponse) noexcept
 {
   if (previousResponse > newResponse)
   {
@@ -124,7 +124,7 @@ inline LongitudinalResponse combineLongitudinalResponse(LongitudinalResponse pre
  *
  * @returns the resulting response
  */
-inline LateralResponse combineLateralResponse(LateralResponse previousResponse, LateralResponse newResponse)
+inline LateralResponse combineLateralResponse(LateralResponse previousResponse, LateralResponse newResponse) noexcept
 {
   if (previousResponse > newResponse)
   {
@@ -147,7 +147,7 @@ inline LateralResponse combineLateralResponse(LateralResponse previousResponse, 
  */
 bool calculateLongitudinalResponseNonIntersection(lane::VehicleState const &egoVehicle,
                                                   lane::VehicleState const &otherVehicle,
-                                                  LongitudinalResponse &response);
+                                                  LongitudinalResponse &response) noexcept;
 
 /**
  * @brief Calculate safety checks and determine required response for longitudinal direction for
@@ -162,7 +162,7 @@ bool calculateLongitudinalResponseNonIntersection(lane::VehicleState const &egoV
  */
 bool calculateLongitudinalResponseNonIntersectionSameDirection(lane::VehicleState const &egoVehicle,
                                                                lane::VehicleState const &otherVehicle,
-                                                               LongitudinalResponse &response);
+                                                               LongitudinalResponse &response) noexcept;
 
 /**
  * @brief Calculate safety checks and determine required response for longitudinal direction for
@@ -177,7 +177,7 @@ bool calculateLongitudinalResponseNonIntersectionSameDirection(lane::VehicleStat
  */
 bool calculateLongitudinalResponseNonIntersectionOppositeDirection(lane::VehicleState const &egoVehicle,
                                                                    lane::VehicleState const &otherVehicle,
-                                                                   LongitudinalResponse &response);
+                                                                   LongitudinalResponse &response) noexcept;
 
 /**
  * @brief Calculate safety checks and determine required response for lateral direction
@@ -193,7 +193,7 @@ bool calculateLongitudinalResponseNonIntersectionOppositeDirection(lane::Vehicle
 bool calculateLateralResponse(lane::VehicleState const &egoVehicle,
                               lane::VehicleState const &otherVehicle,
                               LateralResponse &responseLeft,
-                              LateralResponse &responseRight);
+                              LateralResponse &responseRight) noexcept;
 
 } // namespace check
 } // namespace rss
