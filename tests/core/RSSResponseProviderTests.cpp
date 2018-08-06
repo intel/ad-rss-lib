@@ -207,5 +207,25 @@ TEST_F(RSSResponseProviderTests, threeResponsesSameId)
   ASSERT_FALSE(provider.provideProperResponse(responseVector, resultResponse));
 }
 
+TEST_F(RSSResponseProviderTests, provideProperResponseDangerousInitialState)
+{
+  firstResponse.lateralResponseRight = LateralResponse::BrakeMin;
+  firstResponse.longitudinalResponse = LongitudinalResponse::BrakeMin;
+  responseVector.push_back(firstResponse);
+
+  Response resultResponse;
+  ASSERT_TRUE(provider.provideProperResponse(responseVector, resultResponse));
+
+  ASSERT_EQ(resultResponse.longitudinalResponse, LongitudinalResponse::BrakeMin);
+  ASSERT_EQ(resultResponse.lateralResponseLeft, LateralResponse::Safe);
+  ASSERT_EQ(resultResponse.lateralResponseRight, LateralResponse::BrakeMin);
+
+  ASSERT_TRUE(provider.provideProperResponse(responseVector, resultResponse));
+
+  ASSERT_EQ(resultResponse.longitudinalResponse, LongitudinalResponse::BrakeMin);
+  ASSERT_EQ(resultResponse.lateralResponseLeft, LateralResponse::Safe);
+  ASSERT_EQ(resultResponse.lateralResponseRight, LateralResponse::BrakeMin);
+}
+
 } // namespace core
 } // namespace rss

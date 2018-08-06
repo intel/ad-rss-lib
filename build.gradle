@@ -5,3 +5,7 @@ apply plugin: 'com.intel.mo2ive.extlib'
 model {
   rss(ExternalCMakeBuild) {}
 }
+
+ext {
+  enableTesting = true
+}

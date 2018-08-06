@@ -35,15 +35,16 @@ namespace lane {
 
 // @TODO: remove this file when constants are replaced by parameters
 
-const time::Duration cResponseTimeEgoVehicle = 1;     /*!< Response time of the ego vehicle in seconds. */
-const time::Duration cResponseTimeOtherVehicles = 2;  /*!< Response time of non-ego vehicles in seconds. */
-const Acceleration cMaximumAcceleration = 3.5;        /*!< Maximum allowed acceleration in m/s^2. */
-                                                      /*!< This might need to be changed to be speed dependent. */
-const Acceleration cMinimumBrakingDeceleleration = 4; /*!< Minimum braking force applied in m/s^2. */
-const Acceleration cMaximumBrakingDeceleleration = 8; /*!< Maximum braking force applied in m/s^2. */
-const Acceleration cMinimumBrakingDecelelerationCorrect = 3; /*!< Minimum correct braking force applied in m/s^2. */
+const time::Duration cResponseTimeEgoVehicle = 1;    /*!< Response time of the ego vehicle in seconds. */
+const time::Duration cResponseTimeOtherVehicles = 2; /*!< Response time of non-ego vehicles in seconds. */
 
-const Acceleration cLatFluctationMargin = 0.5;
+const Acceleration cMaximumLongitudinalAcceleration = 3.5;
+const Acceleration cMinimumLongitudinalBrakingDeceleleration = 4;
+const Acceleration cMaximumLongitudinalBrakingDeceleleration = 8;
+const Acceleration cMinimumLongitudinalBrakingDecelelerationCorrect = 3;
+
+const Acceleration cMaximumLateralAcceleration = 0.2;
+const Acceleration cMinimumLateralBrakingDeceleleration = 0.8;
 
 } // namespace lane
 } // namespace rss

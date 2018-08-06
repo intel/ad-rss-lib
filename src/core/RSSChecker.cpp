@@ -34,7 +34,7 @@ bool checkSituation(lane::Situation const &situation, Response &response) noexce
   LongitudinalResponse longitudinalResponse = LongitudinalResponse::BrakeMin;
   LateralResponse lateralResponseLeft = LateralResponse::BrakeMin;
   LateralResponse lateralResponseRight = LateralResponse::BrakeMin;
-  // If one vehicle has priority we're in an intersection scenario
+  // If one vehicle has priority we are in an intersection scenario
   if (!situation.egoVehicleState.hasPriority && !situation.otherVehicleState.hasPriority)
   {
     /**
@@ -45,6 +45,9 @@ bool checkSituation(lane::Situation const &situation, Response &response) noexce
 
     if (result)
     {
+      /**
+       * Check lateral safe distance
+       */
       result = check::calculateLateralResponse(
         situation.egoVehicleState, situation.otherVehicleState, lateralResponseLeft, lateralResponseRight);
     }

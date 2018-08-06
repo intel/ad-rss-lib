@@ -49,13 +49,29 @@ bool checkVehicleState(VehicleState const &state) noexcept;
 bool isVehicleInFront(lane::VehicleState const &vehicle, lane::VehicleState const &otherVehicle) noexcept;
 
 /**
+ * @brief checks if the vehicle located on the left side of other vehicle
+ *
+ * @return true if is left, false otherwise
+ */
+bool isVehicleLeft(lane::VehicleState const &vehicle, lane::VehicleState const &otherVehicle) noexcept;
+
+/**
  * @brief calculates the longitudinal distance of the positions of the vehicles
  *
  * @returns the distance between the two vehicles or zero if the vehicles do overlap longitudinally
  *
  */
-Distance calculateLongitudinaltDistanceBetweenVehicles(lane::VehicleState const &vehicle,
-                                                       lane::VehicleState const &otherVehicle) noexcept;
+Distance calculateLongitudinalDistanceBetweenVehicles(lane::VehicleState const &vehicle,
+                                                      lane::VehicleState const &otherVehicle) noexcept;
+
+/**
+ * @brief calculates the lateral distance of the positions of the vehicles
+ *
+ * @returns the distance between the two vehicles or zero if the vehicles do overlap laterally
+ *
+ */
+Distance calculateLateralDistanceBetweenVehicles(lane::VehicleState const &vehicle,
+                                                 lane::VehicleState const &otherVehicle) noexcept;
 
 /**
  * @brief Calculate the distance covered by a vehicle when applying the \a "stated braking pattern" with given
@@ -164,6 +180,60 @@ bool checkSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
                                                     VehicleState const &correctVehicle,
                                                     VehicleState const &oppositeVehicle,
                                                     bool &isDistanceSafe) noexcept;
+
+/**
+ * @brief Calculate the \a "safe lateral distance" between the two vehicles,
+ *        Assuming: Both vehicles apply \a "stated breaking pattern"
+ *
+ *        ======================================================
+ *
+ *             First vehicle  -->
+ *                 |
+ *                 |
+ *                 v
+ *
+ *                 ^
+ *                 |
+ *                 |
+ *             Second vehicle -->
+ *
+ *        ======================================================
+ *
+ * @param[in]  vehicle      is the state of the first vehicle
+ * @param[in]  otherVehicle is the state of the second vehicle
+ * @param[out] safeDistance is the calculated safe lateral distance [lane coordinate system unit]
+ * @return true on successful calculation, false otherwise
+ */
+bool calculateSafeLateralDistance(VehicleState const &vehicle,
+                                  VehicleState const &otherVehicle,
+                                  Distance &safeDistance) noexcept;
+
+/**
+ * @brief Check if the lateral distance between to vehicles is safe
+ *        Assuming: Both vehicles apply \a "stated breaking pattern"
+ *
+ *        ======================================================
+ *
+ *             First vehicle  -->
+ *                 |
+ *                 |
+ *                 v
+ *
+ *                 ^
+ *                 |
+ *                 |
+ *             Second vehicle -->
+ *
+ *        ======================================================
+ *
+ * @param[in]  vehicle        is the state of the first vehicle
+ * @param[in]  otherVehicle   is the state of the second vehicle
+ * @param[out] isDistanceSafe is true if the distance is safe, false otherwise
+ * @return true on successful calculation, false otherwise
+ */
+bool checkSafeLateralDistance(VehicleState const &vehicle,
+                              VehicleState const &otherVehicle,
+                              bool &isDistanceSafe) noexcept;
 
 } // namespace lane
 } // namespace rss

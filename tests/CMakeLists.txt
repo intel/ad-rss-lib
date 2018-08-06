@@ -24,14 +24,17 @@ set(RSS_MODULE_TEST_SOURCES
   check/RSSResponseCombineResponseTests.cpp
   check/RSSResponseIsSafeTests.cpp
   core/RSSCheckerInputRangeTests.cpp
-  core/RSSCheckerTests.cpp
+  core/RSSCheckerTestsLongitudinal.cpp
+  core/RSSCheckerTestsLateral.cpp
   core/RSSCheckerTestsOppositeDirection.cpp
   core/RSSResponseProviderTests.cpp
   lane/MathUnitTestsDistanceAfterResponseTime.cpp
   lane/MathUnitTestsStoppingDistance.cpp
   lane/MathUnitTestsVelocityAfterResponseTime.cpp
+  lane/RSSFormulaTestsCalculateLateralDistance.cpp
   lane/RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
   lane/RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
+  lane/RSSFormulaTestsCalculateSafeLateralDistance.cpp
   lane/RSSFormulaTestsCheckVehicleState.cpp
   rss/check/LateralResponseTests.cpp
   rss/check/LongitudinalResponseTests.cpp

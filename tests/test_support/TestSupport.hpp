@@ -29,23 +29,34 @@ inline lane::Speed kmhToMeterPerSec(lane::Speed speed)
   return speed / 3.6;
 }
 
-inline lane::VehicleState createVehicleState(double velocity)
+inline lane::VehicleState createVehicleState(double lonVelocity, double latVelocity)
 {
   lane::VehicleState state;
 
-  state.velocity.speedLon = kmhToMeterPerSec(velocity);
-  state.dynamics.alphaLon.accelMax = lane::cMaximumAcceleration;
-  state.dynamics.alphaLon.brakeMax = lane::cMaximumBrakingDeceleleration;
-  state.dynamics.alphaLon.brakeMin = lane::cMinimumBrakingDeceleleration;
-  state.dynamics.alphaLon.brakeMinCorrect = lane::cMinimumBrakingDecelelerationCorrect;
+  state.velocity.speedLon = kmhToMeterPerSec(lonVelocity);
+  state.velocity.speedLat = kmhToMeterPerSec(latVelocity);
+  state.dynamics.alphaLon.accelMax = lane::cMaximumLongitudinalAcceleration;
+  state.dynamics.alphaLon.brakeMax = lane::cMaximumLongitudinalBrakingDeceleleration;
+  state.dynamics.alphaLon.brakeMin = lane::cMinimumLongitudinalBrakingDeceleleration;
+  state.dynamics.alphaLon.brakeMinCorrect = lane::cMinimumLongitudinalBrakingDecelelerationCorrect;
 
-  state.dynamics.alphaLat.accelMax = lane::cMaximumAcceleration;
-  state.dynamics.alphaLat.brakeMin = lane::cMinimumBrakingDeceleleration;
+  state.dynamics.alphaLat.accelMax = lane::cMaximumLateralAcceleration;
+  state.dynamics.alphaLat.brakeMin = lane::cMinimumLateralBrakingDeceleleration;
 
   state.responseTime = lane::cResponseTimeOtherVehicles;
   state.hasPriority = false;
   state.isInCorrectLane = true;
 
   return state;
+}
+
+inline lane::VehicleState createVehicleStateForLongitudinalMotion(double velocity)
+{
+  return createVehicleState(velocity, 0.);
+}
+
+inline lane::VehicleState createVehicleStateForLateralMotion(double velocity)
+{
+  return createVehicleState(0., velocity);
 }
 }

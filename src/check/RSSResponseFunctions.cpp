@@ -89,7 +89,8 @@ bool calculateLongitudinalResponseNonIntersectionOppositeDirection(lane::Vehicle
   /**
    * 2. If state is safe if both vehicles use brake min,
    *    check if one of the vehicles is on correct lane and the other not
-   * This check is in addition to the check proposed in the original paper
+   *
+   *    Note: If both vehicles are on the correct lane, no response is triggered until case 1. becomes active
    */
   if (result && isSafe && (egoVehicle.isInCorrectLane != otherVehicle.isInCorrectLane))
   {
@@ -118,14 +119,36 @@ bool calculateLateralResponse(lane::VehicleState const &egoVehicle,
                               LateralResponse &responseLeft,
                               LateralResponse &responseRight) noexcept
 {
-  (void)egoVehicle;
-  (void)otherVehicle;
-  /**
-   * @todo Implement proper check -> Next Sprint
-   */
   responseLeft = LateralResponse::BrakeMin;
   responseRight = LateralResponse::BrakeMin;
-  return true;
+
+  bool isDistanceSafe = false;
+  bool result = false;
+
+  result = checkSafeLateralDistance(egoVehicle, otherVehicle, isDistanceSafe);
+
+  if (isDistanceSafe)
+  {
+    responseLeft = LateralResponse::Safe;
+    responseRight = LateralResponse::Safe;
+  }
+  else
+  {
+    if ((egoVehicle.position.latInterval.minimum < otherVehicle.position.latInterval.minimum)
+        && (egoVehicle.position.latInterval.maximum < otherVehicle.position.latInterval.maximum))
+    {
+      // ego is the left vehicle, so the collision is on the right side
+      responseLeft = LateralResponse::None;
+    }
+    else if ((egoVehicle.position.latInterval.minimum > otherVehicle.position.latInterval.minimum)
+             && (egoVehicle.position.latInterval.maximum > otherVehicle.position.latInterval.maximum))
+    {
+      // ego is the right vehicle, so the collision is on the left side
+      responseRight = LateralResponse::None;
+    }
+  }
+
+  return result;
 }
 
 } // namespace check

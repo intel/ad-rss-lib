@@ -23,14 +23,14 @@ namespace lane {
 
 TEST(RSSFormulaTestsCheckVehicleState, check_standard_state)
 {
-  VehicleState leadingVehicle = createVehicleState(10);
+  VehicleState leadingVehicle = createVehicleStateForLongitudinalMotion(10);
 
   ASSERT_TRUE(checkVehicleState(leadingVehicle));
 }
 
 TEST(RSSFormulaTestsCheckVehicleState, check_standard_state_100)
 {
-  VehicleState leadingVehicle = createVehicleState(100);
+  VehicleState leadingVehicle = createVehicleStateForLongitudinalMotion(100);
 
   ASSERT_TRUE(checkVehicleState(leadingVehicle));
 }

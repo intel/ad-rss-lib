@@ -40,8 +40,8 @@ TEST(RSSFormulaTestsCalculateDistanceAfterStatedBreakingPatternOtherVehicle, lea
   Distance coveredDistance = 0.;
   ASSERT_TRUE(calculateDistanceAfterStatedBrakingPattern(kmhToMeterPerSec(100),
                                                          cResponseTimeOtherVehicles,
-                                                         cMaximumAcceleration,
-                                                         cMinimumBrakingDeceleleration,
+                                                         cMaximumLongitudinalAcceleration,
+                                                         cMinimumLongitudinalBrakingDeceleleration,
                                                          coveredDistance));
   ASSERT_NEAR(coveredDistance, 213.74, cDoubleNear);
 }
@@ -51,8 +51,8 @@ TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPatternEgoVehicle, leadin
   Distance coveredDistance = 0.;
   ASSERT_TRUE(calculateDistanceAfterStatedBrakingPattern(kmhToMeterPerSec(100),
                                                          cResponseTimeEgoVehicle,
-                                                         cMaximumAcceleration,
-                                                         cMinimumBrakingDeceleleration,
+                                                         cMaximumLongitudinalAcceleration,
+                                                         cMinimumLongitudinalBrakingDeceleleration,
                                                          coveredDistance));
   ASSERT_NEAR(coveredDistance, 151.81, cDoubleNear);
 }

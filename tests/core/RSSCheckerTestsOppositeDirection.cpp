@@ -44,8 +44,8 @@ protected:
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min_correct)
 {
-  correctVehicle = createVehicleState(50);
-  oppositeVehicle = createVehicleState(-50);
+  correctVehicle = createVehicleStateForLongitudinalMotion(50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
   oppositeVehicle.isInCorrectLane = false;
 
   oppositeVehicle.position.lonInterval.minimum = 178.7;
@@ -60,8 +60,8 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min_correct)
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min)
 {
-  correctVehicle = createVehicleState(50);
-  oppositeVehicle = createVehicleState(-50);
+  correctVehicle = createVehicleStateForLongitudinalMotion(50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
   oppositeVehicle.isInCorrectLane = false;
 
   oppositeVehicle.position.lonInterval.minimum = 178;
@@ -74,10 +74,61 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min)
   ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMin);
 }
 
+TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_shorter_ego_reaction_time)
+{
+  correctVehicle = createVehicleStateForLongitudinalMotion(50);
+  correctVehicle.responseTime = 1.;
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
+  oppositeVehicle.isInCorrectLane = false;
+
+  oppositeVehicle.position.lonInterval.minimum = 178;
+  oppositeVehicle.position.lonInterval.maximum = 180;
+
+  situation.egoVehicleState = correctVehicle;
+  situation.otherVehicleState = oppositeVehicle;
+
+  ASSERT_TRUE(checkSituation(situation, response));
+  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::Safe);
+
+  oppositeVehicle.position.lonInterval.minimum = 150;
+  situation.otherVehicleState = oppositeVehicle;
+
+  ASSERT_TRUE(checkSituation(situation, response));
+  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMinCorrect);
+
+  oppositeVehicle.position.lonInterval.minimum = 140;
+  situation.otherVehicleState = oppositeVehicle;
+
+  ASSERT_TRUE(checkSituation(situation, response));
+  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMin);
+}
+
+TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_both_vehicles_correct_lane)
+{
+  correctVehicle = createVehicleStateForLongitudinalMotion(50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
+  oppositeVehicle.isInCorrectLane = true;
+
+  oppositeVehicle.position.lonInterval.minimum = 178.7;
+  oppositeVehicle.position.lonInterval.maximum = 180;
+
+  situation.egoVehicleState = correctVehicle;
+  situation.otherVehicleState = oppositeVehicle;
+
+  ASSERT_TRUE(checkSituation(situation, response));
+  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::Safe);
+
+  oppositeVehicle.position.lonInterval.minimum = 178;
+  situation.otherVehicleState = oppositeVehicle;
+
+  ASSERT_TRUE(checkSituation(situation, response));
+  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMin);
+}
+
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_safe)
 {
-  correctVehicle = createVehicleState(50);
-  oppositeVehicle = createVehicleState(-50);
+  correctVehicle = createVehicleStateForLongitudinalMotion(50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
   oppositeVehicle.isInCorrectLane = false;
 
   oppositeVehicle.position.lonInterval.minimum = 197;
@@ -92,8 +143,8 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_safe)
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_BrakeMinCorrect)
 {
-  correctVehicle = createVehicleState(50);
-  oppositeVehicle = createVehicleState(-50);
+  correctVehicle = createVehicleStateForLongitudinalMotion(50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
   oppositeVehicle.isInCorrectLane = false;
 
   oppositeVehicle.position.lonInterval.minimum = 196;
@@ -108,9 +159,9 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_BrakeMinCorrect)
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_response_1s_safe)
 {
-  correctVehicle = createVehicleState(50);
+  correctVehicle = createVehicleStateForLongitudinalMotion(50);
   correctVehicle.responseTime = 1.;
-  oppositeVehicle = createVehicleState(-50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
   oppositeVehicle.isInCorrectLane = false;
 
   oppositeVehicle.position.lonInterval.minimum = 196;
@@ -125,8 +176,8 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_response_1s_safe)
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min_correct_ego_vehicle_in_front)
 {
-  correctVehicle = createVehicleState(-50);
-  oppositeVehicle = createVehicleState(50);
+  correctVehicle = createVehicleStateForLongitudinalMotion(-50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle.isInCorrectLane = false;
 
   correctVehicle.position.lonInterval.minimum = 178.7;
@@ -141,8 +192,8 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min_correct_ego_vehicle_in_
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_vehicles_at_same_position)
 {
-  correctVehicle = createVehicleState(-50);
-  oppositeVehicle = createVehicleState(50);
+  correctVehicle = createVehicleStateForLongitudinalMotion(-50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle.isInCorrectLane = false;
 
   correctVehicle.position.lonInterval.minimum = 178.7;
@@ -160,8 +211,8 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_vehicles_at_same_position)
 
 TEST_F(RSSCheckerTestsOppositeDirection, incorrect_vehicle_state_ego)
 {
-  correctVehicle = createVehicleState(50);
-  oppositeVehicle = createVehicleState(-50);
+  correctVehicle = createVehicleStateForLongitudinalMotion(50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
   oppositeVehicle.isInCorrectLane = false;
 
   correctVehicle.dynamics.alphaLon.brakeMin = -1;
@@ -177,8 +228,8 @@ TEST_F(RSSCheckerTestsOppositeDirection, incorrect_vehicle_state_ego)
 
 TEST_F(RSSCheckerTestsOppositeDirection, incorrect_vehicle_state_other)
 {
-  correctVehicle = createVehicleState(50);
-  oppositeVehicle = createVehicleState(-50);
+  correctVehicle = createVehicleStateForLongitudinalMotion(50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
   oppositeVehicle.isInCorrectLane = false;
 
   oppositeVehicle.dynamics.alphaLon.brakeMin = -1;
@@ -194,8 +245,8 @@ TEST_F(RSSCheckerTestsOppositeDirection, incorrect_vehicle_state_other)
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min_ego_opposite)
 {
-  correctVehicle = createVehicleState(50);
-  oppositeVehicle = createVehicleState(-50);
+  correctVehicle = createVehicleStateForLongitudinalMotion(50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
   oppositeVehicle.isInCorrectLane = false;
 
   oppositeVehicle.position.lonInterval.minimum = 178.7;

@@ -112,6 +112,10 @@ a lateral conflict, the following rules apply:
    and the vehicle on the wrong lane has to conduct the "stated braking pattern"
    (This is the situation described in the RSS paper).
 
+As a result of these rules, two cars that approach each other, which are both on the
+correct lane (e.g. a bidirectional single lane road), will brake with _{alpha}~min,brake~_.
+If this is not desired, a special handling for this situation has to be introduced.
+
 ### Response Time
 According to the papers each traffic participant has a response time.
 Within this response time the participants (including the ego vehicle) are allowed

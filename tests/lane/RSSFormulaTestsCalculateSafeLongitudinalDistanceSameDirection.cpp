@@ -25,24 +25,17 @@ TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection, negative_lea
 {
   Distance safeDistance = 0.;
 
-  VehicleState leadingVehicle = createVehicleState(-50);
-  VehicleState followingVehicle = createVehicleState(50);
+  VehicleState leadingVehicle = createVehicleStateForLongitudinalMotion(-50);
+  VehicleState followingVehicle = createVehicleStateForLongitudinalMotion(50);
 
   ASSERT_FALSE(calculateSafeLongitudinalDistanceSameDirection(leadingVehicle, followingVehicle, safeDistance));
 }
-//
-// TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirectionLeadingEgo, negative_other_speed)
-//{
-//  Distance safeDistance = 0.;
-//
-//  ASSERT_FALSE(calculateSafeLongitudinalDistanceSameDirection(10., -10, safeDistance));
-//}
-//
+
 TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection, checks_leading_vehicle_much_faster)
 {
   Distance safeDistance = 0.;
-  VehicleState leadingVehicle = createVehicleState(100);
-  VehicleState followingVehicle = createVehicleState(10);
+  VehicleState leadingVehicle = createVehicleStateForLongitudinalMotion(100);
+  VehicleState followingVehicle = createVehicleStateForLongitudinalMotion(10);
 
   ASSERT_TRUE(calculateSafeLongitudinalDistanceSameDirection(leadingVehicle, followingVehicle, safeDistance));
 

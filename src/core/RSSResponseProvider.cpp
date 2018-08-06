@@ -56,6 +56,10 @@ bool RSSResponseProvider::provideProperResponse(check::ResponseVector const &cur
             // we might need to check here if left or right is the dangerous side
             // but for the combineLateralResponse will only respect the more severe response
             // omitting the check should have the same result
+            //
+            // @todo: Handling of a cut-in by a leading vehicle as stated in Definition 9.3.(2) will be handled
+            //        outside of this function. As a consequence, there is currently no response for a cut-in of a
+            //        leading vehicle
             response.lateralResponseLeft
               = check::combineLateralResponse(currentResponse.lateralResponseLeft, response.lateralResponseLeft);
 
@@ -94,12 +98,15 @@ bool RSSResponseProvider::provideProperResponse(check::ResponseVector const &cur
       }
 
       // store state for the next iteration
-      auto insertResult = newStatesBeforeBlameTime.insert(
-        RssStateBeforeBlameTimeMap::value_type(currentResponse.situationId, nonDangerousStateToRemember));
-
-      if (result)
+      if (nonDangerousStateToRemember.longitudinalSafe || nonDangerousStateToRemember.lateralSafe)
       {
-        result = insertResult.second;
+        auto insertResult = newStatesBeforeBlameTime.insert(
+          RssStateBeforeBlameTimeMap::value_type(currentResponse.situationId, nonDangerousStateToRemember));
+
+        if (result)
+        {
+          result = insertResult.second;
+        }
       }
     }
 

@@ -25,7 +25,11 @@ project(RSSModule VERSION 0.0.1)
 
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 14)
-add_compile_options(-Werror -Wall -Wextra)
+add_compile_options(-Werror -Wall -Wextra -pedantic)
+
+# activate code coverage
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
 
 add_library(${PROJECT_NAME} SHARED
   src/check/RSSResponseFunctions.cpp

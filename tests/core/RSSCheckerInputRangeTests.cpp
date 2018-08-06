@@ -31,11 +31,11 @@ class RSSCheckerInputRangeTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    leadingVehicle = createVehicleState(100);
+    leadingVehicle = createVehicleStateForLongitudinalMotion(100);
     leadingVehicle.position.lonInterval.minimum = 100;
     leadingVehicle.position.lonInterval.maximum = 106;
 
-    followingVehicle = createVehicleState(10);
+    followingVehicle = createVehicleStateForLongitudinalMotion(10);
     followingVehicle.position.lonInterval.minimum = 0;
     followingVehicle.position.lonInterval.maximum = 5;
     situation.egoVehicleState = leadingVehicle;
