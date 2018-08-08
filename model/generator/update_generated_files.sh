@@ -23,6 +23,7 @@ COPYRIGHT_FILE=$(readlink -m ${FILE_DIR}/copyright_code_header.txt)
 
 GEN_BASENAME="com.intel.mo2ive.generator.mockup"
 GEN_VERSION="8.3.1-1478"
+BASE_URL="https://af01p-ir.devtools.intel.com/artifactory/list/asd-generators-local/com/intel/mo2ive/"
 
 GEN_OUTPUT_DIR=$(readlink -m ${FILE_DIR}/../../build/generated)
 GEN_MODEL_FILE=$(readlink -m ${FILE_DIR}/../export/RSS.xmi)
@@ -31,17 +32,8 @@ GEN_MODEL_TARGET_ELEMENT="RSS.RssModule"
 INCLUDE_TARGET_LOCATION=$(readlink -m ${FILE_DIR}/../../include)
 SRC_TARGET_LOCATION=$(readlink -m ${FILE_DIR}/../../src)
 
-BASE_URL="https://af01p-ir.devtools.intel.com/artifactory/list/asd-generators-local/com/intel/mo2ive/"
-
-GEN_NAME=${GEN_BASENAME}-${GEN_VERSION}.jar
-GEN_JAR=${FILE_DIR}/${GEN_NAME}
-
-JAVA_EXE=
-
 CODEFORMATTING_SCRIPT=${FILE_DIR}/codeformat.py
 CODEFORMATTING_CLANG_FILE=${FILE_DIR}/clang-format
-
-RESULT=0
 
 #
 # defines a function to perform a sed call recursively until the file doesn't change any more
@@ -169,37 +161,6 @@ function process_and_copy_generated_files
   done
 }
 
-if [[ -n "${JAVA_HOME}" ]] && [[ -x "${JAVA_HOME}/bin/java" ]];  then
-  JAVA_EXE="${JAVA_HOME}/bin/java"
-elif type -p java >& /dev/null; then
-  JAVA_EXE=java
-else
-  echo "no java found"
-fi
-
-#check if generator available or download it
-echo "-- checking for generator ${GEN_NAME} ..."
-if [ ! -f ${GEN_JAR} ]; then
-  #not there, try to download it
-  GEN_URL=${BASE_URL}/${GEN_BASENAME}/${GEN_VERSION}/${GEN_NAME}
-  echo "-- generator ${GEN_NAME} not found locally"
-  echo "-- trying to download it from Artifactory..."
-  echo "-- ${GEN_URL}"
-  wget -nv ${GEN_URL} -P ${FILE_DIR}
-  WGET_RES=$?
-  if [ ${WGET_RES} -eq 6 ]; then
-    echo "-- Please provide your credentials:"
-    wget -nv --user=${USER} --ask-password ${GEN_URL} -P ${FILE_DIR}
-    WGET_RES=$?
-  fi
-  if [ ${WGET_RES} -ne 0 ]; then
-    echo "-- Download failed with return code ${WGET_RES}. Aborting ..."
-    exit ${WGET_RES}
-  fi
-else
-  echo "-- generator ${GEN_NAME} found, using local copy"
-fi
-
 if [ -e ${GEN_OUTPUT_DIR} ]; then
   echo "-- cleaning output directory: ${GEN_OUTPUT_DIR}"
   rm -rf ${GEN_OUTPUT_DIR}
@@ -207,20 +168,16 @@ fi
 mkdir -p ${GEN_OUTPUT_DIR}
 
 POST_PROCESSING=0
-if [ -f ${GEN_JAR} ]; then
-  if [[ "${JAVA_EXE}" ]]; then
-    if [[ "$@" == "" ]]; then
-      POST_PROCESSING=1
-      ${JAVA_EXE} -jar ${GEN_JAR} -D "${GEN_MODEL_TARGET_ELEMENT}" -p "${GEN_OUTPUT_DIR}" -c "${COPYRIGHT_FILE}" ${GEN_MODEL_FILE}
-    else
-      ${JAVA_EXE} -jar ${GEN_JAR} "$@"
-    fi
-    RESULT=$?
-  fi
-else
-  echo "Generator not there. Download failed." >&2
-  RESULT=1
+GENERATOR_ARGUMENTS="$@"
+if [[ "$GENERATOR_ARGUMENTS" == "" ]]; then
+  POST_PROCESSING=1
+  GENERATOR_ARGUMENTS="-D ${GEN_MODEL_TARGET_ELEMENT} -p ${GEN_OUTPUT_DIR} -c ${COPYRIGHT_FILE} ${GEN_MODEL_FILE}"
 fi
+
+(
+. ${FILE_DIR}/../../../utilities/generators/mo2ive_generator_common.sh ${GENERATOR_ARGUMENTS}
+)
+RESULT=$?
 
 if (( POST_PROCESSING && ! RESULT )); then
   if [ -e ${GEN_OUTPUT_DIR} ]; then

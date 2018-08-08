@@ -21,15 +21,16 @@ set(BUILD_DOC "OFF" CACHE BOOL "Enable compilation of doxygen documentation")
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-project(RSSModule VERSION 0.0.1)
+project(RSSModule VERSION 0.1)
 
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 14)
 add_compile_options(-Werror -Wall -Wextra -pedantic)
 
+
 # activate code coverage
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+set(COVERAGE_FLAG "--coverage")
+set(TARGET_COMPILE_OPTIONS -Wconversion -Wsign-conversion)
 
 add_library(${PROJECT_NAME} SHARED
   src/check/RSSResponseFunctions.cpp
@@ -37,9 +38,7 @@ add_library(${PROJECT_NAME} SHARED
   src/core/RSSResponseProvider.cpp
   src/lane/Math.cpp
   src/lane/RSSFormulas.cpp
-  src/rss/check/LateralResponse.cpp
-  src/rss/check/LongitudinalResponse.cpp
-)
+  )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
   OUTPUT_NAME rss_module
@@ -54,28 +53,55 @@ target_include_directories(${PROJECT_NAME}
   src
 )
 
-target_link_libraries(${PROJECT_NAME}
-  PUBLIC
+target_compile_options(${PROJECT_NAME} PRIVATE ${COVERAGE_FLAG} ${TARGET_COMPILE_OPTIONS})
+set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS ${COVERAGE_FLAG})
+
+################################################################################
+# RSSSupport section
+################################################################################
+
+add_library(RSSSupport SHARED
+  src/rss/check/LateralResponse.cpp
+  src/rss/check/LongitudinalResponse.cpp
 )
 
-target_compile_options(${PROJECT_NAME} PRIVATE ${TARGET_COMPILE_OPTIONS})
+set_target_properties(RSSSupport PROPERTIES
+  OUTPUT_NAME rss_support
+  VERSION ${PROJECT_VERSION}
+  SOVERSION ${PROJECT_VERSION_MAJOR})
 
+target_include_directories(RSSSupport
+  PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+  PRIVATE
+  src
+)
+
+target_link_libraries(RSSSupport
+  PUBLIC
+  ${PROJECT_NAME}
+)
+
+target_compile_options(RSSSupport PRIVATE ${TARGET_COMPILE_OPTIONS})
 
 ################################################################################
 # Install section
 ################################################################################
+# common section
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/rss
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
 if(IS_ABSOLUTE "${CMAKE_INSTALL_LIBDIR}")
   file(RELATIVE_PATH CMAKE_INSTALL_LIBDIR_RELATIVE "${CMAKE_INSTALL_PREFIX}" "${CMAKE_INSTALL_LIBDIR}")
 else()
   set(CMAKE_INSTALL_LIBDIR_RELATIVE "${CMAKE_INSTALL_LIBDIR}")
 endif()
 
+# RSSModule
 install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}_EXPORT
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR_RELATIVE}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR_RELATIVE})
-
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/rss
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR_RELATIVE}/cmake/${PROJECT_NAME}")
 
@@ -83,7 +109,24 @@ install(EXPORT ${PROJECT_NAME}_EXPORT FILE ${PROJECT_NAME}Targets.cmake
   DESTINATION ${CMAKECONFIG_INSTALL_DIR})
 
 configure_package_config_file(${PROJECT_NAME}Config.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR})
+
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+  DESTINATION ${CMAKECONFIG_INSTALL_DIR}
+  COMPONENT libs)
+
+# RSSSupport
+install(TARGETS RSSSupport EXPORT RSSSupport_EXPORT
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR_RELATIVE}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR_RELATIVE})
+
+set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR_RELATIVE}/cmake/RSSSupport")
+
+install(EXPORT RSSSupport_EXPORT FILE RSSSupportTargets.cmake
+  DESTINATION ${CMAKECONFIG_INSTALL_DIR})
+
+configure_package_config_file(RSSSupportConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/RSSSupportConfig.cmake INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR})
+
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/RSSSupportConfig.cmake"
   DESTINATION ${CMAKECONFIG_INSTALL_DIR}
   COMPONENT libs)
 
@@ -107,9 +150,6 @@ message(STATUS "Build Testing")
   endif()
  add_subdirectory(tests)
 endif()
-
-
-
 
 
 ################################################################################
