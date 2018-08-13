@@ -21,17 +21,6 @@
 namespace rss {
 namespace lane {
 
-TEST(LateralResponseTest, toString_fromString_Safe)
-{
-  rss::check::LateralResponse response = rss::check::LateralResponse::Safe;
-
-  std::string enumString = toString(response);
-
-  rss::check::LateralResponse resultingResponse = fromString<rss::check::LateralResponse>(enumString);
-
-  ASSERT_EQ(response, resultingResponse);
-}
-
 TEST(LateralResponseTest, toString_fromString_BrakeMin)
 {
   rss::check::LateralResponse response = rss::check::LateralResponse::BrakeMin;

@@ -21,48 +21,70 @@
 namespace rss {
 namespace lane {
 
-TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern, negative_speed)
+TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern, longitudinal_negative_speed)
 {
-  Distance coveredDistance = 0.;
+  Distance distanceOffset = 0.;
 
-  ASSERT_FALSE(calculateDistanceAfterStatedBrakingPattern(-10., 1, 3.5, 4., coveredDistance));
+  ASSERT_FALSE(calculateDistanceOffsetAfterStatedBrakingPattern(
+    CoordinateSystemAxis::Longitudinal, -10., 1, 3.5, 4., distanceOffset));
+}
+
+TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern, lateral_negative_speed)
+{
+  std::vector<Distance> expectedDistanceOffset = {-8., -13., -14., -10., 0., 18., 42., 72.};
+  for (auto responseTime = 1u; responseTime < 9u; responseTime++)
+  {
+    Distance distanceOffsetA = 0.;
+    ASSERT_TRUE(calculateDistanceOffsetAfterStatedBrakingPattern(
+      CoordinateSystemAxis::Lateral, -10., responseTime, 3.5, 4., distanceOffsetA));
+    Distance distanceOffsetB = 0.;
+    ASSERT_TRUE(calculateDistanceOffsetAfterStatedBrakingPattern(
+      CoordinateSystemAxis::Lateral, 10., responseTime, -3.5, -4., distanceOffsetB));
+    ASSERT_NEAR(distanceOffsetA, -distanceOffsetB, cDoubleNear);
+    ASSERT_NEAR(expectedDistanceOffset[responseTime - 1u], distanceOffsetA, 1.);
+  }
 }
 
 TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern, negative_time)
 {
-  Distance coveredDistance = 0.;
+  Distance distanceOffset = 0.;
 
-  ASSERT_FALSE(calculateDistanceAfterStatedBrakingPattern(1., -1, 3.5, 4., coveredDistance));
+  for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
+  {
+    ASSERT_FALSE(calculateDistanceOffsetAfterStatedBrakingPattern(axis, 1., -1, 3.5, 4., distanceOffset));
+  }
 }
 
 TEST(RSSFormulaTestsCalculateDistanceAfterStatedBreakingPatternOtherVehicle, leading_ego_checks_100kmh)
 {
-  Distance coveredDistance = 0.;
-  ASSERT_TRUE(calculateDistanceAfterStatedBrakingPattern(kmhToMeterPerSec(100),
-                                                         cResponseTimeOtherVehicles,
-                                                         cMaximumLongitudinalAcceleration,
-                                                         cMinimumLongitudinalBrakingDeceleleration,
-                                                         coveredDistance));
-  ASSERT_NEAR(coveredDistance, 213.74, cDoubleNear);
+  Distance distanceOffset = 0.;
+  ASSERT_TRUE(calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis::Longitudinal,
+                                                               kmhToMeterPerSec(100),
+                                                               cResponseTimeOtherVehicles,
+                                                               cMaximumLongitudinalAcceleration,
+                                                               cMinimumLongitudinalBrakingDeceleleration,
+                                                               distanceOffset));
+  ASSERT_NEAR(distanceOffset, 213.74, cDoubleNear);
 }
 
 TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPatternEgoVehicle, leading_other_checks_100kmh)
 {
-  Distance coveredDistance = 0.;
-  ASSERT_TRUE(calculateDistanceAfterStatedBrakingPattern(kmhToMeterPerSec(100),
-                                                         cResponseTimeEgoVehicle,
-                                                         cMaximumLongitudinalAcceleration,
-                                                         cMinimumLongitudinalBrakingDeceleleration,
-                                                         coveredDistance));
-  ASSERT_NEAR(coveredDistance, 151.81, cDoubleNear);
+  Distance distanceOffset = 0.;
+  ASSERT_TRUE(calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis::Longitudinal,
+                                                               kmhToMeterPerSec(100),
+                                                               cResponseTimeEgoVehicle,
+                                                               cMaximumLongitudinalAcceleration,
+                                                               cMinimumLongitudinalBrakingDeceleleration,
+                                                               distanceOffset));
+  ASSERT_NEAR(distanceOffset, 151.81, cDoubleNear);
 }
 
 TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPatternEgoVehicle, leading_other_checks_500kmh)
 {
-  Distance coveredDistance = 0.;
-  ASSERT_TRUE(calculateDistanceAfterStatedBrakingPattern(
-    kmhToMeterPerSec(50), cResponseTimeOtherVehicles, 2., 4., coveredDistance));
-  ASSERT_NEAR(coveredDistance, 71.77, cDoubleNear);
+  Distance distanceOffset = 0.;
+  ASSERT_TRUE(calculateDistanceOffsetAfterStatedBrakingPattern(
+    CoordinateSystemAxis::Longitudinal, kmhToMeterPerSec(50), cResponseTimeOtherVehicles, 2., 4., distanceOffset));
+  ASSERT_NEAR(distanceOffset, 71.77, cDoubleNear);
 }
 
 } // namespace lane

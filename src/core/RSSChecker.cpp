@@ -17,49 +17,41 @@
 
 #include "rss/core/RSSChecker.hpp"
 #include <algorithm>
-#include "check/RSSResponseFunctions.hpp"
+#include "check/RSSSituation.hpp"
 
 namespace rss {
 namespace core {
 namespace RSSChecker {
 
-using check::Response;
-using check::LateralResponse;
-using check::LongitudinalResponse;
-
-bool checkSituation(lane::Situation const &situation, Response &response) noexcept
+bool checkSituation(lane::Situation const &situation, check::ResponseState &response) noexcept
 {
   bool result = false;
 
-  LongitudinalResponse longitudinalResponse = LongitudinalResponse::BrakeMin;
-  LateralResponse lateralResponseLeft = LateralResponse::BrakeMin;
-  LateralResponse lateralResponseRight = LateralResponse::BrakeMin;
+  response.situationId = situation.situationId;
+  response.longitudinalState.isSafe = false;
+  response.longitudinalState.response = check::LongitudinalResponse::BrakeMin;
+  response.lateralStateLeft.isSafe = false;
+  response.lateralStateLeft.response = check::LateralResponse::BrakeMin;
+  response.lateralStateRight.isSafe = false;
+  response.lateralStateRight.response = check::LateralResponse::BrakeMin;
+
   // If one vehicle has priority we are in an intersection scenario
   if (!situation.egoVehicleState.hasPriority && !situation.otherVehicleState.hasPriority)
   {
     /**
      * Check longitudinal safe distance
      */
-    result = check::calculateLongitudinalResponseNonIntersection(
-      situation.egoVehicleState, situation.otherVehicleState, longitudinalResponse);
+    result = calculateLongitudinalRssStateNonIntersection(situation, response.longitudinalState);
 
     if (result)
     {
       /**
        * Check lateral safe distance
        */
-      result = check::calculateLateralResponse(
-        situation.egoVehicleState, situation.otherVehicleState, lateralResponseLeft, lateralResponseRight);
+      result = calculateLateralRssState(situation, response.lateralStateLeft, response.lateralStateRight);
     }
   }
 
-  if (result)
-  {
-    response.situationId = situation.situationId;
-    response.longitudinalResponse = longitudinalResponse;
-    response.lateralResponseLeft = lateralResponseLeft;
-    response.lateralResponseRight = lateralResponseRight;
-  }
   return result;
 }
 

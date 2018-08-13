@@ -24,26 +24,25 @@
 
 #pragma once
 
-#include "rss/lane/Dynamics.hpp"
-#include "rss/lane/Velocity.hpp"
-#include "rss/time/Duration.hpp"
+#include "rss/check/LateralRssState.hpp"
+#include "rss/check/LongitudinalRssState.hpp"
+#include "rss/lane/SituationId.hpp"
 /*!
  * @brief namespace rss
  */
 namespace rss {
 /*!
- * @brief namespace lane
+ * @brief namespace check
  */
-namespace lane {
+namespace check {
 
-struct VehicleState
+struct ResponseState
 {
-  ::rss::lane::Velocity velocity;
-  ::rss::lane::Dynamics dynamics;
-  ::rss::time::Duration responseTime{0.0};
-  bool hasPriority{false};
-  bool isInCorrectLane{false};
+  ::rss::lane::SituationId situationId{0u};
+  ::rss::check::LongitudinalRssState longitudinalState;
+  ::rss::check::LateralRssState lateralStateRight;
+  ::rss::check::LateralRssState lateralStateLeft;
 };
 
-} // namespace lane
+} // namespace check
 } // namespace rss

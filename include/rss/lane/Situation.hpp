@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include "rss/lane/RelativePosition.hpp"
 #include "rss/lane/SituationId.hpp"
 #include "rss/lane/VehicleState.hpp"
 /*!
@@ -37,9 +38,10 @@ namespace lane {
 
 struct Situation
 {
+  ::rss::lane::SituationId situationId;
   ::rss::lane::VehicleState egoVehicleState;
   ::rss::lane::VehicleState otherVehicleState;
-  ::rss::lane::SituationId situationId;
+  ::rss::lane::RelativePosition relativePosition;
 };
 
 } // namespace lane

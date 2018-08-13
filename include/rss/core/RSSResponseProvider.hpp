@@ -21,8 +21,7 @@
 #pragma once
 
 #include <map>
-#include "rss/check/ResponseVector.hpp"
-#include "rss/check/RssState.hpp"
+#include "rss/check/ResponseStateVector.hpp"
 
 /*!
  * @brief namespace rss
@@ -48,20 +47,27 @@ public:
   /**
    * @brief Calculate the proper response out of the current responses
    *
-   * @param[in] currentResponses all the responses gathered for the current situations
-   * @param[out] response the proper overall response
+   * @param[in]  currentResponseState all the response states gathered for the current situations
+   * @param[out] responseState the proper overall response state
    *
    * @return true if response could be calculated, false otherwise
    *
    * When false is returned the internal state has not been updated
    */
-  bool provideProperResponse(check::ResponseVector const &currentResponses, check::Response &response) noexcept;
+  bool provideProperResponse(check::ResponseStateVector const &currentResponseStates,
+                             check::ResponseState &responseState) noexcept;
 
 private:
+  struct RssState
+  {
+    bool longitudinalSafe{false};
+    bool lateralSafe{false};
+  };
+
   /**
    * @brief typedef for the mapping of object id to the corresponding RssState before the blame time
    */
-  typedef std::map<lane::SituationId, check::RssState> RssStateBeforeBlameTimeMap;
+  typedef std::map<lane::SituationId, RssState> RssStateBeforeBlameTimeMap;
 
   /**
    * @brief the state of all responses before the blame time of each response

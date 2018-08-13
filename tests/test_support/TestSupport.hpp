@@ -16,8 +16,11 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 #pragma once
 
+#include <cmath>
 #include <gtest/gtest.h>
 #include "RSSParameters.hpp"
+#include "rss/check/ResponseState.hpp"
+#include "rss/lane/RelativePosition.hpp"
 #include "rss/lane/VehicleState.hpp"
 
 namespace rss {
@@ -58,5 +61,80 @@ inline lane::VehicleState createVehicleStateForLongitudinalMotion(double velocit
 inline lane::VehicleState createVehicleStateForLateralMotion(double velocity)
 {
   return createVehicleState(0., velocity);
+}
+
+inline lane::RelativePosition createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition position,
+                                                                 lane::Distance distance = 0.,
+                                                                 bool oppositeDirection = false)
+{
+  lane::RelativePosition relativePosition;
+  relativePosition.lateralDistance = 0.;
+  relativePosition.lateralPosition = lane::LateralRelativePosition::Overlap;
+  relativePosition.longitudinalDistance = distance;
+  relativePosition.longitudinalPosition = position;
+  relativePosition.isDrivingInOppositeDirection = oppositeDirection;
+  return relativePosition;
+}
+
+inline lane::RelativePosition createRelativeLateralPosition(lane::LateralRelativePosition position,
+                                                            lane::Distance distance = 0.,
+                                                            bool oppositeDirection = false)
+{
+  lane::RelativePosition relativePosition;
+  relativePosition.lateralDistance = distance;
+  relativePosition.lateralPosition = position;
+  relativePosition.longitudinalDistance = 0.;
+  relativePosition.longitudinalPosition = lane::LongitudinalRelativePosition::Overlap;
+  relativePosition.isDrivingInOppositeDirection = oppositeDirection;
+  return relativePosition;
+}
+
+// reset state (safe with literal==0)
+template <typename RSSState> void resetRssState(RSSState &state)
+{
+  state.response = decltype(state.response)(0);
+  state.isSafe = true;
+}
+
+inline void resetRssState(check::ResponseState &responseState, lane::SituationId situationId = 0)
+{
+  responseState.situationId = situationId;
+  resetRssState(responseState.longitudinalState);
+  resetRssState(responseState.lateralStateLeft);
+  resetRssState(responseState.lateralStateRight);
+}
+
+// set state unsafe with given literal
+template <typename RSSState, typename RSSStateLiteral> void setRssStateUnsafe(RSSState &state, RSSStateLiteral literal)
+{
+  state.response = literal;
+  state.isSafe = false;
+}
+
+static const check::LongitudinalRssState cLongitudinalSafe{true, check::LongitudinalResponse::None};
+static const check::LongitudinalRssState cLongitudinalNone{false, check::LongitudinalResponse::None};
+static const check::LongitudinalRssState cLongitudinalBrakeMin{false, check::LongitudinalResponse::BrakeMin};
+static const check::LongitudinalRssState cLongitudinalBrakeMinCorrect{false,
+                                                                      check::LongitudinalResponse::BrakeMinCorrect};
+
+static const check::LateralRssState cLateralSafe{true, check::LateralResponse::None};
+static const check::LateralRssState cLateralNone{false, check::LateralResponse::None};
+static const check::LateralRssState cLateralBrakeMin{false, check::LateralResponse::BrakeMin};
+}
+
+inline bool operator==(::rss::check::LongitudinalRssState const &left, ::rss::check::LongitudinalRssState const &right)
+{
+  return (left.isSafe == right.isSafe) && (left.response == right.response);
+}
+
+inline bool operator==(::rss::check::LateralRssState const &left, ::rss::check::LateralRssState const &right)
+{
+  return (left.isSafe == right.isSafe) && (left.response == right.response);
+}
+
+// allow compiler to search in global namespace for the above comparison operators from within gtest code
+namespace testing {
+namespace internal {
+using ::operator==;
 }
 }

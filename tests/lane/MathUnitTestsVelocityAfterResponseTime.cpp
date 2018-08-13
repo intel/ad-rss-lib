@@ -21,58 +21,92 @@
 namespace rss {
 namespace lane {
 
-TEST(MathUnitTestsSpeedAfterResponseTime, negative_speed)
+TEST(MathUnitTestsSpeedAfterResponseTime, longitudinal_negative_speed)
 {
   Speed resultingSpeed = 0.;
-  ASSERT_FALSE(calculateSpeedAfterResponseTime(-10., 1., 1., resultingSpeed));
+  ASSERT_FALSE(calculateSpeedAfterResponseTime(CoordinateSystemAxis::Longitudinal, -10., 1., 1., resultingSpeed));
+}
+
+TEST(MathUnitTestsSpeedAfterResponseTime, lateral_negative_speed_and_negative_acceleration)
+{
+  Speed resultingSpeedA = 0.;
+  ASSERT_TRUE(calculateSpeedAfterResponseTime(CoordinateSystemAxis::Lateral, -10., 1., 1., resultingSpeedA));
+  Speed resultingSpeedB = 0.;
+  ASSERT_TRUE(calculateSpeedAfterResponseTime(CoordinateSystemAxis::Lateral, 10., -1., 1., resultingSpeedB));
+  ASSERT_NEAR(-resultingSpeedA, resultingSpeedB, cDoubleNear);
 }
 
 TEST(MathUnitTestsSpeedAfterResponseTime, zero_deceleration)
 {
-  Speed startSpeed = 10.;
-  Speed resultingSpeed = 0.;
-  ASSERT_TRUE(calculateSpeedAfterResponseTime(startSpeed, 0., 1., resultingSpeed));
-  ASSERT_NEAR(startSpeed, resultingSpeed, cDoubleNear);
+  for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
+  {
+    Speed startSpeed = 10.;
+    Speed resultingSpeed = 0.;
+    ASSERT_TRUE(calculateSpeedAfterResponseTime(axis, startSpeed, 0., 1., resultingSpeed));
+    ASSERT_NEAR(startSpeed, resultingSpeed, cDoubleNear);
+  }
 }
 
 TEST(MathUnitTestsSpeedAfterResponseTime, checks_acceleration_1sec)
 {
-  Speed startSpeed = 10.;
-  Speed resultingSpeed = 0.;
-  ASSERT_TRUE(calculateSpeedAfterResponseTime(startSpeed, 1., 1., resultingSpeed));
-  ASSERT_NEAR(startSpeed + 1, resultingSpeed, cDoubleNear);
+  for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
+  {
+    Speed startSpeed = 10.;
+    Speed resultingSpeed = 0.;
+    ASSERT_TRUE(calculateSpeedAfterResponseTime(axis, startSpeed, 1., 1., resultingSpeed));
+    ASSERT_NEAR(startSpeed + 1, resultingSpeed, cDoubleNear);
+  }
 }
 
 TEST(MathUnitTestsSpeedAfterResponseTime, checks_acceleration_2sec)
 {
-  Speed startSpeed = 10.;
-  Speed resultingSpeed = 0.;
-  ASSERT_TRUE(calculateSpeedAfterResponseTime(startSpeed, 1., 2., resultingSpeed));
-  ASSERT_NEAR(startSpeed + 2., resultingSpeed, cDoubleNear);
+  for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
+  {
+    Speed startSpeed = 10.;
+    Speed resultingSpeed = 0.;
+    ASSERT_TRUE(calculateSpeedAfterResponseTime(axis, startSpeed, 1., 2., resultingSpeed));
+    ASSERT_NEAR(startSpeed + 2., resultingSpeed, cDoubleNear);
+  }
 }
 
 TEST(MathUnitTestsSpeedAfterResponseTime, negative_acceleration)
 {
-  Speed startSpeed = 10.;
-  Speed resultingSpeed = 0.;
-  ASSERT_TRUE(calculateSpeedAfterResponseTime(startSpeed, -1., 2., resultingSpeed));
-  ASSERT_NEAR(startSpeed - 2., resultingSpeed, cDoubleNear);
+  for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
+  {
+    Speed startSpeed = 10.;
+    Speed resultingSpeed = 0.;
+    ASSERT_TRUE(calculateSpeedAfterResponseTime(axis, startSpeed, -1., 2., resultingSpeed));
+    ASSERT_NEAR(startSpeed - 2., resultingSpeed, cDoubleNear);
+  }
 }
 
 TEST(MathUnitTestsSpeedAfterResponseTime, negative_acceleration_till_stop)
 {
-  Speed startSpeed = 10.;
-  Speed resultingSpeed = 0.;
-  ASSERT_TRUE(calculateSpeedAfterResponseTime(startSpeed, -1., 20., resultingSpeed));
-  ASSERT_NEAR(0., resultingSpeed, cDoubleNear);
+  for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
+  {
+    Speed startSpeed = 10.;
+    Speed resultingSpeed = 0.;
+    ASSERT_TRUE(calculateSpeedAfterResponseTime(axis, startSpeed, -1., 20., resultingSpeed));
+    if (axis == CoordinateSystemAxis::Longitudinal)
+    {
+      ASSERT_NEAR(0., resultingSpeed, cDoubleNear);
+    }
+    else
+    {
+      ASSERT_LE(resultingSpeed, -10.);
+    }
+  }
 }
 
 TEST(MathUnitTestsSpeedAfterResponseTime, acceleration_accel_max_2m_s2_50kmh)
 {
-  Speed startSpeed = kmhToMeterPerSec(50);
-  Speed resultingSpeed = 0.;
-  ASSERT_TRUE(calculateSpeedAfterResponseTime(startSpeed, 2., 2., resultingSpeed));
-  ASSERT_NEAR(startSpeed + 4., resultingSpeed, cDoubleNear);
+  for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
+  {
+    Speed startSpeed = kmhToMeterPerSec(50);
+    Speed resultingSpeed = 0.;
+    ASSERT_TRUE(calculateSpeedAfterResponseTime(axis, startSpeed, 2., 2., resultingSpeed));
+    ASSERT_NEAR(startSpeed + 4., resultingSpeed, cDoubleNear);
+  }
 }
 
 } // namespace lane

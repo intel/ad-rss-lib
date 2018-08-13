@@ -21,12 +21,6 @@
 namespace rss {
 namespace lane {
 
-TEST(MathUnitTestsStoppingDistance, negative_speed)
-{
-  Distance stoppingDistance = 0.;
-  ASSERT_FALSE(calculateStoppingDistance(-10., 4., stoppingDistance));
-}
-
 TEST(MathUnitTestsStoppingDistance, negative_deceleration)
 {
   Distance stoppingDistance = 0.;
@@ -46,6 +40,13 @@ TEST(MathUnitTestsStoppingDistance, checks_100kmh)
   ASSERT_NEAR(stoppingDistance, 64.3, cDoubleNear);
 }
 
+TEST(MathUnitTestsStoppingDistance, checks_negative_speed)
+{
+  Distance stoppingDistance = 0.;
+  ASSERT_TRUE(calculateStoppingDistance(kmhToMeterPerSec(-100.), 6., stoppingDistance));
+  ASSERT_NEAR(stoppingDistance, -64.3, cDoubleNear);
+}
+
 TEST(MathUnitTestsStoppingDistance, checks_0kmh)
 {
   Distance stoppingDistance = 0.;
@@ -57,10 +58,10 @@ TEST(MathUnitTestsStoppingDistance, checks_value_range)
 {
   Acceleration deceleration = 2.;
 
-  for (int i = 0; i < 300; i++)
+  for (int i = -300; i < 300; i++)
   {
     lane::Speed startVelocity = kmhToMeterPerSec(static_cast<lane::Speed>(i));
-    double resultingDistance = startVelocity * startVelocity / (2. * deceleration);
+    double resultingDistance = startVelocity * std::fabs(startVelocity) / (2. * deceleration);
 
     Distance stoppingDistance = 0.;
     ASSERT_TRUE(calculateStoppingDistance(startVelocity, deceleration, stoppingDistance));

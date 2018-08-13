@@ -22,7 +22,10 @@
 #pragma once
 
 #include "rss/lane/Acceleration.hpp"
+#include "rss/lane/CoordinateSystemAxis.hpp"
 #include "rss/lane/Distance.hpp"
+#include "rss/lane/Position.hpp"
+#include "rss/lane/RelativePosition.hpp"
 #include "rss/lane/Speed.hpp"
 #include "rss/time/Duration.hpp"
 
@@ -36,38 +39,62 @@ namespace rss {
 namespace lane {
 
 /**
- * @brief Calculate the stopping distance for a given speed and deceleration
- * @param[in]  speed               is the current speed of the vehicle [m/s]
- * @param[in]  deceleration           is the applied deceleration [m/s^2]
- * @param[out] stoppingDistance       is the resulting stopping distance [m]
- * @return true on success, false otherwise (e.g. if speed < 0)
+ * @brief Calculate the stopping distance for a given speed and deceleration on a constant accelerated movement
+ *
+ * @param[in]  currentSpeed           is the current speed of the vehicle [lane coordinate system unit/s]
+ * @param[in]  deceleration           is the applied (positive) deceleration [lane coordinate system units/s^2]
+ * @param[out] stoppingDistance       is the resulting stopping distance [lane coordinate system units]
+ *  The sign of the stoppingDistance equals the sign of the currentSpeed.
+ *
+ * @return true on success, false otherwise
  */
-bool calculateStoppingDistance(Speed const speed, Acceleration const deceleration, Distance &stoppingDistance) noexcept;
+bool calculateStoppingDistance(Speed const currentSpeed,
+                               Acceleration const deceleration,
+                               Distance &stoppingDistance) noexcept;
 
 /**
- * @brief Calculate the vehicle speed after a given period of time (i.e. response time)
- * @param[in]  currentSpeed         is the current speed of the vehicle [m/s]
- * @param[in]  acceleration            is the acceleration of the vehicle [m/s^2]
- * @param[in]  responseTime            is the period of time the vehicle keeps accelerating [s]
- * @param[out] resultingSpeed       is the resulting speed after \a responseTime [m]
- * @return true on success, false otherwise (e.g. if speed < 0)
+ * @brief Calculate the vehicle speed after a given period of time on a constant accelerated movement
+ *
+ * @param[in]  axis                 is the coordinate axis this calculation is for
+ * @param[in]  currentSpeed         is the current speed of the vehicle [lane coordinate system units/s]
+ *                                  (in longitudinal direction this has to be always positive)
+ * @param[in]  acceleration         is the acceleration of the vehicle [lane coordinate system units/s^2]
+ * @param[in]  responseTime         is the (positive) period of time the vehicle keeps accelerating [s]
+ * @param[out] resultingSpeed       is the resulting speed after \a responseTime [lane coordinate system units]
+ *  In longitudinal direction, the resulting speed >= 0. Especially, the vehicle is not starting to drive in reverse
+ *  direction after standing still.
+ *  In lateral direction, the resulting speed might have a different sign than the currentSpeed.
+ *
+ * @return true on success, false otherwise
  */
-bool calculateSpeedAfterResponseTime(Speed const currentSpeed,
+bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const axis,
+                                     Speed const currentSpeed,
                                      Acceleration const acceleration,
                                      time::Duration const responseTime,
                                      Speed &resultingSpeed) noexcept;
 
 /**
- * @brief Calculate the covered distance of a vehicle after a given period of time (i.e. reponse time)
- * @param[in]  currentSpeed         is the current speed of the vehicle [m/s]
- * @param[in]  acceleration            is the acceleration of the vehicle [m/s^2]
- * @param[in]  responseTime            is the period of time the vehicle keeps accelerating [s]
- * @param[out] coveredDistance         is the covered distance [m]
- * @return true on success, false otherwise (e.g. if speed < 0)
+ * @brief Calculate the distance offset of a vehicle after a given period of time on a constant accelerated movement
+ *
+ * @param[in]  axis                 is the coordinate axis this calculation is for
+ * @param[in]  currentSpeed         is the current speed of the vehicle [lane coordinate system units/s]
+ *                                  (in longitudinal direction this has to be always positive)
+ * @param[in]  acceleration         is the acceleration of the vehicle [lane coordinate system units/s^2]
+ * @param[in]  responseTime         is the (positive) period of time the vehicle keeps accelerating [s]
+ * @param[out] distanceOffset       is the distance offset from the current position [lane coordinate system units]
+ *  In decelerated longitudinal situation, the distance offset is restricted to the point in time the vehicle stops;
+ *  if the vehicle is able to stop within the response time, it's equal to the stopping distance.
+ *  Therefore, the distance offset in longitudinal case is always positive.
+ *  In lateral situation, the sign of the distance offset can be positive or negative; the following is always true:
+ *  'lateral_position_after_response_time' = distanceOffset + 'current_lateral_position'
+ *
+ * @return true on success, false otherwise
  */
-bool calculateDistanceAfterResponseTime(Speed const currentSpeed,
-                                        Acceleration const acceleration,
-                                        time::Duration const responseTime,
-                                        Distance &coveredDistance) noexcept;
+bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const axis,
+                                              Speed const currentSpeed,
+                                              Acceleration const acceleration,
+                                              time::Duration const responseTime,
+                                              Distance &distanceOffset) noexcept;
+
 } // namespace lane
 } // namespace rss

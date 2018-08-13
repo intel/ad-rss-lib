@@ -39,9 +39,8 @@ namespace check {
  */
 enum class LateralResponse : int32_t
 {
-  Safe = 0,    /*!< State is lateral safe. */
-  None = 1,    /*!< State is lateral not safe, but no action required. */
-  BrakeMin = 2 /*!< State is lateral not safe, vehicle has to decerate at least with brake min laterally */
+  None = 0,    /*!< No action required. */
+  BrakeMin = 1 /*!< Vehicle has to decerate at least with brake min laterally */
 };
 
 } // namespace check

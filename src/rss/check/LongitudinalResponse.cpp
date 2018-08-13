@@ -36,7 +36,6 @@ std::string toString(::rss::check::LongitudinalResponse const e)
   };
 
   static std::unordered_map<::rss::check::LongitudinalResponse, std::string, EnumClassHash> enumToStringMap{
-    {::rss::check::LongitudinalResponse::Safe, "::rss::check::LongitudinalResponse::Safe"},
     {::rss::check::LongitudinalResponse::None, "::rss::check::LongitudinalResponse::None"},
     {::rss::check::LongitudinalResponse::BrakeMinCorrect, "::rss::check::LongitudinalResponse::BrakeMinCorrect"},
     {::rss::check::LongitudinalResponse::BrakeMin, "::rss::check::LongitudinalResponse::BrakeMin"}};
@@ -46,11 +45,9 @@ std::string toString(::rss::check::LongitudinalResponse const e)
 template <>::rss::check::LongitudinalResponse fromString(std::string const &str)
 {
   static std::unordered_map<std::string, ::rss::check::LongitudinalResponse> stringToEnumMap{
-    {"::rss::check::LongitudinalResponse::Safe", ::rss::check::LongitudinalResponse::Safe},
     {"::rss::check::LongitudinalResponse::None", ::rss::check::LongitudinalResponse::None},
     {"::rss::check::LongitudinalResponse::BrakeMinCorrect", ::rss::check::LongitudinalResponse::BrakeMinCorrect},
     {"::rss::check::LongitudinalResponse::BrakeMin", ::rss::check::LongitudinalResponse::BrakeMin},
-    {"Safe", ::rss::check::LongitudinalResponse::Safe},
     {"None", ::rss::check::LongitudinalResponse::None},
     {"BrakeMinCorrect", ::rss::check::LongitudinalResponse::BrakeMinCorrect},
     {"BrakeMin", ::rss::check::LongitudinalResponse::BrakeMin}};

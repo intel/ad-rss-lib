@@ -20,8 +20,8 @@
 
 #pragma once
 
-#include "rss/check/ResponseState.hpp"
-#include "rss/lane/Situation.hpp"
+#include "rss/lane/Position.hpp"
+#include "rss/lane/RelativePosition.hpp"
 
 /*!
  * @brief namespace rss
@@ -34,20 +34,21 @@ namespace rss {
 namespace core {
 
 /*!
- * @brief namespace RSSChecker
+ * @brief namespace RSSWorld
  */
-namespace RSSChecker {
+namespace RSSWorld {
 
-/**
- * @brief check if the current situation is safe
+/*!
+ * @brief calculate the relative position based on two positions
  *
- * @param[in] situation      the Situation that should be analyzed
- * @param[out] responseState the ResponseState for the current situation
- *
- * @return true if situation could be analyzed, false if there was an error during evaluation
+ * @param[in] egoPosition                the ego position basis within the situation based coordinate system
+ * @param[in] otherPosition              the other position basis within the situation based coordinate system
+ * @param[in] isDrivingInOppositeDirection  flag indicating if the other vehicle is driving into the opposite direction
  */
-bool checkSituation(lane::Situation const &situation, check::ResponseState &responseState) noexcept;
+lane::RelativePosition calcluateRelativePosition(lane::Position const &egoPosition,
+                                                 lane::Position const &otherPosition,
+                                                 bool const isDrivingInOppositeDirection) noexcept;
 
-} // namespace RSSChecker
+} // namespace RSSWorld
 } // namespace core
 } // namespace rss

@@ -28,29 +28,25 @@
 #include <string>
 #include <unordered_map>
 namespace rss {
-namespace check {
+namespace lane {
 /*!
- * \brief Enum LongitudinalResponse
+ * \brief Enum CoordinateSystemAxis
  *
- * Enumeration defining the possible longitudinal responses
- *
- * Be aware: there has to be a strict order of the enumeration values according to
- * the strictness of the response
+ * Enumeration defining the axis of the lane coordinate system.
  */
-enum class LongitudinalResponse : int32_t
+enum class CoordinateSystemAxis : int32_t
 {
-  None = 0,            /*!< No action required. */
-  BrakeMinCorrect = 1, /*!< Vehicle has to decerate at least with brake min correct longitudinally */
-  BrakeMin = 2         /*!< Vehicle has to decerate at least with brake min longitudinally */
+  Longitudinal = 0, /*!< longitudinal axis */
+  Lateral = 1       /*!< lateral axis */
 };
 
-} // namespace check
+} // namespace lane
 } // namespace rss
 /*!
- * @brief Conversion of ::rss::check::LongitudinalResponse to std::string helper.
+ * @brief Conversion of ::rss::lane::CoordinateSystemAxis to std::string helper.
  *
  */
-std::string toString(::rss::check::LongitudinalResponse const e);
+std::string toString(::rss::lane::CoordinateSystemAxis const e);
 
 /*!
  * @brief Conversion from std::string to enum type T helper.
@@ -72,4 +68,4 @@ std::string toString(::rss::check::LongitudinalResponse const e);
  */
 template <typename EnumType> EnumType fromString(std::string const &str);
 
-template <>::rss::check::LongitudinalResponse fromString(std::string const &str);
+template <>::rss::lane::CoordinateSystemAxis fromString(std::string const &str);

@@ -22,10 +22,6 @@ namespace rss {
 namespace core {
 namespace RSSChecker {
 
-using check::Response;
-using check::LateralResponse;
-using check::LongitudinalResponse;
-
 class RSSCheckerTestsLongitudinal : public testing::Test
 {
 protected:
@@ -39,7 +35,7 @@ protected:
   lane::VehicleState leadingVehicle;
   lane::VehicleState followingVehicle;
   lane::Situation situation;
-  Response response;
+  check::ResponseState responseState;
 };
 
 TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_ego_safe_distance)
@@ -47,16 +43,12 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_ego_safe_distance)
   leadingVehicle = createVehicleStateForLongitudinalMotion(100);
   followingVehicle = createVehicleStateForLongitudinalMotion(10);
 
-  leadingVehicle.position.lonInterval.minimum = 100;
-  leadingVehicle.position.lonInterval.maximum = 106;
-
-  followingVehicle.position.lonInterval.minimum = 0;
-  followingVehicle.position.lonInterval.maximum = 5;
   situation.egoVehicleState = leadingVehicle;
   situation.otherVehicleState = followingVehicle;
+  situation.relativePosition = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::InFront, 95.);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::Safe);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 }
 
 TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_50kmh_safe)
@@ -66,14 +58,12 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_50kmh_safe)
   followingVehicle.dynamics.alphaLon.accelMax = 2.;
   followingVehicle.dynamics.alphaLon.brakeMin = 4.;
 
-  leadingVehicle.position.lonInterval.minimum = 60;
-  leadingVehicle.position.lonInterval.maximum = 65;
-
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
+  situation.relativePosition = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 60.);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::Safe);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 }
 
 TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_50kmh_unsafe)
@@ -83,14 +73,12 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_50kmh_unsafe)
   followingVehicle.dynamics.alphaLon.accelMax = 0.;
   followingVehicle.dynamics.alphaLon.brakeMin = 4.;
 
-  leadingVehicle.position.lonInterval.minimum = 39;
-  leadingVehicle.position.lonInterval.maximum = 44;
-
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
+  situation.relativePosition = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 39.);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMin);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
 }
 
 TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_50kmh_other_standing)
@@ -100,23 +88,17 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_50kmh_other_sta
   followingVehicle.dynamics.alphaLon.accelMax = 2.;
   followingVehicle.dynamics.alphaLon.brakeMin = 4.;
 
-  leadingVehicle.position.lonInterval.minimum = 71.8;
-  leadingVehicle.position.lonInterval.maximum = 73.;
-
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
+  situation.relativePosition = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 71.8);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::Safe);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 
-  leadingVehicle.position.lonInterval.minimum = 71.6;
-  leadingVehicle.position.lonInterval.maximum = 73.;
+  situation.relativePosition = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 71.6);
 
-  situation.egoVehicleState = followingVehicle;
-  situation.otherVehicleState = leadingVehicle;
-
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMin);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
 }
 
 TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_0kmh_other_standing)
@@ -126,23 +108,17 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_0kmh_other_stan
   followingVehicle.dynamics.alphaLon.accelMax = 2.;
   followingVehicle.dynamics.alphaLon.brakeMin = 4.;
 
-  leadingVehicle.position.lonInterval.minimum = 6.01;
-  leadingVehicle.position.lonInterval.maximum = 8.;
-
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
+  situation.relativePosition = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 6.01);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::Safe);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 
-  leadingVehicle.position.lonInterval.minimum = 6;
-  leadingVehicle.position.lonInterval.maximum = 8;
+  situation.relativePosition = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 6.);
 
-  situation.egoVehicleState = followingVehicle;
-  situation.otherVehicleState = leadingVehicle;
-
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMin);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
 }
 
 TEST_F(RSSCheckerTestsLongitudinal, same_direction_both_negative_velocity)
@@ -150,13 +126,11 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_both_negative_velocity)
   leadingVehicle = createVehicleStateForLongitudinalMotion(-50);
   followingVehicle = createVehicleStateForLongitudinalMotion(-50);
 
-  leadingVehicle.position.lonInterval.minimum = 71.6;
-  leadingVehicle.position.lonInterval.maximum = 73.;
-
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
+  situation.relativePosition = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 71.6);
 
-  ASSERT_FALSE(checkSituation(situation, response));
+  ASSERT_FALSE(checkSituation(situation, responseState));
 }
 
 } // namespace RSSChecker

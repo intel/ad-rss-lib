@@ -21,21 +21,21 @@
 set(EXEC_NAME rss_module_tests)
 
 set(RSS_MODULE_TEST_SOURCES
-  check/RSSResponseCombineResponseTests.cpp
+  check/RSSResponseCombineRssStateTests.cpp
   check/RSSResponseIsSafeTests.cpp
   core/RSSCheckerInputRangeTests.cpp
   core/RSSCheckerTestsLongitudinal.cpp
   core/RSSCheckerTestsLateral.cpp
   core/RSSCheckerTestsOppositeDirection.cpp
   core/RSSResponseProviderTests.cpp
-  lane/MathUnitTestsDistanceAfterResponseTime.cpp
+  core/RSSWorldTests.cpp
+  lane/MathUnitTestsDistanceOffsetAfterResponseTime.cpp
   lane/MathUnitTestsStoppingDistance.cpp
   lane/MathUnitTestsVelocityAfterResponseTime.cpp
-  lane/RSSFormulaTestsCalculateLateralDistance.cpp
   lane/RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
-  lane/RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
   lane/RSSFormulaTestsCalculateSafeLateralDistance.cpp
-  lane/RSSFormulaTestsCheckVehicleState.cpp
+  lane/RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
+  lane/VehicleTests.cpp
 )
 
 add_executable(${EXEC_NAME} ${RSS_MODULE_TEST_SOURCES})

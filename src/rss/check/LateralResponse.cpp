@@ -36,7 +36,6 @@ std::string toString(::rss::check::LateralResponse const e)
   };
 
   static std::unordered_map<::rss::check::LateralResponse, std::string, EnumClassHash> enumToStringMap{
-    {::rss::check::LateralResponse::Safe, "::rss::check::LateralResponse::Safe"},
     {::rss::check::LateralResponse::None, "::rss::check::LateralResponse::None"},
     {::rss::check::LateralResponse::BrakeMin, "::rss::check::LateralResponse::BrakeMin"}};
   return enumToStringMap.at(e);
@@ -45,10 +44,8 @@ std::string toString(::rss::check::LateralResponse const e)
 template <>::rss::check::LateralResponse fromString(std::string const &str)
 {
   static std::unordered_map<std::string, ::rss::check::LateralResponse> stringToEnumMap{
-    {"::rss::check::LateralResponse::Safe", ::rss::check::LateralResponse::Safe},
     {"::rss::check::LateralResponse::None", ::rss::check::LateralResponse::None},
     {"::rss::check::LateralResponse::BrakeMin", ::rss::check::LateralResponse::BrakeMin},
-    {"Safe", ::rss::check::LateralResponse::Safe},
     {"None", ::rss::check::LateralResponse::None},
     {"BrakeMin", ::rss::check::LateralResponse::BrakeMin}};
   return stringToEnumMap.at(str);

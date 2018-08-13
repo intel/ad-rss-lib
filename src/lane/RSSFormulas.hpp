@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include "rss/lane/CoordinateSystemAxis.hpp"
+#include "rss/lane/Distance.hpp"
 #include "rss/lane/VehicleState.hpp"
 
 /*!
@@ -33,61 +35,26 @@ namespace rss {
 namespace lane {
 
 /**
- * @brief checks if the given vehicle state contains valid values
- *
- * @return true if state is valid, false otherwise
- */
-bool checkVehicleState(VehicleState const &state) noexcept;
-
-/**
- * @brief checks if the vehicle is completely in front of other vehicle
- *
- * Back bumper of the vehicle is in front of the front bumper of the other vehicle
- *
- * @return true if is in front, false otherwise
- */
-bool isVehicleInFront(lane::VehicleState const &vehicle, lane::VehicleState const &otherVehicle) noexcept;
-
-/**
- * @brief checks if the vehicle located on the left side of other vehicle
- *
- * @return true if is left, false otherwise
- */
-bool isVehicleLeft(lane::VehicleState const &vehicle, lane::VehicleState const &otherVehicle) noexcept;
-
-/**
- * @brief calculates the longitudinal distance of the positions of the vehicles
- *
- * @returns the distance between the two vehicles or zero if the vehicles do overlap longitudinally
- *
- */
-Distance calculateLongitudinalDistanceBetweenVehicles(lane::VehicleState const &vehicle,
-                                                      lane::VehicleState const &otherVehicle) noexcept;
-
-/**
- * @brief calculates the lateral distance of the positions of the vehicles
- *
- * @returns the distance between the two vehicles or zero if the vehicles do overlap laterally
- *
- */
-Distance calculateLateralDistanceBetweenVehicles(lane::VehicleState const &vehicle,
-                                                 lane::VehicleState const &otherVehicle) noexcept;
-
-/**
- * @brief Calculate the distance covered by a vehicle when applying the \a "stated braking pattern" with given
+ * @brief Calculate the distance offset of a vehicle when applying the \a "stated braking pattern" with given
  *        deceleration
+ *
+ * @param[in]  axis              is the coordinate axis this calculation is for
  * @param[in]  currentSpeed      is the current vehicle speed [lane coordinate system units per second]
  * @param[in]  responseTime      is the response time of the vehicle [s]
- * @param[in] acceleration       the acceleration of the vehicle during responseTime
+ * @param[in]  acceleration      the acceleration of the vehicle during responseTime [lane coordinate system unit per
+ * second squared]
  * @param[in]  deceleration      is the applied breaking deceleration [lane coordinate system unit per second squared]
- * @param[out] coveredDistance   is the covered distance [m]
+ * @param[out] distanceOffset    is the distance offset of the vehicle from the current position after
+ *  \a "the stated braking pattern" [lane coordinate system unit]
+ *
  * @return true on successful calculation, false otherwise
  */
-bool calculateDistanceAfterStatedBrakingPattern(Speed const currentSpeed,
-                                                time::Duration const responseTime,
-                                                Acceleration const acceleration,
-                                                Acceleration const deceleration,
-                                                Distance &coveredDistance) noexcept;
+bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const axis,
+                                                      Speed const currentSpeed,
+                                                      time::Duration const responseTime,
+                                                      Acceleration const acceleration,
+                                                      Acceleration const deceleration,
+                                                      Distance &distanceOffset) noexcept;
 
 /**
  * @brief Calculate the \a "safe longitudinal distance" between the two vehicles,
@@ -120,11 +87,13 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
  *
  * @param[in]  leadingVehicle      is the state of the leading vehicle
  * @param[in]  followingVehicle    is the state of the following vehicle
- * @param[out] isDistanceSafe     true if the distance is safe, false otherwise
+ * @param[in]  vehicleDistance     the (positive) longitudinal distance between the two vehicles
+ * @param[out] isDistanceSafe      true if the distance is safe, false otherwise
  * @return true on successful calculation, false otherwise
  */
 bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehicle,
                                                 VehicleState const &followingVehicle,
+                                                Distance const &vehicleDistance,
                                                 bool &isDistanceSafe) noexcept;
 
 /**
@@ -173,12 +142,14 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
  * @param[in] considerCorrect     should the check respect that one of the vehicles is on the correct lane or not
  * @param[in]  correctVehicle     is the state of the vehicle driving in the correct lane
  * @param[in]  oppositeVehicle    is the state of the vehicle driving in the wrong lane
+ * @param[in]  vehicleDistance    the (positive) longitudinal distance between the two vehicles
  * @param[out] isDistanceSafe     true if the distance is safe, false otherwise
  * @return true on successful calculation, false otherwise
  */
 bool checkSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
                                                     VehicleState const &correctVehicle,
                                                     VehicleState const &oppositeVehicle,
+                                                    Distance const &vehicleDistance,
                                                     bool &isDistanceSafe) noexcept;
 
 /**
@@ -187,7 +158,7 @@ bool checkSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
  *
  *        ======================================================
  *
- *             First vehicle  -->
+ *             Left vehicle  -->
  *                 |
  *                 |
  *                 v
@@ -195,17 +166,18 @@ bool checkSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
  *                 ^
  *                 |
  *                 |
- *             Second vehicle -->
+ *             Right vehicle -->
  *
  *        ======================================================
  *
- * @param[in]  vehicle      is the state of the first vehicle
- * @param[in]  otherVehicle is the state of the second vehicle
- * @param[out] safeDistance is the calculated safe lateral distance [lane coordinate system unit]
+ * @param[in]  leftVehicle      is the state of the left vehicle
+ * @param[in]  rightVehicle     is the state of the right vehicle
+ * @param[out] safeDistance     is the calculated safe lateral distance [lane coordinate system unit]
+ *
  * @return true on successful calculation, false otherwise
  */
-bool calculateSafeLateralDistance(VehicleState const &vehicle,
-                                  VehicleState const &otherVehicle,
+bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
+                                  VehicleState const &rightVehicle,
                                   Distance &safeDistance) noexcept;
 
 /**
@@ -214,7 +186,7 @@ bool calculateSafeLateralDistance(VehicleState const &vehicle,
  *
  *        ======================================================
  *
- *             First vehicle  -->
+ *             Left vehicle  -->
  *                 |
  *                 |
  *                 v
@@ -222,17 +194,19 @@ bool calculateSafeLateralDistance(VehicleState const &vehicle,
  *                 ^
  *                 |
  *                 |
- *             Second vehicle -->
+ *             Right vehicle -->
  *
  *        ======================================================
  *
- * @param[in]  vehicle        is the state of the first vehicle
- * @param[in]  otherVehicle   is the state of the second vehicle
- * @param[out] isDistanceSafe is true if the distance is safe, false otherwise
+ * @param[in]  leftVehicle      is the state of the left vehicle
+ * @param[in]  rightVehicle     is the state of the right vehicle
+ * @param[in]  vehicleDistance  the (positive) lateral distance between the two vehicles
+ * @param[out] isDistanceSafe   is true if the distance is safe, false otherwise
  * @return true on successful calculation, false otherwise
  */
-bool checkSafeLateralDistance(VehicleState const &vehicle,
-                              VehicleState const &otherVehicle,
+bool checkSafeLateralDistance(VehicleState const &leftVehicle,
+                              VehicleState const &rightVehicle,
+                              Distance const &vehicleDistance,
                               bool &isDistanceSafe) noexcept;
 
 } // namespace lane

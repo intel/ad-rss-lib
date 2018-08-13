@@ -18,164 +18,37 @@
 #include "RSSFormulas.hpp"
 #include <algorithm>
 #include "Math.hpp"
+#include "Vehicle.hpp"
 
 namespace rss {
 namespace lane {
 
-bool checkVehicleDynamics(Dynamics const &dynamics) noexcept
-{
-  // acceleration has to be >=0
-  if (dynamics.alphaLon.accelMax < 0)
-  {
-    return false;
-  }
-
-  // deceleration has to be > 0
-  if ((dynamics.alphaLon.brakeMax <= 0) || (dynamics.alphaLon.brakeMin <= 0)
-      || (dynamics.alphaLon.brakeMinCorrect <= 0))
-  {
-    return false;
-  }
-
-  // deceleration has to be ordered properly
-  if ((dynamics.alphaLon.brakeMax < dynamics.alphaLon.brakeMin)
-      || (dynamics.alphaLon.brakeMin < dynamics.alphaLon.brakeMinCorrect))
-  {
-    return false;
-  }
-
-  // acceleration has to be >=0
-  if (dynamics.alphaLat.accelMax < 0)
-  {
-    return false;
-  }
-
-  // deceleration has to be > 0
-  if (dynamics.alphaLat.brakeMin <= 0)
-  {
-    return false;
-  }
-
-  return true;
-}
-
-bool checkVehicleLongitudinalVelocity(Velocity const &velocity) noexcept
-{
-  if (velocity.speedLon < 0)
-  {
-    return false;
-  }
-
-  return true;
-}
-
-bool checkVehicleLateralVelocity(Velocity const &velocity) noexcept
-{
-  if (velocity.speedLat < 0)
-  {
-    return false;
-  }
-
-  return true;
-}
-
-bool checkVehicleState(VehicleState const &state) noexcept
-{
-  if (!checkVehicleDynamics(state.dynamics))
-  {
-    return false;
-  }
-
-  if (state.responseTime <= 0)
-  {
-    return false;
-  }
-
-  return true;
-}
-
-bool isVehicleInFront(lane::VehicleState const &vehicle, lane::VehicleState const &otherVehicle) noexcept
-{
-  return vehicle.position.lonInterval.minimum > otherVehicle.position.lonInterval.maximum;
-}
-
-bool isVehicleLeft(lane::VehicleState const &vehicle, lane::VehicleState const &otherVehicle) noexcept
-{
-  return vehicle.position.latInterval.maximum < otherVehicle.position.latInterval.minimum;
-}
-
-Distance calculateLongitudinalDistanceBetweenVehicles(lane::VehicleState const &vehicle,
-                                                      lane::VehicleState const &otherVehicle) noexcept
-{
-  Distance resultingDistance = 0.;
-
-  if (isVehicleInFront(vehicle, otherVehicle))
-  {
-    resultingDistance = vehicle.position.lonInterval.minimum - otherVehicle.position.lonInterval.maximum;
-  }
-  else if (isVehicleInFront(otherVehicle, vehicle))
-  {
-    resultingDistance = otherVehicle.position.lonInterval.minimum - vehicle.position.lonInterval.maximum;
-  }
-  else
-  {
-    // The vehicles overlap
-    // not needed, but more descriptive
-    resultingDistance = 0.;
-  }
-
-  return resultingDistance;
-}
-
-Distance calculateLateralDistanceBetweenVehicles(lane::VehicleState const &vehicle,
-                                                 lane::VehicleState const &otherVehicle) noexcept
-{
-  Distance resultingDistance = 0.;
-
-  if (isVehicleLeft(vehicle, otherVehicle))
-  {
-    resultingDistance = otherVehicle.position.latInterval.minimum - vehicle.position.latInterval.maximum;
-  }
-  else if (isVehicleLeft(otherVehicle, vehicle))
-  {
-    resultingDistance = vehicle.position.latInterval.minimum - otherVehicle.position.latInterval.maximum;
-  }
-  else
-  {
-    // The vehicles overlap
-    // not needed, but more descriptive
-    resultingDistance = 0.;
-  }
-
-  return resultingDistance;
-}
-
-bool calculateDistanceAfterStatedBrakingPattern(Speed const currentSpeed,
-                                                time::Duration const responseTime,
-                                                Acceleration const acceleration,
-                                                Acceleration const deceleration,
-                                                Distance &coveredDistance) noexcept
+bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const axis,
+                                                      Speed const currentSpeed,
+                                                      time::Duration const responseTime,
+                                                      Acceleration const acceleration,
+                                                      Acceleration const deceleration,
+                                                      Distance &distanceOffset) noexcept
 {
   Speed resultingSpeed = 0.;
-  bool resultCalculateSpeed = calculateSpeedAfterResponseTime(currentSpeed, acceleration, responseTime, resultingSpeed);
+  bool result = calculateSpeedAfterResponseTime(axis, currentSpeed, acceleration, responseTime, resultingSpeed);
 
-  if (!resultCalculateSpeed)
-  {
-    return false;
-  }
-  bool result = false;
-
-  Distance distanceAfterResponseTime = 0.;
-  bool resultCalculateResponseDistance
-    = calculateDistanceAfterResponseTime(currentSpeed, acceleration, responseTime, distanceAfterResponseTime);
+  Distance distanceOffsetAfterResponseTime = 0.;
+  result &= calculateDistanceOffsetAfterResponseTime(
+    axis, currentSpeed, acceleration, responseTime, distanceOffsetAfterResponseTime);
 
   Distance distanceToStop = 0.;
-  bool resultCaluclateStoppingDistance = calculateStoppingDistance(resultingSpeed, deceleration, distanceToStop);
-
-  if (resultCalculateResponseDistance && resultCaluclateStoppingDistance)
+  if (std::signbit(resultingSpeed) == std::signbit(acceleration))
   {
-    coveredDistance = distanceAfterResponseTime + distanceToStop;
-    result = true;
+    // if speed after stated braking pattern has the same direction than the acceleration
+    // (always the case in longitudinal situation)
+    // further braking to full stop in that moving direction has to be added
+    result &= calculateStoppingDistance(resultingSpeed, std::fabs(deceleration), distanceToStop);
+  }
+
+  if (result)
+  {
+    distanceOffset = distanceOffsetAfterResponseTime + distanceToStop;
   }
 
   return result;
@@ -190,55 +63,47 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
     return false;
   }
 
-  if (!checkVehicleLongitudinalVelocity(leadingVehicle.velocity)
-      || !checkVehicleLongitudinalVelocity(followingVehicle.velocity))
-  {
-    return false;
-  }
-
-  bool result = false;
   Distance distanceStatedBraking = 0.;
 
-  bool resultStatedBraking = calculateDistanceAfterStatedBrakingPattern(followingVehicle.velocity.speedLon,
-                                                                        followingVehicle.responseTime,
-                                                                        followingVehicle.dynamics.alphaLon.accelMax,
-                                                                        followingVehicle.dynamics.alphaLon.brakeMin,
-                                                                        distanceStatedBraking);
-
+  bool result = calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis::Longitudinal,
+                                                                 followingVehicle.velocity.speedLon,
+                                                                 followingVehicle.responseTime,
+                                                                 followingVehicle.dynamics.alphaLon.accelMax,
+                                                                 followingVehicle.dynamics.alphaLon.brakeMin,
+                                                                 distanceStatedBraking);
   Distance distanceMaxBrake = 0.;
-  bool resultStoppingDistance = calculateStoppingDistance(
+  result &= calculateStoppingDistance(
     leadingVehicle.velocity.speedLon, leadingVehicle.dynamics.alphaLon.brakeMax, distanceMaxBrake);
 
-  if (resultStatedBraking && resultStoppingDistance)
+  if (result)
   {
-    result = true;
     safeDistance = distanceStatedBraking - distanceMaxBrake;
     safeDistance = std::max(safeDistance, 0.);
   }
+
   return result;
 }
 
 bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehicle,
                                                 VehicleState const &followingVehicle,
+                                                Distance const &vehicleDistance,
                                                 bool &isDistanceSafe) noexcept
 {
-  bool result = false;
+  if (vehicleDistance < 0.)
+  {
+    return false;
+  }
+
   isDistanceSafe = false;
 
-  // Vehicle distance can become negativ if the two cars are heads up or the "followingVehicle" is even in front
-  // of the "leadingVehicle"
-  //@todo do we need a check here to make sure that followingVehicle is not in front of the leadingVehicle?
-  Distance vehicleDistance
-    = leadingVehicle.position.lonInterval.minimum - followingVehicle.position.lonInterval.maximum;
-
   Distance safeLongitudinalDistance = 0.;
-  result = calculateSafeLongitudinalDistanceSameDirection(leadingVehicle, followingVehicle, safeLongitudinalDistance);
+  bool const result
+    = calculateSafeLongitudinalDistanceSameDirection(leadingVehicle, followingVehicle, safeLongitudinalDistance);
 
   if (vehicleDistance > safeLongitudinalDistance)
   {
     isDistanceSafe = true;
   }
-
   return result;
 }
 
@@ -247,15 +112,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
                                                         VehicleState const &oppositeVehicle,
                                                         Distance &safeDistance) noexcept
 {
-  bool result = false;
-
   if (!checkVehicleState(correctVehicle) || !checkVehicleState(oppositeVehicle))
-  {
-    return false;
-  }
-
-  if (!checkVehicleLongitudinalVelocity(correctVehicle.velocity)
-      || !checkVehicleLongitudinalVelocity(oppositeVehicle.velocity))
   {
     return false;
   }
@@ -272,21 +129,23 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
     brakingAcceleration = correctVehicle.dynamics.alphaLon.brakeMin;
   }
 
-  result = calculateDistanceAfterStatedBrakingPattern(correctVehicle.velocity.speedLon,
-                                                      correctVehicle.responseTime,
-                                                      correctVehicle.dynamics.alphaLon.accelMax,
-                                                      brakingAcceleration,
-                                                      distanceStatedBrakingCorrect);
+  bool result = calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis::Longitudinal,
+                                                                 correctVehicle.velocity.speedLon,
+                                                                 correctVehicle.responseTime,
+                                                                 correctVehicle.dynamics.alphaLon.accelMax,
+                                                                 brakingAcceleration,
+                                                                 distanceStatedBrakingCorrect);
 
   Distance distanceStatedBrakingOpposite = 0.;
 
   if (result)
   {
-    result = calculateDistanceAfterStatedBrakingPattern(oppositeVehicle.velocity.speedLon,
-                                                        oppositeVehicle.responseTime,
-                                                        oppositeVehicle.dynamics.alphaLon.accelMax,
-                                                        oppositeVehicle.dynamics.alphaLon.brakeMin,
-                                                        distanceStatedBrakingOpposite);
+    result = calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis::Longitudinal,
+                                                              oppositeVehicle.velocity.speedLon,
+                                                              oppositeVehicle.responseTime,
+                                                              oppositeVehicle.dynamics.alphaLon.accelMax,
+                                                              oppositeVehicle.dynamics.alphaLon.brakeMin,
+                                                              distanceStatedBrakingOpposite);
   }
 
   if (result)
@@ -300,94 +159,78 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
 bool checkSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
                                                     VehicleState const &correctVehicle,
                                                     VehicleState const &oppositeVehicle,
+                                                    Distance const &vehicleDistance,
                                                     bool &isDistanceSafe) noexcept
 {
-  bool result = false;
+  if (vehicleDistance < 0.)
+  {
+    return false;
+  }
 
   isDistanceSafe = false;
 
-  Distance vehicleDistance = calculateLongitudinalDistanceBetweenVehicles(correctVehicle, oppositeVehicle);
-
-  /**
-   * One of the vehicle states has negative speed. We assume that it's already checked that the vehicles have an
-   * opposite direction
-   */
-  VehicleState correctVehicleState = correctVehicle;
-  correctVehicleState.velocity.speedLon = fabs(correctVehicle.velocity.speedLon);
-
-  VehicleState oppositeVehicleState = oppositeVehicle;
-  oppositeVehicleState.velocity.speedLon = fabs(oppositeVehicle.velocity.speedLon);
-
   Distance safeLongitudinalDistance = 0.;
-  result = calculateSafeLongitudinalDistanceOppositeDirection(
-    considerCorrect, correctVehicleState, oppositeVehicleState, safeLongitudinalDistance);
+  bool const result = calculateSafeLongitudinalDistanceOppositeDirection(
+    considerCorrect, correctVehicle, oppositeVehicle, safeLongitudinalDistance);
 
   if (vehicleDistance > safeLongitudinalDistance)
   {
     isDistanceSafe = true;
   }
-
   return result;
 }
 
-bool calculateSafeLateralDistance(VehicleState const &vehicle,
-                                  VehicleState const &otherVehicle,
+bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
+                                  VehicleState const &rightVehicle,
                                   Distance &safeDistance) noexcept
 {
-  if (!checkVehicleState(vehicle) || !checkVehicleState(otherVehicle))
-  {
-    return false;
-  }
-
-  if (!checkVehicleLateralVelocity(vehicle.velocity) || !checkVehicleLateralVelocity(otherVehicle.velocity))
+  if (!checkVehicleState(leftVehicle) || !checkVehicleState(rightVehicle))
   {
     return false;
   }
 
   bool result = false;
-  Distance distanceStatedBraking = 0.;
-  Distance distanceStatedBrakingOther = 0.;
+  Distance distanceOffsetStatedBrakingLeft = 0.;
+  Distance distanceOffsetStatedBrakingRight = 0.;
 
-  result = calculateDistanceAfterStatedBrakingPattern(vehicle.velocity.speedLat,
-                                                      vehicle.responseTime,
-                                                      vehicle.dynamics.alphaLat.accelMax,
-                                                      vehicle.dynamics.alphaLat.brakeMin,
-                                                      distanceStatedBraking);
+  result = calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis::Lateral,
+                                                            leftVehicle.velocity.speedLat,
+                                                            leftVehicle.responseTime,
+                                                            leftVehicle.dynamics.alphaLat.accelMax,
+                                                            leftVehicle.dynamics.alphaLat.brakeMin,
+                                                            distanceOffsetStatedBrakingLeft);
 
-  result |= calculateDistanceAfterStatedBrakingPattern(otherVehicle.velocity.speedLat,
-                                                       otherVehicle.responseTime,
-                                                       otherVehicle.dynamics.alphaLat.accelMax,
-                                                       otherVehicle.dynamics.alphaLat.brakeMin,
-                                                       distanceStatedBrakingOther);
+  result &= calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis::Lateral,
+                                                             rightVehicle.velocity.speedLat,
+                                                             rightVehicle.responseTime,
+                                                             -rightVehicle.dynamics.alphaLat.accelMax,
+                                                             -rightVehicle.dynamics.alphaLat.brakeMin,
+                                                             distanceOffsetStatedBrakingRight);
 
   if (result)
   {
-    // safe distance is the sum of both distances
+    // safe distance is the difference of both distances
     // Note: The fluctuation margin is already considered in the vehicle bounding boxes
-    safeDistance = distanceStatedBraking + distanceStatedBrakingOther;
+    safeDistance = distanceOffsetStatedBrakingLeft - distanceOffsetStatedBrakingRight;
     safeDistance = std::max(safeDistance, 0.);
   }
   return result;
 }
 
-bool checkSafeLateralDistance(VehicleState const &vehicle,
-                              VehicleState const &otherVehicle,
+bool checkSafeLateralDistance(VehicleState const &leftVehicle,
+                              VehicleState const &rightVehicle,
+                              Distance const &vehicleDistance,
                               bool &isDistanceSafe) noexcept
 {
-  bool result = false;
+  if (vehicleDistance < 0.)
+  {
+    return false;
+  }
 
   isDistanceSafe = false;
 
-  Distance vehicleDistance = calculateLateralDistanceBetweenVehicles(vehicle, otherVehicle);
-
-  VehicleState vehicleState = vehicle;
-  vehicleState.velocity.speedLat = std::fabs(vehicle.velocity.speedLat);
-
-  VehicleState otherVehicleState = otherVehicle;
-  otherVehicleState.velocity.speedLat = std::fabs(otherVehicle.velocity.speedLat);
-
   Distance safeLongitudinalDistance = 0.;
-  result = calculateSafeLateralDistance(vehicleState, otherVehicleState, safeLongitudinalDistance);
+  bool const result = calculateSafeLateralDistance(leftVehicle, rightVehicle, safeLongitudinalDistance);
 
   if (vehicleDistance > safeLongitudinalDistance)
   {

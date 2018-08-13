@@ -28,29 +28,32 @@
 #include <string>
 #include <unordered_map>
 namespace rss {
-namespace check {
+namespace lane {
 /*!
- * \brief Enum LongitudinalResponse
+ * \brief Enum LateralRelativePosition
  *
- * Enumeration defining the possible longitudinal responses
- *
- * Be aware: there has to be a strict order of the enumeration values according to
- * the strictness of the response
+ * Enumeration describing the relative lateral position between two objects, a and b, in the lane coordinate system.
  */
-enum class LongitudinalResponse : int32_t
+enum class LateralRelativePosition : int32_t
 {
-  None = 0,            /*!< No action required. */
-  BrakeMinCorrect = 1, /*!< Vehicle has to decerate at least with brake min correct longitudinally */
-  BrakeMin = 2         /*!< Vehicle has to decerate at least with brake min longitudinally */
+  AtLeft
+  = 0, /*!< The object a is completely left of object b. This means there is an actual lateral space between them. */
+  OverlapLeft = 1, /*!< The objects overlap. The left border of object a is left of the left border of object b AND the
+                      right border of object a is left of the right border of object b. */
+  Overlap = 2, /*!< The objects overlap, but neither the conditions for OverlapLeft nor OverlapRight are applicable. */
+  OverlapRight = 3, /*!< The objects overlap. The left border of object a is right of the left border of object b AND
+                       the right border of object a is right of the right border of object b. */
+  AtRight
+  = 4 /*!< The object a is completely right of object b. This means there is an actual lateral space between them. */
 };
 
-} // namespace check
+} // namespace lane
 } // namespace rss
 /*!
- * @brief Conversion of ::rss::check::LongitudinalResponse to std::string helper.
+ * @brief Conversion of ::rss::lane::LateralRelativePosition to std::string helper.
  *
  */
-std::string toString(::rss::check::LongitudinalResponse const e);
+std::string toString(::rss::lane::LateralRelativePosition const e);
 
 /*!
  * @brief Conversion from std::string to enum type T helper.
@@ -72,4 +75,4 @@ std::string toString(::rss::check::LongitudinalResponse const e);
  */
 template <typename EnumType> EnumType fromString(std::string const &str);
 
-template <>::rss::check::LongitudinalResponse fromString(std::string const &str);
+template <>::rss::lane::LateralRelativePosition fromString(std::string const &str);

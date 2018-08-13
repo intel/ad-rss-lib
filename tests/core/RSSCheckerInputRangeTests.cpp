@@ -16,15 +16,12 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
+#include "lane/Vehicle.hpp"
 #include "rss/core/RSSChecker.hpp"
 
 namespace rss {
 namespace core {
 namespace RSSChecker {
-
-using check::Response;
-using check::LateralResponse;
-using check::LongitudinalResponse;
 
 class RSSCheckerInputRangeTests : public testing::Test
 {
@@ -32,14 +29,14 @@ protected:
   virtual void SetUp()
   {
     leadingVehicle = createVehicleStateForLongitudinalMotion(100);
-    leadingVehicle.position.lonInterval.minimum = 100;
-    leadingVehicle.position.lonInterval.maximum = 106;
 
     followingVehicle = createVehicleStateForLongitudinalMotion(10);
-    followingVehicle.position.lonInterval.minimum = 0;
-    followingVehicle.position.lonInterval.maximum = 5;
     situation.egoVehicleState = leadingVehicle;
     situation.otherVehicleState = followingVehicle;
+    situation.relativePosition.longitudinalDistance = 95.;
+    situation.relativePosition.longitudinalPosition = lane::LongitudinalRelativePosition::InFront;
+    situation.relativePosition.lateralDistance = 0.;
+    situation.relativePosition.lateralPosition = lane::LateralRelativePosition::Overlap;
   }
 
   virtual void TearDown()
@@ -48,7 +45,7 @@ protected:
   lane::VehicleState leadingVehicle;
   lane::VehicleState followingVehicle;
   lane::Situation situation;
-  Response response;
+  check::ResponseState responseState;
 };
 
 /**
@@ -60,7 +57,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_acceleration_ego)
   for (int i = 1; i < 1000; i++)
   {
     situation.egoVehicleState.dynamics.alphaLon.accelMax = -1. * (static_cast<double>(i) / 100.);
-    ASSERT_FALSE(checkSituation(situation, response));
+    ASSERT_FALSE(checkSituation(situation, responseState));
   }
 }
 
@@ -69,7 +66,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_acceleration_other)
   for (int i = 1; i < 1000; i++)
   {
     situation.otherVehicleState.dynamics.alphaLon.accelMax = -1. * (static_cast<double>(i) / 100.);
-    ASSERT_FALSE(checkSituation(situation, response));
+    ASSERT_FALSE(checkSituation(situation, responseState));
   }
 }
 
@@ -81,7 +78,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_ze
 {
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = 0.;
 
-  ASSERT_FALSE(checkSituation(situation, response));
+  ASSERT_FALSE(checkSituation(situation, responseState));
 }
 
 TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_negative_ego)
@@ -89,7 +86,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_ne
   for (int i = 1; i < 1000; i++)
   {
     situation.egoVehicleState.dynamics.alphaLon.brakeMin = -1. * (static_cast<double>(i) / 100.);
-    ASSERT_FALSE(checkSituation(situation, response));
+    ASSERT_FALSE(checkSituation(situation, responseState));
   }
 }
 
@@ -97,7 +94,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_ze
 {
   situation.otherVehicleState.dynamics.alphaLon.brakeMin = 0.;
 
-  ASSERT_FALSE(checkSituation(situation, response));
+  ASSERT_FALSE(checkSituation(situation, responseState));
 }
 
 TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_negative_other)
@@ -105,7 +102,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_ne
   for (int i = 1; i < 1000; i++)
   {
     situation.otherVehicleState.dynamics.alphaLon.brakeMin = -1. * (static_cast<double>(i) / 100.);
-    ASSERT_FALSE(checkSituation(situation, response));
+    ASSERT_FALSE(checkSituation(situation, responseState));
   }
 }
 
@@ -117,7 +114,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_max_ze
 {
   situation.egoVehicleState.dynamics.alphaLon.brakeMax = 0.;
 
-  ASSERT_FALSE(checkSituation(situation, response));
+  ASSERT_FALSE(checkSituation(situation, responseState));
 }
 
 TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_max_negative_ego)
@@ -125,7 +122,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_max_ne
   for (int i = 1; i < 1000; i++)
   {
     situation.egoVehicleState.dynamics.alphaLon.brakeMax = -1. * (static_cast<double>(i) / 100.);
-    ASSERT_FALSE(checkSituation(situation, response));
+    ASSERT_FALSE(checkSituation(situation, responseState));
   }
 }
 
@@ -133,7 +130,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_max_ze
 {
   situation.otherVehicleState.dynamics.alphaLon.brakeMax = 0.;
 
-  ASSERT_FALSE(checkSituation(situation, response));
+  ASSERT_FALSE(checkSituation(situation, responseState));
 }
 
 TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_max_negative_other)
@@ -141,7 +138,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_max_ne
   for (int i = 1; i < 1000; i++)
   {
     situation.otherVehicleState.dynamics.alphaLon.brakeMax = -1. * (static_cast<double>(i) / 100.);
-    ASSERT_FALSE(checkSituation(situation, response));
+    ASSERT_FALSE(checkSituation(situation, responseState));
   }
 }
 
@@ -153,7 +150,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_co
 {
   situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = 0.;
 
-  ASSERT_FALSE(checkSituation(situation, response));
+  ASSERT_FALSE(checkSituation(situation, responseState));
 }
 
 TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_correct_negative_ego)
@@ -161,7 +158,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_co
   for (int i = 1; i < 1000; i++)
   {
     situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = -1. * (static_cast<double>(i) / 100.);
-    ASSERT_FALSE(checkSituation(situation, response));
+    ASSERT_FALSE(checkSituation(situation, responseState));
   }
 }
 
@@ -169,7 +166,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_co
 {
   situation.otherVehicleState.dynamics.alphaLon.brakeMinCorrect = 0.;
 
-  ASSERT_FALSE(checkSituation(situation, response));
+  ASSERT_FALSE(checkSituation(situation, responseState));
 }
 
 TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_correct_negative_other)
@@ -177,7 +174,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_co
   for (int i = 1; i < 1000; i++)
   {
     situation.otherVehicleState.dynamics.alphaLon.brakeMinCorrect = -1. * (static_cast<double>(i) / 100.);
-    ASSERT_FALSE(checkSituation(situation, response));
+    ASSERT_FALSE(checkSituation(situation, responseState));
   }
 }
 
@@ -191,7 +188,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_max_sm
   situation.egoVehicleState.dynamics.alphaLon.brakeMax = 2.;
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = 3.;
 
-  ASSERT_FALSE(checkSituation(situation, response));
+  ASSERT_FALSE(checkSituation(situation, responseState));
 }
 
 TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_max_smaller_brake_min_correct)
@@ -201,7 +198,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_max_sm
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = 1.;
   situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = 2.;
 
-  ASSERT_FALSE(checkSituation(situation, response));
+  ASSERT_FALSE(checkSituation(situation, responseState));
 }
 
 TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_smaller_brake_min_correct)
@@ -210,7 +207,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_invalid_deceleration_brake_min_sm
   situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = 2.;
   situation.egoVehicleState.dynamics.alphaLon.brakeMax = 4.;
 
-  ASSERT_FALSE(checkSituation(situation, response));
+  ASSERT_FALSE(checkSituation(situation, responseState));
 }
 
 /**
@@ -221,7 +218,7 @@ TEST_F(RSSCheckerInputRangeTests, lateral_invalid_deceleration_brake_min_zero_eg
 {
   situation.egoVehicleState.dynamics.alphaLat.brakeMin = 0.;
 
-  ASSERT_FALSE(checkSituation(situation, response));
+  ASSERT_FALSE(checkSituation(situation, responseState));
 }
 
 TEST_F(RSSCheckerInputRangeTests, lateral_invalid_deceleration_brake_min_negative_ego)
@@ -229,7 +226,7 @@ TEST_F(RSSCheckerInputRangeTests, lateral_invalid_deceleration_brake_min_negativ
   for (int i = 1; i < 1000; i++)
   {
     situation.egoVehicleState.dynamics.alphaLat.brakeMin = -1. * (static_cast<double>(i) / 100.);
-    ASSERT_FALSE(checkSituation(situation, response));
+    ASSERT_FALSE(checkSituation(situation, responseState));
   }
 }
 
@@ -237,7 +234,7 @@ TEST_F(RSSCheckerInputRangeTests, lateral_invalid_deceleration_brake_min_zero_ot
 {
   situation.otherVehicleState.dynamics.alphaLat.brakeMin = 0.;
 
-  ASSERT_FALSE(checkSituation(situation, response));
+  ASSERT_FALSE(checkSituation(situation, responseState));
 }
 
 TEST_F(RSSCheckerInputRangeTests, lateral_invalid_deceleration_brake_min_negative_other)
@@ -245,7 +242,7 @@ TEST_F(RSSCheckerInputRangeTests, lateral_invalid_deceleration_brake_min_negativ
   for (int i = 1; i < 1000; i++)
   {
     situation.otherVehicleState.dynamics.alphaLat.brakeMin = -1. * (static_cast<double>(i) / 100.);
-    ASSERT_FALSE(checkSituation(situation, response));
+    ASSERT_FALSE(checkSituation(situation, responseState));
   }
 }
 
@@ -258,18 +255,18 @@ TEST_F(RSSCheckerInputRangeTests, lateral_invalid_acceleration_ego)
   for (int i = 1; i < 1000; i++)
   {
     situation.otherVehicleState.dynamics.alphaLat.accelMax = -1. * (static_cast<double>(i) / 100.);
-    ASSERT_FALSE(checkSituation(situation, response));
+    ASSERT_FALSE(checkSituation(situation, responseState));
   }
 }
 
 /**
- * Invalid response time
+ * Invalid responseState time
  */
 
 TEST_F(RSSCheckerInputRangeTests, invalid_response_time_zero_ego)
 {
   situation.otherVehicleState.responseTime = 0.;
-  ASSERT_FALSE(checkSituation(situation, response));
+  ASSERT_FALSE(checkSituation(situation, responseState));
 }
 
 TEST_F(RSSCheckerInputRangeTests, invalid_response_time_negative_ego)
@@ -277,7 +274,7 @@ TEST_F(RSSCheckerInputRangeTests, invalid_response_time_negative_ego)
   for (int i = 1; i < 1000; i++)
   {
     situation.otherVehicleState.responseTime = -1. * (static_cast<double>(i) / 100.);
-    ASSERT_FALSE(checkSituation(situation, response));
+    ASSERT_FALSE(checkSituation(situation, responseState));
   }
 }
 
@@ -290,7 +287,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_correct_deceleration_brake_max_eq
   situation.egoVehicleState.dynamics.alphaLon.brakeMax = 4.;
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = 4.;
 
-  ASSERT_TRUE(checkSituation(situation, response));
+  ASSERT_TRUE(checkSituation(situation, responseState));
 }
 
 TEST_F(RSSCheckerInputRangeTests, longitudinal_correct_deceleration_brake_min_equals_brake_min_correct)
@@ -299,7 +296,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_correct_deceleration_brake_min_eq
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = 3.;
   situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = 3.;
 
-  ASSERT_TRUE(checkSituation(situation, response));
+  ASSERT_TRUE(checkSituation(situation, responseState));
 }
 
 TEST_F(RSSCheckerInputRangeTests, longitudinal_correct_deceleration_brake_min_equals_brake_min_correct_equals_brake_max)
@@ -308,7 +305,7 @@ TEST_F(RSSCheckerInputRangeTests, longitudinal_correct_deceleration_brake_min_eq
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = 3.;
   situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = 3.;
 
-  ASSERT_TRUE(checkSituation(situation, response));
+  ASSERT_TRUE(checkSituation(situation, responseState));
 }
 
 } // namespace RSSChecker

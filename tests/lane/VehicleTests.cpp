@@ -16,7 +16,7 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "lane/RSSFormulas.hpp"
+#include "lane/Vehicle.hpp"
 
 namespace rss {
 namespace lane {

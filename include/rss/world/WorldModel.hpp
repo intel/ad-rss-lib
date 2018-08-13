@@ -24,18 +24,19 @@
 
 #pragma once
 
-#include <vector>
-#include "rss/check/Response.hpp"
 /*!
  * @brief namespace rss
  */
 namespace rss {
 /*!
- * @brief namespace check
+ * @brief namespace world
  */
-namespace check {
+namespace world {
 
-using ResponseVector = std::vector<::rss::check::Response>;
+struct WorldModel
+{
+  bool tbd;
+};
 
-} // namespace check
+} // namespace world
 } // namespace rss

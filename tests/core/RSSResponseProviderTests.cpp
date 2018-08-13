@@ -21,7 +21,6 @@
 namespace rss {
 namespace core {
 
-using check::Response;
 using check::LateralResponse;
 using check::LongitudinalResponse;
 
@@ -30,201 +29,188 @@ class RSSResponseProviderTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    firstResponse.situationId = 1u;
-    firstResponse.longitudinalResponse = LongitudinalResponse::Safe;
-    firstResponse.lateralResponseLeft = LateralResponse::Safe;
-    firstResponse.lateralResponseRight = LateralResponse::Safe;
-
-    secondResponse = firstResponse;
+    resetRssState(firstResponseState, 1u);
+    resetRssState(secondResponseState, 1u);
+    resetRssState(resultResponseState, 1u);
   }
 
   virtual void TearDown()
   {
-    responseVector.clear();
+    responseStateVector.clear();
+  }
+
+  void
+  testResultState(LongitudinalResponse lonResponse, LateralResponse latResponseLeft, LateralResponse latResponseRight)
+  {
+    return testResultState(lonResponse,
+                           lonResponse == LongitudinalResponse::None,
+                           latResponseLeft,
+                           latResponseLeft == LateralResponse::None,
+                           latResponseRight,
+                           latResponseRight == LateralResponse::None);
+  }
+
+  void testResultState(LongitudinalResponse lonResponse,
+                       bool lonSafe,
+                       LateralResponse latResponseLeft,
+                       bool latLeftSafe,
+                       LateralResponse latResponseRight,
+                       bool latRightSafe)
+  {
+    ASSERT_EQ(lonResponse, resultResponseState.longitudinalState.response);
+    ASSERT_EQ(lonSafe, resultResponseState.longitudinalState.isSafe);
+    ASSERT_EQ(latResponseLeft, resultResponseState.lateralStateLeft.response);
+    ASSERT_EQ(latLeftSafe, resultResponseState.lateralStateLeft.isSafe);
+    ASSERT_EQ(latResponseRight, resultResponseState.lateralStateRight.response);
+    ASSERT_EQ(latRightSafe, resultResponseState.lateralStateRight.isSafe);
   }
 
   RSSResponseProvider provider;
-  Response firstResponse;
-  Response secondResponse;
-  std::vector<Response> responseVector;
+  check::ResponseState firstResponseState;
+  check::ResponseState secondResponseState;
+  std::vector<check::ResponseState> responseStateVector;
+  check::ResponseState resultResponseState;
 };
 
 TEST_F(RSSResponseProviderTests, provideProperResponseLateralLeft)
 {
-  firstResponse.longitudinalResponse = LongitudinalResponse::BrakeMin;
-  responseVector.push_back(firstResponse);
+  setRssStateUnsafe(firstResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
+  responseStateVector.push_back(firstResponseState);
 
-  Response resultResponse;
-  ASSERT_TRUE(provider.provideProperResponse(responseVector, resultResponse));
+  ASSERT_TRUE(provider.provideProperResponse(responseStateVector, resultResponseState));
+  testResultState(LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
 
-  ASSERT_EQ(resultResponse.longitudinalResponse, LongitudinalResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseLeft, LateralResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseRight, LateralResponse::Safe);
-  responseVector.clear();
+  responseStateVector.clear();
+  setRssStateUnsafe(secondResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(secondResponseState.lateralStateLeft, LateralResponse::BrakeMin);
 
-  secondResponse.longitudinalResponse = LongitudinalResponse::BrakeMin;
-  secondResponse.lateralResponseLeft = LateralResponse::BrakeMin;
+  responseStateVector.push_back(secondResponseState);
+  ASSERT_TRUE(provider.provideProperResponse(responseStateVector, resultResponseState));
 
-  responseVector.push_back(secondResponse);
-  ASSERT_TRUE(provider.provideProperResponse(responseVector, resultResponse));
-
-  ASSERT_EQ(resultResponse.longitudinalResponse, LongitudinalResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseLeft, LateralResponse::BrakeMin);
-  ASSERT_EQ(resultResponse.lateralResponseRight, LateralResponse::Safe);
+  testResultState(LongitudinalResponse::None, LateralResponse::BrakeMin, LateralResponse::None);
 }
 
 TEST_F(RSSResponseProviderTests, provideProperResponseLateralRight)
 {
-  firstResponse.longitudinalResponse = LongitudinalResponse::BrakeMin;
-  responseVector.push_back(firstResponse);
+  setRssStateUnsafe(firstResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
+  responseStateVector.push_back(firstResponseState);
 
-  Response resultResponse;
-  ASSERT_TRUE(provider.provideProperResponse(responseVector, resultResponse));
+  ASSERT_TRUE(provider.provideProperResponse(responseStateVector, resultResponseState));
 
-  ASSERT_EQ(resultResponse.longitudinalResponse, LongitudinalResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseLeft, LateralResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseRight, LateralResponse::Safe);
-  responseVector.clear();
+  testResultState(LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
+  responseStateVector.clear();
 
-  secondResponse.longitudinalResponse = LongitudinalResponse::BrakeMin;
-  secondResponse.lateralResponseRight = LateralResponse::BrakeMin;
+  setRssStateUnsafe(secondResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(secondResponseState.lateralStateRight, LateralResponse::BrakeMin);
 
-  responseVector.push_back(secondResponse);
-  ASSERT_TRUE(provider.provideProperResponse(responseVector, resultResponse));
+  responseStateVector.push_back(secondResponseState);
+  ASSERT_TRUE(provider.provideProperResponse(responseStateVector, resultResponseState));
 
-  ASSERT_EQ(resultResponse.longitudinalResponse, LongitudinalResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseLeft, LateralResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseRight, LateralResponse::BrakeMin);
+  testResultState(LongitudinalResponse::None, LateralResponse::None, LateralResponse::BrakeMin);
 }
 
 TEST_F(RSSResponseProviderTests, provideProperResponseLongitudinal)
 {
-  firstResponse.lateralResponseRight = LateralResponse::BrakeMin;
-  responseVector.push_back(firstResponse);
+  setRssStateUnsafe(firstResponseState.lateralStateRight, LateralResponse::BrakeMin);
+  responseStateVector.push_back(firstResponseState);
 
-  Response resultResponse;
-  ASSERT_TRUE(provider.provideProperResponse(responseVector, resultResponse));
+  ASSERT_TRUE(provider.provideProperResponse(responseStateVector, resultResponseState));
 
-  ASSERT_EQ(resultResponse.longitudinalResponse, LongitudinalResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseLeft, LateralResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseRight, LateralResponse::Safe);
-  responseVector.clear();
+  testResultState(LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
+  responseStateVector.clear();
 
-  secondResponse.longitudinalResponse = LongitudinalResponse::BrakeMin;
-  secondResponse.lateralResponseRight = LateralResponse::BrakeMin;
+  setRssStateUnsafe(secondResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(secondResponseState.lateralStateRight, LateralResponse::BrakeMin);
 
-  responseVector.push_back(secondResponse);
-  ASSERT_TRUE(provider.provideProperResponse(responseVector, resultResponse));
+  responseStateVector.push_back(secondResponseState);
+  ASSERT_TRUE(provider.provideProperResponse(responseStateVector, resultResponseState));
 
-  ASSERT_EQ(resultResponse.longitudinalResponse, LongitudinalResponse::BrakeMin);
-  ASSERT_EQ(resultResponse.lateralResponseLeft, LateralResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseRight, LateralResponse::Safe);
+  testResultState(LongitudinalResponse::BrakeMin, LateralResponse::None, LateralResponse::None);
 }
 
 TEST_F(RSSResponseProviderTests, provideProperResponseLongitudinal_None)
 {
-  firstResponse.lateralResponseRight = LateralResponse::BrakeMin;
-  responseVector.push_back(firstResponse);
+  setRssStateUnsafe(firstResponseState.lateralStateRight, LateralResponse::BrakeMin);
+  responseStateVector.push_back(firstResponseState);
 
-  Response resultResponse;
-  ASSERT_TRUE(provider.provideProperResponse(responseVector, resultResponse));
+  ASSERT_TRUE(provider.provideProperResponse(responseStateVector, resultResponseState));
 
-  ASSERT_EQ(resultResponse.longitudinalResponse, LongitudinalResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseLeft, LateralResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseRight, LateralResponse::Safe);
-  responseVector.clear();
+  testResultState(LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
+  responseStateVector.clear();
 
-  secondResponse.longitudinalResponse = LongitudinalResponse::None;
-  secondResponse.lateralResponseRight = LateralResponse::BrakeMin;
+  setRssStateUnsafe(secondResponseState.longitudinalState, LongitudinalResponse::None);
+  setRssStateUnsafe(secondResponseState.lateralStateRight, LateralResponse::BrakeMin);
 
-  responseVector.push_back(secondResponse);
-  ASSERT_TRUE(provider.provideProperResponse(responseVector, resultResponse));
+  responseStateVector.push_back(secondResponseState);
+  ASSERT_TRUE(provider.provideProperResponse(responseStateVector, resultResponseState));
 
-  ASSERT_EQ(resultResponse.longitudinalResponse, LongitudinalResponse::None);
-  ASSERT_EQ(resultResponse.lateralResponseLeft, LateralResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseRight, LateralResponse::Safe);
+  testResultState(LongitudinalResponse::None, false, LateralResponse::None, true, LateralResponse::None, true);
 }
 
 TEST_F(RSSResponseProviderTests, provideProperResponseBothDirections)
 {
-  firstResponse.longitudinalResponse = LongitudinalResponse::BrakeMin;
-  firstResponse.lateralResponseRight = LateralResponse::BrakeMin;
-  responseVector.push_back(firstResponse);
+  setRssStateUnsafe(firstResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(firstResponseState.lateralStateRight, LateralResponse::BrakeMin);
+  responseStateVector.push_back(firstResponseState);
 
-  Response resultResponse;
-  ASSERT_TRUE(provider.provideProperResponse(responseVector, resultResponse));
+  ASSERT_TRUE(provider.provideProperResponse(responseStateVector, resultResponseState));
 
-  ASSERT_EQ(resultResponse.longitudinalResponse, LongitudinalResponse::BrakeMin);
-  ASSERT_EQ(resultResponse.lateralResponseLeft, LateralResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseRight, LateralResponse::BrakeMin);
-  responseVector.clear();
+  testResultState(LongitudinalResponse::BrakeMin, LateralResponse::None, LateralResponse::BrakeMin);
+  responseStateVector.clear();
 }
 
 TEST_F(RSSResponseProviderTests, provideProperResponseLongitudinalMoreSevere)
 {
-  firstResponse.lateralResponseRight = LateralResponse::BrakeMin;
-  responseVector.push_back(firstResponse);
+  setRssStateUnsafe(firstResponseState.lateralStateRight, LateralResponse::BrakeMin);
+  responseStateVector.push_back(firstResponseState);
 
-  Response resultResponse;
-  ASSERT_TRUE(provider.provideProperResponse(responseVector, resultResponse));
+  ASSERT_TRUE(provider.provideProperResponse(responseStateVector, resultResponseState));
 
-  ASSERT_EQ(resultResponse.longitudinalResponse, LongitudinalResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseLeft, LateralResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseRight, LateralResponse::Safe);
-  responseVector.clear();
+  testResultState(LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
+  responseStateVector.clear();
 
-  secondResponse.longitudinalResponse = LongitudinalResponse::BrakeMinCorrect;
-  secondResponse.lateralResponseRight = LateralResponse::BrakeMin;
+  setRssStateUnsafe(secondResponseState.longitudinalState, LongitudinalResponse::BrakeMinCorrect);
+  setRssStateUnsafe(secondResponseState.lateralStateRight, LateralResponse::BrakeMin);
 
-  responseVector.push_back(secondResponse);
-  ASSERT_TRUE(provider.provideProperResponse(responseVector, resultResponse));
+  responseStateVector.push_back(secondResponseState);
+  ASSERT_TRUE(provider.provideProperResponse(responseStateVector, resultResponseState));
 
-  ASSERT_EQ(resultResponse.longitudinalResponse, LongitudinalResponse::BrakeMinCorrect);
-  ASSERT_EQ(resultResponse.lateralResponseLeft, LateralResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseRight, LateralResponse::Safe);
+  testResultState(LongitudinalResponse::BrakeMinCorrect, LateralResponse::None, LateralResponse::None);
 
-  responseVector.clear();
+  responseStateVector.clear();
 
-  secondResponse.longitudinalResponse = LongitudinalResponse::BrakeMin;
-  secondResponse.lateralResponseRight = LateralResponse::BrakeMin;
+  setRssStateUnsafe(secondResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(secondResponseState.lateralStateRight, LateralResponse::BrakeMin);
 
-  responseVector.push_back(secondResponse);
-  ASSERT_TRUE(provider.provideProperResponse(responseVector, resultResponse));
+  responseStateVector.push_back(secondResponseState);
+  ASSERT_TRUE(provider.provideProperResponse(responseStateVector, resultResponseState));
 
-  ASSERT_EQ(resultResponse.longitudinalResponse, LongitudinalResponse::BrakeMin);
-  ASSERT_EQ(resultResponse.lateralResponseLeft, LateralResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseRight, LateralResponse::Safe);
+  testResultState(LongitudinalResponse::BrakeMin, LateralResponse::None, LateralResponse::None);
 }
 
 TEST_F(RSSResponseProviderTests, threeResponsesSameId)
 {
-  firstResponse.longitudinalResponse = LongitudinalResponse::BrakeMin;
-  responseVector.push_back(firstResponse);
-  responseVector.push_back(firstResponse);
-  responseVector.push_back(firstResponse);
+  setRssStateUnsafe(firstResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
+  responseStateVector.push_back(firstResponseState);
+  responseStateVector.push_back(firstResponseState);
+  responseStateVector.push_back(firstResponseState);
 
-  Response resultResponse;
-  ASSERT_FALSE(provider.provideProperResponse(responseVector, resultResponse));
+  ASSERT_FALSE(provider.provideProperResponse(responseStateVector, resultResponseState));
 }
 
 TEST_F(RSSResponseProviderTests, provideProperResponseDangerousInitialState)
 {
-  firstResponse.lateralResponseRight = LateralResponse::BrakeMin;
-  firstResponse.longitudinalResponse = LongitudinalResponse::BrakeMin;
-  responseVector.push_back(firstResponse);
+  setRssStateUnsafe(firstResponseState.lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(firstResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
+  responseStateVector.push_back(firstResponseState);
 
-  Response resultResponse;
-  ASSERT_TRUE(provider.provideProperResponse(responseVector, resultResponse));
+  ASSERT_TRUE(provider.provideProperResponse(responseStateVector, resultResponseState));
 
-  ASSERT_EQ(resultResponse.longitudinalResponse, LongitudinalResponse::BrakeMin);
-  ASSERT_EQ(resultResponse.lateralResponseLeft, LateralResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseRight, LateralResponse::BrakeMin);
+  testResultState(LongitudinalResponse::BrakeMin, LateralResponse::None, LateralResponse::BrakeMin);
 
-  ASSERT_TRUE(provider.provideProperResponse(responseVector, resultResponse));
+  ASSERT_TRUE(provider.provideProperResponse(responseStateVector, resultResponseState));
 
-  ASSERT_EQ(resultResponse.longitudinalResponse, LongitudinalResponse::BrakeMin);
-  ASSERT_EQ(resultResponse.lateralResponseLeft, LateralResponse::Safe);
-  ASSERT_EQ(resultResponse.lateralResponseRight, LateralResponse::BrakeMin);
+  testResultState(LongitudinalResponse::BrakeMin, LateralResponse::None, LateralResponse::BrakeMin);
 }
 
 } // namespace core

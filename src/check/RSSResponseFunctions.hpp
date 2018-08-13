@@ -20,8 +20,8 @@
 
 #pragma once
 
-#include "rss/check/Response.hpp"
-#include "rss/lane/VehicleState.hpp"
+#include "rss/check/ResponseState.hpp"
+#include "rss/lane/Situation.hpp"
 
 /*!
  * @brief namespace rss
@@ -33,167 +33,95 @@ namespace rss {
 namespace check {
 
 /**
- * @brief is response longitudinal safe
+ * @brief is response state longitudinal safe
  *
- * @param[in] response to check
- *
- * true if safe, false if not
- */
-inline bool isLongitudinalSafe(Response const &response) noexcept
-{
-  return response.longitudinalResponse == LongitudinalResponse::Safe;
-}
-
-/**
- * @brief is response lateral safe to the left
- *
- * @param[in] response to check
+ * @param[in] responseState to check
  *
  * true if safe, false if not
  */
-inline bool isLateralSafeLeft(Response const &response) noexcept
+inline bool isLongitudinalSafe(ResponseState const &responseState) noexcept
 {
-  return response.lateralResponseLeft == LateralResponse::Safe;
+  return responseState.longitudinalState.isSafe;
 }
 
 /**
- * @brief is response lateral safe to the right
+ * @brief is response state lateral safe to the left
  *
- * @param[in] response to check
+ * @param[in] responseState to check
  *
  * true if safe, false if not
  */
-inline bool isLateralSafeRight(Response const &response) noexcept
+inline bool isLateralSafeLeft(ResponseState const &responseState) noexcept
 {
-  return response.lateralResponseRight == LateralResponse::Safe;
+  return responseState.lateralStateLeft.isSafe;
 }
 
 /**
- * @brief is response lateral safe
- * @param[in] response to check
+ * @brief is response state lateral safe to the right
+ *
+ * @param[in] responseState to check
  *
  * true if safe, false if not
  */
-inline bool isLateralSafe(Response const &response) noexcept
+inline bool isLateralSafeRight(ResponseState const &responseState) noexcept
 {
-  return isLateralSafeRight(response) && isLateralSafeLeft(response);
+  return responseState.lateralStateRight.isSafe;
 }
 
 /**
- * @brief is response safe
+ * @brief is response state lateral safe
  *
- * @param[in] response to check
+ * @param[in] responseState to check
  *
  * true if safe, false if not
  */
-inline bool isDangerous(Response const &response) noexcept
+inline bool isLateralSafe(ResponseState const &responseState) noexcept
 {
-  return !isLongitudinalSafe(response) && !isLateralSafe(response);
+  return isLateralSafeRight(responseState) && isLateralSafeLeft(responseState);
 }
 
 /**
- * @brief determine the resulting response
+ * @brief is response state dangerous
  *
- * @param[in] previousResponse the previous value of the response
- * @param[in] newResponse the additionalResponse
+ * @param[in] responseState to check
  *
- * Check will be performed on the enum values of the LongitudinalResponse. Therefore, these values need to be in the
- * right order
- *
- * @returns the resulting response
+ * true if dangerous, false if not
  */
-inline LongitudinalResponse combineLongitudinalResponse(LongitudinalResponse previousResponse,
-                                                        LongitudinalResponse newResponse) noexcept
+inline bool isDangerous(ResponseState const &responseState) noexcept
 {
-  if (previousResponse > newResponse)
+  return !isLongitudinalSafe(responseState) && !isLateralSafe(responseState);
+}
+
+/**
+ * @brief determine the resulting RSS state
+ *
+ * @param[in] previousRssState the previous RSS state
+ * @param[in] newRssState      the RSS state to be considered in addition
+ *
+ * The RSS states are combined in a form that the most severe state of both becomes the result state.
+ * Therefore, if one is safe and the other not, the non-safe state is returned.
+ * If both states are either declared as safe or as non-safe, the responses are compared with each other.
+ * That comparison is performed on the enumeration values of the responses.
+ * Therefore, these values need have to be ordered strictly ascending in respect to their severity.
+ *
+ * @returns the resulting RSS state
+ */
+template <typename RssState>
+RssState combineRssState(RssState const &previousRssState, RssState const &newRssState) noexcept
+{
+  if (previousRssState.isSafe == newRssState.isSafe)
   {
-    return previousResponse;
+    if (previousRssState.response > newRssState.response)
+    {
+      return previousRssState;
+    }
   }
-
-  return newResponse;
-}
-
-/**
- * @brief determine the resulting response
- *
- * @param[in] previousResponse the previous value of the response
- * @param[in] newResponse the additionalResponse
- *
- * Check will be performed on the enum values of the LateralResponse. Therefore, these values need to be in the right
- * order
- *
- * @returns the resulting response
- */
-inline LateralResponse combineLateralResponse(LateralResponse previousResponse, LateralResponse newResponse) noexcept
-{
-  if (previousResponse > newResponse)
+  else if (!previousRssState.isSafe)
   {
-    return previousResponse;
+    return previousRssState;
   }
-
-  return newResponse;
+  return newRssState;
 }
-
-/**
- * @brief Calculate safety checks and determine required response for longitudinal direction for non intersection
- * scenario
- *
- * @param[in] egoVehicle state of ego vehicle
- * @param[in] otherVehicle state of other vehicle
- * @param[out] response required response of the ego vehicle
- *
- * @returns false if a failure occured during calculations, true otherwise
- *
- */
-bool calculateLongitudinalResponseNonIntersection(lane::VehicleState const &egoVehicle,
-                                                  lane::VehicleState const &otherVehicle,
-                                                  LongitudinalResponse &response) noexcept;
-
-/**
- * @brief Calculate safety checks and determine required response for longitudinal direction for
- * non intersection scenario when both vehicles are driving in same direction
- *
- * @param[in] egoVehicle state of ego vehicle
- * @param[in] otherVehicle state of other vehicle
- * @param[out] response required response of the ego vehicle
- *
- * @returns false if a failure occured during calculations, true otherwise
- *
- */
-bool calculateLongitudinalResponseNonIntersectionSameDirection(lane::VehicleState const &egoVehicle,
-                                                               lane::VehicleState const &otherVehicle,
-                                                               LongitudinalResponse &response) noexcept;
-
-/**
- * @brief Calculate safety checks and determine required response for longitudinal direction for
- * non intersection scenario when vehicles are driving in opposite direction
- *
- * @param[in] egoVehicle state of ego vehicle
- * @param[in] otherVehicle state of other vehicle
- * @param[out] response required response of the ego vehicle
- *
- * @returns false if a failure occured during calculations, true otherwise
- *
- */
-bool calculateLongitudinalResponseNonIntersectionOppositeDirection(lane::VehicleState const &egoVehicle,
-                                                                   lane::VehicleState const &otherVehicle,
-                                                                   LongitudinalResponse &response) noexcept;
-
-/**
- * @brief Calculate safety checks and determine required response for lateral direction
- *
- * @param[in] egoVehicle state of ego vehicle
- * @param[in] otherVehicle state of other vehicle
- * @param[out] responseLeft required response of the ego vehicle to avoid collision to the left
- * @param[out] responseRight required response of the ego vehicle to avoid collision to the right
- *
- * @returns false if a failure occured during calculations, true otherwise
- *
- */
-bool calculateLateralResponse(lane::VehicleState const &egoVehicle,
-                              lane::VehicleState const &otherVehicle,
-                              LateralResponse &responseLeft,
-                              LateralResponse &responseRight) noexcept;
 
 } // namespace check
 } // namespace rss

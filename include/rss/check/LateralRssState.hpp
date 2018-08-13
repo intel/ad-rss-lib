@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include "rss/check/LateralResponse.hpp"
 /*!
  * @brief namespace rss
  */
@@ -33,10 +34,20 @@ namespace rss {
  */
 namespace check {
 
-struct RssState
+struct LateralRssState
 {
-  bool longitudinalSafe{false};
-  bool lateralSafe{false};
+  bool isSafe{false};
+  ::rss::check::LateralResponse response;
+
+  ::rss::check::LateralResponse getResponse() const
+  {
+    return response;
+  }
+
+  void setResponse(::rss::check::LateralResponse const newVal)
+  {
+    response = newVal;
+  }
 };
 
 } // namespace check

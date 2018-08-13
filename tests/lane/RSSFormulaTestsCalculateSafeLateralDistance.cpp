@@ -21,18 +21,6 @@
 namespace rss {
 namespace lane {
 
-TEST(RSSFormulaTestsCalculateSafeLateralDistance, negative_lateral_speed)
-{
-  Distance safeDistance = 0.;
-
-  VehicleState vehicle = createVehicleStateForLateralMotion(-10.);
-  VehicleState otherVehicle = createVehicleStateForLateralMotion(0.);
-
-  ASSERT_FALSE(calculateSafeLateralDistance(vehicle, otherVehicle, safeDistance));
-  ASSERT_FALSE(calculateSafeLateralDistance(otherVehicle, vehicle, safeDistance));
-  ASSERT_FALSE(calculateSafeLateralDistance(vehicle, vehicle, safeDistance));
-}
-
 TEST(RSSFormulaTestsCalculateSafeLateralDistance, invalid_vehicle_state)
 {
   Distance safeDistance = 0.;
@@ -47,22 +35,47 @@ TEST(RSSFormulaTestsCalculateSafeLateralDistance, invalid_vehicle_state)
   ASSERT_FALSE(calculateSafeLateralDistance(vehicle, vehicle, safeDistance));
 }
 
-TEST(RSSFormulaTestsCalculateSafeLateralDistance, zero_lateral_speed)
+TEST(RSSFormulaTestsCalculateSafeLateralDistance, same_lateral_speed)
 {
   Distance safeDistance = 0.;
 
-  VehicleState leftVehicle = createVehicleStateForLateralMotion(0.);
-  leftVehicle.position.latInterval.minimum = -10.;
-  leftVehicle.position.latInterval.maximum = -8.;
-  VehicleState rightVehicle = createVehicleStateForLateralMotion(0.);
-  rightVehicle.position.latInterval.minimum = 2.;
-  rightVehicle.position.latInterval.maximum = 5.;
+  std::vector<Distance> expectedSafeDistance = {1., 1.09, 1.09, 2.8, 2.8};
+  uint32_t expectedSafeDistanceIndex = 0u;
+  for (auto lateralSpeed : {0., 1., -1., 5., -5.})
+  {
+    VehicleState leftVehicle = createVehicleStateForLateralMotion(lateralSpeed);
+    VehicleState rightVehicle = createVehicleStateForLateralMotion(lateralSpeed);
 
-  ASSERT_TRUE(calculateSafeLateralDistance(leftVehicle, rightVehicle, safeDistance));
-  ASSERT_EQ(safeDistance, 1.);
+    ASSERT_TRUE(calculateSafeLateralDistance(leftVehicle, rightVehicle, safeDistance));
+    ASSERT_NEAR(safeDistance, expectedSafeDistance[expectedSafeDistanceIndex], 0.01);
 
-  ASSERT_TRUE(calculateSafeLateralDistance(rightVehicle, leftVehicle, safeDistance));
-  ASSERT_EQ(safeDistance, 1.);
+    ASSERT_TRUE(calculateSafeLateralDistance(rightVehicle, leftVehicle, safeDistance));
+    ASSERT_NEAR(safeDistance, expectedSafeDistance[expectedSafeDistanceIndex], 0.01);
+
+    expectedSafeDistanceIndex++;
+  }
+}
+
+TEST(RSSFormulaTestsCalculateSafeLateralDistance, one_zero_lateral_speed)
+{
+  Distance safeDistance = 0.;
+
+  std::vector<Distance> expectedSafeDistanceLeft = {1.74, 0.35, 5.67, 0.};
+  std::vector<Distance> expectedSafeDistanceRight = {0.35, 1.74, 0., 5.67};
+  uint32_t expectedSafeDistanceIndex = 0u;
+  for (auto lateralSpeed : {1., -1., 5., -5.})
+  {
+    VehicleState leftVehicle = createVehicleStateForLateralMotion(lateralSpeed);
+    VehicleState rightVehicle = createVehicleStateForLateralMotion(0.);
+
+    ASSERT_TRUE(calculateSafeLateralDistance(leftVehicle, rightVehicle, safeDistance));
+    ASSERT_NEAR(safeDistance, expectedSafeDistanceLeft[expectedSafeDistanceIndex], 0.01);
+
+    ASSERT_TRUE(calculateSafeLateralDistance(rightVehicle, leftVehicle, safeDistance));
+    ASSERT_NEAR(safeDistance, expectedSafeDistanceRight[expectedSafeDistanceIndex], 0.01);
+
+    expectedSafeDistanceIndex++;
+  }
 }
 
 } // namespace lane

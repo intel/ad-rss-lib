@@ -24,26 +24,18 @@
 
 #pragma once
 
-#include "rss/lane/Dynamics.hpp"
-#include "rss/lane/Velocity.hpp"
-#include "rss/time/Duration.hpp"
+#include <vector>
+#include "rss/check/ResponseState.hpp"
 /*!
  * @brief namespace rss
  */
 namespace rss {
 /*!
- * @brief namespace lane
+ * @brief namespace check
  */
-namespace lane {
+namespace check {
 
-struct VehicleState
-{
-  ::rss::lane::Velocity velocity;
-  ::rss::lane::Dynamics dynamics;
-  ::rss::time::Duration responseTime{0.0};
-  bool hasPriority{false};
-  bool isInCorrectLane{false};
-};
+using ResponseStateVector = std::vector<::rss::check::ResponseState>;
 
-} // namespace lane
+} // namespace check
 } // namespace rss

@@ -22,10 +22,6 @@ namespace rss {
 namespace core {
 namespace RSSChecker {
 
-using check::Response;
-using check::LateralResponse;
-using check::LongitudinalResponse;
-
 class RSSCheckerTestsOppositeDirection : public testing::Test
 {
 protected:
@@ -39,224 +35,210 @@ protected:
   lane::VehicleState correctVehicle;
   lane::VehicleState oppositeVehicle;
   lane::Situation situation;
-  Response response;
+  check::ResponseState responseState;
 };
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min_correct)
 {
   correctVehicle = createVehicleStateForLongitudinalMotion(50);
-  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle.isInCorrectLane = false;
-
-  oppositeVehicle.position.lonInterval.minimum = 178.7;
-  oppositeVehicle.position.lonInterval.maximum = 180;
 
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 178.7, true);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMinCorrect);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMinCorrect);
 }
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min)
 {
   correctVehicle = createVehicleStateForLongitudinalMotion(50);
-  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle.isInCorrectLane = false;
-
-  oppositeVehicle.position.lonInterval.minimum = 178;
-  oppositeVehicle.position.lonInterval.maximum = 180;
 
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 178., true);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMin);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
 }
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_shorter_ego_reaction_time)
 {
   correctVehicle = createVehicleStateForLongitudinalMotion(50);
   correctVehicle.responseTime = 1.;
-  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle.isInCorrectLane = false;
-
-  oppositeVehicle.position.lonInterval.minimum = 178;
-  oppositeVehicle.position.lonInterval.maximum = 180;
 
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::Safe);
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 178., true);
 
-  oppositeVehicle.position.lonInterval.minimum = 150;
-  situation.otherVehicleState = oppositeVehicle;
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMinCorrect);
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 150., true);
 
-  oppositeVehicle.position.lonInterval.minimum = 140;
-  situation.otherVehicleState = oppositeVehicle;
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMinCorrect);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMin);
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 140., true);
+
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
 }
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_both_vehicles_correct_lane)
 {
   correctVehicle = createVehicleStateForLongitudinalMotion(50);
-  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle.isInCorrectLane = true;
-
-  oppositeVehicle.position.lonInterval.minimum = 178.7;
-  oppositeVehicle.position.lonInterval.maximum = 180;
 
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 178.7, true);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::Safe);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 
-  oppositeVehicle.position.lonInterval.minimum = 178;
-  situation.otherVehicleState = oppositeVehicle;
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 178., true);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMin);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
 }
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_safe)
 {
   correctVehicle = createVehicleStateForLongitudinalMotion(50);
-  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle.isInCorrectLane = false;
-
-  oppositeVehicle.position.lonInterval.minimum = 197;
-  oppositeVehicle.position.lonInterval.maximum = 199;
 
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 197., true);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::Safe);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 }
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_BrakeMinCorrect)
 {
   correctVehicle = createVehicleStateForLongitudinalMotion(50);
-  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle.isInCorrectLane = false;
-
-  oppositeVehicle.position.lonInterval.minimum = 196;
-  oppositeVehicle.position.lonInterval.maximum = 199;
 
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 196., true);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMinCorrect);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMinCorrect);
 }
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_response_1s_safe)
 {
   correctVehicle = createVehicleStateForLongitudinalMotion(50);
   correctVehicle.responseTime = 1.;
-  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle.isInCorrectLane = false;
-
-  oppositeVehicle.position.lonInterval.minimum = 196;
-  oppositeVehicle.position.lonInterval.maximum = 199;
 
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 196., true);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::Safe);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 }
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min_correct_ego_vehicle_in_front)
 {
-  correctVehicle = createVehicleStateForLongitudinalMotion(-50);
+  correctVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle.isInCorrectLane = false;
 
-  correctVehicle.position.lonInterval.minimum = 178.7;
-  correctVehicle.position.lonInterval.maximum = 180;
-
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::InFront, 178.7, true);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMinCorrect);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMinCorrect);
 }
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_vehicles_at_same_position)
 {
-  correctVehicle = createVehicleStateForLongitudinalMotion(-50);
+  correctVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle.isInCorrectLane = false;
 
-  correctVehicle.position.lonInterval.minimum = 178.7;
-  correctVehicle.position.lonInterval.maximum = 180;
-
-  oppositeVehicle.position.lonInterval.minimum = 178.9;
-  oppositeVehicle.position.lonInterval.maximum = 180.2;
-
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::OverlapFront, 0., true);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMin);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
 }
 
 TEST_F(RSSCheckerTestsOppositeDirection, incorrect_vehicle_state_ego)
 {
   correctVehicle = createVehicleStateForLongitudinalMotion(50);
-  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle.isInCorrectLane = false;
 
   correctVehicle.dynamics.alphaLon.brakeMin = -1;
 
-  oppositeVehicle.position.lonInterval.minimum = 178.7;
-  oppositeVehicle.position.lonInterval.maximum = 180;
-
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 178.7, true);
 
-  ASSERT_FALSE(checkSituation(situation, response));
+  ASSERT_FALSE(checkSituation(situation, responseState));
 }
 
 TEST_F(RSSCheckerTestsOppositeDirection, incorrect_vehicle_state_other)
 {
   correctVehicle = createVehicleStateForLongitudinalMotion(50);
-  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle.isInCorrectLane = false;
 
   oppositeVehicle.dynamics.alphaLon.brakeMin = -1;
 
-  oppositeVehicle.position.lonInterval.minimum = 178.7;
-  oppositeVehicle.position.lonInterval.maximum = 180;
-
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 178.7, true);
 
-  ASSERT_FALSE(checkSituation(situation, response));
+  ASSERT_FALSE(checkSituation(situation, responseState));
 }
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min_ego_opposite)
 {
   correctVehicle = createVehicleStateForLongitudinalMotion(50);
-  oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
+  oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle.isInCorrectLane = false;
-
-  oppositeVehicle.position.lonInterval.minimum = 178.7;
-  oppositeVehicle.position.lonInterval.maximum = 180;
 
   situation.egoVehicleState = oppositeVehicle;
   situation.otherVehicleState = correctVehicle;
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::InFront, 178.7, true);
 
-  ASSERT_TRUE(checkSituation(situation, response));
-  ASSERT_EQ(response.longitudinalResponse, LongitudinalResponse::BrakeMin);
+  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
 }
 
 } // namespace RSSChecker

@@ -14,40 +14,30 @@
 // implied warranties, other than those that are expressly stated in the License.
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
+
 /**
  * @file
  */
 
 #pragma once
 
-#include "rss/check/ResponseState.hpp"
-#include "rss/lane/Situation.hpp"
+#include "rss/lane/VehicleState.hpp"
 
 /*!
  * @brief namespace rss
  */
 namespace rss {
-
 /*!
- * @brief namespace core
+ * @brief namespace for RSS lane coordinate system datatypes and operations
  */
-namespace core {
-
-/*!
- * @brief namespace RSSChecker
- */
-namespace RSSChecker {
+namespace lane {
 
 /**
- * @brief check if the current situation is safe
+ * @brief checks if the given vehicle state contains valid values
  *
- * @param[in] situation      the Situation that should be analyzed
- * @param[out] responseState the ResponseState for the current situation
- *
- * @return true if situation could be analyzed, false if there was an error during evaluation
+ * @return true if state is valid, false otherwise
  */
-bool checkSituation(lane::Situation const &situation, check::ResponseState &responseState) noexcept;
+bool checkVehicleState(VehicleState const &state) noexcept;
 
-} // namespace RSSChecker
-} // namespace core
+} // namespace lane
 } // namespace rss

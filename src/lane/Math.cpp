@@ -21,75 +21,101 @@
 namespace rss {
 namespace lane {
 
-bool calculateStoppingDistance(Speed const speed, Acceleration const deceleration, Distance &stoppingDistance) noexcept
+inline Distance calculateDistanceOffsetInAccerlatedMovement(Speed const speed,
+                                                            Acceleration const acceleration,
+                                                            time::Duration const duration)
 {
-  if (speed < 0.)
-  {
-    return false;
-  }
+  // s(t) =(a/2) * t^2 + v0 * t
+  Distance const distanceOffset = (acceleration * 0.5 * duration * duration) + (speed * duration);
+  return distanceOffset;
+}
 
+inline Speed
+calculateSpeedInAcceleratedMovement(Speed const speed, Acceleration const acceleration, time::Duration const duration)
+{
+  // v(t) =v0 + a * t
+  Speed const resultingSpeed = speed + acceleration * duration;
+  return resultingSpeed;
+}
+
+bool calculateStoppingDistance(Speed const currentSpeed,
+                               Acceleration const deceleration,
+                               Distance &stoppingDistance) noexcept
+{
   if (deceleration <= 0.)
   {
+    // deceleration must be positive
     return false;
   }
 
-  /**
-   * s = v^2 / 2 *a
-   */
-  stoppingDistance = (speed * speed) / (2.0 * deceleration);
+  // s = v^2 / 2 *a
+  // keep the signbit of the current Speed
+  stoppingDistance = (currentSpeed * std::fabs(currentSpeed)) / (2.0 * deceleration);
   return true;
 }
 
-bool calculateSpeedAfterResponseTime(Speed const currentSpeed,
+bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const axis,
+                                     Speed const currentSpeed,
                                      Acceleration const acceleration,
                                      time::Duration const responseTime,
                                      Speed &resultingSpeed) noexcept
 {
-  if (currentSpeed < 0.)
-  {
-    return false;
-  }
-
   if (responseTime < 0)
   {
+    // time must not be negative
     return false;
   }
 
-  // v(t) =v0 + a * t
-  resultingSpeed = currentSpeed + acceleration * responseTime;
+  if (axis == CoordinateSystemAxis::Longitudinal)
+  {
+    // in longitudinal direction the speed has to be always >= 0.
+    if (currentSpeed < 0.)
+    {
+      return false;
+    }
+  }
 
-  // Only deceleration till stop is allowed
-  resultingSpeed = std::max(0., resultingSpeed);
+  resultingSpeed = calculateSpeedInAcceleratedMovement(currentSpeed, acceleration, responseTime);
+
+  if (axis == CoordinateSystemAxis::Longitudinal)
+  {
+    // Only deceleration till stop is allowed
+    resultingSpeed = std::max(0., resultingSpeed);
+  }
 
   return true;
 }
 
-bool calculateDistanceAfterResponseTime(Speed const currentSpeed,
-                                        Acceleration const acceleration,
-                                        time::Duration const responseTime,
-                                        Distance &coveredDistance) noexcept
+bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const axis,
+                                              Speed const currentSpeed,
+                                              Acceleration const acceleration,
+                                              time::Duration const responseTime,
+                                              Distance &distanceOffset) noexcept
 {
-  if (currentSpeed < 0.)
-  {
-    return false;
-  }
-
   if (responseTime < 0)
   {
+    // time must not be negative
     return false;
   }
 
   time::Duration resultingResponseTime = responseTime;
-  if (acceleration < 0)
+  if (axis == CoordinateSystemAxis::Longitudinal)
   {
-    resultingResponseTime = -1. * currentSpeed / acceleration;
-    resultingResponseTime = std::min(resultingResponseTime, responseTime);
+    if (currentSpeed < 0.)
+    {
+      // in longitudinal direction the speed has to be always >= 0.
+      return false;
+    }
+
+    if (acceleration < 0)
+    {
+      // on deceleration restrict the time to the time required to stop
+      resultingResponseTime = -1. * currentSpeed / acceleration;
+      resultingResponseTime = std::min(resultingResponseTime, responseTime);
+    }
   }
 
-  // s(t) =(a/2) * t^2 + v0 * t
-
-  coveredDistance
-    = (acceleration * 0.5 * resultingResponseTime * resultingResponseTime) + (currentSpeed * resultingResponseTime);
+  distanceOffset = calculateDistanceOffsetInAccerlatedMovement(currentSpeed, acceleration, resultingResponseTime);
 
   return true;
 }
