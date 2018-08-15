@@ -16,8 +16,8 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "lane/Vehicle.hpp"
 #include "rss/core/RSSChecker.hpp"
+#include "situation/Vehicle.hpp"
 
 namespace rss {
 namespace core {
@@ -34,18 +34,18 @@ protected:
     situation.egoVehicleState = leadingVehicle;
     situation.otherVehicleState = followingVehicle;
     situation.relativePosition.longitudinalDistance = 95.;
-    situation.relativePosition.longitudinalPosition = lane::LongitudinalRelativePosition::InFront;
+    situation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::InFront;
     situation.relativePosition.lateralDistance = 0.;
-    situation.relativePosition.lateralPosition = lane::LateralRelativePosition::Overlap;
+    situation.relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
   }
 
   virtual void TearDown()
   {
   }
-  lane::VehicleState leadingVehicle;
-  lane::VehicleState followingVehicle;
-  lane::Situation situation;
-  check::ResponseState responseState;
+  situation::VehicleState leadingVehicle;
+  situation::VehicleState followingVehicle;
+  situation::Situation situation;
+  state::ResponseState responseState;
 };
 
 /**

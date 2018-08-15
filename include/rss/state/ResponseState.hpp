@@ -24,21 +24,25 @@
 
 #pragma once
 
-#include "rss/situation/Distance.hpp"
+#include "rss/situation/SituationId.hpp"
+#include "rss/state/LateralRssState.hpp"
+#include "rss/state/LongitudinalRssState.hpp"
 /*!
  * @brief namespace rss
  */
 namespace rss {
 /*!
- * @brief namespace lane
+ * @brief namespace state
  */
-namespace lane {
+namespace state {
 
-struct Interval
+struct ResponseState
 {
-  ::rss::situation::Distance minimum{0.0};
-  ::rss::situation::Distance maximum{0.0};
+  ::rss::situation::SituationId situationId{0u};
+  ::rss::state::LongitudinalRssState longitudinalState;
+  ::rss::state::LateralRssState lateralStateRight;
+  ::rss::state::LateralRssState lateralStateLeft;
 };
 
-} // namespace lane
+} // namespace state
 } // namespace rss

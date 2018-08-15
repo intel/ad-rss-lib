@@ -24,21 +24,16 @@
 
 #pragma once
 
-#include "rss/situation/Distance.hpp"
-/*!
- * @brief namespace rss
- */
 namespace rss {
+namespace situation {
 /*!
- * @brief namespace lane
+ * \brief Type definition  Speed
+ *
+ * The rate of change of an object's Distance with respect to time. The speed of an
+ * object is the magnitude of its velocity.
+ * Unit: situation coordinate system units per second
  */
-namespace lane {
+using Speed = double;
 
-struct Interval
-{
-  ::rss::situation::Distance minimum{0.0};
-  ::rss::situation::Distance maximum{0.0};
-};
-
-} // namespace lane
+} // namespace situation
 } // namespace rss

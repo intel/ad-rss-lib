@@ -17,23 +17,23 @@
 
 #include "rss/core/RSSChecker.hpp"
 #include <algorithm>
-#include "check/RSSSituation.hpp"
+#include "situation/RSSSituation.hpp"
 
 namespace rss {
 namespace core {
 namespace RSSChecker {
 
-bool checkSituation(lane::Situation const &situation, check::ResponseState &response) noexcept
+bool checkSituation(situation::Situation const &situation, state::ResponseState &response) noexcept
 {
   bool result = false;
 
   response.situationId = situation.situationId;
   response.longitudinalState.isSafe = false;
-  response.longitudinalState.response = check::LongitudinalResponse::BrakeMin;
+  response.longitudinalState.response = state::LongitudinalResponse::BrakeMin;
   response.lateralStateLeft.isSafe = false;
-  response.lateralStateLeft.response = check::LateralResponse::BrakeMin;
+  response.lateralStateLeft.response = state::LateralResponse::BrakeMin;
   response.lateralStateRight.isSafe = false;
-  response.lateralStateRight.response = check::LateralResponse::BrakeMin;
+  response.lateralStateRight.response = state::LateralResponse::BrakeMin;
 
   // If one vehicle has priority we are in an intersection scenario
   if (!situation.egoVehicleState.hasPriority && !situation.otherVehicleState.hasPriority)

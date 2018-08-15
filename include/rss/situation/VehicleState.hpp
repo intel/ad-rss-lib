@@ -24,21 +24,26 @@
 
 #pragma once
 
-#include "rss/situation/Distance.hpp"
+#include "rss/situation/Dynamics.hpp"
+#include "rss/situation/Velocity.hpp"
+#include "rss/time/Duration.hpp"
 /*!
  * @brief namespace rss
  */
 namespace rss {
 /*!
- * @brief namespace lane
+ * @brief namespace situation
  */
-namespace lane {
+namespace situation {
 
-struct Interval
+struct VehicleState
 {
-  ::rss::situation::Distance minimum{0.0};
-  ::rss::situation::Distance maximum{0.0};
+  ::rss::situation::Velocity velocity;
+  ::rss::situation::Dynamics dynamics;
+  ::rss::time::Duration responseTime{0.0};
+  bool hasPriority{false};
+  bool isInCorrectLane{false};
 };
 
-} // namespace lane
+} // namespace situation
 } // namespace rss

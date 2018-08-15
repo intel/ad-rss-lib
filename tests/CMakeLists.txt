@@ -21,21 +21,21 @@
 set(EXEC_NAME rss_module_tests)
 
 set(RSS_MODULE_TEST_SOURCES
-  check/RSSResponseCombineRssStateTests.cpp
-  check/RSSResponseIsSafeTests.cpp
   core/RSSCheckerInputRangeTests.cpp
   core/RSSCheckerTestsLongitudinal.cpp
   core/RSSCheckerTestsLateral.cpp
   core/RSSCheckerTestsOppositeDirection.cpp
+  core/RSSResponseCombineRssStateTests.cpp
+  core/RSSResponseIsSafeTests.cpp
   core/RSSResponseProviderTests.cpp
   core/RSSWorldTests.cpp
-  lane/MathUnitTestsDistanceOffsetAfterResponseTime.cpp
-  lane/MathUnitTestsStoppingDistance.cpp
-  lane/MathUnitTestsVelocityAfterResponseTime.cpp
-  lane/RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
-  lane/RSSFormulaTestsCalculateSafeLateralDistance.cpp
-  lane/RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
-  lane/VehicleTests.cpp
+  situation/MathUnitTestsDistanceOffsetAfterResponseTime.cpp
+  situation/MathUnitTestsStoppingDistance.cpp
+  situation/MathUnitTestsVelocityAfterResponseTime.cpp
+  situation/RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
+  situation/RSSFormulaTestsCalculateSafeLateralDistance.cpp
+  situation/RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
+  situation/VehicleTests.cpp
 )
 
 add_executable(${EXEC_NAME} ${RSS_MODULE_TEST_SOURCES})
@@ -53,32 +53,5 @@ target_link_libraries(${EXEC_NAME} PRIVATE
 
 target_compile_options(${EXEC_NAME} PRIVATE ${COVERAGE_FLAG} ${TARGET_COMPILE_OPTIONS})
 set_target_properties(${EXEC_NAME} PROPERTIES LINK_FLAGS ${COVERAGE_FLAG})
-
-add_test(NAME ${EXEC_NAME} COMMAND ${EXEC_NAME})
-
-
-#####################################################################
-# rss_support_tests - executable setup
-#####################################################################
-
-set(EXEC_NAME rss_support_tests)
-
-set(RSS_SUPPORT_TEST_SOURCES
-  rss/check/LateralResponseTests.cpp
-  rss/check/LongitudinalResponseTests.cpp
-)
-
-add_executable(${EXEC_NAME} ${RSS_SUPPORT_TEST_SOURCES})
-
-target_include_directories(${EXEC_NAME}
-  PRIVATE
-  ../src
-  test_support
-)
-
-target_link_libraries(${EXEC_NAME} PRIVATE
-  GTest::Main
-  RSSSupport
-)
 
 add_test(NAME ${EXEC_NAME} COMMAND ${EXEC_NAME})

@@ -21,7 +21,7 @@
 #pragma once
 
 #include "rss/lane/Position.hpp"
-#include "rss/lane/RelativePosition.hpp"
+#include "rss/situation/RelativePosition.hpp"
 
 /*!
  * @brief namespace rss
@@ -45,9 +45,9 @@ namespace RSSWorld {
  * @param[in] otherPosition              the other position basis within the situation based coordinate system
  * @param[in] isDrivingInOppositeDirection  flag indicating if the other vehicle is driving into the opposite direction
  */
-lane::RelativePosition calcluateRelativePosition(lane::Position const &egoPosition,
-                                                 lane::Position const &otherPosition,
-                                                 bool const isDrivingInOppositeDirection) noexcept;
+situation::RelativePosition calcluateRelativePosition(lane::Position const &egoPosition,
+                                                      lane::Position const &otherPosition,
+                                                      bool const isDrivingInOppositeDirection) noexcept;
 
 } // namespace RSSWorld
 } // namespace core

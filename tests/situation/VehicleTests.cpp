@@ -14,40 +14,26 @@
 // implied warranties, other than those that are expressly stated in the License.
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
-/**
- * @file
- */
 
-#pragma once
+#include "TestSupport.hpp"
+#include "situation/Vehicle.hpp"
 
-#include "rss/situation/Situation.hpp"
-#include "rss/state/ResponseState.hpp"
-
-/*!
- * @brief namespace rss
- */
 namespace rss {
+namespace situation {
 
-/*!
- * @brief namespace core
- */
-namespace core {
+TEST(RSSFormulaTestsCheckVehicleState, check_standard_state)
+{
+  VehicleState leadingVehicle = createVehicleStateForLongitudinalMotion(10);
 
-/*!
- * @brief namespace RSSChecker
- */
-namespace RSSChecker {
+  ASSERT_TRUE(checkVehicleState(leadingVehicle));
+}
 
-/**
- * @brief check if the current situation is safe
- *
- * @param[in] situation      the Situation that should be analyzed
- * @param[out] responseState the ResponseState for the current situation
- *
- * @return true if situation could be analyzed, false if there was an error during evaluation
- */
-bool checkSituation(situation::Situation const &situation, state::ResponseState &responseState) noexcept;
+TEST(RSSFormulaTestsCheckVehicleState, check_standard_state_100)
+{
+  VehicleState leadingVehicle = createVehicleStateForLongitudinalMotion(100);
 
-} // namespace RSSChecker
-} // namespace core
+  ASSERT_TRUE(checkVehicleState(leadingVehicle));
+}
+
+} // namespace situation
 } // namespace rss

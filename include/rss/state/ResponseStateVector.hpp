@@ -24,21 +24,18 @@
 
 #pragma once
 
-#include "rss/situation/Distance.hpp"
+#include <vector>
+#include "rss/state/ResponseState.hpp"
 /*!
  * @brief namespace rss
  */
 namespace rss {
 /*!
- * @brief namespace lane
+ * @brief namespace state
  */
-namespace lane {
+namespace state {
 
-struct Interval
-{
-  ::rss::situation::Distance minimum{0.0};
-  ::rss::situation::Distance maximum{0.0};
-};
+using ResponseStateVector = std::vector<::rss::state::ResponseState>;
 
-} // namespace lane
+} // namespace state
 } // namespace rss

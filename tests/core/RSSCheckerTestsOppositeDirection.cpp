@@ -32,10 +32,10 @@ protected:
   virtual void TearDown()
   {
   }
-  lane::VehicleState correctVehicle;
-  lane::VehicleState oppositeVehicle;
-  lane::Situation situation;
-  check::ResponseState responseState;
+  situation::VehicleState correctVehicle;
+  situation::VehicleState oppositeVehicle;
+  situation::Situation situation;
+  state::ResponseState responseState;
 };
 
 TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min_correct)
@@ -47,7 +47,7 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min_correct)
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
   situation.relativePosition
-    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 178.7, true);
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 178.7, true);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMinCorrect);
@@ -62,7 +62,7 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min)
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
   situation.relativePosition
-    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 178., true);
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 178., true);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
@@ -79,19 +79,19 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_shorter_ego_reaction_time)
   situation.otherVehicleState = oppositeVehicle;
 
   situation.relativePosition
-    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 178., true);
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 178., true);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 
   situation.relativePosition
-    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 150., true);
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 150., true);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMinCorrect);
 
   situation.relativePosition
-    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 140., true);
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 140., true);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
@@ -106,13 +106,13 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_both_vehicles_correct_lane)
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
   situation.relativePosition
-    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 178.7, true);
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 178.7, true);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 
   situation.relativePosition
-    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 178., true);
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 178., true);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
@@ -127,7 +127,7 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_safe)
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
   situation.relativePosition
-    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 197., true);
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 197., true);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
@@ -142,7 +142,7 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_BrakeMinCorrect)
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
   situation.relativePosition
-    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 196., true);
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 196., true);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMinCorrect);
@@ -158,7 +158,7 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_response_1s_safe)
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
   situation.relativePosition
-    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 196., true);
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 196., true);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
@@ -173,7 +173,7 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min_correct_ego_vehicle_in_
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
   situation.relativePosition
-    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::InFront, 178.7, true);
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 178.7, true);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMinCorrect);
@@ -188,7 +188,7 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_vehicles_at_same_position)
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
   situation.relativePosition
-    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::OverlapFront, 0., true);
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::OverlapFront, 0., true);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
@@ -205,7 +205,7 @@ TEST_F(RSSCheckerTestsOppositeDirection, incorrect_vehicle_state_ego)
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
   situation.relativePosition
-    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 178.7, true);
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 178.7, true);
 
   ASSERT_FALSE(checkSituation(situation, responseState));
 }
@@ -221,7 +221,7 @@ TEST_F(RSSCheckerTestsOppositeDirection, incorrect_vehicle_state_other)
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
   situation.relativePosition
-    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 178.7, true);
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 178.7, true);
 
   ASSERT_FALSE(checkSituation(situation, responseState));
 }
@@ -235,7 +235,7 @@ TEST_F(RSSCheckerTestsOppositeDirection, 50kmh_brake_min_ego_opposite)
   situation.egoVehicleState = oppositeVehicle;
   situation.otherVehicleState = correctVehicle;
   situation.relativePosition
-    = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::InFront, 178.7, true);
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 178.7, true);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);

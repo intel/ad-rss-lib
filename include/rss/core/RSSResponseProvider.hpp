@@ -21,7 +21,7 @@
 #pragma once
 
 #include <map>
-#include "rss/check/ResponseStateVector.hpp"
+#include "rss/state/ResponseStateVector.hpp"
 
 /*!
  * @brief namespace rss
@@ -54,8 +54,8 @@ public:
    *
    * When false is returned the internal state has not been updated
    */
-  bool provideProperResponse(check::ResponseStateVector const &currentResponseStates,
-                             check::ResponseState &responseState) noexcept;
+  bool provideProperResponse(state::ResponseStateVector const &currentResponseStates,
+                             state::ResponseState &responseState) noexcept;
 
 private:
   struct RssState
@@ -67,7 +67,7 @@ private:
   /**
    * @brief typedef for the mapping of object id to the corresponding RssState before the blame time
    */
-  typedef std::map<lane::SituationId, RssState> RssStateBeforeBlameTimeMap;
+  typedef std::map<situation::SituationId, RssState> RssStateBeforeBlameTimeMap;
 
   /**
    * @brief the state of all responses before the blame time of each response

@@ -21,8 +21,7 @@
 
 #pragma once
 
-#include "rss/situation/Acceleration.hpp"
-#include "rss/time/Duration.hpp"
+#include "rss/situation/VehicleState.hpp"
 
 /*!
  * @brief namespace rss
@@ -33,18 +32,12 @@ namespace rss {
  */
 namespace situation {
 
-// @TODO: remove this file when constants are replaced by parameters
-
-const time::Duration cResponseTimeEgoVehicle = 1;    /*!< Response time of the ego vehicle in seconds. */
-const time::Duration cResponseTimeOtherVehicles = 2; /*!< Response time of non-ego vehicles in seconds. */
-
-const Acceleration cMaximumLongitudinalAcceleration = 3.5;
-const Acceleration cMinimumLongitudinalBrakingDeceleleration = 4;
-const Acceleration cMaximumLongitudinalBrakingDeceleleration = 8;
-const Acceleration cMinimumLongitudinalBrakingDecelelerationCorrect = 3;
-
-const Acceleration cMaximumLateralAcceleration = 0.2;
-const Acceleration cMinimumLateralBrakingDeceleleration = 0.8;
+/**
+ * @brief checks if the given vehicle state contains valid values
+ *
+ * @return true if state is valid, false otherwise
+ */
+bool checkVehicleState(VehicleState const &state) noexcept;
 
 } // namespace situation
 } // namespace rss

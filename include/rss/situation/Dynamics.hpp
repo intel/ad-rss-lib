@@ -24,21 +24,22 @@
 
 #pragma once
 
-#include "rss/situation/Distance.hpp"
+#include "rss/situation/LateralRssAccelerationValues.hpp"
+#include "rss/situation/LongitudinalRssAccelerationValues.hpp"
 /*!
  * @brief namespace rss
  */
 namespace rss {
 /*!
- * @brief namespace lane
+ * @brief namespace situation
  */
-namespace lane {
+namespace situation {
 
-struct Interval
+struct Dynamics
 {
-  ::rss::situation::Distance minimum{0.0};
-  ::rss::situation::Distance maximum{0.0};
+  ::rss::situation::LongitudinalRssAccelerationValues alphaLon;
+  ::rss::situation::LateralRssAccelerationValues alphaLat;
 };
 
-} // namespace lane
+} // namespace situation
 } // namespace rss

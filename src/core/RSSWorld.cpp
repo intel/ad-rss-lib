@@ -19,24 +19,22 @@
 
 namespace rss {
 
-using namespace lane;
-
 namespace core {
 namespace RSSWorld {
 
-void calcluateRelativeLongitudinalPosition(Interval const &egoInterval,
-                                           Interval const &otherInterval,
-                                           LongitudinalRelativePosition &longitudinalPosition,
-                                           Distance &longitudinalDistance) noexcept
+void calcluateRelativeLongitudinalPosition(lane::Interval const &egoInterval,
+                                           lane::Interval const &otherInterval,
+                                           situation::LongitudinalRelativePosition &longitudinalPosition,
+                                           situation::Distance &longitudinalDistance) noexcept
 {
   if (egoInterval.minimum > otherInterval.maximum)
   {
-    longitudinalPosition = LongitudinalRelativePosition::InFront;
+    longitudinalPosition = situation::LongitudinalRelativePosition::InFront;
     longitudinalDistance = egoInterval.minimum - otherInterval.maximum;
   }
   else if (otherInterval.minimum > egoInterval.maximum)
   {
-    longitudinalPosition = LongitudinalRelativePosition::AtBack;
+    longitudinalPosition = situation::LongitudinalRelativePosition::AtBack;
     longitudinalDistance = otherInterval.minimum - egoInterval.maximum;
   }
   else
@@ -44,32 +42,32 @@ void calcluateRelativeLongitudinalPosition(Interval const &egoInterval,
     longitudinalDistance = 0.;
     if ((egoInterval.minimum > otherInterval.minimum) && (egoInterval.maximum > otherInterval.maximum))
     {
-      longitudinalPosition = LongitudinalRelativePosition::OverlapFront;
+      longitudinalPosition = situation::LongitudinalRelativePosition::OverlapFront;
     }
     else if ((egoInterval.minimum < otherInterval.minimum) && (egoInterval.maximum < otherInterval.maximum))
     {
-      longitudinalPosition = LongitudinalRelativePosition::OverlapBack;
+      longitudinalPosition = situation::LongitudinalRelativePosition::OverlapBack;
     }
     else
     {
-      longitudinalPosition = LongitudinalRelativePosition::Overlap;
+      longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;
     }
   }
 }
 
-void calcluateRelativeLateralPosition(Interval const &egoInterval,
-                                      Interval const &otherInterval,
-                                      LateralRelativePosition &lateralPosition,
-                                      Distance &lateralDistance) noexcept
+void calcluateRelativeLateralPosition(lane::Interval const &egoInterval,
+                                      lane::Interval const &otherInterval,
+                                      situation::LateralRelativePosition &lateralPosition,
+                                      situation::Distance &lateralDistance) noexcept
 {
   if (egoInterval.minimum > otherInterval.maximum)
   {
-    lateralPosition = LateralRelativePosition::AtRight;
+    lateralPosition = situation::LateralRelativePosition::AtRight;
     lateralDistance = egoInterval.minimum - otherInterval.maximum;
   }
   else if (otherInterval.minimum > egoInterval.maximum)
   {
-    lateralPosition = LateralRelativePosition::AtLeft;
+    lateralPosition = situation::LateralRelativePosition::AtLeft;
     lateralDistance = otherInterval.minimum - egoInterval.maximum;
   }
   else
@@ -77,24 +75,24 @@ void calcluateRelativeLateralPosition(Interval const &egoInterval,
     lateralDistance = 0.;
     if ((egoInterval.minimum > otherInterval.minimum) && (egoInterval.maximum > otherInterval.maximum))
     {
-      lateralPosition = LateralRelativePosition::OverlapRight;
+      lateralPosition = situation::LateralRelativePosition::OverlapRight;
     }
     else if ((egoInterval.minimum < otherInterval.minimum) && (egoInterval.maximum < otherInterval.maximum))
     {
-      lateralPosition = LateralRelativePosition::OverlapLeft;
+      lateralPosition = situation::LateralRelativePosition::OverlapLeft;
     }
     else
     {
-      lateralPosition = LateralRelativePosition::Overlap;
+      lateralPosition = situation::LateralRelativePosition::Overlap;
     }
   }
 }
 
-RelativePosition calcluateRelativePosition(Position const &egoPosition,
-                                           Position const &otherPosition,
-                                           bool const isDrivingInOppositeDirection) noexcept
+situation::RelativePosition calcluateRelativePosition(lane::Position const &egoPosition,
+                                                      lane::Position const &otherPosition,
+                                                      bool const isDrivingInOppositeDirection) noexcept
 {
-  RelativePosition relativePosition;
+  situation::RelativePosition relativePosition;
 
   calcluateRelativeLongitudinalPosition(egoPosition.lonInterval,
                                         otherPosition.lonInterval,

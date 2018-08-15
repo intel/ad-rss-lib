@@ -24,21 +24,15 @@
 
 #pragma once
 
-#include "rss/situation/Distance.hpp"
-/*!
- * @brief namespace rss
- */
+#include <cstdint>
 namespace rss {
+namespace situation {
 /*!
- * @brief namespace lane
+ * \brief Type definition  SituationId
+ *
+ * The unique id of an situation over time.
  */
-namespace lane {
+using SituationId = uint64_t;
 
-struct Interval
-{
-  ::rss::situation::Distance minimum{0.0};
-  ::rss::situation::Distance maximum{0.0};
-};
-
-} // namespace lane
+} // namespace situation
 } // namespace rss

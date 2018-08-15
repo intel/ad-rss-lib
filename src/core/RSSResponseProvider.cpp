@@ -17,7 +17,7 @@
 
 #include "rss/core/RSSResponseProvider.hpp"
 #include <algorithm>
-#include "check/RSSResponseFunctions.hpp"
+#include "RSSState.hpp"
 
 namespace rss {
 namespace core {
@@ -26,14 +26,14 @@ RSSResponseProvider::RSSResponseProvider()
 {
 }
 
-bool RSSResponseProvider::provideProperResponse(check::ResponseStateVector const &currentStates,
-                                                check::ResponseState &responseState) noexcept
+bool RSSResponseProvider::provideProperResponse(state::ResponseStateVector const &currentStates,
+                                                state::ResponseState &responseState) noexcept
 {
-  responseState.lateralStateLeft.response = check::LateralResponse::None;
+  responseState.lateralStateLeft.response = state::LateralResponse::None;
   responseState.lateralStateLeft.isSafe = true;
-  responseState.lateralStateRight.response = check::LateralResponse::None;
+  responseState.lateralStateRight.response = state::LateralResponse::None;
   responseState.lateralStateRight.isSafe = true;
-  responseState.longitudinalState.response = check::LongitudinalResponse::None;
+  responseState.longitudinalState.response = state::LongitudinalResponse::None;
   responseState.longitudinalState.isSafe = true;
 
   bool result = true;

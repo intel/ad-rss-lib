@@ -24,21 +24,31 @@
 
 #pragma once
 
-#include "rss/situation/Distance.hpp"
+#include "rss/state/LateralResponse.hpp"
 /*!
  * @brief namespace rss
  */
 namespace rss {
 /*!
- * @brief namespace lane
+ * @brief namespace state
  */
-namespace lane {
+namespace state {
 
-struct Interval
+struct LateralRssState
 {
-  ::rss::situation::Distance minimum{0.0};
-  ::rss::situation::Distance maximum{0.0};
+  bool isSafe{false};
+  ::rss::state::LateralResponse response;
+
+  ::rss::state::LateralResponse getResponse() const
+  {
+    return response;
+  }
+
+  void setResponse(::rss::state::LateralResponse const newVal)
+  {
+    response = newVal;
+  }
 };
 
-} // namespace lane
+} // namespace state
 } // namespace rss

@@ -32,10 +32,10 @@ protected:
   virtual void TearDown()
   {
   }
-  lane::VehicleState leftVehicle;
-  lane::VehicleState rightVehicle;
-  lane::Situation situation;
-  check::ResponseState responseState;
+  situation::VehicleState leftVehicle;
+  situation::VehicleState rightVehicle;
+  situation::Situation situation;
+  state::ResponseState responseState;
 };
 
 TEST_F(RSSCheckerTestsLateral, safe_left)
@@ -45,7 +45,7 @@ TEST_F(RSSCheckerTestsLateral, safe_left)
 
   situation.egoVehicleState = leftVehicle;
   situation.otherVehicleState = rightVehicle;
-  situation.relativePosition = createRelativeLateralPosition(lane::LateralRelativePosition::AtLeft, 95.);
+  situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::AtLeft, 95.);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralSafe);
@@ -59,7 +59,7 @@ TEST_F(RSSCheckerTestsLateral, not_safe_overlap_left)
 
   situation.egoVehicleState = leftVehicle;
   situation.otherVehicleState = rightVehicle;
-  situation.relativePosition = createRelativeLateralPosition(lane::LateralRelativePosition::OverlapLeft);
+  situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::OverlapLeft);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralBrakeMin);
@@ -73,7 +73,7 @@ TEST_F(RSSCheckerTestsLateral, not_safe_overlap)
 
   situation.egoVehicleState = leftVehicle;
   situation.otherVehicleState = rightVehicle;
-  situation.relativePosition = createRelativeLateralPosition(lane::LateralRelativePosition::Overlap);
+  situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::Overlap);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralBrakeMin);
@@ -87,7 +87,7 @@ TEST_F(RSSCheckerTestsLateral, not_safe_overlap_right)
 
   situation.egoVehicleState = leftVehicle;
   situation.otherVehicleState = rightVehicle;
-  situation.relativePosition = createRelativeLateralPosition(lane::LateralRelativePosition::OverlapRight);
+  situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::OverlapRight);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralSafe);
@@ -101,7 +101,7 @@ TEST_F(RSSCheckerTestsLateral, safe_right)
 
   situation.egoVehicleState = leftVehicle;
   situation.otherVehicleState = rightVehicle;
-  situation.relativePosition = createRelativeLateralPosition(lane::LateralRelativePosition::AtRight, 95.);
+  situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::AtRight, 95.);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralSafe);
@@ -115,7 +115,7 @@ TEST_F(RSSCheckerTestsLateral, both_move_right)
 
   situation.egoVehicleState = leftVehicle;
   situation.otherVehicleState = rightVehicle;
-  situation.relativePosition = createRelativeLateralPosition(lane::LateralRelativePosition::AtLeft, 0.02);
+  situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::AtLeft, 0.02);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralBrakeMin);
@@ -129,7 +129,7 @@ TEST_F(RSSCheckerTestsLateral, move_towards_each_other)
 
   situation.egoVehicleState = leftVehicle;
   situation.otherVehicleState = rightVehicle;
-  situation.relativePosition = createRelativeLateralPosition(lane::LateralRelativePosition::AtLeft, 0.02);
+  situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::AtLeft, 0.02);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralBrakeMin);
@@ -146,7 +146,7 @@ TEST_F(RSSCheckerTestsLateral, check_input_range)
   situation.otherVehicleState = rightVehicle;
   for (uint32_t i = 10; i > 1; i--)
   {
-    situation.relativePosition = createRelativeLateralPosition(lane::LateralRelativePosition::AtLeft, i);
+    situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::AtLeft, i);
 
     ASSERT_TRUE(checkSituation(situation, responseState));
     ASSERT_EQ(responseState.lateralStateRight, cLateralSafe);
@@ -154,35 +154,35 @@ TEST_F(RSSCheckerTestsLateral, check_input_range)
   }
 
   // near enough: trigger brake
-  situation.relativePosition = createRelativeLateralPosition(lane::LateralRelativePosition::AtLeft, 1u);
+  situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::AtLeft, 1u);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralBrakeMin);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);
 
   // ego vehicle overlaps on left side
-  situation.relativePosition = createRelativeLateralPosition(lane::LateralRelativePosition::OverlapLeft);
+  situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::OverlapLeft);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralBrakeMin);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);
 
   // ego vehicle totally overlaps with other vehicle
-  situation.relativePosition = createRelativeLateralPosition(lane::LateralRelativePosition::Overlap);
+  situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::Overlap);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralBrakeMin);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralBrakeMin);
 
   // ego vehicle overlaps on right side
-  situation.relativePosition = createRelativeLateralPosition(lane::LateralRelativePosition::OverlapRight);
+  situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::OverlapRight);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralSafe);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralBrakeMin);
 
   // ego vehicle still too near, but on right side
-  situation.relativePosition = createRelativeLateralPosition(lane::LateralRelativePosition::AtRight, 1u);
+  situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::AtRight, 1u);
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralSafe);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralBrakeMin);
@@ -190,7 +190,7 @@ TEST_F(RSSCheckerTestsLateral, check_input_range)
   // ego vehicle far enough on right side
   for (uint32_t i = 2; i < 10; i++)
   {
-    situation.relativePosition = createRelativeLateralPosition(lane::LateralRelativePosition::AtRight, i);
+    situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::AtRight, i);
     ASSERT_TRUE(checkSituation(situation, responseState));
     ASSERT_EQ(responseState.lateralStateRight, cLateralSafe);
     ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);

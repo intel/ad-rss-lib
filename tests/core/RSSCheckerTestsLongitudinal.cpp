@@ -32,10 +32,10 @@ protected:
   virtual void TearDown()
   {
   }
-  lane::VehicleState leadingVehicle;
-  lane::VehicleState followingVehicle;
-  lane::Situation situation;
-  check::ResponseState responseState;
+  situation::VehicleState leadingVehicle;
+  situation::VehicleState followingVehicle;
+  situation::Situation situation;
+  state::ResponseState responseState;
 };
 
 TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_ego_safe_distance)
@@ -45,7 +45,8 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_ego_safe_distance)
 
   situation.egoVehicleState = leadingVehicle;
   situation.otherVehicleState = followingVehicle;
-  situation.relativePosition = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::InFront, 95.);
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 95.);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
@@ -60,7 +61,7 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_50kmh_safe)
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
-  situation.relativePosition = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 60.);
+  situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 60.);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
@@ -75,7 +76,7 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_50kmh_unsafe)
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
-  situation.relativePosition = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 39.);
+  situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 39.);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
@@ -90,12 +91,14 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_50kmh_other_sta
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
-  situation.relativePosition = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 71.8);
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 71.8);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 
-  situation.relativePosition = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 71.6);
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 71.6);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
@@ -110,12 +113,13 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_0kmh_other_stan
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
-  situation.relativePosition = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 6.01);
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 6.01);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 
-  situation.relativePosition = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 6.);
+  situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 6.);
 
   ASSERT_TRUE(checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
@@ -128,7 +132,8 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_both_negative_velocity)
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
-  situation.relativePosition = createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition::AtBack, 71.6);
+  situation.relativePosition
+    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 71.6);
 
   ASSERT_FALSE(checkSituation(situation, responseState));
 }

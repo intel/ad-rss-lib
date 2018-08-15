@@ -19,72 +19,72 @@
 #include <cmath>
 #include <gtest/gtest.h>
 #include "RSSParameters.hpp"
-#include "rss/check/ResponseState.hpp"
-#include "rss/lane/RelativePosition.hpp"
-#include "rss/lane/VehicleState.hpp"
+#include "rss/situation/RelativePosition.hpp"
+#include "rss/situation/VehicleState.hpp"
+#include "rss/state/ResponseState.hpp"
 
 namespace rss {
 
 const double cDoubleNear = 0.01;
 
-inline lane::Speed kmhToMeterPerSec(lane::Speed speed)
+inline situation::Speed kmhToMeterPerSec(double speed)
 {
   return speed / 3.6;
 }
 
-inline lane::VehicleState createVehicleState(double lonVelocity, double latVelocity)
+inline situation::VehicleState createVehicleState(double lonVelocity, double latVelocity)
 {
-  lane::VehicleState state;
+  situation::VehicleState state;
 
   state.velocity.speedLon = kmhToMeterPerSec(lonVelocity);
   state.velocity.speedLat = kmhToMeterPerSec(latVelocity);
-  state.dynamics.alphaLon.accelMax = lane::cMaximumLongitudinalAcceleration;
-  state.dynamics.alphaLon.brakeMax = lane::cMaximumLongitudinalBrakingDeceleleration;
-  state.dynamics.alphaLon.brakeMin = lane::cMinimumLongitudinalBrakingDeceleleration;
-  state.dynamics.alphaLon.brakeMinCorrect = lane::cMinimumLongitudinalBrakingDecelelerationCorrect;
+  state.dynamics.alphaLon.accelMax = situation::cMaximumLongitudinalAcceleration;
+  state.dynamics.alphaLon.brakeMax = situation::cMaximumLongitudinalBrakingDeceleleration;
+  state.dynamics.alphaLon.brakeMin = situation::cMinimumLongitudinalBrakingDeceleleration;
+  state.dynamics.alphaLon.brakeMinCorrect = situation::cMinimumLongitudinalBrakingDecelelerationCorrect;
 
-  state.dynamics.alphaLat.accelMax = lane::cMaximumLateralAcceleration;
-  state.dynamics.alphaLat.brakeMin = lane::cMinimumLateralBrakingDeceleleration;
+  state.dynamics.alphaLat.accelMax = situation::cMaximumLateralAcceleration;
+  state.dynamics.alphaLat.brakeMin = situation::cMinimumLateralBrakingDeceleleration;
 
-  state.responseTime = lane::cResponseTimeOtherVehicles;
+  state.responseTime = situation::cResponseTimeOtherVehicles;
   state.hasPriority = false;
   state.isInCorrectLane = true;
 
   return state;
 }
 
-inline lane::VehicleState createVehicleStateForLongitudinalMotion(double velocity)
+inline situation::VehicleState createVehicleStateForLongitudinalMotion(double velocity)
 {
   return createVehicleState(velocity, 0.);
 }
 
-inline lane::VehicleState createVehicleStateForLateralMotion(double velocity)
+inline situation::VehicleState createVehicleStateForLateralMotion(double velocity)
 {
   return createVehicleState(0., velocity);
 }
 
-inline lane::RelativePosition createRelativeLongitudinalPosition(lane::LongitudinalRelativePosition position,
-                                                                 lane::Distance distance = 0.,
-                                                                 bool oppositeDirection = false)
+inline situation::RelativePosition createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition position,
+                                                                      situation::Distance distance = 0.,
+                                                                      bool oppositeDirection = false)
 {
-  lane::RelativePosition relativePosition;
+  situation::RelativePosition relativePosition;
   relativePosition.lateralDistance = 0.;
-  relativePosition.lateralPosition = lane::LateralRelativePosition::Overlap;
+  relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
   relativePosition.longitudinalDistance = distance;
   relativePosition.longitudinalPosition = position;
   relativePosition.isDrivingInOppositeDirection = oppositeDirection;
   return relativePosition;
 }
 
-inline lane::RelativePosition createRelativeLateralPosition(lane::LateralRelativePosition position,
-                                                            lane::Distance distance = 0.,
-                                                            bool oppositeDirection = false)
+inline situation::RelativePosition createRelativeLateralPosition(situation::LateralRelativePosition position,
+                                                                 situation::Distance distance = 0.,
+                                                                 bool oppositeDirection = false)
 {
-  lane::RelativePosition relativePosition;
+  situation::RelativePosition relativePosition;
   relativePosition.lateralDistance = distance;
   relativePosition.lateralPosition = position;
   relativePosition.longitudinalDistance = 0.;
-  relativePosition.longitudinalPosition = lane::LongitudinalRelativePosition::Overlap;
+  relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;
   relativePosition.isDrivingInOppositeDirection = oppositeDirection;
   return relativePosition;
 }
@@ -96,7 +96,7 @@ template <typename RSSState> void resetRssState(RSSState &state)
   state.isSafe = true;
 }
 
-inline void resetRssState(check::ResponseState &responseState, lane::SituationId situationId = 0)
+inline void resetRssState(state::ResponseState &responseState, situation::SituationId situationId = 0)
 {
   responseState.situationId = situationId;
   resetRssState(responseState.longitudinalState);
@@ -111,23 +111,23 @@ template <typename RSSState, typename RSSStateLiteral> void setRssStateUnsafe(RS
   state.isSafe = false;
 }
 
-static const check::LongitudinalRssState cLongitudinalSafe{true, check::LongitudinalResponse::None};
-static const check::LongitudinalRssState cLongitudinalNone{false, check::LongitudinalResponse::None};
-static const check::LongitudinalRssState cLongitudinalBrakeMin{false, check::LongitudinalResponse::BrakeMin};
-static const check::LongitudinalRssState cLongitudinalBrakeMinCorrect{false,
-                                                                      check::LongitudinalResponse::BrakeMinCorrect};
+static const state::LongitudinalRssState cLongitudinalSafe{true, state::LongitudinalResponse::None};
+static const state::LongitudinalRssState cLongitudinalNone{false, state::LongitudinalResponse::None};
+static const state::LongitudinalRssState cLongitudinalBrakeMin{false, state::LongitudinalResponse::BrakeMin};
+static const state::LongitudinalRssState cLongitudinalBrakeMinCorrect{false,
+                                                                      state::LongitudinalResponse::BrakeMinCorrect};
 
-static const check::LateralRssState cLateralSafe{true, check::LateralResponse::None};
-static const check::LateralRssState cLateralNone{false, check::LateralResponse::None};
-static const check::LateralRssState cLateralBrakeMin{false, check::LateralResponse::BrakeMin};
+static const state::LateralRssState cLateralSafe{true, state::LateralResponse::None};
+static const state::LateralRssState cLateralNone{false, state::LateralResponse::None};
+static const state::LateralRssState cLateralBrakeMin{false, state::LateralResponse::BrakeMin};
 }
 
-inline bool operator==(::rss::check::LongitudinalRssState const &left, ::rss::check::LongitudinalRssState const &right)
+inline bool operator==(::rss::state::LongitudinalRssState const &left, ::rss::state::LongitudinalRssState const &right)
 {
   return (left.isSafe == right.isSafe) && (left.response == right.response);
 }
 
-inline bool operator==(::rss::check::LateralRssState const &left, ::rss::check::LateralRssState const &right)
+inline bool operator==(::rss::state::LateralRssState const &left, ::rss::state::LateralRssState const &right)
 {
   return (left.isSafe == right.isSafe) && (left.response == right.response);
 }

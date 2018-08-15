@@ -21,8 +21,8 @@
 namespace rss {
 namespace core {
 
-using check::LateralResponse;
-using check::LongitudinalResponse;
+using state::LateralResponse;
+using state::LongitudinalResponse;
 
 class RSSResponseProviderTests : public testing::Test
 {
@@ -66,10 +66,10 @@ protected:
   }
 
   RSSResponseProvider provider;
-  check::ResponseState firstResponseState;
-  check::ResponseState secondResponseState;
-  std::vector<check::ResponseState> responseStateVector;
-  check::ResponseState resultResponseState;
+  state::ResponseState firstResponseState;
+  state::ResponseState secondResponseState;
+  std::vector<state::ResponseState> responseStateVector;
+  state::ResponseState resultResponseState;
 };
 
 TEST_F(RSSResponseProviderTests, provideProperResponseLateralLeft)

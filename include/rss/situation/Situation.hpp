@@ -24,21 +24,25 @@
 
 #pragma once
 
-#include "rss/situation/Distance.hpp"
+#include "rss/situation/RelativePosition.hpp"
+#include "rss/situation/SituationId.hpp"
+#include "rss/situation/VehicleState.hpp"
 /*!
  * @brief namespace rss
  */
 namespace rss {
 /*!
- * @brief namespace lane
+ * @brief namespace situation
  */
-namespace lane {
+namespace situation {
 
-struct Interval
+struct Situation
 {
-  ::rss::situation::Distance minimum{0.0};
-  ::rss::situation::Distance maximum{0.0};
+  ::rss::situation::SituationId situationId;
+  ::rss::situation::VehicleState egoVehicleState;
+  ::rss::situation::VehicleState otherVehicleState;
+  ::rss::situation::RelativePosition relativePosition;
 };
 
-} // namespace lane
+} // namespace situation
 } // namespace rss

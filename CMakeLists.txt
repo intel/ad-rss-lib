@@ -33,13 +33,13 @@ set(COVERAGE_FLAG "--coverage")
 set(TARGET_COMPILE_OPTIONS -Wconversion -Wsign-conversion)
 
 add_library(${PROJECT_NAME} SHARED
-  src/check/RSSSituation.cpp
   src/core/RSSChecker.cpp
   src/core/RSSResponseProvider.cpp
   src/core/RSSWorld.cpp
-  src/lane/Math.cpp
-  src/lane/RSSFormulas.cpp
-  src/lane/Vehicle.cpp
+  src/situation/Math.cpp
+  src/situation/RSSFormulas.cpp
+  src/situation/RSSSituation.cpp
+  src/situation/Vehicle.cpp
   )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -63,9 +63,11 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS ${COVERAGE_FLAG})
 ################################################################################
 
 add_library(RSSSupport SHARED
-  src/rss/check/LateralResponse.cpp
-  src/rss/check/LongitudinalResponse.cpp
-  src/rss/lane/CoordinateSystemAxis.cpp
+  src/rss/state/LateralResponse.cpp
+  src/rss/state/LongitudinalResponse.cpp
+  src/rss/situation/CoordinateSystemAxis.cpp
+  src/rss/situation/LateralRelativePosition.cpp
+  src/rss/situation/LongitudinalRelativePosition.cpp
 )
 
 set_target_properties(RSSSupport PROPERTIES

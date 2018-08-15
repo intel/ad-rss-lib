@@ -72,7 +72,7 @@ function call_code_formatting
 
 function process_and_copy_generated_files
 {
-  IGNORE_FILES="RSSChecker RSSResponse"
+  IGNORE_FILES="RSSChecker RSSResponse RSSWorld"
 
   BASE_INC_DIR=${1}/include
   for SUBPATH in ${BASE_INC_DIR}/rss/*; do

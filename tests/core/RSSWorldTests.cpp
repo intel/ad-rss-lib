@@ -20,26 +20,24 @@
 
 namespace rss {
 
-using namespace lane;
-
 namespace core {
 
 namespace RSSWorld {
 
-void performCalculateRelativePositionTest(Distance minA,
-                                          Distance maxA,
-                                          Distance minB,
-                                          Distance maxB,
-                                          LateralRelativePosition expectedPositionLatAtoB,
-                                          LongitudinalRelativePosition expectedPositionLonAtoB,
-                                          LateralRelativePosition expectedPositionLatBtoA,
-                                          LongitudinalRelativePosition expectedPositionLonBtoA,
-                                          Distance expectedDistance)
+void performCalculateRelativePositionTest(situation::Distance minA,
+                                          situation::Distance maxA,
+                                          situation::Distance minB,
+                                          situation::Distance maxB,
+                                          situation::LateralRelativePosition expectedPositionLatAtoB,
+                                          situation::LongitudinalRelativePosition expectedPositionLonAtoB,
+                                          situation::LateralRelativePosition expectedPositionLatBtoA,
+                                          situation::LongitudinalRelativePosition expectedPositionLonBtoA,
+                                          situation::Distance expectedDistance)
 {
-  Position vehicleAPosition;
-  Position vehicleBPosition;
-  RelativePosition relativePosition;
-  const Distance cEpsilon = 1e-10;
+  lane::Position vehicleAPosition;
+  lane::Position vehicleBPosition;
+  situation::RelativePosition relativePosition;
+  const situation::Distance cEpsilon = 1e-10;
 
   vehicleAPosition.latInterval.minimum = minA;
   vehicleAPosition.latInterval.maximum = maxA;
@@ -72,10 +70,10 @@ TEST(CalcluateRelativePositionTest, no_overlap_positive)
                                        2.,
                                        3.,
                                        5.,
-                                       LateralRelativePosition::AtLeft,
-                                       LongitudinalRelativePosition::AtBack,
-                                       LateralRelativePosition::AtRight,
-                                       LongitudinalRelativePosition::InFront,
+                                       situation::LateralRelativePosition::AtLeft,
+                                       situation::LongitudinalRelativePosition::AtBack,
+                                       situation::LateralRelativePosition::AtRight,
+                                       situation::LongitudinalRelativePosition::InFront,
                                        1.);
 }
 
@@ -85,10 +83,10 @@ TEST(CalcluateRelativePositionTest, no_overlap_negative)
                                        -8.,
                                        -5.,
                                        -8.,
-                                       LateralRelativePosition::AtLeft,
-                                       LongitudinalRelativePosition::AtBack,
-                                       LateralRelativePosition::AtRight,
-                                       LongitudinalRelativePosition::InFront,
+                                       situation::LateralRelativePosition::AtLeft,
+                                       situation::LongitudinalRelativePosition::AtBack,
+                                       situation::LateralRelativePosition::AtRight,
+                                       situation::LongitudinalRelativePosition::InFront,
                                        3.);
 }
 
@@ -98,10 +96,10 @@ TEST(CalcluateRelativePositionTest, no_overlap_mixed)
                                        -8.,
                                        3.,
                                        5.,
-                                       LateralRelativePosition::AtLeft,
-                                       LongitudinalRelativePosition::AtBack,
-                                       LateralRelativePosition::AtRight,
-                                       LongitudinalRelativePosition::InFront,
+                                       situation::LateralRelativePosition::AtLeft,
+                                       situation::LongitudinalRelativePosition::AtBack,
+                                       situation::LateralRelativePosition::AtRight,
+                                       situation::LongitudinalRelativePosition::InFront,
                                        11.);
 }
 
@@ -111,10 +109,10 @@ TEST(CalcluateRelativePositionTest, no_overlap_vehicle_crossing_null)
                                        -8.,
                                        -3.,
                                        5.,
-                                       LateralRelativePosition::AtLeft,
-                                       LongitudinalRelativePosition::AtBack,
-                                       LateralRelativePosition::AtRight,
-                                       LongitudinalRelativePosition::InFront,
+                                       situation::LateralRelativePosition::AtLeft,
+                                       situation::LongitudinalRelativePosition::AtBack,
+                                       situation::LateralRelativePosition::AtRight,
+                                       situation::LongitudinalRelativePosition::InFront,
                                        5.);
 }
 
@@ -124,10 +122,10 @@ TEST(CalcluateRelativePositionTest, partly_overlap_positive)
                                        4.,
                                        3.,
                                        5.,
-                                       LateralRelativePosition::OverlapLeft,
-                                       LongitudinalRelativePosition::OverlapBack,
-                                       LateralRelativePosition::OverlapRight,
-                                       LongitudinalRelativePosition::OverlapFront,
+                                       situation::LateralRelativePosition::OverlapLeft,
+                                       situation::LongitudinalRelativePosition::OverlapBack,
+                                       situation::LateralRelativePosition::OverlapRight,
+                                       situation::LongitudinalRelativePosition::OverlapFront,
                                        0.);
 }
 
@@ -137,10 +135,10 @@ TEST(CalcluateRelativePositionTest, partly_overlap_negative)
                                        -8.,
                                        -9.,
                                        -3.,
-                                       LateralRelativePosition::OverlapLeft,
-                                       LongitudinalRelativePosition::OverlapBack,
-                                       LateralRelativePosition::OverlapRight,
-                                       LongitudinalRelativePosition::OverlapFront,
+                                       situation::LateralRelativePosition::OverlapLeft,
+                                       situation::LongitudinalRelativePosition::OverlapBack,
+                                       situation::LateralRelativePosition::OverlapRight,
+                                       situation::LongitudinalRelativePosition::OverlapFront,
                                        0.);
 }
 
@@ -150,10 +148,10 @@ TEST(CalcluateRelativePositionTest, partly_overlap_mixed)
                                        -8.,
                                        -9.,
                                        5.,
-                                       LateralRelativePosition::OverlapLeft,
-                                       LongitudinalRelativePosition::OverlapBack,
-                                       LateralRelativePosition::OverlapRight,
-                                       LongitudinalRelativePosition::OverlapFront,
+                                       situation::LateralRelativePosition::OverlapLeft,
+                                       situation::LongitudinalRelativePosition::OverlapBack,
+                                       situation::LateralRelativePosition::OverlapRight,
+                                       situation::LongitudinalRelativePosition::OverlapFront,
                                        0.);
 }
 
@@ -163,10 +161,10 @@ TEST(CalcluateRelativePositionTest, full_overlap_positive)
                                        4.,
                                        2.5,
                                        3.5,
-                                       LateralRelativePosition::Overlap,
-                                       LongitudinalRelativePosition::Overlap,
-                                       LateralRelativePosition::Overlap,
-                                       LongitudinalRelativePosition::Overlap,
+                                       situation::LateralRelativePosition::Overlap,
+                                       situation::LongitudinalRelativePosition::Overlap,
+                                       situation::LateralRelativePosition::Overlap,
+                                       situation::LongitudinalRelativePosition::Overlap,
                                        0.);
 }
 
@@ -176,10 +174,10 @@ TEST(CalcluateRelativePositionTest, full_overlap_negative)
                                        -8.,
                                        -9.,
                                        -8.1,
-                                       LateralRelativePosition::Overlap,
-                                       LongitudinalRelativePosition::Overlap,
-                                       LateralRelativePosition::Overlap,
-                                       LongitudinalRelativePosition::Overlap,
+                                       situation::LateralRelativePosition::Overlap,
+                                       situation::LongitudinalRelativePosition::Overlap,
+                                       situation::LateralRelativePosition::Overlap,
+                                       situation::LongitudinalRelativePosition::Overlap,
                                        0.);
 }
 
@@ -189,10 +187,10 @@ TEST(CalcluateRelativePositionTest, full_overlap_mixed)
                                        8.,
                                        -9.,
                                        5.,
-                                       LateralRelativePosition::Overlap,
-                                       LongitudinalRelativePosition::Overlap,
-                                       LateralRelativePosition::Overlap,
-                                       LongitudinalRelativePosition::Overlap,
+                                       situation::LateralRelativePosition::Overlap,
+                                       situation::LongitudinalRelativePosition::Overlap,
+                                       situation::LateralRelativePosition::Overlap,
+                                       situation::LongitudinalRelativePosition::Overlap,
                                        0.);
 }
 
