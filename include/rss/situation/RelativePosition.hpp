@@ -23,6 +23,7 @@
  */
 
 #pragma once
+#include <limits>
 
 #include "rss/situation/Distance.hpp"
 #include "rss/situation/LateralRelativePosition.hpp"
@@ -43,7 +44,6 @@ struct RelativePosition
   ::rss::situation::Distance longitudinalDistance{0.0};
   ::rss::situation::LateralRelativePosition lateralPosition{::rss::situation::LateralRelativePosition::Overlap};
   ::rss::situation::Distance lateralDistance{0.0};
-  bool isDrivingInOppositeDirection{false};
 
   ::rss::situation::LongitudinalRelativePosition getLongitudinalPosition() const
   {

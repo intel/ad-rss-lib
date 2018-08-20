@@ -16,17 +16,18 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RSSChecker.hpp"
+#include "rss/core/RssSituationChecking.hpp"
 
 namespace rss {
 namespace core {
-namespace RSSChecker {
+namespace RssSituationChecking {
 
-class RSSCheckerTestsLongitudinal : public testing::Test
+class RssSituationCheckingTestsLongitudinal : public testing::Test
 {
 protected:
   virtual void SetUp()
   {
+    situation.situationType = situation::SituationType::SameDirection;
   }
 
   virtual void TearDown()
@@ -38,7 +39,7 @@ protected:
   state::ResponseState responseState;
 };
 
-TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_ego_safe_distance)
+TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_ego_safe_distance)
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(100);
   followingVehicle = createVehicleStateForLongitudinalMotion(10);
@@ -52,7 +53,7 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_ego_safe_distance)
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 }
 
-TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_50kmh_safe)
+TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_safe)
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
@@ -67,7 +68,7 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_50kmh_safe)
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 }
 
-TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_50kmh_unsafe)
+TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_unsafe)
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
@@ -82,7 +83,7 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_50kmh_unsafe)
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
 }
 
-TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_50kmh_other_standing)
+TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_other_standing)
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(0);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
@@ -104,7 +105,7 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_50kmh_other_sta
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
 }
 
-TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_0kmh_other_standing)
+TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_0kmh_other_standing)
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(0);
   followingVehicle = createVehicleStateForLongitudinalMotion(0);
@@ -125,7 +126,7 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_leading_other_0kmh_other_stan
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
 }
 
-TEST_F(RSSCheckerTestsLongitudinal, same_direction_both_negative_velocity)
+TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_both_negative_velocity)
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(-50);
   followingVehicle = createVehicleStateForLongitudinalMotion(-50);
@@ -138,6 +139,6 @@ TEST_F(RSSCheckerTestsLongitudinal, same_direction_both_negative_velocity)
   ASSERT_FALSE(checkSituation(situation, responseState));
 }
 
-} // namespace RSSChecker
+} // namespace RssSituationChecking
 } // namespace core
 } // namespace rss

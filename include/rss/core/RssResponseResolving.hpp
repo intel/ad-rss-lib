@@ -34,15 +34,21 @@ namespace rss {
 namespace core {
 
 /**
- * @brief RSSResponseProvider
+ * @brief RssResponseResolving
+ *
+ * Class to resolve the responseStateVector of the different situation specific responses
+ * into a single responseState. This class tracks the RSS response state of every
+ * situation id over time and especially stores the respective response state before
+ * the blame time. This requires that the id of a RSS situation remains constant over
+ * time in case it refers to the same object; otherwise tracking over time will fail.
  */
-class RSSResponseProvider
+class RssResponseResolving
 {
 public:
   /**
    * @brief constructor
    */
-  explicit RSSResponseProvider();
+  explicit RssResponseResolving();
 
   /**
    * @brief Calculate the proper response out of the current responses
@@ -51,8 +57,7 @@ public:
    * @param[out] responseState the proper overall response state
    *
    * @return true if response could be calculated, false otherwise
-   *
-   * When false is returned the internal state has not been updated
+   * If false is returned the internal state has not been updated
    */
   bool provideProperResponse(state::ResponseStateVector const &currentResponseStates,
                              state::ResponseState &responseState) noexcept;

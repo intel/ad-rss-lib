@@ -23,7 +23,9 @@
  */
 
 #pragma once
+#include <limits>
 
+#include <string>
 #include <vector>
 #include "rss/state/ResponseState.hpp"
 /*!
@@ -37,5 +39,28 @@ namespace state {
 
 using ResponseStateVector = std::vector<::rss::state::ResponseState>;
 
+/*
+ * \brief Event to support type within statecharts
+ */
+struct evRssResponseStateVector
+{
+  evRssResponseStateVector(ResponseStateVector const &responseStateVector)
+    : responseStateVector(responseStateVector)
+  {
+  }
+
+  ResponseStateVector const &data() const
+  {
+    return responseStateVector;
+  }
+
+  ResponseStateVector const &responseStateVector;
+};
+
 } // namespace state
 } // namespace rss
+
+/*!
+ * @brief Conversion of event evRssResponseStateVector to std::string (for logging purposes)
+ */
+std::string toString(::rss::state::evRssResponseStateVector const &);

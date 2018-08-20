@@ -16,14 +16,15 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RSSWorld.hpp"
+#include "rss/core/RssSituationExtraction.hpp"
 
 namespace rss {
 
 namespace core {
 
-namespace RSSWorld {
+namespace RssSituationExtraction {
 
+#if 0
 void performCalculateRelativePositionTest(situation::Distance minA,
                                           situation::Distance maxA,
                                           situation::Distance minB,
@@ -193,6 +194,7 @@ TEST(CalcluateRelativePositionTest, full_overlap_mixed)
                                        situation::LongitudinalRelativePosition::Overlap,
                                        0.);
 }
+#endif
 
 } // namespace RSSWorld
 } // namespace check

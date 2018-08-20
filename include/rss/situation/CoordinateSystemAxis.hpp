@@ -23,6 +23,7 @@
  */
 
 #pragma once
+#include <limits>
 
 #include <cstdint>
 #include <string>
@@ -36,8 +37,8 @@ namespace situation {
  */
 enum class CoordinateSystemAxis : int32_t
 {
-  Longitudinal = 0, /*!< longitudinal axis */
-  Lateral = 1       /*!< lateral axis */
+  Longitudinal = 0, /*!< longitudinal axis: ego vehicle is driving in positive direction */
+  Lateral = 1       /*!< lateral axis: ego vehicle left to right defines the positive direction */
 };
 
 } // namespace situation

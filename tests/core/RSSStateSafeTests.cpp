@@ -21,7 +21,7 @@
 namespace rss {
 namespace core {
 
-TEST(RSSResponseIsSafeTests, isSafe)
+TEST(RSSStateSafeTests, isSafe)
 {
   state::ResponseState responseState;
   resetRssState(responseState);
@@ -31,7 +31,7 @@ TEST(RSSResponseIsSafeTests, isSafe)
   ASSERT_TRUE(isLateralSafe(responseState));
 }
 
-TEST(RSSResponseIsSafeTests, longitudinal_None)
+TEST(RSSStateSafeTests, longitudinal_None)
 {
   state::ResponseState responseState;
   setRssStateUnsafe(responseState.longitudinalState, state::LongitudinalResponse::None);
@@ -43,7 +43,7 @@ TEST(RSSResponseIsSafeTests, longitudinal_None)
   ASSERT_TRUE(isLateralSafe(responseState));
 }
 
-TEST(RSSResponseIsSafeTests, longitudinal_BrakeMin)
+TEST(RSSStateSafeTests, longitudinal_BrakeMin)
 {
   state::ResponseState responseState;
   setRssStateUnsafe(responseState.longitudinalState, state::LongitudinalResponse::BrakeMin);
@@ -55,7 +55,7 @@ TEST(RSSResponseIsSafeTests, longitudinal_BrakeMin)
   ASSERT_TRUE(isLateralSafe(responseState));
 }
 
-TEST(RSSResponseIsSafeTests, longitudinal_BrakeMinCorrect)
+TEST(RSSStateSafeTests, longitudinal_BrakeMinCorrect)
 {
   state::ResponseState responseState;
   setRssStateUnsafe(responseState.longitudinalState, state::LongitudinalResponse::BrakeMinCorrect);
@@ -67,7 +67,7 @@ TEST(RSSResponseIsSafeTests, longitudinal_BrakeMinCorrect)
   ASSERT_TRUE(isLateralSafe(responseState));
 }
 
-TEST(RSSResponseIsSafeTests, lateralLeft_None)
+TEST(RSSStateSafeTests, lateralLeft_None)
 {
   state::ResponseState responseState;
   resetRssState(responseState.longitudinalState);
@@ -79,7 +79,7 @@ TEST(RSSResponseIsSafeTests, lateralLeft_None)
   ASSERT_FALSE(isLateralSafe(responseState));
 }
 
-TEST(RSSResponseIsSafeTests, lateralLeft_BrakeMin)
+TEST(RSSStateSafeTests, lateralLeft_BrakeMin)
 {
   state::ResponseState responseState;
   resetRssState(responseState.longitudinalState);
@@ -91,7 +91,7 @@ TEST(RSSResponseIsSafeTests, lateralLeft_BrakeMin)
   ASSERT_FALSE(isLateralSafe(responseState));
 }
 
-TEST(RSSResponseIsSafeTests, lateralRight_None)
+TEST(RSSStateSafeTests, lateralRight_None)
 {
   state::ResponseState responseState;
   resetRssState(responseState.longitudinalState);
@@ -103,7 +103,7 @@ TEST(RSSResponseIsSafeTests, lateralRight_None)
   ASSERT_FALSE(isLateralSafe(responseState));
 }
 
-TEST(RSSResponseIsSafeTests, lateralRight_BrakeMin)
+TEST(RSSStateSafeTests, lateralRight_BrakeMin)
 {
   state::ResponseState responseState;
   resetRssState(responseState.longitudinalState);
@@ -115,7 +115,7 @@ TEST(RSSResponseIsSafeTests, lateralRight_BrakeMin)
   ASSERT_FALSE(isLateralSafe(responseState));
 }
 
-TEST(RSSResponseIsSafeTests, longitudinal_lateralRight_BrakeMin)
+TEST(RSSStateSafeTests, longitudinal_lateralRight_BrakeMin)
 {
   state::ResponseState responseState;
   setRssStateUnsafe(responseState.longitudinalState, state::LongitudinalResponse::BrakeMin);
@@ -127,7 +127,7 @@ TEST(RSSResponseIsSafeTests, longitudinal_lateralRight_BrakeMin)
   ASSERT_FALSE(isLateralSafe(responseState));
 }
 
-TEST(RSSResponseIsSafeTests, longitudinal_lateralLeft_BrakeMin)
+TEST(RSSStateSafeTests, longitudinal_lateralLeft_BrakeMin)
 {
   state::ResponseState responseState;
   setRssStateUnsafe(responseState.longitudinalState, state::LongitudinalResponse::BrakeMin);

@@ -23,7 +23,9 @@
  */
 
 #pragma once
+#include <limits>
 
+#include "rss/situation/Distance.hpp"
 #include "rss/situation/Dynamics.hpp"
 #include "rss/situation/Velocity.hpp"
 #include "rss/time/Duration.hpp"
@@ -43,6 +45,8 @@ struct VehicleState
   ::rss::time::Duration responseTime{0.0};
   bool hasPriority{false};
   bool isInCorrectLane{false};
+  ::rss::situation::Distance distanceToIntersection{std::numeric_limits<Distance>::max()};
+  ::rss::situation::Distance lengthMax{0.0};
 };
 
 } // namespace situation

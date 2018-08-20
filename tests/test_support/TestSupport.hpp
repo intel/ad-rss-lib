@@ -47,6 +47,7 @@ inline situation::VehicleState createVehicleState(double lonVelocity, double lat
   state.dynamics.alphaLat.brakeMin = situation::cMinimumLateralBrakingDeceleleration;
 
   state.responseTime = situation::cResponseTimeOtherVehicles;
+  state.distanceToIntersection = std::numeric_limits<situation::Distance>::max();
   state.hasPriority = false;
   state.isInCorrectLane = true;
 
@@ -64,28 +65,24 @@ inline situation::VehicleState createVehicleStateForLateralMotion(double velocit
 }
 
 inline situation::RelativePosition createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition position,
-                                                                      situation::Distance distance = 0.,
-                                                                      bool oppositeDirection = false)
+                                                                      situation::Distance distance = 0.)
 {
   situation::RelativePosition relativePosition;
   relativePosition.lateralDistance = 0.;
   relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
   relativePosition.longitudinalDistance = distance;
   relativePosition.longitudinalPosition = position;
-  relativePosition.isDrivingInOppositeDirection = oppositeDirection;
   return relativePosition;
 }
 
 inline situation::RelativePosition createRelativeLateralPosition(situation::LateralRelativePosition position,
-                                                                 situation::Distance distance = 0.,
-                                                                 bool oppositeDirection = false)
+                                                                 situation::Distance distance = 0.)
 {
   situation::RelativePosition relativePosition;
   relativePosition.lateralDistance = distance;
   relativePosition.lateralPosition = position;
   relativePosition.longitudinalDistance = 0.;
   relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;
-  relativePosition.isDrivingInOppositeDirection = oppositeDirection;
   return relativePosition;
 }
 

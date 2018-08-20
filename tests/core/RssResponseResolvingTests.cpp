@@ -16,7 +16,7 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RSSResponseProvider.hpp"
+#include "rss/core/RssResponseResolving.hpp"
 
 namespace rss {
 namespace core {
@@ -24,7 +24,7 @@ namespace core {
 using state::LateralResponse;
 using state::LongitudinalResponse;
 
-class RSSResponseProviderTests : public testing::Test
+class RssResponseResolvingTests : public testing::Test
 {
 protected:
   virtual void SetUp()
@@ -65,14 +65,14 @@ protected:
     ASSERT_EQ(latRightSafe, resultResponseState.lateralStateRight.isSafe);
   }
 
-  RSSResponseProvider provider;
+  RssResponseResolving provider;
   state::ResponseState firstResponseState;
   state::ResponseState secondResponseState;
   std::vector<state::ResponseState> responseStateVector;
   state::ResponseState resultResponseState;
 };
 
-TEST_F(RSSResponseProviderTests, provideProperResponseLateralLeft)
+TEST_F(RssResponseResolvingTests, provideProperResponseLateralLeft)
 {
   setRssStateUnsafe(firstResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
   responseStateVector.push_back(firstResponseState);
@@ -90,7 +90,7 @@ TEST_F(RSSResponseProviderTests, provideProperResponseLateralLeft)
   testResultState(LongitudinalResponse::None, LateralResponse::BrakeMin, LateralResponse::None);
 }
 
-TEST_F(RSSResponseProviderTests, provideProperResponseLateralRight)
+TEST_F(RssResponseResolvingTests, provideProperResponseLateralRight)
 {
   setRssStateUnsafe(firstResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
   responseStateVector.push_back(firstResponseState);
@@ -109,7 +109,7 @@ TEST_F(RSSResponseProviderTests, provideProperResponseLateralRight)
   testResultState(LongitudinalResponse::None, LateralResponse::None, LateralResponse::BrakeMin);
 }
 
-TEST_F(RSSResponseProviderTests, provideProperResponseLongitudinal)
+TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinal)
 {
   setRssStateUnsafe(firstResponseState.lateralStateRight, LateralResponse::BrakeMin);
   responseStateVector.push_back(firstResponseState);
@@ -128,7 +128,7 @@ TEST_F(RSSResponseProviderTests, provideProperResponseLongitudinal)
   testResultState(LongitudinalResponse::BrakeMin, LateralResponse::None, LateralResponse::None);
 }
 
-TEST_F(RSSResponseProviderTests, provideProperResponseLongitudinal_None)
+TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinal_None)
 {
   setRssStateUnsafe(firstResponseState.lateralStateRight, LateralResponse::BrakeMin);
   responseStateVector.push_back(firstResponseState);
@@ -147,7 +147,7 @@ TEST_F(RSSResponseProviderTests, provideProperResponseLongitudinal_None)
   testResultState(LongitudinalResponse::None, false, LateralResponse::None, true, LateralResponse::None, true);
 }
 
-TEST_F(RSSResponseProviderTests, provideProperResponseBothDirections)
+TEST_F(RssResponseResolvingTests, provideProperResponseBothDirections)
 {
   setRssStateUnsafe(firstResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
   setRssStateUnsafe(firstResponseState.lateralStateRight, LateralResponse::BrakeMin);
@@ -159,7 +159,7 @@ TEST_F(RSSResponseProviderTests, provideProperResponseBothDirections)
   responseStateVector.clear();
 }
 
-TEST_F(RSSResponseProviderTests, provideProperResponseLongitudinalMoreSevere)
+TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinalMoreSevere)
 {
   setRssStateUnsafe(firstResponseState.lateralStateRight, LateralResponse::BrakeMin);
   responseStateVector.push_back(firstResponseState);
@@ -188,7 +188,7 @@ TEST_F(RSSResponseProviderTests, provideProperResponseLongitudinalMoreSevere)
   testResultState(LongitudinalResponse::BrakeMin, LateralResponse::None, LateralResponse::None);
 }
 
-TEST_F(RSSResponseProviderTests, threeResponsesSameId)
+TEST_F(RssResponseResolvingTests, threeResponsesSameId)
 {
   setRssStateUnsafe(firstResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
   responseStateVector.push_back(firstResponseState);
@@ -198,7 +198,7 @@ TEST_F(RSSResponseProviderTests, threeResponsesSameId)
   ASSERT_FALSE(provider.provideProperResponse(responseStateVector, resultResponseState));
 }
 
-TEST_F(RSSResponseProviderTests, provideProperResponseDangerousInitialState)
+TEST_F(RssResponseResolvingTests, provideProperResponseDangerousInitialState)
 {
   setRssStateUnsafe(firstResponseState.lateralStateRight, LateralResponse::BrakeMin);
   setRssStateUnsafe(firstResponseState.longitudinalState, LongitudinalResponse::BrakeMin);

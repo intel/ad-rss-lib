@@ -23,22 +23,35 @@
  */
 
 #pragma once
+#include <limits>
 
-#include "rss/situation/Distance.hpp"
+#include "rss/situation/SituationType.hpp"
+#include "rss/world/RssRoadArea.hpp"
 /*!
  * @brief namespace rss
  */
 namespace rss {
 /*!
- * @brief namespace lane
+ * @brief namespace world
  */
-namespace lane {
+namespace world {
 
-struct Interval
+struct RssArea
 {
-  ::rss::situation::Distance minimum{0.0};
-  ::rss::situation::Distance maximum{0.0};
+  ::rss::situation::SituationType situationType{::rss::situation::SituationType::SameDirection};
+  ::rss::world::RssRoadArea egoVehicleRoad;
+  ::rss::world::RssRoadArea intersectingRoad;
+
+  ::rss::situation::SituationType getSituationType() const
+  {
+    return situationType;
+  }
+
+  void setSituationType(::rss::situation::SituationType const newVal)
+  {
+    situationType = newVal;
+  }
 };
 
-} // namespace lane
+} // namespace world
 } // namespace rss

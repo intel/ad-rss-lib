@@ -15,19 +15,19 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "rss/core/RSSResponseProvider.hpp"
+#include "rss/core/RssResponseResolving.hpp"
 #include <algorithm>
 #include "RSSState.hpp"
 
 namespace rss {
 namespace core {
 
-RSSResponseProvider::RSSResponseProvider()
+RssResponseResolving::RssResponseResolving()
 {
 }
 
-bool RSSResponseProvider::provideProperResponse(state::ResponseStateVector const &currentStates,
-                                                state::ResponseState &responseState) noexcept
+bool RssResponseResolving::provideProperResponse(state::ResponseStateVector const &currentStates,
+                                                 state::ResponseState &responseState) noexcept
 {
   responseState.lateralStateLeft.response = state::LateralResponse::None;
   responseState.lateralStateLeft.isSafe = true;

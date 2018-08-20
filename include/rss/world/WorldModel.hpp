@@ -23,7 +23,12 @@
  */
 
 #pragma once
+#include <limits>
 
+#include <string>
+#include <vector>
+#include "rss/world/LaneSegmentVector.hpp"
+#include "rss/world/Object.hpp"
 /*!
  * @brief namespace rss
  */
@@ -35,8 +40,33 @@ namespace world {
 
 struct WorldModel
 {
-  bool tbd;
+  ::rss::world::Object egoVehicle;
+  std::vector<::rss::world::Object> objects;
+  ::rss::world::LaneSegmentVector laneSegmentVector;
+};
+
+/*
+ * \brief Event to support type within statecharts
+ */
+struct evRssWorldModel
+{
+  evRssWorldModel(WorldModel const &worldModel)
+    : worldModel(worldModel)
+  {
+  }
+
+  WorldModel const &data() const
+  {
+    return worldModel;
+  }
+
+  WorldModel const &worldModel;
 };
 
 } // namespace world
 } // namespace rss
+
+/*!
+ * @brief Conversion of event evRssWorldModel to std::string (for logging purposes)
+ */
+std::string toString(::rss::world::evRssWorldModel const &);

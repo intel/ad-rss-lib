@@ -23,22 +23,26 @@
  */
 
 #pragma once
+#include <limits>
 
-#include "rss/lane/Interval.hpp"
+#include "rss/world/Distance.hpp"
+#include "rss/world/LateralRssAccelerationValues.hpp"
+#include "rss/world/LongitudinalRssAccelerationValues.hpp"
 /*!
  * @brief namespace rss
  */
 namespace rss {
 /*!
- * @brief namespace lane
+ * @brief namespace world
  */
-namespace lane {
+namespace world {
 
-struct Position
+struct Dynamics
 {
-  ::rss::lane::Interval lonInterval;
-  ::rss::lane::Interval latInterval;
+  ::rss::world::LongitudinalRssAccelerationValues alphaLon;
+  ::rss::world::LateralRssAccelerationValues alphaLat;
+  ::rss::world::Distance lateralFluctuationMargin{0.0};
 };
 
-} // namespace lane
+} // namespace world
 } // namespace rss

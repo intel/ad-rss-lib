@@ -23,7 +23,9 @@
  */
 
 #pragma once
+#include <limits>
 
+#include <string>
 #include <vector>
 #include "rss/situation/Situation.hpp"
 /*!
@@ -37,5 +39,28 @@ namespace situation {
 
 using SituationVector = std::vector<::rss::situation::Situation>;
 
+/*
+ * \brief Event to support type within statecharts
+ */
+struct evRssSituationVector
+{
+  evRssSituationVector(SituationVector const &situationVector)
+    : situationVector(situationVector)
+  {
+  }
+
+  SituationVector const &data() const
+  {
+    return situationVector;
+  }
+
+  SituationVector const &situationVector;
+};
+
 } // namespace situation
 } // namespace rss
+
+/*!
+ * @brief Conversion of event evRssSituationVector to std::string (for logging purposes)
+ */
+std::string toString(::rss::situation::evRssSituationVector const &);

@@ -33,9 +33,11 @@ set(COVERAGE_FLAG "--coverage")
 set(TARGET_COMPILE_OPTIONS -Wconversion -Wsign-conversion)
 
 add_library(${PROJECT_NAME} SHARED
-  src/core/RSSChecker.cpp
-  src/core/RSSResponseProvider.cpp
-  src/core/RSSWorld.cpp
+  src/core/RssCheck.cpp
+  src/core/RssResponseResolving.cpp
+  src/core/RssResponseTransformation.cpp
+  src/core/RssSituationChecking.cpp
+  src/core/RssSituationExtraction.cpp
   src/situation/Math.cpp
   src/situation/RSSFormulas.cpp
   src/situation/RSSSituation.cpp
@@ -60,14 +62,22 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS ${COVERAGE_FLAG})
 
 ################################################################################
 # RSSSupport section
+
 ################################################################################
 
 add_library(RSSSupport SHARED
-  src/rss/state/LateralResponse.cpp
-  src/rss/state/LongitudinalResponse.cpp
   src/rss/situation/CoordinateSystemAxis.cpp
   src/rss/situation/LateralRelativePosition.cpp
   src/rss/situation/LongitudinalRelativePosition.cpp
+  src/rss/situation/SituationType.cpp
+  src/rss/situation/SituationVector.cpp
+  src/rss/state/LateralResponse.cpp
+  src/rss/state/LongitudinalResponse.cpp
+  src/rss/state/ResponseState.cpp
+  src/rss/state/ResponseStateVector.cpp
+  src/rss/world/AccelerationRestriction.cpp
+  src/rss/world/ObjectType.cpp
+  src/rss/world/WorldModel.cpp
 )
 
 set_target_properties(RSSSupport PROPERTIES

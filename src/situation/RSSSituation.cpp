@@ -22,19 +22,34 @@
 namespace rss {
 namespace situation {
 
-bool calculateLongitudinalRssStateNonIntersection(Situation const &situation,
-                                                  state::LongitudinalRssState &rssState) noexcept
+bool calculateRssStateNonIntersectionSameDirection(Situation const &situation,
+                                                   state::ResponseState &responseState) noexcept
 {
-  bool result = false;
-  if (situation.relativePosition.isDrivingInOppositeDirection)
+  bool result = calculateLongitudinalRssStateNonIntersectionSameDirection(situation, responseState.longitudinalState);
+  if (result)
   {
-    result = calculateLongitudinalRssStateNonIntersectionOppositeDirection(situation, rssState);
-  }
-  else
-  {
-    result = calculateLongitudinalRssStateNonIntersectionSameDirection(situation, rssState);
+    result = calculateLateralRssState(situation, responseState.lateralStateLeft, responseState.lateralStateRight);
   }
   return result;
+}
+
+bool calculateRssStateNonIntersectionOppositeDirection(Situation const &situation,
+                                                       state::ResponseState &responseState) noexcept
+{
+  bool result
+    = calculateLongitudinalRssStateNonIntersectionOppositeDirection(situation, responseState.longitudinalState);
+  if (result)
+  {
+    result = calculateLateralRssState(situation, responseState.lateralStateLeft, responseState.lateralStateRight);
+  }
+  return result;
+}
+
+bool calculateRssStateIntersection(Situation const &situation, state::ResponseState &responseState) noexcept
+{
+  (void)situation;
+  (void)responseState;
+  return false;
 }
 
 bool calculateLongitudinalRssStateNonIntersectionSameDirection(Situation const &situation,

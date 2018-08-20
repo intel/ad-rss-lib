@@ -21,8 +21,7 @@
 #pragma once
 
 #include "rss/situation/Situation.hpp"
-#include "rss/state/LateralRssState.hpp"
-#include "rss/state/LongitudinalRssState.hpp"
+#include "rss/state/ResponseState.hpp"
 
 /*!
  * @brief namespace rss
@@ -34,17 +33,36 @@ namespace rss {
 namespace situation {
 
 /**
- * @brief Calculate safety checks and determine required rssState for longitudinal direction for non intersection
- * scenario
+ * @brief Calculate safety checks and determine required responseState for non intersection same direction scenario
  *
  * @param[in]  situation situation to analyze
- * @param[out] rssState  rssState of the ego vehicle
+ * @param[out] responseState  response state of the ego vehicle
  *
  * @returns false if a failure occurred during calculations, true otherwise
- *
  */
-bool calculateLongitudinalRssStateNonIntersection(Situation const &situation,
-                                                  state::LongitudinalRssState &rssState) noexcept;
+bool calculateRssStateNonIntersectionSameDirection(Situation const &situation,
+                                                   state::ResponseState &responseState) noexcept;
+
+/**
+ * @brief Calculate safety checks and determine required responseState for non intersection opposite direction scenario
+ *
+ * @param[in]  situation situation to analyze
+ * @param[out] responseState  response state of the ego vehicle
+ *
+ * @returns false if a failure occurred during calculations, true otherwise
+ */
+bool calculateRssStateNonIntersectionOppositeDirection(Situation const &situation,
+                                                       state::ResponseState &responseState) noexcept;
+
+/**
+ * @brief Calculate safety checks and determine required responseState for intersection scenario
+ *
+ * @param[in]  situation situation to analyze
+ * @param[out] responseState  response state of the ego vehicle
+ *
+ * @returns false if a failure occurred during calculations, true otherwise
+ */
+bool calculateRssStateIntersection(Situation const &situation, state::ResponseState &responseState) noexcept;
 
 /**
  * @brief Calculate safety checks and determine required rssState for longitudinal direction for

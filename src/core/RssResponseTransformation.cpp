@@ -14,40 +14,24 @@
 // implied warranties, other than those that are expressly stated in the License.
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
-/**
- * @file
- */
 
-#pragma once
+#include "rss/core/RssResponseTransformation.hpp"
 
-#include "rss/situation/Situation.hpp"
-#include "rss/state/ResponseState.hpp"
-
-/*!
- * @brief namespace rss
- */
 namespace rss {
 
-/*!
- * @brief namespace core
- */
 namespace core {
+namespace RssResponseTransformation {
 
-/*!
- * @brief namespace RSSChecker
- */
-namespace RSSChecker {
+bool transformProperResponse(world::WorldModel const &worldModel,
+                             state::ResponseState const &response,
+                             world::AccelerationRestriction &accelerationRestriction) noexcept
+{
+  (void)worldModel;
+  (void)response;
+  (void)accelerationRestriction;
+  return false;
+}
 
-/**
- * @brief check if the current situation is safe
- *
- * @param[in] situation      the Situation that should be analyzed
- * @param[out] responseState the ResponseState for the current situation
- *
- * @return true if situation could be analyzed, false if there was an error during evaluation
- */
-bool checkSituation(situation::Situation const &situation, state::ResponseState &responseState) noexcept;
-
-} // namespace RSSChecker
+} // namespace RssResponseTransformation
 } // namespace core
 } // namespace rss

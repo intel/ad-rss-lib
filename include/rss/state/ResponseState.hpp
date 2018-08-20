@@ -23,7 +23,9 @@
  */
 
 #pragma once
+#include <limits>
 
+#include <string>
 #include "rss/situation/SituationId.hpp"
 #include "rss/state/LateralRssState.hpp"
 #include "rss/state/LongitudinalRssState.hpp"
@@ -44,5 +46,28 @@ struct ResponseState
   ::rss::state::LateralRssState lateralStateLeft;
 };
 
+/*
+ * \brief Event to support type within statecharts
+ */
+struct evRssResponseState
+{
+  evRssResponseState(ResponseState const &responseState)
+    : responseState(responseState)
+  {
+  }
+
+  ResponseState const &data() const
+  {
+    return responseState;
+  }
+
+  ResponseState const &responseState;
+};
+
 } // namespace state
 } // namespace rss
+
+/*!
+ * @brief Conversion of event evRssResponseState to std::string (for logging purposes)
+ */
+std::string toString(::rss::state::evRssResponseState const &);

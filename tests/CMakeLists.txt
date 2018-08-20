@@ -21,14 +21,14 @@
 set(EXEC_NAME rss_module_tests)
 
 set(RSS_MODULE_TEST_SOURCES
-  core/RSSCheckerInputRangeTests.cpp
-  core/RSSCheckerTestsLongitudinal.cpp
-  core/RSSCheckerTestsLateral.cpp
-  core/RSSCheckerTestsOppositeDirection.cpp
-  core/RSSResponseCombineRssStateTests.cpp
-  core/RSSResponseIsSafeTests.cpp
-  core/RSSResponseProviderTests.cpp
-  core/RSSWorldTests.cpp
+  core/RssResponseResolvingTests.cpp
+  core/RssSituationCheckingInputRangeTests.cpp
+  core/RssSituationCheckingTestsLongitudinal.cpp
+  core/RssSituationCheckingTestsLateral.cpp
+  core/RssSituationCheckingTestsOppositeDirection.cpp
+  core/RSSStateCombineRssStateTests.cpp
+  core/RSSStateSafeTests.cpp
+  core/RssSituationExtractionTests.cpp
   situation/MathUnitTestsDistanceOffsetAfterResponseTime.cpp
   situation/MathUnitTestsStoppingDistance.cpp
   situation/MathUnitTestsVelocityAfterResponseTime.cpp

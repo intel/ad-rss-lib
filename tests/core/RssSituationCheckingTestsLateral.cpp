@@ -16,17 +16,18 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RSSChecker.hpp"
+#include "rss/core/RssSituationChecking.hpp"
 
 namespace rss {
 namespace core {
-namespace RSSChecker {
+namespace RssSituationChecking {
 
-class RSSCheckerTestsLateral : public testing::Test
+class RssSituationCheckingTestsLateral : public testing::Test
 {
 protected:
   virtual void SetUp()
   {
+    situation.situationType = situation::SituationType::SameDirection;
   }
 
   virtual void TearDown()
@@ -38,7 +39,7 @@ protected:
   state::ResponseState responseState;
 };
 
-TEST_F(RSSCheckerTestsLateral, safe_left)
+TEST_F(RssSituationCheckingTestsLateral, safe_left)
 {
   leftVehicle = createVehicleStateForLateralMotion(1);
   rightVehicle = createVehicleStateForLateralMotion(1);
@@ -52,7 +53,7 @@ TEST_F(RSSCheckerTestsLateral, safe_left)
   ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);
 }
 
-TEST_F(RSSCheckerTestsLateral, not_safe_overlap_left)
+TEST_F(RssSituationCheckingTestsLateral, not_safe_overlap_left)
 {
   leftVehicle = createVehicleStateForLateralMotion(1);
   rightVehicle = createVehicleStateForLateralMotion(1);
@@ -66,7 +67,7 @@ TEST_F(RSSCheckerTestsLateral, not_safe_overlap_left)
   ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);
 }
 
-TEST_F(RSSCheckerTestsLateral, not_safe_overlap)
+TEST_F(RssSituationCheckingTestsLateral, not_safe_overlap)
 {
   leftVehicle = createVehicleStateForLateralMotion(1);
   rightVehicle = createVehicleStateForLateralMotion(1);
@@ -80,7 +81,7 @@ TEST_F(RSSCheckerTestsLateral, not_safe_overlap)
   ASSERT_EQ(responseState.lateralStateLeft, cLateralBrakeMin);
 }
 
-TEST_F(RSSCheckerTestsLateral, not_safe_overlap_right)
+TEST_F(RssSituationCheckingTestsLateral, not_safe_overlap_right)
 {
   leftVehicle = createVehicleStateForLateralMotion(1);
   rightVehicle = createVehicleStateForLateralMotion(1);
@@ -94,7 +95,7 @@ TEST_F(RSSCheckerTestsLateral, not_safe_overlap_right)
   ASSERT_EQ(responseState.lateralStateLeft, cLateralBrakeMin);
 }
 
-TEST_F(RSSCheckerTestsLateral, safe_right)
+TEST_F(RssSituationCheckingTestsLateral, safe_right)
 {
   leftVehicle = createVehicleStateForLateralMotion(1);
   rightVehicle = createVehicleStateForLateralMotion(1);
@@ -108,7 +109,7 @@ TEST_F(RSSCheckerTestsLateral, safe_right)
   ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);
 }
 
-TEST_F(RSSCheckerTestsLateral, both_move_right)
+TEST_F(RssSituationCheckingTestsLateral, both_move_right)
 {
   leftVehicle = createVehicleStateForLateralMotion(1);
   rightVehicle = createVehicleStateForLateralMotion(1);
@@ -122,7 +123,7 @@ TEST_F(RSSCheckerTestsLateral, both_move_right)
   ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);
 }
 
-TEST_F(RSSCheckerTestsLateral, move_towards_each_other)
+TEST_F(RssSituationCheckingTestsLateral, move_towards_each_other)
 {
   leftVehicle = createVehicleStateForLateralMotion(1);
   rightVehicle = createVehicleStateForLateralMotion(-1);
@@ -136,7 +137,7 @@ TEST_F(RSSCheckerTestsLateral, move_towards_each_other)
   ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);
 }
 
-TEST_F(RSSCheckerTestsLateral, check_input_range)
+TEST_F(RssSituationCheckingTestsLateral, check_input_range)
 {
   leftVehicle = createVehicleStateForLateralMotion(0);
   rightVehicle = createVehicleStateForLateralMotion(0);
@@ -197,6 +198,6 @@ TEST_F(RSSCheckerTestsLateral, check_input_range)
   }
 }
 
-} // namespace RSSChecker
+} // namespace RssSituationChecking
 } // namespace core
 } // namespace rss

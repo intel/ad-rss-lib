@@ -23,6 +23,7 @@
  */
 
 #pragma once
+#include <limits>
 
 #include "rss/situation/LateralRssAccelerationValues.hpp"
 #include "rss/situation/LongitudinalRssAccelerationValues.hpp"
