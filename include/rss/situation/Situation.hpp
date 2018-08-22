@@ -29,6 +29,7 @@
 #include "rss/situation/SituationId.hpp"
 #include "rss/situation/SituationType.hpp"
 #include "rss/situation/VehicleState.hpp"
+#include "rss/time/TimeIndex.hpp"
 /*!
  * @brief namespace rss
  */
@@ -40,6 +41,7 @@ namespace situation {
 
 struct Situation
 {
+  ::rss::time::TimeIndex timeIndex;
   ::rss::situation::SituationId situationId;
   ::rss::situation::SituationType situationType;
   ::rss::situation::VehicleState egoVehicleState;

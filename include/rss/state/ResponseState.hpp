@@ -29,6 +29,7 @@
 #include "rss/situation/SituationId.hpp"
 #include "rss/state/LateralRssState.hpp"
 #include "rss/state/LongitudinalRssState.hpp"
+#include "rss/time/TimeIndex.hpp"
 /*!
  * @brief namespace rss
  */
@@ -40,6 +41,7 @@ namespace state {
 
 struct ResponseState
 {
+  ::rss::time::TimeIndex timeIndex;
   ::rss::situation::SituationId situationId{0u};
   ::rss::state::LongitudinalRssState longitudinalState;
   ::rss::state::LateralRssState lateralStateRight;

@@ -26,6 +26,7 @@
 #include <limits>
 
 #include <string>
+#include "rss/time/TimeIndex.hpp"
 #include "rss/world/AccelerationRange.hpp"
 /*!
  * @brief namespace rss
@@ -38,6 +39,7 @@ namespace world {
 
 struct AccelerationRestriction
 {
+  ::rss::time::TimeIndex timeIndex{0u};
   ::rss::world::AccelerationRange lateralRange;
   ::rss::world::AccelerationRange longitudinalRange;
 };

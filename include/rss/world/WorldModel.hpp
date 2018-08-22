@@ -27,7 +27,7 @@
 
 #include <string>
 #include <vector>
-#include "rss/world/LaneSegmentVector.hpp"
+#include "rss/time/TimeIndex.hpp"
 #include "rss/world/Object.hpp"
 /*!
  * @brief namespace rss
@@ -40,9 +40,9 @@ namespace world {
 
 struct WorldModel
 {
+  ::rss::time::TimeIndex timeIndex{0u};
   ::rss::world::Object egoVehicle;
   std::vector<::rss::world::Object> objects;
-  ::rss::world::LaneSegmentVector laneSegmentVector;
 };
 
 /*

@@ -36,7 +36,7 @@ namespace rss {
  */
 namespace world {
 
-using LaneSegmentVector = std::vector<::rss::world::LaneSegment>;
+using RoadSegment = std::vector<::rss::world::LaneSegment>;
 
 } // namespace world
 } // namespace rss

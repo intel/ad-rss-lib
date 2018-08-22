@@ -26,7 +26,7 @@
 #include <limits>
 
 #include "rss/situation/SituationType.hpp"
-#include "rss/world/RssRoadArea.hpp"
+#include "rss/world/RoadArea.hpp"
 /*!
  * @brief namespace rss
  */
@@ -39,8 +39,8 @@ namespace world {
 struct RssArea
 {
   ::rss::situation::SituationType situationType{::rss::situation::SituationType::SameDirection};
-  ::rss::world::RssRoadArea egoVehicleRoad;
-  ::rss::world::RssRoadArea intersectingRoad;
+  ::rss::world::RoadArea egoVehicleRoad;
+  ::rss::world::RoadArea intersectingRoad;
 
   ::rss::situation::SituationType getSituationType() const
   {

@@ -39,7 +39,12 @@ std::string toString(::rss::situation::SituationType const e)
     {::rss::situation::SituationType::NotRelevant, "::rss::situation::SituationType::NotRelevant"},
     {::rss::situation::SituationType::SameDirection, "::rss::situation::SituationType::SameDirection"},
     {::rss::situation::SituationType::OppositeDirection, "::rss::situation::SituationType::OppositeDirection"},
-    {::rss::situation::SituationType::Intersection, "::rss::situation::SituationType::Intersection"}};
+    {::rss::situation::SituationType::IntersectionEgoHasPriority,
+     "::rss::situation::SituationType::IntersectionEgoHasPriority"},
+    {::rss::situation::SituationType::IntersectionObjectHasPriority,
+     "::rss::situation::SituationType::IntersectionObjectHasPriority"},
+    {::rss::situation::SituationType::IntersectionSamePriority,
+     "::rss::situation::SituationType::IntersectionSamePriority"}};
   return enumToStringMap.at(e);
 }
 
@@ -49,10 +54,17 @@ template <>::rss::situation::SituationType fromString(std::string const &str)
     {"::rss::situation::SituationType::NotRelevant", ::rss::situation::SituationType::NotRelevant},
     {"::rss::situation::SituationType::SameDirection", ::rss::situation::SituationType::SameDirection},
     {"::rss::situation::SituationType::OppositeDirection", ::rss::situation::SituationType::OppositeDirection},
-    {"::rss::situation::SituationType::Intersection", ::rss::situation::SituationType::Intersection},
+    {"::rss::situation::SituationType::IntersectionEgoHasPriority",
+     ::rss::situation::SituationType::IntersectionEgoHasPriority},
+    {"::rss::situation::SituationType::IntersectionObjectHasPriority",
+     ::rss::situation::SituationType::IntersectionObjectHasPriority},
+    {"::rss::situation::SituationType::IntersectionSamePriority",
+     ::rss::situation::SituationType::IntersectionSamePriority},
     {"NotRelevant", ::rss::situation::SituationType::NotRelevant},
     {"SameDirection", ::rss::situation::SituationType::SameDirection},
     {"OppositeDirection", ::rss::situation::SituationType::OppositeDirection},
-    {"Intersection", ::rss::situation::SituationType::Intersection}};
+    {"IntersectionEgoHasPriority", ::rss::situation::SituationType::IntersectionEgoHasPriority},
+    {"IntersectionObjectHasPriority", ::rss::situation::SituationType::IntersectionObjectHasPriority},
+    {"IntersectionSamePriority", ::rss::situation::SituationType::IntersectionSamePriority}};
   return stringToEnumMap.at(str);
 }

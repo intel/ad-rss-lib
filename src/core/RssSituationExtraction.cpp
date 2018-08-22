@@ -90,12 +90,10 @@ void calcluateRelativeLateralPosition(world::MetricRange const &egoMetricRange,
 
 bool extractSituation(world::Object const &egoVehicle,
                       world::Object const &objectToBeChecked,
-                      world::LaneSegmentVector const &laneSegmentVector,
                       situation::Situation &situation) noexcept
 {
   (void)egoVehicle;
   (void)objectToBeChecked;
-  (void)laneSegmentVector;
   (void)situation;
   return false;
 }
@@ -107,7 +105,8 @@ bool extractSituations(world::WorldModel const &worldModel, situation::Situation
   for (auto const &object : worldModel.objects)
   {
     situation::Situation situation;
-    bool const extractResult = extractSituation(worldModel.egoVehicle, object, worldModel.laneSegmentVector, situation);
+    situation.timeIndex = worldModel.timeIndex;
+    bool const extractResult = extractSituation(worldModel.egoVehicle, object, situation);
     if (extractResult)
     {
       try

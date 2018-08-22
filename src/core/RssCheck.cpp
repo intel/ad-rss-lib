@@ -33,6 +33,11 @@ RssCheck::RssCheck()
 bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldModel,
                                                 world::AccelerationRestriction &accelerationRestriction) noexcept
 {
+  if (!bool(mResponseResolving))
+  {
+    return false;
+  }
+
   situation::SituationVector situationVector;
   bool result = RssSituationExtraction::extractSituations(worldModel, situationVector);
 

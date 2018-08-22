@@ -43,7 +43,12 @@ enum class SituationType : int32_t
           relevant for RSS (e.g. object in opposite direction, but already passed by). */
   SameDirection = 1,     /*!< Both drive on the same road in the same direction. */
   OppositeDirection = 2, /*!< Both drive on the same road in the opposite direction. */
-  Intersection = 3       /*!< Both drive on individual roads which intersect at the end. */
+  IntersectionEgoHasPriority
+  = 3, /*!< Both drive on individual roads which intersect at the end. Ego vehicle has priority over object. */
+  IntersectionObjectHasPriority
+  = 4, /*!< Both drive on individual roads which intersect at the end. Object has priority over ego vehicle. */
+  IntersectionSamePriority
+  = 5 /*!< Both drive on individual roads which intersect at the end. Object and ego vehicle have same priority. */
 };
 
 } // namespace situation

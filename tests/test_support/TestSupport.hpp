@@ -47,7 +47,8 @@ inline situation::VehicleState createVehicleState(double lonVelocity, double lat
   state.dynamics.alphaLat.brakeMin = situation::cMinimumLateralBrakingDeceleleration;
 
   state.responseTime = situation::cResponseTimeOtherVehicles;
-  state.distanceToIntersection = std::numeric_limits<situation::Distance>::max();
+  state.distanceToEnterIntersection = std::numeric_limits<situation::Distance>::max();
+  state.distanceToLeaveIntersection = std::numeric_limits<situation::Distance>::max();
   state.hasPriority = false;
   state.isInCorrectLane = true;
 

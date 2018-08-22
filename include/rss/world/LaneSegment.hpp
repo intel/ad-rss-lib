@@ -25,7 +25,9 @@
 #pragma once
 #include <limits>
 
+#include "rss/world/LaneDrivingDirection.hpp"
 #include "rss/world/LaneSegmentId.hpp"
+#include "rss/world/LaneSegmentType.hpp"
 #include "rss/world/MetricRange.hpp"
 /*!
  * @brief namespace rss
@@ -39,8 +41,30 @@ namespace world {
 struct LaneSegment
 {
   ::rss::world::LaneSegmentId id;
+  ::rss::world::LaneSegmentType type{::rss::world::LaneSegmentType::Normal};
+  ::rss::world::LaneDrivingDirection drivingDirection{::rss::world::LaneDrivingDirection::Bidirectional};
   ::rss::world::MetricRange length;
   ::rss::world::MetricRange width;
+
+  ::rss::world::LaneSegmentType getType() const
+  {
+    return type;
+  }
+
+  void setType(::rss::world::LaneSegmentType const newVal)
+  {
+    type = newVal;
+  }
+
+  ::rss::world::LaneDrivingDirection getDrivingDirection() const
+  {
+    return drivingDirection;
+  }
+
+  void setDrivingDirection(::rss::world::LaneDrivingDirection const newVal)
+  {
+    drivingDirection = newVal;
+  }
 };
 
 } // namespace world

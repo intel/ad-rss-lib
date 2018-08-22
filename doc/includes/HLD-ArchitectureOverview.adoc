@@ -1,68 +1,131 @@
-// the below is generated out of the Rhapsody model (into HTML)
-// and converted to asciidoc using HtmlToAsciidoc
-// only images and figures were manually edited!
-
 == Architecture Overview
 
-[[Figure:AdsSystem]]
-.Integration of RSS into a system architecture
-image::1ea0dbee-ebb5-4358-846f-e17cf6b8b4c2_url_82b42b86-66d8-415a-8d56-d10ed61f3eae.tmp[caption="Figure {counter:figure}. "]
+[[Figure:ADS]]
+.A generic system architecture for an ADS.
+image::img/43e6e7b0-f648-4556-90c0-20f4e32c4ba6_url_4e4e9d00-87d8-4792-8f5b-475e26fdce8b.tmp[caption="Figure {counter:figure}. "]
 
-From high level view the architecture of an ADS consists of three main parts: Sense, Plan, Act.
-RSS is integrated into such an architecture by placing it in between the Plan and Act parts to provide an safety envelope around the planning output.
+From high level view the architecture of an ADS consists of three main parts: Sense, Plan, Act. The world model data
+provided by the Sense part is used by the Plan part to create the near term actuator control commands executed by the
+Act part.
+
+[[Figure:ADS_RSS]]
+.Integration of RSS into a system architecture
+image::img/aede88b3-6a66-49be-afc1-db5d1b592051_url_09bf665f-2e14-4c70-b4ae-360d558fcc63.tmp[caption="Figure {counter:figure}. "]
+
+RSS is integrated into such an ADS architecture by placing it in parallel to the Plan. To provide a safety envelope
+around the planning output the integration of RSS into a ADS architecture spans into the Sense part to provide the
+required RSS world model data as well as into the Act part to limit the actuator control commands to the RSS
+restrictions.
 
 === Sense
 
-The Sense part gathers information on the environment required to fulfill the ADS task.
-
-In the context of this architecture overview the Sense part already creates some basic world model.
+The Sense part gathers information on the environment required to fulfill the ADS task. In general there exist several
+level of perception and fusion which enrich the world model to the extend required for the planning algorithms. In this
+high-level architecture overview the Sense part takes over this task.
 
 ==== SensorSubsystem
 
-The SensorSubsystem is responsible for the perception of the complete environment.
-It interfaces to the real world by receiving and processing sensor information.
-It provides all information in form of the world model to the other ADS subsystems.
-The exact content of the world model data is highly dependant on the concrete realization of the receiving subsystems,
-especially the degree of perception and fusion applied will differ.
-The provided world model data might include raw sensor data, high level object data, but also a-priori knowledge such as AD map data.
-
-To account for this the SensorSubsystem provides separate output ports for every connected subsystem.
+The SensorSubsystem realizes the Sense part functionality. It is responsible for the perception of the environment. It
+interfaces to the real world by receiving, processing and fusing sensor information. It provides all information in form
+of the world model to the other ADS subsystems. The exact content of the world model data is highly dependent on the
+concrete realization of the receiving subsystems, especially the degree of perception and fusion applied will differ.
+The provided world model data might include raw sensor data, high level object data, but also a-priori knowledge such as
+AD map data. To account for this the SensorSubsystem provides separate output ports for every connected subsystem.
 
 ===== Output Ports
 
-RssWorldModelData: The world model data required by the RssSubsystem.
+planWorldModelData: The world model data required by the PlanningSubsystem
 
-PlanWorldModelData: The world model data required by the PlanningSubsystem
+rssWorldModelData: The world model data required by the RssSubsystem.
+
+[[Figure:SensorSubsystem]]
+.Extending the Sense part with world model data required by RSS.
+image::img/883349e3-3d56-41ae-8de8-0cd53e5386a4_url_a923f1e3-ce5b-40ba-bbef-c2dbcec5b941.tmp[caption="Figure {counter:figure}. "]
+
+===== Sense
+
+The Sense entity is responsible to create the world model data required by the PlanningSubsystem. This contains the ADS
+Planning specific implementation of the Sense part which already exists.
+
+====== Output Ports
+
+planWorldModelData: The world model data required by the PlanningSubsystem
+
+===== RssWorldModeling
+
+The RssWorldModeling entity is responsible to create the world model data required by the RssSubsystem. The user has to
+implement this functionality as part of the RSS integration efforts into the ADS system. The RssWorldModelData has to be
+filled with meaningful and reliable data.
+
+====== Output Ports
+
+rssWorldModelData: The world model data required by the RssSubsystem.
 
 === Plan
 
-The Plan part processes the information on the environment to create the internal world model required to plan the next moves of the ADS.
+The Plan part processes the information on the environment to create the internal world model required to plan the next
+moves of the ADS.
 
 ==== PlanningSubsystem
 
-The PlanningSubsystem performs the decision-making of the ADS.
-It analyses the provided PlanWorldModelData and decides what action to take.
-This finally leads to concrete control commands for the ADS ActuatorSubsystem defining the next move of the ADS.
+The PlanningSubsystem realizes the Plan part functionality. It performs the decision-making of the ADS. It analyses the
+provided PlanWorldModelData and decides what action to take. Finally, this leads to concrete control commands for the
+ADS ActuatorSubsystem defining the next move of the ADS.
 
 ===== Input Ports
 
-PlanWorldModelData: The world model data required to perform the planning task
+planWorldModelData: The world model data required to perform the planning task
 
 ===== Output Ports
 
-ActuatorControlCommand: The control commands to realize the next moves within the current plan.
+actuatorControlCommand: The control commands to realize the next moves within the current plan.
 
 === Act
 
-The Act part executes the moves the Plan part has calculated.
+The Act part executes the moves which the Plan part has calculated.
 
 ==== ActuatorSubsystem
 
-The Actuator subsystem is receiving the ActuatorControlCommands controlling i.e. acceleration, braking and steering to execute the plan.
+The ActuatorSubsystem realizes the Act part functionality. It receives the ActuatorControlCommands controlling i.e.
+acceleration, braking and steering to execute the plan.
 
 ===== Input Ports
 
-ActuatorControlCommand: The control commands to control the vehicle actuator system.
+actuatorControlCommand: The control commands from the PlanningSubsystem to control the vehicle actuator system.
+
+rssAccelerationRestrictions: The restrictions on the acceleration for the vehicle calculated by RSS.
+
+[[Figure:ActuatorSubsystem]]
+.Extending the Act part by RSS command limitation.
+image::img/19cfc1e1-3996-4e76-bce1-f82e77e3d0d3_url_514e3aad-a0dc-4ecf-83ac-d6a00268fcfa.tmp[caption="Figure {counter:figure}. "]
+
+===== RssActuatorCommandLimitation
+
+The RssActuatorCommandLimitation entity receives the actuator control commands from the PlanningSubsystem and restricts
+the control values according to the restrictions calculated by RSS. The resulting actuator control commands are safe in
+respect to RSS rules. This calculation heavily depends on the actual representation of the ActuatorControlCommands data.
+Therefore, a generic implementation is not possible. Therefore, the user has to implement this functionality as part of
+the RSS integration efforts into the ADS system.
+
+====== Input Ports
+
+rssAccelerationRestrictions: The restrictions on the acceleration for the actuator control calculated by RSS.
+
+actuatorControlCommandIn: The control commands from the PlanningSubsystem to control the vehicle actuator system.
+
+====== Output Ports
+
+actuatorControlCommandOut: The adapted control commands from the PlanningSubsystem to control the vehicle actuator
+system in a RSS safe manner.
+
+===== Act
+
+The Act entity is responsible to execute the moves which the PlanningSubsytem has calculated. This contains the ADS
+actuator specific implementation of the Act part which already exists.
+
+====== Input Ports
+
+actuatorControlCommand: The control commands to control the vehicle actuator system.
 
 === RSS
 
@@ -70,86 +133,88 @@ The RSS part restricts the moves the Plan part has calculated according to the R
 
 ==== RssSubsystem
 
-The RssSubsystem implements the RSS checks based on the RssWorldModelData received from the SensorSubsystem:
+The RssSubsystem realizes the RSS part functionality. It implements the RSS checks based on the RssWorldModelData
+received from the SensorSubsystem:
+
 1. Keep a safe distance from the car in front
 2. Leave time and space for others in lateral maneuvers
 3. Exhibit caution in occluded areas
 4. Right-of-Way is given, not taken
 
-In case a dangerous situation is detected a respective proper response is calculated and the actuator control commands received
+In case a dangerous situation is detected a respective proper response is calculated and the actuator control commands
+received 
 from the PlanningSubsystem are restricted accordingly to realize planning safety.
 
 ===== Input Ports
 
-ActuatorControlCommandIn: The control commands from the PlanningSubsystem to control the vehicle actuator system.
-
-RssWorldModelData: The world model data required to calculate the RSS checks
+rssWorldModelData: The world model data required to calculate the RSS checks
 
 ===== Output Ports
 
-ActuatorControlCommandOut: The adapted control commands from the PlanningSubsystem to control the vehicle actuator system in a safe manner.
+rssAccelerationRestrictions: The restrictions on the acceleration for the actuator control calculated by RSS.
 
 [[Figure:RssSubsystem]]
 .RSS internal processing steps to perform RSS checks and execute the RSS proper response
-image::6021bed8-d0ab-41a9-9262-54331d43b6f4_url_987712d6-331e-44a1-9bff-b51c9b56badb.tmp[caption="Figure {counter:figure}. "]
+image::img/4ae60783-2f0f-422a-83a0-26fb6cc0abb2_url_7bfa945f-c69d-4e1a-92a8-70455df32304.tmp[caption="Figure {counter:figure}. "]
 
 ===== RssSituationExtraction
 
-The RssSituationExtraction processing entity transforms the global Cartesian world model data into individual RssSituations between the ego vehicle and all the objects. For each pair of ego vehicle and object in the world model data the individual lane coordinate system transformation is performed.
+The RssSituationExtraction entity transforms the global Cartesian world model data into individual RssSituations between
+the ego vehicle and each of the objects. For every pair <ego-vehicle, object> in the world model data the individual
+situation coordinate system transformation is performed.
 
 ====== Input Ports
 
-RssWorldModelData: Global Cartesian world model data providing information on the local surrounding environment.
-Local map data: lanes, intersections, priority rules
-EgoVehicle and Objects: position, velocity
+rssWorldModelData: Global Cartesian world model data providing information on the local surrounding environment required
+to create the situation coordinate system pairs <ego-vehicle, object>. Requires local map data (i.e. lane segments and
+semantics on intersections and priority rules), ego vehicle and object (i.e. position, velocity and RSS dynamics)
+information.
 
 ====== Output Ports
 
-RssSituations: A list of individual RSS Situations between the ego vehicle and each of the objects.
-Each situation is formulated within its own lane-based coordinate system.
-EgoVehicle and Objects: position, velocity, priority flag, situation specific RSS acceleration values
+rssSituations: A list of individual RSS Situations between the ego vehicle and each of the objects. Each situation is
+formulated within its own lane-based coordinate system. EgoVehicle and Objects: i.e. (relative) position, velocity,
+priority flag, situation specific RSS acceleration values.
 
 ===== RssSituationChecking
 
-The RssSituationChecking processing entity performs the RSS check of all incoming individual RssSituations and creates required RssResponses when dangerous situations are detected.
+The RssSituationChecking entity performs the RSS check on all incoming individual RssSituations and creates the required
+RssResponseStates if dangerous situations are detected.
 
 ====== Input Ports
 
-RssSituations: The RssSituations as provided by the RssSituationExtraction
+rssSituations: The RssSituations as provided by the RssSituationExtraction
 
 ====== Output Ports
 
-RssResponses: A list of RSS responses in respect to the individual RSS Situations
+rssResponseStates: A list of RSS response states in respect to the individual RSS Situations
 
 ===== RssResponseResolving
 
-The RssResponseResolving processing entity handles conflicts of the incoming RssResponses and transforms the responses back into the global Cartesian world.
-This results in restrictions for the actuator commands.
+The RssResponseResolving entity handles conflicts of the incoming RssResponseStates. It combines the individual
+<ego-vehicle, object> situation specific response states into one single overall RssResponseState.
 
 ====== Input Ports
 
-RssResponses: The list of RSS responses as provided by the RssSituationChecking
-
-RssWorldModelData: Global Cartesian world model data providing information on the local surrounding environment.
-Local map data: lanes, intersections, priority rules
-EgoVehicle and Objects: position, velocity
+rssResponseStates: The list of RSS response states as provided by the RssSituationChecking
 
 ====== Output Ports
 
-ActuatorControlCommandRestrictions: The resulting restrictions of the actuator control command
+rssResponseState: Resulting combined overall RssResponseState.
 
-===== RssActuatorCommandLimitation
+===== RssResponseTransformation
 
-The RssActuatorCommandLimiter processing entity receives the actuator control commands from the Planning subsystem and restricts the control values according to the restrictions calculated by RSS.
-
-The resulting actuator control commands are safe in respect to RSS rules.
+The RssResponseTransformation entity transforms the overall RssResponseState back into the global Cartesian world. This
+results in RSS restrictions for the actuator commands.
 
 ====== Input Ports
 
-ActuatorControlCommandIn: The actuator control commands issued by the PlanningSubsystem
+rssWorldModelData: Global Cartesian world model data providing information on the local surrounding environment required
+to transform the RSS response state back into acceleration restrictions in the Catesian space. Requires local map data
+(i.e. lane segments of the ego vehicle) and ego vehicle (position, velocity and RSS dynamics) information.
 
-ActuatorControlCommandRestrictions: The restrictions for the actuator control commands calculated by RSS
+rssResponseState: Resulting combined overall RssResponseState provided by the RssResponseResolving.
 
 ====== Output Ports
 
-ActuatorControlCommandOut: The actuator control commands restricted by the RSS responses
+rssAccelerationRestrictions: The resulting restrictions of the actuator control command

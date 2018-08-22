@@ -33,10 +33,9 @@ namespace state {
 /*!
  * \brief Enum LongitudinalResponse
  *
- * Enumeration defining the possible longitudinal responses
- *
+ * Enumeration defining the possible longitudinal responses.
  * Be aware: there has to be a strict order of the enumeration values according to
- * the strictness of the response
+ * the strictness of the response.
  */
 enum class LongitudinalResponse : int32_t
 {

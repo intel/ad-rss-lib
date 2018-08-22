@@ -27,6 +27,7 @@ bool checkSituation(situation::Situation const &situation, state::ResponseState 
 {
   bool result = false;
 
+  response.timeIndex = situation.timeIndex;
   response.situationId = situation.situationId;
   response.longitudinalState.isSafe = false;
   response.longitudinalState.response = state::LongitudinalResponse::BrakeMin;
@@ -51,7 +52,9 @@ bool checkSituation(situation::Situation const &situation, state::ResponseState 
     case situation::SituationType::OppositeDirection:
       result = calculateRssStateNonIntersectionOppositeDirection(situation, response);
       break;
-    case situation::SituationType::Intersection:
+    case situation::SituationType::IntersectionEgoHasPriority:
+    case situation::SituationType::IntersectionObjectHasPriority:
+    case situation::SituationType::IntersectionSamePriority:
       result = calculateRssStateIntersection(situation, response);
       break;
   }

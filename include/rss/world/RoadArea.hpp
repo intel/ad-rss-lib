@@ -26,7 +26,7 @@
 #include <limits>
 
 #include <vector>
-#include "rss/world/RssRoadSegment.hpp"
+#include "rss/world/RoadSegment.hpp"
 /*!
  * @brief namespace rss
  */
@@ -36,7 +36,7 @@ namespace rss {
  */
 namespace world {
 
-using RssRoadArea = std::vector<::rss::world::RssRoadSegment>;
+using RoadArea = std::vector<::rss::world::RoadSegment>;
 
 } // namespace world
 } // namespace rss

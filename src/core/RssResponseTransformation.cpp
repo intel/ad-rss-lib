@@ -26,9 +26,14 @@ bool transformProperResponse(world::WorldModel const &worldModel,
                              state::ResponseState const &response,
                              world::AccelerationRestriction &accelerationRestriction) noexcept
 {
-  (void)worldModel;
-  (void)response;
-  (void)accelerationRestriction;
+  if (worldModel.timeIndex != response.timeIndex)
+  {
+    return false;
+  }
+  accelerationRestriction.timeIndex = response.timeIndex;
+
+  //@todo: implement rest
+
   return false;
 }
 

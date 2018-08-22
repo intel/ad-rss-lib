@@ -1,15 +1,10 @@
-// the below is generated out of the Rhapsody model (into HTML)
-// and converted to asciidoc using HtmlToAsciidoc
-// only images, figures were manually edited!
-// headings below level 6 are not possible
-
 == Software Architecture
 
 === Static View
 
 [[Figure:RssModule]]
 .The packages within the RssModule.
-image::ddf576a2-dbad-4b5f-9ae3-8349d435a6fc_url_a27ef59f-8440-437d-bcad-0f90e3033816.tmp[caption="Figure {counter:figure}. "]
+image::img/7f0846fe-a6f3-4e97-8a8b-0573d97c51ba_url_8df83252-ffe8-493d-944e-0f369bbb4339.tmp[caption="Figure {counter:figure}. "]
 
 The RssModule is implemented in C++. Based on a set of datatype definitions the interfaces are provided to:
 
@@ -20,19 +15,173 @@ The RssModule is implemented in C++. Based on a set of datatype definitions the 
 
 Finally, the implementation of the RssModule is deployed within a set of artifacts.
 
+==== Artifact Deployment
+
+Definition of artifacts the RssModule is deployed to.
+
+[[Figure:Artifact_Deployment]]
+.Artifacts to be deployed from the RssModule.
+image::img/a7535e18-12a9-42fa-9273-b4945117150a_url_addd18f9-f225-47f7-a835-2c6b0decffb8.tmp[caption="Figure {counter:figure}. "]
+
+===== rss_module
+
+This library contains the RssModule implementation.
+
+===== rss_support
+
+This library contains functionality supporting the integration of the RssModule into a system.
+
+==== Interfaces
+
+Definition of Interfaces provided within the RssModule implementation.
+
+The RssModule is implemented as a whole within the namespace rss.
+
+===== Namespace rss::core
+
+Namespace for RSS core interfaces and operations.
+
+This contains the interfaces including the operations the RssModule provides to the user to perform the RSS
+functionality.
+
+[[Figure:Namespace_rss__core]]
+.The interfaces provided by the RssModule.
+image::img/22d5d273-7ad1-4c82-bd19-0bc40e0956ea_url_4546514e-1279-41c9-a640-26ba103e8d8e.tmp[caption="Figure {counter:figure}. "]
+
+====== RssCheck
+
+Class providing the functionality of the RSS check sequence at once with the RSS world model as input and restrictions
+of the acceleration for the actuator control as output. This class internally makes use of the RssSituationExtraction,
+RssSituationChecking, RssResponseResolving and RssResponseTransformation functionality.
+
+calculateAccelerationRestriction
+
+Perform the calculation of the RSS checks on the current world model and provide the acceleration restriction for the
+actuator control.
+
+Returns true if the checks could be calculated, false if there was an error during the operation.
+
+|====
+|returns |bool |Out |False on failure.
+|worldModel |WorldModel |In |The current world model information.
+|accelerationRestriction |AccelerationRestriction |Out |The restrictions on the vehicle acceleration to become RSS safe.
+|====
+
+====== RssSituationExtraction
+
+Class providing functions required for the extraction of the RSS situations from the RSS world model.
+
+extractSituations
+
+Extract all RSS situation pairs pair <ego-vehicle, object> to be checked from the world model.
+
+Returns true if the situations could be created, false if there was an error during the operation.
+
+|====
+|returns |bool |Out |False on failure.
+|worldModel |WorldModel |In |The current world model information.
+|situationVector |SituationVector |Out |The vector of situations to be analyzed with RSS.
+|====
+
+extractSituation
+
+Extract the RSS situation pair <ego-vehicle, object> of the ego vehicle and the object to be checked.
+
+Returns true if the situation could be created, false if there was an error during the operation.
+
+|====
+|returns |bool |Out |False on failure.
+|egoVehicle |Object |In |The information on the ego vehicle object.
+|objectToBeChecked |Object |In |The information on the object to be checked.
+|situation |Situation |Out |The situation to be analyzed with RSS.
+|====
+
+====== RssSituationChecking
+
+Class providing functions required for the RSS checks of the situation.
+
+checkSituations
+
+Checks if the current situation pairs <ego-vehicle, object> are safe.
+
+Returns true if the situations could be analyzed, false if an error occurred during evaluation.
+
+|====
+|returns |bool |Out |False on failure.
+|situationVector |SituationVector |In |The vector of situations that should be analyzed.
+|responseStateVector |ResponseStateVector |Out |The vector of response states for the current situations.
+|====
+
+checkSituation
+
+Checks if the current situation pair <ego-vehicle, object> is safe.
+
+Returns true if the situation could be analyzed, false if an error occurred during evaluation.
+
+|====
+|returns |bool |Out |False on failure.
+|situation |Situation |In |The situation that should be analyzed.
+|response |ResponseState |Out |The response state for the current situation.
+|====
+
+====== RssResponseResolving
+
+Class to resolve the responseStateVector of the different situation specific responses into a single responseState. This
+class tracks the RSS response state of every situation id over time and especially stores the respective response state
+before the blame time. This requires that the id of a RSS situation remains constant over time in case it refers to the
+same object; otherwise tracking over time will fail.
+
+provideProperResponse
+
+Calculate the proper response from of the current situation pair <ego-vehicle, object> response states. It combines all
+response states into one single overall RssResponse.
+
+Returns true if the proper response state could be calculated, false otherwise.
+
+|====
+|returns |bool |Out |False on failure.
+|currentResponseStateVector |ResponseStateVector |In |Vector with all the responses gather for the current individual
+situations
+|properResponseState |ResponseState |Out |The proper overall response state.
+|====
+
+====== RssResponseTransformation
+
+Class providing functions required to transform the proper response into restrictions of the acceleration for the
+actuator control.
+
+transformProperResponse
+
+Transform the proper response into restrictions of the acceleration for the actuator control. Since the
+RssResponseResolving entity is acting within the situation coordinate system, it is not able to decide on the actual
+lateral movement of the ego-vehicle within its lane. Within this function the required world model data is available to
+decide if a desired lateral response can be resolved either by applying a restriction on the lateral acceleration or, in
+addition, requires a restriction of the longitudinal acceleration.
+
+Returns true if the acceleration restrictions could be calculated, false otherwise.
+
+|====
+|returns |bool |Out |False on failure.
+|worldModel |WorldModel |In |The current world model information.
+|response |ResponseState |In |The proper overall response to be transformed.
+|accelerationRestriction |AccelerationRestriction |Out |The restrictions on the vehicle acceleration to become RSS safe.
+|====
+
 ==== DataTypes
 
 Definition of DataTypes used within the RssModule implementation.
+
 The RssModule is implemented as a whole within the namespace rss.
 
-[[Figure:RssDatatypeNamespaces]]
+[[Figure:Namespace_rss]]
 .The RSS datatypes are organized within several sub-namespaces.
-image::494e0811-6250-4748-9a30-9cb94e41bae0_url_3e173017-9ef0-4b9c-8589-a9b9c7c3b3ac.tmp[caption="Figure {counter:figure}. "]
+image::img/c1fdb499-7a9c-44c5-bf82-2182192c69a5_url_720340af-14ba-41a5-9ba1-ceae49e1c578.tmp[caption="Figure {counter:figure}. "]
 
 ===== Namespace rss::time
 
 Namespace for RSS time datatypes.
-This contains types declaring physical measures refering to the time.
+
+This contains types declaring physical measures referring to the time.
 
 ====== Duration (Typedef)
 
@@ -43,107 +192,232 @@ Unit: second
 |====
 |unit |Second
 |dimension |Time
-|float64_t |1
+|float64_t |[ 1 ]
 |====
 
-===== Namespace rss::lane
+====== TimeIndex (Typedef)
 
-Namespace for RSS lane coordinate system datatypes.
-This contains types that are used within the calculation of the RSS formulas which are performed within the lane based coordinate system.
+Defines a certain point in time.
 
-[[Figure:LcsBaseTypes]]
-.The base types used within the lane based coordinate system.
-image::28e41c25-c32c-442c-83c0-7c65f989a195_url_a2dedb06-263e-4969-8515-0746a449d952.tmp[caption="Figure {counter:figure}. "]
+|====
+|uint64_t |[ 1 ]
+|====
 
-[[Figure:LcsVehicleStates]]
-.The types describing the vehicle state used within the lane based coordinate system.
-image::c616faff-b84b-4eef-a9ae-49cc975cb030_url_055bec3e-025c-44ef-8542-e116e8e1a82b.tmp[caption="Figure {counter:figure}. "]
+===== Namespace rss::world
 
-[[Figure:LcsSituation]]
-.The types describing a situations used within the lane based coordinate system.
-image::38494834-b51e-4121-86ab-1e87b7faa82a_url_bcdf610f-3f96-4ba1-bbc3-15f9031996f3.tmp[caption="Figure {counter:figure}. "]
+Namespace for RSS world datatypes.
+
+This contains types that are used to describe the local world model RSS is acting on. These describe the ego vehicle and
+object states as well as the parts of the road network relevant to judge the situations between ego vehicle and the
+objects.
+
+[[Figure:Namespace_rss__world]]
+.The base types used within the local RSS world model.
+image::img/045b45cb-8843-4472-b3a9-fe415c8a8895_url_d33d585d-15bb-485f-ab67-dede939da488.tmp[caption="Figure {counter:figure}. "]
+
+[[Figure:Namespace_rss__world]]
+.The types describing the road and lane geomtries used within the local RSS world model.
+image::img/5b0cb975-e58c-4a49-9e6b-acef2ee39b42_url_a3422667-dcd4-4376-9809-5b419bdf4bb4.tmp[caption="Figure {counter:figure}. "]
+
+[[Figure:Namespace_rss__world]]
+.The types describing the objects used within the local RSS world model.
+image::img/e7afc4f7-5505-4e66-8726-82e43751ba1e_url_475cc4b8-2b38-41eb-9d44-1e492e0e3278.tmp[caption="Figure {counter:figure}. "]
+
+[[Figure:Namespace_rss__world]]
+.The types describing the high level world model and object used within the local RSS world model.
+image::img/43231e0d-be1d-434e-b309-9e779a6ae193_url_c9b103a2-8996-43d9-85c9-d38ca815bcc7.tmp[caption="Figure {counter:figure}. "]
 
 ====== Units
 
 |====
-|LaneCoordinateSystemUnit |Defines a unit in the lane coordinate system.The lane coordinate system has two dimensions:- longitudinal axis- lateral axis
-|LaneCoordinateSystemUnitPerSecond |Defines a unit in the lane coordinate system per second.
-|LaneCoordinateSystemUnitPerSecondSquared |Defines a unit in the lane coordinate system per second squared.
+|Ratio |Defines a unit which is a dimensionless ratio.
 |====
 
-====== Acceleration (Typedef)
+====== ParametricValue (Typedef)
 
-The rate of change of Speed of an object with respect to time.
-
-Unit: lane coordinate system unit per second squared
+A parametric value in the range of [0.0; 1.0] describing the relative progress.
 
 |====
-|dimension |Acceleration
-|unit |LaneCoordinateSystemUnitPerSecondSquared
-|float64_t |1
+|unit |Ratio
+|float64_t |[ 1 ]
 |====
 
 ====== Distance (Typedef)
 
 The length of a specific path traveled between two points.
 
-Unit: lane coordinate system unit
+Unit: meter
 
 |====
 |dimension |Length
-|unit |LaneCoordinateSystemUnit
-|float64_t |1
+|unit |Meter
+|float64_t |[ 1 ]
 |====
 
 ====== Speed (Typedef)
 
-The rate of change of an object's Distance with respect to time. The speed of an object is the magnitude of its velocity.
+The rate of change of an object's position with respect to time. The speed of an object is the magnitude of its
+velocity.
 
-Unit: lane coordinate system units per second
+Unit: meter per second
 
 |====
 |dimension |Velocity
-|unit |LaneCoordinateSystemUnitPerSecond
-|float64_t |1
+|unit |MeterPerSecond
+|float64_t |[ 1 ]
+|====
+
+====== Acceleration (Typedef)
+
+The rate of change of Speed of an object with respect to time.
+
+Unit: meter per second squared
+
+|====
+|dimension |Acceleration
+|unit |MeterPerSecondSquared
+|float64_t |[ 1 ]
+|====
+
+====== ParametricRange (Structure)
+
+A parametric range within a lane segment described by its borders: [minimum, maximum].
+
+|====
+|minimum |ParametricValue |The minimum value of the parametric range.
+|maximum |ParametricValue |The maximum value of the parametric range.
+|====
+
+====== MetricRange (Structure)
+
+A metric range described by its borders: [minimum, maximum].
+
+|====
+|minimum |Distance |The minimum value of the metric range.
+|maximum |Distance |The maximum value of the metric range.
+|====
+
+====== AccelerationRange (Structure)
+
+An acceleration range described by its borders: [minimum, maximum].
+
+|====
+|minimum |Acceleration |The minimum value of the acceleration range.
+|maximum |Acceleration |The maximum value of the acceleration range.
 |====
 
 ====== Velocity (Structure)
 
-Defines the velocity of an object in the lane coordinate system. The velocity consists of a longitudinal and a lateral component.
+Defines the velocity of an object within its current lane. The velocity consists of a longitudinal and a lateral
+component.
 
 |====
-|speedLon |Speed |The longitudinal speed component of the velocity vector
-|speedLat |Speed |The lateral speed component of the velocity vector
+|segmentId |LaneSegmentId |The id of the lane segment this velocity refers to.
+|speedLon |Speed |The longitudinal speed component of the velocity vector.
+The longitudinal component of the velocity is always measured tangential to the center line of the current lane.
+|speedLat |Speed |The lateral speed component of the velocity vector.
+The lateral component of the velocity is always measured orthogonal to the center line of the current lane.
 |====
 
-====== Interval (Structure)
+====== LaneSegmentId (Typedef)
 
-An interval [minimum, maximum] on a lane coordinate system axis.
-
-|====
-|minimum |Distance |The minimum value of the interval
-|maximum |Distance |The maximum value of the interval
-|====
-
-====== Position (Structure)
-
-Describes the position of an object within the lane coordinate system.
-
-Objects extend in width and length. An object on a lane is described by the range it spans in each of the two lane coordinate system directions.
+Defines the unique id of a lane segment.
 
 |====
-|lonInterval |Interval |The interval an object spans in longitudinal direction of the lane coordinate system.
-|latInterval |Interval |The interval an object spans in lateral direction of the lane coordinate system including the fluctuation margin.
+|uint64_t |[ 1 ]
 |====
 
-====== Dynamics (Structure)
-
-Describes the RSS dynamics values to be applied for an object within the lane coordinate system. The dynamics consist of a longitudinal and a lateral component.
+====== LaneSegmentType (Enumeration)
 
 |====
-|alphaLon |LongitudinalRssAccelerationValues |RSS dynamics values along longitudinal coordinate system axis
-|alphaLat |LateralRssAccelerationValues |RSS dynamics values along lateral coordinate system axis
+|Normal |0 |Normal lane segement. Nothing special to consider.
+|Intersection |1 |Lane segment is intersecting with another lane segment of the intersecting road.
+|====
 
+====== LaneDrivingDirection (Enumeration)
+
+|====
+|Bidirectional |0 |Traffic flow in this lane segment is in both directions.
+|Positive |1 |Nominal traffic flow in this lane segment is positive RoadArea direction.
+|Negative |2 |Nominal traffic flow in this lane segment is negative RoadArea direction.
+|====
+
+====== LaneSegment (Structure)
+
+Defines a lane segment.
+
+|====
+|id |LaneSegmentId |The id of the lane segment.
+|type |LaneSegmentType |The type of this lane segment in context of the RssArea it belongs to.
+|drivingDirection |LaneDrivingDirection |The nominal direction of the traffic flow of this lane segment in context of
+the RssArea it belongs to.
+|length |MetricRange |The metric range of the lane segments length.
+|width |MetricRange |The metric range of the lane segments width.
+|====
+
+====== RoadSegment (Typedef)
+
+A RoadSegment is defined by lateral neighboring lane segments. The lane segments within a road segment have to be
+ordered from right to left in respect to the driving direction defined by the road area.
+
+|====
+|rss::world::LaneSegment |[ * ]
+|====
+
+====== RoadArea (Typedef)
+
+A RoadArea is defined by longitudinal neighboring road segments. The road segments within a road area have to be ordered
+from start to end in respect to the driving direction.
+
+|====
+|rss::world::RoadSegment |[ * ]
+|====
+
+====== RssArea (Structure)
+
+A RssArea defines the area of interaction between the ego vehicle and another object. It consists of the type of
+situation between these two and the corresponding road areas of interest. All lane segments on the route between ego
+vehicle and the object have to be part of this. The RssModule has to be able to calculate minimum and maximum distances
+between ego vehicle and object as well as accelerated movements within this area.
+
+|====
+|situationType |SituationType |The type of the current situation. Depending on this type the other fields of the RssArea
+might be left empty.
+|egoVehicleRoad |RoadArea |The RssRoadArea the ego vehicle is driving in. The driving direction of the ego vehicle
+define the ordering of the road segments. In non-intersection situations the object is also driving in this road area.
+|intersectingRoad |RoadArea |The RssRoadArea an intersecting vehicle is driving in. The driving direction of the
+intersecting vehicle define the ordering of the road segments. The road area should contain all neigboring lanes the
+other vehcile is able to drive in.  In non-intersection situations this road area is empty.
+|====
+
+====== ObjectId (Typedef)
+
+Defines the unique id of an object.
+
+|====
+|uint64_t |[ 1 ]
+|====
+
+====== ObjectType (Enumeration)
+
+Enumeration describing the types of object.
+
+|====
+|EgoVehicle |0 |The object is the ego vehicle.
+|OtherVehicle |1 |The object is some other real vehicle.
+|ArtificialObject |2 |The object is an artificial one.
+|====
+
+====== OccupiedRegion (Structure)
+
+Describes the region that an object covers within a lane segment.
+
+An object on a lane is described by the parametric range it spans in each of the two lane segment directions.
+
+|====
+|segmentId |LaneSegmentId |The id of the lane segment this region refers to.
+|lonRange |ParametricRange |The parametric range an object spans in longitudinal direction within a lane segment.
+|latRange |ParametricRange |The parametric range an object spans in lateral direction within a lane segment.
 |====
 
 ====== LongitudinalRssAccelerationValues (Structure)
@@ -151,11 +425,14 @@ Describes the RSS dynamics values to be applied for an object within the lane co
 Collection of the RSS acceleration values in longitudinal direction.
 
 |====
-|accelMax |Acceleration |absolute amount of the maximum allowed acceleration
-|brakeMax |Acceleration |absolute amount of the maximum allowed braking deceleration
-|brakeMin |Acceleration |absolute amount of the minimum allowed breaking deceleration
-
-|brakeMinCorrect |Acceleration |absolute amount of the minimum allowed breaking deceleration when driving on the correct lane
+|accelMax |Acceleration |Absolute amount of the maximum allowed acceleration.  This value has always to be positive,
+zero is allowed.
+|brakeMax |Acceleration |Absolute amount of the maximum allowed braking deceleration.  This value has always to be
+positive and not smaller than brakeMin.
+|brakeMin |Acceleration |Absolute amount of the minimum allowed breaking deceleration.  This value has always to be
+positive and not smaller than brakeMinCorrect.
+|brakeMinCorrect |Acceleration |Absolute amount of the minimum allowed breaking deceleration when driving on the correct
+lane.  This value has always to be positive.
 |====
 
 ====== LateralRssAccelerationValues (Structure)
@@ -163,212 +440,523 @@ Collection of the RSS acceleration values in longitudinal direction.
 Collection of the RSS acceleration values in lateral direction.
 
 |====
-|accelMax |Acceleration |absolute amount of the maximum allowed acceleration
-|brakeMin |Acceleration |absolute amount of the minimum allowed breaking deceleration
+|accelMax |Acceleration |Absolute amount of the maximum allowed acceleration. This value has always to be positive, zero
+is allowed.
+|brakeMin |Acceleration |Absolute amount of the minimum allowed breaking deceleration. This value has always to be
+positive.
+|====
+
+====== Dynamics (Structure)
+
+Describes the RSS dynamics values to be applied for an object within the metric world frame. The dynamics consist of a
+longitudinal component, a lateral component and a lateral fluctuation margin to be taken into account to compensate for
+lateral fluctuations.
+
+|====
+|alphaLon |LongitudinalRssAccelerationValues |RSS dynamics values along longitudinal coordinate system axis.
+|alphaLat |LateralRssAccelerationValues |RSS dynamics values along lateral coordinate system axis.
+|lateralFluctuationMargin |Distance |Defines the lateral fluctuation margin to be taken into account.
+|====
+
+====== Object (Structure)
+
+An object is described by several aspects: the unique id of an object, the type of the object, the lane regions the
+object occupies, the objects velocity within its lane and finally the area of interaction of ego vehicle and the object.
+
+|====
+|objectId |ObjectId |Defines the unique id of an object. This id has to be constant over time for the same object.
+|objectType |ObjectType |Defines the type of the object.
+|occupiedRegions |OccupiedRegion |Defines the lane regions the object occupies.
+|dynamics |Dynamics |Defines the objects dynamics to be applied. This parameters are provided on a per object basis to
+be able to adapt these e.g. in respect to the weather conditions. Furthermore this allows to introduce artificial
+objects for different purposes e.g. to respect occluded regions or to create artificial repulsive objects at the outer
+road borders to prevent the ego vehilce from leaving the road.
+|velocity |Velocity |Defines the objects velocity in respect to its current major lane.
+|rssArea |RssArea |Defines the area of interaction between ego vehicle and the object.
+|====
+
+====== WorldModel (Structure)
+
+The world model, RSS requires as input, consists of the egoVehicle and object description as well as the list of
+relevant lane segments.
+
+|====
+|timeIndex |TimeIndex |The time index is required to distinguish different points in time when tracking states or
+transforming responses back. Each world model referring to another point in time should get another time index. The time
+index of the world model must not be zero.
+|egoVehicle |Object |The ego vehicle.
+|objects |Object |The objects within the scene.
+|====
+
+====== AccelerationRestriction (Structure)
+
+Defines restrictions of the vehicle acceleration.
+
+|====
+|timeIndex |TimeIndex |The time index these acceleration restrictions are referring to.
+|lateralRange |AccelerationRange |The range of the acceleration restriction in lateral direction.
+|longitudinalRange |AccelerationRange |The range of the acceleration restriction in longitudinal direction.
+|====
+
+===== Namespace rss::situation
+
+Namespace for RSS situation datatypes.
+
+This contains types that are used within the calculation of the RSS formulas which are performed within the situation
+coordinate system.
+
+[[Figure:Namespace_rss__situation]]
+.The base types used within the situation coordinate system.
+image::img/3ae11637-ee5d-4079-b70c-b7ff5c79bf1b_url_b80d6c7b-6e18-4d85-bd8d-072203340204.tmp[caption="Figure {counter:figure}. "]
+
+[[Figure:Namespace_rss__situation]]
+.The types describing the vehicle state used within the situation coordinate system.
+image::img/73b36a04-6bd2-484f-8dd7-5e7bfe915dfa_url_e5ca4262-0ff0-4367-a0ac-8daa6276a8a8.tmp[caption="Figure {counter:figure}. "]
+
+[[Figure:Namespace_rss__situation]]
+.The types describing a situation used within the situation coordinate system.
+image::img/fca242e6-f19a-4fc7-a73b-f250bd678f03_url_ea74ce26-76cf-456e-9538-35749a5b7938.tmp[caption="Figure {counter:figure}. "]
+
+====== Units
+
+|====
+|SituationCoordinateSystemUnitPerSecond |Defines a unit in the situation coordinate system per second.
+|SituationCoordinateSystemUnitPerSecondSquared |Defines a unit in the situation coordinate system per second squared.
+|SituationCoordinateSystemUnit |Defines a unit in the situation coordinate system.The situation coordinate system has
+two dimensions:- longitudinal axis- lateral axis
+|====
+
+====== CoordinateSystemAxis (Enumeration)
+
+Enumeration defining the axis of the situation coordinate system.
+
+|====
+|Longitudinal |0 |longitudinal axis: ego vehicle is driving in positive direction
+|Lateral |1 |lateral axis: ego vehicle left to right defines the positive direction
+|====
+
+====== Acceleration (Typedef)
+
+The rate of change of Speed of an object with respect to time.
+
+Unit: situation coordinate system unit per second squared
+
+|====
+|dimension |Acceleration
+|unit |SituationCoordinateSystemUnitPerSecondSquared
+|float64_t |[ 1 ]
+|====
+
+====== Distance (Typedef)
+
+The length of a specific path traveled between two points.
+
+Unit: situation coordinate system unit
+
+|====
+|dimension |Length
+|unit |SituationCoordinateSystemUnit
+|float64_t |[ 1 ]
+|====
+
+====== Speed (Typedef)
+
+The rate of change of an object's Distance with respect to time. The speed of an object is the magnitude of its
+velocity.
+
+Unit: situation coordinate system units per second
+
+|====
+|dimension |Velocity
+|unit |SituationCoordinateSystemUnitPerSecond
+|float64_t |[ 1 ]
+|====
+
+====== Velocity (Structure)
+
+Defines the velocity of an object in the respective situation coordinate system. The velocity consists of a longitudinal
+and a lateral component.
+
+|====
+|speedLon |Speed |Absolute amount of the longitudinal speed component of the velocity vector. This value has always to
+be positive.
+|speedLat |Speed |The lateral speed component of the velocity vector.
+|====
+
+====== LongitudinalRssAccelerationValues (Structure)
+
+Collection of the RSS acceleration values in longitudinal direction.
+
+|====
+|accelMax |Acceleration |Absolute amount of the maximum allowed acceleration.  This value has always to be positive,
+zero is allowed.
+|brakeMax |Acceleration |Absolute amount of the maximum allowed braking deceleration.  This value has always to be
+positive and not smaller than brakeMin.
+|brakeMin |Acceleration |Absolute amount of the minimum allowed breaking deceleration.  This value has always to be
+positive and not smaller than brakeMinCorrect.
+|brakeMinCorrect |Acceleration |Absolute amount of the minimum allowed breaking deceleration when driving on the correct
+lane.  This value has always to be positive.
+|====
+
+====== LateralRssAccelerationValues (Structure)
+
+Collection of the RSS acceleration values in lateral direction.
+
+|====
+|accelMax |Acceleration |Absolute amount of the maximum allowed acceleration. This value has always to be positive, zero
+is allowed.
+|brakeMin |Acceleration |Absolute amount of the minimum allowed breaking deceleration. This value has always to be
+positive.
+|====
+
+====== Dynamics (Structure)
+
+Describes the RSS dynamics values to be applied for an object within the respective situation coordinate system. The
+dynamics consist of a longitudinal and a lateral component.
+
+|====
+|alphaLon |LongitudinalRssAccelerationValues |RSS dynamics values along longitudinal coordinate system axis
+|alphaLat |LateralRssAccelerationValues |RSS dynamics values along lateral coordinate system axis
 |====
 
 ====== VehicleState (Structure)
 
 The state of an object in a RSS situation.
 
-The state consists of the following components in respect to the situation specific lane coordinate system: the position, the velocity, the dynamics, the response time and a Right-of-Way priority value.
+The state consists of the following components in respect to the situation coordinate system: the velocity, the distance
+to the intersection (if applicable), the dynamics, the response time, a Right-of-Way priority flag as well as a flag
+stating if the vehicle is driving in its correct lane.
 
 |====
-|position |Position |The situation specific position.
 |velocity |Velocity |The situation specific velocity.
 |dynamics |Dynamics |The situation specific dynamics.
 |responseTime |Duration |The situation specific response time.
-|hasPriority |bool |The situation specific Right-of-Way relation
-|isInCorrectLane |bool |Is the vehicle driving in the correct lane
+|hasPriority |bool |Flag indicating if the situation specific Right-of-Way relation.
+|isInCorrectLane |bool |Flag indicating if the vehicle driving in the correct lane
+|distanceToEnterIntersection |Distance |The minimum distance to be covered by the vehicle to enter the intersection.
+|distanceToLeaveIntersection |Distance |The maximum distance to cover by the vehicle to leave the intersection
+completely.
+|====
 
+====== SituationId (Typedef)
+
+The unique id of an situation over time.
+
+|====
+|uint64_t |[ 1 ]
+|====
+
+====== SituationType (Enumeration)
+
+Enumeration describing the type of situation.
+
+|====
+|NotRelevant |0 |The other vehicle cannot conflict with the ego vehicle. This kind of situations are always considered
+to be safe. Use this situation state to make the object visible in the result vector to be a known object, but not
+relevant for RSS (e.g. object in opposite direction, but already passed by).
+|SameDirection |1 |Both drive on the same road in the same direction.
+|OppositeDirection |2 |Both drive on the same road in the opposite direction.
+|IntersectionEgoHasPriority |3 |Both drive on individual roads which intersect at the end. Ego vehicle has priority over
+object.
+|IntersectionObjectHasPriority |4 |Both drive on individual roads which intersect at the end. Object has priority over
+ego vehicle.
+|IntersectionSamePriority |5 |Both drive on individual roads which intersect at the end. Object and ego vehicle have
+same priority.
+|====
+
+====== LateralRelativePosition (Enumeration)
+
+Enumeration describing the relative lateral position between two objects, a and b, within their situation coordinate
+system.
+
+|====
+|AtLeft |0 |The object a is completely left of object b. This means there is an actual lateral space between them.
+|OverlapLeft |1 |The objects overlap. The left border of object a is left of the left border of object b AND the right
+border of object a is left of the right border of object b.
+|Overlap |2 |The objects overlap, but neither the conditions for OverlapLeft nor OverlapRight are applicable.
+|OverlapRight |3 |The objects overlap. The left border of object a is right of the left border of object b AND the right
+border of object a is right of the right border of object b.
+|AtRight |4 |The object a is completely right of object b. This means there is an actual lateral space between them.
+|====
+
+====== LongitudinalRelativePosition (Enumeration)
+
+Enumeration describing the relative longitudinal position between two objects, a and b, within their situation
+coordinate system.
+
+|====
+|InFront |0 |The object a is completely in front of object b. This means there is an actual longitudinal space between
+them.
+|OverlapFront |1 |The objects overlap. The front border of object a is in front of the front border of object b AND the
+back border of object a is in front of the back border of object b.
+|Overlap |2 |The objects overlap, but neither the conditions for OverlapFront nor OverlapBack are applicable.
+|OverlapBack |3 |The objects overlap. The front border of object a is at back of the front border of object b AND the
+back border of object a is at back of the back border of object b.
+|AtBack |4 |The object a is completely at back of object b. This means there is an actual longitudinal space between
+them.
+|====
+
+====== RelativePosition (Structure)
+
+Describes the relative position between two objects within their situation coordinate system.
+
+|====
+|longitudinalPosition |LongitudinalRelativePosition |The longitudinal relative position between to objects within their
+situation coordinate system.
+|longitudinalDistance |Distance |The longitudinal distance between the two objects within their situation coordinate
+system.
+|lateralPosition |LateralRelativePosition |The lateral relative position between to objects within their situation
+coordinate system.
+|lateralDistance |Distance |The lateral distance between the two objects within their situation coordinate system.
 |====
 
 ====== Situation (Structure)
 
 Describes a RSS situation.
 
-A situation always considers exactly the relative relation between two objects: the ego vehicle and one other vehicle. In general, the lane coordinate system is unique for one specific situation. As a consequence the vehicle state of the ego vehicle in different RSS situations cannot be compared to each other. Consists of the VehicleState of the ego vehicle and the VehicleState of the other vehicle.
+A situation always considers the relative relation between two objects: the ego vehicle and one other vehicle. The
+situation coordinate system is unique for one specific situation. As a consequence the vehicle state of the ego vehicle
+in different RSS situations cannot be compared to each other. Consists of a situation id and type, the VehicleState of
+the ego vehicle, the VehicleState of the other vehicle and the RelativePosition between ego vehicle and other vehicle.
 
 |====
+|timeIndex |TimeIndex |The time index is required to distinguish different points in time when tracking states or
+transforming responses back.
+|situationId |SituationId |The unique id of the situation.The situation id has to be constant over time for a pair of
+ego vehicle and specific other vehicle.
+E.g. might be filled with an id identifying the other vehicle unambiguously.
+|situationType |SituationType |The type of the current situation.
 |egoVehicleState |VehicleState |The vehicle state of the ego vehicle
 |otherVehicleState |VehicleState |The vehicle state of the other vehicle within the situation.
-|situationId |SituationId |The unique id of the situation.The situation id has to be constant over time for a pair of ego vehicle and specific other vehicle.
-E.g. might be filled with an id identifying the other vehicle unambiguously.
-|====
-
-====== SituationId (Typedef)
-
-The id of an situation.
-
-|====
-|uint64_t |1
+|relativePosition |RelativePosition |The relative position between the ego vehicle and the other vehicle within this
+situation.
 |====
 
 ====== SituationVector (Typedef)
 
-A vector of situations
+A vector of situations.
 
 |====
-|rss::lane::Situation |*
+|rss::situation::Situation |[ * ]
 |====
 
-===== Namespace rss::check
+===== Namespace rss::state
 
-Namespace for RSS check datatypes.
-This contains types used within the RSS check functions not depending on the lane based coordinate system.
+Namespace for RSS state datatypes.
 
-[[Figure:RssCheckTypes]]
+This contains types used in conjunction with the RSS state and responses.
+
+[[Figure:Namespace_rss__state]]
 .The types describing the RSS response and the RSS state.
-image::326c492f-4e14-4366-845c-20edb6a9dffe_url_e93f905a-4d59-4718-a7b4-87e264973de7.tmp[caption="Figure {counter:figure}. "]
+image::img/1bb44303-2c12-4c2f-82f0-92c95b593110_url_92e851f9-24b7-4742-ba2a-0468ecfb662e.tmp[caption="Figure {counter:figure}. "]
 
 ====== LongitudinalResponse (Enumeration)
 
-Enumeration defining the possible longitudinal responses
+Enumeration defining the possible longitudinal responses.
 
-Be aware: there has to be a strict order of the enumeration values according to the strictness of the response
+Be aware: there has to be a strict order of the enumeration values according to the strictness of the response.
 
 |====
-|Safe |0 |State is longitudinal safe
-|None |1 |State is longitudinal not safe, but no action required. E.g. ego vehicle is the leading vehicle.
-|BrakeMinCorrect |2 |State is longitudinal not safe, vehicle has to decerate at least with brake min correct longitudinally
-|BrakeMin |3 |State is longitudinal not safe, vehicle has to decerate at least with brake min longitudinally
+|None |0 |No action required.
+|BrakeMinCorrect |1 |Vehicle has to decerate at least with brake min correct longitudinally
+|BrakeMin |2 |Vehicle has to decerate at least with brake min longitudinally
 |====
 
 ====== LateralResponse (Enumeration)
 
-Enumeration defining the possible lateral responses
+Enumeration defining the possible lateral responses.
 
-Be aware: there has to be a strict order of the enumeration values according to the strictness of the response
-
-|====
-|Safe |0 |State is lateral safe.
-|None |1 |State is lateral not safe, but no action required.
-|BrakeMin |2 |State is lateral not safe, vehicle has to decerate at least with brake min laterally
-|====
-
-====== Response (Structure)
-
-Struct defining the response of a single object.
+Be aware: there has to be a strict order of the enumeration values according to the strictness of the response.
 
 |====
-|longitudinalResponse |LongitudinalResponse |required response in longitudinal direction
-|lateralResponseLeft |LateralResponse |required response in lateral direction left in respect to ego-vehicle driving direction
-|lateralResponseRight |LateralResponse |required response in lateral direction right in respect to ego-vehicle driving direction
-|situationId |SituationId |Id of the situation this response refers to.The id has to remain unique over time representing the situation (ego-vehicle / object pair) which is investigated.
+|None |0 |No action required.
+|BrakeMin |1 |Vehicle has to decerate at least with brake min laterally
+|====
+
+====== LongitudinalRssState (Structure)
+
+Struct to store the longitudinal RSS state.
+
+|====
+|isSafe |bool |Flag to indicate if the state is longitudinal safe.
+|response |LongitudinalResponse |required response in longitudinal direction
+|====
+
+====== LateralRssState (Structure)
+
+Struct to store the lateral RSS state.
+
+|====
+|isSafe |bool |Flag to indicate if the state is lateral safe.
+|response |LateralResponse |required response in lateral direction
+|====
+
+====== ResponseState (Structure)
+
+Struct defining the RSS state of a single object.
+
+|====
+|timeIndex |TimeIndex |The time index is required to distinguish different points in time when tracking states or
+transforming responses back.
+|situationId |SituationId |Id of the situation this state refers to.The id has to remain unique over time representing
+the situation (ego-vehicle / object pair) under investigation.
 It is used to track the state of the ego-vehicle / object constellation i.e. at point of blame time.
+|longitudinalState |LongitudinalRssState |The current longitudinal rss state.
+|lateralStateRight |LateralRssState |The current lateral rss state at right side in respect to ego-vehicle driving
+direction.
+|lateralStateLeft |LateralRssState |The current lateral rss state at left side in respect to ego-vehicle driving
+direction.
 |====
 
-====== RssState (Structure)
+====== ResponseStateVector (Typedef)
 
-Struct to store the RSS state
-
-|====
-|longitudinalSafe |bool |Flag to indicate if the state is longitudinal safe.
-|lateralSafe |bool |Flag to indicate if the state is lateral safe.
-|====
-
-====== ResponseVector (Typedef)
-
-a vector of responses
+A vector of response states.
 
 |====
-|rss::check::Response |*
+|rss::state::ResponseState |[ * ]
 |====
 
-===== Namespace rss::map
+=== Dynamic View
 
-Namespace for RSS map datatypes.
-This contains types used within the RSS world model describing knowledge on map data.
+[[Figure:RssSubsystem]]
+.RSS internal processing steps to perform RSS checks and execute the RSS proper response
+image::img/ad9f87fe-9a62-49ae-91f8-4b4a710703e0_url_3589800d-484d-44a6-818b-0cad50d34a2d.tmp[caption="Figure {counter:figure}. "]
 
-===== Namespace rss::object
+The RssSubsystem realizes the RSS part functionality. It implements the RSS checks based on the RssWorldModelData
+received from the SensorSubsystem:
 
-Namespace for RSS object datatypes.
-This contains types used within the RSS world model describing knowledge on object data including ego vehicle and other vehicles.
+1. Keep a safe distance from the car in front
+2. Leave time and space for others in lateral maneuvers
+3. Exhibit caution in occluded areas
+4. Right-of-Way is given, not taken
 
-===== Namespace rss::world
+In case a dangerous situation is detected a respective proper response is calculated and the actuator control commands
+received 
+from the PlanningSubsystem are restricted accordingly to realize planning safety.
 
-Namespace for RSS world datatypes.
-This contains types to describe the RSS world model.
+==== RssSituationExtractionImpl
 
-====== WorldModel (Structure)
+RssSituationExtractionImpl describes the implementation of the RssSituationExtraction entity by defining a statechart.
 
-The world model RSS requires as input.
+[[Figure:RssSituationExtractionImpl]]
+.Statechart Diagram describing the dynamic behavior of the RssSituationExtraction entity.
+image::img/b45c5bef-18a4-4ff5-9d64-fa8ffb077fce_url_42fa4520-1dc6-4bcd-a1ad-dfcc82919be2.tmp[caption="Figure {counter:figure}. "]
 
-<todo: to be defined in detail>
-
-|====
-|tbd |bool |not yet defined
-|====
-
-==== Interfaces
-
-Definition of Interfaces provided within the RssModule implementation.
-The RssModule is implemented as a whole within the namespace rss.
-
-===== Namespace rss::core
-
-Namespace for RSS core interfaces and operations.
-This contains the interfaces including the operations the RssModule provides to the user to perform the RSS functionality.
-
-[[Figure:RssModuleInterfaces]]
-.The interfaces provided by the RssModule.
-image::5ebcdab8-bd22-4b18-816c-5d6f09810e61_url_b87d27fa-3345-4400-bdbc-c2096d8964eb.tmp[caption="Figure {counter:figure}. "]
-
-====== RSSChecker
-
-Namespace providing functions required for the RSS checks.
-
-*checkSituation*
-
-Checks if the current situation is safe. Returns true if the situation could be analyzed, false if an error occurred during evaluation.
+The following table describes the events, triggers, states and their transitions of the statechart in detail.
 
 |====
-|returns |bool |Out |false on failure
-|situation |Situation |In |the situation that should be analyzed
-|response |Response |Out |the response for the current situation
+|Event/Trigger |Argument Type |Argument |Description
+
+|evRssWorldModel |WorldModel |worldModel |Event trigged when RssWorldModel data is received at the input.
+|operationFailed |string |errorString |Triggered if the operation failed.
+|sendOuput |SituationVector |situationVector |Send out resulting situationVector after situations have been extracted.
 |====
 
-====== RSSResponseProvider
-
-Class to handle responses. The class tracks the RSS situation responses over time and especially stores the individual RssState before the blame time. By this, the proper response for the individual situation as well as the overall proper response is calculated.
-
-*provideProperResponse*
-
-Calculate the proper response out of the current individual situation responses.
-
-Return true if the response could be calculated, false otherwise.
-
 |====
-|returns |bool |Out |false on failure
-|currentResponses |ResponseVector |In |All the responses gather for the current individual situations.
-|response |Response |Out |The proper overall response.
+|State |Transition |Target State |Description
+
+|idle | | |Idle state. Waiting for input data.
+|  -> |evRssWorldModel |extractSituations |WorldModel data received.
+|extractSituations | | |All input data received. Extract situations and trigger send situation vector.
+|  -> |sendOutput |idle |All data is processed; send output data.
+|  -> |operationFailed |error |The operation failed.
+|error | | |Final error state.
 |====
 
-==== Artifact Deployment
+==== RssSituationCheckingImpl
 
-Definition of artifacts the RssModule is deployed to.
+RssSituationCheckingImpl describes the implementation of the RssSituationChecking entity by defining a statechart.
 
-[[Figure:RssModuleArtifacts]]
-.Artifacts to be deployed of the RssModule.
-image::14b811f4-b6a1-4861-9ac2-b5dc64d7c56f_url_c7ec2eee-822b-46ce-99b6-0d5edfef0e22.tmp[caption="Figure {counter:figure}. "]
+[[Figure:RssSituationCheckingImpl]]
+.Statechart Diagram describing the dynamic behavior of the RssSituationChecking entity.
+image::img/98b0ec87-1d37-449b-8b3a-a840a97f74ce_url_8295b8e0-3e6e-4f7e-8cf0-d37e51c02996.tmp[caption="Figure {counter:figure}. "]
 
-===== rss_module
+The following table describes the events, triggers, states and their transitions of the statechart in detail.
 
-This library contains the RssModule implementation.
+|====
+|Event/Trigger |Argument Type |Argument |Description
 
-===== rss_support
+|evRssSituationVector |SituationVector |situationVector |Event trigged when RssSituationVector data is received at the
+input.
+|operationFailed |string |errorMessage |Triggered if the operation failed.
+|sendOuput |ResponseStateVector |responseStateVector |Send out resulting responseStateVector after situations have been
+checked.
+|====
 
-This library contains functionality supporting the integration of the RssModule into a system.
+|====
+|State |Transition |Target State |Description
 
-//##### External interfaces used
-//##### Internal interfaces
-//##### Configuration interfaces
-//##### Debug and Diagnostics interfaces
-//### Dynamic View
-//#### Partition to Tasks
-//#### Memory Management
-//#### Usage of Infrastructure
-//#### Resources Constraints
-//#### Error Handling
-//#### Flows
-//#### Initialization and Reset
+|idle | | |Idle state. Waiting for input data.
+|  -> |evRssSituationVector |checkSituations |SituationVector data received.
+|checkSituations | | |All input data received. Check situations and trigger send RSS state vector.
+|  -> |sendOuput |idle |All data is processed; send output data.
+|  -> |operationFailed |error |The operation failed.
+|error | | |Final error state.
+|====
+
+==== RssResponseResolvingImpl
+
+RssResponseResolvingImpl describes the implementation of the RssResponseResolving entity by defining a statechart.
+
+[[Figure:RssResponseResolvingImpl]]
+.Statechart Diagram describing the dynamic behavior of the RssResponseResolving entity.
+image::img/a01e95b4-224d-4080-81bf-d28536987662_url_c70c5a14-1a73-426e-9441-43043e04b65c.tmp[caption="Figure {counter:figure}. "]
+
+The following table describes the events, triggers, states and their transitions of the statechart in detail.
+
+|====
+|Event/Trigger |Argument Type |Argument |Description
+
+|evRssResponseStateVector |ResponseStateVector |responseStateVector |Event trigged when RssResponseStateVector data is
+received at the input.
+|sendOutput |ResponseState |properResponse |Send out resulting properResonse after response states have been resolved.
+|operationFailed |string |errorMessage |Triggered if the operation failed.
+|====
+
+|====
+|State |Transition |Target State |Description
+
+|idle | | |Idle state. Waiting for input data.
+|  -> |evRssResponseStateVector |resolveResponse |ResponseStateVector data received.
+|resolveResponse | | |All input data received. Resolve responses and trigger send proper response.
+|  -> |sendOutput |idle |All data is processed; send output data.
+|  -> |operationFailed |error |The operation failed.
+|error | | |Final error state.
+|====
+
+==== RssResponseTransformationImpl
+
+RssResponseTransformationImpl describes the implementation of the RssResponseTransformation entity by defining a
+statechart.
+
+[[Figure:RssResponseTransformationImpl]]
+.Statechart Diagram describing the dynamic behavior of the RssResponseTransformation entity.
+image::img/6a60aff4-b01b-4410-8711-a3e6537a393f_url_63b0b635-2f19-4005-9c29-f6df544ba220.tmp[caption="Figure {counter:figure}. "]
+
+The following table describes the events, triggers, states and their transitions of the statechart in detail.
+
+|====
+|Event/Trigger |Argument Type |Argument |Description
+
+|evRssResponseState |ResponseState |responseState |Event trigged when RssResponseState data is received at the input.
+|evRssWorldModel |WorldModel |worldModel |Event trigged when RssWorldModel data is received at the input.
+|operationFailed |string |errorMessage |Triggered if the operation failed.
+|sendOutput |AccelerationRestriction |acellerationRestriction |Send out resulting accelerationRestriction after response
+has been transformed.
+|====
+
+|====
+|State |Transition |Target State |Description
+
+|idle | | |Idle state. Waiting for input data.
+|  -> |evRssWorldModel |worldModelDataAvailable |WorldModel data received.
+|  -> |evRssResponseState |responseStateAvailable |ResponseState data received.
+|worldModelDataAvailable | | |World model data received. Still waiting for response states.
+|  -> |evRssResponseState |transformResponse |ResponseState data received.
+|responseStateAvailable | | |Response state data received. Still waiting for world model.
+|  -> |evRssWorldModel |transformResponse |WorldModel data received.
+|transformResponse | | |All input data received. Transform response and trigger send accelerator restrictions.
+|  -> |sendOutput |idle |All data is processed; send output data.
+|  -> |operationFailed |error |The operation failed.
+|error | | |Final error state.
+|====

@@ -25,18 +25,15 @@
 #pragma once
 #include <limits>
 
-#include <vector>
-#include "rss/world/LaneSegmentId.hpp"
-/*!
- * @brief namespace rss
- */
+#include <cstdint>
 namespace rss {
+namespace time {
 /*!
- * @brief namespace world
+ * \brief Type definition  TimeIndex
+ *
+ * Defines a certain point in time.
  */
-namespace world {
+using TimeIndex = uint64_t;
 
-using RssRoadSegment = std::vector<::rss::world::LaneSegmentId>;
-
-} // namespace world
+} // namespace time
 } // namespace rss

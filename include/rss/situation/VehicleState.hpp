@@ -45,8 +45,8 @@ struct VehicleState
   ::rss::time::Duration responseTime{0.0};
   bool hasPriority{false};
   bool isInCorrectLane{false};
-  ::rss::situation::Distance distanceToIntersection{std::numeric_limits<Distance>::max()};
-  ::rss::situation::Distance lengthMax{0.0};
+  ::rss::situation::Distance distanceToEnterIntersection{std::numeric_limits<Distance>::max()};
+  ::rss::situation::Distance distanceToLeaveIntersection{std::numeric_limits<Distance>::max()};
 };
 
 } // namespace situation

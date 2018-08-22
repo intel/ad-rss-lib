@@ -33,9 +33,6 @@ namespace world {
  * The rate of change of an object's position with respect to time. The speed of an
  * object is the magnitude of its velocity.
  * Unit: meter per second
- *
- *
- *
  */
 using Speed = double;
 

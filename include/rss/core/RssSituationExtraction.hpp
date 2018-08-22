@@ -54,14 +54,12 @@ void calcluateRelativeLateralPosition(world::MetricRange const &egoMetricRange,
  *
  * @param [in] egoVehicle - the information on the ego vehicle object
  * @param [in] objectToBeChecked - the information on the object to be checked
- * @param [in] laneSegmentVector - The definition of the lane segments referred by the ego vehicle and the object.
  * @param [out] situation - the situation to be analyzed with RSS
  *
  * @return true if the situation could be created, false if there was an error during the operation.
  */
 bool extractSituation(world::Object const &egoVehicle,
                       world::Object const &objectToBeChecked,
-                      world::LaneSegmentVector const &laneSegmentVector,
                       situation::Situation &situation) noexcept;
 
 /*

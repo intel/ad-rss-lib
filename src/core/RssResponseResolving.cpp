@@ -29,6 +29,7 @@ RssResponseResolving::RssResponseResolving()
 bool RssResponseResolving::provideProperResponse(state::ResponseStateVector const &currentStates,
                                                  state::ResponseState &responseState) noexcept
 {
+  responseState.timeIndex = 0u;
   responseState.lateralStateLeft.response = state::LateralResponse::None;
   responseState.lateralStateLeft.isSafe = true;
   responseState.lateralStateRight.response = state::LateralResponse::None;
@@ -44,6 +45,16 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
   {
     for (auto currentState : currentStates)
     {
+      if (responseState.timeIndex == 0u)
+      {
+        responseState.timeIndex = currentState.timeIndex;
+      }
+      else if (responseState.timeIndex != currentState.timeIndex)
+      {
+        result = false;
+        break;
+      }
+
       // The response belonging to the last state before the blame time
       RssState nonDangerousStateToRemember;
       if (isDangerous(currentState))

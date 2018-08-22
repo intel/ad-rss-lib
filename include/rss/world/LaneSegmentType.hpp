@@ -29,27 +29,23 @@
 #include <string>
 #include <unordered_map>
 namespace rss {
-namespace state {
+namespace world {
 /*!
- * \brief Enum LateralResponse
- *
- * Enumeration defining the possible lateral responses.
- * Be aware: there has to be a strict order of the enumeration values according to
- * the strictness of the response.
+ * \brief Enum LaneSegmentType
  */
-enum class LateralResponse : int32_t
+enum class LaneSegmentType : int32_t
 {
-  None = 0,    /*!< No action required. */
-  BrakeMin = 1 /*!< Vehicle has to decerate at least with brake min laterally */
+  Normal = 0,      /*!< Normal lane segement. Nothing special to consider. */
+  Intersection = 1 /*!< Lane segment is intersecting with another lane segment of the intersecting road. */
 };
 
-} // namespace state
+} // namespace world
 } // namespace rss
 /*!
- * @brief Conversion of ::rss::state::LateralResponse to std::string helper.
+ * @brief Conversion of ::rss::world::LaneSegmentType to std::string helper.
  *
  */
-std::string toString(::rss::state::LateralResponse const e);
+std::string toString(::rss::world::LaneSegmentType const e);
 
 /*!
  * @brief Conversion from std::string to enum type T helper.
@@ -71,4 +67,4 @@ std::string toString(::rss::state::LateralResponse const e);
  */
 template <typename EnumType> EnumType fromString(std::string const &str);
 
-template <>::rss::state::LateralResponse fromString(std::string const &str);
+template <>::rss::world::LaneSegmentType fromString(std::string const &str);
