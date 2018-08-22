@@ -20,6 +20,7 @@
 
 #pragma once
 
+#include <memory>
 #include "rss/situation/SituationVector.hpp"
 #include "rss/state/ResponseStateVector.hpp"
 
@@ -29,38 +30,58 @@
 namespace rss {
 
 /*!
+ * @brief Forward declaration
+ */
+namespace situation {
+class RssIntersectionChecker;
+}
+
+/*!
  * @brief namespace core
  */
 namespace core {
 
 /*!
- * @brief namespace RssSituationChecking
+ * @brief class RssSituationChecking
  *
- * Namespace providing functions required for the RSS checks of the situation.
+ * class providing functions required for the RSS checks of the situation.
  */
-namespace RssSituationChecking {
+class RssSituationChecking
+{
+public:
+  /*!
+   * @brief constructor
+   */
+  explicit RssSituationChecking();
 
-/**
- * @brief Check if the current situation is safe.
- *
- * @param[in] situation      the Situation that should be analyzed
- * @param[out] responseState the response state for the current situation
- *
- * @return true if situation could be analyzed, false if there was an error during evaluation
- */
-bool checkSituation(situation::Situation const &situation, state::ResponseState &responseState) noexcept;
+  /*!
+   * @brief destructor
+   */
+  ~RssSituationChecking();
 
-/**
- * @brief Checks if the current situations are safe.
- *
- * @param [in] situationVector the vector of situations that should be analyzed
- * @param[out] responseVector the vector of response states for the current situations
- *
- * @return true if the situations could be analyzed, false if an error occurred during evaluation.
- */
-bool checkSituations(situation::SituationVector const &situationVector,
-                     state::ResponseStateVector &responseStateVector) noexcept;
+  /*!
+   * @brief Check if the current situation is safe.
+   *
+   * @param[in] situation      the Situation that should be analyzed
+   * @param[out] responseState the response state for the current situation
+   *
+   * @return true if situation could be analyzed, false if there was an error during evaluation
+   */
+  bool checkSituation(situation::Situation const &situation, state::ResponseState &responseState) noexcept;
 
-} // namespace RssSituationChecking
+  /*!
+   * @brief Checks if the current situations are safe.
+   *
+   * @param [in] situationVector the vector of situations that should be analyzed
+   * @param[out] responseVector the vector of response states for the current situations
+   *
+   * @return true if the situations could be analyzed, false if an error occurred during evaluation.
+   */
+  bool checkSituations(situation::SituationVector const &situationVector,
+                       state::ResponseStateVector &responseStateVector) noexcept;
+
+private:
+  std::unique_ptr<rss::situation::RssIntersectionChecker> mIntersectionChecker;
+};
 } // namespace core
 } // namespace rss

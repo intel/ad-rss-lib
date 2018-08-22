@@ -30,8 +30,9 @@ inline Distance calculateDistanceOffsetInAccerlatedMovement(Speed const speed,
   return distanceOffset;
 }
 
-inline Speed
-calculateSpeedInAcceleratedMovement(Speed const speed, Acceleration const acceleration, time::Duration const duration)
+Speed calculateSpeedInAcceleratedMovement(Speed const speed,
+                                          Acceleration const acceleration,
+                                          time::Duration const duration)
 {
   // v(t) =v0 + a * t
   Speed const resultingSpeed = speed + acceleration * duration;
@@ -118,6 +119,89 @@ bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const axis,
   distanceOffset = calculateDistanceOffsetInAccerlatedMovement(currentSpeed, acceleration, resultingResponseTime);
 
   return true;
+}
+
+bool calculateTimeForDistance(Speed const currentSpeed,
+                              Acceleration const acceleration,
+                              Distance distanceToCover,
+                              time::Duration &requiredTime) noexcept
+{
+  if (currentSpeed < 0)
+  {
+    return false;
+  }
+
+  bool result = true;
+
+  // t = -v_0/a +- sqrt(v_0^2/a^2 + 2s/a)
+
+  double secondPart
+    = std::sqrt(((currentSpeed * currentSpeed) / (acceleration * acceleration)) + (2 * distanceToCover / acceleration));
+
+  double firstPart = -1. * currentSpeed / acceleration;
+
+  time::Duration t1 = firstPart + secondPart;
+  time::Duration t2 = firstPart - secondPart;
+
+  if (t2 > 0)
+  {
+    requiredTime = t2;
+  }
+  else
+  {
+    requiredTime = t1;
+  }
+
+  return result;
+}
+
+bool calculateTimeToCoverDistance(Speed const currentSpeed,
+                                  time::Duration const responseTime,
+                                  Acceleration const acceleration,
+                                  Acceleration const deceleration,
+                                  Distance distanceToCover,
+                                  time::Duration &requiredTime) noexcept
+{
+  if (currentSpeed < 0)
+  {
+    return false;
+  }
+
+  bool result = false;
+
+  Distance distanceAfterResponseTime;
+
+  result = calculateDistanceOffsetAfterResponseTime(
+    CoordinateSystemAxis::Longitudinal, currentSpeed, responseTime, acceleration, distanceAfterResponseTime);
+
+  if (result && distanceAfterResponseTime > distanceToCover)
+  {
+    result = calculateTimeForDistance(currentSpeed, acceleration, distanceToCover, requiredTime);
+  }
+  else
+  {
+    Speed resultingSpeed;
+
+    result &= calculateSpeedAfterResponseTime(
+      CoordinateSystemAxis::Longitudinal, currentSpeed, acceleration, responseTime, resultingSpeed);
+
+    Distance stoppingDistance;
+    result = calculateStoppingDistance(resultingSpeed, deceleration, stoppingDistance);
+
+    if (distanceAfterResponseTime + stoppingDistance > distanceToCover)
+    {
+      Distance remainingDistance = distanceToCover - distanceAfterResponseTime;
+
+      result = calculateTimeForDistance(resultingSpeed, deceleration, remainingDistance, requiredTime);
+      requiredTime += responseTime;
+    }
+    else
+    {
+      requiredTime = std::numeric_limits<double>::infinity();
+    }
+  }
+
+  return result;
 }
 
 } // namespace situation

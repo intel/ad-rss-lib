@@ -17,14 +17,29 @@
 
 #include "rss/core/RssSituationChecking.hpp"
 #include <algorithm>
+#include <memory>
 #include "situation/RSSSituation.hpp"
+#include "situation/RssIntersectionChecker.hpp"
 
 namespace rss {
 namespace core {
-namespace RssSituationChecking {
 
-bool checkSituation(situation::Situation const &situation, state::ResponseState &response) noexcept
+RssSituationChecking::RssSituationChecking()
 {
+  mIntersectionChecker = std::make_unique<rss::situation::RssIntersectionChecker>();
+}
+
+RssSituationChecking::~RssSituationChecking()
+{
+}
+
+bool RssSituationChecking::checkSituation(situation::Situation const &situation,
+                                          state::ResponseState &response) noexcept
+{
+  if (!bool(mIntersectionChecker))
+  {
+    return false;
+  }
   bool result = false;
 
   response.timeIndex = situation.timeIndex;
@@ -52,18 +67,23 @@ bool checkSituation(situation::Situation const &situation, state::ResponseState 
     case situation::SituationType::OppositeDirection:
       result = calculateRssStateNonIntersectionOppositeDirection(situation, response);
       break;
+
     case situation::SituationType::IntersectionEgoHasPriority:
     case situation::SituationType::IntersectionObjectHasPriority:
+      result = mIntersectionChecker->calculateRssStateIntersection(situation, response);
+      break;
     case situation::SituationType::IntersectionSamePriority:
-      result = calculateRssStateIntersection(situation, response);
+      // Not supported yet
+      //@todo support situation::SituationType::IntersectionSamePriority
+      result = false;
       break;
   }
 
   return result;
 }
 
-bool checkSituations(situation::SituationVector const &situationVector,
-                     state::ResponseStateVector &responseStateVector) noexcept
+bool RssSituationChecking::checkSituations(situation::SituationVector const &situationVector,
+                                           state::ResponseStateVector &responseStateVector) noexcept
 {
   bool result = true;
   responseStateVector.clear();
@@ -90,6 +110,5 @@ bool checkSituations(situation::SituationVector const &situationVector,
   return result;
 }
 
-} // namespace RssSituationChecking
 } // namespace core
 } // namespace rss

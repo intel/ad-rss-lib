@@ -40,6 +40,7 @@ add_library(${PROJECT_NAME} SHARED
   src/core/RssSituationExtraction.cpp
   src/situation/Math.cpp
   src/situation/RSSFormulas.cpp
+  src/situation/RssIntersectionChecker.cpp
   src/situation/RSSSituation.cpp
   src/situation/Vehicle.cpp
   )

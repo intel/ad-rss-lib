@@ -105,5 +105,28 @@ bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const axis,
                                               time::Duration const responseTime,
                                               Distance &distanceOffset) noexcept;
 
+/**
+ * @brief Calculate the time needed to cover a given distance
+ *
+ * The function will respect acceleration during response time and then braking till zero velocity
+ * If the distance is not covered when then velocity reaches zero, infinite time will be returned
+ *
+ * @param[in] currentSpeed starting velocity
+ * @param[in] responseTime
+ * @param[in] acceleration during response time
+ * @param[in] deceleration after response time
+ * @param[in] distanceToCover distance that should be covered
+ * @param[out] requiredTime time needed to cover the distance
+ *
+ * @return true on, success, false otherwise
+ *
+ */
+bool calculateTimeToCoverDistance(Speed const currentSpeed,
+                                  time::Duration const responseTime,
+                                  Acceleration const acceleration,
+                                  Acceleration const deceleration,
+                                  Distance const distanceToCover,
+                                  time::Duration &requiredTime) noexcept;
+
 } // namespace situation
 } // namespace rss

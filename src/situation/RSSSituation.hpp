@@ -55,16 +55,6 @@ bool calculateRssStateNonIntersectionOppositeDirection(Situation const &situatio
                                                        state::ResponseState &responseState) noexcept;
 
 /**
- * @brief Calculate safety checks and determine required responseState for intersection scenario
- *
- * @param[in]  situation situation to analyze
- * @param[out] responseState  response state of the ego vehicle
- *
- * @returns false if a failure occurred during calculations, true otherwise
- */
-bool calculateRssStateIntersection(Situation const &situation, state::ResponseState &responseState) noexcept;
-
-/**
  * @brief Calculate safety checks and determine required rssState for longitudinal direction for
  * non intersection scenario when both vehicles are driving in same direction
  *

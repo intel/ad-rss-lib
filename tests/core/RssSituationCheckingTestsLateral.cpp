@@ -20,7 +20,6 @@
 
 namespace rss {
 namespace core {
-namespace RssSituationChecking {
 
 class RssSituationCheckingTestsLateral : public testing::Test
 {
@@ -33,6 +32,7 @@ protected:
   virtual void TearDown()
   {
   }
+  RssSituationChecking situationChecking;
   situation::VehicleState leftVehicle;
   situation::VehicleState rightVehicle;
   situation::Situation situation;
@@ -48,7 +48,7 @@ TEST_F(RssSituationCheckingTestsLateral, safe_left)
   situation.otherVehicleState = rightVehicle;
   situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::AtLeft, 95.);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralSafe);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);
 }
@@ -62,7 +62,7 @@ TEST_F(RssSituationCheckingTestsLateral, not_safe_overlap_left)
   situation.otherVehicleState = rightVehicle;
   situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::OverlapLeft);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralBrakeMin);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);
 }
@@ -76,7 +76,7 @@ TEST_F(RssSituationCheckingTestsLateral, not_safe_overlap)
   situation.otherVehicleState = rightVehicle;
   situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::Overlap);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralBrakeMin);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralBrakeMin);
 }
@@ -90,7 +90,7 @@ TEST_F(RssSituationCheckingTestsLateral, not_safe_overlap_right)
   situation.otherVehicleState = rightVehicle;
   situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::OverlapRight);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralSafe);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralBrakeMin);
 }
@@ -104,7 +104,7 @@ TEST_F(RssSituationCheckingTestsLateral, safe_right)
   situation.otherVehicleState = rightVehicle;
   situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::AtRight, 95.);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralSafe);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);
 }
@@ -118,7 +118,7 @@ TEST_F(RssSituationCheckingTestsLateral, both_move_right)
   situation.otherVehicleState = rightVehicle;
   situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::AtLeft, 0.02);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralBrakeMin);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);
 }
@@ -132,7 +132,7 @@ TEST_F(RssSituationCheckingTestsLateral, move_towards_each_other)
   situation.otherVehicleState = rightVehicle;
   situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::AtLeft, 0.02);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralBrakeMin);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);
 }
@@ -149,7 +149,7 @@ TEST_F(RssSituationCheckingTestsLateral, check_input_range)
   {
     situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::AtLeft, i);
 
-    ASSERT_TRUE(checkSituation(situation, responseState));
+    ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
     ASSERT_EQ(responseState.lateralStateRight, cLateralSafe);
     ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);
   }
@@ -157,34 +157,34 @@ TEST_F(RssSituationCheckingTestsLateral, check_input_range)
   // near enough: trigger brake
   situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::AtLeft, 1u);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralBrakeMin);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);
 
   // ego vehicle overlaps on left side
   situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::OverlapLeft);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralBrakeMin);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);
 
   // ego vehicle totally overlaps with other vehicle
   situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::Overlap);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralBrakeMin);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralBrakeMin);
 
   // ego vehicle overlaps on right side
   situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::OverlapRight);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralSafe);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralBrakeMin);
 
   // ego vehicle still too near, but on right side
   situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::AtRight, 1u);
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.lateralStateRight, cLateralSafe);
   ASSERT_EQ(responseState.lateralStateLeft, cLateralBrakeMin);
 
@@ -192,12 +192,11 @@ TEST_F(RssSituationCheckingTestsLateral, check_input_range)
   for (uint32_t i = 2; i < 10; i++)
   {
     situation.relativePosition = createRelativeLateralPosition(situation::LateralRelativePosition::AtRight, i);
-    ASSERT_TRUE(checkSituation(situation, responseState));
+    ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
     ASSERT_EQ(responseState.lateralStateRight, cLateralSafe);
     ASSERT_EQ(responseState.lateralStateLeft, cLateralSafe);
   }
 }
 
-} // namespace RssSituationChecking
 } // namespace core
 } // namespace rss

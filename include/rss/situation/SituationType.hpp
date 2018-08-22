@@ -46,7 +46,8 @@ enum class SituationType : int32_t
   IntersectionEgoHasPriority
   = 3, /*!< Both drive on individual roads which intersect at the end. Ego vehicle has priority over object. */
   IntersectionObjectHasPriority
-  = 4, /*!< Both drive on individual roads which intersect at the end. Object has priority over ego vehicle. */
+  = 4, /*!< Both drive on individual roads which intersect at the end. Object has priority over ego vehicle. @todo
+          shouldn't this be rather other than object?*/
   IntersectionSamePriority
   = 5 /*!< Both drive on individual roads which intersect at the end. Object and ego vehicle have same priority. */
 };

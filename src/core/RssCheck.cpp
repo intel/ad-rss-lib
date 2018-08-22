@@ -26,14 +26,15 @@ namespace rss {
 namespace core {
 
 RssCheck::RssCheck()
-  : mResponseResolving(new RssResponseResolving())
 {
+  mResponseResolving = std::make_unique<RssResponseResolving>();
+  mSituationChecking = std::make_unique<RssSituationChecking>();
 }
 
 bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldModel,
                                                 world::AccelerationRestriction &accelerationRestriction) noexcept
 {
-  if (!bool(mResponseResolving))
+  if (!bool(mResponseResolving) || !bool(mSituationChecking))
   {
     return false;
   }
@@ -44,7 +45,7 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
   state::ResponseStateVector responseStateVector;
   if (result)
   {
-    result = RssSituationChecking::checkSituations(situationVector, responseStateVector);
+    result = mSituationChecking->checkSituations(situationVector, responseStateVector);
   }
 
   state::ResponseState properResponse;

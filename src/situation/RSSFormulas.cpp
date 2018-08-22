@@ -180,6 +180,31 @@ bool checkSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
   return result;
 }
 
+bool checkStopInFrontIntersection(VehicleState const &vehicle, bool &isDistanceSafe) noexcept
+{
+  if (!checkVehicleState(vehicle))
+  {
+    return false;
+  }
+
+  isDistanceSafe = false;
+
+  Distance distanceStatedBraking = 0.;
+  bool result = calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis::Longitudinal,
+                                                                 vehicle.velocity.speedLon,
+                                                                 vehicle.responseTime,
+                                                                 vehicle.dynamics.alphaLon.accelMax,
+                                                                 vehicle.dynamics.alphaLon.brakeMin,
+                                                                 distanceStatedBraking);
+
+  if (distanceStatedBraking < vehicle.distanceToEnterIntersection)
+  {
+    isDistanceSafe = true;
+  }
+
+  return result;
+}
+
 bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
                                   VehicleState const &rightVehicle,
                                   Distance &safeDistance) noexcept

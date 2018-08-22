@@ -35,6 +35,7 @@ namespace rss {
 namespace core {
 
 class RssResponseResolving;
+class RssSituationChecking;
 
 /**
  * @brief RssCheck
@@ -63,7 +64,8 @@ public:
                                         world::AccelerationRestriction &accelerationRestriction) noexcept;
 
 private:
-  std::shared_ptr<RssResponseResolving> mResponseResolving;
+  std::unique_ptr<RssResponseResolving> mResponseResolving;
+  std::unique_ptr<RssSituationChecking> mSituationChecking;
 };
 
 } // namespace core

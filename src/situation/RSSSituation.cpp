@@ -45,13 +45,6 @@ bool calculateRssStateNonIntersectionOppositeDirection(Situation const &situatio
   return result;
 }
 
-bool calculateRssStateIntersection(Situation const &situation, state::ResponseState &responseState) noexcept
-{
-  (void)situation;
-  (void)responseState;
-  return false;
-}
-
 bool calculateLongitudinalRssStateNonIntersectionSameDirection(Situation const &situation,
                                                                state::LongitudinalRssState &rssState) noexcept
 {

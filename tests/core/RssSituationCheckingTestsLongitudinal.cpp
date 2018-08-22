@@ -20,7 +20,6 @@
 
 namespace rss {
 namespace core {
-namespace RssSituationChecking {
 
 class RssSituationCheckingTestsLongitudinal : public testing::Test
 {
@@ -33,6 +32,7 @@ protected:
   virtual void TearDown()
   {
   }
+  RssSituationChecking situationChecking;
   situation::VehicleState leadingVehicle;
   situation::VehicleState followingVehicle;
   situation::Situation situation;
@@ -49,7 +49,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_ego_safe_di
   situation.relativePosition
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 95.);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 }
 
@@ -64,7 +64,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 60.);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 }
 
@@ -79,7 +79,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 39.);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
 }
 
@@ -95,13 +95,13 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.relativePosition
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 71.8);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 
   situation.relativePosition
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 71.6);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
 }
 
@@ -117,12 +117,12 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_0kmh_
   situation.relativePosition
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 6.01);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 
   situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 6.);
 
-  ASSERT_TRUE(checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
 }
 
@@ -136,9 +136,8 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_both_negative_veloc
   situation.relativePosition
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 71.6);
 
-  ASSERT_FALSE(checkSituation(situation, responseState));
+  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
 }
 
-} // namespace RssSituationChecking
 } // namespace core
 } // namespace rss

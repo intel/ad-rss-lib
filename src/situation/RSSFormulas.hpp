@@ -161,6 +161,25 @@ bool checkSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
                                                     bool &isDistanceSafe) noexcept;
 
 /**
+ * @brief Check if the vehicle can safely break longitudinaly in front of the intersection.
+ *        Assuming: Using \a "stated breaking pattern" for breaking
+ *
+ *        ======================================================
+ *
+ *             vehicle --->             |  Intersection
+ *                                      |
+ *        ==============================              ===============
+ *                                      |            |
+ *                                      |            |
+ *
+ * @param[in]  vehicle      is the state of the vehicle
+ * @param[out] isDistanceSafe      true if the distance is safe, false otherwise
+ *
+ * @return true on successful calculation, false otherwise
+ */
+bool checkStopInFrontIntersection(VehicleState const &vehicle, bool &isDistanceSafe) noexcept;
+
+/**
  * @brief Calculate the \a "safe lateral distance" between the two vehicles,
  *        Assuming: Both vehicles apply \a "stated breaking pattern"
  *
