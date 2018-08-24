@@ -1,6 +1,6 @@
-# Build RSS core library and documentation
+## Build RSS core library and documentation
 
-## Build instructions
+### Build instructions
 The RSS library is built with a standard cmake toolchain. Therefore, run the
 following commands, to build the library and documentation:
 
@@ -13,7 +13,7 @@ make
 make apidoc # optional, if API documentation is desired
 ----
 
-## Generate PDF document
+### Generate PDF document
 To generate a PDF for this document, it is recommended to use asciidoctor-pdf
 (https://asciidoctor.org[Asciidoctor]).
 Therefore, the following commands have to be executed:
@@ -26,7 +26,7 @@ sudo -E gem install coderay
 asciidoctor-pdf ./doc/Main.adoc -n
 ----
 
-## Generate HTML document
+### Generate HTML document
 To generate a HTML for this document, the following commands have to be executed:
 
 [source, Bash]

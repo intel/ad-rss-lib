@@ -1,4 +1,5 @@
-== Architecture Overview
+[[Section::HDL::SystemArchitecture]]
+== RSS System Architecture Overview
 
 [[Figure:ADS]]
 .A generic system architecture for an ADS.
@@ -142,7 +143,7 @@ received from the SensorSubsystem:
 4. Right-of-Way is given, not taken
 
 In case a dangerous situation is detected a respective proper response is calculated and the actuator control commands
-received 
+received
 from the PlanningSubsystem are restricted accordingly to realize planning safety.
 
 ===== Input Ports

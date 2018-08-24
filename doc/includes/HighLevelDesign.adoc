@@ -8,6 +8,7 @@ include::HLD-ArchitectureOverview.adoc[]
 include::HLD-SwArchitecture.adoc[]
 
 ## Design for Security
-*TODO* Don't know if in the RSS library case we have anything special here.
+To be discussed
+//*TODO* Don't know if in the RSS library case we have anything special here.
 
 include::HLD-Safety.adoc[]

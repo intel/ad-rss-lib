@@ -1,4 +1,5 @@
-== Software Architecture
+[[Section::HDL::SoftwareArchitecture]]
+== RSSModule: Software Architecture
 
 === Static View
 
@@ -211,19 +212,19 @@ This contains types that are used to describe the local world model RSS is actin
 object states as well as the parts of the road network relevant to judge the situations between ego vehicle and the
 objects.
 
-[[Figure:Namespace_rss__world]]
+[[Figure:Namespace_rss__world_base_types]]
 .The base types used within the local RSS world model.
 image::img/045b45cb-8843-4472-b3a9-fe415c8a8895_url_d33d585d-15bb-485f-ab67-dede939da488.tmp[caption="Figure {counter:figure}. "]
 
-[[Figure:Namespace_rss__world]]
-.The types describing the road and lane geomtries used within the local RSS world model.
+[[Figure:Namespace_rss__world_geometries]]
+.The types describing the road and lane geometries used within the local RSS world model.
 image::img/5b0cb975-e58c-4a49-9e6b-acef2ee39b42_url_a3422667-dcd4-4376-9809-5b419bdf4bb4.tmp[caption="Figure {counter:figure}. "]
 
-[[Figure:Namespace_rss__world]]
+[[Figure:Namespace_rss__world_objects]]
 .The types describing the objects used within the local RSS world model.
 image::img/e7afc4f7-5505-4e66-8726-82e43751ba1e_url_475cc4b8-2b38-41eb-9d44-1e492e0e3278.tmp[caption="Figure {counter:figure}. "]
 
-[[Figure:Namespace_rss__world]]
+[[Figure:Namespace_rss__world_high_level_world_model]]
 .The types describing the high level world model and object used within the local RSS world model.
 image::img/43231e0d-be1d-434e-b309-9e779a6ae193_url_c9b103a2-8996-43d9-85c9-d38ca815bcc7.tmp[caption="Figure {counter:figure}. "]
 
@@ -505,11 +506,11 @@ Namespace for RSS situation datatypes.
 This contains types that are used within the calculation of the RSS formulas which are performed within the situation
 coordinate system.
 
-[[Figure:Namespace_rss__situation]]
+[[Figure:Namespace_rss__situation_coordinate_system]]
 .The base types used within the situation coordinate system.
 image::img/3ae11637-ee5d-4079-b70c-b7ff5c79bf1b_url_b80d6c7b-6e18-4d85-bd8d-072203340204.tmp[caption="Figure {counter:figure}. "]
 
-[[Figure:Namespace_rss__situation]]
+[[Figure:Namespace_rss__situation_vehicle_state]]
 .The types describing the vehicle state used within the situation coordinate system.
 image::img/73b36a04-6bd2-484f-8dd7-5e7bfe915dfa_url_e5ca4262-0ff0-4367-a0ac-8daa6276a8a8.tmp[caption="Figure {counter:figure}. "]
 
@@ -746,7 +747,7 @@ Namespace for RSS state datatypes.
 
 This contains types used in conjunction with the RSS state and responses.
 
-[[Figure:Namespace_rss__state]]
+[[Figure:Namespace_rss__state_response]]
 .The types describing the RSS response and the RSS state.
 image::img/1bb44303-2c12-4c2f-82f0-92c95b593110_url_92e851f9-24b7-4742-ba2a-0468ecfb662e.tmp[caption="Figure {counter:figure}. "]
 
@@ -818,7 +819,7 @@ A vector of response states.
 
 === Dynamic View
 
-[[Figure:RssSubsystem]]
+[[Figure:RssSubsystemChecker]]
 .RSS internal processing steps to perform RSS checks and execute the RSS proper response
 image::img/ad9f87fe-9a62-49ae-91f8-4b4a710703e0_url_3589800d-484d-44a6-818b-0cad50d34a2d.tmp[caption="Figure {counter:figure}. "]
 
@@ -831,7 +832,7 @@ received from the SensorSubsystem:
 4. Right-of-Way is given, not taken
 
 In case a dangerous situation is detected a respective proper response is calculated and the actuator control commands
-received 
+received
 from the PlanningSubsystem are restricted accordingly to realize planning safety.
 
 ==== RssSituationExtractionImpl

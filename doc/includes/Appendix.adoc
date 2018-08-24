@@ -1,0 +1,32 @@
+# Appendix
+// intended empty
+
+include::Appendix-ParameterDiscussion.adoc[]
+
+## Terminology
+[[Table::Terminology]]
+.Terminology
+[width="100%",frame="topbot",options="header"]
+|======================
+| Term       | Description
+| AD         | Automated Driving
+| ADS        | Automated Driving System
+| HLD        | High Level Design
+| Long       | Longitudinal
+| Lat        | Lateral
+| RSS        | Responsibility-Sensitive Safety
+| RSS Module | This is the entity performing all RSS operations
+|======================
+
+<<<
+## References
+[[Table::References]]
+.References
+[width="100%",frame="topbot",options="header"]
+|======================
+| Ref | Document Name | Version | Location
+| 1   | On a Formal Model of Safe and Scalable Self-driving Cars | v5  | https://arxiv.org/abs/1708.06374
+| 2   | Implementing the RSS Model on NHTSA Pre-Crash Scenarios | July 2018  | https://www.mobileye.com/responsibility-sensitive-safety/rss_on_nhtsa.pdf
+|======================
+
+include::BuildInstructions.adoc[]

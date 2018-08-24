@@ -1,102 +1,92 @@
-## Key Design Decisions and Alternatives
+[[Section::HDL::Implementation]]
+## RSS Module Realization
 // intended empty
 
 ### RSS checks and response
-The RSS module is the entity performing all RSS checks and operations.
-It will perform checks on the current state of the environment,
-in order to determine if the ego vehicle is currently in a safe state.
-If the ego vehicle is not in a safe state, the RSS module will provide a response
-action that will bring the car back into a safe state.
-
-The state is regarded as safe, if the ego vehicle is not causing a collision with
-another object, under the worst case assumption that the ego vehicle will
-accelerate at maximum possible speed during its response time.
-Hence for this check the RSS module does not take the current desired behavior
-as given by the driving policy into account.
-However as the RSS modules makes a worst case assumption, it is guaranteed that
-if the RSS module regards the situation as safe, no valid action of
-the driving policy can bring the vehicle into an unsafe state.
-
-If the vehicle is in a dangerous situation, RSS will assure a proper reaction
-that will bring the car back into a safe state.
-Therefore, it will check whether the driving policy responds correctly to the
-situation.
-If yes the command given by the driving policy will be executed. But if the
-driving policy command is conflicting with the response that RSS expects,
-RSS will prevent the command from being executed and will provide a proper
-command instead.
-
-This will assure that the vehicle reacts correctly. But the driving policy still
-has the chance to solve the dangerous situation
-on a more elaborate way than RSS would be able to, as RSS only has basic
-information about the environment.
-
 To check whether the ego vehicle is in a safe state, all the objects in the
 surrounding must be respected. To do so the RSS module will perform an analysis
 against all the objects in the environment individually. Meaning, for each
 object in the environment the RSS module will check whether the ego vehicle
-conflicts with this object.
+conflicts with this object. Therefore, longitudinal and lateral checks are
+performed. As mentioned earlier, these checks are performed separately for each
+object - ego vehicle pair, i.e. for each situation.
 
+#### Lateral conflicts
+The lateral checks and the proper response follow the definitions 8 and 9 of
+paper 1 (see <<Table::References>>).
 
-### Lateral evasive maneuvers
+[IMPORTANT]
+====
+The initial design does not yet cover the case of a cut-in (Definition 9.3.(2))
+====
+
+##### Lateral evasive maneuvers
 If the car finds itself in a dangerous situation one possible action is always
-to brake. According to the RSS papers, this should always result
-in a safe state, but might lead in worst case to a complete stop of the vehicle.
-The RSS paper proposes that the car may perform also lateral maneuvers as a
-response to certain dangerous situations. To do so, it must be assured that
-this lateral movement brings the vehicle into a safe state and does not conflict
-with another vehicle.
-In order to determine whether a lateral movement solves the conflict a
-prediction of the state would be necessary.
-However, such a prediction for all objects comes with a high uncertainty,
-and therefore, would not be reliable.
-In addition to that RSS just has only visibility of the objects in
-the environment. It cannot determine that a lateral movement initiated by RSS
-will cause an accident with static obstacles.
+to brake. According to the RSS papers, this should always result in a safe
+state, but might lead in worst case to a complete stop of the vehicle. To
+improve the response, the RSS paper proposes that the car may perform also
+lateral maneuvers as a response to certain dangerous situations. To do so, it
+must be assured that this lateral movement brings the vehicle into a safe state
+and does not conflict with another vehicle. In order to determine whether a
+lateral movement solves the conflict a prediction of the state would be
+necessary. However, such a prediction for all objects comes with a high
+uncertainty, and therefore, would not be reliable. In addition to that, RSS
+just has only visibility of the dynamic and static objects in the environment.
+Hence, it cannot determine that a lateral movement initiated by RSS will cause
+an accident with an obstacle, or forces the vehicle to leave the road (as road
+boundary checks are currently not part of RSS).
 
-Therefore, it is impossible for the RSS module to detect whether a lateral
-evasion is really feasible.
-In order to guarantee that the dangerous situation is solved, RSS will restrict
-the movement in the dangerous direction. Though, to allow the driving policy to
-find a better escape for the current situation, the RSS response will not be
-send directly to the actuators.
-It will just make sure the command of the driving policy is not conflicting
-with the response given by RSS.
-With this approach e.g. in a scenario where another vehicle cuts into
-the lane of the ego vehicle, RSS will propose a lateral deceleration towards
-the intersecting car. Hence, it will neglect steering towards direction
-of the other vehicle. But the driving policy can still steer to the
-opposite direction e.g. on an adjacent lane to avoid a collision.
+Therefore, it is impossible for the RSS module in its current form to detect
+whether a lateral evasion is really feasible. Hence, _the RSS module will not
+initiate a lateral evasive maneuver_. Instead, as formulated in the RSS papers,
+it will only restrict the movement in the dangerous direction.
+
+Please note that this restriction does not hinder the driving policy to find a
+better escape for the current situation. If this is the case, for example by
+braking harder, or changing lanes quicker, RSS will not forbid this maneuver,
+as long as it does not create another conflict, and is compliant with the
+restrictions given by RSS.
+
+#### Longitudinal conflicts
+The behavior for longitudinal conflicts (checks and response) for vehicles
+driving in the same direction are implemented as described in the definitions 1
+and 4 of paper 1 (see <<Table::References>>). For the case of vehicles driving
+in opposite directions, the implementation follows the definitions 2 and 4 of
+the paper, but uses an extension, as explained next.
 
 [[Section:ResponseForVehiclesDrivingInOppositeDirections]]
-### Response for vehicles driving in opposite directions
-
+##### Response for vehicles driving in opposite directions
 If two vehicles are approaching each other in opposite direction and the lateral
 distance between them is not safe, the RSS paper defines that the car that is on
 its own lane can brake with lower force than the car on the opposite direction.
 This definition leads to a correct behavior, if it is obvious that one car is on
-its own lane and the other car is driving on the lane belonging to the other car.
+its own lane and the other car is driving on the lane belonging to the other
+car.
 
-However, there are situations where this cannot be determined.
-One situation e.g. is that there is a bidirectional single lane road.
-For sure on such a road each car should drive on the right side, but it cannot
- be easily detected which car is no longer on its side of the road.
-
-Another situation is that there is a two lane road with one lane for each
-direction. If each car drives on its own lane but is very close to the left
-border, it could lead to a lateral conflict, as the safe lateral distance
+However, there are situations where this cannot be determined. One situation
+e.g. is that there is a bidirectional single lane road. For sure on such a road
+each car should drive on the right side, but it cannot be easily detected which
+car is no longer on its side of the road. Another situation is depicted in
+<<Figure::2CarsCorrectLane>>, where there is a two lane road with one lane for
+each direction. If each car drives on its own lane but is very close to the
+left border, it could lead to a lateral conflict, as the safe lateral distance
 requires a safety margin. In this situation both cars are on the correct lane,
-but still there is a lateral conflict. In a real world scenario things can get
-even worse.
-As sensing will never be 100% accurate, small errors in the perception
-system can lead to an interpretation that one or even both cars
-believe that they are themselves on the correct lane and the other car is
-on the wrong lane. Therefore, each car will brake with low force and expects
-the other car to brake more strongly. Consequently, this dangerous situation
+but still there is a lateral conflict.
+
+[[Figure::2CarsCorrectLane]]
+.Two cars are driving towards each other, both on the correct lane
+image::two_cars_opposite_direction.png[caption="Figure {counter:figure}. "]
+
+As a consequence, in all these cases, both cars will brake with low force and
+expect the other car to brake stronger. Consequently, this dangerous situation
 will never be solved and the cars will crash.
 
-To avoid such a catastrophic situation, the RSS module
-will extend the rule given by the paper to the following.
+[NOTE]
+====
+To avoid such a catastrophic situation, and to avoid that the ego vehicle is
+blamed, the RSS module will extend the rule given in definition 4.2 of the
+paper to the following.
+====
 
 Given a situation that two cars approach each other with
 a lateral conflict, the following rules apply:
@@ -104,122 +94,162 @@ a lateral conflict, the following rules apply:
 1. Both cars must brake according to the "stated braking pattern",
    if the longitudinal distance is not safe given that both cars
    accelerate at maximum during their response time and brake with
-   _{alpha}~min,brake~_ (as defined in the paper).
+   _{alpha}~min,brake~_.
 
 2. If case 1 does not apply, and the longitudinal distance is not safe
-   according to the definition in "Safe Longitudinal Distance for Opposite Directions",
-   the vehicle on the correct lane has to brake with _{alpha}~min,brake,correct~_,
+   according to the definition in "Safe Longitudinal Distance for Opposite
+   Directions",
+   the vehicle on the correct lane has to brake with
+   _{alpha}~min,brake,correct~_,
    and the vehicle on the wrong lane has to conduct the "stated braking pattern"
    (This is the situation described in the RSS paper).
 
-As a result of these rules, two cars that approach each other, which are both on the
-correct lane (e.g. a bidirectional single lane road), will brake with _{alpha}~min,brake~_.
-If this is not desired, a special handling for this situation has to be introduced.
+As a result of these rules, two cars that approach each other, which are both
+on the correct lane (e.g. a bidirectional single lane road), will brake with
+_{alpha}~min,brake~_. If this is not desired, a special handling for this
+situation has to be introduced.
 
-### Response Time
-According to the papers each traffic participant has a response time.
-Within this response time the participants (including the ego vehicle) are allowed
-to accelerate, and thus increase their velocity.
+#### Handling of Intersections
+The behavior for intersection conflicts (checks and response) for vehicles is
+implemented as described in the definitions 14 of paper 1 (see
+<<Table::References>>).
 
-In addition, the distance covered during the response time is part of the safe
-distance, as defined by RSS. Hence, upon entering a dangerous situation,
-it would be possible to accelerate for at most t < response time, as this
-acceleration is already considered.
+In detail, the current realization looks as follows:
 
-Nevertheless, the RSS module will immediately issue a response action (longitudinal
-or lateral braking maneuver). To ensure that the dangerous situation is evaded
-as fast as possible.
+1. It is checked, if the non-prioritized vehicle _was_ able to stop in front of
+   the intersection. If this is the case, the non-proritized vehicle is
+   supposed to brake, whereas the prioritized vehicle can continue driving as
+   before.
+2. If 1. does not hold, it is checked, if there is a safe longitudinal distance
+   between the two vehicles according to Definition 13.2 of paper 1. In this
+   case, the leading vehicle can continue driving, whereas the following
+   vehicle has to respect the "stated braking pattern".
+3. If 1. and 2. do not hold, there is a time period in which both vehicles may
+   be crossing the intersection. In this case Definition 14.3 of paper 1
+   applies, i.e. both cars have to brake laterally and longitudinally with at
+   least _{alpha}~min,brake~_.
 
+[NOTE]
+====
+Case 1. is the direct realization of Definition 13.1, where it is mentioned that
+the vehicle _was_ able to stop safely. However, as a consequence, the
+prioritized vehicle is not forced to brake, if the non-prioritized vehicle does
+not respect RSS. Therefore, it might be advisable to modify this check.
+====
+
+[IMPORTANT]
+====
+In the current realization of the RSS module, it is assumed that there is always
+a lateral conflict in case of intersections. This point will be addressed in
+future.
+====
+
+#### Response Time and Other Parameters
+According to the papers each traffic participant has a response time, and is
+objected to respect certain acceleration limits (e.g. maximum acceleration
+_{alpha}~accel,max~_, maximum deceleration _{alpha}~brake,max~_, etc.). Within
+this response time the participants (including the ego vehicle) are allowed to
+accelerate with at most _{alpha}~accel,max~_, and thus increase their velocity.
+The distance covered during the response time is part of the safe distance, as
+defined by RSS. Hence, upon entering a dangerous situation, it would be
+possible to accelerate with up to _{alpha}~accel,max~_ for at most t < response
+time, as this acceleration is already considered.
+
+[NOTE]
+====
+It is important to note that the implementation of the RSS module in the
+library only uses parameters, but not the exact value. By this means, the
+library is independent to changes of the parameter values. Instead, the user
+defines a feasible parameter set, which is provided as input to the RSS module.
+====
+
+A discussion on the parameter selection can be found in
+<<Section::ParameterDiscussion>>.
 
 [[Section::LaneBasedCS]]
-### Lane-Based Coordinate System
-As described in the paper, RSS assumes that the road is comprised by adjacent,
-straight lanes, of constant width. Therefore, it is required to transform the object
-states from Cartesian into Lane space.
+### Situation-Based Coordinate System
+As described in paper 1 (see <<Table::References>>), all RSS calculations are
+based on a lane-centric coordinate system. This system uses adjacent, straight
+lanes of constant width, and thus requires a transformation of the object
+states from Cartesian into the lane space. This transformation into a
+lane-based coordinate system is described by a bijective function, as pointed
+out by paper 1. Therein, the lateral position of a vehicle within the lane is
+mapped to a parametric interval [_-0.5; 0.5_], where the lane boundaries are
+fixed at the borders of the interval. The advantage of such a coordinate system
+over the Cartesian system is that it allows the direct calculation of
+longitudinal and lateral distances of objects.
 
-The transformation into a lane-based coordinate system is described by a
-bijective function. Therein, the lateral position of a vehicle within the lane is mapped to a
-parametric interval [_-0.5; 0.5_], where the lane boundaries are fixed at the borders of the interval.
+However, when transforming the Cartesian space into a lane-based coordinate
+system, several challenges have to be taken into consideration.
 
 [[Section:comparing_velocities]]
-#### Comparing velocities and accelerations between lane-based coordinate systems
-As a consequence, besides the position also the velocities and accelerations have to be
-transformed into the lane-based coordinate system.
-As a matter of fact, the resulting values depend on the actual lane geometry,
-and thus, velocities and accelerations of different lane-based coordinate systems
-cannot be compared to each other anymore.
+#### Comparing movements in lane-based coordinate systems
+During the transformation process to a lane-based coordinate system, not only
+the position but also the the velocities and accelerations have to be
+transformed. As a matter of fact, the resulting values depend on the actual
+lane geometry, and thus, velocities and accelerations of different lane-based
+coordinate systems cannot be compared to each other anymore. To illustrate this
+problems, let us consider the following examples:
 
-##### Two parallel lanes, different width
+##### Discontinuity Problem: Two parallel lanes, different width
 [[Figure:LanesWithDifferentWidth]]
 .Two parallel lanes with different width causing a discontinuity in lateral acceleration
 image::lanes_with_different_width.svg[caption="Figure {counter:figure}. "]
 
-Let us illustrate this on a simple example with two parallel lanes of different width.
-Let the left lane A have a constant width of _4 m_ where the right lane B
-only has a constant width of _2 m_.
-If both lanes define their own lane-based coordinate system _LCS~A~_ and _LCS~B~_,
-a Cartesian lateral acceleration value of _1 m/s^2^_ becomes _0.25 lat/s^2^_
-in _LCS~A~_ and _0.5 lat/s^2^_ in _LCS~B~_. Therefore, the formula for constant accelerated
-movement has to use different acceleration constants in different lanes.
-This situation is getting even worse, if a car is changing the lane from lane A to lane B:
-then the closed formula for constant accelerated movement to calculate the lateral
+Let us illustrate this on a simple example with two parallel lanes of different
+width. Let the left lane A have a constant width of _4 m_ where the right lane
+B only has a constant width of _2 m_. If both lanes define their own lane-based
+coordinate system _LCS~A~_ and _LCS~B~_, a Cartesian lateral acceleration value
+of _1 m/s^2^_ becomes _0.25 lat/s^2^_ in _LCS~A~_ and _0.5 lat/s^2^_ in
+_LCS~B~_. Therefore, the formula for constant accelerated movement has to use
+different acceleration constants in different lanes. This situation is getting
+even worse, if a car is changing the lane from lane A to lane B: then the
+closed formula for constant accelerated movement to calculate the lateral
 distance over time cannot be applied anymore directly.
 
-##### Lane is widening/narrowing
+##### Changing Acceleration Problem: Lane is widening/narrowing
 [[Figure:LaneWidthNarrowing]]
 .Changing lane width and its impact on the lateral acceleration
 image::lane_width_narrowing.svg[caption="Figure {counter:figure}. "]
 
-Let us consider a lane with changing width in another example.
-If the lane's width at the beginning is _4 m_ and _100 m_ away the lane is narrowing
-to _2 m_. In such a case the Cartesian lateral acceleration value of _1 m/s^2^_ is
-changing from _0.25 lat/s^2^_ at the beginning towards _0.5 lat/s^2^_ while advancing
-within the lane.
+Let us consider a lane with changing width in another example. If the lane's
+width at the beginning is _4 m_ and _100 m_ away the lane is narrowing to _2 m_.
+In such a case the Cartesian lateral acceleration value of _1 m/s^2^_ is
+changing from _0.25 lat/s^2^_ at the beginning towards _0.5 lat/s^2^_ while
+advancing within the lane.
 
-##### Lane with a narrow curve
+##### Changing Distances Problem: Lane with a narrow curve
 [[Figure:LaneConstantCurve]]
 .Lane describing a narrow 180° curve and its impact on driven distances
 image::lane_constant_curve.svg[caption="Figure {counter:figure}. "]
 
 This section illustrates a longitudinal situation similar to the lane widening
-example. Let us assume the lane has a constant width of _4 m_ describing a curve with
-inner radius of _50 m_ covering _180°_. The inner border of the lane has a length
-of about _157.1 m_, the center line _163.4 m_ the outer border _169.7 m_.
-In that situation a longitudinal acceleration value will evaluate
+example. Let us assume the lane has a constant width of _4 m_ describing a
+curve with inner radius of _50 m_ covering _180°_. The inner border of the lane
+has a length of about _157.1 m_, the center line _163.4 m_ the outer border
+_169.7 m_. In that situation a longitudinal acceleration value will evaluate
 to _1.0 lon/s^2^_ for the center line, _0.96 lon/s^2^_ for the outer border and
 _1.04 lon/s^2^_ for the inner border. Therefore, the longitudinal acceleration
 changes over time, if the vehicle changes its lateral position within the lane.
 
 ##### Summary
 As sketched in the previous sections both the longitudinal as well as the
-lateral acceleration values within the lane-based coordinate system cannot be
-considered as constant anymore.
-
-#### Design alternative: Iterative Approach [optional]
-[[Figure:LanesWithDifferentWidthIterative]]
-.Illustration of an iterative approach to calculate non-constant acceleration, velocity etc.
-image::lanes_with_different_width_iterative.svg[caption="Figure {counter:figure}. "]
-
-One possible way to handle these non-constant acceleration values
-would be an iterative approach: based on the
-position, the velocity and the acceleration values at the given position at time
-_t~0~_, the position at time _t~1~_ is calculated. The smaller the time
-interval between the iteration steps is chosen, the smaller the calculation error
-gets (see <<Figure:LanesWithDifferentWidthIterative>>).
-
-One drawback of the iterative approach is that the RSS implementation has to get
-to know the lane geometries in detail to be able to calculate the acceleration
-values to be used for every position within the lane-based coordinate systems.
-Therefore, this design approach is not selected by this RSS module implementation.
+lateral acceleration values, as well as velocities within the lane-based
+coordinate system cannot be considered as constant anymore. Moreover, these
+values do not only change within one coordinate system, but also when changing
+from one lane-based system to another one. To overcome this issue, we use a
+_"Situation-Based Coordinate System"_, that is described in detail in the next
+section. This system is unique for each situation (ego vehicle - object pair)
+and comprises _all_ lanes required to describe the this situation.
 
 [[Section::ChosenLaneBasedCS]]
-#### Design alternative: Individual lane-based coordinate system with properly scaled acceleration values
-Since RSS performs a worst case assessment the idea followed by this RSS module implementation
-is to scale the min/max acceleration values for calculation of the safe distances
-in order to adapt to the observed situation individually.
-Like this, it is assured that the calculations are sound,
-nevertheless this might lead to a more cautious behavior of the vehicle.
-The following subsections describe the selected approach in more detail.
+#### Chosen Design: Individual lane-based coordinate system with properly scaled acceleration values
+As RSS performs a worst case assessment, the idea followed by the RSS module
+implementation is to scale the min/max acceleration values for calculation of
+the safe distances in order to adapt to the observed situation individually.
+Like this, it is assured that the calculations are sound, nevertheless this
+might lead to a more cautious behavior of the vehicle. The following
+subsections describe the selected approach in more detail.
 
 ##### Two parallel lanes, different width
 As described in <<Section:comparing_velocities>>, the border between neighboring lanes
@@ -230,54 +260,55 @@ As the RSS module judges the relative situation between the ego vehicle
 and the other objects one by one individually, it is not required to distinguish
 between the actual lanes within the individual distance calculations.
 Combining all lanes relevant for the individual situation _s~i~_
-between ego vehicle and object _o~i~_ into one single lane-based coordinate system
-_LCS~i~_ resolves all discontinuities, as depicted in <<Figure:LanesWithDifferentWidthSameCS>>
+between ego vehicle and object _o~i~_ into one single situation-based
+coordinate system _SCS~i~_ resolves all discontinuities, as depicted in <<Figure:LanesWithDifferentWidthSameCS>>
 
 [[Figure:LanesWithDifferentWidthSameCS]]
-.Avoid discontinuities by using one single lane-based coordinate system
+.Avoid discontinuities by using one single situation-based coordinate system
 image::lanes_with_different_width_same_cs.svg[caption="Figure {counter:figure}. "]
 
-Coming back to the concrete example from <<Figure:LanesWithDifferentWidth>>, left lane A having a constant
-width of _4 m_ and right lane B having a constant width of _2 m_, both lanes
-together have a resulting width of _6 m_. A Cartesian lateral acceleration value of
-_{alpha} = 1 m/s^2^_ becomes an acceleration value of
-_{alpha}~i~ = 1/6 lat/s^2^ = 0.167 lat/s^2^_ within the individual situation specific
-lane-based coordinate system _LCS~i~_ (see also illustration in <<Figure:LanesWithDifferentWidthSameCS>>).
+Coming back to the concrete example from <<Figure:LanesWithDifferentWidth>>,
+left lane A having a constant width of _4 m_ and right lane B having a constant
+width of _2 m_, both lanes together have a resulting width of _6 m_. A
+Cartesian lateral acceleration value of _{alpha} = 1 m/s^2^_ becomes an
+acceleration value of _{alpha}~i~ = 1/6 lat/s^2^ = 0.167 lat/s^2^_ within the
+individual situation specific oordinate system _SCS~i~_ (see also
+illustration in <<Figure:LanesWithDifferentWidthSameCS>>).
 
-The check of the ego vehicle with another object _o~j~_ which might be
-two lanes at the right of the ego vehicle in a lane C having a constant width
-of _3 m_, has to take all three lanes into account with resulting width of _9 m_.
-Therefore, a different lane-based coordinate system _LCS~j~_ is required using
-a different acceleration value of _{alpha}~j~ = 1/9 lat/s^2^ = 0.111 lat/s^2^_.
+The check the ego vehicle with another object _o~j~_ which is two lanes at the
+right of the ego vehicle in a lane C having a constant width of _3 m_, has to
+take all three lanes into account with resulting width of _9 m_. Therefore, a
+different situation-based coordinate system _SCS~j~_ is required using a
+different acceleration value of _{alpha}~j~ = 1/9 lat/s^2^ = 0.111 lat/s^2^_.
 
 ##### Lane is widening or has a narrow curve
-The individual situation specific lane-based coordinate system _LCS_ does
-not yet cover the situations of widening lanes or narrow curves.
-To take the variation of the lane width and length into account, it is required
-to scale the applied acceleration values within the respective _LCS_ accordingly.
+The individual situation specific coordinate system _SCS_ does not yet cover
+the situations of widening lanes or narrow curves. To take the variation of the
+lane width and length into account, it is required to scale the applied
+acceleration values within the respective _SCS_ accordingly.
 
-Again, coming back to the examples from above, let us have a lane with non constant width
-between _2 m_ and _4 m_. Then the transformation of the maximum possible acceleration
-into the lane coordinate system _LCS_ has to take the minimum width of _2 m_
-into account, while the transformation of the deceleration values has to be
-transformed with the maximum width of the lane of _4 m_ (see <<Figure:LaneWidthNarrowingAccelTransform>>).
-Like this it is guaranteed that we neither underestimate the acceleration
-of the vehicles towards each other nor overestimate the deceleration of the
-vehicles while braking. As a result, it is ensured that under all conditions,
-the safety distances are calculated in a conservative manner.
+Again, coming back to the examples from above, let us have a lane with non
+constant width between _2 m_ and _4 m_. Then the transformation of the maximum
+possible acceleration into the situation coordinate system _SCS_ has to take
+the minimum width of _2 m_ into account, while the transformation of the
+deceleration values has to be transformed with the maximum width of the lane of
+_4 m_ (see <<Figure:LaneWidthNarrowingAccelTransform>>). Like this it is
+guaranteed that we neither underestimate the acceleration of the vehicles
+towards each other nor overestimate the deceleration of the vehicles while
+braking. As a result, it is ensured that under all conditions, the safety
+distances are calculated in a conservative manner.
 
 [[Figure:LaneWidthNarrowingAccelTransform]]
 .Changing lane width and the resulting deceleration and acceleration transformations
 image::lane_width_narrowing_accel_transform.svg[caption="Figure {counter:figure}. "]
 
-In a similar way, it is possible to transform the longitudinal acceleration values
-into a lane-based coordinate system _LCS~k~_.
-Taking the nominal center line length (in the above example: _163.4 m_) as basis,
-we have to apply the factors _scale^lon^~k,min~ = 0.96_ and
-_scale^lon^~k,max~ = 1.04_ appropriately to consider the
-minimum and maximum lane length of _157.1 m_ and _169.7 m_.
-The decision on which of the two factors has to be selected for which of the
-acceleration/deceleration values depends also on the situation
+In a similar way, it is possible to transform the longitudinal acceleration
+values into the situation-based coordinate system _SCS~k~_. Taking the nominal
+center line length (in the above example: _163.4 m_) as basis, we have to apply
+the factors _scale^lon^~k,min~ = 0.96_ and _scale^lon^~k,max~ = 1.04_
+appropriately to consider the minimum and maximum lane length of _157.1 m_ and
+_169.7 m_. The decision on which of the two factors has to be selected for
+which of the acceleration/deceleration values depends also on the situation
 between ego vehicle and the actual object.
 
 [[Figure:LaneConstantCurveAccelTransform]]
@@ -296,33 +327,37 @@ and the acceleration of the object
 (_{alpha}^o^~accel,k~ = {alpha}~accel~ * scale^lon^~k,min~_)
 have to be scaled with the minimum scale factor _0.96_.
 This has to be adapted in case the ego vehicle is the vehicle in front or the
-object is approaching from the opposite direction.
-Nevertheless, there is always a selection possible that guarantees that the
-worst case is covered.
+object is approaching from the opposite direction. Nevertheless, there is
+always a selection possible that guarantees that the worst case is covered.
 
-It is to mention, that in these calculations the actual shape of the lane is not
-used. Therefore, detailed knowledge of the actual lane geometry is not required.
-The absolute maximum and minimum width and length values of the lane
-segments is sufficient to calculate a proper transformation into the
-space of the individual lane-based coordinate systems.
+It is worth to mention, that in these calculations the actual shape of the lane
+is not used. Therefore, detailed knowledge of the actual lane geometry is not
+required. The absolute maximum and minimum width and length values of the lane
+segments is sufficient to calculate a proper transformation into the space of
+the situation specific coordinate systems.
 
 ##### Considerations on reverse transformation of the proper response
-As the proper response is referring to the individual lane-based coordinate
+As the proper response is referring to the situation-based coordinate
 systems, the response has to be transformed back into Cartesian space.
+Therefore, first the transformation into the vehicle-specific lane-based
+coordinate system is required, and then the transformation into the Cartesian
+space is performed.
+
 A simple example illustrates this: a vehicle driving in a curve will for sure
-have to perform a lateral acceleration in Cartesian space
-otherwise it will leave the lane because of the centripetal force, as illustrated
-in <<Figure:LaneConstantCurveResponseTransform>>.
+have to perform a lateral acceleration in Cartesian space otherwise it will
+leave the lane because of the centripetal force, as illustrated in
+<<Figure:LaneConstantCurveResponseTransform>>. However, in the vehicle specific
+lane-based system the lateral acceleration will be 0.
 
 [[Figure:LaneConstantCurveResponseTransform]]
 .Constant drive around a curve will result in a zero lateral acceleration in a lane-based coordinate system and in a non-zero acceleration in a cartesian system
 image::lane_constant_curve_response_transform.svg[caption="Figure {counter:figure}. "]
 
-Because the proper response of RSS is defined with respect to the actual lane the
-vehicle is driving in, it is required to assure that the reverse transformation of the
-proper response considers only the ego-lane and not the individual lane-based
-coordinate systems.
-For example, let us consider a scenario as depicted in <<Figure:LaneWidthNarrowingResponseTransform>>,
+Because the proper response of RSS is defined with respect to the actual lane
+the vehicle is driving in, it is required to assure that the reverse
+transformation of the proper response considers only the ego-lane and not the
+complete situation specific coordinate systems. For example, let us consider a
+scenario as depicted in <<Figure:LaneWidthNarrowingResponseTransform>>,
 where one widening lane A and one narrowing lane B are neighbors in such a way
 that the overall width of the road is constantly _6 m_. Lane A starts with _2 m_
 and ends with _4 m_ width, whereas lane B starts with _4 m_ and ends with _2 m_
@@ -333,225 +368,64 @@ definition of a lateral velocity of 0 in lane A/lane B in Cartesian space.
 .Different lateral accelerations in a lane-based system and Cartesian system for a vehicle following the centerline of lane B
 image::lane_width_narrowing_response_transform.svg[caption="Figure {counter:figure}. "]
 
-##### Summary
-The presented construction of a continuous lane-based coordinates system
-will allow the pairwise calculation of the safe distances between ego vehicle
-and objects with the assumption of constant acceleration.
-Still, the worst case assessment of RSS is not violated.
-This lane-based coordinate system in conjunction with the situation specific
-scaling of the applied acceleration and braking values allows the calculation
-of the safe distances, the decision on dangerous situations and deduction of
-a proper response.
-
-### Parameter Definition and Alternatives
-The RSS papers use a few constants required for the safety calculations.
-The values for these constants are not defined and open for discussion/regulation.
-Nevertheless, the implementation of the RSS modules needs to define initial values
-for these functions. The parameters will be implemented as configuration values
-so these can be easily adjusted during evaluation or after the release.
-
-In the following, the key parameters and the decision for their initial values are
-discussed. The used parameters are:
-
-* Response time _{rho}_.
-  It is assumed that an AV vehicle has a shorter response
-  time than a human driver. Therefore, there is a need to have two different parameters.
-  As it might not be possible to determine whether another object is an AV vehicle
-  or has a human driver, the RSS module will safely assume that all other objects
-  are driven by humans. Hence, two parameters for the response time are used.
-** _{rho}~ego~_ for the ego vehicle
-** _{rho}~other~_ for all other objects
-
-* Acceleration _{alpha}_.
-  RSS proposes several different acceleration/deceleration
-  values. One could argue that acceleration/deceleration differs with the type
-  of vehicle. Also at least the acceleration is dependent on the current vehicle speed.
-  As it cannot be assured that the individual acceleration of each and every car
-  can be known and the specific car can be reliably detected, the RSS module will
-  assume fixed constants for those values. These could be either the maximum
-  physically possible values or restrictions that are imposed by regulation.
-  Also there will not be different values for the ego vehicle and the other vehicles.
-  It could be argued that for the ego vehicle e.g. desired acceleration might be known.
-  Therefore, a shorter safety distance would be sufficient. But as all other
-  vehicles do not know about the intention of the ego vehicle this would lead
-  to a violation of their safe space. So the RSS module will need to calculate
-  its checks with the globally defined accelerations values even if the vehicle
-  does not intend to utilize them to its limits.
-  The parameters used for acceleration are:
-** _{alpha}~accel,max~_ maximum possible acceleration
-** _{alpha}~brake,min~_ minimum allowed braking deceleration in longitudinal direction for most scenarios
-** _{alpha}~brake,max~_ maximum allowed deceleration in longitudinal direction
-** _{alpha}~brake,min,correct~_ minimum allowed deceleration in longitudinal direction for a car on its lane with
-   another car approaching on the same lane in wrong driving direction
-** _{alpha}^lat^~brake,min~_ minimum allowed braking deceleration in lateral direction
-** _{alpha}^lat^~accel,max~_ maximum allowed acceleration in lateral direction
-** _{delta}^lat^~min~_ fluctuation margin for that needs to be respected when
-calculating lateral safe distance
-
-#### Decision on Initial Parameter Values
-
-##### Response time
-
-For the response times a common sense value for human drivers is about 2 seconds.
-For an AV vehicle the response time could be way lower. In order to be not too
-restrictive the initial value for the ego vehicle response time will be assumed
-as 1 second. Hence, _{rho}~other~ = 2 s_ and _{rho}~ego~ = 1 s_.
-
-##### Longitudinal Acceleration
-
-Finding meaningful acceleration values is more complicated.
-At the one hand the values should be as close as possible or even exceed
-the maximum physically possible values. The minimum deceleration values must
-also not exceed normal human driving behavior. So assuming a too high deceleration
-for other cars may lead to a false interpretation of the situation.
-
-On the other hand a too big difference between the minimum and maximum acceleration
-values will lead to a very defensive driving style. As a result, participating
-in dense traffic, will not be possible (see <<Figure:SafetyDistanceCity>>). A rule of thumb for deceleration in German
-driving schools is: _{alpha}~brake,min~ = 4 m/s^2^_ and _{alpha}~brake,max~ = 8 m/s^2^_
-
-But on the other hand, modern cars are able to decelerate with up to _12 m/s^2^_.
-Especially for deceleration, it is questionable whether it is possible and tolerable
-to restrict maximum braking below physically possible braking force.
-
-For the maximum acceleration at low speeds a standard car will be in the range
-of _3.4 m/s^2^_ to _7 m/s^2^_. But there are also sport cars that can go faster than that.
-But for acceleration a regulation to a maximum value seems to be more likely than
-for deceleration.
-
-###### Restricting velocity to the current speed limit
-
-[[Figure:SafetyDistanceCity]]
-.Required safety distance for cars driving at 50 km/h (city speed) in same direction with _α~brake,min~ = 4 m/s^2^_ and _α~brake,max~ = 8 m/s^2^_ and _ρ = 2 s_
-image::accelSafety.svg[pdfwidth=90%, caption="Figure {counter:figure}. "]
-
-The assumption that a car can always accelerate at _{alpha}~accel,max~_
-during the reponse time, leads to a significant increase of the required safety distance.
-<<Figure:SafetyDistanceCity>> shows the required safety distance for different acceleration values.
-So acceleration about _4 m/s^2^_ doubles the required safety distance from _40 m_ to
-about _80 m_ at city speeds.
-
-Therefore, it might be advisable to add a restriction that are car is only allowed to accelerate
-up to the maximum allowed velocity.
-
-###### Further possible restrictions
-
-Another possibility to decrease the required safety distance to the leading
-vehicle would be to take the intention of the ego vehicle into account.
-E.g. if the ego vehicle is following another vehicle and is not intending
-to accelerate. There is no need to assume that the ego vehicle is accelerating
-during its response time. Nevertheless, there are several issues with that approach:
-
-1. It needs to be assured that all intended and unintended accelerations
-   (e.g. driving down a slope) are known to RSS
-2. If RSS formulas are regarded as regulations, the safety distance must be kept
-   regardless to the intent of the vehicle.
-
-Therefore, in the current implementation this approach will not be applied.
-
-
-##### Lateral Acceleration
-
-When defining the parameters for lateral acceleration and deceleration, it is
-import to keep in mind that the definition must allow bypassing of vehicles.
-Physically high lateral accelerations are possible, especially as the transform
-to the lane coordinate system could add additional lateral acceleration.
-In order to be able to bypass a vehicle that is driving on a parallel lane,
-the safe lateral distance needs to be safe during the complete response time of
-the other vehicle.
-
-Let us consider two identical vehicles driving on the centerline of two adjacent
-lanes with zero lateral velocity.
-There is no lateral conflict, if the distance between the border of the car and the
-adjacent lane is bigger than the distance that the vehicle will cover when
-accelerating laterally at maximum during its response time and then decelerating to
-zero lateral velocity.
-
-[[Figure:LateralDistance]]
-.Distance a vehicle will cover when applying the "Stated Braking Pattern" with _ρ~vehicle~ = 2 s_
-image::accelLat.svg[pdfwidth=90%, caption="Figure {counter:figure}. "]
-
-
-<<Figure:LateralDistance>> shows the required safety distance, without considering
-the fluctuation margin, each car needs to keep to the lane border so the vehicles
-can pass without lateral conflict.
-With an assumed minimal lane width of 3 meters and an assumed vehicle width of
-2 meters, the distance from vehicle edge to lane border is 0.5 meter if the car
-is driving exactly in the middle of the lane.
-
-Hence, the required safety distance must be at most 0.5 meter.
-When using the same values for
-acceleration and deceleration this will lead to _{alpha}^lat^~accel,max~ < 0.1 m/s^2^_.
-But when restricting the acceleration to that value a lane change will take almost
-8 seconds.
-
-As a result it is advisable, to use a higher deceleration than acceleration
-to keep the required safety margin and allow for faster lane changes.
-E.g. _{alpha}^lat^~brake,min~ = 0.8 m/s^2^_ and
-_{alpha}^lat^~accel,max~ = 0.2 m/s^2^_ will fullfill the given safety distance
-requirement. An increase to higher acceleration values is for the given constraints
-not possible, as the distance covered during response time is already 0.4 meters.
-
-It is obvious that given the lateral safety definition a lane change will at
-least have a duration of two times the response time.
-
-The lateral distance requirement is very strict, therefore it is
-required to also come up with a desirably small value for the required lateral
-safety margin _{delta}^lat^~min~_. As this should only cover for fluctuations,
-there is also no need for a huge margin. Thus initially this value will be set to
-_{delta}^lat^~min~ = 10 cm_. This value should be able to cover small fluctuations,
-but will not have a big impact on the safety distance.
-
-
 [NOTE]
 ====
-As a starting point the values are set to:
-
-[[Table:InitialParameters]]
-.Chosen Default Parameters
-[width="100%",frame="topbot",options="header"]
-|======================
-| Parameter                       | Value
-| _{rho}~ego~_                    | _1 s_
-| _{rho}~other~_                  | _2 s_
-| _{alpha}~accel,max~_            | _3.5 m/s^2^_
-| _{alpha}~brake,min~_            | _4 m/s^2^_
-| _{alpha}~brake,max~_            | _8 m/s^2^_
-| _{alpha}~brake,min,correct~_    | _3 m/s^2^_
-| _{alpha}^lat^~brake,min~_       | _0.8 m/s^2^_
-| _{alpha}^lat^~accel,max~_       | _0.2 m/s^2^_
-| _{delta}^lat^~min~_             | _10 cm_
-|======================
-
-
+It is worth to note that in the particular implementation of the RSS module in
+the library at hand, the reverse transformation from the situation-specific
+into a vehicle-centric lane coordinate system is not required, as the RSS
+response is defined such that it is independent of these two coordinate system.
 ====
+
+##### Summary
+The presented construction of a continuous situation-based coordinates system
+will allow the pairwise calculation of the safe distances between ego vehicle
+and objects with the assumption of constant acceleration. Still, the worst case
+assessment of RSS is not violated. This situation-based coordinate system in
+conjunction with the situation specific scaling of the applied acceleration and
+braking values allows the calculation of the safe distances, the decision on
+dangerous situations and deduction of a proper response.
+
+#### Design alternative: Iterative Approach [optional]
+[[Figure:LanesWithDifferentWidthIterative]]
+.Illustration of an iterative approach to calculate non-constant acceleration, velocity etc.
+image::lanes_with_different_width_iterative.svg[caption="Figure {counter:figure}. "]
+
+Another possible way to handle the non-constant acceleration values would be an
+iterative approach: based on the position, the velocity and the acceleration
+values at the given position at time _t~0~_, the position at time _t~1~_ is
+calculated. The smaller the time interval between the iteration steps is
+chosen, the smaller the calculation error gets (see
+  <<Figure:LanesWithDifferentWidthIterative>>).
+
+One drawback of the iterative approach is that the RSS implementation has to get
+to know the lane geometries in detail to be able to calculate the acceleration
+values to be used for every position within the situation-based coordinate
+systems. Therefore, this design approach is not selected by this RSS module
+implementation.
+
 
 ### Summary
 
 #### Key decisions
-* RSS checks are performed on the current state on a ego vehicle - object pair basis
-* In dangerous situations only braking maneuvers are issued. RSS does not initiate
-  lateral evasive maneuvers.
-* To handle changing lateral/longitudinal acceleration parameters when transforming
-  the Cartesian space into the lane-based system, the acceleration and deceleration
-  parameters are chosen in such a way that these are constant within the lane-based system,
-  but guarantee safe operation (see <<Section::ChosenLaneBasedCS>>).
-* Proposed initial parameters are specified in <<Table:InitialParameters>>.
+* RSS checks are performed on the current state on a ego vehicle - object pair
+  basis
+* In dangerous situations only braking maneuvers are issued. RSS does not
+  initiate lateral evasive maneuvers.
+* To handle changing lateral/longitudinal acceleration parameters when
+  transforming the Cartesian space into the lane-based system, the acceleration
+  and deceleration parameters are chosen in such a way that these are constant
+  within the lane-based system, but guarantee safe operation (see
+  <<Section::ChosenLaneBasedCS>>).
 
-
-#### Proposed changes / extensions to definitions in RSS paper
-
-* To overcome the issue of enormous safety distances, even at low speeds (see
-  <<Figure:SafetyDistanceCity>>.), it might be advisable to restrict the acceleration such that the
-  achievable velocities are always below the maximum allowed speed limit.
-
-* When two vehicles are driving in opposite direction, but both cars "believe"
-  that they are on the correct lane, both cars will brake with _{alpha}~brake,min,correct~_
-  assuming that the other car slows down with _{alpha}~brake,min~_. However, this may
+#### Proposed changes / extensions to definitions in the RSS paper
+* When two vehicles are driving in opposite direction, but both cars are on the
+  correct lane, both cars will brake with _{alpha}~brake,min,correct~_ assuming
+  that the other car slows down with _{alpha}~brake,min~_. However, this may
   not clear the dangerous situation. Therefore, it is important to introduce a
-  special treatment for the case of opposing cars that both are on the correct lane.
-  This handling is explained in <<Section:ResponseForVehiclesDrivingInOppositeDirections>>.
-
-* It cannot be determined whether lateral evasive maneuvers are actually possible.
-  Therefore, the RSS Module will not initiate such maneuvers, but will not hinder the
-  driving policy to execute lateral evasive maneuvers.
+  special treatment for the case of opposing cars that both are on the correct
+  lane. This handling is explained in
+  <<Section:ResponseForVehiclesDrivingInOppositeDirections>>.
+* It cannot be determined whether lateral evasive maneuvers are actually
+  possible. Therefore, the RSS Module will not initiate such maneuvers, but
+  will not hinder the driving policy to execute lateral evasive maneuvers, as
+  long as these are compliant with the required RSS reponse.
