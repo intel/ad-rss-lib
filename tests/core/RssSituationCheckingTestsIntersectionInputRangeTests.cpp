@@ -58,6 +58,48 @@ TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, no_priority_vehicle
   ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
 }
 
+TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, distanceToLeaveSmallerEgo)
+{
+  situation.egoVehicleState = createVehicleStateForLongitudinalMotion(120);
+  situation.egoVehicleState.distanceToEnterIntersection = 15;
+  situation.egoVehicleState.distanceToLeaveIntersection = 14;
+
+  situation.egoVehicleState.dynamics.alphaLon.accelMax = 2.;
+  situation.egoVehicleState.dynamics.alphaLon.brakeMin = 4.;
+
+  situation.otherVehicleState = createVehicleStateForLongitudinalMotion(10);
+  situation.otherVehicleState.dynamics.alphaLon.accelMax = 2.;
+  situation.otherVehicleState.dynamics.alphaLon.brakeMin = 4.;
+  situation.otherVehicleState.distanceToEnterIntersection = 16;
+  situation.otherVehicleState.distanceToLeaveIntersection = 16;
+  situation.otherVehicleState.hasPriority = true;
+
+  situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 1);
+
+  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+}
+
+TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, distanceToLeaveSmallerOther)
+{
+  situation.egoVehicleState = createVehicleStateForLongitudinalMotion(120);
+  situation.egoVehicleState.distanceToEnterIntersection = 15;
+  situation.egoVehicleState.distanceToLeaveIntersection = 15;
+
+  situation.egoVehicleState.dynamics.alphaLon.accelMax = 2.;
+  situation.egoVehicleState.dynamics.alphaLon.brakeMin = 4.;
+
+  situation.otherVehicleState = createVehicleStateForLongitudinalMotion(10);
+  situation.otherVehicleState.dynamics.alphaLon.accelMax = 2.;
+  situation.otherVehicleState.dynamics.alphaLon.brakeMin = 4.;
+  situation.otherVehicleState.distanceToEnterIntersection = 16;
+  situation.otherVehicleState.distanceToLeaveIntersection = 15;
+  situation.otherVehicleState.hasPriority = true;
+
+  situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 1);
+
+  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+}
+
 TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, both_priority_vehicle)
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);

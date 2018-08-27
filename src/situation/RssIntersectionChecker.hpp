@@ -91,6 +91,12 @@ private:
    * @brief last safe IntersectionState of each situation of current time step
    */
   RssIntersectionStateMap mCurrentSafeStateMap;
+
+  /**
+   * @brief time index of the current processing step
+   * If time index increases we need to update the mLastSafeStateMap
+   */
+  ::rss::time::TimeIndex mCurrentTimeIndex{0u};
 };
 
 } // namespace situation

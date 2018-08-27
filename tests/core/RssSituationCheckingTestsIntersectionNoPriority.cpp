@@ -125,9 +125,13 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50km_h_stop_before_inter
   situation.relativePosition
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 30.);
 
+  situation.timeIndex = 0u;
+
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_TRUE(responseState.longitudinalState.isSafe);
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+
+  situation.timeIndex = 1u;
 
   situation.egoVehicleState.distanceToEnterIntersection = 70;
   situation.egoVehicleState.distanceToLeaveIntersection = 70;

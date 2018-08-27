@@ -37,13 +37,6 @@ RssIntersectionChecker::~RssIntersectionChecker()
 
 bool checkLateralIntersect(Situation const &situation, bool &isSafe)
 {
-  if ((situation.egoVehicleState.distanceToLeaveIntersection < situation.egoVehicleState.distanceToEnterIntersection)
-      || (situation.otherVehicleState.distanceToLeaveIntersection
-          < situation.otherVehicleState.distanceToEnterIntersection))
-  {
-    return false;
-  }
-
   isSafe = false;
   bool result = true;
 
@@ -101,6 +94,13 @@ bool checkLateralIntersect(Situation const &situation, bool &isSafe)
 
 bool checkIntersectionSafe(Situation const &situation, bool &isSafe, IntersectionState &intersectionState) noexcept
 {
+  if ((situation.egoVehicleState.distanceToLeaveIntersection < situation.egoVehicleState.distanceToEnterIntersection)
+      || (situation.otherVehicleState.distanceToLeaveIntersection
+          < situation.otherVehicleState.distanceToEnterIntersection))
+  {
+    return false;
+  }
+
   bool result = false;
 
   /**
@@ -170,9 +170,12 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
     /**
      * @todo use id here when available to determine when clear is required
      */
-    mLastSafeStateMap.clear();
-    mLastSafeStateMap.swap(mCurrentSafeStateMap);
-    mCurrentSafeStateMap.clear();
+    if (situation.timeIndex != mCurrentTimeIndex)
+    {
+      mLastSafeStateMap.swap(mCurrentSafeStateMap);
+      mCurrentSafeStateMap.clear();
+      mCurrentTimeIndex = situation.timeIndex;
+    }
 
     rssState.longitudinalState.isSafe = false;
     rssState.longitudinalState.response = ::rss::state::LongitudinalResponse::BrakeMin;
