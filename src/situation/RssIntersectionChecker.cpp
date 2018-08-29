@@ -85,11 +85,10 @@ bool checkLateralIntersect(Situation const &situation, bool &isSafe)
      * Currently we assume lateral overlap when there is a vehicle in an intersection
      * @todo This could be relaxed by calculating lateral distance here as well
      */
-
     isSafe = true;
   }
 
-  return true;
+  return result;
 }
 
 bool checkIntersectionSafe(Situation const &situation, bool &isSafe, IntersectionState &intersectionState) noexcept

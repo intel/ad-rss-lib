@@ -172,7 +172,7 @@ bool calculateTimeToCoverDistance(Speed const currentSpeed,
   Distance distanceAfterResponseTime;
 
   result = calculateDistanceOffsetAfterResponseTime(
-    CoordinateSystemAxis::Longitudinal, currentSpeed, responseTime, acceleration, distanceAfterResponseTime);
+    CoordinateSystemAxis::Longitudinal, currentSpeed, acceleration, responseTime, distanceAfterResponseTime);
 
   if (result && distanceAfterResponseTime > distanceToCover)
   {
