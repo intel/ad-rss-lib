@@ -31,7 +31,10 @@ set(RSS_MODULE_TEST_SOURCES
   core/RssSituationCheckingTestsOppositeDirection.cpp
   core/RSSStateCombineRssStateTests.cpp
   core/RSSStateSafeTests.cpp
-  core/RssSituationExtractionTests.cpp
+  core/RssSituationExtractionOppositeDirectionTests.cpp
+  core/RssSituationExtractionIntersectionTests.cpp
+  core/RssSituationExtractionRelativePositionTests.cpp
+  core/RssSituationExtractionSameDirectionTests.cpp
   situation/MathUnitTestsDistanceOffsetAfterResponseTime.cpp
   situation/MathUnitTestsStoppingDistance.cpp
   situation/MathUnitTestsVelocityAfterResponseTime.cpp

@@ -29,6 +29,7 @@
 #include <vector>
 #include "rss/time/TimeIndex.hpp"
 #include "rss/world/Object.hpp"
+#include "rss/world/Scene.hpp"
 /*!
  * @brief namespace rss
  */
@@ -42,7 +43,7 @@ struct WorldModel
 {
   ::rss::time::TimeIndex timeIndex{0u};
   ::rss::world::Object egoVehicle;
-  std::vector<::rss::world::Object> objects;
+  std::vector<::rss::world::Scene> scenes;
 };
 
 /*

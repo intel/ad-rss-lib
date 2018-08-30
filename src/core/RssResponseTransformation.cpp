@@ -32,6 +32,23 @@ bool transformProperResponse(world::WorldModel const &worldModel,
   }
   accelerationRestriction.timeIndex = response.timeIndex;
 
+  /**
+   * If there is no action required RssResponseTransformation should send the maximum allowed acceleration/brake values
+   * given by the world model
+   */
+  accelerationRestriction.longitudinalRange.maximum = worldModel.egoVehicle.dynamics.alphaLon.accelMax;
+
+  /**
+   * @todo wouldn't it be better to change this to deceleration max?
+   */
+  accelerationRestriction.longitudinalRange.minimum = -1.f * worldModel.egoVehicle.dynamics.alphaLon.brakeMax;
+
+  /**
+   * @todo this seems to be wrong. We need to distinguish between acceleration and deceleration
+   */
+  accelerationRestriction.lateralRange.maximum = worldModel.egoVehicle.dynamics.alphaLat.accelMax;
+  accelerationRestriction.lateralRange.minimum = -1.f * worldModel.egoVehicle.dynamics.alphaLat.accelMax;
+
   //@todo: implement rest
 
   return false;

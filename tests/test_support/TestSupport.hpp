@@ -18,10 +18,12 @@
 
 #include <cmath>
 #include <gtest/gtest.h>
+
 #include "RSSParameters.hpp"
 #include "rss/situation/RelativePosition.hpp"
 #include "rss/situation/VehicleState.hpp"
 #include "rss/state/ResponseState.hpp"
+#include "rss/world/Object.hpp"
 
 namespace rss {
 
@@ -30,6 +32,25 @@ const double cDoubleNear = 0.01;
 inline situation::Speed kmhToMeterPerSec(double speed)
 {
   return speed / 3.6;
+}
+
+inline world::Object createObject(double lonVelocity, double latVelocity)
+{
+  world::Object object;
+
+  object.velocity.speedLon = kmhToMeterPerSec(lonVelocity);
+  object.velocity.speedLat = kmhToMeterPerSec(latVelocity);
+  object.dynamics.alphaLon.accelMax = situation::cMaximumLongitudinalAcceleration;
+  object.dynamics.alphaLon.brakeMax = situation::cMaximumLongitudinalBrakingDeceleleration;
+  object.dynamics.alphaLon.brakeMin = situation::cMinimumLongitudinalBrakingDeceleleration;
+  object.dynamics.alphaLon.brakeMinCorrect = situation::cMinimumLongitudinalBrakingDecelelerationCorrect;
+
+  object.dynamics.alphaLat.accelMax = situation::cMaximumLateralAcceleration;
+  object.dynamics.alphaLat.brakeMin = situation::cMinimumLateralBrakingDeceleleration;
+
+  object.responseTime = situation::cResponseTimeOtherVehicles;
+
+  return object;
 }
 
 inline situation::VehicleState createVehicleState(double lonVelocity, double latVelocity)

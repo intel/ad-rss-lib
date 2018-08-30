@@ -40,26 +40,17 @@ namespace core {
  */
 namespace RssSituationExtraction {
 
-void calcluateRelativeLongitudinalPosition(world::MetricRange const &egoMetricRange,
-                                           world::MetricRange const &otherMetricRange,
-                                           situation::LongitudinalRelativePosition &longitudinalPosition,
-                                           situation::Distance &longitudinalDistance) noexcept;
-void calcluateRelativeLateralPosition(world::MetricRange const &egoMetricRange,
-                                      world::MetricRange const &otherMetricRange,
-                                      situation::LateralRelativePosition &lateralPosition,
-                                      situation::Distance &lateralDistance) noexcept;
-
 /**
  * @brief Extract the RSS situation of the ego vehicle and the object to be checked.
  *
  * @param [in] egoVehicle - the information on the ego vehicle object
- * @param [in] objectToBeChecked - the information on the object to be checked
+ * @param [in] currentScene - the information on the object to be checked and the according lane information
  * @param [out] situation - the situation to be analyzed with RSS
  *
  * @return true if the situation could be created, false if there was an error during the operation.
  */
 bool extractSituation(world::Object const &egoVehicle,
-                      world::Object const &objectToBeChecked,
+                      world::Scene const &currentScene,
                       situation::Situation &situation) noexcept;
 
 /*

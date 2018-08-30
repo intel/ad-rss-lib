@@ -26,11 +26,11 @@
 #include <limits>
 
 #include <vector>
+#include "rss/time/Duration.hpp"
 #include "rss/world/Dynamics.hpp"
 #include "rss/world/ObjectId.hpp"
 #include "rss/world/ObjectType.hpp"
 #include "rss/world/OccupiedRegion.hpp"
-#include "rss/world/RssArea.hpp"
 #include "rss/world/Velocity.hpp"
 /*!
  * @brief namespace rss
@@ -48,7 +48,7 @@ struct Object
   std::vector<::rss::world::OccupiedRegion> occupiedRegions;
   ::rss::world::Dynamics dynamics;
   ::rss::world::Velocity velocity;
-  ::rss::world::RssArea rssArea;
+  ::rss::time::Duration responseTime;
 
   ::rss::world::ObjectType getObjectType() const
   {

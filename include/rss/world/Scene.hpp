@@ -26,6 +26,7 @@
 #include <limits>
 
 #include "rss/situation/SituationType.hpp"
+#include "rss/world/Object.hpp"
 #include "rss/world/RoadArea.hpp"
 /*!
  * @brief namespace rss
@@ -36,11 +37,12 @@ namespace rss {
  */
 namespace world {
 
-struct RssArea
+struct Scene
 {
   ::rss::situation::SituationType situationType{::rss::situation::SituationType::SameDirection};
   ::rss::world::RoadArea egoVehicleRoad;
   ::rss::world::RoadArea intersectingRoad;
+  ::rss::world::Object object;
 
   ::rss::situation::SituationType getSituationType() const
   {

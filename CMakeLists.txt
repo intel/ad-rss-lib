@@ -43,6 +43,8 @@ add_library(${PROJECT_NAME} SHARED
   src/situation/RssIntersectionChecker.cpp
   src/situation/RSSSituation.cpp
   src/situation/Vehicle.cpp
+  src/world/RssSituationCoordinateSystemConversion.cpp
+  src/world/RssObjectPositionExtractor.cpp
   )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
