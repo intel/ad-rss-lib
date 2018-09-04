@@ -135,6 +135,10 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
   std::vector<RssObjectPositionExtractor> extractors;
   for (const auto &object : objects)
   {
+    if (object.occupiedRegions.empty())
+    {
+      return false;
+    }
     extractors.push_back(RssObjectPositionExtractor(object.occupiedRegions));
   }
 

@@ -144,7 +144,15 @@ bool convertObjectsNonIntersection(world::Object const &egoVehicle,
   situation.relativePosition.longitudinalDistance = longitudinalDistance;
 
   situation.egoVehicleState.isInCorrectLane = !egoVehicleDimension.onNegativeLane;
-  situation.otherVehicleState.isInCorrectLane = !objectToBeCheckedDimension.onNegativeLane;
+
+  if (currentScene.situationType == ::rss::situation::SituationType::OppositeDirection)
+  {
+    situation.otherVehicleState.isInCorrectLane = !objectToBeCheckedDimension.onPositiveLane;
+  }
+  else
+  {
+    situation.otherVehicleState.isInCorrectLane = !objectToBeCheckedDimension.onNegativeLane;
+  }
 
   /**
    * Set lateral restrictions
@@ -258,7 +266,7 @@ bool extractSituation(world::Object const &egoVehicle,
   situation.otherVehicleState.hasPriority = false;
 
   situation.egoVehicleState.isInCorrectLane = true;
-  situation.egoVehicleState.isInCorrectLane = true;
+  situation.otherVehicleState.isInCorrectLane = true;
 
   convertVehicleStateDynamics(egoVehicle, situation.egoVehicleState);
   convertVehicleStateDynamics(currentScene.object, situation.otherVehicleState);
@@ -281,6 +289,7 @@ bool extractSituation(world::Object const &egoVehicle,
     }
     case rss::situation::SituationType::NotRelevant:
     {
+      result = true;
       break;
     }
   }
@@ -297,20 +306,25 @@ bool extractSituations(world::WorldModel const &worldModel, situation::Situation
     situation::Situation situation;
     situation.timeIndex = worldModel.timeIndex;
     bool const extractResult = extractSituation(worldModel.egoVehicle, scene, situation);
-    if (extractResult)
+
+    // if the situation is relevant, add it to situationVector
+    if (scene.situationType != rss::situation::SituationType::NotRelevant)
     {
-      try
+      if (extractResult)
       {
-        situationVector.push_back(situation);
+        try
+        {
+          situationVector.push_back(situation);
+        }
+        catch (...)
+        {
+          result = false;
+        }
       }
-      catch (...)
+      else
       {
         result = false;
       }
-    }
-    else
-    {
-      result = false;
     }
   }
   return result;

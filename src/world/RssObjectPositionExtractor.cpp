@@ -124,7 +124,18 @@ bool RssObjectPositionExtractor::newLaneSegment(world::MetricRange lateralDistan
 
 bool RssObjectPositionExtractor::getObjectDimensions(ObjectDimensions &objectDimensions)
 {
+  // if mOccupiedRegions is not empty, something went wrong
   if (!mOccupiedRegions.empty())
+  {
+    return false;
+  }
+
+  // if position.max < position.min, something went wrong
+  if (mObjectDimensions.longitudinalDimensions.maximum < mObjectDimensions.longitudinalDimensions.minimum)
+  {
+    return false;
+  }
+  if (mObjectDimensions.lateralDimensions.maximum < mObjectDimensions.lateralDimensions.minimum)
   {
     return false;
   }

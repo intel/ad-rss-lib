@@ -36,22 +36,45 @@ bool transformProperResponse(world::WorldModel const &worldModel,
    * If there is no action required RssResponseTransformation should send the maximum allowed acceleration/brake values
    * given by the world model
    */
-  accelerationRestriction.longitudinalRange.maximum = worldModel.egoVehicle.dynamics.alphaLon.accelMax;
+  accelerationRestriction.longitudinalRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax;
+  switch (response.longitudinalState.response)
+  {
+    case ::rss::state::LongitudinalResponse::BrakeMin:
+      accelerationRestriction.longitudinalRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMin;
+      break;
+    case ::rss::state::LongitudinalResponse::BrakeMinCorrect:
+      accelerationRestriction.longitudinalRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMinCorrect;
+      break;
+    case ::rss::state::LongitudinalResponse::None:
+      accelerationRestriction.longitudinalRange.maximum = worldModel.egoVehicle.dynamics.alphaLon.accelMax;
+      break;
+  }
 
-  /**
-   * @todo wouldn't it be better to change this to deceleration max?
-   */
-  accelerationRestriction.longitudinalRange.minimum = -1.f * worldModel.egoVehicle.dynamics.alphaLon.brakeMax;
+  switch (response.lateralStateLeft.response)
+  {
+    case ::rss::state::LateralResponse::BrakeMin:
+      accelerationRestriction.lateralLeftRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;
+      accelerationRestriction.lateralLeftRange.minimum = std::numeric_limits<int>::lowest();
+      break;
+    case ::rss::state::LateralResponse::None:
+      accelerationRestriction.lateralLeftRange.maximum = worldModel.egoVehicle.dynamics.alphaLat.accelMax;
+      accelerationRestriction.lateralLeftRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;
+      break;
+  }
 
-  /**
-   * @todo this seems to be wrong. We need to distinguish between acceleration and deceleration
-   */
-  accelerationRestriction.lateralRange.maximum = worldModel.egoVehicle.dynamics.alphaLat.accelMax;
-  accelerationRestriction.lateralRange.minimum = -1.f * worldModel.egoVehicle.dynamics.alphaLat.accelMax;
+  switch (response.lateralStateRight.response)
+  {
+    case ::rss::state::LateralResponse::BrakeMin:
+      accelerationRestriction.lateralRightRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;
+      accelerationRestriction.lateralRightRange.minimum = std::numeric_limits<int>::lowest();
+      break;
+    case ::rss::state::LateralResponse::None:
+      accelerationRestriction.lateralRightRange.maximum = worldModel.egoVehicle.dynamics.alphaLat.accelMax;
+      accelerationRestriction.lateralRightRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;
+      break;
+  }
 
-  //@todo: implement rest
-
-  return false;
+  return true;
 }
 
 } // namespace RssResponseTransformation

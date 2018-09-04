@@ -52,13 +52,15 @@ public:
    */
   explicit RssCheck();
 
+  ~RssCheck();
+
   /**
    * @brief calculateAccelerationRestriction
    *
    * @param [in] worldModel - the current world model information
    * \param [out] accelerationRestriction - The restrictions on the vehicle acceleration to become RSS safe.
    *
- * @return return true if the acceleration restrictions could be calculated, false otherwise.
+   * @return return true if the acceleration restrictions could be calculated, false otherwise.
    */
   bool calculateAccelerationRestriction(world::WorldModel const &worldModel,
                                         world::AccelerationRestriction &accelerationRestriction) noexcept;

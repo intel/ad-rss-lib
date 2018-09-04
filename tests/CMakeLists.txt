@@ -21,6 +21,9 @@
 set(EXEC_NAME rss_module_tests)
 
 set(RSS_MODULE_TEST_SOURCES
+  core/RssCheckTests.cpp
+  core/RssCheckSameDirectionTests.cpp
+  core/RssCheckOppositeDirectionTests.cpp
   core/RssResponseResolvingTests.cpp
   core/RssSituationCheckingInputRangeTests.cpp
   core/RssSituationCheckingTestsIntersectionInputRangeTests.cpp

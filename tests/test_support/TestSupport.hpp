@@ -108,6 +108,58 @@ inline situation::RelativePosition createRelativeLateralPosition(situation::Late
   return relativePosition;
 }
 
+inline double calculateLongitudinalMinSafeDistance(::rss::world::Object const &followingObject,
+                                                   ::rss::world::Object const &leadingObject)
+{
+  double dMin = followingObject.velocity.speedLon * followingObject.responseTime;
+  dMin += 0.5 * followingObject.dynamics.alphaLon.accelMax * std::pow(followingObject.responseTime, 2.);
+  dMin += std::pow(followingObject.velocity.speedLon
+                     + followingObject.responseTime * followingObject.dynamics.alphaLon.accelMax,
+                   2.)
+    / (2. * followingObject.dynamics.alphaLon.brakeMin);
+  dMin = dMin
+    - leadingObject.velocity.speedLon * leadingObject.velocity.speedLon
+      / (2. * leadingObject.dynamics.alphaLon.brakeMax);
+  return dMin;
+}
+
+inline double calculateLongitudinalMinSafeDistanceOppositeDirection(::rss::world::Object const &objectA,
+                                                                    ::rss::world::Object const &objectB,
+                                                                    bool escalation)
+{
+  double objectAVelAfterResTime = objectA.velocity.speedLon + objectA.responseTime * objectA.dynamics.alphaLon.accelMax;
+  double objectBVelAfterResTime = objectB.velocity.speedLon + objectB.responseTime * objectB.dynamics.alphaLon.accelMax;
+  double dMin = (objectA.velocity.speedLon + objectAVelAfterResTime) / 2. * objectA.responseTime;
+
+  if (!escalation)
+  {
+    dMin += objectAVelAfterResTime * objectAVelAfterResTime / (2 * objectA.dynamics.alphaLon.brakeMinCorrect);
+  }
+  else
+  {
+    dMin += objectAVelAfterResTime * objectAVelAfterResTime / (2 * objectA.dynamics.alphaLon.brakeMin);
+  }
+  dMin += (objectB.velocity.speedLon + objectBVelAfterResTime) / 2. * objectB.responseTime;
+  dMin += objectBVelAfterResTime * objectBVelAfterResTime / (2 * objectB.dynamics.alphaLon.brakeMin);
+
+  return dMin;
+}
+
+inline double calculateLateralMinSafeDistance(::rss::world::Object const &leftObject,
+                                              ::rss::world::Object const &rightObject)
+{
+  double lObjectVelAfterResTime
+    = leftObject.velocity.speedLat + leftObject.responseTime * leftObject.dynamics.alphaLat.accelMax;
+  double rObjectVelAfterResTime
+    = rightObject.velocity.speedLat - rightObject.responseTime * rightObject.dynamics.alphaLat.accelMax;
+  double dMin = (leftObject.velocity.speedLat + lObjectVelAfterResTime) / 2. * leftObject.responseTime;
+  dMin += lObjectVelAfterResTime * lObjectVelAfterResTime / (2 * leftObject.dynamics.alphaLat.brakeMin);
+  dMin -= (rightObject.velocity.speedLat + rObjectVelAfterResTime) / 2. * rightObject.responseTime;
+  dMin -= rObjectVelAfterResTime * rObjectVelAfterResTime / (2 * rightObject.dynamics.alphaLat.brakeMin);
+
+  return dMin;
+}
+
 // reset state (safe with literal==0)
 template <typename RSSState> void resetRssState(RSSState &state)
 {

@@ -72,7 +72,7 @@ public:
       * @brief range of intersection position
       *
       * minimum: minimal distance to intersection entry
-      * maximum: maximum distance to insersection exit
+      * maximum: maximum distance to intersection exit
       */
   MetricRange intersectionPosition;
 };
