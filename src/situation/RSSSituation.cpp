@@ -53,7 +53,8 @@ bool calculateLongitudinalRssStateNonIntersectionSameDirection(Situation const &
   rssState.isSafe = false;
   rssState.response = state::LongitudinalResponse::BrakeMin;
 
-  if (LongitudinalRelativePosition::InFront == situation.relativePosition.longitudinalPosition)
+  if ((LongitudinalRelativePosition::InFront == situation.relativePosition.longitudinalPosition)
+      || (LongitudinalRelativePosition::OverlapFront == situation.relativePosition.longitudinalPosition))
   {
     // The ego vehicle is leading in this situation so we don't need to break longitudinal
     rssState.response = state::LongitudinalResponse::None;

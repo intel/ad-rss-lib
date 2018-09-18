@@ -148,7 +148,7 @@ protected:
   ::rss::world::Scene scene;
 };
 
-TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other)
+TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Right)
 {
   ::rss::world::WorldModel worldModel;
 
@@ -191,6 +191,52 @@ TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other)
     ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
               -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
     ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+  }
+}
+
+TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Left)
+{
+  ::rss::world::WorldModel worldModel;
+
+  worldModel.egoVehicle = leftObject;
+  worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(10);
+  scene.object = rightObject;
+
+  scene.egoVehicleRoad = roadArea;
+  worldModel.scenes.push_back(scene);
+  worldModel.timeIndex = 1;
+
+  ::rss::world::AccelerationRestriction accelerationRestriction;
+  ::rss::core::RssCheck rssCheck;
+
+  for (uint32_t i = 0; i <= 90; i++)
+  {
+    worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = 0.01 * i;
+    worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = 0.01 * i + 0.1;
+
+    double dMin = calculateLateralMinSafeDistance(worldModel.egoVehicle, worldModel.scenes[0].object);
+
+    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+
+    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
+    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
+              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
+
+    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
+    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+
+    if (dMin < 10 - worldModel.egoVehicle.occupiedRegions[0].latRange.maximum * 5)
+    {
+      ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
+                -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
+      ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+    }
+    else
+    {
+      ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum,
+                -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
+      ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum, std::numeric_limits<int>::lowest());
+    }
   }
 }
 

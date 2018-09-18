@@ -191,7 +191,7 @@ bool convertObjectsIntersection(world::Object const &egoVehicle,
 
   result &= calculateObjectDimensions(egoVehicle, currentScene.egoVehicleRoad, egoVehicleDimension);
 
-  result &= calculateObjectDimensions(currentScene.object, currentScene.egoVehicleRoad, objectDimension);
+  result &= calculateObjectDimensions(currentScene.object, currentScene.intersectingRoad, objectDimension);
 
   if (result)
   {

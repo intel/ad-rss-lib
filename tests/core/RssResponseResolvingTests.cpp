@@ -72,6 +72,20 @@ protected:
   state::ResponseState resultResponseState;
 };
 
+TEST_F(RssResponseResolvingTests, invalidTimeStamp)
+{
+  setRssStateUnsafe(firstResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
+  responseStateVector.push_back(firstResponseState);
+
+  setRssStateUnsafe(secondResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(secondResponseState.lateralStateLeft, LateralResponse::BrakeMin);
+
+  secondResponseState.timeIndex = 1234u;
+  responseStateVector.push_back(secondResponseState);
+
+  ASSERT_FALSE(provider.provideProperResponse(responseStateVector, resultResponseState));
+}
+
 TEST_F(RssResponseResolvingTests, provideProperResponseLateralLeft)
 {
   setRssStateUnsafe(firstResponseState.longitudinalState, LongitudinalResponse::BrakeMin);

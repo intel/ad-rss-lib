@@ -354,5 +354,128 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_DifferentVelocities)
   }
 }
 
+TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Front)
+{
+  ::rss::world::WorldModel worldModel;
+
+  worldModel.egoVehicle = leadingObject;
+  worldModel.egoVehicle.occupiedRegions[0].segmentId = 8;
+  worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = 0.5;
+  worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = 0.4;
+  scene.object = followingObject;
+
+  scene.egoVehicleRoad = roadArea;
+  worldModel.scenes.push_back(scene);
+  worldModel.timeIndex = 1;
+
+  worldModel.scenes[0].object.occupiedRegions[0].segmentId = 6;
+  worldModel.scenes[0].object.occupiedRegions[0].lonRange.maximum = 0.45;
+  worldModel.scenes[0].object.occupiedRegions[0].lonRange.minimum = 0.35;
+
+  ::rss::world::AccelerationRestriction accelerationRestriction;
+  ::rss::core::RssCheck rssCheck;
+
+  for (uint32_t i = 0; i < 100; i++)
+  {
+    worldModel.scenes[0].object.velocity.speedLon = kmhToMeterPerSec(i);
+
+    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+
+    // no matter how fast the following vehicle is, the ego must never brake as it leads
+    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
+              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
+    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
+    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
+              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
+    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
+    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
+              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
+    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+  }
+}
+
+TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Right)
+{
+  ::rss::world::WorldModel worldModel;
+
+  worldModel.egoVehicle = leadingObject;
+  worldModel.egoVehicle.occupiedRegions[0].segmentId = 5;
+  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = 0.5;
+  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = 0.4;
+  scene.object = followingObject;
+
+  scene.egoVehicleRoad = roadArea;
+  worldModel.scenes.push_back(scene);
+  worldModel.timeIndex = 1;
+
+  worldModel.scenes[0].object.occupiedRegions[0].segmentId = 2;
+  worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = 0.45;
+  worldModel.scenes[0].object.occupiedRegions[0].latRange.minimum = 0.35;
+
+  ::rss::world::AccelerationRestriction accelerationRestriction;
+  ::rss::core::RssCheck rssCheck;
+
+  for (uint32_t i = 0; i < 100; i++)
+  {
+    worldModel.scenes[0].object.velocity.speedLon = kmhToMeterPerSec(i);
+
+    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+
+    // no matter how fast the following vehicle is, the ego must never brake as it leads
+    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
+              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
+    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
+    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
+              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
+    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
+    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
+              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
+    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+  }
+}
+
+TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Left)
+{
+  ::rss::world::WorldModel worldModel;
+
+  worldModel.egoVehicle = leadingObject;
+  worldModel.egoVehicle.occupiedRegions[0].segmentId = 5;
+  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = 0.4;
+  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = 0.3;
+  scene.object = followingObject;
+
+  scene.egoVehicleRoad = roadArea;
+  worldModel.scenes.push_back(scene);
+  worldModel.timeIndex = 1;
+
+  worldModel.scenes[0].object.occupiedRegions[0].segmentId = 2;
+  worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = 0.45;
+  worldModel.scenes[0].object.occupiedRegions[0].latRange.minimum = 0.35;
+
+  ::rss::world::AccelerationRestriction accelerationRestriction;
+  ::rss::core::RssCheck rssCheck;
+
+  for (uint32_t i = 0; i < 100; i++)
+  {
+    worldModel.scenes[0].object.velocity.speedLon = kmhToMeterPerSec(i);
+
+    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+
+    // no matter how fast the following vehicle is, the ego must never brake as it leads
+    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
+              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
+    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
+    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
+              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
+    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
+    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
+              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
+    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+  }
+}
+
 } // namespace core
 } // namespace rss

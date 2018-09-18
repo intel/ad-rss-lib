@@ -60,6 +60,7 @@ bool RssSituationChecking::checkSituation(situation::Situation const &situation,
       response.lateralStateLeft.response = state::LateralResponse::None;
       response.lateralStateRight.isSafe = true;
       response.lateralStateRight.response = state::LateralResponse::None;
+      result = true;
       break;
     case situation::SituationType::SameDirection:
       result = calculateRssStateNonIntersectionSameDirection(situation, response);

@@ -25,7 +25,9 @@ set(RSS_MODULE_TEST_SOURCES
   core/RssCheckSameDirectionTests.cpp
   core/RssCheckOppositeDirectionTests.cpp
   core/RssCheckLateralTests.cpp
+  core/RssCheckIntersectionTests.cpp
   core/RssResponseResolvingTests.cpp
+  core/RssResponseTransformationTests.cpp
   core/RssSituationCheckingInputRangeTests.cpp
   core/RssSituationCheckingTestsIntersectionInputRangeTests.cpp
   core/RssSituationCheckingTestsIntersectionNoPriority.cpp
@@ -33,6 +35,7 @@ set(RSS_MODULE_TEST_SOURCES
   core/RssSituationCheckingTestsLongitudinal.cpp
   core/RssSituationCheckingTestsLateral.cpp
   core/RssSituationCheckingTestsOppositeDirection.cpp
+  core/RssSituationCheckingTestsNotRelevant.cpp
   core/RSSStateCombineRssStateTests.cpp
   core/RSSStateSafeTests.cpp
   core/RssSituationExtractionOppositeDirectionTests.cpp
