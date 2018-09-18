@@ -24,6 +24,7 @@ set(RSS_MODULE_TEST_SOURCES
   core/RssCheckTests.cpp
   core/RssCheckSameDirectionTests.cpp
   core/RssCheckOppositeDirectionTests.cpp
+  core/RssCheckLateralTests.cpp
   core/RssResponseResolvingTests.cpp
   core/RssSituationCheckingInputRangeTests.cpp
   core/RssSituationCheckingTestsIntersectionInputRangeTests.cpp

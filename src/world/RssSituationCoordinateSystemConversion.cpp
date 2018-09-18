@@ -254,6 +254,7 @@ void convertVehicleStateDynamics(Object const &object, ::rss::situation::Vehicle
   vehicleState.dynamics.alphaLat.brakeMin = object.dynamics.alphaLat.brakeMin;
 
   vehicleState.velocity.speedLon = object.velocity.speedLon;
+  vehicleState.velocity.speedLat = object.velocity.speedLat;
 
   vehicleState.responseTime = object.responseTime;
 }
