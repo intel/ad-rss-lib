@@ -46,7 +46,7 @@ namespace world {
 bool calculateObjectDimensions(Object const &egoVehicle,
                                Scene const &currentScene,
                                ObjectDimensions &egoVehiclePosition,
-                               ObjectDimensions &objectPosition);
+                               ObjectDimensions &objectPosition) noexcept;
 
 /**
  * @brief Calculate the object position ranges in the situation coordinate system
@@ -57,7 +57,7 @@ bool calculateObjectDimensions(Object const &egoVehicle,
  */
 bool calculateObjectDimensions(Object const &object,
                                ::rss::world::RoadArea const &roadArea,
-                               ObjectDimensions &objectPosition);
+                               ObjectDimensions &objectPosition) noexcept;
 
 /**
  * @brief Convert object to vehicle state

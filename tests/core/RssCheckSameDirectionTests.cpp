@@ -320,6 +320,48 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_NoLateralCon
   }
 }
 
+TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_NoLateralConflict_2Scenes)
+{
+  ::rss::world::WorldModel worldModel;
+
+  worldModel.egoVehicle = followingObject;
+  worldModel.egoVehicle.occupiedRegions[0].segmentId = 0;
+  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = 0.0;
+  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = 0.1;
+  scene.object = leadingObject;
+
+  scene.egoVehicleRoad = roadArea;
+  worldModel.scenes.push_back(scene);
+  worldModel.scenes.push_back(scene);
+  worldModel.timeIndex = 1;
+  worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;
+  worldModel.scenes[1].object.occupiedRegions[0].segmentId = 8;
+  worldModel.scenes[1].object.objectId = 2;
+
+  ::rss::world::AccelerationRestriction accelerationRestriction;
+  ::rss::core::RssCheck rssCheck;
+
+  for (uint32_t i = 0; i < 100; i++)
+  {
+    worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
+
+    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+
+    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
+              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
+
+    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
+
+    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
+              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
+    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
+    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
+              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
+    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+  }
+}
+
 TEST_F(RssCheckSameDirectionTests, EgoLeading_DifferentVelocities)
 {
   ::rss::world::WorldModel worldModel;

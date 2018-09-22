@@ -32,7 +32,8 @@ namespace rss {
  */
 namespace world {
 
-bool calculateLateralDimensions(::rss::world::RoadArea const &roadArea, std::vector<world::MetricRange> &lateralRanges)
+bool calculateLateralDimensions(::rss::world::RoadArea const &roadArea,
+                                std::vector<world::MetricRange> &lateralRanges) noexcept
 {
   bool result = true;
 
@@ -44,26 +45,33 @@ bool calculateLateralDimensions(::rss::world::RoadArea const &roadArea, std::vec
   currentLateralPosition.maximum = 0;
   currentLateralPosition.minimum = 0;
 
-  while (notFinished)
+  try
   {
-    notFinished = false;
-    lateralRanges.push_back(currentLateralPosition);
-
-    Distance lateralDistanceMax = 0.;
-    Distance lateralDistanceMin = std::numeric_limits<double>::infinity();
-    for (const auto &roadSegment : roadArea)
+    while (notFinished)
     {
-      if (roadSegment.size() > currentLateralIndex)
-      {
-        notFinished = true;
-        lateralDistanceMax = std::max(lateralDistanceMax, roadSegment[currentLateralIndex].width.maximum);
-        lateralDistanceMin = std::min(lateralDistanceMin, roadSegment[currentLateralIndex].width.minimum);
-      }
-    }
+      notFinished = false;
+      lateralRanges.push_back(currentLateralPosition);
 
-    currentLateralPosition.maximum += lateralDistanceMax;
-    currentLateralPosition.minimum += lateralDistanceMin;
-    currentLateralIndex++;
+      Distance lateralDistanceMax = 0.;
+      Distance lateralDistanceMin = std::numeric_limits<double>::infinity();
+      for (const auto &roadSegment : roadArea)
+      {
+        if (roadSegment.size() > currentLateralIndex)
+        {
+          notFinished = true;
+          lateralDistanceMax = std::max(lateralDistanceMax, roadSegment[currentLateralIndex].width.maximum);
+          lateralDistanceMin = std::min(lateralDistanceMin, roadSegment[currentLateralIndex].width.minimum);
+        }
+      }
+
+      currentLateralPosition.maximum += lateralDistanceMax;
+      currentLateralPosition.minimum += lateralDistanceMin;
+      currentLateralIndex++;
+    }
+  }
+  catch (...)
+  {
+    return false;
   }
 
   return result;
@@ -120,73 +128,80 @@ bool calculateLateralDimensions(::rss::world::RoadArea const &roadArea, std::vec
 
 bool calculateObjectDimensions(std::vector<Object> const &objects,
                                ::rss::world::RoadArea const &roadArea,
-                               std::vector<ObjectDimensions> &objectDimensions)
+                               std::vector<ObjectDimensions> &objectDimensions) noexcept
 {
   bool result = true;
 
-  std::vector<world::MetricRange> lateralRanges;
-  calculateLateralDimensions(roadArea, lateralRanges);
-
-  world::MetricRange longitudinalDimensions;
-
-  longitudinalDimensions.maximum = 0.;
-  longitudinalDimensions.minimum = 0.;
-
-  std::vector<RssObjectPositionExtractor> extractors;
-  for (const auto &object : objects)
+  try
   {
-    if (object.occupiedRegions.empty())
-    {
-      return false;
-    }
-    extractors.push_back(RssObjectPositionExtractor(object.occupiedRegions));
-  }
+    std::vector<world::MetricRange> lateralRanges;
+    calculateLateralDimensions(roadArea, lateralRanges);
 
-  for (auto roadSegment = roadArea.begin(); roadSegment != roadArea.end() && result; roadSegment++)
-  {
-    Distance longitudinalDistanceMax = 0.;
-    Distance longitudinalDistanceMin = 0.;
-    for (auto &extractor : extractors)
-    {
-      result &= extractor.newRoadSegment(longitudinalDimensions.minimum, longitudinalDimensions.maximum);
-    }
+    world::MetricRange longitudinalDimensions;
 
-    // This is needed, because we want to look for the minimum
-    longitudinalDistanceMin = std::numeric_limits<double>::infinity();
+    longitudinalDimensions.maximum = 0.;
+    longitudinalDimensions.minimum = 0.;
 
-    for (auto i = 0u; i < roadSegment->size() && result; i++)
+    std::vector<RssObjectPositionExtractor> extractors;
+    for (const auto &object : objects)
     {
-      if (i < lateralRanges.size())
+      if (object.occupiedRegions.empty())
       {
-        for (auto &extractor : extractors)
+        return false;
+      }
+      extractors.push_back(RssObjectPositionExtractor(object.occupiedRegions));
+    }
+
+    for (auto roadSegment = roadArea.begin(); roadSegment != roadArea.end() && result; roadSegment++)
+    {
+      Distance longitudinalDistanceMax = 0.;
+      Distance longitudinalDistanceMin = 0.;
+      for (auto &extractor : extractors)
+      {
+        result &= extractor.newRoadSegment(longitudinalDimensions.minimum, longitudinalDimensions.maximum);
+      }
+
+      // This is needed, because we want to look for the minimum
+      longitudinalDistanceMin = std::numeric_limits<double>::infinity();
+
+      for (auto i = 0u; i < roadSegment->size() && result; i++)
+      {
+        if (i < lateralRanges.size())
         {
-          result &= extractor.newLaneSegment(lateralRanges[i], (*roadSegment)[i]);
+          for (auto &extractor : extractors)
+          {
+            result &= extractor.newLaneSegment(lateralRanges[i], (*roadSegment)[i]);
+          }
         }
-      }
-      else
-      {
-        result = false;
+        else
+        {
+          result = false;
+        }
+
+        longitudinalDistanceMax = std::max(longitudinalDistanceMax, (*roadSegment)[i].length.maximum);
+        longitudinalDistanceMin = std::min(longitudinalDistanceMin, (*roadSegment)[i].length.minimum);
       }
 
-      longitudinalDistanceMax = std::max(longitudinalDistanceMax, (*roadSegment)[i].length.maximum);
-      longitudinalDistanceMin = std::min(longitudinalDistanceMin, (*roadSegment)[i].length.minimum);
+      if (result)
+      {
+        longitudinalDimensions.maximum += longitudinalDistanceMax;
+        longitudinalDimensions.minimum += longitudinalDistanceMin;
+      }
     }
 
     if (result)
     {
-      longitudinalDimensions.maximum += longitudinalDistanceMax;
-      longitudinalDimensions.minimum += longitudinalDistanceMin;
+      for (auto extractor : extractors)
+      {
+        ObjectDimensions extractedDimensions;
+        result &= extractor.getObjectDimensions(extractedDimensions);
+        objectDimensions.push_back(extractedDimensions);
+      }
     }
   }
-
-  if (result)
+  catch (...)
   {
-    for (auto extractor : extractors)
-    {
-      ObjectDimensions extractedDimensions;
-      result &= extractor.getObjectDimensions(extractedDimensions);
-      objectDimensions.push_back(extractedDimensions);
-    }
+    return false;
   }
 
   return result;
@@ -195,25 +210,32 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
 bool calculateObjectDimensions(Object const &egoVehicle,
                                Scene const &currentScene,
                                ObjectDimensions &egoVehiclePosition,
-                               ObjectDimensions &objectPosition)
+                               ObjectDimensions &objectPosition) noexcept
 {
   bool result = true;
 
-  std::vector<Object> objects;
-  objects.push_back(egoVehicle);
-  objects.push_back(currentScene.object);
-
-  std::vector<ObjectDimensions> objectDimensions;
-  result = calculateObjectDimensions(objects, currentScene.egoVehicleRoad, objectDimensions);
-
-  if (result && (objectDimensions.size() == 2))
+  try
   {
-    egoVehiclePosition = objectDimensions[0];
-    objectPosition = objectDimensions[1];
+    std::vector<Object> objects;
+    objects.push_back(egoVehicle);
+    objects.push_back(currentScene.object);
+
+    std::vector<ObjectDimensions> objectDimensions;
+    result = calculateObjectDimensions(objects, currentScene.egoVehicleRoad, objectDimensions);
+
+    if (result && (objectDimensions.size() == 2))
+    {
+      egoVehiclePosition = objectDimensions[0];
+      objectPosition = objectDimensions[1];
+    }
+    else
+    {
+      result = false;
+    }
   }
-  else
+  catch (...)
   {
-    result = false;
+    return false;
   }
 
   return result;
@@ -221,23 +243,30 @@ bool calculateObjectDimensions(Object const &egoVehicle,
 
 bool calculateObjectDimensions(Object const &object,
                                ::rss::world::RoadArea const &roadArea,
-                               ObjectDimensions &objectPosition)
+                               ObjectDimensions &objectPosition) noexcept
 {
   bool result = true;
 
-  std::vector<Object> objects;
-  objects.push_back(object);
-
-  std::vector<ObjectDimensions> objectDimensions;
-  result = calculateObjectDimensions(objects, roadArea, objectDimensions);
-
-  if (result && (objectDimensions.size() == 1))
+  try
   {
-    objectPosition = objectDimensions[0];
+    std::vector<Object> objects;
+    objects.push_back(object);
+
+    std::vector<ObjectDimensions> objectDimensions;
+    result = calculateObjectDimensions(objects, roadArea, objectDimensions);
+
+    if (result && (objectDimensions.size() == 1))
+    {
+      objectPosition = objectDimensions[0];
+    }
+    else
+    {
+      result = false;
+    }
   }
-  else
+  catch (...)
   {
-    result = false;
+    return false;
   }
 
   return result;

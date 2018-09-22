@@ -37,7 +37,7 @@ namespace rss {
  */
 namespace world {
 
-struct Scene
+struct Scene // LCOV_EXCL_LINE
 {
   ::rss::situation::SituationType situationType{::rss::situation::SituationType::SameDirection};
   ::rss::world::RoadArea egoVehicleRoad;

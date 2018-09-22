@@ -259,7 +259,7 @@ bool extractSituation(world::Object const &egoVehicle,
 {
   bool result = false;
 
-  situation.situationId = egoVehicle.objectId;
+  situation.situationId = currentScene.object.objectId;
   situation.setSituationType(currentScene.getSituationType());
 
   situation.egoVehicleState.hasPriority = false;
