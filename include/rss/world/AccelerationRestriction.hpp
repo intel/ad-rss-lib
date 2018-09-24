@@ -41,8 +41,8 @@ struct AccelerationRestriction
 {
   ::rss::time::TimeIndex timeIndex{0u};
   ::rss::world::AccelerationRange lateralLeftRange;
-  ::rss::world::AccelerationRange lateralRightRange; //@todo update model
   ::rss::world::AccelerationRange longitudinalRange;
+  ::rss::world::AccelerationRange lateralRightRange;
 };
 
 /*

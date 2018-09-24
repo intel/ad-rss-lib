@@ -1,11 +1,15 @@
 [[Section::HDL::SoftwareArchitecture]]
-== RSSModule: Software Architecture
+== RssModule: Software Architecture
+
+This section describes the software architecture of the RSSModule in detail. The static view covers the deployed
+artifacts, the interfaces and data types of the module. The dynamic view describes the behaviour of the module in more
+detail.
 
 === Static View
 
 [[Figure:RssModule]]
 .The packages within the RssModule.
-image::img/7f0846fe-a6f3-4e97-8a8b-0573d97c51ba_url_8df83252-ffe8-493d-944e-0f369bbb4339.tmp[caption="Figure {counter:figure}. "]
+image::img/e2c6a376-db06-478b-a311-71ba7e82c763_url_06ed305c-48a0-45c7-8494-f1bf955bf592.tmp[caption="Figure {counter:figure}. "]
 
 The RssModule is implemented in C++. Based on a set of datatype definitions the interfaces are provided to:
 
@@ -22,7 +26,7 @@ Definition of artifacts the RssModule is deployed to.
 
 [[Figure:Artifact_Deployment]]
 .Artifacts to be deployed from the RssModule.
-image::img/a7535e18-12a9-42fa-9273-b4945117150a_url_addd18f9-f225-47f7-a835-2c6b0decffb8.tmp[caption="Figure {counter:figure}. "]
+image::img/a80e4918-e461-4e01-aed7-84436bd89d05_url_17924f44-ca78-4280-bc58-5f0f8add26e9.tmp[caption="Figure {counter:figure}. "]
 
 ===== rss_module
 
@@ -47,7 +51,7 @@ functionality.
 
 [[Figure:Namespace_rss__core]]
 .The interfaces provided by the RssModule.
-image::img/22d5d273-7ad1-4c82-bd19-0bc40e0956ea_url_4546514e-1279-41c9-a640-26ba103e8d8e.tmp[caption="Figure {counter:figure}. "]
+image::img/d425ec4a-c561-48e2-ae84-b4769e431415_url_d4a07711-9b2e-47a7-81e2-2d41ac06e8b6.tmp[caption="Figure {counter:figure}. "]
 
 ====== RssCheck
 
@@ -176,7 +180,7 @@ The RssModule is implemented as a whole within the namespace rss.
 
 [[Figure:Namespace_rss]]
 .The RSS datatypes are organized within several sub-namespaces.
-image::img/c1fdb499-7a9c-44c5-bf82-2182192c69a5_url_720340af-14ba-41a5-9ba1-ceae49e1c578.tmp[caption="Figure {counter:figure}. "]
+image::img/71a0bd6e-e5a4-44d9-b3e3-2ce62cac772c_url_fd96fa32-dd40-4b11-9fcf-16ef023b3576.tmp[caption="Figure {counter:figure}. "]
 
 ===== Namespace rss::time
 
@@ -214,19 +218,19 @@ objects.
 
 [[Figure:Namespace_rss__world_base_types]]
 .The base types used within the local RSS world model.
-image::img/045b45cb-8843-4472-b3a9-fe415c8a8895_url_d33d585d-15bb-485f-ab67-dede939da488.tmp[caption="Figure {counter:figure}. "]
+image::img/3583f8c1-7df8-401b-8351-69553ebbf2ad_url_f34d5e31-202d-4717-b84c-efd5a9adc697.tmp[caption="Figure {counter:figure}. "]
 
 [[Figure:Namespace_rss__world_geometries]]
 .The types describing the road and lane geometries used within the local RSS world model.
-image::img/5b0cb975-e58c-4a49-9e6b-acef2ee39b42_url_a3422667-dcd4-4376-9809-5b419bdf4bb4.tmp[caption="Figure {counter:figure}. "]
+image::img/b804e001-048b-4555-8b04-2754d9e4afcb_url_2137ee58-b783-481d-96fd-569f01c2239a.tmp[caption="Figure {counter:figure}. "]
 
 [[Figure:Namespace_rss__world_objects]]
 .The types describing the objects used within the local RSS world model.
-image::img/e7afc4f7-5505-4e66-8726-82e43751ba1e_url_475cc4b8-2b38-41eb-9d44-1e492e0e3278.tmp[caption="Figure {counter:figure}. "]
+image::img/3f3af777-f0a5-4cd5-92d2-f3871f669b0c_url_a2d320ab-1498-4fe1-bd7a-4cc6e01d32e2.tmp[caption="Figure {counter:figure}. "]
 
 [[Figure:Namespace_rss__world_high_level_world_model]]
 .The types describing the high level world model and object used within the local RSS world model.
-image::img/43231e0d-be1d-434e-b309-9e779a6ae193_url_c9b103a2-8996-43d9-85c9-d38ca815bcc7.tmp[caption="Figure {counter:figure}. "]
+image::img/abf8ae83-2e4a-4f1e-83b5-b095d6fd7d23_url_d0299d30-57f2-4df3-9c3c-693a86661f25.tmp[caption="Figure {counter:figure}. "]
 
 ====== Units
 
@@ -374,12 +378,12 @@ from start to end in respect to the driving direction.
 |rss::world::RoadSegment |[ * ]
 |====
 
-====== RssArea (Structure)
+====== Scene (Structure)
 
-A RssArea defines the area of interaction between the ego vehicle and another object. It consists of the type of
-situation between these two and the corresponding road areas of interest. All lane segments on the route between ego
-vehicle and the object have to be part of this. The RssModule has to be able to calculate minimum and maximum distances
-between ego vehicle and object as well as accelerated movements within this area.
+A Scene defines the relation between the ego vehicle and another object. It consists of the type of situation between
+these two and the corresponding road areas of interest. All lane segments on the route between ego vehicle and the
+object have to be part of this. The RssModule has to be able to calculate minimum and maximum distances between ego
+vehicle and object as well as accelerated movements within this area.
 
 |====
 |situationType |SituationType |The type of the current situation. Depending on this type the other fields of the RssArea
@@ -389,6 +393,7 @@ define the ordering of the road segments. In non-intersection situations the obj
 |intersectingRoad |RoadArea |The RssRoadArea an intersecting vehicle is driving in. The driving direction of the
 intersecting vehicle define the ordering of the road segments. The road area should contain all neigboring lanes the
 other vehcile is able to drive in.  In non-intersection situations this road area is empty.
+|object |Object |The object this scene refers to.
 |====
 
 ====== ObjectId (Typedef)
@@ -473,7 +478,7 @@ be able to adapt these e.g. in respect to the weather conditions. Furthermore th
 objects for different purposes e.g. to respect occluded regions or to create artificial repulsive objects at the outer
 road borders to prevent the ego vehilce from leaving the road.
 |velocity |Velocity |Defines the objects velocity in respect to its current major lane.
-|rssArea |RssArea |Defines the area of interaction between ego vehicle and the object.
+|responseTime |Duration |Defines the response time of the object within the current scene.
 |====
 
 ====== WorldModel (Structure)
@@ -486,7 +491,7 @@ relevant lane segments.
 transforming responses back. Each world model referring to another point in time should get another time index. The time
 index of the world model must not be zero.
 |egoVehicle |Object |The ego vehicle.
-|objects |Object |The objects within the scene.
+|scenes |Scene |All scenes
 |====
 
 ====== AccelerationRestriction (Structure)
@@ -495,8 +500,9 @@ Defines restrictions of the vehicle acceleration.
 
 |====
 |timeIndex |TimeIndex |The time index these acceleration restrictions are referring to.
-|lateralRange |AccelerationRange |The range of the acceleration restriction in lateral direction.
+|lateralLeftRange |AccelerationRange |The range of the acceleration restriction in lateral left direction.
 |longitudinalRange |AccelerationRange |The range of the acceleration restriction in longitudinal direction.
+|lateralRightRange |AccelerationRange |The range of the acceleration restriction in lateral right direction.
 |====
 
 ===== Namespace rss::situation
@@ -508,15 +514,15 @@ coordinate system.
 
 [[Figure:Namespace_rss__situation_coordinate_system]]
 .The base types used within the situation coordinate system.
-image::img/3ae11637-ee5d-4079-b70c-b7ff5c79bf1b_url_b80d6c7b-6e18-4d85-bd8d-072203340204.tmp[caption="Figure {counter:figure}. "]
+image::img/f311049f-63bd-40c7-b16e-ca783b4210f0_url_0f6ffa0b-109e-480b-b625-6257521c5ba0.tmp[caption="Figure {counter:figure}. "]
 
 [[Figure:Namespace_rss__situation_vehicle_state]]
 .The types describing the vehicle state used within the situation coordinate system.
-image::img/73b36a04-6bd2-484f-8dd7-5e7bfe915dfa_url_e5ca4262-0ff0-4367-a0ac-8daa6276a8a8.tmp[caption="Figure {counter:figure}. "]
+image::img/9c3d6dcd-717f-41b7-8aa1-95aef933ca8c_url_23a359d5-ac37-4187-bd85-e726b55e6dee.tmp[caption="Figure {counter:figure}. "]
 
 [[Figure:Namespace_rss__situation]]
 .The types describing a situation used within the situation coordinate system.
-image::img/fca242e6-f19a-4fc7-a73b-f250bd678f03_url_ea74ce26-76cf-456e-9538-35749a5b7938.tmp[caption="Figure {counter:figure}. "]
+image::img/0b3796e5-b854-49fb-9598-c1c878969740_url_75740cfd-43ae-4ddf-ae37-af5b52bd0801.tmp[caption="Figure {counter:figure}. "]
 
 ====== Units
 
@@ -749,7 +755,7 @@ This contains types used in conjunction with the RSS state and responses.
 
 [[Figure:Namespace_rss__state_response]]
 .The types describing the RSS response and the RSS state.
-image::img/1bb44303-2c12-4c2f-82f0-92c95b593110_url_92e851f9-24b7-4742-ba2a-0468ecfb662e.tmp[caption="Figure {counter:figure}. "]
+image::img/e086c58f-aea7-44de-963f-f37407f7d975_url_c96ef976-ec3a-4599-8d75-6d26b13f7419.tmp[caption="Figure {counter:figure}. "]
 
 ====== LongitudinalResponse (Enumeration)
 
@@ -821,7 +827,7 @@ A vector of response states.
 
 [[Figure:RssSubsystemChecker]]
 .RSS internal processing steps to perform RSS checks and execute the RSS proper response
-image::img/ad9f87fe-9a62-49ae-91f8-4b4a710703e0_url_3589800d-484d-44a6-818b-0cad50d34a2d.tmp[caption="Figure {counter:figure}. "]
+image::img/659e862d-bff7-4fd4-9a46-36aee3a137fb_url_4dbe88cd-41e3-4f35-a9ee-159205dc2afb.tmp[caption="Figure {counter:figure}. "]
 
 The RssSubsystem realizes the RSS part functionality. It implements the RSS checks based on the RssWorldModelData
 received from the SensorSubsystem:
@@ -832,7 +838,7 @@ received from the SensorSubsystem:
 4. Right-of-Way is given, not taken
 
 In case a dangerous situation is detected a respective proper response is calculated and the actuator control commands
-received
+received 
 from the PlanningSubsystem are restricted accordingly to realize planning safety.
 
 ==== RssSituationExtractionImpl
@@ -841,7 +847,7 @@ RssSituationExtractionImpl describes the implementation of the RssSituationExtra
 
 [[Figure:RssSituationExtractionImpl]]
 .Statechart Diagram describing the dynamic behavior of the RssSituationExtraction entity.
-image::img/b45c5bef-18a4-4ff5-9d64-fa8ffb077fce_url_42fa4520-1dc6-4bcd-a1ad-dfcc82919be2.tmp[caption="Figure {counter:figure}. "]
+image::img/4863c603-159a-480a-b795-7a70779b5ef5_url_9048e60a-fd01-46b0-ad9f-bb86170c1efb.tmp[caption="Figure {counter:figure}. "]
 
 The following table describes the events, triggers, states and their transitions of the statechart in detail.
 
@@ -870,7 +876,7 @@ RssSituationCheckingImpl describes the implementation of the RssSituationCheckin
 
 [[Figure:RssSituationCheckingImpl]]
 .Statechart Diagram describing the dynamic behavior of the RssSituationChecking entity.
-image::img/98b0ec87-1d37-449b-8b3a-a840a97f74ce_url_8295b8e0-3e6e-4f7e-8cf0-d37e51c02996.tmp[caption="Figure {counter:figure}. "]
+image::img/d9f7a6fe-5190-4887-a271-21ee93f6910b_url_7b194537-c21c-4fe5-a4bd-695417808c6c.tmp[caption="Figure {counter:figure}. "]
 
 The following table describes the events, triggers, states and their transitions of the statechart in detail.
 
@@ -901,7 +907,7 @@ RssResponseResolvingImpl describes the implementation of the RssResponseResolvin
 
 [[Figure:RssResponseResolvingImpl]]
 .Statechart Diagram describing the dynamic behavior of the RssResponseResolving entity.
-image::img/a01e95b4-224d-4080-81bf-d28536987662_url_c70c5a14-1a73-426e-9441-43043e04b65c.tmp[caption="Figure {counter:figure}. "]
+image::img/5bc28aac-7fd6-46c1-bc82-9c0a50b1d92f_url_9d0620bb-292a-49c5-974b-56bc7781f2cb.tmp[caption="Figure {counter:figure}. "]
 
 The following table describes the events, triggers, states and their transitions of the statechart in detail.
 
@@ -932,7 +938,7 @@ statechart.
 
 [[Figure:RssResponseTransformationImpl]]
 .Statechart Diagram describing the dynamic behavior of the RssResponseTransformation entity.
-image::img/6a60aff4-b01b-4410-8711-a3e6537a393f_url_63b0b635-2f19-4005-9c29-f6df544ba220.tmp[caption="Figure {counter:figure}. "]
+image::img/5a885c1a-6b00-4aa1-80a7-10f8ce4ccaca_url_7fa31206-c223-4d1c-93ac-c87854d9cf4e.tmp[caption="Figure {counter:figure}. "]
 
 The following table describes the events, triggers, states and their transitions of the statechart in detail.
 

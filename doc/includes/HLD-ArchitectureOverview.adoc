@@ -1,9 +1,11 @@
 [[Section::HDL::SystemArchitecture]]
 == RSS System Architecture Overview
 
+This section sketches the integration of RSS into a exisiting system architecture.
+
 [[Figure:ADS]]
 .A generic system architecture for an ADS.
-image::img/43e6e7b0-f648-4556-90c0-20f4e32c4ba6_url_4e4e9d00-87d8-4792-8f5b-475e26fdce8b.tmp[caption="Figure {counter:figure}. "]
+image::img/04cdfae3-928f-4646-9ff0-aae2308bcae2_url_9a5616f8-6175-460e-be6f-ae5b9d77c26d.tmp[caption="Figure {counter:figure}. "]
 
 From high level view the architecture of an ADS consists of three main parts: Sense, Plan, Act. The world model data
 provided by the Sense part is used by the Plan part to create the near term actuator control commands executed by the
@@ -11,7 +13,7 @@ Act part.
 
 [[Figure:ADS_RSS]]
 .Integration of RSS into a system architecture
-image::img/aede88b3-6a66-49be-afc1-db5d1b592051_url_09bf665f-2e14-4c70-b4ae-360d558fcc63.tmp[caption="Figure {counter:figure}. "]
+image::img/22ad3674-7070-4734-8593-5fba49a3f950_url_c2a25b31-420e-4d64-b55a-8394e82dfebe.tmp[caption="Figure {counter:figure}. "]
 
 RSS is integrated into such an ADS architecture by placing it in parallel to the Plan. To provide a safety envelope
 around the planning output the integration of RSS into a ADS architecture spans into the Sense part to provide the
@@ -41,7 +43,7 @@ rssWorldModelData: The world model data required by the RssSubsystem.
 
 [[Figure:SensorSubsystem]]
 .Extending the Sense part with world model data required by RSS.
-image::img/883349e3-3d56-41ae-8de8-0cd53e5386a4_url_a923f1e3-ce5b-40ba-bbef-c2dbcec5b941.tmp[caption="Figure {counter:figure}. "]
+image::img/bbada15e-ff15-4b59-b05c-5397472633ae_url_8e367d42-3ac6-4242-b43f-d49cc88019c9.tmp[caption="Figure {counter:figure}. "]
 
 ===== Sense
 
@@ -98,7 +100,7 @@ rssAccelerationRestrictions: The restrictions on the acceleration for the vehicl
 
 [[Figure:ActuatorSubsystem]]
 .Extending the Act part by RSS command limitation.
-image::img/19cfc1e1-3996-4e76-bce1-f82e77e3d0d3_url_514e3aad-a0dc-4ecf-83ac-d6a00268fcfa.tmp[caption="Figure {counter:figure}. "]
+image::img/d03dd7fc-c938-4526-879e-bc6b2086d16e_url_00934127-2695-4ac6-a222-d81ea98df86d.tmp[caption="Figure {counter:figure}. "]
 
 ===== RssActuatorCommandLimitation
 
@@ -143,7 +145,7 @@ received from the SensorSubsystem:
 4. Right-of-Way is given, not taken
 
 In case a dangerous situation is detected a respective proper response is calculated and the actuator control commands
-received
+received 
 from the PlanningSubsystem are restricted accordingly to realize planning safety.
 
 ===== Input Ports
@@ -156,7 +158,7 @@ rssAccelerationRestrictions: The restrictions on the acceleration for the actuat
 
 [[Figure:RssSubsystem]]
 .RSS internal processing steps to perform RSS checks and execute the RSS proper response
-image::img/4ae60783-2f0f-422a-83a0-26fb6cc0abb2_url_7bfa945f-c69d-4e1a-92a8-70455df32304.tmp[caption="Figure {counter:figure}. "]
+image::img/8a305285-07df-4696-9b5d-4f429c2dfb61_url_a3573df7-551b-4205-99b8-fc02dee2520b.tmp[caption="Figure {counter:figure}. "]
 
 ===== RssSituationExtraction
 
