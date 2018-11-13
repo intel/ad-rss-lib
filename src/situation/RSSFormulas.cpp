@@ -78,7 +78,7 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
   if (result)
   {
     safeDistance = distanceStatedBraking - distanceMaxBrake;
-    safeDistance = std::max(safeDistance, 0.);
+    safeDistance = std::max(safeDistance, Distance(0.));
   }
 
   return result;
@@ -237,7 +237,7 @@ bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
     // safe distance is the difference of both distances
     // Note: The fluctuation margin is already considered in the vehicle bounding boxes
     safeDistance = distanceOffsetStatedBrakingLeft - distanceOffsetStatedBrakingRight;
-    safeDistance = std::max(safeDistance, 0.);
+    safeDistance = std::max(safeDistance, Distance(0.));
   }
   return result;
 }

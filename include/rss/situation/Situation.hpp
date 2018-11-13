@@ -47,16 +47,6 @@ struct Situation
   ::rss::situation::VehicleState egoVehicleState;
   ::rss::situation::VehicleState otherVehicleState;
   ::rss::situation::RelativePosition relativePosition;
-
-  ::rss::situation::SituationType getSituationType() const
-  {
-    return situationType;
-  }
-
-  void setSituationType(::rss::situation::SituationType const newVal)
-  {
-    situationType = newVal;
-  }
 };
 
 } // namespace situation

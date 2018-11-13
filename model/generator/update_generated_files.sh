@@ -24,29 +24,6 @@ BASE_URL="https://af01p-ir.devtools.intel.com/artifactory/list/asd-generators-lo
 
 GEN_MODEL_FILE=$(readlink -m ${FILE_DIR}/../export/RSS.xmi)
 
-
-if [[ "x$1" == "xSYS" ]]; then
-
-GEN_BASENAME="com.intel.mo2ive.generator.ros"
-GEN_VERSION="9.1.1-1503"
-GEN_OUTPUT_DIR=$(readlink -m ${FILE_DIR}/../../build/generated/ros)
-GENERATOR_ARGUMENTS="-p ${GEN_OUTPUT_DIR} -c ${COPYRIGHT_FILE} ${GEN_MODEL_FILE}"
-
-(
-. ${FILE_DIR}/../../../utilities/generators/mo2ive_generator_common.sh -D RSS.RssModule ${GENERATOR_ARGUMENTS}
-)
-RESULT=$?
-
-(
-. ${FILE_DIR}/../../../utilities/generators/mo2ive_generator_common.sh -D RSS.RssSystem ${GENERATOR_ARGUMENTS}
-)
-RESULT=$?
-
-exit
-
-fi
-
-
 GEN_BASENAME="com.intel.mo2ive.generator.mockup"
 GEN_VERSION="8.3.1-1478"
 
@@ -69,6 +46,12 @@ function call_sed_inplace
   BACKUPFILE="${1}.bak"
   if [ "x$3" == "x" ]; then
     SED_COMMAND="sed --in-place=.bak -r '/$2/d'"
+  elif [ "x$3" == "xN" ]; then
+    SED_COMMAND="sed --in-place=.bak -r 'N;/$2/d'"
+  elif [ "x$3" == "xNN" ]; then
+    SED_COMMAND="sed --in-place=.bak -r 'N;N;/$2/d'"
+  elif [ "x$3" == "xNNN" ]; then
+    SED_COMMAND="sed --in-place=.bak -r 'N;N;N;/$2/d'"
   else
     SED_COMMAND="sed --in-place=.bak -r 's/$2/$3/g'"
   fi
@@ -100,6 +83,7 @@ function is_directory_ignored
   IGNORE_DIRS="core"
   for IGNORE_DIR in ${IGNORE_DIRS}; do
     if [ "${1}" == "rss/${IGNORE_DIR}" ]; then
+      echo "---------------- IGNORING --------"
       return 1
     fi
   done
@@ -109,6 +93,7 @@ function is_directory_ignored
 function process_and_copy_generated_files
 {
   BASE_INC_DIR=${1}/include
+  IGNORE_INC_FILES=""
   for SUBPATH in ${BASE_INC_DIR}/rss/*; do
     SUBDIR=${SUBPATH##${BASE_INC_DIR}/}
     is_directory_ignored "${SUBDIR}"
@@ -124,7 +109,7 @@ function process_and_copy_generated_files
     for HEADER_FILE in ${BASE_INC_DIR}/${SUBDIR}/*.hpp; do
       FILENAME=$(basename ${HEADER_FILE})
       ignore=0
-      for IGNORE_FILE in ${IGNORE_FILES}; do
+      for IGNORE_FILE in ${IGNORE_INC_FILES}; do
         if [[ ${FILENAME} == ${IGNORE_FILE}* ]]; then
           ignore=1
         fi
@@ -146,11 +131,21 @@ function process_and_copy_generated_files
         call_sed_inplace "${HEADER_FILE}" " \* Model Version.*$" ""
         call_sed_inplace "${HEADER_FILE}" " \* Generator.*$" ""
         call_sed_inplace "${HEADER_FILE}" " \* Generator Version.*$" ""
-        # replace invalid consts on return types of getter functions
-        call_sed_inplace "${HEADER_FILE}" " const get" " get"
+        # remove getters and setters
+        call_sed_inplace "${HEADER_FILE}" " get.*" ""
+        call_sed_inplace "${HEADER_FILE}" " set.*" ""
+        call_sed_inplace "${HEADER_FILE}" "\ \ \{.*$" ""
+        call_sed_inplace "${HEADER_FILE}" ".*\ return.*$" ""
+        call_sed_inplace "${HEADER_FILE}" ".*= newVal.*$" ""
+        call_sed_inplace "${HEADER_FILE}" "\ \ \}.*$" ""
         # remove pipes references
         call_sed_inplace "${HEADER_FILE}" "#include.*pipes.*$" ""
         call_sed_inplace "${HEADER_FILE}" "(.*):.*::pipes::Event$" "\1"
+        # remove reset of events (not yet succeeded in fully automation yet)
+        call_sed_inplace "${HEADER_FILE}" ".*&data().*$" "NN"
+        call_sed_inplace "${HEADER_FILE}" ".*\ :\ .*\(.*\).*$" "NN"
+        call_sed_inplace "${HEADER_FILE}" "struct ev.*\n.*\n\};" "NN"
+        call_sed_inplace "${HEADER_FILE}" "Event to support type within statecharts" ""
 
         # code formatting
         call_code_formatting "${HEADER_FILE}"
@@ -162,6 +157,7 @@ function process_and_copy_generated_files
   done
 
   BASE_SRC_DIR=${1}/src
+  IGNORE_SRC_FILES="ResponseState SituationVector ResponseStateVector AccelerationRestriction WorldModel"
   for SUBPATH in ${BASE_SRC_DIR}/rss/*; do
     SUBDIR=${SUBPATH##${BASE_SRC_DIR}/}
     is_directory_ignored "${SUBDIR}"
@@ -176,18 +172,27 @@ function process_and_copy_generated_files
       mkdir -p ${SRC_TARGET_LOCATION}/${SUBDIR}
       for SOURCE_FILE in ${BASE_SRC_DIR}/${SUBDIR}/*.cpp; do
         FILENAME=$(basename ${SOURCE_FILE})
+        ignore=0
+        for IGNORE_FILE in ${IGNORE_SRC_FILES}; do
+          if [[ ${FILENAME} == ${IGNORE_FILE}* ]]; then
+            ignore=1
+          fi
+          echo "Check ignore '${FILENAME}' and '${IGNORE_FILE}' results in ${ignore}"
+        done
 
-        echo "Updating source file: ${SRC_TARGET_LOCATION}/${SUBDIR}/${FILENAME}"
-        # replace generated file header parts
-        call_sed_inplace "${SOURCE_FILE}" " \* Generated file.*$" ""
-        call_sed_inplace "${SOURCE_FILE}" " \* Model Library.*$" ""
-        call_sed_inplace "${SOURCE_FILE}" " \* Model Version.*$" ""
-        call_sed_inplace "${SOURCE_FILE}" " \* Generator.*$" ""
-        call_sed_inplace "${SOURCE_FILE}" " \* Generator Version.*$" ""
-        # code formatting
-        call_code_formatting "${SOURCE_FILE}"
-        if [ -e ${SRC_TARGET_LOCATION}/${SUBDIR} ]; then
-          cp ${SOURCE_FILE} ${SRC_TARGET_LOCATION}/${SUBDIR}
+        if (( !ignore )); then
+          echo "Updating source file: ${SRC_TARGET_LOCATION}/${SUBDIR}/${FILENAME}"
+          # replace generated file header parts
+          call_sed_inplace "${SOURCE_FILE}" " \* Generated file.*$" ""
+          call_sed_inplace "${SOURCE_FILE}" " \* Model Library.*$" ""
+          call_sed_inplace "${SOURCE_FILE}" " \* Model Version.*$" ""
+          call_sed_inplace "${SOURCE_FILE}" " \* Generator.*$" ""
+          call_sed_inplace "${SOURCE_FILE}" " \* Generator Version.*$" ""
+          # code formatting
+          call_code_formatting "${SOURCE_FILE}"
+          if [ -e ${SRC_TARGET_LOCATION}/${SUBDIR} ]; then
+            cp ${SOURCE_FILE} ${SRC_TARGET_LOCATION}/${SUBDIR}
+          fi
         fi
       done
     fi
@@ -216,7 +221,10 @@ if (( POST_PROCESSING && ! RESULT )); then
   if [ -e ${GEN_OUTPUT_DIR} ]; then
     echo "Post process generated files"
     # adapt generated files
-    process_and_copy_generated_files "${GEN_OUTPUT_DIR}/rss_module"
+    process_and_copy_generated_files "${GEN_OUTPUT_DIR}/rss_module_time"
+    process_and_copy_generated_files "${GEN_OUTPUT_DIR}/rss_module_situation"
+    process_and_copy_generated_files "${GEN_OUTPUT_DIR}/rss_module_state"
+    process_and_copy_generated_files "${GEN_OUTPUT_DIR}/rss_module_world"
   fi
 fi
 

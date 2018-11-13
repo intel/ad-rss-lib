@@ -44,26 +44,6 @@ struct RelativePosition
   ::rss::situation::Distance longitudinalDistance{0.0};
   ::rss::situation::LateralRelativePosition lateralPosition{::rss::situation::LateralRelativePosition::Overlap};
   ::rss::situation::Distance lateralDistance{0.0};
-
-  ::rss::situation::LongitudinalRelativePosition getLongitudinalPosition() const
-  {
-    return longitudinalPosition;
-  }
-
-  void setLongitudinalPosition(::rss::situation::LongitudinalRelativePosition const newVal)
-  {
-    longitudinalPosition = newVal;
-  }
-
-  ::rss::situation::LateralRelativePosition getLateralPosition() const
-  {
-    return lateralPosition;
-  }
-
-  void setLateralPosition(::rss::situation::LateralRelativePosition const newVal)
-  {
-    lateralPosition = newVal;
-  }
 };
 
 } // namespace situation

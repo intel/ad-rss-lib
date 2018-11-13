@@ -43,16 +43,6 @@ struct Scene // LCOV_EXCL_LINE
   ::rss::world::RoadArea egoVehicleRoad;
   ::rss::world::RoadArea intersectingRoad;
   ::rss::world::Object object;
-
-  ::rss::situation::SituationType getSituationType() const
-  {
-    return situationType;
-  }
-
-  void setSituationType(::rss::situation::SituationType const newVal)
-  {
-    situationType = newVal;
-  }
 };
 
 } // namespace world

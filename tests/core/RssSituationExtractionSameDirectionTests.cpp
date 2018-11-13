@@ -29,7 +29,7 @@ class RssSituationExtractionSameDirectionTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    scene.setSituationType(rss::situation::SituationType::SameDirection);
+    scene.situationType = rss::situation::SituationType::SameDirection;
     leadingObject = createObject(36., 0.);
     leadingObject.objectId = 0;
 
@@ -100,8 +100,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, noLongitudinalDifference)
   ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.accelMax,
             worldModel.egoVehicle.dynamics.alphaLon.accelMax);
 
-  ASSERT_EQ(situationVector[0].relativePosition.getLateralPosition(),
-            ::rss::situation::LateralRelativePosition::AtLeft);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::rss::situation::LateralRelativePosition::AtLeft);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, 1);
 }
 
@@ -137,8 +136,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, longitudinalDifferenceEgoLeadin
   ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.accelMax,
             worldModel.egoVehicle.dynamics.alphaLon.accelMax);
 
-  ASSERT_EQ(situationVector[0].relativePosition.getLateralPosition(),
-            ::rss::situation::LateralRelativePosition::AtLeft);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::rss::situation::LateralRelativePosition::AtLeft);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, 1);
 }
 
@@ -174,8 +172,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, longitudinalDifferenceEgoFollow
   ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.accelMax, leadingObject.dynamics.alphaLon.accelMax);
   ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.brakeMin, leadingObject.dynamics.alphaLon.brakeMin);
 
-  ASSERT_EQ(situationVector[0].relativePosition.getLateralPosition(),
-            ::rss::situation::LateralRelativePosition::AtRight);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::rss::situation::LateralRelativePosition::AtRight);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, 1);
 }
 }

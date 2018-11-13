@@ -45,26 +45,6 @@ struct LaneSegment
   ::rss::world::LaneDrivingDirection drivingDirection{::rss::world::LaneDrivingDirection::Bidirectional};
   ::rss::world::MetricRange length;
   ::rss::world::MetricRange width;
-
-  ::rss::world::LaneSegmentType getType() const
-  {
-    return type;
-  }
-
-  void setType(::rss::world::LaneSegmentType const newVal)
-  {
-    type = newVal;
-  }
-
-  ::rss::world::LaneDrivingDirection getDrivingDirection() const
-  {
-    return drivingDirection;
-  }
-
-  void setDrivingDirection(::rss::world::LaneDrivingDirection const newVal)
-  {
-    drivingDirection = newVal;
-  }
 };
 
 } // namespace world

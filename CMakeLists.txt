@@ -73,14 +73,11 @@ add_library(RSSSupport SHARED
   src/rss/situation/LateralRelativePosition.cpp
   src/rss/situation/LongitudinalRelativePosition.cpp
   src/rss/situation/SituationType.cpp
-  src/rss/situation/SituationVector.cpp
   src/rss/state/LateralResponse.cpp
   src/rss/state/LongitudinalResponse.cpp
-  src/rss/state/ResponseState.cpp
-  src/rss/state/ResponseStateVector.cpp
-  src/rss/world/AccelerationRestriction.cpp
+  src/rss/world/LaneDrivingDirection.cpp
+  src/rss/world/LaneSegmentType.cpp
   src/rss/world/ObjectType.cpp
-  src/rss/world/WorldModel.cpp
 )
 
 set_target_properties(RSSSupport PROPERTIES

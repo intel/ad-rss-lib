@@ -46,28 +46,5 @@ struct WorldModel
   std::vector<::rss::world::Scene> scenes;
 };
 
-/*
- * \brief Event to support type within statecharts
- */
-struct evRssWorldModel
-{
-  evRssWorldModel(WorldModel const &worldModel)
-    : worldModel(worldModel)
-  {
-  }
-
-  WorldModel const &data() const
-  {
-    return worldModel;
-  }
-
-  WorldModel const &worldModel;
-};
-
 } // namespace world
 } // namespace rss
-
-/*!
- * @brief Conversion of event evRssWorldModel to std::string (for logging purposes)
- */
-std::string toString(::rss::world::evRssWorldModel const &);

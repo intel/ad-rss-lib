@@ -26,7 +26,7 @@ class RssCheckLateralTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    scene.setSituationType(rss::situation::SituationType::SameDirection);
+    scene.situationType = rss::situation::SituationType::SameDirection;
     leftObject = createObject(10., 3.);
     leftObject.objectId = 0;
 

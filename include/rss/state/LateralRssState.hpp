@@ -39,16 +39,6 @@ struct LateralRssState
 {
   bool isSafe{false};
   ::rss::state::LateralResponse response;
-
-  ::rss::state::LateralResponse getResponse() const
-  {
-    return response;
-  }
-
-  void setResponse(::rss::state::LateralResponse const newVal)
-  {
-    response = newVal;
-  }
 };
 
 } // namespace state

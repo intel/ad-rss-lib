@@ -31,7 +31,7 @@ protected:
   {
     leadingObject = createObject(36., 0.);
     leadingObject.objectId = 0;
-    scene.setSituationType(rss::situation::SituationType::IntersectionEgoHasPriority);
+    scene.situationType = rss::situation::SituationType::IntersectionEgoHasPriority;
 
     {
       ::rss::world::OccupiedRegion occupiedRegion;
@@ -130,11 +130,10 @@ TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
   ASSERT_EQ(situationVector[0].otherVehicleState.distanceToLeaveIntersection, 14);
   ASSERT_FALSE(situationVector[0].otherVehicleState.hasPriority);
 
-  ASSERT_EQ(situationVector[0].relativePosition.getLongitudinalPosition(),
+  ASSERT_EQ(situationVector[0].relativePosition.longitudinalPosition,
             ::rss::situation::LongitudinalRelativePosition::InFront);
 
-  ASSERT_EQ(situationVector[0].relativePosition.getLateralPosition(),
-            ::rss::situation::LateralRelativePosition::Overlap);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::rss::situation::LateralRelativePosition::Overlap);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, 0);
 }
 
@@ -199,11 +198,10 @@ TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
   ASSERT_EQ(situationVector[0].otherVehicleState.distanceToLeaveIntersection, 14.2);
   ASSERT_FALSE(situationVector[0].otherVehicleState.hasPriority);
 
-  ASSERT_EQ(situationVector[0].relativePosition.getLongitudinalPosition(),
+  ASSERT_EQ(situationVector[0].relativePosition.longitudinalPosition,
             ::rss::situation::LongitudinalRelativePosition::InFront);
 
-  ASSERT_EQ(situationVector[0].relativePosition.getLateralPosition(),
-            ::rss::situation::LateralRelativePosition::Overlap);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::rss::situation::LateralRelativePosition::Overlap);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, 0);
 }
 }

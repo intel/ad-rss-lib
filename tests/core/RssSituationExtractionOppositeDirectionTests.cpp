@@ -31,7 +31,7 @@ protected:
   {
     leadingObject = createObject(36., 0.);
     leadingObject.objectId = 0;
-    scene.setSituationType(rss::situation::SituationType::OppositeDirection);
+    scene.situationType = rss::situation::SituationType::OppositeDirection;
 
     {
       ::rss::world::OccupiedRegion occupiedRegion;
@@ -101,8 +101,7 @@ TEST_F(RssSituationExtractionOppositeDirectionTests, noLongitudinalDifference)
   ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.accelMax,
             worldModel.egoVehicle.dynamics.alphaLon.accelMax);
 
-  ASSERT_EQ(situationVector[0].relativePosition.getLateralPosition(),
-            ::rss::situation::LateralRelativePosition::AtLeft);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::rss::situation::LateralRelativePosition::AtLeft);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, 1);
 }
 
@@ -141,8 +140,7 @@ TEST_F(RssSituationExtractionOppositeDirectionTests, longitudinalDifference)
   ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.brakeMin,
             worldModel.egoVehicle.dynamics.alphaLon.brakeMin);
 
-  ASSERT_EQ(situationVector[0].relativePosition.getLateralPosition(),
-            ::rss::situation::LateralRelativePosition::AtRight);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::rss::situation::LateralRelativePosition::AtRight);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, 1);
 }
 }

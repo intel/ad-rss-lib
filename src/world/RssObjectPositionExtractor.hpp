@@ -93,7 +93,7 @@ public:
    *
    * @param occupiedRegions representing the object
    */
-  explicit RssObjectPositionExtractor(std::vector<OccupiedRegion> const &occupiedRegions);
+  explicit RssObjectPositionExtractor(OccupiedRegionVector const &occupiedRegions);
 
   /**
    * @brief Indicate that there is a new road segment
@@ -127,7 +127,7 @@ public:
   bool getObjectDimensions(ObjectDimensions &objectDimensions);
 
 private:
-  std::vector<OccupiedRegion> mOccupiedRegions;
+  OccupiedRegionVector mOccupiedRegions;
 
   Distance mCurrentLongitudinalMax{0};
   Distance mCurrentLongitudinalMin{0};

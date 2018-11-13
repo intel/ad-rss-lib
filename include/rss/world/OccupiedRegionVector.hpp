@@ -22,9 +22,21 @@
  *
  */
 
-#include "rss/state/ResponseState.hpp"
+#pragma once
+#include <limits>
 
-std::string toString(::rss::state::evRssResponseState const &)
-{
-  return "::rss::state::evRssResponseState";
-}
+#include <vector>
+#include "rss/world/OccupiedRegion.hpp"
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace world
+ */
+namespace world {
+
+using OccupiedRegionVector = std::vector<::rss::world::OccupiedRegion>;
+
+} // namespace world
+} // namespace rss

@@ -45,28 +45,5 @@ struct AccelerationRestriction
   ::rss::world::AccelerationRange lateralRightRange;
 };
 
-/*
- * \brief Event to support type within statecharts
- */
-struct evRssAccelerationRestriction
-{
-  evRssAccelerationRestriction(AccelerationRestriction const &accelerationRestriction)
-    : accelerationRestriction(accelerationRestriction)
-  {
-  }
-
-  AccelerationRestriction const &data() const
-  {
-    return accelerationRestriction;
-  }
-
-  AccelerationRestriction const &accelerationRestriction;
-};
-
 } // namespace world
 } // namespace rss
-
-/*!
- * @brief Conversion of event evRssAccelerationRestriction to std::string (for logging purposes)
- */
-std::string toString(::rss::world::evRssAccelerationRestriction const &);

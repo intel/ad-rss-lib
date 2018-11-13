@@ -140,7 +140,7 @@ bool convertObjectsNonIntersection(world::Object const &egoVehicle,
                                         longitudinalPosition,
                                         longitudinalDistance);
 
-  situation.relativePosition.setLongitudinalPosition(longitudinalPosition);
+  situation.relativePosition.longitudinalPosition = longitudinalPosition;
   situation.relativePosition.longitudinalDistance = longitudinalDistance;
 
   situation.egoVehicleState.isInCorrectLane = !egoVehicleDimension.onNegativeLane;
@@ -166,7 +166,7 @@ bool convertObjectsNonIntersection(world::Object const &egoVehicle,
                                      lateralPosition,
                                      lateralDistance);
 
-    situation.relativePosition.setLateralPosition(lateralPosition);
+    situation.relativePosition.lateralPosition = lateralPosition;
     situation.relativePosition.lateralDistance = lateralDistance;
   }
   return result;
@@ -209,11 +209,13 @@ bool convertObjectsIntersection(world::Object const &egoVehicle,
     convertToIntersectionCentric(
       objectDimension.longitudinalDimensions, objectDimension.intersectionPosition, objectDimensionsIntersection);
 
-    situation.egoVehicleState.distanceToEnterIntersection = std::max(0., egoDimensionsIntersection.minimum);
+    situation.egoVehicleState.distanceToEnterIntersection
+      = std::max(rss::world::Distance(0.), egoDimensionsIntersection.minimum);
     situation.egoVehicleState.distanceToLeaveIntersection
       = egoVehicleDimension.intersectionPosition.maximum - egoVehicleDimension.longitudinalDimensions.minimum;
 
-    situation.otherVehicleState.distanceToEnterIntersection = std::max(0., objectDimensionsIntersection.minimum);
+    situation.otherVehicleState.distanceToEnterIntersection
+      = std::max(rss::world::Distance(0.), objectDimensionsIntersection.minimum);
     situation.otherVehicleState.distanceToLeaveIntersection
       = objectDimension.intersectionPosition.maximum - objectDimension.longitudinalDimensions.minimum;
 
@@ -222,24 +224,24 @@ bool convertObjectsIntersection(world::Object const &egoVehicle,
     calcluateRelativeLongitudinalPositionIntersection(
       egoDimensionsIntersection, objectDimensionsIntersection, longitudinalPosition, longitudinalDistance);
 
-    situation.relativePosition.setLongitudinalPosition(longitudinalPosition);
+    situation.relativePosition.longitudinalPosition = longitudinalPosition;
     situation.relativePosition.longitudinalDistance = longitudinalDistance;
 
-    situation.relativePosition.setLateralPosition(situation::LateralRelativePosition::Overlap);
+    situation.relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
     situation.relativePosition.lateralDistance = 0.;
   }
 
-  if (currentScene.getSituationType() == situation::SituationType::IntersectionEgoHasPriority)
+  if (currentScene.situationType == situation::SituationType::IntersectionEgoHasPriority)
   {
     situation.egoVehicleState.hasPriority = true;
     situation.otherVehicleState.hasPriority = false;
   }
-  else if (currentScene.getSituationType() == situation::SituationType::IntersectionObjectHasPriority)
+  else if (currentScene.situationType == situation::SituationType::IntersectionObjectHasPriority)
   {
     situation.egoVehicleState.hasPriority = false;
     situation.otherVehicleState.hasPriority = true;
   }
-  else if (currentScene.getSituationType() == situation::SituationType::IntersectionSamePriority)
+  else if (currentScene.situationType == situation::SituationType::IntersectionSamePriority)
   {
     situation.egoVehicleState.hasPriority = true;
     situation.otherVehicleState.hasPriority = true;
@@ -260,7 +262,7 @@ bool extractSituation(world::Object const &egoVehicle,
   bool result = false;
 
   situation.situationId = currentScene.object.objectId;
-  situation.setSituationType(currentScene.getSituationType());
+  situation.situationType = currentScene.situationType;
 
   situation.egoVehicleState.hasPriority = false;
   situation.otherVehicleState.hasPriority = false;
@@ -271,7 +273,7 @@ bool extractSituation(world::Object const &egoVehicle,
   convertVehicleStateDynamics(egoVehicle, situation.egoVehicleState);
   convertVehicleStateDynamics(currentScene.object, situation.otherVehicleState);
 
-  switch (currentScene.getSituationType())
+  switch (currentScene.situationType)
   {
     case rss::situation::SituationType::SameDirection:
     case rss::situation::SituationType::OppositeDirection:

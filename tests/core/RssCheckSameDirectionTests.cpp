@@ -26,7 +26,7 @@ class RssCheckSameDirectionTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    scene.setSituationType(rss::situation::SituationType::SameDirection);
+    scene.situationType = rss::situation::SituationType::SameDirection;
     leadingObject = createObject(10., 0.);
     leadingObject.objectId = 0;
 

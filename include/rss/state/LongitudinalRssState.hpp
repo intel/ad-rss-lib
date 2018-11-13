@@ -39,16 +39,6 @@ struct LongitudinalRssState
 {
   bool isSafe{false};
   ::rss::state::LongitudinalResponse response{::rss::state::LongitudinalResponse::BrakeMin};
-
-  ::rss::state::LongitudinalResponse getResponse() const
-  {
-    return response;
-  }
-
-  void setResponse(::rss::state::LongitudinalResponse const newVal)
-  {
-    response = newVal;
-  }
 };
 
 } // namespace state

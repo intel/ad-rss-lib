@@ -81,7 +81,7 @@ bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const axis,
   if (axis == CoordinateSystemAxis::Longitudinal)
   {
     // Only deceleration till stop is allowed
-    resultingSpeed = std::max(0., resultingSpeed);
+    resultingSpeed = std::max(Speed(0.), resultingSpeed);
   }
 
   return true;

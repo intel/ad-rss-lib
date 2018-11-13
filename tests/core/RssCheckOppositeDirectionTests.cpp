@@ -26,7 +26,7 @@ class RssCheckOppositeDirectionTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    scene.setSituationType(rss::situation::SituationType::OppositeDirection);
+    scene.situationType = rss::situation::SituationType::OppositeDirection;
     opposingObject = createObject(10., 0.);
     opposingObject.objectId = 0;
     {

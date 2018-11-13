@@ -26,7 +26,7 @@ class RssCheckIntersectionTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    scene.setSituationType(rss::situation::SituationType::IntersectionEgoHasPriority);
+    scene.situationType = rss::situation::SituationType::IntersectionEgoHasPriority;
     object = createObject(10., 0.);
     object.objectId = 0;
 

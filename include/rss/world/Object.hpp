@@ -25,12 +25,11 @@
 #pragma once
 #include <limits>
 
-#include <vector>
 #include "rss/time/Duration.hpp"
 #include "rss/world/Dynamics.hpp"
 #include "rss/world/ObjectId.hpp"
 #include "rss/world/ObjectType.hpp"
-#include "rss/world/OccupiedRegion.hpp"
+#include "rss/world/OccupiedRegionVector.hpp"
 #include "rss/world/Velocity.hpp"
 /*!
  * @brief namespace rss
@@ -45,20 +44,10 @@ struct Object
 {
   ::rss::world::ObjectId objectId;
   ::rss::world::ObjectType objectType;
-  std::vector<::rss::world::OccupiedRegion> occupiedRegions;
+  ::rss::world::OccupiedRegionVector occupiedRegions;
   ::rss::world::Dynamics dynamics;
   ::rss::world::Velocity velocity;
   ::rss::time::Duration responseTime;
-
-  ::rss::world::ObjectType getObjectType() const
-  {
-    return objectType;
-  }
-
-  void setObjectType(::rss::world::ObjectType const newVal)
-  {
-    objectType = newVal;
-  }
 };
 
 } // namespace world
