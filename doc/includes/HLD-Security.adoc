@@ -1,0 +1,227 @@
+## Design for Security
+
+### Architecture and dataflow overview
+
+This chapter discusses security aspects. As a reminder of the high-level
+architecture, we repeat the following two figures from the chapter
+<<Section::HDL::SystemArchitecture>>.
+The first figure shows the RSS function within the autonomous driving
+(AD) system. The RSS function has a single input called
+`rssWorldModelData`, and a single output called `rssAccelerationRestrictions`.
+
+.System architecture including RSS function
+image::img/aede88b3-6a66-49be-afc1-db5d1b592051_url_09bf665f-2e14-4c70-b4ae-360d558fcc63.tmp[caption="Figure {counter:figure}. ",align=center,pdfwidth=90%]
+
+The second figure shows further detail of the RSS function, with the same external inputs and outputs (`rssWorldModelData` and `rssAccelerationRestrictions`), as well
+as the internal calculation steps and internal dataflow.
+
+.RSS calculation steps and internal dataflow
+image::img/4ae60783-2f0f-422a-83a0-26fb6cc0abb2_url_7bfa945f-c69d-4e1a-92a8-70455df32304.tmp[caption="Figure {counter:figure}. "]
+
+In addition, we repeat the following figure from the chapter
+<<Section::HDL::SoftwareArchitecture>>. This figure shows the actual C++ software
+class that implements the external RSS interface, called `RssCheck`.
+The top-level external interface is implemented using a single routine,
+called `calculateAccelerationRestriction()`, which is a member function of
+the `RssCheck` class. This routine has a single input, called `worldModel` (of
+type `WorldModel`), and a single output,
+called `accelerationRestriction` (of type `AccelerationRestriction`), as
+consistent with the architecture diagram shown above.
+
+This figure also shows the subroutines called from `RssCheck::calculateAccelerationRestriction()`, as consistent with the architecture diagram shown above. These subroutines, which are member functions of supporting classes, are:
+
+* `RssSituationExtraction::extractSituations()`,
+* `RssSituationChecking::checkSituations()`,
+* `RssResponseResolving::provideProperResponse()`, and
+* `RssResponseTransformation::transformProperResponse()`.
+
+.Classes and external interface provided by the RSS software implementation.
+image::img/22d5d273-7ad1-4c82-bd19-0bc40e0956ea_url_4546514e-1279-41c9-a640-26ba103e8d8e.tmp[caption="Figure {counter:figure}. ",align=center,pdfwidth=90%]
+
+
+In the following sections, we discuss security aspects related to:
+input data (implemented by `WorldModel`), output data (implemented
+by `AccelerationRestrictions`), and the RSS function itself (implemented
+by `RssCheck` and supporting library classes).
+
+
+### RSS input data (`WorldModel`)
+
+
+#### Input data source
+
+The input data is contained in `WorldModel`. This data includes distances to
+other road agents (vehicles and other) and velocities of other road agents. This
+data also includes description of the geometry of the road (and road lanes). All
+data types are described in detail in the chapter
+<<Section::HDL::SoftwareArchitecture>>.
+
+The data contained in `WorldModel` is provided directly by a
+calling routine external to the RSS library. Typically, this data will
+ultimately originate from the vehicle sensing subsystem, but it is the
+responsibility of the calling routine to potentially receive, convert, and
+provide this sensing-derived data to the RSS function in the correct format.
+The calling routine must ensure the integrity of the input data
+provided to the RSS library functions.
+
+#### Error handling and logging
+
+Error handling: Each routine in the library that invokes subroutines checks a success/fail flag returned by the subroutine. In addition, many routines perform custom checking of the internal logic against known constraints of RSS. A failure of a logic check or of a subroutine results in interruption of the routine and a fail flag being passed to the calling routine.
+
+Specific checks that are performed include the following.
+
+* Check that the data structure describing the local road and lane geometries is
+  internally consistent. The description of a local road follows basic constraints,
+  and if the description is inconsistent with these constraints, the routine
+  that analyzes the situation from the input data returns, with the success/fail
+  flag set to 'fail'.
+* Check that the data structures describing the ego-vehicle or other objects (other
+  vehicles) are internally consistent. The routine that analyzes the situation checks
+  against basic constraints. If the constraints are violated, the routine returns
+  with the success/fail flag set to 'fail'.
+
+Exception handling: The code-blocks in high-level routines are enclosed inside C++ try-catch blocks. Any exception thrown at lower-level software routines results in a fail flag being returned to the caller of the publicly available high-level routines.
+
+When any of the above errors occur, the top-level RSS routine,
+`RssCheck::calculateAccelerationRestriction()`, will return with the success/fail
+flag set to 'fail'.
+
+Logging: The top-level routine in the library returns a success/fail flag that can
+be recorded by logging functions that should be available in the overall AD system
+(external to the library). Beyond this, the library does not perform error logging internally. In future versions of the library, if logging of specific internals errors is required, this may be implemented by returning more specific error codes.
+
+
+#### Non-functional requirements
+
+The top-level routine that is invoked to perform the RSS calculations,
+`RssCheck::calculateAccelerationRestriction()`, should be called at a rate that is lower or equal to the rate that the actuation subsystem will accept actuation/control commands. For example, if the rate that the AD system accepts actuation/control commands is 10 Hz (once every 100 ms), the average rate that this RSS routine can be invoked should be less than or equal to 10 Hz.
+
+The top-level RSS routine should be called at a rate that is lower or equal to the rate that the sensor subsystem will provide new sensing data.  For example, if a camera-based perception system uses cameras with a frame rate of 30 Hz, the sensor subsystem will not provide its sensing data faster than 30 Hz.  In that case, the average rate that
+`RssCheck::calculateAccelerationRestriction()` can be invoked should be less than or equal to 30 Hz.
+
+The size of the input data (`WorldModel`) provided to `RssCheck` is determined by the number of other objects (other vehicles or road agents) that the ego-vehicle is interacting with, and the size of the description of each object and associated road areas.  The size of the descriptions of objects and road areas is strictly bounded, by the number and type of individual properties of these objects.  We can limit the number of other objects (other road agents) the ego-vehicle is interacting with to a reasonable number _N_.  Then it is straightforward to bound the size of data that must be consumed by the `RssCheck` in a single call, based on _N_ and the sizes of individual datatypes.
+It is responsibility of the system integrator to determine _N_ and to ensure the input data does not exceed this maximum.
+
+Based on limiting the calling rate and data size for each call, one can bound the rate of the data that must be consumed by `RssCheck`. It is the responsibility of the system integrator to determine the desired maximum data rate and to ensure the system does not exceed this maximum.
+
+The latency resulting from the processing time of
+`RssCheck::calculateAccelerationRestriction()` should be strictly limited, due
+to the real-time nature of the AD system and closed-loop interaction with the
+real world environment. This latency should be less than the time period
+(1/rate) of the ActuatorSubSystem. It is the responsibility of the system
+integrator to ensure that this is achieved, or to achieve a latency below an
+upper bound that is tighter (lower) than the one mentioned here.
+
+
+### RSS output data (`AccelerationRestriction`)
+
+`RssCheck::calculateAccelerationRestriction()` outputs a structure of type
+`AccelerationRestriction`. This is a very small structure that contains three
+ranges of acceleration allowed by RSS:
+
+* allowable range of longitudinal acceleration,
+* allowable range of lateral acceleration to the left of the vehicle, and
+* allowable range of lateral acceleration to the right of the vehicle.
+
+Each acceleration range consists of two values: a lower bound and an upper
+bound. The lower bound and upper bound simply specify an interval of allowable
+acceleration. Note that a negative value of acceleration implies deceleration,
+i.e. braking.
+
+
+#### Output data destination
+
+These three ranges (in `AccelerationRestriction`) are provided to the system
+that calls the RSS top-level routine, and indicate the range of acceleration
+that the AD system must ultimately achieve in order to comply to RSS. In other
+words, if the AD system seeks to comply to the RSS model, it must achieve
+an acceleration that is within these bounds provided by the RSS function.
+
+Typically, the system would provide the RSS acceleration restriction data to the
+actuation and control subsystem of the autonomous driving system. This
+subsystem, external to the RSS library, should enforce the lower and upper
+bounds of lateral and longitudinal acceleration provided by the RSS function. Implementation of this process is external to the RSS library, and the system
+integrator must ensure that this is implemented properly and that RSS output
+values are used correctly.
+
+
+#### Bounds on the output data values
+
+As discussed above, the output values of the RSS function are lower and upper
+bounds on acceleration.  The lower and upper bounds calculated by the RSS
+function depend on the input and ultimately on the situation of the ego-vehicle
+and other surrounding agents. For example, in some situations (such as when the
+ego-vehicle does not encounter any other agents in its surroundings), the upper
+bound on acceleration is some finite positive value, indicating that the
+ego-vehicle can accelerate up to that value, in compliance with RSS rules.
+In other situations (such as when the ego-vehicle is closing in on another
+vehicle in front), the upper bound on acceleration is some negative value,
+indicating the the ego-vehicle must brake at least as much as sufficient
+to achieve that negative upper bound, in order to comply with RSS rules.
+
+These output values are themselves bounded by absolute lower and upper limits
+that are specified by the RSS model. For example, a vehicle acceleration
+should never be higher than an RSS-specified absolute upper limit in any
+situation. Likewise, the vehicle should never brake harder so as the result
+in a negative acceleration that is lower than an RSS-specified absolute lower
+limit. These limits are specified in the RSS paper (see <<Table::References>>).
+The system that receives output values from the RSS function can always check
+these values against these RSS-specified absolute lower and upper limits.
+Furthermore, it is the responsibility of the system external to the RSS
+library to ensure that the acceleration and deceleration actually achieved by
+the vehicle always remain within these RSS limits and remain within other
+limits unrelated to RSS (e.g. physical limits imposed by the vehicle
+dynamics and the environment).
+
+
+#### Bounds on the output data size
+
+The output data of the RSS calculations consists of 6 floating point values
+(3 ranges, each with a lower and upper limit).
+
+As discussed in the previous sections, the RSS function should be called at a rate that is lower or equal to the rate that the actuation subsystem will accept actuation/control commands. The calling rate should also be lower or equal to the rate that the sensor subsystem will provide new sensing data. Based on limiting the calling rate and data size for each call, one can bound the rate of the data that is produced by the RSS function and must be consumed by the calling system. It is the responsibility of the system integrator to determine the desired maximum data rate and to ensure the system can handle this maximum data rate.
+
+
+### RSS library (`RssCheck` and supporting classess)
+
+#### Dependencies
+
+The RSS library has no dependency on any external library (except for the
+C++ Standard Library).
+
+
+#### Coding standards
+
+Code quality has been ensured through unit testing.
+
+Unit testing achieved code coverage of: 95% lines, 100% functions, 83% branches.
+
+
+#### Compiler and compiler security flags
+
+The development platform is Ubuntu Linux 16.04 Xenial.
+
+A standard cmake toolchain has been used to compile the library. The compiler is g++ 5.4.0.
+
+The following, strict, compilation flags are used: C++14, -Werror, -Wall, -Wextra, -pedantic, -Wconversion, -Wsign-conversion.
+
+* -Werror turns all warnings into errors
+* -Wall enables many warnings about code constructs that are questionable
+* -Wextra enables additional warnings not enabled by -Wall
+* -Wconversion warns for implicit conversions (e.g. between integer and real types)
+* -Wsign-conversion warn for implicit conversions that reduce
+* -pedantic issues all warnings demanded by strict ISO C and C++
+
+Compilation with these flags completes without any error or warning.
+
+
+#### Code analysis
+
+The code analysis tool `cppcheck` was run on the library code, and no relevant issues found.
+
+
+#### Critical data path and data structures
+
+The data flow through the steps of the RSS calculations are shown in the introduction of this chapter. The input data, contained in `WorldModel` is a critical data structure. If the input data is invalid, either the RSS function will return with the 'success/fail' flag set to 'fail', or the output values will likely be invalid. Other than that, there is a single direct dataflow through the RSS calculations internal to the library. Failure at any point in the calculations leads to the calculations being stopped and the RSS function returning with a flag set to 'fail'.
+
+

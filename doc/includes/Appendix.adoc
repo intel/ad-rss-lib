@@ -29,4 +29,17 @@ include::Appendix-ParameterDiscussion.adoc[]
 | 2   | Implementing the RSS Model on NHTSA Pre-Crash Scenarios | July 2018  | https://www.mobileye.com/responsibility-sensitive-safety/rss_on_nhtsa.pdf
 |======================
 
+## Revision History
+
+[[Table::RevisionHistory]]
+.Documentation Revision History
+[width="100%",frame="topbot",cols="2,2,4,8",options="header"]
+|====
+|Revision |Date |Author(s) | Description
+|0.1 |2018 |Cornelius Buerkle, Bernd Gassmann, Fabian Oboril | Created
+|0.2 |2018-8-29 |Cornelius Buerkle, Bernd, Gassmann, Fabian Oboril | Updated
+|0.29 |2018-11-14 |Peter van Beek |Added content to Design for Security chapter (in progress)
+|====
+
+
 include::BuildInstructions.adoc[]
