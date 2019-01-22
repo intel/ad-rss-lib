@@ -39,6 +39,8 @@
 #pragma once
 #include <limits>
 
+#include <cstdint>
+#include <memory>
 #include "rss/situation/Speed.hpp"
 #include "rss/world/LaneSegmentId.hpp"
 /*!
@@ -50,11 +52,19 @@ namespace rss {
  */
 namespace world {
 
+/*!
+ * \brief DataType Velocity
+ *
+ * Defines the velocity of an object within its current lane. The velocity consists of a longitudinal and a lateral
+ * component.
+ */
 struct Velocity
 {
-  ::rss::world::LaneSegmentId segmentId;
-  ::rss::situation::Speed speedLon{0.0};
-  ::rss::situation::Speed speedLat{0.0};
+  ::rss::world::LaneSegmentId segmentId; /*!< The id of the lane segment this velocity refers to. */
+  ::rss::situation::Speed speedLon{0.0}; /*!< The longitudinal speed component of the velocity vector.
+  The longitudinal component of the velocity is always measured tangential to the center line of the current lane. */
+  ::rss::situation::Speed speedLat{0.0}; /*!< The lateral speed component of the velocity vector.
+  The lateral component of the velocity is always measured orthogonal to the center line of the current lane. */
 };
 
 } // namespace world

@@ -76,11 +76,11 @@ command restrictions as output.
 image::rss_integration.png[caption="Figure {counter:figure}. "]
 
 In summary, the RSS module receives an object list, with information about all
-object in the surrounding environment of the ego vehicle. Then, the RSS module
+objects in the surrounding environment of the ego vehicle. Then, the RSS module
 creates an object - ego vehicle pair, for each object. This pair is usually
 referred to as _"Situation"_. For all situations, the aforementioned RSS checks
 are performed and a proper response is calculated. Finally, one overall
-response is obtained by the RSS module, and the corresponding actuator command
+response is computed by the RSS module, and the corresponding actuator command
 restrictions (i.e. lateral and longitudinal acceleration restrictions) are sent
 out (see <<Figure:Library>>).
 
@@ -94,19 +94,20 @@ heavily depend on the actual vehicle setup.
 
 [NOTE]
 ====
-The scope of the planned release for end of Q3'2018 is:
+The current scope of the provided implementation is:
 
  * Standalone C++-library containing the implementation of the RSS module
- * The RSS module covers multi-lane roads and intersections.
- * Code quality will be ensured by automated testing with test coverage 80/50
-   and static code analysis
- * Set of CarMaker scenarios to demonstrate functionality of library
+ * The RSS module covers multi-lane roads and intersections
+ * Code quality is assured by automated testing with test coverage of
+   100% on methods and 80% on branches as well as static code analysis
 ====
 
 [IMPORTANT]
 ====
 The initial design does not yet cover:
 
+* Compensating for improper behavior of others
+* Lateral conflicts in case of intersections
 * Respecting occlusions
 * Checks with Vulnerable Road Users
 * Checks for unstructured roads, e.g. parking spaces
@@ -115,45 +116,13 @@ The initial design does not yet cover:
 ### Overview of the Document
 The remainder of this document is structured as follows:
 
-- <<Section::HDL::Implementation>> provides an overview of the RSS
+- <<Section::HLD::Implementation>> provides an overview of the RSS
   implementation provided within the library. It discusses how each situation
-  is handled, and discusses potential issues.
-- <<Section::HDL::SystemArchitecture>> introduces the system
+  is handled.
+- <<Section::HLD::SystemArchitecture>> introduces the system
   architecture for RSS and the interfaces of the RSS module to other components.
-- <<Section::HDL::SoftwareArchitecture>> provides a description of the
+- <<Section::HLD::SoftwareArchitecture>> provides a description of the
   software architecture, included the interface and data type definitions. If
   you would like to integrate the library into your system, this section, as
-  well as <<Section::HDL::SystemArchitecture>> are of particular
+  well as <<Section::HLD::SystemArchitecture>> are of particular
   importance.
-
-
-//## Assumptions, Dependencies & Risks
-// intended empty
-
-//### Assumptions
-//.Assumptions
-//[width="100%",frame="topbot",options="header"]
-//|======================
-//| Assumption # | Detailed Description
-//| 1   |
-//| 2   |
-//|======================
-//
-//### Dependencies
-//.Dependencies
-//[width="100%",frame="topbot",options="header"]
-//|======================
-//| Dependency # | Detailed Description
-//| 1   |
-//| 2   |
-//|======================
-//
-//
-//### Risks
-//.Risks
-//[width="100%",frame="topbot",options="header"]
-//|======================
-//| Risk # | Detailed Description
-//| 1   |
-//| 2   |
-//|======================

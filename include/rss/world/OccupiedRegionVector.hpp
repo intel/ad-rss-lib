@@ -39,6 +39,7 @@
 #pragma once
 #include <limits>
 
+#include <memory>
 #include <vector>
 #include "rss/world/OccupiedRegion.hpp"
 /*!
@@ -50,6 +51,11 @@ namespace rss {
  */
 namespace world {
 
+/*!
+ * \brief DataType OccupiedRegionVector
+ *
+ * A vector of occupied regions.
+ */
 using OccupiedRegionVector = std::vector<::rss::world::OccupiedRegion>;
 
 } // namespace world

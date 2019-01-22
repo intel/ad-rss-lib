@@ -39,10 +39,17 @@
 #pragma once
 #include <limits>
 
-namespace rss {
-namespace time {
 /*!
- * \brief Type definition  Duration
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace time
+ */
+namespace time {
+
+/*!
+ * \brief DataType Duration
  *
  * A duration represents a time interval
  * Unit: second

@@ -39,6 +39,7 @@
 #pragma once
 #include <limits>
 
+#include <memory>
 #include "rss/world/Distance.hpp"
 #include "rss/world/LateralRssAccelerationValues.hpp"
 #include "rss/world/LongitudinalRssAccelerationValues.hpp"
@@ -51,11 +52,20 @@ namespace rss {
  */
 namespace world {
 
+/*!
+ * \brief DataType Dynamics
+ *
+ * Describes the RSS dynamics values to be applied for an object within the metric world frame. The dynamics consist of
+ * a longitudinal component, a lateral component and a lateral fluctuation margin to be taken into account to compensate
+ * for lateral fluctuations.
+ */
 struct Dynamics
 {
-  ::rss::world::LongitudinalRssAccelerationValues alphaLon;
-  ::rss::world::LateralRssAccelerationValues alphaLat;
-  ::rss::world::Distance lateralFluctuationMargin{0.0};
+  ::rss::world::LongitudinalRssAccelerationValues
+    alphaLon; /*!< RSS dynamics values along longitudinal coordinate system axis. */
+  ::rss::world::LateralRssAccelerationValues alphaLat; /*!< RSS dynamics values along lateral coordinate system axis. */
+  ::rss::world::Distance lateralFluctuationMargin{
+    0.0}; /*!< Defines the lateral fluctuation margin to be taken into account. */
 };
 
 } // namespace world

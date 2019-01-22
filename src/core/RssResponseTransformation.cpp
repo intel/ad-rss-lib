@@ -68,7 +68,7 @@ bool transformProperResponse(world::WorldModel const &worldModel,
   {
     case ::rss::state::LateralResponse::BrakeMin:
       accelerationRestriction.lateralLeftRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;
-      accelerationRestriction.lateralLeftRange.minimum = std::numeric_limits<int>::lowest();
+      accelerationRestriction.lateralLeftRange.minimum = std::numeric_limits<world::Acceleration>::lowest();
       break;
     case ::rss::state::LateralResponse::None:
       accelerationRestriction.lateralLeftRange.maximum = worldModel.egoVehicle.dynamics.alphaLat.accelMax;
@@ -80,7 +80,7 @@ bool transformProperResponse(world::WorldModel const &worldModel,
   {
     case ::rss::state::LateralResponse::BrakeMin:
       accelerationRestriction.lateralRightRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;
-      accelerationRestriction.lateralRightRange.minimum = std::numeric_limits<int>::lowest();
+      accelerationRestriction.lateralRightRange.minimum = std::numeric_limits<world::Acceleration>::lowest();
       break;
     case ::rss::state::LateralResponse::None:
       accelerationRestriction.lateralRightRange.maximum = worldModel.egoVehicle.dynamics.alphaLat.accelMax;

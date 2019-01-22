@@ -40,10 +40,17 @@
 #include <limits>
 
 #include <cstdint>
-namespace rss {
-namespace situation {
 /*!
- * \brief Type definition  SituationId
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace situation
+ */
+namespace situation {
+
+/*!
+ * \brief DataType SituationId
  *
  * The unique id of an situation over time.
  */

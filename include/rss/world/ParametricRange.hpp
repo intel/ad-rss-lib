@@ -39,6 +39,7 @@
 #pragma once
 #include <limits>
 
+#include <memory>
 #include "rss/world/ParametricValue.hpp"
 /*!
  * @brief namespace rss
@@ -49,10 +50,15 @@ namespace rss {
  */
 namespace world {
 
+/*!
+ * \brief DataType ParametricRange
+ *
+ * A parametric range within a lane segment described by its borders: [minimum, maximum].
+ */
 struct ParametricRange
 {
-  ::rss::world::ParametricValue minimum{0.0};
-  ::rss::world::ParametricValue maximum{1.0};
+  ::rss::world::ParametricValue minimum{0.0}; /*!< The minimum value of the parametric range. */
+  ::rss::world::ParametricValue maximum{1.0}; /*!< The maximum value of the parametric range. */
 };
 
 } // namespace world

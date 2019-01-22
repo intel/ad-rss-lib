@@ -39,6 +39,7 @@
 #pragma once
 #include <limits>
 
+#include <memory>
 #include "rss/state/LongitudinalResponse.hpp"
 /*!
  * @brief namespace rss
@@ -49,10 +50,16 @@ namespace rss {
  */
 namespace state {
 
+/*!
+ * \brief DataType LongitudinalRssState
+ *
+ * Struct to store the longitudinal RSS state.
+ */
 struct LongitudinalRssState
 {
-  bool isSafe{false};
-  ::rss::state::LongitudinalResponse response{::rss::state::LongitudinalResponse::BrakeMin};
+  bool isSafe{false}; /*!< Flag to indicate if the state is longitudinal safe. */
+  ::rss::state::LongitudinalResponse response{
+    ::rss::state::LongitudinalResponse::BrakeMin}; /*!< required response in longitudinal direction */
 };
 
 } // namespace state

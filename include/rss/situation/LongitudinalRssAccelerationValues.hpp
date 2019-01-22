@@ -39,6 +39,7 @@
 #pragma once
 #include <limits>
 
+#include <memory>
 #include "rss/situation/Acceleration.hpp"
 /*!
  * @brief namespace rss
@@ -49,12 +50,24 @@ namespace rss {
  */
 namespace situation {
 
+/*!
+ * \brief DataType LongitudinalRssAccelerationValues
+ *
+ * Collection of the RSS acceleration values in longitudinal direction.
+ */
 struct LongitudinalRssAccelerationValues
 {
-  ::rss::situation::Acceleration accelMax{0.0};
-  ::rss::situation::Acceleration brakeMax{0.0};
-  ::rss::situation::Acceleration brakeMin{0.0};
-  ::rss::situation::Acceleration brakeMinCorrect{0.0};
+  ::rss::situation::Acceleration accelMax{0.0}; /*!< Absolute amount of the maximum allowed acceleration.  This value
+                                                   has always to be positive, zero is allowed. */
+  ::rss::situation::Acceleration brakeMax{
+    0.0}; /*!< Absolute amount of the maximum allowed braking deceleration.  This value has always to be positive and
+             not smaller than brakeMin. */
+  ::rss::situation::Acceleration brakeMin{
+    0.0}; /*!< Absolute amount of the minimum allowed breaking deceleration.  This value has always to be positive and
+             not smaller than brakeMinCorrect. */
+  ::rss::situation::Acceleration brakeMinCorrect{
+    0.0}; /*!< Absolute amount of the minimum allowed breaking deceleration when driving on the correct lane.  This
+             value has always to be positive. */
 };
 
 } // namespace situation

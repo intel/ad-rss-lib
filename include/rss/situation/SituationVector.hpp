@@ -39,7 +39,7 @@
 #pragma once
 #include <limits>
 
-#include <string>
+#include <memory>
 #include <vector>
 #include "rss/situation/Situation.hpp"
 /*!
@@ -51,6 +51,11 @@ namespace rss {
  */
 namespace situation {
 
+/*!
+ * \brief DataType SituationVector
+ *
+ * A vector of situations.
+ */
 using SituationVector = std::vector<::rss::situation::Situation>;
 
 } // namespace situation

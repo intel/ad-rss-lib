@@ -38,7 +38,16 @@ namespace core {
 
 namespace RssSituationExtraction {
 
-#if 0
+void calcluateRelativeLongitudinalPosition(world::MetricRange const &egoMetricRange,
+                                           world::MetricRange const &otherMetricRange,
+                                           situation::LongitudinalRelativePosition &longitudinalPosition,
+                                           situation::Distance &longitudinalDistance);
+
+void calcluateRelativeLateralPosition(world::MetricRange const &egoMetricRange,
+                                      world::MetricRange const &otherMetricRange,
+                                      situation::LateralRelativePosition &lateralPosition,
+                                      situation::Distance &lateralDistance);
+
 void performCalculateRelativePositionTest(situation::Distance minA,
                                           situation::Distance maxA,
                                           situation::Distance minB,
@@ -49,34 +58,44 @@ void performCalculateRelativePositionTest(situation::Distance minA,
                                           situation::LongitudinalRelativePosition expectedPositionLonBtoA,
                                           situation::Distance expectedDistance)
 {
-  lane::Position vehicleAPosition;
-  lane::Position vehicleBPosition;
+  world::MetricRange vehicleALonMetricRange;
+  world::MetricRange vehicleALatMetricRange;
+  world::MetricRange vehicleBLonMetricRange;
+  world::MetricRange vehicleBLatMetricRange;
   situation::RelativePosition relativePosition;
   const situation::Distance cEpsilon = 1e-10;
 
-  vehicleAPosition.latInterval.minimum = minA;
-  vehicleAPosition.latInterval.maximum = maxA;
-  vehicleAPosition.lonInterval = vehicleAPosition.latInterval;
+  vehicleALatMetricRange.minimum = minA;
+  vehicleALatMetricRange.maximum = maxA;
+  vehicleALonMetricRange = vehicleALatMetricRange;
 
-  vehicleBPosition.latInterval.minimum = minB;
-  vehicleBPosition.latInterval.maximum = maxB;
-  vehicleBPosition.lonInterval = vehicleBPosition.latInterval;
+  vehicleBLatMetricRange.minimum = minB;
+  vehicleBLatMetricRange.maximum = maxB;
+  vehicleBLonMetricRange = vehicleBLatMetricRange;
 
-  relativePosition = calcluateRelativePosition(vehicleAPosition, vehicleBPosition, true);
+  calcluateRelativeLongitudinalPosition(vehicleALonMetricRange,
+                                        vehicleBLonMetricRange,
+                                        relativePosition.longitudinalPosition,
+                                        relativePosition.longitudinalDistance);
+  calcluateRelativeLateralPosition(
+    vehicleALatMetricRange, vehicleBLatMetricRange, relativePosition.lateralPosition, relativePosition.lateralDistance);
 
   ASSERT_EQ(expectedPositionLatAtoB, relativePosition.lateralPosition);
   ASSERT_EQ(expectedPositionLonAtoB, relativePosition.longitudinalPosition);
   ASSERT_NEAR(expectedDistance, relativePosition.lateralDistance, cEpsilon);
   ASSERT_NEAR(expectedDistance, relativePosition.longitudinalDistance, cEpsilon);
-  ASSERT_TRUE(relativePosition.isDrivingInOppositeDirection);
 
-  relativePosition = calcluateRelativePosition(vehicleBPosition, vehicleAPosition, false);
+  calcluateRelativeLongitudinalPosition(vehicleBLonMetricRange,
+                                        vehicleALonMetricRange,
+                                        relativePosition.longitudinalPosition,
+                                        relativePosition.longitudinalDistance);
+  calcluateRelativeLateralPosition(
+    vehicleBLatMetricRange, vehicleALatMetricRange, relativePosition.lateralPosition, relativePosition.lateralDistance);
 
   ASSERT_EQ(expectedPositionLatBtoA, relativePosition.lateralPosition);
   ASSERT_EQ(expectedPositionLonBtoA, relativePosition.longitudinalPosition);
   ASSERT_NEAR(expectedDistance, relativePosition.lateralDistance, cEpsilon);
   ASSERT_NEAR(expectedDistance, relativePosition.longitudinalDistance, cEpsilon);
-  ASSERT_FALSE(relativePosition.isDrivingInOppositeDirection);
 }
 
 TEST(CalcluateRelativePositionTest, no_overlap_positive)
@@ -208,8 +227,7 @@ TEST(CalcluateRelativePositionTest, full_overlap_mixed)
                                        situation::LongitudinalRelativePosition::Overlap,
                                        0.);
 }
-#endif
 
-} // namespace RSSWorld
+} // namespace RssSituationExtraction
 } // namespace check
 } // namespace rss

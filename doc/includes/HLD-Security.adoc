@@ -4,22 +4,22 @@
 
 This chapter discusses security aspects. As a reminder of the high-level
 architecture, we repeat the following two figures from the chapter
-<<Section::HDL::SystemArchitecture>>.
+<<Section::HLD::SystemArchitecture>>.
 The first figure shows the RSS function within the autonomous driving
 (AD) system. The RSS function has a single input called
 `rssWorldModelData`, and a single output called `rssAccelerationRestrictions`.
 
 .System architecture including RSS function
-image::img/aede88b3-6a66-49be-afc1-db5d1b592051_url_09bf665f-2e14-4c70-b4ae-360d558fcc63.tmp[caption="Figure {counter:figure}. ",align=center,pdfwidth=90%]
+image::img/55e93b9e-6f57-4e00-9fa6-dc7f9028d54a_url_20ec2bcf-de61-4368-90de-182f5515ce02.tmp[caption="Figure {counter:figure}. ",align=center,pdfwidth=90%]
 
 The second figure shows further detail of the RSS function, with the same external inputs and outputs (`rssWorldModelData` and `rssAccelerationRestrictions`), as well
 as the internal calculation steps and internal dataflow.
 
 .RSS calculation steps and internal dataflow
-image::img/4ae60783-2f0f-422a-83a0-26fb6cc0abb2_url_7bfa945f-c69d-4e1a-92a8-70455df32304.tmp[caption="Figure {counter:figure}. "]
+image::img/9b237f8c-2432-4a6b-9023-d446c1934e47_url_65397eb3-03bc-438e-957b-b555a4772165.tmp[caption="Figure {counter:figure}. "]
 
 In addition, we repeat the following figure from the chapter
-<<Section::HDL::SoftwareArchitecture>>. This figure shows the actual C++ software
+<<Section::HLD::SoftwareArchitecture>>. This figure shows the actual C++ software
 class that implements the external RSS interface, called `RssCheck`.
 The top-level external interface is implemented using a single routine,
 called `calculateAccelerationRestriction()`, which is a member function of
@@ -36,7 +36,7 @@ This figure also shows the subroutines called from `RssCheck::calculateAccelerat
 * `RssResponseTransformation::transformProperResponse()`.
 
 .Classes and external interface provided by the RSS software implementation.
-image::img/22d5d273-7ad1-4c82-bd19-0bc40e0956ea_url_4546514e-1279-41c9-a640-26ba103e8d8e.tmp[caption="Figure {counter:figure}. ",align=center,pdfwidth=90%]
+image::img/c28593c2-3946-4df5-8d22-4e1640accef8_url_f500a68f-1c6c-43f4-92bf-f3b2eff3185f.tmp[caption="Figure {counter:figure}. ",align=center,pdfwidth=90%]
 
 
 In the following sections, we discuss security aspects related to:
@@ -54,7 +54,7 @@ The input data is contained in `WorldModel`. This data includes distances to
 other road agents (vehicles and other) and velocities of other road agents. This
 data also includes description of the geometry of the road (and road lanes). All
 data types are described in detail in the chapter
-<<Section::HDL::SoftwareArchitecture>>.
+<<Section::HLD::SoftwareArchitecture>>.
 
 The data contained in `WorldModel` is provided directly by a
 calling routine external to the RSS library. Typically, this data will
@@ -223,5 +223,3 @@ The code analysis tool `cppcheck` was run on the library code, and no relevant i
 #### Critical data path and data structures
 
 The data flow through the steps of the RSS calculations are shown in the introduction of this chapter. The input data, contained in `WorldModel` is a critical data structure. If the input data is invalid, either the RSS function will return with the 'success/fail' flag set to 'fail', or the output values will likely be invalid. Other than that, there is a single direct dataflow through the RSS calculations internal to the library. Failure at any point in the calculations leads to the calculations being stopped and the RSS function returning with a flag set to 'fail'.
-
-

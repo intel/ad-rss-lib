@@ -39,6 +39,7 @@
 #pragma once
 #include <limits>
 
+#include <memory>
 #include "rss/world/Acceleration.hpp"
 /*!
  * @brief namespace rss
@@ -49,10 +50,17 @@ namespace rss {
  */
 namespace world {
 
+/*!
+ * \brief DataType AccelerationRange
+ *
+ * An acceleration range described by its borders: [minimum, maximum].
+ */
 struct AccelerationRange
 {
-  ::rss::world::Acceleration minimum{std::numeric_limits<Acceleration>::lowest()};
-  ::rss::world::Acceleration maximum{std::numeric_limits<Acceleration>::max()};
+  ::rss::world::Acceleration minimum{
+    std::numeric_limits<Acceleration>::lowest()}; /*!< The minimum value of the acceleration range. */
+  ::rss::world::Acceleration maximum{
+    std::numeric_limits<Acceleration>::max()}; /*!< The maximum value of the acceleration range. */
 };
 
 } // namespace world

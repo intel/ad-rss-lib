@@ -39,7 +39,8 @@
 #pragma once
 #include <limits>
 
-#include <string>
+#include <cstdint>
+#include <memory>
 #include "rss/situation/SituationId.hpp"
 #include "rss/state/LateralRssState.hpp"
 #include "rss/state/LongitudinalRssState.hpp"
@@ -53,13 +54,23 @@ namespace rss {
  */
 namespace state {
 
+/*!
+ * \brief DataType ResponseState
+ *
+ * Struct defining the RSS state of a single object.
+ */
 struct ResponseState
 {
-  ::rss::time::TimeIndex timeIndex;
-  ::rss::situation::SituationId situationId{0u};
-  ::rss::state::LongitudinalRssState longitudinalState;
-  ::rss::state::LateralRssState lateralStateRight;
-  ::rss::state::LateralRssState lateralStateLeft;
+  ::rss::time::TimeIndex timeIndex; /*!< The time index is required to distinguish different points in time when
+                                       tracking states or transforming responses back. */
+  ::rss::situation::SituationId situationId{0u};        /*!< Id of the situation this state refers to.
+         The id has to remain unique over time representing the situation (ego-vehicle / object pair) under investigation.
+         It is used to track the state of the ego-vehicle / object constellation i.e. at point of danger threshold time. */
+  ::rss::state::LongitudinalRssState longitudinalState; /*!< The current longitudinal rss state. */
+  ::rss::state::LateralRssState
+    lateralStateRight; /*!< The current lateral rss state at right side in respect to ego-vehicle driving direction. */
+  ::rss::state::LateralRssState
+    lateralStateLeft; /*!< The current lateral rss state at left side in respect to ego-vehicle driving direction. */
 };
 
 } // namespace state

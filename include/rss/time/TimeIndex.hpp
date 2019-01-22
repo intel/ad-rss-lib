@@ -40,10 +40,17 @@
 #include <limits>
 
 #include <cstdint>
-namespace rss {
-namespace time {
 /*!
- * \brief Type definition  TimeIndex
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace time
+ */
+namespace time {
+
+/*!
+ * \brief DataType TimeIndex
  *
  * Defines a certain point in time.
  */

@@ -39,10 +39,17 @@
 #pragma once
 #include <limits>
 
-namespace rss {
-namespace world {
 /*!
- * \brief Type definition  Distance
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace world
+ */
+namespace world {
+
+/*!
+ * \brief DataType Distance
  *
  * The length of a specific path traveled between two points.
  * Unit: meter

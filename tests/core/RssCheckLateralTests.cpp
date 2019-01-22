@@ -200,7 +200,7 @@ TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Right)
     {
       ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum,
                 -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-      ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, std::numeric_limits<int>::lowest());
+      ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, std::numeric_limits<world::Acceleration>::lowest());
     }
     ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
               -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
@@ -249,7 +249,7 @@ TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Left)
     {
       ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum,
                 -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-      ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum, std::numeric_limits<int>::lowest());
+      ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum, std::numeric_limits<world::Acceleration>::lowest());
     }
   }
 }

@@ -39,10 +39,17 @@
 #pragma once
 #include <limits>
 
-namespace rss {
-namespace world {
 /*!
- * \brief Type definition  ParametricValue
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace world
+ */
+namespace world {
+
+/*!
+ * \brief DataType ParametricValue
  *
  * A parametric value in the range of [0.0; 1.0] describing the relative progress.
  */

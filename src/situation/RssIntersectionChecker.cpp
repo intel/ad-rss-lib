@@ -55,7 +55,7 @@ bool checkLateralIntersect(Situation const &situation, bool &isSafe)
   bool result = true;
 
   /**
-   * Check if in any case the first vehicle has passed the intersection (point?) before the other
+   * Check if in any case the first vehicle has passed the intersection before the other
    * vehicle arrives at that point
    */
 
@@ -181,11 +181,11 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
   bool result = false;
   try
   {
-    /**
-     * @todo use id here when available to determine when clear is required
-     */
     if (situation.timeIndex != mCurrentTimeIndex)
     {
+      /**
+       * next time step: current safe state map becomes last state now
+       */
       mLastSafeStateMap.swap(mCurrentSafeStateMap);
       mCurrentSafeStateMap.clear();
       mCurrentTimeIndex = situation.timeIndex;
@@ -195,7 +195,8 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
     rssState.longitudinalState.response = ::rss::state::LongitudinalResponse::BrakeMin;
 
     /**
-     * An intersection situation  is lateral unsafe but usually doesn't require a lateral brake
+     * An intersection situation is lateral unsafe but usually doesn't require a lateral brake
+     * @todo: if taking lateral intersection handling into account, this also has to be updated
      */
     rssState.lateralStateLeft.isSafe = false;
     rssState.lateralStateLeft.response = ::rss::state::LateralResponse::None;
@@ -208,7 +209,6 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
     /**
      * Check if the intersection is safe and determine the intersection state of the situation
      */
-
     result = checkIntersectionSafe(situation, isSafe, intersectionState);
 
     if (result)
@@ -220,7 +220,7 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
       if (!isSafe)
       {
         /**
-         * Situation is unsafe determine right response
+         * Situation is unsafe determine proper response
          */
         if (previousIntersectionState != mLastSafeStateMap.end())
         {

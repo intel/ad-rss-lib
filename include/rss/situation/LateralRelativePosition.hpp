@@ -39,13 +39,19 @@
 #pragma once
 #include <limits>
 
-#include <cstdint>
+#include <memory>
 #include <string>
-#include <unordered_map>
-namespace rss {
-namespace situation {
 /*!
- * \brief Enum LateralRelativePosition
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace situation
+ */
+namespace situation {
+
+/*!
+ * \brief DataType LateralRelativePosition
  *
  * Enumeration describing the relative lateral position between two objects, a and b, within their situation coordinate
  * system.
@@ -66,28 +72,27 @@ enum class LateralRelativePosition : int32_t
 } // namespace situation
 } // namespace rss
 /*!
- * @brief Conversion of ::rss::situation::LateralRelativePosition to std::string helper.
- *
+ * \brief Conversion of ::rss::situation::LateralRelativePosition to std::string helper.
  */
 std::string toString(::rss::situation::LateralRelativePosition const e);
 
 /*!
- * @brief Conversion from std::string to enum type T helper.
+ * \brief Conversion from std::string to enum type T helper.
  *
- * @param [in] str - a fully qualified string name of enum class type
+ * \param [in] str - a fully qualified string name of enum class type
  *
- * @return T enum value
+ * \return T enum value
  *
- * @throws std::out_of_range exception if the given string does not match any enum type
+ * \throws std::out_of_range exception if the given string does not match any enum type
  *
  * Example usage:
- * @code
+ * \code
  *   auto value = fromString<SomeEnumType>("SomeEnumType::eValue");
  *   assert(value == SomeEnumType::eValue);
  *   // Or:
  *   auto value = fromString<SomeEnumType>("eValue");
  *   assert(value == SomeEnumType::eValue);
- * @endcode
+ * \endcode
  */
 template <typename EnumType> EnumType fromString(std::string const &str);
 

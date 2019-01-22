@@ -39,6 +39,7 @@
 #pragma once
 #include <limits>
 
+#include <memory>
 #include "rss/situation/Speed.hpp"
 /*!
  * @brief namespace rss
@@ -49,10 +50,17 @@ namespace rss {
  */
 namespace situation {
 
+/*!
+ * \brief DataType Velocity
+ *
+ * Defines the velocity of an object in the respective situation coordinate system. The velocity consists of a
+ * longitudinal and a lateral component.
+ */
 struct Velocity
 {
-  ::rss::situation::Speed speedLon{0.0};
-  ::rss::situation::Speed speedLat{0.0};
+  ::rss::situation::Speed speedLon{0.0}; /*!< Absolute amount of the longitudinal speed component of the velocity
+                                            vector. This value has always to be positive. */
+  ::rss::situation::Speed speedLat{0.0}; /*!< The lateral speed component of the velocity vector. */
 };
 
 } // namespace situation

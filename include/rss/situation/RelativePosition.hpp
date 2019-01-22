@@ -39,6 +39,7 @@
 #pragma once
 #include <limits>
 
+#include <memory>
 #include "rss/situation/Distance.hpp"
 #include "rss/situation/LateralRelativePosition.hpp"
 #include "rss/situation/LongitudinalRelativePosition.hpp"
@@ -51,13 +52,23 @@ namespace rss {
  */
 namespace situation {
 
+/*!
+ * \brief DataType RelativePosition
+ *
+ * Describes the relative position between two objects within their situation coordinate system.
+ */
 struct RelativePosition
 {
   ::rss::situation::LongitudinalRelativePosition longitudinalPosition{
-    ::rss::situation::LongitudinalRelativePosition::Overlap};
-  ::rss::situation::Distance longitudinalDistance{0.0};
-  ::rss::situation::LateralRelativePosition lateralPosition{::rss::situation::LateralRelativePosition::Overlap};
-  ::rss::situation::Distance lateralDistance{0.0};
+    ::rss::situation::LongitudinalRelativePosition::
+      Overlap}; /*!< The longitudinal relative position between to objects within their situation coordinate system. */
+  ::rss::situation::Distance longitudinalDistance{
+    0.0}; /*!< The longitudinal distance between the two objects within their situation coordinate system. */
+  ::rss::situation::LateralRelativePosition lateralPosition{
+    ::rss::situation::LateralRelativePosition::Overlap}; /*!< The lateral relative position between to objects within
+                                                            their situation coordinate system. */
+  ::rss::situation::Distance lateralDistance{
+    0.0}; /*!< The lateral distance between the two objects within their situation coordinate system. */
 };
 
 } // namespace situation

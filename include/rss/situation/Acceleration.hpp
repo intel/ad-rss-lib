@@ -39,10 +39,17 @@
 #pragma once
 #include <limits>
 
-namespace rss {
-namespace situation {
 /*!
- * \brief Type definition  Acceleration
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace situation
+ */
+namespace situation {
+
+/*!
+ * \brief DataType Acceleration
  *
  * The rate of change of Speed of an object with respect to time.
  * Unit: situation coordinate system unit per second squared

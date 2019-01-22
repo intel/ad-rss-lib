@@ -1,9 +1,7 @@
 ## Design for Safety
-*TODO* Maybe we should explain here the differentiation between
-Functional Safety (FuSa) in general and the planning safety which RSS is covering.
-
-Basic idea would be: In principle, RSS is implementing
-safety of the intended functionality.
-One can apply RSS without FuSa to safeguard the planning functionality.
-If one implements RSS in an ADS with FuSa constraints on system level,
-RSS contributes to the FuSa goals of the whole ADS.
+In principle, RSS is implementing safety of the intended functionality
+(SOTIF).
+One can apply RSS without general functional safety (FuSa) aspects
+to safeguard the planning functionality.
+If RSS is implemented in an ADS with FuSa
+constraints on system level, RSS contributes to the FuSa goals of the whole ADS.

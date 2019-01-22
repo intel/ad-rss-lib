@@ -39,10 +39,17 @@
 #pragma once
 #include <limits>
 
-namespace rss {
-namespace situation {
 /*!
- * \brief Type definition  Distance
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace situation
+ */
+namespace situation {
+
+/*!
+ * \brief DataType Distance
  *
  * The length of a specific path traveled between two points.
  * Unit: situation coordinate system unit

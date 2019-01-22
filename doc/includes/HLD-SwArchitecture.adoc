@@ -1,4 +1,4 @@
-[[Section::HDL::SoftwareArchitecture]]
+[[Section::HLD::SoftwareArchitecture]]
 == RssModule: Software Architecture
 
 This section describes the software architecture of the RSSModule in detail. The static view covers the deployed
@@ -9,7 +9,7 @@ detail.
 
 [[Figure:RssModule]]
 .The packages within the RssModule.
-image::img/e2c6a376-db06-478b-a311-71ba7e82c763_url_06ed305c-48a0-45c7-8494-f1bf955bf592.tmp[caption="Figure {counter:figure}. "]
+image::img/33c91e7a-fb3e-4c8d-a24a-b86de90ad977_url_16f065ea-a5ea-437f-98cb-06eb88a406ee.tmp[caption="Figure {counter:figure}. "]
 
 The RssModule is implemented in C++. Based on a set of datatype definitions the interfaces are provided to:
 
@@ -26,7 +26,7 @@ Definition of artifacts the RssModule is deployed to.
 
 [[Figure:Artifact_Deployment]]
 .Artifacts to be deployed from the RssModule.
-image::img/a80e4918-e461-4e01-aed7-84436bd89d05_url_17924f44-ca78-4280-bc58-5f0f8add26e9.tmp[caption="Figure {counter:figure}. "]
+image::img/2167c712-ea90-4a07-95ef-dbf9c7c90e8f_url_14a3f5bc-5426-4482-bdfd-170a77a65952.tmp[caption="Figure {counter:figure}. "]
 
 ===== rss_module
 
@@ -51,7 +51,7 @@ functionality.
 
 [[Figure:Namespace_rss__core]]
 .The interfaces provided by the RssModule.
-image::img/d425ec4a-c561-48e2-ae84-b4769e431415_url_d4a07711-9b2e-47a7-81e2-2d41ac06e8b6.tmp[caption="Figure {counter:figure}. "]
+image::img/c28593c2-3946-4df5-8d22-4e1640accef8_url_f500a68f-1c6c-43f4-92bf-f3b2eff3185f.tmp[caption="Figure {counter:figure}. "]
 
 ====== RssCheck
 
@@ -133,8 +133,8 @@ Returns true if the situation could be analyzed, false if an error occurred duri
 
 Class to resolve the responseStateVector of the different situation specific responses into a single responseState. This
 class tracks the RSS response state of every situation id over time and especially stores the respective response state
-before the blame time. This requires that the id of a RSS situation remains constant over time in case it refers to the
-same object; otherwise tracking over time will fail.
+before the danger threshold time. This requires that the id of a RSS situation remains constant over time in case it
+refers to the same object; otherwise tracking over time will fail.
 
 provideProperResponse
 
@@ -180,7 +180,7 @@ The RssModule is implemented as a whole within the namespace rss.
 
 [[Figure:Namespace_rss]]
 .The RSS datatypes are organized within several sub-namespaces.
-image::img/71a0bd6e-e5a4-44d9-b3e3-2ce62cac772c_url_fd96fa32-dd40-4b11-9fcf-16ef023b3576.tmp[caption="Figure {counter:figure}. "]
+image::img/bc23f1ec-233e-4469-b04b-f4a93d4b13a1_url_2abc79ff-e6e4-4b83-aa79-3b9e948df095.tmp[caption="Figure {counter:figure}. "]
 
 ===== Namespace rss::time
 
@@ -218,19 +218,19 @@ objects.
 
 [[Figure:Namespace_rss__world_base_types]]
 .The base types used within the local RSS world model.
-image::img/3583f8c1-7df8-401b-8351-69553ebbf2ad_url_f34d5e31-202d-4717-b84c-efd5a9adc697.tmp[caption="Figure {counter:figure}. "]
+image::img/e3c18c2a-b9c7-4f65-83db-bb62c85a6410_url_ecf98668-e323-4184-85af-ac001cd089b5.tmp[caption="Figure {counter:figure}. "]
 
 [[Figure:Namespace_rss__world_geometries]]
 .The types describing the road and lane geometries used within the local RSS world model.
-image::img/b804e001-048b-4555-8b04-2754d9e4afcb_url_2137ee58-b783-481d-96fd-569f01c2239a.tmp[caption="Figure {counter:figure}. "]
+image::img/9999c92e-630c-4143-b6c7-00f37e0e3664_url_db27a027-4a38-4e86-b81a-96ec24f91c8a.tmp[caption="Figure {counter:figure}. "]
 
 [[Figure:Namespace_rss__world_objects]]
 .The types describing the objects used within the local RSS world model.
-image::img/3f3af777-f0a5-4cd5-92d2-f3871f669b0c_url_a2d320ab-1498-4fe1-bd7a-4cc6e01d32e2.tmp[caption="Figure {counter:figure}. "]
+image::img/84c786bb-14f0-4026-a3aa-b23e9aa5368e_url_a298a70b-82a9-4397-9257-6e3919827af9.tmp[caption="Figure {counter:figure}. "]
 
 [[Figure:Namespace_rss__world_high_level_world_model]]
 .The types describing the high level world model and object used within the local RSS world model.
-image::img/abf8ae83-2e4a-4f1e-83b5-b095d6fd7d23_url_d0299d30-57f2-4df3-9c3c-693a86661f25.tmp[caption="Figure {counter:figure}. "]
+image::img/e65783df-2855-4e5a-9062-4bf9c1ccf0f2_url_4ea5f86b-e041-482d-a45c-18fe3f409b07.tmp[caption="Figure {counter:figure}. "]
 
 ====== Units
 
@@ -426,6 +426,14 @@ An object on a lane is described by the parametric range it spans in each of the
 |latRange |ParametricRange |The parametric range an object spans in lateral direction within a lane segment.
 |====
 
+====== OccupiedRegionVector (Typedef)
+
+A vector of occupied regions.
+
+|====
+|rss::world::OccupiedRegion |[ * ]
+|====
+
 ====== LongitudinalRssAccelerationValues (Structure)
 
 Collection of the RSS acceleration values in longitudinal direction.
@@ -472,11 +480,9 @@ object occupies, the objects velocity within its lane and finally the area of in
 |====
 |objectId |ObjectId |Defines the unique id of an object. This id has to be constant over time for the same object.
 |objectType |ObjectType |Defines the type of the object.
-|occupiedRegions |OccupiedRegion |Defines the lane regions the object occupies.
+|occupiedRegions |OccupiedRegionVector |Defines the lane regions the object occupies.
 |dynamics |Dynamics |Defines the objects dynamics to be applied. This parameters are provided on a per object basis to
-be able to adapt these e.g. in respect to the weather conditions. Furthermore this allows to introduce artificial
-objects for different purposes e.g. to respect occluded regions or to create artificial repulsive objects at the outer
-road borders to prevent the ego vehilce from leaving the road.
+be able to adapt these e.g. in respect to the weather conditions.
 |velocity |Velocity |Defines the objects velocity in respect to its current major lane.
 |responseTime |Duration |Defines the response time of the object within the current scene.
 |====
@@ -514,15 +520,15 @@ coordinate system.
 
 [[Figure:Namespace_rss__situation_coordinate_system]]
 .The base types used within the situation coordinate system.
-image::img/f311049f-63bd-40c7-b16e-ca783b4210f0_url_0f6ffa0b-109e-480b-b625-6257521c5ba0.tmp[caption="Figure {counter:figure}. "]
+image::img/f765dd09-92f8-41fa-8cdd-5c699fcb6cc7_url_a5ce9648-1050-4b06-aafa-fd7e74adf23b.tmp[caption="Figure {counter:figure}. "]
 
 [[Figure:Namespace_rss__situation_vehicle_state]]
 .The types describing the vehicle state used within the situation coordinate system.
-image::img/9c3d6dcd-717f-41b7-8aa1-95aef933ca8c_url_23a359d5-ac37-4187-bd85-e726b55e6dee.tmp[caption="Figure {counter:figure}. "]
+image::img/f11c291d-6b8d-4401-818a-26d77df0cce0_url_2dea2159-865d-4f68-befe-56d9be165e39.tmp[caption="Figure {counter:figure}. "]
 
 [[Figure:Namespace_rss__situation]]
 .The types describing a situation used within the situation coordinate system.
-image::img/0b3796e5-b854-49fb-9598-c1c878969740_url_75740cfd-43ae-4ddf-ae37-af5b52bd0801.tmp[caption="Figure {counter:figure}. "]
+image::img/5c26cd5d-40fa-4ba9-8875-330cebfe73ca_url_c4bea9f8-694e-4976-bb42-10e09a1fb58b.tmp[caption="Figure {counter:figure}. "]
 
 ====== Units
 
@@ -755,7 +761,7 @@ This contains types used in conjunction with the RSS state and responses.
 
 [[Figure:Namespace_rss__state_response]]
 .The types describing the RSS response and the RSS state.
-image::img/e086c58f-aea7-44de-963f-f37407f7d975_url_c96ef976-ec3a-4599-8d75-6d26b13f7419.tmp[caption="Figure {counter:figure}. "]
+image::img/e1b001f9-caad-4907-8276-ab43557904a9_url_3b731b2e-dae1-493c-afe3-535495aaba06.tmp[caption="Figure {counter:figure}. "]
 
 ====== LongitudinalResponse (Enumeration)
 
@@ -807,7 +813,7 @@ Struct defining the RSS state of a single object.
 transforming responses back.
 |situationId |SituationId |Id of the situation this state refers to.The id has to remain unique over time representing
 the situation (ego-vehicle / object pair) under investigation.
-It is used to track the state of the ego-vehicle / object constellation i.e. at point of blame time.
+It is used to track the state of the ego-vehicle / object constellation i.e. at point of danger threshold time.
 |longitudinalState |LongitudinalRssState |The current longitudinal rss state.
 |lateralStateRight |LateralRssState |The current lateral rss state at right side in respect to ego-vehicle driving
 direction.
@@ -827,7 +833,7 @@ A vector of response states.
 
 [[Figure:RssSubsystemChecker]]
 .RSS internal processing steps to perform RSS checks and execute the RSS proper response
-image::img/659e862d-bff7-4fd4-9a46-36aee3a137fb_url_4dbe88cd-41e3-4f35-a9ee-159205dc2afb.tmp[caption="Figure {counter:figure}. "]
+image::img/40a99209-87e8-431e-941c-232c5f3ad4bf_url_5e405dd9-96b3-46a9-818a-4695602c58fd.tmp[caption="Figure {counter:figure}. "]
 
 The RssSubsystem realizes the RSS part functionality. It implements the RSS checks based on the RssWorldModelData
 received from the SensorSubsystem:
@@ -838,7 +844,7 @@ received from the SensorSubsystem:
 4. Right-of-Way is given, not taken
 
 In case a dangerous situation is detected a respective proper response is calculated and the actuator control commands
-received 
+received
 from the PlanningSubsystem are restricted accordingly to realize planning safety.
 
 ==== RssSituationExtractionImpl
@@ -847,7 +853,7 @@ RssSituationExtractionImpl describes the implementation of the RssSituationExtra
 
 [[Figure:RssSituationExtractionImpl]]
 .Statechart Diagram describing the dynamic behavior of the RssSituationExtraction entity.
-image::img/4863c603-159a-480a-b795-7a70779b5ef5_url_9048e60a-fd01-46b0-ad9f-bb86170c1efb.tmp[caption="Figure {counter:figure}. "]
+image::img/55bb4e08-03a8-4994-a321-81a45947131c_url_4b0d532c-7f0c-4f1d-bd35-f9506dc1a0d5.tmp[caption="Figure {counter:figure}. "]
 
 The following table describes the events, triggers, states and their transitions of the statechart in detail.
 
@@ -855,8 +861,6 @@ The following table describes the events, triggers, states and their transitions
 |Event/Trigger |Argument Type |Argument |Description
 
 |evRssWorldModel |WorldModel |worldModel |Event trigged when RssWorldModel data is received at the input.
-|operationFailed |string |errorString |Triggered if the operation failed.
-|sendOuput |SituationVector |situationVector |Send out resulting situationVector after situations have been extracted.
 |====
 
 |====
@@ -864,9 +868,8 @@ The following table describes the events, triggers, states and their transitions
 
 |idle | | |Idle state. Waiting for input data.
 |  -> |evRssWorldModel |extractSituations |WorldModel data received.
-|extractSituations | | |All input data received. Extract situations and trigger send situation vector.
-|  -> |sendOutput |idle |All data is processed; send output data.
-|  -> |operationFailed |error |The operation failed.
+|extractSituations | | |All input data received. Perform operation to extract situations.
+|  -> | |checkOperationResult |
 |error | | |Final error state.
 |====
 
@@ -876,7 +879,7 @@ RssSituationCheckingImpl describes the implementation of the RssSituationCheckin
 
 [[Figure:RssSituationCheckingImpl]]
 .Statechart Diagram describing the dynamic behavior of the RssSituationChecking entity.
-image::img/d9f7a6fe-5190-4887-a271-21ee93f6910b_url_7b194537-c21c-4fe5-a4bd-695417808c6c.tmp[caption="Figure {counter:figure}. "]
+image::img/aeb4e53e-0f6a-48a5-a105-df71de1879d6_url_015bec00-2815-4bda-b346-a47aa1c7ab96.tmp[caption="Figure {counter:figure}. "]
 
 The following table describes the events, triggers, states and their transitions of the statechart in detail.
 
@@ -885,9 +888,6 @@ The following table describes the events, triggers, states and their transitions
 
 |evRssSituationVector |SituationVector |situationVector |Event trigged when RssSituationVector data is received at the
 input.
-|operationFailed |string |errorMessage |Triggered if the operation failed.
-|sendOuput |ResponseStateVector |responseStateVector |Send out resulting responseStateVector after situations have been
-checked.
 |====
 
 |====
@@ -895,9 +895,8 @@ checked.
 
 |idle | | |Idle state. Waiting for input data.
 |  -> |evRssSituationVector |checkSituations |SituationVector data received.
-|checkSituations | | |All input data received. Check situations and trigger send RSS state vector.
-|  -> |sendOuput |idle |All data is processed; send output data.
-|  -> |operationFailed |error |The operation failed.
+|checkSituations | | |All input data received. Perform operation to check situations.
+|  -> | |checkOperationResult |
 |error | | |Final error state.
 |====
 
@@ -907,7 +906,7 @@ RssResponseResolvingImpl describes the implementation of the RssResponseResolvin
 
 [[Figure:RssResponseResolvingImpl]]
 .Statechart Diagram describing the dynamic behavior of the RssResponseResolving entity.
-image::img/5bc28aac-7fd6-46c1-bc82-9c0a50b1d92f_url_9d0620bb-292a-49c5-974b-56bc7781f2cb.tmp[caption="Figure {counter:figure}. "]
+image::img/76faa8f0-7dda-4253-820d-25e1d07659a4_url_590ee87f-6baf-4cf8-94fc-172f904ccc18.tmp[caption="Figure {counter:figure}. "]
 
 The following table describes the events, triggers, states and their transitions of the statechart in detail.
 
@@ -916,8 +915,6 @@ The following table describes the events, triggers, states and their transitions
 
 |evRssResponseStateVector |ResponseStateVector |responseStateVector |Event trigged when RssResponseStateVector data is
 received at the input.
-|sendOutput |ResponseState |properResponse |Send out resulting properResonse after response states have been resolved.
-|operationFailed |string |errorMessage |Triggered if the operation failed.
 |====
 
 |====
@@ -925,9 +922,8 @@ received at the input.
 
 |idle | | |Idle state. Waiting for input data.
 |  -> |evRssResponseStateVector |resolveResponse |ResponseStateVector data received.
-|resolveResponse | | |All input data received. Resolve responses and trigger send proper response.
-|  -> |sendOutput |idle |All data is processed; send output data.
-|  -> |operationFailed |error |The operation failed.
+|resolveResponse | | |All input data received. Perform operation to resolve responses.
+|  -> | |checkOperationResult |
 |error | | |Final error state.
 |====
 
@@ -938,7 +934,7 @@ statechart.
 
 [[Figure:RssResponseTransformationImpl]]
 .Statechart Diagram describing the dynamic behavior of the RssResponseTransformation entity.
-image::img/5a885c1a-6b00-4aa1-80a7-10f8ce4ccaca_url_7fa31206-c223-4d1c-93ac-c87854d9cf4e.tmp[caption="Figure {counter:figure}. "]
+image::img/57baa641-95a4-4d6d-83d1-31f0623d320b_url_e1ab084b-b5b8-439c-b047-35abc6e1cefe.tmp[caption="Figure {counter:figure}. "]
 
 The following table describes the events, triggers, states and their transitions of the statechart in detail.
 
@@ -947,9 +943,6 @@ The following table describes the events, triggers, states and their transitions
 
 |evRssResponseState |ResponseState |responseState |Event trigged when RssResponseState data is received at the input.
 |evRssWorldModel |WorldModel |worldModel |Event trigged when RssWorldModel data is received at the input.
-|operationFailed |string |errorMessage |Triggered if the operation failed.
-|sendOutput |AccelerationRestriction |acellerationRestriction |Send out resulting accelerationRestriction after response
-has been transformed.
 |====
 
 |====
@@ -962,8 +955,7 @@ has been transformed.
 |  -> |evRssResponseState |transformResponse |ResponseState data received.
 |responseStateAvailable | | |Response state data received. Still waiting for world model.
 |  -> |evRssWorldModel |transformResponse |WorldModel data received.
-|transformResponse | | |All input data received. Transform response and trigger send accelerator restrictions.
-|  -> |sendOutput |idle |All data is processed; send output data.
-|  -> |operationFailed |error |The operation failed.
+|transformResponse | | |All input data received. Perform operation to transform response.
+|  -> | |checkOperationResult |
 |error | | |Final error state.
 |====

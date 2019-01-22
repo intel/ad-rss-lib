@@ -53,7 +53,7 @@ namespace core {
  * Class to resolve the responseStateVector of the different situation specific responses
  * into a single responseState. This class tracks the RSS response state of every
  * situation id over time and especially stores the respective response state before
- * the blame time. This requires that the id of a RSS situation remains constant over
+ * the danger threshold time. This requires that the id of a RSS situation remains constant over
  * time in case it refers to the same object; otherwise tracking over time will fail.
  */
 class RssResponseResolving
@@ -84,16 +84,16 @@ private:
   };
 
   /**
-   * @brief typedef for the mapping of object id to the corresponding RssState before the blame time
+   * @brief typedef for the mapping of object id to the corresponding RssState before the danger threshold time
    */
-  typedef std::map<situation::SituationId, RssState> RssStateBeforeBlameTimeMap;
+  typedef std::map<situation::SituationId, RssState> RssStateBeforeDangerThresholdTimeMap;
 
   /**
-   * @brief the state of all responses before the blame time of each response
+   * @brief the state of all responses before the danger threshold time of each response
    *
    * Needs to be stored to check which is the response that changed and required to solve an unclear situation
    */
-  RssStateBeforeBlameTimeMap mStatesBeforeBlameTime;
+  RssStateBeforeDangerThresholdTimeMap mStatesBeforeDangerThresholdTime;
 };
 
 } // namespace core

@@ -39,6 +39,7 @@
 #pragma once
 #include <limits>
 
+#include <memory>
 #include "rss/situation/SituationType.hpp"
 #include "rss/world/Object.hpp"
 #include "rss/world/RoadArea.hpp"
@@ -51,12 +52,32 @@ namespace rss {
  */
 namespace world {
 
-struct Scene // LCOV_EXCL_LINE
+/*!
+ * \brief DataType Scene
+ *
+ * A Scene defines the relation between the ego vehicle and another object. It consists of the type of situation between
+ * these two and the corresponding road areas of interest. All lane segments on the route between ego vehicle and the
+ * object have to be part of this. The RssModule has to be able to calculate minimum and maximum distances between ego
+ * vehicle and object as well as accelerated movements within this area.
+ */
+struct Scene
 {
-  ::rss::situation::SituationType situationType{::rss::situation::SituationType::SameDirection};
-  ::rss::world::RoadArea egoVehicleRoad;
-  ::rss::world::RoadArea intersectingRoad;
-  ::rss::world::Object object;
+  ::rss::situation::SituationType situationType{::rss::situation::SituationType::SameDirection}; /*!< The type of the
+                                                                                                    current situation.
+                                                                                                    Depending on this
+                                                                                                    type the other
+                                                                                                    fields of the
+                                                                                                    RssArea might be
+                                                                                                    left empty. */
+  ::rss::world::RoadArea egoVehicleRoad;   /*!< The RssRoadArea the ego vehicle is driving in. The driving direction of
+                                              the ego vehicle define the ordering of the road segments. In
+                                              non-intersection situations the object is also driving in this road area. */
+  ::rss::world::RoadArea intersectingRoad; /*!< The RssRoadArea an intersecting vehicle is driving in. The driving
+                                              direction of the intersecting vehicle define the ordering of the road
+                                              segments. The road area should contain all neigboring lanes the other
+                                              vehcile is able to drive in.  In non-intersection situations this road
+                                              area is empty. */
+  ::rss::world::Object object;             /*!< The object this scene refers to. */
 };
 
 } // namespace world

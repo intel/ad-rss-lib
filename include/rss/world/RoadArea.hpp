@@ -39,6 +39,7 @@
 #pragma once
 #include <limits>
 
+#include <memory>
 #include <vector>
 #include "rss/world/RoadSegment.hpp"
 /*!
@@ -50,6 +51,12 @@ namespace rss {
  */
 namespace world {
 
+/*!
+ * \brief DataType RoadArea
+ *
+ * A RoadArea is defined by longitudinal neighboring road segments. The road segments within a road area have to be
+ * ordered from start to end in respect to the driving direction.
+ */
 using RoadArea = std::vector<::rss::world::RoadSegment>;
 
 } // namespace world

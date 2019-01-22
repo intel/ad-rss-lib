@@ -39,6 +39,8 @@
 #pragma once
 #include <limits>
 
+#include <cstdint>
+#include <memory>
 #include "rss/world/LaneDrivingDirection.hpp"
 #include "rss/world/LaneSegmentId.hpp"
 #include "rss/world/LaneSegmentType.hpp"
@@ -52,13 +54,21 @@ namespace rss {
  */
 namespace world {
 
+/*!
+ * \brief DataType LaneSegment
+ *
+ * Defines a lane segment.
+ */
 struct LaneSegment
 {
-  ::rss::world::LaneSegmentId id;
-  ::rss::world::LaneSegmentType type{::rss::world::LaneSegmentType::Normal};
-  ::rss::world::LaneDrivingDirection drivingDirection{::rss::world::LaneDrivingDirection::Bidirectional};
-  ::rss::world::MetricRange length;
-  ::rss::world::MetricRange width;
+  ::rss::world::LaneSegmentId id;                                            /*!< The id of the lane segment. */
+  ::rss::world::LaneSegmentType type{::rss::world::LaneSegmentType::Normal}; /*!< The type of this lane segment in
+                                                                                context of the RssArea it belongs to. */
+  ::rss::world::LaneDrivingDirection drivingDirection{
+    ::rss::world::LaneDrivingDirection::Bidirectional}; /*!< The nominal direction of the traffic flow of this lane
+                                                           segment in context of the RssArea it belongs to. */
+  ::rss::world::MetricRange length;                     /*!< The metric range of the lane segments length. */
+  ::rss::world::MetricRange width;                      /*!< The metric range of the lane segments width. */
 };
 
 } // namespace world

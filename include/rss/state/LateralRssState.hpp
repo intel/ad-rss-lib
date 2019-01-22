@@ -39,6 +39,7 @@
 #pragma once
 #include <limits>
 
+#include <memory>
 #include "rss/state/LateralResponse.hpp"
 /*!
  * @brief namespace rss
@@ -49,10 +50,15 @@ namespace rss {
  */
 namespace state {
 
+/*!
+ * \brief DataType LateralRssState
+ *
+ * Struct to store the lateral RSS state.
+ */
 struct LateralRssState
 {
-  bool isSafe{false};
-  ::rss::state::LateralResponse response;
+  bool isSafe{false};                     /*!< Flag to indicate if the state is lateral safe. */
+  ::rss::state::LateralResponse response; /*!< required response in lateral direction */
 };
 
 } // namespace state

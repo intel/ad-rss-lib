@@ -39,6 +39,8 @@
 #pragma once
 #include <limits>
 
+#include <cstdint>
+#include <memory>
 #include "rss/time/Duration.hpp"
 #include "rss/world/Dynamics.hpp"
 #include "rss/world/ObjectId.hpp"
@@ -54,14 +56,24 @@ namespace rss {
  */
 namespace world {
 
+/*!
+ * \brief DataType Object
+ *
+ * An object is described by several aspects: the unique id of an object, the type of the object, the lane regions the
+ * object occupies, the objects velocity within its lane and finally the area of interaction of ego vehicle and the
+ * object.
+ */
 struct Object
 {
-  ::rss::world::ObjectId objectId;
-  ::rss::world::ObjectType objectType;
-  ::rss::world::OccupiedRegionVector occupiedRegions;
-  ::rss::world::Dynamics dynamics;
-  ::rss::world::Velocity velocity;
-  ::rss::time::Duration responseTime;
+  ::rss::world::ObjectId
+    objectId; /*!< Defines the unique id of an object. This id has to be constant over time for the same object. */
+  ::rss::world::ObjectType objectType;                /*!< Defines the type of the object. */
+  ::rss::world::OccupiedRegionVector occupiedRegions; /*!< Defines the lane regions the object occupies. */
+  ::rss::world::Dynamics dynamics;    /*!< Defines the objects dynamics to be applied. This parameters are provided on a
+                                         per object basis to be able to adapt these e.g. in respect to object type or the
+                                         weather conditions. */
+  ::rss::world::Velocity velocity;    /*!< Defines the objects velocity in respect to its current major lane. */
+  ::rss::time::Duration responseTime; /*!< Defines the response time of the object within the current scene. */
 };
 
 } // namespace world

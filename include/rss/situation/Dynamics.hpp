@@ -39,6 +39,7 @@
 #pragma once
 #include <limits>
 
+#include <memory>
 #include "rss/situation/LateralRssAccelerationValues.hpp"
 #include "rss/situation/LongitudinalRssAccelerationValues.hpp"
 /*!
@@ -50,10 +51,18 @@ namespace rss {
  */
 namespace situation {
 
+/*!
+ * \brief DataType Dynamics
+ *
+ * Describes the RSS dynamics values to be applied for an object within the respective situation coordinate system. The
+ * dynamics consist of a longitudinal and a lateral component.
+ */
 struct Dynamics
 {
-  ::rss::situation::LongitudinalRssAccelerationValues alphaLon;
-  ::rss::situation::LateralRssAccelerationValues alphaLat;
+  ::rss::situation::LongitudinalRssAccelerationValues
+    alphaLon; /*!< RSS dynamics values along longitudinal coordinate system axis */
+  ::rss::situation::LateralRssAccelerationValues
+    alphaLat; /*!< RSS dynamics values along lateral coordinate system axis */
 };
 
 } // namespace situation

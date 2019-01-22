@@ -39,6 +39,7 @@
 #pragma once
 #include <limits>
 
+#include <memory>
 #include "rss/situation/Distance.hpp"
 #include "rss/situation/Dynamics.hpp"
 #include "rss/situation/Velocity.hpp"
@@ -52,15 +53,28 @@ namespace rss {
  */
 namespace situation {
 
+/*!
+ * \brief DataType VehicleState
+ *
+ * The state of an object in a RSS situation.
+ * The state consists of the following components in respect to the situation coordinate
+ * system: the velocity, the distance to the intersection (if applicable), the dynamics,
+ * the response time, a Right-of-Way priority flag as well as a flag stating if the
+ * vehicle is driving in its correct lane.
+ */
 struct VehicleState
 {
-  ::rss::situation::Velocity velocity;
-  ::rss::situation::Dynamics dynamics;
-  ::rss::time::Duration responseTime{0.0};
-  bool hasPriority{false};
-  bool isInCorrectLane{false};
-  ::rss::situation::Distance distanceToEnterIntersection{std::numeric_limits<Distance>::max()};
-  ::rss::situation::Distance distanceToLeaveIntersection{std::numeric_limits<Distance>::max()};
+  ::rss::situation::Velocity velocity;     /*!< The situation specific velocity. */
+  ::rss::situation::Dynamics dynamics;     /*!< The situation specific dynamics. */
+  ::rss::time::Duration responseTime{0.0}; /*!< The situation specific response time. */
+  bool hasPriority{false};                 /*!< Flag indicating if the situation specific Right-of-Way relation. */
+  bool isInCorrectLane{false};             /*!< Flag indicating if the vehicle driving in the correct lane */
+  ::rss::situation::Distance distanceToEnterIntersection{
+    std::numeric_limits<Distance>::max()}; /*!< The minimum distance to be covered by the vehicle to enter the
+                                              intersection. */
+  ::rss::situation::Distance distanceToLeaveIntersection{
+    std::numeric_limits<Distance>::max()}; /*!< The maximum distance to cover by the vehicle to leave the intersection
+                                              completely. */
 };
 
 } // namespace situation

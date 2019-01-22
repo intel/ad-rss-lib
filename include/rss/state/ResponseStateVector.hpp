@@ -39,7 +39,7 @@
 #pragma once
 #include <limits>
 
-#include <string>
+#include <memory>
 #include <vector>
 #include "rss/state/ResponseState.hpp"
 /*!
@@ -51,6 +51,11 @@ namespace rss {
  */
 namespace state {
 
+/*!
+ * \brief DataType ResponseStateVector
+ *
+ * A vector of response states.
+ */
 using ResponseStateVector = std::vector<::rss::state::ResponseState>;
 
 } // namespace state

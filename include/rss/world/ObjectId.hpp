@@ -40,10 +40,17 @@
 #include <limits>
 
 #include <cstdint>
-namespace rss {
-namespace world {
 /*!
- * \brief Type definition  ObjectId
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace world
+ */
+namespace world {
+
+/*!
+ * \brief DataType ObjectId
  *
  * Defines the unique id of an object.
  */

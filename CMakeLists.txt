@@ -35,7 +35,7 @@ set(BUILD_DOC "OFF" CACHE BOOL "Enable compilation of doxygen documentation")
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-project(RSSModule VERSION 0.3)
+project(RSSModule VERSION 0.5)
 
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 14)

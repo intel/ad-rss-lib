@@ -39,6 +39,8 @@
 #pragma once
 #include <limits>
 
+#include <cstdint>
+#include <memory>
 #include "rss/world/LaneSegmentId.hpp"
 #include "rss/world/ParametricRange.hpp"
 /*!
@@ -50,11 +52,20 @@ namespace rss {
  */
 namespace world {
 
+/*!
+ * \brief DataType OccupiedRegion
+ *
+ * Describes the region that an object covers within a lane segment.
+ * An object on a lane is described by the parametric range it spans in each of the
+ * two lane segment directions.
+ */
 struct OccupiedRegion
 {
-  ::rss::world::LaneSegmentId segmentId;
-  ::rss::world::ParametricRange lonRange;
-  ::rss::world::ParametricRange latRange;
+  ::rss::world::LaneSegmentId segmentId; /*!< The id of the lane segment this region refers to. */
+  ::rss::world::ParametricRange
+    lonRange; /*!< The parametric range an object spans in longitudinal direction within a lane segment. */
+  ::rss::world::ParametricRange
+    latRange; /*!< The parametric range an object spans in lateral direction within a lane segment. */
 };
 
 } // namespace world

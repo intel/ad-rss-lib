@@ -53,7 +53,7 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
 
   bool result = true;
 
-  RssStateBeforeBlameTimeMap newStatesBeforeBlameTime;
+  RssStateBeforeDangerThresholdTimeMap newStatesBeforeDangerThresholdTime;
 
   try
   {
@@ -69,12 +69,12 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
         break;
       }
 
-      // The response belonging to the last state before the blame time
+      // The response belonging to the last state before the danger threshold time
       RssState nonDangerousStateToRemember;
       if (isDangerous(currentState))
       {
-        auto previousNonDangerousState = mStatesBeforeBlameTime.find(currentState.situationId);
-        if (previousNonDangerousState != mStatesBeforeBlameTime.end())
+        auto previousNonDangerousState = mStatesBeforeDangerThresholdTime.find(currentState.situationId);
+        if (previousNonDangerousState != mStatesBeforeDangerThresholdTime.end())
         {
           if (previousNonDangerousState->second.lateralSafe)
           {
@@ -82,9 +82,9 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
             // but for the combineLateralResponse will only respect the more severe response
             // omitting the check should have the same result
             //
-            // @todo: Handling of a cut-in by a leading vehicle as stated in Definition 9.3.(2) will be handled
-            //        outside of this function. As a consequence, there is currently no response for a cut-in of a
-            //        leading vehicle
+            // @todo: Handling of a cut-in by a leading vehicle as stated in definitions 11-13 of the RSS paper v6
+            //        will be handled outside of this function. As a consequence.
+            //        There is currently no response for a cut-in of a leading vehicle
             responseState.lateralStateLeft
               = combineRssState(currentState.lateralStateLeft, responseState.lateralStateLeft);
 
@@ -125,8 +125,8 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
       // store state for the next iteration
       if (nonDangerousStateToRemember.longitudinalSafe || nonDangerousStateToRemember.lateralSafe)
       {
-        auto insertResult = newStatesBeforeBlameTime.insert(
-          RssStateBeforeBlameTimeMap::value_type(currentState.situationId, nonDangerousStateToRemember));
+        auto insertResult = newStatesBeforeDangerThresholdTime.insert(
+          RssStateBeforeDangerThresholdTimeMap::value_type(currentState.situationId, nonDangerousStateToRemember));
 
         if (result)
         {
@@ -138,8 +138,8 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
     if (result)
     {
       // Determine resulting response
-      mStatesBeforeBlameTime.clear();
-      mStatesBeforeBlameTime.swap(newStatesBeforeBlameTime);
+      mStatesBeforeDangerThresholdTime.clear();
+      mStatesBeforeDangerThresholdTime.swap(newStatesBeforeDangerThresholdTime);
     }
   }
   catch (...)

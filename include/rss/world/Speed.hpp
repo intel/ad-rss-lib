@@ -39,10 +39,17 @@
 #pragma once
 #include <limits>
 
-namespace rss {
-namespace world {
 /*!
- * \brief Type definition  Speed
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace world
+ */
+namespace world {
+
+/*!
+ * \brief DataType Speed
  *
  * The rate of change of an object's position with respect to time. The speed of an
  * object is the magnitude of its velocity.

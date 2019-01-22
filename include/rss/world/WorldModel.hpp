@@ -39,8 +39,8 @@
 #pragma once
 #include <limits>
 
-#include <string>
-#include <vector>
+#include <cstdint>
+#include <memory>
 #include "rss/time/TimeIndex.hpp"
 #include "rss/world/Object.hpp"
 #include "rss/world/Scene.hpp"
@@ -53,11 +53,21 @@ namespace rss {
  */
 namespace world {
 
+/*!
+ * \brief DataType WorldModel
+ *
+ * The world model, RSS requires as input, consists of the egoVehicle and object description as well as the list of
+ * relevant lane segments.
+ */
 struct WorldModel
 {
-  ::rss::time::TimeIndex timeIndex{0u};
-  ::rss::world::Object egoVehicle;
-  std::vector<::rss::world::Scene> scenes;
+  ::rss::time::TimeIndex timeIndex{
+    0u}; /*!< The time index is required to distinguish different points in time when tracking states or
+            transforming responses back. Each world model referring to another point in time should get
+            another time index. The time index of the world model must not be zero. */
+  ::rss::world::Object egoVehicle; /*!< The ego vehicle. */
+  using ScenesType = std::vector<::rss::world::Scene>;
+  ScenesType scenes; /*!< All scenes */
 };
 
 } // namespace world

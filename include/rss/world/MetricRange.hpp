@@ -39,6 +39,7 @@
 #pragma once
 #include <limits>
 
+#include <memory>
 #include "rss/world/Distance.hpp"
 /*!
  * @brief namespace rss
@@ -49,10 +50,16 @@ namespace rss {
  */
 namespace world {
 
+/*!
+ * \brief DataType MetricRange
+ *
+ * A metric range described by its borders: [minimum, maximum].
+ */
 struct MetricRange
 {
-  ::rss::world::Distance minimum{std::numeric_limits<Distance>::lowest()};
-  ::rss::world::Distance maximum{std::numeric_limits<Distance>::max()};
+  ::rss::world::Distance minimum{
+    std::numeric_limits<Distance>::lowest()};                           /*!< The minimum value of the metric range. */
+  ::rss::world::Distance maximum{std::numeric_limits<Distance>::max()}; /*!< The maximum value of the metric range. */
 };
 
 } // namespace world

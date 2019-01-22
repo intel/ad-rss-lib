@@ -39,7 +39,8 @@
 #pragma once
 #include <limits>
 
-#include <string>
+#include <cstdint>
+#include <memory>
 #include "rss/time/TimeIndex.hpp"
 #include "rss/world/AccelerationRange.hpp"
 /*!
@@ -51,12 +52,20 @@ namespace rss {
  */
 namespace world {
 
+/*!
+ * \brief DataType AccelerationRestriction
+ *
+ * Defines restrictions of the vehicle acceleration.
+ */
 struct AccelerationRestriction
 {
-  ::rss::time::TimeIndex timeIndex{0u};
-  ::rss::world::AccelerationRange lateralLeftRange;
-  ::rss::world::AccelerationRange longitudinalRange;
-  ::rss::world::AccelerationRange lateralRightRange;
+  ::rss::time::TimeIndex timeIndex{0u}; /*!< The time index these acceleration restrictions are referring to. */
+  ::rss::world::AccelerationRange
+    lateralLeftRange; /*!< The range of the acceleration restriction in lateral left direction. */
+  ::rss::world::AccelerationRange
+    longitudinalRange; /*!< The range of the acceleration restriction in longitudinal direction. */
+  ::rss::world::AccelerationRange
+    lateralRightRange; /*!< The range of the acceleration restriction in lateral right direction. */
 };
 
 } // namespace world

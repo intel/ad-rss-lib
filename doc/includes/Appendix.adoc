@@ -18,14 +18,13 @@ include::Appendix-ParameterDiscussion.adoc[]
 | RSS Module | This is the entity performing all RSS operations
 |======================
 
-<<<
 ## References
 [[Table::References]]
 .References
 [width="100%",frame="topbot",options="header"]
 |======================
 | Ref | Document Name | Version | Location
-| 1   | On a Formal Model of Safe and Scalable Self-driving Cars | v5  | https://arxiv.org/abs/1708.06374
+| 1   | On a Formal Model of Safe and Scalable Self-driving Cars | v6  | https://arxiv.org/abs/1708.06374
 | 2   | Implementing the RSS Model on NHTSA Pre-Crash Scenarios | July 2018  | https://www.mobileye.com/responsibility-sensitive-safety/rss_on_nhtsa.pdf
 |======================
 
@@ -36,9 +35,7 @@ include::Appendix-ParameterDiscussion.adoc[]
 [width="100%",frame="topbot",cols="2,2,4,8",options="header"]
 |====
 |Revision |Date |Author(s) | Description
-|0.1 |2018 |Cornelius Buerkle, Bernd Gassmann, Fabian Oboril | Created
-|0.2 |2018-8-29 |Cornelius Buerkle, Bernd, Gassmann, Fabian Oboril | Updated
-|0.29 |2018-11-14 |Peter van Beek |Added content to Design for Security chapter (in progress)
+|0.5 |2019-02-04 |Cornelius Buerkle, Bernd Gassmann, Fabian Oboril, Peter van Beek | Initial version
 |====
 
 
