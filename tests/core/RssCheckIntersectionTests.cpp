@@ -188,7 +188,7 @@ TEST_F(RssCheckIntersectionTests, EgoHasPriority)
   }
 }
 
-TEST_F(RssCheckIntersectionTests, OtherHasPriority)
+TEST_F(RssCheckIntersectionTests, EgoHasNoPriority)
 {
   ::rss::world::WorldModel worldModel;
 
@@ -197,50 +197,37 @@ TEST_F(RssCheckIntersectionTests, OtherHasPriority)
   scene.intersectingRoad = otherRoadArea;
   scene.egoVehicleRoad = roadArea;
   worldModel.scenes.push_back(scene);
-  worldModel.scenes[0].situationType = rss::situation::SituationType::IntersectionObjectHasPriority;
   worldModel.timeIndex = 1;
 
   ::rss::world::AccelerationRestriction accelerationRestriction;
   ::rss::core::RssCheck rssCheck;
 
-  for (uint32_t i = 0; i <= 90; i++)
+  for (auto situationType : {rss::situation::SituationType::IntersectionSamePriority,
+                             rss::situation::SituationType::IntersectionObjectHasPriority})
   {
-    worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = 0.01 * i;
-    worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = 0.01 * i + 0.1;
+    worldModel.scenes[0].situationType = situationType;
+    for (uint32_t i = 0; i <= 90; i++)
+    {
+      worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = 0.01 * i;
+      worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = 0.01 * i + 0.1;
 
-    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+      ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
+      ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
+                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
 
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
+      ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
 
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+      ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
+                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
+      ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum,
+                -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
+      ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+      ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
+                -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
+      ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+    }
   }
-}
-
-TEST_F(RssCheckIntersectionTests, BothHavePriority)
-{
-  ::rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = object;
-  scene.object = otherObject;
-  scene.intersectingRoad = otherRoadArea;
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.scenes[0].situationType = rss::situation::SituationType::IntersectionSamePriority;
-  worldModel.timeIndex = 1;
-
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
-
-  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
 
 } // namespace core

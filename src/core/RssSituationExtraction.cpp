@@ -257,8 +257,8 @@ bool convertObjectsIntersection(world::Object const &egoVehicle,
   }
   else if (currentScene.situationType == situation::SituationType::IntersectionSamePriority)
   {
-    situation.egoVehicleState.hasPriority = true;
-    situation.otherVehicleState.hasPriority = true;
+    situation.egoVehicleState.hasPriority = false;
+    situation.otherVehicleState.hasPriority = false;
   }
   else
   {

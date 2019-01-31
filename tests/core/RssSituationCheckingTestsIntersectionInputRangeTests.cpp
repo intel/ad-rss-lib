@@ -69,7 +69,7 @@ TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, no_priority_vehicle
   situation.relativePosition
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 60.);
 
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
 }
 
 TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, distanceToLeaveSmallerEgo)

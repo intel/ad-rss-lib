@@ -67,20 +67,5 @@ TEST_F(RssSituationCheckingTestsNotRelevant, notRelevantSituation)
   ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
 }
 
-TEST_F(RssSituationCheckingTestsNotRelevant, intersectionSamePrio)
-{
-  situation.situationType = situation::SituationType::IntersectionSamePriority;
-
-  correctVehicle = createVehicleStateForLongitudinalMotion(50);
-  oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
-  oppositeVehicle.isInCorrectLane = false;
-
-  situation.egoVehicleState = correctVehicle;
-  situation.otherVehicleState = oppositeVehicle;
-  situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 1.);
-
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
-}
-
 } // namespace core
 } // namespace rss

@@ -114,16 +114,17 @@ bool checkIntersectionSafe(Situation const &situation, bool &isSafe, Intersectio
     return false;
   }
 
-  bool result = false;
+  bool result = true;
+  isSafe = false;
 
   /**
-   * Check if the non prio vehicle has safe distance to the intersection
+   * Check if a non prio vehicle has safe distance to the intersection
    */
   if (!situation.egoVehicleState.hasPriority)
   {
     result = checkStopInFrontIntersection(situation.egoVehicleState, isSafe);
   }
-  else
+  if (result && !isSafe && !situation.otherVehicleState.hasPriority)
   {
     result = checkStopInFrontIntersection(situation.otherVehicleState, isSafe);
   }
@@ -172,11 +173,11 @@ bool checkIntersectionSafe(Situation const &situation, bool &isSafe, Intersectio
 bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situation,
                                                            state::ResponseState &rssState) noexcept
 {
-  if (situation.egoVehicleState.hasPriority == situation.otherVehicleState.hasPriority)
+  if (situation.egoVehicleState.hasPriority && situation.otherVehicleState.hasPriority)
   {
+    // both cannot have priority over the other at the same time
     return false;
   }
-
   bool result = false;
   try
   {

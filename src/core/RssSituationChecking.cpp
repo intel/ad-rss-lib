@@ -85,11 +85,10 @@ bool RssSituationChecking::checkSituation(situation::Situation const &situation,
 
     case situation::SituationType::IntersectionEgoHasPriority:
     case situation::SituationType::IntersectionObjectHasPriority:
+    case situation::SituationType::IntersectionSamePriority:
       result = mIntersectionChecker->calculateRssStateIntersection(situation, response);
       break;
-    case situation::SituationType::IntersectionSamePriority:
-      // Not supported yet
-      //@todo support situation::SituationType::IntersectionSamePriority
+    default:
       result = false;
       break;
   }
