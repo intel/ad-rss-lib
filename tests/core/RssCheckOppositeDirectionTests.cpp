@@ -183,10 +183,8 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentDistances)
     worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = 0.01 * i;
     worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = 0.01 * i + 0.1;
 
-    double dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(
-      worldModel.egoVehicle, worldModel.scenes[0].object, false);
-    double dMinEscalation
-      = calculateLongitudinalMinSafeDistanceOppositeDirection(worldModel.egoVehicle, worldModel.scenes[0].object, true);
+    double dMin
+      = calculateLongitudinalMinSafeDistanceOppositeDirection(worldModel.egoVehicle, worldModel.scenes[0].object);
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
     ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
@@ -196,15 +194,10 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentDistances)
     {
       ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
     }
-    else if (dMinEscalation < 62 - worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum * 60)
-    {
-      ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMinCorrect);
-    }
     else
     {
       ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMin);
+                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMinCorrect);
     }
 
     ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
@@ -235,10 +228,8 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentVelocities)
   {
     worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
 
-    double dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(
-      worldModel.egoVehicle, worldModel.scenes[0].object, false);
-    double dMinEscalation
-      = calculateLongitudinalMinSafeDistanceOppositeDirection(worldModel.egoVehicle, worldModel.scenes[0].object, true);
+    double dMin
+      = calculateLongitudinalMinSafeDistanceOppositeDirection(worldModel.egoVehicle, worldModel.scenes[0].object);
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
     ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
@@ -248,15 +239,10 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentVelocities)
     {
       ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
     }
-    else if (dMinEscalation < 62 - worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum * 60)
-    {
-      ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMinCorrect);
-    }
     else
     {
       ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMin);
+                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMinCorrect);
     }
 
     ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
@@ -288,10 +274,8 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentVelocities_Differe
   {
     worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
 
-    double dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(
-      worldModel.egoVehicle, worldModel.scenes[0].object, false);
-    double dMinEscalation
-      = calculateLongitudinalMinSafeDistanceOppositeDirection(worldModel.egoVehicle, worldModel.scenes[0].object, true);
+    double dMin
+      = calculateLongitudinalMinSafeDistanceOppositeDirection(worldModel.egoVehicle, worldModel.scenes[0].object);
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
     ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
@@ -301,15 +285,10 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentVelocities_Differe
     {
       ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
     }
-    else if (dMinEscalation < 62 - worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum * 65)
-    {
-      ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMinCorrect);
-    }
     else
     {
       ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMin);
+                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMinCorrect);
     }
 
     ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
@@ -429,7 +408,7 @@ TEST_F(RssCheckOppositeDirectionTests, BothOnCorrectLane_DifferentVelocities)
     worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
 
     double dMin
-      = calculateLongitudinalMinSafeDistanceOppositeDirection(worldModel.egoVehicle, worldModel.scenes[0].object, true);
+      = calculateLongitudinalMinSafeDistanceOppositeDirection(worldModel.egoVehicle, worldModel.scenes[0].object);
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
     ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
@@ -442,7 +421,7 @@ TEST_F(RssCheckOppositeDirectionTests, BothOnCorrectLane_DifferentVelocities)
     else
     {
       ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMin);
+                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMinCorrect);
     }
 
     ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,

@@ -118,49 +118,42 @@ bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehic
 
 /**
  * @brief Calculate  the safe longitudinal distance between to vehicles driving in opposite direction
- * If consider correct is true the calculation will assume that the correctVehicle is on the correct lane
+ * The calculation will assume that the correctVehicle is on the correct lane
  * and oppositeVehicle on an opposite lane
  *
- * So calculation for the correctVehicle will be performed with brakeMinCorrect
- *
- * If consider correct is false its assumed that both vehicles are either on a correct or an opposite lane
- * So calculation will be performed with BrakeMin for both vehicles
+ * So calculation for the correctVehicle is performed with brakeMinCorrect and performed with brakeMin
+ * for the oppositeVehicle
  *
  *        ======================================================
  *
- *             CorrectVehicle --->        <---  oppositeVehicle
+ *             correctVehicle --->        <---  oppositeVehicle
  *
  *        ======================================================
  *
- * @param[in] considerCorrect     should the check respect that one of the vehicles is on the correct lane or not
  * @param[in]  correctVehicle     is the state of the vehicle driving in the correct lane
  * @param[in]  oppositeVehicle    is the state of the vehicle driving in the wrong lane
  * @param[out] isDistanceSafe     true if the distance is safe, false otherwise
  *
  * @return true on successful calculation, false otherwise
  */
-bool calculateSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
-                                                        VehicleState const &correctVehicle,
+bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctVehicle,
                                                         VehicleState const &oppositeVehicle,
                                                         Distance &safeDistance) noexcept;
 
 /**
  * @brief Check if the longitudinal distance between to vehicles driving in opposite direction is safe.
- * If consider correct is true the check will assume that the correctVehicle is on the correct lane
+ * The check will assume that the correctVehicle is on the correct lane
  * and oppositeVehicle on an opposite lane
  *
- * So check for the correctVehcile will be performed with brakeMinCorrect
- *
- * If consider correct is false its assumed that both vehicles are either on a correct or an opposite lane
- * So check will be performed with BrakeMin
+ * So check for the correctVehcile is performed with brakeMinCorrect and performed with brakeMin
+ * for the oppositeVehicle
  *
  *        ======================================================
  *
- *             CorrectVehicle --->        <---  oppositeVehicle
+ *             correctVehicle --->        <---  oppositeVehicle
  *
  *        ======================================================
  *
- * @param[in] considerCorrect     should the check respect that one of the vehicles is on the correct lane or not
  * @param[in]  correctVehicle     is the state of the vehicle driving in the correct lane
  * @param[in]  oppositeVehicle    is the state of the vehicle driving in the wrong lane
  * @param[in]  vehicleDistance    the (positive) longitudinal distance between the two vehicles
@@ -168,8 +161,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
  *
  * @return true on successful calculation, false otherwise
  */
-bool checkSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
-                                                    VehicleState const &correctVehicle,
+bool checkSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctVehicle,
                                                     VehicleState const &oppositeVehicle,
                                                     Distance const &vehicleDistance,
                                                     bool &isDistanceSafe) noexcept;

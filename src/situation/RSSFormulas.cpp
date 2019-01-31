@@ -121,8 +121,7 @@ bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehic
   return result;
 }
 
-bool calculateSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
-                                                        VehicleState const &correctVehicle,
+bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctVehicle,
                                                         VehicleState const &oppositeVehicle,
                                                         Distance &safeDistance) noexcept
 {
@@ -133,21 +132,11 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
 
   Distance distanceStatedBrakingCorrect = 0.;
 
-  double brakingAcceleration = 0.;
-  if (considerCorrect)
-  {
-    brakingAcceleration = correctVehicle.dynamics.alphaLon.brakeMinCorrect;
-  }
-  else
-  {
-    brakingAcceleration = correctVehicle.dynamics.alphaLon.brakeMin;
-  }
-
   bool result = calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis::Longitudinal,
                                                                  correctVehicle.velocity.speedLon,
                                                                  correctVehicle.responseTime,
                                                                  correctVehicle.dynamics.alphaLon.accelMax,
-                                                                 brakingAcceleration,
+                                                                 correctVehicle.dynamics.alphaLon.brakeMinCorrect,
                                                                  distanceStatedBrakingCorrect);
 
   Distance distanceStatedBrakingOpposite = 0.;
@@ -170,8 +159,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
   return result;
 }
 
-bool checkSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
-                                                    VehicleState const &correctVehicle,
+bool checkSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctVehicle,
                                                     VehicleState const &oppositeVehicle,
                                                     Distance const &vehicleDistance,
                                                     bool &isDistanceSafe) noexcept
@@ -184,8 +172,8 @@ bool checkSafeLongitudinalDistanceOppositeDirection(bool considerCorrect,
   isDistanceSafe = false;
 
   Distance safeLongitudinalDistance = 0.;
-  bool const result = calculateSafeLongitudinalDistanceOppositeDirection(
-    considerCorrect, correctVehicle, oppositeVehicle, safeLongitudinalDistance);
+  bool const result
+    = calculateSafeLongitudinalDistanceOppositeDirection(correctVehicle, oppositeVehicle, safeLongitudinalDistance);
 
   if (vehicleDistance > safeLongitudinalDistance)
   {

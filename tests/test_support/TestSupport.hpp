@@ -138,21 +138,12 @@ inline double calculateLongitudinalMinSafeDistance(::rss::world::Object const &f
 }
 
 inline double calculateLongitudinalMinSafeDistanceOppositeDirection(::rss::world::Object const &objectA,
-                                                                    ::rss::world::Object const &objectB,
-                                                                    bool escalation)
+                                                                    ::rss::world::Object const &objectB)
 {
   double objectAVelAfterResTime = objectA.velocity.speedLon + objectA.responseTime * objectA.dynamics.alphaLon.accelMax;
   double objectBVelAfterResTime = objectB.velocity.speedLon + objectB.responseTime * objectB.dynamics.alphaLon.accelMax;
   double dMin = (objectA.velocity.speedLon + objectAVelAfterResTime) / 2. * objectA.responseTime;
-
-  if (!escalation)
-  {
-    dMin += objectAVelAfterResTime * objectAVelAfterResTime / (2 * objectA.dynamics.alphaLon.brakeMinCorrect);
-  }
-  else
-  {
-    dMin += objectAVelAfterResTime * objectAVelAfterResTime / (2 * objectA.dynamics.alphaLon.brakeMin);
-  }
+  dMin += objectAVelAfterResTime * objectAVelAfterResTime / (2 * objectA.dynamics.alphaLon.brakeMinCorrect);
   dMin += (objectB.velocity.speedLon + objectBVelAfterResTime) / 2. * objectB.responseTime;
   dMin += objectBVelAfterResTime * objectBVelAfterResTime / (2 * objectB.dynamics.alphaLon.brakeMin);
 

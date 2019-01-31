@@ -100,41 +100,16 @@ bool calculateLongitudinalRssStateNonIntersectionOppositeDirection(Situation con
   bool isSafe = false;
   rssState.response = state::LongitudinalResponse::BrakeMin;
 
-  /**
-   * 1. Check if state is dangerous if both vehicles use brake min
-   */
-  result = checkSafeLongitudinalDistanceOppositeDirection(false,
-                                                          situation.egoVehicleState,
-                                                          situation.otherVehicleState,
-                                                          situation.relativePosition.longitudinalDistance,
-                                                          isSafe);
-
-  /**
-   * 2. If state is safe if both vehicles use brake min,
-   *    check if one of the vehicles is on correct lane and the other not
-   *
-   *    Note: If both vehicles are on the correct lane, no rssState is triggered until case 1. becomes active
-   */
-  if (result && isSafe && (situation.egoVehicleState.isInCorrectLane != situation.otherVehicleState.isInCorrectLane))
+  if (situation.egoVehicleState.isInCorrectLane)
   {
-    if (situation.egoVehicleState.isInCorrectLane)
-    {
-      result = checkSafeLongitudinalDistanceOppositeDirection(true,
-                                                              situation.egoVehicleState,
-                                                              situation.otherVehicleState,
-                                                              situation.relativePosition.longitudinalDistance,
-                                                              isSafe);
-      rssState.response = state::LongitudinalResponse::BrakeMinCorrect;
-    }
-    else
-    {
-      result = checkSafeLongitudinalDistanceOppositeDirection(true,
-                                                              situation.otherVehicleState,
-                                                              situation.egoVehicleState,
-                                                              situation.relativePosition.longitudinalDistance,
-                                                              isSafe);
-      rssState.response = state::LongitudinalResponse::BrakeMin;
-    }
+    result = checkSafeLongitudinalDistanceOppositeDirection(
+      situation.egoVehicleState, situation.otherVehicleState, situation.relativePosition.longitudinalDistance, isSafe);
+    rssState.response = state::LongitudinalResponse::BrakeMinCorrect;
+  }
+  else
+  {
+    result = checkSafeLongitudinalDistanceOppositeDirection(
+      situation.otherVehicleState, situation.egoVehicleState, situation.relativePosition.longitudinalDistance, isSafe);
   }
 
   rssState.isSafe = isSafe;
