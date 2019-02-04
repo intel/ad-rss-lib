@@ -36,8 +36,7 @@
 namespace rss {
 namespace situation {
 
-bool calculateRssStateNonIntersectionSameDirection(Situation const &situation,
-                                                   state::ResponseState &responseState) noexcept
+bool calculateRssStateNonIntersectionSameDirection(Situation const &situation, state::ResponseState &responseState)
 {
   bool result = calculateLongitudinalRssStateNonIntersectionSameDirection(situation, responseState.longitudinalState);
   if (result)
@@ -47,8 +46,7 @@ bool calculateRssStateNonIntersectionSameDirection(Situation const &situation,
   return result;
 }
 
-bool calculateRssStateNonIntersectionOppositeDirection(Situation const &situation,
-                                                       state::ResponseState &responseState) noexcept
+bool calculateRssStateNonIntersectionOppositeDirection(Situation const &situation, state::ResponseState &responseState)
 {
   bool result
     = calculateLongitudinalRssStateNonIntersectionOppositeDirection(situation, responseState.longitudinalState);
@@ -60,7 +58,7 @@ bool calculateRssStateNonIntersectionOppositeDirection(Situation const &situatio
 }
 
 bool calculateLongitudinalRssStateNonIntersectionSameDirection(Situation const &situation,
-                                                               state::LongitudinalRssState &rssState) noexcept
+                                                               state::LongitudinalRssState &rssState)
 {
   bool result = false;
 
@@ -93,7 +91,7 @@ bool calculateLongitudinalRssStateNonIntersectionSameDirection(Situation const &
 }
 
 bool calculateLongitudinalRssStateNonIntersectionOppositeDirection(Situation const &situation,
-                                                                   state::LongitudinalRssState &rssState) noexcept
+                                                                   state::LongitudinalRssState &rssState)
 {
   bool result = false;
 
@@ -123,7 +121,7 @@ bool calculateLongitudinalRssStateNonIntersectionOppositeDirection(Situation con
 
 bool calculateLateralRssState(Situation const &situation,
                               state::LateralRssState &rssStateLeft,
-                              state::LateralRssState &rssStateRight) noexcept
+                              state::LateralRssState &rssStateRight)
 {
   rssStateLeft.isSafe = false;
   rssStateLeft.response = state::LateralResponse::BrakeMin;

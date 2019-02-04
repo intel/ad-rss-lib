@@ -54,8 +54,7 @@ namespace situation {
  *
  * @returns false if a failure occurred during calculations, true otherwise
  */
-bool calculateRssStateNonIntersectionSameDirection(Situation const &situation,
-                                                   state::ResponseState &responseState) noexcept;
+bool calculateRssStateNonIntersectionSameDirection(Situation const &situation, state::ResponseState &responseState);
 
 /**
  * @brief Calculate safety checks and determine required responseState for non intersection opposite direction scenario
@@ -65,8 +64,7 @@ bool calculateRssStateNonIntersectionSameDirection(Situation const &situation,
  *
  * @returns false if a failure occurred during calculations, true otherwise
  */
-bool calculateRssStateNonIntersectionOppositeDirection(Situation const &situation,
-                                                       state::ResponseState &responseState) noexcept;
+bool calculateRssStateNonIntersectionOppositeDirection(Situation const &situation, state::ResponseState &responseState);
 
 /**
  * @brief Calculate safety checks and determine required rssState for longitudinal direction for
@@ -79,7 +77,7 @@ bool calculateRssStateNonIntersectionOppositeDirection(Situation const &situatio
  *
  */
 bool calculateLongitudinalRssStateNonIntersectionSameDirection(Situation const &situation,
-                                                               state::LongitudinalRssState &rssState) noexcept;
+                                                               state::LongitudinalRssState &rssState);
 
 /**
  * @brief Calculate safety checks and determine required rssState for longitudinal direction for
@@ -92,7 +90,7 @@ bool calculateLongitudinalRssStateNonIntersectionSameDirection(Situation const &
  *
  */
 bool calculateLongitudinalRssStateNonIntersectionOppositeDirection(Situation const &situation,
-                                                                   state::LongitudinalRssState &rssState) noexcept;
+                                                                   state::LongitudinalRssState &rssState);
 
 /**
  * @brief Calculate safety checks and determine required rssState for lateral direction
@@ -106,7 +104,7 @@ bool calculateLongitudinalRssStateNonIntersectionOppositeDirection(Situation con
  */
 bool calculateLateralRssState(Situation const &situation,
                               state::LateralRssState &rssStateLeft,
-                              state::LateralRssState &rssStateRight) noexcept;
+                              state::LateralRssState &rssStateRight);
 
 } // namespace situation
 } // namespace rss

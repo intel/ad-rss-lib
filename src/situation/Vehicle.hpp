@@ -51,7 +51,7 @@ namespace situation {
  *
  * @return true if state is valid, false otherwise
  */
-bool checkVehicleState(VehicleState const &state) noexcept;
+bool checkVehicleState(VehicleState const &state);
 
 } // namespace situation
 } // namespace rss

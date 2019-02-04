@@ -53,9 +53,7 @@ Speed calculateSpeedInAcceleratedMovement(Speed const speed,
   return resultingSpeed;
 }
 
-bool calculateStoppingDistance(Speed const currentSpeed,
-                               Acceleration const deceleration,
-                               Distance &stoppingDistance) noexcept
+bool calculateStoppingDistance(Speed const currentSpeed, Acceleration const deceleration, Distance &stoppingDistance)
 {
   if (deceleration <= 0.)
   {
@@ -73,7 +71,7 @@ bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const axis,
                                      Speed const currentSpeed,
                                      Acceleration const acceleration,
                                      time::Duration const responseTime,
-                                     Speed &resultingSpeed) noexcept
+                                     Speed &resultingSpeed)
 {
   if (responseTime < 0)
   {
@@ -105,7 +103,7 @@ bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const axis,
                                               Speed const currentSpeed,
                                               Acceleration const acceleration,
                                               time::Duration const responseTime,
-                                              Distance &distanceOffset) noexcept
+                                              Distance &distanceOffset)
 {
   if (responseTime < 0)
   {
@@ -138,7 +136,7 @@ bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const axis,
 bool calculateTimeForDistance(Speed const currentSpeed,
                               Acceleration const acceleration,
                               Distance distanceToCover,
-                              time::Duration &requiredTime) noexcept
+                              time::Duration &requiredTime)
 {
   if (currentSpeed < 0)
   {
@@ -174,7 +172,7 @@ bool calculateTimeToCoverDistance(Speed const currentSpeed,
                                   Acceleration const acceleration,
                                   Acceleration const deceleration,
                                   Distance distanceToCover,
-                                  time::Duration &requiredTime) noexcept
+                                  time::Duration &requiredTime)
 {
   if (currentSpeed < 0)
   {
@@ -196,8 +194,8 @@ bool calculateTimeToCoverDistance(Speed const currentSpeed,
   {
     Speed resultingSpeed;
 
-    result &= calculateSpeedAfterResponseTime(
-      CoordinateSystemAxis::Longitudinal, currentSpeed, acceleration, responseTime, resultingSpeed);
+    result = result && calculateSpeedAfterResponseTime(
+                         CoordinateSystemAxis::Longitudinal, currentSpeed, acceleration, responseTime, resultingSpeed);
 
     Distance stoppingDistance;
     result = calculateStoppingDistance(resultingSpeed, deceleration, stoppingDistance);

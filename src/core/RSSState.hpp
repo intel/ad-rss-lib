@@ -53,7 +53,7 @@ namespace state {
  *
  * true if safe, false if not
  */
-inline bool isLongitudinalSafe(ResponseState const &responseState) noexcept
+inline bool isLongitudinalSafe(ResponseState const &responseState)
 {
   return responseState.longitudinalState.isSafe;
 }
@@ -65,7 +65,7 @@ inline bool isLongitudinalSafe(ResponseState const &responseState) noexcept
  *
  * true if safe, false if not
  */
-inline bool isLateralSafe(ResponseState const &responseState) noexcept
+inline bool isLateralSafe(ResponseState const &responseState)
 {
   return responseState.lateralStateRight.isSafe && responseState.lateralStateLeft.isSafe;
 }
@@ -77,7 +77,7 @@ inline bool isLateralSafe(ResponseState const &responseState) noexcept
  *
  * true if dangerous, false if not
  */
-inline bool isDangerous(ResponseState const &responseState) noexcept
+inline bool isDangerous(ResponseState const &responseState)
 {
   return !isLongitudinalSafe(responseState) && !isLateralSafe(responseState);
 }
@@ -96,8 +96,7 @@ inline bool isDangerous(ResponseState const &responseState) noexcept
  *
  * @returns the resulting RSS state
  */
-template <typename RssState>
-RssState combineRssState(RssState const &previousRssState, RssState const &newRssState) noexcept
+template <typename RssState> RssState combineRssState(RssState const &previousRssState, RssState const &newRssState)
 {
   if (previousRssState.isSafe == newRssState.isSafe)
   {

@@ -56,7 +56,7 @@ RssCheck::RssCheck()
 }
 
 bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldModel,
-                                                world::AccelerationRestriction &accelerationRestriction) noexcept
+                                                world::AccelerationRestriction &accelerationRestriction)
 {
   if (!bool(mResponseResolving) || !bool(mSituationChecking))
   {

@@ -46,8 +46,7 @@ namespace rss {
  */
 namespace world {
 
-bool calculateLateralDimensions(::rss::world::RoadArea const &roadArea,
-                                std::vector<world::MetricRange> &lateralRanges) noexcept
+bool calculateLateralDimensions(::rss::world::RoadArea const &roadArea, std::vector<world::MetricRange> &lateralRanges)
 {
   bool result = true;
 
@@ -142,7 +141,7 @@ bool calculateLateralDimensions(::rss::world::RoadArea const &roadArea,
 
 bool calculateObjectDimensions(std::vector<Object> const &objects,
                                ::rss::world::RoadArea const &roadArea,
-                               std::vector<ObjectDimensions> &objectDimensions) noexcept
+                               std::vector<ObjectDimensions> &objectDimensions)
 {
   bool result = true;
 
@@ -172,7 +171,7 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
       Distance longitudinalDistanceMin = 0.;
       for (auto &extractor : extractors)
       {
-        result &= extractor.newRoadSegment(longitudinalDimensions.minimum, longitudinalDimensions.maximum);
+        result = result && extractor.newRoadSegment(longitudinalDimensions.minimum, longitudinalDimensions.maximum);
       }
 
       // This is needed, because we want to look for the minimum
@@ -184,7 +183,7 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
         {
           for (auto &extractor : extractors)
           {
-            result &= extractor.newLaneSegment(lateralRanges[i], (*roadSegment)[i]);
+            result = result && extractor.newLaneSegment(lateralRanges[i], (*roadSegment)[i]);
           }
         }
         else
@@ -208,7 +207,7 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
       for (auto extractor : extractors)
       {
         ObjectDimensions extractedDimensions;
-        result &= extractor.getObjectDimensions(extractedDimensions);
+        result = result && extractor.getObjectDimensions(extractedDimensions);
         objectDimensions.push_back(extractedDimensions);
       }
     }
@@ -224,7 +223,7 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
 bool calculateObjectDimensions(Object const &egoVehicle,
                                Scene const &currentScene,
                                ObjectDimensions &egoVehiclePosition,
-                               ObjectDimensions &objectPosition) noexcept
+                               ObjectDimensions &objectPosition)
 {
   bool result = true;
 
@@ -257,7 +256,7 @@ bool calculateObjectDimensions(Object const &egoVehicle,
 
 bool calculateObjectDimensions(Object const &object,
                                ::rss::world::RoadArea const &roadArea,
-                               ObjectDimensions &objectPosition) noexcept
+                               ObjectDimensions &objectPosition)
 {
   bool result = true;
 

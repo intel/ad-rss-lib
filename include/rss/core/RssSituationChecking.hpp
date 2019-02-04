@@ -81,7 +81,7 @@ public:
    *
    * @return true if situation could be analyzed, false if there was an error during evaluation
    */
-  bool checkSituation(situation::Situation const &situation, state::ResponseState &responseState) noexcept;
+  bool checkSituation(situation::Situation const &situation, state::ResponseState &responseState);
 
   /*!
    * @brief Checks if the current situations are safe.
@@ -92,7 +92,7 @@ public:
    * @return true if the situations could be analyzed, false if an error occurred during evaluation.
    */
   bool checkSituations(situation::SituationVector const &situationVector,
-                       state::ResponseStateVector &responseStateVector) noexcept;
+                       state::ResponseStateVector &responseStateVector);
 
 private:
   std::unique_ptr<rss::situation::RssIntersectionChecker> mIntersectionChecker;

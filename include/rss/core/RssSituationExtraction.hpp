@@ -65,7 +65,7 @@ namespace RssSituationExtraction {
  */
 bool extractSituation(world::Object const &egoVehicle,
                       world::Scene const &currentScene,
-                      situation::Situation &situation) noexcept;
+                      situation::Situation &situation);
 
 /*
  * @brief Extract all RSS situations to be checked from the world model.
@@ -75,7 +75,7 @@ bool extractSituation(world::Object const &egoVehicle,
  *
  * @return true if the situations could be created, false if there was an error during the operation.
  */
-bool extractSituations(world::WorldModel const &worldModel, situation::SituationVector &situationVector) noexcept;
+bool extractSituations(world::WorldModel const &worldModel, situation::SituationVector &situationVector);
 
 } // namespace RssSituationExtraction
 } // namespace core

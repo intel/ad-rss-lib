@@ -74,7 +74,7 @@ public:
    * If false is returned the internal state has not been updated
    */
   bool provideProperResponse(state::ResponseStateVector const &currentResponseStates,
-                             state::ResponseState &responseState) noexcept;
+                             state::ResponseState &responseState);
 
 private:
   struct RssState

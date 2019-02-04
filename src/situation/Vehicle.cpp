@@ -34,7 +34,7 @@
 namespace rss {
 namespace situation {
 
-bool checkVehicleDynamics(Dynamics const &dynamics) noexcept
+bool checkVehicleDynamics(Dynamics const &dynamics)
 {
   // acceleration has to be >=0
   if (dynamics.alphaLon.accelMax < 0)
@@ -71,7 +71,7 @@ bool checkVehicleDynamics(Dynamics const &dynamics) noexcept
   return true;
 }
 
-bool checkVehicleLongitudinalVelocity(Velocity const &velocity) noexcept
+bool checkVehicleLongitudinalVelocity(Velocity const &velocity)
 {
   if (velocity.speedLon < 0)
   {
@@ -81,7 +81,7 @@ bool checkVehicleLongitudinalVelocity(Velocity const &velocity) noexcept
   return true;
 }
 
-bool checkVehicleState(VehicleState const &state) noexcept
+bool checkVehicleState(VehicleState const &state)
 {
   if (!checkVehicleDynamics(state.dynamics))
   {

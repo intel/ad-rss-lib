@@ -69,7 +69,7 @@ namespace RssResponseTransformation {
  */
 bool transformProperResponse(world::WorldModel const &worldModel,
                              state::ResponseState const &response,
-                             world::AccelerationRestriction &accelerationRestriction) noexcept;
+                             world::AccelerationRestriction &accelerationRestriction);
 
 } // namespace RssResponseTransformation
 } // namespace core

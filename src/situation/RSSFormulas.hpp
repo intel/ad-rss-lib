@@ -71,7 +71,7 @@ bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const
                                                       time::Duration const responseTime,
                                                       Acceleration const acceleration,
                                                       Acceleration const deceleration,
-                                                      Distance &distanceOffset) noexcept;
+                                                      Distance &distanceOffset);
 
 /**
  * @brief Calculate the \a "safe longitudinal distance" between the two vehicles,
@@ -92,7 +92,7 @@ bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const
  */
 bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehicle,
                                                     VehicleState const &followingVehicle,
-                                                    Distance &safeDistance) noexcept;
+                                                    Distance &safeDistance);
 
 /**
  * @brief Check if the longitudinal distance between the two vehicles is safe.
@@ -114,7 +114,7 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
 bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehicle,
                                                 VehicleState const &followingVehicle,
                                                 Distance const &vehicleDistance,
-                                                bool &isDistanceSafe) noexcept;
+                                                bool &isDistanceSafe);
 
 /**
  * @brief Calculate  the safe longitudinal distance between to vehicles driving in opposite direction
@@ -138,7 +138,7 @@ bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehic
  */
 bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctVehicle,
                                                         VehicleState const &oppositeVehicle,
-                                                        Distance &safeDistance) noexcept;
+                                                        Distance &safeDistance);
 
 /**
  * @brief Check if the longitudinal distance between to vehicles driving in opposite direction is safe.
@@ -164,7 +164,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &corr
 bool checkSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctVehicle,
                                                     VehicleState const &oppositeVehicle,
                                                     Distance const &vehicleDistance,
-                                                    bool &isDistanceSafe) noexcept;
+                                                    bool &isDistanceSafe);
 
 /**
  * @brief Check if the vehicle can safely break longitudinaly in front of the intersection.
@@ -183,7 +183,7 @@ bool checkSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctV
  *
  * @return true on successful calculation, false otherwise
  */
-bool checkStopInFrontIntersection(VehicleState const &vehicle, bool &isDistanceSafe) noexcept;
+bool checkStopInFrontIntersection(VehicleState const &vehicle, bool &isDistanceSafe);
 
 /**
  * @brief Calculate the \a "safe lateral distance" between the two vehicles,
@@ -211,7 +211,7 @@ bool checkStopInFrontIntersection(VehicleState const &vehicle, bool &isDistanceS
  */
 bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
                                   VehicleState const &rightVehicle,
-                                  Distance &safeDistance) noexcept;
+                                  Distance &safeDistance);
 
 /**
  * @brief Check if the lateral distance between to vehicles is safe
@@ -241,7 +241,7 @@ bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
 bool checkSafeLateralDistance(VehicleState const &leftVehicle,
                               VehicleState const &rightVehicle,
                               Distance const &vehicleDistance,
-                              bool &isDistanceSafe) noexcept;
+                              bool &isDistanceSafe);
 
 } // namespace situation
 } // namespace rss

@@ -47,8 +47,7 @@ RssSituationChecking::~RssSituationChecking()
 {
 }
 
-bool RssSituationChecking::checkSituation(situation::Situation const &situation,
-                                          state::ResponseState &response) noexcept
+bool RssSituationChecking::checkSituation(situation::Situation const &situation, state::ResponseState &response)
 {
   if (!bool(mIntersectionChecker))
   {
@@ -97,7 +96,7 @@ bool RssSituationChecking::checkSituation(situation::Situation const &situation,
 }
 
 bool RssSituationChecking::checkSituations(situation::SituationVector const &situationVector,
-                                           state::ResponseStateVector &responseStateVector) noexcept
+                                           state::ResponseStateVector &responseStateVector)
 {
   bool result = true;
   responseStateVector.clear();

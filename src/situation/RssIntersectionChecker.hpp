@@ -92,7 +92,7 @@ public:
    * @returns false if a failure occurred during calculations, true otherwise
    *
    */
-  bool calculateRssStateIntersection(Situation const &situation, state::ResponseState &rssState) noexcept;
+  bool calculateRssStateIntersection(Situation const &situation, state::ResponseState &rssState);
 
 private:
   typedef std::map<SituationId, IntersectionState> RssIntersectionStateMap;

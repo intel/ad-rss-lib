@@ -41,7 +41,7 @@ namespace RssSituationExtraction {
 void calcluateRelativeLongitudinalPosition(world::MetricRange const &egoMetricRange,
                                            world::MetricRange const &otherMetricRange,
                                            situation::LongitudinalRelativePosition &longitudinalPosition,
-                                           situation::Distance &longitudinalDistance) noexcept
+                                           situation::Distance &longitudinalDistance)
 {
   if (egoMetricRange.minimum > otherMetricRange.maximum)
   {
@@ -74,7 +74,7 @@ void calcluateRelativeLongitudinalPosition(world::MetricRange const &egoMetricRa
 void calcluateRelativeLongitudinalPositionIntersection(world::MetricRange const &egoMetricRange,
                                                        world::MetricRange const &otherMetricRange,
                                                        situation::LongitudinalRelativePosition &longitudinalPosition,
-                                                       situation::Distance &longitudinalDistance) noexcept
+                                                       situation::Distance &longitudinalDistance)
 {
   if (egoMetricRange.maximum < otherMetricRange.minimum)
   {
@@ -107,7 +107,7 @@ void calcluateRelativeLongitudinalPositionIntersection(world::MetricRange const 
 void calcluateRelativeLateralPosition(world::MetricRange const &egoMetricRange,
                                       world::MetricRange const &otherMetricRange,
                                       situation::LateralRelativePosition &lateralPosition,
-                                      situation::Distance &lateralDistance) noexcept
+                                      situation::Distance &lateralDistance)
 {
   if (egoMetricRange.minimum > otherMetricRange.maximum)
   {
@@ -203,9 +203,9 @@ bool convertObjectsIntersection(world::Object const &egoVehicle,
   world::ObjectDimensions egoVehicleDimension;
   world::ObjectDimensions objectDimension;
 
-  result &= calculateObjectDimensions(egoVehicle, currentScene.egoVehicleRoad, egoVehicleDimension);
+  result = result && calculateObjectDimensions(egoVehicle, currentScene.egoVehicleRoad, egoVehicleDimension);
 
-  result &= calculateObjectDimensions(currentScene.object, currentScene.intersectingRoad, objectDimension);
+  result = result && calculateObjectDimensions(currentScene.object, currentScene.intersectingRoad, objectDimension);
 
   if (result)
   {
@@ -271,7 +271,7 @@ bool convertObjectsIntersection(world::Object const &egoVehicle,
 
 bool extractSituation(world::Object const &egoVehicle,
                       world::Scene const &currentScene,
-                      situation::Situation &situation) noexcept
+                      situation::Situation &situation)
 {
   bool result = false;
 
@@ -313,7 +313,7 @@ bool extractSituation(world::Object const &egoVehicle,
   return result;
 }
 
-bool extractSituations(world::WorldModel const &worldModel, situation::SituationVector &situationVector) noexcept
+bool extractSituations(world::WorldModel const &worldModel, situation::SituationVector &situationVector)
 {
   bool result = true;
 

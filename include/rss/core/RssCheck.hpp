@@ -77,7 +77,7 @@ public:
    * @return return true if the acceleration restrictions could be calculated, false otherwise.
    */
   bool calculateAccelerationRestriction(world::WorldModel const &worldModel,
-                                        world::AccelerationRestriction &accelerationRestriction) noexcept;
+                                        world::AccelerationRestriction &accelerationRestriction);
 
 private:
   std::unique_ptr<RssResponseResolving> mResponseResolving;

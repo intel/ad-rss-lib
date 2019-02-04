@@ -41,7 +41,7 @@ RssResponseResolving::RssResponseResolving()
 }
 
 bool RssResponseResolving::provideProperResponse(state::ResponseStateVector const &currentStates,
-                                                 state::ResponseState &responseState) noexcept
+                                                 state::ResponseState &responseState)
 {
   responseState.timeIndex = 0u;
   responseState.lateralStateLeft.response = state::LateralResponse::None;

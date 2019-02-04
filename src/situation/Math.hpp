@@ -64,9 +64,7 @@ namespace situation {
  *
  * @return true on success, false otherwise
  */
-bool calculateStoppingDistance(Speed const currentSpeed,
-                               Acceleration const deceleration,
-                               Distance &stoppingDistance) noexcept;
+bool calculateStoppingDistance(Speed const currentSpeed, Acceleration const deceleration, Distance &stoppingDistance);
 
 /**
  * @brief Calculate the vehicle speed after a given period of time on a constant accelerated movement
@@ -90,7 +88,7 @@ bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const axis,
                                      Speed const currentSpeed,
                                      Acceleration const acceleration,
                                      time::Duration const responseTime,
-                                     Speed &resultingSpeed) noexcept;
+                                     Speed &resultingSpeed);
 
 /**
  * @brief Calculate the distance offset of a vehicle after a given period of time on a constant accelerated movement
@@ -117,7 +115,7 @@ bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const axis,
                                               Speed const currentSpeed,
                                               Acceleration const acceleration,
                                               time::Duration const responseTime,
-                                              Distance &distanceOffset) noexcept;
+                                              Distance &distanceOffset);
 
 /**
  * @brief Calculate the time needed to cover a given distance
@@ -140,7 +138,7 @@ bool calculateTimeToCoverDistance(Speed const currentSpeed,
                                   Acceleration const acceleration,
                                   Acceleration const deceleration,
                                   Distance const distanceToCover,
-                                  time::Duration &requiredTime) noexcept;
+                                  time::Duration &requiredTime);
 
 } // namespace situation
 } // namespace rss
