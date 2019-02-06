@@ -39,8 +39,6 @@ namespace rss {
 
 namespace core {
 
-RssCheck::~RssCheck() = default;
-
 RssCheck::RssCheck()
 {
   try
@@ -53,6 +51,10 @@ RssCheck::RssCheck()
     mResponseResolving = nullptr;
     mSituationChecking = nullptr;
   }
+}
+
+RssCheck::~RssCheck()
+{
 }
 
 bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldModel,

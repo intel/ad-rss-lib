@@ -51,12 +51,12 @@ bool calculateLateralDimensions(::rss::world::RoadArea const &roadArea, std::vec
   bool result = true;
 
   bool notFinished = true;
-  uint32_t currentLateralIndex = 0;
+  uint32_t currentLateralIndex = 0u;
 
   world::MetricRange currentLateralPosition;
 
-  currentLateralPosition.maximum = 0;
-  currentLateralPosition.minimum = 0;
+  currentLateralPosition.maximum = 0.;
+  currentLateralPosition.minimum = 0.;
 
   try
   {
