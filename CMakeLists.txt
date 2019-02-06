@@ -39,12 +39,19 @@ project(RSSModule VERSION 0.5)
 
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 14)
-add_compile_options(-Werror -Wall -Wextra -pedantic)
+# enable a bunch of warning
+add_compile_options(-Wall -Wextra -pedantic -Wfloat-equal -Wshadow -Wswitch-default -Wenum-compare -Wformat -Wformat-security)
+# use some warnings only for library code not for gtest 
+set(TARGET_COMPILE_OPTIONS -Wconversion -Wsign-conversion)
+# warnings are treated as error
+add_compile_options(-Werror)
 
+# hardening
+set(HARDENING_LD_FLAGS "-Wl,-z,now -Wl,-z,relro -pie")
+add_compile_options(-fstack-protector-strong -fasynchronous-unwind-tables -fno-omit-frame-pointer -fPIE -fPIC -D_FORTIFY_SOURCE=2)
 
 # activate code coverage
 set(COVERAGE_FLAG "--coverage")
-set(TARGET_COMPILE_OPTIONS -Wconversion -Wsign-conversion)
 
 add_library(${PROJECT_NAME} SHARED
   src/core/RssCheck.cpp
@@ -75,7 +82,7 @@ target_include_directories(${PROJECT_NAME}
 )
 
 target_compile_options(${PROJECT_NAME} PRIVATE ${COVERAGE_FLAG} ${TARGET_COMPILE_OPTIONS})
-set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS ${COVERAGE_FLAG})
+set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "${COVERAGE_FLAG} ${HARDENING_LD_FLAGS}")
 
 ################################################################################
 # RSSSupport section
@@ -112,7 +119,8 @@ target_link_libraries(RSSSupport
   ${PROJECT_NAME}
 )
 
-target_compile_options(RSSSupport PRIVATE ${TARGET_COMPILE_OPTIONS})
+target_compile_options(RSSSupport PRIVATE ${COVERAGE_FLAG} ${TARGET_COMPILE_OPTIONS})
+set_target_properties(RSSSupport PROPERTIES LINK_FLAGS "${COVERAGE_FLAG} ${HARDENING_LD_FLAGS}")
 
 ################################################################################
 # Install section

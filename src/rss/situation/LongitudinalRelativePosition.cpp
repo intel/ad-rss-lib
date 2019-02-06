@@ -37,47 +37,51 @@
  */
 
 #include "rss/situation/LongitudinalRelativePosition.hpp"
-#include <unordered_map>
+#include <stdexcept>
 
 std::string toString(::rss::situation::LongitudinalRelativePosition const e)
 {
-  struct EnumClassHash
+  switch (e)
   {
-    std::size_t operator()(::rss::situation::LongitudinalRelativePosition t) const
-    {
-      return static_cast<std::size_t>(t);
-    }
-  };
-
-  static std::unordered_map<::rss::situation::LongitudinalRelativePosition, std::string, EnumClassHash> enumToStringMap{
-    {::rss::situation::LongitudinalRelativePosition::InFront,
-     "::rss::situation::LongitudinalRelativePosition::InFront"},
-    {::rss::situation::LongitudinalRelativePosition::OverlapFront,
-     "::rss::situation::LongitudinalRelativePosition::OverlapFront"},
-    {::rss::situation::LongitudinalRelativePosition::Overlap,
-     "::rss::situation::LongitudinalRelativePosition::Overlap"},
-    {::rss::situation::LongitudinalRelativePosition::OverlapBack,
-     "::rss::situation::LongitudinalRelativePosition::OverlapBack"},
-    {::rss::situation::LongitudinalRelativePosition::AtBack, "::rss::situation::LongitudinalRelativePosition::AtBack"}};
-  return enumToStringMap.at(e);
+    case ::rss::situation::LongitudinalRelativePosition::InFront:
+      return "::rss::situation::LongitudinalRelativePosition::InFront";
+    case ::rss::situation::LongitudinalRelativePosition::OverlapFront:
+      return "::rss::situation::LongitudinalRelativePosition::OverlapFront";
+    case ::rss::situation::LongitudinalRelativePosition::Overlap:
+      return "::rss::situation::LongitudinalRelativePosition::Overlap";
+    case ::rss::situation::LongitudinalRelativePosition::OverlapBack:
+      return "::rss::situation::LongitudinalRelativePosition::OverlapBack";
+    case ::rss::situation::LongitudinalRelativePosition::AtBack:
+      return "::rss::situation::LongitudinalRelativePosition::AtBack";
+    default:
+      return "UNKNOWN ENUM VALUE";
+  }
 }
 
 template <>::rss::situation::LongitudinalRelativePosition fromString(std::string const &str)
 {
-  static std::unordered_map<std::string, ::rss::situation::LongitudinalRelativePosition> stringToEnumMap{
-    {"::rss::situation::LongitudinalRelativePosition::InFront",
-     ::rss::situation::LongitudinalRelativePosition::InFront},
-    {"::rss::situation::LongitudinalRelativePosition::OverlapFront",
-     ::rss::situation::LongitudinalRelativePosition::OverlapFront},
-    {"::rss::situation::LongitudinalRelativePosition::Overlap",
-     ::rss::situation::LongitudinalRelativePosition::Overlap},
-    {"::rss::situation::LongitudinalRelativePosition::OverlapBack",
-     ::rss::situation::LongitudinalRelativePosition::OverlapBack},
-    {"::rss::situation::LongitudinalRelativePosition::AtBack", ::rss::situation::LongitudinalRelativePosition::AtBack},
-    {"InFront", ::rss::situation::LongitudinalRelativePosition::InFront},
-    {"OverlapFront", ::rss::situation::LongitudinalRelativePosition::OverlapFront},
-    {"Overlap", ::rss::situation::LongitudinalRelativePosition::Overlap},
-    {"OverlapBack", ::rss::situation::LongitudinalRelativePosition::OverlapBack},
-    {"AtBack", ::rss::situation::LongitudinalRelativePosition::AtBack}};
-  return stringToEnumMap.at(str);
+  if ((str == "::rss::situation::LongitudinalRelativePosition::InFront") || (str == "InFront"))
+  {
+    return ::rss::situation::LongitudinalRelativePosition::InFront;
+  }
+  else if ((str == "::rss::situation::LongitudinalRelativePosition::OverlapFront") || (str == "OverlapFront"))
+  {
+    return ::rss::situation::LongitudinalRelativePosition::OverlapFront;
+  }
+  else if ((str == "::rss::situation::LongitudinalRelativePosition::Overlap") || (str == "Overlap"))
+  {
+    return ::rss::situation::LongitudinalRelativePosition::Overlap;
+  }
+  else if ((str == "::rss::situation::LongitudinalRelativePosition::OverlapBack") || (str == "OverlapBack"))
+  {
+    return ::rss::situation::LongitudinalRelativePosition::OverlapBack;
+  }
+  else if ((str == "::rss::situation::LongitudinalRelativePosition::AtBack") || (str == "AtBack"))
+  {
+    return ::rss::situation::LongitudinalRelativePosition::AtBack;
+  }
+  else
+  {
+    throw std::out_of_range("Invalid enum literal");
+  }
 }

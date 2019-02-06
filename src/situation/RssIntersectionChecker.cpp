@@ -52,7 +52,6 @@ RssIntersectionChecker::~RssIntersectionChecker()
 bool checkLateralIntersect(Situation const &situation, bool &isSafe)
 {
   isSafe = false;
-  bool result = true;
 
   /**
    * Check if in any case the first vehicle has passed the intersection before the other
@@ -64,12 +63,12 @@ bool checkLateralIntersect(Situation const &situation, bool &isSafe)
   time::Duration timeToLeaveEgo;
   time::Duration timeToLeaveOther;
 
-  result = result && calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon,
-                                                  situation.egoVehicleState.responseTime,
-                                                  situation.egoVehicleState.dynamics.alphaLon.accelMax,
-                                                  situation.egoVehicleState.dynamics.alphaLon.brakeMin,
-                                                  situation.egoVehicleState.distanceToEnterIntersection,
-                                                  timeToReachEgo);
+  bool result = calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon,
+                                             situation.egoVehicleState.responseTime,
+                                             situation.egoVehicleState.dynamics.alphaLon.accelMax,
+                                             situation.egoVehicleState.dynamics.alphaLon.brakeMin,
+                                             situation.egoVehicleState.distanceToEnterIntersection,
+                                             timeToReachEgo);
 
   result = result && calculateTimeToCoverDistance(situation.otherVehicleState.velocity.speedLon,
                                                   situation.otherVehicleState.responseTime,
@@ -248,6 +247,11 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
             {
               //@todo If we don't assume always lateral overlap we might need to brake lateraly aswell
               rssState.longitudinalState.response = ::rss::state::LongitudinalResponse::BrakeMin;
+              break;
+            }
+            default:
+            {
+              result = false;
               break;
             }
           }

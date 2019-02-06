@@ -37,30 +37,33 @@
  */
 
 #include "rss/state/LateralResponse.hpp"
-#include <unordered_map>
+#include <stdexcept>
 
 std::string toString(::rss::state::LateralResponse const e)
 {
-  struct EnumClassHash
+  switch (e)
   {
-    std::size_t operator()(::rss::state::LateralResponse t) const
-    {
-      return static_cast<std::size_t>(t);
-    }
-  };
-
-  static std::unordered_map<::rss::state::LateralResponse, std::string, EnumClassHash> enumToStringMap{
-    {::rss::state::LateralResponse::None, "::rss::state::LateralResponse::None"},
-    {::rss::state::LateralResponse::BrakeMin, "::rss::state::LateralResponse::BrakeMin"}};
-  return enumToStringMap.at(e);
+    case ::rss::state::LateralResponse::None:
+      return "::rss::state::LateralResponse::None";
+    case ::rss::state::LateralResponse::BrakeMin:
+      return "::rss::state::LateralResponse::BrakeMin";
+    default:
+      return "UNKNOWN ENUM VALUE";
+  }
 }
 
 template <>::rss::state::LateralResponse fromString(std::string const &str)
 {
-  static std::unordered_map<std::string, ::rss::state::LateralResponse> stringToEnumMap{
-    {"::rss::state::LateralResponse::None", ::rss::state::LateralResponse::None},
-    {"::rss::state::LateralResponse::BrakeMin", ::rss::state::LateralResponse::BrakeMin},
-    {"None", ::rss::state::LateralResponse::None},
-    {"BrakeMin", ::rss::state::LateralResponse::BrakeMin}};
-  return stringToEnumMap.at(str);
+  if ((str == "::rss::state::LateralResponse::None") || (str == "None"))
+  {
+    return ::rss::state::LateralResponse::None;
+  }
+  else if ((str == "::rss::state::LateralResponse::BrakeMin") || (str == "BrakeMin"))
+  {
+    return ::rss::state::LateralResponse::BrakeMin;
+  }
+  else
+  {
+    throw std::out_of_range("Invalid enum literal");
+  }
 }

@@ -37,33 +37,39 @@
  */
 
 #include "rss/world/LaneDrivingDirection.hpp"
-#include <unordered_map>
+#include <stdexcept>
 
 std::string toString(::rss::world::LaneDrivingDirection const e)
 {
-  struct EnumClassHash
+  switch (e)
   {
-    std::size_t operator()(::rss::world::LaneDrivingDirection t) const
-    {
-      return static_cast<std::size_t>(t);
-    }
-  };
-
-  static std::unordered_map<::rss::world::LaneDrivingDirection, std::string, EnumClassHash> enumToStringMap{
-    {::rss::world::LaneDrivingDirection::Bidirectional, "::rss::world::LaneDrivingDirection::Bidirectional"},
-    {::rss::world::LaneDrivingDirection::Positive, "::rss::world::LaneDrivingDirection::Positive"},
-    {::rss::world::LaneDrivingDirection::Negative, "::rss::world::LaneDrivingDirection::Negative"}};
-  return enumToStringMap.at(e);
+    case ::rss::world::LaneDrivingDirection::Bidirectional:
+      return "::rss::world::LaneDrivingDirection::Bidirectional";
+    case ::rss::world::LaneDrivingDirection::Positive:
+      return "::rss::world::LaneDrivingDirection::Positive";
+    case ::rss::world::LaneDrivingDirection::Negative:
+      return "::rss::world::LaneDrivingDirection::Negative";
+    default:
+      return "UNKNOWN ENUM VALUE";
+  }
 }
 
 template <>::rss::world::LaneDrivingDirection fromString(std::string const &str)
 {
-  static std::unordered_map<std::string, ::rss::world::LaneDrivingDirection> stringToEnumMap{
-    {"::rss::world::LaneDrivingDirection::Bidirectional", ::rss::world::LaneDrivingDirection::Bidirectional},
-    {"::rss::world::LaneDrivingDirection::Positive", ::rss::world::LaneDrivingDirection::Positive},
-    {"::rss::world::LaneDrivingDirection::Negative", ::rss::world::LaneDrivingDirection::Negative},
-    {"Bidirectional", ::rss::world::LaneDrivingDirection::Bidirectional},
-    {"Positive", ::rss::world::LaneDrivingDirection::Positive},
-    {"Negative", ::rss::world::LaneDrivingDirection::Negative}};
-  return stringToEnumMap.at(str);
+  if ((str == "::rss::world::LaneDrivingDirection::Bidirectional") || (str == "Bidirectional"))
+  {
+    return ::rss::world::LaneDrivingDirection::Bidirectional;
+  }
+  else if ((str == "::rss::world::LaneDrivingDirection::Positive") || (str == "Positive"))
+  {
+    return ::rss::world::LaneDrivingDirection::Positive;
+  }
+  else if ((str == "::rss::world::LaneDrivingDirection::Negative") || (str == "Negative"))
+  {
+    return ::rss::world::LaneDrivingDirection::Negative;
+  }
+  else
+  {
+    throw std::out_of_range("Invalid enum literal");
+  }
 }

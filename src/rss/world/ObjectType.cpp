@@ -37,33 +37,39 @@
  */
 
 #include "rss/world/ObjectType.hpp"
-#include <unordered_map>
+#include <stdexcept>
 
 std::string toString(::rss::world::ObjectType const e)
 {
-  struct EnumClassHash
+  switch (e)
   {
-    std::size_t operator()(::rss::world::ObjectType t) const
-    {
-      return static_cast<std::size_t>(t);
-    }
-  };
-
-  static std::unordered_map<::rss::world::ObjectType, std::string, EnumClassHash> enumToStringMap{
-    {::rss::world::ObjectType::EgoVehicle, "::rss::world::ObjectType::EgoVehicle"},
-    {::rss::world::ObjectType::OtherVehicle, "::rss::world::ObjectType::OtherVehicle"},
-    {::rss::world::ObjectType::ArtificialObject, "::rss::world::ObjectType::ArtificialObject"}};
-  return enumToStringMap.at(e);
+    case ::rss::world::ObjectType::EgoVehicle:
+      return "::rss::world::ObjectType::EgoVehicle";
+    case ::rss::world::ObjectType::OtherVehicle:
+      return "::rss::world::ObjectType::OtherVehicle";
+    case ::rss::world::ObjectType::ArtificialObject:
+      return "::rss::world::ObjectType::ArtificialObject";
+    default:
+      return "UNKNOWN ENUM VALUE";
+  }
 }
 
 template <>::rss::world::ObjectType fromString(std::string const &str)
 {
-  static std::unordered_map<std::string, ::rss::world::ObjectType> stringToEnumMap{
-    {"::rss::world::ObjectType::EgoVehicle", ::rss::world::ObjectType::EgoVehicle},
-    {"::rss::world::ObjectType::OtherVehicle", ::rss::world::ObjectType::OtherVehicle},
-    {"::rss::world::ObjectType::ArtificialObject", ::rss::world::ObjectType::ArtificialObject},
-    {"EgoVehicle", ::rss::world::ObjectType::EgoVehicle},
-    {"OtherVehicle", ::rss::world::ObjectType::OtherVehicle},
-    {"ArtificialObject", ::rss::world::ObjectType::ArtificialObject}};
-  return stringToEnumMap.at(str);
+  if ((str == "::rss::world::ObjectType::EgoVehicle") || (str == "EgoVehicle"))
+  {
+    return ::rss::world::ObjectType::EgoVehicle;
+  }
+  else if ((str == "::rss::world::ObjectType::OtherVehicle") || (str == "OtherVehicle"))
+  {
+    return ::rss::world::ObjectType::OtherVehicle;
+  }
+  else if ((str == "::rss::world::ObjectType::ArtificialObject") || (str == "ArtificialObject"))
+  {
+    return ::rss::world::ObjectType::ArtificialObject;
+  }
+  else
+  {
+    throw std::out_of_range("Invalid enum literal");
+  }
 }

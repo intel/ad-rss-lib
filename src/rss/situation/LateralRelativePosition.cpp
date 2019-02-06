@@ -37,41 +37,51 @@
  */
 
 #include "rss/situation/LateralRelativePosition.hpp"
-#include <unordered_map>
+#include <stdexcept>
 
 std::string toString(::rss::situation::LateralRelativePosition const e)
 {
-  struct EnumClassHash
+  switch (e)
   {
-    std::size_t operator()(::rss::situation::LateralRelativePosition t) const
-    {
-      return static_cast<std::size_t>(t);
-    }
-  };
-
-  static std::unordered_map<::rss::situation::LateralRelativePosition, std::string, EnumClassHash> enumToStringMap{
-    {::rss::situation::LateralRelativePosition::AtLeft, "::rss::situation::LateralRelativePosition::AtLeft"},
-    {::rss::situation::LateralRelativePosition::OverlapLeft, "::rss::situation::LateralRelativePosition::OverlapLeft"},
-    {::rss::situation::LateralRelativePosition::Overlap, "::rss::situation::LateralRelativePosition::Overlap"},
-    {::rss::situation::LateralRelativePosition::OverlapRight,
-     "::rss::situation::LateralRelativePosition::OverlapRight"},
-    {::rss::situation::LateralRelativePosition::AtRight, "::rss::situation::LateralRelativePosition::AtRight"}};
-  return enumToStringMap.at(e);
+    case ::rss::situation::LateralRelativePosition::AtLeft:
+      return "::rss::situation::LateralRelativePosition::AtLeft";
+    case ::rss::situation::LateralRelativePosition::OverlapLeft:
+      return "::rss::situation::LateralRelativePosition::OverlapLeft";
+    case ::rss::situation::LateralRelativePosition::Overlap:
+      return "::rss::situation::LateralRelativePosition::Overlap";
+    case ::rss::situation::LateralRelativePosition::OverlapRight:
+      return "::rss::situation::LateralRelativePosition::OverlapRight";
+    case ::rss::situation::LateralRelativePosition::AtRight:
+      return "::rss::situation::LateralRelativePosition::AtRight";
+    default:
+      return "UNKNOWN ENUM VALUE";
+  }
 }
 
 template <>::rss::situation::LateralRelativePosition fromString(std::string const &str)
 {
-  static std::unordered_map<std::string, ::rss::situation::LateralRelativePosition> stringToEnumMap{
-    {"::rss::situation::LateralRelativePosition::AtLeft", ::rss::situation::LateralRelativePosition::AtLeft},
-    {"::rss::situation::LateralRelativePosition::OverlapLeft", ::rss::situation::LateralRelativePosition::OverlapLeft},
-    {"::rss::situation::LateralRelativePosition::Overlap", ::rss::situation::LateralRelativePosition::Overlap},
-    {"::rss::situation::LateralRelativePosition::OverlapRight",
-     ::rss::situation::LateralRelativePosition::OverlapRight},
-    {"::rss::situation::LateralRelativePosition::AtRight", ::rss::situation::LateralRelativePosition::AtRight},
-    {"AtLeft", ::rss::situation::LateralRelativePosition::AtLeft},
-    {"OverlapLeft", ::rss::situation::LateralRelativePosition::OverlapLeft},
-    {"Overlap", ::rss::situation::LateralRelativePosition::Overlap},
-    {"OverlapRight", ::rss::situation::LateralRelativePosition::OverlapRight},
-    {"AtRight", ::rss::situation::LateralRelativePosition::AtRight}};
-  return stringToEnumMap.at(str);
+  if ((str == "::rss::situation::LateralRelativePosition::AtLeft") || (str == "AtLeft"))
+  {
+    return ::rss::situation::LateralRelativePosition::AtLeft;
+  }
+  else if ((str == "::rss::situation::LateralRelativePosition::OverlapLeft") || (str == "OverlapLeft"))
+  {
+    return ::rss::situation::LateralRelativePosition::OverlapLeft;
+  }
+  else if ((str == "::rss::situation::LateralRelativePosition::Overlap") || (str == "Overlap"))
+  {
+    return ::rss::situation::LateralRelativePosition::Overlap;
+  }
+  else if ((str == "::rss::situation::LateralRelativePosition::OverlapRight") || (str == "OverlapRight"))
+  {
+    return ::rss::situation::LateralRelativePosition::OverlapRight;
+  }
+  else if ((str == "::rss::situation::LateralRelativePosition::AtRight") || (str == "AtRight"))
+  {
+    return ::rss::situation::LateralRelativePosition::AtRight;
+  }
+  else
+  {
+    throw std::out_of_range("Invalid enum literal");
+  }
 }

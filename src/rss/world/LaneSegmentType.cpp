@@ -37,30 +37,33 @@
  */
 
 #include "rss/world/LaneSegmentType.hpp"
-#include <unordered_map>
+#include <stdexcept>
 
 std::string toString(::rss::world::LaneSegmentType const e)
 {
-  struct EnumClassHash
+  switch (e)
   {
-    std::size_t operator()(::rss::world::LaneSegmentType t) const
-    {
-      return static_cast<std::size_t>(t);
-    }
-  };
-
-  static std::unordered_map<::rss::world::LaneSegmentType, std::string, EnumClassHash> enumToStringMap{
-    {::rss::world::LaneSegmentType::Normal, "::rss::world::LaneSegmentType::Normal"},
-    {::rss::world::LaneSegmentType::Intersection, "::rss::world::LaneSegmentType::Intersection"}};
-  return enumToStringMap.at(e);
+    case ::rss::world::LaneSegmentType::Normal:
+      return "::rss::world::LaneSegmentType::Normal";
+    case ::rss::world::LaneSegmentType::Intersection:
+      return "::rss::world::LaneSegmentType::Intersection";
+    default:
+      return "UNKNOWN ENUM VALUE";
+  }
 }
 
 template <>::rss::world::LaneSegmentType fromString(std::string const &str)
 {
-  static std::unordered_map<std::string, ::rss::world::LaneSegmentType> stringToEnumMap{
-    {"::rss::world::LaneSegmentType::Normal", ::rss::world::LaneSegmentType::Normal},
-    {"::rss::world::LaneSegmentType::Intersection", ::rss::world::LaneSegmentType::Intersection},
-    {"Normal", ::rss::world::LaneSegmentType::Normal},
-    {"Intersection", ::rss::world::LaneSegmentType::Intersection}};
-  return stringToEnumMap.at(str);
+  if ((str == "::rss::world::LaneSegmentType::Normal") || (str == "Normal"))
+  {
+    return ::rss::world::LaneSegmentType::Normal;
+  }
+  else if ((str == "::rss::world::LaneSegmentType::Intersection") || (str == "Intersection"))
+  {
+    return ::rss::world::LaneSegmentType::Intersection;
+  }
+  else
+  {
+    throw std::out_of_range("Invalid enum literal");
+  }
 }

@@ -198,12 +198,10 @@ bool convertObjectsIntersection(world::Object const &egoVehicle,
                                 world::Scene const &currentScene,
                                 situation::Situation &situation)
 {
-  bool result = true;
-
   world::ObjectDimensions egoVehicleDimension;
   world::ObjectDimensions objectDimension;
 
-  result = result && calculateObjectDimensions(egoVehicle, currentScene.egoVehicleRoad, egoVehicleDimension);
+  bool result = calculateObjectDimensions(egoVehicle, currentScene.egoVehicleRoad, egoVehicleDimension);
 
   result = result && calculateObjectDimensions(currentScene.object, currentScene.intersectingRoad, objectDimension);
 
@@ -275,39 +273,51 @@ bool extractSituation(world::Object const &egoVehicle,
 {
   bool result = false;
 
-  situation.situationId = currentScene.object.objectId;
-  situation.situationType = currentScene.situationType;
-
-  situation.egoVehicleState.hasPriority = false;
-  situation.otherVehicleState.hasPriority = false;
-
-  situation.egoVehicleState.isInCorrectLane = true;
-  situation.otherVehicleState.isInCorrectLane = true;
-
-  convertVehicleStateDynamics(egoVehicle, situation.egoVehicleState);
-  convertVehicleStateDynamics(currentScene.object, situation.otherVehicleState);
-
-  switch (currentScene.situationType)
+  try
   {
-    case rss::situation::SituationType::SameDirection:
-    case rss::situation::SituationType::OppositeDirection:
-    {
-      result = convertObjectsNonIntersection(egoVehicle, currentScene, situation);
+    situation.situationId = currentScene.object.objectId;
+    situation.situationType = currentScene.situationType;
 
-      break;
-    }
-    case rss::situation::SituationType::IntersectionEgoHasPriority:
-    case rss::situation::SituationType::IntersectionObjectHasPriority:
-    case rss::situation::SituationType::IntersectionSamePriority:
+    situation.egoVehicleState.hasPriority = false;
+    situation.otherVehicleState.hasPriority = false;
+
+    situation.egoVehicleState.isInCorrectLane = true;
+    situation.otherVehicleState.isInCorrectLane = true;
+
+    convertVehicleStateDynamics(egoVehicle, situation.egoVehicleState);
+    convertVehicleStateDynamics(currentScene.object, situation.otherVehicleState);
+
+    switch (currentScene.situationType)
     {
-      result = convertObjectsIntersection(egoVehicle, currentScene, situation);
-      break;
+      case rss::situation::SituationType::SameDirection:
+      case rss::situation::SituationType::OppositeDirection:
+      {
+        result = convertObjectsNonIntersection(egoVehicle, currentScene, situation);
+
+        break;
+      }
+      case rss::situation::SituationType::IntersectionEgoHasPriority:
+      case rss::situation::SituationType::IntersectionObjectHasPriority:
+      case rss::situation::SituationType::IntersectionSamePriority:
+      {
+        result = convertObjectsIntersection(egoVehicle, currentScene, situation);
+        break;
+      }
+      case rss::situation::SituationType::NotRelevant:
+      {
+        result = true;
+        break;
+      }
+      default:
+      {
+        result = false;
+        break;
+      }
     }
-    case rss::situation::SituationType::NotRelevant:
-    {
-      result = true;
-      break;
-    }
+  }
+  catch (...)
+  {
+    result = false;
   }
 
   return result;
@@ -316,32 +326,31 @@ bool extractSituation(world::Object const &egoVehicle,
 bool extractSituations(world::WorldModel const &worldModel, situation::SituationVector &situationVector)
 {
   bool result = true;
-
-  for (auto const &scene : worldModel.scenes)
+  try
   {
-    situation::Situation situation;
-    situation.timeIndex = worldModel.timeIndex;
-    bool const extractResult = extractSituation(worldModel.egoVehicle, scene, situation);
-
-    // if the situation is relevant, add it to situationVector
-    if (scene.situationType != rss::situation::SituationType::NotRelevant)
+    for (auto const &scene : worldModel.scenes)
     {
-      if (extractResult)
+      situation::Situation situation;
+      situation.timeIndex = worldModel.timeIndex;
+      bool const extractResult = extractSituation(worldModel.egoVehicle, scene, situation);
+
+      // if the situation is relevant, add it to situationVector
+      if (scene.situationType != rss::situation::SituationType::NotRelevant)
       {
-        try
+        if (extractResult)
         {
           situationVector.push_back(situation);
         }
-        catch (...)
+        else
         {
           result = false;
         }
       }
-      else
-      {
-        result = false;
-      }
     }
+  }
+  catch (...)
+  {
+    result = false;
   }
   return result;
 }

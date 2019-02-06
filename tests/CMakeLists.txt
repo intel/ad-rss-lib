@@ -81,6 +81,6 @@ target_link_libraries(${EXEC_NAME} PRIVATE
 )
 
 target_compile_options(${EXEC_NAME} PRIVATE ${COVERAGE_FLAG} ${TARGET_COMPILE_OPTIONS})
-set_target_properties(${EXEC_NAME} PROPERTIES LINK_FLAGS ${COVERAGE_FLAG})
+set_target_properties(${EXEC_NAME} PROPERTIES LINK_FLAGS "${COVERAGE_FLAG} ${HARDENING_LD_FLAGS}")
 
 add_test(NAME ${EXEC_NAME} COMMAND ${EXEC_NAME})

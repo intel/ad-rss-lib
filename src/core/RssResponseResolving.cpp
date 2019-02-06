@@ -43,20 +43,20 @@ RssResponseResolving::RssResponseResolving()
 bool RssResponseResolving::provideProperResponse(state::ResponseStateVector const &currentStates,
                                                  state::ResponseState &responseState)
 {
-  responseState.timeIndex = 0u;
-  responseState.lateralStateLeft.response = state::LateralResponse::None;
-  responseState.lateralStateLeft.isSafe = true;
-  responseState.lateralStateRight.response = state::LateralResponse::None;
-  responseState.lateralStateRight.isSafe = true;
-  responseState.longitudinalState.response = state::LongitudinalResponse::None;
-  responseState.longitudinalState.isSafe = true;
-
   bool result = true;
-
-  RssStateBeforeDangerThresholdTimeMap newStatesBeforeDangerThresholdTime;
-
+  // global try catch block to ensure this library call doesn't throw an exception
   try
   {
+    responseState.timeIndex = 0u;
+    responseState.lateralStateLeft.response = state::LateralResponse::None;
+    responseState.lateralStateLeft.isSafe = true;
+    responseState.lateralStateRight.response = state::LateralResponse::None;
+    responseState.lateralStateRight.isSafe = true;
+    responseState.longitudinalState.response = state::LongitudinalResponse::None;
+    responseState.longitudinalState.isSafe = true;
+
+    RssStateBeforeDangerThresholdTimeMap newStatesBeforeDangerThresholdTime;
+
     for (auto currentState : currentStates)
     {
       if (responseState.timeIndex == 0u)

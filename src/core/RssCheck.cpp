@@ -58,46 +58,55 @@ RssCheck::RssCheck()
 bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldModel,
                                                 world::AccelerationRestriction &accelerationRestriction)
 {
-  if (!bool(mResponseResolving) || !bool(mSituationChecking))
+  bool result = false;
+  // global try catch block to ensure this library call doesn't throw an exception
+  try
   {
-    return false;
+    if (!bool(mResponseResolving) || !bool(mSituationChecking))
+    {
+      return false;
+    }
+
+    situation::SituationVector situationVector;
+    result = RssSituationExtraction::extractSituations(worldModel, situationVector);
+
+    state::ResponseStateVector responseStateVector;
+    if (result)
+    {
+      result = mSituationChecking->checkSituations(situationVector, responseStateVector);
+    }
+
+    if (result && responseStateVector.empty())
+    {
+      // if the worldModel contains no relevant object (or no objects at all)
+      // the responseStateVector will be empty. Thus, we need to add a "all safe" response
+      state::ResponseState safeResponse;
+      safeResponse.timeIndex = worldModel.timeIndex;
+      safeResponse.situationId = 0u;
+      safeResponse.lateralStateLeft.isSafe = true;
+      safeResponse.lateralStateLeft.response = ::rss::state::LateralResponse::None;
+      safeResponse.lateralStateRight.isSafe = true;
+      safeResponse.lateralStateRight.response = ::rss::state::LateralResponse::None;
+      safeResponse.longitudinalState.isSafe = true;
+      safeResponse.longitudinalState.response = ::rss::state::LongitudinalResponse::None;
+      responseStateVector.push_back(safeResponse);
+    }
+
+    state::ResponseState properResponse;
+
+    if (result)
+    {
+      result = mResponseResolving->provideProperResponse(responseStateVector, properResponse);
+    }
+
+    if (result)
+    {
+      result = RssResponseTransformation::transformProperResponse(worldModel, properResponse, accelerationRestriction);
+    }
   }
-
-  situation::SituationVector situationVector;
-  bool result = RssSituationExtraction::extractSituations(worldModel, situationVector);
-
-  state::ResponseStateVector responseStateVector;
-  if (result)
+  catch (...)
   {
-    result = mSituationChecking->checkSituations(situationVector, responseStateVector);
-  }
-
-  if (result && responseStateVector.empty())
-  {
-    // if the worldModel contains no relevant object (or no objects at all)
-    // the responseStateVector will be empty. Thus, we need to add a "all safe" response
-    state::ResponseState safeResponse;
-    safeResponse.timeIndex = worldModel.timeIndex;
-    safeResponse.situationId = 0u;
-    safeResponse.lateralStateLeft.isSafe = true;
-    safeResponse.lateralStateLeft.response = ::rss::state::LateralResponse::None;
-    safeResponse.lateralStateRight.isSafe = true;
-    safeResponse.lateralStateRight.response = ::rss::state::LateralResponse::None;
-    safeResponse.longitudinalState.isSafe = true;
-    safeResponse.longitudinalState.response = ::rss::state::LongitudinalResponse::None;
-    responseStateVector.push_back(safeResponse);
-  }
-
-  state::ResponseState properResponse;
-
-  if (result)
-  {
-    result = mResponseResolving->provideProperResponse(responseStateVector, properResponse);
-  }
-
-  if (result)
-  {
-    result = RssResponseTransformation::transformProperResponse(worldModel, properResponse, accelerationRestriction);
+    result = false;
   }
 
   return result;

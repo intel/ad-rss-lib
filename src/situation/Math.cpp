@@ -186,32 +186,35 @@ bool calculateTimeToCoverDistance(Speed const currentSpeed,
   result = calculateDistanceOffsetAfterResponseTime(
     CoordinateSystemAxis::Longitudinal, currentSpeed, acceleration, responseTime, distanceAfterResponseTime);
 
-  if (result && distanceAfterResponseTime > distanceToCover)
+  if (result)
   {
-    result = calculateTimeForDistance(currentSpeed, acceleration, distanceToCover, requiredTime);
-  }
-  else
-  {
-    Speed resultingSpeed;
-
-    result = result && calculateSpeedAfterResponseTime(
-                         CoordinateSystemAxis::Longitudinal, currentSpeed, acceleration, responseTime, resultingSpeed);
-
-    Distance stoppingDistance;
-    result = result && calculateStoppingDistance(resultingSpeed, deceleration, stoppingDistance);
-
-    if (result)
+    if (distanceAfterResponseTime > distanceToCover)
     {
-      if (distanceAfterResponseTime + stoppingDistance > distanceToCover)
-      {
-        Distance remainingDistance = distanceToCover - distanceAfterResponseTime;
+      result = calculateTimeForDistance(currentSpeed, acceleration, distanceToCover, requiredTime);
+    }
+    else
+    {
+      Speed resultingSpeed;
 
-        result = calculateTimeForDistance(resultingSpeed, deceleration, remainingDistance, requiredTime);
-        requiredTime += responseTime;
-      }
-      else
+      result = calculateSpeedAfterResponseTime(
+        CoordinateSystemAxis::Longitudinal, currentSpeed, acceleration, responseTime, resultingSpeed);
+
+      Distance stoppingDistance;
+      result = result && calculateStoppingDistance(resultingSpeed, deceleration, stoppingDistance);
+
+      if (result)
       {
-        requiredTime = std::numeric_limits<double>::infinity();
+        if (distanceAfterResponseTime + stoppingDistance > distanceToCover)
+        {
+          Distance remainingDistance = distanceToCover - distanceAfterResponseTime;
+
+          result = calculateTimeForDistance(resultingSpeed, deceleration, remainingDistance, requiredTime);
+          requiredTime += responseTime;
+        }
+        else
+        {
+          requiredTime = std::numeric_limits<double>::infinity();
+        }
       }
     }
   }

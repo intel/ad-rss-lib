@@ -37,48 +37,59 @@
  */
 
 #include "rss/situation/SituationType.hpp"
-#include <unordered_map>
+#include <stdexcept>
 
 std::string toString(::rss::situation::SituationType const e)
 {
-  struct EnumClassHash
+  switch (e)
   {
-    std::size_t operator()(::rss::situation::SituationType t) const
-    {
-      return static_cast<std::size_t>(t);
-    }
-  };
-
-  static std::unordered_map<::rss::situation::SituationType, std::string, EnumClassHash> enumToStringMap{
-    {::rss::situation::SituationType::NotRelevant, "::rss::situation::SituationType::NotRelevant"},
-    {::rss::situation::SituationType::SameDirection, "::rss::situation::SituationType::SameDirection"},
-    {::rss::situation::SituationType::OppositeDirection, "::rss::situation::SituationType::OppositeDirection"},
-    {::rss::situation::SituationType::IntersectionEgoHasPriority,
-     "::rss::situation::SituationType::IntersectionEgoHasPriority"},
-    {::rss::situation::SituationType::IntersectionObjectHasPriority,
-     "::rss::situation::SituationType::IntersectionObjectHasPriority"},
-    {::rss::situation::SituationType::IntersectionSamePriority,
-     "::rss::situation::SituationType::IntersectionSamePriority"}};
-  return enumToStringMap.at(e);
+    case ::rss::situation::SituationType::NotRelevant:
+      return "::rss::situation::SituationType::NotRelevant";
+    case ::rss::situation::SituationType::SameDirection:
+      return "::rss::situation::SituationType::SameDirection";
+    case ::rss::situation::SituationType::OppositeDirection:
+      return "::rss::situation::SituationType::OppositeDirection";
+    case ::rss::situation::SituationType::IntersectionEgoHasPriority:
+      return "::rss::situation::SituationType::IntersectionEgoHasPriority";
+    case ::rss::situation::SituationType::IntersectionObjectHasPriority:
+      return "::rss::situation::SituationType::IntersectionObjectHasPriority";
+    case ::rss::situation::SituationType::IntersectionSamePriority:
+      return "::rss::situation::SituationType::IntersectionSamePriority";
+    default:
+      return "UNKNOWN ENUM VALUE";
+  }
 }
 
 template <>::rss::situation::SituationType fromString(std::string const &str)
 {
-  static std::unordered_map<std::string, ::rss::situation::SituationType> stringToEnumMap{
-    {"::rss::situation::SituationType::NotRelevant", ::rss::situation::SituationType::NotRelevant},
-    {"::rss::situation::SituationType::SameDirection", ::rss::situation::SituationType::SameDirection},
-    {"::rss::situation::SituationType::OppositeDirection", ::rss::situation::SituationType::OppositeDirection},
-    {"::rss::situation::SituationType::IntersectionEgoHasPriority",
-     ::rss::situation::SituationType::IntersectionEgoHasPriority},
-    {"::rss::situation::SituationType::IntersectionObjectHasPriority",
-     ::rss::situation::SituationType::IntersectionObjectHasPriority},
-    {"::rss::situation::SituationType::IntersectionSamePriority",
-     ::rss::situation::SituationType::IntersectionSamePriority},
-    {"NotRelevant", ::rss::situation::SituationType::NotRelevant},
-    {"SameDirection", ::rss::situation::SituationType::SameDirection},
-    {"OppositeDirection", ::rss::situation::SituationType::OppositeDirection},
-    {"IntersectionEgoHasPriority", ::rss::situation::SituationType::IntersectionEgoHasPriority},
-    {"IntersectionObjectHasPriority", ::rss::situation::SituationType::IntersectionObjectHasPriority},
-    {"IntersectionSamePriority", ::rss::situation::SituationType::IntersectionSamePriority}};
-  return stringToEnumMap.at(str);
+  if ((str == "::rss::situation::SituationType::NotRelevant") || (str == "NotRelevant"))
+  {
+    return ::rss::situation::SituationType::NotRelevant;
+  }
+  else if ((str == "::rss::situation::SituationType::SameDirection") || (str == "SameDirection"))
+  {
+    return ::rss::situation::SituationType::SameDirection;
+  }
+  else if ((str == "::rss::situation::SituationType::OppositeDirection") || (str == "OppositeDirection"))
+  {
+    return ::rss::situation::SituationType::OppositeDirection;
+  }
+  else if ((str == "::rss::situation::SituationType::IntersectionEgoHasPriority")
+           || (str == "IntersectionEgoHasPriority"))
+  {
+    return ::rss::situation::SituationType::IntersectionEgoHasPriority;
+  }
+  else if ((str == "::rss::situation::SituationType::IntersectionObjectHasPriority")
+           || (str == "IntersectionObjectHasPriority"))
+  {
+    return ::rss::situation::SituationType::IntersectionObjectHasPriority;
+  }
+  else if ((str == "::rss::situation::SituationType::IntersectionSamePriority") || (str == "IntersectionSamePriority"))
+  {
+    return ::rss::situation::SituationType::IntersectionSamePriority;
+  }
+  else
+  {
+    throw std::out_of_range("Invalid enum literal");
+  }
 }

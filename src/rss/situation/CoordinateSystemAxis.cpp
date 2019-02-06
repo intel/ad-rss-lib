@@ -37,30 +37,33 @@
  */
 
 #include "rss/situation/CoordinateSystemAxis.hpp"
-#include <unordered_map>
+#include <stdexcept>
 
 std::string toString(::rss::situation::CoordinateSystemAxis const e)
 {
-  struct EnumClassHash
+  switch (e)
   {
-    std::size_t operator()(::rss::situation::CoordinateSystemAxis t) const
-    {
-      return static_cast<std::size_t>(t);
-    }
-  };
-
-  static std::unordered_map<::rss::situation::CoordinateSystemAxis, std::string, EnumClassHash> enumToStringMap{
-    {::rss::situation::CoordinateSystemAxis::Longitudinal, "::rss::situation::CoordinateSystemAxis::Longitudinal"},
-    {::rss::situation::CoordinateSystemAxis::Lateral, "::rss::situation::CoordinateSystemAxis::Lateral"}};
-  return enumToStringMap.at(e);
+    case ::rss::situation::CoordinateSystemAxis::Longitudinal:
+      return "::rss::situation::CoordinateSystemAxis::Longitudinal";
+    case ::rss::situation::CoordinateSystemAxis::Lateral:
+      return "::rss::situation::CoordinateSystemAxis::Lateral";
+    default:
+      return "UNKNOWN ENUM VALUE";
+  }
 }
 
 template <>::rss::situation::CoordinateSystemAxis fromString(std::string const &str)
 {
-  static std::unordered_map<std::string, ::rss::situation::CoordinateSystemAxis> stringToEnumMap{
-    {"::rss::situation::CoordinateSystemAxis::Longitudinal", ::rss::situation::CoordinateSystemAxis::Longitudinal},
-    {"::rss::situation::CoordinateSystemAxis::Lateral", ::rss::situation::CoordinateSystemAxis::Lateral},
-    {"Longitudinal", ::rss::situation::CoordinateSystemAxis::Longitudinal},
-    {"Lateral", ::rss::situation::CoordinateSystemAxis::Lateral}};
-  return stringToEnumMap.at(str);
+  if ((str == "::rss::situation::CoordinateSystemAxis::Longitudinal") || (str == "Longitudinal"))
+  {
+    return ::rss::situation::CoordinateSystemAxis::Longitudinal;
+  }
+  else if ((str == "::rss::situation::CoordinateSystemAxis::Lateral") || (str == "Lateral"))
+  {
+    return ::rss::situation::CoordinateSystemAxis::Lateral;
+  }
+  else
+  {
+    throw std::out_of_range("Invalid enum literal");
+  }
 }

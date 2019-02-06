@@ -37,33 +37,39 @@
  */
 
 #include "rss/state/LongitudinalResponse.hpp"
-#include <unordered_map>
+#include <stdexcept>
 
 std::string toString(::rss::state::LongitudinalResponse const e)
 {
-  struct EnumClassHash
+  switch (e)
   {
-    std::size_t operator()(::rss::state::LongitudinalResponse t) const
-    {
-      return static_cast<std::size_t>(t);
-    }
-  };
-
-  static std::unordered_map<::rss::state::LongitudinalResponse, std::string, EnumClassHash> enumToStringMap{
-    {::rss::state::LongitudinalResponse::None, "::rss::state::LongitudinalResponse::None"},
-    {::rss::state::LongitudinalResponse::BrakeMinCorrect, "::rss::state::LongitudinalResponse::BrakeMinCorrect"},
-    {::rss::state::LongitudinalResponse::BrakeMin, "::rss::state::LongitudinalResponse::BrakeMin"}};
-  return enumToStringMap.at(e);
+    case ::rss::state::LongitudinalResponse::None:
+      return "::rss::state::LongitudinalResponse::None";
+    case ::rss::state::LongitudinalResponse::BrakeMinCorrect:
+      return "::rss::state::LongitudinalResponse::BrakeMinCorrect";
+    case ::rss::state::LongitudinalResponse::BrakeMin:
+      return "::rss::state::LongitudinalResponse::BrakeMin";
+    default:
+      return "UNKNOWN ENUM VALUE";
+  }
 }
 
 template <>::rss::state::LongitudinalResponse fromString(std::string const &str)
 {
-  static std::unordered_map<std::string, ::rss::state::LongitudinalResponse> stringToEnumMap{
-    {"::rss::state::LongitudinalResponse::None", ::rss::state::LongitudinalResponse::None},
-    {"::rss::state::LongitudinalResponse::BrakeMinCorrect", ::rss::state::LongitudinalResponse::BrakeMinCorrect},
-    {"::rss::state::LongitudinalResponse::BrakeMin", ::rss::state::LongitudinalResponse::BrakeMin},
-    {"None", ::rss::state::LongitudinalResponse::None},
-    {"BrakeMinCorrect", ::rss::state::LongitudinalResponse::BrakeMinCorrect},
-    {"BrakeMin", ::rss::state::LongitudinalResponse::BrakeMin}};
-  return stringToEnumMap.at(str);
+  if ((str == "::rss::state::LongitudinalResponse::None") || (str == "None"))
+  {
+    return ::rss::state::LongitudinalResponse::None;
+  }
+  else if ((str == "::rss::state::LongitudinalResponse::BrakeMinCorrect") || (str == "BrakeMinCorrect"))
+  {
+    return ::rss::state::LongitudinalResponse::BrakeMinCorrect;
+  }
+  else if ((str == "::rss::state::LongitudinalResponse::BrakeMin") || (str == "BrakeMin"))
+  {
+    return ::rss::state::LongitudinalResponse::BrakeMin;
+  }
+  else
+  {
+    throw std::out_of_range("Invalid enum literal");
+  }
 }

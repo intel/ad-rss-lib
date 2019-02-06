@@ -62,6 +62,9 @@ bool transformProperResponse(world::WorldModel const &worldModel,
     case ::rss::state::LongitudinalResponse::None:
       accelerationRestriction.longitudinalRange.maximum = worldModel.egoVehicle.dynamics.alphaLon.accelMax;
       break;
+    default:
+      return false;
+      break;
   }
 
   switch (response.lateralStateLeft.response)
@@ -74,6 +77,9 @@ bool transformProperResponse(world::WorldModel const &worldModel,
       accelerationRestriction.lateralLeftRange.maximum = worldModel.egoVehicle.dynamics.alphaLat.accelMax;
       accelerationRestriction.lateralLeftRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;
       break;
+    default:
+      return false;
+      break;
   }
 
   switch (response.lateralStateRight.response)
@@ -85,6 +91,9 @@ bool transformProperResponse(world::WorldModel const &worldModel,
     case ::rss::state::LateralResponse::None:
       accelerationRestriction.lateralRightRange.maximum = worldModel.egoVehicle.dynamics.alphaLat.accelMax;
       accelerationRestriction.lateralRightRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;
+      break;
+    default:
+      return false;
       break;
   }
 

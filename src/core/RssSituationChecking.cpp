@@ -40,7 +40,14 @@ namespace core {
 
 RssSituationChecking::RssSituationChecking()
 {
-  mIntersectionChecker = std::make_unique<rss::situation::RssIntersectionChecker>();
+  try
+  {
+    mIntersectionChecker = std::make_unique<rss::situation::RssIntersectionChecker>();
+  }
+  catch (...)
+  {
+    mIntersectionChecker = nullptr;
+  }
 }
 
 RssSituationChecking::~RssSituationChecking()
@@ -49,47 +56,55 @@ RssSituationChecking::~RssSituationChecking()
 
 bool RssSituationChecking::checkSituation(situation::Situation const &situation, state::ResponseState &response)
 {
-  if (!bool(mIntersectionChecker))
-  {
-    return false;
-  }
   bool result = false;
-
-  response.timeIndex = situation.timeIndex;
-  response.situationId = situation.situationId;
-  response.longitudinalState.isSafe = false;
-  response.longitudinalState.response = state::LongitudinalResponse::BrakeMin;
-  response.lateralStateLeft.isSafe = false;
-  response.lateralStateLeft.response = state::LateralResponse::BrakeMin;
-  response.lateralStateRight.isSafe = false;
-  response.lateralStateRight.response = state::LateralResponse::BrakeMin;
-
-  switch (situation.situationType)
+  // global try catch block to ensure this library call doesn't throw an exception
+  try
   {
-    case situation::SituationType::NotRelevant:
-      response.longitudinalState.isSafe = true;
-      response.longitudinalState.response = state::LongitudinalResponse::None;
-      response.lateralStateLeft.isSafe = true;
-      response.lateralStateLeft.response = state::LateralResponse::None;
-      response.lateralStateRight.isSafe = true;
-      response.lateralStateRight.response = state::LateralResponse::None;
-      result = true;
-      break;
-    case situation::SituationType::SameDirection:
-      result = calculateRssStateNonIntersectionSameDirection(situation, response);
-      break;
-    case situation::SituationType::OppositeDirection:
-      result = calculateRssStateNonIntersectionOppositeDirection(situation, response);
-      break;
+    if (!bool(mIntersectionChecker))
+    {
+      return false;
+    }
 
-    case situation::SituationType::IntersectionEgoHasPriority:
-    case situation::SituationType::IntersectionObjectHasPriority:
-    case situation::SituationType::IntersectionSamePriority:
-      result = mIntersectionChecker->calculateRssStateIntersection(situation, response);
-      break;
-    default:
-      result = false;
-      break;
+    response.timeIndex = situation.timeIndex;
+    response.situationId = situation.situationId;
+    response.longitudinalState.isSafe = false;
+    response.longitudinalState.response = state::LongitudinalResponse::BrakeMin;
+    response.lateralStateLeft.isSafe = false;
+    response.lateralStateLeft.response = state::LateralResponse::BrakeMin;
+    response.lateralStateRight.isSafe = false;
+    response.lateralStateRight.response = state::LateralResponse::BrakeMin;
+
+    switch (situation.situationType)
+    {
+      case situation::SituationType::NotRelevant:
+        response.longitudinalState.isSafe = true;
+        response.longitudinalState.response = state::LongitudinalResponse::None;
+        response.lateralStateLeft.isSafe = true;
+        response.lateralStateLeft.response = state::LateralResponse::None;
+        response.lateralStateRight.isSafe = true;
+        response.lateralStateRight.response = state::LateralResponse::None;
+        result = true;
+        break;
+      case situation::SituationType::SameDirection:
+        result = calculateRssStateNonIntersectionSameDirection(situation, response);
+        break;
+      case situation::SituationType::OppositeDirection:
+        result = calculateRssStateNonIntersectionOppositeDirection(situation, response);
+        break;
+
+      case situation::SituationType::IntersectionEgoHasPriority:
+      case situation::SituationType::IntersectionObjectHasPriority:
+      case situation::SituationType::IntersectionSamePriority:
+        result = mIntersectionChecker->calculateRssStateIntersection(situation, response);
+        break;
+      default:
+        result = false;
+        break;
+    }
+  }
+  catch (...)
+  {
+    result = false;
   }
 
   return result;
@@ -99,26 +114,27 @@ bool RssSituationChecking::checkSituations(situation::SituationVector const &sit
                                            state::ResponseStateVector &responseStateVector)
 {
   bool result = true;
-  responseStateVector.clear();
-  for (auto const &situation : situationVector)
+  // global try catch block to ensure this library call doesn't throw an exception
+  try
   {
-    state::ResponseState responseState;
-    bool const checkResult = checkSituation(situation, responseState);
-    if (checkResult)
+    responseStateVector.clear();
+    for (auto const &situation : situationVector)
     {
-      try
+      state::ResponseState responseState;
+      bool const checkResult = checkSituation(situation, responseState);
+      if (checkResult)
       {
         responseStateVector.push_back(responseState);
       }
-      catch (...)
+      else
       {
         result = false;
       }
     }
-    else
-    {
-      result = false;
-    }
+  }
+  catch (...)
+  {
+    result = false;
   }
   return result;
 }
