@@ -92,14 +92,17 @@ bool checkLateralIntersect(Situation const &situation, bool &isSafe)
                                                   situation.otherVehicleState.distanceToLeaveIntersection,
                                                   timeToLeaveOther);
 
-  if (timeToReachEgo > timeToLeaveOther || timeToReachOther > timeToLeaveEgo
-      || (std::isinf(timeToReachEgo) && std::isinf(timeToReachOther)))
+  if (result)
   {
-    /**
-     * Currently we assume lateral overlap when there is a vehicle in an intersection
-     * @todo This could be relaxed by calculating lateral distance here as well
-     */
-    isSafe = true;
+    if (timeToReachEgo > timeToLeaveOther || timeToReachOther > timeToLeaveEgo
+        || (std::isinf(timeToReachEgo) && std::isinf(timeToReachOther)))
+    {
+      /**
+       * Currently we assume lateral overlap when there is a vehicle in an intersection
+       * @todo This could be relaxed by calculating lateral distance here as well
+       */
+      isSafe = true;
+    }
   }
 
   return result;

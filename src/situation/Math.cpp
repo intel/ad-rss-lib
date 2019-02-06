@@ -198,18 +198,21 @@ bool calculateTimeToCoverDistance(Speed const currentSpeed,
                          CoordinateSystemAxis::Longitudinal, currentSpeed, acceleration, responseTime, resultingSpeed);
 
     Distance stoppingDistance;
-    result = calculateStoppingDistance(resultingSpeed, deceleration, stoppingDistance);
+    result = result && calculateStoppingDistance(resultingSpeed, deceleration, stoppingDistance);
 
-    if (distanceAfterResponseTime + stoppingDistance > distanceToCover)
+    if (result)
     {
-      Distance remainingDistance = distanceToCover - distanceAfterResponseTime;
+      if (distanceAfterResponseTime + stoppingDistance > distanceToCover)
+      {
+        Distance remainingDistance = distanceToCover - distanceAfterResponseTime;
 
-      result = calculateTimeForDistance(resultingSpeed, deceleration, remainingDistance, requiredTime);
-      requiredTime += responseTime;
-    }
-    else
-    {
-      requiredTime = std::numeric_limits<double>::infinity();
+        result = calculateTimeForDistance(resultingSpeed, deceleration, remainingDistance, requiredTime);
+        requiredTime += responseTime;
+      }
+      else
+      {
+        requiredTime = std::numeric_limits<double>::infinity();
+      }
     }
   }
 
