@@ -46,14 +46,6 @@ set(RSS_TEST_SOURCES
   core/RssCheckIntersectionTests.cpp
   core/RssResponseResolvingTests.cpp
   core/RssResponseTransformationTests.cpp
-  core/RssSituationCheckingInputRangeTests.cpp
-  core/RssSituationCheckingTestsIntersectionInputRangeTests.cpp
-  core/RssSituationCheckingTestsIntersectionNoPriority.cpp
-  core/RssSituationCheckingTestsIntersectionPriority.cpp
-  core/RssSituationCheckingTestsLongitudinal.cpp
-  core/RssSituationCheckingTestsLateral.cpp
-  core/RssSituationCheckingTestsOppositeDirection.cpp
-  core/RssSituationCheckingTestsNotRelevant.cpp
   core/RSSStateCombineRssStateTests.cpp
   core/RSSStateSafeTests.cpp
   core/RssSituationExtractionOppositeDirectionTests.cpp
@@ -66,6 +58,14 @@ set(RSS_TEST_SOURCES
   situation/RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
   situation/RSSFormulaTestsCalculateSafeLateralDistance.cpp
   situation/RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
+  situation/RssSituationCheckingInputRangeTests.cpp
+  situation/RssSituationCheckingTestsIntersectionInputRangeTests.cpp
+  situation/RssSituationCheckingTestsIntersectionNoPriority.cpp
+  situation/RssSituationCheckingTestsIntersectionPriority.cpp
+  situation/RssSituationCheckingTestsLongitudinal.cpp
+  situation/RssSituationCheckingTestsLateral.cpp
+  situation/RssSituationCheckingTestsOppositeDirection.cpp
+  situation/RssSituationCheckingTestsNotRelevant.cpp
   situation/VehicleTests.cpp
   ${AD_RSS_TEST_SOURCES}
 )

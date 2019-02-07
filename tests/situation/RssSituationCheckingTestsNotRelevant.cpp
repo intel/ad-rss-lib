@@ -33,23 +33,23 @@
 #include "ad_rss/core/RssSituationChecking.hpp"
 
 namespace ad_rss {
-namespace core {
+namespace situation {
 
 class RssSituationCheckingTestsNotRelevant : public testing::Test
 {
 protected:
   virtual void SetUp()
   {
-    situation.situationType = situation::SituationType::NotRelevant;
+    situation.situationType = SituationType::NotRelevant;
   }
 
   virtual void TearDown()
   {
   }
-  RssSituationChecking situationChecking;
-  situation::VehicleState correctVehicle;
-  situation::VehicleState oppositeVehicle;
-  situation::Situation situation;
+  core::RssSituationChecking situationChecking;
+  VehicleState correctVehicle;
+  VehicleState oppositeVehicle;
+  Situation situation;
   state::ResponseState responseState;
 };
 
@@ -61,11 +61,11 @@ TEST_F(RssSituationCheckingTestsNotRelevant, notRelevantSituation)
 
   situation.egoVehicleState = correctVehicle;
   situation.otherVehicleState = oppositeVehicle;
-  situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 1.);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(1.));
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 }
 
-} // namespace core
+} // namespace situation
 } // namespace ad_rss

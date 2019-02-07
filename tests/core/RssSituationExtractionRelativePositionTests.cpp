@@ -38,7 +38,6 @@ namespace core {
 
 namespace RssSituationExtraction {
 
-using physics::Distance;
 using physics::MetricRange;
 
 void calcluateRelativeLongitudinalPosition(MetricRange const &egoMetricRange,
@@ -66,7 +65,6 @@ void performCalculateRelativePositionTest(Distance minA,
   MetricRange vehicleBLonMetricRange;
   MetricRange vehicleBLatMetricRange;
   situation::RelativePosition relativePosition;
-  const Distance cEpsilon = 1e-10;
 
   vehicleALatMetricRange.minimum = minA;
   vehicleALatMetricRange.maximum = maxA;
@@ -85,8 +83,8 @@ void performCalculateRelativePositionTest(Distance minA,
 
   ASSERT_EQ(expectedPositionLatAtoB, relativePosition.lateralPosition);
   ASSERT_EQ(expectedPositionLonAtoB, relativePosition.longitudinalPosition);
-  ASSERT_NEAR(expectedDistance, relativePosition.lateralDistance, cEpsilon);
-  ASSERT_NEAR(expectedDistance, relativePosition.longitudinalDistance, cEpsilon);
+  ASSERT_EQ(expectedDistance, relativePosition.lateralDistance);
+  ASSERT_EQ(expectedDistance, relativePosition.longitudinalDistance);
 
   calcluateRelativeLongitudinalPosition(vehicleBLonMetricRange,
                                         vehicleALonMetricRange,
@@ -97,138 +95,138 @@ void performCalculateRelativePositionTest(Distance minA,
 
   ASSERT_EQ(expectedPositionLatBtoA, relativePosition.lateralPosition);
   ASSERT_EQ(expectedPositionLonBtoA, relativePosition.longitudinalPosition);
-  ASSERT_NEAR(expectedDistance, relativePosition.lateralDistance, cEpsilon);
-  ASSERT_NEAR(expectedDistance, relativePosition.longitudinalDistance, cEpsilon);
+  ASSERT_EQ(expectedDistance, relativePosition.lateralDistance);
+  ASSERT_EQ(expectedDistance, relativePosition.longitudinalDistance);
 }
 
 TEST(CalcluateRelativePositionTest, no_overlap_positive)
 {
-  performCalculateRelativePositionTest(1.,
-                                       2.,
-                                       3.,
-                                       5.,
+  performCalculateRelativePositionTest(Distance(1.),
+                                       Distance(2.),
+                                       Distance(3.),
+                                       Distance(5.),
                                        situation::LateralRelativePosition::AtLeft,
                                        situation::LongitudinalRelativePosition::AtBack,
                                        situation::LateralRelativePosition::AtRight,
                                        situation::LongitudinalRelativePosition::InFront,
-                                       1.);
+                                       Distance(1.));
 }
 
 TEST(CalcluateRelativePositionTest, no_overlap_negative)
 {
-  performCalculateRelativePositionTest(-10.,
-                                       -8.,
-                                       -5.,
-                                       -8.,
+  performCalculateRelativePositionTest(Distance(-10.),
+                                       Distance(-8.),
+                                       Distance(-5.),
+                                       Distance(-8.),
                                        situation::LateralRelativePosition::AtLeft,
                                        situation::LongitudinalRelativePosition::AtBack,
                                        situation::LateralRelativePosition::AtRight,
                                        situation::LongitudinalRelativePosition::InFront,
-                                       3.);
+                                       Distance(3.));
 }
 
 TEST(CalcluateRelativePositionTest, no_overlap_mixed)
 {
-  performCalculateRelativePositionTest(-10.,
-                                       -8.,
-                                       3.,
-                                       5.,
+  performCalculateRelativePositionTest(Distance(-10.),
+                                       Distance(-8.),
+                                       Distance(3.),
+                                       Distance(5.),
                                        situation::LateralRelativePosition::AtLeft,
                                        situation::LongitudinalRelativePosition::AtBack,
                                        situation::LateralRelativePosition::AtRight,
                                        situation::LongitudinalRelativePosition::InFront,
-                                       11.);
+                                       Distance(11.));
 }
 
 TEST(CalcluateRelativePositionTest, no_overlap_vehicle_crossing_null)
 {
-  performCalculateRelativePositionTest(-10.,
-                                       -8.,
-                                       -3.,
-                                       5.,
+  performCalculateRelativePositionTest(Distance(-10.),
+                                       Distance(-8.),
+                                       Distance(-3.),
+                                       Distance(5.),
                                        situation::LateralRelativePosition::AtLeft,
                                        situation::LongitudinalRelativePosition::AtBack,
                                        situation::LateralRelativePosition::AtRight,
                                        situation::LongitudinalRelativePosition::InFront,
-                                       5.);
+                                       Distance(5.));
 }
 
 TEST(CalcluateRelativePositionTest, partly_overlap_positive)
 {
-  performCalculateRelativePositionTest(2.,
-                                       4.,
-                                       3.,
-                                       5.,
+  performCalculateRelativePositionTest(Distance(2.),
+                                       Distance(4.),
+                                       Distance(3.),
+                                       Distance(5.),
                                        situation::LateralRelativePosition::OverlapLeft,
                                        situation::LongitudinalRelativePosition::OverlapBack,
                                        situation::LateralRelativePosition::OverlapRight,
                                        situation::LongitudinalRelativePosition::OverlapFront,
-                                       0.);
+                                       Distance(0.));
 }
 
 TEST(CalcluateRelativePositionTest, partly_overlap_negative)
 {
-  performCalculateRelativePositionTest(-10.,
-                                       -8.,
-                                       -9.,
-                                       -3.,
+  performCalculateRelativePositionTest(Distance(-10.),
+                                       Distance(-8.),
+                                       Distance(-9.),
+                                       Distance(-3.),
                                        situation::LateralRelativePosition::OverlapLeft,
                                        situation::LongitudinalRelativePosition::OverlapBack,
                                        situation::LateralRelativePosition::OverlapRight,
                                        situation::LongitudinalRelativePosition::OverlapFront,
-                                       0.);
+                                       Distance(0.));
 }
 
 TEST(CalcluateRelativePositionTest, partly_overlap_mixed)
 {
-  performCalculateRelativePositionTest(-10.,
-                                       -8.,
-                                       -9.,
-                                       5.,
+  performCalculateRelativePositionTest(Distance(-10.),
+                                       Distance(-8.),
+                                       Distance(-9.),
+                                       Distance(5.),
                                        situation::LateralRelativePosition::OverlapLeft,
                                        situation::LongitudinalRelativePosition::OverlapBack,
                                        situation::LateralRelativePosition::OverlapRight,
                                        situation::LongitudinalRelativePosition::OverlapFront,
-                                       0.);
+                                       Distance(0.));
 }
 
 TEST(CalcluateRelativePositionTest, full_overlap_positive)
 {
-  performCalculateRelativePositionTest(2.,
-                                       4.,
-                                       2.5,
-                                       3.5,
+  performCalculateRelativePositionTest(Distance(2.),
+                                       Distance(4.),
+                                       Distance(2.5),
+                                       Distance(3.5),
                                        situation::LateralRelativePosition::Overlap,
                                        situation::LongitudinalRelativePosition::Overlap,
                                        situation::LateralRelativePosition::Overlap,
                                        situation::LongitudinalRelativePosition::Overlap,
-                                       0.);
+                                       Distance(0.));
 }
 
 TEST(CalcluateRelativePositionTest, full_overlap_negative)
 {
-  performCalculateRelativePositionTest(-10.,
-                                       -8.,
-                                       -9.,
-                                       -8.1,
+  performCalculateRelativePositionTest(Distance(-10.),
+                                       Distance(-8.),
+                                       Distance(-9.),
+                                       Distance(-8.1),
                                        situation::LateralRelativePosition::Overlap,
                                        situation::LongitudinalRelativePosition::Overlap,
                                        situation::LateralRelativePosition::Overlap,
                                        situation::LongitudinalRelativePosition::Overlap,
-                                       0.);
+                                       Distance(0.));
 }
 
 TEST(CalcluateRelativePositionTest, full_overlap_mixed)
 {
-  performCalculateRelativePositionTest(-10.,
-                                       8.,
-                                       -9.,
-                                       5.,
+  performCalculateRelativePositionTest(Distance(-10.),
+                                       Distance(8.),
+                                       Distance(-9.),
+                                       Distance(5.),
                                        situation::LateralRelativePosition::Overlap,
                                        situation::LongitudinalRelativePosition::Overlap,
                                        situation::LateralRelativePosition::Overlap,
                                        situation::LongitudinalRelativePosition::Overlap,
-                                       0.);
+                                       Distance(0.));
 }
 
 } // namespace RssSituationExtraction

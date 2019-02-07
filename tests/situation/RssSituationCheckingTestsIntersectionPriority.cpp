@@ -33,45 +33,44 @@
 #include "ad_rss/core/RssSituationChecking.hpp"
 
 namespace ad_rss {
-namespace core {
+namespace situation {
 
 class RssSituationCheckingTestsIntersectionPriority : public testing::Test
 {
 protected:
   virtual void SetUp()
   {
-    situation.situationType = situation::SituationType::IntersectionEgoHasPriority;
+    situation.situationType = SituationType::IntersectionEgoHasPriority;
   }
 
   virtual void TearDown()
   {
   }
-  RssSituationChecking situationChecking;
-  situation::VehicleState leadingVehicle;
-  situation::VehicleState followingVehicle;
-  situation::Situation situation;
+  core::RssSituationChecking situationChecking;
+  VehicleState leadingVehicle;
+  VehicleState followingVehicle;
+  Situation situation;
   state::ResponseState responseState;
 };
 
 TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_leading)
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(120);
-  leadingVehicle.distanceToEnterIntersection = 2;
-  leadingVehicle.distanceToLeaveIntersection = 2;
-  leadingVehicle.dynamics.alphaLon.accelMax = 2.;
-  leadingVehicle.dynamics.alphaLon.brakeMin = 4.;
+  leadingVehicle.distanceToEnterIntersection = Distance(2.);
+  leadingVehicle.distanceToLeaveIntersection = Distance(2.);
+  leadingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  leadingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
   leadingVehicle.hasPriority = true;
 
   followingVehicle = createVehicleStateForLongitudinalMotion(30);
-  followingVehicle.dynamics.alphaLon.accelMax = 2.;
-  followingVehicle.dynamics.alphaLon.brakeMin = 4.;
-  followingVehicle.distanceToEnterIntersection = 12;
-  followingVehicle.distanceToLeaveIntersection = 12;
+  followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  followingVehicle.distanceToEnterIntersection = Distance(12.);
+  followingVehicle.distanceToLeaveIntersection = Distance(12.);
 
   situation.otherVehicleState = followingVehicle;
   situation.egoVehicleState = leadingVehicle;
-  situation.relativePosition
-    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 10.);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(10.));
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
@@ -80,18 +79,18 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_le
 TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_following)
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
-  leadingVehicle.distanceToEnterIntersection = 10;
-  leadingVehicle.distanceToLeaveIntersection = 10;
+  leadingVehicle.distanceToEnterIntersection = Distance(10.);
+  leadingVehicle.distanceToLeaveIntersection = Distance(10.);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
-  followingVehicle.dynamics.alphaLon.accelMax = 2.;
-  followingVehicle.dynamics.alphaLon.brakeMin = 4.;
-  followingVehicle.distanceToEnterIntersection = 70;
-  followingVehicle.distanceToLeaveIntersection = 70;
+  followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  followingVehicle.distanceToEnterIntersection = Distance(70.);
+  followingVehicle.distanceToLeaveIntersection = Distance(70.);
 
   situation.otherVehicleState = leadingVehicle;
   situation.egoVehicleState = followingVehicle;
   situation.egoVehicleState.hasPriority = true;
-  situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 60.);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(60.));
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_TRUE(responseState.longitudinalState.isSafe);
@@ -101,20 +100,20 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_fo
 TEST_F(RssSituationCheckingTestsIntersectionPriority, 50km_h_stop_before_intersection)
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
-  leadingVehicle.distanceToEnterIntersection = 80;
-  leadingVehicle.distanceToLeaveIntersection = 80;
-  leadingVehicle.dynamics.alphaLon.accelMax = 2.;
-  leadingVehicle.dynamics.alphaLon.brakeMin = 4.;
+  leadingVehicle.distanceToEnterIntersection = Distance(80.);
+  leadingVehicle.distanceToLeaveIntersection = Distance(80.);
+  leadingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  leadingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
-  followingVehicle.dynamics.alphaLon.accelMax = 2.;
-  followingVehicle.dynamics.alphaLon.brakeMin = 4.;
-  followingVehicle.distanceToEnterIntersection = 110;
-  followingVehicle.distanceToLeaveIntersection = 110;
+  followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  followingVehicle.distanceToEnterIntersection = Distance(110.);
+  followingVehicle.distanceToLeaveIntersection = Distance(110.);
 
   situation.otherVehicleState = leadingVehicle;
   situation.egoVehicleState = followingVehicle;
   situation.egoVehicleState.hasPriority = true;
-  situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 30.);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(30.));
 
   situation.timeIndex = 0u;
 
@@ -124,15 +123,15 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50km_h_stop_before_interse
 
   situation.timeIndex = 1u;
 
-  situation.otherVehicleState.distanceToEnterIntersection = 70;
-  situation.otherVehicleState.distanceToLeaveIntersection = 70;
-  situation.egoVehicleState.distanceToEnterIntersection = 100;
-  situation.egoVehicleState.distanceToLeaveIntersection = 100;
+  situation.otherVehicleState.distanceToEnterIntersection = Distance(70.);
+  situation.otherVehicleState.distanceToLeaveIntersection = Distance(70.);
+  situation.egoVehicleState.distanceToEnterIntersection = Distance(100.);
+  situation.egoVehicleState.distanceToLeaveIntersection = Distance(100.);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_FALSE(responseState.longitudinalState.isSafe);
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalNone);
 }
 
-} // namespace core
+} // namespace situation
 } // namespace ad_rss

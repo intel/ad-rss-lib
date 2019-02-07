@@ -51,35 +51,35 @@ namespace ad_rss {
 namespace physics {
 
 /*!
- * \brief Forward declaration of DurationSquared
+ * \brief Forward declaration of Speed
  *
- * Since Duration is defined explicitly as a physical type we have to consider this
- * within operations. Therefore this squared type is defined.
+ * Since SpeedSquared is defined explicitly as a physical type we have to consider this
+ * within operations. Therefore this square-rooted type is defined.
  */
-class DurationSquared;
+class Speed;
 
 /*!
- * \brief DataType Duration
+ * \brief DataType SpeedSquared
  *
- * A duration represents a time interval
- * Unit: second
- * The unit is: Second
+ * SpeedSquared represents a squared Speed.
+ * Unit: square meter per second square
+ * The unit is: SquareMeterPerSecondSquared
  */
-class Duration
+class SpeedSquared
 {
 public:
   /*!
-   * \brief constant defining the minimum valid Duration value
+   * \brief constant defining the minimum valid SpeedSquared value
    */
   static const double cMinValue;
 
   /*!
-   * \brief constant defining the maximum valid Duration value
+   * \brief constant defining the maximum valid SpeedSquared value
    */
   static const double cMaxValue;
 
   /*!
-   * \brief constant defining the assumed Duration value accuracy
+   * \brief constant defining the assumed SpeedSquared value accuracy
    *   used in comparison operator==(), operator!=().
    */
   static const double cPrecisionValue;
@@ -87,42 +87,42 @@ public:
   /*!
    * \brief default constructor
    *
-   * The default value of Duration is:
+   * The default value of SpeedSquared is:
    * std::numeric_limits<double>::quiet_NaN()
    */
-  Duration()
-    : Duration(std::numeric_limits<double>::quiet_NaN())
+  SpeedSquared()
+    : SpeedSquared(std::numeric_limits<double>::quiet_NaN())
   {
   }
 
   /*!
    * \brief standard constructor
    */
-  explicit Duration(double const iDuration)
-    : mDuration(iDuration)
+  explicit SpeedSquared(double const iSpeedSquared)
+    : mSpeedSquared(iSpeedSquared)
   {
   }
 
   /*!
    * \brief standard copy constructor
    */
-  Duration(const Duration &other)
-    : mDuration(other.mDuration)
+  SpeedSquared(const SpeedSquared &other)
+    : mSpeedSquared(other.mSpeedSquared)
   {
   }
 
   /**
    * \brief standard assignment operator
    *
-   * \param[in] other Other Duration
+   * \param[in] other Other SpeedSquared
    *
-   * \returns Reference to this Duration.
+   * \returns Reference to this SpeedSquared.
    */
-  Duration &operator=(const Duration &other)
+  SpeedSquared &operator=(const SpeedSquared &other)
   {
     if (&other != this)
     {
-      mDuration = other.mDuration;
+      mSpeedSquared = other.mSpeedSquared;
     }
     return *this;
   }
@@ -130,25 +130,25 @@ public:
   /**
    * \brief standard comparison operator
    *
-   * \param[in] other Other Duration
+   * \param[in] other Other SpeedSquared
    *
-   * \returns \c true if both Duration are valid and can be taken as numerically equal
+   * \returns \c true if both SpeedSquared are valid and can be taken as numerically equal
    */
-  bool operator==(const Duration &other) const
+  bool operator==(const SpeedSquared &other) const
   {
     ensureValid();
     other.ensureValid();
-    return std::fabs(mDuration - other.mDuration) < cPrecisionValue;
+    return std::fabs(mSpeedSquared - other.mSpeedSquared) < cPrecisionValue;
   }
 
   /**
    * \brief standard comparison operator
    *
-   * \param[in] other Other Duration.
+   * \param[in] other Other SpeedSquared.
    *
-   * \returns \c true if one of the Duration is not valid or they can be taken as numerically different
+   * \returns \c true if one of the SpeedSquared is not valid or they can be taken as numerically different
    */
-  bool operator!=(const Duration &other) const
+  bool operator!=(const SpeedSquared &other) const
   {
     return !operator==(other);
   }
@@ -156,82 +156,82 @@ public:
   /**
    * \brief standard comparison operator
    *
-   * \param[in] other Other Duration.
+   * \param[in] other Other SpeedSquared.
    *
-   * \returns \c true if both Duration are valid and
-   *   this Duration is strictly numerically greater than other.
-   * \note the precision of Duration is considered
+   * \returns \c true if both SpeedSquared are valid and
+   *   this SpeedSquared is strictly numerically greater than other.
+   * \note the precision of SpeedSquared is considered
    */
-  bool operator>(const Duration &other) const
+  bool operator>(const SpeedSquared &other) const
   {
     ensureValid();
     other.ensureValid();
-    return (mDuration > other.mDuration) && operator!=(other);
+    return (mSpeedSquared > other.mSpeedSquared) && operator!=(other);
   }
 
   /**
    * \brief standard comparison operator
    *
-   * \param[in] other Other Duration.
+   * \param[in] other Other SpeedSquared.
    *
-   * \returns \c true if both Duration are valid and
-   *   this Duration is strictly numerically smaller than other.
-   * \note the precision of Duration is considered
+   * \returns \c true if both SpeedSquared are valid and
+   *   this SpeedSquared is strictly numerically smaller than other.
+   * \note the precision of SpeedSquared is considered
    */
-  bool operator<(const Duration &other) const
+  bool operator<(const SpeedSquared &other) const
   {
     ensureValid();
     other.ensureValid();
-    return (mDuration < other.mDuration) && operator!=(other);
+    return (mSpeedSquared < other.mSpeedSquared) && operator!=(other);
   }
 
   /**
    * \brief standard comparison operator
    *
-   * \param[in] other Other Duration.
+   * \param[in] other Other SpeedSquared.
    *
-   * \returns \c true if both Duration are valid and
-   *   this Duration is numerically greater than other.
-   * \note the precision of Duration is considered
+   * \returns \c true if both SpeedSquared are valid and
+   *   this SpeedSquared is numerically greater than other.
+   * \note the precision of SpeedSquared is considered
    */
-  bool operator>=(const Duration &other) const
+  bool operator>=(const SpeedSquared &other) const
   {
     ensureValid();
     other.ensureValid();
-    return ((mDuration > other.mDuration) || operator==(other));
+    return ((mSpeedSquared > other.mSpeedSquared) || operator==(other));
   }
 
   /**
    * \brief standard comparison operator
    *
-   * \param[in] other Other Duration
+   * \param[in] other Other SpeedSquared
    *
-   * \returns \c true if both Duration are valid and
-   *   this Duration is numerically smaller than other.
-   * \note the precision of Duration is considered
+   * \returns \c true if both SpeedSquared are valid and
+   *   this SpeedSquared is numerically smaller than other.
+   * \note the precision of SpeedSquared is considered
    */
-  bool operator<=(const Duration &other) const
+  bool operator<=(const SpeedSquared &other) const
   {
     ensureValid();
     other.ensureValid();
-    return ((mDuration < other.mDuration) || operator==(other));
+    return ((mSpeedSquared < other.mSpeedSquared) || operator==(other));
   }
 
   /**
    * \brief standard arithmetic operator
    *
-   * \param[in] other Other Duration
+   * \param[in] other Other SpeedSquared
    *
    * \returns Result of arithmetic operation.
    *
    * \note throws a std::out_of_range exception if one of the two operands or the result of
    *   the operation is not valid
    */
-  Duration operator+(const Duration &other) const
+  SpeedSquared operator+(const SpeedSquared &other) const
   {
     ensureValid();
     other.ensureValid();
-    Duration const result(mDuration + other.mDuration);
+    SpeedSquared const result(mSpeedSquared + other.mSpeedSquared);
     result.ensureValid();
     return result;
   }
@@ -239,18 +239,18 @@ public:
   /**
    * \brief standard arithmetic operator
    *
-   * \param[in] other Other Duration
+   * \param[in] other Other SpeedSquared
    *
    * \returns Result of arithmetic operation.
    *
    * \note throws a std::out_of_range exception if one of the two operands or the result of
    *   the operation is not valid
    */
-  Duration &operator+=(const Duration &other)
+  SpeedSquared &operator+=(const SpeedSquared &other)
   {
     ensureValid();
     other.ensureValid();
-    mDuration += other.mDuration;
+    mSpeedSquared += other.mSpeedSquared;
     ensureValid();
     return *this;
   }
@@ -258,18 +258,18 @@ public:
   /**
    * \brief standard arithmetic operator
    *
-   * \param[in] other Other Duration
+   * \param[in] other Other SpeedSquared
    *
    * \returns Result of arithmetic operation.
    *
    * \note throws a std::out_of_range exception if one of the two operands or the result of
    *   the operation is not valid
    */
-  Duration operator-(const Duration &other) const
+  SpeedSquared operator-(const SpeedSquared &other) const
   {
     ensureValid();
     other.ensureValid();
-    Duration const result(mDuration - other.mDuration);
+    SpeedSquared const result(mSpeedSquared - other.mSpeedSquared);
     result.ensureValid();
     return result;
   }
@@ -277,34 +277,21 @@ public:
   /**
    * \brief standard arithmetic operator
    *
-   * \param[in] other Other Duration
+   * \param[in] other Other SpeedSquared
    *
    * \returns Result of arithmetic operation.
    *
    * \note throws a std::out_of_range exception if one of the two operands or the result of
    *   the operation is not valid
    */
-  Duration operator-=(const Duration &other)
+  SpeedSquared operator-=(const SpeedSquared &other)
   {
     ensureValid();
     other.ensureValid();
-    mDuration -= other.mDuration;
+    mSpeedSquared -= other.mSpeedSquared;
     ensureValid();
     return *this;
   }
-
-  /**
-   * \brief standard arithmetic operator
-   *
-   * \param[in] other Other Duration
-   *
-   * \returns Result of arithmetic operation.
-   *
-   * \note throws a std::out_of_range exception if one of the two operands or the result of
-   *   the operation is not valid
-   * \note since Duration is a type with physical unit, the multiplication results in the Squared type.
-   */
-  DurationSquared operator*(const Duration &other) const;
 
   /**
    * \brief standard arithmetic operator
@@ -316,10 +303,10 @@ public:
    * \note throws a std::out_of_range exception if \c value or the result of
    *   the operation is not valid
    */
-  Duration operator*(const double &scalar) const
+  SpeedSquared operator*(const double &scalar) const
   {
     ensureValid();
-    Duration const result(mDuration * scalar);
+    SpeedSquared const result(mSpeedSquared * scalar);
     result.ensureValid();
     return result;
   }
@@ -334,10 +321,10 @@ public:
    * \note throws a std::out_of_range exception if this or the result of
    *   the operation is not valid or other is zero
    */
-  Duration operator/(const double &scalar) const
+  SpeedSquared operator/(const double &scalar) const
   {
-    Duration const scalarDuration(scalar);
-    Duration const result(operator/(scalarDuration));
+    SpeedSquared const scalarSpeedSquared(scalar);
+    SpeedSquared const result(operator/(scalarSpeedSquared));
     result.ensureValid();
     return result;
   }
@@ -345,19 +332,19 @@ public:
   /**
    * \brief standard arithmetic operator
    *
-   * \param[in] other Other Duration
+   * \param[in] other Other SpeedSquared
    *
    * \returns Result of arithmetic operation.
    *
    * \note throws a std::out_of_range exception if one of the two operands or the result of
    *   the operation is not valid or other is zero
-   * \note since Duration is a type with physical unit, the division results in the dimensionless type.
+   * \note since SpeedSquared is a type with physical unit, the division results in the dimensionless type.
    */
-  double operator/(const Duration &other) const
+  double operator/(const SpeedSquared &other) const
   {
     ensureValid();
     other.ensureValidNonZero();
-    double const result = mDuration / other.mDuration;
+    double const result = mSpeedSquared / other.mSpeedSquared;
     return result;
   }
 
@@ -369,10 +356,10 @@ public:
    * \note throws a std::out_of_range exception if this or the result of
    *   the operation is not valid
    */
-  Duration operator-() const
+  SpeedSquared operator-() const
   {
     ensureValid();
-    Duration const result(-mDuration);
+    SpeedSquared const result(-mSpeedSquared);
     result.ensureValid();
     return result;
   }
@@ -385,82 +372,82 @@ public:
    */
   explicit operator double() const
   {
-    return mDuration;
+    return mSpeedSquared;
   }
 
   /*!
-   * \returns \c true if the Duration in a valid range
+   * \returns \c true if the SpeedSquared in a valid range
    *
-   * An Duration value is defined to be valid if:
+   * An SpeedSquared value is defined to be valid if:
    * - It is normal or zero (see std::fpclassify()
-   * - cMinDurationValue <= value <= cMaxDurationValue
+   * - cMinSpeedSquaredValue <= value <= cMaxSpeedSquaredValue
    */
   bool isValid() const
   {
-    auto const valueClass = std::fpclassify(mDuration);
-    return ((valueClass == FP_NORMAL) || (valueClass == FP_ZERO)) && (cMinValue <= mDuration)
-      && (mDuration <= cMaxValue);
+    auto const valueClass = std::fpclassify(mSpeedSquared);
+    return ((valueClass == FP_NORMAL) || (valueClass == FP_ZERO)) && (cMinValue <= mSpeedSquared)
+      && (mSpeedSquared <= cMaxValue);
   }
 
   /*!
-   * \brief ensure that the Duration is valid
+   * \brief ensure that the SpeedSquared is valid
    *
-   * Throws an std::out_of_range() exception if the Duration
+   * Throws an std::out_of_range() exception if the SpeedSquared
    * in not valid (i.e. isValid() returns false)
    */
   void ensureValid() const
   {
     if (!isValid())
     {
-      throw std::out_of_range("Duration value out of range");
+      throw std::out_of_range("SpeedSquared value out of range");
     }
   }
 
   /*!
-   * \brief ensure that the Duration is valid and non zero
+   * \brief ensure that the SpeedSquared is valid and non zero
    *
-   * Throws an std::out_of_range() exception if the Duration
+   * Throws an std::out_of_range() exception if the SpeedSquared
    * in not valid or zero (i.e. isValid() returns false)
    */
   void ensureValidNonZero() const
   {
     ensureValid();
-    if (operator==(Duration(0.)))
+    if (operator==(SpeedSquared(0.)))
     {
-      throw std::out_of_range("Duration value is zero");
+      throw std::out_of_range("SpeedSquared value is zero");
     }
   }
 
   /*!
-   * \brief get minimum valid Duration
+   * \brief get minimum valid SpeedSquared
    */
-  static Duration getMin()
+  static SpeedSquared getMin()
   {
-    return Duration(cMinValue);
+    return SpeedSquared(cMinValue);
   }
 
   /*!
-   * \brief get maximum valid Duration
+   * \brief get maximum valid SpeedSquared
    */
-  static Duration getMax()
+  static SpeedSquared getMax()
   {
-    return Duration(cMaxValue);
+    return SpeedSquared(cMaxValue);
   }
 
   /*!
-   * \brief get assumed accuracy of Duration
+   * \brief get assumed accuracy of SpeedSquared
    *   used in comparison operator==(), operator!=().
    */
-  static Duration getPrecision()
+  static SpeedSquared getPrecision()
   {
-    return Duration(cPrecisionValue);
+    return SpeedSquared(cPrecisionValue);
   }
 
 private:
   /*!
    * \brief the actual value of the type
    */
-  double mDuration;
+  double mSpeedSquared;
 };
 
 } // namespace physics
@@ -468,15 +455,15 @@ private:
 /**
  * \brief standard arithmetic operator
  *
- * \param[in] other Other Duration as double value
- * \param[in] value Duration value
+ * \param[in] other Other SpeedSquared as double value
+ * \param[in] value SpeedSquared value
  *
  * \returns Result of arithmetic operation.
  *
  * \note throws a std::out_of_range exception if \c value or the result of
  *   the operation is not valid
  */
-inline ::ad_rss::physics::Duration operator*(const double &other, ::ad_rss::physics::Duration const &value)
+inline ::ad_rss::physics::SpeedSquared operator*(const double &other, ::ad_rss::physics::SpeedSquared const &value)
 {
   return value.operator*(other);
 }
@@ -487,37 +474,44 @@ inline ::ad_rss::physics::Duration operator*(const double &other, ::ad_rss::phys
 namespace std {
 
 /*!
- * \brief overload of the std::fabs for Duration
+ * \brief overload of the std::fabs for SpeedSquared
  */
-inline ::ad_rss::physics::Duration fabs(const ::ad_rss::physics::Duration other)
+inline ::ad_rss::physics::SpeedSquared fabs(const ::ad_rss::physics::SpeedSquared other)
 {
-  ::ad_rss::physics::Duration const result(std::fabs(static_cast<double>(other)));
+  ::ad_rss::physics::SpeedSquared const result(std::fabs(static_cast<double>(other)));
   return result;
 }
 
 /*!
- * \brief specialization of the std::numeric_limits for Duration
+ * \brief specialization of the std::numeric_limits for SpeedSquared
  *
  * Derived from std::numeric_limits<double> with overloaded functions:
- * std::numeric_limits<Duration>::lowest()  (\see Duration::getMin())
- * std::numeric_limits<Duration>::max()  (\see Duration::getMax())
- * std::numeric_limits<Duration>::epsilon()  (\see Duration::getPrecision())
+ * std::numeric_limits<SpeedSquared>::lowest()  (\see SpeedSquared::getMin())
+ * std::numeric_limits<SpeedSquared>::max()  (\see SpeedSquared::getMax())
+ * std::numeric_limits<SpeedSquared>::epsilon()  (\see SpeedSquared::getPrecision())
  */
-template <> class numeric_limits<::ad_rss::physics::Duration> : public numeric_limits<double>
+template <> class numeric_limits<::ad_rss::physics::SpeedSquared> : public numeric_limits<double>
 {
 public:
-  static inline ::ad_rss::physics::Duration lowest()
+  static inline ::ad_rss::physics::SpeedSquared lowest()
   {
-    return ::ad_rss::physics::Duration::getMin();
+    return ::ad_rss::physics::SpeedSquared::getMin();
   }
-  static inline ::ad_rss::physics::Duration max()
+  static inline ::ad_rss::physics::SpeedSquared max()
   {
-    return ::ad_rss::physics::Duration::getMax();
+    return ::ad_rss::physics::SpeedSquared::getMax();
   }
-  static inline ::ad_rss::physics::Duration epsilon()
+  static inline ::ad_rss::physics::SpeedSquared epsilon()
   {
-    return ::ad_rss::physics::Duration::getPrecision();
+    return ::ad_rss::physics::SpeedSquared::getPrecision();
   }
 };
+
+/*!
+ * \brief overload of the std::sqrt for SpeedSquared
+ *
+ * The square root of a squared type is basic type: Speed.
+ */
+::ad_rss::physics::Speed sqrt(::ad_rss::physics::SpeedSquared const other);
 
 } // namespace std

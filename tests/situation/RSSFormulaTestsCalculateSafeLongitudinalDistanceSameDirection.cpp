@@ -35,16 +35,9 @@
 namespace ad_rss {
 namespace situation {
 
-// make the code more readable
-using physics::Acceleration;
-using physics::CoordinateSystemAxis;
-using physics::Distance;
-using physics::Duration;
-using physics::Speed;
-
 TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection, negative_leading_speed)
 {
-  Distance safeDistance = 0.;
+  Distance safeDistance(0.);
 
   VehicleState leadingVehicle = createVehicleStateForLongitudinalMotion(-50);
   VehicleState followingVehicle = createVehicleStateForLongitudinalMotion(50);
@@ -54,13 +47,13 @@ TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection, negative_lea
 
 TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection, checks_leading_vehicle_much_faster)
 {
-  Distance safeDistance = 0.;
+  Distance safeDistance(0.);
   VehicleState leadingVehicle = createVehicleStateForLongitudinalMotion(100);
   VehicleState followingVehicle = createVehicleStateForLongitudinalMotion(10);
 
   ASSERT_TRUE(calculateSafeLongitudinalDistanceSameDirection(leadingVehicle, followingVehicle, safeDistance));
 
-  ASSERT_NEAR(safeDistance, 0, cDoubleNear);
+  ASSERT_NEAR(static_cast<double>(safeDistance), 0, cDoubleNear);
 }
 
 } // namespace situation

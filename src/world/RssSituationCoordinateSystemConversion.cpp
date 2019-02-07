@@ -36,8 +36,8 @@
 #include <limits>
 #include <vector>
 
-#include "RssObjectPositionExtractor.hpp"
-#include "RssSituationCoordinateSystemConversion.hpp"
+#include "world/RssObjectPositionExtractor.hpp"
+#include "world/RssSituationCoordinateSystemConversion.hpp"
 
 /*!
  * @brief namespace ad_rss
@@ -48,17 +48,20 @@ namespace ad_rss {
  */
 namespace world {
 
-bool calculateLateralDimensions(RoadArea const &roadArea, std::vector<physics::MetricRange> &lateralRanges)
+using physics::Distance;
+using physics::MetricRange;
+
+bool calculateLateralDimensions(RoadArea const &roadArea, std::vector<MetricRange> &lateralRanges)
 {
   bool result = true;
 
   bool notFinished = true;
   uint32_t currentLateralIndex = 0u;
 
-  physics::MetricRange currentLateralPosition;
+  MetricRange currentLateralPosition;
 
-  currentLateralPosition.maximum = 0.;
-  currentLateralPosition.minimum = 0.;
+  currentLateralPosition.maximum = Distance(0.);
+  currentLateralPosition.minimum = Distance(0.);
 
   try
   {
@@ -67,8 +70,8 @@ bool calculateLateralDimensions(RoadArea const &roadArea, std::vector<physics::M
       notFinished = false;
       lateralRanges.push_back(currentLateralPosition);
 
-      physics::Distance lateralDistanceMax = 0.;
-      physics::Distance lateralDistanceMin = std::numeric_limits<physics::Distance>::infinity();
+      Distance lateralDistanceMax = Distance(0.);
+      Distance lateralDistanceMin = std::numeric_limits<Distance>::max();
       for (const auto &roadSegment : roadArea)
       {
         if (roadSegment.size() > currentLateralIndex)
@@ -149,13 +152,13 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
 
   try
   {
-    std::vector<physics::MetricRange> lateralRanges;
+    std::vector<MetricRange> lateralRanges;
     calculateLateralDimensions(roadArea, lateralRanges);
 
-    physics::MetricRange longitudinalDimensions;
+    MetricRange longitudinalDimensions;
 
-    longitudinalDimensions.maximum = 0.;
-    longitudinalDimensions.minimum = 0.;
+    longitudinalDimensions.maximum = Distance(0.);
+    longitudinalDimensions.minimum = Distance(0.);
 
     std::vector<RssObjectPositionExtractor> extractors;
     for (const auto &object : objects)
@@ -167,17 +170,17 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
       extractors.push_back(RssObjectPositionExtractor(object.occupiedRegions));
     }
 
-    for (auto roadSegment = roadArea.begin(); roadSegment != roadArea.end() && result; roadSegment++)
+    for (auto roadSegment = roadArea.cbegin(); roadSegment != roadArea.cend() && result; roadSegment++)
     {
-      physics::Distance longitudinalDistanceMax = 0.;
-      physics::Distance longitudinalDistanceMin = 0.;
+      Distance longitudinalDistanceMax = Distance(0.);
+      Distance longitudinalDistanceMin = Distance(0.);
       for (auto &extractor : extractors)
       {
         result = result && extractor.newRoadSegment(longitudinalDimensions.minimum, longitudinalDimensions.maximum);
       }
 
       // This is needed, because we want to look for the minimum
-      longitudinalDistanceMin = std::numeric_limits<physics::Distance>::infinity();
+      longitudinalDistanceMin = std::numeric_limits<Distance>::max();
 
       for (auto i = 0u; i < roadSegment->size() && result; i++)
       {
@@ -206,7 +209,7 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
 
     if (result)
     {
-      for (auto extractor : extractors)
+      for (auto &extractor : extractors)
       {
         ObjectDimensions extractedDimensions;
         result = result && extractor.getObjectDimensions(extractedDimensions);

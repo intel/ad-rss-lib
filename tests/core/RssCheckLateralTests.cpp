@@ -76,22 +76,22 @@ protected:
       ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 0;
-      laneSegment.length.minimum = 50;
-      laneSegment.length.maximum = 55;
-      laneSegment.width.minimum = 5;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(50);
+      laneSegment.length.maximum = Distance(55);
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
       roadSegment.push_back(laneSegment);
       laneSegment.id = 1;
-      laneSegment.length.minimum = 55;
-      laneSegment.length.maximum = 60;
-      laneSegment.width.minimum = 5;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(55);
+      laneSegment.length.maximum = Distance(60);
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
       roadSegment.push_back(laneSegment);
       laneSegment.id = 2;
-      laneSegment.length.minimum = 60;
-      laneSegment.length.maximum = 65;
-      laneSegment.width.minimum = 5;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(60);
+      laneSegment.length.maximum = Distance(65);
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
       roadSegment.push_back(laneSegment);
 
       roadArea.push_back(roadSegment);
@@ -102,22 +102,22 @@ protected:
       ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 3;
-      laneSegment.length.minimum = 2;
-      laneSegment.length.maximum = 2;
-      laneSegment.width.minimum = 5;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(2);
+      laneSegment.length.maximum = Distance(2);
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
       roadSegment.push_back(laneSegment);
       laneSegment.id = 4;
-      laneSegment.length.minimum = 2;
-      laneSegment.length.maximum = 2;
-      laneSegment.width.minimum = 5;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(2);
+      laneSegment.length.maximum = Distance(2);
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
       roadSegment.push_back(laneSegment);
       laneSegment.id = 5;
-      laneSegment.length.minimum = 2;
-      laneSegment.length.maximum = 2;
-      laneSegment.width.minimum = 5;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(2);
+      laneSegment.length.maximum = Distance(2);
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
       roadSegment.push_back(laneSegment);
 
       roadArea.push_back(roadSegment);
@@ -128,22 +128,22 @@ protected:
       ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 6;
-      laneSegment.length.minimum = 50;
-      laneSegment.length.maximum = 55;
-      laneSegment.width.minimum = 3;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(50);
+      laneSegment.length.maximum = Distance(55);
+      laneSegment.width.minimum = Distance(3);
+      laneSegment.width.maximum = Distance(5);
       roadSegment.push_back(laneSegment);
       laneSegment.id = 7;
-      laneSegment.length.minimum = 55;
-      laneSegment.length.maximum = 60;
-      laneSegment.width.minimum = 3;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(55);
+      laneSegment.length.maximum = Distance(60);
+      laneSegment.width.minimum = Distance(3);
+      laneSegment.width.maximum = Distance(5);
       roadSegment.push_back(laneSegment);
       laneSegment.id = 8;
-      laneSegment.length.minimum = 60;
-      laneSegment.length.maximum = 65;
-      laneSegment.width.minimum = 3;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(60);
+      laneSegment.length.maximum = Distance(65);
+      laneSegment.width.minimum = Distance(3);
+      laneSegment.width.maximum = Distance(5);
       roadSegment.push_back(laneSegment);
 
       roadArea.push_back(roadSegment);
@@ -182,7 +182,7 @@ TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Right)
     worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = 1 - (0.01 * i);
     worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = 1 - (0.01 * i + 0.1);
 
-    double dMin = calculateLateralMinSafeDistance(worldModel.scenes[0].object, worldModel.egoVehicle);
+    Distance const dMin = calculateLateralMinSafeDistance(worldModel.scenes[0].object, worldModel.egoVehicle);
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
@@ -190,7 +190,7 @@ TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Right)
     ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
               -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
 
-    if (dMin < 6 + worldModel.egoVehicle.occupiedRegions[0].latRange.minimum * 5 - 0.5)
+    if (dMin < Distance(6) + worldModel.egoVehicle.occupiedRegions[0].latRange.minimum * Distance(5) - Distance(0.5))
     {
       ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum,
                 -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
@@ -228,7 +228,7 @@ TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Left)
     worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = 0.01 * i;
     worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = 0.01 * i + 0.1;
 
-    double dMin = calculateLateralMinSafeDistance(worldModel.egoVehicle, worldModel.scenes[0].object);
+    Distance const dMin = calculateLateralMinSafeDistance(worldModel.egoVehicle, worldModel.scenes[0].object);
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
@@ -239,7 +239,7 @@ TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Left)
     ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
     ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
 
-    if (dMin < 10 - worldModel.egoVehicle.occupiedRegions[0].latRange.maximum * 5)
+    if (dMin < Distance(10) - worldModel.egoVehicle.occupiedRegions[0].latRange.maximum * Distance(5))
     {
       ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
                 -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);

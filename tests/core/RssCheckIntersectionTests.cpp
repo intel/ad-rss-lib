@@ -76,10 +76,10 @@ protected:
       ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 0;
-      laneSegment.length.minimum = 50;
-      laneSegment.length.maximum = 55;
-      laneSegment.width.minimum = 5;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(50);
+      laneSegment.length.maximum = Distance(55);
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
       roadSegment.push_back(laneSegment);
       roadArea.push_back(roadSegment);
     }
@@ -89,10 +89,10 @@ protected:
       ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 1;
-      laneSegment.length.minimum = 50;
-      laneSegment.length.maximum = 55;
-      laneSegment.width.minimum = 5;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(50);
+      laneSegment.length.maximum = Distance(55);
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
       roadSegment.push_back(laneSegment);
       roadArea.push_back(roadSegment);
     }
@@ -102,10 +102,10 @@ protected:
       ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 3;
-      laneSegment.length.minimum = 50;
-      laneSegment.length.maximum = 55;
-      laneSegment.width.minimum = 5;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(50);
+      laneSegment.length.maximum = Distance(55);
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
       roadSegment.push_back(laneSegment);
       otherRoadArea.push_back(roadSegment);
     }
@@ -115,10 +115,10 @@ protected:
       ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 4;
-      laneSegment.length.minimum = 50;
-      laneSegment.length.maximum = 55;
-      laneSegment.width.minimum = 5;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(50);
+      laneSegment.length.maximum = Distance(55);
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
       roadSegment.push_back(laneSegment);
       otherRoadArea.push_back(roadSegment);
     }
@@ -128,10 +128,10 @@ protected:
       ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 2;
-      laneSegment.length.minimum = 5;
-      laneSegment.length.maximum = 6;
-      laneSegment.width.minimum = 5;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(5);
+      laneSegment.length.maximum = Distance(6);
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
       laneSegment.type = ::ad_rss::world::LaneSegmentType::Intersection;
       roadSegment.push_back(laneSegment);
       roadArea.push_back(roadSegment);

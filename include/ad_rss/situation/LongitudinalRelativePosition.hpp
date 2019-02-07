@@ -112,4 +112,22 @@ std::string toString(::ad_rss::situation::LongitudinalRelativePosition const e);
  */
 template <typename EnumType> EnumType fromString(std::string const &str);
 
+/*!
+ * \brief Conversion from std::string to enum type T helper.
+ *
+ * \param [in] str - a fully qualified string name of enum class type
+ *
+ * \return T enum value
+ *
+ * \throws std::out_of_range exception if the given string does not match any enum type
+ *
+ * Example usage:
+ * \code
+ *   auto value = fromString<SomeEnumType>("SomeEnumType::eValue");
+ *   assert(value == SomeEnumType::eValue);
+ *   // Or:
+ *   auto value = fromString<SomeEnumType>("eValue");
+ *   assert(value == SomeEnumType::eValue);
+ * \endcode
+ */
 template <>::ad_rss::situation::LongitudinalRelativePosition fromString(std::string const &str);

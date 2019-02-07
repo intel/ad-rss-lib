@@ -54,13 +54,14 @@ add_compile_options(-fstack-protector-strong -fasynchronous-unwind-tables -fno-o
 set(COVERAGE_FLAG "--coverage")
 
 add_library(${PROJECT_NAME} SHARED
-  src/core/RssCheck.cpp
-  src/core/RssResponseResolving.cpp
-  src/core/RssResponseTransformation.cpp
-  src/core/RssSituationChecking.cpp
-  src/core/RssSituationExtraction.cpp
-  src/physics/Math.cpp
+  src/ad_rss/physics/Acceleration.cpp
   src/ad_rss/physics/CoordinateSystemAxis.cpp
+  src/ad_rss/physics/Distance.cpp
+  src/ad_rss/physics/DistanceSquared.cpp
+  src/ad_rss/physics/Duration.cpp
+  src/ad_rss/physics/DurationSquared.cpp
+  src/ad_rss/physics/Speed.cpp
+  src/ad_rss/physics/SpeedSquared.cpp
   src/ad_rss/situation/LateralRelativePosition.cpp
   src/ad_rss/situation/LongitudinalRelativePosition.cpp
   src/ad_rss/situation/SituationType.cpp
@@ -69,6 +70,12 @@ add_library(${PROJECT_NAME} SHARED
   src/ad_rss/world/LaneDrivingDirection.cpp
   src/ad_rss/world/LaneSegmentType.cpp
   src/ad_rss/world/ObjectType.cpp
+  src/core/RssCheck.cpp
+  src/core/RssResponseResolving.cpp
+  src/core/RssResponseTransformation.cpp
+  src/core/RssSituationChecking.cpp
+  src/core/RssSituationExtraction.cpp
+  src/physics/Math.cpp
   src/situation/RSSFormulas.cpp
   src/situation/RssIntersectionChecker.cpp
   src/situation/RSSSituation.cpp

@@ -36,14 +36,22 @@
 #include <limits>
 
 #include "RSSParameters.hpp"
+#include "ad_rss/physics/Operations.hpp"
 #include "ad_rss/situation/RelativePosition.hpp"
 #include "ad_rss/situation/VehicleState.hpp"
 #include "ad_rss/state/ResponseState.hpp"
 #include "ad_rss/world/Object.hpp"
+#include "physics/Math.hpp"
 
 namespace ad_rss {
 
-const double cDoubleNear = 0.01;
+// make the code more readable
+using physics::Acceleration;
+using physics::Distance;
+using physics::Duration;
+using physics::Speed;
+
+const double cDoubleNear(0.01);
 
 class TestSupport
 {
@@ -79,7 +87,7 @@ static const TestSupport cTestSupport;
 
 inline physics::Speed kmhToMeterPerSec(double speed)
 {
-  return speed / 3.6;
+  return Speed(speed / 3.6);
 }
 
 inline world::Object createObject(double lonVelocity, double latVelocity)
@@ -116,8 +124,8 @@ inline situation::VehicleState createVehicleState(double lonVelocity, double lat
   state.dynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
 
   state.responseTime = cResponseTimeOtherVehicles;
-  state.distanceToEnterIntersection = std::numeric_limits<physics::Distance>::max();
-  state.distanceToLeaveIntersection = std::numeric_limits<physics::Distance>::max();
+  state.distanceToEnterIntersection = std::numeric_limits<Distance>::max();
+  state.distanceToLeaveIntersection = std::numeric_limits<Distance>::max();
   state.hasPriority = false;
   state.isInCorrectLane = true;
 
@@ -135,10 +143,10 @@ inline situation::VehicleState createVehicleStateForLateralMotion(double velocit
 }
 
 inline situation::RelativePosition createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition position,
-                                                                      physics::Distance distance = 0.)
+                                                                      Distance distance = Distance(0.))
 {
   situation::RelativePosition relativePosition;
-  relativePosition.lateralDistance = 0.;
+  relativePosition.lateralDistance = Distance(0.);
   relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
   relativePosition.longitudinalDistance = distance;
   relativePosition.longitudinalPosition = position;
@@ -146,23 +154,23 @@ inline situation::RelativePosition createRelativeLongitudinalPosition(situation:
 }
 
 inline situation::RelativePosition createRelativeLateralPosition(situation::LateralRelativePosition position,
-                                                                 physics::Distance distance = 0.)
+                                                                 Distance distance = Distance(0.))
 {
   situation::RelativePosition relativePosition;
   relativePosition.lateralDistance = distance;
   relativePosition.lateralPosition = position;
-  relativePosition.longitudinalDistance = 0.;
+  relativePosition.longitudinalDistance = Distance(0.);
   relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;
   return relativePosition;
 }
 
-inline double calculateLongitudinalMinSafeDistance(::ad_rss::world::Object const &followingObject,
-                                                   ::ad_rss::world::Object const &leadingObject)
+inline Distance calculateLongitudinalMinSafeDistance(::ad_rss::world::Object const &followingObject,
+                                                     ::ad_rss::world::Object const &leadingObject)
 {
-  double dMin = followingObject.velocity.speedLon * followingObject.responseTime;
+  Distance dMin = followingObject.velocity.speedLon * followingObject.responseTime;
   dMin
     += 0.5 * followingObject.dynamics.alphaLon.accelMax * followingObject.responseTime * followingObject.responseTime;
-  double const speedMax
+  Speed const speedMax
     = followingObject.velocity.speedLon + followingObject.responseTime * followingObject.dynamics.alphaLon.accelMax;
   dMin += (speedMax * speedMax) / (2. * followingObject.dynamics.alphaLon.brakeMin);
   dMin = dMin
@@ -171,12 +179,14 @@ inline double calculateLongitudinalMinSafeDistance(::ad_rss::world::Object const
   return dMin;
 }
 
-inline double calculateLongitudinalMinSafeDistanceOppositeDirection(::ad_rss::world::Object const &objectA,
-                                                                    ::ad_rss::world::Object const &objectB)
+inline Distance calculateLongitudinalMinSafeDistanceOppositeDirection(::ad_rss::world::Object const &objectA,
+                                                                      ::ad_rss::world::Object const &objectB)
 {
-  double objectAVelAfterResTime = objectA.velocity.speedLon + objectA.responseTime * objectA.dynamics.alphaLon.accelMax;
-  double objectBVelAfterResTime = objectB.velocity.speedLon + objectB.responseTime * objectB.dynamics.alphaLon.accelMax;
-  double dMin = (objectA.velocity.speedLon + objectAVelAfterResTime) / 2. * objectA.responseTime;
+  Speed const objectAVelAfterResTime
+    = objectA.velocity.speedLon + objectA.responseTime * objectA.dynamics.alphaLon.accelMax;
+  Speed const objectBVelAfterResTime
+    = objectB.velocity.speedLon + objectB.responseTime * objectB.dynamics.alphaLon.accelMax;
+  Distance dMin = (objectA.velocity.speedLon + objectAVelAfterResTime) / 2. * objectA.responseTime;
   dMin += objectAVelAfterResTime * objectAVelAfterResTime / (2 * objectA.dynamics.alphaLon.brakeMinCorrect);
   dMin += (objectB.velocity.speedLon + objectBVelAfterResTime) / 2. * objectB.responseTime;
   dMin += objectBVelAfterResTime * objectBVelAfterResTime / (2 * objectB.dynamics.alphaLon.brakeMin);
@@ -184,14 +194,14 @@ inline double calculateLongitudinalMinSafeDistanceOppositeDirection(::ad_rss::wo
   return dMin;
 }
 
-inline double calculateLateralMinSafeDistance(::ad_rss::world::Object const &leftObject,
-                                              ::ad_rss::world::Object const &rightObject)
+inline Distance calculateLateralMinSafeDistance(::ad_rss::world::Object const &leftObject,
+                                                ::ad_rss::world::Object const &rightObject)
 {
-  double lObjectVelAfterResTime
+  Speed lObjectVelAfterResTime
     = leftObject.velocity.speedLat + leftObject.responseTime * leftObject.dynamics.alphaLat.accelMax;
-  double rObjectVelAfterResTime
+  Speed rObjectVelAfterResTime
     = rightObject.velocity.speedLat - rightObject.responseTime * rightObject.dynamics.alphaLat.accelMax;
-  double dMin = (leftObject.velocity.speedLat + lObjectVelAfterResTime) / 2. * leftObject.responseTime;
+  Distance dMin = (leftObject.velocity.speedLat + lObjectVelAfterResTime) / 2. * leftObject.responseTime;
   dMin += lObjectVelAfterResTime * lObjectVelAfterResTime / (2 * leftObject.dynamics.alphaLat.brakeMin);
   dMin -= (rightObject.velocity.speedLat + rObjectVelAfterResTime) / 2. * rightObject.responseTime;
   dMin += rObjectVelAfterResTime * rObjectVelAfterResTime / (2 * rightObject.dynamics.alphaLat.brakeMin);

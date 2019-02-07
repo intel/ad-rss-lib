@@ -76,22 +76,22 @@ protected:
       ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 0;
-      laneSegment.length.minimum = 50;
-      laneSegment.length.maximum = 55;
-      laneSegment.width.minimum = 5;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(50);
+      laneSegment.length.maximum = Distance(55);
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
       roadSegment.push_back(laneSegment);
       laneSegment.id = 1;
-      laneSegment.length.minimum = 55;
-      laneSegment.length.maximum = 60;
-      laneSegment.width.minimum = 5;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(55);
+      laneSegment.length.maximum = Distance(60);
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
       roadSegment.push_back(laneSegment);
       laneSegment.id = 2;
-      laneSegment.length.minimum = 60;
-      laneSegment.length.maximum = 65;
-      laneSegment.width.minimum = 5;
-      laneSegment.width.maximum = 5;
+      laneSegment.length.minimum = Distance(60);
+      laneSegment.length.maximum = Distance(65);
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
       roadSegment.push_back(laneSegment);
 
       roadArea.push_back(roadSegment);
@@ -204,7 +204,7 @@ TEST_F(RssCheckTests, NegativeEgoVelocity)
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
-  worldModel.egoVehicle.velocity.speedLon = -3;
+  worldModel.egoVehicle.velocity.speedLon = Speed(-3.);
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
@@ -223,7 +223,7 @@ TEST_F(RssCheckTests, NegativeEgoAcceleration)
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
-  worldModel.egoVehicle.dynamics.alphaLon.accelMax = -3;
+  worldModel.egoVehicle.dynamics.alphaLon.accelMax = Acceleration(-3);
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }

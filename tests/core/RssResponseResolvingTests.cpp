@@ -56,12 +56,12 @@ protected:
   void
   testResultState(LongitudinalResponse lonResponse, LateralResponse latResponseLeft, LateralResponse latResponseRight)
   {
-    return testResultState(lonResponse,
-                           lonResponse == LongitudinalResponse::None,
-                           latResponseLeft,
-                           latResponseLeft == LateralResponse::None,
-                           latResponseRight,
-                           latResponseRight == LateralResponse::None);
+    testResultState(lonResponse,
+                    lonResponse == LongitudinalResponse::None,
+                    latResponseLeft,
+                    latResponseLeft == LateralResponse::None,
+                    latResponseRight,
+                    latResponseRight == LateralResponse::None);
   }
 
   void testResultState(LongitudinalResponse lonResponse,

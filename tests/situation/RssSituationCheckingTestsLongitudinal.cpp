@@ -33,23 +33,23 @@
 #include "ad_rss/core/RssSituationChecking.hpp"
 
 namespace ad_rss {
-namespace core {
+namespace situation {
 
 class RssSituationCheckingTestsLongitudinal : public testing::Test
 {
 protected:
   virtual void SetUp()
   {
-    situation.situationType = situation::SituationType::SameDirection;
+    situation.situationType = SituationType::SameDirection;
   }
 
   virtual void TearDown()
   {
   }
-  RssSituationChecking situationChecking;
-  situation::VehicleState leadingVehicle;
-  situation::VehicleState followingVehicle;
-  situation::Situation situation;
+  core::RssSituationChecking situationChecking;
+  VehicleState leadingVehicle;
+  VehicleState followingVehicle;
+  Situation situation;
   state::ResponseState responseState;
 };
 
@@ -60,8 +60,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_ego_safe_di
 
   situation.egoVehicleState = leadingVehicle;
   situation.otherVehicleState = followingVehicle;
-  situation.relativePosition
-    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 95.);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(95.));
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
@@ -71,12 +70,12 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
-  followingVehicle.dynamics.alphaLon.accelMax = 2.;
-  followingVehicle.dynamics.alphaLon.brakeMin = 4.;
+  followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
-  situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 60.);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(60.));
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
@@ -86,12 +85,12 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
-  followingVehicle.dynamics.alphaLon.accelMax = 0.;
-  followingVehicle.dynamics.alphaLon.brakeMin = 4.;
+  followingVehicle.dynamics.alphaLon.accelMax = Acceleration(0.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
-  situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 39.);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(39.));
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
@@ -101,19 +100,17 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(0);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
-  followingVehicle.dynamics.alphaLon.accelMax = 2.;
-  followingVehicle.dynamics.alphaLon.brakeMin = 4.;
+  followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
-  situation.relativePosition
-    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 71.8);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(71.8));
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 
-  situation.relativePosition
-    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 71.6);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(71.6));
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
@@ -123,18 +120,17 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_0kmh_
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(0);
   followingVehicle = createVehicleStateForLongitudinalMotion(0);
-  followingVehicle.dynamics.alphaLon.accelMax = 2.;
-  followingVehicle.dynamics.alphaLon.brakeMin = 4.;
+  followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
-  situation.relativePosition
-    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 6.01);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(6.1));
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 
-  situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 6.);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(6.));
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
@@ -147,11 +143,10 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_both_negative_veloc
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
-  situation.relativePosition
-    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 71.6);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(71.6));
 
   ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
 }
 
-} // namespace core
+} // namespace situation
 } // namespace ad_rss

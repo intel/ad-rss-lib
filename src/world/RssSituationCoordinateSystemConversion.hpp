@@ -34,10 +34,10 @@
 
 #pragma once
 
-#include "RssObjectPositionExtractor.hpp"
 #include "ad_rss/situation/VehicleState.hpp"
 #include "ad_rss/world/Object.hpp"
 #include "ad_rss/world/WorldModel.hpp"
+#include "world/RssObjectPositionExtractor.hpp"
 
 /*!
  * @brief namespace ad_rss

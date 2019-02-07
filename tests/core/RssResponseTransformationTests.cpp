@@ -35,9 +35,6 @@
 namespace ad_rss {
 namespace core {
 
-using state::LateralResponse;
-using state::LongitudinalResponse;
-
 TEST(RssResponseTransformationTests, invalidTimeStamp)
 {
   ::ad_rss::world::WorldModel worldModel;

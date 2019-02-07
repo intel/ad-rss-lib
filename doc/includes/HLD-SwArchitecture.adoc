@@ -192,10 +192,57 @@ ranges.
 .The types describing the basic physics used within RSS implementation.
 image::img/de600bf2-0dbc-4cb0-913d-06933a5a98db_url_249e9bee-6048-4da9-a2e9-6411243ae2e0.tmp[caption="Figure {counter:figure}. "]
 
-====== Units
+====== Acceleration (Typedef)
+
+The rate of change of (U) Speed of an object with respect to time.
+
+Unit: meter per second squared
 
 |====
-|Ratio |Defines a unit which is a dimensionless ratio.
+|dimension |Acceleration
+|unit |MeterPerSecondSquared
+|float64_t |[ 1 ]
+|====
+
+====== AccelerationRange (Structure)
+
+An acceleration range described by its borders: [minimum, maximum].
+
+|====
+|minimum |Acceleration |The minimum value of the acceleration range.
+|maximum |Acceleration |The maximum value of the acceleration range.
+|====
+
+====== Distance (Typedef)
+
+The length of a specific path traveled between two points.
+
+Unit: meter
+
+|====
+|dimension |Length
+|unit |Meter
+|float64_t |[ 1 ]
+|====
+
+====== DistanceSquared (Typedef)
+
+DistanceSquared represents a squared Distance.
+Unit: square meter
+
+|====
+|unit |SquareMeter
+|dimension |Area
+|float64_t |[ 1 ]
+|====
+
+====== MetricRange (Structure)
+
+A metric range described by its borders: [minimum, maximum].
+
+|====
+|minimum |Distance |The minimum value of the metric range.
+|maximum |Distance |The maximum value of the metric range.
 |====
 
 ====== Duration (Typedef)
@@ -210,24 +257,21 @@ Unit: second
 |float64_t |[ 1 ]
 |====
 
+====== DurationSquared (Typedef)
+
+DurationSquared represents a squared Duration
+Unit: second^2
+
+|====
+|unit |SecondSquared
+|float64_t |[ 1 ]
+|====
+
 ====== ParametricValue (Typedef)
 
 A parametric value in the range of [0.0; 1.0] describing the relative progress.
 
 |====
-|unit |Ratio
-|float64_t |[ 1 ]
-|====
-
-====== Distance (Typedef)
-
-The length of a specific path traveled between two points.
-
-Unit: meter
-
-|====
-|dimension |Length
-|unit |Meter
 |float64_t |[ 1 ]
 |====
 
@@ -244,15 +288,13 @@ Unit: meter per second
 |float64_t |[ 1 ]
 |====
 
-====== Acceleration (Typedef)
+====== SpeedSquared (Typedef)
 
-The rate of change of (U) Speed of an object with respect to time.
-
-Unit: meter per second squared
+SpeedSquared represents a squared Speed.
+Unit: square meter per second square
 
 |====
-|dimension |Acceleration
-|unit |MeterPerSecondSquared
+|unit |SquareMeterPerSecondSquared
 |float64_t |[ 1 ]
 |====
 
@@ -263,24 +305,6 @@ A parametric range within a lane segment described by its borders: [minimum, max
 |====
 |minimum |ParametricValue |The minimum value of the parametric range.
 |maximum |ParametricValue |The maximum value of the parametric range.
-|====
-
-====== MetricRange (Structure)
-
-A metric range described by its borders: [minimum, maximum].
-
-|====
-|minimum |Distance |The minimum value of the metric range.
-|maximum |Distance |The maximum value of the metric range.
-|====
-
-====== AccelerationRange (Structure)
-
-An acceleration range described by its borders: [minimum, maximum].
-
-|====
-|minimum |Acceleration |The minimum value of the acceleration range.
-|maximum |Acceleration |The maximum value of the acceleration range.
 |====
 
 ====== TimeIndex (Typedef)

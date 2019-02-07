@@ -29,9 +29,10 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "Math.hpp"
+#include "physics/Math.hpp"
 #include <algorithm>
 #include <limits>
+#include "ad_rss/physics/Operations.hpp"
 
 namespace ad_rss {
 namespace physics {
@@ -53,13 +54,13 @@ Speed calculateSpeedInAcceleratedMovement(Speed const speed, Acceleration const 
 
 bool calculateStoppingDistance(Speed const currentSpeed, Acceleration const deceleration, Distance &stoppingDistance)
 {
-  if (deceleration <= 0.)
+  if (deceleration <= Acceleration(0.))
   {
     // deceleration must be positive
     return false;
   }
 
-  // s = v^2 / 2 *a
+  // s = v^2 / (2 *a)
   // keep the signbit of the current Speed
   stoppingDistance = (currentSpeed * std::fabs(currentSpeed)) / (2.0 * deceleration);
   return true;
@@ -71,7 +72,7 @@ bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const axis,
                                      Duration const responseTime,
                                      Speed &resultingSpeed)
 {
-  if (responseTime < 0)
+  if (responseTime < Duration(0.))
   {
     // time must not be negative
     return false;
@@ -80,7 +81,7 @@ bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const axis,
   if (axis == CoordinateSystemAxis::Longitudinal)
   {
     // in longitudinal direction the speed has to be always >= 0.
-    if (currentSpeed < 0.)
+    if (currentSpeed < Speed(0.))
     {
       return false;
     }
@@ -103,7 +104,7 @@ bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const axis,
                                               Duration const responseTime,
                                               Distance &distanceOffset)
 {
-  if (responseTime < 0)
+  if (responseTime < Duration(0.))
   {
     // time must not be negative
     return false;
@@ -112,13 +113,13 @@ bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const axis,
   Duration resultingResponseTime = responseTime;
   if (axis == CoordinateSystemAxis::Longitudinal)
   {
-    if (currentSpeed < 0.)
+    if (currentSpeed < Speed(0.))
     {
       // in longitudinal direction the speed has to be always >= 0.
       return false;
     }
 
-    if (acceleration < 0)
+    if (acceleration < Acceleration(0.))
     {
       // on deceleration restrict the time to the time required to stop
       resultingResponseTime = -1. * currentSpeed / acceleration;
@@ -136,7 +137,7 @@ bool calculateTimeForDistance(Speed const currentSpeed,
                               Distance distanceToCover,
                               Duration &requiredTime)
 {
-  if (currentSpeed < 0)
+  if (currentSpeed < Speed(0.))
   {
     return false;
   }
@@ -144,16 +145,14 @@ bool calculateTimeForDistance(Speed const currentSpeed,
   bool result = true;
 
   // t = -v_0/a +- sqrt(v_0^2/a^2 + 2s/a)
+  Duration const firstPart = -1. * currentSpeed / acceleration;
 
-  double secondPart
-    = std::sqrt(((currentSpeed * currentSpeed) / (acceleration * acceleration)) + (2 * distanceToCover / acceleration));
-
-  double firstPart = -1. * currentSpeed / acceleration;
+  Duration const secondPart = std::sqrt((firstPart * firstPart) + (2. * distanceToCover / acceleration));
 
   Duration t1 = firstPart + secondPart;
   Duration t2 = firstPart - secondPart;
 
-  if (t2 > 0)
+  if (t2 > Duration(0.))
   {
     requiredTime = t2;
   }
@@ -172,7 +171,7 @@ bool calculateTimeToCoverDistance(Speed const currentSpeed,
                                   Distance distanceToCover,
                                   Duration &requiredTime)
 {
-  if (currentSpeed < 0)
+  if (currentSpeed < Speed(0.))
   {
     return false;
   }
@@ -211,7 +210,7 @@ bool calculateTimeToCoverDistance(Speed const currentSpeed,
         }
         else
         {
-          requiredTime = std::numeric_limits<double>::infinity();
+          requiredTime = std::numeric_limits<Duration>::max();
         }
       }
     }

@@ -29,7 +29,7 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "RSSSituation.hpp"
+#include "situation/RSSSituation.hpp"
 #include "situation/RSSFormulas.hpp"
 #include "situation/Vehicle.hpp"
 

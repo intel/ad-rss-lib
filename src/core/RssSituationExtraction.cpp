@@ -38,10 +38,13 @@ namespace ad_rss {
 namespace core {
 namespace RssSituationExtraction {
 
-void calcluateRelativeLongitudinalPosition(physics::MetricRange const &egoMetricRange,
-                                           physics::MetricRange const &otherMetricRange,
+using physics::Distance;
+using physics::MetricRange;
+
+void calcluateRelativeLongitudinalPosition(MetricRange const &egoMetricRange,
+                                           MetricRange const &otherMetricRange,
                                            situation::LongitudinalRelativePosition &longitudinalPosition,
-                                           physics::Distance &longitudinalDistance)
+                                           Distance &longitudinalDistance)
 {
   if (egoMetricRange.minimum > otherMetricRange.maximum)
   {
@@ -55,7 +58,7 @@ void calcluateRelativeLongitudinalPosition(physics::MetricRange const &egoMetric
   }
   else
   {
-    longitudinalDistance = 0.;
+    longitudinalDistance = Distance(0.);
     if ((egoMetricRange.minimum > otherMetricRange.minimum) && (egoMetricRange.maximum > otherMetricRange.maximum))
     {
       longitudinalPosition = situation::LongitudinalRelativePosition::OverlapFront;
@@ -71,10 +74,10 @@ void calcluateRelativeLongitudinalPosition(physics::MetricRange const &egoMetric
   }
 }
 
-void calcluateRelativeLongitudinalPositionIntersection(physics::MetricRange const &egoMetricRange,
-                                                       physics::MetricRange const &otherMetricRange,
+void calcluateRelativeLongitudinalPositionIntersection(MetricRange const &egoMetricRange,
+                                                       MetricRange const &otherMetricRange,
                                                        situation::LongitudinalRelativePosition &longitudinalPosition,
-                                                       physics::Distance &longitudinalDistance)
+                                                       Distance &longitudinalDistance)
 {
   if (egoMetricRange.maximum < otherMetricRange.minimum)
   {
@@ -88,7 +91,7 @@ void calcluateRelativeLongitudinalPositionIntersection(physics::MetricRange cons
   }
   else
   {
-    longitudinalDistance = 0.;
+    longitudinalDistance = Distance(0.);
     if ((egoMetricRange.minimum < otherMetricRange.minimum) && (egoMetricRange.maximum < otherMetricRange.maximum))
     {
       longitudinalPosition = situation::LongitudinalRelativePosition::OverlapFront;
@@ -104,10 +107,10 @@ void calcluateRelativeLongitudinalPositionIntersection(physics::MetricRange cons
   }
 }
 
-void calcluateRelativeLateralPosition(physics::MetricRange const &egoMetricRange,
-                                      physics::MetricRange const &otherMetricRange,
+void calcluateRelativeLateralPosition(MetricRange const &egoMetricRange,
+                                      MetricRange const &otherMetricRange,
                                       situation::LateralRelativePosition &lateralPosition,
-                                      physics::Distance &lateralDistance)
+                                      Distance &lateralDistance)
 {
   if (egoMetricRange.minimum > otherMetricRange.maximum)
   {
@@ -121,7 +124,7 @@ void calcluateRelativeLateralPosition(physics::MetricRange const &egoMetricRange
   }
   else
   {
-    lateralDistance = 0.;
+    lateralDistance = Distance(0.);
     if ((egoMetricRange.minimum > otherMetricRange.minimum) && (egoMetricRange.maximum > otherMetricRange.maximum))
     {
       lateralPosition = situation::LateralRelativePosition::OverlapRight;
@@ -148,7 +151,7 @@ bool convertObjectsNonIntersection(world::Object const &egoVehicle,
   result = calculateObjectDimensions(egoVehicle, currentScene, egoVehicleDimension, objectToBeCheckedDimension);
 
   situation::LongitudinalRelativePosition longitudinalPosition;
-  physics::Distance longitudinalDistance;
+  Distance longitudinalDistance;
   calcluateRelativeLongitudinalPosition(egoVehicleDimension.longitudinalDimensions,
                                         objectToBeCheckedDimension.longitudinalDimensions,
                                         longitudinalPosition,
@@ -174,7 +177,7 @@ bool convertObjectsNonIntersection(world::Object const &egoVehicle,
   if (result)
   {
     situation::LateralRelativePosition lateralPosition;
-    physics::Distance lateralDistance;
+    Distance lateralDistance;
     calcluateRelativeLateralPosition(egoVehicleDimension.lateralDimensions,
                                      objectToBeCheckedDimension.lateralDimensions,
                                      lateralPosition,
@@ -186,9 +189,9 @@ bool convertObjectsNonIntersection(world::Object const &egoVehicle,
   return result;
 }
 
-void convertToIntersectionCentric(physics::MetricRange const &objectDimension,
-                                  physics::MetricRange const &intersectionPosition,
-                                  physics::MetricRange &dimensionsIntersection)
+void convertToIntersectionCentric(MetricRange const &objectDimension,
+                                  MetricRange const &intersectionPosition,
+                                  MetricRange &dimensionsIntersection)
 {
   dimensionsIntersection.maximum = intersectionPosition.minimum - objectDimension.minimum;
   dimensionsIntersection.minimum = intersectionPosition.minimum - objectDimension.maximum;
@@ -212,27 +215,26 @@ bool convertObjectsIntersection(world::Object const &egoVehicle,
 
     // For intersection the lanes don't have the same origin so the positions cannot be directly compared
     // Intersection entry should be the common point so convert the positions to this reference point
-    physics::MetricRange egoDimensionsIntersection;
+    MetricRange egoDimensionsIntersection;
     convertToIntersectionCentric(
       egoVehicleDimension.longitudinalDimensions, egoVehicleDimension.intersectionPosition, egoDimensionsIntersection);
 
-    physics::MetricRange objectDimensionsIntersection;
+    MetricRange objectDimensionsIntersection;
 
     convertToIntersectionCentric(
       objectDimension.longitudinalDimensions, objectDimension.intersectionPosition, objectDimensionsIntersection);
 
-    situation.egoVehicleState.distanceToEnterIntersection
-      = std::max(physics::Distance(0.), egoDimensionsIntersection.minimum);
+    situation.egoVehicleState.distanceToEnterIntersection = std::max(Distance(0.), egoDimensionsIntersection.minimum);
     situation.egoVehicleState.distanceToLeaveIntersection
       = egoVehicleDimension.intersectionPosition.maximum - egoVehicleDimension.longitudinalDimensions.minimum;
 
     situation.otherVehicleState.distanceToEnterIntersection
-      = std::max(physics::Distance(0.), objectDimensionsIntersection.minimum);
+      = std::max(Distance(0.), objectDimensionsIntersection.minimum);
     situation.otherVehicleState.distanceToLeaveIntersection
       = objectDimension.intersectionPosition.maximum - objectDimension.longitudinalDimensions.minimum;
 
     situation::LongitudinalRelativePosition longitudinalPosition;
-    physics::Distance longitudinalDistance;
+    Distance longitudinalDistance;
     calcluateRelativeLongitudinalPositionIntersection(
       egoDimensionsIntersection, objectDimensionsIntersection, longitudinalPosition, longitudinalDistance);
 
@@ -240,7 +242,7 @@ bool convertObjectsIntersection(world::Object const &egoVehicle,
     situation.relativePosition.longitudinalDistance = longitudinalDistance;
 
     situation.relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
-    situation.relativePosition.lateralDistance = 0.;
+    situation.relativePosition.lateralDistance = Distance(0.);
   }
 
   if (currentScene.situationType == situation::SituationType::IntersectionEgoHasPriority)

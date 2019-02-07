@@ -29,15 +29,19 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "RssIntersectionChecker.hpp"
-
 #include <cmath>
-#include "RSSFormulas.hpp"
-#include "RSSSituation.hpp"
+#include <limits>
+
 #include "physics/Math.hpp"
+#include "situation/RSSFormulas.hpp"
+#include "situation/RSSSituation.hpp"
+#include "situation/RssIntersectionChecker.hpp"
 
 namespace ad_rss {
 namespace situation {
+
+using physics::Duration;
+using physics::calculateTimeToCoverDistance;
 
 RssIntersectionChecker::RssIntersectionChecker()
 {
@@ -58,43 +62,44 @@ bool checkLateralIntersect(Situation const &situation, bool &isSafe)
    * vehicle arrives at that point
    */
 
-  physics::Duration timeToReachEgo;
-  physics::Duration timeToReachOther;
-  physics::Duration timeToLeaveEgo;
-  physics::Duration timeToLeaveOther;
+  Duration timeToReachEgo;
+  Duration timeToReachOther;
+  Duration timeToLeaveEgo;
+  Duration timeToLeaveOther;
 
-  bool result = physics::calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon,
-                                                      situation.egoVehicleState.responseTime,
-                                                      situation.egoVehicleState.dynamics.alphaLon.accelMax,
-                                                      situation.egoVehicleState.dynamics.alphaLon.brakeMin,
-                                                      situation.egoVehicleState.distanceToEnterIntersection,
-                                                      timeToReachEgo);
+  bool result = calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon,
+                                             situation.egoVehicleState.responseTime,
+                                             situation.egoVehicleState.dynamics.alphaLon.accelMax,
+                                             situation.egoVehicleState.dynamics.alphaLon.brakeMin,
+                                             situation.egoVehicleState.distanceToEnterIntersection,
+                                             timeToReachEgo);
 
-  result = result && physics::calculateTimeToCoverDistance(situation.otherVehicleState.velocity.speedLon,
-                                                           situation.otherVehicleState.responseTime,
-                                                           situation.otherVehicleState.dynamics.alphaLon.accelMax,
-                                                           situation.otherVehicleState.dynamics.alphaLon.brakeMin,
-                                                           situation.otherVehicleState.distanceToEnterIntersection,
-                                                           timeToReachOther);
+  result = result && calculateTimeToCoverDistance(situation.otherVehicleState.velocity.speedLon,
+                                                  situation.otherVehicleState.responseTime,
+                                                  situation.otherVehicleState.dynamics.alphaLon.accelMax,
+                                                  situation.otherVehicleState.dynamics.alphaLon.brakeMin,
+                                                  situation.otherVehicleState.distanceToEnterIntersection,
+                                                  timeToReachOther);
 
-  result = result && physics::calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon,
-                                                           situation.egoVehicleState.responseTime,
-                                                           -1. * situation.egoVehicleState.dynamics.alphaLon.brakeMax,
-                                                           situation.egoVehicleState.dynamics.alphaLon.brakeMax,
-                                                           situation.egoVehicleState.distanceToLeaveIntersection,
-                                                           timeToLeaveEgo);
+  result = result && calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon,
+                                                  situation.egoVehicleState.responseTime,
+                                                  -1. * situation.egoVehicleState.dynamics.alphaLon.brakeMax,
+                                                  situation.egoVehicleState.dynamics.alphaLon.brakeMax,
+                                                  situation.egoVehicleState.distanceToLeaveIntersection,
+                                                  timeToLeaveEgo);
 
-  result = result && physics::calculateTimeToCoverDistance(situation.otherVehicleState.velocity.speedLon,
-                                                           situation.otherVehicleState.responseTime,
-                                                           -1. * situation.otherVehicleState.dynamics.alphaLon.brakeMax,
-                                                           situation.otherVehicleState.dynamics.alphaLon.brakeMax,
-                                                           situation.otherVehicleState.distanceToLeaveIntersection,
-                                                           timeToLeaveOther);
+  result = result && calculateTimeToCoverDistance(situation.otherVehicleState.velocity.speedLon,
+                                                  situation.otherVehicleState.responseTime,
+                                                  -1. * situation.otherVehicleState.dynamics.alphaLon.brakeMax,
+                                                  situation.otherVehicleState.dynamics.alphaLon.brakeMax,
+                                                  situation.otherVehicleState.distanceToLeaveIntersection,
+                                                  timeToLeaveOther);
 
   if (result)
   {
-    if (timeToReachEgo > timeToLeaveOther || timeToReachOther > timeToLeaveEgo
-        || (std::isinf(timeToReachEgo) && std::isinf(timeToReachOther)))
+    if ((timeToReachEgo > timeToLeaveOther) || (timeToReachOther > timeToLeaveEgo)
+        || ((timeToReachEgo == std::numeric_limits<Duration>::max())
+            && (timeToReachOther == std::numeric_limits<Duration>::max())))
     {
       /**
        * Currently we assume lateral overlap when there is a vehicle in an intersection
@@ -216,7 +221,7 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
     {
       rssState.longitudinalState.isSafe = isSafe;
 
-      auto previousIntersectionState = mLastSafeStateMap.find(situation.situationId);
+      auto const previousIntersectionState = mLastSafeStateMap.find(situation.situationId);
 
       if (!isSafe)
       {

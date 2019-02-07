@@ -31,7 +31,7 @@
 
 #include "ad_rss/core/RssResponseResolving.hpp"
 #include <algorithm>
-#include "RSSState.hpp"
+#include "core/RSSState.hpp"
 
 namespace ad_rss {
 namespace core {
@@ -57,7 +57,7 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
 
     RssStateBeforeDangerThresholdTimeMap newStatesBeforeDangerThresholdTime;
 
-    for (auto currentState : currentStates)
+    for (auto const &currentState : currentStates)
     {
       if (responseState.timeIndex == 0u)
       {
@@ -73,7 +73,7 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
       RssState nonDangerousStateToRemember;
       if (isDangerous(currentState))
       {
-        auto previousNonDangerousState = mStatesBeforeDangerThresholdTime.find(currentState.situationId);
+        auto const previousNonDangerousState = mStatesBeforeDangerThresholdTime.find(currentState.situationId);
         if (previousNonDangerousState != mStatesBeforeDangerThresholdTime.end())
         {
           if (previousNonDangerousState->second.lateralSafe)
@@ -125,7 +125,7 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
       // store state for the next iteration
       if (nonDangerousStateToRemember.longitudinalSafe || nonDangerousStateToRemember.lateralSafe)
       {
-        auto insertResult = newStatesBeforeDangerThresholdTime.insert(
+        auto const insertResult = newStatesBeforeDangerThresholdTime.insert(
           RssStateBeforeDangerThresholdTimeMap::value_type(currentState.situationId, nonDangerousStateToRemember));
 
         if (result)

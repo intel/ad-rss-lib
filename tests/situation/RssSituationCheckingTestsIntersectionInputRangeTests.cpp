@@ -33,41 +33,40 @@
 #include "ad_rss/core/RssSituationChecking.hpp"
 
 namespace ad_rss {
-namespace core {
+namespace situation {
 
 class RssSituationCheckingTestsIntersectionInputRangeTests : public testing::Test
 {
 protected:
   virtual void SetUp()
   {
-    situation.situationType = situation::SituationType::IntersectionEgoHasPriority;
+    situation.situationType = SituationType::IntersectionEgoHasPriority;
   }
 
   virtual void TearDown()
   {
   }
-  RssSituationChecking situationChecking;
-  situation::VehicleState leadingVehicle;
-  situation::VehicleState followingVehicle;
-  situation::Situation situation;
+  core::RssSituationChecking situationChecking;
+  VehicleState leadingVehicle;
+  VehicleState followingVehicle;
+  Situation situation;
   state::ResponseState responseState;
 };
 
 TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, no_priority_vehicle)
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
-  leadingVehicle.distanceToEnterIntersection = 10;
-  leadingVehicle.distanceToLeaveIntersection = 10;
+  leadingVehicle.distanceToEnterIntersection = Distance(10.);
+  leadingVehicle.distanceToLeaveIntersection = Distance(10.);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
-  followingVehicle.dynamics.alphaLon.accelMax = 2.;
-  followingVehicle.dynamics.alphaLon.brakeMin = 4.;
-  followingVehicle.distanceToEnterIntersection = 70;
-  followingVehicle.distanceToLeaveIntersection = 70;
+  followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  followingVehicle.distanceToEnterIntersection = Distance(70.);
+  followingVehicle.distanceToLeaveIntersection = Distance(70.);
 
   situation.egoVehicleState = leadingVehicle;
   situation.otherVehicleState = followingVehicle;
-  situation.relativePosition
-    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 60.);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(60.));
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
 }
@@ -75,20 +74,20 @@ TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, no_priority_vehicle
 TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, distanceToLeaveSmallerEgo)
 {
   situation.egoVehicleState = createVehicleStateForLongitudinalMotion(120);
-  situation.egoVehicleState.distanceToEnterIntersection = 15;
-  situation.egoVehicleState.distanceToLeaveIntersection = 14;
+  situation.egoVehicleState.distanceToEnterIntersection = Distance(15.);
+  situation.egoVehicleState.distanceToLeaveIntersection = Distance(14.);
 
-  situation.egoVehicleState.dynamics.alphaLon.accelMax = 2.;
-  situation.egoVehicleState.dynamics.alphaLon.brakeMin = 4.;
+  situation.egoVehicleState.dynamics.alphaLon.accelMax = Acceleration(2.);
+  situation.egoVehicleState.dynamics.alphaLon.brakeMin = Acceleration(4.);
 
   situation.otherVehicleState = createVehicleStateForLongitudinalMotion(10);
-  situation.otherVehicleState.dynamics.alphaLon.accelMax = 2.;
-  situation.otherVehicleState.dynamics.alphaLon.brakeMin = 4.;
-  situation.otherVehicleState.distanceToEnterIntersection = 16;
-  situation.otherVehicleState.distanceToLeaveIntersection = 16;
+  situation.otherVehicleState.dynamics.alphaLon.accelMax = Acceleration(2.);
+  situation.otherVehicleState.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  situation.otherVehicleState.distanceToEnterIntersection = Distance(16.);
+  situation.otherVehicleState.distanceToLeaveIntersection = Distance(16.);
   situation.otherVehicleState.hasPriority = true;
 
-  situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 1);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(1.));
 
   ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
 }
@@ -96,20 +95,20 @@ TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, distanceToLeaveSmal
 TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, distanceToLeaveSmallerOther)
 {
   situation.egoVehicleState = createVehicleStateForLongitudinalMotion(120);
-  situation.egoVehicleState.distanceToEnterIntersection = 15;
-  situation.egoVehicleState.distanceToLeaveIntersection = 15;
+  situation.egoVehicleState.distanceToEnterIntersection = Distance(15.);
+  situation.egoVehicleState.distanceToLeaveIntersection = Distance(15.);
 
-  situation.egoVehicleState.dynamics.alphaLon.accelMax = 2.;
-  situation.egoVehicleState.dynamics.alphaLon.brakeMin = 4.;
+  situation.egoVehicleState.dynamics.alphaLon.accelMax = Acceleration(2.);
+  situation.egoVehicleState.dynamics.alphaLon.brakeMin = Acceleration(4.);
 
   situation.otherVehicleState = createVehicleStateForLongitudinalMotion(10);
-  situation.otherVehicleState.dynamics.alphaLon.accelMax = 2.;
-  situation.otherVehicleState.dynamics.alphaLon.brakeMin = 4.;
-  situation.otherVehicleState.distanceToEnterIntersection = 16;
-  situation.otherVehicleState.distanceToLeaveIntersection = 15;
+  situation.otherVehicleState.dynamics.alphaLon.accelMax = Acceleration(2.);
+  situation.otherVehicleState.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  situation.otherVehicleState.distanceToEnterIntersection = Distance(16.);
+  situation.otherVehicleState.distanceToLeaveIntersection = Distance(15.);
   situation.otherVehicleState.hasPriority = true;
 
-  situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 1);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(1.));
 
   ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
 }
@@ -117,21 +116,20 @@ TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, distanceToLeaveSmal
 TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, both_priority_vehicle)
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
-  leadingVehicle.distanceToEnterIntersection = 10;
-  leadingVehicle.distanceToLeaveIntersection = 10;
+  leadingVehicle.distanceToEnterIntersection = Distance(10.);
+  leadingVehicle.distanceToLeaveIntersection = Distance(10.);
   leadingVehicle.hasPriority = true;
 
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
-  followingVehicle.dynamics.alphaLon.accelMax = 2.;
-  followingVehicle.dynamics.alphaLon.brakeMin = 4.;
-  followingVehicle.distanceToEnterIntersection = 70;
-  leadingVehicle.distanceToLeaveIntersection = 70;
+  followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  followingVehicle.distanceToEnterIntersection = Distance(70.);
+  leadingVehicle.distanceToLeaveIntersection = Distance(70.);
   followingVehicle.hasPriority = true;
 
   situation.egoVehicleState = leadingVehicle;
   situation.otherVehicleState = followingVehicle;
-  situation.relativePosition
-    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 60.);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(60.));
 
   ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
 }
@@ -139,25 +137,24 @@ TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, both_priority_vehic
 TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, sitatuion_initialy_unsafe)
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
-  leadingVehicle.distanceToEnterIntersection = 70;
-  leadingVehicle.distanceToLeaveIntersection = 70;
-  leadingVehicle.dynamics.alphaLon.accelMax = 2.;
-  leadingVehicle.dynamics.alphaLon.brakeMin = 4.;
+  leadingVehicle.distanceToEnterIntersection = Distance(70.);
+  leadingVehicle.distanceToLeaveIntersection = Distance(70.);
+  leadingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  leadingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
-  followingVehicle.dynamics.alphaLon.accelMax = 2.;
-  followingVehicle.dynamics.alphaLon.brakeMin = 4.;
+  followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
 
-  followingVehicle.distanceToEnterIntersection = 100;
-  followingVehicle.distanceToLeaveIntersection = 100;
+  followingVehicle.distanceToEnterIntersection = Distance(100.);
+  followingVehicle.distanceToLeaveIntersection = Distance(100.);
 
   situation.egoVehicleState = leadingVehicle;
   situation.otherVehicleState = followingVehicle;
   situation.otherVehicleState.hasPriority = true;
-  situation.relativePosition
-    = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 30.);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(30.));
 
   ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
 }
 
-} // namespace core
+} // namespace situation
 } // namespace ad_rss

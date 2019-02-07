@@ -29,22 +29,27 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "Vehicle.hpp"
+#include "situation/Vehicle.hpp"
 
 namespace ad_rss {
 namespace situation {
 
+// make the code more readable
+using physics::Acceleration;
+using physics::Duration;
+using physics::Speed;
+
 bool checkVehicleDynamics(world::Dynamics const &dynamics)
 {
   // acceleration has to be >=0
-  if (dynamics.alphaLon.accelMax < 0)
+  if (dynamics.alphaLon.accelMax < Acceleration(0.))
   {
     return false;
   }
 
   // deceleration has to be > 0
-  if ((dynamics.alphaLon.brakeMax <= 0) || (dynamics.alphaLon.brakeMin <= 0)
-      || (dynamics.alphaLon.brakeMinCorrect <= 0))
+  if ((dynamics.alphaLon.brakeMax <= Acceleration(0.)) || (dynamics.alphaLon.brakeMin <= Acceleration(0.))
+      || (dynamics.alphaLon.brakeMinCorrect <= Acceleration(0.)))
   {
     return false;
   }
@@ -57,13 +62,13 @@ bool checkVehicleDynamics(world::Dynamics const &dynamics)
   }
 
   // acceleration has to be >=0
-  if (dynamics.alphaLat.accelMax < 0)
+  if (dynamics.alphaLat.accelMax < Acceleration(0.))
   {
     return false;
   }
 
   // deceleration has to be > 0
-  if (dynamics.alphaLat.brakeMin <= 0)
+  if (dynamics.alphaLat.brakeMin <= Acceleration(0.))
   {
     return false;
   }
@@ -73,7 +78,7 @@ bool checkVehicleDynamics(world::Dynamics const &dynamics)
 
 bool checkVehicleLongitudinalVelocity(world::Velocity const &velocity)
 {
-  if (velocity.speedLon < 0)
+  if (velocity.speedLon < Speed(0.))
   {
     return false;
   }
@@ -93,7 +98,7 @@ bool checkVehicleState(VehicleState const &state)
     return false;
   }
 
-  if (state.responseTime <= 0)
+  if (state.responseTime <= Duration(0.))
   {
     return false;
   }

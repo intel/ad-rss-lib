@@ -95,11 +95,11 @@ TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
     ::ad_rss::world::LaneSegment laneSegment;
 
     laneSegment.id = 1;
-    laneSegment.length.minimum = 10;
-    laneSegment.length.maximum = 10;
+    laneSegment.length.minimum = Distance(10);
+    laneSegment.length.maximum = Distance(10);
 
-    laneSegment.width.minimum = 5;
-    laneSegment.width.maximum = 5;
+    laneSegment.width.minimum = Distance(5);
+    laneSegment.width.maximum = Distance(5);
     laneSegment.type = ::ad_rss::world::LaneSegmentType::Normal;
 
     roadSegment.push_back(laneSegment);
@@ -112,11 +112,11 @@ TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
     ::ad_rss::world::LaneSegment laneSegment;
 
     laneSegment.id = 2;
-    laneSegment.length.minimum = 5;
-    laneSegment.length.maximum = 5;
+    laneSegment.length.minimum = Distance(5);
+    laneSegment.length.maximum = Distance(5);
 
-    laneSegment.width.minimum = 5;
-    laneSegment.width.maximum = 5;
+    laneSegment.width.minimum = Distance(5);
+    laneSegment.width.maximum = Distance(5);
     laneSegment.type = ::ad_rss::world::LaneSegmentType::Intersection;
 
     roadSegment.push_back(laneSegment);
@@ -131,24 +131,24 @@ TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
   ASSERT_TRUE(extractSituations(worldModel, situationVector));
   ASSERT_EQ(situationVector.size(), 1);
 
-  ASSERT_EQ(situationVector[0].relativePosition.longitudinalDistance, 6);
-  ASSERT_EQ(situationVector[0].egoVehicleState.velocity.speedLon, 10);
+  ASSERT_EQ(situationVector[0].relativePosition.longitudinalDistance, Distance(6.));
+  ASSERT_EQ(situationVector[0].egoVehicleState.velocity.speedLon, Speed(10.));
   ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.accelMax,
             worldModel.egoVehicle.dynamics.alphaLon.accelMax);
 
-  ASSERT_EQ(situationVector[0].egoVehicleState.distanceToEnterIntersection, 0);
-  ASSERT_EQ(situationVector[0].egoVehicleState.distanceToLeaveIntersection, 7);
+  ASSERT_EQ(situationVector[0].egoVehicleState.distanceToEnterIntersection, Distance(0));
+  ASSERT_EQ(situationVector[0].egoVehicleState.distanceToLeaveIntersection, Distance(7));
   ASSERT_TRUE(situationVector[0].egoVehicleState.hasPriority);
 
-  ASSERT_EQ(situationVector[0].otherVehicleState.distanceToEnterIntersection, 8);
-  ASSERT_EQ(situationVector[0].otherVehicleState.distanceToLeaveIntersection, 14);
+  ASSERT_EQ(situationVector[0].otherVehicleState.distanceToEnterIntersection, Distance(8));
+  ASSERT_EQ(situationVector[0].otherVehicleState.distanceToLeaveIntersection, Distance(14));
   ASSERT_FALSE(situationVector[0].otherVehicleState.hasPriority);
 
   ASSERT_EQ(situationVector[0].relativePosition.longitudinalPosition,
             ::ad_rss::situation::LongitudinalRelativePosition::InFront);
 
   ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::ad_rss::situation::LateralRelativePosition::Overlap);
-  ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, 0);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, Distance(0));
 }
 
 TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
@@ -164,11 +164,11 @@ TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
     ::ad_rss::world::LaneSegment laneSegment;
 
     laneSegment.id = 1;
-    laneSegment.length.minimum = 8;
-    laneSegment.length.maximum = 10;
+    laneSegment.length.minimum = Distance(8);
+    laneSegment.length.maximum = Distance(10);
 
-    laneSegment.width.minimum = 5;
-    laneSegment.width.maximum = 5;
+    laneSegment.width.minimum = Distance(5);
+    laneSegment.width.maximum = Distance(5);
     laneSegment.type = ::ad_rss::world::LaneSegmentType::Normal;
 
     roadSegment.push_back(laneSegment);
@@ -181,11 +181,11 @@ TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
     ::ad_rss::world::LaneSegment laneSegment;
 
     laneSegment.id = 2;
-    laneSegment.length.minimum = 4;
-    laneSegment.length.maximum = 5;
+    laneSegment.length.minimum = Distance(4);
+    laneSegment.length.maximum = Distance(5);
 
-    laneSegment.width.minimum = 5;
-    laneSegment.width.maximum = 5;
+    laneSegment.width.minimum = Distance(5);
+    laneSegment.width.maximum = Distance(5);
     laneSegment.type = ::ad_rss::world::LaneSegmentType::Intersection;
 
     roadSegment.push_back(laneSegment);
@@ -200,23 +200,23 @@ TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
   ASSERT_TRUE(extractSituations(worldModel, situationVector));
   ASSERT_EQ(situationVector.size(), 1);
 
-  ASSERT_EQ(situationVector[0].egoVehicleState.velocity.speedLon, 10);
+  ASSERT_EQ(situationVector[0].egoVehicleState.velocity.speedLon, Speed(10.));
   ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.accelMax,
             worldModel.egoVehicle.dynamics.alphaLon.accelMax);
 
-  ASSERT_EQ(situationVector[0].egoVehicleState.distanceToEnterIntersection, 0);
-  ASSERT_EQ(situationVector[0].egoVehicleState.distanceToLeaveIntersection, 8.6);
+  ASSERT_EQ(situationVector[0].egoVehicleState.distanceToEnterIntersection, Distance(0.));
+  ASSERT_EQ(situationVector[0].egoVehicleState.distanceToLeaveIntersection, Distance(8.6));
   ASSERT_TRUE(situationVector[0].egoVehicleState.hasPriority);
 
-  ASSERT_EQ(situationVector[0].otherVehicleState.distanceToEnterIntersection, 6);
-  ASSERT_EQ(situationVector[0].otherVehicleState.distanceToLeaveIntersection, 14.2);
+  ASSERT_EQ(situationVector[0].otherVehicleState.distanceToEnterIntersection, Distance(6.));
+  ASSERT_EQ(situationVector[0].otherVehicleState.distanceToLeaveIntersection, Distance(14.2));
   ASSERT_FALSE(situationVector[0].otherVehicleState.hasPriority);
 
   ASSERT_EQ(situationVector[0].relativePosition.longitudinalPosition,
             ::ad_rss::situation::LongitudinalRelativePosition::InFront);
 
   ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::ad_rss::situation::LateralRelativePosition::Overlap);
-  ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, 0);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, Distance(0));
 }
 
 } // namespace RssSituationExtraction
