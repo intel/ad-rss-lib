@@ -34,14 +34,13 @@
 
 #pragma once
 
-#include "rss/world/Distance.hpp"
-#include "rss/world/LaneSegment.hpp"
-#include "rss/world/Object.hpp"
+#include "ad_rss/world/LaneSegment.hpp"
+#include "ad_rss/world/Object.hpp"
 
 /*!
- * @brief namespace rss
+ * @brief namespace ad_rss
  */
-namespace rss {
+namespace ad_rss {
 /*!
  * @brief namespace world
  */
@@ -55,22 +54,22 @@ class ObjectDimensions
 public:
   ObjectDimensions()
   {
-    longitudinalDimensions.maximum = std::numeric_limits<Distance>::lowest();
-    longitudinalDimensions.minimum = std::numeric_limits<Distance>::max();
+    longitudinalDimensions.maximum = std::numeric_limits<physics::Distance>::lowest();
+    longitudinalDimensions.minimum = std::numeric_limits<physics::Distance>::max();
 
-    lateralDimensions.maximum = std::numeric_limits<Distance>::lowest();
-    lateralDimensions.minimum = std::numeric_limits<Distance>::max();
+    lateralDimensions.maximum = std::numeric_limits<physics::Distance>::lowest();
+    lateralDimensions.minimum = std::numeric_limits<physics::Distance>::max();
   }
 
   /**
    * @brief range of longitudinal object position
    */
-  MetricRange longitudinalDimensions;
+  physics::MetricRange longitudinalDimensions;
 
   /**
     * @brief range of lateral object position
     */
-  MetricRange lateralDimensions;
+  physics::MetricRange lateralDimensions;
 
   /**
     * @brief flag to indicate if the object is on the positive driving lane
@@ -88,7 +87,7 @@ public:
       * minimum: minimal distance to intersection entry
       * maximum: maximum distance to intersection exit
       */
-  MetricRange intersectionPosition;
+  physics::MetricRange intersectionPosition;
 };
 
 /**
@@ -119,7 +118,7 @@ public:
    *
    * @returns return false if an error occurred, true otherwise.
    */
-  bool newRoadSegment(Distance const &longitudinalStartMin, Distance const &longitudinalStartMax);
+  bool newRoadSegment(physics::Distance const &longitudinalStartMin, physics::Distance const &longitudinalStartMax);
 
   /**
    * @brief Add information of the next adjacent laneSegement
@@ -129,7 +128,7 @@ public:
    *
    * @returns false if an error occurred, true otherwise.
    */
-  bool newLaneSegment(world::MetricRange lateralDistance, LaneSegment const &laneSegment);
+  bool newLaneSegment(physics::MetricRange lateralDistance, LaneSegment const &laneSegment);
 
   /**
    * @brief Retrieve the objectDimension information back from the class
@@ -143,8 +142,8 @@ public:
 private:
   OccupiedRegionVector mOccupiedRegions;
 
-  Distance mCurrentLongitudinalMax{0};
-  Distance mCurrentLongitudinalMin{0};
+  physics::Distance mCurrentLongitudinalMax{0};
+  physics::Distance mCurrentLongitudinalMin{0};
 
   bool mIntersectionReached{false};
   bool mIntersectionEndReached{false};
@@ -153,4 +152,4 @@ private:
 };
 
 } // namespace world
-} // namespace rss
+} // namespace ad_rss

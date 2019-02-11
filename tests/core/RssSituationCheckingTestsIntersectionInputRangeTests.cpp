@@ -30,9 +30,9 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssSituationChecking.hpp"
+#include "ad_rss/core/RssSituationChecking.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 class RssSituationCheckingTestsIntersectionInputRangeTests : public testing::Test
@@ -160,4 +160,4 @@ TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, sitatuion_initialy_
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

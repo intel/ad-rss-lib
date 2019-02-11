@@ -31,10 +31,10 @@
 
 #include "Vehicle.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace situation {
 
-bool checkVehicleDynamics(Dynamics const &dynamics)
+bool checkVehicleDynamics(world::Dynamics const &dynamics)
 {
   // acceleration has to be >=0
   if (dynamics.alphaLon.accelMax < 0)
@@ -71,7 +71,7 @@ bool checkVehicleDynamics(Dynamics const &dynamics)
   return true;
 }
 
-bool checkVehicleLongitudinalVelocity(Velocity const &velocity)
+bool checkVehicleLongitudinalVelocity(world::Velocity const &velocity)
 {
   if (velocity.speedLon < 0)
   {
@@ -102,4 +102,4 @@ bool checkVehicleState(VehicleState const &state)
 }
 
 } // namespace situation
-} // namespace rss
+} // namespace ad_rss

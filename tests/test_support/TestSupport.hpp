@@ -34,16 +34,48 @@
 #include <gtest/gtest.h>
 
 #include "RSSParameters.hpp"
-#include "rss/situation/RelativePosition.hpp"
-#include "rss/situation/VehicleState.hpp"
-#include "rss/state/ResponseState.hpp"
-#include "rss/world/Object.hpp"
+#include "ad_rss/situation/RelativePosition.hpp"
+#include "ad_rss/situation/VehicleState.hpp"
+#include "ad_rss/state/ResponseState.hpp"
+#include "ad_rss/world/Object.hpp"
 
-namespace rss {
+namespace ad_rss {
 
 const double cDoubleNear = 0.01;
 
-inline situation::Speed kmhToMeterPerSec(double speed)
+class TestSupport
+{
+public:
+  TestSupport()
+  {
+    cLongitudinalSafe.isSafe = true;
+    cLongitudinalSafe.response = state::LongitudinalResponse::None;
+    cLongitudinalNone.isSafe = false;
+    cLongitudinalNone.response = state::LongitudinalResponse::None;
+    cLongitudinalBrakeMin.isSafe = false;
+    cLongitudinalBrakeMin.response = state::LongitudinalResponse::BrakeMin;
+    cLongitudinalBrakeMinCorrect.isSafe = false;
+    cLongitudinalBrakeMinCorrect.response = state::LongitudinalResponse::BrakeMinCorrect;
+    cLateralSafe.isSafe = true;
+    cLateralSafe.response = state::LateralResponse::None;
+    cLateralNone.isSafe = false;
+    cLateralNone.response = state::LateralResponse::None;
+    cLateralBrakeMin.isSafe = false;
+    cLateralBrakeMin.response = state::LateralResponse::BrakeMin;
+  }
+
+  state::LongitudinalRssState cLongitudinalSafe;
+  state::LongitudinalRssState cLongitudinalNone;
+  state::LongitudinalRssState cLongitudinalBrakeMin;
+  state::LongitudinalRssState cLongitudinalBrakeMinCorrect;
+  state::LateralRssState cLateralSafe;
+  state::LateralRssState cLateralNone;
+  state::LateralRssState cLateralBrakeMin;
+};
+
+static const TestSupport cTestSupport;
+
+inline physics::Speed kmhToMeterPerSec(double speed)
 {
   return speed / 3.6;
 }
@@ -54,15 +86,15 @@ inline world::Object createObject(double lonVelocity, double latVelocity)
 
   object.velocity.speedLon = kmhToMeterPerSec(lonVelocity);
   object.velocity.speedLat = kmhToMeterPerSec(latVelocity);
-  object.dynamics.alphaLon.accelMax = situation::cMaximumLongitudinalAcceleration;
-  object.dynamics.alphaLon.brakeMax = situation::cMaximumLongitudinalBrakingDeceleleration;
-  object.dynamics.alphaLon.brakeMin = situation::cMinimumLongitudinalBrakingDeceleleration;
-  object.dynamics.alphaLon.brakeMinCorrect = situation::cMinimumLongitudinalBrakingDecelelerationCorrect;
+  object.dynamics.alphaLon.accelMax = physics::cMaximumLongitudinalAcceleration;
+  object.dynamics.alphaLon.brakeMax = physics::cMaximumLongitudinalBrakingDeceleleration;
+  object.dynamics.alphaLon.brakeMin = physics::cMinimumLongitudinalBrakingDeceleleration;
+  object.dynamics.alphaLon.brakeMinCorrect = physics::cMinimumLongitudinalBrakingDecelelerationCorrect;
 
-  object.dynamics.alphaLat.accelMax = situation::cMaximumLateralAcceleration;
-  object.dynamics.alphaLat.brakeMin = situation::cMinimumLateralBrakingDeceleleration;
+  object.dynamics.alphaLat.accelMax = physics::cMaximumLateralAcceleration;
+  object.dynamics.alphaLat.brakeMin = physics::cMinimumLateralBrakingDeceleleration;
 
-  object.responseTime = situation::cResponseTimeOtherVehicles;
+  object.responseTime = physics::cResponseTimeOtherVehicles;
 
   return object;
 }
@@ -73,17 +105,17 @@ inline situation::VehicleState createVehicleState(double lonVelocity, double lat
 
   state.velocity.speedLon = kmhToMeterPerSec(lonVelocity);
   state.velocity.speedLat = kmhToMeterPerSec(latVelocity);
-  state.dynamics.alphaLon.accelMax = situation::cMaximumLongitudinalAcceleration;
-  state.dynamics.alphaLon.brakeMax = situation::cMaximumLongitudinalBrakingDeceleleration;
-  state.dynamics.alphaLon.brakeMin = situation::cMinimumLongitudinalBrakingDeceleleration;
-  state.dynamics.alphaLon.brakeMinCorrect = situation::cMinimumLongitudinalBrakingDecelelerationCorrect;
+  state.dynamics.alphaLon.accelMax = physics::cMaximumLongitudinalAcceleration;
+  state.dynamics.alphaLon.brakeMax = physics::cMaximumLongitudinalBrakingDeceleleration;
+  state.dynamics.alphaLon.brakeMin = physics::cMinimumLongitudinalBrakingDeceleleration;
+  state.dynamics.alphaLon.brakeMinCorrect = physics::cMinimumLongitudinalBrakingDecelelerationCorrect;
 
-  state.dynamics.alphaLat.accelMax = situation::cMaximumLateralAcceleration;
-  state.dynamics.alphaLat.brakeMin = situation::cMinimumLateralBrakingDeceleleration;
+  state.dynamics.alphaLat.accelMax = physics::cMaximumLateralAcceleration;
+  state.dynamics.alphaLat.brakeMin = physics::cMinimumLateralBrakingDeceleleration;
 
-  state.responseTime = situation::cResponseTimeOtherVehicles;
-  state.distanceToEnterIntersection = std::numeric_limits<situation::Distance>::max();
-  state.distanceToLeaveIntersection = std::numeric_limits<situation::Distance>::max();
+  state.responseTime = physics::cResponseTimeOtherVehicles;
+  state.distanceToEnterIntersection = std::numeric_limits<physics::Distance>::max();
+  state.distanceToLeaveIntersection = std::numeric_limits<physics::Distance>::max();
   state.hasPriority = false;
   state.isInCorrectLane = true;
 
@@ -101,7 +133,7 @@ inline situation::VehicleState createVehicleStateForLateralMotion(double velocit
 }
 
 inline situation::RelativePosition createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition position,
-                                                                      situation::Distance distance = 0.)
+                                                                      physics::Distance distance = 0.)
 {
   situation::RelativePosition relativePosition;
   relativePosition.lateralDistance = 0.;
@@ -112,7 +144,7 @@ inline situation::RelativePosition createRelativeLongitudinalPosition(situation:
 }
 
 inline situation::RelativePosition createRelativeLateralPosition(situation::LateralRelativePosition position,
-                                                                 situation::Distance distance = 0.)
+                                                                 physics::Distance distance = 0.)
 {
   situation::RelativePosition relativePosition;
   relativePosition.lateralDistance = distance;
@@ -122,23 +154,23 @@ inline situation::RelativePosition createRelativeLateralPosition(situation::Late
   return relativePosition;
 }
 
-inline double calculateLongitudinalMinSafeDistance(::rss::world::Object const &followingObject,
-                                                   ::rss::world::Object const &leadingObject)
+inline double calculateLongitudinalMinSafeDistance(::ad_rss::world::Object const &followingObject,
+                                                   ::ad_rss::world::Object const &leadingObject)
 {
   double dMin = followingObject.velocity.speedLon * followingObject.responseTime;
-  dMin += 0.5 * followingObject.dynamics.alphaLon.accelMax * std::pow(followingObject.responseTime, 2.);
-  dMin += std::pow(followingObject.velocity.speedLon
-                     + followingObject.responseTime * followingObject.dynamics.alphaLon.accelMax,
-                   2.)
-    / (2. * followingObject.dynamics.alphaLon.brakeMin);
+  dMin
+    += 0.5 * followingObject.dynamics.alphaLon.accelMax * followingObject.responseTime * followingObject.responseTime;
+  double const speedMax
+    = followingObject.velocity.speedLon + followingObject.responseTime * followingObject.dynamics.alphaLon.accelMax;
+  dMin += (speedMax * speedMax) / (2. * followingObject.dynamics.alphaLon.brakeMin);
   dMin = dMin
     - leadingObject.velocity.speedLon * leadingObject.velocity.speedLon
       / (2. * leadingObject.dynamics.alphaLon.brakeMax);
   return dMin;
 }
 
-inline double calculateLongitudinalMinSafeDistanceOppositeDirection(::rss::world::Object const &objectA,
-                                                                    ::rss::world::Object const &objectB)
+inline double calculateLongitudinalMinSafeDistanceOppositeDirection(::ad_rss::world::Object const &objectA,
+                                                                    ::ad_rss::world::Object const &objectB)
 {
   double objectAVelAfterResTime = objectA.velocity.speedLon + objectA.responseTime * objectA.dynamics.alphaLon.accelMax;
   double objectBVelAfterResTime = objectB.velocity.speedLon + objectB.responseTime * objectB.dynamics.alphaLon.accelMax;
@@ -150,8 +182,8 @@ inline double calculateLongitudinalMinSafeDistanceOppositeDirection(::rss::world
   return dMin;
 }
 
-inline double calculateLateralMinSafeDistance(::rss::world::Object const &leftObject,
-                                              ::rss::world::Object const &rightObject)
+inline double calculateLateralMinSafeDistance(::ad_rss::world::Object const &leftObject,
+                                              ::ad_rss::world::Object const &rightObject)
 {
   double lObjectVelAfterResTime
     = leftObject.velocity.speedLat + leftObject.responseTime * leftObject.dynamics.alphaLat.accelMax;
@@ -186,24 +218,15 @@ template <typename RSSState, typename RSSStateLiteral> void setRssStateUnsafe(RS
   state.response = literal;
   state.isSafe = false;
 }
-
-static const state::LongitudinalRssState cLongitudinalSafe{true, state::LongitudinalResponse::None};
-static const state::LongitudinalRssState cLongitudinalNone{false, state::LongitudinalResponse::None};
-static const state::LongitudinalRssState cLongitudinalBrakeMin{false, state::LongitudinalResponse::BrakeMin};
-static const state::LongitudinalRssState cLongitudinalBrakeMinCorrect{false,
-                                                                      state::LongitudinalResponse::BrakeMinCorrect};
-
-static const state::LateralRssState cLateralSafe{true, state::LateralResponse::None};
-static const state::LateralRssState cLateralNone{false, state::LateralResponse::None};
-static const state::LateralRssState cLateralBrakeMin{false, state::LateralResponse::BrakeMin};
 }
 
-inline bool operator==(::rss::state::LongitudinalRssState const &left, ::rss::state::LongitudinalRssState const &right)
+inline bool operator==(::ad_rss::state::LongitudinalRssState const &left,
+                       ::ad_rss::state::LongitudinalRssState const &right)
 {
   return (left.isSafe == right.isSafe) && (left.response == right.response);
 }
 
-inline bool operator==(::rss::state::LateralRssState const &left, ::rss::state::LateralRssState const &right)
+inline bool operator==(::ad_rss::state::LateralRssState const &left, ::ad_rss::state::LateralRssState const &right)
 {
   return (left.isSafe == right.isSafe) && (left.response == right.response);
 }

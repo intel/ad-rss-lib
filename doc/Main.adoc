@@ -1,5 +1,5 @@
-# RSS Documentation
-Cornelius Buerkle, Bernd Gassmann, Fabian Oboril
+# RSS Open Library
+Ad-rss-lib
 // table of content
 :toc: left
 :toclevels: 3
@@ -25,7 +25,7 @@ Cornelius Buerkle, Bernd Gassmann, Fabian Oboril
 :pdf-style: custom
 :pdf-fontsdir: /var/lib/gems/2.3.0/gems/asciidoctor-pdf-1.5.0.alpha.16/data/fonts
 // html ressources
-:revnumber: 0.5
+:revnumber: 1.0
 :revdate: {localdate}
 :stylesheet: documentation_style.css
 :stylesdir: ./resources/css
@@ -43,5 +43,3 @@ include::{includedir}/Overview.adoc[]
 include::{includedir}/HighLevelDesign.adoc[]
 
 include::{includedir}/Appendix.adoc[]
-
-//include::{includedir}/InterfaceComponentDescription.adoc[]

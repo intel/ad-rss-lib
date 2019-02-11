@@ -30,9 +30,9 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssSituationChecking.hpp"
+#include "ad_rss/core/RssSituationChecking.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 class RssSituationCheckingTestsIntersectionPriority : public testing::Test
@@ -74,7 +74,7 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_le
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 10.);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 }
 
 TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_following)
@@ -95,7 +95,7 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_fo
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_TRUE(responseState.longitudinalState.isSafe);
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 }
 
 TEST_F(RssSituationCheckingTestsIntersectionPriority, 50km_h_stop_before_intersection)
@@ -120,7 +120,7 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50km_h_stop_before_interse
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_TRUE(responseState.longitudinalState.isSafe);
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 
   situation.timeIndex = 1u;
 
@@ -131,8 +131,8 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50km_h_stop_before_interse
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
   ASSERT_FALSE(responseState.longitudinalState.isSafe);
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalNone);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalNone);
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

@@ -35,13 +35,13 @@ set(BUILD_DOC "OFF" CACHE BOOL "Enable compilation of doxygen documentation")
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-project(RSSModule VERSION 0.5)
+project(ad_rss_lib VERSION 1.0)
 
 set(CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 11)
 # enable a bunch of warning
 add_compile_options(-Wall -Wextra -pedantic -Wfloat-equal -Wshadow -Wswitch-default -Wenum-compare -Wformat -Wformat-security)
-# use some warnings only for library code not for gtest 
+# use some warnings only for library code not for gtest
 set(TARGET_COMPILE_OPTIONS -Wconversion -Wsign-conversion)
 # warnings are treated as error
 add_compile_options(-Werror)
@@ -59,7 +59,16 @@ add_library(${PROJECT_NAME} SHARED
   src/core/RssResponseTransformation.cpp
   src/core/RssSituationChecking.cpp
   src/core/RssSituationExtraction.cpp
-  src/situation/Math.cpp
+  src/physics/Math.cpp
+  src/ad_rss/physics/CoordinateSystemAxis.cpp
+  src/ad_rss/situation/LateralRelativePosition.cpp
+  src/ad_rss/situation/LongitudinalRelativePosition.cpp
+  src/ad_rss/situation/SituationType.cpp
+  src/ad_rss/state/LateralResponse.cpp
+  src/ad_rss/state/LongitudinalResponse.cpp
+  src/ad_rss/world/LaneDrivingDirection.cpp
+  src/ad_rss/world/LaneSegmentType.cpp
+  src/ad_rss/world/ObjectType.cpp
   src/situation/RSSFormulas.cpp
   src/situation/RssIntersectionChecker.cpp
   src/situation/RSSSituation.cpp
@@ -69,7 +78,7 @@ add_library(${PROJECT_NAME} SHARED
   )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-  OUTPUT_NAME rss_module
+  OUTPUT_NAME ad_rss
   VERSION ${PROJECT_VERSION}
   SOVERSION ${PROJECT_VERSION_MAJOR})
 
@@ -85,48 +94,10 @@ target_compile_options(${PROJECT_NAME} PRIVATE ${COVERAGE_FLAG} ${TARGET_COMPILE
 set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "${COVERAGE_FLAG} ${HARDENING_LD_FLAGS}")
 
 ################################################################################
-# RSSSupport section
-
-################################################################################
-
-add_library(RSSSupport SHARED
-  src/rss/situation/CoordinateSystemAxis.cpp
-  src/rss/situation/LateralRelativePosition.cpp
-  src/rss/situation/LongitudinalRelativePosition.cpp
-  src/rss/situation/SituationType.cpp
-  src/rss/state/LateralResponse.cpp
-  src/rss/state/LongitudinalResponse.cpp
-  src/rss/world/LaneDrivingDirection.cpp
-  src/rss/world/LaneSegmentType.cpp
-  src/rss/world/ObjectType.cpp
-)
-
-set_target_properties(RSSSupport PROPERTIES
-  OUTPUT_NAME rss_support
-  VERSION ${PROJECT_VERSION}
-  SOVERSION ${PROJECT_VERSION_MAJOR})
-
-target_include_directories(RSSSupport
-  PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-  PRIVATE
-  src
-)
-
-target_link_libraries(RSSSupport
-  PUBLIC
-  ${PROJECT_NAME}
-)
-
-target_compile_options(RSSSupport PRIVATE ${COVERAGE_FLAG} ${TARGET_COMPILE_OPTIONS})
-set_target_properties(RSSSupport PROPERTIES LINK_FLAGS "${COVERAGE_FLAG} ${HARDENING_LD_FLAGS}")
-
-################################################################################
 # Install section
 ################################################################################
 # common section
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/rss
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ad_rss
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 if(IS_ABSOLUTE "${CMAKE_INSTALL_LIBDIR}")
@@ -135,7 +106,6 @@ else()
   set(CMAKE_INSTALL_LIBDIR_RELATIVE "${CMAKE_INSTALL_LIBDIR}")
 endif()
 
-# RSSModule
 install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}_EXPORT
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR_RELATIVE}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR_RELATIVE})
@@ -150,23 +120,6 @@ configure_package_config_file(${PROJECT_NAME}Config.cmake.in ${CMAKE_CURRENT_BIN
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
   DESTINATION ${CMAKECONFIG_INSTALL_DIR}
   COMPONENT libs)
-
-# RSSSupport
-install(TARGETS RSSSupport EXPORT RSSSupport_EXPORT
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR_RELATIVE}
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR_RELATIVE})
-
-set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR_RELATIVE}/cmake/RSSSupport")
-
-install(EXPORT RSSSupport_EXPORT FILE RSSSupportTargets.cmake
-  DESTINATION ${CMAKECONFIG_INSTALL_DIR})
-
-configure_package_config_file(RSSSupportConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/RSSSupportConfig.cmake INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR})
-
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/RSSSupportConfig.cmake"
-  DESTINATION ${CMAKECONFIG_INSTALL_DIR}
-  COMPONENT libs)
-
 
 ################################################################################
 # Test section

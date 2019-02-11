@@ -1,7 +1,7 @@
-## Build RSS core library and documentation
+## Build ad_rss_lib and documentation
 
 ### Build instructions
-The RSS library is built with a standard cmake toolchain. Therefore, run the
+The ad_rss_lib is built with a standard cmake toolchain. Therefore, run the
 following commands, to build the library and documentation:
 
 [source, Bash]

@@ -30,9 +30,9 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssCheck.hpp"
+#include "ad_rss/core/RssCheck.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 class RssCheckLateralTests : public testing::Test
@@ -40,12 +40,12 @@ class RssCheckLateralTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    scene.situationType = rss::situation::SituationType::SameDirection;
+    scene.situationType = ad_rss::situation::SituationType::SameDirection;
     leftObject = createObject(10., 3.);
     leftObject.objectId = 0;
 
     {
-      ::rss::world::OccupiedRegion occupiedRegion;
+      ::ad_rss::world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = 0.;
       occupiedRegion.lonRange.maximum = 0.1;
       occupiedRegion.segmentId = 3;
@@ -57,7 +57,7 @@ protected:
     rightObject = createObject(10., -3.);
     rightObject.objectId = 1;
     {
-      ::rss::world::OccupiedRegion occupiedRegion;
+      ::ad_rss::world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = 0.;
       occupiedRegion.lonRange.maximum = 0.1;
       occupiedRegion.segmentId = 5;
@@ -72,8 +72,8 @@ protected:
     //   |  0  |  1  |  2  |
 
     {
-      ::rss::world::RoadSegment roadSegment;
-      ::rss::world::LaneSegment laneSegment;
+      ::ad_rss::world::RoadSegment roadSegment;
+      ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 0;
       laneSegment.length.minimum = 50;
@@ -98,8 +98,8 @@ protected:
     }
 
     {
-      ::rss::world::RoadSegment roadSegment;
-      ::rss::world::LaneSegment laneSegment;
+      ::ad_rss::world::RoadSegment roadSegment;
+      ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 3;
       laneSegment.length.minimum = 2;
@@ -124,8 +124,8 @@ protected:
     }
 
     {
-      ::rss::world::RoadSegment roadSegment;
-      ::rss::world::LaneSegment laneSegment;
+      ::ad_rss::world::RoadSegment roadSegment;
+      ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 6;
       laneSegment.length.minimum = 50;
@@ -156,15 +156,15 @@ protected:
     rightObject.occupiedRegions.clear();
     scene.egoVehicleRoad.clear();
   }
-  ::rss::world::Object leftObject;
-  ::rss::world::Object rightObject;
-  ::rss::world::RoadArea roadArea;
-  ::rss::world::Scene scene;
+  ::ad_rss::world::Object leftObject;
+  ::ad_rss::world::Object rightObject;
+  ::ad_rss::world::RoadArea roadArea;
+  ::ad_rss::world::Scene scene;
 };
 
 TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Right)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = rightObject;
   worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(10);
@@ -174,8 +174,8 @@ TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Right)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i <= 90; i++)
   {
@@ -200,7 +200,7 @@ TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Right)
     {
       ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum,
                 -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-      ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, std::numeric_limits<world::Acceleration>::lowest());
+      ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, std::numeric_limits<physics::Acceleration>::lowest());
     }
     ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
               -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
@@ -210,7 +210,7 @@ TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Right)
 
 TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Left)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = leftObject;
   worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(10);
@@ -220,8 +220,8 @@ TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Left)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i <= 90; i++)
   {
@@ -249,14 +249,15 @@ TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Left)
     {
       ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum,
                 -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-      ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum, std::numeric_limits<world::Acceleration>::lowest());
+      ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
+                std::numeric_limits<physics::Acceleration>::lowest());
     }
   }
 }
 
 TEST_F(RssCheckLateralTests, No_Lateral_Velocity)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = rightObject;
   worldModel.egoVehicle.velocity.speedLat = kmhToMeterPerSec(0);
@@ -266,8 +267,8 @@ TEST_F(RssCheckLateralTests, No_Lateral_Velocity)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i <= 90; i++)
   {
@@ -290,7 +291,7 @@ TEST_F(RssCheckLateralTests, No_Lateral_Velocity)
 
 TEST_F(RssCheckLateralTests, Lateral_Velocity_Aways_From_Each_Other)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = rightObject;
   worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(10);
@@ -302,8 +303,8 @@ TEST_F(RssCheckLateralTests, Lateral_Velocity_Aways_From_Each_Other)
   worldModel.timeIndex = 1;
   worldModel.scenes[0].object.velocity.speedLat = kmhToMeterPerSec(-5);
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i <= 90; i++)
   {
@@ -325,4 +326,4 @@ TEST_F(RssCheckLateralTests, Lateral_Velocity_Aways_From_Each_Other)
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

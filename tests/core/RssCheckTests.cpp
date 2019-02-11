@@ -30,9 +30,9 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssCheck.hpp"
+#include "ad_rss/core/RssCheck.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 class RssCheckTests : public testing::Test
@@ -40,12 +40,12 @@ class RssCheckTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    scene.situationType = rss::situation::SituationType::SameDirection;
+    scene.situationType = ad_rss::situation::SituationType::SameDirection;
     leadingObject = createObject(10., 0.);
     leadingObject.objectId = 0;
 
     {
-      ::rss::world::OccupiedRegion occupiedRegion;
+      ::ad_rss::world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = 0.3;
       occupiedRegion.lonRange.maximum = 0.6;
       occupiedRegion.segmentId = 1;
@@ -57,7 +57,7 @@ protected:
     followingObject = createObject(0., 0.);
     followingObject.objectId = 1;
     {
-      ::rss::world::OccupiedRegion occupiedRegion;
+      ::ad_rss::world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = 0.;
       occupiedRegion.lonRange.maximum = 0.1;
       occupiedRegion.segmentId = 1;
@@ -72,8 +72,8 @@ protected:
     //   |  0  |  1  |  2  |
 
     {
-      ::rss::world::RoadSegment roadSegment;
-      ::rss::world::LaneSegment laneSegment;
+      ::ad_rss::world::RoadSegment roadSegment;
+      ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 0;
       laneSegment.length.minimum = 50;
@@ -104,15 +104,15 @@ protected:
     leadingObject.occupiedRegions.clear();
     scene.egoVehicleRoad.clear();
   }
-  ::rss::world::Object followingObject;
-  ::rss::world::Object leadingObject;
-  ::rss::world::RoadArea roadArea;
-  ::rss::world::Scene scene;
+  ::ad_rss::world::Object followingObject;
+  ::ad_rss::world::Object leadingObject;
+  ::ad_rss::world::RoadArea roadArea;
+  ::ad_rss::world::Scene scene;
 };
 
 TEST_F(RssCheckTests, EmptyRoad)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = followingObject;
   scene.object = leadingObject;
@@ -121,15 +121,15 @@ TEST_F(RssCheckTests, EmptyRoad)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
 
 TEST_F(RssCheckTests, EmptyScene)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = followingObject;
   scene.object = leadingObject;
@@ -138,8 +138,8 @@ TEST_F(RssCheckTests, EmptyScene)
   worldModel.scenes.clear();
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
   ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
@@ -153,7 +153,7 @@ TEST_F(RssCheckTests, EmptyScene)
 
 TEST_F(RssCheckTests, EmptyEgoOccupiedRegion)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = followingObject;
   scene.object = leadingObject;
@@ -162,8 +162,8 @@ TEST_F(RssCheckTests, EmptyEgoOccupiedRegion)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   worldModel.egoVehicle.occupiedRegions.clear();
 
@@ -172,7 +172,7 @@ TEST_F(RssCheckTests, EmptyEgoOccupiedRegion)
 
 TEST_F(RssCheckTests, WrongEgoOccupiedRegion)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = followingObject;
   scene.object = leadingObject;
@@ -181,8 +181,8 @@ TEST_F(RssCheckTests, WrongEgoOccupiedRegion)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = 0.5;
   worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = 0.3;
@@ -192,7 +192,7 @@ TEST_F(RssCheckTests, WrongEgoOccupiedRegion)
 
 TEST_F(RssCheckTests, NegativeEgoVelocity)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = followingObject;
   scene.object = leadingObject;
@@ -201,8 +201,8 @@ TEST_F(RssCheckTests, NegativeEgoVelocity)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 0;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   worldModel.egoVehicle.velocity.speedLon = -3;
 
@@ -211,7 +211,7 @@ TEST_F(RssCheckTests, NegativeEgoVelocity)
 
 TEST_F(RssCheckTests, NegativeEgoAcceleration)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = followingObject;
   scene.object = leadingObject;
@@ -220,8 +220,8 @@ TEST_F(RssCheckTests, NegativeEgoAcceleration)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   worldModel.egoVehicle.dynamics.alphaLon.accelMax = -3;
 
@@ -229,4 +229,4 @@ TEST_F(RssCheckTests, NegativeEgoAcceleration)
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

@@ -30,9 +30,9 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssCheck.hpp"
+#include "ad_rss/core/RssCheck.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 class RssCheckOppositeDirectionTests : public testing::Test
@@ -40,11 +40,11 @@ class RssCheckOppositeDirectionTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    scene.situationType = rss::situation::SituationType::OppositeDirection;
+    scene.situationType = ad_rss::situation::SituationType::OppositeDirection;
     opposingObject = createObject(10., 0.);
     opposingObject.objectId = 0;
     {
-      ::rss::world::OccupiedRegion occupiedRegion;
+      ::ad_rss::world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = 0.;
       occupiedRegion.lonRange.maximum = 0.1;
       occupiedRegion.segmentId = 7;
@@ -56,7 +56,7 @@ protected:
     normalObject = createObject(10., 0.);
     normalObject.objectId = 1;
     {
-      ::rss::world::OccupiedRegion occupiedRegion;
+      ::ad_rss::world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = 0.;
       occupiedRegion.lonRange.maximum = 0.1;
       occupiedRegion.segmentId = 1;
@@ -71,9 +71,9 @@ protected:
     //   |  0  |  1  |  2  |
 
     {
-      ::rss::world::RoadSegment roadSegment;
-      ::rss::world::LaneSegment laneSegment;
-      laneSegment.drivingDirection = ::rss::world::LaneDrivingDirection::Positive;
+      ::ad_rss::world::RoadSegment roadSegment;
+      ::ad_rss::world::LaneSegment laneSegment;
+      laneSegment.drivingDirection = ::ad_rss::world::LaneDrivingDirection::Positive;
 
       laneSegment.id = 0;
       laneSegment.length.minimum = 50;
@@ -98,9 +98,9 @@ protected:
     }
 
     {
-      ::rss::world::RoadSegment roadSegment;
-      ::rss::world::LaneSegment laneSegment;
-      laneSegment.drivingDirection = ::rss::world::LaneDrivingDirection::Positive;
+      ::ad_rss::world::RoadSegment roadSegment;
+      ::ad_rss::world::LaneSegment laneSegment;
+      laneSegment.drivingDirection = ::ad_rss::world::LaneDrivingDirection::Positive;
 
       laneSegment.id = 3;
       laneSegment.length.minimum = 12;
@@ -125,9 +125,9 @@ protected:
     }
 
     {
-      ::rss::world::RoadSegment roadSegment;
-      ::rss::world::LaneSegment laneSegment;
-      laneSegment.drivingDirection = ::rss::world::LaneDrivingDirection::Positive;
+      ::ad_rss::world::RoadSegment roadSegment;
+      ::ad_rss::world::LaneSegment laneSegment;
+      laneSegment.drivingDirection = ::ad_rss::world::LaneDrivingDirection::Positive;
 
       laneSegment.id = 6;
       laneSegment.length.minimum = 50;
@@ -158,15 +158,15 @@ protected:
     normalObject.occupiedRegions.clear();
     scene.egoVehicleRoad.clear();
   }
-  ::rss::world::Object opposingObject;
-  ::rss::world::Object normalObject;
-  ::rss::world::RoadArea roadArea;
-  ::rss::world::Scene scene;
+  ::ad_rss::world::Object opposingObject;
+  ::ad_rss::world::Object normalObject;
+  ::ad_rss::world::RoadArea roadArea;
+  ::ad_rss::world::Scene scene;
 };
 
 TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentDistances)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = normalObject;
   scene.object = opposingObject;
@@ -175,8 +175,8 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentDistances)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i <= 90; i++)
   {
@@ -212,7 +212,7 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentDistances)
 
 TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentVelocities)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = normalObject;
   scene.object = opposingObject;
@@ -221,8 +221,8 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentVelocities)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -257,7 +257,7 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentVelocities)
 
 TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentVelocities_DifferentLaneSegements)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = normalObject;
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 2;
@@ -267,8 +267,8 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentVelocities_Differe
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -303,7 +303,7 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentVelocities_Differe
 
 TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentVelocities_NoLateralConflict)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = normalObject;
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 0;
@@ -316,8 +316,8 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentVelocities_NoLater
   worldModel.timeIndex = 1;
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -342,7 +342,7 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentVelocities_NoLater
 
 TEST_F(RssCheckOppositeDirectionTests, NotRelevant)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = normalObject;
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 8;
@@ -353,10 +353,10 @@ TEST_F(RssCheckOppositeDirectionTests, NotRelevant)
   worldModel.timeIndex = 1;
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 0;
 
-  worldModel.scenes[0].situationType = ::rss::situation::SituationType::NotRelevant;
+  worldModel.scenes[0].situationType = ::ad_rss::situation::SituationType::NotRelevant;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -381,7 +381,7 @@ TEST_F(RssCheckOppositeDirectionTests, NotRelevant)
 
 TEST_F(RssCheckOppositeDirectionTests, BothOnCorrectLane_DifferentVelocities)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = normalObject;
   scene.object = opposingObject;
@@ -390,18 +390,18 @@ TEST_F(RssCheckOppositeDirectionTests, BothOnCorrectLane_DifferentVelocities)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  worldModel.scenes[0].egoVehicleRoad[0][0].drivingDirection = ::rss::world::LaneDrivingDirection::Bidirectional;
-  worldModel.scenes[0].egoVehicleRoad[0][1].drivingDirection = ::rss::world::LaneDrivingDirection::Bidirectional;
-  worldModel.scenes[0].egoVehicleRoad[0][2].drivingDirection = ::rss::world::LaneDrivingDirection::Bidirectional;
-  worldModel.scenes[0].egoVehicleRoad[1][0].drivingDirection = ::rss::world::LaneDrivingDirection::Bidirectional;
-  worldModel.scenes[0].egoVehicleRoad[1][1].drivingDirection = ::rss::world::LaneDrivingDirection::Bidirectional;
-  worldModel.scenes[0].egoVehicleRoad[1][2].drivingDirection = ::rss::world::LaneDrivingDirection::Bidirectional;
-  worldModel.scenes[0].egoVehicleRoad[2][0].drivingDirection = ::rss::world::LaneDrivingDirection::Bidirectional;
-  worldModel.scenes[0].egoVehicleRoad[2][1].drivingDirection = ::rss::world::LaneDrivingDirection::Bidirectional;
-  worldModel.scenes[0].egoVehicleRoad[2][2].drivingDirection = ::rss::world::LaneDrivingDirection::Bidirectional;
+  worldModel.scenes[0].egoVehicleRoad[0][0].drivingDirection = ::ad_rss::world::LaneDrivingDirection::Bidirectional;
+  worldModel.scenes[0].egoVehicleRoad[0][1].drivingDirection = ::ad_rss::world::LaneDrivingDirection::Bidirectional;
+  worldModel.scenes[0].egoVehicleRoad[0][2].drivingDirection = ::ad_rss::world::LaneDrivingDirection::Bidirectional;
+  worldModel.scenes[0].egoVehicleRoad[1][0].drivingDirection = ::ad_rss::world::LaneDrivingDirection::Bidirectional;
+  worldModel.scenes[0].egoVehicleRoad[1][1].drivingDirection = ::ad_rss::world::LaneDrivingDirection::Bidirectional;
+  worldModel.scenes[0].egoVehicleRoad[1][2].drivingDirection = ::ad_rss::world::LaneDrivingDirection::Bidirectional;
+  worldModel.scenes[0].egoVehicleRoad[2][0].drivingDirection = ::ad_rss::world::LaneDrivingDirection::Bidirectional;
+  worldModel.scenes[0].egoVehicleRoad[2][1].drivingDirection = ::ad_rss::world::LaneDrivingDirection::Bidirectional;
+  worldModel.scenes[0].egoVehicleRoad[2][2].drivingDirection = ::ad_rss::world::LaneDrivingDirection::Bidirectional;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -435,4 +435,4 @@ TEST_F(RssCheckOppositeDirectionTests, BothOnCorrectLane_DifferentVelocities)
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

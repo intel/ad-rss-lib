@@ -38,22 +38,22 @@
 #include "RssSituationCoordinateSystemConversion.hpp"
 
 /*!
- * @brief namespace rss
+ * @brief namespace ad_rss
  */
-namespace rss {
+namespace ad_rss {
 /*!
  * @brief namespace world
  */
 namespace world {
 
-bool calculateLateralDimensions(::rss::world::RoadArea const &roadArea, std::vector<world::MetricRange> &lateralRanges)
+bool calculateLateralDimensions(RoadArea const &roadArea, std::vector<physics::MetricRange> &lateralRanges)
 {
   bool result = true;
 
   bool notFinished = true;
   uint32_t currentLateralIndex = 0u;
 
-  world::MetricRange currentLateralPosition;
+  physics::MetricRange currentLateralPosition;
 
   currentLateralPosition.maximum = 0.;
   currentLateralPosition.minimum = 0.;
@@ -65,8 +65,8 @@ bool calculateLateralDimensions(::rss::world::RoadArea const &roadArea, std::vec
       notFinished = false;
       lateralRanges.push_back(currentLateralPosition);
 
-      Distance lateralDistanceMax = 0.;
-      Distance lateralDistanceMin = std::numeric_limits<double>::infinity();
+      physics::Distance lateralDistanceMax = 0.;
+      physics::Distance lateralDistanceMin = std::numeric_limits<physics::Distance>::infinity();
       for (const auto &roadSegment : roadArea)
       {
         if (roadSegment.size() > currentLateralIndex)
@@ -140,17 +140,17 @@ bool calculateLateralDimensions(::rss::world::RoadArea const &roadArea, std::vec
  */
 
 bool calculateObjectDimensions(std::vector<Object> const &objects,
-                               ::rss::world::RoadArea const &roadArea,
+                               RoadArea const &roadArea,
                                std::vector<ObjectDimensions> &objectDimensions)
 {
   bool result = true;
 
   try
   {
-    std::vector<world::MetricRange> lateralRanges;
+    std::vector<physics::MetricRange> lateralRanges;
     calculateLateralDimensions(roadArea, lateralRanges);
 
-    world::MetricRange longitudinalDimensions;
+    physics::MetricRange longitudinalDimensions;
 
     longitudinalDimensions.maximum = 0.;
     longitudinalDimensions.minimum = 0.;
@@ -167,15 +167,15 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
 
     for (auto roadSegment = roadArea.begin(); roadSegment != roadArea.end() && result; roadSegment++)
     {
-      Distance longitudinalDistanceMax = 0.;
-      Distance longitudinalDistanceMin = 0.;
+      physics::Distance longitudinalDistanceMax = 0.;
+      physics::Distance longitudinalDistanceMin = 0.;
       for (auto &extractor : extractors)
       {
         result = result && extractor.newRoadSegment(longitudinalDimensions.minimum, longitudinalDimensions.maximum);
       }
 
       // This is needed, because we want to look for the minimum
-      longitudinalDistanceMin = std::numeric_limits<double>::infinity();
+      longitudinalDistanceMin = std::numeric_limits<physics::Distance>::infinity();
 
       for (auto i = 0u; i < roadSegment->size() && result; i++)
       {
@@ -255,7 +255,7 @@ bool calculateObjectDimensions(Object const &egoVehicle,
 }
 
 bool calculateObjectDimensions(Object const &object,
-                               ::rss::world::RoadArea const &roadArea,
+                               ::ad_rss::world::RoadArea const &roadArea,
                                ObjectDimensions &objectPosition)
 {
   bool result = true;
@@ -285,7 +285,7 @@ bool calculateObjectDimensions(Object const &object,
   return result;
 }
 
-void convertVehicleStateDynamics(Object const &object, ::rss::situation::VehicleState &vehicleState)
+void convertVehicleStateDynamics(Object const &object, ::ad_rss::situation::VehicleState &vehicleState)
 {
   vehicleState.dynamics.alphaLon.accelMax = object.dynamics.alphaLon.accelMax;
   vehicleState.dynamics.alphaLon.brakeMin = object.dynamics.alphaLon.brakeMin;
@@ -302,4 +302,4 @@ void convertVehicleStateDynamics(Object const &object, ::rss::situation::Vehicle
 }
 
 } // namespace world
-} // namespace rss
+} // namespace ad_rss

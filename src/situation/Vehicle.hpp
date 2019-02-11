@@ -35,12 +35,12 @@
 
 #pragma once
 
-#include "rss/situation/VehicleState.hpp"
+#include "ad_rss/situation/VehicleState.hpp"
 
 /*!
- * @brief namespace rss
+ * @brief namespace ad_rss
  */
-namespace rss {
+namespace ad_rss {
 /*!
  * @brief namespace for RSS situation coordinate system datatypes and operations
  */
@@ -54,4 +54,4 @@ namespace situation {
 bool checkVehicleState(VehicleState const &state);
 
 } // namespace situation
-} // namespace rss
+} // namespace ad_rss

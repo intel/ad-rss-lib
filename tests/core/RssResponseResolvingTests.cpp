@@ -30,9 +30,9 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssResponseResolving.hpp"
+#include "ad_rss/core/RssResponseResolving.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 using state::LateralResponse;
@@ -242,4 +242,4 @@ TEST_F(RssResponseResolvingTests, provideProperResponseDangerousInitialState)
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

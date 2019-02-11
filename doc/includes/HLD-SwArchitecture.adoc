@@ -1,57 +1,56 @@
 [[Section::HLD::SoftwareArchitecture]]
-== RssModule: Software Architecture
 
-This section describes the software architecture of the RSSModule in detail. The static view covers the deployed
-artifacts, the interfaces and data types of the module. The dynamic view describes the behaviour of the module in more
+== ad_rss_lib: Software Architecture
+
+This section describes the software architecture of the ad_rss_lib in detail. The static view covers the deployed
+artifacts, the interfaces and data types of the library. The dynamic view describes the behaviour of the library in more
 detail.
 
 === Static View
 
-[[Figure:RssModule]]
-.The packages within the RssModule.
-image::img/33c91e7a-fb3e-4c8d-a24a-b86de90ad977_url_16f065ea-a5ea-437f-98cb-06eb88a406ee.tmp[caption="Figure {counter:figure}. "]
+[[Figure:ad_rss_lib]]
+.The packages within the ad_rss_lib.
+image::img/fd4149b5-b302-4c2f-a804-eef887ecd2f5_url_a9556998-60c6-411d-8d23-d4e290c7ae4b.tmp[caption="Figure {counter:figure}. "]
 
-The RssModule is implemented in C++. Based on a set of datatype definitions the interfaces are provided to:
+The ad_rss_lib is implemented in C++. Based on a set of datatype definitions the interfaces are provided to:
 
 1. prepare the RSS situations between individual pairs of ego vehicle and objects
 2. trigger the situation specific RSS calculations
 3. resolve the situation specific responses to one global response
 4. translate the global response into concrete restrictions of the actuator control commands
 
-Finally, the implementation of the RssModule is deployed within a set of artifacts.
+Finally, the implementation of the ad_rss_lib is deployed within a set of artifacts.
+
+==== ExtLibs
 
 ==== Artifact Deployment
 
-Definition of artifacts the RssModule is deployed to.
+Definition of artifacts of the RSS Open Library.
 
 [[Figure:Artifact_Deployment]]
-.Artifacts to be deployed from the RssModule.
-image::img/2167c712-ea90-4a07-95ef-dbf9c7c90e8f_url_14a3f5bc-5426-4482-bdfd-170a77a65952.tmp[caption="Figure {counter:figure}. "]
+.Deployed artifacts of the RSS Open Library.
+image::img/59e2ff55-a603-49c0-a425-df3bd46b7ea1_url_84b86de0-a6f8-4f51-8afa-2d58c4d3db07.tmp[caption="Figure {counter:figure}. "]
 
-===== rss_module
+===== ad_rss_lib
 
-This library contains the RssModule implementation.
-
-===== rss_support
-
-This library contains functionality supporting the integration of the RssModule into a system.
+The whole ad_rss_lib implementation is deployed within one library artifact.
 
 ==== Interfaces
 
-Definition of Interfaces provided within the RssModule implementation.
+Definition of Interfaces provided within the ad_rss_lib implementation.
 
-The RssModule is implemented as a whole within the namespace rss.
+The ad_rss_lib is implemented as a whole within the namespace ad_rss.
 
-===== Namespace rss::core
+===== Namespace ad_rss::core
 
 Namespace for RSS core interfaces and operations.
 
-This contains the interfaces including the operations the RssModule provides to the user to perform the RSS
+This contains the interfaces including the operations the ad_rss_lib provides to the user to perform the RSS
 functionality.
 
-[[Figure:Namespace_rss__core]]
-.The interfaces provided by the RssModule.
-image::img/c28593c2-3946-4df5-8d22-4e1640accef8_url_f500a68f-1c6c-43f4-92bf-f3b2eff3185f.tmp[caption="Figure {counter:figure}. "]
+[[Figure:Namespace_ad_rss__core]]
+.The core interfaces provided by the ad_rss_lib.
+image::img/bdf2f952-5275-4415-aabe-21c737609873_url_6e60362b-ed5b-472f-a581-fca3381d8596.tmp[caption="Figure {counter:figure}. "]
 
 ====== RssCheck
 
@@ -174,19 +173,30 @@ Returns true if the acceleration restrictions could be calculated, false otherwi
 
 ==== DataTypes
 
-Definition of DataTypes used within the RssModule implementation.
+Definition of DataTypes used within the ad_rss_lib implementation.
 
-The RssModule is implemented as a whole within the namespace rss.
+The ad_rss_lib is implemented as a whole within the namespace ad_rss.
 
-[[Figure:Namespace_rss]]
+[[Figure:Namespace_ad_rss]]
 .The RSS datatypes are organized within several sub-namespaces.
-image::img/bc23f1ec-233e-4469-b04b-f4a93d4b13a1_url_2abc79ff-e6e4-4b83-aa79-3b9e948df095.tmp[caption="Figure {counter:figure}. "]
+image::img/91a55ea6-cd30-41b3-b0ee-c3df18355133_url_75c7e67e-0260-4c5c-8ce0-de583aafb7b7.tmp[caption="Figure {counter:figure}. "]
 
-===== Namespace rss::time
+===== Namespace ad_rss::physics
 
-Namespace for RSS time datatypes.
+Namespace for RSS physics datatypes.
 
-This contains types declaring physical measures referring to the time.
+This contains types declaring physical measures referring time, distance, speed and basic combinations of that like
+ranges.
+
+[[Figure:Namespace_ad_rss__physics]]
+.The types describing the basic physics used within RSS implementation.
+image::img/de600bf2-0dbc-4cb0-913d-06933a5a98db_url_249e9bee-6048-4da9-a2e9-6411243ae2e0.tmp[caption="Figure {counter:figure}. "]
+
+====== Units
+
+|====
+|Ratio |Defines a unit which is a dimensionless ratio.
+|====
 
 ====== Duration (Typedef)
 
@@ -198,44 +208,6 @@ Unit: second
 |unit |Second
 |dimension |Time
 |float64_t |[ 1 ]
-|====
-
-====== TimeIndex (Typedef)
-
-Defines a certain point in time.
-
-|====
-|uint64_t |[ 1 ]
-|====
-
-===== Namespace rss::world
-
-Namespace for RSS world datatypes.
-
-This contains types that are used to describe the local world model RSS is acting on. These describe the ego vehicle and
-object states as well as the parts of the road network relevant to judge the situations between ego vehicle and the
-objects.
-
-[[Figure:Namespace_rss__world_base_types]]
-.The base types used within the local RSS world model.
-image::img/e3c18c2a-b9c7-4f65-83db-bb62c85a6410_url_ecf98668-e323-4184-85af-ac001cd089b5.tmp[caption="Figure {counter:figure}. "]
-
-[[Figure:Namespace_rss__world_geometries]]
-.The types describing the road and lane geometries used within the local RSS world model.
-image::img/9999c92e-630c-4143-b6c7-00f37e0e3664_url_db27a027-4a38-4e86-b81a-96ec24f91c8a.tmp[caption="Figure {counter:figure}. "]
-
-[[Figure:Namespace_rss__world_objects]]
-.The types describing the objects used within the local RSS world model.
-image::img/84c786bb-14f0-4026-a3aa-b23e9aa5368e_url_a298a70b-82a9-4397-9257-6e3919827af9.tmp[caption="Figure {counter:figure}. "]
-
-[[Figure:Namespace_rss__world_high_level_world_model]]
-.The types describing the high level world model and object used within the local RSS world model.
-image::img/e65783df-2855-4e5a-9062-4bf9c1ccf0f2_url_4ea5f86b-e041-482d-a45c-18fe3f409b07.tmp[caption="Figure {counter:figure}. "]
-
-====== Units
-
-|====
-|Ratio |Defines a unit which is a dimensionless ratio.
 |====
 
 ====== ParametricValue (Typedef)
@@ -274,7 +246,7 @@ Unit: meter per second
 
 ====== Acceleration (Typedef)
 
-The rate of change of Speed of an object with respect to time.
+The rate of change of (U) Speed of an object with respect to time.
 
 Unit: meter per second squared
 
@@ -311,18 +283,42 @@ An acceleration range described by its borders: [minimum, maximum].
 |maximum |Acceleration |The maximum value of the acceleration range.
 |====
 
-====== Velocity (Structure)
+====== TimeIndex (Typedef)
 
-Defines the velocity of an object within its current lane. The velocity consists of a longitudinal and a lateral
-component.
+Defines a certain point in time.
 
 |====
-|segmentId |LaneSegmentId |The id of the lane segment this velocity refers to.
-|speedLon |Speed |The longitudinal speed component of the velocity vector.
-The longitudinal component of the velocity is always measured tangential to the center line of the current lane.
-|speedLat |Speed |The lateral speed component of the velocity vector.
-The lateral component of the velocity is always measured orthogonal to the center line of the current lane.
+|uint64_t |[ 1 ]
 |====
+
+====== CoordinateSystemAxis (Enumeration)
+
+Enumeration defining the axis of the situation coordinate system.
+
+|====
+|Longitudinal |0 |longitudinal axis: ego vehicle is driving in positive direction
+|Lateral |1 |lateral axis: ego vehicle left to right defines the positive direction
+|====
+
+===== Namespace ad_rss::world
+
+Namespace for RSS world datatypes.
+
+This contains types that are used to describe the local world model RSS is acting on. These describe the ego vehicle and
+object states as well as the parts of the road network relevant to judge the situations between ego vehicle and the
+objects.
+
+[[Figure:Namespace_ad_rss__world_road_types]]
+.The types describing the road and lane geometries used within the local RSS world model.
+image::img/f33afd76-4715-4c71-8155-a26609a09fd4_url_d729361b-cfcb-4801-bc9d-f834d7b6f343.tmp[caption="Figure {counter:figure}. "]
+
+[[Figure:Namespace_ad_rss__world_object_types]]
+.The types describing the objects used within the local RSS world model.
+image::img/0f532d78-fc0c-4c9f-a76b-bc8eb71c3948_url_b892c8d3-d301-45ae-b794-33f050341958.tmp[caption="Figure {counter:figure}. "]
+
+[[Figure:Namespace_ad_rss__world]]
+.The types describing the high level world model and object used within the local RSS world model.
+image::img/ba167ea4-b9ed-421d-b3c3-6b477415a8e8_url_806104bc-1c44-404f-bbc3-25647c52ba70.tmp[caption="Figure {counter:figure}. "]
 
 ====== LaneSegmentId (Typedef)
 
@@ -366,7 +362,7 @@ A RoadSegment is defined by lateral neighboring lane segments. The lane segments
 ordered from right to left in respect to the driving direction defined by the road area.
 
 |====
-|rss::world::LaneSegment |[ * ]
+|ad_rss::world::LaneSegment |[ * ]
 |====
 
 ====== RoadArea (Typedef)
@@ -375,15 +371,15 @@ A RoadArea is defined by longitudinal neighboring road segments. The road segmen
 from start to end in respect to the driving direction.
 
 |====
-|rss::world::RoadSegment |[ * ]
+|ad_rss::world::RoadSegment |[ * ]
 |====
 
 ====== Scene (Structure)
 
 A Scene defines the relation between the ego vehicle and another object. It consists of the type of situation between
 these two and the corresponding road areas of interest. All lane segments on the route between ego vehicle and the
-object have to be part of this. The RssModule has to be able to calculate minimum and maximum distances between ego
-vehicle and object as well as accelerated movements within this area.
+object have to be part of this. RSS has to be able to calculate minimum and maximum distances between ego vehicle and
+object as well as accelerated movements within this area.
 
 |====
 |situationType |SituationType |The type of the current situation. Depending on this type the other fields of the RssArea
@@ -431,7 +427,7 @@ An object on a lane is described by the parametric range it spans in each of the
 A vector of occupied regions.
 
 |====
-|rss::world::OccupiedRegion |[ * ]
+|ad_rss::world::OccupiedRegion |[ * ]
 |====
 
 ====== LongitudinalRssAccelerationValues (Structure)
@@ -482,7 +478,7 @@ object occupies, the objects velocity within its lane and finally the area of in
 |objectType |ObjectType |Defines the type of the object.
 |occupiedRegions |OccupiedRegionVector |Defines the lane regions the object occupies.
 |dynamics |Dynamics |Defines the objects dynamics to be applied. This parameters are provided on a per object basis to
-be able to adapt these e.g. in respect to the weather conditions.
+be able to adapt these e.g. in respect to object type or the weather conditions.
 |velocity |Velocity |Defines the objects velocity in respect to its current major lane.
 |responseTime |Duration |Defines the response time of the object within the current scene.
 |====
@@ -511,126 +507,32 @@ Defines restrictions of the vehicle acceleration.
 |lateralRightRange |AccelerationRange |The range of the acceleration restriction in lateral right direction.
 |====
 
-===== Namespace rss::situation
+====== Velocity (Structure)
+
+Defines the velocity of an object within its current lane. The velocity consists of a longitudinal and a lateral
+component.
+
+|====
+|speedLon |Speed |The longitudinal speed component of the velocity vector.
+The longitudinal component of the velocity is always measured tangential to the center line of the current lane.
+|speedLat |Speed |The lateral speed component of the velocity vector.
+The lateral component of the velocity is always measured orthogonal to the center line of the current lane.
+|====
+
+===== Namespace ad_rss::situation
 
 Namespace for RSS situation datatypes.
 
 This contains types that are used within the calculation of the RSS formulas which are performed within the situation
 coordinate system.
 
-[[Figure:Namespace_rss__situation_coordinate_system]]
-.The base types used within the situation coordinate system.
-image::img/f765dd09-92f8-41fa-8cdd-5c699fcb6cc7_url_a5ce9648-1050-4b06-aafa-fd7e74adf23b.tmp[caption="Figure {counter:figure}. "]
-
-[[Figure:Namespace_rss__situation_vehicle_state]]
+[[Figure:Namespace_ad_rss__situation_vehicle_state]]
 .The types describing the vehicle state used within the situation coordinate system.
-image::img/f11c291d-6b8d-4401-818a-26d77df0cce0_url_2dea2159-865d-4f68-befe-56d9be165e39.tmp[caption="Figure {counter:figure}. "]
+image::img/9515ef80-b6ef-4ccc-b349-db1558c294ca_url_00135398-7742-4f86-a873-81ef22b725bd.tmp[caption="Figure {counter:figure}. "]
 
-[[Figure:Namespace_rss__situation]]
+[[Figure:Namespace_ad_rss__situation]]
 .The types describing a situation used within the situation coordinate system.
-image::img/5c26cd5d-40fa-4ba9-8875-330cebfe73ca_url_c4bea9f8-694e-4976-bb42-10e09a1fb58b.tmp[caption="Figure {counter:figure}. "]
-
-====== Units
-
-|====
-|SituationCoordinateSystemUnitPerSecond |Defines a unit in the situation coordinate system per second.
-|SituationCoordinateSystemUnitPerSecondSquared |Defines a unit in the situation coordinate system per second squared.
-|SituationCoordinateSystemUnit |Defines a unit in the situation coordinate system.The situation coordinate system has
-two dimensions:- longitudinal axis- lateral axis
-|====
-
-====== CoordinateSystemAxis (Enumeration)
-
-Enumeration defining the axis of the situation coordinate system.
-
-|====
-|Longitudinal |0 |longitudinal axis: ego vehicle is driving in positive direction
-|Lateral |1 |lateral axis: ego vehicle left to right defines the positive direction
-|====
-
-====== Acceleration (Typedef)
-
-The rate of change of Speed of an object with respect to time.
-
-Unit: situation coordinate system unit per second squared
-
-|====
-|dimension |Acceleration
-|unit |SituationCoordinateSystemUnitPerSecondSquared
-|float64_t |[ 1 ]
-|====
-
-====== Distance (Typedef)
-
-The length of a specific path traveled between two points.
-
-Unit: situation coordinate system unit
-
-|====
-|dimension |Length
-|unit |SituationCoordinateSystemUnit
-|float64_t |[ 1 ]
-|====
-
-====== Speed (Typedef)
-
-The rate of change of an object's Distance with respect to time. The speed of an object is the magnitude of its
-velocity.
-
-Unit: situation coordinate system units per second
-
-|====
-|dimension |Velocity
-|unit |SituationCoordinateSystemUnitPerSecond
-|float64_t |[ 1 ]
-|====
-
-====== Velocity (Structure)
-
-Defines the velocity of an object in the respective situation coordinate system. The velocity consists of a longitudinal
-and a lateral component.
-
-|====
-|speedLon |Speed |Absolute amount of the longitudinal speed component of the velocity vector. This value has always to
-be positive.
-|speedLat |Speed |The lateral speed component of the velocity vector.
-|====
-
-====== LongitudinalRssAccelerationValues (Structure)
-
-Collection of the RSS acceleration values in longitudinal direction.
-
-|====
-|accelMax |Acceleration |Absolute amount of the maximum allowed acceleration.  This value has always to be positive,
-zero is allowed.
-|brakeMax |Acceleration |Absolute amount of the maximum allowed braking deceleration.  This value has always to be
-positive and not smaller than brakeMin.
-|brakeMin |Acceleration |Absolute amount of the minimum allowed breaking deceleration.  This value has always to be
-positive and not smaller than brakeMinCorrect.
-|brakeMinCorrect |Acceleration |Absolute amount of the minimum allowed breaking deceleration when driving on the correct
-lane.  This value has always to be positive.
-|====
-
-====== LateralRssAccelerationValues (Structure)
-
-Collection of the RSS acceleration values in lateral direction.
-
-|====
-|accelMax |Acceleration |Absolute amount of the maximum allowed acceleration. This value has always to be positive, zero
-is allowed.
-|brakeMin |Acceleration |Absolute amount of the minimum allowed breaking deceleration. This value has always to be
-positive.
-|====
-
-====== Dynamics (Structure)
-
-Describes the RSS dynamics values to be applied for an object within the respective situation coordinate system. The
-dynamics consist of a longitudinal and a lateral component.
-
-|====
-|alphaLon |LongitudinalRssAccelerationValues |RSS dynamics values along longitudinal coordinate system axis
-|alphaLat |LateralRssAccelerationValues |RSS dynamics values along lateral coordinate system axis
-|====
+image::img/db812f71-1423-484c-a82b-1333aa871d6a_url_fadc6df9-9e63-4dec-b0ab-92f687309287.tmp[caption="Figure {counter:figure}. "]
 
 ====== VehicleState (Structure)
 
@@ -750,18 +652,18 @@ situation.
 A vector of situations.
 
 |====
-|rss::situation::Situation |[ * ]
+|ad_rss::situation::Situation |[ * ]
 |====
 
-===== Namespace rss::state
+===== Namespace ad_rss::state
 
 Namespace for RSS state datatypes.
 
 This contains types used in conjunction with the RSS state and responses.
 
-[[Figure:Namespace_rss__state_response]]
+[[Figure:Namespace_ad_rss__state]]
 .The types describing the RSS response and the RSS state.
-image::img/e1b001f9-caad-4907-8276-ab43557904a9_url_3b731b2e-dae1-493c-afe3-535495aaba06.tmp[caption="Figure {counter:figure}. "]
+image::img/0bc0e8c7-e791-463c-8fa9-55cc3428c773_url_911448b8-21aa-4ad4-a396-66eefec50432.tmp[caption="Figure {counter:figure}. "]
 
 ====== LongitudinalResponse (Enumeration)
 
@@ -826,21 +728,21 @@ direction.
 A vector of response states.
 
 |====
-|rss::state::ResponseState |[ * ]
+|ad_rss::state::ResponseState |[ * ]
 |====
 
 === Dynamic View
 
 [[Figure:RssSubsystemChecker]]
 .RSS internal processing steps to perform RSS checks and execute the RSS proper response
-image::img/40a99209-87e8-431e-941c-232c5f3ad4bf_url_5e405dd9-96b3-46a9-818a-4695602c58fd.tmp[caption="Figure {counter:figure}. "]
+image::img/fbdf8ef8-e8cc-4bd8-9209-203625f37409_url_9db291b2-5a5b-4d2c-ba0f-e82a2942cea0.tmp[caption="Figure {counter:figure}. "]
 
 The RssSubsystem realizes the RSS part functionality. It implements the RSS checks based on the RssWorldModelData
 received from the SensorSubsystem:
 
 1. Keep a safe distance from the car in front
 2. Leave time and space for others in lateral maneuvers
-3. Exhibit caution in occluded areas
+3. Exhibit caution in occluded areas [not implemented yet]
 4. Right-of-Way is given, not taken
 
 In case a dangerous situation is detected a respective proper response is calculated and the actuator control commands
@@ -853,7 +755,7 @@ RssSituationExtractionImpl describes the implementation of the RssSituationExtra
 
 [[Figure:RssSituationExtractionImpl]]
 .Statechart Diagram describing the dynamic behavior of the RssSituationExtraction entity.
-image::img/55bb4e08-03a8-4994-a321-81a45947131c_url_4b0d532c-7f0c-4f1d-bd35-f9506dc1a0d5.tmp[caption="Figure {counter:figure}. "]
+image::img/80483721-79fd-4543-a7e2-52b5ef2f49ad_url_0d923a8f-05e9-4a1f-a28d-4362f543f462.tmp[caption="Figure {counter:figure}. "]
 
 The following table describes the events, triggers, states and their transitions of the statechart in detail.
 
@@ -879,7 +781,7 @@ RssSituationCheckingImpl describes the implementation of the RssSituationCheckin
 
 [[Figure:RssSituationCheckingImpl]]
 .Statechart Diagram describing the dynamic behavior of the RssSituationChecking entity.
-image::img/aeb4e53e-0f6a-48a5-a105-df71de1879d6_url_015bec00-2815-4bda-b346-a47aa1c7ab96.tmp[caption="Figure {counter:figure}. "]
+image::img/4e549801-2264-4899-a8d9-fe3f11c88d3e_url_c3fab94e-fbdb-4da7-a9cf-e59a7a1b9265.tmp[caption="Figure {counter:figure}. "]
 
 The following table describes the events, triggers, states and their transitions of the statechart in detail.
 
@@ -906,7 +808,7 @@ RssResponseResolvingImpl describes the implementation of the RssResponseResolvin
 
 [[Figure:RssResponseResolvingImpl]]
 .Statechart Diagram describing the dynamic behavior of the RssResponseResolving entity.
-image::img/76faa8f0-7dda-4253-820d-25e1d07659a4_url_590ee87f-6baf-4cf8-94fc-172f904ccc18.tmp[caption="Figure {counter:figure}. "]
+image::img/481cc74c-f1ba-4851-a5f3-e6ea77095bfa_url_9c9c5399-7f35-40cb-81ac-c39fccd1d2f0.tmp[caption="Figure {counter:figure}. "]
 
 The following table describes the events, triggers, states and their transitions of the statechart in detail.
 
@@ -934,7 +836,7 @@ statechart.
 
 [[Figure:RssResponseTransformationImpl]]
 .Statechart Diagram describing the dynamic behavior of the RssResponseTransformation entity.
-image::img/57baa641-95a4-4d6d-83d1-31f0623d320b_url_e1ab084b-b5b8-439c-b047-35abc6e1cefe.tmp[caption="Figure {counter:figure}. "]
+image::img/2be789e7-a916-40f8-b183-176c3ce3e367_url_d6e55ad3-917d-4064-99be-5ea05663f840.tmp[caption="Figure {counter:figure}. "]
 
 The following table describes the events, triggers, states and their transitions of the statechart in detail.
 

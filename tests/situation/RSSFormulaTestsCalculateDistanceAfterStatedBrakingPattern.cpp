@@ -32,8 +32,10 @@
 #include "TestSupport.hpp"
 #include "situation/RSSFormulas.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace situation {
+
+using namespace ::ad_rss::physics;
 
 TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern, longitudinal_negative_speed)
 {
@@ -102,4 +104,4 @@ TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPatternEgoVehicle, leadin
 }
 
 } // namespace situation
-} // namespace rss
+} // namespace ad_rss

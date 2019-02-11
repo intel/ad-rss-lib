@@ -1,3 +1,4 @@
+[[Section::HLD::Security]]
 ## Design for Security
 
 ### Architecture and dataflow overview
@@ -10,13 +11,13 @@ The first figure shows the RSS function within the autonomous driving
 `rssWorldModelData`, and a single output called `rssAccelerationRestrictions`.
 
 .System architecture including RSS function
-image::img/55e93b9e-6f57-4e00-9fa6-dc7f9028d54a_url_20ec2bcf-de61-4368-90de-182f5515ce02.tmp[caption="Figure {counter:figure}. ",align=center,pdfwidth=90%]
+image::img/2af67351-93b0-46f3-bbdf-b56b5c9cae43_url_8789740d-7b25-4bf8-85cb-ca130d7bded6.tmp[caption="Figure {counter:figure}. ",align=center,pdfwidth=90%]
 
 The second figure shows further detail of the RSS function, with the same external inputs and outputs (`rssWorldModelData` and `rssAccelerationRestrictions`), as well
 as the internal calculation steps and internal dataflow.
 
 .RSS calculation steps and internal dataflow
-image::img/9b237f8c-2432-4a6b-9023-d446c1934e47_url_65397eb3-03bc-438e-957b-b555a4772165.tmp[caption="Figure {counter:figure}. "]
+image::img/d077cba8-ac54-4f2c-8f2d-936590d9b614_url_36a90267-8d89-4036-88df-007aa7ec6381.tmp[caption="Figure {counter:figure}. "]
 
 In addition, we repeat the following figure from the chapter
 <<Section::HLD::SoftwareArchitecture>>. This figure shows the actual C++ software
@@ -36,7 +37,7 @@ This figure also shows the subroutines called from `RssCheck::calculateAccelerat
 * `RssResponseTransformation::transformProperResponse()`.
 
 .Classes and external interface provided by the RSS software implementation.
-image::img/c28593c2-3946-4df5-8d22-4e1640accef8_url_f500a68f-1c6c-43f4-92bf-f3b2eff3185f.tmp[caption="Figure {counter:figure}. ",align=center,pdfwidth=90%]
+image::img/bdf2f952-5275-4415-aabe-21c737609873_url_6e60362b-ed5b-472f-a581-fca3381d8596.tmp[caption="Figure {counter:figure}. ",align=center,pdfwidth=90%]
 
 
 In the following sections, we discuss security aspects related to:
@@ -203,14 +204,22 @@ The development platform is Ubuntu Linux 16.04 Xenial.
 
 A standard cmake toolchain has been used to compile the library. The compiler is g++ 5.4.0.
 
-The following, strict, compilation flags are used: C++14, -Werror, -Wall, -Wextra, -pedantic, -Wconversion, -Wsign-conversion.
+The following, strict, compilation flags are used: C++11, -Werror, -Wall, -Wextra, -pedantic, -Wconversion, -Wsign-conversion, -Wfloat-equal -Wshadow -Wswitch-default -Wenum-compare -Wformat -Wformat-security.
 
 * -Werror turns all warnings into errors
 * -Wall enables many warnings about code constructs that are questionable
 * -Wextra enables additional warnings not enabled by -Wall
 * -Wconversion warns for implicit conversions (e.g. between integer and real types)
-* -Wsign-conversion warn for implicit conversions that reduce
+* -Wsign-conversion warn for implicit conversions that may alter a value
 * -pedantic issues all warnings demanded by strict ISO C and C++
+* -Wfloat-equal warn if floating-point values are used in equality comparisons
+* -Wshadow warn on shadowed variable declarations
+* -Wswitch-default warn if the default case is missing in a switch
+* -Wenum-compare warn about a comparison between values of different enumerated types
+* -Wformat* warns about errors within format strings
+
+In addition, there are compiler flags (-fstack-protector-strong -fasynchronous-unwind-tables -fno-omit-frame-pointer -fPIE -fPIC -D_FORTIFY_SOURCE=2) and linker flags (-Wl,-z,now -Wl,-z,relro -pie)
+enabled to harden the resulting binaries.
 
 Compilation with these flags completes without any error or warning.
 

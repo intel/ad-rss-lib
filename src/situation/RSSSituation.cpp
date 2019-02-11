@@ -33,7 +33,7 @@
 #include "situation/RSSFormulas.hpp"
 #include "situation/Vehicle.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace situation {
 
 bool calculateRssStateNonIntersectionSameDirection(Situation const &situation, state::ResponseState &responseState)
@@ -176,4 +176,4 @@ bool calculateLateralRssState(Situation const &situation,
 }
 
 } // namespace situation
-} // namespace rss
+} // namespace ad_rss

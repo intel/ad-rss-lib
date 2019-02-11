@@ -30,9 +30,9 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssCheck.hpp"
+#include "ad_rss/core/RssCheck.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 class RssCheckIntersectionTests : public testing::Test
@@ -40,12 +40,12 @@ class RssCheckIntersectionTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    scene.situationType = rss::situation::SituationType::IntersectionEgoHasPriority;
+    scene.situationType = ad_rss::situation::SituationType::IntersectionEgoHasPriority;
     object = createObject(10., 0.);
     object.objectId = 0;
 
     {
-      ::rss::world::OccupiedRegion occupiedRegion;
+      ::ad_rss::world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = 0.;
       occupiedRegion.lonRange.maximum = 0.1;
       occupiedRegion.segmentId = 0;
@@ -57,7 +57,7 @@ protected:
     otherObject = createObject(10., 0.);
     otherObject.objectId = 1;
     {
-      ::rss::world::OccupiedRegion occupiedRegion;
+      ::ad_rss::world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = 0.5;
       occupiedRegion.lonRange.maximum = 0.6;
       occupiedRegion.segmentId = 3;
@@ -72,8 +72,8 @@ protected:
     //   | 0 |
 
     {
-      ::rss::world::RoadSegment roadSegment;
-      ::rss::world::LaneSegment laneSegment;
+      ::ad_rss::world::RoadSegment roadSegment;
+      ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 0;
       laneSegment.length.minimum = 50;
@@ -85,8 +85,8 @@ protected:
     }
 
     {
-      ::rss::world::RoadSegment roadSegment;
-      ::rss::world::LaneSegment laneSegment;
+      ::ad_rss::world::RoadSegment roadSegment;
+      ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 1;
       laneSegment.length.minimum = 50;
@@ -98,8 +98,8 @@ protected:
     }
 
     {
-      ::rss::world::RoadSegment roadSegment;
-      ::rss::world::LaneSegment laneSegment;
+      ::ad_rss::world::RoadSegment roadSegment;
+      ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 3;
       laneSegment.length.minimum = 50;
@@ -111,8 +111,8 @@ protected:
     }
 
     {
-      ::rss::world::RoadSegment roadSegment;
-      ::rss::world::LaneSegment laneSegment;
+      ::ad_rss::world::RoadSegment roadSegment;
+      ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 4;
       laneSegment.length.minimum = 50;
@@ -124,15 +124,15 @@ protected:
     }
 
     {
-      ::rss::world::RoadSegment roadSegment;
-      ::rss::world::LaneSegment laneSegment;
+      ::ad_rss::world::RoadSegment roadSegment;
+      ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 2;
       laneSegment.length.minimum = 5;
       laneSegment.length.maximum = 6;
       laneSegment.width.minimum = 5;
       laneSegment.width.maximum = 5;
-      laneSegment.type = ::rss::world::LaneSegmentType::Intersection;
+      laneSegment.type = ::ad_rss::world::LaneSegmentType::Intersection;
       roadSegment.push_back(laneSegment);
       roadArea.push_back(roadSegment);
       otherRoadArea.push_back(roadSegment);
@@ -145,16 +145,16 @@ protected:
     otherObject.occupiedRegions.clear();
     scene.egoVehicleRoad.clear();
   }
-  ::rss::world::Object object;
-  ::rss::world::Object otherObject;
-  ::rss::world::RoadArea roadArea;
-  ::rss::world::RoadArea otherRoadArea;
-  ::rss::world::Scene scene;
+  ::ad_rss::world::Object object;
+  ::ad_rss::world::Object otherObject;
+  ::ad_rss::world::RoadArea roadArea;
+  ::ad_rss::world::RoadArea otherRoadArea;
+  ::ad_rss::world::Scene scene;
 };
 
 TEST_F(RssCheckIntersectionTests, EgoHasPriority)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = object;
   scene.object = otherObject;
@@ -163,8 +163,8 @@ TEST_F(RssCheckIntersectionTests, EgoHasPriority)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i <= 90; i++)
   {
@@ -190,7 +190,7 @@ TEST_F(RssCheckIntersectionTests, EgoHasPriority)
 
 TEST_F(RssCheckIntersectionTests, EgoHasNoPriority)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = object;
   scene.object = otherObject;
@@ -199,11 +199,11 @@ TEST_F(RssCheckIntersectionTests, EgoHasNoPriority)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
-  for (auto situationType : {rss::situation::SituationType::IntersectionSamePriority,
-                             rss::situation::SituationType::IntersectionObjectHasPriority})
+  for (auto situationType : {ad_rss::situation::SituationType::IntersectionSamePriority,
+                             ad_rss::situation::SituationType::IntersectionObjectHasPriority})
   {
     worldModel.scenes[0].situationType = situationType;
     for (uint32_t i = 0; i <= 90; i++)
@@ -231,4 +231,4 @@ TEST_F(RssCheckIntersectionTests, EgoHasNoPriority)
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

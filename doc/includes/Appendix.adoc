@@ -15,7 +15,7 @@ include::Appendix-ParameterDiscussion.adoc[]
 | Long       | Longitudinal
 | Lat        | Lateral
 | RSS        | Responsibility-Sensitive Safety
-| RSS Module | This is the entity performing all RSS operations
+| ad_rss_lib     | The C++ library containing the RSS Open Library implementation
 |======================
 
 ## References
@@ -35,7 +35,7 @@ include::Appendix-ParameterDiscussion.adoc[]
 [width="100%",frame="topbot",cols="2,2,4,8",options="header"]
 |====
 |Revision |Date |Author(s) | Description
-|0.5 |2019-02-04 |Cornelius Buerkle, Bernd Gassmann, Fabian Oboril, Peter van Beek | Initial version
+|1.0 |2019-02-15 |Cornelius Buerkle, Bernd Gassmann, Fabian Oboril, Peter van Beek | Initial version
 |====
 
 

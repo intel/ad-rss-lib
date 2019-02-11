@@ -1,12 +1,12 @@
 [[Section::HLD::Implementation]]
-## RSS Module Realization
+## ad_rss_lib Realization
 // intended empty
 
 ### RSS checks and response
 To check whether the ego vehicle is in a safe state, all the objects in the
-surrounding must be respected. To do so the RSS module will perform an analysis
+surrounding must be respected. To do so the ad_rss_lib will perform an analysis
 against all the objects in the environment individually. Meaning, for each
-object in the environment the RSS module will check whether the ego vehicle
+object in the environment the ad_rss_lib will check whether the ego vehicle
 conflicts with this object. Therefore, longitudinal and lateral checks are
 performed. As mentioned earlier, these checks are performed separately for each
 object - ego vehicle pair, i.e. for each situation.
@@ -113,13 +113,13 @@ In order to determine whether a lateral movement solves the conflict a
 prediction of the state would be necessary.
 
 Such a naive predication following definition 11 of the paper is not
-available yet in this initial implementation. In addition, the RSS module
+available yet in this initial implementation. In addition, the ad_rss_lib
 currently has no notion of drivable freespace area.
 Hence, it cannot determine that an evasive maneuver initiated by RSS will cause
 an accident with an obstacle or forces the vehicle to leave the road.
 
-Therefore, it is impossible for the RSS module in its current form to detect
-whether a lateral evasion is really feasible. Hence, _the RSS module will not
+Therefore, it is impossible for the ad_rss_lib in its current form to detect
+whether a lateral evasion is really feasible. Hence, _the ad_rss_lib will not
 initiate a lateral evasive maneuver_ according to definitions 12 and 13
 of the paper. Instead, it will only restrict the movement in the
 dangerous direction.
@@ -157,12 +157,12 @@ the vehicle _was_ able to stop safely. However, as a consequence, the
 prioritized vehicle is not forced to brake, if the non-prioritized vehicle does
 not respect RSS. Since the evasive maneuvers are not yet implemented
 <<Section::HLD::Implementation::EvasiveManeuvers>>,
-such kind of improper behavior cannot be handled by the current RSS module.
+such kind of improper behavior cannot be handled by the current ad_rss_lib.
 ====
 
 [IMPORTANT]
 ====
-In the current realization of the RSS module, it is assumed that there is always
+In the current realization of the ad_rss_lib, it is assumed that there is always
 a lateral conflict in case of intersections. This will be addressed in future.
 ====
 
@@ -179,10 +179,10 @@ time, as this acceleration is already considered.
 
 [NOTE]
 ====
-It is important to note that the implementation of the RSS module in the
+It is important to note that the implementation of the ad_rss_lib in the
 library only uses parameters, but not the exact value. By this means, the
 library is independent to changes of the parameter values. Instead, the user
-defines a feasible parameter set, which is provided as input to the RSS module.
+defines a feasible parameter set, which is provided as input to the ad_rss_lib.
 ====
 
 A discussion on the parameter selection can be found in
@@ -270,7 +270,7 @@ and comprises _all_ lanes required to describe this situation.
 
 [[Section::SituationBasedCS::ChosenDesign]]
 #### Chosen Design: Individual Situation-Based Coordinate System
-As RSS performs a worst case assessment, the idea followed by the RSS module
+As RSS performs a worst case assessment, the idea followed by the ad_rss_lib
 implementation is to calculate the min/max position values of the vehicles
 within the situation specific coordinate system. According to the constellation of the
 vehicles within the situation, the respective worst case lateral and longitudinal
@@ -284,7 +284,7 @@ As described in <<Section::SituationBasedCS::comparing_velocities>>, the border 
 of different width introduces discontinuities of the lateral acceleration values
 (see <<Figure:LanesWithDifferentWidth>>).
 
-As the RSS module judges the relative situation between the ego vehicle
+As the ad_rss_lib judges the relative situation between the ego vehicle
 and the other objects one by one individually, it is not required to distinguish
 between the actual lanes within the individual distance calculations.
 Combining all lanes relevant for the individual situation _s~i~_
@@ -404,7 +404,7 @@ image::lane_width_narrowing_response_transform.svg[caption="Figure {counter:figu
 
 [NOTE]
 ====
-It is worth to note that in the particular implementation of the RSS module in
+It is worth to note that in the particular implementation of the ad_rss_lib in
 the library at hand, the reverse transformation from the situation-specific
 into a vehicle-centric lane coordinate system is not required, as the RSS
 response is defined such that it is independent of these two coordinate system.
@@ -451,7 +451,7 @@ chosen, the smaller the calculation error gets (see
 One drawback of the iterative approach is that the RSS implementation has to get
 to know the lane geometries in detail to be able to calculate the acceleration
 values to be used for every position within the situation-based coordinate
-systems. Therefore, this design approach is not selected by this RSS module
+systems. Therefore, this design approach is not selected by this ad_rss_lib
 implementation.
 
 ### Summary

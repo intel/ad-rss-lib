@@ -30,9 +30,9 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssSituationChecking.hpp"
+#include "ad_rss/core/RssSituationChecking.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 class RssSituationCheckingTestsOppositeDirection : public testing::Test
@@ -65,7 +65,7 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_brake_min_correct)
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 178.);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMinCorrect);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMinCorrect);
 }
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_shorter_ego_reaction_time)
@@ -82,13 +82,13 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_shorter_ego_reaction_ti
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 178.);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 
   situation.relativePosition
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 150.);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMinCorrect);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMinCorrect);
 }
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_safe)
@@ -103,7 +103,7 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_safe)
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 197.);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 }
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_BrakeMinCorrect)
@@ -118,7 +118,7 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_BrakeMinCorrect)
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 196.);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMinCorrect);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMinCorrect);
 }
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_response_1s_safe)
@@ -134,7 +134,7 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_response_1s_safe)
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 196.);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 }
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_brake_min_correct_ego_vehicle_in_front)
@@ -149,7 +149,7 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_brake_min_correct_ego_v
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 178.7);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMinCorrect);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMinCorrect);
 }
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_vehicles_at_same_position)
@@ -164,7 +164,7 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_vehicles_at_same_positi
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::OverlapFront, 0.);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMinCorrect);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMinCorrect);
 }
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, incorrect_vehicle_state_ego)
@@ -211,8 +211,8 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_brake_min_ego_opposite)
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 178.7);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

@@ -29,20 +29,20 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "rss/core/RssSituationChecking.hpp"
+#include "ad_rss/core/RssSituationChecking.hpp"
 #include <algorithm>
 #include <memory>
 #include "situation/RSSSituation.hpp"
 #include "situation/RssIntersectionChecker.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 RssSituationChecking::RssSituationChecking()
 {
   try
   {
-    mIntersectionChecker = std::make_unique<rss::situation::RssIntersectionChecker>();
+    mIntersectionChecker = std::unique_ptr<situation::RssIntersectionChecker>(new situation::RssIntersectionChecker());
   }
   catch (...)
   {
@@ -140,4 +140,4 @@ bool RssSituationChecking::checkSituations(situation::SituationVector const &sit
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

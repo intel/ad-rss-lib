@@ -35,15 +35,14 @@
 #pragma once
 
 #include "RssObjectPositionExtractor.hpp"
-#include "rss/situation/VehicleState.hpp"
-#include "rss/world/Distance.hpp"
-#include "rss/world/Object.hpp"
-#include "rss/world/WorldModel.hpp"
+#include "ad_rss/situation/VehicleState.hpp"
+#include "ad_rss/world/Object.hpp"
+#include "ad_rss/world/WorldModel.hpp"
 
 /*!
- * @brief namespace rss
+ * @brief namespace ad_rss
  */
-namespace rss {
+namespace ad_rss {
 /*!
  * @brief namespace world
  */
@@ -69,16 +68,14 @@ bool calculateObjectDimensions(Object const &egoVehicle,
  * @param[in] roadArea: information about the lanes
  * @param[out] objectPosition: position ranges in the situation coordinate system of the other object
  */
-bool calculateObjectDimensions(Object const &object,
-                               ::rss::world::RoadArea const &roadArea,
-                               ObjectDimensions &objectPosition);
+bool calculateObjectDimensions(Object const &object, RoadArea const &roadArea, ObjectDimensions &objectPosition);
 
 /**
  * @brief Convert object to vehicle state
  *
  * This functions only converts data from the structs. The values it self are not modified.
  */
-void convertVehicleStateDynamics(Object const &object, ::rss::situation::VehicleState &vehicleState);
+void convertVehicleStateDynamics(Object const &object, situation::VehicleState &vehicleState);
 
 } // namespace world
-} // namespace rss
+} // namespace ad_rss

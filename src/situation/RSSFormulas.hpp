@@ -35,14 +35,13 @@
 
 #pragma once
 
-#include "rss/situation/CoordinateSystemAxis.hpp"
-#include "rss/situation/Distance.hpp"
-#include "rss/situation/VehicleState.hpp"
+#include "ad_rss/physics/CoordinateSystemAxis.hpp"
+#include "ad_rss/situation/VehicleState.hpp"
 
 /*!
- * @brief namespace rss
+ * @brief namespace ad_rss
  */
-namespace rss {
+namespace ad_rss {
 /*!
  * @brief namespace for RSS situation coordinate system datatypes and operations
  */
@@ -66,12 +65,12 @@ namespace situation {
  *
  * @return true on successful calculation, false otherwise
  */
-bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const axis,
-                                                      Speed const currentSpeed,
-                                                      time::Duration const responseTime,
-                                                      Acceleration const acceleration,
-                                                      Acceleration const deceleration,
-                                                      Distance &distanceOffset);
+bool calculateDistanceOffsetAfterStatedBrakingPattern(physics::CoordinateSystemAxis const axis,
+                                                      physics::Speed const currentSpeed,
+                                                      physics::Duration const responseTime,
+                                                      physics::Acceleration const acceleration,
+                                                      physics::Acceleration const deceleration,
+                                                      physics::Distance &distanceOffset);
 
 /**
  * @brief Calculate the \a "safe longitudinal distance" between the two vehicles,
@@ -92,7 +91,7 @@ bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const
  */
 bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehicle,
                                                     VehicleState const &followingVehicle,
-                                                    Distance &safeDistance);
+                                                    physics::Distance &safeDistance);
 
 /**
  * @brief Check if the longitudinal distance between the two vehicles is safe.
@@ -113,7 +112,7 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
  */
 bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehicle,
                                                 VehicleState const &followingVehicle,
-                                                Distance const &vehicleDistance,
+                                                physics::Distance const &vehicleDistance,
                                                 bool &isDistanceSafe);
 
 /**
@@ -138,7 +137,7 @@ bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehic
  */
 bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctVehicle,
                                                         VehicleState const &oppositeVehicle,
-                                                        Distance &safeDistance);
+                                                        physics::Distance &safeDistance);
 
 /**
  * @brief Check if the longitudinal distance between to vehicles driving in opposite direction is safe.
@@ -163,7 +162,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &corr
  */
 bool checkSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctVehicle,
                                                     VehicleState const &oppositeVehicle,
-                                                    Distance const &vehicleDistance,
+                                                    physics::Distance const &vehicleDistance,
                                                     bool &isDistanceSafe);
 
 /**
@@ -211,7 +210,7 @@ bool checkStopInFrontIntersection(VehicleState const &vehicle, bool &isDistanceS
  */
 bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
                                   VehicleState const &rightVehicle,
-                                  Distance &safeDistance);
+                                  physics::Distance &safeDistance);
 
 /**
  * @brief Check if the lateral distance between to vehicles is safe
@@ -240,8 +239,8 @@ bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
  */
 bool checkSafeLateralDistance(VehicleState const &leftVehicle,
                               VehicleState const &rightVehicle,
-                              Distance const &vehicleDistance,
+                              physics::Distance const &vehicleDistance,
                               bool &isDistanceSafe);
 
 } // namespace situation
-} // namespace rss
+} // namespace ad_rss

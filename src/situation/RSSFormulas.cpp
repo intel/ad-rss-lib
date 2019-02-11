@@ -31,15 +31,18 @@
 
 #include "RSSFormulas.hpp"
 #include <algorithm>
-#include "Math.hpp"
 #include "Vehicle.hpp"
+#include "physics/Math.hpp"
 
-namespace rss {
+// make the code more readable
+using namespace ad_rss::physics;
+
+namespace ad_rss {
 namespace situation {
 
 bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const axis,
                                                       Speed const currentSpeed,
-                                                      time::Duration const responseTime,
+                                                      Duration const responseTime,
                                                       Acceleration const acceleration,
                                                       Acceleration const deceleration,
                                                       Distance &distanceOffset)
@@ -268,4 +271,4 @@ bool checkSafeLateralDistance(VehicleState const &leftVehicle,
 }
 
 } // namespace situation
-} // namespace rss
+} // namespace ad_rss

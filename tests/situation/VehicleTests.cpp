@@ -32,7 +32,7 @@
 #include "TestSupport.hpp"
 #include "situation/Vehicle.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace situation {
 
 TEST(RSSFormulaTestsCheckVehicleState, check_standard_state)
@@ -50,4 +50,4 @@ TEST(RSSFormulaTestsCheckVehicleState, check_standard_state_100)
 }
 
 } // namespace situation
-} // namespace rss
+} // namespace ad_rss

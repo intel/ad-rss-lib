@@ -29,13 +29,13 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "rss/core/RssCheck.hpp"
-#include "rss/core/RssResponseResolving.hpp"
-#include "rss/core/RssResponseTransformation.hpp"
-#include "rss/core/RssSituationChecking.hpp"
-#include "rss/core/RssSituationExtraction.hpp"
+#include "ad_rss/core/RssCheck.hpp"
+#include "ad_rss/core/RssResponseResolving.hpp"
+#include "ad_rss/core/RssResponseTransformation.hpp"
+#include "ad_rss/core/RssSituationChecking.hpp"
+#include "ad_rss/core/RssSituationExtraction.hpp"
 
-namespace rss {
+namespace ad_rss {
 
 namespace core {
 
@@ -43,8 +43,8 @@ RssCheck::RssCheck()
 {
   try
   {
-    mResponseResolving = std::make_unique<RssResponseResolving>();
-    mSituationChecking = std::make_unique<RssSituationChecking>();
+    mResponseResolving = std::unique_ptr<RssResponseResolving>(new RssResponseResolving());
+    mSituationChecking = std::unique_ptr<RssSituationChecking>(new RssSituationChecking());
   }
   catch (...)
   {
@@ -86,11 +86,11 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
       safeResponse.timeIndex = worldModel.timeIndex;
       safeResponse.situationId = 0u;
       safeResponse.lateralStateLeft.isSafe = true;
-      safeResponse.lateralStateLeft.response = ::rss::state::LateralResponse::None;
+      safeResponse.lateralStateLeft.response = ::ad_rss::state::LateralResponse::None;
       safeResponse.lateralStateRight.isSafe = true;
-      safeResponse.lateralStateRight.response = ::rss::state::LateralResponse::None;
+      safeResponse.lateralStateRight.response = ::ad_rss::state::LateralResponse::None;
       safeResponse.longitudinalState.isSafe = true;
-      safeResponse.longitudinalState.response = ::rss::state::LongitudinalResponse::None;
+      safeResponse.longitudinalState.response = ::ad_rss::state::LongitudinalResponse::None;
       responseStateVector.push_back(safeResponse);
     }
 
@@ -115,4 +115,4 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

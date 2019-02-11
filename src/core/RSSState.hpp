@@ -34,13 +34,13 @@
 
 #pragma once
 
-#include "rss/situation/Situation.hpp"
-#include "rss/state/ResponseState.hpp"
+#include "ad_rss/situation/Situation.hpp"
+#include "ad_rss/state/ResponseState.hpp"
 
 /*!
- * @brief namespace rss
+ * @brief namespace ad_rss
  */
-namespace rss {
+namespace ad_rss {
 /*!
  * @brief namespace for RSS state datatypes and operations
  */
@@ -113,4 +113,4 @@ template <typename RssState> RssState combineRssState(RssState const &previousRs
 }
 
 } // namespace state
-} // namespace rss
+} // namespace ad_rss

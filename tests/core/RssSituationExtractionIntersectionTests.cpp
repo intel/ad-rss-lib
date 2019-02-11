@@ -30,9 +30,9 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssSituationExtraction.hpp"
+#include "ad_rss/core/RssSituationExtraction.hpp"
 
-namespace rss {
+namespace ad_rss {
 
 namespace core {
 
@@ -45,10 +45,10 @@ protected:
   {
     leadingObject = createObject(36., 0.);
     leadingObject.objectId = 0;
-    scene.situationType = rss::situation::SituationType::IntersectionEgoHasPriority;
+    scene.situationType = ad_rss::situation::SituationType::IntersectionEgoHasPriority;
 
     {
-      ::rss::world::OccupiedRegion occupiedRegion;
+      ::ad_rss::world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = 0.8;
       occupiedRegion.lonRange.maximum = 1.0;
       occupiedRegion.segmentId = 1.;
@@ -61,7 +61,7 @@ protected:
     followingObject = createObject(36., 0.);
     followingObject.objectId = 1;
     {
-      ::rss::world::OccupiedRegion occupiedRegion;
+      ::ad_rss::world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = 0.1;
       occupiedRegion.lonRange.maximum = 0.2;
       occupiedRegion.segmentId = 1.;
@@ -77,9 +77,9 @@ protected:
     leadingObject.occupiedRegions.clear();
     scene.egoVehicleRoad.clear();
   }
-  ::rss::world::Object followingObject;
-  ::rss::world::Object leadingObject;
-  ::rss::world::Scene scene;
+  ::ad_rss::world::Object followingObject;
+  ::ad_rss::world::Object leadingObject;
+  ::ad_rss::world::Scene scene;
 };
 
 TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
@@ -91,8 +91,8 @@ TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
   scene.object = followingObject;
 
   {
-    ::rss::world::RoadSegment roadSegment;
-    ::rss::world::LaneSegment laneSegment;
+    ::ad_rss::world::RoadSegment roadSegment;
+    ::ad_rss::world::LaneSegment laneSegment;
 
     laneSegment.id = 1;
     laneSegment.length.minimum = 10;
@@ -100,7 +100,7 @@ TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
 
     laneSegment.width.minimum = 5;
     laneSegment.width.maximum = 5;
-    laneSegment.type = ::rss::world::LaneSegmentType::Normal;
+    laneSegment.type = ::ad_rss::world::LaneSegmentType::Normal;
 
     roadSegment.push_back(laneSegment);
     scene.egoVehicleRoad.push_back(roadSegment);
@@ -108,8 +108,8 @@ TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
   }
 
   {
-    ::rss::world::RoadSegment roadSegment;
-    ::rss::world::LaneSegment laneSegment;
+    ::ad_rss::world::RoadSegment roadSegment;
+    ::ad_rss::world::LaneSegment laneSegment;
 
     laneSegment.id = 2;
     laneSegment.length.minimum = 5;
@@ -117,7 +117,7 @@ TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
 
     laneSegment.width.minimum = 5;
     laneSegment.width.maximum = 5;
-    laneSegment.type = ::rss::world::LaneSegmentType::Intersection;
+    laneSegment.type = ::ad_rss::world::LaneSegmentType::Intersection;
 
     roadSegment.push_back(laneSegment);
 
@@ -145,9 +145,9 @@ TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
   ASSERT_FALSE(situationVector[0].otherVehicleState.hasPriority);
 
   ASSERT_EQ(situationVector[0].relativePosition.longitudinalPosition,
-            ::rss::situation::LongitudinalRelativePosition::InFront);
+            ::ad_rss::situation::LongitudinalRelativePosition::InFront);
 
-  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::rss::situation::LateralRelativePosition::Overlap);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::ad_rss::situation::LateralRelativePosition::Overlap);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, 0);
 }
 
@@ -160,8 +160,8 @@ TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
   scene.object = followingObject;
 
   {
-    ::rss::world::RoadSegment roadSegment;
-    ::rss::world::LaneSegment laneSegment;
+    ::ad_rss::world::RoadSegment roadSegment;
+    ::ad_rss::world::LaneSegment laneSegment;
 
     laneSegment.id = 1;
     laneSegment.length.minimum = 8;
@@ -169,7 +169,7 @@ TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
 
     laneSegment.width.minimum = 5;
     laneSegment.width.maximum = 5;
-    laneSegment.type = ::rss::world::LaneSegmentType::Normal;
+    laneSegment.type = ::ad_rss::world::LaneSegmentType::Normal;
 
     roadSegment.push_back(laneSegment);
     scene.egoVehicleRoad.push_back(roadSegment);
@@ -177,8 +177,8 @@ TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
   }
 
   {
-    ::rss::world::RoadSegment roadSegment;
-    ::rss::world::LaneSegment laneSegment;
+    ::ad_rss::world::RoadSegment roadSegment;
+    ::ad_rss::world::LaneSegment laneSegment;
 
     laneSegment.id = 2;
     laneSegment.length.minimum = 4;
@@ -186,7 +186,7 @@ TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
 
     laneSegment.width.minimum = 5;
     laneSegment.width.maximum = 5;
-    laneSegment.type = ::rss::world::LaneSegmentType::Intersection;
+    laneSegment.type = ::ad_rss::world::LaneSegmentType::Intersection;
 
     roadSegment.push_back(laneSegment);
 
@@ -213,11 +213,11 @@ TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
   ASSERT_FALSE(situationVector[0].otherVehicleState.hasPriority);
 
   ASSERT_EQ(situationVector[0].relativePosition.longitudinalPosition,
-            ::rss::situation::LongitudinalRelativePosition::InFront);
+            ::ad_rss::situation::LongitudinalRelativePosition::InFront);
 
-  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::rss::situation::LateralRelativePosition::Overlap);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::ad_rss::situation::LateralRelativePosition::Overlap);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, 0);
 }
 }
 }
-} // namespace rss
+} // namespace ad_rss

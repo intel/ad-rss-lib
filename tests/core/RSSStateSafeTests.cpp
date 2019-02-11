@@ -32,7 +32,7 @@
 #include "TestSupport.hpp"
 #include "core/RSSState.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 TEST(RSSStateSafeTests, isSafe)
@@ -154,4 +154,4 @@ TEST(RSSStateSafeTests, longitudinal_lateralLeft_BrakeMin)
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

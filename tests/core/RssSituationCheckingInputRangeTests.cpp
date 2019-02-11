@@ -30,10 +30,10 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssSituationChecking.hpp"
+#include "ad_rss/core/RssSituationChecking.hpp"
 #include "situation/Vehicle.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 class RssSituationCheckingInputRangeTests : public testing::Test
@@ -325,4 +325,4 @@ TEST_F(RssSituationCheckingInputRangeTests,
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

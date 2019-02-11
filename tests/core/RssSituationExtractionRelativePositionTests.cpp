@@ -30,40 +30,42 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssSituationExtraction.hpp"
+#include "ad_rss/core/RssSituationExtraction.hpp"
 
-namespace rss {
+namespace ad_rss {
 
 namespace core {
 
 namespace RssSituationExtraction {
 
-void calcluateRelativeLongitudinalPosition(world::MetricRange const &egoMetricRange,
-                                           world::MetricRange const &otherMetricRange,
+using namespace ::ad_rss::physics;
+
+void calcluateRelativeLongitudinalPosition(MetricRange const &egoMetricRange,
+                                           MetricRange const &otherMetricRange,
                                            situation::LongitudinalRelativePosition &longitudinalPosition,
-                                           situation::Distance &longitudinalDistance);
+                                           Distance &longitudinalDistance);
 
-void calcluateRelativeLateralPosition(world::MetricRange const &egoMetricRange,
-                                      world::MetricRange const &otherMetricRange,
+void calcluateRelativeLateralPosition(MetricRange const &egoMetricRange,
+                                      MetricRange const &otherMetricRange,
                                       situation::LateralRelativePosition &lateralPosition,
-                                      situation::Distance &lateralDistance);
+                                      Distance &lateralDistance);
 
-void performCalculateRelativePositionTest(situation::Distance minA,
-                                          situation::Distance maxA,
-                                          situation::Distance minB,
-                                          situation::Distance maxB,
+void performCalculateRelativePositionTest(Distance minA,
+                                          Distance maxA,
+                                          Distance minB,
+                                          Distance maxB,
                                           situation::LateralRelativePosition expectedPositionLatAtoB,
                                           situation::LongitudinalRelativePosition expectedPositionLonAtoB,
                                           situation::LateralRelativePosition expectedPositionLatBtoA,
                                           situation::LongitudinalRelativePosition expectedPositionLonBtoA,
-                                          situation::Distance expectedDistance)
+                                          Distance expectedDistance)
 {
-  world::MetricRange vehicleALonMetricRange;
-  world::MetricRange vehicleALatMetricRange;
-  world::MetricRange vehicleBLonMetricRange;
-  world::MetricRange vehicleBLatMetricRange;
+  MetricRange vehicleALonMetricRange;
+  MetricRange vehicleALatMetricRange;
+  MetricRange vehicleBLonMetricRange;
+  MetricRange vehicleBLatMetricRange;
   situation::RelativePosition relativePosition;
-  const situation::Distance cEpsilon = 1e-10;
+  const Distance cEpsilon = 1e-10;
 
   vehicleALatMetricRange.minimum = minA;
   vehicleALatMetricRange.maximum = maxA;
@@ -230,4 +232,4 @@ TEST(CalcluateRelativePositionTest, full_overlap_mixed)
 
 } // namespace RssSituationExtraction
 } // namespace check
-} // namespace rss
+} // namespace ad_rss

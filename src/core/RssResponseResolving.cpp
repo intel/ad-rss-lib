@@ -29,11 +29,11 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "rss/core/RssResponseResolving.hpp"
+#include "ad_rss/core/RssResponseResolving.hpp"
 #include <algorithm>
 #include "RSSState.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 RssResponseResolving::RssResponseResolving()
@@ -151,4 +151,4 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

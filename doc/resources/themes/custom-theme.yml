@@ -279,7 +279,7 @@ footer:
     center:
       content: '{document-title}'
     left:
-      content: 'Intel Confidential'
+      content: '(C) Intel Corporation'
   verso:
     #columns: $footer_recto_columns
     left:

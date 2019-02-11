@@ -32,8 +32,10 @@
 #include "TestSupport.hpp"
 #include "situation/RSSFormulas.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace situation {
+
+using namespace ::ad_rss::physics;
 
 TEST(RSSFormulaTestsCalculateSafeLateralDistance, invalid_vehicle_state)
 {
@@ -93,4 +95,4 @@ TEST(RSSFormulaTestsCalculateSafeLateralDistance, one_zero_lateral_speed)
 }
 
 } // namespace situation
-} // namespace rss
+} // namespace ad_rss

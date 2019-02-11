@@ -30,9 +30,9 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssResponseTransformation.hpp"
+#include "ad_rss/core/RssResponseTransformation.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 using state::LateralResponse;
@@ -40,16 +40,16 @@ using state::LongitudinalResponse;
 
 TEST(RssResponseTransformationTests, invalidTimeStamp)
 {
-  ::rss::world::WorldModel worldModel;
-  ::rss::state::ResponseState responseState;
-  ::rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::world::WorldModel worldModel;
+  ::ad_rss::state::ResponseState responseState;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
 
   worldModel.timeIndex = 1u;
   responseState.timeIndex = 0u;
 
-  ASSERT_FALSE(::rss::core::RssResponseTransformation::transformProperResponse(
+  ASSERT_FALSE(::ad_rss::core::RssResponseTransformation::transformProperResponse(
     worldModel, responseState, accelerationRestriction));
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

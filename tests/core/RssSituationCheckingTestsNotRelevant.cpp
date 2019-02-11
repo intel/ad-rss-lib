@@ -30,9 +30,9 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssSituationChecking.hpp"
+#include "ad_rss/core/RssSituationChecking.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 class RssSituationCheckingTestsNotRelevant : public testing::Test
@@ -64,8 +64,8 @@ TEST_F(RssSituationCheckingTestsNotRelevant, notRelevantSituation)
   situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 1.);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

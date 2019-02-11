@@ -30,9 +30,9 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssSituationChecking.hpp"
+#include "ad_rss/core/RssSituationChecking.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 class RssSituationCheckingTestsIntersectionNoPriority : public testing::Test
@@ -47,8 +47,8 @@ protected:
 
 TEST_F(RssSituationCheckingTestsIntersectionNoPriority, ego_following_no_overlap)
 {
-  for (auto situationType : {rss::situation::SituationType::IntersectionSamePriority,
-                             rss::situation::SituationType::IntersectionObjectHasPriority})
+  for (auto situationType : {ad_rss::situation::SituationType::IntersectionSamePriority,
+                             ad_rss::situation::SituationType::IntersectionObjectHasPriority})
   {
     situation.egoVehicleState = createVehicleStateForLongitudinalMotion(120);
     situation.egoVehicleState.distanceToEnterIntersection = 15;
@@ -65,7 +65,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, ego_following_no_overlap
 
     situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 1);
     situation.situationType = situationType;
-    if (situationType == rss::situation::SituationType::IntersectionObjectHasPriority)
+    if (situationType == ad_rss::situation::SituationType::IntersectionObjectHasPriority)
     {
       situation.otherVehicleState.hasPriority = true;
     }
@@ -75,21 +75,21 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, ego_following_no_overlap
     }
 
     ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-    ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+    ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
   }
 }
 
 TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_following)
 {
-  for (auto situationType : {rss::situation::SituationType::IntersectionSamePriority,
-                             rss::situation::SituationType::IntersectionObjectHasPriority})
+  for (auto situationType : {ad_rss::situation::SituationType::IntersectionSamePriority,
+                             ad_rss::situation::SituationType::IntersectionObjectHasPriority})
   {
     leadingVehicle = createVehicleStateForLongitudinalMotion(120);
     leadingVehicle.distanceToEnterIntersection = 2;
     leadingVehicle.distanceToLeaveIntersection = 2;
     leadingVehicle.dynamics.alphaLon.accelMax = 2.;
     leadingVehicle.dynamics.alphaLon.brakeMin = 4.;
-    if (situationType == rss::situation::SituationType::IntersectionObjectHasPriority)
+    if (situationType == ad_rss::situation::SituationType::IntersectionObjectHasPriority)
     {
       leadingVehicle.hasPriority = true;
     }
@@ -109,7 +109,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_
     situation.relativePosition
       = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 10.);
     situation.situationType = situationType;
-    if (situationType == rss::situation::SituationType::IntersectionObjectHasPriority)
+    if (situationType == ad_rss::situation::SituationType::IntersectionObjectHasPriority)
     {
       situation.otherVehicleState.hasPriority = true;
     }
@@ -119,14 +119,14 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_
     }
 
     ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-    ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+    ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
   }
 }
 
 TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_leading)
 {
-  for (auto situationType : {rss::situation::SituationType::IntersectionSamePriority,
-                             rss::situation::SituationType::IntersectionObjectHasPriority})
+  for (auto situationType : {ad_rss::situation::SituationType::IntersectionSamePriority,
+                             ad_rss::situation::SituationType::IntersectionObjectHasPriority})
   {
     leadingVehicle = createVehicleStateForLongitudinalMotion(50);
     leadingVehicle.distanceToEnterIntersection = 10;
@@ -142,7 +142,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_
     situation.relativePosition
       = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 60.);
     situation.situationType = situationType;
-    if (situationType == rss::situation::SituationType::IntersectionObjectHasPriority)
+    if (situationType == ad_rss::situation::SituationType::IntersectionObjectHasPriority)
     {
       situation.otherVehicleState.hasPriority = true;
     }
@@ -153,14 +153,14 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_
 
     ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
     ASSERT_TRUE(responseState.longitudinalState.isSafe);
-    ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+    ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
   }
 }
 
 TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50km_h_stop_before_intersection)
 {
-  for (auto situationType : {rss::situation::SituationType::IntersectionSamePriority,
-                             rss::situation::SituationType::IntersectionObjectHasPriority})
+  for (auto situationType : {ad_rss::situation::SituationType::IntersectionSamePriority,
+                             ad_rss::situation::SituationType::IntersectionObjectHasPriority})
   {
     leadingVehicle = createVehicleStateForLongitudinalMotion(50);
     leadingVehicle.distanceToEnterIntersection = 80;
@@ -178,7 +178,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50km_h_stop_before_inter
     situation.relativePosition
       = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 30.);
     situation.situationType = situationType;
-    if (situationType == rss::situation::SituationType::IntersectionObjectHasPriority)
+    if (situationType == ad_rss::situation::SituationType::IntersectionObjectHasPriority)
     {
       situation.otherVehicleState.hasPriority = true;
     }
@@ -192,7 +192,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50km_h_stop_before_inter
 
     ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
     ASSERT_TRUE(responseState.longitudinalState.isSafe);
-    ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+    ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 
     // ego vehicle cannot stop safely anymore
     // but other vehicle still
@@ -207,12 +207,12 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50km_h_stop_before_inter
     if (situation.otherVehicleState.hasPriority)
     {
       ASSERT_FALSE(responseState.longitudinalState.isSafe);
-      ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
+      ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
     }
     else
     {
       ASSERT_TRUE(responseState.longitudinalState.isSafe);
-      ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+      ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
     }
 
     // both cannot stop safely anymore
@@ -225,9 +225,9 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50km_h_stop_before_inter
 
     ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
     ASSERT_FALSE(responseState.longitudinalState.isSafe);
-    ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
+    ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
   }
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

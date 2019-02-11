@@ -32,11 +32,11 @@
 # ----------------- END LICENSE BLOCK -----------------------------------
 
 #####################################################################
-# rss_module_tests - executable setup
+# rss_tests - executable setup
 #####################################################################
-set(EXEC_NAME rss_module_tests)
+set(EXEC_NAME ad_rss_tests)
 
-set(RSS_MODULE_TEST_SOURCES
+set(RSS_TEST_SOURCES
   core/RssCheckTests.cpp
   core/RssCheckSameDirectionTests.cpp
   core/RssCheckOppositeDirectionTests.cpp
@@ -58,16 +58,16 @@ set(RSS_MODULE_TEST_SOURCES
   core/RssSituationExtractionIntersectionTests.cpp
   core/RssSituationExtractionRelativePositionTests.cpp
   core/RssSituationExtractionSameDirectionTests.cpp
-  situation/MathUnitTestsDistanceOffsetAfterResponseTime.cpp
-  situation/MathUnitTestsStoppingDistance.cpp
-  situation/MathUnitTestsVelocityAfterResponseTime.cpp
+  physics/MathUnitTestsDistanceOffsetAfterResponseTime.cpp
+  physics/MathUnitTestsStoppingDistance.cpp
+  physics/MathUnitTestsVelocityAfterResponseTime.cpp
   situation/RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
   situation/RSSFormulaTestsCalculateSafeLateralDistance.cpp
   situation/RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
   situation/VehicleTests.cpp
 )
 
-add_executable(${EXEC_NAME} ${RSS_MODULE_TEST_SOURCES})
+add_executable(${EXEC_NAME} ${RSS_TEST_SOURCES})
 
 target_include_directories(${EXEC_NAME}
   PRIVATE

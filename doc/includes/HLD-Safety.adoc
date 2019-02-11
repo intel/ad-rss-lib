@@ -1,3 +1,4 @@
+[[Section::HLD::Safety]]
 ## Design for Safety
 In principle, RSS is implementing safety of the intended functionality
 (SOTIF).

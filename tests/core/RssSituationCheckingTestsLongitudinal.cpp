@@ -30,9 +30,9 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssSituationChecking.hpp"
+#include "ad_rss/core/RssSituationChecking.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 class RssSituationCheckingTestsLongitudinal : public testing::Test
@@ -64,7 +64,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_ego_safe_di
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::InFront, 95.);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 }
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_safe)
@@ -79,7 +79,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 60.);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 }
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_unsafe)
@@ -94,7 +94,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 39.);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
 }
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_other_standing)
@@ -110,13 +110,13 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 71.8);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 
   situation.relativePosition
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 71.6);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
 }
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_0kmh_other_standing)
@@ -132,12 +132,12 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_0kmh_
     = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 6.01);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalSafe);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 
   situation.relativePosition = createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition::AtBack, 6.);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cLongitudinalBrakeMin);
+  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
 }
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_both_negative_velocity)
@@ -154,4 +154,4 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_both_negative_veloc
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

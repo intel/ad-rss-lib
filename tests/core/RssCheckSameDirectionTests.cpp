@@ -30,9 +30,9 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssCheck.hpp"
+#include "ad_rss/core/RssCheck.hpp"
 
-namespace rss {
+namespace ad_rss {
 namespace core {
 
 class RssCheckSameDirectionTests : public testing::Test
@@ -40,12 +40,12 @@ class RssCheckSameDirectionTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    scene.situationType = rss::situation::SituationType::SameDirection;
+    scene.situationType = ad_rss::situation::SituationType::SameDirection;
     leadingObject = createObject(10., 0.);
     leadingObject.objectId = 0;
 
     {
-      ::rss::world::OccupiedRegion occupiedRegion;
+      ::ad_rss::world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = 0.;
       occupiedRegion.lonRange.maximum = 0.1;
       occupiedRegion.segmentId = 7;
@@ -57,7 +57,7 @@ protected:
     followingObject = createObject(0., 0.);
     followingObject.objectId = 1;
     {
-      ::rss::world::OccupiedRegion occupiedRegion;
+      ::ad_rss::world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = 0.;
       occupiedRegion.lonRange.maximum = 0.1;
       occupiedRegion.segmentId = 1;
@@ -72,8 +72,8 @@ protected:
     //   |  0  |  1  |  2  |
 
     {
-      ::rss::world::RoadSegment roadSegment;
-      ::rss::world::LaneSegment laneSegment;
+      ::ad_rss::world::RoadSegment roadSegment;
+      ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 0;
       laneSegment.length.minimum = 50;
@@ -98,8 +98,8 @@ protected:
     }
 
     {
-      ::rss::world::RoadSegment roadSegment;
-      ::rss::world::LaneSegment laneSegment;
+      ::ad_rss::world::RoadSegment roadSegment;
+      ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 3;
       laneSegment.length.minimum = 2;
@@ -124,8 +124,8 @@ protected:
     }
 
     {
-      ::rss::world::RoadSegment roadSegment;
-      ::rss::world::LaneSegment laneSegment;
+      ::ad_rss::world::RoadSegment roadSegment;
+      ::ad_rss::world::LaneSegment laneSegment;
 
       laneSegment.id = 6;
       laneSegment.length.minimum = 50;
@@ -156,15 +156,15 @@ protected:
     leadingObject.occupiedRegions.clear();
     scene.egoVehicleRoad.clear();
   }
-  ::rss::world::Object followingObject;
-  ::rss::world::Object leadingObject;
-  ::rss::world::RoadArea roadArea;
-  ::rss::world::Scene scene;
+  ::ad_rss::world::Object followingObject;
+  ::ad_rss::world::Object leadingObject;
+  ::ad_rss::world::RoadArea roadArea;
+  ::ad_rss::world::Scene scene;
 };
 
 TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentDistances)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = followingObject;
   worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(10);
@@ -174,8 +174,8 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentDistances)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i <= 90; i++)
   {
@@ -210,7 +210,7 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentDistances)
 
 TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = followingObject;
   scene.object = leadingObject;
@@ -219,8 +219,8 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -253,7 +253,7 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities)
 
 TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_DifferentLaneSegements)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = followingObject;
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 2;
@@ -263,8 +263,8 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_DifferentLan
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -297,7 +297,7 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_DifferentLan
 
 TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_NoLateralConflict)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = followingObject;
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 0;
@@ -310,8 +310,8 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_NoLateralCon
   worldModel.timeIndex = 1;
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -336,7 +336,7 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_NoLateralCon
 
 TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_NoLateralConflict_2Scenes)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = followingObject;
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 0;
@@ -352,8 +352,8 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_NoLateralCon
   worldModel.scenes[1].object.occupiedRegions[0].segmentId = 8;
   worldModel.scenes[1].object.objectId = 2;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -378,7 +378,7 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_NoLateralCon
 
 TEST_F(RssCheckSameDirectionTests, EgoLeading_DifferentVelocities)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = leadingObject;
   scene.object = followingObject;
@@ -387,8 +387,8 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_DifferentVelocities)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -412,7 +412,7 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_DifferentVelocities)
 
 TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Front)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = leadingObject;
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 8;
@@ -428,8 +428,8 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Front)
   worldModel.scenes[0].object.occupiedRegions[0].lonRange.maximum = 0.45;
   worldModel.scenes[0].object.occupiedRegions[0].lonRange.minimum = 0.35;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -453,7 +453,7 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Front)
 
 TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Right)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = leadingObject;
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 5;
@@ -469,8 +469,8 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Right)
   worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = 0.45;
   worldModel.scenes[0].object.occupiedRegions[0].latRange.minimum = 0.35;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -494,7 +494,7 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Right)
 
 TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Left)
 {
-  ::rss::world::WorldModel worldModel;
+  ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = leadingObject;
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 5;
@@ -510,8 +510,8 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Left)
   worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = 0.45;
   worldModel.scenes[0].object.occupiedRegions[0].latRange.minimum = 0.35;
 
-  ::rss::world::AccelerationRestriction accelerationRestriction;
-  ::rss::core::RssCheck rssCheck;
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -534,4 +534,4 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Left)
 }
 
 } // namespace core
-} // namespace rss
+} // namespace ad_rss

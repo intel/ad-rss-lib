@@ -30,9 +30,9 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "rss/core/RssSituationExtraction.hpp"
+#include "ad_rss/core/RssSituationExtraction.hpp"
 
-namespace rss {
+namespace ad_rss {
 
 namespace core {
 
@@ -45,10 +45,10 @@ protected:
   {
     leadingObject = createObject(36., 0.);
     leadingObject.objectId = 0;
-    scene.situationType = rss::situation::SituationType::OppositeDirection;
+    scene.situationType = ad_rss::situation::SituationType::OppositeDirection;
 
     {
-      ::rss::world::OccupiedRegion occupiedRegion;
+      ::ad_rss::world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = 0.8;
       occupiedRegion.lonRange.maximum = 1.0;
       occupiedRegion.segmentId = 1.;
@@ -61,7 +61,7 @@ protected:
     followingObject = createObject(36., 0.);
     followingObject.objectId = 1;
     {
-      ::rss::world::OccupiedRegion occupiedRegion;
+      ::ad_rss::world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = 0.1;
       occupiedRegion.lonRange.maximum = 0.2;
       occupiedRegion.segmentId = 1.;
@@ -77,9 +77,9 @@ protected:
     leadingObject.occupiedRegions.clear();
     scene.egoVehicleRoad.clear();
   }
-  ::rss::world::Object followingObject;
-  ::rss::world::Object leadingObject;
-  ::rss::world::Scene scene;
+  ::ad_rss::world::Object followingObject;
+  ::ad_rss::world::Object leadingObject;
+  ::ad_rss::world::Scene scene;
 };
 
 TEST_F(RssSituationExtractionOppositeDirectionTests, noLongitudinalDifference)
@@ -90,8 +90,8 @@ TEST_F(RssSituationExtractionOppositeDirectionTests, noLongitudinalDifference)
   worldModel.egoVehicle = leadingObject;
   scene.object = followingObject;
 
-  ::rss::world::RoadSegment roadSegment;
-  ::rss::world::LaneSegment laneSegment;
+  ::ad_rss::world::RoadSegment roadSegment;
+  ::ad_rss::world::LaneSegment laneSegment;
 
   laneSegment.id = 1;
   laneSegment.length.minimum = 10;
@@ -115,7 +115,7 @@ TEST_F(RssSituationExtractionOppositeDirectionTests, noLongitudinalDifference)
   ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.accelMax,
             worldModel.egoVehicle.dynamics.alphaLon.accelMax);
 
-  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::rss::situation::LateralRelativePosition::AtLeft);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::ad_rss::situation::LateralRelativePosition::AtLeft);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, 1);
 }
 
@@ -127,8 +127,8 @@ TEST_F(RssSituationExtractionOppositeDirectionTests, longitudinalDifference)
   worldModel.egoVehicle = followingObject;
   scene.object = leadingObject;
 
-  ::rss::world::RoadSegment roadSegment;
-  ::rss::world::LaneSegment laneSegment;
+  ::ad_rss::world::RoadSegment roadSegment;
+  ::ad_rss::world::LaneSegment laneSegment;
 
   laneSegment.id = 1;
   laneSegment.length.minimum = 5;
@@ -154,9 +154,9 @@ TEST_F(RssSituationExtractionOppositeDirectionTests, longitudinalDifference)
   ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.brakeMin,
             worldModel.egoVehicle.dynamics.alphaLon.brakeMin);
 
-  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::rss::situation::LateralRelativePosition::AtRight);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::ad_rss::situation::LateralRelativePosition::AtRight);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, 1);
 }
 }
 }
-} // namespace rss
+} // namespace ad_rss

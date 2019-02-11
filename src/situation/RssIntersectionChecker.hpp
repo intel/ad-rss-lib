@@ -37,13 +37,13 @@
 
 #include <cstdint>
 #include <map>
-#include "rss/situation/Situation.hpp"
-#include "rss/state/ResponseState.hpp"
+#include "ad_rss/situation/Situation.hpp"
+#include "ad_rss/state/ResponseState.hpp"
 
 /*!
- * @brief namespace rss
+ * @brief namespace ad_rss
  */
-namespace rss {
+namespace ad_rss {
 /*!
  * @brief namespace for RSS situation coordinate system datatypes and operations
  */
@@ -110,8 +110,8 @@ private:
    * @brief time index of the current processing step
    * If time index increases we need to update the mLastSafeStateMap
    */
-  ::rss::time::TimeIndex mCurrentTimeIndex{0u};
+  physics::TimeIndex mCurrentTimeIndex{0u};
 };
 
 } // namespace situation
-} // namespace rss
+} // namespace ad_rss
