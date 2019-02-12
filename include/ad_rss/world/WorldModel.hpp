@@ -37,10 +37,12 @@
  */
 
 #pragma once
-#include <limits>
 
 #include <cstdint>
+#include <limits>
 #include <memory>
+#include <vector>
+
 #include "ad_rss/physics/TimeIndex.hpp"
 #include "ad_rss/world/Object.hpp"
 #include "ad_rss/world/Scene.hpp"

@@ -64,7 +64,7 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
   // global try catch block to ensure this library call doesn't throw an exception
   try
   {
-    if (!bool(mResponseResolving) || !bool(mSituationChecking))
+    if (!static_cast<bool>(mResponseResolving) || !static_cast<bool>(mSituationChecking))
     {
       return false;
     }

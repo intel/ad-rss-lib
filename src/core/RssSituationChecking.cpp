@@ -60,7 +60,7 @@ bool RssSituationChecking::checkSituation(situation::Situation const &situation,
   // global try catch block to ensure this library call doesn't throw an exception
   try
   {
-    if (!bool(mIntersectionChecker))
+    if (!static_cast<bool>(mIntersectionChecker))
     {
       return false;
     }

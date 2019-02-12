@@ -62,7 +62,7 @@ public:
   /**
    * @brief constructor
    */
-  explicit RssResponseResolving();
+  RssResponseResolving();
 
   /**
    * @brief Calculate the proper response out of the current responses

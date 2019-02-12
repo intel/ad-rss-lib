@@ -76,7 +76,7 @@ public:
   /**
    * @brief Constructor
    */
-  explicit RssIntersectionChecker();
+  RssIntersectionChecker();
 
   /**
    * @brief Destructor

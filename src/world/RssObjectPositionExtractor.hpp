@@ -34,6 +34,7 @@
 
 #pragma once
 
+#include <limits>
 #include "ad_rss/world/LaneSegment.hpp"
 #include "ad_rss/world/Object.hpp"
 

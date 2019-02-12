@@ -66,7 +66,7 @@ public:
   /*!
    * @brief constructor
    */
-  explicit RssSituationChecking();
+  RssSituationChecking();
 
   /*!
    * @brief destructor

@@ -245,7 +245,7 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
             }
             case IntersectionState::NoTimeOverlap:
             {
-              //@todo If we don't assume always lateral overlap we might need to brake lateraly aswell
+              // @todo If we don't assume always lateral overlap we might need to brake lateraly aswell
               rssState.longitudinalState.response = ::ad_rss::state::LongitudinalResponse::BrakeMin;
               break;
             }

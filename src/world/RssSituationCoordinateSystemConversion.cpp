@@ -33,6 +33,8 @@
  */
 
 #include <algorithm>
+#include <limits>
+#include <vector>
 
 #include "RssObjectPositionExtractor.hpp"
 #include "RssSituationCoordinateSystemConversion.hpp"

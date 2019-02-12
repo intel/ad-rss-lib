@@ -34,11 +34,16 @@
 #include "Vehicle.hpp"
 #include "physics/Math.hpp"
 
-// make the code more readable
-using namespace ad_rss::physics;
-
 namespace ad_rss {
 namespace situation {
+
+// make the code more readable
+using physics::Acceleration;
+using physics::CoordinateSystemAxis;
+using physics::Distance;
+using physics::Duration;
+using physics::Speed;
+using physics::calculateStoppingDistance;
 
 bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const axis,
                                                       Speed const currentSpeed,

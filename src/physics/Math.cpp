@@ -31,6 +31,7 @@
 
 #include "Math.hpp"
 #include <algorithm>
+#include <limits>
 
 namespace ad_rss {
 namespace physics {

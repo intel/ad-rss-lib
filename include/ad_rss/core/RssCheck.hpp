@@ -64,7 +64,7 @@ public:
   /**
    * @brief constructor
    */
-  explicit RssCheck();
+  RssCheck();
 
   ~RssCheck();
 
