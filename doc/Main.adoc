@@ -9,6 +9,7 @@ Ad-rss-lib
 // include directories
 :imagesdir: ./images
 :includedir: ./includes
+:maindir: ..
 // code highlighter
 :source-highlighter: coderay
 // figure caption and icon style
@@ -36,7 +37,13 @@ Ad-rss-lib
 
 toc::[]
 
-include::{includedir}/Disclaimer.adoc[]
+****
+include::{maindir}/LICENSE[]
+****
+
+****
+include::{maindir}/RELEASE_NOTES_AND_DISCLAIMERS.md[]
+****
 
 include::{includedir}/Overview.adoc[]
 

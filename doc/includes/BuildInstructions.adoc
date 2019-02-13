@@ -10,6 +10,7 @@ mkdir build
 cd build
 cmake ..
 make
+cmake -DBUILD_DOC=1 ..
 make apidoc # optional, if API documentation is desired
 ----
 

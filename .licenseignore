@@ -1,4 +1,7 @@
 .clang-format
+LICENSE
+README.md
+RELEASE_NOTES_AND_DISCLAIMERS.md
 doc/
 model/
 build.gradle
