@@ -37,9 +37,9 @@
  */
 
 #pragma once
-#include <limits>
 
 #include <cstdint>
+#include <limits>
 #include <memory>
 #include "ad_rss/physics/TimeIndex.hpp"
 #include "ad_rss/situation/SituationId.hpp"
@@ -61,16 +61,35 @@ namespace state {
  */
 struct ResponseState
 {
-  ::ad_rss::physics::TimeIndex timeIndex; /*!< The time index is required to distinguish different points in time when
-                                             tracking states or transforming responses back. */
-  ::ad_rss::situation::SituationId situationId{0u};        /*!< Id of the situation this state refers to.
-         The id has to remain unique over time representing the situation (ego-vehicle / object pair) under investigation.
-         It is used to track the state of the ego-vehicle / object constellation i.e. at point of danger threshold time. */
-  ::ad_rss::state::LongitudinalRssState longitudinalState; /*!< The current longitudinal rss state. */
-  ::ad_rss::state::LateralRssState
-    lateralStateRight; /*!< The current lateral rss state at right side in respect to ego-vehicle driving direction. */
-  ::ad_rss::state::LateralRssState
-    lateralStateLeft; /*!< The current lateral rss state at left side in respect to ego-vehicle driving direction. */
+  /*!
+   * The time index is required to distinguish different points in time when tracking states or transforming responses
+   * back.
+   */
+  ::ad_rss::physics::TimeIndex timeIndex;
+
+  /*!
+   * Id of the situation this state refers to.
+   * The id has to remain unique over time representing the situation (ego-vehicle /
+   * object pair) under investigation.
+   * It is used to track the state of the ego-vehicle / object constellation i.e. at
+   * point of danger threshold time.
+   */
+  ::ad_rss::situation::SituationId situationId{0u};
+
+  /*!
+   * The current longitudinal rss state.
+   */
+  ::ad_rss::state::LongitudinalRssState longitudinalState;
+
+  /*!
+   * The current lateral rss state at right side in respect to ego-vehicle driving direction.
+   */
+  ::ad_rss::state::LateralRssState lateralStateRight;
+
+  /*!
+   * The current lateral rss state at left side in respect to ego-vehicle driving direction.
+   */
+  ::ad_rss::state::LateralRssState lateralStateLeft;
 };
 
 } // namespace state

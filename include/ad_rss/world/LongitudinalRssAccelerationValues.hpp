@@ -37,8 +37,8 @@
  */
 
 #pragma once
-#include <limits>
 
+#include <limits>
 #include <memory>
 #include "ad_rss/physics/Acceleration.hpp"
 /*!
@@ -57,17 +57,28 @@ namespace world {
  */
 struct LongitudinalRssAccelerationValues
 {
-  ::ad_rss::physics::Acceleration accelMax{0.0}; /*!< Absolute amount of the maximum allowed acceleration.  This value
-                                                    has always to be positive, zero is allowed. */
-  ::ad_rss::physics::Acceleration brakeMax{
-    0.0}; /*!< Absolute amount of the maximum allowed braking deceleration.  This value has always to be positive and
-             not smaller than brakeMin. */
-  ::ad_rss::physics::Acceleration brakeMin{0.0}; /*!< Absolute amount of the minimum allowed breaking deceleration.
-                                                    This value has always to be positive and not smaller than
-                                                    brakeMinCorrect. */
-  ::ad_rss::physics::Acceleration brakeMinCorrect{0.0}; /*!< Absolute amount of the minimum allowed breaking
-                                                           deceleration when driving on the correct lane.  This value
-                                                           has always to be positive. */
+  /*!
+   * Absolute amount of the maximum allowed acceleration.  This value has always to be positive, zero is allowed.
+   */
+  ::ad_rss::physics::Acceleration accelMax{0.0};
+
+  /*!
+   * Absolute amount of the maximum allowed braking deceleration.  This value has always to be positive and not smaller
+   * than brakeMin.
+   */
+  ::ad_rss::physics::Acceleration brakeMax{0.0};
+
+  /*!
+   * Absolute amount of the minimum allowed breaking deceleration.  This value has always to be positive and not smaller
+   * than brakeMinCorrect.
+   */
+  ::ad_rss::physics::Acceleration brakeMin{0.0};
+
+  /*!
+   * Absolute amount of the minimum allowed breaking deceleration when driving on the correct lane.  This value has
+   * always to be positive.
+   */
+  ::ad_rss::physics::Acceleration brakeMinCorrect{0.0};
 };
 
 } // namespace world

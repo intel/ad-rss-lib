@@ -37,7 +37,6 @@
  */
 
 #pragma once
-#include <limits>
 
 /*!
  * @brief namespace ad_rss

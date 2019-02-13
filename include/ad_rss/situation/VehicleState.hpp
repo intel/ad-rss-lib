@@ -37,8 +37,8 @@
  */
 
 #pragma once
-#include <limits>
 
+#include <limits>
 #include <memory>
 #include "ad_rss/physics/Distance.hpp"
 #include "ad_rss/physics/Duration.hpp"
@@ -64,17 +64,40 @@ namespace situation {
  */
 struct VehicleState
 {
-  ::ad_rss::world::Velocity velocity;            /*!< The situation specific velocity. */
-  ::ad_rss::world::Dynamics dynamics;            /*!< The situation specific dynamics. */
-  ::ad_rss::physics::Duration responseTime{0.0}; /*!< The situation specific response time. */
-  bool hasPriority{false};     /*!< Flag indicating if the situation specific Right-of-Way relation. */
-  bool isInCorrectLane{false}; /*!< Flag indicating if the vehicle driving in the correct lane */
-  ::ad_rss::physics::Distance distanceToEnterIntersection{
-    std::numeric_limits<::ad_rss::physics::Distance>::max()}; /*!< The minimum distance to be covered by the vehicle to
-                                                              enter the intersection. */
-  ::ad_rss::physics::Distance distanceToLeaveIntersection{
-    std::numeric_limits<::ad_rss::physics::Distance>::max()}; /*!< The maximum distance to cover by the vehicle to leave
-                                                              the intersection completely. */
+  /*!
+   * The situation specific velocity.
+   */
+  ::ad_rss::world::Velocity velocity;
+
+  /*!
+   * The situation specific dynamics.
+   */
+  ::ad_rss::world::Dynamics dynamics;
+
+  /*!
+   * The situation specific response time.
+   */
+  ::ad_rss::physics::Duration responseTime{0.0};
+
+  /*!
+   * Flag indicating if the situation specific Right-of-Way relation.
+   */
+  bool hasPriority{false};
+
+  /*!
+   * Flag indicating if the vehicle driving in the correct lane
+   */
+  bool isInCorrectLane{false};
+
+  /*!
+   * The minimum distance to be covered by the vehicle to enter the intersection.
+   */
+  ::ad_rss::physics::Distance distanceToEnterIntersection{std::numeric_limits<::ad_rss::physics::Distance>::max()};
+
+  /*!
+   * The maximum distance to cover by the vehicle to leave the intersection completely.
+   */
+  ::ad_rss::physics::Distance distanceToLeaveIntersection{std::numeric_limits<::ad_rss::physics::Distance>::max()};
 };
 
 } // namespace situation

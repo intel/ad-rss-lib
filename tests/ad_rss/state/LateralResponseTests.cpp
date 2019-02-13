@@ -31,41 +31,40 @@
  * ----------------- END LICENSE BLOCK -----------------------------------
  */
 
-/**
- * @file
- *
+/*
+ * Note: This file is currently not included in any CMakeLists.txt
  */
 
-#pragma once
-
-#include <memory>
+#include <gtest/gtest.h>
+#include <limits>
 #include "ad_rss/state/LateralResponse.hpp"
-/*!
- * @brief namespace ad_rss
- */
-namespace ad_rss {
-/*!
- * @brief namespace state
- */
-namespace state {
 
-/*!
- * \brief DataType LateralRssState
- *
- * Struct to store the lateral RSS state.
- */
-struct LateralRssState
+TEST(LateralResponseTests, testFromString)
 {
-  /*!
-   * Flag to indicate if the state is lateral safe.
-   */
-  bool isSafe{false};
+  ASSERT_EQ(fromString<::ad_rss::state::LateralResponse>("None"), ::ad_rss::state::LateralResponse::None);
+  ASSERT_EQ(fromString<::ad_rss::state::LateralResponse>("::ad_rss::state::LateralResponse::None"),
+            ::ad_rss::state::LateralResponse::None);
 
-  /*!
-   * required response in lateral direction
-   */
-  ::ad_rss::state::LateralResponse response;
-};
+  ASSERT_EQ(fromString<::ad_rss::state::LateralResponse>("BrakeMin"), ::ad_rss::state::LateralResponse::BrakeMin);
+  ASSERT_EQ(fromString<::ad_rss::state::LateralResponse>("::ad_rss::state::LateralResponse::BrakeMin"),
+            ::ad_rss::state::LateralResponse::BrakeMin);
 
-} // namespace state
-} // namespace ad_rss
+  EXPECT_ANY_THROW({ fromString<::ad_rss::state::LateralResponse>("NOT A VALID ENUM LITERAL"); });
+}
+
+TEST(LateralResponseTests, testToString)
+{
+  int32_t minValue = std::numeric_limits<int32_t>::max();
+  int32_t maxValue = std::numeric_limits<int32_t>::min();
+
+  ASSERT_EQ(toString(::ad_rss::state::LateralResponse::None), "::ad_rss::state::LateralResponse::None");
+  minValue = std::min(minValue, static_cast<int32_t>(::ad_rss::state::LateralResponse::None));
+  maxValue = std::max(maxValue, static_cast<int32_t>(::ad_rss::state::LateralResponse::None));
+
+  ASSERT_EQ(toString(::ad_rss::state::LateralResponse::BrakeMin), "::ad_rss::state::LateralResponse::BrakeMin");
+  minValue = std::min(minValue, static_cast<int32_t>(::ad_rss::state::LateralResponse::BrakeMin));
+  maxValue = std::max(maxValue, static_cast<int32_t>(::ad_rss::state::LateralResponse::BrakeMin));
+
+  ASSERT_EQ(toString(static_cast<::ad_rss::state::LateralResponse>(minValue - 1)), "UNKNOWN ENUM VALUE");
+  ASSERT_EQ(toString(static_cast<::ad_rss::state::LateralResponse>(maxValue + 1)), "UNKNOWN ENUM VALUE");
+}

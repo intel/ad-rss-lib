@@ -189,6 +189,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, longitudinalDifferenceEgoFollow
   ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::ad_rss::situation::LateralRelativePosition::AtRight);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, 1);
 }
-}
-}
+
+} // namespace RssSituationExtraction
+} // namespace core
 } // namespace ad_rss

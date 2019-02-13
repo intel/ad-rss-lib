@@ -37,8 +37,8 @@
  */
 
 #pragma once
-#include <limits>
 
+#include <limits>
 #include <memory>
 #include "ad_rss/physics/Distance.hpp"
 /*!
@@ -57,10 +57,15 @@ namespace physics {
  */
 struct MetricRange
 {
-  ::ad_rss::physics::Distance minimum{
-    std::numeric_limits<Distance>::lowest()}; /*!< The minimum value of the metric range. */
-  ::ad_rss::physics::Distance maximum{
-    std::numeric_limits<Distance>::max()}; /*!< The maximum value of the metric range. */
+  /*!
+   * The minimum value of the metric range.
+   */
+  ::ad_rss::physics::Distance minimum{std::numeric_limits<Distance>::lowest()};
+
+  /*!
+   * The maximum value of the metric range.
+   */
+  ::ad_rss::physics::Distance maximum{std::numeric_limits<Distance>::max()};
 };
 
 } // namespace physics

@@ -35,7 +35,12 @@
 namespace ad_rss {
 namespace situation {
 
-using namespace ::ad_rss::physics;
+// make the code more readable
+using physics::Acceleration;
+using physics::CoordinateSystemAxis;
+using physics::Distance;
+using physics::Duration;
+using physics::Speed;
 
 TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection, negative_leading_speed)
 {

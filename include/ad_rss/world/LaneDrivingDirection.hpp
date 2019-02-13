@@ -37,7 +37,6 @@
  */
 
 #pragma once
-#include <limits>
 
 #include <memory>
 #include <string>
@@ -55,9 +54,20 @@ namespace world {
  */
 enum class LaneDrivingDirection : int32_t
 {
-  Bidirectional = 0, /*!< Traffic flow in this lane segment is in both directions. */
-  Positive = 1,      /*!< Nominal traffic flow in this lane segment is positive RoadArea direction. */
-  Negative = 2       /*!< Nominal traffic flow in this lane segment is negative RoadArea direction. */
+  /*!
+   * Traffic flow in this lane segment is in both directions.
+   */
+  Bidirectional = 0,
+
+  /*!
+   * Nominal traffic flow in this lane segment is positive RoadArea direction.
+   */
+  Positive = 1,
+
+  /*!
+   * Nominal traffic flow in this lane segment is negative RoadArea direction.
+   */
+  Negative = 2
 };
 
 } // namespace world

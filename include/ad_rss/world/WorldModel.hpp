@@ -42,7 +42,6 @@
 #include <limits>
 #include <memory>
 #include <vector>
-
 #include "ad_rss/physics/TimeIndex.hpp"
 #include "ad_rss/world/Object.hpp"
 #include "ad_rss/world/Scene.hpp"
@@ -63,13 +62,23 @@ namespace world {
  */
 struct WorldModel
 {
-  ::ad_rss::physics::TimeIndex timeIndex{0u}; /*!< The time index is required to distinguish different points in time
-                                                 when tracking states or transforming responses back. Each world model
-                                                 referring to another point in time should get another time index. The
-                                                 time index of the world model must not be zero. */
-  ::ad_rss::world::Object egoVehicle;         /*!< The ego vehicle. */
+  /*!
+   * The time index is required to distinguish different points in time when tracking states or transforming responses
+   * back. Each world model referring to another point in time should get another time index. The time index of the
+   * world model must not be zero.
+   */
+  ::ad_rss::physics::TimeIndex timeIndex{0u};
+
+  /*!
+   * The ego vehicle.
+   */
+  ::ad_rss::world::Object egoVehicle;
+
+  /*!
+   * All scenes
+   */
   using ScenesType = std::vector<::ad_rss::world::Scene>;
-  ScenesType scenes; /*!< All scenes */
+  ScenesType scenes;
 };
 
 } // namespace world

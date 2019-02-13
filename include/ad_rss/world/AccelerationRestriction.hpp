@@ -37,9 +37,9 @@
  */
 
 #pragma once
-#include <limits>
 
 #include <cstdint>
+#include <limits>
 #include <memory>
 #include "ad_rss/physics/AccelerationRange.hpp"
 #include "ad_rss/physics/TimeIndex.hpp"
@@ -59,13 +59,25 @@ namespace world {
  */
 struct AccelerationRestriction
 {
-  ::ad_rss::physics::TimeIndex timeIndex{0u}; /*!< The time index these acceleration restrictions are referring to. */
-  ::ad_rss::physics::AccelerationRange
-    lateralLeftRange; /*!< The range of the acceleration restriction in lateral left direction. */
-  ::ad_rss::physics::AccelerationRange
-    longitudinalRange; /*!< The range of the acceleration restriction in longitudinal direction. */
-  ::ad_rss::physics::AccelerationRange
-    lateralRightRange; /*!< The range of the acceleration restriction in lateral right direction. */
+  /*!
+   * The time index these acceleration restrictions are referring to.
+   */
+  ::ad_rss::physics::TimeIndex timeIndex{0u};
+
+  /*!
+   * The range of the acceleration restriction in lateral left direction.
+   */
+  ::ad_rss::physics::AccelerationRange lateralLeftRange;
+
+  /*!
+   * The range of the acceleration restriction in longitudinal direction.
+   */
+  ::ad_rss::physics::AccelerationRange longitudinalRange;
+
+  /*!
+   * The range of the acceleration restriction in lateral right direction.
+   */
+  ::ad_rss::physics::AccelerationRange lateralRightRange;
 };
 
 } // namespace world

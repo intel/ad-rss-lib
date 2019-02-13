@@ -37,7 +37,6 @@
  */
 
 #pragma once
-#include <limits>
 
 #include <memory>
 #include "ad_rss/situation/SituationType.hpp"
@@ -62,19 +61,28 @@ namespace world {
  */
 struct Scene
 {
-  ::ad_rss::situation::SituationType situationType{
-    ::ad_rss::situation::SituationType::SameDirection}; /*!< The type of the current situation. Depending on this type
-                                                           the other fields of the RssArea might be left empty. */
-  ::ad_rss::world::RoadArea
-    egoVehicleRoad; /*!< The RssRoadArea the ego vehicle is driving in. The driving direction of the ego
-                       vehicle define the ordering of the road segments. In non-intersection situations the
-                       object is also driving in this road area. */
-  ::ad_rss::world::RoadArea
-    intersectingRoad; /*!< The RssRoadArea an intersecting vehicle is driving in. The driving direction of the
-                         intersecting vehicle define the ordering of the road segments. The road area should contain
-                         all neigboring lanes the other vehcile is able to drive in.  In non-intersection situations
-                         this road area is empty. */
-  ::ad_rss::world::Object object; /*!< The object this scene refers to. */
+  /*!
+   * The type of the current situation. Depending on this type the other fields of the RssArea might be left empty.
+   */
+  ::ad_rss::situation::SituationType situationType{::ad_rss::situation::SituationType::SameDirection};
+
+  /*!
+   * The RssRoadArea the ego vehicle is driving in. The driving direction of the ego vehicle define the ordering of the
+   * road segments. In non-intersection situations the object is also driving in this road area.
+   */
+  ::ad_rss::world::RoadArea egoVehicleRoad;
+
+  /*!
+   * The RssRoadArea an intersecting vehicle is driving in. The driving direction of the intersecting vehicle define the
+   * ordering of the road segments. The road area should contain all neigboring lanes the other vehcile is able to drive
+   * in.  In non-intersection situations this road area is empty.
+   */
+  ::ad_rss::world::RoadArea intersectingRoad;
+
+  /*!
+   * The object this scene refers to.
+   */
+  ::ad_rss::world::Object object;
 };
 
 } // namespace world

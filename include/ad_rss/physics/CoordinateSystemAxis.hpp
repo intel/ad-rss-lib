@@ -37,7 +37,6 @@
  */
 
 #pragma once
-#include <limits>
 
 #include <memory>
 #include <string>
@@ -57,8 +56,15 @@ namespace physics {
  */
 enum class CoordinateSystemAxis : int32_t
 {
-  Longitudinal = 0, /*!< longitudinal axis: ego vehicle is driving in positive direction */
-  Lateral = 1       /*!< lateral axis: ego vehicle left to right defines the positive direction */
+  /*!
+   * longitudinal axis: ego vehicle is driving in positive direction
+   */
+  Longitudinal = 0,
+
+  /*!
+   * lateral axis: ego vehicle left to right defines the positive direction
+   */
+  Lateral = 1
 };
 
 } // namespace physics

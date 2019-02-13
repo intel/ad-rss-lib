@@ -30,8 +30,10 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 #pragma once
 
-#include <cmath>
 #include <gtest/gtest.h>
+
+#include <cmath>
+#include <limits>
 
 #include "RSSParameters.hpp"
 #include "ad_rss/situation/RelativePosition.hpp"
@@ -86,15 +88,15 @@ inline world::Object createObject(double lonVelocity, double latVelocity)
 
   object.velocity.speedLon = kmhToMeterPerSec(lonVelocity);
   object.velocity.speedLat = kmhToMeterPerSec(latVelocity);
-  object.dynamics.alphaLon.accelMax = physics::cMaximumLongitudinalAcceleration;
-  object.dynamics.alphaLon.brakeMax = physics::cMaximumLongitudinalBrakingDeceleleration;
-  object.dynamics.alphaLon.brakeMin = physics::cMinimumLongitudinalBrakingDeceleleration;
-  object.dynamics.alphaLon.brakeMinCorrect = physics::cMinimumLongitudinalBrakingDecelelerationCorrect;
+  object.dynamics.alphaLon.accelMax = cMaximumLongitudinalAcceleration;
+  object.dynamics.alphaLon.brakeMax = cMaximumLongitudinalBrakingDeceleleration;
+  object.dynamics.alphaLon.brakeMin = cMinimumLongitudinalBrakingDeceleleration;
+  object.dynamics.alphaLon.brakeMinCorrect = cMinimumLongitudinalBrakingDecelelerationCorrect;
 
-  object.dynamics.alphaLat.accelMax = physics::cMaximumLateralAcceleration;
-  object.dynamics.alphaLat.brakeMin = physics::cMinimumLateralBrakingDeceleleration;
+  object.dynamics.alphaLat.accelMax = cMaximumLateralAcceleration;
+  object.dynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
 
-  object.responseTime = physics::cResponseTimeOtherVehicles;
+  object.responseTime = cResponseTimeOtherVehicles;
 
   return object;
 }
@@ -105,15 +107,15 @@ inline situation::VehicleState createVehicleState(double lonVelocity, double lat
 
   state.velocity.speedLon = kmhToMeterPerSec(lonVelocity);
   state.velocity.speedLat = kmhToMeterPerSec(latVelocity);
-  state.dynamics.alphaLon.accelMax = physics::cMaximumLongitudinalAcceleration;
-  state.dynamics.alphaLon.brakeMax = physics::cMaximumLongitudinalBrakingDeceleleration;
-  state.dynamics.alphaLon.brakeMin = physics::cMinimumLongitudinalBrakingDeceleleration;
-  state.dynamics.alphaLon.brakeMinCorrect = physics::cMinimumLongitudinalBrakingDecelelerationCorrect;
+  state.dynamics.alphaLon.accelMax = cMaximumLongitudinalAcceleration;
+  state.dynamics.alphaLon.brakeMax = cMaximumLongitudinalBrakingDeceleleration;
+  state.dynamics.alphaLon.brakeMin = cMinimumLongitudinalBrakingDeceleleration;
+  state.dynamics.alphaLon.brakeMinCorrect = cMinimumLongitudinalBrakingDecelelerationCorrect;
 
-  state.dynamics.alphaLat.accelMax = physics::cMaximumLateralAcceleration;
-  state.dynamics.alphaLat.brakeMin = physics::cMinimumLateralBrakingDeceleleration;
+  state.dynamics.alphaLat.accelMax = cMaximumLateralAcceleration;
+  state.dynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
 
-  state.responseTime = physics::cResponseTimeOtherVehicles;
+  state.responseTime = cResponseTimeOtherVehicles;
   state.distanceToEnterIntersection = std::numeric_limits<physics::Distance>::max();
   state.distanceToLeaveIntersection = std::numeric_limits<physics::Distance>::max();
   state.hasPriority = false;
@@ -197,15 +199,21 @@ inline double calculateLateralMinSafeDistance(::ad_rss::world::Object const &lef
   return dMin;
 }
 
-// reset state (safe with literal==0)
-template <typename RSSState> void resetRssState(RSSState &state)
+inline void resetRssState(state::LongitudinalRssState &state)
 {
-  state.response = decltype(state.response)(0);
+  state.response = state::LongitudinalResponse::None;
   state.isSafe = true;
 }
 
-inline void resetRssState(state::ResponseState &responseState, situation::SituationId situationId = 0)
+inline void resetRssState(state::LateralRssState &state)
 {
+  state.response = state::LateralResponse::None;
+  state.isSafe = true;
+}
+
+inline void resetRssState(state::ResponseState &responseState, situation::SituationId situationId)
+{
+  responseState.timeIndex = 1u;
   responseState.situationId = situationId;
   resetRssState(responseState.longitudinalState);
   resetRssState(responseState.lateralStateLeft);
@@ -218,7 +226,8 @@ template <typename RSSState, typename RSSStateLiteral> void setRssStateUnsafe(RS
   state.response = literal;
   state.isSafe = false;
 }
-}
+
+} // namespace ad_rss
 
 inline bool operator==(::ad_rss::state::LongitudinalRssState const &left,
                        ::ad_rss::state::LongitudinalRssState const &right)
@@ -235,5 +244,5 @@ inline bool operator==(::ad_rss::state::LateralRssState const &left, ::ad_rss::s
 namespace testing {
 namespace internal {
 using ::operator==;
-}
-}
+} // namespace internal
+} // namespace testing

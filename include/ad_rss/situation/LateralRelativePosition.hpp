@@ -37,7 +37,6 @@
  */
 
 #pragma once
-#include <limits>
 
 #include <memory>
 #include <string>
@@ -58,15 +57,32 @@ namespace situation {
  */
 enum class LateralRelativePosition : int32_t
 {
-  AtLeft
-  = 0, /*!< The object a is completely left of object b. This means there is an actual lateral space between them. */
-  OverlapLeft = 1, /*!< The objects overlap. The left border of object a is left of the left border of object b AND the
-                      right border of object a is left of the right border of object b. */
-  Overlap = 2, /*!< The objects overlap, but neither the conditions for OverlapLeft nor OverlapRight are applicable. */
-  OverlapRight = 3, /*!< The objects overlap. The left border of object a is right of the left border of object b AND
-                       the right border of object a is right of the right border of object b. */
-  AtRight
-  = 4 /*!< The object a is completely right of object b. This means there is an actual lateral space between them. */
+  /*!
+   * The object a is completely left of object b. This means there is an actual lateral space between them.
+   */
+  AtLeft = 0,
+
+  /*!
+   * The objects overlap. The left border of object a is left of the left border of object b AND the right border of
+   * object a is left of the right border of object b.
+   */
+  OverlapLeft = 1,
+
+  /*!
+   * The objects overlap, but neither the conditions for OverlapLeft nor OverlapRight are applicable.
+   */
+  Overlap = 2,
+
+  /*!
+   * The objects overlap. The left border of object a is right of the left border of object b AND the right border of
+   * object a is right of the right border of object b.
+   */
+  OverlapRight = 3,
+
+  /*!
+   * The object a is completely right of object b. This means there is an actual lateral space between them.
+   */
+  AtRight = 4
 };
 
 } // namespace situation

@@ -37,7 +37,6 @@
  */
 
 #pragma once
-#include <limits>
 
 #include <memory>
 #include <string>
@@ -55,8 +54,15 @@ namespace world {
  */
 enum class LaneSegmentType : int32_t
 {
-  Normal = 0,      /*!< Normal lane segement. Nothing special to consider. */
-  Intersection = 1 /*!< Lane segment is intersecting with another lane segment of the intersecting road. */
+  /*!
+   * Normal lane segement. Nothing special to consider.
+   */
+  Normal = 0,
+
+  /*!
+   * Lane segment is intersecting with another lane segment of the intersecting road.
+   */
+  Intersection = 1
 };
 
 } // namespace world

@@ -37,7 +37,6 @@
  */
 
 #pragma once
-#include <limits>
 
 #include <memory>
 #include <string>
@@ -57,18 +56,37 @@ namespace situation {
  */
 enum class SituationType : int32_t
 {
-  NotRelevant
-  = 0, /*!< The other vehicle cannot conflict with the ego vehicle. This kind of situations are always considered to be
-          safe. Use this situation state to make the object visible in the result vector to be a known object, but not
-          relevant for RSS (e.g. object in opposite direction, but already passed by). */
-  SameDirection = 1,     /*!< Both drive on the same road in the same direction. */
-  OppositeDirection = 2, /*!< Both drive on the same road in the opposite direction. */
-  IntersectionEgoHasPriority
-  = 3, /*!< Both drive on individual roads which intersect at the end. Ego vehicle has priority over object. */
-  IntersectionObjectHasPriority
-  = 4, /*!< Both drive on individual roads which intersect at the end. Object has priority over ego vehicle. */
-  IntersectionSamePriority
-  = 5 /*!< Both drive on individual roads which intersect at the end. Object and ego vehicle have same priority. */
+  /*!
+   * The other vehicle cannot conflict with the ego vehicle. This kind of situations are always considered to be safe.
+   * Use this situation state to make the object visible in the result vector to be a known object, but not relevant for
+   * RSS (e.g. object in opposite direction, but already passed by).
+   */
+  NotRelevant = 0,
+
+  /*!
+   * Both drive on the same road in the same direction.
+   */
+  SameDirection = 1,
+
+  /*!
+   * Both drive on the same road in the opposite direction.
+   */
+  OppositeDirection = 2,
+
+  /*!
+   * Both drive on individual roads which intersect at the end. Ego vehicle has priority over object.
+   */
+  IntersectionEgoHasPriority = 3,
+
+  /*!
+   * Both drive on individual roads which intersect at the end. Object has priority over ego vehicle.
+   */
+  IntersectionObjectHasPriority = 4,
+
+  /*!
+   * Both drive on individual roads which intersect at the end. Object and ego vehicle have same priority.
+   */
+  IntersectionSamePriority = 5
 };
 
 } // namespace situation

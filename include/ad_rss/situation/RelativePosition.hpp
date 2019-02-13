@@ -37,8 +37,8 @@
  */
 
 #pragma once
-#include <limits>
 
+#include <limits>
 #include <memory>
 #include "ad_rss/physics/Distance.hpp"
 #include "ad_rss/situation/LateralRelativePosition.hpp"
@@ -59,17 +59,26 @@ namespace situation {
  */
 struct RelativePosition
 {
+  /*!
+   * The longitudinal relative position between to objects within their situation coordinate system.
+   */
   ::ad_rss::situation::LongitudinalRelativePosition longitudinalPosition{
-    ::ad_rss::situation::LongitudinalRelativePosition::Overlap}; /*!< The longitudinal relative position between to
-                                                                    objects within their situation coordinate system. */
-  ::ad_rss::physics::Distance longitudinalDistance{
-    0.0}; /*!< The longitudinal distance between the two objects within their situation coordinate system. */
-  ::ad_rss::situation::LateralRelativePosition lateralPosition{
-    ::ad_rss::situation::LateralRelativePosition::Overlap}; /*!< The lateral relative position between
-                                                               to objects within their situation
-                                                               coordinate system. */
-  ::ad_rss::physics::Distance lateralDistance{
-    0.0}; /*!< The lateral distance between the two objects within their situation coordinate system. */
+    ::ad_rss::situation::LongitudinalRelativePosition::Overlap};
+
+  /*!
+   * The longitudinal distance between the two objects within their situation coordinate system.
+   */
+  ::ad_rss::physics::Distance longitudinalDistance{0.0};
+
+  /*!
+   * The lateral relative position between to objects within their situation coordinate system.
+   */
+  ::ad_rss::situation::LateralRelativePosition lateralPosition{::ad_rss::situation::LateralRelativePosition::Overlap};
+
+  /*!
+   * The lateral distance between the two objects within their situation coordinate system.
+   */
+  ::ad_rss::physics::Distance lateralDistance{0.0};
 };
 
 } // namespace situation

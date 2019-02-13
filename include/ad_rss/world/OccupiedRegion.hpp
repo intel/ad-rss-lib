@@ -37,9 +37,9 @@
  */
 
 #pragma once
-#include <limits>
 
 #include <cstdint>
+#include <limits>
 #include <memory>
 #include "ad_rss/physics/ParametricRange.hpp"
 #include "ad_rss/world/LaneSegmentId.hpp"
@@ -61,11 +61,20 @@ namespace world {
  */
 struct OccupiedRegion
 {
-  ::ad_rss::world::LaneSegmentId segmentId; /*!< The id of the lane segment this region refers to. */
-  ::ad_rss::physics::ParametricRange
-    lonRange; /*!< The parametric range an object spans in longitudinal direction within a lane segment. */
-  ::ad_rss::physics::ParametricRange
-    latRange; /*!< The parametric range an object spans in lateral direction within a lane segment. */
+  /*!
+   * The id of the lane segment this region refers to.
+   */
+  ::ad_rss::world::LaneSegmentId segmentId;
+
+  /*!
+   * The parametric range an object spans in longitudinal direction within a lane segment.
+   */
+  ::ad_rss::physics::ParametricRange lonRange;
+
+  /*!
+   * The parametric range an object spans in lateral direction within a lane segment.
+   */
+  ::ad_rss::physics::ParametricRange latRange;
 };
 
 } // namespace world

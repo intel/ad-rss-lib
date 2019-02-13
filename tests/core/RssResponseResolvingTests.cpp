@@ -41,14 +41,14 @@ using state::LongitudinalResponse;
 class RssResponseResolvingTests : public testing::Test
 {
 protected:
-  virtual void SetUp()
+  void SetUp() override
   {
     resetRssState(firstResponseState, 1u);
     resetRssState(secondResponseState, 1u);
     resetRssState(resultResponseState, 1u);
   }
 
-  virtual void TearDown()
+  void TearDown() override
   {
     responseStateVector.clear();
   }

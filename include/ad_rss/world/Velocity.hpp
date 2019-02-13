@@ -37,8 +37,8 @@
  */
 
 #pragma once
-#include <limits>
 
+#include <limits>
 #include <memory>
 #include "ad_rss/physics/Speed.hpp"
 /*!
@@ -58,10 +58,19 @@ namespace world {
  */
 struct Velocity
 {
-  ::ad_rss::physics::Speed speedLon{0.0}; /*!< The longitudinal speed component of the velocity vector.
-  The longitudinal component of the velocity is always measured tangential to the center line of the current lane. */
-  ::ad_rss::physics::Speed speedLat{0.0}; /*!< The lateral speed component of the velocity vector.
-  The lateral component of the velocity is always measured orthogonal to the center line of the current lane. */
+  /*!
+   * The longitudinal speed component of the velocity vector.
+   * The longitudinal component of the velocity is always measured tangential to the
+   * center line of the current lane.
+   */
+  ::ad_rss::physics::Speed speedLon{0.0};
+
+  /*!
+   * The lateral speed component of the velocity vector.
+   * The lateral component of the velocity is always measured orthogonal to the center
+   * line of the current lane.
+   */
+  ::ad_rss::physics::Speed speedLat{0.0};
 };
 
 } // namespace world

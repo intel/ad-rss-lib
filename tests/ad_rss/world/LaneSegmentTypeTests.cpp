@@ -31,61 +31,41 @@
  * ----------------- END LICENSE BLOCK -----------------------------------
  */
 
-/**
- * @file
- *
+/*
+ * Note: This file is currently not included in any CMakeLists.txt
  */
 
-#pragma once
-
-#include <cstdint>
+#include <gtest/gtest.h>
 #include <limits>
-#include <memory>
-#include "ad_rss/physics/MetricRange.hpp"
-#include "ad_rss/world/LaneDrivingDirection.hpp"
-#include "ad_rss/world/LaneSegmentId.hpp"
 #include "ad_rss/world/LaneSegmentType.hpp"
-/*!
- * @brief namespace ad_rss
- */
-namespace ad_rss {
-/*!
- * @brief namespace world
- */
-namespace world {
 
-/*!
- * \brief DataType LaneSegment
- *
- * Defines a lane segment.
- */
-struct LaneSegment
+TEST(LaneSegmentTypeTests, testFromString)
 {
-  /*!
-   * The id of the lane segment.
-   */
-  ::ad_rss::world::LaneSegmentId id;
+  ASSERT_EQ(fromString<::ad_rss::world::LaneSegmentType>("Normal"), ::ad_rss::world::LaneSegmentType::Normal);
+  ASSERT_EQ(fromString<::ad_rss::world::LaneSegmentType>("::ad_rss::world::LaneSegmentType::Normal"),
+            ::ad_rss::world::LaneSegmentType::Normal);
 
-  /*!
-   * The type of this lane segment in context of the RssArea it belongs to.
-   */
-  ::ad_rss::world::LaneSegmentType type{::ad_rss::world::LaneSegmentType::Normal};
+  ASSERT_EQ(fromString<::ad_rss::world::LaneSegmentType>("Intersection"),
+            ::ad_rss::world::LaneSegmentType::Intersection);
+  ASSERT_EQ(fromString<::ad_rss::world::LaneSegmentType>("::ad_rss::world::LaneSegmentType::Intersection"),
+            ::ad_rss::world::LaneSegmentType::Intersection);
 
-  /*!
-   * The nominal direction of the traffic flow of this lane segment in context of the RssArea it belongs to.
-   */
-  ::ad_rss::world::LaneDrivingDirection drivingDirection{::ad_rss::world::LaneDrivingDirection::Bidirectional};
+  EXPECT_ANY_THROW({ fromString<::ad_rss::world::LaneSegmentType>("NOT A VALID ENUM LITERAL"); });
+}
 
-  /*!
-   * The metric range of the lane segments length.
-   */
-  ::ad_rss::physics::MetricRange length;
+TEST(LaneSegmentTypeTests, testToString)
+{
+  int32_t minValue = std::numeric_limits<int32_t>::max();
+  int32_t maxValue = std::numeric_limits<int32_t>::min();
 
-  /*!
-   * The metric range of the lane segments width.
-   */
-  ::ad_rss::physics::MetricRange width;
-};
+  ASSERT_EQ(toString(::ad_rss::world::LaneSegmentType::Normal), "::ad_rss::world::LaneSegmentType::Normal");
+  minValue = std::min(minValue, static_cast<int32_t>(::ad_rss::world::LaneSegmentType::Normal));
+  maxValue = std::max(maxValue, static_cast<int32_t>(::ad_rss::world::LaneSegmentType::Normal));
 
-} // namespace world
-} // namespace ad_rss
+  ASSERT_EQ(toString(::ad_rss::world::LaneSegmentType::Intersection), "::ad_rss::world::LaneSegmentType::Intersection");
+  minValue = std::min(minValue, static_cast<int32_t>(::ad_rss::world::LaneSegmentType::Intersection));
+  maxValue = std::max(maxValue, static_cast<int32_t>(::ad_rss::world::LaneSegmentType::Intersection));
+
+  ASSERT_EQ(toString(static_cast<::ad_rss::world::LaneSegmentType>(minValue - 1)), "UNKNOWN ENUM VALUE");
+  ASSERT_EQ(toString(static_cast<::ad_rss::world::LaneSegmentType>(maxValue + 1)), "UNKNOWN ENUM VALUE");
+}

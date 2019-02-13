@@ -37,7 +37,6 @@
  */
 
 #pragma once
-#include <limits>
 
 #include <memory>
 #include <string>
@@ -59,9 +58,20 @@ namespace state {
  */
 enum class LongitudinalResponse : int32_t
 {
-  None = 0,            /*!< No action required. */
-  BrakeMinCorrect = 1, /*!< Vehicle has to decerate at least with brake min correct longitudinally */
-  BrakeMin = 2         /*!< Vehicle has to decerate at least with brake min longitudinally */
+  /*!
+   * No action required.
+   */
+  None = 0,
+
+  /*!
+   * Vehicle has to decerate at least with brake min correct longitudinally
+   */
+  BrakeMinCorrect = 1,
+
+  /*!
+   * Vehicle has to decerate at least with brake min longitudinally
+   */
+  BrakeMin = 2
 };
 
 } // namespace state

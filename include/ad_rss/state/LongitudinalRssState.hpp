@@ -37,7 +37,6 @@
  */
 
 #pragma once
-#include <limits>
 
 #include <memory>
 #include "ad_rss/state/LongitudinalResponse.hpp"
@@ -57,9 +56,15 @@ namespace state {
  */
 struct LongitudinalRssState
 {
-  bool isSafe{false}; /*!< Flag to indicate if the state is longitudinal safe. */
-  ::ad_rss::state::LongitudinalResponse response{
-    ::ad_rss::state::LongitudinalResponse::BrakeMin}; /*!< required response in longitudinal direction */
+  /*!
+   * Flag to indicate if the state is longitudinal safe.
+   */
+  bool isSafe{false};
+
+  /*!
+   * required response in longitudinal direction
+   */
+  ::ad_rss::state::LongitudinalResponse response{::ad_rss::state::LongitudinalResponse::BrakeMin};
 };
 
 } // namespace state

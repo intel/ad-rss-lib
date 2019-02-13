@@ -37,8 +37,8 @@
  */
 
 #pragma once
-#include <limits>
 
+#include <limits>
 #include <memory>
 #include "ad_rss/physics/Distance.hpp"
 #include "ad_rss/world/LateralRssAccelerationValues.hpp"
@@ -61,12 +61,20 @@ namespace world {
  */
 struct Dynamics
 {
-  ::ad_rss::world::LongitudinalRssAccelerationValues
-    alphaLon; /*!< RSS dynamics values along longitudinal coordinate system axis. */
-  ::ad_rss::world::LateralRssAccelerationValues
-    alphaLat; /*!< RSS dynamics values along lateral coordinate system axis. */
-  ::ad_rss::physics::Distance lateralFluctuationMargin{
-    0.0}; /*!< Defines the lateral fluctuation margin to be taken into account. */
+  /*!
+   * RSS dynamics values along longitudinal coordinate system axis.
+   */
+  ::ad_rss::world::LongitudinalRssAccelerationValues alphaLon;
+
+  /*!
+   * RSS dynamics values along lateral coordinate system axis.
+   */
+  ::ad_rss::world::LateralRssAccelerationValues alphaLat;
+
+  /*!
+   * Defines the lateral fluctuation margin to be taken into account.
+   */
+  ::ad_rss::physics::Distance lateralFluctuationMargin{0.0};
 };
 
 } // namespace world

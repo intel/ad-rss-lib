@@ -37,7 +37,6 @@
  */
 
 #pragma once
-#include <limits>
 
 #include <memory>
 #include <string>
@@ -57,9 +56,20 @@ namespace world {
  */
 enum class ObjectType : int32_t
 {
-  EgoVehicle = 0,      /*!< The object is the ego vehicle. */
-  OtherVehicle = 1,    /*!< The object is some other real vehicle. */
-  ArtificialObject = 2 /*!< The object is an artificial one. */
+  /*!
+   * The object is the ego vehicle.
+   */
+  EgoVehicle = 0,
+
+  /*!
+   * The object is some other real vehicle.
+   */
+  OtherVehicle = 1,
+
+  /*!
+   * The object is an artificial one.
+   */
+  ArtificialObject = 2
 };
 
 } // namespace world

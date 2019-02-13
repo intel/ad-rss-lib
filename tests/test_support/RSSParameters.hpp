@@ -42,21 +42,16 @@
  * @brief namespace rss
  */
 namespace ad_rss {
-/*!
- * @brief namespace for RSS physics datatypes and operations
- */
-namespace physics {
 
-const Duration cResponseTimeEgoVehicle = 1;    /*!< Response time of the ego vehicle in seconds. */
-const Duration cResponseTimeOtherVehicles = 2; /*!< Response time of non-ego vehicles in seconds. */
+const physics::Duration cResponseTimeEgoVehicle = 1;    /*!< Response time of the ego vehicle in seconds. */
+const physics::Duration cResponseTimeOtherVehicles = 2; /*!< Response time of non-ego vehicles in seconds. */
 
-const Acceleration cMaximumLongitudinalAcceleration = 3.5;
-const Acceleration cMinimumLongitudinalBrakingDeceleleration = 4;
-const Acceleration cMaximumLongitudinalBrakingDeceleleration = 8;
-const Acceleration cMinimumLongitudinalBrakingDecelelerationCorrect = 3;
+const physics::Acceleration cMaximumLongitudinalAcceleration = 3.5;
+const physics::Acceleration cMinimumLongitudinalBrakingDeceleleration = 4;
+const physics::Acceleration cMaximumLongitudinalBrakingDeceleleration = 8;
+const physics::Acceleration cMinimumLongitudinalBrakingDecelelerationCorrect = 3;
 
-const Acceleration cMaximumLateralAcceleration = 0.2;
-const Acceleration cMinimumLateralBrakingDeceleleration = 0.8;
+const physics::Acceleration cMaximumLateralAcceleration = 0.2;
+const physics::Acceleration cMinimumLateralBrakingDeceleleration = 0.8;
 
-} // namespace physics
-} // namespace rss
+} // namespace ad_rss

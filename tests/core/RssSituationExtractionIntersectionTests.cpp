@@ -218,6 +218,7 @@ TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
   ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::ad_rss::situation::LateralRelativePosition::Overlap);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, 0);
 }
-}
-}
+
+} // namespace RssSituationExtraction
+} // namespace core
 } // namespace ad_rss

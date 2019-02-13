@@ -38,7 +38,7 @@ namespace core {
 TEST(RSSStateSafeTests, isSafe)
 {
   state::ResponseState responseState;
-  resetRssState(responseState);
+  resetRssState(responseState, 1u);
 
   ASSERT_FALSE(isDangerous(responseState));
   ASSERT_TRUE(isLongitudinalSafe(responseState));

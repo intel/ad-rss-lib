@@ -37,8 +37,8 @@
  */
 
 #pragma once
-#include <limits>
 
+#include <limits>
 #include <memory>
 #include "ad_rss/physics/ParametricValue.hpp"
 /*!
@@ -57,8 +57,15 @@ namespace physics {
  */
 struct ParametricRange
 {
-  ::ad_rss::physics::ParametricValue minimum{0.0}; /*!< The minimum value of the parametric range. */
-  ::ad_rss::physics::ParametricValue maximum{1.0}; /*!< The maximum value of the parametric range. */
+  /*!
+   * The minimum value of the parametric range.
+   */
+  ::ad_rss::physics::ParametricValue minimum{0.0};
+
+  /*!
+   * The maximum value of the parametric range.
+   */
+  ::ad_rss::physics::ParametricValue maximum{1.0};
 };
 
 } // namespace physics

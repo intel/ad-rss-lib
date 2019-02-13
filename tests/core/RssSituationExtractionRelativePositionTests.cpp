@@ -38,7 +38,8 @@ namespace core {
 
 namespace RssSituationExtraction {
 
-using namespace ::ad_rss::physics;
+using physics::Distance;
+using physics::MetricRange;
 
 void calcluateRelativeLongitudinalPosition(MetricRange const &egoMetricRange,
                                            MetricRange const &otherMetricRange,
@@ -231,5 +232,5 @@ TEST(CalcluateRelativePositionTest, full_overlap_mixed)
 }
 
 } // namespace RssSituationExtraction
-} // namespace check
+} // namespace core
 } // namespace ad_rss

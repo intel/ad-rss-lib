@@ -88,7 +88,7 @@ TEST(MathUnitTestsDistanceOffsetAfterResponseTime, deceleration_to_stop_equal_re
     }
     else
     {
-      ASSERT_TRUE(std::fabs(distanceOffsetA - distanceOffsetB) > 10);
+      ASSERT_GT(std::fabs(distanceOffsetA - distanceOffsetB), 10);
     }
   }
 }

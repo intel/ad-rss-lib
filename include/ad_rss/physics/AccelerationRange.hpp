@@ -37,8 +37,8 @@
  */
 
 #pragma once
-#include <limits>
 
+#include <limits>
 #include <memory>
 #include "ad_rss/physics/Acceleration.hpp"
 /*!
@@ -57,10 +57,15 @@ namespace physics {
  */
 struct AccelerationRange
 {
-  ::ad_rss::physics::Acceleration minimum{
-    std::numeric_limits<Acceleration>::lowest()}; /*!< The minimum value of the acceleration range. */
-  ::ad_rss::physics::Acceleration maximum{
-    std::numeric_limits<Acceleration>::max()}; /*!< The maximum value of the acceleration range. */
+  /*!
+   * The minimum value of the acceleration range.
+   */
+  ::ad_rss::physics::Acceleration minimum{std::numeric_limits<Acceleration>::lowest()};
+
+  /*!
+   * The maximum value of the acceleration range.
+   */
+  ::ad_rss::physics::Acceleration maximum{std::numeric_limits<Acceleration>::max()};
 };
 
 } // namespace physics

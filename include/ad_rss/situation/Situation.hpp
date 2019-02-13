@@ -37,9 +37,9 @@
  */
 
 #pragma once
-#include <limits>
 
 #include <cstdint>
+#include <limits>
 #include <memory>
 #include "ad_rss/physics/TimeIndex.hpp"
 #include "ad_rss/situation/RelativePosition.hpp"
@@ -68,17 +68,39 @@ namespace situation {
  */
 struct Situation
 {
-  ::ad_rss::physics::TimeIndex timeIndex; /*!< The time index is required to distinguish different points in time when
-                                             tracking states or transforming responses back. */
-  ::ad_rss::situation::SituationId situationId;      /*!< The unique id of the situation.
-       The situation id has to be constant over time for a pair of ego vehicle and specific other vehicle.
-       E.g. might be filled with an id identifying the other vehicle unambiguously. */
-  ::ad_rss::situation::SituationType situationType;  /*!< The type of the current situation. */
-  ::ad_rss::situation::VehicleState egoVehicleState; /*!< The vehicle state of the ego vehicle */
-  ::ad_rss::situation::VehicleState
-    otherVehicleState; /*!< The vehicle state of the other vehicle within the situation. */
-  ::ad_rss::situation::RelativePosition
-    relativePosition; /*!< The relative position between the ego vehicle and the other vehicle within this situation. */
+  /*!
+   * The time index is required to distinguish different points in time when tracking states or transforming responses
+   * back.
+   */
+  ::ad_rss::physics::TimeIndex timeIndex;
+
+  /*!
+   * The unique id of the situation.
+   * The situation id has to be constant over time for a pair of ego vehicle and specific
+   * other vehicle.
+   * E.g. might be filled with an id identifying the other vehicle unambiguously.
+   */
+  ::ad_rss::situation::SituationId situationId;
+
+  /*!
+   * The type of the current situation.
+   */
+  ::ad_rss::situation::SituationType situationType;
+
+  /*!
+   * The vehicle state of the ego vehicle
+   */
+  ::ad_rss::situation::VehicleState egoVehicleState;
+
+  /*!
+   * The vehicle state of the other vehicle within the situation.
+   */
+  ::ad_rss::situation::VehicleState otherVehicleState;
+
+  /*!
+   * The relative position between the ego vehicle and the other vehicle within this situation.
+   */
+  ::ad_rss::situation::RelativePosition relativePosition;
 };
 
 } // namespace situation
