@@ -83,7 +83,7 @@ public:
    * std::numeric_limits<double>::quiet_NaN()
    */
   Acceleration()
-    : Acceleration(std::numeric_limits<double>::quiet_NaN())
+    : mAcceleration(std::numeric_limits<double>::quiet_NaN())
   {
   }
 

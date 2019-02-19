@@ -54,7 +54,7 @@
  * \note throws a std::out_of_range exception if one of the two operands or the result of
  *   the operation is not valid
  */
-inline ad_rss::physics::Speed operator*(ad_rss::physics::Acceleration const a, ad_rss::physics::Duration const t)
+inline ad_rss::physics::Speed operator*(ad_rss::physics::Acceleration const &a, ad_rss::physics::Duration const &t)
 {
   a.ensureValid();
   t.ensureValid();
@@ -74,7 +74,7 @@ inline ad_rss::physics::Speed operator*(ad_rss::physics::Acceleration const a, a
  * \note throws a std::out_of_range exception if one of the two operands or the result of
  *   the operation is not valid
  */
-inline ad_rss::physics::Speed operator*(ad_rss::physics::Duration const t, ad_rss::physics::Acceleration const a)
+inline ad_rss::physics::Speed operator*(ad_rss::physics::Duration const &t, ad_rss::physics::Acceleration const &a)
 {
   return operator*(a, t);
 }
@@ -90,7 +90,7 @@ inline ad_rss::physics::Speed operator*(ad_rss::physics::Duration const t, ad_rs
  * \note throws a std::out_of_range exception if one of the two operands or the result of
  *   the operation is not valid
  */
-inline ad_rss::physics::Distance operator*(ad_rss::physics::Speed const v, ad_rss::physics::Duration const t)
+inline ad_rss::physics::Distance operator*(ad_rss::physics::Speed const &v, ad_rss::physics::Duration const &t)
 {
   v.ensureValid();
   t.ensureValid();
@@ -110,7 +110,7 @@ inline ad_rss::physics::Distance operator*(ad_rss::physics::Speed const v, ad_rs
  * \note throws a std::out_of_range exception if one of the two operands or the result of
  *   the operation is not valid
  */
-inline ad_rss::physics::Distance operator*(ad_rss::physics::Duration const t, ad_rss::physics::Speed const v)
+inline ad_rss::physics::Distance operator*(ad_rss::physics::Duration const &t, ad_rss::physics::Speed const &v)
 {
   return operator*(v, t);
 }
@@ -126,7 +126,7 @@ inline ad_rss::physics::Distance operator*(ad_rss::physics::Duration const t, ad
  * \note throws a std::out_of_range exception if one of the two operands or the result of
  *   the operation is not valid or if the divisor is zero
  */
-inline ad_rss::physics::Duration operator/(ad_rss::physics::Speed const v, ad_rss::physics::Acceleration const a)
+inline ad_rss::physics::Duration operator/(ad_rss::physics::Speed const &v, ad_rss::physics::Acceleration const &a)
 {
   v.ensureValid();
   a.ensureValidNonZero();
@@ -146,8 +146,8 @@ inline ad_rss::physics::Duration operator/(ad_rss::physics::Speed const v, ad_rs
  * \note throws a std::out_of_range exception if one of the two operands or the result of
  *   the operation is not valid or if the divisor is zero
  */
-inline ad_rss::physics::Distance operator/(ad_rss::physics::SpeedSquared const v2,
-                                           ad_rss::physics::Acceleration const a)
+inline ad_rss::physics::Distance operator/(ad_rss::physics::SpeedSquared const &v2,
+                                           ad_rss::physics::Acceleration const &a)
 {
   v2.ensureValid();
   a.ensureValidNonZero();
@@ -167,8 +167,8 @@ inline ad_rss::physics::Distance operator/(ad_rss::physics::SpeedSquared const v
  * \note throws a std::out_of_range exception if one of the two operands or the result of
  *   the operation is not valid or if the divisor is zero
  */
-inline ad_rss::physics::DurationSquared operator/(ad_rss::physics::Distance const s,
-                                                  ad_rss::physics::Acceleration const a)
+inline ad_rss::physics::DurationSquared operator/(ad_rss::physics::Distance const &s,
+                                                  ad_rss::physics::Acceleration const &a)
 {
   s.ensureValid();
   a.ensureValidNonZero();

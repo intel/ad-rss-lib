@@ -44,39 +44,44 @@ std::string toString(::ad_rss::situation::LongitudinalRelativePosition const e)
   switch (e)
   {
     case ::ad_rss::situation::LongitudinalRelativePosition::InFront:
-      return "::ad_rss::situation::LongitudinalRelativePosition::InFront";
+      return std::string("::ad_rss::situation::LongitudinalRelativePosition::InFront");
     case ::ad_rss::situation::LongitudinalRelativePosition::OverlapFront:
-      return "::ad_rss::situation::LongitudinalRelativePosition::OverlapFront";
+      return std::string("::ad_rss::situation::LongitudinalRelativePosition::OverlapFront");
     case ::ad_rss::situation::LongitudinalRelativePosition::Overlap:
-      return "::ad_rss::situation::LongitudinalRelativePosition::Overlap";
+      return std::string("::ad_rss::situation::LongitudinalRelativePosition::Overlap");
     case ::ad_rss::situation::LongitudinalRelativePosition::OverlapBack:
-      return "::ad_rss::situation::LongitudinalRelativePosition::OverlapBack";
+      return std::string("::ad_rss::situation::LongitudinalRelativePosition::OverlapBack");
     case ::ad_rss::situation::LongitudinalRelativePosition::AtBack:
-      return "::ad_rss::situation::LongitudinalRelativePosition::AtBack";
+      return std::string("::ad_rss::situation::LongitudinalRelativePosition::AtBack");
     default:
-      return "UNKNOWN ENUM VALUE";
+      return std::string("UNKNOWN ENUM VALUE");
   }
 }
 
 template <>::ad_rss::situation::LongitudinalRelativePosition fromString(std::string const &str)
 {
-  if ((str == "::ad_rss::situation::LongitudinalRelativePosition::InFront") || (str == "InFront"))
+  if ((str == std::string("::ad_rss::situation::LongitudinalRelativePosition::InFront"))
+      || (str == std::string("InFront")))
   {
     return ::ad_rss::situation::LongitudinalRelativePosition::InFront;
   }
-  else if ((str == "::ad_rss::situation::LongitudinalRelativePosition::OverlapFront") || (str == "OverlapFront"))
+  else if ((str == std::string("::ad_rss::situation::LongitudinalRelativePosition::OverlapFront"))
+           || (str == std::string("OverlapFront")))
   {
     return ::ad_rss::situation::LongitudinalRelativePosition::OverlapFront;
   }
-  else if ((str == "::ad_rss::situation::LongitudinalRelativePosition::Overlap") || (str == "Overlap"))
+  else if ((str == std::string("::ad_rss::situation::LongitudinalRelativePosition::Overlap"))
+           || (str == std::string("Overlap")))
   {
     return ::ad_rss::situation::LongitudinalRelativePosition::Overlap;
   }
-  else if ((str == "::ad_rss::situation::LongitudinalRelativePosition::OverlapBack") || (str == "OverlapBack"))
+  else if ((str == std::string("::ad_rss::situation::LongitudinalRelativePosition::OverlapBack"))
+           || (str == std::string("OverlapBack")))
   {
     return ::ad_rss::situation::LongitudinalRelativePosition::OverlapBack;
   }
-  else if ((str == "::ad_rss::situation::LongitudinalRelativePosition::AtBack") || (str == "AtBack"))
+  else if ((str == std::string("::ad_rss::situation::LongitudinalRelativePosition::AtBack"))
+           || (str == std::string("AtBack")))
   {
     return ::ad_rss::situation::LongitudinalRelativePosition::AtBack;
   }

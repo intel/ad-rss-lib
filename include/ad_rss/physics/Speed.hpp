@@ -92,7 +92,7 @@ public:
    * std::numeric_limits<double>::quiet_NaN()
    */
   Speed()
-    : Speed(std::numeric_limits<double>::quiet_NaN())
+    : mSpeed(std::numeric_limits<double>::quiet_NaN())
   {
   }
 

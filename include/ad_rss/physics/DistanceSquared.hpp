@@ -91,7 +91,7 @@ public:
    * std::numeric_limits<double>::quiet_NaN()
    */
   DistanceSquared()
-    : DistanceSquared(std::numeric_limits<double>::quiet_NaN())
+    : mDistanceSquared(std::numeric_limits<double>::quiet_NaN())
   {
   }
 

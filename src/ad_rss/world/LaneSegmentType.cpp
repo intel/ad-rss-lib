@@ -44,21 +44,22 @@ std::string toString(::ad_rss::world::LaneSegmentType const e)
   switch (e)
   {
     case ::ad_rss::world::LaneSegmentType::Normal:
-      return "::ad_rss::world::LaneSegmentType::Normal";
+      return std::string("::ad_rss::world::LaneSegmentType::Normal");
     case ::ad_rss::world::LaneSegmentType::Intersection:
-      return "::ad_rss::world::LaneSegmentType::Intersection";
+      return std::string("::ad_rss::world::LaneSegmentType::Intersection");
     default:
-      return "UNKNOWN ENUM VALUE";
+      return std::string("UNKNOWN ENUM VALUE");
   }
 }
 
 template <>::ad_rss::world::LaneSegmentType fromString(std::string const &str)
 {
-  if ((str == "::ad_rss::world::LaneSegmentType::Normal") || (str == "Normal"))
+  if ((str == std::string("::ad_rss::world::LaneSegmentType::Normal")) || (str == std::string("Normal")))
   {
     return ::ad_rss::world::LaneSegmentType::Normal;
   }
-  else if ((str == "::ad_rss::world::LaneSegmentType::Intersection") || (str == "Intersection"))
+  else if ((str == std::string("::ad_rss::world::LaneSegmentType::Intersection"))
+           || (str == std::string("Intersection")))
   {
     return ::ad_rss::world::LaneSegmentType::Intersection;
   }

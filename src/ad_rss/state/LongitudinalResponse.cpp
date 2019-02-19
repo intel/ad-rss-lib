@@ -44,27 +44,28 @@ std::string toString(::ad_rss::state::LongitudinalResponse const e)
   switch (e)
   {
     case ::ad_rss::state::LongitudinalResponse::None:
-      return "::ad_rss::state::LongitudinalResponse::None";
+      return std::string("::ad_rss::state::LongitudinalResponse::None");
     case ::ad_rss::state::LongitudinalResponse::BrakeMinCorrect:
-      return "::ad_rss::state::LongitudinalResponse::BrakeMinCorrect";
+      return std::string("::ad_rss::state::LongitudinalResponse::BrakeMinCorrect");
     case ::ad_rss::state::LongitudinalResponse::BrakeMin:
-      return "::ad_rss::state::LongitudinalResponse::BrakeMin";
+      return std::string("::ad_rss::state::LongitudinalResponse::BrakeMin");
     default:
-      return "UNKNOWN ENUM VALUE";
+      return std::string("UNKNOWN ENUM VALUE");
   }
 }
 
 template <>::ad_rss::state::LongitudinalResponse fromString(std::string const &str)
 {
-  if ((str == "::ad_rss::state::LongitudinalResponse::None") || (str == "None"))
+  if ((str == std::string("::ad_rss::state::LongitudinalResponse::None")) || (str == std::string("None")))
   {
     return ::ad_rss::state::LongitudinalResponse::None;
   }
-  else if ((str == "::ad_rss::state::LongitudinalResponse::BrakeMinCorrect") || (str == "BrakeMinCorrect"))
+  else if ((str == std::string("::ad_rss::state::LongitudinalResponse::BrakeMinCorrect"))
+           || (str == std::string("BrakeMinCorrect")))
   {
     return ::ad_rss::state::LongitudinalResponse::BrakeMinCorrect;
   }
-  else if ((str == "::ad_rss::state::LongitudinalResponse::BrakeMin") || (str == "BrakeMin"))
+  else if ((str == std::string("::ad_rss::state::LongitudinalResponse::BrakeMin")) || (str == std::string("BrakeMin")))
   {
     return ::ad_rss::state::LongitudinalResponse::BrakeMin;
   }

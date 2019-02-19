@@ -84,7 +84,7 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
       // the responseStateVector will be empty. Thus, we need to add a "all safe" response
       state::ResponseState safeResponse;
       safeResponse.timeIndex = worldModel.timeIndex;
-      safeResponse.situationId = 0u;
+      safeResponse.situationId = situation::SituationId(0u);
       safeResponse.lateralStateLeft.isSafe = true;
       safeResponse.lateralStateLeft.response = ::ad_rss::state::LateralResponse::None;
       safeResponse.lateralStateRight.isSafe = true;

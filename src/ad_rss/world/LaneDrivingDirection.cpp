@@ -44,27 +44,28 @@ std::string toString(::ad_rss::world::LaneDrivingDirection const e)
   switch (e)
   {
     case ::ad_rss::world::LaneDrivingDirection::Bidirectional:
-      return "::ad_rss::world::LaneDrivingDirection::Bidirectional";
+      return std::string("::ad_rss::world::LaneDrivingDirection::Bidirectional");
     case ::ad_rss::world::LaneDrivingDirection::Positive:
-      return "::ad_rss::world::LaneDrivingDirection::Positive";
+      return std::string("::ad_rss::world::LaneDrivingDirection::Positive");
     case ::ad_rss::world::LaneDrivingDirection::Negative:
-      return "::ad_rss::world::LaneDrivingDirection::Negative";
+      return std::string("::ad_rss::world::LaneDrivingDirection::Negative");
     default:
-      return "UNKNOWN ENUM VALUE";
+      return std::string("UNKNOWN ENUM VALUE");
   }
 }
 
 template <>::ad_rss::world::LaneDrivingDirection fromString(std::string const &str)
 {
-  if ((str == "::ad_rss::world::LaneDrivingDirection::Bidirectional") || (str == "Bidirectional"))
+  if ((str == std::string("::ad_rss::world::LaneDrivingDirection::Bidirectional"))
+      || (str == std::string("Bidirectional")))
   {
     return ::ad_rss::world::LaneDrivingDirection::Bidirectional;
   }
-  else if ((str == "::ad_rss::world::LaneDrivingDirection::Positive") || (str == "Positive"))
+  else if ((str == std::string("::ad_rss::world::LaneDrivingDirection::Positive")) || (str == std::string("Positive")))
   {
     return ::ad_rss::world::LaneDrivingDirection::Positive;
   }
-  else if ((str == "::ad_rss::world::LaneDrivingDirection::Negative") || (str == "Negative"))
+  else if ((str == std::string("::ad_rss::world::LaneDrivingDirection::Negative")) || (str == std::string("Negative")))
   {
     return ::ad_rss::world::LaneDrivingDirection::Negative;
   }

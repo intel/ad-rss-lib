@@ -168,7 +168,7 @@ bool calculateTimeToCoverDistance(Speed const currentSpeed,
                                   Duration const responseTime,
                                   Acceleration const acceleration,
                                   Acceleration const deceleration,
-                                  Distance distanceToCover,
+                                  Distance const distanceToCover,
                                   Duration &requiredTime)
 {
   if (currentSpeed < Speed(0.))

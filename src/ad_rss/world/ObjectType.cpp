@@ -44,27 +44,28 @@ std::string toString(::ad_rss::world::ObjectType const e)
   switch (e)
   {
     case ::ad_rss::world::ObjectType::EgoVehicle:
-      return "::ad_rss::world::ObjectType::EgoVehicle";
+      return std::string("::ad_rss::world::ObjectType::EgoVehicle");
     case ::ad_rss::world::ObjectType::OtherVehicle:
-      return "::ad_rss::world::ObjectType::OtherVehicle";
+      return std::string("::ad_rss::world::ObjectType::OtherVehicle");
     case ::ad_rss::world::ObjectType::ArtificialObject:
-      return "::ad_rss::world::ObjectType::ArtificialObject";
+      return std::string("::ad_rss::world::ObjectType::ArtificialObject");
     default:
-      return "UNKNOWN ENUM VALUE";
+      return std::string("UNKNOWN ENUM VALUE");
   }
 }
 
 template <>::ad_rss::world::ObjectType fromString(std::string const &str)
 {
-  if ((str == "::ad_rss::world::ObjectType::EgoVehicle") || (str == "EgoVehicle"))
+  if ((str == std::string("::ad_rss::world::ObjectType::EgoVehicle")) || (str == std::string("EgoVehicle")))
   {
     return ::ad_rss::world::ObjectType::EgoVehicle;
   }
-  else if ((str == "::ad_rss::world::ObjectType::OtherVehicle") || (str == "OtherVehicle"))
+  else if ((str == std::string("::ad_rss::world::ObjectType::OtherVehicle")) || (str == std::string("OtherVehicle")))
   {
     return ::ad_rss::world::ObjectType::OtherVehicle;
   }
-  else if ((str == "::ad_rss::world::ObjectType::ArtificialObject") || (str == "ArtificialObject"))
+  else if ((str == std::string("::ad_rss::world::ObjectType::ArtificialObject"))
+           || (str == std::string("ArtificialObject")))
   {
     return ::ad_rss::world::ObjectType::ArtificialObject;
   }

@@ -91,7 +91,7 @@ public:
    * std::numeric_limits<double>::quiet_NaN()
    */
   Duration()
-    : Duration(std::numeric_limits<double>::quiet_NaN())
+    : mDuration(std::numeric_limits<double>::quiet_NaN())
   {
   }
 

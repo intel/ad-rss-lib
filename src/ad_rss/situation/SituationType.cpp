@@ -44,48 +44,50 @@ std::string toString(::ad_rss::situation::SituationType const e)
   switch (e)
   {
     case ::ad_rss::situation::SituationType::NotRelevant:
-      return "::ad_rss::situation::SituationType::NotRelevant";
+      return std::string("::ad_rss::situation::SituationType::NotRelevant");
     case ::ad_rss::situation::SituationType::SameDirection:
-      return "::ad_rss::situation::SituationType::SameDirection";
+      return std::string("::ad_rss::situation::SituationType::SameDirection");
     case ::ad_rss::situation::SituationType::OppositeDirection:
-      return "::ad_rss::situation::SituationType::OppositeDirection";
+      return std::string("::ad_rss::situation::SituationType::OppositeDirection");
     case ::ad_rss::situation::SituationType::IntersectionEgoHasPriority:
-      return "::ad_rss::situation::SituationType::IntersectionEgoHasPriority";
+      return std::string("::ad_rss::situation::SituationType::IntersectionEgoHasPriority");
     case ::ad_rss::situation::SituationType::IntersectionObjectHasPriority:
-      return "::ad_rss::situation::SituationType::IntersectionObjectHasPriority";
+      return std::string("::ad_rss::situation::SituationType::IntersectionObjectHasPriority");
     case ::ad_rss::situation::SituationType::IntersectionSamePriority:
-      return "::ad_rss::situation::SituationType::IntersectionSamePriority";
+      return std::string("::ad_rss::situation::SituationType::IntersectionSamePriority");
     default:
-      return "UNKNOWN ENUM VALUE";
+      return std::string("UNKNOWN ENUM VALUE");
   }
 }
 
 template <>::ad_rss::situation::SituationType fromString(std::string const &str)
 {
-  if ((str == "::ad_rss::situation::SituationType::NotRelevant") || (str == "NotRelevant"))
+  if ((str == std::string("::ad_rss::situation::SituationType::NotRelevant")) || (str == std::string("NotRelevant")))
   {
     return ::ad_rss::situation::SituationType::NotRelevant;
   }
-  else if ((str == "::ad_rss::situation::SituationType::SameDirection") || (str == "SameDirection"))
+  else if ((str == std::string("::ad_rss::situation::SituationType::SameDirection"))
+           || (str == std::string("SameDirection")))
   {
     return ::ad_rss::situation::SituationType::SameDirection;
   }
-  else if ((str == "::ad_rss::situation::SituationType::OppositeDirection") || (str == "OppositeDirection"))
+  else if ((str == std::string("::ad_rss::situation::SituationType::OppositeDirection"))
+           || (str == std::string("OppositeDirection")))
   {
     return ::ad_rss::situation::SituationType::OppositeDirection;
   }
-  else if ((str == "::ad_rss::situation::SituationType::IntersectionEgoHasPriority")
-           || (str == "IntersectionEgoHasPriority"))
+  else if ((str == std::string("::ad_rss::situation::SituationType::IntersectionEgoHasPriority"))
+           || (str == std::string("IntersectionEgoHasPriority")))
   {
     return ::ad_rss::situation::SituationType::IntersectionEgoHasPriority;
   }
-  else if ((str == "::ad_rss::situation::SituationType::IntersectionObjectHasPriority")
-           || (str == "IntersectionObjectHasPriority"))
+  else if ((str == std::string("::ad_rss::situation::SituationType::IntersectionObjectHasPriority"))
+           || (str == std::string("IntersectionObjectHasPriority")))
   {
     return ::ad_rss::situation::SituationType::IntersectionObjectHasPriority;
   }
-  else if ((str == "::ad_rss::situation::SituationType::IntersectionSamePriority")
-           || (str == "IntersectionSamePriority"))
+  else if ((str == std::string("::ad_rss::situation::SituationType::IntersectionSamePriority"))
+           || (str == std::string("IntersectionSamePriority")))
   {
     return ::ad_rss::situation::SituationType::IntersectionSamePriority;
   }

@@ -56,7 +56,7 @@ bool calculateLateralDimensions(RoadArea const &roadArea, std::vector<MetricRang
   bool result = true;
 
   bool notFinished = true;
-  uint32_t currentLateralIndex = 0u;
+  std::size_t currentLateralIndex = 0u;
 
   MetricRange currentLateralPosition;
 
@@ -182,7 +182,7 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
       // This is needed, because we want to look for the minimum
       longitudinalDistanceMin = std::numeric_limits<Distance>::max();
 
-      for (auto i = 0u; i < roadSegment->size() && result; i++)
+      for (std::size_t i = 0u; i < roadSegment->size() && result; i++)
       {
         if (i < lateralRanges.size())
         {

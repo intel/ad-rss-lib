@@ -277,7 +277,7 @@ bool extractSituation(world::Object const &egoVehicle,
 
   try
   {
-    situation.situationId = currentScene.object.objectId;
+    situation.situationId = situation::SituationId(currentScene.object.objectId);
     situation.situationType = currentScene.situationType;
 
     situation.egoVehicleState.hasPriority = false;

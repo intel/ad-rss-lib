@@ -44,21 +44,21 @@ std::string toString(::ad_rss::state::LateralResponse const e)
   switch (e)
   {
     case ::ad_rss::state::LateralResponse::None:
-      return "::ad_rss::state::LateralResponse::None";
+      return std::string("::ad_rss::state::LateralResponse::None");
     case ::ad_rss::state::LateralResponse::BrakeMin:
-      return "::ad_rss::state::LateralResponse::BrakeMin";
+      return std::string("::ad_rss::state::LateralResponse::BrakeMin");
     default:
-      return "UNKNOWN ENUM VALUE";
+      return std::string("UNKNOWN ENUM VALUE");
   }
 }
 
 template <>::ad_rss::state::LateralResponse fromString(std::string const &str)
 {
-  if ((str == "::ad_rss::state::LateralResponse::None") || (str == "None"))
+  if ((str == std::string("::ad_rss::state::LateralResponse::None")) || (str == std::string("None")))
   {
     return ::ad_rss::state::LateralResponse::None;
   }
-  else if ((str == "::ad_rss::state::LateralResponse::BrakeMin") || (str == "BrakeMin"))
+  else if ((str == std::string("::ad_rss::state::LateralResponse::BrakeMin")) || (str == std::string("BrakeMin")))
   {
     return ::ad_rss::state::LateralResponse::BrakeMin;
   }

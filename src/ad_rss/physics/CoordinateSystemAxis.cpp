@@ -44,21 +44,22 @@ std::string toString(::ad_rss::physics::CoordinateSystemAxis const e)
   switch (e)
   {
     case ::ad_rss::physics::CoordinateSystemAxis::Longitudinal:
-      return "::ad_rss::physics::CoordinateSystemAxis::Longitudinal";
+      return std::string("::ad_rss::physics::CoordinateSystemAxis::Longitudinal");
     case ::ad_rss::physics::CoordinateSystemAxis::Lateral:
-      return "::ad_rss::physics::CoordinateSystemAxis::Lateral";
+      return std::string("::ad_rss::physics::CoordinateSystemAxis::Lateral");
     default:
-      return "UNKNOWN ENUM VALUE";
+      return std::string("UNKNOWN ENUM VALUE");
   }
 }
 
 template <>::ad_rss::physics::CoordinateSystemAxis fromString(std::string const &str)
 {
-  if ((str == "::ad_rss::physics::CoordinateSystemAxis::Longitudinal") || (str == "Longitudinal"))
+  if ((str == std::string("::ad_rss::physics::CoordinateSystemAxis::Longitudinal"))
+      || (str == std::string("Longitudinal")))
   {
     return ::ad_rss::physics::CoordinateSystemAxis::Longitudinal;
   }
-  else if ((str == "::ad_rss::physics::CoordinateSystemAxis::Lateral") || (str == "Lateral"))
+  else if ((str == std::string("::ad_rss::physics::CoordinateSystemAxis::Lateral")) || (str == std::string("Lateral")))
   {
     return ::ad_rss::physics::CoordinateSystemAxis::Lateral;
   }

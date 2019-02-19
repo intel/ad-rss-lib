@@ -44,39 +44,43 @@ std::string toString(::ad_rss::situation::LateralRelativePosition const e)
   switch (e)
   {
     case ::ad_rss::situation::LateralRelativePosition::AtLeft:
-      return "::ad_rss::situation::LateralRelativePosition::AtLeft";
+      return std::string("::ad_rss::situation::LateralRelativePosition::AtLeft");
     case ::ad_rss::situation::LateralRelativePosition::OverlapLeft:
-      return "::ad_rss::situation::LateralRelativePosition::OverlapLeft";
+      return std::string("::ad_rss::situation::LateralRelativePosition::OverlapLeft");
     case ::ad_rss::situation::LateralRelativePosition::Overlap:
-      return "::ad_rss::situation::LateralRelativePosition::Overlap";
+      return std::string("::ad_rss::situation::LateralRelativePosition::Overlap");
     case ::ad_rss::situation::LateralRelativePosition::OverlapRight:
-      return "::ad_rss::situation::LateralRelativePosition::OverlapRight";
+      return std::string("::ad_rss::situation::LateralRelativePosition::OverlapRight");
     case ::ad_rss::situation::LateralRelativePosition::AtRight:
-      return "::ad_rss::situation::LateralRelativePosition::AtRight";
+      return std::string("::ad_rss::situation::LateralRelativePosition::AtRight");
     default:
-      return "UNKNOWN ENUM VALUE";
+      return std::string("UNKNOWN ENUM VALUE");
   }
 }
 
 template <>::ad_rss::situation::LateralRelativePosition fromString(std::string const &str)
 {
-  if ((str == "::ad_rss::situation::LateralRelativePosition::AtLeft") || (str == "AtLeft"))
+  if ((str == std::string("::ad_rss::situation::LateralRelativePosition::AtLeft")) || (str == std::string("AtLeft")))
   {
     return ::ad_rss::situation::LateralRelativePosition::AtLeft;
   }
-  else if ((str == "::ad_rss::situation::LateralRelativePosition::OverlapLeft") || (str == "OverlapLeft"))
+  else if ((str == std::string("::ad_rss::situation::LateralRelativePosition::OverlapLeft"))
+           || (str == std::string("OverlapLeft")))
   {
     return ::ad_rss::situation::LateralRelativePosition::OverlapLeft;
   }
-  else if ((str == "::ad_rss::situation::LateralRelativePosition::Overlap") || (str == "Overlap"))
+  else if ((str == std::string("::ad_rss::situation::LateralRelativePosition::Overlap"))
+           || (str == std::string("Overlap")))
   {
     return ::ad_rss::situation::LateralRelativePosition::Overlap;
   }
-  else if ((str == "::ad_rss::situation::LateralRelativePosition::OverlapRight") || (str == "OverlapRight"))
+  else if ((str == std::string("::ad_rss::situation::LateralRelativePosition::OverlapRight"))
+           || (str == std::string("OverlapRight")))
   {
     return ::ad_rss::situation::LateralRelativePosition::OverlapRight;
   }
-  else if ((str == "::ad_rss::situation::LateralRelativePosition::AtRight") || (str == "AtRight"))
+  else if ((str == std::string("::ad_rss::situation::LateralRelativePosition::AtRight"))
+           || (str == std::string("AtRight")))
   {
     return ::ad_rss::situation::LateralRelativePosition::AtRight;
   }

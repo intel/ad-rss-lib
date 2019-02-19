@@ -91,7 +91,7 @@ public:
    * std::numeric_limits<double>::quiet_NaN()
    */
   SpeedSquared()
-    : SpeedSquared(std::numeric_limits<double>::quiet_NaN())
+    : mSpeedSquared(std::numeric_limits<double>::quiet_NaN())
   {
   }
 

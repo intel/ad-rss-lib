@@ -47,7 +47,7 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
   // global try catch block to ensure this library call doesn't throw an exception
   try
   {
-    responseState.timeIndex = 0u;
+    responseState.timeIndex = physics::TimeIndex(0u);
     responseState.lateralStateLeft.response = state::LateralResponse::None;
     responseState.lateralStateLeft.isSafe = true;
     responseState.lateralStateRight.response = state::LateralResponse::None;
@@ -59,7 +59,7 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
 
     for (auto const &currentState : currentStates)
     {
-      if (responseState.timeIndex == 0u)
+      if (responseState.timeIndex == physics::TimeIndex(0u))
       {
         responseState.timeIndex = currentState.timeIndex;
       }
