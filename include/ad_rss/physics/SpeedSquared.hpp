@@ -32,6 +32,7 @@
  */
 
 /**
+ * Generated file
  * @file
  *
  */
@@ -62,7 +63,6 @@ class Speed;
  * \brief DataType SpeedSquared
  *
  * SpeedSquared represents a squared Speed.
- * Unit: square meter per second square
  * The unit is: SquareMeterPerSecondSquared
  */
 class SpeedSquared

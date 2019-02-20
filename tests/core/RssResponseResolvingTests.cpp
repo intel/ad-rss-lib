@@ -100,6 +100,22 @@ TEST_F(RssResponseResolvingTests, invalidTimeStamp)
   ASSERT_FALSE(provider.provideProperResponse(responseStateVector, resultResponseState));
 }
 
+TEST_F(RssResponseResolvingTests, extremeTimeIndexAreAccepted)
+{
+  secondResponseState.timeIndex = static_cast<uint64_t>(-1);
+  firstResponseState.timeIndex = static_cast<uint64_t>(-1);
+
+  setRssStateUnsafe(firstResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
+  responseStateVector.push_back(firstResponseState);
+
+  setRssStateUnsafe(secondResponseState.longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(secondResponseState.lateralStateLeft, LateralResponse::BrakeMin);
+
+  responseStateVector.push_back(secondResponseState);
+
+  ASSERT_TRUE(provider.provideProperResponse(responseStateVector, resultResponseState));
+}
+
 TEST_F(RssResponseResolvingTests, provideProperResponseLateralLeft)
 {
   setRssStateUnsafe(firstResponseState.longitudinalState, LongitudinalResponse::BrakeMin);

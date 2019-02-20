@@ -34,6 +34,7 @@
 
 #include "world/RssObjectPositionExtractor.hpp"
 #include <algorithm>
+#include "ad_rss/physics/Operations.hpp"
 
 /*!
  * @brief namespace ad_rss

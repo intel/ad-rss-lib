@@ -31,6 +31,7 @@
 
 #include "ad_rss/core/RssResponseResolving.hpp"
 #include <algorithm>
+#include "ad_rss/state/ResponseStateVectorValidInputRange.hpp"
 #include "core/RSSState.hpp"
 
 namespace ad_rss {
@@ -43,6 +44,11 @@ RssResponseResolving::RssResponseResolving()
 bool RssResponseResolving::provideProperResponse(state::ResponseStateVector const &currentStates,
                                                  state::ResponseState &responseState)
 {
+  if (!withinValidInputRange(currentStates))
+  {
+    return false;
+  }
+
   bool result = true;
   // global try catch block to ensure this library call doesn't throw an exception
   try

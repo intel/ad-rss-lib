@@ -32,6 +32,7 @@
  */
 
 /**
+ * Generated file
  * @file
  *
  */
@@ -53,8 +54,7 @@ namespace physics {
 /*!
  * \brief DataType Acceleration
  *
- * The rate of change of (U) Speed of an object with respect to time.
- * Unit: meter per second squared
+ * The rate of change of Speed of an object with respect to time.
  * The unit is: MeterPerSecondSquared
  */
 class Acceleration

@@ -30,6 +30,7 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "ad_rss/core/RssSituationExtraction.hpp"
+#include "ad_rss/world/WorldModelValidInputRange.hpp"
 
 #include "world/RssSituationCoordinateSystemConversion.hpp"
 
@@ -269,10 +270,20 @@ bool convertObjectsIntersection(world::Object const &egoVehicle,
   return result;
 }
 
-bool extractSituation(world::Object const &egoVehicle,
-                      world::Scene const &currentScene,
-                      situation::Situation &situation)
+bool extractSituationInputRangeChecked(world::Object const &egoVehicle,
+                                       world::Scene const &currentScene,
+                                       situation::Situation &situation)
 {
+  // ensure the object types are semantically correct
+  // toDo: add this restriction to the data type model
+  //       and extend generated withinValidInputRange by these
+  if (((currentScene.object.objectType != world::ObjectType::OtherVehicle)
+       && (currentScene.object.objectType != world::ObjectType::ArtificialObject))
+      || (egoVehicle.objectType != world::ObjectType::EgoVehicle))
+  {
+    return false;
+  }
+
   bool result = false;
 
   try
@@ -285,6 +296,12 @@ bool extractSituation(world::Object const &egoVehicle,
 
     situation.egoVehicleState.isInCorrectLane = true;
     situation.otherVehicleState.isInCorrectLane = true;
+
+    situation.egoVehicleState.distanceToEnterIntersection = Distance(0.);
+    situation.egoVehicleState.distanceToLeaveIntersection = Distance(1000.);
+
+    situation.otherVehicleState.distanceToEnterIntersection = Distance(0.);
+    situation.otherVehicleState.distanceToLeaveIntersection = Distance(1000.);
 
     convertVehicleStateDynamics(egoVehicle, situation.egoVehicleState);
     convertVehicleStateDynamics(currentScene.object, situation.otherVehicleState);
@@ -325,8 +342,25 @@ bool extractSituation(world::Object const &egoVehicle,
   return result;
 }
 
+bool extractSituation(world::Object const &egoVehicle,
+                      world::Scene const &currentScene,
+                      situation::Situation &situation)
+{
+  if (!withinValidInputRange(egoVehicle) || !withinValidInputRange(currentScene))
+  {
+    return false;
+  }
+
+  return extractSituationInputRangeChecked(egoVehicle, currentScene, situation);
+}
+
 bool extractSituations(world::WorldModel const &worldModel, situation::SituationVector &situationVector)
 {
+  if (!withinValidInputRange(worldModel))
+  {
+    return false;
+  }
+
   bool result = true;
   try
   {
@@ -334,7 +368,7 @@ bool extractSituations(world::WorldModel const &worldModel, situation::Situation
     {
       situation::Situation situation;
       situation.timeIndex = worldModel.timeIndex;
-      bool const extractResult = extractSituation(worldModel.egoVehicle, scene, situation);
+      bool const extractResult = extractSituationInputRangeChecked(worldModel.egoVehicle, scene, situation);
 
       // if the situation is relevant, add it to situationVector
       if (scene.situationType != ad_rss::situation::SituationType::NotRelevant)

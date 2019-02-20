@@ -31,8 +31,8 @@
 
 #include "situation/RSSFormulas.hpp"
 #include <algorithm>
+#include "ad_rss/situation/VehicleStateValidInputRange.hpp"
 #include "physics/Math.hpp"
-#include "situation/Vehicle.hpp"
 
 namespace ad_rss {
 namespace situation {
@@ -80,7 +80,7 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
                                                     VehicleState const &followingVehicle,
                                                     Distance &safeDistance)
 {
-  if (!checkVehicleState(leadingVehicle) || !checkVehicleState(followingVehicle))
+  if (!withinValidInputRange(leadingVehicle) || !withinValidInputRange(followingVehicle))
   {
     return false;
   }
@@ -133,7 +133,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &corr
                                                         VehicleState const &oppositeVehicle,
                                                         Distance &safeDistance)
 {
-  if (!checkVehicleState(correctVehicle) || !checkVehicleState(oppositeVehicle))
+  if (!withinValidInputRange(correctVehicle) || !withinValidInputRange(oppositeVehicle))
   {
     return false;
   }
@@ -192,7 +192,7 @@ bool checkSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctV
 
 bool checkStopInFrontIntersection(VehicleState const &vehicle, bool &isDistanceSafe)
 {
-  if (!checkVehicleState(vehicle))
+  if (!withinValidInputRange(vehicle))
   {
     return false;
   }
@@ -219,7 +219,7 @@ bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
                                   VehicleState const &rightVehicle,
                                   Distance &safeDistance)
 {
-  if (!checkVehicleState(leftVehicle) || !checkVehicleState(rightVehicle))
+  if (!withinValidInputRange(leftVehicle) || !withinValidInputRange(rightVehicle))
   {
     return false;
   }

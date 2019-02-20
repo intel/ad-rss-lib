@@ -31,7 +31,6 @@
 
 #include "TestSupport.hpp"
 #include "ad_rss/core/RssSituationChecking.hpp"
-#include "situation/Vehicle.hpp"
 
 namespace ad_rss {
 namespace core {

@@ -40,6 +40,7 @@
 #include "ad_rss/physics/DistanceSquared.hpp"
 #include "ad_rss/physics/Duration.hpp"
 #include "ad_rss/physics/DurationSquared.hpp"
+#include "ad_rss/physics/ParametricValue.hpp"
 #include "ad_rss/physics/Speed.hpp"
 #include "ad_rss/physics/SpeedSquared.hpp"
 
@@ -113,6 +114,44 @@ inline ad_rss::physics::Distance operator*(ad_rss::physics::Speed const &v, ad_r
 inline ad_rss::physics::Distance operator*(ad_rss::physics::Duration const &t, ad_rss::physics::Speed const &v)
 {
   return operator*(v, t);
+}
+
+/*!
+ * \brief Arithmetic physics operation s = s * p
+ *
+ * \param[in] s distance value
+ * \param[in] p parametric value
+ *
+ * \returns s = s * p as distance value
+ *
+ * \note throws a std::out_of_range exception if one of the two operands or the result of
+ *   the operation is not valid
+ */
+inline ad_rss::physics::Distance operator*(ad_rss::physics::Distance const &s,
+                                           ad_rss::physics::ParametricValue const &p)
+{
+  p.ensureValid();
+  s.ensureValid();
+  ad_rss::physics::Distance const resultingS(static_cast<double>(p) * static_cast<double>(s));
+  resultingS.ensureValid();
+  return resultingS;
+}
+
+/*!
+ * \brief Arithmetic physics operation s = p * s
+ *
+ * \param[in] p parametric value
+ * \param[in] s distance value
+ *
+ * \returns s = p * s as distance value
+ *
+ * \note throws a std::out_of_range exception if one of the two operands or the result of
+ *   the operation is not valid
+ */
+inline ad_rss::physics::Distance operator*(ad_rss::physics::ParametricValue const &p,
+                                           ad_rss::physics::Distance const &s)
+{
+  return operator*(s, p);
 }
 
 /*!

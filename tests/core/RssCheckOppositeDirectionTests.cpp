@@ -45,11 +45,11 @@ protected:
     opposingObject.objectId = 0;
     {
       ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = 0.;
-      occupiedRegion.lonRange.maximum = 0.1;
+      occupiedRegion.lonRange.minimum = ParametricValue(0.);
+      occupiedRegion.lonRange.maximum = ParametricValue(0.1);
       occupiedRegion.segmentId = 7;
-      occupiedRegion.latRange.minimum = 0.8;
-      occupiedRegion.latRange.maximum = 0.9;
+      occupiedRegion.latRange.minimum = ParametricValue(0.8);
+      occupiedRegion.latRange.maximum = ParametricValue(0.9);
       opposingObject.occupiedRegions.push_back(occupiedRegion);
     }
 
@@ -57,11 +57,11 @@ protected:
     normalObject.objectId = 1;
     {
       ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = 0.;
-      occupiedRegion.lonRange.maximum = 0.1;
+      occupiedRegion.lonRange.minimum = ParametricValue(0.);
+      occupiedRegion.lonRange.maximum = ParametricValue(0.1);
       occupiedRegion.segmentId = 1;
-      occupiedRegion.latRange.minimum = 0.8;
-      occupiedRegion.latRange.maximum = 0.9;
+      occupiedRegion.latRange.minimum = ParametricValue(0.8);
+      occupiedRegion.latRange.maximum = ParametricValue(0.9);
       normalObject.occupiedRegions.push_back(occupiedRegion);
     }
 
@@ -168,7 +168,7 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentDistances)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = normalObject;
+  worldModel.egoVehicle = objectAsEgo(normalObject);
   scene.object = opposingObject;
 
   scene.egoVehicleRoad = roadArea;
@@ -180,8 +180,8 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentDistances)
 
   for (uint32_t i = 0; i <= 90; i++)
   {
-    worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = 0.01 * i;
-    worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = 0.01 * i + 0.1;
+    worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.01 * i);
+    worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.01 * i + 0.1);
 
     Distance const dMin
       = calculateLongitudinalMinSafeDistanceOppositeDirection(worldModel.egoVehicle, worldModel.scenes[0].object);
@@ -214,7 +214,7 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentVelocities)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = normalObject;
+  worldModel.egoVehicle = objectAsEgo(normalObject);
   scene.object = opposingObject;
 
   scene.egoVehicleRoad = roadArea;
@@ -259,7 +259,7 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentVelocities_Differe
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = normalObject;
+  worldModel.egoVehicle = objectAsEgo(normalObject);
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 2;
   scene.object = opposingObject;
 
@@ -305,10 +305,10 @@ TEST_F(RssCheckOppositeDirectionTests, OtherOpposing_DifferentVelocities_NoLater
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = normalObject;
+  worldModel.egoVehicle = objectAsEgo(normalObject);
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 0;
-  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = 0.0;
-  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = 0.1;
+  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);
+  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);
   scene.object = opposingObject;
 
   scene.egoVehicleRoad = roadArea;
@@ -344,7 +344,7 @@ TEST_F(RssCheckOppositeDirectionTests, NotRelevant)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = normalObject;
+  worldModel.egoVehicle = objectAsEgo(normalObject);
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 8;
   scene.object = opposingObject;
 
@@ -383,7 +383,7 @@ TEST_F(RssCheckOppositeDirectionTests, BothOnCorrectLane_DifferentVelocities)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = normalObject;
+  worldModel.egoVehicle = objectAsEgo(normalObject);
   scene.object = opposingObject;
 
   scene.egoVehicleRoad = roadArea;

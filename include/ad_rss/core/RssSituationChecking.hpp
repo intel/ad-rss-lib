@@ -95,6 +95,13 @@ public:
                        state::ResponseStateVector &responseStateVector);
 
 private:
+  /*!
+   * @brief private implementation of checkSituation() with checked input range
+   *
+   * @see checkSituation()
+   */
+  bool checkSituationInputRangeChecked(situation::Situation const &situation, state::ResponseState &response);
+
   std::unique_ptr<ad_rss::situation::RssIntersectionChecker> mIntersectionChecker;
 };
 } // namespace core

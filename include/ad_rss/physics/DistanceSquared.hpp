@@ -32,6 +32,7 @@
  */
 
 /**
+ * Generated file
  * @file
  *
  */
@@ -62,7 +63,6 @@ class Distance;
  * \brief DataType DistanceSquared
  *
  * DistanceSquared represents a squared Distance.
- * Unit: square meter
  * The unit is: SquareMeter
  */
 class DistanceSquared

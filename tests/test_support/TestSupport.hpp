@@ -49,6 +49,7 @@ namespace ad_rss {
 using physics::Acceleration;
 using physics::Distance;
 using physics::Duration;
+using physics::ParametricValue;
 using physics::Speed;
 
 const double cDoubleNear(0.01);
@@ -90,10 +91,18 @@ inline physics::Speed kmhToMeterPerSec(double speed)
   return Speed(speed / 3.6);
 }
 
+inline world::Object objectAsEgo(world::Object iObject)
+{
+  world::Object object(iObject);
+  object.objectType = world::ObjectType::EgoVehicle;
+  return object;
+}
+
 inline world::Object createObject(double lonVelocity, double latVelocity)
 {
   world::Object object;
 
+  object.objectType = world::ObjectType::OtherVehicle;
   object.velocity.speedLon = kmhToMeterPerSec(lonVelocity);
   object.velocity.speedLat = kmhToMeterPerSec(latVelocity);
   object.dynamics.alphaLon.accelMax = cMaximumLongitudinalAcceleration;
@@ -124,8 +133,8 @@ inline situation::VehicleState createVehicleState(double lonVelocity, double lat
   state.dynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
 
   state.responseTime = cResponseTimeOtherVehicles;
-  state.distanceToEnterIntersection = std::numeric_limits<Distance>::max();
-  state.distanceToLeaveIntersection = std::numeric_limits<Distance>::max();
+  state.distanceToEnterIntersection = Distance(0.);
+  state.distanceToLeaveIntersection = Distance(1000.);
   state.hasPriority = false;
   state.isInCorrectLane = true;
 

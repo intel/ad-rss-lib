@@ -32,6 +32,7 @@
  */
 
 /**
+ * Generated file
  * @file
  *
  */

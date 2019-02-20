@@ -32,6 +32,7 @@
 #include "ad_rss/core/RssSituationChecking.hpp"
 #include <algorithm>
 #include <memory>
+#include "ad_rss/situation/SituationVectorValidInputRange.hpp"
 #include "situation/RSSSituation.hpp"
 #include "situation/RssIntersectionChecker.hpp"
 
@@ -54,7 +55,8 @@ RssSituationChecking::~RssSituationChecking()
 {
 }
 
-bool RssSituationChecking::checkSituation(situation::Situation const &situation, state::ResponseState &response)
+bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation const &situation,
+                                                           state::ResponseState &response)
 {
   bool result = false;
   // global try catch block to ensure this library call doesn't throw an exception
@@ -110,9 +112,23 @@ bool RssSituationChecking::checkSituation(situation::Situation const &situation,
   return result;
 }
 
+bool RssSituationChecking::checkSituation(situation::Situation const &situation, state::ResponseState &response)
+{
+  if (!withinValidInputRange(situation))
+  {
+    return false;
+  }
+  return checkSituationInputRangeChecked(situation, response);
+}
+
 bool RssSituationChecking::checkSituations(situation::SituationVector const &situationVector,
                                            state::ResponseStateVector &responseStateVector)
 {
+  if (!withinValidInputRange(situationVector))
+  {
+    return false;
+  }
+
   bool result = true;
   // global try catch block to ensure this library call doesn't throw an exception
   try
@@ -121,7 +137,7 @@ bool RssSituationChecking::checkSituations(situation::SituationVector const &sit
     for (auto const &situation : situationVector)
     {
       state::ResponseState responseState;
-      bool const checkResult = checkSituation(situation, responseState);
+      bool const checkResult = checkSituationInputRangeChecked(situation, responseState);
       if (checkResult)
       {
         responseStateVector.push_back(responseState);

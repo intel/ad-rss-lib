@@ -46,11 +46,11 @@ protected:
 
     {
       ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = 0.3;
-      occupiedRegion.lonRange.maximum = 0.6;
+      occupiedRegion.lonRange.minimum = ParametricValue(0.3);
+      occupiedRegion.lonRange.maximum = ParametricValue(0.6);
       occupiedRegion.segmentId = 1;
-      occupiedRegion.latRange.minimum = 0.2;
-      occupiedRegion.latRange.maximum = 0.4;
+      occupiedRegion.latRange.minimum = ParametricValue(0.2);
+      occupiedRegion.latRange.maximum = ParametricValue(0.4);
       leadingObject.occupiedRegions.push_back(occupiedRegion);
     }
 
@@ -58,11 +58,11 @@ protected:
     followingObject.objectId = 1;
     {
       ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = 0.;
-      occupiedRegion.lonRange.maximum = 0.1;
+      occupiedRegion.lonRange.minimum = ParametricValue(0.);
+      occupiedRegion.lonRange.maximum = ParametricValue(0.1);
       occupiedRegion.segmentId = 1;
-      occupiedRegion.latRange.minimum = 0.6;
-      occupiedRegion.latRange.maximum = 0.8;
+      occupiedRegion.latRange.minimum = ParametricValue(0.6);
+      occupiedRegion.latRange.maximum = ParametricValue(0.8);
       followingObject.occupiedRegions.push_back(occupiedRegion);
     }
 
@@ -114,7 +114,7 @@ TEST_F(RssCheckTests, EmptyRoad)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = followingObject;
+  worldModel.egoVehicle = objectAsEgo(followingObject);
   scene.object = leadingObject;
 
   scene.egoVehicleRoad.clear();
@@ -131,7 +131,7 @@ TEST_F(RssCheckTests, EmptyScene)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = followingObject;
+  worldModel.egoVehicle = objectAsEgo(followingObject);
   scene.object = leadingObject;
 
   scene.egoVehicleRoad = roadArea;
@@ -155,7 +155,7 @@ TEST_F(RssCheckTests, EmptyEgoOccupiedRegion)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = followingObject;
+  worldModel.egoVehicle = objectAsEgo(followingObject);
   scene.object = leadingObject;
 
   scene.egoVehicleRoad = roadArea;
@@ -174,7 +174,7 @@ TEST_F(RssCheckTests, WrongEgoOccupiedRegion)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = followingObject;
+  worldModel.egoVehicle = objectAsEgo(followingObject);
   scene.object = leadingObject;
 
   scene.egoVehicleRoad = roadArea;
@@ -184,8 +184,8 @@ TEST_F(RssCheckTests, WrongEgoOccupiedRegion)
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
-  worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = 0.5;
-  worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = 0.3;
+  worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.5);
+  worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.3);
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
@@ -194,7 +194,7 @@ TEST_F(RssCheckTests, NegativeEgoVelocity)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = followingObject;
+  worldModel.egoVehicle = objectAsEgo(followingObject);
   scene.object = leadingObject;
 
   scene.egoVehicleRoad = roadArea;
@@ -213,7 +213,7 @@ TEST_F(RssCheckTests, NegativeEgoAcceleration)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = followingObject;
+  worldModel.egoVehicle = objectAsEgo(followingObject);
   scene.object = leadingObject;
 
   scene.egoVehicleRoad = roadArea;

@@ -30,7 +30,7 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "situation/Vehicle.hpp"
+#include "ad_rss/situation/VehicleStateValidInputRange.hpp"
 
 namespace ad_rss {
 namespace situation {
@@ -39,14 +39,14 @@ TEST(RSSFormulaTestsCheckVehicleState, check_standard_state)
 {
   VehicleState leadingVehicle = createVehicleStateForLongitudinalMotion(10);
 
-  ASSERT_TRUE(checkVehicleState(leadingVehicle));
+  ASSERT_TRUE(withinValidInputRange(leadingVehicle));
 }
 
 TEST(RSSFormulaTestsCheckVehicleState, check_standard_state_100)
 {
   VehicleState leadingVehicle = createVehicleStateForLongitudinalMotion(100);
 
-  ASSERT_TRUE(checkVehicleState(leadingVehicle));
+  ASSERT_TRUE(withinValidInputRange(leadingVehicle));
 }
 
 } // namespace situation

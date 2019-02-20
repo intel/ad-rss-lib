@@ -32,6 +32,7 @@
  */
 
 /**
+ * Generated file
  * @file
  *
  */
@@ -61,8 +62,7 @@ class DurationSquared;
 /*!
  * \brief DataType Duration
  *
- * A duration represents a time interval
- * Unit: second
+ * A duration represents a time interval.
  * The unit is: Second
  */
 class Duration

@@ -32,6 +32,7 @@
  */
 
 /**
+ * Generated file
  * @file
  *
  */
@@ -62,7 +63,6 @@ class DistanceSquared;
  * \brief DataType Distance
  *
  * The length of a specific path traveled between two points.
- * Unit: meter
  * The unit is: Meter
  */
 class Distance

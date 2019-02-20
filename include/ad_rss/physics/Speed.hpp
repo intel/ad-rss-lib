@@ -32,6 +32,7 @@
  */
 
 /**
+ * Generated file
  * @file
  *
  */
@@ -61,9 +62,8 @@ class SpeedSquared;
 /*!
  * \brief DataType Speed
  *
- * The rate of change of an object's position with respect to time. The speed of an
- * object is the magnitude of its velocity.
- * Unit: meter per second
+ * The rate of change of an object's position with respect to time. The speed of an object is the magnitude of its
+ * velocity.
  * The unit is: MeterPerSecond
  */
 class Speed

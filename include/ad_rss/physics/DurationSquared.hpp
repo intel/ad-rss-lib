@@ -32,6 +32,7 @@
  */
 
 /**
+ * Generated file
  * @file
  *
  */
@@ -62,7 +63,6 @@ class Duration;
  * \brief DataType DurationSquared
  *
  * DurationSquared represents a squared Duration
- * Unit: second^2
  * The unit is: SecondSquared
  */
 class DurationSquared

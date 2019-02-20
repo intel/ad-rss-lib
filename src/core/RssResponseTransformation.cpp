@@ -30,6 +30,8 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "ad_rss/core/RssResponseTransformation.hpp"
+#include "ad_rss/state/ResponseStateValidInputRange.hpp"
+#include "ad_rss/world/WorldModelValidInputRange.hpp"
 
 namespace ad_rss {
 
@@ -40,6 +42,11 @@ bool transformProperResponse(world::WorldModel const &worldModel,
                              state::ResponseState const &response,
                              world::AccelerationRestriction &accelerationRestriction)
 {
+  if (!withinValidInputRange(worldModel) || !withinValidInputRange(response))
+  {
+    return false;
+  }
+
   if (worldModel.timeIndex != response.timeIndex)
   {
     return false;

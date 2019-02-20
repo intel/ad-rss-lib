@@ -46,11 +46,11 @@ protected:
 
     {
       ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = 0.;
-      occupiedRegion.lonRange.maximum = 0.1;
+      occupiedRegion.lonRange.minimum = ParametricValue(0.);
+      occupiedRegion.lonRange.maximum = ParametricValue(0.1);
       occupiedRegion.segmentId = 0;
-      occupiedRegion.latRange.minimum = 0.8;
-      occupiedRegion.latRange.maximum = 0.9;
+      occupiedRegion.latRange.minimum = ParametricValue(0.8);
+      occupiedRegion.latRange.maximum = ParametricValue(0.9);
       object.occupiedRegions.push_back(occupiedRegion);
     }
 
@@ -58,11 +58,11 @@ protected:
     otherObject.objectId = 1;
     {
       ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = 0.5;
-      occupiedRegion.lonRange.maximum = 0.6;
+      occupiedRegion.lonRange.minimum = ParametricValue(0.5);
+      occupiedRegion.lonRange.maximum = ParametricValue(0.6);
       occupiedRegion.segmentId = 3;
-      occupiedRegion.latRange.minimum = 0.8;
-      occupiedRegion.latRange.maximum = 0.9;
+      occupiedRegion.latRange.minimum = ParametricValue(0.8);
+      occupiedRegion.latRange.maximum = ParametricValue(0.9);
       otherObject.occupiedRegions.push_back(occupiedRegion);
     }
 
@@ -156,7 +156,7 @@ TEST_F(RssCheckIntersectionTests, EgoHasPriority)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = object;
+  worldModel.egoVehicle = objectAsEgo(object);
   scene.object = otherObject;
   scene.intersectingRoad = otherRoadArea;
   scene.egoVehicleRoad = roadArea;
@@ -168,8 +168,8 @@ TEST_F(RssCheckIntersectionTests, EgoHasPriority)
 
   for (uint32_t i = 0; i <= 90; i++)
   {
-    worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = 0.01 * i;
-    worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = 0.01 * i + 0.1;
+    worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.01 * i);
+    worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.01 * i + 0.1);
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
@@ -192,7 +192,7 @@ TEST_F(RssCheckIntersectionTests, EgoHasNoPriority)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = object;
+  worldModel.egoVehicle = objectAsEgo(object);
   scene.object = otherObject;
   scene.intersectingRoad = otherRoadArea;
   scene.egoVehicleRoad = roadArea;
@@ -208,8 +208,8 @@ TEST_F(RssCheckIntersectionTests, EgoHasNoPriority)
     worldModel.scenes[0].situationType = situationType;
     for (uint32_t i = 0; i <= 90; i++)
     {
-      worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = 0.01 * i;
-      worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = 0.01 * i + 0.1;
+      worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.01 * i);
+      worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.01 * i + 0.1);
 
       ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 

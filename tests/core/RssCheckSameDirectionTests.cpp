@@ -46,11 +46,11 @@ protected:
 
     {
       ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = 0.;
-      occupiedRegion.lonRange.maximum = 0.1;
+      occupiedRegion.lonRange.minimum = ParametricValue(0.);
+      occupiedRegion.lonRange.maximum = ParametricValue(0.1);
       occupiedRegion.segmentId = 7;
-      occupiedRegion.latRange.minimum = 0.8;
-      occupiedRegion.latRange.maximum = 0.9;
+      occupiedRegion.latRange.minimum = ParametricValue(0.8);
+      occupiedRegion.latRange.maximum = ParametricValue(0.9);
       leadingObject.occupiedRegions.push_back(occupiedRegion);
     }
 
@@ -58,11 +58,11 @@ protected:
     followingObject.objectId = 1;
     {
       ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = 0.;
-      occupiedRegion.lonRange.maximum = 0.1;
+      occupiedRegion.lonRange.minimum = ParametricValue(0.);
+      occupiedRegion.lonRange.maximum = ParametricValue(0.1);
       occupiedRegion.segmentId = 1;
-      occupiedRegion.latRange.minimum = 0.8;
-      occupiedRegion.latRange.maximum = 0.9;
+      occupiedRegion.latRange.minimum = ParametricValue(0.8);
+      occupiedRegion.latRange.maximum = ParametricValue(0.9);
       followingObject.occupiedRegions.push_back(occupiedRegion);
     }
 
@@ -166,7 +166,7 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentDistances)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = followingObject;
+  worldModel.egoVehicle = objectAsEgo(followingObject);
   worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(10);
   scene.object = leadingObject;
 
@@ -179,8 +179,8 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentDistances)
 
   for (uint32_t i = 0; i <= 90; i++)
   {
-    worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = 0.01 * i;
-    worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = 0.01 * i + 0.1;
+    worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.01 * i);
+    worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.01 * i + 0.1);
 
     Distance const dMin = calculateLongitudinalMinSafeDistance(worldModel.egoVehicle, worldModel.scenes[0].object);
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
@@ -212,7 +212,7 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = followingObject;
+  worldModel.egoVehicle = objectAsEgo(followingObject);
   scene.object = leadingObject;
 
   scene.egoVehicleRoad = roadArea;
@@ -255,7 +255,7 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_DifferentLan
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = followingObject;
+  worldModel.egoVehicle = objectAsEgo(followingObject);
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 2;
   scene.object = leadingObject;
 
@@ -299,10 +299,10 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_NoLateralCon
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = followingObject;
+  worldModel.egoVehicle = objectAsEgo(followingObject);
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 0;
-  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = 0.0;
-  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = 0.1;
+  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);
+  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);
   scene.object = leadingObject;
 
   scene.egoVehicleRoad = roadArea;
@@ -338,10 +338,10 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_NoLateralCon
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = followingObject;
+  worldModel.egoVehicle = objectAsEgo(followingObject);
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 0;
-  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = 0.0;
-  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = 0.1;
+  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);
+  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);
   scene.object = leadingObject;
 
   scene.egoVehicleRoad = roadArea;
@@ -380,7 +380,7 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_DifferentVelocities)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = leadingObject;
+  worldModel.egoVehicle = objectAsEgo(leadingObject);
   scene.object = followingObject;
 
   scene.egoVehicleRoad = roadArea;
@@ -414,10 +414,10 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Front)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = leadingObject;
+  worldModel.egoVehicle = objectAsEgo(leadingObject);
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 8;
-  worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = 0.5;
-  worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = 0.4;
+  worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.5);
+  worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.4);
   scene.object = followingObject;
 
   scene.egoVehicleRoad = roadArea;
@@ -425,8 +425,8 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Front)
   worldModel.timeIndex = 1;
 
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 6;
-  worldModel.scenes[0].object.occupiedRegions[0].lonRange.maximum = 0.45;
-  worldModel.scenes[0].object.occupiedRegions[0].lonRange.minimum = 0.35;
+  worldModel.scenes[0].object.occupiedRegions[0].lonRange.maximum = ParametricValue(0.45);
+  worldModel.scenes[0].object.occupiedRegions[0].lonRange.minimum = ParametricValue(0.35);
 
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
@@ -455,10 +455,10 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Right)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = leadingObject;
+  worldModel.egoVehicle = objectAsEgo(leadingObject);
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 5;
-  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = 0.5;
-  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = 0.4;
+  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.5);
+  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.4);
   scene.object = followingObject;
 
   scene.egoVehicleRoad = roadArea;
@@ -466,8 +466,8 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Right)
   worldModel.timeIndex = 1;
 
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 2;
-  worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = 0.45;
-  worldModel.scenes[0].object.occupiedRegions[0].latRange.minimum = 0.35;
+  worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = ParametricValue(0.45);
+  worldModel.scenes[0].object.occupiedRegions[0].latRange.minimum = ParametricValue(0.35);
 
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
@@ -496,10 +496,10 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Left)
 {
   ::ad_rss::world::WorldModel worldModel;
 
-  worldModel.egoVehicle = leadingObject;
+  worldModel.egoVehicle = objectAsEgo(leadingObject);
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 5;
-  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = 0.4;
-  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = 0.3;
+  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.4);
+  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.3);
   scene.object = followingObject;
 
   scene.egoVehicleRoad = roadArea;
@@ -507,8 +507,8 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Left)
   worldModel.timeIndex = 1;
 
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 2;
-  worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = 0.45;
-  worldModel.scenes[0].object.occupiedRegions[0].latRange.minimum = 0.35;
+  worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = ParametricValue(0.45);
+  worldModel.scenes[0].object.occupiedRegions[0].latRange.minimum = ParametricValue(0.35);
 
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;

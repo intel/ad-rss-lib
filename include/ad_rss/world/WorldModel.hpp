@@ -32,6 +32,7 @@
  */
 
 /**
+ * Generated file
  * @file
  *
  */
@@ -41,10 +42,9 @@
 #include <cstdint>
 #include <limits>
 #include <memory>
-#include <vector>
 #include "ad_rss/physics/TimeIndex.hpp"
 #include "ad_rss/world/Object.hpp"
-#include "ad_rss/world/Scene.hpp"
+#include "ad_rss/world/SceneVector.hpp"
 /*!
  * @brief namespace ad_rss
  */
@@ -77,8 +77,7 @@ struct WorldModel
   /*!
    * All scenes
    */
-  using ScenesType = std::vector<::ad_rss::world::Scene>;
-  ScenesType scenes;
+  ::ad_rss::world::SceneVector scenes;
 };
 
 } // namespace world

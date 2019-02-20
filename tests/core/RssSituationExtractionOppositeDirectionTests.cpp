@@ -49,11 +49,11 @@ protected:
 
     {
       ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = 0.8;
-      occupiedRegion.lonRange.maximum = 1.0;
+      occupiedRegion.lonRange.minimum = ParametricValue(0.8);
+      occupiedRegion.lonRange.maximum = ParametricValue(1.0);
       occupiedRegion.segmentId = 1.;
-      occupiedRegion.latRange.minimum = 0.2;
-      occupiedRegion.latRange.maximum = 0.4;
+      occupiedRegion.latRange.minimum = ParametricValue(0.2);
+      occupiedRegion.latRange.maximum = ParametricValue(0.4);
 
       leadingObject.occupiedRegions.push_back(occupiedRegion);
     }
@@ -62,11 +62,11 @@ protected:
     followingObject.objectId = 1;
     {
       ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = 0.1;
-      occupiedRegion.lonRange.maximum = 0.2;
+      occupiedRegion.lonRange.minimum = ParametricValue(0.1);
+      occupiedRegion.lonRange.maximum = ParametricValue(0.2);
       occupiedRegion.segmentId = 1.;
-      occupiedRegion.latRange.minimum = 0.6;
-      occupiedRegion.latRange.maximum = 0.8;
+      occupiedRegion.latRange.minimum = ParametricValue(0.6);
+      occupiedRegion.latRange.maximum = ParametricValue(0.8);
       followingObject.occupiedRegions.push_back(occupiedRegion);
     }
   }
@@ -87,7 +87,7 @@ TEST_F(RssSituationExtractionOppositeDirectionTests, noLongitudinalDifference)
   world::WorldModel worldModel;
   situation::SituationVector situationVector;
 
-  worldModel.egoVehicle = leadingObject;
+  worldModel.egoVehicle = objectAsEgo(leadingObject);
   scene.object = followingObject;
 
   ::ad_rss::world::RoadSegment roadSegment;
@@ -124,7 +124,7 @@ TEST_F(RssSituationExtractionOppositeDirectionTests, longitudinalDifference)
   world::WorldModel worldModel;
   situation::SituationVector situationVector;
 
-  worldModel.egoVehicle = followingObject;
+  worldModel.egoVehicle = objectAsEgo(followingObject);
   scene.object = leadingObject;
 
   ::ad_rss::world::RoadSegment roadSegment;

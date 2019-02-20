@@ -31,7 +31,6 @@
 
 #include "situation/RSSSituation.hpp"
 #include "situation/RSSFormulas.hpp"
-#include "situation/Vehicle.hpp"
 
 namespace ad_rss {
 namespace situation {

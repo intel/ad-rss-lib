@@ -60,6 +60,7 @@ add_library(${PROJECT_NAME} SHARED
   src/ad_rss/physics/DistanceSquared.cpp
   src/ad_rss/physics/Duration.cpp
   src/ad_rss/physics/DurationSquared.cpp
+  src/ad_rss/physics/ParametricValue.cpp
   src/ad_rss/physics/Speed.cpp
   src/ad_rss/physics/SpeedSquared.cpp
   src/ad_rss/situation/LateralRelativePosition.cpp
@@ -79,7 +80,6 @@ add_library(${PROJECT_NAME} SHARED
   src/situation/RSSFormulas.cpp
   src/situation/RssIntersectionChecker.cpp
   src/situation/RSSSituation.cpp
-  src/situation/Vehicle.cpp
   src/world/RssSituationCoordinateSystemConversion.cpp
   src/world/RssObjectPositionExtractor.cpp
   )
