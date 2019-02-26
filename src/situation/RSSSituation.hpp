@@ -42,7 +42,7 @@
  */
 namespace ad_rss {
 /*!
- * @brief namespace for RSS situation datatypes and operations
+ * @brief namespace situation
  */
 namespace situation {
 

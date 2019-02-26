@@ -54,6 +54,7 @@ set(RSS_TEST_SOURCES
   core/RssSituationExtractionSameDirectionTests.cpp
   physics/MathUnitTestsDistanceOffsetAfterResponseTime.cpp
   physics/MathUnitTestsStoppingDistance.cpp
+  physics/MathUnitTestsTimeToCoverDistance.cpp
   physics/MathUnitTestsVelocityAfterResponseTime.cpp
   situation/RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
   situation/RSSFormulaTestsCalculateSafeLateralDistance.cpp

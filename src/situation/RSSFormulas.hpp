@@ -43,7 +43,7 @@
  */
 namespace ad_rss {
 /*!
- * @brief namespace for RSS situation coordinate system datatypes and operations
+ * @brief namespace situation
  */
 namespace situation {
 
@@ -53,23 +53,19 @@ namespace situation {
  *
  * @param[in]  axis              is the coordinate axis this calculation is for
  * @param[in]  currentSpeed      is the current vehicle speed
- *                               [situation coordinate system units per second]
- * @param[in]  responseTime      is the response time of the vehicle [s]
+ * @param[in]  responseTime      is the response time of the vehicle
  * @param[in]  acceleration      the acceleration of the vehicle during responseTime
- *                               [situation coordinate system unit per second squared]
  * @param[in]  deceleration      is the applied breaking deceleration
- *                               [situation coordinate system unit per second squared]
  * @param[out] distanceOffset    is the distance offset of the vehicle from the current position after
  *                               \a "the stated braking pattern"
- *                               [situation coordinate system unit]
  *
  * @return true on successful calculation, false otherwise
  */
-bool calculateDistanceOffsetAfterStatedBrakingPattern(physics::CoordinateSystemAxis const axis,
-                                                      physics::Speed const currentSpeed,
-                                                      physics::Duration const responseTime,
-                                                      physics::Acceleration const acceleration,
-                                                      physics::Acceleration const deceleration,
+bool calculateDistanceOffsetAfterStatedBrakingPattern(physics::CoordinateSystemAxis const &axis,
+                                                      physics::Speed const &currentSpeed,
+                                                      physics::Duration const &responseTime,
+                                                      physics::Acceleration const &acceleration,
+                                                      physics::Acceleration const &deceleration,
                                                       physics::Distance &distanceOffset);
 
 /**
@@ -85,7 +81,6 @@ bool calculateDistanceOffsetAfterStatedBrakingPattern(physics::CoordinateSystemA
  * @param[in]  leadingVehicle      is the state of the leading vehicle
  * @param[in]  followingVehicle    is the state of the following vehicle
  * @param[out] safeDistance        is the calculated safe longitudinal distance
- *                                 [situation coordinate system unit]
  *
  * @return true on successful calculation, false otherwise
  */
@@ -204,7 +199,7 @@ bool checkStopInFrontIntersection(VehicleState const &vehicle, bool &isDistanceS
  *
  * @param[in]  leftVehicle      is the state of the left vehicle
  * @param[in]  rightVehicle     is the state of the right vehicle
- * @param[out] safeDistance     is the calculated safe lateral distance [situation coordinate system unit]
+ * @param[out] safeDistance     is the calculated safe lateral distance
  *
  * @return true on successful calculation, false otherwise
  */

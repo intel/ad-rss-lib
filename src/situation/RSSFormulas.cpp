@@ -45,11 +45,11 @@ using physics::Duration;
 using physics::Speed;
 using physics::calculateStoppingDistance;
 
-bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const axis,
-                                                      Speed const currentSpeed,
-                                                      Duration const responseTime,
-                                                      Acceleration const acceleration,
-                                                      Acceleration const deceleration,
+bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const &axis,
+                                                      Speed const &currentSpeed,
+                                                      Duration const &responseTime,
+                                                      Acceleration const &acceleration,
+                                                      Acceleration const &deceleration,
                                                       Distance &distanceOffset)
 {
   Speed resultingSpeed = Speed(0.);

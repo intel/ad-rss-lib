@@ -37,22 +37,25 @@
 namespace ad_rss {
 namespace physics {
 
-inline Distance
-calculateDistanceOffsetInAccerlatedMovement(Speed const speed, Acceleration const acceleration, Duration const duration)
+inline Distance calculateDistanceOffsetInAccerlatedMovement(Speed const &speed,
+                                                            Acceleration const &acceleration,
+                                                            Duration const &duration)
 {
   // s(t) =(a/2) * t^2 + v0 * t
   Distance const distanceOffset = (acceleration * 0.5 * duration * duration) + (speed * duration);
   return distanceOffset;
 }
 
-Speed calculateSpeedInAcceleratedMovement(Speed const speed, Acceleration const acceleration, Duration const duration)
+Speed calculateSpeedInAcceleratedMovement(Speed const &speed,
+                                          Acceleration const &acceleration,
+                                          Duration const &duration)
 {
   // v(t) =v0 + a * t
   Speed const resultingSpeed = speed + acceleration * duration;
   return resultingSpeed;
 }
 
-bool calculateStoppingDistance(Speed const currentSpeed, Acceleration const deceleration, Distance &stoppingDistance)
+bool calculateStoppingDistance(Speed const &currentSpeed, Acceleration const &deceleration, Distance &stoppingDistance)
 {
   if (deceleration <= Acceleration(0.))
   {
@@ -66,10 +69,10 @@ bool calculateStoppingDistance(Speed const currentSpeed, Acceleration const dece
   return true;
 }
 
-bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const axis,
-                                     Speed const currentSpeed,
-                                     Acceleration const acceleration,
-                                     Duration const responseTime,
+bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const &axis,
+                                     Speed const &currentSpeed,
+                                     Acceleration const &acceleration,
+                                     Duration const &responseTime,
                                      Speed &resultingSpeed)
 {
   if (responseTime < Duration(0.))
@@ -98,10 +101,10 @@ bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const axis,
   return true;
 }
 
-bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const axis,
-                                              Speed const currentSpeed,
-                                              Acceleration const acceleration,
-                                              Duration const responseTime,
+bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const &axis,
+                                              Speed const &currentSpeed,
+                                              Acceleration const &acceleration,
+                                              Duration const &responseTime,
                                               Distance &distanceOffset)
 {
   if (responseTime < Duration(0.))
@@ -132,9 +135,9 @@ bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const axis,
   return true;
 }
 
-bool calculateTimeForDistance(Speed const currentSpeed,
-                              Acceleration const acceleration,
-                              Distance distanceToCover,
+bool calculateTimeForDistance(Speed const &currentSpeed,
+                              Acceleration const &acceleration,
+                              Distance const &distanceToCover,
                               Duration &requiredTime)
 {
   if (currentSpeed < Speed(0.))
@@ -144,34 +147,50 @@ bool calculateTimeForDistance(Speed const currentSpeed,
 
   bool result = true;
 
-  // t = -v_0/a +- sqrt(v_0^2/a^2 + 2s/a)
-  Duration const firstPart = -1. * currentSpeed / acceleration;
-
-  Duration const secondPart = std::sqrt((firstPart * firstPart) + (2. * distanceToCover / acceleration));
-
-  Duration t1 = firstPart + secondPart;
-  Duration t2 = firstPart - secondPart;
-
-  if (t2 > Duration(0.))
+  if (acceleration == Acceleration(0.))
   {
-    requiredTime = t2;
+    // non-accelerated constant movement:
+    // t = s/v
+    if (currentSpeed == Speed(0.))
+    {
+      requiredTime = std::numeric_limits<Duration>::max();
+    }
+    else
+    {
+      requiredTime = distanceToCover / currentSpeed;
+    }
   }
   else
   {
-    requiredTime = t1;
-  }
+    // constant accelerated movement:
+    // t = -v_0/a +- sqrt(v_0^2/a^2 + 2s/a)
+    Duration const firstPart = -1. * currentSpeed / acceleration;
 
+    Duration const secondPart = std::sqrt((firstPart * firstPart) + (2. * distanceToCover / acceleration));
+
+    Duration t1 = firstPart + secondPart;
+    Duration t2 = firstPart - secondPart;
+
+    if (t2 > Duration(0.))
+    {
+      requiredTime = t2;
+    }
+    else
+    {
+      requiredTime = t1;
+    }
+  }
   return result;
 }
 
-bool calculateTimeToCoverDistance(Speed const currentSpeed,
-                                  Duration const responseTime,
-                                  Acceleration const acceleration,
-                                  Acceleration const deceleration,
-                                  Distance const distanceToCover,
+bool calculateTimeToCoverDistance(Speed const &currentSpeed,
+                                  Duration const &responseTime,
+                                  Acceleration const &acceleration,
+                                  Acceleration const &deceleration,
+                                  Distance const &distanceToCover,
                                   Duration &requiredTime)
 {
-  if (currentSpeed < Speed(0.))
+  if ((currentSpeed < Speed(0.)) || (deceleration < Acceleration(0.)) || (distanceToCover < Distance(0.)))
   {
     return false;
   }

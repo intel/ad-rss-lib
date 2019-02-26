@@ -39,9 +39,9 @@
 #include "ad_rss/physics/DurationSquared.hpp"
 #include "ad_rss/physics/Duration.hpp"
 
-const double ::ad_rss::physics::DurationSquared::cMinValue = -1e6;
+const double ::ad_rss::physics::DurationSquared::cMinValue = -1e12;
 
-const double ::ad_rss::physics::DurationSquared::cMaxValue = 1e6;
+const double ::ad_rss::physics::DurationSquared::cMaxValue = 1e12;
 
 const double ::ad_rss::physics::DurationSquared::cPrecisionValue = 1e-6;
 

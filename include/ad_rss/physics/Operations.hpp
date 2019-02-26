@@ -116,6 +116,26 @@ inline ad_rss::physics::Distance operator*(ad_rss::physics::Duration const &t, a
 }
 
 /*!
+ * \brief Arithmetic physics operation t = s / v
+ *
+ * \param[in] d distance value
+ * \param[in] v speed value
+ *
+ * \returns t = s / v as duration value
+ *
+ * \note throws a std::out_of_range exception if one of the two operands or the result of
+ *   the operation is not valid or if the divisor is zero
+ */
+inline ad_rss::physics::Duration operator/(ad_rss::physics::Distance const &s, ad_rss::physics::Speed const &v)
+{
+  s.ensureValid();
+  v.ensureValidNonZero();
+  ad_rss::physics::Duration const t(static_cast<double>(s) / static_cast<double>(v));
+  t.ensureValid();
+  return t;
+}
+
+/*!
  * \brief Arithmetic physics operation t = v / a
  *
  * \param[in] v speed value

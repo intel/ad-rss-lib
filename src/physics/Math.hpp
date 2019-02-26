@@ -46,7 +46,7 @@
  */
 namespace ad_rss {
 /*!
- * @brief namespace for RSS physics datatypes and operations
+ * @brief namespace physics
  */
 namespace physics {
 
@@ -54,39 +54,33 @@ namespace physics {
  * @brief Calculate the stopping distance for a given speed and deceleration on a constant accelerated movement
  *
  * @param[in]  currentSpeed           is the current speed of the vehicle
- *                                    [situation coordinate system unit/s]
  * @param[in]  deceleration           is the applied (positive) deceleration
- *                                    [situation coordinate system units/s^2]
  * @param[out] stoppingDistance       is the resulting stopping distance
- *                                    [situation coordinate system units]
  *                                    The sign of the stoppingDistance equals the sign of the currentSpeed.
  *
  * @return true on success, false otherwise
  */
-bool calculateStoppingDistance(Speed const currentSpeed, Acceleration const deceleration, Distance &stoppingDistance);
+bool calculateStoppingDistance(Speed const &currentSpeed, Acceleration const &deceleration, Distance &stoppingDistance);
 
 /**
  * @brief Calculate the vehicle speed after a given period of time on a constant accelerated movement
  *
  * @param[in]  axis            is the coordinate axis this calculation is for
  * @param[in]  currentSpeed    is the current speed of the vehicle
- *                             [situation coordinate system units/s]
  *                             (in longitudinal direction this has to be always positive)
  * @param[in]  acceleration    is the acceleration of the vehicle
- *                             [situation coordinate system units/s^2]
- * @param[in]  responseTime    is the (positive) period of time the vehicle keeps accelerating [s]
+ * @param[in]  responseTime    is the (positive) period of time the vehicle keeps accelerating
  * @param[out] resultingSpeed  is the resulting speed after \a responseTime
- *                             [situation coordinate system units]
  *                             In longitudinal direction, the resulting speed >= 0. Especially, the vehicle is not
  *                             starting to drive in reverse direction after standing still. In lateral direction,
  *                             the resulting speed might have a different sign than the currentSpeed.
  *
  * @return true on success, false otherwise
  */
-bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const axis,
-                                     Speed const currentSpeed,
-                                     Acceleration const acceleration,
-                                     Duration const responseTime,
+bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const &axis,
+                                     Speed const &currentSpeed,
+                                     Acceleration const &acceleration,
+                                     Duration const &responseTime,
                                      Speed &resultingSpeed);
 
 /**
@@ -94,13 +88,10 @@ bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const axis,
  *
  * @param[in]  axis             is the coordinate axis this calculation is for
  * @param[in]  currentSpeed     is the current speed of the vehicle
- *                              [situation coordinate system units/s]
  *                              (in longitudinal direction this has to be always positive)
  * @param[in]  acceleration     is the acceleration of the vehicle
- *                              [situation coordinate system units/s^2]
- * @param[in]  responseTime     is the (positive) period of time the vehicle keeps accelerating [s]
+ * @param[in]  responseTime     is the (positive) period of time the vehicle keeps accelerating
  * @param[out] distanceOffset   is the distance offset from the current position
- *                              [situation coordinate system units]
  *                              In decelerated longitudinal situation, the distance offset is restricted to the point
  *                              in time the vehicle stops; if the vehicle is able to stop within the response time,
  *                              it's equal to the stopping distance. Therefore, the distance offset in longitudinal
@@ -110,10 +101,10 @@ bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const axis,
  *
  * @return true on success, false otherwise
  */
-bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const axis,
-                                              Speed const currentSpeed,
-                                              Acceleration const acceleration,
-                                              Duration const responseTime,
+bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const &axis,
+                                              Speed const &currentSpeed,
+                                              Acceleration const &acceleration,
+                                              Duration const &responseTime,
                                               Distance &distanceOffset);
 
 /**
@@ -132,11 +123,11 @@ bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const axis,
  * @return true on, success, false otherwise
  *
  */
-bool calculateTimeToCoverDistance(Speed const currentSpeed,
-                                  Duration const responseTime,
-                                  Acceleration const acceleration,
-                                  Acceleration const deceleration,
-                                  Distance const distanceToCover,
+bool calculateTimeToCoverDistance(Speed const &currentSpeed,
+                                  Duration const &responseTime,
+                                  Acceleration const &acceleration,
+                                  Acceleration const &deceleration,
+                                  Distance const &distanceToCover,
                                   Duration &requiredTime);
 
 } // namespace physics
