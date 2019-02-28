@@ -6,7 +6,7 @@ This section sketches the integration of RSS into a exisiting system architectur
 
 [[Figure:ADS]]
 .A generic system architecture for an ADS.
-image::img/265b25c8-61d3-4116-bf6b-d3754f64bce3_url_e98e13a1-34b1-4fdd-b490-a5757bc3220b.tmp[caption="Figure {counter:figure}. "]
+image::img/538a5f93-aee8-400d-98f2-345c4ac0695c_url_2cfc400d-7dd4-42e2-ab38-df72932f73fa.tmp[caption="Figure {counter:figure}. "]
 
 From high level view the architecture of an ADS consists of three main parts: Sense, Plan, Act. The world model data
 provided by the Sense part is used by the Plan part to create the near term actuator control commands executed by the
@@ -14,7 +14,7 @@ Act part.
 
 [[Figure:ADS_RSS]]
 .Integration of RSS into a system architecture
-image::img/2af67351-93b0-46f3-bbdf-b56b5c9cae43_url_8789740d-7b25-4bf8-85cb-ca130d7bded6.tmp[caption="Figure {counter:figure}. "]
+image::img/f1b867ba-ac34-4a02-8163-45d24af5c431_url_85c4ad8b-11be-445a-bc9c-1e7b7cc474f0.tmp[caption="Figure {counter:figure}. "]
 
 RSS is integrated into such an ADS architecture by placing it in parallel to the Plan. To provide a safety envelope
 around the planning output the integration of RSS into a ADS architecture spans into the Sense part to provide the
@@ -44,7 +44,7 @@ rssWorldModelData: The world model data required by the RssSubsystem.
 
 [[Figure:SensorSubsystem]]
 .Extending the Sense part with world model data required by RSS.
-image::img/1e2c5660-6687-4f51-a076-20b28644a67f_url_4d0db63b-c1b4-4e93-8a13-98cc4bbec867.tmp[caption="Figure {counter:figure}. "]
+image::img/8a5358e7-d9ae-421d-be0c-f2d6559de898_url_dcf2f2cc-7d75-4ff7-b60d-faee3817152d.tmp[caption="Figure {counter:figure}. "]
 
 ===== Sense
 
@@ -101,7 +101,7 @@ rssAccelerationRestrictions: The restrictions on the acceleration for the vehicl
 
 [[Figure:ActuatorSubsystem]]
 .Extending the Act part by RSS command limitation.
-image::img/40a06f19-5577-425a-9a9a-d3d95b91c807_url_c4da5bde-c4cb-4b36-8974-baa26dfe8356.tmp[caption="Figure {counter:figure}. "]
+image::img/9787727c-26f7-425e-b085-8f12f596bf2b_url_821d2a60-1dd7-4665-a16d-ad0e8ebfa0ff.tmp[caption="Figure {counter:figure}. "]
 
 ===== RssActuatorCommandLimitation
 
@@ -159,7 +159,7 @@ rssAccelerationRestrictions: The restrictions on the acceleration for the actuat
 
 [[Figure:RssSubsystem]]
 .RSS internal processing steps to perform RSS checks and execute the RSS proper response
-image::img/d077cba8-ac54-4f2c-8f2d-936590d9b614_url_36a90267-8d89-4036-88df-007aa7ec6381.tmp[caption="Figure {counter:figure}. "]
+image::img/df47ba24-cd6d-45b7-9c60-c64b4b865198_url_213084b7-d6d3-47f4-a9dc-ed47cfacf436.tmp[caption="Figure {counter:figure}. "]
 
 ===== RssSituationExtraction
 

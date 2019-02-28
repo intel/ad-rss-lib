@@ -73,7 +73,9 @@ Several explicit checks of the input data validity are performed, including the 
 * Check that the data structures describing the ego-vehicle or other objects (other
   vehicles) are internally consistent. The routine that analyzes the situation checks
   against basic constraints. If the constraints are violated, the routine returns
-  with the success/fail flag set to 'fail'.
+  with the success/fail flag set to 'fail'. For this, the routines withinValidInputRange()
+  are used. The respective Doxygen description of these contains the absolute values against
+  which the inputs (like e.g. velocities, accelerations, etc.) are checked.
 
 Error handling: Each routine in the library that invokes subroutines checks a success/fail flag returned by the subroutine. In addition, many routines perform custom checking of the internal logic against known constraints of RSS. A failure of a logic check or of a subroutine results in interruption of the routine and a fail flag being passed to the calling routine.
 
@@ -150,6 +152,8 @@ set of values that are provided as input.
 
 The output values can be further bounded within absolute lower and upper
 limits by bounding the input values within those desired limits.
+Also check the Doxygen documentation of the withinValidInputRange() functions of the
+respective data types for the actual values defined.
 
 It is the responsibility of the system external to the RSS library to ensure
 that the acceleration and deceleration actually achieved by the vehicle always
@@ -180,7 +184,7 @@ C++ Standard Library).
 
 Code quality has been ensured through unit testing.
 
-Unit testing achieved code coverage of: 95% lines, 100% functions, 83% branches.
+Unit testing achieved code coverage of: 95% functions, 94% lines, 63% branches.
 
 
 #### Compiler and compiler security flags

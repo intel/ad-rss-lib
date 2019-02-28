@@ -1,4 +1,4 @@
-# RSS Open Library
+# C++ Library for Responsibility Sensitive Safety
 Ad-rss-lib
 // table of content
 :toc: left

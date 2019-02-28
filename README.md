@@ -1,4 +1,4 @@
-﻿C++ Open Library for Responsibility Sensitive Safety
+﻿C++ Library for Responsibility Sensitive Safety
 =====
 
 ## Introduction
