@@ -1,0 +1,86 @@
+/*
+ * ----------------- BEGIN LICENSE BLOCK ---------------------------------
+ *
+ * Copyright (c) 2018-2019 Intel Corporation
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of the copyright holder nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ *    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ *    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ *    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ *    IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ *    INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ *    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+ *    OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ *    WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ *    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ *    POSSIBILITY OF SUCH DAMAGE.
+ *
+ * ----------------- END LICENSE BLOCK -----------------------------------
+ */
+
+/**
+ * Generated file
+ * @file
+ *
+ */
+
+#pragma once
+
+#include <limits>
+#include <memory>
+#include "ad_rss/physics/Distance.hpp"
+#include "ad_rss/situation/LateralRelativePosition.hpp"
+#include "ad_rss/situation/LongitudinalRelativePosition.hpp"
+/*!
+ * @brief namespace ad_rss
+ */
+namespace ad_rss {
+/*!
+ * @brief namespace situation
+ */
+namespace situation {
+
+/*!
+ * \brief DataType RelativePosition
+ *
+ * Describes the relative position between two objects within their situation coordinate system.
+ */
+struct RelativePosition
+{
+  /*!
+   * The longitudinal relative position between to objects within their situation coordinate system.
+   */
+  ::ad_rss::situation::LongitudinalRelativePosition longitudinalPosition{
+    ::ad_rss::situation::LongitudinalRelativePosition::Overlap};
+
+  /*!
+   * The longitudinal distance between the two objects within their situation coordinate system.
+   */
+  ::ad_rss::physics::Distance longitudinalDistance{0.0};
+
+  /*!
+   * The lateral relative position between to objects within their situation coordinate system.
+   */
+  ::ad_rss::situation::LateralRelativePosition lateralPosition{::ad_rss::situation::LateralRelativePosition::Overlap};
+
+  /*!
+   * The lateral distance between the two objects within their situation coordinate system.
+   */
+  ::ad_rss::physics::Distance lateralDistance{0.0};
+};
+
+} // namespace situation
+} // namespace ad_rss
