@@ -42,6 +42,28 @@ The following parts of RSS are NOT implemented in this release of the library so
 Note: The RSS module in this library does not initiate evasive manuevers. At the same time, it would not hinder an evasive manuever being executed by the AV driving policy and planning modules, as long as it is compliant with the required RSS proper response.
 
 
+## Getting started
+
+### Installation of dependencies
+Currently, the supported operating system is Ubuntu 16.04. Nevertheless, the library should work in a similar way for any other Linux OS.
+To install the dependencies for Ubuntu 16.04 execute the following command:
+```bash
+ user$> sudo apt-get install git build-essential cmake libgtest-dev
+```
+
+If you want to use doxygen for API documentation, please also install:
+```bash
+ user$> sudo apt-get install doxygen graphviz
+```
+
+### Get the library
+To download the library, you may run:
+```bash
+ user$> git clone https://github.com/intel/ad-rss-lib.git
+ user$> cd ad-rss-lib
+```
+
+
 ## Building the library
 
 ### Build instructions
