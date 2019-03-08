@@ -39,6 +39,16 @@ project(ad_rss_lib VERSION 1.0)
 
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 11)
+
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    # require at least gcc 5.0
+    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 5.0)
+        message(FATAL_ERROR "GCC version must be at least 5.0!")
+    endif()
+else()
+    message(WARNING "You are using an unsupported compiler! Compilation has only been tested with GCC.")
+endif()
+
 # enable a bunch of warning
 add_compile_options(-Wall -Wextra -pedantic -Wfloat-equal -Wshadow -Wswitch-default -Wenum-compare -Wformat -Wformat-security)
 # use some warnings only for library code not for gtest
