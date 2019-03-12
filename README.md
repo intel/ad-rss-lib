@@ -63,7 +63,6 @@ To download the library, you may run:
  user$> cd ad-rss-lib
 ```
 
-
 ## Building the library
 
 ### Build instructions
@@ -86,6 +85,13 @@ Please run the following command to build the API documentation, if desired:
 ```bash
  build$>  cmake -DBUILD_DOC=1 ..
  build$>  make apidoc
+```
+
+#### Build hardening
+Usually, build hardening is injected by the surrounding build system. To enable hardening compiler and linker flags:
+```bash
+ build$>  cmake -DBUILD_HARDENING=1 ..
+ build$>  make
 ```
 
 #### Full documentation

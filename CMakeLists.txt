@@ -32,6 +32,8 @@
 cmake_minimum_required(VERSION 3.5)
 set(BUILD_TESTING "ON" CACHE BOOL "Enable test compilation")
 set(BUILD_DOC "OFF" CACHE BOOL "Enable compilation of doxygen documentation")
+set(BUILD_HARDENING "OFF" CACHE BOOL "Enable build hardening flags")
+set(BUILD_COVERAGE "OFF" CACHE BOOL "Enable test coverage")
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -47,11 +49,19 @@ set(TARGET_COMPILE_OPTIONS -Wconversion -Wsign-conversion)
 add_compile_options(-Werror)
 
 # hardening
-set(HARDENING_LD_FLAGS "-Wl,-z,now -Wl,-z,relro -pie")
-add_compile_options(-fstack-protector-strong -fasynchronous-unwind-tables -fno-omit-frame-pointer -fPIE -fPIC -D_FORTIFY_SOURCE=2)
+if (BUILD_HARDENING)
+  set(HARDENING_LD_FLAGS "-Wl,-z,now -Wl,-z,relro -pie")
+  add_compile_options(-fstack-protector-strong -fasynchronous-unwind-tables -fno-omit-frame-pointer -fPIE -fPIC -D_FORTIFY_SOURCE=2)
+else()
+  set(HARDENING_LD_FLAGS "")
+endif()
 
 # activate code coverage
-set(COVERAGE_FLAG "--coverage")
+if (BUILD_COVERAGE)
+  set(COVERAGE_FLAG "--coverage")
+else()
+  set(COVERAGE_FLAG "")
+endif()
 
 add_library(${PROJECT_NAME} SHARED
   src/ad_rss/physics/Acceleration.cpp
