@@ -1,0 +1,27 @@
+language: cpp
+compiler: gcc
+
+os: linux
+dist: xenial
+sudo: false
+
+matrix:
+  include:
+
+    - env: TEST="Build and Unit Tests"
+      addons:
+        apt:
+          packages:
+            - cmake
+            - build-essential
+            - cmake
+            - libgtest-dev
+      script:
+        - mkdir build
+        - cd build
+        - cmake ..
+        - make
+        - ctest -V
+
+notifications:
+  email: false
