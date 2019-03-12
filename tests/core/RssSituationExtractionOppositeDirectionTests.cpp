@@ -117,6 +117,10 @@ TEST_F(RssSituationExtractionOppositeDirectionTests, noLongitudinalDifference)
 
   ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::ad_rss::situation::LateralRelativePosition::AtLeft);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, Distance(1));
+
+  situation::Situation situation;
+  ASSERT_TRUE(extractSituation(worldModel.timeIndex, worldModel.egoVehicle, worldModel.scenes[0], situation));
+  ASSERT_EQ(situation, situationVector[0]);
 }
 
 TEST_F(RssSituationExtractionOppositeDirectionTests, longitudinalDifference)
@@ -156,6 +160,10 @@ TEST_F(RssSituationExtractionOppositeDirectionTests, longitudinalDifference)
 
   ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::ad_rss::situation::LateralRelativePosition::AtRight);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, Distance(1));
+
+  situation::Situation situation;
+  ASSERT_TRUE(extractSituation(worldModel.timeIndex, worldModel.egoVehicle, worldModel.scenes[0], situation));
+  ASSERT_EQ(situation, situationVector[0]);
 }
 
 } // namespace RssSituationExtraction
