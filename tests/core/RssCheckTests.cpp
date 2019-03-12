@@ -31,11 +31,12 @@
 
 #include "TestSupport.hpp"
 #include "ad_rss/core/RssCheck.hpp"
+#include "wrap_new.hpp"
 
 namespace ad_rss {
 namespace core {
 
-class RssCheckTests : public testing::Test
+template <class T> class RssCheckTestsBase : public T
 {
 protected:
   virtual void SetUp()
@@ -96,6 +97,12 @@ protected:
 
       roadArea.push_back(roadSegment);
     }
+
+    worldModel.egoVehicle = objectAsEgo(followingObject);
+    scene.object = leadingObject;
+    scene.egoVehicleRoad = roadArea;
+    worldModel.scenes.push_back(scene);
+    worldModel.timeIndex = 1;
   }
 
   virtual void TearDown()
@@ -103,43 +110,34 @@ protected:
     followingObject.occupiedRegions.clear();
     leadingObject.occupiedRegions.clear();
     scene.egoVehicleRoad.clear();
+    gNewThrowCounter = 0;
   }
+
+  ::ad_rss::world::WorldModel worldModel;
   ::ad_rss::world::Object followingObject;
   ::ad_rss::world::Object leadingObject;
   ::ad_rss::world::RoadArea roadArea;
   ::ad_rss::world::Scene scene;
 };
 
+using RssCheckTests = RssCheckTestsBase<testing::Test>;
+
 TEST_F(RssCheckTests, EmptyRoad)
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(followingObject);
-  scene.object = leadingObject;
-
-  scene.egoVehicleRoad.clear();
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
-
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
+
+  worldModel.scenes[0].egoVehicleRoad.clear();
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
 
 TEST_F(RssCheckTests, EmptyScene)
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(followingObject);
-  scene.object = leadingObject;
-
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.clear();
-  worldModel.timeIndex = 1;
-
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
+
+  worldModel.scenes.clear();
 
   ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
   ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
@@ -153,15 +151,6 @@ TEST_F(RssCheckTests, EmptyScene)
 
 TEST_F(RssCheckTests, EmptyEgoOccupiedRegion)
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(followingObject);
-  scene.object = leadingObject;
-
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
-
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
@@ -172,15 +161,6 @@ TEST_F(RssCheckTests, EmptyEgoOccupiedRegion)
 
 TEST_F(RssCheckTests, WrongEgoOccupiedRegion)
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(followingObject);
-  scene.object = leadingObject;
-
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
-
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
@@ -192,15 +172,6 @@ TEST_F(RssCheckTests, WrongEgoOccupiedRegion)
 
 TEST_F(RssCheckTests, NegativeEgoVelocity)
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(followingObject);
-  scene.object = leadingObject;
-
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 0;
-
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
@@ -211,15 +182,6 @@ TEST_F(RssCheckTests, NegativeEgoVelocity)
 
 TEST_F(RssCheckTests, NegativeEgoAcceleration)
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(followingObject);
-  scene.object = leadingObject;
-
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
-
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
@@ -227,6 +189,30 @@ TEST_F(RssCheckTests, NegativeEgoAcceleration)
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
+
+using RssCheckOutOfMemoryTests = RssCheckTestsBase<testing::TestWithParam<uint64_t>>;
+
+TEST_P(RssCheckOutOfMemoryTests, outOfMemoryAnyTime)
+{
+  gNewThrowCounter = GetParam();
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  bool const checkResult = rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction);
+  if ((GetParam() == 0) || (gNewThrowCounter > 0u))
+  {
+    // for 0 there is no out of memory
+    // as there are not more than a certain amount of allocations while running, from a certain border on
+    // the test returns also true
+    ASSERT_TRUE(checkResult);
+  }
+  else
+  {
+    ASSERT_FALSE(checkResult);
+  }
+}
+
+INSTANTIATE_TEST_CASE_P(InstantiationName, RssCheckOutOfMemoryTests, ::testing::Range(uint64_t(0u), uint64_t(50u)));
 
 } // namespace core
 } // namespace ad_rss

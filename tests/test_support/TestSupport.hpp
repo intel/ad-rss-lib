@@ -38,6 +38,7 @@
 #include "RSSParameters.hpp"
 #include "ad_rss/physics/Operations.hpp"
 #include "ad_rss/situation/RelativePosition.hpp"
+#include "ad_rss/situation/Situation.hpp"
 #include "ad_rss/situation/VehicleState.hpp"
 #include "ad_rss/state/ResponseState.hpp"
 #include "ad_rss/world/Object.hpp"
@@ -257,6 +258,53 @@ inline bool operator==(::ad_rss::state::LongitudinalRssState const &left,
 inline bool operator==(::ad_rss::state::LateralRssState const &left, ::ad_rss::state::LateralRssState const &right)
 {
   return (left.isSafe == right.isSafe) && (left.response == right.response);
+}
+
+inline bool operator==(::ad_rss::situation::RelativePosition const &left,
+                       ::ad_rss::situation::RelativePosition const &right)
+{
+  return (left.lateralDistance == right.lateralDistance) && (left.longitudinalDistance == right.longitudinalDistance)
+    && (left.lateralPosition == right.lateralPosition) && (left.lateralDistance == right.lateralDistance);
+}
+
+inline bool operator==(::ad_rss::world::Velocity const &left, ::ad_rss::world::Velocity const &right)
+{
+  return (left.speedLat == right.speedLat) && (left.speedLon == right.speedLon);
+}
+
+inline bool operator==(::ad_rss::world::LateralRssAccelerationValues const &left,
+                       ::ad_rss::world::LateralRssAccelerationValues const &right)
+{
+  return (left.accelMax == right.accelMax) && (left.brakeMin == right.brakeMin);
+}
+
+inline bool operator==(::ad_rss::world::LongitudinalRssAccelerationValues const &left,
+                       ::ad_rss::world::LongitudinalRssAccelerationValues const &right)
+{
+  return (left.accelMax == right.accelMax) && (left.brakeMin == right.brakeMin)
+    && (left.brakeMinCorrect == right.brakeMinCorrect) && (left.brakeMax == right.brakeMax);
+}
+
+inline bool operator==(::ad_rss::world::Dynamics const &left, ::ad_rss::world::Dynamics const &right)
+{
+  return (left.alphaLat == right.alphaLat) && (left.alphaLon == right.alphaLon)
+    && (left.lateralFluctuationMargin == right.lateralFluctuationMargin);
+}
+
+inline bool operator==(::ad_rss::situation::VehicleState const &left, ::ad_rss::situation::VehicleState const &right)
+{
+  return (left.velocity == right.velocity) && (left.dynamics == right.dynamics)
+    && (left.responseTime == right.responseTime) && (left.hasPriority == right.hasPriority)
+    && (left.isInCorrectLane == right.isInCorrectLane)
+    && (left.distanceToEnterIntersection == right.distanceToEnterIntersection)
+    && (left.distanceToLeaveIntersection == right.distanceToLeaveIntersection);
+}
+
+inline bool operator==(::ad_rss::situation::Situation const &left, ::ad_rss::situation::Situation const &right)
+{
+  return (left.timeIndex == right.timeIndex) && (left.situationId == right.situationId)
+    && (left.situationType == right.situationType) && (left.egoVehicleState == right.egoVehicleState)
+    && (left.otherVehicleState == right.otherVehicleState) && (left.relativePosition == right.relativePosition);
 }
 
 // allow compiler to search in global namespace for the above comparison operators from within gtest code

@@ -270,7 +270,8 @@ bool convertObjectsIntersection(world::Object const &egoVehicle,
   return result;
 }
 
-bool extractSituationInputRangeChecked(world::Object const &egoVehicle,
+bool extractSituationInputRangeChecked(physics::TimeIndex const &timeIndex,
+                                       world::Object const &egoVehicle,
                                        world::Scene const &currentScene,
                                        situation::Situation &situation)
 {
@@ -288,6 +289,7 @@ bool extractSituationInputRangeChecked(world::Object const &egoVehicle,
 
   try
   {
+    situation.timeIndex = timeIndex;
     situation.situationId = situation::SituationId(currentScene.object.objectId);
     situation.situationType = currentScene.situationType;
 
@@ -342,7 +344,8 @@ bool extractSituationInputRangeChecked(world::Object const &egoVehicle,
   return result;
 }
 
-bool extractSituation(world::Object const &egoVehicle,
+bool extractSituation(physics::TimeIndex const &timeIndex,
+                      world::Object const &egoVehicle,
                       world::Scene const &currentScene,
                       situation::Situation &situation)
 {
@@ -351,7 +354,7 @@ bool extractSituation(world::Object const &egoVehicle,
     return false;
   }
 
-  return extractSituationInputRangeChecked(egoVehicle, currentScene, situation);
+  return extractSituationInputRangeChecked(timeIndex, egoVehicle, currentScene, situation);
 }
 
 bool extractSituations(world::WorldModel const &worldModel, situation::SituationVector &situationVector)
@@ -367,8 +370,8 @@ bool extractSituations(world::WorldModel const &worldModel, situation::Situation
     for (auto const &scene : worldModel.scenes)
     {
       situation::Situation situation;
-      situation.timeIndex = worldModel.timeIndex;
-      bool const extractResult = extractSituationInputRangeChecked(worldModel.egoVehicle, scene, situation);
+      bool const extractResult
+        = extractSituationInputRangeChecked(worldModel.timeIndex, worldModel.egoVehicle, scene, situation);
 
       // if the situation is relevant, add it to situationVector
       if (scene.situationType != ad_rss::situation::SituationType::NotRelevant)

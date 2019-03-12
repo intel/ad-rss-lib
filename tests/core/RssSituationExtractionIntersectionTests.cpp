@@ -149,6 +149,10 @@ TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
 
   ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::ad_rss::situation::LateralRelativePosition::Overlap);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, Distance(0));
+
+  situation::Situation situation;
+  ASSERT_TRUE(extractSituation(worldModel.timeIndex, worldModel.egoVehicle, worldModel.scenes[0], situation));
+  ASSERT_EQ(situation, situationVector[0]);
 }
 
 TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
@@ -217,6 +221,10 @@ TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
 
   ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::ad_rss::situation::LateralRelativePosition::Overlap);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, Distance(0));
+
+  situation::Situation situation;
+  ASSERT_TRUE(extractSituation(worldModel.timeIndex, worldModel.egoVehicle, worldModel.scenes[0], situation));
+  ASSERT_EQ(situation, situationVector[0]);
 }
 
 } // namespace RssSituationExtraction

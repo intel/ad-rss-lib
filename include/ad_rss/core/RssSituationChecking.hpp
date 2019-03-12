@@ -87,7 +87,7 @@ public:
    * @brief Checks if the current situations are safe.
    *
    * @param [in] situationVector the vector of situations that should be analyzed
-   * @param[out] responseVector the vector of response states for the current situations
+   * @param[out] responseStateVector the vector of response states for the current situations
    *
    * @return true if the situations could be analyzed, false if an error occurred during evaluation.
    */
