@@ -1,6 +1,8 @@
 ﻿C++ Library for Responsibility Sensitive Safety
 =====
 
+[![Build Status](https://travis-ci.com/intel/ad-rss-lib.svg?branch=master)](https://travis-ci.com/intel/ad-rss-lib)
+
 ## Introduction
 This library intends to provide a C++ implementation of the Responsibility Sensitive Safety model (RSS) for Autonomous Vehicles.
 
