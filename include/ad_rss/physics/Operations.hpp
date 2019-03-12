@@ -157,7 +157,7 @@ inline ad_rss::physics::Distance operator*(ad_rss::physics::ParametricValue cons
 /*!
  * \brief Arithmetic physics operation t = s / v
  *
- * \param[in] d distance value
+ * \param[in] s distance value
  * \param[in] v speed value
  *
  * \returns t = s / v as duration value

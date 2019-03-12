@@ -55,19 +55,18 @@ bool calculateLateralDimensions(RoadArea const &roadArea, std::vector<MetricRang
 {
   bool result = true;
 
-  bool notFinished = true;
-  std::size_t currentLateralIndex = 0u;
-
-  MetricRange currentLateralPosition;
-
-  currentLateralPosition.maximum = Distance(0.);
-  currentLateralPosition.minimum = Distance(0.);
-
   try
   {
-    while (notFinished)
+    MetricRange currentLateralPosition;
+
+    currentLateralPosition.maximum = Distance(0.);
+    currentLateralPosition.minimum = Distance(0.);
+
+    std::size_t currentLateralIndex = 0u;
+    bool roadSegmentFound = true;
+    while (roadSegmentFound)
     {
-      notFinished = false;
+      roadSegmentFound = false;
       lateralRanges.push_back(currentLateralPosition);
 
       Distance lateralDistanceMax = Distance(0.);
@@ -76,15 +75,18 @@ bool calculateLateralDimensions(RoadArea const &roadArea, std::vector<MetricRang
       {
         if (roadSegment.size() > currentLateralIndex)
         {
-          notFinished = true;
+          roadSegmentFound = true;
           lateralDistanceMax = std::max(lateralDistanceMax, roadSegment[currentLateralIndex].width.maximum);
           lateralDistanceMin = std::min(lateralDistanceMin, roadSegment[currentLateralIndex].width.minimum);
         }
       }
 
-      currentLateralPosition.maximum += lateralDistanceMax;
-      currentLateralPosition.minimum += lateralDistanceMin;
-      currentLateralIndex++;
+      if (roadSegmentFound)
+      {
+        currentLateralPosition.maximum += lateralDistanceMax;
+        currentLateralPosition.minimum += lateralDistanceMin;
+        currentLateralIndex++;
+      }
     }
   }
   catch (...)
@@ -153,67 +155,69 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
   try
   {
     std::vector<MetricRange> lateralRanges;
-    calculateLateralDimensions(roadArea, lateralRanges);
-
-    MetricRange longitudinalDimensions;
-
-    longitudinalDimensions.maximum = Distance(0.);
-    longitudinalDimensions.minimum = Distance(0.);
-
-    std::vector<RssObjectPositionExtractor> extractors;
-    for (const auto &object : objects)
+    result = calculateLateralDimensions(roadArea, lateralRanges);
+    if (result)
     {
-      if (object.occupiedRegions.empty())
-      {
-        return false;
-      }
-      extractors.push_back(RssObjectPositionExtractor(object.occupiedRegions));
-    }
+      MetricRange longitudinalDimensions;
 
-    for (auto roadSegment = roadArea.cbegin(); roadSegment != roadArea.cend() && result; roadSegment++)
-    {
-      Distance longitudinalDistanceMax = Distance(0.);
-      Distance longitudinalDistanceMin = Distance(0.);
-      for (auto &extractor : extractors)
-      {
-        result = result && extractor.newRoadSegment(longitudinalDimensions.minimum, longitudinalDimensions.maximum);
-      }
+      longitudinalDimensions.maximum = Distance(0.);
+      longitudinalDimensions.minimum = Distance(0.);
 
-      // This is needed, because we want to look for the minimum
-      longitudinalDistanceMin = std::numeric_limits<Distance>::max();
-
-      for (std::size_t i = 0u; i < roadSegment->size() && result; i++)
+      std::vector<RssObjectPositionExtractor> extractors;
+      for (const auto &object : objects)
       {
-        if (i < lateralRanges.size())
+        if (object.occupiedRegions.empty())
         {
-          for (auto &extractor : extractors)
+          return false;
+        }
+        extractors.push_back(RssObjectPositionExtractor(object.occupiedRegions));
+      }
+
+      for (auto roadSegment = roadArea.cbegin(); roadSegment != roadArea.cend() && result; roadSegment++)
+      {
+        Distance longitudinalDistanceMax = Distance(0.);
+        Distance longitudinalDistanceMin = Distance(0.);
+        for (auto &extractor : extractors)
+        {
+          result = result && extractor.newRoadSegment(longitudinalDimensions.minimum, longitudinalDimensions.maximum);
+        }
+
+        // This is needed, because we want to look for the minimum
+        longitudinalDistanceMin = std::numeric_limits<Distance>::max();
+
+        for (std::size_t i = 0u; i < roadSegment->size() && result; i++)
+        {
+          if (i < lateralRanges.size())
           {
-            result = result && extractor.newLaneSegment(lateralRanges[i], (*roadSegment)[i]);
+            for (auto &extractor : extractors)
+            {
+              result = result && extractor.newLaneSegment(lateralRanges[i], (*roadSegment)[i]);
+            }
           }
-        }
-        else
-        {
-          result = false;
+          else
+          {
+            result = false;
+          }
+
+          longitudinalDistanceMax = std::max(longitudinalDistanceMax, (*roadSegment)[i].length.maximum);
+          longitudinalDistanceMin = std::min(longitudinalDistanceMin, (*roadSegment)[i].length.minimum);
         }
 
-        longitudinalDistanceMax = std::max(longitudinalDistanceMax, (*roadSegment)[i].length.maximum);
-        longitudinalDistanceMin = std::min(longitudinalDistanceMin, (*roadSegment)[i].length.minimum);
+        if (result)
+        {
+          longitudinalDimensions.maximum += longitudinalDistanceMax;
+          longitudinalDimensions.minimum += longitudinalDistanceMin;
+        }
       }
 
       if (result)
       {
-        longitudinalDimensions.maximum += longitudinalDistanceMax;
-        longitudinalDimensions.minimum += longitudinalDistanceMin;
-      }
-    }
-
-    if (result)
-    {
-      for (auto &extractor : extractors)
-      {
-        ObjectDimensions extractedDimensions;
-        result = result && extractor.getObjectDimensions(extractedDimensions);
-        objectDimensions.push_back(extractedDimensions);
+        for (auto &extractor : extractors)
+        {
+          ObjectDimensions extractedDimensions;
+          result = result && extractor.getObjectDimensions(extractedDimensions);
+          objectDimensions.push_back(extractedDimensions);
+        }
       }
     }
   }

@@ -67,7 +67,7 @@ public:
   /**
    * @brief Calculate the proper response out of the current responses
    *
-   * @param[in]  currentResponseState all the response states gathered for the current situations
+   * @param[in]  currentResponseStates all the response states gathered for the current situations
    * @param[out] responseState the proper overall response state
    *
    * @return true if response could be calculated, false otherwise
