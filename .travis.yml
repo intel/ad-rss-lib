@@ -19,7 +19,7 @@ matrix:
       script:
         - mkdir build
         - cd build
-        - cmake ..
+        - cmake -DBUILD_HARDENING=1 ..
         - make
         - ctest -V
 
