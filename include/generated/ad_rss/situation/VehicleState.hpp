@@ -66,6 +66,71 @@ namespace situation {
 struct VehicleState
 {
   /*!
+   * \brief standard constructor
+   */
+  VehicleState() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~VehicleState() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  VehicleState(const VehicleState &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  VehicleState(VehicleState &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other VehicleState
+   *
+   * \returns Reference to this VehicleState.
+   */
+  VehicleState &operator=(const VehicleState &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other VehicleState
+   *
+   * \returns Reference to this VehicleState.
+   */
+  VehicleState &operator=(VehicleState &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other VehicleState
+   *
+   * \returns \c true if both VehicleState are equal
+   */
+  bool operator==(const VehicleState &other) const
+  {
+    return (velocity == other.velocity) && (dynamics == other.dynamics) && (responseTime == other.responseTime)
+      && (hasPriority == other.hasPriority) && (isInCorrectLane == other.isInCorrectLane)
+      && (distanceToEnterIntersection == other.distanceToEnterIntersection)
+      && (distanceToLeaveIntersection == other.distanceToLeaveIntersection);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other VehicleState.
+   *
+   * \returns \c true if both VehicleState are different
+   */
+  bool operator!=(const VehicleState &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
    * The situation specific velocity.
    */
   ::ad_rss::world::Velocity velocity;

@@ -172,6 +172,14 @@ TEST(AccelerationTests, copyConstructionFromValidValue)
   EXPECT_EQ(static_cast<double>(validValue), static_cast<double>(value));
 }
 
+TEST(AccelerationTests, moveConstructionFromValidValue)
+{
+  ::ad_rss::physics::Acceleration value(
+    std::move(::ad_rss::physics::Acceleration(::ad_rss::physics::Acceleration::cMinValue)));
+  EXPECT_TRUE(value.isValid());
+  EXPECT_EQ(::ad_rss::physics::Acceleration::cMinValue, static_cast<double>(value));
+}
+
 TEST(AccelerationTests, assignmentFromValidValue)
 {
   ::ad_rss::physics::Acceleration const validValue(::ad_rss::physics::Acceleration::cMinValue);
@@ -179,6 +187,14 @@ TEST(AccelerationTests, assignmentFromValidValue)
   value = validValue;
   EXPECT_TRUE(value.isValid());
   EXPECT_EQ(static_cast<double>(validValue), static_cast<double>(value));
+}
+
+TEST(AccelerationTests, moveAssignmentFromValidValue)
+{
+  ::ad_rss::physics::Acceleration value;
+  value = std::move(::ad_rss::physics::Acceleration(::ad_rss::physics::Acceleration::cMinValue));
+  EXPECT_TRUE(value.isValid());
+  EXPECT_EQ(::ad_rss::physics::Acceleration::cMinValue, static_cast<double>(value));
 }
 
 TEST(AccelerationTests, constructionFromInvalidDouble)
@@ -345,6 +361,8 @@ TEST(AccelerationTests, comparisonOperatorsRespectPrecision)
   EXPECT_TRUE(actuallyBiggerValue > value);
 
   // operator >=
+  EXPECT_FALSE(actuallySmallerValue >= value);
+  EXPECT_TRUE(slightlySmallerValue >= value);
   EXPECT_TRUE(value >= value);
   EXPECT_TRUE(slightlyBiggerValue >= value);
   EXPECT_TRUE(actuallyBiggerValue >= value);
@@ -355,6 +373,8 @@ TEST(AccelerationTests, comparisonOperatorsRespectPrecision)
   EXPECT_TRUE(actuallySmallerValue < value);
 
   // operator <=
+  EXPECT_FALSE(actuallyBiggerValue <= value);
+  EXPECT_TRUE(slightlyBiggerValue <= value);
   EXPECT_TRUE(value <= value);
   EXPECT_TRUE(slightlySmallerValue <= value);
   EXPECT_TRUE(actuallySmallerValue <= value);

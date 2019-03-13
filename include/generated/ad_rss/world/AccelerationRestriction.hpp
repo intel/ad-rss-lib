@@ -61,6 +61,69 @@ namespace world {
 struct AccelerationRestriction
 {
   /*!
+   * \brief standard constructor
+   */
+  AccelerationRestriction() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~AccelerationRestriction() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  AccelerationRestriction(const AccelerationRestriction &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  AccelerationRestriction(AccelerationRestriction &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other AccelerationRestriction
+   *
+   * \returns Reference to this AccelerationRestriction.
+   */
+  AccelerationRestriction &operator=(const AccelerationRestriction &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other AccelerationRestriction
+   *
+   * \returns Reference to this AccelerationRestriction.
+   */
+  AccelerationRestriction &operator=(AccelerationRestriction &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other AccelerationRestriction
+   *
+   * \returns \c true if both AccelerationRestriction are equal
+   */
+  bool operator==(const AccelerationRestriction &other) const
+  {
+    return (timeIndex == other.timeIndex) && (lateralLeftRange == other.lateralLeftRange)
+      && (longitudinalRange == other.longitudinalRange) && (lateralRightRange == other.lateralRightRange);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other AccelerationRestriction.
+   *
+   * \returns \c true if both AccelerationRestriction are different
+   */
+  bool operator!=(const AccelerationRestriction &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
    * The time index these acceleration restrictions are referring to.
    */
   ::ad_rss::physics::TimeIndex timeIndex{0u};

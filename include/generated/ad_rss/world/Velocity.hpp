@@ -60,6 +60,68 @@ namespace world {
 struct Velocity
 {
   /*!
+   * \brief standard constructor
+   */
+  Velocity() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~Velocity() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  Velocity(const Velocity &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  Velocity(Velocity &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other Velocity
+   *
+   * \returns Reference to this Velocity.
+   */
+  Velocity &operator=(const Velocity &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other Velocity
+   *
+   * \returns Reference to this Velocity.
+   */
+  Velocity &operator=(Velocity &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other Velocity
+   *
+   * \returns \c true if both Velocity are equal
+   */
+  bool operator==(const Velocity &other) const
+  {
+    return (speedLon == other.speedLon) && (speedLat == other.speedLat);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other Velocity.
+   *
+   * \returns \c true if both Velocity are different
+   */
+  bool operator!=(const Velocity &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
    * The longitudinal speed component of the velocity vector.
    * The longitudinal component of the velocity is always measured tangential to the
    * center line of the current lane.

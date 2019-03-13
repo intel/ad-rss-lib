@@ -45,33 +45,41 @@ std::string toString(::ad_rss::world::LaneDrivingDirection const e)
   switch (e)
   {
     case ::ad_rss::world::LaneDrivingDirection::Bidirectional:
-      return std::string("::ad_rss::world::LaneDrivingDirection::Bidirectional");
+      return std::string("::ad_rss::world::LaneDrivingDirection::Bidirectional"); // LCOV_EXCL_BR_LINE
     case ::ad_rss::world::LaneDrivingDirection::Positive:
-      return std::string("::ad_rss::world::LaneDrivingDirection::Positive");
+      return std::string("::ad_rss::world::LaneDrivingDirection::Positive"); // LCOV_EXCL_BR_LINE
     case ::ad_rss::world::LaneDrivingDirection::Negative:
-      return std::string("::ad_rss::world::LaneDrivingDirection::Negative");
+      return std::string("::ad_rss::world::LaneDrivingDirection::Negative"); // LCOV_EXCL_BR_LINE
     default:
-      return std::string("UNKNOWN ENUM VALUE");
+      return std::string("UNKNOWN ENUM VALUE"); // LCOV_EXCL_BR_LINE
   }
 }
 
 template <>::ad_rss::world::LaneDrivingDirection fromString(std::string const &str)
 {
-  if ((str == std::string("::ad_rss::world::LaneDrivingDirection::Bidirectional"))
-      || (str == std::string("Bidirectional")))
+  if (str == std::string("::ad_rss::world::LaneDrivingDirection::Bidirectional")) // LCOV_EXCL_BR_LINE
   {
     return ::ad_rss::world::LaneDrivingDirection::Bidirectional;
   }
-  else if ((str == std::string("::ad_rss::world::LaneDrivingDirection::Positive")) || (str == std::string("Positive")))
+  if (str == std::string("Bidirectional")) // LCOV_EXCL_BR_LINE
+  {
+    return ::ad_rss::world::LaneDrivingDirection::Bidirectional;
+  }
+  if (str == std::string("::ad_rss::world::LaneDrivingDirection::Positive")) // LCOV_EXCL_BR_LINE
   {
     return ::ad_rss::world::LaneDrivingDirection::Positive;
   }
-  else if ((str == std::string("::ad_rss::world::LaneDrivingDirection::Negative")) || (str == std::string("Negative")))
+  if (str == std::string("Positive")) // LCOV_EXCL_BR_LINE
+  {
+    return ::ad_rss::world::LaneDrivingDirection::Positive;
+  }
+  if (str == std::string("::ad_rss::world::LaneDrivingDirection::Negative")) // LCOV_EXCL_BR_LINE
   {
     return ::ad_rss::world::LaneDrivingDirection::Negative;
   }
-  else
+  if (str == std::string("Negative")) // LCOV_EXCL_BR_LINE
   {
-    throw std::out_of_range("Invalid enum literal");
+    return ::ad_rss::world::LaneDrivingDirection::Negative;
   }
+  throw std::out_of_range("Invalid enum literal"); // LCOV_EXCL_BR_LINE
 }

@@ -58,6 +58,68 @@ namespace state {
 struct LongitudinalRssState
 {
   /*!
+   * \brief standard constructor
+   */
+  LongitudinalRssState() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~LongitudinalRssState() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  LongitudinalRssState(const LongitudinalRssState &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  LongitudinalRssState(LongitudinalRssState &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other LongitudinalRssState
+   *
+   * \returns Reference to this LongitudinalRssState.
+   */
+  LongitudinalRssState &operator=(const LongitudinalRssState &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other LongitudinalRssState
+   *
+   * \returns Reference to this LongitudinalRssState.
+   */
+  LongitudinalRssState &operator=(LongitudinalRssState &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other LongitudinalRssState
+   *
+   * \returns \c true if both LongitudinalRssState are equal
+   */
+  bool operator==(const LongitudinalRssState &other) const
+  {
+    return (isSafe == other.isSafe) && (response == other.response);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other LongitudinalRssState.
+   *
+   * \returns \c true if both LongitudinalRssState are different
+   */
+  bool operator!=(const LongitudinalRssState &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
    * Flag to indicate if the state is longitudinal safe.
    */
   bool isSafe{false};

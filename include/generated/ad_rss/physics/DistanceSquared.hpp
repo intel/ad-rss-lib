@@ -106,10 +106,12 @@ public:
   /*!
    * \brief standard copy constructor
    */
-  DistanceSquared(const DistanceSquared &other)
-    : mDistanceSquared(other.mDistanceSquared)
-  {
-  }
+  DistanceSquared(const DistanceSquared &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  DistanceSquared(DistanceSquared &&other) = default;
 
   /**
    * \brief standard assignment operator
@@ -118,14 +120,16 @@ public:
    *
    * \returns Reference to this DistanceSquared.
    */
-  DistanceSquared &operator=(const DistanceSquared &other)
-  {
-    if (&other != this)
-    {
-      mDistanceSquared = other.mDistanceSquared;
-    }
-    return *this;
-  }
+  DistanceSquared &operator=(const DistanceSquared &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other DistanceSquared
+   *
+   * \returns Reference to this DistanceSquared.
+   */
+  DistanceSquared &operator=(DistanceSquared &&other) = default;
 
   /**
    * \brief standard comparison operator
@@ -360,7 +364,7 @@ public:
   {
     ensureValid();
     DistanceSquared const result(-mDistanceSquared);
-    result.ensureValid();
+    result.ensureValid(); // LCOV_EXCL_BR_LINE Some types do not throw an exception
     return result;
   }
 
@@ -399,7 +403,7 @@ public:
   {
     if (!isValid())
     {
-      throw std::out_of_range("DistanceSquared value out of range");
+      throw std::out_of_range("DistanceSquared value out of range"); // LCOV_EXCL_BR_LINE
     }
   }
 
@@ -412,9 +416,9 @@ public:
   void ensureValidNonZero() const
   {
     ensureValid();
-    if (operator==(DistanceSquared(0.)))
+    if (operator==(DistanceSquared(0.))) // LCOV_EXCL_BR_LINE
     {
-      throw std::out_of_range("DistanceSquared value is zero");
+      throw std::out_of_range("DistanceSquared value is zero"); // LCOV_EXCL_BR_LINE
     }
   }
 
@@ -494,14 +498,23 @@ inline ::ad_rss::physics::DistanceSquared fabs(const ::ad_rss::physics::Distance
 template <> class numeric_limits<::ad_rss::physics::DistanceSquared> : public numeric_limits<double>
 {
 public:
+  /*!
+   * \see std::numeric_limits::lowest()
+   */
   static inline ::ad_rss::physics::DistanceSquared lowest()
   {
     return ::ad_rss::physics::DistanceSquared::getMin();
   }
+  /*!
+   * \see std::numeric_limits::max()
+   */
   static inline ::ad_rss::physics::DistanceSquared max()
   {
     return ::ad_rss::physics::DistanceSquared::getMax();
   }
+  /*!
+   * \see std::numeric_limits::epsilon()
+   */
   static inline ::ad_rss::physics::DistanceSquared epsilon()
   {
     return ::ad_rss::physics::DistanceSquared::getPrecision();

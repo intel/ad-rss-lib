@@ -60,7 +60,7 @@ namespace physics {
   ensureValid();
   other.ensureValid();
   ::ad_rss::physics::DistanceSquared const result(mDistance * other.mDistance);
-  result.ensureValid();
+  result.ensureValid(); // LCOV_EXCL_BR_LINE On correct definition of squarerooted type, this cannot not happen
   return result;
 }
 

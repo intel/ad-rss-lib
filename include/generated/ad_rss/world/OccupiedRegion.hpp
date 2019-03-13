@@ -63,6 +63,68 @@ namespace world {
 struct OccupiedRegion
 {
   /*!
+   * \brief standard constructor
+   */
+  OccupiedRegion() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~OccupiedRegion() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  OccupiedRegion(const OccupiedRegion &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  OccupiedRegion(OccupiedRegion &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other OccupiedRegion
+   *
+   * \returns Reference to this OccupiedRegion.
+   */
+  OccupiedRegion &operator=(const OccupiedRegion &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other OccupiedRegion
+   *
+   * \returns Reference to this OccupiedRegion.
+   */
+  OccupiedRegion &operator=(OccupiedRegion &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other OccupiedRegion
+   *
+   * \returns \c true if both OccupiedRegion are equal
+   */
+  bool operator==(const OccupiedRegion &other) const
+  {
+    return (segmentId == other.segmentId) && (lonRange == other.lonRange) && (latRange == other.latRange);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other OccupiedRegion.
+   *
+   * \returns \c true if both OccupiedRegion are different
+   */
+  bool operator!=(const OccupiedRegion &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
    * The id of the lane segment this region refers to.
    */
   ::ad_rss::world::LaneSegmentId segmentId;

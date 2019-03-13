@@ -45,27 +45,31 @@ std::string toString(::ad_rss::world::LaneSegmentType const e)
   switch (e)
   {
     case ::ad_rss::world::LaneSegmentType::Normal:
-      return std::string("::ad_rss::world::LaneSegmentType::Normal");
+      return std::string("::ad_rss::world::LaneSegmentType::Normal"); // LCOV_EXCL_BR_LINE
     case ::ad_rss::world::LaneSegmentType::Intersection:
-      return std::string("::ad_rss::world::LaneSegmentType::Intersection");
+      return std::string("::ad_rss::world::LaneSegmentType::Intersection"); // LCOV_EXCL_BR_LINE
     default:
-      return std::string("UNKNOWN ENUM VALUE");
+      return std::string("UNKNOWN ENUM VALUE"); // LCOV_EXCL_BR_LINE
   }
 }
 
 template <>::ad_rss::world::LaneSegmentType fromString(std::string const &str)
 {
-  if ((str == std::string("::ad_rss::world::LaneSegmentType::Normal")) || (str == std::string("Normal")))
+  if (str == std::string("::ad_rss::world::LaneSegmentType::Normal")) // LCOV_EXCL_BR_LINE
   {
     return ::ad_rss::world::LaneSegmentType::Normal;
   }
-  else if ((str == std::string("::ad_rss::world::LaneSegmentType::Intersection"))
-           || (str == std::string("Intersection")))
+  if (str == std::string("Normal")) // LCOV_EXCL_BR_LINE
+  {
+    return ::ad_rss::world::LaneSegmentType::Normal;
+  }
+  if (str == std::string("::ad_rss::world::LaneSegmentType::Intersection")) // LCOV_EXCL_BR_LINE
   {
     return ::ad_rss::world::LaneSegmentType::Intersection;
   }
-  else
+  if (str == std::string("Intersection")) // LCOV_EXCL_BR_LINE
   {
-    throw std::out_of_range("Invalid enum literal");
+    return ::ad_rss::world::LaneSegmentType::Intersection;
   }
+  throw std::out_of_range("Invalid enum literal"); // LCOV_EXCL_BR_LINE
 }
