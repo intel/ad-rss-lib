@@ -51,7 +51,7 @@ TEST(OccupiedRegionVectorValidInputRangeTests, testValidInputRangeValidInputRang
 {
   ::ad_rss::world::OccupiedRegionVector value;
   ::ad_rss::world::OccupiedRegion element;
-  ::ad_rss::world::LaneSegmentId elementSegmentId{};
+  ::ad_rss::world::LaneSegmentId elementSegmentId(std::numeric_limits<::ad_rss::world::LaneSegmentId>::lowest());
   element.segmentId = elementSegmentId;
   ::ad_rss::physics::ParametricRange elementLonRange;
   ::ad_rss::physics::ParametricValue elementLonRangeMinimum(0.);
@@ -77,7 +77,7 @@ TEST(OccupiedRegionVectorValidInputRangeTests, testValidInputRangeHigherThanInpu
 {
   ::ad_rss::world::OccupiedRegionVector value;
   ::ad_rss::world::OccupiedRegion element;
-  ::ad_rss::world::LaneSegmentId elementSegmentId{};
+  ::ad_rss::world::LaneSegmentId elementSegmentId(std::numeric_limits<::ad_rss::world::LaneSegmentId>::lowest());
   element.segmentId = elementSegmentId;
   ::ad_rss::physics::ParametricRange elementLonRange;
   ::ad_rss::physics::ParametricValue elementLonRangeMinimum(0.);

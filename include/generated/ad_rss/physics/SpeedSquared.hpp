@@ -106,10 +106,12 @@ public:
   /*!
    * \brief standard copy constructor
    */
-  SpeedSquared(const SpeedSquared &other)
-    : mSpeedSquared(other.mSpeedSquared)
-  {
-  }
+  SpeedSquared(const SpeedSquared &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  SpeedSquared(SpeedSquared &&other) = default;
 
   /**
    * \brief standard assignment operator
@@ -118,14 +120,16 @@ public:
    *
    * \returns Reference to this SpeedSquared.
    */
-  SpeedSquared &operator=(const SpeedSquared &other)
-  {
-    if (&other != this)
-    {
-      mSpeedSquared = other.mSpeedSquared;
-    }
-    return *this;
-  }
+  SpeedSquared &operator=(const SpeedSquared &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other SpeedSquared
+   *
+   * \returns Reference to this SpeedSquared.
+   */
+  SpeedSquared &operator=(SpeedSquared &&other) = default;
 
   /**
    * \brief standard comparison operator
@@ -360,7 +364,7 @@ public:
   {
     ensureValid();
     SpeedSquared const result(-mSpeedSquared);
-    result.ensureValid();
+    result.ensureValid(); // LCOV_EXCL_BR_LINE Some types do not throw an exception
     return result;
   }
 
@@ -399,7 +403,7 @@ public:
   {
     if (!isValid())
     {
-      throw std::out_of_range("SpeedSquared value out of range");
+      throw std::out_of_range("SpeedSquared value out of range"); // LCOV_EXCL_BR_LINE
     }
   }
 
@@ -412,9 +416,9 @@ public:
   void ensureValidNonZero() const
   {
     ensureValid();
-    if (operator==(SpeedSquared(0.)))
+    if (operator==(SpeedSquared(0.))) // LCOV_EXCL_BR_LINE
     {
-      throw std::out_of_range("SpeedSquared value is zero");
+      throw std::out_of_range("SpeedSquared value is zero"); // LCOV_EXCL_BR_LINE
     }
   }
 
@@ -493,14 +497,23 @@ inline ::ad_rss::physics::SpeedSquared fabs(const ::ad_rss::physics::SpeedSquare
 template <> class numeric_limits<::ad_rss::physics::SpeedSquared> : public numeric_limits<double>
 {
 public:
+  /*!
+   * \see std::numeric_limits::lowest()
+   */
   static inline ::ad_rss::physics::SpeedSquared lowest()
   {
     return ::ad_rss::physics::SpeedSquared::getMin();
   }
+  /*!
+   * \see std::numeric_limits::max()
+   */
   static inline ::ad_rss::physics::SpeedSquared max()
   {
     return ::ad_rss::physics::SpeedSquared::getMax();
   }
+  /*!
+   * \see std::numeric_limits::epsilon()
+   */
   static inline ::ad_rss::physics::SpeedSquared epsilon()
   {
     return ::ad_rss::physics::SpeedSquared::getPrecision();

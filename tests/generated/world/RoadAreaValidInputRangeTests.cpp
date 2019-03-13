@@ -68,7 +68,8 @@ TEST(RoadAreaValidInputRangeTests, testValidInputRangeElementTypeInvalid)
   ::ad_rss::world::RoadArea value;
   ::ad_rss::world::RoadSegment element;
   ::ad_rss::world::LaneSegment elementRoadSegmentElement;
-  ::ad_rss::world::LaneSegmentId elementRoadSegmentElementId{};
+  ::ad_rss::world::LaneSegmentId elementRoadSegmentElementId(
+    std::numeric_limits<::ad_rss::world::LaneSegmentId>::lowest());
   elementRoadSegmentElement.id = elementRoadSegmentElementId;
   ::ad_rss::world::LaneSegmentType elementRoadSegmentElementType(::ad_rss::world::LaneSegmentType::Normal);
   elementRoadSegmentElement.type = elementRoadSegmentElementType;

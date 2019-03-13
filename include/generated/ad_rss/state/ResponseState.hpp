@@ -63,6 +63,70 @@ namespace state {
 struct ResponseState
 {
   /*!
+   * \brief standard constructor
+   */
+  ResponseState() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~ResponseState() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  ResponseState(const ResponseState &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  ResponseState(ResponseState &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other ResponseState
+   *
+   * \returns Reference to this ResponseState.
+   */
+  ResponseState &operator=(const ResponseState &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other ResponseState
+   *
+   * \returns Reference to this ResponseState.
+   */
+  ResponseState &operator=(ResponseState &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other ResponseState
+   *
+   * \returns \c true if both ResponseState are equal
+   */
+  bool operator==(const ResponseState &other) const
+  {
+    return (timeIndex == other.timeIndex) && (situationId == other.situationId)
+      && (longitudinalState == other.longitudinalState) && (lateralStateRight == other.lateralStateRight)
+      && (lateralStateLeft == other.lateralStateLeft);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other ResponseState.
+   *
+   * \returns \c true if both ResponseState are different
+   */
+  bool operator!=(const ResponseState &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
    * The time index is required to distinguish different points in time when tracking states or transforming responses
    * back.
    */

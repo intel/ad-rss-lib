@@ -63,6 +63,69 @@ namespace world {
 struct LaneSegment
 {
   /*!
+   * \brief standard constructor
+   */
+  LaneSegment() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~LaneSegment() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  LaneSegment(const LaneSegment &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  LaneSegment(LaneSegment &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other LaneSegment
+   *
+   * \returns Reference to this LaneSegment.
+   */
+  LaneSegment &operator=(const LaneSegment &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other LaneSegment
+   *
+   * \returns Reference to this LaneSegment.
+   */
+  LaneSegment &operator=(LaneSegment &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other LaneSegment
+   *
+   * \returns \c true if both LaneSegment are equal
+   */
+  bool operator==(const LaneSegment &other) const
+  {
+    return (id == other.id) && (type == other.type) && (drivingDirection == other.drivingDirection)
+      && (length == other.length) && (width == other.width);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other LaneSegment.
+   *
+   * \returns \c true if both LaneSegment are different
+   */
+  bool operator!=(const LaneSegment &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
    * The id of the lane segment.
    */
   ::ad_rss::world::LaneSegmentId id;

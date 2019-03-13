@@ -59,6 +59,68 @@ namespace physics {
 struct ParametricRange
 {
   /*!
+   * \brief standard constructor
+   */
+  ParametricRange() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~ParametricRange() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  ParametricRange(const ParametricRange &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  ParametricRange(ParametricRange &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other ParametricRange
+   *
+   * \returns Reference to this ParametricRange.
+   */
+  ParametricRange &operator=(const ParametricRange &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other ParametricRange
+   *
+   * \returns Reference to this ParametricRange.
+   */
+  ParametricRange &operator=(ParametricRange &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other ParametricRange
+   *
+   * \returns \c true if both ParametricRange are equal
+   */
+  bool operator==(const ParametricRange &other) const
+  {
+    return (minimum == other.minimum) && (maximum == other.maximum);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other ParametricRange.
+   *
+   * \returns \c true if both ParametricRange are different
+   */
+  bool operator!=(const ParametricRange &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
    * The minimum value of the parametric range.
    */
   ::ad_rss::physics::ParametricValue minimum{0.0};

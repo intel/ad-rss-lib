@@ -51,9 +51,9 @@ TEST(SituationVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
 {
   ::ad_rss::situation::SituationVector value;
   ::ad_rss::situation::Situation element;
-  ::ad_rss::physics::TimeIndex elementTimeIndex{};
+  ::ad_rss::physics::TimeIndex elementTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
   element.timeIndex = elementTimeIndex;
-  ::ad_rss::situation::SituationId elementSituationId{};
+  ::ad_rss::situation::SituationId elementSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   element.situationId = elementSituationId;
   ::ad_rss::situation::SituationType elementSituationType(::ad_rss::situation::SituationType::NotRelevant);
   element.situationType = elementSituationType;
@@ -102,9 +102,9 @@ TEST(SituationVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   elementEgoVehicleStateResponseTime = ::ad_rss::physics::Duration(
     0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
   elementEgoVehicleState.responseTime = elementEgoVehicleStateResponseTime;
-  bool elementEgoVehicleStateHasPriority{};
+  bool elementEgoVehicleStateHasPriority{true};
   elementEgoVehicleState.hasPriority = elementEgoVehicleStateHasPriority;
-  bool elementEgoVehicleStateIsInCorrectLane{};
+  bool elementEgoVehicleStateIsInCorrectLane{true};
   elementEgoVehicleState.isInCorrectLane = elementEgoVehicleStateIsInCorrectLane;
   ::ad_rss::physics::Distance elementEgoVehicleStateDistanceToEnterIntersection(0.);
   elementEgoVehicleState.distanceToEnterIntersection = elementEgoVehicleStateDistanceToEnterIntersection;
@@ -158,9 +158,9 @@ TEST(SituationVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   elementOtherVehicleStateResponseTime = ::ad_rss::physics::Duration(
     0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
   elementOtherVehicleState.responseTime = elementOtherVehicleStateResponseTime;
-  bool elementOtherVehicleStateHasPriority{};
+  bool elementOtherVehicleStateHasPriority{true};
   elementOtherVehicleState.hasPriority = elementOtherVehicleStateHasPriority;
-  bool elementOtherVehicleStateIsInCorrectLane{};
+  bool elementOtherVehicleStateIsInCorrectLane{true};
   elementOtherVehicleState.isInCorrectLane = elementOtherVehicleStateIsInCorrectLane;
   ::ad_rss::physics::Distance elementOtherVehicleStateDistanceToEnterIntersection(0.);
   elementOtherVehicleState.distanceToEnterIntersection = elementOtherVehicleStateDistanceToEnterIntersection;
@@ -189,9 +189,9 @@ TEST(SituationVectorValidInputRangeTests, testValidInputRangeHigherThanInputRang
 {
   ::ad_rss::situation::SituationVector value;
   ::ad_rss::situation::Situation element;
-  ::ad_rss::physics::TimeIndex elementTimeIndex{};
+  ::ad_rss::physics::TimeIndex elementTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
   element.timeIndex = elementTimeIndex;
-  ::ad_rss::situation::SituationId elementSituationId{};
+  ::ad_rss::situation::SituationId elementSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   element.situationId = elementSituationId;
   ::ad_rss::situation::SituationType elementSituationType(::ad_rss::situation::SituationType::NotRelevant);
   element.situationType = elementSituationType;
@@ -240,9 +240,9 @@ TEST(SituationVectorValidInputRangeTests, testValidInputRangeHigherThanInputRang
   elementEgoVehicleStateResponseTime = ::ad_rss::physics::Duration(
     0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
   elementEgoVehicleState.responseTime = elementEgoVehicleStateResponseTime;
-  bool elementEgoVehicleStateHasPriority{};
+  bool elementEgoVehicleStateHasPriority{true};
   elementEgoVehicleState.hasPriority = elementEgoVehicleStateHasPriority;
-  bool elementEgoVehicleStateIsInCorrectLane{};
+  bool elementEgoVehicleStateIsInCorrectLane{true};
   elementEgoVehicleState.isInCorrectLane = elementEgoVehicleStateIsInCorrectLane;
   ::ad_rss::physics::Distance elementEgoVehicleStateDistanceToEnterIntersection(0.);
   elementEgoVehicleState.distanceToEnterIntersection = elementEgoVehicleStateDistanceToEnterIntersection;
@@ -296,9 +296,9 @@ TEST(SituationVectorValidInputRangeTests, testValidInputRangeHigherThanInputRang
   elementOtherVehicleStateResponseTime = ::ad_rss::physics::Duration(
     0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
   elementOtherVehicleState.responseTime = elementOtherVehicleStateResponseTime;
-  bool elementOtherVehicleStateHasPriority{};
+  bool elementOtherVehicleStateHasPriority{true};
   elementOtherVehicleState.hasPriority = elementOtherVehicleStateHasPriority;
-  bool elementOtherVehicleStateIsInCorrectLane{};
+  bool elementOtherVehicleStateIsInCorrectLane{true};
   elementOtherVehicleState.isInCorrectLane = elementOtherVehicleStateIsInCorrectLane;
   ::ad_rss::physics::Distance elementOtherVehicleStateDistanceToEnterIntersection(0.);
   elementOtherVehicleState.distanceToEnterIntersection = elementOtherVehicleStateDistanceToEnterIntersection;

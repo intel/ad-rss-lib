@@ -45,33 +45,41 @@ std::string toString(::ad_rss::world::ObjectType const e)
   switch (e)
   {
     case ::ad_rss::world::ObjectType::EgoVehicle:
-      return std::string("::ad_rss::world::ObjectType::EgoVehicle");
+      return std::string("::ad_rss::world::ObjectType::EgoVehicle"); // LCOV_EXCL_BR_LINE
     case ::ad_rss::world::ObjectType::OtherVehicle:
-      return std::string("::ad_rss::world::ObjectType::OtherVehicle");
+      return std::string("::ad_rss::world::ObjectType::OtherVehicle"); // LCOV_EXCL_BR_LINE
     case ::ad_rss::world::ObjectType::ArtificialObject:
-      return std::string("::ad_rss::world::ObjectType::ArtificialObject");
+      return std::string("::ad_rss::world::ObjectType::ArtificialObject"); // LCOV_EXCL_BR_LINE
     default:
-      return std::string("UNKNOWN ENUM VALUE");
+      return std::string("UNKNOWN ENUM VALUE"); // LCOV_EXCL_BR_LINE
   }
 }
 
 template <>::ad_rss::world::ObjectType fromString(std::string const &str)
 {
-  if ((str == std::string("::ad_rss::world::ObjectType::EgoVehicle")) || (str == std::string("EgoVehicle")))
+  if (str == std::string("::ad_rss::world::ObjectType::EgoVehicle")) // LCOV_EXCL_BR_LINE
   {
     return ::ad_rss::world::ObjectType::EgoVehicle;
   }
-  else if ((str == std::string("::ad_rss::world::ObjectType::OtherVehicle")) || (str == std::string("OtherVehicle")))
+  if (str == std::string("EgoVehicle")) // LCOV_EXCL_BR_LINE
+  {
+    return ::ad_rss::world::ObjectType::EgoVehicle;
+  }
+  if (str == std::string("::ad_rss::world::ObjectType::OtherVehicle")) // LCOV_EXCL_BR_LINE
   {
     return ::ad_rss::world::ObjectType::OtherVehicle;
   }
-  else if ((str == std::string("::ad_rss::world::ObjectType::ArtificialObject"))
-           || (str == std::string("ArtificialObject")))
+  if (str == std::string("OtherVehicle")) // LCOV_EXCL_BR_LINE
+  {
+    return ::ad_rss::world::ObjectType::OtherVehicle;
+  }
+  if (str == std::string("::ad_rss::world::ObjectType::ArtificialObject")) // LCOV_EXCL_BR_LINE
   {
     return ::ad_rss::world::ObjectType::ArtificialObject;
   }
-  else
+  if (str == std::string("ArtificialObject")) // LCOV_EXCL_BR_LINE
   {
-    throw std::out_of_range("Invalid enum literal");
+    return ::ad_rss::world::ObjectType::ArtificialObject;
   }
+  throw std::out_of_range("Invalid enum literal"); // LCOV_EXCL_BR_LINE
 }

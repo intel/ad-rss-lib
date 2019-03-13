@@ -175,6 +175,14 @@ TEST(DistanceSquaredTests, copyConstructionFromValidValue)
   EXPECT_EQ(static_cast<double>(validValue), static_cast<double>(value));
 }
 
+TEST(DistanceSquaredTests, moveConstructionFromValidValue)
+{
+  ::ad_rss::physics::DistanceSquared value(
+    std::move(::ad_rss::physics::DistanceSquared(::ad_rss::physics::DistanceSquared::cMinValue)));
+  EXPECT_TRUE(value.isValid());
+  EXPECT_EQ(::ad_rss::physics::DistanceSquared::cMinValue, static_cast<double>(value));
+}
+
 TEST(DistanceSquaredTests, assignmentFromValidValue)
 {
   ::ad_rss::physics::DistanceSquared const validValue(::ad_rss::physics::DistanceSquared::cMinValue);
@@ -182,6 +190,14 @@ TEST(DistanceSquaredTests, assignmentFromValidValue)
   value = validValue;
   EXPECT_TRUE(value.isValid());
   EXPECT_EQ(static_cast<double>(validValue), static_cast<double>(value));
+}
+
+TEST(DistanceSquaredTests, moveAssignmentFromValidValue)
+{
+  ::ad_rss::physics::DistanceSquared value;
+  value = std::move(::ad_rss::physics::DistanceSquared(::ad_rss::physics::DistanceSquared::cMinValue));
+  EXPECT_TRUE(value.isValid());
+  EXPECT_EQ(::ad_rss::physics::DistanceSquared::cMinValue, static_cast<double>(value));
 }
 
 TEST(DistanceSquaredTests, constructionFromInvalidDouble)
@@ -275,6 +291,9 @@ TEST(DistanceSquaredTests, arithmeticOperatorsThrowOnInvalid)
   EXPECT_THROW(invalidValue * static_cast<double>(maximalValue), std::out_of_range);
   EXPECT_THROW(maximalValue * static_cast<double>(maximalValue), std::out_of_range);
 
+  //  std::sqrt()
+  EXPECT_THROW(std::sqrt(invalidValue), std::out_of_range);
+
   //  operator/(double)
   EXPECT_THROW(invalidValue / static_cast<double>(maximalValue), std::out_of_range);
   EXPECT_THROW(maximalValue / static_cast<double>(invalidValue), std::out_of_range);
@@ -348,6 +367,8 @@ TEST(DistanceSquaredTests, comparisonOperatorsRespectPrecision)
   EXPECT_TRUE(actuallyBiggerValue > value);
 
   // operator >=
+  EXPECT_FALSE(actuallySmallerValue >= value);
+  EXPECT_TRUE(slightlySmallerValue >= value);
   EXPECT_TRUE(value >= value);
   EXPECT_TRUE(slightlyBiggerValue >= value);
   EXPECT_TRUE(actuallyBiggerValue >= value);
@@ -358,6 +379,8 @@ TEST(DistanceSquaredTests, comparisonOperatorsRespectPrecision)
   EXPECT_TRUE(actuallySmallerValue < value);
 
   // operator <=
+  EXPECT_FALSE(actuallyBiggerValue <= value);
+  EXPECT_TRUE(slightlyBiggerValue <= value);
   EXPECT_TRUE(value <= value);
   EXPECT_TRUE(slightlySmallerValue <= value);
   EXPECT_TRUE(actuallySmallerValue <= value);

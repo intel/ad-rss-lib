@@ -106,10 +106,12 @@ public:
   /*!
    * \brief standard copy constructor
    */
-  Distance(const Distance &other)
-    : mDistance(other.mDistance)
-  {
-  }
+  Distance(const Distance &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  Distance(Distance &&other) = default;
 
   /**
    * \brief standard assignment operator
@@ -118,14 +120,16 @@ public:
    *
    * \returns Reference to this Distance.
    */
-  Distance &operator=(const Distance &other)
-  {
-    if (&other != this)
-    {
-      mDistance = other.mDistance;
-    }
-    return *this;
-  }
+  Distance &operator=(const Distance &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other Distance
+   *
+   * \returns Reference to this Distance.
+   */
+  Distance &operator=(Distance &&other) = default;
 
   /**
    * \brief standard comparison operator
@@ -373,7 +377,7 @@ public:
   {
     ensureValid();
     Distance const result(-mDistance);
-    result.ensureValid();
+    result.ensureValid(); // LCOV_EXCL_BR_LINE Some types do not throw an exception
     return result;
   }
 
@@ -412,7 +416,7 @@ public:
   {
     if (!isValid())
     {
-      throw std::out_of_range("Distance value out of range");
+      throw std::out_of_range("Distance value out of range"); // LCOV_EXCL_BR_LINE
     }
   }
 
@@ -425,9 +429,9 @@ public:
   void ensureValidNonZero() const
   {
     ensureValid();
-    if (operator==(Distance(0.)))
+    if (operator==(Distance(0.))) // LCOV_EXCL_BR_LINE
     {
-      throw std::out_of_range("Distance value is zero");
+      throw std::out_of_range("Distance value is zero"); // LCOV_EXCL_BR_LINE
     }
   }
 
@@ -506,14 +510,23 @@ inline ::ad_rss::physics::Distance fabs(const ::ad_rss::physics::Distance other)
 template <> class numeric_limits<::ad_rss::physics::Distance> : public numeric_limits<double>
 {
 public:
+  /*!
+   * \see std::numeric_limits::lowest()
+   */
   static inline ::ad_rss::physics::Distance lowest()
   {
     return ::ad_rss::physics::Distance::getMin();
   }
+  /*!
+   * \see std::numeric_limits::max()
+   */
   static inline ::ad_rss::physics::Distance max()
   {
     return ::ad_rss::physics::Distance::getMax();
   }
+  /*!
+   * \see std::numeric_limits::epsilon()
+   */
   static inline ::ad_rss::physics::Distance epsilon()
   {
     return ::ad_rss::physics::Distance::getPrecision();

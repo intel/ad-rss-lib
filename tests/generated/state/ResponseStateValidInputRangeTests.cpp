@@ -44,24 +44,24 @@
 TEST(ResponseStateValidInputRangeTests, testValidInputRange)
 {
   ::ad_rss::state::ResponseState value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex{};
+  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
   value.timeIndex = valueTimeIndex;
-  ::ad_rss::situation::SituationId valueSituationId{};
+  ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   value.situationId = valueSituationId;
   ::ad_rss::state::LongitudinalRssState valueLongitudinalState;
-  bool valueLongitudinalStateIsSafe{};
+  bool valueLongitudinalStateIsSafe{true};
   valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
   ::ad_rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad_rss::state::LongitudinalResponse::None);
   valueLongitudinalState.response = valueLongitudinalStateResponse;
   value.longitudinalState = valueLongitudinalState;
   ::ad_rss::state::LateralRssState valueLateralStateRight;
-  bool valueLateralStateRightIsSafe{};
+  bool valueLateralStateRightIsSafe{true};
   valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateRightResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateRight.response = valueLateralStateRightResponse;
   value.lateralStateRight = valueLateralStateRight;
   ::ad_rss::state::LateralRssState valueLateralStateLeft;
-  bool valueLateralStateLeftIsSafe{};
+  bool valueLateralStateLeftIsSafe{true};
   valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateLeftResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateLeft.response = valueLateralStateLeftResponse;
@@ -69,27 +69,27 @@ TEST(ResponseStateValidInputRangeTests, testValidInputRange)
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
-TEST(ResponseStateValidInputRangeTests, testValidInputRangeLongitudinalStateInvalid)
+TEST(ResponseStateValidInputRangeTests, testValidInputRangeLongitudinalStateTooSmall)
 {
   ::ad_rss::state::ResponseState value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex{};
+  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
   value.timeIndex = valueTimeIndex;
-  ::ad_rss::situation::SituationId valueSituationId{};
+  ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   value.situationId = valueSituationId;
   ::ad_rss::state::LongitudinalRssState valueLongitudinalState;
-  bool valueLongitudinalStateIsSafe{};
+  bool valueLongitudinalStateIsSafe{true};
   valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
   ::ad_rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad_rss::state::LongitudinalResponse::None);
   valueLongitudinalState.response = valueLongitudinalStateResponse;
   value.longitudinalState = valueLongitudinalState;
   ::ad_rss::state::LateralRssState valueLateralStateRight;
-  bool valueLateralStateRightIsSafe{};
+  bool valueLateralStateRightIsSafe{true};
   valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateRightResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateRight.response = valueLateralStateRightResponse;
   value.lateralStateRight = valueLateralStateRight;
   ::ad_rss::state::LateralRssState valueLateralStateLeft;
-  bool valueLateralStateLeftIsSafe{};
+  bool valueLateralStateLeftIsSafe{true};
   valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateLeftResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateLeft.response = valueLateralStateLeftResponse;
@@ -104,27 +104,62 @@ TEST(ResponseStateValidInputRangeTests, testValidInputRangeLongitudinalStateInva
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(ResponseStateValidInputRangeTests, testValidInputRangeLateralStateRightInvalid)
+TEST(ResponseStateValidInputRangeTests, testValidInputRangeLongitudinalStateTooBig)
 {
   ::ad_rss::state::ResponseState value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex{};
+  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
   value.timeIndex = valueTimeIndex;
-  ::ad_rss::situation::SituationId valueSituationId{};
+  ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   value.situationId = valueSituationId;
   ::ad_rss::state::LongitudinalRssState valueLongitudinalState;
-  bool valueLongitudinalStateIsSafe{};
+  bool valueLongitudinalStateIsSafe{true};
   valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
   ::ad_rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad_rss::state::LongitudinalResponse::None);
   valueLongitudinalState.response = valueLongitudinalStateResponse;
   value.longitudinalState = valueLongitudinalState;
   ::ad_rss::state::LateralRssState valueLateralStateRight;
-  bool valueLateralStateRightIsSafe{};
+  bool valueLateralStateRightIsSafe{true};
   valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateRightResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateRight.response = valueLateralStateRightResponse;
   value.lateralStateRight = valueLateralStateRight;
   ::ad_rss::state::LateralRssState valueLateralStateLeft;
-  bool valueLateralStateLeftIsSafe{};
+  bool valueLateralStateLeftIsSafe{true};
+  valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
+  ::ad_rss::state::LateralResponse valueLateralStateLeftResponse(::ad_rss::state::LateralResponse::None);
+  valueLateralStateLeft.response = valueLateralStateLeftResponse;
+  value.lateralStateLeft = valueLateralStateLeft;
+
+  // override member with invalid value
+  ::ad_rss::state::LongitudinalRssState invalidInitializedMember;
+  ::ad_rss::state::LongitudinalResponse invalidInitializedMemberResponse(
+    static_cast<::ad_rss::state::LongitudinalResponse>(-1));
+  invalidInitializedMember.response = invalidInitializedMemberResponse;
+  value.longitudinalState = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(ResponseStateValidInputRangeTests, testValidInputRangeLateralStateRightTooSmall)
+{
+  ::ad_rss::state::ResponseState value;
+  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
+  value.timeIndex = valueTimeIndex;
+  ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
+  value.situationId = valueSituationId;
+  ::ad_rss::state::LongitudinalRssState valueLongitudinalState;
+  bool valueLongitudinalStateIsSafe{true};
+  valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
+  ::ad_rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad_rss::state::LongitudinalResponse::None);
+  valueLongitudinalState.response = valueLongitudinalStateResponse;
+  value.longitudinalState = valueLongitudinalState;
+  ::ad_rss::state::LateralRssState valueLateralStateRight;
+  bool valueLateralStateRightIsSafe{true};
+  valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
+  ::ad_rss::state::LateralResponse valueLateralStateRightResponse(::ad_rss::state::LateralResponse::None);
+  valueLateralStateRight.response = valueLateralStateRightResponse;
+  value.lateralStateRight = valueLateralStateRight;
+  ::ad_rss::state::LateralRssState valueLateralStateLeft;
+  bool valueLateralStateLeftIsSafe{true};
   valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateLeftResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateLeft.response = valueLateralStateLeftResponse;
@@ -138,27 +173,95 @@ TEST(ResponseStateValidInputRangeTests, testValidInputRangeLateralStateRightInva
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(ResponseStateValidInputRangeTests, testValidInputRangeLateralStateLeftInvalid)
+TEST(ResponseStateValidInputRangeTests, testValidInputRangeLateralStateRightTooBig)
 {
   ::ad_rss::state::ResponseState value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex{};
+  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
   value.timeIndex = valueTimeIndex;
-  ::ad_rss::situation::SituationId valueSituationId{};
+  ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   value.situationId = valueSituationId;
   ::ad_rss::state::LongitudinalRssState valueLongitudinalState;
-  bool valueLongitudinalStateIsSafe{};
+  bool valueLongitudinalStateIsSafe{true};
   valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
   ::ad_rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad_rss::state::LongitudinalResponse::None);
   valueLongitudinalState.response = valueLongitudinalStateResponse;
   value.longitudinalState = valueLongitudinalState;
   ::ad_rss::state::LateralRssState valueLateralStateRight;
-  bool valueLateralStateRightIsSafe{};
+  bool valueLateralStateRightIsSafe{true};
   valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateRightResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateRight.response = valueLateralStateRightResponse;
   value.lateralStateRight = valueLateralStateRight;
   ::ad_rss::state::LateralRssState valueLateralStateLeft;
-  bool valueLateralStateLeftIsSafe{};
+  bool valueLateralStateLeftIsSafe{true};
+  valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
+  ::ad_rss::state::LateralResponse valueLateralStateLeftResponse(::ad_rss::state::LateralResponse::None);
+  valueLateralStateLeft.response = valueLateralStateLeftResponse;
+  value.lateralStateLeft = valueLateralStateLeft;
+
+  // override member with invalid value
+  ::ad_rss::state::LateralRssState invalidInitializedMember;
+  ::ad_rss::state::LateralResponse invalidInitializedMemberResponse(static_cast<::ad_rss::state::LateralResponse>(-1));
+  invalidInitializedMember.response = invalidInitializedMemberResponse;
+  value.lateralStateRight = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(ResponseStateValidInputRangeTests, testValidInputRangeLateralStateLeftTooSmall)
+{
+  ::ad_rss::state::ResponseState value;
+  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
+  value.timeIndex = valueTimeIndex;
+  ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
+  value.situationId = valueSituationId;
+  ::ad_rss::state::LongitudinalRssState valueLongitudinalState;
+  bool valueLongitudinalStateIsSafe{true};
+  valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
+  ::ad_rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad_rss::state::LongitudinalResponse::None);
+  valueLongitudinalState.response = valueLongitudinalStateResponse;
+  value.longitudinalState = valueLongitudinalState;
+  ::ad_rss::state::LateralRssState valueLateralStateRight;
+  bool valueLateralStateRightIsSafe{true};
+  valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
+  ::ad_rss::state::LateralResponse valueLateralStateRightResponse(::ad_rss::state::LateralResponse::None);
+  valueLateralStateRight.response = valueLateralStateRightResponse;
+  value.lateralStateRight = valueLateralStateRight;
+  ::ad_rss::state::LateralRssState valueLateralStateLeft;
+  bool valueLateralStateLeftIsSafe{true};
+  valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
+  ::ad_rss::state::LateralResponse valueLateralStateLeftResponse(::ad_rss::state::LateralResponse::None);
+  valueLateralStateLeft.response = valueLateralStateLeftResponse;
+  value.lateralStateLeft = valueLateralStateLeft;
+
+  // override member with invalid value
+  ::ad_rss::state::LateralRssState invalidInitializedMember;
+  ::ad_rss::state::LateralResponse invalidInitializedMemberResponse(static_cast<::ad_rss::state::LateralResponse>(-1));
+  invalidInitializedMember.response = invalidInitializedMemberResponse;
+  value.lateralStateLeft = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(ResponseStateValidInputRangeTests, testValidInputRangeLateralStateLeftTooBig)
+{
+  ::ad_rss::state::ResponseState value;
+  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
+  value.timeIndex = valueTimeIndex;
+  ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
+  value.situationId = valueSituationId;
+  ::ad_rss::state::LongitudinalRssState valueLongitudinalState;
+  bool valueLongitudinalStateIsSafe{true};
+  valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
+  ::ad_rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad_rss::state::LongitudinalResponse::None);
+  valueLongitudinalState.response = valueLongitudinalStateResponse;
+  value.longitudinalState = valueLongitudinalState;
+  ::ad_rss::state::LateralRssState valueLateralStateRight;
+  bool valueLateralStateRightIsSafe{true};
+  valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
+  ::ad_rss::state::LateralResponse valueLateralStateRightResponse(::ad_rss::state::LateralResponse::None);
+  valueLateralStateRight.response = valueLateralStateRightResponse;
+  value.lateralStateRight = valueLateralStateRight;
+  ::ad_rss::state::LateralRssState valueLateralStateLeft;
+  bool valueLateralStateLeftIsSafe{true};
   valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateLeftResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateLeft.response = valueLateralStateLeftResponse;

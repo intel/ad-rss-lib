@@ -107,10 +107,12 @@ public:
   /*!
    * \brief standard copy constructor
    */
-  Speed(const Speed &other)
-    : mSpeed(other.mSpeed)
-  {
-  }
+  Speed(const Speed &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  Speed(Speed &&other) = default;
 
   /**
    * \brief standard assignment operator
@@ -119,14 +121,16 @@ public:
    *
    * \returns Reference to this Speed.
    */
-  Speed &operator=(const Speed &other)
-  {
-    if (&other != this)
-    {
-      mSpeed = other.mSpeed;
-    }
-    return *this;
-  }
+  Speed &operator=(const Speed &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other Speed
+   *
+   * \returns Reference to this Speed.
+   */
+  Speed &operator=(Speed &&other) = default;
 
   /**
    * \brief standard comparison operator
@@ -374,7 +378,7 @@ public:
   {
     ensureValid();
     Speed const result(-mSpeed);
-    result.ensureValid();
+    result.ensureValid(); // LCOV_EXCL_BR_LINE Some types do not throw an exception
     return result;
   }
 
@@ -412,7 +416,7 @@ public:
   {
     if (!isValid())
     {
-      throw std::out_of_range("Speed value out of range");
+      throw std::out_of_range("Speed value out of range"); // LCOV_EXCL_BR_LINE
     }
   }
 
@@ -425,9 +429,9 @@ public:
   void ensureValidNonZero() const
   {
     ensureValid();
-    if (operator==(Speed(0.)))
+    if (operator==(Speed(0.))) // LCOV_EXCL_BR_LINE
     {
-      throw std::out_of_range("Speed value is zero");
+      throw std::out_of_range("Speed value is zero"); // LCOV_EXCL_BR_LINE
     }
   }
 
@@ -506,14 +510,23 @@ inline ::ad_rss::physics::Speed fabs(const ::ad_rss::physics::Speed other)
 template <> class numeric_limits<::ad_rss::physics::Speed> : public numeric_limits<double>
 {
 public:
+  /*!
+   * \see std::numeric_limits::lowest()
+   */
   static inline ::ad_rss::physics::Speed lowest()
   {
     return ::ad_rss::physics::Speed::getMin();
   }
+  /*!
+   * \see std::numeric_limits::max()
+   */
   static inline ::ad_rss::physics::Speed max()
   {
     return ::ad_rss::physics::Speed::getMax();
   }
+  /*!
+   * \see std::numeric_limits::epsilon()
+   */
   static inline ::ad_rss::physics::Speed epsilon()
   {
     return ::ad_rss::physics::Speed::getPrecision();

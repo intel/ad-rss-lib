@@ -59,6 +59,68 @@ namespace physics {
 struct AccelerationRange
 {
   /*!
+   * \brief standard constructor
+   */
+  AccelerationRange() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~AccelerationRange() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  AccelerationRange(const AccelerationRange &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  AccelerationRange(AccelerationRange &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other AccelerationRange
+   *
+   * \returns Reference to this AccelerationRange.
+   */
+  AccelerationRange &operator=(const AccelerationRange &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other AccelerationRange
+   *
+   * \returns Reference to this AccelerationRange.
+   */
+  AccelerationRange &operator=(AccelerationRange &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other AccelerationRange
+   *
+   * \returns \c true if both AccelerationRange are equal
+   */
+  bool operator==(const AccelerationRange &other) const
+  {
+    return (minimum == other.minimum) && (maximum == other.maximum);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other AccelerationRange.
+   *
+   * \returns \c true if both AccelerationRange are different
+   */
+  bool operator!=(const AccelerationRange &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
    * The minimum value of the acceleration range.
    */
   ::ad_rss::physics::Acceleration minimum{std::numeric_limits<Acceleration>::lowest()};

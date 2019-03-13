@@ -106,10 +106,12 @@ public:
   /*!
    * \brief standard copy constructor
    */
-  DurationSquared(const DurationSquared &other)
-    : mDurationSquared(other.mDurationSquared)
-  {
-  }
+  DurationSquared(const DurationSquared &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  DurationSquared(DurationSquared &&other) = default;
 
   /**
    * \brief standard assignment operator
@@ -118,14 +120,16 @@ public:
    *
    * \returns Reference to this DurationSquared.
    */
-  DurationSquared &operator=(const DurationSquared &other)
-  {
-    if (&other != this)
-    {
-      mDurationSquared = other.mDurationSquared;
-    }
-    return *this;
-  }
+  DurationSquared &operator=(const DurationSquared &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other DurationSquared
+   *
+   * \returns Reference to this DurationSquared.
+   */
+  DurationSquared &operator=(DurationSquared &&other) = default;
 
   /**
    * \brief standard comparison operator
@@ -360,7 +364,7 @@ public:
   {
     ensureValid();
     DurationSquared const result(-mDurationSquared);
-    result.ensureValid();
+    result.ensureValid(); // LCOV_EXCL_BR_LINE Some types do not throw an exception
     return result;
   }
 
@@ -399,7 +403,7 @@ public:
   {
     if (!isValid())
     {
-      throw std::out_of_range("DurationSquared value out of range");
+      throw std::out_of_range("DurationSquared value out of range"); // LCOV_EXCL_BR_LINE
     }
   }
 
@@ -412,9 +416,9 @@ public:
   void ensureValidNonZero() const
   {
     ensureValid();
-    if (operator==(DurationSquared(0.)))
+    if (operator==(DurationSquared(0.))) // LCOV_EXCL_BR_LINE
     {
-      throw std::out_of_range("DurationSquared value is zero");
+      throw std::out_of_range("DurationSquared value is zero"); // LCOV_EXCL_BR_LINE
     }
   }
 
@@ -494,14 +498,23 @@ inline ::ad_rss::physics::DurationSquared fabs(const ::ad_rss::physics::Duration
 template <> class numeric_limits<::ad_rss::physics::DurationSquared> : public numeric_limits<double>
 {
 public:
+  /*!
+   * \see std::numeric_limits::lowest()
+   */
   static inline ::ad_rss::physics::DurationSquared lowest()
   {
     return ::ad_rss::physics::DurationSquared::getMin();
   }
+  /*!
+   * \see std::numeric_limits::max()
+   */
   static inline ::ad_rss::physics::DurationSquared max()
   {
     return ::ad_rss::physics::DurationSquared::getMax();
   }
+  /*!
+   * \see std::numeric_limits::epsilon()
+   */
   static inline ::ad_rss::physics::DurationSquared epsilon()
   {
     return ::ad_rss::physics::DurationSquared::getPrecision();

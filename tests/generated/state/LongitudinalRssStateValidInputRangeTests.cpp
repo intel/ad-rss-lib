@@ -44,17 +44,32 @@
 TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRange)
 {
   ::ad_rss::state::LongitudinalRssState value;
-  bool valueIsSafe{};
+  bool valueIsSafe{true};
   value.isSafe = valueIsSafe;
   ::ad_rss::state::LongitudinalResponse valueResponse(::ad_rss::state::LongitudinalResponse::None);
   value.response = valueResponse;
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
-TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRangeResponseInvalid)
+TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRangeResponseTooSmall)
 {
   ::ad_rss::state::LongitudinalRssState value;
-  bool valueIsSafe{};
+  bool valueIsSafe{true};
+  value.isSafe = valueIsSafe;
+  ::ad_rss::state::LongitudinalResponse valueResponse(::ad_rss::state::LongitudinalResponse::None);
+  value.response = valueResponse;
+
+  // override member with invalid value
+  ::ad_rss::state::LongitudinalResponse invalidInitializedMember(
+    static_cast<::ad_rss::state::LongitudinalResponse>(-1));
+  value.response = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRangeResponseTooBig)
+{
+  ::ad_rss::state::LongitudinalRssState value;
+  bool valueIsSafe{true};
   value.isSafe = valueIsSafe;
   ::ad_rss::state::LongitudinalResponse valueResponse(::ad_rss::state::LongitudinalResponse::None);
   value.response = valueResponse;

@@ -98,10 +98,12 @@ public:
   /*!
    * \brief standard copy constructor
    */
-  ParametricValue(const ParametricValue &other)
-    : mParametricValue(other.mParametricValue)
-  {
-  }
+  ParametricValue(const ParametricValue &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  ParametricValue(ParametricValue &&other) = default;
 
   /**
    * \brief standard assignment operator
@@ -110,14 +112,16 @@ public:
    *
    * \returns Reference to this ParametricValue.
    */
-  ParametricValue &operator=(const ParametricValue &other)
-  {
-    if (&other != this)
-    {
-      mParametricValue = other.mParametricValue;
-    }
-    return *this;
-  }
+  ParametricValue &operator=(const ParametricValue &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other ParametricValue
+   *
+   * \returns Reference to this ParametricValue.
+   */
+  ParametricValue &operator=(ParametricValue &&other) = default;
 
   /**
    * \brief standard comparison operator
@@ -352,7 +356,7 @@ public:
   {
     ensureValid();
     ParametricValue const result(-mParametricValue);
-    result.ensureValid();
+    result.ensureValid(); // LCOV_EXCL_BR_LINE Some types do not throw an exception
     return result;
   }
 
@@ -391,7 +395,7 @@ public:
   {
     if (!isValid())
     {
-      throw std::out_of_range("ParametricValue value out of range");
+      throw std::out_of_range("ParametricValue value out of range"); // LCOV_EXCL_BR_LINE
     }
   }
 
@@ -404,9 +408,9 @@ public:
   void ensureValidNonZero() const
   {
     ensureValid();
-    if (operator==(ParametricValue(0.)))
+    if (operator==(ParametricValue(0.))) // LCOV_EXCL_BR_LINE
     {
-      throw std::out_of_range("ParametricValue value is zero");
+      throw std::out_of_range("ParametricValue value is zero"); // LCOV_EXCL_BR_LINE
     }
   }
 
@@ -486,14 +490,23 @@ inline ::ad_rss::physics::ParametricValue fabs(const ::ad_rss::physics::Parametr
 template <> class numeric_limits<::ad_rss::physics::ParametricValue> : public numeric_limits<double>
 {
 public:
+  /*!
+   * \see std::numeric_limits::lowest()
+   */
   static inline ::ad_rss::physics::ParametricValue lowest()
   {
     return ::ad_rss::physics::ParametricValue::getMin();
   }
+  /*!
+   * \see std::numeric_limits::max()
+   */
   static inline ::ad_rss::physics::ParametricValue max()
   {
     return ::ad_rss::physics::ParametricValue::getMax();
   }
+  /*!
+   * \see std::numeric_limits::epsilon()
+   */
   static inline ::ad_rss::physics::ParametricValue epsilon()
   {
     return ::ad_rss::physics::ParametricValue::getPrecision();

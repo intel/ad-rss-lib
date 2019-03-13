@@ -86,9 +86,9 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRange)
   valueResponseTime = ::ad_rss::physics::Duration(
     0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
   value.responseTime = valueResponseTime;
-  bool valueHasPriority{};
+  bool valueHasPriority{true};
   value.hasPriority = valueHasPriority;
-  bool valueIsInCorrectLane{};
+  bool valueIsInCorrectLane{true};
   value.isInCorrectLane = valueIsInCorrectLane;
   ::ad_rss::physics::Distance valueDistanceToEnterIntersection(0.);
   value.distanceToEnterIntersection = valueDistanceToEnterIntersection;
@@ -99,7 +99,7 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRange)
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangeVelocityInvalid)
+TEST(VehicleStateValidInputRangeTests, testValidInputRangeVelocityTooSmall)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::world::Velocity valueVelocity;
@@ -144,9 +144,9 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeVelocityInvalid)
   valueResponseTime = ::ad_rss::physics::Duration(
     0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
   value.responseTime = valueResponseTime;
-  bool valueHasPriority{};
+  bool valueHasPriority{true};
   value.hasPriority = valueHasPriority;
-  bool valueIsInCorrectLane{};
+  bool valueIsInCorrectLane{true};
   value.isInCorrectLane = valueIsInCorrectLane;
   ::ad_rss::physics::Distance valueDistanceToEnterIntersection(0.);
   value.distanceToEnterIntersection = valueDistanceToEnterIntersection;
@@ -163,7 +163,7 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeVelocityInvalid)
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsInvalid)
+TEST(VehicleStateValidInputRangeTests, testValidInputRangeVelocityTooBig)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::world::Velocity valueVelocity;
@@ -208,9 +208,73 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsInvalid)
   valueResponseTime = ::ad_rss::physics::Duration(
     0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
   value.responseTime = valueResponseTime;
-  bool valueHasPriority{};
+  bool valueHasPriority{true};
   value.hasPriority = valueHasPriority;
-  bool valueIsInCorrectLane{};
+  bool valueIsInCorrectLane{true};
+  value.isInCorrectLane = valueIsInCorrectLane;
+  ::ad_rss::physics::Distance valueDistanceToEnterIntersection(0.);
+  value.distanceToEnterIntersection = valueDistanceToEnterIntersection;
+  ::ad_rss::physics::Distance valueDistanceToLeaveIntersection(0.);
+  value.distanceToLeaveIntersection = valueDistanceToLeaveIntersection;
+  value.distanceToLeaveIntersection = value.distanceToEnterIntersection;
+  value.distanceToEnterIntersection = value.distanceToLeaveIntersection;
+
+  // override member with invalid value
+  ::ad_rss::world::Velocity invalidInitializedMember;
+  ::ad_rss::physics::Speed invalidInitializedMemberSpeedLon(100. * 1.1);
+  invalidInitializedMember.speedLon = invalidInitializedMemberSpeedLon;
+  value.velocity = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsTooSmall)
+{
+  ::ad_rss::situation::VehicleState value;
+  ::ad_rss::world::Velocity valueVelocity;
+  ::ad_rss::physics::Speed valueVelocitySpeedLon(-100.);
+  valueVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  valueVelocity.speedLon = valueVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueVelocitySpeedLat(-100.);
+  valueVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  valueVelocity.speedLat = valueVelocitySpeedLat;
+  value.velocity = valueVelocity;
+  ::ad_rss::world::Dynamics valueDynamics;
+  ::ad_rss::world::LongitudinalRssAccelerationValues valueDynamicsAlphaLon;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonAccelMax(-10);
+  valueDynamicsAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  valueDynamicsAlphaLon.accelMax = valueDynamicsAlphaLonAccelMax;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMax(-10);
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLonBrakeMax;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-10);
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLonBrakeMin;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-10);
+  valueDynamicsAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
+    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLonBrakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMax;
+  valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLon.brakeMin;
+  valueDynamics.alphaLon = valueDynamicsAlphaLon;
+  ::ad_rss::world::LateralRssAccelerationValues valueDynamicsAlphaLat;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLatAccelMax(-10);
+  valueDynamicsAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  valueDynamicsAlphaLat.accelMax = valueDynamicsAlphaLatAccelMax;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-10);
+  valueDynamicsAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
+    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  valueDynamicsAlphaLat.brakeMin = valueDynamicsAlphaLatBrakeMin;
+  valueDynamics.alphaLat = valueDynamicsAlphaLat;
+  ::ad_rss::physics::Distance valueDynamicsLateralFluctuationMargin(0.);
+  valueDynamics.lateralFluctuationMargin = valueDynamicsLateralFluctuationMargin;
+  value.dynamics = valueDynamics;
+  ::ad_rss::physics::Duration valueResponseTime(0.);
+  valueResponseTime = ::ad_rss::physics::Duration(
+    0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
+  value.responseTime = valueResponseTime;
+  bool valueHasPriority{true};
+  value.hasPriority = valueHasPriority;
+  bool valueIsInCorrectLane{true};
   value.isInCorrectLane = valueIsInCorrectLane;
   ::ad_rss::physics::Distance valueDistanceToEnterIntersection(0.);
   value.distanceToEnterIntersection = valueDistanceToEnterIntersection;
@@ -229,7 +293,7 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsInvalid)
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangeResponseTimeInvalid)
+TEST(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsTooBig)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::world::Velocity valueVelocity;
@@ -274,9 +338,75 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeResponseTimeInvalid)
   valueResponseTime = ::ad_rss::physics::Duration(
     0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
   value.responseTime = valueResponseTime;
-  bool valueHasPriority{};
+  bool valueHasPriority{true};
   value.hasPriority = valueHasPriority;
-  bool valueIsInCorrectLane{};
+  bool valueIsInCorrectLane{true};
+  value.isInCorrectLane = valueIsInCorrectLane;
+  ::ad_rss::physics::Distance valueDistanceToEnterIntersection(0.);
+  value.distanceToEnterIntersection = valueDistanceToEnterIntersection;
+  ::ad_rss::physics::Distance valueDistanceToLeaveIntersection(0.);
+  value.distanceToLeaveIntersection = valueDistanceToLeaveIntersection;
+  value.distanceToLeaveIntersection = value.distanceToEnterIntersection;
+  value.distanceToEnterIntersection = value.distanceToLeaveIntersection;
+
+  // override member with invalid value
+  ::ad_rss::world::Dynamics invalidInitializedMember;
+  ::ad_rss::world::LongitudinalRssAccelerationValues invalidInitializedMemberAlphaLon;
+  ::ad_rss::physics::Acceleration invalidInitializedMemberAlphaLonAccelMax(10 * 1.1);
+  invalidInitializedMemberAlphaLon.accelMax = invalidInitializedMemberAlphaLonAccelMax;
+  invalidInitializedMember.alphaLon = invalidInitializedMemberAlphaLon;
+  value.dynamics = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(VehicleStateValidInputRangeTests, testValidInputRangeResponseTimeTooSmall)
+{
+  ::ad_rss::situation::VehicleState value;
+  ::ad_rss::world::Velocity valueVelocity;
+  ::ad_rss::physics::Speed valueVelocitySpeedLon(-100.);
+  valueVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  valueVelocity.speedLon = valueVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueVelocitySpeedLat(-100.);
+  valueVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  valueVelocity.speedLat = valueVelocitySpeedLat;
+  value.velocity = valueVelocity;
+  ::ad_rss::world::Dynamics valueDynamics;
+  ::ad_rss::world::LongitudinalRssAccelerationValues valueDynamicsAlphaLon;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonAccelMax(-10);
+  valueDynamicsAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  valueDynamicsAlphaLon.accelMax = valueDynamicsAlphaLonAccelMax;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMax(-10);
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLonBrakeMax;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-10);
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLonBrakeMin;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-10);
+  valueDynamicsAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
+    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLonBrakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMax;
+  valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLon.brakeMin;
+  valueDynamics.alphaLon = valueDynamicsAlphaLon;
+  ::ad_rss::world::LateralRssAccelerationValues valueDynamicsAlphaLat;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLatAccelMax(-10);
+  valueDynamicsAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  valueDynamicsAlphaLat.accelMax = valueDynamicsAlphaLatAccelMax;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-10);
+  valueDynamicsAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
+    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  valueDynamicsAlphaLat.brakeMin = valueDynamicsAlphaLatBrakeMin;
+  valueDynamics.alphaLat = valueDynamicsAlphaLat;
+  ::ad_rss::physics::Distance valueDynamicsLateralFluctuationMargin(0.);
+  valueDynamics.lateralFluctuationMargin = valueDynamicsLateralFluctuationMargin;
+  value.dynamics = valueDynamics;
+  ::ad_rss::physics::Duration valueResponseTime(0.);
+  valueResponseTime = ::ad_rss::physics::Duration(
+    0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
+  value.responseTime = valueResponseTime;
+  bool valueHasPriority{true};
+  value.hasPriority = valueHasPriority;
+  bool valueIsInCorrectLane{true};
   value.isInCorrectLane = valueIsInCorrectLane;
   ::ad_rss::physics::Distance valueDistanceToEnterIntersection(0.);
   value.distanceToEnterIntersection = valueDistanceToEnterIntersection;
@@ -291,7 +421,7 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeResponseTimeInvalid)
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterIntersectionInvalid)
+TEST(VehicleStateValidInputRangeTests, testValidInputRangeResponseTimeTooBig)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::world::Velocity valueVelocity;
@@ -336,9 +466,80 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterInterse
   valueResponseTime = ::ad_rss::physics::Duration(
     0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
   value.responseTime = valueResponseTime;
-  bool valueHasPriority{};
+  bool valueHasPriority{true};
   value.hasPriority = valueHasPriority;
-  bool valueIsInCorrectLane{};
+  bool valueIsInCorrectLane{true};
+  value.isInCorrectLane = valueIsInCorrectLane;
+  ::ad_rss::physics::Distance valueDistanceToEnterIntersection(0.);
+  value.distanceToEnterIntersection = valueDistanceToEnterIntersection;
+  ::ad_rss::physics::Distance valueDistanceToLeaveIntersection(0.);
+  value.distanceToLeaveIntersection = valueDistanceToLeaveIntersection;
+  value.distanceToLeaveIntersection = value.distanceToEnterIntersection;
+  value.distanceToEnterIntersection = value.distanceToLeaveIntersection;
+
+  // override member with invalid value
+  ::ad_rss::physics::Duration invalidInitializedMember(100. * 1.1);
+  invalidInitializedMember = ::ad_rss::physics::Duration(10. * 1.1); // set to valid value within struct
+  value.responseTime = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(VehicleStateValidInputRangeTests, testValidInputRangeresponseTimeDefault)
+{
+  ::ad_rss::situation::VehicleState value;
+  ::ad_rss::physics::Duration valueDefault;
+  value.responseTime = valueDefault;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterIntersectionTooSmall)
+{
+  ::ad_rss::situation::VehicleState value;
+  ::ad_rss::world::Velocity valueVelocity;
+  ::ad_rss::physics::Speed valueVelocitySpeedLon(-100.);
+  valueVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  valueVelocity.speedLon = valueVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueVelocitySpeedLat(-100.);
+  valueVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  valueVelocity.speedLat = valueVelocitySpeedLat;
+  value.velocity = valueVelocity;
+  ::ad_rss::world::Dynamics valueDynamics;
+  ::ad_rss::world::LongitudinalRssAccelerationValues valueDynamicsAlphaLon;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonAccelMax(-10);
+  valueDynamicsAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  valueDynamicsAlphaLon.accelMax = valueDynamicsAlphaLonAccelMax;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMax(-10);
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLonBrakeMax;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-10);
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLonBrakeMin;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-10);
+  valueDynamicsAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
+    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLonBrakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMax;
+  valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLon.brakeMin;
+  valueDynamics.alphaLon = valueDynamicsAlphaLon;
+  ::ad_rss::world::LateralRssAccelerationValues valueDynamicsAlphaLat;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLatAccelMax(-10);
+  valueDynamicsAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  valueDynamicsAlphaLat.accelMax = valueDynamicsAlphaLatAccelMax;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-10);
+  valueDynamicsAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
+    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  valueDynamicsAlphaLat.brakeMin = valueDynamicsAlphaLatBrakeMin;
+  valueDynamics.alphaLat = valueDynamicsAlphaLat;
+  ::ad_rss::physics::Distance valueDynamicsLateralFluctuationMargin(0.);
+  valueDynamics.lateralFluctuationMargin = valueDynamicsLateralFluctuationMargin;
+  value.dynamics = valueDynamics;
+  ::ad_rss::physics::Duration valueResponseTime(0.);
+  valueResponseTime = ::ad_rss::physics::Duration(
+    0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
+  value.responseTime = valueResponseTime;
+  bool valueHasPriority{true};
+  value.hasPriority = valueHasPriority;
+  bool valueIsInCorrectLane{true};
   value.isInCorrectLane = valueIsInCorrectLane;
   ::ad_rss::physics::Distance valueDistanceToEnterIntersection(0.);
   value.distanceToEnterIntersection = valueDistanceToEnterIntersection;
@@ -353,7 +554,7 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterInterse
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveIntersectionInvalid)
+TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterIntersectionTooBig)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::world::Velocity valueVelocity;
@@ -398,9 +599,79 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveInterse
   valueResponseTime = ::ad_rss::physics::Duration(
     0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
   value.responseTime = valueResponseTime;
-  bool valueHasPriority{};
+  bool valueHasPriority{true};
   value.hasPriority = valueHasPriority;
-  bool valueIsInCorrectLane{};
+  bool valueIsInCorrectLane{true};
+  value.isInCorrectLane = valueIsInCorrectLane;
+  ::ad_rss::physics::Distance valueDistanceToEnterIntersection(0.);
+  value.distanceToEnterIntersection = valueDistanceToEnterIntersection;
+  ::ad_rss::physics::Distance valueDistanceToLeaveIntersection(0.);
+  value.distanceToLeaveIntersection = valueDistanceToLeaveIntersection;
+  value.distanceToLeaveIntersection = value.distanceToEnterIntersection;
+  value.distanceToEnterIntersection = value.distanceToLeaveIntersection;
+
+  // override member with invalid value
+  ::ad_rss::physics::Distance invalidInitializedMember(1e6 * 1.1);
+  value.distanceToEnterIntersection = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(VehicleStateValidInputRangeTests, testValidInputRangedistanceToEnterIntersectionDefault)
+{
+  ::ad_rss::situation::VehicleState value;
+  ::ad_rss::physics::Distance valueDefault;
+  value.distanceToEnterIntersection = valueDefault;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveIntersectionTooSmall)
+{
+  ::ad_rss::situation::VehicleState value;
+  ::ad_rss::world::Velocity valueVelocity;
+  ::ad_rss::physics::Speed valueVelocitySpeedLon(-100.);
+  valueVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  valueVelocity.speedLon = valueVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueVelocitySpeedLat(-100.);
+  valueVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  valueVelocity.speedLat = valueVelocitySpeedLat;
+  value.velocity = valueVelocity;
+  ::ad_rss::world::Dynamics valueDynamics;
+  ::ad_rss::world::LongitudinalRssAccelerationValues valueDynamicsAlphaLon;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonAccelMax(-10);
+  valueDynamicsAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  valueDynamicsAlphaLon.accelMax = valueDynamicsAlphaLonAccelMax;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMax(-10);
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLonBrakeMax;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-10);
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLonBrakeMin;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-10);
+  valueDynamicsAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
+    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLonBrakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMax;
+  valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLon.brakeMin;
+  valueDynamics.alphaLon = valueDynamicsAlphaLon;
+  ::ad_rss::world::LateralRssAccelerationValues valueDynamicsAlphaLat;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLatAccelMax(-10);
+  valueDynamicsAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  valueDynamicsAlphaLat.accelMax = valueDynamicsAlphaLatAccelMax;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-10);
+  valueDynamicsAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
+    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  valueDynamicsAlphaLat.brakeMin = valueDynamicsAlphaLatBrakeMin;
+  valueDynamics.alphaLat = valueDynamicsAlphaLat;
+  ::ad_rss::physics::Distance valueDynamicsLateralFluctuationMargin(0.);
+  valueDynamics.lateralFluctuationMargin = valueDynamicsLateralFluctuationMargin;
+  value.dynamics = valueDynamics;
+  ::ad_rss::physics::Duration valueResponseTime(0.);
+  valueResponseTime = ::ad_rss::physics::Duration(
+    0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
+  value.responseTime = valueResponseTime;
+  bool valueHasPriority{true};
+  value.hasPriority = valueHasPriority;
+  bool valueIsInCorrectLane{true};
   value.isInCorrectLane = valueIsInCorrectLane;
   ::ad_rss::physics::Distance valueDistanceToEnterIntersection(0.);
   value.distanceToEnterIntersection = valueDistanceToEnterIntersection;
@@ -412,5 +683,76 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveInterse
   // override member with invalid value
   ::ad_rss::physics::Distance invalidInitializedMember(0. - ::ad_rss::physics::Distance::cPrecisionValue);
   value.distanceToLeaveIntersection = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveIntersectionTooBig)
+{
+  ::ad_rss::situation::VehicleState value;
+  ::ad_rss::world::Velocity valueVelocity;
+  ::ad_rss::physics::Speed valueVelocitySpeedLon(-100.);
+  valueVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  valueVelocity.speedLon = valueVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueVelocitySpeedLat(-100.);
+  valueVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  valueVelocity.speedLat = valueVelocitySpeedLat;
+  value.velocity = valueVelocity;
+  ::ad_rss::world::Dynamics valueDynamics;
+  ::ad_rss::world::LongitudinalRssAccelerationValues valueDynamicsAlphaLon;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonAccelMax(-10);
+  valueDynamicsAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  valueDynamicsAlphaLon.accelMax = valueDynamicsAlphaLonAccelMax;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMax(-10);
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLonBrakeMax;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-10);
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLonBrakeMin;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-10);
+  valueDynamicsAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
+    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLonBrakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMax;
+  valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLon.brakeMin;
+  valueDynamics.alphaLon = valueDynamicsAlphaLon;
+  ::ad_rss::world::LateralRssAccelerationValues valueDynamicsAlphaLat;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLatAccelMax(-10);
+  valueDynamicsAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  valueDynamicsAlphaLat.accelMax = valueDynamicsAlphaLatAccelMax;
+  ::ad_rss::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-10);
+  valueDynamicsAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
+    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  valueDynamicsAlphaLat.brakeMin = valueDynamicsAlphaLatBrakeMin;
+  valueDynamics.alphaLat = valueDynamicsAlphaLat;
+  ::ad_rss::physics::Distance valueDynamicsLateralFluctuationMargin(0.);
+  valueDynamics.lateralFluctuationMargin = valueDynamicsLateralFluctuationMargin;
+  value.dynamics = valueDynamics;
+  ::ad_rss::physics::Duration valueResponseTime(0.);
+  valueResponseTime = ::ad_rss::physics::Duration(
+    0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
+  value.responseTime = valueResponseTime;
+  bool valueHasPriority{true};
+  value.hasPriority = valueHasPriority;
+  bool valueIsInCorrectLane{true};
+  value.isInCorrectLane = valueIsInCorrectLane;
+  ::ad_rss::physics::Distance valueDistanceToEnterIntersection(0.);
+  value.distanceToEnterIntersection = valueDistanceToEnterIntersection;
+  ::ad_rss::physics::Distance valueDistanceToLeaveIntersection(0.);
+  value.distanceToLeaveIntersection = valueDistanceToLeaveIntersection;
+  value.distanceToLeaveIntersection = value.distanceToEnterIntersection;
+  value.distanceToEnterIntersection = value.distanceToLeaveIntersection;
+
+  // override member with invalid value
+  ::ad_rss::physics::Distance invalidInitializedMember(1e6 * 1.1);
+  invalidInitializedMember = ::ad_rss::physics::Distance(1e4 * 1.1); // set to valid value within struct
+  value.distanceToLeaveIntersection = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(VehicleStateValidInputRangeTests, testValidInputRangedistanceToLeaveIntersectionDefault)
+{
+  ::ad_rss::situation::VehicleState value;
+  ::ad_rss::physics::Distance valueDefault;
+  value.distanceToLeaveIntersection = valueDefault;
   ASSERT_FALSE(withinValidInputRange(value));
 }

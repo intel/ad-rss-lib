@@ -44,7 +44,7 @@
 TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRange)
 {
   ::ad_rss::world::AccelerationRestriction value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex{};
+  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
   value.timeIndex = valueTimeIndex;
   ::ad_rss::physics::AccelerationRange valueLateralLeftRange;
   ::ad_rss::physics::Acceleration valueLateralLeftRangeMinimum(-10);
@@ -73,10 +73,10 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRange)
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
-TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeftRangeInvalid)
+TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeftRangeTooSmall)
 {
   ::ad_rss::world::AccelerationRestriction value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex{};
+  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
   value.timeIndex = valueTimeIndex;
   ::ad_rss::physics::AccelerationRange valueLateralLeftRange;
   ::ad_rss::physics::Acceleration valueLateralLeftRangeMinimum(-10);
@@ -111,10 +111,48 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeft
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudinalRangeInvalid)
+TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeftRangeTooBig)
 {
   ::ad_rss::world::AccelerationRestriction value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex{};
+  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
+  value.timeIndex = valueTimeIndex;
+  ::ad_rss::physics::AccelerationRange valueLateralLeftRange;
+  ::ad_rss::physics::Acceleration valueLateralLeftRangeMinimum(-10);
+  valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
+  ::ad_rss::physics::Acceleration valueLateralLeftRangeMaximum(-10);
+  valueLateralLeftRange.maximum = valueLateralLeftRangeMaximum;
+  valueLateralLeftRange.maximum = valueLateralLeftRange.minimum;
+  valueLateralLeftRange.minimum = valueLateralLeftRange.maximum;
+  value.lateralLeftRange = valueLateralLeftRange;
+  ::ad_rss::physics::AccelerationRange valueLongitudinalRange;
+  ::ad_rss::physics::Acceleration valueLongitudinalRangeMinimum(-10);
+  valueLongitudinalRange.minimum = valueLongitudinalRangeMinimum;
+  ::ad_rss::physics::Acceleration valueLongitudinalRangeMaximum(-10);
+  valueLongitudinalRange.maximum = valueLongitudinalRangeMaximum;
+  valueLongitudinalRange.maximum = valueLongitudinalRange.minimum;
+  valueLongitudinalRange.minimum = valueLongitudinalRange.maximum;
+  value.longitudinalRange = valueLongitudinalRange;
+  ::ad_rss::physics::AccelerationRange valueLateralRightRange;
+  ::ad_rss::physics::Acceleration valueLateralRightRangeMinimum(-10);
+  valueLateralRightRange.minimum = valueLateralRightRangeMinimum;
+  ::ad_rss::physics::Acceleration valueLateralRightRangeMaximum(-10);
+  valueLateralRightRange.maximum = valueLateralRightRangeMaximum;
+  valueLateralRightRange.maximum = valueLateralRightRange.minimum;
+  valueLateralRightRange.minimum = valueLateralRightRange.maximum;
+  value.lateralRightRange = valueLateralRightRange;
+
+  // override member with invalid value
+  ::ad_rss::physics::AccelerationRange invalidInitializedMember;
+  ::ad_rss::physics::Acceleration invalidInitializedMemberMinimum(10 * 1.1);
+  invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
+  value.lateralLeftRange = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudinalRangeTooSmall)
+{
+  ::ad_rss::world::AccelerationRestriction value;
+  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
   value.timeIndex = valueTimeIndex;
   ::ad_rss::physics::AccelerationRange valueLateralLeftRange;
   ::ad_rss::physics::Acceleration valueLateralLeftRangeMinimum(-10);
@@ -149,10 +187,48 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudina
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRightRangeInvalid)
+TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudinalRangeTooBig)
 {
   ::ad_rss::world::AccelerationRestriction value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex{};
+  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
+  value.timeIndex = valueTimeIndex;
+  ::ad_rss::physics::AccelerationRange valueLateralLeftRange;
+  ::ad_rss::physics::Acceleration valueLateralLeftRangeMinimum(-10);
+  valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
+  ::ad_rss::physics::Acceleration valueLateralLeftRangeMaximum(-10);
+  valueLateralLeftRange.maximum = valueLateralLeftRangeMaximum;
+  valueLateralLeftRange.maximum = valueLateralLeftRange.minimum;
+  valueLateralLeftRange.minimum = valueLateralLeftRange.maximum;
+  value.lateralLeftRange = valueLateralLeftRange;
+  ::ad_rss::physics::AccelerationRange valueLongitudinalRange;
+  ::ad_rss::physics::Acceleration valueLongitudinalRangeMinimum(-10);
+  valueLongitudinalRange.minimum = valueLongitudinalRangeMinimum;
+  ::ad_rss::physics::Acceleration valueLongitudinalRangeMaximum(-10);
+  valueLongitudinalRange.maximum = valueLongitudinalRangeMaximum;
+  valueLongitudinalRange.maximum = valueLongitudinalRange.minimum;
+  valueLongitudinalRange.minimum = valueLongitudinalRange.maximum;
+  value.longitudinalRange = valueLongitudinalRange;
+  ::ad_rss::physics::AccelerationRange valueLateralRightRange;
+  ::ad_rss::physics::Acceleration valueLateralRightRangeMinimum(-10);
+  valueLateralRightRange.minimum = valueLateralRightRangeMinimum;
+  ::ad_rss::physics::Acceleration valueLateralRightRangeMaximum(-10);
+  valueLateralRightRange.maximum = valueLateralRightRangeMaximum;
+  valueLateralRightRange.maximum = valueLateralRightRange.minimum;
+  valueLateralRightRange.minimum = valueLateralRightRange.maximum;
+  value.lateralRightRange = valueLateralRightRange;
+
+  // override member with invalid value
+  ::ad_rss::physics::AccelerationRange invalidInitializedMember;
+  ::ad_rss::physics::Acceleration invalidInitializedMemberMinimum(10 * 1.1);
+  invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
+  value.longitudinalRange = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRightRangeTooSmall)
+{
+  ::ad_rss::world::AccelerationRestriction value;
+  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
   value.timeIndex = valueTimeIndex;
   ::ad_rss::physics::AccelerationRange valueLateralLeftRange;
   ::ad_rss::physics::Acceleration valueLateralLeftRangeMinimum(-10);
@@ -182,6 +258,44 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRigh
   // override member with invalid value
   ::ad_rss::physics::AccelerationRange invalidInitializedMember;
   ::ad_rss::physics::Acceleration invalidInitializedMemberMinimum(-10 * 1.1);
+  invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
+  value.lateralRightRange = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRightRangeTooBig)
+{
+  ::ad_rss::world::AccelerationRestriction value;
+  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
+  value.timeIndex = valueTimeIndex;
+  ::ad_rss::physics::AccelerationRange valueLateralLeftRange;
+  ::ad_rss::physics::Acceleration valueLateralLeftRangeMinimum(-10);
+  valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
+  ::ad_rss::physics::Acceleration valueLateralLeftRangeMaximum(-10);
+  valueLateralLeftRange.maximum = valueLateralLeftRangeMaximum;
+  valueLateralLeftRange.maximum = valueLateralLeftRange.minimum;
+  valueLateralLeftRange.minimum = valueLateralLeftRange.maximum;
+  value.lateralLeftRange = valueLateralLeftRange;
+  ::ad_rss::physics::AccelerationRange valueLongitudinalRange;
+  ::ad_rss::physics::Acceleration valueLongitudinalRangeMinimum(-10);
+  valueLongitudinalRange.minimum = valueLongitudinalRangeMinimum;
+  ::ad_rss::physics::Acceleration valueLongitudinalRangeMaximum(-10);
+  valueLongitudinalRange.maximum = valueLongitudinalRangeMaximum;
+  valueLongitudinalRange.maximum = valueLongitudinalRange.minimum;
+  valueLongitudinalRange.minimum = valueLongitudinalRange.maximum;
+  value.longitudinalRange = valueLongitudinalRange;
+  ::ad_rss::physics::AccelerationRange valueLateralRightRange;
+  ::ad_rss::physics::Acceleration valueLateralRightRangeMinimum(-10);
+  valueLateralRightRange.minimum = valueLateralRightRangeMinimum;
+  ::ad_rss::physics::Acceleration valueLateralRightRangeMaximum(-10);
+  valueLateralRightRange.maximum = valueLateralRightRangeMaximum;
+  valueLateralRightRange.maximum = valueLateralRightRange.minimum;
+  valueLateralRightRange.minimum = valueLateralRightRange.maximum;
+  value.lateralRightRange = valueLateralRightRange;
+
+  // override member with invalid value
+  ::ad_rss::physics::AccelerationRange invalidInitializedMember;
+  ::ad_rss::physics::Acceleration invalidInitializedMemberMinimum(10 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
   value.lateralRightRange = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));

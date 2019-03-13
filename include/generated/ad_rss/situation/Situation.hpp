@@ -70,6 +70,70 @@ namespace situation {
 struct Situation
 {
   /*!
+   * \brief standard constructor
+   */
+  Situation() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~Situation() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  Situation(const Situation &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  Situation(Situation &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other Situation
+   *
+   * \returns Reference to this Situation.
+   */
+  Situation &operator=(const Situation &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other Situation
+   *
+   * \returns Reference to this Situation.
+   */
+  Situation &operator=(Situation &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other Situation
+   *
+   * \returns \c true if both Situation are equal
+   */
+  bool operator==(const Situation &other) const
+  {
+    return (timeIndex == other.timeIndex) && (situationId == other.situationId)
+      && (situationType == other.situationType) && (egoVehicleState == other.egoVehicleState)
+      && (otherVehicleState == other.otherVehicleState) && (relativePosition == other.relativePosition);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other Situation.
+   *
+   * \returns \c true if both Situation are different
+   */
+  bool operator!=(const Situation &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
    * The time index is required to distinguish different points in time when tracking states or transforming responses
    * back.
    */

@@ -67,6 +67,70 @@ namespace world {
 struct Object
 {
   /*!
+   * \brief standard constructor
+   */
+  Object() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~Object() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  Object(const Object &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  Object(Object &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other Object
+   *
+   * \returns Reference to this Object.
+   */
+  Object &operator=(const Object &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other Object
+   *
+   * \returns Reference to this Object.
+   */
+  Object &operator=(Object &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other Object
+   *
+   * \returns \c true if both Object are equal
+   */
+  bool operator==(const Object &other) const
+  {
+    return (objectId == other.objectId) && (objectType == other.objectType)
+      && (occupiedRegions == other.occupiedRegions) && (dynamics == other.dynamics) && (velocity == other.velocity)
+      && (responseTime == other.responseTime);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other Object.
+   *
+   * \returns \c true if both Object are different
+   */
+  bool operator!=(const Object &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
    * Defines the unique id of an object. This id has to be constant over time for the same object.
    */
   ::ad_rss::world::ObjectId objectId;

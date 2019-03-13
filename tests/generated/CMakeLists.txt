@@ -33,7 +33,9 @@
 
 set(GENERATED_TEST_SOURCES
   generated/physics/MetricRangeValidInputRangeTests.cpp
+  generated/physics/MetricRangeTests.cpp
   generated/physics/ParametricValueValidInputRangeTests.cpp
+  generated/physics/AccelerationRangeTests.cpp
   generated/physics/AccelerationRangeValidInputRangeTests.cpp
   generated/physics/DistanceSquaredTests.cpp
   generated/physics/DistanceSquaredValidInputRangeTests.cpp
@@ -46,6 +48,7 @@ set(GENERATED_TEST_SOURCES
   generated/physics/AccelerationTests.cpp
   generated/physics/AccelerationValidInputRangeTests.cpp
   generated/physics/ParametricRangeValidInputRangeTests.cpp
+  generated/physics/ParametricRangeTests.cpp
   generated/physics/DurationSquaredTests.cpp
   generated/physics/DurationSquaredValidInputRangeTests.cpp
   generated/physics/SpeedValidInputRangeTests.cpp
@@ -55,39 +58,55 @@ set(GENERATED_TEST_SOURCES
   generated/situation/SituationTypeValidInputRangeTests.cpp
   generated/situation/SituationTypeTests.cpp
   generated/situation/VehicleStateValidInputRangeTests.cpp
+  generated/situation/VehicleStateTests.cpp
   generated/situation/RelativePositionValidInputRangeTests.cpp
+  generated/situation/RelativePositionTests.cpp
   generated/situation/LateralRelativePositionValidInputRangeTests.cpp
   generated/situation/LateralRelativePositionTests.cpp
   generated/situation/SituationVectorValidInputRangeTests.cpp
+  generated/situation/SituationTests.cpp
   generated/situation/SituationValidInputRangeTests.cpp
   generated/situation/LongitudinalRelativePositionTests.cpp
   generated/situation/LongitudinalRelativePositionValidInputRangeTests.cpp
+  generated/state/ResponseStateTests.cpp
   generated/state/ResponseStateValidInputRangeTests.cpp
   generated/state/ResponseStateVectorValidInputRangeTests.cpp
   generated/state/LateralRssStateValidInputRangeTests.cpp
+  generated/state/LateralRssStateTests.cpp
   generated/state/LateralResponseTests.cpp
   generated/state/LateralResponseValidInputRangeTests.cpp
   generated/state/LongitudinalResponseTests.cpp
   generated/state/LongitudinalResponseValidInputRangeTests.cpp
+  generated/state/LongitudinalRssStateTests.cpp
   generated/state/LongitudinalRssStateValidInputRangeTests.cpp
+  generated/world/WorldModelTests.cpp
   generated/world/WorldModelValidInputRangeTests.cpp
+  generated/world/LaneSegmentTests.cpp
   generated/world/LaneSegmentValidInputRangeTests.cpp
   generated/world/ObjectTypeValidInputRangeTests.cpp
   generated/world/ObjectTypeTests.cpp
   generated/world/DynamicsValidInputRangeTests.cpp
+  generated/world/DynamicsTests.cpp
   generated/world/AccelerationRestrictionValidInputRangeTests.cpp
+  generated/world/AccelerationRestrictionTests.cpp
   generated/world/SceneVectorValidInputRangeTests.cpp
   generated/world/LaneSegmentTypeValidInputRangeTests.cpp
   generated/world/LaneSegmentTypeTests.cpp
   generated/world/RoadAreaValidInputRangeTests.cpp
   generated/world/LongitudinalRssAccelerationValuesValidInputRangeTests.cpp
+  generated/world/LongitudinalRssAccelerationValuesTests.cpp
   generated/world/ObjectValidInputRangeTests.cpp
+  generated/world/ObjectTests.cpp
   generated/world/LateralRssAccelerationValuesValidInputRangeTests.cpp
+  generated/world/LateralRssAccelerationValuesTests.cpp
   generated/world/LaneDrivingDirectionTests.cpp
   generated/world/LaneDrivingDirectionValidInputRangeTests.cpp
+  generated/world/VelocityTests.cpp
   generated/world/VelocityValidInputRangeTests.cpp
+  generated/world/OccupiedRegionTests.cpp
   generated/world/OccupiedRegionValidInputRangeTests.cpp
   generated/world/RoadSegmentValidInputRangeTests.cpp
+  generated/world/SceneTests.cpp
   generated/world/SceneValidInputRangeTests.cpp
   generated/world/OccupiedRegionVectorValidInputRangeTests.cpp
 )
