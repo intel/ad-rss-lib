@@ -1,6 +1,6 @@
 ## Latest changes
 * Extended documentation
-* Increase testcoverag
+* Increase test coverage
 * Fixed calculateLateralDimensions()
 * Extended extractSituation() by timeIndex parameter
 
