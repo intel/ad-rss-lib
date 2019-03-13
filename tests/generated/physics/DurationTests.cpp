@@ -168,6 +168,13 @@ TEST(DurationTests, copyConstructionFromValidValue)
   EXPECT_EQ(static_cast<double>(validValue), static_cast<double>(value));
 }
 
+TEST(DurationTests, moveConstructionFromValidValue)
+{
+  ::ad_rss::physics::Duration value(std::move(::ad_rss::physics::Duration(::ad_rss::physics::Duration::cMinValue)));
+  EXPECT_TRUE(value.isValid());
+  EXPECT_EQ(::ad_rss::physics::Duration::cMinValue, static_cast<double>(value));
+}
+
 TEST(DurationTests, assignmentFromValidValue)
 {
   ::ad_rss::physics::Duration const validValue(::ad_rss::physics::Duration::cMinValue);
@@ -175,6 +182,14 @@ TEST(DurationTests, assignmentFromValidValue)
   value = validValue;
   EXPECT_TRUE(value.isValid());
   EXPECT_EQ(static_cast<double>(validValue), static_cast<double>(value));
+}
+
+TEST(DurationTests, moveAssignmentFromValidValue)
+{
+  ::ad_rss::physics::Duration value;
+  value = std::move(::ad_rss::physics::Duration(::ad_rss::physics::Duration::cMinValue));
+  EXPECT_TRUE(value.isValid());
+  EXPECT_EQ(::ad_rss::physics::Duration::cMinValue, static_cast<double>(value));
 }
 
 TEST(DurationTests, constructionFromInvalidDouble)
@@ -268,6 +283,10 @@ TEST(DurationTests, arithmeticOperatorsThrowOnInvalid)
   EXPECT_THROW(invalidValue * static_cast<double>(maximalValue), std::out_of_range);
   EXPECT_THROW(maximalValue * static_cast<double>(maximalValue), std::out_of_range);
 
+  //  operator*(::ad_rss::physics::Duration)
+  EXPECT_THROW(invalidValue * maximalValue, std::out_of_range);
+  EXPECT_THROW(maximalValue * invalidValue, std::out_of_range);
+
   //  operator/(double)
   EXPECT_THROW(invalidValue / static_cast<double>(maximalValue), std::out_of_range);
   EXPECT_THROW(maximalValue / static_cast<double>(invalidValue), std::out_of_range);
@@ -341,6 +360,8 @@ TEST(DurationTests, comparisonOperatorsRespectPrecision)
   EXPECT_TRUE(actuallyBiggerValue > value);
 
   // operator >=
+  EXPECT_FALSE(actuallySmallerValue >= value);
+  EXPECT_TRUE(slightlySmallerValue >= value);
   EXPECT_TRUE(value >= value);
   EXPECT_TRUE(slightlyBiggerValue >= value);
   EXPECT_TRUE(actuallyBiggerValue >= value);
@@ -351,6 +372,8 @@ TEST(DurationTests, comparisonOperatorsRespectPrecision)
   EXPECT_TRUE(actuallySmallerValue < value);
 
   // operator <=
+  EXPECT_FALSE(actuallyBiggerValue <= value);
+  EXPECT_TRUE(slightlyBiggerValue <= value);
   EXPECT_TRUE(value <= value);
   EXPECT_TRUE(slightlySmallerValue <= value);
   EXPECT_TRUE(actuallySmallerValue <= value);

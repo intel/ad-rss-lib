@@ -59,6 +59,68 @@ namespace world {
 struct LateralRssAccelerationValues
 {
   /*!
+   * \brief standard constructor
+   */
+  LateralRssAccelerationValues() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~LateralRssAccelerationValues() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  LateralRssAccelerationValues(const LateralRssAccelerationValues &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  LateralRssAccelerationValues(LateralRssAccelerationValues &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other LateralRssAccelerationValues
+   *
+   * \returns Reference to this LateralRssAccelerationValues.
+   */
+  LateralRssAccelerationValues &operator=(const LateralRssAccelerationValues &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other LateralRssAccelerationValues
+   *
+   * \returns Reference to this LateralRssAccelerationValues.
+   */
+  LateralRssAccelerationValues &operator=(LateralRssAccelerationValues &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other LateralRssAccelerationValues
+   *
+   * \returns \c true if both LateralRssAccelerationValues are equal
+   */
+  bool operator==(const LateralRssAccelerationValues &other) const
+  {
+    return (accelMax == other.accelMax) && (brakeMin == other.brakeMin);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other LateralRssAccelerationValues.
+   *
+   * \returns \c true if both LateralRssAccelerationValues are different
+   */
+  bool operator!=(const LateralRssAccelerationValues &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
    * Absolute amount of the maximum allowed acceleration. This value has always to be positive, zero is allowed.
    */
   ::ad_rss::physics::Acceleration accelMax{0.0};

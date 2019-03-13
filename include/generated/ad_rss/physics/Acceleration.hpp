@@ -98,10 +98,12 @@ public:
   /*!
    * \brief standard copy constructor
    */
-  Acceleration(const Acceleration &other)
-    : mAcceleration(other.mAcceleration)
-  {
-  }
+  Acceleration(const Acceleration &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  Acceleration(Acceleration &&other) = default;
 
   /**
    * \brief standard assignment operator
@@ -110,14 +112,16 @@ public:
    *
    * \returns Reference to this Acceleration.
    */
-  Acceleration &operator=(const Acceleration &other)
-  {
-    if (&other != this)
-    {
-      mAcceleration = other.mAcceleration;
-    }
-    return *this;
-  }
+  Acceleration &operator=(const Acceleration &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other Acceleration
+   *
+   * \returns Reference to this Acceleration.
+   */
+  Acceleration &operator=(Acceleration &&other) = default;
 
   /**
    * \brief standard comparison operator
@@ -352,7 +356,7 @@ public:
   {
     ensureValid();
     Acceleration const result(-mAcceleration);
-    result.ensureValid();
+    result.ensureValid(); // LCOV_EXCL_BR_LINE Some types do not throw an exception
     return result;
   }
 
@@ -391,7 +395,7 @@ public:
   {
     if (!isValid())
     {
-      throw std::out_of_range("Acceleration value out of range");
+      throw std::out_of_range("Acceleration value out of range"); // LCOV_EXCL_BR_LINE
     }
   }
 
@@ -404,9 +408,9 @@ public:
   void ensureValidNonZero() const
   {
     ensureValid();
-    if (operator==(Acceleration(0.)))
+    if (operator==(Acceleration(0.))) // LCOV_EXCL_BR_LINE
     {
-      throw std::out_of_range("Acceleration value is zero");
+      throw std::out_of_range("Acceleration value is zero"); // LCOV_EXCL_BR_LINE
     }
   }
 
@@ -485,14 +489,23 @@ inline ::ad_rss::physics::Acceleration fabs(const ::ad_rss::physics::Acceleratio
 template <> class numeric_limits<::ad_rss::physics::Acceleration> : public numeric_limits<double>
 {
 public:
+  /*!
+   * \see std::numeric_limits::lowest()
+   */
   static inline ::ad_rss::physics::Acceleration lowest()
   {
     return ::ad_rss::physics::Acceleration::getMin();
   }
+  /*!
+   * \see std::numeric_limits::max()
+   */
   static inline ::ad_rss::physics::Acceleration max()
   {
     return ::ad_rss::physics::Acceleration::getMax();
   }
+  /*!
+   * \see std::numeric_limits::epsilon()
+   */
   static inline ::ad_rss::physics::Acceleration epsilon()
   {
     return ::ad_rss::physics::Acceleration::getPrecision();

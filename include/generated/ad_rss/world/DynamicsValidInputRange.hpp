@@ -51,7 +51,7 @@
  *
  * \param[in] input the Dynamics as an input value
  *
- * \returns \true if Dynamics is considered to be within the specified input range
+ * \returns \c true if Dynamics is considered to be within the specified input range
  *
  * \note the specified input range is defined by the ranges of all members, plus:
  *       ::ad_rss::physics::Distance(0.) <= lateralFluctuationMargin <= ::ad_rss::physics::Distance(1.)
@@ -60,6 +60,7 @@ inline bool withinValidInputRange(::ad_rss::world::Dynamics const &input)
 {
   try
   {
+    // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
     // check for generic member input ranges
     bool const membersInValidInputRange = withinValidInputRange(input.alphaLon) && withinValidInputRange(input.alphaLat)
       && withinValidInputRange(input.lateralFluctuationMargin);
@@ -70,9 +71,12 @@ inline bool withinValidInputRange(::ad_rss::world::Dynamics const &input)
       && (input.lateralFluctuationMargin <= ::ad_rss::physics::Distance(1.));
 
     return membersInValidInputRange && lateralFluctuationMarginInInputRange;
+    // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
   }
+  // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
   catch (std::out_of_range &)
   {
   }
   return false;
+  // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes
 }

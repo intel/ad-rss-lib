@@ -63,6 +63,68 @@ namespace world {
 struct WorldModel
 {
   /*!
+   * \brief standard constructor
+   */
+  WorldModel() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~WorldModel() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  WorldModel(const WorldModel &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  WorldModel(WorldModel &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other WorldModel
+   *
+   * \returns Reference to this WorldModel.
+   */
+  WorldModel &operator=(const WorldModel &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other WorldModel
+   *
+   * \returns Reference to this WorldModel.
+   */
+  WorldModel &operator=(WorldModel &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other WorldModel
+   *
+   * \returns \c true if both WorldModel are equal
+   */
+  bool operator==(const WorldModel &other) const
+  {
+    return (timeIndex == other.timeIndex) && (egoVehicle == other.egoVehicle) && (scenes == other.scenes);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other WorldModel.
+   *
+   * \returns \c true if both WorldModel are different
+   */
+  bool operator!=(const WorldModel &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
    * The time index is required to distinguish different points in time when tracking states or transforming responses
    * back. Each world model referring to another point in time should get another time index. The time index of the
    * world model must not be zero.

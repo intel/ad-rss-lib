@@ -61,6 +61,69 @@ namespace situation {
 struct RelativePosition
 {
   /*!
+   * \brief standard constructor
+   */
+  RelativePosition() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~RelativePosition() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  RelativePosition(const RelativePosition &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  RelativePosition(RelativePosition &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other RelativePosition
+   *
+   * \returns Reference to this RelativePosition.
+   */
+  RelativePosition &operator=(const RelativePosition &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other RelativePosition
+   *
+   * \returns Reference to this RelativePosition.
+   */
+  RelativePosition &operator=(RelativePosition &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other RelativePosition
+   *
+   * \returns \c true if both RelativePosition are equal
+   */
+  bool operator==(const RelativePosition &other) const
+  {
+    return (longitudinalPosition == other.longitudinalPosition) && (longitudinalDistance == other.longitudinalDistance)
+      && (lateralPosition == other.lateralPosition) && (lateralDistance == other.lateralDistance);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other RelativePosition.
+   *
+   * \returns \c true if both RelativePosition are different
+   */
+  bool operator!=(const RelativePosition &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
    * The longitudinal relative position between to objects within their situation coordinate system.
    */
   ::ad_rss::situation::LongitudinalRelativePosition longitudinalPosition{

@@ -51,7 +51,7 @@ TEST(RoadSegmentValidInputRangeTests, testValidInputRangeValidInputRangeMax)
 {
   ::ad_rss::world::RoadSegment value;
   ::ad_rss::world::LaneSegment element;
-  ::ad_rss::world::LaneSegmentId elementId{};
+  ::ad_rss::world::LaneSegmentId elementId(std::numeric_limits<::ad_rss::world::LaneSegmentId>::lowest());
   element.id = elementId;
   ::ad_rss::world::LaneSegmentType elementType(::ad_rss::world::LaneSegmentType::Normal);
   element.type = elementType;
@@ -81,7 +81,7 @@ TEST(RoadSegmentValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax
 {
   ::ad_rss::world::RoadSegment value;
   ::ad_rss::world::LaneSegment element;
-  ::ad_rss::world::LaneSegmentId elementId{};
+  ::ad_rss::world::LaneSegmentId elementId(std::numeric_limits<::ad_rss::world::LaneSegmentId>::lowest());
   element.id = elementId;
   ::ad_rss::world::LaneSegmentType elementType(::ad_rss::world::LaneSegmentType::Normal);
   element.type = elementType;

@@ -63,6 +63,69 @@ namespace world {
 struct Dynamics
 {
   /*!
+   * \brief standard constructor
+   */
+  Dynamics() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~Dynamics() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  Dynamics(const Dynamics &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  Dynamics(Dynamics &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other Dynamics
+   *
+   * \returns Reference to this Dynamics.
+   */
+  Dynamics &operator=(const Dynamics &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other Dynamics
+   *
+   * \returns Reference to this Dynamics.
+   */
+  Dynamics &operator=(Dynamics &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other Dynamics
+   *
+   * \returns \c true if both Dynamics are equal
+   */
+  bool operator==(const Dynamics &other) const
+  {
+    return (alphaLon == other.alphaLon) && (alphaLat == other.alphaLat)
+      && (lateralFluctuationMargin == other.lateralFluctuationMargin);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other Dynamics.
+   *
+   * \returns \c true if both Dynamics are different
+   */
+  bool operator!=(const Dynamics &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
    * RSS dynamics values along longitudinal coordinate system axis.
    */
   ::ad_rss::world::LongitudinalRssAccelerationValues alphaLon;

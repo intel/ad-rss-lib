@@ -63,6 +63,69 @@ namespace world {
 struct Scene
 {
   /*!
+   * \brief standard constructor
+   */
+  Scene() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~Scene() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  Scene(const Scene &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  Scene(Scene &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other Scene
+   *
+   * \returns Reference to this Scene.
+   */
+  Scene &operator=(const Scene &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other Scene
+   *
+   * \returns Reference to this Scene.
+   */
+  Scene &operator=(Scene &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other Scene
+   *
+   * \returns \c true if both Scene are equal
+   */
+  bool operator==(const Scene &other) const
+  {
+    return (situationType == other.situationType) && (egoVehicleRoad == other.egoVehicleRoad)
+      && (intersectingRoad == other.intersectingRoad) && (object == other.object);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other Scene.
+   *
+   * \returns \c true if both Scene are different
+   */
+  bool operator!=(const Scene &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
    * The type of the current situation. Depending on this type the other fields of the RssArea might be left empty.
    */
   ::ad_rss::situation::SituationType situationType{::ad_rss::situation::SituationType::SameDirection};

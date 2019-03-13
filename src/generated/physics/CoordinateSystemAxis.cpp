@@ -45,27 +45,31 @@ std::string toString(::ad_rss::physics::CoordinateSystemAxis const e)
   switch (e)
   {
     case ::ad_rss::physics::CoordinateSystemAxis::Longitudinal:
-      return std::string("::ad_rss::physics::CoordinateSystemAxis::Longitudinal");
+      return std::string("::ad_rss::physics::CoordinateSystemAxis::Longitudinal"); // LCOV_EXCL_BR_LINE
     case ::ad_rss::physics::CoordinateSystemAxis::Lateral:
-      return std::string("::ad_rss::physics::CoordinateSystemAxis::Lateral");
+      return std::string("::ad_rss::physics::CoordinateSystemAxis::Lateral"); // LCOV_EXCL_BR_LINE
     default:
-      return std::string("UNKNOWN ENUM VALUE");
+      return std::string("UNKNOWN ENUM VALUE"); // LCOV_EXCL_BR_LINE
   }
 }
 
 template <>::ad_rss::physics::CoordinateSystemAxis fromString(std::string const &str)
 {
-  if ((str == std::string("::ad_rss::physics::CoordinateSystemAxis::Longitudinal"))
-      || (str == std::string("Longitudinal")))
+  if (str == std::string("::ad_rss::physics::CoordinateSystemAxis::Longitudinal")) // LCOV_EXCL_BR_LINE
   {
     return ::ad_rss::physics::CoordinateSystemAxis::Longitudinal;
   }
-  else if ((str == std::string("::ad_rss::physics::CoordinateSystemAxis::Lateral")) || (str == std::string("Lateral")))
+  if (str == std::string("Longitudinal")) // LCOV_EXCL_BR_LINE
+  {
+    return ::ad_rss::physics::CoordinateSystemAxis::Longitudinal;
+  }
+  if (str == std::string("::ad_rss::physics::CoordinateSystemAxis::Lateral")) // LCOV_EXCL_BR_LINE
   {
     return ::ad_rss::physics::CoordinateSystemAxis::Lateral;
   }
-  else
+  if (str == std::string("Lateral")) // LCOV_EXCL_BR_LINE
   {
-    throw std::out_of_range("Invalid enum literal");
+    return ::ad_rss::physics::CoordinateSystemAxis::Lateral;
   }
+  throw std::out_of_range("Invalid enum literal"); // LCOV_EXCL_BR_LINE
 }

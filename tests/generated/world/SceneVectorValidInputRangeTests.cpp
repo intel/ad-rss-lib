@@ -58,7 +58,7 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   ::ad_rss::world::RoadArea elementIntersectingRoad;
   element.intersectingRoad = elementIntersectingRoad;
   ::ad_rss::world::Object elementObject;
-  ::ad_rss::world::ObjectId elementObjectObjectId{};
+  ::ad_rss::world::ObjectId elementObjectObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
   elementObject.objectId = elementObjectObjectId;
   ::ad_rss::world::ObjectType elementObjectObjectType(::ad_rss::world::ObjectType::EgoVehicle);
   elementObject.objectType = elementObjectObjectType;
@@ -122,7 +122,7 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax
   ::ad_rss::world::RoadArea elementIntersectingRoad;
   element.intersectingRoad = elementIntersectingRoad;
   ::ad_rss::world::Object elementObject;
-  ::ad_rss::world::ObjectId elementObjectObjectId{};
+  ::ad_rss::world::ObjectId elementObjectObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
   elementObject.objectId = elementObjectObjectId;
   ::ad_rss::world::ObjectType elementObjectObjectType(::ad_rss::world::ObjectType::EgoVehicle);
   elementObject.objectType = elementObjectObjectType;
