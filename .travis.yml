@@ -52,7 +52,7 @@ matrix:
       script:
         - mkdir build
         - cd build
-        - cmake -DBUILD_HARDENING=1 ..
+        - cmake ..
         - make
         - ctest -V
         - cd ..
@@ -81,7 +81,20 @@ matrix:
         - cd build
         - cmake .. -DBUILD_DOC=ON
         - make apidoc
-      after_failure:
+        - cd ..
+      before_deploy:
+        - cp _config.yml build/doc/apidoc
+        - cp README.md build/doc/apidoc
+      deploy:
+        provider: pages
+        skip-cleanup: true
+        verbose: true
+        local_dir: build/doc/apidoc
+        github-token: $GITHUB_TOKEN
+        keep-history: true
+        on:
+          branch: master
+      after_failures:
         - tail --lines=2000 build.log
 
     - env: TEST="Check Code Formatting"
