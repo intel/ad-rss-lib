@@ -48,17 +48,20 @@ set(RSS_TEST_SOURCES
   core/RssResponseTransformationTests.cpp
   core/RSSStateCombineRssStateTests.cpp
   core/RSSStateSafeTests.cpp
+  core/RssSituationExtractionInputRangeTests.cpp
   core/RssSituationExtractionOppositeDirectionTests.cpp
   core/RssSituationExtractionIntersectionTests.cpp
   core/RssSituationExtractionRelativePositionTests.cpp
   core/RssSituationExtractionSameDirectionTests.cpp
   physics/MathUnitTestsDistanceOffsetAfterResponseTime.cpp
+  physics/MathUnitTestsInputRangeChecks.cpp
   physics/MathUnitTestsStoppingDistance.cpp
   physics/MathUnitTestsTimeToCoverDistance.cpp
   physics/MathUnitTestsVelocityAfterResponseTime.cpp
   situation/RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
   situation/RSSFormulaTestsCalculateSafeLateralDistance.cpp
   situation/RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
+  situation/RSSFormulaTestsInputRangeChecks.cpp
   situation/RssSituationCheckingInputRangeTests.cpp
   situation/RssSituationCheckingTestsIntersectionInputRangeTests.cpp
   situation/RssSituationCheckingTestsIntersectionNoPriority.cpp
@@ -68,8 +71,13 @@ set(RSS_TEST_SOURCES
   situation/RssSituationCheckingTestsOppositeDirection.cpp
   situation/RssSituationCheckingTestsNotRelevant.cpp
   situation/VehicleTests.cpp
+  test_support/wrap_new.cpp
   ${GENERATED_TEST_SOURCES}
 )
+
+set_source_files_properties(situation/RssSituationCheckingInputRangeTests.cpp PROPERITES COMPILE_FLAGS -fno-access-control)
+set_source_files_properties(situation/RssSituationCheckingTestsIntersectionInputRangeTests.cpp PROPERITES COMPILE_FLAGS -fno-access-control)
+
 
 add_executable(${EXEC_NAME} ${RSS_TEST_SOURCES})
 

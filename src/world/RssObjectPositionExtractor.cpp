@@ -150,11 +150,11 @@ bool RssObjectPositionExtractor::getObjectDimensions(ObjectDimensions &objectDim
   // if position.max < position.min, something went wrong
   if (mObjectDimensions.longitudinalDimensions.maximum < mObjectDimensions.longitudinalDimensions.minimum)
   {
-    return false;
+    return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
   }
   if (mObjectDimensions.lateralDimensions.maximum < mObjectDimensions.lateralDimensions.minimum)
   {
-    return false;
+    return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
   }
 
   objectDimensions = mObjectDimensions;
