@@ -2,7 +2,7 @@
 =====
 
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/intel/ad-rss-lib.svg)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/intel/ad-rss-lib.svg)
 [![Build Status](https://travis-ci.com/intel/ad-rss-lib.svg?branch=master)](https://travis-ci.com/intel/ad-rss-lib)
 
 ## Introduction
