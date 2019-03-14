@@ -196,7 +196,7 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
           }
           else
           {
-            result = false;
+            result = false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
           }
 
           longitudinalDistanceMax = std::max(longitudinalDistanceMax, (*roadSegment)[i].length.maximum);

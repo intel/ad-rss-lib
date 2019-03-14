@@ -52,8 +52,10 @@ protected:
     situation.situationType = situation::SituationType::SameDirection;
   }
 
-  virtual void TearDown()
+  virtual void performTestRun()
   {
+    EXPECT_FALSE(situationChecking.checkSituation(situation, responseState));
+    EXPECT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, responseState));
   }
   RssSituationChecking situationChecking;
   situation::VehicleState leadingVehicle;
@@ -71,7 +73,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_acceleration_eg
   for (int i = 1; i < 1000; i++)
   {
     situation.egoVehicleState.dynamics.alphaLon.accelMax = -1. * Acceleration(i / 100.);
-    ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+    performTestRun();
   }
 }
 
@@ -80,7 +82,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_acceleration_ot
   for (int i = 1; i < 1000; i++)
   {
     situation.otherVehicleState.dynamics.alphaLon.accelMax = -1. * Acceleration(i / 100.);
-    ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+    performTestRun();
   }
 }
 
@@ -92,7 +94,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_br
 {
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = Acceleration(0.);
 
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  performTestRun();
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_brake_min_negative_ego)
@@ -100,7 +102,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_br
   for (int i = 1; i < 1000; i++)
   {
     situation.egoVehicleState.dynamics.alphaLon.brakeMin = -1. * Acceleration(i / 100.);
-    ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+    performTestRun();
   }
 }
 
@@ -108,7 +110,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_br
 {
   situation.otherVehicleState.dynamics.alphaLon.brakeMin = Acceleration(0.);
 
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  performTestRun();
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_brake_min_negative_other)
@@ -116,7 +118,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_br
   for (int i = 1; i < 1000; i++)
   {
     situation.otherVehicleState.dynamics.alphaLon.brakeMin = -1. * Acceleration(i / 100.);
-    ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+    performTestRun();
   }
 }
 
@@ -127,8 +129,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_br
 TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_brake_max_zero_ego)
 {
   situation.egoVehicleState.dynamics.alphaLon.brakeMax = Acceleration(0.);
-
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  performTestRun();
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_brake_max_negative_ego)
@@ -136,15 +137,14 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_br
   for (int i = 1; i < 1000; i++)
   {
     situation.egoVehicleState.dynamics.alphaLon.brakeMax = -1. * Acceleration(i / 100.);
-    ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+    performTestRun();
   }
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_brake_max_zero_other)
 {
   situation.otherVehicleState.dynamics.alphaLon.brakeMax = Acceleration(0.);
-
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  performTestRun();
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_brake_max_negative_other)
@@ -152,7 +152,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_br
   for (int i = 1; i < 1000; i++)
   {
     situation.otherVehicleState.dynamics.alphaLon.brakeMax = -1. * Acceleration(i / 100.);
-    ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+    performTestRun();
   }
 }
 
@@ -163,8 +163,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_br
 TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_brake_min_correct_zero_ego)
 {
   situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = Acceleration(0.);
-
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  performTestRun();
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_brake_min_correct_negative_ego)
@@ -172,15 +171,14 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_br
   for (int i = 1; i < 1000; i++)
   {
     situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = -1. * Acceleration(i / 100.);
-    ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+    performTestRun();
   }
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_brake_min_correct_zero_other)
 {
   situation.otherVehicleState.dynamics.alphaLon.brakeMinCorrect = Acceleration(0.);
-
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  performTestRun();
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_brake_min_correct_negative_other)
@@ -188,7 +186,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_br
   for (int i = 1; i < 1000; i++)
   {
     situation.otherVehicleState.dynamics.alphaLon.brakeMinCorrect = -1. * Acceleration(i / 100.);
-    ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+    performTestRun();
   }
 }
 
@@ -202,7 +200,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_br
   situation.egoVehicleState.dynamics.alphaLon.brakeMax = Acceleration(2.);
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = Acceleration(3.);
 
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  performTestRun();
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_brake_max_smaller_brake_min_correct)
@@ -212,7 +210,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_br
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = Acceleration(1.);
   situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = Acceleration(2.);
 
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  performTestRun();
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_brake_min_smaller_brake_min_correct)
@@ -221,7 +219,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_invalid_deceleration_br
   situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = Acceleration(2.);
   situation.egoVehicleState.dynamics.alphaLon.brakeMax = Acceleration(4.);
 
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  performTestRun();
 }
 
 /**
@@ -232,7 +230,7 @@ TEST_F(RssSituationCheckingInputRangeTests, lateral_invalid_deceleration_brake_m
 {
   situation.egoVehicleState.dynamics.alphaLat.brakeMin = Acceleration(0.);
 
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  performTestRun();
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, lateral_invalid_deceleration_brake_min_negative_ego)
@@ -240,7 +238,7 @@ TEST_F(RssSituationCheckingInputRangeTests, lateral_invalid_deceleration_brake_m
   for (int i = 1; i < 1000; i++)
   {
     situation.egoVehicleState.dynamics.alphaLat.brakeMin = -1. * Acceleration(i / 100.);
-    ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+    performTestRun();
   }
 }
 
@@ -248,7 +246,7 @@ TEST_F(RssSituationCheckingInputRangeTests, lateral_invalid_deceleration_brake_m
 {
   situation.otherVehicleState.dynamics.alphaLat.brakeMin = Acceleration(0.);
 
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  performTestRun();
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, lateral_invalid_deceleration_brake_min_negative_other)
@@ -256,7 +254,7 @@ TEST_F(RssSituationCheckingInputRangeTests, lateral_invalid_deceleration_brake_m
   for (int i = 1; i < 1000; i++)
   {
     situation.otherVehicleState.dynamics.alphaLat.brakeMin = -1. * Acceleration(i / 100.);
-    ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+    performTestRun();
   }
 }
 
@@ -269,7 +267,7 @@ TEST_F(RssSituationCheckingInputRangeTests, lateral_invalid_acceleration_ego)
   for (int i = 1; i < 1000; i++)
   {
     situation.otherVehicleState.dynamics.alphaLat.accelMax = -1. * Acceleration(i / 100.);
-    ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+    performTestRun();
   }
 }
 
@@ -280,7 +278,7 @@ TEST_F(RssSituationCheckingInputRangeTests, lateral_invalid_acceleration_ego)
 TEST_F(RssSituationCheckingInputRangeTests, invalid_response_time_zero_ego)
 {
   situation.otherVehicleState.responseTime = Duration(0.);
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  performTestRun();
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, invalid_response_time_negative_ego)
@@ -288,7 +286,7 @@ TEST_F(RssSituationCheckingInputRangeTests, invalid_response_time_negative_ego)
   for (int i = 1; i < 1000; i++)
   {
     situation.otherVehicleState.responseTime = -1. * Duration(i / 100.);
-    ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+    performTestRun();
   }
 }
 
@@ -321,6 +319,26 @@ TEST_F(RssSituationCheckingInputRangeTests,
   situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = Acceleration(3.);
 
   ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+}
+
+TEST_F(RssSituationCheckingInputRangeTests, situationVectorTooBig)
+{
+  situation::SituationVector situationVector;
+  state::ResponseStateVector responseStateVector;
+  situationVector.resize(1001, situation);
+  ASSERT_FALSE(situationChecking.checkSituations(situationVector, responseStateVector));
+}
+
+TEST_F(RssSituationCheckingInputRangeTests, invalid_situation_type)
+{
+  situation.situationType = static_cast<situation::SituationType>(-1);
+  performTestRun();
+}
+
+TEST_F(RssSituationCheckingInputRangeTests, nan_values)
+{
+  situation.relativePosition.longitudinalDistance = Distance();
+  performTestRun();
 }
 
 } // namespace core

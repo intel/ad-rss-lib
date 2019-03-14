@@ -29,98 +29,23 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "TestSupport.hpp"
-#include "ad_rss/core/RssCheck.hpp"
-#include "wrap_new.hpp"
+#include "RssCheckTestBaseT.hpp"
 
 namespace ad_rss {
 namespace core {
 
-template <class T> class RssCheckTestsBase : public T
+class RssCheckTests : public RssCheckTestBaseT<testing::Test>
 {
-protected:
-  virtual void SetUp()
-  {
-    scene.situationType = ad_rss::situation::SituationType::SameDirection;
-    leadingObject = createObject(10., 0.);
-    leadingObject.objectId = 0;
-
-    {
-      ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = ParametricValue(0.3);
-      occupiedRegion.lonRange.maximum = ParametricValue(0.6);
-      occupiedRegion.segmentId = 1;
-      occupiedRegion.latRange.minimum = ParametricValue(0.2);
-      occupiedRegion.latRange.maximum = ParametricValue(0.4);
-      leadingObject.occupiedRegions.push_back(occupiedRegion);
-    }
-
-    followingObject = createObject(0., 0.);
-    followingObject.objectId = 1;
-    {
-      ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = ParametricValue(0.);
-      occupiedRegion.lonRange.maximum = ParametricValue(0.1);
-      occupiedRegion.segmentId = 1;
-      occupiedRegion.latRange.minimum = ParametricValue(0.6);
-      occupiedRegion.latRange.maximum = ParametricValue(0.8);
-      followingObject.occupiedRegions.push_back(occupiedRegion);
-    }
-
-    // Road with 3 lanes, each with 3 segments
-    //   | 6 | 7 | 8 |
-    //   |  3  |  4  |  5  |
-    //   |  0  |  1  |  2  |
-
-    {
-      ::ad_rss::world::RoadSegment roadSegment;
-      ::ad_rss::world::LaneSegment laneSegment;
-
-      laneSegment.id = 0;
-      laneSegment.length.minimum = Distance(50);
-      laneSegment.length.maximum = Distance(55);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      laneSegment.id = 1;
-      laneSegment.length.minimum = Distance(55);
-      laneSegment.length.maximum = Distance(60);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      laneSegment.id = 2;
-      laneSegment.length.minimum = Distance(60);
-      laneSegment.length.maximum = Distance(65);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-
-      roadArea.push_back(roadSegment);
-    }
-
-    worldModel.egoVehicle = objectAsEgo(followingObject);
-    scene.object = leadingObject;
-    scene.egoVehicleRoad = roadArea;
-    worldModel.scenes.push_back(scene);
-    worldModel.timeIndex = 1;
-  }
-
-  virtual void TearDown()
-  {
-    followingObject.occupiedRegions.clear();
-    leadingObject.occupiedRegions.clear();
-    scene.egoVehicleRoad.clear();
-    gNewThrowCounter = 0;
-  }
-
-  ::ad_rss::world::WorldModel worldModel;
-  ::ad_rss::world::Object followingObject;
-  ::ad_rss::world::Object leadingObject;
-  ::ad_rss::world::RoadArea roadArea;
-  ::ad_rss::world::Scene scene;
 };
 
-using RssCheckTests = RssCheckTestsBase<testing::Test>;
+TEST_F(RssCheckTests, validateTestSetup)
+{
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+  testRestrictions(accelerationRestriction);
+}
 
 TEST_F(RssCheckTests, EmptyRoad)
 {
@@ -140,13 +65,7 @@ TEST_F(RssCheckTests, EmptyScene)
   worldModel.scenes.clear();
 
   ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-  ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-  ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
-  ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-  ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-  ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-  ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-  ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+  testRestrictions(accelerationRestriction);
 }
 
 TEST_F(RssCheckTests, EmptyEgoOccupiedRegion)
@@ -189,30 +108,6 @@ TEST_F(RssCheckTests, NegativeEgoAcceleration)
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
-
-using RssCheckOutOfMemoryTests = RssCheckTestsBase<testing::TestWithParam<uint64_t>>;
-
-TEST_P(RssCheckOutOfMemoryTests, outOfMemoryAnyTime)
-{
-  gNewThrowCounter = GetParam();
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
-
-  bool const checkResult = rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction);
-  if ((GetParam() == 0) || (gNewThrowCounter > 0u))
-  {
-    // for 0 there is no out of memory
-    // as there are not more than a certain amount of allocations while running, from a certain border on
-    // the test returns also true
-    ASSERT_TRUE(checkResult);
-  }
-  else
-  {
-    ASSERT_FALSE(checkResult);
-  }
-}
-
-INSTANTIATE_TEST_CASE_P(InstantiationName, RssCheckOutOfMemoryTests, ::testing::Range(uint64_t(0u), uint64_t(50u)));
 
 } // namespace core
 } // namespace ad_rss

@@ -106,11 +106,12 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
       result = RssResponseTransformation::transformProperResponse(worldModel, properResponse, accelerationRestriction);
     }
   }
+  // LCOV_EXCL_START: unreachable code, keep to be on the safe side
   catch (...)
   {
     result = false;
   }
-
+  // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
   return result;
 }
 

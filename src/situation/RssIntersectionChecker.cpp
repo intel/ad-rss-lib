@@ -256,8 +256,10 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
             }
             default:
             {
+              // LCOV_EXCL_START: unreachable code, keep to be on the safe side
               result = false;
               break;
+              // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
             }
           }
 
