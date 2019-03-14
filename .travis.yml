@@ -52,7 +52,7 @@ matrix:
       script:
         - mkdir build
         - cd build
-        - cmake ..
+        - cmake .. -DBUILD_HARDENING=ON -DBUILD_COVERAGE=ON
         - make
         - ctest -V
         - cd ..
