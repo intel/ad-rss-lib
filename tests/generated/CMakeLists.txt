@@ -1,0 +1,93 @@
+# ----------------- BEGIN LICENSE BLOCK ---------------------------------
+#
+# INTEL CONFIDENTIAL
+#
+# Copyright (c) 2018-2019 Intel Corporation
+#
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice,
+#    this list of conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
+#    and/or other materials provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its contributors
+#    may be used to endorse or promote products derived from this software without
+#    specific prior written permission.
+#
+#    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+#    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+#    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+#    IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+#    INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+#    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+#    OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#    WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+#    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+#    POSSIBILITY OF SUCH DAMAGE.
+#
+# ----------------- END LICENSE BLOCK -----------------------------------
+
+set(GENERATED_TEST_SOURCES
+  generated/physics/MetricRangeValidInputRangeTests.cpp
+  generated/physics/ParametricValueValidInputRangeTests.cpp
+  generated/physics/AccelerationRangeValidInputRangeTests.cpp
+  generated/physics/DistanceSquaredTests.cpp
+  generated/physics/DistanceSquaredValidInputRangeTests.cpp
+  generated/physics/CoordinateSystemAxisValidInputRangeTests.cpp
+  generated/physics/CoordinateSystemAxisTests.cpp
+  generated/physics/SpeedSquaredTests.cpp
+  generated/physics/SpeedSquaredValidInputRangeTests.cpp
+  generated/physics/DurationTests.cpp
+  generated/physics/DurationValidInputRangeTests.cpp
+  generated/physics/AccelerationTests.cpp
+  generated/physics/AccelerationValidInputRangeTests.cpp
+  generated/physics/ParametricRangeValidInputRangeTests.cpp
+  generated/physics/DurationSquaredTests.cpp
+  generated/physics/DurationSquaredValidInputRangeTests.cpp
+  generated/physics/SpeedValidInputRangeTests.cpp
+  generated/physics/SpeedTests.cpp
+  generated/physics/DistanceTests.cpp
+  generated/physics/DistanceValidInputRangeTests.cpp
+  generated/situation/SituationTypeValidInputRangeTests.cpp
+  generated/situation/SituationTypeTests.cpp
+  generated/situation/VehicleStateValidInputRangeTests.cpp
+  generated/situation/RelativePositionValidInputRangeTests.cpp
+  generated/situation/LateralRelativePositionValidInputRangeTests.cpp
+  generated/situation/LateralRelativePositionTests.cpp
+  generated/situation/SituationVectorValidInputRangeTests.cpp
+  generated/situation/SituationValidInputRangeTests.cpp
+  generated/situation/LongitudinalRelativePositionTests.cpp
+  generated/situation/LongitudinalRelativePositionValidInputRangeTests.cpp
+  generated/state/ResponseStateValidInputRangeTests.cpp
+  generated/state/ResponseStateVectorValidInputRangeTests.cpp
+  generated/state/LateralRssStateValidInputRangeTests.cpp
+  generated/state/LateralResponseTests.cpp
+  generated/state/LateralResponseValidInputRangeTests.cpp
+  generated/state/LongitudinalResponseTests.cpp
+  generated/state/LongitudinalResponseValidInputRangeTests.cpp
+  generated/state/LongitudinalRssStateValidInputRangeTests.cpp
+  generated/world/WorldModelValidInputRangeTests.cpp
+  generated/world/LaneSegmentValidInputRangeTests.cpp
+  generated/world/ObjectTypeValidInputRangeTests.cpp
+  generated/world/ObjectTypeTests.cpp
+  generated/world/DynamicsValidInputRangeTests.cpp
+  generated/world/AccelerationRestrictionValidInputRangeTests.cpp
+  generated/world/SceneVectorValidInputRangeTests.cpp
+  generated/world/LaneSegmentTypeValidInputRangeTests.cpp
+  generated/world/LaneSegmentTypeTests.cpp
+  generated/world/RoadAreaValidInputRangeTests.cpp
+  generated/world/LongitudinalRssAccelerationValuesValidInputRangeTests.cpp
+  generated/world/ObjectValidInputRangeTests.cpp
+  generated/world/LateralRssAccelerationValuesValidInputRangeTests.cpp
+  generated/world/LaneDrivingDirectionTests.cpp
+  generated/world/LaneDrivingDirectionValidInputRangeTests.cpp
+  generated/world/VelocityValidInputRangeTests.cpp
+  generated/world/OccupiedRegionValidInputRangeTests.cpp
+  generated/world/RoadSegmentValidInputRangeTests.cpp
+  generated/world/SceneValidInputRangeTests.cpp
+  generated/world/OccupiedRegionVectorValidInputRangeTests.cpp
+)
