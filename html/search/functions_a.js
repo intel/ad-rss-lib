@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['speed',['Speed',['../classad__rss_1_1physics_1_1Speed.html#af5c1fa058661a6f76b31ccfc72d923e1',1,'ad_rss::physics::Speed::Speed()'],['../classad__rss_1_1physics_1_1Speed.html#ab50b52a23059d9cf4457213041b9d419',1,'ad_rss::physics::Speed::Speed(double const iSpeed)'],['../classad__rss_1_1physics_1_1Speed.html#a6b6c7ceb113f3a09b837095ac4b7562f',1,'ad_rss::physics::Speed::Speed(const Speed &amp;other)']]],
+  ['speedsquared',['SpeedSquared',['../classad__rss_1_1physics_1_1SpeedSquared.html#aa3acbab51b15fc7fdd036ad499ec6a67',1,'ad_rss::physics::SpeedSquared::SpeedSquared()'],['../classad__rss_1_1physics_1_1SpeedSquared.html#a1c40b34704fdb2c5e475954aee71b11b',1,'ad_rss::physics::SpeedSquared::SpeedSquared(double const iSpeedSquared)'],['../classad__rss_1_1physics_1_1SpeedSquared.html#ac7340dd70aefaac735da13af76f2f33d',1,'ad_rss::physics::SpeedSquared::SpeedSquared(const SpeedSquared &amp;other)']]],
+  ['sqrt',['sqrt',['../namespacestd.html#a0d636e97cf2368b32e1e006a24376194',1,'std::sqrt(::ad_rss::physics::DistanceSquared const other)'],['../namespacestd.html#a8c9a8c8cc30f36faf5c8ee905a9965f4',1,'std::sqrt(::ad_rss::physics::DurationSquared const other)'],['../namespacestd.html#aa9f764bf6a2e900a1eccdd19741d0fbe',1,'std::sqrt(::ad_rss::physics::SpeedSquared const other)']]]
+];
