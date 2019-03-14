@@ -1,6 +1,10 @@
 ﻿C++ Library for Responsibility Sensitive Safety
 =====
 
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/intel/ad-rss-lib.svg)
+[![Build Status](https://travis-ci.com/intel/ad-rss-lib.svg?branch=master)](https://travis-ci.com/intel/ad-rss-lib)
+
 ## Introduction
 This library intends to provide a C++ implementation of the Responsibility Sensitive Safety model (RSS) for Autonomous Vehicles.
 
@@ -103,3 +107,14 @@ ad_rss$>  sudo -E gem install asciidoctor-pdf --pre
 ad_rss$>  sudo -E gem install coderay
 ad_rss$>  asciidoctor-pdf ./doc/Main.adoc -n
 ```
+
+## Contributing
+Contibutions are very welcome!
+
+Before submitting a pull request, please ensure that your code compiles successfully and that the tests run successfully.
+Please also check that your code formatting complies to the provided clang style. To do so, you can run:
+```bash
+ad_rss$> sudo apt-get install clang-format-3.9
+ad_rss$> find -iname *.cpp -o -iname *.hpp | xargs clang-format-3.9 -style=file -i
+```
+This command will automatically update the code formatting to be compliant with our style.
