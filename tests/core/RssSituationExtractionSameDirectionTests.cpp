@@ -129,6 +129,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, longitudinalDifferenceEgoLeadin
 
   worldModel.egoVehicle = objectAsEgo(leadingObject);
   scene.object = followingObject;
+  scene.object.objectType = world::ObjectType::ArtificialObject;
 
   ::ad_rss::world::RoadSegment roadSegment;
   ::ad_rss::world::LaneSegment laneSegment;

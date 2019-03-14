@@ -37,9 +37,9 @@
 namespace ad_rss {
 namespace physics {
 
-inline Distance calculateDistanceOffsetInAccerlatedMovement(Speed const &speed,
-                                                            Acceleration const &acceleration,
-                                                            Duration const &duration)
+Distance calculateDistanceOffsetInAccerlatedMovement(Speed const &speed,
+                                                     Acceleration const &acceleration,
+                                                     Duration const &duration)
 {
   // s(t) =(a/2) * t^2 + v0 * t
   Distance const distanceOffset = (acceleration * 0.5 * duration * duration) + (speed * duration);
@@ -199,8 +199,12 @@ bool calculateTimeToCoverDistance(Speed const &currentSpeed,
 
   Distance distanceAfterResponseTime;
 
-  result = calculateDistanceOffsetAfterResponseTime(
-    CoordinateSystemAxis::Longitudinal, currentSpeed, acceleration, responseTime, distanceAfterResponseTime);
+  result = calculateDistanceOffsetAfterResponseTime( // LCOV_EXCL_LINE: wrong detection
+    CoordinateSystemAxis::Longitudinal,
+    currentSpeed,
+    acceleration,
+    responseTime,
+    distanceAfterResponseTime);
 
   if (result)
   {
@@ -212,8 +216,12 @@ bool calculateTimeToCoverDistance(Speed const &currentSpeed,
     {
       Speed resultingSpeed;
 
-      result = calculateSpeedAfterResponseTime(
-        CoordinateSystemAxis::Longitudinal, currentSpeed, acceleration, responseTime, resultingSpeed);
+      result = calculateSpeedAfterResponseTime( // LCOV_EXCL_LINE: wrong detection
+        CoordinateSystemAxis::Longitudinal,
+        currentSpeed,
+        acceleration,
+        responseTime,
+        resultingSpeed);
 
       Distance stoppingDistance;
       result = result && calculateStoppingDistance(resultingSpeed, deceleration, stoppingDistance);

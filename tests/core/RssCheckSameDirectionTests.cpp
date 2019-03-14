@@ -29,285 +29,73 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "TestSupport.hpp"
-#include "ad_rss/core/RssCheck.hpp"
+#include "RssCheckTestBaseT.hpp"
 
 namespace ad_rss {
 namespace core {
 
-class RssCheckSameDirectionTests : public testing::Test
+template <class TESTBASE> class RssCheckSameDirectionOtherLeadingTestBase : public TESTBASE
 {
 protected:
-  virtual void SetUp()
+  virtual ::ad_rss::world::Object &getEgoObject() override
   {
-    scene.situationType = ad_rss::situation::SituationType::SameDirection;
-    leadingObject = createObject(10., 0.);
-    leadingObject.objectId = 0;
-
-    {
-      ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = ParametricValue(0.);
-      occupiedRegion.lonRange.maximum = ParametricValue(0.1);
-      occupiedRegion.segmentId = 7;
-      occupiedRegion.latRange.minimum = ParametricValue(0.8);
-      occupiedRegion.latRange.maximum = ParametricValue(0.9);
-      leadingObject.occupiedRegions.push_back(occupiedRegion);
-    }
-
-    followingObject = createObject(0., 0.);
-    followingObject.objectId = 1;
-    {
-      ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = ParametricValue(0.);
-      occupiedRegion.lonRange.maximum = ParametricValue(0.1);
-      occupiedRegion.segmentId = 1;
-      occupiedRegion.latRange.minimum = ParametricValue(0.8);
-      occupiedRegion.latRange.maximum = ParametricValue(0.9);
-      followingObject.occupiedRegions.push_back(occupiedRegion);
-    }
-
-    // Road with 3 lanes, each with 3 segments
-    //   | 6 | 7 | 8 |
-    //   |  3  |  4  |  5  |
-    //   |  0  |  1  |  2  |
-
-    {
-      ::ad_rss::world::RoadSegment roadSegment;
-      ::ad_rss::world::LaneSegment laneSegment;
-
-      laneSegment.id = 0;
-      laneSegment.length.minimum = Distance(50);
-      laneSegment.length.maximum = Distance(55);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      laneSegment.id = 1;
-      laneSegment.length.minimum = Distance(55);
-      laneSegment.length.maximum = Distance(60);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      laneSegment.id = 2;
-      laneSegment.length.minimum = Distance(60);
-      laneSegment.length.maximum = Distance(65);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-
-      roadArea.push_back(roadSegment);
-    }
-
-    {
-      ::ad_rss::world::RoadSegment roadSegment;
-      ::ad_rss::world::LaneSegment laneSegment;
-
-      laneSegment.id = 3;
-      laneSegment.length.minimum = Distance(2);
-      laneSegment.length.maximum = Distance(2);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      laneSegment.id = 4;
-      laneSegment.length.minimum = Distance(2);
-      laneSegment.length.maximum = Distance(2);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      laneSegment.id = 5;
-      laneSegment.length.minimum = Distance(2);
-      laneSegment.length.maximum = Distance(2);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-
-      roadArea.push_back(roadSegment);
-    }
-
-    {
-      ::ad_rss::world::RoadSegment roadSegment;
-      ::ad_rss::world::LaneSegment laneSegment;
-
-      laneSegment.id = 6;
-      laneSegment.length.minimum = Distance(50);
-      laneSegment.length.maximum = Distance(55);
-      laneSegment.width.minimum = Distance(3);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      laneSegment.id = 7;
-      laneSegment.length.minimum = Distance(55);
-      laneSegment.length.maximum = Distance(60);
-      laneSegment.width.minimum = Distance(3);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      laneSegment.id = 8;
-      laneSegment.length.minimum = Distance(60);
-      laneSegment.length.maximum = Distance(65);
-      laneSegment.width.minimum = Distance(3);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-
-      roadArea.push_back(roadSegment);
-    }
+    return TESTBASE::objectOnSegment1;
   }
 
-  virtual void TearDown()
+  virtual ::ad_rss::world::Object &getSceneObject() override
   {
-    followingObject.occupiedRegions.clear();
-    leadingObject.occupiedRegions.clear();
-    scene.egoVehicleRoad.clear();
+    return TESTBASE::objectOnSegment7;
   }
-  ::ad_rss::world::Object followingObject;
-  ::ad_rss::world::Object leadingObject;
-  ::ad_rss::world::RoadArea roadArea;
-  ::ad_rss::world::Scene scene;
+
+  virtual Distance getMiddleRoadSegmentLength() override
+  {
+    return Distance(2);
+  }
 };
 
-TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentDistances)
+template <class TESTBASE> class RssCheckSameDirectionEgoLeadingTestBase : public TESTBASE
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(followingObject);
-  worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(10);
-  scene.object = leadingObject;
-
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
-
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
-
-  for (uint32_t i = 0; i <= 90; i++)
+protected:
+  virtual ::ad_rss::world::Object &getEgoObject() override
   {
-    worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.01 * i);
-    worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.01 * i + 0.1);
-
-    Distance const dMin = calculateLongitudinalMinSafeDistance(worldModel.egoVehicle, worldModel.scenes[0].object);
-    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-
-    if (dMin < Distance(52) - worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum * Distance(60))
-    {
-      ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
-    }
-    else
-    {
-      ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMin);
-    }
-
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+    return TESTBASE::objectOnSegment7;
   }
+
+  virtual ::ad_rss::world::Object &getSceneObject() override
+  {
+    return TESTBASE::objectOnSegment1;
+  }
+
+  virtual Distance getMiddleRoadSegmentLength() override
+  {
+    return Distance(2);
+  }
+};
+
+using RssCheckSameDirectionOtherLeadingTest = RssCheckSameDirectionOtherLeadingTestBase<RssCheckTestBase>;
+
+TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentDistances)
+{
+  performDifferentDistancesTest(state::LongitudinalResponse::BrakeMin);
 }
 
-TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities)
+TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities)
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(followingObject);
-  scene.object = leadingObject;
-
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
-
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
-
-  for (uint32_t i = 0; i < 100; i++)
-  {
-    worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
-
-    Distance const dMin = calculateLongitudinalMinSafeDistance(worldModel.egoVehicle, worldModel.scenes[0].object);
-    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    if (dMin < Distance(52) - worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum * Distance(60))
-    {
-      ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
-    }
-    else
-    {
-      ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMin);
-    }
-
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-  }
+  performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMin);
 }
 
-TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_DifferentLaneSegements)
+TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities_DifferentLaneSegements)
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(followingObject);
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 2;
-  scene.object = leadingObject;
-
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
-
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
-
-  for (uint32_t i = 0; i < 100; i++)
-  {
-    worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
-
-    Distance const dMin = calculateLongitudinalMinSafeDistance(worldModel.egoVehicle, worldModel.scenes[0].object);
-    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    if (dMin < Distance(52) - worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum * Distance(65))
-    {
-      ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
-    }
-    else
-    {
-      ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMin);
-    }
-
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-  }
+  performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMin);
 }
 
-TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_NoLateralConflict)
+TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities_NoLateralConflict)
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(followingObject);
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 0;
   worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);
   worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);
-  scene.object = leadingObject;
 
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;
 
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
@@ -319,35 +107,17 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_NoLateralCon
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
-
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+    testRestrictions(accelerationRestriction);
   }
 }
 
-TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_NoLateralConflict_2Scenes)
+TEST_F(RssCheckSameDirectionOtherLeadingTest, _DifferentVelocities_NoLateralConflict_2Scenes)
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(followingObject);
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 0;
   worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);
   worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);
-  scene.object = leadingObject;
 
-  scene.egoVehicleRoad = roadArea;
   worldModel.scenes.push_back(scene);
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;
   worldModel.scenes[1].object.occupiedRegions[0].segmentId = 8;
   worldModel.scenes[1].object.objectId = 2;
@@ -361,32 +131,14 @@ TEST_F(RssCheckSameDirectionTests, OtherLeading_DifferentVelocities_NoLateralCon
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
-
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+    testRestrictions(accelerationRestriction);
   }
 }
 
-TEST_F(RssCheckSameDirectionTests, EgoLeading_DifferentVelocities)
+using RssCheckSameDirectionEgoLeadingTest = RssCheckSameDirectionEgoLeadingTestBase<RssCheckTestBase>;
+
+TEST_F(RssCheckSameDirectionEgoLeadingTest, DifferentVelocities)
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(leadingObject);
-  scene.object = followingObject;
-
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
-
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
@@ -397,32 +149,15 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_DifferentVelocities)
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
     // no matter how fast the following vehicle is, the ego must never brake as it leads
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+    testRestrictions(accelerationRestriction);
   }
 }
 
-TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Front)
+TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Front)
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(leadingObject);
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 8;
   worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.5);
   worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.4);
-  scene.object = followingObject;
-
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
 
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 6;
   worldModel.scenes[0].object.occupiedRegions[0].lonRange.maximum = ParametricValue(0.45);
@@ -438,32 +173,15 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Front)
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
     // no matter how fast the following vehicle is, the ego must never brake as it leads
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+    testRestrictions(accelerationRestriction);
   }
 }
 
-TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Right)
+TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Right)
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(leadingObject);
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 5;
   worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.5);
   worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.4);
-  scene.object = followingObject;
-
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
 
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 2;
   worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = ParametricValue(0.45);
@@ -479,32 +197,15 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Right)
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
     // no matter how fast the following vehicle is, the ego must never brake as it leads
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+    testRestrictions(accelerationRestriction);
   }
 }
 
-TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Left)
+TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Left)
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(leadingObject);
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 5;
   worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.4);
   worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.3);
-  scene.object = followingObject;
-
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
 
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 2;
   worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = ParametricValue(0.45);
@@ -520,18 +221,29 @@ TEST_F(RssCheckSameDirectionTests, EgoLeading_Overlap_Left)
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
     // no matter how fast the following vehicle is, the ego must never brake as it leads
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+    testRestrictions(accelerationRestriction);
   }
 }
+
+using RssCheckSameDirectionOtherLeadingOutOfMemoryTest
+  = RssCheckSameDirectionOtherLeadingTestBase<RssCheckOutOfMemoryTestBase>;
+TEST_P(RssCheckSameDirectionOtherLeadingOutOfMemoryTest, outOfMemoryAnyTime)
+{
+  performOutOfMemoryTest();
+}
+INSTANTIATE_TEST_CASE_P(Range,
+                        RssCheckSameDirectionOtherLeadingOutOfMemoryTest,
+                        ::testing::Range(uint64_t(0u), uint64_t(50u)));
+
+using RssCheckSameDirectionEgoLeadingOutOfMemoryTest
+  = RssCheckSameDirectionOtherLeadingTestBase<RssCheckOutOfMemoryTestBase>;
+TEST_P(RssCheckSameDirectionEgoLeadingOutOfMemoryTest, outOfMemoryAnyTime)
+{
+  performOutOfMemoryTest();
+}
+INSTANTIATE_TEST_CASE_P(Range,
+                        RssCheckSameDirectionEgoLeadingOutOfMemoryTest,
+                        ::testing::Range(uint64_t(0u), uint64_t(50u)));
 
 } // namespace core
 } // namespace ad_rss
