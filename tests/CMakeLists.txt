@@ -36,7 +36,7 @@
 #####################################################################
 set(EXEC_NAME ad_rss_tests)
 
-include(ad_rss/CMakeLists.txt)
+include(generated/CMakeLists.txt)
 
 set(RSS_TEST_SOURCES
   core/RssCheckTests.cpp
@@ -68,7 +68,7 @@ set(RSS_TEST_SOURCES
   situation/RssSituationCheckingTestsOppositeDirection.cpp
   situation/RssSituationCheckingTestsNotRelevant.cpp
   situation/VehicleTests.cpp
-  ${AD_RSS_TEST_SOURCES}
+  ${GENERATED_TEST_SOURCES}
 )
 
 add_executable(${EXEC_NAME} ${RSS_TEST_SOURCES})
