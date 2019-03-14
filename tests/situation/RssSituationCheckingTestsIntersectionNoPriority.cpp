@@ -38,7 +38,6 @@ namespace situation {
 class RssSituationCheckingTestsIntersectionNoPriority : public testing::Test
 {
 protected:
-  core::RssSituationChecking situationChecking;
   VehicleState leadingVehicle;
   VehicleState followingVehicle;
   Situation situation;
@@ -49,6 +48,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, ego_following_no_overlap
 {
   for (auto situationType : {SituationType::IntersectionSamePriority, SituationType::IntersectionObjectHasPriority})
   {
+    core::RssSituationChecking situationChecking;
     situation.egoVehicleState = createVehicleStateForLongitudinalMotion(120);
     situation.egoVehicleState.distanceToEnterIntersection = Distance(15);
     situation.egoVehicleState.distanceToLeaveIntersection = Distance(15);
@@ -73,8 +73,18 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, ego_following_no_overlap
       situation.otherVehicleState.hasPriority = false;
     }
 
-    ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
-    ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
+    EXPECT_TRUE(situationChecking.checkSituation(situation, responseState));
+    EXPECT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
+
+    // next situation we have overlap
+    situation.timeIndex++;
+    situation.egoVehicleState.velocity.speedLon = Speed(10);
+
+    EXPECT_TRUE(situationChecking.checkSituation(situation, responseState));
+    if (situationType == SituationType::IntersectionObjectHasPriority)
+    {
+      EXPECT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
+    }
   }
 }
 
@@ -82,6 +92,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_
 {
   for (auto situationType : {SituationType::IntersectionSamePriority, SituationType::IntersectionObjectHasPriority})
   {
+    core::RssSituationChecking situationChecking;
     leadingVehicle = createVehicleStateForLongitudinalMotion(120);
     leadingVehicle.distanceToEnterIntersection = Distance(2);
     leadingVehicle.distanceToLeaveIntersection = Distance(2);
@@ -125,6 +136,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_
 {
   for (auto situationType : {SituationType::IntersectionSamePriority, SituationType::IntersectionObjectHasPriority})
   {
+    core::RssSituationChecking situationChecking;
     leadingVehicle = createVehicleStateForLongitudinalMotion(50);
     leadingVehicle.distanceToEnterIntersection = Distance(10.);
     leadingVehicle.distanceToLeaveIntersection = Distance(10.);
@@ -158,6 +170,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50km_h_stop_before_inter
 {
   for (auto situationType : {SituationType::IntersectionSamePriority, SituationType::IntersectionObjectHasPriority})
   {
+    core::RssSituationChecking situationChecking;
     leadingVehicle = createVehicleStateForLongitudinalMotion(50);
     leadingVehicle.distanceToEnterIntersection = Distance(80.);
     leadingVehicle.distanceToLeaveIntersection = Distance(80.);

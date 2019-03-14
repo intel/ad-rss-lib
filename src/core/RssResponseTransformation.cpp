@@ -57,6 +57,7 @@ bool transformProperResponse(world::WorldModel const &worldModel,
    * If there is no action required RssResponseTransformation should send the maximum allowed acceleration/brake values
    * given by the world model
    */
+  // LCOV_EXCL_BR_START: unreachable exceptions due to valid input range checks
   accelerationRestriction.longitudinalRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax;
   switch (response.longitudinalState.response)
   {
@@ -70,7 +71,7 @@ bool transformProperResponse(world::WorldModel const &worldModel,
       accelerationRestriction.longitudinalRange.maximum = worldModel.egoVehicle.dynamics.alphaLon.accelMax;
       break;
     default:
-      return false;
+      return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
       break;
   }
 
@@ -85,7 +86,7 @@ bool transformProperResponse(world::WorldModel const &worldModel,
       accelerationRestriction.lateralLeftRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;
       break;
     default:
-      return false;
+      return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
       break;
   }
 
@@ -100,9 +101,10 @@ bool transformProperResponse(world::WorldModel const &worldModel,
       accelerationRestriction.lateralRightRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;
       break;
     default:
-      return false;
+      return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
       break;
   }
+  // LCOV_EXCL_BR_STOP
 
   return true;
 }

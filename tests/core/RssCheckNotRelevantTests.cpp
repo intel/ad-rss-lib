@@ -28,19 +28,58 @@
 //    POSSIBILITY OF SUCH DAMAGE.
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
-#pragma once
 
-#include <cstdint>
-#include <new>
+#include "RssCheckTestBaseT.hpp"
 
-/**
- * @brief if the counter switches to zero when new() is called,
- * an std::bad_alloc() exception is thrown.
- */
-extern uint64_t gNewThrowCounter;
+namespace ad_rss {
+namespace core {
 
-/**
- * @brief if size number of bytes should be allocated by new() (gNewThrowSize>0),
- * then an std::bad_alloc() exception is thrown.
- */
-extern uint64_t gNewThrowSize;
+template <class TESTBASE> class RssCheckNotRelevantTestBase : public TESTBASE
+{
+  virtual situation::SituationType getSituationType() override
+  {
+    return situation::SituationType::NotRelevant;
+  }
+
+  virtual ::ad_rss::world::Object &getEgoObject() override
+  {
+    return objectOnSegment1;
+  }
+
+  virtual ::ad_rss::world::Object &getSceneObject() override
+  {
+    return objectOnSegment7;
+  }
+};
+
+using RssCheckNotRelevantTest = RssCheckNotRelevantTestBase<RssCheckTestBase>;
+
+TEST_F(RssCheckNotRelevantTest, NotRelevant)
+{
+  worldModel.egoVehicle.occupiedRegions[0].segmentId = 8;
+
+  worldModel.scenes[0].object.occupiedRegions[0].segmentId = 0;
+  worldModel.scenes[0].situationType = ::ad_rss::situation::SituationType::NotRelevant;
+
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  for (uint32_t i = 0; i < 100; i++)
+  {
+    worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
+
+    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+
+    testRestrictions(accelerationRestriction);
+  }
+}
+
+using RssCheckNotRelevantOutOfMemoryTest = RssCheckNotRelevantTestBase<RssCheckOutOfMemoryTestBase>;
+TEST_P(RssCheckNotRelevantOutOfMemoryTest, outOfMemoryAnyTime)
+{
+  performOutOfMemoryTest();
+}
+INSTANTIATE_TEST_CASE_P(Range, RssCheckNotRelevantOutOfMemoryTest, ::testing::Range(uint64_t(0u), uint64_t(50u)));
+
+} // namespace core
+} // namespace ad_rss

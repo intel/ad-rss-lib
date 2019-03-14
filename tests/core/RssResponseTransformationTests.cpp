@@ -29,20 +29,69 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "TestSupport.hpp"
 #include "ad_rss/core/RssResponseTransformation.hpp"
+
+#include "RssCheckTestBaseT.hpp"
 
 namespace ad_rss {
 namespace core {
 
-TEST(RssResponseTransformationTests, invalidTimeStamp)
+class RssResponseTransformationTests : public RssCheckTestBaseT<testing::Test>
 {
-  ::ad_rss::world::WorldModel worldModel;
-  ::ad_rss::state::ResponseState responseState;
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+public:
+  void SetUp() override
+  {
+    RssCheckTestBaseT<testing::Test>::SetUp();
+    resetRssState(responseState, 0u);
+  }
+  state::ResponseState responseState;
+};
+
+TEST_F(RssResponseTransformationTests, validateTestSetup)
+{
+  world::AccelerationRestriction accelerationRestriction;
+
+  ASSERT_TRUE(::ad_rss::core::RssResponseTransformation::transformProperResponse(
+    worldModel, responseState, accelerationRestriction));
+  testRestrictions(accelerationRestriction);
+}
+
+TEST_F(RssResponseTransformationTests, invalidTimeStamp)
+{
+  world::AccelerationRestriction accelerationRestriction;
 
   worldModel.timeIndex = 1u;
   responseState.timeIndex = 0u;
+
+  ASSERT_FALSE(::ad_rss::core::RssResponseTransformation::transformProperResponse(
+    worldModel, responseState, accelerationRestriction));
+}
+
+TEST_F(RssResponseTransformationTests, invalidLongitudinalResponseState)
+{
+  world::AccelerationRestriction accelerationRestriction;
+
+  responseState.longitudinalState.response = state::LongitudinalResponse(-1);
+
+  ASSERT_FALSE(::ad_rss::core::RssResponseTransformation::transformProperResponse(
+    worldModel, responseState, accelerationRestriction));
+}
+
+TEST_F(RssResponseTransformationTests, invalidLateralResponseStateLeft)
+{
+  world::AccelerationRestriction accelerationRestriction;
+
+  responseState.lateralStateLeft.response = state::LateralResponse(-1);
+
+  ASSERT_FALSE(::ad_rss::core::RssResponseTransformation::transformProperResponse(
+    worldModel, responseState, accelerationRestriction));
+}
+
+TEST_F(RssResponseTransformationTests, invalidLateralResponseStateRight)
+{
+  world::AccelerationRestriction accelerationRestriction;
+
+  responseState.lateralStateRight.response = state::LateralResponse(-1);
 
   ASSERT_FALSE(::ad_rss::core::RssResponseTransformation::transformProperResponse(
     worldModel, responseState, accelerationRestriction));

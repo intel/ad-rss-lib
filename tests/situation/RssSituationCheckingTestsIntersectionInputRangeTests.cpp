@@ -43,8 +43,10 @@ protected:
     situation.situationType = SituationType::IntersectionEgoHasPriority;
   }
 
-  virtual void TearDown()
+  void performTestRun()
   {
+    EXPECT_FALSE(situationChecking.checkSituation(situation, responseState));
+    EXPECT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, responseState));
   }
   core::RssSituationChecking situationChecking;
   VehicleState leadingVehicle;
@@ -89,7 +91,7 @@ TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, distanceToLeaveSmal
 
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(1.));
 
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  performTestRun();
 }
 
 TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, distanceToLeaveSmallerOther)
@@ -110,7 +112,7 @@ TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, distanceToLeaveSmal
 
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(1.));
 
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  performTestRun();
 }
 
 TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, both_priority_vehicle)
@@ -131,7 +133,7 @@ TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, both_priority_vehic
   situation.otherVehicleState = followingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(60.));
 
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  performTestRun();
 }
 
 TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, sitatuion_initialy_unsafe)
@@ -153,7 +155,7 @@ TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, sitatuion_initialy_
   situation.otherVehicleState.hasPriority = true;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(30.));
 
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  performTestRun();
 }
 
 } // namespace situation

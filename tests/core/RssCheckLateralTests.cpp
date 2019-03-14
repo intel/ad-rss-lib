@@ -29,151 +29,35 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "TestSupport.hpp"
-#include "ad_rss/core/RssCheck.hpp"
+#include "RssCheckTestBaseT.hpp"
 
 namespace ad_rss {
 namespace core {
 
-class RssCheckLateralTests : public testing::Test
+template <class TESTBASE> class RssCheckLateralEgoRightTestBase : public TESTBASE
 {
-protected:
-  virtual void SetUp()
+  virtual ::ad_rss::world::Object &getEgoObject() override
   {
-    scene.situationType = ad_rss::situation::SituationType::SameDirection;
-    leftObject = createObject(10., 3.);
-    leftObject.objectId = 0;
-
-    {
-      ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = ParametricValue(0.);
-      occupiedRegion.lonRange.maximum = ParametricValue(0.1);
-      occupiedRegion.segmentId = 3;
-      occupiedRegion.latRange.minimum = ParametricValue(0.);
-      occupiedRegion.latRange.maximum = ParametricValue(0.1);
-      leftObject.occupiedRegions.push_back(occupiedRegion);
-    }
-
-    rightObject = createObject(10., -3.);
-    rightObject.objectId = 1;
-    {
-      ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = ParametricValue(0.);
-      occupiedRegion.lonRange.maximum = ParametricValue(0.1);
-      occupiedRegion.segmentId = 5;
-      occupiedRegion.latRange.minimum = ParametricValue(0.8);
-      occupiedRegion.latRange.maximum = ParametricValue(0.9);
-      rightObject.occupiedRegions.push_back(occupiedRegion);
-    }
-
-    // Road with 3 lanes, each with 3 segments
-    //   | 6 | 7 | 8 |
-    //   |  3  |  4  |  5  |
-    //   |  0  |  1  |  2  |
-
-    {
-      ::ad_rss::world::RoadSegment roadSegment;
-      ::ad_rss::world::LaneSegment laneSegment;
-
-      laneSegment.id = 0;
-      laneSegment.length.minimum = Distance(50);
-      laneSegment.length.maximum = Distance(55);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      laneSegment.id = 1;
-      laneSegment.length.minimum = Distance(55);
-      laneSegment.length.maximum = Distance(60);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      laneSegment.id = 2;
-      laneSegment.length.minimum = Distance(60);
-      laneSegment.length.maximum = Distance(65);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-
-      roadArea.push_back(roadSegment);
-    }
-
-    {
-      ::ad_rss::world::RoadSegment roadSegment;
-      ::ad_rss::world::LaneSegment laneSegment;
-
-      laneSegment.id = 3;
-      laneSegment.length.minimum = Distance(2);
-      laneSegment.length.maximum = Distance(2);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      laneSegment.id = 4;
-      laneSegment.length.minimum = Distance(2);
-      laneSegment.length.maximum = Distance(2);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      laneSegment.id = 5;
-      laneSegment.length.minimum = Distance(2);
-      laneSegment.length.maximum = Distance(2);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-
-      roadArea.push_back(roadSegment);
-    }
-
-    {
-      ::ad_rss::world::RoadSegment roadSegment;
-      ::ad_rss::world::LaneSegment laneSegment;
-
-      laneSegment.id = 6;
-      laneSegment.length.minimum = Distance(50);
-      laneSegment.length.maximum = Distance(55);
-      laneSegment.width.minimum = Distance(3);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      laneSegment.id = 7;
-      laneSegment.length.minimum = Distance(55);
-      laneSegment.length.maximum = Distance(60);
-      laneSegment.width.minimum = Distance(3);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      laneSegment.id = 8;
-      laneSegment.length.minimum = Distance(60);
-      laneSegment.length.maximum = Distance(65);
-      laneSegment.width.minimum = Distance(3);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-
-      roadArea.push_back(roadSegment);
-    }
+    return TESTBASE::objectOnSegment5;
   }
 
-  virtual void TearDown()
+  virtual ::ad_rss::world::Object &getSceneObject() override
   {
-    leftObject.occupiedRegions.clear();
-    rightObject.occupiedRegions.clear();
-    scene.egoVehicleRoad.clear();
+    return TESTBASE::objectOnSegment3;
   }
-  ::ad_rss::world::Object leftObject;
-  ::ad_rss::world::Object rightObject;
-  ::ad_rss::world::RoadArea roadArea;
-  ::ad_rss::world::Scene scene;
 };
 
-TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Right)
+using RssCheckLateralEgoRightTest = RssCheckLateralEgoRightTestBase<RssCheckTestBase>;
+
+using RssCheckLateralEgoRightOutOfMemoryTest = RssCheckLateralEgoRightTestBase<RssCheckOutOfMemoryTestBase>;
+TEST_P(RssCheckLateralEgoRightOutOfMemoryTest, outOfMemoryAnyTime)
 {
-  ::ad_rss::world::WorldModel worldModel;
+  performOutOfMemoryTest();
+}
+INSTANTIATE_TEST_CASE_P(Range, RssCheckLateralEgoRightOutOfMemoryTest, ::testing::Range(uint64_t(0u), uint64_t(50u)));
 
-  worldModel.egoVehicle = objectAsEgo(rightObject);
-  worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(10);
-  scene.object = leftObject;
-
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
-
+TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Towards_Each_Other)
+{
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
@@ -186,86 +70,23 @@ TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Right)
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-
     if (dMin < Distance(6) + worldModel.egoVehicle.occupiedRegions[0].latRange.minimum * Distance(5) - Distance(0.5))
     {
-      ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-      ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+      testRestrictions(accelerationRestriction);
     }
     else
     {
-      ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-      ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, std::numeric_limits<physics::Acceleration>::lowest());
-    }
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-  }
-}
-
-TEST_F(RssCheckLateralTests, Lateral_Velocity_Towards_Each_Other_Ego_Left)
-{
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(leftObject);
-  worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(10);
-  scene.object = rightObject;
-
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
-
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
-
-  for (uint32_t i = 0; i <= 90; i++)
-  {
-    worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.01 * i);
-    worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.01 * i + 0.1);
-
-    Distance const dMin = calculateLateralMinSafeDistance(worldModel.egoVehicle, worldModel.scenes[0].object);
-
-    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-
-    if (dMin < Distance(10) - worldModel.egoVehicle.occupiedRegions[0].latRange.maximum * Distance(5))
-    {
-      ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-      ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-    }
-    else
-    {
-      ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-      ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-                std::numeric_limits<physics::Acceleration>::lowest());
+      testRestrictions(accelerationRestriction,
+                       state::LongitudinalResponse::None,
+                       state::LateralResponse::BrakeMin,
+                       state::LateralResponse::None);
     }
   }
 }
 
-TEST_F(RssCheckLateralTests, No_Lateral_Velocity)
+TEST_F(RssCheckLateralEgoRightTest, No_Lateral_Velocity)
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(rightObject);
   worldModel.egoVehicle.velocity.speedLat = kmhToMeterPerSec(0);
-  scene.object = leftObject;
-
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
 
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
@@ -277,30 +98,13 @@ TEST_F(RssCheckLateralTests, No_Lateral_Velocity)
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+    testRestrictions(accelerationRestriction);
   }
 }
 
-TEST_F(RssCheckLateralTests, Lateral_Velocity_Aways_From_Each_Other)
+TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Aways_From_Each_Other)
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(rightObject);
-  worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(10);
   worldModel.egoVehicle.velocity.speedLat = kmhToMeterPerSec(5);
-  scene.object = leftObject;
-
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
   worldModel.scenes[0].object.velocity.speedLat = kmhToMeterPerSec(-5);
 
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
@@ -313,15 +117,57 @@ TEST_F(RssCheckLateralTests, Lateral_Velocity_Aways_From_Each_Other)
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
+    testRestrictions(accelerationRestriction);
+  }
+}
 
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+template <class TESTBASE> class RssCheckLateralEgoLeftTestBase : public TESTBASE
+{
+  virtual ::ad_rss::world::Object &getEgoObject() override
+  {
+    return TESTBASE::objectOnSegment3;
+  }
+
+  virtual ::ad_rss::world::Object &getSceneObject() override
+  {
+    return TESTBASE::objectOnSegment5;
+  }
+};
+
+using RssCheckLateralEgoLeftTest = RssCheckLateralEgoLeftTestBase<RssCheckTestBase>;
+
+using RssCheckLateralEgoLeftOutOfMemoryTest = RssCheckLateralEgoLeftTestBase<RssCheckOutOfMemoryTestBase>;
+TEST_P(RssCheckLateralEgoLeftOutOfMemoryTest, outOfMemoryAnyTime)
+{
+  performOutOfMemoryTest();
+}
+INSTANTIATE_TEST_CASE_P(Range, RssCheckLateralEgoLeftOutOfMemoryTest, ::testing::Range(uint64_t(0u), uint64_t(50u)));
+
+TEST_F(RssCheckLateralEgoLeftTest, Lateral_Velocity_Towards_Each_Other)
+{
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  for (uint32_t i = 0; i <= 90; i++)
+  {
+    worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.01 * i);
+    worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.01 * i + 0.1);
+
+    Distance const dMin = calculateLateralMinSafeDistance(worldModel.egoVehicle, worldModel.scenes[0].object);
+
+    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+
+    if (dMin < Distance(10) - worldModel.egoVehicle.occupiedRegions[0].latRange.maximum * Distance(5))
+    {
+      testRestrictions(accelerationRestriction);
+    }
+    else
+    {
+      testRestrictions(accelerationRestriction,
+                       state::LongitudinalResponse::None,
+                       state::LateralResponse::None,
+                       state::LateralResponse::BrakeMin);
+    }
   }
 }
 

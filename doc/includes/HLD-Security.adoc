@@ -184,8 +184,9 @@ C++ Standard Library).
 
 Code quality has been ensured through unit testing.
 
-Unit testing achieved code coverage of: 95% functions, 94% lines, 63% branches.
-
+Unit testing achieved code coverage of: 100% functions, 100% lines, >80% branches.
+Current coverage measures can be retrieved via github deployment:
+https://intel.github.io/ad-rss-lib/coverage/index.html
 
 #### Compiler and compiler security flags
 

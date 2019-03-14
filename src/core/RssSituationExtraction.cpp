@@ -264,7 +264,7 @@ bool convertObjectsIntersection(world::Object const &egoVehicle,
   else
   {
     // This function should never be called if we are not in intersection situation
-    result = false;
+    result = false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
   }
 
   return result;

@@ -29,205 +29,162 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "TestSupport.hpp"
-#include "ad_rss/core/RssCheck.hpp"
+#include "RssCheckTestBaseT.hpp"
 
 namespace ad_rss {
 namespace core {
 
-class RssCheckIntersectionTests : public testing::Test
+template <class TESTBASE> class RssCheckIntersectionTestBase : public TESTBASE
 {
 protected:
-  virtual void SetUp()
+  using TESTBASE::worldModel;
+  virtual ::ad_rss::world::Object &getEgoObject() override
   {
-    scene.situationType = ad_rss::situation::SituationType::IntersectionEgoHasPriority;
-    object = createObject(10., 0.);
-    object.objectId = 0;
-
-    {
-      ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = ParametricValue(0.);
-      occupiedRegion.lonRange.maximum = ParametricValue(0.1);
-      occupiedRegion.segmentId = 0;
-      occupiedRegion.latRange.minimum = ParametricValue(0.8);
-      occupiedRegion.latRange.maximum = ParametricValue(0.9);
-      object.occupiedRegions.push_back(occupiedRegion);
-    }
-
-    otherObject = createObject(10., 0.);
-    otherObject.objectId = 1;
-    {
-      ::ad_rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = ParametricValue(0.5);
-      occupiedRegion.lonRange.maximum = ParametricValue(0.6);
-      occupiedRegion.segmentId = 3;
-      occupiedRegion.latRange.minimum = ParametricValue(0.8);
-      occupiedRegion.latRange.maximum = ParametricValue(0.9);
-      otherObject.occupiedRegions.push_back(occupiedRegion);
-    }
-
-    // Road with 1 lane, intersection at 2
-    //   | 2 |- 3 - 4 -
-    //   | 1 |
-    //   | 0 |
-
-    {
-      ::ad_rss::world::RoadSegment roadSegment;
-      ::ad_rss::world::LaneSegment laneSegment;
-
-      laneSegment.id = 0;
-      laneSegment.length.minimum = Distance(50);
-      laneSegment.length.maximum = Distance(55);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      roadArea.push_back(roadSegment);
-    }
-
-    {
-      ::ad_rss::world::RoadSegment roadSegment;
-      ::ad_rss::world::LaneSegment laneSegment;
-
-      laneSegment.id = 1;
-      laneSegment.length.minimum = Distance(50);
-      laneSegment.length.maximum = Distance(55);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      roadArea.push_back(roadSegment);
-    }
-
-    {
-      ::ad_rss::world::RoadSegment roadSegment;
-      ::ad_rss::world::LaneSegment laneSegment;
-
-      laneSegment.id = 3;
-      laneSegment.length.minimum = Distance(50);
-      laneSegment.length.maximum = Distance(55);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      otherRoadArea.push_back(roadSegment);
-    }
-
-    {
-      ::ad_rss::world::RoadSegment roadSegment;
-      ::ad_rss::world::LaneSegment laneSegment;
-
-      laneSegment.id = 4;
-      laneSegment.length.minimum = Distance(50);
-      laneSegment.length.maximum = Distance(55);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      roadSegment.push_back(laneSegment);
-      otherRoadArea.push_back(roadSegment);
-    }
-
-    {
-      ::ad_rss::world::RoadSegment roadSegment;
-      ::ad_rss::world::LaneSegment laneSegment;
-
-      laneSegment.id = 2;
-      laneSegment.length.minimum = Distance(5);
-      laneSegment.length.maximum = Distance(6);
-      laneSegment.width.minimum = Distance(5);
-      laneSegment.width.maximum = Distance(5);
-      laneSegment.type = ::ad_rss::world::LaneSegmentType::Intersection;
-      roadSegment.push_back(laneSegment);
-      roadArea.push_back(roadSegment);
-      otherRoadArea.push_back(roadSegment);
-    }
+    return TESTBASE::objectOnSegment0;
   }
 
-  virtual void TearDown()
+  virtual ::ad_rss::world::Object &getSceneObject() override
   {
-    object.occupiedRegions.clear();
-    otherObject.occupiedRegions.clear();
-    scene.egoVehicleRoad.clear();
+    return TESTBASE::objectOnSegment8;
   }
-  ::ad_rss::world::Object object;
-  ::ad_rss::world::Object otherObject;
-  ::ad_rss::world::RoadArea roadArea;
-  ::ad_rss::world::RoadArea otherRoadArea;
-  ::ad_rss::world::Scene scene;
+
+  virtual bool isBrakeExpected(uint32_t i) = 0;
+
+  void performIntersectionTest()
+  {
+    ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+    ::ad_rss::core::RssCheck rssCheck;
+    for (auto egoVehicleSegmentId : {world::LaneSegmentId(0), world::LaneSegmentId(3)})
+    {
+      worldModel.egoVehicle.occupiedRegions[0].segmentId = egoVehicleSegmentId;
+      for (uint32_t i = 0; i <= 90; i++)
+      {
+        worldModel.timeIndex = i;
+        worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.01 * i);
+        worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.01 * i + 0.1);
+
+        ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+
+        if (isBrakeExpected(i))
+        {
+          TESTBASE::testRestrictions(accelerationRestriction, state::LongitudinalResponse::BrakeMin);
+        }
+        else
+        {
+          TESTBASE::testRestrictions(accelerationRestriction);
+        }
+      }
+    }
+  }
 };
 
-TEST_F(RssCheckIntersectionTests, EgoHasPriority)
+template <class TESTBASE>
+class RssCheckIntersectionEgoHasPriorityTestBase : public RssCheckIntersectionTestBase<TESTBASE>
 {
-  ::ad_rss::world::WorldModel worldModel;
-
-  worldModel.egoVehicle = objectAsEgo(object);
-  scene.object = otherObject;
-  scene.intersectingRoad = otherRoadArea;
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
-
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
-
-  for (uint32_t i = 0; i <= 90; i++)
+protected:
+  virtual situation::SituationType getSituationType() override
   {
-    worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.01 * i);
-    worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.01 * i + 0.1);
-
-    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
-
-    ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-              -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-    ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+    return situation::SituationType::IntersectionEgoHasPriority;
   }
+
+  virtual bool isBrakeExpected(uint32_t i) override
+  {
+    bool const egoVehicleFaraway
+      = (i < 84) && (TESTBASE::worldModel.egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(0));
+    bool const egoVehicleInFront
+      = (i > 64) && (TESTBASE::worldModel.egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(3));
+
+    return !egoVehicleFaraway && !egoVehicleInFront;
+  }
+};
+
+using RssCheckIntersectionEgoHasPriorityTest = RssCheckIntersectionEgoHasPriorityTestBase<RssCheckTestBase>;
+
+using RssCheckIntersectionEgoHasPriorityOutOfMemoryTest
+  = RssCheckIntersectionEgoHasPriorityTestBase<RssCheckOutOfMemoryTestBase>;
+TEST_P(RssCheckIntersectionEgoHasPriorityOutOfMemoryTest, outOfMemoryAnyTime)
+{
+  performOutOfMemoryTest();
+}
+INSTANTIATE_TEST_CASE_P(Range,
+                        RssCheckIntersectionEgoHasPriorityOutOfMemoryTest,
+                        ::testing::Range(uint64_t(0u), uint64_t(50u)));
+
+TEST_F(RssCheckIntersectionEgoHasPriorityTest, IntersectionTest)
+{
+  performIntersectionTest();
 }
 
-TEST_F(RssCheckIntersectionTests, EgoHasNoPriority)
+TEST_F(RssCheckIntersectionEgoHasPriorityTest, IntersectionDescriptionIsExtended)
 {
-  ::ad_rss::world::WorldModel worldModel;
+  worldModel.scenes[0].egoVehicleRoad.push_back(worldModel.scenes[0].egoVehicleRoad.front());
+  performIntersectionTest();
+}
 
-  worldModel.egoVehicle = objectAsEgo(object);
-  scene.object = otherObject;
-  scene.intersectingRoad = otherRoadArea;
-  scene.egoVehicleRoad = roadArea;
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
-
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
-
-  for (auto situationType : {ad_rss::situation::SituationType::IntersectionSamePriority,
-                             ad_rss::situation::SituationType::IntersectionObjectHasPriority})
+template <class TESTBASE>
+class RssCheckIntersectionObjectHasPriorityTestBase : public RssCheckIntersectionTestBase<TESTBASE>
+{
+protected:
+  virtual situation::SituationType getSituationType() override
   {
-    worldModel.scenes[0].situationType = situationType;
-    for (uint32_t i = 0; i <= 90; i++)
-    {
-      worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.01 * i);
-      worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.01 * i + 0.1);
-
-      ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-
-      ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-
-      ASSERT_EQ(accelerationRestriction.longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
-
-      ASSERT_EQ(accelerationRestriction.longitudinalRange.minimum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-      ASSERT_EQ(accelerationRestriction.lateralLeftRange.minimum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-      ASSERT_EQ(accelerationRestriction.lateralLeftRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-      ASSERT_EQ(accelerationRestriction.lateralRightRange.minimum,
-                -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-      ASSERT_EQ(accelerationRestriction.lateralRightRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
-    }
+    return situation::SituationType::IntersectionObjectHasPriority;
   }
+
+  virtual bool isBrakeExpected(uint32_t i) override
+  {
+    bool const egoVehicleNearEnough
+      = (TESTBASE::worldModel.egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(3)) && (i > 27);
+
+    return egoVehicleNearEnough;
+  }
+};
+
+using RssCheckIntersectionObjectHasPriorityTest = RssCheckIntersectionObjectHasPriorityTestBase<RssCheckTestBase>;
+
+using RssCheckIntersectionObjectHasPriorityOutOfMemoryTest
+  = RssCheckIntersectionObjectHasPriorityTestBase<RssCheckOutOfMemoryTestBase>;
+TEST_P(RssCheckIntersectionObjectHasPriorityOutOfMemoryTest, outOfMemoryAnyTime)
+{
+  performOutOfMemoryTest();
+}
+INSTANTIATE_TEST_CASE_P(Range,
+                        RssCheckIntersectionObjectHasPriorityOutOfMemoryTest,
+                        ::testing::Range(uint64_t(0u), uint64_t(50u)));
+
+TEST_F(RssCheckIntersectionObjectHasPriorityTest, IntersectionTest)
+{
+  performIntersectionTest();
+}
+
+template <class TESTBASE> class RssCheckIntersectionSamePriorityTestBase : public RssCheckIntersectionTestBase<TESTBASE>
+{
+protected:
+  virtual situation::SituationType getSituationType() override
+  {
+    return situation::SituationType::IntersectionSamePriority;
+  }
+
+  virtual bool isBrakeExpected(uint32_t i) override
+  {
+    return (TESTBASE::worldModel.egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(3)) && (i > 27);
+  }
+};
+
+using RssCheckIntersectionSamePriorityTest = RssCheckIntersectionSamePriorityTestBase<RssCheckTestBase>;
+
+using RssCheckIntersectionSamePriorityOutOfMemoryTest
+  = RssCheckIntersectionSamePriorityTestBase<RssCheckOutOfMemoryTestBase>;
+TEST_P(RssCheckIntersectionSamePriorityOutOfMemoryTest, outOfMemoryAnyTime)
+{
+  performOutOfMemoryTest();
+}
+INSTANTIATE_TEST_CASE_P(Range,
+                        RssCheckIntersectionSamePriorityOutOfMemoryTest,
+                        ::testing::Range(uint64_t(0u), uint64_t(50u)));
+
+TEST_F(RssCheckIntersectionSamePriorityTest, IntersectionTest)
+{
+  performIntersectionTest();
 }
 
 } // namespace core
