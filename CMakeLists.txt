@@ -63,24 +63,28 @@ else()
   set(COVERAGE_FLAG "")
 endif()
 
+
+set(GENERATED_SOURCES
+  src/generated/physics/Acceleration.cpp
+  src/generated/physics/CoordinateSystemAxis.cpp
+  src/generated/physics/Distance.cpp
+  src/generated/physics/DistanceSquared.cpp
+  src/generated/physics/Duration.cpp
+  src/generated/physics/DurationSquared.cpp
+  src/generated/physics/ParametricValue.cpp
+  src/generated/physics/Speed.cpp
+  src/generated/physics/SpeedSquared.cpp
+  src/generated/situation/LateralRelativePosition.cpp
+  src/generated/situation/LongitudinalRelativePosition.cpp
+  src/generated/situation/SituationType.cpp
+  src/generated/state/LateralResponse.cpp
+  src/generated/state/LongitudinalResponse.cpp
+  src/generated/world/LaneDrivingDirection.cpp
+  src/generated/world/LaneSegmentType.cpp
+  src/generated/world/ObjectType.cpp
+)
+
 add_library(${PROJECT_NAME} SHARED
-  src/ad_rss/physics/Acceleration.cpp
-  src/ad_rss/physics/CoordinateSystemAxis.cpp
-  src/ad_rss/physics/Distance.cpp
-  src/ad_rss/physics/DistanceSquared.cpp
-  src/ad_rss/physics/Duration.cpp
-  src/ad_rss/physics/DurationSquared.cpp
-  src/ad_rss/physics/ParametricValue.cpp
-  src/ad_rss/physics/Speed.cpp
-  src/ad_rss/physics/SpeedSquared.cpp
-  src/ad_rss/situation/LateralRelativePosition.cpp
-  src/ad_rss/situation/LongitudinalRelativePosition.cpp
-  src/ad_rss/situation/SituationType.cpp
-  src/ad_rss/state/LateralResponse.cpp
-  src/ad_rss/state/LongitudinalResponse.cpp
-  src/ad_rss/world/LaneDrivingDirection.cpp
-  src/ad_rss/world/LaneSegmentType.cpp
-  src/ad_rss/world/ObjectType.cpp
   src/core/RssCheck.cpp
   src/core/RssResponseResolving.cpp
   src/core/RssResponseTransformation.cpp
@@ -92,7 +96,8 @@ add_library(${PROJECT_NAME} SHARED
   src/situation/RSSSituation.cpp
   src/world/RssSituationCoordinateSystemConversion.cpp
   src/world/RssObjectPositionExtractor.cpp
-  )
+  ${GENERATED_SOURCES}
+)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
   OUTPUT_NAME ad_rss
@@ -102,6 +107,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 target_include_directories(${PROJECT_NAME}
   PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/generated>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
   PRIVATE
   src
@@ -115,6 +121,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "${COVERAGE_FLAG} ${
 ################################################################################
 # common section
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ad_rss
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/generated/ad_rss
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 if(IS_ABSOLUTE "${CMAKE_INSTALL_LIBDIR}")
