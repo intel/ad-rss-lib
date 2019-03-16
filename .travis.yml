@@ -66,7 +66,7 @@ matrix:
       after_failure:
         - tail --lines=2000 build.log
 
-    - env: TEST="Build Doxygen Documentation"
+    - env: TEST="Build and Deploy Documentation"
       addons:
         apt:
           packages:
@@ -76,15 +76,32 @@ matrix:
             - libgtest-dev
             - doxygen
             - graphviz
+            - asciidoctor
+            - ruby
+            - rubygems
+            - ruby-dev
+      before_install:
+        - gem update --system
+        - gem install coderay
       script:
         - mkdir build
         - cd build
         - cmake .. -DBUILD_DOC=ON
         - make apidoc
         - cd ..
+        - cd doc/
+        - asciidoctor Main.adoc
+        - cd ..
       before_deploy:
-        - cp _config.yml build/doc/apidoc
-        - cp README.md build/doc/apidoc
+        - mv build/doc/apidoc/html build/doc/apidoc/doxygen
+        - cp .github/_config.yml build/doc/apidoc
+        - cp -r .github/_data build/doc/apidoc
+        - cp -r .github/_layouts build/doc/apidoc
+        - cp *.md build/doc/apidoc
+        - mkdir build/doc/apidoc/documentation
+        - cp doc/Main.html build/doc/apidoc/documentation
+        - cp -r doc/images build/doc/apidoc/documentation
+        - cp -r doc/resources build/doc/apidoc/documentation
       deploy:
         provider: pages
         skip-cleanup: true
