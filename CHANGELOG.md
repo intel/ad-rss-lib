@@ -1,4 +1,5 @@
 ## Latest changes
+* Made generated files and tests more explicit
 * Extended documentation
 * Increase test coverage
 * Fixed calculateLateralDimensions()
