@@ -1,1 +1,12 @@
-theme: jekyll-theme-slate
+theme: jekyll-theme-cayman
+
+title: "C++ Library for Responsibility Sensitive Safety"
+show_downloads: "true"
+
+defaults:
+
+  -
+    scope:
+      path: ""
+    values:
+      layout: "default"
