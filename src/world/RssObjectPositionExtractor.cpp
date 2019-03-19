@@ -73,10 +73,10 @@ bool RssObjectPositionExtractor::newLaneSegment(MetricRange lateralDistance, Lan
   while (!noAdditionalObjects && !mOccupiedRegions.empty())
   {
     auto const objectSegment
-      = std::find_if(mOccupiedRegions.cbegin(), mOccupiedRegions.cend(), [laneSegment](OccupiedRegion const &region) {
+      = std::find_if(mOccupiedRegions.begin(), mOccupiedRegions.end(), [laneSegment](OccupiedRegion const &region) {
           return region.segmentId == laneSegment.id;
         });
-    if (objectSegment == mOccupiedRegions.cend())
+    if (objectSegment == mOccupiedRegions.end())
     {
       noAdditionalObjects = true;
     }

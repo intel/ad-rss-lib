@@ -191,7 +191,7 @@ Unit testing achieved code coverage of: 95% functions, 94% lines, 63% branches.
 
 The development platform is Ubuntu Linux 16.04 Xenial.
 
-A standard cmake toolchain has been used to compile the library. The compiler is g++ 5.4.0.
+A standard cmake toolchain has been used to compile the library. The compiler is g++ 5.5.0; g++ 4.8.0 is also supported.
 
 The following, strict, compilation flags are used: C++11, -Werror, -Wall, -Wextra, -pedantic, -Wconversion, -Wsign-conversion, -Wfloat-equal -Wshadow -Wswitch-default -Wenum-compare -Wformat -Wformat-security.
 
@@ -207,7 +207,7 @@ The following, strict, compilation flags are used: C++11, -Werror, -Wall, -Wextr
 * -Wenum-compare warn about a comparison between values of different enumerated types
 * -Wformat* warns about errors within format strings
 
-In addition, there are compiler flags (-fstack-protector-strong -fasynchronous-unwind-tables -fno-omit-frame-pointer -fPIE -fPIC -D_FORTIFY_SOURCE=2) and linker flags (-Wl,-z,now -Wl,-z,relro -pie)
+In addition, there are compiler flags (-fstack-protector-all -fasynchronous-unwind-tables -fno-omit-frame-pointer -fPIE -fPIC -D_FORTIFY_SOURCE=2) and linker flags (-Wl,-z,now -Wl,-z,relro -pie)
 enabled to harden the resulting binaries.
 
 Compilation with these flags completes without any error or warning.
