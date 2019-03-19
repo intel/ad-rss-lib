@@ -160,7 +160,7 @@ matrix:
         - rm -rf gh-pages/ build/
         - git add .
         - git commit -am "Update documentation" --no-edit
-        - git remote add origin-pages https://${GITHUB_TOKEN}@github.com/fabianoboril/ad-rss-lib.git > /dev/null 2>&1
+        - git remote add origin-pages https://${GITHUB_TOKEN}@github.com/intel/ad-rss-lib.git > /dev/null 2>&1
         - git push --set-upstream origin-pages gh-pages
       after_failure:
         - tail --lines=2000 build.log
