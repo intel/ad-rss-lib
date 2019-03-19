@@ -43,9 +43,9 @@ set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 11)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    # require at least gcc 5.0
-    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 5.0)
-        message(FATAL_ERROR "GCC version must be at least 5.0!")
+    # require at least gcc 4.8
+    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.8)
+        message(FATAL_ERROR "GCC version must be at least 4.8!")
     endif()
 else()
     message(WARNING "You are using an unsupported compiler! Compilation has only been tested with GCC.")
@@ -61,7 +61,7 @@ add_compile_options(-Werror)
 # hardening
 if (BUILD_HARDENING)
   set(HARDENING_LD_FLAGS "-Wl,-z,now -Wl,-z,relro -pie")
-  add_compile_options(-fstack-protector-strong -fasynchronous-unwind-tables -fno-omit-frame-pointer -fPIE -fPIC -D_FORTIFY_SOURCE=2)
+  add_compile_options(-fstack-protector-all -fasynchronous-unwind-tables -fno-omit-frame-pointer -fPIE -fPIC -D_FORTIFY_SOURCE=2)
 else()
   set(HARDENING_LD_FLAGS "")
 endif()
