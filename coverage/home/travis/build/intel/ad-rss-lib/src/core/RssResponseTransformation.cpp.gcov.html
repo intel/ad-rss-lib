@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - ad_rss_lib - /home/travis/build/intel/ad-rss-lib/src/core/RssResponseTransformation.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../../../../index.html">top level</a> - <a href="index.html">home/travis/build/intel/ad-rss-lib/src/core</a> - RssResponseTransformation.cpp<span style="font-size: 80%;"> (source / <a href="RssResponseTransformation.cpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">ad_rss_lib</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">28</td>
+            <td class="headerCovTableEntry">32</td>
+            <td class="headerCovTableEntryMed">87.5 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2019-03-19 10:06:35</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">20</td>
+            <td class="headerCovTableEntry">32</td>
+            <td class="headerCovTableEntryLo">62.5 %</td>
+          </tr>
+          <tr><td><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : // ----------------- BEGIN LICENSE BLOCK ---------------------------------</a>
+<span class="lineNum">       2 </span>                :            : //
+<span class="lineNum">       3 </span>                :            : // Copyright (c) 2018-2019 Intel Corporation
+<span class="lineNum">       4 </span>                :            : //
+<span class="lineNum">       5 </span>                :            : // Redistribution and use in source and binary forms, with or without modification,
+<span class="lineNum">       6 </span>                :            : // are permitted provided that the following conditions are met:
+<span class="lineNum">       7 </span>                :            : //
+<span class="lineNum">       8 </span>                :            : // 1. Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">       9 </span>                :            : //    this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>                :            : //
+<span class="lineNum">      11 </span>                :            : // 2. Redistributions in binary form must reproduce the above copyright notice,
+<span class="lineNum">      12 </span>                :            : //    this list of conditions and the following disclaimer in the documentation
+<span class="lineNum">      13 </span>                :            : //    and/or other materials provided with the distribution.
+<span class="lineNum">      14 </span>                :            : //
+<span class="lineNum">      15 </span>                :            : // 3. Neither the name of the copyright holder nor the names of its contributors
+<span class="lineNum">      16 </span>                :            : //    may be used to endorse or promote products derived from this software without
+<span class="lineNum">      17 </span>                :            : //    specific prior written permission.
+<span class="lineNum">      18 </span>                :            : //
+<span class="lineNum">      19 </span>                :            : //    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND
+<span class="lineNum">      20 </span>                :            : //    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+<span class="lineNum">      21 </span>                :            : //    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+<span class="lineNum">      22 </span>                :            : //    IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+<span class="lineNum">      23 </span>                :            : //    INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+<span class="lineNum">      24 </span>                :            : //    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+<span class="lineNum">      25 </span>                :            : //    OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+<span class="lineNum">      26 </span>                :            : //    WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      27 </span>                :            : //    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      28 </span>                :            : //    POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      29 </span>                :            : //
+<span class="lineNum">      30 </span>                :            : // ----------------- END LICENSE BLOCK -----------------------------------
+<span class="lineNum">      31 </span>                :            : 
+<span class="lineNum">      32 </span>                :            : #include &quot;ad_rss/core/RssResponseTransformation.hpp&quot;
+<span class="lineNum">      33 </span>                :            : #include &quot;ad_rss/state/ResponseStateValidInputRange.hpp&quot;
+<span class="lineNum">      34 </span>                :            : #include &quot;ad_rss/world/WorldModelValidInputRange.hpp&quot;
+<span class="lineNum">      35 </span>                :            : 
+<span class="lineNum">      36 </span>                :            : namespace ad_rss {
+<span class="lineNum">      37 </span>                :            : 
+<span class="lineNum">      38 </span>                :            : namespace core {
+<a name="39"><span class="lineNum">      39 </span>                :            : namespace RssResponseTransformation {</a>
+<span class="lineNum">      40 </span>                :            : 
+<span class="lineNum">      41 </span>                :<span class="lineCov">       2153 : bool transformProperResponse(world::WorldModel const &amp;worldModel,</span>
+<span class="lineNum">      42 </span>                :            :                              state::ResponseState const &amp;response,
+<span class="lineNum">      43 </span>                :            :                              world::AccelerationRestriction &amp;accelerationRestriction)
+<span class="lineNum">      44 </span>                :            : {
+<span class="lineNum">      45 </span>[<span class="branchCov" title="Branch 1 was taken 2152 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>][<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 2152 times"> + </span>]:<span class="lineCov">       2153 :   if (!withinValidInputRange(worldModel) || !withinValidInputRange(response))</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchCov" title="Branch 7 was taken 2152 times"> + </span>]
+<span class="lineNum">      46 </span>                :            :   {
+<span class="lineNum">      47 </span>                :<span class="lineCov">          1 :     return false;</span>
+<span class="lineNum">      48 </span>                :            :   }
+<span class="lineNum">      49 </span>                :            : 
+<span class="lineNum">      50 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2152 times"> + </span>]:<span class="lineCov">       2152 :   if (worldModel.timeIndex != response.timeIndex)</span>
+<span class="lineNum">      51 </span>                :            :   {
+<span class="lineNum">      52 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">      53 </span>                :            :   }
+<span class="lineNum">      54 </span>                :<span class="lineCov">       2152 :   accelerationRestriction.timeIndex = response.timeIndex;</span>
+<span class="lineNum">      55 </span>                :            : 
+<span class="lineNum">      56 </span>                :            :   /**
+<span class="lineNum">      57 </span>                :            :    * If there is no action required RssResponseTransformation should send the maximum allowed acceleration/brake values
+<span class="lineNum">      58 </span>                :            :    * given by the world model
+<span class="lineNum">      59 </span>                :            :    */
+<span class="lineNum">      60 </span>        [<span class="branchCov" title="Branch 1 was taken 2152 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2152 :   accelerationRestriction.longitudinalRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax;</span>
+<span class="lineNum">      61 </span>  [<span class="branchCov" title="Branch 0 was taken 234 times"> + </span><span class="branchCov" title="Branch 1 was taken 347 times"> + </span><span class="branchCov" title="Branch 2 was taken 1571 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       2152 :   switch (response.longitudinalState.response)</span>
+<span class="lineNum">      62 </span>                :            :   {
+<span class="lineNum">      63 </span>                :            :     case ::ad_rss::state::LongitudinalResponse::BrakeMin:
+<span class="lineNum">      64 </span>        [<span class="branchCov" title="Branch 1 was taken 234 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        234 :       accelerationRestriction.longitudinalRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMin;</span>
+<span class="lineNum">      65 </span>                :<span class="lineCov">        234 :       break;</span>
+<span class="lineNum">      66 </span>                :            :     case ::ad_rss::state::LongitudinalResponse::BrakeMinCorrect:
+<span class="lineNum">      67 </span>        [<span class="branchCov" title="Branch 1 was taken 347 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        347 :       accelerationRestriction.longitudinalRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMinCorrect;</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">        347 :       break;</span>
+<span class="lineNum">      69 </span>                :            :     case ::ad_rss::state::LongitudinalResponse::None:
+<span class="lineNum">      70 </span>                :<span class="lineCov">       1571 :       accelerationRestriction.longitudinalRange.maximum = worldModel.egoVehicle.dynamics.alphaLon.accelMax;</span>
+<span class="lineNum">      71 </span>                :<span class="lineCov">       1571 :       break;</span>
+<span class="lineNum">      72 </span>                :            :     default:
+<span class="lineNum">      73 </span>                :<span class="lineNoCov">          0 :       return false;</span>
+<span class="lineNum">      74 </span>                :            :       break;
+<span class="lineNum">      75 </span>                :            :   }
+<span class="lineNum">      76 </span>                :            : 
+<span class="lineNum">      77 </span>     [<span class="branchCov" title="Branch 0 was taken 43 times"> + </span><span class="branchCov" title="Branch 1 was taken 2109 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2152 :   switch (response.lateralStateLeft.response)</span>
+<span class="lineNum">      78 </span>                :            :   {
+<span class="lineNum">      79 </span>                :            :     case ::ad_rss::state::LateralResponse::BrakeMin:
+<span class="lineNum">      80 </span>        [<span class="branchCov" title="Branch 1 was taken 43 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         43 :       accelerationRestriction.lateralLeftRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;</span>
+<span class="lineNum">      81 </span>                :<span class="lineCov">         43 :       accelerationRestriction.lateralLeftRange.minimum = std::numeric_limits&lt;physics::Acceleration&gt;::lowest();</span>
+<span class="lineNum">      82 </span>                :<span class="lineCov">         43 :       break;</span>
+<span class="lineNum">      83 </span>                :            :     case ::ad_rss::state::LateralResponse::None:
+<span class="lineNum">      84 </span>                :<span class="lineCov">       2109 :       accelerationRestriction.lateralLeftRange.maximum = worldModel.egoVehicle.dynamics.alphaLat.accelMax;</span>
+<span class="lineNum">      85 </span>        [<span class="branchCov" title="Branch 1 was taken 2109 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2109 :       accelerationRestriction.lateralLeftRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;</span>
+<span class="lineNum">      86 </span>                :<span class="lineCov">       2109 :       break;</span>
+<span class="lineNum">      87 </span>                :            :     default:
+<span class="lineNum">      88 </span>                :<span class="lineNoCov">          0 :       return false;</span>
+<span class="lineNum">      89 </span>                :            :       break;
+<span class="lineNum">      90 </span>                :            :   }
+<span class="lineNum">      91 </span>                :            : 
+<span class="lineNum">      92 </span>     [<span class="branchCov" title="Branch 0 was taken 21 times"> + </span><span class="branchCov" title="Branch 1 was taken 2131 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2152 :   switch (response.lateralStateRight.response)</span>
+<span class="lineNum">      93 </span>                :            :   {
+<span class="lineNum">      94 </span>                :            :     case ::ad_rss::state::LateralResponse::BrakeMin:
+<span class="lineNum">      95 </span>        [<span class="branchCov" title="Branch 1 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         21 :       accelerationRestriction.lateralRightRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;</span>
+<span class="lineNum">      96 </span>                :<span class="lineCov">         21 :       accelerationRestriction.lateralRightRange.minimum = std::numeric_limits&lt;physics::Acceleration&gt;::lowest();</span>
+<span class="lineNum">      97 </span>                :<span class="lineCov">         21 :       break;</span>
+<span class="lineNum">      98 </span>                :            :     case ::ad_rss::state::LateralResponse::None:
+<span class="lineNum">      99 </span>                :<span class="lineCov">       2131 :       accelerationRestriction.lateralRightRange.maximum = worldModel.egoVehicle.dynamics.alphaLat.accelMax;</span>
+<span class="lineNum">     100 </span>        [<span class="branchCov" title="Branch 1 was taken 2131 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2131 :       accelerationRestriction.lateralRightRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;</span>
+<span class="lineNum">     101 </span>                :<span class="lineCov">       2131 :       break;</span>
+<span class="lineNum">     102 </span>                :            :     default:
+<span class="lineNum">     103 </span>                :<span class="lineNoCov">          0 :       return false;</span>
+<span class="lineNum">     104 </span>                :            :       break;
+<span class="lineNum">     105 </span>                :            :   }
+<span class="lineNum">     106 </span>                :            : 
+<span class="lineNum">     107 </span>                :<span class="lineCov">       2153 :   return true;</span>
+<span class="lineNum">     108 </span>                :            : }
+<span class="lineNum">     109 </span>                :            : 
+<span class="lineNum">     110 </span>                :            : } // namespace RssResponseTransformation
+<span class="lineNum">     111 </span>                :            : } // namespace core
+<span class="lineNum">     112 </span>                :            : } // namespace ad_rss
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

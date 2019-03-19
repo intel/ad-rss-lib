@@ -1,0 +1,492 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - ad_rss_lib - /home/travis/build/intel/ad-rss-lib/src/core/RssSituationExtraction.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../../../../index.html">top level</a> - <a href="index.html">home/travis/build/intel/ad-rss-lib/src/core</a> - RssSituationExtraction.cpp<span style="font-size: 80%;"> (source / <a href="RssSituationExtraction.cpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">ad_rss_lib</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">141</td>
+            <td class="headerCovTableEntry">147</td>
+            <td class="headerCovTableEntryHi">95.9 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2019-03-19 10:06:35</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">101</td>
+            <td class="headerCovTableEntry">138</td>
+            <td class="headerCovTableEntryLo">73.2 %</td>
+          </tr>
+          <tr><td><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : // ----------------- BEGIN LICENSE BLOCK ---------------------------------</a>
+<span class="lineNum">       2 </span>                :            : //
+<span class="lineNum">       3 </span>                :            : // Copyright (c) 2018-2019 Intel Corporation
+<span class="lineNum">       4 </span>                :            : //
+<span class="lineNum">       5 </span>                :            : // Redistribution and use in source and binary forms, with or without modification,
+<span class="lineNum">       6 </span>                :            : // are permitted provided that the following conditions are met:
+<span class="lineNum">       7 </span>                :            : //
+<span class="lineNum">       8 </span>                :            : // 1. Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">       9 </span>                :            : //    this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>                :            : //
+<span class="lineNum">      11 </span>                :            : // 2. Redistributions in binary form must reproduce the above copyright notice,
+<span class="lineNum">      12 </span>                :            : //    this list of conditions and the following disclaimer in the documentation
+<span class="lineNum">      13 </span>                :            : //    and/or other materials provided with the distribution.
+<span class="lineNum">      14 </span>                :            : //
+<span class="lineNum">      15 </span>                :            : // 3. Neither the name of the copyright holder nor the names of its contributors
+<span class="lineNum">      16 </span>                :            : //    may be used to endorse or promote products derived from this software without
+<span class="lineNum">      17 </span>                :            : //    specific prior written permission.
+<span class="lineNum">      18 </span>                :            : //
+<span class="lineNum">      19 </span>                :            : //    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND
+<span class="lineNum">      20 </span>                :            : //    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+<span class="lineNum">      21 </span>                :            : //    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+<span class="lineNum">      22 </span>                :            : //    IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+<span class="lineNum">      23 </span>                :            : //    INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+<span class="lineNum">      24 </span>                :            : //    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+<span class="lineNum">      25 </span>                :            : //    OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+<span class="lineNum">      26 </span>                :            : //    WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      27 </span>                :            : //    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      28 </span>                :            : //    POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      29 </span>                :            : //
+<span class="lineNum">      30 </span>                :            : // ----------------- END LICENSE BLOCK -----------------------------------
+<span class="lineNum">      31 </span>                :            : 
+<span class="lineNum">      32 </span>                :            : #include &quot;ad_rss/core/RssSituationExtraction.hpp&quot;
+<span class="lineNum">      33 </span>                :            : #include &quot;ad_rss/world/WorldModelValidInputRange.hpp&quot;
+<span class="lineNum">      34 </span>                :            : 
+<span class="lineNum">      35 </span>                :            : #include &quot;world/RssSituationCoordinateSystemConversion.hpp&quot;
+<span class="lineNum">      36 </span>                :            : 
+<span class="lineNum">      37 </span>                :            : namespace ad_rss {
+<span class="lineNum">      38 </span>                :            : 
+<span class="lineNum">      39 </span>                :            : namespace core {
+<span class="lineNum">      40 </span>                :            : namespace RssSituationExtraction {
+<span class="lineNum">      41 </span>                :            : 
+<span class="lineNum">      42 </span>                :            : using physics::Distance;
+<a name="43"><span class="lineNum">      43 </span>                :            : using physics::MetricRange;</a>
+<span class="lineNum">      44 </span>                :            : 
+<span class="lineNum">      45 </span>                :<span class="lineCov">       1926 : void calcluateRelativeLongitudinalPosition(MetricRange const &amp;egoMetricRange,</span>
+<span class="lineNum">      46 </span>                :            :                                            MetricRange const &amp;otherMetricRange,
+<span class="lineNum">      47 </span>                :            :                                            situation::LongitudinalRelativePosition &amp;longitudinalPosition,
+<span class="lineNum">      48 </span>                :            :                                            Distance &amp;longitudinalDistance)
+<span class="lineNum">      49 </span>                :            : {
+<span class="lineNum">      50 </span>        [<span class="branchCov" title="Branch 1 was taken 325 times"> + </span><span class="branchCov" title="Branch 2 was taken 1601 times"> + </span>]:<span class="lineCov">       1926 :   if (egoMetricRange.minimum &gt; otherMetricRange.maximum)</span>
+<span class="lineNum">      51 </span>                :            :   {
+<span class="lineNum">      52 </span>                :<span class="lineCov">        325 :     longitudinalPosition = situation::LongitudinalRelativePosition::InFront;</span>
+<span class="lineNum">      53 </span>                :<span class="lineCov">        325 :     longitudinalDistance = egoMetricRange.minimum - otherMetricRange.maximum;</span>
+<span class="lineNum">      54 </span>                :            :   }
+<span class="lineNum">      55 </span>        [<span class="branchCov" title="Branch 1 was taken 1111 times"> + </span><span class="branchCov" title="Branch 2 was taken 490 times"> + </span>]:<span class="lineCov">       1601 :   else if (otherMetricRange.minimum &gt; egoMetricRange.maximum)</span>
+<span class="lineNum">      56 </span>                :            :   {
+<span class="lineNum">      57 </span>                :<span class="lineCov">       1111 :     longitudinalPosition = situation::LongitudinalRelativePosition::AtBack;</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">       1111 :     longitudinalDistance = otherMetricRange.minimum - egoMetricRange.maximum;</span>
+<span class="lineNum">      59 </span>                :            :   }
+<span class="lineNum">      60 </span>                :            :   else
+<span class="lineNum">      61 </span>                :            :   {
+<span class="lineNum">      62 </span>                :<span class="lineCov">        490 :     longitudinalDistance = Distance(0.);</span>
+<span class="lineNum">      63 </span>[<span class="branchCov" title="Branch 1 was taken 106 times"> + </span><span class="branchCov" title="Branch 2 was taken 384 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 103 times"> + </span><span class="branchCov" title="Branch 5 was taken 3 times"> + </span>]:<span class="lineCov">        490 :     if ((egoMetricRange.minimum &gt; otherMetricRange.minimum) &amp;&amp; (egoMetricRange.maximum &gt; otherMetricRange.maximum))</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 103 times"> + </span><span class="branchCov" title="Branch 7 was taken 387 times"> + </span>]
+<span class="lineNum">      64 </span>                :            :     {
+<span class="lineNum">      65 </span>                :<span class="lineCov">        103 :       longitudinalPosition = situation::LongitudinalRelativePosition::OverlapFront;</span>
+<span class="lineNum">      66 </span>                :            :     }
+<span class="lineNum">      67 </span>[<span class="branchCov" title="Branch 1 was taken 20 times"> + </span><span class="branchCov" title="Branch 2 was taken 367 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 17 times"> + </span><span class="branchCov" title="Branch 5 was taken 3 times"> + </span>]:<span class="lineCov">        387 :     else if ((egoMetricRange.minimum &lt; otherMetricRange.minimum) &amp;&amp; (egoMetricRange.maximum &lt; otherMetricRange.maximum))</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 17 times"> + </span><span class="branchCov" title="Branch 7 was taken 370 times"> + </span>]
+<span class="lineNum">      68 </span>                :            :     {
+<span class="lineNum">      69 </span>                :<span class="lineCov">         17 :       longitudinalPosition = situation::LongitudinalRelativePosition::OverlapBack;</span>
+<span class="lineNum">      70 </span>                :            :     }
+<span class="lineNum">      71 </span>                :            :     else
+<span class="lineNum">      72 </span>                :            :     {
+<span class="lineNum">      73 </span>                :<span class="lineCov">        370 :       longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;</span>
+<span class="lineNum">      74 </span>                :            :     }
+<span class="lineNum">      75 </span>                :            :   }
+<a name="76"><span class="lineNum">      76 </span>                :<span class="lineCov">       1911 : }</span></a>
+<span class="lineNum">      77 </span>                :            : 
+<span class="lineNum">      78 </span>                :<span class="lineCov">        277 : void calcluateRelativeLongitudinalPositionIntersection(MetricRange const &amp;egoMetricRange,</span>
+<span class="lineNum">      79 </span>                :            :                                                        MetricRange const &amp;otherMetricRange,
+<span class="lineNum">      80 </span>                :            :                                                        situation::LongitudinalRelativePosition &amp;longitudinalPosition,
+<span class="lineNum">      81 </span>                :            :                                                        Distance &amp;longitudinalDistance)
+<span class="lineNum">      82 </span>                :            : {
+<span class="lineNum">      83 </span>        [<span class="branchCov" title="Branch 1 was taken 76 times"> + </span><span class="branchCov" title="Branch 2 was taken 201 times"> + </span>]:<span class="lineCov">        277 :   if (egoMetricRange.maximum &lt; otherMetricRange.minimum)</span>
+<span class="lineNum">      84 </span>                :            :   {
+<span class="lineNum">      85 </span>                :<span class="lineCov">         76 :     longitudinalPosition = situation::LongitudinalRelativePosition::InFront;</span>
+<span class="lineNum">      86 </span>                :<span class="lineCov">         76 :     longitudinalDistance = otherMetricRange.minimum - egoMetricRange.maximum;</span>
+<span class="lineNum">      87 </span>                :            :   }
+<span class="lineNum">      88 </span>        [<span class="branchCov" title="Branch 1 was taken 108 times"> + </span><span class="branchCov" title="Branch 2 was taken 93 times"> + </span>]:<span class="lineCov">        201 :   else if (otherMetricRange.maximum &lt; egoMetricRange.minimum)</span>
+<span class="lineNum">      89 </span>                :            :   {
+<span class="lineNum">      90 </span>                :<span class="lineCov">        108 :     longitudinalPosition = situation::LongitudinalRelativePosition::AtBack;</span>
+<span class="lineNum">      91 </span>                :<span class="lineCov">        108 :     longitudinalDistance = egoMetricRange.minimum - otherMetricRange.maximum;</span>
+<span class="lineNum">      92 </span>                :            :   }
+<span class="lineNum">      93 </span>                :            :   else
+<span class="lineNum">      94 </span>                :            :   {
+<span class="lineNum">      95 </span>                :<span class="lineCov">         93 :     longitudinalDistance = Distance(0.);</span>
+<span class="lineNum">      96 </span>[<span class="branchCov" title="Branch 1 was taken 48 times"> + </span><span class="branchCov" title="Branch 2 was taken 45 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 48 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         93 :     if ((egoMetricRange.minimum &lt; otherMetricRange.minimum) &amp;&amp; (egoMetricRange.maximum &lt; otherMetricRange.maximum))</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 48 times"> + </span><span class="branchCov" title="Branch 7 was taken 45 times"> + </span>]
+<span class="lineNum">      97 </span>                :            :     {
+<span class="lineNum">      98 </span>                :<span class="lineCov">         48 :       longitudinalPosition = situation::LongitudinalRelativePosition::OverlapFront;</span>
+<span class="lineNum">      99 </span>                :            :     }
+<span class="lineNum">     100 </span>[<span class="branchCov" title="Branch 1 was taken 42 times"> + </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 42 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         45 :     else if ((egoMetricRange.minimum &gt; otherMetricRange.minimum) &amp;&amp; (egoMetricRange.maximum &gt; otherMetricRange.maximum))</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 42 times"> + </span><span class="branchCov" title="Branch 7 was taken 3 times"> + </span>]
+<span class="lineNum">     101 </span>                :            :     {
+<span class="lineNum">     102 </span>                :<span class="lineCov">         42 :       longitudinalPosition = situation::LongitudinalRelativePosition::OverlapBack;</span>
+<span class="lineNum">     103 </span>                :            :     }
+<span class="lineNum">     104 </span>                :            :     else
+<span class="lineNum">     105 </span>                :            :     {
+<span class="lineNum">     106 </span>                :<span class="lineCov">          3 :       longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;</span>
+<span class="lineNum">     107 </span>                :            :     }
+<span class="lineNum">     108 </span>                :            :   }
+<a name="109"><span class="lineNum">     109 </span>                :<span class="lineCov">        277 : }</span></a>
+<span class="lineNum">     110 </span>                :            : 
+<span class="lineNum">     111 </span>                :<span class="lineCov">       1911 : void calcluateRelativeLateralPosition(MetricRange const &amp;egoMetricRange,</span>
+<span class="lineNum">     112 </span>                :            :                                       MetricRange const &amp;otherMetricRange,
+<span class="lineNum">     113 </span>                :            :                                       situation::LateralRelativePosition &amp;lateralPosition,
+<span class="lineNum">     114 </span>                :            :                                       Distance &amp;lateralDistance)
+<span class="lineNum">     115 </span>                :            : {
+<span class="lineNum">     116 </span>        [<span class="branchCov" title="Branch 1 was taken 616 times"> + </span><span class="branchCov" title="Branch 2 was taken 1295 times"> + </span>]:<span class="lineCov">       1911 :   if (egoMetricRange.minimum &gt; otherMetricRange.maximum)</span>
+<span class="lineNum">     117 </span>                :            :   {
+<span class="lineNum">     118 </span>                :<span class="lineCov">        616 :     lateralPosition = situation::LateralRelativePosition::AtRight;</span>
+<span class="lineNum">     119 </span>                :<span class="lineCov">        616 :     lateralDistance = egoMetricRange.minimum - otherMetricRange.maximum;</span>
+<span class="lineNum">     120 </span>                :            :   }
+<span class="lineNum">     121 </span>        [<span class="branchCov" title="Branch 1 was taken 501 times"> + </span><span class="branchCov" title="Branch 2 was taken 794 times"> + </span>]:<span class="lineCov">       1295 :   else if (otherMetricRange.minimum &gt; egoMetricRange.maximum)</span>
+<span class="lineNum">     122 </span>                :            :   {
+<span class="lineNum">     123 </span>                :<span class="lineCov">        501 :     lateralPosition = situation::LateralRelativePosition::AtLeft;</span>
+<span class="lineNum">     124 </span>                :<span class="lineCov">        501 :     lateralDistance = otherMetricRange.minimum - egoMetricRange.maximum;</span>
+<span class="lineNum">     125 </span>                :            :   }
+<span class="lineNum">     126 </span>                :            :   else
+<span class="lineNum">     127 </span>                :            :   {
+<span class="lineNum">     128 </span>                :<span class="lineCov">        794 :     lateralDistance = Distance(0.);</span>
+<span class="lineNum">     129 </span>[<span class="branchCov" title="Branch 1 was taken 588 times"> + </span><span class="branchCov" title="Branch 2 was taken 206 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 103 times"> + </span><span class="branchCov" title="Branch 5 was taken 485 times"> + </span>]:<span class="lineCov">        794 :     if ((egoMetricRange.minimum &gt; otherMetricRange.minimum) &amp;&amp; (egoMetricRange.maximum &gt; otherMetricRange.maximum))</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 103 times"> + </span><span class="branchCov" title="Branch 7 was taken 691 times"> + </span>]
+<span class="lineNum">     130 </span>                :            :     {
+<span class="lineNum">     131 </span>                :<span class="lineCov">        103 :       lateralPosition = situation::LateralRelativePosition::OverlapRight;</span>
+<span class="lineNum">     132 </span>                :            :     }
+<span class="lineNum">     133 </span>[<span class="branchCov" title="Branch 1 was taken 206 times"> + </span><span class="branchCov" title="Branch 2 was taken 485 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 103 times"> + </span><span class="branchCov" title="Branch 5 was taken 103 times"> + </span>]:<span class="lineCov">        691 :     else if ((egoMetricRange.minimum &lt; otherMetricRange.minimum) &amp;&amp; (egoMetricRange.maximum &lt; otherMetricRange.maximum))</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 103 times"> + </span><span class="branchCov" title="Branch 7 was taken 588 times"> + </span>]
+<span class="lineNum">     134 </span>                :            :     {
+<span class="lineNum">     135 </span>                :<span class="lineCov">        103 :       lateralPosition = situation::LateralRelativePosition::OverlapLeft;</span>
+<span class="lineNum">     136 </span>                :            :     }
+<span class="lineNum">     137 </span>                :            :     else
+<span class="lineNum">     138 </span>                :            :     {
+<span class="lineNum">     139 </span>                :<span class="lineCov">        588 :       lateralPosition = situation::LateralRelativePosition::Overlap;</span>
+<span class="lineNum">     140 </span>                :            :     }
+<span class="lineNum">     141 </span>                :            :   }
+<a name="142"><span class="lineNum">     142 </span>                :<span class="lineCov">       1911 : }</span></a>
+<span class="lineNum">     143 </span>                :            : 
+<span class="lineNum">     144 </span>                :<span class="lineCov">       1906 : bool convertObjectsNonIntersection(world::Object const &amp;egoVehicle,</span>
+<span class="lineNum">     145 </span>                :            :                                    world::Scene const &amp;currentScene,
+<span class="lineNum">     146 </span>                :            :                                    situation::Situation &amp;situation)
+<span class="lineNum">     147 </span>                :            : {
+<span class="lineNum">     148 </span>                :<span class="lineCov">       1906 :   bool result = true;</span>
+<span class="lineNum">     149 </span>                :            : 
+<span class="lineNum">     150 </span>        [<span class="branchCov" title="Branch 1 was taken 1906 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1906 :   world::ObjectDimensions egoVehicleDimension;</span>
+<span class="lineNum">     151 </span>        [<span class="branchCov" title="Branch 1 was taken 1906 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1906 :   world::ObjectDimensions objectToBeCheckedDimension;</span>
+<span class="lineNum">     152 </span>        [<span class="branchCov" title="Branch 1 was taken 1906 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1906 :   result = calculateObjectDimensions(egoVehicle, currentScene, egoVehicleDimension, objectToBeCheckedDimension);</span>
+<span class="lineNum">     153 </span>                :            : 
+<span class="lineNum">     154 </span>                :            :   situation::LongitudinalRelativePosition longitudinalPosition;
+<span class="lineNum">     155 </span>                :<span class="lineCov">       1906 :   Distance longitudinalDistance;</span>
+<span class="lineNum">     156 </span>                :            :   calcluateRelativeLongitudinalPosition(egoVehicleDimension.longitudinalDimensions,
+<span class="lineNum">     157 </span>                :            :                                         objectToBeCheckedDimension.longitudinalDimensions,
+<span class="lineNum">     158 </span>                :            :                                         longitudinalPosition,
+<span class="lineNum">     159 </span>        [<span class="branchCov" title="Branch 1 was taken 1891 times"> + </span><span class="branchCov" title="Branch 2 was taken 15 times"> + </span>]:<span class="lineCov">       1906 :                                         longitudinalDistance);</span>
+<span class="lineNum">     160 </span>                :            : 
+<span class="lineNum">     161 </span>                :<span class="lineCov">       1891 :   situation.relativePosition.longitudinalPosition = longitudinalPosition;</span>
+<span class="lineNum">     162 </span>                :<span class="lineCov">       1891 :   situation.relativePosition.longitudinalDistance = longitudinalDistance;</span>
+<span class="lineNum">     163 </span>                :            : 
+<span class="lineNum">     164 </span>                :<span class="lineCov">       1891 :   situation.egoVehicleState.isInCorrectLane = !egoVehicleDimension.onNegativeLane;</span>
+<span class="lineNum">     165 </span>                :            : 
+<span class="lineNum">     166 </span>        [<span class="branchCov" title="Branch 0 was taken 495 times"> + </span><span class="branchCov" title="Branch 1 was taken 1396 times"> + </span>]:<span class="lineCov">       1891 :   if (currentScene.situationType == ::ad_rss::situation::SituationType::OppositeDirection)</span>
+<span class="lineNum">     167 </span>                :            :   {
+<span class="lineNum">     168 </span>                :<span class="lineCov">        495 :     situation.otherVehicleState.isInCorrectLane = !objectToBeCheckedDimension.onPositiveLane;</span>
+<span class="lineNum">     169 </span>                :            :   }
+<span class="lineNum">     170 </span>                :            :   else
+<span class="lineNum">     171 </span>                :            :   {
+<span class="lineNum">     172 </span>                :<span class="lineCov">       1396 :     situation.otherVehicleState.isInCorrectLane = !objectToBeCheckedDimension.onNegativeLane;</span>
+<span class="lineNum">     173 </span>                :            :   }
+<span class="lineNum">     174 </span>                :            : 
+<span class="lineNum">     175 </span>                :            :   /**
+<span class="lineNum">     176 </span>                :            :    * Set lateral restrictions
+<span class="lineNum">     177 </span>                :            :    */
+<span class="lineNum">     178 </span>        [<span class="branchCov" title="Branch 0 was taken 1891 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1891 :   if (result)</span>
+<span class="lineNum">     179 </span>                :            :   {
+<span class="lineNum">     180 </span>                :            :     situation::LateralRelativePosition lateralPosition;
+<span class="lineNum">     181 </span>                :<span class="lineCov">       1891 :     Distance lateralDistance;</span>
+<span class="lineNum">     182 </span>                :            :     calcluateRelativeLateralPosition(egoVehicleDimension.lateralDimensions,
+<span class="lineNum">     183 </span>                :            :                                      objectToBeCheckedDimension.lateralDimensions,
+<span class="lineNum">     184 </span>                :            :                                      lateralPosition,
+<span class="lineNum">     185 </span>        [<span class="branchCov" title="Branch 1 was taken 1891 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1891 :                                      lateralDistance);</span>
+<span class="lineNum">     186 </span>                :            : 
+<span class="lineNum">     187 </span>                :<span class="lineCov">       1891 :     situation.relativePosition.lateralPosition = lateralPosition;</span>
+<span class="lineNum">     188 </span>                :<span class="lineCov">       1891 :     situation.relativePosition.lateralDistance = lateralDistance;</span>
+<span class="lineNum">     189 </span>                :            :   }
+<span class="lineNum">     190 </span>                :<span class="lineCov">       1891 :   return result;</span>
+<a name="191"><span class="lineNum">     191 </span>                :            : }</a>
+<span class="lineNum">     192 </span>                :            : 
+<span class="lineNum">     193 </span>                :<span class="lineCov">        554 : void convertToIntersectionCentric(MetricRange const &amp;objectDimension,</span>
+<span class="lineNum">     194 </span>                :            :                                   MetricRange const &amp;intersectionPosition,
+<span class="lineNum">     195 </span>                :            :                                   MetricRange &amp;dimensionsIntersection)
+<span class="lineNum">     196 </span>                :            : {
+<span class="lineNum">     197 </span>                :<span class="lineCov">        554 :   dimensionsIntersection.maximum = intersectionPosition.minimum - objectDimension.minimum;</span>
+<span class="lineNum">     198 </span>                :<span class="lineCov">        554 :   dimensionsIntersection.minimum = intersectionPosition.minimum - objectDimension.maximum;</span>
+<a name="199"><span class="lineNum">     199 </span>                :<span class="lineCov">        554 : }</span></a>
+<span class="lineNum">     200 </span>                :            : 
+<span class="lineNum">     201 </span>                :<span class="lineCov">        277 : bool convertObjectsIntersection(world::Object const &amp;egoVehicle,</span>
+<span class="lineNum">     202 </span>                :            :                                 world::Scene const &amp;currentScene,
+<span class="lineNum">     203 </span>                :            :                                 situation::Situation &amp;situation)
+<span class="lineNum">     204 </span>                :            : {
+<span class="lineNum">     205 </span>        [<span class="branchCov" title="Branch 1 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        277 :   world::ObjectDimensions egoVehicleDimension;</span>
+<span class="lineNum">     206 </span>        [<span class="branchCov" title="Branch 1 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        277 :   world::ObjectDimensions objectDimension;</span>
+<span class="lineNum">     207 </span>                :            : 
+<span class="lineNum">     208 </span>        [<span class="branchCov" title="Branch 1 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        277 :   bool result = calculateObjectDimensions(egoVehicle, currentScene.egoVehicleRoad, egoVehicleDimension);</span>
+<span class="lineNum">     209 </span>                :            : 
+<span class="lineNum">     210 </span>[<span class="branchCov" title="Branch 0 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        277 :   result = result &amp;&amp; calculateObjectDimensions(currentScene.object, currentScene.intersectingRoad, objectDimension);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
+<span class="lineNum">     211 </span>                :            : 
+<span class="lineNum">     212 </span>        [<span class="branchCov" title="Branch 0 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        277 :   if (result)</span>
+<span class="lineNum">     213 </span>                :            :   {
+<span class="lineNum">     214 </span>                :<span class="lineCov">        277 :     situation.egoVehicleState.isInCorrectLane = !egoVehicleDimension.onNegativeLane;</span>
+<span class="lineNum">     215 </span>                :<span class="lineCov">        277 :     situation.otherVehicleState.isInCorrectLane = !objectDimension.onNegativeLane;</span>
+<span class="lineNum">     216 </span>                :            : 
+<span class="lineNum">     217 </span>                :            :     // For intersection the lanes don't have the same origin so the positions cannot be directly compared
+<span class="lineNum">     218 </span>                :            :     // Intersection entry should be the common point so convert the positions to this reference point
+<span class="lineNum">     219 </span>        [<span class="branchCov" title="Branch 1 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        277 :     MetricRange egoDimensionsIntersection;</span>
+<span class="lineNum">     220 </span>                :            :     convertToIntersectionCentric(
+<span class="lineNum">     221 </span>        [<span class="branchCov" title="Branch 1 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        277 :       egoVehicleDimension.longitudinalDimensions, egoVehicleDimension.intersectionPosition, egoDimensionsIntersection);</span>
+<span class="lineNum">     222 </span>                :            : 
+<span class="lineNum">     223 </span>        [<span class="branchCov" title="Branch 1 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        277 :     MetricRange objectDimensionsIntersection;</span>
+<span class="lineNum">     224 </span>                :            : 
+<span class="lineNum">     225 </span>                :            :     convertToIntersectionCentric(
+<span class="lineNum">     226 </span>        [<span class="branchCov" title="Branch 1 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        277 :       objectDimension.longitudinalDimensions, objectDimension.intersectionPosition, objectDimensionsIntersection);</span>
+<span class="lineNum">     227 </span>                :            : 
+<span class="lineNum">     228 </span>        [<span class="branchCov" title="Branch 2 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        277 :     situation.egoVehicleState.distanceToEnterIntersection = std::max(Distance(0.), egoDimensionsIntersection.minimum);</span>
+<span class="lineNum">     229 </span>                :            :     situation.egoVehicleState.distanceToLeaveIntersection
+<span class="lineNum">     230 </span>        [<span class="branchCov" title="Branch 1 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        277 :       = egoVehicleDimension.intersectionPosition.maximum - egoVehicleDimension.longitudinalDimensions.minimum;</span>
+<span class="lineNum">     231 </span>                :            : 
+<span class="lineNum">     232 </span>                :            :     situation.otherVehicleState.distanceToEnterIntersection
+<span class="lineNum">     233 </span>        [<span class="branchCov" title="Branch 2 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        277 :       = std::max(Distance(0.), objectDimensionsIntersection.minimum);</span>
+<span class="lineNum">     234 </span>                :            :     situation.otherVehicleState.distanceToLeaveIntersection
+<span class="lineNum">     235 </span>        [<span class="branchCov" title="Branch 1 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        277 :       = objectDimension.intersectionPosition.maximum - objectDimension.longitudinalDimensions.minimum;</span>
+<span class="lineNum">     236 </span>                :            : 
+<span class="lineNum">     237 </span>                :            :     situation::LongitudinalRelativePosition longitudinalPosition;
+<span class="lineNum">     238 </span>                :<span class="lineCov">        277 :     Distance longitudinalDistance;</span>
+<span class="lineNum">     239 </span>                :            :     calcluateRelativeLongitudinalPositionIntersection(
+<span class="lineNum">     240 </span>        [<span class="branchCov" title="Branch 1 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        277 :       egoDimensionsIntersection, objectDimensionsIntersection, longitudinalPosition, longitudinalDistance);</span>
+<span class="lineNum">     241 </span>                :            : 
+<span class="lineNum">     242 </span>                :<span class="lineCov">        277 :     situation.relativePosition.longitudinalPosition = longitudinalPosition;</span>
+<span class="lineNum">     243 </span>                :<span class="lineCov">        277 :     situation.relativePosition.longitudinalDistance = longitudinalDistance;</span>
+<span class="lineNum">     244 </span>                :            : 
+<span class="lineNum">     245 </span>                :<span class="lineCov">        277 :     situation.relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;</span>
+<span class="lineNum">     246 </span>                :<span class="lineCov">        277 :     situation.relativePosition.lateralDistance = Distance(0.);</span>
+<span class="lineNum">     247 </span>                :            :   }
+<span class="lineNum">     248 </span>                :            : 
+<span class="lineNum">     249 </span>        [<span class="branchCov" title="Branch 0 was taken 95 times"> + </span><span class="branchCov" title="Branch 1 was taken 182 times"> + </span>]:<span class="lineCov">        277 :   if (currentScene.situationType == situation::SituationType::IntersectionEgoHasPriority)</span>
+<span class="lineNum">     250 </span>                :            :   {
+<span class="lineNum">     251 </span>                :<span class="lineCov">         95 :     situation.egoVehicleState.hasPriority = true;</span>
+<span class="lineNum">     252 </span>                :<span class="lineCov">         95 :     situation.otherVehicleState.hasPriority = false;</span>
+<span class="lineNum">     253 </span>                :            :   }
+<span class="lineNum">     254 </span>        [<span class="branchCov" title="Branch 0 was taken 91 times"> + </span><span class="branchCov" title="Branch 1 was taken 91 times"> + </span>]:<span class="lineCov">        182 :   else if (currentScene.situationType == situation::SituationType::IntersectionObjectHasPriority)</span>
+<span class="lineNum">     255 </span>                :            :   {
+<span class="lineNum">     256 </span>                :<span class="lineCov">         91 :     situation.egoVehicleState.hasPriority = false;</span>
+<span class="lineNum">     257 </span>                :<span class="lineCov">         91 :     situation.otherVehicleState.hasPriority = true;</span>
+<span class="lineNum">     258 </span>                :            :   }
+<span class="lineNum">     259 </span>        [<span class="branchCov" title="Branch 0 was taken 91 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         91 :   else if (currentScene.situationType == situation::SituationType::IntersectionSamePriority)</span>
+<span class="lineNum">     260 </span>                :            :   {
+<span class="lineNum">     261 </span>                :<span class="lineCov">         91 :     situation.egoVehicleState.hasPriority = false;</span>
+<span class="lineNum">     262 </span>                :<span class="lineCov">         91 :     situation.otherVehicleState.hasPriority = false;</span>
+<span class="lineNum">     263 </span>                :            :   }
+<span class="lineNum">     264 </span>                :            :   else
+<span class="lineNum">     265 </span>                :            :   {
+<span class="lineNum">     266 </span>                :            :     // This function should never be called if we are not in intersection situation
+<span class="lineNum">     267 </span>                :<span class="lineNoCov">          0 :     result = false;</span>
+<span class="lineNum">     268 </span>                :            :   }
+<span class="lineNum">     269 </span>                :            : 
+<span class="lineNum">     270 </span>                :<span class="lineCov">        277 :   return result;</span>
+<a name="271"><span class="lineNum">     271 </span>                :            : }</a>
+<span class="lineNum">     272 </span>                :            : 
+<span class="lineNum">     273 </span>                :<span class="lineCov">       2283 : bool extractSituationInputRangeChecked(physics::TimeIndex const &amp;timeIndex,</span>
+<span class="lineNum">     274 </span>                :            :                                        world::Object const &amp;egoVehicle,
+<span class="lineNum">     275 </span>                :            :                                        world::Scene const &amp;currentScene,
+<span class="lineNum">     276 </span>                :            :                                        situation::Situation &amp;situation)
+<span class="lineNum">     277 </span>                :            : {
+<span class="lineNum">     278 </span>                :            :   // ensure the object types are semantically correct
+<span class="lineNum">     279 </span>                :            :   // toDo: add this restriction to the data type model
+<span class="lineNum">     280 </span>                :            :   //       and extend generated withinValidInputRange by these
+<span class="lineNum">     281 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2283 times"> + </span>]:<span class="lineCov">       2283 :   if (((currentScene.object.objectType != world::ObjectType::OtherVehicle)</span>
+<span class="lineNum">     282 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :        &amp;&amp; (currentScene.object.objectType != world::ObjectType::ArtificialObject))</span>
+<span class="lineNum">     283 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2283 times"> + </span>]:<span class="lineCov">       2283 :       || (egoVehicle.objectType != world::ObjectType::EgoVehicle))</span>
+<span class="lineNum">     284 </span>                :            :   {
+<span class="lineNum">     285 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     286 </span>                :            :   }
+<span class="lineNum">     287 </span>                :            : 
+<span class="lineNum">     288 </span>                :<span class="lineCov">       2283 :   bool result = false;</span>
+<span class="lineNum">     289 </span>                :            : 
+<span class="lineNum">     290 </span>                :            :   try
+<span class="lineNum">     291 </span>                :            :   {
+<span class="lineNum">     292 </span>                :<span class="lineCov">       2283 :     situation.timeIndex = timeIndex;</span>
+<span class="lineNum">     293 </span>                :<span class="lineCov">       2283 :     situation.situationId = situation::SituationId(currentScene.object.objectId);</span>
+<span class="lineNum">     294 </span>                :<span class="lineCov">       2283 :     situation.situationType = currentScene.situationType;</span>
+<span class="lineNum">     295 </span>                :            : 
+<span class="lineNum">     296 </span>                :<span class="lineCov">       2283 :     situation.egoVehicleState.hasPriority = false;</span>
+<span class="lineNum">     297 </span>                :<span class="lineCov">       2283 :     situation.otherVehicleState.hasPriority = false;</span>
+<span class="lineNum">     298 </span>                :            : 
+<span class="lineNum">     299 </span>                :<span class="lineCov">       2283 :     situation.egoVehicleState.isInCorrectLane = true;</span>
+<span class="lineNum">     300 </span>                :<span class="lineCov">       2283 :     situation.otherVehicleState.isInCorrectLane = true;</span>
+<span class="lineNum">     301 </span>                :            : 
+<span class="lineNum">     302 </span>                :<span class="lineCov">       2283 :     situation.egoVehicleState.distanceToEnterIntersection = Distance(0.);</span>
+<span class="lineNum">     303 </span>                :<span class="lineCov">       2283 :     situation.egoVehicleState.distanceToLeaveIntersection = Distance(1000.);</span>
+<span class="lineNum">     304 </span>                :            : 
+<span class="lineNum">     305 </span>                :<span class="lineCov">       2283 :     situation.otherVehicleState.distanceToEnterIntersection = Distance(0.);</span>
+<span class="lineNum">     306 </span>                :<span class="lineCov">       2283 :     situation.otherVehicleState.distanceToLeaveIntersection = Distance(1000.);</span>
+<span class="lineNum">     307 </span>                :            : 
+<span class="lineNum">     308 </span>        [<span class="branchCov" title="Branch 1 was taken 2283 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2283 :     convertVehicleStateDynamics(egoVehicle, situation.egoVehicleState);</span>
+<span class="lineNum">     309 </span>        [<span class="branchCov" title="Branch 1 was taken 2283 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2283 :     convertVehicleStateDynamics(currentScene.object, situation.otherVehicleState);</span>
+<span class="lineNum">     310 </span>                :            : 
+<span class="lineNum">     311 </span>  [<span class="branchCov" title="Branch 0 was taken 1906 times"> + </span><span class="branchCov" title="Branch 1 was taken 277 times"> + </span><span class="branchCov" title="Branch 2 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       2283 :     switch (currentScene.situationType)</span>
+<span class="lineNum">     312 </span>                :            :     {
+<span class="lineNum">     313 </span>                :            :       case ad_rss::situation::SituationType::SameDirection:
+<span class="lineNum">     314 </span>                :            :       case ad_rss::situation::SituationType::OppositeDirection:
+<span class="lineNum">     315 </span>                :            :       {
+<span class="lineNum">     316 </span>        [<span class="branchCov" title="Branch 1 was taken 1891 times"> + </span><span class="branchCov" title="Branch 2 was taken 15 times"> + </span>]:<span class="lineCov">       1906 :         result = convertObjectsNonIntersection(egoVehicle, currentScene, situation);</span>
+<span class="lineNum">     317 </span>                :            : 
+<span class="lineNum">     318 </span>                :<span class="lineCov">       1891 :         break;</span>
+<span class="lineNum">     319 </span>                :            :       }
+<span class="lineNum">     320 </span>                :            :       case ad_rss::situation::SituationType::IntersectionEgoHasPriority:
+<span class="lineNum">     321 </span>                :            :       case ad_rss::situation::SituationType::IntersectionObjectHasPriority:
+<span class="lineNum">     322 </span>                :            :       case ad_rss::situation::SituationType::IntersectionSamePriority:
+<span class="lineNum">     323 </span>                :            :       {
+<span class="lineNum">     324 </span>        [<span class="branchCov" title="Branch 1 was taken 277 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        277 :         result = convertObjectsIntersection(egoVehicle, currentScene, situation);</span>
+<span class="lineNum">     325 </span>                :<span class="lineCov">        277 :         break;</span>
+<span class="lineNum">     326 </span>                :            :       }
+<span class="lineNum">     327 </span>                :            :       case ad_rss::situation::SituationType::NotRelevant:
+<span class="lineNum">     328 </span>                :            :       {
+<span class="lineNum">     329 </span>                :<span class="lineCov">        100 :         result = true;</span>
+<span class="lineNum">     330 </span>                :<span class="lineCov">        100 :         break;</span>
+<span class="lineNum">     331 </span>                :            :       }
+<span class="lineNum">     332 </span>                :            :       default:
+<span class="lineNum">     333 </span>                :            :       {
+<span class="lineNum">     334 </span>                :<span class="lineNoCov">          0 :         result = false;</span>
+<span class="lineNum">     335 </span>                :<span class="lineNoCov">          0 :         break;</span>
+<span class="lineNum">     336 </span>                :            :       }
+<span class="lineNum">     337 </span>                :            :     }
+<span class="lineNum">     338 </span>                :            :   }
+<span class="lineNum">     339 </span>                :<span class="lineCov">         15 :   catch (...)</span>
+<span class="lineNum">     340 </span>                :            :   {
+<span class="lineNum">     341 </span>                :<span class="lineCov">         15 :     result = false;</span>
+<span class="lineNum">     342 </span>                :            :   }
+<span class="lineNum">     343 </span>                :            : 
+<span class="lineNum">     344 </span>                :<span class="lineCov">       2298 :   return result;</span>
+<a name="345"><span class="lineNum">     345 </span>                :            : }</a>
+<span class="lineNum">     346 </span>                :            : 
+<span class="lineNum">     347 </span>                :<span class="lineCov">          7 : bool extractSituation(physics::TimeIndex const &amp;timeIndex,</span>
+<span class="lineNum">     348 </span>                :            :                       world::Object const &amp;egoVehicle,
+<span class="lineNum">     349 </span>                :            :                       world::Scene const &amp;currentScene,
+<span class="lineNum">     350 </span>                :            :                       situation::Situation &amp;situation)
+<span class="lineNum">     351 </span>                :            : {
+<span class="lineNum">     352 </span>[<span class="branchCov" title="Branch 1 was taken 7 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 7 times"> + </span>]:<span class="lineCov">          7 :   if (!withinValidInputRange(egoVehicle) || !withinValidInputRange(currentScene))</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 7 times"> + </span>]
+<span class="lineNum">     353 </span>                :            :   {
+<span class="lineNum">     354 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     355 </span>                :            :   }
+<span class="lineNum">     356 </span>                :            : 
+<span class="lineNum">     357 </span>                :<span class="lineCov">          7 :   return extractSituationInputRangeChecked(timeIndex, egoVehicle, currentScene, situation);</span>
+<a name="358"><span class="lineNum">     358 </span>                :            : }</a>
+<span class="lineNum">     359 </span>                :            : 
+<span class="lineNum">     360 </span>                :<span class="lineCov">       2180 : bool extractSituations(world::WorldModel const &amp;worldModel, situation::SituationVector &amp;situationVector)</span>
+<span class="lineNum">     361 </span>                :            : {
+<span class="lineNum">     362 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 2177 times"> + </span>]:<span class="lineCov">       2180 :   if (!withinValidInputRange(worldModel))</span>
+<span class="lineNum">     363 </span>                :            :   {
+<span class="lineNum">     364 </span>                :<span class="lineCov">          3 :     return false;</span>
+<span class="lineNum">     365 </span>                :            :   }
+<span class="lineNum">     366 </span>                :            : 
+<span class="lineNum">     367 </span>                :<span class="lineCov">       2177 :   bool result = true;</span>
+<span class="lineNum">     368 </span>                :            :   try
+<span class="lineNum">     369 </span>                :            :   {
+<span class="lineNum">     370 </span>        [<span class="branchCov" title="Branch 3 was taken 2276 times"> + </span><span class="branchCov" title="Branch 4 was taken 2176 times"> + </span>]:<span class="lineCov">       4452 :     for (auto const &amp;scene : worldModel.scenes)</span>
+<span class="lineNum">     371 </span>                :            :     {
+<span class="lineNum">     372 </span>        [<span class="branchCov" title="Branch 1 was taken 2276 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2276 :       situation::Situation situation;</span>
+<span class="lineNum">     373 </span>                :            :       bool const extractResult
+<span class="lineNum">     374 </span>        [<span class="branchCov" title="Branch 1 was taken 2276 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2276 :         = extractSituationInputRangeChecked(worldModel.timeIndex, worldModel.egoVehicle, scene, situation);</span>
+<span class="lineNum">     375 </span>                :            : 
+<span class="lineNum">     376 </span>                :            :       // if the situation is relevant, add it to situationVector
+<span class="lineNum">     377 </span>        [<span class="branchCov" title="Branch 0 was taken 2176 times"> + </span><span class="branchCov" title="Branch 1 was taken 100 times"> + </span>]:<span class="lineCov">       2276 :       if (scene.situationType != ad_rss::situation::SituationType::NotRelevant)</span>
+<span class="lineNum">     378 </span>                :            :       {
+<span class="lineNum">     379 </span>        [<span class="branchCov" title="Branch 0 was taken 2161 times"> + </span><span class="branchCov" title="Branch 1 was taken 15 times"> + </span>]:<span class="lineCov">       2176 :         if (extractResult)</span>
+<span class="lineNum">     380 </span>                :            :         {
+<span class="lineNum">     381 </span>        [<span class="branchCov" title="Branch 1 was taken 2160 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">       2161 :           situationVector.push_back(situation);</span>
+<span class="lineNum">     382 </span>                :            :         }
+<span class="lineNum">     383 </span>                :            :         else
+<span class="lineNum">     384 </span>                :            :         {
+<span class="lineNum">     385 </span>                :<span class="lineCov">       2175 :           result = false;</span>
+<span class="lineNum">     386 </span>                :            :         }
+<span class="lineNum">     387 </span>                :            :       }
+<span class="lineNum">     388 </span>                :            :     }
+<span class="lineNum">     389 </span>                :            :   }
+<span class="lineNum">     390 </span>                :<span class="lineCov">          1 :   catch (...)</span>
+<span class="lineNum">     391 </span>                :            :   {
+<span class="lineNum">     392 </span>                :<span class="lineCov">          1 :     result = false;</span>
+<span class="lineNum">     393 </span>                :            :   }
+<span class="lineNum">     394 </span>                :<span class="lineCov">       2181 :   return result;</span>
+<span class="lineNum">     395 </span>                :            : }
+<span class="lineNum">     396 </span>                :            : 
+<span class="lineNum">     397 </span>                :            : } // namespace RssSituationExtraction
+<span class="lineNum">     398 </span>                :            : } // namespace core
+<span class="lineNum">     399 </span>                :            : } // namespace ad_rss
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
