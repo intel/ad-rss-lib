@@ -5,3 +5,6 @@ docs:
 
 - title: Background
   url: documentation/Main.html
+
+- title: Coverage
+  url: coverage/index.html
