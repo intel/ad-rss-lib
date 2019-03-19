@@ -103,7 +103,7 @@ matrix:
         - tail --lines=2000 build.log
 
     - env: TEST="Documentation Deployment"
-      if: branch = master
+      if: branch = master AND type != pull_request
       git:
         depth: false
       addons:
