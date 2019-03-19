@@ -46,7 +46,6 @@ matrix:
           packages:
             - cmake
             - build-essential
-            - cmake
             - libgtest-dev
             - lcov
       script:
@@ -66,7 +65,7 @@ matrix:
       after_failure:
         - tail --lines=2000 build.log
 
-    - env: TEST="Build and Deploy Documentation"
+    - env: TEST="Build Documentation"
       addons:
         apt:
           packages:
@@ -88,29 +87,8 @@ matrix:
         - cd build
         - cmake .. -DBUILD_DOC=ON
         - make apidoc
-        - cd ..
-        - cd doc/
+        - cd ../doc
         - asciidoctor Main.adoc
-        - cd ..
-      before_deploy:
-        - mv build/doc/apidoc/html build/doc/apidoc/doxygen
-        - cp .github/_config.yml build/doc/apidoc
-        - cp -r .github/_data build/doc/apidoc
-        - cp -r .github/_layouts build/doc/apidoc
-        - cp *.md build/doc/apidoc
-        - mkdir build/doc/apidoc/documentation
-        - cp doc/Main.html build/doc/apidoc/documentation
-        - cp -r doc/images build/doc/apidoc/documentation
-        - cp -r doc/resources build/doc/apidoc/documentation
-      deploy:
-        provider: pages
-        skip-cleanup: true
-        verbose: true
-        local_dir: build/doc/apidoc
-        github-token: $GITHUB_TOKEN
-        keep-history: true
-        on:
-          branch: master
       after_failures:
         - tail --lines=2000 build.log
 
@@ -121,6 +99,69 @@ matrix:
             - clang-format-3.9
       script:
         - res=`find -iname *.cpp -o -iname *.hpp | xargs clang-format-3.9 -output-replacements-xml | grep -c "<replacement "`; if [ $res -ne 0 ]; then echo "Your code does not comply to clang-format"; exit 1; fi
+      after_failure:
+        - tail --lines=2000 build.log
+
+    - env: TEST="Documentation Deployment"
+      if: branch = master AND type != pull_request
+      git:
+        depth: false
+      addons:
+        apt:
+          packages:
+            - cmake
+            - build-essential
+            - libgtest-dev
+            - lcov
+            - doxygen
+            - graphviz
+            - asciidoctor
+            - ruby
+            - rubygems
+            - ruby-dev
+      before_install:
+        - gem update --system
+        - gem install coderay
+      script:
+        - mkdir build
+        - cd build
+        - cmake .. -DBUILD_HARDENING=ON -DBUILD_COVERAGE=ON -DBUILD_DOC=ON
+        - make
+        - ctest -V
+        - make apidoc > apidoc_build.log 2>&1
+        - cd ../doc
+        - asciidoctor Main.adoc
+        - cd ..
+      after_script:
+        - lcov -q -c -i -d build -b . --no-external -o initialCov.info
+        - lcov -q -r initialCov.info "*CMake*CompilerId*" -o initialCov.info
+        - lcov -q -c -d build -b . --no-external -o testCov.info --rc lcov_branch_coverage=1
+        - lcov -q -a initialCov.info -a testCov.info -o coverage.info --rc lcov_branch_coverage=1
+        - lcov -q -r coverage.info "*test*" -o coverage.info --rc lcov_branch_coverage=1
+        - lcov --summary coverage.info --rc lcov_branch_coverage=1
+        - genhtml -q -t ad_rss_lib --branch-coverage -o coverage coverage.info
+        - git checkout -b intermediate
+        - mkdir gh-pages
+        - mkdir gh-pages/doxygen
+        - mkdir gh-pages/documentation
+        - mkdir gh-pages/coverage
+        - cp -r coverage/* gh-pages/coverage/
+        - cp -r build/doc/apidoc/* gh-pages/doxygen
+        - cp *.md gh-pages
+        - cp -r doc/images gh-pages/documentation/
+        - cp doc/Main.html gh-pages/documentation/
+        - git add gh-pages/
+        - git commit -m "Dummy commit" --no-edit
+        - git clean -fd
+        - git checkout origin/gh-pages
+        - git checkout -b gh-pages
+        - git checkout intermediate gh-pages/
+        - cp -r gh-pages/* .
+        - rm -rf gh-pages/ build/
+        - git add .
+        - git commit -am "Update documentation" --no-edit
+        - git remote add origin-pages https://${GITHUB_TOKEN}@github.com/fabianoboril/ad-rss-lib.git > /dev/null 2>&1
+        - git push --set-upstream origin-pages gh-pages
       after_failure:
         - tail --lines=2000 build.log
 
