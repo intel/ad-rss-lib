@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
-<meta name="author" content="Ad-rss-lib">
+<meta name="author" content="ad-rss-lib">
 <title>C++ Library for Responsibility Sensitive Safety</title>
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -526,8 +526,8 @@ table.CodeRay td.code>pre{padding:0}
 <div id="header">
 <h1>C++ Library for Responsibility Sensitive Safety</h1>
 <div class="details">
-<span id="author" class="author">Ad-rss-lib</span><br>
-<span id="revnumber">version 1.0,</span>
+<span id="author" class="author">ad-rss-lib</span><br>
+<span id="revnumber">version 1.1,</span>
 <span id="revdate">2019-03-20</span>
 </div>
 <div id="toc" class="toc2">
@@ -546,7 +546,7 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#_high_level_design">High Level Design</a>
 <ul class="sectlevel1">
-<li><a href="#Section::HLD::Implementation">2. ad_rss_lib Realization</a>
+<li><a href="#Section::HLD::Implementation">2. ad-rss-lib Realization</a>
 <ul class="sectlevel2">
 <li><a href="#_rss_checks_and_response">2.1. RSS checks and response</a>
 <ul class="sectlevel3">
@@ -597,7 +597,7 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 </ul>
 </li>
-<li><a href="#Section::HLD::SoftwareArchitecture">4. ad_rss_lib: Software Architecture</a>
+<li><a href="#Section::HLD::SoftwareArchitecture">4. ad-rss-lib: Software Architecture</a>
 <ul class="sectlevel2">
 <li><a href="#_static_view">4.1. Static View</a>
 <ul class="sectlevel3">
@@ -664,7 +664,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_terminology">8. Terminology</a></li>
 <li><a href="#_references">9. References</a></li>
 <li><a href="#_revision_history">10. Revision History</a></li>
-<li><a href="#_build_ad_rss_lib_and_documentation">11. Build ad_rss_lib and documentation</a>
+<li><a href="#_build_ad_rss_lib_and_documentation">11. Build ad-rss-lib and documentation</a>
 <ul class="sectlevel2">
 <li><a href="#_build_instructions">11.1. Build instructions</a></li>
 <li><a href="#_generate_pdf_document">11.2. Generate PDF document</a></li>
@@ -903,7 +903,7 @@ be blamed for the accident.</p>
 <p>The design of the library at hand is based on the academic paper
 <em>"On a Formal Model of Safe and Scalable Self-driving Cars"</em>.
 The library provides a C++ implementation of RSS according to the aforementioned
-summary. The key component of this implementation is called <em>"ad_rss_lib"</em>.
+summary. The key component of this implementation is called <em>"ad-rss-lib"</em>.
 This library receives (post-processed) sensor information and provides actuator
 command restrictions as output.</p>
 </div>
@@ -911,17 +911,17 @@ command restrictions as output.</p>
 <div class="content">
 <img src="./images/rss_integration.png" alt="rss integration">
 </div>
-<div class="title">Figure 1. ad_rss_lib (implemented in the library) and its interfaces to the outside world</div>
+<div class="title">Figure 1. ad-rss-lib (implemented in the library) and its interfaces to the outside world</div>
 </div>
 <div class="paragraph">
-<p>In summary, the ad_rss_lib receives an object list, with information about all
-objects in the surrounding environment of the ego vehicle. Then, the ad_rss_lib
+<p>In summary, the ad-rss-lib receives an object list, with information about all
+objects in the surrounding environment of the ego vehicle. Then, the ad-rss-lib
 creates an object - ego vehicle pair, for each object. This pair is usually
 referred to as <em>"Situation"</em>. For all situations, the aforementioned RSS checks
 are performed and a proper response is calculated. Finally, one overall
-response is computed by the ad_rss_lib, and the corresponding actuator command
+response is computed by the ad-rss-lib, and the corresponding actuator command
 restrictions (i.e. lateral and longitudinal acceleration restrictions) are sent
-out (see <a href="#Figure:Library">ad_rss_lib (implemented in the library) and its interfaces to the outside world</a>).</p>
+out (see <a href="#Figure:Library">ad-rss-lib (implemented in the library) and its interfaces to the outside world</a>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -931,7 +931,7 @@ out (see <a href="#Figure:Library">ad_rss_lib (implemented in the library) and i
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The conversion from sensor data to the object list required by the ad_rss_lib,
+<p>The conversion from sensor data to the object list required by the ad-rss-lib,
 as well as the conversion of the actuator command restrictions to real driving
 commands, have to be implemented by the user of this library, as these parts
 heavily depend on the actual vehicle setup.</p>
@@ -953,10 +953,10 @@ heavily depend on the actual vehicle setup.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Standalone C++-library containing the implementation of the ad_rss_lib</p>
+<p>Standalone C++-library containing the implementation of the ad-rss-lib</p>
 </li>
 <li>
-<p>The ad_rss_lib covers multi-lane roads and intersections</p>
+<p>The ad-rss-lib covers multi-lane roads and intersections</p>
 </li>
 <li>
 <p>Code quality is assured by automated testing with test coverage of
@@ -1010,16 +1010,16 @@ heavily depend on the actual vehicle setup.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#Section::HLD::Implementation">ad_rss_lib Realization</a> provides an overview of the RSS
+<p><a href="#Section::HLD::Implementation">ad-rss-lib Realization</a> provides an overview of the RSS
 implementation provided within the library. It discusses how each situation
 is handled.</p>
 </li>
 <li>
 <p><a href="#Section::HLD::SystemArchitecture">RSS System Architecture Overview</a> introduces the system
-architecture for RSS and the interfaces of the ad_rss_lib to other components.</p>
+architecture for RSS and the interfaces of the ad-rss-lib to other components.</p>
 </li>
 <li>
-<p><a href="#Section::HLD::SoftwareArchitecture">ad_rss_lib: Software Architecture</a> provides a description of the
+<p><a href="#Section::HLD::SoftwareArchitecture">ad-rss-lib: Software Architecture</a> provides a description of the
 software architecture, included the interface and data type definitions. If
 you would like to integrate the library into your system, this section, as
 well as <a href="#Section::HLD::SystemArchitecture">RSS System Architecture Overview</a> are of particular
@@ -1038,15 +1038,15 @@ importance.</p>
 </div>
 <h1 id="_high_level_design" class="sect0">High Level Design</h1>
 <div class="sect1">
-<h2 id="Section::HLD::Implementation">2. ad_rss_lib Realization</h2>
+<h2 id="Section::HLD::Implementation">2. ad-rss-lib Realization</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_rss_checks_and_response">2.1. RSS checks and response</h3>
 <div class="paragraph">
 <p>To check whether the ego vehicle is in a safe state, all the objects in the
-surrounding must be respected. To do so the ad_rss_lib will perform an analysis
+surrounding must be respected. To do so the ad-rss-lib will perform an analysis
 against all the objects in the environment individually. Meaning, for each
-object in the environment the ad_rss_lib will check whether the ego vehicle
+object in the environment the ad-rss-lib will check whether the ego vehicle
 conflicts with this object. Therefore, longitudinal and lateral checks are
 performed. As mentioned earlier, these checks are performed separately for each
 object - ego vehicle pair, i.e. for each situation.</p>
@@ -1240,14 +1240,14 @@ prediction of the state would be necessary.</p>
 </div>
 <div class="paragraph">
 <p>Such a naive predication following definition 11 of the paper is not
-available yet in this initial implementation. In addition, the ad_rss_lib
+available yet in this initial implementation. In addition, the ad-rss-lib
 currently has no notion of drivable freespace area.
 Hence, it cannot determine that an evasive maneuver initiated by RSS will cause
 an accident with an obstacle or forces the vehicle to leave the road.</p>
 </div>
 <div class="paragraph">
-<p>Therefore, it is impossible for the ad_rss_lib in its current form to detect
-whether a lateral evasion is really feasible. Hence, <em>the ad_rss_lib will not
+<p>Therefore, it is impossible for the ad-rss-lib in its current form to detect
+whether a lateral evasion is really feasible. Hence, <em>the ad-rss-lib will not
 initiate a lateral evasive maneuver</em> according to definitions 12 and 13
 of the paper. Instead, it will only restrict the movement in the
 dangerous direction.</p>
@@ -1305,7 +1305,7 @@ the vehicle <em>was</em> able to stop safely. However, as a consequence, the
 prioritized vehicle is not forced to brake, if the non-prioritized vehicle does
 not respect RSS. Since the evasive maneuvers are not yet implemented
 <a href="#Section::HLD::Implementation::EvasiveManeuvers">Evasive maneuvers</a>,
-such kind of improper behavior cannot be handled by the current ad_rss_lib.</p>
+such kind of improper behavior cannot be handled by the current ad-rss-lib.</p>
 </div>
 </td>
 </tr>
@@ -1319,7 +1319,7 @@ such kind of improper behavior cannot be handled by the current ad_rss_lib.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>In the current realization of the ad_rss_lib, it is assumed that there is always
+<p>In the current realization of the ad-rss-lib, it is assumed that there is always
 a lateral conflict in case of intersections. This will be addressed in future.</p>
 </div>
 </td>
@@ -1348,10 +1348,10 @@ time, as this acceleration is already considered.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>It is important to note that the implementation of the ad_rss_lib in the
+<p>It is important to note that the implementation of the ad-rss-lib in the
 library only uses parameters, but not the exact value. By this means, the
 library is independent to changes of the parameter values. Instead, the user
-defines a feasible parameter set, which is provided as input to the ad_rss_lib.</p>
+defines a feasible parameter set, which is provided as input to the ad-rss-lib.</p>
 </div>
 </td>
 </tr>
@@ -1465,7 +1465,7 @@ and comprises <em>all</em> lanes required to describe this situation.</p>
 <div class="sect3">
 <h4 id="Section::SituationBasedCS::ChosenDesign">2.2.2. Chosen Design: Individual Situation-Based Coordinate System</h4>
 <div class="paragraph">
-<p>As RSS performs a worst case assessment, the idea followed by the ad_rss_lib
+<p>As RSS performs a worst case assessment, the idea followed by the ad-rss-lib
 implementation is to calculate the min/max position values of the vehicles
 within the situation specific coordinate system. According to the constellation of the
 vehicles within the situation, the respective worst case lateral and longitudinal
@@ -1482,7 +1482,7 @@ of different width introduces discontinuities of the lateral acceleration values
 (see <a href="#Figure:LanesWithDifferentWidth">Two parallel lanes with different width causing a discontinuity in lateral acceleration</a>).</p>
 </div>
 <div class="paragraph">
-<p>As the ad_rss_lib judges the relative situation between the ego vehicle
+<p>As the ad-rss-lib judges the relative situation between the ego vehicle
 and the other objects one by one individually, it is not required to distinguish
 between the actual lanes within the individual distance calculations.
 Combining all lanes relevant for the individual situation <em>s<sub>i</sub></em>
@@ -1652,7 +1652,7 @@ definition of a lateral velocity of 0 in lane A/lane B in Cartesian space.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>It is worth to note that in the particular implementation of the ad_rss_lib in
+<p>It is worth to note that in the particular implementation of the ad-rss-lib in
 the library at hand, the reverse transformation from the situation-specific
 into a vehicle-centric lane coordinate system is not required, as the RSS
 response is defined such that it is independent of these two coordinate system.</p>
@@ -1713,7 +1713,7 @@ chosen, the smaller the calculation error gets (see
 <p>One drawback of the iterative approach is that the RSS implementation has to get
 to know the lane geometries in detail to be able to calculate the acceleration
 values to be used for every position within the situation-based coordinate
-systems. Therefore, this design approach is not selected by this ad_rss_lib
+systems. Therefore, this design approach is not selected by this ad-rss-lib
 implementation.</p>
 </div>
 </div>
@@ -1755,7 +1755,7 @@ can still be treated as constant, but guarantee safe operation (see
 </div>
 <div id="Figure:ADS" class="imageblock">
 <div class="content">
-<img src="./images/img/538a5f93-aee8-400d-98f2-345c4ac0695c_url_2cfc400d-7dd4-42e2-ab38-df72932f73fa.tmp" alt="538a5f93 aee8 400d 98f2 345c4ac0695c url 2cfc400d 7dd4 42e2 ab38 df72932f73fa">
+<img src="./images/img/d704ce30-6e93-4180-aaf8-fce2a4896ffa_url_f36d61c4-efc7-4689-9709-83836e6b3bf7.tmp" alt="d704ce30 6e93 4180 aaf8 fce2a4896ffa url f36d61c4 efc7 4689 9709 83836e6b3bf7">
 </div>
 <div class="title">Figure 11. A generic system architecture for an ADS.</div>
 </div>
@@ -1766,7 +1766,7 @@ Act part.</p>
 </div>
 <div id="Figure:ADS_RSS" class="imageblock">
 <div class="content">
-<img src="./images/img/f1b867ba-ac34-4a02-8163-45d24af5c431_url_85c4ad8b-11be-445a-bc9c-1e7b7cc474f0.tmp" alt="f1b867ba ac34 4a02 8163 45d24af5c431 url 85c4ad8b 11be 445a bc9c 1e7b7cc474f0">
+<img src="./images/img/d377baa5-5706-4fff-b333-30b97928603c_url_a9dc98d2-f3ea-4090-80e8-78c967b325dd.tmp" alt="d377baa5 5706 4fff b333 30b97928603c url a9dc98d2 f3ea 4090 80e8 78c967b325dd">
 </div>
 <div class="title">Figure 12. Integration of RSS into a system architecture</div>
 </div>
@@ -1803,7 +1803,7 @@ AD map data. To account for this the SensorSubsystem provides separate output po
 </div>
 <div id="Figure:SensorSubsystem" class="imageblock">
 <div class="content">
-<img src="./images/img/8a5358e7-d9ae-421d-be0c-f2d6559de898_url_dcf2f2cc-7d75-4ff7-b60d-faee3817152d.tmp" alt="8a5358e7 d9ae 421d be0c f2d6559de898 url dcf2f2cc 7d75 4ff7 b60d faee3817152d">
+<img src="./images/img/a249fd7e-230d-4389-9f64-bb617cc2bc6d_url_4b12944b-4771-4523-947b-b5ef8221dfe2.tmp" alt="a249fd7e 230d 4389 9f64 bb617cc2bc6d url 4b12944b 4771 4523 947b b5ef8221dfe2">
 </div>
 <div class="title">Figure 13. Extending the Sense part with world model data required by RSS.</div>
 </div>
@@ -1885,7 +1885,7 @@ acceleration, braking and steering to execute the plan.</p>
 </div>
 <div id="Figure:ActuatorSubsystem" class="imageblock">
 <div class="content">
-<img src="./images/img/9787727c-26f7-425e-b085-8f12f596bf2b_url_821d2a60-1dd7-4665-a16d-ad0e8ebfa0ff.tmp" alt="9787727c 26f7 425e b085 8f12f596bf2b url 821d2a60 1dd7 4665 a16d ad0e8ebfa0ff">
+<img src="./images/img/5c730771-64c0-4a89-bfe5-e478a33333aa_url_1ebb18d9-24d8-4a60-9320-d716f465eee2.tmp" alt="5c730771 64c0 4a89 bfe5 e478a33333aa url 1ebb18d9 24d8 4a60 9320 d716f465eee2">
 </div>
 <div class="title">Figure 14. Extending the Act part by RSS command limitation.</div>
 </div>
@@ -1976,7 +1976,7 @@ from the PlanningSubsystem are restricted accordingly to realize planning safety
 </div>
 <div id="Figure:RssSubsystem" class="imageblock">
 <div class="content">
-<img src="./images/img/df47ba24-cd6d-45b7-9c60-c64b4b865198_url_213084b7-d6d3-47f4-a9dc-ed47cfacf436.tmp" alt="df47ba24 cd6d 45b7 9c60 c64b4b865198 url 213084b7 d6d3 47f4 a9dc ed47cfacf436">
+<img src="./images/img/e4287b00-c27b-4901-8571-3a17b745ee44_url_d03f53e8-c082-4654-8d3b-b385c433028a.tmp" alt="e4287b00 c27b 4901 8571 3a17b745ee44 url d03f53e8 c082 4654 8d3b b385c433028a">
 </div>
 <div class="title">Figure 15. RSS internal processing steps to perform RSS checks and execute the RSS proper response</div>
 </div>
@@ -2073,10 +2073,10 @@ to transform the RSS response state back into acceleration restrictions in the C
 </div>
 </div>
 <div class="sect1">
-<h2 id="Section::HLD::SoftwareArchitecture">4. ad_rss_lib: Software Architecture</h2>
+<h2 id="Section::HLD::SoftwareArchitecture">4. ad-rss-lib: Software Architecture</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section describes the software architecture of the ad_rss_lib in detail. The static view covers the deployed
+<p>This section describes the software architecture of the ad-rss-lib in detail. The static view covers the deployed
 artifacts, the interfaces and data types of the library. The dynamic view describes the behaviour of the library in more
 detail.</p>
 </div>
@@ -2084,12 +2084,12 @@ detail.</p>
 <h3 id="_static_view">4.1. Static View</h3>
 <div id="Figure:ad_rss_lib" class="imageblock">
 <div class="content">
-<img src="./images/img/acd35c53-c5d6-4c0f-98f3-a8103f9afb91_url_1c58b101-7c5d-43da-95da-8a7d06752a22.tmp" alt="acd35c53 c5d6 4c0f 98f3 a8103f9afb91 url 1c58b101 7c5d 43da 95da 8a7d06752a22">
+<img src="./images/img/3215dc26-cb11-4d2a-bee0-5bce35dc7d8a_url_30dce600-cb20-4ebb-9cd6-e2b2d333579c.tmp" alt="3215dc26 cb11 4d2a bee0 5bce35dc7d8a url 30dce600 cb20 4ebb 9cd6 e2b2d333579c">
 </div>
-<div class="title">Figure 16. The packages within the ad_rss_lib.</div>
+<div class="title">Figure 16. The packages within the ad-rss-lib.</div>
 </div>
 <div class="paragraph">
-<p>The ad_rss_lib is implemented in C++. Based on a set of datatype definitions the interfaces are provided to:</p>
+<p>The ad-rss-lib is implemented in C++. Based on a set of datatype definitions the interfaces are provided to:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2108,7 +2108,7 @@ detail.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Finally, the implementation of the ad_rss_lib is deployed within a set of artifacts.</p>
+<p>Finally, the implementation of the ad-rss-lib is deployed within a set of artifacts.</p>
 </div>
 <div class="sect3">
 <h4 id="_extlibs">4.1.1. ExtLibs</h4>
@@ -2121,24 +2121,24 @@ detail.</p>
 </div>
 <div id="Figure:Artifact_Deployment" class="imageblock">
 <div class="content">
-<img src="./images/img/554df18f-9dbf-4fef-90dd-199a37341089_url_edf573fb-eecc-4f56-a698-31871f3101ae.tmp" alt="554df18f 9dbf 4fef 90dd 199a37341089 url edf573fb eecc 4f56 a698 31871f3101ae">
+<img src="./images/img/28dd631b-76c7-4e12-b824-a8f15653a0ce_url_cf35bf58-51f1-4c55-8eb1-fd3370252605.tmp" alt="28dd631b 76c7 4e12 b824 a8f15653a0ce url cf35bf58 51f1 4c55 8eb1 fd3370252605">
 </div>
 <div class="title">Figure 17. Deployed artifacts of the C++ library for RSS.</div>
 </div>
 <div class="sect4">
-<h5 id="_ad_rss_lib">4.1.2.1. ad_rss_lib</h5>
+<h5 id="_ad_rss_lib">4.1.2.1. ad-rss-lib</h5>
 <div class="paragraph">
-<p>The whole ad_rss_lib implementation is deployed within one library artifact.</p>
+<p>The whole ad-rss-lib implementation is deployed within one library artifact.</p>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_interfaces">4.1.3. Interfaces</h4>
 <div class="paragraph">
-<p>Definition of Interfaces provided within the ad_rss_lib implementation.</p>
+<p>Definition of Interfaces provided within the ad-rss-lib implementation.</p>
 </div>
 <div class="paragraph">
-<p>The ad_rss_lib is implemented as a whole within the namespace ad_rss.</p>
+<p>The ad-rss-lib is implemented as a whole within the namespace ad_rss.</p>
 </div>
 <div class="sect4">
 <h5 id="_namespace_ad_rss_core">4.1.3.1. Namespace ad_rss::core</h5>
@@ -2146,14 +2146,14 @@ detail.</p>
 <p>Namespace for RSS core interfaces and operations.</p>
 </div>
 <div class="paragraph">
-<p>This contains the interfaces including the operations the ad_rss_lib provides to the user to perform the RSS
+<p>This contains the interfaces including the operations the ad-rss-lib provides to the user to perform the RSS
 functionality.</p>
 </div>
 <div id="Figure:Namespace_ad_rss__core" class="imageblock">
 <div class="content">
-<img src="./images/img/a5f7ccec-65c4-4059-82e3-d5628661b74a_url_77eaff39-2b9e-4e86-b372-fa86e91a9803.tmp" alt="a5f7ccec 65c4 4059 82e3 d5628661b74a url 77eaff39 2b9e 4e86 b372 fa86e91a9803">
+<img src="./images/img/70831045-c2fe-4322-96c8-4dc16b0d0c5d_url_713a53a1-6c2f-4b60-8556-f96db75de4c2.tmp" alt="70831045 c2fe 4322 96c8 4dc16b0d0c5d url 713a53a1 6c2f 4b60 8556 f96db75de4c2">
 </div>
-<div class="title">Figure 18. The core interfaces provided by the ad_rss_lib.</div>
+<div class="title">Figure 18. The core interfaces provided by the ad-rss-lib.</div>
 </div>
 <div class="sect5">
 <h6 id="_rsscheck">4.1.3.1.1. RssCheck</h6>
@@ -2474,14 +2474,14 @@ addition, requires a restriction of the longitudinal acceleration.</p>
 <div class="sect3">
 <h4 id="_datatypes">4.1.4. DataTypes</h4>
 <div class="paragraph">
-<p>Definition of DataTypes used within the ad_rss_lib implementation.</p>
+<p>Definition of DataTypes used within the ad-rss-lib implementation.</p>
 </div>
 <div class="paragraph">
-<p>The ad_rss_lib is implemented as a whole within the namespace ad_rss.</p>
+<p>The ad-rss-lib is implemented as a whole within the namespace ad_rss.</p>
 </div>
 <div id="Figure:Namespace_ad_rss" class="imageblock">
 <div class="content">
-<img src="./images/img/a706bfd6-0115-44ba-8e84-f81b7ad0de1c_url_ceb5d338-61b0-48c2-8fef-454c876a0067.tmp" alt="a706bfd6 0115 44ba 8e84 f81b7ad0de1c url ceb5d338 61b0 48c2 8fef 454c876a0067">
+<img src="./images/img/1dab8fd5-c1cf-4a62-9232-66e2e9279428_url_c4da4d92-8fec-4665-bd03-914ad6ba8238.tmp" alt="1dab8fd5 c1cf 4a62 9232 66e2e9279428 url c4da4d92 8fec 4665 bd03 914ad6ba8238">
 </div>
 <div class="title">Figure 19. The RSS datatypes are organized within several sub-namespaces.</div>
 </div>
@@ -2496,7 +2496,7 @@ ranges.</p>
 </div>
 <div id="Figure:Namespace_ad_rss__physics" class="imageblock">
 <div class="content">
-<img src="./images/img/21af5c0d-86e6-4c86-b97d-c2389d81ef47_url_5568c8f3-101b-4900-9e3c-4571f72fe7c6.tmp" alt="21af5c0d 86e6 4c86 b97d c2389d81ef47 url 5568c8f3 101b 4900 9e3c 4571f72fe7c6">
+<img src="./images/img/73fea5f0-2901-442f-a7df-c22d230d98ba_url_ef5c4189-bcfd-44c3-a65e-ad0474f97336.tmp" alt="73fea5f0 2901 442f a7df c22d230d98ba url ef5c4189 bcfd 44c3 a65e ad0474f97336">
 </div>
 <div class="title">Figure 20. The types describing the basic physics used within RSS implementation.</div>
 </div>
@@ -2839,19 +2839,19 @@ objects.</p>
 </div>
 <div id="Figure:Namespace_ad_rss__world_road_types" class="imageblock">
 <div class="content">
-<img src="./images/img/bb52ad9d-2e73-4798-ad3a-b90a4c2ebef4_url_8d6bc8ca-d720-4f28-92f7-c55cc88cf901.tmp" alt="bb52ad9d 2e73 4798 ad3a b90a4c2ebef4 url 8d6bc8ca d720 4f28 92f7 c55cc88cf901">
+<img src="./images/img/828d3498-dd41-460a-85db-a3139aa151ec_url_c2fb13b9-d00b-4b50-be4e-9e3fa5315c11.tmp" alt="828d3498 dd41 460a 85db a3139aa151ec url c2fb13b9 d00b 4b50 be4e 9e3fa5315c11">
 </div>
 <div class="title">Figure 21. The types describing the road and lane geometries used within the local RSS world model.</div>
 </div>
 <div id="Figure:Namespace_ad_rss__world_object_types" class="imageblock">
 <div class="content">
-<img src="./images/img/42b62d1f-7e0d-4169-a37d-e1f2625d67d4_url_1a760d9a-6e9a-46a7-9a2e-20a10a9863d9.tmp" alt="42b62d1f 7e0d 4169 a37d e1f2625d67d4 url 1a760d9a 6e9a 46a7 9a2e 20a10a9863d9">
+<img src="./images/img/0eba3100-9694-4554-be43-1f291486cf5d_url_be889d20-6794-4049-9794-d3555b46b011.tmp" alt="0eba3100 9694 4554 be43 1f291486cf5d url be889d20 6794 4049 9794 d3555b46b011">
 </div>
 <div class="title">Figure 22. The types describing the objects used within the local RSS world model.</div>
 </div>
 <div id="Figure:Namespace_ad_rss__world" class="imageblock">
 <div class="content">
-<img src="./images/img/bbb33dd2-4708-4291-bf4f-4d4fd0e46deb_url_25ed9391-a145-443d-919a-2e3479b78b54.tmp" alt="bbb33dd2 4708 4291 bf4f 4d4fd0e46deb url 25ed9391 a145 443d 919a 2e3479b78b54">
+<img src="./images/img/350f4915-f1b4-4d00-8cd4-1f9bd746bdcf_url_90081a18-623a-4a47-80b5-3abc67de4368.tmp" alt="350f4915 f1b4 4d00 8cd4 1f9bd746bdcf url 90081a18 623a 4a47 80b5 3abc67de4368">
 </div>
 <div class="title">Figure 23. The types describing the high level world model and object used within the local RSS world model.</div>
 </div>
@@ -3413,13 +3413,13 @@ coordinate system.</p>
 </div>
 <div id="Figure:Namespace_ad_rss__situation_vehicle_state" class="imageblock">
 <div class="content">
-<img src="./images/img/22bc8a63-92f9-49d8-bd6b-3280c1111c96_url_1199fbbe-ee18-4782-a42e-ffda575214f5.tmp" alt="22bc8a63 92f9 49d8 bd6b 3280c1111c96 url 1199fbbe ee18 4782 a42e ffda575214f5">
+<img src="./images/img/143f273a-ef21-4afe-934b-398bcf53031c_url_fbbf525c-6d26-4db6-be96-562cf15945e3.tmp" alt="143f273a ef21 4afe 934b 398bcf53031c url fbbf525c 6d26 4db6 be96 562cf15945e3">
 </div>
 <div class="title">Figure 24. The types describing the vehicle state used within the situation coordinate system.</div>
 </div>
 <div id="Figure:Namespace_ad_rss__situation" class="imageblock">
 <div class="content">
-<img src="./images/img/aea213de-619b-435a-9e52-18f48789cec2_url_11618db0-0356-416d-9658-b399f06658be.tmp" alt="aea213de 619b 435a 9e52 18f48789cec2 url 11618db0 0356 416d 9658 b399f06658be">
+<img src="./images/img/c4815d4c-bf13-48dc-b30a-8ba5db2123bb_url_a74eeada-8027-4d53-9713-8550ffb5b82b.tmp" alt="c4815d4c bf13 48dc b30a 8ba5db2123bb url a74eeada 8027 4d53 9713 8550ffb5b82b">
 </div>
 <div class="title">Figure 25. The types describing a situation used within the situation coordinate system.</div>
 </div>
@@ -3757,7 +3757,7 @@ situation.</p></td>
 </div>
 <div id="Figure:Namespace_ad_rss__state" class="imageblock">
 <div class="content">
-<img src="./images/img/28c0e20e-96e6-4571-a5c5-d0984499794c_url_7a1cc948-6c7c-4549-8f6b-ab2575bcd8e6.tmp" alt="28c0e20e 96e6 4571 a5c5 d0984499794c url 7a1cc948 6c7c 4549 8f6b ab2575bcd8e6">
+<img src="./images/img/66a7f86d-bcc6-47a9-87a6-896fa6db21b6_url_6a8e202b-427e-48f6-9808-d435d7eeaeb7.tmp" alt="66a7f86d bcc6 47a9 87a6 896fa6db21b6 url 6a8e202b 427e 48f6 9808 d435d7eeaeb7">
 </div>
 <div class="title">Figure 26. The types describing the RSS response and the RSS state.</div>
 </div>
@@ -3942,7 +3942,7 @@ direction.</p></td>
 <h3 id="_dynamic_view">4.2. Dynamic View</h3>
 <div id="Figure:RssSubsystemChecker" class="imageblock">
 <div class="content">
-<img src="./images/img/910dab27-21e0-4116-857d-f1d21288873c_url_8c31bedf-464a-4305-800c-c034635e8a7f.tmp" alt="910dab27 21e0 4116 857d f1d21288873c url 8c31bedf 464a 4305 800c c034635e8a7f">
+<img src="./images/img/ef40ca1b-866b-44e8-8e6d-a3d235c569e9_url_5931b775-17c8-4d95-ad51-e9e5c3cf8e76.tmp" alt="ef40ca1b 866b 44e8 8e6d a3d235c569e9 url 5931b775 17c8 4d95 ad51 e9e5c3cf8e76">
 </div>
 <div class="title">Figure 27. RSS internal processing steps to perform RSS checks and execute the RSS proper response</div>
 </div>
@@ -3978,7 +3978,7 @@ from the PlanningSubsystem are restricted accordingly to realize planning safety
 </div>
 <div id="Figure:RssSituationExtractionImpl" class="imageblock">
 <div class="content">
-<img src="./images/img/0ff5f626-913b-4587-bdc8-48f95424bb7e_url_c3a2bf7d-ae8f-4c0a-8f34-3e2dacbc628f.tmp" alt="0ff5f626 913b 4587 bdc8 48f95424bb7e url c3a2bf7d ae8f 4c0a 8f34 3e2dacbc628f">
+<img src="./images/img/33056e83-b4eb-47a3-98a5-0e762dcdd0f0_url_ef104650-716f-4190-bef9-9685cfaea8b7.tmp" alt="33056e83 b4eb 47a3 98a5 0e762dcdd0f0 url ef104650 716f 4190 bef9 9685cfaea8b7">
 </div>
 <div class="title">Figure 28. Statechart Diagram describing the dynamic behavior of the RssSituationExtraction entity.</div>
 </div>
@@ -4065,7 +4065,7 @@ from the PlanningSubsystem are restricted accordingly to realize planning safety
 </div>
 <div id="Figure:RssSituationCheckingImpl" class="imageblock">
 <div class="content">
-<img src="./images/img/9bf429cc-bff9-4926-8c36-9ffc69b145c3_url_1906bcfc-37d8-4c01-9ad3-323566ac41eb.tmp" alt="9bf429cc bff9 4926 8c36 9ffc69b145c3 url 1906bcfc 37d8 4c01 9ad3 323566ac41eb">
+<img src="./images/img/6bded48d-c54a-4c10-ba6e-564a9047b27b_url_4ee9d29c-aced-4c30-a94b-e18f0def895d.tmp" alt="6bded48d c54a 4c10 ba6e 564a9047b27b url 4ee9d29c aced 4c30 a94b e18f0def895d">
 </div>
 <div class="title">Figure 29. Statechart Diagram describing the dynamic behavior of the RssSituationChecking entity.</div>
 </div>
@@ -4153,7 +4153,7 @@ input.</p></td>
 </div>
 <div id="Figure:RssResponseResolvingImpl" class="imageblock">
 <div class="content">
-<img src="./images/img/e520bc5e-de98-43c6-87fd-3183af43f7ad_url_90a67595-90ac-4041-99ab-a1852fbafc1c.tmp" alt="e520bc5e de98 43c6 87fd 3183af43f7ad url 90a67595 90ac 4041 99ab a1852fbafc1c">
+<img src="./images/img/841e0fb8-7627-4e1a-93d5-be6a40d71719_url_297d209b-1f20-4dd1-9461-425e2c4fb20c.tmp" alt="841e0fb8 7627 4e1a 93d5 be6a40d71719 url 297d209b 1f20 4dd1 9461 425e2c4fb20c">
 </div>
 <div class="title">Figure 30. Statechart Diagram describing the dynamic behavior of the RssResponseResolving entity.</div>
 </div>
@@ -4242,7 +4242,7 @@ statechart.</p>
 </div>
 <div id="Figure:RssResponseTransformationImpl" class="imageblock">
 <div class="content">
-<img src="./images/img/7b59d685-6c32-4fcc-91c3-d5118e5cfd3e_url_08e9e39b-f00b-4b0f-b70f-e39ea2347be4.tmp" alt="7b59d685 6c32 4fcc 91c3 d5118e5cfd3e url 08e9e39b f00b 4b0f b70f e39ea2347be4">
+<img src="./images/img/97f474d5-a4f5-4a3d-9733-cfc543afacf3_url_cb9fc4f4-f5d4-47eb-b3a5-d46e799422fb.tmp" alt="97f474d5 a4f5 4a3d 9733 cfc543afacf3 url cb9fc4f4 f5d4 47eb b3a5 d46e799422fb">
 </div>
 <div class="title">Figure 31. Statechart Diagram describing the dynamic behavior of the RssResponseTransformation entity.</div>
 </div>
@@ -4390,8 +4390,8 @@ as the internal calculation steps and internal dataflow.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>In addition, from the chapter <a href="#Section::HLD::SoftwareArchitecture">ad_rss_lib: Software Architecture</a>,
-we refer to the figure <a href="#Figure:Namespace_ad_rss__core">The core interfaces provided by the ad_rss_lib.</a>.
+<p>In addition, from the chapter <a href="#Section::HLD::SoftwareArchitecture">ad-rss-lib: Software Architecture</a>,
+we refer to the figure <a href="#Figure:Namespace_ad_rss__core">The core interfaces provided by the ad-rss-lib.</a>.
 This figure shows the C++ software class that implements the external
 RSS interface, called <code>RssCheck</code>.
 The top-level external interface is implemented using a single routine,
@@ -4426,7 +4426,7 @@ by <code>RssCheck</code> and supporting library classes).</p>
 other road agents (vehicles and other) and velocities of other road agents. This
 data also includes description of the geometry of the road (and road lanes). All
 data types are described in detail in the chapter
-<a href="#Section::HLD::SoftwareArchitecture">ad_rss_lib: Software Architecture</a>.</p>
+<a href="#Section::HLD::SoftwareArchitecture">ad-rss-lib: Software Architecture</a>.</p>
 </div>
 <div class="paragraph">
 <p>The data contained in <code>WorldModel</code> is provided directly by a
@@ -4701,7 +4701,7 @@ constraints on system level, RSS contributes to the FuSa goals of the whole ADS.
 <div class="paragraph">
 <p>The RSS papers uses a few constants required for the safety calculations. The
 values for these constants are not yet defined and open for
-discussion/regulation. Nevertheless, the implementation of the ad_rss_lib needs
+discussion/regulation. Nevertheless, the implementation of the ad-rss-lib needs
 to define initial values for these functions.</p>
 </div>
 <div class="admonitionblock note">
@@ -4733,7 +4733,7 @@ values are discussed. The used parameters are (see paper 1 in
 It is assumed that an AV vehicle has a shorter response time than a human
 driver. Therefore, there is a need to have two different parameters. As it
 might not be possible to determine whether another object is an AV vehicle or
-has a human driver, the ad_rss_lib will safely assume that all other objects
+has a human driver, the ad-rss-lib will safely assume that all other objects
 are driven by humans. Hence, two parameters for the response time are used.</p>
 <div class="ulist">
 <ul>
@@ -4752,14 +4752,14 @@ RSS proposes several different acceleration/deceleration values. One could
 argue that acceleration/deceleration differs with the type of vehicle. Also
 at least the acceleration is dependent on the current vehicle speed. As it
 cannot be assured that the individual acceleration of each and every car can
-be known and the specific car can be reliably detected, the ad_rss_lib will
+be known and the specific car can be reliably detected, the ad-rss-lib will
 assume fixed constants for those values. These could be either the maximum
 physically possible values or restrictions that are imposed by regulation.
 Also there will not be different values for the ego vehicle and the other
 vehicles. It could be argued that for the ego vehicle e.g. desired
 acceleration might be known. Therefore, a shorter safety distance would be
 sufficient. But as all other vehicles do not know about the intention of the
-ego vehicle this would lead to a violation of their safe space. So the ad_rss_lib
+ego vehicle this would lead to a violation of their safe space. So the ad-rss-lib
 will need to calculate its checks with the globally defined
 accelerations values even if the vehicle does not intend to utilize them to
 its limits.
@@ -5069,7 +5069,7 @@ fluctuations, but will not have a big impact on the safety distance.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Responsibility-Sensitive Safety</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ad_rss_lib</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ad-rss-lib</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The C++ library for RSS</p></td>
 </tr>
 </tbody>
@@ -5133,6 +5133,12 @@ fluctuations, but will not have a big impact on the safety distance.</p>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2019-03-20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bernd Gassmann</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Harmonized naming of library and git repository</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1.0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2019-02-28</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cornelius Buerkle, Bernd Gassmann, Fabian Oboril, Peter van Beek</p></td>
@@ -5143,12 +5149,12 @@ fluctuations, but will not have a big impact on the safety distance.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_build_ad_rss_lib_and_documentation">11. Build ad_rss_lib and documentation</h2>
+<h2 id="_build_ad_rss_lib_and_documentation">11. Build ad-rss-lib and documentation</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_build_instructions">11.1. Build instructions</h3>
 <div class="paragraph">
-<p>The ad_rss_lib is built with a standard cmake toolchain. Therefore, run the
+<p>The ad-rss-lib is built with a standard cmake toolchain. Therefore, run the
 following commands, to build the library and documentation:</p>
 </div>
 <div class="listingblock">
@@ -5195,8 +5201,8 @@ asciidoctor doc/Main.adoc -d book -b html5 -n</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 1.0<br>
-Last updated 2019-03-20 08:54:37 UTC
+Version 1.1<br>
+Last updated 2019-03-20 11:59:06 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">
