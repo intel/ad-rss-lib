@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-20 08:17:48</td>
+            <td class="headerValue">2019-03-20 08:30:34</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">28</td>
@@ -169,10 +169,10 @@
 <span class="lineNum">      98 </span>                :            :   /*!
 <a name="99"><span class="lineNum">      99 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">     100 </span>                :            :    */
-<span class="lineNum">     101 </span>                :<span class="lineCov">       9348 :   explicit SpeedSquared(double const iSpeedSquared)</span>
-<span class="lineNum">     102 </span>                :<span class="lineCov">       9348 :     : mSpeedSquared(iSpeedSquared)</span>
+<span class="lineNum">     101 </span>                :<span class="lineCov">      14933 :   explicit SpeedSquared(double const iSpeedSquared)</span>
+<span class="lineNum">     102 </span>                :<span class="lineCov">      14933 :     : mSpeedSquared(iSpeedSquared)</span>
 <span class="lineNum">     103 </span>                :            :   {
-<span class="lineNum">     104 </span>                :<span class="lineCov">       9348 :   }</span>
+<span class="lineNum">     104 </span>                :<span class="lineCov">      14933 :   }</span>
 <span class="lineNum">     105 </span>                :            : 
 <span class="lineNum">     106 </span>                :            :   /*!
 <span class="lineNum">     107 </span>                :            :    * \brief standard copy constructor
@@ -445,9 +445,9 @@
 <span class="lineNum">     374 </span>                :            :    * \note conversion to the base type removes the physical unit;
 <a name="375"><span class="lineNum">     375 </span>                :            :    * therefore only explicit calls are allowed</a>
 <span class="lineNum">     376 </span>                :            :    */
-<span class="lineNum">     377 </span>                :<span class="lineCov">       9314 :   explicit operator double() const</span>
+<span class="lineNum">     377 </span>                :<span class="lineCov">      14899 :   explicit operator double() const</span>
 <span class="lineNum">     378 </span>                :            :   {
-<span class="lineNum">     379 </span>                :<span class="lineCov">       9314 :     return mSpeedSquared;</span>
+<span class="lineNum">     379 </span>                :<span class="lineCov">      14899 :     return mSpeedSquared;</span>
 <span class="lineNum">     380 </span>                :            :   }
 <span class="lineNum">     381 </span>                :            : 
 <span class="lineNum">     382 </span>                :            :   /*!
@@ -457,11 +457,11 @@
 <span class="lineNum">     386 </span>                :            :    * - It is normal or zero (see std::fpclassify()
 <a name="387"><span class="lineNum">     387 </span>                :            :    * - cMinSpeedSquaredValue &lt;= value &lt;= cMaxSpeedSquaredValue</a>
 <span class="lineNum">     388 </span>                :            :    */
-<span class="lineNum">     389 </span>                :<span class="lineCov">      18741 :   bool isValid() const</span>
+<span class="lineNum">     389 </span>                :<span class="lineCov">      29911 :   bool isValid() const</span>
 <span class="lineNum">     390 </span>                :            :   {
-<span class="lineNum">     391 </span>                :<span class="lineCov">      18741 :     auto const valueClass = std::fpclassify(mSpeedSquared);</span>
-<span class="lineNum">     392 </span>[<span class="branchCov" title="Branch 0 was taken 112 times"> + </span><span class="branchCov" title="Branch 1 was taken 33 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 18704 times"> + </span><span class="branchCov" title="Branch 3 was taken 4 times"> + </span>]:<span class="lineCov">      18741 :     return ((valueClass == FP_NORMAL) || (valueClass == FP_ZERO)) &amp;&amp; (cMinValue &lt;= mSpeedSquared)</span>
-<span class="lineNum">     393 </span>[<span class="branchCov" title="Branch 0 was taken 145 times"> + </span><span class="branchCov" title="Branch 1 was taken 18596 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 18698 times"> + </span><span class="branchCov" title="Branch 3 was taken 6 times"> + </span>]:<span class="lineCov">      37482 :       &amp;&amp; (mSpeedSquared &lt;= cMaxValue);</span>
+<span class="lineNum">     391 </span>                :<span class="lineCov">      29911 :     auto const valueClass = std::fpclassify(mSpeedSquared);</span>
+<span class="lineNum">     392 </span>[<span class="branchCov" title="Branch 0 was taken 1408 times"> + </span><span class="branchCov" title="Branch 1 was taken 33 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 29874 times"> + </span><span class="branchCov" title="Branch 3 was taken 4 times"> + </span>]:<span class="lineCov">      29911 :     return ((valueClass == FP_NORMAL) || (valueClass == FP_ZERO)) &amp;&amp; (cMinValue &lt;= mSpeedSquared)</span>
+<span class="lineNum">     393 </span>[<span class="branchCov" title="Branch 0 was taken 1441 times"> + </span><span class="branchCov" title="Branch 1 was taken 28470 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 29868 times"> + </span><span class="branchCov" title="Branch 3 was taken 6 times"> + </span>]:<span class="lineCov">      59822 :       &amp;&amp; (mSpeedSquared &lt;= cMaxValue);</span>
 <span class="lineNum">     394 </span>                :            :   }
 <span class="lineNum">     395 </span>                :            : 
 <span class="lineNum">     396 </span>                :            :   /*!
@@ -470,13 +470,13 @@
 <span class="lineNum">     399 </span>                :            :    * Throws an std::out_of_range() exception if the SpeedSquared
 <a name="400"><span class="lineNum">     400 </span>                :            :    * in not valid (i.e. isValid() returns false)</a>
 <span class="lineNum">     401 </span>                :            :    */
-<span class="lineNum">     402 </span>                :<span class="lineCov">      18724 :   void ensureValid() const</span>
+<span class="lineNum">     402 </span>                :<span class="lineCov">      29894 :   void ensureValid() const</span>
 <span class="lineNum">     403 </span>                :            :   {
-<span class="lineNum">     404 </span>        [<span class="branchCov" title="Branch 1 was taken 37 times"> + </span><span class="branchCov" title="Branch 2 was taken 18687 times"> + </span>]:<span class="lineCov">      18724 :     if (!isValid())</span>
+<span class="lineNum">     404 </span>        [<span class="branchCov" title="Branch 1 was taken 37 times"> + </span><span class="branchCov" title="Branch 2 was taken 29857 times"> + </span>]:<span class="lineCov">      29894 :     if (!isValid())</span>
 <span class="lineNum">     405 </span>                :            :     {
 <span class="lineNum">     406 </span>                :<span class="lineCov">         37 :       throw std::out_of_range(&quot;SpeedSquared value out of range&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">     407 </span>                :            :     }
-<span class="lineNum">     408 </span>                :<span class="lineCov">      18687 :   }</span>
+<span class="lineNum">     408 </span>                :<span class="lineCov">      29857 :   }</span>
 <span class="lineNum">     409 </span>                :            : 
 <span class="lineNum">     410 </span>                :            :   /*!
 <span class="lineNum">     411 </span>                :            :    * \brief ensure that the SpeedSquared is valid and non zero

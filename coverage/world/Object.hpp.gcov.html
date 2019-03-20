@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-20 08:17:48</td>
+            <td class="headerValue">2019-03-20 08:30:34</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">8</td>
@@ -135,27 +135,27 @@
 <span class="lineNum">      64 </span>                :            :  * object occupies, the objects velocity within its lane and finally the area of interaction of ego vehicle and the
 <a name="65"><span class="lineNum">      65 </span>                :            :  * object.</a>
 <span class="lineNum">      66 </span>                :            :  */
-<span class="lineNum">      67 </span>                :<span class="lineCov">        824 : struct Object</span>
+<span class="lineNum">      67 </span>                :<span class="lineCov">       8944 : struct Object</span>
 <span class="lineNum">      68 </span>                :            : {
 <span class="lineNum">      69 </span>                :            :   /*!
 <a name="70"><span class="lineNum">      70 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      71 </span>                :            :    */
-<span class="lineNum">      72 </span>[<span class="branchCov" title="Branch 2 was taken 641 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 641 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">        641 :   Object() = default;</span>
+<span class="lineNum">      72 </span>[<span class="branchCov" title="Branch 2 was taken 7822 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 7822 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">       7822 :   Object() = default;</span>
 <span class="lineNum">      73 </span>                :            : 
 <span class="lineNum">      74 </span>                :            :   /*!
 <a name="75"><span class="lineNum">      75 </span>                :            :    * \brief standard destructor</a>
 <span class="lineNum">      76 </span>                :            :    */
-<span class="lineNum">      77 </span>                :<span class="lineCov">      28414 :   ~Object() = default;</span>
+<span class="lineNum">      77 </span>                :<span class="lineCov">      52444 :   ~Object() = default;</span>
 <span class="lineNum">      78 </span>                :            : 
 <span class="lineNum">      79 </span>                :            :   /*!
 <a name="80"><span class="lineNum">      80 </span>                :            :    * \brief standard copy constructor</a>
 <span class="lineNum">      81 </span>                :            :    */
-<span class="lineNum">      82 </span>                :<span class="lineCov">      23322 :   Object(const Object &amp;other) = default;</span>
+<span class="lineNum">      82 </span>                :<span class="lineCov">      31508 :   Object(const Object &amp;other) = default;</span>
 <span class="lineNum">      83 </span>                :            : 
 <span class="lineNum">      84 </span>                :            :   /*!
 <a name="85"><span class="lineNum">      85 </span>                :            :    * \brief standard move constructor</a>
 <span class="lineNum">      86 </span>                :            :    */
-<span class="lineNum">      87 </span>                :<span class="lineCov">       3812 :   Object(Object &amp;&amp;other) = default;</span>
+<span class="lineNum">      87 </span>                :<span class="lineCov">       5312 :   Object(Object &amp;&amp;other) = default;</span>
 <span class="lineNum">      88 </span>                :            : 
 <span class="lineNum">      89 </span>                :            :   /**
 <span class="lineNum">      90 </span>                :            :    * \brief standard assignment operator

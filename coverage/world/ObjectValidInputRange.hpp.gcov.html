@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-20 08:17:48</td>
+            <td class="headerValue">2019-03-20 08:30:34</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -129,21 +129,21 @@
 <span class="lineNum">      58 </span>                :            :  * \note the specified input range is defined by the ranges of all members, plus:
 <a name="59"><span class="lineNum">      59 </span>                :            :  *       ::ad_rss::physics::Duration(0.) &lt; responseTime &lt;= ::ad_rss::physics::Duration(10.)</a>
 <span class="lineNum">      60 </span>                :            :  */
-<span class="lineNum">      61 </span>                :<span class="lineCov">       9894 : inline bool withinValidInputRange(::ad_rss::world::Object const &amp;input)</span>
+<span class="lineNum">      61 </span>                :<span class="lineCov">      14675 : inline bool withinValidInputRange(::ad_rss::world::Object const &amp;input)</span>
 <span class="lineNum">      62 </span>                :            : {
 <span class="lineNum">      63 </span>                :            :   try
 <span class="lineNum">      64 </span>                :            :   {
 <span class="lineNum">      65 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
 <span class="lineNum">      66 </span>                :            :     // check for generic member input ranges
-<span class="lineNum">      67 </span>                :<span class="lineCov">       9894 :     bool const membersInValidInputRange = withinValidInputRange(input.objectType)</span>
-<span class="lineNum">      68 </span>                :<span class="lineCov">       9886 :       &amp;&amp; withinValidInputRange(input.occupiedRegions) &amp;&amp; withinValidInputRange(input.dynamics)</span>
-<span class="lineNum">      69 </span>                :<span class="lineCov">      19780 :       &amp;&amp; withinValidInputRange(input.velocity) &amp;&amp; withinValidInputRange(input.responseTime);</span>
+<span class="lineNum">      67 </span>                :<span class="lineCov">      14675 :     bool const membersInValidInputRange = withinValidInputRange(input.objectType)</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">      14668 :       &amp;&amp; withinValidInputRange(input.occupiedRegions) &amp;&amp; withinValidInputRange(input.dynamics)</span>
+<span class="lineNum">      69 </span>                :<span class="lineCov">      29343 :       &amp;&amp; withinValidInputRange(input.velocity) &amp;&amp; withinValidInputRange(input.responseTime);</span>
 <span class="lineNum">      70 </span>                :            : 
 <span class="lineNum">      71 </span>                :            :     // check for individual input ranges
-<span class="lineNum">      72 </span>                :<span class="lineCov">      29682 :     bool const responseTimeInInputRange = (::ad_rss::physics::Duration(0.) &lt; input.responseTime)</span>
-<span class="lineNum">      73 </span>                :<span class="lineCov">      19788 :       &amp;&amp; (input.responseTime &lt;= ::ad_rss::physics::Duration(10.));</span>
+<span class="lineNum">      72 </span>                :<span class="lineCov">      44025 :     bool const responseTimeInInputRange = (::ad_rss::physics::Duration(0.) &lt; input.responseTime)</span>
+<span class="lineNum">      73 </span>                :<span class="lineCov">      29350 :       &amp;&amp; (input.responseTime &lt;= ::ad_rss::physics::Duration(10.));</span>
 <span class="lineNum">      74 </span>                :            : 
-<span class="lineNum">      75 </span>                :<span class="lineCov">       9894 :     return membersInValidInputRange &amp;&amp; responseTimeInInputRange;</span>
+<span class="lineNum">      75 </span>                :<span class="lineCov">      14675 :     return membersInValidInputRange &amp;&amp; responseTimeInInputRange;</span>
 <span class="lineNum">      76 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
 <span class="lineNum">      77 </span>                :            :   }
 <span class="lineNum">      78 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes

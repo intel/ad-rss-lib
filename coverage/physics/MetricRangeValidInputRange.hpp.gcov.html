@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-20 08:17:48</td>
+            <td class="headerValue">2019-03-20 08:30:34</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -126,22 +126,22 @@
 <span class="lineNum">      55 </span>                :            :  *       ::ad_rss::physics::Distance(0.) &lt;= minimum &lt;= maximum
 <a name="56"><span class="lineNum">      56 </span>                :            :  *       minimum &lt;= maximum &lt;= ::ad_rss::physics::Distance(1e6)</a>
 <span class="lineNum">      57 </span>                :            :  */
-<span class="lineNum">      58 </span>                :<span class="lineCov">      79161 : inline bool withinValidInputRange(::ad_rss::physics::MetricRange const &amp;input)</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">     117035 : inline bool withinValidInputRange(::ad_rss::physics::MetricRange const &amp;input)</span>
 <span class="lineNum">      59 </span>                :            : {
 <span class="lineNum">      60 </span>                :            :   try
 <span class="lineNum">      61 </span>                :            :   {
 <span class="lineNum">      62 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
 <span class="lineNum">      63 </span>                :            :     // check for generic member input ranges
-<span class="lineNum">      64 </span>                :<span class="lineCov">      79161 :     bool const membersInValidInputRange = withinValidInputRange(input.minimum) &amp;&amp; withinValidInputRange(input.maximum);</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">     117035 :     bool const membersInValidInputRange = withinValidInputRange(input.minimum) &amp;&amp; withinValidInputRange(input.maximum);</span>
 <span class="lineNum">      65 </span>                :            : 
 <span class="lineNum">      66 </span>                :            :     // check for individual input ranges
 <span class="lineNum">      67 </span>                :            :     bool const minimumInInputRange
-<span class="lineNum">      68 </span>                :<span class="lineCov">      79161 :       = (::ad_rss::physics::Distance(0.) &lt;= input.minimum) &amp;&amp; (input.minimum &lt;= input.maximum);</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">     117035 :       = (::ad_rss::physics::Distance(0.) &lt;= input.minimum) &amp;&amp; (input.minimum &lt;= input.maximum);</span>
 <span class="lineNum">      69 </span>                :            : 
 <span class="lineNum">      70 </span>                :            :     bool const maximumInInputRange
-<span class="lineNum">      71 </span>                :<span class="lineCov">      79161 :       = (input.minimum &lt;= input.maximum) &amp;&amp; (input.maximum &lt;= ::ad_rss::physics::Distance(1e6));</span>
+<span class="lineNum">      71 </span>                :<span class="lineCov">     117035 :       = (input.minimum &lt;= input.maximum) &amp;&amp; (input.maximum &lt;= ::ad_rss::physics::Distance(1e6));</span>
 <span class="lineNum">      72 </span>                :            : 
-<span class="lineNum">      73 </span>                :<span class="lineCov">      79161 :     return membersInValidInputRange &amp;&amp; minimumInInputRange &amp;&amp; maximumInInputRange;</span>
+<span class="lineNum">      73 </span>                :<span class="lineCov">     117035 :     return membersInValidInputRange &amp;&amp; minimumInInputRange &amp;&amp; maximumInInputRange;</span>
 <span class="lineNum">      74 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
 <span class="lineNum">      75 </span>                :            :   }
 <span class="lineNum">      76 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
