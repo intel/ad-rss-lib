@@ -46,10 +46,10 @@ protected:
   {
     // valid initialization
     ::ad_rss::world::LateralRssAccelerationValues value;
-    ::ad_rss::physics::Acceleration valueAccelMax(-10);
+    ::ad_rss::physics::Acceleration valueAccelMax(-1e2);
     valueAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
     value.accelMax = valueAccelMax;
-    ::ad_rss::physics::Acceleration valueBrakeMin(-10);
+    ::ad_rss::physics::Acceleration valueBrakeMin(-1e2);
     valueBrakeMin = ::ad_rss::physics::Acceleration(
       0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     value.brakeMin = valueBrakeMin;
@@ -97,7 +97,7 @@ TEST_F(LateralRssAccelerationValuesTests, comparisonOperatorEqual)
 TEST_F(LateralRssAccelerationValuesTests, comparisonOperatorAccelMaxDiffers)
 {
   ::ad_rss::world::LateralRssAccelerationValues valueA = mValue;
-  ::ad_rss::physics::Acceleration accelMax(10);
+  ::ad_rss::physics::Acceleration accelMax(1e2);
   valueA.accelMax = accelMax;
   ::ad_rss::world::LateralRssAccelerationValues valueB = mValue;
 
@@ -108,7 +108,7 @@ TEST_F(LateralRssAccelerationValuesTests, comparisonOperatorAccelMaxDiffers)
 TEST_F(LateralRssAccelerationValuesTests, comparisonOperatorBrakeMinDiffers)
 {
   ::ad_rss::world::LateralRssAccelerationValues valueA = mValue;
-  ::ad_rss::physics::Acceleration brakeMin(10);
+  ::ad_rss::physics::Acceleration brakeMin(1e2);
   valueA.brakeMin = brakeMin;
   ::ad_rss::world::LateralRssAccelerationValues valueB = mValue;
 

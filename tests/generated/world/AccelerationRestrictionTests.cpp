@@ -49,25 +49,25 @@ protected:
     ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
     value.timeIndex = valueTimeIndex;
     ::ad_rss::physics::AccelerationRange valueLateralLeftRange;
-    ::ad_rss::physics::Acceleration valueLateralLeftRangeMinimum(-10);
+    ::ad_rss::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
     valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
-    ::ad_rss::physics::Acceleration valueLateralLeftRangeMaximum(-10);
+    ::ad_rss::physics::Acceleration valueLateralLeftRangeMaximum(-1e2);
     valueLateralLeftRange.maximum = valueLateralLeftRangeMaximum;
     valueLateralLeftRange.maximum = valueLateralLeftRange.minimum;
     valueLateralLeftRange.minimum = valueLateralLeftRange.maximum;
     value.lateralLeftRange = valueLateralLeftRange;
     ::ad_rss::physics::AccelerationRange valueLongitudinalRange;
-    ::ad_rss::physics::Acceleration valueLongitudinalRangeMinimum(-10);
+    ::ad_rss::physics::Acceleration valueLongitudinalRangeMinimum(-1e2);
     valueLongitudinalRange.minimum = valueLongitudinalRangeMinimum;
-    ::ad_rss::physics::Acceleration valueLongitudinalRangeMaximum(-10);
+    ::ad_rss::physics::Acceleration valueLongitudinalRangeMaximum(-1e2);
     valueLongitudinalRange.maximum = valueLongitudinalRangeMaximum;
     valueLongitudinalRange.maximum = valueLongitudinalRange.minimum;
     valueLongitudinalRange.minimum = valueLongitudinalRange.maximum;
     value.longitudinalRange = valueLongitudinalRange;
     ::ad_rss::physics::AccelerationRange valueLateralRightRange;
-    ::ad_rss::physics::Acceleration valueLateralRightRangeMinimum(-10);
+    ::ad_rss::physics::Acceleration valueLateralRightRangeMinimum(-1e2);
     valueLateralRightRange.minimum = valueLateralRightRangeMinimum;
-    ::ad_rss::physics::Acceleration valueLateralRightRangeMaximum(-10);
+    ::ad_rss::physics::Acceleration valueLateralRightRangeMaximum(-1e2);
     valueLateralRightRange.maximum = valueLateralRightRangeMaximum;
     valueLateralRightRange.maximum = valueLateralRightRange.minimum;
     valueLateralRightRange.minimum = valueLateralRightRange.maximum;
@@ -128,9 +128,9 @@ TEST_F(AccelerationRestrictionTests, comparisonOperatorLateralLeftRangeDiffers)
 {
   ::ad_rss::world::AccelerationRestriction valueA = mValue;
   ::ad_rss::physics::AccelerationRange lateralLeftRange;
-  ::ad_rss::physics::Acceleration lateralLeftRangeMinimum(10);
+  ::ad_rss::physics::Acceleration lateralLeftRangeMinimum(1e2);
   lateralLeftRange.minimum = lateralLeftRangeMinimum;
-  ::ad_rss::physics::Acceleration lateralLeftRangeMaximum(10);
+  ::ad_rss::physics::Acceleration lateralLeftRangeMaximum(1e2);
   lateralLeftRange.maximum = lateralLeftRangeMaximum;
   lateralLeftRange.maximum = lateralLeftRange.minimum;
   lateralLeftRange.minimum = lateralLeftRange.maximum;
@@ -145,9 +145,9 @@ TEST_F(AccelerationRestrictionTests, comparisonOperatorLongitudinalRangeDiffers)
 {
   ::ad_rss::world::AccelerationRestriction valueA = mValue;
   ::ad_rss::physics::AccelerationRange longitudinalRange;
-  ::ad_rss::physics::Acceleration longitudinalRangeMinimum(10);
+  ::ad_rss::physics::Acceleration longitudinalRangeMinimum(1e2);
   longitudinalRange.minimum = longitudinalRangeMinimum;
-  ::ad_rss::physics::Acceleration longitudinalRangeMaximum(10);
+  ::ad_rss::physics::Acceleration longitudinalRangeMaximum(1e2);
   longitudinalRange.maximum = longitudinalRangeMaximum;
   longitudinalRange.maximum = longitudinalRange.minimum;
   longitudinalRange.minimum = longitudinalRange.maximum;
@@ -162,9 +162,9 @@ TEST_F(AccelerationRestrictionTests, comparisonOperatorLateralRightRangeDiffers)
 {
   ::ad_rss::world::AccelerationRestriction valueA = mValue;
   ::ad_rss::physics::AccelerationRange lateralRightRange;
-  ::ad_rss::physics::Acceleration lateralRightRangeMinimum(10);
+  ::ad_rss::physics::Acceleration lateralRightRangeMinimum(1e2);
   lateralRightRange.minimum = lateralRightRangeMinimum;
-  ::ad_rss::physics::Acceleration lateralRightRangeMaximum(10);
+  ::ad_rss::physics::Acceleration lateralRightRangeMaximum(1e2);
   lateralRightRange.maximum = lateralRightRangeMaximum;
   lateralRightRange.maximum = lateralRightRange.minimum;
   lateralRightRange.minimum = lateralRightRange.maximum;

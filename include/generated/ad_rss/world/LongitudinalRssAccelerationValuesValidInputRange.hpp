@@ -52,8 +52,8 @@
  * \returns \c true if LongitudinalRssAccelerationValues is considered to be within the specified input range
  *
  * \note the specified input range is defined by the ranges of all members, plus:
- *       ::ad_rss::physics::Acceleration(0.) <= accelMax <= ::ad_rss::physics::Acceleration(10.)
- *       brakeMin <= brakeMax <= ::ad_rss::physics::Acceleration(10.)
+ *       ::ad_rss::physics::Acceleration(0.) <= accelMax <= ::ad_rss::physics::Acceleration(1e2)
+ *       brakeMin <= brakeMax <= ::ad_rss::physics::Acceleration(1e2)
  *       brakeMinCorrect <= brakeMin <= brakeMax
  *       ::ad_rss::physics::Acceleration(0.) < brakeMinCorrect <= brakeMin
  */
@@ -68,10 +68,10 @@ inline bool withinValidInputRange(::ad_rss::world::LongitudinalRssAccelerationVa
 
     // check for individual input ranges
     bool const accelMaxInInputRange = (::ad_rss::physics::Acceleration(0.) <= input.accelMax)
-      && (input.accelMax <= ::ad_rss::physics::Acceleration(10.));
+      && (input.accelMax <= ::ad_rss::physics::Acceleration(1e2));
 
     bool const brakeMaxInInputRange
-      = (input.brakeMin <= input.brakeMax) && (input.brakeMax <= ::ad_rss::physics::Acceleration(10.));
+      = (input.brakeMin <= input.brakeMax) && (input.brakeMax <= ::ad_rss::physics::Acceleration(1e2));
 
     bool const brakeMinInInputRange = (input.brakeMinCorrect <= input.brakeMin) && (input.brakeMin <= input.brakeMax);
 

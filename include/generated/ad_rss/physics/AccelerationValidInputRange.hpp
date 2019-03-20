@@ -53,7 +53,7 @@
  * \note the specified input range is defined by
  *       std::numeric_limits<::ad_rss::physics::Acceleration>::lowest() <= \c input <=
  * std::numeric_limits<::ad_rss::physics::Acceleration>::max()
- *       -10 <= \c input <= 10
+ *       -1e2 <= \c input <= 1e2
  */
 inline bool withinValidInputRange(::ad_rss::physics::Acceleration const &input)
 {
@@ -66,7 +66,7 @@ inline bool withinValidInputRange(::ad_rss::physics::Acceleration const &input)
 
     // check for individual input range
     bool const inInputRange
-      = (::ad_rss::physics::Acceleration(-10) <= input) && (input <= ::ad_rss::physics::Acceleration(10));
+      = (::ad_rss::physics::Acceleration(-1e2) <= input) && (input <= ::ad_rss::physics::Acceleration(1e2));
 
     return (withinNumericLimits && inInputRange);
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches

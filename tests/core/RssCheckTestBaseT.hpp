@@ -29,6 +29,11 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
+#pragma once
+
+#include <algorithm>
+#include <limits>
+
 #include "TestSupport.hpp"
 #include "ad_rss/core/RssCheck.hpp"
 #include "wrap_new.hpp"

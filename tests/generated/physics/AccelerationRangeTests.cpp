@@ -46,9 +46,9 @@ protected:
   {
     // valid initialization
     ::ad_rss::physics::AccelerationRange value;
-    ::ad_rss::physics::Acceleration valueMinimum(-10);
+    ::ad_rss::physics::Acceleration valueMinimum(-1e2);
     value.minimum = valueMinimum;
-    ::ad_rss::physics::Acceleration valueMaximum(-10);
+    ::ad_rss::physics::Acceleration valueMaximum(-1e2);
     value.maximum = valueMaximum;
     value.maximum = value.minimum;
     value.minimum = value.maximum;
@@ -96,7 +96,7 @@ TEST_F(AccelerationRangeTests, comparisonOperatorEqual)
 TEST_F(AccelerationRangeTests, comparisonOperatorMinimumDiffers)
 {
   ::ad_rss::physics::AccelerationRange valueA = mValue;
-  ::ad_rss::physics::Acceleration minimum(10);
+  ::ad_rss::physics::Acceleration minimum(1e2);
   valueA.minimum = minimum;
   ::ad_rss::physics::AccelerationRange valueB = mValue;
 
@@ -107,7 +107,7 @@ TEST_F(AccelerationRangeTests, comparisonOperatorMinimumDiffers)
 TEST_F(AccelerationRangeTests, comparisonOperatorMaximumDiffers)
 {
   ::ad_rss::physics::AccelerationRange valueA = mValue;
-  ::ad_rss::physics::Acceleration maximum(10);
+  ::ad_rss::physics::Acceleration maximum(1e2);
   valueA.maximum = maximum;
   ::ad_rss::physics::AccelerationRange valueB = mValue;
 

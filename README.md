@@ -28,7 +28,7 @@ This software library is provided under the BSD 3-clause open-source license: ht
 In addition, the terms in the following apply:
 [RELEASE NOTES AND DISCLAIMERS](./RELEASE_NOTES_AND_DISCLAIMERS.md).
 
-## Release 1.0.0
+## Release 1.x.x
 The initial release of the C++ software library for RSS implements a subset of the rules and calculations specified in the published RSS paper. This means that this release handles a subset of autonomous driving scenarios, described below. Scenarios other than this subset cannot be handled.
 
 ### Features & Limitations

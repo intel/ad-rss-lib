@@ -47,13 +47,13 @@ TEST(AccelerationTests, defaultConstructionIsInvalid)
 
 TEST(AccelerationTests, minIsDefinedAsExpected)
 {
-  EXPECT_EQ(-1e2, ::ad_rss::physics::Acceleration::cMinValue);
+  EXPECT_EQ(-1e3, ::ad_rss::physics::Acceleration::cMinValue);
   EXPECT_EQ(::ad_rss::physics::Acceleration::cMinValue, static_cast<double>(::ad_rss::physics::Acceleration::getMin()));
 }
 
 TEST(AccelerationTests, maxIsDefinedAsExpected)
 {
-  EXPECT_EQ(1e2, ::ad_rss::physics::Acceleration::cMaxValue);
+  EXPECT_EQ(1e3, ::ad_rss::physics::Acceleration::cMaxValue);
   EXPECT_EQ(::ad_rss::physics::Acceleration::cMaxValue, static_cast<double>(::ad_rss::physics::Acceleration::getMax()));
 }
 
@@ -72,13 +72,13 @@ TEST(AccelerationTests, minIsValid)
 
 TEST(AccelerationTests, aboveMinIsValid)
 {
-  ::ad_rss::physics::Acceleration value(-1e2 * 0.9);
+  ::ad_rss::physics::Acceleration value(-1e3 * 0.9);
   EXPECT_TRUE(value.isValid());
 }
 
 TEST(AccelerationTests, belowMinIsInvalid)
 {
-  ::ad_rss::physics::Acceleration value(-1e2 * 1.1);
+  ::ad_rss::physics::Acceleration value(-1e3 * 1.1);
   EXPECT_FALSE(value.isValid());
 }
 
@@ -89,13 +89,13 @@ TEST(AccelerationTests, maxIsValid)
 
 TEST(AccelerationTests, AboveMaxIsInvalid)
 {
-  ::ad_rss::physics::Acceleration value(1e2 * 1.1);
+  ::ad_rss::physics::Acceleration value(1e3 * 1.1);
   EXPECT_FALSE(value.isValid());
 }
 
 TEST(AccelerationTests, BelowMaxIsValid)
 {
-  ::ad_rss::physics::Acceleration value(1e2 * 0.9);
+  ::ad_rss::physics::Acceleration value(1e3 * 0.9);
   EXPECT_TRUE(value.isValid());
 }
 
