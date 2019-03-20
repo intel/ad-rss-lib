@@ -1,25 +1,25 @@
 [[Section::HLD::SoftwareArchitecture]]
 
-== ad_rss_lib: Software Architecture
+== ad-rss-lib: Software Architecture
 
-This section describes the software architecture of the ad_rss_lib in detail. The static view covers the deployed
+This section describes the software architecture of the ad-rss-lib in detail. The static view covers the deployed
 artifacts, the interfaces and data types of the library. The dynamic view describes the behaviour of the library in more
 detail.
 
 === Static View
 
 [[Figure:ad_rss_lib]]
-.The packages within the ad_rss_lib.
-image::img/acd35c53-c5d6-4c0f-98f3-a8103f9afb91_url_1c58b101-7c5d-43da-95da-8a7d06752a22.tmp[caption="Figure {counter:figure}. "]
+.The packages within the ad-rss-lib.
+image::img/3215dc26-cb11-4d2a-bee0-5bce35dc7d8a_url_30dce600-cb20-4ebb-9cd6-e2b2d333579c.tmp[caption="Figure {counter:figure}. "]
 
-The ad_rss_lib is implemented in C++. Based on a set of datatype definitions the interfaces are provided to:
+The ad-rss-lib is implemented in C++. Based on a set of datatype definitions the interfaces are provided to:
 
 1. prepare the RSS situations between individual pairs of ego vehicle and objects
 2. trigger the situation specific RSS calculations
 3. resolve the situation specific responses to one global response
 4. translate the global response into concrete restrictions of the actuator control commands
 
-Finally, the implementation of the ad_rss_lib is deployed within a set of artifacts.
+Finally, the implementation of the ad-rss-lib is deployed within a set of artifacts.
 
 ==== ExtLibs
 
@@ -29,28 +29,28 @@ Definition of artifacts of the C++ library for RSS.
 
 [[Figure:Artifact_Deployment]]
 .Deployed artifacts of the C++ library for RSS.
-image::img/554df18f-9dbf-4fef-90dd-199a37341089_url_edf573fb-eecc-4f56-a698-31871f3101ae.tmp[caption="Figure {counter:figure}. "]
+image::img/28dd631b-76c7-4e12-b824-a8f15653a0ce_url_cf35bf58-51f1-4c55-8eb1-fd3370252605.tmp[caption="Figure {counter:figure}. "]
 
-===== ad_rss_lib
+===== ad-rss-lib
 
-The whole ad_rss_lib implementation is deployed within one library artifact.
+The whole ad-rss-lib implementation is deployed within one library artifact.
 
 ==== Interfaces
 
-Definition of Interfaces provided within the ad_rss_lib implementation.
+Definition of Interfaces provided within the ad-rss-lib implementation.
 
-The ad_rss_lib is implemented as a whole within the namespace ad_rss.
+The ad-rss-lib is implemented as a whole within the namespace ad_rss.
 
 ===== Namespace ad_rss::core
 
 Namespace for RSS core interfaces and operations.
 
-This contains the interfaces including the operations the ad_rss_lib provides to the user to perform the RSS
+This contains the interfaces including the operations the ad-rss-lib provides to the user to perform the RSS
 functionality.
 
 [[Figure:Namespace_ad_rss__core]]
-.The core interfaces provided by the ad_rss_lib.
-image::img/a5f7ccec-65c4-4059-82e3-d5628661b74a_url_77eaff39-2b9e-4e86-b372-fa86e91a9803.tmp[caption="Figure {counter:figure}. "]
+.The core interfaces provided by the ad-rss-lib.
+image::img/70831045-c2fe-4322-96c8-4dc16b0d0c5d_url_713a53a1-6c2f-4b60-8556-f96db75de4c2.tmp[caption="Figure {counter:figure}. "]
 
 ====== RssCheck
 
@@ -173,13 +173,13 @@ Returns true if the acceleration restrictions could be calculated, false otherwi
 
 ==== DataTypes
 
-Definition of DataTypes used within the ad_rss_lib implementation.
+Definition of DataTypes used within the ad-rss-lib implementation.
 
-The ad_rss_lib is implemented as a whole within the namespace ad_rss.
+The ad-rss-lib is implemented as a whole within the namespace ad_rss.
 
 [[Figure:Namespace_ad_rss]]
 .The RSS datatypes are organized within several sub-namespaces.
-image::img/a706bfd6-0115-44ba-8e84-f81b7ad0de1c_url_ceb5d338-61b0-48c2-8fef-454c876a0067.tmp[caption="Figure {counter:figure}. "]
+image::img/1dab8fd5-c1cf-4a62-9232-66e2e9279428_url_c4da4d92-8fec-4665-bd03-914ad6ba8238.tmp[caption="Figure {counter:figure}. "]
 
 ===== Namespace ad_rss::physics
 
@@ -190,7 +190,7 @@ ranges.
 
 [[Figure:Namespace_ad_rss__physics]]
 .The types describing the basic physics used within RSS implementation.
-image::img/21af5c0d-86e6-4c86-b97d-c2389d81ef47_url_5568c8f3-101b-4900-9e3c-4571f72fe7c6.tmp[caption="Figure {counter:figure}. "]
+image::img/73fea5f0-2901-442f-a7df-c22d230d98ba_url_ef5c4189-bcfd-44c3-a65e-ad0474f97336.tmp[caption="Figure {counter:figure}. "]
 
 ====== Acceleration (Typedef)
 
@@ -334,15 +334,15 @@ objects.
 
 [[Figure:Namespace_ad_rss__world_road_types]]
 .The types describing the road and lane geometries used within the local RSS world model.
-image::img/bb52ad9d-2e73-4798-ad3a-b90a4c2ebef4_url_8d6bc8ca-d720-4f28-92f7-c55cc88cf901.tmp[caption="Figure {counter:figure}. "]
+image::img/828d3498-dd41-460a-85db-a3139aa151ec_url_c2fb13b9-d00b-4b50-be4e-9e3fa5315c11.tmp[caption="Figure {counter:figure}. "]
 
 [[Figure:Namespace_ad_rss__world_object_types]]
 .The types describing the objects used within the local RSS world model.
-image::img/42b62d1f-7e0d-4169-a37d-e1f2625d67d4_url_1a760d9a-6e9a-46a7-9a2e-20a10a9863d9.tmp[caption="Figure {counter:figure}. "]
+image::img/0eba3100-9694-4554-be43-1f291486cf5d_url_be889d20-6794-4049-9794-d3555b46b011.tmp[caption="Figure {counter:figure}. "]
 
 [[Figure:Namespace_ad_rss__world]]
 .The types describing the high level world model and object used within the local RSS world model.
-image::img/bbb33dd2-4708-4291-bf4f-4d4fd0e46deb_url_25ed9391-a145-443d-919a-2e3479b78b54.tmp[caption="Figure {counter:figure}. "]
+image::img/350f4915-f1b4-4d00-8cd4-1f9bd746bdcf_url_90081a18-623a-4a47-80b5-3abc67de4368.tmp[caption="Figure {counter:figure}. "]
 
 ====== LaneSegmentId (Typedef)
 
@@ -560,11 +560,11 @@ coordinate system.
 
 [[Figure:Namespace_ad_rss__situation_vehicle_state]]
 .The types describing the vehicle state used within the situation coordinate system.
-image::img/22bc8a63-92f9-49d8-bd6b-3280c1111c96_url_1199fbbe-ee18-4782-a42e-ffda575214f5.tmp[caption="Figure {counter:figure}. "]
+image::img/143f273a-ef21-4afe-934b-398bcf53031c_url_fbbf525c-6d26-4db6-be96-562cf15945e3.tmp[caption="Figure {counter:figure}. "]
 
 [[Figure:Namespace_ad_rss__situation]]
 .The types describing a situation used within the situation coordinate system.
-image::img/aea213de-619b-435a-9e52-18f48789cec2_url_11618db0-0356-416d-9658-b399f06658be.tmp[caption="Figure {counter:figure}. "]
+image::img/c4815d4c-bf13-48dc-b30a-8ba5db2123bb_url_a74eeada-8027-4d53-9713-8550ffb5b82b.tmp[caption="Figure {counter:figure}. "]
 
 ====== VehicleState (Structure)
 
@@ -695,7 +695,7 @@ This contains types used in conjunction with the RSS state and responses.
 
 [[Figure:Namespace_ad_rss__state]]
 .The types describing the RSS response and the RSS state.
-image::img/28c0e20e-96e6-4571-a5c5-d0984499794c_url_7a1cc948-6c7c-4549-8f6b-ab2575bcd8e6.tmp[caption="Figure {counter:figure}. "]
+image::img/66a7f86d-bcc6-47a9-87a6-896fa6db21b6_url_6a8e202b-427e-48f6-9808-d435d7eeaeb7.tmp[caption="Figure {counter:figure}. "]
 
 ====== LongitudinalResponse (Enumeration)
 
@@ -767,7 +767,7 @@ A vector of response states.
 
 [[Figure:RssSubsystemChecker]]
 .RSS internal processing steps to perform RSS checks and execute the RSS proper response
-image::img/910dab27-21e0-4116-857d-f1d21288873c_url_8c31bedf-464a-4305-800c-c034635e8a7f.tmp[caption="Figure {counter:figure}. "]
+image::img/ef40ca1b-866b-44e8-8e6d-a3d235c569e9_url_5931b775-17c8-4d95-ad51-e9e5c3cf8e76.tmp[caption="Figure {counter:figure}. "]
 
 The RssSubsystem realizes the RSS part functionality. It implements the RSS checks based on the RssWorldModelData
 received from the SensorSubsystem:
@@ -778,7 +778,7 @@ received from the SensorSubsystem:
 4. Right-of-Way is given, not taken
 
 In case a dangerous situation is detected a respective proper response is calculated and the actuator control commands
-received
+received 
 from the PlanningSubsystem are restricted accordingly to realize planning safety.
 
 ==== RssSituationExtractionImpl
@@ -787,7 +787,7 @@ RssSituationExtractionImpl describes the implementation of the RssSituationExtra
 
 [[Figure:RssSituationExtractionImpl]]
 .Statechart Diagram describing the dynamic behavior of the RssSituationExtraction entity.
-image::img/0ff5f626-913b-4587-bdc8-48f95424bb7e_url_c3a2bf7d-ae8f-4c0a-8f34-3e2dacbc628f.tmp[caption="Figure {counter:figure}. "]
+image::img/33056e83-b4eb-47a3-98a5-0e762dcdd0f0_url_ef104650-716f-4190-bef9-9685cfaea8b7.tmp[caption="Figure {counter:figure}. "]
 
 The following table describes the events, triggers, states and their transitions of the statechart in detail.
 
@@ -813,7 +813,7 @@ RssSituationCheckingImpl describes the implementation of the RssSituationCheckin
 
 [[Figure:RssSituationCheckingImpl]]
 .Statechart Diagram describing the dynamic behavior of the RssSituationChecking entity.
-image::img/9bf429cc-bff9-4926-8c36-9ffc69b145c3_url_1906bcfc-37d8-4c01-9ad3-323566ac41eb.tmp[caption="Figure {counter:figure}. "]
+image::img/6bded48d-c54a-4c10-ba6e-564a9047b27b_url_4ee9d29c-aced-4c30-a94b-e18f0def895d.tmp[caption="Figure {counter:figure}. "]
 
 The following table describes the events, triggers, states and their transitions of the statechart in detail.
 
@@ -840,7 +840,7 @@ RssResponseResolvingImpl describes the implementation of the RssResponseResolvin
 
 [[Figure:RssResponseResolvingImpl]]
 .Statechart Diagram describing the dynamic behavior of the RssResponseResolving entity.
-image::img/e520bc5e-de98-43c6-87fd-3183af43f7ad_url_90a67595-90ac-4041-99ab-a1852fbafc1c.tmp[caption="Figure {counter:figure}. "]
+image::img/841e0fb8-7627-4e1a-93d5-be6a40d71719_url_297d209b-1f20-4dd1-9461-425e2c4fb20c.tmp[caption="Figure {counter:figure}. "]
 
 The following table describes the events, triggers, states and their transitions of the statechart in detail.
 
@@ -868,7 +868,7 @@ statechart.
 
 [[Figure:RssResponseTransformationImpl]]
 .Statechart Diagram describing the dynamic behavior of the RssResponseTransformation entity.
-image::img/7b59d685-6c32-4fcc-91c3-d5118e5cfd3e_url_08e9e39b-f00b-4b0f-b70f-e39ea2347be4.tmp[caption="Figure {counter:figure}. "]
+image::img/97f474d5-a4f5-4a3d-9733-cfc543afacf3_url_cb9fc4f4-f5d4-47eb-b3a5-d46e799422fb.tmp[caption="Figure {counter:figure}. "]
 
 The following table describes the events, triggers, states and their transitions of the statechart in detail.
 

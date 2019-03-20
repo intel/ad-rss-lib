@@ -67,26 +67,26 @@ pedestrians may have unknown routes, compared to vehicles.
 The design of the library at hand is based on the academic paper
 _"On a Formal Model of Safe and Scalable Self-driving Cars"_.
 The library provides a C++ implementation of RSS according to the aforementioned
-summary. The key component of this implementation is called _"ad_rss_lib"_.
+summary. The key component of this implementation is called _"ad-rss-lib"_.
 This library receives (post-processed) sensor information and provides actuator
 command restrictions as output.
 
 [[Figure:Library]]
-.ad_rss_lib (implemented in the library) and its interfaces to the outside world
+.ad-rss-lib (implemented in the library) and its interfaces to the outside world
 image::rss_integration.png[caption="Figure {counter:figure}. "]
 
-In summary, the ad_rss_lib receives an object list, with information about all
-objects in the surrounding environment of the ego vehicle. Then, the ad_rss_lib
+In summary, the ad-rss-lib receives an object list, with information about all
+objects in the surrounding environment of the ego vehicle. Then, the ad-rss-lib
 creates an object - ego vehicle pair, for each object. This pair is usually
 referred to as _"Situation"_. For all situations, the aforementioned RSS checks
 are performed and a proper response is calculated. Finally, one overall
-response is computed by the ad_rss_lib, and the corresponding actuator command
+response is computed by the ad-rss-lib, and the corresponding actuator command
 restrictions (i.e. lateral and longitudinal acceleration restrictions) are sent
 out (see <<Figure:Library>>).
 
 [NOTE]
 ====
-The conversion from sensor data to the object list required by the ad_rss_lib,
+The conversion from sensor data to the object list required by the ad-rss-lib,
 as well as the conversion of the actuator command restrictions to real driving
 commands, have to be implemented by the user of this library, as these parts
 heavily depend on the actual vehicle setup.
@@ -96,8 +96,8 @@ heavily depend on the actual vehicle setup.
 ====
 The current scope of the provided implementation is:
 
- * Standalone C++-library containing the implementation of the ad_rss_lib
- * The ad_rss_lib covers multi-lane roads and intersections
+ * Standalone C++-library containing the implementation of the ad-rss-lib
+ * The ad-rss-lib covers multi-lane roads and intersections
  * Code quality is assured by automated testing with test coverage of
    100% on methods and 80% on branches as well as static code analysis
 ====
@@ -120,7 +120,7 @@ The remainder of this document is structured as follows:
   implementation provided within the library. It discusses how each situation
   is handled.
 - <<Section::HLD::SystemArchitecture>> introduces the system
-  architecture for RSS and the interfaces of the ad_rss_lib to other components.
+  architecture for RSS and the interfaces of the ad-rss-lib to other components.
 - <<Section::HLD::SoftwareArchitecture>> provides a description of the
   software architecture, included the interface and data type definitions. If
   you would like to integrate the library into your system, this section, as

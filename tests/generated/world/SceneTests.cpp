@@ -61,14 +61,14 @@ protected:
     valueObject.occupiedRegions = valueObjectOccupiedRegions;
     ::ad_rss::world::Dynamics valueObjectDynamics;
     ::ad_rss::world::LongitudinalRssAccelerationValues valueObjectDynamicsAlphaLon;
-    ::ad_rss::physics::Acceleration valueObjectDynamicsAlphaLonAccelMax(-10);
+    ::ad_rss::physics::Acceleration valueObjectDynamicsAlphaLonAccelMax(-1e2);
     valueObjectDynamicsAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
     valueObjectDynamicsAlphaLon.accelMax = valueObjectDynamicsAlphaLonAccelMax;
-    ::ad_rss::physics::Acceleration valueObjectDynamicsAlphaLonBrakeMax(-10);
+    ::ad_rss::physics::Acceleration valueObjectDynamicsAlphaLonBrakeMax(-1e2);
     valueObjectDynamicsAlphaLon.brakeMax = valueObjectDynamicsAlphaLonBrakeMax;
-    ::ad_rss::physics::Acceleration valueObjectDynamicsAlphaLonBrakeMin(-10);
+    ::ad_rss::physics::Acceleration valueObjectDynamicsAlphaLonBrakeMin(-1e2);
     valueObjectDynamicsAlphaLon.brakeMin = valueObjectDynamicsAlphaLonBrakeMin;
-    ::ad_rss::physics::Acceleration valueObjectDynamicsAlphaLonBrakeMinCorrect(-10);
+    ::ad_rss::physics::Acceleration valueObjectDynamicsAlphaLonBrakeMinCorrect(-1e2);
     valueObjectDynamicsAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
       0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     valueObjectDynamicsAlphaLon.brakeMinCorrect = valueObjectDynamicsAlphaLonBrakeMinCorrect;
@@ -78,10 +78,10 @@ protected:
     valueObjectDynamicsAlphaLon.brakeMinCorrect = valueObjectDynamicsAlphaLon.brakeMin;
     valueObjectDynamics.alphaLon = valueObjectDynamicsAlphaLon;
     ::ad_rss::world::LateralRssAccelerationValues valueObjectDynamicsAlphaLat;
-    ::ad_rss::physics::Acceleration valueObjectDynamicsAlphaLatAccelMax(-10);
+    ::ad_rss::physics::Acceleration valueObjectDynamicsAlphaLatAccelMax(-1e2);
     valueObjectDynamicsAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
     valueObjectDynamicsAlphaLat.accelMax = valueObjectDynamicsAlphaLatAccelMax;
-    ::ad_rss::physics::Acceleration valueObjectDynamicsAlphaLatBrakeMin(-10);
+    ::ad_rss::physics::Acceleration valueObjectDynamicsAlphaLatBrakeMin(-1e2);
     valueObjectDynamicsAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
       0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     valueObjectDynamicsAlphaLat.brakeMin = valueObjectDynamicsAlphaLatBrakeMin;
@@ -265,13 +265,13 @@ TEST_F(SceneTests, comparisonOperatorObjectDiffers)
   object.occupiedRegions = objectOccupiedRegions;
   ::ad_rss::world::Dynamics objectDynamics;
   ::ad_rss::world::LongitudinalRssAccelerationValues objectDynamicsAlphaLon;
-  ::ad_rss::physics::Acceleration objectDynamicsAlphaLonAccelMax(10);
+  ::ad_rss::physics::Acceleration objectDynamicsAlphaLonAccelMax(1e2);
   objectDynamicsAlphaLon.accelMax = objectDynamicsAlphaLonAccelMax;
-  ::ad_rss::physics::Acceleration objectDynamicsAlphaLonBrakeMax(10);
+  ::ad_rss::physics::Acceleration objectDynamicsAlphaLonBrakeMax(1e2);
   objectDynamicsAlphaLon.brakeMax = objectDynamicsAlphaLonBrakeMax;
-  ::ad_rss::physics::Acceleration objectDynamicsAlphaLonBrakeMin(10);
+  ::ad_rss::physics::Acceleration objectDynamicsAlphaLonBrakeMin(1e2);
   objectDynamicsAlphaLon.brakeMin = objectDynamicsAlphaLonBrakeMin;
-  ::ad_rss::physics::Acceleration objectDynamicsAlphaLonBrakeMinCorrect(10);
+  ::ad_rss::physics::Acceleration objectDynamicsAlphaLonBrakeMinCorrect(1e2);
   objectDynamicsAlphaLon.brakeMinCorrect = objectDynamicsAlphaLonBrakeMinCorrect;
   objectDynamicsAlphaLon.brakeMax = objectDynamicsAlphaLon.brakeMin;
   objectDynamicsAlphaLon.brakeMin = objectDynamicsAlphaLon.brakeMinCorrect;
@@ -279,9 +279,9 @@ TEST_F(SceneTests, comparisonOperatorObjectDiffers)
   objectDynamicsAlphaLon.brakeMin = objectDynamicsAlphaLon.brakeMax;
   objectDynamics.alphaLon = objectDynamicsAlphaLon;
   ::ad_rss::world::LateralRssAccelerationValues objectDynamicsAlphaLat;
-  ::ad_rss::physics::Acceleration objectDynamicsAlphaLatAccelMax(10);
+  ::ad_rss::physics::Acceleration objectDynamicsAlphaLatAccelMax(1e2);
   objectDynamicsAlphaLat.accelMax = objectDynamicsAlphaLatAccelMax;
-  ::ad_rss::physics::Acceleration objectDynamicsAlphaLatBrakeMin(10);
+  ::ad_rss::physics::Acceleration objectDynamicsAlphaLatBrakeMin(1e2);
   objectDynamicsAlphaLat.brakeMin = objectDynamicsAlphaLatBrakeMin;
   objectDynamics.alphaLat = objectDynamicsAlphaLat;
   ::ad_rss::physics::Distance objectDynamicsLateralFluctuationMargin(1e6);

@@ -44,9 +44,9 @@
 TEST(AccelerationRangeValidInputRangeTests, testValidInputRange)
 {
   ::ad_rss::physics::AccelerationRange value;
-  ::ad_rss::physics::Acceleration valueMinimum(-10);
+  ::ad_rss::physics::Acceleration valueMinimum(-1e2);
   value.minimum = valueMinimum;
-  ::ad_rss::physics::Acceleration valueMaximum(-10);
+  ::ad_rss::physics::Acceleration valueMaximum(-1e2);
   value.maximum = valueMaximum;
   value.maximum = value.minimum;
   value.minimum = value.maximum;
@@ -56,15 +56,15 @@ TEST(AccelerationRangeValidInputRangeTests, testValidInputRange)
 TEST(AccelerationRangeValidInputRangeTests, testValidInputRangeMinimumTooSmall)
 {
   ::ad_rss::physics::AccelerationRange value;
-  ::ad_rss::physics::Acceleration valueMinimum(-10);
+  ::ad_rss::physics::Acceleration valueMinimum(-1e2);
   value.minimum = valueMinimum;
-  ::ad_rss::physics::Acceleration valueMaximum(-10);
+  ::ad_rss::physics::Acceleration valueMaximum(-1e2);
   value.maximum = valueMaximum;
   value.maximum = value.minimum;
   value.minimum = value.maximum;
 
   // override member with invalid value
-  ::ad_rss::physics::Acceleration invalidInitializedMember(-10 * 1.1);
+  ::ad_rss::physics::Acceleration invalidInitializedMember(-1e2 * 1.1);
   value.minimum = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -72,15 +72,15 @@ TEST(AccelerationRangeValidInputRangeTests, testValidInputRangeMinimumTooSmall)
 TEST(AccelerationRangeValidInputRangeTests, testValidInputRangeMinimumTooBig)
 {
   ::ad_rss::physics::AccelerationRange value;
-  ::ad_rss::physics::Acceleration valueMinimum(-10);
+  ::ad_rss::physics::Acceleration valueMinimum(-1e2);
   value.minimum = valueMinimum;
-  ::ad_rss::physics::Acceleration valueMaximum(-10);
+  ::ad_rss::physics::Acceleration valueMaximum(-1e2);
   value.maximum = valueMaximum;
   value.maximum = value.minimum;
   value.minimum = value.maximum;
 
   // override member with invalid value
-  ::ad_rss::physics::Acceleration invalidInitializedMember(10 * 1.1);
+  ::ad_rss::physics::Acceleration invalidInitializedMember(1e2 * 1.1);
   value.minimum = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -96,15 +96,15 @@ TEST(AccelerationRangeValidInputRangeTests, testValidInputRangeminimumDefault)
 TEST(AccelerationRangeValidInputRangeTests, testValidInputRangeMaximumTooSmall)
 {
   ::ad_rss::physics::AccelerationRange value;
-  ::ad_rss::physics::Acceleration valueMinimum(-10);
+  ::ad_rss::physics::Acceleration valueMinimum(-1e2);
   value.minimum = valueMinimum;
-  ::ad_rss::physics::Acceleration valueMaximum(-10);
+  ::ad_rss::physics::Acceleration valueMaximum(-1e2);
   value.maximum = valueMaximum;
   value.maximum = value.minimum;
   value.minimum = value.maximum;
 
   // override member with invalid value
-  ::ad_rss::physics::Acceleration invalidInitializedMember(-10 * 1.1);
+  ::ad_rss::physics::Acceleration invalidInitializedMember(-1e2 * 1.1);
   value.maximum = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -112,15 +112,15 @@ TEST(AccelerationRangeValidInputRangeTests, testValidInputRangeMaximumTooSmall)
 TEST(AccelerationRangeValidInputRangeTests, testValidInputRangeMaximumTooBig)
 {
   ::ad_rss::physics::AccelerationRange value;
-  ::ad_rss::physics::Acceleration valueMinimum(-10);
+  ::ad_rss::physics::Acceleration valueMinimum(-1e2);
   value.minimum = valueMinimum;
-  ::ad_rss::physics::Acceleration valueMaximum(-10);
+  ::ad_rss::physics::Acceleration valueMaximum(-1e2);
   value.maximum = valueMaximum;
   value.maximum = value.minimum;
   value.minimum = value.maximum;
 
   // override member with invalid value
-  ::ad_rss::physics::Acceleration invalidInitializedMember(10 * 1.1);
+  ::ad_rss::physics::Acceleration invalidInitializedMember(1e2 * 1.1);
   value.maximum = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }

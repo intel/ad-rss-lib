@@ -1,5 +1,5 @@
 # C++ Library for Responsibility Sensitive Safety
-Ad-rss-lib
+ad-rss-lib
 // table of content
 :toc: left
 :toclevels: 3
@@ -26,7 +26,7 @@ Ad-rss-lib
 :pdf-style: custom
 :pdf-fontsdir: /var/lib/gems/2.3.0/gems/asciidoctor-pdf-1.5.0.alpha.16/data/fonts
 // html ressources
-:revnumber: 1.0
+:revnumber: 1.1
 :revdate: {localdate}
 :stylesheet: documentation_style.css
 :stylesdir: ./resources/css

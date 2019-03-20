@@ -47,14 +47,14 @@ protected:
     // valid initialization
     ::ad_rss::world::Dynamics value;
     ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
-    ::ad_rss::physics::Acceleration valueAlphaLonAccelMax(-10);
+    ::ad_rss::physics::Acceleration valueAlphaLonAccelMax(-1e2);
     valueAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
     valueAlphaLon.accelMax = valueAlphaLonAccelMax;
-    ::ad_rss::physics::Acceleration valueAlphaLonBrakeMax(-10);
+    ::ad_rss::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
     valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
-    ::ad_rss::physics::Acceleration valueAlphaLonBrakeMin(-10);
+    ::ad_rss::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
     valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
-    ::ad_rss::physics::Acceleration valueAlphaLonBrakeMinCorrect(-10);
+    ::ad_rss::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
     valueAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
       0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
@@ -64,10 +64,10 @@ protected:
     valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
     value.alphaLon = valueAlphaLon;
     ::ad_rss::world::LateralRssAccelerationValues valueAlphaLat;
-    ::ad_rss::physics::Acceleration valueAlphaLatAccelMax(-10);
+    ::ad_rss::physics::Acceleration valueAlphaLatAccelMax(-1e2);
     valueAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
     valueAlphaLat.accelMax = valueAlphaLatAccelMax;
-    ::ad_rss::physics::Acceleration valueAlphaLatBrakeMin(-10);
+    ::ad_rss::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
     valueAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
       0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
@@ -119,13 +119,13 @@ TEST_F(DynamicsTests, comparisonOperatorAlphaLonDiffers)
 {
   ::ad_rss::world::Dynamics valueA = mValue;
   ::ad_rss::world::LongitudinalRssAccelerationValues alphaLon;
-  ::ad_rss::physics::Acceleration alphaLonAccelMax(10);
+  ::ad_rss::physics::Acceleration alphaLonAccelMax(1e2);
   alphaLon.accelMax = alphaLonAccelMax;
-  ::ad_rss::physics::Acceleration alphaLonBrakeMax(10);
+  ::ad_rss::physics::Acceleration alphaLonBrakeMax(1e2);
   alphaLon.brakeMax = alphaLonBrakeMax;
-  ::ad_rss::physics::Acceleration alphaLonBrakeMin(10);
+  ::ad_rss::physics::Acceleration alphaLonBrakeMin(1e2);
   alphaLon.brakeMin = alphaLonBrakeMin;
-  ::ad_rss::physics::Acceleration alphaLonBrakeMinCorrect(10);
+  ::ad_rss::physics::Acceleration alphaLonBrakeMinCorrect(1e2);
   alphaLon.brakeMinCorrect = alphaLonBrakeMinCorrect;
   alphaLon.brakeMax = alphaLon.brakeMin;
   alphaLon.brakeMin = alphaLon.brakeMinCorrect;
@@ -142,9 +142,9 @@ TEST_F(DynamicsTests, comparisonOperatorAlphaLatDiffers)
 {
   ::ad_rss::world::Dynamics valueA = mValue;
   ::ad_rss::world::LateralRssAccelerationValues alphaLat;
-  ::ad_rss::physics::Acceleration alphaLatAccelMax(10);
+  ::ad_rss::physics::Acceleration alphaLatAccelMax(1e2);
   alphaLat.accelMax = alphaLatAccelMax;
-  ::ad_rss::physics::Acceleration alphaLatBrakeMin(10);
+  ::ad_rss::physics::Acceleration alphaLatBrakeMin(1e2);
   alphaLat.brakeMin = alphaLatBrakeMin;
   valueA.alphaLat = alphaLat;
   ::ad_rss::world::Dynamics valueB = mValue;

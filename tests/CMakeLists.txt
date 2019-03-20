@@ -34,7 +34,7 @@
 #####################################################################
 # rss_tests - executable setup
 #####################################################################
-set(EXEC_NAME ad_rss_tests)
+set(EXEC_NAME ad-rss-tests)
 
 include(generated/CMakeLists.txt)
 

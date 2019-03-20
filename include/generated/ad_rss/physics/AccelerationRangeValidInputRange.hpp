@@ -52,8 +52,8 @@
  * \returns \c true if AccelerationRange is considered to be within the specified input range
  *
  * \note the specified input range is defined by the ranges of all members, plus:
- *       ::ad_rss::physics::Acceleration(-10.) <= minimum <= maximum
- *       minimum <= maximum <= ::ad_rss::physics::Acceleration(10.)
+ *       ::ad_rss::physics::Acceleration(-1e2) <= minimum <= maximum
+ *       minimum <= maximum <= ::ad_rss::physics::Acceleration(1e2)
  */
 inline bool withinValidInputRange(::ad_rss::physics::AccelerationRange const &input)
 {
@@ -65,10 +65,10 @@ inline bool withinValidInputRange(::ad_rss::physics::AccelerationRange const &in
 
     // check for individual input ranges
     bool const minimumInInputRange
-      = (::ad_rss::physics::Acceleration(-10.) <= input.minimum) && (input.minimum <= input.maximum);
+      = (::ad_rss::physics::Acceleration(-1e2) <= input.minimum) && (input.minimum <= input.maximum);
 
     bool const maximumInInputRange
-      = (input.minimum <= input.maximum) && (input.maximum <= ::ad_rss::physics::Acceleration(10.));
+      = (input.minimum <= input.maximum) && (input.maximum <= ::ad_rss::physics::Acceleration(1e2));
 
     return membersInValidInputRange && minimumInInputRange && maximumInInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches

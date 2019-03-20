@@ -46,14 +46,14 @@ protected:
   {
     // valid initialization
     ::ad_rss::world::LongitudinalRssAccelerationValues value;
-    ::ad_rss::physics::Acceleration valueAccelMax(-10);
+    ::ad_rss::physics::Acceleration valueAccelMax(-1e2);
     valueAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
     value.accelMax = valueAccelMax;
-    ::ad_rss::physics::Acceleration valueBrakeMax(-10);
+    ::ad_rss::physics::Acceleration valueBrakeMax(-1e2);
     value.brakeMax = valueBrakeMax;
-    ::ad_rss::physics::Acceleration valueBrakeMin(-10);
+    ::ad_rss::physics::Acceleration valueBrakeMin(-1e2);
     value.brakeMin = valueBrakeMin;
-    ::ad_rss::physics::Acceleration valueBrakeMinCorrect(-10);
+    ::ad_rss::physics::Acceleration valueBrakeMinCorrect(-1e2);
     valueBrakeMinCorrect = ::ad_rss::physics::Acceleration(
       0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     value.brakeMinCorrect = valueBrakeMinCorrect;
@@ -106,7 +106,7 @@ TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorEqual)
 TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorAccelMaxDiffers)
 {
   ::ad_rss::world::LongitudinalRssAccelerationValues valueA = mValue;
-  ::ad_rss::physics::Acceleration accelMax(10);
+  ::ad_rss::physics::Acceleration accelMax(1e2);
   valueA.accelMax = accelMax;
   ::ad_rss::world::LongitudinalRssAccelerationValues valueB = mValue;
 
@@ -117,7 +117,7 @@ TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorAccelMaxDiffers
 TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorBrakeMaxDiffers)
 {
   ::ad_rss::world::LongitudinalRssAccelerationValues valueA = mValue;
-  ::ad_rss::physics::Acceleration brakeMax(10);
+  ::ad_rss::physics::Acceleration brakeMax(1e2);
   valueA.brakeMax = brakeMax;
   ::ad_rss::world::LongitudinalRssAccelerationValues valueB = mValue;
 
@@ -128,7 +128,7 @@ TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorBrakeMaxDiffers
 TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorBrakeMinDiffers)
 {
   ::ad_rss::world::LongitudinalRssAccelerationValues valueA = mValue;
-  ::ad_rss::physics::Acceleration brakeMin(10);
+  ::ad_rss::physics::Acceleration brakeMin(1e2);
   valueA.brakeMin = brakeMin;
   ::ad_rss::world::LongitudinalRssAccelerationValues valueB = mValue;
 
@@ -139,7 +139,7 @@ TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorBrakeMinDiffers
 TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorBrakeMinCorrectDiffers)
 {
   ::ad_rss::world::LongitudinalRssAccelerationValues valueA = mValue;
-  ::ad_rss::physics::Acceleration brakeMinCorrect(10);
+  ::ad_rss::physics::Acceleration brakeMinCorrect(1e2);
   valueA.brakeMinCorrect = brakeMinCorrect;
   ::ad_rss::world::LongitudinalRssAccelerationValues valueB = mValue;
 
