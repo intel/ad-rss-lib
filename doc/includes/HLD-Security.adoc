@@ -208,8 +208,11 @@ The following, strict, compilation flags are used: C++11, -Werror, -Wall, -Wextr
 * -Wenum-compare warn about a comparison between values of different enumerated types
 * -Wformat* warns about errors within format strings
 
-In addition, there are compiler flags (-fstack-protector-all -fasynchronous-unwind-tables -fno-omit-frame-pointer -fPIE -fPIC -D_FORTIFY_SOURCE=2) and linker flags (-Wl,-z,now -Wl,-z,relro -pie)
-enabled to harden the resulting binaries.
+In addition, there are compiler flags
+* -fstack-protector-all -fasynchronous-unwind-tables -fno-omit-frame-pointer -fno-delete-null-pointer-checks -fno-strict-overflow -fwrapv -fPIE -fPIC -D_FORTIFY_SOURCE=2
+and linker flags
+* -Wl,-z,now -Wl,-z,relro -pie
+defined to harden the resulting binaries. Hardening is disabled by default, as build hardening is usually injected by the surrounding build system.
 
 Compilation with these flags completes without any error or warning.
 
