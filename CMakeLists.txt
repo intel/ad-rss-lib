@@ -61,7 +61,7 @@ add_compile_options(-Werror)
 # hardening
 if (BUILD_HARDENING)
   set(HARDENING_LD_FLAGS "-Wl,-z,now -Wl,-z,relro -pie")
-  add_compile_options(-fstack-protector-all -fasynchronous-unwind-tables -fno-omit-frame-pointer -fPIE -fPIC -D_FORTIFY_SOURCE=2)
+  add_compile_options(-fstack-protector-all -fasynchronous-unwind-tables -fno-omit-frame-pointer -fno-delete-null-pointer-checks -fno-strict-overflow -fwrapv -fPIE -fPIC -D_FORTIFY_SOURCE=2)
 else()
   set(HARDENING_LD_FLAGS "")
 endif()
