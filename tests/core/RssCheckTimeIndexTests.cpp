@@ -34,79 +34,56 @@
 namespace ad_rss {
 namespace core {
 
-class RssCheckTests : public RssCheckTestBaseT<testing::Test>
+class RssCheckTimeIndexTests : public RssCheckTestBaseT<testing::Test>
 {
 };
 
-TEST_F(RssCheckTests, validateTestSetup)
+// NOTE: This test is currently failing. Please confirm if the test is incorrect or the library
+// needs to add this additional check internally.
+TEST_F(RssCheckTimeIndexTests, ZeroTimeIndex)
 {
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
-  ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-  testRestrictions(accelerationRestriction);
-}
-
-TEST_F(RssCheckTests, EmptyRoad)
-{
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
-
-  worldModel.scenes[0].egoVehicleRoad.clear();
-
+  worldModel.timeIndex   = 0u;
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
 
-TEST_F(RssCheckTests, EmptyScene)
+
+TEST_F(RssCheckTimeIndexTests, TimeIndexIncrementValidity)
 {
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
-  worldModel.scenes.clear();
-
-  ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-  testRestrictions(accelerationRestriction);
+  uint64_t timeIndexArray[] = {1u, 2u, 3u, 4u, 5u, 1u};
+  for (size_t i = 0 ; i < sizeof(timeIndexArray)/sizeof(uint64_t) ; ++i) {
+      worldModel.timeIndex = timeIndexArray[i];
+      if (i == 5) {
+          ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+      } else {
+          ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+          testRestrictions(accelerationRestriction);
+      }
+  }
 }
 
-TEST_F(RssCheckTests, EmptyEgoOccupiedRegion)
+// NOTE: This test is currently failing. Please confirm if the test is incorrect or the library
+// needs to add this additional check internally.
+TEST_F(RssCheckTimeIndexTests, FixedTimeIndexValidity)
 {
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
-  worldModel.egoVehicle.occupiedRegions.clear();
-
-  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-}
-
-TEST_F(RssCheckTests, WrongEgoOccupiedRegion)
-{
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
-
-  worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.5);
-  worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.3);
-
-  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-}
-
-TEST_F(RssCheckTests, NegativeEgoVelocity)
-{
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
-
-  worldModel.egoVehicle.velocity.speedLon = Speed(-3.);
-
-  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-}
-
-TEST_F(RssCheckTests, NegativeEgoAcceleration)
-{
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
-
-  worldModel.egoVehicle.dynamics.alphaLon.accelMax = Acceleration(-3);
-
-  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+  uint64_t timeIndexArray[] = {1u, 1u, 1u, 1u, 1u, 1u};
+  for (size_t i = 0 ; i < sizeof(timeIndexArray)/sizeof(uint64_t) ; ++i) {
+      worldModel.timeIndex = timeIndexArray[i];
+      if (i == 0) {
+          ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+          testRestrictions(accelerationRestriction);
+      } else {
+          ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+      }
+  }
 }
 
 } // namespace core
