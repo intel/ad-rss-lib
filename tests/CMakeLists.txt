@@ -39,7 +39,9 @@ set(EXEC_NAME ad-rss-tests)
 include(generated/CMakeLists.txt)
 
 set(RSS_TEST_SOURCES
-  core/RssCheckTests.cpp
+  core/RssCheckObjectTests.cpp
+  core/RssCheckTimeIndexTests.cpp
+  core/RssCheckSceneTests.cpp
   core/RssCheckSameDirectionTests.cpp
   core/RssCheckOppositeDirectionTests.cpp
   core/RssCheckLateralTests.cpp

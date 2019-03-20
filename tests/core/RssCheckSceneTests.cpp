@@ -34,20 +34,21 @@
 namespace ad_rss {
 namespace core {
 
-class RssCheckTests : public RssCheckTestBaseT<testing::Test>
+class RssCheckSceneTests : public RssCheckTestBaseT<testing::Test>
 {
 };
 
-TEST_F(RssCheckTests, validateTestSetup)
+TEST_F(RssCheckSceneTests, EmptyEgoRoadSegment)
 {
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
-  ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-  testRestrictions(accelerationRestriction);
+  worldModel.scenes[0].egoVehicleRoad[0].clear();
+
+  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
 
-TEST_F(RssCheckTests, EmptyRoad)
+TEST_F(RssCheckSceneTests, EmptyEgoRoad)
 {
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
@@ -57,7 +58,7 @@ TEST_F(RssCheckTests, EmptyRoad)
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
 
-TEST_F(RssCheckTests, EmptyScene)
+TEST_F(RssCheckSceneTests, EmptyScene)
 {
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
@@ -68,44 +69,23 @@ TEST_F(RssCheckTests, EmptyScene)
   testRestrictions(accelerationRestriction);
 }
 
-TEST_F(RssCheckTests, EmptyEgoOccupiedRegion)
+TEST_F(RssCheckSceneTests, WrongEgoRoadMetricRangeLength)
 {
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
-  worldModel.egoVehicle.occupiedRegions.clear();
-
+  worldModel.scenes[0].egoVehicleRoad[0][0].length.minimum = Distance(10);
+  worldModel.scenes[0].egoVehicleRoad[0][0].length.maximum = Distance(5);
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
 
-TEST_F(RssCheckTests, WrongEgoOccupiedRegion)
+TEST_F(RssCheckSceneTests, WrongEgoRoadMetricRangeWidth)
 {
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
-  worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.5);
-  worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.3);
-
-  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-}
-
-TEST_F(RssCheckTests, NegativeEgoVelocity)
-{
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
-
-  worldModel.egoVehicle.velocity.speedLon = Speed(-3.);
-
-  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-}
-
-TEST_F(RssCheckTests, NegativeEgoAcceleration)
-{
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
-
-  worldModel.egoVehicle.dynamics.alphaLon.accelMax = Acceleration(-3);
-
+  worldModel.scenes[0].egoVehicleRoad[0][0].width.minimum = Distance(10);
+  worldModel.scenes[0].egoVehicleRoad[0][0].width.maximum = Distance(5);
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
 
