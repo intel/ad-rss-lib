@@ -92,7 +92,8 @@ Please run the following command to build the API documentation, if desired:
 ```
 
 #### Build hardening
-Usually, build hardening is injected by the surrounding build system. To enable hardening compiler and linker flags:
+Usually, build hardening is injected by the surrounding build system. Nevertheless, the CMakeLists.txt defines
+hardening flags to ensure the code is compatible to respective flags. To enable hardening compiler and linker flags:
 ```bash
  build$>  cmake -DBUILD_HARDENING=1 ..
  build$>  make
