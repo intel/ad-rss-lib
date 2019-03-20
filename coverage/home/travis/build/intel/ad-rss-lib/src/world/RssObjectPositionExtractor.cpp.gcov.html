@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-19 10:06:35</td>
+            <td class="headerValue">2019-03-20 06:10:09</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -145,10 +145,10 @@
 <span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 19782 times"> + </span><span class="branchCov" title="Branch 6 was taken 35124 times"> + </span>]
 <a name="74"><span class="lineNum">      74 </span>                :            :   {</a>
 <span class="lineNum">      75 </span>                :            :     auto const objectSegment
-<span class="lineNum">      76 </span>                :<span class="lineCov">      19782 :       = std::find_if(mOccupiedRegions.cbegin(), mOccupiedRegions.cend(), [laneSegment](OccupiedRegion const &amp;region) {</span>
+<span class="lineNum">      76 </span>                :<span class="lineCov">      19782 :       = std::find_if(mOccupiedRegions.begin(), mOccupiedRegions.end(), [laneSegment](OccupiedRegion const &amp;region) {</span>
 <span class="lineNum">      77 </span>                :<span class="lineCov">      19782 :           return region.segmentId == laneSegment.id;</span>
 <span class="lineNum">      78 </span>        [<span class="branchCov" title="Branch 3 was taken 19782 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">      39564 :         });</span>
-<span class="lineNum">      79 </span>        [<span class="branchCov" title="Branch 2 was taken 15442 times"> + </span><span class="branchCov" title="Branch 3 was taken 4340 times"> + </span>]:<span class="lineCov">      19782 :     if (objectSegment == mOccupiedRegions.cend())</span>
+<span class="lineNum">      79 </span>        [<span class="branchCov" title="Branch 2 was taken 15442 times"> + </span><span class="branchCov" title="Branch 3 was taken 4340 times"> + </span>]:<span class="lineCov">      19782 :     if (objectSegment == mOccupiedRegions.end())</span>
 <span class="lineNum">      80 </span>                :            :     {
 <span class="lineNum">      81 </span>                :<span class="lineCov">      15442 :       noAdditionalObjects = true;</span>
 <span class="lineNum">      82 </span>                :            :     }
@@ -182,7 +182,7 @@
 <span class="lineNum">     110 </span>                :<span class="lineNoCov">          0 :         mObjectDimensions.onNegativeLane = true;</span>
 <span class="lineNum">     111 </span>                :            :       }
 <span class="lineNum">     112 </span>                :            : 
-<span class="lineNum">     113 </span>        [<span class="branchCov" title="Branch 1 was taken 4340 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       4340 :       mOccupiedRegions.erase(objectSegment);</span>
+<span class="lineNum">     113 </span>        [<span class="branchCov" title="Branch 2 was taken 4340 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       4340 :       mOccupiedRegions.erase(objectSegment);</span>
 <span class="lineNum">     114 </span>                :            :     }
 <span class="lineNum">     115 </span>                :            :   }
 <span class="lineNum">     116 </span>                :            : 

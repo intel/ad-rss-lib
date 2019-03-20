@@ -528,7 +528,7 @@ table.CodeRay td.code>pre{padding:0}
 <div class="details">
 <span id="author" class="author">Ad-rss-lib</span><br>
 <span id="revnumber">version 1.0,</span>
-<span id="revdate">2019-03-19</span>
+<span id="revdate">2019-03-20</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -4611,7 +4611,7 @@ C++ Standard Library).</p>
 <p>The development platform is Ubuntu Linux 16.04 Xenial.</p>
 </div>
 <div class="paragraph">
-<p>A standard cmake toolchain has been used to compile the library. The compiler is g++ 5.4.0.</p>
+<p>A standard cmake toolchain has been used to compile the library. The compiler is g 5.4.0; g 4.8.0 is also supported.</p>
 </div>
 <div class="paragraph">
 <p>The following, strict, compilation flags are used: C++11, -Werror, -Wall, -Wextra, -pedantic, -Wconversion, -Wsign-conversion, -Wfloat-equal -Wshadow -Wswitch-default -Wenum-compare -Wformat -Wformat-security.</p>
@@ -4654,7 +4654,7 @@ C++ Standard Library).</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>In addition, there are compiler flags (-fstack-protector-strong -fasynchronous-unwind-tables -fno-omit-frame-pointer -fPIE -fPIC -D_FORTIFY_SOURCE=2) and linker flags (-Wl,-z,now -Wl,-z,relro -pie)
+<p>In addition, there are compiler flags (-fstack-protector-all -fasynchronous-unwind-tables -fno-omit-frame-pointer -fPIE -fPIC -D_FORTIFY_SOURCE=2) and linker flags (-Wl,-z,now -Wl,-z,relro -pie)
 enabled to harden the resulting binaries.</p>
 </div>
 <div class="paragraph">
@@ -5191,7 +5191,7 @@ asciidoctor doc/Main.adoc -d book -b html5 -n</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2019-03-19 10:04:06 UTC
+Last updated 2019-03-20 06:07:36 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">
