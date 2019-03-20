@@ -29,7 +29,7 @@
 #
 # ----------------- END LICENSE BLOCK -----------------------------------
 
-set(ad_rss_lib__VERSION @ad_rss_lib_VERSION@)
+set(@PROJECT_NAME@__VERSION @ad-rss-lib_VERSION@)
 
 @PACKAGE_INIT@
 

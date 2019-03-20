@@ -54,14 +54,14 @@ protected:
     value.occupiedRegions = valueOccupiedRegions;
     ::ad_rss::world::Dynamics valueDynamics;
     ::ad_rss::world::LongitudinalRssAccelerationValues valueDynamicsAlphaLon;
-    ::ad_rss::physics::Acceleration valueDynamicsAlphaLonAccelMax(-10);
+    ::ad_rss::physics::Acceleration valueDynamicsAlphaLonAccelMax(-1e2);
     valueDynamicsAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
     valueDynamicsAlphaLon.accelMax = valueDynamicsAlphaLonAccelMax;
-    ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMax(-10);
+    ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMax(-1e2);
     valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLonBrakeMax;
-    ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-10);
+    ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-1e2);
     valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLonBrakeMin;
-    ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-10);
+    ::ad_rss::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-1e2);
     valueDynamicsAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
       0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLonBrakeMinCorrect;
@@ -71,10 +71,10 @@ protected:
     valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLon.brakeMin;
     valueDynamics.alphaLon = valueDynamicsAlphaLon;
     ::ad_rss::world::LateralRssAccelerationValues valueDynamicsAlphaLat;
-    ::ad_rss::physics::Acceleration valueDynamicsAlphaLatAccelMax(-10);
+    ::ad_rss::physics::Acceleration valueDynamicsAlphaLatAccelMax(-1e2);
     valueDynamicsAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
     valueDynamicsAlphaLat.accelMax = valueDynamicsAlphaLatAccelMax;
-    ::ad_rss::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-10);
+    ::ad_rss::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-1e2);
     valueDynamicsAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
       0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     valueDynamicsAlphaLat.brakeMin = valueDynamicsAlphaLatBrakeMin;
@@ -194,13 +194,13 @@ TEST_F(ObjectTests, comparisonOperatorDynamicsDiffers)
   ::ad_rss::world::Object valueA = mValue;
   ::ad_rss::world::Dynamics dynamics;
   ::ad_rss::world::LongitudinalRssAccelerationValues dynamicsAlphaLon;
-  ::ad_rss::physics::Acceleration dynamicsAlphaLonAccelMax(10);
+  ::ad_rss::physics::Acceleration dynamicsAlphaLonAccelMax(1e2);
   dynamicsAlphaLon.accelMax = dynamicsAlphaLonAccelMax;
-  ::ad_rss::physics::Acceleration dynamicsAlphaLonBrakeMax(10);
+  ::ad_rss::physics::Acceleration dynamicsAlphaLonBrakeMax(1e2);
   dynamicsAlphaLon.brakeMax = dynamicsAlphaLonBrakeMax;
-  ::ad_rss::physics::Acceleration dynamicsAlphaLonBrakeMin(10);
+  ::ad_rss::physics::Acceleration dynamicsAlphaLonBrakeMin(1e2);
   dynamicsAlphaLon.brakeMin = dynamicsAlphaLonBrakeMin;
-  ::ad_rss::physics::Acceleration dynamicsAlphaLonBrakeMinCorrect(10);
+  ::ad_rss::physics::Acceleration dynamicsAlphaLonBrakeMinCorrect(1e2);
   dynamicsAlphaLon.brakeMinCorrect = dynamicsAlphaLonBrakeMinCorrect;
   dynamicsAlphaLon.brakeMax = dynamicsAlphaLon.brakeMin;
   dynamicsAlphaLon.brakeMin = dynamicsAlphaLon.brakeMinCorrect;
@@ -208,9 +208,9 @@ TEST_F(ObjectTests, comparisonOperatorDynamicsDiffers)
   dynamicsAlphaLon.brakeMin = dynamicsAlphaLon.brakeMax;
   dynamics.alphaLon = dynamicsAlphaLon;
   ::ad_rss::world::LateralRssAccelerationValues dynamicsAlphaLat;
-  ::ad_rss::physics::Acceleration dynamicsAlphaLatAccelMax(10);
+  ::ad_rss::physics::Acceleration dynamicsAlphaLatAccelMax(1e2);
   dynamicsAlphaLat.accelMax = dynamicsAlphaLatAccelMax;
-  ::ad_rss::physics::Acceleration dynamicsAlphaLatBrakeMin(10);
+  ::ad_rss::physics::Acceleration dynamicsAlphaLatBrakeMin(1e2);
   dynamicsAlphaLat.brakeMin = dynamicsAlphaLatBrakeMin;
   dynamics.alphaLat = dynamicsAlphaLat;
   ::ad_rss::physics::Distance dynamicsLateralFluctuationMargin(1e6);

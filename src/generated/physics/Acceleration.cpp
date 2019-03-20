@@ -39,8 +39,8 @@
 
 #include "ad_rss/physics/Acceleration.hpp"
 
-const double ::ad_rss::physics::Acceleration::cMinValue = -1e2;
+const double ::ad_rss::physics::Acceleration::cMinValue = -1e3;
 
-const double ::ad_rss::physics::Acceleration::cMaxValue = 1e2;
+const double ::ad_rss::physics::Acceleration::cMaxValue = 1e3;
 
 const double ::ad_rss::physics::Acceleration::cPrecisionValue = 1e-4;

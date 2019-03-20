@@ -37,7 +37,7 @@ set(BUILD_COVERAGE "OFF" CACHE BOOL "Enable test coverage")
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-project(ad_rss_lib VERSION 1.0.1)
+project(ad-rss-lib VERSION 1.1.0)
 
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 11)
@@ -110,7 +110,7 @@ add_library(${PROJECT_NAME} SHARED
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-  OUTPUT_NAME ad_rss
+  OUTPUT_NAME ad-rss
   VERSION ${PROJECT_VERSION}
   SOVERSION ${PROJECT_VERSION_MAJOR})
 

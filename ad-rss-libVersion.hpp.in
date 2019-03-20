@@ -31,8 +31,8 @@
 
 #pragma once
 
-// the configured options and settings for ad_rss_lib
-#define AD_RSS_LIB_MAJOR @ad_rss_lib_VERSION_MAJOR@
-#define AD_RSS_LIB_MINOR @ad_rss_lib_VERSION_MINOR@
-#define AD_RSS_LIB_VERSION_REV @ad_rss_lib_VERSION_PATCH@
-#define AD_RSS_LIB_VERSION_STRING "@ad_rss_lib_VERSION_MAJOR@.@ad_rss_lib_VERSION_MINOR@.@ad_rss_lib_VERSION_PATCH@"
+// the configured options and settings for ad-rss-lib
+#define AD_RSS_LIB_MAJOR @ad-rss-lib_VERSION_MAJOR@
+#define AD_RSS_LIB_MINOR @ad-rss-lib_VERSION_MINOR@
+#define AD_RSS_LIB_VERSION_REV @ad-rss-lib_VERSION_PATCH@
+#define AD_RSS_LIB_VERSION_STRING "@ad-rss-lib_VERSION_MAJOR@.@ad-rss-lib_VERSION_MINOR@.@ad-rss-lib_VERSION_PATCH@"

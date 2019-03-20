@@ -157,7 +157,7 @@ matrix:
         - lcov -q -a initialCov.info -a testCov.info -o coverage.info --rc lcov_branch_coverage=1
         - lcov -q -r coverage.info "*test*" -o coverage.info --rc lcov_branch_coverage=1
         - lcov --summary coverage.info --rc lcov_branch_coverage=1
-        - genhtml -q -t ad_rss_lib --branch-coverage -o coverage coverage.info
+        - genhtml -q -t ad-rss-lib --branch-coverage -o coverage coverage.info
         - git checkout -b intermediate
         - mkdir gh-pages
         - mkdir gh-pages/doxygen

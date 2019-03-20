@@ -15,7 +15,7 @@ include::Appendix-ParameterDiscussion.adoc[]
 | Long       | Longitudinal
 | Lat        | Lateral
 | RSS        | Responsibility-Sensitive Safety
-| ad_rss_lib     | The C++ library for RSS
+| ad-rss-lib     | The C++ library for RSS
 |======================
 
 ## References
@@ -35,6 +35,7 @@ include::Appendix-ParameterDiscussion.adoc[]
 [width="100%",frame="topbot",cols="2,2,4,8",options="header"]
 |====
 |Revision |Date |Author(s) | Description
+|1.1 |2019-03-20 |Bernd Gassmann | Harmonized naming of library and git repository
 |1.0 |2019-02-28 |Cornelius Buerkle, Bernd Gassmann, Fabian Oboril, Peter van Beek | Initial version
 |====
 
