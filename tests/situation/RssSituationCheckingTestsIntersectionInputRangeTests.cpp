@@ -41,12 +41,12 @@ protected:
   virtual void SetUp()
   {
     situation.situationType = SituationType::IntersectionEgoHasPriority;
+    situation.timeIndex = 1u;
   }
 
   void performTestRun()
   {
-    EXPECT_FALSE(situationChecking.checkSituation(situation, responseState));
-    EXPECT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, responseState));
+    EXPECT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   }
   core::RssSituationChecking situationChecking;
   VehicleState leadingVehicle;
@@ -70,7 +70,7 @@ TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, no_priority_vehicle
   situation.otherVehicleState = followingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(60.));
 
-  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
 }
 
 TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, distanceToLeaveSmallerEgo)

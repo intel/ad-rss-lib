@@ -47,6 +47,7 @@ protected:
     // valid initialization
     ::ad_rss::world::AccelerationRestriction value;
     ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
+    valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
     value.timeIndex = valueTimeIndex;
     ::ad_rss::physics::AccelerationRange valueLateralLeftRange;
     ::ad_rss::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);

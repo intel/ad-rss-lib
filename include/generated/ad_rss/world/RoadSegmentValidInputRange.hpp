@@ -52,7 +52,7 @@
  * \returns \c true if RoadSegment is considered to be within the specified input range
  *
  * \note the specified input range is defined by
- *       0 <= \c input.size() <= 1000
+ *       1 <= \c input.size() <= 1000
  *       and the ranges of all vector elements
  */
 inline bool withinValidInputRange(::ad_rss::world::RoadSegment const &input)
@@ -60,7 +60,7 @@ inline bool withinValidInputRange(::ad_rss::world::RoadSegment const &input)
   try
   {
     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
-    bool inValidInputRange = (input.size() <= std::size_t(1000));
+    bool inValidInputRange = ((std::size_t(1)) <= input.size()) && (input.size() <= std::size_t(1000));
 
     if (inValidInputRange)
     {

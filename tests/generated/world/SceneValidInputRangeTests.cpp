@@ -298,6 +298,42 @@ TEST(SceneValidInputRangeTests, testValidInputRangeEgoVehicleRoadTooSmall)
   // override member with invalid value
   ::ad_rss::world::RoadArea invalidInitializedMember;
   ::ad_rss::world::RoadSegment invalidInitializedMemberRoadAreaElement;
+  ::ad_rss::world::LaneSegment invalidInitializedMemberRoadAreaElementElement;
+  ::ad_rss::world::LaneSegmentId invalidInitializedMemberRoadAreaElementElementId(
+    std::numeric_limits<::ad_rss::world::LaneSegmentId>::lowest());
+  invalidInitializedMemberRoadAreaElementElement.id = invalidInitializedMemberRoadAreaElementElementId;
+  ::ad_rss::world::LaneSegmentType invalidInitializedMemberRoadAreaElementElementType(
+    ::ad_rss::world::LaneSegmentType::Normal);
+  invalidInitializedMemberRoadAreaElementElement.type = invalidInitializedMemberRoadAreaElementElementType;
+  ::ad_rss::world::LaneDrivingDirection invalidInitializedMemberRoadAreaElementElementDrivingDirection(
+    ::ad_rss::world::LaneDrivingDirection::Bidirectional);
+  invalidInitializedMemberRoadAreaElementElement.drivingDirection
+    = invalidInitializedMemberRoadAreaElementElementDrivingDirection;
+  ::ad_rss::physics::MetricRange invalidInitializedMemberRoadAreaElementElementLength;
+  ::ad_rss::physics::Distance invalidInitializedMemberRoadAreaElementElementLengthMinimum(0.);
+  invalidInitializedMemberRoadAreaElementElementLength.minimum
+    = invalidInitializedMemberRoadAreaElementElementLengthMinimum;
+  ::ad_rss::physics::Distance invalidInitializedMemberRoadAreaElementElementLengthMaximum(0.);
+  invalidInitializedMemberRoadAreaElementElementLength.maximum
+    = invalidInitializedMemberRoadAreaElementElementLengthMaximum;
+  invalidInitializedMemberRoadAreaElementElementLength.maximum
+    = invalidInitializedMemberRoadAreaElementElementLength.minimum;
+  invalidInitializedMemberRoadAreaElementElementLength.minimum
+    = invalidInitializedMemberRoadAreaElementElementLength.maximum;
+  invalidInitializedMemberRoadAreaElementElement.length = invalidInitializedMemberRoadAreaElementElementLength;
+  ::ad_rss::physics::MetricRange invalidInitializedMemberRoadAreaElementElementWidth;
+  ::ad_rss::physics::Distance invalidInitializedMemberRoadAreaElementElementWidthMinimum(0.);
+  invalidInitializedMemberRoadAreaElementElementWidth.minimum
+    = invalidInitializedMemberRoadAreaElementElementWidthMinimum;
+  ::ad_rss::physics::Distance invalidInitializedMemberRoadAreaElementElementWidthMaximum(0.);
+  invalidInitializedMemberRoadAreaElementElementWidth.maximum
+    = invalidInitializedMemberRoadAreaElementElementWidthMaximum;
+  invalidInitializedMemberRoadAreaElementElementWidth.maximum
+    = invalidInitializedMemberRoadAreaElementElementWidth.minimum;
+  invalidInitializedMemberRoadAreaElementElementWidth.minimum
+    = invalidInitializedMemberRoadAreaElementElementWidth.maximum;
+  invalidInitializedMemberRoadAreaElementElement.width = invalidInitializedMemberRoadAreaElementElementWidth;
+  invalidInitializedMemberRoadAreaElement.resize(1, invalidInitializedMemberRoadAreaElementElement);
   invalidInitializedMember.resize(1001, invalidInitializedMemberRoadAreaElement);
   value.egoVehicleRoad = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -401,7 +437,7 @@ TEST(SceneValidInputRangeTests, testValidInputRangeEgoVehicleRoadTooBig)
   invalidInitializedMemberRoadAreaElementElementWidth.minimum
     = invalidInitializedMemberRoadAreaElementElementWidth.maximum;
   invalidInitializedMemberRoadAreaElementElement.width = invalidInitializedMemberRoadAreaElementElementWidth;
-  invalidInitializedMemberRoadAreaElement.resize(0 + 1, invalidInitializedMemberRoadAreaElementElement);
+  invalidInitializedMemberRoadAreaElement.resize(1 + 1, invalidInitializedMemberRoadAreaElementElement);
   invalidInitializedMember.resize(1001, invalidInitializedMemberRoadAreaElement);
   value.egoVehicleRoad = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -470,6 +506,42 @@ TEST(SceneValidInputRangeTests, testValidInputRangeIntersectingRoadTooSmall)
   // override member with invalid value
   ::ad_rss::world::RoadArea invalidInitializedMember;
   ::ad_rss::world::RoadSegment invalidInitializedMemberRoadAreaElement;
+  ::ad_rss::world::LaneSegment invalidInitializedMemberRoadAreaElementElement;
+  ::ad_rss::world::LaneSegmentId invalidInitializedMemberRoadAreaElementElementId(
+    std::numeric_limits<::ad_rss::world::LaneSegmentId>::lowest());
+  invalidInitializedMemberRoadAreaElementElement.id = invalidInitializedMemberRoadAreaElementElementId;
+  ::ad_rss::world::LaneSegmentType invalidInitializedMemberRoadAreaElementElementType(
+    ::ad_rss::world::LaneSegmentType::Normal);
+  invalidInitializedMemberRoadAreaElementElement.type = invalidInitializedMemberRoadAreaElementElementType;
+  ::ad_rss::world::LaneDrivingDirection invalidInitializedMemberRoadAreaElementElementDrivingDirection(
+    ::ad_rss::world::LaneDrivingDirection::Bidirectional);
+  invalidInitializedMemberRoadAreaElementElement.drivingDirection
+    = invalidInitializedMemberRoadAreaElementElementDrivingDirection;
+  ::ad_rss::physics::MetricRange invalidInitializedMemberRoadAreaElementElementLength;
+  ::ad_rss::physics::Distance invalidInitializedMemberRoadAreaElementElementLengthMinimum(0.);
+  invalidInitializedMemberRoadAreaElementElementLength.minimum
+    = invalidInitializedMemberRoadAreaElementElementLengthMinimum;
+  ::ad_rss::physics::Distance invalidInitializedMemberRoadAreaElementElementLengthMaximum(0.);
+  invalidInitializedMemberRoadAreaElementElementLength.maximum
+    = invalidInitializedMemberRoadAreaElementElementLengthMaximum;
+  invalidInitializedMemberRoadAreaElementElementLength.maximum
+    = invalidInitializedMemberRoadAreaElementElementLength.minimum;
+  invalidInitializedMemberRoadAreaElementElementLength.minimum
+    = invalidInitializedMemberRoadAreaElementElementLength.maximum;
+  invalidInitializedMemberRoadAreaElementElement.length = invalidInitializedMemberRoadAreaElementElementLength;
+  ::ad_rss::physics::MetricRange invalidInitializedMemberRoadAreaElementElementWidth;
+  ::ad_rss::physics::Distance invalidInitializedMemberRoadAreaElementElementWidthMinimum(0.);
+  invalidInitializedMemberRoadAreaElementElementWidth.minimum
+    = invalidInitializedMemberRoadAreaElementElementWidthMinimum;
+  ::ad_rss::physics::Distance invalidInitializedMemberRoadAreaElementElementWidthMaximum(0.);
+  invalidInitializedMemberRoadAreaElementElementWidth.maximum
+    = invalidInitializedMemberRoadAreaElementElementWidthMaximum;
+  invalidInitializedMemberRoadAreaElementElementWidth.maximum
+    = invalidInitializedMemberRoadAreaElementElementWidth.minimum;
+  invalidInitializedMemberRoadAreaElementElementWidth.minimum
+    = invalidInitializedMemberRoadAreaElementElementWidth.maximum;
+  invalidInitializedMemberRoadAreaElementElement.width = invalidInitializedMemberRoadAreaElementElementWidth;
+  invalidInitializedMemberRoadAreaElement.resize(1, invalidInitializedMemberRoadAreaElementElement);
   invalidInitializedMember.resize(1001, invalidInitializedMemberRoadAreaElement);
   value.intersectingRoad = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -573,7 +645,7 @@ TEST(SceneValidInputRangeTests, testValidInputRangeIntersectingRoadTooBig)
   invalidInitializedMemberRoadAreaElementElementWidth.minimum
     = invalidInitializedMemberRoadAreaElementElementWidth.maximum;
   invalidInitializedMemberRoadAreaElementElement.width = invalidInitializedMemberRoadAreaElementElementWidth;
-  invalidInitializedMemberRoadAreaElement.resize(0 + 1, invalidInitializedMemberRoadAreaElementElement);
+  invalidInitializedMemberRoadAreaElement.resize(1 + 1, invalidInitializedMemberRoadAreaElementElement);
   invalidInitializedMember.resize(1001, invalidInitializedMemberRoadAreaElement);
   value.intersectingRoad = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));

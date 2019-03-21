@@ -64,6 +64,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, ego_following_no_overlap
 
     situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(1.));
     situation.situationType = situationType;
+    situation.timeIndex = 1u;
     if (situationType == SituationType::IntersectionObjectHasPriority)
     {
       situation.otherVehicleState.hasPriority = true;
@@ -73,14 +74,14 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, ego_following_no_overlap
       situation.otherVehicleState.hasPriority = false;
     }
 
-    EXPECT_TRUE(situationChecking.checkSituation(situation, responseState));
+    EXPECT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
     EXPECT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 
     // next situation we have overlap
     situation.timeIndex++;
     situation.egoVehicleState.velocity.speedLon = Speed(10);
 
-    EXPECT_TRUE(situationChecking.checkSituation(situation, responseState));
+    EXPECT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
     if (situationType == SituationType::IntersectionObjectHasPriority)
     {
       EXPECT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
@@ -118,6 +119,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_
     situation.relativePosition
       = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(10.));
     situation.situationType = situationType;
+    situation.timeIndex = 1u;
     if (situationType == SituationType::IntersectionObjectHasPriority)
     {
       situation.otherVehicleState.hasPriority = true;
@@ -127,7 +129,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_
       situation.otherVehicleState.hasPriority = false;
     }
 
-    ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+    ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
     ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
   }
 }
@@ -151,6 +153,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_
     situation.relativePosition
       = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(60.));
     situation.situationType = situationType;
+    situation.timeIndex++;
     if (situationType == SituationType::IntersectionObjectHasPriority)
     {
       situation.otherVehicleState.hasPriority = true;
@@ -160,7 +163,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_
       situation.otherVehicleState.hasPriority = false;
     }
 
-    ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+    ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
     ASSERT_TRUE(responseState.longitudinalState.isSafe);
     ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
   }
@@ -187,6 +190,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50km_h_stop_before_inter
     situation.relativePosition
       = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(30.));
     situation.situationType = situationType;
+    situation.timeIndex = 1u;
     if (situationType == SituationType::IntersectionObjectHasPriority)
     {
       situation.otherVehicleState.hasPriority = true;
@@ -197,22 +201,20 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50km_h_stop_before_inter
     }
 
     // both vehicles can stop safely
-    situation.timeIndex = 0u;
-
-    ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+    ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
     ASSERT_TRUE(responseState.longitudinalState.isSafe);
     ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 
     // ego vehicle cannot stop safely anymore
     // but other vehicle still
-    situation.timeIndex = 1u;
+    situation.timeIndex++;
 
     situation.egoVehicleState.distanceToEnterIntersection = Distance(70);
     situation.egoVehicleState.distanceToLeaveIntersection = Distance(70);
     situation.otherVehicleState.distanceToEnterIntersection = Distance(100);
     situation.otherVehicleState.distanceToLeaveIntersection = Distance(100);
 
-    ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+    ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
     if (situation.otherVehicleState.hasPriority)
     {
       ASSERT_FALSE(responseState.longitudinalState.isSafe);
@@ -225,14 +227,14 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50km_h_stop_before_inter
     }
 
     // both cannot stop safely anymore
-    situation.timeIndex = 2u;
+    situation.timeIndex++;
 
     situation.egoVehicleState.distanceToEnterIntersection = Distance(70.);
     situation.egoVehicleState.distanceToLeaveIntersection = Distance(70.);
     situation.otherVehicleState.distanceToEnterIntersection = Distance(70.);
     situation.otherVehicleState.distanceToLeaveIntersection = Distance(70.);
 
-    ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+    ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
     ASSERT_FALSE(responseState.longitudinalState.isSafe);
     ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
   }

@@ -41,6 +41,7 @@ protected:
   virtual void SetUp()
   {
     situation.situationType = SituationType::SameDirection;
+    situation.timeIndex = 1u;
   }
 
   virtual void TearDown()
@@ -62,7 +63,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_ego_safe_di
   situation.otherVehicleState = followingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(95.));
 
-  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 }
 
@@ -77,7 +78,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(60.));
 
-  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 }
 
@@ -92,7 +93,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(39.));
 
-  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
 }
 
@@ -107,12 +108,13 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(71.8));
 
-  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(71.6));
+  situation.timeIndex++;
 
-  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
 }
 
@@ -127,12 +129,13 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_0kmh_
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(6.1));
 
-  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(6.));
+  situation.timeIndex++;
 
-  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
 }
 
@@ -145,7 +148,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_both_negative_veloc
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(71.6));
 
-  ASSERT_FALSE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
 }
 
 } // namespace situation

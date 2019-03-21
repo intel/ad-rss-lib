@@ -51,7 +51,8 @@
  *
  * \returns \c true if AccelerationRestriction is considered to be within the specified input range
  *
- * \note the specified input range is defined by the ranges of all members
+ * \note the specified input range is defined by the ranges of all members, plus:
+ *       ::ad_rss::physics::TimeIndex(1) <= timeIndex
  */
 inline bool withinValidInputRange(::ad_rss::world::AccelerationRestriction const &input)
 {
@@ -62,7 +63,10 @@ inline bool withinValidInputRange(::ad_rss::world::AccelerationRestriction const
     bool const membersInValidInputRange = withinValidInputRange(input.lateralLeftRange)
       && withinValidInputRange(input.longitudinalRange) && withinValidInputRange(input.lateralRightRange);
 
-    return membersInValidInputRange;
+    // check for individual input ranges
+    bool const timeIndexInInputRange = (::ad_rss::physics::TimeIndex(1) <= input.timeIndex);
+
+    return membersInValidInputRange && timeIndexInInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
   }
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes

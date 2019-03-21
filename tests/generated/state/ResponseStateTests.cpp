@@ -47,6 +47,7 @@ protected:
     // valid initialization
     ::ad_rss::state::ResponseState value;
     ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
+    valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
     value.timeIndex = valueTimeIndex;
     ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
     value.situationId = valueSituationId;

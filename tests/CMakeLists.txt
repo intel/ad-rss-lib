@@ -38,6 +38,17 @@ set(EXEC_NAME ad-rss-tests)
 
 include(generated/CMakeLists.txt)
 
+set(RSS_TEST_SOURCES_WITH_PRIVATE_ACCESS
+  situation/RssSituationCheckingInputRangeTests.cpp
+  situation/RssSituationCheckingTestsIntersectionInputRangeTests.cpp
+  situation/RssSituationCheckingTestsIntersectionNoPriority.cpp
+  situation/RssSituationCheckingTestsIntersectionPriority.cpp
+  situation/RssSituationCheckingTestsLongitudinal.cpp
+  situation/RssSituationCheckingTestsLateral.cpp
+  situation/RssSituationCheckingTestsOppositeDirection.cpp
+  situation/RssSituationCheckingTestsNotRelevant.cpp
+)
+
 set(RSS_TEST_SOURCES
   core/RssCheckTests.cpp
   core/RssCheckSameDirectionTests.cpp
@@ -62,21 +73,13 @@ set(RSS_TEST_SOURCES
   situation/RSSFormulaTestsCalculateSafeLateralDistance.cpp
   situation/RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
   situation/RSSFormulaTestsInputRangeChecks.cpp
-  situation/RssSituationCheckingInputRangeTests.cpp
-  situation/RssSituationCheckingTestsIntersectionInputRangeTests.cpp
-  situation/RssSituationCheckingTestsIntersectionNoPriority.cpp
-  situation/RssSituationCheckingTestsIntersectionPriority.cpp
-  situation/RssSituationCheckingTestsLongitudinal.cpp
-  situation/RssSituationCheckingTestsLateral.cpp
-  situation/RssSituationCheckingTestsOppositeDirection.cpp
-  situation/RssSituationCheckingTestsNotRelevant.cpp
   situation/VehicleTests.cpp
   test_support/wrap_new.cpp
+  ${RSS_TEST_SOURCES_WITH_PRIVATE_ACCESS}
   ${GENERATED_TEST_SOURCES}
 )
 
-set_source_files_properties(situation/RssSituationCheckingInputRangeTests.cpp PROPERITES COMPILE_FLAGS -fno-access-control)
-set_source_files_properties(situation/RssSituationCheckingTestsIntersectionInputRangeTests.cpp PROPERITES COMPILE_FLAGS -fno-access-control)
+set_source_files_properties(${RSS_TEST_SOURCES_WITH_PRIVATE_ACCESS} PROPERITES COMPILE_FLAGS -fno-access-control)
 
 
 add_executable(${EXEC_NAME} ${RSS_TEST_SOURCES})

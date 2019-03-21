@@ -41,6 +41,7 @@ protected:
   virtual void SetUp()
   {
     situation.situationType = SituationType::NotRelevant;
+    situation.timeIndex = 1u;
   }
 
   virtual void TearDown()
@@ -63,7 +64,7 @@ TEST_F(RssSituationCheckingTestsNotRelevant, notRelevantSituation)
   situation.otherVehicleState = oppositeVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(1.));
 
-  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 }
 

@@ -104,6 +104,7 @@ TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities_NoLateralConfl
   for (uint32_t i = 0; i < 100; i++)
   {
     worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
+    worldModel.timeIndex++;
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
@@ -128,6 +129,7 @@ TEST_F(RssCheckSameDirectionOtherLeadingTest, _DifferentVelocities_NoLateralConf
   for (uint32_t i = 0; i < 100; i++)
   {
     worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
+    worldModel.timeIndex++;
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
@@ -145,6 +147,7 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, DifferentVelocities)
   for (uint32_t i = 0; i < 100; i++)
   {
     worldModel.scenes[0].object.velocity.speedLon = kmhToMeterPerSec(i);
+    worldModel.timeIndex++;
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
@@ -169,6 +172,7 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Front)
   for (uint32_t i = 0; i < 100; i++)
   {
     worldModel.scenes[0].object.velocity.speedLon = kmhToMeterPerSec(i);
+    worldModel.timeIndex++;
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
@@ -193,6 +197,7 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Right)
   for (uint32_t i = 0; i < 100; i++)
   {
     worldModel.scenes[0].object.velocity.speedLon = kmhToMeterPerSec(i);
+    worldModel.timeIndex++;
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
@@ -217,6 +222,7 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Left)
   for (uint32_t i = 0; i < 100; i++)
   {
     worldModel.scenes[0].object.velocity.speedLon = kmhToMeterPerSec(i);
+    worldModel.timeIndex++;
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 

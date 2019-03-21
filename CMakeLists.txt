@@ -37,7 +37,7 @@ set(BUILD_COVERAGE "OFF" CACHE BOOL "Enable test coverage")
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-project(ad-rss-lib VERSION 1.1.0)
+project(ad-rss-lib VERSION 1.2.0)
 
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 11)

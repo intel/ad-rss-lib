@@ -41,6 +41,7 @@ protected:
   virtual void SetUp()
   {
     situation.situationType = SituationType::IntersectionEgoHasPriority;
+    situation.timeIndex = 1u;
   }
 
   virtual void TearDown()
@@ -72,7 +73,7 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_le
   situation.egoVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(10.));
 
-  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 }
 
@@ -92,7 +93,7 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_fo
   situation.egoVehicleState.hasPriority = true;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(60.));
 
-  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   ASSERT_TRUE(responseState.longitudinalState.isSafe);
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 }
@@ -115,20 +116,18 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50km_h_stop_before_interse
   situation.egoVehicleState.hasPriority = true;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(30.));
 
-  situation.timeIndex = 0u;
-
-  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   ASSERT_TRUE(responseState.longitudinalState.isSafe);
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
 
-  situation.timeIndex = 1u;
+  situation.timeIndex++;
 
   situation.otherVehicleState.distanceToEnterIntersection = Distance(70.);
   situation.otherVehicleState.distanceToLeaveIntersection = Distance(70.);
   situation.egoVehicleState.distanceToEnterIntersection = Distance(100.);
   situation.egoVehicleState.distanceToLeaveIntersection = Distance(100.);
 
-  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   ASSERT_FALSE(responseState.longitudinalState.isSafe);
   ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalNone);
 }
