@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-20 12:01:37</td>
+            <td class="headerValue">2019-03-21 15:35:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -126,19 +126,19 @@
 <span class="lineNum">      55 </span>                :            :  * std::numeric_limits&lt;::ad_rss::physics::Distance&gt;::max()
 <a name="56"><span class="lineNum">      56 </span>                :            :  *       0. &lt;= \c input &lt;= 1e6</a>
 <span class="lineNum">      57 </span>                :            :  */
-<span class="lineNum">      58 </span>                :<span class="lineCov">     358371 : inline bool withinValidInputRange(::ad_rss::physics::Distance const &amp;input)</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">     317876 : inline bool withinValidInputRange(::ad_rss::physics::Distance const &amp;input)</span>
 <span class="lineNum">      59 </span>                :            : {
 <span class="lineNum">      60 </span>                :            :   try
 <span class="lineNum">      61 </span>                :            :   {
 <span class="lineNum">      62 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
 <span class="lineNum">      63 </span>                :            :     // check for generic numeric limits of the type
-<span class="lineNum">      64 </span>                :<span class="lineCov">    1075113 :     bool const withinNumericLimits = (std::numeric_limits&lt;::ad_rss::physics::Distance&gt;::lowest() &lt;= input)</span>
-<span class="lineNum">      65 </span>                :<span class="lineCov">     716742 :       &amp;&amp; (input &lt;= std::numeric_limits&lt;::ad_rss::physics::Distance&gt;::max());</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">     953628 :     bool const withinNumericLimits = (std::numeric_limits&lt;::ad_rss::physics::Distance&gt;::lowest() &lt;= input)</span>
+<span class="lineNum">      65 </span>                :<span class="lineCov">     635752 :       &amp;&amp; (input &lt;= std::numeric_limits&lt;::ad_rss::physics::Distance&gt;::max());</span>
 <span class="lineNum">      66 </span>                :            : 
 <span class="lineNum">      67 </span>                :            :     // check for individual input range
-<span class="lineNum">      68 </span>                :<span class="lineCov">     358371 :     bool const inInputRange = (::ad_rss::physics::Distance(0.) &lt;= input) &amp;&amp; (input &lt;= ::ad_rss::physics::Distance(1e6));</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">     317876 :     bool const inInputRange = (::ad_rss::physics::Distance(0.) &lt;= input) &amp;&amp; (input &lt;= ::ad_rss::physics::Distance(1e6));</span>
 <span class="lineNum">      69 </span>                :            : 
-<span class="lineNum">      70 </span>                :<span class="lineCov">     358371 :     return (withinNumericLimits &amp;&amp; inInputRange);</span>
+<span class="lineNum">      70 </span>                :<span class="lineCov">     317876 :     return (withinNumericLimits &amp;&amp; inInputRange);</span>
 <span class="lineNum">      71 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
 <span class="lineNum">      72 </span>                :            :   }
 <span class="lineNum">      73 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes

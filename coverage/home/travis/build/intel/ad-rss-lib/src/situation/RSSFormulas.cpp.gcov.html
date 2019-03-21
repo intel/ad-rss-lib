@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-20 12:01:37</td>
+            <td class="headerValue">2019-03-21 15:35:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">8</td>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">84</td>
+            <td class="headerCovTableEntry">85</td>
             <td class="headerCovTableEntry">126</td>
-            <td class="headerCovTableEntryLo">66.7 %</td>
+            <td class="headerCovTableEntryLo">67.5 %</td>
           </tr>
           <tr><td><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -116,52 +116,52 @@
 <span class="lineNum">      45 </span>                :            : using physics::Speed;
 <a name="46"><span class="lineNum">      46 </span>                :            : using physics::calculateStoppingDistance;</a>
 <span class="lineNum">      47 </span>                :            : 
-<span class="lineNum">      48 </span>                :<span class="lineCov">       7906 : bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const &amp;axis,</span>
+<span class="lineNum">      48 </span>                :<span class="lineCov">       7904 : bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const &amp;axis,</span>
 <span class="lineNum">      49 </span>                :            :                                                       Speed const &amp;currentSpeed,
 <span class="lineNum">      50 </span>                :            :                                                       Duration const &amp;responseTime,
 <span class="lineNum">      51 </span>                :            :                                                       Acceleration const &amp;acceleration,
 <span class="lineNum">      52 </span>                :            :                                                       Acceleration const &amp;deceleration,
 <span class="lineNum">      53 </span>                :            :                                                       Distance &amp;distanceOffset)
 <span class="lineNum">      54 </span>                :            : {
-<span class="lineNum">      55 </span>                :<span class="lineCov">       7906 :   Speed resultingSpeed = Speed(0.);</span>
-<span class="lineNum">      56 </span>        [<span class="branchCov" title="Branch 1 was taken 7906 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       7906 :   bool result = calculateSpeedAfterResponseTime(axis, currentSpeed, acceleration, responseTime, resultingSpeed);</span>
+<span class="lineNum">      55 </span>                :<span class="lineCov">       7904 :   Speed resultingSpeed = Speed(0.);</span>
+<span class="lineNum">      56 </span>        [<span class="branchCov" title="Branch 1 was taken 7904 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       7904 :   bool result = calculateSpeedAfterResponseTime(axis, currentSpeed, acceleration, responseTime, resultingSpeed);</span>
 <span class="lineNum">      57 </span>                :            : 
-<span class="lineNum">      58 </span>                :<span class="lineCov">       7906 :   Distance distanceOffsetAfterResponseTime = Distance(0.);</span>
-<span class="lineNum">      59 </span>[<span class="branchCov" title="Branch 0 was taken 7903 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 7903 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       7906 :   result = result &amp;&amp; calculateDistanceOffsetAfterResponseTime(</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 7903 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
-<span class="lineNum">      60 </span>                :<span class="lineCov">       7906 :                        axis, currentSpeed, acceleration, responseTime, distanceOffsetAfterResponseTime);</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">       7904 :   Distance distanceOffsetAfterResponseTime = Distance(0.);</span>
+<span class="lineNum">      59 </span>[<span class="branchCov" title="Branch 0 was taken 7901 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 7901 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       7904 :   result = result &amp;&amp; calculateDistanceOffsetAfterResponseTime(</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 7901 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
+<span class="lineNum">      60 </span>                :<span class="lineCov">       7904 :                        axis, currentSpeed, acceleration, responseTime, distanceOffsetAfterResponseTime);</span>
 <span class="lineNum">      61 </span>                :            : 
-<span class="lineNum">      62 </span>                :<span class="lineCov">       7906 :   Distance distanceToStop = Distance(0.);</span>
-<span class="lineNum">      63 </span>        [<span class="branchCov" title="Branch 4 was taken 7714 times"> + </span><span class="branchCov" title="Branch 5 was taken 192 times"> + </span>]:<span class="lineCov">       7906 :   if (std::signbit(static_cast&lt;double&gt;(resultingSpeed)) == std::signbit(static_cast&lt;double&gt;(acceleration)))</span>
+<span class="lineNum">      62 </span>                :<span class="lineCov">       7904 :   Distance distanceToStop = Distance(0.);</span>
+<span class="lineNum">      63 </span>        [<span class="branchCov" title="Branch 4 was taken 7712 times"> + </span><span class="branchCov" title="Branch 5 was taken 192 times"> + </span>]:<span class="lineCov">       7904 :   if (std::signbit(static_cast&lt;double&gt;(resultingSpeed)) == std::signbit(static_cast&lt;double&gt;(acceleration)))</span>
 <span class="lineNum">      64 </span>                :            :   {
 <span class="lineNum">      65 </span>                :            :     // if speed after stated braking pattern has the same direction as the acceleration
 <span class="lineNum">      66 </span>                :            :     // (always the case in longitudinal situation)
 <span class="lineNum">      67 </span>                :            :     // further braking to full stop in that moving direction has to be added
-<span class="lineNum">      68 </span>[<span class="branchCov" title="Branch 0 was taken 7711 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 7711 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">       7714 :     result = result &amp;&amp; calculateStoppingDistance(resultingSpeed, std::fabs(deceleration), distanceToStop);</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 7711 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>][<span class="branchCov" title="Branch 8 was taken 7711 times"> + </span><span class="branchCov" title="Branch 9 was taken 3 times"> + </span>]
+<span class="lineNum">      68 </span>[<span class="branchCov" title="Branch 0 was taken 7709 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 7709 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">       7712 :     result = result &amp;&amp; calculateStoppingDistance(resultingSpeed, std::fabs(deceleration), distanceToStop);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 7709 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>][<span class="branchCov" title="Branch 8 was taken 7709 times"> + </span><span class="branchCov" title="Branch 9 was taken 3 times"> + </span>]
 <span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
 <span class="lineNum">      69 </span>                :            :   }
 <span class="lineNum">      70 </span>                :            : 
-<span class="lineNum">      71 </span>        [<span class="branchCov" title="Branch 0 was taken 7903 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">       7906 :   if (result)</span>
+<span class="lineNum">      71 </span>        [<span class="branchCov" title="Branch 0 was taken 7901 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">       7904 :   if (result)</span>
 <span class="lineNum">      72 </span>                :            :   {
-<span class="lineNum">      73 </span>        [<span class="branchCov" title="Branch 1 was taken 7903 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       7903 :     distanceOffset = distanceOffsetAfterResponseTime + distanceToStop;</span>
+<span class="lineNum">      73 </span>        [<span class="branchCov" title="Branch 1 was taken 7901 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       7901 :     distanceOffset = distanceOffsetAfterResponseTime + distanceToStop;</span>
 <span class="lineNum">      74 </span>                :            :   }
 <span class="lineNum">      75 </span>                :            : 
-<span class="lineNum">      76 </span>                :<span class="lineCov">       7906 :   return result;</span>
+<span class="lineNum">      76 </span>                :<span class="lineCov">       7904 :   return result;</span>
 <a name="77"><span class="lineNum">      77 </span>                :            : }</a>
 <span class="lineNum">      78 </span>                :            : 
-<span class="lineNum">      79 </span>                :<span class="lineCov">      14066 : bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &amp;leadingVehicle,</span>
+<span class="lineNum">      79 </span>                :<span class="lineCov">       2090 : bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &amp;leadingVehicle,</span>
 <span class="lineNum">      80 </span>                :            :                                                     VehicleState const &amp;followingVehicle,
 <span class="lineNum">      81 </span>                :            :                                                     Distance &amp;safeDistance)
 <span class="lineNum">      82 </span>                :            : {
-<span class="lineNum">      83 </span>[<span class="branchCov" title="Branch 1 was taken 14066 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 9063 times"> + </span><span class="branchCov" title="Branch 4 was taken 5003 times"> + </span>]:<span class="lineCov">      14066 :   if (!withinValidInputRange(leadingVehicle) || !withinValidInputRange(followingVehicle))</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 9063 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>][<span class="branchCov" title="Branch 8 was taken 6998 times"> + </span><span class="branchCov" title="Branch 9 was taken 2065 times"> + </span>]
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 10 was taken 12001 times"> + </span><span class="branchCov" title="Branch 11 was taken 2065 times"> + </span>]
+<span class="lineNum">      83 </span>[<span class="branchCov" title="Branch 1 was taken 2090 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2076 times"> + </span><span class="branchCov" title="Branch 4 was taken 14 times"> + </span>]:<span class="lineCov">       2090 :   if (!withinValidInputRange(leadingVehicle) || !withinValidInputRange(followingVehicle))</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 2076 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>][<span class="branchCov" title="Branch 8 was taken 12 times"> + </span><span class="branchCov" title="Branch 9 was taken 2064 times"> + </span>]
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 10 was taken 26 times"> + </span><span class="branchCov" title="Branch 11 was taken 2064 times"> + </span>]
 <span class="lineNum">      84 </span>                :            :   {
-<span class="lineNum">      85 </span>                :<span class="lineCov">      12001 :     return false;</span>
+<span class="lineNum">      85 </span>                :<span class="lineCov">         26 :     return false;</span>
 <span class="lineNum">      86 </span>                :            :   }
 <span class="lineNum">      87 </span>                :            : 
-<span class="lineNum">      88 </span>                :<span class="lineCov">       2065 :   Distance distanceStatedBraking = Distance(0.);</span>
+<span class="lineNum">      88 </span>                :<span class="lineCov">       2064 :   Distance distanceStatedBraking = Distance(0.);</span>
 <span class="lineNum">      89 </span>                :            : 
 <span class="lineNum">      90 </span>                :            :   bool result = calculateDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
 <span class="lineNum">      91 </span>                :            :     CoordinateSystemAxis::Longitudinal,
@@ -169,53 +169,53 @@
 <span class="lineNum">      93 </span>                :            :     followingVehicle.responseTime,
 <span class="lineNum">      94 </span>                :            :     followingVehicle.dynamics.alphaLon.accelMax,
 <span class="lineNum">      95 </span>                :            :     followingVehicle.dynamics.alphaLon.brakeMin,
-<span class="lineNum">      96 </span>        [<span class="branchCov" title="Branch 1 was taken 2065 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2065 :     distanceStatedBraking);</span>
-<span class="lineNum">      97 </span>                :<span class="lineCov">       2065 :   Distance distanceMaxBrake = Distance(0.);</span>
-<span class="lineNum">      98 </span>[<span class="branchCov" title="Branch 0 was taken 2065 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2065 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       2065 :   result = result &amp;&amp; calculateStoppingDistance(</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 2065 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
-<span class="lineNum">      99 </span>                :<span class="lineCov">       2065 :                        leadingVehicle.velocity.speedLon, leadingVehicle.dynamics.alphaLon.brakeMax, distanceMaxBrake);</span>
+<span class="lineNum">      96 </span>        [<span class="branchCov" title="Branch 1 was taken 2064 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2064 :     distanceStatedBraking);</span>
+<span class="lineNum">      97 </span>                :<span class="lineCov">       2064 :   Distance distanceMaxBrake = Distance(0.);</span>
+<span class="lineNum">      98 </span>[<span class="branchCov" title="Branch 0 was taken 2064 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2064 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       2064 :   result = result &amp;&amp; calculateStoppingDistance(</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 2064 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
+<span class="lineNum">      99 </span>                :<span class="lineCov">       2064 :                        leadingVehicle.velocity.speedLon, leadingVehicle.dynamics.alphaLon.brakeMax, distanceMaxBrake);</span>
 <span class="lineNum">     100 </span>                :            : 
-<span class="lineNum">     101 </span>        [<span class="branchCov" title="Branch 0 was taken 2065 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2065 :   if (result)</span>
+<span class="lineNum">     101 </span>        [<span class="branchCov" title="Branch 0 was taken 2064 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2064 :   if (result)</span>
 <span class="lineNum">     102 </span>                :            :   {
-<span class="lineNum">     103 </span>        [<span class="branchCov" title="Branch 1 was taken 2065 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2065 :     safeDistance = distanceStatedBraking - distanceMaxBrake;</span>
-<span class="lineNum">     104 </span>        [<span class="branchCov" title="Branch 2 was taken 2065 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       2065 :     safeDistance = std::max(safeDistance, Distance(0.));</span>
+<span class="lineNum">     103 </span>        [<span class="branchCov" title="Branch 1 was taken 2064 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2064 :     safeDistance = distanceStatedBraking - distanceMaxBrake;</span>
+<span class="lineNum">     104 </span>        [<span class="branchCov" title="Branch 2 was taken 2064 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       2064 :     safeDistance = std::max(safeDistance, Distance(0.));</span>
 <span class="lineNum">     105 </span>                :            :   }
 <span class="lineNum">     106 </span>                :            : 
-<span class="lineNum">     107 </span>                :<span class="lineCov">      14066 :   return result;</span>
+<span class="lineNum">     107 </span>                :<span class="lineCov">       2090 :   return result;</span>
 <a name="108"><span class="lineNum">     108 </span>                :            : }</a>
 <span class="lineNum">     109 </span>                :            : 
-<span class="lineNum">     110 </span>                :<span class="lineCov">      14066 : bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &amp;leadingVehicle,</span>
+<span class="lineNum">     110 </span>                :<span class="lineCov">       2090 : bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &amp;leadingVehicle,</span>
 <span class="lineNum">     111 </span>                :            :                                                 VehicleState const &amp;followingVehicle,
 <span class="lineNum">     112 </span>                :            :                                                 Distance const &amp;vehicleDistance,
 <span class="lineNum">     113 </span>                :            :                                                 bool &amp;isDistanceSafe)
 <span class="lineNum">     114 </span>                :            : {
-<span class="lineNum">     115 </span>[<span class="branchCov" title="Branch 2 was taken 14065 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchCov" title="Branch 5 was taken 14064 times"> + </span>]:<span class="lineCov">      14066 :   if (vehicleDistance &lt; Distance(0.))</span>
+<span class="lineNum">     115 </span>[<span class="branchCov" title="Branch 2 was taken 2089 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchCov" title="Branch 5 was taken 2088 times"> + </span>]:<span class="lineCov">       2090 :   if (vehicleDistance &lt; Distance(0.))</span>
 <span class="lineNum">     116 </span>                :            :   {
 <span class="lineNum">     117 </span>                :<span class="lineCov">          1 :     return false;</span>
 <span class="lineNum">     118 </span>                :            :   }
 <span class="lineNum">     119 </span>                :            : 
-<span class="lineNum">     120 </span>                :<span class="lineCov">      14064 :   isDistanceSafe = false;</span>
+<span class="lineNum">     120 </span>                :<span class="lineCov">       2088 :   isDistanceSafe = false;</span>
 <span class="lineNum">     121 </span>                :            : 
-<span class="lineNum">     122 </span>                :<span class="lineCov">      14064 :   Distance safeLongitudinalDistance = Distance(0.);</span>
+<span class="lineNum">     122 </span>                :<span class="lineCov">       2088 :   Distance safeLongitudinalDistance = Distance(0.);</span>
 <span class="lineNum">     123 </span>                :            :   bool const result
-<span class="lineNum">     124 </span>        [<span class="branchCov" title="Branch 1 was taken 14064 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      14064 :     = calculateSafeLongitudinalDistanceSameDirection(leadingVehicle, followingVehicle, safeLongitudinalDistance);</span>
+<span class="lineNum">     124 </span>        [<span class="branchCov" title="Branch 1 was taken 2088 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2088 :     = calculateSafeLongitudinalDistanceSameDirection(leadingVehicle, followingVehicle, safeLongitudinalDistance);</span>
 <span class="lineNum">     125 </span>                :            : 
-<span class="lineNum">     126 </span>[<span class="branchCov" title="Branch 1 was taken 14064 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 12527 times"> + </span><span class="branchCov" title="Branch 4 was taken 1537 times"> + </span>]:<span class="lineCov">      14064 :   if (vehicleDistance &gt; safeLongitudinalDistance)</span>
+<span class="lineNum">     126 </span>[<span class="branchCov" title="Branch 1 was taken 2088 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 552 times"> + </span><span class="branchCov" title="Branch 4 was taken 1536 times"> + </span>]:<span class="lineCov">       2088 :   if (vehicleDistance &gt; safeLongitudinalDistance)</span>
 <span class="lineNum">     127 </span>                :            :   {
-<span class="lineNum">     128 </span>                :<span class="lineCov">      12527 :     isDistanceSafe = true;</span>
+<span class="lineNum">     128 </span>                :<span class="lineCov">        552 :     isDistanceSafe = true;</span>
 <span class="lineNum">     129 </span>                :            :   }
-<span class="lineNum">     130 </span>                :<span class="lineCov">      14065 :   return result;</span>
+<span class="lineNum">     130 </span>                :<span class="lineCov">       2089 :   return result;</span>
 <a name="131"><span class="lineNum">     131 </span>                :            : }</a>
 <span class="lineNum">     132 </span>                :            : 
-<span class="lineNum">     133 </span>                :<span class="lineCov">       1083 : bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &amp;correctVehicle,</span>
+<span class="lineNum">     133 </span>                :<span class="lineCov">       1085 : bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &amp;correctVehicle,</span>
 <span class="lineNum">     134 </span>                :            :                                                         VehicleState const &amp;oppositeVehicle,
 <span class="lineNum">     135 </span>                :            :                                                         Distance &amp;safeDistance)
 <span class="lineNum">     136 </span>                :            : {
-<span class="lineNum">     137 </span>[<span class="branchCov" title="Branch 1 was taken 1083 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 1081 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">       1083 :   if (!withinValidInputRange(correctVehicle) || !withinValidInputRange(oppositeVehicle))</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 1081 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 1081 times"> + </span>]
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 10 was taken 2 times"> + </span><span class="branchCov" title="Branch 11 was taken 1081 times"> + </span>]
+<span class="lineNum">     137 </span>[<span class="branchCov" title="Branch 1 was taken 1085 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 1082 times"> + </span><span class="branchCov" title="Branch 4 was taken 3 times"> + </span>]:<span class="lineCov">       1085 :   if (!withinValidInputRange(correctVehicle) || !withinValidInputRange(oppositeVehicle))</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 1082 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>][<span class="branchCov" title="Branch 8 was taken 1 time"> + </span><span class="branchCov" title="Branch 9 was taken 1081 times"> + </span>]
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 10 was taken 4 times"> + </span><span class="branchCov" title="Branch 11 was taken 1081 times"> + </span>]
 <span class="lineNum">     138 </span>                :            :   {
-<span class="lineNum">     139 </span>                :<span class="lineCov">          2 :     return false;</span>
+<span class="lineNum">     139 </span>                :<span class="lineCov">          4 :     return false;</span>
 <span class="lineNum">     140 </span>                :            :   }
 <span class="lineNum">     141 </span>                :            : 
 <span class="lineNum">     142 </span>                :<span class="lineCov">       1081 :   Distance distanceStatedBrakingCorrect = Distance(0.);</span>
@@ -246,56 +246,56 @@
 <span class="lineNum">     167 </span>        [<span class="branchCov" title="Branch 1 was taken 1081 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1081 :     safeDistance = distanceStatedBrakingCorrect + distanceStatedBrakingOpposite;</span>
 <span class="lineNum">     168 </span>                :            :   }
 <span class="lineNum">     169 </span>                :            : 
-<span class="lineNum">     170 </span>                :<span class="lineCov">       1083 :   return result;</span>
+<span class="lineNum">     170 </span>                :<span class="lineCov">       1085 :   return result;</span>
 <a name="171"><span class="lineNum">     171 </span>                :            : }</a>
 <span class="lineNum">     172 </span>                :            : 
-<span class="lineNum">     173 </span>                :<span class="lineCov">       1082 : bool checkSafeLongitudinalDistanceOppositeDirection(VehicleState const &amp;correctVehicle,</span>
+<span class="lineNum">     173 </span>                :<span class="lineCov">       1084 : bool checkSafeLongitudinalDistanceOppositeDirection(VehicleState const &amp;correctVehicle,</span>
 <span class="lineNum">     174 </span>                :            :                                                     VehicleState const &amp;oppositeVehicle,
 <span class="lineNum">     175 </span>                :            :                                                     Distance const &amp;vehicleDistance,
 <span class="lineNum">     176 </span>                :            :                                                     bool &amp;isDistanceSafe)
 <span class="lineNum">     177 </span>                :            : {
-<span class="lineNum">     178 </span>[<span class="branchCov" title="Branch 2 was taken 1082 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchCov" title="Branch 5 was taken 1081 times"> + </span>]:<span class="lineCov">       1082 :   if (vehicleDistance &lt; Distance(0.))</span>
+<span class="lineNum">     178 </span>[<span class="branchCov" title="Branch 2 was taken 1084 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchCov" title="Branch 5 was taken 1083 times"> + </span>]:<span class="lineCov">       1084 :   if (vehicleDistance &lt; Distance(0.))</span>
 <span class="lineNum">     179 </span>                :            :   {
 <span class="lineNum">     180 </span>                :<span class="lineCov">          1 :     return false;</span>
 <span class="lineNum">     181 </span>                :            :   }
 <span class="lineNum">     182 </span>                :            : 
-<span class="lineNum">     183 </span>                :<span class="lineCov">       1081 :   isDistanceSafe = false;</span>
+<span class="lineNum">     183 </span>                :<span class="lineCov">       1083 :   isDistanceSafe = false;</span>
 <span class="lineNum">     184 </span>                :            : 
-<span class="lineNum">     185 </span>                :<span class="lineCov">       1081 :   Distance safeLongitudinalDistance = Distance(0.);</span>
+<span class="lineNum">     185 </span>                :<span class="lineCov">       1083 :   Distance safeLongitudinalDistance = Distance(0.);</span>
 <span class="lineNum">     186 </span>                :            :   bool const result
-<span class="lineNum">     187 </span>        [<span class="branchCov" title="Branch 1 was taken 1081 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1081 :     = calculateSafeLongitudinalDistanceOppositeDirection(correctVehicle, oppositeVehicle, safeLongitudinalDistance);</span>
+<span class="lineNum">     187 </span>        [<span class="branchCov" title="Branch 1 was taken 1083 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1083 :     = calculateSafeLongitudinalDistanceOppositeDirection(correctVehicle, oppositeVehicle, safeLongitudinalDistance);</span>
 <span class="lineNum">     188 </span>                :            : 
-<span class="lineNum">     189 </span>[<span class="branchCov" title="Branch 1 was taken 1081 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 208 times"> + </span><span class="branchCov" title="Branch 4 was taken 873 times"> + </span>]:<span class="lineCov">       1081 :   if (vehicleDistance &gt; safeLongitudinalDistance)</span>
+<span class="lineNum">     189 </span>[<span class="branchCov" title="Branch 1 was taken 1083 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 210 times"> + </span><span class="branchCov" title="Branch 4 was taken 873 times"> + </span>]:<span class="lineCov">       1083 :   if (vehicleDistance &gt; safeLongitudinalDistance)</span>
 <span class="lineNum">     190 </span>                :            :   {
-<span class="lineNum">     191 </span>                :<span class="lineCov">        208 :     isDistanceSafe = true;</span>
+<span class="lineNum">     191 </span>                :<span class="lineCov">        210 :     isDistanceSafe = true;</span>
 <span class="lineNum">     192 </span>                :            :   }
-<span class="lineNum">     193 </span>                :<span class="lineCov">       1082 :   return result;</span>
+<span class="lineNum">     193 </span>                :<span class="lineCov">       1084 :   return result;</span>
 <a name="194"><span class="lineNum">     194 </span>                :            : }</a>
 <span class="lineNum">     195 </span>                :            : 
-<span class="lineNum">     196 </span>                :<span class="lineCov">        916 : bool checkStopInFrontIntersection(VehicleState const &amp;vehicle, bool &amp;isDistanceSafe)</span>
+<span class="lineNum">     196 </span>                :<span class="lineCov">        915 : bool checkStopInFrontIntersection(VehicleState const &amp;vehicle, bool &amp;isDistanceSafe)</span>
 <span class="lineNum">     197 </span>                :            : {
-<span class="lineNum">     198 </span>[<span class="branchCov" title="Branch 1 was taken 916 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchCov" title="Branch 4 was taken 915 times"> + </span>]:<span class="lineCov">        916 :   if (!withinValidInputRange(vehicle))</span>
+<span class="lineNum">     198 </span>[<span class="branchCov" title="Branch 1 was taken 915 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchCov" title="Branch 4 was taken 914 times"> + </span>]:<span class="lineCov">        915 :   if (!withinValidInputRange(vehicle))</span>
 <span class="lineNum">     199 </span>                :            :   {
 <span class="lineNum">     200 </span>                :<span class="lineCov">          1 :     return false;</span>
 <span class="lineNum">     201 </span>                :            :   }
 <span class="lineNum">     202 </span>                :            : 
-<span class="lineNum">     203 </span>                :<span class="lineCov">        915 :   isDistanceSafe = false;</span>
+<span class="lineNum">     203 </span>                :<span class="lineCov">        914 :   isDistanceSafe = false;</span>
 <span class="lineNum">     204 </span>                :            : 
-<span class="lineNum">     205 </span>                :<span class="lineCov">        915 :   Distance distanceStatedBraking = Distance(0.);</span>
+<span class="lineNum">     205 </span>                :<span class="lineCov">        914 :   Distance distanceStatedBraking = Distance(0.);</span>
 <span class="lineNum">     206 </span>                :            :   bool result = calculateDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
 <span class="lineNum">     207 </span>                :            :     CoordinateSystemAxis::Longitudinal,
 <span class="lineNum">     208 </span>                :            :     vehicle.velocity.speedLon,
 <span class="lineNum">     209 </span>                :            :     vehicle.responseTime,
 <span class="lineNum">     210 </span>                :            :     vehicle.dynamics.alphaLon.accelMax,
 <span class="lineNum">     211 </span>                :            :     vehicle.dynamics.alphaLon.brakeMin,
-<span class="lineNum">     212 </span>        [<span class="branchCov" title="Branch 1 was taken 915 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        915 :     distanceStatedBraking);</span>
+<span class="lineNum">     212 </span>        [<span class="branchCov" title="Branch 1 was taken 914 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        914 :     distanceStatedBraking);</span>
 <span class="lineNum">     213 </span>                :            : 
-<span class="lineNum">     214 </span>[<span class="branchCov" title="Branch 1 was taken 915 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 308 times"> + </span><span class="branchCov" title="Branch 4 was taken 607 times"> + </span>]:<span class="lineCov">        915 :   if (distanceStatedBraking &lt; vehicle.distanceToEnterIntersection)</span>
+<span class="lineNum">     214 </span>[<span class="branchCov" title="Branch 1 was taken 914 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 308 times"> + </span><span class="branchCov" title="Branch 4 was taken 606 times"> + </span>]:<span class="lineCov">        914 :   if (distanceStatedBraking &lt; vehicle.distanceToEnterIntersection)</span>
 <span class="lineNum">     215 </span>                :            :   {
 <span class="lineNum">     216 </span>                :<span class="lineCov">        308 :     isDistanceSafe = true;</span>
 <span class="lineNum">     217 </span>                :            :   }
 <span class="lineNum">     218 </span>                :            : 
-<span class="lineNum">     219 </span>                :<span class="lineCov">        916 :   return result;</span>
+<span class="lineNum">     219 </span>                :<span class="lineCov">        915 :   return result;</span>
 <a name="220"><span class="lineNum">     220 </span>                :            : }</a>
 <span class="lineNum">     221 </span>                :            : 
 <span class="lineNum">     222 </span>                :<span class="lineCov">       1374 : bool calculateSafeLateralDistance(VehicleState const &amp;leftVehicle,</span>

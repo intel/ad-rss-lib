@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-20 12:01:37</td>
+            <td class="headerValue">2019-03-21 15:35:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -123,13 +123,13 @@
 <span class="lineNum">      52 </span>                :            :  *
 <a name="53"><span class="lineNum">      53 </span>                :            :  * \note the specified input range is defined by the valid enum literals.</a>
 <span class="lineNum">      54 </span>                :            :  */
-<span class="lineNum">      55 </span>                :<span class="lineCov">      14679 : inline bool withinValidInputRange(::ad_rss::world::ObjectType const &amp;input)</span>
+<span class="lineNum">      55 </span>                :<span class="lineCov">      14681 : inline bool withinValidInputRange(::ad_rss::world::ObjectType const &amp;input)</span>
 <span class="lineNum">      56 </span>                :            : {
 <span class="lineNum">      57 </span>                :            :   try
 <span class="lineNum">      58 </span>                :            :   {
 <span class="lineNum">      59 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
-<span class="lineNum">      60 </span>                :<span class="lineCov">       6934 :     return (input == ::ad_rss::world::ObjectType::EgoVehicle) || (input == ::ad_rss::world::ObjectType::OtherVehicle)</span>
-<span class="lineNum">      61 </span>                :<span class="lineCov">      21613 :       || (input == ::ad_rss::world::ObjectType::ArtificialObject);</span>
+<span class="lineNum">      60 </span>                :<span class="lineCov">       6935 :     return (input == ::ad_rss::world::ObjectType::EgoVehicle) || (input == ::ad_rss::world::ObjectType::OtherVehicle)</span>
+<span class="lineNum">      61 </span>                :<span class="lineCov">      21616 :       || (input == ::ad_rss::world::ObjectType::ArtificialObject);</span>
 <span class="lineNum">      62 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
 <span class="lineNum">      63 </span>                :            :   }
 <span class="lineNum">      64 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes

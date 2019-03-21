@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-20 12:01:37</td>
+            <td class="headerValue">2019-03-21 15:35:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -128,29 +128,29 @@
 <span class="lineNum">      57 </span>                :            :  *       brakeMinCorrect &lt;= brakeMin &lt;= brakeMax
 <a name="58"><span class="lineNum">      58 </span>                :            :  *       ::ad_rss::physics::Acceleration(0.) &lt; brakeMinCorrect &lt;= brakeMin</a>
 <span class="lineNum">      59 </span>                :            :  */
-<span class="lineNum">      60 </span>                :<span class="lineCov">      71593 : inline bool withinValidInputRange(::ad_rss::world::LongitudinalRssAccelerationValues const &amp;input)</span>
+<span class="lineNum">      60 </span>                :<span class="lineCov">      33487 : inline bool withinValidInputRange(::ad_rss::world::LongitudinalRssAccelerationValues const &amp;input)</span>
 <span class="lineNum">      61 </span>                :            : {
 <span class="lineNum">      62 </span>                :            :   try
 <span class="lineNum">      63 </span>                :            :   {
 <span class="lineNum">      64 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
 <span class="lineNum">      65 </span>                :            :     // check for generic member input ranges
-<span class="lineNum">      66 </span>                :<span class="lineCov">     143177 :     bool const membersInValidInputRange = withinValidInputRange(input.accelMax) &amp;&amp; withinValidInputRange(input.brakeMax)</span>
-<span class="lineNum">      67 </span>                :<span class="lineCov">     143177 :       &amp;&amp; withinValidInputRange(input.brakeMin) &amp;&amp; withinValidInputRange(input.brakeMinCorrect);</span>
+<span class="lineNum">      66 </span>                :<span class="lineCov">      66965 :     bool const membersInValidInputRange = withinValidInputRange(input.accelMax) &amp;&amp; withinValidInputRange(input.brakeMax)</span>
+<span class="lineNum">      67 </span>                :<span class="lineCov">      66965 :       &amp;&amp; withinValidInputRange(input.brakeMin) &amp;&amp; withinValidInputRange(input.brakeMinCorrect);</span>
 <span class="lineNum">      68 </span>                :            : 
 <span class="lineNum">      69 </span>                :            :     // check for individual input ranges
-<span class="lineNum">      70 </span>                :<span class="lineCov">     214779 :     bool const accelMaxInInputRange = (::ad_rss::physics::Acceleration(0.) &lt;= input.accelMax)</span>
-<span class="lineNum">      71 </span>                :<span class="lineCov">     143186 :       &amp;&amp; (input.accelMax &lt;= ::ad_rss::physics::Acceleration(1e2));</span>
+<span class="lineNum">      70 </span>                :<span class="lineCov">     100461 :     bool const accelMaxInInputRange = (::ad_rss::physics::Acceleration(0.) &lt;= input.accelMax)</span>
+<span class="lineNum">      71 </span>                :<span class="lineCov">      66974 :       &amp;&amp; (input.accelMax &lt;= ::ad_rss::physics::Acceleration(1e2));</span>
 <span class="lineNum">      72 </span>                :            : 
 <span class="lineNum">      73 </span>                :            :     bool const brakeMaxInInputRange
-<span class="lineNum">      74 </span>                :<span class="lineCov">      71592 :       = (input.brakeMin &lt;= input.brakeMax) &amp;&amp; (input.brakeMax &lt;= ::ad_rss::physics::Acceleration(1e2));</span>
+<span class="lineNum">      74 </span>                :<span class="lineCov">      33486 :       = (input.brakeMin &lt;= input.brakeMax) &amp;&amp; (input.brakeMax &lt;= ::ad_rss::physics::Acceleration(1e2));</span>
 <span class="lineNum">      75 </span>                :            : 
-<span class="lineNum">      76 </span>                :<span class="lineCov">      71590 :     bool const brakeMinInInputRange = (input.brakeMinCorrect &lt;= input.brakeMin) &amp;&amp; (input.brakeMin &lt;= input.brakeMax);</span>
+<span class="lineNum">      76 </span>                :<span class="lineCov">      33484 :     bool const brakeMinInInputRange = (input.brakeMinCorrect &lt;= input.brakeMin) &amp;&amp; (input.brakeMin &lt;= input.brakeMax);</span>
 <span class="lineNum">      77 </span>                :            : 
 <span class="lineNum">      78 </span>                :            :     bool const brakeMinCorrectInInputRange
-<span class="lineNum">      79 </span>                :<span class="lineCov">      71593 :       = (::ad_rss::physics::Acceleration(0.) &lt; input.brakeMinCorrect) &amp;&amp; (input.brakeMinCorrect &lt;= input.brakeMin);</span>
+<span class="lineNum">      79 </span>                :<span class="lineCov">      33487 :       = (::ad_rss::physics::Acceleration(0.) &lt; input.brakeMinCorrect) &amp;&amp; (input.brakeMinCorrect &lt;= input.brakeMin);</span>
 <span class="lineNum">      80 </span>                :            : 
-<span class="lineNum">      81 </span>                :<span class="lineCov">      71575 :     return membersInValidInputRange &amp;&amp; accelMaxInInputRange &amp;&amp; brakeMaxInInputRange &amp;&amp; brakeMinInInputRange</span>
-<span class="lineNum">      82 </span>                :<span class="lineCov">     143168 :       &amp;&amp; brakeMinCorrectInInputRange;</span>
+<span class="lineNum">      81 </span>                :<span class="lineCov">      33469 :     return membersInValidInputRange &amp;&amp; accelMaxInInputRange &amp;&amp; brakeMaxInInputRange &amp;&amp; brakeMinInInputRange</span>
+<span class="lineNum">      82 </span>                :<span class="lineCov">      66956 :       &amp;&amp; brakeMinCorrectInInputRange;</span>
 <span class="lineNum">      83 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
 <span class="lineNum">      84 </span>                :            :   }
 <span class="lineNum">      85 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
