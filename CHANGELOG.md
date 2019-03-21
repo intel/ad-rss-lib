@@ -1,4 +1,6 @@
 ## Latest changes
+* Added checks to enforce increasing time indices
+* Consider timeIndex=0 as error
 
 ## Release 1.1.0
 * Made generated files and tests more explicit by moving into respective folders

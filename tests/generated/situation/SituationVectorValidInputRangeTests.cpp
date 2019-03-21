@@ -52,6 +52,7 @@ TEST(SituationVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   ::ad_rss::situation::SituationVector value;
   ::ad_rss::situation::Situation element;
   ::ad_rss::physics::TimeIndex elementTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
+  elementTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
   element.timeIndex = elementTimeIndex;
   ::ad_rss::situation::SituationId elementSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   element.situationId = elementSituationId;
@@ -190,6 +191,7 @@ TEST(SituationVectorValidInputRangeTests, testValidInputRangeHigherThanInputRang
   ::ad_rss::situation::SituationVector value;
   ::ad_rss::situation::Situation element;
   ::ad_rss::physics::TimeIndex elementTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
+  elementTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
   element.timeIndex = elementTimeIndex;
   ::ad_rss::situation::SituationId elementSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   element.situationId = elementSituationId;

@@ -65,6 +65,7 @@ TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Towards_Each_Other)
   {
     worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(1 - (0.01 * i));
     worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(1 - (0.01 * i + 0.1));
+    worldModel.timeIndex++;
 
     Distance const dMin = calculateLateralMinSafeDistance(worldModel.scenes[0].object, worldModel.egoVehicle);
 
@@ -95,6 +96,7 @@ TEST_F(RssCheckLateralEgoRightTest, No_Lateral_Velocity)
   {
     worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.01 * i);
     worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.01 * i + 0.1);
+    worldModel.timeIndex++;
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
@@ -114,6 +116,7 @@ TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Aways_From_Each_Other)
   {
     worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(1 - (0.01 * i));
     worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(1 - (0.01 * i + 0.1));
+    worldModel.timeIndex++;
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
@@ -152,6 +155,7 @@ TEST_F(RssCheckLateralEgoLeftTest, Lateral_Velocity_Towards_Each_Other)
   {
     worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.01 * i);
     worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.01 * i + 0.1);
+    worldModel.timeIndex++;
 
     Distance const dMin = calculateLateralMinSafeDistance(worldModel.egoVehicle, worldModel.scenes[0].object);
 

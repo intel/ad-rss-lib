@@ -74,16 +74,6 @@ public:
   ~RssSituationChecking();
 
   /*!
-   * @brief Check if the current situation is safe.
-   *
-   * @param[in] situation      the Situation that should be analyzed
-   * @param[out] responseState the response state for the current situation
-   *
-   * @return true if situation could be analyzed, false if there was an error during evaluation
-   */
-  bool checkSituation(situation::Situation const &situation, state::ResponseState &responseState);
-
-  /*!
    * @brief Checks if the current situations are safe.
    *
    * @param [in] situationVector the vector of situations that should be analyzed
@@ -96,13 +86,31 @@ public:
 
 private:
   /*!
-   * @brief private implementation of checkSituation() with checked input range
+   * @brief Check if the current situation is safe.
    *
-   * @see checkSituation()
+   * @param[in] situation      the Situation that should be analyzed
+   * @param[in] nextTimeStep   indidicates that a new time step occurred
+   * @param[out] responseState the response state for the current situation
+   *
+   * @return true if situation could be analyzed, false if there was an error during evaluation
    */
-  bool checkSituationInputRangeChecked(situation::Situation const &situation, state::ResponseState &response);
+  bool checkSituationInputRangeChecked(situation::Situation const &situation,
+                                       bool const nextTimeStep,
+                                       state::ResponseState &responseState);
+
+  /*!
+   * @brief check to ensure situation time is consistent
+   *
+   * @param[in] situation      the Situation that should be analyzed
+   * @param[in] nextTimeStep   indidicates that a new time step occurred
+   *
+   * @return true if the time is constantly increasing
+   */
+  bool checkTimeIncreasingConsistently(situation::Situation const &situation, bool const nextTimeStep);
 
   std::unique_ptr<ad_rss::situation::RssIntersectionChecker> mIntersectionChecker;
+  physics::TimeIndex mLastTimeIndex{0u};
+  physics::TimeIndex mCurrentTimeIndex{0u};
 };
 } // namespace core
 } // namespace ad_rss

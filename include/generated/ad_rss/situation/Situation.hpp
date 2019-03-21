@@ -137,7 +137,7 @@ struct Situation
    * The time index is required to distinguish different points in time when tracking states or transforming responses
    * back.
    */
-  ::ad_rss::physics::TimeIndex timeIndex;
+  ::ad_rss::physics::TimeIndex timeIndex{0u};
 
   /*!
    * The unique id of the situation.

@@ -53,7 +53,8 @@
  *
  * \returns \c true if Situation is considered to be within the specified input range
  *
- * \note the specified input range is defined by the ranges of all members
+ * \note the specified input range is defined by the ranges of all members, plus:
+ *       ::ad_rss::physics::TimeIndex(1) <= timeIndex
  */
 inline bool withinValidInputRange(::ad_rss::situation::Situation const &input)
 {
@@ -65,7 +66,10 @@ inline bool withinValidInputRange(::ad_rss::situation::Situation const &input)
       && withinValidInputRange(input.egoVehicleState) && withinValidInputRange(input.otherVehicleState)
       && withinValidInputRange(input.relativePosition);
 
-    return membersInValidInputRange;
+    // check for individual input ranges
+    bool const timeIndexInInputRange = (::ad_rss::physics::TimeIndex(1) <= input.timeIndex);
+
+    return membersInValidInputRange && timeIndexInInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
   }
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes

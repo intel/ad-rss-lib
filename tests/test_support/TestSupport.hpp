@@ -55,6 +55,8 @@ using physics::Speed;
 
 const double cDoubleNear(0.01);
 
+#define ARRAYLEN(a) (sizeof(a) / sizeof(a[0]))
+
 class TestSupport
 {
 public:

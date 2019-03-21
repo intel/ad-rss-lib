@@ -45,6 +45,7 @@ TEST(WorldModelValidInputRangeTests, testValidInputRange)
 {
   ::ad_rss::world::WorldModel value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
+  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
   value.timeIndex = valueTimeIndex;
   ::ad_rss::world::Object valueEgoVehicle;
   ::ad_rss::world::ObjectId valueEgoVehicleObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -105,6 +106,7 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeEgoVehicleTooSmall)
 {
   ::ad_rss::world::WorldModel value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
+  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
   value.timeIndex = valueTimeIndex;
   ::ad_rss::world::Object valueEgoVehicle;
   ::ad_rss::world::ObjectId valueEgoVehicleObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -171,6 +173,7 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeEgoVehicleTooBig)
 {
   ::ad_rss::world::WorldModel value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
+  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
   value.timeIndex = valueTimeIndex;
   ::ad_rss::world::Object valueEgoVehicle;
   ::ad_rss::world::ObjectId valueEgoVehicleObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -237,6 +240,7 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeScenesTooSmall)
 {
   ::ad_rss::world::WorldModel value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
+  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
   value.timeIndex = valueTimeIndex;
   ::ad_rss::world::Object valueEgoVehicle;
   ::ad_rss::world::ObjectId valueEgoVehicleObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -385,6 +389,7 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeScenesTooBig)
 {
   ::ad_rss::world::WorldModel value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
+  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
   value.timeIndex = valueTimeIndex;
   ::ad_rss::world::Object valueEgoVehicle;
   ::ad_rss::world::ObjectId valueEgoVehicleObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -488,7 +493,7 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeScenesTooBig)
   invalidInitializedMemberSceneVectorElementEgoVehicleRoadElementElement.width
     = invalidInitializedMemberSceneVectorElementEgoVehicleRoadElementElementWidth;
   invalidInitializedMemberSceneVectorElementEgoVehicleRoadElement.resize(
-    0 + 1, invalidInitializedMemberSceneVectorElementEgoVehicleRoadElementElement);
+    1 + 1, invalidInitializedMemberSceneVectorElementEgoVehicleRoadElementElement);
   invalidInitializedMemberSceneVectorElementEgoVehicleRoad.resize(
     0 + 1, invalidInitializedMemberSceneVectorElementEgoVehicleRoadElement);
   invalidInitializedMemberSceneVectorElement.egoVehicleRoad = invalidInitializedMemberSceneVectorElementEgoVehicleRoad;
@@ -537,7 +542,7 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeScenesTooBig)
   invalidInitializedMemberSceneVectorElementIntersectingRoadElementElement.width
     = invalidInitializedMemberSceneVectorElementIntersectingRoadElementElementWidth;
   invalidInitializedMemberSceneVectorElementIntersectingRoadElement.resize(
-    0 + 1, invalidInitializedMemberSceneVectorElementIntersectingRoadElementElement);
+    1 + 1, invalidInitializedMemberSceneVectorElementIntersectingRoadElementElement);
   invalidInitializedMemberSceneVectorElementIntersectingRoad.resize(
     0 + 1, invalidInitializedMemberSceneVectorElementIntersectingRoadElement);
   invalidInitializedMemberSceneVectorElement.intersectingRoad

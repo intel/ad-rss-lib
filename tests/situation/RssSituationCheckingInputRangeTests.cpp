@@ -50,12 +50,12 @@ protected:
     situation.relativePosition.lateralDistance = Distance(0.);
     situation.relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
     situation.situationType = situation::SituationType::SameDirection;
+    situation.timeIndex = 1u;
   }
 
   virtual void performTestRun()
   {
-    EXPECT_FALSE(situationChecking.checkSituation(situation, responseState));
-    EXPECT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, responseState));
+    EXPECT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   }
   RssSituationChecking situationChecking;
   situation::VehicleState leadingVehicle;
@@ -299,7 +299,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_correct_deceleration_br
   situation.egoVehicleState.dynamics.alphaLon.brakeMax = Acceleration(4.);
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = Acceleration(4.);
 
-  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, longitudinal_correct_deceleration_brake_min_equals_brake_min_correct)
@@ -308,7 +308,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_correct_deceleration_br
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = Acceleration(3.);
   situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = Acceleration(3.);
 
-  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
 }
 
 TEST_F(RssSituationCheckingInputRangeTests,
@@ -318,7 +318,7 @@ TEST_F(RssSituationCheckingInputRangeTests,
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = Acceleration(3.);
   situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = Acceleration(3.);
 
-  ASSERT_TRUE(situationChecking.checkSituation(situation, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, situationVectorTooBig)
