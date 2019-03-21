@@ -180,7 +180,7 @@ bool RssSituationChecking::checkTimeIncreasingConsistently(situation::Situation 
   }
   else
   {
-    // check for overrun
+    // check for overflow
     physics::TimeIndex const deltaTimeIndex = mCurrentTimeIndex - mLastTimeIndex;
     if (deltaTimeIndex < (std::numeric_limits<physics::TimeIndex>::max() / 2))
     {
