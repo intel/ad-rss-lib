@@ -126,7 +126,7 @@ TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
   }
 
   worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 0;
+  worldModel.timeIndex = 1;
 
   ASSERT_TRUE(extractSituations(worldModel, situationVector));
   ASSERT_EQ(situationVector.size(), 1);
@@ -199,7 +199,7 @@ TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
   }
 
   worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 0;
+  worldModel.timeIndex = 1;
 
   ASSERT_TRUE(extractSituations(worldModel, situationVector));
   ASSERT_EQ(situationVector.size(), 1);

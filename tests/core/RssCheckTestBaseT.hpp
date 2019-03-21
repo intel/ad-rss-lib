@@ -499,6 +499,7 @@ protected:
     for (uint32_t i = 0; i < 100; i++)
     {
       worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
+      worldModel.timeIndex++;
 
       ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
@@ -522,6 +523,7 @@ protected:
     {
       worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.01 * i);
       worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.01 * i + 0.1);
+      worldModel.timeIndex++;
 
       ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 

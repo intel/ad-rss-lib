@@ -56,6 +56,7 @@ RssSituationChecking::~RssSituationChecking()
 }
 
 bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation const &situation,
+                                                           bool const nextTimeStep,
                                                            state::ResponseState &response)
 {
   bool result = false;
@@ -63,6 +64,10 @@ bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation 
   try
   {
     if (!static_cast<bool>(mIntersectionChecker))
+    {
+      return false;
+    }
+    if (!checkTimeIncreasingConsistently(situation, nextTimeStep))
     {
       return false;
     }
@@ -112,15 +117,6 @@ bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation 
   return result;
 }
 
-bool RssSituationChecking::checkSituation(situation::Situation const &situation, state::ResponseState &response)
-{
-  if (!withinValidInputRange(situation))
-  {
-    return false;
-  }
-  return checkSituationInputRangeChecked(situation, response);
-}
-
 bool RssSituationChecking::checkSituations(situation::SituationVector const &situationVector,
                                            state::ResponseStateVector &responseStateVector)
 {
@@ -128,8 +124,8 @@ bool RssSituationChecking::checkSituations(situation::SituationVector const &sit
   {
     return false;
   }
-
   bool result = true;
+  bool nextTimeStep = true;
   // global try catch block to ensure this library call doesn't throw an exception
   try
   {
@@ -137,7 +133,8 @@ bool RssSituationChecking::checkSituations(situation::SituationVector const &sit
     for (auto const &situation : situationVector)
     {
       state::ResponseState responseState;
-      bool const checkResult = checkSituationInputRangeChecked(situation, responseState);
+      bool const checkResult = checkSituationInputRangeChecked(situation, nextTimeStep, responseState);
+      nextTimeStep = false;
       if (checkResult)
       {
         responseStateVector.push_back(responseState);
@@ -145,6 +142,7 @@ bool RssSituationChecking::checkSituations(situation::SituationVector const &sit
       else
       {
         result = false;
+        break;
       }
     }
   }
@@ -152,7 +150,48 @@ bool RssSituationChecking::checkSituations(situation::SituationVector const &sit
   {
     result = false;
   }
+  if (!result)
+  {
+    responseStateVector.clear();
+  }
   return result;
+}
+
+bool RssSituationChecking::checkTimeIncreasingConsistently(situation::Situation const &situation,
+                                                           bool const nextTimeStep)
+{
+  if (nextTimeStep)
+  {
+    // next time tick
+    mLastTimeIndex = mCurrentTimeIndex;
+    mCurrentTimeIndex = situation.timeIndex;
+  }
+  else if (mCurrentTimeIndex != situation.timeIndex)
+  {
+    // time index changes within the situation. Not allowed.
+    return false;
+  }
+
+  bool timeIsIncreasing = false;
+  if (mCurrentTimeIndex == mLastTimeIndex)
+  {
+    // time is standing still
+    timeIsIncreasing = false;
+  }
+  else
+  {
+    // check for overrun
+    physics::TimeIndex const deltaTimeIndex = mCurrentTimeIndex - mLastTimeIndex;
+    if (deltaTimeIndex < (std::numeric_limits<physics::TimeIndex>::max() / 2))
+    {
+      timeIsIncreasing = true;
+    }
+    else
+    {
+      timeIsIncreasing = false;
+    }
+  }
+  return timeIsIncreasing;
 }
 
 } // namespace core

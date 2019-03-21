@@ -105,7 +105,7 @@ TEST_F(RssSituationExtractionOppositeDirectionTests, noLongitudinalDifference)
   scene.egoVehicleRoad.push_back(roadSegment);
 
   worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 0;
+  worldModel.timeIndex = 1;
 
   ASSERT_TRUE(extractSituations(worldModel, situationVector));
   ASSERT_EQ(situationVector.size(), 1);
@@ -146,7 +146,7 @@ TEST_F(RssSituationExtractionOppositeDirectionTests, longitudinalDifference)
   scene.egoVehicleRoad.push_back(roadSegment);
 
   worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 0;
+  worldModel.timeIndex = 1;
 
   ASSERT_TRUE(extractSituations(worldModel, situationVector));
   ASSERT_EQ(situationVector.size(), 1);

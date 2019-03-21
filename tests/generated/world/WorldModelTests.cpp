@@ -47,6 +47,7 @@ protected:
     // valid initialization
     ::ad_rss::world::WorldModel value;
     ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
+    valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
     value.timeIndex = valueTimeIndex;
     ::ad_rss::world::Object valueEgoVehicle;
     ::ad_rss::world::ObjectId valueEgoVehicleObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -262,7 +263,7 @@ TEST_F(WorldModelTests, comparisonOperatorScenesDiffers)
   scenesElementEgoVehicleRoadElementElementWidth.maximum = scenesElementEgoVehicleRoadElementElementWidth.minimum;
   scenesElementEgoVehicleRoadElementElementWidth.minimum = scenesElementEgoVehicleRoadElementElementWidth.maximum;
   scenesElementEgoVehicleRoadElementElement.width = scenesElementEgoVehicleRoadElementElementWidth;
-  scenesElementEgoVehicleRoadElement.resize(0 + 1, scenesElementEgoVehicleRoadElementElement);
+  scenesElementEgoVehicleRoadElement.resize(1 + 1, scenesElementEgoVehicleRoadElementElement);
   scenesElementEgoVehicleRoad.resize(0 + 1, scenesElementEgoVehicleRoadElement);
   scenesElement.egoVehicleRoad = scenesElementEgoVehicleRoad;
   ::ad_rss::world::RoadArea scenesElementIntersectingRoad;
@@ -294,7 +295,7 @@ TEST_F(WorldModelTests, comparisonOperatorScenesDiffers)
   scenesElementIntersectingRoadElementElementWidth.maximum = scenesElementIntersectingRoadElementElementWidth.minimum;
   scenesElementIntersectingRoadElementElementWidth.minimum = scenesElementIntersectingRoadElementElementWidth.maximum;
   scenesElementIntersectingRoadElementElement.width = scenesElementIntersectingRoadElementElementWidth;
-  scenesElementIntersectingRoadElement.resize(0 + 1, scenesElementIntersectingRoadElementElement);
+  scenesElementIntersectingRoadElement.resize(1 + 1, scenesElementIntersectingRoadElementElement);
   scenesElementIntersectingRoad.resize(0 + 1, scenesElementIntersectingRoadElement);
   scenesElement.intersectingRoad = scenesElementIntersectingRoad;
   ::ad_rss::world::Object scenesElementObject;

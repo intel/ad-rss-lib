@@ -184,7 +184,7 @@ TEST_F(SceneTests, comparisonOperatorEgoVehicleRoadDiffers)
   egoVehicleRoadElementElementWidth.maximum = egoVehicleRoadElementElementWidth.minimum;
   egoVehicleRoadElementElementWidth.minimum = egoVehicleRoadElementElementWidth.maximum;
   egoVehicleRoadElementElement.width = egoVehicleRoadElementElementWidth;
-  egoVehicleRoadElement.resize(0 + 1, egoVehicleRoadElementElement);
+  egoVehicleRoadElement.resize(1 + 1, egoVehicleRoadElementElement);
   egoVehicleRoad.resize(0 + 1, egoVehicleRoadElement);
   valueA.egoVehicleRoad = egoVehicleRoad;
   ::ad_rss::world::Scene valueB = mValue;
@@ -223,7 +223,7 @@ TEST_F(SceneTests, comparisonOperatorIntersectingRoadDiffers)
   intersectingRoadElementElementWidth.maximum = intersectingRoadElementElementWidth.minimum;
   intersectingRoadElementElementWidth.minimum = intersectingRoadElementElementWidth.maximum;
   intersectingRoadElementElement.width = intersectingRoadElementElementWidth;
-  intersectingRoadElement.resize(0 + 1, intersectingRoadElementElement);
+  intersectingRoadElement.resize(1 + 1, intersectingRoadElementElement);
   intersectingRoad.resize(0 + 1, intersectingRoadElement);
   valueA.intersectingRoad = intersectingRoad;
   ::ad_rss::world::Scene valueB = mValue;

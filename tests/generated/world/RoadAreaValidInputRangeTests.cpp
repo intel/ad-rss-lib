@@ -51,6 +51,31 @@ TEST(RoadAreaValidInputRangeTests, testValidInputRangeValidInputRangeMax)
 {
   ::ad_rss::world::RoadArea value;
   ::ad_rss::world::RoadSegment element;
+  ::ad_rss::world::LaneSegment elementElement;
+  ::ad_rss::world::LaneSegmentId elementElementId(std::numeric_limits<::ad_rss::world::LaneSegmentId>::lowest());
+  elementElement.id = elementElementId;
+  ::ad_rss::world::LaneSegmentType elementElementType(::ad_rss::world::LaneSegmentType::Normal);
+  elementElement.type = elementElementType;
+  ::ad_rss::world::LaneDrivingDirection elementElementDrivingDirection(
+    ::ad_rss::world::LaneDrivingDirection::Bidirectional);
+  elementElement.drivingDirection = elementElementDrivingDirection;
+  ::ad_rss::physics::MetricRange elementElementLength;
+  ::ad_rss::physics::Distance elementElementLengthMinimum(0.);
+  elementElementLength.minimum = elementElementLengthMinimum;
+  ::ad_rss::physics::Distance elementElementLengthMaximum(0.);
+  elementElementLength.maximum = elementElementLengthMaximum;
+  elementElementLength.maximum = elementElementLength.minimum;
+  elementElementLength.minimum = elementElementLength.maximum;
+  elementElement.length = elementElementLength;
+  ::ad_rss::physics::MetricRange elementElementWidth;
+  ::ad_rss::physics::Distance elementElementWidthMinimum(0.);
+  elementElementWidth.minimum = elementElementWidthMinimum;
+  ::ad_rss::physics::Distance elementElementWidthMaximum(0.);
+  elementElementWidth.maximum = elementElementWidthMaximum;
+  elementElementWidth.maximum = elementElementWidth.minimum;
+  elementElementWidth.minimum = elementElementWidth.maximum;
+  elementElement.width = elementElementWidth;
+  element.resize(1, elementElement);
   value.resize(1000, element);
   ASSERT_TRUE(withinValidInputRange(value));
 }
@@ -59,6 +84,31 @@ TEST(RoadAreaValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax)
 {
   ::ad_rss::world::RoadArea value;
   ::ad_rss::world::RoadSegment element;
+  ::ad_rss::world::LaneSegment elementElement;
+  ::ad_rss::world::LaneSegmentId elementElementId(std::numeric_limits<::ad_rss::world::LaneSegmentId>::lowest());
+  elementElement.id = elementElementId;
+  ::ad_rss::world::LaneSegmentType elementElementType(::ad_rss::world::LaneSegmentType::Normal);
+  elementElement.type = elementElementType;
+  ::ad_rss::world::LaneDrivingDirection elementElementDrivingDirection(
+    ::ad_rss::world::LaneDrivingDirection::Bidirectional);
+  elementElement.drivingDirection = elementElementDrivingDirection;
+  ::ad_rss::physics::MetricRange elementElementLength;
+  ::ad_rss::physics::Distance elementElementLengthMinimum(0.);
+  elementElementLength.minimum = elementElementLengthMinimum;
+  ::ad_rss::physics::Distance elementElementLengthMaximum(0.);
+  elementElementLength.maximum = elementElementLengthMaximum;
+  elementElementLength.maximum = elementElementLength.minimum;
+  elementElementLength.minimum = elementElementLength.maximum;
+  elementElement.length = elementElementLength;
+  ::ad_rss::physics::MetricRange elementElementWidth;
+  ::ad_rss::physics::Distance elementElementWidthMinimum(0.);
+  elementElementWidth.minimum = elementElementWidthMinimum;
+  ::ad_rss::physics::Distance elementElementWidthMaximum(0.);
+  elementElementWidth.maximum = elementElementWidthMaximum;
+  elementElementWidth.maximum = elementElementWidth.minimum;
+  elementElementWidth.minimum = elementElementWidth.maximum;
+  elementElement.width = elementElementWidth;
+  element.resize(1, elementElement);
   value.resize(1001, element);
   ASSERT_FALSE(withinValidInputRange(value));
 }
