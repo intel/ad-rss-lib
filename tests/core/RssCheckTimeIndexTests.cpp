@@ -45,10 +45,9 @@ TEST_F(RssCheckTimeIndexTests, ZeroTimeIndex)
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
-  worldModel.timeIndex   = 0u;
+  worldModel.timeIndex = 0u;
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
-
 
 TEST_F(RssCheckTimeIndexTests, TimeIndexIncrementValidity)
 {
@@ -56,14 +55,18 @@ TEST_F(RssCheckTimeIndexTests, TimeIndexIncrementValidity)
   ::ad_rss::core::RssCheck rssCheck;
 
   uint64_t timeIndexArray[] = {1u, 2u, 3u, 4u, 5u, 1u};
-  for (size_t i = 0 ; i < sizeof(timeIndexArray)/sizeof(uint64_t) ; ++i) {
-      worldModel.timeIndex = timeIndexArray[i];
-      if (i == 5) {
-          ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-      } else {
-          ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-          testRestrictions(accelerationRestriction);
-      }
+  for (size_t i = 0; i < sizeof(timeIndexArray) / sizeof(uint64_t); ++i)
+  {
+    worldModel.timeIndex = timeIndexArray[i];
+    if (i == 5)
+    {
+      ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+    }
+    else
+    {
+      ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+      testRestrictions(accelerationRestriction);
+    }
   }
 }
 
@@ -75,14 +78,18 @@ TEST_F(RssCheckTimeIndexTests, FixedTimeIndexValidity)
   ::ad_rss::core::RssCheck rssCheck;
 
   uint64_t timeIndexArray[] = {1u, 1u, 1u, 1u, 1u, 1u};
-  for (size_t i = 0 ; i < sizeof(timeIndexArray)/sizeof(uint64_t) ; ++i) {
-      worldModel.timeIndex = timeIndexArray[i];
-      if (i == 0) {
-          ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-          testRestrictions(accelerationRestriction);
-      } else {
-          ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-      }
+  for (size_t i = 0; i < sizeof(timeIndexArray) / sizeof(uint64_t); ++i)
+  {
+    worldModel.timeIndex = timeIndexArray[i];
+    if (i == 0)
+    {
+      ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+      testRestrictions(accelerationRestriction);
+    }
+    else
+    {
+      ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+    }
   }
 }
 
