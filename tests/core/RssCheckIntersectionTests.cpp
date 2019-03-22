@@ -38,12 +38,12 @@ template <class TESTBASE> class RssCheckIntersectionTestBase : public TESTBASE
 {
 protected:
   using TESTBASE::worldModel;
-  virtual ::ad_rss::world::Object &getEgoObject() override
+  ::ad_rss::world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment0;
   }
 
-  virtual ::ad_rss::world::Object &getSceneObject() override
+  ::ad_rss::world::Object &getSceneObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment8;
   }
@@ -82,12 +82,12 @@ template <class TESTBASE>
 class RssCheckIntersectionEgoHasPriorityTestBase : public RssCheckIntersectionTestBase<TESTBASE>
 {
 protected:
-  virtual situation::SituationType getSituationType() override
+  situation::SituationType getSituationType() override
   {
     return situation::SituationType::IntersectionEgoHasPriority;
   }
 
-  virtual bool isBrakeExpected(uint32_t i) override
+  bool isBrakeExpected(uint32_t i) override
   {
     bool const egoVehicleFaraway
       = (i < 84) && (TESTBASE::worldModel.egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(0));
@@ -125,12 +125,12 @@ template <class TESTBASE>
 class RssCheckIntersectionObjectHasPriorityTestBase : public RssCheckIntersectionTestBase<TESTBASE>
 {
 protected:
-  virtual situation::SituationType getSituationType() override
+  situation::SituationType getSituationType() override
   {
     return situation::SituationType::IntersectionObjectHasPriority;
   }
 
-  virtual bool isBrakeExpected(uint32_t i) override
+  bool isBrakeExpected(uint32_t i) override
   {
     bool const egoVehicleNearEnough
       = (TESTBASE::worldModel.egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(3)) && (i > 27);
@@ -159,12 +159,12 @@ TEST_F(RssCheckIntersectionObjectHasPriorityTest, IntersectionTest)
 template <class TESTBASE> class RssCheckIntersectionSamePriorityTestBase : public RssCheckIntersectionTestBase<TESTBASE>
 {
 protected:
-  virtual situation::SituationType getSituationType() override
+  situation::SituationType getSituationType() override
   {
     return situation::SituationType::IntersectionSamePriority;
   }
 
-  virtual bool isBrakeExpected(uint32_t i) override
+  bool isBrakeExpected(uint32_t i) override
   {
     return (TESTBASE::worldModel.egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(3)) && (i > 27);
   }

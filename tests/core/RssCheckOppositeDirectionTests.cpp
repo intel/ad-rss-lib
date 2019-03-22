@@ -36,17 +36,17 @@ namespace core {
 
 template <class TESTBASE> class RssCheckOppositeDirectionEgoCorrectTestBase : public TESTBASE
 {
-  virtual situation::SituationType getSituationType() override
+  situation::SituationType getSituationType() override
   {
     return situation::SituationType::OppositeDirection;
   }
 
-  virtual ::ad_rss::world::Object &getEgoObject() override
+  ::ad_rss::world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment1;
   }
 
-  virtual ::ad_rss::world::Object &getSceneObject() override
+  ::ad_rss::world::Object &getSceneObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment7;
   }
@@ -103,22 +103,22 @@ TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities_NoLateralCon
 
 template <class TESTBASE> class RssCheckOppositeDirectionOtherCorrectTestBase : public TESTBASE
 {
-  virtual world::LaneDrivingDirection getDrivingDirection() override
+  world::LaneDrivingDirection getDrivingDirection() override
   {
     return ::ad_rss::world::LaneDrivingDirection::Negative;
   }
 
-  virtual situation::SituationType getSituationType() override
+  situation::SituationType getSituationType() override
   {
     return situation::SituationType::OppositeDirection;
   }
 
-  virtual ::ad_rss::world::Object &getEgoObject() override
+  ::ad_rss::world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment1;
   }
 
-  virtual ::ad_rss::world::Object &getSceneObject() override
+  ::ad_rss::world::Object &getSceneObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment7;
   }
@@ -153,22 +153,22 @@ INSTANTIATE_TEST_CASE_P(Range,
 
 template <class TESTBASE> class RssCheckOppositeDirectionBothCorrectTestBase : public TESTBASE
 {
-  virtual world::LaneDrivingDirection getDrivingDirection() override
+  world::LaneDrivingDirection getDrivingDirection() override
   {
     return ::ad_rss::world::LaneDrivingDirection::Bidirectional;
   }
 
-  virtual situation::SituationType getSituationType() override
+  situation::SituationType getSituationType() override
   {
     return situation::SituationType::OppositeDirection;
   }
 
-  virtual ::ad_rss::world::Object &getEgoObject() override
+  ::ad_rss::world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment1;
   }
 
-  virtual ::ad_rss::world::Object &getSceneObject() override
+  ::ad_rss::world::Object &getSceneObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment7;
   }

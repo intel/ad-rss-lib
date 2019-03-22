@@ -48,8 +48,6 @@ protected:
 
   virtual void SetUp()
   {
-    scene.situationType = getSituationType();
-
     objectOnSegment0 = createObject(10., 0.);
     objectOnSegment0.objectId = 0;
     {
@@ -76,7 +74,6 @@ protected:
 
     objectOnSegment3 = createObject(10., 3.);
     objectOnSegment3.objectId = 3;
-
     {
       ::ad_rss::world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = ParametricValue(0.);
@@ -85,6 +82,18 @@ protected:
       occupiedRegion.latRange.minimum = ParametricValue(0.);
       occupiedRegion.latRange.maximum = ParametricValue(0.1);
       objectOnSegment3.occupiedRegions.push_back(occupiedRegion);
+    }
+
+    objectOnSegment4 = createObject(10., 0.);
+    objectOnSegment4.objectId = 4;
+    {
+      ::ad_rss::world::OccupiedRegion occupiedRegion;
+      occupiedRegion.lonRange.minimum = ParametricValue(0.);
+      occupiedRegion.lonRange.maximum = ParametricValue(0.1);
+      occupiedRegion.segmentId = 4;
+      occupiedRegion.latRange.minimum = ParametricValue(0.8);
+      occupiedRegion.latRange.maximum = ParametricValue(0.9);
+      objectOnSegment4.occupiedRegions.push_back(occupiedRegion);
     }
 
     objectOnSegment5 = createObject(10., -3.);
@@ -99,9 +108,20 @@ protected:
       objectOnSegment5.occupiedRegions.push_back(occupiedRegion);
     }
 
+    objectOnSegment6 = createObject(10., 0.);
+    objectOnSegment6.objectId = 6;
+    {
+      ::ad_rss::world::OccupiedRegion occupiedRegion;
+      occupiedRegion.lonRange.minimum = ParametricValue(0.4);
+      occupiedRegion.lonRange.maximum = ParametricValue(0.5);
+      occupiedRegion.segmentId = 6;
+      occupiedRegion.latRange.minimum = ParametricValue(0.8);
+      occupiedRegion.latRange.maximum = ParametricValue(0.9);
+      objectOnSegment6.occupiedRegions.push_back(occupiedRegion);
+    }
+
     objectOnSegment7 = createObject(10., 0.);
     objectOnSegment7.objectId = 7;
-
     {
       ::ad_rss::world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = ParametricValue(0.);
@@ -136,10 +156,15 @@ protected:
     }
 
     worldModel.egoVehicle = objectAsEgo(getEgoObject());
-    scene.object = getSceneObject();
-    scene.egoVehicleRoad = roadArea;
-    scene.intersectingRoad = otherRoadArea;
-    worldModel.scenes.push_back(scene);
+    for (uint32_t index = 0u; index < getNumberOfSceneObjects(); index++)
+    {
+      ::ad_rss::world::Scene scene;
+      scene.situationType = getSituationType();
+      scene.object = getSceneObject(index);
+      scene.egoVehicleRoad = roadArea;
+      scene.intersectingRoad = otherRoadArea;
+      worldModel.scenes.push_back(scene);
+    }
     worldModel.timeIndex = 1;
   }
 
@@ -148,9 +173,26 @@ protected:
     return objectOnSegment1;
   }
 
-  virtual ::ad_rss::world::Object &getSceneObject()
+  virtual uint32_t getNumberOfSceneObjects()
   {
-    return objectOnSegment7;
+    return 1u;
+  }
+
+  /**
+   * @brief This function is called for every index [0; getNumberOfSceneObjects())
+   *
+   * If you overload the getNumberOfSceneObjects() you have to overload this, too.
+   */
+  virtual ::ad_rss::world::Object &getSceneObject(uint32_t objectIndex)
+  {
+    if (objectIndex == 0u)
+    {
+      return objectOnSegment7;
+    }
+    else
+    {
+      throw std::out_of_range("Test setup out of range");
+    }
   }
 
   virtual void TearDown()
@@ -462,6 +504,34 @@ protected:
     ASSERT_TRUE(false);
   }
 
+  Distance getDistanceToSegmentEnd(::ad_rss::world::Object const &object)
+  {
+    world::LaneSegment objectRoadSegment = getMergedRoadSegment(object.occupiedRegions[0].segmentId);
+    // in our tests the vehicle only spans over one segment
+    world::LaneSegment objectLaneSegment = getLaneSegment(object.occupiedRegions[0].segmentId);
+    Distance const objectMaxDistanceWithinSegment
+      = object.occupiedRegions[0].lonRange.maximum * objectLaneSegment.length.maximum;
+
+    return objectRoadSegment.length.minimum - objectMaxDistanceWithinSegment;
+  }
+
+  Distance getFrontObjectDistanceFromSegmentBegin()
+  {
+    for (auto const &scene : worldModel.scenes)
+    {
+      if ((scene.object.objectId == 6) || (scene.object.objectId == 7) || (scene.object.objectId == 8))
+      {
+        // in our tests the vehicle only spans over one segment
+        world::LaneSegment objectLaneSegment = getLaneSegment(scene.object.occupiedRegions[0].segmentId);
+        Distance const objectMinDistanceWithinSegment
+          = scene.object.occupiedRegions[0].lonRange.minimum * objectLaneSegment.length.minimum;
+
+        return objectMinDistanceWithinSegment;
+      }
+    }
+    return Distance(0.);
+  }
+
   bool isDistanceSafe()
   {
     Distance dMin;
@@ -479,12 +549,16 @@ protected:
         break;
     }
 
-    world::LaneSegment egoRoadSegment = getMergedRoadSegment(worldModel.egoVehicle.occupiedRegions[0].segmentId);
-    // in our tests the vehicle only spans over one segment
-    world::LaneSegment egoLaneSegment = getLaneSegment(worldModel.egoVehicle.occupiedRegions[0].segmentId);
-    Distance const egoMaxDistanceWithinSegment
-      = worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum * egoLaneSegment.length.maximum;
-    if (dMin < getMiddleRoadSegmentLength() + egoRoadSegment.length.minimum - egoMaxDistanceWithinSegment)
+    Distance egoDistanceToSegmentEnd = getDistanceToSegmentEnd(worldModel.egoVehicle);
+    Distance objectDistanceFromSegmentBegin = getFrontObjectDistanceFromSegmentBegin();
+    Distance additionalLength{0u};
+    if ((worldModel.egoVehicle.occupiedRegions[0].segmentId < 3)
+        || (worldModel.egoVehicle.occupiedRegions[0].segmentId > 5))
+    {
+      // ego in front or in the back, then the middle segment is relevant
+      additionalLength = getMiddleRoadSegmentLength();
+    }
+    if (dMin < additionalLength + egoDistanceToSegmentEnd + objectDistanceFromSegmentBegin)
     {
       return true;
     }
@@ -542,12 +616,13 @@ protected:
   ::ad_rss::world::Object objectOnSegment0;
   ::ad_rss::world::Object objectOnSegment1;
   ::ad_rss::world::Object objectOnSegment3;
+  ::ad_rss::world::Object objectOnSegment4;
   ::ad_rss::world::Object objectOnSegment5;
+  ::ad_rss::world::Object objectOnSegment6;
   ::ad_rss::world::Object objectOnSegment7;
   ::ad_rss::world::Object objectOnSegment8;
   ::ad_rss::world::RoadArea roadArea;
   ::ad_rss::world::RoadArea otherRoadArea;
-  ::ad_rss::world::Scene scene;
 };
 
 using RssCheckTestBase = RssCheckTestBaseT<testing::Test>;
