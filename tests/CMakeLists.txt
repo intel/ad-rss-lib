@@ -64,6 +64,7 @@ set(RSS_TEST_SOURCES
   core/RssSituationExtractionIntersectionTests.cpp
   core/RssSituationExtractionRelativePositionTests.cpp
   core/RssSituationExtractionSameDirectionTests.cpp
+  core/RssWorldModelObjectTests.cpp
   physics/MathUnitTestsDistanceOffsetAfterResponseTime.cpp
   physics/MathUnitTestsInputRangeChecks.cpp
   physics/MathUnitTestsStoppingDistance.cpp
