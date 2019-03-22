@@ -37,17 +37,17 @@ namespace core {
 template <class TESTBASE> class RssCheckSameDirectionOtherLeadingTestBase : public TESTBASE
 {
 protected:
-  virtual ::ad_rss::world::Object &getEgoObject() override
+  ::ad_rss::world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment1;
   }
 
-  virtual ::ad_rss::world::Object &getSceneObject() override
+  ::ad_rss::world::Object &getSceneObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment7;
   }
 
-  virtual Distance getMiddleRoadSegmentLength() override
+  Distance getMiddleRoadSegmentLength() override
   {
     return Distance(2);
   }
@@ -56,17 +56,17 @@ protected:
 template <class TESTBASE> class RssCheckSameDirectionEgoLeadingTestBase : public TESTBASE
 {
 protected:
-  virtual ::ad_rss::world::Object &getEgoObject() override
+  ::ad_rss::world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment7;
   }
 
-  virtual ::ad_rss::world::Object &getSceneObject() override
+  ::ad_rss::world::Object &getSceneObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment1;
   }
 
-  virtual Distance getMiddleRoadSegmentLength() override
+  Distance getMiddleRoadSegmentLength() override
   {
     return Distance(2);
   }
@@ -112,13 +112,13 @@ TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities_NoLateralConfl
   }
 }
 
-TEST_F(RssCheckSameDirectionOtherLeadingTest, _DifferentVelocities_NoLateralConflict_2Scenes)
+TEST_F(RssCheckSameDirectionOtherLeadingTest, _DifferentVelocities_NoLateralConflict_2Objects)
 {
   worldModel.egoVehicle.occupiedRegions[0].segmentId = 0;
   worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);
   worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);
 
-  worldModel.scenes.push_back(scene);
+  worldModel.scenes.push_back(worldModel.scenes.front());
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;
   worldModel.scenes[1].object.occupiedRegions[0].segmentId = 8;
   worldModel.scenes[1].object.objectId = 2;
@@ -231,6 +231,56 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Left)
   }
 }
 
+template <class TESTBASE> class RssCheckSameDirectionEgoInTheMiddleTestBase : public TESTBASE
+{
+protected:
+  using TESTBASE::worldModel;
+  void SetUp() override
+  {
+    TESTBASE::SetUp();
+    // now we have to shorten the road areas for the two scenes otherwhise
+    // the area is too big which restricts too much to handle in our test code
+    worldModel.scenes[0].egoVehicleRoad.erase(worldModel.scenes[0].egoVehicleRoad.begin() + 2);
+    worldModel.scenes[1].egoVehicleRoad.erase(worldModel.scenes[1].egoVehicleRoad.begin());
+  }
+
+  ::ad_rss::world::Object &getEgoObject() override
+  {
+    TESTBASE::objectOnSegment3.occupiedRegions[0].latRange.minimum = ParametricValue(0.8);
+    TESTBASE::objectOnSegment3.occupiedRegions[0].latRange.maximum = ParametricValue(0.9);
+    return TESTBASE::objectOnSegment3;
+  }
+
+  uint32_t getNumberOfSceneObjects() override
+  {
+    return 2u;
+  }
+
+  ::ad_rss::world::Object &getSceneObject(uint32_t index) override
+  {
+    if (index == 0u)
+    {
+      return TESTBASE::objectOnSegment0;
+    }
+    else
+    {
+      return TESTBASE::objectOnSegment6;
+    }
+  }
+};
+
+using RssCheckSameDirectionEgoInTheMiddleTest = RssCheckSameDirectionEgoInTheMiddleTestBase<RssCheckTestBase>;
+
+TEST_F(RssCheckSameDirectionEgoInTheMiddleTest, DifferentDistances)
+{
+  performDifferentDistancesTest(state::LongitudinalResponse::BrakeMin);
+}
+
+TEST_F(RssCheckSameDirectionEgoInTheMiddleTest, DifferentVelocities)
+{
+  performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMin);
+}
+
 using RssCheckSameDirectionOtherLeadingOutOfMemoryTest
   = RssCheckSameDirectionOtherLeadingTestBase<RssCheckOutOfMemoryTestBase>;
 TEST_P(RssCheckSameDirectionOtherLeadingOutOfMemoryTest, outOfMemoryAnyTime)
@@ -242,13 +292,23 @@ INSTANTIATE_TEST_CASE_P(Range,
                         ::testing::Range(uint64_t(0u), uint64_t(50u)));
 
 using RssCheckSameDirectionEgoLeadingOutOfMemoryTest
-  = RssCheckSameDirectionOtherLeadingTestBase<RssCheckOutOfMemoryTestBase>;
+  = RssCheckSameDirectionEgoLeadingTestBase<RssCheckOutOfMemoryTestBase>;
 TEST_P(RssCheckSameDirectionEgoLeadingOutOfMemoryTest, outOfMemoryAnyTime)
 {
   performOutOfMemoryTest();
 }
 INSTANTIATE_TEST_CASE_P(Range,
                         RssCheckSameDirectionEgoLeadingOutOfMemoryTest,
+                        ::testing::Range(uint64_t(0u), uint64_t(50u)));
+
+using RssCheckSameDirectionEgoInTheMiddleOutOfMemoryTest
+  = RssCheckSameDirectionEgoInTheMiddleTestBase<RssCheckOutOfMemoryTestBase>;
+TEST_P(RssCheckSameDirectionEgoInTheMiddleOutOfMemoryTest, outOfMemoryAnyTime)
+{
+  performOutOfMemoryTest();
+}
+INSTANTIATE_TEST_CASE_P(Range,
+                        RssCheckSameDirectionEgoInTheMiddleOutOfMemoryTest,
                         ::testing::Range(uint64_t(0u), uint64_t(50u)));
 
 } // namespace core

@@ -36,12 +36,12 @@ namespace core {
 
 template <class TESTBASE> class RssCheckLateralEgoRightTestBase : public TESTBASE
 {
-  virtual ::ad_rss::world::Object &getEgoObject() override
+  ::ad_rss::world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment5;
   }
 
-  virtual ::ad_rss::world::Object &getSceneObject() override
+  ::ad_rss::world::Object &getSceneObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment3;
   }
@@ -126,12 +126,12 @@ TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Aways_From_Each_Other)
 
 template <class TESTBASE> class RssCheckLateralEgoLeftTestBase : public TESTBASE
 {
-  virtual ::ad_rss::world::Object &getEgoObject() override
+  ::ad_rss::world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment3;
   }
 
-  virtual ::ad_rss::world::Object &getSceneObject() override
+  ::ad_rss::world::Object &getSceneObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment5;
   }
