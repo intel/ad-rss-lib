@@ -49,19 +49,11 @@ matrix:
             - libgtest-dev
             - lcov
       script:
-        - mkdir build
-        - cd build
-        - cmake .. -DBUILD_HARDENING=ON -DBUILD_COVERAGE=ON
-        - make
-        - ctest -V
-        - cd ..
+        - bash .github/.travis/compile.sh debug
+        - rm -rf build
+        - bash .github/.travis/compile.sh release test
       after_script:
-        - lcov -q -c -i -d build -b . --no-external -o initialCov.info
-        - lcov -q -r initialCov.info "*CMake*CompilerId*" -o initialCov.info
-        - lcov -q -c -d build -b . --no-external -o testCov.info --rc lcov_branch_coverage=1
-        - lcov -q -a initialCov.info -a testCov.info -o coverage.info --rc lcov_branch_coverage=1
-        - lcov -q -r coverage.info "*test*" -o coverage.info --rc lcov_branch_coverage=1
-        - lcov --summary coverage.info --rc lcov_branch_coverage=1
+        - bash .github/.travis/code_coverage.sh
       after_failure:
         - tail --lines=2000 build.log
 
@@ -75,11 +67,7 @@ matrix:
             - build-essential
             - libgtest-dev
       script:
-        - mkdir build
-        - cd build
-        - cmake .. -DBUILD_HARDENING=ON -DBUILD_COVERAGE=ON
-        - make
-        - ctest -V
+        - bash .github/.travis/compile.sh release
       after_failure:
         - tail --lines=2000 build.log
 
@@ -89,7 +77,6 @@ matrix:
           packages:
             - cmake
             - build-essential
-            - cmake
             - libgtest-dev
             - doxygen
             - graphviz
@@ -151,35 +138,8 @@ matrix:
         - asciidoctor Main.adoc
         - cd ..
       after_script:
-        - lcov -q -c -i -d build -b . --no-external -o initialCov.info
-        - lcov -q -r initialCov.info "*CMake*CompilerId*" -o initialCov.info
-        - lcov -q -c -d build -b . --no-external -o testCov.info --rc lcov_branch_coverage=1
-        - lcov -q -a initialCov.info -a testCov.info -o coverage.info --rc lcov_branch_coverage=1
-        - lcov -q -r coverage.info "*test*" -o coverage.info --rc lcov_branch_coverage=1
-        - lcov --summary coverage.info --rc lcov_branch_coverage=1
-        - genhtml -q -t ad-rss-lib --branch-coverage -o coverage coverage.info
-        - git checkout -b intermediate
-        - mkdir gh-pages
-        - mkdir gh-pages/doxygen
-        - mkdir gh-pages/documentation
-        - mkdir gh-pages/coverage
-        - cp -r coverage/* gh-pages/coverage/
-        - cp -r build/doc/apidoc/* gh-pages/doxygen
-        - cp *.md gh-pages
-        - cp -r doc/images gh-pages/documentation/
-        - cp doc/Main.html gh-pages/documentation/
-        - git add gh-pages/
-        - git commit -m "Dummy commit" --no-edit
-        - git clean -fd
-        - git checkout origin/gh-pages
-        - git checkout -b gh-pages
-        - git checkout intermediate gh-pages/
-        - cp -r gh-pages/* .
-        - rm -rf gh-pages/ build/
-        - git add .
-        - git commit -am "Update documentation" --no-edit
-        - git remote add origin-pages https://${GITHUB_TOKEN}@github.com/intel/ad-rss-lib.git > /dev/null 2>&1
-        - git push --set-upstream origin-pages gh-pages
+        - bash .github/.travis/code_coverage.sh
+        - bash .github/.travis/deploy.sh
       after_failure:
         - tail --lines=2000 build.log
 
