@@ -47,6 +47,112 @@ TEST_F(RssCheckObjectTests, validateTestSetup)
   testRestrictions(accelerationRestriction);
 }
 
+TEST_F(RssCheckObjectTests, HugeEgoObjectId)
+{
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  worldModel.egoVehicle.objectId = std::numeric_limits<uint64_t>::max();
+
+  ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+  testRestrictions(accelerationRestriction);
+}
+
+TEST_F(RssCheckObjectTests, HugeOtherObjectId)
+{
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  worldModel.scenes[0].object.objectId = std::numeric_limits<uint64_t>::max();
+
+  ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+  testRestrictions(accelerationRestriction);
+}
+
+TEST_F(RssCheckObjectTests, SameObjectId)
+{
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  worldModel.scenes[0].object.objectId = worldModel.egoVehicle.objectId;
+
+  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+}
+
+TEST_F(RssCheckObjectTests, ZeroObjectId)
+{
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  worldModel.scenes[0].object.objectId = std::numeric_limits<uint64_t>::max() + 1;
+
+  ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+  testRestrictions(accelerationRestriction);
+}
+
+TEST_F(RssCheckObjectTests, EgoObjectTypeValidity)
+{
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  for (int32_t i = 0; i < 10; ++i)
+  {
+    worldModel.timeIndex++;
+    worldModel.egoVehicle.objectType = static_cast<ad_rss::world::ObjectType>(i);
+    if (worldModel.egoVehicle.objectType == ad_rss::world::ObjectType::EgoVehicle)
+    {
+      ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+      testRestrictions(accelerationRestriction);
+    }
+    else
+    {
+      ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+    }
+  }
+}
+
+TEST_F(RssCheckObjectTests, ObjectObjectTypeValidity)
+{
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  for (int32_t i = 0; i < 10; ++i)
+  {
+    worldModel.timeIndex++;
+    worldModel.scenes[0].object.objectType = static_cast<ad_rss::world::ObjectType>(i);
+    if ((worldModel.scenes[0].object.objectType == ad_rss::world::ObjectType::ArtificialObject)
+        || (worldModel.scenes[0].object.objectType == ad_rss::world::ObjectType::OtherVehicle))
+    {
+      ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction)) << i;
+      testRestrictions(accelerationRestriction);
+    }
+    else
+    {
+      ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+    }
+  }
+}
+
+TEST_F(RssCheckObjectTests, HugeEgoVelocity)
+{
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  worldModel.egoVehicle.velocity.speedLon = Speed(300);
+
+  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+}
+
+TEST_F(RssCheckObjectTests, HugeEgoAcceleration)
+{
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  worldModel.egoVehicle.dynamics.alphaLon.accelMax = Acceleration(120);
+
+  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+}
+
 TEST_F(RssCheckObjectTests, EmptyEgoVehicleOccupiedRegion)
 {
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
