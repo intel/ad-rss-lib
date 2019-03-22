@@ -50,7 +50,9 @@ set(RSS_TEST_SOURCES_WITH_PRIVATE_ACCESS
 )
 
 set(RSS_TEST_SOURCES
-  core/RssCheckTests.cpp
+  core/RssCheckObjectTests.cpp
+  core/RssCheckTimeIndexTests.cpp
+  core/RssCheckSceneTests.cpp
   core/RssCheckSameDirectionTests.cpp
   core/RssCheckOppositeDirectionTests.cpp
   core/RssCheckLateralTests.cpp

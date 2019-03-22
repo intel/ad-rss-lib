@@ -34,11 +34,11 @@
 namespace ad_rss {
 namespace core {
 
-class RssCheckTests : public RssCheckTestBaseT<testing::Test>
+class RssCheckObjectTests : public RssCheckTestBaseT<testing::Test>
 {
 };
 
-TEST_F(RssCheckTests, validateTestSetup)
+TEST_F(RssCheckObjectTests, validateTestSetup)
 {
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
@@ -47,28 +47,7 @@ TEST_F(RssCheckTests, validateTestSetup)
   testRestrictions(accelerationRestriction);
 }
 
-TEST_F(RssCheckTests, EmptyRoad)
-{
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
-
-  worldModel.scenes[0].egoVehicleRoad.clear();
-
-  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-}
-
-TEST_F(RssCheckTests, EmptyScene)
-{
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
-
-  worldModel.scenes.clear();
-
-  ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
-  testRestrictions(accelerationRestriction);
-}
-
-TEST_F(RssCheckTests, EmptyEgoOccupiedRegion)
+TEST_F(RssCheckObjectTests, EmptyEgoVehicleOccupiedRegion)
 {
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
@@ -78,7 +57,7 @@ TEST_F(RssCheckTests, EmptyEgoOccupiedRegion)
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
 
-TEST_F(RssCheckTests, WrongEgoOccupiedRegion)
+TEST_F(RssCheckObjectTests, WrongEgoVehicleOccupiedRegion)
 {
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
@@ -89,7 +68,49 @@ TEST_F(RssCheckTests, WrongEgoOccupiedRegion)
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
 
-TEST_F(RssCheckTests, NegativeEgoVelocity)
+TEST_F(RssCheckObjectTests, NegativeEgoVehicleLongitudinalAcceleration)
+{
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  worldModel.egoVehicle.dynamics.alphaLon.accelMax = Acceleration(-3);
+
+  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+}
+
+TEST_F(RssCheckObjectTests, IncorrectEgoVehicleLongitudinalAccelerationRange)
+{
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  worldModel.egoVehicle.dynamics.alphaLon.brakeMax = Acceleration(1);
+  worldModel.egoVehicle.dynamics.alphaLon.brakeMin = Acceleration(5);
+
+  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+}
+
+TEST_F(RssCheckObjectTests, IncorrectEgoVehicleLongitudinalAccelerationRange2)
+{
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  worldModel.egoVehicle.dynamics.alphaLon.brakeMin = Acceleration(1);
+  worldModel.egoVehicle.dynamics.alphaLon.brakeMinCorrect = Acceleration(5);
+
+  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+}
+
+TEST_F(RssCheckObjectTests, NegativeEgoVehicleLateralAcceleration)
+{
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  worldModel.egoVehicle.dynamics.alphaLat.brakeMin = Acceleration(-1);
+
+  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+}
+
+TEST_F(RssCheckObjectTests, NegativeEgoVehicleLongitudinalVelocity)
 {
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
@@ -99,12 +120,22 @@ TEST_F(RssCheckTests, NegativeEgoVelocity)
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
 
-TEST_F(RssCheckTests, NegativeEgoAcceleration)
+TEST_F(RssCheckObjectTests, NegativeEgoVehicleResponseTime)
 {
   ::ad_rss::world::AccelerationRestriction accelerationRestriction;
   ::ad_rss::core::RssCheck rssCheck;
 
-  worldModel.egoVehicle.dynamics.alphaLon.accelMax = Acceleration(-3);
+  worldModel.egoVehicle.responseTime = Duration(-5.);
+
+  ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+}
+
+TEST_F(RssCheckObjectTests, ZeroEgoVehicleResponseTime)
+{
+  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+  ::ad_rss::core::RssCheck rssCheck;
+
+  worldModel.egoVehicle.responseTime = Duration(0);
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
