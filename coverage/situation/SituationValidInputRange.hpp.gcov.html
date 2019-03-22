@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-21 15:35:52</td>
+            <td class="headerValue">2019-03-22 09:28:47</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -127,20 +127,20 @@
 <span class="lineNum">      56 </span>                :            :  * \note the specified input range is defined by the ranges of all members, plus:
 <a name="57"><span class="lineNum">      57 </span>                :            :  *       ::ad_rss::physics::TimeIndex(1) &lt;= timeIndex</a>
 <span class="lineNum">      58 </span>                :            :  */
-<span class="lineNum">      59 </span>                :<span class="lineCov">       4404 : inline bool withinValidInputRange(::ad_rss::situation::Situation const &amp;input)</span>
+<span class="lineNum">      59 </span>                :<span class="lineCov">       4416 : inline bool withinValidInputRange(::ad_rss::situation::Situation const &amp;input)</span>
 <span class="lineNum">      60 </span>                :            : {
 <span class="lineNum">      61 </span>                :            :   try
 <span class="lineNum">      62 </span>                :            :   {
 <span class="lineNum">      63 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
 <span class="lineNum">      64 </span>                :            :     // check for generic member input ranges
-<span class="lineNum">      65 </span>                :<span class="lineCov">       4404 :     bool const membersInValidInputRange = withinValidInputRange(input.situationType)</span>
-<span class="lineNum">      66 </span>                :<span class="lineCov">       4401 :       &amp;&amp; withinValidInputRange(input.egoVehicleState) &amp;&amp; withinValidInputRange(input.otherVehicleState)</span>
-<span class="lineNum">      67 </span>                :<span class="lineCov">       8805 :       &amp;&amp; withinValidInputRange(input.relativePosition);</span>
+<span class="lineNum">      65 </span>                :<span class="lineCov">       4416 :     bool const membersInValidInputRange = withinValidInputRange(input.situationType)</span>
+<span class="lineNum">      66 </span>                :<span class="lineCov">       4413 :       &amp;&amp; withinValidInputRange(input.egoVehicleState) &amp;&amp; withinValidInputRange(input.otherVehicleState)</span>
+<span class="lineNum">      67 </span>                :<span class="lineCov">       8829 :       &amp;&amp; withinValidInputRange(input.relativePosition);</span>
 <span class="lineNum">      68 </span>                :            : 
 <span class="lineNum">      69 </span>                :            :     // check for individual input ranges
-<span class="lineNum">      70 </span>                :<span class="lineCov">       4404 :     bool const timeIndexInInputRange = (::ad_rss::physics::TimeIndex(1) &lt;= input.timeIndex);</span>
+<span class="lineNum">      70 </span>                :<span class="lineCov">       4416 :     bool const timeIndexInInputRange = (::ad_rss::physics::TimeIndex(1) &lt;= input.timeIndex);</span>
 <span class="lineNum">      71 </span>                :            : 
-<span class="lineNum">      72 </span>                :<span class="lineCov">       4404 :     return membersInValidInputRange &amp;&amp; timeIndexInInputRange;</span>
+<span class="lineNum">      72 </span>                :<span class="lineCov">       4416 :     return membersInValidInputRange &amp;&amp; timeIndexInInputRange;</span>
 <span class="lineNum">      73 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
 <span class="lineNum">      74 </span>                :            :   }
 <span class="lineNum">      75 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes

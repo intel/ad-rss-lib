@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-21 15:35:52</td>
+            <td class="headerValue">2019-03-22 09:28:47</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">11</td>
@@ -161,10 +161,10 @@
 <span class="lineNum">      90 </span>                :            :   /*!
 <a name="91"><span class="lineNum">      91 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      92 </span>                :            :    */
-<span class="lineNum">      93 </span>                :<span class="lineCov">     322863 :   explicit ParametricValue(double const iParametricValue)</span>
-<span class="lineNum">      94 </span>                :<span class="lineCov">     322863 :     : mParametricValue(iParametricValue)</span>
+<span class="lineNum">      93 </span>                :<span class="lineCov">     324311 :   explicit ParametricValue(double const iParametricValue)</span>
+<span class="lineNum">      94 </span>                :<span class="lineCov">     324311 :     : mParametricValue(iParametricValue)</span>
 <span class="lineNum">      95 </span>                :            :   {
-<span class="lineNum">      96 </span>                :<span class="lineCov">     322863 :   }</span>
+<span class="lineNum">      96 </span>                :<span class="lineCov">     324311 :   }</span>
 <span class="lineNum">      97 </span>                :            : 
 <span class="lineNum">      98 </span>                :            :   /*!
 <span class="lineNum">      99 </span>                :            :    * \brief standard copy constructor
@@ -201,11 +201,11 @@
 <span class="lineNum">     130 </span>                :            :    *
 <a name="131"><span class="lineNum">     131 </span>                :            :    * \returns \c true if both ParametricValue are valid and can be taken as numerically equal</a>
 <span class="lineNum">     132 </span>                :            :    */
-<span class="lineNum">     133 </span>                :<span class="lineCov">      31584 :   bool operator==(const ParametricValue &amp;other) const</span>
+<span class="lineNum">     133 </span>                :<span class="lineCov">      31676 :   bool operator==(const ParametricValue &amp;other) const</span>
 <span class="lineNum">     134 </span>                :            :   {
-<span class="lineNum">     135 </span>                :<span class="lineCov">      31584 :     ensureValid();</span>
-<span class="lineNum">     136 </span>                :<span class="lineCov">      31584 :     other.ensureValid();</span>
-<span class="lineNum">     137 </span>                :<span class="lineCov">      31584 :     return std::fabs(mParametricValue - other.mParametricValue) &lt; cPrecisionValue;</span>
+<span class="lineNum">     135 </span>                :<span class="lineCov">      31676 :     ensureValid();</span>
+<span class="lineNum">     136 </span>                :<span class="lineCov">      31676 :     other.ensureValid();</span>
+<span class="lineNum">     137 </span>                :<span class="lineCov">      31676 :     return std::fabs(mParametricValue - other.mParametricValue) &lt; cPrecisionValue;</span>
 <span class="lineNum">     138 </span>                :            :   }
 <span class="lineNum">     139 </span>                :            : 
 <span class="lineNum">     140 </span>                :            :   /**
@@ -277,11 +277,11 @@
 <span class="lineNum">     206 </span>                :            :    *   this ParametricValue is numerically smaller than other.
 <a name="207"><span class="lineNum">     207 </span>                :            :    * \note the precision of ParametricValue is considered</a>
 <span class="lineNum">     208 </span>                :            :    */
-<span class="lineNum">     209 </span>                :<span class="lineCov">     351839 :   bool operator&lt;=(const ParametricValue &amp;other) const</span>
+<span class="lineNum">     209 </span>                :<span class="lineCov">     352943 :   bool operator&lt;=(const ParametricValue &amp;other) const</span>
 <span class="lineNum">     210 </span>                :            :   {
-<span class="lineNum">     211 </span>                :<span class="lineCov">     351839 :     ensureValid();</span>
-<span class="lineNum">     212 </span>                :<span class="lineCov">     351839 :     other.ensureValid();</span>
-<span class="lineNum">     213 </span>[<span class="branchCov" title="Branch 0 was taken 31534 times"> + </span><span class="branchCov" title="Branch 1 was taken 320296 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 31508 times"> + </span><span class="branchCov" title="Branch 4 was taken 26 times"> + </span>]:<span class="lineCov">     351830 :     return ((mParametricValue &lt; other.mParametricValue) || operator==(other));</span>
+<span class="lineNum">     211 </span>                :<span class="lineCov">     352943 :     ensureValid();</span>
+<span class="lineNum">     212 </span>                :<span class="lineCov">     352943 :     other.ensureValid();</span>
+<span class="lineNum">     213 </span>[<span class="branchCov" title="Branch 0 was taken 31626 times"> + </span><span class="branchCov" title="Branch 1 was taken 321308 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 31600 times"> + </span><span class="branchCov" title="Branch 4 was taken 26 times"> + </span>]:<span class="lineCov">     352934 :     return ((mParametricValue &lt; other.mParametricValue) || operator==(other));</span>
 <span class="lineNum">     214 </span>                :            :   }
 <span class="lineNum">     215 </span>                :            : 
 <span class="lineNum">     216 </span>                :            :   /**
@@ -437,9 +437,9 @@
 <span class="lineNum">     366 </span>                :            :    * \note conversion to the base type removes the physical unit;
 <a name="367"><span class="lineNum">     367 </span>                :            :    * therefore only explicit calls are allowed</a>
 <span class="lineNum">     368 </span>                :            :    */
-<span class="lineNum">     369 </span>                :<span class="lineCov">      28926 :   explicit operator double() const</span>
+<span class="lineNum">     369 </span>                :<span class="lineCov">      29022 :   explicit operator double() const</span>
 <span class="lineNum">     370 </span>                :            :   {
-<span class="lineNum">     371 </span>                :<span class="lineCov">      28926 :     return mParametricValue;</span>
+<span class="lineNum">     371 </span>                :<span class="lineCov">      29022 :     return mParametricValue;</span>
 <span class="lineNum">     372 </span>                :            :   }
 <span class="lineNum">     373 </span>                :            : 
 <span class="lineNum">     374 </span>                :            :   /*!
@@ -449,11 +449,11 @@
 <span class="lineNum">     378 </span>                :            :    * - It is normal or zero (see std::fpclassify()
 <a name="379"><span class="lineNum">     379 </span>                :            :    * - cMinParametricValueValue &lt;= value &lt;= cMaxParametricValueValue</a>
 <span class="lineNum">     380 </span>                :            :    */
-<span class="lineNum">     381 </span>                :<span class="lineCov">     795774 :   bool isValid() const</span>
+<span class="lineNum">     381 </span>                :<span class="lineCov">     798262 :   bool isValid() const</span>
 <span class="lineNum">     382 </span>                :            :   {
-<span class="lineNum">     383 </span>                :<span class="lineCov">     795774 :     auto const valueClass = std::fpclassify(mParametricValue);</span>
-<span class="lineNum">     384 </span>[<span class="branchCov" title="Branch 0 was taken 259328 times"> + </span><span class="branchCov" title="Branch 1 was taken 11 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 795763 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     795774 :     return ((valueClass == FP_NORMAL) || (valueClass == FP_ZERO)) &amp;&amp; (cMinValue &lt;= mParametricValue)</span>
-<span class="lineNum">     385 </span>[<span class="branchCov" title="Branch 0 was taken 259339 times"> + </span><span class="branchCov" title="Branch 1 was taken 536435 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 795763 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">    1591548 :       &amp;&amp; (mParametricValue &lt;= cMaxValue);</span>
+<span class="lineNum">     383 </span>                :<span class="lineCov">     798262 :     auto const valueClass = std::fpclassify(mParametricValue);</span>
+<span class="lineNum">     384 </span>[<span class="branchCov" title="Branch 0 was taken 260134 times"> + </span><span class="branchCov" title="Branch 1 was taken 11 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 798251 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     798262 :     return ((valueClass == FP_NORMAL) || (valueClass == FP_ZERO)) &amp;&amp; (cMinValue &lt;= mParametricValue)</span>
+<span class="lineNum">     385 </span>[<span class="branchCov" title="Branch 0 was taken 260145 times"> + </span><span class="branchCov" title="Branch 1 was taken 538117 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 798251 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">    1596524 :       &amp;&amp; (mParametricValue &lt;= cMaxValue);</span>
 <span class="lineNum">     386 </span>                :            :   }
 <span class="lineNum">     387 </span>                :            : 
 <span class="lineNum">     388 </span>                :            :   /*!
@@ -462,13 +462,13 @@
 <span class="lineNum">     391 </span>                :            :    * Throws an std::out_of_range() exception if the ParametricValue
 <a name="392"><span class="lineNum">     392 </span>                :            :    * in not valid (i.e. isValid() returns false)</a>
 <span class="lineNum">     393 </span>                :            :    */
-<span class="lineNum">     394 </span>                :<span class="lineCov">     795774 :   void ensureValid() const</span>
+<span class="lineNum">     394 </span>                :<span class="lineCov">     798262 :   void ensureValid() const</span>
 <span class="lineNum">     395 </span>                :            :   {
-<span class="lineNum">     396 </span>        [<span class="branchCov" title="Branch 1 was taken 11 times"> + </span><span class="branchCov" title="Branch 2 was taken 795763 times"> + </span>]:<span class="lineCov">     795774 :     if (!isValid())</span>
+<span class="lineNum">     396 </span>        [<span class="branchCov" title="Branch 1 was taken 11 times"> + </span><span class="branchCov" title="Branch 2 was taken 798251 times"> + </span>]:<span class="lineCov">     798262 :     if (!isValid())</span>
 <span class="lineNum">     397 </span>                :            :     {
 <span class="lineNum">     398 </span>                :<span class="lineCov">         11 :       throw std::out_of_range(&quot;ParametricValue value out of range&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">     399 </span>                :            :     }
-<span class="lineNum">     400 </span>                :<span class="lineCov">     795763 :   }</span>
+<span class="lineNum">     400 </span>                :<span class="lineCov">     798251 :   }</span>
 <span class="lineNum">     401 </span>                :            : 
 <span class="lineNum">     402 </span>                :            :   /*!
 <span class="lineNum">     403 </span>                :            :    * \brief ensure that the ParametricValue is valid and non zero
@@ -488,17 +488,17 @@
 <span class="lineNum">     417 </span>                :            :   /*!
 <a name="418"><span class="lineNum">     418 </span>                :            :    * \brief get minimum valid ParametricValue</a>
 <span class="lineNum">     419 </span>                :            :    */
-<span class="lineNum">     420 </span>                :<span class="lineCov">      58645 :   static ParametricValue getMin()</span>
+<span class="lineNum">     420 </span>                :<span class="lineCov">      58829 :   static ParametricValue getMin()</span>
 <span class="lineNum">     421 </span>                :            :   {
-<span class="lineNum">     422 </span>                :<span class="lineCov">      58645 :     return ParametricValue(cMinValue);</span>
+<span class="lineNum">     422 </span>                :<span class="lineCov">      58829 :     return ParametricValue(cMinValue);</span>
 <span class="lineNum">     423 </span>                :            :   }
 <span class="lineNum">     424 </span>                :            : 
 <span class="lineNum">     425 </span>                :            :   /*!
 <a name="426"><span class="lineNum">     426 </span>                :            :    * \brief get maximum valid ParametricValue</a>
 <span class="lineNum">     427 </span>                :            :    */
-<span class="lineNum">     428 </span>                :<span class="lineCov">      58640 :   static ParametricValue getMax()</span>
+<span class="lineNum">     428 </span>                :<span class="lineCov">      58824 :   static ParametricValue getMax()</span>
 <span class="lineNum">     429 </span>                :            :   {
-<span class="lineNum">     430 </span>                :<span class="lineCov">      58640 :     return ParametricValue(cMaxValue);</span>
+<span class="lineNum">     430 </span>                :<span class="lineCov">      58824 :     return ParametricValue(cMaxValue);</span>
 <span class="lineNum">     431 </span>                :            :   }
 <span class="lineNum">     432 </span>                :            : 
 <span class="lineNum">     433 </span>                :            :   /*!
@@ -564,16 +564,16 @@
 <span class="lineNum">     493 </span>                :            :   /*!
 <a name="494"><span class="lineNum">     494 </span>                :            :    * \see std::numeric_limits::lowest()</a>
 <span class="lineNum">     495 </span>                :            :    */
-<span class="lineNum">     496 </span>                :<span class="lineCov">      58645 :   static inline ::ad_rss::physics::ParametricValue lowest()</span>
+<span class="lineNum">     496 </span>                :<span class="lineCov">      58829 :   static inline ::ad_rss::physics::ParametricValue lowest()</span>
 <span class="lineNum">     497 </span>                :            :   {
-<span class="lineNum">     498 </span>                :<span class="lineCov">      58645 :     return ::ad_rss::physics::ParametricValue::getMin();</span>
+<span class="lineNum">     498 </span>                :<span class="lineCov">      58829 :     return ::ad_rss::physics::ParametricValue::getMin();</span>
 <span class="lineNum">     499 </span>                :            :   }
 <span class="lineNum">     500 </span>                :            :   /*!
 <a name="501"><span class="lineNum">     501 </span>                :            :    * \see std::numeric_limits::max()</a>
 <span class="lineNum">     502 </span>                :            :    */
-<span class="lineNum">     503 </span>                :<span class="lineCov">      58640 :   static inline ::ad_rss::physics::ParametricValue max()</span>
+<span class="lineNum">     503 </span>                :<span class="lineCov">      58824 :   static inline ::ad_rss::physics::ParametricValue max()</span>
 <span class="lineNum">     504 </span>                :            :   {
-<span class="lineNum">     505 </span>                :<span class="lineCov">      58640 :     return ::ad_rss::physics::ParametricValue::getMax();</span>
+<span class="lineNum">     505 </span>                :<span class="lineCov">      58824 :     return ::ad_rss::physics::ParametricValue::getMax();</span>
 <span class="lineNum">     506 </span>                :            :   }
 <span class="lineNum">     507 </span>                :            :   /*!
 <span class="lineNum">     508 </span>                :            :    * \see std::numeric_limits::epsilon()

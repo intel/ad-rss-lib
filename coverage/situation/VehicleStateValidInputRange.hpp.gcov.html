@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-21 15:35:52</td>
+            <td class="headerValue">2019-03-22 09:28:47</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -130,30 +130,30 @@
 <span class="lineNum">      59 </span>                :            :  *       ::ad_rss::physics::Distance(0.) &lt;= distanceToEnterIntersection &lt;= distanceToLeaveIntersection
 <a name="60"><span class="lineNum">      60 </span>                :            :  *       distanceToEnterIntersection &lt;= distanceToLeaveIntersection &lt;= ::ad_rss::physics::Distance(1e4)</a>
 <span class="lineNum">      61 </span>                :            :  */
-<span class="lineNum">      62 </span>                :<span class="lineCov">      18810 : inline bool withinValidInputRange(::ad_rss::situation::VehicleState const &amp;input)</span>
+<span class="lineNum">      62 </span>                :<span class="lineCov">      18846 : inline bool withinValidInputRange(::ad_rss::situation::VehicleState const &amp;input)</span>
 <span class="lineNum">      63 </span>                :            : {
 <span class="lineNum">      64 </span>                :            :   try
 <span class="lineNum">      65 </span>                :            :   {
 <span class="lineNum">      66 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
 <span class="lineNum">      67 </span>                :            :     // check for generic member input ranges
-<span class="lineNum">      68 </span>                :<span class="lineCov">      37611 :     bool const membersInValidInputRange = withinValidInputRange(input.velocity) &amp;&amp; withinValidInputRange(input.dynamics)</span>
-<span class="lineNum">      69 </span>                :<span class="lineCov">      18769 :       &amp;&amp; withinValidInputRange(input.responseTime) &amp;&amp; withinValidInputRange(input.distanceToEnterIntersection)</span>
-<span class="lineNum">      70 </span>                :<span class="lineCov">      37611 :       &amp;&amp; withinValidInputRange(input.distanceToLeaveIntersection);</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">      37683 :     bool const membersInValidInputRange = withinValidInputRange(input.velocity) &amp;&amp; withinValidInputRange(input.dynamics)</span>
+<span class="lineNum">      69 </span>                :<span class="lineCov">      18805 :       &amp;&amp; withinValidInputRange(input.responseTime) &amp;&amp; withinValidInputRange(input.distanceToEnterIntersection)</span>
+<span class="lineNum">      70 </span>                :<span class="lineCov">      37683 :       &amp;&amp; withinValidInputRange(input.distanceToLeaveIntersection);</span>
 <span class="lineNum">      71 </span>                :            : 
 <span class="lineNum">      72 </span>                :            :     // check for individual input ranges
-<span class="lineNum">      73 </span>                :<span class="lineCov">      56430 :     bool const responseTimeInInputRange = (::ad_rss::physics::Duration(0.) &lt; input.responseTime)</span>
-<span class="lineNum">      74 </span>                :<span class="lineCov">      37620 :       &amp;&amp; (input.responseTime &lt;= ::ad_rss::physics::Duration(10.));</span>
+<span class="lineNum">      73 </span>                :<span class="lineCov">      56538 :     bool const responseTimeInInputRange = (::ad_rss::physics::Duration(0.) &lt; input.responseTime)</span>
+<span class="lineNum">      74 </span>                :<span class="lineCov">      37692 :       &amp;&amp; (input.responseTime &lt;= ::ad_rss::physics::Duration(10.));</span>
 <span class="lineNum">      75 </span>                :            : 
 <span class="lineNum">      76 </span>                :            :     bool const distanceToEnterIntersectionInInputRange
-<span class="lineNum">      77 </span>                :<span class="lineCov">      56425 :       = (::ad_rss::physics::Distance(0.) &lt;= input.distanceToEnterIntersection)</span>
-<span class="lineNum">      78 </span>                :<span class="lineCov">      37616 :       &amp;&amp; (input.distanceToEnterIntersection &lt;= input.distanceToLeaveIntersection);</span>
+<span class="lineNum">      77 </span>                :<span class="lineCov">      56533 :       = (::ad_rss::physics::Distance(0.) &lt;= input.distanceToEnterIntersection)</span>
+<span class="lineNum">      78 </span>                :<span class="lineCov">      37688 :       &amp;&amp; (input.distanceToEnterIntersection &lt;= input.distanceToLeaveIntersection);</span>
 <span class="lineNum">      79 </span>                :            : 
 <span class="lineNum">      80 </span>                :            :     bool const distanceToLeaveIntersectionInInputRange
-<span class="lineNum">      81 </span>                :<span class="lineCov">      18806 :       = (input.distanceToEnterIntersection &lt;= input.distanceToLeaveIntersection)</span>
-<span class="lineNum">      82 </span>                :<span class="lineCov">      18810 :       &amp;&amp; (input.distanceToLeaveIntersection &lt;= ::ad_rss::physics::Distance(1e4));</span>
+<span class="lineNum">      81 </span>                :<span class="lineCov">      18842 :       = (input.distanceToEnterIntersection &lt;= input.distanceToLeaveIntersection)</span>
+<span class="lineNum">      82 </span>                :<span class="lineCov">      18846 :       &amp;&amp; (input.distanceToLeaveIntersection &lt;= ::ad_rss::physics::Distance(1e4));</span>
 <span class="lineNum">      83 </span>                :            : 
-<span class="lineNum">      84 </span>                :<span class="lineCov">      18762 :     return membersInValidInputRange &amp;&amp; responseTimeInInputRange &amp;&amp; distanceToEnterIntersectionInInputRange</span>
-<span class="lineNum">      85 </span>                :<span class="lineCov">      37572 :       &amp;&amp; distanceToLeaveIntersectionInInputRange;</span>
+<span class="lineNum">      84 </span>                :<span class="lineCov">      18798 :     return membersInValidInputRange &amp;&amp; responseTimeInInputRange &amp;&amp; distanceToEnterIntersectionInInputRange</span>
+<span class="lineNum">      85 </span>                :<span class="lineCov">      37644 :       &amp;&amp; distanceToLeaveIntersectionInInputRange;</span>
 <span class="lineNum">      86 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
 <span class="lineNum">      87 </span>                :            :   }
 <span class="lineNum">      88 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
