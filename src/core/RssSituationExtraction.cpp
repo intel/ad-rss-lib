@@ -289,6 +289,10 @@ bool extractSituationInputRangeChecked(physics::TimeIndex const &timeIndex,
   {
     return false;
   }
+  if (currentScene.object.objectId == egoVehicle.objectId)
+  {
+    return false;
+  }
 
   bool result = false;
 
