@@ -57,6 +57,7 @@ set(RSS_TEST_SOURCES
   core/RssCheckOppositeDirectionTests.cpp
   core/RssCheckLateralTests.cpp
   core/RssCheckIntersectionTests.cpp
+  core/RssCheckObjectTests.cpp
   core/RssResponseResolvingTests.cpp
   core/RssResponseTransformationTests.cpp
   core/RSSStateCombineRssStateTests.cpp
