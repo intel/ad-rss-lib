@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-22 09:33:39</td>
+            <td class="headerValue">2019-03-22 16:31:58</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -123,16 +123,16 @@
 <span class="lineNum">      52 </span>                :            :  *
 <a name="53"><span class="lineNum">      53 </span>                :            :  * \note the specified input range is defined by the valid enum literals.</a>
 <span class="lineNum">      54 </span>                :            :  */
-<span class="lineNum">      55 </span>                :<span class="lineCov">       4419 : inline bool withinValidInputRange(::ad_rss::situation::LateralRelativePosition const &amp;input)</span>
+<span class="lineNum">      55 </span>                :<span class="lineCov">       4881 : inline bool withinValidInputRange(::ad_rss::situation::LateralRelativePosition const &amp;input)</span>
 <span class="lineNum">      56 </span>                :            : {
 <span class="lineNum">      57 </span>                :            :   try
 <span class="lineNum">      58 </span>                :            :   {
 <span class="lineNum">      59 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
-<span class="lineNum">      60 </span>                :<span class="lineCov">       4419 :     return (input == ::ad_rss::situation::LateralRelativePosition::AtLeft)</span>
-<span class="lineNum">      61 </span>                :<span class="lineCov">       2889 :       || (input == ::ad_rss::situation::LateralRelativePosition::OverlapLeft)</span>
-<span class="lineNum">      62 </span>                :<span class="lineCov">       2788 :       || (input == ::ad_rss::situation::LateralRelativePosition::Overlap)</span>
+<span class="lineNum">      60 </span>                :<span class="lineCov">       4881 :     return (input == ::ad_rss::situation::LateralRelativePosition::AtLeft)</span>
+<span class="lineNum">      61 </span>                :<span class="lineCov">       3351 :       || (input == ::ad_rss::situation::LateralRelativePosition::OverlapLeft)</span>
+<span class="lineNum">      62 </span>                :<span class="lineCov">       3250 :       || (input == ::ad_rss::situation::LateralRelativePosition::Overlap)</span>
 <span class="lineNum">      63 </span>                :<span class="lineCov">        912 :       || (input == ::ad_rss::situation::LateralRelativePosition::OverlapRight)</span>
-<span class="lineNum">      64 </span>                :<span class="lineCov">       7308 :       || (input == ::ad_rss::situation::LateralRelativePosition::AtRight);</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">       8232 :       || (input == ::ad_rss::situation::LateralRelativePosition::AtRight);</span>
 <span class="lineNum">      65 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
 <span class="lineNum">      66 </span>                :            :   }
 <span class="lineNum">      67 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes

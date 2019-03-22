@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-22 09:33:39</td>
+            <td class="headerValue">2019-03-22 16:31:58</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">3</td>
@@ -110,48 +110,48 @@
 <span class="lineNum">      39 </span>                :            : 
 <a name="40"><span class="lineNum">      40 </span>                :            : namespace core {</a>
 <span class="lineNum">      41 </span>                :            : 
-<span class="lineNum">      42 </span>                :<span class="lineCov">       1090 : RssCheck::RssCheck()</span>
+<span class="lineNum">      42 </span>                :<span class="lineCov">       1194 : RssCheck::RssCheck()</span>
 <span class="lineNum">      43 </span>                :            : {
 <span class="lineNum">      44 </span>                :            :   try
 <span class="lineNum">      45 </span>                :            :   {
-<span class="lineNum">      46 </span>[<span class="branchCov" title="Branch 1 was taken 535 times"> + </span><span class="branchCov" title="Branch 2 was taken 10 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 535 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        545 :     mResponseResolving = std::unique_ptr&lt;RssResponseResolving&gt;(new RssResponseResolving());</span>
-<span class="lineNum">      47 </span>[<span class="branchCov" title="Branch 1 was taken 525 times"> + </span><span class="branchCov" title="Branch 2 was taken 10 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 525 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        545 :     mSituationChecking = std::unique_ptr&lt;RssSituationChecking&gt;(new RssSituationChecking());</span>
+<span class="lineNum">      46 </span>[<span class="branchCov" title="Branch 1 was taken 586 times"> + </span><span class="branchCov" title="Branch 2 was taken 11 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 586 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        597 :     mResponseResolving = std::unique_ptr&lt;RssResponseResolving&gt;(new RssResponseResolving());</span>
+<span class="lineNum">      47 </span>[<span class="branchCov" title="Branch 1 was taken 575 times"> + </span><span class="branchCov" title="Branch 2 was taken 11 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 575 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        597 :     mSituationChecking = std::unique_ptr&lt;RssSituationChecking&gt;(new RssSituationChecking());</span>
 <span class="lineNum">      48 </span>                :            :   }
-<span class="lineNum">      49 </span>        [<span class="branchCov" title="Branch 2 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         40 :   catch (...)</span>
+<span class="lineNum">      49 </span>        [<span class="branchCov" title="Branch 2 was taken 22 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         44 :   catch (...)</span>
 <span class="lineNum">      50 </span>                :            :   {
-<span class="lineNum">      51 </span>                :<span class="lineCov">         20 :     mResponseResolving = nullptr;</span>
-<span class="lineNum">      52 </span>                :<span class="lineCov">         20 :     mSituationChecking = nullptr;</span>
+<span class="lineNum">      51 </span>                :<span class="lineCov">         22 :     mResponseResolving = nullptr;</span>
+<span class="lineNum">      52 </span>                :<span class="lineCov">         22 :     mSituationChecking = nullptr;</span>
 <span class="lineNum">      53 </span>                :            :   }
-<a name="54"><span class="lineNum">      54 </span>                :<span class="lineCov">        545 : }</span></a>
+<a name="54"><span class="lineNum">      54 </span>                :<span class="lineCov">        597 : }</span></a>
 <span class="lineNum">      55 </span>                :            : 
-<span class="lineNum">      56 </span>                :<span class="lineCov">       1090 : RssCheck::~RssCheck()</span>
+<span class="lineNum">      56 </span>                :<span class="lineCov">       1194 : RssCheck::~RssCheck()</span>
 <span class="lineNum">      57 </span>                :            : {
-<a name="58"><span class="lineNum">      58 </span>                :<span class="lineCov">        545 : }</span></a>
+<a name="58"><span class="lineNum">      58 </span>                :<span class="lineCov">        597 : }</span></a>
 <span class="lineNum">      59 </span>                :            : 
-<span class="lineNum">      60 </span>                :<span class="lineCov">       3484 : bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &amp;worldModel,</span>
+<span class="lineNum">      60 </span>                :<span class="lineCov">       3767 : bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &amp;worldModel,</span>
 <span class="lineNum">      61 </span>                :            :                                                 world::AccelerationRestriction &amp;accelerationRestriction)
 <span class="lineNum">      62 </span>                :            : {
-<span class="lineNum">      63 </span>                :<span class="lineCov">       3484 :   bool result = false;</span>
+<span class="lineNum">      63 </span>                :<span class="lineCov">       3767 :   bool result = false;</span>
 <span class="lineNum">      64 </span>                :            :   // global try catch block to ensure this library call doesn't throw an exception
 <span class="lineNum">      65 </span>                :            :   try
 <span class="lineNum">      66 </span>                :            :   {
-<span class="lineNum">      67 </span>[<span class="branchCov" title="Branch 1 was taken 3464 times"> + </span><span class="branchCov" title="Branch 2 was taken 20 times"> + </span>][<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 3464 times"> + </span>]:<span class="lineCov">       3484 :     if (!static_cast&lt;bool&gt;(mResponseResolving) || !static_cast&lt;bool&gt;(mSituationChecking))</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 20 times"> + </span><span class="branchCov" title="Branch 7 was taken 3464 times"> + </span>]
+<span class="lineNum">      67 </span>[<span class="branchCov" title="Branch 1 was taken 3745 times"> + </span><span class="branchCov" title="Branch 2 was taken 22 times"> + </span>][<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 3745 times"> + </span>]:<span class="lineCov">       3767 :     if (!static_cast&lt;bool&gt;(mResponseResolving) || !static_cast&lt;bool&gt;(mSituationChecking))</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 22 times"> + </span><span class="branchCov" title="Branch 7 was taken 3745 times"> + </span>]
 <span class="lineNum">      68 </span>                :            :     {
-<span class="lineNum">      69 </span>                :<span class="lineCov">         20 :       return false;</span>
+<span class="lineNum">      69 </span>                :<span class="lineCov">         22 :       return false;</span>
 <span class="lineNum">      70 </span>                :            :     }
 <span class="lineNum">      71 </span>                :            : 
-<span class="lineNum">      72 </span>                :<span class="lineCov">       6928 :     situation::SituationVector situationVector;</span>
-<span class="lineNum">      73 </span>        [<span class="branchCov" title="Branch 1 was taken 3464 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       3464 :     result = RssSituationExtraction::extractSituations(worldModel, situationVector);</span>
+<span class="lineNum">      72 </span>                :<span class="lineCov">       7490 :     situation::SituationVector situationVector;</span>
+<span class="lineNum">      73 </span>        [<span class="branchCov" title="Branch 1 was taken 3745 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       3745 :     result = RssSituationExtraction::extractSituations(worldModel, situationVector);</span>
 <span class="lineNum">      74 </span>                :            : 
-<span class="lineNum">      75 </span>                :<span class="lineCov">       6928 :     state::ResponseStateVector responseStateVector;</span>
-<span class="lineNum">      76 </span>        [<span class="branchCov" title="Branch 0 was taken 3307 times"> + </span><span class="branchCov" title="Branch 1 was taken 157 times"> + </span>]:<span class="lineCov">       3464 :     if (result)</span>
+<span class="lineNum">      75 </span>                :<span class="lineCov">       7490 :     state::ResponseStateVector responseStateVector;</span>
+<span class="lineNum">      76 </span>        [<span class="branchCov" title="Branch 0 was taken 3558 times"> + </span><span class="branchCov" title="Branch 1 was taken 187 times"> + </span>]:<span class="lineCov">       3745 :     if (result)</span>
 <span class="lineNum">      77 </span>                :            :     {
-<span class="lineNum">      78 </span>        [<span class="branchCov" title="Branch 2 was taken 3307 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       3307 :       result = mSituationChecking-&gt;checkSituations(situationVector, responseStateVector);</span>
+<span class="lineNum">      78 </span>        [<span class="branchCov" title="Branch 2 was taken 3558 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       3558 :       result = mSituationChecking-&gt;checkSituations(situationVector, responseStateVector);</span>
 <span class="lineNum">      79 </span>                :            :     }
 <span class="lineNum">      80 </span>                :            : 
-<span class="lineNum">      81 </span>[<span class="branchCov" title="Branch 0 was taken 3278 times"> + </span><span class="branchCov" title="Branch 1 was taken 186 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchCov" title="Branch 4 was taken 3277 times"> + </span>]:<span class="lineCov">       3464 :     if (result &amp;&amp; responseStateVector.empty())</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 1 time"> + </span><span class="branchCov" title="Branch 6 was taken 3463 times"> + </span>]
+<span class="lineNum">      81 </span>[<span class="branchCov" title="Branch 0 was taken 3507 times"> + </span><span class="branchCov" title="Branch 1 was taken 238 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchCov" title="Branch 4 was taken 3506 times"> + </span>]:<span class="lineCov">       3745 :     if (result &amp;&amp; responseStateVector.empty())</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 1 time"> + </span><span class="branchCov" title="Branch 6 was taken 3744 times"> + </span>]
 <span class="lineNum">      82 </span>                :            :     {
 <span class="lineNum">      83 </span>                :            :       // if the worldModel contains no relevant object (or no objects at all)
 <span class="lineNum">      84 </span>                :            :       // the responseStateVector will be empty. Thus, we need to add a &quot;all safe&quot; response
@@ -167,16 +167,16 @@
 <span class="lineNum">      94 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :       responseStateVector.push_back(safeResponse);</span>
 <span class="lineNum">      95 </span>                :            :     }
 <span class="lineNum">      96 </span>                :            : 
-<span class="lineNum">      97 </span>                :<span class="lineCov">       3464 :     state::ResponseState properResponse;</span>
+<span class="lineNum">      97 </span>                :<span class="lineCov">       3745 :     state::ResponseState properResponse;</span>
 <span class="lineNum">      98 </span>                :            : 
-<span class="lineNum">      99 </span>        [<span class="branchCov" title="Branch 0 was taken 3278 times"> + </span><span class="branchCov" title="Branch 1 was taken 186 times"> + </span>]:<span class="lineCov">       3464 :     if (result)</span>
+<span class="lineNum">      99 </span>        [<span class="branchCov" title="Branch 0 was taken 3507 times"> + </span><span class="branchCov" title="Branch 1 was taken 238 times"> + </span>]:<span class="lineCov">       3745 :     if (result)</span>
 <span class="lineNum">     100 </span>                :            :     {
-<span class="lineNum">     101 </span>        [<span class="branchCov" title="Branch 2 was taken 3278 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       3278 :       result = mResponseResolving-&gt;provideProperResponse(responseStateVector, properResponse);</span>
+<span class="lineNum">     101 </span>        [<span class="branchCov" title="Branch 2 was taken 3507 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       3507 :       result = mResponseResolving-&gt;provideProperResponse(responseStateVector, properResponse);</span>
 <span class="lineNum">     102 </span>                :            :     }
 <span class="lineNum">     103 </span>                :            : 
-<span class="lineNum">     104 </span>        [<span class="branchCov" title="Branch 0 was taken 3268 times"> + </span><span class="branchCov" title="Branch 1 was taken 196 times"> + </span>]:<span class="lineCov">       3464 :     if (result)</span>
+<span class="lineNum">     104 </span>        [<span class="branchCov" title="Branch 0 was taken 3495 times"> + </span><span class="branchCov" title="Branch 1 was taken 250 times"> + </span>]:<span class="lineCov">       3745 :     if (result)</span>
 <span class="lineNum">     105 </span>                :            :     {
-<span class="lineNum">     106 </span>        [<span class="branchCov" title="Branch 1 was taken 3268 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       3268 :       result = RssResponseTransformation::transformProperResponse(worldModel, properResponse, accelerationRestriction);</span>
+<span class="lineNum">     106 </span>        [<span class="branchCov" title="Branch 1 was taken 3495 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       3495 :       result = RssResponseTransformation::transformProperResponse(worldModel, properResponse, accelerationRestriction);</span>
 <span class="lineNum">     107 </span>                :            :     }
 <span class="lineNum">     108 </span>                :            :   }
 <span class="lineNum">     109 </span>                :            :   // LCOV_EXCL_START: unreachable code, keep to be on the safe side
@@ -185,7 +185,7 @@
 <span class="lineNum">     112 </span>                :            :     result = false;
 <span class="lineNum">     113 </span>                :            :   }
 <span class="lineNum">     114 </span>                :            :   // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
-<span class="lineNum">     115 </span>                :<span class="lineCov">       3484 :   return result;</span>
+<span class="lineNum">     115 </span>                :<span class="lineCov">       3767 :   return result;</span>
 <span class="lineNum">     116 </span>                :            : }
 <span class="lineNum">     117 </span>                :            : 
 <span class="lineNum">     118 </span>                :            : } // namespace core

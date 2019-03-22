@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-22 09:33:39</td>
+            <td class="headerValue">2019-03-22 16:31:58</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -109,76 +109,76 @@
 <span class="lineNum">      38 </span>                :            : namespace core {
 <a name="39"><span class="lineNum">      39 </span>                :            : namespace RssResponseTransformation {</a>
 <span class="lineNum">      40 </span>                :            : 
-<span class="lineNum">      41 </span>                :<span class="lineCov">       3274 : bool transformProperResponse(world::WorldModel const &amp;worldModel,</span>
+<span class="lineNum">      41 </span>                :<span class="lineCov">       3501 : bool transformProperResponse(world::WorldModel const &amp;worldModel,</span>
 <span class="lineNum">      42 </span>                :            :                              state::ResponseState const &amp;response,
 <span class="lineNum">      43 </span>                :            :                              world::AccelerationRestriction &amp;accelerationRestriction)
 <span class="lineNum">      44 </span>                :            : {
-<span class="lineNum">      45 </span>[<span class="branchCov" title="Branch 1 was taken 3273 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 4 was taken 4 times"> + </span><span class="branchCov" title="Branch 5 was taken 3269 times"> + </span>]:<span class="lineCov">       3274 :   if (!withinValidInputRange(worldModel) || !withinValidInputRange(response))</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 5 times"> + </span><span class="branchCov" title="Branch 7 was taken 3269 times"> + </span>]
+<span class="lineNum">      45 </span>[<span class="branchCov" title="Branch 1 was taken 3500 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 4 was taken 4 times"> + </span><span class="branchCov" title="Branch 5 was taken 3496 times"> + </span>]:<span class="lineCov">       3501 :   if (!withinValidInputRange(worldModel) || !withinValidInputRange(response))</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 5 times"> + </span><span class="branchCov" title="Branch 7 was taken 3496 times"> + </span>]
 <span class="lineNum">      46 </span>                :            :   {
 <span class="lineNum">      47 </span>                :<span class="lineCov">          5 :     return false;</span>
 <span class="lineNum">      48 </span>                :            :   }
 <span class="lineNum">      49 </span>                :            : 
-<span class="lineNum">      50 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3269 times"> + </span>]:<span class="lineCov">       3269 :   if (worldModel.timeIndex != response.timeIndex)</span>
+<span class="lineNum">      50 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3496 times"> + </span>]:<span class="lineCov">       3496 :   if (worldModel.timeIndex != response.timeIndex)</span>
 <span class="lineNum">      51 </span>                :            :   {
 <span class="lineNum">      52 </span>                :<span class="lineNoCov">          0 :     return false;</span>
 <span class="lineNum">      53 </span>                :            :   }
-<span class="lineNum">      54 </span>                :<span class="lineCov">       3269 :   accelerationRestriction.timeIndex = response.timeIndex;</span>
+<span class="lineNum">      54 </span>                :<span class="lineCov">       3496 :   accelerationRestriction.timeIndex = response.timeIndex;</span>
 <span class="lineNum">      55 </span>                :            : 
 <span class="lineNum">      56 </span>                :            :   /**
 <span class="lineNum">      57 </span>                :            :    * If there is no action required RssResponseTransformation should send the maximum allowed acceleration/brake values
 <span class="lineNum">      58 </span>                :            :    * given by the world model
 <span class="lineNum">      59 </span>                :            :    */
 <span class="lineNum">      60 </span>                :            :   // LCOV_EXCL_BR_START: unreachable exceptions due to valid input range checks
-<span class="lineNum">      61 </span>                :<span class="lineCov">       3269 :   accelerationRestriction.longitudinalRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax;</span>
-<span class="lineNum">      62 </span>                :<span class="lineCov">       3269 :   switch (response.longitudinalState.response)</span>
+<span class="lineNum">      61 </span>                :<span class="lineCov">       3496 :   accelerationRestriction.longitudinalRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax;</span>
+<span class="lineNum">      62 </span>                :<span class="lineCov">       3496 :   switch (response.longitudinalState.response)</span>
 <span class="lineNum">      63 </span>                :            :   {
 <span class="lineNum">      64 </span>                :            :     case ::ad_rss::state::LongitudinalResponse::BrakeMin:
-<span class="lineNum">      65 </span>                :<span class="lineCov">        732 :       accelerationRestriction.longitudinalRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMin;</span>
-<span class="lineNum">      66 </span>                :<span class="lineCov">        732 :       break;</span>
+<span class="lineNum">      65 </span>                :<span class="lineCov">        850 :       accelerationRestriction.longitudinalRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMin;</span>
+<span class="lineNum">      66 </span>                :<span class="lineCov">        850 :       break;</span>
 <span class="lineNum">      67 </span>                :            :     case ::ad_rss::state::LongitudinalResponse::BrakeMinCorrect:
 <span class="lineNum">      68 </span>                :<span class="lineCov">        520 :       accelerationRestriction.longitudinalRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMinCorrect;</span>
 <span class="lineNum">      69 </span>                :<span class="lineCov">        520 :       break;</span>
 <span class="lineNum">      70 </span>                :            :     case ::ad_rss::state::LongitudinalResponse::None:
-<span class="lineNum">      71 </span>                :<span class="lineCov">       2017 :       accelerationRestriction.longitudinalRange.maximum = worldModel.egoVehicle.dynamics.alphaLon.accelMax;</span>
-<span class="lineNum">      72 </span>                :<span class="lineCov">       2017 :       break;</span>
+<span class="lineNum">      71 </span>                :<span class="lineCov">       2126 :       accelerationRestriction.longitudinalRange.maximum = worldModel.egoVehicle.dynamics.alphaLon.accelMax;</span>
+<span class="lineNum">      72 </span>                :<span class="lineCov">       2126 :       break;</span>
 <span class="lineNum">      73 </span>                :            :     default:
 <span class="lineNum">      74 </span>                :            :       return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
 <span class="lineNum">      75 </span>                :            :       break;
 <span class="lineNum">      76 </span>                :            :   }
 <span class="lineNum">      77 </span>                :            : 
-<span class="lineNum">      78 </span>                :<span class="lineCov">       3269 :   switch (response.lateralStateLeft.response)</span>
+<span class="lineNum">      78 </span>                :<span class="lineCov">       3496 :   switch (response.lateralStateLeft.response)</span>
 <span class="lineNum">      79 </span>                :            :   {
 <span class="lineNum">      80 </span>                :            :     case ::ad_rss::state::LateralResponse::BrakeMin:
 <span class="lineNum">      81 </span>                :<span class="lineCov">         11 :       accelerationRestriction.lateralLeftRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;</span>
 <span class="lineNum">      82 </span>                :<span class="lineCov">         11 :       accelerationRestriction.lateralLeftRange.minimum = std::numeric_limits&lt;physics::Acceleration&gt;::lowest();</span>
 <span class="lineNum">      83 </span>                :<span class="lineCov">         11 :       break;</span>
 <span class="lineNum">      84 </span>                :            :     case ::ad_rss::state::LateralResponse::None:
-<span class="lineNum">      85 </span>                :<span class="lineCov">       3258 :       accelerationRestriction.lateralLeftRange.maximum = worldModel.egoVehicle.dynamics.alphaLat.accelMax;</span>
-<span class="lineNum">      86 </span>                :<span class="lineCov">       3258 :       accelerationRestriction.lateralLeftRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;</span>
-<span class="lineNum">      87 </span>                :<span class="lineCov">       3258 :       break;</span>
+<span class="lineNum">      85 </span>                :<span class="lineCov">       3485 :       accelerationRestriction.lateralLeftRange.maximum = worldModel.egoVehicle.dynamics.alphaLat.accelMax;</span>
+<span class="lineNum">      86 </span>                :<span class="lineCov">       3485 :       accelerationRestriction.lateralLeftRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;</span>
+<span class="lineNum">      87 </span>                :<span class="lineCov">       3485 :       break;</span>
 <span class="lineNum">      88 </span>                :            :     default:
 <span class="lineNum">      89 </span>                :            :       return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
 <span class="lineNum">      90 </span>                :            :       break;
 <span class="lineNum">      91 </span>                :            :   }
 <span class="lineNum">      92 </span>                :            : 
-<span class="lineNum">      93 </span>                :<span class="lineCov">       3269 :   switch (response.lateralStateRight.response)</span>
+<span class="lineNum">      93 </span>                :<span class="lineCov">       3496 :   switch (response.lateralStateRight.response)</span>
 <span class="lineNum">      94 </span>                :            :   {
 <span class="lineNum">      95 </span>                :            :     case ::ad_rss::state::LateralResponse::BrakeMin:
 <span class="lineNum">      96 </span>                :<span class="lineCov">         21 :       accelerationRestriction.lateralRightRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;</span>
 <span class="lineNum">      97 </span>                :<span class="lineCov">         21 :       accelerationRestriction.lateralRightRange.minimum = std::numeric_limits&lt;physics::Acceleration&gt;::lowest();</span>
 <span class="lineNum">      98 </span>                :<span class="lineCov">         21 :       break;</span>
 <span class="lineNum">      99 </span>                :            :     case ::ad_rss::state::LateralResponse::None:
-<span class="lineNum">     100 </span>                :<span class="lineCov">       3248 :       accelerationRestriction.lateralRightRange.maximum = worldModel.egoVehicle.dynamics.alphaLat.accelMax;</span>
-<span class="lineNum">     101 </span>                :<span class="lineCov">       3248 :       accelerationRestriction.lateralRightRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;</span>
-<span class="lineNum">     102 </span>                :<span class="lineCov">       3248 :       break;</span>
+<span class="lineNum">     100 </span>                :<span class="lineCov">       3475 :       accelerationRestriction.lateralRightRange.maximum = worldModel.egoVehicle.dynamics.alphaLat.accelMax;</span>
+<span class="lineNum">     101 </span>                :<span class="lineCov">       3475 :       accelerationRestriction.lateralRightRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;</span>
+<span class="lineNum">     102 </span>                :<span class="lineCov">       3475 :       break;</span>
 <span class="lineNum">     103 </span>                :            :     default:
 <span class="lineNum">     104 </span>                :            :       return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
 <span class="lineNum">     105 </span>                :            :       break;
 <span class="lineNum">     106 </span>                :            :   }
 <span class="lineNum">     107 </span>                :            :   // LCOV_EXCL_BR_STOP
 <span class="lineNum">     108 </span>                :            : 
-<span class="lineNum">     109 </span>                :<span class="lineCov">       3274 :   return true;</span>
+<span class="lineNum">     109 </span>                :<span class="lineCov">       3501 :   return true;</span>
 <span class="lineNum">     110 </span>                :            : }
 <span class="lineNum">     111 </span>                :            : 
 <span class="lineNum">     112 </span>                :            : } // namespace RssResponseTransformation
