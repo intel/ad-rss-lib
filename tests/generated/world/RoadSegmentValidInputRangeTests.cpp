@@ -103,7 +103,7 @@ TEST(RoadSegmentValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   elementWidth.maximum = elementWidth.minimum;
   elementWidth.minimum = elementWidth.maximum;
   element.width = elementWidth;
-  value.resize(1000, element);
+  value.resize(20, element);
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
@@ -133,7 +133,7 @@ TEST(RoadSegmentValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax
   elementWidth.maximum = elementWidth.minimum;
   elementWidth.minimum = elementWidth.maximum;
   element.width = elementWidth;
-  value.resize(1001, element);
+  value.resize(21, element);
   ASSERT_FALSE(withinValidInputRange(value));
 }
 

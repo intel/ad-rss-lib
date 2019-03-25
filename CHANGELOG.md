@@ -2,6 +2,7 @@
 * Added support for Clang 5 and Clang 6
 * Added checks to enforce increasing time indices
 * Consider timeIndex=0 as error
+* Reduced maximum vector input sizes to more feasible numbers (20 lane segments, 50 road segments, 100 scenes)
 
 ## Release 1.1.0
 * Made generated files and tests more explicit by moving into respective folders
