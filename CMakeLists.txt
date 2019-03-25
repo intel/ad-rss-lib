@@ -47,8 +47,13 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.8)
         message(FATAL_ERROR "GCC version must be at least 4.8!")
     endif()
+elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    # require at least clang 5
+    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 5.0)
+        message(FATAL_ERROR "Clang version must be at least 5!")
+    endif()
 else()
-    message(WARNING "You are using an unsupported compiler! Compilation has only been tested with GCC.")
+    message(WARNING "You are using an unsupported compiler! Compilation has only been tested with GCC/Clang.")
 endif()
 
 # enable a bunch of warning
