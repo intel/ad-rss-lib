@@ -182,7 +182,7 @@ TEST(SituationVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   ::ad_rss::physics::Distance elementRelativePositionLateralDistance(0.);
   elementRelativePosition.lateralDistance = elementRelativePositionLateralDistance;
   element.relativePosition = elementRelativePosition;
-  value.resize(1000, element);
+  value.resize(100, element);
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
@@ -321,7 +321,7 @@ TEST(SituationVectorValidInputRangeTests, testValidInputRangeHigherThanInputRang
   ::ad_rss::physics::Distance elementRelativePositionLateralDistance(0.);
   elementRelativePosition.lateralDistance = elementRelativePositionLateralDistance;
   element.relativePosition = elementRelativePosition;
-  value.resize(1001, element);
+  value.resize(101, element);
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
@@ -331,6 +331,6 @@ TEST(SituationVectorValidInputRangeTests, testValidInputRangeElementTypeInvalid)
   ::ad_rss::situation::Situation element;
   ::ad_rss::situation::SituationType elementSituationType(static_cast<::ad_rss::situation::SituationType>(-1));
   element.situationType = elementSituationType;
-  value.resize(999, element);
+  value.resize(99, element);
   ASSERT_FALSE(withinValidInputRange(value));
 }

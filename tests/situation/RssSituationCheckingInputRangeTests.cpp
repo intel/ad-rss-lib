@@ -64,6 +64,11 @@ protected:
   state::ResponseState responseState;
 };
 
+TEST_F(RssSituationCheckingInputRangeTests, validateTestSetup)
+{
+  EXPECT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
+}
+
 /**
  * Invalid longitudinal acceleration
  */
@@ -321,11 +326,36 @@ TEST_F(RssSituationCheckingInputRangeTests,
   ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
 }
 
-TEST_F(RssSituationCheckingInputRangeTests, situationVectorTooBig)
+TEST_F(RssSituationCheckingInputRangeTests, situationVectorSizeRange)
+{
+  for (size_t situationCount = 0u; situationCount < 110u; situationCount += 5u)
+  {
+    situation::SituationVector situationVector;
+    state::ResponseStateVector responseStateVector;
+    situationVector.resize(situationCount, situation);
+    for (size_t i = 0u; i < situationCount; ++i)
+    {
+      situation.situationId = i;
+      situation.timeIndex = situationCount;
+    }
+
+    if (situationCount <= 100u)
+    {
+      EXPECT_TRUE(situationChecking.checkSituations(situationVector, responseStateVector));
+    }
+    else
+    {
+      EXPECT_FALSE(situationChecking.checkSituations(situationVector, responseStateVector));
+    }
+  }
+}
+
+TEST_F(RssSituationCheckingInputRangeTests, situationVectorDifferentTimestamps)
 {
   situation::SituationVector situationVector;
   state::ResponseStateVector responseStateVector;
-  situationVector.resize(1001, situation);
+  situationVector.resize(2, situation);
+  situationVector[0].timeIndex++;
   ASSERT_FALSE(situationChecking.checkSituations(situationVector, responseStateVector));
 }
 
