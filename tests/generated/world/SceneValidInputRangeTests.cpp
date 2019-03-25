@@ -334,7 +334,7 @@ TEST(SceneValidInputRangeTests, testValidInputRangeEgoVehicleRoadTooSmall)
     = invalidInitializedMemberRoadAreaElementElementWidth.maximum;
   invalidInitializedMemberRoadAreaElementElement.width = invalidInitializedMemberRoadAreaElementElementWidth;
   invalidInitializedMemberRoadAreaElement.resize(1, invalidInitializedMemberRoadAreaElementElement);
-  invalidInitializedMember.resize(1001, invalidInitializedMemberRoadAreaElement);
+  invalidInitializedMember.resize(51, invalidInitializedMemberRoadAreaElement);
   value.egoVehicleRoad = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -438,7 +438,7 @@ TEST(SceneValidInputRangeTests, testValidInputRangeEgoVehicleRoadTooBig)
     = invalidInitializedMemberRoadAreaElementElementWidth.maximum;
   invalidInitializedMemberRoadAreaElementElement.width = invalidInitializedMemberRoadAreaElementElementWidth;
   invalidInitializedMemberRoadAreaElement.resize(1 + 1, invalidInitializedMemberRoadAreaElementElement);
-  invalidInitializedMember.resize(1001, invalidInitializedMemberRoadAreaElement);
+  invalidInitializedMember.resize(51, invalidInitializedMemberRoadAreaElement);
   value.egoVehicleRoad = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -542,7 +542,7 @@ TEST(SceneValidInputRangeTests, testValidInputRangeIntersectingRoadTooSmall)
     = invalidInitializedMemberRoadAreaElementElementWidth.maximum;
   invalidInitializedMemberRoadAreaElementElement.width = invalidInitializedMemberRoadAreaElementElementWidth;
   invalidInitializedMemberRoadAreaElement.resize(1, invalidInitializedMemberRoadAreaElementElement);
-  invalidInitializedMember.resize(1001, invalidInitializedMemberRoadAreaElement);
+  invalidInitializedMember.resize(51, invalidInitializedMemberRoadAreaElement);
   value.intersectingRoad = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -646,7 +646,7 @@ TEST(SceneValidInputRangeTests, testValidInputRangeIntersectingRoadTooBig)
     = invalidInitializedMemberRoadAreaElementElementWidth.maximum;
   invalidInitializedMemberRoadAreaElementElement.width = invalidInitializedMemberRoadAreaElementElementWidth;
   invalidInitializedMemberRoadAreaElement.resize(1 + 1, invalidInitializedMemberRoadAreaElementElement);
-  invalidInitializedMember.resize(1001, invalidInitializedMemberRoadAreaElement);
+  invalidInitializedMember.resize(51, invalidInitializedMemberRoadAreaElement);
   value.intersectingRoad = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
