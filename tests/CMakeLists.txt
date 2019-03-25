@@ -102,8 +102,9 @@ target_link_libraries(${EXEC_NAME} PRIVATE
 # Disable warnings for gtest and gtest_main
 if(TARGET gtest)
   set_property(TARGET gtest APPEND_STRING PROPERTY COMPILE_FLAGS " -w")
+  get_target_property(lib_include_dirs gtest INCLUDE_DIRECTORIES)
+  target_include_directories(${EXEC_NAME} SYSTEM PRIVATE ${lib_include_dirs})
 endif()
-# Disable warnings for gtest and gtest_main
 if(TARGET gtest_main)
   set_property(TARGET gtest_main APPEND_STRING PROPERTY COMPILE_FLAGS " -w")
 endif()
@@ -115,7 +116,10 @@ target_compile_options(${EXEC_NAME} PRIVATE ${COVERAGE_FLAG} ${TARGET_COMPILE_OP
 # Some warnings are due to required tests, e.g. force move operator
 # Disable these warnings
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-  target_compile_options(${EXEC_NAME} PRIVATE -Wno-pessimizing-move -Wno-unused-comparison)
+  target_compile_options(${EXEC_NAME} PRIVATE -Wno-unused-comparison)
+  if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 3.5)
+    target_compile_options(${EXEC_NAME} PRIVATE -Wno-pessimizing-move)
+  endif()
 endif()
 set_target_properties(${EXEC_NAME} PROPERTIES LINK_FLAGS "${COVERAGE_FLAG} ${HARDENING_LD_FLAGS}")
 
