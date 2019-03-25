@@ -31,27 +31,27 @@
             <td class="headerValue">ad-rss-lib</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">104</td>
-            <td class="headerCovTableEntry">104</td>
-            <td class="headerCovTableEntryHi">100.0 %</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">19</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-22 16:31:58</td>
+            <td class="headerValue">2019-03-25 14:56:57</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">28</td>
-            <td class="headerCovTableEntry">28</td>
-            <td class="headerCovTableEntryHi">100.0 %</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">48</td>
-            <td class="headerCovTableEntry">48</td>
-            <td class="headerCovTableEntryHi">100.0 %</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -159,20 +159,20 @@
 <span class="lineNum">      88 </span>                :            :    * \brief default constructor
 <span class="lineNum">      89 </span>                :            :    *
 <span class="lineNum">      90 </span>                :            :    * The default value of DurationSquared is:
-<a name="91"><span class="lineNum">      91 </span>                :            :    * std::numeric_limits&lt;double&gt;::quiet_NaN()</a>
+<span class="lineNum">      91 </span>                :            :    * std::numeric_limits&lt;double&gt;::quiet_NaN()
 <span class="lineNum">      92 </span>                :            :    */
-<span class="lineNum">      93 </span>                :<span class="lineCov">         13 :   DurationSquared()</span>
-<span class="lineNum">      94 </span>                :<span class="lineCov">         13 :     : mDurationSquared(std::numeric_limits&lt;double&gt;::quiet_NaN())</span>
+<span class="lineNum">      93 </span>                :            :   DurationSquared()
+<span class="lineNum">      94 </span>                :            :     : mDurationSquared(std::numeric_limits&lt;double&gt;::quiet_NaN())
 <span class="lineNum">      95 </span>                :            :   {
-<span class="lineNum">      96 </span>                :<span class="lineCov">         13 :   }</span>
+<span class="lineNum">      96 </span>                :            :   }
 <span class="lineNum">      97 </span>                :            : 
 <span class="lineNum">      98 </span>                :            :   /*!
 <a name="99"><span class="lineNum">      99 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">     100 </span>                :            :    */
-<span class="lineNum">     101 </span>                :<span class="lineCov">       1895 :   explicit DurationSquared(double const iDurationSquared)</span>
-<span class="lineNum">     102 </span>                :<span class="lineCov">       1895 :     : mDurationSquared(iDurationSquared)</span>
+<span class="lineNum">     101 </span>                :<span class="lineNoCov">          0 :   explicit DurationSquared(double const iDurationSquared)</span>
+<span class="lineNum">     102 </span>                :<span class="lineNoCov">          0 :     : mDurationSquared(iDurationSquared)</span>
 <span class="lineNum">     103 </span>                :            :   {
-<span class="lineNum">     104 </span>                :<span class="lineCov">       1895 :   }</span>
+<span class="lineNum">     104 </span>                :<span class="lineNoCov">          0 :   }</span>
 <span class="lineNum">     105 </span>                :            : 
 <span class="lineNum">     106 </span>                :            :   /*!
 <span class="lineNum">     107 </span>                :            :    * \brief standard copy constructor
@@ -207,13 +207,13 @@
 <span class="lineNum">     136 </span>                :            :    *
 <span class="lineNum">     137 </span>                :            :    * \param[in] other Other DurationSquared
 <span class="lineNum">     138 </span>                :            :    *
-<a name="139"><span class="lineNum">     139 </span>                :            :    * \returns \c true if both DurationSquared are valid and can be taken as numerically equal</a>
+<span class="lineNum">     139 </span>                :            :    * \returns \c true if both DurationSquared are valid and can be taken as numerically equal
 <span class="lineNum">     140 </span>                :            :    */
-<span class="lineNum">     141 </span>                :<span class="lineCov">         38 :   bool operator==(const DurationSquared &amp;other) const</span>
+<span class="lineNum">     141 </span>                :            :   bool operator==(const DurationSquared &amp;other) const
 <span class="lineNum">     142 </span>                :            :   {
-<span class="lineNum">     143 </span>                :<span class="lineCov">         38 :     ensureValid();</span>
-<span class="lineNum">     144 </span>                :<span class="lineCov">         36 :     other.ensureValid();</span>
-<span class="lineNum">     145 </span>                :<span class="lineCov">         34 :     return std::fabs(mDurationSquared - other.mDurationSquared) &lt; cPrecisionValue;</span>
+<span class="lineNum">     143 </span>                :            :     ensureValid();
+<span class="lineNum">     144 </span>                :            :     other.ensureValid();
+<span class="lineNum">     145 </span>                :            :     return std::fabs(mDurationSquared - other.mDurationSquared) &lt; cPrecisionValue;
 <span class="lineNum">     146 </span>                :            :   }
 <span class="lineNum">     147 </span>                :            : 
 <span class="lineNum">     148 </span>                :            :   /**
@@ -221,11 +221,11 @@
 <span class="lineNum">     150 </span>                :            :    *
 <span class="lineNum">     151 </span>                :            :    * \param[in] other Other DurationSquared.
 <span class="lineNum">     152 </span>                :            :    *
-<a name="153"><span class="lineNum">     153 </span>                :            :    * \returns \c true if one of the DurationSquared is not valid or they can be taken as numerically different</a>
+<span class="lineNum">     153 </span>                :            :    * \returns \c true if one of the DurationSquared is not valid or they can be taken as numerically different
 <span class="lineNum">     154 </span>                :            :    */
-<span class="lineNum">     155 </span>                :<span class="lineCov">         11 :   bool operator!=(const DurationSquared &amp;other) const</span>
+<span class="lineNum">     155 </span>                :            :   bool operator!=(const DurationSquared &amp;other) const
 <span class="lineNum">     156 </span>                :            :   {
-<span class="lineNum">     157 </span>                :<span class="lineCov">         11 :     return !operator==(other);</span>
+<span class="lineNum">     157 </span>                :            :     return !operator==(other);
 <span class="lineNum">     158 </span>                :            :   }
 <span class="lineNum">     159 </span>                :            : 
 <span class="lineNum">     160 </span>                :            :   /**
@@ -235,13 +235,13 @@
 <span class="lineNum">     164 </span>                :            :    *
 <span class="lineNum">     165 </span>                :            :    * \returns \c true if both DurationSquared are valid and
 <span class="lineNum">     166 </span>                :            :    *   this DurationSquared is strictly numerically greater than other.
-<a name="167"><span class="lineNum">     167 </span>                :            :    * \note the precision of DurationSquared is considered</a>
+<span class="lineNum">     167 </span>                :            :    * \note the precision of DurationSquared is considered
 <span class="lineNum">     168 </span>                :            :    */
-<span class="lineNum">     169 </span>                :<span class="lineCov">          5 :   bool operator&gt;(const DurationSquared &amp;other) const</span>
+<span class="lineNum">     169 </span>                :            :   bool operator&gt;(const DurationSquared &amp;other) const
 <span class="lineNum">     170 </span>                :            :   {
-<span class="lineNum">     171 </span>                :<span class="lineCov">          5 :     ensureValid();</span>
-<span class="lineNum">     172 </span>                :<span class="lineCov">          4 :     other.ensureValid();</span>
-<span class="lineNum">     173 </span>[<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchCov" title="Branch 4 was taken 1 time"> + </span>]:<span class="lineCov">          3 :     return (mDurationSquared &gt; other.mDurationSquared) &amp;&amp; operator!=(other);</span>
+<span class="lineNum">     171 </span>                :            :     ensureValid();
+<span class="lineNum">     172 </span>                :            :     other.ensureValid();
+<span class="lineNum">     173 </span>                :            :     return (mDurationSquared &gt; other.mDurationSquared) &amp;&amp; operator!=(other);
 <span class="lineNum">     174 </span>                :            :   }
 <span class="lineNum">     175 </span>                :            : 
 <span class="lineNum">     176 </span>                :            :   /**
@@ -251,13 +251,13 @@
 <span class="lineNum">     180 </span>                :            :    *
 <span class="lineNum">     181 </span>                :            :    * \returns \c true if both DurationSquared are valid and
 <span class="lineNum">     182 </span>                :            :    *   this DurationSquared is strictly numerically smaller than other.
-<a name="183"><span class="lineNum">     183 </span>                :            :    * \note the precision of DurationSquared is considered</a>
+<span class="lineNum">     183 </span>                :            :    * \note the precision of DurationSquared is considered
 <span class="lineNum">     184 </span>                :            :    */
-<span class="lineNum">     185 </span>                :<span class="lineCov">          5 :   bool operator&lt;(const DurationSquared &amp;other) const</span>
+<span class="lineNum">     185 </span>                :            :   bool operator&lt;(const DurationSquared &amp;other) const
 <span class="lineNum">     186 </span>                :            :   {
-<span class="lineNum">     187 </span>                :<span class="lineCov">          5 :     ensureValid();</span>
-<span class="lineNum">     188 </span>                :<span class="lineCov">          4 :     other.ensureValid();</span>
-<span class="lineNum">     189 </span>[<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchCov" title="Branch 4 was taken 1 time"> + </span>]:<span class="lineCov">          3 :     return (mDurationSquared &lt; other.mDurationSquared) &amp;&amp; operator!=(other);</span>
+<span class="lineNum">     187 </span>                :            :     ensureValid();
+<span class="lineNum">     188 </span>                :            :     other.ensureValid();
+<span class="lineNum">     189 </span>                :            :     return (mDurationSquared &lt; other.mDurationSquared) &amp;&amp; operator!=(other);
 <span class="lineNum">     190 </span>                :            :   }
 <span class="lineNum">     191 </span>                :            : 
 <span class="lineNum">     192 </span>                :            :   /**
@@ -267,13 +267,13 @@
 <span class="lineNum">     196 </span>                :            :    *
 <span class="lineNum">     197 </span>                :            :    * \returns \c true if both DurationSquared are valid and
 <span class="lineNum">     198 </span>                :            :    *   this DurationSquared is numerically greater than other.
-<a name="199"><span class="lineNum">     199 </span>                :            :    * \note the precision of DurationSquared is considered</a>
+<span class="lineNum">     199 </span>                :            :    * \note the precision of DurationSquared is considered
 <span class="lineNum">     200 </span>                :            :    */
-<span class="lineNum">     201 </span>                :<span class="lineCov">          7 :   bool operator&gt;=(const DurationSquared &amp;other) const</span>
+<span class="lineNum">     201 </span>                :            :   bool operator&gt;=(const DurationSquared &amp;other) const
 <span class="lineNum">     202 </span>                :            :   {
-<span class="lineNum">     203 </span>                :<span class="lineCov">          7 :     ensureValid();</span>
-<span class="lineNum">     204 </span>                :<span class="lineCov">          6 :     other.ensureValid();</span>
-<span class="lineNum">     205 </span>[<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchCov" title="Branch 4 was taken 1 time"> + </span>]:<span class="lineCov">          5 :     return ((mDurationSquared &gt; other.mDurationSquared) || operator==(other));</span>
+<span class="lineNum">     203 </span>                :            :     ensureValid();
+<span class="lineNum">     204 </span>                :            :     other.ensureValid();
+<span class="lineNum">     205 </span>                :            :     return ((mDurationSquared &gt; other.mDurationSquared) || operator==(other));
 <span class="lineNum">     206 </span>                :            :   }
 <span class="lineNum">     207 </span>                :            : 
 <span class="lineNum">     208 </span>                :            :   /**
@@ -283,13 +283,13 @@
 <span class="lineNum">     212 </span>                :            :    *
 <span class="lineNum">     213 </span>                :            :    * \returns \c true if both DurationSquared are valid and
 <span class="lineNum">     214 </span>                :            :    *   this DurationSquared is numerically smaller than other.
-<a name="215"><span class="lineNum">     215 </span>                :            :    * \note the precision of DurationSquared is considered</a>
+<span class="lineNum">     215 </span>                :            :    * \note the precision of DurationSquared is considered
 <span class="lineNum">     216 </span>                :            :    */
-<span class="lineNum">     217 </span>                :<span class="lineCov">         32 :   bool operator&lt;=(const DurationSquared &amp;other) const</span>
+<span class="lineNum">     217 </span>                :            :   bool operator&lt;=(const DurationSquared &amp;other) const
 <span class="lineNum">     218 </span>                :            :   {
-<span class="lineNum">     219 </span>                :<span class="lineCov">         32 :     ensureValid();</span>
-<span class="lineNum">     220 </span>                :<span class="lineCov">         31 :     other.ensureValid();</span>
-<span class="lineNum">     221 </span>[<span class="branchCov" title="Branch 0 was taken 11 times"> + </span><span class="branchCov" title="Branch 1 was taken 16 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 6 times"> + </span><span class="branchCov" title="Branch 4 was taken 5 times"> + </span>]:<span class="lineCov">         27 :     return ((mDurationSquared &lt; other.mDurationSquared) || operator==(other));</span>
+<span class="lineNum">     219 </span>                :            :     ensureValid();
+<span class="lineNum">     220 </span>                :            :     other.ensureValid();
+<span class="lineNum">     221 </span>                :            :     return ((mDurationSquared &lt; other.mDurationSquared) || operator==(other));
 <span class="lineNum">     222 </span>                :            :   }
 <span class="lineNum">     223 </span>                :            : 
 <span class="lineNum">     224 </span>                :            :   /**
@@ -302,13 +302,13 @@
 <span class="lineNum">     231 </span>                :            :    * \note throws a std::out_of_range exception if one of the two operands or the result of
 <a name="232"><span class="lineNum">     232 </span>                :            :    *   the operation is not valid</a>
 <span class="lineNum">     233 </span>                :            :    */
-<span class="lineNum">     234 </span>                :<span class="lineCov">        601 :   DurationSquared operator+(const DurationSquared &amp;other) const</span>
+<span class="lineNum">     234 </span>                :<span class="lineNoCov">          0 :   DurationSquared operator+(const DurationSquared &amp;other) const</span>
 <span class="lineNum">     235 </span>                :            :   {
-<span class="lineNum">     236 </span>        [<span class="branchCov" title="Branch 1 was taken 600 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">        601 :     ensureValid();</span>
-<span class="lineNum">     237 </span>        [<span class="branchCov" title="Branch 1 was taken 599 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">        600 :     other.ensureValid();</span>
-<span class="lineNum">     238 </span>                :<span class="lineCov">        599 :     DurationSquared const result(mDurationSquared + other.mDurationSquared);</span>
-<span class="lineNum">     239 </span>        [<span class="branchCov" title="Branch 1 was taken 598 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">        599 :     result.ensureValid();</span>
-<span class="lineNum">     240 </span>                :<span class="lineCov">        598 :     return result;</span>
+<span class="lineNum">     236 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     ensureValid();</span>
+<span class="lineNum">     237 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     other.ensureValid();</span>
+<span class="lineNum">     238 </span>                :<span class="lineNoCov">          0 :     DurationSquared const result(mDurationSquared + other.mDurationSquared);</span>
+<span class="lineNum">     239 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     result.ensureValid();</span>
+<span class="lineNum">     240 </span>                :<span class="lineNoCov">          0 :     return result;</span>
 <span class="lineNum">     241 </span>                :            :   }
 <span class="lineNum">     242 </span>                :            : 
 <span class="lineNum">     243 </span>                :            :   /**
@@ -319,15 +319,15 @@
 <span class="lineNum">     248 </span>                :            :    * \returns Result of arithmetic operation.
 <span class="lineNum">     249 </span>                :            :    *
 <span class="lineNum">     250 </span>                :            :    * \note throws a std::out_of_range exception if one of the two operands or the result of
-<a name="251"><span class="lineNum">     251 </span>                :            :    *   the operation is not valid</a>
+<span class="lineNum">     251 </span>                :            :    *   the operation is not valid
 <span class="lineNum">     252 </span>                :            :    */
-<span class="lineNum">     253 </span>                :<span class="lineCov">          4 :   DurationSquared &amp;operator+=(const DurationSquared &amp;other)</span>
+<span class="lineNum">     253 </span>                :            :   DurationSquared &amp;operator+=(const DurationSquared &amp;other)
 <span class="lineNum">     254 </span>                :            :   {
-<span class="lineNum">     255 </span>                :<span class="lineCov">          4 :     ensureValid();</span>
-<span class="lineNum">     256 </span>                :<span class="lineCov">          3 :     other.ensureValid();</span>
-<span class="lineNum">     257 </span>                :<span class="lineCov">          2 :     mDurationSquared += other.mDurationSquared;</span>
-<span class="lineNum">     258 </span>                :<span class="lineCov">          2 :     ensureValid();</span>
-<span class="lineNum">     259 </span>                :<span class="lineCov">          1 :     return *this;</span>
+<span class="lineNum">     255 </span>                :            :     ensureValid();
+<span class="lineNum">     256 </span>                :            :     other.ensureValid();
+<span class="lineNum">     257 </span>                :            :     mDurationSquared += other.mDurationSquared;
+<span class="lineNum">     258 </span>                :            :     ensureValid();
+<span class="lineNum">     259 </span>                :            :     return *this;
 <span class="lineNum">     260 </span>                :            :   }
 <span class="lineNum">     261 </span>                :            : 
 <span class="lineNum">     262 </span>                :            :   /**
@@ -338,15 +338,15 @@
 <span class="lineNum">     267 </span>                :            :    * \returns Result of arithmetic operation.
 <span class="lineNum">     268 </span>                :            :    *
 <span class="lineNum">     269 </span>                :            :    * \note throws a std::out_of_range exception if one of the two operands or the result of
-<a name="270"><span class="lineNum">     270 </span>                :            :    *   the operation is not valid</a>
+<span class="lineNum">     270 </span>                :            :    *   the operation is not valid
 <span class="lineNum">     271 </span>                :            :    */
-<span class="lineNum">     272 </span>                :<span class="lineCov">          4 :   DurationSquared operator-(const DurationSquared &amp;other) const</span>
+<span class="lineNum">     272 </span>                :            :   DurationSquared operator-(const DurationSquared &amp;other) const
 <span class="lineNum">     273 </span>                :            :   {
-<span class="lineNum">     274 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          4 :     ensureValid();</span>
-<span class="lineNum">     275 </span>        [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          3 :     other.ensureValid();</span>
-<span class="lineNum">     276 </span>                :<span class="lineCov">          2 :     DurationSquared const result(mDurationSquared - other.mDurationSquared);</span>
-<span class="lineNum">     277 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     result.ensureValid();</span>
-<span class="lineNum">     278 </span>                :<span class="lineCov">          1 :     return result;</span>
+<span class="lineNum">     274 </span>                :            :     ensureValid();
+<span class="lineNum">     275 </span>                :            :     other.ensureValid();
+<span class="lineNum">     276 </span>                :            :     DurationSquared const result(mDurationSquared - other.mDurationSquared);
+<span class="lineNum">     277 </span>                :            :     result.ensureValid();
+<span class="lineNum">     278 </span>                :            :     return result;
 <span class="lineNum">     279 </span>                :            :   }
 <span class="lineNum">     280 </span>                :            : 
 <span class="lineNum">     281 </span>                :            :   /**
@@ -357,15 +357,15 @@
 <span class="lineNum">     286 </span>                :            :    * \returns Result of arithmetic operation.
 <span class="lineNum">     287 </span>                :            :    *
 <span class="lineNum">     288 </span>                :            :    * \note throws a std::out_of_range exception if one of the two operands or the result of
-<a name="289"><span class="lineNum">     289 </span>                :            :    *   the operation is not valid</a>
+<span class="lineNum">     289 </span>                :            :    *   the operation is not valid
 <span class="lineNum">     290 </span>                :            :    */
-<span class="lineNum">     291 </span>                :<span class="lineCov">          4 :   DurationSquared operator-=(const DurationSquared &amp;other)</span>
+<span class="lineNum">     291 </span>                :            :   DurationSquared operator-=(const DurationSquared &amp;other)
 <span class="lineNum">     292 </span>                :            :   {
-<span class="lineNum">     293 </span>                :<span class="lineCov">          4 :     ensureValid();</span>
-<span class="lineNum">     294 </span>                :<span class="lineCov">          3 :     other.ensureValid();</span>
-<span class="lineNum">     295 </span>                :<span class="lineCov">          2 :     mDurationSquared -= other.mDurationSquared;</span>
-<span class="lineNum">     296 </span>                :<span class="lineCov">          2 :     ensureValid();</span>
-<span class="lineNum">     297 </span>                :<span class="lineCov">          1 :     return *this;</span>
+<span class="lineNum">     293 </span>                :            :     ensureValid();
+<span class="lineNum">     294 </span>                :            :     other.ensureValid();
+<span class="lineNum">     295 </span>                :            :     mDurationSquared -= other.mDurationSquared;
+<span class="lineNum">     296 </span>                :            :     ensureValid();
+<span class="lineNum">     297 </span>                :            :     return *this;
 <span class="lineNum">     298 </span>                :            :   }
 <span class="lineNum">     299 </span>                :            : 
 <span class="lineNum">     300 </span>                :            :   /**
@@ -376,14 +376,14 @@
 <span class="lineNum">     305 </span>                :            :    * \returns Result of arithmetic operation.
 <span class="lineNum">     306 </span>                :            :    *
 <span class="lineNum">     307 </span>                :            :    * \note throws a std::out_of_range exception if \c value or the result of
-<a name="308"><span class="lineNum">     308 </span>                :            :    *   the operation is not valid</a>
+<span class="lineNum">     308 </span>                :            :    *   the operation is not valid
 <span class="lineNum">     309 </span>                :            :    */
-<span class="lineNum">     310 </span>                :<span class="lineCov">          4 :   DurationSquared operator*(const double &amp;scalar) const</span>
+<span class="lineNum">     310 </span>                :            :   DurationSquared operator*(const double &amp;scalar) const
 <span class="lineNum">     311 </span>                :            :   {
-<span class="lineNum">     312 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          4 :     ensureValid();</span>
-<span class="lineNum">     313 </span>                :<span class="lineCov">          3 :     DurationSquared const result(mDurationSquared * scalar);</span>
-<span class="lineNum">     314 </span>        [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          3 :     result.ensureValid();</span>
-<span class="lineNum">     315 </span>                :<span class="lineCov">          2 :     return result;</span>
+<span class="lineNum">     312 </span>                :            :     ensureValid();
+<span class="lineNum">     313 </span>                :            :     DurationSquared const result(mDurationSquared * scalar);
+<span class="lineNum">     314 </span>                :            :     result.ensureValid();
+<span class="lineNum">     315 </span>                :            :     return result;
 <span class="lineNum">     316 </span>                :            :   }
 <span class="lineNum">     317 </span>                :            : 
 <span class="lineNum">     318 </span>                :            :   /**
@@ -394,14 +394,14 @@
 <span class="lineNum">     323 </span>                :            :    * \returns Result of arithmetic operation.
 <span class="lineNum">     324 </span>                :            :    *
 <span class="lineNum">     325 </span>                :            :    * \note throws a std::out_of_range exception if this or the result of
-<a name="326"><span class="lineNum">     326 </span>                :            :    *   the operation is not valid or other is zero</a>
+<span class="lineNum">     326 </span>                :            :    *   the operation is not valid or other is zero
 <span class="lineNum">     327 </span>                :            :    */
-<span class="lineNum">     328 </span>                :<span class="lineCov">          5 :   DurationSquared operator/(const double &amp;scalar) const</span>
+<span class="lineNum">     328 </span>                :            :   DurationSquared operator/(const double &amp;scalar) const
 <span class="lineNum">     329 </span>                :            :   {
-<span class="lineNum">     330 </span>                :<span class="lineCov">          5 :     DurationSquared const scalarDurationSquared(scalar);</span>
-<span class="lineNum">     331 </span>        [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span>]:<span class="lineCov">          5 :     DurationSquared const result(operator/(scalarDurationSquared));</span>
-<span class="lineNum">     332 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     result.ensureValid();</span>
-<span class="lineNum">     333 </span>                :<span class="lineCov">          1 :     return result;</span>
+<span class="lineNum">     330 </span>                :            :     DurationSquared const scalarDurationSquared(scalar);
+<span class="lineNum">     331 </span>                :            :     DurationSquared const result(operator/(scalarDurationSquared));
+<span class="lineNum">     332 </span>                :            :     result.ensureValid();
+<span class="lineNum">     333 </span>                :            :     return result;
 <span class="lineNum">     334 </span>                :            :   }
 <span class="lineNum">     335 </span>                :            : 
 <span class="lineNum">     336 </span>                :            :   /**
@@ -413,14 +413,14 @@
 <span class="lineNum">     342 </span>                :            :    *
 <span class="lineNum">     343 </span>                :            :    * \note throws a std::out_of_range exception if one of the two operands or the result of
 <span class="lineNum">     344 </span>                :            :    *   the operation is not valid or other is zero
-<a name="345"><span class="lineNum">     345 </span>                :            :    * \note since DurationSquared is a type with physical unit, the division results in the dimensionless type.</a>
+<span class="lineNum">     345 </span>                :            :    * \note since DurationSquared is a type with physical unit, the division results in the dimensionless type.
 <span class="lineNum">     346 </span>                :            :    */
-<span class="lineNum">     347 </span>                :<span class="lineCov">          9 :   double operator/(const DurationSquared &amp;other) const</span>
+<span class="lineNum">     347 </span>                :            :   double operator/(const DurationSquared &amp;other) const
 <span class="lineNum">     348 </span>                :            :   {
-<span class="lineNum">     349 </span>                :<span class="lineCov">          9 :     ensureValid();</span>
-<span class="lineNum">     350 </span>                :<span class="lineCov">          7 :     other.ensureValidNonZero();</span>
-<span class="lineNum">     351 </span>                :<span class="lineCov">          3 :     double const result = mDurationSquared / other.mDurationSquared;</span>
-<span class="lineNum">     352 </span>                :<span class="lineCov">          3 :     return result;</span>
+<span class="lineNum">     349 </span>                :            :     ensureValid();
+<span class="lineNum">     350 </span>                :            :     other.ensureValidNonZero();
+<span class="lineNum">     351 </span>                :            :     double const result = mDurationSquared / other.mDurationSquared;
+<span class="lineNum">     352 </span>                :            :     return result;
 <span class="lineNum">     353 </span>                :            :   }
 <span class="lineNum">     354 </span>                :            : 
 <span class="lineNum">     355 </span>                :            :   /**
@@ -429,14 +429,14 @@
 <span class="lineNum">     358 </span>                :            :    * \returns Result of arithmetic operation.
 <span class="lineNum">     359 </span>                :            :    *
 <span class="lineNum">     360 </span>                :            :    * \note throws a std::out_of_range exception if this or the result of
-<a name="361"><span class="lineNum">     361 </span>                :            :    *   the operation is not valid</a>
+<span class="lineNum">     361 </span>                :            :    *   the operation is not valid
 <span class="lineNum">     362 </span>                :            :    */
-<span class="lineNum">     363 </span>                :<span class="lineCov">          2 :   DurationSquared operator-() const</span>
+<span class="lineNum">     363 </span>                :            :   DurationSquared operator-() const
 <span class="lineNum">     364 </span>                :            :   {
-<span class="lineNum">     365 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     ensureValid();</span>
-<span class="lineNum">     366 </span>                :<span class="lineCov">          1 :     DurationSquared const result(-mDurationSquared);</span>
-<span class="lineNum">     367 </span>                :<span class="lineCov">          1 :     result.ensureValid(); // LCOV_EXCL_BR_LINE Some types do not throw an exception</span>
-<span class="lineNum">     368 </span>                :<span class="lineCov">          1 :     return result;</span>
+<span class="lineNum">     365 </span>                :            :     ensureValid();
+<span class="lineNum">     366 </span>                :            :     DurationSquared const result(-mDurationSquared);
+<span class="lineNum">     367 </span>                :            :     result.ensureValid(); // LCOV_EXCL_BR_LINE Some types do not throw an exception
+<span class="lineNum">     368 </span>                :            :     return result;
 <span class="lineNum">     369 </span>                :            :   }
 <span class="lineNum">     370 </span>                :            : 
 <span class="lineNum">     371 </span>                :            :   /*!
@@ -445,9 +445,9 @@
 <span class="lineNum">     374 </span>                :            :    * \note conversion to the base type removes the physical unit;
 <a name="375"><span class="lineNum">     375 </span>                :            :    * therefore only explicit calls are allowed</a>
 <span class="lineNum">     376 </span>                :            :    */
-<span class="lineNum">     377 </span>                :<span class="lineCov">        667 :   explicit operator double() const</span>
+<span class="lineNum">     377 </span>                :<span class="lineNoCov">          0 :   explicit operator double() const</span>
 <span class="lineNum">     378 </span>                :            :   {
-<span class="lineNum">     379 </span>                :<span class="lineCov">        667 :     return mDurationSquared;</span>
+<span class="lineNum">     379 </span>                :<span class="lineNoCov">          0 :     return mDurationSquared;</span>
 <span class="lineNum">     380 </span>                :            :   }
 <span class="lineNum">     381 </span>                :            : 
 <span class="lineNum">     382 </span>                :            :   /*!
@@ -457,11 +457,11 @@
 <span class="lineNum">     386 </span>                :            :    * - It is normal or zero (see std::fpclassify()
 <a name="387"><span class="lineNum">     387 </span>                :            :    * - cMinDurationSquaredValue &lt;= value &lt;= cMaxDurationSquaredValue</a>
 <span class="lineNum">     388 </span>                :            :    */
-<span class="lineNum">     389 </span>                :<span class="lineCov">       3238 :   bool isValid() const</span>
+<span class="lineNum">     389 </span>                :<span class="lineNoCov">          0 :   bool isValid() const</span>
 <span class="lineNum">     390 </span>                :            :   {
-<span class="lineNum">     391 </span>                :<span class="lineCov">       3238 :     auto const valueClass = std::fpclassify(mDurationSquared);</span>
-<span class="lineNum">     392 </span>[<span class="branchCov" title="Branch 0 was taken 182 times"> + </span><span class="branchCov" title="Branch 1 was taken 33 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 3201 times"> + </span><span class="branchCov" title="Branch 3 was taken 4 times"> + </span>]:<span class="lineCov">       3238 :     return ((valueClass == FP_NORMAL) || (valueClass == FP_ZERO)) &amp;&amp; (cMinValue &lt;= mDurationSquared)</span>
-<span class="lineNum">     393 </span>[<span class="branchCov" title="Branch 0 was taken 215 times"> + </span><span class="branchCov" title="Branch 1 was taken 3023 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 3195 times"> + </span><span class="branchCov" title="Branch 3 was taken 6 times"> + </span>]:<span class="lineCov">       6476 :       &amp;&amp; (mDurationSquared &lt;= cMaxValue);</span>
+<span class="lineNum">     391 </span>                :<span class="lineNoCov">          0 :     auto const valueClass = std::fpclassify(mDurationSquared);</span>
+<span class="lineNum">     392 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     return ((valueClass == FP_NORMAL) || (valueClass == FP_ZERO)) &amp;&amp; (cMinValue &lt;= mDurationSquared)</span>
+<span class="lineNum">     393 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :       &amp;&amp; (mDurationSquared &lt;= cMaxValue);</span>
 <span class="lineNum">     394 </span>                :            :   }
 <span class="lineNum">     395 </span>                :            : 
 <span class="lineNum">     396 </span>                :            :   /*!
@@ -470,52 +470,52 @@
 <span class="lineNum">     399 </span>                :            :    * Throws an std::out_of_range() exception if the DurationSquared
 <a name="400"><span class="lineNum">     400 </span>                :            :    * in not valid (i.e. isValid() returns false)</a>
 <span class="lineNum">     401 </span>                :            :    */
-<span class="lineNum">     402 </span>                :<span class="lineCov">       3221 :   void ensureValid() const</span>
+<span class="lineNum">     402 </span>                :<span class="lineNoCov">          0 :   void ensureValid() const</span>
 <span class="lineNum">     403 </span>                :            :   {
-<span class="lineNum">     404 </span>        [<span class="branchCov" title="Branch 1 was taken 37 times"> + </span><span class="branchCov" title="Branch 2 was taken 3184 times"> + </span>]:<span class="lineCov">       3221 :     if (!isValid())</span>
+<span class="lineNum">     404 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (!isValid())</span>
 <span class="lineNum">     405 </span>                :            :     {
-<span class="lineNum">     406 </span>                :<span class="lineCov">         37 :       throw std::out_of_range(&quot;DurationSquared value out of range&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">     406 </span>                :<span class="lineNoCov">          0 :       throw std::out_of_range(&quot;DurationSquared value out of range&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">     407 </span>                :            :     }
-<span class="lineNum">     408 </span>                :<span class="lineCov">       3184 :   }</span>
+<span class="lineNum">     408 </span>                :<span class="lineNoCov">          0 :   }</span>
 <span class="lineNum">     409 </span>                :            : 
 <span class="lineNum">     410 </span>                :            :   /*!
 <span class="lineNum">     411 </span>                :            :    * \brief ensure that the DurationSquared is valid and non zero
 <span class="lineNum">     412 </span>                :            :    *
 <span class="lineNum">     413 </span>                :            :    * Throws an std::out_of_range() exception if the DurationSquared
-<a name="414"><span class="lineNum">     414 </span>                :            :    * in not valid or zero (i.e. isValid() returns false)</a>
+<span class="lineNum">     414 </span>                :            :    * in not valid or zero (i.e. isValid() returns false)
 <span class="lineNum">     415 </span>                :            :    */
-<span class="lineNum">     416 </span>                :<span class="lineCov">          9 :   void ensureValidNonZero() const</span>
+<span class="lineNum">     416 </span>                :            :   void ensureValidNonZero() const
 <span class="lineNum">     417 </span>                :            :   {
-<span class="lineNum">     418 </span>                :<span class="lineCov">          9 :     ensureValid();</span>
-<span class="lineNum">     419 </span>                :<span class="lineCov">          6 :     if (operator==(DurationSquared(0.))) // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">     418 </span>                :            :     ensureValid();
+<span class="lineNum">     419 </span>                :            :     if (operator==(DurationSquared(0.))) // LCOV_EXCL_BR_LINE
 <span class="lineNum">     420 </span>                :            :     {
-<span class="lineNum">     421 </span>                :<span class="lineCov">          3 :       throw std::out_of_range(&quot;DurationSquared value is zero&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">     421 </span>                :            :       throw std::out_of_range(&quot;DurationSquared value is zero&quot;); // LCOV_EXCL_BR_LINE
 <span class="lineNum">     422 </span>                :            :     }
-<span class="lineNum">     423 </span>                :<span class="lineCov">          3 :   }</span>
+<span class="lineNum">     423 </span>                :            :   }
 <span class="lineNum">     424 </span>                :            : 
 <span class="lineNum">     425 </span>                :            :   /*!
-<a name="426"><span class="lineNum">     426 </span>                :            :    * \brief get minimum valid DurationSquared</a>
+<span class="lineNum">     426 </span>                :            :    * \brief get minimum valid DurationSquared
 <span class="lineNum">     427 </span>                :            :    */
-<span class="lineNum">     428 </span>                :<span class="lineCov">         13 :   static DurationSquared getMin()</span>
+<span class="lineNum">     428 </span>                :            :   static DurationSquared getMin()
 <span class="lineNum">     429 </span>                :            :   {
-<span class="lineNum">     430 </span>                :<span class="lineCov">         13 :     return DurationSquared(cMinValue);</span>
+<span class="lineNum">     430 </span>                :            :     return DurationSquared(cMinValue);
 <span class="lineNum">     431 </span>                :            :   }
 <span class="lineNum">     432 </span>                :            : 
 <span class="lineNum">     433 </span>                :            :   /*!
-<a name="434"><span class="lineNum">     434 </span>                :            :    * \brief get maximum valid DurationSquared</a>
+<span class="lineNum">     434 </span>                :            :    * \brief get maximum valid DurationSquared
 <span class="lineNum">     435 </span>                :            :    */
-<span class="lineNum">     436 </span>                :<span class="lineCov">         10 :   static DurationSquared getMax()</span>
+<span class="lineNum">     436 </span>                :            :   static DurationSquared getMax()
 <span class="lineNum">     437 </span>                :            :   {
-<span class="lineNum">     438 </span>                :<span class="lineCov">         10 :     return DurationSquared(cMaxValue);</span>
+<span class="lineNum">     438 </span>                :            :     return DurationSquared(cMaxValue);
 <span class="lineNum">     439 </span>                :            :   }
 <span class="lineNum">     440 </span>                :            : 
 <span class="lineNum">     441 </span>                :            :   /*!
 <span class="lineNum">     442 </span>                :            :    * \brief get assumed accuracy of DurationSquared
-<a name="443"><span class="lineNum">     443 </span>                :            :    *   used in comparison operator==(), operator!=().</a>
+<span class="lineNum">     443 </span>                :            :    *   used in comparison operator==(), operator!=().
 <span class="lineNum">     444 </span>                :            :    */
-<span class="lineNum">     445 </span>                :<span class="lineCov">          3 :   static DurationSquared getPrecision()</span>
+<span class="lineNum">     445 </span>                :            :   static DurationSquared getPrecision()
 <span class="lineNum">     446 </span>                :            :   {
-<span class="lineNum">     447 </span>                :<span class="lineCov">          3 :     return DurationSquared(cPrecisionValue);</span>
+<span class="lineNum">     447 </span>                :            :     return DurationSquared(cPrecisionValue);
 <span class="lineNum">     448 </span>                :            :   }
 <span class="lineNum">     449 </span>                :            : 
 <span class="lineNum">     450 </span>                :            : private:
@@ -536,12 +536,12 @@
 <span class="lineNum">     465 </span>                :            :  * \returns Result of arithmetic operation.
 <span class="lineNum">     466 </span>                :            :  *
 <span class="lineNum">     467 </span>                :            :  * \note throws a std::out_of_range exception if \c value or the result of
-<a name="468"><span class="lineNum">     468 </span>                :            :  *   the operation is not valid</a>
+<span class="lineNum">     468 </span>                :            :  *   the operation is not valid
 <span class="lineNum">     469 </span>                :            :  */
-<span class="lineNum">     470 </span>                :<span class="lineCov">          1 : inline ::ad_rss::physics::DurationSquared operator*(const double &amp;other,</span>
+<span class="lineNum">     470 </span>                :            : inline ::ad_rss::physics::DurationSquared operator*(const double &amp;other,
 <span class="lineNum">     471 </span>                :            :                                                     ::ad_rss::physics::DurationSquared const &amp;value)
 <span class="lineNum">     472 </span>                :            : {
-<span class="lineNum">     473 </span>                :<span class="lineCov">          1 :   return value.operator*(other);</span>
+<span class="lineNum">     473 </span>                :            :   return value.operator*(other);
 <span class="lineNum">     474 </span>                :            : }
 <span class="lineNum">     475 </span>                :            : 
 <span class="lineNum">     476 </span>                :            : /*!
@@ -550,12 +550,12 @@
 <span class="lineNum">     479 </span>                :            : namespace std {
 <span class="lineNum">     480 </span>                :            : 
 <span class="lineNum">     481 </span>                :            : /*!
-<a name="482"><span class="lineNum">     482 </span>                :            :  * \brief overload of the std::fabs for DurationSquared</a>
+<span class="lineNum">     482 </span>                :            :  * \brief overload of the std::fabs for DurationSquared
 <span class="lineNum">     483 </span>                :            :  */
-<span class="lineNum">     484 </span>                :<span class="lineCov">          7 : inline ::ad_rss::physics::DurationSquared fabs(const ::ad_rss::physics::DurationSquared other)</span>
+<span class="lineNum">     484 </span>                :            : inline ::ad_rss::physics::DurationSquared fabs(const ::ad_rss::physics::DurationSquared other)
 <span class="lineNum">     485 </span>                :            : {
-<span class="lineNum">     486 </span>                :<span class="lineCov">          7 :   ::ad_rss::physics::DurationSquared const result(std::fabs(static_cast&lt;double&gt;(other)));</span>
-<span class="lineNum">     487 </span>                :<span class="lineCov">          7 :   return result;</span>
+<span class="lineNum">     486 </span>                :            :   ::ad_rss::physics::DurationSquared const result(std::fabs(static_cast&lt;double&gt;(other)));
+<span class="lineNum">     487 </span>                :            :   return result;
 <span class="lineNum">     488 </span>                :            : }
 <span class="lineNum">     489 </span>                :            : 
 <span class="lineNum">     490 </span>                :            : /*!
@@ -570,25 +570,25 @@
 <span class="lineNum">     499 </span>                :            : {
 <span class="lineNum">     500 </span>                :            : public:
 <span class="lineNum">     501 </span>                :            :   /*!
-<a name="502"><span class="lineNum">     502 </span>                :            :    * \see std::numeric_limits::lowest()</a>
+<span class="lineNum">     502 </span>                :            :    * \see std::numeric_limits::lowest()
 <span class="lineNum">     503 </span>                :            :    */
-<span class="lineNum">     504 </span>                :<span class="lineCov">         10 :   static inline ::ad_rss::physics::DurationSquared lowest()</span>
+<span class="lineNum">     504 </span>                :            :   static inline ::ad_rss::physics::DurationSquared lowest()
 <span class="lineNum">     505 </span>                :            :   {
-<span class="lineNum">     506 </span>                :<span class="lineCov">         10 :     return ::ad_rss::physics::DurationSquared::getMin();</span>
+<span class="lineNum">     506 </span>                :            :     return ::ad_rss::physics::DurationSquared::getMin();
 <span class="lineNum">     507 </span>                :            :   }
 <span class="lineNum">     508 </span>                :            :   /*!
-<a name="509"><span class="lineNum">     509 </span>                :            :    * \see std::numeric_limits::max()</a>
+<span class="lineNum">     509 </span>                :            :    * \see std::numeric_limits::max()
 <span class="lineNum">     510 </span>                :            :    */
-<span class="lineNum">     511 </span>                :<span class="lineCov">          7 :   static inline ::ad_rss::physics::DurationSquared max()</span>
+<span class="lineNum">     511 </span>                :            :   static inline ::ad_rss::physics::DurationSquared max()
 <span class="lineNum">     512 </span>                :            :   {
-<span class="lineNum">     513 </span>                :<span class="lineCov">          7 :     return ::ad_rss::physics::DurationSquared::getMax();</span>
+<span class="lineNum">     513 </span>                :            :     return ::ad_rss::physics::DurationSquared::getMax();
 <span class="lineNum">     514 </span>                :            :   }
 <span class="lineNum">     515 </span>                :            :   /*!
-<a name="516"><span class="lineNum">     516 </span>                :            :    * \see std::numeric_limits::epsilon()</a>
+<span class="lineNum">     516 </span>                :            :    * \see std::numeric_limits::epsilon()
 <span class="lineNum">     517 </span>                :            :    */
-<span class="lineNum">     518 </span>                :<span class="lineCov">          1 :   static inline ::ad_rss::physics::DurationSquared epsilon()</span>
+<span class="lineNum">     518 </span>                :            :   static inline ::ad_rss::physics::DurationSquared epsilon()
 <span class="lineNum">     519 </span>                :            :   {
-<span class="lineNum">     520 </span>                :<span class="lineCov">          1 :     return ::ad_rss::physics::DurationSquared::getPrecision();</span>
+<span class="lineNum">     520 </span>                :            :     return ::ad_rss::physics::DurationSquared::getPrecision();
 <span class="lineNum">     521 </span>                :            :   }
 <span class="lineNum">     522 </span>                :            : };
 <span class="lineNum">     523 </span>                :            : 

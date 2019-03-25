@@ -31,27 +31,27 @@
             <td class="headerValue">ad-rss-lib</td>
             <td></td>
             <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">0</td>
             <td class="headerCovTableEntry">13</td>
-            <td class="headerCovTableEntry">13</td>
-            <td class="headerCovTableEntryHi">100.0 %</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-22 16:31:58</td>
+            <td class="headerValue">2019-03-25 14:56:57</td>
             <td></td>
             <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">0</td>
             <td class="headerCovTableEntry">5</td>
-            <td class="headerCovTableEntry">5</td>
-            <td class="headerCovTableEntryHi">100.0 %</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">0</td>
             <td class="headerCovTableEntry">20</td>
-            <td class="headerCovTableEntry">20</td>
-            <td class="headerCovTableEntryHi">100.0 %</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
           </tr>
           <tr><td><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -124,9 +124,9 @@
 <span class="lineNum">      53 </span>                :            :  *
 <a name="54"><span class="lineNum">      54 </span>                :            :  * true if safe, false if not</a>
 <span class="lineNum">      55 </span>                :            :  */
-<span class="lineNum">      56 </span>                :<span class="lineCov">       6099 : inline bool isLongitudinalSafe(ResponseState const &amp;responseState)</span>
+<span class="lineNum">      56 </span>                :<span class="lineNoCov">          0 : inline bool isLongitudinalSafe(ResponseState const &amp;responseState)</span>
 <span class="lineNum">      57 </span>                :            : {
-<span class="lineNum">      58 </span>                :<span class="lineCov">       6099 :   return responseState.longitudinalState.isSafe;</span>
+<span class="lineNum">      58 </span>                :<span class="lineNoCov">          0 :   return responseState.longitudinalState.isSafe;</span>
 <span class="lineNum">      59 </span>                :            : }
 <span class="lineNum">      60 </span>                :            : 
 <span class="lineNum">      61 </span>                :            : /**
@@ -136,9 +136,9 @@
 <span class="lineNum">      65 </span>                :            :  *
 <a name="66"><span class="lineNum">      66 </span>                :            :  * true if safe, false if not</a>
 <span class="lineNum">      67 </span>                :            :  */
-<span class="lineNum">      68 </span>                :<span class="lineCov">       4702 : inline bool isLateralSafe(ResponseState const &amp;responseState)</span>
+<span class="lineNum">      68 </span>                :<span class="lineNoCov">          0 : inline bool isLateralSafe(ResponseState const &amp;responseState)</span>
 <span class="lineNum">      69 </span>                :            : {
-<span class="lineNum">      70 </span>[<span class="branchCov" title="Branch 0 was taken 2281 times"> + </span><span class="branchCov" title="Branch 1 was taken 2421 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1765 times"> + </span><span class="branchCov" title="Branch 3 was taken 516 times"> + </span>]:<span class="lineCov">       4702 :   return responseState.lateralStateRight.isSafe &amp;&amp; responseState.lateralStateLeft.isSafe;</span>
+<span class="lineNum">      70 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   return responseState.lateralStateRight.isSafe &amp;&amp; responseState.lateralStateLeft.isSafe;</span>
 <span class="lineNum">      71 </span>                :            : }
 <span class="lineNum">      72 </span>                :            : 
 <span class="lineNum">      73 </span>                :            : /**
@@ -148,9 +148,9 @@
 <span class="lineNum">      77 </span>                :            :  *
 <a name="78"><span class="lineNum">      78 </span>                :            :  * true if dangerous, false if not</a>
 <span class="lineNum">      79 </span>                :            :  */
-<span class="lineNum">      80 </span>                :<span class="lineCov">       3893 : inline bool isDangerous(ResponseState const &amp;responseState)</span>
+<span class="lineNum">      80 </span>                :<span class="lineNoCov">          0 : inline bool isDangerous(ResponseState const &amp;responseState)</span>
 <span class="lineNum">      81 </span>                :            : {
-<span class="lineNum">      82 </span>[<span class="branchCov" title="Branch 1 was taken 2496 times"> + </span><span class="branchCov" title="Branch 2 was taken 1397 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 1689 times"> + </span><span class="branchCov" title="Branch 5 was taken 807 times"> + </span>]:<span class="lineCov">       3893 :   return !isLongitudinalSafe(responseState) &amp;&amp; !isLateralSafe(responseState);</span>
+<span class="lineNum">      82 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :   return !isLongitudinalSafe(responseState) &amp;&amp; !isLateralSafe(responseState);</span>
 <span class="lineNum">      83 </span>                :            : }
 <span class="lineNum">      84 </span>                :            : 
 <span class="lineNum">      85 </span>                :            : /**
@@ -167,20 +167,20 @@
 <span class="lineNum">      96 </span>                :            :  *
 <a name="97"><span class="lineNum">      97 </span>                :            :  * @returns the resulting RSS state</a>
 <span class="lineNum">      98 </span>                :            :  */
-<span class="lineNum">      99 </span>                :<span class="lineCov">       1752 : template &lt;typename RssState&gt; RssState combineRssState(RssState const &amp;previousRssState, RssState const &amp;newRssState)</span>
+<span class="lineNum">      99 </span>                :<span class="lineNoCov">          0 : template &lt;typename RssState&gt; RssState combineRssState(RssState const &amp;previousRssState, RssState const &amp;newRssState)</span>
 <span class="lineNum">     100 </span>                :            : {
-<span class="lineNum">     101 </span>[<span class="branchCov" title="Branch 0 was taken 42 times"> + </span><span class="branchCov" title="Branch 1 was taken 41 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 10 times"> + </span><span class="branchCov" title="Branch 3 was taken 1659 times"> + </span>]:<span class="lineCov">       1752 :   if (previousRssState.isSafe == newRssState.isSafe)</span>
+<span class="lineNum">     101 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (previousRssState.isSafe == newRssState.isSafe)</span>
 <span class="lineNum">     102 </span>                :            :   {
-<span class="lineNum">     103 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 41 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchCov" title="Branch 3 was taken 7 times"> + </span>]:<span class="lineCov">         52 :     if (previousRssState.response &gt; newRssState.response)</span>
+<span class="lineNum">     103 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (previousRssState.response &gt; newRssState.response)</span>
 <span class="lineNum">     104 </span>                :            :     {
-<span class="lineNum">     105 </span>                :<span class="lineCov">          4 :       return previousRssState;</span>
+<span class="lineNum">     105 </span>                :<span class="lineNoCov">          0 :       return previousRssState;</span>
 <span class="lineNum">     106 </span>                :            :     }
 <span class="lineNum">     107 </span>                :            :   }
-<span class="lineNum">     108 </span>[<span class="branchCov" title="Branch 0 was taken 39 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1656 times"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span>]:<span class="lineCov">       1700 :   else if (!previousRssState.isSafe)</span>
+<span class="lineNum">     108 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   else if (!previousRssState.isSafe)</span>
 <span class="lineNum">     109 </span>                :            :   {
-<span class="lineNum">     110 </span>                :<span class="lineCov">       1695 :     return previousRssState;</span>
+<span class="lineNum">     110 </span>                :<span class="lineNoCov">          0 :     return previousRssState;</span>
 <span class="lineNum">     111 </span>                :            :   }
-<span class="lineNum">     112 </span>                :<span class="lineCov">         53 :   return newRssState;</span>
+<span class="lineNum">     112 </span>                :<span class="lineNoCov">          0 :   return newRssState;</span>
 <span class="lineNum">     113 </span>                :            : }
 <span class="lineNum">     114 </span>                :            : 
 <span class="lineNum">     115 </span>                :            : } // namespace state
