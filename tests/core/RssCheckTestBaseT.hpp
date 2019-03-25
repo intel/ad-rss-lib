@@ -91,8 +91,8 @@ protected:
       occupiedRegion.lonRange.minimum = ParametricValue(0.);
       occupiedRegion.lonRange.maximum = ParametricValue(0.1);
       occupiedRegion.segmentId = 4;
-      occupiedRegion.latRange.minimum = ParametricValue(0.8);
-      occupiedRegion.latRange.maximum = ParametricValue(0.9);
+      occupiedRegion.latRange.minimum = ParametricValue(0.45);
+      occupiedRegion.latRange.maximum = ParametricValue(0.55);
       objectOnSegment4.occupiedRegions.push_back(occupiedRegion);
     }
 
@@ -532,37 +532,39 @@ protected:
     return Distance(0.);
   }
 
-  bool isDistanceSafe()
+  bool isDistanceSafeLongitudinal()
   {
-    Distance dMin;
-    switch (getSituationType())
+    for (auto const &scene : worldModel.scenes)
     {
-      case situation::SituationType::SameDirection:
-        dMin = calculateLongitudinalMinSafeDistance(worldModel.egoVehicle, worldModel.scenes[0].object);
-        break;
-      case situation::SituationType::OppositeDirection:
-        dMin
-          = calculateLongitudinalMinSafeDistanceOppositeDirection(worldModel.egoVehicle, worldModel.scenes[0].object);
-        break;
-      default:
-        EXPECT_TRUE(false);
-        break;
-    }
+      Distance dMin;
+      switch (getSituationType())
+      {
+        case situation::SituationType::SameDirection:
+          dMin = calculateLongitudinalMinSafeDistance(worldModel.egoVehicle, scene.object);
+          break;
+        case situation::SituationType::OppositeDirection:
+          dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(worldModel.egoVehicle, scene.object);
+          break;
+        default:
+          EXPECT_TRUE(false);
+          break;
+      }
 
-    Distance egoDistanceToSegmentEnd = getDistanceToSegmentEnd(worldModel.egoVehicle);
-    Distance objectDistanceFromSegmentBegin = getFrontObjectDistanceFromSegmentBegin();
-    Distance additionalLength{0u};
-    if ((worldModel.egoVehicle.occupiedRegions[0].segmentId < 3)
-        || (worldModel.egoVehicle.occupiedRegions[0].segmentId > 5))
-    {
-      // ego in front or in the back, then the middle segment is relevant
-      additionalLength = getMiddleRoadSegmentLength();
+      Distance egoDistanceToSegmentEnd = getDistanceToSegmentEnd(worldModel.egoVehicle);
+      Distance objectDistanceFromSegmentBegin = getFrontObjectDistanceFromSegmentBegin();
+      Distance additionalLength{0u};
+      if ((worldModel.egoVehicle.occupiedRegions[0].segmentId < 3)
+          || (worldModel.egoVehicle.occupiedRegions[0].segmentId > 5))
+      {
+        // ego in front or in the back, then the middle segment is relevant
+        additionalLength = getMiddleRoadSegmentLength();
+      }
+      if (dMin >= additionalLength + egoDistanceToSegmentEnd + objectDistanceFromSegmentBegin)
+      {
+        return false;
+      }
     }
-    if (dMin < additionalLength + egoDistanceToSegmentEnd + objectDistanceFromSegmentBegin)
-    {
-      return true;
-    }
-    return false;
+    return true;
   }
 
   virtual void performDifferentVelocitiesTest(state::LongitudinalResponse expectedLonResponse)
@@ -577,7 +579,7 @@ protected:
 
       ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
-      if (isDistanceSafe())
+      if (isDistanceSafeLongitudinal())
       {
         testRestrictions(accelerationRestriction);
       }
@@ -601,7 +603,7 @@ protected:
 
       ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
-      if (isDistanceSafe())
+      if (isDistanceSafeLongitudinal())
       {
         testRestrictions(accelerationRestriction);
       }

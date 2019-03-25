@@ -71,6 +71,12 @@ TEST_F(RssResponseTransformationTests, invalidTimeStamp)
 
   ASSERT_FALSE(::ad_rss::core::RssResponseTransformation::transformProperResponse(
     worldModel, responseState, accelerationRestriction));
+
+  worldModel.timeIndex = 1u;
+  responseState.timeIndex = 2u;
+
+  ASSERT_FALSE(::ad_rss::core::RssResponseTransformation::transformProperResponse(
+    worldModel, responseState, accelerationRestriction));
 }
 
 TEST_F(RssResponseTransformationTests, invalidLongitudinalResponseState)

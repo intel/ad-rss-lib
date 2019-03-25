@@ -145,6 +145,11 @@ bool convertObjectsNonIntersection(world::Object const &egoVehicle,
                                    world::Scene const &currentScene,
                                    situation::Situation &situation)
 {
+  if (!currentScene.intersectingRoad.empty())
+  {
+    return false;
+  }
+
   bool result = true;
 
   world::ObjectDimensions egoVehicleDimension;

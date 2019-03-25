@@ -175,5 +175,145 @@ TEST_F(RssCheckLateralEgoLeftTest, Lateral_Velocity_Towards_Each_Other)
   }
 }
 
+template <class TESTBASE> class RssCheckLateralEgoInTheMiddleTestBase : public TESTBASE
+{
+protected:
+  using TESTBASE::worldModel;
+  using TESTBASE::testRestrictions;
+
+  void SetUp() override
+  {
+    TESTBASE::SetUp();
+    // now we have to shorten the road areas for the two scenes
+    // to make left and right side behave the same
+    // otherwise we are more cautious on the left side
+    worldModel.scenes[0].egoVehicleRoad.erase(worldModel.scenes[0].egoVehicleRoad.begin() + 2);
+    worldModel.scenes[1].egoVehicleRoad.erase(worldModel.scenes[1].egoVehicleRoad.begin() + 2);
+  }
+
+  ::ad_rss::world::Object &getEgoObject() override
+  {
+    return TESTBASE::objectOnSegment4;
+  }
+
+  uint32_t getNumberOfSceneObjects() override
+  {
+    return 2u;
+  }
+
+  ::ad_rss::world::Object &getSceneObject(uint32_t index) override
+  {
+    if (index == 0u)
+    {
+      return TESTBASE::objectOnSegment3;
+    }
+    else
+    {
+      return TESTBASE::objectOnSegment5;
+    }
+  }
+
+  void performTest()
+  {
+    for (uint32_t j = 1; j <= 9; j++)
+    {
+      if (worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum < ParametricValue(0.9))
+      {
+        worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum += ParametricValue(0.1);
+      }
+      if (worldModel.scenes[1].object.occupiedRegions[0].latRange.minimum > ParametricValue(0.08))
+      {
+        worldModel.scenes[1].object.occupiedRegions[0].latRange.minimum -= ParametricValue(0.08);
+      }
+      ::ad_rss::world::AccelerationRestriction accelerationRestriction;
+      ::ad_rss::core::RssCheck rssCheck;
+      bool safeLeftStateExists = false;
+      bool safeRightStateExists = false;
+      for (uint32_t i = 0; i <= 12; i++)
+      {
+        if (worldModel.egoVehicle.velocity.speedLat >= Speed(0.))
+        {
+          worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.075 * i);
+          worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.075 * i + 0.1);
+        }
+        else
+        {
+          worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(1 - (0.075 * i));
+          worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(1 - (0.075 * i + 0.1));
+        }
+        worldModel.timeIndex++;
+
+        EXPECT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+
+        state::LateralResponse expectedLatResponseLeft = state::LateralResponse::None;
+        state::LateralResponse expectedLatResponseRight = state::LateralResponse::None;
+        Distance const dMinLeft = calculateLateralMinSafeDistance(worldModel.scenes[0].object, worldModel.egoVehicle);
+        if (dMinLeft > (ParametricValue(1) - worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum
+                        + worldModel.egoVehicle.occupiedRegions[0].latRange.minimum)
+              * Distance(5))
+        {
+          expectedLatResponseLeft = state::LateralResponse::BrakeMin;
+        }
+        else
+        {
+          safeLeftStateExists = true;
+        }
+
+        Distance const dMinRight = calculateLateralMinSafeDistance(worldModel.egoVehicle, worldModel.scenes[1].object);
+        if (dMinRight > (ParametricValue(1) - worldModel.egoVehicle.occupiedRegions[0].latRange.maximum
+                         + worldModel.scenes[1].object.occupiedRegions[0].latRange.minimum)
+              * Distance(5))
+        {
+          expectedLatResponseRight = state::LateralResponse::BrakeMin;
+        }
+        else
+        {
+          safeRightStateExists = true;
+        }
+
+        state::LongitudinalResponse expectedLonResponse = state::LongitudinalResponse::None;
+        if (!safeLeftStateExists || !safeRightStateExists)
+        {
+          expectedLonResponse = state::LongitudinalResponse::BrakeMin;
+        }
+        testRestrictions(
+          accelerationRestriction, expectedLonResponse, expectedLatResponseLeft, expectedLatResponseRight);
+      }
+    }
+  }
+};
+
+using RssCheckLateralEgoInTheMiddleTest = RssCheckLateralEgoInTheMiddleTestBase<RssCheckTestBase>;
+
+using RssCheckLateralEgoInTheMiddleOutOfMemoryTest = RssCheckLateralEgoInTheMiddleTestBase<RssCheckOutOfMemoryTestBase>;
+TEST_P(RssCheckLateralEgoInTheMiddleOutOfMemoryTest, outOfMemoryAnyTime)
+{
+  performOutOfMemoryTest();
+}
+INSTANTIATE_TEST_CASE_P(Range,
+                        RssCheckLateralEgoInTheMiddleOutOfMemoryTest,
+                        ::testing::Range(uint64_t(0u), uint64_t(50u)));
+
+TEST_F(RssCheckLateralEgoInTheMiddleTest, No_Lateral_Velocity)
+{
+  worldModel.egoVehicle.velocity.speedLat = kmhToMeterPerSec(0);
+
+  performTest();
+}
+
+TEST_F(RssCheckLateralEgoInTheMiddleTest, Lateral_Velocity_To_The_Left)
+{
+  worldModel.egoVehicle.velocity.speedLat = kmhToMeterPerSec(-3);
+
+  performTest();
+}
+
+TEST_F(RssCheckLateralEgoInTheMiddleTest, Lateral_Velocity_To_The_Right)
+{
+  worldModel.egoVehicle.velocity.speedLat = kmhToMeterPerSec(3);
+
+  performTest();
+}
+
 } // namespace core
 } // namespace ad_rss
