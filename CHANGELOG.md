@@ -1,4 +1,6 @@
 ## Latest changes
+
+## Release 1.2.0
 * Added support for Clang 5 and Clang 6
 * Added checks to enforce increasing time indices
 * Consider timeIndex=0 as error
