@@ -49,9 +49,9 @@ matrix:
             - libgtest-dev
             - lcov
       script:
-        - bash .github/.travis/compile.sh debug
+        - bash .github/.travis/compile.sh release
         - rm -rf build
-        - bash .github/.travis/compile.sh release test
+        - bash .github/.travis/compile.sh debug test
       after_script:
         - bash .github/.travis/code_coverage.sh
       after_failure:
@@ -130,7 +130,7 @@ matrix:
       script:
         - mkdir build
         - cd build
-        - cmake .. -DBUILD_HARDENING=ON -DBUILD_COVERAGE=ON -DBUILD_DOC=ON
+        - cmake .. -DBUILD_HARDENING=ON -DBUILD_COVERAGE=ON -DBUILD_DOC=ON -DCMAKE_BUILD_TYPE=Debug
         - make
         - ctest -V
         - make apidoc > apidoc_build.log 2>&1
