@@ -36,19 +36,19 @@ namespace core {
 
 template <class TESTBASE> class RssCheckNotRelevantTestBase : public TESTBASE
 {
-  virtual situation::SituationType getSituationType() override
+  situation::SituationType getSituationType() override
   {
     return situation::SituationType::NotRelevant;
   }
 
-  virtual ::ad_rss::world::Object &getEgoObject() override
+  ::ad_rss::world::Object &getEgoObject() override
   {
-    return objectOnSegment1;
+    return TESTBASE::objectOnSegment1;
   }
 
-  virtual ::ad_rss::world::Object &getSceneObject() override
+  ::ad_rss::world::Object &getSceneObject(uint32_t) override
   {
-    return objectOnSegment7;
+    return TESTBASE::objectOnSegment7;
   }
 };
 
@@ -77,7 +77,8 @@ TEST_F(RssCheckNotRelevantTest, NotRelevant)
 using RssCheckNotRelevantOutOfMemoryTest = RssCheckNotRelevantTestBase<RssCheckOutOfMemoryTestBase>;
 TEST_P(RssCheckNotRelevantOutOfMemoryTest, outOfMemoryAnyTime)
 {
-  performOutOfMemoryTest();
+  // throw at 3 will succeed, but that's expected in this case as no actual calculations are performed.
+  performOutOfMemoryTest({3u});
 }
 INSTANTIATE_TEST_CASE_P(Range, RssCheckNotRelevantOutOfMemoryTest, ::testing::Range(uint64_t(0u), uint64_t(50u)));
 

@@ -43,29 +43,30 @@ set(RSS_TEST_SOURCES_WITH_PRIVATE_ACCESS
   situation/RssSituationCheckingTestsIntersectionInputRangeTests.cpp
   situation/RssSituationCheckingTestsIntersectionNoPriority.cpp
   situation/RssSituationCheckingTestsIntersectionPriority.cpp
-  situation/RssSituationCheckingTestsLongitudinal.cpp
   situation/RssSituationCheckingTestsLateral.cpp
-  situation/RssSituationCheckingTestsOppositeDirection.cpp
+  situation/RssSituationCheckingTestsLongitudinal.cpp
   situation/RssSituationCheckingTestsNotRelevant.cpp
+  situation/RssSituationCheckingTestsOppositeDirection.cpp
 )
 
 set(RSS_TEST_SOURCES
-  core/RssCheckObjectTests.cpp
-  core/RssCheckTimeIndexTests.cpp
-  core/RssCheckSceneTests.cpp
-  core/RssCheckSameDirectionTests.cpp
-  core/RssCheckOppositeDirectionTests.cpp
-  core/RssCheckLateralTests.cpp
   core/RssCheckIntersectionTests.cpp
+  core/RssCheckLateralTests.cpp
+  core/RssCheckNotRelevantTests.cpp
+  core/RssCheckObjectTests.cpp
+  core/RssCheckOppositeDirectionTests.cpp
+  core/RssCheckSameDirectionTests.cpp
+  core/RssCheckSceneTests.cpp
+  core/RssCheckTimeIndexTests.cpp
   core/RssResponseResolvingTests.cpp
   core/RssResponseTransformationTests.cpp
-  core/RSSStateCombineRssStateTests.cpp
-  core/RSSStateSafeTests.cpp
   core/RssSituationExtractionInputRangeTests.cpp
-  core/RssSituationExtractionOppositeDirectionTests.cpp
   core/RssSituationExtractionIntersectionTests.cpp
+  core/RssSituationExtractionOppositeDirectionTests.cpp
   core/RssSituationExtractionRelativePositionTests.cpp
   core/RssSituationExtractionSameDirectionTests.cpp
+  core/RSSStateCombineRssStateTests.cpp
+  core/RSSStateSafeTests.cpp
   physics/MathUnitTestsDistanceOffsetAfterResponseTime.cpp
   physics/MathUnitTestsInputRangeChecks.cpp
   physics/MathUnitTestsStoppingDistance.cpp

@@ -33,6 +33,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <vector>
 
 #include "TestSupport.hpp"
 #include "ad_rss/core/RssCheck.hpp"
@@ -499,11 +500,6 @@ protected:
     testRestriction(accelerationRestriction.lateralRightRange, expectedLatResponseRight);
   }
 
-  virtual void performOutOfMemoryTest()
-  {
-    ASSERT_TRUE(false);
-  }
-
   Distance getDistanceToSegmentEnd(::ad_rss::world::Object const &object)
   {
     world::LaneSegment objectRoadSegment = getMergedRoadSegment(object.occupiedRegions[0].segmentId);
@@ -630,14 +626,16 @@ using RssCheckTestBase = RssCheckTestBaseT<testing::Test>;
 class RssCheckOutOfMemoryTestBase : public RssCheckTestBaseT<testing::TestWithParam<uint64_t>>
 {
 protected:
-  void performOutOfMemoryTest() override
+  void performOutOfMemoryTest(std::vector<uint64_t> additionalSucceessResults = {})
   {
     gNewThrowCounter = GetParam();
     ::ad_rss::world::AccelerationRestriction accelerationRestriction;
     ::ad_rss::core::RssCheck rssCheck;
 
     bool const checkResult = rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction);
-    if ((GetParam() == 0) || (gNewThrowCounter > 0u))
+    if ((GetParam() == 0) || (gNewThrowCounter > 0u)
+        || (additionalSucceessResults.end()
+            != std::find(additionalSucceessResults.begin(), additionalSucceessResults.end(), GetParam())))
     {
       // for 0 there is no out of memory
       // as there are not more than a certain amount of allocations while running, from a certain border on
