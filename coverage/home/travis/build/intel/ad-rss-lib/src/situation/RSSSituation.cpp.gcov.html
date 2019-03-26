@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-26 12:22:19</td>
+            <td class="headerValue">2019-03-26 12:27:34</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -106,14 +106,14 @@
 <span class="lineNum">      35 </span>                :            : namespace ad_rss {
 <a name="36"><span class="lineNum">      36 </span>                :            : namespace situation {</a>
 <span class="lineNum">      37 </span>                :            : 
-<span class="lineNum">      38 </span>                :<span class="lineCov">       1999 : bool calculateRssStateNonIntersectionSameDirection(Situation const &amp;situation, state::ResponseState &amp;responseState)</span>
+<span class="lineNum">      38 </span>                :<span class="lineCov">       3890 : bool calculateRssStateNonIntersectionSameDirection(Situation const &amp;situation, state::ResponseState &amp;responseState)</span>
 <span class="lineNum">      39 </span>                :            : {
-<span class="lineNum">      40 </span>                :<span class="lineCov">       1999 :   bool result = calculateLongitudinalRssStateNonIntersectionSameDirection(situation, responseState.longitudinalState);</span>
-<span class="lineNum">      41 </span>        [<span class="branchCov" title="Branch 0 was taken 1973 times"> + </span><span class="branchCov" title="Branch 1 was taken 25 times"> + </span>]:<span class="lineCov">       1998 :   if (result)</span>
+<span class="lineNum">      40 </span>                :<span class="lineCov">       3890 :   bool result = calculateLongitudinalRssStateNonIntersectionSameDirection(situation, responseState.longitudinalState);</span>
+<span class="lineNum">      41 </span>        [<span class="branchCov" title="Branch 0 was taken 3864 times"> + </span><span class="branchCov" title="Branch 1 was taken 25 times"> + </span>]:<span class="lineCov">       3889 :   if (result)</span>
 <span class="lineNum">      42 </span>                :            :   {
-<span class="lineNum">      43 </span>                :<span class="lineCov">       1973 :     result = calculateLateralRssState(situation, responseState.lateralStateLeft, responseState.lateralStateRight);</span>
+<span class="lineNum">      43 </span>                :<span class="lineCov">       3864 :     result = calculateLateralRssState(situation, responseState.lateralStateLeft, responseState.lateralStateRight);</span>
 <span class="lineNum">      44 </span>                :            :   }
-<span class="lineNum">      45 </span>                :<span class="lineCov">       1998 :   return result;</span>
+<span class="lineNum">      45 </span>                :<span class="lineCov">       3889 :   return result;</span>
 <a name="46"><span class="lineNum">      46 </span>                :            : }</a>
 <span class="lineNum">      47 </span>                :            : 
 <span class="lineNum">      48 </span>                :<span class="lineCov">       1083 : bool calculateRssStateNonIntersectionOppositeDirection(Situation const &amp;situation, state::ResponseState &amp;responseState)</span>
@@ -127,37 +127,37 @@
 <span class="lineNum">      56 </span>                :<span class="lineCov">       1083 :   return result;</span>
 <a name="57"><span class="lineNum">      57 </span>                :            : }</a>
 <span class="lineNum">      58 </span>                :            : 
-<span class="lineNum">      59 </span>                :<span class="lineCov">       1999 : bool calculateLongitudinalRssStateNonIntersectionSameDirection(Situation const &amp;situation,</span>
+<span class="lineNum">      59 </span>                :<span class="lineCov">       3890 : bool calculateLongitudinalRssStateNonIntersectionSameDirection(Situation const &amp;situation,</span>
 <span class="lineNum">      60 </span>                :            :                                                                state::LongitudinalRssState &amp;rssState)
 <span class="lineNum">      61 </span>                :            : {
-<span class="lineNum">      62 </span>                :<span class="lineCov">       1999 :   bool result = false;</span>
+<span class="lineNum">      62 </span>                :<span class="lineCov">       3890 :   bool result = false;</span>
 <span class="lineNum">      63 </span>                :            : 
-<span class="lineNum">      64 </span>                :<span class="lineCov">       1999 :   rssState.response = state::LongitudinalResponse::BrakeMin;</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">       3890 :   rssState.response = state::LongitudinalResponse::BrakeMin;</span>
 <span class="lineNum">      65 </span>                :            : 
-<span class="lineNum">      66 </span>                :<span class="lineCov">       1999 :   bool isSafe = false;</span>
+<span class="lineNum">      66 </span>                :<span class="lineCov">       3890 :   bool isSafe = false;</span>
 <span class="lineNum">      67 </span>                :            : 
-<span class="lineNum">      68 </span>        [<span class="branchCov" title="Branch 0 was taken 1427 times"> + </span><span class="branchCov" title="Branch 1 was taken 572 times"> + </span>]:<span class="lineCov">       1999 :   if ((LongitudinalRelativePosition::InFront == situation.relativePosition.longitudinalPosition)</span>
-<span class="lineNum">      69 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchCov" title="Branch 1 was taken 1327 times"> + </span>]:<span class="lineCov">       1427 :       || (LongitudinalRelativePosition::OverlapFront == situation.relativePosition.longitudinalPosition))</span>
+<span class="lineNum">      68 </span>        [<span class="branchCov" title="Branch 0 was taken 2266 times"> + </span><span class="branchCov" title="Branch 1 was taken 1624 times"> + </span>]:<span class="lineCov">       3890 :   if ((LongitudinalRelativePosition::InFront == situation.relativePosition.longitudinalPosition)</span>
+<span class="lineNum">      69 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchCov" title="Branch 1 was taken 2166 times"> + </span>]:<span class="lineCov">       2266 :       || (LongitudinalRelativePosition::OverlapFront == situation.relativePosition.longitudinalPosition))</span>
 <span class="lineNum">      70 </span>                :            :   {
 <span class="lineNum">      71 </span>                :            :     // The ego vehicle is leading in this situation so we don't need to break longitudinal
-<span class="lineNum">      72 </span>                :<span class="lineCov">        672 :     rssState.response = state::LongitudinalResponse::None;</span>
+<span class="lineNum">      72 </span>                :<span class="lineCov">       1724 :     rssState.response = state::LongitudinalResponse::None;</span>
 <span class="lineNum">      73 </span>                :            : 
-<span class="lineNum">      74 </span>                :<span class="lineCov">        672 :     result = checkSafeLongitudinalDistanceSameDirection(</span>
-<span class="lineNum">      75 </span>        [<span class="branchCov" title="Branch 1 was taken 671 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">        672 :       situation.egoVehicleState, situation.otherVehicleState, situation.relativePosition.longitudinalDistance, isSafe);</span>
+<span class="lineNum">      74 </span>                :<span class="lineCov">       1724 :     result = checkSafeLongitudinalDistanceSameDirection(</span>
+<span class="lineNum">      75 </span>        [<span class="branchCov" title="Branch 1 was taken 1723 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">       1724 :       situation.egoVehicleState, situation.otherVehicleState, situation.relativePosition.longitudinalDistance, isSafe);</span>
 <span class="lineNum">      76 </span>                :            :   }
 <span class="lineNum">      77 </span>                :            :   else
 <span class="lineNum">      78 </span>                :            :   {
-<span class="lineNum">      79 </span>                :<span class="lineCov">       1327 :     result = checkSafeLongitudinalDistanceSameDirection(</span>
-<span class="lineNum">      80 </span>        [<span class="branchCov" title="Branch 1 was taken 1327 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1327 :       situation.otherVehicleState, situation.egoVehicleState, situation.relativePosition.longitudinalDistance, isSafe);</span>
+<span class="lineNum">      79 </span>                :<span class="lineCov">       2166 :     result = checkSafeLongitudinalDistanceSameDirection(</span>
+<span class="lineNum">      80 </span>        [<span class="branchCov" title="Branch 1 was taken 2166 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2166 :       situation.otherVehicleState, situation.egoVehicleState, situation.relativePosition.longitudinalDistance, isSafe);</span>
 <span class="lineNum">      81 </span>                :            :   }
 <span class="lineNum">      82 </span>                :            : 
-<span class="lineNum">      83 </span>                :<span class="lineCov">       1998 :   rssState.isSafe = isSafe;</span>
-<span class="lineNum">      84 </span>        [<span class="branchCov" title="Branch 0 was taken 673 times"> + </span><span class="branchCov" title="Branch 1 was taken 1325 times"> + </span>]:<span class="lineCov">       1998 :   if (isSafe)</span>
+<span class="lineNum">      83 </span>                :<span class="lineCov">       3889 :   rssState.isSafe = isSafe;</span>
+<span class="lineNum">      84 </span>        [<span class="branchCov" title="Branch 0 was taken 1825 times"> + </span><span class="branchCov" title="Branch 1 was taken 2064 times"> + </span>]:<span class="lineCov">       3889 :   if (isSafe)</span>
 <span class="lineNum">      85 </span>                :            :   {
-<span class="lineNum">      86 </span>                :<span class="lineCov">        673 :     rssState.response = state::LongitudinalResponse::None;</span>
+<span class="lineNum">      86 </span>                :<span class="lineCov">       1825 :     rssState.response = state::LongitudinalResponse::None;</span>
 <span class="lineNum">      87 </span>                :            :   }
 <span class="lineNum">      88 </span>                :            : 
-<span class="lineNum">      89 </span>                :<span class="lineCov">       1998 :   return result;</span>
+<span class="lineNum">      89 </span>                :<span class="lineCov">       3889 :   return result;</span>
 <a name="90"><span class="lineNum">      90 </span>                :            : }</a>
 <span class="lineNum">      91 </span>                :            : 
 <span class="lineNum">      92 </span>                :<span class="lineCov">       1083 : bool calculateLongitudinalRssStateNonIntersectionOppositeDirection(Situation const &amp;situation,</span>
@@ -189,60 +189,60 @@
 <span class="lineNum">     118 </span>                :<span class="lineCov">       1083 :   return result;</span>
 <a name="119"><span class="lineNum">     119 </span>                :            : }</a>
 <span class="lineNum">     120 </span>                :            : 
-<span class="lineNum">     121 </span>                :<span class="lineCov">       3054 : bool calculateLateralRssState(Situation const &amp;situation,</span>
+<span class="lineNum">     121 </span>                :<span class="lineCov">       4945 : bool calculateLateralRssState(Situation const &amp;situation,</span>
 <span class="lineNum">     122 </span>                :            :                               state::LateralRssState &amp;rssStateLeft,
 <span class="lineNum">     123 </span>                :            :                               state::LateralRssState &amp;rssStateRight)
 <span class="lineNum">     124 </span>                :            : {
-<span class="lineNum">     125 </span>                :<span class="lineCov">       3054 :   rssStateLeft.isSafe = false;</span>
-<span class="lineNum">     126 </span>                :<span class="lineCov">       3054 :   rssStateLeft.response = state::LateralResponse::BrakeMin;</span>
-<span class="lineNum">     127 </span>                :<span class="lineCov">       3054 :   rssStateRight.isSafe = false;</span>
-<span class="lineNum">     128 </span>                :<span class="lineCov">       3054 :   rssStateRight.response = state::LateralResponse::BrakeMin;</span>
+<span class="lineNum">     125 </span>                :<span class="lineCov">       4945 :   rssStateLeft.isSafe = false;</span>
+<span class="lineNum">     126 </span>                :<span class="lineCov">       4945 :   rssStateLeft.response = state::LateralResponse::BrakeMin;</span>
+<span class="lineNum">     127 </span>                :<span class="lineCov">       4945 :   rssStateRight.isSafe = false;</span>
+<span class="lineNum">     128 </span>                :<span class="lineCov">       4945 :   rssStateRight.response = state::LateralResponse::BrakeMin;</span>
 <span class="lineNum">     129 </span>                :            : 
-<span class="lineNum">     130 </span>                :<span class="lineCov">       3054 :   bool isDistanceSafe = false;</span>
+<span class="lineNum">     130 </span>                :<span class="lineCov">       4945 :   bool isDistanceSafe = false;</span>
 <span class="lineNum">     131 </span>                :            : 
-<span class="lineNum">     132 </span>                :<span class="lineCov">       3054 :   bool result = false;</span>
-<span class="lineNum">     133 </span>        [<span class="branchCov" title="Branch 0 was taken 537 times"> + </span><span class="branchCov" title="Branch 1 was taken 2517 times"> + </span>]:<span class="lineCov">       3054 :   if (LateralRelativePosition::AtLeft == situation.relativePosition.lateralPosition)</span>
+<span class="lineNum">     132 </span>                :<span class="lineCov">       4945 :   bool result = false;</span>
+<span class="lineNum">     133 </span>        [<span class="branchCov" title="Branch 0 was taken 1006 times"> + </span><span class="branchCov" title="Branch 1 was taken 3939 times"> + </span>]:<span class="lineCov">       4945 :   if (LateralRelativePosition::AtLeft == situation.relativePosition.lateralPosition)</span>
 <span class="lineNum">     134 </span>                :            :   {
-<span class="lineNum">     135 </span>                :<span class="lineCov">        537 :     result = checkSafeLateralDistance(situation.egoVehicleState,</span>
+<span class="lineNum">     135 </span>                :<span class="lineCov">       1006 :     result = checkSafeLateralDistance(situation.egoVehicleState,</span>
 <span class="lineNum">     136 </span>                :            :                                       situation.otherVehicleState,
 <span class="lineNum">     137 </span>                :            :                                       situation.relativePosition.lateralDistance,
-<span class="lineNum">     138 </span>        [<span class="branchCov" title="Branch 1 was taken 537 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        537 :                                       isDistanceSafe);</span>
+<span class="lineNum">     138 </span>        [<span class="branchCov" title="Branch 1 was taken 1006 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1006 :                                       isDistanceSafe);</span>
 <span class="lineNum">     139 </span>                :            :   }
-<span class="lineNum">     140 </span>        [<span class="branchCov" title="Branch 0 was taken 816 times"> + </span><span class="branchCov" title="Branch 1 was taken 1701 times"> + </span>]:<span class="lineCov">       2517 :   else if (LateralRelativePosition::AtRight == situation.relativePosition.lateralPosition)</span>
+<span class="lineNum">     140 </span>        [<span class="branchCov" title="Branch 0 was taken 1183 times"> + </span><span class="branchCov" title="Branch 1 was taken 2756 times"> + </span>]:<span class="lineCov">       3939 :   else if (LateralRelativePosition::AtRight == situation.relativePosition.lateralPosition)</span>
 <span class="lineNum">     141 </span>                :            :   {
-<span class="lineNum">     142 </span>                :<span class="lineCov">        816 :     result = checkSafeLateralDistance(situation.otherVehicleState,</span>
+<span class="lineNum">     142 </span>                :<span class="lineCov">       1183 :     result = checkSafeLateralDistance(situation.otherVehicleState,</span>
 <span class="lineNum">     143 </span>                :            :                                       situation.egoVehicleState,
 <span class="lineNum">     144 </span>                :            :                                       situation.relativePosition.lateralDistance,
-<span class="lineNum">     145 </span>        [<span class="branchCov" title="Branch 1 was taken 816 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        816 :                                       isDistanceSafe);</span>
+<span class="lineNum">     145 </span>        [<span class="branchCov" title="Branch 1 was taken 1183 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1183 :                                       isDistanceSafe);</span>
 <span class="lineNum">     146 </span>                :            :   }
 <span class="lineNum">     147 </span>                :            :   else
 <span class="lineNum">     148 </span>                :            :   {
-<span class="lineNum">     149 </span>                :<span class="lineCov">       1701 :     result = true;</span>
+<span class="lineNum">     149 </span>                :<span class="lineCov">       2756 :     result = true;</span>
 <span class="lineNum">     150 </span>                :            :   }
 <span class="lineNum">     151 </span>                :            : 
-<span class="lineNum">     152 </span>        [<span class="branchCov" title="Branch 0 was taken 917 times"> + </span><span class="branchCov" title="Branch 1 was taken 2137 times"> + </span>]:<span class="lineCov">       3054 :   if (isDistanceSafe)</span>
+<span class="lineNum">     152 </span>        [<span class="branchCov" title="Branch 0 was taken 1458 times"> + </span><span class="branchCov" title="Branch 1 was taken 3487 times"> + </span>]:<span class="lineCov">       4945 :   if (isDistanceSafe)</span>
 <span class="lineNum">     153 </span>                :            :   {
-<span class="lineNum">     154 </span>                :<span class="lineCov">        917 :     rssStateLeft.isSafe = true;</span>
-<span class="lineNum">     155 </span>                :<span class="lineCov">        917 :     rssStateLeft.response = state::LateralResponse::None;</span>
-<span class="lineNum">     156 </span>                :<span class="lineCov">        917 :     rssStateRight.isSafe = true;</span>
-<span class="lineNum">     157 </span>                :<span class="lineCov">        917 :     rssStateRight.response = state::LateralResponse::None;</span>
+<span class="lineNum">     154 </span>                :<span class="lineCov">       1458 :     rssStateLeft.isSafe = true;</span>
+<span class="lineNum">     155 </span>                :<span class="lineCov">       1458 :     rssStateLeft.response = state::LateralResponse::None;</span>
+<span class="lineNum">     156 </span>                :<span class="lineCov">       1458 :     rssStateRight.isSafe = true;</span>
+<span class="lineNum">     157 </span>                :<span class="lineCov">       1458 :     rssStateRight.response = state::LateralResponse::None;</span>
 <span class="lineNum">     158 </span>                :            :   }
-<span class="lineNum">     159 </span>        [<span class="branchCov" title="Branch 0 was taken 2113 times"> + </span><span class="branchCov" title="Branch 1 was taken 24 times"> + </span>]:<span class="lineCov">       2137 :   else if ((LateralRelativePosition::AtLeft == situation.relativePosition.lateralPosition)</span>
-<span class="lineNum">     160 </span>        [<span class="branchCov" title="Branch 0 was taken 102 times"> + </span><span class="branchCov" title="Branch 1 was taken 2011 times"> + </span>]:<span class="lineCov">       2113 :            || (LateralRelativePosition::OverlapLeft == situation.relativePosition.lateralPosition))</span>
+<span class="lineNum">     159 </span>        [<span class="branchCov" title="Branch 0 was taken 3316 times"> + </span><span class="branchCov" title="Branch 1 was taken 171 times"> + </span>]:<span class="lineCov">       3487 :   else if ((LateralRelativePosition::AtLeft == situation.relativePosition.lateralPosition)</span>
+<span class="lineNum">     160 </span>        [<span class="branchCov" title="Branch 0 was taken 102 times"> + </span><span class="branchCov" title="Branch 1 was taken 3214 times"> + </span>]:<span class="lineCov">       3316 :            || (LateralRelativePosition::OverlapLeft == situation.relativePosition.lateralPosition))</span>
 <span class="lineNum">     161 </span>                :            :   {
 <span class="lineNum">     162 </span>                :            :     // ego is the left vehicle, so the collision is on the right side
-<span class="lineNum">     163 </span>                :<span class="lineCov">        126 :     rssStateLeft.isSafe = true;</span>
-<span class="lineNum">     164 </span>                :<span class="lineCov">        126 :     rssStateLeft.response = state::LateralResponse::None;</span>
+<span class="lineNum">     163 </span>                :<span class="lineCov">        273 :     rssStateLeft.isSafe = true;</span>
+<span class="lineNum">     164 </span>                :<span class="lineCov">        273 :     rssStateLeft.response = state::LateralResponse::None;</span>
 <span class="lineNum">     165 </span>                :            :   }
-<span class="lineNum">     166 </span>        [<span class="branchCov" title="Branch 0 was taken 1599 times"> + </span><span class="branchCov" title="Branch 1 was taken 412 times"> + </span>]:<span class="lineCov">       2011 :   else if ((LateralRelativePosition::AtRight == situation.relativePosition.lateralPosition)</span>
-<span class="lineNum">     167 </span>        [<span class="branchCov" title="Branch 0 was taken 102 times"> + </span><span class="branchCov" title="Branch 1 was taken 1497 times"> + </span>]:<span class="lineCov">       1599 :            || (LateralRelativePosition::OverlapRight == situation.relativePosition.lateralPosition))</span>
+<span class="lineNum">     166 </span>        [<span class="branchCov" title="Branch 0 was taken 2654 times"> + </span><span class="branchCov" title="Branch 1 was taken 560 times"> + </span>]:<span class="lineCov">       3214 :   else if ((LateralRelativePosition::AtRight == situation.relativePosition.lateralPosition)</span>
+<span class="lineNum">     167 </span>        [<span class="branchCov" title="Branch 0 was taken 105 times"> + </span><span class="branchCov" title="Branch 1 was taken 2549 times"> + </span>]:<span class="lineCov">       2654 :            || (LateralRelativePosition::OverlapRight == situation.relativePosition.lateralPosition))</span>
 <span class="lineNum">     168 </span>                :            :   {
 <span class="lineNum">     169 </span>                :            :     // ego is the right vehicle, so the collision is on the left side
-<span class="lineNum">     170 </span>                :<span class="lineCov">        514 :     rssStateRight.isSafe = true;</span>
-<span class="lineNum">     171 </span>                :<span class="lineCov">        514 :     rssStateRight.response = state::LateralResponse::None;</span>
+<span class="lineNum">     170 </span>                :<span class="lineCov">        665 :     rssStateRight.isSafe = true;</span>
+<span class="lineNum">     171 </span>                :<span class="lineCov">        665 :     rssStateRight.response = state::LateralResponse::None;</span>
 <span class="lineNum">     172 </span>                :            :   }
 <span class="lineNum">     173 </span>                :            : 
-<span class="lineNum">     174 </span>                :<span class="lineCov">       3054 :   return result;</span>
+<span class="lineNum">     174 </span>                :<span class="lineCov">       4945 :   return result;</span>
 <span class="lineNum">     175 </span>                :            : }
 <span class="lineNum">     176 </span>                :            : 
 <span class="lineNum">     177 </span>                :            : } // namespace situation
