@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-26 12:27:34</td>
+            <td class="headerValue">2019-03-26 12:34:24</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">3</td>
@@ -124,14 +124,14 @@
 <span class="lineNum">      53 </span>                :            : class ObjectDimensions
 <a name="54"><span class="lineNum">      54 </span>                :            : {</a>
 <span class="lineNum">      55 </span>                :            : public:
-<span class="lineNum">      56 </span>                :<span class="lineCov">      29337 :   ObjectDimensions()</span>
-<span class="lineNum">      57 </span>                :<span class="lineCov">      29337 :   {</span>
-<span class="lineNum">      58 </span>                :<span class="lineCov">      29337 :     longitudinalDimensions.maximum = std::numeric_limits&lt;physics::Distance&gt;::lowest();</span>
-<span class="lineNum">      59 </span>                :<span class="lineCov">      29337 :     longitudinalDimensions.minimum = std::numeric_limits&lt;physics::Distance&gt;::max();</span>
+<span class="lineNum">      56 </span>                :<span class="lineCov">      29373 :   ObjectDimensions()</span>
+<span class="lineNum">      57 </span>                :<span class="lineCov">      29373 :   {</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">      29373 :     longitudinalDimensions.maximum = std::numeric_limits&lt;physics::Distance&gt;::lowest();</span>
+<span class="lineNum">      59 </span>                :<span class="lineCov">      29373 :     longitudinalDimensions.minimum = std::numeric_limits&lt;physics::Distance&gt;::max();</span>
 <span class="lineNum">      60 </span>                :            : 
-<span class="lineNum">      61 </span>                :<span class="lineCov">      29337 :     lateralDimensions.maximum = std::numeric_limits&lt;physics::Distance&gt;::lowest();</span>
-<span class="lineNum">      62 </span>                :<span class="lineCov">      29337 :     lateralDimensions.minimum = std::numeric_limits&lt;physics::Distance&gt;::max();</span>
-<span class="lineNum">      63 </span>                :<span class="lineCov">      29337 :   }</span>
+<span class="lineNum">      61 </span>                :<span class="lineCov">      29373 :     lateralDimensions.maximum = std::numeric_limits&lt;physics::Distance&gt;::lowest();</span>
+<span class="lineNum">      62 </span>                :<span class="lineCov">      29373 :     lateralDimensions.minimum = std::numeric_limits&lt;physics::Distance&gt;::max();</span>
+<span class="lineNum">      63 </span>                :<span class="lineCov">      29373 :   }</span>
 <span class="lineNum">      64 </span>                :            : 
 <span class="lineNum">      65 </span>                :            :   /**
 <span class="lineNum">      66 </span>                :            :    * @brief range of longitudinal object position
@@ -170,7 +170,7 @@
 <span class="lineNum">      99 </span>                :            :  *   - calculate the position to intersection if laneSegments are part of an intersection
 <a name="100"><span class="lineNum">     100 </span>                :            :  *   - determine whether the object is on lanes in positive or negative driving direction</a>
 <span class="lineNum">     101 </span>                :            :  */
-<span class="lineNum">     102 </span>                :<span class="lineCov">      74126 : class RssObjectPositionExtractor</span>
+<span class="lineNum">     102 </span>                :<span class="lineCov">      74222 : class RssObjectPositionExtractor</span>
 <span class="lineNum">     103 </span>                :            : {
 <span class="lineNum">     104 </span>                :            : public:
 <span class="lineNum">     105 </span>                :            :   /**

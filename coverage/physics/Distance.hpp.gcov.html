@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-26 12:27:34</td>
+            <td class="headerValue">2019-03-26 12:34:24</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">28</td>
@@ -161,18 +161,18 @@
 <span class="lineNum">      90 </span>                :            :    * The default value of Distance is:
 <a name="91"><span class="lineNum">      91 </span>                :            :    * std::numeric_limits&lt;double&gt;::quiet_NaN()</a>
 <span class="lineNum">      92 </span>                :            :    */
-<span class="lineNum">      93 </span>                :<span class="lineCov">      12859 :   Distance()</span>
-<span class="lineNum">      94 </span>                :<span class="lineCov">      12859 :     : mDistance(std::numeric_limits&lt;double&gt;::quiet_NaN())</span>
+<span class="lineNum">      93 </span>                :<span class="lineCov">      12871 :   Distance()</span>
+<span class="lineNum">      94 </span>                :<span class="lineCov">      12871 :     : mDistance(std::numeric_limits&lt;double&gt;::quiet_NaN())</span>
 <span class="lineNum">      95 </span>                :            :   {
-<span class="lineNum">      96 </span>                :<span class="lineCov">      12859 :   }</span>
+<span class="lineNum">      96 </span>                :<span class="lineCov">      12871 :   }</span>
 <span class="lineNum">      97 </span>                :            : 
 <span class="lineNum">      98 </span>                :            :   /*!
 <a name="99"><span class="lineNum">      99 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">     100 </span>                :            :    */
-<span class="lineNum">     101 </span>                :<span class="lineCov">    6770643 :   explicit Distance(double const iDistance)</span>
-<span class="lineNum">     102 </span>                :<span class="lineCov">    6770643 :     : mDistance(iDistance)</span>
+<span class="lineNum">     101 </span>                :<span class="lineCov">    6776827 :   explicit Distance(double const iDistance)</span>
+<span class="lineNum">     102 </span>                :<span class="lineCov">    6776827 :     : mDistance(iDistance)</span>
 <span class="lineNum">     103 </span>                :            :   {
-<span class="lineNum">     104 </span>                :<span class="lineCov">    6770643 :   }</span>
+<span class="lineNum">     104 </span>                :<span class="lineCov">    6776827 :   }</span>
 <span class="lineNum">     105 </span>                :            : 
 <span class="lineNum">     106 </span>                :            :   /*!
 <span class="lineNum">     107 </span>                :            :    * \brief standard copy constructor
@@ -209,11 +209,11 @@
 <span class="lineNum">     138 </span>                :            :    *
 <a name="139"><span class="lineNum">     139 </span>                :            :    * \returns \c true if both Distance are valid and can be taken as numerically equal</a>
 <span class="lineNum">     140 </span>                :            :    */
-<span class="lineNum">     141 </span>                :<span class="lineCov">     854775 :   bool operator==(const Distance &amp;other) const</span>
+<span class="lineNum">     141 </span>                :<span class="lineCov">     855552 :   bool operator==(const Distance &amp;other) const</span>
 <span class="lineNum">     142 </span>                :            :   {
-<span class="lineNum">     143 </span>                :<span class="lineCov">     854775 :     ensureValid();</span>
-<span class="lineNum">     144 </span>                :<span class="lineCov">     854773 :     other.ensureValid();</span>
-<span class="lineNum">     145 </span>                :<span class="lineCov">     854771 :     return std::fabs(mDistance - other.mDistance) &lt; cPrecisionValue;</span>
+<span class="lineNum">     143 </span>                :<span class="lineCov">     855552 :     ensureValid();</span>
+<span class="lineNum">     144 </span>                :<span class="lineCov">     855550 :     other.ensureValid();</span>
+<span class="lineNum">     145 </span>                :<span class="lineCov">     855548 :     return std::fabs(mDistance - other.mDistance) &lt; cPrecisionValue;</span>
 <span class="lineNum">     146 </span>                :            :   }
 <span class="lineNum">     147 </span>                :            : 
 <span class="lineNum">     148 </span>                :            :   /**
@@ -223,9 +223,9 @@
 <span class="lineNum">     152 </span>                :            :    *
 <a name="153"><span class="lineNum">     153 </span>                :            :    * \returns \c true if one of the Distance is not valid or they can be taken as numerically different</a>
 <span class="lineNum">     154 </span>                :            :    */
-<span class="lineNum">     155 </span>                :<span class="lineCov">     161007 :   bool operator!=(const Distance &amp;other) const</span>
+<span class="lineNum">     155 </span>                :<span class="lineCov">     161187 :   bool operator!=(const Distance &amp;other) const</span>
 <span class="lineNum">     156 </span>                :            :   {
-<span class="lineNum">     157 </span>                :<span class="lineCov">     161007 :     return !operator==(other);</span>
+<span class="lineNum">     157 </span>                :<span class="lineCov">     161187 :     return !operator==(other);</span>
 <span class="lineNum">     158 </span>                :            :   }
 <span class="lineNum">     159 </span>                :            : 
 <span class="lineNum">     160 </span>                :            :   /**
@@ -237,11 +237,11 @@
 <span class="lineNum">     166 </span>                :            :    *   this Distance is strictly numerically greater than other.
 <a name="167"><span class="lineNum">     167 </span>                :            :    * \note the precision of Distance is considered</a>
 <span class="lineNum">     168 </span>                :            :    */
-<span class="lineNum">     169 </span>                :<span class="lineCov">      29830 :   bool operator&gt;(const Distance &amp;other) const</span>
+<span class="lineNum">     169 </span>                :<span class="lineCov">      29872 :   bool operator&gt;(const Distance &amp;other) const</span>
 <span class="lineNum">     170 </span>                :            :   {
-<span class="lineNum">     171 </span>                :<span class="lineCov">      29830 :     ensureValid();</span>
-<span class="lineNum">     172 </span>                :<span class="lineCov">      29829 :     other.ensureValid();</span>
-<span class="lineNum">     173 </span>[<span class="branchCov" title="Branch 0 was taken 11327 times"> + </span><span class="branchCov" title="Branch 1 was taken 18501 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 11323 times"> + </span><span class="branchCov" title="Branch 4 was taken 4 times"> + </span>]:<span class="lineCov">      29828 :     return (mDistance &gt; other.mDistance) &amp;&amp; operator!=(other);</span>
+<span class="lineNum">     171 </span>                :<span class="lineCov">      29872 :     ensureValid();</span>
+<span class="lineNum">     172 </span>                :<span class="lineCov">      29871 :     other.ensureValid();</span>
+<span class="lineNum">     173 </span>[<span class="branchCov" title="Branch 0 was taken 11345 times"> + </span><span class="branchCov" title="Branch 1 was taken 18525 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 11341 times"> + </span><span class="branchCov" title="Branch 4 was taken 4 times"> + </span>]:<span class="lineCov">      29870 :     return (mDistance &gt; other.mDistance) &amp;&amp; operator!=(other);</span>
 <span class="lineNum">     174 </span>                :            :   }
 <span class="lineNum">     175 </span>                :            : 
 <span class="lineNum">     176 </span>                :            :   /**
@@ -253,11 +253,11 @@
 <span class="lineNum">     182 </span>                :            :    *   this Distance is strictly numerically smaller than other.
 <a name="183"><span class="lineNum">     183 </span>                :            :    * \note the precision of Distance is considered</a>
 <span class="lineNum">     184 </span>                :            :    */
-<span class="lineNum">     185 </span>                :<span class="lineCov">     629965 :   bool operator&lt;(const Distance &amp;other) const</span>
+<span class="lineNum">     185 </span>                :<span class="lineCov">     630271 :   bool operator&lt;(const Distance &amp;other) const</span>
 <span class="lineNum">     186 </span>                :            :   {
-<span class="lineNum">     187 </span>                :<span class="lineCov">     629965 :     ensureValid();</span>
-<span class="lineNum">     188 </span>                :<span class="lineCov">     629962 :     other.ensureValid();</span>
-<span class="lineNum">     189 </span>[<span class="branchCov" title="Branch 0 was taken 149673 times"> + </span><span class="branchCov" title="Branch 1 was taken 480288 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 149672 times"> + </span><span class="branchCov" title="Branch 4 was taken 1 time"> + </span>]:<span class="lineCov">     629961 :     return (mDistance &lt; other.mDistance) &amp;&amp; operator!=(other);</span>
+<span class="lineNum">     187 </span>                :<span class="lineCov">     630271 :     ensureValid();</span>
+<span class="lineNum">     188 </span>                :<span class="lineCov">     630268 :     other.ensureValid();</span>
+<span class="lineNum">     189 </span>[<span class="branchCov" title="Branch 0 was taken 149835 times"> + </span><span class="branchCov" title="Branch 1 was taken 480432 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 149834 times"> + </span><span class="branchCov" title="Branch 4 was taken 1 time"> + </span>]:<span class="lineCov">     630267 :     return (mDistance &lt; other.mDistance) &amp;&amp; operator!=(other);</span>
 <span class="lineNum">     190 </span>                :            :   }
 <span class="lineNum">     191 </span>                :            : 
 <span class="lineNum">     192 </span>                :            :   /**
@@ -285,11 +285,11 @@
 <span class="lineNum">     214 </span>                :            :    *   this Distance is numerically smaller than other.
 <a name="215"><span class="lineNum">     215 </span>                :            :    * \note the precision of Distance is considered</a>
 <span class="lineNum">     216 </span>                :            :    */
-<span class="lineNum">     217 </span>                :<span class="lineCov">    7036221 :   bool operator&lt;=(const Distance &amp;other) const</span>
+<span class="lineNum">     217 </span>                :<span class="lineCov">    7041911 :   bool operator&lt;=(const Distance &amp;other) const</span>
 <span class="lineNum">     218 </span>                :            :   {
-<span class="lineNum">     219 </span>                :<span class="lineCov">    7036221 :     ensureValid();</span>
-<span class="lineNum">     220 </span>                :<span class="lineCov">    7036220 :     other.ensureValid();</span>
-<span class="lineNum">     221 </span>[<span class="branchCov" title="Branch 0 was taken 693105 times"> + </span><span class="branchCov" title="Branch 1 was taken 6343090 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 693072 times"> + </span><span class="branchCov" title="Branch 4 was taken 33 times"> + </span>]:<span class="lineCov">    7036195 :     return ((mDistance &lt; other.mDistance) || operator==(other));</span>
+<span class="lineNum">     219 </span>                :<span class="lineCov">    7041911 :     ensureValid();</span>
+<span class="lineNum">     220 </span>                :<span class="lineCov">    7041910 :     other.ensureValid();</span>
+<span class="lineNum">     221 </span>[<span class="branchCov" title="Branch 0 was taken 693702 times"> + </span><span class="branchCov" title="Branch 1 was taken 6348183 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 693669 times"> + </span><span class="branchCov" title="Branch 4 was taken 33 times"> + </span>]:<span class="lineCov">    7041885 :     return ((mDistance &lt; other.mDistance) || operator==(other));</span>
 <span class="lineNum">     222 </span>                :            :   }
 <span class="lineNum">     223 </span>                :            : 
 <span class="lineNum">     224 </span>                :            :   /**
@@ -302,13 +302,13 @@
 <span class="lineNum">     231 </span>                :            :    * \note throws a std::out_of_range exception if one of the two operands or the result of
 <a name="232"><span class="lineNum">     232 </span>                :            :    *   the operation is not valid</a>
 <span class="lineNum">     233 </span>                :            :    */
-<span class="lineNum">     234 </span>                :<span class="lineCov">      72436 :   Distance operator+(const Distance &amp;other) const</span>
+<span class="lineNum">     234 </span>                :<span class="lineCov">      72496 :   Distance operator+(const Distance &amp;other) const</span>
 <span class="lineNum">     235 </span>                :            :   {
-<span class="lineNum">     236 </span>        [<span class="branchCov" title="Branch 1 was taken 72435 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      72436 :     ensureValid();</span>
-<span class="lineNum">     237 </span>        [<span class="branchCov" title="Branch 1 was taken 72434 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      72435 :     other.ensureValid();</span>
-<span class="lineNum">     238 </span>                :<span class="lineCov">      72434 :     Distance const result(mDistance + other.mDistance);</span>
-<span class="lineNum">     239 </span>        [<span class="branchCov" title="Branch 1 was taken 72433 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      72434 :     result.ensureValid();</span>
-<span class="lineNum">     240 </span>                :<span class="lineCov">      72433 :     return result;</span>
+<span class="lineNum">     236 </span>        [<span class="branchCov" title="Branch 1 was taken 72495 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      72496 :     ensureValid();</span>
+<span class="lineNum">     237 </span>        [<span class="branchCov" title="Branch 1 was taken 72494 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      72495 :     other.ensureValid();</span>
+<span class="lineNum">     238 </span>                :<span class="lineCov">      72494 :     Distance const result(mDistance + other.mDistance);</span>
+<span class="lineNum">     239 </span>        [<span class="branchCov" title="Branch 1 was taken 72493 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      72494 :     result.ensureValid();</span>
+<span class="lineNum">     240 </span>                :<span class="lineCov">      72493 :     return result;</span>
 <span class="lineNum">     241 </span>                :            :   }
 <span class="lineNum">     242 </span>                :            : 
 <span class="lineNum">     243 </span>                :            :   /**
@@ -321,13 +321,13 @@
 <span class="lineNum">     250 </span>                :            :    * \note throws a std::out_of_range exception if one of the two operands or the result of
 <a name="251"><span class="lineNum">     251 </span>                :            :    *   the operation is not valid</a>
 <span class="lineNum">     252 </span>                :            :    */
-<span class="lineNum">     253 </span>                :<span class="lineCov">      77865 :   Distance &amp;operator+=(const Distance &amp;other)</span>
+<span class="lineNum">     253 </span>                :<span class="lineCov">      77937 :   Distance &amp;operator+=(const Distance &amp;other)</span>
 <span class="lineNum">     254 </span>                :            :   {
-<span class="lineNum">     255 </span>                :<span class="lineCov">      77865 :     ensureValid();</span>
-<span class="lineNum">     256 </span>                :<span class="lineCov">      77864 :     other.ensureValid();</span>
-<span class="lineNum">     257 </span>                :<span class="lineCov">      77863 :     mDistance += other.mDistance;</span>
-<span class="lineNum">     258 </span>                :<span class="lineCov">      77863 :     ensureValid();</span>
-<span class="lineNum">     259 </span>                :<span class="lineCov">      77862 :     return *this;</span>
+<span class="lineNum">     255 </span>                :<span class="lineCov">      77937 :     ensureValid();</span>
+<span class="lineNum">     256 </span>                :<span class="lineCov">      77936 :     other.ensureValid();</span>
+<span class="lineNum">     257 </span>                :<span class="lineCov">      77935 :     mDistance += other.mDistance;</span>
+<span class="lineNum">     258 </span>                :<span class="lineCov">      77935 :     ensureValid();</span>
+<span class="lineNum">     259 </span>                :<span class="lineCov">      77934 :     return *this;</span>
 <span class="lineNum">     260 </span>                :            :   }
 <span class="lineNum">     261 </span>                :            : 
 <span class="lineNum">     262 </span>                :            :   /**
@@ -340,13 +340,13 @@
 <span class="lineNum">     269 </span>                :            :    * \note throws a std::out_of_range exception if one of the two operands or the result of
 <a name="270"><span class="lineNum">     270 </span>                :            :    *   the operation is not valid</a>
 <span class="lineNum">     271 </span>                :            :    */
-<span class="lineNum">     272 </span>                :<span class="lineCov">      19904 :   Distance operator-(const Distance &amp;other) const</span>
+<span class="lineNum">     272 </span>                :<span class="lineCov">      19916 :   Distance operator-(const Distance &amp;other) const</span>
 <span class="lineNum">     273 </span>                :            :   {
-<span class="lineNum">     274 </span>        [<span class="branchCov" title="Branch 1 was taken 19903 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      19904 :     ensureValid();</span>
-<span class="lineNum">     275 </span>        [<span class="branchCov" title="Branch 1 was taken 19902 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      19903 :     other.ensureValid();</span>
-<span class="lineNum">     276 </span>                :<span class="lineCov">      19902 :     Distance const result(mDistance - other.mDistance);</span>
-<span class="lineNum">     277 </span>        [<span class="branchCov" title="Branch 1 was taken 19753 times"> + </span><span class="branchCov" title="Branch 2 was taken 149 times"> + </span>]:<span class="lineCov">      19902 :     result.ensureValid();</span>
-<span class="lineNum">     278 </span>                :<span class="lineCov">      19753 :     return result;</span>
+<span class="lineNum">     274 </span>        [<span class="branchCov" title="Branch 1 was taken 19915 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      19916 :     ensureValid();</span>
+<span class="lineNum">     275 </span>        [<span class="branchCov" title="Branch 1 was taken 19914 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      19915 :     other.ensureValid();</span>
+<span class="lineNum">     276 </span>                :<span class="lineCov">      19914 :     Distance const result(mDistance - other.mDistance);</span>
+<span class="lineNum">     277 </span>        [<span class="branchCov" title="Branch 1 was taken 19765 times"> + </span><span class="branchCov" title="Branch 2 was taken 149 times"> + </span>]:<span class="lineCov">      19914 :     result.ensureValid();</span>
+<span class="lineNum">     278 </span>                :<span class="lineCov">      19765 :     return result;</span>
 <span class="lineNum">     279 </span>                :            :   }
 <span class="lineNum">     280 </span>                :            : 
 <span class="lineNum">     281 </span>                :            :   /**
@@ -458,9 +458,9 @@
 <span class="lineNum">     387 </span>                :            :    * \note conversion to the base type removes the physical unit;
 <a name="388"><span class="lineNum">     388 </span>                :            :    * therefore only explicit calls are allowed</a>
 <span class="lineNum">     389 </span>                :            :    */
-<span class="lineNum">     390 </span>                :<span class="lineCov">      44396 :   explicit operator double() const</span>
+<span class="lineNum">     390 </span>                :<span class="lineCov">      44444 :   explicit operator double() const</span>
 <span class="lineNum">     391 </span>                :            :   {
-<span class="lineNum">     392 </span>                :<span class="lineCov">      44396 :     return mDistance;</span>
+<span class="lineNum">     392 </span>                :<span class="lineCov">      44444 :     return mDistance;</span>
 <span class="lineNum">     393 </span>                :            :   }
 <span class="lineNum">     394 </span>                :            : 
 <span class="lineNum">     395 </span>                :            :   /*!
@@ -470,11 +470,11 @@
 <span class="lineNum">     399 </span>                :            :    * - It is normal or zero (see std::fpclassify()
 <a name="400"><span class="lineNum">     400 </span>                :            :    * - cMinDistanceValue &lt;= value &lt;= cMaxDistanceValue</a>
 <span class="lineNum">     401 </span>                :            :    */
-<span class="lineNum">     402 </span>                :<span class="lineCov">   17758439 :   bool isValid() const</span>
+<span class="lineNum">     402 </span>                :<span class="lineCov">   17772621 :   bool isValid() const</span>
 <span class="lineNum">     403 </span>                :            :   {
-<span class="lineNum">     404 </span>                :<span class="lineCov">   17758439 :     auto const valueClass = std::fpclassify(mDistance);</span>
-<span class="lineNum">     405 </span>[<span class="branchCov" title="Branch 0 was taken 2744666 times"> + </span><span class="branchCov" title="Branch 1 was taken 46 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 17758388 times"> + </span><span class="branchCov" title="Branch 3 was taken 5 times"> + </span>]:<span class="lineCov">   17758439 :     return ((valueClass == FP_NORMAL) || (valueClass == FP_ZERO)) &amp;&amp; (cMinValue &lt;= mDistance)</span>
-<span class="lineNum">     406 </span>[<span class="branchCov" title="Branch 0 was taken 2744712 times"> + </span><span class="branchCov" title="Branch 1 was taken 15013727 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 17758222 times"> + </span><span class="branchCov" title="Branch 3 was taken 166 times"> + </span>]:<span class="lineCov">   35516878 :       &amp;&amp; (mDistance &lt;= cMaxValue);</span>
+<span class="lineNum">     404 </span>                :<span class="lineCov">   17772621 :     auto const valueClass = std::fpclassify(mDistance);</span>
+<span class="lineNum">     405 </span>[<span class="branchCov" title="Branch 0 was taken 2747239 times"> + </span><span class="branchCov" title="Branch 1 was taken 46 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 17772570 times"> + </span><span class="branchCov" title="Branch 3 was taken 5 times"> + </span>]:<span class="lineCov">   17772621 :     return ((valueClass == FP_NORMAL) || (valueClass == FP_ZERO)) &amp;&amp; (cMinValue &lt;= mDistance)</span>
+<span class="lineNum">     406 </span>[<span class="branchCov" title="Branch 0 was taken 2747285 times"> + </span><span class="branchCov" title="Branch 1 was taken 15025336 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 17772404 times"> + </span><span class="branchCov" title="Branch 3 was taken 166 times"> + </span>]:<span class="lineCov">   35545242 :       &amp;&amp; (mDistance &lt;= cMaxValue);</span>
 <span class="lineNum">     407 </span>                :            :   }
 <span class="lineNum">     408 </span>                :            : 
 <span class="lineNum">     409 </span>                :            :   /*!
@@ -483,13 +483,13 @@
 <span class="lineNum">     412 </span>                :            :    * Throws an std::out_of_range() exception if the Distance
 <a name="413"><span class="lineNum">     413 </span>                :            :    * in not valid (i.e. isValid() returns false)</a>
 <span class="lineNum">     414 </span>                :            :    */
-<span class="lineNum">     415 </span>                :<span class="lineCov">   17758422 :   void ensureValid() const</span>
+<span class="lineNum">     415 </span>                :<span class="lineCov">   17772604 :   void ensureValid() const</span>
 <span class="lineNum">     416 </span>                :            :   {
-<span class="lineNum">     417 </span>        [<span class="branchCov" title="Branch 1 was taken 211 times"> + </span><span class="branchCov" title="Branch 2 was taken 17758211 times"> + </span>]:<span class="lineCov">   17758422 :     if (!isValid())</span>
+<span class="lineNum">     417 </span>        [<span class="branchCov" title="Branch 1 was taken 211 times"> + </span><span class="branchCov" title="Branch 2 was taken 17772393 times"> + </span>]:<span class="lineCov">   17772604 :     if (!isValid())</span>
 <span class="lineNum">     418 </span>                :            :     {
 <span class="lineNum">     419 </span>                :<span class="lineCov">        211 :       throw std::out_of_range(&quot;Distance value out of range&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">     420 </span>                :            :     }
-<span class="lineNum">     421 </span>                :<span class="lineCov">   17758211 :   }</span>
+<span class="lineNum">     421 </span>                :<span class="lineCov">   17772393 :   }</span>
 <span class="lineNum">     422 </span>                :            : 
 <span class="lineNum">     423 </span>                :            :   /*!
 <span class="lineNum">     424 </span>                :            :    * \brief ensure that the Distance is valid and non zero
@@ -509,17 +509,17 @@
 <span class="lineNum">     438 </span>                :            :   /*!
 <a name="439"><span class="lineNum">     439 </span>                :            :    * \brief get minimum valid Distance</a>
 <span class="lineNum">     440 </span>                :            :    */
-<span class="lineNum">     441 </span>                :<span class="lineCov">    1341646 :   static Distance getMin()</span>
+<span class="lineNum">     441 </span>                :<span class="lineCov">    1342838 :   static Distance getMin()</span>
 <span class="lineNum">     442 </span>                :            :   {
-<span class="lineNum">     443 </span>                :<span class="lineCov">    1341646 :     return Distance(cMinValue);</span>
+<span class="lineNum">     443 </span>                :<span class="lineCov">    1342838 :     return Distance(cMinValue);</span>
 <span class="lineNum">     444 </span>                :            :   }
 <span class="lineNum">     445 </span>                :            : 
 <span class="lineNum">     446 </span>                :            :   /*!
 <a name="447"><span class="lineNum">     447 </span>                :            :    * \brief get maximum valid Distance</a>
 <span class="lineNum">     448 </span>                :            :    */
-<span class="lineNum">     449 </span>                :<span class="lineCov">    1405342 :   static Distance getMax()</span>
+<span class="lineNum">     449 </span>                :<span class="lineCov">    1406616 :   static Distance getMax()</span>
 <span class="lineNum">     450 </span>                :            :   {
-<span class="lineNum">     451 </span>                :<span class="lineCov">    1405342 :     return Distance(cMaxValue);</span>
+<span class="lineNum">     451 </span>                :<span class="lineCov">    1406616 :     return Distance(cMaxValue);</span>
 <span class="lineNum">     452 </span>                :            :   }
 <span class="lineNum">     453 </span>                :            : 
 <span class="lineNum">     454 </span>                :            :   /*!
@@ -584,16 +584,16 @@
 <span class="lineNum">     513 </span>                :            :   /*!
 <a name="514"><span class="lineNum">     514 </span>                :            :    * \see std::numeric_limits::lowest()</a>
 <span class="lineNum">     515 </span>                :            :    */
-<span class="lineNum">     516 </span>                :<span class="lineCov">    1341643 :   static inline ::ad_rss::physics::Distance lowest()</span>
+<span class="lineNum">     516 </span>                :<span class="lineCov">    1342835 :   static inline ::ad_rss::physics::Distance lowest()</span>
 <span class="lineNum">     517 </span>                :            :   {
-<span class="lineNum">     518 </span>                :<span class="lineCov">    1341643 :     return ::ad_rss::physics::Distance::getMin();</span>
+<span class="lineNum">     518 </span>                :<span class="lineCov">    1342835 :     return ::ad_rss::physics::Distance::getMin();</span>
 <span class="lineNum">     519 </span>                :            :   }
 <span class="lineNum">     520 </span>                :            :   /*!
 <a name="521"><span class="lineNum">     521 </span>                :            :    * \see std::numeric_limits::max()</a>
 <span class="lineNum">     522 </span>                :            :    */
-<span class="lineNum">     523 </span>                :<span class="lineCov">    1405339 :   static inline ::ad_rss::physics::Distance max()</span>
+<span class="lineNum">     523 </span>                :<span class="lineCov">    1406613 :   static inline ::ad_rss::physics::Distance max()</span>
 <span class="lineNum">     524 </span>                :            :   {
-<span class="lineNum">     525 </span>                :<span class="lineCov">    1405339 :     return ::ad_rss::physics::Distance::getMax();</span>
+<span class="lineNum">     525 </span>                :<span class="lineCov">    1406613 :     return ::ad_rss::physics::Distance::getMax();</span>
 <span class="lineNum">     526 </span>                :            :   }
 <span class="lineNum">     527 </span>                :            :   /*!
 <a name="528"><span class="lineNum">     528 </span>                :            :    * \see std::numeric_limits::epsilon()</a>

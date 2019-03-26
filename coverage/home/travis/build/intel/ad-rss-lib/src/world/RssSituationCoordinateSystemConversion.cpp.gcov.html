@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-26 12:27:34</td>
+            <td class="headerValue">2019-03-26 12:34:24</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -122,41 +122,41 @@
 <span class="lineNum">      51 </span>                :            : using physics::Distance;
 <a name="52"><span class="lineNum">      52 </span>                :            : using physics::MetricRange;</a>
 <span class="lineNum">      53 </span>                :            : 
-<span class="lineNum">      54 </span>                :<span class="lineCov">       5785 : bool calculateLateralDimensions(RoadArea const &amp;roadArea, std::vector&lt;MetricRange&gt; &amp;lateralRanges)</span>
+<span class="lineNum">      54 </span>                :<span class="lineCov">       5791 : bool calculateLateralDimensions(RoadArea const &amp;roadArea, std::vector&lt;MetricRange&gt; &amp;lateralRanges)</span>
 <span class="lineNum">      55 </span>                :            : {
-<span class="lineNum">      56 </span>                :<span class="lineCov">       5785 :   bool result = true;</span>
+<span class="lineNum">      56 </span>                :<span class="lineCov">       5791 :   bool result = true;</span>
 <span class="lineNum">      57 </span>                :            : 
 <span class="lineNum">      58 </span>                :            :   try
 <span class="lineNum">      59 </span>                :            :   {
-<span class="lineNum">      60 </span>        [<span class="branchCov" title="Branch 1 was taken 5785 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5785 :     MetricRange currentLateralPosition;</span>
+<span class="lineNum">      60 </span>        [<span class="branchCov" title="Branch 1 was taken 5791 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5791 :     MetricRange currentLateralPosition;</span>
 <span class="lineNum">      61 </span>                :            : 
-<span class="lineNum">      62 </span>                :<span class="lineCov">       5785 :     currentLateralPosition.maximum = Distance(0.);</span>
-<span class="lineNum">      63 </span>                :<span class="lineCov">       5785 :     currentLateralPosition.minimum = Distance(0.);</span>
+<span class="lineNum">      62 </span>                :<span class="lineCov">       5791 :     currentLateralPosition.maximum = Distance(0.);</span>
+<span class="lineNum">      63 </span>                :<span class="lineCov">       5791 :     currentLateralPosition.minimum = Distance(0.);</span>
 <span class="lineNum">      64 </span>                :            : 
-<span class="lineNum">      65 </span>                :<span class="lineCov">       5785 :     std::size_t currentLateralIndex = 0u;</span>
-<span class="lineNum">      66 </span>                :<span class="lineCov">       5785 :     bool roadSegmentFound = true;</span>
-<span class="lineNum">      67 </span>        [<span class="branchCov" title="Branch 0 was taken 21304 times"> + </span><span class="branchCov" title="Branch 1 was taken 5740 times"> + </span>]:<span class="lineCov">      27044 :     while (roadSegmentFound)</span>
+<span class="lineNum">      65 </span>                :<span class="lineCov">       5791 :     std::size_t currentLateralIndex = 0u;</span>
+<span class="lineNum">      66 </span>                :<span class="lineCov">       5791 :     bool roadSegmentFound = true;</span>
+<span class="lineNum">      67 </span>        [<span class="branchCov" title="Branch 0 was taken 21328 times"> + </span><span class="branchCov" title="Branch 1 was taken 5746 times"> + </span>]:<span class="lineCov">      27074 :     while (roadSegmentFound)</span>
 <span class="lineNum">      68 </span>                :            :     {
-<span class="lineNum">      69 </span>                :<span class="lineCov">      21304 :       roadSegmentFound = false;</span>
-<span class="lineNum">      70 </span>        [<span class="branchCov" title="Branch 1 was taken 21259 times"> + </span><span class="branchCov" title="Branch 2 was taken 45 times"> + </span>]:<span class="lineCov">      21304 :       lateralRanges.push_back(currentLateralPosition);</span>
+<span class="lineNum">      69 </span>                :<span class="lineCov">      21328 :       roadSegmentFound = false;</span>
+<span class="lineNum">      70 </span>        [<span class="branchCov" title="Branch 1 was taken 21283 times"> + </span><span class="branchCov" title="Branch 2 was taken 45 times"> + </span>]:<span class="lineCov">      21328 :       lateralRanges.push_back(currentLateralPosition);</span>
 <span class="lineNum">      71 </span>                :            : 
-<span class="lineNum">      72 </span>                :<span class="lineCov">      21259 :       Distance lateralDistanceMax = Distance(0.);</span>
-<span class="lineNum">      73 </span>                :<span class="lineCov">      21259 :       Distance lateralDistanceMin = std::numeric_limits&lt;Distance&gt;::max();</span>
-<span class="lineNum">      74 </span>        [<span class="branchCov" title="Branch 3 was taken 157783 times"> + </span><span class="branchCov" title="Branch 4 was taken 21259 times"> + </span>]:<span class="lineCov">     179042 :       for (const auto &amp;roadSegment : roadArea)</span>
+<span class="lineNum">      72 </span>                :<span class="lineCov">      21283 :       Distance lateralDistanceMax = Distance(0.);</span>
+<span class="lineNum">      73 </span>                :<span class="lineCov">      21283 :       Distance lateralDistanceMin = std::numeric_limits&lt;Distance&gt;::max();</span>
+<span class="lineNum">      74 </span>        [<span class="branchCov" title="Branch 3 was taken 157855 times"> + </span><span class="branchCov" title="Branch 4 was taken 21283 times"> + </span>]:<span class="lineCov">     179138 :       for (const auto &amp;roadSegment : roadArea)</span>
 <span class="lineNum">      75 </span>                :            :       {
-<span class="lineNum">      76 </span>        [<span class="branchCov" title="Branch 1 was taken 131861 times"> + </span><span class="branchCov" title="Branch 2 was taken 25922 times"> + </span>]:<span class="lineCov">     157783 :         if (roadSegment.size() &gt; currentLateralIndex)</span>
+<span class="lineNum">      76 </span>        [<span class="branchCov" title="Branch 1 was taken 131915 times"> + </span><span class="branchCov" title="Branch 2 was taken 25940 times"> + </span>]:<span class="lineCov">     157855 :         if (roadSegment.size() &gt; currentLateralIndex)</span>
 <span class="lineNum">      77 </span>                :            :         {
-<span class="lineNum">      78 </span>                :<span class="lineCov">     131861 :           roadSegmentFound = true;</span>
-<span class="lineNum">      79 </span>        [<span class="branchCov" title="Branch 2 was taken 131861 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     131861 :           lateralDistanceMax = std::max(lateralDistanceMax, roadSegment[currentLateralIndex].width.maximum);</span>
-<span class="lineNum">      80 </span>        [<span class="branchCov" title="Branch 2 was taken 131861 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     131861 :           lateralDistanceMin = std::min(lateralDistanceMin, roadSegment[currentLateralIndex].width.minimum);</span>
+<span class="lineNum">      78 </span>                :<span class="lineCov">     131915 :           roadSegmentFound = true;</span>
+<span class="lineNum">      79 </span>        [<span class="branchCov" title="Branch 2 was taken 131915 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     131915 :           lateralDistanceMax = std::max(lateralDistanceMax, roadSegment[currentLateralIndex].width.maximum);</span>
+<span class="lineNum">      80 </span>        [<span class="branchCov" title="Branch 2 was taken 131915 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     131915 :           lateralDistanceMin = std::min(lateralDistanceMin, roadSegment[currentLateralIndex].width.minimum);</span>
 <span class="lineNum">      81 </span>                :            :         }
 <span class="lineNum">      82 </span>                :            :       }
 <span class="lineNum">      83 </span>                :            : 
-<span class="lineNum">      84 </span>        [<span class="branchCov" title="Branch 0 was taken 15519 times"> + </span><span class="branchCov" title="Branch 1 was taken 5740 times"> + </span>]:<span class="lineCov">      21259 :       if (roadSegmentFound)</span>
+<span class="lineNum">      84 </span>        [<span class="branchCov" title="Branch 0 was taken 15537 times"> + </span><span class="branchCov" title="Branch 1 was taken 5746 times"> + </span>]:<span class="lineCov">      21283 :       if (roadSegmentFound)</span>
 <span class="lineNum">      85 </span>                :            :       {
-<span class="lineNum">      86 </span>        [<span class="branchCov" title="Branch 1 was taken 15519 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      15519 :         currentLateralPosition.maximum += lateralDistanceMax;</span>
-<span class="lineNum">      87 </span>        [<span class="branchCov" title="Branch 1 was taken 15519 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      15519 :         currentLateralPosition.minimum += lateralDistanceMin;</span>
-<span class="lineNum">      88 </span>                :<span class="lineCov">      15519 :         currentLateralIndex++;</span>
+<span class="lineNum">      86 </span>        [<span class="branchCov" title="Branch 1 was taken 15537 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      15537 :         currentLateralPosition.maximum += lateralDistanceMax;</span>
+<span class="lineNum">      87 </span>        [<span class="branchCov" title="Branch 1 was taken 15537 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      15537 :         currentLateralPosition.minimum += lateralDistanceMin;</span>
+<span class="lineNum">      88 </span>                :<span class="lineCov">      15537 :         currentLateralIndex++;</span>
 <span class="lineNum">      89 </span>                :            :       }
 <span class="lineNum">      90 </span>                :            :     }
 <span class="lineNum">      91 </span>                :            :   }
@@ -165,7 +165,7 @@
 <span class="lineNum">      94 </span>                :<span class="lineCov">         45 :     return false;</span>
 <span class="lineNum">      95 </span>                :            :   }
 <span class="lineNum">      96 </span>                :            : 
-<span class="lineNum">      97 </span>                :<span class="lineCov">       5830 :   return result;</span>
+<span class="lineNum">      97 </span>                :<span class="lineCov">       5836 :   return result;</span>
 <span class="lineNum">      98 </span>                :            : }
 <span class="lineNum">      99 </span>                :            : 
 <span class="lineNum">     100 </span>                :            : /**
@@ -217,56 +217,56 @@
 <span class="lineNum">     146 </span>                :            :  *
 <a name="147"><span class="lineNum">     147 </span>                :            :  */</a>
 <span class="lineNum">     148 </span>                :            : 
-<span class="lineNum">     149 </span>                :<span class="lineCov">       5785 : bool calculateObjectDimensions(std::vector&lt;Object&gt; const &amp;objects,</span>
+<span class="lineNum">     149 </span>                :<span class="lineCov">       5791 : bool calculateObjectDimensions(std::vector&lt;Object&gt; const &amp;objects,</span>
 <span class="lineNum">     150 </span>                :            :                                RoadArea const &amp;roadArea,
 <span class="lineNum">     151 </span>                :            :                                std::vector&lt;ObjectDimensions&gt; &amp;objectDimensions)
 <span class="lineNum">     152 </span>                :            : {
-<span class="lineNum">     153 </span>                :<span class="lineCov">       5785 :   bool result = true;</span>
+<span class="lineNum">     153 </span>                :<span class="lineCov">       5791 :   bool result = true;</span>
 <span class="lineNum">     154 </span>                :            : 
 <span class="lineNum">     155 </span>                :            :   try
 <span class="lineNum">     156 </span>                :            :   {
-<span class="lineNum">     157 </span>                :<span class="lineCov">      11569 :     std::vector&lt;MetricRange&gt; lateralRanges;</span>
-<span class="lineNum">     158 </span>        [<span class="branchCov" title="Branch 1 was taken 5785 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5785 :     result = calculateLateralDimensions(roadArea, lateralRanges);</span>
-<span class="lineNum">     159 </span>        [<span class="branchCov" title="Branch 0 was taken 5740 times"> + </span><span class="branchCov" title="Branch 1 was taken 45 times"> + </span>]:<span class="lineCov">       5785 :     if (result)</span>
+<span class="lineNum">     157 </span>                :<span class="lineCov">      11581 :     std::vector&lt;MetricRange&gt; lateralRanges;</span>
+<span class="lineNum">     158 </span>        [<span class="branchCov" title="Branch 1 was taken 5791 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5791 :     result = calculateLateralDimensions(roadArea, lateralRanges);</span>
+<span class="lineNum">     159 </span>        [<span class="branchCov" title="Branch 0 was taken 5746 times"> + </span><span class="branchCov" title="Branch 1 was taken 45 times"> + </span>]:<span class="lineCov">       5791 :     if (result)</span>
 <span class="lineNum">     160 </span>                :            :     {
-<span class="lineNum">     161 </span>        [<span class="branchCov" title="Branch 1 was taken 5740 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5740 :       MetricRange longitudinalDimensions;</span>
+<span class="lineNum">     161 </span>        [<span class="branchCov" title="Branch 1 was taken 5746 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5746 :       MetricRange longitudinalDimensions;</span>
 <span class="lineNum">     162 </span>                :            : 
-<span class="lineNum">     163 </span>                :<span class="lineCov">       5740 :       longitudinalDimensions.maximum = Distance(0.);</span>
-<span class="lineNum">     164 </span>                :<span class="lineCov">       5740 :       longitudinalDimensions.minimum = Distance(0.);</span>
+<span class="lineNum">     163 </span>                :<span class="lineCov">       5746 :       longitudinalDimensions.maximum = Distance(0.);</span>
+<span class="lineNum">     164 </span>                :<span class="lineCov">       5746 :       longitudinalDimensions.minimum = Distance(0.);</span>
 <span class="lineNum">     165 </span>                :            : 
-<span class="lineNum">     166 </span>        [<span class="branchCov" title="Branch 2 was taken 5698 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">      11525 :       std::vector&lt;RssObjectPositionExtractor&gt; extractors;</span>
-<span class="lineNum">     167 </span>        [<span class="branchCov" title="Branch 3 was taken 9746 times"> + </span><span class="branchCov" title="Branch 4 was taken 5683 times"> + </span>]:<span class="lineCov">      15429 :       for (const auto &amp;object : objects)</span>
+<span class="lineNum">     166 </span>        [<span class="branchCov" title="Branch 2 was taken 5704 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">      11537 :       std::vector&lt;RssObjectPositionExtractor&gt; extractors;</span>
+<span class="lineNum">     167 </span>        [<span class="branchCov" title="Branch 3 was taken 9758 times"> + </span><span class="branchCov" title="Branch 4 was taken 5689 times"> + </span>]:<span class="lineCov">      15447 :       for (const auto &amp;object : objects)</span>
 <span class="lineNum">     168 </span>                :            :       {
-<span class="lineNum">     169 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 9745 times"> + </span>]:<span class="lineCov">       9746 :         if (object.occupiedRegions.empty())</span>
+<span class="lineNum">     169 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 9757 times"> + </span>]:<span class="lineCov">       9758 :         if (object.occupiedRegions.empty())</span>
 <span class="lineNum">     170 </span>                :            :         {
 <span class="lineNum">     171 </span>                :<span class="lineCov">          1 :           return false;</span>
 <span class="lineNum">     172 </span>                :            :         }
-<span class="lineNum">     173 </span>[<span class="branchCov" title="Branch 1 was taken 9717 times"> + </span><span class="branchCov" title="Branch 2 was taken 28 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 9689 times"> + </span><span class="branchCov" title="Branch 5 was taken 28 times"> + </span>]:<span class="lineCov">       9775 :         extractors.push_back(RssObjectPositionExtractor(object.occupiedRegions));</span>
+<span class="lineNum">     173 </span>[<span class="branchCov" title="Branch 1 was taken 9729 times"> + </span><span class="branchCov" title="Branch 2 was taken 28 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 9701 times"> + </span><span class="branchCov" title="Branch 5 was taken 28 times"> + </span>]:<span class="lineCov">       9787 :         extractors.push_back(RssObjectPositionExtractor(object.occupiedRegions));</span>
 <span class="lineNum">     174 </span>                :            :       }
 <span class="lineNum">     175 </span>                :            : 
-<span class="lineNum">     176 </span>[<span class="branchCov" title="Branch 3 was taken 20665 times"> + </span><span class="branchCov" title="Branch 4 was taken 5681 times"> + </span>][<span class="branchCov" title="Branch 5 was taken 20665 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">      26346 :       for (auto roadSegment = roadArea.cbegin(); roadSegment != roadArea.cend() &amp;&amp; result; roadSegment++)</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 26346 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchCov" title="Branch 9 was taken 20665 times"> + </span><span class="branchCov" title="Branch 10 was taken 5681 times"> + </span>]
+<span class="lineNum">     176 </span>[<span class="branchCov" title="Branch 3 was taken 20683 times"> + </span><span class="branchCov" title="Branch 4 was taken 5687 times"> + </span>][<span class="branchCov" title="Branch 5 was taken 20683 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">      26370 :       for (auto roadSegment = roadArea.cbegin(); roadSegment != roadArea.cend() &amp;&amp; result; roadSegment++)</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 26370 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchCov" title="Branch 9 was taken 20683 times"> + </span><span class="branchCov" title="Branch 10 was taken 5687 times"> + </span>]
 <span class="lineNum">     177 </span>                :            :       {
-<span class="lineNum">     178 </span>                :<span class="lineCov">      20665 :         Distance longitudinalDistanceMax = Distance(0.);</span>
-<span class="lineNum">     179 </span>                :<span class="lineCov">      20665 :         Distance longitudinalDistanceMin = Distance(0.);</span>
-<span class="lineNum">     180 </span>        [<span class="branchCov" title="Branch 3 was taken 36062 times"> + </span><span class="branchCov" title="Branch 4 was taken 20665 times"> + </span>]:<span class="lineCov">      56727 :         for (auto &amp;extractor : extractors)</span>
+<span class="lineNum">     178 </span>                :<span class="lineCov">      20683 :         Distance longitudinalDistanceMax = Distance(0.);</span>
+<span class="lineNum">     179 </span>                :<span class="lineCov">      20683 :         Distance longitudinalDistanceMin = Distance(0.);</span>
+<span class="lineNum">     180 </span>        [<span class="branchCov" title="Branch 3 was taken 36098 times"> + </span><span class="branchCov" title="Branch 4 was taken 20683 times"> + </span>]:<span class="lineCov">      56781 :         for (auto &amp;extractor : extractors)</span>
 <span class="lineNum">     181 </span>                :            :         {
-<span class="lineNum">     182 </span>[<span class="branchCov" title="Branch 0 was taken 36062 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 36062 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">      36062 :           result = result &amp;&amp; extractor.newRoadSegment(longitudinalDimensions.minimum, longitudinalDimensions.maximum);</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 36062 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
+<span class="lineNum">     182 </span>[<span class="branchCov" title="Branch 0 was taken 36098 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 36098 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">      36098 :           result = result &amp;&amp; extractor.newRoadSegment(longitudinalDimensions.minimum, longitudinalDimensions.maximum);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 36098 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
 <span class="lineNum">     183 </span>                :            :         }
 <span class="lineNum">     184 </span>                :            : 
 <span class="lineNum">     185 </span>                :            :         // This is needed, because we want to look for the minimum
-<span class="lineNum">     186 </span>                :<span class="lineCov">      20665 :         longitudinalDistanceMin = std::numeric_limits&lt;Distance&gt;::max();</span>
+<span class="lineNum">     186 </span>                :<span class="lineCov">      20683 :         longitudinalDistanceMin = std::numeric_limits&lt;Distance&gt;::max();</span>
 <span class="lineNum">     187 </span>                :            : 
-<span class="lineNum">     188 </span>[<span class="branchCov" title="Branch 2 was taken 131355 times"> + </span><span class="branchCov" title="Branch 3 was taken 20663 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 131355 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">     152018 :         for (std::size_t i = 0u; i &lt; roadSegment-&gt;size() &amp;&amp; result; i++)</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 131355 times"> + </span><span class="branchCov" title="Branch 7 was taken 20663 times"> + </span>]
+<span class="lineNum">     188 </span>[<span class="branchCov" title="Branch 2 was taken 131409 times"> + </span><span class="branchCov" title="Branch 3 was taken 20681 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 131409 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">     152090 :         for (std::size_t i = 0u; i &lt; roadSegment-&gt;size() &amp;&amp; result; i++)</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 131409 times"> + </span><span class="branchCov" title="Branch 7 was taken 20681 times"> + </span>]
 <span class="lineNum">     189 </span>                :            :         {
-<span class="lineNum">     190 </span>        [<span class="branchCov" title="Branch 1 was taken 131355 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">     131355 :           if (i &lt; lateralRanges.size())</span>
+<span class="lineNum">     190 </span>        [<span class="branchCov" title="Branch 1 was taken 131409 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">     131409 :           if (i &lt; lateralRanges.size())</span>
 <span class="lineNum">     191 </span>                :            :           {
-<span class="lineNum">     192 </span>        [<span class="branchCov" title="Branch 3 was taken 257423 times"> + </span><span class="branchCov" title="Branch 4 was taken 131353 times"> + </span>]:<span class="lineCov">     388776 :             for (auto &amp;extractor : extractors)</span>
+<span class="lineNum">     192 </span>        [<span class="branchCov" title="Branch 3 was taken 257531 times"> + </span><span class="branchCov" title="Branch 4 was taken 131407 times"> + </span>]:<span class="lineCov">     388938 :             for (auto &amp;extractor : extractors)</span>
 <span class="lineNum">     193 </span>                :            :             {
-<span class="lineNum">     194 </span>[<span class="branchCov" title="Branch 0 was taken 257423 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 6 was taken 257421 times"> + </span><span class="branchCov" title="Branch 7 was taken 2 times"> + </span>]:<span class="lineCov">     257423 :               result = result &amp;&amp; extractor.newLaneSegment(lateralRanges[i], (*roadSegment)[i]);</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 8 was taken 257421 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
+<span class="lineNum">     194 </span>[<span class="branchCov" title="Branch 0 was taken 257531 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 6 was taken 257529 times"> + </span><span class="branchCov" title="Branch 7 was taken 2 times"> + </span>]:<span class="lineCov">     257531 :               result = result &amp;&amp; extractor.newLaneSegment(lateralRanges[i], (*roadSegment)[i]);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 8 was taken 257529 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
 <span class="lineNum">     195 </span>                :            :             }
 <span class="lineNum">     196 </span>                :            :           }
 <span class="lineNum">     197 </span>                :            :           else
@@ -274,25 +274,25 @@
 <span class="lineNum">     199 </span>                :            :             result = false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
 <span class="lineNum">     200 </span>                :            :           }
 <span class="lineNum">     201 </span>                :            : 
-<span class="lineNum">     202 </span>        [<span class="branchCov" title="Branch 3 was taken 131353 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">     131353 :           longitudinalDistanceMax = std::max(longitudinalDistanceMax, (*roadSegment)[i].length.maximum);</span>
-<span class="lineNum">     203 </span>        [<span class="branchCov" title="Branch 3 was taken 131353 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">     131353 :           longitudinalDistanceMin = std::min(longitudinalDistanceMin, (*roadSegment)[i].length.minimum);</span>
+<span class="lineNum">     202 </span>        [<span class="branchCov" title="Branch 3 was taken 131407 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">     131407 :           longitudinalDistanceMax = std::max(longitudinalDistanceMax, (*roadSegment)[i].length.maximum);</span>
+<span class="lineNum">     203 </span>        [<span class="branchCov" title="Branch 3 was taken 131407 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">     131407 :           longitudinalDistanceMin = std::min(longitudinalDistanceMin, (*roadSegment)[i].length.minimum);</span>
 <span class="lineNum">     204 </span>                :            :         }
 <span class="lineNum">     205 </span>                :            : 
-<span class="lineNum">     206 </span>        [<span class="branchCov" title="Branch 0 was taken 20663 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      20663 :         if (result)</span>
+<span class="lineNum">     206 </span>        [<span class="branchCov" title="Branch 0 was taken 20681 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      20681 :         if (result)</span>
 <span class="lineNum">     207 </span>                :            :         {
-<span class="lineNum">     208 </span>        [<span class="branchCov" title="Branch 1 was taken 20663 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      20663 :           longitudinalDimensions.maximum += longitudinalDistanceMax;</span>
-<span class="lineNum">     209 </span>        [<span class="branchCov" title="Branch 1 was taken 20663 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      20663 :           longitudinalDimensions.minimum += longitudinalDistanceMin;</span>
+<span class="lineNum">     208 </span>        [<span class="branchCov" title="Branch 1 was taken 20681 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      20681 :           longitudinalDimensions.maximum += longitudinalDistanceMax;</span>
+<span class="lineNum">     209 </span>        [<span class="branchCov" title="Branch 1 was taken 20681 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      20681 :           longitudinalDimensions.minimum += longitudinalDistanceMin;</span>
 <span class="lineNum">     210 </span>                :            :         }
 <span class="lineNum">     211 </span>                :            :       }
 <span class="lineNum">     212 </span>                :            : 
-<span class="lineNum">     213 </span>        [<span class="branchCov" title="Branch 0 was taken 5681 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       5681 :       if (result)</span>
+<span class="lineNum">     213 </span>        [<span class="branchCov" title="Branch 0 was taken 5687 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       5687 :       if (result)</span>
 <span class="lineNum">     214 </span>                :            :       {
-<span class="lineNum">     215 </span>[<span class="branchCov" title="Branch 3 was taken 9652 times"> + </span><span class="branchCov" title="Branch 4 was taken 5653 times"> + </span>][<span class="branchCov" title="Branch 8 was taken 5653 times"> + </span><span class="branchCov" title="Branch 9 was taken 1 time"> + </span>]:<span class="lineCov">      15306 :         for (auto &amp;extractor : extractors)</span>
+<span class="lineNum">     215 </span>[<span class="branchCov" title="Branch 3 was taken 9664 times"> + </span><span class="branchCov" title="Branch 4 was taken 5659 times"> + </span>][<span class="branchCov" title="Branch 8 was taken 5659 times"> + </span><span class="branchCov" title="Branch 9 was taken 1 time"> + </span>]:<span class="lineCov">      15324 :         for (auto &amp;extractor : extractors)</span>
 <span class="lineNum">     216 </span>                :            :         {
-<span class="lineNum">     217 </span>        [<span class="branchCov" title="Branch 1 was taken 9652 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       9652 :           ObjectDimensions extractedDimensions;</span>
-<span class="lineNum">     218 </span>[<span class="branchCov" title="Branch 0 was taken 9651 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 3 was taken 9651 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       9652 :           result = result &amp;&amp; extractor.getObjectDimensions(extractedDimensions);</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 9649 times"> + </span><span class="branchCov" title="Branch 6 was taken 2 times"> + </span>]
-<span class="lineNum">     219 </span>        [<span class="branchCov" title="Branch 1 was taken 9624 times"> + </span><span class="branchCov" title="Branch 2 was taken 28 times"> + </span>]:<span class="lineCov">       9652 :           objectDimensions.push_back(extractedDimensions);</span>
+<span class="lineNum">     217 </span>        [<span class="branchCov" title="Branch 1 was taken 9664 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       9664 :           ObjectDimensions extractedDimensions;</span>
+<span class="lineNum">     218 </span>[<span class="branchCov" title="Branch 0 was taken 9663 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 3 was taken 9663 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       9664 :           result = result &amp;&amp; extractor.getObjectDimensions(extractedDimensions);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 9661 times"> + </span><span class="branchCov" title="Branch 6 was taken 2 times"> + </span>]
+<span class="lineNum">     219 </span>        [<span class="branchCov" title="Branch 1 was taken 9636 times"> + </span><span class="branchCov" title="Branch 2 was taken 28 times"> + </span>]:<span class="lineCov">       9664 :           objectDimensions.push_back(extractedDimensions);</span>
 <span class="lineNum">     220 </span>                :            :         }
 <span class="lineNum">     221 </span>                :            :       }
 <span class="lineNum">     222 </span>                :            :     }
@@ -302,30 +302,30 @@
 <span class="lineNum">     226 </span>                :<span class="lineCov">         86 :     return false;</span>
 <span class="lineNum">     227 </span>                :            :   }
 <span class="lineNum">     228 </span>                :            : 
-<span class="lineNum">     229 </span>                :<span class="lineCov">       5785 :   return result;</span>
+<span class="lineNum">     229 </span>                :<span class="lineCov">       5791 :   return result;</span>
 <a name="230"><span class="lineNum">     230 </span>                :            : }</a>
 <span class="lineNum">     231 </span>                :            : 
-<span class="lineNum">     232 </span>                :<span class="lineCov">       4106 : bool calculateObjectDimensions(Object const &amp;egoVehicle,</span>
+<span class="lineNum">     232 </span>                :<span class="lineCov">       4112 : bool calculateObjectDimensions(Object const &amp;egoVehicle,</span>
 <span class="lineNum">     233 </span>                :            :                                Scene const &amp;currentScene,
 <span class="lineNum">     234 </span>                :            :                                ObjectDimensions &amp;egoVehiclePosition,
 <span class="lineNum">     235 </span>                :            :                                ObjectDimensions &amp;objectPosition)
 <span class="lineNum">     236 </span>                :            : {
-<span class="lineNum">     237 </span>                :<span class="lineCov">       4106 :   bool result = true;</span>
+<span class="lineNum">     237 </span>                :<span class="lineCov">       4112 :   bool result = true;</span>
 <span class="lineNum">     238 </span>                :            : 
 <span class="lineNum">     239 </span>                :            :   try
 <span class="lineNum">     240 </span>                :            :   {
-<span class="lineNum">     241 </span>                :<span class="lineCov">       8212 :     std::vector&lt;Object&gt; objects;</span>
-<span class="lineNum">     242 </span>        [<span class="branchCov" title="Branch 1 was taken 4084 times"> + </span><span class="branchCov" title="Branch 2 was taken 22 times"> + </span>]:<span class="lineCov">       4106 :     objects.push_back(egoVehicle);</span>
-<span class="lineNum">     243 </span>        [<span class="branchCov" title="Branch 1 was taken 4062 times"> + </span><span class="branchCov" title="Branch 2 was taken 22 times"> + </span>]:<span class="lineCov">       4084 :     objects.push_back(currentScene.object);</span>
+<span class="lineNum">     241 </span>                :<span class="lineCov">       8224 :     std::vector&lt;Object&gt; objects;</span>
+<span class="lineNum">     242 </span>        [<span class="branchCov" title="Branch 1 was taken 4090 times"> + </span><span class="branchCov" title="Branch 2 was taken 22 times"> + </span>]:<span class="lineCov">       4112 :     objects.push_back(egoVehicle);</span>
+<span class="lineNum">     243 </span>        [<span class="branchCov" title="Branch 1 was taken 4068 times"> + </span><span class="branchCov" title="Branch 2 was taken 22 times"> + </span>]:<span class="lineCov">       4090 :     objects.push_back(currentScene.object);</span>
 <span class="lineNum">     244 </span>                :            : 
-<span class="lineNum">     245 </span>                :<span class="lineCov">       8124 :     std::vector&lt;ObjectDimensions&gt; objectDimensions;</span>
-<span class="lineNum">     246 </span>        [<span class="branchCov" title="Branch 1 was taken 4062 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       4062 :     result = calculateObjectDimensions(objects, currentScene.egoVehicleRoad, objectDimensions);</span>
+<span class="lineNum">     245 </span>                :<span class="lineCov">       8136 :     std::vector&lt;ObjectDimensions&gt; objectDimensions;</span>
+<span class="lineNum">     246 </span>        [<span class="branchCov" title="Branch 1 was taken 4068 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       4068 :     result = calculateObjectDimensions(objects, currentScene.egoVehicleRoad, objectDimensions);</span>
 <span class="lineNum">     247 </span>                :            : 
-<span class="lineNum">     248 </span>[<span class="branchCov" title="Branch 0 was taken 3959 times"> + </span><span class="branchCov" title="Branch 1 was taken 103 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 3959 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       4062 :     if (result &amp;&amp; (objectDimensions.size() == 2))</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 3959 times"> + </span><span class="branchCov" title="Branch 6 was taken 103 times"> + </span>]
+<span class="lineNum">     248 </span>[<span class="branchCov" title="Branch 0 was taken 3965 times"> + </span><span class="branchCov" title="Branch 1 was taken 103 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 3965 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       4068 :     if (result &amp;&amp; (objectDimensions.size() == 2))</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 3965 times"> + </span><span class="branchCov" title="Branch 6 was taken 103 times"> + </span>]
 <span class="lineNum">     249 </span>                :            :     {
-<span class="lineNum">     250 </span>                :<span class="lineCov">       3959 :       egoVehiclePosition = objectDimensions[0];</span>
-<span class="lineNum">     251 </span>                :<span class="lineCov">       3959 :       objectPosition = objectDimensions[1];</span>
+<span class="lineNum">     250 </span>                :<span class="lineCov">       3965 :       egoVehiclePosition = objectDimensions[0];</span>
+<span class="lineNum">     251 </span>                :<span class="lineCov">       3965 :       objectPosition = objectDimensions[1];</span>
 <span class="lineNum">     252 </span>                :            :     }
 <span class="lineNum">     253 </span>                :            :     else
 <span class="lineNum">     254 </span>                :            :     {
@@ -337,7 +337,7 @@
 <span class="lineNum">     260 </span>                :<span class="lineCov">         44 :     return false;</span>
 <span class="lineNum">     261 </span>                :            :   }
 <span class="lineNum">     262 </span>                :            : 
-<span class="lineNum">     263 </span>                :<span class="lineCov">       4106 :   return result;</span>
+<span class="lineNum">     263 </span>                :<span class="lineCov">       4112 :   return result;</span>
 <a name="264"><span class="lineNum">     264 </span>                :            : }</a>
 <span class="lineNum">     265 </span>                :            : 
 <span class="lineNum">     266 </span>                :<span class="lineCov">       1735 : bool calculateObjectDimensions(Object const &amp;object,</span>
@@ -372,21 +372,21 @@
 <span class="lineNum">     294 </span>                :<span class="lineCov">       1735 :   return result;</span>
 <a name="295"><span class="lineNum">     295 </span>                :            : }</a>
 <span class="lineNum">     296 </span>                :            : 
-<span class="lineNum">     297 </span>                :<span class="lineCov">      10270 : void convertVehicleStateDynamics(Object const &amp;object, ::ad_rss::situation::VehicleState &amp;vehicleState)</span>
+<span class="lineNum">     297 </span>                :<span class="lineCov">      10282 : void convertVehicleStateDynamics(Object const &amp;object, ::ad_rss::situation::VehicleState &amp;vehicleState)</span>
 <span class="lineNum">     298 </span>                :            : {
-<span class="lineNum">     299 </span>                :<span class="lineCov">      10270 :   vehicleState.dynamics.alphaLon.accelMax = object.dynamics.alphaLon.accelMax;</span>
-<span class="lineNum">     300 </span>                :<span class="lineCov">      10270 :   vehicleState.dynamics.alphaLon.brakeMin = object.dynamics.alphaLon.brakeMin;</span>
-<span class="lineNum">     301 </span>                :<span class="lineCov">      10270 :   vehicleState.dynamics.alphaLon.brakeMinCorrect = object.dynamics.alphaLon.brakeMinCorrect;</span>
-<span class="lineNum">     302 </span>                :<span class="lineCov">      10270 :   vehicleState.dynamics.alphaLon.brakeMax = object.dynamics.alphaLon.brakeMax;</span>
+<span class="lineNum">     299 </span>                :<span class="lineCov">      10282 :   vehicleState.dynamics.alphaLon.accelMax = object.dynamics.alphaLon.accelMax;</span>
+<span class="lineNum">     300 </span>                :<span class="lineCov">      10282 :   vehicleState.dynamics.alphaLon.brakeMin = object.dynamics.alphaLon.brakeMin;</span>
+<span class="lineNum">     301 </span>                :<span class="lineCov">      10282 :   vehicleState.dynamics.alphaLon.brakeMinCorrect = object.dynamics.alphaLon.brakeMinCorrect;</span>
+<span class="lineNum">     302 </span>                :<span class="lineCov">      10282 :   vehicleState.dynamics.alphaLon.brakeMax = object.dynamics.alphaLon.brakeMax;</span>
 <span class="lineNum">     303 </span>                :            : 
-<span class="lineNum">     304 </span>                :<span class="lineCov">      10270 :   vehicleState.dynamics.alphaLat.accelMax = object.dynamics.alphaLat.accelMax;</span>
-<span class="lineNum">     305 </span>                :<span class="lineCov">      10270 :   vehicleState.dynamics.alphaLat.brakeMin = object.dynamics.alphaLat.brakeMin;</span>
+<span class="lineNum">     304 </span>                :<span class="lineCov">      10282 :   vehicleState.dynamics.alphaLat.accelMax = object.dynamics.alphaLat.accelMax;</span>
+<span class="lineNum">     305 </span>                :<span class="lineCov">      10282 :   vehicleState.dynamics.alphaLat.brakeMin = object.dynamics.alphaLat.brakeMin;</span>
 <span class="lineNum">     306 </span>                :            : 
-<span class="lineNum">     307 </span>                :<span class="lineCov">      10270 :   vehicleState.velocity.speedLon = object.velocity.speedLon;</span>
-<span class="lineNum">     308 </span>                :<span class="lineCov">      10270 :   vehicleState.velocity.speedLat = object.velocity.speedLat;</span>
+<span class="lineNum">     307 </span>                :<span class="lineCov">      10282 :   vehicleState.velocity.speedLon = object.velocity.speedLon;</span>
+<span class="lineNum">     308 </span>                :<span class="lineCov">      10282 :   vehicleState.velocity.speedLat = object.velocity.speedLat;</span>
 <span class="lineNum">     309 </span>                :            : 
-<span class="lineNum">     310 </span>                :<span class="lineCov">      10270 :   vehicleState.responseTime = object.responseTime;</span>
-<span class="lineNum">     311 </span>                :<span class="lineCov">      10270 : }</span>
+<span class="lineNum">     310 </span>                :<span class="lineCov">      10282 :   vehicleState.responseTime = object.responseTime;</span>
+<span class="lineNum">     311 </span>                :<span class="lineCov">      10282 : }</span>
 <span class="lineNum">     312 </span>                :            : 
 <span class="lineNum">     313 </span>                :            : } // namespace world
 <span class="lineNum">     314 </span>                :            : } // namespace ad_rss
