@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-26 10:46:23</td>
+            <td class="headerValue">2019-03-26 12:22:19</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -124,9 +124,9 @@
 <span class="lineNum">      53 </span>                :            :  *
 <a name="54"><span class="lineNum">      54 </span>                :            :  * true if safe, false if not</a>
 <span class="lineNum">      55 </span>                :            :  */
-<span class="lineNum">      56 </span>                :<span class="lineCov">       6099 : inline bool isLongitudinalSafe(ResponseState const &amp;responseState)</span>
+<span class="lineNum">      56 </span>                :<span class="lineCov">       6393 : inline bool isLongitudinalSafe(ResponseState const &amp;responseState)</span>
 <span class="lineNum">      57 </span>                :            : {
-<span class="lineNum">      58 </span>                :<span class="lineCov">       6099 :   return responseState.longitudinalState.isSafe;</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">       6393 :   return responseState.longitudinalState.isSafe;</span>
 <span class="lineNum">      59 </span>                :            : }
 <span class="lineNum">      60 </span>                :            : 
 <span class="lineNum">      61 </span>                :            : /**
@@ -136,9 +136,9 @@
 <span class="lineNum">      65 </span>                :            :  *
 <a name="66"><span class="lineNum">      66 </span>                :            :  * true if safe, false if not</a>
 <span class="lineNum">      67 </span>                :            :  */
-<span class="lineNum">      68 </span>                :<span class="lineCov">       4702 : inline bool isLateralSafe(ResponseState const &amp;responseState)</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">       4849 : inline bool isLateralSafe(ResponseState const &amp;responseState)</span>
 <span class="lineNum">      69 </span>                :            : {
-<span class="lineNum">      70 </span>[<span class="branchCov" title="Branch 0 was taken 2281 times"> + </span><span class="branchCov" title="Branch 1 was taken 2421 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1765 times"> + </span><span class="branchCov" title="Branch 3 was taken 516 times"> + </span>]:<span class="lineCov">       4702 :   return responseState.lateralStateRight.isSafe &amp;&amp; responseState.lateralStateLeft.isSafe;</span>
+<span class="lineNum">      70 </span>[<span class="branchCov" title="Branch 0 was taken 2428 times"> + </span><span class="branchCov" title="Branch 1 was taken 2421 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1912 times"> + </span><span class="branchCov" title="Branch 3 was taken 516 times"> + </span>]:<span class="lineCov">       4849 :   return responseState.lateralStateRight.isSafe &amp;&amp; responseState.lateralStateLeft.isSafe;</span>
 <span class="lineNum">      71 </span>                :            : }
 <span class="lineNum">      72 </span>                :            : 
 <span class="lineNum">      73 </span>                :            : /**
@@ -148,9 +148,9 @@
 <span class="lineNum">      77 </span>                :            :  *
 <a name="78"><span class="lineNum">      78 </span>                :            :  * true if dangerous, false if not</a>
 <span class="lineNum">      79 </span>                :            :  */
-<span class="lineNum">      80 </span>                :<span class="lineCov">       3893 : inline bool isDangerous(ResponseState const &amp;responseState)</span>
+<span class="lineNum">      80 </span>                :<span class="lineCov">       4040 : inline bool isDangerous(ResponseState const &amp;responseState)</span>
 <span class="lineNum">      81 </span>                :            : {
-<span class="lineNum">      82 </span>[<span class="branchCov" title="Branch 1 was taken 2496 times"> + </span><span class="branchCov" title="Branch 2 was taken 1397 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 1689 times"> + </span><span class="branchCov" title="Branch 5 was taken 807 times"> + </span>]:<span class="lineCov">       3893 :   return !isLongitudinalSafe(responseState) &amp;&amp; !isLateralSafe(responseState);</span>
+<span class="lineNum">      82 </span>[<span class="branchCov" title="Branch 1 was taken 2496 times"> + </span><span class="branchCov" title="Branch 2 was taken 1544 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 1689 times"> + </span><span class="branchCov" title="Branch 5 was taken 807 times"> + </span>]:<span class="lineCov">       4040 :   return !isLongitudinalSafe(responseState) &amp;&amp; !isLateralSafe(responseState);</span>
 <span class="lineNum">      83 </span>                :            : }
 <span class="lineNum">      84 </span>                :            : 
 <span class="lineNum">      85 </span>                :            : /**

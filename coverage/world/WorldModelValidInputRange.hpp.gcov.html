@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-26 10:46:23</td>
+            <td class="headerValue">2019-03-26 12:22:19</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -126,19 +126,19 @@
 <span class="lineNum">      55 </span>                :            :  * \note the specified input range is defined by the ranges of all members, plus:
 <a name="56"><span class="lineNum">      56 </span>                :            :  *       ::ad_rss::physics::TimeIndex(1) &lt;= timeIndex</a>
 <span class="lineNum">      57 </span>                :            :  */
-<span class="lineNum">      58 </span>                :<span class="lineCov">       7258 : inline bool withinValidInputRange(::ad_rss::world::WorldModel const &amp;input)</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">       7552 : inline bool withinValidInputRange(::ad_rss::world::WorldModel const &amp;input)</span>
 <span class="lineNum">      59 </span>                :            : {
 <span class="lineNum">      60 </span>                :            :   try
 <span class="lineNum">      61 </span>                :            :   {
 <span class="lineNum">      62 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
 <span class="lineNum">      63 </span>                :            :     // check for generic member input ranges
 <span class="lineNum">      64 </span>                :            :     bool const membersInValidInputRange
-<span class="lineNum">      65 </span>                :<span class="lineCov">       7258 :       = withinValidInputRange(input.egoVehicle) &amp;&amp; withinValidInputRange(input.scenes);</span>
+<span class="lineNum">      65 </span>                :<span class="lineCov">       7552 :       = withinValidInputRange(input.egoVehicle) &amp;&amp; withinValidInputRange(input.scenes);</span>
 <span class="lineNum">      66 </span>                :            : 
 <span class="lineNum">      67 </span>                :            :     // check for individual input ranges
-<span class="lineNum">      68 </span>                :<span class="lineCov">       7258 :     bool const timeIndexInInputRange = (::ad_rss::physics::TimeIndex(1) &lt;= input.timeIndex);</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">       7552 :     bool const timeIndexInInputRange = (::ad_rss::physics::TimeIndex(1) &lt;= input.timeIndex);</span>
 <span class="lineNum">      69 </span>                :            : 
-<span class="lineNum">      70 </span>                :<span class="lineCov">       7258 :     return membersInValidInputRange &amp;&amp; timeIndexInInputRange;</span>
+<span class="lineNum">      70 </span>                :<span class="lineCov">       7552 :     return membersInValidInputRange &amp;&amp; timeIndexInInputRange;</span>
 <span class="lineNum">      71 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
 <span class="lineNum">      72 </span>                :            :   }
 <span class="lineNum">      73 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes

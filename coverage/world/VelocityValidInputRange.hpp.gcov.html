@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-26 10:46:23</td>
+            <td class="headerValue">2019-03-26 12:22:19</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -126,23 +126,23 @@
 <span class="lineNum">      55 </span>                :            :  *       ::ad_rss::physics::Speed(0.) &lt;= speedLon &lt;= ::ad_rss::physics::Speed(100.)
 <a name="56"><span class="lineNum">      56 </span>                :            :  *       ::ad_rss::physics::Speed(-10.) &lt;= speedLat &lt;= ::ad_rss::physics::Speed(10.)</a>
 <span class="lineNum">      57 </span>                :            :  */
-<span class="lineNum">      58 </span>                :<span class="lineCov">      36823 : inline bool withinValidInputRange(::ad_rss::world::Velocity const &amp;input)</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">      37411 : inline bool withinValidInputRange(::ad_rss::world::Velocity const &amp;input)</span>
 <span class="lineNum">      59 </span>                :            : {
 <span class="lineNum">      60 </span>                :            :   try
 <span class="lineNum">      61 </span>                :            :   {
 <span class="lineNum">      62 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
 <span class="lineNum">      63 </span>                :            :     // check for generic member input ranges
 <span class="lineNum">      64 </span>                :            :     bool const membersInValidInputRange
-<span class="lineNum">      65 </span>                :<span class="lineCov">      36823 :       = withinValidInputRange(input.speedLon) &amp;&amp; withinValidInputRange(input.speedLat);</span>
+<span class="lineNum">      65 </span>                :<span class="lineCov">      37411 :       = withinValidInputRange(input.speedLon) &amp;&amp; withinValidInputRange(input.speedLat);</span>
 <span class="lineNum">      66 </span>                :            : 
 <span class="lineNum">      67 </span>                :            :     // check for individual input ranges
 <span class="lineNum">      68 </span>                :            :     bool const speedLonInInputRange
-<span class="lineNum">      69 </span>                :<span class="lineCov">      36823 :       = (::ad_rss::physics::Speed(0.) &lt;= input.speedLon) &amp;&amp; (input.speedLon &lt;= ::ad_rss::physics::Speed(100.));</span>
+<span class="lineNum">      69 </span>                :<span class="lineCov">      37411 :       = (::ad_rss::physics::Speed(0.) &lt;= input.speedLon) &amp;&amp; (input.speedLon &lt;= ::ad_rss::physics::Speed(100.));</span>
 <span class="lineNum">      70 </span>                :            : 
 <span class="lineNum">      71 </span>                :            :     bool const speedLatInInputRange
-<span class="lineNum">      72 </span>                :<span class="lineCov">      36823 :       = (::ad_rss::physics::Speed(-10.) &lt;= input.speedLat) &amp;&amp; (input.speedLat &lt;= ::ad_rss::physics::Speed(10.));</span>
+<span class="lineNum">      72 </span>                :<span class="lineCov">      37411 :       = (::ad_rss::physics::Speed(-10.) &lt;= input.speedLat) &amp;&amp; (input.speedLat &lt;= ::ad_rss::physics::Speed(10.));</span>
 <span class="lineNum">      73 </span>                :            : 
-<span class="lineNum">      74 </span>                :<span class="lineCov">      36823 :     return membersInValidInputRange &amp;&amp; speedLonInInputRange &amp;&amp; speedLatInInputRange;</span>
+<span class="lineNum">      74 </span>                :<span class="lineCov">      37411 :     return membersInValidInputRange &amp;&amp; speedLonInInputRange &amp;&amp; speedLatInInputRange;</span>
 <span class="lineNum">      75 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
 <span class="lineNum">      76 </span>                :            :   }
 <span class="lineNum">      77 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
