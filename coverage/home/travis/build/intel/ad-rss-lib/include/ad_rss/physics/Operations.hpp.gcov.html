@@ -31,27 +31,27 @@
             <td class="headerValue">ad-rss-lib</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">18</td>
-            <td class="headerCovTableEntry">44</td>
-            <td class="headerCovTableEntryLo">40.9 %</td>
+            <td class="headerCovTableEntry">46</td>
+            <td class="headerCovTableEntry">46</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-25 14:56:57</td>
+            <td class="headerValue">2019-03-26 10:39:12</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntry">8</td>
-            <td class="headerCovTableEntryLo">37.5 %</td>
+            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntry">26</td>
             <td class="headerCovTableEntry">42</td>
-            <td class="headerCovTableEntryLo">21.4 %</td>
+            <td class="headerCovTableEntryLo">61.9 %</td>
           </tr>
           <tr><td><img src="../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -126,13 +126,13 @@
 <span class="lineNum">      55 </span>                :            :  * \note throws a std::out_of_range exception if one of the two operands or the result of
 <a name="56"><span class="lineNum">      56 </span>                :            :  *   the operation is not valid</a>
 <span class="lineNum">      57 </span>                :            :  */
-<span class="lineNum">      58 </span>                :<span class="lineNoCov">          0 : inline ad_rss::physics::Speed operator*(ad_rss::physics::Acceleration const &amp;a, ad_rss::physics::Duration const &amp;t)</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">      22339 : inline ad_rss::physics::Speed operator*(ad_rss::physics::Acceleration const &amp;a, ad_rss::physics::Duration const &amp;t)</span>
 <span class="lineNum">      59 </span>                :            : {
-<span class="lineNum">      60 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   a.ensureValid();</span>
-<span class="lineNum">      61 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   t.ensureValid();</span>
-<span class="lineNum">      62 </span>                :<span class="lineNoCov">          0 :   ad_rss::physics::Speed const v(static_cast&lt;double&gt;(a) * static_cast&lt;double&gt;(t));</span>
-<span class="lineNum">      63 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   v.ensureValid();</span>
-<span class="lineNum">      64 </span>                :<span class="lineNoCov">          0 :   return v;</span>
+<span class="lineNum">      60 </span>        [<span class="branchCov" title="Branch 1 was taken 22338 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      22339 :   a.ensureValid();</span>
+<span class="lineNum">      61 </span>        [<span class="branchCov" title="Branch 1 was taken 22337 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      22338 :   t.ensureValid();</span>
+<span class="lineNum">      62 </span>                :<span class="lineCov">      22337 :   ad_rss::physics::Speed const v(static_cast&lt;double&gt;(a) * static_cast&lt;double&gt;(t));</span>
+<span class="lineNum">      63 </span>        [<span class="branchCov" title="Branch 1 was taken 22337 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      22337 :   v.ensureValid();</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">      22337 :   return v;</span>
 <span class="lineNum">      65 </span>                :            : }
 <span class="lineNum">      66 </span>                :            : 
 <span class="lineNum">      67 </span>                :            : /*!
@@ -144,11 +144,11 @@
 <span class="lineNum">      73 </span>                :            :  * \returns v = a * t as speed value
 <span class="lineNum">      74 </span>                :            :  *
 <span class="lineNum">      75 </span>                :            :  * \note throws a std::out_of_range exception if one of the two operands or the result of
-<span class="lineNum">      76 </span>                :            :  *   the operation is not valid
+<a name="76"><span class="lineNum">      76 </span>                :            :  *   the operation is not valid</a>
 <span class="lineNum">      77 </span>                :            :  */
-<span class="lineNum">      78 </span>                :            : inline ad_rss::physics::Speed operator*(ad_rss::physics::Duration const &amp;t, ad_rss::physics::Acceleration const &amp;a)
+<span class="lineNum">      78 </span>                :<span class="lineCov">       2592 : inline ad_rss::physics::Speed operator*(ad_rss::physics::Duration const &amp;t, ad_rss::physics::Acceleration const &amp;a)</span>
 <span class="lineNum">      79 </span>                :            : {
-<span class="lineNum">      80 </span>                :            :   return operator*(a, t);
+<span class="lineNum">      80 </span>                :<span class="lineCov">       2592 :   return operator*(a, t);</span>
 <span class="lineNum">      81 </span>                :            : }
 <span class="lineNum">      82 </span>                :            : 
 <span class="lineNum">      83 </span>                :            : /*!
@@ -162,13 +162,13 @@
 <span class="lineNum">      91 </span>                :            :  * \note throws a std::out_of_range exception if one of the two operands or the result of
 <a name="92"><span class="lineNum">      92 </span>                :            :  *   the operation is not valid</a>
 <span class="lineNum">      93 </span>                :            :  */
-<span class="lineNum">      94 </span>                :<span class="lineNoCov">          0 : inline ad_rss::physics::Distance operator*(ad_rss::physics::Speed const &amp;v, ad_rss::physics::Duration const &amp;t)</span>
+<span class="lineNum">      94 </span>                :<span class="lineCov">      22557 : inline ad_rss::physics::Distance operator*(ad_rss::physics::Speed const &amp;v, ad_rss::physics::Duration const &amp;t)</span>
 <span class="lineNum">      95 </span>                :            : {
-<span class="lineNum">      96 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   v.ensureValid();</span>
-<span class="lineNum">      97 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   t.ensureValid();</span>
-<span class="lineNum">      98 </span>                :<span class="lineNoCov">          0 :   ad_rss::physics::Distance const s(static_cast&lt;double&gt;(v) * static_cast&lt;double&gt;(t));</span>
-<span class="lineNum">      99 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   s.ensureValid();</span>
-<span class="lineNum">     100 </span>                :<span class="lineNoCov">          0 :   return s;</span>
+<span class="lineNum">      96 </span>        [<span class="branchCov" title="Branch 1 was taken 22556 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      22557 :   v.ensureValid();</span>
+<span class="lineNum">      97 </span>        [<span class="branchCov" title="Branch 1 was taken 22555 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      22556 :   t.ensureValid();</span>
+<span class="lineNum">      98 </span>                :<span class="lineCov">      22555 :   ad_rss::physics::Distance const s(static_cast&lt;double&gt;(v) * static_cast&lt;double&gt;(t));</span>
+<span class="lineNum">      99 </span>        [<span class="branchCov" title="Branch 1 was taken 22555 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      22555 :   s.ensureValid();</span>
+<span class="lineNum">     100 </span>                :<span class="lineCov">      22555 :   return s;</span>
 <span class="lineNum">     101 </span>                :            : }
 <span class="lineNum">     102 </span>                :            : 
 <span class="lineNum">     103 </span>                :            : /*!
@@ -198,14 +198,14 @@
 <span class="lineNum">     127 </span>                :            :  * \note throws a std::out_of_range exception if one of the two operands or the result of
 <a name="128"><span class="lineNum">     128 </span>                :            :  *   the operation is not valid</a>
 <span class="lineNum">     129 </span>                :            :  */
-<span class="lineNum">     130 </span>                :<span class="lineNoCov">          0 : inline ad_rss::physics::Distance operator*(ad_rss::physics::Distance const &amp;s,</span>
+<span class="lineNum">     130 </span>                :<span class="lineCov">      34530 : inline ad_rss::physics::Distance operator*(ad_rss::physics::Distance const &amp;s,</span>
 <span class="lineNum">     131 </span>                :            :                                            ad_rss::physics::ParametricValue const &amp;p)
 <span class="lineNum">     132 </span>                :            : {
-<span class="lineNum">     133 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   p.ensureValid();</span>
-<span class="lineNum">     134 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   s.ensureValid();</span>
-<span class="lineNum">     135 </span>                :<span class="lineNoCov">          0 :   ad_rss::physics::Distance const resultingS(static_cast&lt;double&gt;(p) * static_cast&lt;double&gt;(s));</span>
-<span class="lineNum">     136 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   resultingS.ensureValid();</span>
-<span class="lineNum">     137 </span>                :<span class="lineNoCov">          0 :   return resultingS;</span>
+<span class="lineNum">     133 </span>        [<span class="branchCov" title="Branch 1 was taken 34528 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">      34530 :   p.ensureValid();</span>
+<span class="lineNum">     134 </span>        [<span class="branchCov" title="Branch 1 was taken 34528 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      34528 :   s.ensureValid();</span>
+<span class="lineNum">     135 </span>                :<span class="lineCov">      34528 :   ad_rss::physics::Distance const resultingS(static_cast&lt;double&gt;(p) * static_cast&lt;double&gt;(s));</span>
+<span class="lineNum">     136 </span>        [<span class="branchCov" title="Branch 1 was taken 34528 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      34528 :   resultingS.ensureValid();</span>
+<span class="lineNum">     137 </span>                :<span class="lineCov">      34528 :   return resultingS;</span>
 <span class="lineNum">     138 </span>                :            : }
 <span class="lineNum">     139 </span>                :            : 
 <span class="lineNum">     140 </span>                :            : /*!
@@ -219,10 +219,10 @@
 <span class="lineNum">     148 </span>                :            :  * \note throws a std::out_of_range exception if one of the two operands or the result of
 <a name="149"><span class="lineNum">     149 </span>                :            :  *   the operation is not valid</a>
 <span class="lineNum">     150 </span>                :            :  */
-<span class="lineNum">     151 </span>                :<span class="lineNoCov">          0 : inline ad_rss::physics::Distance operator*(ad_rss::physics::ParametricValue const &amp;p,</span>
+<span class="lineNum">     151 </span>                :<span class="lineCov">      34530 : inline ad_rss::physics::Distance operator*(ad_rss::physics::ParametricValue const &amp;p,</span>
 <span class="lineNum">     152 </span>                :            :                                            ad_rss::physics::Distance const &amp;s)
 <span class="lineNum">     153 </span>                :            : {
-<span class="lineNum">     154 </span>                :<span class="lineNoCov">          0 :   return operator*(s, p);</span>
+<span class="lineNum">     154 </span>                :<span class="lineCov">      34530 :   return operator*(s, p);</span>
 <span class="lineNum">     155 </span>                :            : }
 <span class="lineNum">     156 </span>                :            : 
 <span class="lineNum">     157 </span>                :            : /*!
@@ -276,14 +276,14 @@
 <span class="lineNum">     205 </span>                :            :  * \note throws a std::out_of_range exception if one of the two operands or the result of
 <a name="206"><span class="lineNum">     206 </span>                :            :  *   the operation is not valid or if the divisor is zero</a>
 <span class="lineNum">     207 </span>                :            :  */
-<span class="lineNum">     208 </span>                :<span class="lineNoCov">          0 : inline ad_rss::physics::Distance operator/(ad_rss::physics::SpeedSquared const &amp;v2,</span>
+<span class="lineNum">     208 </span>                :<span class="lineCov">      16096 : inline ad_rss::physics::Distance operator/(ad_rss::physics::SpeedSquared const &amp;v2,</span>
 <span class="lineNum">     209 </span>                :            :                                            ad_rss::physics::Acceleration const &amp;a)
 <span class="lineNum">     210 </span>                :            : {
-<span class="lineNum">     211 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   v2.ensureValid();</span>
-<span class="lineNum">     212 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   a.ensureValidNonZero();</span>
-<span class="lineNum">     213 </span>                :<span class="lineNoCov">          0 :   ad_rss::physics::Distance const t(static_cast&lt;double&gt;(v2) / static_cast&lt;double&gt;(a));</span>
-<span class="lineNum">     214 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   t.ensureValid();</span>
-<span class="lineNum">     215 </span>                :<span class="lineNoCov">          0 :   return t;</span>
+<span class="lineNum">     211 </span>        [<span class="branchCov" title="Branch 1 was taken 16096 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      16096 :   v2.ensureValid();</span>
+<span class="lineNum">     212 </span>        [<span class="branchCov" title="Branch 1 was taken 16096 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      16096 :   a.ensureValidNonZero();</span>
+<span class="lineNum">     213 </span>                :<span class="lineCov">      16096 :   ad_rss::physics::Distance const t(static_cast&lt;double&gt;(v2) / static_cast&lt;double&gt;(a));</span>
+<span class="lineNum">     214 </span>        [<span class="branchCov" title="Branch 1 was taken 16096 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      16096 :   t.ensureValid();</span>
+<span class="lineNum">     215 </span>                :<span class="lineCov">      16096 :   return t;</span>
 <span class="lineNum">     216 </span>                :            : }
 <span class="lineNum">     217 </span>                :            : 
 <span class="lineNum">     218 </span>                :            : /*!

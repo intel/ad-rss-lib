@@ -31,27 +31,27 @@
             <td class="headerValue">ad-rss-lib</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">1</td>
-            <td class="headerCovTableEntryLo">0.0 %</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-25 14:56:57</td>
+            <td class="headerValue">2019-03-26 10:39:12</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">1</td>
-            <td class="headerCovTableEntryLo">0.0 %</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntry">0</td>
-            <td class="headerCovTableEntryHi">-</td>
+            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -139,7 +139,7 @@
 <span class="lineNum">      68 </span>                :            :   /*!
 <a name="69"><span class="lineNum">      69 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      70 </span>                :            :    */
-<span class="lineNum">      71 </span>                :<span class="lineNoCov">          0 :   VehicleState() = default;</span>
+<span class="lineNum">      71 </span>                :<span class="lineCov">      17570 :   VehicleState() = default;</span>
 <span class="lineNum">      72 </span>                :            : 
 <span class="lineNum">      73 </span>                :            :   /*!
 <span class="lineNum">      74 </span>                :            :    * \brief standard destructor
@@ -179,14 +179,14 @@
 <span class="lineNum">     108 </span>                :            :    *
 <span class="lineNum">     109 </span>                :            :    * \param[in] other Other VehicleState
 <span class="lineNum">     110 </span>                :            :    *
-<span class="lineNum">     111 </span>                :            :    * \returns \c true if both VehicleState are equal
+<a name="111"><span class="lineNum">     111 </span>                :            :    * \returns \c true if both VehicleState are equal</a>
 <span class="lineNum">     112 </span>                :            :    */
-<span class="lineNum">     113 </span>                :            :   bool operator==(const VehicleState &amp;other) const
+<span class="lineNum">     113 </span>                :<span class="lineCov">         56 :   bool operator==(const VehicleState &amp;other) const</span>
 <span class="lineNum">     114 </span>                :            :   {
-<span class="lineNum">     115 </span>                :            :     return (velocity == other.velocity) &amp;&amp; (dynamics == other.dynamics) &amp;&amp; (responseTime == other.responseTime)
-<span class="lineNum">     116 </span>                :            :       &amp;&amp; (hasPriority == other.hasPriority) &amp;&amp; (isInCorrectLane == other.isInCorrectLane)
-<span class="lineNum">     117 </span>                :            :       &amp;&amp; (distanceToEnterIntersection == other.distanceToEnterIntersection)
-<span class="lineNum">     118 </span>                :            :       &amp;&amp; (distanceToLeaveIntersection == other.distanceToLeaveIntersection);
+<span class="lineNum">     115 </span>[<span class="branchCov" title="Branch 2 was taken 48 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 5 was taken 46 times"> + </span><span class="branchCov" title="Branch 6 was taken 2 times"> + </span>]:<span class="lineCov">        106 :     return (velocity == other.velocity) &amp;&amp; (dynamics == other.dynamics) &amp;&amp; (responseTime == other.responseTime)</span>
+<span class="lineNum">     116 </span>[<span class="branchCov" title="Branch 0 was taken 44 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 42 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">         46 :       &amp;&amp; (hasPriority == other.hasPriority) &amp;&amp; (isInCorrectLane == other.isInCorrectLane)</span>
+<span class="lineNum">     117 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">         42 :       &amp;&amp; (distanceToEnterIntersection == other.distanceToEnterIntersection)</span>
+<span class="lineNum">     118 </span>[<span class="branchCov" title="Branch 0 was taken 50 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 38 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        106 :       &amp;&amp; (distanceToLeaveIntersection == other.distanceToLeaveIntersection);</span>
 <span class="lineNum">     119 </span>                :            :   }
 <span class="lineNum">     120 </span>                :            : 
 <span class="lineNum">     121 </span>                :            :   /**
@@ -194,11 +194,11 @@
 <span class="lineNum">     123 </span>                :            :    *
 <span class="lineNum">     124 </span>                :            :    * \param[in] other Other VehicleState.
 <span class="lineNum">     125 </span>                :            :    *
-<span class="lineNum">     126 </span>                :            :    * \returns \c true if both VehicleState are different
+<a name="126"><span class="lineNum">     126 </span>                :            :    * \returns \c true if both VehicleState are different</a>
 <span class="lineNum">     127 </span>                :            :    */
-<span class="lineNum">     128 </span>                :            :   bool operator!=(const VehicleState &amp;other) const
+<span class="lineNum">     128 </span>                :<span class="lineCov">          8 :   bool operator!=(const VehicleState &amp;other) const</span>
 <span class="lineNum">     129 </span>                :            :   {
-<span class="lineNum">     130 </span>                :            :     return !operator==(other);
+<span class="lineNum">     130 </span>                :<span class="lineCov">          8 :     return !operator==(other);</span>
 <span class="lineNum">     131 </span>                :            :   }
 <span class="lineNum">     132 </span>                :            : 
 <span class="lineNum">     133 </span>                :            :   /*!
