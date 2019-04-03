@@ -173,22 +173,13 @@ bool RssSituationChecking::checkTimeIncreasingConsistently(situation::Situation 
   }
 
   bool timeIsIncreasing = false;
-  if (mCurrentTimeIndex == mLastTimeIndex)
-  {
-    // time is standing still
-    timeIsIncreasing = false;
-  }
-  else
+  if (mCurrentTimeIndex != mLastTimeIndex)
   {
     // check for overflow
     physics::TimeIndex const deltaTimeIndex = mCurrentTimeIndex - mLastTimeIndex;
     if (deltaTimeIndex < (std::numeric_limits<physics::TimeIndex>::max() / 2))
     {
       timeIsIncreasing = true;
-    }
-    else
-    {
-      timeIsIncreasing = false;
     }
   }
   return timeIsIncreasing;
