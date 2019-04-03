@@ -48,7 +48,7 @@ namespace ad_rss {
  */
 namespace situation {
 class RssIntersectionChecker;
-}
+} // namespace situation
 
 /*!
  * @brief namespace core
@@ -90,13 +90,13 @@ private:
    *
    * @param[in] situation      the Situation that should be analyzed
    * @param[in] nextTimeStep   indidicates that a new time step occurred
-   * @param[out] responseState the response state for the current situation
+   * @param[out] response      the response state for the current situation
    *
    * @return true if situation could be analyzed, false if there was an error during evaluation
    */
   bool checkSituationInputRangeChecked(situation::Situation const &situation,
                                        bool const nextTimeStep,
-                                       state::ResponseState &responseState);
+                                       state::ResponseState &response);
 
   /*!
    * @brief check to ensure situation time is consistent
