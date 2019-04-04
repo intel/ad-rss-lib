@@ -115,21 +115,6 @@ add_library(${PROJECT_NAME} SHARED
   ${GENERATED_SOURCES}
 )
 
-set(ALL_SOURCES
-  ${GENERATED_SOURCES}
-  src/core/RssCheck.cpp
-  src/core/RssResponseResolving.cpp
-  src/core/RssResponseTransformation.cpp
-  src/core/RssSituationChecking.cpp
-  src/core/RssSituationExtraction.cpp
-  src/physics/Math.cpp
-  src/situation/RSSFormulas.cpp
-  src/situation/RssIntersectionChecker.cpp
-  src/situation/RSSSituation.cpp
-  src/world/RssSituationCoordinateSystemConversion.cpp
-  src/world/RssObjectPositionExtractor.cpp
-)
-
 set_target_properties(${PROJECT_NAME} PROPERTIES
   OUTPUT_NAME ad-rss
   VERSION ${PROJECT_VERSION}
