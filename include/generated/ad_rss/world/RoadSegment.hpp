@@ -55,7 +55,7 @@ namespace world {
  * \brief DataType RoadSegment
  *
  * A RoadSegment is defined by lateral neighboring lane segments. The lane segments within a road segment have to be
- * ordered from right to left in respect to the driving direction defined by the road area.
+ * ordered from left to right in respect to the driving direction defined by the road area.
  */
 using RoadSegment = std::vector<::ad_rss::world::LaneSegment>;
 
