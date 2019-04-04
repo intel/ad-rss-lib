@@ -31,13 +31,13 @@
             <td class="headerValue">ad-rss-lib</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">74</td>
-            <td class="headerCovTableEntry">74</td>
+            <td class="headerCovTableEntry">72</td>
+            <td class="headerCovTableEntry">72</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-03-26 13:10:40</td>
+            <td class="headerValue">2019-04-04 07:16:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -245,29 +245,20 @@
 <span class="lineNum">     173 </span>                :            :   }
 <span class="lineNum">     174 </span>                :            : 
 <span class="lineNum">     175 </span>                :<span class="lineCov">      17829 :   bool timeIsIncreasing = false;</span>
-<span class="lineNum">     176 </span>        [<span class="branchCov" title="Branch 0 was taken 11980 times"> + </span><span class="branchCov" title="Branch 1 was taken 5849 times"> + </span>]:<span class="lineCov">      17829 :   if (mCurrentTimeIndex == mLastTimeIndex)</span>
+<span class="lineNum">     176 </span>        [<span class="branchCov" title="Branch 0 was taken 5849 times"> + </span><span class="branchCov" title="Branch 1 was taken 11980 times"> + </span>]:<span class="lineCov">      17829 :   if (mCurrentTimeIndex != mLastTimeIndex)</span>
 <span class="lineNum">     177 </span>                :            :   {
-<span class="lineNum">     178 </span>                :            :     // time is standing still
-<span class="lineNum">     179 </span>                :<span class="lineCov">      11980 :     timeIsIncreasing = false;</span>
-<span class="lineNum">     180 </span>                :            :   }
-<span class="lineNum">     181 </span>                :            :   else
-<span class="lineNum">     182 </span>                :            :   {
-<span class="lineNum">     183 </span>                :            :     // check for overflow
-<span class="lineNum">     184 </span>                :<span class="lineCov">       5849 :     physics::TimeIndex const deltaTimeIndex = mCurrentTimeIndex - mLastTimeIndex;</span>
-<span class="lineNum">     185 </span>        [<span class="branchCov" title="Branch 1 was taken 5828 times"> + </span><span class="branchCov" title="Branch 2 was taken 21 times"> + </span>]:<span class="lineCov">       5849 :     if (deltaTimeIndex &lt; (std::numeric_limits&lt;physics::TimeIndex&gt;::max() / 2))</span>
-<span class="lineNum">     186 </span>                :            :     {
-<span class="lineNum">     187 </span>                :<span class="lineCov">       5828 :       timeIsIncreasing = true;</span>
-<span class="lineNum">     188 </span>                :            :     }
-<span class="lineNum">     189 </span>                :            :     else
-<span class="lineNum">     190 </span>                :            :     {
-<span class="lineNum">     191 </span>                :<span class="lineCov">         21 :       timeIsIncreasing = false;</span>
-<span class="lineNum">     192 </span>                :            :     }
-<span class="lineNum">     193 </span>                :            :   }
-<span class="lineNum">     194 </span>                :<span class="lineCov">      17829 :   return timeIsIncreasing;</span>
-<span class="lineNum">     195 </span>                :            : }
-<span class="lineNum">     196 </span>                :            : 
-<span class="lineNum">     197 </span>                :            : } // namespace core
-<span class="lineNum">     198 </span>                :            : } // namespace ad_rss
+<span class="lineNum">     178 </span>                :            :     // check for overflow
+<span class="lineNum">     179 </span>                :<span class="lineCov">       5849 :     physics::TimeIndex const deltaTimeIndex = mCurrentTimeIndex - mLastTimeIndex;</span>
+<span class="lineNum">     180 </span>        [<span class="branchCov" title="Branch 1 was taken 5828 times"> + </span><span class="branchCov" title="Branch 2 was taken 21 times"> + </span>]:<span class="lineCov">       5849 :     if (deltaTimeIndex &lt; (std::numeric_limits&lt;physics::TimeIndex&gt;::max() / 2))</span>
+<span class="lineNum">     181 </span>                :            :     {
+<span class="lineNum">     182 </span>                :<span class="lineCov">       5849 :       timeIsIncreasing = true;</span>
+<span class="lineNum">     183 </span>                :            :     }
+<span class="lineNum">     184 </span>                :            :   }
+<span class="lineNum">     185 </span>                :<span class="lineCov">      17829 :   return timeIsIncreasing;</span>
+<span class="lineNum">     186 </span>                :            : }
+<span class="lineNum">     187 </span>                :            : 
+<span class="lineNum">     188 </span>                :            : } // namespace core
+<span class="lineNum">     189 </span>                :            : } // namespace ad_rss
 </pre>
       </td>
     </tr>

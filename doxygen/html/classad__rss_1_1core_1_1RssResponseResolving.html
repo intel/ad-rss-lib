@@ -107,15 +107,15 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad__rss_1_1core_1_1RssResponseResolving.html#a1989a006e1a2b5f26e9680ee5cb165dc">RssResponseResolving</a> ()</td></tr>
 <tr class="memdesc:a1989a006e1a2b5f26e9680ee5cb165dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor <br /></td></tr>
 <tr class="separator:a1989a006e1a2b5f26e9680ee5cb165dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59cd4101ad750866ee1d8d0835d2b9e2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad__rss_1_1core_1_1RssResponseResolving.html#a59cd4101ad750866ee1d8d0835d2b9e2">provideProperResponse</a> (<a class="el" href="namespacead__rss_1_1state.html#a3c4fdea6139bfa6a0d371faaa885c020">state::ResponseStateVector</a> const &amp;currentResponseStates, <a class="el" href="structad__rss_1_1state_1_1ResponseState.html">state::ResponseState</a> &amp;responseState)</td></tr>
-<tr class="memdesc:a59cd4101ad750866ee1d8d0835d2b9e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the proper response out of the current responses.  <a href="#a59cd4101ad750866ee1d8d0835d2b9e2">More...</a><br /></td></tr>
-<tr class="separator:a59cd4101ad750866ee1d8d0835d2b9e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40d0b96a4db256213302d68771fc43cb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad__rss_1_1core_1_1RssResponseResolving.html#a40d0b96a4db256213302d68771fc43cb">provideProperResponse</a> (<a class="el" href="namespacead__rss_1_1state.html#a3c4fdea6139bfa6a0d371faaa885c020">state::ResponseStateVector</a> const &amp;currentStates, <a class="el" href="structad__rss_1_1state_1_1ResponseState.html">state::ResponseState</a> &amp;responseState)</td></tr>
+<tr class="memdesc:a40d0b96a4db256213302d68771fc43cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the proper response out of the current responses.  <a href="#a40d0b96a4db256213302d68771fc43cb">More...</a><br /></td></tr>
+<tr class="separator:a40d0b96a4db256213302d68771fc43cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classad__rss_1_1core_1_1RssResponseResolving.html" title="RssResponseResolving. ">RssResponseResolving</a>. </p>
 <p>Class to resolve the responseStateVector of the different situation specific responses into a single responseState. This class tracks the RSS response state of every situation id over time and especially stores the respective response state before the danger threshold time. This requires that the id of a RSS situation remains constant over time in case it refers to the same object; otherwise tracking over time will fail. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a59cd4101ad750866ee1d8d0835d2b9e2"></a>
+<a class="anchor" id="a40d0b96a4db256213302d68771fc43cb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -123,7 +123,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname">bool ad_rss::core::RssResponseResolving::provideProperResponse </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespacead__rss_1_1state.html#a3c4fdea6139bfa6a0d371faaa885c020">state::ResponseStateVector</a> const &amp;&#160;</td>
-          <td class="paramname"><em>currentResponseStates</em>, </td>
+          <td class="paramname"><em>currentStates</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -142,7 +142,7 @@ Public Member Functions</h2></td></tr>
 <p>Calculate the proper response out of the current responses. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">currentResponseStates</td><td>all the response states gathered for the current situations </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">currentStates</td><td>all the response states gathered for the current situations </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">responseState</td><td>the proper overall response state</td></tr>
   </table>
   </dd>
