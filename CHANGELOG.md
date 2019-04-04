@@ -1,4 +1,5 @@
 ## Latest changes
+* Small updates to be compliant to clang-tidy-3.8 static code analysis
 
 ## Release 1.2.0
 * Added support for Clang 5 and Clang 6
