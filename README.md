@@ -28,6 +28,14 @@ This software library is provided under the BSD 3-clause open-source license: ht
 In addition, the terms in the following apply:
 [RELEASE NOTES AND DISCLAIMERS](./RELEASE_NOTES_AND_DISCLAIMERS.md).
 
+## Documentation
+Visit the project's [GitHub page](https://intel.github.io/ad-rss-lib/) to access the online version of the full documentation of this library. This includes:
+- [Doxygen](https://intel.github.io/ad-rss-lib/doxygen/index.html)
+- [Background documentation](https://intel.github.io/ad-rss-lib/documentation/Main.html).
+
+If you have any additional question not answered therein, you might find more in:
+- [FAQ](./FAQ.md)
+
 ## Release 1.x.x
 The initial release of the C++ software library for RSS implements a subset of the rules and calculations specified in the published RSS paper. This means that this release handles a subset of autonomous driving scenarios, described below. Scenarios other than this subset cannot be handled.
 
