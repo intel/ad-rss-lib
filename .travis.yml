@@ -107,6 +107,25 @@ matrix:
       after_failure:
         - tail --lines=2000 build.log
 
+    - env: TEST="Static Code Analysis"
+      addons:
+        apt:
+          packages:
+            - cmake
+            - build-essential
+            - libgtest-dev
+            - lcov
+            - clang-tidy
+            - clang-3.8
+      script:
+        - mkdir build
+        - cd build
+        - cmake .. -DBUILD_STATIC_ANALYSIS=ON
+        - make clang-tidy
+        - if [ -f clangtidy.yml ]; then echo "Static code analysis with clang-tidy failed. Please run 'make clang-tidy'"; exit 1; fi
+      after_failure:
+        - tail --lines=2000 build.log
+
     - env: TEST="Documentation Deployment"
       if: branch = master AND type != pull_request
       git:

@@ -34,6 +34,7 @@ set(BUILD_TESTING "ON" CACHE BOOL "Enable test compilation")
 set(BUILD_DOC "OFF" CACHE BOOL "Enable compilation of doxygen documentation")
 set(BUILD_HARDENING "OFF" CACHE BOOL "Enable build hardening flags")
 set(BUILD_COVERAGE "OFF" CACHE BOOL "Enable test coverage")
+set(BUILD_STATIC_ANALYSIS "OFF" CACHE BOOL "Enable static code analysis")
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -200,3 +201,33 @@ if(BUILD_DOC)
     message(FATAL_ERROR, "Doxygen needs to be installed")
   endif()
 endif()
+
+
+################################################################################
+# Run clang-tidy to perform static code checks
+################################################################################
+
+if(BUILD_STATIC_ANALYSIS)
+
+  if(NOT EXISTS /usr/bin/clang-tidy)
+    message(FATAL_ERROR "Static code analysis requires clang-tidy to be installed in /usr/bin")
+  endif()
+
+  file(GLOB_RECURSE ALL_SOURCE_FILES src/*.cpp)
+
+  add_custom_target(
+    clang-tidy
+    COMMAND /usr/bin/clang-tidy
+    ${ALL_SOURCE_FILES}
+    -config=''
+    -header-filter=.*
+    -export-fixes=${CMAKE_CURRENT_SOURCE_DIR}/build/clangtidy.yml
+    --
+    -std=c++11
+    -I${CMAKE_CURRENT_SOURCE_DIR}/include/
+    -I${CMAKE_CURRENT_SOURCE_DIR}/include/generated/
+    -I${CMAKE_CURRENT_SOURCE_DIR}/src/
+    -I${CMAKE_CURRENT_SOURCE_DIR}/src/generated/
+  )
+endif()
+

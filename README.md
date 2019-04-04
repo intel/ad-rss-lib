@@ -119,3 +119,11 @@ ad_rss$> sudo apt-get install clang-format-3.9
 ad_rss$> find -iname *.cpp -o -iname *.hpp | xargs clang-format-3.9 -style=file -i
 ```
 This command will automatically update the code formatting to be compliant with our style.
+
+In addition, please perform a static code analysis, if possible.
+```bash
+ad_rss$> sudo apt-get install clang-tidy
+ad_rss$> cmake -DBUILD_STATIC_ANALYSIS=ON
+ad_rss$> make clang-tidy
+```
+This may provide a list of possible improvements that you would like to consider in your pull request.

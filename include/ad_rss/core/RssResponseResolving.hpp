@@ -67,14 +67,13 @@ public:
   /**
    * @brief Calculate the proper response out of the current responses
    *
-   * @param[in]  currentResponseStates all the response states gathered for the current situations
+   * @param[in]  currentStates all the response states gathered for the current situations
    * @param[out] responseState the proper overall response state
    *
    * @return true if response could be calculated, false otherwise
    * If false is returned the internal state has not been updated
    */
-  bool provideProperResponse(state::ResponseStateVector const &currentResponseStates,
-                             state::ResponseState &responseState);
+  bool provideProperResponse(state::ResponseStateVector const &currentStates, state::ResponseState &responseState);
 
 private:
   struct RssState
