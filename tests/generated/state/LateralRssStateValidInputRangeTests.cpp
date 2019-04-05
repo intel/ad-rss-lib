@@ -48,6 +48,15 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRange)
   value.isSafe = valueIsSafe;
   ::ad_rss::state::LateralResponse valueResponse(::ad_rss::state::LateralResponse::None);
   value.response = valueResponse;
+  ::ad_rss::state::ResponseInformation valueResponseInformation;
+  ::ad_rss::physics::Distance valueResponseInformationSafeDistance(0.);
+  valueResponseInformation.safeDistance = valueResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueResponseInformationCurrentDistance(0.);
+  valueResponseInformation.currentDistance = valueResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueResponseInformation.responseEvaluator = valueResponseInformationResponseEvaluator;
+  value.responseInformation = valueResponseInformation;
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
@@ -58,6 +67,15 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeResponseTooSmall)
   value.isSafe = valueIsSafe;
   ::ad_rss::state::LateralResponse valueResponse(::ad_rss::state::LateralResponse::None);
   value.response = valueResponse;
+  ::ad_rss::state::ResponseInformation valueResponseInformation;
+  ::ad_rss::physics::Distance valueResponseInformationSafeDistance(0.);
+  valueResponseInformation.safeDistance = valueResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueResponseInformationCurrentDistance(0.);
+  valueResponseInformation.currentDistance = valueResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueResponseInformation.responseEvaluator = valueResponseInformationResponseEvaluator;
+  value.responseInformation = valueResponseInformation;
 
   // override member with invalid value
   ::ad_rss::state::LateralResponse invalidInitializedMember(static_cast<::ad_rss::state::LateralResponse>(-1));
@@ -72,9 +90,68 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeResponseTooBig)
   value.isSafe = valueIsSafe;
   ::ad_rss::state::LateralResponse valueResponse(::ad_rss::state::LateralResponse::None);
   value.response = valueResponse;
+  ::ad_rss::state::ResponseInformation valueResponseInformation;
+  ::ad_rss::physics::Distance valueResponseInformationSafeDistance(0.);
+  valueResponseInformation.safeDistance = valueResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueResponseInformationCurrentDistance(0.);
+  valueResponseInformation.currentDistance = valueResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueResponseInformation.responseEvaluator = valueResponseInformationResponseEvaluator;
+  value.responseInformation = valueResponseInformation;
 
   // override member with invalid value
   ::ad_rss::state::LateralResponse invalidInitializedMember(static_cast<::ad_rss::state::LateralResponse>(-1));
   value.response = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(LateralRssStateValidInputRangeTests, testValidInputRangeResponseInformationTooSmall)
+{
+  ::ad_rss::state::LateralRssState value;
+  bool valueIsSafe{true};
+  value.isSafe = valueIsSafe;
+  ::ad_rss::state::LateralResponse valueResponse(::ad_rss::state::LateralResponse::None);
+  value.response = valueResponse;
+  ::ad_rss::state::ResponseInformation valueResponseInformation;
+  ::ad_rss::physics::Distance valueResponseInformationSafeDistance(0.);
+  valueResponseInformation.safeDistance = valueResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueResponseInformationCurrentDistance(0.);
+  valueResponseInformation.currentDistance = valueResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueResponseInformation.responseEvaluator = valueResponseInformationResponseEvaluator;
+  value.responseInformation = valueResponseInformation;
+
+  // override member with invalid value
+  ::ad_rss::state::ResponseInformation invalidInitializedMember;
+  ::ad_rss::physics::Distance invalidInitializedMemberSafeDistance(0. - ::ad_rss::physics::Distance::cPrecisionValue);
+  invalidInitializedMember.safeDistance = invalidInitializedMemberSafeDistance;
+  value.responseInformation = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(LateralRssStateValidInputRangeTests, testValidInputRangeResponseInformationTooBig)
+{
+  ::ad_rss::state::LateralRssState value;
+  bool valueIsSafe{true};
+  value.isSafe = valueIsSafe;
+  ::ad_rss::state::LateralResponse valueResponse(::ad_rss::state::LateralResponse::None);
+  value.response = valueResponse;
+  ::ad_rss::state::ResponseInformation valueResponseInformation;
+  ::ad_rss::physics::Distance valueResponseInformationSafeDistance(0.);
+  valueResponseInformation.safeDistance = valueResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueResponseInformationCurrentDistance(0.);
+  valueResponseInformation.currentDistance = valueResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueResponseInformation.responseEvaluator = valueResponseInformationResponseEvaluator;
+  value.responseInformation = valueResponseInformation;
+
+  // override member with invalid value
+  ::ad_rss::state::ResponseInformation invalidInitializedMember;
+  ::ad_rss::physics::Distance invalidInitializedMemberSafeDistance(1e6 * 1.1);
+  invalidInitializedMember.safeDistance = invalidInitializedMemberSafeDistance;
+  value.responseInformation = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }

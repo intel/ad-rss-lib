@@ -39,9 +39,10 @@
 
 #pragma once
 
+#include <limits>
 #include <memory>
-#include "ad_rss/state/LongitudinalResponse.hpp"
-#include "ad_rss/state/ResponseInformation.hpp"
+#include "ad_rss/physics/Distance.hpp"
+#include "ad_rss/state/ResponseEvaluator.hpp"
 /*!
  * @brief namespace ad_rss
  */
@@ -52,89 +53,90 @@ namespace ad_rss {
 namespace state {
 
 /*!
- * \brief DataType LongitudinalRssState
+ * \brief DataType ResponseInformation
  *
- * Struct to store the longitudinal RSS state.
+ * Structure holding additional information on the reason for the response.
  */
-struct LongitudinalRssState
+struct ResponseInformation
 {
   /*!
    * \brief standard constructor
    */
-  LongitudinalRssState() = default;
+  ResponseInformation() = default;
 
   /*!
    * \brief standard destructor
    */
-  ~LongitudinalRssState() = default;
+  ~ResponseInformation() = default;
 
   /*!
    * \brief standard copy constructor
    */
-  LongitudinalRssState(const LongitudinalRssState &other) = default;
+  ResponseInformation(const ResponseInformation &other) = default;
 
   /*!
    * \brief standard move constructor
    */
-  LongitudinalRssState(LongitudinalRssState &&other) = default;
+  ResponseInformation(ResponseInformation &&other) = default;
 
   /**
    * \brief standard assignment operator
    *
-   * \param[in] other Other LongitudinalRssState
+   * \param[in] other Other ResponseInformation
    *
-   * \returns Reference to this LongitudinalRssState.
+   * \returns Reference to this ResponseInformation.
    */
-  LongitudinalRssState &operator=(const LongitudinalRssState &other) = default;
+  ResponseInformation &operator=(const ResponseInformation &other) = default;
 
   /**
    * \brief standard move operator
    *
-   * \param[in] other Other LongitudinalRssState
+   * \param[in] other Other ResponseInformation
    *
-   * \returns Reference to this LongitudinalRssState.
+   * \returns Reference to this ResponseInformation.
    */
-  LongitudinalRssState &operator=(LongitudinalRssState &&other) = default;
+  ResponseInformation &operator=(ResponseInformation &&other) = default;
 
   /**
    * \brief standard comparison operator
    *
-   * \param[in] other Other LongitudinalRssState
+   * \param[in] other Other ResponseInformation
    *
-   * \returns \c true if both LongitudinalRssState are equal
+   * \returns \c true if both ResponseInformation are equal
    */
-  bool operator==(const LongitudinalRssState &other) const
+  bool operator==(const ResponseInformation &other) const
   {
-    return (isSafe == other.isSafe) && (response == other.response)
-      && (responseInformation == other.responseInformation);
+    return (safeDistance == other.safeDistance) && (currentDistance == other.currentDistance)
+      && (responseEvaluator == other.responseEvaluator);
   }
 
   /**
    * \brief standard comparison operator
    *
-   * \param[in] other Other LongitudinalRssState.
+   * \param[in] other Other ResponseInformation.
    *
-   * \returns \c true if both LongitudinalRssState are different
+   * \returns \c true if both ResponseInformation are different
    */
-  bool operator!=(const LongitudinalRssState &other) const
+  bool operator!=(const ResponseInformation &other) const
   {
     return !operator==(other);
   }
 
   /*!
-   * Flag to indicate if the state is longitudinal safe.
+   * Required safe distance.
    */
-  bool isSafe{false};
+  ::ad_rss::physics::Distance safeDistance{-1.};
 
   /*!
-   * required response in longitudinal direction
+   * current longitudinal distance
    */
-  ::ad_rss::state::LongitudinalResponse response{::ad_rss::state::LongitudinalResponse::BrakeMin};
+  ::ad_rss::physics::Distance currentDistance{-1.};
 
   /*!
-   * Information on the evaluation of the Rss state.
+   * The response information in respect to safeDistance and currentDistance are in respect to the given evaluation
+   * method.
    */
-  ::ad_rss::state::ResponseInformation responseInformation;
+  ::ad_rss::state::ResponseEvaluator responseEvaluator{::ad_rss::state::ResponseEvaluator::None};
 };
 
 } // namespace state

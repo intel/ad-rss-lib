@@ -62,18 +62,10 @@ protected:
   {
   }
 
-  void testResultState(state::ResponseState &resultResponseState,
-                       LongitudinalResponse lonResponse,
-                       LateralResponse latResponseLeft,
-                       LateralResponse latResponseRight)
+  void testResultStateNone(state::ResponseState &resultResponseState)
   {
-    testResultState(resultResponseState,
-                    lonResponse,
-                    lonResponse == LongitudinalResponse::None,
-                    latResponseLeft,
-                    latResponseLeft == LateralResponse::None,
-                    latResponseRight,
-                    latResponseRight == LateralResponse::None);
+    testResultState(
+      resultResponseState, LongitudinalResponse::None, true, LateralResponse::None, true, LateralResponse::None, true);
   }
 
   void testResultState(state::ResponseState &resultResponseState,
@@ -126,9 +118,9 @@ protected:
 TEST_F(RssResponseResolvingTests, validateTestSetup)
 {
   performTest(true);
-  testResultState(resultResponseStateT1, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
-  testResultState(resultResponseStateT2, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
-  testResultState(resultResponseStateT3, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
+  testResultStateNone(resultResponseStateT1);
+  testResultStateNone(resultResponseStateT2);
+  testResultStateNone(resultResponseStateT3);
 }
 
 TEST_F(RssResponseResolvingTests, invalidTimeStamp)
@@ -149,9 +141,9 @@ TEST_F(RssResponseResolvingTests, extremeTimeIndexAreAccepted)
   responseStateT2O2.timeIndex = static_cast<uint64_t>(-1);
 
   performTest();
-  testResultState(resultResponseStateT1, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
-  testResultState(resultResponseStateT2, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
-  testResultState(resultResponseStateT3, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
+  testResultStateNone(resultResponseStateT1);
+  testResultStateNone(resultResponseStateT2);
+  testResultStateNone(resultResponseStateT3);
 }
 
 TEST_F(RssResponseResolvingTests, sameTimeSameId)
@@ -167,9 +159,15 @@ TEST_F(RssResponseResolvingTests, provideProperResponseLateralLeft)
   setRssStateUnsafe(responseStateT2O1.lateralStateLeft, LateralResponse::BrakeMin);
 
   performTest();
-  testResultState(resultResponseStateT1, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
-  testResultState(resultResponseStateT2, LongitudinalResponse::None, LateralResponse::BrakeMin, LateralResponse::None);
-  testResultState(resultResponseStateT3, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
+  testResultStateNone(resultResponseStateT1);
+  testResultState(resultResponseStateT2,
+                  LongitudinalResponse::None,
+                  false,
+                  LateralResponse::BrakeMin,
+                  false,
+                  LateralResponse::None,
+                  true);
+  testResultStateNone(resultResponseStateT3);
 }
 
 TEST_F(RssResponseResolvingTests, provideProperResponseLateralRight)
@@ -179,9 +177,15 @@ TEST_F(RssResponseResolvingTests, provideProperResponseLateralRight)
   setRssStateUnsafe(responseStateT2O1.lateralStateRight, LateralResponse::BrakeMin);
 
   performTest();
-  testResultState(resultResponseStateT1, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
-  testResultState(resultResponseStateT2, LongitudinalResponse::None, LateralResponse::None, LateralResponse::BrakeMin);
-  testResultState(resultResponseStateT3, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
+  testResultStateNone(resultResponseStateT1);
+  testResultState(resultResponseStateT2,
+                  LongitudinalResponse::None,
+                  false,
+                  LateralResponse::None,
+                  true,
+                  LateralResponse::BrakeMin,
+                  false);
+  testResultStateNone(resultResponseStateT3);
 }
 
 TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinal)
@@ -191,9 +195,15 @@ TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinal)
   setRssStateUnsafe(responseStateT2O1.lateralStateRight, LateralResponse::BrakeMin);
 
   performTest();
-  testResultState(resultResponseStateT1, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
-  testResultState(resultResponseStateT2, LongitudinalResponse::BrakeMin, LateralResponse::None, LateralResponse::None);
-  testResultState(resultResponseStateT3, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
+  testResultStateNone(resultResponseStateT1);
+  testResultState(resultResponseStateT2,
+                  LongitudinalResponse::BrakeMin,
+                  false,
+                  LateralResponse::None,
+                  true,
+                  LateralResponse::None,
+                  false);
+  testResultStateNone(resultResponseStateT3);
 }
 
 TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinal_None)
@@ -203,9 +213,14 @@ TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinal_None)
   setRssStateUnsafe(responseStateT2O1.lateralStateRight, LateralResponse::BrakeMin);
 
   performTest();
-  testResultState(resultResponseStateT1, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
-  testResultState(
-    resultResponseStateT2, LongitudinalResponse::None, false, LateralResponse::None, true, LateralResponse::None, true);
+  testResultStateNone(resultResponseStateT1);
+  testResultState(resultResponseStateT2,
+                  LongitudinalResponse::None,
+                  false,
+                  LateralResponse::None,
+                  true,
+                  LateralResponse::None,
+                  false);
 }
 
 TEST_F(RssResponseResolvingTests, provideProperResponseBothDirections)
@@ -214,10 +229,15 @@ TEST_F(RssResponseResolvingTests, provideProperResponseBothDirections)
   setRssStateUnsafe(responseStateT1O1.lateralStateRight, LateralResponse::BrakeMin);
 
   performTest();
-  testResultState(
-    resultResponseStateT1, LongitudinalResponse::BrakeMin, LateralResponse::None, LateralResponse::BrakeMin);
-  testResultState(resultResponseStateT2, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
-  testResultState(resultResponseStateT3, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
+  testResultState(resultResponseStateT1,
+                  LongitudinalResponse::BrakeMin,
+                  false,
+                  LateralResponse::None,
+                  true,
+                  LateralResponse::BrakeMin,
+                  false);
+  testResultStateNone(resultResponseStateT2);
+  testResultStateNone(resultResponseStateT3);
 }
 
 TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinalMoreSevere)
@@ -229,10 +249,21 @@ TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinalMoreSevere)
   setRssStateUnsafe(responseStateT3O1.lateralStateRight, LateralResponse::BrakeMin);
 
   performTest();
-  testResultState(resultResponseStateT1, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
-  testResultState(
-    resultResponseStateT2, LongitudinalResponse::BrakeMinCorrect, LateralResponse::None, LateralResponse::None);
-  testResultState(resultResponseStateT3, LongitudinalResponse::BrakeMin, LateralResponse::None, LateralResponse::None);
+  testResultStateNone(resultResponseStateT1);
+  testResultState(resultResponseStateT2,
+                  LongitudinalResponse::BrakeMinCorrect,
+                  false,
+                  LateralResponse::None,
+                  true,
+                  LateralResponse::None,
+                  false);
+  testResultState(resultResponseStateT3,
+                  LongitudinalResponse::BrakeMin,
+                  false,
+                  LateralResponse::None,
+                  true,
+                  LateralResponse::None,
+                  false);
 }
 
 TEST_F(RssResponseResolvingTests, provideProperResponseDangerousInitialState)
@@ -243,11 +274,21 @@ TEST_F(RssResponseResolvingTests, provideProperResponseDangerousInitialState)
   setRssStateUnsafe(responseStateT2O1.longitudinalState, LongitudinalResponse::BrakeMin);
 
   performTest();
-  testResultState(
-    resultResponseStateT1, LongitudinalResponse::BrakeMin, LateralResponse::None, LateralResponse::BrakeMin);
-  testResultState(
-    resultResponseStateT2, LongitudinalResponse::BrakeMin, LateralResponse::None, LateralResponse::BrakeMin);
-  testResultState(resultResponseStateT3, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
+  testResultState(resultResponseStateT1,
+                  LongitudinalResponse::BrakeMin,
+                  false,
+                  LateralResponse::None,
+                  true,
+                  LateralResponse::BrakeMin,
+                  false);
+  testResultState(resultResponseStateT2,
+                  LongitudinalResponse::BrakeMin,
+                  false,
+                  LateralResponse::None,
+                  true,
+                  LateralResponse::BrakeMin,
+                  false);
+  testResultStateNone(resultResponseStateT3);
 }
 
 } // namespace core

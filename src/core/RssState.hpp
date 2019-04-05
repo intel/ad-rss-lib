@@ -112,5 +112,40 @@ template <typename RssState> RssState combineRssState(RssState const &previousRs
   return newRssState;
 }
 
+enum class IsSafe
+{
+  Yes,
+  No
+};
+
+inline state::ResponseState createResponseState(physics::TimeIndex const &timeIndex,
+                                                situation::SituationId const &situationId,
+                                                IsSafe const &isSafeValue)
+{
+  bool const isSafe = (isSafeValue == IsSafe::Yes);
+  state::ResponseInformation emptyResponseInfo;
+  emptyResponseInfo.currentDistance = physics::Distance::getMax();
+  emptyResponseInfo.safeDistance = physics::Distance::getMax();
+  emptyResponseInfo.responseEvaluator = state::ResponseEvaluator::None;
+
+  state::ResponseState safeResponse;
+  safeResponse.timeIndex = timeIndex;
+  safeResponse.situationId = situationId;
+  safeResponse.lateralStateLeft.isSafe = isSafe;
+  safeResponse.lateralStateLeft.response
+    = isSafe ? (::ad_rss::state::LateralResponse::None) : (::ad_rss::state::LateralResponse::BrakeMin);
+  safeResponse.lateralStateLeft.responseInformation = emptyResponseInfo;
+  safeResponse.lateralStateRight.isSafe = isSafe;
+  safeResponse.lateralStateRight.response
+    = isSafe ? (::ad_rss::state::LateralResponse::None) : (::ad_rss::state::LateralResponse::BrakeMin);
+  safeResponse.lateralStateRight.responseInformation = emptyResponseInfo;
+  safeResponse.longitudinalState.isSafe = isSafe;
+  safeResponse.longitudinalState.response
+    = isSafe ? (::ad_rss::state::LongitudinalResponse::None) : (::ad_rss::state::LongitudinalResponse::BrakeMin);
+  safeResponse.longitudinalState.responseInformation = emptyResponseInfo;
+
+  return safeResponse;
+}
+
 } // namespace state
 } // namespace ad_rss

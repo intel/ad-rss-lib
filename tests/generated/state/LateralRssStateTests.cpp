@@ -50,6 +50,15 @@ protected:
     value.isSafe = valueIsSafe;
     ::ad_rss::state::LateralResponse valueResponse(::ad_rss::state::LateralResponse::None);
     value.response = valueResponse;
+    ::ad_rss::state::ResponseInformation valueResponseInformation;
+    ::ad_rss::physics::Distance valueResponseInformationSafeDistance(0.);
+    valueResponseInformation.safeDistance = valueResponseInformationSafeDistance;
+    ::ad_rss::physics::Distance valueResponseInformationCurrentDistance(0.);
+    valueResponseInformation.currentDistance = valueResponseInformationCurrentDistance;
+    ::ad_rss::state::ResponseEvaluator valueResponseInformationResponseEvaluator(
+      ::ad_rss::state::ResponseEvaluator::None);
+    valueResponseInformation.responseEvaluator = valueResponseInformationResponseEvaluator;
+    value.responseInformation = valueResponseInformation;
     mValue = value;
   }
 
@@ -107,6 +116,24 @@ TEST_F(LateralRssStateTests, comparisonOperatorResponseDiffers)
   ::ad_rss::state::LateralRssState valueA = mValue;
   ::ad_rss::state::LateralResponse response(::ad_rss::state::LateralResponse::BrakeMin);
   valueA.response = response;
+  ::ad_rss::state::LateralRssState valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(LateralRssStateTests, comparisonOperatorResponseInformationDiffers)
+{
+  ::ad_rss::state::LateralRssState valueA = mValue;
+  ::ad_rss::state::ResponseInformation responseInformation;
+  ::ad_rss::physics::Distance responseInformationSafeDistance(1e6);
+  responseInformation.safeDistance = responseInformationSafeDistance;
+  ::ad_rss::physics::Distance responseInformationCurrentDistance(1e6);
+  responseInformation.currentDistance = responseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator responseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::IntersectionOverlap);
+  responseInformation.responseEvaluator = responseInformationResponseEvaluator;
+  valueA.responseInformation = responseInformation;
   ::ad_rss::state::LateralRssState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

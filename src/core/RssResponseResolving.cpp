@@ -32,7 +32,7 @@
 #include "ad_rss/core/RssResponseResolving.hpp"
 #include <algorithm>
 #include "ad_rss/state/ResponseStateVectorValidInputRange.hpp"
-#include "core/RSSState.hpp"
+#include "core/RssState.hpp"
 
 namespace ad_rss {
 namespace core {
@@ -53,13 +53,7 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
   // global try catch block to ensure this library call doesn't throw an exception
   try
   {
-    responseState.timeIndex = physics::TimeIndex(0u);
-    responseState.lateralStateLeft.response = state::LateralResponse::None;
-    responseState.lateralStateLeft.isSafe = true;
-    responseState.lateralStateRight.response = state::LateralResponse::None;
-    responseState.lateralStateRight.isSafe = true;
-    responseState.longitudinalState.response = state::LongitudinalResponse::None;
-    responseState.longitudinalState.isSafe = true;
+    responseState = state::createResponseState(physics::TimeIndex(0u), situation::SituationId(0), state::IsSafe::Yes);
 
     RssStateBeforeDangerThresholdTimeMap newStatesBeforeDangerThresholdTime;
 
@@ -96,9 +90,19 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
 
             responseState.lateralStateRight
               = combineRssState(currentState.lateralStateRight, responseState.lateralStateRight);
+
+            // propagate is safe in longitudinal direction
+            responseState.longitudinalState.isSafe
+              = responseState.longitudinalState.isSafe && currentState.longitudinalState.isSafe;
           }
           if (previousNonDangerousState->second.longitudinalSafe)
           {
+            // propagate is safe in lateral direction
+            responseState.lateralStateLeft.isSafe
+              = responseState.lateralStateLeft.isSafe && currentState.lateralStateLeft.isSafe;
+            responseState.lateralStateRight.isSafe
+              = responseState.lateralStateRight.isSafe && currentState.lateralStateRight.isSafe;
+
             responseState.longitudinalState
               = combineRssState(currentState.longitudinalState, responseState.longitudinalState);
           }

@@ -41,27 +41,27 @@
 
 #include <cmath>
 #include <limits>
-#include "ad_rss/state/LateralResponseValidInputRange.hpp"
-#include "ad_rss/state/LateralRssState.hpp"
-#include "ad_rss/state/ResponseInformationValidInputRange.hpp"
+#include "ad_rss/physics/DistanceValidInputRange.hpp"
+#include "ad_rss/state/ResponseEvaluatorValidInputRange.hpp"
+#include "ad_rss/state/ResponseInformation.hpp"
 
 /*!
- * \brief check if the given LateralRssState is within valid input range
+ * \brief check if the given ResponseInformation is within valid input range
  *
- * \param[in] input the LateralRssState as an input value
+ * \param[in] input the ResponseInformation as an input value
  *
- * \returns \c true if LateralRssState is considered to be within the specified input range
+ * \returns \c true if ResponseInformation is considered to be within the specified input range
  *
  * \note the specified input range is defined by the ranges of all members
  */
-inline bool withinValidInputRange(::ad_rss::state::LateralRssState const &input)
+inline bool withinValidInputRange(::ad_rss::state::ResponseInformation const &input)
 {
   try
   {
     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
     // check for generic member input ranges
-    bool const membersInValidInputRange
-      = withinValidInputRange(input.response) && withinValidInputRange(input.responseInformation);
+    bool const membersInValidInputRange = withinValidInputRange(input.safeDistance)
+      && withinValidInputRange(input.currentDistance) && withinValidInputRange(input.responseEvaluator);
 
     return membersInValidInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches

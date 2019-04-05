@@ -34,6 +34,7 @@
 #include "ad_rss/core/RssResponseTransformation.hpp"
 #include "ad_rss/core/RssSituationChecking.hpp"
 #include "ad_rss/core/RssSituationExtraction.hpp"
+#include "core/RssState.hpp"
 
 namespace ad_rss {
 
@@ -82,15 +83,8 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
     {
       // if the worldModel contains no relevant object (or no objects at all)
       // the responseStateVector will be empty. Thus, we need to add a "all safe" response
-      state::ResponseState safeResponse;
-      safeResponse.timeIndex = worldModel.timeIndex;
-      safeResponse.situationId = situation::SituationId(0u);
-      safeResponse.lateralStateLeft.isSafe = true;
-      safeResponse.lateralStateLeft.response = ::ad_rss::state::LateralResponse::None;
-      safeResponse.lateralStateRight.isSafe = true;
-      safeResponse.lateralStateRight.response = ::ad_rss::state::LateralResponse::None;
-      safeResponse.longitudinalState.isSafe = true;
-      safeResponse.longitudinalState.response = ::ad_rss::state::LongitudinalResponse::None;
+      state::ResponseState const safeResponse
+        = state::createResponseState(worldModel.timeIndex, situation::SituationId(0), state::IsSafe::Yes);
       responseStateVector.push_back(safeResponse);
     }
 
