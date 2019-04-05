@@ -30,12 +30,12 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "core/RSSState.hpp"
+#include "core/RssState.hpp"
 
 namespace ad_rss {
 namespace state {
 
-TEST(RSSStateCombineRssStateTests, longitudinal_previous_Safe)
+TEST(RssStateCombineRssStateTests, longitudinal_previous_Safe)
 {
   ASSERT_EQ(combineRssState(cTestSupport.cLongitudinalSafe, cTestSupport.cLongitudinalSafe),
             cTestSupport.cLongitudinalSafe);
@@ -47,7 +47,7 @@ TEST(RSSStateCombineRssStateTests, longitudinal_previous_Safe)
             cTestSupport.cLongitudinalBrakeMinCorrect);
 }
 
-TEST(RSSStateCombineRssStateTests, longitudinal_previous_None)
+TEST(RssStateCombineRssStateTests, longitudinal_previous_None)
 {
   ASSERT_EQ(combineRssState(cTestSupport.cLongitudinalNone, cTestSupport.cLongitudinalSafe),
             cTestSupport.cLongitudinalNone);
@@ -59,7 +59,7 @@ TEST(RSSStateCombineRssStateTests, longitudinal_previous_None)
             cTestSupport.cLongitudinalBrakeMinCorrect);
 }
 
-TEST(RSSStateCombineRssStateTests, longitudinal_previous_BrakeMin)
+TEST(RssStateCombineRssStateTests, longitudinal_previous_BrakeMin)
 {
   ASSERT_EQ(combineRssState(cTestSupport.cLongitudinalBrakeMin, cTestSupport.cLongitudinalSafe),
             cTestSupport.cLongitudinalBrakeMin);
@@ -71,7 +71,7 @@ TEST(RSSStateCombineRssStateTests, longitudinal_previous_BrakeMin)
             cTestSupport.cLongitudinalBrakeMin);
 }
 
-TEST(RSSStateCombineRssStateTests, longitudinal_previous_BrakeMinCorrect)
+TEST(RssStateCombineRssStateTests, longitudinal_previous_BrakeMinCorrect)
 {
   ASSERT_EQ(combineRssState(cTestSupport.cLongitudinalBrakeMinCorrect, cTestSupport.cLongitudinalSafe),
             cTestSupport.cLongitudinalBrakeMinCorrect);
@@ -83,21 +83,21 @@ TEST(RSSStateCombineRssStateTests, longitudinal_previous_BrakeMinCorrect)
             cTestSupport.cLongitudinalBrakeMinCorrect);
 }
 
-TEST(RSSStateCombineRssStateTests, lateral_previous_Safe)
+TEST(RssStateCombineRssStateTests, lateral_previous_Safe)
 {
   ASSERT_EQ(combineRssState(cTestSupport.cLateralSafe, cTestSupport.cLateralSafe), cTestSupport.cLateralSafe);
   ASSERT_EQ(combineRssState(cTestSupport.cLateralSafe, cTestSupport.cLateralNone), cTestSupport.cLateralNone);
   ASSERT_EQ(combineRssState(cTestSupport.cLateralSafe, cTestSupport.cLateralBrakeMin), cTestSupport.cLateralBrakeMin);
 }
 
-TEST(RSSStateCombineRssStateTests, lateral_previous_None)
+TEST(RssStateCombineRssStateTests, lateral_previous_None)
 {
   ASSERT_EQ(combineRssState(cTestSupport.cLateralNone, cTestSupport.cLateralSafe), cTestSupport.cLateralNone);
   ASSERT_EQ(combineRssState(cTestSupport.cLateralNone, cTestSupport.cLateralNone), cTestSupport.cLateralNone);
   ASSERT_EQ(combineRssState(cTestSupport.cLateralNone, cTestSupport.cLateralBrakeMin), cTestSupport.cLateralBrakeMin);
 }
 
-TEST(RSSStateCombineRssStateTests, lateral_previous_BrakeMin)
+TEST(RssStateCombineRssStateTests, lateral_previous_BrakeMin)
 {
   ASSERT_EQ(combineRssState(cTestSupport.cLateralBrakeMin, cTestSupport.cLateralSafe), cTestSupport.cLateralBrakeMin);
   ASSERT_EQ(combineRssState(cTestSupport.cLateralBrakeMin, cTestSupport.cLateralNone), cTestSupport.cLateralBrakeMin);

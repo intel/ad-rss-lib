@@ -30,12 +30,12 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "situation/RSSFormulas.hpp"
+#include "situation/RssFormulas.hpp"
 
 namespace ad_rss {
 namespace situation {
 
-TEST(RSSFormulaTestsCalculateSafeLateralDistance, invalid_vehicle_state)
+TEST(RssFormulaTestsCalculateSafeLateralDistance, invalid_vehicle_state)
 {
   Distance safeDistance(0.);
 
@@ -49,7 +49,7 @@ TEST(RSSFormulaTestsCalculateSafeLateralDistance, invalid_vehicle_state)
   ASSERT_FALSE(calculateSafeLateralDistance(vehicle, vehicle, safeDistance));
 }
 
-TEST(RSSFormulaTestsCalculateSafeLateralDistance, same_lateral_speed)
+TEST(RssFormulaTestsCalculateSafeLateralDistance, same_lateral_speed)
 {
   Distance safeDistance(0.);
 
@@ -70,7 +70,7 @@ TEST(RSSFormulaTestsCalculateSafeLateralDistance, same_lateral_speed)
   }
 }
 
-TEST(RSSFormulaTestsCalculateSafeLateralDistance, one_zero_lateral_speed)
+TEST(RssFormulaTestsCalculateSafeLateralDistance, one_zero_lateral_speed)
 {
   Distance safeDistance(0.);
 
