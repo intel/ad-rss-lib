@@ -2,6 +2,9 @@
 * Small updates to be compliant to clang-tidy-3.8 static code analysis
 * Added basic FAQ
 * Fixed documentation of RoadArea LaneSegment ordering (left -> right)
+* Fixed isSafe flags of the resolved response
+* Renamed some internal files from 'RSS...' -> 'Rss...' to have camel-case everywhere
+* Added ResponseInformation to provide more insight into intermediate result calculation
 
 ## Release 1.2.0
 * Added support for Clang 5 and Clang 6

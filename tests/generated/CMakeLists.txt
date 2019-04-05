@@ -68,8 +68,12 @@ set(GENERATED_TEST_SOURCES
   generated/situation/SituationValidInputRangeTests.cpp
   generated/situation/LongitudinalRelativePositionTests.cpp
   generated/situation/LongitudinalRelativePositionValidInputRangeTests.cpp
+  generated/state/ResponseEvaluatorTests.cpp
+  generated/state/ResponseEvaluatorValidInputRangeTests.cpp
   generated/state/ResponseStateTests.cpp
   generated/state/ResponseStateValidInputRangeTests.cpp
+  generated/state/ResponseInformationTests.cpp
+  generated/state/ResponseInformationValidInputRangeTests.cpp
   generated/state/ResponseStateVectorValidInputRangeTests.cpp
   generated/state/LateralRssStateValidInputRangeTests.cpp
   generated/state/LateralRssStateTests.cpp

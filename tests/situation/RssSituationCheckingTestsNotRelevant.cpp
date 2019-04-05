@@ -65,7 +65,10 @@ TEST_F(RssSituationCheckingTestsNotRelevant, notRelevantSituation)
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(1.));
 
   ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
+  ASSERT_EQ(responseState.longitudinalState,
+            TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralSafe, situation));
+  ASSERT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralSafe, situation));
 }
 
 } // namespace situation

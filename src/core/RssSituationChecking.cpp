@@ -33,8 +33,9 @@
 #include <algorithm>
 #include <memory>
 #include "ad_rss/situation/SituationVectorValidInputRange.hpp"
-#include "situation/RSSSituation.hpp"
+#include "core/RssState.hpp"
 #include "situation/RssIntersectionChecker.hpp"
+#include "situation/RssSituation.hpp"
 
 namespace ad_rss {
 namespace core {
@@ -72,24 +73,12 @@ bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation 
       return false;
     }
 
-    response.timeIndex = situation.timeIndex;
-    response.situationId = situation.situationId;
-    response.longitudinalState.isSafe = false;
-    response.longitudinalState.response = state::LongitudinalResponse::BrakeMin;
-    response.lateralStateLeft.isSafe = false;
-    response.lateralStateLeft.response = state::LateralResponse::BrakeMin;
-    response.lateralStateRight.isSafe = false;
-    response.lateralStateRight.response = state::LateralResponse::BrakeMin;
+    response = state::createResponseState(situation.timeIndex, situation.situationId, state::IsSafe::No);
 
     switch (situation.situationType)
     {
       case situation::SituationType::NotRelevant:
-        response.longitudinalState.isSafe = true;
-        response.longitudinalState.response = state::LongitudinalResponse::None;
-        response.lateralStateLeft.isSafe = true;
-        response.lateralStateLeft.response = state::LateralResponse::None;
-        response.lateralStateRight.isSafe = true;
-        response.lateralStateRight.response = state::LateralResponse::None;
+        response = state::createResponseState(situation.timeIndex, situation.situationId, state::IsSafe::Yes);
         result = true;
         break;
       case situation::SituationType::SameDirection:

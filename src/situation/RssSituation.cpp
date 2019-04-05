@@ -29,8 +29,8 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "situation/RSSSituation.hpp"
-#include "situation/RSSFormulas.hpp"
+#include "situation/RssSituation.hpp"
+#include "situation/RssFormulas.hpp"
 
 namespace ad_rss {
 namespace situation {
@@ -62,22 +62,35 @@ bool calculateLongitudinalRssStateNonIntersectionSameDirection(Situation const &
   bool result = false;
 
   rssState.response = state::LongitudinalResponse::BrakeMin;
+  rssState.responseInformation.currentDistance = situation.relativePosition.longitudinalDistance;
 
   bool isSafe = false;
 
   if ((LongitudinalRelativePosition::InFront == situation.relativePosition.longitudinalPosition)
       || (LongitudinalRelativePosition::OverlapFront == situation.relativePosition.longitudinalPosition))
   {
+    rssState.responseInformation.responseEvaluator
+      = state::ResponseEvaluator::LongitudinalDistanceSameDirectionEgoFront;
+
     // The ego vehicle is leading in this situation so we don't need to break longitudinal
     rssState.response = state::LongitudinalResponse::None;
 
-    result = checkSafeLongitudinalDistanceSameDirection(
-      situation.egoVehicleState, situation.otherVehicleState, situation.relativePosition.longitudinalDistance, isSafe);
+    result = checkSafeLongitudinalDistanceSameDirection(situation.egoVehicleState,
+                                                        situation.otherVehicleState,
+                                                        situation.relativePosition.longitudinalDistance,
+                                                        rssState.responseInformation.safeDistance,
+                                                        isSafe);
   }
   else
   {
-    result = checkSafeLongitudinalDistanceSameDirection(
-      situation.otherVehicleState, situation.egoVehicleState, situation.relativePosition.longitudinalDistance, isSafe);
+    rssState.responseInformation.responseEvaluator
+      = state::ResponseEvaluator::LongitudinalDistanceSameDirectionOtherInFront;
+
+    result = checkSafeLongitudinalDistanceSameDirection(situation.otherVehicleState,
+                                                        situation.egoVehicleState,
+                                                        situation.relativePosition.longitudinalDistance,
+                                                        rssState.responseInformation.safeDistance,
+                                                        isSafe);
   }
 
   rssState.isSafe = isSafe;
@@ -96,17 +109,29 @@ bool calculateLongitudinalRssStateNonIntersectionOppositeDirection(Situation con
 
   bool isSafe = false;
   rssState.response = state::LongitudinalResponse::BrakeMin;
+  rssState.responseInformation.currentDistance = situation.relativePosition.longitudinalDistance;
 
   if (situation.egoVehicleState.isInCorrectLane)
   {
-    result = checkSafeLongitudinalDistanceOppositeDirection(
-      situation.egoVehicleState, situation.otherVehicleState, situation.relativePosition.longitudinalDistance, isSafe);
+    rssState.responseInformation.responseEvaluator
+      = state::ResponseEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane;
+
+    result = checkSafeLongitudinalDistanceOppositeDirection(situation.egoVehicleState,
+                                                            situation.otherVehicleState,
+                                                            situation.relativePosition.longitudinalDistance,
+                                                            rssState.responseInformation.safeDistance,
+                                                            isSafe);
     rssState.response = state::LongitudinalResponse::BrakeMinCorrect;
   }
   else
   {
-    result = checkSafeLongitudinalDistanceOppositeDirection(
-      situation.otherVehicleState, situation.egoVehicleState, situation.relativePosition.longitudinalDistance, isSafe);
+    rssState.responseInformation.responseEvaluator = state::ResponseEvaluator::LongitudinalDistanceOppositeDirection;
+
+    result = checkSafeLongitudinalDistanceOppositeDirection(situation.otherVehicleState,
+                                                            situation.egoVehicleState,
+                                                            situation.relativePosition.longitudinalDistance,
+                                                            rssState.responseInformation.safeDistance,
+                                                            isSafe);
   }
 
   rssState.isSafe = isSafe;
@@ -132,20 +157,44 @@ bool calculateLateralRssState(Situation const &situation,
   bool result = false;
   if (LateralRelativePosition::AtLeft == situation.relativePosition.lateralPosition)
   {
+    rssStateLeft.responseInformation.responseEvaluator = state::ResponseEvaluator::None;
+    rssStateLeft.responseInformation.currentDistance = physics::Distance::getMax();
+    rssStateLeft.responseInformation.safeDistance = physics::Distance::getMax();
+
+    // ego is the left vehicle, so right side has to be checked
+    rssStateRight.responseInformation.responseEvaluator = state::ResponseEvaluator::LateralDistance;
+    rssStateRight.responseInformation.currentDistance = situation.relativePosition.lateralDistance;
     result = checkSafeLateralDistance(situation.egoVehicleState,
                                       situation.otherVehicleState,
                                       situation.relativePosition.lateralDistance,
+                                      rssStateRight.responseInformation.safeDistance,
                                       isDistanceSafe);
   }
   else if (LateralRelativePosition::AtRight == situation.relativePosition.lateralPosition)
   {
+    rssStateRight.responseInformation.responseEvaluator = state::ResponseEvaluator::None;
+    rssStateRight.responseInformation.currentDistance = physics::Distance::getMax();
+    rssStateRight.responseInformation.safeDistance = physics::Distance::getMax();
+
+    // ego is the right vehicle, so left side has to be checked
+    rssStateLeft.responseInformation.responseEvaluator = state::ResponseEvaluator::LateralDistance;
+    rssStateLeft.responseInformation.currentDistance = situation.relativePosition.lateralDistance;
     result = checkSafeLateralDistance(situation.otherVehicleState,
                                       situation.egoVehicleState,
                                       situation.relativePosition.lateralDistance,
+                                      rssStateLeft.responseInformation.safeDistance,
                                       isDistanceSafe);
   }
   else
   {
+    rssStateLeft.responseInformation.responseEvaluator = state::ResponseEvaluator::LateralDistance;
+    rssStateLeft.responseInformation.currentDistance = physics::Distance(0);
+    rssStateLeft.responseInformation.safeDistance = physics::Distance(0);
+    rssStateRight.responseInformation.responseEvaluator = state::ResponseEvaluator::LateralDistance;
+    rssStateRight.responseInformation.currentDistance = physics::Distance(0);
+    rssStateRight.responseInformation.safeDistance = physics::Distance(0);
+
+    // lateral distance is zero, never safe
     result = true;
   }
 

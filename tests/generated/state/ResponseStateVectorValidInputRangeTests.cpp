@@ -61,18 +61,51 @@ TEST(ResponseStateVectorValidInputRangeTests, testValidInputRangeValidInputRange
   elementLongitudinalState.isSafe = elementLongitudinalStateIsSafe;
   ::ad_rss::state::LongitudinalResponse elementLongitudinalStateResponse(::ad_rss::state::LongitudinalResponse::None);
   elementLongitudinalState.response = elementLongitudinalStateResponse;
+  ::ad_rss::state::ResponseInformation elementLongitudinalStateResponseInformation;
+  ::ad_rss::physics::Distance elementLongitudinalStateResponseInformationSafeDistance(0.);
+  elementLongitudinalStateResponseInformation.safeDistance = elementLongitudinalStateResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance elementLongitudinalStateResponseInformationCurrentDistance(0.);
+  elementLongitudinalStateResponseInformation.currentDistance
+    = elementLongitudinalStateResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator elementLongitudinalStateResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  elementLongitudinalStateResponseInformation.responseEvaluator
+    = elementLongitudinalStateResponseInformationResponseEvaluator;
+  elementLongitudinalState.responseInformation = elementLongitudinalStateResponseInformation;
   element.longitudinalState = elementLongitudinalState;
   ::ad_rss::state::LateralRssState elementLateralStateRight;
   bool elementLateralStateRightIsSafe{true};
   elementLateralStateRight.isSafe = elementLateralStateRightIsSafe;
   ::ad_rss::state::LateralResponse elementLateralStateRightResponse(::ad_rss::state::LateralResponse::None);
   elementLateralStateRight.response = elementLateralStateRightResponse;
+  ::ad_rss::state::ResponseInformation elementLateralStateRightResponseInformation;
+  ::ad_rss::physics::Distance elementLateralStateRightResponseInformationSafeDistance(0.);
+  elementLateralStateRightResponseInformation.safeDistance = elementLateralStateRightResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance elementLateralStateRightResponseInformationCurrentDistance(0.);
+  elementLateralStateRightResponseInformation.currentDistance
+    = elementLateralStateRightResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator elementLateralStateRightResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  elementLateralStateRightResponseInformation.responseEvaluator
+    = elementLateralStateRightResponseInformationResponseEvaluator;
+  elementLateralStateRight.responseInformation = elementLateralStateRightResponseInformation;
   element.lateralStateRight = elementLateralStateRight;
   ::ad_rss::state::LateralRssState elementLateralStateLeft;
   bool elementLateralStateLeftIsSafe{true};
   elementLateralStateLeft.isSafe = elementLateralStateLeftIsSafe;
   ::ad_rss::state::LateralResponse elementLateralStateLeftResponse(::ad_rss::state::LateralResponse::None);
   elementLateralStateLeft.response = elementLateralStateLeftResponse;
+  ::ad_rss::state::ResponseInformation elementLateralStateLeftResponseInformation;
+  ::ad_rss::physics::Distance elementLateralStateLeftResponseInformationSafeDistance(0.);
+  elementLateralStateLeftResponseInformation.safeDistance = elementLateralStateLeftResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance elementLateralStateLeftResponseInformationCurrentDistance(0.);
+  elementLateralStateLeftResponseInformation.currentDistance
+    = elementLateralStateLeftResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator elementLateralStateLeftResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  elementLateralStateLeftResponseInformation.responseEvaluator
+    = elementLateralStateLeftResponseInformationResponseEvaluator;
+  elementLateralStateLeft.responseInformation = elementLateralStateLeftResponseInformation;
   element.lateralStateLeft = elementLateralStateLeft;
   value.resize(1000, element);
   ASSERT_TRUE(withinValidInputRange(value));
@@ -92,18 +125,51 @@ TEST(ResponseStateVectorValidInputRangeTests, testValidInputRangeHigherThanInput
   elementLongitudinalState.isSafe = elementLongitudinalStateIsSafe;
   ::ad_rss::state::LongitudinalResponse elementLongitudinalStateResponse(::ad_rss::state::LongitudinalResponse::None);
   elementLongitudinalState.response = elementLongitudinalStateResponse;
+  ::ad_rss::state::ResponseInformation elementLongitudinalStateResponseInformation;
+  ::ad_rss::physics::Distance elementLongitudinalStateResponseInformationSafeDistance(0.);
+  elementLongitudinalStateResponseInformation.safeDistance = elementLongitudinalStateResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance elementLongitudinalStateResponseInformationCurrentDistance(0.);
+  elementLongitudinalStateResponseInformation.currentDistance
+    = elementLongitudinalStateResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator elementLongitudinalStateResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  elementLongitudinalStateResponseInformation.responseEvaluator
+    = elementLongitudinalStateResponseInformationResponseEvaluator;
+  elementLongitudinalState.responseInformation = elementLongitudinalStateResponseInformation;
   element.longitudinalState = elementLongitudinalState;
   ::ad_rss::state::LateralRssState elementLateralStateRight;
   bool elementLateralStateRightIsSafe{true};
   elementLateralStateRight.isSafe = elementLateralStateRightIsSafe;
   ::ad_rss::state::LateralResponse elementLateralStateRightResponse(::ad_rss::state::LateralResponse::None);
   elementLateralStateRight.response = elementLateralStateRightResponse;
+  ::ad_rss::state::ResponseInformation elementLateralStateRightResponseInformation;
+  ::ad_rss::physics::Distance elementLateralStateRightResponseInformationSafeDistance(0.);
+  elementLateralStateRightResponseInformation.safeDistance = elementLateralStateRightResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance elementLateralStateRightResponseInformationCurrentDistance(0.);
+  elementLateralStateRightResponseInformation.currentDistance
+    = elementLateralStateRightResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator elementLateralStateRightResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  elementLateralStateRightResponseInformation.responseEvaluator
+    = elementLateralStateRightResponseInformationResponseEvaluator;
+  elementLateralStateRight.responseInformation = elementLateralStateRightResponseInformation;
   element.lateralStateRight = elementLateralStateRight;
   ::ad_rss::state::LateralRssState elementLateralStateLeft;
   bool elementLateralStateLeftIsSafe{true};
   elementLateralStateLeft.isSafe = elementLateralStateLeftIsSafe;
   ::ad_rss::state::LateralResponse elementLateralStateLeftResponse(::ad_rss::state::LateralResponse::None);
   elementLateralStateLeft.response = elementLateralStateLeftResponse;
+  ::ad_rss::state::ResponseInformation elementLateralStateLeftResponseInformation;
+  ::ad_rss::physics::Distance elementLateralStateLeftResponseInformationSafeDistance(0.);
+  elementLateralStateLeftResponseInformation.safeDistance = elementLateralStateLeftResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance elementLateralStateLeftResponseInformationCurrentDistance(0.);
+  elementLateralStateLeftResponseInformation.currentDistance
+    = elementLateralStateLeftResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator elementLateralStateLeftResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  elementLateralStateLeftResponseInformation.responseEvaluator
+    = elementLateralStateLeftResponseInformationResponseEvaluator;
+  elementLateralStateLeft.responseInformation = elementLateralStateLeftResponseInformation;
   element.lateralStateLeft = elementLateralStateLeft;
   value.resize(1001, element);
   ASSERT_FALSE(withinValidInputRange(value));

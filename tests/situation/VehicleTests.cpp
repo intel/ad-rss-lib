@@ -35,14 +35,14 @@
 namespace ad_rss {
 namespace situation {
 
-TEST(RSSFormulaTestsCheckVehicleState, check_standard_state)
+TEST(RssFormulaTestsCheckVehicleState, check_standard_state)
 {
   VehicleState leadingVehicle = createVehicleStateForLongitudinalMotion(10);
 
   ASSERT_TRUE(withinValidInputRange(leadingVehicle));
 }
 
-TEST(RSSFormulaTestsCheckVehicleState, check_standard_state_100)
+TEST(RssFormulaTestsCheckVehicleState, check_standard_state_100)
 {
   VehicleState leadingVehicle = createVehicleStateForLongitudinalMotion(100);
 
