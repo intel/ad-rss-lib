@@ -30,7 +30,7 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "situation/RSSFormulas.hpp"
+#include "situation/RssFormulas.hpp"
 
 namespace ad_rss {
 namespace situation {
@@ -38,31 +38,36 @@ namespace situation {
 TEST(RssFormulaTestsInputRangeChecks, checkSafeLongitudinalDistanceSameDirection)
 {
   bool isSafe = false;
-  Distance safeDistance(-1.);
+  Distance vehicleDistance(-1.);
+  Distance safeDistance(0);
   VehicleState leadingVehicle = createVehicleStateForLongitudinalMotion(10);
   VehicleState followingVehicle = createVehicleStateForLongitudinalMotion(10);
 
-  ASSERT_FALSE(checkSafeLongitudinalDistanceSameDirection(leadingVehicle, followingVehicle, safeDistance, isSafe));
+  ASSERT_FALSE(checkSafeLongitudinalDistanceSameDirection(
+    leadingVehicle, followingVehicle, vehicleDistance, safeDistance, isSafe));
 }
 
 TEST(RssFormulaTestsInputRangeChecks, checkSafeLongitudinalDistanceOppositeDirection)
 {
   bool isSafe = false;
-  Distance safeDistance(-1.);
+  Distance vehicleDistance(-1.);
+  Distance safeDistance(0);
   VehicleState correctVehicle = createVehicleStateForLongitudinalMotion(50);
   VehicleState oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
 
-  ASSERT_FALSE(checkSafeLongitudinalDistanceOppositeDirection(correctVehicle, oppositeVehicle, safeDistance, isSafe));
+  ASSERT_FALSE(checkSafeLongitudinalDistanceOppositeDirection(
+    correctVehicle, oppositeVehicle, vehicleDistance, safeDistance, isSafe));
 }
 
 TEST(RssFormulaTestsInputRangeChecks, checkSafeLateralDistance)
 {
   bool isSafe = false;
-  Distance safeDistance(-1.);
+  Distance vehicleDistance(-1.);
+  Distance safeDistance(0);
   VehicleState leftVehicle = createVehicleStateForLongitudinalMotion(50);
   VehicleState rightVehicle = createVehicleStateForLongitudinalMotion(50);
 
-  ASSERT_FALSE(checkSafeLateralDistance(leftVehicle, rightVehicle, safeDistance, isSafe));
+  ASSERT_FALSE(checkSafeLateralDistance(leftVehicle, rightVehicle, vehicleDistance, safeDistance, isSafe));
 }
 
 TEST(RssFormulaTestsInputRangeChecks, calculateSafeLongitudinalDistanceOppositeDirection)
@@ -79,9 +84,10 @@ TEST(RssFormulaTestsInputRangeChecks, calculateSafeLongitudinalDistanceOppositeD
 TEST(RssFormulaTestsInputRangeChecks, checkStopInFrontIntersection)
 {
   bool isSafe = false;
+  Distance safeDistance(0.);
   VehicleState correctVehicle = createVehicleStateForLongitudinalMotion(50);
   correctVehicle.responseTime = Duration(-1);
-  ASSERT_FALSE(checkStopInFrontIntersection(correctVehicle, isSafe));
+  ASSERT_FALSE(checkStopInFrontIntersection(correctVehicle, safeDistance, isSafe));
 }
 
 } // namespace situation

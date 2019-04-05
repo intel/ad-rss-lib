@@ -29,7 +29,7 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "situation/RSSFormulas.hpp"
+#include "situation/RssFormulas.hpp"
 #include <algorithm>
 #include "ad_rss/situation/VehicleStateValidInputRange.hpp"
 #include "physics/Math.hpp"
@@ -110,6 +110,7 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
 bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehicle,
                                                 VehicleState const &followingVehicle,
                                                 Distance const &vehicleDistance,
+                                                Distance &safeDistance,
                                                 bool &isDistanceSafe)
 {
   if (vehicleDistance < Distance(0.))
@@ -118,12 +119,11 @@ bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehic
   }
 
   isDistanceSafe = false;
+  safeDistance = Distance::getMax();
 
-  Distance safeLongitudinalDistance = Distance(0.);
-  bool const result
-    = calculateSafeLongitudinalDistanceSameDirection(leadingVehicle, followingVehicle, safeLongitudinalDistance);
+  bool const result = calculateSafeLongitudinalDistanceSameDirection(leadingVehicle, followingVehicle, safeDistance);
 
-  if (vehicleDistance > safeLongitudinalDistance)
+  if (vehicleDistance > safeDistance)
   {
     isDistanceSafe = true;
   }
@@ -173,6 +173,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &corr
 bool checkSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctVehicle,
                                                     VehicleState const &oppositeVehicle,
                                                     Distance const &vehicleDistance,
+                                                    Distance &safeDistance,
                                                     bool &isDistanceSafe)
 {
   if (vehicleDistance < Distance(0.))
@@ -181,19 +182,17 @@ bool checkSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctV
   }
 
   isDistanceSafe = false;
+  safeDistance = Distance::getMax();
+  bool const result = calculateSafeLongitudinalDistanceOppositeDirection(correctVehicle, oppositeVehicle, safeDistance);
 
-  Distance safeLongitudinalDistance = Distance(0.);
-  bool const result
-    = calculateSafeLongitudinalDistanceOppositeDirection(correctVehicle, oppositeVehicle, safeLongitudinalDistance);
-
-  if (vehicleDistance > safeLongitudinalDistance)
+  if (vehicleDistance > safeDistance)
   {
     isDistanceSafe = true;
   }
   return result;
 }
 
-bool checkStopInFrontIntersection(VehicleState const &vehicle, bool &isDistanceSafe)
+bool checkStopInFrontIntersection(VehicleState const &vehicle, Distance &safeDistance, bool &isDistanceSafe)
 {
   if (!withinValidInputRange(vehicle))
   {
@@ -202,16 +201,16 @@ bool checkStopInFrontIntersection(VehicleState const &vehicle, bool &isDistanceS
 
   isDistanceSafe = false;
 
-  Distance distanceStatedBraking = Distance(0.);
+  safeDistance = Distance(0.);
   bool result = calculateDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
     CoordinateSystemAxis::Longitudinal,
     vehicle.velocity.speedLon,
     vehicle.responseTime,
     vehicle.dynamics.alphaLon.accelMax,
     vehicle.dynamics.alphaLon.brakeMin,
-    distanceStatedBraking);
+    safeDistance);
 
-  if (distanceStatedBraking < vehicle.distanceToEnterIntersection)
+  if (safeDistance < vehicle.distanceToEnterIntersection)
   {
     isDistanceSafe = true;
   }
@@ -261,6 +260,7 @@ bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
 bool checkSafeLateralDistance(VehicleState const &leftVehicle,
                               VehicleState const &rightVehicle,
                               Distance const &vehicleDistance,
+                              Distance &safeDistance,
                               bool &isDistanceSafe)
 {
   if (vehicleDistance < Distance(0.))
@@ -269,11 +269,10 @@ bool checkSafeLateralDistance(VehicleState const &leftVehicle,
   }
 
   isDistanceSafe = false;
+  safeDistance = Distance::getMax();
+  bool const result = calculateSafeLateralDistance(leftVehicle, rightVehicle, safeDistance);
 
-  Distance safeLongitudinalDistance = Distance(0.);
-  bool const result = calculateSafeLateralDistance(leftVehicle, rightVehicle, safeLongitudinalDistance);
-
-  if (vehicleDistance > safeLongitudinalDistance)
+  if (vehicleDistance > safeDistance)
   {
     isDistanceSafe = true;
   }

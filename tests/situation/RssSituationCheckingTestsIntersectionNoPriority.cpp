@@ -75,7 +75,10 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, ego_following_no_overlap
     }
 
     EXPECT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-    EXPECT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
+    EXPECT_EQ(responseState.longitudinalState,
+              TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+    EXPECT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+    EXPECT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 
     // next situation we have overlap
     situation.timeIndex++;
@@ -84,8 +87,16 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, ego_following_no_overlap
     EXPECT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
     if (situationType == SituationType::IntersectionObjectHasPriority)
     {
-      EXPECT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
+      EXPECT_EQ(responseState.longitudinalState,
+                TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
     }
+    else
+    {
+      EXPECT_EQ(responseState.longitudinalState,
+                TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+    }
+    EXPECT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+    EXPECT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
   }
 }
 
@@ -130,7 +141,10 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_
     }
 
     ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-    ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
+    EXPECT_EQ(responseState.longitudinalState,
+              TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+    EXPECT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+    EXPECT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
   }
 }
 
@@ -165,7 +179,10 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_
 
     ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
     ASSERT_TRUE(responseState.longitudinalState.isSafe);
-    ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
+    EXPECT_EQ(responseState.longitudinalState,
+              TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+    EXPECT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+    EXPECT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
   }
 }
 
@@ -203,7 +220,10 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50km_h_stop_before_inter
     // both vehicles can stop safely
     ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
     ASSERT_TRUE(responseState.longitudinalState.isSafe);
-    ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
+    ASSERT_EQ(responseState.longitudinalState,
+              TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+    EXPECT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+    EXPECT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 
     // ego vehicle cannot stop safely anymore
     // but other vehicle still
@@ -218,13 +238,17 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50km_h_stop_before_inter
     if (situation.otherVehicleState.hasPriority)
     {
       ASSERT_FALSE(responseState.longitudinalState.isSafe);
-      ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
+      ASSERT_EQ(responseState.longitudinalState,
+                TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
     }
     else
     {
       ASSERT_TRUE(responseState.longitudinalState.isSafe);
-      ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
+      ASSERT_EQ(responseState.longitudinalState,
+                TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
     }
+    EXPECT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+    EXPECT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 
     // both cannot stop safely anymore
     situation.timeIndex++;
@@ -236,7 +260,10 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50km_h_stop_before_inter
 
     ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
     ASSERT_FALSE(responseState.longitudinalState.isSafe);
-    ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalBrakeMin);
+    ASSERT_EQ(responseState.longitudinalState,
+              TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
+    EXPECT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+    EXPECT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
   }
 }
 

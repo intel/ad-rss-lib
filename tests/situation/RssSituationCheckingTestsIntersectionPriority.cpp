@@ -74,7 +74,10 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_le
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(10.));
 
   ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
+  ASSERT_EQ(responseState.longitudinalState,
+            TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 }
 
 TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_following)
@@ -95,7 +98,10 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_fo
 
   ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   ASSERT_TRUE(responseState.longitudinalState.isSafe);
-  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
+  ASSERT_EQ(responseState.longitudinalState,
+            TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 }
 
 TEST_F(RssSituationCheckingTestsIntersectionPriority, 50km_h_stop_before_intersection)
@@ -118,7 +124,10 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50km_h_stop_before_interse
 
   ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   ASSERT_TRUE(responseState.longitudinalState.isSafe);
-  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalSafe);
+  ASSERT_EQ(responseState.longitudinalState,
+            TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 
   situation.timeIndex++;
 
@@ -126,10 +135,14 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50km_h_stop_before_interse
   situation.otherVehicleState.distanceToLeaveIntersection = Distance(70.);
   situation.egoVehicleState.distanceToEnterIntersection = Distance(100.);
   situation.egoVehicleState.distanceToLeaveIntersection = Distance(100.);
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::Overlap, Distance(0.));
 
   ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
   ASSERT_FALSE(responseState.longitudinalState.isSafe);
-  ASSERT_EQ(responseState.longitudinalState, cTestSupport.cLongitudinalNone);
+  ASSERT_EQ(responseState.longitudinalState,
+            TestSupport::stateWithInformation(cTestSupport.cLongitudinalNone, situation));
+  ASSERT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 }
 
 } // namespace situation

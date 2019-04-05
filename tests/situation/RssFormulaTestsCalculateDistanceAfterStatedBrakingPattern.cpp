@@ -30,14 +30,14 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "situation/RSSFormulas.hpp"
+#include "situation/RssFormulas.hpp"
 
 namespace ad_rss {
 namespace situation {
 
 using physics::CoordinateSystemAxis;
 
-TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern, longitudinal_negative_speed)
+TEST(RssFormulaTestsCalculateDistanceAfterStatedBrakingPattern, longitudinal_negative_speed)
 {
   Distance distanceOffset(0.);
 
@@ -45,7 +45,7 @@ TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern, longitudinal_neg
     CoordinateSystemAxis::Longitudinal, Speed(-10.), Duration(1), Acceleration(3.5), Acceleration(4.), distanceOffset));
 }
 
-TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern, lateral_negative_speed)
+TEST(RssFormulaTestsCalculateDistanceAfterStatedBrakingPattern, lateral_negative_speed)
 {
   std::vector<double> expectedDistanceOffset = {-8., -13., -14., -10., 0., 18., 42., 72.};
   for (auto responseTime = 1u; responseTime < 9u; responseTime++)
@@ -69,7 +69,7 @@ TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern, lateral_negative
   }
 }
 
-TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern, negative_time)
+TEST(RssFormulaTestsCalculateDistanceAfterStatedBrakingPattern, negative_time)
 {
   Distance distanceOffset(0.);
 
@@ -80,7 +80,7 @@ TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPattern, negative_time)
   }
 }
 
-TEST(RSSFormulaTestsCalculateDistanceAfterStatedBreakingPatternOtherVehicle, leading_ego_checks_100kmh)
+TEST(RssFormulaTestsCalculateDistanceAfterStatedBreakingPatternOtherVehicle, leading_ego_checks_100kmh)
 {
   Distance distanceOffset(0.);
   ASSERT_TRUE(calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis::Longitudinal,
@@ -92,7 +92,7 @@ TEST(RSSFormulaTestsCalculateDistanceAfterStatedBreakingPatternOtherVehicle, lea
   ASSERT_NEAR(static_cast<double>(distanceOffset), 213.74, cDoubleNear);
 }
 
-TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPatternEgoVehicle, leading_other_checks_100kmh)
+TEST(RssFormulaTestsCalculateDistanceAfterStatedBrakingPatternEgoVehicle, leading_other_checks_100kmh)
 {
   Distance distanceOffset(0.);
   ASSERT_TRUE(calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis::Longitudinal,
@@ -104,7 +104,7 @@ TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPatternEgoVehicle, leadin
   ASSERT_NEAR(static_cast<double>(distanceOffset), 151.81, cDoubleNear);
 }
 
-TEST(RSSFormulaTestsCalculateDistanceAfterStatedBrakingPatternEgoVehicle, leading_other_checks_500kmh)
+TEST(RssFormulaTestsCalculateDistanceAfterStatedBrakingPatternEgoVehicle, leading_other_checks_500kmh)
 {
   Distance distanceOffset(0.);
   ASSERT_TRUE(calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis::Longitudinal,

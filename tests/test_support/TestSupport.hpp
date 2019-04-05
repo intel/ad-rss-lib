@@ -30,12 +30,10 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 #pragma once
 
-#include <gtest/gtest.h>
-
 #include <cmath>
+#include <gtest/gtest.h>
 #include <limits>
-
-#include "RSSParameters.hpp"
+#include "RssTestParameters.hpp"
 #include "ad_rss/physics/Operations.hpp"
 #include "ad_rss/situation/RelativePosition.hpp"
 #include "ad_rss/situation/Situation.hpp"
@@ -57,157 +55,214 @@ const double cDoubleNear(0.01);
 
 #define ARRAYLEN(a) (sizeof(a) / sizeof(a[0]))
 
-class TestSupport
+/**
+ * @brief resets the RSS state to it's safe state
+ *
+ * @param[in/out] state the longitudinal RSS state to be reset
+ */
+void resetRssState(state::LongitudinalRssState &state);
+
+/**
+ * @brief resets the RSS state to it's safe state
+ *
+ * @param[in/out] state the lateral RSS state to be reset
+ */
+void resetRssState(state::LateralRssState &state);
+
+/**
+ * @brief resets the RSS state within the ResponseState to it's safe state
+ *
+ * @param[in/out] responseState the response state to be reset
+ * @param[in] situationId the situation id to be set within the ResponseState
+ */
+void resetRssState(state::ResponseState &responseState, situation::SituationId const situationId);
+
+/**
+ * @brief sets the RSS state to a specific unsafe state
+ *
+ * @param[in/out] state the lateral/longitudinal RSS state to be set
+ * @param[in] literal the response literal of the respective RSS state to be set
+ */
+template <typename RSSState, typename RSSStateLiteral>
+void setRssStateUnsafe(RSSState &state, RSSStateLiteral const literal)
 {
-public:
-  TestSupport()
-  {
-    cLongitudinalSafe.isSafe = true;
-    cLongitudinalSafe.response = state::LongitudinalResponse::None;
-    cLongitudinalNone.isSafe = false;
-    cLongitudinalNone.response = state::LongitudinalResponse::None;
-    cLongitudinalBrakeMin.isSafe = false;
-    cLongitudinalBrakeMin.response = state::LongitudinalResponse::BrakeMin;
-    cLongitudinalBrakeMinCorrect.isSafe = false;
-    cLongitudinalBrakeMinCorrect.response = state::LongitudinalResponse::BrakeMinCorrect;
-    cLateralSafe.isSafe = true;
-    cLateralSafe.response = state::LateralResponse::None;
-    cLateralNone.isSafe = false;
-    cLateralNone.response = state::LateralResponse::None;
-    cLateralBrakeMin.isSafe = false;
-    cLateralBrakeMin.response = state::LateralResponse::BrakeMin;
-  }
+  state.response = literal;
+  state.isSafe = false;
+}
 
-  state::LongitudinalRssState cLongitudinalSafe;
-  state::LongitudinalRssState cLongitudinalNone;
-  state::LongitudinalRssState cLongitudinalBrakeMin;
-  state::LongitudinalRssState cLongitudinalBrakeMinCorrect;
-  state::LateralRssState cLateralSafe;
-  state::LateralRssState cLateralNone;
-  state::LateralRssState cLateralBrakeMin;
-};
-
-static const TestSupport cTestSupport;
-
-inline physics::Speed kmhToMeterPerSec(double speed)
+/**
+ * @brief converts km/h to m/sec
+ *
+ * @param[in] speed the speed provided in km/h
+ *
+ * @returns the speed as physics::Speed
+ */
+inline physics::Speed kmhToMeterPerSec(double const speed)
 {
   return Speed(speed / 3.6);
 }
 
-inline world::Object objectAsEgo(world::Object iObject)
+/**
+ * @brief convert an object into an ego vehicle object
+ *
+ * @param[in] iObject the object to be taken as basis
+ *
+ * @returns a copy of the object with object type EgoVehicle
+ */
+inline world::Object objectAsEgo(world::Object const &iObject)
 {
   world::Object object(iObject);
   object.objectType = world::ObjectType::EgoVehicle;
   return object;
 }
 
-inline world::Object createObject(double lonVelocity, double latVelocity)
+/**
+ * @brief create an object
+ *
+ * @param[in] lonVelocity the longitudinal velocity to be applied
+ * @param[in] latVelocity the lateral velocity to be applied
+ *
+ * @returns an object with applied lon/lat velocities
+ */
+world::Object createObject(double const lonVelocity, double const latVelocity);
+
+/**
+ * @brief create a vehicle state
+ *
+ * @param[in] lonVelocity the longitudinal velocity to be applied
+ * @param[in] latVelocity the lateral velocity to be applied
+ *
+ * @returns a vehicle state with applied lon/lat velocities
+ */
+situation::VehicleState createVehicleState(double const lonVelocity, double const latVelocity);
+
+/**
+ * @brief create a vehicle state for longitudianl motion
+ *
+ * lateral velocity becomes 0.
+ *
+ * @param[in] lonVelocity the longitudinal velocity to be applied
+ *
+ * @returns a vehicle state with applied lon velocity
+ */
+inline situation::VehicleState createVehicleStateForLongitudinalMotion(double const lonVelocity)
 {
-  world::Object object;
-
-  object.objectType = world::ObjectType::OtherVehicle;
-  object.velocity.speedLon = kmhToMeterPerSec(lonVelocity);
-  object.velocity.speedLat = kmhToMeterPerSec(latVelocity);
-  object.dynamics.alphaLon.accelMax = cMaximumLongitudinalAcceleration;
-  object.dynamics.alphaLon.brakeMax = cMaximumLongitudinalBrakingDeceleleration;
-  object.dynamics.alphaLon.brakeMin = cMinimumLongitudinalBrakingDeceleleration;
-  object.dynamics.alphaLon.brakeMinCorrect = cMinimumLongitudinalBrakingDecelelerationCorrect;
-
-  object.dynamics.alphaLat.accelMax = cMaximumLateralAcceleration;
-  object.dynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
-
-  object.responseTime = cResponseTimeOtherVehicles;
-
-  return object;
+  return createVehicleState(lonVelocity, 0.);
 }
 
-inline situation::VehicleState createVehicleState(double lonVelocity, double latVelocity)
+/**
+ * @brief create a vehicle state for longitudianl motion
+ *
+ * longitudinal velocity becomes 0.
+ *
+ * @param[in] latVelocity the lateral velocity to be applied
+ *
+ * @returns a vehicle state with applied lat velocity
+ */
+inline situation::VehicleState createVehicleStateForLateralMotion(double const latVelocity)
 {
-  situation::VehicleState state;
-
-  state.velocity.speedLon = kmhToMeterPerSec(lonVelocity);
-  state.velocity.speedLat = kmhToMeterPerSec(latVelocity);
-  state.dynamics.alphaLon.accelMax = cMaximumLongitudinalAcceleration;
-  state.dynamics.alphaLon.brakeMax = cMaximumLongitudinalBrakingDeceleleration;
-  state.dynamics.alphaLon.brakeMin = cMinimumLongitudinalBrakingDeceleleration;
-  state.dynamics.alphaLon.brakeMinCorrect = cMinimumLongitudinalBrakingDecelelerationCorrect;
-
-  state.dynamics.alphaLat.accelMax = cMaximumLateralAcceleration;
-  state.dynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
-
-  state.responseTime = cResponseTimeOtherVehicles;
-  state.distanceToEnterIntersection = Distance(0.);
-  state.distanceToLeaveIntersection = Distance(1000.);
-  state.hasPriority = false;
-  state.isInCorrectLane = true;
-
-  return state;
+  return createVehicleState(0., latVelocity);
 }
 
-inline situation::VehicleState createVehicleStateForLongitudinalMotion(double velocity)
-{
-  return createVehicleState(velocity, 0.);
-}
+/**
+ * @brief create a relative longitudinal position object
+ *
+ * @param[in] position the longitudinal relative position to be applied
+ * @param[in] distance the distance to be applied
+ *
+ * @returns a relative longitudinal position object
+ */
+situation::RelativePosition createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition const &position,
+                                                               Distance const &distance = Distance(0.));
 
-inline situation::VehicleState createVehicleStateForLateralMotion(double velocity)
-{
-  return createVehicleState(0., velocity);
-}
+/**
+ * @brief create a relative lateral position object
+ *
+ * @param[in] position the lateral relative position to be applied
+ * @param[in] distance the distance to be applied
+ *
+ * @returns a relative lateral position object
+ */
+situation::RelativePosition createRelativeLateralPosition(situation::LateralRelativePosition const &position,
+                                                          Distance const &distance = Distance(0.));
 
-inline situation::RelativePosition createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition position,
-                                                                      Distance distance = Distance(0.))
+/**
+ * @brief calculate the longitudinal stopping distance
+ *
+ * @param[in] object the object providing speedLon and accelMax used for the calculation
+ * @param[in] deceleration the deceleration to be applied for braking
+ * @param[in] responseTime the responseTime to be applied before braking
+ *
+ * @returns the distance required to stop when applying accelMax during the responseTime and then brake to the full stop
+ */
+template <class ObjectType>
+Distance calculateLongitudinalStoppingDistance(ObjectType const &object,
+                                               Acceleration const &deceleration,
+                                               Duration const &responseTime)
 {
-  situation::RelativePosition relativePosition;
-  relativePosition.lateralDistance = Distance(0.);
-  relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
-  relativePosition.longitudinalDistance = distance;
-  relativePosition.longitudinalPosition = position;
-  return relativePosition;
-}
-
-inline situation::RelativePosition createRelativeLateralPosition(situation::LateralRelativePosition position,
-                                                                 Distance distance = Distance(0.))
-{
-  situation::RelativePosition relativePosition;
-  relativePosition.lateralDistance = distance;
-  relativePosition.lateralPosition = position;
-  relativePosition.longitudinalDistance = Distance(0.);
-  relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;
-  return relativePosition;
-}
-
-inline Distance calculateLongitudinalMinSafeDistance(::ad_rss::world::Object const &followingObject,
-                                                     ::ad_rss::world::Object const &leadingObject)
-{
-  Distance dMin = followingObject.velocity.speedLon * followingObject.responseTime;
-  dMin
-    += 0.5 * followingObject.dynamics.alphaLon.accelMax * followingObject.responseTime * followingObject.responseTime;
-  Speed const speedMax
-    = followingObject.velocity.speedLon + followingObject.responseTime * followingObject.dynamics.alphaLon.accelMax;
-  dMin += (speedMax * speedMax) / (2. * followingObject.dynamics.alphaLon.brakeMin);
-  dMin = dMin
-    - leadingObject.velocity.speedLon * leadingObject.velocity.speedLon
-      / (2. * leadingObject.dynamics.alphaLon.brakeMax);
+  Distance dMin = object.velocity.speedLon * responseTime;
+  dMin += 0.5 * object.dynamics.alphaLon.accelMax * responseTime * responseTime;
+  Speed const speedMax = object.velocity.speedLon + responseTime * object.dynamics.alphaLon.accelMax;
+  dMin += (speedMax * speedMax) / (2. * deceleration);
   return dMin;
 }
 
-inline Distance calculateLongitudinalMinSafeDistanceOppositeDirection(::ad_rss::world::Object const &objectA,
-                                                                      ::ad_rss::world::Object const &objectB)
+/**
+ * @brief calculate the longitudinal min safe distance in following >>> leading configuration
+ *
+ * @param[in] followingObject the object following at back
+ * @param[in] leadingObject the object leading in front
+ *
+ * @returns the minimum safe distance required that the following object does not crash into the leading object
+ *  in case the leading object performs a brake with brakeMax and following object performs a stated braking pattern
+ *  with (see calculateLongitudinalStoppingDistance) with brakeMin
+ */
+template <class ObjectType>
+Distance calculateLongitudinalMinSafeDistance(ObjectType const &followingObject, ObjectType const &leadingObject)
 {
-  Speed const objectAVelAfterResTime
-    = objectA.velocity.speedLon + objectA.responseTime * objectA.dynamics.alphaLon.accelMax;
-  Speed const objectBVelAfterResTime
-    = objectB.velocity.speedLon + objectB.responseTime * objectB.dynamics.alphaLon.accelMax;
-  Distance dMin = (objectA.velocity.speedLon + objectAVelAfterResTime) / 2. * objectA.responseTime;
-  dMin += objectAVelAfterResTime * objectAVelAfterResTime / (2 * objectA.dynamics.alphaLon.brakeMinCorrect);
-  dMin += (objectB.velocity.speedLon + objectBVelAfterResTime) / 2. * objectB.responseTime;
-  dMin += objectBVelAfterResTime * objectBVelAfterResTime / (2 * objectB.dynamics.alphaLon.brakeMin);
+  Distance const followingStoppingDistance = calculateLongitudinalStoppingDistance(
+    followingObject, followingObject.dynamics.alphaLon.brakeMin, followingObject.responseTime);
+  Distance const leadingStoppingDistance
+    = calculateLongitudinalStoppingDistance(leadingObject, leadingObject.dynamics.alphaLon.brakeMax, Duration(0));
+  Distance const dMin = followingStoppingDistance - leadingStoppingDistance;
+  return std::max(dMin, Distance(0.));
+}
 
+/**
+ * @brief calculate the longitudinal min safe distance in opposite direction configuration with
+ *   one object in correct lane and the other in the wrong
+ *
+ * @param[in] objectInCorrectLane the object driving in the correct lane direction
+ * @param[in] objectNotInCorrectLane the object driving in the wrong lane
+ *
+ * @returns the minimum safe distance required that both objects are still able to break and not crash into each other.
+ *  The object in correct lane performs a stated braking pattern (see calculateLongitudinalStoppingDistance) with
+ * brakeMinCorrect;
+ *  the object in wrong lane performs a stated braking pattern with brakeMin.
+ */
+template <class ObjectType>
+Distance calculateLongitudinalMinSafeDistanceOppositeDirection(ObjectType const &objectInCorrectLane,
+                                                               ObjectType const &objectNotInCorrectLane)
+{
+  Distance const correctStoppingDistance = calculateLongitudinalStoppingDistance(
+    objectInCorrectLane, objectInCorrectLane.dynamics.alphaLon.brakeMinCorrect, objectInCorrectLane.responseTime);
+  Distance const notCorrectStoppingDistance = calculateLongitudinalStoppingDistance(
+    objectNotInCorrectLane, objectNotInCorrectLane.dynamics.alphaLon.brakeMin, objectNotInCorrectLane.responseTime);
+  Distance const dMin = correctStoppingDistance + notCorrectStoppingDistance;
   return dMin;
 }
 
-inline Distance calculateLateralMinSafeDistance(::ad_rss::world::Object const &leftObject,
-                                                ::ad_rss::world::Object const &rightObject)
+/**
+ * @brief calculate the lateral min safe distance of two objects
+ *
+ * @param[in] leftObject the object driving on the left side
+ * @param[in] rightObject the object driving on the right side
+ *
+ * @returns the minimum safe distance required that both objects are still able to break and not crash into each other.
+ *  Both objects perform a stated braking pattern with brakeMin in lateral direction.
+ */
+template <class ObjectType>
+Distance calculateLateralMinSafeDistance(ObjectType const &leftObject, ObjectType const &rightObject)
 {
   Speed lObjectVelAfterResTime
     = leftObject.velocity.speedLat + leftObject.responseTime * leftObject.dynamics.alphaLat.accelMax;
@@ -218,35 +273,54 @@ inline Distance calculateLateralMinSafeDistance(::ad_rss::world::Object const &l
   dMin -= (rightObject.velocity.speedLat + rObjectVelAfterResTime) / 2. * rightObject.responseTime;
   dMin += rObjectVelAfterResTime * rObjectVelAfterResTime / (2 * rightObject.dynamics.alphaLat.brakeMin);
 
-  return dMin;
+  return std::max(dMin, Distance(0.));
 }
 
-inline void resetRssState(state::LongitudinalRssState &state)
+/**
+ * @brief class providing constants for longitudinal/lateral RSS states
+ *
+ * The respective states can be augmented with expected situation specific ResponseInformation data (see
+ * stateWithInformation() calls).
+ */
+class TestSupport
 {
-  state.response = state::LongitudinalResponse::None;
-  state.isSafe = true;
-}
+public:
+  /**
+   * @brief constructor
+   */
+  TestSupport();
 
-inline void resetRssState(state::LateralRssState &state)
-{
-  state.response = state::LateralResponse::None;
-  state.isSafe = true;
-}
+  /**
+   * @brief augment a lateral RSS state with situation specific ResponseInformation data
+   *
+   * @param[in] lateralState the lateral RSS state to be augmented by ResponseInformation
+   * @param[in] situation the situation used as basis for calculation of expected ResponseInformation data
+   *
+   * @returns the augmented RSS state is returned
+   */
+  static state::LateralRssState stateWithInformation(state::LateralRssState const &lateralState,
+                                                     situation::Situation const &situation);
 
-inline void resetRssState(state::ResponseState &responseState, situation::SituationId situationId)
-{
-  responseState.timeIndex = 1u;
-  responseState.situationId = situationId;
-  resetRssState(responseState.longitudinalState);
-  resetRssState(responseState.lateralStateLeft);
-  resetRssState(responseState.lateralStateRight);
-}
+  /**
+   * @brief augment a longitudinal RSS state with situation specific ResponseInformation data
+   *
+   * @param[in] longitudinalState the longitudinal RSS state to be augmented by ResponseInformation
+   * @param[in] situation the situation used as basis for calculation of expected ResponseInformation data
+   *
+   * @returns the augmented RSS state is returned
+   */
+  static state::LongitudinalRssState stateWithInformation(state::LongitudinalRssState const &longitudinalState,
+                                                          situation::Situation const &situation);
 
-// set state unsafe with given literal
-template <typename RSSState, typename RSSStateLiteral> void setRssStateUnsafe(RSSState &state, RSSStateLiteral literal)
-{
-  state.response = literal;
-  state.isSafe = false;
-}
+  state::LongitudinalRssState cLongitudinalSafe;
+  state::LongitudinalRssState cLongitudinalNone;
+  state::LongitudinalRssState cLongitudinalBrakeMin;
+  state::LongitudinalRssState cLongitudinalBrakeMinCorrect;
+  state::LateralRssState cLateralSafe;
+  state::LateralRssState cLateralNone;
+  state::LateralRssState cLateralBrakeMin;
+};
+
+extern const TestSupport cTestSupport;
 
 } // namespace ad_rss

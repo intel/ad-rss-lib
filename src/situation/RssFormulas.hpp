@@ -101,6 +101,7 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
  * @param[in]  leadingVehicle      is the state of the leading vehicle
  * @param[in]  followingVehicle    is the state of the following vehicle
  * @param[in]  vehicleDistance     the (positive) longitudinal distance between the two vehicles
+ * @param[out] safeDistance        is the calculated safe longitudinal distance
  * @param[out] isDistanceSafe      true if the distance is safe, false otherwise
  *
  * @return true on successful calculation, false otherwise
@@ -108,6 +109,7 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
 bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehicle,
                                                 VehicleState const &followingVehicle,
                                                 physics::Distance const &vehicleDistance,
+                                                physics::Distance &safeDistance,
                                                 bool &isDistanceSafe);
 
 /**
@@ -151,6 +153,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &corr
  * @param[in]  correctVehicle     is the state of the vehicle driving in the correct lane
  * @param[in]  oppositeVehicle    is the state of the vehicle driving in the wrong lane
  * @param[in]  vehicleDistance    the (positive) longitudinal distance between the two vehicles
+ * @param[out] safeDistance        is the calculated safe longitudinal distance
  * @param[out] isDistanceSafe     true if the distance is safe, false otherwise
  *
  * @return true on successful calculation, false otherwise
@@ -158,6 +161,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &corr
 bool checkSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctVehicle,
                                                     VehicleState const &oppositeVehicle,
                                                     physics::Distance const &vehicleDistance,
+                                                    physics::Distance &safeDistance,
                                                     bool &isDistanceSafe);
 
 /**
@@ -173,11 +177,12 @@ bool checkSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctV
  *                                      |            |
  *
  * @param[in]  vehicle      is the state of the vehicle
+ * @param[out] safeDistance      the safe distance according to the stated braking pattern
  * @param[out] isDistanceSafe      true if the distance is safe, false otherwise
  *
  * @return true on successful calculation, false otherwise
  */
-bool checkStopInFrontIntersection(VehicleState const &vehicle, bool &isDistanceSafe);
+bool checkStopInFrontIntersection(VehicleState const &vehicle, physics::Distance &safeDistance, bool &isDistanceSafe);
 
 /**
  * @brief Calculate the \a "safe lateral distance" between the two vehicles,
@@ -228,6 +233,7 @@ bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
  * @param[in]  leftVehicle      is the state of the left vehicle
  * @param[in]  rightVehicle     is the state of the right vehicle
  * @param[in]  vehicleDistance  the (positive) lateral distance between the two vehicles
+ * @param[out] safeDistance     is the calculated safe lateral distance
  * @param[out] isDistanceSafe   is true if the distance is safe, false otherwise
  *
  * @return true on successful calculation, false otherwise
@@ -235,6 +241,7 @@ bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
 bool checkSafeLateralDistance(VehicleState const &leftVehicle,
                               VehicleState const &rightVehicle,
                               physics::Distance const &vehicleDistance,
+                              physics::Distance &safeDistance,
                               bool &isDistanceSafe);
 
 } // namespace situation

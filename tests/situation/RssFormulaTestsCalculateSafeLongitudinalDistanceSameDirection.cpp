@@ -30,12 +30,12 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "situation/RSSFormulas.hpp"
+#include "situation/RssFormulas.hpp"
 
 namespace ad_rss {
 namespace situation {
 
-TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection, negative_leading_speed)
+TEST(RssFormulaTestsCalculateSafeLongitudinalDistanceSameDirection, negative_leading_speed)
 {
   Distance safeDistance(0.);
 
@@ -45,7 +45,7 @@ TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection, negative_lea
   ASSERT_FALSE(calculateSafeLongitudinalDistanceSameDirection(leadingVehicle, followingVehicle, safeDistance));
 }
 
-TEST(RSSFormulaTestsCalculateSafeLongitudinalDistanceSameDirection, checks_leading_vehicle_much_faster)
+TEST(RssFormulaTestsCalculateSafeLongitudinalDistanceSameDirection, checks_leading_vehicle_much_faster)
 {
   Distance safeDistance(0.);
   VehicleState leadingVehicle = createVehicleStateForLongitudinalMotion(100);

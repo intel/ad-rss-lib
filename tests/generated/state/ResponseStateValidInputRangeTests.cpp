@@ -54,18 +54,48 @@ TEST(ResponseStateValidInputRangeTests, testValidInputRange)
   valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
   ::ad_rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad_rss::state::LongitudinalResponse::None);
   valueLongitudinalState.response = valueLongitudinalStateResponse;
+  ::ad_rss::state::ResponseInformation valueLongitudinalStateResponseInformation;
+  ::ad_rss::physics::Distance valueLongitudinalStateResponseInformationSafeDistance(0.);
+  valueLongitudinalStateResponseInformation.safeDistance = valueLongitudinalStateResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLongitudinalStateResponseInformationCurrentDistance(0.);
+  valueLongitudinalStateResponseInformation.currentDistance = valueLongitudinalStateResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLongitudinalStateResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLongitudinalStateResponseInformation.responseEvaluator
+    = valueLongitudinalStateResponseInformationResponseEvaluator;
+  valueLongitudinalState.responseInformation = valueLongitudinalStateResponseInformation;
   value.longitudinalState = valueLongitudinalState;
   ::ad_rss::state::LateralRssState valueLateralStateRight;
   bool valueLateralStateRightIsSafe{true};
   valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateRightResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateRight.response = valueLateralStateRightResponse;
+  ::ad_rss::state::ResponseInformation valueLateralStateRightResponseInformation;
+  ::ad_rss::physics::Distance valueLateralStateRightResponseInformationSafeDistance(0.);
+  valueLateralStateRightResponseInformation.safeDistance = valueLateralStateRightResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLateralStateRightResponseInformationCurrentDistance(0.);
+  valueLateralStateRightResponseInformation.currentDistance = valueLateralStateRightResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLateralStateRightResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLateralStateRightResponseInformation.responseEvaluator
+    = valueLateralStateRightResponseInformationResponseEvaluator;
+  valueLateralStateRight.responseInformation = valueLateralStateRightResponseInformation;
   value.lateralStateRight = valueLateralStateRight;
   ::ad_rss::state::LateralRssState valueLateralStateLeft;
   bool valueLateralStateLeftIsSafe{true};
   valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateLeftResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateLeft.response = valueLateralStateLeftResponse;
+  ::ad_rss::state::ResponseInformation valueLateralStateLeftResponseInformation;
+  ::ad_rss::physics::Distance valueLateralStateLeftResponseInformationSafeDistance(0.);
+  valueLateralStateLeftResponseInformation.safeDistance = valueLateralStateLeftResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLateralStateLeftResponseInformationCurrentDistance(0.);
+  valueLateralStateLeftResponseInformation.currentDistance = valueLateralStateLeftResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLateralStateLeftResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLateralStateLeftResponseInformation.responseEvaluator
+    = valueLateralStateLeftResponseInformationResponseEvaluator;
+  valueLateralStateLeft.responseInformation = valueLateralStateLeftResponseInformation;
   value.lateralStateLeft = valueLateralStateLeft;
   ASSERT_TRUE(withinValidInputRange(value));
 }
@@ -83,18 +113,48 @@ TEST(ResponseStateValidInputRangeTests, testValidInputRangeLongitudinalStateTooS
   valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
   ::ad_rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad_rss::state::LongitudinalResponse::None);
   valueLongitudinalState.response = valueLongitudinalStateResponse;
+  ::ad_rss::state::ResponseInformation valueLongitudinalStateResponseInformation;
+  ::ad_rss::physics::Distance valueLongitudinalStateResponseInformationSafeDistance(0.);
+  valueLongitudinalStateResponseInformation.safeDistance = valueLongitudinalStateResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLongitudinalStateResponseInformationCurrentDistance(0.);
+  valueLongitudinalStateResponseInformation.currentDistance = valueLongitudinalStateResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLongitudinalStateResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLongitudinalStateResponseInformation.responseEvaluator
+    = valueLongitudinalStateResponseInformationResponseEvaluator;
+  valueLongitudinalState.responseInformation = valueLongitudinalStateResponseInformation;
   value.longitudinalState = valueLongitudinalState;
   ::ad_rss::state::LateralRssState valueLateralStateRight;
   bool valueLateralStateRightIsSafe{true};
   valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateRightResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateRight.response = valueLateralStateRightResponse;
+  ::ad_rss::state::ResponseInformation valueLateralStateRightResponseInformation;
+  ::ad_rss::physics::Distance valueLateralStateRightResponseInformationSafeDistance(0.);
+  valueLateralStateRightResponseInformation.safeDistance = valueLateralStateRightResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLateralStateRightResponseInformationCurrentDistance(0.);
+  valueLateralStateRightResponseInformation.currentDistance = valueLateralStateRightResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLateralStateRightResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLateralStateRightResponseInformation.responseEvaluator
+    = valueLateralStateRightResponseInformationResponseEvaluator;
+  valueLateralStateRight.responseInformation = valueLateralStateRightResponseInformation;
   value.lateralStateRight = valueLateralStateRight;
   ::ad_rss::state::LateralRssState valueLateralStateLeft;
   bool valueLateralStateLeftIsSafe{true};
   valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateLeftResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateLeft.response = valueLateralStateLeftResponse;
+  ::ad_rss::state::ResponseInformation valueLateralStateLeftResponseInformation;
+  ::ad_rss::physics::Distance valueLateralStateLeftResponseInformationSafeDistance(0.);
+  valueLateralStateLeftResponseInformation.safeDistance = valueLateralStateLeftResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLateralStateLeftResponseInformationCurrentDistance(0.);
+  valueLateralStateLeftResponseInformation.currentDistance = valueLateralStateLeftResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLateralStateLeftResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLateralStateLeftResponseInformation.responseEvaluator
+    = valueLateralStateLeftResponseInformationResponseEvaluator;
+  valueLateralStateLeft.responseInformation = valueLateralStateLeftResponseInformation;
   value.lateralStateLeft = valueLateralStateLeft;
 
   // override member with invalid value
@@ -119,18 +179,48 @@ TEST(ResponseStateValidInputRangeTests, testValidInputRangeLongitudinalStateTooB
   valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
   ::ad_rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad_rss::state::LongitudinalResponse::None);
   valueLongitudinalState.response = valueLongitudinalStateResponse;
+  ::ad_rss::state::ResponseInformation valueLongitudinalStateResponseInformation;
+  ::ad_rss::physics::Distance valueLongitudinalStateResponseInformationSafeDistance(0.);
+  valueLongitudinalStateResponseInformation.safeDistance = valueLongitudinalStateResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLongitudinalStateResponseInformationCurrentDistance(0.);
+  valueLongitudinalStateResponseInformation.currentDistance = valueLongitudinalStateResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLongitudinalStateResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLongitudinalStateResponseInformation.responseEvaluator
+    = valueLongitudinalStateResponseInformationResponseEvaluator;
+  valueLongitudinalState.responseInformation = valueLongitudinalStateResponseInformation;
   value.longitudinalState = valueLongitudinalState;
   ::ad_rss::state::LateralRssState valueLateralStateRight;
   bool valueLateralStateRightIsSafe{true};
   valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateRightResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateRight.response = valueLateralStateRightResponse;
+  ::ad_rss::state::ResponseInformation valueLateralStateRightResponseInformation;
+  ::ad_rss::physics::Distance valueLateralStateRightResponseInformationSafeDistance(0.);
+  valueLateralStateRightResponseInformation.safeDistance = valueLateralStateRightResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLateralStateRightResponseInformationCurrentDistance(0.);
+  valueLateralStateRightResponseInformation.currentDistance = valueLateralStateRightResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLateralStateRightResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLateralStateRightResponseInformation.responseEvaluator
+    = valueLateralStateRightResponseInformationResponseEvaluator;
+  valueLateralStateRight.responseInformation = valueLateralStateRightResponseInformation;
   value.lateralStateRight = valueLateralStateRight;
   ::ad_rss::state::LateralRssState valueLateralStateLeft;
   bool valueLateralStateLeftIsSafe{true};
   valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateLeftResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateLeft.response = valueLateralStateLeftResponse;
+  ::ad_rss::state::ResponseInformation valueLateralStateLeftResponseInformation;
+  ::ad_rss::physics::Distance valueLateralStateLeftResponseInformationSafeDistance(0.);
+  valueLateralStateLeftResponseInformation.safeDistance = valueLateralStateLeftResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLateralStateLeftResponseInformationCurrentDistance(0.);
+  valueLateralStateLeftResponseInformation.currentDistance = valueLateralStateLeftResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLateralStateLeftResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLateralStateLeftResponseInformation.responseEvaluator
+    = valueLateralStateLeftResponseInformationResponseEvaluator;
+  valueLateralStateLeft.responseInformation = valueLateralStateLeftResponseInformation;
   value.lateralStateLeft = valueLateralStateLeft;
 
   // override member with invalid value
@@ -155,18 +245,48 @@ TEST(ResponseStateValidInputRangeTests, testValidInputRangeLateralStateRightTooS
   valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
   ::ad_rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad_rss::state::LongitudinalResponse::None);
   valueLongitudinalState.response = valueLongitudinalStateResponse;
+  ::ad_rss::state::ResponseInformation valueLongitudinalStateResponseInformation;
+  ::ad_rss::physics::Distance valueLongitudinalStateResponseInformationSafeDistance(0.);
+  valueLongitudinalStateResponseInformation.safeDistance = valueLongitudinalStateResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLongitudinalStateResponseInformationCurrentDistance(0.);
+  valueLongitudinalStateResponseInformation.currentDistance = valueLongitudinalStateResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLongitudinalStateResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLongitudinalStateResponseInformation.responseEvaluator
+    = valueLongitudinalStateResponseInformationResponseEvaluator;
+  valueLongitudinalState.responseInformation = valueLongitudinalStateResponseInformation;
   value.longitudinalState = valueLongitudinalState;
   ::ad_rss::state::LateralRssState valueLateralStateRight;
   bool valueLateralStateRightIsSafe{true};
   valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateRightResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateRight.response = valueLateralStateRightResponse;
+  ::ad_rss::state::ResponseInformation valueLateralStateRightResponseInformation;
+  ::ad_rss::physics::Distance valueLateralStateRightResponseInformationSafeDistance(0.);
+  valueLateralStateRightResponseInformation.safeDistance = valueLateralStateRightResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLateralStateRightResponseInformationCurrentDistance(0.);
+  valueLateralStateRightResponseInformation.currentDistance = valueLateralStateRightResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLateralStateRightResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLateralStateRightResponseInformation.responseEvaluator
+    = valueLateralStateRightResponseInformationResponseEvaluator;
+  valueLateralStateRight.responseInformation = valueLateralStateRightResponseInformation;
   value.lateralStateRight = valueLateralStateRight;
   ::ad_rss::state::LateralRssState valueLateralStateLeft;
   bool valueLateralStateLeftIsSafe{true};
   valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateLeftResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateLeft.response = valueLateralStateLeftResponse;
+  ::ad_rss::state::ResponseInformation valueLateralStateLeftResponseInformation;
+  ::ad_rss::physics::Distance valueLateralStateLeftResponseInformationSafeDistance(0.);
+  valueLateralStateLeftResponseInformation.safeDistance = valueLateralStateLeftResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLateralStateLeftResponseInformationCurrentDistance(0.);
+  valueLateralStateLeftResponseInformation.currentDistance = valueLateralStateLeftResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLateralStateLeftResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLateralStateLeftResponseInformation.responseEvaluator
+    = valueLateralStateLeftResponseInformationResponseEvaluator;
+  valueLateralStateLeft.responseInformation = valueLateralStateLeftResponseInformation;
   value.lateralStateLeft = valueLateralStateLeft;
 
   // override member with invalid value
@@ -190,18 +310,48 @@ TEST(ResponseStateValidInputRangeTests, testValidInputRangeLateralStateRightTooB
   valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
   ::ad_rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad_rss::state::LongitudinalResponse::None);
   valueLongitudinalState.response = valueLongitudinalStateResponse;
+  ::ad_rss::state::ResponseInformation valueLongitudinalStateResponseInformation;
+  ::ad_rss::physics::Distance valueLongitudinalStateResponseInformationSafeDistance(0.);
+  valueLongitudinalStateResponseInformation.safeDistance = valueLongitudinalStateResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLongitudinalStateResponseInformationCurrentDistance(0.);
+  valueLongitudinalStateResponseInformation.currentDistance = valueLongitudinalStateResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLongitudinalStateResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLongitudinalStateResponseInformation.responseEvaluator
+    = valueLongitudinalStateResponseInformationResponseEvaluator;
+  valueLongitudinalState.responseInformation = valueLongitudinalStateResponseInformation;
   value.longitudinalState = valueLongitudinalState;
   ::ad_rss::state::LateralRssState valueLateralStateRight;
   bool valueLateralStateRightIsSafe{true};
   valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateRightResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateRight.response = valueLateralStateRightResponse;
+  ::ad_rss::state::ResponseInformation valueLateralStateRightResponseInformation;
+  ::ad_rss::physics::Distance valueLateralStateRightResponseInformationSafeDistance(0.);
+  valueLateralStateRightResponseInformation.safeDistance = valueLateralStateRightResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLateralStateRightResponseInformationCurrentDistance(0.);
+  valueLateralStateRightResponseInformation.currentDistance = valueLateralStateRightResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLateralStateRightResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLateralStateRightResponseInformation.responseEvaluator
+    = valueLateralStateRightResponseInformationResponseEvaluator;
+  valueLateralStateRight.responseInformation = valueLateralStateRightResponseInformation;
   value.lateralStateRight = valueLateralStateRight;
   ::ad_rss::state::LateralRssState valueLateralStateLeft;
   bool valueLateralStateLeftIsSafe{true};
   valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateLeftResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateLeft.response = valueLateralStateLeftResponse;
+  ::ad_rss::state::ResponseInformation valueLateralStateLeftResponseInformation;
+  ::ad_rss::physics::Distance valueLateralStateLeftResponseInformationSafeDistance(0.);
+  valueLateralStateLeftResponseInformation.safeDistance = valueLateralStateLeftResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLateralStateLeftResponseInformationCurrentDistance(0.);
+  valueLateralStateLeftResponseInformation.currentDistance = valueLateralStateLeftResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLateralStateLeftResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLateralStateLeftResponseInformation.responseEvaluator
+    = valueLateralStateLeftResponseInformationResponseEvaluator;
+  valueLateralStateLeft.responseInformation = valueLateralStateLeftResponseInformation;
   value.lateralStateLeft = valueLateralStateLeft;
 
   // override member with invalid value
@@ -225,18 +375,48 @@ TEST(ResponseStateValidInputRangeTests, testValidInputRangeLateralStateLeftTooSm
   valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
   ::ad_rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad_rss::state::LongitudinalResponse::None);
   valueLongitudinalState.response = valueLongitudinalStateResponse;
+  ::ad_rss::state::ResponseInformation valueLongitudinalStateResponseInformation;
+  ::ad_rss::physics::Distance valueLongitudinalStateResponseInformationSafeDistance(0.);
+  valueLongitudinalStateResponseInformation.safeDistance = valueLongitudinalStateResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLongitudinalStateResponseInformationCurrentDistance(0.);
+  valueLongitudinalStateResponseInformation.currentDistance = valueLongitudinalStateResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLongitudinalStateResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLongitudinalStateResponseInformation.responseEvaluator
+    = valueLongitudinalStateResponseInformationResponseEvaluator;
+  valueLongitudinalState.responseInformation = valueLongitudinalStateResponseInformation;
   value.longitudinalState = valueLongitudinalState;
   ::ad_rss::state::LateralRssState valueLateralStateRight;
   bool valueLateralStateRightIsSafe{true};
   valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateRightResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateRight.response = valueLateralStateRightResponse;
+  ::ad_rss::state::ResponseInformation valueLateralStateRightResponseInformation;
+  ::ad_rss::physics::Distance valueLateralStateRightResponseInformationSafeDistance(0.);
+  valueLateralStateRightResponseInformation.safeDistance = valueLateralStateRightResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLateralStateRightResponseInformationCurrentDistance(0.);
+  valueLateralStateRightResponseInformation.currentDistance = valueLateralStateRightResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLateralStateRightResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLateralStateRightResponseInformation.responseEvaluator
+    = valueLateralStateRightResponseInformationResponseEvaluator;
+  valueLateralStateRight.responseInformation = valueLateralStateRightResponseInformation;
   value.lateralStateRight = valueLateralStateRight;
   ::ad_rss::state::LateralRssState valueLateralStateLeft;
   bool valueLateralStateLeftIsSafe{true};
   valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateLeftResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateLeft.response = valueLateralStateLeftResponse;
+  ::ad_rss::state::ResponseInformation valueLateralStateLeftResponseInformation;
+  ::ad_rss::physics::Distance valueLateralStateLeftResponseInformationSafeDistance(0.);
+  valueLateralStateLeftResponseInformation.safeDistance = valueLateralStateLeftResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLateralStateLeftResponseInformationCurrentDistance(0.);
+  valueLateralStateLeftResponseInformation.currentDistance = valueLateralStateLeftResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLateralStateLeftResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLateralStateLeftResponseInformation.responseEvaluator
+    = valueLateralStateLeftResponseInformationResponseEvaluator;
+  valueLateralStateLeft.responseInformation = valueLateralStateLeftResponseInformation;
   value.lateralStateLeft = valueLateralStateLeft;
 
   // override member with invalid value
@@ -260,18 +440,48 @@ TEST(ResponseStateValidInputRangeTests, testValidInputRangeLateralStateLeftTooBi
   valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
   ::ad_rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad_rss::state::LongitudinalResponse::None);
   valueLongitudinalState.response = valueLongitudinalStateResponse;
+  ::ad_rss::state::ResponseInformation valueLongitudinalStateResponseInformation;
+  ::ad_rss::physics::Distance valueLongitudinalStateResponseInformationSafeDistance(0.);
+  valueLongitudinalStateResponseInformation.safeDistance = valueLongitudinalStateResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLongitudinalStateResponseInformationCurrentDistance(0.);
+  valueLongitudinalStateResponseInformation.currentDistance = valueLongitudinalStateResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLongitudinalStateResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLongitudinalStateResponseInformation.responseEvaluator
+    = valueLongitudinalStateResponseInformationResponseEvaluator;
+  valueLongitudinalState.responseInformation = valueLongitudinalStateResponseInformation;
   value.longitudinalState = valueLongitudinalState;
   ::ad_rss::state::LateralRssState valueLateralStateRight;
   bool valueLateralStateRightIsSafe{true};
   valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateRightResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateRight.response = valueLateralStateRightResponse;
+  ::ad_rss::state::ResponseInformation valueLateralStateRightResponseInformation;
+  ::ad_rss::physics::Distance valueLateralStateRightResponseInformationSafeDistance(0.);
+  valueLateralStateRightResponseInformation.safeDistance = valueLateralStateRightResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLateralStateRightResponseInformationCurrentDistance(0.);
+  valueLateralStateRightResponseInformation.currentDistance = valueLateralStateRightResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLateralStateRightResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLateralStateRightResponseInformation.responseEvaluator
+    = valueLateralStateRightResponseInformationResponseEvaluator;
+  valueLateralStateRight.responseInformation = valueLateralStateRightResponseInformation;
   value.lateralStateRight = valueLateralStateRight;
   ::ad_rss::state::LateralRssState valueLateralStateLeft;
   bool valueLateralStateLeftIsSafe{true};
   valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
   ::ad_rss::state::LateralResponse valueLateralStateLeftResponse(::ad_rss::state::LateralResponse::None);
   valueLateralStateLeft.response = valueLateralStateLeftResponse;
+  ::ad_rss::state::ResponseInformation valueLateralStateLeftResponseInformation;
+  ::ad_rss::physics::Distance valueLateralStateLeftResponseInformationSafeDistance(0.);
+  valueLateralStateLeftResponseInformation.safeDistance = valueLateralStateLeftResponseInformationSafeDistance;
+  ::ad_rss::physics::Distance valueLateralStateLeftResponseInformationCurrentDistance(0.);
+  valueLateralStateLeftResponseInformation.currentDistance = valueLateralStateLeftResponseInformationCurrentDistance;
+  ::ad_rss::state::ResponseEvaluator valueLateralStateLeftResponseInformationResponseEvaluator(
+    ::ad_rss::state::ResponseEvaluator::None);
+  valueLateralStateLeftResponseInformation.responseEvaluator
+    = valueLateralStateLeftResponseInformationResponseEvaluator;
+  valueLateralStateLeft.responseInformation = valueLateralStateLeftResponseInformation;
   value.lateralStateLeft = valueLateralStateLeft;
 
   // override member with invalid value

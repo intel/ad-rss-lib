@@ -95,6 +95,7 @@ set(GENERATED_SOURCES
   src/generated/situation/SituationType.cpp
   src/generated/state/LateralResponse.cpp
   src/generated/state/LongitudinalResponse.cpp
+  src/generated/state/ResponseEvaluator.cpp
   src/generated/world/LaneDrivingDirection.cpp
   src/generated/world/LaneSegmentType.cpp
   src/generated/world/ObjectType.cpp
@@ -107,9 +108,9 @@ add_library(${PROJECT_NAME} SHARED
   src/core/RssSituationChecking.cpp
   src/core/RssSituationExtraction.cpp
   src/physics/Math.cpp
-  src/situation/RSSFormulas.cpp
+  src/situation/RssFormulas.cpp
   src/situation/RssIntersectionChecker.cpp
-  src/situation/RSSSituation.cpp
+  src/situation/RssSituation.cpp
   src/world/RssSituationCoordinateSystemConversion.cpp
   src/world/RssObjectPositionExtractor.cpp
   ${GENERATED_SOURCES}
