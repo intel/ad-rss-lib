@@ -105,6 +105,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad__rss_1_1state_1_1LongitudinalRssState.html">LongitudinalRssState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType <a class="el" href="structad__rss_1_1state_1_1LongitudinalRssState.html" title="DataType LongitudinalRssState. ">LongitudinalRssState</a>.  <a href="structad__rss_1_1state_1_1LongitudinalRssState.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad__rss_1_1state_1_1ResponseInformation.html">ResponseInformation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType <a class="el" href="structad__rss_1_1state_1_1ResponseInformation.html" title="DataType ResponseInformation. ">ResponseInformation</a>.  <a href="structad__rss_1_1state_1_1ResponseInformation.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad__rss_1_1state_1_1ResponseState.html">ResponseState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType <a class="el" href="structad__rss_1_1state_1_1ResponseState.html" title="DataType ResponseState. ">ResponseState</a>.  <a href="structad__rss_1_1state_1_1ResponseState.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,6 +131,24 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:a246e00a70098cc5a0b10af99f7237b77"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType LongitudinalResponse.  <a href="namespacead__rss_1_1state.html#a246e00a70098cc5a0b10af99f7237b77">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:a246e00a70098cc5a0b10af99f7237b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afac98769d5952c9ee8aa200f94a98521"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead__rss_1_1state.html#afac98769d5952c9ee8aa200f94a98521">ResponseEvaluator</a> : int32_t { <br />
+&#160;&#160;<a class="el" href="namespacead__rss_1_1state.html#afac98769d5952c9ee8aa200f94a98521a6adf97f83acf6453d4a6a4b1070f3754">ResponseEvaluator::None</a> = 0, 
+<a class="el" href="namespacead__rss_1_1state.html#afac98769d5952c9ee8aa200f94a98521a058b337860ed84be29a53dfe791ff63a">ResponseEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane</a> = 1, 
+<a class="el" href="namespacead__rss_1_1state.html#afac98769d5952c9ee8aa200f94a98521a7094123a0b1571ac7d987fdbbe6cd564">ResponseEvaluator::LongitudinalDistanceOppositeDirection</a> = 2, 
+<a class="el" href="namespacead__rss_1_1state.html#afac98769d5952c9ee8aa200f94a98521a99ce2e77797bc64afe07ce8a9616d36f">ResponseEvaluator::LongitudinalDistanceSameDirectionEgoFront</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="namespacead__rss_1_1state.html#afac98769d5952c9ee8aa200f94a98521a53abeab5ba270ac66ca20d37de72090c">ResponseEvaluator::LongitudinalDistanceSameDirectionOtherInFront</a> = 4, 
+<a class="el" href="namespacead__rss_1_1state.html#afac98769d5952c9ee8aa200f94a98521a741358c1526273b8b66d7f2aedc76c69">ResponseEvaluator::LateralDistance</a> = 5, 
+<a class="el" href="namespacead__rss_1_1state.html#afac98769d5952c9ee8aa200f94a98521aacdadb9f62be8fc92f4f9dce042ba1ef">ResponseEvaluator::IntersectionOtherPriorityEgoAbleToStop</a> = 6, 
+<a class="el" href="namespacead__rss_1_1state.html#afac98769d5952c9ee8aa200f94a98521a66942e92e2e117d3327ee6d387aafe35">ResponseEvaluator::IntersectionEgoPriorityOtherAbleToStop</a> = 7, 
+<br />
+&#160;&#160;<a class="el" href="namespacead__rss_1_1state.html#afac98769d5952c9ee8aa200f94a98521aa1dc72fc9124fbabf282d36bf9475183">ResponseEvaluator::IntersectionEgoInFront</a> = 8, 
+<a class="el" href="namespacead__rss_1_1state.html#afac98769d5952c9ee8aa200f94a98521a1d101460d912711d6cce551a2882a7bf">ResponseEvaluator::IntersectionOtherInFront</a> = 9, 
+<a class="el" href="namespacead__rss_1_1state.html#afac98769d5952c9ee8aa200f94a98521ac2398a0e94327b9e5e5b0de3b662bfd4">ResponseEvaluator::IntersectionOverlap</a> = 10
+<br />
+ }<tr class="memdesc:afac98769d5952c9ee8aa200f94a98521"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType ResponseEvaluator.  <a href="namespacead__rss_1_1state.html#afac98769d5952c9ee8aa200f94a98521">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:afac98769d5952c9ee8aa200f94a98521"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>namespace state </p>
@@ -208,6 +229,64 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a246e00a70098cc5a0b10af99f7237b77a35d9893b9c0fd45a9dc899274a79fc91"></a>BrakeMin&#160;</td><td class="fielddoc">
 <p>Vehicle has to decerate at least with brake min longitudinally </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="afac98769d5952c9ee8aa200f94a98521"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacead__rss_1_1state.html#afac98769d5952c9ee8aa200f94a98521">ad_rss::state::ResponseEvaluator</a> : int32_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>DataType ResponseEvaluator. </p>
+<p>The method used to evaluate the respone. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="afac98769d5952c9ee8aa200f94a98521a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc">
+<p>Not evaluated. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="afac98769d5952c9ee8aa200f94a98521a058b337860ed84be29a53dfe791ff63a"></a>LongitudinalDistanceOppositeDirectionEgoCorrectLane&#160;</td><td class="fielddoc">
+<p>longitudinal, opposite direction, correct lane </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="afac98769d5952c9ee8aa200f94a98521a7094123a0b1571ac7d987fdbbe6cd564"></a>LongitudinalDistanceOppositeDirection&#160;</td><td class="fielddoc">
+<p>longitudinal, opposite direction </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="afac98769d5952c9ee8aa200f94a98521a99ce2e77797bc64afe07ce8a9616d36f"></a>LongitudinalDistanceSameDirectionEgoFront&#160;</td><td class="fielddoc">
+<p>longitudinal, same direction, ego in front </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="afac98769d5952c9ee8aa200f94a98521a53abeab5ba270ac66ca20d37de72090c"></a>LongitudinalDistanceSameDirectionOtherInFront&#160;</td><td class="fielddoc">
+<p>longitudinal, same direction, ego at back </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="afac98769d5952c9ee8aa200f94a98521a741358c1526273b8b66d7f2aedc76c69"></a>LateralDistance&#160;</td><td class="fielddoc">
+<p>lateral </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="afac98769d5952c9ee8aa200f94a98521aacdadb9f62be8fc92f4f9dce042ba1ef"></a>IntersectionOtherPriorityEgoAbleToStop&#160;</td><td class="fielddoc">
+<p>intersection, other has prio, ego can stop </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="afac98769d5952c9ee8aa200f94a98521a66942e92e2e117d3327ee6d387aafe35"></a>IntersectionEgoPriorityOtherAbleToStop&#160;</td><td class="fielddoc">
+<p>intersection, ego has prio, other can stop </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="afac98769d5952c9ee8aa200f94a98521aa1dc72fc9124fbabf282d36bf9475183"></a>IntersectionEgoInFront&#160;</td><td class="fielddoc">
+<p>intersection, ego in front </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="afac98769d5952c9ee8aa200f94a98521a1d101460d912711d6cce551a2882a7bf"></a>IntersectionOtherInFront&#160;</td><td class="fielddoc">
+<p>intersection, other in front </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="afac98769d5952c9ee8aa200f94a98521ac2398a0e94327b9e5e5b0de3b662bfd4"></a>IntersectionOverlap&#160;</td><td class="fielddoc">
+<p>intersection, overlap </p>
 </td></tr>
 </table>
 

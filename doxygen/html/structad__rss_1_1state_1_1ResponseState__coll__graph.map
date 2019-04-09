@@ -1,4 +1,6 @@
 <map id="ad_rss::state::ResponseState" name="ad_rss::state::ResponseState">
-<area shape="rect" id="node2" href="$structad__rss_1_1state_1_1LongitudinalRssState.html" title="DataType LongitudinalRssState. " alt="" coords="5,5,196,47"/>
-<area shape="rect" id="node3" href="$structad__rss_1_1state_1_1LateralRssState.html" title="DataType LateralRssState. " alt="" coords="221,5,399,47"/>
+<area shape="rect" id="node2" href="$structad__rss_1_1state_1_1LongitudinalRssState.html" title="DataType LongitudinalRssState. " alt="" coords="5,199,196,240"/>
+<area shape="rect" id="node3" href="$structad__rss_1_1state_1_1ResponseInformation.html" title="DataType ResponseInformation. " alt="" coords="72,109,319,136"/>
+<area shape="rect" id="node5" href="$structad__rss_1_1state_1_1LateralRssState.html" title="DataType LateralRssState. " alt="" coords="221,199,399,240"/>
+<area shape="rect" id="node4" href="$classad__rss_1_1physics_1_1Distance.html" title="DataType Distance. " alt="" coords="104,5,287,32"/>
 </map>

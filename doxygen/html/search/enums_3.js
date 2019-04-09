@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['situationtype',['SituationType',['../namespacead__rss_1_1situation.html#a0c061f5562778adc74ed55b93f7f9c3e',1,'ad_rss::situation']]]
+  ['responseevaluator',['ResponseEvaluator',['../namespacead__rss_1_1state.html#afac98769d5952c9ee8aa200f94a98521',1,'ad_rss::state']]]
 ];

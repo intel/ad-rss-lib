@@ -13,6 +13,7 @@ var searchData=
   ['_7eoccupiedregion',['~OccupiedRegion',['../structad__rss_1_1world_1_1OccupiedRegion.html#a9b68a172b193af03a5e89420abae2779',1,'ad_rss::world::OccupiedRegion']]],
   ['_7eparametricrange',['~ParametricRange',['../structad__rss_1_1physics_1_1ParametricRange.html#a777fb464ff41b616a571260941df3926',1,'ad_rss::physics::ParametricRange']]],
   ['_7erelativeposition',['~RelativePosition',['../structad__rss_1_1situation_1_1RelativePosition.html#aeaa3b4392461876363098560a757c4d4',1,'ad_rss::situation::RelativePosition']]],
+  ['_7eresponseinformation',['~ResponseInformation',['../structad__rss_1_1state_1_1ResponseInformation.html#ae4ddf5bc34007f1b163c13ab899ef358',1,'ad_rss::state::ResponseInformation']]],
   ['_7eresponsestate',['~ResponseState',['../structad__rss_1_1state_1_1ResponseState.html#a71c0a8a0ddf026b61af002404410cf1b',1,'ad_rss::state::ResponseState']]],
   ['_7ersssituationchecking',['~RssSituationChecking',['../classad__rss_1_1core_1_1RssSituationChecking.html#afbd4f90bc488f67c7259232991bc16cf',1,'ad_rss::core::RssSituationChecking']]],
   ['_7escene',['~Scene',['../structad__rss_1_1world_1_1Scene.html#a10a89a3e26d22a43c68d9f40323191ed',1,'ad_rss::world::Scene']]],

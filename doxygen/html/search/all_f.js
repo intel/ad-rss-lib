@@ -1,8 +1,9 @@
 var searchData=
 [
+  ['safedistance',['safeDistance',['../structad__rss_1_1state_1_1ResponseInformation.html#aef50aeac6b737f222b905982a6642a10',1,'ad_rss::state::ResponseInformation']]],
   ['samedirection',['SameDirection',['../namespacead__rss_1_1situation.html#a0c061f5562778adc74ed55b93f7f9c3eaf4fa45a77bbd7638b6a57507a36c6afc',1,'ad_rss::situation']]],
-  ['scene',['Scene',['../structad__rss_1_1world_1_1Scene.html#a1ab98ce69b116e3b79a5da476d82f99d',1,'ad_rss::world::Scene::Scene()=default'],['../structad__rss_1_1world_1_1Scene.html#ab520b97541aee237a077f8daff169acc',1,'ad_rss::world::Scene::Scene(const Scene &amp;other)=default'],['../structad__rss_1_1world_1_1Scene.html#a79ec1df4f2b3fce56aa2ad91fb696111',1,'ad_rss::world::Scene::Scene(Scene &amp;&amp;other)=default']]],
   ['scene',['Scene',['../structad__rss_1_1world_1_1Scene.html',1,'ad_rss::world']]],
+  ['scene',['Scene',['../structad__rss_1_1world_1_1Scene.html#a1ab98ce69b116e3b79a5da476d82f99d',1,'ad_rss::world::Scene::Scene()=default'],['../structad__rss_1_1world_1_1Scene.html#ab520b97541aee237a077f8daff169acc',1,'ad_rss::world::Scene::Scene(const Scene &amp;other)=default'],['../structad__rss_1_1world_1_1Scene.html#a79ec1df4f2b3fce56aa2ad91fb696111',1,'ad_rss::world::Scene::Scene(Scene &amp;&amp;other)=default']]],
   ['scene_2ehpp',['Scene.hpp',['../Scene_8hpp.html',1,'']]],
   ['scenes',['scenes',['../structad__rss_1_1world_1_1WorldModel.html#a73f0935ac20a2ced03138ff94de4ba79',1,'ad_rss::world::WorldModel']]],
   ['scenevalidinputrange_2ehpp',['SceneValidInputRange.hpp',['../SceneValidInputRange_8hpp.html',1,'']]],
@@ -27,8 +28,8 @@ var searchData=
   ['speed_2ehpp',['Speed.hpp',['../Speed_8hpp.html',1,'']]],
   ['speedlat',['speedLat',['../structad__rss_1_1world_1_1Velocity.html#ad40ad5aae329fb26d3412d3236cbff01',1,'ad_rss::world::Velocity']]],
   ['speedlon',['speedLon',['../structad__rss_1_1world_1_1Velocity.html#a12bae48a039a4a2743308a4e1243daf5',1,'ad_rss::world::Velocity']]],
-  ['speedsquared',['SpeedSquared',['../classad__rss_1_1physics_1_1SpeedSquared.html',1,'ad_rss::physics']]],
   ['speedsquared',['SpeedSquared',['../classad__rss_1_1physics_1_1SpeedSquared.html#aa3acbab51b15fc7fdd036ad499ec6a67',1,'ad_rss::physics::SpeedSquared::SpeedSquared()'],['../classad__rss_1_1physics_1_1SpeedSquared.html#a1c40b34704fdb2c5e475954aee71b11b',1,'ad_rss::physics::SpeedSquared::SpeedSquared(double const iSpeedSquared)'],['../classad__rss_1_1physics_1_1SpeedSquared.html#ac74f7beda05839c9cf080b222e57b4ca',1,'ad_rss::physics::SpeedSquared::SpeedSquared(const SpeedSquared &amp;other)=default'],['../classad__rss_1_1physics_1_1SpeedSquared.html#aec6b1315c66ef956b4717d280dfe4bc8',1,'ad_rss::physics::SpeedSquared::SpeedSquared(SpeedSquared &amp;&amp;other)=default']]],
+  ['speedsquared',['SpeedSquared',['../classad__rss_1_1physics_1_1SpeedSquared.html',1,'ad_rss::physics']]],
   ['speedsquared_2ehpp',['SpeedSquared.hpp',['../SpeedSquared_8hpp.html',1,'']]],
   ['speedsquaredvalidinputrange_2ehpp',['SpeedSquaredValidInputRange.hpp',['../SpeedSquaredValidInputRange_8hpp.html',1,'']]],
   ['speedvalidinputrange_2ehpp',['SpeedValidInputRange.hpp',['../SpeedValidInputRange_8hpp.html',1,'']]],

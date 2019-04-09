@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-04-04 15:51:45</td>
+            <td class="headerValue">2019-04-09 09:19:25</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -123,12 +123,12 @@
 <span class="lineNum">      52 </span>                :            :  *
 <a name="53"><span class="lineNum">      53 </span>                :            :  * \note the specified input range is defined by the valid enum literals.</a>
 <span class="lineNum">      54 </span>                :            :  */
-<span class="lineNum">      55 </span>                :<span class="lineCov">      19799 : inline bool withinValidInputRange(::ad_rss::state::LateralResponse const &amp;input)</span>
+<span class="lineNum">      55 </span>                :<span class="lineCov">      19801 : inline bool withinValidInputRange(::ad_rss::state::LateralResponse const &amp;input)</span>
 <span class="lineNum">      56 </span>                :            : {
 <span class="lineNum">      57 </span>                :            :   try
 <span class="lineNum">      58 </span>                :            :   {
 <span class="lineNum">      59 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
-<span class="lineNum">      60 </span>                :<span class="lineCov">      19799 :     return (input == ::ad_rss::state::LateralResponse::None) || (input == ::ad_rss::state::LateralResponse::BrakeMin);</span>
+<span class="lineNum">      60 </span>                :<span class="lineCov">      19801 :     return (input == ::ad_rss::state::LateralResponse::None) || (input == ::ad_rss::state::LateralResponse::BrakeMin);</span>
 <span class="lineNum">      61 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
 <span class="lineNum">      62 </span>                :            :   }
 <span class="lineNum">      63 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
