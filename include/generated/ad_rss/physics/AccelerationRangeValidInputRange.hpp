@@ -41,8 +41,9 @@
 
 #include <cmath>
 #include <limits>
-#include "ad_rss/physics/AccelerationRange.hpp"
+#include "ad_rss/physics/AccelerationRangeDlt.hpp"
 #include "ad_rss/physics/AccelerationValidInputRange.hpp"
+#include "ad_rss/physics/LoggingDefinitions.hpp"
 
 /*!
  * \brief check if the given AccelerationRange is within valid input range
@@ -62,13 +63,44 @@ inline bool withinValidInputRange(::ad_rss::physics::AccelerationRange const &in
     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
     // check for generic member input ranges
     bool const membersInValidInputRange = withinValidInputRange(input.minimum) && withinValidInputRange(input.maximum);
+    if (!membersInValidInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::physics::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::AccelerationRange)>> members out of valid range",
+                  input);
+    }
 
     // check for individual input ranges
     bool const minimumInInputRange
       = (::ad_rss::physics::Acceleration(-1e2) <= input.minimum) && (input.minimum <= input.maximum);
+    if (!minimumInInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::physics::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::AccelerationRange)>> minimum:",
+                  input.minimum,
+                  "out of valid range [",
+                  ::ad_rss::physics::Acceleration(-1e2),
+                  ",",
+                  input.maximum,
+                  "]");
+    }
 
     bool const maximumInInputRange
       = (input.minimum <= input.maximum) && (input.maximum <= ::ad_rss::physics::Acceleration(1e2));
+    if (!maximumInInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::physics::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::AccelerationRange)>> maximum:",
+                  input.maximum,
+                  "out of valid range [",
+                  input.minimum,
+                  ",",
+                  ::ad_rss::physics::Acceleration(1e2),
+                  "]");
+    }
 
     return membersInValidInputRange && minimumInInputRange && maximumInInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
@@ -76,6 +108,9 @@ inline bool withinValidInputRange(::ad_rss::physics::AccelerationRange const &in
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
   catch (std::out_of_range &)
   {
+    DLT_LOG_CXX(::ad_rss::physics::getLoggingContext(),
+                DLT_LOG_ERROR,
+                "withinValidInputRange(::ad_rss::world::AccelerationRange)>> out of range exception");
   }
   return false;
   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes

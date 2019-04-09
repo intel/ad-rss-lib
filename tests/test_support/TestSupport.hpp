@@ -291,6 +291,11 @@ public:
   TestSupport();
 
   /**
+   * @brief destructor
+   */
+  ~TestSupport();
+
+  /**
    * @brief augment a lateral RSS state with situation specific ResponseInformation data
    *
    * @param[in] lateralState the lateral RSS state to be augmented by ResponseInformation

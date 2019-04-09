@@ -39,6 +39,7 @@
 
 #pragma once
 
+#include <ad_rss/world/LoggingDefinitions.hpp>
 #include <cmath>
 #include <limits>
 #include "ad_rss/physics/ParametricRangeValidInputRange.hpp"

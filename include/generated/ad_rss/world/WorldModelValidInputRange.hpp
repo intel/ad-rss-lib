@@ -39,11 +39,12 @@
 
 #pragma once
 
+#include <ad_rss/world/LoggingDefinitions.hpp>
 #include <cmath>
 #include <limits>
 #include "ad_rss/world/ObjectValidInputRange.hpp"
 #include "ad_rss/world/SceneVectorValidInputRange.hpp"
-#include "ad_rss/world/WorldModel.hpp"
+#include "ad_rss/world/WorldModelDlt.hpp"
 
 /*!
  * \brief check if the given WorldModel is within valid input range
@@ -63,9 +64,27 @@ inline bool withinValidInputRange(::ad_rss::world::WorldModel const &input)
     // check for generic member input ranges
     bool const membersInValidInputRange
       = withinValidInputRange(input.egoVehicle) && withinValidInputRange(input.scenes);
+    if (!membersInValidInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::world::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::WorldModel)>> members out of valid range",
+                  input);
+    }
 
     // check for individual input ranges
     bool const timeIndexInInputRange = (::ad_rss::physics::TimeIndex(1) <= input.timeIndex);
+    if (!timeIndexInInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::world::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::WorldModel)>> timeIndex:",
+                  input.timeIndex,
+                  "out of valid range [",
+                  ::ad_rss::physics::TimeIndex(1),
+                  ",",
+                  ")");
+    }
 
     return membersInValidInputRange && timeIndexInInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
@@ -73,6 +92,9 @@ inline bool withinValidInputRange(::ad_rss::world::WorldModel const &input)
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
   catch (std::out_of_range &)
   {
+    DLT_LOG_CXX(::ad_rss::world::getLoggingContext(),
+                DLT_LOG_ERROR,
+                "withinValidInputRange(::ad_rss::world::WorldModel)>> out of range exception");
   }
   return false;
   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes

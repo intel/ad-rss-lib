@@ -32,6 +32,7 @@
 #include "physics/Math.hpp"
 #include <algorithm>
 #include <limits>
+#include "ad_rss/core/RssLogging.hpp"
 #include "ad_rss/physics/Operations.hpp"
 
 namespace ad_rss {
@@ -59,7 +60,10 @@ bool calculateStoppingDistance(Speed const &currentSpeed, Acceleration const &de
 {
   if (deceleration <= Acceleration(0.))
   {
-    // deceleration must be positive
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "physics::calculateStoppingDistance>> Deceleration must be positive",
+                deceleration);
     return false;
   }
 
@@ -77,15 +81,22 @@ bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const &axis,
 {
   if (responseTime < Duration(0.))
   {
-    // time must not be negative
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "physics::calculateSpeedAfterResponseTime>> Response time must not be negative",
+                responseTime);
     return false;
   }
 
   if (axis == CoordinateSystemAxis::Longitudinal)
   {
-    // in longitudinal direction the speed has to be always >= 0.
     if (currentSpeed < Speed(0.))
     {
+      DLT_LOG_CXX(
+        core::RssLogging::getDltContext(),
+        DLT_LOG_ERROR,
+        "physics::calculateSpeedAfterResponseTime>> In longitudinal direction the speed has to be always >= 0.",
+        currentSpeed);
       return false;
     }
   }
@@ -109,7 +120,10 @@ bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const &axis,
 {
   if (responseTime < Duration(0.))
   {
-    // time must not be negative
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "physics::calculateDistanceOffsetAfterResponseTime>> Response time must not be negative",
+                responseTime);
     return false;
   }
 
@@ -118,7 +132,11 @@ bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const &axis,
   {
     if (currentSpeed < Speed(0.))
     {
-      // in longitudinal direction the speed has to be always >= 0.
+      DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                  DLT_LOG_ERROR,
+                  "physics::calculateDistanceOffsetAfterResponseTime>> In longitudinal direction the speed has to be "
+                  "always >= 0.",
+                  currentSpeed);
       return false;
     }
 
@@ -142,6 +160,10 @@ bool calculateTimeForDistance(Speed const &currentSpeed,
 {
   if (currentSpeed < Speed(0.))
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "physics::calculateTimeForDistance>> Speed must not be negative",
+                currentSpeed);
     return false;
   }
 
@@ -192,6 +214,12 @@ bool calculateTimeToCoverDistance(Speed const &currentSpeed,
 {
   if ((currentSpeed < Speed(0.)) || (deceleration < Acceleration(0.)) || (distanceToCover < Distance(0.)))
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "physics::calculateTimeToCoverDistance>> Speed, deceleration and distanceToCover must not be negative",
+                currentSpeed,
+                deceleration,
+                distanceToCover);
     return false;
   }
 

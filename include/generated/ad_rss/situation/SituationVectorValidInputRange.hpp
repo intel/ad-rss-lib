@@ -39,6 +39,7 @@
 
 #pragma once
 
+#include <ad_rss/situation/LoggingDefinitions.hpp>
 #include <cmath>
 #include <limits>
 #include "ad_rss/situation/SituationValidInputRange.hpp"
@@ -66,7 +67,15 @@ inline bool withinValidInputRange(::ad_rss::situation::SituationVector const &in
     {
       for (auto const &member : input)
       {
-        inValidInputRange = inValidInputRange && withinValidInputRange(member);
+        bool const memberInValidInputRange = withinValidInputRange(member);
+        if (!memberInValidInputRange)
+        {
+          DLT_LOG_CXX(::ad_rss::situation::getLoggingContext(),
+                      DLT_LOG_ERROR,
+                      "withinValidInputRange(::ad_rss::situation::SituationVector)>> member out of valid range",
+                      member);
+        }
+        inValidInputRange = inValidInputRange && memberInValidInputRange;
       }
     }
     return inValidInputRange;
@@ -75,6 +84,9 @@ inline bool withinValidInputRange(::ad_rss::situation::SituationVector const &in
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
   catch (std::out_of_range &)
   {
+    DLT_LOG_CXX(::ad_rss::situation::getLoggingContext(),
+                DLT_LOG_ERROR,
+                "withinValidInputRange(::ad_rss::situation::SituationVector)>> out of range exception");
   }
   return false;
   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes

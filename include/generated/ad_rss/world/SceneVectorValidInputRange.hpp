@@ -39,6 +39,7 @@
 
 #pragma once
 
+#include <ad_rss/world/LoggingDefinitions.hpp>
 #include <cmath>
 #include <limits>
 #include "ad_rss/world/SceneValidInputRange.hpp"
@@ -66,7 +67,15 @@ inline bool withinValidInputRange(::ad_rss::world::SceneVector const &input)
     {
       for (auto const &member : input)
       {
-        inValidInputRange = inValidInputRange && withinValidInputRange(member);
+        bool const memberInValidInputRange = withinValidInputRange(member);
+        if (!memberInValidInputRange)
+        {
+          DLT_LOG_CXX(::ad_rss::world::getLoggingContext(),
+                      DLT_LOG_ERROR,
+                      "withinValidInputRange(::ad_rss::world::SceneVector)>> member out of valid range",
+                      member);
+        }
+        inValidInputRange = inValidInputRange && memberInValidInputRange;
       }
     }
     return inValidInputRange;
@@ -75,6 +84,9 @@ inline bool withinValidInputRange(::ad_rss::world::SceneVector const &input)
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
   catch (std::out_of_range &)
   {
+    DLT_LOG_CXX(::ad_rss::world::getLoggingContext(),
+                DLT_LOG_ERROR,
+                "withinValidInputRange(::ad_rss::world::SceneVector)>> out of range exception");
   }
   return false;
   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes

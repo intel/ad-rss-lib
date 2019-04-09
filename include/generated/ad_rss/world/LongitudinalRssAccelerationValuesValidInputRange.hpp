@@ -39,10 +39,11 @@
 
 #pragma once
 
+#include <ad_rss/world/LoggingDefinitions.hpp>
 #include <cmath>
 #include <limits>
 #include "ad_rss/physics/AccelerationValidInputRange.hpp"
-#include "ad_rss/world/LongitudinalRssAccelerationValues.hpp"
+#include "ad_rss/world/LongitudinalRssAccelerationValuesDlt.hpp"
 
 /*!
  * \brief check if the given LongitudinalRssAccelerationValues is within valid input range
@@ -65,18 +66,74 @@ inline bool withinValidInputRange(::ad_rss::world::LongitudinalRssAccelerationVa
     // check for generic member input ranges
     bool const membersInValidInputRange = withinValidInputRange(input.accelMax) && withinValidInputRange(input.brakeMax)
       && withinValidInputRange(input.brakeMin) && withinValidInputRange(input.brakeMinCorrect);
+    if (!membersInValidInputRange)
+    {
+      DLT_LOG_CXX(
+        ::ad_rss::world::getLoggingContext(),
+        DLT_LOG_ERROR,
+        "withinValidInputRange(::ad_rss::world::LongitudinalRssAccelerationValues)>> members out of valid range",
+        input);
+    }
 
     // check for individual input ranges
     bool const accelMaxInInputRange = (::ad_rss::physics::Acceleration(0.) <= input.accelMax)
       && (input.accelMax <= ::ad_rss::physics::Acceleration(1e2));
+    if (!accelMaxInInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::world::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::LongitudinalRssAccelerationValues)>> accelMax:",
+                  input.accelMax,
+                  "out of valid range [",
+                  ::ad_rss::physics::Acceleration(0.),
+                  ",",
+                  ::ad_rss::physics::Acceleration(1e2),
+                  "]");
+    }
 
     bool const brakeMaxInInputRange
       = (input.brakeMin <= input.brakeMax) && (input.brakeMax <= ::ad_rss::physics::Acceleration(1e2));
+    if (!brakeMaxInInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::world::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::LongitudinalRssAccelerationValues)>> brakeMax:",
+                  input.brakeMax,
+                  "out of valid range [",
+                  input.brakeMin,
+                  ",",
+                  ::ad_rss::physics::Acceleration(1e2),
+                  "]");
+    }
 
     bool const brakeMinInInputRange = (input.brakeMinCorrect <= input.brakeMin) && (input.brakeMin <= input.brakeMax);
+    if (!brakeMinInInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::world::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::LongitudinalRssAccelerationValues)>> brakeMin:",
+                  input.brakeMin,
+                  "out of valid range [",
+                  input.brakeMinCorrect,
+                  ",",
+                  input.brakeMax,
+                  "]");
+    }
 
     bool const brakeMinCorrectInInputRange
       = (::ad_rss::physics::Acceleration(0.) < input.brakeMinCorrect) && (input.brakeMinCorrect <= input.brakeMin);
+    if (!brakeMinCorrectInInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::world::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::LongitudinalRssAccelerationValues)>> brakeMinCorrect:",
+                  input.brakeMinCorrect,
+                  "out of valid range (",
+                  ::ad_rss::physics::Acceleration(0.),
+                  ",",
+                  input.brakeMin,
+                  "]");
+    }
 
     return membersInValidInputRange && accelMaxInInputRange && brakeMaxInInputRange && brakeMinInInputRange
       && brakeMinCorrectInInputRange;
@@ -85,6 +142,9 @@ inline bool withinValidInputRange(::ad_rss::world::LongitudinalRssAccelerationVa
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
   catch (std::out_of_range &)
   {
+    DLT_LOG_CXX(::ad_rss::world::getLoggingContext(),
+                DLT_LOG_ERROR,
+                "withinValidInputRange(::ad_rss::world::LongitudinalRssAccelerationValues)>> out of range exception");
   }
   return false;
   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes

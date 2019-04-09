@@ -31,6 +31,7 @@
 
 #include "ad_rss/core/RssResponseResolving.hpp"
 #include <algorithm>
+#include "ad_rss/core/RssLogging.hpp"
 #include "ad_rss/state/ResponseStateVectorValidInputRange.hpp"
 #include "core/RssState.hpp"
 
@@ -46,6 +47,10 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
 {
   if (!withinValidInputRange(currentStates))
   {
+    DLT_LOG_CXX(RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "RssResponseResolving::provideProperResponse>> Invalid input",
+                currentStates);
     return false;
   }
 
@@ -57,6 +62,7 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
 
     RssStateBeforeDangerThresholdTimeMap newStatesBeforeDangerThresholdTime;
 
+    DltLogLevelType resultDltLogLevel = DLT_LOG_VERBOSE;
     for (auto const &currentState : currentStates)
     {
       if (responseState.timeIndex == physics::TimeIndex(0u))
@@ -65,6 +71,11 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
       }
       else if (responseState.timeIndex != currentState.timeIndex)
       {
+        DLT_LOG_CXX(
+          RssLogging::getDltContext(),
+          DLT_LOG_ERROR,
+          "RssResponseResolving::provideProperResponse>> Time index change within on state vector not allowed",
+          currentStates);
         result = false;
         break;
       }
@@ -73,6 +84,11 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
       RssState nonDangerousStateToRemember;
       if (isDangerous(currentState))
       {
+        DLT_LOG_CXX(RssLogging::getDltContext(),
+                    DLT_LOG_INFO,
+                    "RssResponseResolving::provideProperResponse>> State is dangerous",
+                    currentState);
+        resultDltLogLevel = DLT_LOG_INFO;
         auto const previousNonDangerousState = mStatesBeforeDangerThresholdTime.find(currentState.situationId);
         if (previousNonDangerousState != mStatesBeforeDangerThresholdTime.end())
         {
@@ -150,10 +166,18 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
       // Determine resulting response
       mStatesBeforeDangerThresholdTime.clear();
       mStatesBeforeDangerThresholdTime.swap(newStatesBeforeDangerThresholdTime);
+      DLT_LOG_CXX(RssLogging::getDltContext(),
+                  resultDltLogLevel,
+                  "RssResponseResolving::provideProperResponse>> Resolved response state",
+                  responseState);
     }
   }
   catch (...)
   {
+    DLT_LOG_CXX(RssLogging::getDltContext(),
+                DLT_LOG_FATAL,
+                "RssResponseResolving::provideProperResponse>> Exception catched",
+                currentStates);
     result = false;
   }
 

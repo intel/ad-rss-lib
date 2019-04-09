@@ -30,6 +30,7 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "ad_rss/core/RssCheck.hpp"
+#include "ad_rss/core/RssLogging.hpp"
 #include "ad_rss/core/RssResponseResolving.hpp"
 #include "ad_rss/core/RssResponseTransformation.hpp"
 #include "ad_rss/core/RssSituationChecking.hpp"
@@ -49,6 +50,7 @@ RssCheck::RssCheck()
   }
   catch (...)
   {
+    DLT_LOG_CXX(RssLogging::getDltContext(), DLT_LOG_FATAL, "RssCheck object initialization failed");
     mResponseResolving = nullptr;
     mSituationChecking = nullptr;
   }
@@ -67,6 +69,9 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
   {
     if (!static_cast<bool>(mResponseResolving) || !static_cast<bool>(mSituationChecking))
     {
+      DLT_LOG_CXX(RssLogging::getDltContext(),
+                  DLT_LOG_FATAL,
+                  "RssCheck::calculateAccelerationRestriction>> object not properly initialized");
       return false;
     }
 
@@ -103,6 +108,10 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
   // LCOV_EXCL_START: unreachable code, keep to be on the safe side
   catch (...)
   {
+    DLT_LOG_CXX(RssLogging::getDltContext(),
+                DLT_LOG_FATAL,
+                "RssCheck::calculateAccelerationRestriction>> Exception catched",
+                worldModel);
     result = false;
   }
   // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side

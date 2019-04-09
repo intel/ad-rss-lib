@@ -39,11 +39,12 @@
 
 #pragma once
 
+#include <ad_rss/situation/LoggingDefinitions.hpp>
 #include <cmath>
 #include <limits>
 #include "ad_rss/physics/DistanceValidInputRange.hpp"
 #include "ad_rss/physics/DurationValidInputRange.hpp"
-#include "ad_rss/situation/VehicleState.hpp"
+#include "ad_rss/situation/VehicleStateDlt.hpp"
 #include "ad_rss/world/DynamicsValidInputRange.hpp"
 #include "ad_rss/world/VelocityValidInputRange.hpp"
 
@@ -68,18 +69,61 @@ inline bool withinValidInputRange(::ad_rss::situation::VehicleState const &input
     bool const membersInValidInputRange = withinValidInputRange(input.velocity) && withinValidInputRange(input.dynamics)
       && withinValidInputRange(input.responseTime) && withinValidInputRange(input.distanceToEnterIntersection)
       && withinValidInputRange(input.distanceToLeaveIntersection);
+    if (!membersInValidInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::situation::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::situation::VehicleState)>> members out of valid range",
+                  input);
+    }
 
     // check for individual input ranges
     bool const responseTimeInInputRange = (::ad_rss::physics::Duration(0.) < input.responseTime)
       && (input.responseTime <= ::ad_rss::physics::Duration(10.));
+    if (!responseTimeInInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::situation::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::situation::VehicleState)>> responseTime:",
+                  input.responseTime,
+                  "out of valid range (",
+                  ::ad_rss::physics::Duration(0.),
+                  ",",
+                  ::ad_rss::physics::Duration(10.),
+                  "]");
+    }
 
     bool const distanceToEnterIntersectionInInputRange
       = (::ad_rss::physics::Distance(0.) <= input.distanceToEnterIntersection)
       && (input.distanceToEnterIntersection <= input.distanceToLeaveIntersection);
+    if (!distanceToEnterIntersectionInInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::situation::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::situation::VehicleState)>> distanceToEnterIntersection:",
+                  input.distanceToEnterIntersection,
+                  "out of valid range [",
+                  ::ad_rss::physics::Distance(0.),
+                  ",",
+                  input.distanceToLeaveIntersection,
+                  "]");
+    }
 
     bool const distanceToLeaveIntersectionInInputRange
       = (input.distanceToEnterIntersection <= input.distanceToLeaveIntersection)
       && (input.distanceToLeaveIntersection <= ::ad_rss::physics::Distance(1e4));
+    if (!distanceToLeaveIntersectionInInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::situation::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::situation::VehicleState)>> distanceToLeaveIntersection:",
+                  input.distanceToLeaveIntersection,
+                  "out of valid range [",
+                  input.distanceToEnterIntersection,
+                  ",",
+                  ::ad_rss::physics::Distance(1e4),
+                  "]");
+    }
 
     return membersInValidInputRange && responseTimeInInputRange && distanceToEnterIntersectionInInputRange
       && distanceToLeaveIntersectionInInputRange;
@@ -88,6 +132,9 @@ inline bool withinValidInputRange(::ad_rss::situation::VehicleState const &input
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
   catch (std::out_of_range &)
   {
+    DLT_LOG_CXX(::ad_rss::situation::getLoggingContext(),
+                DLT_LOG_ERROR,
+                "withinValidInputRange(::ad_rss::situation::VehicleState)>> out of range exception");
   }
   return false;
   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes

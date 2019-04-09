@@ -31,6 +31,7 @@
 
 #include "situation/RssFormulas.hpp"
 #include <algorithm>
+#include "ad_rss/core/RssLogging.hpp"
 #include "ad_rss/situation/VehicleStateValidInputRange.hpp"
 #include "physics/Math.hpp"
 
@@ -82,6 +83,11 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
 {
   if (!withinValidInputRange(leadingVehicle) || !withinValidInputRange(followingVehicle))
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "calculateSafeLongitudinalDistanceSameDirection>> Invalid input.");
+    DLT_LOG_CXX(core::RssLogging::getDltContext(), DLT_LOG_ERROR, "Leading vehicle:", leadingVehicle);
+    DLT_LOG_CXX(core::RssLogging::getDltContext(), DLT_LOG_ERROR, "Following vehicle:", followingVehicle);
     return false;
   }
 
@@ -115,11 +121,15 @@ bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehic
 {
   if (vehicleDistance < Distance(0.))
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "checkSafeLongitudinalDistanceSameDirection>> Vehicle distance must not be negative",
+                vehicleDistance);
     return false;
   }
 
   isDistanceSafe = false;
-  safeDistance = Distance::getMax();
+  safeDistance = std::numeric_limits<Distance>::max();
 
   bool const result = calculateSafeLongitudinalDistanceSameDirection(leadingVehicle, followingVehicle, safeDistance);
 
@@ -136,6 +146,11 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &corr
 {
   if (!withinValidInputRange(correctVehicle) || !withinValidInputRange(oppositeVehicle))
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "calculateSafeLongitudinalDistanceOppositeDirection>> Invalid input");
+    DLT_LOG_CXX(core::RssLogging::getDltContext(), DLT_LOG_ERROR, "Correct vehicle:", correctVehicle);
+    DLT_LOG_CXX(core::RssLogging::getDltContext(), DLT_LOG_ERROR, "Opposite vehicle:", oppositeVehicle);
     return false;
   }
 
@@ -178,11 +193,15 @@ bool checkSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctV
 {
   if (vehicleDistance < Distance(0.))
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "checkSafeLongitudinalDistanceOppositeDirection>> Vehicle distance must not be negative",
+                vehicleDistance);
     return false;
   }
 
   isDistanceSafe = false;
-  safeDistance = Distance::getMax();
+  safeDistance = std::numeric_limits<Distance>::max();
   bool const result = calculateSafeLongitudinalDistanceOppositeDirection(correctVehicle, oppositeVehicle, safeDistance);
 
   if (vehicleDistance > safeDistance)
@@ -196,6 +215,8 @@ bool checkStopInFrontIntersection(VehicleState const &vehicle, Distance &safeDis
 {
   if (!withinValidInputRange(vehicle))
   {
+    DLT_LOG_CXX(
+      core::RssLogging::getDltContext(), DLT_LOG_ERROR, "checkStopInFrontIntersection>> Invalid input", vehicle);
     return false;
   }
 
@@ -224,6 +245,9 @@ bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
 {
   if (!withinValidInputRange(leftVehicle) || !withinValidInputRange(rightVehicle))
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(), DLT_LOG_ERROR, "calculateSafeLateralDistance>> Invalid input");
+    DLT_LOG_CXX(core::RssLogging::getDltContext(), DLT_LOG_ERROR, "Left vehicle:", leftVehicle);
+    DLT_LOG_CXX(core::RssLogging::getDltContext(), DLT_LOG_ERROR, "Right vehicle:", rightVehicle);
     return false;
   }
 
@@ -265,11 +289,15 @@ bool checkSafeLateralDistance(VehicleState const &leftVehicle,
 {
   if (vehicleDistance < Distance(0.))
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "checkSafeLateralDistance>> Vehicle distance must not be negative",
+                vehicleDistance);
     return false;
   }
 
   isDistanceSafe = false;
-  safeDistance = Distance::getMax();
+  safeDistance = std::numeric_limits<Distance>::max();
   bool const result = calculateSafeLateralDistance(leftVehicle, rightVehicle, safeDistance);
 
   if (vehicleDistance > safeDistance)

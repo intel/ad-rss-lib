@@ -39,6 +39,7 @@
 
 #pragma once
 
+#include <ad_rss/physics/LoggingDefinitions.hpp>
 #include <cmath>
 #include <limits>
 #include "ad_rss/physics/DistanceValidInputRange.hpp"

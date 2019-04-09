@@ -39,9 +39,10 @@
 
 #pragma once
 
+#include <ad_rss/world/LoggingDefinitions.hpp>
 #include <cmath>
 #include <limits>
-#include "ad_rss/world/ObjectType.hpp"
+#include "ad_rss/world/ObjectTypeDlt.hpp"
 
 /*!
  * \brief check if the given ObjectType is within valid input range
@@ -57,13 +58,26 @@ inline bool withinValidInputRange(::ad_rss::world::ObjectType const &input)
   try
   {
     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
-    return (input == ::ad_rss::world::ObjectType::EgoVehicle) || (input == ::ad_rss::world::ObjectType::OtherVehicle)
+    bool const validLiteral = (input == ::ad_rss::world::ObjectType::EgoVehicle)
+      || (input == ::ad_rss::world::ObjectType::OtherVehicle)
       || (input == ::ad_rss::world::ObjectType::ArtificialObject);
+    if (!validLiteral)
+    {
+      DLT_LOG_CXX(::ad_rss::world::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::ObjectType)>>",
+                  static_cast<int32_t>(input),
+                  "not a valid enumeration literal.");
+    }
+    return validLiteral;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
   }
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
   catch (std::out_of_range &)
   {
+    DLT_LOG_CXX(::ad_rss::world::getLoggingContext(),
+                DLT_LOG_ERROR,
+                "withinValidInputRange(::ad_rss::world::ObjectType)>> out of range exception");
   }
   return false;
   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes

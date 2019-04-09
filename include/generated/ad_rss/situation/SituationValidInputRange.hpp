@@ -39,10 +39,11 @@
 
 #pragma once
 
+#include <ad_rss/situation/LoggingDefinitions.hpp>
 #include <cmath>
 #include <limits>
 #include "ad_rss/situation/RelativePositionValidInputRange.hpp"
-#include "ad_rss/situation/Situation.hpp"
+#include "ad_rss/situation/SituationDlt.hpp"
 #include "ad_rss/situation/SituationTypeValidInputRange.hpp"
 #include "ad_rss/situation/VehicleStateValidInputRange.hpp"
 
@@ -65,9 +66,27 @@ inline bool withinValidInputRange(::ad_rss::situation::Situation const &input)
     bool const membersInValidInputRange = withinValidInputRange(input.situationType)
       && withinValidInputRange(input.egoVehicleState) && withinValidInputRange(input.otherVehicleState)
       && withinValidInputRange(input.relativePosition);
+    if (!membersInValidInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::situation::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::situation::Situation)>> members out of valid range",
+                  input);
+    }
 
     // check for individual input ranges
     bool const timeIndexInInputRange = (::ad_rss::physics::TimeIndex(1) <= input.timeIndex);
+    if (!timeIndexInInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::situation::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::situation::Situation)>> timeIndex:",
+                  input.timeIndex,
+                  "out of valid range [",
+                  ::ad_rss::physics::TimeIndex(1),
+                  ",",
+                  ")");
+    }
 
     return membersInValidInputRange && timeIndexInInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
@@ -75,6 +94,9 @@ inline bool withinValidInputRange(::ad_rss::situation::Situation const &input)
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
   catch (std::out_of_range &)
   {
+    DLT_LOG_CXX(::ad_rss::situation::getLoggingContext(),
+                DLT_LOG_ERROR,
+                "withinValidInputRange(::ad_rss::situation::Situation)>> out of range exception");
   }
   return false;
   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes

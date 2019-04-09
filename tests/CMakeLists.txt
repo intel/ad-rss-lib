@@ -36,6 +36,14 @@
 #####################################################################
 set(EXEC_NAME ad-rss-tests)
 
+
+set(TEST_LOG_LOCAL_PRINT "ON" CACHE BOOL "If enabled while general logging is enabled, test log is printed to cout")
+if ( TEST_LOG_LOCAL_PRINT )
+  set(LOCAL_PRINT_DEFINITIONS "RSS_TEST_LOCAL_PRINT=1")
+else()
+  set(LOCAL_PRINT_DEFINITIONS "RSS_TEST_LOCAL_PRINT=0")
+endif()
+
 include(generated/CMakeLists.txt)
 
 set(RSS_TEST_SOURCES_WITH_PRIVATE_ACCESS
@@ -111,7 +119,8 @@ endif()
 
 
 target_compile_options(${EXEC_NAME} PRIVATE ${COVERAGE_FLAG} ${TARGET_COMPILE_OPTIONS})
-
+target_compile_definitions(${EXEC_NAME} PRIVATE ${LOGGING_DEFINITIONS} ${LOCAL_PRINT_DEFINITIONS})
+ 
 # Clang is more restrictive with warnings than GCC
 # Some warnings are due to required tests, e.g. force move operator
 # Disable these warnings

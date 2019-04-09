@@ -34,6 +34,7 @@
 
 #include "world/RssObjectPositionExtractor.hpp"
 #include <algorithm>
+#include "ad_rss/core/RssLogging.hpp"
 #include "ad_rss/physics/Operations.hpp"
 
 /*!
@@ -57,7 +58,7 @@ RssObjectPositionExtractor::RssObjectPositionExtractor(OccupiedRegionVector cons
 bool RssObjectPositionExtractor::newRoadSegment(Distance const &longitudinalStartMin,
                                                 Distance const &longitudinalStartMax)
 {
-  bool result = true;
+  bool const result = true;
 
   mCurrentLongitudinalMax = longitudinalStartMax;
   mCurrentLongitudinalMin = longitudinalStartMin;
@@ -67,7 +68,7 @@ bool RssObjectPositionExtractor::newRoadSegment(Distance const &longitudinalStar
 
 bool RssObjectPositionExtractor::newLaneSegment(MetricRange lateralDistance, LaneSegment const &laneSegment)
 {
-  bool result = true;
+  bool const result = true;
 
   bool noAdditionalObjects = false;
   while (!noAdditionalObjects && !mOccupiedRegions.empty())
@@ -141,20 +142,36 @@ bool RssObjectPositionExtractor::newLaneSegment(MetricRange lateralDistance, Lan
 
 bool RssObjectPositionExtractor::getObjectDimensions(ObjectDimensions &objectDimensions)
 {
-  // if mOccupiedRegions is not empty, something went wrong
   if (!mOccupiedRegions.empty())
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "RssObjectPositionExtractor::getObjectDimensions>> occupied regions became empty unexpectedly");
     return false;
   }
 
   // if position.max < position.min, something went wrong
   if (mObjectDimensions.longitudinalDimensions.maximum < mObjectDimensions.longitudinalDimensions.minimum)
   {
-    return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
+    // LCOV_EXCL_START: unreachable code, keep to be on the safe side
+    DLT_LOG_CXX(
+      core::RssLogging::getDltContext(),
+      DLT_LOG_ERROR,
+      "RssObjectPositionExtractor::getObjectDimensions>> longitudinal object dimensions became invalid unexpectedly",
+      mObjectDimensions.longitudinalDimensions);
+    return false;
+    // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
   }
   if (mObjectDimensions.lateralDimensions.maximum < mObjectDimensions.lateralDimensions.minimum)
   {
-    return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
+    // LCOV_EXCL_START: unreachable code, keep to be on the safe side
+    DLT_LOG_CXX(
+      core::RssLogging::getDltContext(),
+      DLT_LOG_ERROR,
+      "RssObjectPositionExtractor::getObjectDimensions>> lateral object dimensions became invalid unexpectedly",
+      mObjectDimensions.lateralDimensions);
+    return false;
+    // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
   }
 
   objectDimensions = mObjectDimensions;

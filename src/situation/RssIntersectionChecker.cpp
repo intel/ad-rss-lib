@@ -32,6 +32,7 @@
 #include "situation/RssIntersectionChecker.hpp"
 #include <cmath>
 #include <limits>
+#include "ad_rss/core/RssLogging.hpp"
 #include "physics/Math.hpp"
 #include "situation/RssFormulas.hpp"
 #include "situation/RssSituation.hpp"
@@ -120,6 +121,10 @@ bool checkIntersectionSafe(Situation const &situation,
       || (situation.otherVehicleState.distanceToLeaveIntersection
           < situation.otherVehicleState.distanceToEnterIntersection))
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "RssIntersectionChecker::checkIntersectionSafe>> Intersection cannot be left before being entered.",
+                situation);
     return false;
   }
 
@@ -195,7 +200,11 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
 {
   if (situation.egoVehicleState.hasPriority && situation.otherVehicleState.hasPriority)
   {
-    // both cannot have priority over the other at the same time
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "RssIntersectionChecker::calculateRssStateIntersection>> Both vehicles cannot have priority over the "
+                "other at the same time.",
+                situation);
     return false;
   }
   bool result = false;
@@ -278,6 +287,11 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
             default:
             {
               // LCOV_EXCL_START: unreachable code, keep to be on the safe side
+              DLT_LOG_CXX(
+                core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "RssIntersectionChecker::calculateRssStateIntersection>> Invalid previous intersection state:",
+                static_cast<std::uint32_t>(previousIntersectionState->second));
               result = false;
               break;
               // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
@@ -312,6 +326,10 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
   }
   catch (...)
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_FATAL,
+                "RssIntersectionChecker::calculateRssStateIntersection>> Exception catched",
+                situation);
     result = false;
   }
   return result;

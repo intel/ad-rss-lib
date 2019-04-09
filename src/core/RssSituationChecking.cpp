@@ -32,6 +32,7 @@
 #include "ad_rss/core/RssSituationChecking.hpp"
 #include <algorithm>
 #include <memory>
+#include "ad_rss/core/RssLogging.hpp"
 #include "ad_rss/situation/SituationVectorValidInputRange.hpp"
 #include "core/RssState.hpp"
 #include "situation/RssIntersectionChecker.hpp"
@@ -48,6 +49,7 @@ RssSituationChecking::RssSituationChecking()
   }
   catch (...)
   {
+    DLT_LOG_CXX(RssLogging::getDltContext(), DLT_LOG_FATAL, "RssSituationChecking object initialization failed");
     mIntersectionChecker = nullptr;
   }
 }
@@ -66,10 +68,17 @@ bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation 
   {
     if (!static_cast<bool>(mIntersectionChecker))
     {
+      DLT_LOG_CXX(RssLogging::getDltContext(),
+                  DLT_LOG_FATAL,
+                  "RssSituationChecking::checkSituationInputRangeChecked>> object not properly initialized");
       return false;
     }
     if (!checkTimeIncreasingConsistently(situation, nextTimeStep))
     {
+      DLT_LOG_CXX(RssLogging::getDltContext(),
+                  DLT_LOG_ERROR,
+                  "RssSituationChecking::checkSituationInputRangeChecked>> Inconsistent time",
+                  situation);
       return false;
     }
 
@@ -94,12 +103,21 @@ bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation 
         result = mIntersectionChecker->calculateRssStateIntersection(situation, response);
         break;
       default:
+        DLT_LOG_CXX(RssLogging::getDltContext(),
+                    DLT_LOG_ERROR,
+                    "RssSituationChecking::checkSituationInputRangeChecked>> Invalid situation type",
+                    situation);
         result = false;
         break;
     }
   }
   catch (...)
   {
+    DLT_LOG_CXX(RssLogging::getDltContext(),
+                DLT_LOG_FATAL,
+                "RssSituationChecking::checkSituationInputRangeChecked>> Exception catched",
+                nextTimeStep,
+                situation);
     result = false;
   }
 
@@ -111,6 +129,10 @@ bool RssSituationChecking::checkSituations(situation::SituationVector const &sit
 {
   if (!withinValidInputRange(situationVector))
   {
+    DLT_LOG_CXX(RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "RssSituationChecking::checkSituations>> Invalid input",
+                situationVector);
     return false;
   }
   bool result = true;
@@ -137,6 +159,10 @@ bool RssSituationChecking::checkSituations(situation::SituationVector const &sit
   }
   catch (...)
   {
+    DLT_LOG_CXX(RssLogging::getDltContext(),
+                DLT_LOG_FATAL,
+                "RssSituationChecking::checkSituations>> Exception catched",
+                situationVector);
     result = false;
   }
   if (!result)
@@ -157,7 +183,11 @@ bool RssSituationChecking::checkTimeIncreasingConsistently(situation::Situation 
   }
   else if (mCurrentTimeIndex != situation.timeIndex)
   {
-    // time index changes within the situation. Not allowed.
+    DLT_LOG_CXX(RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "RssSituationChecking::checkTimeIncreasingConsistently>> Time index changes unexpectedly",
+                mCurrentTimeIndex,
+                situation.timeIndex);
     return false;
   }
 
@@ -170,6 +200,24 @@ bool RssSituationChecking::checkTimeIncreasingConsistently(situation::Situation 
     {
       timeIsIncreasing = true;
     }
+    else
+    {
+      DLT_LOG_CXX(RssLogging::getDltContext(),
+                  DLT_LOG_ERROR,
+                  "RssSituationChecking::checkTimeIncreasingConsistently>> Time is going backwards. Last:",
+                  mLastTimeIndex,
+                  "Current:",
+                  mCurrentTimeIndex);
+    }
+  }
+  else
+  {
+    DLT_LOG_CXX(RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "RssSituationChecking::checkTimeIncreasingConsistently>> Time is constant unexpectedly. Last:",
+                mLastTimeIndex,
+                "Current:",
+                mCurrentTimeIndex);
   }
   return timeIsIncreasing;
 }

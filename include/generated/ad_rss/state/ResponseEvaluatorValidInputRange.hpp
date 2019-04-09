@@ -39,6 +39,7 @@
 
 #pragma once
 
+#include <ad_rss/state/LoggingDefinitions.hpp>
 #include <cmath>
 #include <limits>
 #include "ad_rss/state/ResponseEvaluator.hpp"

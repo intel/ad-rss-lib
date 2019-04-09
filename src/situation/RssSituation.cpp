@@ -158,8 +158,8 @@ bool calculateLateralRssState(Situation const &situation,
   if (LateralRelativePosition::AtLeft == situation.relativePosition.lateralPosition)
   {
     rssStateLeft.responseInformation.responseEvaluator = state::ResponseEvaluator::None;
-    rssStateLeft.responseInformation.currentDistance = physics::Distance::getMax();
-    rssStateLeft.responseInformation.safeDistance = physics::Distance::getMax();
+    rssStateLeft.responseInformation.currentDistance = std::numeric_limits<physics::Distance>::max();
+    rssStateLeft.responseInformation.safeDistance = std::numeric_limits<physics::Distance>::max();
 
     // ego is the left vehicle, so right side has to be checked
     rssStateRight.responseInformation.responseEvaluator = state::ResponseEvaluator::LateralDistance;
@@ -173,8 +173,8 @@ bool calculateLateralRssState(Situation const &situation,
   else if (LateralRelativePosition::AtRight == situation.relativePosition.lateralPosition)
   {
     rssStateRight.responseInformation.responseEvaluator = state::ResponseEvaluator::None;
-    rssStateRight.responseInformation.currentDistance = physics::Distance::getMax();
-    rssStateRight.responseInformation.safeDistance = physics::Distance::getMax();
+    rssStateRight.responseInformation.currentDistance = std::numeric_limits<physics::Distance>::max();
+    rssStateRight.responseInformation.safeDistance = std::numeric_limits<physics::Distance>::max();
 
     // ego is the right vehicle, so left side has to be checked
     rssStateLeft.responseInformation.responseEvaluator = state::ResponseEvaluator::LateralDistance;

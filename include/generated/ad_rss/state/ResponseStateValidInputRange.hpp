@@ -42,6 +42,7 @@
 #include <cmath>
 #include <limits>
 #include "ad_rss/state/LateralRssStateValidInputRange.hpp"
+#include "ad_rss/state/LoggingDefinitions.hpp"
 #include "ad_rss/state/LongitudinalRssStateValidInputRange.hpp"
 #include "ad_rss/state/ResponseState.hpp"
 

@@ -39,10 +39,11 @@
 
 #pragma once
 
+#include <ad_rss/world/LoggingDefinitions.hpp>
 #include <cmath>
 #include <limits>
 #include "ad_rss/physics/AccelerationRangeValidInputRange.hpp"
-#include "ad_rss/world/AccelerationRestriction.hpp"
+#include "ad_rss/world/AccelerationRestrictionDlt.hpp"
 
 /*!
  * \brief check if the given AccelerationRestriction is within valid input range
@@ -62,9 +63,27 @@ inline bool withinValidInputRange(::ad_rss::world::AccelerationRestriction const
     // check for generic member input ranges
     bool const membersInValidInputRange = withinValidInputRange(input.lateralLeftRange)
       && withinValidInputRange(input.longitudinalRange) && withinValidInputRange(input.lateralRightRange);
+    if (!membersInValidInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::world::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::AccelerationRestriction)>> members out of valid range",
+                  input);
+    }
 
     // check for individual input ranges
     bool const timeIndexInInputRange = (::ad_rss::physics::TimeIndex(1) <= input.timeIndex);
+    if (!timeIndexInInputRange)
+    {
+      DLT_LOG_CXX(::ad_rss::world::getLoggingContext(),
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::AccelerationRestriction)>> timeIndex:",
+                  input.timeIndex,
+                  "out of valid range [",
+                  ::ad_rss::physics::TimeIndex(1),
+                  ",",
+                  ")");
+    }
 
     return membersInValidInputRange && timeIndexInInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
@@ -72,6 +91,9 @@ inline bool withinValidInputRange(::ad_rss::world::AccelerationRestriction const
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
   catch (std::out_of_range &)
   {
+    DLT_LOG_CXX(::ad_rss::world::getLoggingContext(),
+                DLT_LOG_ERROR,
+                "withinValidInputRange(::ad_rss::world::AccelerationRestriction)>> out of range exception");
   }
   return false;
   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes
