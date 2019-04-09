@@ -30,6 +30,7 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
+#include "ad_rss/core/RssLogging.hpp"
 
 namespace ad_rss {
 
@@ -129,6 +130,14 @@ situation::RelativePosition createRelativeLateralPosition(situation::LateralRela
 
 TestSupport::TestSupport()
 {
+#if DLT_NOT_AVAILABLE == 0
+  DLT_REGISTER_APP("RssT", "ad-rss-lib test");
+  dlt_set_resend_timeout_atexit(0); // do not wait for any dlt-daemon to connect
+#if RSS_TEST_LOCAL_PRINT
+  DLT_ENABLE_LOCAL_PRINT(); // print locally
+#endif                      // RSS_TEST_LOCAL_PRINT
+#endif                      // RSS_LOGGING_ENABLED
+
   resetRssState(cLongitudinalSafe);
   cLongitudinalSafe.isSafe = true;
   cLongitudinalSafe.response = state::LongitudinalResponse::None;
@@ -150,6 +159,13 @@ TestSupport::TestSupport()
   resetRssState(cLateralBrakeMin);
   cLateralBrakeMin.isSafe = false;
   cLateralBrakeMin.response = state::LateralResponse::BrakeMin;
+}
+
+TestSupport::~TestSupport()
+{
+#if DLT_NOT_AVAILABLE == 0
+  DLT_UNREGISTER_APP();
+#endif // RSS_LOGGING_ENABLED
 }
 
 state::LateralRssState TestSupport::stateWithInformation(state::LateralRssState const &lateralState,

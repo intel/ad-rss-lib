@@ -41,6 +41,7 @@
 
 #include <cmath>
 #include <limits>
+#include "ad_rss/situation/DltDefinitions.hpp"
 #include "ad_rss/situation/SituationValidInputRange.hpp"
 #include "ad_rss/situation/SituationVector.hpp"
 
@@ -48,6 +49,7 @@
  * \brief check if the given SituationVector is within valid input range
  *
  * \param[in] input the SituationVector as an input value
+ * \param[in] dltContext the logging context for error logging
  *
  * \returns \c true if SituationVector is considered to be within the specified input range
  *
@@ -55,7 +57,7 @@
  *       0 <= \c input.size() <= 100
  *       and the ranges of all vector elements
  */
-inline bool withinValidInputRange(::ad_rss::situation::SituationVector const &input)
+inline bool withinValidInputRange(::ad_rss::situation::SituationVector const &input, DltContext &dltContext)
 {
   try
   {
@@ -66,7 +68,15 @@ inline bool withinValidInputRange(::ad_rss::situation::SituationVector const &in
     {
       for (auto const &member : input)
       {
-        inValidInputRange = inValidInputRange && withinValidInputRange(member);
+        bool const memberInValidInputRange = withinValidInputRange(member, dltContext);
+        if (!memberInValidInputRange)
+        {
+          DLT_LOG_CXX(dltContext,
+                      DLT_LOG_ERROR,
+                      "withinValidInputRange(::ad_rss::situation::SituationVector)>> member out of valid range",
+                      member);
+        }
+        inValidInputRange = inValidInputRange && memberInValidInputRange;
       }
     }
     return inValidInputRange;
@@ -75,6 +85,9 @@ inline bool withinValidInputRange(::ad_rss::situation::SituationVector const &in
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
   catch (std::out_of_range &)
   {
+    DLT_LOG_CXX(dltContext,
+                DLT_LOG_ERROR,
+                "withinValidInputRange(::ad_rss::situation::SituationVector)>> out of range exception");
   }
   return false;
   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes

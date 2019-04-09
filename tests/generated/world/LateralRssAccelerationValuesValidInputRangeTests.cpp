@@ -41,7 +41,23 @@
 
 #include "ad_rss/world/LateralRssAccelerationValuesValidInputRange.hpp"
 
-TEST(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRange)
+class LateralRssAccelerationValuesValidInputRangeTests : public ::testing::Test
+{
+public:
+  void SetUp() override
+  {
+    DLT_REGISTER_CONTEXT(mDltContext, "TEST", "LateralRssAccelerationValuesValidInputRangeTests");
+  }
+
+  void TearDown() override
+  {
+    DLT_UNREGISTER_CONTEXT(mDltContext);
+  }
+
+  DltContext mDltContext;
+};
+
+TEST_F(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRange)
 {
   ::ad_rss::world::LateralRssAccelerationValues value;
   ::ad_rss::physics::Acceleration valueAccelMax(-1e2);
@@ -51,10 +67,10 @@ TEST(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRange)
   valueBrakeMin = ::ad_rss::physics::Acceleration(
     0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   value.brakeMin = valueBrakeMin;
-  ASSERT_TRUE(withinValidInputRange(value));
+  ASSERT_TRUE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRangeAccelMaxTooSmall)
+TEST_F(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRangeAccelMaxTooSmall)
 {
   ::ad_rss::world::LateralRssAccelerationValues value;
   ::ad_rss::physics::Acceleration valueAccelMax(-1e2);
@@ -68,10 +84,10 @@ TEST(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRangeAccelM
   // override member with invalid value
   ::ad_rss::physics::Acceleration invalidInitializedMember(-1e2 * 1.1);
   value.accelMax = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRangeAccelMaxTooBig)
+TEST_F(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRangeAccelMaxTooBig)
 {
   ::ad_rss::world::LateralRssAccelerationValues value;
   ::ad_rss::physics::Acceleration valueAccelMax(-1e2);
@@ -85,18 +101,18 @@ TEST(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRangeAccelM
   // override member with invalid value
   ::ad_rss::physics::Acceleration invalidInitializedMember(1e2 * 1.1);
   value.accelMax = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRangeaccelMaxDefault)
+TEST_F(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRangeaccelMaxDefault)
 {
   ::ad_rss::world::LateralRssAccelerationValues value;
   ::ad_rss::physics::Acceleration valueDefault;
   value.accelMax = valueDefault;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRangeBrakeMinTooSmall)
+TEST_F(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRangeBrakeMinTooSmall)
 {
   ::ad_rss::world::LateralRssAccelerationValues value;
   ::ad_rss::physics::Acceleration valueAccelMax(-1e2);
@@ -110,10 +126,10 @@ TEST(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRangeBrakeM
   // override member with invalid value
   ::ad_rss::physics::Acceleration invalidInitializedMember(-1e2 * 1.1);
   value.brakeMin = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRangeBrakeMinTooBig)
+TEST_F(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRangeBrakeMinTooBig)
 {
   ::ad_rss::world::LateralRssAccelerationValues value;
   ::ad_rss::physics::Acceleration valueAccelMax(-1e2);
@@ -127,13 +143,13 @@ TEST(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRangeBrakeM
   // override member with invalid value
   ::ad_rss::physics::Acceleration invalidInitializedMember(1e2 * 1.1);
   value.brakeMin = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRangebrakeMinDefault)
+TEST_F(LateralRssAccelerationValuesValidInputRangeTests, testValidInputRangebrakeMinDefault)
 {
   ::ad_rss::world::LateralRssAccelerationValues value;
   ::ad_rss::physics::Acceleration valueDefault;
   value.brakeMin = valueDefault;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }

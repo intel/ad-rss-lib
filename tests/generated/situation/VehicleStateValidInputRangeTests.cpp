@@ -41,7 +41,23 @@
 
 #include "ad_rss/situation/VehicleStateValidInputRange.hpp"
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRange)
+class VehicleStateValidInputRangeTests : public ::testing::Test
+{
+public:
+  void SetUp() override
+  {
+    DLT_REGISTER_CONTEXT(mDltContext, "TEST", "VehicleStateValidInputRangeTests");
+  }
+
+  void TearDown() override
+  {
+    DLT_UNREGISTER_CONTEXT(mDltContext);
+  }
+
+  DltContext mDltContext;
+};
+
+TEST_F(VehicleStateValidInputRangeTests, testValidInputRange)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::world::Velocity valueVelocity;
@@ -96,10 +112,10 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRange)
   value.distanceToLeaveIntersection = valueDistanceToLeaveIntersection;
   value.distanceToLeaveIntersection = value.distanceToEnterIntersection;
   value.distanceToEnterIntersection = value.distanceToLeaveIntersection;
-  ASSERT_TRUE(withinValidInputRange(value));
+  ASSERT_TRUE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangeVelocityTooSmall)
+TEST_F(VehicleStateValidInputRangeTests, testValidInputRangeVelocityTooSmall)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::world::Velocity valueVelocity;
@@ -160,10 +176,10 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeVelocityTooSmall)
   ::ad_rss::physics::Speed invalidInitializedMemberSpeedLon(-100. * 1.1);
   invalidInitializedMember.speedLon = invalidInitializedMemberSpeedLon;
   value.velocity = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangeVelocityTooBig)
+TEST_F(VehicleStateValidInputRangeTests, testValidInputRangeVelocityTooBig)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::world::Velocity valueVelocity;
@@ -224,10 +240,10 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeVelocityTooBig)
   ::ad_rss::physics::Speed invalidInitializedMemberSpeedLon(100. * 1.1);
   invalidInitializedMember.speedLon = invalidInitializedMemberSpeedLon;
   value.velocity = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsTooSmall)
+TEST_F(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsTooSmall)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::world::Velocity valueVelocity;
@@ -290,10 +306,10 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsTooSmall)
   invalidInitializedMemberAlphaLon.accelMax = invalidInitializedMemberAlphaLonAccelMax;
   invalidInitializedMember.alphaLon = invalidInitializedMemberAlphaLon;
   value.dynamics = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsTooBig)
+TEST_F(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsTooBig)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::world::Velocity valueVelocity;
@@ -356,10 +372,10 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsTooBig)
   invalidInitializedMemberAlphaLon.accelMax = invalidInitializedMemberAlphaLonAccelMax;
   invalidInitializedMember.alphaLon = invalidInitializedMemberAlphaLon;
   value.dynamics = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangeResponseTimeTooSmall)
+TEST_F(VehicleStateValidInputRangeTests, testValidInputRangeResponseTimeTooSmall)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::world::Velocity valueVelocity;
@@ -418,10 +434,10 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeResponseTimeTooSmall)
   // override member with invalid value
   ::ad_rss::physics::Duration invalidInitializedMember(0. - ::ad_rss::physics::Duration::cPrecisionValue);
   value.responseTime = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangeResponseTimeTooBig)
+TEST_F(VehicleStateValidInputRangeTests, testValidInputRangeResponseTimeTooBig)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::world::Velocity valueVelocity;
@@ -481,18 +497,18 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeResponseTimeTooBig)
   ::ad_rss::physics::Duration invalidInitializedMember(100. * 1.1);
   invalidInitializedMember = ::ad_rss::physics::Duration(10. * 1.1); // set to valid value within struct
   value.responseTime = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangeresponseTimeDefault)
+TEST_F(VehicleStateValidInputRangeTests, testValidInputRangeresponseTimeDefault)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::physics::Duration valueDefault;
   value.responseTime = valueDefault;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterIntersectionTooSmall)
+TEST_F(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterIntersectionTooSmall)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::world::Velocity valueVelocity;
@@ -551,10 +567,10 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterInterse
   // override member with invalid value
   ::ad_rss::physics::Distance invalidInitializedMember(0. - ::ad_rss::physics::Distance::cPrecisionValue);
   value.distanceToEnterIntersection = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterIntersectionTooBig)
+TEST_F(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterIntersectionTooBig)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::world::Velocity valueVelocity;
@@ -613,18 +629,18 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterInterse
   // override member with invalid value
   ::ad_rss::physics::Distance invalidInitializedMember(1e6 * 1.1);
   value.distanceToEnterIntersection = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangedistanceToEnterIntersectionDefault)
+TEST_F(VehicleStateValidInputRangeTests, testValidInputRangedistanceToEnterIntersectionDefault)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::physics::Distance valueDefault;
   value.distanceToEnterIntersection = valueDefault;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveIntersectionTooSmall)
+TEST_F(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveIntersectionTooSmall)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::world::Velocity valueVelocity;
@@ -683,10 +699,10 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveInterse
   // override member with invalid value
   ::ad_rss::physics::Distance invalidInitializedMember(0. - ::ad_rss::physics::Distance::cPrecisionValue);
   value.distanceToLeaveIntersection = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveIntersectionTooBig)
+TEST_F(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveIntersectionTooBig)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::world::Velocity valueVelocity;
@@ -746,13 +762,13 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveInterse
   ::ad_rss::physics::Distance invalidInitializedMember(1e6 * 1.1);
   invalidInitializedMember = ::ad_rss::physics::Distance(1e4 * 1.1); // set to valid value within struct
   value.distanceToLeaveIntersection = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(VehicleStateValidInputRangeTests, testValidInputRangedistanceToLeaveIntersectionDefault)
+TEST_F(VehicleStateValidInputRangeTests, testValidInputRangedistanceToLeaveIntersectionDefault)
 {
   ::ad_rss::situation::VehicleState value;
   ::ad_rss::physics::Distance valueDefault;
   value.distanceToLeaveIntersection = valueDefault;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }

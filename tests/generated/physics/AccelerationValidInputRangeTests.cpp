@@ -41,56 +41,72 @@
 
 #include "ad_rss/physics/AccelerationValidInputRange.hpp"
 
-TEST(AccelerationValidInputRangeTests, testValidInputRangeUninitialized)
+class AccelerationValidInputRangeTests : public ::testing::Test
+{
+public:
+  void SetUp() override
+  {
+    DLT_REGISTER_CONTEXT(mDltContext, "TEST", "AccelerationValidInputRangeTests");
+  }
+
+  void TearDown() override
+  {
+    DLT_UNREGISTER_CONTEXT(mDltContext);
+  }
+
+  DltContext mDltContext;
+};
+
+TEST_F(AccelerationValidInputRangeTests, testValidInputRangeUninitialized)
 {
   ::ad_rss::physics::Acceleration value;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(AccelerationValidInputRangeTests, testValidInputRangeMinOk)
+TEST_F(AccelerationValidInputRangeTests, testValidInputRangeMinOk)
 {
   ::ad_rss::physics::Acceleration value(-1e3);
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(AccelerationValidInputRangeTests, testValidInputRangeMaxOk)
+TEST_F(AccelerationValidInputRangeTests, testValidInputRangeMaxOk)
 {
   ::ad_rss::physics::Acceleration value(1e3);
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(AccelerationValidInputRangeTests, testValidInputRangeBelowMin)
+TEST_F(AccelerationValidInputRangeTests, testValidInputRangeBelowMin)
 {
   ::ad_rss::physics::Acceleration value(-1e3 * 1.1);
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(AccelerationValidInputRangeTests, testValidInputRangeExceedsMax)
+TEST_F(AccelerationValidInputRangeTests, testValidInputRangeExceedsMax)
 {
   ::ad_rss::physics::Acceleration value(1e3 * 1.1);
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(AccelerationValidInputRangeTests, testValidInputRangeInputMinOk)
+TEST_F(AccelerationValidInputRangeTests, testValidInputRangeInputMinOk)
 {
   ::ad_rss::physics::Acceleration value(-1e2);
-  ASSERT_TRUE(withinValidInputRange(value));
+  ASSERT_TRUE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(AccelerationValidInputRangeTests, testValidInputRangeInputMaxOk)
+TEST_F(AccelerationValidInputRangeTests, testValidInputRangeInputMaxOk)
 {
   ::ad_rss::physics::Acceleration value(1e2);
-  ASSERT_TRUE(withinValidInputRange(value));
+  ASSERT_TRUE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(AccelerationValidInputRangeTests, testValidInputRangeBelowInputMin)
+TEST_F(AccelerationValidInputRangeTests, testValidInputRangeBelowInputMin)
 {
   ::ad_rss::physics::Acceleration value(-1e2 * 1.1);
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(AccelerationValidInputRangeTests, testValidInputRangeExceedsInputMax)
+TEST_F(AccelerationValidInputRangeTests, testValidInputRangeExceedsInputMax)
 {
   ::ad_rss::physics::Acceleration value(1e2 * 1.1);
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }

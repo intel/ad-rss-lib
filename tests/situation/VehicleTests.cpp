@@ -35,18 +35,34 @@
 namespace ad_rss {
 namespace situation {
 
-TEST(RssFormulaTestsCheckVehicleState, check_standard_state)
+class RssFormulaTestsCheckVehicleState : public ::testing::Test
+{
+public:
+  void SetUp() override
+  {
+    DLT_REGISTER_CONTEXT(mDltContext, "TEST", "RssFormulaTestsCheckVehicleState");
+  }
+
+  void TearDown() override
+  {
+    DLT_UNREGISTER_CONTEXT(mDltContext);
+  }
+
+  DltContext mDltContext;
+};
+
+TEST_F(RssFormulaTestsCheckVehicleState, check_standard_state)
 {
   VehicleState leadingVehicle = createVehicleStateForLongitudinalMotion(10);
 
-  ASSERT_TRUE(withinValidInputRange(leadingVehicle));
+  ASSERT_TRUE(withinValidInputRange(leadingVehicle, mDltContext));
 }
 
-TEST(RssFormulaTestsCheckVehicleState, check_standard_state_100)
+TEST_F(RssFormulaTestsCheckVehicleState, check_standard_state_100)
 {
   VehicleState leadingVehicle = createVehicleStateForLongitudinalMotion(100);
 
-  ASSERT_TRUE(withinValidInputRange(leadingVehicle));
+  ASSERT_TRUE(withinValidInputRange(leadingVehicle, mDltContext));
 }
 
 } // namespace situation

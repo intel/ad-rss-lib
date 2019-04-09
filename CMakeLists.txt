@@ -35,6 +35,7 @@ set(BUILD_DOC "OFF" CACHE BOOL "Enable compilation of doxygen documentation")
 set(BUILD_HARDENING "OFF" CACHE BOOL "Enable build hardening flags")
 set(BUILD_COVERAGE "OFF" CACHE BOOL "Enable test coverage")
 set(BUILD_STATIC_ANALYSIS "OFF" CACHE BOOL "Enable static code analysis")
+set(ENABLE_LOGGING "OFF" CACHE BOOL "Enable logging functionality using DLT")
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -82,6 +83,16 @@ else()
   set(COVERAGE_FLAG "")
 endif()
 
+# activate logging
+if (ENABLE_LOGGING)
+  find_package(PkgConfig)
+  pkg_check_modules(DLTCPP automotive-dlt-c++ REQUIRED)
+  set(LOGGING_DEFINITIONS "")
+else()
+  set(DLTCPP_INCLUDE_DIRS "")
+  set(DLTCPP_LIBRARIES "")
+  set(LOGGING_DEFINITIONS "DLT_NOT_AVAILABLE=1")
+endif()
 
 set(GENERATED_SOURCES
   src/generated/physics/Acceleration.cpp
@@ -106,6 +117,7 @@ set(GENERATED_SOURCES
 
 add_library(${PROJECT_NAME} SHARED
   src/core/RssCheck.cpp
+  src/core/RssLogging.cpp
   src/core/RssResponseResolving.cpp
   src/core/RssResponseTransformation.cpp
   src/core/RssSituationChecking.cpp
@@ -129,11 +141,18 @@ target_include_directories(${PROJECT_NAME}
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/generated>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+  ${DLTCPP_INCLUDE_DIRS}
   PRIVATE
   src
 )
 
+target_link_libraries(${PROJECT_NAME}
+  PUBLIC
+  ${DLTCPP_LIBRARIES}
+)
+
 target_compile_options(${PROJECT_NAME} PRIVATE ${COVERAGE_FLAG} ${TARGET_COMPILE_OPTIONS})
+target_compile_definitions(${PROJECT_NAME} PRIVATE ${LOGGING_DEFINITIONS})
 set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "${COVERAGE_FLAG} ${HARDENING_LD_FLAGS}")
 
 ################################################################################
@@ -234,4 +253,3 @@ if(BUILD_STATIC_ANALYSIS)
     -I${CMAKE_CURRENT_SOURCE_DIR}/src/generated/
   )
 endif()
-

@@ -42,6 +42,7 @@
 #include <cmath>
 #include <limits>
 #include "ad_rss/physics/DistanceValidInputRange.hpp"
+#include "ad_rss/situation/DltDefinitions.hpp"
 #include "ad_rss/situation/LateralRelativePositionValidInputRange.hpp"
 #include "ad_rss/situation/LongitudinalRelativePositionValidInputRange.hpp"
 #include "ad_rss/situation/RelativePosition.hpp"

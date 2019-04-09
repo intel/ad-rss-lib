@@ -41,6 +41,7 @@
 
 #include <cmath>
 #include <limits>
+#include "ad_rss/physics/DltDefinitions.hpp"
 #include "ad_rss/physics/SpeedSquared.hpp"
 
 /*!

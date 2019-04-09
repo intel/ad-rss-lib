@@ -42,6 +42,7 @@
 #include <cmath>
 #include <limits>
 #include "ad_rss/physics/DistanceValidInputRange.hpp"
+#include "ad_rss/state/DltDefinitions.hpp"
 #include "ad_rss/state/ResponseEvaluatorValidInputRange.hpp"
 #include "ad_rss/state/ResponseInformation.hpp"
 

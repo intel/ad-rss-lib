@@ -42,8 +42,9 @@
 #include <cmath>
 #include <limits>
 #include "ad_rss/physics/DurationValidInputRange.hpp"
+#include "ad_rss/world/DltDefinitions.hpp"
 #include "ad_rss/world/DynamicsValidInputRange.hpp"
-#include "ad_rss/world/Object.hpp"
+#include "ad_rss/world/ObjectDlt.hpp"
 #include "ad_rss/world/ObjectTypeValidInputRange.hpp"
 #include "ad_rss/world/OccupiedRegionVectorValidInputRange.hpp"
 #include "ad_rss/world/VelocityValidInputRange.hpp"
@@ -52,25 +53,45 @@
  * \brief check if the given Object is within valid input range
  *
  * \param[in] input the Object as an input value
+ * \param[in] dltContext the logging context for error logging
  *
  * \returns \c true if Object is considered to be within the specified input range
  *
  * \note the specified input range is defined by the ranges of all members, plus:
  *       ::ad_rss::physics::Duration(0.) < responseTime <= ::ad_rss::physics::Duration(10.)
  */
-inline bool withinValidInputRange(::ad_rss::world::Object const &input)
+inline bool withinValidInputRange(::ad_rss::world::Object const &input, DltContext &dltContext)
 {
   try
   {
     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
     // check for generic member input ranges
-    bool const membersInValidInputRange = withinValidInputRange(input.objectType)
-      && withinValidInputRange(input.occupiedRegions) && withinValidInputRange(input.dynamics)
+    bool const membersInValidInputRange = withinValidInputRange(input.objectType, dltContext)
+      && withinValidInputRange(input.occupiedRegions) && withinValidInputRange(input.dynamics, dltContext)
       && withinValidInputRange(input.velocity) && withinValidInputRange(input.responseTime);
+    if (!membersInValidInputRange)
+    {
+      DLT_LOG_CXX(dltContext,
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::Object)>> members out of valid range",
+                  input);
+    }
 
     // check for individual input ranges
     bool const responseTimeInInputRange = (::ad_rss::physics::Duration(0.) < input.responseTime)
       && (input.responseTime <= ::ad_rss::physics::Duration(10.));
+    if (!responseTimeInInputRange)
+    {
+      DLT_LOG_CXX(dltContext,
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::Object)>> responseTime:",
+                  input.responseTime,
+                  "out of valid range (",
+                  ::ad_rss::physics::Duration(0.),
+                  ",",
+                  ::ad_rss::physics::Duration(10.),
+                  "]");
+    }
 
     return membersInValidInputRange && responseTimeInInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
@@ -78,6 +99,7 @@ inline bool withinValidInputRange(::ad_rss::world::Object const &input)
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
   catch (std::out_of_range &)
   {
+    DLT_LOG_CXX(dltContext, DLT_LOG_ERROR, "withinValidInputRange(::ad_rss::world::Object)>> out of range exception");
   }
   return false;
   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes

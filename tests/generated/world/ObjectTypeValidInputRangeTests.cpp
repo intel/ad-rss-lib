@@ -41,14 +41,30 @@
 
 #include "ad_rss/world/ObjectTypeValidInputRange.hpp"
 
-TEST(ObjectTypeValidInputRangeTests, testValidInputRangeValid)
+class ObjectTypeValidInputRangeTests : public ::testing::Test
 {
-  ASSERT_TRUE(withinValidInputRange(::ad_rss::world::ObjectType::EgoVehicle));
-  ASSERT_TRUE(withinValidInputRange(::ad_rss::world::ObjectType::OtherVehicle));
-  ASSERT_TRUE(withinValidInputRange(::ad_rss::world::ObjectType::ArtificialObject));
+public:
+  void SetUp() override
+  {
+    DLT_REGISTER_CONTEXT(mDltContext, "TEST", "ObjectTypeValidInputRangeTests");
+  }
+
+  void TearDown() override
+  {
+    DLT_UNREGISTER_CONTEXT(mDltContext);
+  }
+
+  DltContext mDltContext;
+};
+
+TEST_F(ObjectTypeValidInputRangeTests, testValidInputRangeValid)
+{
+  ASSERT_TRUE(withinValidInputRange(::ad_rss::world::ObjectType::EgoVehicle, mDltContext));
+  ASSERT_TRUE(withinValidInputRange(::ad_rss::world::ObjectType::OtherVehicle, mDltContext));
+  ASSERT_TRUE(withinValidInputRange(::ad_rss::world::ObjectType::ArtificialObject, mDltContext));
 }
 
-TEST(ObjectTypeValidInputRangeTests, testValidInputRangeInvalid)
+TEST_F(ObjectTypeValidInputRangeTests, testValidInputRangeInvalid)
 {
   int32_t minValue = std::numeric_limits<int32_t>::max();
 
@@ -56,5 +72,5 @@ TEST(ObjectTypeValidInputRangeTests, testValidInputRangeInvalid)
   minValue = std::min(minValue, static_cast<int32_t>(::ad_rss::world::ObjectType::OtherVehicle));
   minValue = std::min(minValue, static_cast<int32_t>(::ad_rss::world::ObjectType::ArtificialObject));
 
-  ASSERT_FALSE(withinValidInputRange(static_cast<::ad_rss::world::ObjectType>(minValue - 1)));
+  ASSERT_FALSE(withinValidInputRange(static_cast<::ad_rss::world::ObjectType>(minValue - 1), mDltContext));
 }

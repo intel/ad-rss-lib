@@ -42,7 +42,8 @@
 #include <cmath>
 #include <limits>
 #include "ad_rss/physics/DistanceValidInputRange.hpp"
-#include "ad_rss/world/Dynamics.hpp"
+#include "ad_rss/world/DltDefinitions.hpp"
+#include "ad_rss/world/DynamicsDlt.hpp"
 #include "ad_rss/world/LateralRssAccelerationValuesValidInputRange.hpp"
 #include "ad_rss/world/LongitudinalRssAccelerationValuesValidInputRange.hpp"
 
@@ -50,25 +51,45 @@
  * \brief check if the given Dynamics is within valid input range
  *
  * \param[in] input the Dynamics as an input value
+ * \param[in] dltContext the logging context for error logging
  *
  * \returns \c true if Dynamics is considered to be within the specified input range
  *
  * \note the specified input range is defined by the ranges of all members, plus:
  *       ::ad_rss::physics::Distance(0.) <= lateralFluctuationMargin <= ::ad_rss::physics::Distance(1.)
  */
-inline bool withinValidInputRange(::ad_rss::world::Dynamics const &input)
+inline bool withinValidInputRange(::ad_rss::world::Dynamics const &input, DltContext &dltContext)
 {
   try
   {
     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
     // check for generic member input ranges
-    bool const membersInValidInputRange = withinValidInputRange(input.alphaLon) && withinValidInputRange(input.alphaLat)
-      && withinValidInputRange(input.lateralFluctuationMargin);
+    bool const membersInValidInputRange = withinValidInputRange(input.alphaLon, dltContext)
+      && withinValidInputRange(input.alphaLat, dltContext) && withinValidInputRange(input.lateralFluctuationMargin);
+    if (!membersInValidInputRange)
+    {
+      DLT_LOG_CXX(dltContext,
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::Dynamics)>> members out of valid range",
+                  input);
+    }
 
     // check for individual input ranges
     bool const lateralFluctuationMarginInInputRange
       = (::ad_rss::physics::Distance(0.) <= input.lateralFluctuationMargin)
       && (input.lateralFluctuationMargin <= ::ad_rss::physics::Distance(1.));
+    if (!lateralFluctuationMarginInInputRange)
+    {
+      DLT_LOG_CXX(dltContext,
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::Dynamics)>> lateralFluctuationMargin:",
+                  input.lateralFluctuationMargin,
+                  "out of valid range [",
+                  ::ad_rss::physics::Distance(0.),
+                  ",",
+                  ::ad_rss::physics::Distance(1.),
+                  "]");
+    }
 
     return membersInValidInputRange && lateralFluctuationMarginInInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
@@ -76,6 +97,7 @@ inline bool withinValidInputRange(::ad_rss::world::Dynamics const &input)
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
   catch (std::out_of_range &)
   {
+    DLT_LOG_CXX(dltContext, DLT_LOG_ERROR, "withinValidInputRange(::ad_rss::world::Dynamics)>> out of range exception");
   }
   return false;
   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes

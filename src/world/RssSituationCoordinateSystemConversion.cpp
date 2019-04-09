@@ -32,12 +32,12 @@
  * @file
  */
 
+#include "world/RssSituationCoordinateSystemConversion.hpp"
 #include <algorithm>
 #include <limits>
 #include <vector>
-
+#include "ad_rss/core/RssLogging.hpp"
 #include "world/RssObjectPositionExtractor.hpp"
-#include "world/RssSituationCoordinateSystemConversion.hpp"
 
 /*!
  * @brief namespace ad_rss
@@ -91,6 +91,10 @@ bool calculateLateralDimensions(RoadArea const &roadArea, std::vector<MetricRang
   }
   catch (...)
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_FATAL,
+                "RssSituationCoordinateSystemConversion::calculateLateralDimensions>> Exception catched",
+                roadArea);
     return false;
   }
 
@@ -223,6 +227,11 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
   }
   catch (...)
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_FATAL,
+                "RssSituationCoordinateSystemConversion::calculateObjectDimensions>> Exception catched",
+                objects,
+                roadArea);
     return false;
   }
 
@@ -257,6 +266,11 @@ bool calculateObjectDimensions(Object const &egoVehicle,
   }
   catch (...)
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_FATAL,
+                "RssSituationCoordinateSystemConversion::calculateObjectDimensions>> Exception catched",
+                egoVehicle,
+                currentScene);
     return false;
   }
 
@@ -288,6 +302,11 @@ bool calculateObjectDimensions(Object const &object,
   }
   catch (...)
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_FATAL,
+                "RssSituationCoordinateSystemConversion::calculateObjectDimensions>> Exception catched",
+                object,
+                roadArea);
     return false;
   }
 

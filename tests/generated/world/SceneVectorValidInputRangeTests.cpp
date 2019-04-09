@@ -41,13 +41,29 @@
 
 #include "ad_rss/world/SceneVectorValidInputRange.hpp"
 
-TEST(SceneVectorValidInputRangeTests, testValidInputRangeValidInputRangeMin)
+class SceneVectorValidInputRangeTests : public ::testing::Test
+{
+public:
+  void SetUp() override
+  {
+    DLT_REGISTER_CONTEXT(mDltContext, "TEST", "SceneVectorValidInputRangeTests");
+  }
+
+  void TearDown() override
+  {
+    DLT_UNREGISTER_CONTEXT(mDltContext);
+  }
+
+  DltContext mDltContext;
+};
+
+TEST_F(SceneVectorValidInputRangeTests, testValidInputRangeValidInputRangeMin)
 {
   ::ad_rss::world::SceneVector value;
-  ASSERT_TRUE(withinValidInputRange(value));
+  ASSERT_TRUE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SceneVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
+TEST_F(SceneVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
 {
   ::ad_rss::world::SceneVector value;
   ::ad_rss::world::Scene element;
@@ -108,10 +124,10 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   elementObject.responseTime = elementObjectResponseTime;
   element.object = elementObject;
   value.resize(1000, element);
-  ASSERT_TRUE(withinValidInputRange(value));
+  ASSERT_TRUE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SceneVectorValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax)
+TEST_F(SceneVectorValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax)
 {
   ::ad_rss::world::SceneVector value;
   ::ad_rss::world::Scene element;
@@ -172,15 +188,15 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax
   elementObject.responseTime = elementObjectResponseTime;
   element.object = elementObject;
   value.resize(1001, element);
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SceneVectorValidInputRangeTests, testValidInputRangeElementTypeInvalid)
+TEST_F(SceneVectorValidInputRangeTests, testValidInputRangeElementTypeInvalid)
 {
   ::ad_rss::world::SceneVector value;
   ::ad_rss::world::Scene element;
   ::ad_rss::situation::SituationType elementSituationType(static_cast<::ad_rss::situation::SituationType>(-1));
   element.situationType = elementSituationType;
   value.resize(999, element);
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }

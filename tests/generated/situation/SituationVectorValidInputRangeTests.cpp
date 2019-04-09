@@ -41,13 +41,29 @@
 
 #include "ad_rss/situation/SituationVectorValidInputRange.hpp"
 
-TEST(SituationVectorValidInputRangeTests, testValidInputRangeValidInputRangeMin)
+class SituationVectorValidInputRangeTests : public ::testing::Test
+{
+public:
+  void SetUp() override
+  {
+    DLT_REGISTER_CONTEXT(mDltContext, "TEST", "SituationVectorValidInputRangeTests");
+  }
+
+  void TearDown() override
+  {
+    DLT_UNREGISTER_CONTEXT(mDltContext);
+  }
+
+  DltContext mDltContext;
+};
+
+TEST_F(SituationVectorValidInputRangeTests, testValidInputRangeValidInputRangeMin)
 {
   ::ad_rss::situation::SituationVector value;
-  ASSERT_TRUE(withinValidInputRange(value));
+  ASSERT_TRUE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SituationVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
+TEST_F(SituationVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
 {
   ::ad_rss::situation::SituationVector value;
   ::ad_rss::situation::Situation element;
@@ -183,10 +199,10 @@ TEST(SituationVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   elementRelativePosition.lateralDistance = elementRelativePositionLateralDistance;
   element.relativePosition = elementRelativePosition;
   value.resize(100, element);
-  ASSERT_TRUE(withinValidInputRange(value));
+  ASSERT_TRUE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SituationVectorValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax)
+TEST_F(SituationVectorValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax)
 {
   ::ad_rss::situation::SituationVector value;
   ::ad_rss::situation::Situation element;
@@ -322,15 +338,15 @@ TEST(SituationVectorValidInputRangeTests, testValidInputRangeHigherThanInputRang
   elementRelativePosition.lateralDistance = elementRelativePositionLateralDistance;
   element.relativePosition = elementRelativePosition;
   value.resize(101, element);
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SituationVectorValidInputRangeTests, testValidInputRangeElementTypeInvalid)
+TEST_F(SituationVectorValidInputRangeTests, testValidInputRangeElementTypeInvalid)
 {
   ::ad_rss::situation::SituationVector value;
   ::ad_rss::situation::Situation element;
   ::ad_rss::situation::SituationType elementSituationType(static_cast<::ad_rss::situation::SituationType>(-1));
   element.situationType = elementSituationType;
   value.resize(99, element);
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }

@@ -30,6 +30,7 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "ad_rss/core/RssResponseTransformation.hpp"
+#include "ad_rss/core/RssLogging.hpp"
 #include "ad_rss/state/ResponseStateValidInputRange.hpp"
 #include "ad_rss/world/WorldModelValidInputRange.hpp"
 
@@ -42,13 +43,24 @@ bool transformProperResponse(world::WorldModel const &worldModel,
                              state::ResponseState const &response,
                              world::AccelerationRestriction &accelerationRestriction)
 {
-  if (!withinValidInputRange(worldModel) || !withinValidInputRange(response))
+  if (!withinValidInputRange(worldModel, RssLogging::getDltContext()) || !withinValidInputRange(response))
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "RssResponseTransformation::transformProperResponse>> Invalid input",
+                worldModel,
+                response);
     return false;
   }
 
   if (worldModel.timeIndex != response.timeIndex)
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "RssResponseTransformation::transformProperResponse>> WorldModel timeIndex",
+                worldModel.timeIndex,
+                "not matching response timeIndex",
+                response.timeIndex);
     return false;
   }
   accelerationRestriction.timeIndex = response.timeIndex;
@@ -71,7 +83,13 @@ bool transformProperResponse(world::WorldModel const &worldModel,
       accelerationRestriction.longitudinalRange.maximum = worldModel.egoVehicle.dynamics.alphaLon.accelMax;
       break;
     default:
-      return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
+      // LCOV_EXCL_START: unreachable code, keep to be on the safe side
+      DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                  DLT_LOG_ERROR,
+                  "RssResponseTransformation::transformProperResponse>> Invalid longitudinal response state",
+                  response.longitudinalState.response);
+      return false;
+      // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
       break;
   }
 
@@ -86,7 +104,13 @@ bool transformProperResponse(world::WorldModel const &worldModel,
       accelerationRestriction.lateralLeftRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;
       break;
     default:
-      return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
+      // LCOV_EXCL_START: unreachable code, keep to be on the safe side
+      DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                  DLT_LOG_ERROR,
+                  "RssResponseTransformation::transformProperResponse>> Invalid lateral left response state",
+                  response.lateralStateLeft.response);
+      return false;
+      // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
       break;
   }
 
@@ -101,7 +125,13 @@ bool transformProperResponse(world::WorldModel const &worldModel,
       accelerationRestriction.lateralRightRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;
       break;
     default:
-      return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
+      // LCOV_EXCL_START: unreachable code, keep to be on the safe side
+      DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                  DLT_LOG_ERROR,
+                  "RssResponseTransformation::transformProperResponse>> Invalid lateral right response state",
+                  response.lateralStateRight.response);
+      return false;
+      // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
       break;
   }
   // LCOV_EXCL_BR_STOP

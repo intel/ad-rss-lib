@@ -30,8 +30,8 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "ad_rss/core/RssSituationExtraction.hpp"
+#include "ad_rss/core/RssLogging.hpp"
 #include "ad_rss/world/WorldModelValidInputRange.hpp"
-
 #include "world/RssSituationCoordinateSystemConversion.hpp"
 
 namespace ad_rss {
@@ -147,6 +147,10 @@ bool convertObjectsNonIntersection(world::Object const &egoVehicle,
 {
   if (!currentScene.intersectingRoad.empty())
   {
+    DLT_LOG_CXX(RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "RssSituationExtraction::convertObjectsNonIntersection>> Intersecting road not empty",
+                currentScene);
     return false;
   }
 
@@ -268,7 +272,10 @@ bool convertObjectsIntersection(world::Object const &egoVehicle,
   }
   else
   {
-    // This function should never be called if we are not in intersection situation
+    DLT_LOG_CXX(RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "RssSituationExtraction::convertObjectsIntersection>> Unexpected situationType",
+                currentScene);
     result = false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
   }
 
@@ -287,10 +294,23 @@ bool extractSituationInputRangeChecked(physics::TimeIndex const &timeIndex,
        && (currentScene.object.objectType != world::ObjectType::ArtificialObject))
       || (egoVehicle.objectType != world::ObjectType::EgoVehicle))
   {
+    DLT_LOG_CXX(RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "RssSituationExtraction::extractSituationInputRangeChecked>> Invalid object type. Ego:",
+                egoVehicle,
+                "Object:",
+                currentScene.object);
     return false;
   }
   if (currentScene.object.objectId == egoVehicle.objectId)
   {
+    DLT_LOG_CXX(RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "RssSituationExtraction::extractSituationInputRangeChecked>> Object and ego vehicle must not have the "
+                "same id. Ego:",
+                egoVehicle,
+                "Object:",
+                currentScene.object);
     return false;
   }
 
@@ -323,7 +343,6 @@ bool extractSituationInputRangeChecked(physics::TimeIndex const &timeIndex,
       case ad_rss::situation::SituationType::OppositeDirection:
       {
         result = convertObjectsNonIntersection(egoVehicle, currentScene, situation);
-
         break;
       }
       case ad_rss::situation::SituationType::IntersectionEgoHasPriority:
@@ -340,6 +359,10 @@ bool extractSituationInputRangeChecked(physics::TimeIndex const &timeIndex,
       }
       default:
       {
+        DLT_LOG_CXX(RssLogging::getDltContext(),
+                    DLT_LOG_ERROR,
+                    "RssSituationExtraction::extractSituationInputRangeChecked>> Invalid situation type.",
+                    currentScene);
         result = false;
         break;
       }
@@ -347,6 +370,12 @@ bool extractSituationInputRangeChecked(physics::TimeIndex const &timeIndex,
   }
   catch (...)
   {
+    DLT_LOG_CXX(RssLogging::getDltContext(),
+                DLT_LOG_FATAL,
+                "RssSituationExtraction::extractSituationInputRangeChecked>> Exception catched",
+                timeIndex,
+                egoVehicle,
+                currentScene);
     result = false;
   }
 
@@ -358,8 +387,14 @@ bool extractSituation(physics::TimeIndex const &timeIndex,
                       world::Scene const &currentScene,
                       situation::Situation &situation)
 {
-  if (!withinValidInputRange(egoVehicle) || !withinValidInputRange(currentScene))
+  if (!withinValidInputRange(egoVehicle, RssLogging::getDltContext())
+      || !withinValidInputRange(currentScene, RssLogging::getDltContext()))
   {
+    DLT_LOG_CXX(RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "RssSituationExtraction::extractSituation>> Invalid input",
+                egoVehicle,
+                currentScene);
     return false;
   }
 
@@ -368,8 +403,12 @@ bool extractSituation(physics::TimeIndex const &timeIndex,
 
 bool extractSituations(world::WorldModel const &worldModel, situation::SituationVector &situationVector)
 {
-  if (!withinValidInputRange(worldModel))
+  if (!withinValidInputRange(worldModel, RssLogging::getDltContext()))
   {
+    DLT_LOG_CXX(RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "RssSituationExtraction::extractSituations>> Invalid input",
+                worldModel);
     return false;
   }
 
@@ -391,6 +430,11 @@ bool extractSituations(world::WorldModel const &worldModel, situation::Situation
         }
         else
         {
+          DLT_LOG_CXX(RssLogging::getDltContext(),
+                      DLT_LOG_ERROR,
+                      "RssSituationExtraction::extractSituations>> Extraction failed",
+                      worldModel.egoVehicle,
+                      scene);
           result = false;
         }
       }
@@ -398,6 +442,10 @@ bool extractSituations(world::WorldModel const &worldModel, situation::Situation
   }
   catch (...)
   {
+    DLT_LOG_CXX(RssLogging::getDltContext(),
+                DLT_LOG_FATAL,
+                "RssSituationExtraction::extractSituations>> Exception catched",
+                worldModel);
     result = false;
   }
   return result;

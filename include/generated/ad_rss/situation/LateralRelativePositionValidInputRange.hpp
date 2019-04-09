@@ -41,6 +41,7 @@
 
 #include <cmath>
 #include <limits>
+#include "ad_rss/situation/DltDefinitions.hpp"
 #include "ad_rss/situation/LateralRelativePosition.hpp"
 
 /*!

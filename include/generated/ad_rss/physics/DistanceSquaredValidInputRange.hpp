@@ -42,6 +42,7 @@
 #include <cmath>
 #include <limits>
 #include "ad_rss/physics/DistanceSquared.hpp"
+#include "ad_rss/physics/DltDefinitions.hpp"
 
 /*!
  * \brief check if the given DistanceSquared is within valid input range

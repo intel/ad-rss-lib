@@ -41,7 +41,23 @@
 
 #include "ad_rss/world/ObjectValidInputRange.hpp"
 
-TEST(ObjectValidInputRangeTests, testValidInputRange)
+class ObjectValidInputRangeTests : public ::testing::Test
+{
+public:
+  void SetUp() override
+  {
+    DLT_REGISTER_CONTEXT(mDltContext, "TEST", "ObjectValidInputRangeTests");
+  }
+
+  void TearDown() override
+  {
+    DLT_UNREGISTER_CONTEXT(mDltContext);
+  }
+
+  DltContext mDltContext;
+};
+
+TEST_F(ObjectValidInputRangeTests, testValidInputRange)
 {
   ::ad_rss::world::Object value;
   ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -92,10 +108,10 @@ TEST(ObjectValidInputRangeTests, testValidInputRange)
   valueResponseTime = ::ad_rss::physics::Duration(
     0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
   value.responseTime = valueResponseTime;
-  ASSERT_TRUE(withinValidInputRange(value));
+  ASSERT_TRUE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(ObjectValidInputRangeTests, testValidInputRangeObjectTypeTooSmall)
+TEST_F(ObjectValidInputRangeTests, testValidInputRangeObjectTypeTooSmall)
 {
   ::ad_rss::world::Object value;
   ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -150,10 +166,10 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeObjectTypeTooSmall)
   // override member with invalid value
   ::ad_rss::world::ObjectType invalidInitializedMember(static_cast<::ad_rss::world::ObjectType>(-1));
   value.objectType = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(ObjectValidInputRangeTests, testValidInputRangeObjectTypeTooBig)
+TEST_F(ObjectValidInputRangeTests, testValidInputRangeObjectTypeTooBig)
 {
   ::ad_rss::world::Object value;
   ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -208,10 +224,10 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeObjectTypeTooBig)
   // override member with invalid value
   ::ad_rss::world::ObjectType invalidInitializedMember(static_cast<::ad_rss::world::ObjectType>(-1));
   value.objectType = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(ObjectValidInputRangeTests, testValidInputRangeOccupiedRegionsTooSmall)
+TEST_F(ObjectValidInputRangeTests, testValidInputRangeOccupiedRegionsTooSmall)
 {
   ::ad_rss::world::Object value;
   ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -298,10 +314,10 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeOccupiedRegionsTooSmall)
     = invalidInitializedMemberOccupiedRegionVectorElementLatRange;
   invalidInitializedMember.resize(1001, invalidInitializedMemberOccupiedRegionVectorElement);
   value.occupiedRegions = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(ObjectValidInputRangeTests, testValidInputRangeOccupiedRegionsTooBig)
+TEST_F(ObjectValidInputRangeTests, testValidInputRangeOccupiedRegionsTooBig)
 {
   ::ad_rss::world::Object value;
   ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -388,10 +404,10 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeOccupiedRegionsTooBig)
     = invalidInitializedMemberOccupiedRegionVectorElementLatRange;
   invalidInitializedMember.resize(1001, invalidInitializedMemberOccupiedRegionVectorElement);
   value.occupiedRegions = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(ObjectValidInputRangeTests, testValidInputRangeDynamicsTooSmall)
+TEST_F(ObjectValidInputRangeTests, testValidInputRangeDynamicsTooSmall)
 {
   ::ad_rss::world::Object value;
   ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -450,10 +466,10 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeDynamicsTooSmall)
   invalidInitializedMemberAlphaLon.accelMax = invalidInitializedMemberAlphaLonAccelMax;
   invalidInitializedMember.alphaLon = invalidInitializedMemberAlphaLon;
   value.dynamics = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(ObjectValidInputRangeTests, testValidInputRangeDynamicsTooBig)
+TEST_F(ObjectValidInputRangeTests, testValidInputRangeDynamicsTooBig)
 {
   ::ad_rss::world::Object value;
   ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -512,10 +528,10 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeDynamicsTooBig)
   invalidInitializedMemberAlphaLon.accelMax = invalidInitializedMemberAlphaLonAccelMax;
   invalidInitializedMember.alphaLon = invalidInitializedMemberAlphaLon;
   value.dynamics = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(ObjectValidInputRangeTests, testValidInputRangeVelocityTooSmall)
+TEST_F(ObjectValidInputRangeTests, testValidInputRangeVelocityTooSmall)
 {
   ::ad_rss::world::Object value;
   ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -572,10 +588,10 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeVelocityTooSmall)
   ::ad_rss::physics::Speed invalidInitializedMemberSpeedLon(-100. * 1.1);
   invalidInitializedMember.speedLon = invalidInitializedMemberSpeedLon;
   value.velocity = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(ObjectValidInputRangeTests, testValidInputRangeVelocityTooBig)
+TEST_F(ObjectValidInputRangeTests, testValidInputRangeVelocityTooBig)
 {
   ::ad_rss::world::Object value;
   ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -632,10 +648,10 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeVelocityTooBig)
   ::ad_rss::physics::Speed invalidInitializedMemberSpeedLon(100. * 1.1);
   invalidInitializedMember.speedLon = invalidInitializedMemberSpeedLon;
   value.velocity = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(ObjectValidInputRangeTests, testValidInputRangeResponseTimeTooSmall)
+TEST_F(ObjectValidInputRangeTests, testValidInputRangeResponseTimeTooSmall)
 {
   ::ad_rss::world::Object value;
   ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -690,10 +706,10 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeResponseTimeTooSmall)
   // override member with invalid value
   ::ad_rss::physics::Duration invalidInitializedMember(0. - ::ad_rss::physics::Duration::cPrecisionValue);
   value.responseTime = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(ObjectValidInputRangeTests, testValidInputRangeResponseTimeTooBig)
+TEST_F(ObjectValidInputRangeTests, testValidInputRangeResponseTimeTooBig)
 {
   ::ad_rss::world::Object value;
   ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
@@ -749,13 +765,13 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeResponseTimeTooBig)
   ::ad_rss::physics::Duration invalidInitializedMember(100. * 1.1);
   invalidInitializedMember = ::ad_rss::physics::Duration(10. * 1.1); // set to valid value within struct
   value.responseTime = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(ObjectValidInputRangeTests, testValidInputRangeresponseTimeDefault)
+TEST_F(ObjectValidInputRangeTests, testValidInputRangeresponseTimeDefault)
 {
   ::ad_rss::world::Object value;
   ::ad_rss::physics::Duration valueDefault;
   value.responseTime = valueDefault;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }

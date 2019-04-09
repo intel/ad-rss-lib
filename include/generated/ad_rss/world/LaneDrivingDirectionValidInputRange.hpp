@@ -41,6 +41,7 @@
 
 #include <cmath>
 #include <limits>
+#include "ad_rss/world/DltDefinitions.hpp"
 #include "ad_rss/world/LaneDrivingDirection.hpp"
 
 /*!

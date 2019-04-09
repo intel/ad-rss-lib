@@ -41,6 +41,7 @@
 
 #include <cmath>
 #include <limits>
+#include "ad_rss/state/DltDefinitions.hpp"
 #include "ad_rss/state/LateralRssStateValidInputRange.hpp"
 #include "ad_rss/state/LongitudinalRssStateValidInputRange.hpp"
 #include "ad_rss/state/ResponseState.hpp"

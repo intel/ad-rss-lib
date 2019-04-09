@@ -41,7 +41,23 @@
 
 #include "ad_rss/world/DynamicsValidInputRange.hpp"
 
-TEST(DynamicsValidInputRangeTests, testValidInputRange)
+class DynamicsValidInputRangeTests : public ::testing::Test
+{
+public:
+  void SetUp() override
+  {
+    DLT_REGISTER_CONTEXT(mDltContext, "TEST", "DynamicsValidInputRangeTests");
+  }
+
+  void TearDown() override
+  {
+    DLT_UNREGISTER_CONTEXT(mDltContext);
+  }
+
+  DltContext mDltContext;
+};
+
+TEST_F(DynamicsValidInputRangeTests, testValidInputRange)
 {
   ::ad_rss::world::Dynamics value;
   ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
@@ -72,10 +88,10 @@ TEST(DynamicsValidInputRangeTests, testValidInputRange)
   value.alphaLat = valueAlphaLat;
   ::ad_rss::physics::Distance valueLateralFluctuationMargin(0.);
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
-  ASSERT_TRUE(withinValidInputRange(value));
+  ASSERT_TRUE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(DynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooSmall)
+TEST_F(DynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooSmall)
 {
   ::ad_rss::world::Dynamics value;
   ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
@@ -112,10 +128,10 @@ TEST(DynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooSmall)
   ::ad_rss::physics::Acceleration invalidInitializedMemberAccelMax(-1e2 * 1.1);
   invalidInitializedMember.accelMax = invalidInitializedMemberAccelMax;
   value.alphaLon = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(DynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooBig)
+TEST_F(DynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooBig)
 {
   ::ad_rss::world::Dynamics value;
   ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
@@ -152,10 +168,10 @@ TEST(DynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooBig)
   ::ad_rss::physics::Acceleration invalidInitializedMemberAccelMax(1e2 * 1.1);
   invalidInitializedMember.accelMax = invalidInitializedMemberAccelMax;
   value.alphaLon = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(DynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooSmall)
+TEST_F(DynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooSmall)
 {
   ::ad_rss::world::Dynamics value;
   ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
@@ -192,10 +208,10 @@ TEST(DynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooSmall)
   ::ad_rss::physics::Acceleration invalidInitializedMemberAccelMax(-1e2 * 1.1);
   invalidInitializedMember.accelMax = invalidInitializedMemberAccelMax;
   value.alphaLat = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(DynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooBig)
+TEST_F(DynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooBig)
 {
   ::ad_rss::world::Dynamics value;
   ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
@@ -232,10 +248,10 @@ TEST(DynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooBig)
   ::ad_rss::physics::Acceleration invalidInitializedMemberAccelMax(1e2 * 1.1);
   invalidInitializedMember.accelMax = invalidInitializedMemberAccelMax;
   value.alphaLat = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(DynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMarginTooSmall)
+TEST_F(DynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMarginTooSmall)
 {
   ::ad_rss::world::Dynamics value;
   ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
@@ -270,10 +286,10 @@ TEST(DynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMarginTo
   // override member with invalid value
   ::ad_rss::physics::Distance invalidInitializedMember(0. - ::ad_rss::physics::Distance::cPrecisionValue);
   value.lateralFluctuationMargin = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(DynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMarginTooBig)
+TEST_F(DynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMarginTooBig)
 {
   ::ad_rss::world::Dynamics value;
   ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
@@ -309,13 +325,13 @@ TEST(DynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMarginTo
   ::ad_rss::physics::Distance invalidInitializedMember(1e6 * 1.1);
   invalidInitializedMember = ::ad_rss::physics::Distance(1. * 1.1); // set to valid value within struct
   value.lateralFluctuationMargin = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(DynamicsValidInputRangeTests, testValidInputRangelateralFluctuationMarginDefault)
+TEST_F(DynamicsValidInputRangeTests, testValidInputRangelateralFluctuationMarginDefault)
 {
   ::ad_rss::world::Dynamics value;
   ::ad_rss::physics::Distance valueDefault;
   value.lateralFluctuationMargin = valueDefault;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }

@@ -41,7 +41,23 @@
 
 #include "ad_rss/world/WorldModelValidInputRange.hpp"
 
-TEST(WorldModelValidInputRangeTests, testValidInputRange)
+class WorldModelValidInputRangeTests : public ::testing::Test
+{
+public:
+  void SetUp() override
+  {
+    DLT_REGISTER_CONTEXT(mDltContext, "TEST", "WorldModelValidInputRangeTests");
+  }
+
+  void TearDown() override
+  {
+    DLT_UNREGISTER_CONTEXT(mDltContext);
+  }
+
+  DltContext mDltContext;
+};
+
+TEST_F(WorldModelValidInputRangeTests, testValidInputRange)
 {
   ::ad_rss::world::WorldModel value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -99,10 +115,10 @@ TEST(WorldModelValidInputRangeTests, testValidInputRange)
   value.egoVehicle = valueEgoVehicle;
   ::ad_rss::world::SceneVector valueScenes;
   value.scenes = valueScenes;
-  ASSERT_TRUE(withinValidInputRange(value));
+  ASSERT_TRUE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(WorldModelValidInputRangeTests, testValidInputRangeEgoVehicleTooSmall)
+TEST_F(WorldModelValidInputRangeTests, testValidInputRangeEgoVehicleTooSmall)
 {
   ::ad_rss::world::WorldModel value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -166,10 +182,10 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeEgoVehicleTooSmall)
   ::ad_rss::world::ObjectType invalidInitializedMemberObjectType(static_cast<::ad_rss::world::ObjectType>(-1));
   invalidInitializedMember.objectType = invalidInitializedMemberObjectType;
   value.egoVehicle = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(WorldModelValidInputRangeTests, testValidInputRangeEgoVehicleTooBig)
+TEST_F(WorldModelValidInputRangeTests, testValidInputRangeEgoVehicleTooBig)
 {
   ::ad_rss::world::WorldModel value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -233,10 +249,10 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeEgoVehicleTooBig)
   ::ad_rss::world::ObjectType invalidInitializedMemberObjectType(static_cast<::ad_rss::world::ObjectType>(-1));
   invalidInitializedMember.objectType = invalidInitializedMemberObjectType;
   value.egoVehicle = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(WorldModelValidInputRangeTests, testValidInputRangeScenesTooSmall)
+TEST_F(WorldModelValidInputRangeTests, testValidInputRangeScenesTooSmall)
 {
   ::ad_rss::world::WorldModel value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -382,10 +398,10 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeScenesTooSmall)
   invalidInitializedMemberSceneVectorElement.object = invalidInitializedMemberSceneVectorElementObject;
   invalidInitializedMember.resize(1001, invalidInitializedMemberSceneVectorElement);
   value.scenes = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(WorldModelValidInputRangeTests, testValidInputRangeScenesTooBig)
+TEST_F(WorldModelValidInputRangeTests, testValidInputRangeScenesTooBig)
 {
   ::ad_rss::world::WorldModel value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -652,5 +668,5 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeScenesTooBig)
   invalidInitializedMemberSceneVectorElement.object = invalidInitializedMemberSceneVectorElementObject;
   invalidInitializedMember.resize(1001, invalidInitializedMemberSceneVectorElement);
   value.scenes = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }

@@ -42,6 +42,7 @@
 #include <cmath>
 #include <limits>
 #include "ad_rss/physics/ParametricRangeValidInputRange.hpp"
+#include "ad_rss/world/DltDefinitions.hpp"
 #include "ad_rss/world/OccupiedRegion.hpp"
 
 /*!

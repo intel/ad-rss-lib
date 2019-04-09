@@ -41,7 +41,23 @@
 
 #include "ad_rss/world/AccelerationRestrictionValidInputRange.hpp"
 
-TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRange)
+class AccelerationRestrictionValidInputRangeTests : public ::testing::Test
+{
+public:
+  void SetUp() override
+  {
+    DLT_REGISTER_CONTEXT(mDltContext, "TEST", "AccelerationRestrictionValidInputRangeTests");
+  }
+
+  void TearDown() override
+  {
+    DLT_UNREGISTER_CONTEXT(mDltContext);
+  }
+
+  DltContext mDltContext;
+};
+
+TEST_F(AccelerationRestrictionValidInputRangeTests, testValidInputRange)
 {
   ::ad_rss::world::AccelerationRestriction value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -71,10 +87,10 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRange)
   valueLateralRightRange.maximum = valueLateralRightRange.minimum;
   valueLateralRightRange.minimum = valueLateralRightRange.maximum;
   value.lateralRightRange = valueLateralRightRange;
-  ASSERT_TRUE(withinValidInputRange(value));
+  ASSERT_TRUE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeftRangeTooSmall)
+TEST_F(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeftRangeTooSmall)
 {
   ::ad_rss::world::AccelerationRestriction value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -110,10 +126,10 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeft
   ::ad_rss::physics::Acceleration invalidInitializedMemberMinimum(-1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
   value.lateralLeftRange = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeftRangeTooBig)
+TEST_F(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeftRangeTooBig)
 {
   ::ad_rss::world::AccelerationRestriction value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -149,10 +165,10 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeft
   ::ad_rss::physics::Acceleration invalidInitializedMemberMinimum(1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
   value.lateralLeftRange = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudinalRangeTooSmall)
+TEST_F(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudinalRangeTooSmall)
 {
   ::ad_rss::world::AccelerationRestriction value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -188,10 +204,10 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudina
   ::ad_rss::physics::Acceleration invalidInitializedMemberMinimum(-1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
   value.longitudinalRange = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudinalRangeTooBig)
+TEST_F(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudinalRangeTooBig)
 {
   ::ad_rss::world::AccelerationRestriction value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -227,10 +243,10 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudina
   ::ad_rss::physics::Acceleration invalidInitializedMemberMinimum(1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
   value.longitudinalRange = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRightRangeTooSmall)
+TEST_F(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRightRangeTooSmall)
 {
   ::ad_rss::world::AccelerationRestriction value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -266,10 +282,10 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRigh
   ::ad_rss::physics::Acceleration invalidInitializedMemberMinimum(-1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
   value.lateralRightRange = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRightRangeTooBig)
+TEST_F(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRightRangeTooBig)
 {
   ::ad_rss::world::AccelerationRestriction value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -305,5 +321,5 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRigh
   ::ad_rss::physics::Acceleration invalidInitializedMemberMinimum(1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
   value.lateralRightRange = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }

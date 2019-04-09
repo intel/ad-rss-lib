@@ -42,6 +42,7 @@
 #include <cmath>
 #include <limits>
 #include "ad_rss/physics/MetricRangeValidInputRange.hpp"
+#include "ad_rss/world/DltDefinitions.hpp"
 #include "ad_rss/world/LaneDrivingDirectionValidInputRange.hpp"
 #include "ad_rss/world/LaneSegment.hpp"
 #include "ad_rss/world/LaneSegmentTypeValidInputRange.hpp"

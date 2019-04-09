@@ -42,20 +42,22 @@
 #include <cmath>
 #include <limits>
 #include "ad_rss/situation/SituationTypeValidInputRange.hpp"
+#include "ad_rss/world/DltDefinitions.hpp"
 #include "ad_rss/world/ObjectValidInputRange.hpp"
 #include "ad_rss/world/RoadAreaValidInputRange.hpp"
-#include "ad_rss/world/Scene.hpp"
+#include "ad_rss/world/SceneDlt.hpp"
 
 /*!
  * \brief check if the given Scene is within valid input range
  *
  * \param[in] input the Scene as an input value
+ * \param[in] dltContext the logging context for error logging
  *
  * \returns \c true if Scene is considered to be within the specified input range
  *
  * \note the specified input range is defined by the ranges of all members
  */
-inline bool withinValidInputRange(::ad_rss::world::Scene const &input)
+inline bool withinValidInputRange(::ad_rss::world::Scene const &input, DltContext &dltContext)
 {
   try
   {
@@ -63,7 +65,12 @@ inline bool withinValidInputRange(::ad_rss::world::Scene const &input)
     // check for generic member input ranges
     bool const membersInValidInputRange = withinValidInputRange(input.situationType)
       && withinValidInputRange(input.egoVehicleRoad) && withinValidInputRange(input.intersectingRoad)
-      && withinValidInputRange(input.object);
+      && withinValidInputRange(input.object, dltContext);
+    if (!membersInValidInputRange)
+    {
+      DLT_LOG_CXX(
+        dltContext, DLT_LOG_ERROR, "withinValidInputRange(::ad_rss::world::Scene)>> members out of valid range", input);
+    }
 
     return membersInValidInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
@@ -71,6 +78,7 @@ inline bool withinValidInputRange(::ad_rss::world::Scene const &input)
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
   catch (std::out_of_range &)
   {
+    DLT_LOG_CXX(dltContext, DLT_LOG_ERROR, "withinValidInputRange(::ad_rss::world::Scene)>> out of range exception");
   }
   return false;
   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes

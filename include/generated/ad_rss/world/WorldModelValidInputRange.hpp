@@ -41,31 +41,51 @@
 
 #include <cmath>
 #include <limits>
+#include "ad_rss/world/DltDefinitions.hpp"
 #include "ad_rss/world/ObjectValidInputRange.hpp"
 #include "ad_rss/world/SceneVectorValidInputRange.hpp"
-#include "ad_rss/world/WorldModel.hpp"
+#include "ad_rss/world/WorldModelDlt.hpp"
 
 /*!
  * \brief check if the given WorldModel is within valid input range
  *
  * \param[in] input the WorldModel as an input value
+ * \param[in] dltContext the logging context for error logging
  *
  * \returns \c true if WorldModel is considered to be within the specified input range
  *
  * \note the specified input range is defined by the ranges of all members, plus:
  *       ::ad_rss::physics::TimeIndex(1) <= timeIndex
  */
-inline bool withinValidInputRange(::ad_rss::world::WorldModel const &input)
+inline bool withinValidInputRange(::ad_rss::world::WorldModel const &input, DltContext &dltContext)
 {
   try
   {
     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
     // check for generic member input ranges
     bool const membersInValidInputRange
-      = withinValidInputRange(input.egoVehicle) && withinValidInputRange(input.scenes);
+      = withinValidInputRange(input.egoVehicle, dltContext) && withinValidInputRange(input.scenes, dltContext);
+    if (!membersInValidInputRange)
+    {
+      DLT_LOG_CXX(dltContext,
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::WorldModel)>> members out of valid range",
+                  input);
+    }
 
     // check for individual input ranges
     bool const timeIndexInInputRange = (::ad_rss::physics::TimeIndex(1) <= input.timeIndex);
+    if (!timeIndexInInputRange)
+    {
+      DLT_LOG_CXX(dltContext,
+                  DLT_LOG_ERROR,
+                  "withinValidInputRange(::ad_rss::world::WorldModel)>> timeIndex:",
+                  input.timeIndex,
+                  "out of valid range [",
+                  ::ad_rss::physics::TimeIndex(1),
+                  ",",
+                  ")");
+    }
 
     return membersInValidInputRange && timeIndexInInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
@@ -73,6 +93,8 @@ inline bool withinValidInputRange(::ad_rss::world::WorldModel const &input)
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
   catch (std::out_of_range &)
   {
+    DLT_LOG_CXX(
+      dltContext, DLT_LOG_ERROR, "withinValidInputRange(::ad_rss::world::WorldModel)>> out of range exception");
   }
   return false;
   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes

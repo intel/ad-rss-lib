@@ -41,7 +41,23 @@
 
 #include "ad_rss/situation/SituationValidInputRange.hpp"
 
-TEST(SituationValidInputRangeTests, testValidInputRange)
+class SituationValidInputRangeTests : public ::testing::Test
+{
+public:
+  void SetUp() override
+  {
+    DLT_REGISTER_CONTEXT(mDltContext, "TEST", "SituationValidInputRangeTests");
+  }
+
+  void TearDown() override
+  {
+    DLT_UNREGISTER_CONTEXT(mDltContext);
+  }
+
+  DltContext mDltContext;
+};
+
+TEST_F(SituationValidInputRangeTests, testValidInputRange)
 {
   ::ad_rss::situation::Situation value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -175,10 +191,10 @@ TEST(SituationValidInputRangeTests, testValidInputRange)
   ::ad_rss::physics::Distance valueRelativePositionLateralDistance(0.);
   valueRelativePosition.lateralDistance = valueRelativePositionLateralDistance;
   value.relativePosition = valueRelativePosition;
-  ASSERT_TRUE(withinValidInputRange(value));
+  ASSERT_TRUE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)
+TEST_F(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)
 {
   ::ad_rss::situation::Situation value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -316,10 +332,10 @@ TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)
   // override member with invalid value
   ::ad_rss::situation::SituationType invalidInitializedMember(static_cast<::ad_rss::situation::SituationType>(-1));
   value.situationType = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooBig)
+TEST_F(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooBig)
 {
   ::ad_rss::situation::Situation value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -457,10 +473,10 @@ TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooBig)
   // override member with invalid value
   ::ad_rss::situation::SituationType invalidInitializedMember(static_cast<::ad_rss::situation::SituationType>(-1));
   value.situationType = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooSmall)
+TEST_F(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooSmall)
 {
   ::ad_rss::situation::Situation value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -602,10 +618,10 @@ TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooSmall)
   invalidInitializedMemberVelocity.speedLon = invalidInitializedMemberVelocitySpeedLon;
   invalidInitializedMember.velocity = invalidInitializedMemberVelocity;
   value.egoVehicleState = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooBig)
+TEST_F(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooBig)
 {
   ::ad_rss::situation::Situation value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -747,10 +763,10 @@ TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooBig)
   invalidInitializedMemberVelocity.speedLon = invalidInitializedMemberVelocitySpeedLon;
   invalidInitializedMember.velocity = invalidInitializedMemberVelocity;
   value.egoVehicleState = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooSmall)
+TEST_F(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooSmall)
 {
   ::ad_rss::situation::Situation value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -892,10 +908,10 @@ TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooSmall
   invalidInitializedMemberVelocity.speedLon = invalidInitializedMemberVelocitySpeedLon;
   invalidInitializedMember.velocity = invalidInitializedMemberVelocity;
   value.otherVehicleState = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooBig)
+TEST_F(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooBig)
 {
   ::ad_rss::situation::Situation value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -1037,10 +1053,10 @@ TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooBig)
   invalidInitializedMemberVelocity.speedLon = invalidInitializedMemberVelocitySpeedLon;
   invalidInitializedMember.velocity = invalidInitializedMemberVelocity;
   value.otherVehicleState = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooSmall)
+TEST_F(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooSmall)
 {
   ::ad_rss::situation::Situation value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -1181,10 +1197,10 @@ TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooSmall)
     static_cast<::ad_rss::situation::LongitudinalRelativePosition>(-1));
   invalidInitializedMember.longitudinalPosition = invalidInitializedMemberLongitudinalPosition;
   value.relativePosition = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooBig)
+TEST_F(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooBig)
 {
   ::ad_rss::situation::Situation value;
   ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
@@ -1325,5 +1341,5 @@ TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooBig)
     static_cast<::ad_rss::situation::LongitudinalRelativePosition>(-1));
   invalidInitializedMember.longitudinalPosition = invalidInitializedMemberLongitudinalPosition;
   value.relativePosition = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }

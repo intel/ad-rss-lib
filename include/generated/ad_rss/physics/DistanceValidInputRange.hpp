@@ -42,6 +42,7 @@
 #include <cmath>
 #include <limits>
 #include "ad_rss/physics/Distance.hpp"
+#include "ad_rss/physics/DltDefinitions.hpp"
 
 /*!
  * \brief check if the given Distance is within valid input range

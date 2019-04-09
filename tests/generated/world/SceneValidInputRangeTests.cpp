@@ -41,7 +41,23 @@
 
 #include "ad_rss/world/SceneValidInputRange.hpp"
 
-TEST(SceneValidInputRangeTests, testValidInputRange)
+class SceneValidInputRangeTests : public ::testing::Test
+{
+public:
+  void SetUp() override
+  {
+    DLT_REGISTER_CONTEXT(mDltContext, "TEST", "SceneValidInputRangeTests");
+  }
+
+  void TearDown() override
+  {
+    DLT_UNREGISTER_CONTEXT(mDltContext);
+  }
+
+  DltContext mDltContext;
+};
+
+TEST_F(SceneValidInputRangeTests, testValidInputRange)
 {
   ::ad_rss::world::Scene value;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
@@ -100,10 +116,10 @@ TEST(SceneValidInputRangeTests, testValidInputRange)
     0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
   valueObject.responseTime = valueObjectResponseTime;
   value.object = valueObject;
-  ASSERT_TRUE(withinValidInputRange(value));
+  ASSERT_TRUE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SceneValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)
+TEST_F(SceneValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)
 {
   ::ad_rss::world::Scene value;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
@@ -166,10 +182,10 @@ TEST(SceneValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)
   // override member with invalid value
   ::ad_rss::situation::SituationType invalidInitializedMember(static_cast<::ad_rss::situation::SituationType>(-1));
   value.situationType = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SceneValidInputRangeTests, testValidInputRangeSituationTypeTooBig)
+TEST_F(SceneValidInputRangeTests, testValidInputRangeSituationTypeTooBig)
 {
   ::ad_rss::world::Scene value;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
@@ -232,10 +248,10 @@ TEST(SceneValidInputRangeTests, testValidInputRangeSituationTypeTooBig)
   // override member with invalid value
   ::ad_rss::situation::SituationType invalidInitializedMember(static_cast<::ad_rss::situation::SituationType>(-1));
   value.situationType = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SceneValidInputRangeTests, testValidInputRangeEgoVehicleRoadTooSmall)
+TEST_F(SceneValidInputRangeTests, testValidInputRangeEgoVehicleRoadTooSmall)
 {
   ::ad_rss::world::Scene value;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
@@ -336,10 +352,10 @@ TEST(SceneValidInputRangeTests, testValidInputRangeEgoVehicleRoadTooSmall)
   invalidInitializedMemberRoadAreaElement.resize(1, invalidInitializedMemberRoadAreaElementElement);
   invalidInitializedMember.resize(51, invalidInitializedMemberRoadAreaElement);
   value.egoVehicleRoad = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SceneValidInputRangeTests, testValidInputRangeEgoVehicleRoadTooBig)
+TEST_F(SceneValidInputRangeTests, testValidInputRangeEgoVehicleRoadTooBig)
 {
   ::ad_rss::world::Scene value;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
@@ -440,10 +456,10 @@ TEST(SceneValidInputRangeTests, testValidInputRangeEgoVehicleRoadTooBig)
   invalidInitializedMemberRoadAreaElement.resize(1 + 1, invalidInitializedMemberRoadAreaElementElement);
   invalidInitializedMember.resize(51, invalidInitializedMemberRoadAreaElement);
   value.egoVehicleRoad = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SceneValidInputRangeTests, testValidInputRangeIntersectingRoadTooSmall)
+TEST_F(SceneValidInputRangeTests, testValidInputRangeIntersectingRoadTooSmall)
 {
   ::ad_rss::world::Scene value;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
@@ -544,10 +560,10 @@ TEST(SceneValidInputRangeTests, testValidInputRangeIntersectingRoadTooSmall)
   invalidInitializedMemberRoadAreaElement.resize(1, invalidInitializedMemberRoadAreaElementElement);
   invalidInitializedMember.resize(51, invalidInitializedMemberRoadAreaElement);
   value.intersectingRoad = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SceneValidInputRangeTests, testValidInputRangeIntersectingRoadTooBig)
+TEST_F(SceneValidInputRangeTests, testValidInputRangeIntersectingRoadTooBig)
 {
   ::ad_rss::world::Scene value;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
@@ -648,10 +664,10 @@ TEST(SceneValidInputRangeTests, testValidInputRangeIntersectingRoadTooBig)
   invalidInitializedMemberRoadAreaElement.resize(1 + 1, invalidInitializedMemberRoadAreaElementElement);
   invalidInitializedMember.resize(51, invalidInitializedMemberRoadAreaElement);
   value.intersectingRoad = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SceneValidInputRangeTests, testValidInputRangeObjectTooSmall)
+TEST_F(SceneValidInputRangeTests, testValidInputRangeObjectTooSmall)
 {
   ::ad_rss::world::Scene value;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
@@ -716,10 +732,10 @@ TEST(SceneValidInputRangeTests, testValidInputRangeObjectTooSmall)
   ::ad_rss::world::ObjectType invalidInitializedMemberObjectType(static_cast<::ad_rss::world::ObjectType>(-1));
   invalidInitializedMember.objectType = invalidInitializedMemberObjectType;
   value.object = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }
 
-TEST(SceneValidInputRangeTests, testValidInputRangeObjectTooBig)
+TEST_F(SceneValidInputRangeTests, testValidInputRangeObjectTooBig)
 {
   ::ad_rss::world::Scene value;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
@@ -784,5 +800,5 @@ TEST(SceneValidInputRangeTests, testValidInputRangeObjectTooBig)
   ::ad_rss::world::ObjectType invalidInitializedMemberObjectType(static_cast<::ad_rss::world::ObjectType>(-1));
   invalidInitializedMember.objectType = invalidInitializedMemberObjectType;
   value.object = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
+  ASSERT_FALSE(withinValidInputRange(value, mDltContext));
 }

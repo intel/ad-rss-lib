@@ -31,6 +31,7 @@
 
 #include "situation/RssFormulas.hpp"
 #include <algorithm>
+#include "ad_rss/core/RssLogging.hpp"
 #include "ad_rss/situation/VehicleStateValidInputRange.hpp"
 #include "physics/Math.hpp"
 
@@ -80,8 +81,14 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
                                                     VehicleState const &followingVehicle,
                                                     Distance &safeDistance)
 {
-  if (!withinValidInputRange(leadingVehicle) || !withinValidInputRange(followingVehicle))
+  if (!withinValidInputRange(leadingVehicle, core::RssLogging::getDltContext())
+      || !withinValidInputRange(followingVehicle, core::RssLogging::getDltContext()))
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "calculateSafeLongitudinalDistanceSameDirection>> Invalid input.");
+    DLT_LOG_CXX(core::RssLogging::getDltContext(), DLT_LOG_ERROR, "Leading vehicle:", leadingVehicle);
+    DLT_LOG_CXX(core::RssLogging::getDltContext(), DLT_LOG_ERROR, "Following vehicle:", followingVehicle);
     return false;
   }
 
@@ -115,6 +122,10 @@ bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehic
 {
   if (vehicleDistance < Distance(0.))
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "checkSafeLongitudinalDistanceSameDirection>> Vehicle distance must not be negative",
+                vehicleDistance);
     return false;
   }
 
@@ -134,8 +145,14 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &corr
                                                         VehicleState const &oppositeVehicle,
                                                         Distance &safeDistance)
 {
-  if (!withinValidInputRange(correctVehicle) || !withinValidInputRange(oppositeVehicle))
+  if (!withinValidInputRange(correctVehicle, core::RssLogging::getDltContext())
+      || !withinValidInputRange(oppositeVehicle, core::RssLogging::getDltContext()))
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "calculateSafeLongitudinalDistanceOppositeDirection>> Invalid input");
+    DLT_LOG_CXX(core::RssLogging::getDltContext(), DLT_LOG_ERROR, "Correct vehicle:", correctVehicle);
+    DLT_LOG_CXX(core::RssLogging::getDltContext(), DLT_LOG_ERROR, "Opposite vehicle:", oppositeVehicle);
     return false;
   }
 
@@ -178,6 +195,10 @@ bool checkSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctV
 {
   if (vehicleDistance < Distance(0.))
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "checkSafeLongitudinalDistanceOppositeDirection>> Vehicle distance must not be negative",
+                vehicleDistance);
     return false;
   }
 
@@ -194,8 +215,10 @@ bool checkSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctV
 
 bool checkStopInFrontIntersection(VehicleState const &vehicle, Distance &safeDistance, bool &isDistanceSafe)
 {
-  if (!withinValidInputRange(vehicle))
+  if (!withinValidInputRange(vehicle, core::RssLogging::getDltContext()))
   {
+    DLT_LOG_CXX(
+      core::RssLogging::getDltContext(), DLT_LOG_ERROR, "checkStopInFrontIntersection>> Invalid input", vehicle);
     return false;
   }
 
@@ -222,8 +245,12 @@ bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
                                   VehicleState const &rightVehicle,
                                   Distance &safeDistance)
 {
-  if (!withinValidInputRange(leftVehicle) || !withinValidInputRange(rightVehicle))
+  if (!withinValidInputRange(leftVehicle, core::RssLogging::getDltContext())
+      || !withinValidInputRange(rightVehicle, core::RssLogging::getDltContext()))
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(), DLT_LOG_ERROR, "calculateSafeLateralDistance>> Invalid input");
+    DLT_LOG_CXX(core::RssLogging::getDltContext(), DLT_LOG_ERROR, "Left vehicle:", leftVehicle);
+    DLT_LOG_CXX(core::RssLogging::getDltContext(), DLT_LOG_ERROR, "Right vehicle:", rightVehicle);
     return false;
   }
 
@@ -265,6 +292,10 @@ bool checkSafeLateralDistance(VehicleState const &leftVehicle,
 {
   if (vehicleDistance < Distance(0.))
   {
+    DLT_LOG_CXX(core::RssLogging::getDltContext(),
+                DLT_LOG_ERROR,
+                "checkSafeLateralDistance>> Vehicle distance must not be negative",
+                vehicleDistance);
     return false;
   }
 
