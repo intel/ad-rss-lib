@@ -83,7 +83,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <img src="https://img.shields.io/github/tag/intel/ad-rss-lib.svg"  alt="GitHub tag (latest SemVer)"/>
 </div>
 <p> <a href="https://travis-ci.com/intel/ad-rss-lib"></a></p>
-<h2>Introduction</h2>
+<h2>Table of contents</h2>
+<ol type="1">
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#license">License</a></li>
+<li><a href="#releases">Releases</a><ol type="a">
+<li><a href="#release_1">Release 1.x</a></li>
+</ol>
+</li>
+</ol>
+<ol type="1">
+<li><a href="#started">Getting Started</a><ol type="a">
+<li><a href="#systems">Supported Systems</a></li>
+</ol>
+</li>
+<li><a href="#building">Building the library</a></li>
+<li><a href="#contributing">Contributing</a></li>
+</ol>
+<h2>Introduction <a class="anchor" id="introduction"></a></h2>
 <p>This library intends to provide a C++ implementation of the Responsibility Sensitive Safety model (RSS) for Autonomous Vehicles.</p>
 <p>RSS is described in the following papers. Potential users of this C++ library are encouraged to read these papers in order to become familiar with the concepts and functions provided by the library.</p><ul>
 <li>On a Formal Model of Safe and Scalable Self-driving Cars, S. Shalev-Shwartz, S. Shammah, A. Shashua, Mobileye, arXiv:1708.06374, <a href="https://arxiv.org/abs/1708.06374">https://arxiv.org/abs/1708.06374</a></li>
@@ -97,7 +114,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>The scope, design and architecture of this C++ library for RSS is described in more detail in the following document packaged with this release. This documentation includes guidance on the usage of the RSS library and its integration into an autonomous driving system. Users of this library are strongly encouraged to read this documentation prior to integration of the library.</p><ul>
 <li>C++ Library for Responsibility Sensitive Safety, Intel, 2018</li>
 </ul>
-<h2>License</h2>
+<h2>License <a class="anchor" id="license"></a></h2>
 <p>This software library is provided under the BSD 3-clause open-source license: <a href="https://opensource.org/licenses/BSD-3-Clause">https://opensource.org/licenses/BSD-3-Clause</a>.</p>
 <p>In addition, the terms in the following apply: ./RELEASE_NOTES_AND_DISCLAIMERS.md "RELEASE NOTES AND DISCLAIMERS".</p>
 <h2>Documentation</h2>
@@ -108,9 +125,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>If you have any additional question not answered therein, you might find more in:</p><ul>
 <li>./FAQ.md "FAQ"</li>
 </ul>
-<h2>Release 1.x.x</h2>
+<h2>Releases <a class="anchor" id="releases"></a></h2>
+<h3>Release 1.x.x <a class="anchor" id="release_1"></a></h3>
 <p>The initial release of the C++ software library for RSS implements a subset of the rules and calculations specified in the published RSS paper. This means that this release handles a subset of autonomous driving scenarios, described below. Scenarios other than this subset cannot be handled.</p>
-<h3>Features &amp; Limitations</h3>
+<h4>Features &amp; Limitations</h4>
 <p>This release implements the RSS calculations and rules corresponding to the following scenarios:</p><ul>
 <li>Multi-lane roads, i.e. longitudinal and lateral safe distance and proper response determination; and</li>
 <li>Intersections, i.e. two or more routes of different geometry, rules for intersections of routes, with priority/right of way, and longitudinal and lateral proper response determination. However, in the case of intersections, it is assumed that there is always a lateral conflict.</li>
@@ -123,17 +141,39 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Intersections without a lateral conflict.</li>
 </ul>
 <p>Note: The RSS module in this library does not initiate evasive manuevers. At the same time, it would not hinder an evasive manuever being executed by the AV driving policy and planning modules, as long as it is compliant with the required RSS proper response.</p>
-<h2>Getting started</h2>
+<h2>Getting started <a class="anchor" id="started"></a></h2>
 <h3>Installation of dependencies</h3>
-<p>Currently, the supported operating system is Ubuntu 16.04. Nevertheless, the library should work in a similar way for any other Linux OS. To install the dependencies for Ubuntu 16.04 execute the following command: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; sudo apt-get install git build-essential cmake libgtest-dev</div></div><!-- fragment --><p>If you want to use doxygen for API documentation, please also install: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; sudo apt-get install doxygen graphviz</div></div><!-- fragment --><h3>Get the library</h3>
-<p>To download the library, you may run: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; git clone https://github.com/intel/ad-rss-lib.git</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;user$&gt; cd ad-rss-lib</div></div><!-- fragment --><h2>Building the library</h2>
+<p>Currently, the focued operating system is Ubuntu 16.04. Nevertheless, the library should work in a similar way for any other Linux OS. To install the dependencies for Ubuntu 16.04 execute the following command: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; sudo apt-get install git build-essential cmake libgtest-dev</div></div><!-- fragment --><p>If you want to use doxygen for API documentation, please also install: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; sudo apt-get install doxygen graphviz</div></div><!-- fragment --><h3>Get the library</h3>
+<p>To download the library, you may run: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; git clone https://github.com/intel/ad-rss-lib.git</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;user$&gt; cd ad-rss-lib</div></div><!-- fragment --><h3>Supported systems <a class="anchor" id="systems"></a></h3>
+<p>Besides Ubuntu 16.04 we are currently supporting the following Linux OS and compiler combinations</p>
+<table class="doxtable">
+<tr>
+<th align="center"></th><th align="center">Ubuntu 14.04 </th><th align="center">Ubuntu 16.04 </th><th align="center">Ubuntu 18.04  </th></tr>
+<tr>
+<td align="center">Clang 3.4 </td><td align="center">x </td><td align="center"></td><td align="center"></td></tr>
+<tr>
+<td align="center">Clang 3.8/3.9 </td><td align="center">x </td><td align="center">x </td><td align="center"></td></tr>
+<tr>
+<td align="center">Clang 5.0 </td><td align="center"></td><td align="center">x </td><td align="center"></td></tr>
+<tr>
+<td align="center">Clang 6.0 </td><td align="center"></td><td align="center">x </td><td align="center">- </td></tr>
+<tr>
+<td align="center">GCC 4.8 </td><td align="center">x </td><td align="center"></td><td align="center"></td></tr>
+<tr>
+<td align="center">GCC 5.4/5.5 </td><td align="center"></td><td align="center">x </td><td align="center"></td></tr>
+<tr>
+<td align="center">GCC 6.0 </td><td align="center"></td><td align="center">x </td><td align="center"></td></tr>
+<tr>
+<td align="center">GCC 7.3 </td><td align="center"></td><td align="center">x </td><td align="center">x </td></tr>
+</table>
+<h2>Building the library <a class="anchor" id="building"></a></h2>
 <h3>Build instructions</h3>
 <p>The RSS library is built with a standard cmake toolchain. Simply run the following commands to build the library: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ad_rss$&gt; mkdir build</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;ad_rss$&gt; cd build</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;build$&gt;  cmake ..</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;build$&gt;  make</div></div><!-- fragment --><h4>Unit tests</h4>
 <p>Run the following commands to run the unit-tests: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;build$&gt;  make test</div></div><!-- fragment --><h4>API documentation</h4>
 <p>Please run the following command to build the API documentation, if desired: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;build$&gt;  cmake -DBUILD_DOC=1 ..</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;build$&gt;  make apidoc</div></div><!-- fragment --><h4>Build hardening</h4>
 <p>Usually, build hardening is injected by the surrounding build system. Nevertheless, the CMakeLists.txt defines hardening flags to ensure the code is compatible to respective flags. To enable hardening compiler and linker flags: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;build$&gt;  cmake -DBUILD_HARDENING=1 ..</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;build$&gt;  make</div></div><!-- fragment --><h4>Full documentation</h4>
 <p>The full documentation is written in <a href="http://asciidoc.org/">Asciidoc</a>. To generate a PDF of the full documentation, it is recommended to use <a href="https://asciidoctor.org">Asciidoctor</a> <em>asciidoctor-pdf</em>. Therefore, the following commands have to be executed within Ubuntu:</p>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ad_rss$&gt;  sudo apt-get install asciidoctor</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;ad_rss$&gt;  sudo -E gem install asciidoctor-pdf --pre</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;ad_rss$&gt;  sudo -E gem install coderay</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;ad_rss$&gt;  asciidoctor-pdf ./doc/Main.adoc -n</div></div><!-- fragment --><h2>Contributing</h2>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ad_rss$&gt;  sudo apt-get install asciidoctor</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;ad_rss$&gt;  sudo -E gem install asciidoctor-pdf --pre</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;ad_rss$&gt;  sudo -E gem install coderay</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;ad_rss$&gt;  asciidoctor-pdf ./doc/Main.adoc -n</div></div><!-- fragment --><h2>Contributing <a class="anchor" id="contributing"></a></h2>
 <p>Contibutions are very welcome!</p>
 <p>Before submitting a pull request, please ensure that your code compiles successfully and that the tests run successfully. Please also check that your code formatting complies to the provided clang style. To do so, you can run: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ad_rss$&gt; sudo apt-get install clang-format-3.9</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;ad_rss$&gt; find -iname *.cpp -o -iname *.hpp | xargs clang-format-3.9 -style=file -i</div></div><!-- fragment --><p> This command will automatically update the code formatting to be compliant with our style.</p>
 <p>In addition, please perform a static code analysis, if possible. </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ad_rss$&gt; sudo apt-get install clang-tidy</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;ad_rss$&gt; cmake -DBUILD_STATIC_ANALYSIS=ON</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;ad_rss$&gt; make clang-tidy</div></div><!-- fragment --><p> This may provide a list of possible improvements that you would like to consider in your pull request. </p>
