@@ -5,7 +5,19 @@
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/intel/ad-rss-lib.svg)
 [![Build Status](https://travis-ci.com/intel/ad-rss-lib.svg?branch=master)](https://travis-ci.com/intel/ad-rss-lib)
 
-## Introduction
+
+## Table of contents
+1. [Introduction](#introduction)
+2. [License](#license)
+3. [Releases](#releases)
+   1. [Release 1.x](#release_1)
+3. [Getting Started](#started)
+   1. [Supported Systems](#systems)
+4. [Building the library](#building)
+5. [Contributing](#contributing)
+
+
+## Introduction <a name="introduction"></a>
 This library intends to provide a C++ implementation of the Responsibility Sensitive Safety model (RSS) for Autonomous Vehicles.
 
 RSS is described in the following papers. Potential users of this C++ library are encouraged to read these papers in order to become familiar with the concepts and functions provided by the library.
@@ -22,7 +34,7 @@ The scope, design and architecture of this C++ library for RSS is described in m
 - C++ Library for Responsibility Sensitive Safety, Intel, 2018
 
 
-## License
+## License <a name="license"></a>
 This software library is provided under the BSD 3-clause open-source license: https://opensource.org/licenses/BSD-3-Clause.
 
 In addition, the terms in the following apply:
@@ -36,10 +48,11 @@ Visit the project's [GitHub page](https://intel.github.io/ad-rss-lib/) to access
 If you have any additional question not answered therein, you might find more in:
 - [FAQ](./FAQ.md)
 
-## Release 1.x.x
+## Releases <a name="releases"></a>
+### Release 1.x.x <a name="release_1"></a>
 The initial release of the C++ software library for RSS implements a subset of the rules and calculations specified in the published RSS paper. This means that this release handles a subset of autonomous driving scenarios, described below. Scenarios other than this subset cannot be handled.
 
-### Features & Limitations
+#### Features & Limitations
 This release implements the RSS calculations and rules corresponding to the following scenarios:
 - Multi-lane roads, i.e. longitudinal and lateral safe distance and proper response determination; and
 - Intersections, i.e. two or more routes of different geometry, rules for intersections of routes, with priority/right of way, and longitudinal and lateral proper response determination. However, in the case of intersections, it is assumed that there is always a lateral conflict.
@@ -54,10 +67,10 @@ The following parts of RSS are NOT implemented in this release of the library so
 Note: The RSS module in this library does not initiate evasive manuevers. At the same time, it would not hinder an evasive manuever being executed by the AV driving policy and planning modules, as long as it is compliant with the required RSS proper response.
 
 
-## Getting started
+## Getting started <a name="started"></a>
 
 ### Installation of dependencies
-Currently, the supported operating system is Ubuntu 16.04. Nevertheless, the library should work in a similar way for any other Linux OS.
+Currently, the focued operating system is Ubuntu 16.04. Nevertheless, the library should work in a similar way for any other Linux OS.
 To install the dependencies for Ubuntu 16.04 execute the following command:
 ```bash
  user$> sudo apt-get install git build-essential cmake libgtest-dev
@@ -75,7 +88,21 @@ To download the library, you may run:
  user$> cd ad-rss-lib
 ```
 
-## Building the library
+### Supported systems <a name="systems"></a>
+Besides Ubuntu 16.04 we are currently supporting the following Linux OS and compiler combinations
+
+|                 | Ubuntu 14.04 | Ubuntu 16.04 | Ubuntu 18.04 |
+|:---------------:|:------------:|:------------:|:------------:|
+|  Clang 3.4      |       x      |              |              |
+|  Clang 3.8/3.9  |       x      |       x      |              |
+|  Clang 5.0      |              |       x      |              |
+|  Clang 6.0      |              |       x      |       -      |
+|   GCC 4.8       |       x      |              |              |
+| GCC 5.4/5.5     |              |       x      |              |
+|   GCC 6.0       |              |       x      |              |
+|   GCC 7.3       |              |       x      |       x      |
+
+## Building the library <a name="building"></a>
 
 ### Build instructions
 The RSS library is built with a standard cmake toolchain. Simply run the following commands to build the library:
@@ -117,7 +144,7 @@ ad_rss$>  sudo -E gem install coderay
 ad_rss$>  asciidoctor-pdf ./doc/Main.adoc -n
 ```
 
-## Contributing
+## Contributing <a name="contributing"></a>
 Contibutions are very welcome!
 
 Before submitting a pull request, please ensure that your code compiles successfully and that the tests run successfully.

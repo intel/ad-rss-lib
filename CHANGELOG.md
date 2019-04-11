@@ -1,6 +1,8 @@
 ## Latest changes
 * Small updates to be compliant to clang-tidy-3.8 static code analysis
 * Added basic FAQ
+* Added official support for Ubuntu 14.04 (GCC 4.8, Clang 3.4 and 3.8/3.9)
+* Added official support for Ubuntu 18.04 (GCC 7.3)
 * Fixed documentation of RoadArea LaneSegment ordering (left -> right)
 * Fixed isSafe flags of the resolved response
 * Renamed some internal files from 'RSS...' -> 'Rss...' to have camel-case everywhere
