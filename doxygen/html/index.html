@@ -143,9 +143,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>Note: The RSS module in this library does not initiate evasive manuevers. At the same time, it would not hinder an evasive manuever being executed by the AV driving policy and planning modules, as long as it is compliant with the required RSS proper response.</p>
 <h2>Getting started <a class="anchor" id="started"></a></h2>
 <h3>Installation of dependencies</h3>
-<p>Currently, the focued operating system is Ubuntu 16.04. Nevertheless, the library should work in a similar way for any other Linux OS. To install the dependencies for Ubuntu 16.04 execute the following command: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; sudo apt-get install git build-essential cmake libgtest-dev</div></div><!-- fragment --><p>If you want to use doxygen for API documentation, please also install: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; sudo apt-get install doxygen graphviz</div></div><!-- fragment --><h3>Get the library</h3>
+<p>Currently, the focused operating system is Ubuntu 16.04. Nevertheless, the library should work in a similar way for any other Linux OS. To install the dependencies for Ubuntu 16.04 execute the following command: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; sudo apt-get install git build-essential cmake </div></div><!-- fragment --><p>If you want to use doxygen for API documentation, please also install: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; sudo apt-get install doxygen graphviz</div></div><!-- fragment --><h3>Get the library</h3>
 <p>To download the library, you may run: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; git clone https://github.com/intel/ad-rss-lib.git</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;user$&gt; cd ad-rss-lib</div></div><!-- fragment --><h3>Supported systems <a class="anchor" id="systems"></a></h3>
-<p>Besides Ubuntu 16.04 we are currently supporting the following Linux OS and compiler combinations</p>
+<p>Besides Ubuntu 16.04 we are currently supporting the following Linux OS and compiler combinations:</p>
 <table class="doxtable">
 <tr>
 <th align="center"></th><th align="center">Ubuntu 14.04 </th><th align="center">Ubuntu 16.04 </th><th align="center">Ubuntu 18.04  </th></tr>
@@ -156,7 +156,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr>
 <td align="center">Clang 5.0 </td><td align="center"></td><td align="center">x </td><td align="center"></td></tr>
 <tr>
-<td align="center">Clang 6.0 </td><td align="center"></td><td align="center">x </td><td align="center">- </td></tr>
+<td align="center">Clang 6.0 </td><td align="center"></td><td align="center">x </td><td align="center">x </td></tr>
 <tr>
 <td align="center">GCC 4.8 </td><td align="center">x </td><td align="center"></td><td align="center"></td></tr>
 <tr>
@@ -166,6 +166,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr>
 <td align="center">GCC 7.3 </td><td align="center"></td><td align="center">x </td><td align="center">x </td></tr>
 </table>
+<p>Important: cmake is required to be at least version 3.5!</p>
 <h2>Building the library <a class="anchor" id="building"></a></h2>
 <h3>Build instructions</h3>
 <p>The RSS library is built with a standard cmake toolchain. Simply run the following commands to build the library: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ad_rss$&gt; mkdir build</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;ad_rss$&gt; cd build</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;build$&gt;  cmake ..</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;build$&gt;  make</div></div><!-- fragment --><h4>Unit tests</h4>

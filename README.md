@@ -70,10 +70,10 @@ Note: The RSS module in this library does not initiate evasive manuevers. At the
 ## Getting started <a name="started"></a>
 
 ### Installation of dependencies
-Currently, the focued operating system is Ubuntu 16.04. Nevertheless, the library should work in a similar way for any other Linux OS.
+Currently, the focused operating system is Ubuntu 16.04. Nevertheless, the library should work in a similar way for any other Linux OS.
 To install the dependencies for Ubuntu 16.04 execute the following command:
 ```bash
- user$> sudo apt-get install git build-essential cmake libgtest-dev
+ user$> sudo apt-get install git build-essential cmake 
 ```
 
 If you want to use doxygen for API documentation, please also install:
@@ -89,18 +89,20 @@ To download the library, you may run:
 ```
 
 ### Supported systems <a name="systems"></a>
-Besides Ubuntu 16.04 we are currently supporting the following Linux OS and compiler combinations
+Besides Ubuntu 16.04 we are currently supporting the following Linux OS and compiler combinations:
 
 |                 | Ubuntu 14.04 | Ubuntu 16.04 | Ubuntu 18.04 |
 |:---------------:|:------------:|:------------:|:------------:|
 |  Clang 3.4      |       x      |              |              |
 |  Clang 3.8/3.9  |       x      |       x      |              |
 |  Clang 5.0      |              |       x      |              |
-|  Clang 6.0      |              |       x      |       -      |
+|  Clang 6.0      |              |       x      |       x      |
 |   GCC 4.8       |       x      |              |              |
 | GCC 5.4/5.5     |              |       x      |              |
 |   GCC 6.0       |              |       x      |              |
 |   GCC 7.3       |              |       x      |       x      |
+
+Important: cmake is required to be at least version 3.5!
 
 ## Building the library <a name="building"></a>
 
