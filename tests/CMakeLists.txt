@@ -95,7 +95,7 @@ target_include_directories(${EXEC_NAME}
 )
 
 target_link_libraries(${EXEC_NAME} PRIVATE
-  GTest::Main
+  gtest_main
   ${PROJECT_NAME}
 )
 

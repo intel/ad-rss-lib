@@ -173,17 +173,14 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
 if(BUILD_TESTING)
 message(STATUS "Build Testing")
   enable_testing()
-  if(NOT TARGET GTest::GTest)
-    find_package(GTest QUIET)
-    if (NOT GTEST_FOUND)
-      #As Ubuntu never ships precompiled gtest libraries, build them on-the-fly from source
-      #requires gtest-dev package to be intalled
-      add_subdirectory(/usr/src/gtest gtest)
-      add_library(GTest::GTest ALIAS gtest)
-      add_library(GTest::Main ALIAS gtest_main)
-    endif()
-  endif()
- add_subdirectory(tests)
+
+  configure_file(tests/gtest-cmake.txt.in googletest-download/CMakeLists.txt)
+  execute_process(COMMAND "${CMAKE_COMMAND}" -G "Eclipse CDT4 - Unix Makefiles" . RESULT_VARIABLE result WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/googletest-download")
+  execute_process(COMMAND "${CMAKE_COMMAND}" --build . RESULT_VARIABLE result WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/googletest-download")
+  add_subdirectory("${CMAKE_CURRENT_BINARY_DIR}/googletest-src"
+                   "${CMAKE_CURRENT_BINARY_DIR}/googletest-build"
+                   EXCLUDE_FROM_ALL)
+  add_subdirectory(tests)
 endif()
 
 

@@ -3,6 +3,7 @@
 * Added basic FAQ
 * Added official support for Ubuntu 14.04 (GCC 4.8, Clang 3.4 and 3.8/3.9)
 * Added official support for Ubuntu 18.04 (GCC 7.3)
+* Download/Build gtest on the fly rather than using the version from the OS
 * Fixed documentation of RoadArea LaneSegment ordering (left -> right)
 * Fixed isSafe flags of the resolved response
 * Renamed some internal files from 'RSS...' -> 'Rss...' to have camel-case everywhere
