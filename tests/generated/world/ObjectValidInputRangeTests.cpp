@@ -755,6 +755,7 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeResponseTimeTooBig)
 TEST(ObjectValidInputRangeTests, testValidInputRangeresponseTimeDefault)
 {
   ::ad_rss::world::Object value;
+  value.objectType = ::ad_rss::world::ObjectType::EgoVehicle;
   ::ad_rss::physics::Duration valueDefault;
   value.responseTime = valueDefault;
   ASSERT_FALSE(withinValidInputRange(value));
