@@ -46,7 +46,6 @@ matrix:
           packages:
             - cmake
             - build-essential
-            - libgtest-dev
             - lcov
       script:
         - bash .github/.travis/compile.sh release
@@ -65,7 +64,6 @@ matrix:
           packages:
             - cmake
             - build-essential
-            - libgtest-dev
       script:
         - bash .github/.travis/compile.sh release
       after_failure:
@@ -77,7 +75,6 @@ matrix:
           packages:
             - cmake
             - build-essential
-            - libgtest-dev
             - doxygen
             - graphviz
             - asciidoctor
@@ -113,7 +110,6 @@ matrix:
           packages:
             - cmake
             - build-essential
-            - libgtest-dev
             - lcov
             - clang-tidy
             - clang-3.8
@@ -135,7 +131,6 @@ matrix:
           packages:
             - cmake
             - build-essential
-            - libgtest-dev
             - lcov
             - doxygen
             - graphviz
@@ -172,11 +167,11 @@ matrix:
         - docker run -d --name ubuntu -v $(pwd):/travis -w /travis ubuntu:trusty tail -f /dev/null
         - docker ps
       install:
-        - $SH "apt-get update && apt-get -y install build-essential cmake3 libgtest-dev clang"
+        - $SH "apt-get update && apt-get -y -qq install build-essential cmake3 clang git"
       script:
         - $SH "mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
         - $SH "rm -rf build && export CC=/usr/bin/clang && export CXX=/usr/bin/clang++ && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
-        - $SH "apt-get -y remove clang && apt-get -y install clang-3.9"
+        - $SH "apt-get -y -qq remove clang && apt-get -y -qq install clang-3.9"
         - $SH "rm -rf build && export CC=/usr/bin/clang-3.9 && export CXX=/usr/bin/clang++-3.9 && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
       after_failure:
         - tail --lines=2000 build.log
@@ -191,13 +186,14 @@ matrix:
         - docker run -d --name ubuntu -v $(pwd):/travis -w /travis ubuntu:xenial tail -f /dev/null
         - docker ps
       install:
-        - $SH "apt-get update && apt-get -y install build-essential cmake libgtest-dev clang"
-        - $SH "apt-get -y install software-properties-common && add-apt-repository ppa:ubuntu-toolchain-r/test -y && apt-get update"
+        - $SH "apt-get update && apt-get -y -qq install build-essential cmake clang git"
+        - $SH "apt-get -y -qq install software-properties-common && add-apt-repository ppa:ubuntu-toolchain-r/test -y && apt-get update"
       script:
         - $SH "mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
         - $SH "rm -rf build && export CC=/usr/bin/clang && export CXX=/usr/bin/clang++ && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
-        - $SH "apt-get -y remove clang && apt-get -y install clang-6.0 g++-6 clang-5.0"
+        - $SH "apt-get -y -qq remove clang && apt-get -y -qq install clang-6.0 g++-6 clang-5.0 g++-7"
         - $SH "rm -rf build && export CC=/usr/bin/gcc-6 && export CXX=/usr/bin/g++-6 && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
+        - $SH "rm -rf build && export CC=/usr/bin/gcc-7 && export CXX=/usr/bin/g++-7 && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
         - $SH "rm -rf build && export CC=/usr/bin/clang-5.0 && export CXX=/usr/bin/clang++-5.0 && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
         - $SH "rm -rf build && export CC=/usr/bin/clang-6.0 && export CXX=/usr/bin/clang++-6.0 && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
       after_failure:
@@ -213,10 +209,10 @@ matrix:
         - docker run -d --name ubuntu -v $(pwd):/travis -w /travis ubuntu:bionic tail -f /dev/null
         - docker ps
       install:
-        - $SH "apt-get update && apt-get -y install build-essential cmake libgtest-dev clang"
+        - $SH "apt-get update && apt-get -y -qq install build-essential cmake clang git"
       script:
         - $SH "mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
-        #- $SH "rm -rf build && export CC=/usr/bin/clang && export CXX=/usr/bin/clang++ && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
+        - $SH "rm -rf build && export CC=/usr/bin/clang && export CXX=/usr/bin/clang++ && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
       after_failure:
         - tail --lines=2000 build.log
 
