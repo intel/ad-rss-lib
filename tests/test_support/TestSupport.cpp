@@ -62,6 +62,38 @@ void resetRssState(state::ResponseState &responseState, situation::SituationId c
   resetRssState(responseState.lateralStateRight);
 }
 
+world::RssDynamics getObjectRssDynamics()
+{
+  world::RssDynamics rssDynamics;
+
+  rssDynamics.alphaLon.accelMax = cMaximumLongitudinalAcceleration;
+  rssDynamics.alphaLon.brakeMax = cMaximumLongitudinalBrakingDeceleleration;
+  rssDynamics.alphaLon.brakeMin = cMinimumLongitudinalBrakingDeceleleration;
+  rssDynamics.alphaLon.brakeMinCorrect = cMinimumLongitudinalBrakingDecelelerationCorrect;
+
+  rssDynamics.alphaLat.accelMax = cMaximumLateralAcceleration;
+  rssDynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
+
+  rssDynamics.responseTime = cResponseTimeOtherVehicles;
+  return rssDynamics;
+}
+
+world::RssDynamics getEgoRssDynamics()
+{
+  world::RssDynamics rssDynamics;
+
+  rssDynamics.alphaLon.accelMax = cMaximumLongitudinalAcceleration;
+  rssDynamics.alphaLon.brakeMax = cMaximumLongitudinalBrakingDeceleleration;
+  rssDynamics.alphaLon.brakeMin = cMinimumLongitudinalBrakingDeceleleration;
+  rssDynamics.alphaLon.brakeMinCorrect = cMinimumLongitudinalBrakingDecelelerationCorrect;
+
+  rssDynamics.alphaLat.accelMax = cMaximumLateralAcceleration;
+  rssDynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
+
+  rssDynamics.responseTime = cResponseTimeEgoVehicle;
+  return rssDynamics;
+}
+
 world::Object createObject(double const lonVelocity, double const latVelocity)
 {
   world::Object object;
@@ -69,16 +101,6 @@ world::Object createObject(double const lonVelocity, double const latVelocity)
   object.objectType = world::ObjectType::OtherVehicle;
   object.velocity.speedLon = kmhToMeterPerSec(lonVelocity);
   object.velocity.speedLat = kmhToMeterPerSec(latVelocity);
-  object.dynamics.alphaLon.accelMax = cMaximumLongitudinalAcceleration;
-  object.dynamics.alphaLon.brakeMax = cMaximumLongitudinalBrakingDeceleleration;
-  object.dynamics.alphaLon.brakeMin = cMinimumLongitudinalBrakingDeceleleration;
-  object.dynamics.alphaLon.brakeMinCorrect = cMinimumLongitudinalBrakingDecelelerationCorrect;
-
-  object.dynamics.alphaLat.accelMax = cMaximumLateralAcceleration;
-  object.dynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
-
-  object.responseTime = cResponseTimeOtherVehicles;
-
   return object;
 }
 
@@ -88,15 +110,7 @@ situation::VehicleState createVehicleState(double const lonVelocity, double cons
 
   state.velocity.speedLon = kmhToMeterPerSec(lonVelocity);
   state.velocity.speedLat = kmhToMeterPerSec(latVelocity);
-  state.dynamics.alphaLon.accelMax = cMaximumLongitudinalAcceleration;
-  state.dynamics.alphaLon.brakeMax = cMaximumLongitudinalBrakingDeceleleration;
-  state.dynamics.alphaLon.brakeMin = cMinimumLongitudinalBrakingDeceleleration;
-  state.dynamics.alphaLon.brakeMinCorrect = cMinimumLongitudinalBrakingDecelelerationCorrect;
-
-  state.dynamics.alphaLat.accelMax = cMaximumLateralAcceleration;
-  state.dynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
-
-  state.responseTime = cResponseTimeOtherVehicles;
+  state.dynamics = getObjectRssDynamics();
   state.distanceToEnterIntersection = Distance(0.);
   state.distanceToLeaveIntersection = Distance(1000.);
   state.hasPriority = false;
@@ -127,6 +141,79 @@ situation::RelativePosition createRelativeLateralPosition(situation::LateralRela
   return relativePosition;
 }
 
+Distance calculateLongitudinalStoppingDistance(world::Velocity const &objectVelocity,
+                                               Acceleration const &acceleration,
+                                               Acceleration const &deceleration,
+                                               Duration const &responseTime)
+{
+  Distance dMin = objectVelocity.speedLon * responseTime;
+  dMin += 0.5 * acceleration * responseTime * responseTime;
+  Speed const speedMax = objectVelocity.speedLon + responseTime * acceleration;
+  dMin += (speedMax * speedMax) / (2. * deceleration);
+  return dMin;
+}
+
+Distance calculateLongitudinalMinSafeDistance(world::Velocity const &followingObjectVelocity,
+                                              world::RssDynamics const &followingObjectRssDynamics,
+                                              world::Velocity const &leadingObjectVelocity,
+                                              world::RssDynamics const &leadingObjectRssDynamics)
+{
+  Distance const followingStoppingDistance
+    = calculateLongitudinalStoppingDistance(followingObjectVelocity,
+                                            followingObjectRssDynamics.alphaLon.accelMax,
+                                            followingObjectRssDynamics.alphaLon.brakeMin,
+                                            followingObjectRssDynamics.responseTime);
+  Distance const leadingStoppingDistance
+    = calculateLongitudinalStoppingDistance(leadingObjectVelocity,
+                                            leadingObjectRssDynamics.alphaLon.accelMax,
+                                            leadingObjectRssDynamics.alphaLon.brakeMax,
+                                            Duration(0));
+  Distance const dMin = followingStoppingDistance - leadingStoppingDistance;
+  return std::max(dMin, Distance(0.));
+}
+
+Distance
+calculateLongitudinalMinSafeDistanceOppositeDirection(world::Velocity const &objectInCorrectLaneVelocity,
+                                                      world::RssDynamics const &objectInCorrectLaneRssDynamics,
+                                                      world::Velocity const &objectNotInCorrectLaneVelocity,
+                                                      world::RssDynamics const &objectNotInCorrectLaneRssDynamics)
+{
+  Distance const correctStoppingDistance
+    = calculateLongitudinalStoppingDistance(objectInCorrectLaneVelocity,
+                                            objectInCorrectLaneRssDynamics.alphaLon.accelMax,
+                                            objectInCorrectLaneRssDynamics.alphaLon.brakeMinCorrect,
+                                            objectInCorrectLaneRssDynamics.responseTime);
+  Distance const notCorrectStoppingDistance
+    = calculateLongitudinalStoppingDistance(objectNotInCorrectLaneVelocity,
+                                            objectNotInCorrectLaneRssDynamics.alphaLon.accelMax,
+                                            objectNotInCorrectLaneRssDynamics.alphaLon.brakeMin,
+                                            objectNotInCorrectLaneRssDynamics.responseTime);
+  Distance const dMin = correctStoppingDistance + notCorrectStoppingDistance;
+  return dMin;
+}
+
+Distance calculateLateralMinSafeDistance(world::Velocity const &leftObjectVelocity,
+                                         world::RssDynamics const &leftObjectRssDynamics,
+                                         world::Velocity const &rightObjectVelocity,
+                                         world::RssDynamics const &rightObjectRssDynamics)
+{
+  Speed lObjectVelAfterResTime
+    = leftObjectVelocity.speedLat + leftObjectRssDynamics.responseTime * leftObjectRssDynamics.alphaLat.accelMax;
+  Speed rObjectVelAfterResTime
+    = rightObjectVelocity.speedLat - rightObjectRssDynamics.responseTime * rightObjectRssDynamics.alphaLat.accelMax;
+  Distance dMin = (leftObjectVelocity.speedLat + lObjectVelAfterResTime) / 2. * leftObjectRssDynamics.responseTime;
+  if (lObjectVelAfterResTime > Speed(0.))
+  {
+    dMin += lObjectVelAfterResTime * lObjectVelAfterResTime / (2 * leftObjectRssDynamics.alphaLat.brakeMin);
+  }
+  dMin -= (rightObjectVelocity.speedLat + rObjectVelAfterResTime) / 2. * rightObjectRssDynamics.responseTime;
+  if (rObjectVelAfterResTime < Speed(0.))
+  {
+    dMin += rObjectVelAfterResTime * rObjectVelAfterResTime / (2 * rightObjectRssDynamics.alphaLat.brakeMin);
+  }
+
+  return std::max(dMin, Distance(0.));
+}
 TestSupport::TestSupport()
 {
   resetRssState(cLongitudinalSafe);
@@ -166,12 +253,18 @@ state::LateralRssState TestSupport::stateWithInformation(state::LateralRssState 
       if (situation.relativePosition.lateralPosition == situation::LateralRelativePosition::AtLeft)
       {
         resultState.responseInformation.safeDistance
-          = calculateLateralMinSafeDistance(situation.egoVehicleState, situation.otherVehicleState);
+          = calculateLateralMinSafeDistance(situation.egoVehicleState.velocity,
+                                            situation.egoVehicleState.dynamics,
+                                            situation.otherVehicleState.velocity,
+                                            situation.otherVehicleState.dynamics);
       }
       else if (situation.relativePosition.lateralPosition == situation::LateralRelativePosition::AtRight)
       {
         resultState.responseInformation.safeDistance
-          = calculateLateralMinSafeDistance(situation.otherVehicleState, situation.egoVehicleState);
+          = calculateLateralMinSafeDistance(situation.otherVehicleState.velocity,
+                                            situation.otherVehicleState.dynamics,
+                                            situation.egoVehicleState.velocity,
+                                            situation.egoVehicleState.dynamics);
       }
       else
       {
@@ -212,14 +305,20 @@ state::LongitudinalRssState TestSupport::stateWithInformation(state::Longitudina
         resultState.responseInformation.responseEvaluator
           = state::ResponseEvaluator::LongitudinalDistanceSameDirectionEgoFront;
         resultState.responseInformation.safeDistance
-          = calculateLongitudinalMinSafeDistance(situation.otherVehicleState, situation.egoVehicleState);
+          = calculateLongitudinalMinSafeDistance(situation.otherVehicleState.velocity,
+                                                 situation.otherVehicleState.dynamics,
+                                                 situation.egoVehicleState.velocity,
+                                                 situation.egoVehicleState.dynamics);
       }
       else
       {
         resultState.responseInformation.responseEvaluator
           = state::ResponseEvaluator::LongitudinalDistanceSameDirectionOtherInFront;
         resultState.responseInformation.safeDistance
-          = calculateLongitudinalMinSafeDistance(situation.egoVehicleState, situation.otherVehicleState);
+          = calculateLongitudinalMinSafeDistance(situation.egoVehicleState.velocity,
+                                                 situation.egoVehicleState.dynamics,
+                                                 situation.otherVehicleState.velocity,
+                                                 situation.otherVehicleState.dynamics);
       }
       break;
     case situation::SituationType::OppositeDirection:
@@ -227,15 +326,21 @@ state::LongitudinalRssState TestSupport::stateWithInformation(state::Longitudina
       {
         resultState.responseInformation.responseEvaluator
           = state::ResponseEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane;
-        resultState.responseInformation.safeDistance = calculateLongitudinalMinSafeDistanceOppositeDirection(
-          situation.egoVehicleState, situation.otherVehicleState);
+        resultState.responseInformation.safeDistance
+          = calculateLongitudinalMinSafeDistanceOppositeDirection(situation.egoVehicleState.velocity,
+                                                                  situation.egoVehicleState.dynamics,
+                                                                  situation.otherVehicleState.velocity,
+                                                                  situation.otherVehicleState.dynamics);
       }
       else
       {
         resultState.responseInformation.responseEvaluator
           = state::ResponseEvaluator::LongitudinalDistanceOppositeDirection;
-        resultState.responseInformation.safeDistance = calculateLongitudinalMinSafeDistanceOppositeDirection(
-          situation.otherVehicleState, situation.egoVehicleState);
+        resultState.responseInformation.safeDistance
+          = calculateLongitudinalMinSafeDistanceOppositeDirection(situation.otherVehicleState.velocity,
+                                                                  situation.otherVehicleState.dynamics,
+                                                                  situation.egoVehicleState.velocity,
+                                                                  situation.egoVehicleState.dynamics);
       }
       break;
     case situation::SituationType::IntersectionEgoHasPriority:
@@ -245,9 +350,10 @@ state::LongitudinalRssState TestSupport::stateWithInformation(state::Longitudina
       {
         resultState.responseInformation.currentDistance = situation.egoVehicleState.distanceToEnterIntersection;
         resultState.responseInformation.safeDistance
-          = calculateLongitudinalStoppingDistance(situation.egoVehicleState,
+          = calculateLongitudinalStoppingDistance(situation.egoVehicleState.velocity,
+                                                  situation.egoVehicleState.dynamics.alphaLon.accelMax,
                                                   situation.egoVehicleState.dynamics.alphaLon.brakeMin,
-                                                  situation.egoVehicleState.responseTime);
+                                                  situation.egoVehicleState.dynamics.responseTime);
         resultState.responseInformation.responseEvaluator
           = state::ResponseEvaluator::IntersectionOtherPriorityEgoAbleToStop;
         if (resultState.responseInformation.currentDistance > resultState.responseInformation.safeDistance)
@@ -259,9 +365,10 @@ state::LongitudinalRssState TestSupport::stateWithInformation(state::Longitudina
       {
         resultState.responseInformation.currentDistance = situation.otherVehicleState.distanceToEnterIntersection;
         resultState.responseInformation.safeDistance
-          = calculateLongitudinalStoppingDistance(situation.otherVehicleState,
+          = calculateLongitudinalStoppingDistance(situation.otherVehicleState.velocity,
+                                                  situation.otherVehicleState.dynamics.alphaLon.accelMax,
                                                   situation.otherVehicleState.dynamics.alphaLon.brakeMin,
-                                                  situation.otherVehicleState.responseTime);
+                                                  situation.otherVehicleState.dynamics.responseTime);
         resultState.responseInformation.responseEvaluator
           = state::ResponseEvaluator::IntersectionEgoPriorityOtherAbleToStop;
         if (resultState.responseInformation.currentDistance > resultState.responseInformation.safeDistance)
@@ -274,13 +381,19 @@ state::LongitudinalRssState TestSupport::stateWithInformation(state::Longitudina
       {
         resultState.responseInformation.responseEvaluator = state::ResponseEvaluator::IntersectionEgoInFront;
         resultState.responseInformation.safeDistance
-          = calculateLongitudinalMinSafeDistance(situation.otherVehicleState, situation.egoVehicleState);
+          = calculateLongitudinalMinSafeDistance(situation.otherVehicleState.velocity,
+                                                 situation.otherVehicleState.dynamics,
+                                                 situation.egoVehicleState.velocity,
+                                                 situation.egoVehicleState.dynamics);
       }
       else if (situation.relativePosition.longitudinalPosition == situation::LongitudinalRelativePosition::AtBack)
       {
         resultState.responseInformation.responseEvaluator = state::ResponseEvaluator::IntersectionOtherInFront;
         resultState.responseInformation.safeDistance
-          = calculateLongitudinalMinSafeDistance(situation.egoVehicleState, situation.otherVehicleState);
+          = calculateLongitudinalMinSafeDistance(situation.egoVehicleState.velocity,
+                                                 situation.egoVehicleState.dynamics,
+                                                 situation.otherVehicleState.velocity,
+                                                 situation.otherVehicleState.dynamics);
       }
       if (resultState.responseInformation.currentDistance > resultState.responseInformation.safeDistance)
       {

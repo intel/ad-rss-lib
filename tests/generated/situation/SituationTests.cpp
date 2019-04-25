@@ -62,7 +62,7 @@ protected:
     valueEgoVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
     valueEgoVehicleStateVelocity.speedLat = valueEgoVehicleStateVelocitySpeedLat;
     valueEgoVehicleState.velocity = valueEgoVehicleStateVelocity;
-    ::ad_rss::world::Dynamics valueEgoVehicleStateDynamics;
+    ::ad_rss::world::RssDynamics valueEgoVehicleStateDynamics;
     ::ad_rss::world::LongitudinalRssAccelerationValues valueEgoVehicleStateDynamicsAlphaLon;
     ::ad_rss::physics::Acceleration valueEgoVehicleStateDynamicsAlphaLonAccelMax(-1e2);
     valueEgoVehicleStateDynamicsAlphaLonAccelMax
@@ -93,11 +93,11 @@ protected:
     valueEgoVehicleStateDynamics.alphaLat = valueEgoVehicleStateDynamicsAlphaLat;
     ::ad_rss::physics::Distance valueEgoVehicleStateDynamicsLateralFluctuationMargin(0.);
     valueEgoVehicleStateDynamics.lateralFluctuationMargin = valueEgoVehicleStateDynamicsLateralFluctuationMargin;
-    valueEgoVehicleState.dynamics = valueEgoVehicleStateDynamics;
-    ::ad_rss::physics::Duration valueEgoVehicleStateResponseTime(0.);
-    valueEgoVehicleStateResponseTime = ::ad_rss::physics::Duration(
+    ::ad_rss::physics::Duration valueEgoVehicleStateDynamicsResponseTime(0.);
+    valueEgoVehicleStateDynamicsResponseTime = ::ad_rss::physics::Duration(
       0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
-    valueEgoVehicleState.responseTime = valueEgoVehicleStateResponseTime;
+    valueEgoVehicleStateDynamics.responseTime = valueEgoVehicleStateDynamicsResponseTime;
+    valueEgoVehicleState.dynamics = valueEgoVehicleStateDynamics;
     bool valueEgoVehicleStateHasPriority{true};
     valueEgoVehicleState.hasPriority = valueEgoVehicleStateHasPriority;
     bool valueEgoVehicleStateIsInCorrectLane{true};
@@ -118,7 +118,7 @@ protected:
     valueOtherVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
     valueOtherVehicleStateVelocity.speedLat = valueOtherVehicleStateVelocitySpeedLat;
     valueOtherVehicleState.velocity = valueOtherVehicleStateVelocity;
-    ::ad_rss::world::Dynamics valueOtherVehicleStateDynamics;
+    ::ad_rss::world::RssDynamics valueOtherVehicleStateDynamics;
     ::ad_rss::world::LongitudinalRssAccelerationValues valueOtherVehicleStateDynamicsAlphaLon;
     ::ad_rss::physics::Acceleration valueOtherVehicleStateDynamicsAlphaLonAccelMax(-1e2);
     valueOtherVehicleStateDynamicsAlphaLonAccelMax
@@ -149,11 +149,11 @@ protected:
     valueOtherVehicleStateDynamics.alphaLat = valueOtherVehicleStateDynamicsAlphaLat;
     ::ad_rss::physics::Distance valueOtherVehicleStateDynamicsLateralFluctuationMargin(0.);
     valueOtherVehicleStateDynamics.lateralFluctuationMargin = valueOtherVehicleStateDynamicsLateralFluctuationMargin;
-    valueOtherVehicleState.dynamics = valueOtherVehicleStateDynamics;
-    ::ad_rss::physics::Duration valueOtherVehicleStateResponseTime(0.);
-    valueOtherVehicleStateResponseTime = ::ad_rss::physics::Duration(
+    ::ad_rss::physics::Duration valueOtherVehicleStateDynamicsResponseTime(0.);
+    valueOtherVehicleStateDynamicsResponseTime = ::ad_rss::physics::Duration(
       0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
-    valueOtherVehicleState.responseTime = valueOtherVehicleStateResponseTime;
+    valueOtherVehicleStateDynamics.responseTime = valueOtherVehicleStateDynamicsResponseTime;
+    valueOtherVehicleState.dynamics = valueOtherVehicleStateDynamics;
     bool valueOtherVehicleStateHasPriority{true};
     valueOtherVehicleState.hasPriority = valueOtherVehicleStateHasPriority;
     bool valueOtherVehicleStateIsInCorrectLane{true};
@@ -262,7 +262,7 @@ TEST_F(SituationTests, comparisonOperatorEgoVehicleStateDiffers)
   egoVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(10.); // set to valid value within struct
   egoVehicleStateVelocity.speedLat = egoVehicleStateVelocitySpeedLat;
   egoVehicleState.velocity = egoVehicleStateVelocity;
-  ::ad_rss::world::Dynamics egoVehicleStateDynamics;
+  ::ad_rss::world::RssDynamics egoVehicleStateDynamics;
   ::ad_rss::world::LongitudinalRssAccelerationValues egoVehicleStateDynamicsAlphaLon;
   ::ad_rss::physics::Acceleration egoVehicleStateDynamicsAlphaLonAccelMax(1e2);
   egoVehicleStateDynamicsAlphaLon.accelMax = egoVehicleStateDynamicsAlphaLonAccelMax;
@@ -286,10 +286,10 @@ TEST_F(SituationTests, comparisonOperatorEgoVehicleStateDiffers)
   ::ad_rss::physics::Distance egoVehicleStateDynamicsLateralFluctuationMargin(1e6);
   egoVehicleStateDynamicsLateralFluctuationMargin = ::ad_rss::physics::Distance(1.); // set to valid value within struct
   egoVehicleStateDynamics.lateralFluctuationMargin = egoVehicleStateDynamicsLateralFluctuationMargin;
+  ::ad_rss::physics::Duration egoVehicleStateDynamicsResponseTime(100.);
+  egoVehicleStateDynamicsResponseTime = ::ad_rss::physics::Duration(10.); // set to valid value within struct
+  egoVehicleStateDynamics.responseTime = egoVehicleStateDynamicsResponseTime;
   egoVehicleState.dynamics = egoVehicleStateDynamics;
-  ::ad_rss::physics::Duration egoVehicleStateResponseTime(100.);
-  egoVehicleStateResponseTime = ::ad_rss::physics::Duration(10.); // set to valid value within struct
-  egoVehicleState.responseTime = egoVehicleStateResponseTime;
   bool egoVehicleStateHasPriority{false};
   egoVehicleState.hasPriority = egoVehicleStateHasPriority;
   bool egoVehicleStateIsInCorrectLane{false};
@@ -319,7 +319,7 @@ TEST_F(SituationTests, comparisonOperatorOtherVehicleStateDiffers)
   otherVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(10.); // set to valid value within struct
   otherVehicleStateVelocity.speedLat = otherVehicleStateVelocitySpeedLat;
   otherVehicleState.velocity = otherVehicleStateVelocity;
-  ::ad_rss::world::Dynamics otherVehicleStateDynamics;
+  ::ad_rss::world::RssDynamics otherVehicleStateDynamics;
   ::ad_rss::world::LongitudinalRssAccelerationValues otherVehicleStateDynamicsAlphaLon;
   ::ad_rss::physics::Acceleration otherVehicleStateDynamicsAlphaLonAccelMax(1e2);
   otherVehicleStateDynamicsAlphaLon.accelMax = otherVehicleStateDynamicsAlphaLonAccelMax;
@@ -344,10 +344,10 @@ TEST_F(SituationTests, comparisonOperatorOtherVehicleStateDiffers)
   otherVehicleStateDynamicsLateralFluctuationMargin
     = ::ad_rss::physics::Distance(1.); // set to valid value within struct
   otherVehicleStateDynamics.lateralFluctuationMargin = otherVehicleStateDynamicsLateralFluctuationMargin;
+  ::ad_rss::physics::Duration otherVehicleStateDynamicsResponseTime(100.);
+  otherVehicleStateDynamicsResponseTime = ::ad_rss::physics::Duration(10.); // set to valid value within struct
+  otherVehicleStateDynamics.responseTime = otherVehicleStateDynamicsResponseTime;
   otherVehicleState.dynamics = otherVehicleStateDynamics;
-  ::ad_rss::physics::Duration otherVehicleStateResponseTime(100.);
-  otherVehicleStateResponseTime = ::ad_rss::physics::Duration(10.); // set to valid value within struct
-  otherVehicleState.responseTime = otherVehicleStateResponseTime;
   bool otherVehicleStateHasPriority{false};
   otherVehicleState.hasPriority = otherVehicleStateHasPriority;
   bool otherVehicleStateIsInCorrectLane{false};

@@ -86,15 +86,15 @@ TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities)
 
 TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities_DifferentLaneSegements)
 {
-  worldModel.egoVehicle.occupiedRegions[0].segmentId = 2;
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 2;
   performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMin);
 }
 
 TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities_NoLateralConflict)
 {
-  worldModel.egoVehicle.occupiedRegions[0].segmentId = 0;
-  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);
-  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 0;
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);
 
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;
 
@@ -103,7 +103,7 @@ TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities_NoLateralConfl
 
   for (uint32_t i = 0; i < 100; i++)
   {
-    worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
+    worldModel.scenes[0].egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
     worldModel.timeIndex++;
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
@@ -114,9 +114,9 @@ TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities_NoLateralConfl
 
 TEST_F(RssCheckSameDirectionOtherLeadingTest, _DifferentVelocities_NoLateralConflict_2Objects)
 {
-  worldModel.egoVehicle.occupiedRegions[0].segmentId = 0;
-  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);
-  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 0;
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);
 
   worldModel.scenes.push_back(worldModel.scenes.front());
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;
@@ -128,7 +128,7 @@ TEST_F(RssCheckSameDirectionOtherLeadingTest, _DifferentVelocities_NoLateralConf
 
   for (uint32_t i = 0; i < 100; i++)
   {
-    worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
+    worldModel.scenes[0].egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
     worldModel.timeIndex++;
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
@@ -158,9 +158,9 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, DifferentVelocities)
 
 TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Front)
 {
-  worldModel.egoVehicle.occupiedRegions[0].segmentId = 8;
-  worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.5);
-  worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.4);
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 8;
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.5);
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.4);
 
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 6;
   worldModel.scenes[0].object.occupiedRegions[0].lonRange.maximum = ParametricValue(0.45);
@@ -183,9 +183,9 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Front)
 
 TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Right)
 {
-  worldModel.egoVehicle.occupiedRegions[0].segmentId = 5;
-  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.5);
-  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.4);
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 5;
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.5);
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.4);
 
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 2;
   worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = ParametricValue(0.45);
@@ -208,9 +208,9 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Right)
 
 TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Left)
 {
-  worldModel.egoVehicle.occupiedRegions[0].segmentId = 5;
-  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.4);
-  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.3);
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 5;
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.4);
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.3);
 
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 2;
   worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = ParametricValue(0.45);

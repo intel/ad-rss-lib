@@ -36,19 +36,19 @@ namespace ad_rss {
 
 namespace core {
 
-namespace RssSituationExtraction {
-
 class RssSituationExtractionIntersectionTests : public testing::Test
 {
 protected:
   virtual void SetUp()
   {
+    worldModel.egoVehicleRssDynamics = getEgoRssDynamics();
     leadingObject = createObject(36., 0.);
     leadingObject.objectId = 0;
     scene.situationType = ad_rss::situation::SituationType::IntersectionEgoHasPriority;
+    scene.objectRssDynamics = getObjectRssDynamics();
 
     {
-      ::ad_rss::world::OccupiedRegion occupiedRegion;
+      world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = ParametricValue(0.8);
       occupiedRegion.lonRange.maximum = ParametricValue(1.0);
       occupiedRegion.segmentId = 1.;
@@ -61,7 +61,7 @@ protected:
     followingObject = createObject(36., 0.);
     followingObject.objectId = 1;
     {
-      ::ad_rss::world::OccupiedRegion occupiedRegion;
+      world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = ParametricValue(0.1);
       occupiedRegion.lonRange.maximum = ParametricValue(0.2);
       occupiedRegion.segmentId = 1.;
@@ -77,64 +77,110 @@ protected:
     leadingObject.occupiedRegions.clear();
     scene.egoVehicleRoad.clear();
   }
-  ::ad_rss::world::Object followingObject;
-  ::ad_rss::world::Object leadingObject;
-  ::ad_rss::world::Scene scene;
+
+  world::RoadArea longitudinalNoDifferenceRoadArea()
+  {
+    world::RoadArea roadArea;
+    {
+      world::RoadSegment roadSegment;
+      world::LaneSegment laneSegment;
+
+      laneSegment.id = 1;
+      laneSegment.length.minimum = Distance(10);
+      laneSegment.length.maximum = Distance(10);
+
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
+      laneSegment.type = world::LaneSegmentType::Normal;
+
+      roadSegment.push_back(laneSegment);
+      roadArea.push_back(roadSegment);
+    }
+
+    {
+      world::RoadSegment roadSegment;
+      world::LaneSegment laneSegment;
+
+      laneSegment.id = 2;
+      laneSegment.length.minimum = Distance(5);
+      laneSegment.length.maximum = Distance(5);
+
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
+      laneSegment.type = world::LaneSegmentType::Intersection;
+
+      roadSegment.push_back(laneSegment);
+
+      roadArea.push_back(roadSegment);
+    }
+    return roadArea;
+  }
+
+  world::RoadArea longitudinalDifferenceRoadArea()
+  {
+    world::RoadArea roadArea;
+    {
+      world::RoadSegment roadSegment;
+      world::LaneSegment laneSegment;
+
+      laneSegment.id = 1;
+      laneSegment.length.minimum = Distance(8);
+      laneSegment.length.maximum = Distance(10);
+
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
+      laneSegment.type = world::LaneSegmentType::Normal;
+
+      roadSegment.push_back(laneSegment);
+      roadArea.push_back(roadSegment);
+    }
+
+    {
+      world::RoadSegment roadSegment;
+      world::LaneSegment laneSegment;
+
+      laneSegment.id = 2;
+      laneSegment.length.minimum = Distance(4);
+      laneSegment.length.maximum = Distance(5);
+
+      laneSegment.width.minimum = Distance(5);
+      laneSegment.width.maximum = Distance(5);
+      laneSegment.type = world::LaneSegmentType::Intersection;
+
+      roadSegment.push_back(laneSegment);
+
+      roadArea.push_back(roadSegment);
+    }
+    return roadArea;
+  }
+
+  world::Object followingObject;
+  world::Object leadingObject;
+  world::WorldModel worldModel;
+  world::Scene scene;
+  RssSituationExtraction situationExtraction;
 };
 
 TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
 {
-  world::WorldModel worldModel;
   situation::SituationVector situationVector;
 
-  worldModel.egoVehicle = objectAsEgo(leadingObject);
+  scene.egoVehicle = objectAsEgo(leadingObject);
   scene.object = followingObject;
 
-  {
-    ::ad_rss::world::RoadSegment roadSegment;
-    ::ad_rss::world::LaneSegment laneSegment;
-
-    laneSegment.id = 1;
-    laneSegment.length.minimum = Distance(10);
-    laneSegment.length.maximum = Distance(10);
-
-    laneSegment.width.minimum = Distance(5);
-    laneSegment.width.maximum = Distance(5);
-    laneSegment.type = ::ad_rss::world::LaneSegmentType::Normal;
-
-    roadSegment.push_back(laneSegment);
-    scene.egoVehicleRoad.push_back(roadSegment);
-    scene.intersectingRoad.push_back(roadSegment);
-  }
-
-  {
-    ::ad_rss::world::RoadSegment roadSegment;
-    ::ad_rss::world::LaneSegment laneSegment;
-
-    laneSegment.id = 2;
-    laneSegment.length.minimum = Distance(5);
-    laneSegment.length.maximum = Distance(5);
-
-    laneSegment.width.minimum = Distance(5);
-    laneSegment.width.maximum = Distance(5);
-    laneSegment.type = ::ad_rss::world::LaneSegmentType::Intersection;
-
-    roadSegment.push_back(laneSegment);
-
-    scene.egoVehicleRoad.push_back(roadSegment);
-    scene.intersectingRoad.push_back(roadSegment);
-  }
+  scene.egoVehicleRoad = longitudinalNoDifferenceRoadArea();
+  scene.intersectingRoad = scene.egoVehicleRoad;
 
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ASSERT_TRUE(extractSituations(worldModel, situationVector));
+  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationVector));
   ASSERT_EQ(situationVector.size(), 1);
 
   ASSERT_EQ(situationVector[0].relativePosition.longitudinalDistance, Distance(6.));
   ASSERT_EQ(situationVector[0].egoVehicleState.velocity.speedLon, Speed(10.));
   ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            worldModel.egoVehicle.dynamics.alphaLon.accelMax);
+            worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
 
   ASSERT_EQ(situationVector[0].egoVehicleState.distanceToEnterIntersection, Distance(0));
   ASSERT_EQ(situationVector[0].egoVehicleState.distanceToLeaveIntersection, Distance(7));
@@ -144,69 +190,31 @@ TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
   ASSERT_EQ(situationVector[0].otherVehicleState.distanceToLeaveIntersection, Distance(14));
   ASSERT_FALSE(situationVector[0].otherVehicleState.hasPriority);
 
-  ASSERT_EQ(situationVector[0].relativePosition.longitudinalPosition,
-            ::ad_rss::situation::LongitudinalRelativePosition::InFront);
+  ASSERT_EQ(situationVector[0].relativePosition.longitudinalPosition, situation::LongitudinalRelativePosition::InFront);
 
-  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::ad_rss::situation::LateralRelativePosition::Overlap);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, situation::LateralRelativePosition::Overlap);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, Distance(0));
-
-  situation::Situation situation;
-  ASSERT_TRUE(extractSituation(worldModel.timeIndex, worldModel.egoVehicle, worldModel.scenes[0], situation));
-  ASSERT_EQ(situation, situationVector[0]);
 }
 
 TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
 {
-  world::WorldModel worldModel;
   situation::SituationVector situationVector;
 
-  worldModel.egoVehicle = objectAsEgo(leadingObject);
+  scene.egoVehicle = objectAsEgo(leadingObject);
   scene.object = followingObject;
 
-  {
-    ::ad_rss::world::RoadSegment roadSegment;
-    ::ad_rss::world::LaneSegment laneSegment;
-
-    laneSegment.id = 1;
-    laneSegment.length.minimum = Distance(8);
-    laneSegment.length.maximum = Distance(10);
-
-    laneSegment.width.minimum = Distance(5);
-    laneSegment.width.maximum = Distance(5);
-    laneSegment.type = ::ad_rss::world::LaneSegmentType::Normal;
-
-    roadSegment.push_back(laneSegment);
-    scene.egoVehicleRoad.push_back(roadSegment);
-    scene.intersectingRoad.push_back(roadSegment);
-  }
-
-  {
-    ::ad_rss::world::RoadSegment roadSegment;
-    ::ad_rss::world::LaneSegment laneSegment;
-
-    laneSegment.id = 2;
-    laneSegment.length.minimum = Distance(4);
-    laneSegment.length.maximum = Distance(5);
-
-    laneSegment.width.minimum = Distance(5);
-    laneSegment.width.maximum = Distance(5);
-    laneSegment.type = ::ad_rss::world::LaneSegmentType::Intersection;
-
-    roadSegment.push_back(laneSegment);
-
-    scene.egoVehicleRoad.push_back(roadSegment);
-    scene.intersectingRoad.push_back(roadSegment);
-  }
+  scene.egoVehicleRoad = longitudinalDifferenceRoadArea();
+  scene.intersectingRoad = scene.egoVehicleRoad;
 
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ASSERT_TRUE(extractSituations(worldModel, situationVector));
+  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationVector));
   ASSERT_EQ(situationVector.size(), 1);
 
   ASSERT_EQ(situationVector[0].egoVehicleState.velocity.speedLon, Speed(10.));
   ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            worldModel.egoVehicle.dynamics.alphaLon.accelMax);
+            worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
 
   ASSERT_EQ(situationVector[0].egoVehicleState.distanceToEnterIntersection, Distance(0.));
   ASSERT_EQ(situationVector[0].egoVehicleState.distanceToLeaveIntersection, Distance(8.6));
@@ -216,17 +224,50 @@ TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
   ASSERT_EQ(situationVector[0].otherVehicleState.distanceToLeaveIntersection, Distance(14.2));
   ASSERT_FALSE(situationVector[0].otherVehicleState.hasPriority);
 
-  ASSERT_EQ(situationVector[0].relativePosition.longitudinalPosition,
-            ::ad_rss::situation::LongitudinalRelativePosition::InFront);
+  ASSERT_EQ(situationVector[0].relativePosition.longitudinalPosition, situation::LongitudinalRelativePosition::InFront);
 
-  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::ad_rss::situation::LateralRelativePosition::Overlap);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, situation::LateralRelativePosition::Overlap);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, Distance(0));
-
-  situation::Situation situation;
-  ASSERT_TRUE(extractSituation(worldModel.timeIndex, worldModel.egoVehicle, worldModel.scenes[0], situation));
-  ASSERT_EQ(situation, situationVector[0]);
 }
 
-} // namespace RssSituationExtraction
+TEST_F(RssSituationExtractionIntersectionTests, mergeWorstCase)
+{
+  situation::SituationVector situationVector;
+
+  scene.egoVehicle = objectAsEgo(leadingObject);
+  scene.object = followingObject;
+
+  scene.egoVehicleRoad = longitudinalDifferenceRoadArea();
+  scene.intersectingRoad = scene.egoVehicleRoad;
+  worldModel.scenes.push_back(scene);
+
+  scene.egoVehicleRoad = longitudinalNoDifferenceRoadArea();
+  scene.intersectingRoad = scene.egoVehicleRoad;
+  worldModel.scenes.push_back(scene);
+
+  worldModel.scenes.push_back(scene);
+  worldModel.timeIndex = 1;
+
+  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationVector));
+  ASSERT_EQ(situationVector.size(), 1);
+
+  ASSERT_EQ(situationVector[0].egoVehicleState.velocity.speedLon, Speed(10.));
+  ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.accelMax,
+            worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
+
+  ASSERT_EQ(situationVector[0].egoVehicleState.distanceToEnterIntersection, Distance(0.));
+  ASSERT_EQ(situationVector[0].egoVehicleState.distanceToLeaveIntersection, Distance(8.6));
+  ASSERT_TRUE(situationVector[0].egoVehicleState.hasPriority);
+
+  ASSERT_EQ(situationVector[0].otherVehicleState.distanceToEnterIntersection, Distance(6.));
+  ASSERT_EQ(situationVector[0].otherVehicleState.distanceToLeaveIntersection, Distance(14.2));
+  ASSERT_FALSE(situationVector[0].otherVehicleState.hasPriority);
+
+  ASSERT_EQ(situationVector[0].relativePosition.longitudinalPosition, situation::LongitudinalRelativePosition::InFront);
+
+  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, situation::LateralRelativePosition::Overlap);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, Distance(0));
+}
+
 } // namespace core
 } // namespace ad_rss

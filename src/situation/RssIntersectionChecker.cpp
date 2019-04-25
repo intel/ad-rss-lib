@@ -67,28 +67,28 @@ bool checkLateralIntersect(Situation const &situation, bool &isSafe)
   Duration timeToLeaveOther;
 
   bool result = calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon,
-                                             situation.egoVehicleState.responseTime,
+                                             situation.egoVehicleState.dynamics.responseTime,
                                              situation.egoVehicleState.dynamics.alphaLon.accelMax,
                                              situation.egoVehicleState.dynamics.alphaLon.brakeMin,
                                              situation.egoVehicleState.distanceToEnterIntersection,
                                              timeToReachEgo);
 
   result = result && calculateTimeToCoverDistance(situation.otherVehicleState.velocity.speedLon,
-                                                  situation.otherVehicleState.responseTime,
+                                                  situation.otherVehicleState.dynamics.responseTime,
                                                   situation.otherVehicleState.dynamics.alphaLon.accelMax,
                                                   situation.otherVehicleState.dynamics.alphaLon.brakeMin,
                                                   situation.otherVehicleState.distanceToEnterIntersection,
                                                   timeToReachOther);
 
   result = result && calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon,
-                                                  situation.egoVehicleState.responseTime,
+                                                  situation.egoVehicleState.dynamics.responseTime,
                                                   -1. * situation.egoVehicleState.dynamics.alphaLon.brakeMax,
                                                   situation.egoVehicleState.dynamics.alphaLon.brakeMax,
                                                   situation.egoVehicleState.distanceToLeaveIntersection,
                                                   timeToLeaveEgo);
 
   result = result && calculateTimeToCoverDistance(situation.otherVehicleState.velocity.speedLon,
-                                                  situation.otherVehicleState.responseTime,
+                                                  situation.otherVehicleState.dynamics.responseTime,
                                                   -1. * situation.otherVehicleState.dynamics.alphaLon.brakeMax,
                                                   situation.otherVehicleState.dynamics.alphaLon.brakeMax,
                                                   situation.otherVehicleState.distanceToLeaveIntersection,

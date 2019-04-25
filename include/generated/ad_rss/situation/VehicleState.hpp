@@ -42,8 +42,7 @@
 #include <limits>
 #include <memory>
 #include "ad_rss/physics/Distance.hpp"
-#include "ad_rss/physics/Duration.hpp"
-#include "ad_rss/world/Dynamics.hpp"
+#include "ad_rss/world/RssDynamics.hpp"
 #include "ad_rss/world/Velocity.hpp"
 /*!
  * @brief namespace ad_rss
@@ -112,8 +111,8 @@ struct VehicleState
    */
   bool operator==(const VehicleState &other) const
   {
-    return (velocity == other.velocity) && (dynamics == other.dynamics) && (responseTime == other.responseTime)
-      && (hasPriority == other.hasPriority) && (isInCorrectLane == other.isInCorrectLane)
+    return (velocity == other.velocity) && (dynamics == other.dynamics) && (hasPriority == other.hasPriority)
+      && (isInCorrectLane == other.isInCorrectLane)
       && (distanceToEnterIntersection == other.distanceToEnterIntersection)
       && (distanceToLeaveIntersection == other.distanceToLeaveIntersection);
   }
@@ -138,12 +137,7 @@ struct VehicleState
   /*!
    * The situation specific dynamics.
    */
-  ::ad_rss::world::Dynamics dynamics;
-
-  /*!
-   * The situation specific response time.
-   */
-  ::ad_rss::physics::Duration responseTime{0.0};
+  ::ad_rss::world::RssDynamics dynamics;
 
   /*!
    * Flag indicating if the situation specific Right-of-Way relation.
