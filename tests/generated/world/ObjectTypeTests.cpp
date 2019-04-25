@@ -41,6 +41,10 @@
 
 TEST(ObjectTypeTests, testFromString)
 {
+  ASSERT_EQ(fromString<::ad_rss::world::ObjectType>("Invalid"), ::ad_rss::world::ObjectType::Invalid);
+  ASSERT_EQ(fromString<::ad_rss::world::ObjectType>("::ad_rss::world::ObjectType::Invalid"),
+            ::ad_rss::world::ObjectType::Invalid);
+
   ASSERT_EQ(fromString<::ad_rss::world::ObjectType>("EgoVehicle"), ::ad_rss::world::ObjectType::EgoVehicle);
   ASSERT_EQ(fromString<::ad_rss::world::ObjectType>("::ad_rss::world::ObjectType::EgoVehicle"),
             ::ad_rss::world::ObjectType::EgoVehicle);
@@ -60,6 +64,10 @@ TEST(ObjectTypeTests, testToString)
 {
   int32_t minValue = std::numeric_limits<int32_t>::max();
   int32_t maxValue = std::numeric_limits<int32_t>::min();
+
+  ASSERT_EQ(toString(::ad_rss::world::ObjectType::Invalid), "::ad_rss::world::ObjectType::Invalid");
+  minValue = std::min(minValue, static_cast<int32_t>(::ad_rss::world::ObjectType::Invalid));
+  maxValue = std::max(maxValue, static_cast<int32_t>(::ad_rss::world::ObjectType::Invalid));
 
   ASSERT_EQ(toString(::ad_rss::world::ObjectType::EgoVehicle), "::ad_rss::world::ObjectType::EgoVehicle");
   minValue = std::min(minValue, static_cast<int32_t>(::ad_rss::world::ObjectType::EgoVehicle));

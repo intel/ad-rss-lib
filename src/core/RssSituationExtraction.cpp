@@ -30,22 +30,38 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "ad_rss/core/RssSituationExtraction.hpp"
+#include <algorithm>
 #include "ad_rss/world/WorldModelValidInputRange.hpp"
-
 #include "world/RssSituationCoordinateSystemConversion.hpp"
+#include "world/RssSituationIdProvider.hpp"
 
 namespace ad_rss {
-
 namespace core {
-namespace RssSituationExtraction {
 
 using physics::Distance;
 using physics::MetricRange;
 
-void calcluateRelativeLongitudinalPosition(MetricRange const &egoMetricRange,
-                                           MetricRange const &otherMetricRange,
-                                           situation::LongitudinalRelativePosition &longitudinalPosition,
-                                           Distance &longitudinalDistance)
+RssSituationExtraction::RssSituationExtraction()
+{
+  try
+  {
+    mSituationIdProvider = std::unique_ptr<world::RssSituationIdProvider>(new world::RssSituationIdProvider());
+  }
+  catch (...)
+  {
+    mSituationIdProvider = nullptr;
+  }
+}
+
+RssSituationExtraction::~RssSituationExtraction()
+{
+}
+
+void RssSituationExtraction::calcluateRelativeLongitudinalPosition(
+  MetricRange const &egoMetricRange,
+  MetricRange const &otherMetricRange,
+  situation::LongitudinalRelativePosition &longitudinalPosition,
+  Distance &longitudinalDistance)
 {
   if (egoMetricRange.minimum > otherMetricRange.maximum)
   {
@@ -75,10 +91,11 @@ void calcluateRelativeLongitudinalPosition(MetricRange const &egoMetricRange,
   }
 }
 
-void calcluateRelativeLongitudinalPositionIntersection(MetricRange const &egoMetricRange,
-                                                       MetricRange const &otherMetricRange,
-                                                       situation::LongitudinalRelativePosition &longitudinalPosition,
-                                                       Distance &longitudinalDistance)
+void RssSituationExtraction::calcluateRelativeLongitudinalPositionIntersection(
+  MetricRange const &egoMetricRange,
+  MetricRange const &otherMetricRange,
+  situation::LongitudinalRelativePosition &longitudinalPosition,
+  Distance &longitudinalDistance)
 {
   if (egoMetricRange.maximum < otherMetricRange.minimum)
   {
@@ -108,10 +125,10 @@ void calcluateRelativeLongitudinalPositionIntersection(MetricRange const &egoMet
   }
 }
 
-void calcluateRelativeLateralPosition(MetricRange const &egoMetricRange,
-                                      MetricRange const &otherMetricRange,
-                                      situation::LateralRelativePosition &lateralPosition,
-                                      Distance &lateralDistance)
+void RssSituationExtraction::calcluateRelativeLateralPosition(MetricRange const &egoMetricRange,
+                                                              MetricRange const &otherMetricRange,
+                                                              situation::LateralRelativePosition &lateralPosition,
+                                                              Distance &lateralDistance)
 {
   if (egoMetricRange.minimum > otherMetricRange.maximum)
   {
@@ -141,9 +158,8 @@ void calcluateRelativeLateralPosition(MetricRange const &egoMetricRange,
   }
 }
 
-bool convertObjectsNonIntersection(world::Object const &egoVehicle,
-                                   world::Scene const &currentScene,
-                                   situation::Situation &situation)
+bool RssSituationExtraction::convertObjectsNonIntersection(world::Scene const &currentScene,
+                                                           situation::Situation &situation)
 {
   if (!currentScene.intersectingRoad.empty())
   {
@@ -154,7 +170,7 @@ bool convertObjectsNonIntersection(world::Object const &egoVehicle,
 
   world::ObjectDimensions egoVehicleDimension;
   world::ObjectDimensions objectToBeCheckedDimension;
-  result = calculateObjectDimensions(egoVehicle, currentScene, egoVehicleDimension, objectToBeCheckedDimension);
+  result = calculateObjectDimensions(currentScene, egoVehicleDimension, objectToBeCheckedDimension);
 
   situation::LongitudinalRelativePosition longitudinalPosition;
   Distance longitudinalDistance;
@@ -195,22 +211,21 @@ bool convertObjectsNonIntersection(world::Object const &egoVehicle,
   return result;
 }
 
-void convertToIntersectionCentric(MetricRange const &objectDimension,
-                                  MetricRange const &intersectionPosition,
-                                  MetricRange &dimensionsIntersection)
+void RssSituationExtraction::convertToIntersectionCentric(MetricRange const &objectDimension,
+                                                          MetricRange const &intersectionPosition,
+                                                          MetricRange &dimensionsIntersection)
 {
   dimensionsIntersection.maximum = intersectionPosition.minimum - objectDimension.minimum;
   dimensionsIntersection.minimum = intersectionPosition.minimum - objectDimension.maximum;
 }
 
-bool convertObjectsIntersection(world::Object const &egoVehicle,
-                                world::Scene const &currentScene,
-                                situation::Situation &situation)
+bool RssSituationExtraction::convertObjectsIntersection(world::Scene const &currentScene,
+                                                        situation::Situation &situation)
 {
   world::ObjectDimensions egoVehicleDimension;
   world::ObjectDimensions objectDimension;
 
-  bool result = calculateObjectDimensions(egoVehicle, currentScene.egoVehicleRoad, egoVehicleDimension);
+  bool result = calculateObjectDimensions(currentScene.egoVehicle, currentScene.egoVehicleRoad, egoVehicleDimension);
 
   result = result && calculateObjectDimensions(currentScene.object, currentScene.intersectingRoad, objectDimension);
 
@@ -275,21 +290,25 @@ bool convertObjectsIntersection(world::Object const &egoVehicle,
   return result;
 }
 
-bool extractSituationInputRangeChecked(physics::TimeIndex const &timeIndex,
-                                       world::Object const &egoVehicle,
-                                       world::Scene const &currentScene,
-                                       situation::Situation &situation)
+bool RssSituationExtraction::extractSituationInputRangeChecked(physics::TimeIndex const &timeIndex,
+                                                               world::RssDynamics const &egoVehicleRssDynamics,
+                                                               world::Scene const &currentScene,
+                                                               situation::Situation &situation)
 {
   // ensure the object types are semantically correct
-  // toDo: add this restriction to the data type model
+  // @toDo: add this restriction to the data type model
   //       and extend generated withinValidInputRange by these
   if (((currentScene.object.objectType != world::ObjectType::OtherVehicle)
        && (currentScene.object.objectType != world::ObjectType::ArtificialObject))
-      || (egoVehicle.objectType != world::ObjectType::EgoVehicle))
+      || (currentScene.egoVehicle.objectType != world::ObjectType::EgoVehicle))
   {
     return false;
   }
-  if (currentScene.object.objectId == egoVehicle.objectId)
+  if (currentScene.object.objectId == currentScene.egoVehicle.objectId)
+  {
+    return false;
+  }
+  if (!static_cast<bool>(mSituationIdProvider))
   {
     return false;
   }
@@ -299,7 +318,7 @@ bool extractSituationInputRangeChecked(physics::TimeIndex const &timeIndex,
   try
   {
     situation.timeIndex = timeIndex;
-    situation.situationId = situation::SituationId(currentScene.object.objectId);
+    situation.situationId = mSituationIdProvider->getSituationId(timeIndex, currentScene);
     situation.situationType = currentScene.situationType;
 
     situation.egoVehicleState.hasPriority = false;
@@ -314,15 +333,15 @@ bool extractSituationInputRangeChecked(physics::TimeIndex const &timeIndex,
     situation.otherVehicleState.distanceToEnterIntersection = Distance(0.);
     situation.otherVehicleState.distanceToLeaveIntersection = Distance(1000.);
 
-    convertVehicleStateDynamics(egoVehicle, situation.egoVehicleState);
-    convertVehicleStateDynamics(currentScene.object, situation.otherVehicleState);
+    convertVehicleStateDynamics(currentScene.egoVehicle, egoVehicleRssDynamics, situation.egoVehicleState);
+    convertVehicleStateDynamics(currentScene.object, currentScene.objectRssDynamics, situation.otherVehicleState);
 
     switch (currentScene.situationType)
     {
       case ad_rss::situation::SituationType::SameDirection:
       case ad_rss::situation::SituationType::OppositeDirection:
       {
-        result = convertObjectsNonIntersection(egoVehicle, currentScene, situation);
+        result = convertObjectsNonIntersection(currentScene, situation);
 
         break;
       }
@@ -330,7 +349,7 @@ bool extractSituationInputRangeChecked(physics::TimeIndex const &timeIndex,
       case ad_rss::situation::SituationType::IntersectionObjectHasPriority:
       case ad_rss::situation::SituationType::IntersectionSamePriority:
       {
-        result = convertObjectsIntersection(egoVehicle, currentScene, situation);
+        result = convertObjectsIntersection(currentScene, situation);
         break;
       }
       case ad_rss::situation::SituationType::NotRelevant:
@@ -353,20 +372,61 @@ bool extractSituationInputRangeChecked(physics::TimeIndex const &timeIndex,
   return result;
 }
 
-bool extractSituation(physics::TimeIndex const &timeIndex,
-                      world::Object const &egoVehicle,
-                      world::Scene const &currentScene,
-                      situation::Situation &situation)
+bool RssSituationExtraction::mergeVehicleStates(situation::VehicleState const &otherVehicleState,
+                                                situation::VehicleState &mergedVehicleState)
 {
-  if (!withinValidInputRange(egoVehicle) || !withinValidInputRange(currentScene))
+  // on vehicle states there are only differences in intersection distances allowed due to different road definitions
+  if ((otherVehicleState.velocity.speedLat != mergedVehicleState.velocity.speedLat)
+      || (otherVehicleState.velocity.speedLon != mergedVehicleState.velocity.speedLon)
+      || (otherVehicleState.dynamics.alphaLat.accelMax != mergedVehicleState.dynamics.alphaLat.accelMax)
+      || (otherVehicleState.dynamics.alphaLat.brakeMin != mergedVehicleState.dynamics.alphaLat.brakeMin)
+      || (otherVehicleState.dynamics.alphaLon.accelMax != mergedVehicleState.dynamics.alphaLon.accelMax)
+      || (otherVehicleState.dynamics.alphaLon.brakeMinCorrect != mergedVehicleState.dynamics.alphaLon.brakeMinCorrect)
+      || (otherVehicleState.dynamics.alphaLon.brakeMin != mergedVehicleState.dynamics.alphaLon.brakeMin)
+      || (otherVehicleState.dynamics.alphaLon.brakeMax != mergedVehicleState.dynamics.alphaLon.brakeMax)
+      || (otherVehicleState.dynamics.lateralFluctuationMargin != mergedVehicleState.dynamics.lateralFluctuationMargin)
+      || (otherVehicleState.dynamics.responseTime != mergedVehicleState.dynamics.responseTime)
+      || (otherVehicleState.hasPriority != mergedVehicleState.hasPriority)
+      || (otherVehicleState.isInCorrectLane != mergedVehicleState.isInCorrectLane))
+  {
+    return false;
+  }
+  // store the worst case
+  mergedVehicleState.distanceToEnterIntersection
+    = std::min(mergedVehicleState.distanceToEnterIntersection, otherVehicleState.distanceToEnterIntersection);
+  mergedVehicleState.distanceToLeaveIntersection
+    = std::max(mergedVehicleState.distanceToLeaveIntersection, otherVehicleState.distanceToLeaveIntersection);
+  return true;
+}
+
+bool RssSituationExtraction::mergeSituations(situation::Situation const &otherSituation,
+                                             situation::Situation &mergedSituation)
+{
+  if ( // basic data has to match
+    (otherSituation.timeIndex != mergedSituation.timeIndex)
+    || (otherSituation.situationId != mergedSituation.situationId)
+    || (otherSituation.situationType != mergedSituation.situationType)
+    // vehicle states
+    || !mergeVehicleStates(otherSituation.egoVehicleState, mergedSituation.egoVehicleState)
+    || !mergeVehicleStates(otherSituation.otherVehicleState, mergedSituation.otherVehicleState)
+    // relative position
+    || (otherSituation.relativePosition.longitudinalPosition != mergedSituation.relativePosition.longitudinalPosition)
+    || (otherSituation.relativePosition.lateralPosition != mergedSituation.relativePosition.lateralPosition))
   {
     return false;
   }
 
-  return extractSituationInputRangeChecked(timeIndex, egoVehicle, currentScene, situation);
+  // worst case
+  mergedSituation.relativePosition.longitudinalDistance = std::min(
+    mergedSituation.relativePosition.longitudinalDistance, otherSituation.relativePosition.longitudinalDistance);
+  mergedSituation.relativePosition.lateralDistance
+    = std::min(mergedSituation.relativePosition.lateralDistance, otherSituation.relativePosition.lateralDistance);
+
+  return true;
 }
 
-bool extractSituations(world::WorldModel const &worldModel, situation::SituationVector &situationVector)
+bool RssSituationExtraction::extractSituations(world::WorldModel const &worldModel,
+                                               situation::SituationVector &situationVector)
 {
   if (!withinValidInputRange(worldModel))
   {
@@ -380,14 +440,28 @@ bool extractSituations(world::WorldModel const &worldModel, situation::Situation
     {
       situation::Situation situation;
       bool const extractResult
-        = extractSituationInputRangeChecked(worldModel.timeIndex, worldModel.egoVehicle, scene, situation);
+        = extractSituationInputRangeChecked(worldModel.timeIndex, worldModel.egoVehicleRssDynamics, scene, situation);
 
       // if the situation is relevant, add it to situationVector
       if (scene.situationType != ad_rss::situation::SituationType::NotRelevant)
       {
         if (extractResult)
         {
-          situationVector.push_back(situation);
+          // situation id creation might detect that different scenes are representing identical situations
+          // ensure the situationVector is unique while containing the worst-case situation
+          auto findResult = std::find_if(situationVector.begin(),
+                                         situationVector.end(),
+                                         [&situation](ad_rss::situation::Situation const &checkSituation) {
+                                           return checkSituation.situationId == situation.situationId;
+                                         });
+          if (findResult == situationVector.end())
+          {
+            situationVector.push_back(situation);
+          }
+          else if (!mergeSituations(situation, *findResult))
+          {
+            result = false;
+          }
         }
         else
         {
@@ -403,6 +477,5 @@ bool extractSituations(world::WorldModel const &worldModel, situation::Situation
   return result;
 }
 
-} // namespace RssSituationExtraction
 } // namespace core
 } // namespace ad_rss

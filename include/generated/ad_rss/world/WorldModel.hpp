@@ -43,7 +43,7 @@
 #include <limits>
 #include <memory>
 #include "ad_rss/physics/TimeIndex.hpp"
-#include "ad_rss/world/Object.hpp"
+#include "ad_rss/world/RssDynamics.hpp"
 #include "ad_rss/world/SceneVector.hpp"
 /*!
  * @brief namespace ad_rss
@@ -57,8 +57,8 @@ namespace world {
 /*!
  * \brief DataType WorldModel
  *
- * The world model, RSS requires as input, consists of the egoVehicle and object description as well as the list of
- * relevant lane segments.
+ * The world model, RSS requires as input, consists of a timeIndex, the egoVehicleDynamics and object description as
+ * well as the list of relevant scenes.
  */
 struct WorldModel
 {
@@ -109,7 +109,8 @@ struct WorldModel
    */
   bool operator==(const WorldModel &other) const
   {
-    return (timeIndex == other.timeIndex) && (egoVehicle == other.egoVehicle) && (scenes == other.scenes);
+    return (timeIndex == other.timeIndex) && (egoVehicleRssDynamics == other.egoVehicleRssDynamics)
+      && (scenes == other.scenes);
   }
 
   /**
@@ -132,9 +133,10 @@ struct WorldModel
   ::ad_rss::physics::TimeIndex timeIndex{0u};
 
   /*!
-   * The ego vehicle.
+   * Defines the ego vehicle dynamics to be applied. This parameters are provided on a per object basis to be able to
+   * adapt these e.g. in respect to object type or the weather conditions.
    */
-  ::ad_rss::world::Object egoVehicle;
+  ::ad_rss::world::RssDynamics egoVehicleRssDynamics;
 
   /*!
    * All scenes

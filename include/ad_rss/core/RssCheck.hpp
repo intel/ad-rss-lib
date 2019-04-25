@@ -50,6 +50,7 @@ namespace core {
 
 class RssResponseResolving;
 class RssSituationChecking;
+class RssSituationExtraction;
 
 /**
  * @brief RssCheck
@@ -82,6 +83,7 @@ public:
 private:
   std::unique_ptr<RssResponseResolving> mResponseResolving;
   std::unique_ptr<RssSituationChecking> mSituationChecking;
+  std::unique_ptr<RssSituationExtraction> mSituationExtraction;
 };
 
 } // namespace core

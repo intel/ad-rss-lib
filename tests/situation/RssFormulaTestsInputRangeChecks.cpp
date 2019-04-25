@@ -76,7 +76,7 @@ TEST(RssFormulaTestsInputRangeChecks, calculateSafeLongitudinalDistanceOppositeD
 
   VehicleState correctVehicle = createVehicleStateForLongitudinalMotion(50);
   VehicleState oppositeVehicle = createVehicleStateForLongitudinalMotion(-50);
-  correctVehicle.responseTime = Duration(-1);
+  correctVehicle.dynamics.responseTime = Duration(-1);
   ASSERT_FALSE(calculateSafeLongitudinalDistanceOppositeDirection(correctVehicle, oppositeVehicle, safeDistance));
   ASSERT_FALSE(calculateSafeLongitudinalDistanceOppositeDirection(oppositeVehicle, correctVehicle, safeDistance));
 }
@@ -86,7 +86,7 @@ TEST(RssFormulaTestsInputRangeChecks, checkStopInFrontIntersection)
   bool isSafe = false;
   Distance safeDistance(0.);
   VehicleState correctVehicle = createVehicleStateForLongitudinalMotion(50);
-  correctVehicle.responseTime = Duration(-1);
+  correctVehicle.dynamics.responseTime = Duration(-1);
   ASSERT_FALSE(checkStopInFrontIntersection(correctVehicle, safeDistance, isSafe));
 }
 

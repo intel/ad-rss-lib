@@ -46,11 +46,13 @@ RssCheck::RssCheck()
   {
     mResponseResolving = std::unique_ptr<RssResponseResolving>(new RssResponseResolving());
     mSituationChecking = std::unique_ptr<RssSituationChecking>(new RssSituationChecking());
+    mSituationExtraction = std::unique_ptr<RssSituationExtraction>(new RssSituationExtraction());
   }
   catch (...)
   {
     mResponseResolving = nullptr;
     mSituationChecking = nullptr;
+    mSituationExtraction = nullptr;
   }
 }
 
@@ -65,13 +67,14 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
   // global try catch block to ensure this library call doesn't throw an exception
   try
   {
-    if (!static_cast<bool>(mResponseResolving) || !static_cast<bool>(mSituationChecking))
+    if (!static_cast<bool>(mResponseResolving) || !static_cast<bool>(mSituationChecking)
+        || !static_cast<bool>(mSituationExtraction))
     {
       return false;
     }
 
     situation::SituationVector situationVector;
-    result = RssSituationExtraction::extractSituations(worldModel, situationVector);
+    result = mSituationExtraction->extractSituations(worldModel, situationVector);
 
     state::ResponseStateVector responseStateVector;
     if (result)

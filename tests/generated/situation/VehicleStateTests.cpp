@@ -54,7 +54,7 @@ protected:
     valueVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
     valueVelocity.speedLat = valueVelocitySpeedLat;
     value.velocity = valueVelocity;
-    ::ad_rss::world::Dynamics valueDynamics;
+    ::ad_rss::world::RssDynamics valueDynamics;
     ::ad_rss::world::LongitudinalRssAccelerationValues valueDynamicsAlphaLon;
     ::ad_rss::physics::Acceleration valueDynamicsAlphaLonAccelMax(-1e2);
     valueDynamicsAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
@@ -83,11 +83,11 @@ protected:
     valueDynamics.alphaLat = valueDynamicsAlphaLat;
     ::ad_rss::physics::Distance valueDynamicsLateralFluctuationMargin(0.);
     valueDynamics.lateralFluctuationMargin = valueDynamicsLateralFluctuationMargin;
-    value.dynamics = valueDynamics;
-    ::ad_rss::physics::Duration valueResponseTime(0.);
-    valueResponseTime = ::ad_rss::physics::Duration(
+    ::ad_rss::physics::Duration valueDynamicsResponseTime(0.);
+    valueDynamicsResponseTime = ::ad_rss::physics::Duration(
       0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
-    value.responseTime = valueResponseTime;
+    valueDynamics.responseTime = valueDynamicsResponseTime;
+    value.dynamics = valueDynamics;
     bool valueHasPriority{true};
     value.hasPriority = valueHasPriority;
     bool valueIsInCorrectLane{true};
@@ -158,7 +158,7 @@ TEST_F(VehicleStateTests, comparisonOperatorVelocityDiffers)
 TEST_F(VehicleStateTests, comparisonOperatorDynamicsDiffers)
 {
   ::ad_rss::situation::VehicleState valueA = mValue;
-  ::ad_rss::world::Dynamics dynamics;
+  ::ad_rss::world::RssDynamics dynamics;
   ::ad_rss::world::LongitudinalRssAccelerationValues dynamicsAlphaLon;
   ::ad_rss::physics::Acceleration dynamicsAlphaLonAccelMax(1e2);
   dynamicsAlphaLon.accelMax = dynamicsAlphaLonAccelMax;
@@ -182,18 +182,10 @@ TEST_F(VehicleStateTests, comparisonOperatorDynamicsDiffers)
   ::ad_rss::physics::Distance dynamicsLateralFluctuationMargin(1e6);
   dynamicsLateralFluctuationMargin = ::ad_rss::physics::Distance(1.); // set to valid value within struct
   dynamics.lateralFluctuationMargin = dynamicsLateralFluctuationMargin;
+  ::ad_rss::physics::Duration dynamicsResponseTime(100.);
+  dynamicsResponseTime = ::ad_rss::physics::Duration(10.); // set to valid value within struct
+  dynamics.responseTime = dynamicsResponseTime;
   valueA.dynamics = dynamics;
-  ::ad_rss::situation::VehicleState valueB = mValue;
-
-  EXPECT_FALSE(valueA == valueB);
-  EXPECT_TRUE(valueA != valueB);
-}
-
-TEST_F(VehicleStateTests, comparisonOperatorResponseTimeDiffers)
-{
-  ::ad_rss::situation::VehicleState valueA = mValue;
-  ::ad_rss::physics::Duration responseTime(100.);
-  valueA.responseTime = responseTime;
   ::ad_rss::situation::VehicleState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

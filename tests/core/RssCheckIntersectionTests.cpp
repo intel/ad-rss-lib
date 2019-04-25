@@ -56,15 +56,25 @@ protected:
     ::ad_rss::core::RssCheck rssCheck;
     for (auto egoVehicleSegmentId : {world::LaneSegmentId(0), world::LaneSegmentId(3)})
     {
-      worldModel.egoVehicle.occupiedRegions[0].segmentId = egoVehicleSegmentId;
+      for (auto &scene : worldModel.scenes)
+      {
+        scene.egoVehicle.occupiedRegions[0].segmentId = egoVehicleSegmentId;
+      }
       for (uint32_t i = 0; i <= 90; i++)
       {
-        worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.01 * i);
-        worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.01 * i + 0.1);
+        for (auto &scene : worldModel.scenes)
+        {
+          scene.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.01 * i);
+          scene.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.01 * i + 0.1);
+        }
         worldModel.timeIndex++;
 
         ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
+#if RSS_CHECK_TEST_DEBUG_OUT
+        std::cout << "Testing: segment[" << egoVehicleSegmentId << "] range min=" << i
+                  << " brake?=" << isBrakeExpected(i) << std::endl;
+#endif
         if (isBrakeExpected(i))
         {
           TESTBASE::testRestrictions(accelerationRestriction, state::LongitudinalResponse::BrakeMin);
@@ -90,9 +100,9 @@ protected:
   bool isBrakeExpected(uint32_t i) override
   {
     bool const egoVehicleFaraway
-      = (i < 84) && (TESTBASE::worldModel.egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(0));
+      = (i < 11) || (TESTBASE::worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(0));
     bool const egoVehicleInFront
-      = (i > 64) && (TESTBASE::worldModel.egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(3));
+      = (i > 64) && (TESTBASE::worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(3));
 
     return !egoVehicleFaraway && !egoVehicleInFront;
   }
@@ -133,7 +143,7 @@ protected:
   bool isBrakeExpected(uint32_t i) override
   {
     bool const egoVehicleNearEnough
-      = (TESTBASE::worldModel.egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(3)) && (i > 27);
+      = (TESTBASE::worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(3)) && (i > 54);
 
     return egoVehicleNearEnough;
   }
@@ -166,7 +176,8 @@ protected:
 
   bool isBrakeExpected(uint32_t i) override
   {
-    return (TESTBASE::worldModel.egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(3)) && (i > 27);
+    return (TESTBASE::worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(3))
+      && (i > 54);
   }
 };
 

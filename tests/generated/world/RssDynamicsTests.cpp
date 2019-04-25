@@ -37,15 +37,15 @@
 
 #include <gtest/gtest.h>
 #include <limits>
-#include "ad_rss/world/Dynamics.hpp"
+#include "ad_rss/world/RssDynamics.hpp"
 
-class DynamicsTests : public testing::Test
+class RssDynamicsTests : public testing::Test
 {
 protected:
   virtual void SetUp() override
   {
     // valid initialization
-    ::ad_rss::world::Dynamics value;
+    ::ad_rss::world::RssDynamics value;
     ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
     ::ad_rss::physics::Acceleration valueAlphaLonAccelMax(-1e2);
     valueAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
@@ -74,50 +74,54 @@ protected:
     value.alphaLat = valueAlphaLat;
     ::ad_rss::physics::Distance valueLateralFluctuationMargin(0.);
     value.lateralFluctuationMargin = valueLateralFluctuationMargin;
+    ::ad_rss::physics::Duration valueResponseTime(0.);
+    valueResponseTime = ::ad_rss::physics::Duration(
+      0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
+    value.responseTime = valueResponseTime;
     mValue = value;
   }
 
-  ::ad_rss::world::Dynamics mValue;
+  ::ad_rss::world::RssDynamics mValue;
 };
 
-TEST_F(DynamicsTests, copyConstruction)
+TEST_F(RssDynamicsTests, copyConstruction)
 {
-  ::ad_rss::world::Dynamics value(mValue);
+  ::ad_rss::world::RssDynamics value(mValue);
   EXPECT_EQ(mValue, value);
 }
 
-TEST_F(DynamicsTests, moveConstruction)
+TEST_F(RssDynamicsTests, moveConstruction)
 {
-  ::ad_rss::world::Dynamics value(std::move(::ad_rss::world::Dynamics(mValue)));
+  ::ad_rss::world::RssDynamics value(std::move(::ad_rss::world::RssDynamics(mValue)));
   EXPECT_EQ(mValue, value);
 }
 
-TEST_F(DynamicsTests, copyAssignment)
+TEST_F(RssDynamicsTests, copyAssignment)
 {
-  ::ad_rss::world::Dynamics value;
+  ::ad_rss::world::RssDynamics value;
   value = mValue;
   EXPECT_EQ(mValue, value);
 }
 
-TEST_F(DynamicsTests, moveAssignment)
+TEST_F(RssDynamicsTests, moveAssignment)
 {
-  ::ad_rss::world::Dynamics value;
-  value = std::move(::ad_rss::world::Dynamics(mValue));
+  ::ad_rss::world::RssDynamics value;
+  value = std::move(::ad_rss::world::RssDynamics(mValue));
   EXPECT_EQ(mValue, value);
 }
 
-TEST_F(DynamicsTests, comparisonOperatorEqual)
+TEST_F(RssDynamicsTests, comparisonOperatorEqual)
 {
-  ::ad_rss::world::Dynamics valueA = mValue;
-  ::ad_rss::world::Dynamics valueB = mValue;
+  ::ad_rss::world::RssDynamics valueA = mValue;
+  ::ad_rss::world::RssDynamics valueB = mValue;
 
   EXPECT_TRUE(valueA == valueB);
   EXPECT_FALSE(valueA != valueB);
 }
 
-TEST_F(DynamicsTests, comparisonOperatorAlphaLonDiffers)
+TEST_F(RssDynamicsTests, comparisonOperatorAlphaLonDiffers)
 {
-  ::ad_rss::world::Dynamics valueA = mValue;
+  ::ad_rss::world::RssDynamics valueA = mValue;
   ::ad_rss::world::LongitudinalRssAccelerationValues alphaLon;
   ::ad_rss::physics::Acceleration alphaLonAccelMax(1e2);
   alphaLon.accelMax = alphaLonAccelMax;
@@ -132,33 +136,44 @@ TEST_F(DynamicsTests, comparisonOperatorAlphaLonDiffers)
   alphaLon.brakeMinCorrect = alphaLon.brakeMin;
   alphaLon.brakeMin = alphaLon.brakeMax;
   valueA.alphaLon = alphaLon;
-  ::ad_rss::world::Dynamics valueB = mValue;
+  ::ad_rss::world::RssDynamics valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(DynamicsTests, comparisonOperatorAlphaLatDiffers)
+TEST_F(RssDynamicsTests, comparisonOperatorAlphaLatDiffers)
 {
-  ::ad_rss::world::Dynamics valueA = mValue;
+  ::ad_rss::world::RssDynamics valueA = mValue;
   ::ad_rss::world::LateralRssAccelerationValues alphaLat;
   ::ad_rss::physics::Acceleration alphaLatAccelMax(1e2);
   alphaLat.accelMax = alphaLatAccelMax;
   ::ad_rss::physics::Acceleration alphaLatBrakeMin(1e2);
   alphaLat.brakeMin = alphaLatBrakeMin;
   valueA.alphaLat = alphaLat;
-  ::ad_rss::world::Dynamics valueB = mValue;
+  ::ad_rss::world::RssDynamics valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(DynamicsTests, comparisonOperatorLateralFluctuationMarginDiffers)
+TEST_F(RssDynamicsTests, comparisonOperatorLateralFluctuationMarginDiffers)
 {
-  ::ad_rss::world::Dynamics valueA = mValue;
+  ::ad_rss::world::RssDynamics valueA = mValue;
   ::ad_rss::physics::Distance lateralFluctuationMargin(1e6);
   valueA.lateralFluctuationMargin = lateralFluctuationMargin;
-  ::ad_rss::world::Dynamics valueB = mValue;
+  ::ad_rss::world::RssDynamics valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(RssDynamicsTests, comparisonOperatorResponseTimeDiffers)
+{
+  ::ad_rss::world::RssDynamics valueA = mValue;
+  ::ad_rss::physics::Duration responseTime(100.);
+  valueA.responseTime = responseTime;
+  ::ad_rss::world::RssDynamics valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
