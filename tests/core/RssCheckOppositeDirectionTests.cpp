@@ -65,7 +65,7 @@ TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities)
 
 TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities_DifferentLaneSegements)
 {
-  worldModel.egoVehicle.occupiedRegions[0].segmentId = 2;
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 2;
   performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMinCorrect);
 }
 
@@ -81,9 +81,9 @@ INSTANTIATE_TEST_CASE_P(Range,
 
 TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities_NoLateralConflict)
 {
-  worldModel.egoVehicle.occupiedRegions[0].segmentId = 0;
-  worldModel.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);
-  worldModel.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 0;
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);
 
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;
 
@@ -92,7 +92,7 @@ TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities_NoLateralCon
 
   for (uint32_t i = 0; i < 100; i++)
   {
-    worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
+    worldModel.scenes[0].egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
     worldModel.timeIndex++;
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
@@ -137,7 +137,7 @@ TEST_F(RssCheckOppositeDirectionOtherCorrectTest, DifferentVelocities)
 
 TEST_F(RssCheckOppositeDirectionOtherCorrectTest, DifferentVelocities_DifferentLaneSegements)
 {
-  worldModel.egoVehicle.occupiedRegions[0].segmentId = 2;
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 2;
   performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMin);
 }
 
@@ -187,7 +187,7 @@ TEST_F(RssCheckOppositeDirectionBothCorrectTest, DifferentVelocities)
 
 TEST_F(RssCheckOppositeDirectionBothCorrectTest, DifferentVelocities_DifferentLaneSegements)
 {
-  worldModel.egoVehicle.occupiedRegions[0].segmentId = 2;
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 2;
   performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMinCorrect);
 }
 

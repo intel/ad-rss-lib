@@ -38,7 +38,7 @@ set(BUILD_STATIC_ANALYSIS "OFF" CACHE BOOL "Enable static code analysis")
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-project(ad-rss-lib VERSION 1.2.0)
+project(ad-rss-lib VERSION 1.3.0)
 
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 11)
@@ -115,6 +115,7 @@ add_library(${PROJECT_NAME} SHARED
   src/situation/RssIntersectionChecker.cpp
   src/situation/RssSituation.cpp
   src/world/RssSituationCoordinateSystemConversion.cpp
+  src/world/RssSituationIdProvider.cpp
   src/world/RssObjectPositionExtractor.cpp
   ${GENERATED_SOURCES}
 )

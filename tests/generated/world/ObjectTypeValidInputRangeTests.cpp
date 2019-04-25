@@ -43,6 +43,7 @@
 
 TEST(ObjectTypeValidInputRangeTests, testValidInputRangeValid)
 {
+  ASSERT_TRUE(withinValidInputRange(::ad_rss::world::ObjectType::Invalid));
   ASSERT_TRUE(withinValidInputRange(::ad_rss::world::ObjectType::EgoVehicle));
   ASSERT_TRUE(withinValidInputRange(::ad_rss::world::ObjectType::OtherVehicle));
   ASSERT_TRUE(withinValidInputRange(::ad_rss::world::ObjectType::ArtificialObject));
@@ -52,6 +53,7 @@ TEST(ObjectTypeValidInputRangeTests, testValidInputRangeInvalid)
 {
   int32_t minValue = std::numeric_limits<int32_t>::max();
 
+  minValue = std::min(minValue, static_cast<int32_t>(::ad_rss::world::ObjectType::Invalid));
   minValue = std::min(minValue, static_cast<int32_t>(::ad_rss::world::ObjectType::EgoVehicle));
   minValue = std::min(minValue, static_cast<int32_t>(::ad_rss::world::ObjectType::OtherVehicle));
   minValue = std::min(minValue, static_cast<int32_t>(::ad_rss::world::ObjectType::ArtificialObject));

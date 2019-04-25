@@ -44,6 +44,7 @@
 #include "ad_rss/situation/SituationTypeValidInputRange.hpp"
 #include "ad_rss/world/ObjectValidInputRange.hpp"
 #include "ad_rss/world/RoadAreaValidInputRange.hpp"
+#include "ad_rss/world/RssDynamicsValidInputRange.hpp"
 #include "ad_rss/world/Scene.hpp"
 
 /*!
@@ -62,8 +63,9 @@ inline bool withinValidInputRange(::ad_rss::world::Scene const &input)
     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
     // check for generic member input ranges
     bool const membersInValidInputRange = withinValidInputRange(input.situationType)
-      && withinValidInputRange(input.egoVehicleRoad) && withinValidInputRange(input.intersectingRoad)
-      && withinValidInputRange(input.object);
+      && withinValidInputRange(input.egoVehicle) && withinValidInputRange(input.object)
+      && withinValidInputRange(input.objectRssDynamics) && withinValidInputRange(input.intersectingRoad)
+      && withinValidInputRange(input.egoVehicleRoad);
 
     return membersInValidInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches

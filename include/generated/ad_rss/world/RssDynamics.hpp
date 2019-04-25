@@ -42,6 +42,7 @@
 #include <limits>
 #include <memory>
 #include "ad_rss/physics/Distance.hpp"
+#include "ad_rss/physics/Duration.hpp"
 #include "ad_rss/world/LateralRssAccelerationValues.hpp"
 #include "ad_rss/world/LongitudinalRssAccelerationValues.hpp"
 /*!
@@ -54,73 +55,73 @@ namespace ad_rss {
 namespace world {
 
 /*!
- * \brief DataType Dynamics
+ * \brief DataType RssDynamics
  *
  * Describes the RSS dynamics values to be applied for an object within the metric world frame. The dynamics consist of
  * a longitudinal component, a lateral component and a lateral fluctuation margin to be taken into account to compensate
  * for lateral fluctuations.
  */
-struct Dynamics
+struct RssDynamics
 {
   /*!
    * \brief standard constructor
    */
-  Dynamics() = default;
+  RssDynamics() = default;
 
   /*!
    * \brief standard destructor
    */
-  ~Dynamics() = default;
+  ~RssDynamics() = default;
 
   /*!
    * \brief standard copy constructor
    */
-  Dynamics(const Dynamics &other) = default;
+  RssDynamics(const RssDynamics &other) = default;
 
   /*!
    * \brief standard move constructor
    */
-  Dynamics(Dynamics &&other) = default;
+  RssDynamics(RssDynamics &&other) = default;
 
   /**
    * \brief standard assignment operator
    *
-   * \param[in] other Other Dynamics
+   * \param[in] other Other RssDynamics
    *
-   * \returns Reference to this Dynamics.
+   * \returns Reference to this RssDynamics.
    */
-  Dynamics &operator=(const Dynamics &other) = default;
+  RssDynamics &operator=(const RssDynamics &other) = default;
 
   /**
    * \brief standard move operator
    *
-   * \param[in] other Other Dynamics
+   * \param[in] other Other RssDynamics
    *
-   * \returns Reference to this Dynamics.
+   * \returns Reference to this RssDynamics.
    */
-  Dynamics &operator=(Dynamics &&other) = default;
+  RssDynamics &operator=(RssDynamics &&other) = default;
 
   /**
    * \brief standard comparison operator
    *
-   * \param[in] other Other Dynamics
+   * \param[in] other Other RssDynamics
    *
-   * \returns \c true if both Dynamics are equal
+   * \returns \c true if both RssDynamics are equal
    */
-  bool operator==(const Dynamics &other) const
+  bool operator==(const RssDynamics &other) const
   {
     return (alphaLon == other.alphaLon) && (alphaLat == other.alphaLat)
-      && (lateralFluctuationMargin == other.lateralFluctuationMargin);
+      && (lateralFluctuationMargin == other.lateralFluctuationMargin) && (responseTime == other.responseTime);
   }
 
   /**
    * \brief standard comparison operator
    *
-   * \param[in] other Other Dynamics.
+   * \param[in] other Other RssDynamics.
    *
-   * \returns \c true if both Dynamics are different
+   * \returns \c true if both RssDynamics are different
    */
-  bool operator!=(const Dynamics &other) const
+  bool operator!=(const RssDynamics &other) const
   {
     return !operator==(other);
   }
@@ -139,6 +140,11 @@ struct Dynamics
    * Defines the lateral fluctuation margin to be taken into account.
    */
   ::ad_rss::physics::Distance lateralFluctuationMargin{0.0};
+
+  /*!
+   * Defines the response time of the object to be considered.
+   */
+  ::ad_rss::physics::Duration responseTime;
 };
 
 } // namespace world

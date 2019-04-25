@@ -35,8 +35,7 @@
 #pragma once
 
 #include "ad_rss/situation/VehicleState.hpp"
-#include "ad_rss/world/Object.hpp"
-#include "ad_rss/world/WorldModel.hpp"
+#include "ad_rss/world/Scene.hpp"
 #include "world/RssObjectPositionExtractor.hpp"
 
 /*!
@@ -51,13 +50,11 @@ namespace world {
 /**
  * @brief Calculate the object position ranges in the situation coordinate system
  *
- * @param[in] egoVehicle information about the egoVehicle
  * @param[in] currentScene information about the other object and the lanes
  * @param[out] egoVehiclePosition: position ranges in the situation coordinate system of the egoVehicle
  * @param[out] objectPosition: position ranges in the situation coordinate system of the other object
  */
-bool calculateObjectDimensions(Object const &egoVehicle,
-                               Scene const &currentScene,
+bool calculateObjectDimensions(Scene const &currentScene,
                                ObjectDimensions &egoVehiclePosition,
                                ObjectDimensions &objectPosition);
 
@@ -75,7 +72,9 @@ bool calculateObjectDimensions(Object const &object, RoadArea const &roadArea, O
  *
  * This functions only converts data from the structs. The values it self are not modified.
  */
-void convertVehicleStateDynamics(Object const &object, situation::VehicleState &vehicleState);
+void convertVehicleStateDynamics(Object const &object,
+                                 RssDynamics const &rssDynamics,
+                                 situation::VehicleState &vehicleState);
 
 } // namespace world
 } // namespace ad_rss

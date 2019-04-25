@@ -39,6 +39,8 @@
 #include "ad_rss/core/RssCheck.hpp"
 #include "wrap_new.hpp"
 
+#define RSS_CHECK_TEST_DEBUG_OUT 0
+
 namespace ad_rss {
 namespace core {
 
@@ -156,12 +158,14 @@ protected:
       createRoadAreaNonIntersection();
     }
 
-    worldModel.egoVehicle = objectAsEgo(getEgoObject());
+    worldModel.egoVehicleRssDynamics = getEgoRssDynamics();
     for (uint32_t index = 0u; index < getNumberOfSceneObjects(); index++)
     {
       ::ad_rss::world::Scene scene;
       scene.situationType = getSituationType();
       scene.object = getSceneObject(index);
+      scene.objectRssDynamics = getObjectRssDynamics();
+      scene.egoVehicle = objectAsEgo(getEgoObject());
       scene.egoVehicleRoad = roadArea;
       scene.intersectingRoad = otherRoadArea;
       worldModel.scenes.push_back(scene);
@@ -455,16 +459,16 @@ protected:
     switch (expectedLonResponse)
     {
       case state::LongitudinalResponse::None:
-        EXPECT_EQ(longitudinalRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-        EXPECT_EQ(longitudinalRange.maximum, worldModel.egoVehicle.dynamics.alphaLon.accelMax);
+        EXPECT_EQ(longitudinalRange.minimum, -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMax);
+        EXPECT_EQ(longitudinalRange.maximum, worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
         break;
       case state::LongitudinalResponse::BrakeMin:
-        EXPECT_EQ(longitudinalRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-        EXPECT_EQ(longitudinalRange.maximum, -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMin);
+        EXPECT_EQ(longitudinalRange.minimum, -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMax);
+        EXPECT_EQ(longitudinalRange.maximum, -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMin);
         break;
       case state::LongitudinalResponse::BrakeMinCorrect:
-        EXPECT_EQ(longitudinalRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax);
-        EXPECT_EQ(longitudinalRange.maximum, -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMinCorrect);
+        EXPECT_EQ(longitudinalRange.minimum, -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMax);
+        EXPECT_EQ(longitudinalRange.maximum, -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMinCorrect);
         break;
       default:
         EXPECT_TRUE(false);
@@ -477,12 +481,12 @@ protected:
     switch (expectedLatResponse)
     {
       case state::LateralResponse::None:
-        EXPECT_EQ(lateralRange.minimum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
-        EXPECT_EQ(lateralRange.maximum, worldModel.egoVehicle.dynamics.alphaLat.accelMax);
+        EXPECT_EQ(lateralRange.minimum, -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin);
+        EXPECT_EQ(lateralRange.maximum, worldModel.egoVehicleRssDynamics.alphaLat.accelMax);
         break;
       case state::LateralResponse::BrakeMin:
         EXPECT_EQ(lateralRange.minimum, std::numeric_limits<physics::Acceleration>::lowest());
-        EXPECT_EQ(lateralRange.maximum, -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin);
+        EXPECT_EQ(lateralRange.maximum, -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin);
         break;
       default:
         EXPECT_TRUE(false);
@@ -536,25 +540,47 @@ protected:
       switch (getSituationType())
       {
         case situation::SituationType::SameDirection:
-          dMin = calculateLongitudinalMinSafeDistance(worldModel.egoVehicle, scene.object);
+          dMin = calculateLongitudinalMinSafeDistance(scene.egoVehicle.velocity,
+                                                      worldModel.egoVehicleRssDynamics,
+                                                      scene.object.velocity,
+                                                      scene.objectRssDynamics);
           break;
         case situation::SituationType::OppositeDirection:
-          dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(worldModel.egoVehicle, scene.object);
+          if (getDrivingDirection() == ::ad_rss::world::LaneDrivingDirection::Negative)
+          {
+            dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(scene.object.velocity,
+                                                                         scene.objectRssDynamics,
+                                                                         scene.egoVehicle.velocity,
+                                                                         worldModel.egoVehicleRssDynamics);
+          }
+          else
+          {
+            dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(scene.egoVehicle.velocity,
+                                                                         worldModel.egoVehicleRssDynamics,
+                                                                         scene.object.velocity,
+                                                                         scene.objectRssDynamics);
+          }
           break;
         default:
           EXPECT_TRUE(false);
           break;
       }
 
-      Distance egoDistanceToSegmentEnd = getDistanceToSegmentEnd(worldModel.egoVehicle);
+      Distance egoDistanceToSegmentEnd = getDistanceToSegmentEnd(scene.egoVehicle);
       Distance objectDistanceFromSegmentBegin = getFrontObjectDistanceFromSegmentBegin();
       Distance additionalLength{0u};
-      if ((worldModel.egoVehicle.occupiedRegions[0].segmentId < 3)
-          || (worldModel.egoVehicle.occupiedRegions[0].segmentId > 5))
+      if ((scene.egoVehicle.occupiedRegions[0].segmentId < 3) || (scene.egoVehicle.occupiedRegions[0].segmentId > 5))
       {
         // ego in front or in the back, then the middle segment is relevant
         additionalLength = getMiddleRoadSegmentLength();
       }
+#if RSS_CHECK_TEST_DEBUG_OUT
+      std::cout << "isDistanceSafeLongitudinal: dMin=" << static_cast<double>(dMin)
+                << " | additionalLength=" << static_cast<double>(additionalLength)
+                << " egoDistanceToSegmentEnd=" << static_cast<double>(egoDistanceToSegmentEnd)
+                << " objectDistanceFromSegmentBegin=" << static_cast<double>(objectDistanceFromSegmentBegin)
+                << std::endl;
+#endif
       if (dMin >= additionalLength + egoDistanceToSegmentEnd + objectDistanceFromSegmentBegin)
       {
         return false;
@@ -570,11 +596,17 @@ protected:
 
     for (uint32_t i = 0; i < 100; i++)
     {
-      worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
+      for (auto &scene : worldModel.scenes)
+      {
+        scene.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
+      }
       worldModel.timeIndex++;
 
       ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
+#if RSS_CHECK_TEST_DEBUG_OUT
+      std::cout << "TestingVelocity[i=" << i << "]: lonSafe=" << isDistanceSafeLongitudinal() << std::endl;
+#endif
       if (isDistanceSafeLongitudinal())
       {
         testRestrictions(accelerationRestriction);
@@ -593,12 +625,18 @@ protected:
 
     for (uint32_t i = 0; i <= 90; i++)
     {
-      worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.01 * i);
-      worldModel.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.01 * i + 0.1);
+      for (auto &scene : worldModel.scenes)
+      {
+        scene.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.01 * i);
+        scene.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.01 * i + 0.1);
+      }
       worldModel.timeIndex++;
 
       ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
+#if RSS_CHECK_TEST_DEBUG_OUT
+      std::cout << "TestingDistance[i=" << i << "]: lonSafe=" << isDistanceSafeLongitudinal() << std::endl;
+#endif
       if (isDistanceSafeLongitudinal())
       {
         testRestrictions(accelerationRestriction);

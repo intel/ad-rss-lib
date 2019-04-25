@@ -36,19 +36,7 @@ namespace ad_rss {
 
 namespace core {
 
-namespace RssSituationExtraction {
-
 using physics::MetricRange;
-
-void calcluateRelativeLongitudinalPosition(MetricRange const &egoMetricRange,
-                                           MetricRange const &otherMetricRange,
-                                           situation::LongitudinalRelativePosition &longitudinalPosition,
-                                           Distance &longitudinalDistance);
-
-void calcluateRelativeLateralPosition(MetricRange const &egoMetricRange,
-                                      MetricRange const &otherMetricRange,
-                                      situation::LateralRelativePosition &lateralPosition,
-                                      Distance &lateralDistance);
 
 void performCalculateRelativePositionTest(Distance minA,
                                           Distance maxA,
@@ -60,6 +48,7 @@ void performCalculateRelativePositionTest(Distance minA,
                                           situation::LongitudinalRelativePosition expectedPositionLonBtoA,
                                           Distance expectedDistance)
 {
+  RssSituationExtraction situationExtraction;
   MetricRange vehicleALonMetricRange;
   MetricRange vehicleALatMetricRange;
   MetricRange vehicleBLonMetricRange;
@@ -74,11 +63,11 @@ void performCalculateRelativePositionTest(Distance minA,
   vehicleBLatMetricRange.maximum = maxB;
   vehicleBLonMetricRange = vehicleBLatMetricRange;
 
-  calcluateRelativeLongitudinalPosition(vehicleALonMetricRange,
-                                        vehicleBLonMetricRange,
-                                        relativePosition.longitudinalPosition,
-                                        relativePosition.longitudinalDistance);
-  calcluateRelativeLateralPosition(
+  situationExtraction.calcluateRelativeLongitudinalPosition(vehicleALonMetricRange,
+                                                            vehicleBLonMetricRange,
+                                                            relativePosition.longitudinalPosition,
+                                                            relativePosition.longitudinalDistance);
+  situationExtraction.calcluateRelativeLateralPosition(
     vehicleALatMetricRange, vehicleBLatMetricRange, relativePosition.lateralPosition, relativePosition.lateralDistance);
 
   ASSERT_EQ(expectedPositionLatAtoB, relativePosition.lateralPosition);
@@ -86,11 +75,11 @@ void performCalculateRelativePositionTest(Distance minA,
   ASSERT_EQ(expectedDistance, relativePosition.lateralDistance);
   ASSERT_EQ(expectedDistance, relativePosition.longitudinalDistance);
 
-  calcluateRelativeLongitudinalPosition(vehicleBLonMetricRange,
-                                        vehicleALonMetricRange,
-                                        relativePosition.longitudinalPosition,
-                                        relativePosition.longitudinalDistance);
-  calcluateRelativeLateralPosition(
+  situationExtraction.calcluateRelativeLongitudinalPosition(vehicleBLonMetricRange,
+                                                            vehicleALonMetricRange,
+                                                            relativePosition.longitudinalPosition,
+                                                            relativePosition.longitudinalDistance);
+  situationExtraction.calcluateRelativeLateralPosition(
     vehicleBLatMetricRange, vehicleALatMetricRange, relativePosition.lateralPosition, relativePosition.lateralDistance);
 
   ASSERT_EQ(expectedPositionLatBtoA, relativePosition.lateralPosition);
@@ -229,6 +218,5 @@ TEST(CalcluateRelativePositionTest, full_overlap_mixed)
                                        Distance(0.));
 }
 
-} // namespace RssSituationExtraction
 } // namespace core
 } // namespace ad_rss

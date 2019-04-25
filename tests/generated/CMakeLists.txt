@@ -89,8 +89,6 @@ set(GENERATED_TEST_SOURCES
   generated/world/LaneSegmentValidInputRangeTests.cpp
   generated/world/ObjectTypeValidInputRangeTests.cpp
   generated/world/ObjectTypeTests.cpp
-  generated/world/DynamicsValidInputRangeTests.cpp
-  generated/world/DynamicsTests.cpp
   generated/world/AccelerationRestrictionValidInputRangeTests.cpp
   generated/world/AccelerationRestrictionTests.cpp
   generated/world/SceneVectorValidInputRangeTests.cpp
@@ -109,6 +107,8 @@ set(GENERATED_TEST_SOURCES
   generated/world/VelocityValidInputRangeTests.cpp
   generated/world/OccupiedRegionTests.cpp
   generated/world/OccupiedRegionValidInputRangeTests.cpp
+  generated/world/RssDynamicsValidInputRangeTests.cpp
+  generated/world/RssDynamicsTests.cpp
   generated/world/RoadSegmentValidInputRangeTests.cpp
   generated/world/SceneTests.cpp
   generated/world/SceneValidInputRangeTests.cpp

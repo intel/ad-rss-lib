@@ -43,42 +43,86 @@
 namespace ad_rss {
 
 /*!
+ * @brief namespace world
+ */
+namespace world {
+/*!
+ * @brief forward declaration of class RssSituationIdProvider
+ */
+class RssSituationIdProvider;
+} // namespace world
+
+/*!
  * @brief namespace core
  */
 namespace core {
 
 /*!
- * @brief namespace RssSituationExtraction
+ * @brief class RssSituationExtraction
  *
- * Namespace providing functions required for the extraction of the RSS situations from the RSS world model.
+ * Class providing functions required for the extraction of the RSS situations from the RSS world model.
  */
-namespace RssSituationExtraction {
+class RssSituationExtraction
+{
+public:
+  /*!
+   * @brief constructor
+   */
+  RssSituationExtraction();
 
-/**
- * @brief Extract the RSS situation of the ego vehicle and the object to be checked.
- *
- * @param [in] timeIndex - the time index of the current situation
- * @param [in] egoVehicle - the information on the ego vehicle object
- * @param [in] currentScene - the information on the object to be checked and the according lane information
- * @param [out] situation - the situation to be analyzed with RSS
- *
- * @return true if the situation could be created, false if there was an error during the operation.
- */
-bool extractSituation(physics::TimeIndex const &timeIndex,
-                      world::Object const &egoVehicle,
-                      world::Scene const &currentScene,
-                      situation::Situation &situation);
+  /*!
+   * @brief destructor
+   */
+  ~RssSituationExtraction();
 
-/**
- * @brief Extract all RSS situations to be checked from the world model.
- *
- * @param [in] worldModel - the current world model information
- * @param [out] situationVector - the vector of situations to be analyzed with RSS
- *
- * @return true if the situations could be created, false if there was an error during the operation.
- */
-bool extractSituations(world::WorldModel const &worldModel, situation::SituationVector &situationVector);
+  /**
+   * @brief Extract all RSS situations to be checked from the world model.
+   *
+   * @param [in] worldModel - the current world model information
+   * @param [out] situationVector - the vector of situations to be analyzed with RSS
+   *
+   * @return true if the situations could be created, false if there was an error during the operation.
+   */
+  bool extractSituations(world::WorldModel const &worldModel, situation::SituationVector &situationVector);
 
-} // namespace RssSituationExtraction
+private:
+  void calcluateRelativeLongitudinalPosition(physics::MetricRange const &egoMetricRange,
+                                             physics::MetricRange const &otherMetricRange,
+                                             situation::LongitudinalRelativePosition &longitudinalPosition,
+                                             physics::Distance &longitudinalDistance);
+  void calcluateRelativeLongitudinalPositionIntersection(physics::MetricRange const &egoMetricRange,
+                                                         physics::MetricRange const &otherMetricRange,
+                                                         situation::LongitudinalRelativePosition &longitudinalPosition,
+                                                         physics::Distance &longitudinalDistance);
+  void calcluateRelativeLateralPosition(physics::MetricRange const &egoMetricRange,
+                                        physics::MetricRange const &otherMetricRange,
+                                        situation::LateralRelativePosition &lateralPosition,
+                                        physics::Distance &lateralDistance);
+  bool convertObjectsNonIntersection(world::Scene const &currentScene, situation::Situation &situation);
+  void convertToIntersectionCentric(physics::MetricRange const &objectDimension,
+                                    physics::MetricRange const &intersectionPosition,
+                                    physics::MetricRange &dimensionsIntersection);
+  bool convertObjectsIntersection(world::Scene const &currentScene, situation::Situation &situation);
+  /**
+   * @brief Extract the RSS situation of the ego vehicle and the object to be checked.
+   *
+   * @param [in] timeIndex the time index of the current situation
+   * @param [in] egoVehicleRssDynamics the RSS dynamics of the ego vehicle
+   * @param [in] currentScene the information on the current scene with the object to be checked
+   * @param [out] situation the situation to be analyzed with RSS
+   *
+   * @return true if the situation could be created, false if there was an error during the operation.
+   */
+  bool extractSituationInputRangeChecked(physics::TimeIndex const &timeIndex,
+                                         world::RssDynamics const &egoVehicleRssDynamics,
+                                         world::Scene const &currentScene,
+                                         situation::Situation &situation);
+  bool mergeVehicleStates(situation::VehicleState const &otherVehicleState,
+                          situation::VehicleState &mergedVehicleState);
+  bool mergeSituations(situation::Situation const &otherSituation, situation::Situation &mergedSituation);
+
+  std::unique_ptr<ad_rss::world::RssSituationIdProvider> mSituationIdProvider;
+};
+
 } // namespace core
 } // namespace ad_rss

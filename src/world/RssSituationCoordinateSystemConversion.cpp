@@ -32,12 +32,11 @@
  * @file
  */
 
+#include "world/RssSituationCoordinateSystemConversion.hpp"
+
 #include <algorithm>
 #include <limits>
 #include <vector>
-
-#include "world/RssObjectPositionExtractor.hpp"
-#include "world/RssSituationCoordinateSystemConversion.hpp"
 
 /*!
  * @brief namespace ad_rss
@@ -229,8 +228,7 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
   return result;
 }
 
-bool calculateObjectDimensions(Object const &egoVehicle,
-                               Scene const &currentScene,
+bool calculateObjectDimensions(Scene const &currentScene,
                                ObjectDimensions &egoVehiclePosition,
                                ObjectDimensions &objectPosition)
 {
@@ -239,7 +237,7 @@ bool calculateObjectDimensions(Object const &egoVehicle,
   try
   {
     std::vector<Object> objects;
-    objects.push_back(egoVehicle);
+    objects.push_back(currentScene.egoVehicle);
     objects.push_back(currentScene.object);
 
     std::vector<ObjectDimensions> objectDimensions;
@@ -294,20 +292,13 @@ bool calculateObjectDimensions(Object const &object,
   return result;
 }
 
-void convertVehicleStateDynamics(Object const &object, ::ad_rss::situation::VehicleState &vehicleState)
+void convertVehicleStateDynamics(Object const &object,
+                                 RssDynamics const &rssDynamics,
+                                 ::ad_rss::situation::VehicleState &vehicleState)
 {
-  vehicleState.dynamics.alphaLon.accelMax = object.dynamics.alphaLon.accelMax;
-  vehicleState.dynamics.alphaLon.brakeMin = object.dynamics.alphaLon.brakeMin;
-  vehicleState.dynamics.alphaLon.brakeMinCorrect = object.dynamics.alphaLon.brakeMinCorrect;
-  vehicleState.dynamics.alphaLon.brakeMax = object.dynamics.alphaLon.brakeMax;
-
-  vehicleState.dynamics.alphaLat.accelMax = object.dynamics.alphaLat.accelMax;
-  vehicleState.dynamics.alphaLat.brakeMin = object.dynamics.alphaLat.brakeMin;
-
+  vehicleState.dynamics = rssDynamics;
   vehicleState.velocity.speedLon = object.velocity.speedLon;
   vehicleState.velocity.speedLat = object.velocity.speedLat;
-
-  vehicleState.responseTime = object.responseTime;
 }
 
 } // namespace world

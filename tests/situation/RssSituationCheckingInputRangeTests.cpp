@@ -282,7 +282,7 @@ TEST_F(RssSituationCheckingInputRangeTests, lateral_invalid_acceleration_ego)
 
 TEST_F(RssSituationCheckingInputRangeTests, invalid_response_time_zero_ego)
 {
-  situation.otherVehicleState.responseTime = Duration(0.);
+  situation.otherVehicleState.dynamics.responseTime = Duration(0.);
   performTestRun();
 }
 
@@ -290,7 +290,7 @@ TEST_F(RssSituationCheckingInputRangeTests, invalid_response_time_negative_ego)
 {
   for (int i = 1; i < 1000; i++)
   {
-    situation.otherVehicleState.responseTime = -1. * Duration(i / 100.);
+    situation.otherVehicleState.dynamics.responseTime = -1. * Duration(i / 100.);
     performTestRun();
   }
 }
