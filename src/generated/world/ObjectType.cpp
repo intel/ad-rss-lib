@@ -44,6 +44,8 @@ std::string toString(::ad_rss::world::ObjectType const e)
 {
   switch (e)
   {
+    case ::ad_rss::world::ObjectType::Invalid:
+      return std::string("::ad_rss::world::ObjectType::Invalid"); // LCOV_EXCL_BR_LINE
     case ::ad_rss::world::ObjectType::EgoVehicle:
       return std::string("::ad_rss::world::ObjectType::EgoVehicle"); // LCOV_EXCL_BR_LINE
     case ::ad_rss::world::ObjectType::OtherVehicle:
@@ -57,6 +59,14 @@ std::string toString(::ad_rss::world::ObjectType const e)
 
 template <>::ad_rss::world::ObjectType fromString(std::string const &str)
 {
+  if (str == std::string("::ad_rss::world::ObjectType::Invalid")) // LCOV_EXCL_BR_LINE
+  {
+    return ::ad_rss::world::ObjectType::Invalid;
+  }
+  if (str == std::string("Invalid")) // LCOV_EXCL_BR_LINE
+  {
+    return ::ad_rss::world::ObjectType::Invalid;
+  }
   if (str == std::string("::ad_rss::world::ObjectType::EgoVehicle")) // LCOV_EXCL_BR_LINE
   {
     return ::ad_rss::world::ObjectType::EgoVehicle;

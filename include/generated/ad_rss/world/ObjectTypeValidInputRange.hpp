@@ -57,7 +57,8 @@ inline bool withinValidInputRange(::ad_rss::world::ObjectType const &input)
   try
   {
     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
-    return (input == ::ad_rss::world::ObjectType::EgoVehicle) || (input == ::ad_rss::world::ObjectType::OtherVehicle)
+    return (input == ::ad_rss::world::ObjectType::Invalid) || (input == ::ad_rss::world::ObjectType::EgoVehicle)
+      || (input == ::ad_rss::world::ObjectType::OtherVehicle)
       || (input == ::ad_rss::world::ObjectType::ArtificialObject);
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
   }

@@ -43,6 +43,7 @@
 #include "ad_rss/situation/SituationType.hpp"
 #include "ad_rss/world/Object.hpp"
 #include "ad_rss/world/RoadArea.hpp"
+#include "ad_rss/world/RssDynamics.hpp"
 /*!
  * @brief namespace ad_rss
  */
@@ -56,9 +57,9 @@ namespace world {
  * \brief DataType Scene
  *
  * A Scene defines the relation between the ego vehicle and another object. It consists of the type of situation between
- * these two and the corresponding road areas of interest. All lane segments on the route between ego vehicle and the
- * object have to be part of this. RSS has to be able to calculate minimum and maximum distances between ego vehicle and
- * object as well as accelerated movements within this area.
+ * these two, the objects rss dynamics and the corresponding road areas of interest. All lane segments on the route
+ * between ego vehicle and the object have to be part of this. RSS has to be able to calculate minimum and maximum
+ * distances between ego vehicle and object as well as accelerated movements within this area.
  */
 struct Scene
 {
@@ -109,8 +110,9 @@ struct Scene
    */
   bool operator==(const Scene &other) const
   {
-    return (situationType == other.situationType) && (egoVehicleRoad == other.egoVehicleRoad)
-      && (intersectingRoad == other.intersectingRoad) && (object == other.object);
+    return (situationType == other.situationType) && (egoVehicle == other.egoVehicle) && (object == other.object)
+      && (objectRssDynamics == other.objectRssDynamics) && (intersectingRoad == other.intersectingRoad)
+      && (egoVehicleRoad == other.egoVehicleRoad);
   }
 
   /**
@@ -131,10 +133,20 @@ struct Scene
   ::ad_rss::situation::SituationType situationType{::ad_rss::situation::SituationType::SameDirection};
 
   /*!
-   * The RssRoadArea the ego vehicle is driving in. The driving direction of the ego vehicle define the ordering of the
-   * road segments. In non-intersection situations the object is also driving in this road area.
+   * The ego vehicle in the context of this scene.
    */
-  ::ad_rss::world::RoadArea egoVehicleRoad;
+  ::ad_rss::world::Object egoVehicle;
+
+  /*!
+   * The object this scene refers to.
+   */
+  ::ad_rss::world::Object object;
+
+  /*!
+   * Defines the objects dynamics to be applied. This parameters are provided on a per object basis to be able to adapt
+   * these e.g. in respect to object type or the weather conditions.
+   */
+  ::ad_rss::world::RssDynamics objectRssDynamics;
 
   /*!
    * The RssRoadArea an intersecting vehicle is driving in. The driving direction of the intersecting vehicle define the
@@ -144,9 +156,10 @@ struct Scene
   ::ad_rss::world::RoadArea intersectingRoad;
 
   /*!
-   * The object this scene refers to.
+   * The RssRoadArea the ego vehicle is driving in. The driving direction of the ego vehicle define the ordering of the
+   * road segments. In non-intersection situations the object is also driving in this road area.
    */
-  ::ad_rss::world::Object object;
+  ::ad_rss::world::RoadArea egoVehicleRoad;
 };
 
 } // namespace world

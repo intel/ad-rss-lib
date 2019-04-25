@@ -35,34 +35,28 @@
 namespace ad_rss {
 namespace core {
 
-namespace RssSituationExtraction {
-
-bool extractSituationInputRangeChecked(physics::TimeIndex const &timeIndex,
-                                       world::Object const &egoVehicle,
-                                       world::Scene const &currentScene,
-                                       situation::Situation &situation);
-
 class RssSituationExtractionInputRangeTests : public RssCheckTestBase
 {
 protected:
   situation::Situation situation;
+  RssSituationExtraction situationExtraction;
 
   void performTestRun()
   {
-    EXPECT_FALSE(extractSituation(worldModel.timeIndex, worldModel.egoVehicle, worldModel.scenes[0], situation));
-    EXPECT_FALSE(
-      extractSituationInputRangeChecked(worldModel.timeIndex, worldModel.egoVehicle, worldModel.scenes[0], situation));
+    EXPECT_FALSE(situationExtraction.extractSituationInputRangeChecked(
+      worldModel.timeIndex, worldModel.egoVehicleRssDynamics, worldModel.scenes[0], situation));
   }
 };
 
 TEST_F(RssSituationExtractionInputRangeTests, validateTestSetup)
 {
-  ASSERT_TRUE(extractSituation(worldModel.timeIndex, worldModel.egoVehicle, worldModel.scenes[0], situation));
+  ASSERT_TRUE(situationExtraction.extractSituationInputRangeChecked(
+    worldModel.timeIndex, worldModel.egoVehicleRssDynamics, worldModel.scenes[0], situation));
 }
 
 TEST_F(RssSituationExtractionInputRangeTests, egoVehicleDataInvalid)
 {
-  worldModel.egoVehicle.occupiedRegions[0].lonRange.minimum = physics::ParametricValue();
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].lonRange.minimum = physics::ParametricValue();
   performTestRun();
 }
 
@@ -80,14 +74,15 @@ TEST_F(RssSituationExtractionInputRangeTests, egoVehicleAsObject)
 
 TEST_F(RssSituationExtractionInputRangeTests, objectAsEgoVehicle)
 {
-  worldModel.egoVehicle.objectType = world::ObjectType::OtherVehicle;
+  worldModel.scenes[0].egoVehicle.objectType = world::ObjectType::OtherVehicle;
   performTestRun();
 }
 
 TEST_F(RssSituationExtractionInputRangeTests, situationNotRelevant)
 {
   worldModel.scenes[0].situationType = situation::SituationType::NotRelevant;
-  ASSERT_TRUE(extractSituation(worldModel.timeIndex, worldModel.egoVehicle, worldModel.scenes[0], situation));
+  ASSERT_TRUE(situationExtraction.extractSituationInputRangeChecked(
+    worldModel.timeIndex, worldModel.egoVehicleRssDynamics, worldModel.scenes[0], situation));
 }
 
 TEST_F(RssSituationExtractionInputRangeTests, situationTypeInvalid)
@@ -96,6 +91,5 @@ TEST_F(RssSituationExtractionInputRangeTests, situationTypeInvalid)
   performTestRun();
 }
 
-} // namespace RssSituationExtraction
 } // namespace core
 } // namespace ad_rss

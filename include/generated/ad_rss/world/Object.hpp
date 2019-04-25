@@ -42,8 +42,6 @@
 #include <cstdint>
 #include <limits>
 #include <memory>
-#include "ad_rss/physics/Duration.hpp"
-#include "ad_rss/world/Dynamics.hpp"
 #include "ad_rss/world/ObjectId.hpp"
 #include "ad_rss/world/ObjectType.hpp"
 #include "ad_rss/world/OccupiedRegionVector.hpp"
@@ -61,8 +59,7 @@ namespace world {
  * \brief DataType Object
  *
  * An object is described by several aspects: the unique id of an object, the type of the object, the lane regions the
- * object occupies, the objects velocity within its lane and finally the area of interaction of ego vehicle and the
- * object.
+ * object occupies, the objects velocity within its lane.
  */
 struct Object
 {
@@ -114,8 +111,7 @@ struct Object
   bool operator==(const Object &other) const
   {
     return (objectId == other.objectId) && (objectType == other.objectType)
-      && (occupiedRegions == other.occupiedRegions) && (dynamics == other.dynamics) && (velocity == other.velocity)
-      && (responseTime == other.responseTime);
+      && (occupiedRegions == other.occupiedRegions) && (velocity == other.velocity);
   }
 
   /**
@@ -138,7 +134,7 @@ struct Object
   /*!
    * Defines the type of the object.
    */
-  ::ad_rss::world::ObjectType objectType;
+  ::ad_rss::world::ObjectType objectType{::ad_rss::world::ObjectType::Invalid};
 
   /*!
    * Defines the lane regions the object occupies.
@@ -146,20 +142,9 @@ struct Object
   ::ad_rss::world::OccupiedRegionVector occupiedRegions;
 
   /*!
-   * Defines the objects dynamics to be applied. This parameters are provided on a per object basis to be able to adapt
-   * these e.g. in respect to object type or the weather conditions.
-   */
-  ::ad_rss::world::Dynamics dynamics;
-
-  /*!
    * Defines the objects velocity in respect to its current major lane.
    */
   ::ad_rss::world::Velocity velocity;
-
-  /*!
-   * Defines the response time of the object within the current scene.
-   */
-  ::ad_rss::physics::Duration responseTime;
 };
 
 } // namespace world

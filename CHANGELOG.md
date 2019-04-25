@@ -1,4 +1,10 @@
 ## Latest changes
+
+## Release 1.3.0
+* Allow multiple situations per ego vehicle/object pair: Add RssSituationIdProvider and made RssSituationExtraction a class holding RssSituationIdProvider instance to keep track of the different situation classes
+* Renamed world::Dynamics in world::RssDynamics, extended it by responseTime and separated it from world::Object; world::Scene got the objectRssDynamics and world::WorldModel the egoVehicleRssDynamics each as separate elements
+* Extended world::Scene by egoVehicle object description as occupied regions and velocity are actually scene dependent (e.g. when considering different vehicle predictions)
+* Added world::ObjectType::Invalid
 * Small updates to be compliant to clang-tidy-3.8 static code analysis
 * Added basic FAQ
 * Added official support for Ubuntu 14.04 (GCC 4.8, Clang 3.4 and 3.8/3.9)

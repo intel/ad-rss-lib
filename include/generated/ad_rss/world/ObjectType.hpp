@@ -58,19 +58,24 @@ namespace world {
 enum class ObjectType : int32_t
 {
   /*!
+   * The object type is invalid.
+   */
+  Invalid = 0,
+
+  /*!
    * The object is the ego vehicle.
    */
-  EgoVehicle = 0,
+  EgoVehicle = 1,
 
   /*!
    * The object is some other real vehicle.
    */
-  OtherVehicle = 1,
+  OtherVehicle = 2,
 
   /*!
    * The object is an artificial one.
    */
-  ArtificialObject = 2
+  ArtificialObject = 3
 };
 
 } // namespace world
