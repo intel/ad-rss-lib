@@ -41,7 +41,7 @@
 
 #include <cmath>
 #include <limits>
-#include "ad_rss/world/ObjectValidInputRange.hpp"
+#include "ad_rss/world/RssDynamicsValidInputRange.hpp"
 #include "ad_rss/world/SceneVectorValidInputRange.hpp"
 #include "ad_rss/world/WorldModel.hpp"
 
@@ -62,7 +62,7 @@ inline bool withinValidInputRange(::ad_rss::world::WorldModel const &input)
     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
     // check for generic member input ranges
     bool const membersInValidInputRange
-      = withinValidInputRange(input.egoVehicle) && withinValidInputRange(input.scenes);
+      = withinValidInputRange(input.egoVehicleRssDynamics) && withinValidInputRange(input.scenes);
 
     // check for individual input ranges
     bool const timeIndexInInputRange = (::ad_rss::physics::TimeIndex(1) <= input.timeIndex);

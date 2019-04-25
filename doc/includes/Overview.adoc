@@ -73,7 +73,7 @@ command restrictions as output.
 
 [[Figure:Library]]
 .ad-rss-lib (implemented in the library) and its interfaces to the outside world
-image::rss_integration.png[caption="Figure {counter:figure}. "]
+image::ad-rss-lib-Integrate_Into_Sense-Plan-Act.png[caption="Figure {counter:figure}. "]
 
 In summary, the ad-rss-lib receives an object list, with information about all
 objects in the surrounding environment of the ego vehicle. Then, the ad-rss-lib

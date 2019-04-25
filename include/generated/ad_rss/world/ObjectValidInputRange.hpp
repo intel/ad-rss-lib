@@ -41,8 +41,6 @@
 
 #include <cmath>
 #include <limits>
-#include "ad_rss/physics/DurationValidInputRange.hpp"
-#include "ad_rss/world/DynamicsValidInputRange.hpp"
 #include "ad_rss/world/Object.hpp"
 #include "ad_rss/world/ObjectTypeValidInputRange.hpp"
 #include "ad_rss/world/OccupiedRegionVectorValidInputRange.hpp"
@@ -55,8 +53,7 @@
  *
  * \returns \c true if Object is considered to be within the specified input range
  *
- * \note the specified input range is defined by the ranges of all members, plus:
- *       ::ad_rss::physics::Duration(0.) < responseTime <= ::ad_rss::physics::Duration(10.)
+ * \note the specified input range is defined by the ranges of all members
  */
 inline bool withinValidInputRange(::ad_rss::world::Object const &input)
 {
@@ -65,14 +62,9 @@ inline bool withinValidInputRange(::ad_rss::world::Object const &input)
     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
     // check for generic member input ranges
     bool const membersInValidInputRange = withinValidInputRange(input.objectType)
-      && withinValidInputRange(input.occupiedRegions) && withinValidInputRange(input.dynamics)
-      && withinValidInputRange(input.velocity) && withinValidInputRange(input.responseTime);
+      && withinValidInputRange(input.occupiedRegions) && withinValidInputRange(input.velocity);
 
-    // check for individual input ranges
-    bool const responseTimeInInputRange = (::ad_rss::physics::Duration(0.) < input.responseTime)
-      && (input.responseTime <= ::ad_rss::physics::Duration(10.));
-
-    return membersInValidInputRange && responseTimeInInputRange;
+    return membersInValidInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
   }
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes

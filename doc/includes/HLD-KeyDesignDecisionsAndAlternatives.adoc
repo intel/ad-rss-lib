@@ -339,8 +339,8 @@ the situation based coordinate system merges in a first step all lanes segments
 relevant to the situation (ego vehicle - object pair) into one situation
 specific metric road area. One can imagine this step as the creation
 of a bounding box around the two vehicles
-that is large enough to cover the (relevant) worst case movements of those within
-the reaction time while ignoring actual markings on the road between the lanes.
+that is large enough to cover the relevant positions of those
+while ignoring actual markings on the road between the lanes.
 By this, especially the physical lateral velocities and accelerations within the
 Cartesian 2D space of the road area can be measured and calculated straight
 forward without any discontinuities (see also the illustrations in

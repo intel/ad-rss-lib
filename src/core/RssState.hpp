@@ -124,8 +124,8 @@ inline state::ResponseState createResponseState(physics::TimeIndex const &timeIn
 {
   bool const isSafe = (isSafeValue == IsSafe::Yes);
   state::ResponseInformation emptyResponseInfo;
-  emptyResponseInfo.currentDistance = physics::Distance::getMax();
-  emptyResponseInfo.safeDistance = physics::Distance::getMax();
+  emptyResponseInfo.currentDistance = std::numeric_limits<physics::Distance>::max();
+  emptyResponseInfo.safeDistance = std::numeric_limits<physics::Distance>::max();
   emptyResponseInfo.responseEvaluator = state::ResponseEvaluator::None;
 
   state::ResponseState safeResponse;

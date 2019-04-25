@@ -90,7 +90,7 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
   bool result = calculateDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
     CoordinateSystemAxis::Longitudinal,
     followingVehicle.velocity.speedLon,
-    followingVehicle.responseTime,
+    followingVehicle.dynamics.responseTime,
     followingVehicle.dynamics.alphaLon.accelMax,
     followingVehicle.dynamics.alphaLon.brakeMin,
     distanceStatedBraking);
@@ -119,7 +119,7 @@ bool checkSafeLongitudinalDistanceSameDirection(VehicleState const &leadingVehic
   }
 
   isDistanceSafe = false;
-  safeDistance = Distance::getMax();
+  safeDistance = std::numeric_limits<physics::Distance>::max();
 
   bool const result = calculateSafeLongitudinalDistanceSameDirection(leadingVehicle, followingVehicle, safeDistance);
 
@@ -144,7 +144,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &corr
   bool result = calculateDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
     CoordinateSystemAxis::Longitudinal,
     correctVehicle.velocity.speedLon,
-    correctVehicle.responseTime,
+    correctVehicle.dynamics.responseTime,
     correctVehicle.dynamics.alphaLon.accelMax,
     correctVehicle.dynamics.alphaLon.brakeMinCorrect,
     distanceStatedBrakingCorrect);
@@ -156,7 +156,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &corr
     result = calculateDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
       CoordinateSystemAxis::Longitudinal,
       oppositeVehicle.velocity.speedLon,
-      oppositeVehicle.responseTime,
+      oppositeVehicle.dynamics.responseTime,
       oppositeVehicle.dynamics.alphaLon.accelMax,
       oppositeVehicle.dynamics.alphaLon.brakeMin,
       distanceStatedBrakingOpposite);
@@ -182,7 +182,7 @@ bool checkSafeLongitudinalDistanceOppositeDirection(VehicleState const &correctV
   }
 
   isDistanceSafe = false;
-  safeDistance = Distance::getMax();
+  safeDistance = std::numeric_limits<physics::Distance>::max();
   bool const result = calculateSafeLongitudinalDistanceOppositeDirection(correctVehicle, oppositeVehicle, safeDistance);
 
   if (vehicleDistance > safeDistance)
@@ -205,7 +205,7 @@ bool checkStopInFrontIntersection(VehicleState const &vehicle, Distance &safeDis
   bool result = calculateDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
     CoordinateSystemAxis::Longitudinal,
     vehicle.velocity.speedLon,
-    vehicle.responseTime,
+    vehicle.dynamics.responseTime,
     vehicle.dynamics.alphaLon.accelMax,
     vehicle.dynamics.alphaLon.brakeMin,
     safeDistance);
@@ -234,7 +234,7 @@ bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
   result = calculateDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
     CoordinateSystemAxis::Lateral,
     leftVehicle.velocity.speedLat,
-    leftVehicle.responseTime,
+    leftVehicle.dynamics.responseTime,
     leftVehicle.dynamics.alphaLat.accelMax,
     leftVehicle.dynamics.alphaLat.brakeMin,
     distanceOffsetStatedBrakingLeft);
@@ -242,7 +242,7 @@ bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
   result = result && calculateDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
                        CoordinateSystemAxis::Lateral,
                        rightVehicle.velocity.speedLat,
-                       rightVehicle.responseTime,
+                       rightVehicle.dynamics.responseTime,
                        -rightVehicle.dynamics.alphaLat.accelMax,
                        -rightVehicle.dynamics.alphaLat.brakeMin,
                        distanceOffsetStatedBrakingRight);
@@ -269,7 +269,7 @@ bool checkSafeLateralDistance(VehicleState const &leftVehicle,
   }
 
   isDistanceSafe = false;
-  safeDistance = Distance::getMax();
+  safeDistance = std::numeric_limits<physics::Distance>::max();
   bool const result = calculateSafeLateralDistance(leftVehicle, rightVehicle, safeDistance);
 
   if (vehicleDistance > safeDistance)

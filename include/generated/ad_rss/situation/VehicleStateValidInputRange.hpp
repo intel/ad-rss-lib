@@ -42,9 +42,8 @@
 #include <cmath>
 #include <limits>
 #include "ad_rss/physics/DistanceValidInputRange.hpp"
-#include "ad_rss/physics/DurationValidInputRange.hpp"
 #include "ad_rss/situation/VehicleState.hpp"
-#include "ad_rss/world/DynamicsValidInputRange.hpp"
+#include "ad_rss/world/RssDynamicsValidInputRange.hpp"
 #include "ad_rss/world/VelocityValidInputRange.hpp"
 
 /*!
@@ -55,7 +54,6 @@
  * \returns \c true if VehicleState is considered to be within the specified input range
  *
  * \note the specified input range is defined by the ranges of all members, plus:
- *       ::ad_rss::physics::Duration(0.) < responseTime <= ::ad_rss::physics::Duration(10.)
  *       ::ad_rss::physics::Distance(0.) <= distanceToEnterIntersection <= distanceToLeaveIntersection
  *       distanceToEnterIntersection <= distanceToLeaveIntersection <= ::ad_rss::physics::Distance(1e4)
  */
@@ -66,13 +64,10 @@ inline bool withinValidInputRange(::ad_rss::situation::VehicleState const &input
     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
     // check for generic member input ranges
     bool const membersInValidInputRange = withinValidInputRange(input.velocity) && withinValidInputRange(input.dynamics)
-      && withinValidInputRange(input.responseTime) && withinValidInputRange(input.distanceToEnterIntersection)
+      && withinValidInputRange(input.distanceToEnterIntersection)
       && withinValidInputRange(input.distanceToLeaveIntersection);
 
     // check for individual input ranges
-    bool const responseTimeInInputRange = (::ad_rss::physics::Duration(0.) < input.responseTime)
-      && (input.responseTime <= ::ad_rss::physics::Duration(10.));
-
     bool const distanceToEnterIntersectionInInputRange
       = (::ad_rss::physics::Distance(0.) <= input.distanceToEnterIntersection)
       && (input.distanceToEnterIntersection <= input.distanceToLeaveIntersection);
@@ -81,7 +76,7 @@ inline bool withinValidInputRange(::ad_rss::situation::VehicleState const &input
       = (input.distanceToEnterIntersection <= input.distanceToLeaveIntersection)
       && (input.distanceToLeaveIntersection <= ::ad_rss::physics::Distance(1e4));
 
-    return membersInValidInputRange && responseTimeInInputRange && distanceToEnterIntersectionInInputRange
+    return membersInValidInputRange && distanceToEnterIntersectionInInputRange
       && distanceToLeaveIntersectionInInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
   }

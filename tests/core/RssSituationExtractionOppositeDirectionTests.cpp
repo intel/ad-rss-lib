@@ -36,19 +36,19 @@ namespace ad_rss {
 
 namespace core {
 
-namespace RssSituationExtraction {
-
 class RssSituationExtractionOppositeDirectionTests : public testing::Test
 {
 protected:
   virtual void SetUp()
   {
+    worldModel.egoVehicleRssDynamics = getEgoRssDynamics();
     leadingObject = createObject(36., 0.);
     leadingObject.objectId = 0;
     scene.situationType = ad_rss::situation::SituationType::OppositeDirection;
+    scene.objectRssDynamics = getObjectRssDynamics();
 
     {
-      ::ad_rss::world::OccupiedRegion occupiedRegion;
+      world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = ParametricValue(0.8);
       occupiedRegion.lonRange.maximum = ParametricValue(1.0);
       occupiedRegion.segmentId = 1.;
@@ -61,7 +61,7 @@ protected:
     followingObject = createObject(36., 0.);
     followingObject.objectId = 1;
     {
-      ::ad_rss::world::OccupiedRegion occupiedRegion;
+      world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = ParametricValue(0.1);
       occupiedRegion.lonRange.maximum = ParametricValue(0.2);
       occupiedRegion.segmentId = 1.;
@@ -77,21 +77,22 @@ protected:
     leadingObject.occupiedRegions.clear();
     scene.egoVehicleRoad.clear();
   }
-  ::ad_rss::world::Object followingObject;
-  ::ad_rss::world::Object leadingObject;
-  ::ad_rss::world::Scene scene;
+  world::Object followingObject;
+  world::Object leadingObject;
+  world::WorldModel worldModel;
+  world::Scene scene;
+  RssSituationExtraction situationExtraction;
 };
 
 TEST_F(RssSituationExtractionOppositeDirectionTests, noLongitudinalDifference)
 {
-  world::WorldModel worldModel;
   situation::SituationVector situationVector;
 
-  worldModel.egoVehicle = objectAsEgo(leadingObject);
+  scene.egoVehicle = objectAsEgo(leadingObject);
   scene.object = followingObject;
 
-  ::ad_rss::world::RoadSegment roadSegment;
-  ::ad_rss::world::LaneSegment laneSegment;
+  world::RoadSegment roadSegment;
+  world::LaneSegment laneSegment;
 
   laneSegment.id = 1;
   laneSegment.length.minimum = Distance(10);
@@ -107,32 +108,27 @@ TEST_F(RssSituationExtractionOppositeDirectionTests, noLongitudinalDifference)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ASSERT_TRUE(extractSituations(worldModel, situationVector));
+  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationVector));
   ASSERT_EQ(situationVector.size(), 1);
 
   ASSERT_EQ(situationVector[0].relativePosition.longitudinalDistance, Distance(6));
   ASSERT_EQ(situationVector[0].egoVehicleState.velocity.speedLon, Speed(10));
   ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            worldModel.egoVehicle.dynamics.alphaLon.accelMax);
+            worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
 
-  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::ad_rss::situation::LateralRelativePosition::AtLeft);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, situation::LateralRelativePosition::AtLeft);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, Distance(1));
-
-  situation::Situation situation;
-  ASSERT_TRUE(extractSituation(worldModel.timeIndex, worldModel.egoVehicle, worldModel.scenes[0], situation));
-  ASSERT_EQ(situation, situationVector[0]);
 }
 
 TEST_F(RssSituationExtractionOppositeDirectionTests, longitudinalDifference)
 {
-  world::WorldModel worldModel;
   situation::SituationVector situationVector;
 
-  worldModel.egoVehicle = objectAsEgo(followingObject);
+  scene.egoVehicle = objectAsEgo(followingObject);
   scene.object = leadingObject;
 
-  ::ad_rss::world::RoadSegment roadSegment;
-  ::ad_rss::world::LaneSegment laneSegment;
+  world::RoadSegment roadSegment;
+  world::LaneSegment laneSegment;
 
   laneSegment.id = 1;
   laneSegment.length.minimum = Distance(5);
@@ -148,24 +144,19 @@ TEST_F(RssSituationExtractionOppositeDirectionTests, longitudinalDifference)
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ASSERT_TRUE(extractSituations(worldModel, situationVector));
+  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationVector));
   ASSERT_EQ(situationVector.size(), 1);
 
   ASSERT_EQ(situationVector[0].relativePosition.longitudinalDistance, Distance(2));
   ASSERT_EQ(situationVector[0].egoVehicleState.velocity.speedLon, Speed(10));
   ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            worldModel.egoVehicle.dynamics.alphaLon.accelMax);
+            worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
   ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.brakeMin,
-            worldModel.egoVehicle.dynamics.alphaLon.brakeMin);
+            worldModel.egoVehicleRssDynamics.alphaLon.brakeMin);
 
-  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, ::ad_rss::situation::LateralRelativePosition::AtRight);
+  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, situation::LateralRelativePosition::AtRight);
   ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, Distance(1));
-
-  situation::Situation situation;
-  ASSERT_TRUE(extractSituation(worldModel.timeIndex, worldModel.egoVehicle, worldModel.scenes[0], situation));
-  ASSERT_EQ(situation, situationVector[0]);
 }
 
-} // namespace RssSituationExtraction
 } // namespace core
 } // namespace ad_rss

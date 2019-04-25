@@ -58,17 +58,18 @@ bool transformProperResponse(world::WorldModel const &worldModel,
    * given by the world model
    */
   // LCOV_EXCL_BR_START: unreachable exceptions due to valid input range checks
-  accelerationRestriction.longitudinalRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMax;
+  accelerationRestriction.longitudinalRange.minimum = -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMax;
   switch (response.longitudinalState.response)
   {
     case ::ad_rss::state::LongitudinalResponse::BrakeMin:
-      accelerationRestriction.longitudinalRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMin;
+      accelerationRestriction.longitudinalRange.maximum = -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMin;
       break;
     case ::ad_rss::state::LongitudinalResponse::BrakeMinCorrect:
-      accelerationRestriction.longitudinalRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLon.brakeMinCorrect;
+      accelerationRestriction.longitudinalRange.maximum
+        = -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMinCorrect;
       break;
     case ::ad_rss::state::LongitudinalResponse::None:
-      accelerationRestriction.longitudinalRange.maximum = worldModel.egoVehicle.dynamics.alphaLon.accelMax;
+      accelerationRestriction.longitudinalRange.maximum = worldModel.egoVehicleRssDynamics.alphaLon.accelMax;
       break;
     default:
       return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
@@ -78,12 +79,12 @@ bool transformProperResponse(world::WorldModel const &worldModel,
   switch (response.lateralStateLeft.response)
   {
     case ::ad_rss::state::LateralResponse::BrakeMin:
-      accelerationRestriction.lateralLeftRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;
+      accelerationRestriction.lateralLeftRange.maximum = -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin;
       accelerationRestriction.lateralLeftRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
       break;
     case ::ad_rss::state::LateralResponse::None:
-      accelerationRestriction.lateralLeftRange.maximum = worldModel.egoVehicle.dynamics.alphaLat.accelMax;
-      accelerationRestriction.lateralLeftRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;
+      accelerationRestriction.lateralLeftRange.maximum = worldModel.egoVehicleRssDynamics.alphaLat.accelMax;
+      accelerationRestriction.lateralLeftRange.minimum = -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin;
       break;
     default:
       return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
@@ -93,12 +94,12 @@ bool transformProperResponse(world::WorldModel const &worldModel,
   switch (response.lateralStateRight.response)
   {
     case ::ad_rss::state::LateralResponse::BrakeMin:
-      accelerationRestriction.lateralRightRange.maximum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;
+      accelerationRestriction.lateralRightRange.maximum = -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin;
       accelerationRestriction.lateralRightRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
       break;
     case ::ad_rss::state::LateralResponse::None:
-      accelerationRestriction.lateralRightRange.maximum = worldModel.egoVehicle.dynamics.alphaLat.accelMax;
-      accelerationRestriction.lateralRightRange.minimum = -1. * worldModel.egoVehicle.dynamics.alphaLat.brakeMin;
+      accelerationRestriction.lateralRightRange.maximum = worldModel.egoVehicleRssDynamics.alphaLat.accelMax;
+      accelerationRestriction.lateralRightRange.minimum = -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin;
       break;
     default:
       return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side

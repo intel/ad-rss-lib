@@ -56,7 +56,7 @@ using RssCheckNotRelevantTest = RssCheckNotRelevantTestBase<RssCheckTestBase>;
 
 TEST_F(RssCheckNotRelevantTest, NotRelevant)
 {
-  worldModel.egoVehicle.occupiedRegions[0].segmentId = 8;
+  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 8;
 
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 0;
   worldModel.scenes[0].situationType = ::ad_rss::situation::SituationType::NotRelevant;
@@ -66,7 +66,7 @@ TEST_F(RssCheckNotRelevantTest, NotRelevant)
 
   for (uint32_t i = 0; i < 100; i++)
   {
-    worldModel.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
+    worldModel.scenes[0].egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
@@ -77,8 +77,8 @@ TEST_F(RssCheckNotRelevantTest, NotRelevant)
 using RssCheckNotRelevantOutOfMemoryTest = RssCheckNotRelevantTestBase<RssCheckOutOfMemoryTestBase>;
 TEST_P(RssCheckNotRelevantOutOfMemoryTest, outOfMemoryAnyTime)
 {
-  // throw at 3 will succeed, but that's expected in this case as no actual calculations are performed.
-  performOutOfMemoryTest({3u});
+  // throw at some vaules will succeed, but that's expected in this case as no actual calculations are performed.
+  performOutOfMemoryTest({3u, 5u, 6u});
 }
 INSTANTIATE_TEST_CASE_P(Range, RssCheckNotRelevantOutOfMemoryTest, ::testing::Range(uint64_t(0u), uint64_t(50u)));
 

@@ -76,7 +76,7 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_brake_min_correct)
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_shorter_ego_reaction_time)
 {
   correctVehicle = createVehicleStateForLongitudinalMotion(50);
-  correctVehicle.responseTime = Duration(1.);
+  correctVehicle.dynamics.responseTime = Duration(1.);
   oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle.isInCorrectLane = false;
 
@@ -146,7 +146,7 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_BrakeMinCorrect)
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_response_1s_safe)
 {
   correctVehicle = createVehicleStateForLongitudinalMotion(50);
-  correctVehicle.responseTime = Duration(1.);
+  correctVehicle.dynamics.responseTime = Duration(1.);
   oppositeVehicle = createVehicleStateForLongitudinalMotion(50);
   oppositeVehicle.isInCorrectLane = false;
 
