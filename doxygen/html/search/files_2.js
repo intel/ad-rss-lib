@@ -7,7 +7,5 @@ var searchData=
   ['duration_2ehpp',['Duration.hpp',['../Duration_8hpp.html',1,'']]],
   ['durationsquared_2ehpp',['DurationSquared.hpp',['../DurationSquared_8hpp.html',1,'']]],
   ['durationsquaredvalidinputrange_2ehpp',['DurationSquaredValidInputRange.hpp',['../DurationSquaredValidInputRange_8hpp.html',1,'']]],
-  ['durationvalidinputrange_2ehpp',['DurationValidInputRange.hpp',['../DurationValidInputRange_8hpp.html',1,'']]],
-  ['dynamics_2ehpp',['Dynamics.hpp',['../Dynamics_8hpp.html',1,'']]],
-  ['dynamicsvalidinputrange_2ehpp',['DynamicsValidInputRange.hpp',['../DynamicsValidInputRange_8hpp.html',1,'']]]
+  ['durationvalidinputrange_2ehpp',['DurationValidInputRange.hpp',['../DurationValidInputRange_8hpp.html',1,'']]]
 ];

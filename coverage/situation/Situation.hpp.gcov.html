@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-04-15 12:57:15</td>
+            <td class="headerValue">2019-05-02 15:32:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">3</td>
@@ -143,7 +143,7 @@
 <span class="lineNum">      72 </span>                :            :   /*!
 <a name="73"><span class="lineNum">      73 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      74 </span>                :            :    */
-<span class="lineNum">      75 </span>                :<span class="lineCov">      10504 :   Situation() = default;</span>
+<span class="lineNum">      75 </span>                :<span class="lineCov">      10218 :   Situation() = default;</span>
 <span class="lineNum">      76 </span>                :            : 
 <span class="lineNum">      77 </span>                :            :   /*!
 <span class="lineNum">      78 </span>                :            :    * \brief standard destructor
@@ -185,12 +185,12 @@
 <span class="lineNum">     114 </span>                :            :    *
 <a name="115"><span class="lineNum">     115 </span>                :            :    * \returns \c true if both Situation are equal</a>
 <span class="lineNum">     116 </span>                :            :    */
-<span class="lineNum">     117 </span>                :<span class="lineCov">         25 :   bool operator==(const Situation &amp;other) const</span>
+<span class="lineNum">     117 </span>                :<span class="lineCov">         18 :   bool operator==(const Situation &amp;other) const</span>
 <span class="lineNum">     118 </span>                :            :   {
-<span class="lineNum">     119 </span>        [<span class="branchCov" title="Branch 0 was taken 21 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">         23 :     return (timeIndex == other.timeIndex) &amp;&amp; (situationId == other.situationId)</span>
-<span class="lineNum">     120 </span>[<span class="branchCov" title="Branch 0 was taken 19 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 17 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">         21 :       &amp;&amp; (situationType == other.situationType) &amp;&amp; (egoVehicleState == other.egoVehicleState)</span>
-<span class="lineNum">     121 </span>[<span class="branchCov" title="Branch 0 was taken 23 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 15 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">         48 :       &amp;&amp; (otherVehicleState == other.otherVehicleState) &amp;&amp; (relativePosition == other.relativePosition);</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 13 times"> + </span><span class="branchCov" title="Branch 7 was taken 2 times"> + </span>]
+<span class="lineNum">     119 </span>        [<span class="branchCov" title="Branch 0 was taken 14 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">         16 :     return (timeIndex == other.timeIndex) &amp;&amp; (situationId == other.situationId)</span>
+<span class="lineNum">     120 </span>[<span class="branchCov" title="Branch 0 was taken 12 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 10 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">         14 :       &amp;&amp; (situationType == other.situationType) &amp;&amp; (egoVehicleState == other.egoVehicleState)</span>
+<span class="lineNum">     121 </span>[<span class="branchCov" title="Branch 0 was taken 16 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 8 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">         34 :       &amp;&amp; (otherVehicleState == other.otherVehicleState) &amp;&amp; (relativePosition == other.relativePosition);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 6 times"> + </span><span class="branchCov" title="Branch 7 was taken 2 times"> + </span>]
 <span class="lineNum">     122 </span>                :            :   }
 <span class="lineNum">     123 </span>                :            : 
 <span class="lineNum">     124 </span>                :            :   /**

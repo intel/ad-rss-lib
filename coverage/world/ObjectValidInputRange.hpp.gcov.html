@@ -31,13 +31,13 @@
             <td class="headerValue">ad-rss-lib</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">7</td>
-            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">4</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-04-15 12:57:15</td>
+            <td class="headerValue">2019-05-02 15:32:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -112,47 +112,39 @@
 <span class="lineNum">      41 </span>                :            : 
 <span class="lineNum">      42 </span>                :            : #include &lt;cmath&gt;
 <span class="lineNum">      43 </span>                :            : #include &lt;limits&gt;
-<span class="lineNum">      44 </span>                :            : #include &quot;ad_rss/physics/DurationValidInputRange.hpp&quot;
-<span class="lineNum">      45 </span>                :            : #include &quot;ad_rss/world/DynamicsValidInputRange.hpp&quot;
-<span class="lineNum">      46 </span>                :            : #include &quot;ad_rss/world/Object.hpp&quot;
-<span class="lineNum">      47 </span>                :            : #include &quot;ad_rss/world/ObjectTypeValidInputRange.hpp&quot;
-<span class="lineNum">      48 </span>                :            : #include &quot;ad_rss/world/OccupiedRegionVectorValidInputRange.hpp&quot;
-<span class="lineNum">      49 </span>                :            : #include &quot;ad_rss/world/VelocityValidInputRange.hpp&quot;
-<span class="lineNum">      50 </span>                :            : 
-<span class="lineNum">      51 </span>                :            : /*!
-<span class="lineNum">      52 </span>                :            :  * \brief check if the given Object is within valid input range
+<span class="lineNum">      44 </span>                :            : #include &quot;ad_rss/world/Object.hpp&quot;
+<span class="lineNum">      45 </span>                :            : #include &quot;ad_rss/world/ObjectTypeValidInputRange.hpp&quot;
+<span class="lineNum">      46 </span>                :            : #include &quot;ad_rss/world/OccupiedRegionVectorValidInputRange.hpp&quot;
+<span class="lineNum">      47 </span>                :            : #include &quot;ad_rss/world/VelocityValidInputRange.hpp&quot;
+<span class="lineNum">      48 </span>                :            : 
+<span class="lineNum">      49 </span>                :            : /*!
+<span class="lineNum">      50 </span>                :            :  * \brief check if the given Object is within valid input range
+<span class="lineNum">      51 </span>                :            :  *
+<span class="lineNum">      52 </span>                :            :  * \param[in] input the Object as an input value
 <span class="lineNum">      53 </span>                :            :  *
-<span class="lineNum">      54 </span>                :            :  * \param[in] input the Object as an input value
+<span class="lineNum">      54 </span>                :            :  * \returns \c true if Object is considered to be within the specified input range
 <span class="lineNum">      55 </span>                :            :  *
-<span class="lineNum">      56 </span>                :            :  * \returns \c true if Object is considered to be within the specified input range
-<span class="lineNum">      57 </span>                :            :  *
-<span class="lineNum">      58 </span>                :            :  * \note the specified input range is defined by the ranges of all members, plus:
-<a name="59"><span class="lineNum">      59 </span>                :            :  *       ::ad_rss::physics::Duration(0.) &lt; responseTime &lt;= ::ad_rss::physics::Duration(10.)</a>
-<span class="lineNum">      60 </span>                :            :  */
-<span class="lineNum">      61 </span>                :<span class="lineCov">      19333 : inline bool withinValidInputRange(::ad_rss::world::Object const &amp;input)</span>
-<span class="lineNum">      62 </span>                :            : {
-<span class="lineNum">      63 </span>                :            :   try
-<span class="lineNum">      64 </span>                :            :   {
-<span class="lineNum">      65 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
-<span class="lineNum">      66 </span>                :            :     // check for generic member input ranges
-<span class="lineNum">      67 </span>                :<span class="lineCov">      19333 :     bool const membersInValidInputRange = withinValidInputRange(input.objectType)</span>
-<span class="lineNum">      68 </span>                :<span class="lineCov">      19313 :       &amp;&amp; withinValidInputRange(input.occupiedRegions) &amp;&amp; withinValidInputRange(input.dynamics)</span>
-<span class="lineNum">      69 </span>                :<span class="lineCov">      38646 :       &amp;&amp; withinValidInputRange(input.velocity) &amp;&amp; withinValidInputRange(input.responseTime);</span>
-<span class="lineNum">      70 </span>                :            : 
-<span class="lineNum">      71 </span>                :            :     // check for individual input ranges
-<span class="lineNum">      72 </span>                :<span class="lineCov">      57999 :     bool const responseTimeInInputRange = (::ad_rss::physics::Duration(0.) &lt; input.responseTime)</span>
-<span class="lineNum">      73 </span>                :<span class="lineCov">      38666 :       &amp;&amp; (input.responseTime &lt;= ::ad_rss::physics::Duration(10.));</span>
-<span class="lineNum">      74 </span>                :            : 
-<span class="lineNum">      75 </span>                :<span class="lineCov">      19333 :     return membersInValidInputRange &amp;&amp; responseTimeInInputRange;</span>
-<span class="lineNum">      76 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
-<span class="lineNum">      77 </span>                :            :   }
-<span class="lineNum">      78 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
-<span class="lineNum">      79 </span>                :            :   catch (std::out_of_range &amp;)
-<span class="lineNum">      80 </span>                :            :   {
-<span class="lineNum">      81 </span>                :            :   }
-<span class="lineNum">      82 </span>                :            :   return false;
-<span class="lineNum">      83 </span>                :            :   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes
-<span class="lineNum">      84 </span>                :            : }
+<a name="56"><span class="lineNum">      56 </span>                :            :  * \note the specified input range is defined by the ranges of all members</a>
+<span class="lineNum">      57 </span>                :            :  */
+<span class="lineNum">      58 </span>                :<span class="lineCov">      21164 : inline bool withinValidInputRange(::ad_rss::world::Object const &amp;input)</span>
+<span class="lineNum">      59 </span>                :            : {
+<span class="lineNum">      60 </span>                :            :   try
+<span class="lineNum">      61 </span>                :            :   {
+<span class="lineNum">      62 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
+<span class="lineNum">      63 </span>                :            :     // check for generic member input ranges
+<span class="lineNum">      64 </span>                :<span class="lineCov">      21164 :     bool const membersInValidInputRange = withinValidInputRange(input.objectType)</span>
+<span class="lineNum">      65 </span>                :<span class="lineCov">      21164 :       &amp;&amp; withinValidInputRange(input.occupiedRegions) &amp;&amp; withinValidInputRange(input.velocity);</span>
+<span class="lineNum">      66 </span>                :            : 
+<span class="lineNum">      67 </span>                :<span class="lineCov">      21164 :     return membersInValidInputRange;</span>
+<span class="lineNum">      68 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
+<span class="lineNum">      69 </span>                :            :   }
+<span class="lineNum">      70 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
+<span class="lineNum">      71 </span>                :            :   catch (std::out_of_range &amp;)
+<span class="lineNum">      72 </span>                :            :   {
+<span class="lineNum">      73 </span>                :            :   }
+<span class="lineNum">      74 </span>                :            :   return false;
+<span class="lineNum">      75 </span>                :            :   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes
+<span class="lineNum">      76 </span>                :            : }
 </pre>
       </td>
     </tr>

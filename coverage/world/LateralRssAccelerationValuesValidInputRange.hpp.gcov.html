@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-04-15 12:57:15</td>
+            <td class="headerValue">2019-05-02 15:32:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -126,23 +126,23 @@
 <span class="lineNum">      55 </span>                :            :  *       ::ad_rss::physics::Acceleration(0.) &lt;= accelMax &lt;= ::ad_rss::physics::Acceleration(1e2)
 <a name="56"><span class="lineNum">      56 </span>                :            :  *       ::ad_rss::physics::Acceleration(0.) &lt; brakeMin &lt;= ::ad_rss::physics::Acceleration(1e2)</a>
 <span class="lineNum">      57 </span>                :            :  */
-<span class="lineNum">      58 </span>                :<span class="lineCov">      47396 : inline bool withinValidInputRange(::ad_rss::world::LateralRssAccelerationValues const &amp;input)</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">      45357 : inline bool withinValidInputRange(::ad_rss::world::LateralRssAccelerationValues const &amp;input)</span>
 <span class="lineNum">      59 </span>                :            : {
 <span class="lineNum">      60 </span>                :            :   try
 <span class="lineNum">      61 </span>                :            :   {
 <span class="lineNum">      62 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
 <span class="lineNum">      63 </span>                :            :     // check for generic member input ranges
 <span class="lineNum">      64 </span>                :            :     bool const membersInValidInputRange
-<span class="lineNum">      65 </span>                :<span class="lineCov">      47396 :       = withinValidInputRange(input.accelMax) &amp;&amp; withinValidInputRange(input.brakeMin);</span>
+<span class="lineNum">      65 </span>                :<span class="lineCov">      45357 :       = withinValidInputRange(input.accelMax) &amp;&amp; withinValidInputRange(input.brakeMin);</span>
 <span class="lineNum">      66 </span>                :            : 
 <span class="lineNum">      67 </span>                :            :     // check for individual input ranges
-<span class="lineNum">      68 </span>                :<span class="lineCov">     142188 :     bool const accelMaxInInputRange = (::ad_rss::physics::Acceleration(0.) &lt;= input.accelMax)</span>
-<span class="lineNum">      69 </span>                :<span class="lineCov">      94792 :       &amp;&amp; (input.accelMax &lt;= ::ad_rss::physics::Acceleration(1e2));</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">     136071 :     bool const accelMaxInInputRange = (::ad_rss::physics::Acceleration(0.) &lt;= input.accelMax)</span>
+<span class="lineNum">      69 </span>                :<span class="lineCov">      90714 :       &amp;&amp; (input.accelMax &lt;= ::ad_rss::physics::Acceleration(1e2));</span>
 <span class="lineNum">      70 </span>                :            : 
-<span class="lineNum">      71 </span>                :<span class="lineCov">     142186 :     bool const brakeMinInInputRange = (::ad_rss::physics::Acceleration(0.) &lt; input.brakeMin)</span>
-<span class="lineNum">      72 </span>                :<span class="lineCov">      94790 :       &amp;&amp; (input.brakeMin &lt;= ::ad_rss::physics::Acceleration(1e2));</span>
+<span class="lineNum">      71 </span>                :<span class="lineCov">     136069 :     bool const brakeMinInInputRange = (::ad_rss::physics::Acceleration(0.) &lt; input.brakeMin)</span>
+<span class="lineNum">      72 </span>                :<span class="lineCov">      90712 :       &amp;&amp; (input.brakeMin &lt;= ::ad_rss::physics::Acceleration(1e2));</span>
 <span class="lineNum">      73 </span>                :            : 
-<span class="lineNum">      74 </span>                :<span class="lineCov">      47396 :     return membersInValidInputRange &amp;&amp; accelMaxInInputRange &amp;&amp; brakeMinInInputRange;</span>
+<span class="lineNum">      74 </span>                :<span class="lineCov">      45357 :     return membersInValidInputRange &amp;&amp; accelMaxInInputRange &amp;&amp; brakeMinInInputRange;</span>
 <span class="lineNum">      75 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
 <span class="lineNum">      76 </span>                :            :   }
 <span class="lineNum">      77 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes

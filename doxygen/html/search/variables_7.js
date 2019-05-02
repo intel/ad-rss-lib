@@ -1,7 +1,7 @@
 var searchData=
 [
   ['lateraldistance',['lateralDistance',['../structad__rss_1_1situation_1_1RelativePosition.html#af26d8fc0d7f8db333784695d7d01c725',1,'ad_rss::situation::RelativePosition']]],
-  ['lateralfluctuationmargin',['lateralFluctuationMargin',['../structad__rss_1_1world_1_1Dynamics.html#aa57eb49957a44b8517e238c99109ee96',1,'ad_rss::world::Dynamics']]],
+  ['lateralfluctuationmargin',['lateralFluctuationMargin',['../structad__rss_1_1world_1_1RssDynamics.html#a7c724fa0442eec4c5604e7c400c7048d',1,'ad_rss::world::RssDynamics']]],
   ['lateralleftrange',['lateralLeftRange',['../structad__rss_1_1world_1_1AccelerationRestriction.html#ad2b58f662deed7e1aa5b0786000de129',1,'ad_rss::world::AccelerationRestriction']]],
   ['lateralposition',['lateralPosition',['../structad__rss_1_1situation_1_1RelativePosition.html#a97d6fc91815fbc1f2e47ff27827162fa',1,'ad_rss::situation::RelativePosition']]],
   ['lateralrightrange',['lateralRightRange',['../structad__rss_1_1world_1_1AccelerationRestriction.html#adc57760a897c4e8f4641a897915e4296',1,'ad_rss::world::AccelerationRestriction']]],

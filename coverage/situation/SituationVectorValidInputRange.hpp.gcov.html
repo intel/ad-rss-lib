@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-04-15 12:57:15</td>
+            <td class="headerValue">2019-05-02 15:32:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -126,21 +126,21 @@
 <span class="lineNum">      55 </span>                :            :  *       0 &lt;= \c input.size() &lt;= 100
 <a name="56"><span class="lineNum">      56 </span>                :            :  *       and the ranges of all vector elements</a>
 <span class="lineNum">      57 </span>                :            :  */
-<span class="lineNum">      58 </span>                :<span class="lineCov">       4111 : inline bool withinValidInputRange(::ad_rss::situation::SituationVector const &amp;input)</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">       3961 : inline bool withinValidInputRange(::ad_rss::situation::SituationVector const &amp;input)</span>
 <span class="lineNum">      59 </span>                :            : {
 <span class="lineNum">      60 </span>                :            :   try
 <span class="lineNum">      61 </span>                :            :   {
 <span class="lineNum">      62 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
-<span class="lineNum">      63 </span>                :<span class="lineCov">       4111 :     bool inValidInputRange = (input.size() &lt;= std::size_t(100));</span>
+<span class="lineNum">      63 </span>                :<span class="lineCov">       3961 :     bool inValidInputRange = (input.size() &lt;= std::size_t(100));</span>
 <span class="lineNum">      64 </span>                :            : 
-<span class="lineNum">      65 </span>                :<span class="lineCov">       4111 :     if (inValidInputRange)</span>
+<span class="lineNum">      65 </span>                :<span class="lineCov">       3961 :     if (inValidInputRange)</span>
 <span class="lineNum">      66 </span>                :            :     {
-<span class="lineNum">      67 </span>                :<span class="lineCov">      10076 :       for (auto const &amp;member : input)</span>
+<span class="lineNum">      67 </span>                :<span class="lineCov">       9688 :       for (auto const &amp;member : input)</span>
 <span class="lineNum">      68 </span>                :            :       {
-<span class="lineNum">      69 </span>                :<span class="lineCov">       5967 :         inValidInputRange = inValidInputRange &amp;&amp; withinValidInputRange(member);</span>
+<span class="lineNum">      69 </span>                :<span class="lineCov">       5729 :         inValidInputRange = inValidInputRange &amp;&amp; withinValidInputRange(member);</span>
 <span class="lineNum">      70 </span>                :            :       }
 <span class="lineNum">      71 </span>                :            :     }
-<span class="lineNum">      72 </span>                :<span class="lineCov">       4111 :     return inValidInputRange;</span>
+<span class="lineNum">      72 </span>                :<span class="lineCov">       3961 :     return inValidInputRange;</span>
 <span class="lineNum">      73 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
 <span class="lineNum">      74 </span>                :            :   }
 <span class="lineNum">      75 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes

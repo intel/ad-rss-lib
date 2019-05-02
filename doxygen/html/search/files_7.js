@@ -15,6 +15,8 @@ var searchData=
   ['roadsegment_2ehpp',['RoadSegment.hpp',['../RoadSegment_8hpp.html',1,'']]],
   ['roadsegmentvalidinputrange_2ehpp',['RoadSegmentValidInputRange.hpp',['../RoadSegmentValidInputRange_8hpp.html',1,'']]],
   ['rsscheck_2ehpp',['RssCheck.hpp',['../RssCheck_8hpp.html',1,'']]],
+  ['rssdynamics_2ehpp',['RssDynamics.hpp',['../RssDynamics_8hpp.html',1,'']]],
+  ['rssdynamicsvalidinputrange_2ehpp',['RssDynamicsValidInputRange.hpp',['../RssDynamicsValidInputRange_8hpp.html',1,'']]],
   ['rssresponseresolving_2ehpp',['RssResponseResolving.hpp',['../RssResponseResolving_8hpp.html',1,'']]],
   ['rssresponsetransformation_2ehpp',['RssResponseTransformation.hpp',['../RssResponseTransformation_8hpp.html',1,'']]],
   ['rsssituationchecking_2ehpp',['RssSituationChecking.hpp',['../RssSituationChecking_8hpp.html',1,'']]],

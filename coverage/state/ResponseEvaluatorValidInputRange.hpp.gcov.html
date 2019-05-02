@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-04-15 12:57:15</td>
+            <td class="headerValue">2019-05-02 15:32:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -123,22 +123,22 @@
 <span class="lineNum">      52 </span>                :            :  *
 <a name="53"><span class="lineNum">      53 </span>                :            :  * \note the specified input range is defined by the valid enum literals.</a>
 <span class="lineNum">      54 </span>                :            :  */
-<span class="lineNum">      55 </span>                :<span class="lineCov">      29702 : inline bool withinValidInputRange(::ad_rss::state::ResponseEvaluator const &amp;input)</span>
+<span class="lineNum">      55 </span>                :<span class="lineCov">      28535 : inline bool withinValidInputRange(::ad_rss::state::ResponseEvaluator const &amp;input)</span>
 <span class="lineNum">      56 </span>                :            : {
 <span class="lineNum">      57 </span>                :            :   try
 <span class="lineNum">      58 </span>                :            :   {
 <span class="lineNum">      59 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
-<span class="lineNum">      60 </span>                :<span class="lineCov">      29702 :     return (input == ::ad_rss::state::ResponseEvaluator::None)</span>
-<span class="lineNum">      61 </span>                :<span class="lineCov">      13931 :       || (input == ::ad_rss::state::ResponseEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane)</span>
-<span class="lineNum">      62 </span>                :<span class="lineCov">      12664 :       || (input == ::ad_rss::state::ResponseEvaluator::LongitudinalDistanceOppositeDirection)</span>
-<span class="lineNum">      63 </span>                :<span class="lineCov">      12080 :       || (input == ::ad_rss::state::ResponseEvaluator::LongitudinalDistanceSameDirectionEgoFront)</span>
-<span class="lineNum">      64 </span>                :<span class="lineCov">      11215 :       || (input == ::ad_rss::state::ResponseEvaluator::LongitudinalDistanceSameDirectionOtherInFront)</span>
-<span class="lineNum">      65 </span>                :<span class="lineCov">       8630 :       || (input == ::ad_rss::state::ResponseEvaluator::LateralDistance)</span>
-<span class="lineNum">      66 </span>                :<span class="lineCov">       1148 :       || (input == ::ad_rss::state::ResponseEvaluator::IntersectionOtherPriorityEgoAbleToStop)</span>
-<span class="lineNum">      67 </span>                :<span class="lineCov">        849 :       || (input == ::ad_rss::state::ResponseEvaluator::IntersectionEgoPriorityOtherAbleToStop)</span>
-<span class="lineNum">      68 </span>                :<span class="lineCov">        848 :       || (input == ::ad_rss::state::ResponseEvaluator::IntersectionEgoInFront)</span>
-<span class="lineNum">      69 </span>                :<span class="lineCov">        847 :       || (input == ::ad_rss::state::ResponseEvaluator::IntersectionOtherInFront)</span>
-<span class="lineNum">      70 </span>                :<span class="lineCov">      43633 :       || (input == ::ad_rss::state::ResponseEvaluator::IntersectionOverlap);</span>
+<span class="lineNum">      60 </span>                :<span class="lineCov">      28535 :     return (input == ::ad_rss::state::ResponseEvaluator::None)</span>
+<span class="lineNum">      61 </span>                :<span class="lineCov">      12789 :       || (input == ::ad_rss::state::ResponseEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane)</span>
+<span class="lineNum">      62 </span>                :<span class="lineCov">      11650 :       || (input == ::ad_rss::state::ResponseEvaluator::LongitudinalDistanceOppositeDirection)</span>
+<span class="lineNum">      63 </span>                :<span class="lineCov">      11129 :       || (input == ::ad_rss::state::ResponseEvaluator::LongitudinalDistanceSameDirectionEgoFront)</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">      10271 :       || (input == ::ad_rss::state::ResponseEvaluator::LongitudinalDistanceSameDirectionOtherInFront)</span>
+<span class="lineNum">      65 </span>                :<span class="lineCov">       8058 :       || (input == ::ad_rss::state::ResponseEvaluator::LateralDistance)</span>
+<span class="lineNum">      66 </span>                :<span class="lineCov">       1019 :       || (input == ::ad_rss::state::ResponseEvaluator::IntersectionOtherPriorityEgoAbleToStop)</span>
+<span class="lineNum">      67 </span>                :<span class="lineCov">        692 :       || (input == ::ad_rss::state::ResponseEvaluator::IntersectionEgoPriorityOtherAbleToStop)</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">        691 :       || (input == ::ad_rss::state::ResponseEvaluator::IntersectionEgoInFront)</span>
+<span class="lineNum">      69 </span>                :<span class="lineCov">        690 :       || (input == ::ad_rss::state::ResponseEvaluator::IntersectionOtherInFront)</span>
+<span class="lineNum">      70 </span>                :<span class="lineCov">      41324 :       || (input == ::ad_rss::state::ResponseEvaluator::IntersectionOverlap);</span>
 <span class="lineNum">      71 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
 <span class="lineNum">      72 </span>                :            :   }
 <span class="lineNum">      73 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes

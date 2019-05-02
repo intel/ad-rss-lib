@@ -1,11 +1,8 @@
 <map id="ad_rss::world::WorldModel" name="ad_rss::world::WorldModel">
-<area shape="rect" id="node2" href="$structad__rss_1_1world_1_1Object.html" title="DataType Object. " alt="" coords="1091,73,1245,100"/>
-<area shape="rect" id="node3" href="$structad__rss_1_1world_1_1Velocity.html" title="DataType Velocity. " alt="" coords="775,21,938,48"/>
-<area shape="rect" id="node4" href="$classad__rss_1_1physics_1_1Speed.html" title="DataType Speed. " alt="" coords="381,20,549,47"/>
-<area shape="rect" id="node5" href="$classad__rss_1_1physics_1_1Duration.html" title="DataType Duration. " alt="" coords="765,73,948,100"/>
-<area shape="rect" id="node6" href="$structad__rss_1_1world_1_1Dynamics.html" title="DataType Dynamics. " alt="" coords="769,125,945,152"/>
-<area shape="rect" id="node7" href="$classad__rss_1_1physics_1_1Distance.html" title="DataType Distance. " alt="" coords="373,71,556,97"/>
-<area shape="rect" id="node8" href="$structad__rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="369,122,560,163"/>
-<area shape="rect" id="node9" href="$classad__rss_1_1physics_1_1Acceleration.html" title="DataType Acceleration. " alt="" coords="5,161,212,188"/>
-<area shape="rect" id="node10" href="$structad__rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="375,187,554,229"/>
+<area shape="rect" id="node2" href="$structad__rss_1_1world_1_1RssDynamics.html" title="DataType RssDynamics. " alt="" coords="765,99,964,125"/>
+<area shape="rect" id="node3" href="$classad__rss_1_1physics_1_1Distance.html" title="DataType Distance. " alt="" coords="373,5,556,32"/>
+<area shape="rect" id="node4" href="$structad__rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="369,57,560,98"/>
+<area shape="rect" id="node5" href="$classad__rss_1_1physics_1_1Acceleration.html" title="DataType Acceleration. " alt="" coords="5,96,212,123"/>
+<area shape="rect" id="node6" href="$structad__rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="375,122,554,163"/>
+<area shape="rect" id="node7" href="$classad__rss_1_1physics_1_1Duration.html" title="DataType Duration. " alt="" coords="373,188,556,215"/>
 </map>

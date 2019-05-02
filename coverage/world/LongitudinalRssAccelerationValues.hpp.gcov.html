@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-04-15 12:57:15</td>
+            <td class="headerValue">2019-05-02 15:32:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">3</td>
@@ -132,7 +132,7 @@
 <span class="lineNum">      61 </span>                :            :   /*!
 <a name="62"><span class="lineNum">      62 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      63 </span>                :            :    */
-<span class="lineNum">      64 </span>                :<span class="lineCov">      49222 :   LongitudinalRssAccelerationValues() = default;</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">      28764 :   LongitudinalRssAccelerationValues() = default;</span>
 <span class="lineNum">      65 </span>                :            : 
 <span class="lineNum">      66 </span>                :            :   /*!
 <span class="lineNum">      67 </span>                :            :    * \brief standard destructor
@@ -174,10 +174,10 @@
 <span class="lineNum">     103 </span>                :            :    *
 <a name="104"><span class="lineNum">     104 </span>                :            :    * \returns \c true if both LongitudinalRssAccelerationValues are equal</a>
 <span class="lineNum">     105 </span>                :            :    */
-<span class="lineNum">     106 </span>                :<span class="lineCov">        102 :   bool operator==(const LongitudinalRssAccelerationValues &amp;other) const</span>
+<span class="lineNum">     106 </span>                :<span class="lineCov">         84 :   bool operator==(const LongitudinalRssAccelerationValues &amp;other) const</span>
 <span class="lineNum">     107 </span>                :            :   {
-<span class="lineNum">     108 </span>[<span class="branchCov" title="Branch 2 was taken 92 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 5 was taken 90 times"> + </span><span class="branchCov" title="Branch 6 was taken 2 times"> + </span>]:<span class="lineCov">        196 :     return (accelMax == other.accelMax) &amp;&amp; (brakeMax == other.brakeMax) &amp;&amp; (brakeMin == other.brakeMin)</span>
-<span class="lineNum">     109 </span>[<span class="branchCov" title="Branch 0 was taken 94 times"> + </span><span class="branchCov" title="Branch 1 was taken 8 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 88 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        196 :       &amp;&amp; (brakeMinCorrect == other.brakeMinCorrect);</span>
+<span class="lineNum">     108 </span>[<span class="branchCov" title="Branch 2 was taken 72 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 5 was taken 70 times"> + </span><span class="branchCov" title="Branch 6 was taken 2 times"> + </span>]:<span class="lineCov">        158 :     return (accelMax == other.accelMax) &amp;&amp; (brakeMax == other.brakeMax) &amp;&amp; (brakeMin == other.brakeMin)</span>
+<span class="lineNum">     109 </span>[<span class="branchCov" title="Branch 0 was taken 74 times"> + </span><span class="branchCov" title="Branch 1 was taken 10 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 68 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        158 :       &amp;&amp; (brakeMinCorrect == other.brakeMinCorrect);</span>
 <span class="lineNum">     110 </span>                :            :   }
 <span class="lineNum">     111 </span>                :            : 
 <span class="lineNum">     112 </span>                :            :   /**

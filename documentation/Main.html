@@ -528,7 +528,7 @@ table.CodeRay td.code>pre{padding:0}
 <div class="details">
 <span id="author" class="author">ad-rss-lib</span><br>
 <span id="revnumber">version 1.2,</span>
-<span id="revdate">2019-04-15</span>
+<span id="revdate">2019-05-02</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -601,10 +601,8 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel2">
 <li><a href="#_static_view">4.1. Static View</a>
 <ul class="sectlevel3">
-<li><a href="#_extlibs">4.1.1. ExtLibs</a></li>
-<li><a href="#_artifact_deployment">4.1.2. Artifact Deployment</a></li>
-<li><a href="#_interfaces">4.1.3. Interfaces</a></li>
-<li><a href="#_datatypes">4.1.4. DataTypes</a></li>
+<li><a href="#_interfaces">4.1.1. Interfaces</a></li>
+<li><a href="#_datatypes">4.1.2. DataTypes</a></li>
 </ul>
 </li>
 <li><a href="#_dynamic_view">4.2. Dynamic View</a>
@@ -909,7 +907,7 @@ command restrictions as output.</p>
 </div>
 <div id="Figure:Library" class="imageblock">
 <div class="content">
-<img src="./images/rss_integration.png" alt="rss integration">
+<img src="./images/ad-rss-lib-Integrate_Into_Sense-Plan-Act.png" alt="ad rss lib Integrate Into Sense Plan Act">
 </div>
 <div class="title">Figure 1. ad-rss-lib (implemented in the library) and its interfaces to the outside world</div>
 </div>
@@ -1558,8 +1556,8 @@ the situation based coordinate system merges in a first step all lanes segments
 relevant to the situation (ego vehicle - object pair) into one situation
 specific metric road area. One can imagine this step as the creation
 of a bounding box around the two vehicles
-that is large enough to cover the (relevant) worst case movements of those within
-the reaction time while ignoring actual markings on the road between the lanes.
+that is large enough to cover the relevant positions of those
+while ignoring actual markings on the road between the lanes.
 By this, especially the physical lateral velocities and accelerations within the
 Cartesian 2D space of the road area can be measured and calculated straight
 forward without any discontinuities (see also the illustrations in
@@ -2108,32 +2106,10 @@ detail.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Finally, the implementation of the ad-rss-lib is deployed within a set of artifacts.</p>
+<p>Finally, the implementation of the ad-rss-lib is deployed within one library artifact named ad-rss-lib.</p>
 </div>
 <div class="sect3">
-<h4 id="_extlibs">4.1.1. ExtLibs</h4>
-
-</div>
-<div class="sect3">
-<h4 id="_artifact_deployment">4.1.2. Artifact Deployment</h4>
-<div class="paragraph">
-<p>Definition of artifacts of the C++ library for RSS.</p>
-</div>
-<div id="Figure:Artifact_Deployment" class="imageblock">
-<div class="content">
-<img src="./images/img/28dd631b-76c7-4e12-b824-a8f15653a0ce_url_cf35bf58-51f1-4c55-8eb1-fd3370252605.tmp" alt="28dd631b 76c7 4e12 b824 a8f15653a0ce url cf35bf58 51f1 4c55 8eb1 fd3370252605">
-</div>
-<div class="title">Figure 17. Deployed artifacts of the C++ library for RSS.</div>
-</div>
-<div class="sect4">
-<h5 id="_ad_rss_lib">4.1.2.1. ad-rss-lib</h5>
-<div class="paragraph">
-<p>The whole ad-rss-lib implementation is deployed within one library artifact.</p>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_interfaces">4.1.3. Interfaces</h4>
+<h4 id="_interfaces">4.1.1. Interfaces</h4>
 <div class="paragraph">
 <p>Definition of Interfaces provided within the ad-rss-lib implementation.</p>
 </div>
@@ -2141,7 +2117,7 @@ detail.</p>
 <p>The ad-rss-lib is implemented as a whole within the namespace ad_rss.</p>
 </div>
 <div class="sect4">
-<h5 id="_namespace_ad_rss_core">4.1.3.1. Namespace ad_rss::core</h5>
+<h5 id="_namespace_ad_rss_core">4.1.1.1. Namespace ad_rss::core</h5>
 <div class="paragraph">
 <p>Namespace for RSS core interfaces and operations.</p>
 </div>
@@ -2149,14 +2125,8 @@ detail.</p>
 <p>This contains the interfaces including the operations the ad-rss-lib provides to the user to perform the RSS
 functionality.</p>
 </div>
-<div id="Figure:Namespace_ad_rss__core" class="imageblock">
-<div class="content">
-<img src="./images/img/70831045-c2fe-4322-96c8-4dc16b0d0c5d_url_713a53a1-6c2f-4b60-8556-f96db75de4c2.tmp" alt="70831045 c2fe 4322 96c8 4dc16b0d0c5d url 713a53a1 6c2f 4b60 8556 f96db75de4c2">
-</div>
-<div class="title">Figure 18. The core interfaces provided by the ad-rss-lib.</div>
-</div>
 <div class="sect5">
-<h6 id="_rsscheck">4.1.3.1.1. RssCheck</h6>
+<h6 id="_rsscheck">4.1.1.1.1. RssCheck</h6>
 <div class="paragraph">
 <p>Class providing the functionality of the RSS check sequence at once with the RSS world model as input and restrictions
 of the acceleration for the actuator control as output. This class internally makes use of the RssSituationExtraction,
@@ -2202,7 +2172,7 @@ actuator control.</p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_rsssituationextraction_2">4.1.3.1.2. RssSituationExtraction</h6>
+<h6 id="_rsssituationextraction_2">4.1.1.1.2. RssSituationExtraction</h6>
 <div class="paragraph">
 <p>Class providing functions required for the extraction of the RSS situations from the RSS world model.</p>
 </div>
@@ -2243,52 +2213,9 @@ actuator control.</p>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>extractSituation</p>
-</div>
-<div class="paragraph">
-<p>Extract the RSS situation pair &lt;ego-vehicle, object&gt; of the ego vehicle and the object to be checked.</p>
-</div>
-<div class="paragraph">
-<p>Returns true if the situation could be created, false if there was an error during the operation.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">returns</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Out</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">False on failure.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">egoVehicle</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Object</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">In</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The information on the ego vehicle object.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">objectToBeChecked</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Object</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">In</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The information on the object to be checked.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">situation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Situation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Out</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The situation to be analyzed with RSS.</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 <div class="sect5">
-<h6 id="_rsssituationchecking_2">4.1.3.1.3. RssSituationChecking</h6>
+<h6 id="_rsssituationchecking_2">4.1.1.1.3. RssSituationChecking</h6>
 <div class="paragraph">
 <p>Class providing functions required for the RSS checks of the situation.</p>
 </div>
@@ -2329,46 +2256,9 @@ actuator control.</p>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>checkSituation</p>
-</div>
-<div class="paragraph">
-<p>Checks if the current situation pair &lt;ego-vehicle, object&gt; is safe.</p>
-</div>
-<div class="paragraph">
-<p>Returns true if the situation could be analyzed, false if an error occurred during evaluation.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">returns</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Out</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">False on failure.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">situation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Situation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">In</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The situation that should be analyzed.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">response</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ResponseState</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Out</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The response state for the current situation.</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 <div class="sect5">
-<h6 id="_rssresponseresolving_2">4.1.3.1.4. RssResponseResolving</h6>
+<h6 id="_rssresponseresolving_2">4.1.1.1.4. RssResponseResolving</h6>
 <div class="paragraph">
 <p>Class to resolve the responseStateVector of the different situation specific responses into a single responseState. This
 class tracks the RSS response state of every situation id over time and especially stores the respective response state
@@ -2400,14 +2290,13 @@ response states into one single overall RssResponse.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">False on failure.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">currentResponseStateVector</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">currentStates</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ResponseStateVector</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">In</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Vector with all the responses gather for the current individual
-situations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vector with all the responses gather for the current situations</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">properResponseState</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">responseState</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ResponseState</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Out</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The proper overall response state.</p></td>
@@ -2416,7 +2305,7 @@ situations</p></td>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_rssresponsetransformation_2">4.1.3.1.5. RssResponseTransformation</h6>
+<h6 id="_rssresponsetransformation_2">4.1.1.1.5. RssResponseTransformation</h6>
 <div class="paragraph">
 <p>Class providing functions required to transform the proper response into restrictions of the acceleration for the
 actuator control.</p>
@@ -2472,7 +2361,7 @@ addition, requires a restriction of the longitudinal acceleration.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_datatypes">4.1.4. DataTypes</h4>
+<h4 id="_datatypes">4.1.2. DataTypes</h4>
 <div class="paragraph">
 <p>Definition of DataTypes used within the ad-rss-lib implementation.</p>
 </div>
@@ -2483,10 +2372,13 @@ addition, requires a restriction of the longitudinal acceleration.</p>
 <div class="content">
 <img src="./images/img/1dab8fd5-c1cf-4a62-9232-66e2e9279428_url_c4da4d92-8fec-4665-bd03-914ad6ba8238.tmp" alt="1dab8fd5 c1cf 4a62 9232 66e2e9279428 url c4da4d92 8fec 4665 bd03 914ad6ba8238">
 </div>
-<div class="title">Figure 19. The RSS datatypes are organized within several sub-namespaces.</div>
+<div class="title">Figure 17. The RSS datatypes are organized within several sub-namespaces.</div>
+</div>
+<div class="paragraph">
+<p>For a detailed explanation of the individual types, please have a look into the doxygen documentation (<a href="https://intel.github.io/ad-rss-lib/doxygen/index.html" class="bare">https://intel.github.io/ad-rss-lib/doxygen/index.html</a>).</p>
 </div>
 <div class="sect4">
-<h5 id="_namespace_ad_rss_physics">4.1.4.1. Namespace ad_rss::physics</h5>
+<h5 id="_namespace_ad_rss_physics">4.1.2.1. Namespace ad_rss::physics</h5>
 <div class="paragraph">
 <p>Namespace for RSS physics datatypes.</p>
 </div>
@@ -2494,341 +2386,9 @@ addition, requires a restriction of the longitudinal acceleration.</p>
 <p>This contains types declaring physical measures referring time, distance, speed and basic combinations of that like
 ranges.</p>
 </div>
-<div id="Figure:Namespace_ad_rss__physics" class="imageblock">
-<div class="content">
-<img src="./images/img/73fea5f0-2901-442f-a7df-c22d230d98ba_url_ef5c4189-bcfd-44c3-a65e-ad0474f97336.tmp" alt="73fea5f0 2901 442f a7df c22d230d98ba url ef5c4189 bcfd 44c3 a65e ad0474f97336">
-</div>
-<div class="title">Figure 20. The types describing the basic physics used within RSS implementation.</div>
-</div>
-<div class="sect5">
-<h6 id="_acceleration_typedef">4.1.4.1.1. Acceleration (Typedef)</h6>
-<div class="paragraph">
-<p>The rate of change of (U) Speed of an object with respect to time.</p>
-</div>
-<div class="paragraph">
-<p>Unit: meter per second squared</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">dimension</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acceleration</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">unit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MeterPerSecondSquared</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">float64_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ 1 ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_accelerationrange_structure">4.1.4.1.2. AccelerationRange (Structure)</h6>
-<div class="paragraph">
-<p>An acceleration range described by its borders: [minimum, maximum].</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">minimum</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acceleration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The minimum value of the acceleration range.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">maximum</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acceleration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum value of the acceleration range.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_distance_typedef">4.1.4.1.3. Distance (Typedef)</h6>
-<div class="paragraph">
-<p>The length of a specific path traveled between two points.</p>
-</div>
-<div class="paragraph">
-<p>Unit: meter</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">dimension</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">unit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Meter</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">float64_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ 1 ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_distancesquared_typedef">4.1.4.1.4. DistanceSquared (Typedef)</h6>
-<div class="paragraph">
-<p>DistanceSquared represents a squared Distance.
-Unit: square meter</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">unit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SquareMeter</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">dimension</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Area</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">float64_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ 1 ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_metricrange_structure">4.1.4.1.5. MetricRange (Structure)</h6>
-<div class="paragraph">
-<p>A metric range described by its borders: [minimum, maximum].</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">minimum</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Distance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The minimum value of the metric range.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">maximum</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Distance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum value of the metric range.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_duration_typedef">4.1.4.1.6. Duration (Typedef)</h6>
-<div class="paragraph">
-<p>A duration represents a time interval</p>
-</div>
-<div class="paragraph">
-<p>Unit: second</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">unit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Second</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">dimension</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Time</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">float64_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ 1 ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_durationsquared_typedef">4.1.4.1.7. DurationSquared (Typedef)</h6>
-<div class="paragraph">
-<p>DurationSquared represents a squared Duration
-Unit: second^2</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">unit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SecondSquared</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">float64_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ 1 ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_parametricvalue_typedef">4.1.4.1.8. ParametricValue (Typedef)</h6>
-<div class="paragraph">
-<p>A parametric value in the range of [0.0; 1.0] describing the relative progress.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">float64_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ 1 ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_speed_typedef">4.1.4.1.9. Speed (Typedef)</h6>
-<div class="paragraph">
-<p>The rate of change of an object&#8217;s position with respect to time. The speed of an object is the magnitude of its
-velocity.</p>
-</div>
-<div class="paragraph">
-<p>Unit: meter per second</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">dimension</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Velocity</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">unit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MeterPerSecond</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">float64_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ 1 ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_speedsquared_typedef">4.1.4.1.10. SpeedSquared (Typedef)</h6>
-<div class="paragraph">
-<p>SpeedSquared represents a squared Speed.
-Unit: square meter per second square</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">unit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SquareMeterPerSecondSquared</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">float64_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ 1 ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_parametricrange_structure">4.1.4.1.11. ParametricRange (Structure)</h6>
-<div class="paragraph">
-<p>A parametric range within a lane segment described by its borders: [minimum, maximum].</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">minimum</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ParametricValue</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The minimum value of the parametric range.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">maximum</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ParametricValue</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum value of the parametric range.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_timeindex_typedef">4.1.4.1.12. TimeIndex (Typedef)</h6>
-<div class="paragraph">
-<p>Defines a certain point in time.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uint64_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ 1 ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_coordinatesystemaxis_enumeration">4.1.4.1.13. CoordinateSystemAxis (Enumeration)</h6>
-<div class="paragraph">
-<p>Enumeration defining the axis of the situation coordinate system.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Longitudinal</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">longitudinal axis: ego vehicle is driving in positive direction</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Lateral</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">lateral axis: ego vehicle left to right defines the positive direction</p></td>
-</tr>
-</tbody>
-</table>
-</div>
 </div>
 <div class="sect4">
-<h5 id="_namespace_ad_rss_world">4.1.4.2. Namespace ad_rss::world</h5>
+<h5 id="_namespace_ad_rss_world">4.1.2.2. Namespace ad_rss::world</h5>
 <div class="paragraph">
 <p>Namespace for RSS world datatypes.</p>
 </div>
@@ -2837,573 +2397,9 @@ Unit: square meter per second square</p>
 object states as well as the parts of the road network relevant to judge the situations between ego vehicle and the
 objects.</p>
 </div>
-<div id="Figure:Namespace_ad_rss__world_road_types" class="imageblock">
-<div class="content">
-<img src="./images/img/828d3498-dd41-460a-85db-a3139aa151ec_url_c2fb13b9-d00b-4b50-be4e-9e3fa5315c11.tmp" alt="828d3498 dd41 460a 85db a3139aa151ec url c2fb13b9 d00b 4b50 be4e 9e3fa5315c11">
-</div>
-<div class="title">Figure 21. The types describing the road and lane geometries used within the local RSS world model.</div>
-</div>
-<div id="Figure:Namespace_ad_rss__world_object_types" class="imageblock">
-<div class="content">
-<img src="./images/img/0eba3100-9694-4554-be43-1f291486cf5d_url_be889d20-6794-4049-9794-d3555b46b011.tmp" alt="0eba3100 9694 4554 be43 1f291486cf5d url be889d20 6794 4049 9794 d3555b46b011">
-</div>
-<div class="title">Figure 22. The types describing the objects used within the local RSS world model.</div>
-</div>
-<div id="Figure:Namespace_ad_rss__world" class="imageblock">
-<div class="content">
-<img src="./images/img/350f4915-f1b4-4d00-8cd4-1f9bd746bdcf_url_90081a18-623a-4a47-80b5-3abc67de4368.tmp" alt="350f4915 f1b4 4d00 8cd4 1f9bd746bdcf url 90081a18 623a 4a47 80b5 3abc67de4368">
-</div>
-<div class="title">Figure 23. The types describing the high level world model and object used within the local RSS world model.</div>
-</div>
-<div class="sect5">
-<h6 id="_lanesegmentid_typedef">4.1.4.2.1. LaneSegmentId (Typedef)</h6>
-<div class="paragraph">
-<p>Defines the unique id of a lane segment.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uint64_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ 1 ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_lanesegmenttype_enumeration">4.1.4.2.2. LaneSegmentType (Enumeration)</h6>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Normal</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Normal lane segement. Nothing special to consider.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intersection</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Lane segment is intersecting with another lane segment of the intersecting road.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_lanedrivingdirection_enumeration">4.1.4.2.3. LaneDrivingDirection (Enumeration)</h6>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bidirectional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Traffic flow in this lane segment is in both directions.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Positive</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Nominal traffic flow in this lane segment is positive RoadArea direction.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Negative</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Nominal traffic flow in this lane segment is negative RoadArea direction.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_lanesegment_structure">4.1.4.2.4. LaneSegment (Structure)</h6>
-<div class="paragraph">
-<p>Defines a lane segment.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LaneSegmentId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The id of the lane segment.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LaneSegmentType</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The type of this lane segment in context of the RssArea it belongs to.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">drivingDirection</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LaneDrivingDirection</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The nominal direction of the traffic flow of this lane segment in context of
-the RssArea it belongs to.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">length</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MetricRange</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The metric range of the lane segments length.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">width</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MetricRange</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The metric range of the lane segments width.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_roadsegment_typedef">4.1.4.2.5. RoadSegment (Typedef)</h6>
-<div class="paragraph">
-<p>A RoadSegment is defined by lateral neighboring lane segments. The lane segments within a road segment have to be
-ordered from left to right in respect to the driving direction defined by the road area.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ad_rss::world::LaneSegment</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ * ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_roadarea_typedef">4.1.4.2.6. RoadArea (Typedef)</h6>
-<div class="paragraph">
-<p>A RoadArea is defined by longitudinal neighboring road segments. The road segments within a road area have to be ordered
-from start to end in respect to the driving direction.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ad_rss::world::RoadSegment</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ * ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_scene_structure">4.1.4.2.7. Scene (Structure)</h6>
-<div class="paragraph">
-<p>A Scene defines the relation between the ego vehicle and another object. It consists of the type of situation between
-these two and the corresponding road areas of interest. All lane segments on the route between ego vehicle and the
-object have to be part of this. RSS has to be able to calculate minimum and maximum distances between ego vehicle and
-object as well as accelerated movements within this area.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">situationType</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SituationType</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The type of the current situation. Depending on this type the other fields of the RssArea
-might be left empty.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">egoVehicleRoad</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RoadArea</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The RssRoadArea the ego vehicle is driving in. The driving direction of the ego vehicle
-define the ordering of the road segments. In non-intersection situations the object is also driving in this road area.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">intersectingRoad</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RoadArea</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The RssRoadArea an intersecting vehicle is driving in. The driving direction of the
-intersecting vehicle define the ordering of the road segments. The road area should contain all neigboring lanes the
-other vehcile is able to drive in.  In non-intersection situations this road area is empty.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Object</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The object this scene refers to.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_objectid_typedef">4.1.4.2.8. ObjectId (Typedef)</h6>
-<div class="paragraph">
-<p>Defines the unique id of an object.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uint64_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ 1 ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_objecttype_enumeration">4.1.4.2.9. ObjectType (Enumeration)</h6>
-<div class="paragraph">
-<p>Enumeration describing the types of object.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EgoVehicle</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The object is the ego vehicle.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OtherVehicle</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The object is some other real vehicle.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ArtificialObject</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The object is an artificial one.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_occupiedregion_structure">4.1.4.2.10. OccupiedRegion (Structure)</h6>
-<div class="paragraph">
-<p>Describes the region that an object covers within a lane segment.</p>
-</div>
-<div class="paragraph">
-<p>An object on a lane is described by the parametric range it spans in each of the two lane segment directions.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">segmentId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LaneSegmentId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The id of the lane segment this region refers to.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">lonRange</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ParametricRange</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The parametric range an object spans in longitudinal direction within a lane segment.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">latRange</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ParametricRange</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The parametric range an object spans in lateral direction within a lane segment.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_occupiedregionvector_typedef">4.1.4.2.11. OccupiedRegionVector (Typedef)</h6>
-<div class="paragraph">
-<p>A vector of occupied regions.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ad_rss::world::OccupiedRegion</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ * ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_longitudinalrssaccelerationvalues_structure">4.1.4.2.12. LongitudinalRssAccelerationValues (Structure)</h6>
-<div class="paragraph">
-<p>Collection of the RSS acceleration values in longitudinal direction.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">accelMax</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acceleration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Absolute amount of the maximum allowed acceleration.  This value has always to be positive,
-zero is allowed.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">brakeMax</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acceleration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Absolute amount of the maximum allowed braking deceleration.  This value has always to be
-positive and not smaller than brakeMin.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">brakeMin</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acceleration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Absolute amount of the minimum allowed breaking deceleration.  This value has always to be
-positive and not smaller than brakeMinCorrect.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">brakeMinCorrect</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acceleration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Absolute amount of the minimum allowed breaking deceleration when driving on the correct
-lane.  This value has always to be positive.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_lateralrssaccelerationvalues_structure">4.1.4.2.13. LateralRssAccelerationValues (Structure)</h6>
-<div class="paragraph">
-<p>Collection of the RSS acceleration values in lateral direction.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">accelMax</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acceleration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Absolute amount of the maximum allowed acceleration. This value has always to be positive, zero
-is allowed.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">brakeMin</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Acceleration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Absolute amount of the minimum allowed breaking deceleration. This value has always to be
-positive.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_dynamics_structure">4.1.4.2.14. Dynamics (Structure)</h6>
-<div class="paragraph">
-<p>Describes the RSS dynamics values to be applied for an object within the metric world frame. The dynamics consist of a
-longitudinal component, a lateral component and a lateral fluctuation margin to be taken into account to compensate for
-lateral fluctuations.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">alphaLon</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LongitudinalRssAccelerationValues</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RSS dynamics values along longitudinal coordinate system axis.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">alphaLat</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LateralRssAccelerationValues</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RSS dynamics values along lateral coordinate system axis.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">lateralFluctuationMargin</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Distance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the lateral fluctuation margin to be taken into account.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_object_structure">4.1.4.2.15. Object (Structure)</h6>
-<div class="paragraph">
-<p>An object is described by several aspects: the unique id of an object, the type of the object, the lane regions the
-object occupies, the objects velocity within its lane and finally the area of interaction of ego vehicle and the object.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">objectId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ObjectId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the unique id of an object. This id has to be constant over time for the same object.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">objectType</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ObjectType</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the type of the object.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">occupiedRegions</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OccupiedRegionVector</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the lane regions the object occupies.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">dynamics</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dynamics</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the objects dynamics to be applied. This parameters are provided on a per object basis to
-be able to adapt these e.g. in respect to object type or the weather conditions.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">velocity</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Velocity</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the objects velocity in respect to its current major lane.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">responseTime</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Duration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the response time of the object within the current scene.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_worldmodel_structure">4.1.4.2.16. WorldModel (Structure)</h6>
-<div class="paragraph">
-<p>The world model, RSS requires as input, consists of the egoVehicle and object description as well as the list of
-relevant lane segments.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">timeIndex</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">TimeIndex</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The time index is required to distinguish different points in time when tracking states or
-transforming responses back. Each world model referring to another point in time should get another time index. The time
-index of the world model must not be zero.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">egoVehicle</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Object</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The ego vehicle.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">scenes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SceneVector</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">All scenes</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_accelerationrestriction_structure">4.1.4.2.17. AccelerationRestriction (Structure)</h6>
-<div class="paragraph">
-<p>Defines restrictions of the vehicle acceleration.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">timeIndex</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">TimeIndex</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The time index these acceleration restrictions are referring to.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">lateralLeftRange</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AccelerationRange</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The range of the acceleration restriction in lateral left direction.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">longitudinalRange</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AccelerationRange</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The range of the acceleration restriction in longitudinal direction.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">lateralRightRange</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AccelerationRange</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The range of the acceleration restriction in lateral right direction.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_velocity_structure">4.1.4.2.18. Velocity (Structure)</h6>
-<div class="paragraph">
-<p>Defines the velocity of an object within its current lane. The velocity consists of a longitudinal and a lateral
-component.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">speedLon</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Speed</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The longitudinal speed component of the velocity vector.
-The longitudinal component of the velocity is always measured tangential to the center line of the current lane.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">speedLat</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Speed</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The lateral speed component of the velocity vector.
-The lateral component of the velocity is always measured orthogonal to the center line of the current lane.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_scenevector_typedef">4.1.4.2.19. SceneVector (Typedef)</h6>
-<div class="paragraph">
-<p>A vector of scenes.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ad_rss::world::Scene</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ * ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
 </div>
 <div class="sect4">
-<h5 id="_namespace_ad_rss_situation">4.1.4.3. Namespace ad_rss::situation</h5>
+<h5 id="_namespace_ad_rss_situation">4.1.2.3. Namespace ad_rss::situation</h5>
 <div class="paragraph">
 <p>Namespace for RSS situation datatypes.</p>
 </div>
@@ -3411,529 +2407,14 @@ The lateral component of the velocity is always measured orthogonal to the cente
 <p>This contains types that are used within the calculation of the RSS formulas which are performed within the situation
 coordinate system.</p>
 </div>
-<div id="Figure:Namespace_ad_rss__situation_vehicle_state" class="imageblock">
-<div class="content">
-<img src="./images/img/143f273a-ef21-4afe-934b-398bcf53031c_url_fbbf525c-6d26-4db6-be96-562cf15945e3.tmp" alt="143f273a ef21 4afe 934b 398bcf53031c url fbbf525c 6d26 4db6 be96 562cf15945e3">
-</div>
-<div class="title">Figure 24. The types describing the vehicle state used within the situation coordinate system.</div>
-</div>
-<div id="Figure:Namespace_ad_rss__situation" class="imageblock">
-<div class="content">
-<img src="./images/img/c4815d4c-bf13-48dc-b30a-8ba5db2123bb_url_a74eeada-8027-4d53-9713-8550ffb5b82b.tmp" alt="c4815d4c bf13 48dc b30a 8ba5db2123bb url a74eeada 8027 4d53 9713 8550ffb5b82b">
-</div>
-<div class="title">Figure 25. The types describing a situation used within the situation coordinate system.</div>
-</div>
-<div class="sect5">
-<h6 id="_vehiclestate_structure">4.1.4.3.1. VehicleState (Structure)</h6>
-<div class="paragraph">
-<p>The state of an object in a RSS situation.</p>
-</div>
-<div class="paragraph">
-<p>The state consists of the following components in respect to the situation coordinate system: the velocity, the distance
-to the intersection (if applicable), the dynamics, the response time, a Right-of-Way priority flag as well as a flag
-stating if the vehicle is driving in its correct lane.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">velocity</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Velocity</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The situation specific velocity.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">dynamics</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dynamics</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The situation specific dynamics.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">responseTime</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Duration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The situation specific response time.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">hasPriority</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Flag indicating if the situation specific Right-of-Way relation.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">isInCorrectLane</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Flag indicating if the vehicle driving in the correct lane</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">distanceToEnterIntersection</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Distance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The minimum distance to be covered by the vehicle to enter the intersection.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">distanceToLeaveIntersection</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Distance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum distance to cover by the vehicle to leave the intersection
-completely.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_situationid_typedef">4.1.4.3.2. SituationId (Typedef)</h6>
-<div class="paragraph">
-<p>The unique id of an situation over time.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">uint64_t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ 1 ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_situationtype_enumeration">4.1.4.3.3. SituationType (Enumeration)</h6>
-<div class="paragraph">
-<p>Enumeration describing the type of situation.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">NotRelevant</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The other vehicle cannot conflict with the ego vehicle. This kind of situations are always considered
-to be safe. Use this situation state to make the object visible in the result vector to be a known object, but not
-relevant for RSS (e.g. object in opposite direction, but already passed by).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SameDirection</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Both drive on the same road in the same direction.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OppositeDirection</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Both drive on the same road in the opposite direction.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">IntersectionEgoHasPriority</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Both drive on individual roads which intersect at the end. Ego vehicle has priority over
-object.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">IntersectionObjectHasPriority</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Both drive on individual roads which intersect at the end. Object has priority over
-ego vehicle.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">IntersectionSamePriority</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Both drive on individual roads which intersect at the end. Object and ego vehicle have
-same priority.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_lateralrelativeposition_enumeration">4.1.4.3.4. LateralRelativePosition (Enumeration)</h6>
-<div class="paragraph">
-<p>Enumeration describing the relative lateral position between two objects, a and b, within their situation coordinate
-system.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AtLeft</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The object a is completely left of object b. This means there is an actual lateral space between them.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OverlapLeft</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The objects overlap. The left border of object a is left of the left border of object b AND the right
-border of object a is left of the right border of object b.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Overlap</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The objects overlap, but neither the conditions for OverlapLeft nor OverlapRight are applicable.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OverlapRight</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The objects overlap. The left border of object a is right of the left border of object b AND the right
-border of object a is right of the right border of object b.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AtRight</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The object a is completely right of object b. This means there is an actual lateral space between them.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_longitudinalrelativeposition_enumeration">4.1.4.3.5. LongitudinalRelativePosition (Enumeration)</h6>
-<div class="paragraph">
-<p>Enumeration describing the relative longitudinal position between two objects, a and b, within their situation
-coordinate system.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">InFront</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The object a is completely in front of object b. This means there is an actual longitudinal space between
-them.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OverlapFront</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The objects overlap. The front border of object a is in front of the front border of object b AND the
-back border of object a is in front of the back border of object b.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Overlap</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The objects overlap, but neither the conditions for OverlapFront nor OverlapBack are applicable.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OverlapBack</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The objects overlap. The front border of object a is at back of the front border of object b AND the
-back border of object a is at back of the back border of object b.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AtBack</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The object a is completely at back of object b. This means there is an actual longitudinal space between
-them.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_relativeposition_structure">4.1.4.3.6. RelativePosition (Structure)</h6>
-<div class="paragraph">
-<p>Describes the relative position between two objects within their situation coordinate system.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">longitudinalPosition</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LongitudinalRelativePosition</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The longitudinal relative position between to objects within their
-situation coordinate system.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">longitudinalDistance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Distance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The longitudinal distance between the two objects within their situation coordinate
-system.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">lateralPosition</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LateralRelativePosition</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The lateral relative position between to objects within their situation
-coordinate system.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">lateralDistance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Distance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The lateral distance between the two objects within their situation coordinate system.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_situation_structure">4.1.4.3.7. Situation (Structure)</h6>
-<div class="paragraph">
-<p>Describes a RSS situation.</p>
-</div>
-<div class="paragraph">
-<p>A situation always considers the relative relation between two objects: the ego vehicle and one other vehicle. The
-situation coordinate system is unique for one specific situation. As a consequence the vehicle state of the ego vehicle
-in different RSS situations cannot be compared to each other. Consists of a situation id and type, the VehicleState of
-the ego vehicle, the VehicleState of the other vehicle and the RelativePosition between ego vehicle and other vehicle.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">timeIndex</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">TimeIndex</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The time index is required to distinguish different points in time when tracking states or
-transforming responses back.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">situationId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SituationId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The unique id of the situation.The situation id has to be constant over time for a pair of
-ego vehicle and specific other vehicle.
-E.g. might be filled with an id identifying the other vehicle unambiguously.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">situationType</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SituationType</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The type of the current situation.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">egoVehicleState</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">VehicleState</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The vehicle state of the ego vehicle</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">otherVehicleState</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">VehicleState</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The vehicle state of the other vehicle within the situation.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">relativePosition</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RelativePosition</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The relative position between the ego vehicle and the other vehicle within this
-situation.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_situationvector_typedef">4.1.4.3.8. SituationVector (Typedef)</h6>
-<div class="paragraph">
-<p>A vector of situations.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ad_rss::situation::Situation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ * ]</p></td>
-</tr>
-</tbody>
-</table>
-</div>
 </div>
 <div class="sect4">
-<h5 id="_namespace_ad_rss_state">4.1.4.4. Namespace ad_rss::state</h5>
+<h5 id="_namespace_ad_rss_state">4.1.2.4. Namespace ad_rss::state</h5>
 <div class="paragraph">
 <p>Namespace for RSS state datatypes.</p>
 </div>
 <div class="paragraph">
 <p>This contains types used in conjunction with the RSS state and responses.</p>
-</div>
-<div id="Figure:Namespace_ad_rss__state" class="imageblock">
-<div class="content">
-<img src="./images/img/66a7f86d-bcc6-47a9-87a6-896fa6db21b6_url_6a8e202b-427e-48f6-9808-d435d7eeaeb7.tmp" alt="66a7f86d bcc6 47a9 87a6 896fa6db21b6 url 6a8e202b 427e 48f6 9808 d435d7eeaeb7">
-</div>
-<div class="title">Figure 26. The types describing the RSS response and the RSS state.</div>
-</div>
-<div class="sect5">
-<h6 id="_longitudinalresponse_enumeration">4.1.4.4.1. LongitudinalResponse (Enumeration)</h6>
-<div class="paragraph">
-<p>Enumeration defining the possible longitudinal responses.</p>
-</div>
-<div class="paragraph">
-<p>Be aware: there has to be a strict order of the enumeration values according to the strictness of the response.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No action required.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BrakeMinCorrect</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Vehicle has to decerate at least with brake min correct longitudinally</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BrakeMin</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Vehicle has to decerate at least with brake min longitudinally</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_lateralresponse_enumeration">4.1.4.4.2. LateralResponse (Enumeration)</h6>
-<div class="paragraph">
-<p>Enumeration defining the possible lateral responses.</p>
-</div>
-<div class="paragraph">
-<p>Be aware: there has to be a strict order of the enumeration values according to the strictness of the response.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No action required.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BrakeMin</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Vehicle has to decerate at least with brake min laterally</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_longitudinalrssstate_structure">4.1.4.4.3. LongitudinalRssState (Structure)</h6>
-<div class="paragraph">
-<p>Struct to store the longitudinal RSS state.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">isSafe</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Flag to indicate if the state is longitudinal safe.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">response</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LongitudinalResponse</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">required response in longitudinal direction</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_lateralrssstate_structure">4.1.4.4.4. LateralRssState (Structure)</h6>
-<div class="paragraph">
-<p>Struct to store the lateral RSS state.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">isSafe</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Flag to indicate if the state is lateral safe.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">response</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LateralResponse</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">required response in lateral direction</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_responsestate_structure">4.1.4.4.5. ResponseState (Structure)</h6>
-<div class="paragraph">
-<p>Struct defining the RSS state of a single object.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">timeIndex</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">TimeIndex</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The time index is required to distinguish different points in time when tracking states or
-transforming responses back.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">situationId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SituationId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Id of the situation this state refers to.The id has to remain unique over time representing
-the situation (ego-vehicle / object pair) under investigation.
-It is used to track the state of the ego-vehicle / object constellation i.e. at point of danger threshold time.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">longitudinalState</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LongitudinalRssState</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The current longitudinal rss state.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">lateralStateRight</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LateralRssState</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The current lateral rss state at right side in respect to ego-vehicle driving
-direction.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">lateralStateLeft</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LateralRssState</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The current lateral rss state at left side in respect to ego-vehicle driving
-direction.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_responsestatevector_typedef">4.1.4.4.6. ResponseStateVector (Typedef)</h6>
-<div class="paragraph">
-<p>A vector of response states.</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ad_rss::state::ResponseState</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">[ * ]</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 </div>
@@ -3944,7 +2425,7 @@ direction.</p></td>
 <div class="content">
 <img src="./images/img/ef40ca1b-866b-44e8-8e6d-a3d235c569e9_url_5931b775-17c8-4d95-ad51-e9e5c3cf8e76.tmp" alt="ef40ca1b 866b 44e8 8e6d a3d235c569e9 url 5931b775 17c8 4d95 ad51 e9e5c3cf8e76">
 </div>
-<div class="title">Figure 27. RSS internal processing steps to perform RSS checks and execute the RSS proper response</div>
+<div class="title">Figure 18. RSS internal processing steps to perform RSS checks and execute the RSS proper response</div>
 </div>
 <div class="paragraph">
 <p>The RssSubsystem realizes the RSS part functionality. It implements the RSS checks based on the RssWorldModelData
@@ -3980,7 +2461,7 @@ from the PlanningSubsystem are restricted accordingly to realize planning safety
 <div class="content">
 <img src="./images/img/33056e83-b4eb-47a3-98a5-0e762dcdd0f0_url_ef104650-716f-4190-bef9-9685cfaea8b7.tmp" alt="33056e83 b4eb 47a3 98a5 0e762dcdd0f0 url ef104650 716f 4190 bef9 9685cfaea8b7">
 </div>
-<div class="title">Figure 28. Statechart Diagram describing the dynamic behavior of the RssSituationExtraction entity.</div>
+<div class="title">Figure 19. Statechart Diagram describing the dynamic behavior of the RssSituationExtraction entity.</div>
 </div>
 <div class="paragraph">
 <p>The following table describes the events, triggers, states and their transitions of the statechart in detail.</p>
@@ -4067,7 +2548,7 @@ from the PlanningSubsystem are restricted accordingly to realize planning safety
 <div class="content">
 <img src="./images/img/6bded48d-c54a-4c10-ba6e-564a9047b27b_url_4ee9d29c-aced-4c30-a94b-e18f0def895d.tmp" alt="6bded48d c54a 4c10 ba6e 564a9047b27b url 4ee9d29c aced 4c30 a94b e18f0def895d">
 </div>
-<div class="title">Figure 29. Statechart Diagram describing the dynamic behavior of the RssSituationChecking entity.</div>
+<div class="title">Figure 20. Statechart Diagram describing the dynamic behavior of the RssSituationChecking entity.</div>
 </div>
 <div class="paragraph">
 <p>The following table describes the events, triggers, states and their transitions of the statechart in detail.</p>
@@ -4155,7 +2636,7 @@ input.</p></td>
 <div class="content">
 <img src="./images/img/841e0fb8-7627-4e1a-93d5-be6a40d71719_url_297d209b-1f20-4dd1-9461-425e2c4fb20c.tmp" alt="841e0fb8 7627 4e1a 93d5 be6a40d71719 url 297d209b 1f20 4dd1 9461 425e2c4fb20c">
 </div>
-<div class="title">Figure 30. Statechart Diagram describing the dynamic behavior of the RssResponseResolving entity.</div>
+<div class="title">Figure 21. Statechart Diagram describing the dynamic behavior of the RssResponseResolving entity.</div>
 </div>
 <div class="paragraph">
 <p>The following table describes the events, triggers, states and their transitions of the statechart in detail.</p>
@@ -4244,7 +2725,7 @@ statechart.</p>
 <div class="content">
 <img src="./images/img/97f474d5-a4f5-4a3d-9733-cfc543afacf3_url_cb9fc4f4-f5d4-47eb-b3a5-d46e799422fb.tmp" alt="97f474d5 a4f5 4a3d 9733 cfc543afacf3 url cb9fc4f4 f5d4 47eb b3a5 d46e799422fb">
 </div>
-<div class="title">Figure 31. Statechart Diagram describing the dynamic behavior of the RssResponseTransformation entity.</div>
+<div class="title">Figure 22. Statechart Diagram describing the dynamic behavior of the RssResponseTransformation entity.</div>
 </div>
 <div class="paragraph">
 <p>The following table describes the events, triggers, states and their transitions of the statechart in detail.</p>
@@ -4391,7 +2872,7 @@ as the internal calculation steps and internal dataflow.</p>
 </div>
 <div class="paragraph">
 <p>In addition, from the chapter <a href="#Section::HLD::SoftwareArchitecture">ad-rss-lib: Software Architecture</a>,
-we refer to the figure <a href="#Figure:Namespace_ad_rss__core">The core interfaces provided by the ad-rss-lib.</a>.
+we refer to the figure <a href="#Figure:Namespace_ad_rss__core">[Figure:Namespace_ad_rss__core]</a>.
 This figure shows the C++ software class that implements the external
 RSS interface, called <code>RssCheck</code>.
 The top-level external interface is implemented using a single routine,
@@ -4857,7 +3338,7 @@ more likely than for deceleration.</p>
 <div class="content">
 <img src="./images/accelSafety.svg" alt="accelSafety">
 </div>
-<div class="title">Figure 32. Required safety distance for cars driving at 50 km/h (city speed) in same direction with <em>α<sub>brake,min</sub> = 4 m/s<sup>2</sup></em> and <em>α<sub>brake,max</sub> = 8 m/s<sup>2</sup></em> and <em>ρ<sub>ego</sub> = ρ<sub>other</sub> = 2 s</em></div>
+<div class="title">Figure 23. Required safety distance for cars driving at 50 km/h (city speed) in same direction with <em>α<sub>brake,min</sub> = 4 m/s<sup>2</sup></em> and <em>α<sub>brake,max</sub> = 8 m/s<sup>2</sup></em> and <em>ρ<sub>ego</sub> = ρ<sub>other</sub> = 2 s</em></div>
 </div>
 <div class="paragraph">
 <p>The assumption that a car can always accelerate at <em>&#945;<sub>accel,max</sub></em>
@@ -4923,7 +3404,7 @@ response time and then decelerating to zero lateral velocity.</p>
 <div class="content">
 <img src="./images/accelLat.svg" alt="accelLat">
 </div>
-<div class="title">Figure 33. Distance a vehicle will cover when applying the "Stated Braking Pattern" with <em>ρ<sub>vehicle</sub> = 2 s</em></div>
+<div class="title">Figure 24. Distance a vehicle will cover when applying the "Stated Braking Pattern" with <em>ρ<sub>vehicle</sub> = 2 s</em></div>
 </div>
 <div class="paragraph">
 <p><a href="#Figure:LateralDistance">Distance a vehicle will cover when applying the "Stated Braking Pattern" with <em>ρ<sub>vehicle</sub> = 2 s</em></a> shows the required safety distance, without
@@ -5208,7 +3689,7 @@ asciidoctor doc/Main.adoc -d book -b html5 -n</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 1.2<br>
-Last updated 2019-04-15 12:54:11 UTC
+Last updated 2019-05-02 15:29:46 UTC
 </div>
 </div>
 <script type="text/x-mathjax-config">

@@ -102,9 +102,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad__rss_1_1world_1_1AccelerationRestriction.html">AccelerationRestriction</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType <a class="el" href="structad__rss_1_1world_1_1AccelerationRestriction.html" title="DataType AccelerationRestriction. ">AccelerationRestriction</a>.  <a href="structad__rss_1_1world_1_1AccelerationRestriction.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad__rss_1_1world_1_1Dynamics.html">Dynamics</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType <a class="el" href="structad__rss_1_1world_1_1Dynamics.html" title="DataType Dynamics. ">Dynamics</a>.  <a href="structad__rss_1_1world_1_1Dynamics.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad__rss_1_1world_1_1LaneSegment.html">LaneSegment</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType <a class="el" href="structad__rss_1_1world_1_1LaneSegment.html" title="DataType LaneSegment. ">LaneSegment</a>.  <a href="structad__rss_1_1world_1_1LaneSegment.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -119,6 +116,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad__rss_1_1world_1_1OccupiedRegion.html">OccupiedRegion</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType <a class="el" href="structad__rss_1_1world_1_1OccupiedRegion.html" title="DataType OccupiedRegion. ">OccupiedRegion</a>.  <a href="structad__rss_1_1world_1_1OccupiedRegion.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad__rss_1_1world_1_1RssDynamics.html">RssDynamics</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType <a class="el" href="structad__rss_1_1world_1_1RssDynamics.html" title="DataType RssDynamics. ">RssDynamics</a>.  <a href="structad__rss_1_1world_1_1RssDynamics.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad__rss_1_1world_1_1Scene.html">Scene</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType <a class="el" href="structad__rss_1_1world_1_1Scene.html" title="DataType Scene. ">Scene</a>.  <a href="structad__rss_1_1world_1_1Scene.html#details">More...</a><br /></td></tr>
@@ -164,9 +164,10 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:a5c676caceace44adc567b25ac2c0e707"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType LaneSegmentType.  <a href="namespacead__rss_1_1world.html#a5c676caceace44adc567b25ac2c0e707">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:a5c676caceace44adc567b25ac2c0e707"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3773dc3b8750d05d4dc3951552689234"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead__rss_1_1world.html#a3773dc3b8750d05d4dc3951552689234">ObjectType</a> : int32_t { <a class="el" href="namespacead__rss_1_1world.html#a3773dc3b8750d05d4dc3951552689234a71b77d8c654e6658e1cba3a13e51a217">ObjectType::EgoVehicle</a> = 0, 
-<a class="el" href="namespacead__rss_1_1world.html#a3773dc3b8750d05d4dc3951552689234a63a4c4a07d18a1b880010fe8f8cb41c4">ObjectType::OtherVehicle</a> = 1, 
-<a class="el" href="namespacead__rss_1_1world.html#a3773dc3b8750d05d4dc3951552689234a1d6dc2307e90e125df73f57b922339d7">ObjectType::ArtificialObject</a> = 2
+<tr class="memitem:a3773dc3b8750d05d4dc3951552689234"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead__rss_1_1world.html#a3773dc3b8750d05d4dc3951552689234">ObjectType</a> : int32_t { <a class="el" href="namespacead__rss_1_1world.html#a3773dc3b8750d05d4dc3951552689234a4bbb8f967da6d1a610596d7257179c2b">ObjectType::Invalid</a> = 0, 
+<a class="el" href="namespacead__rss_1_1world.html#a3773dc3b8750d05d4dc3951552689234a71b77d8c654e6658e1cba3a13e51a217">ObjectType::EgoVehicle</a> = 1, 
+<a class="el" href="namespacead__rss_1_1world.html#a3773dc3b8750d05d4dc3951552689234a63a4c4a07d18a1b880010fe8f8cb41c4">ObjectType::OtherVehicle</a> = 2, 
+<a class="el" href="namespacead__rss_1_1world.html#a3773dc3b8750d05d4dc3951552689234a1d6dc2307e90e125df73f57b922339d7">ObjectType::ArtificialObject</a> = 3
  }<tr class="memdesc:a3773dc3b8750d05d4dc3951552689234"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType ObjectType.  <a href="namespacead__rss_1_1world.html#a3773dc3b8750d05d4dc3951552689234">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:a3773dc3b8750d05d4dc3951552689234"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -349,7 +350,10 @@ Enumerations</h2></td></tr>
 <p>DataType ObjectType. </p>
 <p>Enumeration describing the types of object. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="a3773dc3b8750d05d4dc3951552689234a71b77d8c654e6658e1cba3a13e51a217"></a>EgoVehicle&#160;</td><td class="fielddoc">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="a3773dc3b8750d05d4dc3951552689234a4bbb8f967da6d1a610596d7257179c2b"></a>Invalid&#160;</td><td class="fielddoc">
+<p>The object type is invalid. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a3773dc3b8750d05d4dc3951552689234a71b77d8c654e6658e1cba3a13e51a217"></a>EgoVehicle&#160;</td><td class="fielddoc">
 <p>The object is the ego vehicle. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a3773dc3b8750d05d4dc3951552689234a63a4c4a07d18a1b880010fe8f8cb41c4"></a>OtherVehicle&#160;</td><td class="fielddoc">

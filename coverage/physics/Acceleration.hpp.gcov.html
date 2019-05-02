@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-04-15 12:57:15</td>
+            <td class="headerValue">2019-05-02 15:32:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">28</td>
@@ -161,10 +161,10 @@
 <span class="lineNum">      90 </span>                :            :   /*!
 <a name="91"><span class="lineNum">      91 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      92 </span>                :            :    */
-<span class="lineNum">      93 </span>                :<span class="lineCov">    1831232 :   explicit Acceleration(double const iAcceleration)</span>
-<span class="lineNum">      94 </span>                :<span class="lineCov">    1831232 :     : mAcceleration(iAcceleration)</span>
+<span class="lineNum">      93 </span>                :<span class="lineCov">    1694000 :   explicit Acceleration(double const iAcceleration)</span>
+<span class="lineNum">      94 </span>                :<span class="lineCov">    1694000 :     : mAcceleration(iAcceleration)</span>
 <span class="lineNum">      95 </span>                :            :   {
-<span class="lineNum">      96 </span>                :<span class="lineCov">    1831232 :   }</span>
+<span class="lineNum">      96 </span>                :<span class="lineCov">    1694000 :   }</span>
 <span class="lineNum">      97 </span>                :            : 
 <span class="lineNum">      98 </span>                :            :   /*!
 <span class="lineNum">      99 </span>                :            :    * \brief standard copy constructor
@@ -201,11 +201,11 @@
 <span class="lineNum">     130 </span>                :            :    *
 <a name="131"><span class="lineNum">     131 </span>                :            :    * \returns \c true if both Acceleration are valid and can be taken as numerically equal</a>
 <span class="lineNum">     132 </span>                :            :    */
-<span class="lineNum">     133 </span>                :<span class="lineCov">     171039 :   bool operator==(const Acceleration &amp;other) const</span>
+<span class="lineNum">     133 </span>                :<span class="lineCov">     162577 :   bool operator==(const Acceleration &amp;other) const</span>
 <span class="lineNum">     134 </span>                :            :   {
-<span class="lineNum">     135 </span>                :<span class="lineCov">     171039 :     ensureValid();</span>
-<span class="lineNum">     136 </span>                :<span class="lineCov">     171037 :     other.ensureValid();</span>
-<span class="lineNum">     137 </span>                :<span class="lineCov">     171035 :     return std::fabs(mAcceleration - other.mAcceleration) &lt; cPrecisionValue;</span>
+<span class="lineNum">     135 </span>                :<span class="lineCov">     162577 :     ensureValid();</span>
+<span class="lineNum">     136 </span>                :<span class="lineCov">     162575 :     other.ensureValid();</span>
+<span class="lineNum">     137 </span>                :<span class="lineCov">     162573 :     return std::fabs(mAcceleration - other.mAcceleration) &lt; cPrecisionValue;</span>
 <span class="lineNum">     138 </span>                :            :   }
 <span class="lineNum">     139 </span>                :            : 
 <span class="lineNum">     140 </span>                :            :   /**
@@ -215,9 +215,9 @@
 <span class="lineNum">     144 </span>                :            :    *
 <a name="145"><span class="lineNum">     145 </span>                :            :    * \returns \c true if one of the Acceleration is not valid or they can be taken as numerically different</a>
 <span class="lineNum">     146 </span>                :            :    */
-<span class="lineNum">     147 </span>                :<span class="lineCov">      95484 :   bool operator!=(const Acceleration &amp;other) const</span>
+<span class="lineNum">     147 </span>                :<span class="lineCov">      91601 :   bool operator!=(const Acceleration &amp;other) const</span>
 <span class="lineNum">     148 </span>                :            :   {
-<span class="lineNum">     149 </span>                :<span class="lineCov">      95484 :     return !operator==(other);</span>
+<span class="lineNum">     149 </span>                :<span class="lineCov">      91601 :     return !operator==(other);</span>
 <span class="lineNum">     150 </span>                :            :   }
 <span class="lineNum">     151 </span>                :            : 
 <span class="lineNum">     152 </span>                :            :   /**
@@ -245,11 +245,11 @@
 <span class="lineNum">     174 </span>                :            :    *   this Acceleration is strictly numerically smaller than other.
 <a name="175"><span class="lineNum">     175 </span>                :            :    * \note the precision of Acceleration is considered</a>
 <span class="lineNum">     176 </span>                :            :    */
-<span class="lineNum">     177 </span>                :<span class="lineCov">     105025 :   bool operator&lt;(const Acceleration &amp;other) const</span>
+<span class="lineNum">     177 </span>                :<span class="lineCov">      99887 :   bool operator&lt;(const Acceleration &amp;other) const</span>
 <span class="lineNum">     178 </span>                :            :   {
-<span class="lineNum">     179 </span>                :<span class="lineCov">     105025 :     ensureValid();</span>
-<span class="lineNum">     180 </span>                :<span class="lineCov">     105022 :     other.ensureValid();</span>
-<span class="lineNum">     181 </span>[<span class="branchCov" title="Branch 0 was taken 95475 times"> + </span><span class="branchCov" title="Branch 1 was taken 9545 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 95467 times"> + </span><span class="branchCov" title="Branch 4 was taken 8 times"> + </span>]:<span class="lineCov">     105020 :     return (mAcceleration &lt; other.mAcceleration) &amp;&amp; operator!=(other);</span>
+<span class="lineNum">     179 </span>                :<span class="lineCov">      99887 :     ensureValid();</span>
+<span class="lineNum">     180 </span>                :<span class="lineCov">      99884 :     other.ensureValid();</span>
+<span class="lineNum">     181 </span>[<span class="branchCov" title="Branch 0 was taken 91217 times"> + </span><span class="branchCov" title="Branch 1 was taken 8665 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 91209 times"> + </span><span class="branchCov" title="Branch 4 was taken 8 times"> + </span>]:<span class="lineCov">      99882 :     return (mAcceleration &lt; other.mAcceleration) &amp;&amp; operator!=(other);</span>
 <span class="lineNum">     182 </span>                :            :   }
 <span class="lineNum">     183 </span>                :            : 
 <span class="lineNum">     184 </span>                :            :   /**
@@ -277,11 +277,11 @@
 <span class="lineNum">     206 </span>                :            :    *   this Acceleration is numerically smaller than other.
 <a name="207"><span class="lineNum">     207 </span>                :            :    * \note the precision of Acceleration is considered</a>
 <span class="lineNum">     208 </span>                :            :    */
-<span class="lineNum">     209 </span>                :<span class="lineCov">    1630003 :   bool operator&lt;=(const Acceleration &amp;other) const</span>
+<span class="lineNum">     209 </span>                :<span class="lineCov">    1559477 :   bool operator&lt;=(const Acceleration &amp;other) const</span>
 <span class="lineNum">     210 </span>                :            :   {
-<span class="lineNum">     211 </span>                :<span class="lineCov">    1630003 :     ensureValid();</span>
-<span class="lineNum">     212 </span>                :<span class="lineCov">    1630000 :     other.ensureValid();</span>
-<span class="lineNum">     213 </span>[<span class="branchCov" title="Branch 0 was taken 25286 times"> + </span><span class="branchCov" title="Branch 1 was taken 1604698 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 7518 times"> + </span><span class="branchCov" title="Branch 4 was taken 17768 times"> + </span>]:<span class="lineCov">    1629984 :     return ((mAcceleration &lt; other.mAcceleration) || operator==(other));</span>
+<span class="lineNum">     211 </span>                :<span class="lineCov">    1559477 :     ensureValid();</span>
+<span class="lineNum">     212 </span>                :<span class="lineCov">    1559474 :     other.ensureValid();</span>
+<span class="lineNum">     213 </span>[<span class="branchCov" title="Branch 0 was taken 24092 times"> + </span><span class="branchCov" title="Branch 1 was taken 1535366 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 7516 times"> + </span><span class="branchCov" title="Branch 4 was taken 16576 times"> + </span>]:<span class="lineCov">    1559458 :     return ((mAcceleration &lt; other.mAcceleration) || operator==(other));</span>
 <span class="lineNum">     214 </span>                :            :   }
 <span class="lineNum">     215 </span>                :            : 
 <span class="lineNum">     216 </span>                :            :   /**
@@ -294,13 +294,13 @@
 <span class="lineNum">     223 </span>                :            :    * \note throws a std::out_of_range exception if one of the two operands or the result of
 <a name="224"><span class="lineNum">     224 </span>                :            :    *   the operation is not valid</a>
 <span class="lineNum">     225 </span>                :            :    */
-<span class="lineNum">     226 </span>                :<span class="lineCov">          4 :   Acceleration operator+(const Acceleration &amp;other) const</span>
+<span class="lineNum">     226 </span>                :<span class="lineCov">          6 :   Acceleration operator+(const Acceleration &amp;other) const</span>
 <span class="lineNum">     227 </span>                :            :   {
-<span class="lineNum">     228 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          4 :     ensureValid();</span>
-<span class="lineNum">     229 </span>        [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          3 :     other.ensureValid();</span>
-<span class="lineNum">     230 </span>                :<span class="lineCov">          2 :     Acceleration const result(mAcceleration + other.mAcceleration);</span>
-<span class="lineNum">     231 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     result.ensureValid();</span>
-<span class="lineNum">     232 </span>                :<span class="lineCov">          1 :     return result;</span>
+<span class="lineNum">     228 </span>        [<span class="branchCov" title="Branch 1 was taken 5 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          6 :     ensureValid();</span>
+<span class="lineNum">     229 </span>        [<span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          5 :     other.ensureValid();</span>
+<span class="lineNum">     230 </span>                :<span class="lineCov">          4 :     Acceleration const result(mAcceleration + other.mAcceleration);</span>
+<span class="lineNum">     231 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          4 :     result.ensureValid();</span>
+<span class="lineNum">     232 </span>                :<span class="lineCov">          3 :     return result;</span>
 <span class="lineNum">     233 </span>                :            :   }
 <span class="lineNum">     234 </span>                :            : 
 <span class="lineNum">     235 </span>                :            :   /**
@@ -332,13 +332,13 @@
 <span class="lineNum">     261 </span>                :            :    * \note throws a std::out_of_range exception if one of the two operands or the result of
 <a name="262"><span class="lineNum">     262 </span>                :            :    *   the operation is not valid</a>
 <span class="lineNum">     263 </span>                :            :    */
-<span class="lineNum">     264 </span>                :<span class="lineCov">          4 :   Acceleration operator-(const Acceleration &amp;other) const</span>
+<span class="lineNum">     264 </span>                :<span class="lineCov">          5 :   Acceleration operator-(const Acceleration &amp;other) const</span>
 <span class="lineNum">     265 </span>                :            :   {
-<span class="lineNum">     266 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          4 :     ensureValid();</span>
-<span class="lineNum">     267 </span>        [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          3 :     other.ensureValid();</span>
-<span class="lineNum">     268 </span>                :<span class="lineCov">          2 :     Acceleration const result(mAcceleration - other.mAcceleration);</span>
-<span class="lineNum">     269 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     result.ensureValid();</span>
-<span class="lineNum">     270 </span>                :<span class="lineCov">          1 :     return result;</span>
+<span class="lineNum">     266 </span>        [<span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          5 :     ensureValid();</span>
+<span class="lineNum">     267 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          4 :     other.ensureValid();</span>
+<span class="lineNum">     268 </span>                :<span class="lineCov">          3 :     Acceleration const result(mAcceleration - other.mAcceleration);</span>
+<span class="lineNum">     269 </span>        [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          3 :     result.ensureValid();</span>
+<span class="lineNum">     270 </span>                :<span class="lineCov">          2 :     return result;</span>
 <span class="lineNum">     271 </span>                :            :   }
 <span class="lineNum">     272 </span>                :            : 
 <span class="lineNum">     273 </span>                :            :   /**
@@ -370,12 +370,12 @@
 <span class="lineNum">     299 </span>                :            :    * \note throws a std::out_of_range exception if \c value or the result of
 <a name="300"><span class="lineNum">     300 </span>                :            :    *   the operation is not valid</a>
 <span class="lineNum">     301 </span>                :            :    */
-<span class="lineNum">     302 </span>                :<span class="lineCov">      78125 :   Acceleration operator*(const double &amp;scalar) const</span>
+<span class="lineNum">     302 </span>                :<span class="lineCov">      73578 :   Acceleration operator*(const double &amp;scalar) const</span>
 <span class="lineNum">     303 </span>                :            :   {
-<span class="lineNum">     304 </span>        [<span class="branchCov" title="Branch 1 was taken 78123 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">      78125 :     ensureValid();</span>
-<span class="lineNum">     305 </span>                :<span class="lineCov">      78123 :     Acceleration const result(mAcceleration * scalar);</span>
-<span class="lineNum">     306 </span>        [<span class="branchCov" title="Branch 1 was taken 78122 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      78123 :     result.ensureValid();</span>
-<span class="lineNum">     307 </span>                :<span class="lineCov">      78122 :     return result;</span>
+<span class="lineNum">     304 </span>        [<span class="branchCov" title="Branch 1 was taken 73576 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">      73578 :     ensureValid();</span>
+<span class="lineNum">     305 </span>                :<span class="lineCov">      73576 :     Acceleration const result(mAcceleration * scalar);</span>
+<span class="lineNum">     306 </span>        [<span class="branchCov" title="Branch 1 was taken 73575 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      73576 :     result.ensureValid();</span>
+<span class="lineNum">     307 </span>                :<span class="lineCov">      73575 :     return result;</span>
 <span class="lineNum">     308 </span>                :            :   }
 <span class="lineNum">     309 </span>                :            : 
 <span class="lineNum">     310 </span>                :            :   /**
@@ -423,12 +423,12 @@
 <span class="lineNum">     352 </span>                :            :    * \note throws a std::out_of_range exception if this or the result of
 <a name="353"><span class="lineNum">     353 </span>                :            :    *   the operation is not valid</a>
 <span class="lineNum">     354 </span>                :            :    */
-<span class="lineNum">     355 </span>                :<span class="lineCov">       4416 :   Acceleration operator-() const</span>
+<span class="lineNum">     355 </span>                :<span class="lineCov">       4064 :   Acceleration operator-() const</span>
 <span class="lineNum">     356 </span>                :            :   {
-<span class="lineNum">     357 </span>        [<span class="branchCov" title="Branch 1 was taken 4415 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">       4416 :     ensureValid();</span>
-<span class="lineNum">     358 </span>                :<span class="lineCov">       4415 :     Acceleration const result(-mAcceleration);</span>
-<span class="lineNum">     359 </span>                :<span class="lineCov">       4415 :     result.ensureValid(); // LCOV_EXCL_BR_LINE Some types do not throw an exception</span>
-<span class="lineNum">     360 </span>                :<span class="lineCov">       4415 :     return result;</span>
+<span class="lineNum">     357 </span>        [<span class="branchCov" title="Branch 1 was taken 4063 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">       4064 :     ensureValid();</span>
+<span class="lineNum">     358 </span>                :<span class="lineCov">       4063 :     Acceleration const result(-mAcceleration);</span>
+<span class="lineNum">     359 </span>                :<span class="lineCov">       4063 :     result.ensureValid(); // LCOV_EXCL_BR_LINE Some types do not throw an exception</span>
+<span class="lineNum">     360 </span>                :<span class="lineCov">       4063 :     return result;</span>
 <span class="lineNum">     361 </span>                :            :   }
 <span class="lineNum">     362 </span>                :            : 
 <span class="lineNum">     363 </span>                :            :   /*!
@@ -437,9 +437,9 @@
 <span class="lineNum">     366 </span>                :            :    * \note conversion to the base type removes the physical unit;
 <a name="367"><span class="lineNum">     367 </span>                :            :    * therefore only explicit calls are allowed</a>
 <span class="lineNum">     368 </span>                :            :    */
-<span class="lineNum">     369 </span>                :<span class="lineCov">      82603 :   explicit operator double() const</span>
+<span class="lineNum">     369 </span>                :<span class="lineCov">      76937 :   explicit operator double() const</span>
 <span class="lineNum">     370 </span>                :            :   {
-<span class="lineNum">     371 </span>                :<span class="lineCov">      82603 :     return mAcceleration;</span>
+<span class="lineNum">     371 </span>                :<span class="lineCov">      76937 :     return mAcceleration;</span>
 <span class="lineNum">     372 </span>                :            :   }
 <span class="lineNum">     373 </span>                :            : 
 <span class="lineNum">     374 </span>                :            :   /*!
@@ -449,11 +449,11 @@
 <span class="lineNum">     378 </span>                :            :    * - It is normal or zero (see std::fpclassify()
 <a name="379"><span class="lineNum">     379 </span>                :            :    * - cMinAccelerationValue &lt;= value &lt;= cMaxAccelerationValue</a>
 <span class="lineNum">     380 </span>                :            :    */
-<span class="lineNum">     381 </span>                :<span class="lineCov">    4036420 :   bool isValid() const</span>
+<span class="lineNum">     381 </span>                :<span class="lineCov">    3854045 :   bool isValid() const</span>
 <span class="lineNum">     382 </span>                :            :   {
-<span class="lineNum">     383 </span>                :<span class="lineCov">    4036420 :     auto const valueClass = std::fpclassify(mAcceleration);</span>
-<span class="lineNum">     384 </span>[<span class="branchCov" title="Branch 0 was taken 376751 times"> + </span><span class="branchCov" title="Branch 1 was taken 52 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 4036364 times"> + </span><span class="branchCov" title="Branch 3 was taken 4 times"> + </span>]:<span class="lineCov">    4036420 :     return ((valueClass == FP_NORMAL) || (valueClass == FP_ZERO)) &amp;&amp; (cMinValue &lt;= mAcceleration)</span>
-<span class="lineNum">     385 </span>[<span class="branchCov" title="Branch 0 was taken 376803 times"> + </span><span class="branchCov" title="Branch 1 was taken 3659617 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 4036358 times"> + </span><span class="branchCov" title="Branch 3 was taken 6 times"> + </span>]:<span class="lineCov">    8072840 :       &amp;&amp; (mAcceleration &lt;= cMaxValue);</span>
+<span class="lineNum">     383 </span>                :<span class="lineCov">    3854045 :     auto const valueClass = std::fpclassify(mAcceleration);</span>
+<span class="lineNum">     384 </span>[<span class="branchCov" title="Branch 0 was taken 358473 times"> + </span><span class="branchCov" title="Branch 1 was taken 52 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 3853989 times"> + </span><span class="branchCov" title="Branch 3 was taken 4 times"> + </span>]:<span class="lineCov">    3854045 :     return ((valueClass == FP_NORMAL) || (valueClass == FP_ZERO)) &amp;&amp; (cMinValue &lt;= mAcceleration)</span>
+<span class="lineNum">     385 </span>[<span class="branchCov" title="Branch 0 was taken 358525 times"> + </span><span class="branchCov" title="Branch 1 was taken 3495520 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 3853983 times"> + </span><span class="branchCov" title="Branch 3 was taken 6 times"> + </span>]:<span class="lineCov">    7708090 :       &amp;&amp; (mAcceleration &lt;= cMaxValue);</span>
 <span class="lineNum">     386 </span>                :            :   }
 <span class="lineNum">     387 </span>                :            : 
 <span class="lineNum">     388 </span>                :            :   /*!
@@ -462,13 +462,13 @@
 <span class="lineNum">     391 </span>                :            :    * Throws an std::out_of_range() exception if the Acceleration
 <a name="392"><span class="lineNum">     392 </span>                :            :    * in not valid (i.e. isValid() returns false)</a>
 <span class="lineNum">     393 </span>                :            :    */
-<span class="lineNum">     394 </span>                :<span class="lineCov">    4036403 :   void ensureValid() const</span>
+<span class="lineNum">     394 </span>                :<span class="lineCov">    3854028 :   void ensureValid() const</span>
 <span class="lineNum">     395 </span>                :            :   {
-<span class="lineNum">     396 </span>        [<span class="branchCov" title="Branch 1 was taken 56 times"> + </span><span class="branchCov" title="Branch 2 was taken 4036347 times"> + </span>]:<span class="lineCov">    4036403 :     if (!isValid())</span>
+<span class="lineNum">     396 </span>        [<span class="branchCov" title="Branch 1 was taken 56 times"> + </span><span class="branchCov" title="Branch 2 was taken 3853972 times"> + </span>]:<span class="lineCov">    3854028 :     if (!isValid())</span>
 <span class="lineNum">     397 </span>                :            :     {
 <span class="lineNum">     398 </span>                :<span class="lineCov">         56 :       throw std::out_of_range(&quot;Acceleration value out of range&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">     399 </span>                :            :     }
-<span class="lineNum">     400 </span>                :<span class="lineCov">    4036347 :   }</span>
+<span class="lineNum">     400 </span>                :<span class="lineCov">    3853972 :   }</span>
 <span class="lineNum">     401 </span>                :            : 
 <span class="lineNum">     402 </span>                :            :   /*!
 <span class="lineNum">     403 </span>                :            :    * \brief ensure that the Acceleration is valid and non zero
@@ -476,29 +476,29 @@
 <span class="lineNum">     405 </span>                :            :    * Throws an std::out_of_range() exception if the Acceleration
 <a name="406"><span class="lineNum">     406 </span>                :            :    * in not valid or zero (i.e. isValid() returns false)</a>
 <span class="lineNum">     407 </span>                :            :    */
-<span class="lineNum">     408 </span>                :<span class="lineCov">      24927 :   void ensureValidNonZero() const</span>
+<span class="lineNum">     408 </span>                :<span class="lineCov">      22755 :   void ensureValidNonZero() const</span>
 <span class="lineNum">     409 </span>                :            :   {
-<span class="lineNum">     410 </span>                :<span class="lineCov">      24927 :     ensureValid();</span>
-<span class="lineNum">     411 </span>                :<span class="lineCov">      24924 :     if (operator==(Acceleration(0.))) // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">     410 </span>                :<span class="lineCov">      22755 :     ensureValid();</span>
+<span class="lineNum">     411 </span>                :<span class="lineCov">      22752 :     if (operator==(Acceleration(0.))) // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">     412 </span>                :            :     {
 <span class="lineNum">     413 </span>                :<span class="lineCov">          3 :       throw std::out_of_range(&quot;Acceleration value is zero&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">     414 </span>                :            :     }
-<span class="lineNum">     415 </span>                :<span class="lineCov">      24921 :   }</span>
+<span class="lineNum">     415 </span>                :<span class="lineCov">      22749 :   }</span>
 <span class="lineNum">     416 </span>                :            : 
 <span class="lineNum">     417 </span>                :            :   /*!
 <a name="418"><span class="lineNum">     418 </span>                :            :    * \brief get minimum valid Acceleration</a>
 <span class="lineNum">     419 </span>                :            :    */
-<span class="lineNum">     420 </span>                :<span class="lineCov">     287589 :   static Acceleration getMin()</span>
+<span class="lineNum">     420 </span>                :<span class="lineCov">     275067 :   static Acceleration getMin()</span>
 <span class="lineNum">     421 </span>                :            :   {
-<span class="lineNum">     422 </span>                :<span class="lineCov">     287589 :     return Acceleration(cMinValue);</span>
+<span class="lineNum">     422 </span>                :<span class="lineCov">     275067 :     return Acceleration(cMinValue);</span>
 <span class="lineNum">     423 </span>                :            :   }
 <span class="lineNum">     424 </span>                :            : 
 <span class="lineNum">     425 </span>                :            :   /*!
 <a name="426"><span class="lineNum">     426 </span>                :            :    * \brief get maximum valid Acceleration</a>
 <span class="lineNum">     427 </span>                :            :    */
-<span class="lineNum">     428 </span>                :<span class="lineCov">     286919 :   static Acceleration getMax()</span>
+<span class="lineNum">     428 </span>                :<span class="lineCov">     274683 :   static Acceleration getMax()</span>
 <span class="lineNum">     429 </span>                :            :   {
-<span class="lineNum">     430 </span>                :<span class="lineCov">     286919 :     return Acceleration(cMaxValue);</span>
+<span class="lineNum">     430 </span>                :<span class="lineCov">     274683 :     return Acceleration(cMaxValue);</span>
 <span class="lineNum">     431 </span>                :            :   }
 <span class="lineNum">     432 </span>                :            : 
 <span class="lineNum">     433 </span>                :            :   /*!
@@ -530,9 +530,9 @@
 <span class="lineNum">     459 </span>                :            :  * \note throws a std::out_of_range exception if \c value or the result of
 <a name="460"><span class="lineNum">     460 </span>                :            :  *   the operation is not valid</a>
 <span class="lineNum">     461 </span>                :            :  */
-<span class="lineNum">     462 </span>                :<span class="lineCov">      64801 : inline ::ad_rss::physics::Acceleration operator*(const double &amp;other, ::ad_rss::physics::Acceleration const &amp;value)</span>
+<span class="lineNum">     462 </span>                :<span class="lineCov">      61307 : inline ::ad_rss::physics::Acceleration operator*(const double &amp;other, ::ad_rss::physics::Acceleration const &amp;value)</span>
 <span class="lineNum">     463 </span>                :            : {
-<span class="lineNum">     464 </span>                :<span class="lineCov">      64801 :   return value.operator*(other);</span>
+<span class="lineNum">     464 </span>                :<span class="lineCov">      61307 :   return value.operator*(other);</span>
 <span class="lineNum">     465 </span>                :            : }
 <span class="lineNum">     466 </span>                :            : 
 <span class="lineNum">     467 </span>                :            : /*!
@@ -543,10 +543,10 @@
 <span class="lineNum">     472 </span>                :            : /*!
 <a name="473"><span class="lineNum">     473 </span>                :            :  * \brief overload of the std::fabs for Acceleration</a>
 <span class="lineNum">     474 </span>                :            :  */
-<span class="lineNum">     475 </span>                :<span class="lineCov">      11498 : inline ::ad_rss::physics::Acceleration fabs(const ::ad_rss::physics::Acceleration other)</span>
+<span class="lineNum">     475 </span>                :<span class="lineCov">      10859 : inline ::ad_rss::physics::Acceleration fabs(const ::ad_rss::physics::Acceleration other)</span>
 <span class="lineNum">     476 </span>                :            : {
-<span class="lineNum">     477 </span>                :<span class="lineCov">      11498 :   ::ad_rss::physics::Acceleration const result(std::fabs(static_cast&lt;double&gt;(other)));</span>
-<span class="lineNum">     478 </span>                :<span class="lineCov">      11498 :   return result;</span>
+<span class="lineNum">     477 </span>                :<span class="lineCov">      10859 :   ::ad_rss::physics::Acceleration const result(std::fabs(static_cast&lt;double&gt;(other)));</span>
+<span class="lineNum">     478 </span>                :<span class="lineCov">      10859 :   return result;</span>
 <span class="lineNum">     479 </span>                :            : }
 <span class="lineNum">     480 </span>                :            : 
 <span class="lineNum">     481 </span>                :            : /*!
@@ -563,16 +563,16 @@
 <span class="lineNum">     492 </span>                :            :   /*!
 <a name="493"><span class="lineNum">     493 </span>                :            :    * \see std::numeric_limits::lowest()</a>
 <span class="lineNum">     494 </span>                :            :    */
-<span class="lineNum">     495 </span>                :<span class="lineCov">     287586 :   static inline ::ad_rss::physics::Acceleration lowest()</span>
+<span class="lineNum">     495 </span>                :<span class="lineCov">     275064 :   static inline ::ad_rss::physics::Acceleration lowest()</span>
 <span class="lineNum">     496 </span>                :            :   {
-<span class="lineNum">     497 </span>                :<span class="lineCov">     287586 :     return ::ad_rss::physics::Acceleration::getMin();</span>
+<span class="lineNum">     497 </span>                :<span class="lineCov">     275064 :     return ::ad_rss::physics::Acceleration::getMin();</span>
 <span class="lineNum">     498 </span>                :            :   }
 <span class="lineNum">     499 </span>                :            :   /*!
 <a name="500"><span class="lineNum">     500 </span>                :            :    * \see std::numeric_limits::max()</a>
 <span class="lineNum">     501 </span>                :            :    */
-<span class="lineNum">     502 </span>                :<span class="lineCov">     286916 :   static inline ::ad_rss::physics::Acceleration max()</span>
+<span class="lineNum">     502 </span>                :<span class="lineCov">     274680 :   static inline ::ad_rss::physics::Acceleration max()</span>
 <span class="lineNum">     503 </span>                :            :   {
-<span class="lineNum">     504 </span>                :<span class="lineCov">     286916 :     return ::ad_rss::physics::Acceleration::getMax();</span>
+<span class="lineNum">     504 </span>                :<span class="lineCov">     274680 :     return ::ad_rss::physics::Acceleration::getMax();</span>
 <span class="lineNum">     505 </span>                :            :   }
 <span class="lineNum">     506 </span>                :            :   /*!
 <a name="507"><span class="lineNum">     507 </span>                :            :    * \see std::numeric_limits::epsilon()</a>

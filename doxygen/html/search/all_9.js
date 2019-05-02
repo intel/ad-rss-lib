@@ -14,7 +14,7 @@ var searchData=
   ['lanesegmentvalidinputrange_2ehpp',['LaneSegmentValidInputRange.hpp',['../LaneSegmentValidInputRange_8hpp.html',1,'']]],
   ['lateral',['Lateral',['../namespacead__rss_1_1physics.html#a542e0542434ccfd2270bc55156b0ff86a03c19c937e83dfee974670603b5227b2',1,'ad_rss::physics']]],
   ['lateraldistance',['lateralDistance',['../structad__rss_1_1situation_1_1RelativePosition.html#af26d8fc0d7f8db333784695d7d01c725',1,'ad_rss::situation::RelativePosition::lateralDistance()'],['../namespacead__rss_1_1state.html#afac98769d5952c9ee8aa200f94a98521a741358c1526273b8b66d7f2aedc76c69',1,'ad_rss::state::LateralDistance()']]],
-  ['lateralfluctuationmargin',['lateralFluctuationMargin',['../structad__rss_1_1world_1_1Dynamics.html#aa57eb49957a44b8517e238c99109ee96',1,'ad_rss::world::Dynamics']]],
+  ['lateralfluctuationmargin',['lateralFluctuationMargin',['../structad__rss_1_1world_1_1RssDynamics.html#a7c724fa0442eec4c5604e7c400c7048d',1,'ad_rss::world::RssDynamics']]],
   ['lateralleftrange',['lateralLeftRange',['../structad__rss_1_1world_1_1AccelerationRestriction.html#ad2b58f662deed7e1aa5b0786000de129',1,'ad_rss::world::AccelerationRestriction']]],
   ['lateralposition',['lateralPosition',['../structad__rss_1_1situation_1_1RelativePosition.html#a97d6fc91815fbc1f2e47ff27827162fa',1,'ad_rss::situation::RelativePosition']]],
   ['lateralrelativeposition',['LateralRelativePosition',['../namespacead__rss_1_1situation.html#a84ec1e7dacadcbbadd96700147d9b77d',1,'ad_rss::situation']]],

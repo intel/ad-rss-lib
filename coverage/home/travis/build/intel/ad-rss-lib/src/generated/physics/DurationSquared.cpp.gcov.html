@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-04-15 12:57:15</td>
+            <td class="headerValue">2019-05-02 15:32:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -119,11 +119,11 @@
 <span class="lineNum">      48 </span>                :            : 
 <a name="49"><span class="lineNum">      49 </span>                :            : namespace std {</a>
 <span class="lineNum">      50 </span>                :            : 
-<span class="lineNum">      51 </span>                :<span class="lineCov">        599 : ::ad_rss::physics::Duration sqrt(::ad_rss::physics::DurationSquared const other)</span>
+<span class="lineNum">      51 </span>                :<span class="lineCov">        401 : ::ad_rss::physics::Duration sqrt(::ad_rss::physics::DurationSquared const other)</span>
 <span class="lineNum">      52 </span>                :            : {
-<span class="lineNum">      53 </span>                :<span class="lineCov">        599 :   ::ad_rss::physics::Duration result(std::sqrt(static_cast&lt;double&gt;(other)));</span>
-<span class="lineNum">      54 </span>        [<span class="branchCov" title="Branch 1 was taken 598 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">        599 :   result.ensureValid();</span>
-<span class="lineNum">      55 </span>                :<span class="lineCov">        598 :   return result;</span>
+<span class="lineNum">      53 </span>                :<span class="lineCov">        401 :   ::ad_rss::physics::Duration result(std::sqrt(static_cast&lt;double&gt;(other)));</span>
+<span class="lineNum">      54 </span>        [<span class="branchCov" title="Branch 1 was taken 400 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">        401 :   result.ensureValid();</span>
+<span class="lineNum">      55 </span>                :<span class="lineCov">        400 :   return result;</span>
 <span class="lineNum">      56 </span>                :            : }
 <span class="lineNum">      57 </span>                :            : 
 <span class="lineNum">      58 </span>                :            : } // namespace std
