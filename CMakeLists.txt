@@ -36,6 +36,8 @@ set(BUILD_HARDENING "OFF" CACHE BOOL "Enable build hardening flags")
 set(BUILD_COVERAGE "OFF" CACHE BOOL "Enable test coverage")
 set(BUILD_STATIC_ANALYSIS "OFF" CACHE BOOL "Enable static code analysis")
 
+option(BUILD_SHARED_LIBS "Libraries will be built as shared libraries" On)
+
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 project(ad-rss-lib VERSION 1.3.0)
@@ -104,7 +106,7 @@ set(GENERATED_SOURCES
   src/generated/world/ObjectType.cpp
 )
 
-add_library(${PROJECT_NAME} SHARED
+add_library(${PROJECT_NAME}
   src/core/RssCheck.cpp
   src/core/RssResponseResolving.cpp
   src/core/RssResponseTransformation.cpp
@@ -178,6 +180,8 @@ message(STATUS "Build Testing")
   configure_file(tests/gtest-cmake.txt.in googletest-download/CMakeLists.txt)
   execute_process(COMMAND "${CMAKE_COMMAND}" -G "Eclipse CDT4 - Unix Makefiles" . RESULT_VARIABLE result WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/googletest-download")
   execute_process(COMMAND "${CMAKE_COMMAND}" --build . RESULT_VARIABLE result WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/googletest-download")
+
+  set(BUILD_SHARED_LIBS OFF)
   add_subdirectory("${CMAKE_CURRENT_BINARY_DIR}/googletest-src"
                    "${CMAKE_CURRENT_BINARY_DIR}/googletest-build"
                    EXCLUDE_FROM_ALL)
