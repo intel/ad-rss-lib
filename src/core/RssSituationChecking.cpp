@@ -73,12 +73,12 @@ bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation 
       return false;
     }
 
-    response = state::createResponseState(situation.timeIndex, situation.situationId, state::IsSafe::No);
+    response = createResponseState(situation.timeIndex, situation.situationId, IsSafe::No);
 
     switch (situation.situationType)
     {
       case situation::SituationType::NotRelevant:
-        response = state::createResponseState(situation.timeIndex, situation.situationId, state::IsSafe::Yes);
+        response = createResponseState(situation.timeIndex, situation.situationId, IsSafe::Yes);
         result = true;
         break;
       case situation::SituationType::SameDirection:

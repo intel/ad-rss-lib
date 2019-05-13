@@ -67,12 +67,12 @@ set(RSS_TEST_SOURCES
   core/RssSituationExtractionSameDirectionTests.cpp
   core/RssSituationIdProviderTests.cpp
   core/RssStateCombineRssStateTests.cpp
-  core/RssStateSafeTests.cpp
   physics/MathUnitTestsDistanceOffsetAfterResponseTime.cpp
   physics/MathUnitTestsInputRangeChecks.cpp
   physics/MathUnitTestsStoppingDistance.cpp
   physics/MathUnitTestsTimeToCoverDistance.cpp
   physics/MathUnitTestsVelocityAfterResponseTime.cpp
+  state/RssStateSafeTests.cpp
   situation/RssFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
   situation/RssFormulaTestsCalculateSafeLateralDistance.cpp
   situation/RssFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp

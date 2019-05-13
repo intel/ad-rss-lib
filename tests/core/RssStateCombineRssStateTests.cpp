@@ -33,7 +33,7 @@
 #include "core/RssState.hpp"
 
 namespace ad_rss {
-namespace state {
+namespace core {
 
 TEST(RssStateCombineRssStateTests, longitudinal_previous_Safe)
 {
@@ -105,5 +105,5 @@ TEST(RssStateCombineRssStateTests, lateral_previous_BrakeMin)
             cTestSupport.cLateralBrakeMin);
 }
 
-} // namespace state
+} // namespace core
 } // namespace ad_rss
