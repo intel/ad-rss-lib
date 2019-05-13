@@ -87,7 +87,7 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
       // if the worldModel contains no relevant object (or no objects at all)
       // the responseStateVector will be empty. Thus, we need to add a "all safe" response
       state::ResponseState const safeResponse
-        = state::createResponseState(worldModel.timeIndex, situation::SituationId(0), state::IsSafe::Yes);
+        = createResponseState(worldModel.timeIndex, situation::SituationId(0), IsSafe::Yes);
       responseStateVector.push_back(safeResponse);
     }
 

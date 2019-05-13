@@ -29,11 +29,11 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
+#include <ad_rss/state/ResponseStateOperation.hpp>
 #include "TestSupport.hpp"
-#include "core/RssState.hpp"
 
 namespace ad_rss {
-namespace core {
+namespace state {
 
 TEST(RssStateSafeTests, isSafe)
 {
@@ -153,5 +153,5 @@ TEST(RssStateSafeTests, longitudinal_lateralLeft_BrakeMin)
   ASSERT_FALSE(isLateralSafe(responseState));
 }
 
-} // namespace core
+} // namespace state
 } // namespace ad_rss

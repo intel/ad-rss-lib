@@ -1,5 +1,7 @@
 ## Latest changes
+* Made some RssState operations available via public interface
 * Add option to select library build type (static/dynamic)
+
 ## Release 1.3.0
 * Allow multiple situations per ego vehicle/object pair: Add RssSituationIdProvider and made RssSituationExtraction a class holding RssSituationIdProvider instance to keep track of the different situation classes
 * Renamed world::Dynamics in world::RssDynamics, extended it by responseTime and separated it from world::Object; world::Scene got the objectRssDynamics and world::WorldModel the egoVehicleRssDynamics each as separate elements

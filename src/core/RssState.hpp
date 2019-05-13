@@ -42,45 +42,9 @@
  */
 namespace ad_rss {
 /*!
- * @brief namespace for RSS state datatypes and operations
+ * @brief namespace core
  */
-namespace state {
-
-/**
- * @brief is response state longitudinal safe
- *
- * @param[in] responseState to check
- *
- * true if safe, false if not
- */
-inline bool isLongitudinalSafe(ResponseState const &responseState)
-{
-  return responseState.longitudinalState.isSafe;
-}
-
-/**
- * @brief is response state lateral safe
- *
- * @param[in] responseState to check
- *
- * true if safe, false if not
- */
-inline bool isLateralSafe(ResponseState const &responseState)
-{
-  return responseState.lateralStateRight.isSafe && responseState.lateralStateLeft.isSafe;
-}
-
-/**
- * @brief is response state dangerous
- *
- * @param[in] responseState to check
- *
- * true if dangerous, false if not
- */
-inline bool isDangerous(ResponseState const &responseState)
-{
-  return !isLongitudinalSafe(responseState) && !isLateralSafe(responseState);
-}
+namespace core {
 
 /**
  * @brief determine the resulting RSS state
@@ -147,5 +111,5 @@ inline state::ResponseState createResponseState(physics::TimeIndex const &timeIn
   return safeResponse;
 }
 
-} // namespace state
+} // namespace core
 } // namespace ad_rss
