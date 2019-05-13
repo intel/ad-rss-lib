@@ -31,6 +31,7 @@
 
 #include "ad_rss/core/RssResponseResolving.hpp"
 #include <algorithm>
+#include "ad_rss/state/ResponseStateOperation.hpp"
 #include "ad_rss/state/ResponseStateVectorValidInputRange.hpp"
 #include "core/RssState.hpp"
 
@@ -53,7 +54,7 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
   // global try catch block to ensure this library call doesn't throw an exception
   try
   {
-    responseState = state::createResponseState(physics::TimeIndex(0u), situation::SituationId(0), state::IsSafe::Yes);
+    responseState = createResponseState(physics::TimeIndex(0u), situation::SituationId(0), IsSafe::Yes);
 
     RssStateBeforeDangerThresholdTimeMap newStatesBeforeDangerThresholdTime;
 
