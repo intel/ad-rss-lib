@@ -7,6 +7,7 @@ var searchData=
   ['responseinformation_2ehpp',['ResponseInformation.hpp',['../ResponseInformation_8hpp.html',1,'']]],
   ['responseinformationvalidinputrange_2ehpp',['ResponseInformationValidInputRange.hpp',['../ResponseInformationValidInputRange_8hpp.html',1,'']]],
   ['responsestate_2ehpp',['ResponseState.hpp',['../ResponseState_8hpp.html',1,'']]],
+  ['responsestateoperation_2ehpp',['ResponseStateOperation.hpp',['../ResponseStateOperation_8hpp.html',1,'']]],
   ['responsestatevalidinputrange_2ehpp',['ResponseStateValidInputRange.hpp',['../ResponseStateValidInputRange_8hpp.html',1,'']]],
   ['responsestatevector_2ehpp',['ResponseStateVector.hpp',['../ResponseStateVector_8hpp.html',1,'']]],
   ['responsestatevectorvalidinputrange_2ehpp',['ResponseStateVectorValidInputRange.hpp',['../ResponseStateVectorValidInputRange_8hpp.html',1,'']]],

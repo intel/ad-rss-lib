@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-05-07 12:52:23</td>
+            <td class="headerValue">2019-05-14 08:36:39</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">3</td>
@@ -159,7 +159,7 @@
 <span class="lineNum">      87 </span>                :            :       // if the worldModel contains no relevant object (or no objects at all)
 <span class="lineNum">      88 </span>                :            :       // the responseStateVector will be empty. Thus, we need to add a &quot;all safe&quot; response
 <span class="lineNum">      89 </span>                :            :       state::ResponseState const safeResponse
-<span class="lineNum">      90 </span>        [<span class="branchCov" title="Branch 1 was taken 148 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        149 :         = state::createResponseState(worldModel.timeIndex, situation::SituationId(0), state::IsSafe::Yes);</span>
+<span class="lineNum">      90 </span>        [<span class="branchCov" title="Branch 1 was taken 148 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        149 :         = createResponseState(worldModel.timeIndex, situation::SituationId(0), IsSafe::Yes);</span>
 <span class="lineNum">      91 </span>        [<span class="branchCov" title="Branch 1 was taken 147 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">        148 :       responseStateVector.push_back(safeResponse);</span>
 <span class="lineNum">      92 </span>                :            :     }
 <span class="lineNum">      93 </span>                :            : 

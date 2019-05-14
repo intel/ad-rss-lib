@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-05-07 12:52:23</td>
+            <td class="headerValue">2019-05-14 08:36:39</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -144,13 +144,13 @@
 <span class="lineNum">      73 </span>                :<span class="lineCov">      12002 :       return false;</span>
 <span class="lineNum">      74 </span>                :            :     }
 <span class="lineNum">      75 </span>                :            : 
-<span class="lineNum">      76 </span>        [<span class="branchCov" title="Branch 1 was taken 5590 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5590 :     response = state::createResponseState(situation.timeIndex, situation.situationId, state::IsSafe::No);</span>
+<span class="lineNum">      76 </span>        [<span class="branchCov" title="Branch 1 was taken 5590 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5590 :     response = createResponseState(situation.timeIndex, situation.situationId, IsSafe::No);</span>
 <span class="lineNum">      77 </span>                :            : 
 <span class="lineNum">      78 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 3706 times"> + </span><span class="branchCov" title="Branch 2 was taken 1074 times"> + </span><span class="branchCov" title="Branch 3 was taken 808 times"> + </span> :<span class="lineCov">       5590 :     switch (situation.situationType)</span>
 <span class="lineNum">         </span>            <span class="branchCov" title="Branch 4 was taken 1 time"> + </span>]
 <span class="lineNum">      79 </span>                :            :     {
 <span class="lineNum">      80 </span>                :            :       case situation::SituationType::NotRelevant:
-<span class="lineNum">      81 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          2 :         response = state::createResponseState(situation.timeIndex, situation.situationId, state::IsSafe::Yes);</span>
+<span class="lineNum">      81 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          2 :         response = createResponseState(situation.timeIndex, situation.situationId, IsSafe::Yes);</span>
 <span class="lineNum">      82 </span>                :<span class="lineCov">          1 :         result = true;</span>
 <span class="lineNum">      83 </span>                :<span class="lineCov">          1 :         break;</span>
 <span class="lineNum">      84 </span>                :            :       case situation::SituationType::SameDirection:
