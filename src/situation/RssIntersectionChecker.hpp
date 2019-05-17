@@ -37,8 +37,9 @@
 
 #include <cstdint>
 #include <map>
+#include "ad_rss/physics/TimeIndex.hpp"
 #include "ad_rss/situation/Situation.hpp"
-#include "ad_rss/state/ResponseState.hpp"
+#include "ad_rss/state/RssState.hpp"
 
 /*!
  * @brief namespace ad_rss
@@ -86,13 +87,16 @@ public:
   /**
    * @brief Calculate safety checks and determine required rssState for intersection situations
    *
+   * @param[in]  timeIndex the time index of the situation
    * @param[in]  situation situation to analyze
    * @param[out] rssState  rssState of the ego vehicle
    *
    * @returns false if a failure occurred during calculations, true otherwise
    *
    */
-  bool calculateRssStateIntersection(Situation const &situation, state::ResponseState &rssState);
+  bool calculateRssStateIntersection(physics::TimeIndex const &timeIndex,
+                                     Situation const &situation,
+                                     state::RssState &rssState);
 
 private:
   typedef std::map<SituationId, IntersectionState> RssIntersectionStateMap;

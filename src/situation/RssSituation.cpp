@@ -35,23 +35,22 @@
 namespace ad_rss {
 namespace situation {
 
-bool calculateRssStateNonIntersectionSameDirection(Situation const &situation, state::ResponseState &responseState)
+bool calculateRssStateNonIntersectionSameDirection(Situation const &situation, state::RssState &rssState)
 {
-  bool result = calculateLongitudinalRssStateNonIntersectionSameDirection(situation, responseState.longitudinalState);
+  bool result = calculateLongitudinalRssStateNonIntersectionSameDirection(situation, rssState.longitudinalState);
   if (result)
   {
-    result = calculateLateralRssState(situation, responseState.lateralStateLeft, responseState.lateralStateRight);
+    result = calculateLateralRssState(situation, rssState.lateralStateLeft, rssState.lateralStateRight);
   }
   return result;
 }
 
-bool calculateRssStateNonIntersectionOppositeDirection(Situation const &situation, state::ResponseState &responseState)
+bool calculateRssStateNonIntersectionOppositeDirection(Situation const &situation, state::RssState &rssState)
 {
-  bool result
-    = calculateLongitudinalRssStateNonIntersectionOppositeDirection(situation, responseState.longitudinalState);
+  bool result = calculateLongitudinalRssStateNonIntersectionOppositeDirection(situation, rssState.longitudinalState);
   if (result)
   {
-    result = calculateLateralRssState(situation, responseState.lateralStateLeft, responseState.lateralStateRight);
+    result = calculateLateralRssState(situation, rssState.lateralStateLeft, rssState.lateralStateRight);
   }
   return result;
 }
@@ -62,15 +61,14 @@ bool calculateLongitudinalRssStateNonIntersectionSameDirection(Situation const &
   bool result = false;
 
   rssState.response = state::LongitudinalResponse::BrakeMin;
-  rssState.responseInformation.currentDistance = situation.relativePosition.longitudinalDistance;
+  rssState.rssStateInformation.currentDistance = situation.relativePosition.longitudinalDistance;
 
   bool isSafe = false;
 
   if ((LongitudinalRelativePosition::InFront == situation.relativePosition.longitudinalPosition)
       || (LongitudinalRelativePosition::OverlapFront == situation.relativePosition.longitudinalPosition))
   {
-    rssState.responseInformation.responseEvaluator
-      = state::ResponseEvaluator::LongitudinalDistanceSameDirectionEgoFront;
+    rssState.rssStateInformation.evaluator = state::RssStateEvaluator::LongitudinalDistanceSameDirectionEgoFront;
 
     // The ego vehicle is leading in this situation so we don't need to break longitudinal
     rssState.response = state::LongitudinalResponse::None;
@@ -78,18 +76,17 @@ bool calculateLongitudinalRssStateNonIntersectionSameDirection(Situation const &
     result = checkSafeLongitudinalDistanceSameDirection(situation.egoVehicleState,
                                                         situation.otherVehicleState,
                                                         situation.relativePosition.longitudinalDistance,
-                                                        rssState.responseInformation.safeDistance,
+                                                        rssState.rssStateInformation.safeDistance,
                                                         isSafe);
   }
   else
   {
-    rssState.responseInformation.responseEvaluator
-      = state::ResponseEvaluator::LongitudinalDistanceSameDirectionOtherInFront;
+    rssState.rssStateInformation.evaluator = state::RssStateEvaluator::LongitudinalDistanceSameDirectionOtherInFront;
 
     result = checkSafeLongitudinalDistanceSameDirection(situation.otherVehicleState,
                                                         situation.egoVehicleState,
                                                         situation.relativePosition.longitudinalDistance,
-                                                        rssState.responseInformation.safeDistance,
+                                                        rssState.rssStateInformation.safeDistance,
                                                         isSafe);
   }
 
@@ -109,28 +106,28 @@ bool calculateLongitudinalRssStateNonIntersectionOppositeDirection(Situation con
 
   bool isSafe = false;
   rssState.response = state::LongitudinalResponse::BrakeMin;
-  rssState.responseInformation.currentDistance = situation.relativePosition.longitudinalDistance;
+  rssState.rssStateInformation.currentDistance = situation.relativePosition.longitudinalDistance;
 
   if (situation.egoVehicleState.isInCorrectLane)
   {
-    rssState.responseInformation.responseEvaluator
-      = state::ResponseEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane;
+    rssState.rssStateInformation.evaluator
+      = state::RssStateEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane;
 
     result = checkSafeLongitudinalDistanceOppositeDirection(situation.egoVehicleState,
                                                             situation.otherVehicleState,
                                                             situation.relativePosition.longitudinalDistance,
-                                                            rssState.responseInformation.safeDistance,
+                                                            rssState.rssStateInformation.safeDistance,
                                                             isSafe);
     rssState.response = state::LongitudinalResponse::BrakeMinCorrect;
   }
   else
   {
-    rssState.responseInformation.responseEvaluator = state::ResponseEvaluator::LongitudinalDistanceOppositeDirection;
+    rssState.rssStateInformation.evaluator = state::RssStateEvaluator::LongitudinalDistanceOppositeDirection;
 
     result = checkSafeLongitudinalDistanceOppositeDirection(situation.otherVehicleState,
                                                             situation.egoVehicleState,
                                                             situation.relativePosition.longitudinalDistance,
-                                                            rssState.responseInformation.safeDistance,
+                                                            rssState.rssStateInformation.safeDistance,
                                                             isSafe);
   }
 
@@ -157,42 +154,42 @@ bool calculateLateralRssState(Situation const &situation,
   bool result = false;
   if (LateralRelativePosition::AtLeft == situation.relativePosition.lateralPosition)
   {
-    rssStateLeft.responseInformation.responseEvaluator = state::ResponseEvaluator::None;
-    rssStateLeft.responseInformation.currentDistance = std::numeric_limits<physics::Distance>::max();
-    rssStateLeft.responseInformation.safeDistance = std::numeric_limits<physics::Distance>::max();
+    rssStateLeft.rssStateInformation.evaluator = state::RssStateEvaluator::None;
+    rssStateLeft.rssStateInformation.currentDistance = std::numeric_limits<physics::Distance>::max();
+    rssStateLeft.rssStateInformation.safeDistance = std::numeric_limits<physics::Distance>::max();
 
     // ego is the left vehicle, so right side has to be checked
-    rssStateRight.responseInformation.responseEvaluator = state::ResponseEvaluator::LateralDistance;
-    rssStateRight.responseInformation.currentDistance = situation.relativePosition.lateralDistance;
+    rssStateRight.rssStateInformation.evaluator = state::RssStateEvaluator::LateralDistance;
+    rssStateRight.rssStateInformation.currentDistance = situation.relativePosition.lateralDistance;
     result = checkSafeLateralDistance(situation.egoVehicleState,
                                       situation.otherVehicleState,
                                       situation.relativePosition.lateralDistance,
-                                      rssStateRight.responseInformation.safeDistance,
+                                      rssStateRight.rssStateInformation.safeDistance,
                                       isDistanceSafe);
   }
   else if (LateralRelativePosition::AtRight == situation.relativePosition.lateralPosition)
   {
-    rssStateRight.responseInformation.responseEvaluator = state::ResponseEvaluator::None;
-    rssStateRight.responseInformation.currentDistance = std::numeric_limits<physics::Distance>::max();
-    rssStateRight.responseInformation.safeDistance = std::numeric_limits<physics::Distance>::max();
+    rssStateRight.rssStateInformation.evaluator = state::RssStateEvaluator::None;
+    rssStateRight.rssStateInformation.currentDistance = std::numeric_limits<physics::Distance>::max();
+    rssStateRight.rssStateInformation.safeDistance = std::numeric_limits<physics::Distance>::max();
 
     // ego is the right vehicle, so left side has to be checked
-    rssStateLeft.responseInformation.responseEvaluator = state::ResponseEvaluator::LateralDistance;
-    rssStateLeft.responseInformation.currentDistance = situation.relativePosition.lateralDistance;
+    rssStateLeft.rssStateInformation.evaluator = state::RssStateEvaluator::LateralDistance;
+    rssStateLeft.rssStateInformation.currentDistance = situation.relativePosition.lateralDistance;
     result = checkSafeLateralDistance(situation.otherVehicleState,
                                       situation.egoVehicleState,
                                       situation.relativePosition.lateralDistance,
-                                      rssStateLeft.responseInformation.safeDistance,
+                                      rssStateLeft.rssStateInformation.safeDistance,
                                       isDistanceSafe);
   }
   else
   {
-    rssStateLeft.responseInformation.responseEvaluator = state::ResponseEvaluator::LateralDistance;
-    rssStateLeft.responseInformation.currentDistance = physics::Distance(0);
-    rssStateLeft.responseInformation.safeDistance = physics::Distance(0);
-    rssStateRight.responseInformation.responseEvaluator = state::ResponseEvaluator::LateralDistance;
-    rssStateRight.responseInformation.currentDistance = physics::Distance(0);
-    rssStateRight.responseInformation.safeDistance = physics::Distance(0);
+    rssStateLeft.rssStateInformation.evaluator = state::RssStateEvaluator::LateralDistance;
+    rssStateLeft.rssStateInformation.currentDistance = physics::Distance(0);
+    rssStateLeft.rssStateInformation.safeDistance = physics::Distance(0);
+    rssStateRight.rssStateInformation.evaluator = state::RssStateEvaluator::LateralDistance;
+    rssStateRight.rssStateInformation.currentDistance = physics::Distance(0);
+    rssStateRight.rssStateInformation.safeDistance = physics::Distance(0);
 
     // lateral distance is zero, never safe
     result = true;

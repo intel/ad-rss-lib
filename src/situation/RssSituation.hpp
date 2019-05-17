@@ -35,7 +35,7 @@
 #pragma once
 
 #include "ad_rss/situation/Situation.hpp"
-#include "ad_rss/state/ResponseState.hpp"
+#include "ad_rss/state/RssState.hpp"
 
 /*!
  * @brief namespace ad_rss
@@ -47,24 +47,24 @@ namespace ad_rss {
 namespace situation {
 
 /**
- * @brief Calculate safety checks and determine required responseState for non intersection same direction scenario
+ * @brief Calculate safety checks and determine required rssState for non intersection same direction scenario
  *
  * @param[in]  situation situation to analyze
- * @param[out] responseState  response state of the ego vehicle
+ * @param[out] rssState  response state of the ego vehicle
  *
  * @returns false if a failure occurred during calculations, true otherwise
  */
-bool calculateRssStateNonIntersectionSameDirection(Situation const &situation, state::ResponseState &responseState);
+bool calculateRssStateNonIntersectionSameDirection(Situation const &situation, state::RssState &rssState);
 
 /**
- * @brief Calculate safety checks and determine required responseState for non intersection opposite direction scenario
+ * @brief Calculate safety checks and determine required rssState for non intersection opposite direction scenario
  *
  * @param[in]  situation situation to analyze
- * @param[out] responseState  response state of the ego vehicle
+ * @param[out] rssState  response state of the ego vehicle
  *
  * @returns false if a failure occurred during calculations, true otherwise
  */
-bool calculateRssStateNonIntersectionOppositeDirection(Situation const &situation, state::ResponseState &responseState);
+bool calculateRssStateNonIntersectionOppositeDirection(Situation const &situation, state::RssState &rssState);
 
 /**
  * @brief Calculate safety checks and determine required rssState for longitudinal direction for

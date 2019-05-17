@@ -51,11 +51,11 @@ namespace ad_rss {
 namespace state {
 
 /*!
- * \brief DataType ResponseEvaluator
+ * \brief DataType RssStateEvaluator
  *
  * The method used to evaluate the respone.
  */
-enum class ResponseEvaluator : int32_t
+enum class RssStateEvaluator : int32_t
 {
   /*!
    * Not evaluated.
@@ -116,9 +116,9 @@ enum class ResponseEvaluator : int32_t
 } // namespace state
 } // namespace ad_rss
 /*!
- * \brief Conversion of ::ad_rss::state::ResponseEvaluator to std::string helper.
+ * \brief Conversion of ::ad_rss::state::RssStateEvaluator to std::string helper.
  */
-std::string toString(::ad_rss::state::ResponseEvaluator const e);
+std::string toString(::ad_rss::state::RssStateEvaluator const e);
 
 /*!
  * \brief Conversion from std::string to enum type T helper.
@@ -158,4 +158,4 @@ template <typename EnumType> EnumType fromString(std::string const &str);
  *   assert(value == SomeEnumType::eValue);
  * \endcode
  */
-template <>::ad_rss::state::ResponseEvaluator fromString(std::string const &str);
+template <>::ad_rss::state::RssStateEvaluator fromString(std::string const &str);

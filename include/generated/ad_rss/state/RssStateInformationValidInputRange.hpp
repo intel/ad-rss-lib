@@ -41,33 +41,29 @@
 
 #include <cmath>
 #include <limits>
-#include "ad_rss/state/ResponseEvaluator.hpp"
+#include "ad_rss/physics/DistanceValidInputRange.hpp"
+#include "ad_rss/state/RssStateEvaluatorValidInputRange.hpp"
+#include "ad_rss/state/RssStateInformation.hpp"
 
 /*!
- * \brief check if the given ResponseEvaluator is within valid input range
+ * \brief check if the given RssStateInformation is within valid input range
  *
- * \param[in] input the ResponseEvaluator as an input value
+ * \param[in] input the RssStateInformation as an input value
  *
- * \returns \c true if ResponseEvaluator is considered to be within the specified input range
+ * \returns \c true if RssStateInformation is considered to be within the specified input range
  *
- * \note the specified input range is defined by the valid enum literals.
+ * \note the specified input range is defined by the ranges of all members
  */
-inline bool withinValidInputRange(::ad_rss::state::ResponseEvaluator const &input)
+inline bool withinValidInputRange(::ad_rss::state::RssStateInformation const &input)
 {
   try
   {
     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
-    return (input == ::ad_rss::state::ResponseEvaluator::None)
-      || (input == ::ad_rss::state::ResponseEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane)
-      || (input == ::ad_rss::state::ResponseEvaluator::LongitudinalDistanceOppositeDirection)
-      || (input == ::ad_rss::state::ResponseEvaluator::LongitudinalDistanceSameDirectionEgoFront)
-      || (input == ::ad_rss::state::ResponseEvaluator::LongitudinalDistanceSameDirectionOtherInFront)
-      || (input == ::ad_rss::state::ResponseEvaluator::LateralDistance)
-      || (input == ::ad_rss::state::ResponseEvaluator::IntersectionOtherPriorityEgoAbleToStop)
-      || (input == ::ad_rss::state::ResponseEvaluator::IntersectionEgoPriorityOtherAbleToStop)
-      || (input == ::ad_rss::state::ResponseEvaluator::IntersectionEgoInFront)
-      || (input == ::ad_rss::state::ResponseEvaluator::IntersectionOtherInFront)
-      || (input == ::ad_rss::state::ResponseEvaluator::IntersectionOverlap);
+    // check for generic member input ranges
+    bool const membersInValidInputRange = withinValidInputRange(input.safeDistance)
+      && withinValidInputRange(input.currentDistance) && withinValidInputRange(input.evaluator);
+
+    return membersInValidInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
   }
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes

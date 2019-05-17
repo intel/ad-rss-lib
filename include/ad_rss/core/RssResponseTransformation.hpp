@@ -34,7 +34,7 @@
 
 #pragma once
 
-#include "ad_rss/state/ResponseState.hpp"
+#include "ad_rss/state/ProperResponse.hpp"
 #include "ad_rss/world/AccelerationRestriction.hpp"
 #include "ad_rss/world/WorldModel.hpp"
 
@@ -68,7 +68,7 @@ namespace RssResponseTransformation {
  * @return return true if the acceleration restrictions could be calculated, false otherwise.
  */
 bool transformProperResponse(world::WorldModel const &worldModel,
-                             state::ResponseState const &response,
+                             state::ProperResponse const &response,
                              world::AccelerationRestriction &accelerationRestriction);
 
 } // namespace RssResponseTransformation

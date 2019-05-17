@@ -41,7 +41,6 @@ protected:
   virtual void SetUp()
   {
     situation.situationType = SituationType::IntersectionEgoHasPriority;
-    situation.timeIndex = 1u;
   }
 
   virtual void TearDown()
@@ -51,7 +50,8 @@ protected:
   VehicleState leadingVehicle;
   VehicleState followingVehicle;
   Situation situation;
-  state::ResponseState responseState;
+  state::RssState rssState;
+  physics::TimeIndex timeIndex{1u};
 };
 
 TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_leading)
@@ -73,11 +73,11 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_le
   situation.egoVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(10.));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
-            TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
-  ASSERT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 }
 
 TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_following)
@@ -96,12 +96,12 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_fo
   situation.egoVehicleState.hasPriority = true;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(60.));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_TRUE(responseState.longitudinalState.isSafe);
-  ASSERT_EQ(responseState.longitudinalState,
-            TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
-  ASSERT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(rssState.longitudinalState.isSafe);
+  ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 }
 
 TEST_F(RssSituationCheckingTestsIntersectionPriority, 50km_h_stop_before_intersection)
@@ -122,14 +122,12 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50km_h_stop_before_interse
   situation.egoVehicleState.hasPriority = true;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(30.));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_TRUE(responseState.longitudinalState.isSafe);
-  ASSERT_EQ(responseState.longitudinalState,
-            TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
-  ASSERT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
-
-  situation.timeIndex++;
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(rssState.longitudinalState.isSafe);
+  ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 
   situation.otherVehicleState.distanceToEnterIntersection = Distance(70.);
   situation.otherVehicleState.distanceToLeaveIntersection = Distance(70.);
@@ -137,12 +135,12 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50km_h_stop_before_interse
   situation.egoVehicleState.distanceToLeaveIntersection = Distance(100.);
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::Overlap, Distance(0.));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_FALSE(responseState.longitudinalState.isSafe);
-  ASSERT_EQ(responseState.longitudinalState,
-            TestSupport::stateWithInformation(cTestSupport.cLongitudinalNone, situation));
-  ASSERT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
-  ASSERT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_FALSE(rssState.longitudinalState.isSafe);
+  ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalNone, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 }
 
 } // namespace situation

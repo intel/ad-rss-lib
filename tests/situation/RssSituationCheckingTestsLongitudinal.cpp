@@ -41,7 +41,6 @@ protected:
   virtual void SetUp()
   {
     situation.situationType = SituationType::SameDirection;
-    situation.timeIndex = 1u;
   }
 
   virtual void TearDown()
@@ -51,7 +50,8 @@ protected:
   VehicleState leadingVehicle;
   VehicleState followingVehicle;
   Situation situation;
-  state::ResponseState responseState;
+  state::RssState rssState;
+  physics::TimeIndex timeIndex{1u};
 };
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_ego_safe_distance)
@@ -63,13 +63,11 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_ego_safe_di
   situation.otherVehicleState = followingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(95.));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
-            TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(responseState.lateralStateLeft,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateRight,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 }
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_safe)
@@ -83,13 +81,11 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(60.));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
-            TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(responseState.lateralStateLeft,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateRight,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 }
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_unsafe)
@@ -103,13 +99,12 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(39.));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState,
             TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateLeft,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateRight,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 }
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_other_standing)
@@ -123,24 +118,20 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(71.8));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
-            TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(responseState.lateralStateLeft,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateRight,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(71.6));
-  situation.timeIndex++;
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState,
             TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateLeft,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateRight,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 }
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_0kmh_other_standing)
@@ -154,24 +145,20 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_0kmh_
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(6.1));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
-            TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(responseState.lateralStateLeft,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateRight,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(6.));
-  situation.timeIndex++;
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState,
             TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateLeft,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateRight,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 }
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_both_negative_velocity)
@@ -183,7 +170,8 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_both_negative_veloc
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(71.6));
 
-  ASSERT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
 }
 
 } // namespace situation

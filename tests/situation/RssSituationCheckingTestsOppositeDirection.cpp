@@ -41,7 +41,6 @@ protected:
   virtual void SetUp()
   {
     situation.situationType = SituationType::OppositeDirection;
-    situation.timeIndex = 1u;
   }
 
   virtual void TearDown()
@@ -51,7 +50,8 @@ protected:
   VehicleState correctVehicle;
   VehicleState oppositeVehicle;
   Situation situation;
-  state::ResponseState responseState;
+  state::RssState rssState;
+  physics::TimeIndex timeIndex{1u};
 };
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_brake_min_correct)
@@ -64,13 +64,12 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_brake_min_correct)
   situation.otherVehicleState = oppositeVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(178.));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState,
             TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMinCorrect, situation));
-  ASSERT_EQ(responseState.lateralStateLeft,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateRight,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 }
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_shorter_ego_reaction_time)
@@ -85,24 +84,20 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_shorter_ego_reaction_ti
 
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(178.));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
-            TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(responseState.lateralStateLeft,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateRight,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(150.));
-  situation.timeIndex++;
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState,
             TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMinCorrect, situation));
-  ASSERT_EQ(responseState.lateralStateLeft,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateRight,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 }
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_safe)
@@ -115,13 +110,11 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_safe)
   situation.otherVehicleState = oppositeVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(197.));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
-            TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(responseState.lateralStateLeft,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateRight,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 }
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_BrakeMinCorrect)
@@ -134,13 +127,12 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_BrakeMinCorrect)
   situation.otherVehicleState = oppositeVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(196.));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState,
             TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMinCorrect, situation));
-  ASSERT_EQ(responseState.lateralStateLeft,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateRight,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 }
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_response_1s_safe)
@@ -154,13 +146,11 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_response_1s_safe)
   situation.otherVehicleState = oppositeVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(196.));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
-            TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(responseState.lateralStateLeft,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateRight,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 }
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_brake_min_correct_ego_vehicle_in_front)
@@ -174,13 +164,12 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_brake_min_correct_ego_v
   situation.relativePosition
     = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(178.7));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState,
             TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMinCorrect, situation));
-  ASSERT_EQ(responseState.lateralStateLeft,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateRight,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 }
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_vehicles_at_same_position)
@@ -194,13 +183,12 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_vehicles_at_same_positi
   situation.relativePosition
     = createRelativeLongitudinalPosition(LongitudinalRelativePosition::OverlapFront, Distance(0.));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState,
             TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMinCorrect, situation));
-  ASSERT_EQ(responseState.lateralStateLeft,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateRight,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 }
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, incorrect_vehicle_state_ego)
@@ -216,7 +204,8 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, incorrect_vehicle_state_ego)
   situation.relativePosition
     = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(178.7));
 
-  ASSERT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
 }
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, incorrect_vehicle_state_other)
@@ -232,7 +221,8 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, incorrect_vehicle_state_other
   situation.relativePosition
     = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(178.7));
 
-  ASSERT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
 }
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_brake_min_ego_opposite)
@@ -246,13 +236,12 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_brake_min_ego_opposite)
   situation.relativePosition
     = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(178.7));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState,
             TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateLeft,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(responseState.lateralStateRight,
-            TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 }
 
 } // namespace situation

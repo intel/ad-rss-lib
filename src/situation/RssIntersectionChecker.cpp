@@ -66,28 +66,28 @@ bool checkLateralIntersect(Situation const &situation, bool &isSafe)
   Duration timeToLeaveEgo;
   Duration timeToLeaveOther;
 
-  bool result = calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon,
+  bool result = calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon.maximum,
                                              situation.egoVehicleState.dynamics.responseTime,
                                              situation.egoVehicleState.dynamics.alphaLon.accelMax,
                                              situation.egoVehicleState.dynamics.alphaLon.brakeMin,
                                              situation.egoVehicleState.distanceToEnterIntersection,
                                              timeToReachEgo);
 
-  result = result && calculateTimeToCoverDistance(situation.otherVehicleState.velocity.speedLon,
+  result = result && calculateTimeToCoverDistance(situation.otherVehicleState.velocity.speedLon.maximum,
                                                   situation.otherVehicleState.dynamics.responseTime,
                                                   situation.otherVehicleState.dynamics.alphaLon.accelMax,
                                                   situation.otherVehicleState.dynamics.alphaLon.brakeMin,
                                                   situation.otherVehicleState.distanceToEnterIntersection,
                                                   timeToReachOther);
 
-  result = result && calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon,
+  result = result && calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon.minimum,
                                                   situation.egoVehicleState.dynamics.responseTime,
                                                   -1. * situation.egoVehicleState.dynamics.alphaLon.brakeMax,
                                                   situation.egoVehicleState.dynamics.alphaLon.brakeMax,
                                                   situation.egoVehicleState.distanceToLeaveIntersection,
                                                   timeToLeaveEgo);
 
-  result = result && calculateTimeToCoverDistance(situation.otherVehicleState.velocity.speedLon,
+  result = result && calculateTimeToCoverDistance(situation.otherVehicleState.velocity.speedLon.minimum,
                                                   situation.otherVehicleState.dynamics.responseTime,
                                                   -1. * situation.otherVehicleState.dynamics.alphaLon.brakeMax,
                                                   situation.otherVehicleState.dynamics.alphaLon.brakeMax,
@@ -112,7 +112,7 @@ bool checkLateralIntersect(Situation const &situation, bool &isSafe)
 }
 
 bool checkIntersectionSafe(Situation const &situation,
-                           ::ad_rss::state::ResponseInformation &responseInformation,
+                           ::ad_rss::state::RssStateInformation &rssStateInformation,
                            bool &isSafe,
                            IntersectionState &intersectionState)
 {
@@ -131,15 +131,15 @@ bool checkIntersectionSafe(Situation const &situation,
    */
   if (!situation.egoVehicleState.hasPriority)
   {
-    responseInformation.responseEvaluator = state::ResponseEvaluator::IntersectionOtherPriorityEgoAbleToStop;
-    responseInformation.currentDistance = situation.egoVehicleState.distanceToEnterIntersection;
-    result = checkStopInFrontIntersection(situation.egoVehicleState, responseInformation.safeDistance, isSafe);
+    rssStateInformation.evaluator = state::RssStateEvaluator::IntersectionOtherPriorityEgoAbleToStop;
+    rssStateInformation.currentDistance = situation.egoVehicleState.distanceToEnterIntersection;
+    result = checkStopInFrontIntersection(situation.egoVehicleState, rssStateInformation.safeDistance, isSafe);
   }
   if (result && !isSafe && !situation.otherVehicleState.hasPriority)
   {
-    responseInformation.responseEvaluator = state::ResponseEvaluator::IntersectionEgoPriorityOtherAbleToStop;
-    responseInformation.currentDistance = situation.otherVehicleState.distanceToEnterIntersection;
-    result = checkStopInFrontIntersection(situation.otherVehicleState, responseInformation.safeDistance, isSafe);
+    rssStateInformation.evaluator = state::RssStateEvaluator::IntersectionEgoPriorityOtherAbleToStop;
+    rssStateInformation.currentDistance = situation.otherVehicleState.distanceToEnterIntersection;
+    result = checkStopInFrontIntersection(situation.otherVehicleState, rssStateInformation.safeDistance, isSafe);
   }
 
   if (isSafe)
@@ -148,26 +148,26 @@ bool checkIntersectionSafe(Situation const &situation,
   }
   else if (result)
   {
-    responseInformation.currentDistance = situation.relativePosition.longitudinalDistance;
+    rssStateInformation.currentDistance = situation.relativePosition.longitudinalDistance;
     /**
      * Check if there is a safe longitudinal distance between the vehicles
      */
     if (situation.relativePosition.longitudinalPosition == LongitudinalRelativePosition::InFront)
     {
-      responseInformation.responseEvaluator = state::ResponseEvaluator::IntersectionEgoInFront;
+      rssStateInformation.evaluator = state::RssStateEvaluator::IntersectionEgoInFront;
       result = checkSafeLongitudinalDistanceSameDirection(situation.egoVehicleState,
                                                           situation.otherVehicleState,
                                                           situation.relativePosition.longitudinalDistance,
-                                                          responseInformation.safeDistance,
+                                                          rssStateInformation.safeDistance,
                                                           isSafe);
     }
     else
     {
-      responseInformation.responseEvaluator = state::ResponseEvaluator::IntersectionOtherInFront;
+      rssStateInformation.evaluator = state::RssStateEvaluator::IntersectionOtherInFront;
       result = checkSafeLongitudinalDistanceSameDirection(situation.otherVehicleState,
                                                           situation.egoVehicleState,
                                                           situation.relativePosition.longitudinalDistance,
-                                                          responseInformation.safeDistance,
+                                                          rssStateInformation.safeDistance,
                                                           isSafe);
     }
     if (isSafe)
@@ -176,9 +176,9 @@ bool checkIntersectionSafe(Situation const &situation,
     }
     else if (result)
     {
-      responseInformation.responseEvaluator = state::ResponseEvaluator::IntersectionOverlap;
-      responseInformation.currentDistance = physics::Distance(0.);
-      responseInformation.safeDistance = physics::Distance(0.);
+      rssStateInformation.evaluator = state::RssStateEvaluator::IntersectionOverlap;
+      rssStateInformation.currentDistance = physics::Distance(0.);
+      rssStateInformation.safeDistance = physics::Distance(0.);
       result = checkLateralIntersect(situation, isSafe);
 
       if (isSafe)
@@ -191,7 +191,9 @@ bool checkIntersectionSafe(Situation const &situation,
   return result;
 }
 
-bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situation, state::ResponseState &rssState)
+bool RssIntersectionChecker::calculateRssStateIntersection(physics::TimeIndex const &timeIndex,
+                                                           Situation const &situation,
+                                                           state::RssState &rssState)
 {
   if (situation.egoVehicleState.hasPriority && situation.otherVehicleState.hasPriority)
   {
@@ -201,14 +203,14 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
   bool result = false;
   try
   {
-    if (situation.timeIndex != mCurrentTimeIndex)
+    if (timeIndex != mCurrentTimeIndex)
     {
       /**
        * next time step: current safe state map becomes last state now
        */
       mLastSafeStateMap.swap(mCurrentSafeStateMap);
       mCurrentSafeStateMap.clear();
-      mCurrentTimeIndex = situation.timeIndex;
+      mCurrentTimeIndex = timeIndex;
     }
 
     rssState.longitudinalState.isSafe = false;
@@ -220,14 +222,14 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
      */
     rssState.lateralStateLeft.isSafe = false;
     rssState.lateralStateLeft.response = ::ad_rss::state::LateralResponse::None;
-    rssState.lateralStateLeft.responseInformation.responseEvaluator = state::ResponseEvaluator::LateralDistance;
-    rssState.lateralStateLeft.responseInformation.currentDistance = physics::Distance(0);
-    rssState.lateralStateLeft.responseInformation.safeDistance = physics::Distance(0);
+    rssState.lateralStateLeft.rssStateInformation.evaluator = state::RssStateEvaluator::LateralDistance;
+    rssState.lateralStateLeft.rssStateInformation.currentDistance = physics::Distance(0);
+    rssState.lateralStateLeft.rssStateInformation.safeDistance = physics::Distance(0);
     rssState.lateralStateRight.isSafe = false;
     rssState.lateralStateRight.response = ::ad_rss::state::LateralResponse::None;
-    rssState.lateralStateRight.responseInformation.responseEvaluator = state::ResponseEvaluator::LateralDistance;
-    rssState.lateralStateRight.responseInformation.currentDistance = physics::Distance(0);
-    rssState.lateralStateRight.responseInformation.safeDistance = physics::Distance(0);
+    rssState.lateralStateRight.rssStateInformation.evaluator = state::RssStateEvaluator::LateralDistance;
+    rssState.lateralStateRight.rssStateInformation.currentDistance = physics::Distance(0);
+    rssState.lateralStateRight.rssStateInformation.safeDistance = physics::Distance(0);
 
     bool isSafe = false;
     IntersectionState intersectionState = IntersectionState::NonPrioAbleToBreak;
@@ -236,7 +238,7 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
      * Check if the intersection is safe and determine the intersection state of the situation
      */
     result
-      = checkIntersectionSafe(situation, rssState.longitudinalState.responseInformation, isSafe, intersectionState);
+      = checkIntersectionSafe(situation, rssState.longitudinalState.rssStateInformation, isSafe, intersectionState);
 
     if (result)
     {
@@ -271,7 +273,7 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
             }
             case IntersectionState::NoTimeOverlap:
             {
-              // @todo If we don't assume always lateral overlap we might need to brake lateraly aswell
+              // @todo If we don't assume always lateral overlap we might need to brake laterally as well
               rssState.longitudinalState.response = ::ad_rss::state::LongitudinalResponse::BrakeMin;
               break;
             }
@@ -293,9 +295,9 @@ bool RssIntersectionChecker::calculateRssStateIntersection(Situation const &situ
         else
         {
           /**
-           * Situation is unsafe but there is no previous safe state. This must not happen.
+           * Situation is unsafe but there is no previous safe state. Therefore we can only decide to brake.
            */
-          result = false;
+          rssState.longitudinalState.response = ::ad_rss::state::LongitudinalResponse::BrakeMin;
         }
       }
       else

@@ -317,8 +317,8 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(physics::TimeInde
 
   try
   {
-    situation.timeIndex = timeIndex;
     situation.situationId = mSituationIdProvider->getSituationId(timeIndex, currentScene);
+    situation.objectId = currentScene.object.objectId;
     situation.situationType = currentScene.situationType;
 
     situation.egoVehicleState.hasPriority = false;
@@ -372,13 +372,12 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(physics::TimeInde
   return result;
 }
 
-bool RssSituationExtraction::mergeVehicleStates(situation::VehicleState const &otherVehicleState,
+bool RssSituationExtraction::mergeVehicleStates(MergeMode const &mergeMode,
+                                                situation::VehicleState const &otherVehicleState,
                                                 situation::VehicleState &mergedVehicleState)
 {
   // on vehicle states there are only differences in intersection distances allowed due to different road definitions
-  if ((otherVehicleState.velocity.speedLat != mergedVehicleState.velocity.speedLat)
-      || (otherVehicleState.velocity.speedLon != mergedVehicleState.velocity.speedLon)
-      || (otherVehicleState.dynamics.alphaLat.accelMax != mergedVehicleState.dynamics.alphaLat.accelMax)
+  if ((otherVehicleState.dynamics.alphaLat.accelMax != mergedVehicleState.dynamics.alphaLat.accelMax)
       || (otherVehicleState.dynamics.alphaLat.brakeMin != mergedVehicleState.dynamics.alphaLat.brakeMin)
       || (otherVehicleState.dynamics.alphaLon.accelMax != mergedVehicleState.dynamics.alphaLon.accelMax)
       || (otherVehicleState.dynamics.alphaLon.brakeMinCorrect != mergedVehicleState.dynamics.alphaLon.brakeMinCorrect)
@@ -386,16 +385,35 @@ bool RssSituationExtraction::mergeVehicleStates(situation::VehicleState const &o
       || (otherVehicleState.dynamics.alphaLon.brakeMax != mergedVehicleState.dynamics.alphaLon.brakeMax)
       || (otherVehicleState.dynamics.lateralFluctuationMargin != mergedVehicleState.dynamics.lateralFluctuationMargin)
       || (otherVehicleState.dynamics.responseTime != mergedVehicleState.dynamics.responseTime)
-      || (otherVehicleState.hasPriority != mergedVehicleState.hasPriority)
-      || (otherVehicleState.isInCorrectLane != mergedVehicleState.isInCorrectLane))
+      || (otherVehicleState.hasPriority != mergedVehicleState.hasPriority))
   {
     return false;
   }
-  // store the worst case
+  // consider the worst cases
+  if (mergeMode == MergeMode::EgoVehicle)
+  {
+    // worst case for ego vehicle is not driving in correct lane
+    mergedVehicleState.isInCorrectLane = mergedVehicleState.isInCorrectLane && otherVehicleState.isInCorrectLane;
+  }
+  else
+  {
+    // worst case for other vehicle is driving in correct lane
+    mergedVehicleState.isInCorrectLane = mergedVehicleState.isInCorrectLane || otherVehicleState.isInCorrectLane;
+  }
+
   mergedVehicleState.distanceToEnterIntersection
     = std::min(mergedVehicleState.distanceToEnterIntersection, otherVehicleState.distanceToEnterIntersection);
   mergedVehicleState.distanceToLeaveIntersection
     = std::max(mergedVehicleState.distanceToLeaveIntersection, otherVehicleState.distanceToLeaveIntersection);
+  mergedVehicleState.velocity.speedLon.minimum
+    = std::min(mergedVehicleState.velocity.speedLon.minimum, otherVehicleState.velocity.speedLon.minimum);
+  mergedVehicleState.velocity.speedLon.maximum
+    = std::max(mergedVehicleState.velocity.speedLon.maximum, otherVehicleState.velocity.speedLon.maximum);
+  mergedVehicleState.velocity.speedLat.minimum
+    = std::min(mergedVehicleState.velocity.speedLat.minimum, otherVehicleState.velocity.speedLat.minimum);
+  mergedVehicleState.velocity.speedLat.maximum
+    = std::max(mergedVehicleState.velocity.speedLat.maximum, otherVehicleState.velocity.speedLat.maximum);
+
   return true;
 }
 
@@ -403,15 +421,11 @@ bool RssSituationExtraction::mergeSituations(situation::Situation const &otherSi
                                              situation::Situation &mergedSituation)
 {
   if ( // basic data has to match
-    (otherSituation.timeIndex != mergedSituation.timeIndex)
-    || (otherSituation.situationId != mergedSituation.situationId)
+    (otherSituation.situationId != mergedSituation.situationId) || (otherSituation.objectId != mergedSituation.objectId)
     || (otherSituation.situationType != mergedSituation.situationType)
-    // vehicle states
-    || !mergeVehicleStates(otherSituation.egoVehicleState, mergedSituation.egoVehicleState)
-    || !mergeVehicleStates(otherSituation.otherVehicleState, mergedSituation.otherVehicleState)
-    // relative position
-    || (otherSituation.relativePosition.longitudinalPosition != mergedSituation.relativePosition.longitudinalPosition)
-    || (otherSituation.relativePosition.lateralPosition != mergedSituation.relativePosition.lateralPosition))
+    || !mergeVehicleStates(MergeMode::EgoVehicle, otherSituation.egoVehicleState, mergedSituation.egoVehicleState)
+    || !mergeVehicleStates(
+         MergeMode::OtherVehicle, otherSituation.otherVehicleState, mergedSituation.otherVehicleState))
   {
     return false;
   }
@@ -419,14 +433,89 @@ bool RssSituationExtraction::mergeSituations(situation::Situation const &otherSi
   // worst case
   mergedSituation.relativePosition.longitudinalDistance = std::min(
     mergedSituation.relativePosition.longitudinalDistance, otherSituation.relativePosition.longitudinalDistance);
+  if (otherSituation.relativePosition.longitudinalPosition != mergedSituation.relativePosition.longitudinalPosition)
+  {
+    if ((mergedSituation.relativePosition.longitudinalPosition == situation::LongitudinalRelativePosition::Overlap)
+        || (otherSituation.relativePosition.longitudinalPosition == situation::LongitudinalRelativePosition::Overlap)
+        || ((mergedSituation.relativePosition.longitudinalPosition < situation::LongitudinalRelativePosition::Overlap)
+            && (otherSituation.relativePosition.longitudinalPosition
+                > situation::LongitudinalRelativePosition::Overlap))
+        || ((mergedSituation.relativePosition.longitudinalPosition > situation::LongitudinalRelativePosition::Overlap)
+            && (otherSituation.relativePosition.longitudinalPosition
+                < situation::LongitudinalRelativePosition::Overlap)))
+    {
+      // overlap is also worst case for contradicting input, ensure the longitudinal distance becomes 0.
+      mergedSituation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;
+      mergedSituation.relativePosition.longitudinalDistance = Distance(0.);
+    }
+    else if ((mergedSituation.relativePosition.longitudinalPosition
+              == situation::LongitudinalRelativePosition::OverlapFront)
+             || (otherSituation.relativePosition.longitudinalPosition
+                 == situation::LongitudinalRelativePosition::OverlapFront))
+    {
+      // one of the both is overlap font (the other then only can be InFront in here)
+      mergedSituation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::OverlapFront;
+    }
+    else if ((mergedSituation.relativePosition.longitudinalPosition
+              == situation::LongitudinalRelativePosition::OverlapBack)
+             || (otherSituation.relativePosition.longitudinalPosition
+                 == situation::LongitudinalRelativePosition::OverlapBack))
+    {
+      // one of the both is overlap back (the other then only can be AtBack in here)
+      mergedSituation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::OverlapBack;
+    }
+    else
+    {
+      // LCOV_EXCL_START: unreachable code, keep to be on the safe side
+      // this is impossible to reach, set to overlap having longitudinal distance to 0. to be on the safe side
+      mergedSituation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;
+      mergedSituation.relativePosition.longitudinalDistance = Distance(0.);
+      // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
+    }
+  }
+
   mergedSituation.relativePosition.lateralDistance
     = std::min(mergedSituation.relativePosition.lateralDistance, otherSituation.relativePosition.lateralDistance);
+  if (otherSituation.relativePosition.lateralPosition != mergedSituation.relativePosition.lateralPosition)
+  {
+    if ((mergedSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::Overlap)
+        || (otherSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::Overlap)
+        || ((mergedSituation.relativePosition.lateralPosition < situation::LateralRelativePosition::Overlap)
+            && (otherSituation.relativePosition.lateralPosition > situation::LateralRelativePosition::Overlap))
+        || ((mergedSituation.relativePosition.lateralPosition > situation::LateralRelativePosition::Overlap)
+            && (otherSituation.relativePosition.lateralPosition < situation::LateralRelativePosition::Overlap)))
+    {
+      // overlap is also worst case for contradicting input, ensure the lateral distance becomes 0.
+      mergedSituation.relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
+      mergedSituation.relativePosition.lateralDistance = Distance(0.);
+    }
+    else if ((mergedSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::OverlapLeft)
+             || (otherSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::OverlapLeft))
+    {
+      // one of the both is overlap left (the other then only can be AtLeft in here)
+      mergedSituation.relativePosition.lateralPosition = situation::LateralRelativePosition::OverlapLeft;
+    }
+    else if ((mergedSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::OverlapRight)
+             || (otherSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::OverlapRight))
+    {
+      // one of the both is overlap right (the other then only can be AtRight in here)
+      mergedSituation.relativePosition.lateralPosition = situation::LateralRelativePosition::OverlapRight;
+    }
+    else
+    {
+      // LCOV_EXCL_START: unreachable code, keep to be on the safe side
+      // this is impossible to reach, set to overlap having lateral distance to 0. to be on the safe side
+      mergedSituation.relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
+      mergedSituation.relativePosition.lateralDistance = Distance(0.);
+      // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
+    }
+  }
 
   return true;
 }
 
 bool RssSituationExtraction::extractSituations(world::WorldModel const &worldModel,
-                                               situation::SituationVector &situationVector)
+                                               situation::SituationSnapshot &situationSnapshot)
 {
   if (!withinValidInputRange(worldModel))
   {
@@ -436,27 +525,29 @@ bool RssSituationExtraction::extractSituations(world::WorldModel const &worldMod
   bool result = true;
   try
   {
+    situationSnapshot.timeIndex = worldModel.timeIndex;
+    situationSnapshot.situations.clear();
     for (auto const &scene : worldModel.scenes)
     {
       situation::Situation situation;
       bool const extractResult
         = extractSituationInputRangeChecked(worldModel.timeIndex, worldModel.egoVehicleRssDynamics, scene, situation);
 
-      // if the situation is relevant, add it to situationVector
+      // if the situation is relevant, add it to situationSnapshot
       if (scene.situationType != ad_rss::situation::SituationType::NotRelevant)
       {
         if (extractResult)
         {
           // situation id creation might detect that different scenes are representing identical situations
-          // ensure the situationVector is unique while containing the worst-case situation
-          auto findResult = std::find_if(situationVector.begin(),
-                                         situationVector.end(),
+          // ensure the situationSnapshot is unique while containing the worst-case situation
+          auto findResult = std::find_if(situationSnapshot.situations.begin(),
+                                         situationSnapshot.situations.end(),
                                          [&situation](ad_rss::situation::Situation const &checkSituation) {
                                            return checkSituation.situationId == situation.situationId;
                                          });
-          if (findResult == situationVector.end())
+          if (findResult == situationSnapshot.situations.end())
           {
-            situationVector.push_back(situation);
+            situationSnapshot.situations.push_back(situation);
           }
           else if (!mergeSituations(situation, *findResult))
           {

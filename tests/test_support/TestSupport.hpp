@@ -38,8 +38,10 @@
 #include "ad_rss/situation/RelativePosition.hpp"
 #include "ad_rss/situation/Situation.hpp"
 #include "ad_rss/situation/VehicleState.hpp"
-#include "ad_rss/state/ResponseState.hpp"
+#include "ad_rss/state/ProperResponse.hpp"
+#include "ad_rss/state/RssState.hpp"
 #include "ad_rss/world/Object.hpp"
+#include "ad_rss/world/RoadSegment.hpp"
 #include "physics/Math.hpp"
 
 namespace ad_rss {
@@ -70,12 +72,20 @@ void resetRssState(state::LongitudinalRssState &state);
 void resetRssState(state::LateralRssState &state);
 
 /**
- * @brief resets the RSS state within the ResponseState to it's safe state
+ * @brief resets the RSS state within the RssState to it's safe state
  *
- * @param[in/out] responseState the response state to be reset
- * @param[in] situationId the situation id to be set within the ResponseState
+ * @param[in/out] rssState the response state to be reset
+ * @param[in] situationId the situation id to be set within the RssState
+ * @param[in] objectId the object id to be set within the RssState
  */
-void resetRssState(state::ResponseState &responseState, situation::SituationId const situationId);
+void resetRssState(state::RssState &rssState, situation::SituationId const situationId, world::ObjectId const objectId);
+
+/**
+ * @brief resets the RSS state of the proper response to it's safe state
+ *
+ * @param[in/out] properResponse the the proper response to be reset
+ */
+void resetRssState(state::ProperResponse &properResponse);
 
 /**
  * @brief sets the RSS state to a specific unsafe state
@@ -201,14 +211,14 @@ situation::RelativePosition createRelativeLateralPosition(situation::LateralRela
 /**
  * @brief calculate the longitudinal stopping distance
  *
- * @param[in] objectVelocity the objectVelocity used for the calculation
+ * @param[in] objectSpeed the objectSpeed used for the calculation
  * @param[in] acceleration the acceleration to be applied for acceleration within response time
  * @param[in] deceleration the deceleration to be applied for braking
  * @param[in] responseTime the responseTime to be applied before braking
  *
  * @returns the distance required to stop when applying accelMax during the responseTime and then brake to the full stop
  */
-Distance calculateLongitudinalStoppingDistance(world::Velocity const &objectVelocity,
+Distance calculateLongitudinalStoppingDistance(physics::Speed const &objectSpeed,
                                                Acceleration const &acceleration,
                                                Acceleration const &deceleration,
                                                Duration const &responseTime);
@@ -216,27 +226,27 @@ Distance calculateLongitudinalStoppingDistance(world::Velocity const &objectVelo
 /**
  * @brief calculate the longitudinal min safe distance in following >>> leading configuration
  *
- * @param[in] followingObjectVelocity the object following at back: velocity
+ * @param[in] followingObjectSpeed the object following at back: velocity
  * @param[in] followingObjectRssDynamics the object following at back: RSS dynamics
- * @param[in] leadingObjectVelocity the object leading in front: velocity
+ * @param[in] leadingObjectSpeed the object leading in front: velocity
  * @param[in] leadingObjectRssDynamics the object leading in front: RSS dynamics
  *
  * @returns the minimum safe distance required that the following object does not crash into the leading object
  *  in case the leading object performs a brake with brakeMax and following object performs a stated braking pattern
  *  with (see calculateLongitudinalStoppingDistance) with brakeMin
  */
-Distance calculateLongitudinalMinSafeDistance(world::Velocity const &followingObjectVelocity,
+Distance calculateLongitudinalMinSafeDistance(physics::Speed const &followingObjectSpeed,
                                               world::RssDynamics const &followingObjectRssDynamics,
-                                              world::Velocity const &leadingObjectVelocity,
+                                              physics::Speed const &leadingObjectSpeed,
                                               world::RssDynamics const &leadingObjectRssDynamics);
 
 /**
  * @brief calculate the longitudinal min safe distance in opposite direction configuration with
  *   one object in correct lane and the other in the wrong
  *
- * @param[in] objectInCorrectLaneVelocity the object driving in the correct lane direction: velocity
+ * @param[in] objectInCorrectLaneSpeed the object driving in the correct lane direction: velocity
  * @param[in] objectInCorrectLaneRssDynamics the object driving in the correct lane direction: RSS dynamics
- * @param[in] objectNotInCorrectLaneVelocity the object driving in the wrong lane: velocity
+ * @param[in] objectNotInCorrectLaneSpeed the object driving in the wrong lane: velocity
  * @param[in] objectNotInCorrectLaneRssDynamics the object driving in the wrong lane: RSS dynamics
  *
  * @returns the minimum safe distance required that both objects are still able to break and not crash into each other.
@@ -245,25 +255,25 @@ Distance calculateLongitudinalMinSafeDistance(world::Velocity const &followingOb
  *  the object in wrong lane performs a stated braking pattern with brakeMin.
  */
 Distance
-calculateLongitudinalMinSafeDistanceOppositeDirection(world::Velocity const &objectInCorrectLaneVelocity,
+calculateLongitudinalMinSafeDistanceOppositeDirection(physics::Speed const &objectInCorrectLaneSpeed,
                                                       world::RssDynamics const &objectInCorrectLaneRssDynamics,
-                                                      world::Velocity const &objectNotInCorrectLaneVelocity,
+                                                      physics::Speed const &objectNotInCorrectLaneSpeed,
                                                       world::RssDynamics const &objectNotInCorrectLaneRssDynamics);
 
 /**
  * @brief calculate the lateral min safe distance of two objects
  *
- * @param[in] leftObjectVelocity the object driving on the left side: velocity
+ * @param[in] leftObjectSpeed the object driving on the left side: velocity
  * @param[in] leftObjectRssDynamics the object driving on the left side: RSS dynamics
- * @param[in] rightObjectVelocity the object driving on the right side: velocity
+ * @param[in] rightObjectSpeed the object driving on the right side: velocity
  * @param[in] rightObjectRssDynamics the object driving on the right side: RSS dynamics
  *
  * @returns the minimum safe distance required that both objects are still able to break and not crash into each other.
  *  Both objects perform a stated braking pattern with brakeMin in lateral direction.
  */
-Distance calculateLateralMinSafeDistance(world::Velocity const &leftObjectVelocity,
+Distance calculateLateralMinSafeDistance(physics::Speed const &leftObjectSpeed,
                                          world::RssDynamics const &leftObjectRssDynamics,
-                                         world::Velocity const &rightObjectVelocity,
+                                         physics::Speed const &rightObjectSpeed,
                                          world::RssDynamics const &rightObjectRssDynamics);
 
 /**
@@ -312,5 +322,36 @@ public:
 };
 
 extern const TestSupport cTestSupport;
+
+inline world::RoadSegment longitudinalNoDifferenceRoadSegment()
+{
+  world::RoadSegment roadSegment;
+  world::LaneSegment laneSegment;
+
+  laneSegment.id = 1;
+  laneSegment.length.minimum = Distance(10);
+  laneSegment.length.maximum = Distance(10);
+
+  laneSegment.width.minimum = Distance(5);
+  laneSegment.width.maximum = Distance(5);
+
+  roadSegment.push_back(laneSegment);
+  return roadSegment;
+}
+
+inline world::RoadSegment longitudinalDifferenceRoadSegment()
+{
+  world::RoadSegment roadSegment;
+  world::LaneSegment laneSegment;
+
+  laneSegment.id = 1;
+  laneSegment.length.minimum = Distance(5);
+  laneSegment.length.maximum = Distance(10);
+
+  laneSegment.width.minimum = Distance(5);
+  laneSegment.width.maximum = Distance(5);
+  roadSegment.push_back(laneSegment);
+  return roadSegment;
+}
 
 } // namespace ad_rss

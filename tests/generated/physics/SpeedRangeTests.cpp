@@ -37,90 +37,79 @@
 
 #include <gtest/gtest.h>
 #include <limits>
-#include "ad_rss/state/ResponseInformation.hpp"
+#include "ad_rss/physics/SpeedRange.hpp"
 
-class ResponseInformationTests : public testing::Test
+class SpeedRangeTests : public testing::Test
 {
 protected:
   virtual void SetUp() override
   {
     // valid initialization
-    ::ad_rss::state::ResponseInformation value;
-    ::ad_rss::physics::Distance valueSafeDistance(0.);
-    value.safeDistance = valueSafeDistance;
-    ::ad_rss::physics::Distance valueCurrentDistance(0.);
-    value.currentDistance = valueCurrentDistance;
-    ::ad_rss::state::ResponseEvaluator valueResponseEvaluator(::ad_rss::state::ResponseEvaluator::None);
-    value.responseEvaluator = valueResponseEvaluator;
+    ::ad_rss::physics::SpeedRange value;
+    ::ad_rss::physics::Speed valueMinimum(-100.);
+    value.minimum = valueMinimum;
+    ::ad_rss::physics::Speed valueMaximum(-100.);
+    value.maximum = valueMaximum;
+    value.maximum = value.minimum;
+    value.minimum = value.maximum;
     mValue = value;
   }
 
-  ::ad_rss::state::ResponseInformation mValue;
+  ::ad_rss::physics::SpeedRange mValue;
 };
 
-TEST_F(ResponseInformationTests, copyConstruction)
+TEST_F(SpeedRangeTests, copyConstruction)
 {
-  ::ad_rss::state::ResponseInformation value(mValue);
+  ::ad_rss::physics::SpeedRange value(mValue);
   EXPECT_EQ(mValue, value);
 }
 
-TEST_F(ResponseInformationTests, moveConstruction)
+TEST_F(SpeedRangeTests, moveConstruction)
 {
-  ::ad_rss::state::ResponseInformation value(std::move(::ad_rss::state::ResponseInformation(mValue)));
+  ::ad_rss::physics::SpeedRange value(std::move(::ad_rss::physics::SpeedRange(mValue)));
   EXPECT_EQ(mValue, value);
 }
 
-TEST_F(ResponseInformationTests, copyAssignment)
+TEST_F(SpeedRangeTests, copyAssignment)
 {
-  ::ad_rss::state::ResponseInformation value;
+  ::ad_rss::physics::SpeedRange value;
   value = mValue;
   EXPECT_EQ(mValue, value);
 }
 
-TEST_F(ResponseInformationTests, moveAssignment)
+TEST_F(SpeedRangeTests, moveAssignment)
 {
-  ::ad_rss::state::ResponseInformation value;
-  value = std::move(::ad_rss::state::ResponseInformation(mValue));
+  ::ad_rss::physics::SpeedRange value;
+  value = std::move(::ad_rss::physics::SpeedRange(mValue));
   EXPECT_EQ(mValue, value);
 }
 
-TEST_F(ResponseInformationTests, comparisonOperatorEqual)
+TEST_F(SpeedRangeTests, comparisonOperatorEqual)
 {
-  ::ad_rss::state::ResponseInformation valueA = mValue;
-  ::ad_rss::state::ResponseInformation valueB = mValue;
+  ::ad_rss::physics::SpeedRange valueA = mValue;
+  ::ad_rss::physics::SpeedRange valueB = mValue;
 
   EXPECT_TRUE(valueA == valueB);
   EXPECT_FALSE(valueA != valueB);
 }
 
-TEST_F(ResponseInformationTests, comparisonOperatorSafeDistanceDiffers)
+TEST_F(SpeedRangeTests, comparisonOperatorMinimumDiffers)
 {
-  ::ad_rss::state::ResponseInformation valueA = mValue;
-  ::ad_rss::physics::Distance safeDistance(1e6);
-  valueA.safeDistance = safeDistance;
-  ::ad_rss::state::ResponseInformation valueB = mValue;
+  ::ad_rss::physics::SpeedRange valueA = mValue;
+  ::ad_rss::physics::Speed minimum(100.);
+  valueA.minimum = minimum;
+  ::ad_rss::physics::SpeedRange valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(ResponseInformationTests, comparisonOperatorCurrentDistanceDiffers)
+TEST_F(SpeedRangeTests, comparisonOperatorMaximumDiffers)
 {
-  ::ad_rss::state::ResponseInformation valueA = mValue;
-  ::ad_rss::physics::Distance currentDistance(1e6);
-  valueA.currentDistance = currentDistance;
-  ::ad_rss::state::ResponseInformation valueB = mValue;
-
-  EXPECT_FALSE(valueA == valueB);
-  EXPECT_TRUE(valueA != valueB);
-}
-
-TEST_F(ResponseInformationTests, comparisonOperatorResponseEvaluatorDiffers)
-{
-  ::ad_rss::state::ResponseInformation valueA = mValue;
-  ::ad_rss::state::ResponseEvaluator responseEvaluator(::ad_rss::state::ResponseEvaluator::IntersectionOverlap);
-  valueA.responseEvaluator = responseEvaluator;
-  ::ad_rss::state::ResponseInformation valueB = mValue;
+  ::ad_rss::physics::SpeedRange valueA = mValue;
+  ::ad_rss::physics::Speed maximum(100.);
+  valueA.maximum = maximum;
+  ::ad_rss::physics::SpeedRange valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);

@@ -50,23 +50,23 @@ protected:
     situation.relativePosition.lateralDistance = Distance(0.);
     situation.relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
     situation.situationType = situation::SituationType::SameDirection;
-    situation.timeIndex = 1u;
+    situation.objectId = 1u;
   }
 
   virtual void performTestRun()
   {
-    EXPECT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
+    EXPECT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
   }
   RssSituationChecking situationChecking;
   situation::VehicleState leadingVehicle;
   situation::VehicleState followingVehicle;
   situation::Situation situation;
-  state::ResponseState responseState;
+  state::RssState rssState;
 };
 
 TEST_F(RssSituationCheckingInputRangeTests, validateTestSetup)
 {
-  EXPECT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
+  EXPECT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
 }
 
 /**
@@ -277,7 +277,7 @@ TEST_F(RssSituationCheckingInputRangeTests, lateral_invalid_acceleration_ego)
 }
 
 /**
- * Invalid responseState time
+ * Invalid rssState time
  */
 
 TEST_F(RssSituationCheckingInputRangeTests, invalid_response_time_zero_ego)
@@ -304,7 +304,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_correct_deceleration_br
   situation.egoVehicleState.dynamics.alphaLon.brakeMax = Acceleration(4.);
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = Acceleration(4.);
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, longitudinal_correct_deceleration_brake_min_equals_brake_min_correct)
@@ -313,7 +313,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_correct_deceleration_br
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = Acceleration(3.);
   situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = Acceleration(3.);
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
 }
 
 TEST_F(RssSituationCheckingInputRangeTests,
@@ -323,40 +323,32 @@ TEST_F(RssSituationCheckingInputRangeTests,
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = Acceleration(3.);
   situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = Acceleration(3.);
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
 }
 
-TEST_F(RssSituationCheckingInputRangeTests, situationVectorSizeRange)
+TEST_F(RssSituationCheckingInputRangeTests, situationSnapshotSizeRange)
 {
-  for (size_t situationCount = 0u; situationCount < 110u; situationCount += 5u)
+  for (size_t situationCount = 0u; situationCount < 1011u; situationCount += 10u)
   {
-    situation::SituationVector situationVector;
-    state::ResponseStateVector responseStateVector;
-    situationVector.resize(situationCount, situation);
+    situation::SituationSnapshot situationSnapshot;
+    state::RssStateSnapshot rssStateSnapshot;
+    situationSnapshot.situations.resize(situationCount, situation);
+    situationSnapshot.timeIndex = situationCount + 1u;
     for (size_t i = 0u; i < situationCount; ++i)
     {
-      situation.situationId = i;
-      situation.timeIndex = situationCount;
+      situationSnapshot.situations[i].situationId = i;
+      situationSnapshot.situations[i].objectId = i;
     }
 
-    if (situationCount <= 100u)
+    if (situationCount <= 1000u)
     {
-      EXPECT_TRUE(situationChecking.checkSituations(situationVector, responseStateVector));
+      EXPECT_TRUE(situationChecking.checkSituations(situationSnapshot, rssStateSnapshot));
     }
     else
     {
-      EXPECT_FALSE(situationChecking.checkSituations(situationVector, responseStateVector));
+      EXPECT_FALSE(situationChecking.checkSituations(situationSnapshot, rssStateSnapshot));
     }
   }
-}
-
-TEST_F(RssSituationCheckingInputRangeTests, situationVectorDifferentTimestamps)
-{
-  situation::SituationVector situationVector;
-  state::ResponseStateVector responseStateVector;
-  situationVector.resize(2, situation);
-  situationVector[0].timeIndex++;
-  ASSERT_FALSE(situationChecking.checkSituations(situationVector, responseStateVector));
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, invalid_situation_type)

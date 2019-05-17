@@ -46,12 +46,22 @@ protected:
   {
     // valid initialization
     ::ad_rss::situation::VehicleState value;
-    ::ad_rss::world::Velocity valueVelocity;
-    ::ad_rss::physics::Speed valueVelocitySpeedLon(-100.);
-    valueVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+    ::ad_rss::situation::VelocityRange valueVelocity;
+    ::ad_rss::physics::SpeedRange valueVelocitySpeedLon;
+    ::ad_rss::physics::Speed valueVelocitySpeedLonMinimum(-100.);
+    valueVelocitySpeedLon.minimum = valueVelocitySpeedLonMinimum;
+    ::ad_rss::physics::Speed valueVelocitySpeedLonMaximum(-100.);
+    valueVelocitySpeedLon.maximum = valueVelocitySpeedLonMaximum;
+    valueVelocitySpeedLon.maximum = valueVelocitySpeedLon.minimum;
+    valueVelocitySpeedLon.minimum = valueVelocitySpeedLon.maximum;
     valueVelocity.speedLon = valueVelocitySpeedLon;
-    ::ad_rss::physics::Speed valueVelocitySpeedLat(-100.);
-    valueVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+    ::ad_rss::physics::SpeedRange valueVelocitySpeedLat;
+    ::ad_rss::physics::Speed valueVelocitySpeedLatMinimum(-100.);
+    valueVelocitySpeedLat.minimum = valueVelocitySpeedLatMinimum;
+    ::ad_rss::physics::Speed valueVelocitySpeedLatMaximum(-100.);
+    valueVelocitySpeedLat.maximum = valueVelocitySpeedLatMaximum;
+    valueVelocitySpeedLat.maximum = valueVelocitySpeedLat.minimum;
+    valueVelocitySpeedLat.minimum = valueVelocitySpeedLat.maximum;
     valueVelocity.speedLat = valueVelocitySpeedLat;
     value.velocity = valueVelocity;
     ::ad_rss::world::RssDynamics valueDynamics;
@@ -142,11 +152,22 @@ TEST_F(VehicleStateTests, comparisonOperatorEqual)
 TEST_F(VehicleStateTests, comparisonOperatorVelocityDiffers)
 {
   ::ad_rss::situation::VehicleState valueA = mValue;
-  ::ad_rss::world::Velocity velocity;
-  ::ad_rss::physics::Speed velocitySpeedLon(100.);
+  ::ad_rss::situation::VelocityRange velocity;
+  ::ad_rss::physics::SpeedRange velocitySpeedLon;
+  ::ad_rss::physics::Speed velocitySpeedLonMinimum(100.);
+  velocitySpeedLon.minimum = velocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed velocitySpeedLonMaximum(100.);
+  velocitySpeedLon.maximum = velocitySpeedLonMaximum;
+  velocitySpeedLon.maximum = velocitySpeedLon.minimum;
+  velocitySpeedLon.minimum = velocitySpeedLon.maximum;
   velocity.speedLon = velocitySpeedLon;
-  ::ad_rss::physics::Speed velocitySpeedLat(100.);
-  velocitySpeedLat = ::ad_rss::physics::Speed(10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange velocitySpeedLat;
+  ::ad_rss::physics::Speed velocitySpeedLatMinimum(100.);
+  velocitySpeedLat.minimum = velocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed velocitySpeedLatMaximum(100.);
+  velocitySpeedLat.maximum = velocitySpeedLatMaximum;
+  velocitySpeedLat.maximum = velocitySpeedLat.minimum;
+  velocitySpeedLat.minimum = velocitySpeedLat.maximum;
   velocity.speedLat = velocitySpeedLat;
   valueA.velocity = velocity;
   ::ad_rss::situation::VehicleState valueB = mValue;
