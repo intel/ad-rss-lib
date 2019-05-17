@@ -43,7 +43,7 @@
 #include <limits>
 #include "ad_rss/state/LateralResponseValidInputRange.hpp"
 #include "ad_rss/state/LateralRssState.hpp"
-#include "ad_rss/state/ResponseInformationValidInputRange.hpp"
+#include "ad_rss/state/RssStateInformationValidInputRange.hpp"
 
 /*!
  * \brief check if the given LateralRssState is within valid input range
@@ -61,7 +61,7 @@ inline bool withinValidInputRange(::ad_rss::state::LateralRssState const &input)
     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
     // check for generic member input ranges
     bool const membersInValidInputRange
-      = withinValidInputRange(input.response) && withinValidInputRange(input.responseInformation);
+      = withinValidInputRange(input.response) && withinValidInputRange(input.rssStateInformation);
 
     return membersInValidInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches

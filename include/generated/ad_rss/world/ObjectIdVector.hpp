@@ -39,37 +39,24 @@
 
 #pragma once
 
-#include <cmath>
-#include <limits>
-#include "ad_rss/physics/DistanceValidInputRange.hpp"
-#include "ad_rss/state/ResponseEvaluatorValidInputRange.hpp"
-#include "ad_rss/state/ResponseInformation.hpp"
+#include <memory>
+#include <vector>
+#include "ad_rss/world/ObjectId.hpp"
+/*!
+ * @brief namespace ad_rss
+ */
+namespace ad_rss {
+/*!
+ * @brief namespace world
+ */
+namespace world {
 
 /*!
- * \brief check if the given ResponseInformation is within valid input range
+ * \brief DataType ObjectIdVector
  *
- * \param[in] input the ResponseInformation as an input value
- *
- * \returns \c true if ResponseInformation is considered to be within the specified input range
- *
- * \note the specified input range is defined by the ranges of all members
+ * A list of object ids.
  */
-inline bool withinValidInputRange(::ad_rss::state::ResponseInformation const &input)
-{
-  try
-  {
-    // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
-    // check for generic member input ranges
-    bool const membersInValidInputRange = withinValidInputRange(input.safeDistance)
-      && withinValidInputRange(input.currentDistance) && withinValidInputRange(input.responseEvaluator);
+using ObjectIdVector = std::vector<::ad_rss::world::ObjectId>;
 
-    return membersInValidInputRange;
-    // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
-  }
-  // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
-  catch (std::out_of_range &)
-  {
-  }
-  return false;
-  // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes
-}
+} // namespace world
+} // namespace ad_rss

@@ -41,7 +41,7 @@
 
 #include <memory>
 #include "ad_rss/state/LateralResponse.hpp"
-#include "ad_rss/state/ResponseInformation.hpp"
+#include "ad_rss/state/RssStateInformation.hpp"
 /*!
  * @brief namespace ad_rss
  */
@@ -106,7 +106,7 @@ struct LateralRssState
   bool operator==(const LateralRssState &other) const
   {
     return (isSafe == other.isSafe) && (response == other.response)
-      && (responseInformation == other.responseInformation);
+      && (rssStateInformation == other.rssStateInformation);
   }
 
   /**
@@ -134,7 +134,7 @@ struct LateralRssState
   /*!
    * Information on the evaluation of the Rss state.
    */
-  ::ad_rss::state::ResponseInformation responseInformation;
+  ::ad_rss::state::RssStateInformation rssStateInformation;
 };
 
 } // namespace state

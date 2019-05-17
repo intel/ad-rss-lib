@@ -42,7 +42,7 @@
 #include <limits>
 #include <memory>
 #include "ad_rss/physics/Distance.hpp"
-#include "ad_rss/state/ResponseEvaluator.hpp"
+#include "ad_rss/state/RssStateEvaluator.hpp"
 /*!
  * @brief namespace ad_rss
  */
@@ -53,71 +53,71 @@ namespace ad_rss {
 namespace state {
 
 /*!
- * \brief DataType ResponseInformation
+ * \brief DataType RssStateInformation
  *
  * Structure holding additional information on the reason for the response.
  */
-struct ResponseInformation
+struct RssStateInformation
 {
   /*!
    * \brief standard constructor
    */
-  ResponseInformation() = default;
+  RssStateInformation() = default;
 
   /*!
    * \brief standard destructor
    */
-  ~ResponseInformation() = default;
+  ~RssStateInformation() = default;
 
   /*!
    * \brief standard copy constructor
    */
-  ResponseInformation(const ResponseInformation &other) = default;
+  RssStateInformation(const RssStateInformation &other) = default;
 
   /*!
    * \brief standard move constructor
    */
-  ResponseInformation(ResponseInformation &&other) = default;
+  RssStateInformation(RssStateInformation &&other) = default;
 
   /**
    * \brief standard assignment operator
    *
-   * \param[in] other Other ResponseInformation
+   * \param[in] other Other RssStateInformation
    *
-   * \returns Reference to this ResponseInformation.
+   * \returns Reference to this RssStateInformation.
    */
-  ResponseInformation &operator=(const ResponseInformation &other) = default;
+  RssStateInformation &operator=(const RssStateInformation &other) = default;
 
   /**
    * \brief standard move operator
    *
-   * \param[in] other Other ResponseInformation
+   * \param[in] other Other RssStateInformation
    *
-   * \returns Reference to this ResponseInformation.
+   * \returns Reference to this RssStateInformation.
    */
-  ResponseInformation &operator=(ResponseInformation &&other) = default;
+  RssStateInformation &operator=(RssStateInformation &&other) = default;
 
   /**
    * \brief standard comparison operator
    *
-   * \param[in] other Other ResponseInformation
+   * \param[in] other Other RssStateInformation
    *
-   * \returns \c true if both ResponseInformation are equal
+   * \returns \c true if both RssStateInformation are equal
    */
-  bool operator==(const ResponseInformation &other) const
+  bool operator==(const RssStateInformation &other) const
   {
     return (safeDistance == other.safeDistance) && (currentDistance == other.currentDistance)
-      && (responseEvaluator == other.responseEvaluator);
+      && (evaluator == other.evaluator);
   }
 
   /**
    * \brief standard comparison operator
    *
-   * \param[in] other Other ResponseInformation.
+   * \param[in] other Other RssStateInformation.
    *
-   * \returns \c true if both ResponseInformation are different
+   * \returns \c true if both RssStateInformation are different
    */
-  bool operator!=(const ResponseInformation &other) const
+  bool operator!=(const RssStateInformation &other) const
   {
     return !operator==(other);
   }
@@ -136,7 +136,7 @@ struct ResponseInformation
    * The response information in respect to safeDistance and currentDistance are in respect to the given evaluation
    * method.
    */
-  ::ad_rss::state::ResponseEvaluator responseEvaluator{::ad_rss::state::ResponseEvaluator::None};
+  ::ad_rss::state::RssStateEvaluator evaluator{::ad_rss::state::RssStateEvaluator::None};
 };
 
 } // namespace state

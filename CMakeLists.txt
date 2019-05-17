@@ -40,7 +40,7 @@ option(BUILD_SHARED_LIBS "Libraries will be built as shared libraries" On)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-project(ad-rss-lib VERSION 1.3.0)
+project(ad-rss-lib VERSION 1.4.0)
 
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 11)
@@ -100,7 +100,7 @@ set(GENERATED_SOURCES
   src/generated/situation/SituationType.cpp
   src/generated/state/LateralResponse.cpp
   src/generated/state/LongitudinalResponse.cpp
-  src/generated/state/ResponseEvaluator.cpp
+  src/generated/state/RssStateEvaluator.cpp
   src/generated/world/LaneDrivingDirection.cpp
   src/generated/world/LaneSegmentType.cpp
   src/generated/world/ObjectType.cpp
@@ -236,4 +236,3 @@ if(BUILD_STATIC_ANALYSIS)
     -I${CMAKE_CURRENT_SOURCE_DIR}/src/generated/
   )
 endif()
-

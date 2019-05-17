@@ -43,8 +43,8 @@
 #include <limits>
 #include "ad_rss/physics/DistanceValidInputRange.hpp"
 #include "ad_rss/situation/VehicleState.hpp"
+#include "ad_rss/situation/VelocityRangeValidInputRange.hpp"
 #include "ad_rss/world/RssDynamicsValidInputRange.hpp"
-#include "ad_rss/world/VelocityValidInputRange.hpp"
 
 /*!
  * \brief check if the given VehicleState is within valid input range

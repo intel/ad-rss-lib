@@ -31,49 +31,34 @@
  * ----------------- END LICENSE BLOCK -----------------------------------
  */
 
-/**
+/*
  * Generated file
- * @file
- *
  */
 
-#pragma once
+#include <gtest/gtest.h>
 
-#include <cmath>
 #include <limits>
-#include "ad_rss/state/LateralRssStateValidInputRange.hpp"
-#include "ad_rss/state/LongitudinalRssStateValidInputRange.hpp"
-#include "ad_rss/state/ResponseState.hpp"
 
-/*!
- * \brief check if the given ResponseState is within valid input range
- *
- * \param[in] input the ResponseState as an input value
- *
- * \returns \c true if ResponseState is considered to be within the specified input range
- *
- * \note the specified input range is defined by the ranges of all members, plus:
- *       ::ad_rss::physics::TimeIndex(1) <= timeIndex
- */
-inline bool withinValidInputRange(::ad_rss::state::ResponseState const &input)
+#include "ad_rss/world/ObjectIdVectorValidInputRange.hpp"
+
+TEST(ObjectIdVectorValidInputRangeTests, testValidInputRangeValidInputRangeMin)
 {
-  try
-  {
-    // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
-    // check for generic member input ranges
-    bool const membersInValidInputRange = withinValidInputRange(input.longitudinalState)
-      && withinValidInputRange(input.lateralStateRight) && withinValidInputRange(input.lateralStateLeft);
+  ::ad_rss::world::ObjectIdVector value;
+  ASSERT_TRUE(withinValidInputRange(value));
+}
 
-    // check for individual input ranges
-    bool const timeIndexInInputRange = (::ad_rss::physics::TimeIndex(1) <= input.timeIndex);
+TEST(ObjectIdVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
+{
+  ::ad_rss::world::ObjectIdVector value;
+  ::ad_rss::world::ObjectId element(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
+  value.resize(1000, element);
+  ASSERT_TRUE(withinValidInputRange(value));
+}
 
-    return membersInValidInputRange && timeIndexInInputRange;
-    // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
-  }
-  // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
-  catch (std::out_of_range &)
-  {
-  }
-  return false;
-  // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes
+TEST(ObjectIdVectorValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax)
+{
+  ::ad_rss::world::ObjectIdVector value;
+  ::ad_rss::world::ObjectId element(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
+  value.resize(1001, element);
+  ASSERT_FALSE(withinValidInputRange(value));
 }

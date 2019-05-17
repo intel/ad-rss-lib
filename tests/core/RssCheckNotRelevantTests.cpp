@@ -67,6 +67,7 @@ TEST_F(RssCheckNotRelevantTest, NotRelevant)
   for (uint32_t i = 0; i < 100; i++)
   {
     worldModel.scenes[0].egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
+    worldModel.timeIndex++;
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
