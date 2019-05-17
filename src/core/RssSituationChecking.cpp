@@ -32,13 +32,46 @@
 #include "ad_rss/core/RssSituationChecking.hpp"
 #include <algorithm>
 #include <memory>
-#include "ad_rss/situation/SituationVectorValidInputRange.hpp"
-#include "core/RssState.hpp"
+#include "ad_rss/situation/SituationSnapshotValidInputRange.hpp"
 #include "situation/RssIntersectionChecker.hpp"
 #include "situation/RssSituation.hpp"
 
 namespace ad_rss {
 namespace core {
+
+enum class IsSafe
+{
+  Yes,
+  No
+};
+
+inline state::RssState
+createRssState(situation::SituationId const &situationId, world::ObjectId const &objectId, IsSafe const &isSafeValue)
+{
+  bool const isSafe = (isSafeValue == IsSafe::Yes);
+  state::RssStateInformation emptyRssStateInfo;
+  emptyRssStateInfo.currentDistance = std::numeric_limits<physics::Distance>::max();
+  emptyRssStateInfo.safeDistance = std::numeric_limits<physics::Distance>::max();
+  emptyRssStateInfo.evaluator = state::RssStateEvaluator::None;
+
+  state::RssState resultRssState;
+  resultRssState.situationId = situationId;
+  resultRssState.objectId = objectId;
+  resultRssState.lateralStateLeft.isSafe = isSafe;
+  resultRssState.lateralStateLeft.response
+    = isSafe ? (::ad_rss::state::LateralResponse::None) : (::ad_rss::state::LateralResponse::BrakeMin);
+  resultRssState.lateralStateLeft.rssStateInformation = emptyRssStateInfo;
+  resultRssState.lateralStateRight.isSafe = isSafe;
+  resultRssState.lateralStateRight.response
+    = isSafe ? (::ad_rss::state::LateralResponse::None) : (::ad_rss::state::LateralResponse::BrakeMin);
+  resultRssState.lateralStateRight.rssStateInformation = emptyRssStateInfo;
+  resultRssState.longitudinalState.isSafe = isSafe;
+  resultRssState.longitudinalState.response
+    = isSafe ? (::ad_rss::state::LongitudinalResponse::None) : (::ad_rss::state::LongitudinalResponse::BrakeMin);
+  resultRssState.longitudinalState.rssStateInformation = emptyRssStateInfo;
+
+  return resultRssState;
+}
 
 RssSituationChecking::RssSituationChecking()
 {
@@ -57,8 +90,7 @@ RssSituationChecking::~RssSituationChecking()
 }
 
 bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation const &situation,
-                                                           bool const nextTimeStep,
-                                                           state::ResponseState &response)
+                                                           state::RssState &rssState)
 {
   bool result = false;
   // global try catch block to ensure this library call doesn't throw an exception
@@ -68,30 +100,26 @@ bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation 
     {
       return false;
     }
-    if (!checkTimeIncreasingConsistently(situation, nextTimeStep))
-    {
-      return false;
-    }
 
-    response = createResponseState(situation.timeIndex, situation.situationId, IsSafe::No);
+    rssState = createRssState(situation.situationId, situation.objectId, IsSafe::No);
 
     switch (situation.situationType)
     {
       case situation::SituationType::NotRelevant:
-        response = createResponseState(situation.timeIndex, situation.situationId, IsSafe::Yes);
+        rssState = createRssState(situation.situationId, situation.objectId, IsSafe::Yes);
         result = true;
         break;
       case situation::SituationType::SameDirection:
-        result = calculateRssStateNonIntersectionSameDirection(situation, response);
+        result = calculateRssStateNonIntersectionSameDirection(situation, rssState);
         break;
       case situation::SituationType::OppositeDirection:
-        result = calculateRssStateNonIntersectionOppositeDirection(situation, response);
+        result = calculateRssStateNonIntersectionOppositeDirection(situation, rssState);
         break;
 
       case situation::SituationType::IntersectionEgoHasPriority:
       case situation::SituationType::IntersectionObjectHasPriority:
       case situation::SituationType::IntersectionSamePriority:
-        result = mIntersectionChecker->calculateRssStateIntersection(situation, response);
+        result = mIntersectionChecker->calculateRssStateIntersection(mCurrentTimeIndex, situation, rssState);
         break;
       default:
         result = false;
@@ -106,27 +134,30 @@ bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation 
   return result;
 }
 
-bool RssSituationChecking::checkSituations(situation::SituationVector const &situationVector,
-                                           state::ResponseStateVector &responseStateVector)
+bool RssSituationChecking::checkSituations(situation::SituationSnapshot const &situationSnapshot,
+                                           state::RssStateSnapshot &rssStateSnapshot)
 {
-  if (!withinValidInputRange(situationVector))
+  if (!withinValidInputRange(situationSnapshot))
+  {
+    return false;
+  }
+  if (!checkTimeIncreasingConsistently(situationSnapshot.timeIndex))
   {
     return false;
   }
   bool result = true;
-  bool nextTimeStep = true;
   // global try catch block to ensure this library call doesn't throw an exception
   try
   {
-    responseStateVector.clear();
-    for (auto const &situation : situationVector)
+    rssStateSnapshot.timeIndex = situationSnapshot.timeIndex;
+    rssStateSnapshot.individualResponses.clear();
+    for (auto const &situation : situationSnapshot.situations)
     {
-      state::ResponseState responseState;
-      bool const checkResult = checkSituationInputRangeChecked(situation, nextTimeStep, responseState);
-      nextTimeStep = false;
+      state::RssState rssState;
+      bool const checkResult = checkSituationInputRangeChecked(situation, rssState);
       if (checkResult)
       {
-        responseStateVector.push_back(responseState);
+        rssStateSnapshot.individualResponses.push_back(rssState);
       }
       else
       {
@@ -141,36 +172,24 @@ bool RssSituationChecking::checkSituations(situation::SituationVector const &sit
   }
   if (!result)
   {
-    responseStateVector.clear();
+    rssStateSnapshot.individualResponses.clear();
   }
   return result;
 }
 
-bool RssSituationChecking::checkTimeIncreasingConsistently(situation::Situation const &situation,
-                                                           bool const nextTimeStep)
+bool RssSituationChecking::checkTimeIncreasingConsistently(physics::TimeIndex const &nextTimeIndex)
 {
-  if (nextTimeStep)
-  {
-    // next time tick
-    mLastTimeIndex = mCurrentTimeIndex;
-    mCurrentTimeIndex = situation.timeIndex;
-  }
-  else if (mCurrentTimeIndex != situation.timeIndex)
-  {
-    // time index changes within the situation. Not allowed.
-    return false;
-  }
-
   bool timeIsIncreasing = false;
-  if (mCurrentTimeIndex != mLastTimeIndex)
+  if (mCurrentTimeIndex != nextTimeIndex)
   {
     // check for overflow
-    physics::TimeIndex const deltaTimeIndex = mCurrentTimeIndex - mLastTimeIndex;
+    physics::TimeIndex const deltaTimeIndex = nextTimeIndex - mCurrentTimeIndex;
     if (deltaTimeIndex < (std::numeric_limits<physics::TimeIndex>::max() / 2))
     {
       timeIsIncreasing = true;
     }
   }
+  mCurrentTimeIndex = nextTimeIndex;
   return timeIsIncreasing;
 }
 

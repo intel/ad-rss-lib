@@ -1,7 +1,7 @@
-.clang-format
+.clang*
+.md
 LICENSE
-README.md
-RELEASE_NOTES_AND_DISCLAIMERS.md
 doc/
 model/
+tests/gtest-cmake.txt.in
 build.gradle

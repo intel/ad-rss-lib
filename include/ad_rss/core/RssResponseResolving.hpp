@@ -35,7 +35,8 @@
 #pragma once
 
 #include <map>
-#include "ad_rss/state/ResponseStateVector.hpp"
+#include "ad_rss/state/ProperResponse.hpp"
+#include "ad_rss/state/RssStateSnapshot.hpp"
 
 /*!
  * @brief namespace ad_rss
@@ -67,32 +68,57 @@ public:
   /**
    * @brief Calculate the proper response out of the current responses
    *
-   * @param[in]  currentStates all the response states gathered for the current situations
-   * @param[out] responseState the proper overall response state
+   * @param[in]  currentStateSnapshot all the rss states gathered for the current situations
+   * @param[out] response the proper overall response state
    *
    * @return true if response could be calculated, false otherwise
    * If false is returned the internal state has not been updated
    */
-  bool provideProperResponse(state::ResponseStateVector const &currentStates, state::ResponseState &responseState);
+  bool provideProperResponse(state::RssStateSnapshot const &currentStateSnapshot, state::ProperResponse &response);
 
 private:
-  struct RssState
+  /**
+   * @brief determine the resulting RSS response
+   *
+   * @param[in] previousResponse the previous RSS response
+   * @param[in] newResponse      the RSS response to be considered in addition
+   *
+   * The RSS responses are combined in a form that the most severe response of both becomes the resulting response.
+   * The responses are compared with each other based on the enumeration values.
+   * Therefore, these values need have to be ordered strictly ascending in respect to their severity.
+   *
+   * @returns the resulting RSS response
+   */
+  template <typename Response>
+  static Response combineResponse(Response const &previousResponse, Response const &newResponse)
+  {
+    if (previousResponse > newResponse)
+    {
+      return previousResponse;
+    }
+    else
+    {
+      return newResponse;
+    }
+  }
+
+  struct RssSafeState
   {
     bool longitudinalSafe{false};
     bool lateralSafe{false};
   };
 
   /**
-   * @brief typedef for the mapping of object id to the corresponding RssState before the danger threshold time
+   * @brief typedef for the mapping of object id to the corresponding RssSafeState before the danger threshold time
    */
-  typedef std::map<situation::SituationId, RssState> RssStateBeforeDangerThresholdTimeMap;
+  typedef std::map<situation::SituationId, RssSafeState> RssSafeStateBeforeDangerThresholdTimeMap;
 
   /**
-   * @brief the state of all responses before the danger threshold time of each response
+   * @brief the state of each situation before the danger threshold time
    *
-   * Needs to be stored to check which is the response that changed and required to solve an unclear situation
+   * Needs to be stored to check which is the proper response required to solve an unclear situation
    */
-  RssStateBeforeDangerThresholdTimeMap mStatesBeforeDangerThresholdTime;
+  RssSafeStateBeforeDangerThresholdTimeMap mStatesBeforeDangerThresholdTime;
 };
 
 } // namespace core

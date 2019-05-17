@@ -42,11 +42,11 @@
 #include <cstdint>
 #include <limits>
 #include <memory>
-#include "ad_rss/physics/TimeIndex.hpp"
 #include "ad_rss/situation/RelativePosition.hpp"
 #include "ad_rss/situation/SituationId.hpp"
 #include "ad_rss/situation/SituationType.hpp"
 #include "ad_rss/situation/VehicleState.hpp"
+#include "ad_rss/world/ObjectId.hpp"
 /*!
  * @brief namespace ad_rss
  */
@@ -116,9 +116,9 @@ struct Situation
    */
   bool operator==(const Situation &other) const
   {
-    return (timeIndex == other.timeIndex) && (situationId == other.situationId)
-      && (situationType == other.situationType) && (egoVehicleState == other.egoVehicleState)
-      && (otherVehicleState == other.otherVehicleState) && (relativePosition == other.relativePosition);
+    return (situationId == other.situationId) && (objectId == other.objectId) && (situationType == other.situationType)
+      && (egoVehicleState == other.egoVehicleState) && (otherVehicleState == other.otherVehicleState)
+      && (relativePosition == other.relativePosition);
   }
 
   /**
@@ -134,18 +134,17 @@ struct Situation
   }
 
   /*!
-   * The time index is required to distinguish different points in time when tracking states or transforming responses
-   * back.
-   */
-  ::ad_rss::physics::TimeIndex timeIndex{0u};
-
-  /*!
    * The unique id of the situation.
    * The situation id has to be constant over time for a pair of ego vehicle and specific
    * other vehicle.
    * E.g. might be filled with an id identifying the other vehicle unambiguously.
    */
   ::ad_rss::situation::SituationId situationId;
+
+  /*!
+   * Defines the unique id of an object. This id has to be constant over time for the same object.
+   */
+  ::ad_rss::world::ObjectId objectId;
 
   /*!
    * The type of the current situation.

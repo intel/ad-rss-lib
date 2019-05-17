@@ -43,252 +43,205 @@ class RssResponseResolvingTests : public testing::Test
 protected:
   void SetUp() override
   {
-    resetRssState(responseStateT1O1, 1u);
-    resetRssState(responseStateT1O2, 2u);
-    resetRssState(responseStateT2O1, 1u);
-    responseStateT2O1.timeIndex = 2u;
-    resetRssState(responseStateT2O2, 2u);
-    responseStateT2O2.timeIndex = 2u;
-    resetRssState(responseStateT3O1, 1u);
-    responseStateT2O1.timeIndex = 3u;
-    resetRssState(responseStateT3O2, 2u);
-    responseStateT2O2.timeIndex = 3u;
-    resetRssState(resultResponseStateT1, 0u);
-    resetRssState(resultResponseStateT2, 0u);
-    resetRssState(resultResponseStateT3, 0u);
+    state::RssState rssStateT1O1;
+    state::RssState rssStateT1O2;
+    state::RssState rssStateT2O1;
+    state::RssState rssStateT2O2;
+    state::RssState rssStateT3O1;
+    state::RssState rssStateT3O2;
+    resetRssState(rssStateT1O1, 1u, 1u);
+    resetRssState(rssStateT1O2, 2u, 2u);
+    resetRssState(rssStateT2O1, 1u, 1u);
+    resetRssState(rssStateT2O2, 2u, 2u);
+    resetRssState(rssStateT3O1, 1u, 1u);
+    resetRssState(rssStateT3O2, 2u, 2u);
+    rssStateSnapshotT1.timeIndex = 1u;
+    rssStateSnapshotT1.individualResponses.push_back(rssStateT1O1);
+    rssStateSnapshotT1.individualResponses.push_back(rssStateT1O2);
+
+    rssStateSnapshotT2.timeIndex = 2u;
+    rssStateSnapshotT2.individualResponses.push_back(rssStateT2O1);
+    rssStateSnapshotT2.individualResponses.push_back(rssStateT2O2);
+
+    rssStateSnapshotT3.timeIndex = 3u;
+    rssStateSnapshotT3.individualResponses.push_back(rssStateT3O1);
+    rssStateSnapshotT3.individualResponses.push_back(rssStateT3O2);
+
+    resetRssState(resultProperResponseT1);
+    resetRssState(resultProperResponseT2);
+    resetRssState(resultProperResponseT3);
   }
 
   void TearDown() override
   {
   }
 
-  void testResultStateNone(state::ResponseState &resultResponseState)
+  void testResultStateNone(state::ProperResponse &resultProperResponse)
   {
     testResultState(
-      resultResponseState, LongitudinalResponse::None, true, LateralResponse::None, true, LateralResponse::None, true);
+      resultProperResponse, true, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None);
   }
 
-  void testResultState(state::ResponseState &resultResponseState,
+  void testResultState(state::ProperResponse &resultProperResponse,
+                       bool isSafe,
                        LongitudinalResponse lonResponse,
-                       bool lonSafe,
                        LateralResponse latResponseLeft,
-                       bool latLeftSafe,
                        LateralResponse latResponseRight,
-                       bool latRightSafe)
+                       ::ad_rss::world::ObjectIdVector dangerousObjects = ::ad_rss::world::ObjectIdVector())
   {
-    EXPECT_EQ(lonResponse, resultResponseState.longitudinalState.response);
-    EXPECT_EQ(lonSafe, resultResponseState.longitudinalState.isSafe);
-    EXPECT_EQ(latResponseLeft, resultResponseState.lateralStateLeft.response);
-    EXPECT_EQ(latLeftSafe, resultResponseState.lateralStateLeft.isSafe);
-    EXPECT_EQ(latResponseRight, resultResponseState.lateralStateRight.response);
-    EXPECT_EQ(latRightSafe, resultResponseState.lateralStateRight.isSafe);
+    EXPECT_EQ(isSafe, resultProperResponse.isSafe);
+    EXPECT_EQ(lonResponse, resultProperResponse.longitudinalResponse);
+    EXPECT_EQ(latResponseLeft, resultProperResponse.lateralResponseLeft);
+    EXPECT_EQ(latResponseRight, resultProperResponse.lateralResponseRight);
+    EXPECT_EQ(dangerousObjects, resultProperResponse.dangerousObjects);
   }
 
   void performTest(bool expectedResultT1 = true, bool expectedResultT2 = true, bool expectedResultT3 = true)
   {
     RssResponseResolving provider;
-    std::vector<state::ResponseState> responseStateVectorT1;
-    responseStateVectorT1.push_back(responseStateT1O1);
-    responseStateVectorT1.push_back(responseStateT1O2);
 
-    std::vector<state::ResponseState> responseStateVectorT2;
-    responseStateVectorT2.push_back(responseStateT2O1);
-    responseStateVectorT2.push_back(responseStateT2O2);
-
-    std::vector<state::ResponseState> responseStateVectorT3;
-    responseStateVectorT3.push_back(responseStateT3O1);
-    responseStateVectorT3.push_back(responseStateT3O2);
-
-    EXPECT_EQ(expectedResultT1, provider.provideProperResponse(responseStateVectorT1, resultResponseStateT1));
-    EXPECT_EQ(expectedResultT2, provider.provideProperResponse(responseStateVectorT2, resultResponseStateT2));
-    EXPECT_EQ(expectedResultT3, provider.provideProperResponse(responseStateVectorT3, resultResponseStateT3));
+    EXPECT_EQ(expectedResultT1, provider.provideProperResponse(rssStateSnapshotT1, resultProperResponseT1));
+    EXPECT_EQ(expectedResultT2, provider.provideProperResponse(rssStateSnapshotT2, resultProperResponseT2));
+    EXPECT_EQ(expectedResultT3, provider.provideProperResponse(rssStateSnapshotT3, resultProperResponseT3));
   }
 
-  state::ResponseState responseStateT1O1;
-  state::ResponseState responseStateT1O2;
-  state::ResponseState responseStateT2O1;
-  state::ResponseState responseStateT2O2;
-  state::ResponseState responseStateT3O1;
-  state::ResponseState responseStateT3O2;
-  state::ResponseState resultResponseStateT1;
-  state::ResponseState resultResponseStateT2;
-  state::ResponseState resultResponseStateT3;
+  state::RssStateSnapshot rssStateSnapshotT1;
+  state::RssStateSnapshot rssStateSnapshotT2;
+  state::RssStateSnapshot rssStateSnapshotT3;
+
+  state::ProperResponse resultProperResponseT1;
+  state::ProperResponse resultProperResponseT2;
+  state::ProperResponse resultProperResponseT3;
 };
 
 TEST_F(RssResponseResolvingTests, validateTestSetup)
 {
   performTest(true);
-  testResultStateNone(resultResponseStateT1);
-  testResultStateNone(resultResponseStateT2);
-  testResultStateNone(resultResponseStateT3);
-}
-
-TEST_F(RssResponseResolvingTests, invalidTimeStamp)
-{
-  responseStateT1O2.timeIndex = 1234u;
-  performTest(false);
+  testResultStateNone(resultProperResponseT1);
+  testResultStateNone(resultProperResponseT2);
+  testResultStateNone(resultProperResponseT3);
 }
 
 TEST_F(RssResponseResolvingTests, invalidState)
 {
-  responseStateT1O1.longitudinalState.response = LongitudinalResponse(-1);
+  rssStateSnapshotT1.individualResponses[0].longitudinalState.response = LongitudinalResponse(-1);
   performTest(false);
 }
 
-TEST_F(RssResponseResolvingTests, extremeTimeIndexAreAccepted)
+TEST_F(RssResponseResolvingTests, sameTimeSameSituationId)
 {
-  responseStateT2O1.timeIndex = static_cast<uint64_t>(-1);
-  responseStateT2O2.timeIndex = static_cast<uint64_t>(-1);
-
-  performTest();
-  testResultStateNone(resultResponseStateT1);
-  testResultStateNone(resultResponseStateT2);
-  testResultStateNone(resultResponseStateT3);
-}
-
-TEST_F(RssResponseResolvingTests, sameTimeSameId)
-{
-  responseStateT1O2 = responseStateT1O1;
+  rssStateSnapshotT1.individualResponses[1] = rssStateSnapshotT1.individualResponses[0];
   performTest(false);
 }
 
 TEST_F(RssResponseResolvingTests, provideProperResponseLateralLeft)
 {
-  setRssStateUnsafe(responseStateT1O1.longitudinalState, LongitudinalResponse::BrakeMin);
-  setRssStateUnsafe(responseStateT2O1.longitudinalState, LongitudinalResponse::BrakeMin);
-  setRssStateUnsafe(responseStateT2O1.lateralStateLeft, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].lateralStateLeft, LateralResponse::BrakeMin);
 
   performTest();
-  testResultStateNone(resultResponseStateT1);
-  testResultState(resultResponseStateT2,
-                  LongitudinalResponse::None,
-                  false,
-                  LateralResponse::BrakeMin,
-                  false,
-                  LateralResponse::None,
-                  true);
-  testResultStateNone(resultResponseStateT3);
+  testResultStateNone(resultProperResponseT1);
+  testResultState(
+    resultProperResponseT2, false, LongitudinalResponse::None, LateralResponse::BrakeMin, LateralResponse::None, {1});
+  testResultStateNone(resultProperResponseT3);
 }
 
 TEST_F(RssResponseResolvingTests, provideProperResponseLateralRight)
 {
-  setRssStateUnsafe(responseStateT1O1.longitudinalState, LongitudinalResponse::BrakeMin);
-  setRssStateUnsafe(responseStateT2O1.longitudinalState, LongitudinalResponse::BrakeMin);
-  setRssStateUnsafe(responseStateT2O1.lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
 
   performTest();
-  testResultStateNone(resultResponseStateT1);
-  testResultState(resultResponseStateT2,
-                  LongitudinalResponse::None,
-                  false,
-                  LateralResponse::None,
-                  true,
-                  LateralResponse::BrakeMin,
-                  false);
-  testResultStateNone(resultResponseStateT3);
+  testResultStateNone(resultProperResponseT1);
+  testResultState(
+    resultProperResponseT2, false, LongitudinalResponse::None, LateralResponse::None, LateralResponse::BrakeMin, {1});
+  testResultStateNone(resultProperResponseT3);
 }
 
 TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinal)
 {
-  setRssStateUnsafe(responseStateT1O1.lateralStateRight, LateralResponse::BrakeMin);
-  setRssStateUnsafe(responseStateT2O1.longitudinalState, LongitudinalResponse::BrakeMin);
-  setRssStateUnsafe(responseStateT2O1.lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
 
   performTest();
-  testResultStateNone(resultResponseStateT1);
-  testResultState(resultResponseStateT2,
-                  LongitudinalResponse::BrakeMin,
-                  false,
-                  LateralResponse::None,
-                  true,
-                  LateralResponse::None,
-                  false);
-  testResultStateNone(resultResponseStateT3);
+  testResultStateNone(resultProperResponseT1);
+  testResultState(
+    resultProperResponseT2, false, LongitudinalResponse::BrakeMin, LateralResponse::None, LateralResponse::None, {1});
+  testResultStateNone(resultProperResponseT3);
 }
 
 TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinal_None)
 {
-  setRssStateUnsafe(responseStateT1O1.lateralStateRight, LateralResponse::BrakeMin);
-  setRssStateUnsafe(responseStateT2O1.longitudinalState, LongitudinalResponse::None);
-  setRssStateUnsafe(responseStateT2O1.lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].longitudinalState, LongitudinalResponse::None);
+  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
 
   performTest();
-  testResultStateNone(resultResponseStateT1);
-  testResultState(resultResponseStateT2,
-                  LongitudinalResponse::None,
-                  false,
-                  LateralResponse::None,
-                  true,
-                  LateralResponse::None,
-                  false);
+  testResultStateNone(resultProperResponseT1);
+  testResultState(
+    resultProperResponseT2, false, LongitudinalResponse::None, LateralResponse::None, LateralResponse::None, {1});
 }
 
 TEST_F(RssResponseResolvingTests, provideProperResponseBothDirections)
 {
-  setRssStateUnsafe(responseStateT1O1.longitudinalState, LongitudinalResponse::BrakeMin);
-  setRssStateUnsafe(responseStateT1O1.lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
 
   performTest();
-  testResultState(resultResponseStateT1,
-                  LongitudinalResponse::BrakeMin,
+  testResultState(resultProperResponseT1,
                   false,
+                  LongitudinalResponse::BrakeMin,
                   LateralResponse::None,
-                  true,
                   LateralResponse::BrakeMin,
-                  false);
-  testResultStateNone(resultResponseStateT2);
-  testResultStateNone(resultResponseStateT3);
+                  {1});
+  testResultStateNone(resultProperResponseT2);
+  testResultStateNone(resultProperResponseT3);
 }
 
 TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinalMoreSevere)
 {
-  setRssStateUnsafe(responseStateT1O1.lateralStateRight, LateralResponse::BrakeMin);
-  setRssStateUnsafe(responseStateT2O1.longitudinalState, LongitudinalResponse::BrakeMinCorrect);
-  setRssStateUnsafe(responseStateT2O1.lateralStateRight, LateralResponse::BrakeMin);
-  setRssStateUnsafe(responseStateT3O1.longitudinalState, LongitudinalResponse::BrakeMin);
-  setRssStateUnsafe(responseStateT3O1.lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMinCorrect);
+  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT3.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT3.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
 
   performTest();
-  testResultStateNone(resultResponseStateT1);
-  testResultState(resultResponseStateT2,
+  testResultStateNone(resultProperResponseT1);
+  testResultState(resultProperResponseT2,
+                  false,
                   LongitudinalResponse::BrakeMinCorrect,
-                  false,
                   LateralResponse::None,
-                  true,
                   LateralResponse::None,
-                  false);
-  testResultState(resultResponseStateT3,
-                  LongitudinalResponse::BrakeMin,
-                  false,
-                  LateralResponse::None,
-                  true,
-                  LateralResponse::None,
-                  false);
+                  {1});
+  testResultState(
+    resultProperResponseT3, false, LongitudinalResponse::BrakeMin, LateralResponse::None, LateralResponse::None, {1});
 }
 
 TEST_F(RssResponseResolvingTests, provideProperResponseDangerousInitialState)
 {
-  setRssStateUnsafe(responseStateT1O1.lateralStateRight, LateralResponse::BrakeMin);
-  setRssStateUnsafe(responseStateT1O1.longitudinalState, LongitudinalResponse::BrakeMin);
-  setRssStateUnsafe(responseStateT2O1.lateralStateRight, LateralResponse::BrakeMin);
-  setRssStateUnsafe(responseStateT2O1.longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMin);
 
   performTest();
-  testResultState(resultResponseStateT1,
-                  LongitudinalResponse::BrakeMin,
+  testResultState(resultProperResponseT1,
                   false,
-                  LateralResponse::None,
-                  true,
-                  LateralResponse::BrakeMin,
-                  false);
-  testResultState(resultResponseStateT2,
                   LongitudinalResponse::BrakeMin,
-                  false,
                   LateralResponse::None,
-                  true,
                   LateralResponse::BrakeMin,
-                  false);
-  testResultStateNone(resultResponseStateT3);
+                  {1});
+  testResultState(resultProperResponseT2,
+                  false,
+                  LongitudinalResponse::BrakeMin,
+                  LateralResponse::None,
+                  LateralResponse::BrakeMin,
+                  {1});
+  testResultStateNone(resultProperResponseT3);
 }
 
 } // namespace core

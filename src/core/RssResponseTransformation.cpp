@@ -30,7 +30,7 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "ad_rss/core/RssResponseTransformation.hpp"
-#include "ad_rss/state/ResponseStateValidInputRange.hpp"
+#include "ad_rss/state/ProperResponseValidInputRange.hpp"
 #include "ad_rss/world/WorldModelValidInputRange.hpp"
 
 namespace ad_rss {
@@ -39,7 +39,7 @@ namespace core {
 namespace RssResponseTransformation {
 
 bool transformProperResponse(world::WorldModel const &worldModel,
-                             state::ResponseState const &response,
+                             state::ProperResponse const &response,
                              world::AccelerationRestriction &accelerationRestriction)
 {
   if (!withinValidInputRange(worldModel) || !withinValidInputRange(response))
@@ -59,7 +59,7 @@ bool transformProperResponse(world::WorldModel const &worldModel,
    */
   // LCOV_EXCL_BR_START: unreachable exceptions due to valid input range checks
   accelerationRestriction.longitudinalRange.minimum = -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMax;
-  switch (response.longitudinalState.response)
+  switch (response.longitudinalResponse)
   {
     case ::ad_rss::state::LongitudinalResponse::BrakeMin:
       accelerationRestriction.longitudinalRange.maximum = -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMin;
@@ -76,7 +76,7 @@ bool transformProperResponse(world::WorldModel const &worldModel,
       break;
   }
 
-  switch (response.lateralStateLeft.response)
+  switch (response.lateralResponseLeft)
   {
     case ::ad_rss::state::LateralResponse::BrakeMin:
       accelerationRestriction.lateralLeftRange.maximum = -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin;
@@ -91,7 +91,7 @@ bool transformProperResponse(world::WorldModel const &worldModel,
       break;
   }
 
-  switch (response.lateralStateRight.response)
+  switch (response.lateralResponseRight)
   {
     case ::ad_rss::state::LateralResponse::BrakeMin:
       accelerationRestriction.lateralRightRange.maximum = -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin;

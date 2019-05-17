@@ -297,8 +297,10 @@ void convertVehicleStateDynamics(Object const &object,
                                  ::ad_rss::situation::VehicleState &vehicleState)
 {
   vehicleState.dynamics = rssDynamics;
-  vehicleState.velocity.speedLon = object.velocity.speedLon;
-  vehicleState.velocity.speedLat = object.velocity.speedLat;
+  vehicleState.velocity.speedLon.minimum = object.velocity.speedLon;
+  vehicleState.velocity.speedLon.maximum = object.velocity.speedLon;
+  vehicleState.velocity.speedLat.minimum = object.velocity.speedLat;
+  vehicleState.velocity.speedLat.maximum = object.velocity.speedLat;
 }
 
 } // namespace world

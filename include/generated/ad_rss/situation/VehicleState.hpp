@@ -42,8 +42,8 @@
 #include <limits>
 #include <memory>
 #include "ad_rss/physics/Distance.hpp"
+#include "ad_rss/situation/VelocityRange.hpp"
 #include "ad_rss/world/RssDynamics.hpp"
-#include "ad_rss/world/Velocity.hpp"
 /*!
  * @brief namespace ad_rss
  */
@@ -130,9 +130,10 @@ struct VehicleState
   }
 
   /*!
-   * The situation specific velocity.
+   * The situation specific velocity range. Especially due to merge of different scenes into one situation the
+   * velocities might become a real range.
    */
-  ::ad_rss::world::Velocity velocity;
+  ::ad_rss::situation::VelocityRange velocity;
 
   /*!
    * The situation specific dynamics.

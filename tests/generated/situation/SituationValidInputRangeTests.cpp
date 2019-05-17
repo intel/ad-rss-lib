@@ -44,20 +44,29 @@
 TEST(SituationValidInputRangeTests, testValidInputRange)
 {
   ::ad_rss::situation::Situation value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
   ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   value.situationId = valueSituationId;
+  ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
+  value.objectId = valueObjectId;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
   value.situationType = valueSituationType;
   ::ad_rss::situation::VehicleState valueEgoVehicleState;
-  ::ad_rss::world::Velocity valueEgoVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLon(-100.);
-  valueEgoVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueEgoVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLonMaximum;
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLon.minimum;
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLon.maximum;
   valueEgoVehicleStateVelocity.speedLon = valueEgoVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLat(-100.);
-  valueEgoVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLatMaximum;
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLat.minimum;
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLat.maximum;
   valueEgoVehicleStateVelocity.speedLat = valueEgoVehicleStateVelocitySpeedLat;
   valueEgoVehicleState.velocity = valueEgoVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueEgoVehicleStateDynamics;
@@ -108,12 +117,22 @@ TEST(SituationValidInputRangeTests, testValidInputRange)
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
   value.egoVehicleState = valueEgoVehicleState;
   ::ad_rss::situation::VehicleState valueOtherVehicleState;
-  ::ad_rss::world::Velocity valueOtherVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLon(-100.);
-  valueOtherVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueOtherVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLonMaximum;
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLon.minimum;
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLon.maximum;
   valueOtherVehicleStateVelocity.speedLon = valueOtherVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLat(-100.);
-  valueOtherVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLatMaximum;
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLat.minimum;
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLat.maximum;
   valueOtherVehicleStateVelocity.speedLat = valueOtherVehicleStateVelocitySpeedLat;
   valueOtherVehicleState.velocity = valueOtherVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueOtherVehicleStateDynamics;
@@ -181,20 +200,29 @@ TEST(SituationValidInputRangeTests, testValidInputRange)
 TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)
 {
   ::ad_rss::situation::Situation value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
   ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   value.situationId = valueSituationId;
+  ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
+  value.objectId = valueObjectId;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
   value.situationType = valueSituationType;
   ::ad_rss::situation::VehicleState valueEgoVehicleState;
-  ::ad_rss::world::Velocity valueEgoVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLon(-100.);
-  valueEgoVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueEgoVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLonMaximum;
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLon.minimum;
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLon.maximum;
   valueEgoVehicleStateVelocity.speedLon = valueEgoVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLat(-100.);
-  valueEgoVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLatMaximum;
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLat.minimum;
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLat.maximum;
   valueEgoVehicleStateVelocity.speedLat = valueEgoVehicleStateVelocitySpeedLat;
   valueEgoVehicleState.velocity = valueEgoVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueEgoVehicleStateDynamics;
@@ -245,12 +273,22 @@ TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
   value.egoVehicleState = valueEgoVehicleState;
   ::ad_rss::situation::VehicleState valueOtherVehicleState;
-  ::ad_rss::world::Velocity valueOtherVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLon(-100.);
-  valueOtherVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueOtherVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLonMaximum;
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLon.minimum;
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLon.maximum;
   valueOtherVehicleStateVelocity.speedLon = valueOtherVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLat(-100.);
-  valueOtherVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLatMaximum;
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLat.minimum;
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLat.maximum;
   valueOtherVehicleStateVelocity.speedLat = valueOtherVehicleStateVelocitySpeedLat;
   valueOtherVehicleState.velocity = valueOtherVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueOtherVehicleStateDynamics;
@@ -322,20 +360,29 @@ TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)
 TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooBig)
 {
   ::ad_rss::situation::Situation value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
   ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   value.situationId = valueSituationId;
+  ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
+  value.objectId = valueObjectId;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
   value.situationType = valueSituationType;
   ::ad_rss::situation::VehicleState valueEgoVehicleState;
-  ::ad_rss::world::Velocity valueEgoVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLon(-100.);
-  valueEgoVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueEgoVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLonMaximum;
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLon.minimum;
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLon.maximum;
   valueEgoVehicleStateVelocity.speedLon = valueEgoVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLat(-100.);
-  valueEgoVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLatMaximum;
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLat.minimum;
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLat.maximum;
   valueEgoVehicleStateVelocity.speedLat = valueEgoVehicleStateVelocitySpeedLat;
   valueEgoVehicleState.velocity = valueEgoVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueEgoVehicleStateDynamics;
@@ -386,12 +433,22 @@ TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooBig)
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
   value.egoVehicleState = valueEgoVehicleState;
   ::ad_rss::situation::VehicleState valueOtherVehicleState;
-  ::ad_rss::world::Velocity valueOtherVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLon(-100.);
-  valueOtherVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueOtherVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLonMaximum;
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLon.minimum;
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLon.maximum;
   valueOtherVehicleStateVelocity.speedLon = valueOtherVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLat(-100.);
-  valueOtherVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLatMaximum;
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLat.minimum;
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLat.maximum;
   valueOtherVehicleStateVelocity.speedLat = valueOtherVehicleStateVelocitySpeedLat;
   valueOtherVehicleState.velocity = valueOtherVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueOtherVehicleStateDynamics;
@@ -463,20 +520,29 @@ TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooBig)
 TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooSmall)
 {
   ::ad_rss::situation::Situation value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
   ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   value.situationId = valueSituationId;
+  ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
+  value.objectId = valueObjectId;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
   value.situationType = valueSituationType;
   ::ad_rss::situation::VehicleState valueEgoVehicleState;
-  ::ad_rss::world::Velocity valueEgoVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLon(-100.);
-  valueEgoVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueEgoVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLonMaximum;
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLon.minimum;
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLon.maximum;
   valueEgoVehicleStateVelocity.speedLon = valueEgoVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLat(-100.);
-  valueEgoVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLatMaximum;
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLat.minimum;
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLat.maximum;
   valueEgoVehicleStateVelocity.speedLat = valueEgoVehicleStateVelocitySpeedLat;
   valueEgoVehicleState.velocity = valueEgoVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueEgoVehicleStateDynamics;
@@ -527,12 +593,22 @@ TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooSmall)
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
   value.egoVehicleState = valueEgoVehicleState;
   ::ad_rss::situation::VehicleState valueOtherVehicleState;
-  ::ad_rss::world::Velocity valueOtherVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLon(-100.);
-  valueOtherVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueOtherVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLonMaximum;
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLon.minimum;
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLon.maximum;
   valueOtherVehicleStateVelocity.speedLon = valueOtherVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLat(-100.);
-  valueOtherVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLatMaximum;
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLat.minimum;
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLat.maximum;
   valueOtherVehicleStateVelocity.speedLat = valueOtherVehicleStateVelocitySpeedLat;
   valueOtherVehicleState.velocity = valueOtherVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueOtherVehicleStateDynamics;
@@ -597,8 +673,10 @@ TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooSmall)
 
   // override member with invalid value
   ::ad_rss::situation::VehicleState invalidInitializedMember;
-  ::ad_rss::world::Velocity invalidInitializedMemberVelocity;
-  ::ad_rss::physics::Speed invalidInitializedMemberVelocitySpeedLon(-100. * 1.1);
+  ::ad_rss::situation::VelocityRange invalidInitializedMemberVelocity;
+  ::ad_rss::physics::SpeedRange invalidInitializedMemberVelocitySpeedLon;
+  ::ad_rss::physics::Speed invalidInitializedMemberVelocitySpeedLonMinimum(-100. * 1.1);
+  invalidInitializedMemberVelocitySpeedLon.minimum = invalidInitializedMemberVelocitySpeedLonMinimum;
   invalidInitializedMemberVelocity.speedLon = invalidInitializedMemberVelocitySpeedLon;
   invalidInitializedMember.velocity = invalidInitializedMemberVelocity;
   value.egoVehicleState = invalidInitializedMember;
@@ -608,20 +686,29 @@ TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooSmall)
 TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooBig)
 {
   ::ad_rss::situation::Situation value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
   ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   value.situationId = valueSituationId;
+  ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
+  value.objectId = valueObjectId;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
   value.situationType = valueSituationType;
   ::ad_rss::situation::VehicleState valueEgoVehicleState;
-  ::ad_rss::world::Velocity valueEgoVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLon(-100.);
-  valueEgoVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueEgoVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLonMaximum;
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLon.minimum;
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLon.maximum;
   valueEgoVehicleStateVelocity.speedLon = valueEgoVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLat(-100.);
-  valueEgoVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLatMaximum;
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLat.minimum;
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLat.maximum;
   valueEgoVehicleStateVelocity.speedLat = valueEgoVehicleStateVelocitySpeedLat;
   valueEgoVehicleState.velocity = valueEgoVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueEgoVehicleStateDynamics;
@@ -672,12 +759,22 @@ TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooBig)
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
   value.egoVehicleState = valueEgoVehicleState;
   ::ad_rss::situation::VehicleState valueOtherVehicleState;
-  ::ad_rss::world::Velocity valueOtherVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLon(-100.);
-  valueOtherVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueOtherVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLonMaximum;
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLon.minimum;
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLon.maximum;
   valueOtherVehicleStateVelocity.speedLon = valueOtherVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLat(-100.);
-  valueOtherVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLatMaximum;
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLat.minimum;
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLat.maximum;
   valueOtherVehicleStateVelocity.speedLat = valueOtherVehicleStateVelocitySpeedLat;
   valueOtherVehicleState.velocity = valueOtherVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueOtherVehicleStateDynamics;
@@ -742,8 +839,10 @@ TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooBig)
 
   // override member with invalid value
   ::ad_rss::situation::VehicleState invalidInitializedMember;
-  ::ad_rss::world::Velocity invalidInitializedMemberVelocity;
-  ::ad_rss::physics::Speed invalidInitializedMemberVelocitySpeedLon(100. * 1.1);
+  ::ad_rss::situation::VelocityRange invalidInitializedMemberVelocity;
+  ::ad_rss::physics::SpeedRange invalidInitializedMemberVelocitySpeedLon;
+  ::ad_rss::physics::Speed invalidInitializedMemberVelocitySpeedLonMinimum(100. * 1.1);
+  invalidInitializedMemberVelocitySpeedLon.minimum = invalidInitializedMemberVelocitySpeedLonMinimum;
   invalidInitializedMemberVelocity.speedLon = invalidInitializedMemberVelocitySpeedLon;
   invalidInitializedMember.velocity = invalidInitializedMemberVelocity;
   value.egoVehicleState = invalidInitializedMember;
@@ -753,20 +852,29 @@ TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooBig)
 TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooSmall)
 {
   ::ad_rss::situation::Situation value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
   ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   value.situationId = valueSituationId;
+  ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
+  value.objectId = valueObjectId;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
   value.situationType = valueSituationType;
   ::ad_rss::situation::VehicleState valueEgoVehicleState;
-  ::ad_rss::world::Velocity valueEgoVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLon(-100.);
-  valueEgoVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueEgoVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLonMaximum;
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLon.minimum;
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLon.maximum;
   valueEgoVehicleStateVelocity.speedLon = valueEgoVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLat(-100.);
-  valueEgoVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLatMaximum;
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLat.minimum;
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLat.maximum;
   valueEgoVehicleStateVelocity.speedLat = valueEgoVehicleStateVelocitySpeedLat;
   valueEgoVehicleState.velocity = valueEgoVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueEgoVehicleStateDynamics;
@@ -817,12 +925,22 @@ TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooSmall
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
   value.egoVehicleState = valueEgoVehicleState;
   ::ad_rss::situation::VehicleState valueOtherVehicleState;
-  ::ad_rss::world::Velocity valueOtherVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLon(-100.);
-  valueOtherVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueOtherVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLonMaximum;
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLon.minimum;
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLon.maximum;
   valueOtherVehicleStateVelocity.speedLon = valueOtherVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLat(-100.);
-  valueOtherVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLatMaximum;
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLat.minimum;
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLat.maximum;
   valueOtherVehicleStateVelocity.speedLat = valueOtherVehicleStateVelocitySpeedLat;
   valueOtherVehicleState.velocity = valueOtherVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueOtherVehicleStateDynamics;
@@ -887,8 +1005,10 @@ TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooSmall
 
   // override member with invalid value
   ::ad_rss::situation::VehicleState invalidInitializedMember;
-  ::ad_rss::world::Velocity invalidInitializedMemberVelocity;
-  ::ad_rss::physics::Speed invalidInitializedMemberVelocitySpeedLon(-100. * 1.1);
+  ::ad_rss::situation::VelocityRange invalidInitializedMemberVelocity;
+  ::ad_rss::physics::SpeedRange invalidInitializedMemberVelocitySpeedLon;
+  ::ad_rss::physics::Speed invalidInitializedMemberVelocitySpeedLonMinimum(-100. * 1.1);
+  invalidInitializedMemberVelocitySpeedLon.minimum = invalidInitializedMemberVelocitySpeedLonMinimum;
   invalidInitializedMemberVelocity.speedLon = invalidInitializedMemberVelocitySpeedLon;
   invalidInitializedMember.velocity = invalidInitializedMemberVelocity;
   value.otherVehicleState = invalidInitializedMember;
@@ -898,20 +1018,29 @@ TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooSmall
 TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooBig)
 {
   ::ad_rss::situation::Situation value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
   ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   value.situationId = valueSituationId;
+  ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
+  value.objectId = valueObjectId;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
   value.situationType = valueSituationType;
   ::ad_rss::situation::VehicleState valueEgoVehicleState;
-  ::ad_rss::world::Velocity valueEgoVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLon(-100.);
-  valueEgoVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueEgoVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLonMaximum;
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLon.minimum;
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLon.maximum;
   valueEgoVehicleStateVelocity.speedLon = valueEgoVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLat(-100.);
-  valueEgoVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLatMaximum;
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLat.minimum;
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLat.maximum;
   valueEgoVehicleStateVelocity.speedLat = valueEgoVehicleStateVelocitySpeedLat;
   valueEgoVehicleState.velocity = valueEgoVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueEgoVehicleStateDynamics;
@@ -962,12 +1091,22 @@ TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooBig)
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
   value.egoVehicleState = valueEgoVehicleState;
   ::ad_rss::situation::VehicleState valueOtherVehicleState;
-  ::ad_rss::world::Velocity valueOtherVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLon(-100.);
-  valueOtherVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueOtherVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLonMaximum;
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLon.minimum;
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLon.maximum;
   valueOtherVehicleStateVelocity.speedLon = valueOtherVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLat(-100.);
-  valueOtherVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLatMaximum;
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLat.minimum;
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLat.maximum;
   valueOtherVehicleStateVelocity.speedLat = valueOtherVehicleStateVelocitySpeedLat;
   valueOtherVehicleState.velocity = valueOtherVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueOtherVehicleStateDynamics;
@@ -1032,8 +1171,10 @@ TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooBig)
 
   // override member with invalid value
   ::ad_rss::situation::VehicleState invalidInitializedMember;
-  ::ad_rss::world::Velocity invalidInitializedMemberVelocity;
-  ::ad_rss::physics::Speed invalidInitializedMemberVelocitySpeedLon(100. * 1.1);
+  ::ad_rss::situation::VelocityRange invalidInitializedMemberVelocity;
+  ::ad_rss::physics::SpeedRange invalidInitializedMemberVelocitySpeedLon;
+  ::ad_rss::physics::Speed invalidInitializedMemberVelocitySpeedLonMinimum(100. * 1.1);
+  invalidInitializedMemberVelocitySpeedLon.minimum = invalidInitializedMemberVelocitySpeedLonMinimum;
   invalidInitializedMemberVelocity.speedLon = invalidInitializedMemberVelocitySpeedLon;
   invalidInitializedMember.velocity = invalidInitializedMemberVelocity;
   value.otherVehicleState = invalidInitializedMember;
@@ -1043,20 +1184,29 @@ TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooBig)
 TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooSmall)
 {
   ::ad_rss::situation::Situation value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
   ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   value.situationId = valueSituationId;
+  ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
+  value.objectId = valueObjectId;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
   value.situationType = valueSituationType;
   ::ad_rss::situation::VehicleState valueEgoVehicleState;
-  ::ad_rss::world::Velocity valueEgoVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLon(-100.);
-  valueEgoVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueEgoVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLonMaximum;
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLon.minimum;
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLon.maximum;
   valueEgoVehicleStateVelocity.speedLon = valueEgoVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLat(-100.);
-  valueEgoVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLatMaximum;
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLat.minimum;
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLat.maximum;
   valueEgoVehicleStateVelocity.speedLat = valueEgoVehicleStateVelocitySpeedLat;
   valueEgoVehicleState.velocity = valueEgoVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueEgoVehicleStateDynamics;
@@ -1107,12 +1257,22 @@ TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooSmall)
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
   value.egoVehicleState = valueEgoVehicleState;
   ::ad_rss::situation::VehicleState valueOtherVehicleState;
-  ::ad_rss::world::Velocity valueOtherVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLon(-100.);
-  valueOtherVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueOtherVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLonMaximum;
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLon.minimum;
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLon.maximum;
   valueOtherVehicleStateVelocity.speedLon = valueOtherVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLat(-100.);
-  valueOtherVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLatMaximum;
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLat.minimum;
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLat.maximum;
   valueOtherVehicleStateVelocity.speedLat = valueOtherVehicleStateVelocitySpeedLat;
   valueOtherVehicleState.velocity = valueOtherVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueOtherVehicleStateDynamics;
@@ -1187,20 +1347,29 @@ TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooSmall)
 TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooBig)
 {
   ::ad_rss::situation::Situation value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
   ::ad_rss::situation::SituationId valueSituationId(std::numeric_limits<::ad_rss::situation::SituationId>::lowest());
   value.situationId = valueSituationId;
+  ::ad_rss::world::ObjectId valueObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::lowest());
+  value.objectId = valueObjectId;
   ::ad_rss::situation::SituationType valueSituationType(::ad_rss::situation::SituationType::NotRelevant);
   value.situationType = valueSituationType;
   ::ad_rss::situation::VehicleState valueEgoVehicleState;
-  ::ad_rss::world::Velocity valueEgoVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLon(-100.);
-  valueEgoVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueEgoVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLonMaximum;
+  valueEgoVehicleStateVelocitySpeedLon.maximum = valueEgoVehicleStateVelocitySpeedLon.minimum;
+  valueEgoVehicleStateVelocitySpeedLon.minimum = valueEgoVehicleStateVelocitySpeedLon.maximum;
   valueEgoVehicleStateVelocity.speedLon = valueEgoVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLat(-100.);
-  valueEgoVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueEgoVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueEgoVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLatMaximum;
+  valueEgoVehicleStateVelocitySpeedLat.maximum = valueEgoVehicleStateVelocitySpeedLat.minimum;
+  valueEgoVehicleStateVelocitySpeedLat.minimum = valueEgoVehicleStateVelocitySpeedLat.maximum;
   valueEgoVehicleStateVelocity.speedLat = valueEgoVehicleStateVelocitySpeedLat;
   valueEgoVehicleState.velocity = valueEgoVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueEgoVehicleStateDynamics;
@@ -1251,12 +1420,22 @@ TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooBig)
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
   value.egoVehicleState = valueEgoVehicleState;
   ::ad_rss::situation::VehicleState valueOtherVehicleState;
-  ::ad_rss::world::Velocity valueOtherVehicleStateVelocity;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLon(-100.);
-  valueOtherVehicleStateVelocitySpeedLon = ::ad_rss::physics::Speed(0.); // set to valid value within struct
+  ::ad_rss::situation::VelocityRange valueOtherVehicleStateVelocity;
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLon;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLonMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLonMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLonMaximum;
+  valueOtherVehicleStateVelocitySpeedLon.maximum = valueOtherVehicleStateVelocitySpeedLon.minimum;
+  valueOtherVehicleStateVelocitySpeedLon.minimum = valueOtherVehicleStateVelocitySpeedLon.maximum;
   valueOtherVehicleStateVelocity.speedLon = valueOtherVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLat(-100.);
-  valueOtherVehicleStateVelocitySpeedLat = ::ad_rss::physics::Speed(-10.); // set to valid value within struct
+  ::ad_rss::physics::SpeedRange valueOtherVehicleStateVelocitySpeedLat;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMinimum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLatMinimum;
+  ::ad_rss::physics::Speed valueOtherVehicleStateVelocitySpeedLatMaximum(-100.);
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLatMaximum;
+  valueOtherVehicleStateVelocitySpeedLat.maximum = valueOtherVehicleStateVelocitySpeedLat.minimum;
+  valueOtherVehicleStateVelocitySpeedLat.minimum = valueOtherVehicleStateVelocitySpeedLat.maximum;
   valueOtherVehicleStateVelocity.speedLat = valueOtherVehicleStateVelocitySpeedLat;
   valueOtherVehicleState.velocity = valueOtherVehicleStateVelocity;
   ::ad_rss::world::RssDynamics valueOtherVehicleStateDynamics;

@@ -34,7 +34,7 @@
 
 #pragma once
 
-#include "ad_rss/state/ResponseState.hpp"
+#include "ad_rss/state/RssState.hpp"
 
 /*!
  * @brief namespace ad_rss
@@ -46,39 +46,39 @@ namespace ad_rss {
 namespace state {
 
 /**
- * @brief is response state longitudinal safe
+ * @brief is rss state longitudinal safe
  *
- * @param[in] responseState to check
- *
- * true if safe, false if not
- */
-inline bool isLongitudinalSafe(ResponseState const &responseState)
-{
-  return responseState.longitudinalState.isSafe;
-}
-
-/**
- * @brief is response state lateral safe
- *
- * @param[in] responseState to check
+ * @param[in] rssState to check
  *
  * true if safe, false if not
  */
-inline bool isLateralSafe(ResponseState const &responseState)
+inline bool isLongitudinalSafe(RssState const &rssState)
 {
-  return responseState.lateralStateRight.isSafe && responseState.lateralStateLeft.isSafe;
+  return rssState.longitudinalState.isSafe;
 }
 
 /**
- * @brief is response state dangerous
+ * @brief is rss state lateral safe
  *
- * @param[in] responseState to check
+ * @param[in] rssState to check
+ *
+ * true if safe, false if not
+ */
+inline bool isLateralSafe(RssState const &rssState)
+{
+  return rssState.lateralStateRight.isSafe && rssState.lateralStateLeft.isSafe;
+}
+
+/**
+ * @brief is rss state dangerous
+ *
+ * @param[in] rssState to check
  *
  * true if dangerous, false if not
  */
-inline bool isDangerous(ResponseState const &responseState)
+inline bool isDangerous(RssState const &rssState)
 {
-  return !isLongitudinalSafe(responseState) && !isLateralSafe(responseState);
+  return !isLongitudinalSafe(rssState) && !isLateralSafe(rssState);
 }
 
 } // namespace state

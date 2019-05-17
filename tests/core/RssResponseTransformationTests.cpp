@@ -42,9 +42,9 @@ public:
   void SetUp() override
   {
     RssCheckTestBaseT<testing::Test>::SetUp();
-    resetRssState(responseState, 0u);
+    resetRssState(properResponse);
   }
-  state::ResponseState responseState;
+  state::ProperResponse properResponse;
 };
 
 TEST_F(RssResponseTransformationTests, validateTestSetup)
@@ -52,7 +52,7 @@ TEST_F(RssResponseTransformationTests, validateTestSetup)
   world::AccelerationRestriction accelerationRestriction;
 
   ASSERT_TRUE(::ad_rss::core::RssResponseTransformation::transformProperResponse(
-    worldModel, responseState, accelerationRestriction));
+    worldModel, properResponse, accelerationRestriction));
   testRestrictions(accelerationRestriction);
 }
 
@@ -61,52 +61,52 @@ TEST_F(RssResponseTransformationTests, invalidTimeStamp)
   world::AccelerationRestriction accelerationRestriction;
 
   worldModel.timeIndex = 1u;
-  responseState.timeIndex = 0u;
+  properResponse.timeIndex = 0u;
 
   ASSERT_FALSE(::ad_rss::core::RssResponseTransformation::transformProperResponse(
-    worldModel, responseState, accelerationRestriction));
+    worldModel, properResponse, accelerationRestriction));
 
   worldModel.timeIndex = 0u;
-  responseState.timeIndex = 1u;
+  properResponse.timeIndex = 1u;
 
   ASSERT_FALSE(::ad_rss::core::RssResponseTransformation::transformProperResponse(
-    worldModel, responseState, accelerationRestriction));
+    worldModel, properResponse, accelerationRestriction));
 
   worldModel.timeIndex = 1u;
-  responseState.timeIndex = 2u;
+  properResponse.timeIndex = 2u;
 
   ASSERT_FALSE(::ad_rss::core::RssResponseTransformation::transformProperResponse(
-    worldModel, responseState, accelerationRestriction));
+    worldModel, properResponse, accelerationRestriction));
 }
 
-TEST_F(RssResponseTransformationTests, invalidLongitudinalResponseState)
+TEST_F(RssResponseTransformationTests, invalidLongitudinalRssState)
 {
   world::AccelerationRestriction accelerationRestriction;
 
-  responseState.longitudinalState.response = state::LongitudinalResponse(-1);
+  properResponse.longitudinalResponse = state::LongitudinalResponse(-1);
 
   ASSERT_FALSE(::ad_rss::core::RssResponseTransformation::transformProperResponse(
-    worldModel, responseState, accelerationRestriction));
+    worldModel, properResponse, accelerationRestriction));
 }
 
-TEST_F(RssResponseTransformationTests, invalidLateralResponseStateLeft)
+TEST_F(RssResponseTransformationTests, invalidLateralRssStateLeft)
 {
   world::AccelerationRestriction accelerationRestriction;
 
-  responseState.lateralStateLeft.response = state::LateralResponse(-1);
+  properResponse.lateralResponseLeft = state::LateralResponse(-1);
 
   ASSERT_FALSE(::ad_rss::core::RssResponseTransformation::transformProperResponse(
-    worldModel, responseState, accelerationRestriction));
+    worldModel, properResponse, accelerationRestriction));
 }
 
-TEST_F(RssResponseTransformationTests, invalidLateralResponseStateRight)
+TEST_F(RssResponseTransformationTests, invalidLateralRssStateRight)
 {
   world::AccelerationRestriction accelerationRestriction;
 
-  responseState.lateralStateRight.response = state::LateralResponse(-1);
+  properResponse.lateralResponseRight = state::LateralResponse(-1);
 
   ASSERT_FALSE(::ad_rss::core::RssResponseTransformation::transformProperResponse(
-    worldModel, responseState, accelerationRestriction));
+    worldModel, properResponse, accelerationRestriction));
 }
 
 } // namespace core

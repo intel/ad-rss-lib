@@ -43,85 +43,81 @@
 #include <limits>
 #include <memory>
 #include "ad_rss/physics/TimeIndex.hpp"
-#include "ad_rss/situation/SituationId.hpp"
-#include "ad_rss/state/LateralRssState.hpp"
-#include "ad_rss/state/LongitudinalRssState.hpp"
+#include "ad_rss/situation/SituationVector.hpp"
 /*!
  * @brief namespace ad_rss
  */
 namespace ad_rss {
 /*!
- * @brief namespace state
+ * @brief namespace situation
  */
-namespace state {
+namespace situation {
 
 /*!
- * \brief DataType ResponseState
+ * \brief DataType SituationSnapshot
  *
- * Struct defining the RSS state of a single object.
+ * A snashot in time of the current situations RSS extracted from the WorldModel.
  */
-struct ResponseState
+struct SituationSnapshot
 {
   /*!
    * \brief standard constructor
    */
-  ResponseState() = default;
+  SituationSnapshot() = default;
 
   /*!
    * \brief standard destructor
    */
-  ~ResponseState() = default;
+  ~SituationSnapshot() = default;
 
   /*!
    * \brief standard copy constructor
    */
-  ResponseState(const ResponseState &other) = default;
+  SituationSnapshot(const SituationSnapshot &other) = default;
 
   /*!
    * \brief standard move constructor
    */
-  ResponseState(ResponseState &&other) = default;
+  SituationSnapshot(SituationSnapshot &&other) = default;
 
   /**
    * \brief standard assignment operator
    *
-   * \param[in] other Other ResponseState
+   * \param[in] other Other SituationSnapshot
    *
-   * \returns Reference to this ResponseState.
+   * \returns Reference to this SituationSnapshot.
    */
-  ResponseState &operator=(const ResponseState &other) = default;
+  SituationSnapshot &operator=(const SituationSnapshot &other) = default;
 
   /**
    * \brief standard move operator
    *
-   * \param[in] other Other ResponseState
+   * \param[in] other Other SituationSnapshot
    *
-   * \returns Reference to this ResponseState.
+   * \returns Reference to this SituationSnapshot.
    */
-  ResponseState &operator=(ResponseState &&other) = default;
+  SituationSnapshot &operator=(SituationSnapshot &&other) = default;
 
   /**
    * \brief standard comparison operator
    *
-   * \param[in] other Other ResponseState
+   * \param[in] other Other SituationSnapshot
    *
-   * \returns \c true if both ResponseState are equal
+   * \returns \c true if both SituationSnapshot are equal
    */
-  bool operator==(const ResponseState &other) const
+  bool operator==(const SituationSnapshot &other) const
   {
-    return (timeIndex == other.timeIndex) && (situationId == other.situationId)
-      && (longitudinalState == other.longitudinalState) && (lateralStateRight == other.lateralStateRight)
-      && (lateralStateLeft == other.lateralStateLeft);
+    return (timeIndex == other.timeIndex) && (situations == other.situations);
   }
 
   /**
    * \brief standard comparison operator
    *
-   * \param[in] other Other ResponseState.
+   * \param[in] other Other SituationSnapshot.
    *
-   * \returns \c true if both ResponseState are different
+   * \returns \c true if both SituationSnapshot are different
    */
-  bool operator!=(const ResponseState &other) const
+  bool operator!=(const SituationSnapshot &other) const
   {
     return !operator==(other);
   }
@@ -133,29 +129,10 @@ struct ResponseState
   ::ad_rss::physics::TimeIndex timeIndex{0u};
 
   /*!
-   * Id of the situation this state refers to.
-   * The id has to remain unique over time representing the situation (ego-vehicle /
-   * object pair) under investigation.
-   * It is used to track the state of the ego-vehicle / object constellation i.e. at
-   * point of danger threshold time.
+   * The vector of situations at a given time.
    */
-  ::ad_rss::situation::SituationId situationId{0u};
-
-  /*!
-   * The current longitudinal rss state.
-   */
-  ::ad_rss::state::LongitudinalRssState longitudinalState;
-
-  /*!
-   * The current lateral rss state at right side in respect to ego-vehicle driving direction.
-   */
-  ::ad_rss::state::LateralRssState lateralStateRight;
-
-  /*!
-   * The current lateral rss state at left side in respect to ego-vehicle driving direction.
-   */
-  ::ad_rss::state::LateralRssState lateralStateLeft;
+  ::ad_rss::situation::SituationVector situations;
 };
 
-} // namespace state
+} // namespace situation
 } // namespace ad_rss

@@ -35,8 +35,8 @@
 #pragma once
 
 #include <memory>
-#include "ad_rss/situation/SituationVector.hpp"
-#include "ad_rss/state/ResponseStateVector.hpp"
+#include "ad_rss/situation/SituationSnapshot.hpp"
+#include "ad_rss/state/RssStateSnapshot.hpp"
 
 /*!
  * @brief namespace ad_rss
@@ -76,40 +76,35 @@ public:
   /*!
    * @brief Checks if the current situations are safe.
    *
-   * @param [in] situationVector the vector of situations that should be analyzed
-   * @param[out] responseStateVector the vector of response states for the current situations
+   * @param [in] situationSnapshot the situation snapshot in time that should be analyzed
+   * @param[out] rssStateSnapshot the rss state snapshot of these situations
    *
    * @return true if the situations could be analyzed, false if an error occurred during evaluation.
    */
-  bool checkSituations(situation::SituationVector const &situationVector,
-                       state::ResponseStateVector &responseStateVector);
+  bool checkSituations(situation::SituationSnapshot const &situationSnapshot,
+                       state::RssStateSnapshot &rssStateSnapshot);
 
 private:
   /*!
    * @brief Check if the current situation is safe.
    *
    * @param[in] situation      the Situation that should be analyzed
-   * @param[in] nextTimeStep   indidicates that a new time step occurred
-   * @param[out] response      the response state for the current situation
+   * @param[out] rssState      the rssState state for the current situation
    *
    * @return true if situation could be analyzed, false if there was an error during evaluation
    */
-  bool checkSituationInputRangeChecked(situation::Situation const &situation,
-                                       bool const nextTimeStep,
-                                       state::ResponseState &response);
+  bool checkSituationInputRangeChecked(situation::Situation const &situation, state::RssState &rssState);
 
   /*!
-   * @brief check to ensure situation time is consistent
+   * @brief check to ensure time index is consistent
    *
-   * @param[in] situation      the Situation that should be analyzed
-   * @param[in] nextTimeStep   indidicates that a new time step occurred
+   * @param[in] nextTimeIndex   the new time index
    *
    * @return true if the time is constantly increasing
    */
-  bool checkTimeIncreasingConsistently(situation::Situation const &situation, bool const nextTimeStep);
+  bool checkTimeIncreasingConsistently(physics::TimeIndex const &nextTimeIndex);
 
   std::unique_ptr<ad_rss::situation::RssIntersectionChecker> mIntersectionChecker;
-  physics::TimeIndex mLastTimeIndex{0u};
   physics::TimeIndex mCurrentTimeIndex{0u};
 };
 } // namespace core

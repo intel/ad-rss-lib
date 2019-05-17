@@ -41,35 +41,36 @@
 
 #include <cmath>
 #include <limits>
-#include "ad_rss/state/ResponseStateValidInputRange.hpp"
-#include "ad_rss/state/ResponseStateVector.hpp"
+#include "ad_rss/physics/SpeedRange.hpp"
+#include "ad_rss/physics/SpeedValidInputRange.hpp"
 
 /*!
- * \brief check if the given ResponseStateVector is within valid input range
+ * \brief check if the given SpeedRange is within valid input range
  *
- * \param[in] input the ResponseStateVector as an input value
+ * \param[in] input the SpeedRange as an input value
  *
- * \returns \c true if ResponseStateVector is considered to be within the specified input range
+ * \returns \c true if SpeedRange is considered to be within the specified input range
  *
- * \note the specified input range is defined by
- *       0 <= \c input.size() <= 1000
- *       and the ranges of all vector elements
+ * \note the specified input range is defined by the ranges of all members, plus:
+ *       ::ad_rss::physics::Speed(-100.) <= minimum <= maximum
+ *       minimum <= maximum <= ::ad_rss::physics::Speed(100.)
  */
-inline bool withinValidInputRange(::ad_rss::state::ResponseStateVector const &input)
+inline bool withinValidInputRange(::ad_rss::physics::SpeedRange const &input)
 {
   try
   {
     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
-    bool inValidInputRange = (input.size() <= std::size_t(1000));
+    // check for generic member input ranges
+    bool const membersInValidInputRange = withinValidInputRange(input.minimum) && withinValidInputRange(input.maximum);
 
-    if (inValidInputRange)
-    {
-      for (auto const &member : input)
-      {
-        inValidInputRange = inValidInputRange && withinValidInputRange(member);
-      }
-    }
-    return inValidInputRange;
+    // check for individual input ranges
+    bool const minimumInInputRange
+      = (::ad_rss::physics::Speed(-100.) <= input.minimum) && (input.minimum <= input.maximum);
+
+    bool const maximumInInputRange
+      = (input.minimum <= input.maximum) && (input.maximum <= ::ad_rss::physics::Speed(100.));
+
+    return membersInValidInputRange && minimumInInputRange && maximumInInputRange;
     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
   }
   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes

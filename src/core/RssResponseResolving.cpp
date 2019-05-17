@@ -31,9 +31,8 @@
 
 #include "ad_rss/core/RssResponseResolving.hpp"
 #include <algorithm>
-#include "ad_rss/state/ResponseStateOperation.hpp"
-#include "ad_rss/state/ResponseStateVectorValidInputRange.hpp"
-#include "core/RssState.hpp"
+#include "ad_rss/state/RssStateOperation.hpp"
+#include "ad_rss/state/RssStateSnapshotValidInputRange.hpp"
 
 namespace ad_rss {
 namespace core {
@@ -42,10 +41,10 @@ RssResponseResolving::RssResponseResolving()
 {
 }
 
-bool RssResponseResolving::provideProperResponse(state::ResponseStateVector const &currentStates,
-                                                 state::ResponseState &responseState)
+bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &currentStateSnapshot,
+                                                 state::ProperResponse &response)
 {
-  if (!withinValidInputRange(currentStates))
+  if (!withinValidInputRange(currentStateSnapshot))
   {
     return false;
   }
@@ -54,26 +53,26 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
   // global try catch block to ensure this library call doesn't throw an exception
   try
   {
-    responseState = createResponseState(physics::TimeIndex(0u), situation::SituationId(0), IsSafe::Yes);
+    response.timeIndex = currentStateSnapshot.timeIndex;
+    response.isSafe = true;
+    response.dangerousObjects.clear();
+    response.longitudinalResponse = state::LongitudinalResponse::None;
+    response.lateralResponseLeft = state::LateralResponse::None;
+    response.lateralResponseRight = state::LateralResponse::None;
 
-    RssStateBeforeDangerThresholdTimeMap newStatesBeforeDangerThresholdTime;
-
-    for (auto const &currentState : currentStates)
+    RssSafeStateBeforeDangerThresholdTimeMap newStatesBeforeDangerThresholdTime;
+    for (auto const &currentState : currentStateSnapshot.individualResponses)
     {
-      if (responseState.timeIndex == physics::TimeIndex(0u))
-      {
-        responseState.timeIndex = currentState.timeIndex;
-      }
-      else if (responseState.timeIndex != currentState.timeIndex)
-      {
-        result = false;
-        break;
-      }
-
       // The response belonging to the last state before the danger threshold time
-      RssState nonDangerousStateToRemember;
+      RssSafeState nonDangerousStateToRemember;
       if (isDangerous(currentState))
       {
+        response.isSafe = false;
+        if (std::find(response.dangerousObjects.begin(), response.dangerousObjects.end(), currentState.objectId)
+            == response.dangerousObjects.end())
+        {
+          response.dangerousObjects.push_back(currentState.objectId);
+        }
         auto const previousNonDangerousState = mStatesBeforeDangerThresholdTime.find(currentState.situationId);
         if (previousNonDangerousState != mStatesBeforeDangerThresholdTime.end())
         {
@@ -86,26 +85,16 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
             // @todo: Handling of a cut-in by a leading vehicle as stated in definitions 11-13 of the RSS paper v6
             //        will be handled outside of this function. As a consequence.
             //        There is currently no response for a cut-in of a leading vehicle
-            responseState.lateralStateLeft
-              = combineRssState(currentState.lateralStateLeft, responseState.lateralStateLeft);
+            response.lateralResponseLeft
+              = combineResponse(currentState.lateralStateLeft.response, response.lateralResponseLeft);
 
-            responseState.lateralStateRight
-              = combineRssState(currentState.lateralStateRight, responseState.lateralStateRight);
-
-            // propagate is safe in longitudinal direction
-            responseState.longitudinalState.isSafe
-              = responseState.longitudinalState.isSafe && currentState.longitudinalState.isSafe;
+            response.lateralResponseRight
+              = combineResponse(currentState.lateralStateRight.response, response.lateralResponseRight);
           }
           if (previousNonDangerousState->second.longitudinalSafe)
           {
-            // propagate is safe in lateral direction
-            responseState.lateralStateLeft.isSafe
-              = responseState.lateralStateLeft.isSafe && currentState.lateralStateLeft.isSafe;
-            responseState.lateralStateRight.isSafe
-              = responseState.lateralStateRight.isSafe && currentState.lateralStateRight.isSafe;
-
-            responseState.longitudinalState
-              = combineRssState(currentState.longitudinalState, responseState.longitudinalState);
+            response.longitudinalResponse
+              = combineResponse(currentState.longitudinalState.response, response.longitudinalResponse);
           }
 
           nonDangerousStateToRemember = previousNonDangerousState->second;
@@ -114,17 +103,17 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
         {
           // There is a lateral and a longitudinal conflict so both longitudinal and lateral distances became
           // dangerous at the same time
-          responseState.longitudinalState
-            = combineRssState(currentState.longitudinalState, responseState.longitudinalState);
+          response.longitudinalResponse
+            = combineResponse(currentState.longitudinalState.response, response.longitudinalResponse);
 
           // we might need to check here if left or right is the dangerous side
           // but for the combineLateralResponse will only respect the more severe response
           // omitting the check should have the same result
-          responseState.lateralStateLeft
-            = combineRssState(currentState.lateralStateLeft, responseState.lateralStateLeft);
+          response.lateralResponseLeft
+            = combineResponse(currentState.lateralStateLeft.response, response.lateralResponseLeft);
 
-          responseState.lateralStateRight
-            = combineRssState(currentState.lateralStateRight, responseState.lateralStateRight);
+          response.lateralResponseRight
+            = combineResponse(currentState.lateralStateRight.response, response.lateralResponseRight);
         }
       }
       else
@@ -137,7 +126,7 @@ bool RssResponseResolving::provideProperResponse(state::ResponseStateVector cons
       if (nonDangerousStateToRemember.longitudinalSafe || nonDangerousStateToRemember.lateralSafe)
       {
         auto const insertResult = newStatesBeforeDangerThresholdTime.insert(
-          RssStateBeforeDangerThresholdTimeMap::value_type(currentState.situationId, nonDangerousStateToRemember));
+          RssSafeStateBeforeDangerThresholdTimeMap::value_type(currentState.situationId, nonDangerousStateToRemember));
 
         if (result)
         {

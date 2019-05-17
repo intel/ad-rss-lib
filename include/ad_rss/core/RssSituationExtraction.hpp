@@ -34,7 +34,7 @@
 
 #pragma once
 
-#include "ad_rss/situation/SituationVector.hpp"
+#include "ad_rss/situation/SituationSnapshot.hpp"
 #include "ad_rss/world/WorldModel.hpp"
 
 /*!
@@ -79,11 +79,11 @@ public:
    * @brief Extract all RSS situations to be checked from the world model.
    *
    * @param [in] worldModel - the current world model information
-   * @param [out] situationVector - the vector of situations to be analyzed with RSS
+   * @param [out] situationSnapshot - the vector of situations to be analyzed with RSS
    *
    * @return true if the situations could be created, false if there was an error during the operation.
    */
-  bool extractSituations(world::WorldModel const &worldModel, situation::SituationVector &situationVector);
+  bool extractSituations(world::WorldModel const &worldModel, situation::SituationSnapshot &situationSnapshot);
 
 private:
   void calcluateRelativeLongitudinalPosition(physics::MetricRange const &egoMetricRange,
@@ -118,7 +118,13 @@ private:
                                          world::RssDynamics const &egoVehicleRssDynamics,
                                          world::Scene const &currentScene,
                                          situation::Situation &situation);
-  bool mergeVehicleStates(situation::VehicleState const &otherVehicleState,
+  enum class MergeMode
+  {
+    EgoVehicle,
+    OtherVehicle
+  };
+  bool mergeVehicleStates(MergeMode const &mergeMode,
+                          situation::VehicleState const &otherVehicleState,
                           situation::VehicleState &mergedVehicleState);
   bool mergeSituations(situation::Situation const &otherSituation, situation::Situation &mergedSituation);
 

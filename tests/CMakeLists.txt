@@ -39,6 +39,7 @@ set(EXEC_NAME ad-rss-tests)
 include(generated/CMakeLists.txt)
 
 set(RSS_TEST_SOURCES_WITH_PRIVATE_ACCESS
+  core/RssResponseCombineTests.cpp
   core/RssSituationExtractionInputRangeTests.cpp
   core/RssSituationExtractionRelativePositionTests.cpp
   situation/RssSituationCheckingInputRangeTests.cpp
@@ -66,7 +67,6 @@ set(RSS_TEST_SOURCES
   core/RssSituationExtractionOppositeDirectionTests.cpp
   core/RssSituationExtractionSameDirectionTests.cpp
   core/RssSituationIdProviderTests.cpp
-  core/RssStateCombineRssStateTests.cpp
   physics/MathUnitTestsDistanceOffsetAfterResponseTime.cpp
   physics/MathUnitTestsInputRangeChecks.cpp
   physics/MathUnitTestsStoppingDistance.cpp

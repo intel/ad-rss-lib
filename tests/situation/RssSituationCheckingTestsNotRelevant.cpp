@@ -41,7 +41,6 @@ protected:
   virtual void SetUp()
   {
     situation.situationType = SituationType::NotRelevant;
-    situation.timeIndex = 1u;
   }
 
   virtual void TearDown()
@@ -51,7 +50,8 @@ protected:
   VehicleState correctVehicle;
   VehicleState oppositeVehicle;
   Situation situation;
-  state::ResponseState responseState;
+  state::RssState rssState;
+  physics::TimeIndex timeIndex{1u};
 };
 
 TEST_F(RssSituationCheckingTestsNotRelevant, notRelevantSituation)
@@ -64,11 +64,11 @@ TEST_F(RssSituationCheckingTestsNotRelevant, notRelevantSituation)
   situation.otherVehicleState = oppositeVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(1.));
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, true, responseState));
-  ASSERT_EQ(responseState.longitudinalState,
-            TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(responseState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralSafe, situation));
-  ASSERT_EQ(responseState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralSafe, situation));
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralSafe, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralSafe, situation));
 }
 
 } // namespace situation

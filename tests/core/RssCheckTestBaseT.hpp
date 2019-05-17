@@ -540,24 +540,24 @@ protected:
       switch (getSituationType())
       {
         case situation::SituationType::SameDirection:
-          dMin = calculateLongitudinalMinSafeDistance(scene.egoVehicle.velocity,
+          dMin = calculateLongitudinalMinSafeDistance(scene.egoVehicle.velocity.speedLon,
                                                       worldModel.egoVehicleRssDynamics,
-                                                      scene.object.velocity,
+                                                      scene.object.velocity.speedLon,
                                                       scene.objectRssDynamics);
           break;
         case situation::SituationType::OppositeDirection:
           if (getDrivingDirection() == ::ad_rss::world::LaneDrivingDirection::Negative)
           {
-            dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(scene.object.velocity,
+            dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(scene.object.velocity.speedLon,
                                                                          scene.objectRssDynamics,
-                                                                         scene.egoVehicle.velocity,
+                                                                         scene.egoVehicle.velocity.speedLon,
                                                                          worldModel.egoVehicleRssDynamics);
           }
           else
           {
-            dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(scene.egoVehicle.velocity,
+            dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(scene.egoVehicle.velocity.speedLon,
                                                                          worldModel.egoVehicleRssDynamics,
-                                                                         scene.object.velocity,
+                                                                         scene.object.velocity.speedLon,
                                                                          scene.objectRssDynamics);
           }
           break;

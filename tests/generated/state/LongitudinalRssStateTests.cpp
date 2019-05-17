@@ -50,15 +50,14 @@ protected:
     value.isSafe = valueIsSafe;
     ::ad_rss::state::LongitudinalResponse valueResponse(::ad_rss::state::LongitudinalResponse::None);
     value.response = valueResponse;
-    ::ad_rss::state::ResponseInformation valueResponseInformation;
-    ::ad_rss::physics::Distance valueResponseInformationSafeDistance(0.);
-    valueResponseInformation.safeDistance = valueResponseInformationSafeDistance;
-    ::ad_rss::physics::Distance valueResponseInformationCurrentDistance(0.);
-    valueResponseInformation.currentDistance = valueResponseInformationCurrentDistance;
-    ::ad_rss::state::ResponseEvaluator valueResponseInformationResponseEvaluator(
-      ::ad_rss::state::ResponseEvaluator::None);
-    valueResponseInformation.responseEvaluator = valueResponseInformationResponseEvaluator;
-    value.responseInformation = valueResponseInformation;
+    ::ad_rss::state::RssStateInformation valueRssStateInformation;
+    ::ad_rss::physics::Distance valueRssStateInformationSafeDistance(0.);
+    valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
+    ::ad_rss::physics::Distance valueRssStateInformationCurrentDistance(0.);
+    valueRssStateInformation.currentDistance = valueRssStateInformationCurrentDistance;
+    ::ad_rss::state::RssStateEvaluator valueRssStateInformationEvaluator(::ad_rss::state::RssStateEvaluator::None);
+    valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
+    value.rssStateInformation = valueRssStateInformation;
     mValue = value;
   }
 
@@ -122,18 +121,18 @@ TEST_F(LongitudinalRssStateTests, comparisonOperatorResponseDiffers)
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(LongitudinalRssStateTests, comparisonOperatorResponseInformationDiffers)
+TEST_F(LongitudinalRssStateTests, comparisonOperatorRssStateInformationDiffers)
 {
   ::ad_rss::state::LongitudinalRssState valueA = mValue;
-  ::ad_rss::state::ResponseInformation responseInformation;
-  ::ad_rss::physics::Distance responseInformationSafeDistance(1e6);
-  responseInformation.safeDistance = responseInformationSafeDistance;
-  ::ad_rss::physics::Distance responseInformationCurrentDistance(1e6);
-  responseInformation.currentDistance = responseInformationCurrentDistance;
-  ::ad_rss::state::ResponseEvaluator responseInformationResponseEvaluator(
-    ::ad_rss::state::ResponseEvaluator::IntersectionOverlap);
-  responseInformation.responseEvaluator = responseInformationResponseEvaluator;
-  valueA.responseInformation = responseInformation;
+  ::ad_rss::state::RssStateInformation rssStateInformation;
+  ::ad_rss::physics::Distance rssStateInformationSafeDistance(1e6);
+  rssStateInformation.safeDistance = rssStateInformationSafeDistance;
+  ::ad_rss::physics::Distance rssStateInformationCurrentDistance(1e6);
+  rssStateInformation.currentDistance = rssStateInformationCurrentDistance;
+  ::ad_rss::state::RssStateEvaluator rssStateInformationEvaluator(
+    ::ad_rss::state::RssStateEvaluator::IntersectionOverlap);
+  rssStateInformation.evaluator = rssStateInformationEvaluator;
+  valueA.rssStateInformation = rssStateInformation;
   ::ad_rss::state::LongitudinalRssState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

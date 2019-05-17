@@ -77,6 +77,7 @@ protected:
     leadingObject.occupiedRegions.clear();
     scene.egoVehicleRoad.clear();
   }
+
   world::Object followingObject;
   world::Object leadingObject;
   world::WorldModel worldModel;
@@ -86,76 +87,56 @@ protected:
 
 TEST_F(RssSituationExtractionOppositeDirectionTests, noLongitudinalDifference)
 {
-  situation::SituationVector situationVector;
+  situation::SituationSnapshot situationSnapshot;
 
   scene.egoVehicle = objectAsEgo(leadingObject);
   scene.object = followingObject;
-
-  world::RoadSegment roadSegment;
-  world::LaneSegment laneSegment;
-
-  laneSegment.id = 1;
-  laneSegment.length.minimum = Distance(10);
-  laneSegment.length.maximum = Distance(10);
-
-  laneSegment.width.minimum = Distance(5);
-  laneSegment.width.maximum = Distance(5);
-
-  roadSegment.push_back(laneSegment);
-
-  scene.egoVehicleRoad.push_back(roadSegment);
+  scene.egoVehicleRoad.push_back(longitudinalNoDifferenceRoadSegment());
 
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationVector));
-  ASSERT_EQ(situationVector.size(), 1);
+  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
+  ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
+  ASSERT_EQ(situationSnapshot.situations.size(), 1);
 
-  ASSERT_EQ(situationVector[0].relativePosition.longitudinalDistance, Distance(6));
-  ASSERT_EQ(situationVector[0].egoVehicleState.velocity.speedLon, Speed(10));
-  ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.accelMax,
+  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalDistance, Distance(6));
+  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10));
+  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10));
+  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
             worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
 
-  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, situation::LateralRelativePosition::AtLeft);
-  ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, Distance(1));
+  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
+            situation::LateralRelativePosition::AtLeft);
+  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(1));
 }
 
 TEST_F(RssSituationExtractionOppositeDirectionTests, longitudinalDifference)
 {
-  situation::SituationVector situationVector;
+  situation::SituationSnapshot situationSnapshot;
 
   scene.egoVehicle = objectAsEgo(followingObject);
   scene.object = leadingObject;
-
-  world::RoadSegment roadSegment;
-  world::LaneSegment laneSegment;
-
-  laneSegment.id = 1;
-  laneSegment.length.minimum = Distance(5);
-  laneSegment.length.maximum = Distance(10);
-
-  laneSegment.width.minimum = Distance(5);
-  laneSegment.width.maximum = Distance(5);
-
-  roadSegment.push_back(laneSegment);
-
-  scene.egoVehicleRoad.push_back(roadSegment);
+  scene.egoVehicleRoad.push_back(longitudinalDifferenceRoadSegment());
 
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
-  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationVector));
-  ASSERT_EQ(situationVector.size(), 1);
+  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
+  ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
+  ASSERT_EQ(situationSnapshot.situations.size(), 1);
 
-  ASSERT_EQ(situationVector[0].relativePosition.longitudinalDistance, Distance(2));
-  ASSERT_EQ(situationVector[0].egoVehicleState.velocity.speedLon, Speed(10));
-  ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.accelMax,
+  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalDistance, Distance(2));
+  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10));
+  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10));
+  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
             worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
-  ASSERT_EQ(situationVector[0].egoVehicleState.dynamics.alphaLon.brakeMin,
+  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.brakeMin,
             worldModel.egoVehicleRssDynamics.alphaLon.brakeMin);
 
-  ASSERT_EQ(situationVector[0].relativePosition.lateralPosition, situation::LateralRelativePosition::AtRight);
-  ASSERT_EQ(situationVector[0].relativePosition.lateralDistance, Distance(1));
+  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
+            situation::LateralRelativePosition::AtRight);
+  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(1));
 }
 
 } // namespace core

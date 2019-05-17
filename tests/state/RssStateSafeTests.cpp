@@ -29,7 +29,7 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include <ad_rss/state/ResponseStateOperation.hpp>
+#include <ad_rss/state/RssStateOperation.hpp>
 #include "TestSupport.hpp"
 
 namespace ad_rss {
@@ -37,120 +37,120 @@ namespace state {
 
 TEST(RssStateSafeTests, isSafe)
 {
-  state::ResponseState responseState;
-  resetRssState(responseState, 1u);
+  state::RssState rssState;
+  resetRssState(rssState, 1u, 1u);
 
-  ASSERT_FALSE(isDangerous(responseState));
-  ASSERT_TRUE(isLongitudinalSafe(responseState));
-  ASSERT_TRUE(isLateralSafe(responseState));
+  ASSERT_FALSE(isDangerous(rssState));
+  ASSERT_TRUE(isLongitudinalSafe(rssState));
+  ASSERT_TRUE(isLateralSafe(rssState));
 }
 
 TEST(RssStateSafeTests, longitudinal_None)
 {
-  state::ResponseState responseState;
-  setRssStateUnsafe(responseState.longitudinalState, state::LongitudinalResponse::None);
-  resetRssState(responseState.lateralStateLeft);
-  resetRssState(responseState.lateralStateRight);
+  state::RssState rssState;
+  setRssStateUnsafe(rssState.longitudinalState, state::LongitudinalResponse::None);
+  resetRssState(rssState.lateralStateLeft);
+  resetRssState(rssState.lateralStateRight);
 
-  ASSERT_FALSE(isDangerous(responseState));
-  ASSERT_FALSE(isLongitudinalSafe(responseState));
-  ASSERT_TRUE(isLateralSafe(responseState));
+  ASSERT_FALSE(isDangerous(rssState));
+  ASSERT_FALSE(isLongitudinalSafe(rssState));
+  ASSERT_TRUE(isLateralSafe(rssState));
 }
 
 TEST(RssStateSafeTests, longitudinal_BrakeMin)
 {
-  state::ResponseState responseState;
-  setRssStateUnsafe(responseState.longitudinalState, state::LongitudinalResponse::BrakeMin);
-  resetRssState(responseState.lateralStateLeft);
-  resetRssState(responseState.lateralStateRight);
+  state::RssState rssState;
+  setRssStateUnsafe(rssState.longitudinalState, state::LongitudinalResponse::BrakeMin);
+  resetRssState(rssState.lateralStateLeft);
+  resetRssState(rssState.lateralStateRight);
 
-  ASSERT_FALSE(isDangerous(responseState));
-  ASSERT_FALSE(isLongitudinalSafe(responseState));
-  ASSERT_TRUE(isLateralSafe(responseState));
+  ASSERT_FALSE(isDangerous(rssState));
+  ASSERT_FALSE(isLongitudinalSafe(rssState));
+  ASSERT_TRUE(isLateralSafe(rssState));
 }
 
 TEST(RssStateSafeTests, longitudinal_BrakeMinCorrect)
 {
-  state::ResponseState responseState;
-  setRssStateUnsafe(responseState.longitudinalState, state::LongitudinalResponse::BrakeMinCorrect);
-  resetRssState(responseState.lateralStateLeft);
-  resetRssState(responseState.lateralStateRight);
+  state::RssState rssState;
+  setRssStateUnsafe(rssState.longitudinalState, state::LongitudinalResponse::BrakeMinCorrect);
+  resetRssState(rssState.lateralStateLeft);
+  resetRssState(rssState.lateralStateRight);
 
-  ASSERT_FALSE(isDangerous(responseState));
-  ASSERT_FALSE(isLongitudinalSafe(responseState));
-  ASSERT_TRUE(isLateralSafe(responseState));
+  ASSERT_FALSE(isDangerous(rssState));
+  ASSERT_FALSE(isLongitudinalSafe(rssState));
+  ASSERT_TRUE(isLateralSafe(rssState));
 }
 
 TEST(RssStateSafeTests, lateralLeft_None)
 {
-  state::ResponseState responseState;
-  resetRssState(responseState.longitudinalState);
-  setRssStateUnsafe(responseState.lateralStateLeft, state::LateralResponse::None);
-  resetRssState(responseState.lateralStateRight);
+  state::RssState rssState;
+  resetRssState(rssState.longitudinalState);
+  setRssStateUnsafe(rssState.lateralStateLeft, state::LateralResponse::None);
+  resetRssState(rssState.lateralStateRight);
 
-  ASSERT_FALSE(isDangerous(responseState));
-  ASSERT_TRUE(isLongitudinalSafe(responseState));
-  ASSERT_FALSE(isLateralSafe(responseState));
+  ASSERT_FALSE(isDangerous(rssState));
+  ASSERT_TRUE(isLongitudinalSafe(rssState));
+  ASSERT_FALSE(isLateralSafe(rssState));
 }
 
 TEST(RssStateSafeTests, lateralLeft_BrakeMin)
 {
-  state::ResponseState responseState;
-  resetRssState(responseState.longitudinalState);
-  setRssStateUnsafe(responseState.lateralStateLeft, state::LateralResponse::BrakeMin);
-  resetRssState(responseState.lateralStateRight);
+  state::RssState rssState;
+  resetRssState(rssState.longitudinalState);
+  setRssStateUnsafe(rssState.lateralStateLeft, state::LateralResponse::BrakeMin);
+  resetRssState(rssState.lateralStateRight);
 
-  ASSERT_FALSE(isDangerous(responseState));
-  ASSERT_TRUE(isLongitudinalSafe(responseState));
-  ASSERT_FALSE(isLateralSafe(responseState));
+  ASSERT_FALSE(isDangerous(rssState));
+  ASSERT_TRUE(isLongitudinalSafe(rssState));
+  ASSERT_FALSE(isLateralSafe(rssState));
 }
 
 TEST(RssStateSafeTests, lateralRight_None)
 {
-  state::ResponseState responseState;
-  resetRssState(responseState.longitudinalState);
-  resetRssState(responseState.lateralStateLeft);
-  setRssStateUnsafe(responseState.lateralStateRight, state::LateralResponse::None);
+  state::RssState rssState;
+  resetRssState(rssState.longitudinalState);
+  resetRssState(rssState.lateralStateLeft);
+  setRssStateUnsafe(rssState.lateralStateRight, state::LateralResponse::None);
 
-  ASSERT_FALSE(isDangerous(responseState));
-  ASSERT_TRUE(isLongitudinalSafe(responseState));
-  ASSERT_FALSE(isLateralSafe(responseState));
+  ASSERT_FALSE(isDangerous(rssState));
+  ASSERT_TRUE(isLongitudinalSafe(rssState));
+  ASSERT_FALSE(isLateralSafe(rssState));
 }
 
 TEST(RssStateSafeTests, lateralRight_BrakeMin)
 {
-  state::ResponseState responseState;
-  resetRssState(responseState.longitudinalState);
-  resetRssState(responseState.lateralStateLeft);
-  setRssStateUnsafe(responseState.lateralStateRight, state::LateralResponse::BrakeMin);
+  state::RssState rssState;
+  resetRssState(rssState.longitudinalState);
+  resetRssState(rssState.lateralStateLeft);
+  setRssStateUnsafe(rssState.lateralStateRight, state::LateralResponse::BrakeMin);
 
-  ASSERT_FALSE(isDangerous(responseState));
-  ASSERT_TRUE(isLongitudinalSafe(responseState));
-  ASSERT_FALSE(isLateralSafe(responseState));
+  ASSERT_FALSE(isDangerous(rssState));
+  ASSERT_TRUE(isLongitudinalSafe(rssState));
+  ASSERT_FALSE(isLateralSafe(rssState));
 }
 
 TEST(RssStateSafeTests, longitudinal_lateralRight_BrakeMin)
 {
-  state::ResponseState responseState;
-  setRssStateUnsafe(responseState.longitudinalState, state::LongitudinalResponse::BrakeMin);
-  resetRssState(responseState.lateralStateLeft);
-  setRssStateUnsafe(responseState.lateralStateRight, state::LateralResponse::BrakeMin);
+  state::RssState rssState;
+  setRssStateUnsafe(rssState.longitudinalState, state::LongitudinalResponse::BrakeMin);
+  resetRssState(rssState.lateralStateLeft);
+  setRssStateUnsafe(rssState.lateralStateRight, state::LateralResponse::BrakeMin);
 
-  ASSERT_TRUE(isDangerous(responseState));
-  ASSERT_FALSE(isLongitudinalSafe(responseState));
-  ASSERT_FALSE(isLateralSafe(responseState));
+  ASSERT_TRUE(isDangerous(rssState));
+  ASSERT_FALSE(isLongitudinalSafe(rssState));
+  ASSERT_FALSE(isLateralSafe(rssState));
 }
 
 TEST(RssStateSafeTests, longitudinal_lateralLeft_BrakeMin)
 {
-  state::ResponseState responseState;
-  setRssStateUnsafe(responseState.longitudinalState, state::LongitudinalResponse::BrakeMin);
-  setRssStateUnsafe(responseState.lateralStateLeft, state::LateralResponse::BrakeMin);
-  resetRssState(responseState.lateralStateRight);
+  state::RssState rssState;
+  setRssStateUnsafe(rssState.longitudinalState, state::LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssState.lateralStateLeft, state::LateralResponse::BrakeMin);
+  resetRssState(rssState.lateralStateRight);
 
-  ASSERT_TRUE(isDangerous(responseState));
-  ASSERT_FALSE(isLongitudinalSafe(responseState));
-  ASSERT_FALSE(isLateralSafe(responseState));
+  ASSERT_TRUE(isDangerous(rssState));
+  ASSERT_FALSE(isLongitudinalSafe(rssState));
+  ASSERT_FALSE(isLateralSafe(rssState));
 }
 
 } // namespace state
