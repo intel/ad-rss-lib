@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-05-14 08:36:39</td>
+            <td class="headerValue">2019-05-27 11:33:04</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">3</td>
@@ -113,11 +113,11 @@
 <span class="lineNum">      42 </span>                :            : #include &lt;cstdint&gt;
 <span class="lineNum">      43 </span>                :            : #include &lt;limits&gt;
 <span class="lineNum">      44 </span>                :            : #include &lt;memory&gt;
-<span class="lineNum">      45 </span>                :            : #include &quot;ad_rss/physics/TimeIndex.hpp&quot;
-<span class="lineNum">      46 </span>                :            : #include &quot;ad_rss/situation/RelativePosition.hpp&quot;
-<span class="lineNum">      47 </span>                :            : #include &quot;ad_rss/situation/SituationId.hpp&quot;
-<span class="lineNum">      48 </span>                :            : #include &quot;ad_rss/situation/SituationType.hpp&quot;
-<span class="lineNum">      49 </span>                :            : #include &quot;ad_rss/situation/VehicleState.hpp&quot;
+<span class="lineNum">      45 </span>                :            : #include &quot;ad_rss/situation/RelativePosition.hpp&quot;
+<span class="lineNum">      46 </span>                :            : #include &quot;ad_rss/situation/SituationId.hpp&quot;
+<span class="lineNum">      47 </span>                :            : #include &quot;ad_rss/situation/SituationType.hpp&quot;
+<span class="lineNum">      48 </span>                :            : #include &quot;ad_rss/situation/VehicleState.hpp&quot;
+<span class="lineNum">      49 </span>                :            : #include &quot;ad_rss/world/ObjectId.hpp&quot;
 <span class="lineNum">      50 </span>                :            : /*!
 <span class="lineNum">      51 </span>                :            :  * @brief namespace ad_rss
 <span class="lineNum">      52 </span>                :            :  */
@@ -143,7 +143,7 @@
 <span class="lineNum">      72 </span>                :            :   /*!
 <a name="73"><span class="lineNum">      73 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      74 </span>                :            :    */
-<span class="lineNum">      75 </span>                :<span class="lineCov">      10218 :   Situation() = default;</span>
+<span class="lineNum">      75 </span>                :<span class="lineCov">      10248 :   Situation() = default;</span>
 <span class="lineNum">      76 </span>                :            : 
 <span class="lineNum">      77 </span>                :            :   /*!
 <span class="lineNum">      78 </span>                :            :    * \brief standard destructor
@@ -187,10 +187,9 @@
 <span class="lineNum">     116 </span>                :            :    */
 <span class="lineNum">     117 </span>                :<span class="lineCov">         18 :   bool operator==(const Situation &amp;other) const</span>
 <span class="lineNum">     118 </span>                :            :   {
-<span class="lineNum">     119 </span>        [<span class="branchCov" title="Branch 0 was taken 14 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">         16 :     return (timeIndex == other.timeIndex) &amp;&amp; (situationId == other.situationId)</span>
-<span class="lineNum">     120 </span>[<span class="branchCov" title="Branch 0 was taken 12 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 10 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">         14 :       &amp;&amp; (situationType == other.situationType) &amp;&amp; (egoVehicleState == other.egoVehicleState)</span>
-<span class="lineNum">     121 </span>[<span class="branchCov" title="Branch 0 was taken 16 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 8 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">         34 :       &amp;&amp; (otherVehicleState == other.otherVehicleState) &amp;&amp; (relativePosition == other.relativePosition);</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 6 times"> + </span><span class="branchCov" title="Branch 7 was taken 2 times"> + </span>]
+<span class="lineNum">     119 </span>[<span class="branchCov" title="Branch 0 was taken 14 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 12 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">         16 :     return (situationId == other.situationId) &amp;&amp; (objectId == other.objectId) &amp;&amp; (situationType == other.situationType)</span>
+<span class="lineNum">     120 </span>[<span class="branchCov" title="Branch 1 was taken 10 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 8 times"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>]:<span class="lineCov">         12 :       &amp;&amp; (egoVehicleState == other.egoVehicleState) &amp;&amp; (otherVehicleState == other.otherVehicleState)</span>
+<span class="lineNum">     121 </span>[<span class="branchCov" title="Branch 0 was taken 16 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 6 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">         34 :       &amp;&amp; (relativePosition == other.relativePosition);</span>
 <span class="lineNum">     122 </span>                :            :   }
 <span class="lineNum">     123 </span>                :            : 
 <span class="lineNum">     124 </span>                :            :   /**
@@ -206,42 +205,41 @@
 <span class="lineNum">     134 </span>                :            :   }
 <span class="lineNum">     135 </span>                :            : 
 <span class="lineNum">     136 </span>                :            :   /*!
-<span class="lineNum">     137 </span>                :            :    * The time index is required to distinguish different points in time when tracking states or transforming responses
-<span class="lineNum">     138 </span>                :            :    * back.
-<span class="lineNum">     139 </span>                :            :    */
-<span class="lineNum">     140 </span>                :            :   ::ad_rss::physics::TimeIndex timeIndex{0u};
-<span class="lineNum">     141 </span>                :            : 
-<span class="lineNum">     142 </span>                :            :   /*!
-<span class="lineNum">     143 </span>                :            :    * The unique id of the situation.
-<span class="lineNum">     144 </span>                :            :    * The situation id has to be constant over time for a pair of ego vehicle and specific
-<span class="lineNum">     145 </span>                :            :    * other vehicle.
-<span class="lineNum">     146 </span>                :            :    * E.g. might be filled with an id identifying the other vehicle unambiguously.
-<span class="lineNum">     147 </span>                :            :    */
-<span class="lineNum">     148 </span>                :            :   ::ad_rss::situation::SituationId situationId;
-<span class="lineNum">     149 </span>                :            : 
-<span class="lineNum">     150 </span>                :            :   /*!
-<span class="lineNum">     151 </span>                :            :    * The type of the current situation.
-<span class="lineNum">     152 </span>                :            :    */
-<span class="lineNum">     153 </span>                :            :   ::ad_rss::situation::SituationType situationType;
-<span class="lineNum">     154 </span>                :            : 
-<span class="lineNum">     155 </span>                :            :   /*!
-<span class="lineNum">     156 </span>                :            :    * The vehicle state of the ego vehicle
-<span class="lineNum">     157 </span>                :            :    */
-<span class="lineNum">     158 </span>                :            :   ::ad_rss::situation::VehicleState egoVehicleState;
-<span class="lineNum">     159 </span>                :            : 
-<span class="lineNum">     160 </span>                :            :   /*!
-<span class="lineNum">     161 </span>                :            :    * The vehicle state of the other vehicle within the situation.
-<span class="lineNum">     162 </span>                :            :    */
-<span class="lineNum">     163 </span>                :            :   ::ad_rss::situation::VehicleState otherVehicleState;
-<span class="lineNum">     164 </span>                :            : 
-<span class="lineNum">     165 </span>                :            :   /*!
-<span class="lineNum">     166 </span>                :            :    * The relative position between the ego vehicle and the other vehicle within this situation.
-<span class="lineNum">     167 </span>                :            :    */
-<span class="lineNum">     168 </span>                :            :   ::ad_rss::situation::RelativePosition relativePosition;
-<span class="lineNum">     169 </span>                :            : };
-<span class="lineNum">     170 </span>                :            : 
-<span class="lineNum">     171 </span>                :            : } // namespace situation
-<span class="lineNum">     172 </span>                :            : } // namespace ad_rss
+<span class="lineNum">     137 </span>                :            :    * The unique id of the situation.
+<span class="lineNum">     138 </span>                :            :    * The situation id has to be constant over time for a pair of ego vehicle and specific
+<span class="lineNum">     139 </span>                :            :    * other vehicle.
+<span class="lineNum">     140 </span>                :            :    * E.g. might be filled with an id identifying the other vehicle unambiguously.
+<span class="lineNum">     141 </span>                :            :    */
+<span class="lineNum">     142 </span>                :            :   ::ad_rss::situation::SituationId situationId;
+<span class="lineNum">     143 </span>                :            : 
+<span class="lineNum">     144 </span>                :            :   /*!
+<span class="lineNum">     145 </span>                :            :    * Defines the unique id of an object. This id has to be constant over time for the same object.
+<span class="lineNum">     146 </span>                :            :    */
+<span class="lineNum">     147 </span>                :            :   ::ad_rss::world::ObjectId objectId;
+<span class="lineNum">     148 </span>                :            : 
+<span class="lineNum">     149 </span>                :            :   /*!
+<span class="lineNum">     150 </span>                :            :    * The type of the current situation.
+<span class="lineNum">     151 </span>                :            :    */
+<span class="lineNum">     152 </span>                :            :   ::ad_rss::situation::SituationType situationType;
+<span class="lineNum">     153 </span>                :            : 
+<span class="lineNum">     154 </span>                :            :   /*!
+<span class="lineNum">     155 </span>                :            :    * The vehicle state of the ego vehicle
+<span class="lineNum">     156 </span>                :            :    */
+<span class="lineNum">     157 </span>                :            :   ::ad_rss::situation::VehicleState egoVehicleState;
+<span class="lineNum">     158 </span>                :            : 
+<span class="lineNum">     159 </span>                :            :   /*!
+<span class="lineNum">     160 </span>                :            :    * The vehicle state of the other vehicle within the situation.
+<span class="lineNum">     161 </span>                :            :    */
+<span class="lineNum">     162 </span>                :            :   ::ad_rss::situation::VehicleState otherVehicleState;
+<span class="lineNum">     163 </span>                :            : 
+<span class="lineNum">     164 </span>                :            :   /*!
+<span class="lineNum">     165 </span>                :            :    * The relative position between the ego vehicle and the other vehicle within this situation.
+<span class="lineNum">     166 </span>                :            :    */
+<span class="lineNum">     167 </span>                :            :   ::ad_rss::situation::RelativePosition relativePosition;
+<span class="lineNum">     168 </span>                :            : };
+<span class="lineNum">     169 </span>                :            : 
+<span class="lineNum">     170 </span>                :            : } // namespace situation
+<span class="lineNum">     171 </span>                :            : } // namespace ad_rss
 </pre>
       </td>
     </tr>

@@ -1,4 +1,17 @@
 ## Latest changes
+
+## Release 1.4.0
+* Introduced more straight forward interface on intermediate functions to support better integration of the single calls into an external
+  framework: SituationSnapshot, RssStateSnapshot, ProperResponse. Moved the timeIndex from the individual elements into these high level
+  types to support the propagation of the timeIndex even if there are no other vehicles in the surrounding.
+* Did some renaming (e.g. ResponseState->RssState, ResponseStateVector->RssStateVector, ResponseInformation->RssStateInformation,
+  ResponseEvaluator->RssStateEvaluator) to clarify by naming that the individual calcuated states only consider a snapshot in time without 
+  analysis of the dangerous threshold. The ProperResponse became its own type and got an own overall isSafe flag and a list of dangerousObjects.
+* Added ObjectId to Situation and RssState to preserve the mapping to the originating object which was lost with the introduction of multiple
+  situations per object.
+* Increase amount of allowed situations because with multiple  situations per object the amount of 100 might be hit too fast.
+* Improved merge of input scenarios to facilitate scene variations of the same situation
+* RssIntersectionChecker: since new situations may pop up when e.g. a previously occluded object is entering the field of view, one cannot guarantee that a previous safe state can be found. In this case, we have to brake instead of returning false.
 * Made some RssState operations available via public interface
 * Add option to select library build type (static/dynamic)
 

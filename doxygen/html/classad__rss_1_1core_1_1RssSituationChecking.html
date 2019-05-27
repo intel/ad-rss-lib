@@ -110,29 +110,29 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad__rss_1_1core_1_1RssSituationChecking.html#afbd4f90bc488f67c7259232991bc16cf">~RssSituationChecking</a> ()</td></tr>
 <tr class="memdesc:afbd4f90bc488f67c7259232991bc16cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor <br /></td></tr>
 <tr class="separator:afbd4f90bc488f67c7259232991bc16cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af56980d93ff081aa93955e05ae195872"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad__rss_1_1core_1_1RssSituationChecking.html#af56980d93ff081aa93955e05ae195872">checkSituations</a> (<a class="el" href="namespacead__rss_1_1situation.html#a9c7afb7e97f128e527d4c0caa6255769">situation::SituationVector</a> const &amp;situationVector, <a class="el" href="namespacead__rss_1_1state.html#a3c4fdea6139bfa6a0d371faaa885c020">state::ResponseStateVector</a> &amp;responseStateVector)</td></tr>
-<tr class="memdesc:af56980d93ff081aa93955e05ae195872"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the current situations are safe.  <a href="#af56980d93ff081aa93955e05ae195872">More...</a><br /></td></tr>
-<tr class="separator:af56980d93ff081aa93955e05ae195872"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7c159f3119b1dab17a54a875f994c33"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad__rss_1_1core_1_1RssSituationChecking.html#ab7c159f3119b1dab17a54a875f994c33">checkSituations</a> (<a class="el" href="structad__rss_1_1situation_1_1SituationSnapshot.html">situation::SituationSnapshot</a> const &amp;situationSnapshot, <a class="el" href="structad__rss_1_1state_1_1RssStateSnapshot.html">state::RssStateSnapshot</a> &amp;rssStateSnapshot)</td></tr>
+<tr class="memdesc:ab7c159f3119b1dab17a54a875f994c33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the current situations are safe.  <a href="#ab7c159f3119b1dab17a54a875f994c33">More...</a><br /></td></tr>
+<tr class="separator:ab7c159f3119b1dab17a54a875f994c33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>class <a class="el" href="classad__rss_1_1core_1_1RssSituationChecking.html" title="class RssSituationChecking ">RssSituationChecking</a> </p>
 <p>class providing functions required for the RSS checks of the situation. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="af56980d93ff081aa93955e05ae195872"></a>
+<a class="anchor" id="ab7c159f3119b1dab17a54a875f994c33"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool ad_rss::core::RssSituationChecking::checkSituations </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacead__rss_1_1situation.html#a9c7afb7e97f128e527d4c0caa6255769">situation::SituationVector</a> const &amp;&#160;</td>
-          <td class="paramname"><em>situationVector</em>, </td>
+          <td class="paramtype"><a class="el" href="structad__rss_1_1situation_1_1SituationSnapshot.html">situation::SituationSnapshot</a> const &amp;&#160;</td>
+          <td class="paramname"><em>situationSnapshot</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespacead__rss_1_1state.html#a3c4fdea6139bfa6a0d371faaa885c020">state::ResponseStateVector</a> &amp;&#160;</td>
-          <td class="paramname"><em>responseStateVector</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="structad__rss_1_1state_1_1RssStateSnapshot.html">state::RssStateSnapshot</a> &amp;&#160;</td>
+          <td class="paramname"><em>rssStateSnapshot</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -145,8 +145,8 @@ Public Member Functions</h2></td></tr>
 <p>Checks if the current situations are safe. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">situationVector</td><td>the vector of situations that should be analyzed </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">responseStateVector</td><td>the vector of response states for the current situations</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">situationSnapshot</td><td>the situation snapshot in time that should be analyzed </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rssStateSnapshot</td><td>the rss state snapshot of these situations</td></tr>
   </table>
   </dd>
 </dl>

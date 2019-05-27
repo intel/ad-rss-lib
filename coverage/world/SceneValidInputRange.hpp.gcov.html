@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-05-14 08:36:39</td>
+            <td class="headerValue">2019-05-27 11:33:04</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -127,18 +127,18 @@
 <span class="lineNum">      56 </span>                :            :  *
 <a name="57"><span class="lineNum">      57 </span>                :            :  * \note the specified input range is defined by the ranges of all members</a>
 <span class="lineNum">      58 </span>                :            :  */
-<span class="lineNum">      59 </span>                :<span class="lineCov">      10587 : inline bool withinValidInputRange(::ad_rss::world::Scene const &amp;input)</span>
+<span class="lineNum">      59 </span>                :<span class="lineCov">      10603 : inline bool withinValidInputRange(::ad_rss::world::Scene const &amp;input)</span>
 <span class="lineNum">      60 </span>                :            : {
 <span class="lineNum">      61 </span>                :            :   try
 <span class="lineNum">      62 </span>                :            :   {
 <span class="lineNum">      63 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
 <span class="lineNum">      64 </span>                :            :     // check for generic member input ranges
-<span class="lineNum">      65 </span>                :<span class="lineCov">      10587 :     bool const membersInValidInputRange = withinValidInputRange(input.situationType)</span>
-<span class="lineNum">      66 </span>                :<span class="lineCov">      10584 :       &amp;&amp; withinValidInputRange(input.egoVehicle) &amp;&amp; withinValidInputRange(input.object)</span>
-<span class="lineNum">      67 </span>                :<span class="lineCov">      10565 :       &amp;&amp; withinValidInputRange(input.objectRssDynamics) &amp;&amp; withinValidInputRange(input.intersectingRoad)</span>
-<span class="lineNum">      68 </span>                :<span class="lineCov">      21171 :       &amp;&amp; withinValidInputRange(input.egoVehicleRoad);</span>
+<span class="lineNum">      65 </span>                :<span class="lineCov">      10603 :     bool const membersInValidInputRange = withinValidInputRange(input.situationType)</span>
+<span class="lineNum">      66 </span>                :<span class="lineCov">      10600 :       &amp;&amp; withinValidInputRange(input.egoVehicle) &amp;&amp; withinValidInputRange(input.object)</span>
+<span class="lineNum">      67 </span>                :<span class="lineCov">      10581 :       &amp;&amp; withinValidInputRange(input.objectRssDynamics) &amp;&amp; withinValidInputRange(input.intersectingRoad)</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">      21203 :       &amp;&amp; withinValidInputRange(input.egoVehicleRoad);</span>
 <span class="lineNum">      69 </span>                :            : 
-<span class="lineNum">      70 </span>                :<span class="lineCov">      10587 :     return membersInValidInputRange;</span>
+<span class="lineNum">      70 </span>                :<span class="lineCov">      10603 :     return membersInValidInputRange;</span>
 <span class="lineNum">      71 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
 <span class="lineNum">      72 </span>                :            :   }
 <span class="lineNum">      73 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes

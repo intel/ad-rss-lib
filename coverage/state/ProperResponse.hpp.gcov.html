@@ -1,0 +1,249 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - ad-rss-lib - state/ProperResponse.hpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">state</a> - ProperResponse.hpp<span style="font-size: 80%;"> (source / <a href="ProperResponse.hpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">ad-rss-lib</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2019-05-27 11:33:04</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : /*</a>
+<span class="lineNum">       2 </span>                :            :  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
+<span class="lineNum">       3 </span>                :            :  *
+<span class="lineNum">       4 </span>                :            :  * Copyright (c) 2018-2019 Intel Corporation
+<span class="lineNum">       5 </span>                :            :  *
+<span class="lineNum">       6 </span>                :            :  * Redistribution and use in source and binary forms, with or without modification,
+<span class="lineNum">       7 </span>                :            :  * are permitted provided that the following conditions are met:
+<span class="lineNum">       8 </span>                :            :  *
+<span class="lineNum">       9 </span>                :            :  * 1. Redistributions of source code must retain the above copyright notice,
+<span class="lineNum">      10 </span>                :            :  *    this list of conditions and the following disclaimer.
+<span class="lineNum">      11 </span>                :            :  *
+<span class="lineNum">      12 </span>                :            :  * 2. Redistributions in binary form must reproduce the above copyright notice,
+<span class="lineNum">      13 </span>                :            :  *    this list of conditions and the following disclaimer in the documentation
+<span class="lineNum">      14 </span>                :            :  *    and/or other materials provided with the distribution.
+<span class="lineNum">      15 </span>                :            :  *
+<span class="lineNum">      16 </span>                :            :  * 3. Neither the name of the copyright holder nor the names of its contributors
+<span class="lineNum">      17 </span>                :            :  *    may be used to endorse or promote products derived from this software without
+<span class="lineNum">      18 </span>                :            :  *    specific prior written permission.
+<span class="lineNum">      19 </span>                :            :  *
+<span class="lineNum">      20 </span>                :            :  *    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND
+<span class="lineNum">      21 </span>                :            :  *    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+<span class="lineNum">      22 </span>                :            :  *    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+<span class="lineNum">      23 </span>                :            :  *    IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+<span class="lineNum">      24 </span>                :            :  *    INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+<span class="lineNum">      25 </span>                :            :  *    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+<span class="lineNum">      26 </span>                :            :  *    OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+<span class="lineNum">      27 </span>                :            :  *    WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+<span class="lineNum">      28 </span>                :            :  *    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      29 </span>                :            :  *    POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      30 </span>                :            :  *
+<span class="lineNum">      31 </span>                :            :  * ----------------- END LICENSE BLOCK -----------------------------------
+<span class="lineNum">      32 </span>                :            :  */
+<span class="lineNum">      33 </span>                :            : 
+<span class="lineNum">      34 </span>                :            : /**
+<span class="lineNum">      35 </span>                :            :  * Generated file
+<span class="lineNum">      36 </span>                :            :  * @file
+<span class="lineNum">      37 </span>                :            :  *
+<span class="lineNum">      38 </span>                :            :  */
+<span class="lineNum">      39 </span>                :            : 
+<span class="lineNum">      40 </span>                :            : #pragma once
+<span class="lineNum">      41 </span>                :            : 
+<span class="lineNum">      42 </span>                :            : #include &lt;cstdint&gt;
+<span class="lineNum">      43 </span>                :            : #include &lt;limits&gt;
+<span class="lineNum">      44 </span>                :            : #include &lt;memory&gt;
+<span class="lineNum">      45 </span>                :            : #include &quot;ad_rss/physics/TimeIndex.hpp&quot;
+<span class="lineNum">      46 </span>                :            : #include &quot;ad_rss/state/LateralResponse.hpp&quot;
+<span class="lineNum">      47 </span>                :            : #include &quot;ad_rss/state/LongitudinalResponse.hpp&quot;
+<span class="lineNum">      48 </span>                :            : #include &quot;ad_rss/world/ObjectIdVector.hpp&quot;
+<span class="lineNum">      49 </span>                :            : /*!
+<span class="lineNum">      50 </span>                :            :  * @brief namespace ad_rss
+<span class="lineNum">      51 </span>                :            :  */
+<span class="lineNum">      52 </span>                :            : namespace ad_rss {
+<span class="lineNum">      53 </span>                :            : /*!
+<span class="lineNum">      54 </span>                :            :  * @brief namespace state
+<span class="lineNum">      55 </span>                :            :  */
+<span class="lineNum">      56 </span>                :            : namespace state {
+<span class="lineNum">      57 </span>                :            : 
+<span class="lineNum">      58 </span>                :            : /*!
+<span class="lineNum">      59 </span>                :            :  * \brief DataType ProperResponse
+<span class="lineNum">      60 </span>                :            :  *
+<span class="lineNum">      61 </span>                :            :  * The proper response, RSS calculated from the RssStateSnapshots received over time, consists of a timeIndex and the
+<a name="62"><span class="lineNum">      62 </span>                :            :  * resulting Rss responses.</a>
+<span class="lineNum">      63 </span>                :            :  */
+<span class="lineNum">      64 </span>                :<span class="lineCov">         26 : struct ProperResponse</span>
+<span class="lineNum">      65 </span>                :            : {
+<span class="lineNum">      66 </span>                :            :   /*!
+<a name="67"><span class="lineNum">      67 </span>                :            :    * \brief standard constructor</a>
+<span class="lineNum">      68 </span>                :            :    */
+<span class="lineNum">      69 </span>                :<span class="lineCov">       8590 :   ProperResponse() = default;</span>
+<span class="lineNum">      70 </span>                :            : 
+<span class="lineNum">      71 </span>                :            :   /*!
+<a name="72"><span class="lineNum">      72 </span>                :            :    * \brief standard destructor</a>
+<span class="lineNum">      73 </span>                :            :    */
+<span class="lineNum">      74 </span>                :<span class="lineCov">       8626 :   ~ProperResponse() = default;</span>
+<span class="lineNum">      75 </span>                :            : 
+<span class="lineNum">      76 </span>                :            :   /*!
+<a name="77"><span class="lineNum">      77 </span>                :            :    * \brief standard copy constructor</a>
+<span class="lineNum">      78 </span>                :            :    */
+<span class="lineNum">      79 </span>                :<span class="lineCov">         34 :   ProperResponse(const ProperResponse &amp;other) = default;</span>
+<span class="lineNum">      80 </span>                :            : 
+<span class="lineNum">      81 </span>                :            :   /*!
+<a name="82"><span class="lineNum">      82 </span>                :            :    * \brief standard move constructor</a>
+<span class="lineNum">      83 </span>                :            :    */
+<span class="lineNum">      84 </span>                :<span class="lineCov">          2 :   ProperResponse(ProperResponse &amp;&amp;other) = default;</span>
+<span class="lineNum">      85 </span>                :            : 
+<span class="lineNum">      86 </span>                :            :   /**
+<span class="lineNum">      87 </span>                :            :    * \brief standard assignment operator
+<span class="lineNum">      88 </span>                :            :    *
+<span class="lineNum">      89 </span>                :            :    * \param[in] other Other ProperResponse
+<span class="lineNum">      90 </span>                :            :    *
+<span class="lineNum">      91 </span>                :            :    * \returns Reference to this ProperResponse.
+<span class="lineNum">      92 </span>                :            :    */
+<span class="lineNum">      93 </span>                :            :   ProperResponse &amp;operator=(const ProperResponse &amp;other) = default;
+<span class="lineNum">      94 </span>                :            : 
+<span class="lineNum">      95 </span>                :            :   /**
+<span class="lineNum">      96 </span>                :            :    * \brief standard move operator
+<span class="lineNum">      97 </span>                :            :    *
+<span class="lineNum">      98 </span>                :            :    * \param[in] other Other ProperResponse
+<span class="lineNum">      99 </span>                :            :    *
+<span class="lineNum">     100 </span>                :            :    * \returns Reference to this ProperResponse.
+<span class="lineNum">     101 </span>                :            :    */
+<span class="lineNum">     102 </span>                :            :   ProperResponse &amp;operator=(ProperResponse &amp;&amp;other) = default;
+<span class="lineNum">     103 </span>                :            : 
+<span class="lineNum">     104 </span>                :            :   /**
+<span class="lineNum">     105 </span>                :            :    * \brief standard comparison operator
+<span class="lineNum">     106 </span>                :            :    *
+<span class="lineNum">     107 </span>                :            :    * \param[in] other Other ProperResponse
+<span class="lineNum">     108 </span>                :            :    *
+<a name="109"><span class="lineNum">     109 </span>                :            :    * \returns \c true if both ProperResponse are equal</a>
+<span class="lineNum">     110 </span>                :            :    */
+<span class="lineNum">     111 </span>                :<span class="lineCov">         18 :   bool operator==(const ProperResponse &amp;other) const</span>
+<span class="lineNum">     112 </span>                :            :   {
+<span class="lineNum">     113 </span>[<span class="branchCov" title="Branch 0 was taken 14 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 12 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">         16 :     return (timeIndex == other.timeIndex) &amp;&amp; (isSafe == other.isSafe) &amp;&amp; (dangerousObjects == other.dangerousObjects)</span>
+<span class="lineNum">     114 </span>[<span class="branchCov" title="Branch 0 was taken 10 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 8 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">         12 :       &amp;&amp; (longitudinalResponse == other.longitudinalResponse) &amp;&amp; (lateralResponseRight == other.lateralResponseRight)</span>
+<span class="lineNum">     115 </span>[<span class="branchCov" title="Branch 0 was taken 16 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 6 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">         34 :       &amp;&amp; (lateralResponseLeft == other.lateralResponseLeft);</span>
+<span class="lineNum">     116 </span>                :            :   }
+<span class="lineNum">     117 </span>                :            : 
+<span class="lineNum">     118 </span>                :            :   /**
+<span class="lineNum">     119 </span>                :            :    * \brief standard comparison operator
+<span class="lineNum">     120 </span>                :            :    *
+<span class="lineNum">     121 </span>                :            :    * \param[in] other Other ProperResponse.
+<span class="lineNum">     122 </span>                :            :    *
+<a name="123"><span class="lineNum">     123 </span>                :            :    * \returns \c true if both ProperResponse are different</a>
+<span class="lineNum">     124 </span>                :            :    */
+<span class="lineNum">     125 </span>                :<span class="lineCov">          7 :   bool operator!=(const ProperResponse &amp;other) const</span>
+<span class="lineNum">     126 </span>                :            :   {
+<span class="lineNum">     127 </span>                :<span class="lineCov">          7 :     return !operator==(other);</span>
+<span class="lineNum">     128 </span>                :            :   }
+<span class="lineNum">     129 </span>                :            : 
+<span class="lineNum">     130 </span>                :            :   /*!
+<span class="lineNum">     131 </span>                :            :    * The time index is required to distinguish different points in time when tracking states or transforming responses
+<span class="lineNum">     132 </span>                :            :    * back. Each world model referring to another point in time should get another time index. The time index of the
+<span class="lineNum">     133 </span>                :            :    * world model must not be zero.
+<span class="lineNum">     134 </span>                :            :    */
+<span class="lineNum">     135 </span>                :            :   ::ad_rss::physics::TimeIndex timeIndex{0u};
+<span class="lineNum">     136 </span>                :            : 
+<span class="lineNum">     137 </span>                :            :   /*!
+<span class="lineNum">     138 </span>                :            :    * Flag to indicate if the state is longitudinal safe.
+<span class="lineNum">     139 </span>                :            :    */
+<span class="lineNum">     140 </span>                :            :   bool isSafe{false};
+<span class="lineNum">     141 </span>                :            : 
+<span class="lineNum">     142 </span>                :            :   /*!
+<span class="lineNum">     143 </span>                :            :    * List of dangerous objects.
+<span class="lineNum">     144 </span>                :            :    */
+<span class="lineNum">     145 </span>                :            :   ::ad_rss::world::ObjectIdVector dangerousObjects;
+<span class="lineNum">     146 </span>                :            : 
+<span class="lineNum">     147 </span>                :            :   /*!
+<span class="lineNum">     148 </span>                :            :    * The current longitudinal rss state.
+<span class="lineNum">     149 </span>                :            :    */
+<span class="lineNum">     150 </span>                :            :   ::ad_rss::state::LongitudinalResponse longitudinalResponse;
+<span class="lineNum">     151 </span>                :            : 
+<span class="lineNum">     152 </span>                :            :   /*!
+<span class="lineNum">     153 </span>                :            :    * The current lateral rss state at right side in respect to ego-vehicle driving direction.
+<span class="lineNum">     154 </span>                :            :    */
+<span class="lineNum">     155 </span>                :            :   ::ad_rss::state::LateralResponse lateralResponseRight;
+<span class="lineNum">     156 </span>                :            : 
+<span class="lineNum">     157 </span>                :            :   /*!
+<span class="lineNum">     158 </span>                :            :    * The current lateral rss state at left side in respect to ego-vehicle driving direction.
+<span class="lineNum">     159 </span>                :            :    */
+<span class="lineNum">     160 </span>                :            :   ::ad_rss::state::LateralResponse lateralResponseLeft;
+<span class="lineNum">     161 </span>                :            : };
+<span class="lineNum">     162 </span>                :            : 
+<span class="lineNum">     163 </span>                :            : } // namespace state
+<span class="lineNum">     164 </span>                :            : } // namespace ad_rss
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

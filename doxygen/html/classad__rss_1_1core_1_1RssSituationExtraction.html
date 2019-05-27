@@ -110,15 +110,15 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad__rss_1_1core_1_1RssSituationExtraction.html#a601b3b3638994d9e4da0d753616f100d">~RssSituationExtraction</a> ()</td></tr>
 <tr class="memdesc:a601b3b3638994d9e4da0d753616f100d"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor <br /></td></tr>
 <tr class="separator:a601b3b3638994d9e4da0d753616f100d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0fe86c15cbd444549ed83b28498b344"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad__rss_1_1core_1_1RssSituationExtraction.html#aa0fe86c15cbd444549ed83b28498b344">extractSituations</a> (<a class="el" href="structad__rss_1_1world_1_1WorldModel.html">world::WorldModel</a> const &amp;worldModel, <a class="el" href="namespacead__rss_1_1situation.html#a9c7afb7e97f128e527d4c0caa6255769">situation::SituationVector</a> &amp;situationVector)</td></tr>
-<tr class="memdesc:aa0fe86c15cbd444549ed83b28498b344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract all RSS situations to be checked from the world model.  <a href="#aa0fe86c15cbd444549ed83b28498b344">More...</a><br /></td></tr>
-<tr class="separator:aa0fe86c15cbd444549ed83b28498b344"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1970ae4accca205d9bbaedea6e9196d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad__rss_1_1core_1_1RssSituationExtraction.html#ae1970ae4accca205d9bbaedea6e9196d">extractSituations</a> (<a class="el" href="structad__rss_1_1world_1_1WorldModel.html">world::WorldModel</a> const &amp;worldModel, <a class="el" href="structad__rss_1_1situation_1_1SituationSnapshot.html">situation::SituationSnapshot</a> &amp;situationSnapshot)</td></tr>
+<tr class="memdesc:ae1970ae4accca205d9bbaedea6e9196d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract all RSS situations to be checked from the world model.  <a href="#ae1970ae4accca205d9bbaedea6e9196d">More...</a><br /></td></tr>
+<tr class="separator:ae1970ae4accca205d9bbaedea6e9196d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>class <a class="el" href="classad__rss_1_1core_1_1RssSituationExtraction.html" title="class RssSituationExtraction ">RssSituationExtraction</a> </p>
 <p>Class providing functions required for the extraction of the RSS situations from the RSS world model. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="aa0fe86c15cbd444549ed83b28498b344"></a>
+<a class="anchor" id="ae1970ae4accca205d9bbaedea6e9196d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -131,8 +131,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespacead__rss_1_1situation.html#a9c7afb7e97f128e527d4c0caa6255769">situation::SituationVector</a> &amp;&#160;</td>
-          <td class="paramname"><em>situationVector</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="structad__rss_1_1situation_1_1SituationSnapshot.html">situation::SituationSnapshot</a> &amp;&#160;</td>
+          <td class="paramname"><em>situationSnapshot</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -146,7 +146,7 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">worldModel</td><td>- the current world model information </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">situationVector</td><td>- the vector of situations to be analyzed with RSS</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">situationSnapshot</td><td>- the vector of situations to be analyzed with RSS</td></tr>
   </table>
   </dd>
 </dl>

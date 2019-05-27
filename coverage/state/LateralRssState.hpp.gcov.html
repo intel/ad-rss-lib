@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-05-14 08:36:39</td>
+            <td class="headerValue">2019-05-27 11:33:04</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">3</td>
@@ -112,7 +112,7 @@
 <span class="lineNum">      41 </span>                :            : 
 <span class="lineNum">      42 </span>                :            : #include &lt;memory&gt;
 <span class="lineNum">      43 </span>                :            : #include &quot;ad_rss/state/LateralResponse.hpp&quot;
-<span class="lineNum">      44 </span>                :            : #include &quot;ad_rss/state/ResponseInformation.hpp&quot;
+<span class="lineNum">      44 </span>                :            : #include &quot;ad_rss/state/RssStateInformation.hpp&quot;
 <span class="lineNum">      45 </span>                :            : /*!
 <span class="lineNum">      46 </span>                :            :  * @brief namespace ad_rss
 <span class="lineNum">      47 </span>                :            :  */
@@ -132,7 +132,7 @@
 <span class="lineNum">      61 </span>                :            :   /*!
 <a name="62"><span class="lineNum">      62 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      63 </span>                :            :    */
-<span class="lineNum">      64 </span>                :<span class="lineCov">      78664 :   LateralRssState() = default;</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">     488712 :   LateralRssState() = default;</span>
 <span class="lineNum">      65 </span>                :            : 
 <span class="lineNum">      66 </span>                :            :   /*!
 <span class="lineNum">      67 </span>                :            :    * \brief standard destructor
@@ -174,10 +174,10 @@
 <span class="lineNum">     103 </span>                :            :    *
 <a name="104"><span class="lineNum">     104 </span>                :            :    * \returns \c true if both LateralRssState are equal</a>
 <span class="lineNum">     105 </span>                :            :    */
-<span class="lineNum">     106 </span>                :<span class="lineCov">        167 :   bool operator==(const LateralRssState &amp;other) const</span>
+<span class="lineNum">     106 </span>                :<span class="lineCov">        166 :   bool operator==(const LateralRssState &amp;other) const</span>
 <span class="lineNum">     107 </span>                :            :   {
-<span class="lineNum">     108 </span>        [<span class="branchCov" title="Branch 0 was taken 159 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">        161 :     return (isSafe == other.isSafe) &amp;&amp; (response == other.response)</span>
-<span class="lineNum">     109 </span>[<span class="branchCov" title="Branch 0 was taken 161 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 157 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        328 :       &amp;&amp; (responseInformation == other.responseInformation);</span>
+<span class="lineNum">     108 </span>        [<span class="branchCov" title="Branch 0 was taken 158 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">        160 :     return (isSafe == other.isSafe) &amp;&amp; (response == other.response)</span>
+<span class="lineNum">     109 </span>[<span class="branchCov" title="Branch 0 was taken 160 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 156 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        326 :       &amp;&amp; (rssStateInformation == other.rssStateInformation);</span>
 <span class="lineNum">     110 </span>                :            :   }
 <span class="lineNum">     111 </span>                :            : 
 <span class="lineNum">     112 </span>                :            :   /**
@@ -205,7 +205,7 @@
 <span class="lineNum">     134 </span>                :            :   /*!
 <span class="lineNum">     135 </span>                :            :    * Information on the evaluation of the Rss state.
 <span class="lineNum">     136 </span>                :            :    */
-<span class="lineNum">     137 </span>                :            :   ::ad_rss::state::ResponseInformation responseInformation;
+<span class="lineNum">     137 </span>                :            :   ::ad_rss::state::RssStateInformation rssStateInformation;
 <span class="lineNum">     138 </span>                :            : };
 <span class="lineNum">     139 </span>                :            : 
 <span class="lineNum">     140 </span>                :            : } // namespace state

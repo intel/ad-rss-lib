@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-05-14 08:36:39</td>
+            <td class="headerValue">2019-05-27 11:33:04</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">8</td>
@@ -132,27 +132,27 @@
 <span class="lineNum">      61 </span>                :            :  * An object is described by several aspects: the unique id of an object, the type of the object, the lane regions the
 <a name="62"><span class="lineNum">      62 </span>                :            :  * object occupies, the objects velocity within its lane.</a>
 <span class="lineNum">      63 </span>                :            :  */
-<span class="lineNum">      64 </span>                :<span class="lineCov">      15432 : struct Object</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">      15440 : struct Object</span>
 <span class="lineNum">      65 </span>                :            : {
 <span class="lineNum">      66 </span>                :            :   /*!
 <a name="67"><span class="lineNum">      67 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      68 </span>                :            :    */
-<span class="lineNum">      69 </span>        [<span class="branchCov" title="Branch 2 was taken 13695 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">      13695 :   Object() = default;</span>
+<span class="lineNum">      69 </span>        [<span class="branchCov" title="Branch 2 was taken 13701 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">      13701 :   Object() = default;</span>
 <span class="lineNum">      70 </span>                :            : 
 <span class="lineNum">      71 </span>                :            :   /*!
 <a name="72"><span class="lineNum">      72 </span>                :            :    * \brief standard destructor</a>
 <span class="lineNum">      73 </span>                :            :    */
-<span class="lineNum">      74 </span>                :<span class="lineCov">      88656 :   ~Object() = default;</span>
+<span class="lineNum">      74 </span>                :<span class="lineCov">      88772 :   ~Object() = default;</span>
 <span class="lineNum">      75 </span>                :            : 
 <span class="lineNum">      76 </span>                :            :   /*!
 <a name="77"><span class="lineNum">      77 </span>                :            :    * \brief standard copy constructor</a>
 <span class="lineNum">      78 </span>                :            :    */
-<span class="lineNum">      79 </span>                :<span class="lineCov">      53036 :   Object(const Object &amp;other) = default;</span>
+<span class="lineNum">      79 </span>                :<span class="lineCov">      53106 :   Object(const Object &amp;other) = default;</span>
 <span class="lineNum">      80 </span>                :            : 
 <span class="lineNum">      81 </span>                :            :   /*!
 <a name="82"><span class="lineNum">      82 </span>                :            :    * \brief standard move constructor</a>
 <span class="lineNum">      83 </span>                :            :    */
-<span class="lineNum">      84 </span>                :<span class="lineCov">       8258 :   Object(Object &amp;&amp;other) = default;</span>
+<span class="lineNum">      84 </span>                :<span class="lineCov">       8292 :   Object(Object &amp;&amp;other) = default;</span>
 <span class="lineNum">      85 </span>                :            : 
 <span class="lineNum">      86 </span>                :            :   /**
 <span class="lineNum">      87 </span>                :            :    * \brief standard assignment operator

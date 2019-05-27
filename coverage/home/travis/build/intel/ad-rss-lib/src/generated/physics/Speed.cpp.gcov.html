@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-05-14 08:36:39</td>
+            <td class="headerValue">2019-05-27 11:33:04</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -126,13 +126,13 @@
 <span class="lineNum">      55 </span>                :            :  */
 <a name="56"><span class="lineNum">      56 </span>                :            : namespace physics {</a>
 <span class="lineNum">      57 </span>                :            : 
-<span class="lineNum">      58 </span>                :<span class="lineCov">      21468 : ::ad_rss::physics::SpeedSquared Speed::operator*(const Speed &amp;other) const</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">     120395 : ::ad_rss::physics::SpeedSquared Speed::operator*(const Speed &amp;other) const</span>
 <span class="lineNum">      59 </span>                :            : {
-<span class="lineNum">      60 </span>        [<span class="branchCov" title="Branch 1 was taken 21467 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      21468 :   ensureValid();</span>
-<span class="lineNum">      61 </span>        [<span class="branchCov" title="Branch 1 was taken 21466 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">      21467 :   other.ensureValid();</span>
-<span class="lineNum">      62 </span>                :<span class="lineCov">      21466 :   ::ad_rss::physics::SpeedSquared const result(mSpeed * other.mSpeed);</span>
-<span class="lineNum">      63 </span>                :<span class="lineCov">      21466 :   result.ensureValid(); // LCOV_EXCL_BR_LINE On correct definition of squarerooted type, this cannot not happen</span>
-<span class="lineNum">      64 </span>                :<span class="lineCov">      21466 :   return result;</span>
+<span class="lineNum">      60 </span>        [<span class="branchCov" title="Branch 1 was taken 120394 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">     120395 :   ensureValid();</span>
+<span class="lineNum">      61 </span>        [<span class="branchCov" title="Branch 1 was taken 120393 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">     120394 :   other.ensureValid();</span>
+<span class="lineNum">      62 </span>                :<span class="lineCov">     120393 :   ::ad_rss::physics::SpeedSquared const result(mSpeed * other.mSpeed);</span>
+<span class="lineNum">      63 </span>                :<span class="lineCov">     120393 :   result.ensureValid(); // LCOV_EXCL_BR_LINE On correct definition of squarerooted type, this cannot not happen</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">     120393 :   return result;</span>
 <span class="lineNum">      65 </span>                :            : }
 <span class="lineNum">      66 </span>                :            : 
 <span class="lineNum">      67 </span>                :            : } // namespace physics

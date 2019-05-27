@@ -171,12 +171,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="classad__rss_1_1physics_1_1SpeedSquared.html#a1719622038c32735b785a6de0822e302">ad_rss::physics::SpeedSquared</a>
 </li>
 <li>currentDistance
-: <a class="el" href="structad__rss_1_1state_1_1ResponseInformation.html#aed7190a9287cf0fbd140d6dd3d68073c">ad_rss::state::ResponseInformation</a>
+: <a class="el" href="structad__rss_1_1state_1_1RssStateInformation.html#ac1ae87465b7f97b4693468ae546d57bb">ad_rss::state::RssStateInformation</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_d"></a>- d -</h3><ul>
+<li>dangerousObjects
+: <a class="el" href="structad__rss_1_1state_1_1ProperResponse.html#a09cdd91e534805a45ca149d00b39e378">ad_rss::state::ProperResponse</a>
+</li>
 <li>distanceToEnterIntersection
 : <a class="el" href="structad__rss_1_1situation_1_1VehicleState.html#afb69142d33f5a56cbfe848bd713c27c6">ad_rss::situation::VehicleState</a>
 </li>
@@ -205,6 +208,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>egoVehicleState
 : <a class="el" href="structad__rss_1_1situation_1_1Situation.html#add848fe26af0526a01a7d681c56c4b5c">ad_rss::situation::Situation</a>
 </li>
+<li>evaluator
+: <a class="el" href="structad__rss_1_1state_1_1RssStateInformation.html#a3ab8aef746b61beb68a59a25313d9654">ad_rss::state::RssStateInformation</a>
+</li>
 </ul>
 
 
@@ -228,6 +234,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>isSafe
 : <a class="el" href="structad__rss_1_1state_1_1LateralRssState.html#a316c25f42356498870a45751b07c5925">ad_rss::state::LateralRssState</a>
 , <a class="el" href="structad__rss_1_1state_1_1LongitudinalRssState.html#a57a4c4ed6e615e7a25b50fa6246ab9cb">ad_rss::state::LongitudinalRssState</a>
+, <a class="el" href="structad__rss_1_1state_1_1ProperResponse.html#a044fc923e91addb6c22fa8397e2b437e">ad_rss::state::ProperResponse</a>
 </li>
 </ul>
 
@@ -245,14 +252,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>lateralPosition
 : <a class="el" href="structad__rss_1_1situation_1_1RelativePosition.html#a97d6fc91815fbc1f2e47ff27827162fa">ad_rss::situation::RelativePosition</a>
 </li>
+<li>lateralResponseLeft
+: <a class="el" href="structad__rss_1_1state_1_1ProperResponse.html#aee231690648d215079c74d9828af6b2d">ad_rss::state::ProperResponse</a>
+</li>
+<li>lateralResponseRight
+: <a class="el" href="structad__rss_1_1state_1_1ProperResponse.html#ac5ff1df584db7be15deeb60921ba873a">ad_rss::state::ProperResponse</a>
+</li>
 <li>lateralRightRange
 : <a class="el" href="structad__rss_1_1world_1_1AccelerationRestriction.html#adc57760a897c4e8f4641a897915e4296">ad_rss::world::AccelerationRestriction</a>
 </li>
 <li>lateralStateLeft
-: <a class="el" href="structad__rss_1_1state_1_1ResponseState.html#a109a8d6f1a968845a701a182dd07ab57">ad_rss::state::ResponseState</a>
+: <a class="el" href="structad__rss_1_1state_1_1RssState.html#a0c05a7ec5f7ac60ff39d171f52f33f89">ad_rss::state::RssState</a>
 </li>
 <li>lateralStateRight
-: <a class="el" href="structad__rss_1_1state_1_1ResponseState.html#aebcae782b32d80ef1c9589c02be4bf2c">ad_rss::state::ResponseState</a>
+: <a class="el" href="structad__rss_1_1state_1_1RssState.html#ac98dc45f61a0f08b783f30cea96dab9f">ad_rss::state::RssState</a>
 </li>
 <li>latRange
 : <a class="el" href="structad__rss_1_1world_1_1OccupiedRegion.html#a71bbc0b789f41412e95766f667cbfe8d">ad_rss::world::OccupiedRegion</a>
@@ -269,8 +282,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>longitudinalRange
 : <a class="el" href="structad__rss_1_1world_1_1AccelerationRestriction.html#a352da443e19092a1fa56167852f1a909">ad_rss::world::AccelerationRestriction</a>
 </li>
+<li>longitudinalResponse
+: <a class="el" href="structad__rss_1_1state_1_1ProperResponse.html#ad5ba026e1d335532178388d4fa560aed">ad_rss::state::ProperResponse</a>
+</li>
 <li>longitudinalState
-: <a class="el" href="structad__rss_1_1state_1_1ResponseState.html#a22e589010c07aa9356f35a336e76e9b3">ad_rss::state::ResponseState</a>
+: <a class="el" href="structad__rss_1_1state_1_1RssState.html#a7d9a569ea5081ef7acc7b87975dd5890">ad_rss::state::RssState</a>
 </li>
 <li>lonRange
 : <a class="el" href="structad__rss_1_1world_1_1OccupiedRegion.html#ac7b65a18cbd4d70c333e5ea8e8705864">ad_rss::world::OccupiedRegion</a>
@@ -283,11 +299,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="structad__rss_1_1physics_1_1AccelerationRange.html#a96a34677686de2b07ac2f73e21332fac">ad_rss::physics::AccelerationRange</a>
 , <a class="el" href="structad__rss_1_1physics_1_1MetricRange.html#a7456e364f41b03c4f0a98fc6abfa669c">ad_rss::physics::MetricRange</a>
 , <a class="el" href="structad__rss_1_1physics_1_1ParametricRange.html#a6951a397675928b397237325cb2eee4b">ad_rss::physics::ParametricRange</a>
+, <a class="el" href="structad__rss_1_1physics_1_1SpeedRange.html#a01c64e76267dfb6787c2cd5b10844e53">ad_rss::physics::SpeedRange</a>
 </li>
 <li>minimum
 : <a class="el" href="structad__rss_1_1physics_1_1AccelerationRange.html#a2681a87acd63fbfa9dfc32679c795e39">ad_rss::physics::AccelerationRange</a>
 , <a class="el" href="structad__rss_1_1physics_1_1MetricRange.html#adf17617f1f59d16931ae69c320492d8d">ad_rss::physics::MetricRange</a>
 , <a class="el" href="structad__rss_1_1physics_1_1ParametricRange.html#afcfe379db1518be23d86bf661fdfbebd">ad_rss::physics::ParametricRange</a>
+, <a class="el" href="structad__rss_1_1physics_1_1SpeedRange.html#ae4b6fb1cf3f4093325eae576dbf043f5">ad_rss::physics::SpeedRange</a>
 </li>
 </ul>
 
@@ -297,7 +315,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="structad__rss_1_1world_1_1Scene.html#aa794669a4efd8b9f67751eaa88ba5939">ad_rss::world::Scene</a>
 </li>
 <li>objectId
-: <a class="el" href="structad__rss_1_1world_1_1Object.html#ae5dcc69e73dd127178d9def2248c7f00">ad_rss::world::Object</a>
+: <a class="el" href="structad__rss_1_1situation_1_1Situation.html#a03ee148d2f7fbaac1862907216b5be01">ad_rss::situation::Situation</a>
+, <a class="el" href="structad__rss_1_1state_1_1RssState.html#a048c3275913eacfe3d0d1193a26714c8">ad_rss::state::RssState</a>
+, <a class="el" href="structad__rss_1_1world_1_1Object.html#ae5dcc69e73dd127178d9def2248c7f00">ad_rss::world::Object</a>
 </li>
 <li>objectRssDynamics
 : <a class="el" href="structad__rss_1_1world_1_1Scene.html#a210c32e5e5b18957c59da27691c69b9a">ad_rss::world::Scene</a>
@@ -322,22 +342,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="structad__rss_1_1state_1_1LateralRssState.html#a632acc14457c76a7c1bec37f135af2f8">ad_rss::state::LateralRssState</a>
 , <a class="el" href="structad__rss_1_1state_1_1LongitudinalRssState.html#ab77f6904a09a0162dfb8ffdc40f199e3">ad_rss::state::LongitudinalRssState</a>
 </li>
-<li>responseEvaluator
-: <a class="el" href="structad__rss_1_1state_1_1ResponseInformation.html#a45db1f5f048a2abee9a659964c58a605">ad_rss::state::ResponseInformation</a>
-</li>
-<li>responseInformation
-: <a class="el" href="structad__rss_1_1state_1_1LateralRssState.html#a93e19c8d7cb2284135ce675bf88ccb6c">ad_rss::state::LateralRssState</a>
-, <a class="el" href="structad__rss_1_1state_1_1LongitudinalRssState.html#aa9585df538f57eddfec77c607a01dd01">ad_rss::state::LongitudinalRssState</a>
-</li>
 <li>responseTime
 : <a class="el" href="structad__rss_1_1world_1_1RssDynamics.html#a5e66243634f52199a41359ec08a96c9f">ad_rss::world::RssDynamics</a>
+</li>
+<li>rssStateInformation
+: <a class="el" href="structad__rss_1_1state_1_1LateralRssState.html#a20fbf35d69ad1f3da9802c1c8107febe">ad_rss::state::LateralRssState</a>
+, <a class="el" href="structad__rss_1_1state_1_1LongitudinalRssState.html#acbbe5fa33b4788968bde67b00cd353ca">ad_rss::state::LongitudinalRssState</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
 <li>safeDistance
-: <a class="el" href="structad__rss_1_1state_1_1ResponseInformation.html#aef50aeac6b737f222b905982a6642a10">ad_rss::state::ResponseInformation</a>
+: <a class="el" href="structad__rss_1_1state_1_1RssStateInformation.html#a73aabe0082b0e5f7a0dba1daa013001b">ad_rss::state::RssStateInformation</a>
 </li>
 <li>scenes
 : <a class="el" href="structad__rss_1_1world_1_1WorldModel.html#a73f0935ac20a2ced03138ff94de4ba79">ad_rss::world::WorldModel</a>
@@ -347,25 +364,31 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>situationId
 : <a class="el" href="structad__rss_1_1situation_1_1Situation.html#aee9f5f3ac2b7bc7621561c1cd848e370">ad_rss::situation::Situation</a>
-, <a class="el" href="structad__rss_1_1state_1_1ResponseState.html#a16398c12054a0870c665c6c7444a8bb5">ad_rss::state::ResponseState</a>
+, <a class="el" href="structad__rss_1_1state_1_1RssState.html#a4d43115816432c108c7cb6448a6a80f2">ad_rss::state::RssState</a>
+</li>
+<li>situations
+: <a class="el" href="structad__rss_1_1situation_1_1SituationSnapshot.html#a20e8b78831efa4088467369ead1405b7">ad_rss::situation::SituationSnapshot</a>
 </li>
 <li>situationType
 : <a class="el" href="structad__rss_1_1situation_1_1Situation.html#a7543907e06da6308014a5d3888507738">ad_rss::situation::Situation</a>
 , <a class="el" href="structad__rss_1_1world_1_1Scene.html#abe7e8fa6a87b84f41dbeb3425ab0bf16">ad_rss::world::Scene</a>
 </li>
 <li>speedLat
-: <a class="el" href="structad__rss_1_1world_1_1Velocity.html#ad40ad5aae329fb26d3412d3236cbff01">ad_rss::world::Velocity</a>
+: <a class="el" href="structad__rss_1_1situation_1_1VelocityRange.html#a09b4af2f1cca2fab8d3af6b32efdf18d">ad_rss::situation::VelocityRange</a>
+, <a class="el" href="structad__rss_1_1world_1_1Velocity.html#ad40ad5aae329fb26d3412d3236cbff01">ad_rss::world::Velocity</a>
 </li>
 <li>speedLon
-: <a class="el" href="structad__rss_1_1world_1_1Velocity.html#a12bae48a039a4a2743308a4e1243daf5">ad_rss::world::Velocity</a>
+: <a class="el" href="structad__rss_1_1situation_1_1VelocityRange.html#ae944a3e8d765defd4d534b30b6fea606">ad_rss::situation::VelocityRange</a>
+, <a class="el" href="structad__rss_1_1world_1_1Velocity.html#a12bae48a039a4a2743308a4e1243daf5">ad_rss::world::Velocity</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
 <li>timeIndex
-: <a class="el" href="structad__rss_1_1situation_1_1Situation.html#a04a3dde104d4c6f7872a7d57799545ce">ad_rss::situation::Situation</a>
-, <a class="el" href="structad__rss_1_1state_1_1ResponseState.html#abcadf42d17124d3360d03cb3d4bc555a">ad_rss::state::ResponseState</a>
+: <a class="el" href="structad__rss_1_1situation_1_1SituationSnapshot.html#a0702d3241f851f53b8be4bb9541db87f">ad_rss::situation::SituationSnapshot</a>
+, <a class="el" href="structad__rss_1_1state_1_1ProperResponse.html#a3254915fe27e3cc014f3ab8723a3a692">ad_rss::state::ProperResponse</a>
+, <a class="el" href="structad__rss_1_1state_1_1RssStateSnapshot.html#a3203f08e52c229a5b1bf10ae5cb6b782">ad_rss::state::RssStateSnapshot</a>
 , <a class="el" href="structad__rss_1_1world_1_1AccelerationRestriction.html#af604a9ba7990965092155e4cf1ed9c21">ad_rss::world::AccelerationRestriction</a>
 , <a class="el" href="structad__rss_1_1world_1_1WorldModel.html#a1f518339c52ecff88e4f8e0bcd99b852">ad_rss::world::WorldModel</a>
 </li>
@@ -377,7 +400,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <h3><a class="anchor" id="index_v"></a>- v -</h3><ul>
 <li>velocity
-: <a class="el" href="structad__rss_1_1situation_1_1VehicleState.html#a8bb8798e315f3c928a9678f105ca0b6e">ad_rss::situation::VehicleState</a>
+: <a class="el" href="structad__rss_1_1situation_1_1VehicleState.html#a8ea1077a845b519521163677ae3607a6">ad_rss::situation::VehicleState</a>
 , <a class="el" href="structad__rss_1_1world_1_1Object.html#a5c8c9fe90f3322de2db61f5002468813">ad_rss::world::Object</a>
 </li>
 </ul>

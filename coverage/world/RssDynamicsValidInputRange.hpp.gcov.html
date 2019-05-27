@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-05-14 08:36:39</td>
+            <td class="headerValue">2019-05-27 11:33:04</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -129,24 +129,24 @@
 <span class="lineNum">      58 </span>                :            :  *       ::ad_rss::physics::Distance(0.) &lt;= lateralFluctuationMargin &lt;= ::ad_rss::physics::Distance(1.)
 <a name="59"><span class="lineNum">      59 </span>                :            :  *       ::ad_rss::physics::Duration(0.) &lt; responseTime &lt;= ::ad_rss::physics::Duration(10.)</a>
 <span class="lineNum">      60 </span>                :            :  */
-<span class="lineNum">      61 </span>                :<span class="lineCov">      45385 : inline bool withinValidInputRange(::ad_rss::world::RssDynamics const &amp;input)</span>
+<span class="lineNum">      61 </span>                :<span class="lineCov">     263976 : inline bool withinValidInputRange(::ad_rss::world::RssDynamics const &amp;input)</span>
 <span class="lineNum">      62 </span>                :            : {
 <span class="lineNum">      63 </span>                :            :   try
 <span class="lineNum">      64 </span>                :            :   {
 <span class="lineNum">      65 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
 <span class="lineNum">      66 </span>                :            :     // check for generic member input ranges
-<span class="lineNum">      67 </span>                :<span class="lineCov">      90735 :     bool const membersInValidInputRange = withinValidInputRange(input.alphaLon) &amp;&amp; withinValidInputRange(input.alphaLat)</span>
-<span class="lineNum">      68 </span>                :<span class="lineCov">      90735 :       &amp;&amp; withinValidInputRange(input.lateralFluctuationMargin) &amp;&amp; withinValidInputRange(input.responseTime);</span>
+<span class="lineNum">      67 </span>                :<span class="lineCov">     519935 :     bool const membersInValidInputRange = withinValidInputRange(input.alphaLon) &amp;&amp; withinValidInputRange(input.alphaLat)</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">     519935 :       &amp;&amp; withinValidInputRange(input.lateralFluctuationMargin) &amp;&amp; withinValidInputRange(input.responseTime);</span>
 <span class="lineNum">      69 </span>                :            : 
 <span class="lineNum">      70 </span>                :            :     // check for individual input ranges
 <span class="lineNum">      71 </span>                :            :     bool const lateralFluctuationMarginInInputRange
-<span class="lineNum">      72 </span>                :<span class="lineCov">     136155 :       = (::ad_rss::physics::Distance(0.) &lt;= input.lateralFluctuationMargin)</span>
-<span class="lineNum">      73 </span>                :<span class="lineCov">      90770 :       &amp;&amp; (input.lateralFluctuationMargin &lt;= ::ad_rss::physics::Distance(1.));</span>
+<span class="lineNum">      72 </span>                :<span class="lineCov">     791928 :       = (::ad_rss::physics::Distance(0.) &lt;= input.lateralFluctuationMargin)</span>
+<span class="lineNum">      73 </span>                :<span class="lineCov">     527952 :       &amp;&amp; (input.lateralFluctuationMargin &lt;= ::ad_rss::physics::Distance(1.));</span>
 <span class="lineNum">      74 </span>                :            : 
-<span class="lineNum">      75 </span>                :<span class="lineCov">     136153 :     bool const responseTimeInInputRange = (::ad_rss::physics::Duration(0.) &lt; input.responseTime)</span>
-<span class="lineNum">      76 </span>                :<span class="lineCov">      90768 :       &amp;&amp; (input.responseTime &lt;= ::ad_rss::physics::Duration(10.));</span>
+<span class="lineNum">      75 </span>                :<span class="lineCov">     791926 :     bool const responseTimeInInputRange = (::ad_rss::physics::Duration(0.) &lt; input.responseTime)</span>
+<span class="lineNum">      76 </span>                :<span class="lineCov">     527950 :       &amp;&amp; (input.responseTime &lt;= ::ad_rss::physics::Duration(10.));</span>
 <span class="lineNum">      77 </span>                :            : 
-<span class="lineNum">      78 </span>                :<span class="lineCov">      45385 :     return membersInValidInputRange &amp;&amp; lateralFluctuationMarginInInputRange &amp;&amp; responseTimeInInputRange;</span>
+<span class="lineNum">      78 </span>                :<span class="lineCov">     263976 :     return membersInValidInputRange &amp;&amp; lateralFluctuationMarginInInputRange &amp;&amp; responseTimeInInputRange;</span>
 <span class="lineNum">      79 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
 <span class="lineNum">      80 </span>                :            :   }
 <span class="lineNum">      81 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
