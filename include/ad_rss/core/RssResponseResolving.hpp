@@ -96,10 +96,7 @@ private:
     {
       return previousResponse;
     }
-    else
-    {
-      return newResponse;
-    }
+    return newResponse;
   }
 
   struct RssSafeState
