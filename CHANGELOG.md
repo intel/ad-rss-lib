@@ -1,4 +1,6 @@
 ## Latest changes
+
+## Release 1.4.0
 * Introduced more straight forward interface on intermediate functions to support better integration of the single calls into an external
   framework: SituationSnapshot, RssStateSnapshot, ProperResponse. Moved the timeIndex from the individual elements into these high level
   types to support the propagation of the timeIndex even if there are no other vehicles in the surrounding.
