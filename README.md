@@ -33,6 +33,26 @@ This library contains a stand-alone C++ implementation of the RSS module.
 The scope, design and architecture of this C++ library for RSS is described in more detail in the following document packaged with this release. This documentation includes guidance on the usage of the RSS library and its integration into an autonomous driving system. Users of this library are strongly encouraged to read this documentation prior to integration of the library.
 - C++ Library for Responsibility Sensitive Safety, Intel, 2018
 
+### Usage of ad-rss-lib 
+If you use ad-rss-lib, please cite our IV'2019 paper:
+```
+@INPROCEEDINGS{
+   title={Towards Standardization of AV Safety: C++ Library for Responsibility Sensitive Safety}
+   author={Gassmann, Bernd and Oboril, Fabian and Buerkle, Cornelius and Liu, Shuang and Yan, Shoumeng and Elli, Maria Soledad and Alvarez, Ignacio and Aerrabotu, Naveen and Jaber, Suhel and van Beek, Peter and Iyer, Darshan and Weast, Jack}
+   booktitle={2019 IEEE Intelligent Vehicles Symposium (IV)}
+   year={2019}
+}
+```
+
+#### Usage within CARLA
+This library can be used together with the open-source driving simulator [CARLA](https://github.com/carla-simulator/carla) to investigate the behavior of RSS. A first version is shown in the following video sequence:
+[![RSS safety sensor in CARLA](./doc/images/carla_integration.png)](https://www.youtube.com/watch?v=UxKPXPT2T8Q)
+
+#### Usage within Baidu Apollo
+In addition, the library is already integrated and used in Baidu's [Apollo Open Platform stack](https://github.com/ApolloAuto/apollo):
+
+![RSS integration in Apollo](./doc/images/apollo_integration.png)
+
 
 ## License <a name="license"></a>
 This software library is provided under the BSD 3-clause open-source license: https://opensource.org/licenses/BSD-3-Clause.
