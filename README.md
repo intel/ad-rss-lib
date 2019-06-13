@@ -46,12 +46,12 @@ If you use ad-rss-lib, please cite our IV'2019 paper:
 
 #### Usage within CARLA
 This library can be used together with the open-source driving simulator [CARLA](https://github.com/carla-simulator/carla) to investigate the behavior of RSS. A first version is shown in the following video sequence:
-[![RSS safety sensor in CARLA](./doc/images/carla_integration.png)](https://www.youtube.com/watch?v=UxKPXPT2T8Q)
+[![RSS safety sensor in CARLA](https://github.com/intel/ad-rss-lib/blob/master/doc/images/carla_integration.png)](https://www.youtube.com/watch?v=UxKPXPT2T8Q)
 
 #### Usage within Baidu Apollo
 In addition, the library is already integrated and used in Baidu's [Apollo Open Platform stack](https://github.com/ApolloAuto/apollo):
 
-![RSS integration in Apollo](./doc/images/apollo_integration.png)
+![RSS integration in Apollo](https://github.com/intel/ad-rss-lib/blob/master/doc/images/apollo_integration.png)
 
 
 ## License <a name="license"></a>
