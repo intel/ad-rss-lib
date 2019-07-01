@@ -1,7 +1,7 @@
 docs:
 
 - title: Doxygen
-  url: doxygen/index.html
+  url: doxygen/html/index.html
 
 - title: Background
   url: documentation/Main.html
