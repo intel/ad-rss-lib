@@ -37,7 +37,7 @@
 
 #include <gtest/gtest.h>
 #include <limits>
-#include "ad_rss/situation/SituationSnapshot.hpp"
+#include "ad/rss/situation/SituationSnapshot.hpp"
 
 class SituationSnapshotTests : public testing::Test
 {
@@ -45,48 +45,253 @@ protected:
   virtual void SetUp() override
   {
     // valid initialization
-    ::ad_rss::situation::SituationSnapshot value;
-    ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-    valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
+    ::ad::rss::situation::SituationSnapshot value;
+    ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
+    valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
     value.timeIndex = valueTimeIndex;
-    ::ad_rss::situation::SituationVector valueSituations;
+    ::ad::rss::situation::SituationVector valueSituations;
+    ::ad::rss::situation::Situation valueSituationsElement;
+    ::ad::rss::situation::SituationId valueSituationsElementSituationId(
+      std::numeric_limits<::ad::rss::situation::SituationId>::lowest());
+    valueSituationsElement.situationId = valueSituationsElementSituationId;
+    ::ad::rss::world::ObjectId valueSituationsElementObjectId(
+      std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+    valueSituationsElement.objectId = valueSituationsElementObjectId;
+    ::ad::rss::situation::SituationType valueSituationsElementSituationType(
+      ::ad::rss::situation::SituationType::NotRelevant);
+    valueSituationsElement.situationType = valueSituationsElementSituationType;
+    ::ad::rss::situation::VehicleState valueSituationsElementEgoVehicleState;
+    ::ad::rss::situation::VelocityRange valueSituationsElementEgoVehicleStateVelocity;
+    ::ad::physics::SpeedRange valueSituationsElementEgoVehicleStateVelocitySpeedLon;
+    ::ad::physics::Speed valueSituationsElementEgoVehicleStateVelocitySpeedLonMinimum(-100.);
+    valueSituationsElementEgoVehicleStateVelocitySpeedLon.minimum
+      = valueSituationsElementEgoVehicleStateVelocitySpeedLonMinimum;
+    ::ad::physics::Speed valueSituationsElementEgoVehicleStateVelocitySpeedLonMaximum(-100.);
+    valueSituationsElementEgoVehicleStateVelocitySpeedLon.maximum
+      = valueSituationsElementEgoVehicleStateVelocitySpeedLonMaximum;
+    valueSituationsElementEgoVehicleStateVelocitySpeedLon.maximum
+      = valueSituationsElementEgoVehicleStateVelocitySpeedLon.minimum;
+    valueSituationsElementEgoVehicleStateVelocitySpeedLon.minimum
+      = valueSituationsElementEgoVehicleStateVelocitySpeedLon.maximum;
+    valueSituationsElementEgoVehicleStateVelocity.speedLon = valueSituationsElementEgoVehicleStateVelocitySpeedLon;
+    ::ad::physics::SpeedRange valueSituationsElementEgoVehicleStateVelocitySpeedLat;
+    ::ad::physics::Speed valueSituationsElementEgoVehicleStateVelocitySpeedLatMinimum(-100.);
+    valueSituationsElementEgoVehicleStateVelocitySpeedLat.minimum
+      = valueSituationsElementEgoVehicleStateVelocitySpeedLatMinimum;
+    ::ad::physics::Speed valueSituationsElementEgoVehicleStateVelocitySpeedLatMaximum(-100.);
+    valueSituationsElementEgoVehicleStateVelocitySpeedLat.maximum
+      = valueSituationsElementEgoVehicleStateVelocitySpeedLatMaximum;
+    valueSituationsElementEgoVehicleStateVelocitySpeedLat.maximum
+      = valueSituationsElementEgoVehicleStateVelocitySpeedLat.minimum;
+    valueSituationsElementEgoVehicleStateVelocitySpeedLat.minimum
+      = valueSituationsElementEgoVehicleStateVelocitySpeedLat.maximum;
+    valueSituationsElementEgoVehicleStateVelocity.speedLat = valueSituationsElementEgoVehicleStateVelocitySpeedLat;
+    valueSituationsElementEgoVehicleState.velocity = valueSituationsElementEgoVehicleStateVelocity;
+    ::ad::rss::world::RssDynamics valueSituationsElementEgoVehicleStateDynamics;
+    ::ad::rss::world::LongitudinalRssAccelerationValues valueSituationsElementEgoVehicleStateDynamicsAlphaLon;
+    ::ad::physics::Acceleration valueSituationsElementEgoVehicleStateDynamicsAlphaLonAccelMax(-1e2);
+    valueSituationsElementEgoVehicleStateDynamicsAlphaLonAccelMax
+      = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    valueSituationsElementEgoVehicleStateDynamicsAlphaLon.accelMax
+      = valueSituationsElementEgoVehicleStateDynamicsAlphaLonAccelMax;
+    ::ad::physics::Acceleration valueSituationsElementEgoVehicleStateDynamicsAlphaLonBrakeMax(-1e2);
+    valueSituationsElementEgoVehicleStateDynamicsAlphaLon.brakeMax
+      = valueSituationsElementEgoVehicleStateDynamicsAlphaLonBrakeMax;
+    ::ad::physics::Acceleration valueSituationsElementEgoVehicleStateDynamicsAlphaLonBrakeMin(-1e2);
+    valueSituationsElementEgoVehicleStateDynamicsAlphaLon.brakeMin
+      = valueSituationsElementEgoVehicleStateDynamicsAlphaLonBrakeMin;
+    ::ad::physics::Acceleration valueSituationsElementEgoVehicleStateDynamicsAlphaLonBrakeMinCorrect(-1e2);
+    valueSituationsElementEgoVehicleStateDynamicsAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
+      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+    valueSituationsElementEgoVehicleStateDynamicsAlphaLon.brakeMinCorrect
+      = valueSituationsElementEgoVehicleStateDynamicsAlphaLonBrakeMinCorrect;
+    valueSituationsElementEgoVehicleStateDynamicsAlphaLon.brakeMin
+      = valueSituationsElementEgoVehicleStateDynamicsAlphaLon.brakeMinCorrect;
+    valueSituationsElementEgoVehicleStateDynamicsAlphaLon.brakeMax
+      = valueSituationsElementEgoVehicleStateDynamicsAlphaLon.brakeMin;
+    valueSituationsElementEgoVehicleStateDynamicsAlphaLon.brakeMin
+      = valueSituationsElementEgoVehicleStateDynamicsAlphaLon.brakeMax;
+    valueSituationsElementEgoVehicleStateDynamicsAlphaLon.brakeMinCorrect
+      = valueSituationsElementEgoVehicleStateDynamicsAlphaLon.brakeMin;
+    valueSituationsElementEgoVehicleStateDynamics.alphaLon = valueSituationsElementEgoVehicleStateDynamicsAlphaLon;
+    ::ad::rss::world::LateralRssAccelerationValues valueSituationsElementEgoVehicleStateDynamicsAlphaLat;
+    ::ad::physics::Acceleration valueSituationsElementEgoVehicleStateDynamicsAlphaLatAccelMax(-1e2);
+    valueSituationsElementEgoVehicleStateDynamicsAlphaLatAccelMax
+      = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    valueSituationsElementEgoVehicleStateDynamicsAlphaLat.accelMax
+      = valueSituationsElementEgoVehicleStateDynamicsAlphaLatAccelMax;
+    ::ad::physics::Acceleration valueSituationsElementEgoVehicleStateDynamicsAlphaLatBrakeMin(-1e2);
+    valueSituationsElementEgoVehicleStateDynamicsAlphaLatBrakeMin = ::ad::physics::Acceleration(
+      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+    valueSituationsElementEgoVehicleStateDynamicsAlphaLat.brakeMin
+      = valueSituationsElementEgoVehicleStateDynamicsAlphaLatBrakeMin;
+    valueSituationsElementEgoVehicleStateDynamics.alphaLat = valueSituationsElementEgoVehicleStateDynamicsAlphaLat;
+    ::ad::physics::Distance valueSituationsElementEgoVehicleStateDynamicsLateralFluctuationMargin(0.);
+    valueSituationsElementEgoVehicleStateDynamics.lateralFluctuationMargin
+      = valueSituationsElementEgoVehicleStateDynamicsLateralFluctuationMargin;
+    ::ad::physics::Duration valueSituationsElementEgoVehicleStateDynamicsResponseTime(0.);
+    valueSituationsElementEgoVehicleStateDynamicsResponseTime
+      = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
+    valueSituationsElementEgoVehicleStateDynamics.responseTime
+      = valueSituationsElementEgoVehicleStateDynamicsResponseTime;
+    valueSituationsElementEgoVehicleState.dynamics = valueSituationsElementEgoVehicleStateDynamics;
+    bool valueSituationsElementEgoVehicleStateHasPriority{true};
+    valueSituationsElementEgoVehicleState.hasPriority = valueSituationsElementEgoVehicleStateHasPriority;
+    bool valueSituationsElementEgoVehicleStateIsInCorrectLane{true};
+    valueSituationsElementEgoVehicleState.isInCorrectLane = valueSituationsElementEgoVehicleStateIsInCorrectLane;
+    ::ad::physics::Distance valueSituationsElementEgoVehicleStateDistanceToEnterIntersection(0.);
+    valueSituationsElementEgoVehicleState.distanceToEnterIntersection
+      = valueSituationsElementEgoVehicleStateDistanceToEnterIntersection;
+    ::ad::physics::Distance valueSituationsElementEgoVehicleStateDistanceToLeaveIntersection(0.);
+    valueSituationsElementEgoVehicleState.distanceToLeaveIntersection
+      = valueSituationsElementEgoVehicleStateDistanceToLeaveIntersection;
+    valueSituationsElementEgoVehicleState.distanceToLeaveIntersection
+      = valueSituationsElementEgoVehicleState.distanceToEnterIntersection;
+    valueSituationsElementEgoVehicleState.distanceToEnterIntersection
+      = valueSituationsElementEgoVehicleState.distanceToLeaveIntersection;
+    valueSituationsElement.egoVehicleState = valueSituationsElementEgoVehicleState;
+    ::ad::rss::situation::VehicleState valueSituationsElementOtherVehicleState;
+    ::ad::rss::situation::VelocityRange valueSituationsElementOtherVehicleStateVelocity;
+    ::ad::physics::SpeedRange valueSituationsElementOtherVehicleStateVelocitySpeedLon;
+    ::ad::physics::Speed valueSituationsElementOtherVehicleStateVelocitySpeedLonMinimum(-100.);
+    valueSituationsElementOtherVehicleStateVelocitySpeedLon.minimum
+      = valueSituationsElementOtherVehicleStateVelocitySpeedLonMinimum;
+    ::ad::physics::Speed valueSituationsElementOtherVehicleStateVelocitySpeedLonMaximum(-100.);
+    valueSituationsElementOtherVehicleStateVelocitySpeedLon.maximum
+      = valueSituationsElementOtherVehicleStateVelocitySpeedLonMaximum;
+    valueSituationsElementOtherVehicleStateVelocitySpeedLon.maximum
+      = valueSituationsElementOtherVehicleStateVelocitySpeedLon.minimum;
+    valueSituationsElementOtherVehicleStateVelocitySpeedLon.minimum
+      = valueSituationsElementOtherVehicleStateVelocitySpeedLon.maximum;
+    valueSituationsElementOtherVehicleStateVelocity.speedLon = valueSituationsElementOtherVehicleStateVelocitySpeedLon;
+    ::ad::physics::SpeedRange valueSituationsElementOtherVehicleStateVelocitySpeedLat;
+    ::ad::physics::Speed valueSituationsElementOtherVehicleStateVelocitySpeedLatMinimum(-100.);
+    valueSituationsElementOtherVehicleStateVelocitySpeedLat.minimum
+      = valueSituationsElementOtherVehicleStateVelocitySpeedLatMinimum;
+    ::ad::physics::Speed valueSituationsElementOtherVehicleStateVelocitySpeedLatMaximum(-100.);
+    valueSituationsElementOtherVehicleStateVelocitySpeedLat.maximum
+      = valueSituationsElementOtherVehicleStateVelocitySpeedLatMaximum;
+    valueSituationsElementOtherVehicleStateVelocitySpeedLat.maximum
+      = valueSituationsElementOtherVehicleStateVelocitySpeedLat.minimum;
+    valueSituationsElementOtherVehicleStateVelocitySpeedLat.minimum
+      = valueSituationsElementOtherVehicleStateVelocitySpeedLat.maximum;
+    valueSituationsElementOtherVehicleStateVelocity.speedLat = valueSituationsElementOtherVehicleStateVelocitySpeedLat;
+    valueSituationsElementOtherVehicleState.velocity = valueSituationsElementOtherVehicleStateVelocity;
+    ::ad::rss::world::RssDynamics valueSituationsElementOtherVehicleStateDynamics;
+    ::ad::rss::world::LongitudinalRssAccelerationValues valueSituationsElementOtherVehicleStateDynamicsAlphaLon;
+    ::ad::physics::Acceleration valueSituationsElementOtherVehicleStateDynamicsAlphaLonAccelMax(-1e2);
+    valueSituationsElementOtherVehicleStateDynamicsAlphaLonAccelMax
+      = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    valueSituationsElementOtherVehicleStateDynamicsAlphaLon.accelMax
+      = valueSituationsElementOtherVehicleStateDynamicsAlphaLonAccelMax;
+    ::ad::physics::Acceleration valueSituationsElementOtherVehicleStateDynamicsAlphaLonBrakeMax(-1e2);
+    valueSituationsElementOtherVehicleStateDynamicsAlphaLon.brakeMax
+      = valueSituationsElementOtherVehicleStateDynamicsAlphaLonBrakeMax;
+    ::ad::physics::Acceleration valueSituationsElementOtherVehicleStateDynamicsAlphaLonBrakeMin(-1e2);
+    valueSituationsElementOtherVehicleStateDynamicsAlphaLon.brakeMin
+      = valueSituationsElementOtherVehicleStateDynamicsAlphaLonBrakeMin;
+    ::ad::physics::Acceleration valueSituationsElementOtherVehicleStateDynamicsAlphaLonBrakeMinCorrect(-1e2);
+    valueSituationsElementOtherVehicleStateDynamicsAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
+      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+    valueSituationsElementOtherVehicleStateDynamicsAlphaLon.brakeMinCorrect
+      = valueSituationsElementOtherVehicleStateDynamicsAlphaLonBrakeMinCorrect;
+    valueSituationsElementOtherVehicleStateDynamicsAlphaLon.brakeMin
+      = valueSituationsElementOtherVehicleStateDynamicsAlphaLon.brakeMinCorrect;
+    valueSituationsElementOtherVehicleStateDynamicsAlphaLon.brakeMax
+      = valueSituationsElementOtherVehicleStateDynamicsAlphaLon.brakeMin;
+    valueSituationsElementOtherVehicleStateDynamicsAlphaLon.brakeMin
+      = valueSituationsElementOtherVehicleStateDynamicsAlphaLon.brakeMax;
+    valueSituationsElementOtherVehicleStateDynamicsAlphaLon.brakeMinCorrect
+      = valueSituationsElementOtherVehicleStateDynamicsAlphaLon.brakeMin;
+    valueSituationsElementOtherVehicleStateDynamics.alphaLon = valueSituationsElementOtherVehicleStateDynamicsAlphaLon;
+    ::ad::rss::world::LateralRssAccelerationValues valueSituationsElementOtherVehicleStateDynamicsAlphaLat;
+    ::ad::physics::Acceleration valueSituationsElementOtherVehicleStateDynamicsAlphaLatAccelMax(-1e2);
+    valueSituationsElementOtherVehicleStateDynamicsAlphaLatAccelMax
+      = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    valueSituationsElementOtherVehicleStateDynamicsAlphaLat.accelMax
+      = valueSituationsElementOtherVehicleStateDynamicsAlphaLatAccelMax;
+    ::ad::physics::Acceleration valueSituationsElementOtherVehicleStateDynamicsAlphaLatBrakeMin(-1e2);
+    valueSituationsElementOtherVehicleStateDynamicsAlphaLatBrakeMin = ::ad::physics::Acceleration(
+      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+    valueSituationsElementOtherVehicleStateDynamicsAlphaLat.brakeMin
+      = valueSituationsElementOtherVehicleStateDynamicsAlphaLatBrakeMin;
+    valueSituationsElementOtherVehicleStateDynamics.alphaLat = valueSituationsElementOtherVehicleStateDynamicsAlphaLat;
+    ::ad::physics::Distance valueSituationsElementOtherVehicleStateDynamicsLateralFluctuationMargin(0.);
+    valueSituationsElementOtherVehicleStateDynamics.lateralFluctuationMargin
+      = valueSituationsElementOtherVehicleStateDynamicsLateralFluctuationMargin;
+    ::ad::physics::Duration valueSituationsElementOtherVehicleStateDynamicsResponseTime(0.);
+    valueSituationsElementOtherVehicleStateDynamicsResponseTime
+      = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
+    valueSituationsElementOtherVehicleStateDynamics.responseTime
+      = valueSituationsElementOtherVehicleStateDynamicsResponseTime;
+    valueSituationsElementOtherVehicleState.dynamics = valueSituationsElementOtherVehicleStateDynamics;
+    bool valueSituationsElementOtherVehicleStateHasPriority{true};
+    valueSituationsElementOtherVehicleState.hasPriority = valueSituationsElementOtherVehicleStateHasPriority;
+    bool valueSituationsElementOtherVehicleStateIsInCorrectLane{true};
+    valueSituationsElementOtherVehicleState.isInCorrectLane = valueSituationsElementOtherVehicleStateIsInCorrectLane;
+    ::ad::physics::Distance valueSituationsElementOtherVehicleStateDistanceToEnterIntersection(0.);
+    valueSituationsElementOtherVehicleState.distanceToEnterIntersection
+      = valueSituationsElementOtherVehicleStateDistanceToEnterIntersection;
+    ::ad::physics::Distance valueSituationsElementOtherVehicleStateDistanceToLeaveIntersection(0.);
+    valueSituationsElementOtherVehicleState.distanceToLeaveIntersection
+      = valueSituationsElementOtherVehicleStateDistanceToLeaveIntersection;
+    valueSituationsElementOtherVehicleState.distanceToLeaveIntersection
+      = valueSituationsElementOtherVehicleState.distanceToEnterIntersection;
+    valueSituationsElementOtherVehicleState.distanceToEnterIntersection
+      = valueSituationsElementOtherVehicleState.distanceToLeaveIntersection;
+    valueSituationsElement.otherVehicleState = valueSituationsElementOtherVehicleState;
+    ::ad::rss::situation::RelativePosition valueSituationsElementRelativePosition;
+    ::ad::rss::situation::LongitudinalRelativePosition valueSituationsElementRelativePositionLongitudinalPosition(
+      ::ad::rss::situation::LongitudinalRelativePosition::InFront);
+    valueSituationsElementRelativePosition.longitudinalPosition
+      = valueSituationsElementRelativePositionLongitudinalPosition;
+    ::ad::physics::Distance valueSituationsElementRelativePositionLongitudinalDistance(0.);
+    valueSituationsElementRelativePosition.longitudinalDistance
+      = valueSituationsElementRelativePositionLongitudinalDistance;
+    ::ad::rss::situation::LateralRelativePosition valueSituationsElementRelativePositionLateralPosition(
+      ::ad::rss::situation::LateralRelativePosition::AtLeft);
+    valueSituationsElementRelativePosition.lateralPosition = valueSituationsElementRelativePositionLateralPosition;
+    ::ad::physics::Distance valueSituationsElementRelativePositionLateralDistance(0.);
+    valueSituationsElementRelativePosition.lateralDistance = valueSituationsElementRelativePositionLateralDistance;
+    valueSituationsElement.relativePosition = valueSituationsElementRelativePosition;
+    valueSituations.resize(1, valueSituationsElement);
     value.situations = valueSituations;
     mValue = value;
   }
 
-  ::ad_rss::situation::SituationSnapshot mValue;
+  ::ad::rss::situation::SituationSnapshot mValue;
 };
 
 TEST_F(SituationSnapshotTests, copyConstruction)
 {
-  ::ad_rss::situation::SituationSnapshot value(mValue);
+  ::ad::rss::situation::SituationSnapshot value(mValue);
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(SituationSnapshotTests, moveConstruction)
 {
-  ::ad_rss::situation::SituationSnapshot value(std::move(::ad_rss::situation::SituationSnapshot(mValue)));
+  ::ad::rss::situation::SituationSnapshot value(std::move(::ad::rss::situation::SituationSnapshot(mValue)));
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(SituationSnapshotTests, copyAssignment)
 {
-  ::ad_rss::situation::SituationSnapshot value;
+  ::ad::rss::situation::SituationSnapshot value;
   value = mValue;
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(SituationSnapshotTests, moveAssignment)
 {
-  ::ad_rss::situation::SituationSnapshot value;
-  value = std::move(::ad_rss::situation::SituationSnapshot(mValue));
+  ::ad::rss::situation::SituationSnapshot value;
+  value = std::move(::ad::rss::situation::SituationSnapshot(mValue));
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(SituationSnapshotTests, comparisonOperatorEqual)
 {
-  ::ad_rss::situation::SituationSnapshot valueA = mValue;
-  ::ad_rss::situation::SituationSnapshot valueB = mValue;
+  ::ad::rss::situation::SituationSnapshot valueA = mValue;
+  ::ad::rss::situation::SituationSnapshot valueB = mValue;
 
   EXPECT_TRUE(valueA == valueB);
   EXPECT_FALSE(valueA != valueB);
@@ -94,10 +299,10 @@ TEST_F(SituationSnapshotTests, comparisonOperatorEqual)
 
 TEST_F(SituationSnapshotTests, comparisonOperatorTimeIndexDiffers)
 {
-  ::ad_rss::situation::SituationSnapshot valueA = mValue;
-  ::ad_rss::physics::TimeIndex timeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::max());
+  ::ad::rss::situation::SituationSnapshot valueA = mValue;
+  ::ad::rss::world::TimeIndex timeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::max());
   valueA.timeIndex = timeIndex;
-  ::ad_rss::situation::SituationSnapshot valueB = mValue;
+  ::ad::rss::situation::SituationSnapshot valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
@@ -105,45 +310,45 @@ TEST_F(SituationSnapshotTests, comparisonOperatorTimeIndexDiffers)
 
 TEST_F(SituationSnapshotTests, comparisonOperatorSituationsDiffers)
 {
-  ::ad_rss::situation::SituationSnapshot valueA = mValue;
-  ::ad_rss::situation::SituationVector situations;
-  ::ad_rss::situation::Situation situationsElement;
-  ::ad_rss::situation::SituationId situationsElementSituationId(
-    std::numeric_limits<::ad_rss::situation::SituationId>::max());
+  ::ad::rss::situation::SituationSnapshot valueA = mValue;
+  ::ad::rss::situation::SituationVector situations;
+  ::ad::rss::situation::Situation situationsElement;
+  ::ad::rss::situation::SituationId situationsElementSituationId(
+    std::numeric_limits<::ad::rss::situation::SituationId>::max());
   situationsElement.situationId = situationsElementSituationId;
-  ::ad_rss::world::ObjectId situationsElementObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::max());
+  ::ad::rss::world::ObjectId situationsElementObjectId(std::numeric_limits<::ad::rss::world::ObjectId>::max());
   situationsElement.objectId = situationsElementObjectId;
-  ::ad_rss::situation::SituationType situationsElementSituationType(
-    ::ad_rss::situation::SituationType::IntersectionSamePriority);
+  ::ad::rss::situation::SituationType situationsElementSituationType(
+    ::ad::rss::situation::SituationType::IntersectionSamePriority);
   situationsElement.situationType = situationsElementSituationType;
-  ::ad_rss::situation::VehicleState situationsElementEgoVehicleState;
-  ::ad_rss::situation::VelocityRange situationsElementEgoVehicleStateVelocity;
-  ::ad_rss::physics::SpeedRange situationsElementEgoVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed situationsElementEgoVehicleStateVelocitySpeedLonMinimum(100.);
+  ::ad::rss::situation::VehicleState situationsElementEgoVehicleState;
+  ::ad::rss::situation::VelocityRange situationsElementEgoVehicleStateVelocity;
+  ::ad::physics::SpeedRange situationsElementEgoVehicleStateVelocitySpeedLon;
+  ::ad::physics::Speed situationsElementEgoVehicleStateVelocitySpeedLonMinimum(100.);
   situationsElementEgoVehicleStateVelocitySpeedLon.minimum = situationsElementEgoVehicleStateVelocitySpeedLonMinimum;
-  ::ad_rss::physics::Speed situationsElementEgoVehicleStateVelocitySpeedLonMaximum(100.);
+  ::ad::physics::Speed situationsElementEgoVehicleStateVelocitySpeedLonMaximum(100.);
   situationsElementEgoVehicleStateVelocitySpeedLon.maximum = situationsElementEgoVehicleStateVelocitySpeedLonMaximum;
   situationsElementEgoVehicleStateVelocitySpeedLon.maximum = situationsElementEgoVehicleStateVelocitySpeedLon.minimum;
   situationsElementEgoVehicleStateVelocitySpeedLon.minimum = situationsElementEgoVehicleStateVelocitySpeedLon.maximum;
   situationsElementEgoVehicleStateVelocity.speedLon = situationsElementEgoVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::SpeedRange situationsElementEgoVehicleStateVelocitySpeedLat;
-  ::ad_rss::physics::Speed situationsElementEgoVehicleStateVelocitySpeedLatMinimum(100.);
+  ::ad::physics::SpeedRange situationsElementEgoVehicleStateVelocitySpeedLat;
+  ::ad::physics::Speed situationsElementEgoVehicleStateVelocitySpeedLatMinimum(100.);
   situationsElementEgoVehicleStateVelocitySpeedLat.minimum = situationsElementEgoVehicleStateVelocitySpeedLatMinimum;
-  ::ad_rss::physics::Speed situationsElementEgoVehicleStateVelocitySpeedLatMaximum(100.);
+  ::ad::physics::Speed situationsElementEgoVehicleStateVelocitySpeedLatMaximum(100.);
   situationsElementEgoVehicleStateVelocitySpeedLat.maximum = situationsElementEgoVehicleStateVelocitySpeedLatMaximum;
   situationsElementEgoVehicleStateVelocitySpeedLat.maximum = situationsElementEgoVehicleStateVelocitySpeedLat.minimum;
   situationsElementEgoVehicleStateVelocitySpeedLat.minimum = situationsElementEgoVehicleStateVelocitySpeedLat.maximum;
   situationsElementEgoVehicleStateVelocity.speedLat = situationsElementEgoVehicleStateVelocitySpeedLat;
   situationsElementEgoVehicleState.velocity = situationsElementEgoVehicleStateVelocity;
-  ::ad_rss::world::RssDynamics situationsElementEgoVehicleStateDynamics;
-  ::ad_rss::world::LongitudinalRssAccelerationValues situationsElementEgoVehicleStateDynamicsAlphaLon;
-  ::ad_rss::physics::Acceleration situationsElementEgoVehicleStateDynamicsAlphaLonAccelMax(1e2);
+  ::ad::rss::world::RssDynamics situationsElementEgoVehicleStateDynamics;
+  ::ad::rss::world::LongitudinalRssAccelerationValues situationsElementEgoVehicleStateDynamicsAlphaLon;
+  ::ad::physics::Acceleration situationsElementEgoVehicleStateDynamicsAlphaLonAccelMax(1e2);
   situationsElementEgoVehicleStateDynamicsAlphaLon.accelMax = situationsElementEgoVehicleStateDynamicsAlphaLonAccelMax;
-  ::ad_rss::physics::Acceleration situationsElementEgoVehicleStateDynamicsAlphaLonBrakeMax(1e2);
+  ::ad::physics::Acceleration situationsElementEgoVehicleStateDynamicsAlphaLonBrakeMax(1e2);
   situationsElementEgoVehicleStateDynamicsAlphaLon.brakeMax = situationsElementEgoVehicleStateDynamicsAlphaLonBrakeMax;
-  ::ad_rss::physics::Acceleration situationsElementEgoVehicleStateDynamicsAlphaLonBrakeMin(1e2);
+  ::ad::physics::Acceleration situationsElementEgoVehicleStateDynamicsAlphaLonBrakeMin(1e2);
   situationsElementEgoVehicleStateDynamicsAlphaLon.brakeMin = situationsElementEgoVehicleStateDynamicsAlphaLonBrakeMin;
-  ::ad_rss::physics::Acceleration situationsElementEgoVehicleStateDynamicsAlphaLonBrakeMinCorrect(1e2);
+  ::ad::physics::Acceleration situationsElementEgoVehicleStateDynamicsAlphaLonBrakeMinCorrect(1e2);
   situationsElementEgoVehicleStateDynamicsAlphaLon.brakeMinCorrect
     = situationsElementEgoVehicleStateDynamicsAlphaLonBrakeMinCorrect;
   situationsElementEgoVehicleStateDynamicsAlphaLon.brakeMax = situationsElementEgoVehicleStateDynamicsAlphaLon.brakeMin;
@@ -153,32 +358,32 @@ TEST_F(SituationSnapshotTests, comparisonOperatorSituationsDiffers)
     = situationsElementEgoVehicleStateDynamicsAlphaLon.brakeMin;
   situationsElementEgoVehicleStateDynamicsAlphaLon.brakeMin = situationsElementEgoVehicleStateDynamicsAlphaLon.brakeMax;
   situationsElementEgoVehicleStateDynamics.alphaLon = situationsElementEgoVehicleStateDynamicsAlphaLon;
-  ::ad_rss::world::LateralRssAccelerationValues situationsElementEgoVehicleStateDynamicsAlphaLat;
-  ::ad_rss::physics::Acceleration situationsElementEgoVehicleStateDynamicsAlphaLatAccelMax(1e2);
+  ::ad::rss::world::LateralRssAccelerationValues situationsElementEgoVehicleStateDynamicsAlphaLat;
+  ::ad::physics::Acceleration situationsElementEgoVehicleStateDynamicsAlphaLatAccelMax(1e2);
   situationsElementEgoVehicleStateDynamicsAlphaLat.accelMax = situationsElementEgoVehicleStateDynamicsAlphaLatAccelMax;
-  ::ad_rss::physics::Acceleration situationsElementEgoVehicleStateDynamicsAlphaLatBrakeMin(1e2);
+  ::ad::physics::Acceleration situationsElementEgoVehicleStateDynamicsAlphaLatBrakeMin(1e2);
   situationsElementEgoVehicleStateDynamicsAlphaLat.brakeMin = situationsElementEgoVehicleStateDynamicsAlphaLatBrakeMin;
   situationsElementEgoVehicleStateDynamics.alphaLat = situationsElementEgoVehicleStateDynamicsAlphaLat;
-  ::ad_rss::physics::Distance situationsElementEgoVehicleStateDynamicsLateralFluctuationMargin(1e6);
+  ::ad::physics::Distance situationsElementEgoVehicleStateDynamicsLateralFluctuationMargin(1e6);
   situationsElementEgoVehicleStateDynamicsLateralFluctuationMargin
-    = ::ad_rss::physics::Distance(1.); // set to valid value within struct
+    = ::ad::physics::Distance(1.); // set to valid value within struct
   situationsElementEgoVehicleStateDynamics.lateralFluctuationMargin
     = situationsElementEgoVehicleStateDynamicsLateralFluctuationMargin;
-  ::ad_rss::physics::Duration situationsElementEgoVehicleStateDynamicsResponseTime(100.);
+  ::ad::physics::Duration situationsElementEgoVehicleStateDynamicsResponseTime(100.);
   situationsElementEgoVehicleStateDynamicsResponseTime
-    = ::ad_rss::physics::Duration(10.); // set to valid value within struct
+    = ::ad::physics::Duration(10.); // set to valid value within struct
   situationsElementEgoVehicleStateDynamics.responseTime = situationsElementEgoVehicleStateDynamicsResponseTime;
   situationsElementEgoVehicleState.dynamics = situationsElementEgoVehicleStateDynamics;
   bool situationsElementEgoVehicleStateHasPriority{false};
   situationsElementEgoVehicleState.hasPriority = situationsElementEgoVehicleStateHasPriority;
   bool situationsElementEgoVehicleStateIsInCorrectLane{false};
   situationsElementEgoVehicleState.isInCorrectLane = situationsElementEgoVehicleStateIsInCorrectLane;
-  ::ad_rss::physics::Distance situationsElementEgoVehicleStateDistanceToEnterIntersection(1e6);
+  ::ad::physics::Distance situationsElementEgoVehicleStateDistanceToEnterIntersection(1e6);
   situationsElementEgoVehicleState.distanceToEnterIntersection
     = situationsElementEgoVehicleStateDistanceToEnterIntersection;
-  ::ad_rss::physics::Distance situationsElementEgoVehicleStateDistanceToLeaveIntersection(1e6);
+  ::ad::physics::Distance situationsElementEgoVehicleStateDistanceToLeaveIntersection(1e6);
   situationsElementEgoVehicleStateDistanceToLeaveIntersection
-    = ::ad_rss::physics::Distance(1e4); // set to valid value within struct
+    = ::ad::physics::Distance(1e4); // set to valid value within struct
   situationsElementEgoVehicleState.distanceToLeaveIntersection
     = situationsElementEgoVehicleStateDistanceToLeaveIntersection;
   situationsElementEgoVehicleState.distanceToLeaveIntersection
@@ -186,13 +391,13 @@ TEST_F(SituationSnapshotTests, comparisonOperatorSituationsDiffers)
   situationsElementEgoVehicleState.distanceToEnterIntersection
     = situationsElementEgoVehicleState.distanceToLeaveIntersection;
   situationsElement.egoVehicleState = situationsElementEgoVehicleState;
-  ::ad_rss::situation::VehicleState situationsElementOtherVehicleState;
-  ::ad_rss::situation::VelocityRange situationsElementOtherVehicleStateVelocity;
-  ::ad_rss::physics::SpeedRange situationsElementOtherVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::Speed situationsElementOtherVehicleStateVelocitySpeedLonMinimum(100.);
+  ::ad::rss::situation::VehicleState situationsElementOtherVehicleState;
+  ::ad::rss::situation::VelocityRange situationsElementOtherVehicleStateVelocity;
+  ::ad::physics::SpeedRange situationsElementOtherVehicleStateVelocitySpeedLon;
+  ::ad::physics::Speed situationsElementOtherVehicleStateVelocitySpeedLonMinimum(100.);
   situationsElementOtherVehicleStateVelocitySpeedLon.minimum
     = situationsElementOtherVehicleStateVelocitySpeedLonMinimum;
-  ::ad_rss::physics::Speed situationsElementOtherVehicleStateVelocitySpeedLonMaximum(100.);
+  ::ad::physics::Speed situationsElementOtherVehicleStateVelocitySpeedLonMaximum(100.);
   situationsElementOtherVehicleStateVelocitySpeedLon.maximum
     = situationsElementOtherVehicleStateVelocitySpeedLonMaximum;
   situationsElementOtherVehicleStateVelocitySpeedLon.maximum
@@ -200,11 +405,11 @@ TEST_F(SituationSnapshotTests, comparisonOperatorSituationsDiffers)
   situationsElementOtherVehicleStateVelocitySpeedLon.minimum
     = situationsElementOtherVehicleStateVelocitySpeedLon.maximum;
   situationsElementOtherVehicleStateVelocity.speedLon = situationsElementOtherVehicleStateVelocitySpeedLon;
-  ::ad_rss::physics::SpeedRange situationsElementOtherVehicleStateVelocitySpeedLat;
-  ::ad_rss::physics::Speed situationsElementOtherVehicleStateVelocitySpeedLatMinimum(100.);
+  ::ad::physics::SpeedRange situationsElementOtherVehicleStateVelocitySpeedLat;
+  ::ad::physics::Speed situationsElementOtherVehicleStateVelocitySpeedLatMinimum(100.);
   situationsElementOtherVehicleStateVelocitySpeedLat.minimum
     = situationsElementOtherVehicleStateVelocitySpeedLatMinimum;
-  ::ad_rss::physics::Speed situationsElementOtherVehicleStateVelocitySpeedLatMaximum(100.);
+  ::ad::physics::Speed situationsElementOtherVehicleStateVelocitySpeedLatMaximum(100.);
   situationsElementOtherVehicleStateVelocitySpeedLat.maximum
     = situationsElementOtherVehicleStateVelocitySpeedLatMaximum;
   situationsElementOtherVehicleStateVelocitySpeedLat.maximum
@@ -213,18 +418,18 @@ TEST_F(SituationSnapshotTests, comparisonOperatorSituationsDiffers)
     = situationsElementOtherVehicleStateVelocitySpeedLat.maximum;
   situationsElementOtherVehicleStateVelocity.speedLat = situationsElementOtherVehicleStateVelocitySpeedLat;
   situationsElementOtherVehicleState.velocity = situationsElementOtherVehicleStateVelocity;
-  ::ad_rss::world::RssDynamics situationsElementOtherVehicleStateDynamics;
-  ::ad_rss::world::LongitudinalRssAccelerationValues situationsElementOtherVehicleStateDynamicsAlphaLon;
-  ::ad_rss::physics::Acceleration situationsElementOtherVehicleStateDynamicsAlphaLonAccelMax(1e2);
+  ::ad::rss::world::RssDynamics situationsElementOtherVehicleStateDynamics;
+  ::ad::rss::world::LongitudinalRssAccelerationValues situationsElementOtherVehicleStateDynamicsAlphaLon;
+  ::ad::physics::Acceleration situationsElementOtherVehicleStateDynamicsAlphaLonAccelMax(1e2);
   situationsElementOtherVehicleStateDynamicsAlphaLon.accelMax
     = situationsElementOtherVehicleStateDynamicsAlphaLonAccelMax;
-  ::ad_rss::physics::Acceleration situationsElementOtherVehicleStateDynamicsAlphaLonBrakeMax(1e2);
+  ::ad::physics::Acceleration situationsElementOtherVehicleStateDynamicsAlphaLonBrakeMax(1e2);
   situationsElementOtherVehicleStateDynamicsAlphaLon.brakeMax
     = situationsElementOtherVehicleStateDynamicsAlphaLonBrakeMax;
-  ::ad_rss::physics::Acceleration situationsElementOtherVehicleStateDynamicsAlphaLonBrakeMin(1e2);
+  ::ad::physics::Acceleration situationsElementOtherVehicleStateDynamicsAlphaLonBrakeMin(1e2);
   situationsElementOtherVehicleStateDynamicsAlphaLon.brakeMin
     = situationsElementOtherVehicleStateDynamicsAlphaLonBrakeMin;
-  ::ad_rss::physics::Acceleration situationsElementOtherVehicleStateDynamicsAlphaLonBrakeMinCorrect(1e2);
+  ::ad::physics::Acceleration situationsElementOtherVehicleStateDynamicsAlphaLonBrakeMinCorrect(1e2);
   situationsElementOtherVehicleStateDynamicsAlphaLon.brakeMinCorrect
     = situationsElementOtherVehicleStateDynamicsAlphaLonBrakeMinCorrect;
   situationsElementOtherVehicleStateDynamicsAlphaLon.brakeMax
@@ -236,34 +441,34 @@ TEST_F(SituationSnapshotTests, comparisonOperatorSituationsDiffers)
   situationsElementOtherVehicleStateDynamicsAlphaLon.brakeMin
     = situationsElementOtherVehicleStateDynamicsAlphaLon.brakeMax;
   situationsElementOtherVehicleStateDynamics.alphaLon = situationsElementOtherVehicleStateDynamicsAlphaLon;
-  ::ad_rss::world::LateralRssAccelerationValues situationsElementOtherVehicleStateDynamicsAlphaLat;
-  ::ad_rss::physics::Acceleration situationsElementOtherVehicleStateDynamicsAlphaLatAccelMax(1e2);
+  ::ad::rss::world::LateralRssAccelerationValues situationsElementOtherVehicleStateDynamicsAlphaLat;
+  ::ad::physics::Acceleration situationsElementOtherVehicleStateDynamicsAlphaLatAccelMax(1e2);
   situationsElementOtherVehicleStateDynamicsAlphaLat.accelMax
     = situationsElementOtherVehicleStateDynamicsAlphaLatAccelMax;
-  ::ad_rss::physics::Acceleration situationsElementOtherVehicleStateDynamicsAlphaLatBrakeMin(1e2);
+  ::ad::physics::Acceleration situationsElementOtherVehicleStateDynamicsAlphaLatBrakeMin(1e2);
   situationsElementOtherVehicleStateDynamicsAlphaLat.brakeMin
     = situationsElementOtherVehicleStateDynamicsAlphaLatBrakeMin;
   situationsElementOtherVehicleStateDynamics.alphaLat = situationsElementOtherVehicleStateDynamicsAlphaLat;
-  ::ad_rss::physics::Distance situationsElementOtherVehicleStateDynamicsLateralFluctuationMargin(1e6);
+  ::ad::physics::Distance situationsElementOtherVehicleStateDynamicsLateralFluctuationMargin(1e6);
   situationsElementOtherVehicleStateDynamicsLateralFluctuationMargin
-    = ::ad_rss::physics::Distance(1.); // set to valid value within struct
+    = ::ad::physics::Distance(1.); // set to valid value within struct
   situationsElementOtherVehicleStateDynamics.lateralFluctuationMargin
     = situationsElementOtherVehicleStateDynamicsLateralFluctuationMargin;
-  ::ad_rss::physics::Duration situationsElementOtherVehicleStateDynamicsResponseTime(100.);
+  ::ad::physics::Duration situationsElementOtherVehicleStateDynamicsResponseTime(100.);
   situationsElementOtherVehicleStateDynamicsResponseTime
-    = ::ad_rss::physics::Duration(10.); // set to valid value within struct
+    = ::ad::physics::Duration(10.); // set to valid value within struct
   situationsElementOtherVehicleStateDynamics.responseTime = situationsElementOtherVehicleStateDynamicsResponseTime;
   situationsElementOtherVehicleState.dynamics = situationsElementOtherVehicleStateDynamics;
   bool situationsElementOtherVehicleStateHasPriority{false};
   situationsElementOtherVehicleState.hasPriority = situationsElementOtherVehicleStateHasPriority;
   bool situationsElementOtherVehicleStateIsInCorrectLane{false};
   situationsElementOtherVehicleState.isInCorrectLane = situationsElementOtherVehicleStateIsInCorrectLane;
-  ::ad_rss::physics::Distance situationsElementOtherVehicleStateDistanceToEnterIntersection(1e6);
+  ::ad::physics::Distance situationsElementOtherVehicleStateDistanceToEnterIntersection(1e6);
   situationsElementOtherVehicleState.distanceToEnterIntersection
     = situationsElementOtherVehicleStateDistanceToEnterIntersection;
-  ::ad_rss::physics::Distance situationsElementOtherVehicleStateDistanceToLeaveIntersection(1e6);
+  ::ad::physics::Distance situationsElementOtherVehicleStateDistanceToLeaveIntersection(1e6);
   situationsElementOtherVehicleStateDistanceToLeaveIntersection
-    = ::ad_rss::physics::Distance(1e4); // set to valid value within struct
+    = ::ad::physics::Distance(1e4); // set to valid value within struct
   situationsElementOtherVehicleState.distanceToLeaveIntersection
     = situationsElementOtherVehicleStateDistanceToLeaveIntersection;
   situationsElementOtherVehicleState.distanceToLeaveIntersection
@@ -271,21 +476,21 @@ TEST_F(SituationSnapshotTests, comparisonOperatorSituationsDiffers)
   situationsElementOtherVehicleState.distanceToEnterIntersection
     = situationsElementOtherVehicleState.distanceToLeaveIntersection;
   situationsElement.otherVehicleState = situationsElementOtherVehicleState;
-  ::ad_rss::situation::RelativePosition situationsElementRelativePosition;
-  ::ad_rss::situation::LongitudinalRelativePosition situationsElementRelativePositionLongitudinalPosition(
-    ::ad_rss::situation::LongitudinalRelativePosition::AtBack);
+  ::ad::rss::situation::RelativePosition situationsElementRelativePosition;
+  ::ad::rss::situation::LongitudinalRelativePosition situationsElementRelativePositionLongitudinalPosition(
+    ::ad::rss::situation::LongitudinalRelativePosition::AtBack);
   situationsElementRelativePosition.longitudinalPosition = situationsElementRelativePositionLongitudinalPosition;
-  ::ad_rss::physics::Distance situationsElementRelativePositionLongitudinalDistance(1e6);
+  ::ad::physics::Distance situationsElementRelativePositionLongitudinalDistance(1e6);
   situationsElementRelativePosition.longitudinalDistance = situationsElementRelativePositionLongitudinalDistance;
-  ::ad_rss::situation::LateralRelativePosition situationsElementRelativePositionLateralPosition(
-    ::ad_rss::situation::LateralRelativePosition::AtRight);
+  ::ad::rss::situation::LateralRelativePosition situationsElementRelativePositionLateralPosition(
+    ::ad::rss::situation::LateralRelativePosition::AtRight);
   situationsElementRelativePosition.lateralPosition = situationsElementRelativePositionLateralPosition;
-  ::ad_rss::physics::Distance situationsElementRelativePositionLateralDistance(1e6);
+  ::ad::physics::Distance situationsElementRelativePositionLateralDistance(1e6);
   situationsElementRelativePosition.lateralDistance = situationsElementRelativePositionLateralDistance;
   situationsElement.relativePosition = situationsElementRelativePosition;
   situations.resize(0 + 1, situationsElement);
   valueA.situations = situations;
-  ::ad_rss::situation::SituationSnapshot valueB = mValue;
+  ::ad::rss::situation::SituationSnapshot valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);

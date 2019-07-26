@@ -30,9 +30,10 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "ad_rss/core/RssSituationChecking.hpp"
+#include "ad/rss/core/RssSituationChecking.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace situation {
 
 class RssSituationCheckingTestsIntersectionPriority : public testing::Test
@@ -51,7 +52,7 @@ protected:
   VehicleState followingVehicle;
   Situation situation;
   state::RssState rssState;
-  physics::TimeIndex timeIndex{1u};
+  world::TimeIndex timeIndex{1u};
 };
 
 TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_leading)
@@ -144,4 +145,5 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50km_h_stop_before_interse
 }
 
 } // namespace situation
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

@@ -39,25 +39,25 @@
 
 #include <limits>
 
-#include "ad_rss/world/OccupiedRegionValidInputRange.hpp"
+#include "ad/rss/world/OccupiedRegionValidInputRange.hpp"
 
 TEST(OccupiedRegionValidInputRangeTests, testValidInputRange)
 {
-  ::ad_rss::world::OccupiedRegion value;
-  ::ad_rss::world::LaneSegmentId valueSegmentId(std::numeric_limits<::ad_rss::world::LaneSegmentId>::lowest());
+  ::ad::rss::world::OccupiedRegion value;
+  ::ad::rss::world::LaneSegmentId valueSegmentId(std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
   value.segmentId = valueSegmentId;
-  ::ad_rss::physics::ParametricRange valueLonRange;
-  ::ad_rss::physics::ParametricValue valueLonRangeMinimum(0.);
+  ::ad::physics::ParametricRange valueLonRange;
+  ::ad::physics::ParametricValue valueLonRangeMinimum(0.);
   valueLonRange.minimum = valueLonRangeMinimum;
-  ::ad_rss::physics::ParametricValue valueLonRangeMaximum(0.);
+  ::ad::physics::ParametricValue valueLonRangeMaximum(0.);
   valueLonRange.maximum = valueLonRangeMaximum;
   valueLonRange.maximum = valueLonRange.minimum;
   valueLonRange.minimum = valueLonRange.maximum;
   value.lonRange = valueLonRange;
-  ::ad_rss::physics::ParametricRange valueLatRange;
-  ::ad_rss::physics::ParametricValue valueLatRangeMinimum(0.);
+  ::ad::physics::ParametricRange valueLatRange;
+  ::ad::physics::ParametricValue valueLatRangeMinimum(0.);
   valueLatRange.minimum = valueLatRangeMinimum;
-  ::ad_rss::physics::ParametricValue valueLatRangeMaximum(0.);
+  ::ad::physics::ParametricValue valueLatRangeMaximum(0.);
   valueLatRange.maximum = valueLatRangeMaximum;
   valueLatRange.maximum = valueLatRange.minimum;
   valueLatRange.minimum = valueLatRange.maximum;
@@ -67,30 +67,29 @@ TEST(OccupiedRegionValidInputRangeTests, testValidInputRange)
 
 TEST(OccupiedRegionValidInputRangeTests, testValidInputRangeLonRangeTooSmall)
 {
-  ::ad_rss::world::OccupiedRegion value;
-  ::ad_rss::world::LaneSegmentId valueSegmentId(std::numeric_limits<::ad_rss::world::LaneSegmentId>::lowest());
+  ::ad::rss::world::OccupiedRegion value;
+  ::ad::rss::world::LaneSegmentId valueSegmentId(std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
   value.segmentId = valueSegmentId;
-  ::ad_rss::physics::ParametricRange valueLonRange;
-  ::ad_rss::physics::ParametricValue valueLonRangeMinimum(0.);
+  ::ad::physics::ParametricRange valueLonRange;
+  ::ad::physics::ParametricValue valueLonRangeMinimum(0.);
   valueLonRange.minimum = valueLonRangeMinimum;
-  ::ad_rss::physics::ParametricValue valueLonRangeMaximum(0.);
+  ::ad::physics::ParametricValue valueLonRangeMaximum(0.);
   valueLonRange.maximum = valueLonRangeMaximum;
   valueLonRange.maximum = valueLonRange.minimum;
   valueLonRange.minimum = valueLonRange.maximum;
   value.lonRange = valueLonRange;
-  ::ad_rss::physics::ParametricRange valueLatRange;
-  ::ad_rss::physics::ParametricValue valueLatRangeMinimum(0.);
+  ::ad::physics::ParametricRange valueLatRange;
+  ::ad::physics::ParametricValue valueLatRangeMinimum(0.);
   valueLatRange.minimum = valueLatRangeMinimum;
-  ::ad_rss::physics::ParametricValue valueLatRangeMaximum(0.);
+  ::ad::physics::ParametricValue valueLatRangeMaximum(0.);
   valueLatRange.maximum = valueLatRangeMaximum;
   valueLatRange.maximum = valueLatRange.minimum;
   valueLatRange.minimum = valueLatRange.maximum;
   value.latRange = valueLatRange;
 
   // override member with invalid value
-  ::ad_rss::physics::ParametricRange invalidInitializedMember;
-  ::ad_rss::physics::ParametricValue invalidInitializedMemberMinimum(
-    0. - ::ad_rss::physics::ParametricValue::cPrecisionValue);
+  ::ad::physics::ParametricRange invalidInitializedMember;
+  ::ad::physics::ParametricValue invalidInitializedMemberMinimum(0. - ::ad::physics::ParametricValue::cPrecisionValue);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
   value.lonRange = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -98,29 +97,29 @@ TEST(OccupiedRegionValidInputRangeTests, testValidInputRangeLonRangeTooSmall)
 
 TEST(OccupiedRegionValidInputRangeTests, testValidInputRangeLonRangeTooBig)
 {
-  ::ad_rss::world::OccupiedRegion value;
-  ::ad_rss::world::LaneSegmentId valueSegmentId(std::numeric_limits<::ad_rss::world::LaneSegmentId>::lowest());
+  ::ad::rss::world::OccupiedRegion value;
+  ::ad::rss::world::LaneSegmentId valueSegmentId(std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
   value.segmentId = valueSegmentId;
-  ::ad_rss::physics::ParametricRange valueLonRange;
-  ::ad_rss::physics::ParametricValue valueLonRangeMinimum(0.);
+  ::ad::physics::ParametricRange valueLonRange;
+  ::ad::physics::ParametricValue valueLonRangeMinimum(0.);
   valueLonRange.minimum = valueLonRangeMinimum;
-  ::ad_rss::physics::ParametricValue valueLonRangeMaximum(0.);
+  ::ad::physics::ParametricValue valueLonRangeMaximum(0.);
   valueLonRange.maximum = valueLonRangeMaximum;
   valueLonRange.maximum = valueLonRange.minimum;
   valueLonRange.minimum = valueLonRange.maximum;
   value.lonRange = valueLonRange;
-  ::ad_rss::physics::ParametricRange valueLatRange;
-  ::ad_rss::physics::ParametricValue valueLatRangeMinimum(0.);
+  ::ad::physics::ParametricRange valueLatRange;
+  ::ad::physics::ParametricValue valueLatRangeMinimum(0.);
   valueLatRange.minimum = valueLatRangeMinimum;
-  ::ad_rss::physics::ParametricValue valueLatRangeMaximum(0.);
+  ::ad::physics::ParametricValue valueLatRangeMaximum(0.);
   valueLatRange.maximum = valueLatRangeMaximum;
   valueLatRange.maximum = valueLatRange.minimum;
   valueLatRange.minimum = valueLatRange.maximum;
   value.latRange = valueLatRange;
 
   // override member with invalid value
-  ::ad_rss::physics::ParametricRange invalidInitializedMember;
-  ::ad_rss::physics::ParametricValue invalidInitializedMemberMinimum(1. * 1.1);
+  ::ad::physics::ParametricRange invalidInitializedMember;
+  ::ad::physics::ParametricValue invalidInitializedMemberMinimum(1. * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
   value.lonRange = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -128,30 +127,29 @@ TEST(OccupiedRegionValidInputRangeTests, testValidInputRangeLonRangeTooBig)
 
 TEST(OccupiedRegionValidInputRangeTests, testValidInputRangeLatRangeTooSmall)
 {
-  ::ad_rss::world::OccupiedRegion value;
-  ::ad_rss::world::LaneSegmentId valueSegmentId(std::numeric_limits<::ad_rss::world::LaneSegmentId>::lowest());
+  ::ad::rss::world::OccupiedRegion value;
+  ::ad::rss::world::LaneSegmentId valueSegmentId(std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
   value.segmentId = valueSegmentId;
-  ::ad_rss::physics::ParametricRange valueLonRange;
-  ::ad_rss::physics::ParametricValue valueLonRangeMinimum(0.);
+  ::ad::physics::ParametricRange valueLonRange;
+  ::ad::physics::ParametricValue valueLonRangeMinimum(0.);
   valueLonRange.minimum = valueLonRangeMinimum;
-  ::ad_rss::physics::ParametricValue valueLonRangeMaximum(0.);
+  ::ad::physics::ParametricValue valueLonRangeMaximum(0.);
   valueLonRange.maximum = valueLonRangeMaximum;
   valueLonRange.maximum = valueLonRange.minimum;
   valueLonRange.minimum = valueLonRange.maximum;
   value.lonRange = valueLonRange;
-  ::ad_rss::physics::ParametricRange valueLatRange;
-  ::ad_rss::physics::ParametricValue valueLatRangeMinimum(0.);
+  ::ad::physics::ParametricRange valueLatRange;
+  ::ad::physics::ParametricValue valueLatRangeMinimum(0.);
   valueLatRange.minimum = valueLatRangeMinimum;
-  ::ad_rss::physics::ParametricValue valueLatRangeMaximum(0.);
+  ::ad::physics::ParametricValue valueLatRangeMaximum(0.);
   valueLatRange.maximum = valueLatRangeMaximum;
   valueLatRange.maximum = valueLatRange.minimum;
   valueLatRange.minimum = valueLatRange.maximum;
   value.latRange = valueLatRange;
 
   // override member with invalid value
-  ::ad_rss::physics::ParametricRange invalidInitializedMember;
-  ::ad_rss::physics::ParametricValue invalidInitializedMemberMinimum(
-    0. - ::ad_rss::physics::ParametricValue::cPrecisionValue);
+  ::ad::physics::ParametricRange invalidInitializedMember;
+  ::ad::physics::ParametricValue invalidInitializedMemberMinimum(0. - ::ad::physics::ParametricValue::cPrecisionValue);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
   value.latRange = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -159,29 +157,29 @@ TEST(OccupiedRegionValidInputRangeTests, testValidInputRangeLatRangeTooSmall)
 
 TEST(OccupiedRegionValidInputRangeTests, testValidInputRangeLatRangeTooBig)
 {
-  ::ad_rss::world::OccupiedRegion value;
-  ::ad_rss::world::LaneSegmentId valueSegmentId(std::numeric_limits<::ad_rss::world::LaneSegmentId>::lowest());
+  ::ad::rss::world::OccupiedRegion value;
+  ::ad::rss::world::LaneSegmentId valueSegmentId(std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
   value.segmentId = valueSegmentId;
-  ::ad_rss::physics::ParametricRange valueLonRange;
-  ::ad_rss::physics::ParametricValue valueLonRangeMinimum(0.);
+  ::ad::physics::ParametricRange valueLonRange;
+  ::ad::physics::ParametricValue valueLonRangeMinimum(0.);
   valueLonRange.minimum = valueLonRangeMinimum;
-  ::ad_rss::physics::ParametricValue valueLonRangeMaximum(0.);
+  ::ad::physics::ParametricValue valueLonRangeMaximum(0.);
   valueLonRange.maximum = valueLonRangeMaximum;
   valueLonRange.maximum = valueLonRange.minimum;
   valueLonRange.minimum = valueLonRange.maximum;
   value.lonRange = valueLonRange;
-  ::ad_rss::physics::ParametricRange valueLatRange;
-  ::ad_rss::physics::ParametricValue valueLatRangeMinimum(0.);
+  ::ad::physics::ParametricRange valueLatRange;
+  ::ad::physics::ParametricValue valueLatRangeMinimum(0.);
   valueLatRange.minimum = valueLatRangeMinimum;
-  ::ad_rss::physics::ParametricValue valueLatRangeMaximum(0.);
+  ::ad::physics::ParametricValue valueLatRangeMaximum(0.);
   valueLatRange.maximum = valueLatRangeMaximum;
   valueLatRange.maximum = valueLatRange.minimum;
   valueLatRange.minimum = valueLatRange.maximum;
   value.latRange = valueLatRange;
 
   // override member with invalid value
-  ::ad_rss::physics::ParametricRange invalidInitializedMember;
-  ::ad_rss::physics::ParametricValue invalidInitializedMemberMinimum(1. * 1.1);
+  ::ad::physics::ParametricRange invalidInitializedMember;
+  ::ad::physics::ParametricValue invalidInitializedMemberMinimum(1. * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
   value.latRange = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));

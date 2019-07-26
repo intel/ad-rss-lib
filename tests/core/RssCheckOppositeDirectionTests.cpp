@@ -31,7 +31,8 @@
 
 #include "RssCheckTestBaseT.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace core {
 
 template <class TESTBASE> class RssCheckOppositeDirectionEgoCorrectTestBase : public TESTBASE
@@ -41,12 +42,12 @@ template <class TESTBASE> class RssCheckOppositeDirectionEgoCorrectTestBase : pu
     return situation::SituationType::OppositeDirection;
   }
 
-  ::ad_rss::world::Object &getEgoObject() override
+  world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment1;
   }
 
-  ::ad_rss::world::Object &getSceneObject(uint32_t) override
+  world::Object &getSceneObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment7;
   }
@@ -87,8 +88,8 @@ TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities_NoLateralCon
 
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;
 
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
+  world::AccelerationRestriction accelerationRestriction;
+  core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -105,7 +106,7 @@ template <class TESTBASE> class RssCheckOppositeDirectionOtherCorrectTestBase : 
 {
   world::LaneDrivingDirection getDrivingDirection() override
   {
-    return ::ad_rss::world::LaneDrivingDirection::Negative;
+    return world::LaneDrivingDirection::Negative;
   }
 
   situation::SituationType getSituationType() override
@@ -113,12 +114,12 @@ template <class TESTBASE> class RssCheckOppositeDirectionOtherCorrectTestBase : 
     return situation::SituationType::OppositeDirection;
   }
 
-  ::ad_rss::world::Object &getEgoObject() override
+  world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment1;
   }
 
-  ::ad_rss::world::Object &getSceneObject(uint32_t) override
+  world::Object &getSceneObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment7;
   }
@@ -155,7 +156,7 @@ template <class TESTBASE> class RssCheckOppositeDirectionBothCorrectTestBase : p
 {
   world::LaneDrivingDirection getDrivingDirection() override
   {
-    return ::ad_rss::world::LaneDrivingDirection::Bidirectional;
+    return world::LaneDrivingDirection::Bidirectional;
   }
 
   situation::SituationType getSituationType() override
@@ -163,12 +164,12 @@ template <class TESTBASE> class RssCheckOppositeDirectionBothCorrectTestBase : p
     return situation::SituationType::OppositeDirection;
   }
 
-  ::ad_rss::world::Object &getEgoObject() override
+  world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment1;
   }
 
-  ::ad_rss::world::Object &getSceneObject(uint32_t) override
+  world::Object &getSceneObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment7;
   }
@@ -202,4 +203,5 @@ INSTANTIATE_TEST_CASE_P(Range,
                         ::testing::Range(uint64_t(0u), uint64_t(50u)));
 
 } // namespace core
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

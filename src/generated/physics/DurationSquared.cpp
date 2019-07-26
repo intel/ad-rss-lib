@@ -37,20 +37,20 @@
  *
  */
 
-#include "ad_rss/physics/DurationSquared.hpp"
-#include "ad_rss/physics/Duration.hpp"
+#include "ad/physics/DurationSquared.hpp"
+#include "ad/physics/Duration.hpp"
 
-const double ::ad_rss::physics::DurationSquared::cMinValue = -1e12;
+const double ::ad::physics::DurationSquared::cMinValue = -1e12;
 
-const double ::ad_rss::physics::DurationSquared::cMaxValue = 1e12;
+const double ::ad::physics::DurationSquared::cMaxValue = 1e12;
 
-const double ::ad_rss::physics::DurationSquared::cPrecisionValue = 1e-6;
+const double ::ad::physics::DurationSquared::cPrecisionValue = 1e-6;
 
 namespace std {
 
-::ad_rss::physics::Duration sqrt(::ad_rss::physics::DurationSquared const other)
+::ad::physics::Duration sqrt(::ad::physics::DurationSquared const other)
 {
-  ::ad_rss::physics::Duration result(std::sqrt(static_cast<double>(other)));
+  ::ad::physics::Duration result(std::sqrt(static_cast<double>(other)));
   result.ensureValid();
   return result;
 }

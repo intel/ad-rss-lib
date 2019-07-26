@@ -35,13 +35,17 @@
 
 #pragma once
 
-#include "ad_rss/physics/CoordinateSystemAxis.hpp"
-#include "ad_rss/situation/VehicleState.hpp"
+#include "ad/rss/situation/CoordinateSystemAxis.hpp"
+#include "ad/rss/situation/VehicleState.hpp"
 
 /*!
- * @brief namespace ad_rss
+ * @brief namespace ad
  */
-namespace ad_rss {
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
 /*!
  * @brief namespace situation
  */
@@ -61,7 +65,7 @@ namespace situation {
  *
  * @return true on successful calculation, false otherwise
  */
-bool calculateDistanceOffsetAfterStatedBrakingPattern(physics::CoordinateSystemAxis const &axis,
+bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const &axis,
                                                       physics::Speed const &currentSpeed,
                                                       physics::Duration const &responseTime,
                                                       physics::Acceleration const &acceleration,
@@ -245,4 +249,5 @@ bool checkSafeLateralDistance(VehicleState const &leftVehicle,
                               bool &isDistanceSafe);
 
 } // namespace situation
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

@@ -37,14 +37,18 @@
 
 #include <cstdint>
 #include <map>
-#include "ad_rss/physics/TimeIndex.hpp"
-#include "ad_rss/situation/Situation.hpp"
-#include "ad_rss/state/RssState.hpp"
+#include "ad/rss/situation/Situation.hpp"
+#include "ad/rss/state/RssState.hpp"
+#include "ad/rss/world/TimeIndex.hpp"
 
 /*!
- * @brief namespace ad_rss
+ * @brief namespace ad
  */
-namespace ad_rss {
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
 /*!
  * @brief namespace situation
  */
@@ -94,7 +98,7 @@ public:
    * @returns false if a failure occurred during calculations, true otherwise
    *
    */
-  bool calculateRssStateIntersection(physics::TimeIndex const &timeIndex,
+  bool calculateRssStateIntersection(world::TimeIndex const &timeIndex,
                                      Situation const &situation,
                                      state::RssState &rssState);
 
@@ -114,8 +118,9 @@ private:
    * @brief time index of the current processing step
    * If time index increases we need to update the mLastSafeStateMap
    */
-  physics::TimeIndex mCurrentTimeIndex{0u};
+  world::TimeIndex mCurrentTimeIndex{0u};
 };
 
 } // namespace situation
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

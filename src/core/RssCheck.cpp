@@ -29,14 +29,14 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "ad_rss/core/RssCheck.hpp"
-#include "ad_rss/core/RssResponseResolving.hpp"
-#include "ad_rss/core/RssResponseTransformation.hpp"
-#include "ad_rss/core/RssSituationChecking.hpp"
-#include "ad_rss/core/RssSituationExtraction.hpp"
+#include "ad/rss/core/RssCheck.hpp"
+#include "ad/rss/core/RssResponseResolving.hpp"
+#include "ad/rss/core/RssResponseTransformation.hpp"
+#include "ad/rss/core/RssSituationChecking.hpp"
+#include "ad/rss/core/RssSituationExtraction.hpp"
 
-namespace ad_rss {
-
+namespace ad {
+namespace rss {
 namespace core {
 
 RssCheck::RssCheck()
@@ -113,4 +113,5 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
 }
 
 } // namespace core
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

@@ -37,153 +37,147 @@
 
 #include <gtest/gtest.h>
 #include <limits>
-#include "ad_rss/physics/Acceleration.hpp"
+#include "ad/physics/Acceleration.hpp"
 
 TEST(AccelerationTests, defaultConstructionIsInvalid)
 {
-  ::ad_rss::physics::Acceleration value;
+  ::ad::physics::Acceleration value;
   EXPECT_FALSE(value.isValid());
 }
 
 TEST(AccelerationTests, minIsDefinedAsExpected)
 {
-  EXPECT_EQ(-1e3, ::ad_rss::physics::Acceleration::cMinValue);
-  EXPECT_EQ(::ad_rss::physics::Acceleration::cMinValue, static_cast<double>(::ad_rss::physics::Acceleration::getMin()));
+  EXPECT_EQ(-1e3, ::ad::physics::Acceleration::cMinValue);
+  EXPECT_EQ(::ad::physics::Acceleration::cMinValue, static_cast<double>(::ad::physics::Acceleration::getMin()));
 }
 
 TEST(AccelerationTests, maxIsDefinedAsExpected)
 {
-  EXPECT_EQ(1e3, ::ad_rss::physics::Acceleration::cMaxValue);
-  EXPECT_EQ(::ad_rss::physics::Acceleration::cMaxValue, static_cast<double>(::ad_rss::physics::Acceleration::getMax()));
+  EXPECT_EQ(1e3, ::ad::physics::Acceleration::cMaxValue);
+  EXPECT_EQ(::ad::physics::Acceleration::cMaxValue, static_cast<double>(::ad::physics::Acceleration::getMax()));
 }
 
 TEST(AccelerationTests, precisionIsDefinedAsExpected)
 {
-  EXPECT_LT(0., ::ad_rss::physics::Acceleration::cPrecisionValue);
-  EXPECT_EQ(1e-4, ::ad_rss::physics::Acceleration::cPrecisionValue);
-  EXPECT_EQ(::ad_rss::physics::Acceleration::cPrecisionValue,
-            static_cast<double>(::ad_rss::physics::Acceleration::getPrecision()));
+  EXPECT_LT(0., ::ad::physics::Acceleration::cPrecisionValue);
+  EXPECT_EQ(1e-4, ::ad::physics::Acceleration::cPrecisionValue);
+  EXPECT_EQ(::ad::physics::Acceleration::cPrecisionValue,
+            static_cast<double>(::ad::physics::Acceleration::getPrecision()));
 }
 
 TEST(AccelerationTests, minIsValid)
 {
-  EXPECT_TRUE(::ad_rss::physics::Acceleration::getMin().isValid());
+  EXPECT_TRUE(::ad::physics::Acceleration::getMin().isValid());
 }
 
 TEST(AccelerationTests, aboveMinIsValid)
 {
-  ::ad_rss::physics::Acceleration value(-1e3 * 0.9);
+  ::ad::physics::Acceleration value(-1e3 * 0.9);
   EXPECT_TRUE(value.isValid());
 }
 
 TEST(AccelerationTests, belowMinIsInvalid)
 {
-  ::ad_rss::physics::Acceleration value(-1e3 * 1.1);
+  ::ad::physics::Acceleration value(-1e3 * 1.1);
   EXPECT_FALSE(value.isValid());
 }
 
 TEST(AccelerationTests, maxIsValid)
 {
-  EXPECT_TRUE(::ad_rss::physics::Acceleration::getMax().isValid());
+  EXPECT_TRUE(::ad::physics::Acceleration::getMax().isValid());
 }
 
 TEST(AccelerationTests, AboveMaxIsInvalid)
 {
-  ::ad_rss::physics::Acceleration value(1e3 * 1.1);
+  ::ad::physics::Acceleration value(1e3 * 1.1);
   EXPECT_FALSE(value.isValid());
 }
 
 TEST(AccelerationTests, BelowMaxIsValid)
 {
-  ::ad_rss::physics::Acceleration value(1e3 * 0.9);
+  ::ad::physics::Acceleration value(1e3 * 0.9);
   EXPECT_TRUE(value.isValid());
 }
 
 TEST(AccelerationTests, ensureValidThrowsOnInvalid)
 {
-  ::ad_rss::physics::Acceleration value;
+  ::ad::physics::Acceleration value;
   EXPECT_THROW(value.ensureValid(), std::out_of_range);
 }
 
 TEST(AccelerationTests, ensureValidNonZeroThrowsOnInvalid)
 {
-  ::ad_rss::physics::Acceleration value;
+  ::ad::physics::Acceleration value;
   EXPECT_THROW(value.ensureValidNonZero(), std::out_of_range);
 }
 
 TEST(AccelerationTests, ensureValidNonZeroThrowsOnZero)
 {
-  ::ad_rss::physics::Acceleration value(0.);
+  ::ad::physics::Acceleration value(0.);
   EXPECT_THROW(value.ensureValidNonZero(), std::out_of_range);
 }
 
 TEST(AccelerationTestsStd, numericLimitsLowestIsMin)
 {
-  EXPECT_EQ(static_cast<double>(::ad_rss::physics::Acceleration::getMin()),
-            static_cast<double>(std::numeric_limits<::ad_rss::physics::Acceleration>::lowest()));
+  EXPECT_EQ(static_cast<double>(::ad::physics::Acceleration::getMin()),
+            static_cast<double>(std::numeric_limits<::ad::physics::Acceleration>::lowest()));
 }
 
 TEST(AccelerationTestsStd, numericLimitsMaxIsMax)
 {
-  EXPECT_EQ(static_cast<double>(::ad_rss::physics::Acceleration::getMax()),
-            static_cast<double>(std::numeric_limits<::ad_rss::physics::Acceleration>::max()));
+  EXPECT_EQ(static_cast<double>(::ad::physics::Acceleration::getMax()),
+            static_cast<double>(std::numeric_limits<::ad::physics::Acceleration>::max()));
 }
 
 TEST(AccelerationTestsStd, numericLimitsEpsilonIsPrecision)
 {
-  EXPECT_EQ(static_cast<double>(::ad_rss::physics::Acceleration::getPrecision()),
-            static_cast<double>(std::numeric_limits<::ad_rss::physics::Acceleration>::epsilon()));
+  EXPECT_EQ(static_cast<double>(::ad::physics::Acceleration::getPrecision()),
+            static_cast<double>(std::numeric_limits<::ad::physics::Acceleration>::epsilon()));
 }
 
 TEST(AccelerationTestsStd, fabsIsWorkingCorrectly)
 {
-  EXPECT_EQ(0., static_cast<double>(std::fabs(::ad_rss::physics::Acceleration(-0.))));
-  EXPECT_EQ(1., static_cast<double>(std::fabs(::ad_rss::physics::Acceleration(-1.))));
-  EXPECT_EQ(
-    ::ad_rss::physics::Acceleration::cPrecisionValue,
-    static_cast<double>(std::fabs(::ad_rss::physics::Acceleration(::ad_rss::physics::Acceleration::cPrecisionValue))));
-  EXPECT_EQ(
-    std::fabs(::ad_rss::physics::Acceleration::cMinValue),
-    static_cast<double>(std::fabs(::ad_rss::physics::Acceleration(::ad_rss::physics::Acceleration::cMinValue))));
-  EXPECT_EQ(
-    std::fabs(::ad_rss::physics::Acceleration::cMinValue),
-    static_cast<double>(std::fabs(::ad_rss::physics::Acceleration(-::ad_rss::physics::Acceleration::cMinValue))));
-  EXPECT_EQ(
-    std::fabs(::ad_rss::physics::Acceleration::cMaxValue),
-    static_cast<double>(std::fabs(::ad_rss::physics::Acceleration(::ad_rss::physics::Acceleration::cMaxValue))));
-  EXPECT_EQ(
-    std::fabs(::ad_rss::physics::Acceleration::cMaxValue),
-    static_cast<double>(std::fabs(::ad_rss::physics::Acceleration(-::ad_rss::physics::Acceleration::cMaxValue))));
+  EXPECT_EQ(0., static_cast<double>(std::fabs(::ad::physics::Acceleration(-0.))));
+  EXPECT_EQ(1., static_cast<double>(std::fabs(::ad::physics::Acceleration(-1.))));
+  EXPECT_EQ(::ad::physics::Acceleration::cPrecisionValue,
+            static_cast<double>(std::fabs(::ad::physics::Acceleration(::ad::physics::Acceleration::cPrecisionValue))));
+  EXPECT_EQ(std::fabs(::ad::physics::Acceleration::cMinValue),
+            static_cast<double>(std::fabs(::ad::physics::Acceleration(::ad::physics::Acceleration::cMinValue))));
+  EXPECT_EQ(std::fabs(::ad::physics::Acceleration::cMinValue),
+            static_cast<double>(std::fabs(::ad::physics::Acceleration(-::ad::physics::Acceleration::cMinValue))));
+  EXPECT_EQ(std::fabs(::ad::physics::Acceleration::cMaxValue),
+            static_cast<double>(std::fabs(::ad::physics::Acceleration(::ad::physics::Acceleration::cMaxValue))));
+  EXPECT_EQ(std::fabs(::ad::physics::Acceleration::cMaxValue),
+            static_cast<double>(std::fabs(::ad::physics::Acceleration(-::ad::physics::Acceleration::cMaxValue))));
 }
 
 TEST(AccelerationTests, constructionFromValidDouble)
 {
-  double const validValue = ::ad_rss::physics::Acceleration::cMinValue;
-  ::ad_rss::physics::Acceleration value(validValue);
+  double const validValue = ::ad::physics::Acceleration::cMinValue;
+  ::ad::physics::Acceleration value(validValue);
   EXPECT_TRUE(value.isValid());
   EXPECT_EQ(validValue, static_cast<double>(value));
 }
 
 TEST(AccelerationTests, copyConstructionFromValidValue)
 {
-  ::ad_rss::physics::Acceleration const validValue(::ad_rss::physics::Acceleration::cMinValue);
-  ::ad_rss::physics::Acceleration value(validValue);
+  ::ad::physics::Acceleration const validValue(::ad::physics::Acceleration::cMinValue);
+  ::ad::physics::Acceleration value(validValue);
   EXPECT_TRUE(value.isValid());
   EXPECT_EQ(static_cast<double>(validValue), static_cast<double>(value));
 }
 
 TEST(AccelerationTests, moveConstructionFromValidValue)
 {
-  ::ad_rss::physics::Acceleration value(
-    std::move(::ad_rss::physics::Acceleration(::ad_rss::physics::Acceleration::cMinValue)));
+  ::ad::physics::Acceleration value(std::move(::ad::physics::Acceleration(::ad::physics::Acceleration::cMinValue)));
   EXPECT_TRUE(value.isValid());
-  EXPECT_EQ(::ad_rss::physics::Acceleration::cMinValue, static_cast<double>(value));
+  EXPECT_EQ(::ad::physics::Acceleration::cMinValue, static_cast<double>(value));
 }
 
 TEST(AccelerationTests, assignmentFromValidValue)
 {
-  ::ad_rss::physics::Acceleration const validValue(::ad_rss::physics::Acceleration::cMinValue);
-  ::ad_rss::physics::Acceleration value;
+  ::ad::physics::Acceleration const validValue(::ad::physics::Acceleration::cMinValue);
+  ::ad::physics::Acceleration value;
   value = validValue;
   EXPECT_TRUE(value.isValid());
   EXPECT_EQ(static_cast<double>(validValue), static_cast<double>(value));
@@ -191,37 +185,37 @@ TEST(AccelerationTests, assignmentFromValidValue)
 
 TEST(AccelerationTests, moveAssignmentFromValidValue)
 {
-  ::ad_rss::physics::Acceleration value;
-  value = std::move(::ad_rss::physics::Acceleration(::ad_rss::physics::Acceleration::cMinValue));
+  ::ad::physics::Acceleration value;
+  value = std::move(::ad::physics::Acceleration(::ad::physics::Acceleration::cMinValue));
   EXPECT_TRUE(value.isValid());
-  EXPECT_EQ(::ad_rss::physics::Acceleration::cMinValue, static_cast<double>(value));
+  EXPECT_EQ(::ad::physics::Acceleration::cMinValue, static_cast<double>(value));
 }
 
 TEST(AccelerationTests, constructionFromInvalidDouble)
 {
   double const invalidValue = std::numeric_limits<double>::quiet_NaN();
-  ::ad_rss::physics::Acceleration value(invalidValue);
+  ::ad::physics::Acceleration value(invalidValue);
   EXPECT_FALSE(value.isValid());
 }
 
 TEST(AccelerationTests, copyConstructionFromInvalidValue)
 {
-  ::ad_rss::physics::Acceleration const invalidValue(std::numeric_limits<double>::quiet_NaN());
-  ::ad_rss::physics::Acceleration value(invalidValue);
+  ::ad::physics::Acceleration const invalidValue(std::numeric_limits<double>::quiet_NaN());
+  ::ad::physics::Acceleration value(invalidValue);
   EXPECT_FALSE(value.isValid());
 }
 
 TEST(AccelerationTests, assignmentFromInvalidValue)
 {
-  ::ad_rss::physics::Acceleration const invalidValue(std::numeric_limits<double>::quiet_NaN());
-  ::ad_rss::physics::Acceleration value;
+  ::ad::physics::Acceleration const invalidValue(std::numeric_limits<double>::quiet_NaN());
+  ::ad::physics::Acceleration value;
   value = invalidValue;
   EXPECT_FALSE(value.isValid());
 }
 
 TEST(AccelerationTests, selfAssignment)
 {
-  ::ad_rss::physics::Acceleration value(::ad_rss::physics::Acceleration::cMinValue);
+  ::ad::physics::Acceleration value(::ad::physics::Acceleration::cMinValue);
   EXPECT_TRUE(value.isValid());
   value = value;
   EXPECT_TRUE(value.isValid());
@@ -229,8 +223,8 @@ TEST(AccelerationTests, selfAssignment)
 
 TEST(AccelerationTests, comparisonOperatorsThrowOnInvalid)
 {
-  ::ad_rss::physics::Acceleration const value(::ad_rss::physics::Acceleration::cMinValue);
-  ::ad_rss::physics::Acceleration const invalidValue;
+  ::ad::physics::Acceleration const value(::ad::physics::Acceleration::cMinValue);
+  ::ad::physics::Acceleration const invalidValue;
 
   EXPECT_THROW(invalidValue == value, std::out_of_range);
   EXPECT_THROW(value == invalidValue, std::out_of_range);
@@ -253,17 +247,17 @@ TEST(AccelerationTests, comparisonOperatorsThrowOnInvalid)
 
 TEST(AccelerationTests, arithmeticOperatorsThrowOnInvalid)
 {
-  ::ad_rss::physics::Acceleration const minimalValue(::ad_rss::physics::Acceleration::cMinValue);
-  ::ad_rss::physics::Acceleration const maximalValue(::ad_rss::physics::Acceleration::cMaxValue);
-  ::ad_rss::physics::Acceleration const invalidValue;
-  ::ad_rss::physics::Acceleration calculationValue;
+  ::ad::physics::Acceleration const minimalValue(::ad::physics::Acceleration::cMinValue);
+  ::ad::physics::Acceleration const maximalValue(::ad::physics::Acceleration::cMaxValue);
+  ::ad::physics::Acceleration const invalidValue;
+  ::ad::physics::Acceleration calculationValue;
 
-  //  operator+(::ad_rss::physics::Acceleration)
+  //  operator+(::ad::physics::Acceleration)
   EXPECT_THROW(invalidValue + maximalValue, std::out_of_range);
   EXPECT_THROW(maximalValue + invalidValue, std::out_of_range);
   EXPECT_THROW(maximalValue + maximalValue, std::out_of_range);
 
-  //  operator+=(::ad_rss::physics::Acceleration)
+  //  operator+=(::ad::physics::Acceleration)
   calculationValue = invalidValue;
   EXPECT_THROW(calculationValue += maximalValue, std::out_of_range);
   calculationValue = maximalValue;
@@ -271,12 +265,12 @@ TEST(AccelerationTests, arithmeticOperatorsThrowOnInvalid)
   calculationValue = maximalValue;
   EXPECT_THROW(calculationValue += maximalValue, std::out_of_range);
 
-  //  operator-(::ad_rss::physics::Acceleration)
+  //  operator-(::ad::physics::Acceleration)
   EXPECT_THROW(invalidValue - minimalValue, std::out_of_range);
   EXPECT_THROW(minimalValue - invalidValue, std::out_of_range);
   EXPECT_THROW(minimalValue - maximalValue, std::out_of_range);
 
-  //  operator-=(::ad_rss::physics::Acceleration)
+  //  operator-=(::ad::physics::Acceleration)
   calculationValue = invalidValue;
   EXPECT_THROW(calculationValue -= minimalValue, std::out_of_range);
   calculationValue = minimalValue;
@@ -294,10 +288,10 @@ TEST(AccelerationTests, arithmeticOperatorsThrowOnInvalid)
   EXPECT_THROW(maximalValue / 0.0, std::out_of_range);
   EXPECT_THROW(maximalValue / 0.5, std::out_of_range);
 
-  //  operator/(::ad_rss::physics::Acceleration)
+  //  operator/(::ad::physics::Acceleration)
   EXPECT_THROW(invalidValue / maximalValue, std::out_of_range);
   EXPECT_THROW(maximalValue / invalidValue, std::out_of_range);
-  EXPECT_THROW(maximalValue / ::ad_rss::physics::Acceleration(0.0), std::out_of_range);
+  EXPECT_THROW(maximalValue / ::ad::physics::Acceleration(0.0), std::out_of_range);
 
   //  operator-()
   EXPECT_THROW(-invalidValue, std::out_of_range);
@@ -317,29 +311,29 @@ TEST(AccelerationTests, arithmeticOperatorsThrowOnInvalid)
 
 TEST(AccelerationTests, comparisonOperatorsRespectPrecision)
 {
-  double const precisionValueTimesTen = ::ad_rss::physics::Acceleration::cPrecisionValue * 10.;
-  ::ad_rss::physics::Acceleration value;
-  if (::ad_rss::physics::Acceleration::cMinValue > precisionValueTimesTen)
+  double const precisionValueTimesTen = ::ad::physics::Acceleration::cPrecisionValue * 10.;
+  ::ad::physics::Acceleration value;
+  if (::ad::physics::Acceleration::cMinValue > precisionValueTimesTen)
   {
-    value = ::ad_rss::physics::Acceleration(::ad_rss::physics::Acceleration::cMinValue + precisionValueTimesTen);
+    value = ::ad::physics::Acceleration(::ad::physics::Acceleration::cMinValue + precisionValueTimesTen);
   }
-  else if (::ad_rss::physics::Acceleration::cMaxValue < precisionValueTimesTen)
+  else if (::ad::physics::Acceleration::cMaxValue < precisionValueTimesTen)
   {
-    value = ::ad_rss::physics::Acceleration(::ad_rss::physics::Acceleration::cMaxValue - precisionValueTimesTen);
+    value = ::ad::physics::Acceleration(::ad::physics::Acceleration::cMaxValue - precisionValueTimesTen);
   }
   else
   {
-    value = ::ad_rss::physics::Acceleration(precisionValueTimesTen);
+    value = ::ad::physics::Acceleration(precisionValueTimesTen);
   }
-  ::ad_rss::physics::Acceleration const sameValue = value;
-  ::ad_rss::physics::Acceleration const slightlyBiggerValue(static_cast<double>(value)
-                                                            + ::ad_rss::physics::Acceleration::cPrecisionValue * 0.9);
-  ::ad_rss::physics::Acceleration const slightlySmallerValue(static_cast<double>(value)
-                                                             - ::ad_rss::physics::Acceleration::cPrecisionValue * 0.9);
-  ::ad_rss::physics::Acceleration const actuallyBiggerValue(static_cast<double>(value)
-                                                            + ::ad_rss::physics::Acceleration::cPrecisionValue * 1.1);
-  ::ad_rss::physics::Acceleration const actuallySmallerValue(static_cast<double>(value)
-                                                             - ::ad_rss::physics::Acceleration::cPrecisionValue * 1.1);
+  ::ad::physics::Acceleration const sameValue = value;
+  ::ad::physics::Acceleration const slightlyBiggerValue(static_cast<double>(value)
+                                                        + ::ad::physics::Acceleration::cPrecisionValue * 0.9);
+  ::ad::physics::Acceleration const slightlySmallerValue(static_cast<double>(value)
+                                                         - ::ad::physics::Acceleration::cPrecisionValue * 0.9);
+  ::ad::physics::Acceleration const actuallyBiggerValue(static_cast<double>(value)
+                                                        + ::ad::physics::Acceleration::cPrecisionValue * 1.1);
+  ::ad::physics::Acceleration const actuallySmallerValue(static_cast<double>(value)
+                                                         - ::ad::physics::Acceleration::cPrecisionValue * 1.1);
 
   // operator ==
   EXPECT_TRUE(value == sameValue);
@@ -382,38 +376,38 @@ TEST(AccelerationTests, comparisonOperatorsRespectPrecision)
 
 TEST(AccelerationTests, arithmeticOperatorsComputeCorrectly)
 {
-  double const cDoubleNear = ::ad_rss::physics::Acceleration::cPrecisionValue;
-  double const precisionValueTimesTen = ::ad_rss::physics::Acceleration::cPrecisionValue * 10.;
-  ::ad_rss::physics::Acceleration value;
-  if (::ad_rss::physics::Acceleration::cMinValue > precisionValueTimesTen)
+  double const cDoubleNear = ::ad::physics::Acceleration::cPrecisionValue;
+  double const precisionValueTimesTen = ::ad::physics::Acceleration::cPrecisionValue * 10.;
+  ::ad::physics::Acceleration value;
+  if (::ad::physics::Acceleration::cMinValue > precisionValueTimesTen)
   {
-    value = ::ad_rss::physics::Acceleration(::ad_rss::physics::Acceleration::cMinValue + precisionValueTimesTen);
+    value = ::ad::physics::Acceleration(::ad::physics::Acceleration::cMinValue + precisionValueTimesTen);
   }
-  else if (::ad_rss::physics::Acceleration::cMaxValue < precisionValueTimesTen)
+  else if (::ad::physics::Acceleration::cMaxValue < precisionValueTimesTen)
   {
-    value = ::ad_rss::physics::Acceleration(::ad_rss::physics::Acceleration::cMaxValue - precisionValueTimesTen);
+    value = ::ad::physics::Acceleration(::ad::physics::Acceleration::cMaxValue - precisionValueTimesTen);
   }
   else
   {
-    value = ::ad_rss::physics::Acceleration(precisionValueTimesTen);
+    value = ::ad::physics::Acceleration(precisionValueTimesTen);
   }
 
-  ::ad_rss::physics::Acceleration result;
+  ::ad::physics::Acceleration result;
 
-  //  operator+(::ad_rss::physics::Acceleration)
+  //  operator+(::ad::physics::Acceleration)
   result = value + value;
   EXPECT_NEAR(static_cast<double>(value) + static_cast<double>(value), static_cast<double>(result), cDoubleNear);
 
-  //  operator+=(::ad_rss::physics::Acceleration)
+  //  operator+=(::ad::physics::Acceleration)
   result = value;
   result += value;
   EXPECT_NEAR(static_cast<double>(value) + static_cast<double>(value), static_cast<double>(result), cDoubleNear);
 
-  //  operator-(::ad_rss::physics::Acceleration)
+  //  operator-(::ad::physics::Acceleration)
   result = value - value;
   EXPECT_NEAR(static_cast<double>(value) - static_cast<double>(value), static_cast<double>(result), cDoubleNear);
 
-  //  operator-=(::ad_rss::physics::Acceleration)
+  //  operator-=(::ad::physics::Acceleration)
   result = value;
   result -= value;
   EXPECT_NEAR(static_cast<double>(value) - static_cast<double>(value), static_cast<double>(result), cDoubleNear);
@@ -422,7 +416,7 @@ TEST(AccelerationTests, arithmeticOperatorsComputeCorrectly)
   result = value * 5.;
   EXPECT_NEAR(static_cast<double>(value) * 5., static_cast<double>(result), cDoubleNear);
 
-  //  operator*(double, ::ad_rss::physics::Acceleration)
+  //  operator*(double, ::ad::physics::Acceleration)
   result = 5. * value;
   EXPECT_NEAR(static_cast<double>(value) * 5., static_cast<double>(result), cDoubleNear);
 
@@ -430,13 +424,13 @@ TEST(AccelerationTests, arithmeticOperatorsComputeCorrectly)
   result = value / static_cast<double>(value);
   EXPECT_NEAR(static_cast<double>(value) / static_cast<double>(value), static_cast<double>(result), cDoubleNear);
 
-  //  operator/(::ad_rss::physics::Acceleration)
+  //  operator/(::ad::physics::Acceleration)
   double const doubleResult = value / value;
   EXPECT_NEAR(static_cast<double>(value) / static_cast<double>(value), doubleResult, cDoubleNear);
 
   //  operator-()
-  if ((::ad_rss::physics::Acceleration::cMinValue < -static_cast<double>(value))
-      && (-static_cast<double>(value) < ::ad_rss::physics::Acceleration::cMaxValue))
+  if ((::ad::physics::Acceleration::cMinValue < -static_cast<double>(value))
+      && (-static_cast<double>(value) < ::ad::physics::Acceleration::cMaxValue))
   {
     result = -value;
   }

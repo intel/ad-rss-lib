@@ -37,10 +37,10 @@
  *
  */
 
-#include "ad_rss/physics/ParametricValue.hpp"
+#include "ad/physics/ParametricValue.hpp"
 
-const double ::ad_rss::physics::ParametricValue::cMinValue = std::numeric_limits<double>::lowest();
+const double ::ad::physics::ParametricValue::cMinValue = std::numeric_limits<double>::lowest();
 
-const double ::ad_rss::physics::ParametricValue::cMaxValue = std::numeric_limits<double>::max();
+const double ::ad::physics::ParametricValue::cMaxValue = std::numeric_limits<double>::max();
 
-const double ::ad_rss::physics::ParametricValue::cPrecisionValue = std::numeric_limits<double>::min();
+const double ::ad::physics::ParametricValue::cPrecisionValue = std::numeric_limits<double>::min();

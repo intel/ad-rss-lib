@@ -31,7 +31,8 @@
 
 #include "TestSupport.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 
 const TestSupport cTestSupport;
 
@@ -429,4 +430,5 @@ state::LongitudinalRssState TestSupport::stateWithInformation(state::Longitudina
   return resultState;
 }
 
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

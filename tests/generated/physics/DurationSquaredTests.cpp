@@ -37,156 +37,150 @@
 
 #include <gtest/gtest.h>
 #include <limits>
-#include "ad_rss/physics/Duration.hpp"
-#include "ad_rss/physics/DurationSquared.hpp"
+#include "ad/physics/Duration.hpp"
+#include "ad/physics/DurationSquared.hpp"
 
 TEST(DurationSquaredTests, defaultConstructionIsInvalid)
 {
-  ::ad_rss::physics::DurationSquared value;
+  ::ad::physics::DurationSquared value;
   EXPECT_FALSE(value.isValid());
 }
 
 TEST(DurationSquaredTests, minIsDefinedAsExpected)
 {
-  EXPECT_EQ(-1e12, ::ad_rss::physics::DurationSquared::cMinValue);
-  EXPECT_EQ(::ad_rss::physics::DurationSquared::cMinValue,
-            static_cast<double>(::ad_rss::physics::DurationSquared::getMin()));
+  EXPECT_EQ(-1e12, ::ad::physics::DurationSquared::cMinValue);
+  EXPECT_EQ(::ad::physics::DurationSquared::cMinValue, static_cast<double>(::ad::physics::DurationSquared::getMin()));
 }
 
 TEST(DurationSquaredTests, maxIsDefinedAsExpected)
 {
-  EXPECT_EQ(1e12, ::ad_rss::physics::DurationSquared::cMaxValue);
-  EXPECT_EQ(::ad_rss::physics::DurationSquared::cMaxValue,
-            static_cast<double>(::ad_rss::physics::DurationSquared::getMax()));
+  EXPECT_EQ(1e12, ::ad::physics::DurationSquared::cMaxValue);
+  EXPECT_EQ(::ad::physics::DurationSquared::cMaxValue, static_cast<double>(::ad::physics::DurationSquared::getMax()));
 }
 
 TEST(DurationSquaredTests, precisionIsDefinedAsExpected)
 {
-  EXPECT_LT(0., ::ad_rss::physics::DurationSquared::cPrecisionValue);
-  EXPECT_EQ(1e-6, ::ad_rss::physics::DurationSquared::cPrecisionValue);
-  EXPECT_EQ(::ad_rss::physics::DurationSquared::cPrecisionValue,
-            static_cast<double>(::ad_rss::physics::DurationSquared::getPrecision()));
+  EXPECT_LT(0., ::ad::physics::DurationSquared::cPrecisionValue);
+  EXPECT_EQ(1e-6, ::ad::physics::DurationSquared::cPrecisionValue);
+  EXPECT_EQ(::ad::physics::DurationSquared::cPrecisionValue,
+            static_cast<double>(::ad::physics::DurationSquared::getPrecision()));
 }
 
 TEST(DurationSquaredTests, minIsValid)
 {
-  EXPECT_TRUE(::ad_rss::physics::DurationSquared::getMin().isValid());
+  EXPECT_TRUE(::ad::physics::DurationSquared::getMin().isValid());
 }
 
 TEST(DurationSquaredTests, aboveMinIsValid)
 {
-  ::ad_rss::physics::DurationSquared value(-1e12 * 0.9);
+  ::ad::physics::DurationSquared value(-1e12 * 0.9);
   EXPECT_TRUE(value.isValid());
 }
 
 TEST(DurationSquaredTests, belowMinIsInvalid)
 {
-  ::ad_rss::physics::DurationSquared value(-1e12 * 1.1);
+  ::ad::physics::DurationSquared value(-1e12 * 1.1);
   EXPECT_FALSE(value.isValid());
 }
 
 TEST(DurationSquaredTests, maxIsValid)
 {
-  EXPECT_TRUE(::ad_rss::physics::DurationSquared::getMax().isValid());
+  EXPECT_TRUE(::ad::physics::DurationSquared::getMax().isValid());
 }
 
 TEST(DurationSquaredTests, AboveMaxIsInvalid)
 {
-  ::ad_rss::physics::DurationSquared value(1e12 * 1.1);
+  ::ad::physics::DurationSquared value(1e12 * 1.1);
   EXPECT_FALSE(value.isValid());
 }
 
 TEST(DurationSquaredTests, BelowMaxIsValid)
 {
-  ::ad_rss::physics::DurationSquared value(1e12 * 0.9);
+  ::ad::physics::DurationSquared value(1e12 * 0.9);
   EXPECT_TRUE(value.isValid());
 }
 
 TEST(DurationSquaredTests, ensureValidThrowsOnInvalid)
 {
-  ::ad_rss::physics::DurationSquared value;
+  ::ad::physics::DurationSquared value;
   EXPECT_THROW(value.ensureValid(), std::out_of_range);
 }
 
 TEST(DurationSquaredTests, ensureValidNonZeroThrowsOnInvalid)
 {
-  ::ad_rss::physics::DurationSquared value;
+  ::ad::physics::DurationSquared value;
   EXPECT_THROW(value.ensureValidNonZero(), std::out_of_range);
 }
 
 TEST(DurationSquaredTests, ensureValidNonZeroThrowsOnZero)
 {
-  ::ad_rss::physics::DurationSquared value(0.);
+  ::ad::physics::DurationSquared value(0.);
   EXPECT_THROW(value.ensureValidNonZero(), std::out_of_range);
 }
 
 TEST(DurationSquaredTestsStd, numericLimitsLowestIsMin)
 {
-  EXPECT_EQ(static_cast<double>(::ad_rss::physics::DurationSquared::getMin()),
-            static_cast<double>(std::numeric_limits<::ad_rss::physics::DurationSquared>::lowest()));
+  EXPECT_EQ(static_cast<double>(::ad::physics::DurationSquared::getMin()),
+            static_cast<double>(std::numeric_limits<::ad::physics::DurationSquared>::lowest()));
 }
 
 TEST(DurationSquaredTestsStd, numericLimitsMaxIsMax)
 {
-  EXPECT_EQ(static_cast<double>(::ad_rss::physics::DurationSquared::getMax()),
-            static_cast<double>(std::numeric_limits<::ad_rss::physics::DurationSquared>::max()));
+  EXPECT_EQ(static_cast<double>(::ad::physics::DurationSquared::getMax()),
+            static_cast<double>(std::numeric_limits<::ad::physics::DurationSquared>::max()));
 }
 
 TEST(DurationSquaredTestsStd, numericLimitsEpsilonIsPrecision)
 {
-  EXPECT_EQ(static_cast<double>(::ad_rss::physics::DurationSquared::getPrecision()),
-            static_cast<double>(std::numeric_limits<::ad_rss::physics::DurationSquared>::epsilon()));
+  EXPECT_EQ(static_cast<double>(::ad::physics::DurationSquared::getPrecision()),
+            static_cast<double>(std::numeric_limits<::ad::physics::DurationSquared>::epsilon()));
 }
 
 TEST(DurationSquaredTestsStd, fabsIsWorkingCorrectly)
 {
-  EXPECT_EQ(0., static_cast<double>(std::fabs(::ad_rss::physics::DurationSquared(-0.))));
-  EXPECT_EQ(1., static_cast<double>(std::fabs(::ad_rss::physics::DurationSquared(-1.))));
-  EXPECT_EQ(::ad_rss::physics::DurationSquared::cPrecisionValue,
-            static_cast<double>(
-              std::fabs(::ad_rss::physics::DurationSquared(::ad_rss::physics::DurationSquared::cPrecisionValue))));
+  EXPECT_EQ(0., static_cast<double>(std::fabs(::ad::physics::DurationSquared(-0.))));
+  EXPECT_EQ(1., static_cast<double>(std::fabs(::ad::physics::DurationSquared(-1.))));
   EXPECT_EQ(
-    std::fabs(::ad_rss::physics::DurationSquared::cMinValue),
-    static_cast<double>(std::fabs(::ad_rss::physics::DurationSquared(::ad_rss::physics::DurationSquared::cMinValue))));
-  EXPECT_EQ(
-    std::fabs(::ad_rss::physics::DurationSquared::cMinValue),
-    static_cast<double>(std::fabs(::ad_rss::physics::DurationSquared(-::ad_rss::physics::DurationSquared::cMinValue))));
-  EXPECT_EQ(
-    std::fabs(::ad_rss::physics::DurationSquared::cMaxValue),
-    static_cast<double>(std::fabs(::ad_rss::physics::DurationSquared(::ad_rss::physics::DurationSquared::cMaxValue))));
-  EXPECT_EQ(
-    std::fabs(::ad_rss::physics::DurationSquared::cMaxValue),
-    static_cast<double>(std::fabs(::ad_rss::physics::DurationSquared(-::ad_rss::physics::DurationSquared::cMaxValue))));
+    ::ad::physics::DurationSquared::cPrecisionValue,
+    static_cast<double>(std::fabs(::ad::physics::DurationSquared(::ad::physics::DurationSquared::cPrecisionValue))));
+  EXPECT_EQ(std::fabs(::ad::physics::DurationSquared::cMinValue),
+            static_cast<double>(std::fabs(::ad::physics::DurationSquared(::ad::physics::DurationSquared::cMinValue))));
+  EXPECT_EQ(std::fabs(::ad::physics::DurationSquared::cMinValue),
+            static_cast<double>(std::fabs(::ad::physics::DurationSquared(-::ad::physics::DurationSquared::cMinValue))));
+  EXPECT_EQ(std::fabs(::ad::physics::DurationSquared::cMaxValue),
+            static_cast<double>(std::fabs(::ad::physics::DurationSquared(::ad::physics::DurationSquared::cMaxValue))));
+  EXPECT_EQ(std::fabs(::ad::physics::DurationSquared::cMaxValue),
+            static_cast<double>(std::fabs(::ad::physics::DurationSquared(-::ad::physics::DurationSquared::cMaxValue))));
 }
 
 TEST(DurationSquaredTests, constructionFromValidDouble)
 {
-  double const validValue = ::ad_rss::physics::DurationSquared::cMinValue;
-  ::ad_rss::physics::DurationSquared value(validValue);
+  double const validValue = ::ad::physics::DurationSquared::cMinValue;
+  ::ad::physics::DurationSquared value(validValue);
   EXPECT_TRUE(value.isValid());
   EXPECT_EQ(validValue, static_cast<double>(value));
 }
 
 TEST(DurationSquaredTests, copyConstructionFromValidValue)
 {
-  ::ad_rss::physics::DurationSquared const validValue(::ad_rss::physics::DurationSquared::cMinValue);
-  ::ad_rss::physics::DurationSquared value(validValue);
+  ::ad::physics::DurationSquared const validValue(::ad::physics::DurationSquared::cMinValue);
+  ::ad::physics::DurationSquared value(validValue);
   EXPECT_TRUE(value.isValid());
   EXPECT_EQ(static_cast<double>(validValue), static_cast<double>(value));
 }
 
 TEST(DurationSquaredTests, moveConstructionFromValidValue)
 {
-  ::ad_rss::physics::DurationSquared value(
-    std::move(::ad_rss::physics::DurationSquared(::ad_rss::physics::DurationSquared::cMinValue)));
+  ::ad::physics::DurationSquared value(
+    std::move(::ad::physics::DurationSquared(::ad::physics::DurationSquared::cMinValue)));
   EXPECT_TRUE(value.isValid());
-  EXPECT_EQ(::ad_rss::physics::DurationSquared::cMinValue, static_cast<double>(value));
+  EXPECT_EQ(::ad::physics::DurationSquared::cMinValue, static_cast<double>(value));
 }
 
 TEST(DurationSquaredTests, assignmentFromValidValue)
 {
-  ::ad_rss::physics::DurationSquared const validValue(::ad_rss::physics::DurationSquared::cMinValue);
-  ::ad_rss::physics::DurationSquared value;
+  ::ad::physics::DurationSquared const validValue(::ad::physics::DurationSquared::cMinValue);
+  ::ad::physics::DurationSquared value;
   value = validValue;
   EXPECT_TRUE(value.isValid());
   EXPECT_EQ(static_cast<double>(validValue), static_cast<double>(value));
@@ -194,37 +188,37 @@ TEST(DurationSquaredTests, assignmentFromValidValue)
 
 TEST(DurationSquaredTests, moveAssignmentFromValidValue)
 {
-  ::ad_rss::physics::DurationSquared value;
-  value = std::move(::ad_rss::physics::DurationSquared(::ad_rss::physics::DurationSquared::cMinValue));
+  ::ad::physics::DurationSquared value;
+  value = std::move(::ad::physics::DurationSquared(::ad::physics::DurationSquared::cMinValue));
   EXPECT_TRUE(value.isValid());
-  EXPECT_EQ(::ad_rss::physics::DurationSquared::cMinValue, static_cast<double>(value));
+  EXPECT_EQ(::ad::physics::DurationSquared::cMinValue, static_cast<double>(value));
 }
 
 TEST(DurationSquaredTests, constructionFromInvalidDouble)
 {
   double const invalidValue = std::numeric_limits<double>::quiet_NaN();
-  ::ad_rss::physics::DurationSquared value(invalidValue);
+  ::ad::physics::DurationSquared value(invalidValue);
   EXPECT_FALSE(value.isValid());
 }
 
 TEST(DurationSquaredTests, copyConstructionFromInvalidValue)
 {
-  ::ad_rss::physics::DurationSquared const invalidValue(std::numeric_limits<double>::quiet_NaN());
-  ::ad_rss::physics::DurationSquared value(invalidValue);
+  ::ad::physics::DurationSquared const invalidValue(std::numeric_limits<double>::quiet_NaN());
+  ::ad::physics::DurationSquared value(invalidValue);
   EXPECT_FALSE(value.isValid());
 }
 
 TEST(DurationSquaredTests, assignmentFromInvalidValue)
 {
-  ::ad_rss::physics::DurationSquared const invalidValue(std::numeric_limits<double>::quiet_NaN());
-  ::ad_rss::physics::DurationSquared value;
+  ::ad::physics::DurationSquared const invalidValue(std::numeric_limits<double>::quiet_NaN());
+  ::ad::physics::DurationSquared value;
   value = invalidValue;
   EXPECT_FALSE(value.isValid());
 }
 
 TEST(DurationSquaredTests, selfAssignment)
 {
-  ::ad_rss::physics::DurationSquared value(::ad_rss::physics::DurationSquared::cMinValue);
+  ::ad::physics::DurationSquared value(::ad::physics::DurationSquared::cMinValue);
   EXPECT_TRUE(value.isValid());
   value = value;
   EXPECT_TRUE(value.isValid());
@@ -232,8 +226,8 @@ TEST(DurationSquaredTests, selfAssignment)
 
 TEST(DurationSquaredTests, comparisonOperatorsThrowOnInvalid)
 {
-  ::ad_rss::physics::DurationSquared const value(::ad_rss::physics::DurationSquared::cMinValue);
-  ::ad_rss::physics::DurationSquared const invalidValue;
+  ::ad::physics::DurationSquared const value(::ad::physics::DurationSquared::cMinValue);
+  ::ad::physics::DurationSquared const invalidValue;
 
   EXPECT_THROW(invalidValue == value, std::out_of_range);
   EXPECT_THROW(value == invalidValue, std::out_of_range);
@@ -256,17 +250,17 @@ TEST(DurationSquaredTests, comparisonOperatorsThrowOnInvalid)
 
 TEST(DurationSquaredTests, arithmeticOperatorsThrowOnInvalid)
 {
-  ::ad_rss::physics::DurationSquared const minimalValue(::ad_rss::physics::DurationSquared::cMinValue);
-  ::ad_rss::physics::DurationSquared const maximalValue(::ad_rss::physics::DurationSquared::cMaxValue);
-  ::ad_rss::physics::DurationSquared const invalidValue;
-  ::ad_rss::physics::DurationSquared calculationValue;
+  ::ad::physics::DurationSquared const minimalValue(::ad::physics::DurationSquared::cMinValue);
+  ::ad::physics::DurationSquared const maximalValue(::ad::physics::DurationSquared::cMaxValue);
+  ::ad::physics::DurationSquared const invalidValue;
+  ::ad::physics::DurationSquared calculationValue;
 
-  //  operator+(::ad_rss::physics::DurationSquared)
+  //  operator+(::ad::physics::DurationSquared)
   EXPECT_THROW(invalidValue + maximalValue, std::out_of_range);
   EXPECT_THROW(maximalValue + invalidValue, std::out_of_range);
   EXPECT_THROW(maximalValue + maximalValue, std::out_of_range);
 
-  //  operator+=(::ad_rss::physics::DurationSquared)
+  //  operator+=(::ad::physics::DurationSquared)
   calculationValue = invalidValue;
   EXPECT_THROW(calculationValue += maximalValue, std::out_of_range);
   calculationValue = maximalValue;
@@ -274,12 +268,12 @@ TEST(DurationSquaredTests, arithmeticOperatorsThrowOnInvalid)
   calculationValue = maximalValue;
   EXPECT_THROW(calculationValue += maximalValue, std::out_of_range);
 
-  //  operator-(::ad_rss::physics::DurationSquared)
+  //  operator-(::ad::physics::DurationSquared)
   EXPECT_THROW(invalidValue - minimalValue, std::out_of_range);
   EXPECT_THROW(minimalValue - invalidValue, std::out_of_range);
   EXPECT_THROW(minimalValue - maximalValue, std::out_of_range);
 
-  //  operator-=(::ad_rss::physics::DurationSquared)
+  //  operator-=(::ad::physics::DurationSquared)
   calculationValue = invalidValue;
   EXPECT_THROW(calculationValue -= minimalValue, std::out_of_range);
   calculationValue = minimalValue;
@@ -300,10 +294,10 @@ TEST(DurationSquaredTests, arithmeticOperatorsThrowOnInvalid)
   EXPECT_THROW(maximalValue / 0.0, std::out_of_range);
   EXPECT_THROW(maximalValue / 0.5, std::out_of_range);
 
-  //  operator/(::ad_rss::physics::DurationSquared)
+  //  operator/(::ad::physics::DurationSquared)
   EXPECT_THROW(invalidValue / maximalValue, std::out_of_range);
   EXPECT_THROW(maximalValue / invalidValue, std::out_of_range);
-  EXPECT_THROW(maximalValue / ::ad_rss::physics::DurationSquared(0.0), std::out_of_range);
+  EXPECT_THROW(maximalValue / ::ad::physics::DurationSquared(0.0), std::out_of_range);
 
   //  operator-()
   EXPECT_THROW(-invalidValue, std::out_of_range);
@@ -323,29 +317,29 @@ TEST(DurationSquaredTests, arithmeticOperatorsThrowOnInvalid)
 
 TEST(DurationSquaredTests, comparisonOperatorsRespectPrecision)
 {
-  double const precisionValueTimesTen = ::ad_rss::physics::DurationSquared::cPrecisionValue * 10.;
-  ::ad_rss::physics::DurationSquared value;
-  if (::ad_rss::physics::DurationSquared::cMinValue > precisionValueTimesTen)
+  double const precisionValueTimesTen = ::ad::physics::DurationSquared::cPrecisionValue * 10.;
+  ::ad::physics::DurationSquared value;
+  if (::ad::physics::DurationSquared::cMinValue > precisionValueTimesTen)
   {
-    value = ::ad_rss::physics::DurationSquared(::ad_rss::physics::DurationSquared::cMinValue + precisionValueTimesTen);
+    value = ::ad::physics::DurationSquared(::ad::physics::DurationSquared::cMinValue + precisionValueTimesTen);
   }
-  else if (::ad_rss::physics::DurationSquared::cMaxValue < precisionValueTimesTen)
+  else if (::ad::physics::DurationSquared::cMaxValue < precisionValueTimesTen)
   {
-    value = ::ad_rss::physics::DurationSquared(::ad_rss::physics::DurationSquared::cMaxValue - precisionValueTimesTen);
+    value = ::ad::physics::DurationSquared(::ad::physics::DurationSquared::cMaxValue - precisionValueTimesTen);
   }
   else
   {
-    value = ::ad_rss::physics::DurationSquared(precisionValueTimesTen);
+    value = ::ad::physics::DurationSquared(precisionValueTimesTen);
   }
-  ::ad_rss::physics::DurationSquared const sameValue = value;
-  ::ad_rss::physics::DurationSquared const slightlyBiggerValue(
-    static_cast<double>(value) + ::ad_rss::physics::DurationSquared::cPrecisionValue * 0.9);
-  ::ad_rss::physics::DurationSquared const slightlySmallerValue(
-    static_cast<double>(value) - ::ad_rss::physics::DurationSquared::cPrecisionValue * 0.9);
-  ::ad_rss::physics::DurationSquared const actuallyBiggerValue(
-    static_cast<double>(value) + ::ad_rss::physics::DurationSquared::cPrecisionValue * 1.1);
-  ::ad_rss::physics::DurationSquared const actuallySmallerValue(
-    static_cast<double>(value) - ::ad_rss::physics::DurationSquared::cPrecisionValue * 1.1);
+  ::ad::physics::DurationSquared const sameValue = value;
+  ::ad::physics::DurationSquared const slightlyBiggerValue(static_cast<double>(value)
+                                                           + ::ad::physics::DurationSquared::cPrecisionValue * 0.9);
+  ::ad::physics::DurationSquared const slightlySmallerValue(static_cast<double>(value)
+                                                            - ::ad::physics::DurationSquared::cPrecisionValue * 0.9);
+  ::ad::physics::DurationSquared const actuallyBiggerValue(static_cast<double>(value)
+                                                           + ::ad::physics::DurationSquared::cPrecisionValue * 1.1);
+  ::ad::physics::DurationSquared const actuallySmallerValue(static_cast<double>(value)
+                                                            - ::ad::physics::DurationSquared::cPrecisionValue * 1.1);
 
   // operator ==
   EXPECT_TRUE(value == sameValue);
@@ -388,38 +382,38 @@ TEST(DurationSquaredTests, comparisonOperatorsRespectPrecision)
 
 TEST(DurationSquaredTests, arithmeticOperatorsComputeCorrectly)
 {
-  double const cDoubleNear = ::ad_rss::physics::DurationSquared::cPrecisionValue;
-  double const precisionValueTimesTen = ::ad_rss::physics::DurationSquared::cPrecisionValue * 10.;
-  ::ad_rss::physics::DurationSquared value;
-  if (::ad_rss::physics::DurationSquared::cMinValue > precisionValueTimesTen)
+  double const cDoubleNear = ::ad::physics::DurationSquared::cPrecisionValue;
+  double const precisionValueTimesTen = ::ad::physics::DurationSquared::cPrecisionValue * 10.;
+  ::ad::physics::DurationSquared value;
+  if (::ad::physics::DurationSquared::cMinValue > precisionValueTimesTen)
   {
-    value = ::ad_rss::physics::DurationSquared(::ad_rss::physics::DurationSquared::cMinValue + precisionValueTimesTen);
+    value = ::ad::physics::DurationSquared(::ad::physics::DurationSquared::cMinValue + precisionValueTimesTen);
   }
-  else if (::ad_rss::physics::DurationSquared::cMaxValue < precisionValueTimesTen)
+  else if (::ad::physics::DurationSquared::cMaxValue < precisionValueTimesTen)
   {
-    value = ::ad_rss::physics::DurationSquared(::ad_rss::physics::DurationSquared::cMaxValue - precisionValueTimesTen);
+    value = ::ad::physics::DurationSquared(::ad::physics::DurationSquared::cMaxValue - precisionValueTimesTen);
   }
   else
   {
-    value = ::ad_rss::physics::DurationSquared(precisionValueTimesTen);
+    value = ::ad::physics::DurationSquared(precisionValueTimesTen);
   }
 
-  ::ad_rss::physics::DurationSquared result;
+  ::ad::physics::DurationSquared result;
 
-  //  operator+(::ad_rss::physics::DurationSquared)
+  //  operator+(::ad::physics::DurationSquared)
   result = value + value;
   EXPECT_NEAR(static_cast<double>(value) + static_cast<double>(value), static_cast<double>(result), cDoubleNear);
 
-  //  operator+=(::ad_rss::physics::DurationSquared)
+  //  operator+=(::ad::physics::DurationSquared)
   result = value;
   result += value;
   EXPECT_NEAR(static_cast<double>(value) + static_cast<double>(value), static_cast<double>(result), cDoubleNear);
 
-  //  operator-(::ad_rss::physics::DurationSquared)
+  //  operator-(::ad::physics::DurationSquared)
   result = value - value;
   EXPECT_NEAR(static_cast<double>(value) - static_cast<double>(value), static_cast<double>(result), cDoubleNear);
 
-  //  operator-=(::ad_rss::physics::DurationSquared)
+  //  operator-=(::ad::physics::DurationSquared)
   result = value;
   result -= value;
   EXPECT_NEAR(static_cast<double>(value) - static_cast<double>(value), static_cast<double>(result), cDoubleNear);
@@ -429,10 +423,10 @@ TEST(DurationSquaredTests, arithmeticOperatorsComputeCorrectly)
   EXPECT_NEAR(static_cast<double>(value) * 5., static_cast<double>(result), cDoubleNear);
 
   //  std::sqrt()
-  ::ad_rss::physics::Duration const squareRootResult = std::sqrt(value);
+  ::ad::physics::Duration const squareRootResult = std::sqrt(value);
   EXPECT_NEAR(std::sqrt(static_cast<double>(value)), static_cast<double>(squareRootResult), cDoubleNear);
 
-  //  operator*(double, ::ad_rss::physics::DurationSquared)
+  //  operator*(double, ::ad::physics::DurationSquared)
   result = 5. * value;
   EXPECT_NEAR(static_cast<double>(value) * 5., static_cast<double>(result), cDoubleNear);
 
@@ -440,13 +434,13 @@ TEST(DurationSquaredTests, arithmeticOperatorsComputeCorrectly)
   result = value / static_cast<double>(value);
   EXPECT_NEAR(static_cast<double>(value) / static_cast<double>(value), static_cast<double>(result), cDoubleNear);
 
-  //  operator/(::ad_rss::physics::DurationSquared)
+  //  operator/(::ad::physics::DurationSquared)
   double const doubleResult = value / value;
   EXPECT_NEAR(static_cast<double>(value) / static_cast<double>(value), doubleResult, cDoubleNear);
 
   //  operator-()
-  if ((::ad_rss::physics::DurationSquared::cMinValue < -static_cast<double>(value))
-      && (-static_cast<double>(value) < ::ad_rss::physics::DurationSquared::cMaxValue))
+  if ((::ad::physics::DurationSquared::cMinValue < -static_cast<double>(value))
+      && (-static_cast<double>(value) < ::ad::physics::DurationSquared::cMaxValue))
   {
     result = -value;
   }

@@ -29,21 +29,23 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "situation/RssFormulas.hpp"
+#include "RssFormulas.hpp"
 #include <algorithm>
-#include "ad_rss/situation/VehicleStateValidInputRange.hpp"
-#include "physics/Math.hpp"
+#include "Math.hpp"
+#include "ad/rss/situation/VehicleStateValidInputRange.hpp"
 
-namespace ad_rss {
+namespace ad {
+
+namespace rss {
 namespace situation {
 
 // make the code more readable
 using physics::Acceleration;
-using physics::CoordinateSystemAxis;
 using physics::Distance;
 using physics::Duration;
 using physics::Speed;
-using physics::calculateStoppingDistance;
+using situation::CoordinateSystemAxis;
+using situation::calculateStoppingDistance;
 
 inline bool vehicleStateWithinVaildInputRange(VehicleState const &vehicleState)
 {
@@ -295,4 +297,5 @@ bool checkSafeLateralDistance(VehicleState const &leftVehicle,
 }
 
 } // namespace situation
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

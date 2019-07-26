@@ -32,17 +32,12 @@
  * @file
  */
 
-#include "world/RssObjectPositionExtractor.hpp"
+#include "RssObjectPositionExtractor.hpp"
 #include <algorithm>
-#include "ad_rss/physics/Operations.hpp"
+#include "ad/physics/Operation.hpp"
 
-/*!
- * @brief namespace ad_rss
- */
-namespace ad_rss {
-/*!
- * @brief namespace world
- */
+namespace ad {
+namespace rss {
 namespace world {
 
 using physics::Distance;
@@ -100,12 +95,12 @@ bool RssObjectPositionExtractor::newLaneSegment(MetricRange lateralDistance, Lan
       mObjectDimensions.longitudinalDimensions.maximum
         = std::max(mObjectDimensions.longitudinalDimensions.maximum, lonMaxPosition);
 
-      if (laneSegment.drivingDirection == ::ad_rss::world::LaneDrivingDirection::Positive)
+      if (laneSegment.drivingDirection == LaneDrivingDirection::Positive)
       {
         mObjectDimensions.onPositiveLane = true;
       }
 
-      if (laneSegment.drivingDirection == ::ad_rss::world::LaneDrivingDirection::Negative)
+      if (laneSegment.drivingDirection == LaneDrivingDirection::Negative)
       {
         mObjectDimensions.onNegativeLane = true;
       }
@@ -114,8 +109,7 @@ bool RssObjectPositionExtractor::newLaneSegment(MetricRange lateralDistance, Lan
     }
   }
 
-  if (!mIntersectionReached && !mIntersectionEndReached
-      && (laneSegment.type == ::ad_rss::world::LaneSegmentType::Intersection))
+  if (!mIntersectionReached && !mIntersectionEndReached && (laneSegment.type == LaneSegmentType::Intersection))
   {
     mObjectDimensions.intersectionPosition.minimum = mCurrentLongitudinalMin;
     mObjectDimensions.intersectionPosition.maximum = std::max(
@@ -123,14 +117,12 @@ bool RssObjectPositionExtractor::newLaneSegment(MetricRange lateralDistance, Lan
     mIntersectionReached = true;
     mIntersectionEndReached = false;
   }
-  if (mIntersectionReached && !mIntersectionEndReached
-      && (laneSegment.type == ::ad_rss::world::LaneSegmentType::Intersection))
+  if (mIntersectionReached && !mIntersectionEndReached && (laneSegment.type == LaneSegmentType::Intersection))
   {
     mObjectDimensions.intersectionPosition.maximum = std::max(
       Distance(mCurrentLongitudinalMax + laneSegment.length.maximum), mObjectDimensions.intersectionPosition.maximum);
   }
-  if (mIntersectionReached && !mIntersectionEndReached
-      && (laneSegment.type != ::ad_rss::world::LaneSegmentType::Intersection))
+  if (mIntersectionReached && !mIntersectionEndReached && (laneSegment.type != LaneSegmentType::Intersection))
   {
     mObjectDimensions.intersectionPosition.maximum = mCurrentLongitudinalMax;
     mIntersectionEndReached = true;
@@ -163,4 +155,5 @@ bool RssObjectPositionExtractor::getObjectDimensions(ObjectDimensions &objectDim
 }
 
 } // namespace world
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

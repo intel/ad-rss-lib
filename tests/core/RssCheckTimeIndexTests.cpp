@@ -31,7 +31,8 @@
 
 #include "RssCheckTestBaseT.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace core {
 
 class RssCheckTimeIndexTests : public RssCheckTestBaseT<testing::Test>
@@ -40,10 +41,10 @@ class RssCheckTimeIndexTests : public RssCheckTestBaseT<testing::Test>
 
 TEST_F(RssCheckTimeIndexTests, ZeroTimeIndex)
 {
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
+  world::AccelerationRestriction accelerationRestriction;
+  core::RssCheck rssCheck;
 
-  physics::TimeIndex timeIndexArray[] = {0u, 1u, 0u, 0u, 3u};
+  world::TimeIndex timeIndexArray[] = {0u, 1u, 0u, 0u, 3u};
   for (size_t i = 0; i < ARRAYLEN(timeIndexArray); ++i)
   {
     worldModel.timeIndex = timeIndexArray[i];
@@ -61,20 +62,20 @@ TEST_F(RssCheckTimeIndexTests, ZeroTimeIndex)
 
 TEST_F(RssCheckTimeIndexTests, TimeIndexIncrementValidity)
 {
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
+  world::AccelerationRestriction accelerationRestriction;
+  core::RssCheck rssCheck;
 
-  physics::TimeIndex timeIndexArray[] = {1u,
-                                         2u,
-                                         3u,
-                                         4u,
-                                         5u,
-                                         100u,
-                                         100000u,
-                                         (std::numeric_limits<physics::TimeIndex>::max() / 4),
-                                         2 * (std::numeric_limits<physics::TimeIndex>::max() / 4),
-                                         3 * (std::numeric_limits<physics::TimeIndex>::max() / 4),
-                                         4 * (std::numeric_limits<physics::TimeIndex>::max() / 4)};
+  world::TimeIndex timeIndexArray[] = {1u,
+                                       2u,
+                                       3u,
+                                       4u,
+                                       5u,
+                                       100u,
+                                       100000u,
+                                       (std::numeric_limits<world::TimeIndex>::max() / 4),
+                                       2 * (std::numeric_limits<world::TimeIndex>::max() / 4),
+                                       3 * (std::numeric_limits<world::TimeIndex>::max() / 4),
+                                       4 * (std::numeric_limits<world::TimeIndex>::max() / 4)};
   for (auto j : {1, 2})
   {
     // increment with overflow
@@ -100,10 +101,10 @@ TEST_F(RssCheckTimeIndexTests, TimeIndexIncrementValidity)
 
 TEST_F(RssCheckTimeIndexTests, FixedTimeIndexValidity)
 {
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
+  world::AccelerationRestriction accelerationRestriction;
+  core::RssCheck rssCheck;
 
-  physics::TimeIndex timeIndexArray[] = {1u, 1u, 2u, 2u, 3u, 3u};
+  world::TimeIndex timeIndexArray[] = {1u, 1u, 2u, 2u, 3u, 3u};
   for (size_t i = 0; i < ARRAYLEN(timeIndexArray); ++i)
   {
     {
@@ -122,4 +123,5 @@ TEST_F(RssCheckTimeIndexTests, FixedTimeIndexValidity)
 }
 
 } // namespace core
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

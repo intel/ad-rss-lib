@@ -29,13 +29,14 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "ad_rss/core/RssSituationExtraction.hpp"
+#include "ad/rss/core/RssSituationExtraction.hpp"
 #include <algorithm>
-#include "ad_rss/world/WorldModelValidInputRange.hpp"
-#include "world/RssSituationCoordinateSystemConversion.hpp"
-#include "world/RssSituationIdProvider.hpp"
+#include "../world/RssSituationCoordinateSystemConversion.hpp"
+#include "../world/RssSituationIdProvider.hpp"
+#include "ad/rss/world/WorldModelValidInputRange.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace core {
 
 using physics::Distance;
@@ -184,7 +185,7 @@ bool RssSituationExtraction::convertObjectsNonIntersection(world::Scene const &c
 
   situation.egoVehicleState.isInCorrectLane = !egoVehicleDimension.onNegativeLane;
 
-  if (currentScene.situationType == ::ad_rss::situation::SituationType::OppositeDirection)
+  if (currentScene.situationType == ::ad::rss::situation::SituationType::OppositeDirection)
   {
     situation.otherVehicleState.isInCorrectLane = !objectToBeCheckedDimension.onPositiveLane;
   }
@@ -290,7 +291,7 @@ bool RssSituationExtraction::convertObjectsIntersection(world::Scene const &curr
   return result;
 }
 
-bool RssSituationExtraction::extractSituationInputRangeChecked(physics::TimeIndex const &timeIndex,
+bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex const &timeIndex,
                                                                world::RssDynamics const &egoVehicleRssDynamics,
                                                                world::Scene const &currentScene,
                                                                situation::Situation &situation)
@@ -338,21 +339,21 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(physics::TimeInde
 
     switch (currentScene.situationType)
     {
-      case ad_rss::situation::SituationType::SameDirection:
-      case ad_rss::situation::SituationType::OppositeDirection:
+      case ad::rss::situation::SituationType::SameDirection:
+      case ad::rss::situation::SituationType::OppositeDirection:
       {
         result = convertObjectsNonIntersection(currentScene, situation);
 
         break;
       }
-      case ad_rss::situation::SituationType::IntersectionEgoHasPriority:
-      case ad_rss::situation::SituationType::IntersectionObjectHasPriority:
-      case ad_rss::situation::SituationType::IntersectionSamePriority:
+      case ad::rss::situation::SituationType::IntersectionEgoHasPriority:
+      case ad::rss::situation::SituationType::IntersectionObjectHasPriority:
+      case ad::rss::situation::SituationType::IntersectionSamePriority:
       {
         result = convertObjectsIntersection(currentScene, situation);
         break;
       }
-      case ad_rss::situation::SituationType::NotRelevant:
+      case ad::rss::situation::SituationType::NotRelevant:
       {
         result = true;
         break;
@@ -534,7 +535,7 @@ bool RssSituationExtraction::extractSituations(world::WorldModel const &worldMod
         = extractSituationInputRangeChecked(worldModel.timeIndex, worldModel.egoVehicleRssDynamics, scene, situation);
 
       // if the situation is relevant, add it to situationSnapshot
-      if (scene.situationType != ad_rss::situation::SituationType::NotRelevant)
+      if (scene.situationType != ad::rss::situation::SituationType::NotRelevant)
       {
         if (extractResult)
         {
@@ -542,7 +543,7 @@ bool RssSituationExtraction::extractSituations(world::WorldModel const &worldMod
           // ensure the situationSnapshot is unique while containing the worst-case situation
           auto findResult = std::find_if(situationSnapshot.situations.begin(),
                                          situationSnapshot.situations.end(),
-                                         [&situation](ad_rss::situation::Situation const &checkSituation) {
+                                         [&situation](ad::rss::situation::Situation const &checkSituation) {
                                            return checkSituation.situationId == situation.situationId;
                                          });
           if (findResult == situationSnapshot.situations.end())
@@ -569,4 +570,5 @@ bool RssSituationExtraction::extractSituations(world::WorldModel const &worldMod
 }
 
 } // namespace core
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

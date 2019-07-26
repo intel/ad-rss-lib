@@ -31,18 +31,19 @@
 
 #include "RssCheckTestBaseT.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace core {
 
 template <class TESTBASE> class RssCheckSameDirectionOtherLeadingTestBase : public TESTBASE
 {
 protected:
-  ::ad_rss::world::Object &getEgoObject() override
+  world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment1;
   }
 
-  ::ad_rss::world::Object &getSceneObject(uint32_t) override
+  world::Object &getSceneObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment7;
   }
@@ -56,12 +57,12 @@ protected:
 template <class TESTBASE> class RssCheckSameDirectionEgoLeadingTestBase : public TESTBASE
 {
 protected:
-  ::ad_rss::world::Object &getEgoObject() override
+  world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment7;
   }
 
-  ::ad_rss::world::Object &getSceneObject(uint32_t) override
+  world::Object &getSceneObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment1;
   }
@@ -98,8 +99,8 @@ TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities_NoLateralConfl
 
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;
 
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
+  world::AccelerationRestriction accelerationRestriction;
+  core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -123,8 +124,8 @@ TEST_F(RssCheckSameDirectionOtherLeadingTest, _DifferentVelocities_NoLateralConf
   worldModel.scenes[1].object.occupiedRegions[0].segmentId = 8;
   worldModel.scenes[1].object.objectId = 2;
 
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
+  world::AccelerationRestriction accelerationRestriction;
+  core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -141,8 +142,8 @@ using RssCheckSameDirectionEgoLeadingTest = RssCheckSameDirectionEgoLeadingTestB
 
 TEST_F(RssCheckSameDirectionEgoLeadingTest, DifferentVelocities)
 {
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
+  world::AccelerationRestriction accelerationRestriction;
+  core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -166,8 +167,8 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Front)
   worldModel.scenes[0].object.occupiedRegions[0].lonRange.maximum = ParametricValue(0.45);
   worldModel.scenes[0].object.occupiedRegions[0].lonRange.minimum = ParametricValue(0.35);
 
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
+  world::AccelerationRestriction accelerationRestriction;
+  core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -191,8 +192,8 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Right)
   worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = ParametricValue(0.45);
   worldModel.scenes[0].object.occupiedRegions[0].latRange.minimum = ParametricValue(0.35);
 
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
+  world::AccelerationRestriction accelerationRestriction;
+  core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -216,8 +217,8 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Left)
   worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = ParametricValue(0.45);
   worldModel.scenes[0].object.occupiedRegions[0].latRange.minimum = ParametricValue(0.35);
 
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
+  world::AccelerationRestriction accelerationRestriction;
+  core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
@@ -244,7 +245,7 @@ protected:
     worldModel.scenes[1].egoVehicleRoad.erase(worldModel.scenes[1].egoVehicleRoad.begin());
   }
 
-  ::ad_rss::world::Object &getEgoObject() override
+  world::Object &getEgoObject() override
   {
     TESTBASE::objectOnSegment3.occupiedRegions[0].latRange.minimum = ParametricValue(0.8);
     TESTBASE::objectOnSegment3.occupiedRegions[0].latRange.maximum = ParametricValue(0.9);
@@ -256,7 +257,7 @@ protected:
     return 2u;
   }
 
-  ::ad_rss::world::Object &getSceneObject(uint32_t index) override
+  world::Object &getSceneObject(uint32_t index) override
   {
     if (index == 0u)
     {
@@ -312,4 +313,5 @@ INSTANTIATE_TEST_CASE_P(Range,
                         ::testing::Range(uint64_t(0u), uint64_t(50u)));
 
 } // namespace core
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

@@ -30,10 +30,10 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "ad_rss/core/RssSituationExtraction.hpp"
+#include "ad/rss/core/RssSituationExtraction.hpp"
 
-namespace ad_rss {
-
+namespace ad {
+namespace rss {
 namespace core {
 
 using physics::MetricRange;
@@ -219,4 +219,5 @@ TEST(CalcluateRelativePositionTest, full_overlap_mixed)
 }
 
 } // namespace core
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

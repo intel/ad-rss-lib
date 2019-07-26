@@ -30,9 +30,10 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "ad_rss/situation/VehicleStateValidInputRange.hpp"
+#include "ad/rss/situation/VehicleStateValidInputRange.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace situation {
 
 TEST(RssFormulaTestsCheckVehicleState, check_standard_state)
@@ -50,4 +51,5 @@ TEST(RssFormulaTestsCheckVehicleState, check_standard_state_100)
 }
 
 } // namespace situation
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

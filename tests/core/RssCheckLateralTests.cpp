@@ -31,17 +31,18 @@
 
 #include "RssCheckTestBaseT.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace core {
 
 template <class TESTBASE> class RssCheckLateralEgoRightTestBase : public TESTBASE
 {
-  ::ad_rss::world::Object &getEgoObject() override
+  world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment5;
   }
 
-  ::ad_rss::world::Object &getSceneObject(uint32_t) override
+  world::Object &getSceneObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment3;
   }
@@ -58,8 +59,8 @@ INSTANTIATE_TEST_CASE_P(Range, RssCheckLateralEgoRightOutOfMemoryTest, ::testing
 
 TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Towards_Each_Other)
 {
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
+  world::AccelerationRestriction accelerationRestriction;
+  core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i <= 90; i++)
   {
@@ -98,8 +99,8 @@ TEST_F(RssCheckLateralEgoRightTest, No_Lateral_Velocity)
   {
     scene.egoVehicle.velocity.speedLat = kmhToMeterPerSec(0);
   }
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
+  world::AccelerationRestriction accelerationRestriction;
+  core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i <= 90; i++)
   {
@@ -121,8 +122,8 @@ TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Aways_From_Each_Other)
   worldModel.scenes[0].egoVehicle.velocity.speedLat = kmhToMeterPerSec(5);
   worldModel.scenes[0].object.velocity.speedLat = kmhToMeterPerSec(-5);
 
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
+  world::AccelerationRestriction accelerationRestriction;
+  core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i <= 90; i++)
   {
@@ -138,12 +139,12 @@ TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Aways_From_Each_Other)
 
 template <class TESTBASE> class RssCheckLateralEgoLeftTestBase : public TESTBASE
 {
-  ::ad_rss::world::Object &getEgoObject() override
+  world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment3;
   }
 
-  ::ad_rss::world::Object &getSceneObject(uint32_t) override
+  world::Object &getSceneObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment5;
   }
@@ -160,8 +161,8 @@ INSTANTIATE_TEST_CASE_P(Range, RssCheckLateralEgoLeftOutOfMemoryTest, ::testing:
 
 TEST_F(RssCheckLateralEgoLeftTest, Lateral_Velocity_Towards_Each_Other)
 {
-  ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-  ::ad_rss::core::RssCheck rssCheck;
+  world::AccelerationRestriction accelerationRestriction;
+  core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i <= 90; i++)
   {
@@ -206,7 +207,7 @@ protected:
     worldModel.scenes[1].egoVehicleRoad.erase(worldModel.scenes[1].egoVehicleRoad.begin() + 2);
   }
 
-  ::ad_rss::world::Object &getEgoObject() override
+  world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment4;
   }
@@ -216,7 +217,7 @@ protected:
     return 2u;
   }
 
-  ::ad_rss::world::Object &getSceneObject(uint32_t index) override
+  world::Object &getSceneObject(uint32_t index) override
   {
     if (index == 0u)
     {
@@ -240,8 +241,8 @@ protected:
       {
         worldModel.scenes[1].object.occupiedRegions[0].latRange.minimum -= ParametricValue(0.08);
       }
-      ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-      ::ad_rss::core::RssCheck rssCheck;
+      world::AccelerationRestriction accelerationRestriction;
+      core::RssCheck rssCheck;
       bool safeLeftStateExists = false;
       bool safeRightStateExists = false;
       for (uint32_t i = 0; i <= 9; i++)
@@ -359,4 +360,5 @@ TEST_F(RssCheckLateralEgoInTheMiddleTest, Lateral_Velocity_To_The_Right)
 }
 
 } // namespace core
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

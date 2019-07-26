@@ -39,34 +39,34 @@
 
 #include <limits>
 
-#include "ad_rss/physics/ParametricValueValidInputRange.hpp"
+#include "ad/physics/ParametricValueValidInputRange.hpp"
 
 TEST(ParametricValueValidInputRangeTests, testValidInputRangeUninitialized)
 {
-  ::ad_rss::physics::ParametricValue value;
+  ::ad::physics::ParametricValue value;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
 TEST(ParametricValueValidInputRangeTests, testValidInputRangeInputMinOk)
 {
-  ::ad_rss::physics::ParametricValue value(0.);
+  ::ad::physics::ParametricValue value(0.);
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
 TEST(ParametricValueValidInputRangeTests, testValidInputRangeInputMaxOk)
 {
-  ::ad_rss::physics::ParametricValue value(1.);
+  ::ad::physics::ParametricValue value(1.);
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
 TEST(ParametricValueValidInputRangeTests, testValidInputRangeBelowInputMin)
 {
-  ::ad_rss::physics::ParametricValue value(0. - ::ad_rss::physics::ParametricValue::cPrecisionValue);
+  ::ad::physics::ParametricValue value(0. - ::ad::physics::ParametricValue::cPrecisionValue);
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
 TEST(ParametricValueValidInputRangeTests, testValidInputRangeExceedsInputMax)
 {
-  ::ad_rss::physics::ParametricValue value(1. * 1.1);
+  ::ad::physics::ParametricValue value(1. * 1.1);
   ASSERT_FALSE(withinValidInputRange(value));
 }

@@ -1,0 +1,158 @@
+/*
+ * ----------------- BEGIN LICENSE BLOCK ---------------------------------
+ *
+ * Copyright (c) 2018-2019 Intel Corporation
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of the copyright holder nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ *    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ *    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ *    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ *    IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ *    INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ *    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+ *    OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ *    WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ *    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ *    POSSIBILITY OF SUCH DAMAGE.
+ *
+ * ----------------- END LICENSE BLOCK -----------------------------------
+ */
+
+/**
+ * Generated file
+ * @file
+ *
+ */
+
+#pragma once
+
+#include <limits>
+#include <memory>
+#include "ad/rss/world/ObjectId.hpp"
+#include "ad/rss/world/ObjectType.hpp"
+#include "ad/rss/world/OccupiedRegionVector.hpp"
+#include "ad/rss/world/Velocity.hpp"
+/*!
+ * @brief namespace ad
+ */
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace world
+ */
+namespace world {
+
+/*!
+ * \brief DataType Object
+ *
+ * An object is described by several aspects: the unique id of an object, the type of the object, the lane regions the
+ * object occupies, the objects velocity within its lane.
+ */
+struct Object
+{
+  using Ptr = std::shared_ptr<Object>;
+  using ConstPtr = std::shared_ptr<Object const>;
+
+  /*!
+   * \brief standard constructor
+   */
+  Object() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~Object() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  Object(const Object &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  Object(Object &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other Object
+   *
+   * \returns Reference to this Object.
+   */
+  Object &operator=(const Object &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other Object
+   *
+   * \returns Reference to this Object.
+   */
+  Object &operator=(Object &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other Object
+   *
+   * \returns \c true if both Object are equal
+   */
+  bool operator==(const Object &other) const
+  {
+    return (objectId == other.objectId) && (objectType == other.objectType)
+      && (occupiedRegions == other.occupiedRegions) && (velocity == other.velocity);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other Object.
+   *
+   * \returns \c true if both Object are different
+   */
+  bool operator!=(const Object &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
+   * Defines the unique id of an object. This id has to be constant over time for the same object.
+   */
+  ::ad::rss::world::ObjectId objectId;
+
+  /*!
+   * Defines the type of the object.
+   */
+  ::ad::rss::world::ObjectType objectType{::ad::rss::world::ObjectType::Invalid};
+
+  /*!
+   * Defines the lane regions the object occupies.
+   */
+  ::ad::rss::world::OccupiedRegionVector occupiedRegions;
+
+  /*!
+   * Defines the objects velocity in respect to its current major lane.
+   */
+  ::ad::rss::world::Velocity velocity;
+};
+
+} // namespace world
+} // namespace rss
+} // namespace ad

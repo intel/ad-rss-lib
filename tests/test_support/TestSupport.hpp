@@ -34,17 +34,18 @@
 #include <gtest/gtest.h>
 #include <limits>
 #include "RssTestParameters.hpp"
-#include "ad_rss/physics/Operations.hpp"
-#include "ad_rss/situation/RelativePosition.hpp"
-#include "ad_rss/situation/Situation.hpp"
-#include "ad_rss/situation/VehicleState.hpp"
-#include "ad_rss/state/ProperResponse.hpp"
-#include "ad_rss/state/RssState.hpp"
-#include "ad_rss/world/Object.hpp"
-#include "ad_rss/world/RoadSegment.hpp"
-#include "physics/Math.hpp"
+#include "ad/physics/Operation.hpp"
+#include "ad/rss/situation/RelativePosition.hpp"
+#include "ad/rss/situation/Situation.hpp"
+#include "ad/rss/situation/VehicleState.hpp"
+#include "ad/rss/state/ProperResponse.hpp"
+#include "ad/rss/state/RssState.hpp"
+#include "ad/rss/world/Object.hpp"
+#include "ad/rss/world/RoadSegment.hpp"
+#include "situation/Math.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 
 // make the code more readable
 using physics::Acceleration;
@@ -354,4 +355,5 @@ inline world::RoadSegment longitudinalDifferenceRoadSegment()
   return roadSegment;
 }
 
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

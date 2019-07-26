@@ -36,14 +36,18 @@
 
 #include <map>
 #include <set>
-#include "ad_rss/physics/TimeIndex.hpp"
-#include "ad_rss/situation/SituationId.hpp"
-#include "ad_rss/world/Scene.hpp"
+#include "ad/rss/situation/SituationId.hpp"
+#include "ad/rss/world/Scene.hpp"
+#include "ad/rss/world/TimeIndex.hpp"
 
 /*!
- * @brief namespace ad_rss
+ * @brief namespace ad
  */
-namespace ad_rss {
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
 /*!
  * @brief namespace world
  */
@@ -75,18 +79,18 @@ public:
    *
    * @return the situation id assigned to the given scene
    */
-  situation::SituationId getSituationId(physics::TimeIndex const &timeIndex, Scene const &scene);
+  situation::SituationId getSituationId(TimeIndex const &timeIndex, Scene const &scene);
 
 private:
   struct SituationData
   {
-    SituationData(physics::TimeIndex timeIndex, situation::SituationId const situationId, Scene const &scene);
+    SituationData(TimeIndex timeIndex, situation::SituationId const situationId, Scene const &scene);
     /*!
      * @brief update the current situation data in case the scene matches the situation data
      *
      * @return \c true if the update succeeded, \c false if the scene doesn't match the situation
      */
-    bool updateSituation(physics::TimeIndex timeIndex, Scene const &scene);
+    bool updateSituation(TimeIndex timeIndex, Scene const &scene);
 
     typedef std::set<LaneSegmentId> IntersectionArea;
 
@@ -105,7 +109,7 @@ private:
      */
     IntersectionArea getIntersectionArea(RoadArea roadArea);
 
-    physics::TimeIndex mTimeIndex;
+    TimeIndex mTimeIndex;
     situation::SituationType mSituationType;
     situation::SituationId mSituationId;
     IntersectionArea mEgoVehicleIntersectionArea;
@@ -117,7 +121,7 @@ private:
    *
    * @param[in] timeIndex the current time index
    */
-  void updateTime(physics::TimeIndex const &timeIndex);
+  void updateTime(TimeIndex const &timeIndex);
 
   /*!
    * @brief get the next free situation id
@@ -126,11 +130,12 @@ private:
 
   typedef std::multimap<ObjectId, SituationData> SituationDataMap;
 
-  physics::TimeIndex mCurrentTime{0};
-  physics::TimeIndex mLastTime{0};
+  TimeIndex mCurrentTime{0};
+  TimeIndex mLastTime{0};
   situation::SituationId mNextSituationId{0};
   SituationDataMap mSituationData;
 };
 
 } // namespace world
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

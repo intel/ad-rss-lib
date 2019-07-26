@@ -37,7 +37,7 @@
 
 #include <gtest/gtest.h>
 #include <limits>
-#include "ad_rss/physics/ParametricRange.hpp"
+#include "ad/physics/ParametricRange.hpp"
 
 class ParametricRangeTests : public testing::Test
 {
@@ -45,49 +45,49 @@ protected:
   virtual void SetUp() override
   {
     // valid initialization
-    ::ad_rss::physics::ParametricRange value;
-    ::ad_rss::physics::ParametricValue valueMinimum(0.);
+    ::ad::physics::ParametricRange value;
+    ::ad::physics::ParametricValue valueMinimum(0.);
     value.minimum = valueMinimum;
-    ::ad_rss::physics::ParametricValue valueMaximum(0.);
+    ::ad::physics::ParametricValue valueMaximum(0.);
     value.maximum = valueMaximum;
     value.maximum = value.minimum;
     value.minimum = value.maximum;
     mValue = value;
   }
 
-  ::ad_rss::physics::ParametricRange mValue;
+  ::ad::physics::ParametricRange mValue;
 };
 
 TEST_F(ParametricRangeTests, copyConstruction)
 {
-  ::ad_rss::physics::ParametricRange value(mValue);
+  ::ad::physics::ParametricRange value(mValue);
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(ParametricRangeTests, moveConstruction)
 {
-  ::ad_rss::physics::ParametricRange value(std::move(::ad_rss::physics::ParametricRange(mValue)));
+  ::ad::physics::ParametricRange value(std::move(::ad::physics::ParametricRange(mValue)));
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(ParametricRangeTests, copyAssignment)
 {
-  ::ad_rss::physics::ParametricRange value;
+  ::ad::physics::ParametricRange value;
   value = mValue;
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(ParametricRangeTests, moveAssignment)
 {
-  ::ad_rss::physics::ParametricRange value;
-  value = std::move(::ad_rss::physics::ParametricRange(mValue));
+  ::ad::physics::ParametricRange value;
+  value = std::move(::ad::physics::ParametricRange(mValue));
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(ParametricRangeTests, comparisonOperatorEqual)
 {
-  ::ad_rss::physics::ParametricRange valueA = mValue;
-  ::ad_rss::physics::ParametricRange valueB = mValue;
+  ::ad::physics::ParametricRange valueA = mValue;
+  ::ad::physics::ParametricRange valueB = mValue;
 
   EXPECT_TRUE(valueA == valueB);
   EXPECT_FALSE(valueA != valueB);
@@ -95,10 +95,10 @@ TEST_F(ParametricRangeTests, comparisonOperatorEqual)
 
 TEST_F(ParametricRangeTests, comparisonOperatorMinimumDiffers)
 {
-  ::ad_rss::physics::ParametricRange valueA = mValue;
-  ::ad_rss::physics::ParametricValue minimum(1.);
+  ::ad::physics::ParametricRange valueA = mValue;
+  ::ad::physics::ParametricValue minimum(1.);
   valueA.minimum = minimum;
-  ::ad_rss::physics::ParametricRange valueB = mValue;
+  ::ad::physics::ParametricRange valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
@@ -106,10 +106,10 @@ TEST_F(ParametricRangeTests, comparisonOperatorMinimumDiffers)
 
 TEST_F(ParametricRangeTests, comparisonOperatorMaximumDiffers)
 {
-  ::ad_rss::physics::ParametricRange valueA = mValue;
-  ::ad_rss::physics::ParametricValue maximum(1.);
+  ::ad::physics::ParametricRange valueA = mValue;
+  ::ad::physics::ParametricValue maximum(1.);
   valueA.maximum = maximum;
-  ::ad_rss::physics::ParametricRange valueB = mValue;
+  ::ad::physics::ParametricRange valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);

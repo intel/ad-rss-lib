@@ -30,9 +30,10 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "RssCheckTestBaseT.hpp"
-#include "ad_rss/core/RssSituationExtraction.hpp"
+#include "ad/rss/core/RssSituationExtraction.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace core {
 
 class RssSituationExtractionInputRangeTests : public RssCheckTestBase
@@ -92,4 +93,5 @@ TEST_F(RssSituationExtractionInputRangeTests, situationTypeInvalid)
 }
 
 } // namespace core
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

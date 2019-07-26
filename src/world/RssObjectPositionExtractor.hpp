@@ -35,13 +35,17 @@
 #pragma once
 
 #include <limits>
-#include "ad_rss/world/LaneSegment.hpp"
-#include "ad_rss/world/Object.hpp"
+#include "ad/rss/world/LaneSegment.hpp"
+#include "ad/rss/world/Object.hpp"
 
 /*!
- * @brief namespace ad_rss
+ * @brief namespace ad
  */
-namespace ad_rss {
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
 /*!
  * @brief namespace world
  */
@@ -153,4 +157,5 @@ private:
 };
 
 } // namespace world
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

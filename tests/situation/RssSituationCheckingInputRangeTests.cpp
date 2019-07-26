@@ -30,10 +30,11 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "ad_rss/core/RssSituationChecking.hpp"
+#include "ad/rss/core/RssSituationChecking.hpp"
 
-namespace ad_rss {
-namespace core {
+namespace ad {
+namespace rss {
+namespace situation {
 
 class RssSituationCheckingInputRangeTests : public testing::Test
 {
@@ -46,10 +47,10 @@ protected:
     situation.egoVehicleState = leadingVehicle;
     situation.otherVehicleState = followingVehicle;
     situation.relativePosition.longitudinalDistance = Distance(95.);
-    situation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::InFront;
+    situation.relativePosition.longitudinalPosition = LongitudinalRelativePosition::InFront;
     situation.relativePosition.lateralDistance = Distance(0.);
-    situation.relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
-    situation.situationType = situation::SituationType::SameDirection;
+    situation.relativePosition.lateralPosition = LateralRelativePosition::Overlap;
+    situation.situationType = SituationType::SameDirection;
     situation.objectId = 1u;
   }
 
@@ -57,10 +58,10 @@ protected:
   {
     EXPECT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
   }
-  RssSituationChecking situationChecking;
-  situation::VehicleState leadingVehicle;
-  situation::VehicleState followingVehicle;
-  situation::Situation situation;
+  core::RssSituationChecking situationChecking;
+  VehicleState leadingVehicle;
+  VehicleState followingVehicle;
+  Situation situation;
   state::RssState rssState;
 };
 
@@ -330,7 +331,7 @@ TEST_F(RssSituationCheckingInputRangeTests, situationSnapshotSizeRange)
 {
   for (size_t situationCount = 0u; situationCount < 1011u; situationCount += 10u)
   {
-    situation::SituationSnapshot situationSnapshot;
+    SituationSnapshot situationSnapshot;
     state::RssStateSnapshot rssStateSnapshot;
     situationSnapshot.situations.resize(situationCount, situation);
     situationSnapshot.timeIndex = situationCount + 1u;
@@ -353,7 +354,7 @@ TEST_F(RssSituationCheckingInputRangeTests, situationSnapshotSizeRange)
 
 TEST_F(RssSituationCheckingInputRangeTests, invalid_situation_type)
 {
-  situation.situationType = static_cast<situation::SituationType>(-1);
+  situation.situationType = static_cast<SituationType>(-1);
   performTestRun();
 }
 
@@ -363,5 +364,6 @@ TEST_F(RssSituationCheckingInputRangeTests, nan_values)
   performTestRun();
 }
 
-} // namespace core
-} // namespace ad_rss
+} // namespace situation
+} // namespace rss
+} // namespace ad

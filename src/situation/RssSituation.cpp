@@ -29,10 +29,11 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "situation/RssSituation.hpp"
-#include "situation/RssFormulas.hpp"
+#include "RssSituation.hpp"
+#include "RssFormulas.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace situation {
 
 bool calculateRssStateNonIntersectionSameDirection(Situation const &situation, state::RssState &rssState)
@@ -221,4 +222,5 @@ bool calculateLateralRssState(Situation const &situation,
 }
 
 } // namespace situation
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

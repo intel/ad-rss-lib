@@ -29,13 +29,14 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "world/RssSituationIdProvider.hpp"
+#include "RssSituationIdProvider.hpp"
 #include <algorithm>
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace world {
 
-RssSituationIdProvider::SituationData::SituationData(physics::TimeIndex timeIndex,
+RssSituationIdProvider::SituationData::SituationData(TimeIndex timeIndex,
                                                      situation::SituationId const situationId,
                                                      Scene const &scene)
   : mTimeIndex(timeIndex)
@@ -86,7 +87,7 @@ bool RssSituationIdProvider::SituationData::isSmallerOrEqual(
   return differenceSet.size() == expectedDifference;
 }
 
-bool RssSituationIdProvider::SituationData::updateSituation(physics::TimeIndex const timeIndex, Scene const &scene)
+bool RssSituationIdProvider::SituationData::updateSituation(TimeIndex const timeIndex, Scene const &scene)
 {
   if (scene.situationType != mSituationType)
   {
@@ -123,7 +124,7 @@ bool RssSituationIdProvider::SituationData::updateSituation(physics::TimeIndex c
   return true;
 }
 
-void RssSituationIdProvider::updateTime(physics::TimeIndex const &timeIndex)
+void RssSituationIdProvider::updateTime(TimeIndex const &timeIndex)
 {
   if (timeIndex != mCurrentTime)
   {
@@ -145,7 +146,7 @@ void RssSituationIdProvider::updateTime(physics::TimeIndex const &timeIndex)
   }
 }
 
-situation::SituationId RssSituationIdProvider::getSituationId(physics::TimeIndex const &timeIndex, Scene const &scene)
+situation::SituationId RssSituationIdProvider::getSituationId(TimeIndex const &timeIndex, Scene const &scene)
 {
   updateTime(timeIndex);
 
@@ -186,4 +187,5 @@ situation::SituationId RssSituationIdProvider::getFreeSituationId()
 }
 
 } // namespace world
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

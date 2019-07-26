@@ -29,14 +29,15 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "ad_rss/core/RssSituationChecking.hpp"
+#include "ad/rss/core/RssSituationChecking.hpp"
 #include <algorithm>
 #include <memory>
-#include "ad_rss/situation/SituationSnapshotValidInputRange.hpp"
-#include "situation/RssIntersectionChecker.hpp"
-#include "situation/RssSituation.hpp"
+#include "../situation/RssIntersectionChecker.hpp"
+#include "../situation/RssSituation.hpp"
+#include "ad/rss/situation/SituationSnapshotValidInputRange.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace core {
 
 enum class IsSafe
@@ -59,15 +60,15 @@ createRssState(situation::SituationId const &situationId, world::ObjectId const 
   resultRssState.objectId = objectId;
   resultRssState.lateralStateLeft.isSafe = isSafe;
   resultRssState.lateralStateLeft.response
-    = isSafe ? (::ad_rss::state::LateralResponse::None) : (::ad_rss::state::LateralResponse::BrakeMin);
+    = isSafe ? (::ad::rss::state::LateralResponse::None) : (::ad::rss::state::LateralResponse::BrakeMin);
   resultRssState.lateralStateLeft.rssStateInformation = emptyRssStateInfo;
   resultRssState.lateralStateRight.isSafe = isSafe;
   resultRssState.lateralStateRight.response
-    = isSafe ? (::ad_rss::state::LateralResponse::None) : (::ad_rss::state::LateralResponse::BrakeMin);
+    = isSafe ? (::ad::rss::state::LateralResponse::None) : (::ad::rss::state::LateralResponse::BrakeMin);
   resultRssState.lateralStateRight.rssStateInformation = emptyRssStateInfo;
   resultRssState.longitudinalState.isSafe = isSafe;
   resultRssState.longitudinalState.response
-    = isSafe ? (::ad_rss::state::LongitudinalResponse::None) : (::ad_rss::state::LongitudinalResponse::BrakeMin);
+    = isSafe ? (::ad::rss::state::LongitudinalResponse::None) : (::ad::rss::state::LongitudinalResponse::BrakeMin);
   resultRssState.longitudinalState.rssStateInformation = emptyRssStateInfo;
 
   return resultRssState;
@@ -177,14 +178,14 @@ bool RssSituationChecking::checkSituations(situation::SituationSnapshot const &s
   return result;
 }
 
-bool RssSituationChecking::checkTimeIncreasingConsistently(physics::TimeIndex const &nextTimeIndex)
+bool RssSituationChecking::checkTimeIncreasingConsistently(world::TimeIndex const &nextTimeIndex)
 {
   bool timeIsIncreasing = false;
   if (mCurrentTimeIndex != nextTimeIndex)
   {
     // check for overflow
-    physics::TimeIndex const deltaTimeIndex = nextTimeIndex - mCurrentTimeIndex;
-    if (deltaTimeIndex < (std::numeric_limits<physics::TimeIndex>::max() / 2))
+    world::TimeIndex const deltaTimeIndex = nextTimeIndex - mCurrentTimeIndex;
+    if (deltaTimeIndex < (std::numeric_limits<world::TimeIndex>::max() / 2))
     {
       timeIsIncreasing = true;
     }
@@ -194,4 +195,5 @@ bool RssSituationChecking::checkTimeIncreasingConsistently(physics::TimeIndex co
 }
 
 } // namespace core
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

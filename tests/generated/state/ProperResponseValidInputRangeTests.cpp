@@ -39,163 +39,177 @@
 
 #include <limits>
 
-#include "ad_rss/state/ProperResponseValidInputRange.hpp"
+#include "ad/rss/state/ProperResponseValidInputRange.hpp"
 
 TEST(ProperResponseValidInputRangeTests, testValidInputRange)
 {
-  ::ad_rss::state::ProperResponse value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
+  ::ad::rss::state::ProperResponse value;
+  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
+  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
   value.timeIndex = valueTimeIndex;
   bool valueIsSafe{true};
   value.isSafe = valueIsSafe;
-  ::ad_rss::world::ObjectIdVector valueDangerousObjects;
+  ::ad::rss::world::ObjectIdVector valueDangerousObjects;
+  ::ad::rss::world::ObjectId valueDangerousObjectsElement(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  valueDangerousObjects.resize(1, valueDangerousObjectsElement);
   value.dangerousObjects = valueDangerousObjects;
-  ::ad_rss::state::LongitudinalResponse valueLongitudinalResponse(::ad_rss::state::LongitudinalResponse::None);
+  ::ad::rss::state::LongitudinalResponse valueLongitudinalResponse(::ad::rss::state::LongitudinalResponse::None);
   value.longitudinalResponse = valueLongitudinalResponse;
-  ::ad_rss::state::LateralResponse valueLateralResponseRight(::ad_rss::state::LateralResponse::None);
+  ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
-  ::ad_rss::state::LateralResponse valueLateralResponseLeft(::ad_rss::state::LateralResponse::None);
+  ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
   value.lateralResponseLeft = valueLateralResponseLeft;
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
 TEST(ProperResponseValidInputRangeTests, testValidInputRangeLongitudinalResponseTooSmall)
 {
-  ::ad_rss::state::ProperResponse value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
+  ::ad::rss::state::ProperResponse value;
+  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
+  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
   value.timeIndex = valueTimeIndex;
   bool valueIsSafe{true};
   value.isSafe = valueIsSafe;
-  ::ad_rss::world::ObjectIdVector valueDangerousObjects;
+  ::ad::rss::world::ObjectIdVector valueDangerousObjects;
+  ::ad::rss::world::ObjectId valueDangerousObjectsElement(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  valueDangerousObjects.resize(1, valueDangerousObjectsElement);
   value.dangerousObjects = valueDangerousObjects;
-  ::ad_rss::state::LongitudinalResponse valueLongitudinalResponse(::ad_rss::state::LongitudinalResponse::None);
+  ::ad::rss::state::LongitudinalResponse valueLongitudinalResponse(::ad::rss::state::LongitudinalResponse::None);
   value.longitudinalResponse = valueLongitudinalResponse;
-  ::ad_rss::state::LateralResponse valueLateralResponseRight(::ad_rss::state::LateralResponse::None);
+  ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
-  ::ad_rss::state::LateralResponse valueLateralResponseLeft(::ad_rss::state::LateralResponse::None);
+  ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
   value.lateralResponseLeft = valueLateralResponseLeft;
 
   // override member with invalid value
-  ::ad_rss::state::LongitudinalResponse invalidInitializedMember(
-    static_cast<::ad_rss::state::LongitudinalResponse>(-1));
+  ::ad::rss::state::LongitudinalResponse invalidInitializedMember(
+    static_cast<::ad::rss::state::LongitudinalResponse>(-1));
   value.longitudinalResponse = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
 TEST(ProperResponseValidInputRangeTests, testValidInputRangeLongitudinalResponseTooBig)
 {
-  ::ad_rss::state::ProperResponse value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
+  ::ad::rss::state::ProperResponse value;
+  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
+  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
   value.timeIndex = valueTimeIndex;
   bool valueIsSafe{true};
   value.isSafe = valueIsSafe;
-  ::ad_rss::world::ObjectIdVector valueDangerousObjects;
+  ::ad::rss::world::ObjectIdVector valueDangerousObjects;
+  ::ad::rss::world::ObjectId valueDangerousObjectsElement(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  valueDangerousObjects.resize(1, valueDangerousObjectsElement);
   value.dangerousObjects = valueDangerousObjects;
-  ::ad_rss::state::LongitudinalResponse valueLongitudinalResponse(::ad_rss::state::LongitudinalResponse::None);
+  ::ad::rss::state::LongitudinalResponse valueLongitudinalResponse(::ad::rss::state::LongitudinalResponse::None);
   value.longitudinalResponse = valueLongitudinalResponse;
-  ::ad_rss::state::LateralResponse valueLateralResponseRight(::ad_rss::state::LateralResponse::None);
+  ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
-  ::ad_rss::state::LateralResponse valueLateralResponseLeft(::ad_rss::state::LateralResponse::None);
+  ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
   value.lateralResponseLeft = valueLateralResponseLeft;
 
   // override member with invalid value
-  ::ad_rss::state::LongitudinalResponse invalidInitializedMember(
-    static_cast<::ad_rss::state::LongitudinalResponse>(-1));
+  ::ad::rss::state::LongitudinalResponse invalidInitializedMember(
+    static_cast<::ad::rss::state::LongitudinalResponse>(-1));
   value.longitudinalResponse = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
 TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseRightTooSmall)
 {
-  ::ad_rss::state::ProperResponse value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
+  ::ad::rss::state::ProperResponse value;
+  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
+  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
   value.timeIndex = valueTimeIndex;
   bool valueIsSafe{true};
   value.isSafe = valueIsSafe;
-  ::ad_rss::world::ObjectIdVector valueDangerousObjects;
+  ::ad::rss::world::ObjectIdVector valueDangerousObjects;
+  ::ad::rss::world::ObjectId valueDangerousObjectsElement(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  valueDangerousObjects.resize(1, valueDangerousObjectsElement);
   value.dangerousObjects = valueDangerousObjects;
-  ::ad_rss::state::LongitudinalResponse valueLongitudinalResponse(::ad_rss::state::LongitudinalResponse::None);
+  ::ad::rss::state::LongitudinalResponse valueLongitudinalResponse(::ad::rss::state::LongitudinalResponse::None);
   value.longitudinalResponse = valueLongitudinalResponse;
-  ::ad_rss::state::LateralResponse valueLateralResponseRight(::ad_rss::state::LateralResponse::None);
+  ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
-  ::ad_rss::state::LateralResponse valueLateralResponseLeft(::ad_rss::state::LateralResponse::None);
+  ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
   value.lateralResponseLeft = valueLateralResponseLeft;
 
   // override member with invalid value
-  ::ad_rss::state::LateralResponse invalidInitializedMember(static_cast<::ad_rss::state::LateralResponse>(-1));
+  ::ad::rss::state::LateralResponse invalidInitializedMember(static_cast<::ad::rss::state::LateralResponse>(-1));
   value.lateralResponseRight = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
 TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseRightTooBig)
 {
-  ::ad_rss::state::ProperResponse value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
+  ::ad::rss::state::ProperResponse value;
+  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
+  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
   value.timeIndex = valueTimeIndex;
   bool valueIsSafe{true};
   value.isSafe = valueIsSafe;
-  ::ad_rss::world::ObjectIdVector valueDangerousObjects;
+  ::ad::rss::world::ObjectIdVector valueDangerousObjects;
+  ::ad::rss::world::ObjectId valueDangerousObjectsElement(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  valueDangerousObjects.resize(1, valueDangerousObjectsElement);
   value.dangerousObjects = valueDangerousObjects;
-  ::ad_rss::state::LongitudinalResponse valueLongitudinalResponse(::ad_rss::state::LongitudinalResponse::None);
+  ::ad::rss::state::LongitudinalResponse valueLongitudinalResponse(::ad::rss::state::LongitudinalResponse::None);
   value.longitudinalResponse = valueLongitudinalResponse;
-  ::ad_rss::state::LateralResponse valueLateralResponseRight(::ad_rss::state::LateralResponse::None);
+  ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
-  ::ad_rss::state::LateralResponse valueLateralResponseLeft(::ad_rss::state::LateralResponse::None);
+  ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
   value.lateralResponseLeft = valueLateralResponseLeft;
 
   // override member with invalid value
-  ::ad_rss::state::LateralResponse invalidInitializedMember(static_cast<::ad_rss::state::LateralResponse>(-1));
+  ::ad::rss::state::LateralResponse invalidInitializedMember(static_cast<::ad::rss::state::LateralResponse>(-1));
   value.lateralResponseRight = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
 TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseLeftTooSmall)
 {
-  ::ad_rss::state::ProperResponse value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
+  ::ad::rss::state::ProperResponse value;
+  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
+  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
   value.timeIndex = valueTimeIndex;
   bool valueIsSafe{true};
   value.isSafe = valueIsSafe;
-  ::ad_rss::world::ObjectIdVector valueDangerousObjects;
+  ::ad::rss::world::ObjectIdVector valueDangerousObjects;
+  ::ad::rss::world::ObjectId valueDangerousObjectsElement(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  valueDangerousObjects.resize(1, valueDangerousObjectsElement);
   value.dangerousObjects = valueDangerousObjects;
-  ::ad_rss::state::LongitudinalResponse valueLongitudinalResponse(::ad_rss::state::LongitudinalResponse::None);
+  ::ad::rss::state::LongitudinalResponse valueLongitudinalResponse(::ad::rss::state::LongitudinalResponse::None);
   value.longitudinalResponse = valueLongitudinalResponse;
-  ::ad_rss::state::LateralResponse valueLateralResponseRight(::ad_rss::state::LateralResponse::None);
+  ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
-  ::ad_rss::state::LateralResponse valueLateralResponseLeft(::ad_rss::state::LateralResponse::None);
+  ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
   value.lateralResponseLeft = valueLateralResponseLeft;
 
   // override member with invalid value
-  ::ad_rss::state::LateralResponse invalidInitializedMember(static_cast<::ad_rss::state::LateralResponse>(-1));
+  ::ad::rss::state::LateralResponse invalidInitializedMember(static_cast<::ad::rss::state::LateralResponse>(-1));
   value.lateralResponseLeft = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
 TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseLeftTooBig)
 {
-  ::ad_rss::state::ProperResponse value;
-  ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-  valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
+  ::ad::rss::state::ProperResponse value;
+  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
+  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
   value.timeIndex = valueTimeIndex;
   bool valueIsSafe{true};
   value.isSafe = valueIsSafe;
-  ::ad_rss::world::ObjectIdVector valueDangerousObjects;
+  ::ad::rss::world::ObjectIdVector valueDangerousObjects;
+  ::ad::rss::world::ObjectId valueDangerousObjectsElement(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  valueDangerousObjects.resize(1, valueDangerousObjectsElement);
   value.dangerousObjects = valueDangerousObjects;
-  ::ad_rss::state::LongitudinalResponse valueLongitudinalResponse(::ad_rss::state::LongitudinalResponse::None);
+  ::ad::rss::state::LongitudinalResponse valueLongitudinalResponse(::ad::rss::state::LongitudinalResponse::None);
   value.longitudinalResponse = valueLongitudinalResponse;
-  ::ad_rss::state::LateralResponse valueLateralResponseRight(::ad_rss::state::LateralResponse::None);
+  ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
-  ::ad_rss::state::LateralResponse valueLateralResponseLeft(::ad_rss::state::LateralResponse::None);
+  ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
   value.lateralResponseLeft = valueLateralResponseLeft;
 
   // override member with invalid value
-  ::ad_rss::state::LateralResponse invalidInitializedMember(static_cast<::ad_rss::state::LateralResponse>(-1));
+  ::ad::rss::state::LateralResponse invalidInitializedMember(static_cast<::ad::rss::state::LateralResponse>(-1));
   value.lateralResponseLeft = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }

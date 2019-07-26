@@ -32,7 +32,8 @@
 #include "TestSupport.hpp"
 #include "situation/RssFormulas.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace situation {
 
 TEST(RssFormulaTestsInputRangeChecks, checkSafeLongitudinalDistanceSameDirection)
@@ -91,4 +92,5 @@ TEST(RssFormulaTestsInputRangeChecks, checkStopInFrontIntersection)
 }
 
 } // namespace situation
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

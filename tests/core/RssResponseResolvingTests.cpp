@@ -30,9 +30,10 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "ad_rss/core/RssResponseResolving.hpp"
+#include "ad/rss/core/RssResponseResolving.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace core {
 
 using state::LateralResponse;
@@ -87,7 +88,7 @@ protected:
                        LongitudinalResponse lonResponse,
                        LateralResponse latResponseLeft,
                        LateralResponse latResponseRight,
-                       ::ad_rss::world::ObjectIdVector dangerousObjects = ::ad_rss::world::ObjectIdVector())
+                       world::ObjectIdVector dangerousObjects = world::ObjectIdVector())
   {
     EXPECT_EQ(isSafe, resultProperResponse.isSafe);
     EXPECT_EQ(lonResponse, resultProperResponse.longitudinalResponse);
@@ -245,4 +246,5 @@ TEST_F(RssResponseResolvingTests, provideProperResponseDangerousInitialState)
 }
 
 } // namespace core
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

@@ -66,20 +66,20 @@ set(RSS_TEST_SOURCES
   core/RssSituationExtractionIntersectionTests.cpp
   core/RssSituationExtractionOppositeDirectionTests.cpp
   core/RssSituationExtractionSameDirectionTests.cpp
-  core/RssSituationIdProviderTests.cpp
-  physics/MathUnitTestsDistanceOffsetAfterResponseTime.cpp
-  physics/MathUnitTestsInputRangeChecks.cpp
-  physics/MathUnitTestsStoppingDistance.cpp
-  physics/MathUnitTestsTimeToCoverDistance.cpp
-  physics/MathUnitTestsVelocityAfterResponseTime.cpp
-  state/RssStateSafeTests.cpp
+  situation/MathUnitTestsDistanceOffsetAfterResponseTime.cpp
+  situation/MathUnitTestsInputRangeChecks.cpp
+  situation/MathUnitTestsStoppingDistance.cpp
+  situation/MathUnitTestsTimeToCoverDistance.cpp
+  situation/MathUnitTestsVelocityAfterResponseTime.cpp
   situation/RssFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
   situation/RssFormulaTestsCalculateSafeLateralDistance.cpp
   situation/RssFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
   situation/RssFormulaTestsInputRangeChecks.cpp
   situation/VehicleTests.cpp
+  state/RssStateSafeTests.cpp
   test_support/TestSupport.cpp
   test_support/wrap_new.cpp
+  world/RssSituationIdProviderTests.cpp
   ${RSS_TEST_SOURCES_WITH_PRIVATE_ACCESS}
   ${GENERATED_TEST_SOURCES}
 )

@@ -30,9 +30,10 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "ad_rss/core/RssSituationChecking.hpp"
+#include "ad/rss/core/RssSituationChecking.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace situation {
 
 class RssSituationCheckingTestsOppositeDirection : public testing::Test
@@ -51,7 +52,7 @@ protected:
   VehicleState oppositeVehicle;
   Situation situation;
   state::RssState rssState;
-  physics::TimeIndex timeIndex{1u};
+  world::TimeIndex timeIndex{1u};
 };
 
 TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_brake_min_correct)
@@ -245,4 +246,5 @@ TEST_F(RssSituationCheckingTestsOppositeDirection, 50kmh_brake_min_ego_opposite)
 }
 
 } // namespace situation
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

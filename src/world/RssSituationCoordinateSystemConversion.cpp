@@ -32,19 +32,14 @@
  * @file
  */
 
-#include "world/RssSituationCoordinateSystemConversion.hpp"
+#include "RssSituationCoordinateSystemConversion.hpp"
 
 #include <algorithm>
 #include <limits>
 #include <vector>
 
-/*!
- * @brief namespace ad_rss
- */
-namespace ad_rss {
-/*!
- * @brief namespace world
- */
+namespace ad {
+namespace rss {
 namespace world {
 
 using physics::Distance;
@@ -261,9 +256,7 @@ bool calculateObjectDimensions(Scene const &currentScene,
   return result;
 }
 
-bool calculateObjectDimensions(Object const &object,
-                               ::ad_rss::world::RoadArea const &roadArea,
-                               ObjectDimensions &objectPosition)
+bool calculateObjectDimensions(Object const &object, RoadArea const &roadArea, ObjectDimensions &objectPosition)
 {
   bool result = true;
 
@@ -294,7 +287,7 @@ bool calculateObjectDimensions(Object const &object,
 
 void convertVehicleStateDynamics(Object const &object,
                                  RssDynamics const &rssDynamics,
-                                 ::ad_rss::situation::VehicleState &vehicleState)
+                                 ::ad::rss::situation::VehicleState &vehicleState)
 {
   vehicleState.dynamics = rssDynamics;
   vehicleState.velocity.speedLon.minimum = object.velocity.speedLon;
@@ -304,4 +297,5 @@ void convertVehicleStateDynamics(Object const &object,
 }
 
 } // namespace world
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

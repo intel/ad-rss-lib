@@ -87,7 +87,6 @@ endif()
 
 set(GENERATED_SOURCES
   src/generated/physics/Acceleration.cpp
-  src/generated/physics/CoordinateSystemAxis.cpp
   src/generated/physics/Distance.cpp
   src/generated/physics/DistanceSquared.cpp
   src/generated/physics/Duration.cpp
@@ -95,6 +94,7 @@ set(GENERATED_SOURCES
   src/generated/physics/ParametricValue.cpp
   src/generated/physics/Speed.cpp
   src/generated/physics/SpeedSquared.cpp
+  src/generated/situation/CoordinateSystemAxis.cpp
   src/generated/situation/LateralRelativePosition.cpp
   src/generated/situation/LongitudinalRelativePosition.cpp
   src/generated/situation/SituationType.cpp
@@ -112,7 +112,7 @@ add_library(${PROJECT_NAME}
   src/core/RssResponseTransformation.cpp
   src/core/RssSituationChecking.cpp
   src/core/RssSituationExtraction.cpp
-  src/physics/Math.cpp
+  src/situation/Math.cpp
   src/situation/RssFormulas.cpp
   src/situation/RssIntersectionChecker.cpp
   src/situation/RssSituation.cpp
@@ -132,8 +132,6 @@ target_include_directories(${PROJECT_NAME}
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/generated>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-  PRIVATE
-  src
 )
 
 target_compile_options(${PROJECT_NAME} PRIVATE ${COVERAGE_FLAG} ${TARGET_COMPILE_OPTIONS})

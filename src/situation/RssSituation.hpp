@@ -34,13 +34,17 @@
 
 #pragma once
 
-#include "ad_rss/situation/Situation.hpp"
-#include "ad_rss/state/RssState.hpp"
+#include "ad/rss/situation/Situation.hpp"
+#include "ad/rss/state/RssState.hpp"
 
 /*!
- * @brief namespace ad_rss
+ * @brief namespace ad
  */
-namespace ad_rss {
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
 /*!
  * @brief namespace situation
  */
@@ -107,4 +111,5 @@ bool calculateLateralRssState(Situation const &situation,
                               state::LateralRssState &rssStateRight);
 
 } // namespace situation
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

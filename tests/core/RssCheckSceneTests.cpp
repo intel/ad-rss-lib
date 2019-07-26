@@ -32,7 +32,8 @@
 #include <chrono>
 #include "RssCheckTestBaseT.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace core {
 
 class RssCheckSceneTests : public RssCheckTestBaseT<testing::Test>
@@ -175,4 +176,5 @@ TEST_F(RssCheckSceneTests, WrongEgoRoadMetricRangeWidth)
 }
 
 } // namespace core
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

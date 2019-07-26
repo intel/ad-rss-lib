@@ -29,12 +29,13 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "ad_rss/core/RssResponseResolving.hpp"
+#include "ad/rss/core/RssResponseResolving.hpp"
 #include <algorithm>
-#include "ad_rss/state/RssStateOperation.hpp"
-#include "ad_rss/state/RssStateSnapshotValidInputRange.hpp"
+#include "ad/rss/state/RssStateOperation.hpp"
+#include "ad/rss/state/RssStateSnapshotValidInputRange.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace core {
 
 RssResponseResolving::RssResponseResolving()
@@ -151,4 +152,5 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
 }
 
 } // namespace core
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

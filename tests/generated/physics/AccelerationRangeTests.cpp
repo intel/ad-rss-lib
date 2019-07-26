@@ -37,7 +37,7 @@
 
 #include <gtest/gtest.h>
 #include <limits>
-#include "ad_rss/physics/AccelerationRange.hpp"
+#include "ad/physics/AccelerationRange.hpp"
 
 class AccelerationRangeTests : public testing::Test
 {
@@ -45,49 +45,49 @@ protected:
   virtual void SetUp() override
   {
     // valid initialization
-    ::ad_rss::physics::AccelerationRange value;
-    ::ad_rss::physics::Acceleration valueMinimum(-1e2);
+    ::ad::physics::AccelerationRange value;
+    ::ad::physics::Acceleration valueMinimum(-1e2);
     value.minimum = valueMinimum;
-    ::ad_rss::physics::Acceleration valueMaximum(-1e2);
+    ::ad::physics::Acceleration valueMaximum(-1e2);
     value.maximum = valueMaximum;
     value.maximum = value.minimum;
     value.minimum = value.maximum;
     mValue = value;
   }
 
-  ::ad_rss::physics::AccelerationRange mValue;
+  ::ad::physics::AccelerationRange mValue;
 };
 
 TEST_F(AccelerationRangeTests, copyConstruction)
 {
-  ::ad_rss::physics::AccelerationRange value(mValue);
+  ::ad::physics::AccelerationRange value(mValue);
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(AccelerationRangeTests, moveConstruction)
 {
-  ::ad_rss::physics::AccelerationRange value(std::move(::ad_rss::physics::AccelerationRange(mValue)));
+  ::ad::physics::AccelerationRange value(std::move(::ad::physics::AccelerationRange(mValue)));
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(AccelerationRangeTests, copyAssignment)
 {
-  ::ad_rss::physics::AccelerationRange value;
+  ::ad::physics::AccelerationRange value;
   value = mValue;
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(AccelerationRangeTests, moveAssignment)
 {
-  ::ad_rss::physics::AccelerationRange value;
-  value = std::move(::ad_rss::physics::AccelerationRange(mValue));
+  ::ad::physics::AccelerationRange value;
+  value = std::move(::ad::physics::AccelerationRange(mValue));
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(AccelerationRangeTests, comparisonOperatorEqual)
 {
-  ::ad_rss::physics::AccelerationRange valueA = mValue;
-  ::ad_rss::physics::AccelerationRange valueB = mValue;
+  ::ad::physics::AccelerationRange valueA = mValue;
+  ::ad::physics::AccelerationRange valueB = mValue;
 
   EXPECT_TRUE(valueA == valueB);
   EXPECT_FALSE(valueA != valueB);
@@ -95,10 +95,10 @@ TEST_F(AccelerationRangeTests, comparisonOperatorEqual)
 
 TEST_F(AccelerationRangeTests, comparisonOperatorMinimumDiffers)
 {
-  ::ad_rss::physics::AccelerationRange valueA = mValue;
-  ::ad_rss::physics::Acceleration minimum(1e2);
+  ::ad::physics::AccelerationRange valueA = mValue;
+  ::ad::physics::Acceleration minimum(1e2);
   valueA.minimum = minimum;
-  ::ad_rss::physics::AccelerationRange valueB = mValue;
+  ::ad::physics::AccelerationRange valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
@@ -106,10 +106,10 @@ TEST_F(AccelerationRangeTests, comparisonOperatorMinimumDiffers)
 
 TEST_F(AccelerationRangeTests, comparisonOperatorMaximumDiffers)
 {
-  ::ad_rss::physics::AccelerationRange valueA = mValue;
-  ::ad_rss::physics::Acceleration maximum(1e2);
+  ::ad::physics::AccelerationRange valueA = mValue;
+  ::ad::physics::Acceleration maximum(1e2);
   valueA.maximum = maximum;
-  ::ad_rss::physics::AccelerationRange valueB = mValue;
+  ::ad::physics::AccelerationRange valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);

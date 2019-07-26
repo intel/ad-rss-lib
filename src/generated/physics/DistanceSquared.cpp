@@ -37,20 +37,20 @@
  *
  */
 
-#include "ad_rss/physics/DistanceSquared.hpp"
-#include "ad_rss/physics/Distance.hpp"
+#include "ad/physics/DistanceSquared.hpp"
+#include "ad/physics/Distance.hpp"
 
-const double ::ad_rss::physics::DistanceSquared::cMinValue = -1e12;
+const double ::ad::physics::DistanceSquared::cMinValue = -1e12;
 
-const double ::ad_rss::physics::DistanceSquared::cMaxValue = 1e12;
+const double ::ad::physics::DistanceSquared::cMaxValue = 1e12;
 
-const double ::ad_rss::physics::DistanceSquared::cPrecisionValue = 1e-6;
+const double ::ad::physics::DistanceSquared::cPrecisionValue = 1e-6;
 
 namespace std {
 
-::ad_rss::physics::Distance sqrt(::ad_rss::physics::DistanceSquared const other)
+::ad::physics::Distance sqrt(::ad::physics::DistanceSquared const other)
 {
-  ::ad_rss::physics::Distance result(std::sqrt(static_cast<double>(other)));
+  ::ad::physics::Distance result(std::sqrt(static_cast<double>(other)));
   result.ensureValid();
   return result;
 }

@@ -37,7 +37,7 @@
 
 #include <gtest/gtest.h>
 #include <limits>
-#include "ad_rss/state/RssStateSnapshot.hpp"
+#include "ad/rss/state/RssStateSnapshot.hpp"
 
 class RssStateSnapshotTests : public testing::Test
 {
@@ -45,48 +45,118 @@ protected:
   virtual void SetUp() override
   {
     // valid initialization
-    ::ad_rss::state::RssStateSnapshot value;
-    ::ad_rss::physics::TimeIndex valueTimeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::lowest());
-    valueTimeIndex = ::ad_rss::physics::TimeIndex(1); // set to valid value within struct
+    ::ad::rss::state::RssStateSnapshot value;
+    ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
+    valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
     value.timeIndex = valueTimeIndex;
-    ::ad_rss::state::RssStateVector valueIndividualResponses;
+    ::ad::rss::state::RssStateVector valueIndividualResponses;
+    ::ad::rss::state::RssState valueIndividualResponsesElement;
+    ::ad::rss::world::ObjectId valueIndividualResponsesElementObjectId(
+      std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+    valueIndividualResponsesElement.objectId = valueIndividualResponsesElementObjectId;
+    ::ad::rss::situation::SituationId valueIndividualResponsesElementSituationId(
+      std::numeric_limits<::ad::rss::situation::SituationId>::lowest());
+    valueIndividualResponsesElement.situationId = valueIndividualResponsesElementSituationId;
+    ::ad::rss::state::LongitudinalRssState valueIndividualResponsesElementLongitudinalState;
+    bool valueIndividualResponsesElementLongitudinalStateIsSafe{true};
+    valueIndividualResponsesElementLongitudinalState.isSafe = valueIndividualResponsesElementLongitudinalStateIsSafe;
+    ::ad::rss::state::LongitudinalResponse valueIndividualResponsesElementLongitudinalStateResponse(
+      ::ad::rss::state::LongitudinalResponse::None);
+    valueIndividualResponsesElementLongitudinalState.response
+      = valueIndividualResponsesElementLongitudinalStateResponse;
+    ::ad::rss::state::RssStateInformation valueIndividualResponsesElementLongitudinalStateRssStateInformation;
+    ::ad::physics::Distance valueIndividualResponsesElementLongitudinalStateRssStateInformationSafeDistance(0.);
+    valueIndividualResponsesElementLongitudinalStateRssStateInformation.safeDistance
+      = valueIndividualResponsesElementLongitudinalStateRssStateInformationSafeDistance;
+    ::ad::physics::Distance valueIndividualResponsesElementLongitudinalStateRssStateInformationCurrentDistance(0.);
+    valueIndividualResponsesElementLongitudinalStateRssStateInformation.currentDistance
+      = valueIndividualResponsesElementLongitudinalStateRssStateInformationCurrentDistance;
+    ::ad::rss::state::RssStateEvaluator valueIndividualResponsesElementLongitudinalStateRssStateInformationEvaluator(
+      ::ad::rss::state::RssStateEvaluator::None);
+    valueIndividualResponsesElementLongitudinalStateRssStateInformation.evaluator
+      = valueIndividualResponsesElementLongitudinalStateRssStateInformationEvaluator;
+    valueIndividualResponsesElementLongitudinalState.rssStateInformation
+      = valueIndividualResponsesElementLongitudinalStateRssStateInformation;
+    valueIndividualResponsesElement.longitudinalState = valueIndividualResponsesElementLongitudinalState;
+    ::ad::rss::state::LateralRssState valueIndividualResponsesElementLateralStateRight;
+    bool valueIndividualResponsesElementLateralStateRightIsSafe{true};
+    valueIndividualResponsesElementLateralStateRight.isSafe = valueIndividualResponsesElementLateralStateRightIsSafe;
+    ::ad::rss::state::LateralResponse valueIndividualResponsesElementLateralStateRightResponse(
+      ::ad::rss::state::LateralResponse::None);
+    valueIndividualResponsesElementLateralStateRight.response
+      = valueIndividualResponsesElementLateralStateRightResponse;
+    ::ad::rss::state::RssStateInformation valueIndividualResponsesElementLateralStateRightRssStateInformation;
+    ::ad::physics::Distance valueIndividualResponsesElementLateralStateRightRssStateInformationSafeDistance(0.);
+    valueIndividualResponsesElementLateralStateRightRssStateInformation.safeDistance
+      = valueIndividualResponsesElementLateralStateRightRssStateInformationSafeDistance;
+    ::ad::physics::Distance valueIndividualResponsesElementLateralStateRightRssStateInformationCurrentDistance(0.);
+    valueIndividualResponsesElementLateralStateRightRssStateInformation.currentDistance
+      = valueIndividualResponsesElementLateralStateRightRssStateInformationCurrentDistance;
+    ::ad::rss::state::RssStateEvaluator valueIndividualResponsesElementLateralStateRightRssStateInformationEvaluator(
+      ::ad::rss::state::RssStateEvaluator::None);
+    valueIndividualResponsesElementLateralStateRightRssStateInformation.evaluator
+      = valueIndividualResponsesElementLateralStateRightRssStateInformationEvaluator;
+    valueIndividualResponsesElementLateralStateRight.rssStateInformation
+      = valueIndividualResponsesElementLateralStateRightRssStateInformation;
+    valueIndividualResponsesElement.lateralStateRight = valueIndividualResponsesElementLateralStateRight;
+    ::ad::rss::state::LateralRssState valueIndividualResponsesElementLateralStateLeft;
+    bool valueIndividualResponsesElementLateralStateLeftIsSafe{true};
+    valueIndividualResponsesElementLateralStateLeft.isSafe = valueIndividualResponsesElementLateralStateLeftIsSafe;
+    ::ad::rss::state::LateralResponse valueIndividualResponsesElementLateralStateLeftResponse(
+      ::ad::rss::state::LateralResponse::None);
+    valueIndividualResponsesElementLateralStateLeft.response = valueIndividualResponsesElementLateralStateLeftResponse;
+    ::ad::rss::state::RssStateInformation valueIndividualResponsesElementLateralStateLeftRssStateInformation;
+    ::ad::physics::Distance valueIndividualResponsesElementLateralStateLeftRssStateInformationSafeDistance(0.);
+    valueIndividualResponsesElementLateralStateLeftRssStateInformation.safeDistance
+      = valueIndividualResponsesElementLateralStateLeftRssStateInformationSafeDistance;
+    ::ad::physics::Distance valueIndividualResponsesElementLateralStateLeftRssStateInformationCurrentDistance(0.);
+    valueIndividualResponsesElementLateralStateLeftRssStateInformation.currentDistance
+      = valueIndividualResponsesElementLateralStateLeftRssStateInformationCurrentDistance;
+    ::ad::rss::state::RssStateEvaluator valueIndividualResponsesElementLateralStateLeftRssStateInformationEvaluator(
+      ::ad::rss::state::RssStateEvaluator::None);
+    valueIndividualResponsesElementLateralStateLeftRssStateInformation.evaluator
+      = valueIndividualResponsesElementLateralStateLeftRssStateInformationEvaluator;
+    valueIndividualResponsesElementLateralStateLeft.rssStateInformation
+      = valueIndividualResponsesElementLateralStateLeftRssStateInformation;
+    valueIndividualResponsesElement.lateralStateLeft = valueIndividualResponsesElementLateralStateLeft;
+    valueIndividualResponses.resize(1, valueIndividualResponsesElement);
     value.individualResponses = valueIndividualResponses;
     mValue = value;
   }
 
-  ::ad_rss::state::RssStateSnapshot mValue;
+  ::ad::rss::state::RssStateSnapshot mValue;
 };
 
 TEST_F(RssStateSnapshotTests, copyConstruction)
 {
-  ::ad_rss::state::RssStateSnapshot value(mValue);
+  ::ad::rss::state::RssStateSnapshot value(mValue);
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(RssStateSnapshotTests, moveConstruction)
 {
-  ::ad_rss::state::RssStateSnapshot value(std::move(::ad_rss::state::RssStateSnapshot(mValue)));
+  ::ad::rss::state::RssStateSnapshot value(std::move(::ad::rss::state::RssStateSnapshot(mValue)));
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(RssStateSnapshotTests, copyAssignment)
 {
-  ::ad_rss::state::RssStateSnapshot value;
+  ::ad::rss::state::RssStateSnapshot value;
   value = mValue;
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(RssStateSnapshotTests, moveAssignment)
 {
-  ::ad_rss::state::RssStateSnapshot value;
-  value = std::move(::ad_rss::state::RssStateSnapshot(mValue));
+  ::ad::rss::state::RssStateSnapshot value;
+  value = std::move(::ad::rss::state::RssStateSnapshot(mValue));
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(RssStateSnapshotTests, comparisonOperatorEqual)
 {
-  ::ad_rss::state::RssStateSnapshot valueA = mValue;
-  ::ad_rss::state::RssStateSnapshot valueB = mValue;
+  ::ad::rss::state::RssStateSnapshot valueA = mValue;
+  ::ad::rss::state::RssStateSnapshot valueB = mValue;
 
   EXPECT_TRUE(valueA == valueB);
   EXPECT_FALSE(valueA != valueB);
@@ -94,10 +164,10 @@ TEST_F(RssStateSnapshotTests, comparisonOperatorEqual)
 
 TEST_F(RssStateSnapshotTests, comparisonOperatorTimeIndexDiffers)
 {
-  ::ad_rss::state::RssStateSnapshot valueA = mValue;
-  ::ad_rss::physics::TimeIndex timeIndex(std::numeric_limits<::ad_rss::physics::TimeIndex>::max());
+  ::ad::rss::state::RssStateSnapshot valueA = mValue;
+  ::ad::rss::world::TimeIndex timeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::max());
   valueA.timeIndex = timeIndex;
-  ::ad_rss::state::RssStateSnapshot valueB = mValue;
+  ::ad::rss::state::RssStateSnapshot valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
@@ -105,69 +175,69 @@ TEST_F(RssStateSnapshotTests, comparisonOperatorTimeIndexDiffers)
 
 TEST_F(RssStateSnapshotTests, comparisonOperatorIndividualResponsesDiffers)
 {
-  ::ad_rss::state::RssStateSnapshot valueA = mValue;
-  ::ad_rss::state::RssStateVector individualResponses;
-  ::ad_rss::state::RssState individualResponsesElement;
-  ::ad_rss::world::ObjectId individualResponsesElementObjectId(std::numeric_limits<::ad_rss::world::ObjectId>::max());
+  ::ad::rss::state::RssStateSnapshot valueA = mValue;
+  ::ad::rss::state::RssStateVector individualResponses;
+  ::ad::rss::state::RssState individualResponsesElement;
+  ::ad::rss::world::ObjectId individualResponsesElementObjectId(std::numeric_limits<::ad::rss::world::ObjectId>::max());
   individualResponsesElement.objectId = individualResponsesElementObjectId;
-  ::ad_rss::situation::SituationId individualResponsesElementSituationId(
-    std::numeric_limits<::ad_rss::situation::SituationId>::max());
+  ::ad::rss::situation::SituationId individualResponsesElementSituationId(
+    std::numeric_limits<::ad::rss::situation::SituationId>::max());
   individualResponsesElement.situationId = individualResponsesElementSituationId;
-  ::ad_rss::state::LongitudinalRssState individualResponsesElementLongitudinalState;
+  ::ad::rss::state::LongitudinalRssState individualResponsesElementLongitudinalState;
   bool individualResponsesElementLongitudinalStateIsSafe{false};
   individualResponsesElementLongitudinalState.isSafe = individualResponsesElementLongitudinalStateIsSafe;
-  ::ad_rss::state::LongitudinalResponse individualResponsesElementLongitudinalStateResponse(
-    ::ad_rss::state::LongitudinalResponse::BrakeMin);
+  ::ad::rss::state::LongitudinalResponse individualResponsesElementLongitudinalStateResponse(
+    ::ad::rss::state::LongitudinalResponse::BrakeMin);
   individualResponsesElementLongitudinalState.response = individualResponsesElementLongitudinalStateResponse;
-  ::ad_rss::state::RssStateInformation individualResponsesElementLongitudinalStateRssStateInformation;
-  ::ad_rss::physics::Distance individualResponsesElementLongitudinalStateRssStateInformationSafeDistance(1e6);
+  ::ad::rss::state::RssStateInformation individualResponsesElementLongitudinalStateRssStateInformation;
+  ::ad::physics::Distance individualResponsesElementLongitudinalStateRssStateInformationSafeDistance(1e6);
   individualResponsesElementLongitudinalStateRssStateInformation.safeDistance
     = individualResponsesElementLongitudinalStateRssStateInformationSafeDistance;
-  ::ad_rss::physics::Distance individualResponsesElementLongitudinalStateRssStateInformationCurrentDistance(1e6);
+  ::ad::physics::Distance individualResponsesElementLongitudinalStateRssStateInformationCurrentDistance(1e6);
   individualResponsesElementLongitudinalStateRssStateInformation.currentDistance
     = individualResponsesElementLongitudinalStateRssStateInformationCurrentDistance;
-  ::ad_rss::state::RssStateEvaluator individualResponsesElementLongitudinalStateRssStateInformationEvaluator(
-    ::ad_rss::state::RssStateEvaluator::IntersectionOverlap);
+  ::ad::rss::state::RssStateEvaluator individualResponsesElementLongitudinalStateRssStateInformationEvaluator(
+    ::ad::rss::state::RssStateEvaluator::IntersectionOverlap);
   individualResponsesElementLongitudinalStateRssStateInformation.evaluator
     = individualResponsesElementLongitudinalStateRssStateInformationEvaluator;
   individualResponsesElementLongitudinalState.rssStateInformation
     = individualResponsesElementLongitudinalStateRssStateInformation;
   individualResponsesElement.longitudinalState = individualResponsesElementLongitudinalState;
-  ::ad_rss::state::LateralRssState individualResponsesElementLateralStateRight;
+  ::ad::rss::state::LateralRssState individualResponsesElementLateralStateRight;
   bool individualResponsesElementLateralStateRightIsSafe{false};
   individualResponsesElementLateralStateRight.isSafe = individualResponsesElementLateralStateRightIsSafe;
-  ::ad_rss::state::LateralResponse individualResponsesElementLateralStateRightResponse(
-    ::ad_rss::state::LateralResponse::BrakeMin);
+  ::ad::rss::state::LateralResponse individualResponsesElementLateralStateRightResponse(
+    ::ad::rss::state::LateralResponse::BrakeMin);
   individualResponsesElementLateralStateRight.response = individualResponsesElementLateralStateRightResponse;
-  ::ad_rss::state::RssStateInformation individualResponsesElementLateralStateRightRssStateInformation;
-  ::ad_rss::physics::Distance individualResponsesElementLateralStateRightRssStateInformationSafeDistance(1e6);
+  ::ad::rss::state::RssStateInformation individualResponsesElementLateralStateRightRssStateInformation;
+  ::ad::physics::Distance individualResponsesElementLateralStateRightRssStateInformationSafeDistance(1e6);
   individualResponsesElementLateralStateRightRssStateInformation.safeDistance
     = individualResponsesElementLateralStateRightRssStateInformationSafeDistance;
-  ::ad_rss::physics::Distance individualResponsesElementLateralStateRightRssStateInformationCurrentDistance(1e6);
+  ::ad::physics::Distance individualResponsesElementLateralStateRightRssStateInformationCurrentDistance(1e6);
   individualResponsesElementLateralStateRightRssStateInformation.currentDistance
     = individualResponsesElementLateralStateRightRssStateInformationCurrentDistance;
-  ::ad_rss::state::RssStateEvaluator individualResponsesElementLateralStateRightRssStateInformationEvaluator(
-    ::ad_rss::state::RssStateEvaluator::IntersectionOverlap);
+  ::ad::rss::state::RssStateEvaluator individualResponsesElementLateralStateRightRssStateInformationEvaluator(
+    ::ad::rss::state::RssStateEvaluator::IntersectionOverlap);
   individualResponsesElementLateralStateRightRssStateInformation.evaluator
     = individualResponsesElementLateralStateRightRssStateInformationEvaluator;
   individualResponsesElementLateralStateRight.rssStateInformation
     = individualResponsesElementLateralStateRightRssStateInformation;
   individualResponsesElement.lateralStateRight = individualResponsesElementLateralStateRight;
-  ::ad_rss::state::LateralRssState individualResponsesElementLateralStateLeft;
+  ::ad::rss::state::LateralRssState individualResponsesElementLateralStateLeft;
   bool individualResponsesElementLateralStateLeftIsSafe{false};
   individualResponsesElementLateralStateLeft.isSafe = individualResponsesElementLateralStateLeftIsSafe;
-  ::ad_rss::state::LateralResponse individualResponsesElementLateralStateLeftResponse(
-    ::ad_rss::state::LateralResponse::BrakeMin);
+  ::ad::rss::state::LateralResponse individualResponsesElementLateralStateLeftResponse(
+    ::ad::rss::state::LateralResponse::BrakeMin);
   individualResponsesElementLateralStateLeft.response = individualResponsesElementLateralStateLeftResponse;
-  ::ad_rss::state::RssStateInformation individualResponsesElementLateralStateLeftRssStateInformation;
-  ::ad_rss::physics::Distance individualResponsesElementLateralStateLeftRssStateInformationSafeDistance(1e6);
+  ::ad::rss::state::RssStateInformation individualResponsesElementLateralStateLeftRssStateInformation;
+  ::ad::physics::Distance individualResponsesElementLateralStateLeftRssStateInformationSafeDistance(1e6);
   individualResponsesElementLateralStateLeftRssStateInformation.safeDistance
     = individualResponsesElementLateralStateLeftRssStateInformationSafeDistance;
-  ::ad_rss::physics::Distance individualResponsesElementLateralStateLeftRssStateInformationCurrentDistance(1e6);
+  ::ad::physics::Distance individualResponsesElementLateralStateLeftRssStateInformationCurrentDistance(1e6);
   individualResponsesElementLateralStateLeftRssStateInformation.currentDistance
     = individualResponsesElementLateralStateLeftRssStateInformationCurrentDistance;
-  ::ad_rss::state::RssStateEvaluator individualResponsesElementLateralStateLeftRssStateInformationEvaluator(
-    ::ad_rss::state::RssStateEvaluator::IntersectionOverlap);
+  ::ad::rss::state::RssStateEvaluator individualResponsesElementLateralStateLeftRssStateInformationEvaluator(
+    ::ad::rss::state::RssStateEvaluator::IntersectionOverlap);
   individualResponsesElementLateralStateLeftRssStateInformation.evaluator
     = individualResponsesElementLateralStateLeftRssStateInformationEvaluator;
   individualResponsesElementLateralStateLeft.rssStateInformation
@@ -175,7 +245,7 @@ TEST_F(RssStateSnapshotTests, comparisonOperatorIndividualResponsesDiffers)
   individualResponsesElement.lateralStateLeft = individualResponsesElementLateralStateLeft;
   individualResponses.resize(0 + 1, individualResponsesElement);
   valueA.individualResponses = individualResponses;
-  ::ad_rss::state::RssStateSnapshot valueB = mValue;
+  ::ad::rss::state::RssStateSnapshot valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);

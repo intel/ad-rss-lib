@@ -30,9 +30,10 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "ad_rss/core/RssResponseResolving.hpp"
+#include "ad/rss/core/RssResponseResolving.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace core {
 
 TEST(RssStateCombineRssStateTests, longitudinal_previous_Safe)
@@ -139,4 +140,5 @@ TEST(RssStateCombineRssStateTests, lateral_previous_BrakeMin)
 }
 
 } // namespace core
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

@@ -27,7 +27,7 @@ Definition of Interfaces provided within the ad-rss-lib implementation.
 
 The ad-rss-lib is implemented as a whole within the namespace ad_rss.
 
-===== Namespace ad_rss::core
+===== Namespace ad::rss::core
 
 Namespace for RSS core interfaces and operations.
 
@@ -139,14 +139,14 @@ image::img/1dab8fd5-c1cf-4a62-9232-66e2e9279428_url_c4da4d92-8fec-4665-bd03-914a
 
 For a detailed explanation of the individual types, please have a look into the doxygen documentation (https://intel.github.io/ad-rss-lib/doxygen/index.html).
 
-===== Namespace ad_rss::physics
+===== Namespace ad::rss::physics
 
 Namespace for RSS physics datatypes.
 
 This contains types declaring physical measures referring time, distance, speed and basic combinations of that like
 ranges.
 
-===== Namespace ad_rss::world
+===== Namespace ad::rss::world
 
 Namespace for RSS world datatypes.
 
@@ -154,14 +154,14 @@ This contains types that are used to describe the local world model RSS is actin
 object states as well as the parts of the road network relevant to judge the situations between ego vehicle and the
 objects.
 
-===== Namespace ad_rss::situation
+===== Namespace ad::rss::situation
 
 Namespace for RSS situation datatypes.
 
 This contains types that are used within the calculation of the RSS formulas which are performed within the situation
 coordinate system.
 
-===== Namespace ad_rss::state
+===== Namespace ad::rss::state
 
 Namespace for RSS state datatypes.
 

@@ -39,85 +39,85 @@
 
 #include <limits>
 
-#include "ad_rss/world/RssDynamicsValidInputRange.hpp"
+#include "ad/rss/world/RssDynamicsValidInputRange.hpp"
 
 TEST(RssDynamicsValidInputRangeTests, testValidInputRange)
 {
-  ::ad_rss::world::RssDynamics value;
-  ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
-  ::ad_rss::physics::Acceleration valueAlphaLonAccelMax(-1e2);
-  valueAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::RssDynamics value;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLon.accelMax = valueAlphaLonAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
   valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
   valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
-  ::ad_rss::world::LateralRssAccelerationValues valueAlphaLat;
-  ::ad_rss::physics::Acceleration valueAlphaLatAccelMax(-1e2);
-  valueAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::LateralRssAccelerationValues valueAlphaLat;
+  ::ad::physics::Acceleration valueAlphaLatAccelMax(-1e2);
+  valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLat.accelMax = valueAlphaLatAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-  valueAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
+  valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad_rss::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
-  ::ad_rss::physics::Duration valueResponseTime(0.);
-  valueResponseTime = ::ad_rss::physics::Duration(
-    0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Duration valueResponseTime(0.);
+  valueResponseTime
+    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   value.responseTime = valueResponseTime;
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
 TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooSmall)
 {
-  ::ad_rss::world::RssDynamics value;
-  ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
-  ::ad_rss::physics::Acceleration valueAlphaLonAccelMax(-1e2);
-  valueAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::RssDynamics value;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLon.accelMax = valueAlphaLonAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
   valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
   valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
-  ::ad_rss::world::LateralRssAccelerationValues valueAlphaLat;
-  ::ad_rss::physics::Acceleration valueAlphaLatAccelMax(-1e2);
-  valueAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::LateralRssAccelerationValues valueAlphaLat;
+  ::ad::physics::Acceleration valueAlphaLatAccelMax(-1e2);
+  valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLat.accelMax = valueAlphaLatAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-  valueAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
+  valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad_rss::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
-  ::ad_rss::physics::Duration valueResponseTime(0.);
-  valueResponseTime = ::ad_rss::physics::Duration(
-    0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Duration valueResponseTime(0.);
+  valueResponseTime
+    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   value.responseTime = valueResponseTime;
 
   // override member with invalid value
-  ::ad_rss::world::LongitudinalRssAccelerationValues invalidInitializedMember;
-  ::ad_rss::physics::Acceleration invalidInitializedMemberAccelMax(-1e2 * 1.1);
+  ::ad::rss::world::LongitudinalRssAccelerationValues invalidInitializedMember;
+  ::ad::physics::Acceleration invalidInitializedMemberAccelMax(-1e2 * 1.1);
   invalidInitializedMember.accelMax = invalidInitializedMemberAccelMax;
   value.alphaLon = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -125,43 +125,43 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooSmall)
 
 TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooBig)
 {
-  ::ad_rss::world::RssDynamics value;
-  ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
-  ::ad_rss::physics::Acceleration valueAlphaLonAccelMax(-1e2);
-  valueAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::RssDynamics value;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLon.accelMax = valueAlphaLonAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
   valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
   valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
-  ::ad_rss::world::LateralRssAccelerationValues valueAlphaLat;
-  ::ad_rss::physics::Acceleration valueAlphaLatAccelMax(-1e2);
-  valueAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::LateralRssAccelerationValues valueAlphaLat;
+  ::ad::physics::Acceleration valueAlphaLatAccelMax(-1e2);
+  valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLat.accelMax = valueAlphaLatAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-  valueAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
+  valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad_rss::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
-  ::ad_rss::physics::Duration valueResponseTime(0.);
-  valueResponseTime = ::ad_rss::physics::Duration(
-    0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Duration valueResponseTime(0.);
+  valueResponseTime
+    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   value.responseTime = valueResponseTime;
 
   // override member with invalid value
-  ::ad_rss::world::LongitudinalRssAccelerationValues invalidInitializedMember;
-  ::ad_rss::physics::Acceleration invalidInitializedMemberAccelMax(1e2 * 1.1);
+  ::ad::rss::world::LongitudinalRssAccelerationValues invalidInitializedMember;
+  ::ad::physics::Acceleration invalidInitializedMemberAccelMax(1e2 * 1.1);
   invalidInitializedMember.accelMax = invalidInitializedMemberAccelMax;
   value.alphaLon = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -169,43 +169,43 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooBig)
 
 TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooSmall)
 {
-  ::ad_rss::world::RssDynamics value;
-  ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
-  ::ad_rss::physics::Acceleration valueAlphaLonAccelMax(-1e2);
-  valueAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::RssDynamics value;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLon.accelMax = valueAlphaLonAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
   valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
   valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
-  ::ad_rss::world::LateralRssAccelerationValues valueAlphaLat;
-  ::ad_rss::physics::Acceleration valueAlphaLatAccelMax(-1e2);
-  valueAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::LateralRssAccelerationValues valueAlphaLat;
+  ::ad::physics::Acceleration valueAlphaLatAccelMax(-1e2);
+  valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLat.accelMax = valueAlphaLatAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-  valueAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
+  valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad_rss::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
-  ::ad_rss::physics::Duration valueResponseTime(0.);
-  valueResponseTime = ::ad_rss::physics::Duration(
-    0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Duration valueResponseTime(0.);
+  valueResponseTime
+    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   value.responseTime = valueResponseTime;
 
   // override member with invalid value
-  ::ad_rss::world::LateralRssAccelerationValues invalidInitializedMember;
-  ::ad_rss::physics::Acceleration invalidInitializedMemberAccelMax(-1e2 * 1.1);
+  ::ad::rss::world::LateralRssAccelerationValues invalidInitializedMember;
+  ::ad::physics::Acceleration invalidInitializedMemberAccelMax(-1e2 * 1.1);
   invalidInitializedMember.accelMax = invalidInitializedMemberAccelMax;
   value.alphaLat = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -213,43 +213,43 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooSmall)
 
 TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooBig)
 {
-  ::ad_rss::world::RssDynamics value;
-  ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
-  ::ad_rss::physics::Acceleration valueAlphaLonAccelMax(-1e2);
-  valueAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::RssDynamics value;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLon.accelMax = valueAlphaLonAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
   valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
   valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
-  ::ad_rss::world::LateralRssAccelerationValues valueAlphaLat;
-  ::ad_rss::physics::Acceleration valueAlphaLatAccelMax(-1e2);
-  valueAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::LateralRssAccelerationValues valueAlphaLat;
+  ::ad::physics::Acceleration valueAlphaLatAccelMax(-1e2);
+  valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLat.accelMax = valueAlphaLatAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-  valueAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
+  valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad_rss::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
-  ::ad_rss::physics::Duration valueResponseTime(0.);
-  valueResponseTime = ::ad_rss::physics::Duration(
-    0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Duration valueResponseTime(0.);
+  valueResponseTime
+    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   value.responseTime = valueResponseTime;
 
   // override member with invalid value
-  ::ad_rss::world::LateralRssAccelerationValues invalidInitializedMember;
-  ::ad_rss::physics::Acceleration invalidInitializedMemberAccelMax(1e2 * 1.1);
+  ::ad::rss::world::LateralRssAccelerationValues invalidInitializedMember;
+  ::ad::physics::Acceleration invalidInitializedMemberAccelMax(1e2 * 1.1);
   invalidInitializedMember.accelMax = invalidInitializedMemberAccelMax;
   value.alphaLat = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -257,186 +257,186 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooBig)
 
 TEST(RssDynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMarginTooSmall)
 {
-  ::ad_rss::world::RssDynamics value;
-  ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
-  ::ad_rss::physics::Acceleration valueAlphaLonAccelMax(-1e2);
-  valueAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::RssDynamics value;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLon.accelMax = valueAlphaLonAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
   valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
   valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
-  ::ad_rss::world::LateralRssAccelerationValues valueAlphaLat;
-  ::ad_rss::physics::Acceleration valueAlphaLatAccelMax(-1e2);
-  valueAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::LateralRssAccelerationValues valueAlphaLat;
+  ::ad::physics::Acceleration valueAlphaLatAccelMax(-1e2);
+  valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLat.accelMax = valueAlphaLatAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-  valueAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
+  valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad_rss::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
-  ::ad_rss::physics::Duration valueResponseTime(0.);
-  valueResponseTime = ::ad_rss::physics::Duration(
-    0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Duration valueResponseTime(0.);
+  valueResponseTime
+    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   value.responseTime = valueResponseTime;
 
   // override member with invalid value
-  ::ad_rss::physics::Distance invalidInitializedMember(0. - ::ad_rss::physics::Distance::cPrecisionValue);
+  ::ad::physics::Distance invalidInitializedMember(0. - ::ad::physics::Distance::cPrecisionValue);
   value.lateralFluctuationMargin = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
 TEST(RssDynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMarginTooBig)
 {
-  ::ad_rss::world::RssDynamics value;
-  ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
-  ::ad_rss::physics::Acceleration valueAlphaLonAccelMax(-1e2);
-  valueAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::RssDynamics value;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLon.accelMax = valueAlphaLonAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
   valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
   valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
-  ::ad_rss::world::LateralRssAccelerationValues valueAlphaLat;
-  ::ad_rss::physics::Acceleration valueAlphaLatAccelMax(-1e2);
-  valueAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::LateralRssAccelerationValues valueAlphaLat;
+  ::ad::physics::Acceleration valueAlphaLatAccelMax(-1e2);
+  valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLat.accelMax = valueAlphaLatAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-  valueAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
+  valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad_rss::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
-  ::ad_rss::physics::Duration valueResponseTime(0.);
-  valueResponseTime = ::ad_rss::physics::Duration(
-    0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Duration valueResponseTime(0.);
+  valueResponseTime
+    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   value.responseTime = valueResponseTime;
 
   // override member with invalid value
-  ::ad_rss::physics::Distance invalidInitializedMember(1e6 * 1.1);
-  invalidInitializedMember = ::ad_rss::physics::Distance(1. * 1.1); // set to valid value within struct
+  ::ad::physics::Distance invalidInitializedMember(1e6 * 1.1);
+  invalidInitializedMember = ::ad::physics::Distance(1. * 1.1); // set to valid value within struct
   value.lateralFluctuationMargin = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
 TEST(RssDynamicsValidInputRangeTests, testValidInputRangelateralFluctuationMarginDefault)
 {
-  ::ad_rss::world::RssDynamics value;
-  ::ad_rss::physics::Distance valueDefault;
+  ::ad::rss::world::RssDynamics value;
+  ::ad::physics::Distance valueDefault;
   value.lateralFluctuationMargin = valueDefault;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
 TEST(RssDynamicsValidInputRangeTests, testValidInputRangeResponseTimeTooSmall)
 {
-  ::ad_rss::world::RssDynamics value;
-  ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
-  ::ad_rss::physics::Acceleration valueAlphaLonAccelMax(-1e2);
-  valueAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::RssDynamics value;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLon.accelMax = valueAlphaLonAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
   valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
   valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
-  ::ad_rss::world::LateralRssAccelerationValues valueAlphaLat;
-  ::ad_rss::physics::Acceleration valueAlphaLatAccelMax(-1e2);
-  valueAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::LateralRssAccelerationValues valueAlphaLat;
+  ::ad::physics::Acceleration valueAlphaLatAccelMax(-1e2);
+  valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLat.accelMax = valueAlphaLatAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-  valueAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
+  valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad_rss::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
-  ::ad_rss::physics::Duration valueResponseTime(0.);
-  valueResponseTime = ::ad_rss::physics::Duration(
-    0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Duration valueResponseTime(0.);
+  valueResponseTime
+    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   value.responseTime = valueResponseTime;
 
   // override member with invalid value
-  ::ad_rss::physics::Duration invalidInitializedMember(0. - ::ad_rss::physics::Duration::cPrecisionValue);
+  ::ad::physics::Duration invalidInitializedMember(0. - ::ad::physics::Duration::cPrecisionValue);
   value.responseTime = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
 TEST(RssDynamicsValidInputRangeTests, testValidInputRangeResponseTimeTooBig)
 {
-  ::ad_rss::world::RssDynamics value;
-  ::ad_rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
-  ::ad_rss::physics::Acceleration valueAlphaLonAccelMax(-1e2);
-  valueAlphaLonAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::RssDynamics value;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLon.accelMax = valueAlphaLonAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
   valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
-  ::ad_rss::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
   valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
-  ::ad_rss::world::LateralRssAccelerationValues valueAlphaLat;
-  ::ad_rss::physics::Acceleration valueAlphaLatAccelMax(-1e2);
-  valueAlphaLatAccelMax = ::ad_rss::physics::Acceleration(0.); // set to valid value within struct
+  ::ad::rss::world::LateralRssAccelerationValues valueAlphaLat;
+  ::ad::physics::Acceleration valueAlphaLatAccelMax(-1e2);
+  valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLat.accelMax = valueAlphaLatAccelMax;
-  ::ad_rss::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-  valueAlphaLatBrakeMin = ::ad_rss::physics::Acceleration(
-    0. + ::ad_rss::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
+  valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
+    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad_rss::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
-  ::ad_rss::physics::Duration valueResponseTime(0.);
-  valueResponseTime = ::ad_rss::physics::Duration(
-    0. + ::ad_rss::physics::Duration::cPrecisionValue); // set to valid value within struct
+  ::ad::physics::Duration valueResponseTime(0.);
+  valueResponseTime
+    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   value.responseTime = valueResponseTime;
 
   // override member with invalid value
-  ::ad_rss::physics::Duration invalidInitializedMember(100. * 1.1);
-  invalidInitializedMember = ::ad_rss::physics::Duration(10. * 1.1); // set to valid value within struct
+  ::ad::physics::Duration invalidInitializedMember(100. * 1.1);
+  invalidInitializedMember = ::ad::physics::Duration(10. * 1.1); // set to valid value within struct
   value.responseTime = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
 TEST(RssDynamicsValidInputRangeTests, testValidInputRangeresponseTimeDefault)
 {
-  ::ad_rss::world::RssDynamics value;
-  ::ad_rss::physics::Duration valueDefault;
+  ::ad::rss::world::RssDynamics value;
+  ::ad::physics::Duration valueDefault;
   value.responseTime = valueDefault;
   ASSERT_FALSE(withinValidInputRange(value));
 }

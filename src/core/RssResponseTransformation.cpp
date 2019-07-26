@@ -29,12 +29,12 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "ad_rss/core/RssResponseTransformation.hpp"
-#include "ad_rss/state/ProperResponseValidInputRange.hpp"
-#include "ad_rss/world/WorldModelValidInputRange.hpp"
+#include "ad/rss/core/RssResponseTransformation.hpp"
+#include "ad/rss/state/ProperResponseValidInputRange.hpp"
+#include "ad/rss/world/WorldModelValidInputRange.hpp"
 
-namespace ad_rss {
-
+namespace ad {
+namespace rss {
 namespace core {
 namespace RssResponseTransformation {
 
@@ -61,14 +61,14 @@ bool transformProperResponse(world::WorldModel const &worldModel,
   accelerationRestriction.longitudinalRange.minimum = -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMax;
   switch (response.longitudinalResponse)
   {
-    case ::ad_rss::state::LongitudinalResponse::BrakeMin:
+    case ::ad::rss::state::LongitudinalResponse::BrakeMin:
       accelerationRestriction.longitudinalRange.maximum = -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMin;
       break;
-    case ::ad_rss::state::LongitudinalResponse::BrakeMinCorrect:
+    case ::ad::rss::state::LongitudinalResponse::BrakeMinCorrect:
       accelerationRestriction.longitudinalRange.maximum
         = -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMinCorrect;
       break;
-    case ::ad_rss::state::LongitudinalResponse::None:
+    case ::ad::rss::state::LongitudinalResponse::None:
       accelerationRestriction.longitudinalRange.maximum = worldModel.egoVehicleRssDynamics.alphaLon.accelMax;
       break;
     default:
@@ -78,11 +78,11 @@ bool transformProperResponse(world::WorldModel const &worldModel,
 
   switch (response.lateralResponseLeft)
   {
-    case ::ad_rss::state::LateralResponse::BrakeMin:
+    case ::ad::rss::state::LateralResponse::BrakeMin:
       accelerationRestriction.lateralLeftRange.maximum = -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin;
       accelerationRestriction.lateralLeftRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
       break;
-    case ::ad_rss::state::LateralResponse::None:
+    case ::ad::rss::state::LateralResponse::None:
       accelerationRestriction.lateralLeftRange.maximum = worldModel.egoVehicleRssDynamics.alphaLat.accelMax;
       accelerationRestriction.lateralLeftRange.minimum = -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin;
       break;
@@ -93,11 +93,11 @@ bool transformProperResponse(world::WorldModel const &worldModel,
 
   switch (response.lateralResponseRight)
   {
-    case ::ad_rss::state::LateralResponse::BrakeMin:
+    case ::ad::rss::state::LateralResponse::BrakeMin:
       accelerationRestriction.lateralRightRange.maximum = -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin;
       accelerationRestriction.lateralRightRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
       break;
-    case ::ad_rss::state::LateralResponse::None:
+    case ::ad::rss::state::LateralResponse::None:
       accelerationRestriction.lateralRightRange.maximum = worldModel.egoVehicleRssDynamics.alphaLat.accelMax;
       accelerationRestriction.lateralRightRange.minimum = -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin;
       break;
@@ -112,4 +112,5 @@ bool transformProperResponse(world::WorldModel const &worldModel,
 
 } // namespace RssResponseTransformation
 } // namespace core
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

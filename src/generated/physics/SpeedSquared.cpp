@@ -37,20 +37,20 @@
  *
  */
 
-#include "ad_rss/physics/SpeedSquared.hpp"
-#include "ad_rss/physics/Speed.hpp"
+#include "ad/physics/SpeedSquared.hpp"
+#include "ad/physics/Speed.hpp"
 
-const double ::ad_rss::physics::SpeedSquared::cMinValue = -1e6;
+const double ::ad::physics::SpeedSquared::cMinValue = -1e6;
 
-const double ::ad_rss::physics::SpeedSquared::cMaxValue = 1e6;
+const double ::ad::physics::SpeedSquared::cMaxValue = 1e6;
 
-const double ::ad_rss::physics::SpeedSquared::cPrecisionValue = 1e-6;
+const double ::ad::physics::SpeedSquared::cPrecisionValue = 1e-6;
 
 namespace std {
 
-::ad_rss::physics::Speed sqrt(::ad_rss::physics::SpeedSquared const other)
+::ad::physics::Speed sqrt(::ad::physics::SpeedSquared const other)
 {
-  ::ad_rss::physics::Speed result(std::sqrt(static_cast<double>(other)));
+  ::ad::physics::Speed result(std::sqrt(static_cast<double>(other)));
   result.ensureValid();
   return result;
 }

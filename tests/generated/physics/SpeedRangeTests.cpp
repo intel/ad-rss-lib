@@ -37,7 +37,7 @@
 
 #include <gtest/gtest.h>
 #include <limits>
-#include "ad_rss/physics/SpeedRange.hpp"
+#include "ad/physics/SpeedRange.hpp"
 
 class SpeedRangeTests : public testing::Test
 {
@@ -45,49 +45,49 @@ protected:
   virtual void SetUp() override
   {
     // valid initialization
-    ::ad_rss::physics::SpeedRange value;
-    ::ad_rss::physics::Speed valueMinimum(-100.);
+    ::ad::physics::SpeedRange value;
+    ::ad::physics::Speed valueMinimum(-100.);
     value.minimum = valueMinimum;
-    ::ad_rss::physics::Speed valueMaximum(-100.);
+    ::ad::physics::Speed valueMaximum(-100.);
     value.maximum = valueMaximum;
     value.maximum = value.minimum;
     value.minimum = value.maximum;
     mValue = value;
   }
 
-  ::ad_rss::physics::SpeedRange mValue;
+  ::ad::physics::SpeedRange mValue;
 };
 
 TEST_F(SpeedRangeTests, copyConstruction)
 {
-  ::ad_rss::physics::SpeedRange value(mValue);
+  ::ad::physics::SpeedRange value(mValue);
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(SpeedRangeTests, moveConstruction)
 {
-  ::ad_rss::physics::SpeedRange value(std::move(::ad_rss::physics::SpeedRange(mValue)));
+  ::ad::physics::SpeedRange value(std::move(::ad::physics::SpeedRange(mValue)));
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(SpeedRangeTests, copyAssignment)
 {
-  ::ad_rss::physics::SpeedRange value;
+  ::ad::physics::SpeedRange value;
   value = mValue;
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(SpeedRangeTests, moveAssignment)
 {
-  ::ad_rss::physics::SpeedRange value;
-  value = std::move(::ad_rss::physics::SpeedRange(mValue));
+  ::ad::physics::SpeedRange value;
+  value = std::move(::ad::physics::SpeedRange(mValue));
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(SpeedRangeTests, comparisonOperatorEqual)
 {
-  ::ad_rss::physics::SpeedRange valueA = mValue;
-  ::ad_rss::physics::SpeedRange valueB = mValue;
+  ::ad::physics::SpeedRange valueA = mValue;
+  ::ad::physics::SpeedRange valueB = mValue;
 
   EXPECT_TRUE(valueA == valueB);
   EXPECT_FALSE(valueA != valueB);
@@ -95,10 +95,10 @@ TEST_F(SpeedRangeTests, comparisonOperatorEqual)
 
 TEST_F(SpeedRangeTests, comparisonOperatorMinimumDiffers)
 {
-  ::ad_rss::physics::SpeedRange valueA = mValue;
-  ::ad_rss::physics::Speed minimum(100.);
+  ::ad::physics::SpeedRange valueA = mValue;
+  ::ad::physics::Speed minimum(100.);
   valueA.minimum = minimum;
-  ::ad_rss::physics::SpeedRange valueB = mValue;
+  ::ad::physics::SpeedRange valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
@@ -106,10 +106,10 @@ TEST_F(SpeedRangeTests, comparisonOperatorMinimumDiffers)
 
 TEST_F(SpeedRangeTests, comparisonOperatorMaximumDiffers)
 {
-  ::ad_rss::physics::SpeedRange valueA = mValue;
-  ::ad_rss::physics::Speed maximum(100.);
+  ::ad::physics::SpeedRange valueA = mValue;
+  ::ad::physics::Speed maximum(100.);
   valueA.maximum = maximum;
-  ::ad_rss::physics::SpeedRange valueB = mValue;
+  ::ad::physics::SpeedRange valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);

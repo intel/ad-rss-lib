@@ -31,19 +31,20 @@
 
 #include "RssCheckTestBaseT.hpp"
 
-namespace ad_rss {
+namespace ad {
+namespace rss {
 namespace core {
 
 template <class TESTBASE> class RssCheckIntersectionTestBase : public TESTBASE
 {
 protected:
   using TESTBASE::worldModel;
-  ::ad_rss::world::Object &getEgoObject() override
+  world::Object &getEgoObject() override
   {
     return TESTBASE::objectOnSegment0;
   }
 
-  ::ad_rss::world::Object &getSceneObject(uint32_t) override
+  world::Object &getSceneObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment8;
   }
@@ -52,8 +53,8 @@ protected:
 
   void performIntersectionTest()
   {
-    ::ad_rss::world::AccelerationRestriction accelerationRestriction;
-    ::ad_rss::core::RssCheck rssCheck;
+    world::AccelerationRestriction accelerationRestriction;
+    core::RssCheck rssCheck;
     for (auto egoVehicleSegmentId : {world::LaneSegmentId(0), world::LaneSegmentId(3)})
     {
       for (auto &scene : worldModel.scenes)
@@ -199,4 +200,5 @@ TEST_F(RssCheckIntersectionSamePriorityTest, IntersectionTest)
 }
 
 } // namespace core
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

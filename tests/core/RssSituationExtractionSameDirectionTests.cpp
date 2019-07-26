@@ -30,10 +30,10 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "ad_rss/core/RssSituationExtraction.hpp"
+#include "ad/rss/core/RssSituationExtraction.hpp"
 
-namespace ad_rss {
-
+namespace ad {
+namespace rss {
 namespace core {
 
 class RssSituationExtractionSameDirectionTests : public testing::Test
@@ -42,7 +42,7 @@ protected:
   virtual void SetUp()
   {
     worldModel.egoVehicleRssDynamics = getEgoRssDynamics();
-    scene.situationType = ad_rss::situation::SituationType::SameDirection;
+    scene.situationType = situation::SituationType::SameDirection;
     scene.objectRssDynamics = getObjectRssDynamics();
     leadingObject = createObject(36., 0.);
     leadingObject.objectId = 0;
@@ -463,4 +463,5 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeFails)
 }
 
 } // namespace core
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad

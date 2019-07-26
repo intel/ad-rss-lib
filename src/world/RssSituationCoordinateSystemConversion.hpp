@@ -34,14 +34,18 @@
 
 #pragma once
 
-#include "ad_rss/situation/VehicleState.hpp"
-#include "ad_rss/world/Scene.hpp"
-#include "world/RssObjectPositionExtractor.hpp"
+#include "RssObjectPositionExtractor.hpp"
+#include "ad/rss/situation/VehicleState.hpp"
+#include "ad/rss/world/Scene.hpp"
 
 /*!
- * @brief namespace ad_rss
+ * @brief namespace ad
  */
-namespace ad_rss {
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
 /*!
  * @brief namespace world
  */
@@ -77,4 +81,5 @@ void convertVehicleStateDynamics(Object const &object,
                                  situation::VehicleState &vehicleState);
 
 } // namespace world
-} // namespace ad_rss
+} // namespace rss
+} // namespace ad
