@@ -60,6 +60,9 @@ RssCheck::~RssCheck()
 }
 
 bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldModel,
+                                                situation::SituationSnapshot &situationSnapshot,
+                                                state::RssStateSnapshot &rssStateSnapshot,
+                                                state::ProperResponse &properResponse,
                                                 world::AccelerationRestriction &accelerationRestriction)
 {
   bool result = false;
@@ -72,16 +75,13 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
       return false;
     }
 
-    situation::SituationSnapshot situationSnapshot;
     result = mSituationExtraction->extractSituations(worldModel, situationSnapshot);
 
-    state::RssStateSnapshot rssStateSnapshot;
     if (result)
     {
       result = mSituationChecking->checkSituations(situationSnapshot, rssStateSnapshot);
     }
 
-    state::ProperResponse properResponse;
     if (result)
     {
       result = mResponseResolving->provideProperResponse(rssStateSnapshot, properResponse);
@@ -99,6 +99,17 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
   }
   // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
   return result;
+}
+
+bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldModel,
+                                                world::AccelerationRestriction &accelerationRestriction)
+{
+  situation::SituationSnapshot situationSnapshot;
+  state::RssStateSnapshot rssStateSnapshot;
+  state::ProperResponse properResponse;
+
+  return calculateAccelerationRestriction(
+    worldModel, situationSnapshot, rssStateSnapshot, properResponse, accelerationRestriction);
 }
 
 } // namespace core
