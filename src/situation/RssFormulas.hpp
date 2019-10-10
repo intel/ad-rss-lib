@@ -57,6 +57,7 @@ namespace situation {
  *
  * @param[in]  axis              is the coordinate axis this calculation is for
  * @param[in]  currentSpeed      is the current vehicle speed
+ * @param[in]  maxSpeed          is the maximum vehicle speed
  * @param[in]  responseTime      is the response time of the vehicle
  * @param[in]  acceleration      the acceleration of the vehicle during responseTime
  * @param[in]  deceleration      is the applied breaking deceleration
@@ -67,6 +68,7 @@ namespace situation {
  */
 bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const &axis,
                                                       physics::Speed const &currentSpeed,
+                                                      physics::Speed const &maxSpeed,
                                                       physics::Duration const &responseTime,
                                                       physics::Acceleration const &acceleration,
                                                       physics::Acceleration const &deceleration,

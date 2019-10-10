@@ -93,6 +93,64 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
 {
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
+  followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+
+  situation.egoVehicleState = followingVehicle;
+  situation.otherVehicleState = leadingVehicle;
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(58.));
+
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState,
+            TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+}
+
+TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_maxspeed_safe)
+{
+  leadingVehicle = createVehicleStateForLongitudinalMotion(50);
+  followingVehicle = createVehicleStateForLongitudinalMotion(50);
+  followingVehicle.dynamics.maxSpeed = kmhToMeterPerSec(50.);
+  followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+
+  situation.egoVehicleState = followingVehicle;
+  situation.otherVehicleState = leadingVehicle;
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(40.));
+
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+}
+
+TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_maxspeed_unsafe)
+{
+  leadingVehicle = createVehicleStateForLongitudinalMotion(50);
+  followingVehicle = createVehicleStateForLongitudinalMotion(50);
+  followingVehicle.dynamics.maxSpeed = kmhToMeterPerSec(50.);
+  followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+
+  situation.egoVehicleState = followingVehicle;
+  situation.otherVehicleState = leadingVehicle;
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(38.));
+
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState,
+            TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+}
+
+TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_no_accel_unsafe)
+{
+  leadingVehicle = createVehicleStateForLongitudinalMotion(50);
+  followingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(0.);
   followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
 
@@ -126,6 +184,34 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
 
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(71.6));
+
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState,
+            TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+}
+
+TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_maxspeed_other_standing)
+{
+  leadingVehicle = createVehicleStateForLongitudinalMotion(0);
+  followingVehicle = createVehicleStateForLongitudinalMotion(50);
+  followingVehicle.dynamics.maxSpeed = kmhToMeterPerSec(50.);
+  followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+
+  situation.egoVehicleState = followingVehicle;
+  situation.otherVehicleState = leadingVehicle;
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(52.));
+
+  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(50.));
 
   ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
   ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));

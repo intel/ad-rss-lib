@@ -43,6 +43,7 @@
 #include <memory>
 #include "ad/physics/Distance.hpp"
 #include "ad/physics/Duration.hpp"
+#include "ad/physics/Speed.hpp"
 #include "ad/rss/world/LateralRssAccelerationValues.hpp"
 #include "ad/rss/world/LongitudinalRssAccelerationValues.hpp"
 /*!
@@ -118,7 +119,8 @@ struct RssDynamics
   bool operator==(const RssDynamics &other) const
   {
     return (alphaLon == other.alphaLon) && (alphaLat == other.alphaLat)
-      && (lateralFluctuationMargin == other.lateralFluctuationMargin) && (responseTime == other.responseTime);
+      && (lateralFluctuationMargin == other.lateralFluctuationMargin) && (responseTime == other.responseTime)
+      && (maxSpeed == other.maxSpeed);
   }
 
   /**
@@ -152,6 +154,11 @@ struct RssDynamics
    * Defines the response time of the object to be considered.
    */
   ::ad::physics::Duration responseTime;
+
+  /*!
+   * Defines the maximum speed of the object.
+   */
+  ::ad::physics::Speed maxSpeed{100};
 };
 
 } // namespace world

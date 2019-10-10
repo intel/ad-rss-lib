@@ -154,14 +154,17 @@ situation::RelativePosition createRelativeLateralPosition(situation::LateralRela
   return relativePosition;
 }
 
-Distance calculateLongitudinalStoppingDistance(physics::Speed const &objectSpeed,
+Distance calculateLongitudinalStoppingDistance(Speed const &objectSpeed,
+                                               Speed const &objectMaxSpeed,
                                                Acceleration const &acceleration,
                                                Acceleration const &deceleration,
                                                Duration const &responseTime)
 {
-  Distance dMin = objectSpeed * responseTime;
-  dMin += 0.5 * acceleration * responseTime * responseTime;
-  Speed const speedMax = objectSpeed + responseTime * acceleration;
+  Duration accelerationTime = std::min(responseTime, std::fabs(objectMaxSpeed - objectSpeed) / acceleration);
+  Distance dMin = objectSpeed * accelerationTime;
+  dMin += 0.5 * acceleration * accelerationTime * accelerationTime;
+  dMin += objectMaxSpeed * (responseTime - accelerationTime);
+  Speed const speedMax = std::min(objectMaxSpeed, objectSpeed + responseTime * acceleration);
   dMin += (speedMax * speedMax) / (2. * deceleration);
   return dMin;
 }
@@ -173,11 +176,13 @@ Distance calculateLongitudinalMinSafeDistance(physics::Speed const &followingObj
 {
   Distance const followingStoppingDistance
     = calculateLongitudinalStoppingDistance(followingObjectSpeed,
+                                            followingObjectRssDynamics.maxSpeed,
                                             followingObjectRssDynamics.alphaLon.accelMax,
                                             followingObjectRssDynamics.alphaLon.brakeMin,
                                             followingObjectRssDynamics.responseTime);
   Distance const leadingStoppingDistance
     = calculateLongitudinalStoppingDistance(leadingObjectSpeed,
+                                            leadingObjectRssDynamics.maxSpeed,
                                             leadingObjectRssDynamics.alphaLon.accelMax,
                                             leadingObjectRssDynamics.alphaLon.brakeMax,
                                             Duration(0));
@@ -193,11 +198,13 @@ calculateLongitudinalMinSafeDistanceOppositeDirection(physics::Speed const &obje
 {
   Distance const correctStoppingDistance
     = calculateLongitudinalStoppingDistance(objectInCorrectLaneSpeed,
+                                            objectInCorrectLaneRssDynamics.maxSpeed,
                                             objectInCorrectLaneRssDynamics.alphaLon.accelMax,
                                             objectInCorrectLaneRssDynamics.alphaLon.brakeMinCorrect,
                                             objectInCorrectLaneRssDynamics.responseTime);
   Distance const notCorrectStoppingDistance
     = calculateLongitudinalStoppingDistance(objectNotInCorrectLaneSpeed,
+                                            objectNotInCorrectLaneRssDynamics.maxSpeed,
                                             objectNotInCorrectLaneRssDynamics.alphaLon.accelMax,
                                             objectNotInCorrectLaneRssDynamics.alphaLon.brakeMin,
                                             objectNotInCorrectLaneRssDynamics.responseTime);
@@ -362,6 +369,7 @@ state::LongitudinalRssState TestSupport::stateWithInformation(state::Longitudina
         resultState.rssStateInformation.currentDistance = situation.egoVehicleState.distanceToEnterIntersection;
         resultState.rssStateInformation.safeDistance
           = calculateLongitudinalStoppingDistance(situation.egoVehicleState.velocity.speedLon.maximum,
+                                                  situation.egoVehicleState.dynamics.maxSpeed,
                                                   situation.egoVehicleState.dynamics.alphaLon.accelMax,
                                                   situation.egoVehicleState.dynamics.alphaLon.brakeMin,
                                                   situation.egoVehicleState.dynamics.responseTime);
@@ -376,6 +384,7 @@ state::LongitudinalRssState TestSupport::stateWithInformation(state::Longitudina
         resultState.rssStateInformation.currentDistance = situation.otherVehicleState.distanceToEnterIntersection;
         resultState.rssStateInformation.safeDistance
           = calculateLongitudinalStoppingDistance(situation.otherVehicleState.velocity.speedLon.maximum,
+                                                  situation.otherVehicleState.dynamics.maxSpeed,
                                                   situation.otherVehicleState.dynamics.alphaLon.accelMax,
                                                   situation.otherVehicleState.dynamics.alphaLon.brakeMin,
                                                   situation.otherVehicleState.dynamics.responseTime);

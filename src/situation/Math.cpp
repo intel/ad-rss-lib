@@ -44,12 +44,31 @@ using physics::Speed;
 namespace rss {
 namespace situation {
 
-Distance calculateDistanceOffsetInAccerlatedMovement(Speed const &speed,
-                                                     Acceleration const &acceleration,
-                                                     Duration const &duration)
+Distance calculateDistanceOffsetInAcceleratedMovement(Speed const &speed,
+                                                      Acceleration const &acceleration,
+                                                      Duration const &duration)
 {
-  // s(t) =(a/2) * t^2 + v0 * t
+  // s(t) = (a/2) * t^2 + v0 * t
   Distance const distanceOffset = (acceleration * 0.5 * duration * duration) + (speed * duration);
+  return distanceOffset;
+}
+
+Distance calculateDistanceOffsetInAcceleratedLimitedMovement(Speed const &speed,
+                                                             Speed const &maxSpeed,
+                                                             Acceleration const &acceleration,
+                                                             Duration const &duration)
+{
+  Speed const deltaSpeed = std::max(Speed(0.), maxSpeed - speed);
+  // v_delta = a * t_to_max --> t_to_max = v_delta / a
+  Duration accelTime = std::fabs(deltaSpeed / acceleration);
+
+  accelTime = std::min(accelTime, duration);
+  Duration maxSpeedTime = std::max(Duration(0.), duration - accelTime);
+
+  // s(t) = (a/2) * t^2 + v0 * t for acceleration time
+  // s(t) = v_max * t_max_s for max speed time
+  Distance const distanceOffset
+    = calculateDistanceOffsetInAcceleratedMovement(speed, acceleration, accelTime) + (maxSpeed * maxSpeedTime);
   return distanceOffset;
 }
 
@@ -78,6 +97,7 @@ bool calculateStoppingDistance(Speed const &currentSpeed, Acceleration const &de
 
 bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const &axis,
                                      Speed const &currentSpeed,
+                                     Speed const &maxSpeed,
                                      Acceleration const &acceleration,
                                      Duration const &responseTime,
                                      Speed &resultingSpeed)
@@ -103,6 +123,10 @@ bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const &axis,
   {
     // Only deceleration till stop is allowed
     resultingSpeed = std::max(Speed(0.), resultingSpeed);
+    if (maxSpeed.isValid())
+    {
+      resultingSpeed = std::min(maxSpeed, resultingSpeed);
+    }
   }
 
   return true;
@@ -110,6 +134,7 @@ bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const &axis,
 
 bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const &axis,
                                               Speed const &currentSpeed,
+                                              Speed const &maxSpeed,
                                               Acceleration const &acceleration,
                                               Duration const &responseTime,
                                               Distance &distanceOffset)
@@ -135,9 +160,13 @@ bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const &axis,
       resultingResponseTime = -1. * currentSpeed / acceleration;
       resultingResponseTime = std::min(resultingResponseTime, responseTime);
     }
+    distanceOffset = calculateDistanceOffsetInAcceleratedLimitedMovement(
+      currentSpeed, maxSpeed, acceleration, resultingResponseTime);
   }
-
-  distanceOffset = calculateDistanceOffsetInAccerlatedMovement(currentSpeed, acceleration, resultingResponseTime);
+  else
+  {
+    distanceOffset = calculateDistanceOffsetInAcceleratedMovement(currentSpeed, acceleration, resultingResponseTime);
+  }
 
   return true;
 }
@@ -191,6 +220,7 @@ bool calculateTimeForDistance(Speed const &currentSpeed,
 }
 
 bool calculateTimeToCoverDistance(Speed const &currentSpeed,
+                                  Speed const &maxSpeed,
                                   Duration const &responseTime,
                                   Acceleration const &acceleration,
                                   Acceleration const &deceleration,
@@ -209,6 +239,7 @@ bool calculateTimeToCoverDistance(Speed const &currentSpeed,
   result = calculateDistanceOffsetAfterResponseTime( // LCOV_EXCL_LINE: wrong detection
     CoordinateSystemAxis::Longitudinal,
     currentSpeed,
+    maxSpeed,
     acceleration,
     responseTime,
     distanceAfterResponseTime);
@@ -226,6 +257,7 @@ bool calculateTimeToCoverDistance(Speed const &currentSpeed,
       result = calculateSpeedAfterResponseTime( // LCOV_EXCL_LINE: wrong detection
         CoordinateSystemAxis::Longitudinal,
         currentSpeed,
+        maxSpeed,
         acceleration,
         responseTime,
         resultingSpeed);

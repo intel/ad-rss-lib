@@ -213,13 +213,15 @@ situation::RelativePosition createRelativeLateralPosition(situation::LateralRela
  * @brief calculate the longitudinal stopping distance
  *
  * @param[in] objectSpeed the objectSpeed used for the calculation
+ * @param[in] objectSpeed the object maximum speed used for the calculation
  * @param[in] acceleration the acceleration to be applied for acceleration within response time
  * @param[in] deceleration the deceleration to be applied for braking
  * @param[in] responseTime the responseTime to be applied before braking
  *
  * @returns the distance required to stop when applying accelMax during the responseTime and then brake to the full stop
  */
-Distance calculateLongitudinalStoppingDistance(physics::Speed const &objectSpeed,
+Distance calculateLongitudinalStoppingDistance(Speed const &objectSpeed,
+                                               Speed const &objectMaxSpeed,
                                                Acceleration const &acceleration,
                                                Acceleration const &deceleration,
                                                Duration const &responseTime);

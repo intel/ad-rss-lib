@@ -62,17 +62,19 @@ inline bool vehicleStateWithinVaildInputRange(VehicleState const &vehicleState)
 
 bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const &axis,
                                                       Speed const &currentSpeed,
+                                                      Speed const &maxSpeed,
                                                       Duration const &responseTime,
                                                       Acceleration const &acceleration,
                                                       Acceleration const &deceleration,
                                                       Distance &distanceOffset)
 {
   Speed resultingSpeed = Speed(0.);
-  bool result = calculateSpeedAfterResponseTime(axis, currentSpeed, acceleration, responseTime, resultingSpeed);
+  bool result
+    = calculateSpeedAfterResponseTime(axis, currentSpeed, maxSpeed, acceleration, responseTime, resultingSpeed);
 
   Distance distanceOffsetAfterResponseTime = Distance(0.);
   result = result && calculateDistanceOffsetAfterResponseTime(
-                       axis, currentSpeed, acceleration, responseTime, distanceOffsetAfterResponseTime);
+                       axis, currentSpeed, maxSpeed, acceleration, responseTime, distanceOffsetAfterResponseTime);
 
   Distance distanceToStop = Distance(0.);
   if (std::signbit(static_cast<double>(resultingSpeed)) == std::signbit(static_cast<double>(acceleration)))
@@ -105,6 +107,7 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
   bool result = calculateDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
     CoordinateSystemAxis::Longitudinal,
     followingVehicle.velocity.speedLon.maximum,
+    followingVehicle.dynamics.maxSpeed,
     followingVehicle.dynamics.responseTime,
     followingVehicle.dynamics.alphaLon.accelMax,
     followingVehicle.dynamics.alphaLon.brakeMin,
@@ -160,6 +163,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &corr
   bool result = calculateDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
     CoordinateSystemAxis::Longitudinal,
     correctVehicle.velocity.speedLon.maximum,
+    correctVehicle.dynamics.maxSpeed,
     correctVehicle.dynamics.responseTime,
     correctVehicle.dynamics.alphaLon.accelMax,
     correctVehicle.dynamics.alphaLon.brakeMinCorrect,
@@ -172,6 +176,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &corr
     result = calculateDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
       CoordinateSystemAxis::Longitudinal,
       oppositeVehicle.velocity.speedLon.maximum,
+      oppositeVehicle.dynamics.maxSpeed,
       oppositeVehicle.dynamics.responseTime,
       oppositeVehicle.dynamics.alphaLon.accelMax,
       oppositeVehicle.dynamics.alphaLon.brakeMin,
@@ -221,6 +226,7 @@ bool checkStopInFrontIntersection(VehicleState const &vehicle, Distance &safeDis
   bool result = calculateDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
     CoordinateSystemAxis::Longitudinal,
     vehicle.velocity.speedLon.maximum,
+    vehicle.dynamics.maxSpeed,
     vehicle.dynamics.responseTime,
     vehicle.dynamics.alphaLon.accelMax,
     vehicle.dynamics.alphaLon.brakeMin,
@@ -250,6 +256,7 @@ bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
   result = calculateDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
     CoordinateSystemAxis::Lateral,
     leftVehicle.velocity.speedLat.maximum,
+    leftVehicle.dynamics.maxSpeed,
     leftVehicle.dynamics.responseTime,
     leftVehicle.dynamics.alphaLat.accelMax,
     leftVehicle.dynamics.alphaLat.brakeMin,
@@ -258,6 +265,7 @@ bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
   result = result && calculateDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
                        CoordinateSystemAxis::Lateral,
                        rightVehicle.velocity.speedLat.minimum,
+                       rightVehicle.dynamics.maxSpeed,
                        rightVehicle.dynamics.responseTime,
                        -rightVehicle.dynamics.alphaLat.accelMax,
                        -rightVehicle.dynamics.alphaLat.brakeMin,

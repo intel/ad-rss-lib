@@ -74,6 +74,8 @@ bool calculateStoppingDistance(physics::Speed const &currentSpeed,
  * @param[in]  axis            is the coordinate axis this calculation is for
  * @param[in]  currentSpeed    is the current speed of the vehicle
  *                             (in longitudinal direction this has to be always positive)
+ * @param[in]  maxSpeed        is the maximum speed of the vehicle (e.g. restricted by a limit)
+ *                             (only used in longitudinal direction, has to be always positive)
  * @param[in]  acceleration    is the acceleration of the vehicle
  * @param[in]  responseTime    is the (positive) period of time the vehicle keeps accelerating
  * @param[out] resultingSpeed  is the resulting speed after \a responseTime
@@ -85,6 +87,7 @@ bool calculateStoppingDistance(physics::Speed const &currentSpeed,
  */
 bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const &axis,
                                      physics::Speed const &currentSpeed,
+                                     physics::Speed const &maxSpeed,
                                      physics::Acceleration const &acceleration,
                                      physics::Duration const &responseTime,
                                      physics::Speed &resultingSpeed);
@@ -95,6 +98,8 @@ bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const &axis,
  * @param[in]  axis             is the coordinate axis this calculation is for
  * @param[in]  currentSpeed     is the current speed of the vehicle
  *                              (in longitudinal direction this has to be always positive)
+ * @param[in]  maxSpeed         is the maximum speed of the vehicle
+ *                              (only used in longitudinal direction, has to be always positive)
  * @param[in]  acceleration     is the acceleration of the vehicle
  * @param[in]  responseTime     is the (positive) period of time the vehicle keeps accelerating
  * @param[out] distanceOffset   is the distance offset from the current position
@@ -109,6 +114,7 @@ bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const &axis,
  */
 bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const &axis,
                                               physics::Speed const &currentSpeed,
+                                              physics::Speed const &maxSpeed,
                                               physics::Acceleration const &acceleration,
                                               physics::Duration const &responseTime,
                                               physics::Distance &distanceOffset);
@@ -120,6 +126,7 @@ bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const &axis,
  * If the distance is not covered when then velocity reaches zero, infinite time will be returned
  *
  * @param[in] currentSpeed starting velocity
+ * @param[in] maxSpeed maximum velocity
  * @param[in] responseTime
  * @param[in] acceleration during response time
  * @param[in] deceleration after response time
@@ -130,6 +137,7 @@ bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const &axis,
  *
  */
 bool calculateTimeToCoverDistance(physics::Speed const &currentSpeed,
+                                  physics::Speed const &maxSpeed,
                                   physics::Duration const &responseTime,
                                   physics::Acceleration const &acceleration,
                                   physics::Acceleration const &deceleration,

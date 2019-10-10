@@ -37,6 +37,7 @@
 
 #include "ad/physics/Acceleration.hpp"
 #include "ad/physics/Duration.hpp"
+#include "ad/physics/Speed.hpp"
 
 /*!
  * @brief namespace rss
@@ -54,6 +55,8 @@ const physics::Acceleration cMinimumLongitudinalBrakingDecelelerationCorrect(3);
 
 const physics::Acceleration cMaximumLateralAcceleration(0.2);
 const physics::Acceleration cMinimumLateralBrakingDeceleleration(0.8);
+
+const physics::Speed cMaxSpeed = physics::Speed::getMax();
 
 } // namespace rss
 } // namespace ad

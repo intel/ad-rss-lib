@@ -36,9 +36,14 @@ namespace ad {
 namespace rss {
 namespace situation {
 
-Distance calculateDistanceOffsetInAccerlatedMovement(Speed const &speed,
-                                                     Acceleration const &acceleration,
-                                                     Duration const &duration);
+Distance calculateDistanceOffsetInAcceleratedMovement(Speed const &speed,
+                                                      Acceleration const &acceleration,
+                                                      Duration const &duration);
+
+Distance calculateDistanceOffsetInAcceleratedLimitedMovement(Speed const &speed,
+                                                             Speed const &maxSpeed,
+                                                             Acceleration const &acceleration,
+                                                             Duration const &duration);
 
 bool calculateTimeForDistance(Speed const &currentSpeed,
                               Acceleration const &acceleration,
@@ -64,9 +69,21 @@ TEST(MathUnitTestsInputRangeChecks, speed_and_acceleration_zero)
 
 TEST(MathUnitTestsInputRangeChecks, calculateDistanceOffsetInAccerlatedMovementThrows)
 {
-  EXPECT_THROW(calculateDistanceOffsetInAccerlatedMovement(Speed(), Acceleration(0), Duration(0)), std::out_of_range);
-  EXPECT_THROW(calculateDistanceOffsetInAccerlatedMovement(Speed(0), Acceleration(), Duration(0)), std::out_of_range);
-  EXPECT_THROW(calculateDistanceOffsetInAccerlatedMovement(Speed(0), Acceleration(0), Duration()), std::out_of_range);
+  EXPECT_THROW(calculateDistanceOffsetInAcceleratedMovement(Speed(), Acceleration(0), Duration(0)), std::out_of_range);
+  EXPECT_THROW(calculateDistanceOffsetInAcceleratedMovement(Speed(0), Acceleration(), Duration(0)), std::out_of_range);
+  EXPECT_THROW(calculateDistanceOffsetInAcceleratedMovement(Speed(0), Acceleration(0), Duration()), std::out_of_range);
+}
+
+TEST(MathUnitTestsInputRangeChecks, calculateDistanceOffsetInAccerlatedLimitedMovementThrows)
+{
+  EXPECT_THROW(calculateDistanceOffsetInAcceleratedLimitedMovement(Speed(), Speed(0), Acceleration(0), Duration(0)),
+               std::out_of_range);
+  EXPECT_THROW(calculateDistanceOffsetInAcceleratedLimitedMovement(Speed(0), Speed(), Acceleration(0), Duration(0)),
+               std::out_of_range);
+  EXPECT_THROW(calculateDistanceOffsetInAcceleratedLimitedMovement(Speed(0), Speed(0), Acceleration(), Duration(0)),
+               std::out_of_range);
+  EXPECT_THROW(calculateDistanceOffsetInAcceleratedLimitedMovement(Speed(0), Speed(0), Acceleration(0), Duration()),
+               std::out_of_range);
 }
 
 TEST(MathUnitTestsInputRangeChecks, calculateSpeedInAcceleratedMovementThrows)
@@ -80,6 +97,7 @@ TEST(MathUnitTestsInputRangeChecks, calculateTimeToCoverDistanceThrows)
 {
   Duration requiredTime(0.);
   EXPECT_THROW(calculateTimeToCoverDistance(Speed(),
+                                            cMaxSpeed,
                                             Duration(0.),
                                             Acceleration(0.),
                                             std::numeric_limits<Acceleration>::epsilon(),
@@ -87,6 +105,7 @@ TEST(MathUnitTestsInputRangeChecks, calculateTimeToCoverDistanceThrows)
                                             requiredTime),
                std::out_of_range);
   EXPECT_THROW(calculateTimeToCoverDistance(Speed(0.),
+                                            cMaxSpeed,
                                             Duration(),
                                             Acceleration(0.),
                                             std::numeric_limits<Acceleration>::epsilon(),
@@ -94,16 +113,18 @@ TEST(MathUnitTestsInputRangeChecks, calculateTimeToCoverDistanceThrows)
                                             requiredTime),
                std::out_of_range);
   EXPECT_THROW(calculateTimeToCoverDistance(Speed(0.),
+                                            cMaxSpeed,
                                             Duration(0.),
                                             Acceleration(),
                                             std::numeric_limits<Acceleration>::epsilon(),
                                             Distance(1.),
                                             requiredTime),
                std::out_of_range);
-  EXPECT_THROW(
-    calculateTimeToCoverDistance(Speed(0.), Duration(0.), Acceleration(0.), Acceleration(), Distance(1.), requiredTime),
-    std::out_of_range);
+  EXPECT_THROW(calculateTimeToCoverDistance(
+                 Speed(0.), cMaxSpeed, Duration(0.), Acceleration(0.), Acceleration(), Distance(1.), requiredTime),
+               std::out_of_range);
   EXPECT_THROW(calculateTimeToCoverDistance(Speed(0.),
+                                            cMaxSpeed,
                                             Duration(0.),
                                             Acceleration(0.),
                                             std::numeric_limits<Acceleration>::epsilon(),
