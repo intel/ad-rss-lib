@@ -1,0 +1,137 @@
+/*
+ *  @COPYRIGHT_TAG@
+ */
+
+/**
+ * Generated file
+ * @file
+ *
+ * Model Library     : RSS.ad_rss_data_type_lib
+ * Model Version     : 0.0.0
+ * Generator         : mo2ive_generator_mockup
+ * Generator Version : 10.5.6-1843
+ */
+
+#pragma once
+
+#include <limits>
+#include <memory>
+#include "ad/physics/MetricRange.hpp"
+#include "ad/rss/world/LaneDrivingDirection.hpp"
+#include "ad/rss/world/LaneSegmentId.hpp"
+#include "ad/rss/world/LaneSegmentType.hpp"
+/*!
+ * @brief namespace ad
+ */
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace world
+ */
+namespace world {
+
+/*!
+ * \brief DataType LaneSegment
+ *
+ * Defines a lane segment.
+ */
+struct LaneSegment
+{
+  using Ptr = std::shared_ptr<LaneSegment>;
+  using ConstPtr = std::shared_ptr<LaneSegment const>;
+
+  /*!
+   * \brief standard constructor
+   */
+  LaneSegment() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~LaneSegment() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  LaneSegment(const LaneSegment &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  LaneSegment(LaneSegment &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other LaneSegment
+   *
+   * \returns Reference to this LaneSegment.
+   */
+  LaneSegment &operator=(const LaneSegment &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other LaneSegment
+   *
+   * \returns Reference to this LaneSegment.
+   */
+  LaneSegment &operator=(LaneSegment &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other LaneSegment
+   *
+   * \returns \c true if both LaneSegment are equal
+   */
+  bool operator==(const LaneSegment &other) const
+  {
+    return (id == other.id) && (type == other.type) && (drivingDirection == other.drivingDirection)
+      && (length == other.length) && (width == other.width);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other LaneSegment.
+   *
+   * \returns \c true if both LaneSegment are different
+   */
+  bool operator!=(const LaneSegment &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
+   * The id of the lane segment.
+   */
+  ::ad::rss::world::LaneSegmentId id;
+
+  /*!
+   * The type of this lane segment in context of the RssArea it belongs to.
+   */
+  ::ad::rss::world::LaneSegmentType type{::ad::rss::world::LaneSegmentType::Normal};
+
+  /*!
+   * The nominal direction of the traffic flow of this lane segment in context of the RssArea it belongs to.
+   */
+  ::ad::rss::world::LaneDrivingDirection drivingDirection{::ad::rss::world::LaneDrivingDirection::Bidirectional};
+
+  /*!
+   * The metric range of the lane segments length.
+   */
+  ::ad::physics::MetricRange length;
+
+  /*!
+   * The metric range of the lane segments width.
+   */
+  ::ad::physics::MetricRange width;
+};
+
+} // namespace world
+} // namespace rss
+} // namespace ad

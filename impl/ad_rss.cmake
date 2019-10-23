@@ -29,23 +29,24 @@
 #
 # ----------------- END LICENSE BLOCK -----------------------------------
 
-cmake_minimum_required(VERSION 3.5)
+set(ad_rss_SOURCES
+  ${CMAKE_CURRENT_LIST_DIR}/src/core/RssCheck.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/src/core/RssResponseResolving.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/src/core/RssResponseTransformation.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/src/core/RssSituationChecking.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/src/core/RssSituationExtraction.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/src/situation/Math.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/src/situation/RssFormulas.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/src/situation/RssIntersectionChecker.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/src/situation/RssSituation.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/src/world/RssSituationCoordinateSystemConversion.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/src/world/RssSituationIdProvider.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/src/world/RssObjectPositionExtractor.cpp
+  )
+set(ad_rss_INCLUDE_DIRS
+  ${CMAKE_CURRENT_LIST_DIR}/include/
+)
 
-project(ad_rss)
-
-if(BUILD_TESTING)
-message(STATUS "Build Testing")
-  enable_testing()
-
-  configure_file(gtest-cmake.txt.in googletest-download/CMakeLists.txt)
-  execute_process(COMMAND "${CMAKE_COMMAND}" -G "Eclipse CDT4 - Unix Makefiles" . RESULT_VARIABLE result WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/googletest-download")
-  execute_process(COMMAND "${CMAKE_COMMAND}" --build . RESULT_VARIABLE result WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/googletest-download")
-
-  set(BUILD_SHARED_LIBS OFF)
-  add_subdirectory("${CMAKE_CURRENT_BINARY_DIR}/googletest-src"
-                   "${CMAKE_CURRENT_BINARY_DIR}/googletest-build"
-                   EXCLUDE_FROM_ALL)
-endif()
-
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/impl")
-add_subdirectory(generated)
+set(ad_rss_UNIT_TEST_DIR
+  ${CMAKE_CURRENT_LIST_DIR}/test/
+)

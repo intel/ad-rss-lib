@@ -1,0 +1,133 @@
+/*
+ *  @COPYRIGHT_TAG@
+ */
+
+/**
+ * Generated file
+ * @file
+ *
+ * Model Library     : RSS.ad_rss_data_type_lib
+ * Model Version     : 0.0.0
+ * Generator         : mo2ive_generator_mockup
+ * Generator Version : 10.5.6-1843
+ */
+
+#pragma once
+
+#include <limits>
+#include <memory>
+#include "ad/rss/world/ObjectId.hpp"
+#include "ad/rss/world/ObjectType.hpp"
+#include "ad/rss/world/OccupiedRegionVector.hpp"
+#include "ad/rss/world/Velocity.hpp"
+/*!
+ * @brief namespace ad
+ */
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace world
+ */
+namespace world {
+
+/*!
+ * \brief DataType Object
+ *
+ * An object is described by several aspects: the unique id of an object, the type of the object, the lane regions the
+ * object occupies, the objects velocity within its lane.
+ */
+struct Object
+{
+  using Ptr = std::shared_ptr<Object>;
+  using ConstPtr = std::shared_ptr<Object const>;
+
+  /*!
+   * \brief standard constructor
+   */
+  Object() = default;
+
+  /*!
+   * \brief standard destructor
+   */
+  ~Object() = default;
+
+  /*!
+   * \brief standard copy constructor
+   */
+  Object(const Object &other) = default;
+
+  /*!
+   * \brief standard move constructor
+   */
+  Object(Object &&other) = default;
+
+  /**
+   * \brief standard assignment operator
+   *
+   * \param[in] other Other Object
+   *
+   * \returns Reference to this Object.
+   */
+  Object &operator=(const Object &other) = default;
+
+  /**
+   * \brief standard move operator
+   *
+   * \param[in] other Other Object
+   *
+   * \returns Reference to this Object.
+   */
+  Object &operator=(Object &&other) = default;
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other Object
+   *
+   * \returns \c true if both Object are equal
+   */
+  bool operator==(const Object &other) const
+  {
+    return (objectId == other.objectId) && (objectType == other.objectType)
+      && (occupiedRegions == other.occupiedRegions) && (velocity == other.velocity);
+  }
+
+  /**
+   * \brief standard comparison operator
+   *
+   * \param[in] other Other Object.
+   *
+   * \returns \c true if both Object are different
+   */
+  bool operator!=(const Object &other) const
+  {
+    return !operator==(other);
+  }
+
+  /*!
+   * Defines the unique id of an object. This id has to be constant over time for the same object.
+   */
+  ::ad::rss::world::ObjectId objectId;
+
+  /*!
+   * Defines the type of the object.
+   */
+  ::ad::rss::world::ObjectType objectType{::ad::rss::world::ObjectType::Invalid};
+
+  /*!
+   * Defines the lane regions the object occupies.
+   */
+  ::ad::rss::world::OccupiedRegionVector occupiedRegions;
+
+  /*!
+   * Defines the objects velocity in respect to its current major lane.
+   */
+  ::ad::rss::world::Velocity velocity;
+};
+
+} // namespace world
+} // namespace rss
+} // namespace ad

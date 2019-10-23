@@ -2,6 +2,5 @@
 .md
 LICENSE
 doc/
-model/
-tests/gtest-cmake.txt.in
+gtest-cmake.txt.in
 build.gradle
