@@ -32,6 +32,8 @@
 #include "ad/rss/core/RssResponseTransformation.hpp"
 #include "ad/rss/state/ProperResponseValidInputRange.hpp"
 #include "ad/rss/world/WorldModelValidInputRange.hpp"
+#include "spdlog/fmt/ostr.h"
+#include "spdlog/spdlog.h"
 
 namespace ad {
 namespace rss {
@@ -44,11 +46,16 @@ bool transformProperResponse(world::WorldModel const &worldModel,
 {
   if (!withinValidInputRange(worldModel) || !withinValidInputRange(response))
   {
+    spdlog::error("RssResponseTransformation::transformProperResponse>> Invalid input {} {}", worldModel, response);
     return false;
   }
 
   if (worldModel.timeIndex != response.timeIndex)
   {
+    spdlog::error(
+      "RssResponseTransformation::transformProperResponse>> WorldModel timeIndex {} not matching response timeIndex {}",
+      worldModel.timeIndex,
+      response.timeIndex);
     return false;
   }
   accelerationRestriction.timeIndex = response.timeIndex;
@@ -72,6 +79,8 @@ bool transformProperResponse(world::WorldModel const &worldModel,
       accelerationRestriction.longitudinalRange.maximum = worldModel.egoVehicleRssDynamics.alphaLon.accelMax;
       break;
     default:
+      spdlog::error("RssResponseTransformation::transformProperResponse>> Invalid longitudinal response state {}",
+                    response.longitudinalResponse);
       return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
       break;
   }
@@ -87,6 +96,8 @@ bool transformProperResponse(world::WorldModel const &worldModel,
       accelerationRestriction.lateralLeftRange.minimum = -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin;
       break;
     default:
+      spdlog::error("RssResponseTransformation::transformProperResponse>> Invalid lateral left response state {}",
+                    response.lateralResponseLeft);
       return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
       break;
   }
@@ -102,6 +113,8 @@ bool transformProperResponse(world::WorldModel const &worldModel,
       accelerationRestriction.lateralRightRange.minimum = -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin;
       break;
     default:
+      spdlog::error("RssResponseTransformation::transformProperResponse>> Invalid lateral right response state {}",
+                    response.lateralResponseRight);
       return false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
       break;
   }

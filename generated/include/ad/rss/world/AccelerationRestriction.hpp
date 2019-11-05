@@ -1,5 +1,5 @@
 /*
- *  @COPYRIGHT_TAG@
+ * Copyright (C) 2019 Intel Corporation
  */
 
 /**
@@ -9,11 +9,12 @@
  * Model Library     : RSS.ad_rss_data_type_lib
  * Model Version     : 0.0.0
  * Generator         : mo2ive_generator_mockup
- * Generator Version : 10.5.6-1843
+ * Generator Version : @GENERATOR_VERSION@
  */
 
 #pragma once
 
+#include <iostream>
 #include <limits>
 #include <memory>
 #include "ad/physics/AccelerationRange.hpp"
@@ -128,3 +129,51 @@ struct AccelerationRestriction
 } // namespace world
 } // namespace rss
 } // namespace ad
+
+// protect the definition of ostream operator from duplicates by typedef usage within other data types
+#ifndef OSTREAM_AD_RSS_WORLD_ACCELERATIONRESTRICTION
+#define OSTREAM_AD_RSS_WORLD_ACCELERATIONRESTRICTION
+/*!
+ * @brief namespace ad
+ */
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace world
+ */
+namespace world {
+
+/**
+ * \brief standard ostream operator
+ *
+ * \param[in] stream The output stream to write to
+ * \param[in] value AccelerationRestriction value
+ *
+ * \returns The stream object.
+ *
+ */
+inline std::ostream &operator<<(std::ostream &os, AccelerationRestriction const &_value)
+{
+  os << "AccelerationRestriction(";
+  os << "timeIndex:";
+  os << _value.timeIndex;
+  os << ",";
+  os << "lateralLeftRange:";
+  os << _value.lateralLeftRange;
+  os << ",";
+  os << "longitudinalRange:";
+  os << _value.longitudinalRange;
+  os << ",";
+  os << "lateralRightRange:";
+  os << _value.lateralRightRange;
+  os << ")";
+  return os;
+}
+
+} // namespace world
+} // namespace rss
+} // namespace ad
+#endif // OSTREAM_AD_RSS_WORLD_ACCELERATIONRESTRICTION

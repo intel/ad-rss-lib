@@ -28,8 +28,10 @@
 #    POSSIBILITY OF SUCH DAMAGE.
 #
 # ----------------- END LICENSE BLOCK -----------------------------------
-
 cmake_minimum_required(VERSION 3.5)
+
+option(BUILD_SHARED_LIBS "Build shared libraries instead of static ones" ON)
+option(BUILD_TESTING "Include tests into build" OFF)
 
 project(ad_rss)
 
@@ -37,14 +39,7 @@ if(BUILD_TESTING)
 message(STATUS "Build Testing")
   enable_testing()
 
-  configure_file(gtest-cmake.txt.in googletest-download/CMakeLists.txt)
-  execute_process(COMMAND "${CMAKE_COMMAND}" -G "Eclipse CDT4 - Unix Makefiles" . RESULT_VARIABLE result WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/googletest-download")
-  execute_process(COMMAND "${CMAKE_COMMAND}" --build . RESULT_VARIABLE result WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/googletest-download")
-
-  set(BUILD_SHARED_LIBS OFF)
-  add_subdirectory("${CMAKE_CURRENT_BINARY_DIR}/googletest-src"
-                   "${CMAKE_CURRENT_BINARY_DIR}/googletest-build"
-                   EXCLUDE_FROM_ALL)
+  include(cmake/gtest.cmake)
 endif()
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/impl")

@@ -1,5 +1,5 @@
 /*
- *  @COPYRIGHT_TAG@
+ * Copyright (C) 2019 Intel Corporation
  */
 
 /**
@@ -9,11 +9,12 @@
  * Model Library     : RSS.ad_rss_data_type_lib
  * Model Version     : 0.0.0
  * Generator         : mo2ive_generator_mockup
- * Generator Version : 10.5.6-1843
+ * Generator Version : @GENERATOR_VERSION@
  */
 
 #pragma once
 
+#include <iostream>
 #include <memory>
 #include <string>
 /*!
@@ -104,3 +105,47 @@ template <typename EnumType> EnumType fromString(std::string const &str);
  * \endcode
  */
 template <>::ad::rss::world::ObjectType fromString(std::string const &str);
+
+// protect the definition of ostream operator from duplicates by typedef usage within other data types
+#ifndef OSTREAM_AD_RSS_WORLD_OBJECTTYPE
+#define OSTREAM_AD_RSS_WORLD_OBJECTTYPE
+/*!
+ * @brief namespace ad
+ */
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace world
+ */
+namespace world {
+
+/**
+ * \brief standard ostream operator
+ *
+ * \param[in] stream The output stream to write to
+ * \param[in] value ObjectType value
+ *
+ * \returns The stream object.
+ *
+ */
+inline std::ostream &operator<<(std::ostream &os, ObjectType const &value)
+{
+  std::string valueString;
+  try
+  {
+    valueString = toString(value);
+  }
+  catch (std::exception &e)
+  {
+    valueString = "INVALID";
+  }
+  return os << valueString;
+}
+
+} // namespace world
+} // namespace rss
+} // namespace ad
+#endif // OSTREAM_AD_RSS_WORLD_OBJECTTYPE

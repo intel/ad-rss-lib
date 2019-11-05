@@ -1,0 +1,147 @@
+/*
+ * Copyright (C) 2019 Intel Corporation
+ */
+
+/*
+ * Note: This file is currently not included in any CMakeLists.txt
+ */
+
+#include <gtest/gtest.h>
+
+#include <limits>
+
+#include "ad/rss/situation/VelocityRangeValidInputRange.hpp"
+
+TEST(VelocityRangeValidInputRangeTests, testValidInputRange)
+{
+  ::ad::rss::situation::VelocityRange value;
+  ::ad::physics::SpeedRange valueSpeedLon;
+  ::ad::physics::Speed valueSpeedLonMinimum(-100.);
+  valueSpeedLon.minimum = valueSpeedLonMinimum;
+  ::ad::physics::Speed valueSpeedLonMaximum(-100.);
+  valueSpeedLon.maximum = valueSpeedLonMaximum;
+  valueSpeedLon.maximum = valueSpeedLon.minimum;
+  valueSpeedLon.minimum = valueSpeedLon.maximum;
+  value.speedLon = valueSpeedLon;
+  ::ad::physics::SpeedRange valueSpeedLat;
+  ::ad::physics::Speed valueSpeedLatMinimum(-100.);
+  valueSpeedLat.minimum = valueSpeedLatMinimum;
+  ::ad::physics::Speed valueSpeedLatMaximum(-100.);
+  valueSpeedLat.maximum = valueSpeedLatMaximum;
+  valueSpeedLat.maximum = valueSpeedLat.minimum;
+  valueSpeedLat.minimum = valueSpeedLat.maximum;
+  value.speedLat = valueSpeedLat;
+  ASSERT_TRUE(withinValidInputRange(value));
+}
+
+TEST(VelocityRangeValidInputRangeTests, testValidInputRangeSpeedLonTooSmall)
+{
+  ::ad::rss::situation::VelocityRange value;
+  ::ad::physics::SpeedRange valueSpeedLon;
+  ::ad::physics::Speed valueSpeedLonMinimum(-100.);
+  valueSpeedLon.minimum = valueSpeedLonMinimum;
+  ::ad::physics::Speed valueSpeedLonMaximum(-100.);
+  valueSpeedLon.maximum = valueSpeedLonMaximum;
+  valueSpeedLon.maximum = valueSpeedLon.minimum;
+  valueSpeedLon.minimum = valueSpeedLon.maximum;
+  value.speedLon = valueSpeedLon;
+  ::ad::physics::SpeedRange valueSpeedLat;
+  ::ad::physics::Speed valueSpeedLatMinimum(-100.);
+  valueSpeedLat.minimum = valueSpeedLatMinimum;
+  ::ad::physics::Speed valueSpeedLatMaximum(-100.);
+  valueSpeedLat.maximum = valueSpeedLatMaximum;
+  valueSpeedLat.maximum = valueSpeedLat.minimum;
+  valueSpeedLat.minimum = valueSpeedLat.maximum;
+  value.speedLat = valueSpeedLat;
+
+  // override member with invalid value
+  ::ad::physics::SpeedRange invalidInitializedMember;
+  ::ad::physics::Speed invalidInitializedMemberMinimum(-100. * 1.1);
+  invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
+  value.speedLon = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(VelocityRangeValidInputRangeTests, testValidInputRangeSpeedLonTooBig)
+{
+  ::ad::rss::situation::VelocityRange value;
+  ::ad::physics::SpeedRange valueSpeedLon;
+  ::ad::physics::Speed valueSpeedLonMinimum(-100.);
+  valueSpeedLon.minimum = valueSpeedLonMinimum;
+  ::ad::physics::Speed valueSpeedLonMaximum(-100.);
+  valueSpeedLon.maximum = valueSpeedLonMaximum;
+  valueSpeedLon.maximum = valueSpeedLon.minimum;
+  valueSpeedLon.minimum = valueSpeedLon.maximum;
+  value.speedLon = valueSpeedLon;
+  ::ad::physics::SpeedRange valueSpeedLat;
+  ::ad::physics::Speed valueSpeedLatMinimum(-100.);
+  valueSpeedLat.minimum = valueSpeedLatMinimum;
+  ::ad::physics::Speed valueSpeedLatMaximum(-100.);
+  valueSpeedLat.maximum = valueSpeedLatMaximum;
+  valueSpeedLat.maximum = valueSpeedLat.minimum;
+  valueSpeedLat.minimum = valueSpeedLat.maximum;
+  value.speedLat = valueSpeedLat;
+
+  // override member with invalid value
+  ::ad::physics::SpeedRange invalidInitializedMember;
+  ::ad::physics::Speed invalidInitializedMemberMinimum(100. * 1.1);
+  invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
+  value.speedLon = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(VelocityRangeValidInputRangeTests, testValidInputRangeSpeedLatTooSmall)
+{
+  ::ad::rss::situation::VelocityRange value;
+  ::ad::physics::SpeedRange valueSpeedLon;
+  ::ad::physics::Speed valueSpeedLonMinimum(-100.);
+  valueSpeedLon.minimum = valueSpeedLonMinimum;
+  ::ad::physics::Speed valueSpeedLonMaximum(-100.);
+  valueSpeedLon.maximum = valueSpeedLonMaximum;
+  valueSpeedLon.maximum = valueSpeedLon.minimum;
+  valueSpeedLon.minimum = valueSpeedLon.maximum;
+  value.speedLon = valueSpeedLon;
+  ::ad::physics::SpeedRange valueSpeedLat;
+  ::ad::physics::Speed valueSpeedLatMinimum(-100.);
+  valueSpeedLat.minimum = valueSpeedLatMinimum;
+  ::ad::physics::Speed valueSpeedLatMaximum(-100.);
+  valueSpeedLat.maximum = valueSpeedLatMaximum;
+  valueSpeedLat.maximum = valueSpeedLat.minimum;
+  valueSpeedLat.minimum = valueSpeedLat.maximum;
+  value.speedLat = valueSpeedLat;
+
+  // override member with invalid value
+  ::ad::physics::SpeedRange invalidInitializedMember;
+  ::ad::physics::Speed invalidInitializedMemberMinimum(-100. * 1.1);
+  invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
+  value.speedLat = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(VelocityRangeValidInputRangeTests, testValidInputRangeSpeedLatTooBig)
+{
+  ::ad::rss::situation::VelocityRange value;
+  ::ad::physics::SpeedRange valueSpeedLon;
+  ::ad::physics::Speed valueSpeedLonMinimum(-100.);
+  valueSpeedLon.minimum = valueSpeedLonMinimum;
+  ::ad::physics::Speed valueSpeedLonMaximum(-100.);
+  valueSpeedLon.maximum = valueSpeedLonMaximum;
+  valueSpeedLon.maximum = valueSpeedLon.minimum;
+  valueSpeedLon.minimum = valueSpeedLon.maximum;
+  value.speedLon = valueSpeedLon;
+  ::ad::physics::SpeedRange valueSpeedLat;
+  ::ad::physics::Speed valueSpeedLatMinimum(-100.);
+  valueSpeedLat.minimum = valueSpeedLatMinimum;
+  ::ad::physics::Speed valueSpeedLatMaximum(-100.);
+  valueSpeedLat.maximum = valueSpeedLatMaximum;
+  valueSpeedLat.maximum = valueSpeedLat.minimum;
+  valueSpeedLat.minimum = valueSpeedLat.maximum;
+  value.speedLat = valueSpeedLat;
+
+  // override member with invalid value
+  ::ad::physics::SpeedRange invalidInitializedMember;
+  ::ad::physics::Speed invalidInitializedMemberMinimum(100. * 1.1);
+  invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
+  value.speedLat = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}

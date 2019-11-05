@@ -1,5 +1,5 @@
 /*
- *  @COPYRIGHT_TAG@
+ * Copyright (C) 2019 Intel Corporation
  */
 
 /**
@@ -9,11 +9,12 @@
  * Model Library     : RSS.ad_rss_data_type_lib
  * Model Version     : 0.0.0
  * Generator         : mo2ive_generator_mockup
- * Generator Version : 10.5.6-1843
+ * Generator Version : @GENERATOR_VERSION@
  */
 
 #pragma once
 
+#include <iostream>
 #include <limits>
 #include <memory>
 #include "ad/rss/situation/SituationId.hpp"
@@ -140,3 +141,54 @@ struct RssState
 } // namespace state
 } // namespace rss
 } // namespace ad
+
+// protect the definition of ostream operator from duplicates by typedef usage within other data types
+#ifndef OSTREAM_AD_RSS_STATE_RSSSTATE
+#define OSTREAM_AD_RSS_STATE_RSSSTATE
+/*!
+ * @brief namespace ad
+ */
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace state
+ */
+namespace state {
+
+/**
+ * \brief standard ostream operator
+ *
+ * \param[in] stream The output stream to write to
+ * \param[in] value RssState value
+ *
+ * \returns The stream object.
+ *
+ */
+inline std::ostream &operator<<(std::ostream &os, RssState const &_value)
+{
+  os << "RssState(";
+  os << "objectId:";
+  os << _value.objectId;
+  os << ",";
+  os << "situationId:";
+  os << _value.situationId;
+  os << ",";
+  os << "longitudinalState:";
+  os << _value.longitudinalState;
+  os << ",";
+  os << "lateralStateRight:";
+  os << _value.lateralStateRight;
+  os << ",";
+  os << "lateralStateLeft:";
+  os << _value.lateralStateLeft;
+  os << ")";
+  return os;
+}
+
+} // namespace state
+} // namespace rss
+} // namespace ad
+#endif // OSTREAM_AD_RSS_STATE_RSSSTATE

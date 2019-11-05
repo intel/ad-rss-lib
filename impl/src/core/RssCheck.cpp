@@ -34,6 +34,8 @@
 #include "ad/rss/core/RssResponseTransformation.hpp"
 #include "ad/rss/core/RssSituationChecking.hpp"
 #include "ad/rss/core/RssSituationExtraction.hpp"
+#include "spdlog/fmt/ostr.h"
+#include "spdlog/spdlog.h"
 
 namespace ad {
 namespace rss {
@@ -49,6 +51,7 @@ RssCheck::RssCheck()
   }
   catch (...)
   {
+    spdlog::critical("RssCheck object initialization failed");
     mResponseResolving = nullptr;
     mSituationChecking = nullptr;
     mSituationExtraction = nullptr;
@@ -72,6 +75,7 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
     if (!static_cast<bool>(mResponseResolving) || !static_cast<bool>(mSituationChecking)
         || !static_cast<bool>(mSituationExtraction))
     {
+      spdlog::critical("RssCheck::calculateAccelerationRestriction>> object not properly initialized");
       return false;
     }
 
@@ -95,6 +99,7 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
   // LCOV_EXCL_START: unreachable code, keep to be on the safe side
   catch (...)
   {
+    spdlog::critical("RssCheck::calculateAccelerationRestriction>> Exception catched");
     result = false;
   }
   // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side

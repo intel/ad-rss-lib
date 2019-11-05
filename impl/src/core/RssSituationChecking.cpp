@@ -35,6 +35,8 @@
 #include "../situation/RssIntersectionChecker.hpp"
 #include "../situation/RssSituation.hpp"
 #include "ad/rss/situation/SituationSnapshotValidInputRange.hpp"
+#include "spdlog/fmt/ostr.h"
+#include "spdlog/spdlog.h"
 
 namespace ad {
 namespace rss {
@@ -82,6 +84,7 @@ RssSituationChecking::RssSituationChecking()
   }
   catch (...)
   {
+    spdlog::critical("RssSituationChecking object initialization failed");
     mIntersectionChecker = nullptr;
   }
 }
@@ -99,6 +102,7 @@ bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation 
   {
     if (!static_cast<bool>(mIntersectionChecker))
     {
+      spdlog::critical("RssSituationChecking::checkSituationInputRangeChecked>> object not properly initialized");
       return false;
     }
 
@@ -123,12 +127,14 @@ bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation 
         result = mIntersectionChecker->calculateRssStateIntersection(mCurrentTimeIndex, situation, rssState);
         break;
       default:
+        spdlog::error("RssSituationChecking::checkSituationInputRangeChecked>> Invalid situation type {}", situation);
         result = false;
         break;
     }
   }
   catch (...)
   {
+    spdlog::critical("RssSituationChecking::checkSituationInputRangeChecked>> Exception caught {}", situation);
     result = false;
   }
 
@@ -140,10 +146,12 @@ bool RssSituationChecking::checkSituations(situation::SituationSnapshot const &s
 {
   if (!withinValidInputRange(situationSnapshot))
   {
+    spdlog::error("RssSituationChecking::checkSituations>> Invalid input {}", situationSnapshot);
     return false;
   }
   if (!checkTimeIncreasingConsistently(situationSnapshot.timeIndex))
   {
+    spdlog::error("RssSituationChecking::checkSituations>> Inconsistent time {}", situationSnapshot.timeIndex);
     return false;
   }
   bool result = true;
@@ -169,6 +177,7 @@ bool RssSituationChecking::checkSituations(situation::SituationSnapshot const &s
   }
   catch (...)
   {
+    spdlog::critical("RssSituationChecking::checkSituations>> Exception catched {}", situationSnapshot);
     result = false;
   }
   if (!result)

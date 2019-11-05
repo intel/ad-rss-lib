@@ -34,6 +34,8 @@
 #include "../world/RssSituationCoordinateSystemConversion.hpp"
 #include "../world/RssSituationIdProvider.hpp"
 #include "ad/rss/world/WorldModelValidInputRange.hpp"
+#include "spdlog/fmt/ostr.h"
+#include "spdlog/spdlog.h"
 
 namespace ad {
 namespace rss {
@@ -50,6 +52,7 @@ RssSituationExtraction::RssSituationExtraction()
   }
   catch (...)
   {
+    spdlog::critical("RssSituationExtraction object initialization failed");
     mSituationIdProvider = nullptr;
   }
 }
@@ -164,6 +167,8 @@ bool RssSituationExtraction::convertObjectsNonIntersection(world::Scene const &c
 {
   if (!currentScene.intersectingRoad.empty())
   {
+    spdlog::error("RssSituationExtraction::convertObjectsNonIntersection>> Intersecting road not empty {}",
+                  currentScene);
     return false;
   }
 
@@ -285,6 +290,7 @@ bool RssSituationExtraction::convertObjectsIntersection(world::Scene const &curr
   else
   {
     // This function should never be called if we are not in intersection situation
+    spdlog::error("RssSituationExtraction::convertObjectsIntersection>> Unexpected situationType {}", currentScene);
     result = false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
   }
 
@@ -303,10 +309,17 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex 
        && (currentScene.object.objectType != world::ObjectType::ArtificialObject))
       || (currentScene.egoVehicle.objectType != world::ObjectType::EgoVehicle))
   {
+    spdlog::error("RssSituationExtraction::extractSituationInputRangeChecked>> Invalid object type. Ego: {} Object: {}",
+                  currentScene.egoVehicle,
+                  currentScene.object);
     return false;
   }
   if (currentScene.object.objectId == currentScene.egoVehicle.objectId)
   {
+    spdlog::error("RssSituationExtraction::extractSituationInputRangeChecked>> Object and ego vehicle must not have "
+                  "the same id. Ego: {} Object: {}",
+                  currentScene.egoVehicle,
+                  currentScene.object);
     return false;
   }
   if (!static_cast<bool>(mSituationIdProvider))
@@ -360,6 +373,8 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex 
       }
       default:
       {
+        spdlog::error("RssSituationExtraction::extractSituationInputRangeChecked>> Invalid situation type {}",
+                      currentScene);
         result = false;
         break;
       }
@@ -367,6 +382,8 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex 
   }
   catch (...)
   {
+    spdlog::critical(
+      "RssSituationExtraction::extractSituationInputRangeChecked>> Exception catched {} {}", timeIndex, currentScene);
     result = false;
   }
 
@@ -520,6 +537,7 @@ bool RssSituationExtraction::extractSituations(world::WorldModel const &worldMod
 {
   if (!withinValidInputRange(worldModel))
   {
+    spdlog::error("RssSituationExtraction::extractSituation>> Invalid input {}", worldModel);
     return false;
   }
 
@@ -557,6 +575,7 @@ bool RssSituationExtraction::extractSituations(world::WorldModel const &worldMod
         }
         else
         {
+          spdlog::error("RssSituationExtraction::extractSituations>> Extraction failed {}", scene);
           result = false;
         }
       }
@@ -564,6 +583,7 @@ bool RssSituationExtraction::extractSituations(world::WorldModel const &worldMod
   }
   catch (...)
   {
+    spdlog::critical("RssSituationExtraction::extractSituations>> Exception caught {}", worldModel);
     result = false;
   }
   return result;

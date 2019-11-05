@@ -1,5 +1,5 @@
 /*
- *  @COPYRIGHT_TAG@
+ * Copyright (C) 2019 Intel Corporation
  */
 
 /**
@@ -9,11 +9,12 @@
  * Model Library     : RSS.ad_rss_data_type_lib
  * Model Version     : 0.0.0
  * Generator         : mo2ive_generator_mockup
- * Generator Version : 10.5.6-1843
+ * Generator Version : @GENERATOR_VERSION@
  */
 
 #pragma once
 
+#include <iostream>
 #include <limits>
 #include <memory>
 #include "ad/physics/Distance.hpp"
@@ -146,3 +147,57 @@ struct VehicleState
 } // namespace situation
 } // namespace rss
 } // namespace ad
+
+// protect the definition of ostream operator from duplicates by typedef usage within other data types
+#ifndef OSTREAM_AD_RSS_SITUATION_VEHICLESTATE
+#define OSTREAM_AD_RSS_SITUATION_VEHICLESTATE
+/*!
+ * @brief namespace ad
+ */
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace situation
+ */
+namespace situation {
+
+/**
+ * \brief standard ostream operator
+ *
+ * \param[in] stream The output stream to write to
+ * \param[in] value VehicleState value
+ *
+ * \returns The stream object.
+ *
+ */
+inline std::ostream &operator<<(std::ostream &os, VehicleState const &_value)
+{
+  os << "VehicleState(";
+  os << "velocity:";
+  os << _value.velocity;
+  os << ",";
+  os << "dynamics:";
+  os << _value.dynamics;
+  os << ",";
+  os << "hasPriority:";
+  os << _value.hasPriority;
+  os << ",";
+  os << "isInCorrectLane:";
+  os << _value.isInCorrectLane;
+  os << ",";
+  os << "distanceToEnterIntersection:";
+  os << _value.distanceToEnterIntersection;
+  os << ",";
+  os << "distanceToLeaveIntersection:";
+  os << _value.distanceToLeaveIntersection;
+  os << ")";
+  return os;
+}
+
+} // namespace situation
+} // namespace rss
+} // namespace ad
+#endif // OSTREAM_AD_RSS_SITUATION_VEHICLESTATE

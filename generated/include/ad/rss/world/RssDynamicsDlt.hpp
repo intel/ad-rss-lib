@@ -1,5 +1,5 @@
 /*
- *  @COPYRIGHT_TAG@
+ * Copyright (C) 2019 Intel Corporation
  */
 
 /**
@@ -9,13 +9,14 @@
  * Model Library     : RSS.ad_rss_data_type_lib
  * Model Version     : 0.0.0
  * Generator         : mo2ive_generator_mockup
- * Generator Version : 10.5.6-1843
+ * Generator Version : @GENERATOR_VERSION@
  */
 
 #pragma once
 
 #include <ad/physics/DistanceDlt.hpp>
 #include <ad/physics/DurationDlt.hpp>
+#include <ad/physics/SpeedDlt.hpp>
 #include <ad/rss/world/LateralRssAccelerationValuesDlt.hpp>
 #include <ad/rss/world/LongitudinalRssAccelerationValuesDlt.hpp>
 #include <ad/rss/world/RssDynamics.hpp>
@@ -35,6 +36,9 @@ template <> inline int32_t logToDlt(DltContextData &log, ::ad::rss::world::RssDy
   result += dlt_user_log_write_constant_string(&log, ",");
   result += dlt_user_log_write_constant_string(&log, "responseTime:");
   result += logToDlt(log, _value.responseTime);
+  result += dlt_user_log_write_constant_string(&log, ",");
+  result += dlt_user_log_write_constant_string(&log, "maxSpeed:");
+  result += logToDlt(log, _value.maxSpeed);
   result += dlt_user_log_write_constant_string(&log, ")");
   if (result != 0)
   {

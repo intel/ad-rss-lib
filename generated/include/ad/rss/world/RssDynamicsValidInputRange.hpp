@@ -1,5 +1,5 @@
 /*
- *  @COPYRIGHT_TAG@
+ * Copyright (C) 2019 Intel Corporation
  */
 
 /**
@@ -9,7 +9,7 @@
  * Model Library     : RSS.ad_rss_data_type_lib
  * Model Version     : 0.0.0
  * Generator         : mo2ive_generator_mockup
- * Generator Version : 10.5.6-1843
+ * Generator Version : @GENERATOR_VERSION@
  */
 
 #pragma once
@@ -18,6 +18,7 @@
 #include <limits>
 #include "ad/physics/DistanceValidInputRange.hpp"
 #include "ad/physics/DurationValidInputRange.hpp"
+#include "ad/physics/SpeedValidInputRange.hpp"
 #include "ad/rss/world/LateralRssAccelerationValuesValidInputRange.hpp"
 #include "ad/rss/world/LongitudinalRssAccelerationValuesValidInputRange.hpp"
 #include "ad/rss/world/RssDynamics.hpp"
@@ -38,7 +39,8 @@ inline bool withinValidInputRange(::ad::rss::world::RssDynamics const &input)
   // check for generic member input ranges
   bool inValidInputRange = true;
   inValidInputRange = withinValidInputRange(input.alphaLon) && withinValidInputRange(input.alphaLat)
-    && withinValidInputRange(input.lateralFluctuationMargin) && withinValidInputRange(input.responseTime);
+    && withinValidInputRange(input.lateralFluctuationMargin) && withinValidInputRange(input.responseTime)
+    && withinValidInputRange(input.maxSpeed);
 
   // check for individual input ranges
   if (inValidInputRange)

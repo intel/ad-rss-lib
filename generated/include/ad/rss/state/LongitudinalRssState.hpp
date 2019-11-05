@@ -1,5 +1,5 @@
 /*
- *  @COPYRIGHT_TAG@
+ * Copyright (C) 2019 Intel Corporation
  */
 
 /**
@@ -9,11 +9,12 @@
  * Model Library     : RSS.ad_rss_data_type_lib
  * Model Version     : 0.0.0
  * Generator         : mo2ive_generator_mockup
- * Generator Version : 10.5.6-1843
+ * Generator Version : @GENERATOR_VERSION@
  */
 
 #pragma once
 
+#include <iostream>
 #include <memory>
 #include "ad/rss/state/LongitudinalResponse.hpp"
 #include "ad/rss/state/RssStateInformation.hpp"
@@ -122,3 +123,48 @@ struct LongitudinalRssState
 } // namespace state
 } // namespace rss
 } // namespace ad
+
+// protect the definition of ostream operator from duplicates by typedef usage within other data types
+#ifndef OSTREAM_AD_RSS_STATE_LONGITUDINALRSSSTATE
+#define OSTREAM_AD_RSS_STATE_LONGITUDINALRSSSTATE
+/*!
+ * @brief namespace ad
+ */
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace state
+ */
+namespace state {
+
+/**
+ * \brief standard ostream operator
+ *
+ * \param[in] stream The output stream to write to
+ * \param[in] value LongitudinalRssState value
+ *
+ * \returns The stream object.
+ *
+ */
+inline std::ostream &operator<<(std::ostream &os, LongitudinalRssState const &_value)
+{
+  os << "LongitudinalRssState(";
+  os << "isSafe:";
+  os << _value.isSafe;
+  os << ",";
+  os << "response:";
+  os << _value.response;
+  os << ",";
+  os << "rssStateInformation:";
+  os << _value.rssStateInformation;
+  os << ")";
+  return os;
+}
+
+} // namespace state
+} // namespace rss
+} // namespace ad
+#endif // OSTREAM_AD_RSS_STATE_LONGITUDINALRSSSTATE

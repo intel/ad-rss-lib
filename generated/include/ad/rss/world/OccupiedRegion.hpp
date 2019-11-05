@@ -1,5 +1,5 @@
 /*
- *  @COPYRIGHT_TAG@
+ * Copyright (C) 2019 Intel Corporation
  */
 
 /**
@@ -9,11 +9,12 @@
  * Model Library     : RSS.ad_rss_data_type_lib
  * Model Version     : 0.0.0
  * Generator         : mo2ive_generator_mockup
- * Generator Version : 10.5.6-1843
+ * Generator Version : @GENERATOR_VERSION@
  */
 
 #pragma once
 
+#include <iostream>
 #include <limits>
 #include <memory>
 #include "ad/physics/ParametricRange.hpp"
@@ -124,3 +125,48 @@ struct OccupiedRegion
 } // namespace world
 } // namespace rss
 } // namespace ad
+
+// protect the definition of ostream operator from duplicates by typedef usage within other data types
+#ifndef OSTREAM_AD_RSS_WORLD_OCCUPIEDREGION
+#define OSTREAM_AD_RSS_WORLD_OCCUPIEDREGION
+/*!
+ * @brief namespace ad
+ */
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace world
+ */
+namespace world {
+
+/**
+ * \brief standard ostream operator
+ *
+ * \param[in] stream The output stream to write to
+ * \param[in] value OccupiedRegion value
+ *
+ * \returns The stream object.
+ *
+ */
+inline std::ostream &operator<<(std::ostream &os, OccupiedRegion const &_value)
+{
+  os << "OccupiedRegion(";
+  os << "segmentId:";
+  os << _value.segmentId;
+  os << ",";
+  os << "lonRange:";
+  os << _value.lonRange;
+  os << ",";
+  os << "latRange:";
+  os << _value.latRange;
+  os << ")";
+  return os;
+}
+
+} // namespace world
+} // namespace rss
+} // namespace ad
+#endif // OSTREAM_AD_RSS_WORLD_OCCUPIEDREGION

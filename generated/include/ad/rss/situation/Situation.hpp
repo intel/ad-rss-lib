@@ -1,5 +1,5 @@
 /*
- *  @COPYRIGHT_TAG@
+ * Copyright (C) 2019 Intel Corporation
  */
 
 /**
@@ -9,11 +9,12 @@
  * Model Library     : RSS.ad_rss_data_type_lib
  * Model Version     : 0.0.0
  * Generator         : mo2ive_generator_mockup
- * Generator Version : 10.5.6-1843
+ * Generator Version : @GENERATOR_VERSION@
  */
 
 #pragma once
 
+#include <iostream>
 #include <limits>
 #include <memory>
 #include "ad/rss/situation/RelativePosition.hpp"
@@ -151,3 +152,57 @@ struct Situation
 } // namespace situation
 } // namespace rss
 } // namespace ad
+
+// protect the definition of ostream operator from duplicates by typedef usage within other data types
+#ifndef OSTREAM_AD_RSS_SITUATION_SITUATION
+#define OSTREAM_AD_RSS_SITUATION_SITUATION
+/*!
+ * @brief namespace ad
+ */
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace situation
+ */
+namespace situation {
+
+/**
+ * \brief standard ostream operator
+ *
+ * \param[in] stream The output stream to write to
+ * \param[in] value Situation value
+ *
+ * \returns The stream object.
+ *
+ */
+inline std::ostream &operator<<(std::ostream &os, Situation const &_value)
+{
+  os << "Situation(";
+  os << "situationId:";
+  os << _value.situationId;
+  os << ",";
+  os << "objectId:";
+  os << _value.objectId;
+  os << ",";
+  os << "situationType:";
+  os << _value.situationType;
+  os << ",";
+  os << "egoVehicleState:";
+  os << _value.egoVehicleState;
+  os << ",";
+  os << "otherVehicleState:";
+  os << _value.otherVehicleState;
+  os << ",";
+  os << "relativePosition:";
+  os << _value.relativePosition;
+  os << ")";
+  return os;
+}
+
+} // namespace situation
+} // namespace rss
+} // namespace ad
+#endif // OSTREAM_AD_RSS_SITUATION_SITUATION

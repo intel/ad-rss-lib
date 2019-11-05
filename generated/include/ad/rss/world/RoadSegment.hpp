@@ -1,5 +1,5 @@
 /*
- *  @COPYRIGHT_TAG@
+ * Copyright (C) 2019 Intel Corporation
  */
 
 /**
@@ -9,11 +9,12 @@
  * Model Library     : RSS.ad_rss_data_type_lib
  * Model Version     : 0.0.0
  * Generator         : mo2ive_generator_mockup
- * Generator Version : 10.5.6-1843
+ * Generator Version : @GENERATOR_VERSION@
  */
 
 #pragma once
 
+#include <iostream>
 #include <vector>
 #include "ad/rss/world/LaneSegment.hpp"
 /*!
@@ -40,3 +41,35 @@ using RoadSegment = std::vector<::ad::rss::world::LaneSegment>;
 } // namespace world
 } // namespace rss
 } // namespace ad
+
+// protect the definition of ostream operator from duplicates by typedef usage within other data types
+#ifndef OSTREAM_VECTOR_AD_RSS_WORLD_LANESEGMENT
+#define OSTREAM_VECTOR_AD_RSS_WORLD_LANESEGMENT
+namespace std {
+
+/**
+ * \brief standard ostream operator
+ *
+ * \param[in] stream The output stream to write to
+ * \param[in] value RoadSegment value
+ *
+ * \returns The stream object.
+ *
+ */
+inline std::ostream &operator<<(std::ostream &os, std::vector<::ad::rss::world::LaneSegment> const &_value)
+{
+  os << "[";
+  for (auto it = _value.begin(); it != _value.end(); it++)
+  {
+    if (it != _value.begin())
+    {
+      os << ",";
+    }
+    os << *it;
+  }
+  os << "]";
+  return os;
+}
+
+} // namespace std
+#endif // OSTREAM_VECTOR_AD_RSS_WORLD_LANESEGMENT

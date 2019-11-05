@@ -33,6 +33,8 @@
 #include <algorithm>
 #include "ad/rss/state/RssStateOperation.hpp"
 #include "ad/rss/state/RssStateSnapshotValidInputRange.hpp"
+#include "spdlog/fmt/ostr.h"
+#include "spdlog/spdlog.h"
 
 namespace ad {
 namespace rss {
@@ -47,6 +49,7 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
 {
   if (!withinValidInputRange(currentStateSnapshot))
   {
+    spdlog::error("RssResponseResolving::provideProperResponse>> Invalid input");
     return false;
   }
 
@@ -68,6 +71,7 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
       RssSafeState nonDangerousStateToRemember;
       if (isDangerous(currentState))
       {
+        spdlog::info("RssResponseResolving::provideProperResponse>> State is dangerous: {}", currentState);
         response.isSafe = false;
         if (std::find(response.dangerousObjects.begin(), response.dangerousObjects.end(), currentState.objectId)
             == response.dangerousObjects.end())
@@ -145,6 +149,7 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
   }
   catch (...)
   {
+    spdlog::critical("RssResponseResolving::provideProperResponse>> Exception catched");
     result = false;
   }
 

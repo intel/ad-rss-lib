@@ -1,5 +1,5 @@
 /*
- *  @COPYRIGHT_TAG@
+ * Copyright (C) 2019 Intel Corporation
  */
 
 /**
@@ -9,11 +9,12 @@
  * Model Library     : RSS.ad_rss_data_type_lib
  * Model Version     : 0.0.0
  * Generator         : mo2ive_generator_mockup
- * Generator Version : 10.5.6-1843
+ * Generator Version : @GENERATOR_VERSION@
  */
 
 #pragma once
 
+#include <iostream>
 #include <memory>
 #include "ad/physics/SpeedRange.hpp"
 /*!
@@ -120,3 +121,45 @@ struct VelocityRange
 } // namespace situation
 } // namespace rss
 } // namespace ad
+
+// protect the definition of ostream operator from duplicates by typedef usage within other data types
+#ifndef OSTREAM_AD_RSS_SITUATION_VELOCITYRANGE
+#define OSTREAM_AD_RSS_SITUATION_VELOCITYRANGE
+/*!
+ * @brief namespace ad
+ */
+namespace ad {
+/*!
+ * @brief namespace rss
+ */
+namespace rss {
+/*!
+ * @brief namespace situation
+ */
+namespace situation {
+
+/**
+ * \brief standard ostream operator
+ *
+ * \param[in] stream The output stream to write to
+ * \param[in] value VelocityRange value
+ *
+ * \returns The stream object.
+ *
+ */
+inline std::ostream &operator<<(std::ostream &os, VelocityRange const &_value)
+{
+  os << "VelocityRange(";
+  os << "speedLon:";
+  os << _value.speedLon;
+  os << ",";
+  os << "speedLat:";
+  os << _value.speedLat;
+  os << ")";
+  return os;
+}
+
+} // namespace situation
+} // namespace rss
+} // namespace ad
+#endif // OSTREAM_AD_RSS_SITUATION_VELOCITYRANGE
