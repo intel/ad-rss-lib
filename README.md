@@ -1,7 +1,7 @@
 ﻿C++ Library for Responsibility Sensitive Safety
 =====
 
-[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![License](https://img.shields.io/badge/License-LGPL%202.1--Clause-blue.svg)](https://opensource.org/licenses/LGPL-2.1)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/intel/ad-rss-lib.svg)
 [![Build Status](https://travis-ci.com/intel/ad-rss-lib.svg?branch=master)](https://travis-ci.com/intel/ad-rss-lib)
 [![Code Coverage](https://codecov.io/gh/intel/ad-rss-lib/branch/master/graph/badge.svg)](https://codecov.io/gh/intel/ad-rss-lib)
@@ -56,7 +56,7 @@ In addition, the library is already integrated and used in Baidu's [Apollo Open 
 
 
 ## License <a name="license"></a>
-This software library is provided under the BSD 3-clause open-source license: https://opensource.org/licenses/BSD-3-Clause.
+This software library is provided under the LGPL-2.1 open-source license: https://opensource.org/licenses/LGPL-2.1.
 
 In addition, the terms in the following apply:
 [RELEASE NOTES AND DISCLAIMERS](./RELEASE_NOTES_AND_DISCLAIMERS.md).
