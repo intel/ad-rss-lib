@@ -1,5 +1,8 @@
 ## Latest changes
 
+## Release 1.5.0
+* License change to LGPL v2.1
+
 ## Release 1.4.0
 * Introduced more straight forward interface on intermediate functions to support better integration of the single calls into an external
   framework: SituationSnapshot, RssStateSnapshot, ProperResponse. Moved the timeIndex from the individual elements into these high level

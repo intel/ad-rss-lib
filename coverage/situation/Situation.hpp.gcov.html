@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-06-25 08:49:46</td>
+            <td class="headerValue">2019-11-22 14:02:59</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">3</td>
@@ -74,172 +74,149 @@
 <span class="lineNum">       3 </span>                :            :  *
 <span class="lineNum">       4 </span>                :            :  * Copyright (c) 2018-2019 Intel Corporation
 <span class="lineNum">       5 </span>                :            :  *
-<span class="lineNum">       6 </span>                :            :  * Redistribution and use in source and binary forms, with or without modification,
-<span class="lineNum">       7 </span>                :            :  * are permitted provided that the following conditions are met:
-<span class="lineNum">       8 </span>                :            :  *
-<span class="lineNum">       9 </span>                :            :  * 1. Redistributions of source code must retain the above copyright notice,
-<span class="lineNum">      10 </span>                :            :  *    this list of conditions and the following disclaimer.
-<span class="lineNum">      11 </span>                :            :  *
-<span class="lineNum">      12 </span>                :            :  * 2. Redistributions in binary form must reproduce the above copyright notice,
-<span class="lineNum">      13 </span>                :            :  *    this list of conditions and the following disclaimer in the documentation
-<span class="lineNum">      14 </span>                :            :  *    and/or other materials provided with the distribution.
-<span class="lineNum">      15 </span>                :            :  *
-<span class="lineNum">      16 </span>                :            :  * 3. Neither the name of the copyright holder nor the names of its contributors
-<span class="lineNum">      17 </span>                :            :  *    may be used to endorse or promote products derived from this software without
-<span class="lineNum">      18 </span>                :            :  *    specific prior written permission.
-<span class="lineNum">      19 </span>                :            :  *
-<span class="lineNum">      20 </span>                :            :  *    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND
-<span class="lineNum">      21 </span>                :            :  *    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-<span class="lineNum">      22 </span>                :            :  *    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-<span class="lineNum">      23 </span>                :            :  *    IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
-<span class="lineNum">      24 </span>                :            :  *    INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-<span class="lineNum">      25 </span>                :            :  *    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
-<span class="lineNum">      26 </span>                :            :  *    OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-<span class="lineNum">      27 </span>                :            :  *    WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-<span class="lineNum">      28 </span>                :            :  *    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-<span class="lineNum">      29 </span>                :            :  *    POSSIBILITY OF SUCH DAMAGE.
-<span class="lineNum">      30 </span>                :            :  *
-<span class="lineNum">      31 </span>                :            :  * ----------------- END LICENSE BLOCK -----------------------------------
-<span class="lineNum">      32 </span>                :            :  */
-<span class="lineNum">      33 </span>                :            : 
-<span class="lineNum">      34 </span>                :            : /**
-<span class="lineNum">      35 </span>                :            :  * Generated file
-<span class="lineNum">      36 </span>                :            :  * @file
-<span class="lineNum">      37 </span>                :            :  *
-<span class="lineNum">      38 </span>                :            :  */
-<span class="lineNum">      39 </span>                :            : 
-<span class="lineNum">      40 </span>                :            : #pragma once
-<span class="lineNum">      41 </span>                :            : 
-<span class="lineNum">      42 </span>                :            : #include &lt;cstdint&gt;
-<span class="lineNum">      43 </span>                :            : #include &lt;limits&gt;
-<span class="lineNum">      44 </span>                :            : #include &lt;memory&gt;
-<span class="lineNum">      45 </span>                :            : #include &quot;ad_rss/situation/RelativePosition.hpp&quot;
-<span class="lineNum">      46 </span>                :            : #include &quot;ad_rss/situation/SituationId.hpp&quot;
-<span class="lineNum">      47 </span>                :            : #include &quot;ad_rss/situation/SituationType.hpp&quot;
-<span class="lineNum">      48 </span>                :            : #include &quot;ad_rss/situation/VehicleState.hpp&quot;
-<span class="lineNum">      49 </span>                :            : #include &quot;ad_rss/world/ObjectId.hpp&quot;
-<span class="lineNum">      50 </span>                :            : /*!
-<span class="lineNum">      51 </span>                :            :  * @brief namespace ad_rss
-<span class="lineNum">      52 </span>                :            :  */
-<span class="lineNum">      53 </span>                :            : namespace ad_rss {
-<span class="lineNum">      54 </span>                :            : /*!
-<span class="lineNum">      55 </span>                :            :  * @brief namespace situation
-<span class="lineNum">      56 </span>                :            :  */
-<span class="lineNum">      57 </span>                :            : namespace situation {
+<span class="lineNum">       6 </span>                :            :  * SPDX-License-Identifier: LGPL-2.1-only
+<span class="lineNum">       7 </span>                :            :  *
+<span class="lineNum">       8 </span>                :            :  * ----------------- END LICENSE BLOCK -----------------------------------
+<span class="lineNum">       9 </span>                :            :  */
+<span class="lineNum">      10 </span>                :            : 
+<span class="lineNum">      11 </span>                :            : /**
+<span class="lineNum">      12 </span>                :            :  * Generated file
+<span class="lineNum">      13 </span>                :            :  * @file
+<span class="lineNum">      14 </span>                :            :  *
+<span class="lineNum">      15 </span>                :            :  */
+<span class="lineNum">      16 </span>                :            : 
+<span class="lineNum">      17 </span>                :            : #pragma once
+<span class="lineNum">      18 </span>                :            : 
+<span class="lineNum">      19 </span>                :            : #include &lt;cstdint&gt;
+<span class="lineNum">      20 </span>                :            : #include &lt;limits&gt;
+<span class="lineNum">      21 </span>                :            : #include &lt;memory&gt;
+<span class="lineNum">      22 </span>                :            : #include &quot;ad_rss/situation/RelativePosition.hpp&quot;
+<span class="lineNum">      23 </span>                :            : #include &quot;ad_rss/situation/SituationId.hpp&quot;
+<span class="lineNum">      24 </span>                :            : #include &quot;ad_rss/situation/SituationType.hpp&quot;
+<span class="lineNum">      25 </span>                :            : #include &quot;ad_rss/situation/VehicleState.hpp&quot;
+<span class="lineNum">      26 </span>                :            : #include &quot;ad_rss/world/ObjectId.hpp&quot;
+<span class="lineNum">      27 </span>                :            : /*!
+<span class="lineNum">      28 </span>                :            :  * @brief namespace ad_rss
+<span class="lineNum">      29 </span>                :            :  */
+<span class="lineNum">      30 </span>                :            : namespace ad_rss {
+<span class="lineNum">      31 </span>                :            : /*!
+<span class="lineNum">      32 </span>                :            :  * @brief namespace situation
+<span class="lineNum">      33 </span>                :            :  */
+<span class="lineNum">      34 </span>                :            : namespace situation {
+<span class="lineNum">      35 </span>                :            : 
+<span class="lineNum">      36 </span>                :            : /*!
+<span class="lineNum">      37 </span>                :            :  * \brief DataType Situation
+<span class="lineNum">      38 </span>                :            :  *
+<span class="lineNum">      39 </span>                :            :  * Describes a RSS situation.
+<span class="lineNum">      40 </span>                :            :  * A situation always considers the relative relation between two objects: the ego
+<span class="lineNum">      41 </span>                :            :  * vehicle and one other vehicle. The situation coordinate system is unique for one
+<span class="lineNum">      42 </span>                :            :  * specific situation. As a consequence the vehicle state of the ego vehicle in different
+<span class="lineNum">      43 </span>                :            :  * RSS situations cannot be compared to each other. Consists of a situation id and
+<span class="lineNum">      44 </span>                :            :  * type, the VehicleState of the ego vehicle, the VehicleState of the other vehicle
+<span class="lineNum">      45 </span>                :            :  * and the RelativePosition between ego vehicle and other vehicle.
+<span class="lineNum">      46 </span>                :            :  */
+<span class="lineNum">      47 </span>                :            : struct Situation
+<span class="lineNum">      48 </span>                :            : {
+<span class="lineNum">      49 </span>                :            :   /*!
+<a name="50"><span class="lineNum">      50 </span>                :            :    * \brief standard constructor</a>
+<span class="lineNum">      51 </span>                :            :    */
+<span class="lineNum">      52 </span>                :<span class="lineCov">      10248 :   Situation() = default;</span>
+<span class="lineNum">      53 </span>                :            : 
+<span class="lineNum">      54 </span>                :            :   /*!
+<span class="lineNum">      55 </span>                :            :    * \brief standard destructor
+<span class="lineNum">      56 </span>                :            :    */
+<span class="lineNum">      57 </span>                :            :   ~Situation() = default;
 <span class="lineNum">      58 </span>                :            : 
-<span class="lineNum">      59 </span>                :            : /*!
-<span class="lineNum">      60 </span>                :            :  * \brief DataType Situation
-<span class="lineNum">      61 </span>                :            :  *
-<span class="lineNum">      62 </span>                :            :  * Describes a RSS situation.
-<span class="lineNum">      63 </span>                :            :  * A situation always considers the relative relation between two objects: the ego
-<span class="lineNum">      64 </span>                :            :  * vehicle and one other vehicle. The situation coordinate system is unique for one
-<span class="lineNum">      65 </span>                :            :  * specific situation. As a consequence the vehicle state of the ego vehicle in different
-<span class="lineNum">      66 </span>                :            :  * RSS situations cannot be compared to each other. Consists of a situation id and
-<span class="lineNum">      67 </span>                :            :  * type, the VehicleState of the ego vehicle, the VehicleState of the other vehicle
-<span class="lineNum">      68 </span>                :            :  * and the RelativePosition between ego vehicle and other vehicle.
-<span class="lineNum">      69 </span>                :            :  */
-<span class="lineNum">      70 </span>                :            : struct Situation
-<span class="lineNum">      71 </span>                :            : {
-<span class="lineNum">      72 </span>                :            :   /*!
-<a name="73"><span class="lineNum">      73 </span>                :            :    * \brief standard constructor</a>
-<span class="lineNum">      74 </span>                :            :    */
-<span class="lineNum">      75 </span>                :<span class="lineCov">      10248 :   Situation() = default;</span>
-<span class="lineNum">      76 </span>                :            : 
-<span class="lineNum">      77 </span>                :            :   /*!
-<span class="lineNum">      78 </span>                :            :    * \brief standard destructor
-<span class="lineNum">      79 </span>                :            :    */
-<span class="lineNum">      80 </span>                :            :   ~Situation() = default;
-<span class="lineNum">      81 </span>                :            : 
-<span class="lineNum">      82 </span>                :            :   /*!
-<span class="lineNum">      83 </span>                :            :    * \brief standard copy constructor
+<span class="lineNum">      59 </span>                :            :   /*!
+<span class="lineNum">      60 </span>                :            :    * \brief standard copy constructor
+<span class="lineNum">      61 </span>                :            :    */
+<span class="lineNum">      62 </span>                :            :   Situation(const Situation &amp;other) = default;
+<span class="lineNum">      63 </span>                :            : 
+<span class="lineNum">      64 </span>                :            :   /*!
+<span class="lineNum">      65 </span>                :            :    * \brief standard move constructor
+<span class="lineNum">      66 </span>                :            :    */
+<span class="lineNum">      67 </span>                :            :   Situation(Situation &amp;&amp;other) = default;
+<span class="lineNum">      68 </span>                :            : 
+<span class="lineNum">      69 </span>                :            :   /**
+<span class="lineNum">      70 </span>                :            :    * \brief standard assignment operator
+<span class="lineNum">      71 </span>                :            :    *
+<span class="lineNum">      72 </span>                :            :    * \param[in] other Other Situation
+<span class="lineNum">      73 </span>                :            :    *
+<span class="lineNum">      74 </span>                :            :    * \returns Reference to this Situation.
+<span class="lineNum">      75 </span>                :            :    */
+<span class="lineNum">      76 </span>                :            :   Situation &amp;operator=(const Situation &amp;other) = default;
+<span class="lineNum">      77 </span>                :            : 
+<span class="lineNum">      78 </span>                :            :   /**
+<span class="lineNum">      79 </span>                :            :    * \brief standard move operator
+<span class="lineNum">      80 </span>                :            :    *
+<span class="lineNum">      81 </span>                :            :    * \param[in] other Other Situation
+<span class="lineNum">      82 </span>                :            :    *
+<span class="lineNum">      83 </span>                :            :    * \returns Reference to this Situation.
 <span class="lineNum">      84 </span>                :            :    */
-<span class="lineNum">      85 </span>                :            :   Situation(const Situation &amp;other) = default;
+<span class="lineNum">      85 </span>                :            :   Situation &amp;operator=(Situation &amp;&amp;other) = default;
 <span class="lineNum">      86 </span>                :            : 
-<span class="lineNum">      87 </span>                :            :   /*!
-<span class="lineNum">      88 </span>                :            :    * \brief standard move constructor
-<span class="lineNum">      89 </span>                :            :    */
-<span class="lineNum">      90 </span>                :            :   Situation(Situation &amp;&amp;other) = default;
-<span class="lineNum">      91 </span>                :            : 
-<span class="lineNum">      92 </span>                :            :   /**
-<span class="lineNum">      93 </span>                :            :    * \brief standard assignment operator
-<span class="lineNum">      94 </span>                :            :    *
-<span class="lineNum">      95 </span>                :            :    * \param[in] other Other Situation
-<span class="lineNum">      96 </span>                :            :    *
-<span class="lineNum">      97 </span>                :            :    * \returns Reference to this Situation.
-<span class="lineNum">      98 </span>                :            :    */
-<span class="lineNum">      99 </span>                :            :   Situation &amp;operator=(const Situation &amp;other) = default;
+<span class="lineNum">      87 </span>                :            :   /**
+<span class="lineNum">      88 </span>                :            :    * \brief standard comparison operator
+<span class="lineNum">      89 </span>                :            :    *
+<span class="lineNum">      90 </span>                :            :    * \param[in] other Other Situation
+<span class="lineNum">      91 </span>                :            :    *
+<a name="92"><span class="lineNum">      92 </span>                :            :    * \returns \c true if both Situation are equal</a>
+<span class="lineNum">      93 </span>                :            :    */
+<span class="lineNum">      94 </span>                :<span class="lineCov">         18 :   bool operator==(const Situation &amp;other) const</span>
+<span class="lineNum">      95 </span>                :            :   {
+<span class="lineNum">      96 </span>[<span class="branchCov" title="Branch 0 was taken 14 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 12 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">         16 :     return (situationId == other.situationId) &amp;&amp; (objectId == other.objectId) &amp;&amp; (situationType == other.situationType)</span>
+<span class="lineNum">      97 </span>[<span class="branchCov" title="Branch 1 was taken 10 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 8 times"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>]:<span class="lineCov">         12 :       &amp;&amp; (egoVehicleState == other.egoVehicleState) &amp;&amp; (otherVehicleState == other.otherVehicleState)</span>
+<span class="lineNum">      98 </span>[<span class="branchCov" title="Branch 0 was taken 16 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 6 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">         34 :       &amp;&amp; (relativePosition == other.relativePosition);</span>
+<span class="lineNum">      99 </span>                :            :   }
 <span class="lineNum">     100 </span>                :            : 
 <span class="lineNum">     101 </span>                :            :   /**
-<span class="lineNum">     102 </span>                :            :    * \brief standard move operator
+<span class="lineNum">     102 </span>                :            :    * \brief standard comparison operator
 <span class="lineNum">     103 </span>                :            :    *
-<span class="lineNum">     104 </span>                :            :    * \param[in] other Other Situation
+<span class="lineNum">     104 </span>                :            :    * \param[in] other Other Situation.
 <span class="lineNum">     105 </span>                :            :    *
-<span class="lineNum">     106 </span>                :            :    * \returns Reference to this Situation.
+<a name="106"><span class="lineNum">     106 </span>                :            :    * \returns \c true if both Situation are different</a>
 <span class="lineNum">     107 </span>                :            :    */
-<span class="lineNum">     108 </span>                :            :   Situation &amp;operator=(Situation &amp;&amp;other) = default;
-<span class="lineNum">     109 </span>                :            : 
-<span class="lineNum">     110 </span>                :            :   /**
-<span class="lineNum">     111 </span>                :            :    * \brief standard comparison operator
-<span class="lineNum">     112 </span>                :            :    *
-<span class="lineNum">     113 </span>                :            :    * \param[in] other Other Situation
-<span class="lineNum">     114 </span>                :            :    *
-<a name="115"><span class="lineNum">     115 </span>                :            :    * \returns \c true if both Situation are equal</a>
-<span class="lineNum">     116 </span>                :            :    */
-<span class="lineNum">     117 </span>                :<span class="lineCov">         18 :   bool operator==(const Situation &amp;other) const</span>
-<span class="lineNum">     118 </span>                :            :   {
-<span class="lineNum">     119 </span>[<span class="branchCov" title="Branch 0 was taken 14 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 12 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">         16 :     return (situationId == other.situationId) &amp;&amp; (objectId == other.objectId) &amp;&amp; (situationType == other.situationType)</span>
-<span class="lineNum">     120 </span>[<span class="branchCov" title="Branch 1 was taken 10 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 8 times"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>]:<span class="lineCov">         12 :       &amp;&amp; (egoVehicleState == other.egoVehicleState) &amp;&amp; (otherVehicleState == other.otherVehicleState)</span>
-<span class="lineNum">     121 </span>[<span class="branchCov" title="Branch 0 was taken 16 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 6 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">         34 :       &amp;&amp; (relativePosition == other.relativePosition);</span>
-<span class="lineNum">     122 </span>                :            :   }
-<span class="lineNum">     123 </span>                :            : 
-<span class="lineNum">     124 </span>                :            :   /**
-<span class="lineNum">     125 </span>                :            :    * \brief standard comparison operator
-<span class="lineNum">     126 </span>                :            :    *
-<span class="lineNum">     127 </span>                :            :    * \param[in] other Other Situation.
-<span class="lineNum">     128 </span>                :            :    *
-<a name="129"><span class="lineNum">     129 </span>                :            :    * \returns \c true if both Situation are different</a>
-<span class="lineNum">     130 </span>                :            :    */
-<span class="lineNum">     131 </span>                :<span class="lineCov">          7 :   bool operator!=(const Situation &amp;other) const</span>
-<span class="lineNum">     132 </span>                :            :   {
-<span class="lineNum">     133 </span>                :<span class="lineCov">          7 :     return !operator==(other);</span>
-<span class="lineNum">     134 </span>                :            :   }
+<span class="lineNum">     108 </span>                :<span class="lineCov">          7 :   bool operator!=(const Situation &amp;other) const</span>
+<span class="lineNum">     109 </span>                :            :   {
+<span class="lineNum">     110 </span>                :<span class="lineCov">          7 :     return !operator==(other);</span>
+<span class="lineNum">     111 </span>                :            :   }
+<span class="lineNum">     112 </span>                :            : 
+<span class="lineNum">     113 </span>                :            :   /*!
+<span class="lineNum">     114 </span>                :            :    * The unique id of the situation.
+<span class="lineNum">     115 </span>                :            :    * The situation id has to be constant over time for a pair of ego vehicle and specific
+<span class="lineNum">     116 </span>                :            :    * other vehicle.
+<span class="lineNum">     117 </span>                :            :    * E.g. might be filled with an id identifying the other vehicle unambiguously.
+<span class="lineNum">     118 </span>                :            :    */
+<span class="lineNum">     119 </span>                :            :   ::ad_rss::situation::SituationId situationId;
+<span class="lineNum">     120 </span>                :            : 
+<span class="lineNum">     121 </span>                :            :   /*!
+<span class="lineNum">     122 </span>                :            :    * Defines the unique id of an object. This id has to be constant over time for the same object.
+<span class="lineNum">     123 </span>                :            :    */
+<span class="lineNum">     124 </span>                :            :   ::ad_rss::world::ObjectId objectId;
+<span class="lineNum">     125 </span>                :            : 
+<span class="lineNum">     126 </span>                :            :   /*!
+<span class="lineNum">     127 </span>                :            :    * The type of the current situation.
+<span class="lineNum">     128 </span>                :            :    */
+<span class="lineNum">     129 </span>                :            :   ::ad_rss::situation::SituationType situationType;
+<span class="lineNum">     130 </span>                :            : 
+<span class="lineNum">     131 </span>                :            :   /*!
+<span class="lineNum">     132 </span>                :            :    * The vehicle state of the ego vehicle
+<span class="lineNum">     133 </span>                :            :    */
+<span class="lineNum">     134 </span>                :            :   ::ad_rss::situation::VehicleState egoVehicleState;
 <span class="lineNum">     135 </span>                :            : 
 <span class="lineNum">     136 </span>                :            :   /*!
-<span class="lineNum">     137 </span>                :            :    * The unique id of the situation.
-<span class="lineNum">     138 </span>                :            :    * The situation id has to be constant over time for a pair of ego vehicle and specific
-<span class="lineNum">     139 </span>                :            :    * other vehicle.
-<span class="lineNum">     140 </span>                :            :    * E.g. might be filled with an id identifying the other vehicle unambiguously.
-<span class="lineNum">     141 </span>                :            :    */
-<span class="lineNum">     142 </span>                :            :   ::ad_rss::situation::SituationId situationId;
-<span class="lineNum">     143 </span>                :            : 
-<span class="lineNum">     144 </span>                :            :   /*!
-<span class="lineNum">     145 </span>                :            :    * Defines the unique id of an object. This id has to be constant over time for the same object.
-<span class="lineNum">     146 </span>                :            :    */
-<span class="lineNum">     147 </span>                :            :   ::ad_rss::world::ObjectId objectId;
-<span class="lineNum">     148 </span>                :            : 
-<span class="lineNum">     149 </span>                :            :   /*!
-<span class="lineNum">     150 </span>                :            :    * The type of the current situation.
-<span class="lineNum">     151 </span>                :            :    */
-<span class="lineNum">     152 </span>                :            :   ::ad_rss::situation::SituationType situationType;
-<span class="lineNum">     153 </span>                :            : 
-<span class="lineNum">     154 </span>                :            :   /*!
-<span class="lineNum">     155 </span>                :            :    * The vehicle state of the ego vehicle
-<span class="lineNum">     156 </span>                :            :    */
-<span class="lineNum">     157 </span>                :            :   ::ad_rss::situation::VehicleState egoVehicleState;
-<span class="lineNum">     158 </span>                :            : 
-<span class="lineNum">     159 </span>                :            :   /*!
-<span class="lineNum">     160 </span>                :            :    * The vehicle state of the other vehicle within the situation.
-<span class="lineNum">     161 </span>                :            :    */
-<span class="lineNum">     162 </span>                :            :   ::ad_rss::situation::VehicleState otherVehicleState;
-<span class="lineNum">     163 </span>                :            : 
-<span class="lineNum">     164 </span>                :            :   /*!
-<span class="lineNum">     165 </span>                :            :    * The relative position between the ego vehicle and the other vehicle within this situation.
-<span class="lineNum">     166 </span>                :            :    */
-<span class="lineNum">     167 </span>                :            :   ::ad_rss::situation::RelativePosition relativePosition;
-<span class="lineNum">     168 </span>                :            : };
-<span class="lineNum">     169 </span>                :            : 
-<span class="lineNum">     170 </span>                :            : } // namespace situation
-<span class="lineNum">     171 </span>                :            : } // namespace ad_rss
+<span class="lineNum">     137 </span>                :            :    * The vehicle state of the other vehicle within the situation.
+<span class="lineNum">     138 </span>                :            :    */
+<span class="lineNum">     139 </span>                :            :   ::ad_rss::situation::VehicleState otherVehicleState;
+<span class="lineNum">     140 </span>                :            : 
+<span class="lineNum">     141 </span>                :            :   /*!
+<span class="lineNum">     142 </span>                :            :    * The relative position between the ego vehicle and the other vehicle within this situation.
+<span class="lineNum">     143 </span>                :            :    */
+<span class="lineNum">     144 </span>                :            :   ::ad_rss::situation::RelativePosition relativePosition;
+<span class="lineNum">     145 </span>                :            : };
+<span class="lineNum">     146 </span>                :            : 
+<span class="lineNum">     147 </span>                :            : } // namespace situation
+<span class="lineNum">     148 </span>                :            : } // namespace ad_rss
 </pre>
       </td>
     </tr>

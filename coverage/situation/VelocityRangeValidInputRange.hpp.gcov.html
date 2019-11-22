@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2019-06-25 08:49:46</td>
+            <td class="headerValue">2019-11-22 14:02:59</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -74,75 +74,52 @@
 <span class="lineNum">       3 </span>                :            :  *
 <span class="lineNum">       4 </span>                :            :  * Copyright (c) 2018-2019 Intel Corporation
 <span class="lineNum">       5 </span>                :            :  *
-<span class="lineNum">       6 </span>                :            :  * Redistribution and use in source and binary forms, with or without modification,
-<span class="lineNum">       7 </span>                :            :  * are permitted provided that the following conditions are met:
-<span class="lineNum">       8 </span>                :            :  *
-<span class="lineNum">       9 </span>                :            :  * 1. Redistributions of source code must retain the above copyright notice,
-<span class="lineNum">      10 </span>                :            :  *    this list of conditions and the following disclaimer.
-<span class="lineNum">      11 </span>                :            :  *
-<span class="lineNum">      12 </span>                :            :  * 2. Redistributions in binary form must reproduce the above copyright notice,
-<span class="lineNum">      13 </span>                :            :  *    this list of conditions and the following disclaimer in the documentation
-<span class="lineNum">      14 </span>                :            :  *    and/or other materials provided with the distribution.
-<span class="lineNum">      15 </span>                :            :  *
-<span class="lineNum">      16 </span>                :            :  * 3. Neither the name of the copyright holder nor the names of its contributors
-<span class="lineNum">      17 </span>                :            :  *    may be used to endorse or promote products derived from this software without
-<span class="lineNum">      18 </span>                :            :  *    specific prior written permission.
-<span class="lineNum">      19 </span>                :            :  *
-<span class="lineNum">      20 </span>                :            :  *    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND
-<span class="lineNum">      21 </span>                :            :  *    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-<span class="lineNum">      22 </span>                :            :  *    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-<span class="lineNum">      23 </span>                :            :  *    IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
-<span class="lineNum">      24 </span>                :            :  *    INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-<span class="lineNum">      25 </span>                :            :  *    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
-<span class="lineNum">      26 </span>                :            :  *    OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-<span class="lineNum">      27 </span>                :            :  *    WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-<span class="lineNum">      28 </span>                :            :  *    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-<span class="lineNum">      29 </span>                :            :  *    POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">       6 </span>                :            :  * SPDX-License-Identifier: LGPL-2.1-only
+<span class="lineNum">       7 </span>                :            :  *
+<span class="lineNum">       8 </span>                :            :  * ----------------- END LICENSE BLOCK -----------------------------------
+<span class="lineNum">       9 </span>                :            :  */
+<span class="lineNum">      10 </span>                :            : 
+<span class="lineNum">      11 </span>                :            : /**
+<span class="lineNum">      12 </span>                :            :  * Generated file
+<span class="lineNum">      13 </span>                :            :  * @file
+<span class="lineNum">      14 </span>                :            :  *
+<span class="lineNum">      15 </span>                :            :  */
+<span class="lineNum">      16 </span>                :            : 
+<span class="lineNum">      17 </span>                :            : #pragma once
+<span class="lineNum">      18 </span>                :            : 
+<span class="lineNum">      19 </span>                :            : #include &lt;cmath&gt;
+<span class="lineNum">      20 </span>                :            : #include &lt;limits&gt;
+<span class="lineNum">      21 </span>                :            : #include &quot;ad_rss/physics/SpeedRangeValidInputRange.hpp&quot;
+<span class="lineNum">      22 </span>                :            : #include &quot;ad_rss/situation/VelocityRange.hpp&quot;
+<span class="lineNum">      23 </span>                :            : 
+<span class="lineNum">      24 </span>                :            : /*!
+<span class="lineNum">      25 </span>                :            :  * \brief check if the given VelocityRange is within valid input range
+<span class="lineNum">      26 </span>                :            :  *
+<span class="lineNum">      27 </span>                :            :  * \param[in] input the VelocityRange as an input value
+<span class="lineNum">      28 </span>                :            :  *
+<span class="lineNum">      29 </span>                :            :  * \returns \c true if VelocityRange is considered to be within the specified input range
 <span class="lineNum">      30 </span>                :            :  *
-<span class="lineNum">      31 </span>                :            :  * ----------------- END LICENSE BLOCK -----------------------------------
+<a name="31"><span class="lineNum">      31 </span>                :            :  * \note the specified input range is defined by the ranges of all members</a>
 <span class="lineNum">      32 </span>                :            :  */
-<span class="lineNum">      33 </span>                :            : 
-<span class="lineNum">      34 </span>                :            : /**
-<span class="lineNum">      35 </span>                :            :  * Generated file
-<span class="lineNum">      36 </span>                :            :  * @file
-<span class="lineNum">      37 </span>                :            :  *
-<span class="lineNum">      38 </span>                :            :  */
-<span class="lineNum">      39 </span>                :            : 
-<span class="lineNum">      40 </span>                :            : #pragma once
+<span class="lineNum">      33 </span>                :<span class="lineCov">     245257 : inline bool withinValidInputRange(::ad_rss::situation::VelocityRange const &amp;input)</span>
+<span class="lineNum">      34 </span>                :            : {
+<span class="lineNum">      35 </span>                :            :   try
+<span class="lineNum">      36 </span>                :            :   {
+<span class="lineNum">      37 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
+<span class="lineNum">      38 </span>                :            :     // check for generic member input ranges
+<span class="lineNum">      39 </span>                :            :     bool const membersInValidInputRange
+<span class="lineNum">      40 </span>                :<span class="lineCov">     245257 :       = withinValidInputRange(input.speedLon) &amp;&amp; withinValidInputRange(input.speedLat);</span>
 <span class="lineNum">      41 </span>                :            : 
-<span class="lineNum">      42 </span>                :            : #include &lt;cmath&gt;
-<span class="lineNum">      43 </span>                :            : #include &lt;limits&gt;
-<span class="lineNum">      44 </span>                :            : #include &quot;ad_rss/physics/SpeedRangeValidInputRange.hpp&quot;
-<span class="lineNum">      45 </span>                :            : #include &quot;ad_rss/situation/VelocityRange.hpp&quot;
-<span class="lineNum">      46 </span>                :            : 
-<span class="lineNum">      47 </span>                :            : /*!
-<span class="lineNum">      48 </span>                :            :  * \brief check if the given VelocityRange is within valid input range
-<span class="lineNum">      49 </span>                :            :  *
-<span class="lineNum">      50 </span>                :            :  * \param[in] input the VelocityRange as an input value
-<span class="lineNum">      51 </span>                :            :  *
-<span class="lineNum">      52 </span>                :            :  * \returns \c true if VelocityRange is considered to be within the specified input range
-<span class="lineNum">      53 </span>                :            :  *
-<a name="54"><span class="lineNum">      54 </span>                :            :  * \note the specified input range is defined by the ranges of all members</a>
-<span class="lineNum">      55 </span>                :            :  */
-<span class="lineNum">      56 </span>                :<span class="lineCov">     245257 : inline bool withinValidInputRange(::ad_rss::situation::VelocityRange const &amp;input)</span>
-<span class="lineNum">      57 </span>                :            : {
-<span class="lineNum">      58 </span>                :            :   try
-<span class="lineNum">      59 </span>                :            :   {
-<span class="lineNum">      60 </span>                :            :     // LCOV_EXCL_BR_START: not always possible to cover especially all exception branches
-<span class="lineNum">      61 </span>                :            :     // check for generic member input ranges
-<span class="lineNum">      62 </span>                :            :     bool const membersInValidInputRange
-<span class="lineNum">      63 </span>                :<span class="lineCov">     245257 :       = withinValidInputRange(input.speedLon) &amp;&amp; withinValidInputRange(input.speedLat);</span>
-<span class="lineNum">      64 </span>                :            : 
-<span class="lineNum">      65 </span>                :<span class="lineCov">     245257 :     return membersInValidInputRange;</span>
-<span class="lineNum">      66 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
-<span class="lineNum">      67 </span>                :            :   }
-<span class="lineNum">      68 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
-<span class="lineNum">      69 </span>                :            :   catch (std::out_of_range &amp;)
-<span class="lineNum">      70 </span>                :            :   {
-<span class="lineNum">      71 </span>                :            :   }
-<span class="lineNum">      72 </span>                :            :   return false;
-<span class="lineNum">      73 </span>                :            :   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes
-<span class="lineNum">      74 </span>                :            : }
+<span class="lineNum">      42 </span>                :<span class="lineCov">     245257 :     return membersInValidInputRange;</span>
+<span class="lineNum">      43 </span>                :            :     // LCOV_EXCL_BR_STOP: not always possible to cover especially all exception branches
+<span class="lineNum">      44 </span>                :            :   }
+<span class="lineNum">      45 </span>                :            :   // LCOV_EXCL_START: not possible to cover these lines for all generated datatypes
+<span class="lineNum">      46 </span>                :            :   catch (std::out_of_range &amp;)
+<span class="lineNum">      47 </span>                :            :   {
+<span class="lineNum">      48 </span>                :            :   }
+<span class="lineNum">      49 </span>                :            :   return false;
+<span class="lineNum">      50 </span>                :            :   // LCOV_EXCL_STOP: not possible to cover these lines for all generated datatypes
+<span class="lineNum">      51 </span>                :            : }
 </pre>
       </td>
     </tr>
