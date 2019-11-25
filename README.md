@@ -63,7 +63,7 @@ In addition, the terms in the following apply:
 
 ## Documentation
 Visit the project's [GitHub page](https://intel.github.io/ad-rss-lib/) to access the online version of the full documentation of this library. This includes:
-- [Doxygen](https://intel.github.io/ad-rss-lib/doxygen/index.html)
+- [Doxygen](https://intel.github.io/ad-rss-lib/doxygen/html/index.html)
 - [Background documentation](https://intel.github.io/ad-rss-lib/documentation/Main.html).
 
 If you have any additional question not answered therein, you might find more in:
