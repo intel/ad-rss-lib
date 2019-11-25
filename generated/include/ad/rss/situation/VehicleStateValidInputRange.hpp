@@ -20,11 +20,14 @@
 #include "ad/rss/situation/VehicleState.hpp"
 #include "ad/rss/situation/VelocityRangeValidInputRange.hpp"
 #include "ad/rss/world/RssDynamicsValidInputRange.hpp"
+#include "spdlog/fmt/ostr.h"
+#include "spdlog/spdlog.h"
 
 /*!
  * \brief check if the given VehicleState is within valid input range
  *
  * \param[in] input the VehicleState as an input value
+ * \param[in] logErrors enables error logging
  *
  * \returns \c true if VehicleState is considered to be within the specified input range
  *
@@ -32,25 +35,48 @@
  *       ::ad::physics::Distance(0.) <= distanceToEnterIntersection <= distanceToLeaveIntersection
  *       distanceToEnterIntersection <= distanceToLeaveIntersection <= ::ad::physics::Distance(1e4)
  */
-inline bool withinValidInputRange(::ad::rss::situation::VehicleState const &input)
+inline bool withinValidInputRange(::ad::rss::situation::VehicleState const &input, bool const logErrors = true)
 {
   // check for generic member input ranges
   bool inValidInputRange = true;
-  inValidInputRange = withinValidInputRange(input.velocity) && withinValidInputRange(input.dynamics)
-    && withinValidInputRange(input.distanceToEnterIntersection)
-    && withinValidInputRange(input.distanceToLeaveIntersection);
+  inValidInputRange = withinValidInputRange(input.velocity, logErrors)
+    && withinValidInputRange(input.dynamics, logErrors)
+    && withinValidInputRange(input.distanceToEnterIntersection, logErrors)
+    && withinValidInputRange(input.distanceToLeaveIntersection, logErrors);
+  if (!inValidInputRange && logErrors)
+  {
+    spdlog::error("withinValidInputRange(::ad::rss::situation::VehicleState)>> {} has invalid member", input);
+  }
 
   // check for individual input ranges
   if (inValidInputRange)
   {
     inValidInputRange = (::ad::physics::Distance(0.) <= input.distanceToEnterIntersection)
       && (input.distanceToEnterIntersection <= input.distanceToLeaveIntersection);
+    if (!inValidInputRange && logErrors)
+    {
+      spdlog::error(
+        "withinValidInputRange(::ad::rss::situation::VehicleState)>> {} element {} out of valid input range [{}, {}]",
+        input,
+        input.distanceToEnterIntersection,
+        ::ad::physics::Distance(0.),
+        input.distanceToLeaveIntersection);
+    }
   }
 
   if (inValidInputRange)
   {
     inValidInputRange = (input.distanceToEnterIntersection <= input.distanceToLeaveIntersection)
       && (input.distanceToLeaveIntersection <= ::ad::physics::Distance(1e4));
+    if (!inValidInputRange && logErrors)
+    {
+      spdlog::error(
+        "withinValidInputRange(::ad::rss::situation::VehicleState)>> {} element {} out of valid input range [{}, {}]",
+        input,
+        input.distanceToLeaveIntersection,
+        input.distanceToEnterIntersection,
+        ::ad::physics::Distance(1e4));
+    }
   }
 
   return inValidInputRange;

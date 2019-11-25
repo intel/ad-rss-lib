@@ -17,21 +17,32 @@
 #include <cmath>
 #include <limits>
 #include "ad/rss/situation/LateralRelativePosition.hpp"
+#include "spdlog/fmt/ostr.h"
+#include "spdlog/spdlog.h"
 
 /*!
  * \brief check if the given LateralRelativePosition is within valid input range
  *
  * \param[in] input the LateralRelativePosition as an input value
+ * \param[in] logErrors enables error logging
  *
  * \returns \c true if LateralRelativePosition is considered to be within the specified input range
  *
  * \note the specified input range is defined by the valid enum literals.
  */
-inline bool withinValidInputRange(::ad::rss::situation::LateralRelativePosition const &input)
+inline bool withinValidInputRange(::ad::rss::situation::LateralRelativePosition const &input,
+                                  bool const logErrors = true)
 {
-  return (input == ::ad::rss::situation::LateralRelativePosition::AtLeft)
+  bool inValidInputRange = (input == ::ad::rss::situation::LateralRelativePosition::AtLeft)
     || (input == ::ad::rss::situation::LateralRelativePosition::OverlapLeft)
     || (input == ::ad::rss::situation::LateralRelativePosition::Overlap)
     || (input == ::ad::rss::situation::LateralRelativePosition::OverlapRight)
     || (input == ::ad::rss::situation::LateralRelativePosition::AtRight);
+  if (!inValidInputRange && logErrors)
+  {
+    spdlog::error("withinValidInputRange(::ad::rss::situation::LateralRelativePosition)>> {}, raw value: {} ",
+                  input,
+                  static_cast<int32_t>(input));
+  }
+  return inValidInputRange;
 }

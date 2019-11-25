@@ -67,6 +67,8 @@ TEST(MathUnitTestsInputRangeChecks, speed_and_acceleration_zero)
   EXPECT_EQ(requiredTime, std::numeric_limits<Duration>::max());
 }
 
+#if INVALID_AD_PHYSICS_SPEED_THROWS_EXCEPTION && INVALID_AD_PHYSICS_ACCELERATION_THROWS_EXCEPTION                      \
+  && INVALID_AD_PHYSICS_DURATION_THROWS_EXCEPTION && INVALID_AD_PHYSICS_DISTANCE_THROWS_EXCEPTION
 TEST(MathUnitTestsInputRangeChecks, calculateDistanceOffsetInAccerlatedMovementThrows)
 {
   EXPECT_THROW(calculateDistanceOffsetInAcceleratedMovement(Speed(), Acceleration(0), Duration(0)), std::out_of_range);
@@ -132,6 +134,7 @@ TEST(MathUnitTestsInputRangeChecks, calculateTimeToCoverDistanceThrows)
                                             requiredTime),
                std::out_of_range);
 }
+#endif
 
 } // namespace situation
 } // namespace rss

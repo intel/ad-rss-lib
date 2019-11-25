@@ -20,22 +20,30 @@
 #include "ad/rss/world/LaneDrivingDirectionValidInputRange.hpp"
 #include "ad/rss/world/LaneSegment.hpp"
 #include "ad/rss/world/LaneSegmentTypeValidInputRange.hpp"
+#include "spdlog/fmt/ostr.h"
+#include "spdlog/spdlog.h"
 
 /*!
  * \brief check if the given LaneSegment is within valid input range
  *
  * \param[in] input the LaneSegment as an input value
+ * \param[in] logErrors enables error logging
  *
  * \returns \c true if LaneSegment is considered to be within the specified input range
  *
  * \note the specified input range is defined by the ranges of all members
  */
-inline bool withinValidInputRange(::ad::rss::world::LaneSegment const &input)
+inline bool withinValidInputRange(::ad::rss::world::LaneSegment const &input, bool const logErrors = true)
 {
   // check for generic member input ranges
   bool inValidInputRange = true;
-  inValidInputRange = withinValidInputRange(input.type) && withinValidInputRange(input.drivingDirection)
-    && withinValidInputRange(input.length) && withinValidInputRange(input.width);
+  inValidInputRange = withinValidInputRange(input.type, logErrors)
+    && withinValidInputRange(input.drivingDirection, logErrors) && withinValidInputRange(input.length, logErrors)
+    && withinValidInputRange(input.width, logErrors);
+  if (!inValidInputRange && logErrors)
+  {
+    spdlog::error("withinValidInputRange(::ad::rss::world::LaneSegment)>> {} has invalid member", input);
+  }
 
   return inValidInputRange;
 }

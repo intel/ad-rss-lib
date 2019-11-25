@@ -358,11 +358,13 @@ TEST_F(RssSituationCheckingInputRangeTests, invalid_situation_type)
   performTestRun();
 }
 
+#if INVALID_AD_PHYSICS_DISTANCE_THROWS_EXCEPTION
 TEST_F(RssSituationCheckingInputRangeTests, nan_values)
 {
   situation.relativePosition.longitudinalDistance = Distance();
   performTestRun();
 }
+#endif
 
 } // namespace situation
 } // namespace rss

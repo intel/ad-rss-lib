@@ -30,17 +30,15 @@
 # ----------------- END LICENSE BLOCK -----------------------------------
 cmake_minimum_required(VERSION 3.5)
 
-option(BUILD_SHARED_LIBS "Build shared libraries instead of static ones" ON)
-option(BUILD_TESTING "Include tests into build" OFF)
-
 project(ad_rss)
 
-if(BUILD_TESTING)
-message(STATUS "Build Testing")
-  enable_testing()
+include(cmake/compile-options.cmake)
+include(cmake/hardening.cmake)
+include(cmake/testing.cmake)
+include(cmake/warnings.cmake)
 
-  include(cmake/gtest.cmake)
-endif()
+#convert list to string
+string (REPLACE ";" " " TARGET_LINK_FLAGS "${TARGET_LINK_OPTIONS}")
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/impl")
 add_subdirectory(generated)

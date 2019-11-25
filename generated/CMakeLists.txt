@@ -28,8 +28,8 @@ if ((NOT ad_rss_SOURCES) OR (NOT ad_rss_INCLUDE_DIRS))
   message(FATAL_ERROR "${PROJECT_NAME}: Variable ad_rss_SOURCES or ad_rss_INCLUDE_DIRS pointing to the generator managed library not set!")
 endif()
 
-find_package(ad_physics 0.0.0 CONFIG REQUIRED)
-find_package(spdlog CONFIG REQUIRED)
+find_package(ad_physics 0.0.0 REQUIRED CONFIG)
+find_package(spdlog REQUIRED CONFIG)
 
 add_library(${PROJECT_NAME}
   ${ad_rss_SOURCES}
@@ -50,6 +50,8 @@ string(APPEND TARGET_COMPILE_DEFINITIONS ${ad_rss_TARGET_COMPILE_DEFINITIONS})
 endif()
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${TARGET_COMPILE_DEFINITIONS})
+target_compile_options(${PROJECT_NAME} PRIVATE ${TARGET_COMPILE_OPTIONS})
+set_property(TARGET ${PROJECT_NAME} APPEND_STRING PROPERTY LINK_FLAGS ${TARGET_LINK_FLAGS})
 
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

@@ -123,16 +123,7 @@ namespace situation {
  */
 inline std::ostream &operator<<(std::ostream &os, CoordinateSystemAxis const &value)
 {
-  std::string valueString;
-  try
-  {
-    valueString = toString(value);
-  }
-  catch (std::exception &e)
-  {
-    valueString = "INVALID";
-  }
-  return os << valueString;
+  return os << toString(value);
 }
 
 } // namespace situation

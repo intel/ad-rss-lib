@@ -17,19 +17,22 @@
 #include <cmath>
 #include <limits>
 #include "ad/rss/state/RssStateEvaluator.hpp"
+#include "spdlog/fmt/ostr.h"
+#include "spdlog/spdlog.h"
 
 /*!
  * \brief check if the given RssStateEvaluator is within valid input range
  *
  * \param[in] input the RssStateEvaluator as an input value
+ * \param[in] logErrors enables error logging
  *
  * \returns \c true if RssStateEvaluator is considered to be within the specified input range
  *
  * \note the specified input range is defined by the valid enum literals.
  */
-inline bool withinValidInputRange(::ad::rss::state::RssStateEvaluator const &input)
+inline bool withinValidInputRange(::ad::rss::state::RssStateEvaluator const &input, bool const logErrors = true)
 {
-  return (input == ::ad::rss::state::RssStateEvaluator::None)
+  bool inValidInputRange = (input == ::ad::rss::state::RssStateEvaluator::None)
     || (input == ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane)
     || (input == ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceOppositeDirection)
     || (input == ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionEgoFront)
@@ -40,4 +43,11 @@ inline bool withinValidInputRange(::ad::rss::state::RssStateEvaluator const &inp
     || (input == ::ad::rss::state::RssStateEvaluator::IntersectionEgoInFront)
     || (input == ::ad::rss::state::RssStateEvaluator::IntersectionOtherInFront)
     || (input == ::ad::rss::state::RssStateEvaluator::IntersectionOverlap);
+  if (!inValidInputRange && logErrors)
+  {
+    spdlog::error("withinValidInputRange(::ad::rss::state::RssStateEvaluator)>> {}, raw value: {} ",
+                  input,
+                  static_cast<int32_t>(input));
+  }
+  return inValidInputRange;
 }

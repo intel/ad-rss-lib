@@ -83,37 +83,3 @@ TEST(RoadAreaValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax)
   value.resize(51, element);
   ASSERT_FALSE(withinValidInputRange(value));
 }
-
-TEST(RoadAreaValidInputRangeTests, testValidInputRangeElementTypeInvalid)
-{
-  ::ad::rss::world::RoadArea value;
-  ::ad::rss::world::RoadSegment element;
-  ::ad::rss::world::LaneSegment elementRoadSegmentElement;
-  ::ad::rss::world::LaneSegmentId elementRoadSegmentElementId(
-    std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
-  elementRoadSegmentElement.id = elementRoadSegmentElementId;
-  ::ad::rss::world::LaneSegmentType elementRoadSegmentElementType(::ad::rss::world::LaneSegmentType::Normal);
-  elementRoadSegmentElement.type = elementRoadSegmentElementType;
-  ::ad::rss::world::LaneDrivingDirection elementRoadSegmentElementDrivingDirection(
-    ::ad::rss::world::LaneDrivingDirection::Bidirectional);
-  elementRoadSegmentElement.drivingDirection = elementRoadSegmentElementDrivingDirection;
-  ::ad::physics::MetricRange elementRoadSegmentElementLength;
-  ::ad::physics::Distance elementRoadSegmentElementLengthMinimum(0.);
-  elementRoadSegmentElementLength.minimum = elementRoadSegmentElementLengthMinimum;
-  ::ad::physics::Distance elementRoadSegmentElementLengthMaximum(0.);
-  elementRoadSegmentElementLength.maximum = elementRoadSegmentElementLengthMaximum;
-  elementRoadSegmentElementLength.maximum = elementRoadSegmentElementLength.minimum;
-  elementRoadSegmentElementLength.minimum = elementRoadSegmentElementLength.maximum;
-  elementRoadSegmentElement.length = elementRoadSegmentElementLength;
-  ::ad::physics::MetricRange elementRoadSegmentElementWidth;
-  ::ad::physics::Distance elementRoadSegmentElementWidthMinimum(0.);
-  elementRoadSegmentElementWidth.minimum = elementRoadSegmentElementWidthMinimum;
-  ::ad::physics::Distance elementRoadSegmentElementWidthMaximum(0.);
-  elementRoadSegmentElementWidth.maximum = elementRoadSegmentElementWidthMaximum;
-  elementRoadSegmentElementWidth.maximum = elementRoadSegmentElementWidth.minimum;
-  elementRoadSegmentElementWidth.minimum = elementRoadSegmentElementWidth.maximum;
-  elementRoadSegmentElement.width = elementRoadSegmentElementWidth;
-  element.resize(21, elementRoadSegmentElement);
-  value.resize(49, element);
-  ASSERT_FALSE(withinValidInputRange(value));
-}

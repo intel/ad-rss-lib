@@ -18,27 +18,43 @@
 #include <limits>
 #include "ad/rss/state/RssStateSnapshot.hpp"
 #include "ad/rss/state/RssStateVectorValidInputRange.hpp"
+#include "spdlog/fmt/ostr.h"
+#include "spdlog/spdlog.h"
 
 /*!
  * \brief check if the given RssStateSnapshot is within valid input range
  *
  * \param[in] input the RssStateSnapshot as an input value
+ * \param[in] logErrors enables error logging
  *
  * \returns \c true if RssStateSnapshot is considered to be within the specified input range
  *
  * \note the specified input range is defined by the ranges of all members, plus:
  *       ::ad::rss::world::TimeIndex(1) <= timeIndex
  */
-inline bool withinValidInputRange(::ad::rss::state::RssStateSnapshot const &input)
+inline bool withinValidInputRange(::ad::rss::state::RssStateSnapshot const &input, bool const logErrors = true)
 {
   // check for generic member input ranges
   bool inValidInputRange = true;
-  inValidInputRange = withinValidInputRange(input.individualResponses);
+  inValidInputRange = withinValidInputRange(input.individualResponses, logErrors);
+  if (!inValidInputRange && logErrors)
+  {
+    spdlog::error("withinValidInputRange(::ad::rss::state::RssStateSnapshot)>> {} has invalid member", input);
+  }
 
   // check for individual input ranges
   if (inValidInputRange)
   {
     inValidInputRange = (::ad::rss::world::TimeIndex(1) <= input.timeIndex);
+    if (!inValidInputRange && logErrors)
+    {
+      spdlog::error(
+        "withinValidInputRange(::ad::rss::state::RssStateSnapshot)>> {} element {} out of valid input range [{}, {}]",
+        input,
+        input.timeIndex,
+        ::ad::rss::world::TimeIndex(1),
+        "Undefined");
+    }
   }
 
   return inValidInputRange;

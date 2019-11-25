@@ -18,11 +18,14 @@
 #include <limits>
 #include "ad/rss/world/RoadArea.hpp"
 #include "ad/rss/world/RoadSegmentValidInputRange.hpp"
+#include "spdlog/fmt/ostr.h"
+#include "spdlog/spdlog.h"
 
 /*!
  * \brief check if the given RoadArea is within valid input range
  *
  * \param[in] input the RoadArea as an input value
+ * \param[in] logErrors enables error logging
  *
  * \returns \c true if RoadArea is considered to be within the specified input range
  *
@@ -30,15 +33,24 @@
  *       0 <= \c input.size() <= 50
  *       and the ranges of all vector elements
  */
-inline bool withinValidInputRange(::ad::rss::world::RoadArea const &input)
+inline bool withinValidInputRange(::ad::rss::world::RoadArea const &input, bool const logErrors = true)
 {
   bool inValidInputRange = (input.size() <= std::size_t(50));
+  if (!inValidInputRange && logErrors)
+  {
+    spdlog::error("withinValidInputRange(::ad::rss::world::RoadArea)>> {}, invalid input range", input);
+  }
 
   if (inValidInputRange)
   {
     for (auto const &member : input)
     {
-      inValidInputRange = inValidInputRange && withinValidInputRange(member);
+      bool memberInValidInputRange = withinValidInputRange(member, logErrors);
+      inValidInputRange = inValidInputRange && memberInValidInputRange;
+      if (!memberInValidInputRange && logErrors)
+      {
+        spdlog::error("withinValidInputRange(::ad::rss::world::RoadArea)>> {}, invalid member {}", input, member);
+      }
     }
   }
   return inValidInputRange;

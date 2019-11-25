@@ -17,19 +17,29 @@
 #include <cmath>
 #include <limits>
 #include "ad/rss/world/LaneDrivingDirection.hpp"
+#include "spdlog/fmt/ostr.h"
+#include "spdlog/spdlog.h"
 
 /*!
  * \brief check if the given LaneDrivingDirection is within valid input range
  *
  * \param[in] input the LaneDrivingDirection as an input value
+ * \param[in] logErrors enables error logging
  *
  * \returns \c true if LaneDrivingDirection is considered to be within the specified input range
  *
  * \note the specified input range is defined by the valid enum literals.
  */
-inline bool withinValidInputRange(::ad::rss::world::LaneDrivingDirection const &input)
+inline bool withinValidInputRange(::ad::rss::world::LaneDrivingDirection const &input, bool const logErrors = true)
 {
-  return (input == ::ad::rss::world::LaneDrivingDirection::Bidirectional)
+  bool inValidInputRange = (input == ::ad::rss::world::LaneDrivingDirection::Bidirectional)
     || (input == ::ad::rss::world::LaneDrivingDirection::Positive)
     || (input == ::ad::rss::world::LaneDrivingDirection::Negative);
+  if (!inValidInputRange && logErrors)
+  {
+    spdlog::error("withinValidInputRange(::ad::rss::world::LaneDrivingDirection)>> {}, raw value: {} ",
+                  input,
+                  static_cast<int32_t>(input));
+  }
+  return inValidInputRange;
 }

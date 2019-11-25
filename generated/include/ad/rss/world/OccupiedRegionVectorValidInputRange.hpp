@@ -18,11 +18,14 @@
 #include <limits>
 #include "ad/rss/world/OccupiedRegionValidInputRange.hpp"
 #include "ad/rss/world/OccupiedRegionVector.hpp"
+#include "spdlog/fmt/ostr.h"
+#include "spdlog/spdlog.h"
 
 /*!
  * \brief check if the given OccupiedRegionVector is within valid input range
  *
  * \param[in] input the OccupiedRegionVector as an input value
+ * \param[in] logErrors enables error logging
  *
  * \returns \c true if OccupiedRegionVector is considered to be within the specified input range
  *
@@ -30,15 +33,25 @@
  *       0 <= \c input.size() <= 1000
  *       and the ranges of all vector elements
  */
-inline bool withinValidInputRange(::ad::rss::world::OccupiedRegionVector const &input)
+inline bool withinValidInputRange(::ad::rss::world::OccupiedRegionVector const &input, bool const logErrors = true)
 {
   bool inValidInputRange = (input.size() <= std::size_t(1000));
+  if (!inValidInputRange && logErrors)
+  {
+    spdlog::error("withinValidInputRange(::ad::rss::world::OccupiedRegionVector)>> {}, invalid input range", input);
+  }
 
   if (inValidInputRange)
   {
     for (auto const &member : input)
     {
-      inValidInputRange = inValidInputRange && withinValidInputRange(member);
+      bool memberInValidInputRange = withinValidInputRange(member, logErrors);
+      inValidInputRange = inValidInputRange && memberInValidInputRange;
+      if (!memberInValidInputRange && logErrors)
+      {
+        spdlog::error(
+          "withinValidInputRange(::ad::rss::world::OccupiedRegionVector)>> {}, invalid member {}", input, member);
+      }
     }
   }
   return inValidInputRange;
