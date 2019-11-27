@@ -1,9 +1,15 @@
 /*
- * Copyright (C) 2019 Intel Corporation
+ * ----------------- BEGIN LICENSE BLOCK ---------------------------------
+ *
+ * Copyright (C) 2018-2019 Intel Corporation
+ *
+ * SPDX-License-Identifier: LGPL-2.1-only
+ *
+ * ----------------- END LICENSE BLOCK -----------------------------------
  */
 
 /*
- * Note: This file is currently not included in any CMakeLists.txt
+ * Generated file
  */
 
 #include <gtest/gtest.h>
@@ -44,4 +50,12 @@ TEST(CoordinateSystemAxisTests, testToString)
 
   ASSERT_EQ(toString(static_cast<::ad::rss::situation::CoordinateSystemAxis>(minValue - 1)), "UNKNOWN ENUM VALUE");
   ASSERT_EQ(toString(static_cast<::ad::rss::situation::CoordinateSystemAxis>(maxValue + 1)), "UNKNOWN ENUM VALUE");
+}
+
+TEST(CoordinateSystemAxisTests, ostreamOperatorTest)
+{
+  std::stringstream stream;
+  ::ad::rss::situation::CoordinateSystemAxis value;
+  stream << value;
+  ASSERT_GT(stream.str().size(), 0);
 }

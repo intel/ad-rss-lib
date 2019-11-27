@@ -1,9 +1,15 @@
 /*
- * Copyright (C) 2019 Intel Corporation
+ * ----------------- BEGIN LICENSE BLOCK ---------------------------------
+ *
+ * Copyright (C) 2018-2019 Intel Corporation
+ *
+ * SPDX-License-Identifier: LGPL-2.1-only
+ *
+ * ----------------- END LICENSE BLOCK -----------------------------------
  */
 
 /*
- * Note: This file is currently not included in any CMakeLists.txt
+ * Generated file
  */
 
 #include <gtest/gtest.h>
@@ -72,6 +78,14 @@ TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorEqual)
 
   EXPECT_TRUE(valueA == valueB);
   EXPECT_FALSE(valueA != valueB);
+}
+
+TEST_F(LongitudinalRssAccelerationValuesTests, ostreamOperatorTest)
+{
+  std::stringstream stream;
+  ::ad::rss::world::LongitudinalRssAccelerationValues value;
+  stream << value;
+  ASSERT_GT(stream.str().size(), 0);
 }
 
 TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorAccelMaxDiffers)

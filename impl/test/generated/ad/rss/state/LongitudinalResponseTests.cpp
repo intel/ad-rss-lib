@@ -1,9 +1,15 @@
 /*
- * Copyright (C) 2019 Intel Corporation
+ * ----------------- BEGIN LICENSE BLOCK ---------------------------------
+ *
+ * Copyright (C) 2018-2019 Intel Corporation
+ *
+ * SPDX-License-Identifier: LGPL-2.1-only
+ *
+ * ----------------- END LICENSE BLOCK -----------------------------------
  */
 
 /*
- * Note: This file is currently not included in any CMakeLists.txt
+ * Generated file
  */
 
 #include <gtest/gtest.h>
@@ -51,4 +57,12 @@ TEST(LongitudinalResponseTests, testToString)
 
   ASSERT_EQ(toString(static_cast<::ad::rss::state::LongitudinalResponse>(minValue - 1)), "UNKNOWN ENUM VALUE");
   ASSERT_EQ(toString(static_cast<::ad::rss::state::LongitudinalResponse>(maxValue + 1)), "UNKNOWN ENUM VALUE");
+}
+
+TEST(LongitudinalResponseTests, ostreamOperatorTest)
+{
+  std::stringstream stream;
+  ::ad::rss::state::LongitudinalResponse value;
+  stream << value;
+  ASSERT_GT(stream.str().size(), 0);
 }

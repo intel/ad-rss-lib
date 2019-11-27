@@ -1,15 +1,18 @@
 /*
- * Copyright (C) 2019 Intel Corporation
+ * ----------------- BEGIN LICENSE BLOCK ---------------------------------
+ *
+ * Copyright (C) 2018-2019 Intel Corporation
+ *
+ * SPDX-License-Identifier: LGPL-2.1-only
+ *
+ * ----------------- END LICENSE BLOCK -----------------------------------
  */
 
 /**
  * Generated file
  * @file
  *
- * Model Library     : RSS.ad_rss_data_type_lib
- * Model Version     : 0.0.0
- * Generator         : mo2ive_generator_mockup
- * Generator Version : @GENERATOR_VERSION@
+ * Generator Version : 10.6.0-1878
  */
 
 #pragma once
@@ -45,7 +48,8 @@ inline bool withinValidInputRange(::ad::rss::situation::VehicleState const &inpu
     && withinValidInputRange(input.distanceToLeaveIntersection, logErrors);
   if (!inValidInputRange && logErrors)
   {
-    spdlog::error("withinValidInputRange(::ad::rss::situation::VehicleState)>> {} has invalid member", input);
+    spdlog::error("withinValidInputRange(::ad::rss::situation::VehicleState)>> {} has invalid member",
+                  input); // LCOV_EXCL_BR_LINE
   }
 
   // check for individual input ranges
@@ -60,7 +64,7 @@ inline bool withinValidInputRange(::ad::rss::situation::VehicleState const &inpu
         input,
         input.distanceToEnterIntersection,
         ::ad::physics::Distance(0.),
-        input.distanceToLeaveIntersection);
+        input.distanceToLeaveIntersection); // LCOV_EXCL_BR_LINE
     }
   }
 
@@ -75,7 +79,7 @@ inline bool withinValidInputRange(::ad::rss::situation::VehicleState const &inpu
         input,
         input.distanceToLeaveIntersection,
         input.distanceToEnterIntersection,
-        ::ad::physics::Distance(1e4));
+        ::ad::physics::Distance(1e4)); // LCOV_EXCL_BR_LINE
     }
   }
 

@@ -1,15 +1,18 @@
 /*
- * Copyright (C) 2019 Intel Corporation
+ * ----------------- BEGIN LICENSE BLOCK ---------------------------------
+ *
+ * Copyright (C) 2018-2019 Intel Corporation
+ *
+ * SPDX-License-Identifier: LGPL-2.1-only
+ *
+ * ----------------- END LICENSE BLOCK -----------------------------------
  */
 
 /**
  * Generated file
  * @file
  *
- * Model Library     : RSS.ad_rss_data_type_lib
- * Model Version     : 0.0.0
- * Generator         : mo2ive_generator_mockup
- * Generator Version : @GENERATOR_VERSION@
+ * Generator Version : 10.6.0-1878
  */
 
 #pragma once
@@ -47,7 +50,8 @@ inline bool withinValidInputRange(::ad::rss::world::RssDynamics const &input, bo
     && withinValidInputRange(input.responseTime, logErrors) && withinValidInputRange(input.maxSpeed, logErrors);
   if (!inValidInputRange && logErrors)
   {
-    spdlog::error("withinValidInputRange(::ad::rss::world::RssDynamics)>> {} has invalid member", input);
+    spdlog::error("withinValidInputRange(::ad::rss::world::RssDynamics)>> {} has invalid member",
+                  input); // LCOV_EXCL_BR_LINE
   }
 
   // check for individual input ranges
@@ -62,7 +66,7 @@ inline bool withinValidInputRange(::ad::rss::world::RssDynamics const &input, bo
         input,
         input.lateralFluctuationMargin,
         ::ad::physics::Distance(0.),
-        ::ad::physics::Distance(1.));
+        ::ad::physics::Distance(1.)); // LCOV_EXCL_BR_LINE
     }
   }
 
@@ -77,7 +81,7 @@ inline bool withinValidInputRange(::ad::rss::world::RssDynamics const &input, bo
         input,
         input.responseTime,
         ::ad::physics::Duration(0.),
-        ::ad::physics::Duration(10.));
+        ::ad::physics::Duration(10.)); // LCOV_EXCL_BR_LINE
     }
   }
 

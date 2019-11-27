@@ -1,15 +1,18 @@
 /*
- * Copyright (C) 2019 Intel Corporation
+ * ----------------- BEGIN LICENSE BLOCK ---------------------------------
+ *
+ * Copyright (C) 2018-2019 Intel Corporation
+ *
+ * SPDX-License-Identifier: LGPL-2.1-only
+ *
+ * ----------------- END LICENSE BLOCK -----------------------------------
  */
 
 /**
  * Generated file
  * @file
  *
- * Model Library     : RSS.ad_rss_data_type_lib
- * Model Version     : 0.0.0
- * Generator         : mo2ive_generator_mockup
- * Generator Version : @GENERATOR_VERSION@
+ * Generator Version : 10.6.0-1878
  */
 
 #pragma once
@@ -41,7 +44,8 @@ inline bool withinValidInputRange(::ad::rss::world::Object const &input, bool co
     && withinValidInputRange(input.occupiedRegions, logErrors) && withinValidInputRange(input.velocity, logErrors);
   if (!inValidInputRange && logErrors)
   {
-    spdlog::error("withinValidInputRange(::ad::rss::world::Object)>> {} has invalid member", input);
+    spdlog::error("withinValidInputRange(::ad::rss::world::Object)>> {} has invalid member",
+                  input); // LCOV_EXCL_BR_LINE
   }
 
   return inValidInputRange;

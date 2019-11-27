@@ -1,3 +1,13 @@
+/*
+ * ----------------- BEGIN LICENSE BLOCK ---------------------------------
+ *
+ * Copyright (C) 2019 Intel Corporation
+ *
+ * SPDX-License-Identifier: LGPL-2.1-only
+ *
+ * ----------------- END LICENSE BLOCK -----------------------------------
+ */
+
 #include "gtest/gtest.h"
 #include "spdlog/sinks/null_sink.h"
 #include "spdlog/spdlog.h"
