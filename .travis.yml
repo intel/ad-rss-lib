@@ -14,6 +14,10 @@ os: linux
 dist: xenial
 sudo: false
 
+env:
+  global:
+    - BUILDCMD="mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DBUILD_PYTHON_BINDING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest && cp python/libad_rss_python.so ../python/tests && cd ../python/tests && python interface_test.py -qf"
+
 matrix:
   include:
 
@@ -144,12 +148,12 @@ matrix:
         - docker run -d --name ubuntu -v $(pwd):/travis -w /travis ubuntu:trusty tail -f /dev/null
         - docker ps
       install:
-        - $SH "apt-get update && apt-get -y -qq install build-essential cmake3 clang git"
+        - $SH "apt-get update && apt-get -y -qq install build-essential cmake3 clang git libboost-python-dev"
       script:
-        - $SH "mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
-        - $SH "rm -rf build && export CC=/usr/bin/clang && export CXX=/usr/bin/clang++ && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
+        - $SH "eval $BUILDCMD"
+        - $SH "rm -rf build && export CC=/usr/bin/clang && export CXX=/usr/bin/clang++" && $SH "eval $BUILDCMD"
         - $SH "apt-get -y -qq remove clang && apt-get -y -qq install clang-3.9"
-        - $SH "rm -rf build && export CC=/usr/bin/clang-3.9 && export CXX=/usr/bin/clang++-3.9 && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
+        - $SH "rm -rf build && export CC=/usr/bin/clang-3.9 && export CXX=/usr/bin/clang++-3.9" && $SH "eval $BUILDCMD"
       after_failure:
         - tail --lines=2000 build.log
 
@@ -163,16 +167,16 @@ matrix:
         - docker run -d --name ubuntu -v $(pwd):/travis -w /travis ubuntu:xenial tail -f /dev/null
         - docker ps
       install:
-        - $SH "apt-get update && apt-get -y -qq install build-essential cmake clang git"
+        - $SH "apt-get update && apt-get -y -qq install build-essential cmake clang git libboost-python-dev"
         - $SH "apt-get -y -qq install software-properties-common && add-apt-repository ppa:ubuntu-toolchain-r/test -y && apt-get update"
       script:
-        - $SH "mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
-        - $SH "rm -rf build && export CC=/usr/bin/clang && export CXX=/usr/bin/clang++ && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
+        - $SH "eval $BUILDCMD"
+        - $SH "rm -rf build && export CC=/usr/bin/clang && export CXX=/usr/bin/clang++" && $SH "eval $BUILDCMD"
         - $SH "apt-get -y -qq remove clang && apt-get -y -qq install clang-6.0 g++-6 clang-5.0 g++-7"
-        - $SH "rm -rf build && export CC=/usr/bin/gcc-6 && export CXX=/usr/bin/g++-6 && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
-        - $SH "rm -rf build && export CC=/usr/bin/gcc-7 && export CXX=/usr/bin/g++-7 && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
-        - $SH "rm -rf build && export CC=/usr/bin/clang-5.0 && export CXX=/usr/bin/clang++-5.0 && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
-        - $SH "rm -rf build && export CC=/usr/bin/clang-6.0 && export CXX=/usr/bin/clang++-6.0 && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
+        - $SH "rm -rf build && export CC=/usr/bin/gcc-6 && export CXX=/usr/bin/g++-6" && $SH "eval $BUILDCMD"
+        - $SH "rm -rf build && export CC=/usr/bin/gcc-7 && export CXX=/usr/bin/g++-7" && $SH "eval $BUILDCMD"
+        - $SH "rm -rf build && export CC=/usr/bin/clang-5.0 && export CXX=/usr/bin/clang++-5.0" && $SH "eval $BUILDCMD"
+        - $SH "rm -rf build && export CC=/usr/bin/clang-6.0 && export CXX=/usr/bin/clang++-6.0" && $SH "eval $BUILDCMD"
       after_failure:
         - tail --lines=2000 build.log
 
@@ -186,10 +190,10 @@ matrix:
         - docker run -d --name ubuntu -v $(pwd):/travis -w /travis ubuntu:bionic tail -f /dev/null
         - docker ps
       install:
-        - $SH "apt-get update && apt-get -y -qq install build-essential cmake clang git"
+        - $SH "apt-get update && apt-get -y -qq install build-essential cmake clang git libboost-python-dev"
       script:
-        - $SH "mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
-        - $SH "rm -rf build && export CC=/usr/bin/clang && export CXX=/usr/bin/clang++ && mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest"
+        - $SH "eval $BUILDCMD"
+        - $SH "rm -rf build && export CC=/usr/bin/clang && export CXX=/usr/bin/clang++" && $SH "eval $BUILDCMD"
       after_failure:
         - tail --lines=2000 build.log
 
