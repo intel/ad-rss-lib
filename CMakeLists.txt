@@ -12,12 +12,13 @@ set(BUILD_DOC "OFF" CACHE BOOL "Enable compilation of doxygen documentation")
 set(BUILD_HARDENING "OFF" CACHE BOOL "Enable build hardening flags")
 set(BUILD_COVERAGE "OFF" CACHE BOOL "Enable test coverage")
 set(BUILD_STATIC_ANALYSIS "OFF" CACHE BOOL "Enable static code analysis")
+set(BUILD_PYTHON_BINDING "OFF" CACHE BOOL "Enable building a library with Python bindings")
 
 option(BUILD_SHARED_LIBS "Libraries will be built as shared libraries" On)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-project(ad-rss-lib VERSION 1.4.0)
+project(ad-rss-lib VERSION 1.6.0)
 
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 11)
@@ -212,4 +213,11 @@ if(BUILD_STATIC_ANALYSIS)
     -I${CMAKE_CURRENT_SOURCE_DIR}/src/
     -I${CMAKE_CURRENT_SOURCE_DIR}/src/generated/
   )
+endif()
+
+################################################################################
+# Python binding
+################################################################################
+if(BUILD_PYTHON_BINDING)
+  add_subdirectory(python)
 endif()

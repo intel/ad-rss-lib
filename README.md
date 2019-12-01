@@ -35,7 +35,7 @@ The scope, design and architecture of this C++ library for RSS is described in m
 - C++ Library for Responsibility Sensitive Safety, Intel, 2018
 
 ### Usage of ad-rss-lib 
-If you use ad-rss-lib, please cite our IV'2019 paper:
+If you use ad-rss-lib for any publication, please cite the IV'2019 paper:
 ```
 @INPROCEEDINGS{
    title={Towards Standardization of AV Safety: C++ Library for Responsibility Sensitive Safety}
@@ -44,6 +44,11 @@ If you use ad-rss-lib, please cite our IV'2019 paper:
    year={2019}
 }
 ```
+
+#### Usage with Python
+It is possible to use the ad-rss-lib library with Python.
+Please see the [Documentation on the Python binding](python/README.md) for further information.
+
 
 #### Usage within CARLA
 This library can be used together with the open-source driving simulator [CARLA](https://github.com/carla-simulator/carla) to investigate the behavior of RSS. A first version is shown in the following video sequence:
