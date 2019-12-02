@@ -180,7 +180,7 @@ time, as this acceleration is already considered.
 [NOTE]
 ====
 It is important to note that the implementation of the ad-rss-lib in the
-library only uses parameters, but not the exact value. By this means, the
+library only uses parameters, but not fixed values. By this means, the
 library is independent to changes of the parameter values. Instead, the user
 defines a feasible parameter set, which is provided as input to the ad-rss-lib.
 ====

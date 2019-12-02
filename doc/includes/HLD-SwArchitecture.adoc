@@ -137,7 +137,7 @@ The ad-rss-lib is implemented as a whole within the namespace ad_rss.
 .The RSS datatypes are organized within several sub-namespaces.
 image::img/1dab8fd5-c1cf-4a62-9232-66e2e9279428_url_c4da4d92-8fec-4665-bd03-914ad6ba8238.tmp[caption="Figure {counter:figure}. "]
 
-For a detailed explanation of the individual types, please have a look into the doxygen documentation (https://intel.github.io/ad-rss-lib/doxygen/index.html).
+For a detailed explanation of the individual types, please have a look into the doxygen documentation (https://intel.github.io/ad-rss-lib/doxygen/html/index.html).
 
 ===== Namespace ad::rss::physics
 
