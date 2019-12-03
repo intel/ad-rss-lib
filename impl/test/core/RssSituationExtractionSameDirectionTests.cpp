@@ -207,7 +207,8 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   // adapt velocities
   auto originalObject = worldModel.scenes[1].egoVehicle;
 
-  worldModel.scenes[1].egoVehicle.velocity.speedLat = Speed(2.2);
+  worldModel.scenes[1].egoVehicle.velocity.speedLatMin = Speed(2.0);
+  worldModel.scenes[1].egoVehicle.velocity.speedLatMax = Speed(2.2);
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
@@ -216,7 +217,8 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   EXPECT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLat.maximum, Speed(2.2));
   worldModel.scenes[1].egoVehicle = originalObject;
 
-  worldModel.scenes[1].egoVehicle.velocity.speedLon = Speed(10.2);
+  worldModel.scenes[1].egoVehicle.velocity.speedLonMin = Speed(10.1);
+  worldModel.scenes[1].egoVehicle.velocity.speedLonMax = Speed(10.2);
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
@@ -226,7 +228,8 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   worldModel.scenes[1].egoVehicle = originalObject;
 
   originalObject = worldModel.scenes[1].object;
-  worldModel.scenes[1].object.velocity.speedLat = Speed(2.2);
+  worldModel.scenes[1].object.velocity.speedLatMin = Speed(2.0);
+  worldModel.scenes[1].object.velocity.speedLatMax = Speed(2.2);
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
@@ -235,7 +238,8 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   EXPECT_EQ(situationSnapshot.situations[0].otherVehicleState.velocity.speedLat.maximum, Speed(2.2));
   worldModel.scenes[1].object = originalObject;
 
-  worldModel.scenes[1].object.velocity.speedLon = Speed(10.2);
+  worldModel.scenes[1].object.velocity.speedLonMin = Speed(10.1);
+  worldModel.scenes[1].object.velocity.speedLonMax = Speed(10.2);
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);

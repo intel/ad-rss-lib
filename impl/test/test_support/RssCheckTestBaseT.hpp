@@ -518,24 +518,24 @@ protected:
       switch (getSituationType())
       {
         case situation::SituationType::SameDirection:
-          dMin = calculateLongitudinalMinSafeDistance(scene.egoVehicle.velocity.speedLon,
+          dMin = calculateLongitudinalMinSafeDistance(scene.egoVehicle.velocity.speedLonMin,
                                                       worldModel.egoVehicleRssDynamics,
-                                                      scene.object.velocity.speedLon,
+                                                      scene.object.velocity.speedLonMax,
                                                       scene.objectRssDynamics);
           break;
         case situation::SituationType::OppositeDirection:
           if (getDrivingDirection() == world::LaneDrivingDirection::Negative)
           {
-            dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(scene.object.velocity.speedLon,
+            dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(scene.object.velocity.speedLonMax,
                                                                          scene.objectRssDynamics,
-                                                                         scene.egoVehicle.velocity.speedLon,
+                                                                         scene.egoVehicle.velocity.speedLonMax,
                                                                          worldModel.egoVehicleRssDynamics);
           }
           else
           {
-            dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(scene.egoVehicle.velocity.speedLon,
+            dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(scene.egoVehicle.velocity.speedLonMax,
                                                                          worldModel.egoVehicleRssDynamics,
-                                                                         scene.object.velocity.speedLon,
+                                                                         scene.object.velocity.speedLonMax,
                                                                          scene.objectRssDynamics);
           }
           break;
@@ -576,7 +576,8 @@ protected:
     {
       for (auto &scene : worldModel.scenes)
       {
-        scene.egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
+        scene.egoVehicle.velocity.speedLonMin = kmhToMeterPerSec(i);
+        scene.egoVehicle.velocity.speedLonMax = scene.egoVehicle.velocity.speedLonMin;
       }
       worldModel.timeIndex++;
 

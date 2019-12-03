@@ -230,8 +230,10 @@ TEST_F(RssSituationExtractionIntersectionTests, mergeWorstCaseInFront)
   scene.intersectingRoad = scene.egoVehicleRoad;
   worldModel.scenes.push_back(scene);
 
-  scene.object.velocity.speedLon = Speed(9.0);
-  scene.object.velocity.speedLat = Speed(-1.);
+  scene.object.velocity.speedLonMin = Speed(9.0);
+  scene.object.velocity.speedLonMax = Speed(9.0);
+  scene.object.velocity.speedLatMin = Speed(-1.);
+  scene.object.velocity.speedLatMax = Speed(-1.);
 
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
@@ -278,8 +280,10 @@ TEST_F(RssSituationExtractionIntersectionTests, mergeWorstCaseAtBack)
   scene.intersectingRoad = scene.egoVehicleRoad;
   worldModel.scenes.push_back(scene);
 
-  scene.egoVehicle.velocity.speedLon = Speed(9.0);
-  scene.egoVehicle.velocity.speedLat = Speed(-1.);
+  scene.egoVehicle.velocity.speedLonMin = Speed(8.0);
+  scene.egoVehicle.velocity.speedLonMax = Speed(9.0);
+  scene.egoVehicle.velocity.speedLatMin = Speed(-1.);
+  scene.egoVehicle.velocity.speedLatMax = Speed(-0.5);
   worldModel.scenes.push_back(scene);
   worldModel.timeIndex = 1;
 
@@ -287,7 +291,7 @@ TEST_F(RssSituationExtractionIntersectionTests, mergeWorstCaseAtBack)
   ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
   ASSERT_EQ(situationSnapshot.situations.size(), 1);
 
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(9.));
+  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(8.));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10.));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLat.minimum, Speed(-1.));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLat.maximum, Speed(0.));

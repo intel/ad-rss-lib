@@ -70,7 +70,8 @@ TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities_NoLateralCon
 
   for (uint32_t i = 0; i < 100; i++)
   {
-    worldModel.scenes[0].egoVehicle.velocity.speedLon = kmhToMeterPerSec(i);
+    worldModel.scenes[0].egoVehicle.velocity.speedLonMin = kmhToMeterPerSec(i);
+    worldModel.scenes[0].egoVehicle.velocity.speedLonMax = kmhToMeterPerSec(i);
     worldModel.timeIndex++;
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));

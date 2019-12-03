@@ -48,9 +48,9 @@ TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Towards_Each_Other)
     }
     worldModel.timeIndex++;
 
-    Distance const dMin = calculateLateralMinSafeDistance(worldModel.scenes[0].object.velocity.speedLat,
+    Distance const dMin = calculateLateralMinSafeDistance(worldModel.scenes[0].object.velocity.speedLatMax,
                                                           worldModel.scenes[0].objectRssDynamics,
-                                                          worldModel.scenes[0].egoVehicle.velocity.speedLat,
+                                                          worldModel.scenes[0].egoVehicle.velocity.speedLatMax,
                                                           worldModel.egoVehicleRssDynamics);
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
@@ -74,7 +74,8 @@ TEST_F(RssCheckLateralEgoRightTest, No_Lateral_Velocity)
 {
   for (auto &scene : worldModel.scenes)
   {
-    scene.egoVehicle.velocity.speedLat = kmhToMeterPerSec(0);
+    scene.egoVehicle.velocity.speedLatMin = kmhToMeterPerSec(0);
+    scene.egoVehicle.velocity.speedLatMax = kmhToMeterPerSec(0);
   }
   world::AccelerationRestriction accelerationRestriction;
   core::RssCheck rssCheck;
@@ -96,8 +97,10 @@ TEST_F(RssCheckLateralEgoRightTest, No_Lateral_Velocity)
 
 TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Aways_From_Each_Other)
 {
-  worldModel.scenes[0].egoVehicle.velocity.speedLat = kmhToMeterPerSec(5);
-  worldModel.scenes[0].object.velocity.speedLat = kmhToMeterPerSec(-5);
+  worldModel.scenes[0].egoVehicle.velocity.speedLatMin = kmhToMeterPerSec(5);
+  worldModel.scenes[0].egoVehicle.velocity.speedLatMax = kmhToMeterPerSec(5);
+  worldModel.scenes[0].object.velocity.speedLatMin = kmhToMeterPerSec(-5);
+  worldModel.scenes[0].object.velocity.speedLatMax = kmhToMeterPerSec(-5);
 
   world::AccelerationRestriction accelerationRestriction;
   core::RssCheck rssCheck;
@@ -147,9 +150,9 @@ TEST_F(RssCheckLateralEgoLeftTest, Lateral_Velocity_Towards_Each_Other)
     worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.01 * i + 0.1);
     worldModel.timeIndex++;
 
-    Distance const dMin = calculateLateralMinSafeDistance(worldModel.scenes[0].egoVehicle.velocity.speedLat,
+    Distance const dMin = calculateLateralMinSafeDistance(worldModel.scenes[0].egoVehicle.velocity.speedLatMax,
                                                           worldModel.egoVehicleRssDynamics,
-                                                          worldModel.scenes[0].object.velocity.speedLat,
+                                                          worldModel.scenes[0].object.velocity.speedLatMax,
                                                           worldModel.scenes[0].objectRssDynamics);
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
@@ -226,7 +229,7 @@ protected:
       {
         for (auto &scene : worldModel.scenes)
         {
-          if (scene.egoVehicle.velocity.speedLat >= Speed(0.))
+          if (scene.egoVehicle.velocity.speedLatMax >= Speed(0.))
           {
             scene.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.1 * i);
             scene.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1 * i + 0.1);
@@ -241,9 +244,9 @@ protected:
 
         state::LateralResponse expectedLatResponseLeft = state::LateralResponse::None;
         state::LateralResponse expectedLatResponseRight = state::LateralResponse::None;
-        Distance const dMinLeft = calculateLateralMinSafeDistance(worldModel.scenes[0].object.velocity.speedLat,
+        Distance const dMinLeft = calculateLateralMinSafeDistance(worldModel.scenes[0].object.velocity.speedLatMax,
                                                                   worldModel.scenes[0].objectRssDynamics,
-                                                                  worldModel.scenes[0].egoVehicle.velocity.speedLat,
+                                                                  worldModel.scenes[0].egoVehicle.velocity.speedLatMax,
                                                                   worldModel.egoVehicleRssDynamics);
         Distance const dActualLeft
           = (ParametricValue(1) - worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum
@@ -258,9 +261,9 @@ protected:
           safeLeftStateExists = true;
         }
 
-        Distance const dMinRight = calculateLateralMinSafeDistance(worldModel.scenes[1].egoVehicle.velocity.speedLat,
+        Distance const dMinRight = calculateLateralMinSafeDistance(worldModel.scenes[1].egoVehicle.velocity.speedLatMax,
                                                                    worldModel.egoVehicleRssDynamics,
-                                                                   worldModel.scenes[1].object.velocity.speedLat,
+                                                                   worldModel.scenes[1].object.velocity.speedLatMax,
                                                                    worldModel.scenes[1].objectRssDynamics);
         Distance const dActualRight
           = (ParametricValue(1) - worldModel.scenes[1].egoVehicle.occupiedRegions[0].latRange.maximum
@@ -310,7 +313,8 @@ TEST_F(RssCheckLateralEgoInTheMiddleTest, No_Lateral_Velocity)
 {
   for (auto &scene : worldModel.scenes)
   {
-    scene.egoVehicle.velocity.speedLat = kmhToMeterPerSec(0);
+    scene.egoVehicle.velocity.speedLatMin = kmhToMeterPerSec(0);
+    scene.egoVehicle.velocity.speedLatMax = kmhToMeterPerSec(0);
   }
 
   performTest();
@@ -320,7 +324,8 @@ TEST_F(RssCheckLateralEgoInTheMiddleTest, Lateral_Velocity_To_The_Left)
 {
   for (auto &scene : worldModel.scenes)
   {
-    scene.egoVehicle.velocity.speedLat = kmhToMeterPerSec(-3);
+    scene.egoVehicle.velocity.speedLatMin = kmhToMeterPerSec(-3);
+    scene.egoVehicle.velocity.speedLatMax = kmhToMeterPerSec(-3);
   }
 
   performTest();
@@ -330,7 +335,8 @@ TEST_F(RssCheckLateralEgoInTheMiddleTest, Lateral_Velocity_To_The_Right)
 {
   for (auto &scene : worldModel.scenes)
   {
-    scene.egoVehicle.velocity.speedLat = kmhToMeterPerSec(3);
+    scene.egoVehicle.velocity.speedLatMin = kmhToMeterPerSec(3);
+    scene.egoVehicle.velocity.speedLatMax = kmhToMeterPerSec(3);
   }
 
   performTest();

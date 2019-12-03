@@ -82,7 +82,7 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeft
   valueLateralRightRange.minimum = valueLateralRightRange.maximum;
   value.lateralRightRange = valueLateralRightRange;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::AccelerationRange invalidInitializedMember;
   ::ad::physics::Acceleration invalidInitializedMemberMinimum(-1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
@@ -121,7 +121,7 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeft
   valueLateralRightRange.minimum = valueLateralRightRange.maximum;
   value.lateralRightRange = valueLateralRightRange;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::AccelerationRange invalidInitializedMember;
   ::ad::physics::Acceleration invalidInitializedMemberMinimum(1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
@@ -160,7 +160,7 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudina
   valueLateralRightRange.minimum = valueLateralRightRange.maximum;
   value.lateralRightRange = valueLateralRightRange;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::AccelerationRange invalidInitializedMember;
   ::ad::physics::Acceleration invalidInitializedMemberMinimum(-1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
@@ -199,7 +199,7 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudina
   valueLateralRightRange.minimum = valueLateralRightRange.maximum;
   value.lateralRightRange = valueLateralRightRange;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::AccelerationRange invalidInitializedMember;
   ::ad::physics::Acceleration invalidInitializedMemberMinimum(1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
@@ -238,7 +238,7 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRigh
   valueLateralRightRange.minimum = valueLateralRightRange.maximum;
   value.lateralRightRange = valueLateralRightRange;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::AccelerationRange invalidInitializedMember;
   ::ad::physics::Acceleration invalidInitializedMemberMinimum(-1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
@@ -277,7 +277,7 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRigh
   valueLateralRightRange.minimum = valueLateralRightRange.maximum;
   value.lateralRightRange = valueLateralRightRange;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::AccelerationRange invalidInitializedMember;
   ::ad::physics::Acceleration invalidInitializedMemberMinimum(1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;

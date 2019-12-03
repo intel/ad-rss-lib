@@ -156,7 +156,7 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeVelocityTooSmall)
   value.distanceToLeaveIntersection = value.distanceToEnterIntersection;
   value.distanceToEnterIntersection = value.distanceToLeaveIntersection;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::situation::VelocityRange invalidInitializedMember;
   ::ad::physics::SpeedRange invalidInitializedMemberSpeedLon;
   ::ad::physics::Speed invalidInitializedMemberSpeedLonMinimum(-100. * 1.1);
@@ -234,7 +234,7 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeVelocityTooBig)
   value.distanceToLeaveIntersection = value.distanceToEnterIntersection;
   value.distanceToEnterIntersection = value.distanceToLeaveIntersection;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::situation::VelocityRange invalidInitializedMember;
   ::ad::physics::SpeedRange invalidInitializedMemberSpeedLon;
   ::ad::physics::Speed invalidInitializedMemberSpeedLonMinimum(100. * 1.1);
@@ -312,7 +312,7 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsTooSmall)
   value.distanceToLeaveIntersection = value.distanceToEnterIntersection;
   value.distanceToEnterIntersection = value.distanceToLeaveIntersection;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::world::RssDynamics invalidInitializedMember;
   ::ad::rss::world::LongitudinalRssAccelerationValues invalidInitializedMemberAlphaLon;
   ::ad::physics::Acceleration invalidInitializedMemberAlphaLonAccelMax(-1e2 * 1.1);
@@ -390,7 +390,7 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsTooBig)
   value.distanceToLeaveIntersection = value.distanceToEnterIntersection;
   value.distanceToEnterIntersection = value.distanceToLeaveIntersection;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::world::RssDynamics invalidInitializedMember;
   ::ad::rss::world::LongitudinalRssAccelerationValues invalidInitializedMemberAlphaLon;
   ::ad::physics::Acceleration invalidInitializedMemberAlphaLonAccelMax(1e2 * 1.1);
@@ -468,7 +468,7 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterInterse
   value.distanceToLeaveIntersection = value.distanceToEnterIntersection;
   value.distanceToEnterIntersection = value.distanceToLeaveIntersection;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::Distance invalidInitializedMember(0. - ::ad::physics::Distance::cPrecisionValue);
   value.distanceToEnterIntersection = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -542,7 +542,7 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterInterse
   value.distanceToLeaveIntersection = value.distanceToEnterIntersection;
   value.distanceToEnterIntersection = value.distanceToLeaveIntersection;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::Distance invalidInitializedMember(1e9 * 1.1);
   value.distanceToEnterIntersection = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -624,7 +624,7 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveInterse
   value.distanceToLeaveIntersection = value.distanceToEnterIntersection;
   value.distanceToEnterIntersection = value.distanceToLeaveIntersection;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::Distance invalidInitializedMember(0. - ::ad::physics::Distance::cPrecisionValue);
   value.distanceToLeaveIntersection = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -698,8 +698,12 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveInterse
   value.distanceToLeaveIntersection = value.distanceToEnterIntersection;
   value.distanceToEnterIntersection = value.distanceToLeaveIntersection;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::Distance invalidInitializedMember(1e9 * 1.1);
+  value.distanceToLeaveIntersection = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+
+  // override member with value above struct member input range maximum
   invalidInitializedMember = ::ad::physics::Distance(1e4 * 1.1); // set to invalid value within struct
   value.distanceToLeaveIntersection = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));

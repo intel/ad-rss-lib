@@ -72,7 +72,7 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeTypeTooSmall)
   valueWidth.minimum = valueWidth.maximum;
   value.width = valueWidth;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::world::LaneSegmentType invalidInitializedMember(static_cast<::ad::rss::world::LaneSegmentType>(-1));
   value.type = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -104,7 +104,7 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeTypeTooBig)
   valueWidth.minimum = valueWidth.maximum;
   value.width = valueWidth;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::world::LaneSegmentType invalidInitializedMember(static_cast<::ad::rss::world::LaneSegmentType>(-1));
   value.type = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -136,7 +136,7 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeDrivingDirectionTooSmal
   valueWidth.minimum = valueWidth.maximum;
   value.width = valueWidth;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::world::LaneDrivingDirection invalidInitializedMember(
     static_cast<::ad::rss::world::LaneDrivingDirection>(-1));
   value.drivingDirection = invalidInitializedMember;
@@ -169,7 +169,7 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeDrivingDirectionTooBig)
   valueWidth.minimum = valueWidth.maximum;
   value.width = valueWidth;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::world::LaneDrivingDirection invalidInitializedMember(
     static_cast<::ad::rss::world::LaneDrivingDirection>(-1));
   value.drivingDirection = invalidInitializedMember;
@@ -202,7 +202,7 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeLengthTooSmall)
   valueWidth.minimum = valueWidth.maximum;
   value.width = valueWidth;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::MetricRange invalidInitializedMember;
   ::ad::physics::Distance invalidInitializedMemberMinimum(0. - ::ad::physics::Distance::cPrecisionValue);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
@@ -236,7 +236,7 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeLengthTooBig)
   valueWidth.minimum = valueWidth.maximum;
   value.width = valueWidth;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::MetricRange invalidInitializedMember;
   ::ad::physics::Distance invalidInitializedMemberMinimum(1e9 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
@@ -270,7 +270,7 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeWidthTooSmall)
   valueWidth.minimum = valueWidth.maximum;
   value.width = valueWidth;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::MetricRange invalidInitializedMember;
   ::ad::physics::Distance invalidInitializedMemberMinimum(0. - ::ad::physics::Distance::cPrecisionValue);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
@@ -304,7 +304,7 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeWidthTooBig)
   valueWidth.minimum = valueWidth.maximum;
   value.width = valueWidth;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::MetricRange invalidInitializedMember;
   ::ad::physics::Distance invalidInitializedMemberMinimum(1e9 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;

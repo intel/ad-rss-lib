@@ -58,7 +58,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLongitudinalResponse
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
   value.lateralResponseLeft = valueLateralResponseLeft;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::state::LongitudinalResponse invalidInitializedMember(
     static_cast<::ad::rss::state::LongitudinalResponse>(-1));
   value.longitudinalResponse = invalidInitializedMember;
@@ -84,7 +84,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLongitudinalResponse
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
   value.lateralResponseLeft = valueLateralResponseLeft;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::state::LongitudinalResponse invalidInitializedMember(
     static_cast<::ad::rss::state::LongitudinalResponse>(-1));
   value.longitudinalResponse = invalidInitializedMember;
@@ -110,7 +110,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseRight
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
   value.lateralResponseLeft = valueLateralResponseLeft;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::state::LateralResponse invalidInitializedMember(static_cast<::ad::rss::state::LateralResponse>(-1));
   value.lateralResponseRight = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -135,7 +135,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseRight
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
   value.lateralResponseLeft = valueLateralResponseLeft;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::state::LateralResponse invalidInitializedMember(static_cast<::ad::rss::state::LateralResponse>(-1));
   value.lateralResponseRight = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -160,7 +160,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseLeftT
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
   value.lateralResponseLeft = valueLateralResponseLeft;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::state::LateralResponse invalidInitializedMember(static_cast<::ad::rss::state::LateralResponse>(-1));
   value.lateralResponseLeft = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -185,7 +185,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseLeftT
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
   value.lateralResponseLeft = valueLateralResponseLeft;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::state::LateralResponse invalidInitializedMember(static_cast<::ad::rss::state::LateralResponse>(-1));
   value.lateralResponseLeft = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));

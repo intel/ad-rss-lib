@@ -52,7 +52,7 @@ TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRangeResponseTooSma
   valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
   value.rssStateInformation = valueRssStateInformation;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::state::LongitudinalResponse invalidInitializedMember(
     static_cast<::ad::rss::state::LongitudinalResponse>(-1));
   value.response = invalidInitializedMember;
@@ -75,7 +75,7 @@ TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRangeResponseTooBig
   valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
   value.rssStateInformation = valueRssStateInformation;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::state::LongitudinalResponse invalidInitializedMember(
     static_cast<::ad::rss::state::LongitudinalResponse>(-1));
   value.response = invalidInitializedMember;
@@ -98,7 +98,7 @@ TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRangeRssStateInform
   valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
   value.rssStateInformation = valueRssStateInformation;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::state::RssStateInformation invalidInitializedMember;
   ::ad::physics::Distance invalidInitializedMemberSafeDistance(0. - ::ad::physics::Distance::cPrecisionValue);
   invalidInitializedMember.safeDistance = invalidInitializedMemberSafeDistance;
@@ -122,7 +122,7 @@ TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRangeRssStateInform
   valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
   value.rssStateInformation = valueRssStateInformation;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::state::RssStateInformation invalidInitializedMember;
   ::ad::physics::Distance invalidInitializedMemberSafeDistance(1e9 * 1.1);
   invalidInitializedMember.safeDistance = invalidInitializedMemberSafeDistance;

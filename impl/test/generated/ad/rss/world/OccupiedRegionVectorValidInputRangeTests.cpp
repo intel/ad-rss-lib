@@ -87,3 +87,41 @@ TEST(OccupiedRegionVectorValidInputRangeTests, testValidInputRangeElementTypeInv
   value.resize(999, element);
   ASSERT_FALSE(withinValidInputRange(value));
 }
+
+TEST(OccupiedRegionVectorValidInputRangeTests, testValidInputRangeElementValid)
+{
+  ::ad::rss::world::OccupiedRegionVector value;
+  ::ad::rss::world::OccupiedRegion element;
+  ::ad::rss::world::LaneSegmentId elementSegmentId(std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
+  element.segmentId = elementSegmentId;
+  ::ad::physics::ParametricRange elementLonRange;
+  ::ad::physics::ParametricValue elementLonRangeMinimum(0.);
+  elementLonRange.minimum = elementLonRangeMinimum;
+  ::ad::physics::ParametricValue elementLonRangeMaximum(0.);
+  elementLonRange.maximum = elementLonRangeMaximum;
+  elementLonRange.maximum = elementLonRange.minimum;
+  elementLonRange.minimum = elementLonRange.maximum;
+  element.lonRange = elementLonRange;
+  ::ad::physics::ParametricRange elementLatRange;
+  ::ad::physics::ParametricValue elementLatRangeMinimum(0.);
+  elementLatRange.minimum = elementLatRangeMinimum;
+  ::ad::physics::ParametricValue elementLatRangeMaximum(0.);
+  elementLatRange.maximum = elementLatRangeMaximum;
+  elementLatRange.maximum = elementLatRange.minimum;
+  elementLatRange.minimum = elementLatRange.maximum;
+  element.latRange = elementLatRange;
+  value.push_back(element);
+  ASSERT_TRUE(withinValidInputRange(value));
+}
+
+TEST(OccupiedRegionVectorValidInputRangeTests, testValidInputRangeElementInvalid)
+{
+  ::ad::rss::world::OccupiedRegionVector value;
+  ::ad::rss::world::OccupiedRegion element;
+  ::ad::physics::ParametricRange elementLonRange;
+  ::ad::physics::ParametricValue elementLonRangeMinimum(0. - ::ad::physics::ParametricValue::cPrecisionValue);
+  elementLonRange.minimum = elementLonRangeMinimum;
+  element.lonRange = elementLonRange;
+  value.push_back(element);
+  ASSERT_FALSE(withinValidInputRange(value));
+}

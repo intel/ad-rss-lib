@@ -126,7 +126,7 @@ TEST(RssStateValidInputRangeTests, testValidInputRangeLongitudinalStateTooSmall)
   valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
   value.lateralStateLeft = valueLateralStateLeft;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::state::LongitudinalRssState invalidInitializedMember;
   ::ad::rss::state::LongitudinalResponse invalidInitializedMemberResponse(
     static_cast<::ad::rss::state::LongitudinalResponse>(-1));
@@ -188,7 +188,7 @@ TEST(RssStateValidInputRangeTests, testValidInputRangeLongitudinalStateTooBig)
   valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
   value.lateralStateLeft = valueLateralStateLeft;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::state::LongitudinalRssState invalidInitializedMember;
   ::ad::rss::state::LongitudinalResponse invalidInitializedMemberResponse(
     static_cast<::ad::rss::state::LongitudinalResponse>(-1));
@@ -250,7 +250,7 @@ TEST(RssStateValidInputRangeTests, testValidInputRangeLateralStateRightTooSmall)
   valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
   value.lateralStateLeft = valueLateralStateLeft;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::state::LateralRssState invalidInitializedMember;
   ::ad::rss::state::LateralResponse invalidInitializedMemberResponse(
     static_cast<::ad::rss::state::LateralResponse>(-1));
@@ -312,7 +312,7 @@ TEST(RssStateValidInputRangeTests, testValidInputRangeLateralStateRightTooBig)
   valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
   value.lateralStateLeft = valueLateralStateLeft;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::state::LateralRssState invalidInitializedMember;
   ::ad::rss::state::LateralResponse invalidInitializedMemberResponse(
     static_cast<::ad::rss::state::LateralResponse>(-1));
@@ -374,7 +374,7 @@ TEST(RssStateValidInputRangeTests, testValidInputRangeLateralStateLeftTooSmall)
   valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
   value.lateralStateLeft = valueLateralStateLeft;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::state::LateralRssState invalidInitializedMember;
   ::ad::rss::state::LateralResponse invalidInitializedMemberResponse(
     static_cast<::ad::rss::state::LateralResponse>(-1));
@@ -436,7 +436,7 @@ TEST(RssStateValidInputRangeTests, testValidInputRangeLateralStateLeftTooBig)
   valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
   value.lateralStateLeft = valueLateralStateLeft;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::state::LateralRssState invalidInitializedMember;
   ::ad::rss::state::LateralResponse invalidInitializedMemberResponse(
     static_cast<::ad::rss::state::LateralResponse>(-1));

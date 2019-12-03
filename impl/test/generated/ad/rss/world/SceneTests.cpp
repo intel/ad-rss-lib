@@ -54,12 +54,20 @@ protected:
     valueEgoVehicleOccupiedRegions.resize(1, valueEgoVehicleOccupiedRegionsElement);
     valueEgoVehicle.occupiedRegions = valueEgoVehicleOccupiedRegions;
     ::ad::rss::world::Velocity valueEgoVehicleVelocity;
-    ::ad::physics::Speed valueEgoVehicleVelocitySpeedLon(-100.);
-    valueEgoVehicleVelocitySpeedLon = ::ad::physics::Speed(0.); // set to valid value within struct
-    valueEgoVehicleVelocity.speedLon = valueEgoVehicleVelocitySpeedLon;
-    ::ad::physics::Speed valueEgoVehicleVelocitySpeedLat(-100.);
-    valueEgoVehicleVelocitySpeedLat = ::ad::physics::Speed(-10.); // set to valid value within struct
-    valueEgoVehicleVelocity.speedLat = valueEgoVehicleVelocitySpeedLat;
+    ::ad::physics::Speed valueEgoVehicleVelocitySpeedLonMin(-100.);
+    valueEgoVehicleVelocitySpeedLonMin = ::ad::physics::Speed(0.); // set to valid value within struct
+    valueEgoVehicleVelocity.speedLonMin = valueEgoVehicleVelocitySpeedLonMin;
+    ::ad::physics::Speed valueEgoVehicleVelocitySpeedLonMax(-100.);
+    valueEgoVehicleVelocity.speedLonMax = valueEgoVehicleVelocitySpeedLonMax;
+    ::ad::physics::Speed valueEgoVehicleVelocitySpeedLatMin(-100.);
+    valueEgoVehicleVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
+    valueEgoVehicleVelocity.speedLatMin = valueEgoVehicleVelocitySpeedLatMin;
+    ::ad::physics::Speed valueEgoVehicleVelocitySpeedLatMax(-100.);
+    valueEgoVehicleVelocity.speedLatMax = valueEgoVehicleVelocitySpeedLatMax;
+    valueEgoVehicleVelocity.speedLonMax = valueEgoVehicleVelocity.speedLonMin;
+    valueEgoVehicleVelocity.speedLatMax = valueEgoVehicleVelocity.speedLatMin;
+    valueEgoVehicleVelocity.speedLonMin = valueEgoVehicleVelocity.speedLonMax;
+    valueEgoVehicleVelocity.speedLatMin = valueEgoVehicleVelocity.speedLatMax;
     valueEgoVehicle.velocity = valueEgoVehicleVelocity;
     value.egoVehicle = valueEgoVehicle;
     ::ad::rss::world::Object valueObject;
@@ -91,12 +99,20 @@ protected:
     valueObjectOccupiedRegions.resize(1, valueObjectOccupiedRegionsElement);
     valueObject.occupiedRegions = valueObjectOccupiedRegions;
     ::ad::rss::world::Velocity valueObjectVelocity;
-    ::ad::physics::Speed valueObjectVelocitySpeedLon(-100.);
-    valueObjectVelocitySpeedLon = ::ad::physics::Speed(0.); // set to valid value within struct
-    valueObjectVelocity.speedLon = valueObjectVelocitySpeedLon;
-    ::ad::physics::Speed valueObjectVelocitySpeedLat(-100.);
-    valueObjectVelocitySpeedLat = ::ad::physics::Speed(-10.); // set to valid value within struct
-    valueObjectVelocity.speedLat = valueObjectVelocitySpeedLat;
+    ::ad::physics::Speed valueObjectVelocitySpeedLonMin(-100.);
+    valueObjectVelocitySpeedLonMin = ::ad::physics::Speed(0.); // set to valid value within struct
+    valueObjectVelocity.speedLonMin = valueObjectVelocitySpeedLonMin;
+    ::ad::physics::Speed valueObjectVelocitySpeedLonMax(-100.);
+    valueObjectVelocity.speedLonMax = valueObjectVelocitySpeedLonMax;
+    ::ad::physics::Speed valueObjectVelocitySpeedLatMin(-100.);
+    valueObjectVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
+    valueObjectVelocity.speedLatMin = valueObjectVelocitySpeedLatMin;
+    ::ad::physics::Speed valueObjectVelocitySpeedLatMax(-100.);
+    valueObjectVelocity.speedLatMax = valueObjectVelocitySpeedLatMax;
+    valueObjectVelocity.speedLonMax = valueObjectVelocity.speedLonMin;
+    valueObjectVelocity.speedLatMax = valueObjectVelocity.speedLatMin;
+    valueObjectVelocity.speedLonMin = valueObjectVelocity.speedLonMax;
+    valueObjectVelocity.speedLatMin = valueObjectVelocity.speedLatMax;
     valueObject.velocity = valueObjectVelocity;
     value.object = valueObject;
     ::ad::rss::world::RssDynamics valueObjectRssDynamics;
@@ -288,11 +304,19 @@ TEST_F(SceneTests, comparisonOperatorEgoVehicleDiffers)
   egoVehicleOccupiedRegions.resize(0 + 1, egoVehicleOccupiedRegionsElement);
   egoVehicle.occupiedRegions = egoVehicleOccupiedRegions;
   ::ad::rss::world::Velocity egoVehicleVelocity;
-  ::ad::physics::Speed egoVehicleVelocitySpeedLon(100.);
-  egoVehicleVelocity.speedLon = egoVehicleVelocitySpeedLon;
-  ::ad::physics::Speed egoVehicleVelocitySpeedLat(100.);
-  egoVehicleVelocitySpeedLat = ::ad::physics::Speed(10.); // set to valid value within struct
-  egoVehicleVelocity.speedLat = egoVehicleVelocitySpeedLat;
+  ::ad::physics::Speed egoVehicleVelocitySpeedLonMin(100.);
+  egoVehicleVelocity.speedLonMin = egoVehicleVelocitySpeedLonMin;
+  ::ad::physics::Speed egoVehicleVelocitySpeedLonMax(100.);
+  egoVehicleVelocity.speedLonMax = egoVehicleVelocitySpeedLonMax;
+  ::ad::physics::Speed egoVehicleVelocitySpeedLatMin(100.);
+  egoVehicleVelocity.speedLatMin = egoVehicleVelocitySpeedLatMin;
+  ::ad::physics::Speed egoVehicleVelocitySpeedLatMax(100.);
+  egoVehicleVelocitySpeedLatMax = ::ad::physics::Speed(10.); // set to valid value within struct
+  egoVehicleVelocity.speedLatMax = egoVehicleVelocitySpeedLatMax;
+  egoVehicleVelocity.speedLatMax = egoVehicleVelocity.speedLatMin;
+  egoVehicleVelocity.speedLonMax = egoVehicleVelocity.speedLonMin;
+  egoVehicleVelocity.speedLatMin = egoVehicleVelocity.speedLatMax;
+  egoVehicleVelocity.speedLonMin = egoVehicleVelocity.speedLonMax;
   egoVehicle.velocity = egoVehicleVelocity;
   valueA.egoVehicle = egoVehicle;
   ::ad::rss::world::Scene valueB = mValue;
@@ -333,11 +357,19 @@ TEST_F(SceneTests, comparisonOperatorObjectDiffers)
   objectOccupiedRegions.resize(0 + 1, objectOccupiedRegionsElement);
   object.occupiedRegions = objectOccupiedRegions;
   ::ad::rss::world::Velocity objectVelocity;
-  ::ad::physics::Speed objectVelocitySpeedLon(100.);
-  objectVelocity.speedLon = objectVelocitySpeedLon;
-  ::ad::physics::Speed objectVelocitySpeedLat(100.);
-  objectVelocitySpeedLat = ::ad::physics::Speed(10.); // set to valid value within struct
-  objectVelocity.speedLat = objectVelocitySpeedLat;
+  ::ad::physics::Speed objectVelocitySpeedLonMin(100.);
+  objectVelocity.speedLonMin = objectVelocitySpeedLonMin;
+  ::ad::physics::Speed objectVelocitySpeedLonMax(100.);
+  objectVelocity.speedLonMax = objectVelocitySpeedLonMax;
+  ::ad::physics::Speed objectVelocitySpeedLatMin(100.);
+  objectVelocity.speedLatMin = objectVelocitySpeedLatMin;
+  ::ad::physics::Speed objectVelocitySpeedLatMax(100.);
+  objectVelocitySpeedLatMax = ::ad::physics::Speed(10.); // set to valid value within struct
+  objectVelocity.speedLatMax = objectVelocitySpeedLatMax;
+  objectVelocity.speedLatMax = objectVelocity.speedLatMin;
+  objectVelocity.speedLonMax = objectVelocity.speedLonMin;
+  objectVelocity.speedLatMin = objectVelocity.speedLatMax;
+  objectVelocity.speedLonMin = objectVelocity.speedLonMax;
   object.velocity = objectVelocity;
   valueA.object = object;
   ::ad::rss::world::Scene valueB = mValue;

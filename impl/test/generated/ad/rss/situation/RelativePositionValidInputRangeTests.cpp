@@ -48,7 +48,7 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRangeLongitudinalPositi
   ::ad::physics::Distance valueLateralDistance(0.);
   value.lateralDistance = valueLateralDistance;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::situation::LongitudinalRelativePosition invalidInitializedMember(
     static_cast<::ad::rss::situation::LongitudinalRelativePosition>(-1));
   value.longitudinalPosition = invalidInitializedMember;
@@ -69,7 +69,7 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRangeLongitudinalPositi
   ::ad::physics::Distance valueLateralDistance(0.);
   value.lateralDistance = valueLateralDistance;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::situation::LongitudinalRelativePosition invalidInitializedMember(
     static_cast<::ad::rss::situation::LongitudinalRelativePosition>(-1));
   value.longitudinalPosition = invalidInitializedMember;
@@ -90,7 +90,7 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRangeLongitudinalDistan
   ::ad::physics::Distance valueLateralDistance(0.);
   value.lateralDistance = valueLateralDistance;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::Distance invalidInitializedMember(0. - ::ad::physics::Distance::cPrecisionValue);
   value.longitudinalDistance = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -110,7 +110,7 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRangeLongitudinalDistan
   ::ad::physics::Distance valueLateralDistance(0.);
   value.lateralDistance = valueLateralDistance;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::Distance invalidInitializedMember(1e9 * 1.1);
   value.longitudinalDistance = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -138,7 +138,7 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRangeLateralPositionToo
   ::ad::physics::Distance valueLateralDistance(0.);
   value.lateralDistance = valueLateralDistance;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::situation::LateralRelativePosition invalidInitializedMember(
     static_cast<::ad::rss::situation::LateralRelativePosition>(-1));
   value.lateralPosition = invalidInitializedMember;
@@ -159,7 +159,7 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRangeLateralPositionToo
   ::ad::physics::Distance valueLateralDistance(0.);
   value.lateralDistance = valueLateralDistance;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::situation::LateralRelativePosition invalidInitializedMember(
     static_cast<::ad::rss::situation::LateralRelativePosition>(-1));
   value.lateralPosition = invalidInitializedMember;
@@ -180,7 +180,7 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRangeLateralDistanceToo
   ::ad::physics::Distance valueLateralDistance(0.);
   value.lateralDistance = valueLateralDistance;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::Distance invalidInitializedMember(0. - ::ad::physics::Distance::cPrecisionValue);
   value.lateralDistance = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -200,7 +200,7 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRangeLateralDistanceToo
   ::ad::physics::Distance valueLateralDistance(0.);
   value.lateralDistance = valueLateralDistance;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::Distance invalidInitializedMember(1e9 * 1.1);
   value.lateralDistance = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));

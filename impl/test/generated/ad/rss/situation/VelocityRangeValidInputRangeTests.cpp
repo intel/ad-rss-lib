@@ -60,7 +60,7 @@ TEST(VelocityRangeValidInputRangeTests, testValidInputRangeSpeedLonTooSmall)
   valueSpeedLat.minimum = valueSpeedLat.maximum;
   value.speedLat = valueSpeedLat;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::SpeedRange invalidInitializedMember;
   ::ad::physics::Speed invalidInitializedMemberMinimum(-100. * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
@@ -88,7 +88,7 @@ TEST(VelocityRangeValidInputRangeTests, testValidInputRangeSpeedLonTooBig)
   valueSpeedLat.minimum = valueSpeedLat.maximum;
   value.speedLat = valueSpeedLat;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::SpeedRange invalidInitializedMember;
   ::ad::physics::Speed invalidInitializedMemberMinimum(100. * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
@@ -116,7 +116,7 @@ TEST(VelocityRangeValidInputRangeTests, testValidInputRangeSpeedLatTooSmall)
   valueSpeedLat.minimum = valueSpeedLat.maximum;
   value.speedLat = valueSpeedLat;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::SpeedRange invalidInitializedMember;
   ::ad::physics::Speed invalidInitializedMemberMinimum(-100. * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
@@ -144,7 +144,7 @@ TEST(VelocityRangeValidInputRangeTests, testValidInputRangeSpeedLatTooBig)
   valueSpeedLat.minimum = valueSpeedLat.maximum;
   value.speedLat = valueSpeedLat;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::SpeedRange invalidInitializedMember;
   ::ad::physics::Speed invalidInitializedMemberMinimum(100. * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;

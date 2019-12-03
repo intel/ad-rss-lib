@@ -40,7 +40,7 @@ TEST(RssStateInformationValidInputRangeTests, testValidInputRangeSafeDistanceToo
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::Distance invalidInitializedMember(0. - ::ad::physics::Distance::cPrecisionValue);
   value.safeDistance = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -56,7 +56,7 @@ TEST(RssStateInformationValidInputRangeTests, testValidInputRangeSafeDistanceToo
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::Distance invalidInitializedMember(1e9 * 1.1);
   value.safeDistance = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -80,7 +80,7 @@ TEST(RssStateInformationValidInputRangeTests, testValidInputRangeCurrentDistance
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::Distance invalidInitializedMember(0. - ::ad::physics::Distance::cPrecisionValue);
   value.currentDistance = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -96,7 +96,7 @@ TEST(RssStateInformationValidInputRangeTests, testValidInputRangeCurrentDistance
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::Distance invalidInitializedMember(1e9 * 1.1);
   value.currentDistance = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -120,7 +120,7 @@ TEST(RssStateInformationValidInputRangeTests, testValidInputRangeEvaluatorTooSma
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::state::RssStateEvaluator invalidInitializedMember(static_cast<::ad::rss::state::RssStateEvaluator>(-1));
   value.evaluator = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -136,7 +136,7 @@ TEST(RssStateInformationValidInputRangeTests, testValidInputRangeEvaluatorTooBig
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::state::RssStateEvaluator invalidInitializedMember(static_cast<::ad::rss::state::RssStateEvaluator>(-1));
   value.evaluator = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));

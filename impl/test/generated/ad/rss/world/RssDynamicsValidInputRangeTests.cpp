@@ -96,7 +96,7 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooSmall)
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::world::LongitudinalRssAccelerationValues invalidInitializedMember;
   ::ad::physics::Acceleration invalidInitializedMemberAccelMax(-1e2 * 1.1);
   invalidInitializedMember.accelMax = invalidInitializedMemberAccelMax;
@@ -142,7 +142,7 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooBig)
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::world::LongitudinalRssAccelerationValues invalidInitializedMember;
   ::ad::physics::Acceleration invalidInitializedMemberAccelMax(1e2 * 1.1);
   invalidInitializedMember.accelMax = invalidInitializedMemberAccelMax;
@@ -188,7 +188,7 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooSmall)
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::world::LateralRssAccelerationValues invalidInitializedMember;
   ::ad::physics::Acceleration invalidInitializedMemberAccelMax(-1e2 * 1.1);
   invalidInitializedMember.accelMax = invalidInitializedMemberAccelMax;
@@ -234,7 +234,7 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooBig)
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::world::LateralRssAccelerationValues invalidInitializedMember;
   ::ad::physics::Acceleration invalidInitializedMemberAccelMax(1e2 * 1.1);
   invalidInitializedMember.accelMax = invalidInitializedMemberAccelMax;
@@ -280,7 +280,7 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMargi
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::Distance invalidInitializedMember(0. - ::ad::physics::Distance::cPrecisionValue);
   value.lateralFluctuationMargin = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -324,8 +324,12 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMargi
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::Distance invalidInitializedMember(1e9 * 1.1);
+  value.lateralFluctuationMargin = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+
+  // override member with value above struct member input range maximum
   invalidInitializedMember = ::ad::physics::Distance(1. * 1.1); // set to invalid value within struct
   value.lateralFluctuationMargin = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -377,8 +381,13 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeResponseTimeTooSmall)
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::Duration invalidInitializedMember(0. - ::ad::physics::Duration::cPrecisionValue);
+  value.responseTime = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+
+  // override member with value below struct member input range minimum
+  invalidInitializedMember = ::ad::physics::Duration(0.); // set to valid value within struct
   value.responseTime = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -421,8 +430,12 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeResponseTimeTooBig)
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::Duration invalidInitializedMember(1e6 * 1.1);
+  value.responseTime = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+
+  // override member with value above struct member input range maximum
   invalidInitializedMember = ::ad::physics::Duration(10. * 1.1); // set to invalid value within struct
   value.responseTime = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -474,7 +487,7 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeMaxSpeedTooSmall)
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::Speed invalidInitializedMember(-100. * 1.1);
   value.maxSpeed = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -518,7 +531,7 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeMaxSpeedTooBig)
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::Speed invalidInitializedMember(100. * 1.1);
   value.maxSpeed = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));

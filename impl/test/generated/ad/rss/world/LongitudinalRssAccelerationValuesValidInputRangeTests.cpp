@@ -58,8 +58,14 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRangeA
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::Acceleration invalidInitializedMember(-1e2 * 1.1);
+  value.accelMax = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+
+  // override member with value below struct member input range minimum
+  invalidInitializedMember = ::ad::physics::Acceleration(
+    0. - ::ad::physics::Acceleration::cPrecisionValue); // set to invalid value within struct
   value.accelMax = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -83,7 +89,7 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRangeA
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::Acceleration invalidInitializedMember(1e2 * 1.1);
   value.accelMax = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -116,7 +122,7 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRangeB
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::Acceleration invalidInitializedMember(-1e2 * 1.1);
   value.brakeMax = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -141,7 +147,7 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRangeB
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::Acceleration invalidInitializedMember(1e2 * 1.1);
   value.brakeMax = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -174,7 +180,7 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRangeB
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::Acceleration invalidInitializedMember(-1e2 * 1.1);
   value.brakeMin = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -199,7 +205,7 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRangeB
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::Acceleration invalidInitializedMember(1e2 * 1.1);
   value.brakeMin = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -232,8 +238,13 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRangeB
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::Acceleration invalidInitializedMember(-1e2 * 1.1);
+  value.brakeMinCorrect = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+
+  // override member with value below struct member input range minimum
+  invalidInitializedMember = ::ad::physics::Acceleration(0.); // set to valid value within struct
   value.brakeMinCorrect = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -257,7 +268,7 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRangeB
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::Acceleration invalidInitializedMember(1e2 * 1.1);
   value.brakeMinCorrect = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));

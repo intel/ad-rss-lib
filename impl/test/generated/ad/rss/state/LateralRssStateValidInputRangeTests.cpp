@@ -52,7 +52,7 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeResponseTooSmall)
   valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
   value.rssStateInformation = valueRssStateInformation;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::state::LateralResponse invalidInitializedMember(static_cast<::ad::rss::state::LateralResponse>(-1));
   value.response = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -74,7 +74,7 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeResponseTooBig)
   valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
   value.rssStateInformation = valueRssStateInformation;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::state::LateralResponse invalidInitializedMember(static_cast<::ad::rss::state::LateralResponse>(-1));
   value.response = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -96,7 +96,7 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeRssStateInformation
   valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
   value.rssStateInformation = valueRssStateInformation;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::state::RssStateInformation invalidInitializedMember;
   ::ad::physics::Distance invalidInitializedMemberSafeDistance(0. - ::ad::physics::Distance::cPrecisionValue);
   invalidInitializedMember.safeDistance = invalidInitializedMemberSafeDistance;
@@ -120,7 +120,7 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeRssStateInformation
   valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
   value.rssStateInformation = valueRssStateInformation;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::state::RssStateInformation invalidInitializedMember;
   ::ad::physics::Distance invalidInitializedMemberSafeDistance(1e9 * 1.1);
   invalidInitializedMember.safeDistance = invalidInitializedMemberSafeDistance;

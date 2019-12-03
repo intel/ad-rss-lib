@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1878
+ * Generator Version : 10.6.0-1882
  */
 
 #pragma once
@@ -37,8 +37,11 @@ namespace world {
 /*!
  * \brief DataType Velocity
  *
- * Defines the velocity of an object within its current lane. The velocity consists of a longitudinal and a lateral
- * component.
+ * Defines the velocity of an object within its current lane. The velocity consists
+ * of a longitudinal and a lateral component.
+ * Both allow to provide a range with minimum and maximum value to allow for variations
+ * when measuring the velocity at different points within the vehicle i.e. in respect
+ * to the lane within curves.
  */
 struct Velocity
 {
@@ -92,7 +95,8 @@ struct Velocity
    */
   bool operator==(const Velocity &other) const
   {
-    return (speedLon == other.speedLon) && (speedLat == other.speedLat);
+    return (speedLonMin == other.speedLonMin) && (speedLonMax == other.speedLonMax)
+      && (speedLatMin == other.speedLatMin) && (speedLatMax == other.speedLatMax);
   }
 
   /**
@@ -108,18 +112,32 @@ struct Velocity
   }
 
   /*!
-   * The longitudinal speed component of the velocity vector.
+   * The range minimum of the longitudinal speed component of the velocity vector.
    * The longitudinal component of the velocity is always measured tangential to the
    * center line of the current lane.
    */
-  ::ad::physics::Speed speedLon{0.0};
+  ::ad::physics::Speed speedLonMin{0.};
 
   /*!
-   * The lateral speed component of the velocity vector.
+   * The range maximum of the longitudinal speed component of the velocity vector.
+   * The longitudinal component of the velocity is always measured tangential to the
+   * center line of the current lane.
+   */
+  ::ad::physics::Speed speedLonMax{100.};
+
+  /*!
+   * The range minimum of the lateral speed component of the velocity vector.
    * The lateral component of the velocity is always measured orthogonal to the center
    * line of the current lane.
    */
-  ::ad::physics::Speed speedLat{0.0};
+  ::ad::physics::Speed speedLatMin{-10.};
+
+  /*!
+   * The range maximum of the lateral speed component of the velocity vector.
+   * The lateral component of the velocity is always measured orthogonal to the center
+   * line of the current lane.
+   */
+  ::ad::physics::Speed speedLatMax{10.};
 };
 
 } // namespace world
@@ -154,11 +172,17 @@ namespace world {
 inline std::ostream &operator<<(std::ostream &os, Velocity const &_value)
 {
   os << "Velocity(";
-  os << "speedLon:";
-  os << _value.speedLon;
+  os << "speedLonMin:";
+  os << _value.speedLonMin;
   os << ",";
-  os << "speedLat:";
-  os << _value.speedLat;
+  os << "speedLonMax:";
+  os << _value.speedLonMax;
+  os << ",";
+  os << "speedLatMin:";
+  os << _value.speedLatMin;
+  os << ",";
+  os << "speedLatMax:";
+  os << _value.speedLatMax;
   os << ")";
   return os;
 }

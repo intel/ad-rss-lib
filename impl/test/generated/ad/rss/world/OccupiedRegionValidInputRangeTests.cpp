@@ -64,7 +64,7 @@ TEST(OccupiedRegionValidInputRangeTests, testValidInputRangeLonRangeTooSmall)
   valueLatRange.minimum = valueLatRange.maximum;
   value.latRange = valueLatRange;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::ParametricRange invalidInitializedMember;
   ::ad::physics::ParametricValue invalidInitializedMemberMinimum(0. - ::ad::physics::ParametricValue::cPrecisionValue);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
@@ -94,7 +94,7 @@ TEST(OccupiedRegionValidInputRangeTests, testValidInputRangeLonRangeTooBig)
   valueLatRange.minimum = valueLatRange.maximum;
   value.latRange = valueLatRange;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::ParametricRange invalidInitializedMember;
   ::ad::physics::ParametricValue invalidInitializedMemberMinimum(1. * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
@@ -124,7 +124,7 @@ TEST(OccupiedRegionValidInputRangeTests, testValidInputRangeLatRangeTooSmall)
   valueLatRange.minimum = valueLatRange.maximum;
   value.latRange = valueLatRange;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::physics::ParametricRange invalidInitializedMember;
   ::ad::physics::ParametricValue invalidInitializedMemberMinimum(0. - ::ad::physics::ParametricValue::cPrecisionValue);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
@@ -154,7 +154,7 @@ TEST(OccupiedRegionValidInputRangeTests, testValidInputRangeLatRangeTooBig)
   valueLatRange.minimum = valueLatRange.maximum;
   value.latRange = valueLatRange;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::physics::ParametricRange invalidInitializedMember;
   ::ad::physics::ParametricValue invalidInitializedMemberMinimum(1. * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;

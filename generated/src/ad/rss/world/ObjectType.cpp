@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1878
+ * Generator Version : 10.6.0-1882
  */
 
 #include "ad/rss/world/ObjectType.hpp"

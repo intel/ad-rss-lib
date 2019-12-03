@@ -49,12 +49,20 @@ TEST(ObjectValidInputRangeTests, testValidInputRange)
   valueOccupiedRegions.resize(1, valueOccupiedRegionsElement);
   value.occupiedRegions = valueOccupiedRegions;
   ::ad::rss::world::Velocity valueVelocity;
-  ::ad::physics::Speed valueVelocitySpeedLon(-100.);
-  valueVelocitySpeedLon = ::ad::physics::Speed(0.); // set to valid value within struct
-  valueVelocity.speedLon = valueVelocitySpeedLon;
-  ::ad::physics::Speed valueVelocitySpeedLat(-100.);
-  valueVelocitySpeedLat = ::ad::physics::Speed(-10.); // set to valid value within struct
-  valueVelocity.speedLat = valueVelocitySpeedLat;
+  ::ad::physics::Speed valueVelocitySpeedLonMin(-100.);
+  valueVelocitySpeedLonMin = ::ad::physics::Speed(0.); // set to valid value within struct
+  valueVelocity.speedLonMin = valueVelocitySpeedLonMin;
+  ::ad::physics::Speed valueVelocitySpeedLonMax(-100.);
+  valueVelocity.speedLonMax = valueVelocitySpeedLonMax;
+  ::ad::physics::Speed valueVelocitySpeedLatMin(-100.);
+  valueVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
+  valueVelocity.speedLatMin = valueVelocitySpeedLatMin;
+  ::ad::physics::Speed valueVelocitySpeedLatMax(-100.);
+  valueVelocity.speedLatMax = valueVelocitySpeedLatMax;
+  valueVelocity.speedLonMax = valueVelocity.speedLonMin;
+  valueVelocity.speedLatMax = valueVelocity.speedLatMin;
+  valueVelocity.speedLonMin = valueVelocity.speedLonMax;
+  valueVelocity.speedLatMin = valueVelocity.speedLatMax;
   value.velocity = valueVelocity;
   ASSERT_TRUE(withinValidInputRange(value));
 }
@@ -90,15 +98,23 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeObjectTypeTooSmall)
   valueOccupiedRegions.resize(1, valueOccupiedRegionsElement);
   value.occupiedRegions = valueOccupiedRegions;
   ::ad::rss::world::Velocity valueVelocity;
-  ::ad::physics::Speed valueVelocitySpeedLon(-100.);
-  valueVelocitySpeedLon = ::ad::physics::Speed(0.); // set to valid value within struct
-  valueVelocity.speedLon = valueVelocitySpeedLon;
-  ::ad::physics::Speed valueVelocitySpeedLat(-100.);
-  valueVelocitySpeedLat = ::ad::physics::Speed(-10.); // set to valid value within struct
-  valueVelocity.speedLat = valueVelocitySpeedLat;
+  ::ad::physics::Speed valueVelocitySpeedLonMin(-100.);
+  valueVelocitySpeedLonMin = ::ad::physics::Speed(0.); // set to valid value within struct
+  valueVelocity.speedLonMin = valueVelocitySpeedLonMin;
+  ::ad::physics::Speed valueVelocitySpeedLonMax(-100.);
+  valueVelocity.speedLonMax = valueVelocitySpeedLonMax;
+  ::ad::physics::Speed valueVelocitySpeedLatMin(-100.);
+  valueVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
+  valueVelocity.speedLatMin = valueVelocitySpeedLatMin;
+  ::ad::physics::Speed valueVelocitySpeedLatMax(-100.);
+  valueVelocity.speedLatMax = valueVelocitySpeedLatMax;
+  valueVelocity.speedLonMax = valueVelocity.speedLonMin;
+  valueVelocity.speedLatMax = valueVelocity.speedLatMin;
+  valueVelocity.speedLonMin = valueVelocity.speedLonMax;
+  valueVelocity.speedLatMin = valueVelocity.speedLatMax;
   value.velocity = valueVelocity;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::world::ObjectType invalidInitializedMember(static_cast<::ad::rss::world::ObjectType>(-1));
   value.objectType = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -135,15 +151,23 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeObjectTypeTooBig)
   valueOccupiedRegions.resize(1, valueOccupiedRegionsElement);
   value.occupiedRegions = valueOccupiedRegions;
   ::ad::rss::world::Velocity valueVelocity;
-  ::ad::physics::Speed valueVelocitySpeedLon(-100.);
-  valueVelocitySpeedLon = ::ad::physics::Speed(0.); // set to valid value within struct
-  valueVelocity.speedLon = valueVelocitySpeedLon;
-  ::ad::physics::Speed valueVelocitySpeedLat(-100.);
-  valueVelocitySpeedLat = ::ad::physics::Speed(-10.); // set to valid value within struct
-  valueVelocity.speedLat = valueVelocitySpeedLat;
+  ::ad::physics::Speed valueVelocitySpeedLonMin(-100.);
+  valueVelocitySpeedLonMin = ::ad::physics::Speed(0.); // set to valid value within struct
+  valueVelocity.speedLonMin = valueVelocitySpeedLonMin;
+  ::ad::physics::Speed valueVelocitySpeedLonMax(-100.);
+  valueVelocity.speedLonMax = valueVelocitySpeedLonMax;
+  ::ad::physics::Speed valueVelocitySpeedLatMin(-100.);
+  valueVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
+  valueVelocity.speedLatMin = valueVelocitySpeedLatMin;
+  ::ad::physics::Speed valueVelocitySpeedLatMax(-100.);
+  valueVelocity.speedLatMax = valueVelocitySpeedLatMax;
+  valueVelocity.speedLonMax = valueVelocity.speedLonMin;
+  valueVelocity.speedLatMax = valueVelocity.speedLatMin;
+  valueVelocity.speedLonMin = valueVelocity.speedLonMax;
+  valueVelocity.speedLatMin = valueVelocity.speedLatMax;
   value.velocity = valueVelocity;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::world::ObjectType invalidInitializedMember(static_cast<::ad::rss::world::ObjectType>(-1));
   value.objectType = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -180,18 +204,26 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeVelocityTooSmall)
   valueOccupiedRegions.resize(1, valueOccupiedRegionsElement);
   value.occupiedRegions = valueOccupiedRegions;
   ::ad::rss::world::Velocity valueVelocity;
-  ::ad::physics::Speed valueVelocitySpeedLon(-100.);
-  valueVelocitySpeedLon = ::ad::physics::Speed(0.); // set to valid value within struct
-  valueVelocity.speedLon = valueVelocitySpeedLon;
-  ::ad::physics::Speed valueVelocitySpeedLat(-100.);
-  valueVelocitySpeedLat = ::ad::physics::Speed(-10.); // set to valid value within struct
-  valueVelocity.speedLat = valueVelocitySpeedLat;
+  ::ad::physics::Speed valueVelocitySpeedLonMin(-100.);
+  valueVelocitySpeedLonMin = ::ad::physics::Speed(0.); // set to valid value within struct
+  valueVelocity.speedLonMin = valueVelocitySpeedLonMin;
+  ::ad::physics::Speed valueVelocitySpeedLonMax(-100.);
+  valueVelocity.speedLonMax = valueVelocitySpeedLonMax;
+  ::ad::physics::Speed valueVelocitySpeedLatMin(-100.);
+  valueVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
+  valueVelocity.speedLatMin = valueVelocitySpeedLatMin;
+  ::ad::physics::Speed valueVelocitySpeedLatMax(-100.);
+  valueVelocity.speedLatMax = valueVelocitySpeedLatMax;
+  valueVelocity.speedLonMax = valueVelocity.speedLonMin;
+  valueVelocity.speedLatMax = valueVelocity.speedLatMin;
+  valueVelocity.speedLonMin = valueVelocity.speedLonMax;
+  valueVelocity.speedLatMin = valueVelocity.speedLatMax;
   value.velocity = valueVelocity;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::world::Velocity invalidInitializedMember;
-  ::ad::physics::Speed invalidInitializedMemberSpeedLon(-100. * 1.1);
-  invalidInitializedMember.speedLon = invalidInitializedMemberSpeedLon;
+  ::ad::physics::Speed invalidInitializedMemberSpeedLonMin(-100. * 1.1);
+  invalidInitializedMember.speedLonMin = invalidInitializedMemberSpeedLonMin;
   value.velocity = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -227,18 +259,26 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeVelocityTooBig)
   valueOccupiedRegions.resize(1, valueOccupiedRegionsElement);
   value.occupiedRegions = valueOccupiedRegions;
   ::ad::rss::world::Velocity valueVelocity;
-  ::ad::physics::Speed valueVelocitySpeedLon(-100.);
-  valueVelocitySpeedLon = ::ad::physics::Speed(0.); // set to valid value within struct
-  valueVelocity.speedLon = valueVelocitySpeedLon;
-  ::ad::physics::Speed valueVelocitySpeedLat(-100.);
-  valueVelocitySpeedLat = ::ad::physics::Speed(-10.); // set to valid value within struct
-  valueVelocity.speedLat = valueVelocitySpeedLat;
+  ::ad::physics::Speed valueVelocitySpeedLonMin(-100.);
+  valueVelocitySpeedLonMin = ::ad::physics::Speed(0.); // set to valid value within struct
+  valueVelocity.speedLonMin = valueVelocitySpeedLonMin;
+  ::ad::physics::Speed valueVelocitySpeedLonMax(-100.);
+  valueVelocity.speedLonMax = valueVelocitySpeedLonMax;
+  ::ad::physics::Speed valueVelocitySpeedLatMin(-100.);
+  valueVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
+  valueVelocity.speedLatMin = valueVelocitySpeedLatMin;
+  ::ad::physics::Speed valueVelocitySpeedLatMax(-100.);
+  valueVelocity.speedLatMax = valueVelocitySpeedLatMax;
+  valueVelocity.speedLonMax = valueVelocity.speedLonMin;
+  valueVelocity.speedLatMax = valueVelocity.speedLatMin;
+  valueVelocity.speedLonMin = valueVelocity.speedLonMax;
+  valueVelocity.speedLatMin = valueVelocity.speedLatMax;
   value.velocity = valueVelocity;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::world::Velocity invalidInitializedMember;
-  ::ad::physics::Speed invalidInitializedMemberSpeedLon(100. * 1.1);
-  invalidInitializedMember.speedLon = invalidInitializedMemberSpeedLon;
+  ::ad::physics::Speed invalidInitializedMemberSpeedLonMin(100. * 1.1);
+  invalidInitializedMember.speedLonMin = invalidInitializedMemberSpeedLonMin;
   value.velocity = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }

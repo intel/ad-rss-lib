@@ -116,7 +116,8 @@ TEST_F(RssCheckObjectTests, HugeEgoVelocity)
   world::AccelerationRestriction accelerationRestriction;
   core::RssCheck rssCheck;
 
-  worldModel.scenes[0].egoVehicle.velocity.speedLon = Speed(300);
+  worldModel.scenes[0].egoVehicle.velocity.speedLonMin = Speed(100);
+  worldModel.scenes[0].egoVehicle.velocity.speedLonMax = Speed(300);
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
@@ -199,7 +200,8 @@ TEST_F(RssCheckObjectTests, NegativeEgoVehicleLongitudinalVelocity)
   world::AccelerationRestriction accelerationRestriction;
   core::RssCheck rssCheck;
 
-  worldModel.scenes[0].egoVehicle.velocity.speedLon = Speed(-3.);
+  worldModel.scenes[0].egoVehicle.velocity.speedLonMin = Speed(-3.);
+  worldModel.scenes[0].egoVehicle.velocity.speedLonMax = Speed(0.);
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }

@@ -328,7 +328,7 @@ TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)
   valueRelativePosition.lateralDistance = valueRelativePositionLateralDistance;
   value.relativePosition = valueRelativePosition;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::situation::SituationType invalidInitializedMember(static_cast<::ad::rss::situation::SituationType>(-1));
   value.situationType = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -488,7 +488,7 @@ TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooBig)
   valueRelativePosition.lateralDistance = valueRelativePositionLateralDistance;
   value.relativePosition = valueRelativePosition;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::situation::SituationType invalidInitializedMember(static_cast<::ad::rss::situation::SituationType>(-1));
   value.situationType = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -648,7 +648,7 @@ TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooSmall)
   valueRelativePosition.lateralDistance = valueRelativePositionLateralDistance;
   value.relativePosition = valueRelativePosition;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::situation::VehicleState invalidInitializedMember;
   ::ad::rss::situation::VelocityRange invalidInitializedMemberVelocity;
   ::ad::physics::SpeedRange invalidInitializedMemberVelocitySpeedLon;
@@ -814,7 +814,7 @@ TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooBig)
   valueRelativePosition.lateralDistance = valueRelativePositionLateralDistance;
   value.relativePosition = valueRelativePosition;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::situation::VehicleState invalidInitializedMember;
   ::ad::rss::situation::VelocityRange invalidInitializedMemberVelocity;
   ::ad::physics::SpeedRange invalidInitializedMemberVelocitySpeedLon;
@@ -980,7 +980,7 @@ TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooSmall
   valueRelativePosition.lateralDistance = valueRelativePositionLateralDistance;
   value.relativePosition = valueRelativePosition;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::situation::VehicleState invalidInitializedMember;
   ::ad::rss::situation::VelocityRange invalidInitializedMemberVelocity;
   ::ad::physics::SpeedRange invalidInitializedMemberVelocitySpeedLon;
@@ -1146,7 +1146,7 @@ TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooBig)
   valueRelativePosition.lateralDistance = valueRelativePositionLateralDistance;
   value.relativePosition = valueRelativePosition;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::situation::VehicleState invalidInitializedMember;
   ::ad::rss::situation::VelocityRange invalidInitializedMemberVelocity;
   ::ad::physics::SpeedRange invalidInitializedMemberVelocitySpeedLon;
@@ -1312,7 +1312,7 @@ TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooSmall)
   valueRelativePosition.lateralDistance = valueRelativePositionLateralDistance;
   value.relativePosition = valueRelativePosition;
 
-  // override member with invalid value
+  // override member with data type value below input range minimum
   ::ad::rss::situation::RelativePosition invalidInitializedMember;
   ::ad::rss::situation::LongitudinalRelativePosition invalidInitializedMemberLongitudinalPosition(
     static_cast<::ad::rss::situation::LongitudinalRelativePosition>(-1));
@@ -1475,7 +1475,7 @@ TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooBig)
   valueRelativePosition.lateralDistance = valueRelativePositionLateralDistance;
   value.relativePosition = valueRelativePosition;
 
-  // override member with invalid value
+  // override member with data type value above input range maximum
   ::ad::rss::situation::RelativePosition invalidInitializedMember;
   ::ad::rss::situation::LongitudinalRelativePosition invalidInitializedMemberLongitudinalPosition(
     static_cast<::ad::rss::situation::LongitudinalRelativePosition>(-1));

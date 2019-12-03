@@ -87,8 +87,10 @@ world::Object createObject(double const lonVelocity, double const latVelocity)
   world::Object object;
 
   object.objectType = world::ObjectType::OtherVehicle;
-  object.velocity.speedLon = kmhToMeterPerSec(lonVelocity);
-  object.velocity.speedLat = kmhToMeterPerSec(latVelocity);
+  object.velocity.speedLonMin = kmhToMeterPerSec(lonVelocity);
+  object.velocity.speedLonMax = kmhToMeterPerSec(lonVelocity);
+  object.velocity.speedLatMin = kmhToMeterPerSec(latVelocity);
+  object.velocity.speedLatMax = kmhToMeterPerSec(latVelocity);
   return object;
 }
 
