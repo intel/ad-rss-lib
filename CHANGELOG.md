@@ -1,5 +1,8 @@
 ## Latest changes
 
+## Release 1.6.0
+* Added Python binding
+
 ## Release 1.5.0
 * License change to LGPL v2.1
 

@@ -35,7 +35,7 @@ The scope, design and architecture of this C++ library for RSS is described in m
 - C++ Library for Responsibility Sensitive Safety, Intel, 2018
 
 ### Usage of ad-rss-lib 
-If you use ad-rss-lib, please cite our IV'2019 paper:
+If you use ad-rss-lib for any publication, please cite the IV'2019 paper:
 ```
 @INPROCEEDINGS{
    title={Towards Standardization of AV Safety: C++ Library for Responsibility Sensitive Safety}
@@ -44,6 +44,10 @@ If you use ad-rss-lib, please cite our IV'2019 paper:
    year={2019}
 }
 ```
+
+#### Usage with Python
+Starting with Release v1.6, it is possible to use the ad-rss-lib library also with Python.
+Please see the [Documentation on the Python binding](./python/README.md) for further information.
 
 #### Usage within CARLA
 This library can be used together with the open-source driving simulator [CARLA](https://github.com/carla-simulator/carla) to investigate the behavior of RSS. A first version is shown in the following video sequence:
@@ -70,6 +74,8 @@ If you have any additional question not answered therein, you might find more in
 - [FAQ](./FAQ.md)
 
 ## Releases <a name="releases"></a>
+General release notes and changes can be found in the [Changelog](./CHANGELOG.md)
+
 ### Release 1.x.x <a name="release_1"></a>
 The initial release of the C++ software library for RSS implements a subset of the rules and calculations specified in the published RSS paper. This means that this release handles a subset of autonomous driving scenarios, described below. Scenarios other than this subset cannot be handled.
 
@@ -86,7 +92,6 @@ The following parts of RSS are NOT implemented in this release of the library so
 - Intersections without a lateral conflict.
 
 Note: The RSS module in this library does not initiate evasive manuevers. At the same time, it would not hinder an evasive manuever being executed by the AV driving policy and planning modules, as long as it is compliant with the required RSS proper response.
-
 
 ## Getting started <a name="started"></a>
 
