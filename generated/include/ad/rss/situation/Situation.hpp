@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
@@ -20,6 +20,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <sstream>
 #include "ad/rss/situation/RelativePosition.hpp"
 #include "ad/rss/situation/SituationId.hpp"
 #include "ad/rss/situation/SituationType.hpp"
@@ -51,7 +52,14 @@ namespace situation {
  */
 struct Situation
 {
+  /*!
+   * \brief Smart pointer on Situation
+   */
   using Ptr = std::shared_ptr<Situation>;
+
+  /*!
+   * \brief Smart pointer on constant Situation
+   */
   using ConstPtr = std::shared_ptr<Situation const>;
 
   /*!
@@ -156,9 +164,11 @@ struct Situation
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_SITUATION_SITUATION
-#define OSTREAM_AD_RSS_SITUATION_SITUATION
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_SITUATION_SITUATION
+#define GEN_GUARD_AD_RSS_SITUATION_SITUATION
 /*!
  * @brief namespace ad
  */
@@ -175,8 +185,8 @@ namespace situation {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value Situation value
+ * \param[in] os The output stream to write to
+ * \param[in] _value Situation value
  *
  * \returns The stream object.
  *
@@ -208,4 +218,16 @@ inline std::ostream &operator<<(std::ostream &os, Situation const &_value)
 } // namespace situation
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_SITUATION_SITUATION
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for Situation
+ */
+inline std::string to_string(::ad::rss::situation::Situation const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_SITUATION_SITUATION

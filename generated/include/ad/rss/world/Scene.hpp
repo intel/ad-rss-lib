@@ -12,13 +12,14 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
 
 #include <iostream>
 #include <memory>
+#include <sstream>
 #include "ad/rss/situation/SituationType.hpp"
 #include "ad/rss/world/Object.hpp"
 #include "ad/rss/world/RoadArea.hpp"
@@ -46,7 +47,14 @@ namespace world {
  */
 struct Scene
 {
+  /*!
+   * \brief Smart pointer on Scene
+   */
   using Ptr = std::shared_ptr<Scene>;
+
+  /*!
+   * \brief Smart pointer on constant Scene
+   */
   using ConstPtr = std::shared_ptr<Scene const>;
 
   /*!
@@ -152,9 +160,11 @@ struct Scene
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_WORLD_SCENE
-#define OSTREAM_AD_RSS_WORLD_SCENE
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_WORLD_SCENE
+#define GEN_GUARD_AD_RSS_WORLD_SCENE
 /*!
  * @brief namespace ad
  */
@@ -171,8 +181,8 @@ namespace world {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value Scene value
+ * \param[in] os The output stream to write to
+ * \param[in] _value Scene value
  *
  * \returns The stream object.
  *
@@ -204,4 +214,16 @@ inline std::ostream &operator<<(std::ostream &os, Scene const &_value)
 } // namespace world
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_WORLD_SCENE
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for Scene
+ */
+inline std::string to_string(::ad::rss::world::Scene const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_WORLD_SCENE

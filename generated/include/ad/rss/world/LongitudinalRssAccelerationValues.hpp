@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
@@ -20,6 +20,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <sstream>
 #include "ad/physics/Acceleration.hpp"
 /*!
  * @brief namespace ad
@@ -41,7 +42,14 @@ namespace world {
  */
 struct LongitudinalRssAccelerationValues
 {
+  /*!
+   * \brief Smart pointer on LongitudinalRssAccelerationValues
+   */
   using Ptr = std::shared_ptr<LongitudinalRssAccelerationValues>;
+
+  /*!
+   * \brief Smart pointer on constant LongitudinalRssAccelerationValues
+   */
   using ConstPtr = std::shared_ptr<LongitudinalRssAccelerationValues const>;
 
   /*!
@@ -135,9 +143,11 @@ struct LongitudinalRssAccelerationValues
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_WORLD_LONGITUDINALRSSACCELERATIONVALUES
-#define OSTREAM_AD_RSS_WORLD_LONGITUDINALRSSACCELERATIONVALUES
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_WORLD_LONGITUDINALRSSACCELERATIONVALUES
+#define GEN_GUARD_AD_RSS_WORLD_LONGITUDINALRSSACCELERATIONVALUES
 /*!
  * @brief namespace ad
  */
@@ -154,8 +164,8 @@ namespace world {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value LongitudinalRssAccelerationValues value
+ * \param[in] os The output stream to write to
+ * \param[in] _value LongitudinalRssAccelerationValues value
  *
  * \returns The stream object.
  *
@@ -181,4 +191,16 @@ inline std::ostream &operator<<(std::ostream &os, LongitudinalRssAccelerationVal
 } // namespace world
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_WORLD_LONGITUDINALRSSACCELERATIONVALUES
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for LongitudinalRssAccelerationValues
+ */
+inline std::string to_string(::ad::rss::world::LongitudinalRssAccelerationValues const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_WORLD_LONGITUDINALRSSACCELERATIONVALUES

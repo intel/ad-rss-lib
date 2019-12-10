@@ -63,7 +63,7 @@ TEST(LaneDrivingDirectionTests, testToString)
 TEST(LaneDrivingDirectionTests, ostreamOperatorTest)
 {
   std::stringstream stream;
-  ::ad::rss::world::LaneDrivingDirection value;
+  ::ad::rss::world::LaneDrivingDirection value(::ad::rss::world::LaneDrivingDirection::Bidirectional);
   stream << value;
   ASSERT_GT(stream.str().size(), 0);
 }

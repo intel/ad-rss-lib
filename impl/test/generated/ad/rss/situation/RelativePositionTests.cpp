@@ -74,12 +74,13 @@ TEST_F(RelativePositionTests, comparisonOperatorEqual)
   EXPECT_FALSE(valueA != valueB);
 }
 
-TEST_F(RelativePositionTests, ostreamOperatorTest)
+TEST_F(RelativePositionTests, stringConversionTest)
 {
   std::stringstream stream;
-  ::ad::rss::situation::RelativePosition value;
-  stream << value;
-  ASSERT_GT(stream.str().size(), 0);
+  stream << mValue;
+  std::string ostreamStr = stream.str();
+  std::string toStr = std::to_string(mValue);
+  ASSERT_EQ(ostreamStr, toStr);
 }
 
 TEST_F(RelativePositionTests, comparisonOperatorLongitudinalPositionDiffers)

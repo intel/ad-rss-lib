@@ -12,13 +12,14 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
 
 #include <iostream>
 #include <memory>
+#include <sstream>
 #include "ad/rss/state/LongitudinalResponse.hpp"
 #include "ad/rss/state/RssStateInformation.hpp"
 /*!
@@ -41,7 +42,14 @@ namespace state {
  */
 struct LongitudinalRssState
 {
+  /*!
+   * \brief Smart pointer on LongitudinalRssState
+   */
   using Ptr = std::shared_ptr<LongitudinalRssState>;
+
+  /*!
+   * \brief Smart pointer on constant LongitudinalRssState
+   */
   using ConstPtr = std::shared_ptr<LongitudinalRssState const>;
 
   /*!
@@ -127,9 +135,11 @@ struct LongitudinalRssState
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_STATE_LONGITUDINALRSSSTATE
-#define OSTREAM_AD_RSS_STATE_LONGITUDINALRSSSTATE
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_STATE_LONGITUDINALRSSSTATE
+#define GEN_GUARD_AD_RSS_STATE_LONGITUDINALRSSSTATE
 /*!
  * @brief namespace ad
  */
@@ -146,8 +156,8 @@ namespace state {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value LongitudinalRssState value
+ * \param[in] os The output stream to write to
+ * \param[in] _value LongitudinalRssState value
  *
  * \returns The stream object.
  *
@@ -170,4 +180,16 @@ inline std::ostream &operator<<(std::ostream &os, LongitudinalRssState const &_v
 } // namespace state
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_STATE_LONGITUDINALRSSSTATE
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for LongitudinalRssState
+ */
+inline std::string to_string(::ad::rss::state::LongitudinalRssState const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_STATE_LONGITUDINALRSSSTATE

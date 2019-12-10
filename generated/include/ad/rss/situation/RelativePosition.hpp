@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
@@ -20,6 +20,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <sstream>
 #include "ad/physics/Distance.hpp"
 #include "ad/rss/situation/LateralRelativePosition.hpp"
 #include "ad/rss/situation/LongitudinalRelativePosition.hpp"
@@ -43,7 +44,14 @@ namespace situation {
  */
 struct RelativePosition
 {
+  /*!
+   * \brief Smart pointer on RelativePosition
+   */
   using Ptr = std::shared_ptr<RelativePosition>;
+
+  /*!
+   * \brief Smart pointer on constant RelativePosition
+   */
   using ConstPtr = std::shared_ptr<RelativePosition const>;
 
   /*!
@@ -135,9 +143,11 @@ struct RelativePosition
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_SITUATION_RELATIVEPOSITION
-#define OSTREAM_AD_RSS_SITUATION_RELATIVEPOSITION
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_SITUATION_RELATIVEPOSITION
+#define GEN_GUARD_AD_RSS_SITUATION_RELATIVEPOSITION
 /*!
  * @brief namespace ad
  */
@@ -154,8 +164,8 @@ namespace situation {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value RelativePosition value
+ * \param[in] os The output stream to write to
+ * \param[in] _value RelativePosition value
  *
  * \returns The stream object.
  *
@@ -181,4 +191,16 @@ inline std::ostream &operator<<(std::ostream &os, RelativePosition const &_value
 } // namespace situation
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_SITUATION_RELATIVEPOSITION
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for RelativePosition
+ */
+inline std::string to_string(::ad::rss::situation::RelativePosition const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_SITUATION_RELATIVEPOSITION

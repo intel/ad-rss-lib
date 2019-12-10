@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
@@ -20,6 +20,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <sstream>
 #include "ad/physics/ParametricRange.hpp"
 #include "ad/rss/world/LaneSegmentId.hpp"
 /*!
@@ -44,7 +45,14 @@ namespace world {
  */
 struct OccupiedRegion
 {
+  /*!
+   * \brief Smart pointer on OccupiedRegion
+   */
   using Ptr = std::shared_ptr<OccupiedRegion>;
+
+  /*!
+   * \brief Smart pointer on constant OccupiedRegion
+   */
   using ConstPtr = std::shared_ptr<OccupiedRegion const>;
 
   /*!
@@ -129,9 +137,11 @@ struct OccupiedRegion
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_WORLD_OCCUPIEDREGION
-#define OSTREAM_AD_RSS_WORLD_OCCUPIEDREGION
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_WORLD_OCCUPIEDREGION
+#define GEN_GUARD_AD_RSS_WORLD_OCCUPIEDREGION
 /*!
  * @brief namespace ad
  */
@@ -148,8 +158,8 @@ namespace world {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value OccupiedRegion value
+ * \param[in] os The output stream to write to
+ * \param[in] _value OccupiedRegion value
  *
  * \returns The stream object.
  *
@@ -172,4 +182,16 @@ inline std::ostream &operator<<(std::ostream &os, OccupiedRegion const &_value)
 } // namespace world
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_WORLD_OCCUPIEDREGION
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for OccupiedRegion
+ */
+inline std::string to_string(::ad::rss::world::OccupiedRegion const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_WORLD_OCCUPIEDREGION

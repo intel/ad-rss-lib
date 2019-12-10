@@ -91,12 +91,13 @@ TEST_F(AccelerationRestrictionTests, comparisonOperatorEqual)
   EXPECT_FALSE(valueA != valueB);
 }
 
-TEST_F(AccelerationRestrictionTests, ostreamOperatorTest)
+TEST_F(AccelerationRestrictionTests, stringConversionTest)
 {
   std::stringstream stream;
-  ::ad::rss::world::AccelerationRestriction value;
-  stream << value;
-  ASSERT_GT(stream.str().size(), 0);
+  stream << mValue;
+  std::string ostreamStr = stream.str();
+  std::string toStr = std::to_string(mValue);
+  ASSERT_EQ(ostreamStr, toStr);
 }
 
 TEST_F(AccelerationRestrictionTests, comparisonOperatorTimeIndexDiffers)

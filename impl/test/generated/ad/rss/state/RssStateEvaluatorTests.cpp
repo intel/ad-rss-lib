@@ -163,7 +163,7 @@ TEST(RssStateEvaluatorTests, testToString)
 TEST(RssStateEvaluatorTests, ostreamOperatorTest)
 {
   std::stringstream stream;
-  ::ad::rss::state::RssStateEvaluator value;
+  ::ad::rss::state::RssStateEvaluator value(::ad::rss::state::RssStateEvaluator::None);
   stream << value;
   ASSERT_GT(stream.str().size(), 0);
 }

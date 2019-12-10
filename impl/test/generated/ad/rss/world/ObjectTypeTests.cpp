@@ -66,7 +66,7 @@ TEST(ObjectTypeTests, testToString)
 TEST(ObjectTypeTests, ostreamOperatorTest)
 {
   std::stringstream stream;
-  ::ad::rss::world::ObjectType value;
+  ::ad::rss::world::ObjectType value(::ad::rss::world::ObjectType::Invalid);
   stream << value;
   ASSERT_GT(stream.str().size(), 0);
 }

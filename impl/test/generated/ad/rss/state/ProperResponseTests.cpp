@@ -79,12 +79,13 @@ TEST_F(ProperResponseTests, comparisonOperatorEqual)
   EXPECT_FALSE(valueA != valueB);
 }
 
-TEST_F(ProperResponseTests, ostreamOperatorTest)
+TEST_F(ProperResponseTests, stringConversionTest)
 {
   std::stringstream stream;
-  ::ad::rss::state::ProperResponse value;
-  stream << value;
-  ASSERT_GT(stream.str().size(), 0);
+  stream << mValue;
+  std::string ostreamStr = stream.str();
+  std::string toStr = std::to_string(mValue);
+  ASSERT_EQ(ostreamStr, toStr);
 }
 
 TEST_F(ProperResponseTests, comparisonOperatorTimeIndexDiffers)

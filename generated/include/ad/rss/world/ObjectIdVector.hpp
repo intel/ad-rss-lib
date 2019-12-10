@@ -12,12 +12,13 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
 
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include "ad/rss/world/ObjectId.hpp"
 /*!
@@ -44,21 +45,22 @@ using ObjectIdVector = std::vector<::ad::rss::world::ObjectId>;
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_VECTOR_UINT64_T
-#define OSTREAM_VECTOR_UINT64_T
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_VECTOR_UINT64_T
+#define GEN_GUARD_VECTOR_UINT64_T
 namespace std {
-
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value ObjectIdVector value
+ * \param[in] os The output stream to write to
+ * \param[in] _value ObjectIdVector value
  *
  * \returns The stream object.
  *
  */
-inline std::ostream &operator<<(std::ostream &os, std::vector<::ad::rss::world::ObjectId> const &_value)
+inline std::ostream &operator<<(std::ostream &os, vector<::ad::rss::world::ObjectId> const &_value)
 {
   os << "[";
   for (auto it = _value.begin(); it != _value.end(); it++)
@@ -72,6 +74,17 @@ inline std::ostream &operator<<(std::ostream &os, std::vector<::ad::rss::world::
   os << "]";
   return os;
 }
-
 } // namespace std
-#endif // OSTREAM_VECTOR_UINT64_T
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for ObjectIdVector
+ */
+inline std::string to_string(::ad::rss::world::ObjectIdVector const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_VECTOR_UINT64_T

@@ -12,12 +12,13 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
 
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include "ad/rss/world/Scene.hpp"
 /*!
@@ -44,21 +45,22 @@ using SceneVector = std::vector<::ad::rss::world::Scene>;
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_VECTOR_AD_RSS_WORLD_SCENE
-#define OSTREAM_VECTOR_AD_RSS_WORLD_SCENE
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_VECTOR_AD_RSS_WORLD_SCENE
+#define GEN_GUARD_VECTOR_AD_RSS_WORLD_SCENE
 namespace std {
-
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value SceneVector value
+ * \param[in] os The output stream to write to
+ * \param[in] _value SceneVector value
  *
  * \returns The stream object.
  *
  */
-inline std::ostream &operator<<(std::ostream &os, std::vector<::ad::rss::world::Scene> const &_value)
+inline std::ostream &operator<<(std::ostream &os, vector<::ad::rss::world::Scene> const &_value)
 {
   os << "[";
   for (auto it = _value.begin(); it != _value.end(); it++)
@@ -72,6 +74,17 @@ inline std::ostream &operator<<(std::ostream &os, std::vector<::ad::rss::world::
   os << "]";
   return os;
 }
-
 } // namespace std
-#endif // OSTREAM_VECTOR_AD_RSS_WORLD_SCENE
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for SceneVector
+ */
+inline std::string to_string(::ad::rss::world::SceneVector const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_VECTOR_AD_RSS_WORLD_SCENE

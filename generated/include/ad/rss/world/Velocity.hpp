@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
@@ -20,6 +20,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <sstream>
 #include "ad/physics/Speed.hpp"
 /*!
  * @brief namespace ad
@@ -45,7 +46,14 @@ namespace world {
  */
 struct Velocity
 {
+  /*!
+   * \brief Smart pointer on Velocity
+   */
   using Ptr = std::shared_ptr<Velocity>;
+
+  /*!
+   * \brief Smart pointer on constant Velocity
+   */
   using ConstPtr = std::shared_ptr<Velocity const>;
 
   /*!
@@ -144,9 +152,11 @@ struct Velocity
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_WORLD_VELOCITY
-#define OSTREAM_AD_RSS_WORLD_VELOCITY
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_WORLD_VELOCITY
+#define GEN_GUARD_AD_RSS_WORLD_VELOCITY
 /*!
  * @brief namespace ad
  */
@@ -163,8 +173,8 @@ namespace world {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value Velocity value
+ * \param[in] os The output stream to write to
+ * \param[in] _value Velocity value
  *
  * \returns The stream object.
  *
@@ -190,4 +200,16 @@ inline std::ostream &operator<<(std::ostream &os, Velocity const &_value)
 } // namespace world
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_WORLD_VELOCITY
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for Velocity
+ */
+inline std::string to_string(::ad::rss::world::Velocity const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_WORLD_VELOCITY

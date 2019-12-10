@@ -55,7 +55,7 @@ TEST(CoordinateSystemAxisTests, testToString)
 TEST(CoordinateSystemAxisTests, ostreamOperatorTest)
 {
   std::stringstream stream;
-  ::ad::rss::situation::CoordinateSystemAxis value;
+  ::ad::rss::situation::CoordinateSystemAxis value(::ad::rss::situation::CoordinateSystemAxis::Longitudinal);
   stream << value;
   ASSERT_GT(stream.str().size(), 0);
 }

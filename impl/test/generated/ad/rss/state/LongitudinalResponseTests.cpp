@@ -62,7 +62,7 @@ TEST(LongitudinalResponseTests, testToString)
 TEST(LongitudinalResponseTests, ostreamOperatorTest)
 {
   std::stringstream stream;
-  ::ad::rss::state::LongitudinalResponse value;
+  ::ad::rss::state::LongitudinalResponse value(::ad::rss::state::LongitudinalResponse::None);
   stream << value;
   ASSERT_GT(stream.str().size(), 0);
 }

@@ -98,12 +98,13 @@ TEST_F(RssDynamicsTests, comparisonOperatorEqual)
   EXPECT_FALSE(valueA != valueB);
 }
 
-TEST_F(RssDynamicsTests, ostreamOperatorTest)
+TEST_F(RssDynamicsTests, stringConversionTest)
 {
   std::stringstream stream;
-  ::ad::rss::world::RssDynamics value;
-  stream << value;
-  ASSERT_GT(stream.str().size(), 0);
+  stream << mValue;
+  std::string ostreamStr = stream.str();
+  std::string toStr = std::to_string(mValue);
+  ASSERT_EQ(ostreamStr, toStr);
 }
 
 TEST_F(RssDynamicsTests, comparisonOperatorAlphaLonDiffers)

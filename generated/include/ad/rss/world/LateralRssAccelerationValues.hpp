@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
@@ -20,6 +20,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <sstream>
 #include "ad/physics/Acceleration.hpp"
 /*!
  * @brief namespace ad
@@ -41,7 +42,14 @@ namespace world {
  */
 struct LateralRssAccelerationValues
 {
+  /*!
+   * \brief Smart pointer on LateralRssAccelerationValues
+   */
   using Ptr = std::shared_ptr<LateralRssAccelerationValues>;
+
+  /*!
+   * \brief Smart pointer on constant LateralRssAccelerationValues
+   */
   using ConstPtr = std::shared_ptr<LateralRssAccelerationValues const>;
 
   /*!
@@ -121,9 +129,11 @@ struct LateralRssAccelerationValues
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_WORLD_LATERALRSSACCELERATIONVALUES
-#define OSTREAM_AD_RSS_WORLD_LATERALRSSACCELERATIONVALUES
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_WORLD_LATERALRSSACCELERATIONVALUES
+#define GEN_GUARD_AD_RSS_WORLD_LATERALRSSACCELERATIONVALUES
 /*!
  * @brief namespace ad
  */
@@ -140,8 +150,8 @@ namespace world {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value LateralRssAccelerationValues value
+ * \param[in] os The output stream to write to
+ * \param[in] _value LateralRssAccelerationValues value
  *
  * \returns The stream object.
  *
@@ -161,4 +171,16 @@ inline std::ostream &operator<<(std::ostream &os, LateralRssAccelerationValues c
 } // namespace world
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_WORLD_LATERALRSSACCELERATIONVALUES
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for LateralRssAccelerationValues
+ */
+inline std::string to_string(::ad::rss::world::LateralRssAccelerationValues const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_WORLD_LATERALRSSACCELERATIONVALUES

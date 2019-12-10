@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
@@ -20,6 +20,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <sstream>
 #include "ad/rss/situation/SituationVector.hpp"
 #include "ad/rss/world/TimeIndex.hpp"
 /*!
@@ -42,7 +43,14 @@ namespace situation {
  */
 struct SituationSnapshot
 {
+  /*!
+   * \brief Smart pointer on SituationSnapshot
+   */
   using Ptr = std::shared_ptr<SituationSnapshot>;
+
+  /*!
+   * \brief Smart pointer on constant SituationSnapshot
+   */
   using ConstPtr = std::shared_ptr<SituationSnapshot const>;
 
   /*!
@@ -123,9 +131,11 @@ struct SituationSnapshot
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_SITUATION_SITUATIONSNAPSHOT
-#define OSTREAM_AD_RSS_SITUATION_SITUATIONSNAPSHOT
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_SITUATION_SITUATIONSNAPSHOT
+#define GEN_GUARD_AD_RSS_SITUATION_SITUATIONSNAPSHOT
 /*!
  * @brief namespace ad
  */
@@ -142,8 +152,8 @@ namespace situation {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value SituationSnapshot value
+ * \param[in] os The output stream to write to
+ * \param[in] _value SituationSnapshot value
  *
  * \returns The stream object.
  *
@@ -163,4 +173,16 @@ inline std::ostream &operator<<(std::ostream &os, SituationSnapshot const &_valu
 } // namespace situation
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_SITUATION_SITUATIONSNAPSHOT
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for SituationSnapshot
+ */
+inline std::string to_string(::ad::rss::situation::SituationSnapshot const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_SITUATION_SITUATIONSNAPSHOT

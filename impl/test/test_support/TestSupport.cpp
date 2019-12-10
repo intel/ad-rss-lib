@@ -207,12 +207,12 @@ Distance calculateLateralMinSafeDistance(physics::Speed const &leftObjectSpeed,
   Distance dMin = (leftObjectSpeed + lObjectVelAfterResTime) / 2. * leftObjectRssDynamics.responseTime;
   if (lObjectVelAfterResTime > Speed(0.))
   {
-    dMin += lObjectVelAfterResTime * lObjectVelAfterResTime / (2 * leftObjectRssDynamics.alphaLat.brakeMin);
+    dMin += lObjectVelAfterResTime * lObjectVelAfterResTime / (2. * leftObjectRssDynamics.alphaLat.brakeMin);
   }
   dMin -= (rightObjectSpeed + rObjectVelAfterResTime) / 2. * rightObjectRssDynamics.responseTime;
   if (rObjectVelAfterResTime < Speed(0.))
   {
-    dMin += rObjectVelAfterResTime * rObjectVelAfterResTime / (2 * rightObjectRssDynamics.alphaLat.brakeMin);
+    dMin += rObjectVelAfterResTime * rObjectVelAfterResTime / (2. * rightObjectRssDynamics.alphaLat.brakeMin);
   }
 
   return std::max(dMin, Distance(0.));

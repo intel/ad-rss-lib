@@ -51,7 +51,7 @@ TEST(LaneSegmentTypeTests, testToString)
 TEST(LaneSegmentTypeTests, ostreamOperatorTest)
 {
   std::stringstream stream;
-  ::ad::rss::world::LaneSegmentType value;
+  ::ad::rss::world::LaneSegmentType value(::ad::rss::world::LaneSegmentType::Normal);
   stream << value;
   ASSERT_GT(stream.str().size(), 0);
 }

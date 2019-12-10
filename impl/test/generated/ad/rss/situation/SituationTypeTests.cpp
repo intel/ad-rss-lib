@@ -98,7 +98,7 @@ TEST(SituationTypeTests, testToString)
 TEST(SituationTypeTests, ostreamOperatorTest)
 {
   std::stringstream stream;
-  ::ad::rss::situation::SituationType value;
+  ::ad::rss::situation::SituationType value(::ad::rss::situation::SituationType::NotRelevant);
   stream << value;
   ASSERT_GT(stream.str().size(), 0);
 }

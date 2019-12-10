@@ -76,12 +76,13 @@ TEST_F(LateralRssStateTests, comparisonOperatorEqual)
   EXPECT_FALSE(valueA != valueB);
 }
 
-TEST_F(LateralRssStateTests, ostreamOperatorTest)
+TEST_F(LateralRssStateTests, stringConversionTest)
 {
   std::stringstream stream;
-  ::ad::rss::state::LateralRssState value;
-  stream << value;
-  ASSERT_GT(stream.str().size(), 0);
+  stream << mValue;
+  std::string ostreamStr = stream.str();
+  std::string toStr = std::to_string(mValue);
+  ASSERT_EQ(ostreamStr, toStr);
 }
 
 TEST_F(LateralRssStateTests, comparisonOperatorIsSafeDiffers)

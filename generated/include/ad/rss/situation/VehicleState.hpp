@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
@@ -20,6 +20,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <sstream>
 #include "ad/physics/Distance.hpp"
 #include "ad/rss/situation/VelocityRange.hpp"
 #include "ad/rss/world/RssDynamics.hpp"
@@ -47,7 +48,14 @@ namespace situation {
  */
 struct VehicleState
 {
+  /*!
+   * \brief Smart pointer on VehicleState
+   */
   using Ptr = std::shared_ptr<VehicleState>;
+
+  /*!
+   * \brief Smart pointer on constant VehicleState
+   */
   using ConstPtr = std::shared_ptr<VehicleState const>;
 
   /*!
@@ -151,9 +159,11 @@ struct VehicleState
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_SITUATION_VEHICLESTATE
-#define OSTREAM_AD_RSS_SITUATION_VEHICLESTATE
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_SITUATION_VEHICLESTATE
+#define GEN_GUARD_AD_RSS_SITUATION_VEHICLESTATE
 /*!
  * @brief namespace ad
  */
@@ -170,8 +180,8 @@ namespace situation {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value VehicleState value
+ * \param[in] os The output stream to write to
+ * \param[in] _value VehicleState value
  *
  * \returns The stream object.
  *
@@ -203,4 +213,16 @@ inline std::ostream &operator<<(std::ostream &os, VehicleState const &_value)
 } // namespace situation
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_SITUATION_VEHICLESTATE
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for VehicleState
+ */
+inline std::string to_string(::ad::rss::situation::VehicleState const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_SITUATION_VEHICLESTATE

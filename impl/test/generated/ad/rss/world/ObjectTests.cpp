@@ -107,12 +107,13 @@ TEST_F(ObjectTests, comparisonOperatorEqual)
   EXPECT_FALSE(valueA != valueB);
 }
 
-TEST_F(ObjectTests, ostreamOperatorTest)
+TEST_F(ObjectTests, stringConversionTest)
 {
   std::stringstream stream;
-  ::ad::rss::world::Object value;
-  stream << value;
-  ASSERT_GT(stream.str().size(), 0);
+  stream << mValue;
+  std::string ostreamStr = stream.str();
+  std::string toStr = std::to_string(mValue);
+  ASSERT_EQ(ostreamStr, toStr);
 }
 
 TEST_F(ObjectTests, comparisonOperatorObjectIdDiffers)

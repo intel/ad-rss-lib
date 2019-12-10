@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
@@ -20,6 +20,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <sstream>
 #include "ad/rss/world/RssDynamics.hpp"
 #include "ad/rss/world/SceneVector.hpp"
 #include "ad/rss/world/TimeIndex.hpp"
@@ -44,7 +45,14 @@ namespace world {
  */
 struct WorldModel
 {
+  /*!
+   * \brief Smart pointer on WorldModel
+   */
   using Ptr = std::shared_ptr<WorldModel>;
+
+  /*!
+   * \brief Smart pointer on constant WorldModel
+   */
   using ConstPtr = std::shared_ptr<WorldModel const>;
 
   /*!
@@ -133,9 +141,11 @@ struct WorldModel
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_WORLD_WORLDMODEL
-#define OSTREAM_AD_RSS_WORLD_WORLDMODEL
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_WORLD_WORLDMODEL
+#define GEN_GUARD_AD_RSS_WORLD_WORLDMODEL
 /*!
  * @brief namespace ad
  */
@@ -152,8 +162,8 @@ namespace world {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value WorldModel value
+ * \param[in] os The output stream to write to
+ * \param[in] _value WorldModel value
  *
  * \returns The stream object.
  *
@@ -176,4 +186,16 @@ inline std::ostream &operator<<(std::ostream &os, WorldModel const &_value)
 } // namespace world
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_WORLD_WORLDMODEL
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for WorldModel
+ */
+inline std::string to_string(::ad::rss::world::WorldModel const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_WORLD_WORLDMODEL

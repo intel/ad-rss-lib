@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
@@ -20,6 +20,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <sstream>
 #include "ad/rss/state/RssStateVector.hpp"
 #include "ad/rss/world/TimeIndex.hpp"
 /*!
@@ -42,7 +43,14 @@ namespace state {
  */
 struct RssStateSnapshot
 {
+  /*!
+   * \brief Smart pointer on RssStateSnapshot
+   */
   using Ptr = std::shared_ptr<RssStateSnapshot>;
+
+  /*!
+   * \brief Smart pointer on constant RssStateSnapshot
+   */
   using ConstPtr = std::shared_ptr<RssStateSnapshot const>;
 
   /*!
@@ -120,9 +128,11 @@ struct RssStateSnapshot
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_STATE_RSSSTATESNAPSHOT
-#define OSTREAM_AD_RSS_STATE_RSSSTATESNAPSHOT
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_STATE_RSSSTATESNAPSHOT
+#define GEN_GUARD_AD_RSS_STATE_RSSSTATESNAPSHOT
 /*!
  * @brief namespace ad
  */
@@ -139,8 +149,8 @@ namespace state {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value RssStateSnapshot value
+ * \param[in] os The output stream to write to
+ * \param[in] _value RssStateSnapshot value
  *
  * \returns The stream object.
  *
@@ -160,4 +170,16 @@ inline std::ostream &operator<<(std::ostream &os, RssStateSnapshot const &_value
 } // namespace state
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_STATE_RSSSTATESNAPSHOT
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for RssStateSnapshot
+ */
+inline std::string to_string(::ad::rss::state::RssStateSnapshot const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_STATE_RSSSTATESNAPSHOT

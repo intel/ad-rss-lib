@@ -80,12 +80,13 @@ TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorEqual)
   EXPECT_FALSE(valueA != valueB);
 }
 
-TEST_F(LongitudinalRssAccelerationValuesTests, ostreamOperatorTest)
+TEST_F(LongitudinalRssAccelerationValuesTests, stringConversionTest)
 {
   std::stringstream stream;
-  ::ad::rss::world::LongitudinalRssAccelerationValues value;
-  stream << value;
-  ASSERT_GT(stream.str().size(), 0);
+  stream << mValue;
+  std::string ostreamStr = stream.str();
+  std::string toStr = std::to_string(mValue);
+  ASSERT_EQ(ostreamStr, toStr);
 }
 
 TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorAccelMaxDiffers)

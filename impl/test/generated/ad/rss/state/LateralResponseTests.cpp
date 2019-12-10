@@ -49,7 +49,7 @@ TEST(LateralResponseTests, testToString)
 TEST(LateralResponseTests, ostreamOperatorTest)
 {
   std::stringstream stream;
-  ::ad::rss::state::LateralResponse value;
+  ::ad::rss::state::LateralResponse value(::ad::rss::state::LateralResponse::None);
   stream << value;
   ASSERT_GT(stream.str().size(), 0);
 }

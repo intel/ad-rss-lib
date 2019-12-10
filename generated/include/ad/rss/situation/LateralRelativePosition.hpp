@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
@@ -117,9 +117,11 @@ template <typename EnumType> EnumType fromString(std::string const &str);
  */
 template <>::ad::rss::situation::LateralRelativePosition fromString(std::string const &str);
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_SITUATION_LATERALRELATIVEPOSITION
-#define OSTREAM_AD_RSS_SITUATION_LATERALRELATIVEPOSITION
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_SITUATION_LATERALRELATIVEPOSITION
+#define GEN_GUARD_AD_RSS_SITUATION_LATERALRELATIVEPOSITION
 /*!
  * @brief namespace ad
  */
@@ -136,7 +138,7 @@ namespace situation {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
+ * \param[in] os The output stream to write to
  * \param[in] value LateralRelativePosition value
  *
  * \returns The stream object.
@@ -150,4 +152,14 @@ inline std::ostream &operator<<(std::ostream &os, LateralRelativePosition const 
 } // namespace situation
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_SITUATION_LATERALRELATIVEPOSITION
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for LateralRelativePosition
+ */
+inline std::string to_string(::ad::rss::situation::LateralRelativePosition const &value)
+{
+  return ::toString(value);
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_SITUATION_LATERALRELATIVEPOSITION

@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
@@ -20,6 +20,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <sstream>
 #include "ad/rss/world/ObjectId.hpp"
 #include "ad/rss/world/ObjectType.hpp"
 #include "ad/rss/world/OccupiedRegionVector.hpp"
@@ -45,7 +46,14 @@ namespace world {
  */
 struct Object
 {
+  /*!
+   * \brief Smart pointer on Object
+   */
   using Ptr = std::shared_ptr<Object>;
+
+  /*!
+   * \brief Smart pointer on constant Object
+   */
   using ConstPtr = std::shared_ptr<Object const>;
 
   /*!
@@ -136,9 +144,11 @@ struct Object
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_WORLD_OBJECT
-#define OSTREAM_AD_RSS_WORLD_OBJECT
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_WORLD_OBJECT
+#define GEN_GUARD_AD_RSS_WORLD_OBJECT
 /*!
  * @brief namespace ad
  */
@@ -155,8 +165,8 @@ namespace world {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value Object value
+ * \param[in] os The output stream to write to
+ * \param[in] _value Object value
  *
  * \returns The stream object.
  *
@@ -182,4 +192,16 @@ inline std::ostream &operator<<(std::ostream &os, Object const &_value)
 } // namespace world
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_WORLD_OBJECT
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for Object
+ */
+inline std::string to_string(::ad::rss::world::Object const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_WORLD_OBJECT

@@ -88,7 +88,7 @@ TEST(LateralRelativePositionTests, testToString)
 TEST(LateralRelativePositionTests, ostreamOperatorTest)
 {
   std::stringstream stream;
-  ::ad::rss::situation::LateralRelativePosition value;
+  ::ad::rss::situation::LateralRelativePosition value(::ad::rss::situation::LateralRelativePosition::AtLeft);
   stream << value;
   ASSERT_GT(stream.str().size(), 0);
 }

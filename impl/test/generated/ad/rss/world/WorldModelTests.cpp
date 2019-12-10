@@ -341,12 +341,13 @@ TEST_F(WorldModelTests, comparisonOperatorEqual)
   EXPECT_FALSE(valueA != valueB);
 }
 
-TEST_F(WorldModelTests, ostreamOperatorTest)
+TEST_F(WorldModelTests, stringConversionTest)
 {
   std::stringstream stream;
-  ::ad::rss::world::WorldModel value;
-  stream << value;
-  ASSERT_GT(stream.str().size(), 0);
+  stream << mValue;
+  std::string ostreamStr = stream.str();
+  std::string toStr = std::to_string(mValue);
+  ASSERT_EQ(ostreamStr, toStr);
 }
 
 TEST_F(WorldModelTests, comparisonOperatorTimeIndexDiffers)

@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
@@ -20,6 +20,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <sstream>
 #include "ad/physics/Distance.hpp"
 #include "ad/physics/Duration.hpp"
 #include "ad/physics/Speed.hpp"
@@ -47,7 +48,14 @@ namespace world {
  */
 struct RssDynamics
 {
+  /*!
+   * \brief Smart pointer on RssDynamics
+   */
   using Ptr = std::shared_ptr<RssDynamics>;
+
+  /*!
+   * \brief Smart pointer on constant RssDynamics
+   */
   using ConstPtr = std::shared_ptr<RssDynamics const>;
 
   /*!
@@ -144,9 +152,11 @@ struct RssDynamics
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_WORLD_RSSDYNAMICS
-#define OSTREAM_AD_RSS_WORLD_RSSDYNAMICS
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_WORLD_RSSDYNAMICS
+#define GEN_GUARD_AD_RSS_WORLD_RSSDYNAMICS
 /*!
  * @brief namespace ad
  */
@@ -163,8 +173,8 @@ namespace world {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value RssDynamics value
+ * \param[in] os The output stream to write to
+ * \param[in] _value RssDynamics value
  *
  * \returns The stream object.
  *
@@ -193,4 +203,16 @@ inline std::ostream &operator<<(std::ostream &os, RssDynamics const &_value)
 } // namespace world
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_WORLD_RSSDYNAMICS
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for RssDynamics
+ */
+inline std::string to_string(::ad::rss::world::RssDynamics const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_WORLD_RSSDYNAMICS

@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
@@ -20,6 +20,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <sstream>
 #include "ad/rss/state/LateralResponse.hpp"
 #include "ad/rss/state/LongitudinalResponse.hpp"
 #include "ad/rss/world/ObjectIdVector.hpp"
@@ -45,7 +46,14 @@ namespace state {
  */
 struct ProperResponse
 {
+  /*!
+   * \brief Smart pointer on ProperResponse
+   */
   using Ptr = std::shared_ptr<ProperResponse>;
+
+  /*!
+   * \brief Smart pointer on constant ProperResponse
+   */
   using ConstPtr = std::shared_ptr<ProperResponse const>;
 
   /*!
@@ -149,9 +157,11 @@ struct ProperResponse
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_STATE_PROPERRESPONSE
-#define OSTREAM_AD_RSS_STATE_PROPERRESPONSE
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_STATE_PROPERRESPONSE
+#define GEN_GUARD_AD_RSS_STATE_PROPERRESPONSE
 /*!
  * @brief namespace ad
  */
@@ -168,8 +178,8 @@ namespace state {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value ProperResponse value
+ * \param[in] os The output stream to write to
+ * \param[in] _value ProperResponse value
  *
  * \returns The stream object.
  *
@@ -201,4 +211,16 @@ inline std::ostream &operator<<(std::ostream &os, ProperResponse const &_value)
 } // namespace state
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_STATE_PROPERRESPONSE
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for ProperResponse
+ */
+inline std::string to_string(::ad::rss::state::ProperResponse const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_STATE_PROPERRESPONSE

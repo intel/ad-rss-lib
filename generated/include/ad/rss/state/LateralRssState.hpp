@@ -12,13 +12,14 @@
  * Generated file
  * @file
  *
- * Generator Version : 10.6.0-1882
+ * Generator Version : 10.6.1-1894
  */
 
 #pragma once
 
 #include <iostream>
 #include <memory>
+#include <sstream>
 #include "ad/rss/state/LateralResponse.hpp"
 #include "ad/rss/state/RssStateInformation.hpp"
 /*!
@@ -41,7 +42,14 @@ namespace state {
  */
 struct LateralRssState
 {
+  /*!
+   * \brief Smart pointer on LateralRssState
+   */
   using Ptr = std::shared_ptr<LateralRssState>;
+
+  /*!
+   * \brief Smart pointer on constant LateralRssState
+   */
   using ConstPtr = std::shared_ptr<LateralRssState const>;
 
   /*!
@@ -127,9 +135,11 @@ struct LateralRssState
 } // namespace rss
 } // namespace ad
 
-// protect the definition of ostream operator from duplicates by typedef usage within other data types
-#ifndef OSTREAM_AD_RSS_STATE_LATERALRSSSTATE
-#define OSTREAM_AD_RSS_STATE_LATERALRSSSTATE
+/*!
+ * \brief protect the definition of functions from duplicates by typedef usage within other data types
+ */
+#ifndef GEN_GUARD_AD_RSS_STATE_LATERALRSSSTATE
+#define GEN_GUARD_AD_RSS_STATE_LATERALRSSSTATE
 /*!
  * @brief namespace ad
  */
@@ -146,8 +156,8 @@ namespace state {
 /**
  * \brief standard ostream operator
  *
- * \param[in] stream The output stream to write to
- * \param[in] value LateralRssState value
+ * \param[in] os The output stream to write to
+ * \param[in] _value LateralRssState value
  *
  * \returns The stream object.
  *
@@ -170,4 +180,16 @@ inline std::ostream &operator<<(std::ostream &os, LateralRssState const &_value)
 } // namespace state
 } // namespace rss
 } // namespace ad
-#endif // OSTREAM_AD_RSS_STATE_LATERALRSSSTATE
+
+namespace std {
+/*!
+ * \brief overload of the std::to_string for LateralRssState
+ */
+inline std::string to_string(::ad::rss::state::LateralRssState const &value)
+{
+  stringstream sstream;
+  sstream << value;
+  return sstream.str();
+}
+} // namespace std
+#endif // GEN_GUARD_AD_RSS_STATE_LATERALRSSSTATE

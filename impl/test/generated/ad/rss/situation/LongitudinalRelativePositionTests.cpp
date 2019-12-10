@@ -90,7 +90,7 @@ TEST(LongitudinalRelativePositionTests, testToString)
 TEST(LongitudinalRelativePositionTests, ostreamOperatorTest)
 {
   std::stringstream stream;
-  ::ad::rss::situation::LongitudinalRelativePosition value;
+  ::ad::rss::situation::LongitudinalRelativePosition value(::ad::rss::situation::LongitudinalRelativePosition::InFront);
   stream << value;
   ASSERT_GT(stream.str().size(), 0);
 }
