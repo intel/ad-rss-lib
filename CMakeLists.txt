@@ -13,6 +13,7 @@ include(cmake/compile-options.cmake)
 include(cmake/hardening.cmake)
 include(cmake/testing.cmake)
 include(cmake/warnings.cmake)
+include(cmake/apidoc.cmake)
 
 #convert list to string
 string (REPLACE ";" " " TARGET_LINK_FLAGS "${TARGET_LINK_OPTIONS}")
