@@ -1437,6 +1437,11 @@ BOOST_PYTHON_MODULE(libad_rss_python){
         ProperResponse_exposer.def_readwrite( "timeIndex", &ad_rss::state::ProperResponse::timeIndex );
     }
 
+    {
+        bp::class_< ::ad_rss::world::ObjectIdVector >("ObjectVector")
+            .def(bp::vector_indexing_suite<::ad_rss::world::ObjectIdVector>() );
+    }
+
     { //::ad_rss::state::RssState
         typedef bp::class_< ad_rss::state::RssState > RssState_exposer_t;
         RssState_exposer_t RssState_exposer = RssState_exposer_t( "RssState", bp::init< >() );
