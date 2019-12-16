@@ -1,24 +1,20 @@
-[[Section::HLD::Security]]
 ## Design for Security
 
 This chapter discusses security aspects.
 
 ### Architecture and dataflow
 
-As a reminder of the high-level architecture, we refer to two figures from the chapter
-<<Section::HLD::SystemArchitecture>>.
+As a reminder of the high-level architecture, we refer to two figures from the [integration chapter](HLD-ArchitectureOverview.md).
 
-* The first figure, <<Figure:ADS_RSS>>,
-shows the RSS function within the autonomous driving
+* The first figure, shows the RSS function within the autonomous driving
 (AD) system. The RSS function has a single input called
 `rssWorldModelData`, and a single output called `rssAccelerationRestrictions`.
-* The second figure, <<Figure:RssSubsystem>>,
-shows further detail of the RSS function, with the same external inputs and outputs
+* The second figure, shows further detail of the RSS function, with the same external inputs and outputs
 (`rssWorldModelData` and `rssAccelerationRestrictions`), as well
 as the internal calculation steps and internal dataflow.
 
 In addition, from the chapter <<Section::HLD::SoftwareArchitecture>>,
-we refer to the figure <<Figure:Namespace_ad_rss__core>>.
+we refer to the figure describing the [RSS Component](HLD-ArchitectureOverview.md#rss-component)
 This figure shows the C++ software class that implements the external
 RSS interface, called `RssCheck`.
 The top-level external interface is implemented using a single routine,
