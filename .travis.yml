@@ -63,7 +63,6 @@ matrix:
             - rubygems
             - ruby-dev
       before_install:
-        - gem update --system
         - gem install coderay
       script:
         - mkdir build
@@ -120,7 +119,6 @@ matrix:
             - rubygems
             - ruby-dev
       before_install:
-        - gem update --system
         - gem install coderay
       script:
         - mkdir build
