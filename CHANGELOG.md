@@ -1,9 +1,13 @@
 ## Latest changes
+#### :ghost: Maintenance
+* Added ObjectIDVector support to Python binding
 
 ## Release 1.6.0
+#### :rocket: New Features
 * Added Python binding
 
 ## Release 1.5.0
+#### :ghost: Maintenance
 * License change to LGPL v2.1
 
 ## Release 1.4.0
