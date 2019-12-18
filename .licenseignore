@@ -5,3 +5,4 @@ doc/
 gtest-cmake.txt.in
 build.gradle
 Town01*
+ad_rss/impl/python/
