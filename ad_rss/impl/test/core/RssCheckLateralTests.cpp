@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -32,7 +32,9 @@ TEST_P(RssCheckLateralEgoRightOutOfMemoryTest, outOfMemoryAnyTime)
 {
   performOutOfMemoryTest();
 }
-INSTANTIATE_TEST_CASE_P(Range, RssCheckLateralEgoRightOutOfMemoryTest, ::testing::Range(uint64_t(0u), uint64_t(50u)));
+INSTANTIATE_TEST_CASE_P(Range,
+                        RssCheckLateralEgoRightOutOfMemoryTest,
+                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
 
 TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Towards_Each_Other)
 {
@@ -137,7 +139,9 @@ TEST_P(RssCheckLateralEgoLeftOutOfMemoryTest, outOfMemoryAnyTime)
 {
   performOutOfMemoryTest();
 }
-INSTANTIATE_TEST_CASE_P(Range, RssCheckLateralEgoLeftOutOfMemoryTest, ::testing::Range(uint64_t(0u), uint64_t(50u)));
+INSTANTIATE_TEST_CASE_P(Range,
+                        RssCheckLateralEgoLeftOutOfMemoryTest,
+                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
 
 TEST_F(RssCheckLateralEgoLeftTest, Lateral_Velocity_Towards_Each_Other)
 {
@@ -307,7 +311,7 @@ TEST_P(RssCheckLateralEgoInTheMiddleOutOfMemoryTest, outOfMemoryAnyTime)
 }
 INSTANTIATE_TEST_CASE_P(Range,
                         RssCheckLateralEgoInTheMiddleOutOfMemoryTest,
-                        ::testing::Range(uint64_t(0u), uint64_t(50u)));
+                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
 
 TEST_F(RssCheckLateralEgoInTheMiddleTest, No_Lateral_Velocity)
 {

@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -30,7 +30,7 @@ protected:
   virtual void SetUp()
   {
     objectOnSegment0 = createObject(10., 0.);
-    objectOnSegment0.objectId = 0;
+    objectOnSegment0.objectId = 0u;
     {
       world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = ParametricValue(0.);
@@ -42,7 +42,7 @@ protected:
     }
 
     objectOnSegment1 = createObject(10., 0.);
-    objectOnSegment1.objectId = 1;
+    objectOnSegment1.objectId = 1u;
     {
       world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = ParametricValue(0.);
@@ -54,7 +54,7 @@ protected:
     }
 
     objectOnSegment3 = createObject(10., 3.);
-    objectOnSegment3.objectId = 3;
+    objectOnSegment3.objectId = 3u;
     {
       world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = ParametricValue(0.);
@@ -66,7 +66,7 @@ protected:
     }
 
     objectOnSegment4 = createObject(10., 0.);
-    objectOnSegment4.objectId = 4;
+    objectOnSegment4.objectId = 4u;
     {
       world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = ParametricValue(0.);
@@ -78,7 +78,7 @@ protected:
     }
 
     objectOnSegment5 = createObject(10., -3.);
-    objectOnSegment5.objectId = 5;
+    objectOnSegment5.objectId = 5u;
     {
       world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = ParametricValue(0.);
@@ -90,7 +90,7 @@ protected:
     }
 
     objectOnSegment6 = createObject(10., 0.);
-    objectOnSegment6.objectId = 6;
+    objectOnSegment6.objectId = 6u;
     {
       world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = ParametricValue(0.4);
@@ -102,7 +102,7 @@ protected:
     }
 
     objectOnSegment7 = createObject(10., 0.);
-    objectOnSegment7.objectId = 7;
+    objectOnSegment7.objectId = 7u;
     {
       world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = ParametricValue(0.);
@@ -114,7 +114,7 @@ protected:
     }
 
     objectOnSegment8 = createObject(10., 0.);
-    objectOnSegment8.objectId = 8;
+    objectOnSegment8.objectId = 8u;
     {
       world::OccupiedRegion occupiedRegion;
       occupiedRegion.lonRange.minimum = ParametricValue(0.3);
@@ -497,7 +497,7 @@ protected:
   {
     for (auto const &scene : worldModel.scenes)
     {
-      if ((scene.object.objectId == 6) || (scene.object.objectId == 7) || (scene.object.objectId == 8))
+      if ((scene.object.objectId == 6u) || (scene.object.objectId == 7u) || (scene.object.objectId == 8u))
       {
         // in our tests the vehicle only spans over one segment
         world::LaneSegment objectLaneSegment = getLaneSegment(scene.object.occupiedRegions[0].segmentId);

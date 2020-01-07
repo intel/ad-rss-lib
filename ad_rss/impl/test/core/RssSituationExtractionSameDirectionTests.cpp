@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -106,7 +106,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, noLongitudinalDifference)
 
   ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  ASSERT_EQ(situationSnapshot.situations.size(), 1);
+  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
 
   ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalDistance, Distance(6));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10));
@@ -132,7 +132,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, longitudinalDifferenceEgoLeadin
 
   ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  ASSERT_EQ(situationSnapshot.situations.size(), 1);
+  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
 
   ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalDistance, Distance(2));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10));
@@ -157,7 +157,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, longitudinalDifferenceEgoFollow
 
   ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  ASSERT_EQ(situationSnapshot.situations.size(), 1);
+  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
 
   ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalDistance, Distance(2));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10));
@@ -188,7 +188,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
 
   ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  ASSERT_EQ(situationSnapshot.situations.size(), 1);
+  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
 
   ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
             situation::LongitudinalRelativePosition::AtBack);
@@ -212,7 +212,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1);
+  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
   EXPECT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLat.minimum, Speed(0.));
   EXPECT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLat.maximum, Speed(2.2));
   worldModel.scenes[1].egoVehicle = originalObject;
@@ -222,7 +222,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1);
+  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
   EXPECT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10.));
   EXPECT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10.2));
   worldModel.scenes[1].egoVehicle = originalObject;
@@ -233,7 +233,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1);
+  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
   EXPECT_EQ(situationSnapshot.situations[0].otherVehicleState.velocity.speedLat.minimum, Speed(0.));
   EXPECT_EQ(situationSnapshot.situations[0].otherVehicleState.velocity.speedLat.maximum, Speed(2.2));
   worldModel.scenes[1].object = originalObject;
@@ -243,7 +243,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1);
+  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
   EXPECT_EQ(situationSnapshot.situations[0].otherVehicleState.velocity.speedLon.minimum, Speed(10.0));
   EXPECT_EQ(situationSnapshot.situations[0].otherVehicleState.velocity.speedLon.maximum, Speed(10.2));
   worldModel.scenes[1].object = originalObject;
@@ -253,7 +253,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1);
+  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
   EXPECT_EQ(situationSnapshot.situations[0].egoVehicleState.isInCorrectLane, false);
   EXPECT_EQ(situationSnapshot.situations[0].otherVehicleState.isInCorrectLane, true);
   worldModel.scenes[1].egoVehicleRoad.front().front().drivingDirection = world::LaneDrivingDirection::Positive;
@@ -266,7 +266,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1);
+  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
   EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
             situation::LateralRelativePosition::Overlap);
   EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(0.));
@@ -280,7 +280,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1);
+  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
   EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
             situation::LateralRelativePosition::Overlap);
   EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(0.));
@@ -294,7 +294,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1);
+  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
   EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
             situation::LateralRelativePosition::Overlap);
   EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(0.));
@@ -309,7 +309,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1);
+  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
   EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
             situation::LateralRelativePosition::Overlap);
   EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(0.));
@@ -324,7 +324,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1);
+  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
   EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
             situation::LateralRelativePosition::OverlapRight);
   EXPECT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
@@ -336,7 +336,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1);
+  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
   EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
             situation::LateralRelativePosition::OverlapRight);
   EXPECT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
@@ -352,7 +352,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1);
+  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
   EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
             situation::LateralRelativePosition::OverlapLeft);
   EXPECT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
@@ -364,7 +364,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1);
+  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
   EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
             situation::LateralRelativePosition::OverlapLeft);
   EXPECT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
@@ -389,7 +389,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeFails)
   // validate setup
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1);
+  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
 
   // adapt dynamics
   auto originalRssDynamics = worldModel.scenes[1].objectRssDynamics;
@@ -440,7 +440,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeFails)
   worldModel.scenes.resize(1);
   worldModel.timeIndex++;
   EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  EXPECT_EQ(situationSnapshot.situations.size(), 1);
+  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
 }
 
 } // namespace core

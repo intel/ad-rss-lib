@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -153,7 +153,7 @@ TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
 
   ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  ASSERT_EQ(situationSnapshot.situations.size(), 1);
+  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
 
   ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalDistance, Distance(6.));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10.));
@@ -192,7 +192,7 @@ TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
 
   ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  ASSERT_EQ(situationSnapshot.situations.size(), 1);
+  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
 
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10.));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10.));
@@ -240,7 +240,7 @@ TEST_F(RssSituationExtractionIntersectionTests, mergeWorstCaseInFront)
 
   ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  ASSERT_EQ(situationSnapshot.situations.size(), 1);
+  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
 
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
             worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
@@ -289,7 +289,7 @@ TEST_F(RssSituationExtractionIntersectionTests, mergeWorstCaseAtBack)
 
   ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  ASSERT_EQ(situationSnapshot.situations.size(), 1);
+  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
 
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(8.));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10.));

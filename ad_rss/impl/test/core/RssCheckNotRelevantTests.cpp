@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -60,7 +60,7 @@ TEST_P(RssCheckNotRelevantOutOfMemoryTest, outOfMemoryAnyTime)
   // throw at some vaules will succeed, but that's expected in this case as no actual calculations are performed.
   performOutOfMemoryTest({3u, 5u, 6u});
 }
-INSTANTIATE_TEST_CASE_P(Range, RssCheckNotRelevantOutOfMemoryTest, ::testing::Range(uint64_t(0u), uint64_t(50u)));
+INSTANTIATE_TEST_CASE_P(Range, RssCheckNotRelevantOutOfMemoryTest, ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
 
 } // namespace core
 } // namespace rss
