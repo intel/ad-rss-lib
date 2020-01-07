@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Parameter Discussion - Intel ad-rss-lib</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Parameter Discussion";
+    var mkdocs_page_input_path = "background/Appendix-ParameterDiscussion.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Intel ad-rss-lib</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Background</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Overview/">Overview</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../HLD-ArchitectureOverview/">System Integration</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../HLD-Safety/">Safety</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../HLD-Security/">Security</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Parameter Discussion</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#parameter-discussion">Parameter Discussion</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#decision-on-selected-parameter-values">Decision on Selected Parameter Values</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../SupportedRssFeatures/">Supported RSS Features</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/html/index.html">Doxygen</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/">Code Coverage</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../FAQ/">FAQ</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../CHANGELOG/">Release Notes</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Intel ad-rss-lib</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Background &raquo;</li>
+        
+      
+    
+    <li>Parameter Discussion</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/intel/ad-rss-lib/edit/master/doc/background/Appendix-ParameterDiscussion.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="parameter-discussion">Parameter Discussion<a class="headerlink" href="#parameter-discussion" title="Permanent link">&para;</a></h2>
+<p>The RSS papers uses a few constants required for the safety calculations. The
+values for these constants are not yet defined and open for
+discussion/regulation. Nevertheless, the implementation of the ad-rss-lib needs
+to define initial values for these functions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To be as flexible as possible, the parameters are implemented as configuration
+values so these can be easily adjusted during evaluation or after the release.
+In other words, the values are not hard coded in the library, but can be
+changed via the provided inputs.</p>
+</div>
+<p>In the following, the key parameters and the decision for possible initial
+values are discussed. The used parameters based on <a href="https://arxiv.org/abs/1708.06374">the RSS paper</a>
+are:</p>
+<ul>
+<li>
+<p>Response time <span><span class="MathJax_Preview">\rho</span><script type="math/tex">\rho</script></span></p>
+<p>It is assumed that an AV vehicle has a shorter response time than a human
+driver. Therefore, there is a need to have two different parameters. As it
+might not be possible to determine whether another object is an AV vehicle or
+has a human driver, the ad-rss-lib will safely assume that all other objects
+are driven by humans. Hence, two parameters for the response time are used:</p>
+<ul>
+<li><span><span class="MathJax_Preview">\rho_{ego}</span><script type="math/tex">\rho_{ego}</script></span>: for the ego vehicle</li>
+<li><span><span class="MathJax_Preview">\rho_{other}</span><script type="math/tex">\rho_{other}</script></span>: for all other objects</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>Acceleration <span><span class="MathJax_Preview">\alpha</span><script type="math/tex">\alpha</script></span></p>
+<p>RSS proposes several different acceleration/deceleration values. One could
+argue that acceleration/deceleration differs with the type of vehicle. Also
+at least the acceleration is dependent on the current vehicle speed. As it
+cannot be assured that the individual acceleration of each and every car can
+be known and the specific car can be reliably detected, the ad-rss-lib will
+assume fixed constants for those values. These could be either the maximum
+physically possible values or restrictions that are imposed by regulation.
+Also there will not be different values for the ego vehicle and the other
+vehicles. It could be argued that for the ego vehicle e.g. desired
+acceleration might be known. Therefore, a shorter safety distance would be
+sufficient. But as all other vehicles do not know about the intention of the
+ego vehicle this would lead to a violation of their safe space. So the ad-rss-lib
+will need to calculate its checks with the globally defined
+accelerations values even if the vehicle does not intend to utilize them to
+its limits.
+The parameters used for acceleration are:</p>
+<ul>
+<li><span><span class="MathJax_Preview">\alpha_{accel,max}</span><script type="math/tex">\alpha_{accel,max}</script></span> maximum possible acceleration</li>
+<li><span><span class="MathJax_Preview">\alpha_{brake,min}</span><script type="math/tex">\alpha_{brake,min}</script></span> minimum allowed braking deceleration in longitudinal
+  direction for most scenarios</li>
+<li><span><span class="MathJax_Preview">\alpha_{brake,max}</span><script type="math/tex">\alpha_{brake,max}</script></span> maximum allowed deceleration in longitudinal direction</li>
+<li><span><span class="MathJax_Preview">\alpha_{brake,min,correct}</span><script type="math/tex">\alpha_{brake,min,correct}</script></span> minimum allowed deceleration in longitudinal
+ direction for a car on its lane with another car approaching on the same
+ lane in wrong driving direction</li>
+<li><span><span class="MathJax_Preview">\alpha^{lat}_{brake,min}</span><script type="math/tex">\alpha^{lat}_{brake,min}</script></span> minimum allowed braking deceleration in lateral
+ direction</li>
+<li><span><span class="MathJax_Preview">\alpha^{lat}_{accel,max}</span><script type="math/tex">\alpha^{lat}_{accel,max}</script></span> maximum allowed acceleration in lateral direction</li>
+<li><span><span class="MathJax_Preview">\delta^{lat}_{min}</span><script type="math/tex">\delta^{lat}_{min}</script></span> fluctuation margin for that needs to be respected when
+ calculating lateral safe distance</li>
+</ul>
+</li>
+</ul>
+<h3 id="decision-on-selected-parameter-values">Decision on Selected Parameter Values<a class="headerlink" href="#decision-on-selected-parameter-values" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following parameter values are only suggestions and open for discussion.
+These can be changed at anytime, if it is required.</p>
+</div>
+<h4>Response time</h4>
+<p>For the response times a common sense value for human drivers is about 2
+seconds. For an AV vehicle the response time could be way lower. In order to be
+not too restrictive the initial value for the ego vehicle response time will be
+assumed as 1 second. Hence, <span><span class="MathJax_Preview">\rho_{other} = 2s</span><script type="math/tex">\rho_{other} = 2s</script></span> and <span><span class="MathJax_Preview">\rho_{ego} = 1s</span><script type="math/tex">\rho_{ego} = 1s</script></span>. If we
+assume a case of AD vehicles only, the response time may be reduced.</p>
+<h4>Longitudinal Acceleration</h4>
+<p>Finding meaningful acceleration values is more complicated. At the one hand the
+values should be as close as possible or even exceed the maximum physically
+possible values. The minimum deceleration values must also not exceed normal
+human driving behavior. So assuming a too high deceleration for other cars may
+lead to a false interpretation of the situation.</p>
+<p>On the other hand a too big difference between the minimum and maximum
+acceleration values will lead to a very defensive driving style. As a result,
+participating in dense traffic, will not be possible (see figure below).
+A rule of thumb for deceleration in German
+driving schools is: <span><span class="MathJax_Preview">\alpha_{brake,min} = 4m/s^2</span><script type="math/tex">\alpha_{brake,min} = 4m/s^2</script></span> and <span><span class="MathJax_Preview">\alpha_{brake,max} = 8m/s^2</span><script type="math/tex">\alpha_{brake,max} = 8m/s^2</script></span>.</p>
+<p>But on the other hand, modern cars are able to decelerate with up to <span><span class="MathJax_Preview">12m/s^2</span><script type="math/tex">12m/s^2</script></span>.
+Especially for deceleration, it is questionable whether it is possible and
+tolerable to restrict maximum braking below physically possible braking force.</p>
+<p>For the maximum acceleration at low speeds a standard car will be in the range
+of <span><span class="MathJax_Preview">3.4m/s^2</span><script type="math/tex">3.4m/s^2</script></span> to <span><span class="MathJax_Preview">7m/s^2</span><script type="math/tex">7m/s^2</script></span>. But there are also sport cars that can go faster
+than that. But for acceleration a regulation to a maximum value seems to be
+more likely than for deceleration.</p>
+<h5>Restricting velocity to the current speed limit</h5>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="" src="../../images/accelSafety.svg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>Required safety distance for cars driving at 50 km/h (city speed) in same direction with <span><span class="MathJax_Preview">\alpha_{brake,min} = 4m/s^2</span><script type="math/tex">\alpha_{brake,min} = 4m/s^2</script></span> and <span><span class="MathJax_Preview">\alpha_{brake,max} = 8m/s^2</span><script type="math/tex">\alpha_{brake,max} = 8m/s^2</script></span> and <span><span class="MathJax_Preview">\rho_{ego} = \rho_{other} = 2s</span><script type="math/tex">\rho_{ego} = \rho_{other} = 2s</script></span></em></td>
+</tr>
+</tbody>
+</table>
+<p>The assumption that a car can always accelerate at <span><span class="MathJax_Preview">\alpha_{accel,max}</span><script type="math/tex">\alpha_{accel,max}</script></span>
+during the reponse time, leads to a significant increase of the required safety
+distance. The figure above shows the required safety distance for
+different acceleration values. So acceleration about <span><span class="MathJax_Preview">4m/s^2</span><script type="math/tex">4m/s^2</script></span> doubles the
+required safety distance from <span><span class="MathJax_Preview">40m</span><script type="math/tex">40m</script></span> to about <span><span class="MathJax_Preview">80m</span><script type="math/tex">80m</script></span> at city speeds.</p>
+<p>Therefore, it might be advisable to add a restriction that a car is only
+allowed to accelerate up to the allowed speed limit. In addition, the common
+behavior (in Germany) is to respect a safety distance of speed/2, e.g. in a
+city with a speed limit of <span><span class="MathJax_Preview">50km/h</span><script type="math/tex">50km/h</script></span> the safety distance shall be <span><span class="MathJax_Preview">25m</span><script type="math/tex">25m</script></span>.
+Hence, it is obvious that the parameters may require some adjustments to allow
+reasonable driving.</p>
+<h5>Further possible restrictions</h5>
+<p>Another possibility to decrease the required safety distance to the leading
+vehicle would be to take the intention of the ego vehicle into account. E.g. if
+the ego vehicle is following another vehicle and is not intending to
+accelerate, then there is no need to assume that the ego vehicle is
+accelerating during its response time. Nevertheless, there are several issues
+with that approach:</p>
+<ol>
+<li>It needs to be assured that all intended and unintended accelerations
+   (e.g. driving down a slope) are known to RSS.</li>
+<li>If RSS formulas are regarded as regulations, the safety distance must be kept
+   regardless to the intent of the vehicle.</li>
+</ol>
+<p>Therefore, in the current implementation this approach will not be applied.</p>
+<h4>Lateral Acceleration</h4>
+<p>When defining the parameters for lateral acceleration and deceleration, it is
+import to keep in mind that the definition must allow bypassing of vehicles.
+Physically high lateral accelerations are possible.
+In order to be able to bypass a vehicle that is driving on a parallel lane,
+the safe lateral distance needs to be safe during the complete response time of
+the other vehicle.</p>
+<p>Let us consider two identical vehicles driving on the centerline of two adjacent
+lanes with zero lateral velocity. There is no lateral conflict, if the distance
+between the border of the car and the adjacent lane is bigger than the distance
+that the vehicle will cover when accelerating laterally at maximum during its
+response time and then decelerating to zero lateral velocity.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="" src="../../images/accelLat.svg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>Distance a vehicle will cover when applying the "Stated Braking Pattern" with <span><span class="MathJax_Preview">\rho_{vehicle} = 2s</span><script type="math/tex">\rho_{vehicle} = 2s</script></span></em></td>
+</tr>
+</tbody>
+</table>
+<p>The figure above shows the required safety distance, without
+considering the fluctuation margin, each car needs to keep to the lane border
+so the vehicles can pass without lateral conflict. With an assumed minimal lane
+width of 3 meters and an assumed vehicle width of 2 meters, the distance from
+vehicle edge to lane border is 0.5 meter, if the car is driving exactly in the
+middle of the lane.</p>
+<p>Hence, the required safety distance must be at most 0.5 meter. When using the
+same values for acceleration and deceleration this will lead to
+<span><span class="MathJax_Preview">\alpha^{lat}_{accel,max} &lt; 0.1m/s^2</span><script type="math/tex">\alpha^{lat}_{accel,max} < 0.1m/s^2</script></span>. But when restricting the acceleration
+to that value a lane change will take almost 8 seconds.</p>
+<p>As a result it is advisable, to use a higher deceleration than acceleration to
+keep the required safety margin and allow for faster lane changes. E.g.
+<span><span class="MathJax_Preview">\alpha^{lat}_{brake,min} = 0.8m/s^2</span><script type="math/tex">\alpha^{lat}_{brake,min} = 0.8m/s^2</script></span> and <span><span class="MathJax_Preview">\alpha^{lat}_{accel,max} = 0.2m/s^2</span><script type="math/tex">\alpha^{lat}_{accel,max} = 0.2m/s^2</script></span>
+will fulfill the given safety distance requirement. An increase to higher
+acceleration values is for the given constraints not possible, as the  distance
+covered during response time is already 0.4 meters.</p>
+<p>It is obvious that given the lateral safety definition a lane change will at
+least have a duration of two times the response time.</p>
+<p>The lateral distance requirement is very strict, therefore it is required to
+also come up with a desirably small value for the required lateral safety
+margin <span><span class="MathJax_Preview">\delta^{lat}_{min}</span><script type="math/tex">\delta^{lat}_{min}</script></span>. As this should only cover for fluctuations, there
+is also no need for a huge margin. Thus initially this value will be set to
+<span><span class="MathJax_Preview">\delta^{lat}_{min} = 10 cm</span><script type="math/tex">\delta^{lat}_{min} = 10 cm</script></span>. This value should be able to cover small
+fluctuations, but will not have a big impact on the safety distance.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As a starting point the values are set to:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Parameter</th>
+<th align="center">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><span><span class="MathJax_Preview">\rho_{ego}</span><script type="math/tex">\rho_{ego}</script></span></td>
+<td align="center"><span><span class="MathJax_Preview">1s</span><script type="math/tex">1s</script></span></td>
+</tr>
+<tr>
+<td align="center"><span><span class="MathJax_Preview">\rho_{other}</span><script type="math/tex">\rho_{other}</script></span></td>
+<td align="center"><span><span class="MathJax_Preview">2s</span><script type="math/tex">2s</script></span></td>
+</tr>
+<tr>
+<td align="center"><span><span class="MathJax_Preview">\alpha_{accel,max}</span><script type="math/tex">\alpha_{accel,max}</script></span></td>
+<td align="center"><span><span class="MathJax_Preview">3.5m/s^2</span><script type="math/tex">3.5m/s^2</script></span></td>
+</tr>
+<tr>
+<td align="center"><span><span class="MathJax_Preview">\alpha_{brake,min}</span><script type="math/tex">\alpha_{brake,min}</script></span></td>
+<td align="center"><span><span class="MathJax_Preview">4m/s^2</span><script type="math/tex">4m/s^2</script></span></td>
+</tr>
+<tr>
+<td align="center"><span><span class="MathJax_Preview">\alpha_{brake,min}</span><script type="math/tex">\alpha_{brake,min}</script></span></td>
+<td align="center"><span><span class="MathJax_Preview">8m/s^2</span><script type="math/tex">8m/s^2</script></span></td>
+</tr>
+<tr>
+<td align="center"><span><span class="MathJax_Preview">\alpha_{brake,min,correct}</span><script type="math/tex">\alpha_{brake,min,correct}</script></span></td>
+<td align="center"><span><span class="MathJax_Preview">3m/s^2</span><script type="math/tex">3m/s^2</script></span></td>
+</tr>
+<tr>
+<td align="center"><span><span class="MathJax_Preview">\alpha^{lat}_{brake,min}</span><script type="math/tex">\alpha^{lat}_{brake,min}</script></span></td>
+<td align="center"><span><span class="MathJax_Preview">0.8m/s^2</span><script type="math/tex">0.8m/s^2</script></span></td>
+</tr>
+<tr>
+<td align="center"><span><span class="MathJax_Preview">\alpha^{lat}_{accel,max}</span><script type="math/tex">\alpha^{lat}_{accel,max}</script></span></td>
+<td align="center"><span><span class="MathJax_Preview">0.2m/s^2</span><script type="math/tex">0.2m/s^2</script></span></td>
+</tr>
+<tr>
+<td align="center"><span><span class="MathJax_Preview">\delta^{lat}_{min}</span><script type="math/tex">\delta^{lat}_{min}</script></span></td>
+<td align="center"><span><span class="MathJax_Preview">10cm</span><script type="math/tex">10cm</script></span></td>
+</tr>
+</tbody>
+</table>
+</div>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../SupportedRssFeatures/" class="btn btn-neutral float-right" title="Supported RSS Features">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../HLD-Security/" class="btn btn-neutral" title="Security"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/intel/ad-rss-lib/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../HLD-Security/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../SupportedRssFeatures/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

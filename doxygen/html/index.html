@@ -83,7 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <img src="https://img.shields.io/github/tag/intel/ad-rss-lib.svg"  alt="GitHub tag (latest SemVer)"/>
 </div>
 <p> <a href="https://travis-ci.com/intel/ad-rss-lib"></a> <a href="https://codecov.io/gh/intel/ad-rss-lib"></a></p>
-<h2>Table of contents</h2>
+<h1>Table of contents</h1>
 <ol type="1">
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#license">License</a></li>
@@ -102,18 +102,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </ol>
 <h2>Introduction <a class="anchor" id="introduction"></a></h2>
 <p>This library intends to provide a C++ implementation of the Responsibility Sensitive Safety model (RSS) for Autonomous Vehicles.</p>
-<p>RSS is described in the following papers. Potential users of this C++ library are encouraged to read these papers in order to become familiar with the concepts and functions provided by the library.</p><ul>
+<p>RSS is described in the following papers. Potential users of this C++ library are encouraged to read these papers in order to become familiar with the concepts and functions provided by the library.</p>
+<ul>
 <li>On a Formal Model of Safe and Scalable Self-driving Cars, S. Shalev-Shwartz, S. Shammah, A. Shashua, Mobileye, arXiv:1708.06374, <a href="https://arxiv.org/abs/1708.06374">https://arxiv.org/abs/1708.06374</a></li>
 <li>Implementing the RSS Model on NHTSA Pre-Crash Scenarios, Mobileye, July 2018, <a href="https://www.mobileye.com/responsibility-sensitive-safety/rss_on_nhtsa.pdf">https://www.mobileye.com/responsibility-sensitive-safety/rss_on_nhtsa.pdf</a></li>
 </ul>
 <p>The RSS module in this library receives (processed) sensor information as input and provides actuator command restrictions as output. The input to the RSS module is an object list, with information about all objects (road agents) in the surrounding environment of the ego vehicle. For each object, the RSS module creates a description of the object-ego vehicle pair and their properties, called a "situation". For each situation, the relevant RSS safety checks are performed and a proper response is calculated. Finally, one overall response is obtained by combining the responses calculated for each object-ego vehicle situation. The resulting actuation command restrictions, in the form of longitudinal and lateral limits on acceleration are provided as output.</p>
-<p>This library contains a stand-alone C++ implementation of the RSS module.</p><ul>
+<p>This library contains a stand-alone C++ implementation of the RSS module.</p>
+<ul>
 <li>Conversion of AV sensor data to the input object list required by the RSS module is outside the scope of this library. This includes conversion of object location and motion in a Cartesian world coordinate system into a situation based coordinate system.</li>
 <li>Conversion of the output acceleration restrictions to real AV actuation commands (enforcing the restrictions) is outside the scope of this library. This conversion depends strongly on the software and hardware setup of the actual (or simulated)vehicle.</li>
 </ul>
-<p>The scope, design and architecture of this C++ library for RSS is described in more detail in the following document packaged with this release. This documentation includes guidance on the usage of the RSS library and its integration into an autonomous driving system. Users of this library are strongly encouraged to read this documentation prior to integration of the library.</p><ul>
-<li>C++ Library for Responsibility Sensitive Safety, Intel, 2018</li>
-</ul>
+<p>The scope, design and architecture of this C++ library for RSS is described in more detail in the following document packaged with this release. This documentation includes guidance on the usage of the RSS library and its integration into an autonomous driving system. Users of this library are strongly encouraged to read this documentation prior to integration of the library.</p>
 <h3>Usage of ad-rss-lib</h3>
 <p>If you use ad-rss-lib for any publication, please cite the IV'2019 paper: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;@INPROCEEDINGS{</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;   title={Towards Standardization of AV Safety: C++ Library for Responsibility Sensitive Safety}</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;   author={Gassmann, Bernd and Oboril, Fabian and Buerkle, Cornelius and Liu, Shuang and Yan, Shoumeng and Elli, Maria Soledad and Alvarez, Ignacio and Aerrabotu, Naveen and Jaber, Suhel and van Beek, Peter and Iyer, Darshan and Weast, Jack}</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;   booktitle={2019 IEEE Intelligent Vehicles Symposium (IV)}</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;   year={2019}</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;}</div></div><!-- fragment --><h4>Usage with Python</h4>
 <p>Starting with Release v1.6, it is possible to use the ad-rss-lib library also with Python. Please see the ./python/README.md "Documentation on the Python binding" for further information.</p>
@@ -128,23 +128,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>This software library is provided under the LGPL-2.1 open-source license: <a href="https://opensource.org/licenses/LGPL-2.1">https://opensource.org/licenses/LGPL-2.1</a>.</p>
 <p>In addition, the terms in the following apply: ./RELEASE_NOTES_AND_DISCLAIMERS.md "RELEASE NOTES AND DISCLAIMERS".</p>
 <h2>Documentation</h2>
-<p>Visit the project's <a href="https://intel.github.io/ad-rss-lib/">GitHub page</a> to access the online version of the full documentation of this library. This includes:</p><ul>
+<p>Visit the project's <a href="https://intel.github.io/ad-rss-lib/">GitHub page</a> to access the online version of the full documentation of this library. This includes:</p>
+<ul>
 <li><a href="https://intel.github.io/ad-rss-lib/doxygen/html/index.html">Doxygen</a></li>
 <li><a href="https://intel.github.io/ad-rss-lib/documentation/Main.html">Background documentation</a>.</li>
 </ul>
-<p>If you have any additional question not answered therein, you might find more in:</p><ul>
-<li>./FAQ.md "FAQ"</li>
-</ul>
+<p>If you have any additional question not answered therein, you might find more in the FAQ</p>
 <h2>Releases <a class="anchor" id="releases"></a></h2>
 <p>General release notes and changes can be found in the ./CHANGELOG.md "Changelog"</p>
-<h3>Release 1.x.x <a class="anchor" id="release_1"></a></h3>
+<h4>Release 1.x.x <a class="anchor" id="release_1"></a></h4>
 <p>The initial release of the C++ software library for RSS implements a subset of the rules and calculations specified in the published RSS paper. This means that this release handles a subset of autonomous driving scenarios, described below. Scenarios other than this subset cannot be handled.</p>
-<h4>Features &amp; Limitations</h4>
-<p>This release implements the RSS calculations and rules corresponding to the following scenarios:</p><ul>
+<h5>Features &amp; Limitations</h5>
+<p>This release implements the RSS calculations and rules corresponding to the following scenarios:</p>
+<ul>
 <li>Multi-lane roads, i.e. longitudinal and lateral safe distance and proper response determination; and</li>
 <li>Intersections, i.e. two or more routes of different geometry, rules for intersections of routes, with priority/right of way, and longitudinal and lateral proper response determination. However, in the case of intersections, it is assumed that there is always a lateral conflict.</li>
 </ul>
-<p>The following parts of RSS are NOT implemented in this release of the library software:</p><ul>
+<p>The following parts of RSS are NOT implemented in this release of the library software:</p>
+<ul>
 <li>Unstructured roads, e.g. parking lots and wide round-abouts;</li>
 <li>Pedestrians, bicyclists and other vulnerable road users;</li>
 <li>Occlusions;</li>
@@ -153,9 +154,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </ul>
 <p>Note: The RSS module in this library does not initiate evasive manuevers. At the same time, it would not hinder an evasive manuever being executed by the AV driving policy and planning modules, as long as it is compliant with the required RSS proper response.</p>
 <h2>Getting started <a class="anchor" id="started"></a></h2>
-<h3>Installation of dependencies</h3>
-<p>Currently, the focused operating system is Ubuntu 16.04. Nevertheless, the library should work in a similar way for any other Linux OS. To install the dependencies for Ubuntu 16.04 execute the following command: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; sudo apt-get install git build-essential cmake </div></div><!-- fragment --><p>If you want to use doxygen for API documentation, please also install: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; sudo apt-get install doxygen graphviz</div></div><!-- fragment --><h3>Get the library</h3>
-<p>To download the library, you may run: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; git clone https://github.com/intel/ad-rss-lib.git</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;user$&gt; cd ad-rss-lib</div></div><!-- fragment --><h3>Supported systems <a class="anchor" id="systems"></a></h3>
+<h4>Installation of dependencies</h4>
+<p>Currently, the focused operating system is Ubuntu 16.04. Nevertheless, the library should work in a similar way for any other Linux OS. To install the dependencies for Ubuntu 16.04 execute the following command: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; sudo apt-get install git build-essential cmake </div></div><!-- fragment --><p>If you want to use doxygen for API documentation, please also install: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; sudo apt-get install doxygen graphviz</div></div><!-- fragment --><h4>Get the library</h4>
+<p>To download the library, you may run: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;user$&gt; git clone https://github.com/intel/ad-rss-lib.git</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;user$&gt; cd ad-rss-lib</div></div><!-- fragment --><h4>Supported systems <a class="anchor" id="systems"></a></h4>
 <p>Besides Ubuntu 16.04 we are currently supporting the following Linux OS and compiler combinations:</p>
 <table class="doxtable">
 <tr>
@@ -179,13 +180,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </table>
 <p>Important: cmake is required to be at least version 3.5!</p>
 <h2>Building the library <a class="anchor" id="building"></a></h2>
-<h3>Build instructions</h3>
+<h4>Build instructions</h4>
 <p>The RSS library is built with a standard cmake toolchain. Simply run the following commands to build the library: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ad_rss$&gt; mkdir build</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;ad_rss$&gt; cd build</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;build$&gt;  cmake ..</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;build$&gt;  make</div></div><!-- fragment --><h4>Unit tests</h4>
 <p>Run the following commands to run the unit-tests: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;build$&gt;  make test</div></div><!-- fragment --><h4>API documentation</h4>
 <p>Please run the following command to build the API documentation, if desired: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;build$&gt;  cmake -DBUILD_DOC=1 ..</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;build$&gt;  make apidoc</div></div><!-- fragment --><h4>Build hardening</h4>
-<p>Usually, build hardening is injected by the surrounding build system. Nevertheless, the CMakeLists.txt defines hardening flags to ensure the code is compatible to respective flags. To enable hardening compiler and linker flags: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;build$&gt;  cmake -DBUILD_HARDENING=1 ..</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;build$&gt;  make</div></div><!-- fragment --><h4>Full documentation</h4>
-<p>The full documentation is written in <a href="http://asciidoc.org/">Asciidoc</a>. To generate a PDF of the full documentation, it is recommended to use <a href="https://asciidoctor.org">Asciidoctor</a> <em>asciidoctor-pdf</em>. Therefore, the following commands have to be executed within Ubuntu:</p>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ad_rss$&gt;  sudo apt-get install asciidoctor</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;ad_rss$&gt;  sudo -E gem install asciidoctor-pdf --pre</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;ad_rss$&gt;  sudo -E gem install coderay</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;ad_rss$&gt;  asciidoctor-pdf ./doc/Main.adoc -n</div></div><!-- fragment --><h2>Contributing <a class="anchor" id="contributing"></a></h2>
+<p>Usually, build hardening is injected by the surrounding build system. Nevertheless, the CMakeLists.txt defines hardening flags to ensure the code is compatible to respective flags. To enable hardening compiler and linker flags: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;build$&gt;  cmake -DBUILD_HARDENING=1 ..</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;build$&gt;  make</div></div><!-- fragment --><h2>Contributing <a class="anchor" id="contributing"></a></h2>
 <p>Contibutions are very welcome!</p>
 <p>Before submitting a pull request, please ensure that your code compiles successfully and that the tests run successfully. Please also check that your code formatting complies to the provided clang style. To do so, you can run: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ad_rss$&gt; sudo apt-get install clang-format-3.9</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;ad_rss$&gt; find -iname *.cpp -o -iname *.hpp | xargs clang-format-3.9 -style=file -i</div></div><!-- fragment --><p> This command will automatically update the code formatting to be compliant with our style.</p>
 <p>In addition, please perform a static code analysis, if possible. </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;ad_rss$&gt; sudo apt-get install clang-tidy</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;ad_rss$&gt; cmake -DBUILD_STATIC_ANALYSIS=ON</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;ad_rss$&gt; make clang-tidy</div></div><!-- fragment --><p> This may provide a list of possible improvements that you would like to consider in your pull request. </p>

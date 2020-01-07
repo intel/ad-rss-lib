@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>FAQ - Intel ad-rss-lib</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "FAQ";
+    var mkdocs_page_input_path = "FAQ.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Intel ad-rss-lib</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Background</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../background/Overview/">Overview</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../background/HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../background/HLD-ArchitectureOverview/">System Integration</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../background/HLD-Safety/">Safety</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../background/HLD-Security/">Security</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../background/Appendix-ParameterDiscussion/">Parameter Discussion</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../background/SupportedRssFeatures/">Supported RSS Features</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/html/index.html">Doxygen</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/">Code Coverage</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">FAQ</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#faq">FAQ</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#integrating-ad-rss-lib-into-a-system">Integrating ad-rss-lib into a system</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../CHANGELOG/">Release Notes</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Intel ad-rss-lib</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>FAQ</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/intel/ad-rss-lib/edit/master/doc/FAQ.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
+<h3 id="integrating-ad-rss-lib-into-a-system">Integrating ad-rss-lib into a system<a class="headerlink" href="#integrating-ad-rss-lib-into-a-system" title="Permanent link">&para;</a></h3>
+<p>This section tries to give answers to the questions that came up while people were integrating <em>ad-rss-lib</em> into their systems.</p>
+<h4>Integration examples</h4>
+<p>The <em>ad-rss-lib</em> is already integrated in other open source projects:
+- <a href="https://github.com/ApolloAuto/apollo/blob/master/modules/planning/tasks/rss/decider_rss.cc">Apollo Open Platform</a>: In <em>Apollo</em> Open Automated Driving stack <em>RSS</em> is integrated directly into the planning module to provide additional information to be deployed while planning.</p>
+<h4>Classes: RssCheck, RssSituationChecking and RssResponseResolving</h4>
+<h6>How can I perform the checks?</h6>
+<p>The <em>ad-rss-lib</em> provides more or less two ways of integrating the functionality into a system.
+1. The <em>RssCheck</em> class performs all required steps one after another. Create a permanent object instance of this class and call <em>calculateAccelerationRestriction</em> for every step in time continuously. You have to provide the world model data as input and get the acceleration restrictions to be applied as output.
+2. If you are interested in the intermediate results you can to call the processing chain step by step. For this, you have to create a permanent object instance of RssSituationChecking and RssResponseResolving classes and call the following processing chain for every step in time continuously:
+  - RssSituationExtraction::extractSituations(worldModel, situationVector)
+  - mSituationChecking-&gt;checkSituations(situationVector, responseStateVector)
+  - mResponseResolving-&gt;provideProperResponse(responseStateVector, properResponse)
+  - RssResponseTransformation::transformProperResponse(worldModel, properResponse, accelerationRestriction)</p>
+<p>You can directly take  <a href="https://github.com/intel/ad-rss-lib/blob/master/src/core/RssCheck.cpp">RssCheck::calculateAccelerationRestriction()</a> as an example on how to call the individual steps. Applying the step-by-step calls especially provides the
+response state on individual object basis of the scene.</p>
+<p>Regardless which solution you prefer, you always have to respect the return value of the functions, before you further make use of the information!</p>
+<h6>Why are some functions realized in a namespace where others required a class?</h6>
+<p>The observed situations are analyzed by <em>RSS</em> over time. Therefore, some of the processing steps have to store the state of previous time steps. As a consequence, the object instances of the classes have to exist over time and must not be deleted!</p>
+<h4>Input: world model data</h4>
+<p>The <em>worldModel</em> is the input to the <em>RSS</em> calculations.
+It is derived from the <em>Sense</em> part.</p>
+<h6>How do I get to the information required for the input <em>worldModel</em>?</h6>
+<p>The world model data heavily depends on the system the <em>ad-rss-lib</em> is going to be integrated. Therefore, there is no single answer to this question. Simple scenarios can be derived using basic object data, integration of <em>RSS</em> to the full extend demand more sophisticated a-priori information, usually provided by means of an AD-Map. The <a href="https://github.com/intel/ad-rss-lib/blob/master/tests/core/RssCheckTestBaseT.hpp">unit tests</a> provided with the <em>ad-rss-lib</em> build some basic <em>worldModel</em> structures that might be taken as a starting point. Better examples can be found in the section on <a href="#integration-examples">Integration examples</a>.</p>
+<h4>Output: rssAccelerationRestrictions</h4>
+<p>The <em>rssAccelerationRestrictions</em> is the output of the <em>RSS</em> calculations.
+It is given as input of the <em>Act</em> part.</p>
+<h6>If a RSS restricted acceleration is applied on the actuators, does it mean that RSS is not only a checker?</h6>
+<p>Yes, indeed. At one hand side RSS performs an analysis of the situation over time which detects if a situation is becoming dangerous. In addition, RSS derives also a proper response for the ego-vehicle on how to get out of such. If finally the resulting acceleration restrictions in longitudinal, lateral left and right directions are considered by the actuation system, the situation will become safe again.</p>
+<h6>Is there any impact on the "Plan" part? Should it be adapted since it undergoes RSS acceleration restrictions?</h6>
+<p>There are many possibilities on how the information on the <em>RSS</em> situation analysis can be deployed within a system. It can be used as a plain safety checking and enforcing entity being totally independent from the <em>Plan</em> part. Then, the <em>Plan</em> will only indirectly be influenced in a way, that the vehicle is not following the planing output. But for sure the planning algorithms might directly benefit when feeding back the information from <em>RSS</em>.
+Even beyond, if the planning algorithms evaluate different driving strategies, <em>RSS</em> can be applied directly within the planning algorithm to influence the rating. This includes also learning algorithms of AI-based planning approaches.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../CHANGELOG/" class="btn btn-neutral float-right" title="Release Notes">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../background/SupportedRssFeatures/" class="btn btn-neutral" title="Supported RSS Features"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/intel/ad-rss-lib/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../background/SupportedRssFeatures/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../CHANGELOG/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

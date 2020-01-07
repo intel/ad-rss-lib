@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Release Notes - Intel ad-rss-lib</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Release Notes";
+    var mkdocs_page_input_path = "CHANGELOG.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Intel ad-rss-lib</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Background</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../background/Overview/">Overview</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../background/HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../background/HLD-ArchitectureOverview/">System Integration</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../background/HLD-Safety/">Safety</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../background/HLD-Security/">Security</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../background/Appendix-ParameterDiscussion/">Parameter Discussion</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../background/SupportedRssFeatures/">Supported RSS Features</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/html/index.html">Doxygen</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/">Code Coverage</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../FAQ/">FAQ</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Release Notes</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#latest-changes">Latest changes</a></li>
+    
+
+    <li class="toctree-l2"><a href="#release-160">Release 1.6.0</a></li>
+    
+
+    <li class="toctree-l2"><a href="#release-150">Release 1.5.0</a></li>
+    
+
+    <li class="toctree-l2"><a href="#release-140">Release 1.4.0</a></li>
+    
+
+    <li class="toctree-l2"><a href="#release-130">Release 1.3.0</a></li>
+    
+
+    <li class="toctree-l2"><a href="#release-120">Release 1.2.0</a></li>
+    
+
+    <li class="toctree-l2"><a href="#release-110">Release 1.1.0</a></li>
+    
+
+    <li class="toctree-l2"><a href="#release-100">Release 1.0.0</a></li>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Intel ad-rss-lib</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Release Notes</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/intel/ad-rss-lib/edit/master/doc/CHANGELOG.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="latest-changes">Latest changes<a class="headerlink" href="#latest-changes" title="Permanent link">&para;</a></h2>
+<h4><img alt="👻" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f47b.png" title=":ghost:" /> Maintenance</h4>
+<ul>
+<li>Added ObjectIDVector support to Python binding</li>
+</ul>
+<h2 id="release-160">Release 1.6.0<a class="headerlink" href="#release-160" title="Permanent link">&para;</a></h2>
+<h4><img alt="🚀" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f680.png" title=":rocket:" /> New Features</h4>
+<ul>
+<li>Added Python binding</li>
+</ul>
+<h2 id="release-150">Release 1.5.0<a class="headerlink" href="#release-150" title="Permanent link">&para;</a></h2>
+<h4><img alt="👻" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f47b.png" title=":ghost:" /> Maintenance</h4>
+<ul>
+<li>License change to LGPL v2.1</li>
+</ul>
+<h2 id="release-140">Release 1.4.0<a class="headerlink" href="#release-140" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Introduced more straight forward interface on intermediate functions to support better integration of the single calls into an external
+  framework: SituationSnapshot, RssStateSnapshot, ProperResponse. Moved the timeIndex from the individual elements into these high level
+  types to support the propagation of the timeIndex even if there are no other vehicles in the surrounding.</li>
+<li>Did some renaming (e.g. ResponseState-&gt;RssState, ResponseStateVector-&gt;RssStateVector, ResponseInformation-&gt;RssStateInformation,
+  ResponseEvaluator-&gt;RssStateEvaluator) to clarify by naming that the individual calcuated states only consider a snapshot in time without 
+  analysis of the dangerous threshold. The ProperResponse became its own type and got an own overall isSafe flag and a list of dangerousObjects.</li>
+<li>Added ObjectId to Situation and RssState to preserve the mapping to the originating object which was lost with the introduction of multiple
+  situations per object.</li>
+<li>Increase amount of allowed situations because with multiple  situations per object the amount of 100 might be hit too fast.</li>
+<li>Improved merge of input scenarios to facilitate scene variations of the same situation</li>
+<li>RssIntersectionChecker: since new situations may pop up when e.g. a previously occluded object is entering the field of view, one cannot guarantee that a previous safe state can be found. In this case, we have to brake instead of returning false.</li>
+<li>Made some RssState operations available via public interface</li>
+<li>Add option to select library build type (static/dynamic)</li>
+</ul>
+<h2 id="release-130">Release 1.3.0<a class="headerlink" href="#release-130" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Allow multiple situations per ego vehicle/object pair: Add RssSituationIdProvider and made RssSituationExtraction a class holding RssSituationIdProvider instance to keep track of the different situation classes</li>
+<li>Renamed world::Dynamics in world::RssDynamics, extended it by responseTime and separated it from world::Object; world::Scene got the objectRssDynamics and world::WorldModel the egoVehicleRssDynamics each as separate elements</li>
+<li>Extended world::Scene by egoVehicle object description as occupied regions and velocity are actually scene dependent (e.g. when considering different vehicle predictions)</li>
+<li>Added world::ObjectType::Invalid</li>
+<li>Small updates to be compliant to clang-tidy-3.8 static code analysis</li>
+<li>Added basic FAQ</li>
+<li>Added official support for Ubuntu 14.04 (GCC 4.8, Clang 3.4 and 3.8/3.9)</li>
+<li>Added official support for Ubuntu 18.04 (GCC 7.3)</li>
+<li>Download/Build gtest on the fly rather than using the version from the OS</li>
+<li>Fixed documentation of RoadArea LaneSegment ordering (left -&gt; right)</li>
+<li>Fixed isSafe flags of the resolved response</li>
+<li>Renamed some internal files from 'RSS...' -&gt; 'Rss...' to have camel-case everywhere</li>
+<li>Added ResponseInformation to provide more insight into intermediate result calculation</li>
+</ul>
+<h2 id="release-120">Release 1.2.0<a class="headerlink" href="#release-120" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Added support for Clang 5 and Clang 6</li>
+<li>Added checks to enforce increasing time indices</li>
+<li>Consider timeIndex=0 as error</li>
+<li>Reduced maximum vector input sizes to more feasible numbers (20 lane segments, 50 road segments, 100 scenes)</li>
+</ul>
+<h2 id="release-110">Release 1.1.0<a class="headerlink" href="#release-110" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Made generated files and tests more explicit by moving into respective folders</li>
+<li>Extended documentation</li>
+<li>Increase test coverage</li>
+<li>Fixed calculateLateralDimensions()</li>
+<li>Extended extractSituation() by timeIndex parameter</li>
+<li>Support for GCC 4.8</li>
+<li>Harmonized library and git repo name by renaming ad_rss_lib -&gt; ad-rss-lib</li>
+</ul>
+<h2 id="release-100">Release 1.0.0<a class="headerlink" href="#release-100" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Initial release</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../FAQ/" class="btn btn-neutral" title="FAQ"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/intel/ad-rss-lib/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../FAQ/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

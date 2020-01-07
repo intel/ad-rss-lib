@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Overview - Intel ad-rss-lib</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Overview";
+    var mkdocs_page_input_path = "background/Overview.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Intel ad-rss-lib</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Background</span>
+    <ul class="subnav">
+                <li class=" current">
+                    
+    <a class="current" href="./">Overview</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#introduction">Introduction</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#rss-summary">RSS Summary</a></li>
+        
+            <li><a class="toctree-l4" href="#purpose-and-scope-of-this-library">Purpose and Scope of this Library</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../HLD-ArchitectureOverview/">System Integration</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../HLD-Safety/">Safety</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../HLD-Security/">Security</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../Appendix-ParameterDiscussion/">Parameter Discussion</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../SupportedRssFeatures/">Supported RSS Features</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/html/index.html">Doxygen</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/">Code Coverage</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../FAQ/">FAQ</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../CHANGELOG/">Release Notes</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Intel ad-rss-lib</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Background &raquo;</li>
+        
+      
+    
+    <li>Overview</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/intel/ad-rss-lib/edit/master/doc/background/Overview.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1>Overview</h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>The Responsibility-Sensitive Safety (RSS) model is designed to formalize and
+contextualize human judgment regarding all multi-agent driving situations and
+dilemmas. RSS formalizes terms like dangerous situations, proper response and
+notion of blame in a mathematical way. From planning and decision-making
+perspective, RSS ensures that the AD system will not issue a command that would
+lead to an accident.</p>
+<h3 id="rss-summary">RSS Summary<a class="headerlink" href="#rss-summary" title="Permanent link">&para;</a></h3>
+<p>RSS as described <a href="https://arxiv.org/abs/1708.06374">here</a>, can be summarized
+as follows:</p>
+<ol>
+<li>
+<p>RSS continuously monitors the <em>current</em> state of the environment, in order
+to determine if the ego vehicle is <em>currently</em> in a safe state. If the ego
+vehicle is not in a safe state, RSS will provide a response action that will
+bring the car back into a safe state. As a result, in case of an accident, the
+ego vehicle cannot be blamed responsible, as it was not causing the collision.</p>
+</li>
+<li>
+<p>A state is regarded as <em>safe</em>, if the ego vehicle is not causing a collision
+with another object, under the worst case assumption that the ego vehicle will
+accelerate (depending on the situation this can be also a deceleration) at
+maximum possible speed during its response time. Hence, RSS does not take the
+output of the driving policy into account. However, as RSS uses worst case
+assumption on reaction time, acceleration etc., it is guaranteed that, no valid
+action of the driving policy can bring the vehicle into an unsafe state, if RSS
+regards the current situation as safe.</p>
+</li>
+<li>
+<p>If the ego vehicle is in a <em>dangerous</em> situation, RSS will assure a proper
+reaction, that will bring the car back into a safe state. Therefore, it will
+impose proper restrictions for the longitudinal and lateral accelerations of
+the driving command, that is send to the ego vehicle. Note that this will
+assure that the vehicle reacts correctly, but the driving policy still has the
+chance to solve the dangerous situation on a more elaborate way, as long as the
+desired action is within the RSS limits. The reason is that RSS has only basic
+information about the environment, whereas the driving policy can use much more
+information, and is able to perform much more sophisticated path finding
+strategies.</p>
+</li>
+<li>
+<p>RSS differentiates between <em>longitudinal</em> and <em>lateral</em> conflicts. A
+longitudinal conflict means that the distance between the ego vehicle and an
+object in front or in the back of the ego vehicle is smaller than the
+longitudinal safety distance. Similarly, a lateral conflict arises, if the
+distance to the left or right of the ego vehicle to another object is less than
+the required lateral safety margin. Depending on the type of conflict, RSS
+requires a different response.</p>
+</li>
+<li>
+<p>In addition, RSS differentiates between normal (single- or multi-lane)
+roads, intersections and unstructured roads (e.g. parking areas). Depending on
+the type of road, the required response for a conflict is different.</p>
+</li>
+<li>
+<p>Objects are classified into <em>Vulnerable Road Users</em> (e.g. pedestrians) and
+other (dynamic) traffic objects. The reason for this separation is that the
+first object group requires special safety considerations, as for example
+pedestrians may have unknown routes, compared to vehicles.</p>
+</li>
+<li>
+<p>RSS is not about:</p>
+<ul>
+<li>How to get "good enough" sensor data. It is about the usage, which may impose
+  some sensor requirements.</li>
+<li>Avoiding collisions, if other traffic participants show a completely erratic
+  driving behavior. Instead, it is about ensuring that the ego vehicle cannot
+  be blamed for the accident.</li>
+</ul>
+</li>
+</ol>
+<h3 id="purpose-and-scope-of-this-library">Purpose and Scope of this Library<a class="headerlink" href="#purpose-and-scope-of-this-library" title="Permanent link">&para;</a></h3>
+<p>The design of the library at hand is based on the academic paper
+<a href="https://arxiv.org/abs/1708.06374"><em>"On a Formal Model of Safe and Scalable Self-driving Cars"</em></a>.
+The library provides a C++ implementation of RSS according to the aforementioned
+summary. The key component of this implementation is called <em>"ad-rss-lib"</em>.
+This library receives (post-processed) sensor information and provides actuator
+command restrictions as output.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="" src="../../images/ad-rss-lib-Integrate_Into_Sense-Plan-Act.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>ad-rss-lib (implemented in the library) and its interfaces to the outside world</em></td>
+</tr>
+</tbody>
+</table>
+<p>In summary, the ad-rss-lib receives an object list, with information about all
+objects in the surrounding environment of the ego vehicle. Then, the ad-rss-lib
+creates an object - ego vehicle pair, for each object. This pair is usually
+referred to as <em>"Situation"</em>. For all situations, the aforementioned RSS checks
+are performed and a proper response is calculated. Finally, one overall
+response is computed by the ad-rss-lib, and the corresponding actuator command
+restrictions (i.e. lateral and longitudinal acceleration restrictions) are sent
+out.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The conversion from sensor data to the object list required by the ad-rss-lib,
+as well as the conversion of the actuator command restrictions to real driving
+commands, have to be implemented by the user of this library, as these parts
+heavily depend on the actual vehicle setup.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The current scope of the provided implementation is:</p>
+<ul>
+<li>Standalone C++-library containing the implementation of the ad-rss-lib</li>
+<li>The ad-rss-lib covers multi-lane roads and intersections</li>
+<li>Code quality is assured by automated testing with test coverage of
+100% on methods and 80% on branches as well as static code analysis</li>
+<li>The library is intended for the research community.</li>
+</ul>
+</div>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../HLD-KeyDesignDecisionsAndAlternatives/" class="btn btn-neutral float-right" title="Design Discussions">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../.." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/intel/ad-rss-lib/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../.." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../HLD-KeyDesignDecisionsAndAlternatives/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>
