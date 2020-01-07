@@ -39,9 +39,7 @@ mkdir gh-pages/documentation
 mkdir gh-pages/coverage
 cp -r coverage/* gh-pages/coverage/
 cp -r build/doc/apidoc/* gh-pages/doxygen
-cp *.md gh-pages
-cp -r doc/images gh-pages/documentation/
-cp doc/Main.html gh-pages/documentation/
+cp -r site/* gh-pages/
 git add gh-pages/
 git commit -m "Dummy commit" --no-edit
 git clean -fd
