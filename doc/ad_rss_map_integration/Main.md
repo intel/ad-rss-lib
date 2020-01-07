@@ -31,7 +31,7 @@ nor it is claiming to be the only way of doing that. It's rather a piece of soft
 to perform more thoroughly analysis within a simulation framework like
 e.g. [CARLA driving simulator](https://carla.org).
 
-This library makes use of the [*ad_map_access*](https://github.carla-simulator/map) interface
+This library makes use of the [*ad_map_access*](https://ad-map-access.readthedocs.io) interface
 to interact with AD map data: read the AD map data from the
 [OpenDRIVE](https://www.asam.net/standards/detail/opendrive/) maps provided with *CARLA*,
 perform required matching, planning and analysis operations.
@@ -40,10 +40,10 @@ perform required matching, planning and analysis operations.
 The high level design documentation provides more insights on the architecture and functionality
 of this library.
 
-1. [Construction of the RSS Scenes](https://intel.github.io/ad-rss-map-integration/ConstructRSSScenes/index.html)
-2. [Handling of road boundaries](https://intel.github.io/ad-rss-map-integration/HandleRoadBoundaries/index.html)
+1. [Construction of the RSS Scenes](https://intel.github.io/ad-rss-lib/ad-rss-map-integration/ConstructRSSScenes/index.html)
+2. [Handling of road boundaries](https://intel.github.io/ad-rss-lib/ad-rss-map-integration/HandleRoadBoundaries/index.html)
 
 ## API documentation <a name="apidoc"></a>
 Detailed documentation on API level is available via
-[Doxygen](https://intel.github.io/ad-rss-map-integration/doxygen/html/index.html)
+[Doxygen](https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/index.html)
 documentation within the code.

@@ -1,0 +1,41 @@
+site_name: Intel ad-rss-lib
+repo_url: https://github.com/intel/ad-rss-lib
+docs_dir: doc
+edit_uri: 'edit/master/doc/'
+theme: readthedocs
+
+nav:
+- Home: index.md
+- Background:
+  - Overview: background/Overview.md
+  - Design Discussions: background/HLD-KeyDesignDecisionsAndAlternatives.md
+  - System Integration: background/HLD-ArchitectureOverview.md
+  - Safety: background/HLD-Safety.md
+  - Security: background/HLD-Security.md
+  - Parameter Discussion: background/Appendix-ParameterDiscussion.md
+  - Supported RSS Features: background/SupportedRssFeatures.md
+- Python Integration: ad_rss_python/README.md
+- Map Integration:
+  - Overview: ad_rss_map_integration/Main.md
+  - Construction of the RSS Scenes: ad_rss_map_integration/ConstructRSSScenes.md
+  - Handling of road boundaries: ad_rss_map_integration/HandleRoadBoundaries.md
+- Doxygen: 'https://intel.github.io/ad-rss-lib/doxygen/html/index.html'
+- Code Coverage: 'https://intel.github.io/ad-rss-lib/coverage/'
+- FAQ: FAQ.md
+- Release Notes: CHANGELOG.md
+
+#extra_css: [extra.css]
+
+extra_javascript:
+  - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
+
+markdown_extensions:
+  - admonition
+  - markdown_include.include:
+      base_path: '.'
+  - toc:
+      permalink: true
+      toc_depth: 2-3
+  - pymdownx.emoji
+  - pymdownx.arithmatex
+  - mdx_truly_sane_lists

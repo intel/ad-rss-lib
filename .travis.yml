@@ -62,15 +62,17 @@ matrix:
             - ruby
             - rubygems
             - ruby-dev
+            - python-pip
       before_install:
-        - gem install coderay
+        - pip install --user mkdocs>=1.0 markdown-include pymdown-extensions pygments mdx_truly_sane_lists
       script:
         - mkdir build
         - cd build
         - cmake .. -DBUILD_DOC=ON
         - make apidoc
-        - cd ../doc
-        - asciidoctor Main.adoc
+        - cd ..
+        - export PATH=$PATH:~/.local/lib/python2.7/site-packages/mkdocs/
+        - mkdocs build
       after_failures:
         - tail --lines=2000 build.log
 
@@ -118,8 +120,9 @@ matrix:
             - ruby
             - rubygems
             - ruby-dev
+            - python-pip
       before_install:
-        - gem install coderay
+        - pip install --user mkdocs>=1.0 markdown-include pymdown-extensions pygments mdx_truly_sane_lists
       script:
         - mkdir build
         - cd build
@@ -127,9 +130,9 @@ matrix:
         - make
         - ctest -V
         - make apidoc > apidoc_build.log 2>&1
-        - cd ../doc
-        - asciidoctor Main.adoc
         - cd ..
+        - export PATH=$PATH:~/.local/lib/python2.7/site-packages/mkdocs/
+        - mkdocs build
       after_script:
         - bash .github/.travis/code_coverage.sh
         - bash .github/.travis/deploy.sh

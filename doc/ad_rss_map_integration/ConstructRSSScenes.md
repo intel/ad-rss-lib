@@ -1,4 +1,4 @@
-## Construction of the RSS Scenes between two vehicles <a name="rssscenes"></a>
+# Construction of the RSS Scenes between two vehicles <a name="rssscenes"></a>
 
 The RSS core implementation (*ad_rss*) proposes a situation based coordinate system to
 perform the RSS calculations between two vehicles. This library provides an exemplary
@@ -14,7 +14,7 @@ coordinate system.
 1. [Construct situations](#constructsituations)
 2. [Construct Road Area](#constructroadarea)
 3. [Convert Vehicle Data](#convertvehicledata)
-4. [Consider Speed Limits])(#considerspeedlimits)
+4. [Consider Speed Limits](#considerspeedlimits)
 
 ### Construction of the individual situations <a name="constructsituations"></a>
 In general, the real world road network is far more complex than just one straight road:
@@ -178,9 +178,9 @@ the actual calculation of metric bounding box and metric distances within the ro
 ##### Metrics of road segments within Road Area
 The overall metric minima/maxima of the road segment at index r ($RS_{min}^r, RS_{max}^r$) is calculated by combination of the minima/maxima ($LS_{min},LS_{max}$) of the contained lane segments:
 
-$RS_{lon,min}^r = \min_{l}⁡(LS_{lon,min}^{r,l})$
+$RS_{lon,min}^r = \min\limits_{l}⁡(LS_{lon,min}^{r,l})$
 
-$RS_{lon,max}^r= \max_{l}⁡(LS_{lon,max}^{r,l})$
+$RS_{lon,max}^r= \max\limits_{l}⁡(LS_{lon,max}^{r,l})$
 
 $RS_{lat,min}^r=0$
 
@@ -192,28 +192,28 @@ $RA_{lon,min} = \sum_r RS_{lon,min}^r$
 
 $RA_{lon,max} = \sum_r RS_{lon,max}^r$
 
-$RA_{lat,min} = \min_r⁡ (RS_{lat,min}^r)=0$
+$RA_{lat,min} = \min\limits_{r}⁡ (RS_{lat,min}^r)=0$
 
-$RA_{lat,max} = \max_r⁡ (RS_{lat,max}^r)$
+$RA_{lat,max} = \max\limits_{r}⁡ (RS_{lat,max}^r)$
 
 ##### Metrics bounding box of vehicles within Road Area
 In a similar manner the vehicle parametric bounding box definitions ($PBB$) can be used to calculate
 the minimal and maximal metric position in longitudinal direction of the vehicle within of the whole road area: the minimal longitudinal position of a vehicle ($BB_{min}^{lon}$) is calculated by taking the sum of all minimal metric lengths of all previous road segments, plus the parametric scaled minimal length of the first road segment it touches.
 
-$BB_{lon,min} = \sum_{r=0}^{i-1} RS_{lon,min}^r + \min_l⁡ ( PBB_{lon,min}^{i,l} * LS_{lon,min}^{i,l} )$ , with i: first road segment the vehicle touches.
+$BB_{lon,min} = \sum_{r=0}^{i-1} RS_{lon,min}^r + \min\limits_{l}⁡ ( PBB_{lon,min}^{i,l} * LS_{lon,min}^{i,l} )$ , with i: first road segment the vehicle touches.
 
-$BB_{lon,max} = \sum_{r=0}^{i-1} RS_{lon,max}^r + \max_l ( PBB_{lon,max}^{i,l} * LS_{(lon,max}^{i,l})$ , with i: last road segment the vehicle touches.
+$BB_{lon,max} = \sum_{r=0}^{i-1} RS_{lon,max}^r + \max\limits_{l} ( PBB_{lon,max}^{i,l} * LS_{(lon,max}^{i,l})$ , with i: last road segment the vehicle touches.
 
-$BB_{lat,min} = \min_r⁡ (\sum_{l=0}^{i-1} LS_{lat,min}^{r,l} + (PBB_{lat,min}^{r,i}* LS_{lat,min}^{r,i}) )$ , with i: first lane segment within road segment r the vehicle touches.
+$BB_{lat,min} = \min\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,min}^{r,l} + (PBB_{lat,min}^{r,i}* LS_{lat,min}^{r,i}) )$ , with i: first lane segment within road segment r the vehicle touches.
 
-$BB_{lat,max}^ = \max_r⁡ (\sum_{l=0}^{i-1} LS_{lat,max}^{r,l} + (PBB_{lat,max}^{r,i} * LS_{lat,max}^{r,i})$, with i: last lane segment within road segment r the vehicle touches.
+$BB_{lat,max} = \max\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,max}^{r,l} + (PBB_{lat,max}^{r,i} * LS_{lat,max}^{r,i})$, with i: last lane segment within road segment r the vehicle touches.
 
 ##### Metrics distances between vehicles
 Having the vehicles metric bounding boxes within the road area at hand, it is straight forward to calculate the current longitudinal and lateral distances of the vehicles towards each other. Let A be the upper left vehicle and B the lower right vehicle in the sketched road area above, then the distances are defined by:
 
-$d_{lon} = BB_{lon,min}^B -BB_{lon,max}^A$
+$d_{lon} = BB_{lon,min}^B - BB_{lon,max}^A$
 
-$d_lat = BB_{lat,min}^B - BB_{lat,max}^A$
+$d_{lat} = BB_{lat,min}^B - BB_{lat,max}^A$
 
 ##### Metrics distances in respect to the intersection
 The calculation of the intersection distance of a vehicle can then be performed in the following way:

@@ -1,5 +1,5 @@
 # Overview
-// intended empty
+
 
 ## Introduction
 The Responsibility-Sensitive Safety (RSS) model is designed to formalize and
@@ -10,7 +10,7 @@ perspective, RSS ensures that the AD system will not issue a command that would
 lead to an accident.
 
 ### RSS Summary
-The available RSS publications (see <<Table::Terminology>>), can be summarized
+RSS as described [here](https://arxiv.org/abs/1708.06374), can be summarized
 as follows:
 
 1. RSS continuously monitors the _current_ state of the environment, in order
@@ -57,23 +57,23 @@ first object group requires special safety considerations, as for example
 pedestrians may have unknown routes, compared to vehicles.
 
 7. RSS is not about:
-- How to get "good enough" sensor data. It is about the usage, which may impose
-  some sensor requirements.
-- Avoiding collisions, if other traffic participants show a completely erratic
-  driving behavior. Instead, it is about ensuring that the ego vehicle cannot
-  be blamed for the accident.
+  * How to get "good enough" sensor data. It is about the usage, which may impose
+    some sensor requirements.
+  * Avoiding collisions, if other traffic participants show a completely erratic
+    driving behavior. Instead, it is about ensuring that the ego vehicle cannot
+    be blamed for the accident.
 
 ### Purpose and Scope of this Library
 The design of the library at hand is based on the academic paper
-_"On a Formal Model of Safe and Scalable Self-driving Cars"_.
+[_"On a Formal Model of Safe and Scalable Self-driving Cars"_](https://arxiv.org/abs/1708.06374).
 The library provides a C++ implementation of RSS according to the aforementioned
 summary. The key component of this implementation is called _"ad-rss-lib"_.
 This library receives (post-processed) sensor information and provides actuator
 command restrictions as output.
 
-[[Figure:Library]]
-.ad-rss-lib (implemented in the library) and its interfaces to the outside world
-image::ad-rss-lib-Integrate_Into_Sense-Plan-Act.png[caption="Figure {counter:figure}. "]
+| ![](../images/ad-rss-lib-Integrate_Into_Sense-Plan-Act.png) | 
+|:--:| 
+| *ad-rss-lib (implemented in the library) and its interfaces to the outside world* |
 
 In summary, the ad-rss-lib receives an object list, with information about all
 objects in the surrounding environment of the ego vehicle. Then, the ad-rss-lib
@@ -82,49 +82,21 @@ referred to as _"Situation"_. For all situations, the aforementioned RSS checks
 are performed and a proper response is calculated. Finally, one overall
 response is computed by the ad-rss-lib, and the corresponding actuator command
 restrictions (i.e. lateral and longitudinal acceleration restrictions) are sent
-out (see <<Figure:Library>>).
+out.
 
-[NOTE]
-====
-The conversion from sensor data to the object list required by the ad-rss-lib,
-as well as the conversion of the actuator command restrictions to real driving
-commands, have to be implemented by the user of this library, as these parts
-heavily depend on the actual vehicle setup.
-====
+!!! Note
+    The conversion from sensor data to the object list required by the ad-rss-lib,
+    as well as the conversion of the actuator command restrictions to real driving
+    commands, have to be implemented by the user of this library, as these parts
+    heavily depend on the actual vehicle setup.
 
-[NOTE]
-====
-The current scope of the provided implementation is:
 
- * Standalone C++-library containing the implementation of the ad-rss-lib
- * The ad-rss-lib covers multi-lane roads and intersections
- * Code quality is assured by automated testing with test coverage of
-   100% on methods and 80% on branches as well as static code analysis
-====
+!!! Note
+    The current scope of the provided implementation is:
 
-[IMPORTANT]
-====
-The initial design does not yet cover:
+    * Standalone C++-library containing the implementation of the ad-rss-lib
+    * The ad-rss-lib covers multi-lane roads and intersections
+    * Code quality is assured by automated testing with test coverage of
+    100% on methods and 80% on branches as well as static code analysis
+    * The library is intended for the research community.
 
-* Compensating for improper behavior of others
-* Lateral conflicts in case of intersections
-* Respecting occlusions
-* Checks with Vulnerable Road Users
-* Checks for unstructured roads, e.g. parking spaces
-====
-
-### Overview of the Document
-The remainder of this document is structured as follows:
-
-- <<Section::HLD::Implementation>> provides an overview of the RSS
-  implementation provided within the library. It discusses how each situation
-  is handled.
-- <<Section::HLD::SystemArchitecture>> introduces the system
-  architecture for RSS and the interfaces of the ad-rss-lib to other components.
-- <<Section::HLD::SoftwareArchitecture>> provides a description of the
-  software architecture, included the interface and data type definitions. If
-  you would like to integrate the library into your system, this section, as
-  well as <<Section::HLD::SystemArchitecture>> are of particular
-  importance.
-- <<Section::HLD::Security>> provides some notes on security design aspects
-- <<Section::HLD::Safety>> provides some notes on safety design aspects
