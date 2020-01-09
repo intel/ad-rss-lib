@@ -14,6 +14,7 @@ coordinate system.
 1. [Construct situations](#constructsituations)
 2. [Construct Road Area](#constructroadarea)
 3. [Convert Vehicle Data](#convertvehicledata)
+4. [Consider Speed Limits])(#considerspeedlimits)
 
 ### Construction of the individual situations <a name="constructsituations"></a>
 In general, the real world road network is far more complex than just one straight road:
@@ -224,3 +225,25 @@ $d_{exit} = \sum_{r=0}^i RS_{lon,max}^r - BB_{lon,min}$ , with i: last road segm
 Having the vehicles metric bounding boxes and the distances to the intersection at hand, it is straight forward to calculate the current longitudinal distance of the vehicles towards each other in respect to the intersection. Let A be the vehicle coming from west and B the vehicle coming from south in the figure above with $d_{enter}^A > d_{enter}^B$, then the distance can be calculated by:
 
 $d_{lon} = \max⁡ (0, d_{enter}^A - d_{enter}^B - (BB_{lon,max}^B -BB_{lon,min}^B))$
+
+
+### Consider speed limits <a name="considerspeedlimits"></a>
+Since the [RSS paper](https://arxiv.org/abs/1708.06374) is assuming worst-case behavior of
+other traffic participants, vehicles are allowed to accelerate with maximum possible acceleration
+within their reaction time. Especially in urban scenarios this can lead to unnecessarily big safety
+distances if expecting that fast driving vehicles are able to accelerate even beyond speed limits.
+As it's unreasonable behavior of others to accelerate far beyond the maximum allowed speed,
+the construction of the scenes with ad::rss::map::RssSceneCreation::appendScenes() supports
+to select between different modes to consider the speed limit within RSS accelerated movement,
+by setting the ad::rss::world::RssDynamics dynamics accordingly:
+
+* None: Do not change the objects maxSpeed parameter of the RssDynamics
+* ExactSpeedLimit: Set the objects maxSpeed parameter of the RssDynamics to the maximal
+  allowed speed of the relevant road section
+* IncreasedSpeedLimit5: Set the objects maxSpeed parameter of the RssDynamics to the maximal
+  allowed speed of the relevant road section + 5 percent
+* IncreasedSpeedLimit10: Set the objects maxSpeed parameter of the RssDynamics to the maximal
+  allowed speed of the relevant road section + 10 percent
+
+In general, this extends the scope of the RSS paper, but might be a reasonable change to improve
+acceptance within society.

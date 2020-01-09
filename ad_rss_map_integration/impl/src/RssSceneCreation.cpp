@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -45,7 +45,8 @@ const ::ad::physics::Duration cMaxSceneDuration(20.);
 void convertToRss(::ad::map::route::LaneInterval const &laneInterval,
                   ::ad::map::lane::LaneIdSet const &intersectionLanes,
                   ::ad::rss::world::LaneSegment &rssLaneSegment,
-                  ::ad::map::lane::LaneIdSet &negativeRouteDirectionLanes)
+                  ::ad::map::lane::LaneIdSet &negativeRouteDirectionLanes,
+                  ::ad::physics::Speed &maxSpeed)
 {
   const auto lane = ::ad::map::lane::getLane(laneInterval.laneId);
 
@@ -72,12 +73,18 @@ void convertToRss(::ad::map::route::LaneInterval const &laneInterval,
   }
   rssLaneSegment.length = lane.lengthRange;
   rssLaneSegment.width = lane.widthRange;
+
+  for (auto const &speedLimit : getSpeedLimits(laneInterval))
+  {
+    maxSpeed = std::max(maxSpeed, speedLimit.speedLimit);
+  }
 }
 
 void convertToRss(::ad::map::route::RoadSegment const &roadSegment,
                   ::ad::map::lane::LaneIdSet const &intersectionLanes,
                   ::ad::rss::world::RoadArea &area,
-                  ::ad::map::lane::LaneIdSet &negativeRouteDirectionLanes)
+                  ::ad::map::lane::LaneIdSet &negativeRouteDirectionLanes,
+                  ::ad::physics::Speed &maxSpeed)
 {
   ::ad::rss::world::RoadSegment rssRoadSegment;
   // RoadSegments are in strict order from right to left
@@ -87,40 +94,44 @@ void convertToRss(::ad::map::route::RoadSegment const &roadSegment,
        laneSegmentIter++)
   {
     ::ad::rss::world::LaneSegment rssLaneSegment;
-    convertToRss(laneSegmentIter->laneInterval, intersectionLanes, rssLaneSegment, negativeRouteDirectionLanes);
+    convertToRss(
+      laneSegmentIter->laneInterval, intersectionLanes, rssLaneSegment, negativeRouteDirectionLanes, maxSpeed);
     rssRoadSegment.push_back(rssLaneSegment);
   }
   area.push_back(rssRoadSegment);
 }
 
 ::ad::rss::world::RoadArea convertToRss(::ad::map::route::FullRoute const &route,
-                                        ::ad::map::lane::LaneIdSet &negativeRouteDirectionLanes)
+                                        ::ad::map::lane::LaneIdSet &negativeRouteDirectionLanes,
+                                        ::ad::physics::Speed &maxSpeed)
 {
   ::ad::rss::world::RoadArea area;
   for (const auto &roadSegment : route.roadSegments)
   {
-    convertToRss(roadSegment, ::ad::map::lane::LaneIdSet(), area, negativeRouteDirectionLanes);
+    convertToRss(roadSegment, ::ad::map::lane::LaneIdSet(), area, negativeRouteDirectionLanes, maxSpeed);
   }
   return area;
 }
 
 ::ad::rss::world::RoadArea convertToRss(::ad::map::route::FullRoute const &route,
                                         ::ad::map::intersection::IntersectionPtr intersection,
-                                        ::ad::map::lane::LaneIdSet &negativeRouteDirectionLanes)
+                                        ::ad::map::lane::LaneIdSet &negativeRouteDirectionLanes,
+                                        ::ad::physics::Speed &maxSpeed)
 {
   auto const findWaypointResult = ::ad::map::route::findNearestWaypoint(intersection->outgoingParaPoints(), route);
   ::ad::rss::world::RoadArea area;
   for (auto roadSegmentIter = route.roadSegments.begin(); roadSegmentIter != findWaypointResult.roadSegmentIterator;
        roadSegmentIter++)
   {
-    convertToRss(*roadSegmentIter, intersection->internalLanes(), area, negativeRouteDirectionLanes);
+    convertToRss(*roadSegmentIter, intersection->internalLanes(), area, negativeRouteDirectionLanes, maxSpeed);
   }
   return area;
 }
 
 void convertToRss(::ad::map::route::ConnectingSegment const &connectingSegment,
                   ::ad::rss::world::RoadArea &area,
-                  ::ad::map::lane::LaneIdSet &negativeRouteDirectionLanes)
+                  ::ad::map::lane::LaneIdSet &negativeRouteDirectionLanes,
+                  ::ad::physics::Speed &maxSpeed)
 {
   ::ad::rss::world::RoadSegment rssRoadSegment;
   // ConnectingSegments are in strict order from right to left
@@ -129,22 +140,58 @@ void convertToRss(::ad::map::route::ConnectingSegment const &connectingSegment,
        laneSegmentIter++)
   {
     ::ad::rss::world::LaneSegment rssLaneSegment;
-    convertToRss(
-      laneSegmentIter->laneInterval, ::ad::map::lane::LaneIdSet(), rssLaneSegment, negativeRouteDirectionLanes);
+    convertToRss(laneSegmentIter->laneInterval,
+                 ::ad::map::lane::LaneIdSet(),
+                 rssLaneSegment,
+                 negativeRouteDirectionLanes,
+                 maxSpeed);
     rssRoadSegment.push_back(rssLaneSegment);
   }
   area.push_back(rssRoadSegment);
 }
 
 ::ad::rss::world::RoadArea convertToRss(::ad::map::route::ConnectingRoute const &route,
-                                        ::ad::map::lane::LaneIdSet &negativeRouteDirectionLanes)
+                                        ::ad::map::lane::LaneIdSet &negativeRouteDirectionLanes,
+                                        ::ad::physics::Speed &maxSpeed)
 {
   ::ad::rss::world::RoadArea area;
   for (const auto &connectingSegment : route.connectingSegments)
   {
-    convertToRss(connectingSegment, area, negativeRouteDirectionLanes);
+    convertToRss(connectingSegment, area, negativeRouteDirectionLanes, maxSpeed);
   }
   return area;
+}
+
+void handleSpeedLimitRestriction(RestrictSpeedLimitMode const &restrictSpeedLimitMode,
+                                 ::ad::physics::Speed const &maxSpeedLimit,
+                                 ::ad::physics::Speed &maxSpeed)
+{
+  switch (restrictSpeedLimitMode)
+  {
+    case RestrictSpeedLimitMode::ExactSpeedLimit:
+      maxSpeed = std::max(maxSpeed, maxSpeedLimit);
+      break;
+    case RestrictSpeedLimitMode::IncreasedSpeedLimit5:
+      maxSpeed = std::max(maxSpeed, maxSpeedLimit * 1.05);
+      break;
+    case RestrictSpeedLimitMode::IncreasedSpeedLimit10:
+      maxSpeed = std::max(maxSpeed, maxSpeedLimit * 1.1);
+      break;
+    case RestrictSpeedLimitMode::None:
+    default:
+      break;
+  }
+}
+
+void handleSpeedLimitRestriction(RestrictSpeedLimitMode const &restrictSpeedLimitMode,
+                                 ::ad::physics::Speed const &maxSpeedLimit,
+                                 ::ad::rss::world::RssDynamics &objectRssDynamics)
+{
+  if (restrictSpeedLimitMode != RestrictSpeedLimitMode::None)
+  {
+    objectRssDynamics.maxSpeed = ::ad::physics::Speed(0.);
+  }
+  handleSpeedLimitRestriction(restrictSpeedLimitMode, maxSpeedLimit, objectRssDynamics.maxSpeed);
 }
 
 bool appendIntersectionScene(::ad::map::intersection::IntersectionPtr intersection,
@@ -158,8 +205,10 @@ bool appendIntersectionScene(::ad::map::intersection::IntersectionPtr intersecti
                              ::ad::map::match::MapMatchedObjectBoundingBox const &objectPosition,
                              ::ad::physics::Speed const &objectSpeed,
                              ::ad::rss::world::RssDynamics const &objectRssDynamics,
+                             RestrictSpeedLimitMode const &restrictSpeedLimitMode,
                              ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights,
-                             ::ad::rss::world::SceneVector &scenes)
+                             ::ad::rss::world::SceneVector &scenes,
+                             ::ad::physics::Speed &egoMaxSpeed)
 {
   ::ad::rss::world::Scene scene;
 
@@ -218,9 +267,13 @@ bool appendIntersectionScene(::ad::map::intersection::IntersectionPtr intersecti
   }
 
   ::ad::map::lane::LaneIdSet negativeRouteDirectionLanesEgoRoad;
-  scene.egoVehicleRoad = convertToRss(egoRoute, intersection, negativeRouteDirectionLanesEgoRoad);
+
+  ::ad::physics::Speed egoRoadSpeedLimit(0.);
+  scene.egoVehicleRoad = convertToRss(egoRoute, intersection, negativeRouteDirectionLanesEgoRoad, egoRoadSpeedLimit);
   ::ad::map::lane::LaneIdSet negativeRouteDirectionLanesIntersectingRoad;
-  scene.intersectingRoad = convertToRss(objectRoute, intersection, negativeRouteDirectionLanesIntersectingRoad);
+  ::ad::physics::Speed objectRoadSpeedLimit(0.);
+  scene.intersectingRoad
+    = convertToRss(objectRoute, intersection, negativeRouteDirectionLanesIntersectingRoad, objectRoadSpeedLimit);
   getLogger()->debug("RssSceneCreation::appendIntersectionScene[ {} ]>> situation {} ego road area {} ",
                      objectId,
                      scene.situationType,
@@ -265,6 +318,10 @@ bool appendIntersectionScene(::ad::map::intersection::IntersectionPtr intersecti
     return false;
   }
   getLogger()->debug("RssSceneCreation::appendNonIntersectionScene[ {} ]>> ego {} ", objectId, scene.egoVehicle);
+
+  handleSpeedLimitRestriction(restrictSpeedLimitMode, objectRoadSpeedLimit, scene.objectRssDynamics);
+  handleSpeedLimitRestriction(restrictSpeedLimitMode, egoRoadSpeedLimit, egoMaxSpeed);
+
   scenes.push_back(scene);
   return true;
 }
@@ -279,12 +336,15 @@ bool appendNonIntersectionScene(::ad::map::route::ConnectingRoute const &connect
                                 ::ad::map::match::MapMatchedObjectBoundingBox const &objectPosition,
                                 ::ad::physics::Speed const &objectSpeed,
                                 ::ad::rss::world::RssDynamics const &objectRssDynamics,
-                                ::ad::rss::world::SceneVector &scenes)
+                                RestrictSpeedLimitMode const &restrictSpeedLimitMode,
+                                ::ad::rss::world::SceneVector &scenes,
+                                ::ad::physics::Speed &egoMaxSpeed)
 {
   ::ad::rss::world::Scene scene;
   scene.situationType = situationType;
   ::ad::map::lane::LaneIdSet negativeRouteDirectionLanes;
-  scene.egoVehicleRoad = convertToRss(connectingRoute, negativeRouteDirectionLanes);
+  ::ad::physics::Speed speedLimit(0.);
+  scene.egoVehicleRoad = convertToRss(connectingRoute, negativeRouteDirectionLanes, speedLimit);
 
   getLogger()->debug("RssSceneCreation::appendNonIntersectionScene[ {} ]>> situation {} road area {} ",
                      objectId,
@@ -321,6 +381,9 @@ bool appendNonIntersectionScene(::ad::map::route::ConnectingRoute const &connect
     return false;
   }
   getLogger()->debug("RssSceneCreation::appendNonIntersectionScene[ {} ]>> ego {} ", objectId, scene.egoVehicle);
+
+  handleSpeedLimitRestriction(restrictSpeedLimitMode, speedLimit, scene.objectRssDynamics);
+  handleSpeedLimitRestriction(restrictSpeedLimitMode, speedLimit, egoMaxSpeed);
 
   scenes.push_back(scene);
   return true;
@@ -387,8 +450,10 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                   ::ad::map::match::MapMatchedObjectBoundingBox const &objectPosition,
                   ::ad::physics::Speed const &objectSpeed,
                   ::ad::rss::world::RssDynamics const &objectRssDynamics,
+                  RestrictSpeedLimitMode const &restrictSpeedLimitMode,
                   ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights,
-                  ::ad::rss::world::SceneVector &scenes)
+                  ::ad::rss::world::SceneVector &scenes,
+                  ::ad::physics::Speed &egoMaxSpeed)
 {
   bool result = false;
   auto const scenesSizeBefore = scenes.size();
@@ -396,7 +461,8 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
   //   Calculate shortest route (ignore driving direction) between the two objects MapMatchedObjectBoundingBox
   auto const connectingRoute = ::ad::map::route::planning::calculateConnectingRoute(egoPosition, objectPosition);
 
-  // todo: connecting route calculation has to consider Y routes, too (-> ramps!)
+  // todo: connecting route calculation has to consider Y routes, too
+  // currently cars driving on routes that merge together into one route (i.e. ramps) don't get a connecting route, yet!
 
   if (connectingRoute.connectingSegments.empty())
   {
@@ -457,7 +523,9 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                                           objectPosition,
                                           objectSpeed,
                                           objectRssDynamics,
-                                          scenes);
+                                          restrictSpeedLimitMode,
+                                          scenes,
+                                          egoMaxSpeed);
     }
     else
     {
@@ -486,7 +554,9 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                                         objectPosition,
                                         objectSpeed,
                                         objectRssDynamics,
-                                        scenes);
+                                        restrictSpeedLimitMode,
+                                        scenes,
+                                        egoMaxSpeed);
   }
   else
   {
@@ -523,7 +593,9 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                                             objectPosition,
                                             objectSpeed,
                                             objectRssDynamics,
-                                            scenes);
+                                            restrictSpeedLimitMode,
+                                            scenes,
+                                            egoMaxSpeed);
       }
       else
       {
@@ -552,7 +624,9 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                                                             objectPosition,
                                                             objectSpeed,
                                                             objectRssDynamics,
-                                                            scenes);
+                                                            restrictSpeedLimitMode,
+                                                            scenes,
+                                                            egoMaxSpeed);
             }
             else if (intersection->objectRouteOppositeToIntersectionRoute(objectRoute)
                      || !intersection->objectRouteCrossesIntersectionRoute(objectRoute))
@@ -576,7 +650,9 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                                                               objectPosition,
                                                               objectSpeed,
                                                               objectRssDynamics,
-                                                              scenes);
+                                                              restrictSpeedLimitMode,
+                                                              scenes,
+                                                              egoMaxSpeed);
               }
               else
               {
@@ -609,8 +685,10 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                                                          objectPosition,
                                                          objectSpeed,
                                                          objectRssDynamics,
+                                                         restrictSpeedLimitMode,
                                                          greenTrafficLights,
-                                                         scenes);
+                                                         scenes,
+                                                         egoMaxSpeed);
             }
           }
         }
@@ -673,7 +751,8 @@ bool appendRoadBoundaries(::ad::rss::world::ObjectId const &egoId,
   ::ad::rss::world::Scene rightBorderScene;
   rightBorderScene.situationType = ::ad::rss::situation::SituationType::SameDirection;
   ::ad::map::lane::LaneIdSet negativeRouteDirectionLanes;
-  rightBorderScene.egoVehicleRoad = convertToRss(route, negativeRouteDirectionLanes);
+  ::ad::physics::Speed speedLimit(0.);
+  rightBorderScene.egoVehicleRoad = convertToRss(route, negativeRouteDirectionLanes, speedLimit);
   ::ad::rss::world::Scene leftBorderScene;
   leftBorderScene.situationType = ::ad::rss::situation::SituationType::SameDirection;
   leftBorderScene.egoVehicleRoad = rightBorderScene.egoVehicleRoad;
