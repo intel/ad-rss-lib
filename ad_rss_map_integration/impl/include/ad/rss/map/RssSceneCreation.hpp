@@ -13,7 +13,7 @@
 
 #include <ad/map/match/Types.hpp>
 #include <ad/map/route/Types.hpp>
-#include <ad/rss/world/SceneVector.hpp>
+#include <ad/rss/world/WorldModel.hpp>
 
 /*!
  * @brief namespace rss
@@ -28,9 +28,42 @@ namespace rss {
  */
 namespace map {
 /*!
- * @brief namespace providing supporting functions to create a scene
+ * @brief namespace providing supporting functions to create a world model and its scenes.
  */
 namespace RssSceneCreation {
+
+/**
+ * @brief create a world model object and initialize with ego dynamics
+ *
+ * The egoRssDynamics.maxSpeed is initialized to zero to enable the handling of
+ * RestrictSpeedLimitMode within appendScenes().
+ * After all scenes are appended, call finalizeWorldModel before calling into core ad::rss library.
+ *
+ * @param[in] timeIndex the time index to be applied
+ * @param[in] egoRssDynamics the ego vehicles' RssDynamics to be applied
+ *
+ * @returns empty worldModel object with filled egoVehicleRssDynamics with egoVehicleRssDynamics.maxSpeed=0
+ *   to prepare for following appendScene() calls.
+ */
+::ad::rss::world::WorldModel initializeWorldModel(::ad::rss::world::TimeIndex const &timeIndex,
+                                                  ::ad::rss::world::RssDynamics const &egoRssDynamics);
+
+/**
+ * @brief finalize the world model object and correct ego dynamics maxSpeed if required
+ *
+ * If there was no relevant situation added in between the egoVehicleRssDynamics.maxSpeed
+ * might still be zero (\a see initializeWorldModel() call).
+ *
+ * Furthermore it is cross-checked, that the final worldModel actually is correct.
+ *
+ * @param[in] egoRssDynamics the ego vehicles' RssDynamics to be applied
+ * @param[in/out] worldModel the world model to be finalized. If egoVehicleRssDynamics.maxSpeed wasn't touched
+ *   by appendScene() calls in between (is still zero), egoVehicleRssDynamics.maxSpeed is reset
+ *   to the provided egoRssDynamics.maxSpeed value.
+ *
+ * @returns \c true if the final world model check succeeded.
+ */
+bool finalizeWorldModel(::ad::rss::world::RssDynamics const &egoRssDynamics, ::ad::rss::world::WorldModel &worldModel);
 
 /**
  * @brief enumeration defining the modes of speed limit consideration within RSS accelerated movement.
@@ -80,11 +113,12 @@ enum class RestrictSpeedLimitMode
  * parameter
  * @param[in] greenTrafficLights the list of known green traffic lights.
  *   Required to derive the correct priority rule for the ego vehicle when approaching a traffic light intersection.
- * @param[in/out] scenes the list of scenes where the newly created scenes are appended
- * @param[in/out] egoMaxSpeed the maximum speed to be considered for the ego vehicle.
- *   This value might be increased if the restrictSpeedLimitMode != RestrictSpeedLimitMode::None and the speed limit
- * calculation for
- *   at least one of the relevant road sections exceed the input value of egoMaxSpeed.
+ * @param[in/out] worldModel the world model where the newly created scenes are appended and
+ * egoVehicleRssDynamics.maxSpeed is increased
+ *   if the restrictSpeedLimitMode != RestrictSpeedLimitMode::None and the speed limit calculation for
+ *   at least one of the relevant road sections exceed the current value of egoVehicleRssDynamics.maxSpeed.
+ *
+ * @returns \c true if the operation succeeded.
  */
 bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                   ::ad::map::match::MapMatchedObjectBoundingBox const &egoPosition,
@@ -97,8 +131,7 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                   ::ad::rss::world::RssDynamics const &objectRssDynamics,
                   RestrictSpeedLimitMode const &restrictSpeedLimitMode,
                   ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights,
-                  ::ad::rss::world::SceneVector &scenes,
-                  ::ad::physics::Speed &egoMaxSpeed);
+                  ::ad::rss::world::WorldModel &worldModel);
 
 /**
  * @brief enumeration defining the operation modes of appendRoadBoundaries() function.
@@ -132,7 +165,7 @@ bool appendRoadBoundaries(::ad::rss::world::ObjectId const &egoId,
                           ::ad::physics::Speed const &egoSpeed,
                           ::ad::map::route::FullRoute const &route,
                           AppendRoadBoundariesMode const operationMode,
-                          ::ad::rss::world::SceneVector &scenes);
+                          ::ad::rss::world::WorldModel &worldModel);
 
 } // namespace RssSceneCreation
 } // namespace map

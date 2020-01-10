@@ -42,6 +42,27 @@ namespace RssSceneCreation {
 const ::ad::physics::Duration cPredictionDurationSameDirection(5.);
 const ::ad::physics::Duration cMaxSceneDuration(20.);
 
+::ad::rss::world::WorldModel initializeWorldModel(::ad::rss::world::TimeIndex const &timeIndex,
+                                                  ::ad::rss::world::RssDynamics const &egoRssDynamics)
+{
+  ::ad::rss::world::WorldModel worldModel;
+  worldModel.timeIndex = timeIndex;
+  worldModel.egoVehicleRssDynamics = egoRssDynamics;
+  worldModel.egoVehicleRssDynamics.maxSpeed = ::ad::physics::Speed(0.);
+  return worldModel;
+}
+
+bool finalizeWorldModel(::ad::rss::world::RssDynamics const &egoRssDynamics, ::ad::rss::world::WorldModel &worldModel)
+{
+  if (worldModel.egoVehicleRssDynamics.maxSpeed == ::ad::physics::Speed(0.))
+  {
+    // if there was no relevant situation reset the max speed
+    worldModel.egoVehicleRssDynamics.maxSpeed = egoRssDynamics.maxSpeed;
+  }
+
+  return withinValidInputRange(worldModel);
+}
+
 void convertToRss(::ad::map::route::LaneInterval const &laneInterval,
                   ::ad::map::lane::LaneIdSet const &intersectionLanes,
                   ::ad::rss::world::LaneSegment &rssLaneSegment,
@@ -207,8 +228,7 @@ bool appendIntersectionScene(::ad::map::intersection::IntersectionPtr intersecti
                              ::ad::rss::world::RssDynamics const &objectRssDynamics,
                              RestrictSpeedLimitMode const &restrictSpeedLimitMode,
                              ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights,
-                             ::ad::rss::world::SceneVector &scenes,
-                             ::ad::physics::Speed &egoMaxSpeed)
+                             ::ad::rss::world::WorldModel &worldModel)
 {
   ::ad::rss::world::Scene scene;
 
@@ -320,9 +340,9 @@ bool appendIntersectionScene(::ad::map::intersection::IntersectionPtr intersecti
   getLogger()->debug("RssSceneCreation::appendNonIntersectionScene[ {} ]>> ego {} ", objectId, scene.egoVehicle);
 
   handleSpeedLimitRestriction(restrictSpeedLimitMode, objectRoadSpeedLimit, scene.objectRssDynamics);
-  handleSpeedLimitRestriction(restrictSpeedLimitMode, egoRoadSpeedLimit, egoMaxSpeed);
+  handleSpeedLimitRestriction(restrictSpeedLimitMode, egoRoadSpeedLimit, worldModel.egoVehicleRssDynamics.maxSpeed);
 
-  scenes.push_back(scene);
+  worldModel.scenes.push_back(scene);
   return true;
 }
 
@@ -337,8 +357,7 @@ bool appendNonIntersectionScene(::ad::map::route::ConnectingRoute const &connect
                                 ::ad::physics::Speed const &objectSpeed,
                                 ::ad::rss::world::RssDynamics const &objectRssDynamics,
                                 RestrictSpeedLimitMode const &restrictSpeedLimitMode,
-                                ::ad::rss::world::SceneVector &scenes,
-                                ::ad::physics::Speed &egoMaxSpeed)
+                                ::ad::rss::world::WorldModel &worldModel)
 {
   ::ad::rss::world::Scene scene;
   scene.situationType = situationType;
@@ -383,9 +402,9 @@ bool appendNonIntersectionScene(::ad::map::route::ConnectingRoute const &connect
   getLogger()->debug("RssSceneCreation::appendNonIntersectionScene[ {} ]>> ego {} ", objectId, scene.egoVehicle);
 
   handleSpeedLimitRestriction(restrictSpeedLimitMode, speedLimit, scene.objectRssDynamics);
-  handleSpeedLimitRestriction(restrictSpeedLimitMode, speedLimit, egoMaxSpeed);
+  handleSpeedLimitRestriction(restrictSpeedLimitMode, speedLimit, worldModel.egoVehicleRssDynamics.maxSpeed);
 
-  scenes.push_back(scene);
+  worldModel.scenes.push_back(scene);
   return true;
 }
 
@@ -397,7 +416,7 @@ bool appendNotRelevantScene(::ad::rss::world::ObjectId const &egoId,
                             ::ad::map::match::MapMatchedObjectBoundingBox const &objectPosition,
                             ::ad::physics::Speed const &objectSpeed,
                             ::ad::rss::world::RssDynamics const &objectRssDynamics,
-                            ::ad::rss::world::SceneVector &scenes)
+                            ::ad::rss::world::WorldModel &worldModel)
 {
   ::ad::rss::world::Scene scene;
   scene.situationType = ::ad::rss::situation::SituationType::NotRelevant;
@@ -437,7 +456,7 @@ bool appendNotRelevantScene(::ad::rss::world::ObjectId const &egoId,
   }
   getLogger()->debug("RssSceneCreation::appendNonIntersectionScene[ {} ]>> ego {} ", egoId, scene.egoVehicle);
 
-  scenes.push_back(scene);
+  worldModel.scenes.push_back(scene);
   return true;
 }
 
@@ -452,11 +471,10 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                   ::ad::rss::world::RssDynamics const &objectRssDynamics,
                   RestrictSpeedLimitMode const &restrictSpeedLimitMode,
                   ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights,
-                  ::ad::rss::world::SceneVector &scenes,
-                  ::ad::physics::Speed &egoMaxSpeed)
+                  ::ad::rss::world::WorldModel &worldModel)
 {
   bool result = false;
-  auto const scenesSizeBefore = scenes.size();
+  auto const scenesSizeBefore = worldModel.scenes.size();
 
   //   Calculate shortest route (ignore driving direction) between the two objects MapMatchedObjectBoundingBox
   auto const connectingRoute = ::ad::map::route::planning::calculateConnectingRoute(egoPosition, objectPosition);
@@ -468,7 +486,7 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
   {
     getLogger()->debug("RssSceneCreation::appendScenes[ {} ]>> no connecting route available to object ", objectId);
     appendNotRelevantScene(
-      egoId, egoPosition, egoSpeed, objectId, objectType, objectPosition, objectSpeed, objectRssDynamics, scenes);
+      egoId, egoPosition, egoSpeed, objectId, objectType, objectPosition, objectSpeed, objectRssDynamics, worldModel);
     return true;
   }
 
@@ -481,7 +499,7 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
       routeDuration,
       cMaxSceneDuration);
     appendNotRelevantScene(
-      egoId, egoPosition, egoSpeed, objectId, objectType, objectPosition, objectSpeed, objectRssDynamics, scenes);
+      egoId, egoPosition, egoSpeed, objectId, objectType, objectPosition, objectSpeed, objectRssDynamics, worldModel);
     return true;
   }
 
@@ -524,8 +542,7 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                                           objectSpeed,
                                           objectRssDynamics,
                                           restrictSpeedLimitMode,
-                                          scenes,
-                                          egoMaxSpeed);
+                                          worldModel);
     }
     else
     {
@@ -535,7 +552,7 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                          objectPosition,
                          egoRouteInput);
       result = appendNotRelevantScene(
-        egoId, egoPosition, egoSpeed, objectId, objectType, objectPosition, objectSpeed, objectRssDynamics, scenes);
+        egoId, egoPosition, egoSpeed, objectId, objectType, objectPosition, objectSpeed, objectRssDynamics, worldModel);
     }
   }
   else if (!::ad::map::route::intersectionOnConnectedRoute(connectingRoute))
@@ -555,8 +572,7 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                                         objectSpeed,
                                         objectRssDynamics,
                                         restrictSpeedLimitMode,
-                                        scenes,
-                                        egoMaxSpeed);
+                                        worldModel);
   }
   else
   {
@@ -594,8 +610,7 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                                             objectSpeed,
                                             objectRssDynamics,
                                             restrictSpeedLimitMode,
-                                            scenes,
-                                            egoMaxSpeed);
+                                            worldModel);
       }
       else
       {
@@ -625,8 +640,7 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                                                             objectSpeed,
                                                             objectRssDynamics,
                                                             restrictSpeedLimitMode,
-                                                            scenes,
-                                                            egoMaxSpeed);
+                                                            worldModel);
             }
             else if (intersection->objectRouteOppositeToIntersectionRoute(objectRoute)
                      || !intersection->objectRouteCrossesIntersectionRoute(objectRoute))
@@ -651,8 +665,7 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                                                               objectSpeed,
                                                               objectRssDynamics,
                                                               restrictSpeedLimitMode,
-                                                              scenes,
-                                                              egoMaxSpeed);
+                                                              worldModel);
               }
               else
               {
@@ -687,8 +700,7 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                                                          objectRssDynamics,
                                                          restrictSpeedLimitMode,
                                                          greenTrafficLights,
-                                                         scenes,
-                                                         egoMaxSpeed);
+                                                         worldModel);
             }
           }
         }
@@ -696,7 +708,7 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
     }
   }
 
-  if (result && (scenesSizeBefore == scenes.size()))
+  if (result && (scenesSizeBefore == worldModel.scenes.size()))
   {
     getLogger()->trace(
       "RssSceneCreation::appendScenes[ {} ]>> detailed analysis did not find any relevant situation {} {} ",
@@ -704,7 +716,7 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
       objectPosition,
       egoRouteInput);
     result = appendNotRelevantScene(
-      egoId, egoPosition, egoSpeed, objectId, objectType, objectPosition, objectSpeed, objectRssDynamics, scenes);
+      egoId, egoPosition, egoSpeed, objectId, objectType, objectPosition, objectSpeed, objectRssDynamics, worldModel);
   }
 
   return result;
@@ -715,7 +727,7 @@ bool appendRoadBoundaries(::ad::rss::world::ObjectId const &egoId,
                           ::ad::physics::Speed const &egoSpeed,
                           ::ad::map::route::FullRoute const &inputRoute,
                           AppendRoadBoundariesMode const operationMode,
-                          ::ad::rss::world::SceneVector &scenes)
+                          ::ad::rss::world::WorldModel &worldModel)
 {
   bool result = true;
   if (inputRoute.roadSegments.empty())
@@ -812,8 +824,8 @@ bool appendRoadBoundaries(::ad::rss::world::ObjectId const &egoId,
   leftBorderScene.egoVehicle = egoVehicle;
   getLogger()->debug("RssSceneCreation::appendRoadBoundaries[ {} ]>> ego {} ", egoId, egoVehicle);
 
-  scenes.push_back(rightBorderScene);
-  scenes.push_back(leftBorderScene);
+  worldModel.scenes.push_back(rightBorderScene);
+  worldModel.scenes.push_back(leftBorderScene);
   return result;
 }
 } // namespace RssSceneCreation
