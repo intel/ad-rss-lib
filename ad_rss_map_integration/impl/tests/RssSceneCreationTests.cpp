@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2019 Intel Corporation
+// Copyright (C) 2019-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -15,6 +15,53 @@
 
 struct RssSceneCreationTest : ::testing::Test
 {
+  const ::ad::physics::Duration cResponseTimeEgoVehicle{1};
+  const ::ad::physics::Duration cResponseTimeOtherVehicles{2};
+
+  const ::ad::physics::Acceleration cMaximumLongitudinalAcceleration{3.5};
+  const ::ad::physics::Acceleration cMinimumLongitudinalBrakingDeceleleration{4};
+  const ::ad::physics::Acceleration cMaximumLongitudinalBrakingDeceleleration{8};
+  const ::ad::physics::Acceleration cMinimumLongitudinalBrakingDecelelerationCorrect{3};
+
+  const ::ad::physics::Acceleration cMaximumLateralAcceleration{0.2};
+  const ::ad::physics::Acceleration cMinimumLateralBrakingDeceleleration{0.8};
+
+  ::ad::rss::world::RssDynamics getDefaultEgoVehicleDynamics()
+  {
+    ::ad::rss::world::RssDynamics result;
+    result.alphaLat.accelMax = cMaximumLateralAcceleration;
+    result.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
+
+    result.alphaLon.accelMax = cMaximumLongitudinalAcceleration;
+    result.alphaLon.brakeMinCorrect = cMinimumLongitudinalBrakingDecelelerationCorrect;
+    result.alphaLon.brakeMin = cMinimumLongitudinalBrakingDeceleleration;
+    result.alphaLon.brakeMax = cMaximumLongitudinalBrakingDeceleleration;
+
+    result.lateralFluctuationMargin = ::ad::physics::Distance(0.);
+
+    result.responseTime = cResponseTimeEgoVehicle;
+
+    return result;
+  }
+
+  ::ad::rss::world::RssDynamics getDefaultObjectVehicleDynamics()
+  {
+    ::ad::rss::world::RssDynamics result;
+    result.alphaLat.accelMax = cMaximumLateralAcceleration;
+    result.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
+
+    result.alphaLon.accelMax = cMaximumLongitudinalAcceleration;
+    result.alphaLon.brakeMinCorrect = cMinimumLongitudinalBrakingDecelelerationCorrect;
+    result.alphaLon.brakeMin = cMinimumLongitudinalBrakingDeceleleration;
+    result.alphaLon.brakeMax = cMaximumLongitudinalBrakingDeceleleration;
+
+    result.lateralFluctuationMargin = ::ad::physics::Distance(0.);
+
+    result.responseTime = cResponseTimeOtherVehicles;
+
+    return result;
+  }
+
   virtual void SetUp()
   {
     ::ad::map::access::cleanup();
@@ -30,7 +77,6 @@ TEST_F(RssSceneCreationTest, testAppendRoadBoundaries)
 {
   ASSERT_TRUE(::ad::map::access::init("resources/Town01.txt"));
 
-  ::ad::rss::world::WorldModel worldModel;
   uint64_t egoVehicleId = 123u;
 
   auto positionStartGeo = ::ad::map::point::createGeoPoint(::ad::map::point::Longitude(8.00125444865324766),
@@ -65,12 +111,15 @@ TEST_F(RssSceneCreationTest, testAppendRoadBoundaries)
       .lanePoint.paraPoint,
     positionEndGeo);
 
+  ::ad::rss::world::WorldModel worldModel
+    = ::ad::rss::map::RssSceneCreation::initializeWorldModel(1u, getDefaultEgoVehicleDynamics());
+
   for (auto appendMode : {::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly,
                           ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::ExpandRouteToOppositeLanes,
                           ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::ExpandRouteToAllNeighbors})
   {
     EXPECT_TRUE(::ad::rss::map::RssSceneCreation::appendRoadBoundaries(
-      egoVehicleId, egoMapMatchedBoundingBox, egoSpeed, egoRoute, appendMode, worldModel.scenes));
+      egoVehicleId, egoMapMatchedBoundingBox, egoSpeed, egoRoute, appendMode, worldModel));
   }
   EXPECT_EQ(worldModel.scenes.size(), 6u);
 
@@ -81,7 +130,7 @@ TEST_F(RssSceneCreationTest, testAppendRoadBoundaries)
     egoSpeed,
     egoRoute,
     ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly,
-    worldModel.scenes));
+    worldModel));
 
   // invalid speed
   EXPECT_FALSE(::ad::rss::map::RssSceneCreation::appendRoadBoundaries(
@@ -90,7 +139,7 @@ TEST_F(RssSceneCreationTest, testAppendRoadBoundaries)
     ::ad::physics::Speed(),
     egoRoute,
     ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly,
-    worldModel.scenes));
+    worldModel));
 
   // invalid route
   EXPECT_FALSE(::ad::rss::map::RssSceneCreation::appendRoadBoundaries(
@@ -99,7 +148,7 @@ TEST_F(RssSceneCreationTest, testAppendRoadBoundaries)
     egoSpeed,
     ::ad::map::route::FullRoute(),
     ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly,
-    worldModel.scenes));
+    worldModel));
 
   EXPECT_EQ(worldModel.scenes.size(), 6u);
 
@@ -147,4 +196,6 @@ TEST_F(RssSceneCreationTest, testAppendRoadBoundaries)
 
     EXPECT_TRUE(withinValidInputRange(scene));
   }
+
+  EXPECT_TRUE(::ad::rss::map::RssSceneCreation::finalizeWorldModel(getDefaultEgoVehicleDynamics(), worldModel));
 }

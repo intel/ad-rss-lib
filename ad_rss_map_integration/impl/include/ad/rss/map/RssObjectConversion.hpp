@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -18,7 +18,7 @@
 #include <set>
 
 /*!
- * @brief namespace rss
+ * @brief namespace ad
  */
 namespace ad {
 /*!
@@ -31,16 +31,17 @@ namespace rss {
 namespace map {
 
 /*!
- * @brief namespace providing supporting functions to convert admap objects into rss objects
+ * @brief namespace providing supporting functions to convert ad::map objects into ad::rss objects
  */
 namespace RssObjectConversion {
 
 /*!
- * @brief convert admap object description to ad_rss object description
+ * @brief convert ad::map object description to ad::rss object description
  *
  * @param[in] objectId the object id
  * @param[in] objectType the object type
- * @param[in] objectPosition the object's position described by admap object type
+ * @param[in] objectPosition the object's position described by its map matched bounding box
+ * @param[in] objectSpeed the object's speed
  * @param[in] objectRoadArea the object's road area
  * @param[in] negativeRouteDirectionLanes set of lanes that have a physical orientation against the route direction.
  * @param[out] rssObject the resulting RSS object

@@ -2,7 +2,7 @@
 
 # ----------------- BEGIN LICENSE BLOCK ---------------------------------
 #
-# Copyright (c) 2019 Intel Corporation
+# Copyright (c) 2019-2020 Intel Corporation
 #
 # SPDX-License-Identifier: LGPL-2.1-only
 #
@@ -128,6 +128,7 @@ class InterfaceTest(unittest.TestCase):
         self.assertEqual(longitudinal_distance, 95.0)
 
         self.world_model.timeIndex += 1
+
 
 if __name__ == '__main__':
     unittest.main()

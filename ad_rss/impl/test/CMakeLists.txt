@@ -1,6 +1,6 @@
 # ----------------- BEGIN LICENSE BLOCK ---------------------------------
 #
-# Copyright (C) 2019 Intel Corporation
+# Copyright (C) 2019-2020 Intel Corporation
 #
 # SPDX-License-Identifier: LGPL-2.1-only
 #
@@ -13,7 +13,7 @@ set(EXEC_NAME ad-rss-tests)
 
 include(generated/testfiles.cmake)
 
-set(RSS_TEST_SOURCES_WITH_PRIVATE_ACCESS
+set(RSS_TEST_SOURCES
   core/RssResponseCombineTests.cpp
   core/RssSituationExtractionInputRangeTests.cpp
   core/RssSituationExtractionRelativePositionTests.cpp
@@ -25,9 +25,6 @@ set(RSS_TEST_SOURCES_WITH_PRIVATE_ACCESS
   situation/RssSituationCheckingTestsLongitudinal.cpp
   situation/RssSituationCheckingTestsNotRelevant.cpp
   situation/RssSituationCheckingTestsOppositeDirection.cpp
-)
-
-set(RSS_TEST_SOURCES
   main.cpp
   core/RssCheckIntersectionTests.cpp
   core/RssCheckLateralTests.cpp
@@ -56,11 +53,10 @@ set(RSS_TEST_SOURCES
   test_support/TestSupport.cpp
   test_support/wrap_new.cpp
   world/RssSituationIdProviderTests.cpp
-  ${RSS_TEST_SOURCES_WITH_PRIVATE_ACCESS}
   ${GENERATED_TEST_SOURCES}
 )
 
-set_source_files_properties(${RSS_TEST_SOURCES_WITH_PRIVATE_ACCESS} PROPERITES COMPILE_FLAGS -fno-access-control)
+set_source_files_properties(${RSS_TEST_SOURCES} PROPERITES COMPILE_FLAGS "-fno-access-control -Wno-error")
 
 if(BINDING_TYPE STREQUAL ROS)
   catkin_add_gtest(${EXEC_NAME} ${RSS_TEST_SOURCES} WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})

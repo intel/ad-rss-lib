@@ -44,9 +44,9 @@ def main():
     # Create configuration for CastXML
     xml_generator_config = parser.xml_generator_configuration_t(
         xml_generator_path=generator_path,
-                                        xml_generator=generator_name,
-                                        compiler=compiler,
-                                        compiler_path=compiler_path)
+        xml_generator=generator_name,
+        compiler=compiler,
+        compiler_path=compiler_path)
 
     # Set include dirs and cflags to avoid warnings and errors
     xml_generator_config.append_cflags("-std=c++11")
@@ -60,8 +60,8 @@ def main():
     # Parses the source files and creates a module_builder object
     builder = module_builder.module_builder_t(
         header_list,
-                            xml_generator_path=generator_path,
-                            xml_generator_config=xml_generator_config)
+        xml_generator_path=generator_path,
+        xml_generator_config=xml_generator_config)
 
     # Automatically detect properties and associated getters/setters
     builder.classes().add_properties(exclude_accessors=True)

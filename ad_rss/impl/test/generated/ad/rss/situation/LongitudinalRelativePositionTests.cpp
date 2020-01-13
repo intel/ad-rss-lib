@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2019 Intel Corporation
+ * Copyright (C) 2018-2020 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -92,5 +92,5 @@ TEST(LongitudinalRelativePositionTests, ostreamOperatorTest)
   std::stringstream stream;
   ::ad::rss::situation::LongitudinalRelativePosition value(::ad::rss::situation::LongitudinalRelativePosition::InFront);
   stream << value;
-  ASSERT_GT(stream.str().size(), 0);
+  ASSERT_GT(stream.str().size(), 0u);
 }

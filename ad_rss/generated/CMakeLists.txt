@@ -1,7 +1,7 @@
 ##
 # ----------------- BEGIN LICENSE BLOCK ---------------------------------
 #
-# Copyright (C) 2018-2019 Intel Corporation
+# Copyright (C) 2018-2020 Intel Corporation
 #
 # SPDX-License-Identifier: LGPL-2.1-only
 #
@@ -10,7 +10,7 @@
 ##
 # Generated file
 #
-# Generator Version : 10.6.1-1904
+# Generator Version : 11.0.0-1911
 ##
 
 cmake_minimum_required(VERSION 3.5)

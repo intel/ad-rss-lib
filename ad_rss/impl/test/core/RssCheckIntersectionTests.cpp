@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -96,7 +96,7 @@ TEST_P(RssCheckIntersectionEgoHasPriorityOutOfMemoryTest, outOfMemoryAnyTime)
 }
 INSTANTIATE_TEST_CASE_P(Range,
                         RssCheckIntersectionEgoHasPriorityOutOfMemoryTest,
-                        ::testing::Range(uint64_t(0u), uint64_t(50u)));
+                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
 
 TEST_F(RssCheckIntersectionEgoHasPriorityTest, IntersectionTest)
 {
@@ -137,7 +137,7 @@ TEST_P(RssCheckIntersectionObjectHasPriorityOutOfMemoryTest, outOfMemoryAnyTime)
 }
 INSTANTIATE_TEST_CASE_P(Range,
                         RssCheckIntersectionObjectHasPriorityOutOfMemoryTest,
-                        ::testing::Range(uint64_t(0u), uint64_t(50u)));
+                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
 
 TEST_F(RssCheckIntersectionObjectHasPriorityTest, IntersectionTest)
 {
@@ -169,7 +169,7 @@ TEST_P(RssCheckIntersectionSamePriorityOutOfMemoryTest, outOfMemoryAnyTime)
 }
 INSTANTIATE_TEST_CASE_P(Range,
                         RssCheckIntersectionSamePriorityOutOfMemoryTest,
-                        ::testing::Range(uint64_t(0u), uint64_t(50u)));
+                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
 
 TEST_F(RssCheckIntersectionSamePriorityTest, IntersectionTest)
 {
