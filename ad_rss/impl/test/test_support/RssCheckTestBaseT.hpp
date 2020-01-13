@@ -567,7 +567,7 @@ protected:
 
   virtual void performDifferentVelocitiesTest(state::LongitudinalResponse expectedLonResponse)
   {
-    world::AccelerationRestriction accelerationRestriction;
+    state::ProperResponse properResponse;
     core::RssCheck rssCheck;
 
     for (uint32_t i = 0; i < 100; i++)
@@ -579,25 +579,25 @@ protected:
       }
       worldModel.timeIndex++;
 
-      ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+      ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
 #if RSS_CHECK_TEST_DEBUG_OUT
       std::cout << "TestingVelocity[i=" << i << "]: lonSafe=" << isDistanceSafeLongitudinal() << std::endl;
 #endif
       if (isDistanceSafeLongitudinal())
       {
-        testRestrictions(accelerationRestriction);
+        testRestrictions(properResponse.accelerationRestrictions);
       }
       else
       {
-        testRestrictions(accelerationRestriction, expectedLonResponse);
+        testRestrictions(properResponse.accelerationRestrictions, expectedLonResponse);
       }
     }
   }
 
   virtual void performDifferentDistancesTest(state::LongitudinalResponse expectedLonResponse)
   {
-    world::AccelerationRestriction accelerationRestriction;
+    state::ProperResponse properResponse;
     core::RssCheck rssCheck;
 
     for (uint32_t i = 0; i <= 90; i++)
@@ -609,18 +609,18 @@ protected:
       }
       worldModel.timeIndex++;
 
-      ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+      ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
 #if RSS_CHECK_TEST_DEBUG_OUT
       std::cout << "TestingDistance[i=" << i << "]: lonSafe=" << isDistanceSafeLongitudinal() << std::endl;
 #endif
       if (isDistanceSafeLongitudinal())
       {
-        testRestrictions(accelerationRestriction);
+        testRestrictions(properResponse.accelerationRestrictions);
       }
       else
       {
-        testRestrictions(accelerationRestriction, expectedLonResponse);
+        testRestrictions(properResponse.accelerationRestrictions, expectedLonResponse);
       }
     }
   }
@@ -646,10 +646,10 @@ protected:
   void performOutOfMemoryTest(std::vector<uint64_t> additionalSucceessResults = {})
   {
     gNewThrowCounter = GetParam();
-    world::AccelerationRestriction accelerationRestriction;
+    state::ProperResponse properResponse;
     core::RssCheck rssCheck;
 
-    bool const checkResult = rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction);
+    bool const checkResult = rssCheck.calculateProperResponse(worldModel, properResponse);
     if ((GetParam() == 0) || (gNewThrowCounter > 0u)
         || (additionalSucceessResults.end()
             != std::find(additionalSucceessResults.begin(), additionalSucceessResults.end(), GetParam())))
@@ -658,7 +658,7 @@ protected:
       // as there are not more than a certain amount of allocations while running, from a certain border on
       // the test returns also true
       ASSERT_TRUE(checkResult);
-      testRestrictions(accelerationRestriction);
+      testRestrictions(properResponse.accelerationRestrictions);
     }
     else
     {

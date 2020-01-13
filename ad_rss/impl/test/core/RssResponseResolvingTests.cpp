@@ -27,12 +27,12 @@ protected:
     state::RssState rssStateT2O2;
     state::RssState rssStateT3O1;
     state::RssState rssStateT3O2;
-    resetRssState(rssStateT1O1, 1u, 1u);
-    resetRssState(rssStateT1O2, 2u, 2u);
-    resetRssState(rssStateT2O1, 1u, 1u);
-    resetRssState(rssStateT2O2, 2u, 2u);
-    resetRssState(rssStateT3O1, 1u, 1u);
-    resetRssState(rssStateT3O2, 2u, 2u);
+    resetRssState(rssStateT1O1, 1u, 1u, situation::SituationType::SameDirection);
+    resetRssState(rssStateT1O2, 2u, 2u, situation::SituationType::SameDirection);
+    resetRssState(rssStateT2O1, 1u, 1u, situation::SituationType::SameDirection);
+    resetRssState(rssStateT2O2, 2u, 2u, situation::SituationType::SameDirection);
+    resetRssState(rssStateT3O1, 1u, 1u, situation::SituationType::SameDirection);
+    resetRssState(rssStateT3O2, 2u, 2u, situation::SituationType::SameDirection);
     rssStateSnapshotT1.timeIndex = 1u;
     rssStateSnapshotT1.defaultEgoVehicleRssDynamics = getEgoRssDynamics();
     rssStateSnapshotT1.individualResponses.push_back(rssStateT1O1);
@@ -81,15 +81,9 @@ protected:
   {
     RssResponseResolving provider;
 
-    EXPECT_EQ(
-      expectedResultT1,
-      provider.provideProperResponse(rssStateSnapshotT1, resultProperResponseT1, resultAccelerationRestrictionT1));
-    EXPECT_EQ(
-      expectedResultT2,
-      provider.provideProperResponse(rssStateSnapshotT2, resultProperResponseT2, resultAccelerationRestrictionT2));
-    EXPECT_EQ(
-      expectedResultT3,
-      provider.provideProperResponse(rssStateSnapshotT3, resultProperResponseT3, resultAccelerationRestrictionT3));
+    EXPECT_EQ(expectedResultT1, provider.provideProperResponse(rssStateSnapshotT1, resultProperResponseT1));
+    EXPECT_EQ(expectedResultT2, provider.provideProperResponse(rssStateSnapshotT2, resultProperResponseT2));
+    EXPECT_EQ(expectedResultT3, provider.provideProperResponse(rssStateSnapshotT3, resultProperResponseT3));
   }
 
   state::RssStateSnapshot rssStateSnapshotT1;
@@ -99,10 +93,6 @@ protected:
   state::ProperResponse resultProperResponseT1;
   state::ProperResponse resultProperResponseT2;
   state::ProperResponse resultProperResponseT3;
-
-  world::AccelerationRestriction resultAccelerationRestrictionT1;
-  world::AccelerationRestriction resultAccelerationRestrictionT2;
-  world::AccelerationRestriction resultAccelerationRestrictionT3;
 };
 
 TEST_F(RssResponseResolvingTests, validateTestSetup)

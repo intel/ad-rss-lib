@@ -573,6 +573,42 @@ bool RssSceneCreator::appendScene(::ad::rss::situation::SituationType const &sit
   }
 }
 
+bool RssSceneCreator::appendUnstructuredScene(RssObjectConversion::ConstPtr iEgoObject,
+                                              RssObjectConversion::ConstPtr iOtherObject)
+{
+  if (!bool(iEgoObject) || !bool(iOtherObject))
+  {
+    getLogger()->error("RssSceneCreator::appendUnstructuredScene[]>> ego/other object input is NULL");
+    return false;
+  }
+  auto egoObject = std::make_shared<RssObjectConversion>(*iEgoObject);
+  if (!bool(egoObject))
+  {
+    getLogger()->error(
+      "RssSceneCreator::appendUnstructuredScene[{}]>> failed to create copy of ego RssObjectConversion",
+      iOtherObject->getId());
+    return false;
+  }
+  auto otherObject = std::make_shared<RssObjectConversion>(*iOtherObject);
+  if (!bool(otherObject))
+  {
+    getLogger()->error(
+      "RssSceneCreator::appendUnstructuredScene[{}]>> failed to create copy of other RssObjectConversion",
+      iOtherObject->getId());
+    return false;
+  }
+
+  egoObject->fillNotRelevantSceneBoundingBox();
+  otherObject->fillNotRelevantSceneBoundingBox();
+
+  getLogger()->debug("RssSceneCreator::appendUnstructuredScene[{}]>>", otherObject->getId());
+
+  return appendScene(::ad::rss::situation::SituationType::Unstructured,
+                     egoObject,
+                     ::ad::rss::world::RoadArea(),
+                     otherObject,
+                     ::ad::rss::world::RoadArea());
+}
 } // namespace map
 } // namespace rss
 } // namespace ad

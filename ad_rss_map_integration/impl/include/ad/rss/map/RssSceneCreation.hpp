@@ -28,6 +28,19 @@ namespace rss {
  * @brief namespace map
  */
 namespace map {
+
+class RssSceneCreator;
+class RssObjectConversion;
+
+/*!
+ * @brief Specifies the scene mode
+ */
+enum class RssMode
+{
+  Structured,
+  Unstructured
+};
+
 /*!
  * @brief class providing supporting functions to create a world model and its scenes.
  *
@@ -86,6 +99,7 @@ public:
    * @param[in] egoId the ego vehicle id
    * @param[in] egoMatchObject the ego vehicle's position described by its map matched bounding box and position
    * @param[in] egoSpeed the ego vehicle's speed
+   * @param[in] egoYawRate the ego vehicle's yaw rate
    * @param[in] egoRssDynamics the ego vehicles' RssDynamics to be applied
    * @param[in] egoRoute the route the ego vehicle intends to take.
    *   If the given route is empty, all potential route predictions of the ego vehicle are taken into account if
@@ -94,27 +108,32 @@ public:
    * @param[in] objectType the object type
    * @param[in] objectMatchObject the object's position described by its map matched bounding box and position
    * @param[in] objectSpeed the object's speed
+   * @param[in] objectYawRate the object's yaw rate
    * @param[in] objectRssDynamics the object's RssDynamics to be applied
    * @param[in] restrictSpeedLimitMode the mode to select the behavior of objectRssDynamics.maxSpeed and
    * egoRssDynamics.maxSpeed
    * parameter
    * @param[in] greenTrafficLights the list of known green traffic lights.
    *   Required to derive the correct priority rule for the ego vehicle when approaching a traffic light intersection.
+   * @param[in] mode the mode of this scene
    *
    * @returns \c true if the operation succeeded.
    */
   bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                     ::ad::map::match::Object const &egoMatchObject,
                     ::ad::physics::Speed const &egoSpeed,
+                    ::ad::physics::AngularVelocity const &egoYawRate,
                     ::ad::rss::world::RssDynamics const &egoRssDynamics,
                     ::ad::map::route::FullRoute const &egoRoute,
                     ::ad::rss::world::ObjectId const &objectId,
                     ::ad::rss::world::ObjectType const &objectType,
                     ::ad::map::match::Object const &objectMatchObject,
                     ::ad::physics::Speed const &objectSpeed,
+                    ::ad::physics::AngularVelocity const &objectYawRate,
                     ::ad::rss::world::RssDynamics const &objectRssDynamics,
                     RestrictSpeedLimitMode const &restrictSpeedLimitMode,
-                    ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights);
+                    ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights,
+                    ::ad::rss::map::RssMode const &mode);
 
   /**
    * @brief enumeration defining the operation modes of appendRoadBoundaries() function.
@@ -144,6 +163,7 @@ public:
    * @param[in] egoId the ego vehicle id
    * @param[in] egoMatchObject the ego vehicle's position described by its map matched bounding box and position
    * @param[in] egoSpeed the ego vehicle's speed
+   * @param[in] egoYawRate the ego vehicle's yaw rate
    * @param[in] egoRssDynamics the ego vehicles' RssDynamics to be applied
    * @param[in] egoRoute the route the ego vehicle intends to take.
    *
@@ -152,6 +172,7 @@ public:
   bool appendRoadBoundaries(::ad::rss::world::ObjectId const &egoId,
                             ::ad::map::match::Object const &egoMatchObject,
                             ::ad::physics::Speed const &egoSpeed,
+                            ::ad::physics::AngularVelocity const &egoYawRate,
                             ::ad::rss::world::RssDynamics const &egoRssDynamics,
                             ::ad::map::route::FullRoute const &route,
                             AppendRoadBoundariesMode const operationMode);
@@ -167,6 +188,22 @@ public:
 
 private:
   friend class RssSceneCreator;
+
+  bool appendStructuredScenes(::ad::rss::map::RssSceneCreator &sceneCreator,
+                              std::shared_ptr<RssObjectConversion const> const &egoObject,
+                              ::ad::rss::world::ObjectId const &egoId,
+                              ::ad::map::match::Object const &egoMatchObject,
+                              ::ad::physics::Speed const &egoSpeed,
+                              ::ad::physics::AngularVelocity const &egoYawRate,
+                              ::ad::rss::world::RssDynamics const &egoRssDynamics,
+                              ::ad::map::route::FullRoute const &egoRoute,
+                              std::shared_ptr<RssObjectConversion const> const &otherObject,
+                              ::ad::rss::world::ObjectId const &objectId,
+                              ::ad::rss::world::ObjectType const &objectType,
+                              ::ad::map::match::Object const &objectMatchObject,
+                              ::ad::physics::Speed const &objectSpeed,
+                              ::ad::physics::AngularVelocity const &objectYawRate,
+                              ::ad::rss::world::RssDynamics const &objectRssDynamics);
 
   bool appendSceneToWorldModel(::ad::rss::world::Scene const &scene);
 

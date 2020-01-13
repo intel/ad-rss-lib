@@ -53,21 +53,25 @@ RssSceneCreation::RssSceneCreation(::ad::rss::world::TimeIndex const &timeIndex,
 bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
                                     ::ad::map::match::Object const &egoMatchObject,
                                     ::ad::physics::Speed const &egoSpeed,
+                                    ::ad::physics::AngularVelocity const &egoYawRate,
                                     ::ad::rss::world::RssDynamics const &egoRssDynamics,
                                     ::ad::map::route::FullRoute const &egoRouteInput,
                                     ::ad::rss::world::ObjectId const &objectId,
                                     ::ad::rss::world::ObjectType const &objectType,
                                     ::ad::map::match::Object const &objectMatchObject,
                                     ::ad::physics::Speed const &objectSpeed,
+                                    ::ad::physics::AngularVelocity const &objectYawRate,
                                     ::ad::rss::world::RssDynamics const &objectRssDynamics,
                                     RestrictSpeedLimitMode const &restrictSpeedLimitMode,
-                                    ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights)
+                                    ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights,
+                                    ::ad::rss::map::RssMode const &mode)
 {
   if (mFinalized)
   {
     getLogger()->error("RssSceneCreation::appendScenes[{}]>> error world model already finalized.", objectId);
     return false;
   }
+
   if (egoMatchObject.mapMatchedBoundingBox.laneOccupiedRegions.empty())
   {
     getLogger()->warn("RssSceneCreation::appendScenes[{}]>> ego without occupied regions skipping.", objectId);
@@ -79,14 +83,55 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
     return false;
   }
 
+  auto egoObject = std::make_shared<RssObjectConversion const>(
+    egoId, ::ad::rss::world::ObjectType::EgoVehicle, egoMatchObject, egoSpeed, egoYawRate, egoRssDynamics);
+  auto otherObject = std::make_shared<RssObjectConversion const>(
+    objectId, objectType, objectMatchObject, objectSpeed, objectYawRate, objectRssDynamics);
+
+  RssSceneCreator sceneCreator(restrictSpeedLimitMode, greenTrafficLights, *this);
+
+  if (mode == ::ad::rss::map::RssMode::Unstructured)
+  {
+    return sceneCreator.appendUnstructuredScene(egoObject, otherObject);
+  }
+  else
+  {
+    return appendStructuredScenes(sceneCreator,
+                                  egoObject,
+                                  egoId,
+                                  egoMatchObject,
+                                  egoSpeed,
+                                  egoYawRate,
+                                  egoRssDynamics,
+                                  egoRouteInput,
+                                  otherObject,
+                                  objectId,
+                                  objectType,
+                                  objectMatchObject,
+                                  objectSpeed,
+                                  objectYawRate,
+                                  objectRssDynamics);
+  }
+}
+
+bool RssSceneCreation::appendStructuredScenes(::ad::rss::map::RssSceneCreator &sceneCreator,
+                                              std::shared_ptr<RssObjectConversion const> const &egoObject,
+                                              ::ad::rss::world::ObjectId const &egoId,
+                                              ::ad::map::match::Object const &egoMatchObject,
+                                              ::ad::physics::Speed const &egoSpeed,
+                                              ::ad::physics::AngularVelocity const &egoYawRate,
+                                              ::ad::rss::world::RssDynamics const &egoRssDynamics,
+                                              ::ad::map::route::FullRoute const &egoRouteInput,
+                                              std::shared_ptr<RssObjectConversion const> const &otherObject,
+                                              ::ad::rss::world::ObjectId const &objectId,
+                                              ::ad::rss::world::ObjectType const &objectType,
+                                              ::ad::map::match::Object const &objectMatchObject,
+                                              ::ad::physics::Speed const &objectSpeed,
+                                              ::ad::physics::AngularVelocity const &objectYawRate,
+                                              ::ad::rss::world::RssDynamics const &objectRssDynamics)
+{
   bool result = false;
   bool sceneAppended = false;
-
-  auto egoObject = std::make_shared<RssObjectConversion const>(
-    egoId, ::ad::rss::world::ObjectType::EgoVehicle, egoMatchObject, egoSpeed, egoRssDynamics);
-  auto otherObject = std::make_shared<RssObjectConversion const>(
-    objectId, objectType, objectMatchObject, objectSpeed, objectRssDynamics);
-  RssSceneCreator sceneCreator(restrictSpeedLimitMode, greenTrafficLights, *this);
 
   try
   {
@@ -286,7 +331,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
 
             for (auto const &intersection : intersectionsOnRoute)
             {
-              if (!intersection->objectRouteCrossesIntersection(*intersectionOtherRoute))
+              if (!intersection->objectRouteCrossesIntersectionRoute(*intersectionOtherRoute))
               {
                 getLogger()->trace(
                   "RssSceneCreation::appendScenes[{}]>> found object route not crossing intersection on route:\n"
@@ -416,6 +461,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
 bool RssSceneCreation::appendRoadBoundaries(::ad::rss::world::ObjectId const &egoId,
                                             ::ad::map::match::Object const &egoMatchObject,
                                             ::ad::physics::Speed const &egoSpeed,
+                                            ::ad::physics::AngularVelocity const &egoYawRate,
                                             ::ad::rss::world::RssDynamics const &egoRssDynamics,
                                             ::ad::map::route::FullRoute const &inputRoute,
                                             AppendRoadBoundariesMode const operationMode)
@@ -430,6 +476,9 @@ bool RssSceneCreation::appendRoadBoundaries(::ad::rss::world::ObjectId const &eg
     getLogger()->warn("RssSceneCreation::appendRoadBoundaries>> ego without occupied regions skipping.");
     return false;
   }
+  // for the analysis we are only interested in the near term route
+  ::ad::map::route::FullRoute route = inputRoute;
+  ::ad::map::route::shortenRouteToDistance(route, ::ad::physics::Distance(20.));
 
   if (inputRoute.roadSegments.empty())
   {
@@ -452,7 +501,7 @@ bool RssSceneCreation::appendRoadBoundaries(::ad::rss::world::ObjectId const &eg
     }
 
     auto egoObject = std::make_shared<RssObjectConversion const>(
-      egoId, ::ad::rss::world::ObjectType::EgoVehicle, egoMatchObject, egoSpeed, egoRssDynamics);
+      egoId, ::ad::rss::world::ObjectType::EgoVehicle, egoMatchObject, egoSpeed, egoYawRate, egoRssDynamics);
 
     RssSceneCreator sceneCreator(*this);
     getLogger()->debug("RssSceneCreation::appendRoadBoundaries[]>>\n"

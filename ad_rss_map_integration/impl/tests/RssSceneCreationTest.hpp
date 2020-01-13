@@ -194,6 +194,7 @@ struct RssSceneCreationTest : ::testing::Test
 
     ::ad::rss::world::ObjectId otherVehicleId{10};
     ::ad::physics::Speed otherVehicleSpeed{10.};
+    ::ad::physics::AngularVelocity otherVehicleYawRate{0.};
 
     ::ad::map::match::Object otherMatchObject;
 
@@ -210,15 +211,18 @@ struct RssSceneCreationTest : ::testing::Test
     EXPECT_TRUE(sceneCreation.appendScenes(egoVehicleId,
                                            egoMatchObject,
                                            egoSpeed,
+                                           egoYawRate,
                                            getEgoVehicleDynamics(),
                                            testRoute,
                                            otherVehicleId,
                                            ::ad::rss::world::ObjectType::OtherVehicle,
                                            otherMatchObject,
                                            otherVehicleSpeed,
+                                           otherVehicleYawRate,
                                            getObjectVehicleDynamics(),
                                            speedLimitMode,
-                                           ::ad::map::landmark::LandmarkIdSet()));
+                                           ::ad::map::landmark::LandmarkIdSet(),
+                                           ::ad::rss::map::RssMode::Structured));
 
     auto const worldModel = sceneCreation.getWorldModel();
     checkSceneResults(worldModel, otherVehicleId, expectedResults);
@@ -226,6 +230,7 @@ struct RssSceneCreationTest : ::testing::Test
 
   ::ad::rss::world::ObjectId egoVehicleId{123u};
   ::ad::physics::Speed egoSpeed;
+  ::ad::physics::AngularVelocity egoYawRate;
   ::ad::map::match::Object egoMatchObject;
   ::ad::map::route::FullRoute egoRoute;
 };

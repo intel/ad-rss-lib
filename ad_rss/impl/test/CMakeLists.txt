@@ -34,6 +34,7 @@ set(RSS_TEST_SOURCES
   situation/PhysicsUnitTestsStoppingDistance.cpp
   situation/PhysicsUnitTestsTimeToCoverDistance.cpp
   situation/PhysicsUnitTestsVelocityAfterResponseTime.cpp
+  situation/PhysicsUnitTestsUnstructured.cpp
   situation/RssFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
   situation/RssFormulaTestsCalculateSafeLateralDistance.cpp
   situation/RssFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
@@ -81,3 +82,4 @@ target_include_directories(${EXEC_NAME}
 
 target_compile_options(${EXEC_NAME} PRIVATE ${TARGET_COMPILE_OPTIONS})
 set_property(TARGET ${EXEC_NAME} APPEND_STRING PROPERTY LINK_FLAGS ${TARGET_LINK_FLAGS})
+

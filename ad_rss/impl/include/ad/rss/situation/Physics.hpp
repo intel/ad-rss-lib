@@ -12,7 +12,10 @@
 
 #pragma once
 
+#include <vector>
 #include "ad/physics/Acceleration.hpp"
+#include "ad/physics/Angle.hpp"
+#include "ad/physics/AngleRange.hpp"
 #include "ad/physics/Distance.hpp"
 #include "ad/physics/Duration.hpp"
 #include "ad/physics/Speed.hpp"
@@ -54,7 +57,7 @@ bool calculateStoppingDistance(physics::Speed const &currentSpeed,
  * @param[in]  maxSpeed        is the maximum speed of the vehicle (e.g. restricted by a limit)
  *                             (only used in longitudinal direction, has to be always positive)
  * @param[in]  acceleration    is the acceleration of the vehicle
- * @param[in]  responseTime    is the (positive) period of time the vehicle keeps accelerating
+ * @param[in]  time            is the (positive) period of time the vehicle keeps accelerating
  * @param[out] resultingSpeed  is the resulting speed after \a responseTime
  *                             In longitudinal direction, the resulting speed >= 0. Especially, the vehicle is not
  *                             starting to drive in reverse direction after standing still. In lateral direction,
@@ -62,11 +65,11 @@ bool calculateStoppingDistance(physics::Speed const &currentSpeed,
  *
  * @return true on success, false otherwise
  */
-bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const &axis,
+bool calculateSpeedAfterAcceleration(CoordinateSystemAxis const &axis,
                                      physics::Speed const &currentSpeed,
                                      physics::Speed const &maxSpeed,
                                      physics::Acceleration const &acceleration,
-                                     physics::Duration const &responseTime,
+                                     physics::Duration const &time,
                                      physics::Speed &resultingSpeed);
 
 /**
@@ -120,6 +123,35 @@ bool calculateTimeToCoverDistance(physics::Speed const &currentSpeed,
                                   physics::Acceleration const &deceleration,
                                   physics::Distance const &distanceToCover,
                                   physics::Duration &requiredTime);
+
+void calculateSpeed(physics::Duration const &currentTime,
+                    physics::Speed const &initialSpeed,
+                    physics::Duration const &responseTime,
+                    physics::Speed const &maxSpeed,
+                    physics::Acceleration const &aUntilReponseTime,
+                    physics::Acceleration const &aAfterResponseTime,
+                    physics::Speed &resultingSpeed);
+
+void calculateDistanceOffset(physics::Duration const &currentTime,
+                             physics::Speed const &currentSpeed,
+                             physics::Speed const &maxSpeed,
+                             physics::Acceleration const &acceleration,
+                             physics::Distance &distanceOffset);
+
+void calculateDistanceOffset(physics::Duration const &currentTime,
+                             physics::Speed const &initialSpeed,
+                             physics::Duration const &responseTime,
+                             physics::Speed const &maxSpeed,
+                             physics::Acceleration const &aUntilResponseTime,
+                             physics::Acceleration const &aAfterResponseTime,
+                             physics::Distance &distanceOffset);
+
+bool calculateTimeToStop(physics::Speed initialSpeed,
+                         physics::Duration responseTime,
+                         physics::Speed maxSpeed,
+                         physics::Acceleration aUntilResponseTimeMax,
+                         physics::Acceleration aAfterResponseTime,
+                         physics::Duration &result);
 
 } // namespace situation
 } // namespace rss

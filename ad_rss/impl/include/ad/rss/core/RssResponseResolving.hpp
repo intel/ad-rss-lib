@@ -51,14 +51,11 @@ public:
    *
    * @param[in]  currentStateSnapshot all the rss states gathered for the current situations
    * @param[out] response the proper overall response state
-   * @param[out] accelerationRestriction - The restrictions on the vehicle acceleration to become RSS safe.
    *
    * @return true if response and acceleration restriction could be calculated, false otherwise
    * If false is returned the internal state has not been updated
    */
-  bool provideProperResponse(state::RssStateSnapshot const &currentStateSnapshot,
-                             state::ProperResponse &response,
-                             world::AccelerationRestriction &accelerationRestriction);
+  bool provideProperResponse(state::RssStateSnapshot const &currentStateSnapshot, state::ProperResponse &response);
 
 private:
   /*!

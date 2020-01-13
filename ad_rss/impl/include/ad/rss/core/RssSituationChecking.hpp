@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -28,6 +28,7 @@ namespace rss {
  */
 namespace situation {
 class RssIntersectionChecker;
+class RssUnstructuredSceneChecker;
 } // namespace situation
 
 /*!
@@ -85,6 +86,7 @@ private:
   bool checkTimeIncreasingConsistently(world::TimeIndex const &nextTimeIndex);
 
   std::unique_ptr<ad::rss::situation::RssIntersectionChecker> mIntersectionChecker;
+  std::unique_ptr<ad::rss::situation::RssUnstructuredSceneChecker> mUnstructuredSceneChecker;
   world::TimeIndex mCurrentTimeIndex{0u};
 };
 } // namespace core
