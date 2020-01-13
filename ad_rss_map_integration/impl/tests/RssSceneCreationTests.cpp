@@ -9,6 +9,7 @@
 #include <ad/map/access/Operation.hpp>
 #include <ad/map/match/AdMapMatching.hpp>
 #include <ad/map/route/Planning.hpp>
+#include <ad/rss/map/Logging.hpp>
 #include <ad/rss/map/RssSceneCreation.hpp>
 #include <ad/rss/world/WorldModelValidInputRange.hpp>
 #include <gtest/gtest.h>
@@ -26,7 +27,7 @@ struct RssSceneCreationTest : ::testing::Test
   const ::ad::physics::Acceleration cMaximumLateralAcceleration{0.2};
   const ::ad::physics::Acceleration cMinimumLateralBrakingDeceleleration{0.8};
 
-  ::ad::rss::world::RssDynamics getDefaultEgoVehicleDynamics()
+  ::ad::rss::world::RssDynamics getEgoVehicleDynamics(::ad::physics::Speed const maxSpeed = ::ad::physics::Speed(100.))
   {
     ::ad::rss::world::RssDynamics result;
     result.alphaLat.accelMax = cMaximumLateralAcceleration;
@@ -40,11 +41,13 @@ struct RssSceneCreationTest : ::testing::Test
     result.lateralFluctuationMargin = ::ad::physics::Distance(0.);
 
     result.responseTime = cResponseTimeEgoVehicle;
+    result.maxSpeed = maxSpeed;
 
     return result;
   }
 
-  ::ad::rss::world::RssDynamics getDefaultObjectVehicleDynamics()
+  ::ad::rss::world::RssDynamics getObjectVehicleDynamics(::ad::physics::Speed const maxSpeed
+                                                         = ::ad::physics::Speed(100.))
   {
     ::ad::rss::world::RssDynamics result;
     result.alphaLat.accelMax = cMaximumLateralAcceleration;
@@ -58,6 +61,7 @@ struct RssSceneCreationTest : ::testing::Test
     result.lateralFluctuationMargin = ::ad::physics::Distance(0.);
 
     result.responseTime = cResponseTimeOtherVehicles;
+    result.maxSpeed = maxSpeed;
 
     return result;
   }
@@ -65,54 +69,77 @@ struct RssSceneCreationTest : ::testing::Test
   virtual void SetUp()
   {
     ::ad::map::access::cleanup();
+    ASSERT_TRUE(::ad::map::access::init("resources/Town01.txt"));
+    initializeEgoVehicle();
+    ::ad::rss::map::getLogger()->set_level(spdlog::level::trace);
   }
 
   virtual void TearDown()
   {
     ::ad::map::access::cleanup();
   }
+
+  void initializeObject(::ad::map::point::Longitude const &lon,
+                        ::ad::map::point::Latitude const &lat,
+                        double const &yawAngle,
+                        ::ad::map::match::ENUObjectPosition &position,
+                        ::ad::map::match::MapMatchedObjectBoundingBox &mapMatchedBoundingBox)
+  {
+    auto positionGeo = ::ad::map::point::createGeoPoint(lon, lat, ::ad::map::point::Altitude(0.));
+
+    position.centerPoint = ::ad::map::point::toENU(positionGeo);
+    position.heading = ::ad::map::point::createENUHeading(yawAngle);
+    position.dimension.length = ::ad::physics::Distance(4.5);
+    position.dimension.width = ::ad::physics::Distance(2.);
+    position.dimension.height = ::ad::physics::Distance(1.5);
+    position.enuReferencePoint = ::ad::map::access::getENUReferencePoint();
+
+    ::ad::map::match::AdMapMatching mapMatching;
+    mapMatchedBoundingBox
+      = mapMatching.getMapMatchedBoundingBox(position, ::ad::physics::Distance(0.1), ::ad::physics::Probability(0.5));
+
+    ASSERT_GE(mapMatchedBoundingBox.referencePointPositions.size(),
+              static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center));
+    ASSERT_GE(mapMatchedBoundingBox
+                .referencePointPositions[static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center)]
+                .size(),
+              0);
+  }
+
+  void initializeEgoVehicle()
+  {
+    // laneId: offset 240151:0.55
+    initializeObject(::ad::map::point::Longitude(8.00125444865324766),
+                     ::ad::map::point::Latitude(48.99758627528235877),
+                     M_PI_2,
+                     egoPosition,
+                     egoMapMatchedBoundingBox);
+
+    egoSpeed = ::ad::physics::Speed(5.);
+
+    // laneId: offset  120149:0.16
+    auto positionEndGeo = ::ad::map::point::createGeoPoint(::ad::map::point::Longitude(8.00188527300496979),
+                                                           ::ad::map::point::Latitude(48.99821051747871792),
+                                                           ::ad::map::point::Altitude(0.));
+
+    egoRoute = ::ad::map::route::planning::planRoute(
+      egoMapMatchedBoundingBox
+        .referencePointPositions[static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center)][0]
+        .lanePoint.paraPoint,
+      positionEndGeo);
+  }
+
+  ::ad::rss::world::ObjectId egoVehicleId{123u};
+  ::ad::map::match::ENUObjectPosition egoPosition;
+  ::ad::physics::Speed egoSpeed;
+  ::ad::map::match::MapMatchedObjectBoundingBox egoMapMatchedBoundingBox;
+  ::ad::map::route::FullRoute egoRoute;
 };
 
 TEST_F(RssSceneCreationTest, testAppendRoadBoundaries)
 {
-  ASSERT_TRUE(::ad::map::access::init("resources/Town01.txt"));
-
-  uint64_t egoVehicleId = 123u;
-
-  auto positionStartGeo = ::ad::map::point::createGeoPoint(::ad::map::point::Longitude(8.00125444865324766),
-                                                           ::ad::map::point::Latitude(48.99758627528235877),
-                                                           ::ad::map::point::Altitude(0.));
-  auto positionEndGeo = ::ad::map::point::createGeoPoint(::ad::map::point::Longitude(8.00188527300496979),
-                                                         ::ad::map::point::Latitude(48.99821051747871792),
-                                                         ::ad::map::point::Altitude(0.));
-
-  ::ad::map::match::AdMapMatching mapMatching;
-  ::ad::map::match::ENUObjectPosition egoPosition;
-  egoPosition.centerPoint = ::ad::map::point::toENU(positionStartGeo);
-  egoPosition.heading = ::ad::map::point::createENUHeading(M_PI_2);
-  egoPosition.dimension.length = ::ad::physics::Distance(4.5);
-  egoPosition.dimension.width = ::ad::physics::Distance(2.);
-  egoPosition.dimension.height = ::ad::physics::Distance(1.5);
-  egoPosition.enuReferencePoint = ::ad::map::access::getENUReferencePoint();
-  ::ad::physics::Speed egoSpeed = ::ad::physics::Speed(5.);
-
-  auto egoMapMatchedBoundingBox
-    = mapMatching.getMapMatchedBoundingBox(egoPosition, ::ad::physics::Distance(0.1), ::ad::physics::Probability(0.5));
-
-  ASSERT_GE(egoMapMatchedBoundingBox.referencePointPositions.size(),
-            static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center));
-  ASSERT_GE(egoMapMatchedBoundingBox
-              .referencePointPositions[static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center)]
-              .size(),
-            0);
-  auto const egoRoute = ::ad::map::route::planning::planRoute(
-    egoMapMatchedBoundingBox
-      .referencePointPositions[static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center)][0]
-      .lanePoint.paraPoint,
-    positionEndGeo);
-
   ::ad::rss::world::WorldModel worldModel
-    = ::ad::rss::map::RssSceneCreation::initializeWorldModel(1u, getDefaultEgoVehicleDynamics());
+    = ::ad::rss::map::RssSceneCreation::initializeWorldModel(1u, getEgoVehicleDynamics());
 
   for (auto appendMode : {::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly,
                           ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::ExpandRouteToOppositeLanes,
@@ -197,5 +224,150 @@ TEST_F(RssSceneCreationTest, testAppendRoadBoundaries)
     EXPECT_TRUE(withinValidInputRange(scene));
   }
 
-  EXPECT_TRUE(::ad::rss::map::RssSceneCreation::finalizeWorldModel(getDefaultEgoVehicleDynamics(), worldModel));
+  EXPECT_TRUE(::ad::rss::map::RssSceneCreation::finalizeWorldModel(getEgoVehicleDynamics(), worldModel));
+}
+
+TEST_F(RssSceneCreationTest, testAppendScenes)
+{
+  std::vector<std::tuple<::ad::rss::world::ObjectId, ::ad::map::point::Longitude, ::ad::map::point::Latitude, double>>
+    otherVehicles{
+      // laneId: 240151, directly in front same direction
+      std::make_tuple(::ad::rss::world::ObjectId(10),
+                      ::ad::map::point::Longitude(8.00125444865324766),
+                      ::ad::map::point::Latitude(48.9980),
+                      M_PI_2),
+
+      // laneId: offset  120149:0.16  around the intersection in front same direction on ego route
+      std::make_tuple(::ad::rss::world::ObjectId(20),
+                      ::ad::map::point::Longitude(8.00188527300496979),
+                      ::ad::map::point::Latitude(48.99821051747871792),
+                      0.),
+
+      // laneId: offset  230151, straight through the intersection in front same direction, but not on route
+      std::make_tuple(::ad::rss::world::ObjectId(30),
+                      ::ad::map::point::Longitude(8.00125444865324766),
+                      ::ad::map::point::Latitude(48.9985),
+                      M_PI_2),
+
+      // laneId: 240149, directly in front opposite direction
+      std::make_tuple(::ad::rss::world::ObjectId(11),
+                      ::ad::map::point::Longitude(8.00120),
+                      ::ad::map::point::Latitude(48.9980),
+                      -M_PI_2),
+
+      // laneId: offset  120151:0.16  around the intersection in opposite direction
+      std::make_tuple(::ad::rss::world::ObjectId(21),
+                      ::ad::map::point::Longitude(8.00188527300496979),
+                      ::ad::map::point::Latitude(48.99824),
+                      M_PI),
+
+      // laneId: offset  230149, straight through the intersection in opposite direction
+      std::make_tuple(::ad::rss::world::ObjectId(31),
+                      ::ad::map::point::Longitude(8.00120),
+                      ::ad::map::point::Latitude(48.9985),
+                      -M_PI_2),
+    };
+
+  ::ad::rss::world::WorldModel worldModel
+    = ::ad::rss::map::RssSceneCreation::initializeWorldModel(1u, getEgoVehicleDynamics());
+
+  for (auto const &objectTuple : otherVehicles)
+  {
+    ::ad::rss::world::ObjectId otherVehicleId = std::get<0>(objectTuple);
+    ::ad::physics::Speed otherVehicleSpeed{10.};
+
+    ::ad::map::match::ENUObjectPosition otherVehiclePosition;
+    ::ad::map::match::MapMatchedObjectBoundingBox otherVehicleMapMatchedBoundingBox;
+
+    initializeObject(std::get<1>(objectTuple),
+                     std::get<2>(objectTuple),
+                     std::get<3>(objectTuple),
+                     otherVehiclePosition,
+                     otherVehicleMapMatchedBoundingBox);
+
+    EXPECT_TRUE(::ad::rss::map::RssSceneCreation::appendScenes(
+      egoVehicleId,
+      egoMapMatchedBoundingBox,
+      egoSpeed,
+      egoRoute,
+      otherVehicleId,
+      ::ad::rss::world::ObjectType::OtherVehicle,
+      otherVehicleMapMatchedBoundingBox,
+      otherVehicleSpeed,
+      getObjectVehicleDynamics(),
+      ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10,
+      ::ad::map::landmark::LandmarkIdSet(),
+      worldModel));
+  }
+
+  EXPECT_EQ(worldModel.scenes.size(), 9u);
+
+  for (auto i = 0u; i < worldModel.scenes.size(); ++i)
+  {
+    auto &scene = worldModel.scenes[i];
+    EXPECT_EQ(::ad::rss::world::ObjectType::OtherVehicle, scene.object.objectType);
+    EXPECT_TRUE(withinValidInputRange(scene.objectRssDynamics));
+
+    if (i == 0u)
+    {
+      EXPECT_EQ(std::get<0>(otherVehicles[0]), scene.object.objectId);
+      EXPECT_EQ(::ad::rss::situation::SituationType::SameDirection, scene.situationType);
+      EXPECT_EQ(1u, scene.egoVehicleRoad.size());
+      EXPECT_EQ(0u, scene.intersectingRoad.size());
+      EXPECT_EQ(getObjectVehicleDynamics(::ad::physics::Speed(12.2936)), scene.objectRssDynamics);
+    }
+    else if (i == 1u)
+    {
+      EXPECT_EQ(std::get<0>(otherVehicles[1]), scene.object.objectId);
+      EXPECT_EQ(::ad::rss::situation::SituationType::SameDirection, scene.situationType);
+      EXPECT_EQ(3u, scene.egoVehicleRoad.size());
+      EXPECT_EQ(0u, scene.intersectingRoad.size());
+      EXPECT_EQ(getObjectVehicleDynamics(::ad::physics::Speed(15.2778)), scene.objectRssDynamics);
+    }
+    else if (i == 2u)
+    {
+      EXPECT_EQ(std::get<0>(otherVehicles[2]), scene.object.objectId);
+      EXPECT_EQ(::ad::rss::situation::SituationType::NotRelevant, scene.situationType);
+      EXPECT_EQ(0u, scene.egoVehicleRoad.size());
+      EXPECT_EQ(0u, scene.intersectingRoad.size());
+      EXPECT_EQ(getObjectVehicleDynamics(), scene.objectRssDynamics);
+    }
+    else if (i == 3u)
+    {
+      EXPECT_EQ(std::get<0>(otherVehicles[3]), scene.object.objectId);
+      EXPECT_EQ(::ad::rss::situation::SituationType::OppositeDirection, scene.situationType);
+      EXPECT_EQ(1u, scene.egoVehicleRoad.size());
+      EXPECT_EQ(0u, scene.intersectingRoad.size());
+      EXPECT_EQ(getObjectVehicleDynamics(::ad::physics::Speed(12.2936)), scene.objectRssDynamics);
+    }
+    else if ((i == 4u) || (i == 5u) || (i == 6u))
+    {
+      // here we get 3 predictions
+      EXPECT_EQ(std::get<0>(otherVehicles[4]), scene.object.objectId);
+      EXPECT_EQ(::ad::rss::situation::SituationType::OppositeDirection, scene.situationType);
+      EXPECT_EQ(3u, scene.egoVehicleRoad.size());
+      EXPECT_EQ(0u, scene.intersectingRoad.size());
+      EXPECT_EQ(getObjectVehicleDynamics(::ad::physics::Speed(15.2778)), scene.objectRssDynamics);
+    }
+    else if (i == 7u)
+    {
+      EXPECT_EQ(std::get<0>(otherVehicles[5]), scene.object.objectId);
+      EXPECT_EQ(::ad::rss::situation::SituationType::OppositeDirection, scene.situationType);
+      EXPECT_EQ(4u, scene.egoVehicleRoad.size());
+      EXPECT_EQ(0u, scene.intersectingRoad.size());
+      EXPECT_EQ(getObjectVehicleDynamics(::ad::physics::Speed(15.2778)), scene.objectRssDynamics);
+    }
+    else if (i == 8u)
+    {
+      EXPECT_EQ(std::get<0>(otherVehicles[5]), scene.object.objectId);
+      EXPECT_EQ(::ad::rss::situation::SituationType::IntersectionObjectHasPriority, scene.situationType);
+      EXPECT_EQ(3u, scene.egoVehicleRoad.size());
+      EXPECT_EQ(2u, scene.intersectingRoad.size());
+      EXPECT_EQ(getObjectVehicleDynamics(::ad::physics::Speed(15.2778)), scene.objectRssDynamics);
+    }
+
+    EXPECT_TRUE(withinValidInputRange(scene));
+  }
+
+  EXPECT_TRUE(::ad::rss::map::RssSceneCreation::finalizeWorldModel(getEgoVehicleDynamics(), worldModel));
 }
