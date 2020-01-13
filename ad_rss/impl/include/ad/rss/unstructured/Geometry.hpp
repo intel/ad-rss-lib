@@ -39,7 +39,7 @@ typedef boost::geometry::model::d2::point_xy<double> Point;
 typedef boost::geometry::model::linestring<Point> linestring_type;
 typedef boost::geometry::model::linestring<Point> Line;
 typedef boost::geometry::model::multi_linestring<linestring_type> MultiLineString;
-typedef boost::geometry::model::polygon<Point> Polygon;
+typedef boost::geometry::model::polygon<Point, false> Polygon; // counterclockwise
 typedef boost::geometry::model::multi_point<Point> MultiPoint;
 typedef boost::geometry::model::box<Point> Box;
 

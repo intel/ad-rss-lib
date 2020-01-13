@@ -11,14 +11,7 @@
 
 #include "TrajectoryVehicle.hpp"
 #include <algorithm>
-
-#define DRAW_FINAL_VEHICLE_POSITION 0
-#define DRAW_TRAJECTORIES 0
-
-#if defined(DRAW_TRAJECTORIES) || defined(DRAW_FINAL_VEHICLE_POSITION)
-#include "ad/rss/unstructured/DebugDrawing.hpp"
-#endif
-
+#include <pipes/DebugDrawer.hpp>
 /*!
  * @brief namespace ad
  */
@@ -48,21 +41,32 @@ bool TrajectoryVehicle::getMaxTrajectory(::ad::rss::situation::VehicleState cons
   if (result)
   {
     // continue forward with vehicleState.dynamics.alphaLon.accelMax
-    continueForwardPolygon
+    auto continueForwardPolygonPart
       = createTrajectorySet(vehicleState, timeToStop, vehicleState.dynamics.alphaLon.accelMax, "green");
     // brake with vehicleState.dynamics.alphaLon.brakeMin
     brakePolygon = createTrajectorySet(vehicleState, timeToStop, vehicleState.dynamics.alphaLon.brakeMin, "red");
+
+    // the continue forward polygon also contains the brakePolygon, therefore join them
+    std::vector<Polygon> unionPolygons;
+    boost::geometry::union_(brakePolygon.outer(), continueForwardPolygonPart.outer(), unionPolygons);
+    if (unionPolygons.size() != 1)
+    {
+      return false;
+    }
+    else
+    {
+      continueForwardPolygon = unionPolygons[0];
+    }
   }
   return result;
 }
 
-TrajectoryVehicle::TrajectoryPoint
-TrajectoryVehicle::getMaxTrajectoryPoint(ad::rss::situation::VehicleState const &vehicleState,
-                                         ad::physics::Duration const &inputTime,
-                                         ad::physics::Acceleration const &aUntilResponseTime,
-                                         ad::physics::Acceleration const &aAfterResponseTime,
-                                         ad::physics::RatioValue const &yawRateRatio,
-                                         std::string const &ns) const
+TrajectoryPoint TrajectoryVehicle::getMaxTrajectoryPoint(ad::rss::situation::VehicleState const &vehicleState,
+                                                         ad::physics::Duration const &inputTime,
+                                                         ad::physics::Acceleration const &aUntilResponseTime,
+                                                         ad::physics::Acceleration const &aAfterResponseTime,
+                                                         ad::physics::RatioValue const &yawRateRatio,
+                                                         std::string const &ns) const
 {
   auto trajectory = createTrajectory(vehicleState, inputTime, aUntilResponseTime, aAfterResponseTime, yawRateRatio, ns);
 #if DRAW_TRAJECTORIES
@@ -74,49 +78,10 @@ TrajectoryVehicle::getMaxTrajectoryPoint(ad::rss::situation::VehicleState const 
   }
   DEBUG_DRAWING_LINE(linePts, "orange", ns + "_trajectory");
 #endif
-#if DRAW_FINAL_VEHICLE_POSITION
-  // draw final vehicle position
-  ad::rss::unstructured::Polygon vehicle;
-  auto firstPoint = getVehicleCorner(trajectory.back(), vehicleState.objectState.dimension, VehicleCorner::frontLeft);
-  boost::geometry::append(vehicle, firstPoint);
-  boost::geometry::append(
-    vehicle, getVehicleCorner(trajectory.back(), vehicleState.objectState.dimension, VehicleCorner::frontRight));
-  boost::geometry::append(
-    vehicle, getVehicleCorner(trajectory.back(), vehicleState.objectState.dimension, VehicleCorner::backRight));
-  boost::geometry::append(
-    vehicle, getVehicleCorner(trajectory.back(), vehicleState.objectState.dimension, VehicleCorner::backLeft));
-  boost::geometry::append(vehicle, firstPoint);
-  DEBUG_DRAWING_POLYGON(vehicle, "yellow", ns + "_vehicle_final_position");
+#if DRAW_FINAL_POSITION
+  drawFinalPosition(trajectory.back(), vehicleState.objectState.dimension, ns + "_vehicle_final_position");
 #endif
   return trajectory.back();
-}
-
-ad::rss::unstructured::Point TrajectoryVehicle::getVehicleCorner(TrajectoryVehicle::TrajectoryPoint const &point,
-                                                                 ad::physics::Dimension2D const &dimension,
-                                                                 VehicleCorner const corner) const
-{
-  ad::rss::unstructured::Point resultPoint;
-  auto const vehicleAngle = static_cast<double>(point.angle) - M_PI / 2.0;
-  switch (corner)
-  {
-    case VehicleCorner::frontLeft:
-      resultPoint = rotateAroundPoint(
-        point.position, ad::rss::unstructured::Point(-dimension.width / 2.0, dimension.length / 2.0), vehicleAngle);
-      break;
-    case VehicleCorner::frontRight:
-      resultPoint = rotateAroundPoint(
-        point.position, ad::rss::unstructured::Point(dimension.width / 2.0, dimension.length / 2.0), vehicleAngle);
-      break;
-    case VehicleCorner::backLeft:
-      resultPoint = rotateAroundPoint(
-        point.position, ad::rss::unstructured::Point(-dimension.width / 2.0, -dimension.length / 2.0), vehicleAngle);
-      break;
-    case VehicleCorner::backRight:
-      resultPoint = rotateAroundPoint(
-        point.position, ad::rss::unstructured::Point(dimension.width / 2.0, -dimension.length / 2.0), vehicleAngle);
-      break;
-  }
-  return resultPoint;
 }
 
 ad::rss::unstructured::Polygon
@@ -127,8 +92,8 @@ TrajectoryVehicle::createTrajectorySet(ad::rss::situation::VehicleState const &v
 {
   // calculate left/right end points
   auto accelStepSize = (vehicleState.dynamics.alphaLon.accelMax - vehicleState.dynamics.alphaLon.brakeMax) / 20.0;
-  std::vector<TrajectoryVehicle::TrajectoryPoint> rightTrajectoryMax;
-  std::vector<TrajectoryVehicle::TrajectoryPoint> leftTrajectoryMax;
+  Trajectory rightTrajectoryMax;
+  Trajectory leftTrajectoryMax;
   {
     // max yaw-change-rate, brakeMax to accelMax in x steps
     int idx = 0;
@@ -148,10 +113,10 @@ TrajectoryVehicle::createTrajectorySet(ad::rss::situation::VehicleState const &v
   }
 
   // calculate front end points
-  std::vector<TrajectoryVehicle::TrajectoryPoint> frontTrajectoryMax;
+  Trajectory frontTrajectoryMax;
   {
     int idx = 0;
-    for (auto yawRateRatio = ad::physics::RatioValue(-0.9); yawRateRatio <= ad::physics::RatioValue(0.9);
+    for (auto yawRateRatio = ad::physics::RatioValue(-1.0); yawRateRatio <= ad::physics::RatioValue(1.0);
          yawRateRatio += ad::physics::RatioValue(0.1))
     {
       auto pt = getMaxTrajectoryPoint(vehicleState,
@@ -176,72 +141,7 @@ TrajectoryVehicle::createTrajectorySet(ad::rss::situation::VehicleState const &v
   // Two modes can be active:
   //(1) the line through all frontLeft or the frontRight corners of a vehicle define the front
   //(2) the front is defined partially by the frontLeft corner line and the frontRight corner line.
-
-  // create lines through frontLefts, frontRights, center
-  // add special points at the beginning/ending of the left/right lines
-  ad::rss::unstructured::Line frontLeftLine, frontRightLine, centerLine;
-  boost::geometry::append(
-    frontLeftLine,
-    getVehicleCorner(rightTrajectoryMax.back(), vehicleState.objectState.dimension, VehicleCorner::frontLeft));
-  for (auto const &pt : frontTrajectoryMax)
-  {
-    boost::geometry::append(centerLine, pt.position);
-    boost::geometry::append(frontLeftLine,
-                            getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::frontLeft));
-    boost::geometry::append(frontRightLine,
-                            getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::frontRight));
-  }
-  boost::geometry::append(
-    frontRightLine,
-    getVehicleCorner(leftTrajectoryMax.back(), vehicleState.objectState.dimension, VehicleCorner::frontRight));
-
-  std::vector<ad::rss::unstructured::Point> intersections;
-  boost::geometry::intersection(frontLeftLine, frontRightLine, intersections);
-  ad::rss::unstructured::Line frontBorder;
-  if (intersections.empty())
-  {
-    //(1) no intersection, use more distant line as frontBorder
-    auto const frontLeftToCenterDistance = boost::geometry::comparable_distance(frontLeftLine, centerLine);
-    auto const frontRightToCenterDistance = boost::geometry::comparable_distance(frontRightLine, centerLine);
-    if (frontLeftToCenterDistance > frontRightToCenterDistance)
-    {
-      frontBorder = frontLeftLine;
-    }
-    else
-    {
-      frontBorder = frontRightLine;
-    }
-  }
-  else
-  {
-    //(2) intersection found, calculate front
-    auto const &intersectionPoint = intersections.back();
-
-    // split lines into pieces before and after the intersection point
-    ad::rss::unstructured::Line leftBeforeSection;
-    ad::rss::unstructured::Line leftAfterSection;
-    splitLineAtIntersectionPoint(intersectionPoint, frontLeftLine, leftBeforeSection, leftAfterSection);
-
-    ad::rss::unstructured::Line rightBeforeSection;
-    ad::rss::unstructured::Line rightAfterSection;
-    splitLineAtIntersectionPoint(intersectionPoint, frontRightLine, rightBeforeSection, rightAfterSection);
-
-    // calculate if before or after part is more distant, append them accordingly
-    auto leftBeforeDistance = boost::geometry::comparable_distance(leftBeforeSection, centerLine);
-    auto rightBeforeDistance = boost::geometry::comparable_distance(rightBeforeSection, centerLine);
-    if (leftBeforeDistance > rightBeforeDistance)
-    {
-      frontBorder = leftBeforeSection;
-      boost::geometry::append(frontBorder, intersectionPoint);
-      boost::geometry::append(frontBorder, rightAfterSection);
-    }
-    else
-    {
-      frontBorder = rightBeforeSection;
-      boost::geometry::append(frontBorder, intersectionPoint);
-      boost::geometry::append(frontBorder, leftAfterSection);
-    }
-  }
+  auto frontBorder = calculateFrontWithDimension(frontTrajectoryMax, vehicleState.objectState.dimension);
 
   // construct the resulting polygon
   ad::rss::unstructured::Polygon output;
@@ -253,11 +153,10 @@ TrajectoryVehicle::createTrajectorySet(ad::rss::situation::VehicleState const &v
   return output;
 }
 
-ad::rss::unstructured::Line
-TrajectoryVehicle::calculateSide(std::vector<TrajectoryVehicle::TrajectoryPoint> const &sidePts,
-                                 TrajectoryHeading const side,
-                                 ad::physics::Dimension2D const &dimension,
-                                 std::string const &ns) const
+ad::rss::unstructured::Line TrajectoryVehicle::calculateSide(Trajectory const &sidePts,
+                                                             TrajectoryHeading const side,
+                                                             ad::physics::Dimension2D const &dimension,
+                                                             std::string const &ns) const
 {
   TrajectoryHeading headingToTest;
   VehicleCorner cornerBack;
@@ -286,7 +185,7 @@ TrajectoryVehicle::calculateSide(std::vector<TrajectoryVehicle::TrajectoryPoint>
     // DebugDrawer::getInstance()->drawPoint(vehiclePt.x(), vehiclePt.y(), "red", ns + "first");
   }
   int idx = 0;
-  for (std::vector<TrajectoryVehicle::TrajectoryPoint>::const_iterator it = sidePts.begin(); it != sidePts.end(); ++it)
+  for (Trajectory::const_iterator it = sidePts.begin(); it != sidePts.end(); ++it)
   {
     auto const &pt = *it;
     ad::rss::unstructured::Point vehiclePt;
@@ -350,8 +249,7 @@ TrajectoryVehicle::calculateSide(std::vector<TrajectoryVehicle::TrajectoryPoint>
   return maxLine;
 }
 
-TrajectoryVehicle::TrajectoryHeading
-TrajectoryVehicle::getTrajectoryHeading(std::vector<TrajectoryVehicle::TrajectoryPoint> const &trajectoryPoints) const
+TrajectoryHeading TrajectoryVehicle::getTrajectoryHeading(Trajectory const &trajectoryPoints) const
 {
   // majority of headings decide (imprecise if heading changes)
   auto headingVote = 0; // negative means right
@@ -370,7 +268,7 @@ TrajectoryVehicle::getTrajectoryHeading(std::vector<TrajectoryVehicle::Trajector
     }
   }
 
-  TrajectoryVehicle::TrajectoryHeading heading;
+  TrajectoryHeading heading;
   if (headingVote < 0)
   {
     heading = TrajectoryHeading::right;
@@ -382,12 +280,12 @@ TrajectoryVehicle::getTrajectoryHeading(std::vector<TrajectoryVehicle::Trajector
   return heading;
 }
 
-TrajectoryVehicle::Trajectory TrajectoryVehicle::createTrajectory(ad::rss::situation::VehicleState const &vehicleState,
-                                                                  ad::physics::Duration const &inputTime,
-                                                                  ad::physics::Acceleration const &aUntilResponseTime,
-                                                                  ad::physics::Acceleration const &aAfterResponseTime,
-                                                                  ad::physics::RatioValue const &yawRateRatio,
-                                                                  std::string const &ns) const
+Trajectory TrajectoryVehicle::createTrajectory(ad::rss::situation::VehicleState const &vehicleState,
+                                               ad::physics::Duration const &inputTime,
+                                               ad::physics::Acceleration const &aUntilResponseTime,
+                                               ad::physics::Acceleration const &aAfterResponseTime,
+                                               ad::physics::RatioValue const &yawRateRatio,
+                                               std::string const &ns) const
 {
   Trajectory trajectory;
   std::vector<ad::rss::unstructured::Point> points;
@@ -545,8 +443,7 @@ TrajectoryVehicle::Trajectory TrajectoryVehicle::createTrajectory(ad::rss::situa
       }
       points.push_back(currentPoint);
 
-      trajectory.push_back(
-        TrajectoryVehicle::TrajectoryPoint(currentPoint, static_cast<double>(currentAngle) + M_PI / 2.0, heading));
+      trajectory.push_back(TrajectoryPoint(currentPoint, static_cast<double>(currentAngle) + M_PI / 2.0, heading));
     }
     else
     {
@@ -573,6 +470,68 @@ TrajectoryVehicle::calculateYawRate(ad::physics::Duration const &currentTime,
 
   return vehicleState.objectState.yawRate
     + yawRateDiffPerSecond * static_cast<double>(calcTime) * static_cast<double>(yawRateRatio);
+}
+
+Line TrajectoryVehicle::calculateFrontWithDimension(Trajectory const &trajectory,
+                                                    ad::physics::Dimension2D const &dimension)
+{
+  // create lines through lefts, rights, centers
+  ad::rss::unstructured::Line leftLine, rightLine, centerLine;
+  for (auto const &pt : trajectory)
+  {
+    boost::geometry::append(centerLine, pt.position);
+    boost::geometry::append(leftLine, getVehicleCorner(pt, dimension, VehicleCorner::frontLeft));
+    boost::geometry::append(rightLine, getVehicleCorner(pt, dimension, VehicleCorner::frontRight));
+  }
+
+  std::vector<ad::rss::unstructured::Point> intersections;
+  boost::geometry::intersection(leftLine, rightLine, intersections);
+  ad::rss::unstructured::Line resultBorder;
+  if (intersections.empty())
+  {
+    //(1) no intersection, use more distant line as resultBorder
+    auto const frontLeftToCenterDistance = boost::geometry::comparable_distance(leftLine, centerLine);
+    auto const frontRightToCenterDistance = boost::geometry::comparable_distance(rightLine, centerLine);
+    if (frontLeftToCenterDistance > frontRightToCenterDistance)
+    {
+      resultBorder = leftLine;
+    }
+    else
+    {
+      resultBorder = rightLine;
+    }
+  }
+  else
+  {
+    //(2) intersection found, calculate front
+    auto const &intersectionPoint = intersections.back();
+
+    // split lines into pieces before and after the intersection point
+    ad::rss::unstructured::Line leftBeforeSection;
+    ad::rss::unstructured::Line leftAfterSection;
+    splitLineAtIntersectionPoint(intersectionPoint, leftLine, leftBeforeSection, leftAfterSection);
+
+    ad::rss::unstructured::Line rightBeforeSection;
+    ad::rss::unstructured::Line rightAfterSection;
+    splitLineAtIntersectionPoint(intersectionPoint, rightLine, rightBeforeSection, rightAfterSection);
+
+    // calculate if before or after part is more distant, append them accordingly
+    auto leftBeforeDistance = boost::geometry::comparable_distance(leftBeforeSection, centerLine);
+    auto rightBeforeDistance = boost::geometry::comparable_distance(rightBeforeSection, centerLine);
+    if (leftBeforeDistance > rightBeforeDistance)
+    {
+      resultBorder = leftBeforeSection;
+      boost::geometry::append(resultBorder, intersectionPoint);
+      boost::geometry::append(resultBorder, rightAfterSection);
+    }
+    else
+    {
+      resultBorder = rightBeforeSection;
+      boost::geometry::append(resultBorder, intersectionPoint);
+      boost::geometry::append(resultBorder, leftAfterSection);
+    }
+  }
+  return resultBorder;
 }
 
 } // namespace unstructured

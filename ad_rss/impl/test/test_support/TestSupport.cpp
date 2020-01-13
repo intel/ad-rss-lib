@@ -84,7 +84,6 @@ world::RssDynamics getObjectRssDynamics()
   rssDynamics.responseTime = cResponseTimeOtherVehicles;
 
   rssDynamics.unstructuredSettings.pedestrianTurningRadius = ad::physics::Distance(2.0);
-  rssDynamics.unstructuredSettings.pedestrianPreciseTrajectoryCalculation = true;
   rssDynamics.unstructuredSettings.driveAwayMaxAngle = ad::physics::Angle(2.4);
   rssDynamics.unstructuredSettings.vehicleYawRateChangePerSecond = ad::physics::ParametricValue(0.3);
   rssDynamics.unstructuredSettings.vehicleMinRadius = ad::physics::Distance(3.5);
@@ -108,7 +107,6 @@ world::RssDynamics getEgoRssDynamics()
   rssDynamics.responseTime = cResponseTimeEgoVehicle;
 
   rssDynamics.unstructuredSettings.pedestrianTurningRadius = ad::physics::Distance(2.0);
-  rssDynamics.unstructuredSettings.pedestrianPreciseTrajectoryCalculation = true;
   rssDynamics.unstructuredSettings.driveAwayMaxAngle = ad::physics::Angle(2.4);
   rssDynamics.unstructuredSettings.vehicleYawRateChangePerSecond = ad::physics::ParametricValue(0.3);
   rssDynamics.unstructuredSettings.vehicleMinRadius = ad::physics::Distance(3.5);

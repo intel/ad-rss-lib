@@ -20,6 +20,7 @@ set(ad_rss_SOURCES
   ${CMAKE_CURRENT_LIST_DIR}/src/world/RssSituationIdProvider.cpp
   ${CMAKE_CURRENT_LIST_DIR}/src/world/RssObjectPositionExtractor.cpp
   ${CMAKE_CURRENT_LIST_DIR}/src/unstructured/Geometry.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/src/unstructured/TrajectoryCommon.cpp
   ${CMAKE_CURRENT_LIST_DIR}/src/unstructured/TrajectoryPedestrian.cpp
   ${CMAKE_CURRENT_LIST_DIR}/src/unstructured/TrajectoryVehicle.cpp
   )

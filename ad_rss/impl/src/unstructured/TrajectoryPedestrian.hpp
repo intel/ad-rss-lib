@@ -12,6 +12,7 @@
 #pragma once
 
 #include <ad/physics/RatioValue.hpp>
+#include "TrajectoryCommon.hpp"
 #include "ad/rss/situation/VehicleState.hpp"
 #include "ad/rss/unstructured/Geometry.hpp"
 
@@ -31,7 +32,7 @@ namespace unstructured {
 class TrajectoryPedestrian
 {
 public:
-  static constexpr double maxRadius{1000.0};
+  static const double maxRadius;
 
   TrajectoryPedestrian()
   {
@@ -42,53 +43,36 @@ public:
                         ad::rss::unstructured::Polygon &continueForwardPolygon);
 
 private:
-  ad::rss::unstructured::Point calculateIntersectionPoint(ad::rss::unstructured::Point const &straight,
-                                                          ad::rss::unstructured::Point const &maxAccel,
-                                                          ad::physics::Distance const &maxDistance,
-                                                          ad::rss::unstructured::Point const &startingPoint);
-
-  void calculateTrajectorySetSimplified(ad::physics::Duration const &currentTime,
-                                        ad::rss::unstructured::Point const &startingPoint,
-                                        ad::physics::Angle const &startingAngle,
-                                        ad::physics::Speed const &initialSpeed,
-                                        ad::physics::Acceleration const &aAfterResponseTime,
-                                        ad::physics::Distance const &maxDistance,
-                                        ad::rss::world::RssDynamics const &rssDynamics,
-                                        ad::rss::unstructured::Polygon &trajectoryCorridor);
-
-  void calculateTrajectorySetPrecise(ad::physics::Duration const &currentTime,
-                                     ad::rss::unstructured::Point const &startingPoint,
-                                     ad::physics::Angle const &startingAngle,
-                                     ad::physics::Speed const &initialSpeed,
-                                     ad::physics::Acceleration const &aAfterResponseTime,
-                                     ad::rss::world::RssDynamics const &rssDynamics,
-                                     ad::rss::unstructured::Polygon &trajectoryCorridor);
+  bool calculateTrajectorySet(ad::physics::Duration const &currentTime,
+                              ad::physics::Acceleration const &aAfterResponseTime,
+                              ad::rss::situation::VehicleState const &vehicleState,
+                              ad::rss::unstructured::Polygon &trajectorySet);
 
   ad::rss::unstructured::Polygon generate(ad::physics::Duration const &currentTime,
-                                          ad::rss::unstructured::Point const &startingPoint,
-                                          ad::physics::Angle const &startingAngle,
-                                          ad::physics::Speed const &initialSpeed,
                                           ad::physics::Acceleration const &aAfterResponseTime,
-                                          ad::rss::world::RssDynamics const &rssDynamics,
-                                          bool const preciseTrajectoryCalculation);
+                                          ad::rss::situation::VehicleState const &vehicleState);
 
   void calculateMaxAngleTrajectory(ad::rss::unstructured::Line &geometry,
                                    ad::physics::Duration const &currentTime,
-                                   ad::physics::Acceleration const &aUntilResponseTimeMin,
-                                   ad::physics::Acceleration const &aUntilResponseTimeMax,
+                                   ad::physics::Acceleration const &aAfterResponseTime,
                                    ad::physics::RatioValue const &angleChangeRatio,
                                    ad::rss::unstructured::Point const &startingPoint,
                                    ad::physics::Angle const &startingAngle,
                                    ad::physics::Speed const &initialSpeed,
                                    ad::rss::world::RssDynamics const &rssDynamics);
 
-  ad::rss::unstructured::Point calculateTrajectoryEndPoint(ad::physics::Duration const &currentTime,
-                                                           ad::physics::Acceleration const &aUntilResponseTime,
-                                                           ad::physics::RatioValue const &angleChangeRatio,
-                                                           ad::rss::unstructured::Point const &startingPoint,
-                                                           ad::physics::Angle const &startingAngle,
-                                                           ad::physics::Speed const &initialSpeed,
-                                                           ad::rss::world::RssDynamics const &rssDynamics) const;
+  TrajectoryPoint calculateTrajectoryEndPoint(ad::physics::Duration const &currentTime,
+                                              ad::physics::Acceleration const &aUntilResponseTime,
+                                              ad::physics::Acceleration const &aAfterResponseTime,
+                                              ad::physics::RatioValue const &angleChangeRatio,
+                                              ad::rss::situation::VehicleState const &vehicleState,
+                                              std::string const &ns) const;
+
+  Polygon calculateFrontWithDimension(Trajectory const &trajectory, ad::physics::Dimension2D const &dimension);
+
+  Polygon calculateBackWithDimension(ad::physics::Duration const &currentTime,
+                                     ad::physics::Acceleration const &aAfterResponseTime,
+                                     situation::VehicleState const &vehicleState);
 };
 
 } // namespace unstructured
