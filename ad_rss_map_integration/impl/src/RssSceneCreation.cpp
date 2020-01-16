@@ -757,6 +757,12 @@ bool appendRoadBoundaries(::ad::rss::world::ObjectId const &egoId,
   staticDynamics.lateralFluctuationMargin = ::ad::physics::Distance(0.0);
   staticDynamics.responseTime = ::ad::physics::Duration(0.01);
 
+  ::ad::rss::world::Velocity staticVelocity;
+  staticVelocity.speedLonMin = ::ad::physics::Speed(0);
+  staticVelocity.speedLonMax = ::ad::physics::Speed(0);
+  staticVelocity.speedLatMin = ::ad::physics::Speed(0);
+  staticVelocity.speedLatMax = ::ad::physics::Speed(0);
+
   ::ad::rss::world::ObjectId rightBorderId = std::numeric_limits<::ad::rss::world::ObjectId>::max();
   ::ad::rss::world::ObjectId leftBorderId = std::numeric_limits<::ad::rss::world::ObjectId>::max() - 1;
 
@@ -772,10 +778,12 @@ bool appendRoadBoundaries(::ad::rss::world::ObjectId const &egoId,
   ::ad::rss::world::Object rightBorderObject;
   rightBorderObject.objectId = rightBorderId;
   rightBorderObject.objectType = ::ad::rss::world::ObjectType::ArtificialObject;
+  rightBorderObject.velocity = staticVelocity;
 
   ::ad::rss::world::Object leftBorderObject;
   leftBorderObject.objectId = leftBorderId;
   leftBorderObject.objectType = ::ad::rss::world::ObjectType::ArtificialObject;
+  leftBorderObject.velocity = staticVelocity;
 
   for (auto const &roadSegment : route.roadSegments)
   {

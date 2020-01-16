@@ -210,6 +210,11 @@ TEST_F(RssSceneCreationTest, testAppendRoadBoundaries)
     EXPECT_EQ(::ad::physics::Distance(0.), scene.objectRssDynamics.lateralFluctuationMargin);
     EXPECT_EQ(::ad::physics::Duration(0.01), scene.objectRssDynamics.responseTime);
 
+    EXPECT_EQ(::ad::physics::Speed(0.), scene.object.velocity.speedLonMin);
+    EXPECT_EQ(::ad::physics::Speed(0.), scene.object.velocity.speedLonMax);
+    EXPECT_EQ(::ad::physics::Speed(0.), scene.object.velocity.speedLatMin);
+    EXPECT_EQ(::ad::physics::Speed(0.), scene.object.velocity.speedLatMax);
+
     if (i % 2u)
     {
       // left border
