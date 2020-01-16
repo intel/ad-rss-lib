@@ -18,7 +18,7 @@ The *ad-rss-lib* provides more or less two ways of integrating the functionality
   - mResponseResolving->provideProperResponse(responseStateVector, properResponse)
   - RssResponseTransformation::transformProperResponse(worldModel, properResponse, accelerationRestriction)
 
-You can directly take  [RssCheck::calculateAccelerationRestriction()](https://github.com/intel/ad-rss-lib/blob/master/src/core/RssCheck.cpp) as an example on how to call the individual steps. Applying the step-by-step calls especially provides the
+You can directly take  [RssCheck::calculateAccelerationRestriction()](https://github.com/intel/ad-rss-lib/blob/master/ad_rss/impl/src/core/RssCheck.cpp) as an example on how to call the individual steps. Applying the step-by-step calls especially provides the
 response state on individual object basis of the scene.
 
 Regardless which solution you prefer, you always have to respect the return value of the functions, before you further make use of the information!
@@ -32,7 +32,7 @@ The *worldModel* is the input to the *RSS* calculations.
 It is derived from the *Sense* part.
 
 ###### How do I get to the information required for the input *worldModel*?
-The world model data heavily depends on the system the *ad-rss-lib* is going to be integrated. Therefore, there is no single answer to this question. Simple scenarios can be derived using basic object data, integration of *RSS* to the full extend demand more sophisticated a-priori information, usually provided by means of an AD-Map. The [unit tests](https://github.com/intel/ad-rss-lib/blob/master/tests/core/RssCheckTestBaseT.hpp) provided with the *ad-rss-lib* build some basic *worldModel* structures that might be taken as a starting point. Better examples can be found in the section on [Integration examples](#integration-examples).
+The world model data heavily depends on the system the *ad-rss-lib* is going to be integrated. Therefore, there is no single answer to this question. Simple scenarios can be derived using basic object data, integration of *RSS* to the full extend demand more sophisticated a-priori information, usually provided by means of an AD-Map. The [unit tests](https://github.com/intel/ad-rss-lib/blob/master/ad_rss/impl/tests/core/RssCheckTestBaseT.hpp) provided with the *ad-rss-lib* build some basic *worldModel* structures that might be taken as a starting point. Better examples can be found in the section on [Integration examples](#integration-examples).
 
 #### Output: rssAccelerationRestrictions
 

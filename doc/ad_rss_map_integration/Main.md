@@ -4,6 +4,7 @@
 1. [Introduction](#introduction)
 2. [High Level Design](#highleveldesign)
 3. [API documentation](#apidoc)
+4. [Python Binding](#python)
 
 ## Introduction <a name="introduction"></a>
 This *ad_rss_map_integration* library provides a C++ implementation for integrating Responsible Sensitive Safety (RSS)
@@ -40,10 +41,13 @@ perform required matching, planning and analysis operations.
 The high level design documentation provides more insights on the architecture and functionality
 of this library.
 
-1. [Construction of the RSS Scenes](https://intel.github.io/ad-rss-lib/ad-rss-map-integration/ConstructRSSScenes/index.html)
-2. [Handling of road boundaries](https://intel.github.io/ad-rss-lib/ad-rss-map-integration/HandleRoadBoundaries/index.html)
+1. [Construction of the RSS Scenes](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/ConstructRSSScenes/index.html)
+2. [Handling of road boundaries](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/index.html)
 
 ## API documentation <a name="apidoc"></a>
 Detailed documentation on API level is available via
 [Doxygen](https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/index.html)
 documentation within the code.
+
+## Python Binding <a name="python"></a>
+There is also a python binding for the *ad_map_access* library available: [*ad_rss_map_integration_python*](./ad_rss_map_integration_python.md)
