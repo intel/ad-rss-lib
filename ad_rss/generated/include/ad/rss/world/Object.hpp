@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -49,12 +49,12 @@ struct Object
   /*!
    * \brief Smart pointer on Object
    */
-  using Ptr = std::shared_ptr<Object>;
+  typedef std::shared_ptr<Object> Ptr;
 
   /*!
    * \brief Smart pointer on constant Object
    */
-  using ConstPtr = std::shared_ptr<Object const>;
+  typedef std::shared_ptr<Object const> ConstPtr;
 
   /*!
    * \brief standard constructor

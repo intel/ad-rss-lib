@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -36,7 +36,7 @@ namespace situation {
  *
  * The unique id of an situation over time.
  */
-using SituationId = uint64_t;
+typedef uint64_t SituationId;
 
 } // namespace situation
 } // namespace rss

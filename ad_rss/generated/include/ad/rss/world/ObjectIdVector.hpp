@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -39,7 +39,7 @@ namespace world {
  *
  * A list of object ids.
  */
-using ObjectIdVector = std::vector<::ad::rss::world::ObjectId>;
+typedef std::vector<::ad::rss::world::ObjectId> ObjectIdVector;
 
 } // namespace world
 } // namespace rss

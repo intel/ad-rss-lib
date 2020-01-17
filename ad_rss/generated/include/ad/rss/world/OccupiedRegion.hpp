@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -48,12 +48,12 @@ struct OccupiedRegion
   /*!
    * \brief Smart pointer on OccupiedRegion
    */
-  using Ptr = std::shared_ptr<OccupiedRegion>;
+  typedef std::shared_ptr<OccupiedRegion> Ptr;
 
   /*!
    * \brief Smart pointer on constant OccupiedRegion
    */
-  using ConstPtr = std::shared_ptr<OccupiedRegion const>;
+  typedef std::shared_ptr<OccupiedRegion const> ConstPtr;
 
   /*!
    * \brief standard constructor

@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -49,12 +49,12 @@ struct ProperResponse
   /*!
    * \brief Smart pointer on ProperResponse
    */
-  using Ptr = std::shared_ptr<ProperResponse>;
+  typedef std::shared_ptr<ProperResponse> Ptr;
 
   /*!
    * \brief Smart pointer on constant ProperResponse
    */
-  using ConstPtr = std::shared_ptr<ProperResponse const>;
+  typedef std::shared_ptr<ProperResponse const> ConstPtr;
 
   /*!
    * \brief standard constructor

@@ -10,7 +10,7 @@
 ##
 # Generated file
 #
-# Generator Version : 11.0.0-1911
+# Generator Version : 11.0.0-1917
 ##
 
 cmake_minimum_required(VERSION 3.5)
@@ -31,7 +31,7 @@ if ((NOT ad_rss_map_integration_SOURCES) OR (NOT ad_rss_map_integration_INCLUDE_
   message(FATAL_ERROR "${PROJECT_NAME}: Variable ad_rss_map_integration_SOURCES or ad_rss_map_integration_INCLUDE_DIRS pointing to the generator managed library not set!")
 endif()
 
-find_package(ad_map_access 0.4.0 REQUIRED CONFIG)
+find_package(ad_map_access 1.0.1 REQUIRED CONFIG)
 find_package(ad_rss 0.0.0 REQUIRED CONFIG)
 
 add_library(${PROJECT_NAME}

@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -39,7 +39,7 @@ namespace world {
  *
  * A vector of occupied regions.
  */
-using OccupiedRegionVector = std::vector<::ad::rss::world::OccupiedRegion>;
+typedef std::vector<::ad::rss::world::OccupiedRegion> OccupiedRegionVector;
 
 } // namespace world
 } // namespace rss

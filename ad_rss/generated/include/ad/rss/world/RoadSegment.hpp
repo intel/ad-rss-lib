@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -40,7 +40,7 @@ namespace world {
  * A RoadSegment is defined by lateral neighboring lane segments. The lane segments within a road segment have to be
  * ordered from left to right in respect to the driving direction defined by the road area.
  */
-using RoadSegment = std::vector<::ad::rss::world::LaneSegment>;
+typedef std::vector<::ad::rss::world::LaneSegment> RoadSegment;
 
 } // namespace world
 } // namespace rss

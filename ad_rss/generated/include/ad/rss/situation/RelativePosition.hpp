@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -47,12 +47,12 @@ struct RelativePosition
   /*!
    * \brief Smart pointer on RelativePosition
    */
-  using Ptr = std::shared_ptr<RelativePosition>;
+  typedef std::shared_ptr<RelativePosition> Ptr;
 
   /*!
    * \brief Smart pointer on constant RelativePosition
    */
-  using ConstPtr = std::shared_ptr<RelativePosition const>;
+  typedef std::shared_ptr<RelativePosition const> ConstPtr;
 
   /*!
    * \brief standard constructor

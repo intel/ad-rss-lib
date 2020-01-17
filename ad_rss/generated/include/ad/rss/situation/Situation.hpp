@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -55,12 +55,12 @@ struct Situation
   /*!
    * \brief Smart pointer on Situation
    */
-  using Ptr = std::shared_ptr<Situation>;
+  typedef std::shared_ptr<Situation> Ptr;
 
   /*!
    * \brief Smart pointer on constant Situation
    */
-  using ConstPtr = std::shared_ptr<Situation const>;
+  typedef std::shared_ptr<Situation const> ConstPtr;
 
   /*!
    * \brief standard constructor

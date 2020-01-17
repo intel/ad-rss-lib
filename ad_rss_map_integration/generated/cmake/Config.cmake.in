@@ -10,14 +10,14 @@
 ##
 # Generated file
 #
-# Generator Version : 11.0.0-1911
+# Generator Version : 11.0.0-1917
 ##
 
 @PACKAGE_INIT@
 
 include(CMakeFindDependencyMacro)
 
-find_dependency(ad_map_access 0.4.0)
+find_dependency(ad_map_access 1.0.1)
 find_dependency(ad_rss 0.0.0)
 
 include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")

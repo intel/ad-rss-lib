@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -36,7 +36,7 @@ namespace world {
  *
  * Defines a certain point in time.
  */
-using TimeIndex = uint64_t;
+typedef uint64_t TimeIndex;
 
 } // namespace world
 } // namespace rss

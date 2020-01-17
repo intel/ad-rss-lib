@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -48,12 +48,12 @@ struct WorldModel
   /*!
    * \brief Smart pointer on WorldModel
    */
-  using Ptr = std::shared_ptr<WorldModel>;
+  typedef std::shared_ptr<WorldModel> Ptr;
 
   /*!
    * \brief Smart pointer on constant WorldModel
    */
-  using ConstPtr = std::shared_ptr<WorldModel const>;
+  typedef std::shared_ptr<WorldModel const> ConstPtr;
 
   /*!
    * \brief standard constructor

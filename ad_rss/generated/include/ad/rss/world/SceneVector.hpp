@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -39,7 +39,7 @@ namespace world {
  *
  * A vector of scenes.
  */
-using SceneVector = std::vector<::ad::rss::world::Scene>;
+typedef std::vector<::ad::rss::world::Scene> SceneVector;
 
 } // namespace world
 } // namespace rss

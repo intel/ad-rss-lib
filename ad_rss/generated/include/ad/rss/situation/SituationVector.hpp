@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -39,7 +39,7 @@ namespace situation {
  *
  * A vector of situations.
  */
-using SituationVector = std::vector<::ad::rss::situation::Situation>;
+typedef std::vector<::ad::rss::situation::Situation> SituationVector;
 
 } // namespace situation
 } // namespace rss

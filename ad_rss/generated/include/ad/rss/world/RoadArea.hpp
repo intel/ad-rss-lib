@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -40,7 +40,7 @@ namespace world {
  * A RoadArea is defined by longitudinal neighboring road segments. The road segments within a road area have to be
  * ordered from start to end in respect to the driving direction.
  */
-using RoadArea = std::vector<::ad::rss::world::RoadSegment>;
+typedef std::vector<::ad::rss::world::RoadSegment> RoadArea;
 
 } // namespace world
 } // namespace rss

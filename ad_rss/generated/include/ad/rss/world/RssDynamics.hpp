@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -51,12 +51,12 @@ struct RssDynamics
   /*!
    * \brief Smart pointer on RssDynamics
    */
-  using Ptr = std::shared_ptr<RssDynamics>;
+  typedef std::shared_ptr<RssDynamics> Ptr;
 
   /*!
    * \brief Smart pointer on constant RssDynamics
    */
-  using ConstPtr = std::shared_ptr<RssDynamics const>;
+  typedef std::shared_ptr<RssDynamics const> ConstPtr;
 
   /*!
    * \brief standard constructor

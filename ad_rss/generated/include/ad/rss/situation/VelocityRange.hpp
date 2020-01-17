@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -45,12 +45,12 @@ struct VelocityRange
   /*!
    * \brief Smart pointer on VelocityRange
    */
-  using Ptr = std::shared_ptr<VelocityRange>;
+  typedef std::shared_ptr<VelocityRange> Ptr;
 
   /*!
    * \brief Smart pointer on constant VelocityRange
    */
-  using ConstPtr = std::shared_ptr<VelocityRange const>;
+  typedef std::shared_ptr<VelocityRange const> ConstPtr;
 
   /*!
    * \brief standard constructor

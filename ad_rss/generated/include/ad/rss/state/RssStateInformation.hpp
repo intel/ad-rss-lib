@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -46,12 +46,12 @@ struct RssStateInformation
   /*!
    * \brief Smart pointer on RssStateInformation
    */
-  using Ptr = std::shared_ptr<RssStateInformation>;
+  typedef std::shared_ptr<RssStateInformation> Ptr;
 
   /*!
    * \brief Smart pointer on constant RssStateInformation
    */
-  using ConstPtr = std::shared_ptr<RssStateInformation const>;
+  typedef std::shared_ptr<RssStateInformation const> ConstPtr;
 
   /*!
    * \brief standard constructor

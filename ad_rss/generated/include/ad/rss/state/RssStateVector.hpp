@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -39,7 +39,7 @@ namespace state {
  *
  * A vector of RSS states.
  */
-using RssStateVector = std::vector<::ad::rss::state::RssState>;
+typedef std::vector<::ad::rss::state::RssState> RssStateVector;
 
 } // namespace state
 } // namespace rss

@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -45,12 +45,12 @@ struct LongitudinalRssAccelerationValues
   /*!
    * \brief Smart pointer on LongitudinalRssAccelerationValues
    */
-  using Ptr = std::shared_ptr<LongitudinalRssAccelerationValues>;
+  typedef std::shared_ptr<LongitudinalRssAccelerationValues> Ptr;
 
   /*!
    * \brief Smart pointer on constant LongitudinalRssAccelerationValues
    */
-  using ConstPtr = std::shared_ptr<LongitudinalRssAccelerationValues const>;
+  typedef std::shared_ptr<LongitudinalRssAccelerationValues const> ConstPtr;
 
   /*!
    * \brief standard constructor

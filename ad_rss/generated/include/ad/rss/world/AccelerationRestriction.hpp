@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1911
+ * Generator Version : 11.0.0-1917
  */
 
 #pragma once
@@ -46,12 +46,12 @@ struct AccelerationRestriction
   /*!
    * \brief Smart pointer on AccelerationRestriction
    */
-  using Ptr = std::shared_ptr<AccelerationRestriction>;
+  typedef std::shared_ptr<AccelerationRestriction> Ptr;
 
   /*!
    * \brief Smart pointer on constant AccelerationRestriction
    */
-  using ConstPtr = std::shared_ptr<AccelerationRestriction const>;
+  typedef std::shared_ptr<AccelerationRestriction const> ConstPtr;
 
   /*!
    * \brief standard constructor
