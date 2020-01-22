@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2019 Intel Corporation
+// Copyright (C) 2019-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -41,7 +41,6 @@ Logging &Logging::instance()
 Logging::Logging()
 {
   mLogger = spdlog::stdout_color_mt("rss_map_integration");
-  mLogger->set_level(spdlog::level::warn);
 }
 
 Logging::~Logging()

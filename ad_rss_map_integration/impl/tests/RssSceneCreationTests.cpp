@@ -82,25 +82,24 @@ struct RssSceneCreationTest : ::testing::Test
   void initializeObject(::ad::map::point::Longitude const &lon,
                         ::ad::map::point::Latitude const &lat,
                         double const &yawAngle,
-                        ::ad::map::match::ENUObjectPosition &position,
-                        ::ad::map::match::MapMatchedObjectBoundingBox &mapMatchedBoundingBox)
+                        ::ad::map::match::Object &object)
   {
     auto positionGeo = ::ad::map::point::createGeoPoint(lon, lat, ::ad::map::point::Altitude(0.));
 
-    position.centerPoint = ::ad::map::point::toENU(positionGeo);
-    position.heading = ::ad::map::point::createENUHeading(yawAngle);
-    position.dimension.length = ::ad::physics::Distance(4.5);
-    position.dimension.width = ::ad::physics::Distance(2.);
-    position.dimension.height = ::ad::physics::Distance(1.5);
-    position.enuReferencePoint = ::ad::map::access::getENUReferencePoint();
+    object.enuPosition.centerPoint = ::ad::map::point::toENU(positionGeo);
+    object.enuPosition.heading = ::ad::map::point::createENUHeading(yawAngle);
+    object.enuPosition.dimension.length = ::ad::physics::Distance(4.5);
+    object.enuPosition.dimension.width = ::ad::physics::Distance(2.);
+    object.enuPosition.dimension.height = ::ad::physics::Distance(1.5);
+    object.enuPosition.enuReferencePoint = ::ad::map::access::getENUReferencePoint();
 
     ::ad::map::match::AdMapMatching mapMatching;
-    mapMatchedBoundingBox
-      = mapMatching.getMapMatchedBoundingBox(position, ::ad::physics::Distance(0.1), ::ad::physics::Probability(0.5));
+    object.mapMatchedBoundingBox = mapMatching.getMapMatchedBoundingBox(
+      object.enuPosition, ::ad::physics::Distance(0.1), ::ad::physics::Probability(0.5));
 
-    ASSERT_GE(mapMatchedBoundingBox.referencePointPositions.size(),
+    ASSERT_GE(object.mapMatchedBoundingBox.referencePointPositions.size(),
               static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center));
-    ASSERT_GE(mapMatchedBoundingBox
+    ASSERT_GE(object.mapMatchedBoundingBox
                 .referencePointPositions[static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center)]
                 .size(),
               0);
@@ -112,8 +111,7 @@ struct RssSceneCreationTest : ::testing::Test
     initializeObject(::ad::map::point::Longitude(8.00125444865324766),
                      ::ad::map::point::Latitude(48.99758627528235877),
                      M_PI_2,
-                     egoPosition,
-                     egoMapMatchedBoundingBox);
+                     egoMatchObject);
 
     egoSpeed = ::ad::physics::Speed(5.);
 
@@ -123,16 +121,15 @@ struct RssSceneCreationTest : ::testing::Test
                                                            ::ad::map::point::Altitude(0.));
 
     egoRoute = ::ad::map::route::planning::planRoute(
-      egoMapMatchedBoundingBox
+      egoMatchObject.mapMatchedBoundingBox
         .referencePointPositions[static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center)][0]
         .lanePoint.paraPoint,
       positionEndGeo);
   }
 
   ::ad::rss::world::ObjectId egoVehicleId{123u};
-  ::ad::map::match::ENUObjectPosition egoPosition;
   ::ad::physics::Speed egoSpeed;
-  ::ad::map::match::MapMatchedObjectBoundingBox egoMapMatchedBoundingBox;
+  ::ad::map::match::Object egoMatchObject;
   ::ad::map::route::FullRoute egoRoute;
 };
 
@@ -146,14 +143,14 @@ TEST_F(RssSceneCreationTest, testAppendRoadBoundaries)
                           ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::ExpandRouteToAllNeighbors})
   {
     EXPECT_TRUE(::ad::rss::map::RssSceneCreation::appendRoadBoundaries(
-      egoVehicleId, egoMapMatchedBoundingBox, egoSpeed, egoRoute, appendMode, worldModel));
+      egoVehicleId, egoMatchObject, egoSpeed, egoRoute, appendMode, worldModel));
   }
   EXPECT_EQ(worldModel.scenes.size(), 6u);
 
   // invalid bounding box
   EXPECT_FALSE(::ad::rss::map::RssSceneCreation::appendRoadBoundaries(
     egoVehicleId,
-    ::ad::map::match::MapMatchedObjectBoundingBox(),
+    ::ad::map::match::Object(),
     egoSpeed,
     egoRoute,
     ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly,
@@ -162,7 +159,7 @@ TEST_F(RssSceneCreationTest, testAppendRoadBoundaries)
   // invalid speed
   EXPECT_FALSE(::ad::rss::map::RssSceneCreation::appendRoadBoundaries(
     egoVehicleId,
-    egoMapMatchedBoundingBox,
+    egoMatchObject,
     ::ad::physics::Speed(),
     egoRoute,
     ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly,
@@ -171,7 +168,7 @@ TEST_F(RssSceneCreationTest, testAppendRoadBoundaries)
   // invalid route
   EXPECT_FALSE(::ad::rss::map::RssSceneCreation::appendRoadBoundaries(
     egoVehicleId,
-    egoMapMatchedBoundingBox,
+    egoMatchObject,
     egoSpeed,
     ::ad::map::route::FullRoute(),
     ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly,
@@ -281,23 +278,18 @@ TEST_F(RssSceneCreationTest, testAppendScenes)
     ::ad::rss::world::ObjectId otherVehicleId = std::get<0>(objectTuple);
     ::ad::physics::Speed otherVehicleSpeed{10.};
 
-    ::ad::map::match::ENUObjectPosition otherVehiclePosition;
-    ::ad::map::match::MapMatchedObjectBoundingBox otherVehicleMapMatchedBoundingBox;
+    ::ad::map::match::Object otherMatchObject;
 
-    initializeObject(std::get<1>(objectTuple),
-                     std::get<2>(objectTuple),
-                     std::get<3>(objectTuple),
-                     otherVehiclePosition,
-                     otherVehicleMapMatchedBoundingBox);
+    initializeObject(std::get<1>(objectTuple), std::get<2>(objectTuple), std::get<3>(objectTuple), otherMatchObject);
 
     EXPECT_TRUE(::ad::rss::map::RssSceneCreation::appendScenes(
       egoVehicleId,
-      egoMapMatchedBoundingBox,
+      egoMatchObject,
       egoSpeed,
       egoRoute,
       otherVehicleId,
       ::ad::rss::world::ObjectType::OtherVehicle,
-      otherVehicleMapMatchedBoundingBox,
+      otherMatchObject,
       otherVehicleSpeed,
       getObjectVehicleDynamics(),
       ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10,
