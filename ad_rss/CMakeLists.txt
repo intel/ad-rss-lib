@@ -1,6 +1,6 @@
 # ----------------- BEGIN LICENSE BLOCK ---------------------------------
 #
-# Copyright (C) 2018-2019 Intel Corporation
+# Copyright (C) 2018-2020 Intel Corporation
 #
 # SPDX-License-Identifier: LGPL-2.1-only
 #
@@ -14,9 +14,14 @@ include(../cmake/hardening.cmake)
 include(../cmake/testing.cmake)
 include(../cmake/warnings.cmake)
 include(../cmake/apidoc.cmake)
+include(../cmake/python-binding.cmake)
 
 #convert list to string
 string (REPLACE ";" " " TARGET_LINK_FLAGS "${TARGET_LINK_OPTIONS}")
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/impl")
 add_subdirectory(generated)
+
+if(BUILD_PYTHON_BINDING)
+  add_subdirectory(python)
+endif()
