@@ -24,17 +24,11 @@ def main():
     Main function to generate Python-C++ binding code
     """
     header_dirs = {
-        "../generated/include",
-        "../impl/include"
+        "${CMAKE_CURRENT_LIST_DIR}/../generated/include/",
+        "${CMAKE_CURRENT_LIST_DIR}/../impl/include/"
     }
     include_dirs = {
-        "../../ad_rss/generated/include",
-        "../../ad_rss/impl/include",
-        "../../dependencies/map/ad_map_access/generated/include",
-        "../../dependencies/map/ad_map_access/impl/include",
-        "../../dependencies/map/ad_physics/generated/include",
-        "../../dependencies/map/ad_physics/impl/include",
-        "../../dependencies/spdlog/include"
+        "${GENPY_INCLUDE_DIRS}"
     }
 
     generate_python_wrapper(library_name="libad_rss_map_integration_python",
