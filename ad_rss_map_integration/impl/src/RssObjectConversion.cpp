@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -79,7 +79,7 @@ bool convertBoundingBox(::ad::map::match::MapMatchedObjectBoundingBox const &bou
 // 2.) especially when introducing artificial objects to be respected in occulsion scenarios
 //     Then one can expect vehicles with different current velocities approaching e.g. an intersection
 //     So for worst case analysis the whole interval between 0-maxEstimate might be relevant to cover...
-bool convertVelocity(::ad::map::match::MapMatchedObjectBoundingBox const &objectPosition,
+bool convertVelocity(::ad::map::match::Object const &objectMatchObject,
                      ::ad::physics::Speed const &objectSpeed,
                      ::ad::rss::world::RoadArea const &objectRoadArea,
                      ::ad::rss::world::Object &rssObject)
@@ -91,6 +91,7 @@ bool convertVelocity(::ad::map::match::MapMatchedObjectBoundingBox const &object
   //    the first match wins
   // B) Other possibility would be collecting all cases for the whole vehicle and get to the worst case estimate
   // Current selection is B)
+  auto objectMapPosition = objectMatchObject.mapMatchedBoundingBox;
   for (auto referencePointPosition : {::ad::map::match::ObjectReferencePoints::FrontLeft,
                                       ::ad::map::match::ObjectReferencePoints::FrontRight,
                                       ::ad::map::match::ObjectReferencePoints::Center,
@@ -98,9 +99,10 @@ bool convertVelocity(::ad::map::match::MapMatchedObjectBoundingBox const &object
                                       ::ad::map::match::ObjectReferencePoints::RearRight})
   {
     std::size_t const referencePointIndex(static_cast<std::size_t>(referencePointPosition));
-    if (objectPosition.referencePointPositions.size() > referencePointIndex)
+    if (objectMapPosition.referencePointPositions.size() > referencePointIndex)
     {
-      for (auto const &mapMatchedPosition : objectPosition.referencePointPositions[referencePointIndex])
+      auto const objectHeading = objectMatchObject.enuPosition.heading;
+      for (auto const &mapMatchedPosition : objectMapPosition.referencePointPositions[referencePointIndex])
       {
         // only actual in lane matches are considered
         if (mapMatchedPosition.type != ::ad::map::match::MapMatchedPositionType::LANE_IN)
@@ -120,11 +122,9 @@ bool convertVelocity(::ad::map::match::MapMatchedObjectBoundingBox const &object
           {
             laneHeadingOffset = ::ad::map::point::ENUHeading(M_PI);
           }
-          auto const objectHeading = ::ad::map::match::getObjectENUHeading(objectPosition);
           auto const laneHeading
             = ::ad::map::lane::getLaneENUHeading(mapMatchedPosition.lanePoint.paraPoint) + laneHeadingOffset;
           auto headingDifference = ::ad::map::point::normalizeENUHeading(laneHeading - objectHeading);
-
           auto const absSpeed = std::fabs(objectSpeed);
           auto const speedLon = std::fabs(std::cos(static_cast<double>(headingDifference))) * absSpeed;
           auto const speedLat = std::sin(static_cast<double>(headingDifference)) * absSpeed;
@@ -152,13 +152,13 @@ bool convertVelocity(::ad::map::match::MapMatchedObjectBoundingBox const &object
 
 bool convertObject(::ad::rss::world::ObjectId const &objectId,
                    ::ad::rss::world::ObjectType const &objectType,
-                   ::ad::map::match::MapMatchedObjectBoundingBox const &objectPosition,
+                   ::ad::map::match::Object const &objectMatchObject,
                    ::ad::physics::Speed const &objectSpeed,
                    ::ad::rss::world::RoadArea const &objectRoadArea,
                    ::ad::map::lane::LaneIdSet const &negativeRouteDirectionLanes,
                    ::ad::rss::world::Object &rssObject)
 {
-  if (!withinValidInputRange(objectType) || !withinValidInputRange(objectPosition)
+  if (!withinValidInputRange(objectType) || !withinValidInputRange(objectMatchObject)
       || !withinValidInputRange(objectSpeed))
   {
     return false;
@@ -169,9 +169,11 @@ bool convertObject(::ad::rss::world::ObjectId const &objectId,
 
   if (objectRoadArea.size() > 0u)
   {
-    auto result = convertVelocity(objectPosition, objectSpeed, objectRoadArea, newRssObject);
-    result = result
-      && convertBoundingBox(objectPosition, objectRoadArea, negativeRouteDirectionLanes, newRssObject.occupiedRegions);
+    auto result = convertVelocity(objectMatchObject, objectSpeed, objectRoadArea, newRssObject);
+    result = result && convertBoundingBox(objectMatchObject.mapMatchedBoundingBox,
+                                          objectRoadArea,
+                                          negativeRouteDirectionLanes,
+                                          newRssObject.occupiedRegions);
 
     // even if the input within the range of the
     if (!result || !withinValidInputRange(newRssObject))

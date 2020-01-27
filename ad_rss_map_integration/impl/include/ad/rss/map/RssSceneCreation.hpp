@@ -100,13 +100,13 @@ enum class RestrictSpeedLimitMode
  * Based on the map information a connecting route between ego vehicle and the object is created.
  *
  * @param[in] egoId the ego vehicle id
- * @param[in] egoPosition the ego vehicle's position described by its map matched bounding box
+ * @param[in] egoMatchObject the ego vehicle's position described by its map matched bounding box and position
  * @param[in] egoSpeed the ego vehicle's speed
  * @param[in] egoRoute the route the ego vehicle intends to take.
  *   If the given route is empty, all potential route predictions of the ego vehicle are taken into account if required.
  * @param[in] objectId the object id
  * @param[in] objectType the object type
- * @param[in] objectPosition the object's position described by its map matched bounding box
+ * @param[in] objectMatchObject the object's position described by its map matched bounding box and position
  * @param[in] objectSpeed the object's speed
  * @param[in] objectRssDynamics the object's RssDynamics to be applied
  * @param[in] restrictSpeedLimitMode the mode to select the behavior of objectRssDynamics.maxSpeed and egoMaxSpeed
@@ -121,12 +121,12 @@ enum class RestrictSpeedLimitMode
  * @returns \c true if the operation succeeded.
  */
 bool appendScenes(::ad::rss::world::ObjectId const &egoId,
-                  ::ad::map::match::MapMatchedObjectBoundingBox const &egoPosition,
+                  ::ad::map::match::Object const &egoMatchObject,
                   ::ad::physics::Speed const &egoSpeed,
                   ::ad::map::route::FullRoute const &egoRoute,
                   ::ad::rss::world::ObjectId const &objectId,
                   ::ad::rss::world::ObjectType const &objectType,
-                  ::ad::map::match::MapMatchedObjectBoundingBox const &objectPosition,
+                  ::ad::map::match::Object const &objectMatchObject,
                   ::ad::physics::Speed const &objectSpeed,
                   ::ad::rss::world::RssDynamics const &objectRssDynamics,
                   RestrictSpeedLimitMode const &restrictSpeedLimitMode,
@@ -161,7 +161,7 @@ enum class AppendRoadBoundariesMode
  * @returns \c false if the route is empty
  */
 bool appendRoadBoundaries(::ad::rss::world::ObjectId const &egoId,
-                          ::ad::map::match::MapMatchedObjectBoundingBox const &egoPosition,
+                          ::ad::map::match::Object const &egoMatchObject,
                           ::ad::physics::Speed const &egoSpeed,
                           ::ad::map::route::FullRoute const &route,
                           AppendRoadBoundariesMode const operationMode,

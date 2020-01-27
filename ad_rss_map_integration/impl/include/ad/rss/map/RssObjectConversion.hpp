@@ -40,7 +40,7 @@ namespace RssObjectConversion {
  *
  * @param[in] objectId the object id
  * @param[in] objectType the object type
- * @param[in] objectPosition the object's position described by its map matched bounding box
+ * @param[in] objectMatchObject the object's position described by its map matched bounding box and position
  * @param[in] objectSpeed the object's speed
  * @param[in] objectRoadArea the object's road area
  * @param[in] negativeRouteDirectionLanes set of lanes that have a physical orientation against the route direction.
@@ -50,7 +50,7 @@ namespace RssObjectConversion {
  */
 bool convertObject(::ad::rss::world::ObjectId const &objectId,
                    ::ad::rss::world::ObjectType const &objectType,
-                   ::ad::map::match::MapMatchedObjectBoundingBox const &objectPosition,
+                   ::ad::map::match::Object const &objectMatchObject,
                    ::ad::physics::Speed const &objectSpeed,
                    ::ad::rss::world::RoadArea const &objectRoadArea,
                    ::ad::map::lane::LaneIdSet const &negativeRouteDirectionLanes,
