@@ -1,0 +1,7 @@
+{
+    "names": {
+        "spdlog": {
+            "cmake-args": ["-DCMAKE_POSITION_INDEPENDENT_CODE=ON", "-DSPDLOG_BUILD_TESTS=OFF", "-DSPDLOG_BUILD_EXAMPLE=Off"]
+        }
+    }
+}

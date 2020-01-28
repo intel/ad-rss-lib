@@ -14,9 +14,11 @@ os: linux
 dist: xenial
 sudo: false
 
+git:
+  submodules: false
 env:
   global:
-    - BUILDCMD="mkdir build && cd build && cmake .. -DBUILD_HARDENING=ON -DBUILD_PYTHON_BINDING=ON -DCMAKE_BUILD_TYPE=Release && make && ctest && cp python/libad_rss_python.so ../python/tests && cd ../python/tests && python interface_test.py -qf"
+    - BUILDCMD="colcon build --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DBUILD_HARDENING=ON -DBUILD_PYTHON_BINDING=ON -DCMAKE_BUILD_TYPE=Release && colcon test --packages-select ad_rss ad_rss_map_integration"
 
 matrix:
   include:
@@ -28,25 +30,31 @@ matrix:
             - cmake
             - build-essential
             - lcov
+            - doxygen
+            - graphviz
+            - python3
+            - python3-pip
+            - python-pip
+            - castxml
+            - libboost-all-dev
+            - libpugixml-dev
+            - libproj-dev
+            - libgtest-dev
+      before_install:
+        - git submodule update --init
+        - pip3 install setuptools
+        - pip2 install --user pygccxml https://bitbucket.org/ompl/pyplusplus/get/1.8.1.zip
+      before_script:
+        - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+        - sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+        - sudo apt-get update
+        - sudo apt-get install python3-colcon-common-extensions
       script:
-        - bash .github/.travis/compile.sh release
-        - rm -rf build
-        - bash .github/.travis/compile.sh debug test
+        - colcon build --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_HARDENING=ON
+        - colcon build --executor sequential --packages-select ad_rss ad_rss_map_integration --cmake-args -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DBUILD_COVERAGE=ON
+        - colcon test --packages-select ad_rss ad_rss_map_integration
       after_script:
         - bash .github/.travis/code_coverage.sh
-      after_failure:
-        - tail --lines=2000 build.log
-
-    - env: TEST="Build and Unit Tests (Ubuntu 14.04)"
-      os: linux
-      dist: trusty
-      addons:
-        apt:
-          packages:
-            - cmake
-            - build-essential
-      script:
-        - bash .github/.travis/compile.sh release
       after_failure:
         - tail --lines=2000 build.log
 
@@ -54,23 +62,29 @@ matrix:
       addons:
         apt:
           packages:
+          packages:
             - cmake
             - build-essential
+            - lcov
             - doxygen
             - graphviz
-            - asciidoctor
-            - ruby
-            - rubygems
-            - ruby-dev
-            - python-pip
+            - python3
+            - python3-pip
+            - libboost-all-dev
+            - libpugixml-dev
+            - libproj-dev
+            - libgtest-dev
       before_install:
+        - git submodule update --init
+        - pip3 install setuptools
         - pip install --user mkdocs>=1.0 markdown-include pymdown-extensions pygments mdx_truly_sane_lists
+      before_script:
+        - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+        - sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+        - sudo apt-get update
+        - sudo apt-get install python3-colcon-common-extensions
       script:
-        - mkdir build
-        - cd build
-        - cmake .. -DBUILD_DOC=ON
-        - make apidoc
-        - cd ..
+        - colcon build --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DBUILD_APIDOC=ON
         - export PATH=$PATH:~/.local/lib/python2.7/site-packages/mkdocs/
         - mkdocs build
       after_failures:
@@ -86,24 +100,6 @@ matrix:
       after_failure:
         - tail --lines=2000 build.log
 
-    - env: TEST="Static Code Analysis"
-      addons:
-        apt:
-          packages:
-            - cmake
-            - build-essential
-            - lcov
-            - clang-tidy
-            - clang-3.8
-      script:
-        - mkdir build
-        - cd build
-        - cmake .. -DBUILD_STATIC_ANALYSIS=ON
-        - make clang-tidy
-        - if [ -f clangtidy.yml ]; then echo "Static code analysis with clang-tidy failed. Please run 'make clang-tidy'"; exit 1; fi
-      after_failure:
-        - tail --lines=2000 build.log
-
     - env: TEST="Documentation Deployment"
       if: branch = master AND type != pull_request
       git:
@@ -116,21 +112,14 @@ matrix:
             - lcov
             - doxygen
             - graphviz
-            - asciidoctor
-            - ruby
-            - rubygems
-            - ruby-dev
             - python-pip
       before_install:
+        - git submodule update --init
         - pip install --user mkdocs>=1.0 markdown-include pymdown-extensions pygments mdx_truly_sane_lists
       script:
-        - mkdir build
-        - cd build
-        - cmake .. -DBUILD_HARDENING=ON -DBUILD_COVERAGE=ON -DBUILD_DOC=ON -DCMAKE_BUILD_TYPE=Debug
-        - make
-        - ctest -V
-        - make apidoc > apidoc_build.log 2>&1
-        - cd ..
+        - colcon build --executor sequential --packages-select ad_rss ad_rss_map_integration --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_HARDENING=ON
+        - colcon build --executor sequential --packages-select ad_rss ad_rss_map_integration --cmake-args -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DBUILD_COVERAGE=ON -DBUILD_APIDOC=ON
+        - colcon test --packages-select ad_rss ad_rss_map_integration
         - export PATH=$PATH:~/.local/lib/python2.7/site-packages/mkdocs/
         - mkdocs build
       after_script:
@@ -140,58 +129,50 @@ matrix:
         - tail --lines=2000 build.log
 
     - env:
-        - "Check Ubuntu 14.04"
+        - TEST="Check Ubuntu 16.04"
         - SH="docker exec -t ubuntu bash -c"
       services:
         - docker
       sudo: true
       before_install:
-        - docker run -d --name ubuntu -v $(pwd):/travis -w /travis ubuntu:trusty tail -f /dev/null
-        - docker ps
-      install:
-        - $SH "apt-get update && apt-get -y -qq install build-essential cmake3 clang git libboost-python-dev"
-      script:
-        - $SH "eval $BUILDCMD"
-        - $SH "rm -rf build && export CC=/usr/bin/clang && export CXX=/usr/bin/clang++" && $SH "eval $BUILDCMD"
-        - $SH "apt-get -y -qq remove clang && apt-get -y -qq install clang-3.9"
-        - $SH "rm -rf build && export CC=/usr/bin/clang-3.9 && export CXX=/usr/bin/clang++-3.9" && $SH "eval $BUILDCMD"
-      after_failure:
-        - tail --lines=2000 build.log
-
-    - env:
-        - "Check Ubuntu 16.04"
-        - SH="docker exec -t ubuntu bash -c"
-      services:
-        - docker
-      sudo: true
-      before_install:
+        - git submodule update --init
         - docker run -d --name ubuntu -v $(pwd):/travis -w /travis ubuntu:xenial tail -f /dev/null
         - docker ps
       install:
-        - $SH "apt-get update && apt-get -y -qq install build-essential cmake clang git libboost-python-dev"
+        - $SH "apt-get update && apt-get -y -qq install build-essential pkg-config cmake clang git libboost-all-dev libpugixml-dev libproj-dev"
         - $SH "apt-get -y -qq install software-properties-common && add-apt-repository ppa:ubuntu-toolchain-r/test -y && apt-get update"
+        - $SH "sh -c 'echo \"deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main\" > /etc/apt/sources.list.d/ros-latest.list'"
+        - $SH "apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654"
+        - $SH "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python python-setuptools python-pip python3 python3-setuptools python3-pip python3-colcon-common-extensions castxml"
+        - $SH "pip2 install --user pygccxml https://bitbucket.org/ompl/pyplusplus/get/1.8.1.zip"
+        - $SH "pip3 install -U setuptools"
       script:
         - $SH "eval $BUILDCMD"
-        - $SH "rm -rf build && export CC=/usr/bin/clang && export CXX=/usr/bin/clang++" && $SH "eval $BUILDCMD"
+        - $SH "rm -rf log build install && export CC=/usr/bin/clang && export CXX=/usr/bin/clang++" && $SH "eval $BUILDCMD"
         - $SH "apt-get -y -qq remove clang && apt-get -y -qq install clang-6.0 g++-6 clang-5.0 g++-7"
-        - $SH "rm -rf build && export CC=/usr/bin/gcc-6 && export CXX=/usr/bin/g++-6" && $SH "eval $BUILDCMD"
-        - $SH "rm -rf build && export CC=/usr/bin/gcc-7 && export CXX=/usr/bin/g++-7" && $SH "eval $BUILDCMD"
-        - $SH "rm -rf build && export CC=/usr/bin/clang-5.0 && export CXX=/usr/bin/clang++-5.0" && $SH "eval $BUILDCMD"
-        - $SH "rm -rf build && export CC=/usr/bin/clang-6.0 && export CXX=/usr/bin/clang++-6.0" && $SH "eval $BUILDCMD"
+        - $SH "rm -rf log build install && export CC=/usr/bin/gcc-6 && export CXX=/usr/bin/g++-6" && $SH "eval $BUILDCMD"
+        - $SH "rm -rf log build install && export CC=/usr/bin/gcc-7 && export CXX=/usr/bin/g++-7" && $SH "eval $BUILDCMD"
+        - $SH "rm -rf log build install && export CC=/usr/bin/clang-5.0 && export CXX=/usr/bin/clang++-5.0" && $SH "eval $BUILDCMD"
+        - $SH "rm -rf log build install && export CC=/usr/bin/clang-6.0 && export CXX=/usr/bin/clang++-6.0" && $SH "eval $BUILDCMD"
       after_failure:
         - tail --lines=2000 build.log
 
     - env:
-        - "Check Ubuntu 18.04"
+        - TEST="Check Ubuntu 18.04"
         - SH="docker exec -t ubuntu bash -c"
       services:
         - docker
       sudo: true
       before_install:
+        - git submodule update --init
         - docker run -d --name ubuntu -v $(pwd):/travis -w /travis ubuntu:bionic tail -f /dev/null
         - docker ps
       install:
-        - $SH "apt-get update && apt-get -y -qq install build-essential cmake clang git libboost-python-dev"
+        - $SH "apt-get update && apt-get -y -qq install build-essential pkg-config cmake clang git libboost-all-dev libpugixml-dev libproj-dev"
+        - $SH "sh -c 'echo \"deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main\" > /etc/apt/sources.list.d/ros-latest.list'"
+        - $SH "apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654"
+        - $SH "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends python python-setuptools python-pip python3 python3-setuptools python3-pip python3-colcon-common-extensions castxml"
+        - $SH "pip2 install --user pygccxml https://bitbucket.org/ompl/pyplusplus/get/1.8.1.zip"
       script:
         - $SH "eval $BUILDCMD"
         - $SH "rm -rf build && export CC=/usr/bin/clang && export CXX=/usr/bin/clang++" && $SH "eval $BUILDCMD"
