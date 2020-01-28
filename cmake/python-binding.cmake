@@ -25,7 +25,7 @@ function(generate_python_binding_source_code WORKING_DIR)
 
   set(message_level STATUS)
   if ( ${GENERATE_PYTHON_RESULT} )
-    set(message_level ERROR)
+    set(message_level WARNING)
   endif()
   message(${message_level} "Generating result: ${GENERATE_PYTHON_RESULT}")
   message(${message_level} "Generator output: ${GENERATE_PYTHON_STDOUT_STDERR}")

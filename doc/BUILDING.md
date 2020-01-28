@@ -6,21 +6,19 @@ The components within this repository have some dependencies:
  - **ad_rss**:
    - ad_physics: <https://github.com/carla-simulator/map.git>
    - spdlog: <https://github.com/gabime/spdlog.git>
+   - **ad_rss_python** (if Python binding build enabled):
+     - Python lib
+     - castxml, pygccxml and py++
  - **ad_rss_map_integration**:
    - *ad_rss*
    - ad_map_access: <https://github.com/carla-simulator/map.git>
    - spdlog: <https://github.com/gabime/spdlog.git>
- - **ad_rss_python**:
-   - *ad_rss*
-   - Python lib
-   - castxml, pygccxml and py++
- - **ad_rss_map_integration_python**:
-   - *ad_rss_map_integration*
-   - ad_map_access_python: <https://github.com/carla-simulator/map.git>
-   - *ad_rss_python*
-   - ad_physics_python: <https://github.com/carla-simulator/map.git>
-   - Python lib
-   - castxml, pygccxml and py++
+   - **ad_rss_map_integration_python** (if Python binding build enabled):
+     - ad_map_access_python: <https://github.com/carla-simulator/map.git>
+     - ad_physics_python: <https://github.com/carla-simulator/map.git>
+     - Python lib
+     - castxml, pygccxml and py++
+
  - ***all components when enabling unit tests***:
    - gtest aka. googletests < 1.10 : <https://github.com/google/googletest>
 
@@ -54,35 +52,35 @@ Please use the link above for installation instructions.
 This repository is prepared as colcon workspace including all dependencies not provided as installable packages by the OS.
 Those dependencies are part of the __dependencies__ folder as GIT submodules. To properly fetch these, the submodules have to be updated and initialized.
 ```bash
- map$>  git submodule update --init
+ ad_rss$>  git submodule update --init
 ```
 Once this is done, the full set of dependencies and components can be built calling:
 ```bash
- map$> colcon build
+ ad_rss$> colcon build
 ```
 All components will be compiled respecting the dependencies between them.
 
 There are some CMake options affecting what or how the components are built.
 These can be applied to all components by appending them to the call (together with the additional --cmake-args):
 ```bash
- map$> colcon build --cmake-args -DBUILD_TESTING=ON
+ ad_rss$> colcon build --cmake-args -DBUILD_TESTING=ON
 ```
 When activating the Unit tests, they all can be executed with:
 ```bash
- map$> colcon test
+ ad_rss$> colcon test
 ```
 
 The python bindings are disable by default. To integrate them into the build you can make use of the prepared
 colcon meta file:
 ```bash
- map$> colcon build --metas colcon_python.meta
+ ad_rss$> colcon build --metas colcon_python.meta
 ```
 
 ## Building a single library
 The ad_rss (same applies to the other libraries) library is built with a standard cmake toolchain. Simply run the following commands to build the library:
 ```bash
- ad_rss> mkdir build
- ad_rss> cd build
+ ad_rss$> mkdir build
+ ad_rss$> cd build
  build$>  cmake ..
  build$>  make
 ```
@@ -119,5 +117,12 @@ Usually, build hardening is injected by the surrounding build system. Neverthele
 hardening flags to ensure the code is compatible to respective flags. To enable hardening compiler and linker flags:
 ```bash
  build$>  cmake -DBUILD_HARDENING=ON ..
+ build$>  make
+```
+
+#### Python binding
+With this option enabled, Python bindings are generated and compiled. This option is disabled by default.
+```bash
+ build$>  cmake -DBUILD_PYTHON_BINDING=ON ..
  build$>  make
 ```
