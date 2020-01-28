@@ -10,12 +10,13 @@
 # Table of contents
 1. [Introduction](#introduction)
 2. [License](#license)
-3. [Releases](#releases)
+3. [Documentation](#documentation)
+4. [Releases](#releases)
    1. [Release 1.x](#release_1)
-3. [Getting Started](#started)
+5. [Getting Started](#started)
    1. [Supported Systems](#systems)
-4. [Building the library](#building)
-5. [Contributing](#contributing)
+6. [Building the library](#building)
+7. [Contributing](#contributing)
 
 
 ## Introduction <a name="introduction"></a>
@@ -35,7 +36,12 @@ This library contains a stand-alone C++ implementation of the RSS module.
 
 The scope, design and architecture of this C++ library for RSS is described in more detail in the following document packaged with this release. This documentation includes guidance on the usage of the RSS library and its integration into an autonomous driving system. Users of this library are strongly encouraged to read this documentation prior to integration of the library.
 
-### Usage of ad-rss-lib 
+### Integrating RSS with automated driving maps
+When RSS is to be integrated into a larger system it is usually up to the user implementation to provide the required input into RSS based on the environment information
+available within the system. The [*ad_rss_map_integration*](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/Main.html) library provides a C++ implementation
+for integrating RSS with automated driving maps.
+
+### Usage of ad-rss-lib
 If you use ad-rss-lib for any publication, please cite the IV'2019 paper:
 ```
 @INPROCEEDINGS{
@@ -48,7 +54,7 @@ If you use ad-rss-lib for any publication, please cite the IV'2019 paper:
 
 #### Usage with Python
 Starting with Release v1.6, it is possible to use the ad-rss-lib library also with Python.
-Please see the [Documentation on the Python binding](./python/README.md) for further information.
+Please see the [Documentation on the Python binding for ad_rss](https://intel.github.io/ad-rss-lib/ad_rss/ad_rss_python/index.html) or [ad_rss_map_integration_python](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/ad_rss_map_integration_python/index.html) for further information.
 
 #### Usage within CARLA
 This library can be used together with the open-source driving simulator [CARLA](https://github.com/carla-simulator/carla) to investigate the behavior of RSS. A first version is shown in the following video sequence:
@@ -69,13 +75,14 @@ In addition, the terms in the following apply:
 ## Documentation
 Visit the project's [GitHub page](https://intel.github.io/ad-rss-lib/) to access the online version of the full documentation of this library. This includes:
 
-* [Doxygen](https://intel.github.io/ad-rss-lib/doxygen/html/index.html)
-* [Background documentation](https://intel.github.io/ad-rss-lib/documentation/Main.html).
+* [Doxygen](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/index.html)
+* [Background documentation](https://intel.github.io/ad-rss-lib/ad_rss/Main.html).
+* [Integrate RSS with AD map data](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/Main.html) and respective [Doxygen](https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/index.html).
 
-If you have any additional question not answered therein, you might find more in the [FAQ](docs/FAQ.md)
+If you have any additional question not answered therein, you might find more in the [FAQ](https://intel.github.io/ad-rss-lib/FAQ/index.html)
 
 ## Releases <a name="releases"></a>
-General release notes and changes can be found in the [Changelog](./CHANGELOG.md)
+General release notes and changes can be found in the [Changelog](https://intel.github.io/ad-rss-lib/CHANGELOG/index.html)
 
 #### Release 1.x.x <a name="release_1"></a>
 The initial release of the C++ software library for RSS implements a subset of the rules and calculations specified in the published RSS paper. This means that this release handles a subset of autonomous driving scenarios, described below. Scenarios other than this subset cannot be handled.
@@ -102,7 +109,7 @@ Note: The RSS module in this library does not initiate evasive manuevers. At the
 Currently, the focused operating system is Ubuntu 16.04. Nevertheless, the library should work in a similar way for any other Linux OS.
 To install the dependencies for Ubuntu 16.04 execute the following command:
 ```bash
- user$> sudo apt-get install git build-essential cmake 
+ user$> sudo apt-get install git build-essential cmake
 ```
 
 If you want to use doxygen for API documentation, please also install:
@@ -134,36 +141,7 @@ Besides Ubuntu 16.04 we are currently supporting the following Linux OS and comp
 Important: cmake is required to be at least version 3.5!
 
 ## Building the library <a name="building"></a>
-
-#### Build instructions
-The RSS library is built with a standard cmake toolchain. Simply run the following commands to build the library:
-```bash
- ad_rss$> mkdir build
- ad_rss$> cd build
- build$>  cmake ..
- build$>  make
-```
-
-#### Unit tests
-Run the following commands to run the unit-tests:
-```bash
- build$>  make test
-```
-
-#### API documentation
-Please run the following command to build the API documentation, if desired:
-```bash
- build$>  cmake -DBUILD_DOC=1 ..
- build$>  make apidoc
-```
-
-#### Build hardening
-Usually, build hardening is injected by the surrounding build system. Nevertheless, the CMakeLists.txt defines
-hardening flags to ensure the code is compatible to respective flags. To enable hardening compiler and linker flags:
-```bash
- build$>  cmake -DBUILD_HARDENING=1 ..
- build$>  make
-```
+See the detailed [Build instructions](https://intel.github.io/ad-rss-lib/ad_rss/BUILDING/index.html).
 
 ## Contributing <a name="contributing"></a>
 Contibutions are very welcome!

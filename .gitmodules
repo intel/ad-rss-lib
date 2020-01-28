@@ -1,0 +1,6 @@
+[submodule "dependencies/spdlog"]
+	path = dependencies/spdlog
+	url = https://github.com/gabime/spdlog.git
+[submodule "dependencies/map"]
+	path = dependencies/map
+	url = https://github.com/carla-simulator/map.git

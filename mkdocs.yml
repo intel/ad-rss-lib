@@ -6,18 +6,32 @@ theme: readthedocs
 
 nav:
 - Home: index.md
+- Release Notes and Disclaimer: RELEASE_NOTES_AND_DISCLAIMERS.md
 - Background:
-  - Overview: background/Overview.md
-  - Design Discussions: background/HLD-KeyDesignDecisionsAndAlternatives.md
-  - System Integration: background/HLD-ArchitectureOverview.md
-  - Safety: background/HLD-Safety.md
-  - Security: background/HLD-Security.md
-  - Parameter Discussion: background/Appendix-ParameterDiscussion.md
-  - Supported RSS Features: background/SupportedRssFeatures.md
-- Doxygen: 'https://intel.github.io/ad-rss-lib/doxygen/html/index.html'
-- Code Coverage: 'https://intel.github.io/ad-rss-lib/coverage/'
+  - Overview: ad_rss/Overview.md
+  - Design Discussions: ad_rss/HLD-KeyDesignDecisionsAndAlternatives.md
+  - System Integration: ad_rss/HLD-ArchitectureOverview.md
+  - Safety: ad_rss/HLD-Safety.md
+  - Security: ad_rss/HLD-Security.md
+  - Parameter Discussion: ad_rss/Appendix-ParameterDiscussion.md
+  - Supported RSS Features: ad_rss/SupportedRssFeatures.md
+- Map Integration:
+  - Overview: ad_rss_map_integration/Main.md
+  - Construction of the RSS Scenes: ad_rss_map_integration/ConstructRSSScenes.md
+  - Handling of road boundaries: ad_rss_map_integration/HandleRoadBoundaries.md
+- Building:
+  - BUILDING.md
+- Python Integration:
+  - Core Library: ad_rss/ad_rss_python.md
+  - Map Integration: ad_rss_map_integration/ad_rss_map_integration_python.md
+- Doxygen:
+  - Core Library: 'https://intel.github.io/ad-rss-lib/doxygen/ad_rss/index.html'
+  - Map Integration: 'https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/index.html'
+- Code Coverage:
+  - Core Library: 'https://intel.github.io/ad-rss-lib/coverage/ad_rss/'
+  - Map Integration: 'https://intel.github.io/ad-rss-lib/coverage/ad_rss_map_integration/'
 - FAQ: FAQ.md
-- Release Notes: CHANGELOG.md
+- Changelog: CHANGELOG.md
 
 #extra_css: [extra.css]
 

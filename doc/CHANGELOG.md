@@ -1,5 +1,25 @@
 ## Latest changes
+
+
+## Release 2.0.0
+#### :rocket: New Features
+* Added Integrating RSS with automated driving maps (ad_rss_map_integration)
+* Added logging support with spdlog
+* Introduced maxSpeed to RssDynamics and RSS calculations to support speed limits
+  [for details see](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/ConstructRSSScenes/index.html#considerspeedlimits)
+* world::Velocity supports speed range input to be able to cope with speed fluctuations (i.e. in curves)
+
 #### :ghost: Maintenance
+* Refactored types and namespaces
+  - renamed ad_rss::physics::TimeIndex -> ad::world::TimeIndex
+  - renamed ad_rss::physics::CoordinateSystemAxis -> ad::situation::CoordinateSystemAxis
+  - renamed ad_rss::physics -> ad::physics and replaced by separate library (ad_physics)
+    to ensure map and rss are using the same base types
+  - renamed ad_rss -> ad::rss
+* Renamed actual shared library ad-rss-lib -> ad_rss
+* Refactored folder layout
+* Introduced colcon build [for details see](https://intel.github.io/ad-rss-lib/BUILDING/index.html)
+* Fix unit tests for gcc 7.4.0 (shipped with ubuntu 18.04)
 * Added ObjectIDVector support to Python binding
 
 ## Release 1.6.0
@@ -15,7 +35,7 @@
   framework: SituationSnapshot, RssStateSnapshot, ProperResponse. Moved the timeIndex from the individual elements into these high level
   types to support the propagation of the timeIndex even if there are no other vehicles in the surrounding.
 * Did some renaming (e.g. ResponseState->RssState, ResponseStateVector->RssStateVector, ResponseInformation->RssStateInformation,
-  ResponseEvaluator->RssStateEvaluator) to clarify by naming that the individual calcuated states only consider a snapshot in time without 
+  ResponseEvaluator->RssStateEvaluator) to clarify by naming that the individual calcuated states only consider a snapshot in time without
   analysis of the dangerous threshold. The ProperResponse became its own type and got an own overall isSafe flag and a list of dangerousObjects.
 * Added ObjectId to Situation and RssState to preserve the mapping to the originating object which was lost with the introduction of multiple
   situations per object.
