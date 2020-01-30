@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Handling of road boundaries - Intel ad-rss-lib</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Handling of road boundaries";
+    var mkdocs_page_input_path = "ad_rss_map_integration/HandleRoadBoundaries.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Intel ad-rss-lib</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../RELEASE_NOTES_AND_DISCLAIMERS/">Release Notes and Disclaimer</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Background</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../ad_rss/Overview/">Overview</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../ad_rss/HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../ad_rss/HLD-ArchitectureOverview/">System Integration</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../ad_rss/HLD-Safety/">Safety</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../ad_rss/HLD-Security/">Security</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../ad_rss/Appendix-ParameterDiscussion/">Parameter Discussion</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../ad_rss/SupportedRssFeatures/">Supported RSS Features</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Map Integration</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Main/">Overview</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../ConstructRSSScenes/">Construction of the RSS Scenes</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Handling of road boundaries</a>
+    <ul class="subnav">
+            
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Building</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../BUILDING/">General build instructions</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Python Integration</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../ad_rss/ad_rss_python/">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../ad_rss_map_integration_python/">Map Integration</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Doxygen</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/index.html">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/index.html">Map Integration</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Code Coverage</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/ad_rss/">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/ad_rss_map_integration/">Map Integration</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../FAQ/">FAQ</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../CHANGELOG/">Changelog</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Intel ad-rss-lib</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Map Integration &raquo;</li>
+        
+      
+    
+    <li>Handling of road boundaries</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/intel/ad-rss-lib/edit/master/doc/ad_rss_map_integration/HandleRoadBoundaries.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1>Handling of road boundaries <a name="roadboundaries"></a></h1>
+<h4>RSS and Evasive maneuvers</h4>
+<p><em>If you can avoid an accident without causing another accident, you must do it.</em></p>
+<p>If a situation becomes dangerous and all vehicles respond properly according to
+RSS, braking should always result in a safe state.
+But what happens if others do not obey to the rules of RSS and braking will
+not prevent from a collision anymore? There might be still a possibility to
+escape from the dangerous situation. The <a href="https://arxiv.org/abs/1708.06374">RSS paper</a>
+proposes to perform a proper response with evasive effort: perform an maneuver
+to evade the vehicle from the dangerous situation, respecting acceleration maxima
+and proper responses to all other traffic agents.</p>
+<p>RSS only defines behavior of interaction among vehicles and objects.
+The initial implementation of RSS within <em>ad_rss</em> currently has no notion
+of drivable freespace area. Hence, it cannot determine that an evasive maneuver
+-- if initiated by RSS -- will cause an accident with an obstacle or forces
+the vehicle to leave the road.</p>
+<h4>Stay on road</h4>
+<p>The integration of RSS with map data now opens up the possibility to get a description
+of the road boundaries. To overcome the issue of leaving the road,
+virtual objects can be added at the road boundaries. Then, these virtual objects
+can be handled within <em>ad_rss</em> the same way as any other vehicle/object.
+Thus, all RSS formulas are applied to these virtual objects, as well.
+As a result, the vehicle will keep a minimum safe distance to all road boundaries
+and stays on the drivable road.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Stay on road" src="../../images/road_boundaries.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>By adding the left and right border of the drivable road as artificial objects to the RSS scenes, RSS will ensure a safety distance to these virtual 'walls' and though make the vehicle to stay on its road.</em></td>
+</tr>
+</tbody>
+</table>
+<h4>Virtual road border objects</h4>
+<p>When adding the road boundaries to the list of RSS scenes, there is still the question
+which borders to actually use. Do we want to restrict the vehicle to it's currently planned
+route? Do we want to allow the vehicle to be able to enter the opposite lanes where
+the speed difference towards other cars is expected to be much higher? Do we even want to
+allow the vehicle to enter non-drivable lanes like shoulder lanes or even pedestrian ways?
+As these questions may be answered differently in respect to the kind of road, the situation, etc.
+<em>ad_rss_map_integration</em> allows the user to select between different modes  (ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssSceneCreation::AppendRoadBoundariesMode) when calling
+ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssSceneCreation::AppendRoadBoundaries().</p>
+<p>On the other hand, since the virtual objects are of static nature, the current implementation sets the ad::rss::world::RssDynamics of the road boundary objects to some fixed values: no acceleration, minimal response time, etc. The same is true for the breadth of the road boundaries, which are just fixed to 0.001 of the respective lane segment.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../BUILDING/" class="btn btn-neutral float-right" title="General build instructions">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../ConstructRSSScenes/" class="btn btn-neutral" title="Construction of the RSS Scenes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/intel/ad-rss-lib/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../ConstructRSSScenes/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../../BUILDING/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

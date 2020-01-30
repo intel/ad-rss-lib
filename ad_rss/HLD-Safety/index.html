@@ -7,16 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="shortcut icon" href="./img/favicon.ico">
-  <title>Intel ad-rss-lib</title>
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Safety - Intel ad-rss-lib</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
-  <script src="./js/jquery-2.1.1.min.js" defer></script>
-  <script src="./js/modernizr-2.8.3.min.js" defer></script>
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Safety";
+    var mkdocs_page_input_path = "ad_rss/HLD-Safety.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
@@ -29,9 +36,9 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href="./." class="icon icon-home"> Intel ad-rss-lib</a>
+        <a href="../.." class="icon icon-home"> Intel ad-rss-lib</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
@@ -43,12 +50,12 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="./.">Home</a>
+    <a class="" href="../..">Home</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="./RELEASE_NOTES_AND_DISCLAIMERS/">Release Notes and Disclaimer</a>
+    <a class="" href="../../RELEASE_NOTES_AND_DISCLAIMERS/">Release Notes and Disclaimer</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -57,31 +64,37 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="./ad_rss/Overview/">Overview</a>
+    <a class="" href="../Overview/">Overview</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss/HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
+    <a class="" href="../HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss/HLD-ArchitectureOverview/">System Integration</a>
+    <a class="" href="../HLD-ArchitectureOverview/">System Integration</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Safety</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#design-for-safety">Design for Safety</a></li>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss/HLD-Safety/">Safety</a>
+    <a class="" href="../HLD-Security/">Security</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss/HLD-Security/">Security</a>
+    <a class="" href="../Appendix-ParameterDiscussion/">Parameter Discussion</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss/Appendix-ParameterDiscussion/">Parameter Discussion</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="./ad_rss/SupportedRssFeatures/">Supported RSS Features</a>
+    <a class="" href="../SupportedRssFeatures/">Supported RSS Features</a>
                 </li>
     </ul>
 	    </li>
@@ -92,15 +105,15 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="./ad_rss_map_integration/Main/">Overview</a>
+    <a class="" href="../../ad_rss_map_integration/Main/">Overview</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss_map_integration/ConstructRSSScenes/">Construction of the RSS Scenes</a>
+    <a class="" href="../../ad_rss_map_integration/ConstructRSSScenes/">Construction of the RSS Scenes</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss_map_integration/HandleRoadBoundaries/">Handling of road boundaries</a>
+    <a class="" href="../../ad_rss_map_integration/HandleRoadBoundaries/">Handling of road boundaries</a>
                 </li>
     </ul>
 	    </li>
@@ -111,7 +124,7 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="./BUILDING/">General build instructions</a>
+    <a class="" href="../../BUILDING/">General build instructions</a>
                 </li>
     </ul>
 	    </li>
@@ -122,11 +135,11 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="./ad_rss/ad_rss_python/">Core Library</a>
+    <a class="" href="../ad_rss_python/">Core Library</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss_map_integration/ad_rss_map_integration_python/">Map Integration</a>
+    <a class="" href="../../ad_rss_map_integration/ad_rss_map_integration_python/">Map Integration</a>
                 </li>
     </ul>
 	    </li>
@@ -163,12 +176,12 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="./FAQ/">FAQ</a>
+    <a class="" href="../../FAQ/">FAQ</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="./CHANGELOG/">Changelog</a>
+    <a class="" href="../../CHANGELOG/">Changelog</a>
 	    </li>
           
         </ul>
@@ -181,7 +194,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="./.">Intel ad-rss-lib</a>
+        <a href="../..">Intel ad-rss-lib</a>
       </nav>
 
       
@@ -189,10 +202,19 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="./.">Docs</a> &raquo;</li>
+    <li><a href="../..">Docs</a> &raquo;</li>
     
+      
+        
+          <li>Background &raquo;</li>
+        
+      
     
+    <li>Safety</li>
     <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/intel/ad-rss-lib/edit/master/doc/ad_rss/HLD-Safety.md"
+          class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
@@ -201,22 +223,26 @@
           <div role="main">
             <div class="section">
               
-
-  <h1 id="search">Search Results</h1>
-
-  <form id="content_search" action="search.html">
-    <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
-    <input name="q" id="mkdocs-search-query" type="text" class="search_input search-query ui-autocomplete-input" placeholder="Search the Docs" autocomplete="off" autofocus title="Type search term here">
-  </form>
-
-  <div id="mkdocs-search-results" class="search-results">
-    Searching...
-  </div>
-
-
+                <h2 id="design-for-safety">Design for Safety<a class="headerlink" href="#design-for-safety" title="Permanent link">&para;</a></h2>
+<p>In principle, RSS is implementing safety of the intended functionality
+(SOTIF).
+One can apply RSS without general functional safety (FuSa) aspects
+to safeguard the planning functionality.
+If RSS is implemented in an ADS with FuSa
+constraints on system level, RSS contributes to the FuSa goals of the whole ADS.</p>
+              
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../HLD-Security/" class="btn btn-neutral float-right" title="Security">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../HLD-ArchitectureOverview/" class="btn btn-neutral" title="System Integration"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -242,13 +268,17 @@
           <a href="https://github.com/intel/ad-rss-lib/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
+        <span><a href="../HLD-ArchitectureOverview/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../HLD-Security/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
-    <script>var base_url = '.';</script>
-    <script src="./js/theme.js" defer></script>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
-      <script src="./search/main.js" defer></script>
+      <script src="../../search/main.js" defer></script>
 
 </body>
 </html>

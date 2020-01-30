@@ -7,16 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="shortcut icon" href="./img/favicon.ico">
-  <title>Intel ad-rss-lib</title>
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Core Library - Intel ad-rss-lib</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
-  <script src="./js/jquery-2.1.1.min.js" defer></script>
-  <script src="./js/modernizr-2.8.3.min.js" defer></script>
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Core Library";
+    var mkdocs_page_input_path = "ad_rss/ad_rss_python.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
@@ -29,9 +36,9 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href="./." class="icon icon-home"> Intel ad-rss-lib</a>
+        <a href="../.." class="icon icon-home"> Intel ad-rss-lib</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
@@ -43,12 +50,12 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="./.">Home</a>
+    <a class="" href="../..">Home</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="./RELEASE_NOTES_AND_DISCLAIMERS/">Release Notes and Disclaimer</a>
+    <a class="" href="../../RELEASE_NOTES_AND_DISCLAIMERS/">Release Notes and Disclaimer</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -57,31 +64,31 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="./ad_rss/Overview/">Overview</a>
+    <a class="" href="../Overview/">Overview</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss/HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
+    <a class="" href="../HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss/HLD-ArchitectureOverview/">System Integration</a>
+    <a class="" href="../HLD-ArchitectureOverview/">System Integration</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss/HLD-Safety/">Safety</a>
+    <a class="" href="../HLD-Safety/">Safety</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss/HLD-Security/">Security</a>
+    <a class="" href="../HLD-Security/">Security</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss/Appendix-ParameterDiscussion/">Parameter Discussion</a>
+    <a class="" href="../Appendix-ParameterDiscussion/">Parameter Discussion</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss/SupportedRssFeatures/">Supported RSS Features</a>
+    <a class="" href="../SupportedRssFeatures/">Supported RSS Features</a>
                 </li>
     </ul>
 	    </li>
@@ -92,15 +99,15 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="./ad_rss_map_integration/Main/">Overview</a>
+    <a class="" href="../../ad_rss_map_integration/Main/">Overview</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss_map_integration/ConstructRSSScenes/">Construction of the RSS Scenes</a>
+    <a class="" href="../../ad_rss_map_integration/ConstructRSSScenes/">Construction of the RSS Scenes</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss_map_integration/HandleRoadBoundaries/">Handling of road boundaries</a>
+    <a class="" href="../../ad_rss_map_integration/HandleRoadBoundaries/">Handling of road boundaries</a>
                 </li>
     </ul>
 	    </li>
@@ -111,7 +118,7 @@
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="./BUILDING/">General build instructions</a>
+    <a class="" href="../../BUILDING/">General build instructions</a>
                 </li>
     </ul>
 	    </li>
@@ -120,13 +127,19 @@
 		
     <span class="caption-text">Python Integration</span>
     <ul class="subnav">
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="./ad_rss/ad_rss_python/">Core Library</a>
+    <a class="current" href="./">Core Library</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#usage-of-python-binding">Usage of Python binding</a></li>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
-    <a class="" href="./ad_rss_map_integration/ad_rss_map_integration_python/">Map Integration</a>
+    <a class="" href="../../ad_rss_map_integration/ad_rss_map_integration_python/">Map Integration</a>
                 </li>
     </ul>
 	    </li>
@@ -163,12 +176,12 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="./FAQ/">FAQ</a>
+    <a class="" href="../../FAQ/">FAQ</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="./CHANGELOG/">Changelog</a>
+    <a class="" href="../../CHANGELOG/">Changelog</a>
 	    </li>
           
         </ul>
@@ -181,7 +194,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="./.">Intel ad-rss-lib</a>
+        <a href="../..">Intel ad-rss-lib</a>
       </nav>
 
       
@@ -189,10 +202,19 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="./.">Docs</a> &raquo;</li>
+    <li><a href="../..">Docs</a> &raquo;</li>
     
+      
+        
+          <li>Python Integration &raquo;</li>
+        
+      
     
+    <li>Core Library</li>
     <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/intel/ad-rss-lib/edit/master/doc/ad_rss/ad_rss_python.md"
+          class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
@@ -201,22 +223,40 @@
           <div role="main">
             <div class="section">
               
+                <h1>Usage of Python binding for ad_rss</h1>
+<p>Compilation of ad_rss_python will create a libad_rss_python.so shared library inside
+the install/ad_rss/lib folder.
+The shared library can now be used inside any Python code to use
+datatypes or call methods defined in ad_rss.</p>
+<h2 id="usage-of-python-binding">Usage of Python binding<a class="headerlink" href="#usage-of-python-binding" title="Permanent link">&para;</a></h2>
+<p>To use the compiled Python binding, one has to extend the current environment
+to be able to use the newly created library. Afterwards, one can import the
+Python library as module and use it as any other Python module.</p>
+<pre><code class="bash"> ad_rss_python$&gt;  export PYTHONPATH=$PYTHONPATH:&lt;path/to/&gt;install/ad_rss/lib:&lt;path/to/&gt;install/ad_physics/lib
+ ad_rss_python$&gt;  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:&lt;path/to/&gt;install/ad_rss/lib:&lt;path/to/&gt;install/ad_physics/lib
+ ad_rss_python$&gt;  python
+ &gt;&gt;&gt; import libad_physics_python as physics
+ &gt;&gt;&gt; import libad_rss_python as rss
+ &gt;&gt;&gt; distance = physics.Distance(2.0)
+ &gt;&gt;&gt; print(distance)
+ &gt;&gt;&gt; world_model = rss.WorldModel()
+ &gt;&gt;&gt; print(world_model)
+</code></pre>
 
-  <h1 id="search">Search Results</h1>
-
-  <form id="content_search" action="search.html">
-    <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
-    <input name="q" id="mkdocs-search-query" type="text" class="search_input search-query ui-autocomplete-input" placeholder="Search the Docs" autocomplete="off" autofocus title="Type search term here">
-  </form>
-
-  <div id="mkdocs-search-results" class="search-results">
-    Searching...
-  </div>
-
-
+<p>For some simple examples, you might also want to spot into the ad_rss_python/tests folder.</p>
+              
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../ad_rss_map_integration/ad_rss_map_integration_python/" class="btn btn-neutral float-right" title="Map Integration">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../BUILDING/" class="btn btn-neutral" title="General build instructions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -242,13 +282,17 @@
           <a href="https://github.com/intel/ad-rss-lib/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
+        <span><a href="../../BUILDING/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../../ad_rss_map_integration/ad_rss_map_integration_python/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
-    <script>var base_url = '.';</script>
-    <script src="./js/theme.js" defer></script>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
-      <script src="./search/main.js" defer></script>
+      <script src="../../search/main.js" defer></script>
 
 </body>
 </html>

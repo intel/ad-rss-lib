@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>General build instructions - Intel ad-rss-lib</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "General build instructions";
+    var mkdocs_page_input_path = "BUILDING.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Intel ad-rss-lib</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../RELEASE_NOTES_AND_DISCLAIMERS/">Release Notes and Disclaimer</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Background</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../ad_rss/Overview/">Overview</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../ad_rss/HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../ad_rss/HLD-ArchitectureOverview/">System Integration</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../ad_rss/HLD-Safety/">Safety</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../ad_rss/HLD-Security/">Security</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../ad_rss/Appendix-ParameterDiscussion/">Parameter Discussion</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../ad_rss/SupportedRssFeatures/">Supported RSS Features</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Map Integration</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../ad_rss_map_integration/Main/">Overview</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../ad_rss_map_integration/ConstructRSSScenes/">Construction of the RSS Scenes</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../ad_rss_map_integration/HandleRoadBoundaries/">Handling of road boundaries</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Building</span>
+    <ul class="subnav">
+                <li class=" current">
+                    
+    <a class="current" href="./">General build instructions</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#dependencies">Dependencies</a></li>
+    
+
+    <li class="toctree-l3"><a href="#building-all-libraries">Building all libraries</a></li>
+    
+
+    <li class="toctree-l3"><a href="#building-a-single-library">Building a single library</a></li>
+    
+
+    <li class="toctree-l3"><a href="#cmake-options">CMake options</a></li>
+    
+
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Python Integration</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../ad_rss/ad_rss_python/">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../ad_rss_map_integration/ad_rss_map_integration_python/">Map Integration</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Doxygen</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/index.html">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/index.html">Map Integration</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Code Coverage</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/ad_rss/">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/ad_rss_map_integration/">Map Integration</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../FAQ/">FAQ</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../CHANGELOG/">Changelog</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Intel ad-rss-lib</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Building &raquo;</li>
+        
+      
+    
+    <li>General build instructions</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/intel/ad-rss-lib/edit/master/doc/BUILDING.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1>General build instructions</h1>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<p>The components within this repository have some dependencies:</p>
+<ul>
+<li><strong>ad_rss</strong>:<ul>
+<li>ad_physics: <a href="https://github.com/carla-simulator/map.git">https://github.com/carla-simulator/map.git</a></li>
+<li>spdlog: <a href="https://github.com/gabime/spdlog.git">https://github.com/gabime/spdlog.git</a></li>
+<li><strong>ad_rss_python</strong> (if Python binding build enabled):<ul>
+<li>Python lib</li>
+<li>castxml, pygccxml and py++</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>ad_rss_map_integration</strong>:<ul>
+<li><em>ad_rss</em></li>
+<li>ad_map_access: <a href="https://github.com/carla-simulator/map.git">https://github.com/carla-simulator/map.git</a></li>
+<li>spdlog: <a href="https://github.com/gabime/spdlog.git">https://github.com/gabime/spdlog.git</a></li>
+<li><strong>ad_rss_map_integration_python</strong> (if Python binding build enabled):<ul>
+<li>ad_map_access_python: <a href="https://github.com/carla-simulator/map.git">https://github.com/carla-simulator/map.git</a></li>
+<li>ad_physics_python: <a href="https://github.com/carla-simulator/map.git">https://github.com/carla-simulator/map.git</a></li>
+<li>Python lib</li>
+<li>castxml, pygccxml and py++</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong><em>all components when enabling unit tests</em></strong>:<ul>
+<li>gtest aka. googletests &lt; 1.10 : <a href="https://github.com/google/googletest">https://github.com/google/googletest</a></li>
+</ul>
+</li>
+</ul>
+<p>Dependencies provided by Ubunutu (&gt;= 16.04):</p>
+<ul>
+<li>gtest</li>
+<li>libpython-dev</li>
+</ul>
+<p>Those can be installed by calling:</p>
+<pre><code class="bash">$&gt;  sudo apt-get install libgtest-dev libpython-dev
+</code></pre>
+
+<p>Additional dependencies for the python bindings:</p>
+<pre><code class="bash">$&gt;  sudo apt-get install castxml
+$&gt;  pip install --user pygccxml
+$&gt;  pip install --user https://bitbucket.org/ompl/pyplusplus/get/1.8.1.zip
+</code></pre>
+
+<p>Remaining dependencies:</p>
+<ul>
+<li>ad_map_access</li>
+<li>ad_physics</li>
+<li>spdlog</li>
+</ul>
+<h2 id="building-all-libraries">Building all libraries<a class="headerlink" href="#building-all-libraries" title="Permanent link">&para;</a></h2>
+<p>For compiling all libraries (and potentially also some dependencies), it is suggested to use <a href="https://colcon.readthedocs.io/">colcon</a>.
+Please use the link above for installation instructions.</p>
+<p>This repository is prepared as colcon workspace including all dependencies not provided as installable packages by the OS.
+Those dependencies are part of the <strong>dependencies</strong> folder as GIT submodules. To properly fetch these, the submodules have to be updated and initialized.</p>
+<pre><code class="bash"> ad_rss$&gt;  git submodule update --init
+</code></pre>
+
+<p>Once this is done, the full set of dependencies and components can be built calling:</p>
+<pre><code class="bash"> ad_rss$&gt; colcon build
+</code></pre>
+
+<p>All components will be compiled respecting the dependencies between them.</p>
+<p>There are some CMake options affecting what or how the components are built.
+These can be applied to all components by appending them to the call (together with the additional --cmake-args):</p>
+<pre><code class="bash"> ad_rss$&gt; colcon build --cmake-args -DBUILD_TESTING=ON
+</code></pre>
+
+<p>When activating the Unit tests, they all can be executed with:</p>
+<pre><code class="bash"> ad_rss$&gt; colcon test
+</code></pre>
+
+<p>The python bindings are disable by default. To integrate them into the build you can make use of the prepared
+colcon meta file:</p>
+<pre><code class="bash"> ad_rss$&gt; colcon build --metas colcon_python.meta
+</code></pre>
+
+<h2 id="building-a-single-library">Building a single library<a class="headerlink" href="#building-a-single-library" title="Permanent link">&para;</a></h2>
+<p>The ad_rss (same applies to the other libraries) library is built with a standard cmake toolchain. Simply run the following commands to build the library:</p>
+<pre><code class="bash"> ad_rss$&gt; mkdir build
+ ad_rss$&gt; cd build
+ build$&gt;  cmake ..
+ build$&gt;  make
+</code></pre>
+
+<h2 id="cmake-options">CMake options<a class="headerlink" href="#cmake-options" title="Permanent link">&para;</a></h2>
+<p>There are some build options available:</p>
+<ul>
+<li>BUILD_TESTING: Enables unit tests compilation</li>
+<li>BUILD_APIDOC: Enables API documentation building</li>
+<li>BUILD_HARDENING: Enables hardening compiler and linker flags</li>
+<li>BUILD_PYTHON_BINDING: Enables the build of the respective python bindings</li>
+</ul>
+<p>By default, all options are set to off. Any of these could be activate by adding them to the initial cmake call above as "-D<OPTION>=[ON|OFF]",
+e.g. "-DBUILD_TESTING=ON -DBUILD_APIDOC=ON".</p>
+<h4>Unit tests</h4>
+<p>When BUILD_TESTING is enabled, the "make" call will automatically compile the Unit tests.
+They can be executed using CMake's ctest application.</p>
+<pre><code class="bash"> build$&gt;  cmake -DBUILD_TESTING=ON ..
+ build$&gt;  make
+ build$&gt;  ctest
+</code></pre>
+
+<h4>API documentation</h4>
+<p>When BUILD_APIDOC is enabled, the "make" call will automatically generate the API documentation.</p>
+<pre><code class="bash"> build$&gt;  cmake -BUILD_APIDOC=ON ..
+ build$&gt;  make
+</code></pre>
+
+<p>The API documentation is written to the <em>apidoc</em> folder within the <em>build</em> directory.</p>
+<h4>Build hardening</h4>
+<p>Usually, build hardening is injected by the surrounding build system. Nevertheless, the CMakeLists.txt defines
+hardening flags to ensure the code is compatible to respective flags. To enable hardening compiler and linker flags:</p>
+<pre><code class="bash"> build$&gt;  cmake -DBUILD_HARDENING=ON ..
+ build$&gt;  make
+</code></pre>
+
+<h4>Python binding</h4>
+<p>With this option enabled, Python bindings are generated and compiled. This option is disabled by default.</p>
+<pre><code class="bash"> build$&gt;  cmake -DBUILD_PYTHON_BINDING=ON ..
+ build$&gt;  make
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../ad_rss/ad_rss_python/" class="btn btn-neutral float-right" title="Core Library">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../ad_rss_map_integration/HandleRoadBoundaries/" class="btn btn-neutral" title="Handling of road boundaries"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/intel/ad-rss-lib/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../ad_rss_map_integration/HandleRoadBoundaries/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../ad_rss/ad_rss_python/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

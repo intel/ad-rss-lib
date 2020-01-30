@@ -57,6 +57,8 @@
     
         <ul>
         
+            <li><a class="toctree-l3" href="#integrating-rss-with-automated-driving-maps">Integrating RSS with automated driving maps</a></li>
+        
             <li><a class="toctree-l3" href="#usage-of-ad-rss-lib">Usage of ad-rss-lib</a></li>
         
         </ul>
@@ -85,47 +87,117 @@
           
             <li class="toctree-l1">
 		
+    <a class="" href="RELEASE_NOTES_AND_DISCLAIMERS/">Release Notes and Disclaimer</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
     <span class="caption-text">Background</span>
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="background/Overview/">Overview</a>
+    <a class="" href="ad_rss/Overview/">Overview</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="background/HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
+    <a class="" href="ad_rss/HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="background/HLD-ArchitectureOverview/">System Integration</a>
+    <a class="" href="ad_rss/HLD-ArchitectureOverview/">System Integration</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="background/HLD-Safety/">Safety</a>
+    <a class="" href="ad_rss/HLD-Safety/">Safety</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="background/HLD-Security/">Security</a>
+    <a class="" href="ad_rss/HLD-Security/">Security</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="background/Appendix-ParameterDiscussion/">Parameter Discussion</a>
+    <a class="" href="ad_rss/Appendix-ParameterDiscussion/">Parameter Discussion</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="background/SupportedRssFeatures/">Supported RSS Features</a>
+    <a class="" href="ad_rss/SupportedRssFeatures/">Supported RSS Features</a>
                 </li>
     </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/html/index.html">Doxygen</a>
+    <span class="caption-text">Map Integration</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="ad_rss_map_integration/Main/">Overview</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="ad_rss_map_integration/ConstructRSSScenes/">Construction of the RSS Scenes</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="ad_rss_map_integration/HandleRoadBoundaries/">Handling of road boundaries</a>
+                </li>
+    </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/">Code Coverage</a>
+    <span class="caption-text">Building</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="BUILDING/">General build instructions</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Python Integration</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="ad_rss/ad_rss_python/">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="ad_rss_map_integration/ad_rss_map_integration_python/">Map Integration</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Doxygen</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/index.html">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/index.html">Map Integration</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Code Coverage</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/ad_rss/">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/ad_rss_map_integration/">Map Integration</a>
+                </li>
+    </ul>
 	    </li>
           
             <li class="toctree-l1">
@@ -135,7 +207,7 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="CHANGELOG/">Release Notes</a>
+    <a class="" href="CHANGELOG/">Changelog</a>
 	    </li>
           
         </ul>
@@ -182,6 +254,7 @@
 <ol>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#license">License</a></li>
+<li><a href="#documentation">Documentation</a></li>
 <li><a href="#releases">Releases</a><ol>
 <li><a href="#release_1">Release 1.x</a></li>
 </ol>
@@ -207,6 +280,10 @@
 <li>Conversion of the output acceleration restrictions to real AV actuation commands (enforcing the restrictions) is outside the scope of this library. This conversion depends strongly on the software and hardware setup of the actual (or simulated)vehicle.</li>
 </ul>
 <p>The scope, design and architecture of this C++ library for RSS is described in more detail in the following document packaged with this release. This documentation includes guidance on the usage of the RSS library and its integration into an autonomous driving system. Users of this library are strongly encouraged to read this documentation prior to integration of the library.</p>
+<h3 id="integrating-rss-with-automated-driving-maps">Integrating RSS with automated driving maps<a class="headerlink" href="#integrating-rss-with-automated-driving-maps" title="Permanent link">&para;</a></h3>
+<p>When RSS is to be integrated into a larger system it is usually up to the user implementation to provide the required input into RSS based on the environment information
+available within the system. The <a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/Main.html"><em>ad_rss_map_integration</em></a> library provides a C++ implementation
+for integrating RSS with automated driving maps.</p>
 <h3 id="usage-of-ad-rss-lib">Usage of ad-rss-lib<a class="headerlink" href="#usage-of-ad-rss-lib" title="Permanent link">&para;</a></h3>
 <p>If you use ad-rss-lib for any publication, please cite the IV'2019 paper:</p>
 <pre><code>@INPROCEEDINGS{
@@ -219,7 +296,7 @@
 
 <h4>Usage with Python</h4>
 <p>Starting with Release v1.6, it is possible to use the ad-rss-lib library also with Python.
-Please see the <a href="./python/README.md">Documentation on the Python binding</a> for further information.</p>
+Please see the <a href="https://intel.github.io/ad-rss-lib/ad_rss/ad_rss_python/index.html">Documentation on the Python binding for ad_rss</a> or <a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/ad_rss_map_integration_python/index.html">ad_rss_map_integration_python</a> for further information.</p>
 <h4>Usage within CARLA</h4>
 <p>This library can be used together with the open-source driving simulator <a href="https://github.com/carla-simulator/carla">CARLA</a> to investigate the behavior of RSS. A first version is shown in the following video sequence:
 <a href="https://www.youtube.com/watch?v=UxKPXPT2T8Q"><img alt="RSS safety sensor in CARLA" src="https://raw.githubusercontent.com/intel/ad-rss-lib/master/doc/images/carla_integration.png" /></a></p>
@@ -229,16 +306,17 @@ Please see the <a href="./python/README.md">Documentation on the Python binding<
 <h2 id="license">License <a name="license"></a><a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
 <p>This software library is provided under the LGPL-2.1 open-source license: https://opensource.org/licenses/LGPL-2.1.</p>
 <p>In addition, the terms in the following apply:
-<a href="./RELEASE_NOTES_AND_DISCLAIMERS.md">RELEASE NOTES AND DISCLAIMERS</a>.</p>
+<a href="RELEASE_NOTES_AND_DISCLAIMERS/">RELEASE NOTES AND DISCLAIMERS</a>.</p>
 <h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
 <p>Visit the project's <a href="https://intel.github.io/ad-rss-lib/">GitHub page</a> to access the online version of the full documentation of this library. This includes:</p>
 <ul>
-<li><a href="https://intel.github.io/ad-rss-lib/doxygen/html/index.html">Doxygen</a></li>
-<li><a href="https://intel.github.io/ad-rss-lib/documentation/Main.html">Background documentation</a>.</li>
+<li><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/index.html">Doxygen</a></li>
+<li><a href="https://intel.github.io/ad-rss-lib/ad_rss/Main.html">Background documentation</a>.</li>
+<li><a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/Main.html">Integrate RSS with AD map data</a> and respective <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/index.html">Doxygen</a>.</li>
 </ul>
-<p>If you have any additional question not answered therein, you might find more in the <a href="docs/FAQ.md">FAQ</a></p>
+<p>If you have any additional question not answered therein, you might find more in the <a href="https://intel.github.io/ad-rss-lib/FAQ/index.html">FAQ</a></p>
 <h2 id="releases">Releases <a name="releases"></a><a class="headerlink" href="#releases" title="Permanent link">&para;</a></h2>
-<p>General release notes and changes can be found in the <a href="CHANGELOG/">Changelog</a></p>
+<p>General release notes and changes can be found in the <a href="https://intel.github.io/ad-rss-lib/CHANGELOG/index.html">Changelog</a></p>
 <h4>Release 1.x.x <a name="release_1"></a></h4>
 <p>The initial release of the C++ software library for RSS implements a subset of the rules and calculations specified in the published RSS paper. This means that this release handles a subset of autonomous driving scenarios, described below. Scenarios other than this subset cannot be handled.</p>
 <h5>Features &amp; Limitations</h5>
@@ -260,7 +338,7 @@ Please see the <a href="./python/README.md">Documentation on the Python binding<
 <h4>Installation of dependencies</h4>
 <p>Currently, the focused operating system is Ubuntu 16.04. Nevertheless, the library should work in a similar way for any other Linux OS.
 To install the dependencies for Ubuntu 16.04 execute the following command:</p>
-<pre><code class="bash"> user$&gt; sudo apt-get install git build-essential cmake 
+<pre><code class="bash"> user$&gt; sudo apt-get install git build-essential cmake
 </code></pre>
 
 <p>If you want to use doxygen for API documentation, please also install:</p>
@@ -337,32 +415,7 @@ To install the dependencies for Ubuntu 16.04 execute the following command:</p>
 </table>
 <p>Important: cmake is required to be at least version 3.5!</p>
 <h2 id="building-the-library">Building the library <a name="building"></a><a class="headerlink" href="#building-the-library" title="Permanent link">&para;</a></h2>
-<h4>Build instructions</h4>
-<p>The RSS library is built with a standard cmake toolchain. Simply run the following commands to build the library:</p>
-<pre><code class="bash"> ad_rss$&gt; mkdir build
- ad_rss$&gt; cd build
- build$&gt;  cmake ..
- build$&gt;  make
-</code></pre>
-
-<h4>Unit tests</h4>
-<p>Run the following commands to run the unit-tests:</p>
-<pre><code class="bash"> build$&gt;  make test
-</code></pre>
-
-<h4>API documentation</h4>
-<p>Please run the following command to build the API documentation, if desired:</p>
-<pre><code class="bash"> build$&gt;  cmake -DBUILD_DOC=1 ..
- build$&gt;  make apidoc
-</code></pre>
-
-<h4>Build hardening</h4>
-<p>Usually, build hardening is injected by the surrounding build system. Nevertheless, the CMakeLists.txt defines
-hardening flags to ensure the code is compatible to respective flags. To enable hardening compiler and linker flags:</p>
-<pre><code class="bash"> build$&gt;  cmake -DBUILD_HARDENING=1 ..
- build$&gt;  make
-</code></pre>
-
+<p>See the detailed <a href="https://intel.github.io/ad-rss-lib/ad_rss/BUILDING/index.html">Build instructions</a>.</p>
 <h2 id="contributing">Contributing <a name="contributing"></a><a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
 <p>Contibutions are very welcome!</p>
 <p>Before submitting a pull request, please ensure that your code compiles successfully and that the tests run successfully.
@@ -386,7 +439,7 @@ ad_rss$&gt; make clang-tidy
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="background/Overview/" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="RELEASE_NOTES_AND_DISCLAIMERS/" class="btn btn-neutral float-right" title="Release Notes and Disclaimer">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
     </div>
@@ -416,7 +469,7 @@ ad_rss$&gt; make clang-tidy
       
       
       
-        <span style="margin-left: 15px"><a href="background/Overview/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="RELEASE_NOTES_AND_DISCLAIMERS/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
@@ -430,5 +483,5 @@ ad_rss$&gt; make clang-tidy
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2020-01-07 07:57:06
+Build Date UTC : 2020-01-30 12:32:49
 -->

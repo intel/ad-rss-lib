@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Construction of the RSS Scenes - Intel ad-rss-lib</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Construction of the RSS Scenes";
+    var mkdocs_page_input_path = "ad_rss_map_integration/ConstructRSSScenes.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Intel ad-rss-lib</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../RELEASE_NOTES_AND_DISCLAIMERS/">Release Notes and Disclaimer</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Background</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../ad_rss/Overview/">Overview</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../ad_rss/HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../ad_rss/HLD-ArchitectureOverview/">System Integration</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../ad_rss/HLD-Safety/">Safety</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../ad_rss/HLD-Security/">Security</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../ad_rss/Appendix-ParameterDiscussion/">Parameter Discussion</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../ad_rss/SupportedRssFeatures/">Supported RSS Features</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Map Integration</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Main/">Overview</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Construction of the RSS Scenes</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#construction-of-the-individual-situations">Construction of the individual situations </a></li>
+    
+
+    <li class="toctree-l3"><a href="#construction-of-the-situation-specific-road-area">Construction of the situation specific Road Area </a></li>
+    
+
+    <li class="toctree-l3"><a href="#conversion-of-the-vehicle-data-in-respect-to-the-road-area">Conversion of the vehicle data in respect to the Road Area  </a></li>
+    
+
+    <li class="toctree-l3"><a href="#consider-speed-limits">Consider speed limits </a></li>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../HandleRoadBoundaries/">Handling of road boundaries</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Building</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../BUILDING/">General build instructions</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Python Integration</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../ad_rss/ad_rss_python/">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../ad_rss_map_integration_python/">Map Integration</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Doxygen</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/index.html">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/index.html">Map Integration</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Code Coverage</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/ad_rss/">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/ad_rss_map_integration/">Map Integration</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../FAQ/">FAQ</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../CHANGELOG/">Changelog</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Intel ad-rss-lib</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Map Integration &raquo;</li>
+        
+      
+    
+    <li>Construction of the RSS Scenes</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/intel/ad-rss-lib/edit/master/doc/ad_rss_map_integration/ConstructRSSScenes.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1>Construction of the RSS Scenes between two vehicles <a name="rssscenes"></a></h1>
+<p>The RSS core implementation (<em>ad_rss</em>) proposes a situation based coordinate system to
+perform the RSS calculations between two vehicles. This library provides an exemplary
+implementation on how a real-world situation can be transformed into such
+coordinate system.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This implementation considers neither all possible road network layouts nor all
+configurations between two vehicles that may happen. In reality, many corner-cases have to be
+considered to cover all of that (e.g. a backward driving car).</p>
+</div>
+<h4>Table of contents</h4>
+<ol>
+<li><a href="#constructsituations">Construct situations</a></li>
+<li><a href="#constructroadarea">Construct Road Area</a></li>
+<li><a href="#convertvehicledata">Convert Vehicle Data</a></li>
+<li><a href="#considerspeedlimits">Consider Speed Limits</a></li>
+</ol>
+<h3 id="construction-of-the-individual-situations">Construction of the individual situations <a name="constructsituations"></a><a class="headerlink" href="#construction-of-the-individual-situations" title="Permanent link">&para;</a></h3>
+<p>In general, the real world road network is far more complex than just one straight road:
+the situation between two vehicles is not necessarily unambiguous, especially
+as the vehicles can take different routes through intersections. Therefore, the
+worst-case has to be covered here, too. All potential configurations have to be
+considered when performing the situation analysis and creating the respective
+Situation Based Coordinate System. As a result of this there might be multiple
+situations at the same time to be considered between two vehicles.</p>
+<p>Before the actual road area of the vehicles can be calculated, the type of situation
+has to be determined, which is performed within ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssSceneCreation::appendScenes() as follows:</p>
+<h4>Calculate the connecting route</h4>
+<p>Based on road network data, the vehicle position and the object position, the shortest connecting route
+between these two is calculated (ad:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:route::planning::calculateConnectingRoute()).
+To cover also opposite direction and intersection use-cases, the nominal driving direction
+on the lanes is disregarded when the connecting route is calculated.
+Furthermore, as the map matched positions of vehicle and object might span over multiple
+lanes, all possible combinations are taken into account.</p>
+<h4>Decide on the kind of situation: same direction, opposite direction or intersection</h4>
+<ol>
+<li>
+<p>If both vehicles are driving in the same direction with respect to the connecting route
+a same direction situation is created. This is done, regardless if there are intersections
+between the two vehicles present, because one vehicle just follows the other, potentially through the intersection.
+| <img alt="same direction situation" src="../../images/two_cars_same_direction.png" /> |
+| -- |
+| <em>One vehicle is following the other on the same road by driving in the same direction: either on the same lane or on another parallel lane</em> |</p>
+</li>
+<li>
+<p>If both vehicles drive in opposite direction and there is no intersection in between an opposite direction situation is created.
+| <img alt="opposite direction situation" src="../../images/two_cars_opposite_direction.png" /> |
+| -- |
+| <em>Both vehicle are approaching each other on the same road by driving in the opposite direction: either on the same lane or on another parallel lane</em> |</p>
+</li>
+<li>
+<p>Otherwise, the potential future routes of the vehicles have
+to be calculated and combined with each other. As in an AD vehicle the ego route usually is known
+that route is taken as basis for the ego vehicle, if present. Every intersection present in both
+routes of these combinations might result in a new situation to be considered:
+| <img alt="opposite direction situation" src="../../images/two_cars_intersection_highway_entry.png" /> |
+| -- |
+| <em>Besides classical X-intersection or T-intersections also areas where lanes vanish and a lateral conflict is unavoidable have to be treated as intersection cases.</em> |</p>
+<ul>
+<li>If both drive through the intersection coming from the same intersection arm,
+  a same direction situation is created</li>
+<li>If both drive through the intersection coming from opposite intersection arms with routes not crossing,
+  the vehicles pass each other and an opposite direction situation is created</li>
+<li>Else, the routes within the intersection are crossing each other and an intersection situation is created.
+  To decide which of the vehicles has priority within the intersection the capabilities of the class
+  ad:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:intersection::Intersection() are used. In case of traffic light intersections, the kind
+  and status of the relevant traffic light determines the current priorities.</li>
+</ul>
+</li>
+</ol>
+<h4>Handling of similar situations</h4>
+<p>The consideration of intersections with all the possible routes leads to an increase in the number
+of situations. Therefore, to reduce the computational effort of the actual safety analysis,
+within the <em>ad_rss</em> core implementation situations that represent the same scene are merged
+if they describe the same situation (i.e. the same route through the intersection).
+To achieve this, and still be able to keep the worst case assessment, the distances to enter/leave the
+intersection both are intervals to provide the minimum and maximum observed distance to enter and leave
+the respective intersection.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Construct situations" src="../../images/ad-rss-map-situation_analysis.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Steps to create the situations required for safety calculations having the road network as well as the object data available as input</em></td>
+</tr>
+</tbody>
+</table>
+<h3 id="construction-of-the-situation-specific-road-area">Construction of the situation specific Road Area <a name="constructroadarea"></a><a class="headerlink" href="#construction-of-the-situation-specific-road-area" title="Permanent link">&para;</a></h3>
+<p>RSS incorporates the changes in the road geometries as minimum/maximum length and width
+parameters of the respective lane segments into the worst-case consideration of positions and distances.
+This makes the vehicle behaving over cautious if the road sections taken into account
+are selected unnecessarily large: the more the differences in minimal/maximal width
+or length of these segments are the more conservative the behavior of the vehicle gets.
+Therefore, the road area for the creation of the situation is restricted to the direct
+surrounding of the two vehicles, which is represented by the connecting route as
+described in the last section for non-intersection situation.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Road Area: same direction" src="../../images/rss_situation_based_coordinate_system_creation_road_area.svg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Construction of a same direction Road Area as basis for the Situation-Based Coordinate System: The red area consists of all lane segments along the road relevant for the situation between the two vehicles</em></td>
+</tr>
+</tbody>
+</table>
+<p>Nevertheless, the nominal driving direction of the lane segments in respect to the direction
+of the road area have to be preserved to allow RSS to decide if a vehicle is driving in wrong direction. The direction of the road area is determined by the driving direction of the vehicles.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Road Area: opposite direction" src="../../images/road_area_and_driving_direction_opposite_direction.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>In opposite direction use-case, where both vehicles are approaching each other, the direction is determined by the driving direction of the ego-vehicle</em></td>
+</tr>
+</tbody>
+</table>
+<p>In intersection situations, both vehicles approach from different roads. Therefore, two road areas have to be taken into account which end in an overlapping area at the intersection.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Road Area: opposite direction" src="../../images/road_area_and_lane_segment_type_intersection.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Construction of the situation specific Road Area in case of an intersection: Each vehicle gets its own road area. The lane segments within the intersection are marked as such. Be aware: The lane segment type intersection is only provided for lane segments of the intersection under consideration within the current situation.</em></td>
+</tr>
+</tbody>
+</table>
+<h3 id="conversion-of-the-vehicle-data-in-respect-to-the-road-area">Conversion of the vehicle data in respect to the Road Area  <a name="convertvehicledata"></a><a class="headerlink" href="#conversion-of-the-vehicle-data-in-respect-to-the-road-area" title="Permanent link">&para;</a></h3>
+<p>Having the situations and the respective Road Area(s) constructed, the vehicle data has to be
+converted into the desired RSS object format ad::rss::world::Object. The main aspects of this
+are the conversion of the velocity and of the bounding box.</p>
+<h4>Conversion of the vehicle velocity within the road area</h4>
+<table>
+<thead>
+<tr>
+<th><img alt="Velocity conversion overview" src="../../images/lane_coordinate_system_velocity_overview.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Example road area for velocity conversion</em></td>
+</tr>
+</tbody>
+</table>
+<p>To convert the velocity of a vehicle within the situation, one can take the center point of the vehicle and the vehicle orientation in respect to the road area driving direction as basis to split the vehicle speed into its lateral and longitudinal components in respect to the lane segment.</p>
+<p>Having a detailed look at the left vehicle within the above sketched scene. Let it drive with 10m/s
+in parallel to the lanes. Regardless which vehicle reference point one takes into account (Center, RearLeft, RearRight, FrontLeft, FrontRight) the split of the velocity leads to
+longitudinal velocity component of <span><span class="MathJax_Preview">v_{lon} = 10 m/s</span><script type="math/tex">v_{lon} = 10 m/s</script></span> and a lateral velocity component
+of <span><span class="MathJax_Preview">v_{lat} = 0 m/s</span><script type="math/tex">v_{lat} = 0 m/s</script></span>.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Velocity conversion straight lanes" src="../../images/lane_coordinate_system_velocity_straight.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Vehicle reference points and velocity conversion on straight lanes</em></td>
+</tr>
+</tbody>
+</table>
+<p>This becomes different, when the lane is not straight anymore. When driving with <span><span class="MathJax_Preview">20\circ</span><script type="math/tex">20\circ</script></span> in
+respect to the lane at the center point. For the center point one gets a longitudinal velocity component of <span><span class="MathJax_Preview">v_{lon} = \cos(20\circ) * 10 m/s = 9.4 m/s</span><script type="math/tex">v_{lon} = \cos(20\circ) * 10 m/s = 9.4 m/s</script></span> and a lateral velocity component
+of <span><span class="MathJax_Preview">v_{lat} = \sin(20\circ) * 10 m/s = 3.4 m/s</span><script type="math/tex">v_{lat} = \sin(20\circ) * 10 m/s = 3.4 m/s</script></span>.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Velocity conversion curve" src="../../images/lane_coordinate_system_velocity_curve.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Vehicle reference points and velocity conversion in curves</em></td>
+</tr>
+</tbody>
+</table>
+<p>But since the curve has not the same radius over the whole vehicle bounding box, the
+vehicle orientation in respect to the lane differs when considering different reference points.</p>
+<p>To ensure the worst case is covered, all reference points are considered and the respective
+velocity components become velocity intervals. So the velocity of the vehicle in the curve
+will become e.g. <span><span class="MathJax_Preview">v_{lon} = [ 9.2 m/s; 9.8 m/s]</span><script type="math/tex">v_{lon} = [ 9.2 m/s; 9.8 m/s]</script></span> <span><span class="MathJax_Preview">v_{lat} = [ 3.3 m/s; 3.5 m/s]</span><script type="math/tex">v_{lat} = [ 3.3 m/s; 3.5 m/s]</script></span>.</p>
+<h4>Construction of the situation based bounding box of the vehicles within the road area</h4>
+<p>Based on the Road Area, the individual bounding box of the vehicles are calculated.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Road Area: Lane ids" src="../../images/rss_situation_base_coordinate_system_road_area_with_lane_ids.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Road Area with lane Ids assigned</em></td>
+</tr>
+</tbody>
+</table>
+<p>For this, the ad:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:match::LaneOccupiedRegionList with the occupied regions calculated on basis of
+the real lane geometries (see <em>ad_map_access</em> for reference) is transformed into the
+ad::rss:world::OccupiedRegionVector mainly by:</p>
+<ul>
+<li>consider only lanes present in the Road Area</li>
+<li>adapt the parametric range in respect to the driving direction of the lane segment
+  within the Road Area</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img alt="Occupied Regions" src="../../images/occupied_regions.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Example occupied regions for two vehicles within a Road Area</em></td>
+</tr>
+</tbody>
+</table>
+<p>On the one hand side this step is simple in calculation, but because of the representation of the lane segments within the Situation-Based Coordinate System (minimal/maximal width and length)
+and the use of the situation specific worst-case lateral and longitudinal border values of the
+vehicles within the RSS calculations, the vehicle bounding boxes are enlarged finally as depicted in
+the following image:</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Creation of the vehicle bounding box" src="../../images/rss_situation_based_coordinate_system_creation_vehicle_bounding_box.svg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Creation of the situation-based coordinate system: Worst-case transformation of the vehicle bounding box. The metric road on the left leads to transformed vehicles and their bounding boxes (red) on the right, sketched for a narrowing road area at the top and a curve at the bottom.</em></td>
+</tr>
+</tbody>
+</table>
+<h4>Calculation of Metric distances within the Road Area</h4>
+<p>To get a better understanding of why it is important to restrict the road area in its extend,
+the actual calculation of metric bounding box and metric distances within the road area within <em>ad_rss</em> are sketched in the following section.</p>
+<h5>Metrics of road segments within Road Area</h5>
+<p>The overall metric minima/maxima of the road segment at index r (<span><span class="MathJax_Preview">RS_{min}^r, RS_{max}^r</span><script type="math/tex">RS_{min}^r, RS_{max}^r</script></span>) is calculated by combination of the minima/maxima (<span><span class="MathJax_Preview">LS_{min},LS_{max}</span><script type="math/tex">LS_{min},LS_{max}</script></span>) of the contained lane segments:</p>
+<p><span><span class="MathJax_Preview">RS_{lon,min}^r = \min\limits_{l}⁡(LS_{lon,min}^{r,l})</span><script type="math/tex">RS_{lon,min}^r = \min\limits_{l}⁡(LS_{lon,min}^{r,l})</script></span></p>
+<p><span><span class="MathJax_Preview">RS_{lon,max}^r= \max\limits_{l}⁡(LS_{lon,max}^{r,l})</span><script type="math/tex">RS_{lon,max}^r= \max\limits_{l}⁡(LS_{lon,max}^{r,l})</script></span></p>
+<p><span><span class="MathJax_Preview">RS_{lat,min}^r=0</span><script type="math/tex">RS_{lat,min}^r=0</script></span></p>
+<p><span><span class="MathJax_Preview">RS_{lat,max}^r= \sum_{l}LS_{lat,max}^{r,l}</span><script type="math/tex">RS_{lat,max}^r= \sum_{l}LS_{lat,max}^{r,l}</script></span> ⁡</p>
+<p>The overall minima/maxima dimensions of the road area (<span><span class="MathJax_Preview">RA_{min}, RA_{max}</span><script type="math/tex">RA_{min}, RA_{max}</script></span>) are calculated by the combinations of the minima/maxima of the road segments:</p>
+<p><span><span class="MathJax_Preview">RA_{lon,min} = \sum_r RS_{lon,min}^r</span><script type="math/tex">RA_{lon,min} = \sum_r RS_{lon,min}^r</script></span></p>
+<p><span><span class="MathJax_Preview">RA_{lon,max} = \sum_r RS_{lon,max}^r</span><script type="math/tex">RA_{lon,max} = \sum_r RS_{lon,max}^r</script></span></p>
+<p><span><span class="MathJax_Preview">RA_{lat,min} = \min\limits_{r}⁡ (RS_{lat,min}^r)=0</span><script type="math/tex">RA_{lat,min} = \min\limits_{r}⁡ (RS_{lat,min}^r)=0</script></span></p>
+<p><span><span class="MathJax_Preview">RA_{lat,max} = \max\limits_{r}⁡ (RS_{lat,max}^r)</span><script type="math/tex">RA_{lat,max} = \max\limits_{r}⁡ (RS_{lat,max}^r)</script></span></p>
+<h5>Metrics bounding box of vehicles within Road Area</h5>
+<p>In a similar manner the vehicle parametric bounding box definitions (<span><span class="MathJax_Preview">PBB</span><script type="math/tex">PBB</script></span>) can be used to calculate
+the minimal and maximal metric position in longitudinal direction of the vehicle within of the whole road area: the minimal longitudinal position of a vehicle (<span><span class="MathJax_Preview">BB_{min}^{lon}</span><script type="math/tex">BB_{min}^{lon}</script></span>) is calculated by taking the sum of all minimal metric lengths of all previous road segments, plus the parametric scaled minimal length of the first road segment it touches.</p>
+<p><span><span class="MathJax_Preview">BB_{lon,min} = \sum_{r=0}^{i-1} RS_{lon,min}^r + \min\limits_{l}⁡ ( PBB_{lon,min}^{i,l} * LS_{lon,min}^{i,l} )</span><script type="math/tex">BB_{lon,min} = \sum_{r=0}^{i-1} RS_{lon,min}^r + \min\limits_{l}⁡ ( PBB_{lon,min}^{i,l} * LS_{lon,min}^{i,l} )</script></span> , with i: first road segment the vehicle touches.</p>
+<p><span><span class="MathJax_Preview">BB_{lon,max} = \sum_{r=0}^{i-1} RS_{lon,max}^r + \max\limits_{l} ( PBB_{lon,max}^{i,l} * LS_{(lon,max}^{i,l})</span><script type="math/tex">BB_{lon,max} = \sum_{r=0}^{i-1} RS_{lon,max}^r + \max\limits_{l} ( PBB_{lon,max}^{i,l} * LS_{(lon,max}^{i,l})</script></span> , with i: last road segment the vehicle touches.</p>
+<p><span><span class="MathJax_Preview">BB_{lat,min} = \min\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,min}^{r,l} + (PBB_{lat,min}^{r,i}* LS_{lat,min}^{r,i}) )</span><script type="math/tex">BB_{lat,min} = \min\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,min}^{r,l} + (PBB_{lat,min}^{r,i}* LS_{lat,min}^{r,i}) )</script></span> , with i: first lane segment within road segment r the vehicle touches.</p>
+<p><span><span class="MathJax_Preview">BB_{lat,max} = \max\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,max}^{r,l} + (PBB_{lat,max}^{r,i} * LS_{lat,max}^{r,i})</span><script type="math/tex">BB_{lat,max} = \max\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,max}^{r,l} + (PBB_{lat,max}^{r,i} * LS_{lat,max}^{r,i})</script></span>, with i: last lane segment within road segment r the vehicle touches.</p>
+<h5>Metrics distances between vehicles</h5>
+<p>Having the vehicles metric bounding boxes within the road area at hand, it is straight forward to calculate the current longitudinal and lateral distances of the vehicles towards each other. Let A be the upper left vehicle and B the lower right vehicle in the sketched road area above, then the distances are defined by:</p>
+<p><span><span class="MathJax_Preview">d_{lon} = BB_{lon,min}^B - BB_{lon,max}^A</span><script type="math/tex">d_{lon} = BB_{lon,min}^B - BB_{lon,max}^A</script></span></p>
+<p><span><span class="MathJax_Preview">d_{lat} = BB_{lat,min}^B - BB_{lat,max}^A</span><script type="math/tex">d_{lat} = BB_{lat,min}^B - BB_{lat,max}^A</script></span></p>
+<h5>Metrics distances in respect to the intersection</h5>
+<p>The calculation of the intersection distance of a vehicle can then be performed in the following way:</p>
+<p><span><span class="MathJax_Preview">d_{enter} = \sum_{r=0}^{i-1} RS_{lon,min}^r -BB_{lon,max}</span><script type="math/tex">d_{enter} = \sum_{r=0}^{i-1} RS_{lon,min}^r -BB_{lon,max}</script></span> , with i: first road segment within the intersection.</p>
+<p><span><span class="MathJax_Preview">d_{exit} = \sum_{r=0}^i RS_{lon,max}^r - BB_{lon,min}</span><script type="math/tex">d_{exit} = \sum_{r=0}^i RS_{lon,max}^r - BB_{lon,min}</script></span> , with i: last road segment within the intersection.</p>
+<p>Having the vehicles metric bounding boxes and the distances to the intersection at hand, it is straight forward to calculate the current longitudinal distance of the vehicles towards each other in respect to the intersection. Let A be the vehicle coming from west and B the vehicle coming from south in the figure above with <span><span class="MathJax_Preview">d_{enter}^A &gt; d_{enter}^B</span><script type="math/tex">d_{enter}^A > d_{enter}^B</script></span>, then the distance can be calculated by:</p>
+<p><span><span class="MathJax_Preview">d_{lon} = \max⁡ (0, d_{enter}^A - d_{enter}^B - (BB_{lon,max}^B -BB_{lon,min}^B))</span><script type="math/tex">d_{lon} = \max⁡ (0, d_{enter}^A - d_{enter}^B - (BB_{lon,max}^B -BB_{lon,min}^B))</script></span></p>
+<h3 id="consider-speed-limits">Consider speed limits <a name="considerspeedlimits"></a><a class="headerlink" href="#consider-speed-limits" title="Permanent link">&para;</a></h3>
+<p>Since the <a href="https://arxiv.org/abs/1708.06374">RSS paper</a> is assuming worst-case behavior of
+other traffic participants, vehicles are allowed to accelerate with maximum possible acceleration
+within their reaction time. Especially in urban scenarios this can lead to unnecessarily big safety
+distances if expecting that fast driving vehicles are able to accelerate even beyond speed limits.
+As it's unreasonable behavior of others to accelerate far beyond the maximum allowed speed,
+the construction of the scenes with ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssSceneCreation::appendScenes() supports
+to select between different modes to consider the speed limit within RSS accelerated movement,
+by setting the ad::rss::world::RssDynamics dynamics accordingly:</p>
+<ul>
+<li>None: Do not change the objects maxSpeed parameter of the RssDynamics</li>
+<li>ExactSpeedLimit: Set the objects maxSpeed parameter of the RssDynamics to the maximal
+  allowed speed of the relevant road section</li>
+<li>IncreasedSpeedLimit5: Set the objects maxSpeed parameter of the RssDynamics to the maximal
+  allowed speed of the relevant road section + 5 percent</li>
+<li>IncreasedSpeedLimit10: Set the objects maxSpeed parameter of the RssDynamics to the maximal
+  allowed speed of the relevant road section + 10 percent</li>
+</ul>
+<p>In general, this extends the scope of the RSS paper, but might be a reasonable change to improve
+acceptance within society.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../HandleRoadBoundaries/" class="btn btn-neutral float-right" title="Handling of road boundaries">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Main/" class="btn btn-neutral" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/intel/ad-rss-lib/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../Main/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../HandleRoadBoundaries/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

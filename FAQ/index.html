@@ -55,47 +55,117 @@
           
             <li class="toctree-l1">
 		
+    <a class="" href="../RELEASE_NOTES_AND_DISCLAIMERS/">Release Notes and Disclaimer</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
     <span class="caption-text">Background</span>
     <ul class="subnav">
                 <li class="">
                     
-    <a class="" href="../background/Overview/">Overview</a>
+    <a class="" href="../ad_rss/Overview/">Overview</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../background/HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
+    <a class="" href="../ad_rss/HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../background/HLD-ArchitectureOverview/">System Integration</a>
+    <a class="" href="../ad_rss/HLD-ArchitectureOverview/">System Integration</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../background/HLD-Safety/">Safety</a>
+    <a class="" href="../ad_rss/HLD-Safety/">Safety</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../background/HLD-Security/">Security</a>
+    <a class="" href="../ad_rss/HLD-Security/">Security</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../background/Appendix-ParameterDiscussion/">Parameter Discussion</a>
+    <a class="" href="../ad_rss/Appendix-ParameterDiscussion/">Parameter Discussion</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../background/SupportedRssFeatures/">Supported RSS Features</a>
+    <a class="" href="../ad_rss/SupportedRssFeatures/">Supported RSS Features</a>
                 </li>
     </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/html/index.html">Doxygen</a>
+    <span class="caption-text">Map Integration</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../ad_rss_map_integration/Main/">Overview</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../ad_rss_map_integration/ConstructRSSScenes/">Construction of the RSS Scenes</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../ad_rss_map_integration/HandleRoadBoundaries/">Handling of road boundaries</a>
+                </li>
+    </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/">Code Coverage</a>
+    <span class="caption-text">Building</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../BUILDING/">General build instructions</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Python Integration</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../ad_rss/ad_rss_python/">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../ad_rss_map_integration/ad_rss_map_integration_python/">Map Integration</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Doxygen</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/index.html">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/index.html">Map Integration</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Code Coverage</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/ad_rss/">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/ad_rss_map_integration/">Map Integration</a>
+                </li>
+    </ul>
 	    </li>
           
             <li class="toctree-l1 current">
@@ -117,7 +187,7 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="../CHANGELOG/">Release Notes</a>
+    <a class="" href="../CHANGELOG/">Changelog</a>
 	    </li>
           
         </ul>
@@ -170,7 +240,7 @@
   - mSituationChecking-&gt;checkSituations(situationVector, responseStateVector)
   - mResponseResolving-&gt;provideProperResponse(responseStateVector, properResponse)
   - RssResponseTransformation::transformProperResponse(worldModel, properResponse, accelerationRestriction)</p>
-<p>You can directly take  <a href="https://github.com/intel/ad-rss-lib/blob/master/src/core/RssCheck.cpp">RssCheck::calculateAccelerationRestriction()</a> as an example on how to call the individual steps. Applying the step-by-step calls especially provides the
+<p>You can directly take  <a href="https://github.com/intel/ad-rss-lib/blob/master/ad_rss/impl/src/core/RssCheck.cpp">RssCheck::calculateAccelerationRestriction()</a> as an example on how to call the individual steps. Applying the step-by-step calls especially provides the
 response state on individual object basis of the scene.</p>
 <p>Regardless which solution you prefer, you always have to respect the return value of the functions, before you further make use of the information!</p>
 <h6>Why are some functions realized in a namespace where others required a class?</h6>
@@ -179,7 +249,7 @@ response state on individual object basis of the scene.</p>
 <p>The <em>worldModel</em> is the input to the <em>RSS</em> calculations.
 It is derived from the <em>Sense</em> part.</p>
 <h6>How do I get to the information required for the input <em>worldModel</em>?</h6>
-<p>The world model data heavily depends on the system the <em>ad-rss-lib</em> is going to be integrated. Therefore, there is no single answer to this question. Simple scenarios can be derived using basic object data, integration of <em>RSS</em> to the full extend demand more sophisticated a-priori information, usually provided by means of an AD-Map. The <a href="https://github.com/intel/ad-rss-lib/blob/master/tests/core/RssCheckTestBaseT.hpp">unit tests</a> provided with the <em>ad-rss-lib</em> build some basic <em>worldModel</em> structures that might be taken as a starting point. Better examples can be found in the section on <a href="#integration-examples">Integration examples</a>.</p>
+<p>The world model data heavily depends on the system the <em>ad-rss-lib</em> is going to be integrated. Therefore, there is no single answer to this question. Simple scenarios can be derived using basic object data, integration of <em>RSS</em> to the full extend demand more sophisticated a-priori information, usually provided by means of an AD-Map. The <a href="https://github.com/intel/ad-rss-lib/blob/master/ad_rss/impl/tests/core/RssCheckTestBaseT.hpp">unit tests</a> provided with the <em>ad-rss-lib</em> build some basic <em>worldModel</em> structures that might be taken as a starting point. Better examples can be found in the section on <a href="#integration-examples">Integration examples</a>.</p>
 <h4>Output: rssAccelerationRestrictions</h4>
 <p>The <em>rssAccelerationRestrictions</em> is the output of the <em>RSS</em> calculations.
 It is given as input of the <em>Act</em> part.</p>
@@ -195,10 +265,10 @@ Even beyond, if the planning algorithms evaluate different driving strategies, <
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../CHANGELOG/" class="btn btn-neutral float-right" title="Release Notes">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../CHANGELOG/" class="btn btn-neutral float-right" title="Changelog">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../background/SupportedRssFeatures/" class="btn btn-neutral" title="Supported RSS Features"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../ad_rss_map_integration/ad_rss_map_integration_python/" class="btn btn-neutral" title="Map Integration"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -226,7 +296,7 @@ Even beyond, if the planning algorithms evaluate different driving strategies, <
           <a href="https://github.com/intel/ad-rss-lib/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../background/SupportedRssFeatures/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../ad_rss_map_integration/ad_rss_map_integration_python/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
         <span style="margin-left: 15px"><a href="../CHANGELOG/" style="color: #fcfcfc">Next &raquo;</a></span>
