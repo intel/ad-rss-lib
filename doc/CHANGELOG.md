@@ -1,5 +1,8 @@
 ## Latest changes
 
+#### :ghost: Maintenance
+* Fix scene creation with empty ego route
+* Adaptions for python binding built to support newer boost versions
 
 ## Release 2.0.0
 #### :rocket: New Features

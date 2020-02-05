@@ -27,6 +27,8 @@ struct RssSceneCreationTest : ::testing::Test
   const ::ad::physics::Acceleration cMaximumLateralAcceleration{0.2};
   const ::ad::physics::Acceleration cMinimumLateralBrakingDeceleleration{0.8};
 
+  typedef std::tuple<::ad::rss::situation::SituationType, size_t, size_t, ::ad::physics::Speed> ExpectedResultTuple;
+
   ::ad::rss::world::RssDynamics getEgoVehicleDynamics(::ad::physics::Speed const maxSpeed = ::ad::physics::Speed(100.))
   {
     ::ad::rss::world::RssDynamics result;
@@ -69,6 +71,7 @@ struct RssSceneCreationTest : ::testing::Test
   virtual void SetUp()
   {
     ::ad::map::access::cleanup();
+    // using priority to the right intersections
     ASSERT_TRUE(::ad::map::access::init("resources/Town01.txt"));
     initializeEgoVehicle();
     ::ad::rss::map::getLogger()->set_level(spdlog::level::trace);
@@ -115,7 +118,7 @@ struct RssSceneCreationTest : ::testing::Test
 
     egoSpeed = ::ad::physics::Speed(5.);
 
-    // laneId: offset  120149:0.16
+    // laneId: offset  120149:0.16  (ego turn right)
     auto positionEndGeo = ::ad::map::point::createGeoPoint(::ad::map::point::Longitude(8.00188527300496979),
                                                            ::ad::map::point::Latitude(48.99821051747871792),
                                                            ::ad::map::point::Altitude(0.));
@@ -125,6 +128,26 @@ struct RssSceneCreationTest : ::testing::Test
         .referencePointPositions[static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center)][0]
         .lanePoint.paraPoint,
       positionEndGeo);
+  }
+
+  void checkSceneResults(::ad::rss::world::WorldModel const &worldModel,
+                         size_t const worldModelCheckIndexStart,
+                         ::ad::rss::world::ObjectId const &otherVehicleId,
+                         std::vector<ExpectedResultTuple> const &resultExpectations)
+  {
+    for (auto i = worldModelCheckIndexStart; i < worldModel.scenes.size(); ++i)
+    {
+      auto &scene = worldModel.scenes[i];
+      auto &expectedResultTuple = resultExpectations[i - worldModelCheckIndexStart];
+
+      EXPECT_TRUE(withinValidInputRange(scene));
+      EXPECT_EQ(::ad::rss::world::ObjectType::OtherVehicle, scene.object.objectType);
+      EXPECT_EQ(otherVehicleId, scene.object.objectId);
+      EXPECT_EQ(std::get<0>(expectedResultTuple), scene.situationType);
+      EXPECT_EQ(std::get<1>(expectedResultTuple), scene.egoVehicleRoad.size());
+      EXPECT_EQ(std::get<2>(expectedResultTuple), scene.intersectingRoad.size());
+      EXPECT_EQ(getObjectVehicleDynamics(std::get<3>(expectedResultTuple)), scene.objectRssDynamics);
+    }
   }
 
   ::ad::rss::world::ObjectId egoVehicleId{123u};
@@ -231,48 +254,144 @@ TEST_F(RssSceneCreationTest, testAppendRoadBoundaries)
 
 TEST_F(RssSceneCreationTest, testAppendScenes)
 {
-  std::vector<std::tuple<::ad::rss::world::ObjectId, ::ad::map::point::Longitude, ::ad::map::point::Latitude, double>>
+  std::vector<std::tuple<::ad::rss::world::ObjectId,
+                         ::ad::map::point::Longitude,
+                         ::ad::map::point::Latitude,
+                         double,
+                         std::vector<ExpectedResultTuple>,
+                         std::vector<ExpectedResultTuple>>>
     otherVehicles{
       // laneId: 240151, directly in front same direction
       std::make_tuple(::ad::rss::world::ObjectId(10),
                       ::ad::map::point::Longitude(8.00125444865324766),
                       ::ad::map::point::Latitude(48.9980),
-                      M_PI_2),
+                      M_PI_2,
+                      // with ego route and speed limit
+                      std::initializer_list<ExpectedResultTuple>({std::make_tuple(
+                        ::ad::rss::situation::SituationType::SameDirection, 1u, 0u, ::ad::physics::Speed(12.2936))}),
+                      // without ego route, no speed limit
+                      std::initializer_list<ExpectedResultTuple>({std::make_tuple(
+                        ::ad::rss::situation::SituationType::SameDirection, 1u, 0u, ::ad::physics::Speed(100.))})),
 
       // laneId: offset  120149:0.16  around the intersection in front same direction on ego route
       std::make_tuple(::ad::rss::world::ObjectId(20),
                       ::ad::map::point::Longitude(8.00188527300496979),
                       ::ad::map::point::Latitude(48.99821051747871792),
-                      0.),
+                      0.,
+                      // with ego route and speed limit
+                      std::initializer_list<ExpectedResultTuple>({std::make_tuple(
+                        ::ad::rss::situation::SituationType::SameDirection, 3u, 0u, ::ad::physics::Speed(15.2778))}),
+                      // without ego route, no speed limit
+                      std::initializer_list<ExpectedResultTuple>({std::make_tuple(
+                        ::ad::rss::situation::SituationType::SameDirection, 3u, 0u, ::ad::physics::Speed(100.))})),
 
-      // laneId: offset  230151, straight through the intersection in front same direction, but not on route
+      // laneId: offset  230151, straight through the intersection in front same direction
       std::make_tuple(::ad::rss::world::ObjectId(30),
                       ::ad::map::point::Longitude(8.00125444865324766),
                       ::ad::map::point::Latitude(48.9985),
-                      M_PI_2),
-
+                      M_PI_2,
+                      // with ego route and speed limit, but not on route
+                      std::initializer_list<ExpectedResultTuple>({std::make_tuple(
+                        ::ad::rss::situation::SituationType::NotRelevant, 0u, 0u, ::ad::physics::Speed(100.))}),
+                      // without ego route, no speed limit, therefore one of our predicted routes will match
+                      std::initializer_list<ExpectedResultTuple>({std::make_tuple(
+                        ::ad::rss::situation::SituationType::SameDirection, 4u, 0u, ::ad::physics::Speed(100.))})),
       // laneId: 240149, directly in front opposite direction
-      std::make_tuple(::ad::rss::world::ObjectId(11),
-                      ::ad::map::point::Longitude(8.00120),
-                      ::ad::map::point::Latitude(48.9980),
-                      -M_PI_2),
+      std::make_tuple(
+        ::ad::rss::world::ObjectId(11),
+        ::ad::map::point::Longitude(8.00120),
+        ::ad::map::point::Latitude(48.9980),
+        -M_PI_2,
+        // with ego route and speed limit
+        std::initializer_list<ExpectedResultTuple>({std::make_tuple(
+          ::ad::rss::situation::SituationType::OppositeDirection, 1u, 0u, ::ad::physics::Speed(12.2936))}),
+        // without ego route, no speed limit
+        std::initializer_list<ExpectedResultTuple>({std::make_tuple(
+          ::ad::rss::situation::SituationType::OppositeDirection, 1u, 0u, ::ad::physics::Speed(100.))})),
 
       // laneId: offset  120151:0.16  around the intersection in opposite direction
-      std::make_tuple(::ad::rss::world::ObjectId(21),
-                      ::ad::map::point::Longitude(8.00188527300496979),
-                      ::ad::map::point::Latitude(48.99824),
-                      M_PI),
+      std::make_tuple(
+        ::ad::rss::world::ObjectId(21),
+        ::ad::map::point::Longitude(8.00188527300496979),
+        ::ad::map::point::Latitude(48.99824),
+        M_PI,
+        // with ego route and speed limit
+        std::initializer_list<ExpectedResultTuple>(
+          {// here we get 3 object predictions, all leading to the opposite direction case
+           std::make_tuple(
+             ::ad::rss::situation::SituationType::OppositeDirection, 3u, 0u, ::ad::physics::Speed(15.2778)),
+           std::make_tuple(
+             ::ad::rss::situation::SituationType::OppositeDirection, 3u, 0u, ::ad::physics::Speed(15.2778)),
+           std::make_tuple(
+             ::ad::rss::situation::SituationType::OppositeDirection, 3u, 0u, ::ad::physics::Speed(15.2778))}),
+        // without ego route, no speed limit
+        // here we get 3 object predictions and 3 ego predictions:
+        std::initializer_list<ExpectedResultTuple>(
+          {// ego-turn-right: all 3 object predictions lead to the opposite direction case
+           std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 3u, 0u, ::ad::physics::Speed(100.)),
+           std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 3u, 0u, ::ad::physics::Speed(100.)),
+           std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 3u, 0u, ::ad::physics::Speed(100.)),
+           // ego-straight-then-right: in first intersection: object coming form right has prio
+           std::make_tuple(
+             ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 3u, 2u, ::ad::physics::Speed(100.)),
+           std::make_tuple(
+             ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 3u, 2u, ::ad::physics::Speed(100.)),
+           std::make_tuple(
+             ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 3u, 2u, ::ad::physics::Speed(100.)),
+           // ego-straight-then-right: in second intersection: 2 of the object predictions come from the same
+           // intersection arm
+           // @todo: should lead to a different route, since this route is actually from the connecting route within the
+           // first
+           // intersection!!!
+           std::make_tuple(::ad::rss::situation::SituationType::SameDirection, 3u, 0u, ::ad::physics::Speed(100.)),
+           std::make_tuple(::ad::rss::situation::SituationType::SameDirection, 3u, 0u, ::ad::physics::Speed(100.)),
+           // ego-straight-then-straight: in first intersection: object coming form right has prio
+           std::make_tuple(
+             ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 3u, 2u, ::ad::physics::Speed(100.)),
+           std::make_tuple(
+             ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 3u, 2u, ::ad::physics::Speed(100.)),
+           std::make_tuple(
+             ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 3u, 2u, ::ad::physics::Speed(100.)),
+           // ego-straight-then-right: in second intersection: 2 of the object predictions come from the same
+           // intersection arm
+           // @todo: should lead to a different route, since this route is actually from the connecting route within the
+           // first
+           // intersection!!!
+           std::make_tuple(::ad::rss::situation::SituationType::SameDirection, 3u, 0u, ::ad::physics::Speed(100.)),
+           std::make_tuple(::ad::rss::situation::SituationType::SameDirection, 3u, 0u, ::ad::physics::Speed(100.))})),
 
       // laneId: offset  230149, straight through the intersection in opposite direction
-      std::make_tuple(::ad::rss::world::ObjectId(31),
-                      ::ad::map::point::Longitude(8.00120),
-                      ::ad::map::point::Latitude(48.9985),
-                      -M_PI_2),
-    };
+      std::make_tuple(
+        ::ad::rss::world::ObjectId(31),
+        ::ad::map::point::Longitude(8.00120),
+        ::ad::map::point::Latitude(48.9985),
+        -M_PI_2,
+        // with ego route and speed limit
+        std::initializer_list<ExpectedResultTuple>(
+          {// in case the other drives straight
+           std::make_tuple(
+             ::ad::rss::situation::SituationType::OppositeDirection, 4u, 0u, ::ad::physics::Speed(15.2778)),
+           // in case the other turns left
+           std::make_tuple(
+             ::ad::rss::situation::SituationType::IntersectionEgoHasPriority, 3u, 2u, ::ad::physics::Speed(15.2778))}),
+        // without ego route, no speed limit
+        // here we get 2 object predictions and 2 ego predictions
+        std::initializer_list<ExpectedResultTuple>(
+          {// ego-turn-right: other-straight
+           std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 4u, 0u, ::ad::physics::Speed(100.)),
+           // ego-turn-right: other-turn-left
+           std::make_tuple(
+             ::ad::rss::situation::SituationType::IntersectionEgoHasPriority, 2u, 2u, ::ad::physics::Speed(100.)),
+           // ego-straight: other-straight
+           std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 4u, 0u, ::ad::physics::Speed(100.)),
+           // ego-straight: other-turn-left
+           std::make_tuple(
+             ::ad::rss::situation::SituationType::IntersectionEgoHasPriority, 3u, 2u, ::ad::physics::Speed(100.))}))};
 
   ::ad::rss::world::WorldModel worldModel
     = ::ad::rss::map::RssSceneCreation::initializeWorldModel(1u, getEgoVehicleDynamics());
 
+  size_t expectedWorldModelSize = 0u;
   for (auto const &objectTuple : otherVehicles)
   {
     ::ad::rss::world::ObjectId otherVehicleId = std::get<0>(objectTuple);
@@ -281,6 +400,10 @@ TEST_F(RssSceneCreationTest, testAppendScenes)
     ::ad::map::match::Object otherMatchObject;
 
     initializeObject(std::get<1>(objectTuple), std::get<2>(objectTuple), std::get<3>(objectTuple), otherMatchObject);
+
+    // ego route
+    // speed limit
+    size_t currentWorldModelSize = worldModel.scenes.size();
 
     EXPECT_TRUE(::ad::rss::map::RssSceneCreation::appendScenes(
       egoVehicleId,
@@ -295,76 +418,34 @@ TEST_F(RssSceneCreationTest, testAppendScenes)
       ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10,
       ::ad::map::landmark::LandmarkIdSet(),
       worldModel));
+
+    auto &routeResultExpectations = std::get<4>(objectTuple);
+    expectedWorldModelSize += routeResultExpectations.size();
+    EXPECT_EQ(expectedWorldModelSize, worldModel.scenes.size());
+    checkSceneResults(worldModel, currentWorldModelSize, otherVehicleId, routeResultExpectations);
+
+    // no ego route
+    // no speed limit
+    currentWorldModelSize = worldModel.scenes.size();
+
+    EXPECT_TRUE(
+      ::ad::rss::map::RssSceneCreation::appendScenes(egoVehicleId,
+                                                     egoMatchObject,
+                                                     egoSpeed,
+                                                     ::ad::map::route::FullRoute(),
+                                                     otherVehicleId,
+                                                     ::ad::rss::world::ObjectType::OtherVehicle,
+                                                     otherMatchObject,
+                                                     otherVehicleSpeed,
+                                                     getObjectVehicleDynamics(),
+                                                     ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::None,
+                                                     ::ad::map::landmark::LandmarkIdSet(),
+                                                     worldModel));
+
+    auto &noRouteResultExpectations = std::get<5>(objectTuple);
+    expectedWorldModelSize += noRouteResultExpectations.size();
+    EXPECT_EQ(expectedWorldModelSize, worldModel.scenes.size());
+    checkSceneResults(worldModel, currentWorldModelSize, otherVehicleId, noRouteResultExpectations);
   }
-
-  EXPECT_EQ(worldModel.scenes.size(), 9u);
-
-  for (auto i = 0u; i < worldModel.scenes.size(); ++i)
-  {
-    auto &scene = worldModel.scenes[i];
-    EXPECT_EQ(::ad::rss::world::ObjectType::OtherVehicle, scene.object.objectType);
-    EXPECT_TRUE(withinValidInputRange(scene.objectRssDynamics));
-
-    if (i == 0u)
-    {
-      EXPECT_EQ(std::get<0>(otherVehicles[0]), scene.object.objectId);
-      EXPECT_EQ(::ad::rss::situation::SituationType::SameDirection, scene.situationType);
-      EXPECT_EQ(1u, scene.egoVehicleRoad.size());
-      EXPECT_EQ(0u, scene.intersectingRoad.size());
-      EXPECT_EQ(getObjectVehicleDynamics(::ad::physics::Speed(12.2936)), scene.objectRssDynamics);
-    }
-    else if (i == 1u)
-    {
-      EXPECT_EQ(std::get<0>(otherVehicles[1]), scene.object.objectId);
-      EXPECT_EQ(::ad::rss::situation::SituationType::SameDirection, scene.situationType);
-      EXPECT_EQ(3u, scene.egoVehicleRoad.size());
-      EXPECT_EQ(0u, scene.intersectingRoad.size());
-      EXPECT_EQ(getObjectVehicleDynamics(::ad::physics::Speed(15.2778)), scene.objectRssDynamics);
-    }
-    else if (i == 2u)
-    {
-      EXPECT_EQ(std::get<0>(otherVehicles[2]), scene.object.objectId);
-      EXPECT_EQ(::ad::rss::situation::SituationType::NotRelevant, scene.situationType);
-      EXPECT_EQ(0u, scene.egoVehicleRoad.size());
-      EXPECT_EQ(0u, scene.intersectingRoad.size());
-      EXPECT_EQ(getObjectVehicleDynamics(), scene.objectRssDynamics);
-    }
-    else if (i == 3u)
-    {
-      EXPECT_EQ(std::get<0>(otherVehicles[3]), scene.object.objectId);
-      EXPECT_EQ(::ad::rss::situation::SituationType::OppositeDirection, scene.situationType);
-      EXPECT_EQ(1u, scene.egoVehicleRoad.size());
-      EXPECT_EQ(0u, scene.intersectingRoad.size());
-      EXPECT_EQ(getObjectVehicleDynamics(::ad::physics::Speed(12.2936)), scene.objectRssDynamics);
-    }
-    else if ((i == 4u) || (i == 5u) || (i == 6u))
-    {
-      // here we get 3 predictions
-      EXPECT_EQ(std::get<0>(otherVehicles[4]), scene.object.objectId);
-      EXPECT_EQ(::ad::rss::situation::SituationType::OppositeDirection, scene.situationType);
-      EXPECT_EQ(3u, scene.egoVehicleRoad.size());
-      EXPECT_EQ(0u, scene.intersectingRoad.size());
-      EXPECT_EQ(getObjectVehicleDynamics(::ad::physics::Speed(15.2778)), scene.objectRssDynamics);
-    }
-    else if (i == 7u)
-    {
-      EXPECT_EQ(std::get<0>(otherVehicles[5]), scene.object.objectId);
-      EXPECT_EQ(::ad::rss::situation::SituationType::OppositeDirection, scene.situationType);
-      EXPECT_EQ(4u, scene.egoVehicleRoad.size());
-      EXPECT_EQ(0u, scene.intersectingRoad.size());
-      EXPECT_EQ(getObjectVehicleDynamics(::ad::physics::Speed(15.2778)), scene.objectRssDynamics);
-    }
-    else if (i == 8u)
-    {
-      EXPECT_EQ(std::get<0>(otherVehicles[5]), scene.object.objectId);
-      EXPECT_EQ(::ad::rss::situation::SituationType::IntersectionObjectHasPriority, scene.situationType);
-      EXPECT_EQ(3u, scene.egoVehicleRoad.size());
-      EXPECT_EQ(2u, scene.intersectingRoad.size());
-      EXPECT_EQ(getObjectVehicleDynamics(::ad::physics::Speed(15.2778)), scene.objectRssDynamics);
-    }
-
-    EXPECT_TRUE(withinValidInputRange(scene));
-  }
-
   EXPECT_TRUE(::ad::rss::map::RssSceneCreation::finalizeWorldModel(getEgoVehicleDynamics(), worldModel));
 }
