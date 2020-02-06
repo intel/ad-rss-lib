@@ -1,6 +1,7 @@
 .clang*
 .md
 LICENSE
+cmake/
 doc/
 gtest-cmake.txt.in
 build.gradle
