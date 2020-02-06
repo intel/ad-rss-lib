@@ -38,7 +38,6 @@ string (REPLACE ";" "\", \"" GENPY_INCLUDE_DIRS "${INCLUDE_DIRS}")
 find_python_binding_packages()
 
 configure_file(generate_python_lib.py.in generate_python_lib.py)
-configure_file(../../dependencies/map/tools/python/python_wrapper_helper.py python_wrapper_helper.py COPYONLY)
 
 generate_python_binding_source_code(${CMAKE_CURRENT_BINARY_DIR})
 
