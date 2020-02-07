@@ -8,5 +8,6 @@ build.gradle
 colcon.meta
 colcon_python.meta
 Town01*
+Town04.xodr
 mkdocs.yml
 ad_rss_python/python_wrapper_helper.py

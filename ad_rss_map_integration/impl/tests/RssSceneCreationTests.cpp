@@ -9,10 +9,17 @@
 #include <ad/map/access/Operation.hpp>
 #include <ad/map/match/AdMapMatching.hpp>
 #include <ad/map/route/Planning.hpp>
+#include <ad/rss/core/RssCheck.hpp>
 #include <ad/rss/map/Logging.hpp>
 #include <ad/rss/map/RssSceneCreation.hpp>
+#include <ad/rss/situation/SituationSnapshot.hpp>
+#include <ad/rss/state/ProperResponse.hpp>
+#include <ad/rss/state/RssStateSnapshot.hpp>
 #include <ad/rss/world/WorldModelValidInputRange.hpp>
 #include <gtest/gtest.h>
+
+#include <fstream>
+#include <streambuf>
 
 struct RssSceneCreationTest : ::testing::Test
 {
@@ -68,29 +75,37 @@ struct RssSceneCreationTest : ::testing::Test
     return result;
   }
 
-  virtual void SetUp()
+  virtual void initMap() = 0;
+  virtual void initializeEgoVehicle() = 0;
+
+  void SetUp() override
   {
     ::ad::map::access::cleanup();
-    // using priority to the right intersections
-    ASSERT_TRUE(::ad::map::access::init("resources/Town01.txt"));
+    initMap();
     initializeEgoVehicle();
     ::ad::rss::map::getLogger()->set_level(spdlog::level::trace);
   }
 
-  virtual void TearDown()
+  void TearDown() override
   {
     ::ad::map::access::cleanup();
   }
 
-  void initializeObject(::ad::map::point::Longitude const &lon,
-                        ::ad::map::point::Latitude const &lat,
-                        double const &yawAngle,
-                        ::ad::map::match::Object &object)
+  void initializeObjectGeo(::ad::map::point::Longitude const &lon,
+                           ::ad::map::point::Latitude const &lat,
+                           double const &yawAngle,
+                           ::ad::map::match::Object &object)
   {
     auto positionGeo = ::ad::map::point::createGeoPoint(lon, lat, ::ad::map::point::Altitude(0.));
+    initializeObjectENU(::ad::map::point::toENU(positionGeo), ::ad::map::point::createENUHeading(yawAngle), object);
+  }
 
-    object.enuPosition.centerPoint = ::ad::map::point::toENU(positionGeo);
-    object.enuPosition.heading = ::ad::map::point::createENUHeading(yawAngle);
+  void initializeObjectENU(::ad::map::point::ENUPoint const &position,
+                           ::ad::map::point::ENUHeading const &heading,
+                           ::ad::map::match::Object &object)
+  {
+    object.enuPosition.centerPoint = position;
+    object.enuPosition.heading = heading;
     object.enuPosition.dimension.length = ::ad::physics::Distance(4.5);
     object.enuPosition.dimension.width = ::ad::physics::Distance(2.);
     object.enuPosition.dimension.height = ::ad::physics::Distance(1.5);
@@ -106,28 +121,6 @@ struct RssSceneCreationTest : ::testing::Test
                 .referencePointPositions[static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center)]
                 .size(),
               0);
-  }
-
-  void initializeEgoVehicle()
-  {
-    // laneId: offset 240151:0.55
-    initializeObject(::ad::map::point::Longitude(8.00125444865324766),
-                     ::ad::map::point::Latitude(48.99758627528235877),
-                     M_PI_2,
-                     egoMatchObject);
-
-    egoSpeed = ::ad::physics::Speed(5.);
-
-    // laneId: offset  120149:0.16  (ego turn right)
-    auto positionEndGeo = ::ad::map::point::createGeoPoint(::ad::map::point::Longitude(8.00188527300496979),
-                                                           ::ad::map::point::Latitude(48.99821051747871792),
-                                                           ::ad::map::point::Altitude(0.));
-
-    egoRoute = ::ad::map::route::planning::planRoute(
-      egoMatchObject.mapMatchedBoundingBox
-        .referencePointPositions[static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center)][0]
-        .lanePoint.paraPoint,
-      positionEndGeo);
   }
 
   void checkSceneResults(::ad::rss::world::WorldModel const &worldModel,
@@ -156,7 +149,38 @@ struct RssSceneCreationTest : ::testing::Test
   ::ad::map::route::FullRoute egoRoute;
 };
 
-TEST_F(RssSceneCreationTest, testAppendRoadBoundaries)
+struct RssSceneCreationTown01Test : RssSceneCreationTest
+{
+  void initMap() override
+  {
+    // using priority to the right intersections
+    ASSERT_TRUE(::ad::map::access::init("resources/Town01.txt"));
+  }
+
+  void initializeEgoVehicle() override
+  {
+    // laneId: offset 240151:0.55
+    initializeObjectGeo(::ad::map::point::Longitude(8.00125444865324766),
+                        ::ad::map::point::Latitude(48.99758627528235877),
+                        M_PI_2,
+                        egoMatchObject);
+
+    egoSpeed = ::ad::physics::Speed(5.);
+
+    // laneId: offset  120149:0.16  (ego turn right)
+    auto positionEndGeo = ::ad::map::point::createGeoPoint(::ad::map::point::Longitude(8.00188527300496979),
+                                                           ::ad::map::point::Latitude(48.99821051747871792),
+                                                           ::ad::map::point::Altitude(0.));
+
+    egoRoute = ::ad::map::route::planning::planRoute(
+      egoMatchObject.mapMatchedBoundingBox
+        .referencePointPositions[static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center)][0]
+        .lanePoint.paraPoint,
+      positionEndGeo);
+  }
+};
+
+TEST_F(RssSceneCreationTown01Test, testAppendRoadBoundaries)
 {
   ::ad::rss::world::WorldModel worldModel
     = ::ad::rss::map::RssSceneCreation::initializeWorldModel(1u, getEgoVehicleDynamics());
@@ -252,7 +276,7 @@ TEST_F(RssSceneCreationTest, testAppendRoadBoundaries)
   EXPECT_TRUE(::ad::rss::map::RssSceneCreation::finalizeWorldModel(getEgoVehicleDynamics(), worldModel));
 }
 
-TEST_F(RssSceneCreationTest, testAppendScenes)
+TEST_F(RssSceneCreationTown01Test, testAppendScenes)
 {
   std::vector<std::tuple<::ad::rss::world::ObjectId,
                          ::ad::map::point::Longitude,
@@ -399,7 +423,7 @@ TEST_F(RssSceneCreationTest, testAppendScenes)
 
     ::ad::map::match::Object otherMatchObject;
 
-    initializeObject(std::get<1>(objectTuple), std::get<2>(objectTuple), std::get<3>(objectTuple), otherMatchObject);
+    initializeObjectGeo(std::get<1>(objectTuple), std::get<2>(objectTuple), std::get<3>(objectTuple), otherMatchObject);
 
     // ego route
     // speed limit
@@ -448,4 +472,108 @@ TEST_F(RssSceneCreationTest, testAppendScenes)
     checkSceneResults(worldModel, currentWorldModelSize, otherVehicleId, noRouteResultExpectations);
   }
   EXPECT_TRUE(::ad::rss::map::RssSceneCreation::finalizeWorldModel(getEgoVehicleDynamics(), worldModel));
+}
+
+struct RssSceneCreationTown04Test : RssSceneCreationTest
+{
+  void initMap() override
+  {
+    std::ifstream fileStream("resources/Town04.xodr");
+    std::string town04OpenDriveContent((std::istreambuf_iterator<char>(fileStream)), std::istreambuf_iterator<char>());
+    ASSERT_TRUE(::ad::map::access::initFromOpenDriveContent(
+      town04OpenDriveContent, 0.2, ::ad::map::intersection::IntersectionType::TrafficLight));
+  }
+
+  void initializeEgoVehicle() override
+  {
+    egoMatchObject.enuPosition.centerPoint.x = ::ad::map::point::ENUCoordinate(131.074);
+    egoMatchObject.enuPosition.centerPoint.y = ::ad::map::point::ENUCoordinate(302.408);
+    egoMatchObject.enuPosition.centerPoint.z = ::ad::map::point::ENUCoordinate(0);
+    egoMatchObject.enuPosition.heading = ::ad::map::point::createENUHeading(0.346132);
+
+    initializeObjectENU(egoMatchObject.enuPosition.centerPoint, egoMatchObject.enuPosition.heading, egoMatchObject);
+
+    egoSpeed = ::ad::physics::Speed(5.);
+
+    ::ad::map::point::ENUPoint target;
+    target.x = ::ad::map::point::ENUCoordinate(240.0);
+    target.y = ::ad::map::point::ENUCoordinate(307.0);
+    target.z = ::ad::map::point::ENUCoordinate(0.0);
+    auto positionEndGeo = ::ad::map::point::toGeo(target);
+
+    egoRoute = ::ad::map::route::planning::planRoute(
+      egoMatchObject.mapMatchedBoundingBox
+        .referencePointPositions[static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center)][0]
+        .lanePoint.paraPoint,
+      positionEndGeo);
+  }
+
+  ::ad::rss::core::RssCheck rssCheck;
+};
+
+TEST_F(RssSceneCreationTown04Test, DISABLED_testVehicleBehindConnectingRoute)
+{
+  ::ad::rss::world::WorldModel worldModel
+    = ::ad::rss::map::RssSceneCreation::initializeWorldModel(1u, getEgoVehicleDynamics());
+
+  ::ad::map::point::ENUPoint target;
+  target.x = ::ad::map::point::ENUCoordinate(212.0);
+  target.y = ::ad::map::point::ENUCoordinate(307.0);
+  target.z = ::ad::map::point::ENUCoordinate(0.0);
+  auto positionEndGeo = ::ad::map::point::toGeo(target);
+
+  egoRoute = ::ad::map::route::planning::planRoute(
+    egoMatchObject.mapMatchedBoundingBox
+      .referencePointPositions[static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center)][0]
+      .lanePoint.paraPoint,
+    positionEndGeo);
+
+  spdlog::info("EgoMatchObject: {}", egoMatchObject);
+  spdlog::info("EgoRoute: {}", egoRoute);
+
+  ::ad::rss::world::ObjectId otherVehicleId = ::ad::rss::world::ObjectId(10);
+  ::ad::physics::Speed otherVehicleSpeed{5.};
+  ::ad::map::match::Object otherMatchObject;
+
+  otherMatchObject.enuPosition.centerPoint.x = ::ad::map::point::ENUCoordinate(124.568);
+  otherMatchObject.enuPosition.centerPoint.y = ::ad::map::point::ENUCoordinate(299.829);
+  otherMatchObject.enuPosition.centerPoint.z = ::ad::map::point::ENUCoordinate(0);
+  otherMatchObject.enuPosition.heading = ::ad::map::point::createENUHeading(0.419017);
+
+  initializeObjectENU(otherMatchObject.enuPosition.centerPoint, otherMatchObject.enuPosition.heading, otherMatchObject);
+
+  EXPECT_TRUE(::ad::rss::map::RssSceneCreation::appendScenes(
+    egoVehicleId,
+    egoMatchObject,
+    egoSpeed,
+    egoRoute,
+    otherVehicleId,
+    ::ad::rss::world::ObjectType::OtherVehicle,
+    otherMatchObject,
+    otherVehicleSpeed,
+    getObjectVehicleDynamics(),
+    ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10,
+    ::ad::map::landmark::LandmarkIdSet(),
+    worldModel));
+
+  spdlog::info("WordModel: {}", worldModel);
+  EXPECT_EQ(worldModel.scenes.size(), 1u);
+
+  EXPECT_TRUE(::ad::rss::map::RssSceneCreation::finalizeWorldModel(getEgoVehicleDynamics(), worldModel));
+
+  spdlog::info("WordModel: {}", worldModel);
+  EXPECT_EQ(worldModel.scenes.size(), 1u);
+
+  ::ad::rss::state::ProperResponse routeResponse;
+  ::ad::rss::world::AccelerationRestriction routeAccelerationRestriction;
+  ::ad::rss::situation::SituationSnapshot situationSnapshot;
+  ::ad::rss::state::RssStateSnapshot stateSnapshot;
+  EXPECT_TRUE(rssCheck.calculateAccelerationRestriction(
+    worldModel, situationSnapshot, stateSnapshot, routeResponse, routeAccelerationRestriction));
+
+  spdlog::info("RouteResponse: {}", routeResponse);
+  spdlog::info("StateSnapshot: {}", stateSnapshot);
+  spdlog::info("SituationSnapshot: {}", situationSnapshot);
+
+  ASSERT_TRUE(routeResponse.isSafe);
 }
