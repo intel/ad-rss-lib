@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -9,9 +9,9 @@
 #include "RssIntersectionChecker.hpp"
 #include <cmath>
 #include <limits>
-#include "Math.hpp"
 #include "RssFormulas.hpp"
 #include "RssSituation.hpp"
+#include "ad/rss/situation/Physics.hpp"
 
 namespace ad {
 

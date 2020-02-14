@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -8,7 +8,7 @@
 
 #include "RssFormulas.hpp"
 #include <algorithm>
-#include "Math.hpp"
+#include "ad/rss/situation/Physics.hpp"
 #include "ad/rss/situation/VehicleStateValidInputRange.hpp"
 
 namespace ad {

@@ -1,19 +1,19 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "situation/Math.hpp"
+#include "ad/rss/situation/Physics.hpp"
 
 namespace ad {
 namespace rss {
 namespace situation {
 
-TEST(MathUnitTestsDistanceOffsetAfterResponseTime, longitudinal_negative_speed)
+TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, longitudinal_negative_speed)
 {
   Distance distanceOffset(0.);
 
@@ -21,7 +21,7 @@ TEST(MathUnitTestsDistanceOffsetAfterResponseTime, longitudinal_negative_speed)
     CoordinateSystemAxis::Longitudinal, Speed(-10.), cMaxSpeed, Acceleration(2), Duration(1), distanceOffset));
 }
 
-TEST(MathUnitTestsDistanceOffsetAfterResponseTime, lateral_negative_speed_and_negative_acceleration)
+TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, lateral_negative_speed_and_negative_acceleration)
 {
   Distance distanceOffsetA(0.);
   Distance distanceOffsetB(0.);
@@ -40,7 +40,7 @@ TEST(MathUnitTestsDistanceOffsetAfterResponseTime, lateral_negative_speed_and_ne
   }
 }
 
-TEST(MathUnitTestsDistanceOffsetAfterResponseTime, negative_time)
+TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, negative_time)
 {
   Distance distanceOffset(0.);
 
@@ -51,7 +51,7 @@ TEST(MathUnitTestsDistanceOffsetAfterResponseTime, negative_time)
   }
 }
 
-TEST(MathUnitTestsDistanceOffsetAfterResponseTime, deceleration_to_stop_equal_response_time_longitudinal)
+TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, deceleration_to_stop_equal_response_time_longitudinal)
 {
   Distance distanceOffsetB(0.);
   ASSERT_TRUE(calculateStoppingDistance(Speed(4.), Acceleration(4.), distanceOffsetB));
@@ -73,7 +73,7 @@ TEST(MathUnitTestsDistanceOffsetAfterResponseTime, deceleration_to_stop_equal_re
   }
 }
 
-TEST(MathUnitTestsDistanceOffsetAfterResponseTime, checks_zero_acceleration)
+TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, checks_zero_acceleration)
 {
   Distance distanceOffset(0.);
 
@@ -85,7 +85,7 @@ TEST(MathUnitTestsDistanceOffsetAfterResponseTime, checks_zero_acceleration)
   }
 }
 
-TEST(MathUnitTestsDistanceOffsetAfterResponseTime, checks_max_speed_lon_no_acceleration)
+TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, checks_max_speed_lon_no_acceleration)
 {
   Distance distanceOffset(0.);
 
@@ -104,7 +104,7 @@ TEST(MathUnitTestsDistanceOffsetAfterResponseTime, checks_max_speed_lon_no_accel
   }
 }
 
-TEST(MathUnitTestsDistanceOffsetAfterResponseTime, checks_acceleration_time1s)
+TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, checks_acceleration_time1s)
 {
   for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
   {
@@ -115,7 +115,7 @@ TEST(MathUnitTestsDistanceOffsetAfterResponseTime, checks_acceleration_time1s)
   }
 }
 
-TEST(MathUnitTestsDistanceOffsetAfterResponseTime, checks_acceleration_time2s)
+TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, checks_acceleration_time2s)
 {
   for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
   {

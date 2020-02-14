@@ -1,26 +1,26 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "situation/Math.hpp"
+#include "ad/rss/situation/Physics.hpp"
 
 namespace ad {
 namespace rss {
 namespace situation {
 
-TEST(MathUnitTestsSpeedAfterResponseTime, longitudinal_negative_speed)
+TEST(PhysicsUnitTestsSpeedAfterResponseTime, longitudinal_negative_speed)
 {
   Speed resultingSpeed(0.);
   ASSERT_FALSE(calculateSpeedAfterResponseTime(
     CoordinateSystemAxis::Longitudinal, Speed(-10.), cMaxSpeed, Acceleration(1.), Duration(1.), resultingSpeed));
 }
 
-TEST(MathUnitTestsSpeedAfterResponseTime, lateral_negative_speed_and_negative_acceleration)
+TEST(PhysicsUnitTestsSpeedAfterResponseTime, lateral_negative_speed_and_negative_acceleration)
 {
   Speed resultingSpeedA(0.);
   ASSERT_TRUE(calculateSpeedAfterResponseTime(
@@ -31,7 +31,7 @@ TEST(MathUnitTestsSpeedAfterResponseTime, lateral_negative_speed_and_negative_ac
   ASSERT_NEAR(-static_cast<double>(resultingSpeedA), static_cast<double>(resultingSpeedB), cDoubleNear);
 }
 
-TEST(MathUnitTestsSpeedAfterResponseTime, zero_deceleration)
+TEST(PhysicsUnitTestsSpeedAfterResponseTime, zero_deceleration)
 {
   for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
   {
@@ -43,7 +43,7 @@ TEST(MathUnitTestsSpeedAfterResponseTime, zero_deceleration)
   }
 }
 
-TEST(MathUnitTestsSpeedAfterResponseTime, checks_acceleration_1sec)
+TEST(PhysicsUnitTestsSpeedAfterResponseTime, checks_acceleration_1sec)
 {
   for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
   {
@@ -55,7 +55,7 @@ TEST(MathUnitTestsSpeedAfterResponseTime, checks_acceleration_1sec)
   }
 }
 
-TEST(MathUnitTestsSpeedAfterResponseTime, checks_acceleration_2sec)
+TEST(PhysicsUnitTestsSpeedAfterResponseTime, checks_acceleration_2sec)
 {
   for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
   {
@@ -67,7 +67,7 @@ TEST(MathUnitTestsSpeedAfterResponseTime, checks_acceleration_2sec)
   }
 }
 
-TEST(MathUnitTestsSpeedAfterResponseTime, checks_acceleration_maxSpeed)
+TEST(PhysicsUnitTestsSpeedAfterResponseTime, checks_acceleration_maxSpeed)
 {
   for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
   {
@@ -86,7 +86,7 @@ TEST(MathUnitTestsSpeedAfterResponseTime, checks_acceleration_maxSpeed)
   }
 }
 
-TEST(MathUnitTestsSpeedAfterResponseTime, negative_acceleration)
+TEST(PhysicsUnitTestsSpeedAfterResponseTime, negative_acceleration)
 {
   for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
   {
@@ -98,7 +98,7 @@ TEST(MathUnitTestsSpeedAfterResponseTime, negative_acceleration)
   }
 }
 
-TEST(MathUnitTestsSpeedAfterResponseTime, negative_acceleration_till_stop)
+TEST(PhysicsUnitTestsSpeedAfterResponseTime, negative_acceleration_till_stop)
 {
   for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
   {
@@ -117,7 +117,7 @@ TEST(MathUnitTestsSpeedAfterResponseTime, negative_acceleration_till_stop)
   }
 }
 
-TEST(MathUnitTestsSpeedAfterResponseTime, acceleration_accel_max_2m_s2_50kmh)
+TEST(PhysicsUnitTestsSpeedAfterResponseTime, acceleration_accel_max_2m_s2_50kmh)
 {
   for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
   {

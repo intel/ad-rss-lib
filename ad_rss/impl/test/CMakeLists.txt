@@ -39,11 +39,11 @@ set(RSS_TEST_SOURCES
   core/RssSituationExtractionIntersectionTests.cpp
   core/RssSituationExtractionOppositeDirectionTests.cpp
   core/RssSituationExtractionSameDirectionTests.cpp
-  situation/MathUnitTestsDistanceOffsetAfterResponseTime.cpp
-  situation/MathUnitTestsInputRangeChecks.cpp
-  situation/MathUnitTestsStoppingDistance.cpp
-  situation/MathUnitTestsTimeToCoverDistance.cpp
-  situation/MathUnitTestsVelocityAfterResponseTime.cpp
+  situation/PhysicsUnitTestsDistanceOffsetAfterResponseTime.cpp
+  situation/PhysicsUnitTestsInputRangeChecks.cpp
+  situation/PhysicsUnitTestsStoppingDistance.cpp
+  situation/PhysicsUnitTestsTimeToCoverDistance.cpp
+  situation/PhysicsUnitTestsVelocityAfterResponseTime.cpp
   situation/RssFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
   situation/RssFormulaTestsCalculateSafeLateralDistance.cpp
   situation/RssFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
@@ -83,4 +83,3 @@ target_include_directories(${EXEC_NAME}
 
 target_compile_options(${EXEC_NAME} PRIVATE ${TARGET_COMPILE_OPTIONS})
 set_property(TARGET ${EXEC_NAME} APPEND_STRING PROPERTY LINK_FLAGS ${TARGET_LINK_FLAGS})
-

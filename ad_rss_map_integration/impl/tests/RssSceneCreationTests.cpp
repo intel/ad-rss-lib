@@ -81,9 +81,9 @@ struct RssSceneCreationTest : ::testing::Test
   void SetUp() override
   {
     ::ad::map::access::cleanup();
+    //::ad::rss::map::getLogger()->set_level(spdlog::level::trace);
     initMap();
     initializeEgoVehicle();
-    ::ad::rss::map::getLogger()->set_level(spdlog::level::trace);
   }
 
   void TearDown() override
@@ -393,24 +393,25 @@ TEST_F(RssSceneCreationTown01Test, testAppendScenes)
         // with ego route and speed limit
         std::initializer_list<ExpectedResultTuple>(
           {// in case the other drives straight
-           std::make_tuple(
-             ::ad::rss::situation::SituationType::OppositeDirection, 4u, 0u, ::ad::physics::Speed(15.2778)),
            // in case the other turns left
            std::make_tuple(
-             ::ad::rss::situation::SituationType::IntersectionEgoHasPriority, 3u, 2u, ::ad::physics::Speed(15.2778))}),
+             ::ad::rss::situation::SituationType::IntersectionEgoHasPriority, 3u, 2u, ::ad::physics::Speed(15.2778)),
+           std::make_tuple(
+             ::ad::rss::situation::SituationType::OppositeDirection, 4u, 0u, ::ad::physics::Speed(15.2778))}),
         // without ego route, no speed limit
         // here we get 2 object predictions and 2 ego predictions
         std::initializer_list<ExpectedResultTuple>(
-          {// ego-turn-right: other-straight
-           std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 4u, 0u, ::ad::physics::Speed(100.)),
-           // ego-turn-right: other-turn-left
+          {// ego-turn-right: other-turn-left
            std::make_tuple(
              ::ad::rss::situation::SituationType::IntersectionEgoHasPriority, 2u, 2u, ::ad::physics::Speed(100.)),
-           // ego-straight: other-straight
+           // ego-turn-right: other-straight
            std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 4u, 0u, ::ad::physics::Speed(100.)),
            // ego-straight: other-turn-left
            std::make_tuple(
-             ::ad::rss::situation::SituationType::IntersectionEgoHasPriority, 3u, 2u, ::ad::physics::Speed(100.))}))};
+             ::ad::rss::situation::SituationType::IntersectionEgoHasPriority, 3u, 2u, ::ad::physics::Speed(100.)),
+           // ego-straight: other-straight
+           std::make_tuple(
+             ::ad::rss::situation::SituationType::OppositeDirection, 4u, 0u, ::ad::physics::Speed(100.))}))};
 
   ::ad::rss::world::WorldModel worldModel
     = ::ad::rss::map::RssSceneCreation::initializeWorldModel(1u, getEgoVehicleDynamics());
@@ -511,22 +512,10 @@ struct RssSceneCreationTown04Test : RssSceneCreationTest
   ::ad::rss::core::RssCheck rssCheck;
 };
 
-TEST_F(RssSceneCreationTown04Test, DISABLED_testVehicleBehindConnectingRoute)
+TEST_F(RssSceneCreationTown04Test, testVehicleBehindConnectingRoute)
 {
   ::ad::rss::world::WorldModel worldModel
     = ::ad::rss::map::RssSceneCreation::initializeWorldModel(1u, getEgoVehicleDynamics());
-
-  ::ad::map::point::ENUPoint target;
-  target.x = ::ad::map::point::ENUCoordinate(212.0);
-  target.y = ::ad::map::point::ENUCoordinate(307.0);
-  target.z = ::ad::map::point::ENUCoordinate(0.0);
-  auto positionEndGeo = ::ad::map::point::toGeo(target);
-
-  egoRoute = ::ad::map::route::planning::planRoute(
-    egoMatchObject.mapMatchedBoundingBox
-      .referencePointPositions[static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center)][0]
-      .lanePoint.paraPoint,
-    positionEndGeo);
 
   spdlog::info("EgoMatchObject: {}", egoMatchObject);
   spdlog::info("EgoRoute: {}", egoRoute);
@@ -556,9 +545,6 @@ TEST_F(RssSceneCreationTown04Test, DISABLED_testVehicleBehindConnectingRoute)
     ::ad::map::landmark::LandmarkIdSet(),
     worldModel));
 
-  spdlog::info("WordModel: {}", worldModel);
-  EXPECT_EQ(worldModel.scenes.size(), 1u);
-
   EXPECT_TRUE(::ad::rss::map::RssSceneCreation::finalizeWorldModel(getEgoVehicleDynamics(), worldModel));
 
   spdlog::info("WordModel: {}", worldModel);
@@ -571,9 +557,18 @@ TEST_F(RssSceneCreationTown04Test, DISABLED_testVehicleBehindConnectingRoute)
   EXPECT_TRUE(rssCheck.calculateAccelerationRestriction(
     worldModel, situationSnapshot, stateSnapshot, routeResponse, routeAccelerationRestriction));
 
+  // not safe, since the one behind us is far too near
   spdlog::info("RouteResponse: {}", routeResponse);
   spdlog::info("StateSnapshot: {}", stateSnapshot);
   spdlog::info("SituationSnapshot: {}", situationSnapshot);
-
-  ASSERT_TRUE(routeResponse.isSafe);
+  EXPECT_FALSE(routeResponse.isSafe);
+  EXPECT_EQ(::ad::rss::situation::LongitudinalRelativePosition::InFront,
+            situationSnapshot.situations.front().relativePosition.longitudinalPosition);
+  EXPECT_EQ(::ad::rss::state::LongitudinalResponse::None, routeResponse.longitudinalResponse);
+  EXPECT_EQ(::ad::rss::situation::LateralRelativePosition::OverlapLeft,
+            situationSnapshot.situations.front().relativePosition.lateralPosition);
+  EXPECT_EQ(::ad::rss::state::LateralResponse::None, routeResponse.lateralResponseLeft);
+  EXPECT_EQ(::ad::rss::state::LateralResponse::BrakeMin, routeResponse.lateralResponseRight);
 }
+
+// @TODO: create unit tests for merging use-cases; take e.g. TPK_PFZ map for this to find a possible intersection
