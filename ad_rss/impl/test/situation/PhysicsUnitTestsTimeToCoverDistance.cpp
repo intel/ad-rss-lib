@@ -1,19 +1,19 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "situation/Math.hpp"
+#include "ad/rss/situation/Physics.hpp"
 
 namespace ad {
 namespace rss {
 namespace situation {
 
-TEST(MathUnitTestsTimeToCoverDistance, no_brake_required_2_brake_required_is_continuous)
+TEST(PhysicsUnitTestsTimeToCoverDistance, no_brake_required_2_brake_required_is_continuous)
 {
   for (size_t i = 0; i <= 10u; ++i)
   {
@@ -26,7 +26,7 @@ TEST(MathUnitTestsTimeToCoverDistance, no_brake_required_2_brake_required_is_con
   }
 }
 
-TEST(MathUnitTestsTimeToCoverDistance, no_brake_required_zero_acceleration_zero_speed)
+TEST(PhysicsUnitTestsTimeToCoverDistance, no_brake_required_zero_acceleration_zero_speed)
 {
   Duration requiredTime(0.);
   EXPECT_TRUE(calculateTimeToCoverDistance(
@@ -34,7 +34,7 @@ TEST(MathUnitTestsTimeToCoverDistance, no_brake_required_zero_acceleration_zero_
   EXPECT_EQ(requiredTime, std::numeric_limits<Duration>::max());
 }
 
-TEST(MathUnitTestsTimeToCoverDistance, no_brake_required_zero_acceleration_is_continous)
+TEST(PhysicsUnitTestsTimeToCoverDistance, no_brake_required_zero_acceleration_is_continous)
 {
   for (size_t i = 0; i < 10u; ++i)
   {
@@ -47,7 +47,7 @@ TEST(MathUnitTestsTimeToCoverDistance, no_brake_required_zero_acceleration_is_co
   }
 }
 
-TEST(MathUnitTestsTimeToCoverDistance, brake_required_negative_or_zero_deceleration)
+TEST(PhysicsUnitTestsTimeToCoverDistance, brake_required_negative_or_zero_deceleration)
 {
   Acceleration decelerationValue(-1.);
   Duration requiredTime(0.);
@@ -68,7 +68,7 @@ TEST(MathUnitTestsTimeToCoverDistance, brake_required_negative_or_zero_decelerat
                                             requiredTime));
 }
 
-TEST(MathUnitTestsTimeToCoverDistance, brake_required_positive_deceleration)
+TEST(PhysicsUnitTestsTimeToCoverDistance, brake_required_positive_deceleration)
 {
   Duration requiredTime(0.);
   EXPECT_TRUE(calculateTimeToCoverDistance(Speed(0.),

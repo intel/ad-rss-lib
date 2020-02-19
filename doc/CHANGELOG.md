@@ -1,8 +1,14 @@
 ## Latest changes
 
 #### :ghost: Maintenance
-* Fix scene creation with empty ego route
+* Fix: reworked scene creation
+  - handle empty ego route correctly
+  - handle use-case: ego vehicle at back
+  - handle use-case: merging route
+  - restricting routes to relevant scene region to prevent from inaccourate relative distances
+* Make use of ad::map::route::getENUHeadingOfRoute() for more accurate object heading on route calculation
 * Adaptions for python binding built to support newer boost versions
+* Renamed Math* -> Physics* and made header public
 
 ## Release 2.0.0
 #### :rocket: New Features
