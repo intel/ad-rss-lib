@@ -116,7 +116,7 @@ bool RssObjectConversion::calculateMinStoppingDistance(::ad::physics::Distance &
   // overestimate stopping distance a bit
   minStoppingDistance += speedAfterResponseTime * mRssDynamics.responseTime;
 
-  return minStoppingDistance;
+  return true;
 }
 
 void RssObjectConversion::updateSpeedLimit(::ad::physics::Speed const &maxSpeed)
