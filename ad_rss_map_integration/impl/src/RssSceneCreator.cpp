@@ -116,15 +116,35 @@ RssSceneCreator::createRoadArea(::ad::map::route::FullRoute const &route,
   return area;
 }
 
-bool RssSceneCreator::appendNotRelevantScene(RssObjectConversion::ConstPtr egoObject,
-                                             RssObjectConversion::ConstPtr otherObject)
+bool RssSceneCreator::appendNotRelevantScene(::ad::map::route::FullRoute const &route,
+                                             RssObjectConversion::ConstPtr iEgoObject,
+                                             RssObjectConversion::ConstPtr iOtherObject)
 {
+  auto egoObject = std::make_shared<RssObjectConversion>(*iEgoObject);
+  auto otherObject = std::make_shared<RssObjectConversion>(*iOtherObject);
+
+  // in the end this scene is only for convenience to get to know that we considered it and e.g. visualize it
+  // It could be left out completely
+
+  // ensure occupied regions filled meaningful to provide some means on where the ego and the object are located
+  otherObject->fillNotRelevantSceneBoundingBox();
+  ::ad::rss::world::RoadArea egoVehicleRoad;
+  if (route.roadSegments.empty())
+  {
+    // in case the ego route is actually not available, we fill also the ego object with the dummy occupied regions
+    egoObject->fillNotRelevantSceneBoundingBox();
+  }
+  else
+  {
+    // in case the ego route is actually available, we can fill the occupied regions as usual
+    egoVehicleRoad = createNonIntersectionRoadArea(route, {egoObject});
+  }
   getLogger()->debug("RssSceneCreator::appendNotRelevantScene[ {} ]>>situation {}",
                      otherObject->getId(),
                      ::ad::rss::situation::SituationType::NotRelevant);
   return appendScene(::ad::rss::situation::SituationType::NotRelevant,
                      egoObject,
-                     ::ad::rss::world::RoadArea(),
+                     egoVehicleRoad,
                      otherObject,
                      ::ad::rss::world::RoadArea());
 }
@@ -331,8 +351,8 @@ bool RssSceneCreator::appendIntersectionScene(::ad::map::intersection::Intersect
   return appendScene(situationType, egoObject, egoVehicleRoad, otherObject, intersectingRoad);
 }
 
-bool RssSceneCreator::appendRoadBoundaryScenes(RssObjectConversion::ConstPtr iEgoObject,
-                                               ::ad::map::route::FullRoute const &route)
+bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const &route,
+                                               RssObjectConversion::ConstPtr iEgoObject)
 {
   auto egoObject = std::make_shared<RssObjectConversion>(*iEgoObject);
 

@@ -31,7 +31,7 @@ namespace rss {
 namespace map {
 
 /*!
- * @brief class providing support to convert ad::map objects into ad::rss objects
+ * @brief class providing support to create and append RSS Scenes
  */
 class RssSceneCreator
 {
@@ -43,38 +43,94 @@ public:
    * parameter
    * @param[in] greenTrafficLights the list of known green traffic lights.
    *   Required to derive the correct priority rule for the ego vehicle when approaching a traffic light intersection.
-   * @param[in/out] worldModel the world model where the newly created scenes are appended and
+   * @param[in/out] worldModel the world model where the newly created scenes are appended
    */
   RssSceneCreator(RssSceneCreation::RestrictSpeedLimitMode const &restrictSpeedLimitMode,
                   ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights,
                   ::ad::rss::world::WorldModel &worldModel);
 
   /*!
-   * @brief constructor
+   * @brief overloaded constructor using default values
    *
-   * @param[in/out] worldModel the world model where the newly created scenes are appended and
+   * @param[in/out] worldModel the world model where the newly created scenes are appended
    */
   explicit RssSceneCreator(::ad::rss::world::WorldModel &worldModel);
 
-  bool appendNotRelevantScene(RssObjectConversion::ConstPtr egoObject, RssObjectConversion::ConstPtr otherObject);
+  /*!
+   * \brief standard destructor
+   */
+  ~RssSceneCreator() = default;
 
+  /*!
+   * @brief append a not relevant scene
+   *
+   * @param[in] route the full route of the ego object (allowed to be empty)
+   * @param[in] egoObject the ego object basic information
+   * @param[in] otherObject the other object basic information
+   *
+   * @returns \c true if appending of the scene succeeded.
+   */
+  bool appendNotRelevantScene(::ad::map::route::FullRoute const &route,
+                              RssObjectConversion::ConstPtr egoObject,
+                              RssObjectConversion::ConstPtr otherObject);
+
+  /*!
+   * @brief append a non intersection scene
+   *
+   * @param[in] connectingRoute the connectingRoute route between the ego and the other object
+   * @param[in] situationType the concrete situation type (SituationType::SameDirection or
+   * SituationType::OppositeDirection)
+   * @param[in] egoObject the ego object basic information
+   * @param[in] otherObject the other object basic information
+   *
+   * @returns \c true if appending of the scene succeeded.
+   */
   bool appendNonIntersectionScene(::ad::map::route::ConnectingRoute const &connectingRoute,
                                   ::ad::rss::situation::SituationType const &situationType,
                                   RssObjectConversion::ConstPtr egoObject,
                                   RssObjectConversion::ConstPtr otherObject);
 
+  /*!
+   * @brief append a merging scene
+   *
+   * @param[in] connectingRoute the merging connectingRoute route of the ego and the other object
+   * @param[in] situationType the concrete situation type (usually one of the SituationType::Intersection*)
+   * @param[in] egoObject the ego object basic information
+   * @param[in] otherObject the other object basic information
+   *
+   * @returns \c true if appending of the scene succeeded.
+   */
   bool appendMergingScene(::ad::map::route::ConnectingRoute const &connectingRoute,
                           ::ad::rss::situation::SituationType const &situationType,
                           RssObjectConversion::ConstPtr egoObject,
                           RssObjectConversion::ConstPtr otherObject);
 
+  /*!
+   * @brief append an intersection scene
+   *
+   * @param[in] intersection the relevant intersection to consider
+   * @param[in] egoRoute the object route used to create the intersection object
+   * @param[in] obectRoute the object route interacting with the ego route in the intersection
+   * @param[in] egoObject the ego object basic information
+   * @param[in] otherObject the other object basic information
+   *
+   * @returns \c true if appending of the scene succeeded.
+   */
   bool appendIntersectionScene(::ad::map::intersection::IntersectionPtr intersection,
                                ::ad::map::route::FullRoute const &egoRoute,
                                ::ad::map::route::FullRoute const &objectRoute,
                                RssObjectConversion::ConstPtr egoObject,
                                RssObjectConversion::ConstPtr otherObject);
 
-  bool appendRoadBoundaryScenes(RssObjectConversion::ConstPtr egoObject, ::ad::map::route::FullRoute const &egoRoute);
+  /*!
+   * @brief append a road boundary scene
+   *
+   * @param[in] egoRoute the object route used to create the intersection object
+   * @param[in] egoObject the ego object basic information
+   *
+   * @returns \c true if appending of the scene succeeded.
+   */
+  bool appendRoadBoundaryScenes(::ad::map::route::FullRoute const &egoRoute, RssObjectConversion::ConstPtr egoObject);
 
 private:
   /**

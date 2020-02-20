@@ -37,12 +37,12 @@ class RssObjectConversion
 {
 public:
   /*!
-   * \brief Smart pointer on FullRoute
+   * \brief Smart pointer on RssObjectConversion
    */
   using Ptr = std::shared_ptr<RssObjectConversion>;
 
   /*!
-   * \brief Smart pointer on constant FullRoute
+   * \brief Smart pointer on constant RssObjectConversion
    */
   using ConstPtr = std::shared_ptr<RssObjectConversion const>;
 
@@ -53,6 +53,7 @@ public:
    * @param[in] objectType the object type
    * @param[in] objectMapMatchedPosition the object's position described by its map matched bounding box and position
    * @param[in] objectSpeed the object's speed
+   * @param[in] rssDynamics the object's (initial) RSS dynamics
    */
   RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
                       ::ad::rss::world::ObjectType const &objectType,
@@ -65,8 +66,9 @@ public:
    *
    * @param[in] objectId the object id
    * @param[in] objectType the object type
-   * @param[in] objectMapMatchedPosition the object's position described by its map matched bounding box and position
+   * @param[in] objectOccupiedRegions the object's occupied regions explicitly
    * @param[in] objectSpeed the object's speed
+   * @param[in] rssDynamics the object's (initial) RSS dynamics
    */
   RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
                       ::ad::rss::world::ObjectType const &objectType,
@@ -89,21 +91,48 @@ public:
    */
   ~RssObjectConversion() = default;
 
+  /** @returns RssDynamics of the object
+   *
+   * If updateSpeedLimit() was called in between the maxSpeed value of the dynamics will be adapted to these.
+   */
   ::ad::rss::world::RssDynamics getRssDynamics() const;
 
+  /** @returns RSS Object description
+   *
+   * If laneIntervalAdded() or fillNotRelevantSceneBoundingBox() was called in between the
+   * occupied regions have been filled accordingly. If not, these are empty (which is an invalid object!)
+   */
   ::ad::rss::world::Object const &getRssObject() const;
 
+  /** @returns Object id */
   ::ad::rss::world::ObjectId getId() const;
 
+  /** @returns the current calculated max speed
+   *  which was adapted by updateSpeedLimit()
+   */
   ::ad::physics::Speed getMaxSpeed() const;
 
+  /** @returns the minimum distance for the object to stop
+   *  This is an estimate, that can be used to calculate the connecting route calculation distance to be taken into
+   * account.
+   */
   bool calculateMinStoppingDistance(::ad::physics::Distance &minStoppingDistance) const;
 
+  /** @brief update the max speed content
+   */
   void updateSpeedLimit(::ad::physics::Speed const &maxSpeed);
 
+  /** @brief lane interval was added to the object route, so append relevant occupied regions
+   */
   void laneIntervalAdded(::ad::map::route::LaneInterval const &laneInterval);
 
+  /** @brief update the objects current velocity on the route
+   */
   void updateVelocityOnRoute(::ad::map::route::FullRoute const &route);
+
+  /** @brief fill occupied regions with all dummy regions from the map::match::LaneOccupiedRegionList
+   */
+  void fillNotRelevantSceneBoundingBox();
 
 private:
   ::ad::rss::world::Object mRssObject;
@@ -111,6 +140,9 @@ private:
   ::ad::physics::Speed const mSpeed;
   ::ad::physics::Speed mMaxSpeed;
   ::ad::rss::world::RssDynamics const &mRssDynamics;
+
+  void addRestrictedOccupiedRegion(::ad::map::match::LaneOccupiedRegion const &laneOccupiedRegion,
+                                   ::ad::map::route::LaneInterval const &laneInterval);
 };
 
 } // namespace map

@@ -316,7 +316,7 @@ TEST_F(RssSceneCreationTown01Test, testAppendScenes)
                       M_PI_2,
                       // with ego route and speed limit, but not on route
                       std::initializer_list<ExpectedResultTuple>({std::make_tuple(
-                        ::ad::rss::situation::SituationType::NotRelevant, 0u, 0u, ::ad::physics::Speed(100.))}),
+                        ::ad::rss::situation::SituationType::NotRelevant, 3u, 0u, ::ad::physics::Speed(100.))}),
                       // without ego route, no speed limit, therefore one of our predicted routes will match
                       std::initializer_list<ExpectedResultTuple>({std::make_tuple(
                         ::ad::rss::situation::SituationType::SameDirection, 4u, 0u, ::ad::physics::Speed(100.))})),

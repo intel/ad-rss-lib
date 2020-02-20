@@ -124,6 +124,67 @@ void RssObjectConversion::updateSpeedLimit(::ad::physics::Speed const &maxSpeed)
   mMaxSpeed = std::max(mMaxSpeed, maxSpeed);
 }
 
+void RssObjectConversion::addRestrictedOccupiedRegion(::ad::map::match::LaneOccupiedRegion const &laneOccupiedRegion,
+                                                      ::ad::map::route::LaneInterval const &laneInterval)
+{
+  ::ad::rss::world::OccupiedRegion occupiedRegion;
+  occupiedRegion.segmentId = ::ad::rss::world::LaneSegmentId(static_cast<uint64_t>(laneOccupiedRegion.laneId));
+
+  ::ad::physics::ParametricValue cutAtStart;
+  if (::ad::map::route::isRouteDirectionNegative(laneInterval))
+  {
+    occupiedRegion.lonRange.maximum = ::ad::physics::ParametricValue(1.) - laneOccupiedRegion.longitudinalRange.minimum;
+    occupiedRegion.lonRange.minimum = ::ad::physics::ParametricValue(1.) - laneOccupiedRegion.longitudinalRange.maximum;
+
+    occupiedRegion.latRange.maximum = ::ad::physics::ParametricValue(1.) - laneOccupiedRegion.lateralRange.minimum;
+    occupiedRegion.latRange.minimum = ::ad::physics::ParametricValue(1.) - laneOccupiedRegion.lateralRange.maximum;
+    cutAtStart = ::ad::physics::ParametricValue(1.) - laneInterval.start;
+  }
+  else
+  {
+    occupiedRegion.lonRange = laneOccupiedRegion.longitudinalRange;
+    occupiedRegion.latRange = laneOccupiedRegion.lateralRange;
+    cutAtStart = laneInterval.start;
+  }
+
+  // scale region to the lane interval sizes
+  auto const intervalLength = calcParametricLength(laneInterval);
+  if (intervalLength == ::ad::physics::ParametricValue(0.))
+  {
+    occupiedRegion.lonRange.minimum = ::ad::physics::ParametricValue(0.);
+    occupiedRegion.lonRange.maximum = ::ad::physics::ParametricValue(1.);
+  }
+  else
+  {
+    // move region
+    occupiedRegion.lonRange.minimum -= cutAtStart;
+    occupiedRegion.lonRange.maximum -= cutAtStart;
+    // scale region
+    occupiedRegion.lonRange.minimum = occupiedRegion.lonRange.minimum / static_cast<double>(intervalLength);
+    occupiedRegion.lonRange.maximum = occupiedRegion.lonRange.maximum / static_cast<double>(intervalLength);
+    // restrict to segment
+    occupiedRegion.lonRange.minimum = std::max(occupiedRegion.lonRange.minimum, ::ad::physics::ParametricValue(0.));
+    occupiedRegion.lonRange.maximum = std::min(occupiedRegion.lonRange.maximum, ::ad::physics::ParametricValue(1.));
+  }
+
+  mRssObject.occupiedRegions.push_back(occupiedRegion);
+}
+
+void RssObjectConversion::fillNotRelevantSceneBoundingBox()
+{
+  if (mObjectMapMatchedPosition != nullptr)
+  {
+    for (auto const &laneOccupiedRegion : mObjectMapMatchedPosition->mapMatchedBoundingBox.laneOccupiedRegions)
+    {
+      ::ad::map::route::LaneInterval dummyLaneInterval;
+      dummyLaneInterval.laneId = laneOccupiedRegion.laneId;
+      dummyLaneInterval.start = physics::ParametricValue(0.);
+      dummyLaneInterval.end = physics::ParametricValue(1.);
+      addRestrictedOccupiedRegion(laneOccupiedRegion, dummyLaneInterval);
+    }
+  }
+}
+
 void RssObjectConversion::laneIntervalAdded(::ad::map::route::LaneInterval const &laneInterval)
 {
   if (mObjectMapMatchedPosition != nullptr)
@@ -136,50 +197,7 @@ void RssObjectConversion::laneIntervalAdded(::ad::map::route::LaneInterval const
                      });
     if (findLaneIntervalResult != mObjectMapMatchedPosition->mapMatchedBoundingBox.laneOccupiedRegions.end())
     {
-      ::ad::map::match::LaneOccupiedRegion const &boundingBoxRegion = *findLaneIntervalResult;
-      ::ad::rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.segmentId = ::ad::rss::world::LaneSegmentId(static_cast<uint64_t>(boundingBoxRegion.laneId));
-
-      ::ad::physics::ParametricValue cutAtStart;
-      if (::ad::map::route::isRouteDirectionNegative(laneInterval))
-      {
-        occupiedRegion.lonRange.maximum
-          = ::ad::physics::ParametricValue(1.) - boundingBoxRegion.longitudinalRange.minimum;
-        occupiedRegion.lonRange.minimum
-          = ::ad::physics::ParametricValue(1.) - boundingBoxRegion.longitudinalRange.maximum;
-
-        occupiedRegion.latRange.maximum = ::ad::physics::ParametricValue(1.) - boundingBoxRegion.lateralRange.minimum;
-        occupiedRegion.latRange.minimum = ::ad::physics::ParametricValue(1.) - boundingBoxRegion.lateralRange.maximum;
-        cutAtStart = ::ad::physics::ParametricValue(1.) - laneInterval.start;
-      }
-      else
-      {
-        occupiedRegion.lonRange = boundingBoxRegion.longitudinalRange;
-        occupiedRegion.latRange = boundingBoxRegion.lateralRange;
-        cutAtStart = laneInterval.start;
-      }
-
-      // scale region to the lane interval sizes
-      auto const intervalLength = calcParametricLength(laneInterval);
-      if (intervalLength == ::ad::physics::ParametricValue(0.))
-      {
-        occupiedRegion.lonRange.minimum = ::ad::physics::ParametricValue(0.);
-        occupiedRegion.lonRange.maximum = ::ad::physics::ParametricValue(1.);
-      }
-      else
-      {
-        // move region
-        occupiedRegion.lonRange.minimum -= cutAtStart;
-        occupiedRegion.lonRange.maximum -= cutAtStart;
-        // scale region
-        occupiedRegion.lonRange.minimum = occupiedRegion.lonRange.minimum / static_cast<double>(intervalLength);
-        occupiedRegion.lonRange.maximum = occupiedRegion.lonRange.maximum / static_cast<double>(intervalLength);
-        // restrict to segment
-        occupiedRegion.lonRange.minimum = std::max(occupiedRegion.lonRange.minimum, ::ad::physics::ParametricValue(0.));
-        occupiedRegion.lonRange.maximum = std::min(occupiedRegion.lonRange.maximum, ::ad::physics::ParametricValue(1.));
-      }
-
-      mRssObject.occupiedRegions.push_back(occupiedRegion);
+      addRestrictedOccupiedRegion(*findLaneIntervalResult, laneInterval);
     }
   }
 }
