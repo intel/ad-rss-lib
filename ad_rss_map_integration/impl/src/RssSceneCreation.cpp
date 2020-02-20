@@ -96,7 +96,7 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
         "RssSceneCreation::appendScenes[ {} ]>> no connecting route available to object with {} meters",
         objectId,
         maxConnectingRouteDistance);
-      sceneCreator.appendNotRelevantScene(egoObject, otherObject);
+      sceneCreator.appendNotRelevantScene(egoRouteInput, egoObject, otherObject);
       return true;
     }
     getLogger()->trace(
@@ -345,7 +345,7 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
       objectId,
       objectMatchObject,
       egoRouteInput);
-    result = sceneCreator.appendNotRelevantScene(egoObject, otherObject);
+    result = sceneCreator.appendNotRelevantScene(egoRouteInput, egoObject, otherObject);
   }
 
   return result;
@@ -382,7 +382,7 @@ bool appendRoadBoundaries(::ad::rss::world::ObjectId const &egoId,
       egoId, ::ad::rss::world::ObjectType::EgoVehicle, egoMatchObject, egoSpeed, worldModel.egoVehicleRssDynamics);
 
     RssSceneCreator sceneCreator(worldModel);
-    result = sceneCreator.appendRoadBoundaryScenes(egoObject, route);
+    result = sceneCreator.appendRoadBoundaryScenes(route, egoObject);
   }
   catch (std::exception const &e)
   {

@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2019 Intel Corporation
+ * Copyright (C) 2018-2020 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -302,7 +302,7 @@ TEST_F(SceneTests, comparisonOperatorEgoVehicleDiffers)
   egoVehicleOccupiedRegionsElementLatRange.maximum = egoVehicleOccupiedRegionsElementLatRange.minimum;
   egoVehicleOccupiedRegionsElementLatRange.minimum = egoVehicleOccupiedRegionsElementLatRange.maximum;
   egoVehicleOccupiedRegionsElement.latRange = egoVehicleOccupiedRegionsElementLatRange;
-  egoVehicleOccupiedRegions.resize(0 + 1, egoVehicleOccupiedRegionsElement);
+  egoVehicleOccupiedRegions.resize(1 + 1, egoVehicleOccupiedRegionsElement);
   egoVehicle.occupiedRegions = egoVehicleOccupiedRegions;
   ::ad::rss::world::Velocity egoVehicleVelocity;
   ::ad::physics::Speed egoVehicleVelocitySpeedLonMin(100.);
@@ -355,7 +355,7 @@ TEST_F(SceneTests, comparisonOperatorObjectDiffers)
   objectOccupiedRegionsElementLatRange.maximum = objectOccupiedRegionsElementLatRange.minimum;
   objectOccupiedRegionsElementLatRange.minimum = objectOccupiedRegionsElementLatRange.maximum;
   objectOccupiedRegionsElement.latRange = objectOccupiedRegionsElementLatRange;
-  objectOccupiedRegions.resize(0 + 1, objectOccupiedRegionsElement);
+  objectOccupiedRegions.resize(1 + 1, objectOccupiedRegionsElement);
   object.occupiedRegions = objectOccupiedRegions;
   ::ad::rss::world::Velocity objectVelocity;
   ::ad::physics::Speed objectVelocitySpeedLonMin(100.);

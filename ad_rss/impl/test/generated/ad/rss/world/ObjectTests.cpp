@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2019 Intel Corporation
+ * Copyright (C) 2018-2020 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -162,7 +162,7 @@ TEST_F(ObjectTests, comparisonOperatorOccupiedRegionsDiffers)
   occupiedRegionsElementLatRange.maximum = occupiedRegionsElementLatRange.minimum;
   occupiedRegionsElementLatRange.minimum = occupiedRegionsElementLatRange.maximum;
   occupiedRegionsElement.latRange = occupiedRegionsElementLatRange;
-  occupiedRegions.resize(0 + 1, occupiedRegionsElement);
+  occupiedRegions.resize(1 + 1, occupiedRegionsElement);
   valueA.occupiedRegions = occupiedRegions;
   ::ad::rss::world::Object valueB = mValue;
 
