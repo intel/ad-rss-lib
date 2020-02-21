@@ -137,16 +137,13 @@ private:
    * @brief helper function to actually create the road area
    *
    * @param[in] route The route the road area is created from
-   * @param[in] roadSegmentIterStart The road segment start iterator
-   * @param[in] roadSegmentIterEnd The road segment end iterator
    * @param[in] minLaneOffset The minimum lane offset to be taken into account
    * @param[in] maxLaneOffset The maximum lane offset to be taken into account
-   * @param[in] intersectionLanes The lanes to be marked as intersection
+   * @param[in] intersectionLanes The lanes to be marked as intersection (the road area creation stops when intersection
+   * is left)
    * @param[in] objects The objects to be updated while creating the route.
    */
   ::ad::rss::world::RoadArea createRoadArea(::ad::map::route::FullRoute const &route,
-                                            ::ad::map::route::RoadSegmentList::const_iterator roadSegmentIterStart,
-                                            ::ad::map::route::RoadSegmentList::const_iterator roadSegmentIterEnd,
                                             ::ad::map::route::RouteLaneOffset const minLaneOffset,
                                             ::ad::map::route::RouteLaneOffset const maxLaneOffset,
                                             ::ad::map::lane::LaneIdSet const &intersectionLanes,

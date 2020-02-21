@@ -395,7 +395,7 @@ TEST_F(RssSceneCreationTown01Test, testAppendScenes)
           {// in case the other drives straight
            // in case the other turns left
            std::make_tuple(
-             ::ad::rss::situation::SituationType::IntersectionEgoHasPriority, 3u, 2u, ::ad::physics::Speed(15.2778)),
+             ::ad::rss::situation::SituationType::IntersectionEgoHasPriority, 2u, 2u, ::ad::physics::Speed(15.2778)),
            std::make_tuple(
              ::ad::rss::situation::SituationType::OppositeDirection, 4u, 0u, ::ad::physics::Speed(15.2778))}),
         // without ego route, no speed limit
