@@ -163,8 +163,12 @@ void RssObjectConversion::addRestrictedOccupiedRegion(::ad::map::match::LaneOccu
     occupiedRegion.lonRange.minimum = occupiedRegion.lonRange.minimum / static_cast<double>(intervalLength);
     occupiedRegion.lonRange.maximum = occupiedRegion.lonRange.maximum / static_cast<double>(intervalLength);
     // restrict to segment
-    occupiedRegion.lonRange.minimum = std::max(occupiedRegion.lonRange.minimum, ::ad::physics::ParametricValue(0.));
-    occupiedRegion.lonRange.maximum = std::min(occupiedRegion.lonRange.maximum, ::ad::physics::ParametricValue(1.));
+    occupiedRegion.lonRange.minimum
+      = std::min(std::max(occupiedRegion.lonRange.minimum, ::ad::physics::ParametricValue(0.)),
+                 ::ad::physics::ParametricValue(1.));
+    occupiedRegion.lonRange.maximum
+      = std::min(std::max(occupiedRegion.lonRange.maximum, ::ad::physics::ParametricValue(0.)),
+                 ::ad::physics::ParametricValue(1.));
   }
 
   mRssObject.occupiedRegions.push_back(occupiedRegion);
