@@ -41,33 +41,39 @@ configure_file(generate_python_lib.py.in generate_python_lib.py)
 
 generate_python_binding_source_code(${CMAKE_CURRENT_BINARY_DIR})
 
-add_library(${PROJECT_NAME}
-  ${CMAKE_CURRENT_BINARY_DIR}/AdRssMapIntegrationPythonWrapper.cpp
-)
+foreach(binding ${PYTHON_BINDINGS})
+  string(TOLOWER ${binding} lc_binding)
+  set(target ad_rss_map_integration_${lc_binding})
 
-target_compile_definitions(${PROJECT_NAME} PUBLIC ${TARGET_COMPILE_DEFINITIONS})
-target_compile_options(${PROJECT_NAME} PRIVATE ${TARGET_COMPILE_OPTIONS})
-set_property(TARGET ${PROJECT_NAME} APPEND_STRING PROPERTY LINK_FLAGS ${TARGET_LINK_FLAGS})
+  list(APPEND targets ${target})
 
-target_include_directories(${PROJECT_NAME} PRIVATE
-  ${PYTHON_BINDING_PACKAGE_INCLUDE_DIRS}
-  ${CMAKE_CURRENT_BINARY_DIR}
-)
+  add_library(${target}
+    ${CMAKE_CURRENT_BINARY_DIR}/AdRssMapIntegrationPythonWrapper.cpp
+  )
+  target_compile_definitions(${target} PUBLIC ${TARGET_COMPILE_DEFINITIONS})
+  target_compile_options(${target} PRIVATE ${TARGET_COMPILE_OPTIONS})
+  set_property(TARGET ${target} APPEND_STRING PROPERTY LINK_FLAGS ${TARGET_LINK_FLAGS})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
-  ad_rss_map_integration
-  ad_rss
-  ad_map_access
-  ad_physics
-  spdlog::spdlog
-  ${PYTHON_BINDING_PACKAGE_LIBRARIES}
-)
+  target_include_directories(${target} PRIVATE
+    ${PYTHON_BINDING_PACKAGE_INCLUDE_DIRS_${binding}}
+    ${CMAKE_CURRENT_BINARY_DIR}
+  )
+
+  target_link_libraries(${target} PRIVATE
+    ad_rss_map_integration
+    ad_rss
+    ad_map_access
+    ad_physics
+    spdlog::spdlog
+    ${PYTHON_BINDING_PACKAGE_LIBRARIES_${binding}}
+  )
+endforeach()
 
 ################################################################################
 # Install section
 ################################################################################
 
-install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}_EXPORT
+install(TARGETS ${targets} EXPORT ${PROJECT_NAME}_EXPORT
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
