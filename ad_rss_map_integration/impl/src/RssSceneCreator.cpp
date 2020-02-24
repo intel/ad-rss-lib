@@ -265,6 +265,7 @@ RssSceneCreator::createIntersectionRoadArea(::ad::map::route::FullRoute const &r
 bool RssSceneCreator::appendIntersectionScene(::ad::map::intersection::IntersectionPtr intersection,
                                               ::ad::map::route::FullRoute const &egoRoute,
                                               ::ad::map::route::FullRoute const &objectRoute,
+                                              ::ad::map::route::FullRoute const &intersectionOtherRoute,
                                               RssObjectConversion::ConstPtr iEgoObject,
                                               RssObjectConversion::ConstPtr iOtherObject)
 {
@@ -274,27 +275,57 @@ bool RssSceneCreator::appendIntersectionScene(::ad::map::intersection::Intersect
   auto situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;
   if (intersection->intersectionType() == ::ad::map::intersection::IntersectionType::TrafficLight)
   {
-    // in case no traffic light actually modelled (map error), we assume others have always priority
-    bool egoHasGreen = true;
+    // in case no traffic light actually modeled (map error), we assume others have always priority
+    bool intersectionRouteHasGreen = true;
     if (intersection->applicableTrafficLights().empty())
     {
       getLogger()->warn("RssSceneCreation::appendIntersectionScene[ {} ]>> traffic light intersection has no "
                         "applicable traffic lights {}",
                         otherObject->getId(),
                         std::to_string(intersection->incomingLanesOnRoute()));
-      egoHasGreen = false;
+      intersectionRouteHasGreen = false;
     }
     for (auto relevantTrafficLight : intersection->applicableTrafficLights())
     {
       if (mGreenTrafficLights.find(relevantTrafficLight) == mGreenTrafficLights.end())
       {
-        // if any relevant traffic light is not green, we have no priority
-        egoHasGreen = false;
+        // if any relevant traffic light is not green, intersection route has no priority
+        intersectionRouteHasGreen = false;
         break;
       }
     }
 
-    if (!egoHasGreen || intersection->objectRouteCrossesLanesWithHigherPriority(objectRoute))
+    if (!intersectionRouteHasGreen || intersection->objectRouteCrossesLanesWithHigherPriority(intersectionOtherRoute))
+    {
+      if (intersectionOtherRoute.routePlanningCounter == objectRoute.routePlanningCounter)
+      {
+        situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;
+      }
+      else
+      {
+        situationType = ::ad::rss::situation::SituationType::IntersectionEgoHasPriority;
+      }
+    }
+    else
+    {
+      if (intersectionOtherRoute.routePlanningCounter == objectRoute.routePlanningCounter)
+      {
+        situationType = ::ad::rss::situation::SituationType::IntersectionEgoHasPriority;
+      }
+      else
+      {
+        situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;
+      }
+    }
+    getLogger()->debug("RssSceneCreation::appendIntersectionScene[ {} ]>> traffic light intersection intersection "
+                       "route has green: {} situation: {}",
+                       otherObject->getId(),
+                       intersectionRouteHasGreen,
+                       situationType);
+  }
+  else if (intersection->objectRouteCrossesLanesWithHigherPriority(intersectionOtherRoute))
+  {
+    if (intersectionOtherRoute.routePlanningCounter == objectRoute.routePlanningCounter)
     {
       situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;
     }
@@ -302,23 +333,21 @@ bool RssSceneCreator::appendIntersectionScene(::ad::map::intersection::Intersect
     {
       situationType = ::ad::rss::situation::SituationType::IntersectionEgoHasPriority;
     }
-    getLogger()->debug(
-      "RssSceneCreation::appendIntersectionScene[ {} ]>> traffic light intersection ego has green: {} situation: {}",
-      otherObject->getId(),
-      egoHasGreen,
-      situationType);
-  }
-  else if (intersection->objectRouteCrossesLanesWithHigherPriority(objectRoute))
-  {
-    situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;
   }
   else
   {
-    auto const findWaypointResult
-      = ::ad::map::route::findNearestWaypoint(intersection->incomingParaPointsWithLowerPriority(), objectRoute);
+    auto const findWaypointResult = ::ad::map::route::findNearestWaypoint(
+      intersection->incomingParaPointsWithLowerPriority(), intersectionOtherRoute);
     if (findWaypointResult.isValid())
     {
-      situationType = ::ad::rss::situation::SituationType::IntersectionEgoHasPriority;
+      if (intersectionOtherRoute.routePlanningCounter == objectRoute.routePlanningCounter)
+      {
+        situationType = ::ad::rss::situation::SituationType::IntersectionEgoHasPriority;
+      }
+      else
+      {
+        situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;
+      }
     }
     else
     {

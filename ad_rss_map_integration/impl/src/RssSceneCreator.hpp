@@ -110,7 +110,8 @@ public:
    *
    * @param[in] intersection the relevant intersection to consider
    * @param[in] egoRoute the object route used to create the intersection object
-   * @param[in] obectRoute the object route interacting with the ego route in the intersection
+   * @param[in] objectRoute the object route interacting with the ego route in the intersection
+   * @param[in] intersectionOtherRoute the route the intersection was NOT created with (either egoRoute or objectRoute)
    * @param[in] egoObject the ego object basic information
    * @param[in] otherObject the other object basic information
    *
@@ -119,6 +120,7 @@ public:
   bool appendIntersectionScene(::ad::map::intersection::IntersectionPtr intersection,
                                ::ad::map::route::FullRoute const &egoRoute,
                                ::ad::map::route::FullRoute const &objectRoute,
+                               ::ad::map::route::FullRoute const &intersectionOtherRoute,
                                RssObjectConversion::ConstPtr egoObject,
                                RssObjectConversion::ConstPtr otherObject);
 
