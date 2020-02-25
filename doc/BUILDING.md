@@ -107,7 +107,7 @@ They can be executed using CMake's ctest application.
 #### API documentation
 When BUILD_APIDOC is enabled, the "make" call will automatically generate the API documentation.
 ```bash
- build$>  cmake -BUILD_APIDOC=ON ..
+ build$>  cmake -DBUILD_APIDOC=ON ..
  build$>  make
 ```
 The API documentation is written to the _apidoc_ folder within the _build_ directory.
