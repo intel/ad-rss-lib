@@ -207,43 +207,61 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
       for (auto const &egoRoute : egoPredictedRoutes)
       {
         getLogger()->trace("RssSceneCreation::appendScenes[ {} ]>> investigate egoRoute {}", objectId, egoRoute);
-        auto const intersectionsOnRoute = ::ad::map::intersection::Intersection::getIntersectionsForRoute(egoRoute);
-        if (intersectionsOnRoute.empty())
+        auto intersectionsOnEgoRoute = ::ad::map::intersection::Intersection::getIntersectionsForRoute(egoRoute);
+        if (intersectionsOnEgoRoute.empty() && (connectingRoute.type == ::ad::map::route::ConnectingRouteType::Merging))
         {
-          // no intersection on ego route, but within opposing connectingRoute
-          // looks like not a straight forward road layout, but
-          // need to ensure we don't miss this situation
-          // @todo: analyze when this can happen and if the created scene is appropriate
-          if (connectingRoute.type == ::ad::map::route::ConnectingRouteType::Opposing)
-          {
-            getLogger()->trace(
-              "RssSceneCreation::appendScenes[ {} ]>> no intersections on route found: create opposite "
-              "direction use-case {}",
-              objectId,
-              egoRoute);
-            result = sceneCreator.appendNonIntersectionScene(
-              connectingRoute, ::ad::rss::situation::SituationType::OppositeDirection, egoObject, otherObject);
-          }
-          else
-          {
-            getLogger()->trace("RssSceneCreation::appendScenes[ {} ]>> no intersections on route found: create"
-                               "merging-intersection same prio use-case {}",
-                               objectId,
-                               egoRoute);
-            result = sceneCreator.appendMergingScene(
-              connectingRoute, ::ad::rss::situation::SituationType::IntersectionSamePriority, egoObject, otherObject);
-          }
+          getLogger()->trace("RssSceneCreation::appendScenes[ {} ]>> no intersections on route found: create"
+                             "merging-intersection same prio use-case {}",
+                             objectId,
+                             egoRoute);
+          result = sceneCreator.appendMergingScene(
+            connectingRoute, ::ad::rss::situation::SituationType::IntersectionSamePriority, egoObject, otherObject);
         }
         else
         {
           result = true;
+          // analyse object predictions in detail
           auto const objectPredictedRoutes = ::ad::map::route::planning::predictRoutesOnDistance(
             objectMatchObject.mapMatchedBoundingBox, predictionLength);
-          for (auto const &intersection : intersectionsOnRoute)
+          for (auto const &objectRoute : objectPredictedRoutes)
           {
-            for (auto const &objectRoute : objectPredictedRoutes)
+            auto intersectionsOnRoute = intersectionsOnEgoRoute;
+            auto const *intersectionOtherRoute = &objectRoute;
+            if (intersectionsOnRoute.empty())
             {
-              if (intersection->objectRouteFromSameArmAsIntersectionRoute(objectRoute))
+              // no intersection on ego route, but within opposing connectingRoute
+              // Currently this can happen if the ego vehicle route starts inside the intersection,
+              // and the object is outside, let's then take the intersections on the object route
+              intersectionsOnRoute = ::ad::map::intersection::Intersection::getIntersectionsForRoute(objectRoute);
+              if (intersectionsOnRoute.empty())
+              {
+                // looks like not a straight forward road layout, but
+                // need to ensure we don't miss this situation
+                // @todo: analyze when this can happen and if the created scene is appropriate
+
+                getLogger()->trace(
+                  "RssSceneCreation::appendScenes[ {} ]>> no intersections on route found: create opposite "
+                  "direction use-case {}",
+                  objectId,
+                  egoRoute);
+                result = result
+                  && sceneCreator.appendNonIntersectionScene(
+                       connectingRoute, ::ad::rss::situation::SituationType::OppositeDirection, egoObject, otherObject);
+              }
+              else
+              {
+                intersectionOtherRoute = &egoRoute;
+                getLogger()->debug("RssSceneCreation::appendScenes[ {} ]>> no intersection on ego route {}, but"
+                                   "opposite connecting route; checking intersections in object route {}",
+                                   objectId,
+                                   egoRoute,
+                                   objectRoute);
+              }
+            }
+
+            for (auto const &intersection : intersectionsOnRoute)
+            {
+              if (intersection->objectRouteFromSameArmAsIntersectionRoute(*intersectionOtherRoute))
               {
                 getLogger()->trace(
                   "RssSceneCreation::appendScenes[ {} ]>> egoRoute: {} objectRoute: {} intersection {} "
@@ -261,10 +279,10 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                   && sceneCreator.appendNonIntersectionScene(
                        connectingRoute, ::ad::rss::situation::SituationType::SameDirection, egoObject, otherObject);
               }
-              else if (intersection->objectRouteOppositeToIntersectionRoute(objectRoute)
-                       || !intersection->objectRouteCrossesIntersectionRoute(objectRoute))
+              else if (intersection->objectRouteOppositeToIntersectionRoute(*intersectionOtherRoute)
+                       || !intersection->objectRouteCrossesIntersectionRoute(*intersectionOtherRoute))
               {
-                auto const findResult = ::ad::map::route::intersectionOnRoute(*intersection, objectRoute);
+                auto const findResult = ::ad::map::route::intersectionOnRoute(*intersection, *intersectionOtherRoute);
                 if (findResult.isValid())
                 {
                   if (connectingRoute.type == ::ad::map::route::ConnectingRouteType::Opposing)
@@ -325,7 +343,8 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                   intersection->paraPointsOnRoute(),
                   intersection->entryParaPoints());
                 result = result
-                  && sceneCreator.appendIntersectionScene(intersection, egoRoute, objectRoute, egoObject, otherObject);
+                  && sceneCreator.appendIntersectionScene(
+                       intersection, egoRoute, objectRoute, *intersectionOtherRoute, egoObject, otherObject);
               }
             }
           }

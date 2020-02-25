@@ -53,17 +53,17 @@ RssSceneCreator::RssSceneCreator(::ad::rss::world::WorldModel &worldModel)
 {
 }
 
-::ad::rss::world::RoadArea
-RssSceneCreator::createRoadArea(::ad::map::route::FullRoute const &route,
-                                ::ad::map::route::RoadSegmentList::const_iterator roadSegmentIterStart,
-                                ::ad::map::route::RoadSegmentList::const_iterator roadSegmentIterEnd,
-                                ::ad::map::route::RouteLaneOffset const minLaneOffset,
-                                ::ad::map::route::RouteLaneOffset const maxLaneOffset,
-                                ::ad::map::lane::LaneIdSet const &intersectionLanes,
-                                std::vector<RssObjectConversion::Ptr> objects)
+::ad::rss::world::RoadArea RssSceneCreator::createRoadArea(::ad::map::route::FullRoute const &route,
+                                                           ::ad::map::route::RouteLaneOffset const minLaneOffset,
+                                                           ::ad::map::route::RouteLaneOffset const maxLaneOffset,
+                                                           ::ad::map::lane::LaneIdSet const &intersectionLanes,
+                                                           std::vector<RssObjectConversion::Ptr> objects)
 {
   ::ad::rss::world::RoadArea area;
-  for (auto roadSegmentIter = roadSegmentIterStart; roadSegmentIter != roadSegmentIterEnd; roadSegmentIter++)
+  bool intersectionEntered = false;
+  bool intersectionLeft = false;
+  for (auto roadSegmentIter = route.roadSegments.begin(); roadSegmentIter != route.roadSegments.end();
+       roadSegmentIter++)
   {
     ::ad::rss::world::RoadSegment rssRoadSegment;
     // RoadSegments are in strict order from right to left
@@ -79,9 +79,16 @@ RssSceneCreator::createRoadArea(::ad::map::route::FullRoute const &route,
         if (intersectionLanes.count(laneSegmentIter->laneInterval.laneId) > 0)
         {
           rssLaneSegment.type = ::ad::rss::world::LaneSegmentType::Intersection;
+          intersectionEntered = true;
         }
         else
         {
+          if (intersectionEntered)
+          {
+            // route is leaving the intersection again, stop
+            intersectionLeft = true;
+            break;
+          }
           rssLaneSegment.type = ::ad::rss::world::LaneSegmentType::Normal;
         }
         if (laneSegmentIter->laneInterval.wrongWay)
@@ -106,6 +113,10 @@ RssSceneCreator::createRoadArea(::ad::map::route::FullRoute const &route,
 
         rssRoadSegment.push_back(rssLaneSegment);
       }
+    }
+    if (intersectionLeft)
+    {
+      break;
     }
     area.push_back(rssRoadSegment);
   }
@@ -157,13 +168,7 @@ bool RssSceneCreator::appendNotRelevantScene(::ad::map::route::FullRoute const &
   ::ad::map::route::RouteLaneOffset const maxLaneOffset = std::max(0, route.destinationLaneOffset);
 
   // no intersections on route
-  return createRoadArea(route,
-                        route.roadSegments.begin(),
-                        route.roadSegments.end(),
-                        minLaneOffset,
-                        maxLaneOffset,
-                        ::ad::map::lane::LaneIdSet(),
-                        objects);
+  return createRoadArea(route, minLaneOffset, maxLaneOffset, ::ad::map::lane::LaneIdSet(), objects);
 }
 
 bool RssSceneCreator::appendNonIntersectionScene(::ad::map::route::ConnectingRoute const &connectingRoute,
@@ -213,13 +218,7 @@ bool RssSceneCreator::appendNonIntersectionScene(::ad::map::route::ConnectingRou
   }
 
   // take the whole route
-  return createRoadArea(route,
-                        route.roadSegments.begin(),
-                        route.roadSegments.end(),
-                        route.minLaneOffset,
-                        route.maxLaneOffset,
-                        intersectionLanes,
-                        {object});
+  return createRoadArea(route, route.minLaneOffset, route.maxLaneOffset, intersectionLanes, {object});
 }
 
 bool RssSceneCreator::appendMergingScene(::ad::map::route::ConnectingRoute const &connectingRoute,
@@ -259,22 +258,14 @@ RssSceneCreator::createIntersectionRoadArea(::ad::map::route::FullRoute const &r
                                             ::ad::map::intersection::IntersectionConstPtr intersection,
                                             RssObjectConversion::Ptr object)
 {
-  // take the route only up to the end of the intersection
-  auto const findWaypointResult = ::ad::map::route::findNearestWaypoint(intersection->outgoingParaPoints(), route);
-
-  // only the lanes of the intersection under consideration are marked as intersection
-  return createRoadArea(route,
-                        route.roadSegments.begin(),
-                        findWaypointResult.roadSegmentIterator,
-                        route.minLaneOffset,
-                        route.maxLaneOffset,
-                        intersection->internalLanes(),
-                        {object});
+  // only the lanes of the intersection under consideration are marked as intersection;
+  return createRoadArea(route, route.minLaneOffset, route.maxLaneOffset, intersection->internalLanes(), {object});
 }
 
 bool RssSceneCreator::appendIntersectionScene(::ad::map::intersection::IntersectionPtr intersection,
                                               ::ad::map::route::FullRoute const &egoRoute,
                                               ::ad::map::route::FullRoute const &objectRoute,
+                                              ::ad::map::route::FullRoute const &intersectionOtherRoute,
                                               RssObjectConversion::ConstPtr iEgoObject,
                                               RssObjectConversion::ConstPtr iOtherObject)
 {
@@ -284,27 +275,57 @@ bool RssSceneCreator::appendIntersectionScene(::ad::map::intersection::Intersect
   auto situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;
   if (intersection->intersectionType() == ::ad::map::intersection::IntersectionType::TrafficLight)
   {
-    // in case no traffic light actually modelled (map error), we assume others have always priority
-    bool egoHasGreen = true;
+    // in case no traffic light actually modeled (map error), we assume others have always priority
+    bool intersectionRouteHasGreen = true;
     if (intersection->applicableTrafficLights().empty())
     {
       getLogger()->warn("RssSceneCreation::appendIntersectionScene[ {} ]>> traffic light intersection has no "
                         "applicable traffic lights {}",
                         otherObject->getId(),
                         std::to_string(intersection->incomingLanesOnRoute()));
-      egoHasGreen = false;
+      intersectionRouteHasGreen = false;
     }
     for (auto relevantTrafficLight : intersection->applicableTrafficLights())
     {
       if (mGreenTrafficLights.find(relevantTrafficLight) == mGreenTrafficLights.end())
       {
-        // if any relevant traffic light is not green, we have no priority
-        egoHasGreen = false;
+        // if any relevant traffic light is not green, intersection route has no priority
+        intersectionRouteHasGreen = false;
         break;
       }
     }
 
-    if (!egoHasGreen || intersection->objectRouteCrossesLanesWithHigherPriority(objectRoute))
+    if (!intersectionRouteHasGreen || intersection->objectRouteCrossesLanesWithHigherPriority(intersectionOtherRoute))
+    {
+      if (intersectionOtherRoute.routePlanningCounter == objectRoute.routePlanningCounter)
+      {
+        situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;
+      }
+      else
+      {
+        situationType = ::ad::rss::situation::SituationType::IntersectionEgoHasPriority;
+      }
+    }
+    else
+    {
+      if (intersectionOtherRoute.routePlanningCounter == objectRoute.routePlanningCounter)
+      {
+        situationType = ::ad::rss::situation::SituationType::IntersectionEgoHasPriority;
+      }
+      else
+      {
+        situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;
+      }
+    }
+    getLogger()->debug("RssSceneCreation::appendIntersectionScene[ {} ]>> traffic light intersection intersection "
+                       "route has green: {} situation: {}",
+                       otherObject->getId(),
+                       intersectionRouteHasGreen,
+                       situationType);
+  }
+  else if (intersection->objectRouteCrossesLanesWithHigherPriority(intersectionOtherRoute))
+  {
+    if (intersectionOtherRoute.routePlanningCounter == objectRoute.routePlanningCounter)
     {
       situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;
     }
@@ -312,23 +333,21 @@ bool RssSceneCreator::appendIntersectionScene(::ad::map::intersection::Intersect
     {
       situationType = ::ad::rss::situation::SituationType::IntersectionEgoHasPriority;
     }
-    getLogger()->debug(
-      "RssSceneCreation::appendIntersectionScene[ {} ]>> traffic light intersection ego has green: {} situation: {}",
-      otherObject->getId(),
-      egoHasGreen,
-      situationType);
-  }
-  else if (intersection->objectRouteCrossesLanesWithHigherPriority(objectRoute))
-  {
-    situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;
   }
   else
   {
-    auto const findWaypointResult
-      = ::ad::map::route::findNearestWaypoint(intersection->incomingParaPointsWithLowerPriority(), objectRoute);
+    auto const findWaypointResult = ::ad::map::route::findNearestWaypoint(
+      intersection->incomingParaPointsWithLowerPriority(), intersectionOtherRoute);
     if (findWaypointResult.isValid())
     {
-      situationType = ::ad::rss::situation::SituationType::IntersectionEgoHasPriority;
+      if (intersectionOtherRoute.routePlanningCounter == objectRoute.routePlanningCounter)
+      {
+        situationType = ::ad::rss::situation::SituationType::IntersectionEgoHasPriority;
+      }
+      else
+      {
+        situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;
+      }
     }
     else
     {
@@ -356,13 +375,8 @@ bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const
 {
   auto egoObject = std::make_shared<RssObjectConversion>(*iEgoObject);
 
-  auto const egoVehicleRoad = createRoadArea(route,
-                                             route.roadSegments.begin(),
-                                             route.roadSegments.end(),
-                                             route.minLaneOffset,
-                                             route.maxLaneOffset,
-                                             ::ad::map::lane::LaneIdSet(),
-                                             {egoObject});
+  auto const egoVehicleRoad
+    = createRoadArea(route, route.minLaneOffset, route.maxLaneOffset, ::ad::map::lane::LaneIdSet(), {egoObject});
 
   getLogger()->debug("RssSceneCreator::appendRoadBoundaryScenes[ ]>> ego road area {}", egoVehicleRoad);
 
