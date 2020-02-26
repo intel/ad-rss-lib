@@ -359,11 +359,12 @@ bool appendScenes(::ad::rss::world::ObjectId const &egoId,
 
   if (result && (scenesSizeBefore == worldModel.scenes.size()))
   {
-    getLogger()->trace(
-      "RssSceneCreation::appendScenes[ {} ]>> detailed analysis did not find any relevant situation {} {}",
-      objectId,
-      objectMatchObject,
-      egoRouteInput);
+    getLogger()->trace("RssSceneCreation::appendScenes[ {} ]>> detailed analysis did not find any relevant situation "
+                       "object matched pos: {}\n ego matched pos: {}\n ego route: {}",
+                       objectId,
+                       objectMatchObject,
+                       egoMatchObject,
+                       egoRouteInput);
     result = sceneCreator.appendNotRelevantScene(egoRouteInput, egoObject, otherObject);
   }
 

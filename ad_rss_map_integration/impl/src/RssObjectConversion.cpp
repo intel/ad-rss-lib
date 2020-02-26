@@ -170,6 +170,12 @@ void RssObjectConversion::addRestrictedOccupiedRegion(::ad::map::match::LaneOccu
       = std::min(std::max(occupiedRegion.lonRange.maximum, ::ad::physics::ParametricValue(0.)),
                  ::ad::physics::ParametricValue(1.));
   }
+  getLogger()->trace("RssObjectConversion::addRestrictedOccupiedRegion[ {} ]>>laneOccupiedRegion {} laneInterval {} -> "
+                     "occupiedRegion {}",
+                     getId(),
+                     laneOccupiedRegion,
+                     laneInterval,
+                     occupiedRegion);
 
   mRssObject.occupiedRegions.push_back(occupiedRegion);
 }
