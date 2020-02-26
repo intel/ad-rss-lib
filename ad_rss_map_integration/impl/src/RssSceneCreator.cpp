@@ -148,7 +148,8 @@ bool RssSceneCreator::appendNotRelevantScene(::ad::map::route::FullRoute const &
   else
   {
     // in case the ego route is actually available, we can fill the occupied regions as usual
-    egoVehicleRoad = createNonIntersectionRoadArea(route, {egoObject});
+    egoVehicleRoad
+      = createRoadArea(route, route.minLaneOffset, route.maxLaneOffset, ::ad::map::lane::LaneIdSet(), {egoObject});
   }
   getLogger()->debug("RssSceneCreator::appendNotRelevantScene[ {} ]>>situation {}",
                      otherObject->getId(),
@@ -216,6 +217,7 @@ bool RssSceneCreator::appendNonIntersectionScene(::ad::map::route::ConnectingRou
   {
     intersectionLanes.insert(laneSegmentIter->laneInterval.laneId);
   }
+  // @todo: there might be more lanes in the merging roads that overlap, so add these also to the intersection lanes!
 
   // take the whole route
   return createRoadArea(route, route.minLaneOffset, route.maxLaneOffset, intersectionLanes, {object});
