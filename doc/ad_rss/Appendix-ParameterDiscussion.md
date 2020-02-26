@@ -186,7 +186,7 @@ fluctuations, but will not have a big impact on the safety distance.
     | $\rho_{other}$                  | $2s$          |
     | $\alpha_{accel,max}$            | $3.5m/s^2$    |
     | $\alpha_{brake,min}$            | $4m/s^2$      |
-    | $\alpha_{brake,min}$            | $8m/s^2$      |
+    | $\alpha_{brake,max}$            | $8m/s^2$      |
     | $\alpha_{brake,min,correct}$    | $3m/s^2$      |
     | $\alpha^{lat}_{brake,min}$      | $0.8m/s^2$    |
     | $\alpha^{lat}_{accel,max}$      | $0.2m/s^2$    |
