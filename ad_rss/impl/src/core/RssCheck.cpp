@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -70,7 +70,7 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
 
     if (result)
     {
-      result = RssResponseTransformation::transformProperResponse(worldModel, properResponse, accelerationRestriction);
+      result = RssResponseTransformation::transformProperResponse(properResponse, accelerationRestriction);
     }
   }
   // LCOV_EXCL_START: unreachable code, keep to be on the safe side

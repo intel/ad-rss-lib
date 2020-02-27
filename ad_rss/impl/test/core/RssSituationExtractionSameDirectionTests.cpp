@@ -18,9 +18,10 @@ class RssSituationExtractionSameDirectionTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    worldModel.egoVehicleRssDynamics = getEgoRssDynamics();
+    worldModel.defaultEgoVehicleRssDynamics = getEgoRssDynamics();
     scene.situationType = situation::SituationType::SameDirection;
     scene.objectRssDynamics = getObjectRssDynamics();
+    scene.egoVehicleRssDynamics = getEgoRssDynamics();
     leadingObject = createObject(36., 0.);
     leadingObject.objectId = 0;
 
@@ -112,7 +113,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, noLongitudinalDifference)
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
+            scene.egoVehicleRssDynamics.alphaLon.accelMax);
 
   ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
             situation::LateralRelativePosition::AtLeft);
@@ -138,7 +139,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, longitudinalDifferenceEgoLeadin
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
+            scene.egoVehicleRssDynamics.alphaLon.accelMax);
 
   ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
             situation::LateralRelativePosition::AtLeft);

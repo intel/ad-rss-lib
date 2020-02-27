@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -34,14 +34,17 @@ protected:
     resetRssState(rssStateT3O1, 1u, 1u);
     resetRssState(rssStateT3O2, 2u, 2u);
     rssStateSnapshotT1.timeIndex = 1u;
+    rssStateSnapshotT1.defaultEgoVehicleRssDynamics = getEgoRssDynamics();
     rssStateSnapshotT1.individualResponses.push_back(rssStateT1O1);
     rssStateSnapshotT1.individualResponses.push_back(rssStateT1O2);
 
     rssStateSnapshotT2.timeIndex = 2u;
+    rssStateSnapshotT2.defaultEgoVehicleRssDynamics = getEgoRssDynamics();
     rssStateSnapshotT2.individualResponses.push_back(rssStateT2O1);
     rssStateSnapshotT2.individualResponses.push_back(rssStateT2O2);
 
     rssStateSnapshotT3.timeIndex = 3u;
+    rssStateSnapshotT3.defaultEgoVehicleRssDynamics = getEgoRssDynamics();
     rssStateSnapshotT3.individualResponses.push_back(rssStateT3O1);
     rssStateSnapshotT3.individualResponses.push_back(rssStateT3O2);
 

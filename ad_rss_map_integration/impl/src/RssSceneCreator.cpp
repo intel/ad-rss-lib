@@ -25,9 +25,9 @@ namespace map {
 
 RssSceneCreator::RssSceneCreator(RssSceneCreation::RestrictSpeedLimitMode const &restrictSpeedLimitMode,
                                  ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights,
-                                 ::ad::rss::world::WorldModel &worldModel)
+                                 RssSceneCreation &sceneCreation)
   : mGreenTrafficLights(greenTrafficLights)
-  , mWorldModel(worldModel)
+  , mSceneCreation(sceneCreation)
 {
   switch (restrictSpeedLimitMode)
   {
@@ -46,10 +46,10 @@ RssSceneCreator::RssSceneCreator(RssSceneCreation::RestrictSpeedLimitMode const 
       break;
   }
 }
-RssSceneCreator::RssSceneCreator(::ad::rss::world::WorldModel &worldModel)
+RssSceneCreator::RssSceneCreator(RssSceneCreation &sceneCreation)
   : mSpeedLimitFactor(0.)
   , mGreenTrafficLights()
-  , mWorldModel(worldModel)
+  , mSceneCreation(sceneCreation)
 {
 }
 
@@ -454,6 +454,7 @@ bool RssSceneCreator::appendScene(::ad::rss::situation::SituationType const &sit
   ::ad::rss::world::Scene scene;
   scene.situationType = situationType;
   scene.egoVehicle = egoObject->getRssObject();
+  scene.egoVehicleRssDynamics = egoObject->getRssDynamics();
   scene.egoVehicleRoad = egoRoad;
   scene.intersectingRoad = intersectingRoad;
   scene.object = otherObject->getRssObject();
@@ -464,10 +465,7 @@ bool RssSceneCreator::appendScene(::ad::rss::situation::SituationType const &sit
 
   if (withinValidInputRange(scene))
   {
-    mWorldModel.egoVehicleRssDynamics.maxSpeed
-      = std::max(mWorldModel.egoVehicleRssDynamics.maxSpeed, egoObject->getMaxSpeed());
-    mWorldModel.scenes.push_back(scene);
-    return true;
+    return mSceneCreation.appendSceneToWorldModel(scene);
   }
   else
   {

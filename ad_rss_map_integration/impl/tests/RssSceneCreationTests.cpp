@@ -113,8 +113,8 @@ struct RssSceneCreationTest : ::testing::Test
     object.enuPosition.enuReferencePoint = ::ad::map::access::getENUReferencePoint();
 
     ::ad::map::match::AdMapMatching mapMatching;
-    object.mapMatchedBoundingBox = mapMatching.getMapMatchedBoundingBox(
-      object.enuPosition, ::ad::physics::Distance(0.1), ::ad::physics::Probability(0.5));
+    object.mapMatchedBoundingBox
+      = mapMatching.getMapMatchedBoundingBox(object.enuPosition, ::ad::physics::Distance(0.1));
 
     ASSERT_GE(object.mapMatchedBoundingBox.referencePointPositions.size(),
               static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center));
@@ -196,50 +196,49 @@ struct RssSceneCreationTown01Test : RssSceneCreationTest
 
 TEST_F(RssSceneCreationTown01Test, testAppendRoadBoundaries)
 {
-  ::ad::rss::world::WorldModel worldModel
-    = ::ad::rss::map::RssSceneCreation::initializeWorldModel(1u, getEgoVehicleDynamics());
+  ::ad::rss::map::RssSceneCreation sceneCreation(1u, getEgoVehicleDynamics());
 
   for (auto appendMode : {::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly,
                           ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::ExpandRouteToOppositeLanes,
                           ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::ExpandRouteToAllNeighbors})
   {
-    EXPECT_TRUE(::ad::rss::map::RssSceneCreation::appendRoadBoundaries(
-      egoVehicleId, egoMatchObject, egoSpeed, egoRoute, appendMode, worldModel));
+    EXPECT_TRUE(sceneCreation.appendRoadBoundaries(
+      egoVehicleId, egoMatchObject, egoSpeed, getEgoVehicleDynamics(), egoRoute, appendMode));
   }
-  EXPECT_EQ(worldModel.scenes.size(), 6u);
+  EXPECT_EQ(sceneCreation.mWorldModel.scenes.size(), 6u);
 
   // invalid bounding box
-  EXPECT_FALSE(::ad::rss::map::RssSceneCreation::appendRoadBoundaries(
-    egoVehicleId,
-    ::ad::map::match::Object(),
-    egoSpeed,
-    egoRoute,
-    ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly,
-    worldModel));
+  EXPECT_FALSE(
+    sceneCreation.appendRoadBoundaries(egoVehicleId,
+                                       ::ad::map::match::Object(),
+                                       egoSpeed,
+                                       getEgoVehicleDynamics(),
+                                       egoRoute,
+                                       ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly));
 
   // invalid speed
-  EXPECT_FALSE(::ad::rss::map::RssSceneCreation::appendRoadBoundaries(
-    egoVehicleId,
-    egoMatchObject,
-    ::ad::physics::Speed(),
-    egoRoute,
-    ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly,
-    worldModel));
+  EXPECT_FALSE(
+    sceneCreation.appendRoadBoundaries(egoVehicleId,
+                                       egoMatchObject,
+                                       ::ad::physics::Speed(),
+                                       getEgoVehicleDynamics(),
+                                       egoRoute,
+                                       ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly));
 
   // invalid route
-  EXPECT_FALSE(::ad::rss::map::RssSceneCreation::appendRoadBoundaries(
-    egoVehicleId,
-    egoMatchObject,
-    egoSpeed,
-    ::ad::map::route::FullRoute(),
-    ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly,
-    worldModel));
+  EXPECT_FALSE(
+    sceneCreation.appendRoadBoundaries(egoVehicleId,
+                                       egoMatchObject,
+                                       egoSpeed,
+                                       getEgoVehicleDynamics(),
+                                       ::ad::map::route::FullRoute(),
+                                       ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly));
 
-  EXPECT_EQ(worldModel.scenes.size(), 6u);
+  EXPECT_EQ(sceneCreation.mWorldModel.scenes.size(), 6u);
 
-  for (auto i = 0u; i < worldModel.scenes.size(); ++i)
+  for (auto i = 0u; i < sceneCreation.mWorldModel.scenes.size(); ++i)
   {
-    auto &scene = worldModel.scenes[i];
+    auto &scene = sceneCreation.mWorldModel.scenes[i];
     EXPECT_EQ(::ad::rss::situation::SituationType::SameDirection, scene.situationType);
     if (i == 0u)
     {
@@ -252,7 +251,7 @@ TEST_F(RssSceneCreationTown01Test, testAppendRoadBoundaries)
     }
     else
     {
-      EXPECT_EQ(scene.egoVehicleRoad, worldModel.scenes[i - 1].egoVehicleRoad);
+      EXPECT_EQ(scene.egoVehicleRoad, sceneCreation.mWorldModel.scenes[i - 1].egoVehicleRoad);
     }
 
     // object data
@@ -287,7 +286,8 @@ TEST_F(RssSceneCreationTown01Test, testAppendRoadBoundaries)
     EXPECT_TRUE(withinValidInputRange(scene));
   }
 
-  EXPECT_TRUE(::ad::rss::map::RssSceneCreation::finalizeWorldModel(getEgoVehicleDynamics(), worldModel));
+  auto const worldModel = sceneCreation.getWorldModel();
+  EXPECT_TRUE(withinValidInputRange(worldModel));
 }
 
 TEST_F(RssSceneCreationTown01Test, testAppendScenes)
@@ -536,8 +536,7 @@ TEST_F(RssSceneCreationTown01Test, testAppendScenes)
 
     };
 
-  ::ad::rss::world::WorldModel worldModel
-    = ::ad::rss::map::RssSceneCreation::initializeWorldModel(1u, getEgoVehicleDynamics());
+  ::ad::rss::map::RssSceneCreation sceneCreation(1u, getEgoVehicleDynamics());
 
   size_t expectedWorldModelSize = 0u;
   for (auto const &testTuple : vehicles)
@@ -554,51 +553,51 @@ TEST_F(RssSceneCreationTown01Test, testAppendScenes)
 
     // ego route
     // speed limit
-    size_t currentWorldModelSize = worldModel.scenes.size();
+    size_t currentWorldModelSize = sceneCreation.mWorldModel.scenes.size();
 
-    EXPECT_TRUE(::ad::rss::map::RssSceneCreation::appendScenes(
-      egoVehicleId,
-      egoMatchObject,
-      egoSpeed,
-      egoRoute,
-      otherVehicleId,
-      ::ad::rss::world::ObjectType::OtherVehicle,
-      otherMatchObject,
-      otherVehicleSpeed,
-      getObjectVehicleDynamics(),
-      ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10,
-      ::ad::map::landmark::LandmarkIdSet(),
-      worldModel));
+    EXPECT_TRUE(
+      sceneCreation.appendScenes(egoVehicleId,
+                                 egoMatchObject,
+                                 egoSpeed,
+                                 getEgoVehicleDynamics(),
+                                 egoRoute,
+                                 otherVehicleId,
+                                 ::ad::rss::world::ObjectType::OtherVehicle,
+                                 otherMatchObject,
+                                 otherVehicleSpeed,
+                                 getObjectVehicleDynamics(),
+                                 ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10,
+                                 ::ad::map::landmark::LandmarkIdSet()));
 
     auto &routeResultExpectations = std::get<3>(testTuple);
     expectedWorldModelSize += routeResultExpectations.size();
-    EXPECT_EQ(expectedWorldModelSize, worldModel.scenes.size());
-    checkSceneResults(worldModel, currentWorldModelSize, otherVehicleId, routeResultExpectations);
+    EXPECT_EQ(expectedWorldModelSize, sceneCreation.mWorldModel.scenes.size());
+    checkSceneResults(sceneCreation.mWorldModel, currentWorldModelSize, otherVehicleId, routeResultExpectations);
 
     // no ego route
     // no speed limit
-    currentWorldModelSize = worldModel.scenes.size();
+    currentWorldModelSize = sceneCreation.mWorldModel.scenes.size();
 
-    EXPECT_TRUE(
-      ::ad::rss::map::RssSceneCreation::appendScenes(egoVehicleId,
-                                                     egoMatchObject,
-                                                     egoSpeed,
-                                                     ::ad::map::route::FullRoute(),
-                                                     otherVehicleId,
-                                                     ::ad::rss::world::ObjectType::OtherVehicle,
-                                                     otherMatchObject,
-                                                     otherVehicleSpeed,
-                                                     getObjectVehicleDynamics(),
-                                                     ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::None,
-                                                     ::ad::map::landmark::LandmarkIdSet(),
-                                                     worldModel));
+    EXPECT_TRUE(sceneCreation.appendScenes(egoVehicleId,
+                                           egoMatchObject,
+                                           egoSpeed,
+                                           getEgoVehicleDynamics(),
+                                           ::ad::map::route::FullRoute(),
+                                           otherVehicleId,
+                                           ::ad::rss::world::ObjectType::OtherVehicle,
+                                           otherMatchObject,
+                                           otherVehicleSpeed,
+                                           getObjectVehicleDynamics(),
+                                           ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::None,
+                                           ::ad::map::landmark::LandmarkIdSet()));
 
     auto &noRouteResultExpectations = std::get<4>(testTuple);
     expectedWorldModelSize += noRouteResultExpectations.size();
-    EXPECT_EQ(expectedWorldModelSize, worldModel.scenes.size());
-    checkSceneResults(worldModel, currentWorldModelSize, otherVehicleId, noRouteResultExpectations);
+    EXPECT_EQ(expectedWorldModelSize, sceneCreation.mWorldModel.scenes.size());
+    checkSceneResults(sceneCreation.mWorldModel, currentWorldModelSize, otherVehicleId, noRouteResultExpectations);
   }
-  EXPECT_TRUE(::ad::rss::map::RssSceneCreation::finalizeWorldModel(getEgoVehicleDynamics(), worldModel));
+  auto const worldModel = sceneCreation.getWorldModel();
+  EXPECT_TRUE(withinValidInputRange(worldModel));
 }
 
 struct RssSceneCreationTown04Test : RssSceneCreationTest
@@ -640,8 +639,7 @@ struct RssSceneCreationTown04Test : RssSceneCreationTest
 
 TEST_F(RssSceneCreationTown04Test, testVehicleBehindConnectingRoute)
 {
-  ::ad::rss::world::WorldModel worldModel
-    = ::ad::rss::map::RssSceneCreation::initializeWorldModel(1u, getEgoVehicleDynamics());
+  ::ad::rss::map::RssSceneCreation sceneCreation(1u, getEgoVehicleDynamics());
 
   spdlog::info("EgoMatchObject: {}", egoMatchObject);
   spdlog::info("EgoRoute: {}", egoRoute);
@@ -657,21 +655,22 @@ TEST_F(RssSceneCreationTown04Test, testVehicleBehindConnectingRoute)
 
   initializeObjectENU(otherMatchObject.enuPosition.centerPoint, otherMatchObject.enuPosition.heading, otherMatchObject);
 
-  EXPECT_TRUE(::ad::rss::map::RssSceneCreation::appendScenes(
-    egoVehicleId,
-    egoMatchObject,
-    egoSpeed,
-    egoRoute,
-    otherVehicleId,
-    ::ad::rss::world::ObjectType::OtherVehicle,
-    otherMatchObject,
-    otherVehicleSpeed,
-    getObjectVehicleDynamics(),
-    ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10,
-    ::ad::map::landmark::LandmarkIdSet(),
-    worldModel));
+  EXPECT_TRUE(
+    sceneCreation.appendScenes(egoVehicleId,
+                               egoMatchObject,
+                               egoSpeed,
+                               getEgoVehicleDynamics(),
+                               egoRoute,
+                               otherVehicleId,
+                               ::ad::rss::world::ObjectType::OtherVehicle,
+                               otherMatchObject,
+                               otherVehicleSpeed,
+                               getObjectVehicleDynamics(),
+                               ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10,
+                               ::ad::map::landmark::LandmarkIdSet()));
 
-  EXPECT_TRUE(::ad::rss::map::RssSceneCreation::finalizeWorldModel(getEgoVehicleDynamics(), worldModel));
+  auto const worldModel = sceneCreation.getWorldModel();
+  EXPECT_TRUE(withinValidInputRange(worldModel));
 
   spdlog::info("WordModel: {}", worldModel);
   EXPECT_EQ(worldModel.scenes.size(), 1u);

@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -41,14 +41,12 @@ namespace RssResponseTransformation {
  *
  * Transform the proper response into restrictions of the acceleration for the actuator control.
  *
- * @param [in] worldModel - The current world model information.
  * @param [in] response - The proper overall response to be transformed.
  * @param [out] accelerationRestriction - The restrictions on the vehicle acceleration to become RSS safe.
  *
  * @return return true if the acceleration restrictions could be calculated, false otherwise.
  */
-bool transformProperResponse(world::WorldModel const &worldModel,
-                             state::ProperResponse const &response,
+bool transformProperResponse(state::ProperResponse const &response,
                              world::AccelerationRestriction &accelerationRestriction);
 
 } // namespace RssResponseTransformation

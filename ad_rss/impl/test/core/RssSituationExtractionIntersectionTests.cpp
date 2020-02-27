@@ -18,11 +18,12 @@ class RssSituationExtractionIntersectionTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    worldModel.egoVehicleRssDynamics = getEgoRssDynamics();
+    worldModel.defaultEgoVehicleRssDynamics = getEgoRssDynamics();
     leadingObject = createObject(36., 0.);
     leadingObject.objectId = 0;
     scene.situationType = situation::SituationType::IntersectionEgoHasPriority;
     scene.objectRssDynamics = getObjectRssDynamics();
+    scene.egoVehicleRssDynamics = getEgoRssDynamics();
 
     {
       world::OccupiedRegion occupiedRegion;
@@ -159,7 +160,7 @@ TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10.));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10.));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
+            scene.egoVehicleRssDynamics.alphaLon.accelMax);
 
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.distanceToEnterIntersection, Distance(0));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.distanceToLeaveIntersection, Distance(7));
@@ -197,7 +198,7 @@ TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10.));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10.));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
+            scene.egoVehicleRssDynamics.alphaLon.accelMax);
 
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.distanceToEnterIntersection, Distance(0.));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.distanceToLeaveIntersection, Distance(8.6));
@@ -243,7 +244,7 @@ TEST_F(RssSituationExtractionIntersectionTests, mergeWorstCaseInFront)
   ASSERT_EQ(situationSnapshot.situations.size(), 1u);
 
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
+            scene.egoVehicleRssDynamics.alphaLon.accelMax);
 
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.distanceToEnterIntersection, Distance(0.));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.distanceToLeaveIntersection, Distance(8.6));
@@ -296,7 +297,7 @@ TEST_F(RssSituationExtractionIntersectionTests, mergeWorstCaseAtBack)
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLat.minimum, Speed(-1.));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLat.maximum, Speed(0.));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
+            scene.egoVehicleRssDynamics.alphaLon.accelMax);
 
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.distanceToEnterIntersection, Distance(6.));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.distanceToLeaveIntersection, Distance(14.2));

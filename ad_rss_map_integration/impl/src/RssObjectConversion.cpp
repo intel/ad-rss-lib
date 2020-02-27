@@ -76,11 +76,6 @@ RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objec
   return resultDynamics;
 }
 
-::ad::physics::Speed RssObjectConversion::getMaxSpeed() const
-{
-  return mMaxSpeed;
-}
-
 bool RssObjectConversion::calculateMinStoppingDistance(::ad::physics::Distance &minStoppingDistance) const
 {
   // calculate rough distance to be relevant at the moment

@@ -53,7 +53,7 @@ TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Towards_Each_Other)
     Distance const dMin = calculateLateralMinSafeDistance(worldModel.scenes[0].object.velocity.speedLatMax,
                                                           worldModel.scenes[0].objectRssDynamics,
                                                           worldModel.scenes[0].egoVehicle.velocity.speedLatMax,
-                                                          worldModel.egoVehicleRssDynamics);
+                                                          worldModel.scenes[0].egoVehicleRssDynamics);
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
@@ -155,7 +155,7 @@ TEST_F(RssCheckLateralEgoLeftTest, Lateral_Velocity_Towards_Each_Other)
     worldModel.timeIndex++;
 
     Distance const dMin = calculateLateralMinSafeDistance(worldModel.scenes[0].egoVehicle.velocity.speedLatMax,
-                                                          worldModel.egoVehicleRssDynamics,
+                                                          worldModel.scenes[0].egoVehicleRssDynamics,
                                                           worldModel.scenes[0].object.velocity.speedLatMax,
                                                           worldModel.scenes[0].objectRssDynamics);
 
@@ -251,7 +251,7 @@ protected:
         Distance const dMinLeft = calculateLateralMinSafeDistance(worldModel.scenes[0].object.velocity.speedLatMax,
                                                                   worldModel.scenes[0].objectRssDynamics,
                                                                   worldModel.scenes[0].egoVehicle.velocity.speedLatMax,
-                                                                  worldModel.egoVehicleRssDynamics);
+                                                                  worldModel.scenes[0].egoVehicleRssDynamics);
         Distance const dActualLeft
           = (ParametricValue(1) - worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum
              + worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum)
@@ -266,7 +266,7 @@ protected:
         }
 
         Distance const dMinRight = calculateLateralMinSafeDistance(worldModel.scenes[1].egoVehicle.velocity.speedLatMax,
-                                                                   worldModel.egoVehicleRssDynamics,
+                                                                   worldModel.scenes[1].egoVehicleRssDynamics,
                                                                    worldModel.scenes[1].object.velocity.speedLatMax,
                                                                    worldModel.scenes[1].objectRssDynamics);
         Distance const dActualRight

@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -127,7 +127,7 @@ TEST_F(RssCheckObjectTests, HugeEgoAcceleration)
   world::AccelerationRestriction accelerationRestriction;
   core::RssCheck rssCheck;
 
-  worldModel.egoVehicleRssDynamics.alphaLon.accelMax = Acceleration(120);
+  worldModel.defaultEgoVehicleRssDynamics.alphaLon.accelMax = Acceleration(120);
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
@@ -158,7 +158,7 @@ TEST_F(RssCheckObjectTests, NegativeEgoVehicleLongitudinalAcceleration)
   world::AccelerationRestriction accelerationRestriction;
   core::RssCheck rssCheck;
 
-  worldModel.egoVehicleRssDynamics.alphaLon.accelMax = Acceleration(-3);
+  worldModel.defaultEgoVehicleRssDynamics.alphaLon.accelMax = Acceleration(-3);
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
@@ -168,8 +168,8 @@ TEST_F(RssCheckObjectTests, IncorrectEgoVehicleLongitudinalAccelerationRange)
   world::AccelerationRestriction accelerationRestriction;
   core::RssCheck rssCheck;
 
-  worldModel.egoVehicleRssDynamics.alphaLon.brakeMax = Acceleration(1);
-  worldModel.egoVehicleRssDynamics.alphaLon.brakeMin = Acceleration(5);
+  worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMax = Acceleration(1);
+  worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMin = Acceleration(5);
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
@@ -179,8 +179,8 @@ TEST_F(RssCheckObjectTests, IncorrectEgoVehicleLongitudinalAccelerationRange2)
   world::AccelerationRestriction accelerationRestriction;
   core::RssCheck rssCheck;
 
-  worldModel.egoVehicleRssDynamics.alphaLon.brakeMin = Acceleration(1);
-  worldModel.egoVehicleRssDynamics.alphaLon.brakeMinCorrect = Acceleration(5);
+  worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMin = Acceleration(1);
+  worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMinCorrect = Acceleration(5);
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
@@ -190,7 +190,7 @@ TEST_F(RssCheckObjectTests, NegativeEgoVehicleLateralAcceleration)
   world::AccelerationRestriction accelerationRestriction;
   core::RssCheck rssCheck;
 
-  worldModel.egoVehicleRssDynamics.alphaLat.brakeMin = Acceleration(-1);
+  worldModel.defaultEgoVehicleRssDynamics.alphaLat.brakeMin = Acceleration(-1);
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
@@ -211,7 +211,7 @@ TEST_F(RssCheckObjectTests, NegativeEgoVehicleResponseTime)
   world::AccelerationRestriction accelerationRestriction;
   core::RssCheck rssCheck;
 
-  worldModel.egoVehicleRssDynamics.responseTime = Duration(-5.);
+  worldModel.defaultEgoVehicleRssDynamics.responseTime = Duration(-5.);
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
@@ -221,7 +221,7 @@ TEST_F(RssCheckObjectTests, ZeroEgoVehicleResponseTime)
   world::AccelerationRestriction accelerationRestriction;
   core::RssCheck rssCheck;
 
-  worldModel.egoVehicleRssDynamics.responseTime = Duration(0);
+  worldModel.defaultEgoVehicleRssDynamics.responseTime = Duration(0);
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }

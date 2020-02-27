@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -21,6 +21,28 @@ RssResponseResolving::RssResponseResolving()
 {
 }
 
+world::LateralRssAccelerationValues
+RssResponseResolving::combineRssDynamics(world::LateralRssAccelerationValues const &left,
+                                         world::LateralRssAccelerationValues const &right)
+{
+  world::LateralRssAccelerationValues combinedAccelerationValues;
+  combinedAccelerationValues.accelMax = std::min(left.accelMax, right.accelMax);
+  combinedAccelerationValues.brakeMin = std::max(left.brakeMin, right.brakeMin);
+  return combinedAccelerationValues;
+}
+
+world::LongitudinalRssAccelerationValues
+RssResponseResolving::combineRssDynamics(world::LongitudinalRssAccelerationValues const &left,
+                                         world::LongitudinalRssAccelerationValues const &right)
+{
+  world::LongitudinalRssAccelerationValues combinedAccelerationValues;
+  combinedAccelerationValues.accelMax = std::min(left.accelMax, right.accelMax);
+  combinedAccelerationValues.brakeMax = std::min(left.brakeMax, right.brakeMax);
+  combinedAccelerationValues.brakeMinCorrect = std::max(left.brakeMinCorrect, right.brakeMinCorrect);
+  combinedAccelerationValues.brakeMin = std::max(left.brakeMin, right.brakeMin);
+  return combinedAccelerationValues;
+}
+
 bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &currentStateSnapshot,
                                                  state::ProperResponse &response)
 {
@@ -38,8 +60,16 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
     response.isSafe = true;
     response.dangerousObjects.clear();
     response.longitudinalResponse = state::LongitudinalResponse::None;
+    response.alphaLon.accelMax = physics::Acceleration::getMax();
+    response.alphaLon.brakeMax = physics::Acceleration::getMax();
+    response.alphaLon.brakeMin = physics::Acceleration::getMin();
+    response.alphaLon.brakeMinCorrect = physics::Acceleration::getMin();
     response.lateralResponseLeft = state::LateralResponse::None;
+    response.alphaLatLeft.accelMax = physics::Acceleration::getMax();
+    response.alphaLatLeft.brakeMin = physics::Acceleration::getMin();
     response.lateralResponseRight = state::LateralResponse::None;
+    response.alphaLatRight.accelMax = physics::Acceleration::getMax();
+    response.alphaLatRight.brakeMin = physics::Acceleration::getMin();
 
     RssSafeStateBeforeDangerThresholdTimeMap newStatesBeforeDangerThresholdTime;
     for (auto const &currentState : currentStateSnapshot.individualResponses)
@@ -69,14 +99,18 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
             //        There is currently no response for a cut-in of a leading vehicle
             response.lateralResponseLeft
               = combineResponse(currentState.lateralStateLeft.response, response.lateralResponseLeft);
+            response.alphaLatLeft = combineRssDynamics(currentState.lateralStateLeft.alphaLat, response.alphaLatLeft);
 
             response.lateralResponseRight
               = combineResponse(currentState.lateralStateRight.response, response.lateralResponseRight);
+            response.alphaLatRight
+              = combineRssDynamics(currentState.lateralStateRight.alphaLat, response.alphaLatRight);
           }
           if (previousNonDangerousState->second.longitudinalSafe)
           {
             response.longitudinalResponse
               = combineResponse(currentState.longitudinalState.response, response.longitudinalResponse);
+            response.alphaLon = combineRssDynamics(currentState.longitudinalState.alphaLon, response.alphaLon);
           }
 
           nonDangerousStateToRemember = previousNonDangerousState->second;
@@ -87,15 +121,18 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
           // dangerous at the same time
           response.longitudinalResponse
             = combineResponse(currentState.longitudinalState.response, response.longitudinalResponse);
+          response.alphaLon = combineRssDynamics(currentState.longitudinalState.alphaLon, response.alphaLon);
 
           // we might need to check here if left or right is the dangerous side
           // but for the combineLateralResponse will only respect the more severe response
           // omitting the check should have the same result
           response.lateralResponseLeft
             = combineResponse(currentState.lateralStateLeft.response, response.lateralResponseLeft);
+          response.alphaLatLeft = combineRssDynamics(currentState.lateralStateLeft.alphaLat, response.alphaLatLeft);
 
           response.lateralResponseRight
             = combineResponse(currentState.lateralStateRight.response, response.lateralResponseRight);
+          response.alphaLatRight = combineRssDynamics(currentState.lateralStateRight.alphaLat, response.alphaLatRight);
         }
       }
       else
@@ -119,6 +156,20 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
 
     if (result)
     {
+      // If the values are not restricted, use the default dynamics
+      if (response.longitudinalResponse == state::LongitudinalResponse::None)
+      {
+        response.alphaLon = currentStateSnapshot.defaultEgoVehicleRssDynamics.alphaLon;
+      }
+      if (response.lateralResponseLeft == state::LateralResponse::None)
+      {
+        response.alphaLatLeft = currentStateSnapshot.defaultEgoVehicleRssDynamics.alphaLat;
+      }
+      if (response.lateralResponseRight == state::LateralResponse::None)
+      {
+        response.alphaLatRight = currentStateSnapshot.defaultEgoVehicleRssDynamics.alphaLat;
+      }
+
       // Determine resulting response
       mStatesBeforeDangerThresholdTime.clear();
       mStatesBeforeDangerThresholdTime.swap(newStatesBeforeDangerThresholdTime);

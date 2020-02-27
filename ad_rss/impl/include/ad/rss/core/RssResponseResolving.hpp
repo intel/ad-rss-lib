@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -78,6 +78,35 @@ private:
     }
     return newResponse;
   }
+
+  /**
+   * @brief combine two LateralRssAccelerationValues in worst-case manner
+   *
+   * @param[in] left the first LateralRssAccelerationValues
+   * @param[in] right the second LateralRssAccelerationValues
+   *
+   * The LateralRssAccelerationValues are combined in a form that the most restrictive acceleration values
+   * of both becomes the resulting LateralRssAccelerationValues.
+   *
+   * @returns the resulting LateralRssAccelerationValues
+   */
+  static world::LateralRssAccelerationValues combineRssDynamics(world::LateralRssAccelerationValues const &left,
+                                                                world::LateralRssAccelerationValues const &right);
+
+  /**
+   * @brief combine two LongitudinalRssAccelerationValues in worst-case manner
+   *
+   * @param[in] left the first LongitudinalRssAccelerationValues
+   * @param[in] right the second LongitudinalRssAccelerationValues
+   *
+   * The LongitudinalRssAccelerationValues are combined in a form that the most restrictive acceleration values
+   * of both becomes the resulting LongitudinalRssAccelerationValues.
+   *
+   * @returns the resulting LongitudinalRssAccelerationValues
+   */
+  static world::LongitudinalRssAccelerationValues
+  combineRssDynamics(world::LongitudinalRssAccelerationValues const &left,
+                     world::LongitudinalRssAccelerationValues const &right);
 
   struct RssSafeState
   {
