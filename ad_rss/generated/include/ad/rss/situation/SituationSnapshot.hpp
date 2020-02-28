@@ -22,6 +22,7 @@
 #include <memory>
 #include <sstream>
 #include "ad/rss/situation/SituationVector.hpp"
+#include "ad/rss/world/RssDynamics.hpp"
 #include "ad/rss/world/TimeIndex.hpp"
 /*!
  * @brief namespace ad
@@ -100,7 +101,8 @@ struct SituationSnapshot
    */
   bool operator==(const SituationSnapshot &other) const
   {
-    return (timeIndex == other.timeIndex) && (situations == other.situations);
+    return (timeIndex == other.timeIndex) && (defaultEgoVehicleRssDynamics == other.defaultEgoVehicleRssDynamics)
+      && (situations == other.situations);
   }
 
   /**
@@ -120,6 +122,14 @@ struct SituationSnapshot
    * back.
    */
   ::ad::rss::world::TimeIndex timeIndex{0u};
+
+  /*!
+   * Defines the standard ego vehicle dynamics to be applied i.e. when there is no  dangerous
+   * scene.
+   * This parameters are provided in addtion on a per situation basis to be able to adapt
+   * these e.g. in respect to object type or the weather conditions
+   */
+  ::ad::rss::world::RssDynamics defaultEgoVehicleRssDynamics;
 
   /*!
    * The vector of situations at a given time.
@@ -163,6 +173,9 @@ inline std::ostream &operator<<(std::ostream &os, SituationSnapshot const &_valu
   os << "SituationSnapshot(";
   os << "timeIndex:";
   os << _value.timeIndex;
+  os << ",";
+  os << "defaultEgoVehicleRssDynamics:";
+  os << _value.defaultEgoVehicleRssDynamics;
   os << ",";
   os << "situations:";
   os << _value.situations;

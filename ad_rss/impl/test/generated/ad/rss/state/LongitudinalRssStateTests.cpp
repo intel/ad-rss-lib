@@ -27,6 +27,23 @@ protected:
     value.isSafe = valueIsSafe;
     ::ad::rss::state::LongitudinalResponse valueResponse(::ad::rss::state::LongitudinalResponse::None);
     value.response = valueResponse;
+    ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+    ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+    valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    valueAlphaLon.accelMax = valueAlphaLonAccelMax;
+    ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+    valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
+    ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+    valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
+    ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+    valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
+      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+    valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
+    valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+    valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
+    valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
+    valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+    value.alphaLon = valueAlphaLon;
     ::ad::rss::state::RssStateInformation valueRssStateInformation;
     ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
     valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
@@ -101,6 +118,29 @@ TEST_F(LongitudinalRssStateTests, comparisonOperatorResponseDiffers)
   ::ad::rss::state::LongitudinalRssState valueA = mValue;
   ::ad::rss::state::LongitudinalResponse response(::ad::rss::state::LongitudinalResponse::BrakeMin);
   valueA.response = response;
+  ::ad::rss::state::LongitudinalRssState valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(LongitudinalRssStateTests, comparisonOperatorAlphaLonDiffers)
+{
+  ::ad::rss::state::LongitudinalRssState valueA = mValue;
+  ::ad::rss::world::LongitudinalRssAccelerationValues alphaLon;
+  ::ad::physics::Acceleration alphaLonAccelMax(1e2);
+  alphaLon.accelMax = alphaLonAccelMax;
+  ::ad::physics::Acceleration alphaLonBrakeMax(1e2);
+  alphaLon.brakeMax = alphaLonBrakeMax;
+  ::ad::physics::Acceleration alphaLonBrakeMin(1e2);
+  alphaLon.brakeMin = alphaLonBrakeMin;
+  ::ad::physics::Acceleration alphaLonBrakeMinCorrect(1e2);
+  alphaLon.brakeMinCorrect = alphaLonBrakeMinCorrect;
+  alphaLon.brakeMax = alphaLon.brakeMin;
+  alphaLon.brakeMin = alphaLon.brakeMinCorrect;
+  alphaLon.brakeMinCorrect = alphaLon.brakeMin;
+  alphaLon.brakeMin = alphaLon.brakeMax;
+  valueA.alphaLon = alphaLon;
   ::ad::rss::state::LongitudinalRssState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

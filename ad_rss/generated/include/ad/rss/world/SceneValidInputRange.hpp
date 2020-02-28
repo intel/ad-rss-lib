@@ -42,7 +42,8 @@ inline bool withinValidInputRange(::ad::rss::world::Scene const &input, bool con
   // check for generic member input ranges
   bool inValidInputRange = true;
   inValidInputRange = withinValidInputRange(input.situationType, logErrors)
-    && withinValidInputRange(input.egoVehicle, logErrors) && withinValidInputRange(input.object, logErrors)
+    && withinValidInputRange(input.egoVehicle, logErrors)
+    && withinValidInputRange(input.egoVehicleRssDynamics, logErrors) && withinValidInputRange(input.object, logErrors)
     && withinValidInputRange(input.objectRssDynamics, logErrors)
     && withinValidInputRange(input.intersectingRoad, logErrors)
     && withinValidInputRange(input.egoVehicleRoad, logErrors);

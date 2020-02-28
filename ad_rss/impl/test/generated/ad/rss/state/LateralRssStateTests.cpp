@@ -27,6 +27,15 @@ protected:
     value.isSafe = valueIsSafe;
     ::ad::rss::state::LateralResponse valueResponse(::ad::rss::state::LateralResponse::None);
     value.response = valueResponse;
+    ::ad::rss::world::LateralRssAccelerationValues valueAlphaLat;
+    ::ad::physics::Acceleration valueAlphaLatAccelMax(-1e2);
+    valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    valueAlphaLat.accelMax = valueAlphaLatAccelMax;
+    ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
+    valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
+      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
+    valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
+    value.alphaLat = valueAlphaLat;
     ::ad::rss::state::RssStateInformation valueRssStateInformation;
     ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
     valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
@@ -101,6 +110,21 @@ TEST_F(LateralRssStateTests, comparisonOperatorResponseDiffers)
   ::ad::rss::state::LateralRssState valueA = mValue;
   ::ad::rss::state::LateralResponse response(::ad::rss::state::LateralResponse::BrakeMin);
   valueA.response = response;
+  ::ad::rss::state::LateralRssState valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(LateralRssStateTests, comparisonOperatorAlphaLatDiffers)
+{
+  ::ad::rss::state::LateralRssState valueA = mValue;
+  ::ad::rss::world::LateralRssAccelerationValues alphaLat;
+  ::ad::physics::Acceleration alphaLatAccelMax(1e2);
+  alphaLat.accelMax = alphaLatAccelMax;
+  ::ad::physics::Acceleration alphaLatBrakeMin(1e2);
+  alphaLat.brakeMin = alphaLatBrakeMin;
+  valueA.alphaLat = alphaLat;
   ::ad::rss::state::LateralRssState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

@@ -104,7 +104,8 @@ struct Scene
    */
   bool operator==(const Scene &other) const
   {
-    return (situationType == other.situationType) && (egoVehicle == other.egoVehicle) && (object == other.object)
+    return (situationType == other.situationType) && (egoVehicle == other.egoVehicle)
+      && (egoVehicleRssDynamics == other.egoVehicleRssDynamics) && (object == other.object)
       && (objectRssDynamics == other.objectRssDynamics) && (intersectingRoad == other.intersectingRoad)
       && (egoVehicleRoad == other.egoVehicleRoad);
   }
@@ -130,6 +131,13 @@ struct Scene
    * The ego vehicle in the context of this scene.
    */
   ::ad::rss::world::Object egoVehicle;
+
+  /*!
+   * Defines the ego vehicle dynamics to be applied.
+   * This parameters are provided on a per situation basis to be able to adapt these
+   * e.g. in respect to object type.
+   */
+  ::ad::rss::world::RssDynamics egoVehicleRssDynamics;
 
   /*!
    * The object this scene refers to.
@@ -195,6 +203,9 @@ inline std::ostream &operator<<(std::ostream &os, Scene const &_value)
   os << ",";
   os << "egoVehicle:";
   os << _value.egoVehicle;
+  os << ",";
+  os << "egoVehicleRssDynamics:";
+  os << _value.egoVehicleRssDynamics;
   os << ",";
   os << "object:";
   os << _value.object;

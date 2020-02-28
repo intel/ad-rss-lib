@@ -1,6 +1,6 @@
 # ----------------- BEGIN LICENSE BLOCK ---------------------------------
 #
-# Copyright (C) 2019 Intel Corporation
+# Copyright (C) 2019-2020 Intel Corporation
 #
 # SPDX-License-Identifier: LGPL-2.1-only
 #
@@ -11,6 +11,8 @@ set(EXEC_NAME ad_map_rss_integration_tests)
 set(TEST_SOURCES
   RssSceneCreationTests.cpp
 )
+
+set_source_files_properties(${TEST_SOURCES} PROPERITES COMPILE_FLAGS -fno-access-control)
 
 if(BINDING_TYPE STREQUAL ROS)
   catkin_add_gtest(${EXEC_NAME} ${TEST_SOURCES} WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})

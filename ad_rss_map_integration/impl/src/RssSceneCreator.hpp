@@ -30,6 +30,9 @@ namespace rss {
  */
 namespace map {
 
+/*! forward declaration of RssSceneCreation */
+class RssSceneCreation;
+
 /*!
  * @brief class providing support to create and append RSS Scenes
  */
@@ -43,18 +46,20 @@ public:
    * parameter
    * @param[in] greenTrafficLights the list of known green traffic lights.
    *   Required to derive the correct priority rule for the ego vehicle when approaching a traffic light intersection.
-   * @param[in/out] worldModel the world model where the newly created scenes are appended
+   * @param[in/out] sceneCreation the scene creation object managing the world model where the newly created scenes are
+   * appended
    */
   RssSceneCreator(RssSceneCreation::RestrictSpeedLimitMode const &restrictSpeedLimitMode,
                   ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights,
-                  ::ad::rss::world::WorldModel &worldModel);
+                  RssSceneCreation &sceneCreation);
 
   /*!
    * @brief overloaded constructor using default values
    *
-   * @param[in/out] worldModel the world model where the newly created scenes are appended
+   * @param[in/out] sceneCreation the scene creation object managing the world model where the newly created scenes are
+   * appended
    */
-  explicit RssSceneCreator(::ad::rss::world::WorldModel &worldModel);
+  explicit RssSceneCreator(RssSceneCreation &sceneCreation);
 
   /*!
    * \brief standard destructor
@@ -197,7 +202,7 @@ private:
 
   double mSpeedLimitFactor;
   ::ad::map::landmark::LandmarkIdSet mGreenTrafficLights;
-  ::ad::rss::world::WorldModel &mWorldModel;
+  RssSceneCreation &mSceneCreation;
 };
 
 } // namespace map

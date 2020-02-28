@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -16,6 +16,7 @@ const TestSupport cTestSupport;
 void resetRssState(state::LongitudinalRssState &state)
 {
   state.response = state::LongitudinalResponse::None;
+  state.alphaLon = getEgoRssDynamics().alphaLon;
   state.isSafe = true;
   state.rssStateInformation.currentDistance = physics::Distance::getMax();
   state.rssStateInformation.safeDistance = physics::Distance::getMax();
@@ -25,6 +26,7 @@ void resetRssState(state::LongitudinalRssState &state)
 void resetRssState(state::LateralRssState &state)
 {
   state.response = state::LateralResponse::None;
+  state.alphaLat = getEgoRssDynamics().alphaLat;
   state.isSafe = true;
   state.rssStateInformation.currentDistance = physics::Distance::getMax();
   state.rssStateInformation.safeDistance = physics::Distance::getMax();
@@ -46,8 +48,11 @@ void resetRssState(state::ProperResponse &properResponse)
   properResponse.timeIndex = 1u;
   properResponse.dangerousObjects.clear();
   properResponse.longitudinalResponse = state::LongitudinalResponse::None;
+  properResponse.alphaLon = getEgoRssDynamics().alphaLon;
   properResponse.lateralResponseLeft = state::LateralResponse::None;
+  properResponse.alphaLatLeft = getEgoRssDynamics().alphaLat;
   properResponse.lateralResponseRight = state::LateralResponse::None;
+  properResponse.alphaLatRight = getEgoRssDynamics().alphaLat;
 }
 
 world::RssDynamics getObjectRssDynamics()
@@ -247,6 +252,7 @@ state::LateralRssState TestSupport::stateWithInformation(state::LateralRssState 
 {
   state::LateralRssState resultState = lateralState;
 
+  resultState.alphaLat = situation.egoVehicleState.dynamics.alphaLat;
   resultState.rssStateInformation.evaluator = state::RssStateEvaluator::LateralDistance;
   resultState.rssStateInformation.currentDistance = situation.relativePosition.lateralDistance;
   switch (situation.situationType)
@@ -289,6 +295,7 @@ state::LateralRssState TestSupport::stateWithInformation(state::LateralRssState 
       resultState.rssStateInformation.safeDistance = Distance(-1.);
       break;
   }
+
   return resultState;
 }
 
@@ -297,6 +304,7 @@ state::LongitudinalRssState TestSupport::stateWithInformation(state::Longitudina
 {
   state::LongitudinalRssState resultState = longitudinalState;
 
+  resultState.alphaLon = situation.egoVehicleState.dynamics.alphaLon;
   resultState.rssStateInformation.currentDistance = situation.relativePosition.longitudinalDistance;
 
   switch (situation.situationType)

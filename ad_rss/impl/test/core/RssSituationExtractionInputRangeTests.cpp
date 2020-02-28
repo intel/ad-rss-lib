@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -21,15 +21,15 @@ protected:
 
   void performTestRun()
   {
-    EXPECT_FALSE(situationExtraction.extractSituationInputRangeChecked(
-      worldModel.timeIndex, worldModel.egoVehicleRssDynamics, worldModel.scenes[0], situation));
+    EXPECT_FALSE(
+      situationExtraction.extractSituationInputRangeChecked(worldModel.timeIndex, worldModel.scenes[0], situation));
   }
 };
 
 TEST_F(RssSituationExtractionInputRangeTests, validateTestSetup)
 {
-  ASSERT_TRUE(situationExtraction.extractSituationInputRangeChecked(
-    worldModel.timeIndex, worldModel.egoVehicleRssDynamics, worldModel.scenes[0], situation));
+  ASSERT_TRUE(
+    situationExtraction.extractSituationInputRangeChecked(worldModel.timeIndex, worldModel.scenes[0], situation));
 }
 
 TEST_F(RssSituationExtractionInputRangeTests, egoVehicleDataInvalid)
@@ -59,8 +59,8 @@ TEST_F(RssSituationExtractionInputRangeTests, objectAsEgoVehicle)
 TEST_F(RssSituationExtractionInputRangeTests, situationNotRelevant)
 {
   worldModel.scenes[0].situationType = situation::SituationType::NotRelevant;
-  ASSERT_TRUE(situationExtraction.extractSituationInputRangeChecked(
-    worldModel.timeIndex, worldModel.egoVehicleRssDynamics, worldModel.scenes[0], situation));
+  ASSERT_TRUE(
+    situationExtraction.extractSituationInputRangeChecked(worldModel.timeIndex, worldModel.scenes[0], situation));
 }
 
 TEST_F(RssSituationExtractionInputRangeTests, situationTypeInvalid)

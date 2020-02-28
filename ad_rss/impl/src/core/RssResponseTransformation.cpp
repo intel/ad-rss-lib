@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -17,43 +17,31 @@ namespace rss {
 namespace core {
 namespace RssResponseTransformation {
 
-bool transformProperResponse(world::WorldModel const &worldModel,
-                             state::ProperResponse const &response,
+bool transformProperResponse(state::ProperResponse const &response,
                              world::AccelerationRestriction &accelerationRestriction)
 {
-  if (!withinValidInputRange(worldModel) || !withinValidInputRange(response))
+  if (!withinValidInputRange(response))
   {
-    spdlog::error("RssResponseTransformation::transformProperResponse>> Invalid input {} {}", worldModel, response);
-    return false;
-  }
-
-  if (worldModel.timeIndex != response.timeIndex)
-  {
-    spdlog::error(
-      "RssResponseTransformation::transformProperResponse>> WorldModel timeIndex {} not matching response timeIndex {}",
-      worldModel.timeIndex,
-      response.timeIndex);
+    spdlog::error("RssResponseTransformation::transformProperResponse>> Invalid input {}", response);
     return false;
   }
   accelerationRestriction.timeIndex = response.timeIndex;
-
   /**
    * If there is no action required RssResponseTransformation should send the maximum allowed acceleration/brake values
    * given by the world model
    */
   // LCOV_EXCL_BR_START: unreachable exceptions due to valid input range checks
-  accelerationRestriction.longitudinalRange.minimum = -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMax;
+  accelerationRestriction.longitudinalRange.minimum = -1. * response.alphaLon.brakeMax;
   switch (response.longitudinalResponse)
   {
     case ::ad::rss::state::LongitudinalResponse::BrakeMin:
-      accelerationRestriction.longitudinalRange.maximum = -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMin;
+      accelerationRestriction.longitudinalRange.maximum = -1. * response.alphaLon.brakeMin;
       break;
     case ::ad::rss::state::LongitudinalResponse::BrakeMinCorrect:
-      accelerationRestriction.longitudinalRange.maximum
-        = -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMinCorrect;
+      accelerationRestriction.longitudinalRange.maximum = -1. * response.alphaLon.brakeMinCorrect;
       break;
     case ::ad::rss::state::LongitudinalResponse::None:
-      accelerationRestriction.longitudinalRange.maximum = worldModel.egoVehicleRssDynamics.alphaLon.accelMax;
+      accelerationRestriction.longitudinalRange.maximum = response.alphaLon.accelMax;
       break;
     default:
       spdlog::error("RssResponseTransformation::transformProperResponse>> Invalid longitudinal response state {}",
@@ -65,12 +53,12 @@ bool transformProperResponse(world::WorldModel const &worldModel,
   switch (response.lateralResponseLeft)
   {
     case ::ad::rss::state::LateralResponse::BrakeMin:
-      accelerationRestriction.lateralLeftRange.maximum = -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin;
+      accelerationRestriction.lateralLeftRange.maximum = -1. * response.alphaLatLeft.brakeMin;
       accelerationRestriction.lateralLeftRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
       break;
     case ::ad::rss::state::LateralResponse::None:
-      accelerationRestriction.lateralLeftRange.maximum = worldModel.egoVehicleRssDynamics.alphaLat.accelMax;
-      accelerationRestriction.lateralLeftRange.minimum = -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin;
+      accelerationRestriction.lateralLeftRange.maximum = response.alphaLatLeft.accelMax;
+      accelerationRestriction.lateralLeftRange.minimum = -1. * response.alphaLatLeft.brakeMin;
       break;
     default:
       spdlog::error("RssResponseTransformation::transformProperResponse>> Invalid lateral left response state {}",
@@ -82,12 +70,12 @@ bool transformProperResponse(world::WorldModel const &worldModel,
   switch (response.lateralResponseRight)
   {
     case ::ad::rss::state::LateralResponse::BrakeMin:
-      accelerationRestriction.lateralRightRange.maximum = -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin;
+      accelerationRestriction.lateralRightRange.maximum = -1. * response.alphaLatRight.brakeMin;
       accelerationRestriction.lateralRightRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
       break;
     case ::ad::rss::state::LateralResponse::None:
-      accelerationRestriction.lateralRightRange.maximum = worldModel.egoVehicleRssDynamics.alphaLat.accelMax;
-      accelerationRestriction.lateralRightRange.minimum = -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin;
+      accelerationRestriction.lateralRightRange.maximum = response.alphaLatRight.accelMax;
+      accelerationRestriction.lateralRightRange.minimum = -1. * response.alphaLatRight.brakeMin;
       break;
     default:
       spdlog::error("RssResponseTransformation::transformProperResponse>> Invalid lateral right response state {}",

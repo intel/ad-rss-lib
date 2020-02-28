@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -310,6 +310,7 @@ TEST_F(RssSituationCheckingInputRangeTests, situationSnapshotSizeRange)
   {
     SituationSnapshot situationSnapshot;
     state::RssStateSnapshot rssStateSnapshot;
+    situationSnapshot.defaultEgoVehicleRssDynamics = getEgoRssDynamics();
     situationSnapshot.situations.resize(situationCount, situation);
     situationSnapshot.timeIndex = situationCount + 1u;
     for (size_t i = 0u; i < situationCount; ++i)

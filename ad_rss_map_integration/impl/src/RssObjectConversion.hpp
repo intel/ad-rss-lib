@@ -107,11 +107,6 @@ public:
   /** @returns Object id */
   ::ad::rss::world::ObjectId getId() const;
 
-  /** @returns the current calculated max speed
-   *  which was adapted by updateSpeedLimit()
-   */
-  ::ad::physics::Speed getMaxSpeed() const;
-
   /** @returns the minimum distance for the object to stop
    *  This is an estimate, that can be used to calculate the connecting route calculation distance to be taken into
    * account.
