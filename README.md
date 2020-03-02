@@ -145,7 +145,7 @@ Besides Ubuntu 16.04 we are currently supporting the following Linux OS and comp
 Important: cmake is required to be at least version 3.5!
 
 ## Building the library <a name="building"></a>
-See the detailed [Build instructions](https://intel.github.io/ad-rss-lib/ad_rss/BUILDING/index.html).
+See the detailed [Build instructions](https://intel.github.io/ad-rss-lib/BUILDING/index.html).
 
 ## Contributing <a name="contributing"></a>
 Contibutions are very welcome!
