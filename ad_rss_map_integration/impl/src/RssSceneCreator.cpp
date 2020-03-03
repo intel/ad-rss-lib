@@ -338,22 +338,13 @@ bool RssSceneCreator::appendIntersectionScene(::ad::map::intersection::Intersect
   }
   else
   {
-    auto const findWaypointResult = ::ad::map::route::findNearestWaypoint(
-      intersection->incomingParaPointsWithLowerPriority(), intersectionOtherRoute);
-    if (findWaypointResult.isValid())
+    if (intersectionOtherRoute.routePlanningCounter == objectRoute.routePlanningCounter)
     {
-      if (intersectionOtherRoute.routePlanningCounter == objectRoute.routePlanningCounter)
-      {
-        situationType = ::ad::rss::situation::SituationType::IntersectionEgoHasPriority;
-      }
-      else
-      {
-        situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;
-      }
+      situationType = ::ad::rss::situation::SituationType::IntersectionEgoHasPriority;
     }
     else
     {
-      situationType = ::ad::rss::situation::SituationType::IntersectionSamePriority;
+      situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;
     }
   }
 

@@ -9,7 +9,14 @@
 set(EXEC_NAME ad_map_rss_integration_tests)
 
 set(TEST_SOURCES
+  RssSceneCreationTestEgoSouth2EastOtherEast2North.cpp
+  RssSceneCreationTestEgoSouth2EastOtherEast2South.cpp
+  RssSceneCreationTestEgoSouth2EastOtherNorth2East.cpp
+  RssSceneCreationTestEgoSouth2EastOtherNorth2South.cpp
+  RssSceneCreationTestEgoSouth2EastOtherSouth2East.cpp
+  RssSceneCreationTestEgoSouth2EastOtherSouth2North.cpp
   RssSceneCreationTests.cpp
+  RssSceneCreationTestTown04.cpp
 )
 
 set_source_files_properties(${TEST_SOURCES} PROPERITES COMPILE_FLAGS -fno-access-control)
