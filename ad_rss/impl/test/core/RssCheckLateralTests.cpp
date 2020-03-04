@@ -167,6 +167,7 @@ TEST_F(RssCheckLateralEgoLeftTest, Lateral_Velocity_Towards_Each_Other)
     }
     else
     {
+      // TODO: never reached
       testRestrictions(accelerationRestriction,
                        state::LongitudinalResponse::None,
                        state::LateralResponse::None,
@@ -290,9 +291,14 @@ protected:
 
 #if RSS_CHECK_TEST_DEBUG_OUT
         std::cout << "Testing[j=" << j << ", i=" << i << "]: dMinLeft=" << static_cast<double>(dMinLeft)
-                  << " dActualLeft=" << static_cast<double>(dActualLeft)
+                  << " dActualLeft=" << static_cast<double>(dActualLeft) << " leftResponse="
+                  << ((expectedLatResponseLeft == state::LateralResponse::BrakeMin) ? "BrakeMin" : "None")
                   << " dMinRight=" << static_cast<double>(dMinRight)
-                  << " dActualRight=" << static_cast<double>(dActualRight) << std::endl;
+                  << " dActualRight=" << static_cast<double>(dActualRight) << " rightResponse="
+                  << ((expectedLatResponseRight == state::LateralResponse::BrakeMin) ? "BrakeMin" : "None")
+                  << " lonResponse="
+                  << ((expectedLonResponse == state::LongitudinalResponse::BrakeMin) ? "BrakeMin" : "None")
+                  << std::endl;
 #endif
         EXPECT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
         testRestrictions(

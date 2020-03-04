@@ -8,7 +8,6 @@
 
 #include "ad/rss/core/RssCheck.hpp"
 #include "ad/rss/core/RssResponseResolving.hpp"
-#include "ad/rss/core/RssResponseTransformation.hpp"
 #include "ad/rss/core/RssSituationChecking.hpp"
 #include "ad/rss/core/RssSituationExtraction.hpp"
 #include "spdlog/fmt/ostr.h"
@@ -65,12 +64,7 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
 
     if (result)
     {
-      result = mResponseResolving->provideProperResponse(rssStateSnapshot, properResponse);
-    }
-
-    if (result)
-    {
-      result = RssResponseTransformation::transformProperResponse(properResponse, accelerationRestriction);
+      result = mResponseResolving->provideProperResponse(rssStateSnapshot, properResponse, accelerationRestriction);
     }
   }
   // LCOV_EXCL_START: unreachable code, keep to be on the safe side

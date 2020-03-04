@@ -9,7 +9,6 @@
 set(ad_rss_SOURCES
   ${CMAKE_CURRENT_LIST_DIR}/src/core/RssCheck.cpp
   ${CMAKE_CURRENT_LIST_DIR}/src/core/RssResponseResolving.cpp
-  ${CMAKE_CURRENT_LIST_DIR}/src/core/RssResponseTransformation.cpp
   ${CMAKE_CURRENT_LIST_DIR}/src/core/RssSituationChecking.cpp
   ${CMAKE_CURRENT_LIST_DIR}/src/core/RssSituationExtraction.cpp
   ${CMAKE_CURRENT_LIST_DIR}/src/situation/Physics.cpp

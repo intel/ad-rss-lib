@@ -48,11 +48,8 @@ void resetRssState(state::ProperResponse &properResponse)
   properResponse.timeIndex = 1u;
   properResponse.dangerousObjects.clear();
   properResponse.longitudinalResponse = state::LongitudinalResponse::None;
-  properResponse.alphaLon = getEgoRssDynamics().alphaLon;
   properResponse.lateralResponseLeft = state::LateralResponse::None;
-  properResponse.alphaLatLeft = getEgoRssDynamics().alphaLat;
   properResponse.lateralResponseRight = state::LateralResponse::None;
-  properResponse.alphaLatRight = getEgoRssDynamics().alphaLat;
 }
 
 world::RssDynamics getObjectRssDynamics()
