@@ -168,8 +168,8 @@ TEST_F(RssCheckObjectTests, IncorrectEgoVehicleLongitudinalAccelerationRange)
   world::AccelerationRestriction accelerationRestriction;
   core::RssCheck rssCheck;
 
-  worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMax = Acceleration(1);
-  worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMin = Acceleration(5);
+  worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMax = Acceleration(-1);
+  worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMin = Acceleration(-5);
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
@@ -179,18 +179,18 @@ TEST_F(RssCheckObjectTests, IncorrectEgoVehicleLongitudinalAccelerationRange2)
   world::AccelerationRestriction accelerationRestriction;
   core::RssCheck rssCheck;
 
-  worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMin = Acceleration(1);
-  worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMinCorrect = Acceleration(5);
+  worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMin = Acceleration(-1);
+  worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMinCorrect = Acceleration(-5);
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }
 
-TEST_F(RssCheckObjectTests, NegativeEgoVehicleLateralAcceleration)
+TEST_F(RssCheckObjectTests, PositiveEgoVehicleLateralAcceleration)
 {
   world::AccelerationRestriction accelerationRestriction;
   core::RssCheck rssCheck;
 
-  worldModel.defaultEgoVehicleRssDynamics.alphaLat.brakeMin = Acceleration(-1);
+  worldModel.defaultEgoVehicleRssDynamics.alphaLat.brakeMin = Acceleration(1);
 
   ASSERT_FALSE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 }

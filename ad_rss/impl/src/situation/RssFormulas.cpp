@@ -54,12 +54,12 @@ bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const
                        axis, currentSpeed, maxSpeed, acceleration, responseTime, distanceOffsetAfterResponseTime);
 
   Distance distanceToStop = Distance(0.);
-  if (std::signbit(static_cast<double>(resultingSpeed)) == std::signbit(static_cast<double>(acceleration)))
+  if (std::signbit(static_cast<double>(resultingSpeed)) != std::signbit(static_cast<double>(deceleration)))
   {
     // if speed after stated braking pattern has the same direction as the acceleration
     // (always the case in longitudinal situation)
     // further braking to full stop in that moving direction has to be added
-    result = result && calculateStoppingDistance(resultingSpeed, std::fabs(deceleration), distanceToStop);
+    result = result && calculateStoppingDistance(resultingSpeed, deceleration, distanceToStop);
   }
 
   if (result)

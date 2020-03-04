@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -53,7 +53,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
@@ -71,7 +71,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
@@ -91,7 +91,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle.dynamics.maxSpeed = kmhToMeterPerSec(50.);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
@@ -110,7 +110,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle.dynamics.maxSpeed = kmhToMeterPerSec(50.);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
@@ -129,7 +129,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(0.);
-  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
@@ -148,7 +148,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   leadingVehicle = createVehicleStateForLongitudinalMotion(0);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
@@ -176,7 +176,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle.dynamics.maxSpeed = kmhToMeterPerSec(50.);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;
@@ -203,7 +203,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_0kmh_
   leadingVehicle = createVehicleStateForLongitudinalMotion(0);
   followingVehicle = createVehicleStateForLongitudinalMotion(0);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
 
   situation.egoVehicleState = followingVehicle;
   situation.otherVehicleState = leadingVehicle;

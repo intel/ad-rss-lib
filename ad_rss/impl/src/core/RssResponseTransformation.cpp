@@ -31,14 +31,14 @@ bool transformProperResponse(state::ProperResponse const &response,
    * given by the world model
    */
   // LCOV_EXCL_BR_START: unreachable exceptions due to valid input range checks
-  accelerationRestriction.longitudinalRange.minimum = -1. * response.alphaLon.brakeMax;
+  accelerationRestriction.longitudinalRange.minimum = response.alphaLon.brakeMax;
   switch (response.longitudinalResponse)
   {
     case ::ad::rss::state::LongitudinalResponse::BrakeMin:
-      accelerationRestriction.longitudinalRange.maximum = -1. * response.alphaLon.brakeMin;
+      accelerationRestriction.longitudinalRange.maximum = response.alphaLon.brakeMin;
       break;
     case ::ad::rss::state::LongitudinalResponse::BrakeMinCorrect:
-      accelerationRestriction.longitudinalRange.maximum = -1. * response.alphaLon.brakeMinCorrect;
+      accelerationRestriction.longitudinalRange.maximum = response.alphaLon.brakeMinCorrect;
       break;
     case ::ad::rss::state::LongitudinalResponse::None:
       accelerationRestriction.longitudinalRange.maximum = response.alphaLon.accelMax;
@@ -53,12 +53,12 @@ bool transformProperResponse(state::ProperResponse const &response,
   switch (response.lateralResponseLeft)
   {
     case ::ad::rss::state::LateralResponse::BrakeMin:
-      accelerationRestriction.lateralLeftRange.maximum = -1. * response.alphaLatLeft.brakeMin;
+      accelerationRestriction.lateralLeftRange.maximum = response.alphaLatLeft.brakeMin;
       accelerationRestriction.lateralLeftRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
       break;
     case ::ad::rss::state::LateralResponse::None:
       accelerationRestriction.lateralLeftRange.maximum = response.alphaLatLeft.accelMax;
-      accelerationRestriction.lateralLeftRange.minimum = -1. * response.alphaLatLeft.brakeMin;
+      accelerationRestriction.lateralLeftRange.minimum = response.alphaLatLeft.brakeMin;
       break;
     default:
       spdlog::error("RssResponseTransformation::transformProperResponse>> Invalid lateral left response state {}",
@@ -70,12 +70,12 @@ bool transformProperResponse(state::ProperResponse const &response,
   switch (response.lateralResponseRight)
   {
     case ::ad::rss::state::LateralResponse::BrakeMin:
-      accelerationRestriction.lateralRightRange.maximum = -1. * response.alphaLatRight.brakeMin;
+      accelerationRestriction.lateralRightRange.maximum = response.alphaLatRight.brakeMin;
       accelerationRestriction.lateralRightRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
       break;
     case ::ad::rss::state::LateralResponse::None:
       accelerationRestriction.lateralRightRange.maximum = response.alphaLatRight.accelMax;
-      accelerationRestriction.lateralRightRange.minimum = -1. * response.alphaLatRight.brakeMin;
+      accelerationRestriction.lateralRightRange.minimum = response.alphaLatRight.brakeMin;
       break;
     default:
       spdlog::error("RssResponseTransformation::transformProperResponse>> Invalid lateral right response state {}",
