@@ -178,7 +178,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
         result = true;
       }
     }
-    else if (!::ad::map::route::intersectionOnConnectedRoute(connectingRoute))
+    else if (!::ad::map::route::isConnectedRoutePartOfAnIntersection(connectingRoute))
     {
       if (connectingRoute.type == ::ad::map::route::ConnectingRouteType::Opposing)
       {
