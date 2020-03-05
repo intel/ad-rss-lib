@@ -11,11 +11,13 @@
 
 git checkout -b intermediate
 mkdir gh-pages
-mkdir gh-pages/doxygen
+mkdir -p gh-pages/doxygen/ad_rss/
+mkdir -p gh-pages/doxygen/ad_rss_map_integration/
 mkdir gh-pages/documentation
 mkdir gh-pages/coverage
 cp -r coverage/* gh-pages/coverage/
-cp -r build/doc/apidoc/* gh-pages/doxygen
+cp -r build/ad_rss/apidoc/html/* gh-pages/doxygen/ad_rss/
+cp -r build/ad_rss_map_integration/apidoc/html/* gh-pages/doxygen/ad_rss_map_integration/
 cp -r site/* gh-pages/
 git add gh-pages/
 git commit -m "Dummy commit" --no-edit

@@ -77,7 +77,7 @@ matrix:
       before_install:
         - git submodule update --init
         - pip3 install setuptools
-        - pip install --user mkdocs>=1.0 markdown-include pymdown-extensions pygments mdx_truly_sane_lists
+        - pip install --user mkdocs>=1.0 markdown-include pymdown-extensions==6.2 pygments mdx_truly_sane_lists
       before_script:
         - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
         - sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
@@ -112,13 +112,23 @@ matrix:
             - lcov
             - doxygen
             - graphviz
-            - python-pip
+            - python3
+            - python3-pip
+            - libboost-all-dev
+            - libpugixml-dev
+            - libproj-dev
+            - libgtest-dev
       before_install:
         - git submodule update --init
-        - pip install --user mkdocs>=1.0 markdown-include pymdown-extensions pygments mdx_truly_sane_lists
+        - pip3 install setuptools
+        - pip install --user mkdocs>=1.0 markdown-include pymdown-extensions==6.2 pygments mdx_truly_sane_lists
+      before_script:
+        - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+        - sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+        - sudo apt-get update
+        - sudo apt-get install python3-colcon-common-extensions
       script:
-        - colcon build --executor sequential --packages-select ad_rss ad_rss_map_integration --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_HARDENING=ON
-        - colcon build --executor sequential --packages-select ad_rss ad_rss_map_integration --cmake-args -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DBUILD_COVERAGE=ON -DBUILD_APIDOC=ON
+        - colcon build --executor sequential --packages-packages-up-to ad_rss ad_rss_map_integration --cmake-args -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DBUILD_COVERAGE=ON -DBUILD_APIDOC=ON
         - colcon test --packages-select ad_rss ad_rss_map_integration
         - export PATH=$PATH:~/.local/lib/python2.7/site-packages/mkdocs/
         - mkdocs build
