@@ -1,0 +1,9 @@
+<map id="ad::rss::world::Scene" name="ad::rss::world::Scene">
+<area shape="rect" id="node3" title="STL class. " alt="" coords="324,7,451,33"/>
+<area shape="rect" id="node5" href="$structad_1_1rss_1_1world_1_1Object.html" title="DataType Object. " alt="" coords="663,101,818,128"/>
+<area shape="rect" id="node7" href="$structad_1_1rss_1_1world_1_1OccupiedRegion.html" title="DataType OccupiedRegion. " alt="" coords="5,58,179,99"/>
+<area shape="rect" id="node8" href="$structad_1_1rss_1_1world_1_1Velocity.html" title="DataType Velocity. " alt="" coords="306,124,469,151"/>
+<area shape="rect" id="node9" href="$structad_1_1rss_1_1world_1_1RssDynamics.html" title="DataType RssDynamics. " alt="" coords="641,183,840,209"/>
+<area shape="rect" id="node10" href="$structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="297,175,477,217"/>
+<area shape="rect" id="node11" href="$structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="292,241,483,282"/>
+</map>

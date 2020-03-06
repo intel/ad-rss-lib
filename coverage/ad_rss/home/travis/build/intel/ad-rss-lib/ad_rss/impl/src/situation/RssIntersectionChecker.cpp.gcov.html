@@ -1,0 +1,405 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - ad-rss-lib - /home/travis/build/intel/ad-rss-lib/ad_rss/impl/src/situation/RssIntersectionChecker.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../../../../../../index.html">top level</a> - <a href="index.html">home/travis/build/intel/ad-rss-lib/ad_rss/impl/src/situation</a> - RssIntersectionChecker.cpp<span style="font-size: 80%;"> (source / <a href="RssIntersectionChecker.cpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">ad-rss-lib</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">109</td>
+            <td class="headerCovTableEntry">109</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-03-06 13:50:37</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">82</td>
+            <td class="headerCovTableEntry">126</td>
+            <td class="headerCovTableEntryLo">65.1 %</td>
+          </tr>
+          <tr><td><img src="../../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : // ----------------- BEGIN LICENSE BLOCK ---------------------------------</a>
+<span class="lineNum">       2 </span>                :            : //
+<span class="lineNum">       3 </span>                :            : // Copyright (C) 2018-2019 Intel Corporation
+<span class="lineNum">       4 </span>                :            : //
+<span class="lineNum">       5 </span>                :            : // SPDX-License-Identifier: LGPL-2.1-only
+<span class="lineNum">       6 </span>                :            : //
+<span class="lineNum">       7 </span>                :            : // ----------------- END LICENSE BLOCK -----------------------------------
+<span class="lineNum">       8 </span>                :            : 
+<span class="lineNum">       9 </span>                :            : #include &quot;RssIntersectionChecker.hpp&quot;
+<span class="lineNum">      10 </span>                :            : #include &lt;cmath&gt;
+<span class="lineNum">      11 </span>                :            : #include &lt;limits&gt;
+<span class="lineNum">      12 </span>                :            : #include &quot;Math.hpp&quot;
+<span class="lineNum">      13 </span>                :            : #include &quot;RssFormulas.hpp&quot;
+<span class="lineNum">      14 </span>                :            : #include &quot;RssSituation.hpp&quot;
+<span class="lineNum">      15 </span>                :            : 
+<span class="lineNum">      16 </span>                :            : namespace ad {
+<span class="lineNum">      17 </span>                :            : 
+<span class="lineNum">      18 </span>                :            : using physics::Duration;
+<span class="lineNum">      19 </span>                :            : 
+<span class="lineNum">      20 </span>                :            : namespace rss {
+<span class="lineNum">      21 </span>                :            : namespace situation {
+<span class="lineNum">      22 </span>                :            : 
+<a name="23"><span class="lineNum">      23 </span>                :            : using situation::calculateTimeToCoverDistance;</a>
+<span class="lineNum">      24 </span>                :            : 
+<span class="lineNum">      25 </span>                :<span class="lineCov">       1550 : RssIntersectionChecker::RssIntersectionChecker()</span>
+<span class="lineNum">      26 </span>                :            : {
+<a name="27"><span class="lineNum">      27 </span>                :<span class="lineCov">        775 : }</span></a>
+<span class="lineNum">      28 </span>                :            : 
+<span class="lineNum">      29 </span>                :<span class="lineCov">       1550 : RssIntersectionChecker::~RssIntersectionChecker()</span>
+<span class="lineNum">      30 </span>                :            : {
+<span class="lineNum">      31 </span>                :<span class="lineCov">        775 :   mLastSafeStateMap.clear();</span>
+<span class="lineNum">      32 </span>                :<span class="lineCov">        775 :   mCurrentSafeStateMap.clear();</span>
+<a name="33"><span class="lineNum">      33 </span>                :<span class="lineCov">        775 : }</span></a>
+<span class="lineNum">      34 </span>                :            : 
+<span class="lineNum">      35 </span>                :<span class="lineCov">        241 : bool checkLateralIntersect(Situation const &amp;situation, bool &amp;isSafe)</span>
+<span class="lineNum">      36 </span>                :            : {
+<span class="lineNum">      37 </span>                :<span class="lineCov">        241 :   isSafe = false;</span>
+<span class="lineNum">      38 </span>                :            : 
+<span class="lineNum">      39 </span>                :            :   /**
+<span class="lineNum">      40 </span>                :            :    * Check if in any case the first vehicle has passed the intersection before the other
+<span class="lineNum">      41 </span>                :            :    * vehicle arrives at that point
+<span class="lineNum">      42 </span>                :            :    */
+<span class="lineNum">      43 </span>                :            : 
+<span class="lineNum">      44 </span>                :<span class="lineCov">        241 :   Duration timeToReachEgo;</span>
+<span class="lineNum">      45 </span>                :<span class="lineCov">        241 :   Duration timeToReachOther;</span>
+<span class="lineNum">      46 </span>                :<span class="lineCov">        241 :   Duration timeToLeaveEgo;</span>
+<span class="lineNum">      47 </span>                :<span class="lineCov">        241 :   Duration timeToLeaveOther;</span>
+<span class="lineNum">      48 </span>                :            : 
+<span class="lineNum">      49 </span>                :<span class="lineCov">        241 :   bool result = calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon.maximum,</span>
+<span class="lineNum">      50 </span>                :            :                                              situation.egoVehicleState.dynamics.maxSpeed,
+<span class="lineNum">      51 </span>                :            :                                              situation.egoVehicleState.dynamics.responseTime,
+<span class="lineNum">      52 </span>                :            :                                              situation.egoVehicleState.dynamics.alphaLon.accelMax,
+<span class="lineNum">      53 </span>                :            :                                              situation.egoVehicleState.dynamics.alphaLon.brakeMin,
+<span class="lineNum">      54 </span>                :            :                                              situation.egoVehicleState.distanceToEnterIntersection,
+<span class="lineNum">      55 </span>        [<span class="branchCov" title="Branch 1 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        241 :                                              timeToReachEgo);</span>
+<span class="lineNum">      56 </span>                :            : 
+<span class="lineNum">      57 </span>[<span class="branchCov" title="Branch 0 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        241 :   result = result &amp;&amp; calculateTimeToCoverDistance(situation.otherVehicleState.velocity.speedLon.maximum,</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
+<span class="lineNum">      58 </span>                :            :                                                   situation.egoVehicleState.dynamics.maxSpeed,
+<span class="lineNum">      59 </span>                :            :                                                   situation.otherVehicleState.dynamics.responseTime,
+<span class="lineNum">      60 </span>                :            :                                                   situation.otherVehicleState.dynamics.alphaLon.accelMax,
+<span class="lineNum">      61 </span>                :            :                                                   situation.otherVehicleState.dynamics.alphaLon.brakeMin,
+<span class="lineNum">      62 </span>                :            :                                                   situation.otherVehicleState.distanceToEnterIntersection,
+<span class="lineNum">      63 </span>                :<span class="lineCov">        241 :                                                   timeToReachOther);</span>
+<span class="lineNum">      64 </span>                :            : 
+<span class="lineNum">      65 </span>[<span class="branchCov" title="Branch 0 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        482 :   result = result &amp;&amp; calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon.minimum,</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
+<span class="lineNum">      66 </span>                :            :                                                   situation.egoVehicleState.dynamics.maxSpeed,
+<span class="lineNum">      67 </span>                :            :                                                   situation.egoVehicleState.dynamics.responseTime,
+<span class="lineNum">      68 </span>[<span class="branchCov" title="Branch 1 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        723 :                                                   -1. * situation.egoVehicleState.dynamics.alphaLon.brakeMax,</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 241 times"> + </span>]
+<span class="lineNum">         </span>  [<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>]
+<span class="lineNum">      69 </span>                :            :                                                   situation.egoVehicleState.dynamics.alphaLon.brakeMax,
+<span class="lineNum">      70 </span>                :            :                                                   situation.egoVehicleState.distanceToLeaveIntersection,
+<span class="lineNum">      71 </span>                :<span class="lineCov">        241 :                                                   timeToLeaveEgo);</span>
+<span class="lineNum">      72 </span>                :            : 
+<span class="lineNum">      73 </span>[<span class="branchCov" title="Branch 0 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        482 :   result = result &amp;&amp; calculateTimeToCoverDistance(situation.otherVehicleState.velocity.speedLon.minimum,</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
+<span class="lineNum">      74 </span>                :            :                                                   situation.egoVehicleState.dynamics.maxSpeed,
+<span class="lineNum">      75 </span>                :            :                                                   situation.otherVehicleState.dynamics.responseTime,
+<span class="lineNum">      76 </span>[<span class="branchCov" title="Branch 1 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        723 :                                                   -1. * situation.otherVehicleState.dynamics.alphaLon.brakeMax,</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 241 times"> + </span>]
+<span class="lineNum">         </span>  [<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>]
+<span class="lineNum">      77 </span>                :            :                                                   situation.otherVehicleState.dynamics.alphaLon.brakeMax,
+<span class="lineNum">      78 </span>                :            :                                                   situation.otherVehicleState.distanceToLeaveIntersection,
+<span class="lineNum">      79 </span>                :<span class="lineCov">        241 :                                                   timeToLeaveOther);</span>
+<span class="lineNum">      80 </span>                :            : 
+<span class="lineNum">      81 </span>        [<span class="branchCov" title="Branch 0 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        241 :   if (result)</span>
+<span class="lineNum">      82 </span>                :            :   {
+<span class="lineNum">      83 </span>[<span class="branchCov" title="Branch 1 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        963 :     if ((timeToReachEgo &gt; timeToLeaveOther) || (timeToReachOther &gt; timeToLeaveEgo)</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 240 times"> + </span><span class="branchCov" title="Branch 7 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 8 was taken 1 time"> + </span><span class="branchCov" title="Branch 9 was taken 240 times"> + </span>]
+<span class="lineNum">      84 </span>[<span class="branchCov" title="Branch 0 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 240 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">       1052 :         || ((timeToReachEgo == std::numeric_limits&lt;Duration&gt;::max())</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 89 times"> + </span><span class="branchCov" title="Branch 7 was taken 151 times"> + </span>][<span class="branchCov" title="Branch 8 was taken 1 time"> + </span><span class="branchCov" title="Branch 9 was taken 240 times"> + </span>]
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
+<span class="lineNum">      85 </span>[<span class="branchCov" title="Branch 2 was taken 89 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 89 times"> + </span>]:<span class="lineCov">        330 :             &amp;&amp; (timeToReachOther == std::numeric_limits&lt;Duration&gt;::max())))</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 89 times"> + </span><span class="branchCov" title="Branch 7 was taken 152 times"> + </span>][<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">      86 </span>                :            :     {
+<span class="lineNum">      87 </span>                :            :       /**
+<span class="lineNum">      88 </span>                :            :        * Currently we assume lateral overlap when there is a vehicle in an intersection
+<span class="lineNum">      89 </span>                :            :        * @todo This could be relaxed by calculating lateral distance here as well
+<span class="lineNum">      90 </span>                :            :        */
+<span class="lineNum">      91 </span>                :<span class="lineCov">          1 :       isSafe = true;</span>
+<span class="lineNum">      92 </span>                :            :     }
+<span class="lineNum">      93 </span>                :            :   }
+<span class="lineNum">      94 </span>                :            : 
+<span class="lineNum">      95 </span>                :<span class="lineCov">        241 :   return result;</span>
+<a name="96"><span class="lineNum">      96 </span>                :            : }</a>
+<span class="lineNum">      97 </span>                :            : 
+<span class="lineNum">      98 </span>                :<span class="lineCov">        810 : bool checkIntersectionSafe(Situation const &amp;situation,</span>
+<span class="lineNum">      99 </span>                :            :                            ::ad::rss::state::RssStateInformation &amp;rssStateInformation,
+<span class="lineNum">     100 </span>                :            :                            bool &amp;isSafe,
+<span class="lineNum">     101 </span>                :            :                            IntersectionState &amp;intersectionState)
+<span class="lineNum">     102 </span>                :            : {
+<span class="lineNum">     103 </span>        [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchCov" title="Branch 2 was taken 808 times"> + </span>]:<span class="lineCov">       1620 :   if ((situation.egoVehicleState.distanceToLeaveIntersection &lt; situation.egoVehicleState.distanceToEnterIntersection)</span>
+<span class="lineNum">     104 </span>  [<span class="branchCov" title="Branch 0 was taken 809 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 808 times"> + </span>]:<span class="lineCov">       1619 :       || (situation.otherVehicleState.distanceToLeaveIntersection</span>
+<span class="lineNum">     105 </span>                :<span class="lineCov">        809 :           &lt; situation.otherVehicleState.distanceToEnterIntersection))</span>
+<span class="lineNum">     106 </span>                :            :   {
+<span class="lineNum">     107 </span>                :<span class="lineCov">          2 :     return false;</span>
+<span class="lineNum">     108 </span>                :            :   }
+<span class="lineNum">     109 </span>                :            : 
+<span class="lineNum">     110 </span>                :<span class="lineCov">        808 :   bool result = true;</span>
+<span class="lineNum">     111 </span>                :<span class="lineCov">        808 :   isSafe = false;</span>
+<span class="lineNum">     112 </span>                :            : 
+<span class="lineNum">     113 </span>                :            :   /**
+<span class="lineNum">     114 </span>                :            :    * Check if a non prio vehicle has safe distance to the intersection
+<span class="lineNum">     115 </span>                :            :    */
+<span class="lineNum">     116 </span>        [<span class="branchCov" title="Branch 0 was taken 421 times"> + </span><span class="branchCov" title="Branch 1 was taken 387 times"> + </span>]:<span class="lineCov">        808 :   if (!situation.egoVehicleState.hasPriority)</span>
+<span class="lineNum">     117 </span>                :            :   {
+<span class="lineNum">     118 </span>                :<span class="lineCov">        421 :     rssStateInformation.evaluator = state::RssStateEvaluator::IntersectionOtherPriorityEgoAbleToStop;</span>
+<span class="lineNum">     119 </span>                :<span class="lineCov">        421 :     rssStateInformation.currentDistance = situation.egoVehicleState.distanceToEnterIntersection;</span>
+<span class="lineNum">     120 </span>                :<span class="lineCov">        421 :     result = checkStopInFrontIntersection(situation.egoVehicleState, rssStateInformation.safeDistance, isSafe);</span>
+<span class="lineNum">     121 </span>                :            :   }
+<span class="lineNum">     122 </span>[<span class="branchCov" title="Branch 0 was taken 808 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 476 times"> + </span><span class="branchCov" title="Branch 3 was taken 332 times"> + </span>]:<span class="lineCov">        808 :   if (result &amp;&amp; !isSafe &amp;&amp; !situation.otherVehicleState.hasPriority)</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 4 was taken 432 times"> + </span><span class="branchCov" title="Branch 5 was taken 44 times"> + </span>]
+<span class="lineNum">     123 </span>                :            :   {
+<span class="lineNum">     124 </span>                :<span class="lineCov">        432 :     rssStateInformation.evaluator = state::RssStateEvaluator::IntersectionEgoPriorityOtherAbleToStop;</span>
+<span class="lineNum">     125 </span>                :<span class="lineCov">        432 :     rssStateInformation.currentDistance = situation.otherVehicleState.distanceToEnterIntersection;</span>
+<span class="lineNum">     126 </span>                :<span class="lineCov">        432 :     result = checkStopInFrontIntersection(situation.otherVehicleState, rssStateInformation.safeDistance, isSafe);</span>
+<span class="lineNum">     127 </span>                :            :   }
+<span class="lineNum">     128 </span>                :            : 
+<span class="lineNum">     129 </span>        [<span class="branchCov" title="Branch 0 was taken 337 times"> + </span><span class="branchCov" title="Branch 1 was taken 471 times"> + </span>]:<span class="lineCov">        808 :   if (isSafe)</span>
+<span class="lineNum">     130 </span>                :            :   {
+<span class="lineNum">     131 </span>                :<span class="lineCov">        337 :     intersectionState = IntersectionState::NonPrioAbleToBreak;</span>
+<span class="lineNum">     132 </span>                :            :   }
+<span class="lineNum">     133 </span>        [<span class="branchCov" title="Branch 0 was taken 471 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        471 :   else if (result)</span>
+<span class="lineNum">     134 </span>                :            :   {
+<span class="lineNum">     135 </span>                :<span class="lineCov">        471 :     rssStateInformation.currentDistance = situation.relativePosition.longitudinalDistance;</span>
+<span class="lineNum">     136 </span>                :            :     /**
+<span class="lineNum">     137 </span>                :            :      * Check if there is a safe longitudinal distance between the vehicles
+<span class="lineNum">     138 </span>                :            :      */
+<span class="lineNum">     139 </span>        [<span class="branchCov" title="Branch 0 was taken 114 times"> + </span><span class="branchCov" title="Branch 1 was taken 357 times"> + </span>]:<span class="lineCov">        471 :     if (situation.relativePosition.longitudinalPosition == LongitudinalRelativePosition::InFront)</span>
+<span class="lineNum">     140 </span>                :            :     {
+<span class="lineNum">     141 </span>                :<span class="lineCov">        114 :       rssStateInformation.evaluator = state::RssStateEvaluator::IntersectionEgoInFront;</span>
+<span class="lineNum">     142 </span>                :<span class="lineCov">        114 :       result = checkSafeLongitudinalDistanceSameDirection(situation.egoVehicleState,</span>
+<span class="lineNum">     143 </span>                :            :                                                           situation.otherVehicleState,
+<span class="lineNum">     144 </span>                :            :                                                           situation.relativePosition.longitudinalDistance,
+<span class="lineNum">     145 </span>                :            :                                                           rssStateInformation.safeDistance,
+<span class="lineNum">     146 </span>                :<span class="lineCov">        114 :                                                           isSafe);</span>
+<span class="lineNum">     147 </span>                :            :     }
+<span class="lineNum">     148 </span>                :            :     else
+<span class="lineNum">     149 </span>                :            :     {
+<span class="lineNum">     150 </span>                :<span class="lineCov">        357 :       rssStateInformation.evaluator = state::RssStateEvaluator::IntersectionOtherInFront;</span>
+<span class="lineNum">     151 </span>                :<span class="lineCov">        357 :       result = checkSafeLongitudinalDistanceSameDirection(situation.otherVehicleState,</span>
+<span class="lineNum">     152 </span>                :            :                                                           situation.egoVehicleState,
+<span class="lineNum">     153 </span>                :            :                                                           situation.relativePosition.longitudinalDistance,
+<span class="lineNum">     154 </span>                :            :                                                           rssStateInformation.safeDistance,
+<span class="lineNum">     155 </span>                :<span class="lineCov">        357 :                                                           isSafe);</span>
+<span class="lineNum">     156 </span>                :            :     }
+<span class="lineNum">     157 </span>        [<span class="branchCov" title="Branch 0 was taken 230 times"> + </span><span class="branchCov" title="Branch 1 was taken 241 times"> + </span>]:<span class="lineCov">        471 :     if (isSafe)</span>
+<span class="lineNum">     158 </span>                :            :     {
+<span class="lineNum">     159 </span>                :<span class="lineCov">        230 :       intersectionState = IntersectionState::SafeLongitudinalDistance;</span>
+<span class="lineNum">     160 </span>                :            :     }
+<span class="lineNum">     161 </span>        [<span class="branchCov" title="Branch 0 was taken 241 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        241 :     else if (result)</span>
+<span class="lineNum">     162 </span>                :            :     {
+<span class="lineNum">     163 </span>                :<span class="lineCov">        241 :       rssStateInformation.evaluator = state::RssStateEvaluator::IntersectionOverlap;</span>
+<span class="lineNum">     164 </span>                :<span class="lineCov">        241 :       rssStateInformation.currentDistance = physics::Distance(0.);</span>
+<span class="lineNum">     165 </span>                :<span class="lineCov">        241 :       rssStateInformation.safeDistance = physics::Distance(0.);</span>
+<span class="lineNum">     166 </span>                :<span class="lineCov">        241 :       result = checkLateralIntersect(situation, isSafe);</span>
+<span class="lineNum">     167 </span>                :            : 
+<span class="lineNum">     168 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 240 times"> + </span>]:<span class="lineCov">        241 :       if (isSafe)</span>
+<span class="lineNum">     169 </span>                :            :       {
+<span class="lineNum">     170 </span>                :<span class="lineCov">          1 :         intersectionState = IntersectionState::NoTimeOverlap;</span>
+<span class="lineNum">     171 </span>                :            :       }
+<span class="lineNum">     172 </span>                :            :     }
+<span class="lineNum">     173 </span>                :            :   }
+<span class="lineNum">     174 </span>                :            : 
+<span class="lineNum">     175 </span>                :<span class="lineCov">        808 :   return result;</span>
+<a name="176"><span class="lineNum">     176 </span>                :            : }</a>
+<span class="lineNum">     177 </span>                :            : 
+<span class="lineNum">     178 </span>                :<span class="lineCov">        811 : bool RssIntersectionChecker::calculateRssStateIntersection(world::TimeIndex const &amp;timeIndex,</span>
+<span class="lineNum">     179 </span>                :            :                                                            Situation const &amp;situation,
+<span class="lineNum">     180 </span>                :            :                                                            state::RssState &amp;rssState)
+<span class="lineNum">     181 </span>                :            : {
+<span class="lineNum">     182 </span>[<span class="branchCov" title="Branch 0 was taken 388 times"> + </span><span class="branchCov" title="Branch 1 was taken 423 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 387 times"> + </span>]:<span class="lineCov">        811 :   if (situation.egoVehicleState.hasPriority &amp;&amp; situation.otherVehicleState.hasPriority)</span>
+<span class="lineNum">     183 </span>                :            :   {
+<span class="lineNum">     184 </span>                :            :     // both cannot have priority over the other at the same time
+<span class="lineNum">     185 </span>                :<span class="lineCov">          1 :     return false;</span>
+<span class="lineNum">     186 </span>                :            :   }
+<span class="lineNum">     187 </span>                :<span class="lineCov">        810 :   bool result = false;</span>
+<span class="lineNum">     188 </span>                :            :   try
+<span class="lineNum">     189 </span>                :            :   {
+<span class="lineNum">     190 </span>        [<span class="branchCov" title="Branch 0 was taken 808 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">        810 :     if (timeIndex != mCurrentTimeIndex)</span>
+<span class="lineNum">     191 </span>                :            :     {
+<span class="lineNum">     192 </span>                :            :       /**
+<span class="lineNum">     193 </span>                :            :        * next time step: current safe state map becomes last state now
+<span class="lineNum">     194 </span>                :            :        */
+<span class="lineNum">     195 </span>                :<span class="lineCov">        808 :       mLastSafeStateMap.swap(mCurrentSafeStateMap);</span>
+<span class="lineNum">     196 </span>                :<span class="lineCov">        808 :       mCurrentSafeStateMap.clear();</span>
+<span class="lineNum">     197 </span>                :<span class="lineCov">        808 :       mCurrentTimeIndex = timeIndex;</span>
+<span class="lineNum">     198 </span>                :            :     }
+<span class="lineNum">     199 </span>                :            : 
+<span class="lineNum">     200 </span>                :<span class="lineCov">        810 :     rssState.longitudinalState.isSafe = false;</span>
+<span class="lineNum">     201 </span>                :<span class="lineCov">        810 :     rssState.longitudinalState.response = ::ad::rss::state::LongitudinalResponse::BrakeMin;</span>
+<span class="lineNum">     202 </span>                :            : 
+<span class="lineNum">     203 </span>                :            :     /**
+<span class="lineNum">     204 </span>                :            :      * An intersection situation is lateral unsafe but usually doesn't require a lateral brake
+<span class="lineNum">     205 </span>                :            :      * @todo: if taking lateral intersection handling into account, this also has to be updated
+<span class="lineNum">     206 </span>                :            :      */
+<span class="lineNum">     207 </span>                :<span class="lineCov">        810 :     rssState.lateralStateLeft.isSafe = false;</span>
+<span class="lineNum">     208 </span>                :<span class="lineCov">        810 :     rssState.lateralStateLeft.response = ::ad::rss::state::LateralResponse::None;</span>
+<span class="lineNum">     209 </span>                :<span class="lineCov">        810 :     rssState.lateralStateLeft.rssStateInformation.evaluator = state::RssStateEvaluator::LateralDistance;</span>
+<span class="lineNum">     210 </span>                :<span class="lineCov">        810 :     rssState.lateralStateLeft.rssStateInformation.currentDistance = physics::Distance(0);</span>
+<span class="lineNum">     211 </span>                :<span class="lineCov">        810 :     rssState.lateralStateLeft.rssStateInformation.safeDistance = physics::Distance(0);</span>
+<span class="lineNum">     212 </span>                :<span class="lineCov">        810 :     rssState.lateralStateRight.isSafe = false;</span>
+<span class="lineNum">     213 </span>                :<span class="lineCov">        810 :     rssState.lateralStateRight.response = ::ad::rss::state::LateralResponse::None;</span>
+<span class="lineNum">     214 </span>                :<span class="lineCov">        810 :     rssState.lateralStateRight.rssStateInformation.evaluator = state::RssStateEvaluator::LateralDistance;</span>
+<span class="lineNum">     215 </span>                :<span class="lineCov">        810 :     rssState.lateralStateRight.rssStateInformation.currentDistance = physics::Distance(0);</span>
+<span class="lineNum">     216 </span>                :<span class="lineCov">        810 :     rssState.lateralStateRight.rssStateInformation.safeDistance = physics::Distance(0);</span>
+<span class="lineNum">     217 </span>                :            : 
+<span class="lineNum">     218 </span>                :<span class="lineCov">        810 :     bool isSafe = false;</span>
+<span class="lineNum">     219 </span>                :<span class="lineCov">        810 :     IntersectionState intersectionState = IntersectionState::NonPrioAbleToBreak;</span>
+<span class="lineNum">     220 </span>                :            : 
+<span class="lineNum">     221 </span>                :            :     /**
+<span class="lineNum">     222 </span>                :            :      * Check if the intersection is safe and determine the intersection state of the situation
+<span class="lineNum">     223 </span>                :            :      */
+<span class="lineNum">     224 </span>                :            :     result
+<span class="lineNum">     225 </span>        [<span class="branchCov" title="Branch 1 was taken 810 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        810 :       = checkIntersectionSafe(situation, rssState.longitudinalState.rssStateInformation, isSafe, intersectionState);</span>
+<span class="lineNum">     226 </span>                :            : 
+<span class="lineNum">     227 </span>        [<span class="branchCov" title="Branch 0 was taken 808 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">        810 :     if (result)</span>
+<span class="lineNum">     228 </span>                :            :     {
+<span class="lineNum">     229 </span>                :<span class="lineCov">        808 :       rssState.longitudinalState.isSafe = isSafe;</span>
+<span class="lineNum">     230 </span>                :            : 
+<span class="lineNum">     231 </span>        [<span class="branchCov" title="Branch 1 was taken 808 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        808 :       auto const previousIntersectionState = mLastSafeStateMap.find(situation.situationId);</span>
+<span class="lineNum">     232 </span>                :            : 
+<span class="lineNum">     233 </span>        [<span class="branchCov" title="Branch 0 was taken 240 times"> + </span><span class="branchCov" title="Branch 1 was taken 568 times"> + </span>]:<span class="lineCov">        808 :       if (!isSafe)</span>
+<span class="lineNum">     234 </span>                :            :       {
+<span class="lineNum">     235 </span>                :            :         /**
+<span class="lineNum">     236 </span>                :            :          * Situation is unsafe determine proper response
+<span class="lineNum">     237 </span>                :            :          */
+<span class="lineNum">     238 </span>        [<span class="branchCov" title="Branch 2 was taken 238 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">        240 :         if (previousIntersectionState != mLastSafeStateMap.end())</span>
+<span class="lineNum">     239 </span>                :            :         {
+<span class="lineNum">     240 </span>  [<span class="branchCov" title="Branch 1 was taken 77 times"> + </span><span class="branchCov" title="Branch 2 was taken 160 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        238 :           switch (previousIntersectionState-&gt;second)</span>
+<span class="lineNum">     241 </span>                :            :           {
+<span class="lineNum">     242 </span>                :            :             case IntersectionState::NonPrioAbleToBreak:
+<span class="lineNum">     243 </span>                :            :             {
+<span class="lineNum">     244 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 76 times"> + </span>]:<span class="lineCov">         77 :               if (situation.egoVehicleState.hasPriority)</span>
+<span class="lineNum">     245 </span>                :            :               {
+<span class="lineNum">     246 </span>                :<span class="lineCov">          1 :                 rssState.longitudinalState.response = ::ad::rss::state::LongitudinalResponse::None;</span>
+<span class="lineNum">     247 </span>                :            :               }
+<span class="lineNum">     248 </span>                :<span class="lineCov">         77 :               break;</span>
+<span class="lineNum">     249 </span>                :            :             }
+<span class="lineNum">     250 </span>                :            :             case IntersectionState::SafeLongitudinalDistance:
+<span class="lineNum">     251 </span>                :            :             {
+<span class="lineNum">     252 </span>        [<span class="branchCov" title="Branch 0 was taken 52 times"> + </span><span class="branchCov" title="Branch 1 was taken 108 times"> + </span>]:<span class="lineCov">        160 :               if (situation.relativePosition.longitudinalPosition == LongitudinalRelativePosition::InFront)</span>
+<span class="lineNum">     253 </span>                :            :               {
+<span class="lineNum">     254 </span>                :<span class="lineCov">         52 :                 rssState.longitudinalState.response = ::ad::rss::state::LongitudinalResponse::None;</span>
+<span class="lineNum">     255 </span>                :            :               }
+<span class="lineNum">     256 </span>                :<span class="lineCov">        160 :               break;</span>
+<span class="lineNum">     257 </span>                :            :             }
+<span class="lineNum">     258 </span>                :            :             case IntersectionState::NoTimeOverlap:
+<span class="lineNum">     259 </span>                :            :             {
+<span class="lineNum">     260 </span>                :            :               // @todo If we don't assume always lateral overlap we might need to brake laterally as well
+<span class="lineNum">     261 </span>                :<span class="lineCov">          1 :               rssState.longitudinalState.response = ::ad::rss::state::LongitudinalResponse::BrakeMin;</span>
+<span class="lineNum">     262 </span>                :<span class="lineCov">          1 :               break;</span>
+<span class="lineNum">     263 </span>                :            :             }
+<span class="lineNum">     264 </span>                :            :             default:
+<span class="lineNum">     265 </span>                :            :             {
+<span class="lineNum">     266 </span>                :            :               // LCOV_EXCL_START: unreachable code, keep to be on the safe side
+<span class="lineNum">     267 </span>                :            :               result = false;
+<span class="lineNum">     268 </span>                :            :               break;
+<span class="lineNum">     269 </span>                :            :               // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
+<span class="lineNum">     270 </span>                :            :             }
+<span class="lineNum">     271 </span>                :            :           }
+<span class="lineNum">     272 </span>                :            : 
+<span class="lineNum">     273 </span>                :            :           /**
+<span class="lineNum">     274 </span>                :            :            * Store the last safe intersection state for next time step
+<span class="lineNum">     275 </span>                :            :            */
+<span class="lineNum">     276 </span>                :            :           mCurrentSafeStateMap.insert(
+<span class="lineNum">     277 </span>        [<span class="branchCov" title="Branch 3 was taken 238 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        238 :             RssIntersectionStateMap::value_type(situation.situationId, previousIntersectionState-&gt;second));</span>
+<span class="lineNum">     278 </span>                :            :         }
+<span class="lineNum">     279 </span>                :            :         else
+<span class="lineNum">     280 </span>                :            :         {
+<span class="lineNum">     281 </span>                :            :           /**
+<span class="lineNum">     282 </span>                :            :            * Situation is unsafe but there is no previous safe state. Therefore we can only decide to brake.
+<span class="lineNum">     283 </span>                :            :            */
+<span class="lineNum">     284 </span>                :<span class="lineCov">        240 :           rssState.longitudinalState.response = ::ad::rss::state::LongitudinalResponse::BrakeMin;</span>
+<span class="lineNum">     285 </span>                :            :         }
+<span class="lineNum">     286 </span>                :            :       }
+<span class="lineNum">     287 </span>                :            :       else
+<span class="lineNum">     288 </span>                :            :       {
+<span class="lineNum">     289 </span>                :            :         /**
+<span class="lineNum">     290 </span>                :            :          * Situation is safe
+<span class="lineNum">     291 </span>                :            :          */
+<span class="lineNum">     292 </span>                :<span class="lineCov">        568 :         rssState.longitudinalState.response = ::ad::rss::state::LongitudinalResponse::None;</span>
+<span class="lineNum">     293 </span>                :            : 
+<span class="lineNum">     294 </span>                :            :         // Update the last safe state
+<span class="lineNum">     295 </span>        [<span class="branchCov" title="Branch 2 was taken 565 times"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span>]:<span class="lineCov">        810 :         mCurrentSafeStateMap.insert(RssIntersectionStateMap::value_type(situation.situationId, intersectionState));</span>
+<span class="lineNum">     296 </span>                :            :       }
+<span class="lineNum">     297 </span>                :            :     }
+<span class="lineNum">     298 </span>                :            :   }
+<span class="lineNum">     299 </span>                :<span class="lineCov">          3 :   catch (...)</span>
+<span class="lineNum">     300 </span>                :            :   {
+<span class="lineNum">     301 </span>                :<span class="lineCov">          3 :     result = false;</span>
+<span class="lineNum">     302 </span>                :            :   }
+<span class="lineNum">     303 </span>                :<span class="lineCov">        811 :   return result;</span>
+<span class="lineNum">     304 </span>                :            : }
+<span class="lineNum">     305 </span>                :            : 
+<a name="306"><span class="lineNum">     306 </span>                :            : } // namespace situation</a>
+<span class="lineNum">     307 </span>                :            : } // namespace rss
+<span class="lineNum">     308 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

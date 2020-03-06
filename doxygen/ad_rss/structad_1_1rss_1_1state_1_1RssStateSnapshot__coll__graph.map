@@ -1,0 +1,6 @@
+<map id="ad::rss::state::RssStateSnapshot" name="ad::rss::state::RssStateSnapshot">
+<area shape="rect" id="node3" href="$structad_1_1rss_1_1state_1_1RssState.html" title="DataType RssState. " alt="" coords="97,228,267,255"/>
+<area shape="rect" id="node4" href="$structad_1_1rss_1_1state_1_1LateralRssState.html" title="DataType LateralRssState. " alt="" coords="5,109,185,151"/>
+<area shape="rect" id="node5" href="$structad_1_1rss_1_1state_1_1RssStateInformation.html" title="DataType RssStateInformation. " alt="" coords="119,5,290,47"/>
+<area shape="rect" id="node6" href="$structad_1_1rss_1_1state_1_1LongitudinalRssState.html" title="DataType LongitudinalRssState. " alt="" coords="209,109,400,151"/>
+</map>

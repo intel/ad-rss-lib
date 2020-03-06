@@ -1,0 +1,13 @@
+<map id="generated/include/ad/rss/situation/VelocityRange.hpp" name="generated/include/ad/rss/situation/VelocityRange.hpp">
+<area shape="rect" id="node2" href="$VehicleState_8hpp.html" title="generated/include/ad\l/rss/situation/VehicleState.hpp" alt="" coords="290,102,506,143"/>
+<area shape="rect" id="node12" href="$VelocityRangeValidInputRange_8hpp.html" title="generated/include/ad\l/rss/situation/VelocityRange\lValidInputRange.hpp" alt="" coords="530,95,727,151"/>
+<area shape="rect" id="node3" href="$Situation_8hpp.html" title="generated/include/ad\l/rss/situation/Situation.hpp" alt="" coords="301,206,495,247"/>
+<area shape="rect" id="node11" href="$VehicleStateValidInputRange_8hpp.html" title="generated/include/ad\l/rss/situation/VehicleState\lValidInputRange.hpp" alt="" coords="527,199,715,255"/>
+<area shape="rect" id="node4" href="$SituationValidInputRange_8hpp.html" title="generated/include/ad\l/rss/situation/SituationValid\lInputRange.hpp" alt="" coords="523,303,718,359"/>
+<area shape="rect" id="node7" href="$SituationVector_8hpp.html" title="generated/include/ad\l/rss/situation/SituationVector.hpp" alt="" coords="265,310,499,351"/>
+<area shape="rect" id="node5" href="$SituationVectorValidInputRange_8hpp.html" title="generated/include/ad\l/rss/situation/SituationVector\lValidInputRange.hpp" alt="" coords="517,407,724,463"/>
+<area shape="rect" id="node6" href="$SituationSnapshotValidInputRange_8hpp.html" title="generated/include/ad\l/rss/situation/SituationSnapshot\lValidInputRange.hpp" alt="" coords="506,511,733,567"/>
+<area shape="rect" id="node8" href="$SituationSnapshot_8hpp.html" title="generated/include/ad\l/rss/situation/SituationSnapshot.hpp" alt="" coords="239,414,493,455"/>
+<area shape="rect" id="node9" href="$RssSituationChecking_8hpp.html" title="impl/include/ad/rss\l/core/RssSituationChecking.hpp" alt="" coords="5,518,228,559"/>
+<area shape="rect" id="node10" href="$RssSituationExtraction_8hpp.html" title="impl/include/ad/rss\l/core/RssSituationExtraction.hpp" alt="" coords="253,518,482,559"/>
+</map>

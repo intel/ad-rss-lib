@@ -1,0 +1,13 @@
+<map id="generated/include/ad/rss/situation/Situation.hpp" name="generated/include/ad/rss/situation/Situation.hpp">
+<area shape="rect" id="node6" href="$RelativePosition_8hpp.html" title="ad/rss/situation/Relative\lPosition.hpp" alt="" coords="584,184,757,225"/>
+<area shape="rect" id="node11" href="$SituationId_8hpp.html" title="ad/rss/situation/Situation\lId.hpp" alt="" coords="368,95,549,136"/>
+<area shape="rect" id="node13" href="$SituationType_8hpp.html" title="ad/rss/situation/Situation\lType.hpp" alt="" coords="5,273,187,315"/>
+<area shape="rect" id="node14" href="$VehicleState_8hpp.html" title="ad/rss/situation/Vehicle\lState.hpp" alt="" coords="1049,95,1218,136"/>
+<area shape="rect" id="node23" href="$ObjectId_8hpp.html" title="ad/rss/world/ObjectId.hpp" alt="" coords="574,102,757,129"/>
+<area shape="rect" id="node8" href="$LateralRelativePosition_8hpp.html" title="ad/rss/situation/Lateral\lRelativePosition.hpp" alt="" coords="539,273,707,315"/>
+<area shape="rect" id="node10" href="$LongitudinalRelativePosition_8hpp.html" title="ad/rss/situation/Longitudinal\lRelativePosition.hpp" alt="" coords="262,273,463,315"/>
+<area shape="rect" id="node15" href="$VelocityRange_8hpp.html" title="ad/rss/situation/Velocity\lRange.hpp" alt="" coords="984,273,1157,315"/>
+<area shape="rect" id="node17" href="$RssDynamics_8hpp.html" title="ad/rss/world/RssDynamics.hpp" alt="" coords="1573,191,1787,218"/>
+<area shape="rect" id="node20" href="$LateralRssAccelerationValues_8hpp.html" title="ad/rss/world/LateralRssAcceleration\lValues.hpp" alt="" coords="1434,273,1681,315"/>
+<area shape="rect" id="node22" href="$LongitudinalRssAccelerationValues_8hpp.html" title="ad/rss/world/Longitudinal\lRssAccelerationValues.hpp" alt="" coords="1705,273,1898,315"/>
+</map>

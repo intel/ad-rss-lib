@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - ad-rss-lib - /home/travis/build/intel/ad-rss-lib/ad_rss/generated/include/ad/rss/situation/SituationSnapshotValidInputRange.hpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../../../../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../../../../../../../../index.html">top level</a> - <a href="index.html">home/travis/build/intel/ad-rss-lib/ad_rss/generated/include/ad/rss/situation</a> - SituationSnapshotValidInputRange.hpp<span style="font-size: 80%;"> (source / <a href="SituationSnapshotValidInputRange.hpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">ad-rss-lib</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntryMed">83.3 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-03-06 13:50:37</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntryLo">60.0 %</td>
+          </tr>
+          <tr><td><img src="../../../../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : /*</a>
+<span class="lineNum">       2 </span>                :            :  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
+<span class="lineNum">       3 </span>                :            :  *
+<span class="lineNum">       4 </span>                :            :  * Copyright (C) 2018-2020 Intel Corporation
+<span class="lineNum">       5 </span>                :            :  *
+<span class="lineNum">       6 </span>                :            :  * SPDX-License-Identifier: LGPL-2.1-only
+<span class="lineNum">       7 </span>                :            :  *
+<span class="lineNum">       8 </span>                :            :  * ----------------- END LICENSE BLOCK -----------------------------------
+<span class="lineNum">       9 </span>                :            :  */
+<span class="lineNum">      10 </span>                :            : 
+<span class="lineNum">      11 </span>                :            : /**
+<span class="lineNum">      12 </span>                :            :  * Generated file
+<span class="lineNum">      13 </span>                :            :  * @file
+<span class="lineNum">      14 </span>                :            :  *
+<span class="lineNum">      15 </span>                :            :  * Generator Version : 11.0.0-1917
+<span class="lineNum">      16 </span>                :            :  */
+<span class="lineNum">      17 </span>                :            : 
+<span class="lineNum">      18 </span>                :            : #pragma once
+<span class="lineNum">      19 </span>                :            : 
+<span class="lineNum">      20 </span>                :            : #include &lt;cmath&gt;
+<span class="lineNum">      21 </span>                :            : #include &lt;limits&gt;
+<span class="lineNum">      22 </span>                :            : #include &quot;ad/rss/situation/SituationSnapshot.hpp&quot;
+<span class="lineNum">      23 </span>                :            : #include &quot;ad/rss/situation/SituationVectorValidInputRange.hpp&quot;
+<span class="lineNum">      24 </span>                :            : #include &quot;spdlog/fmt/ostr.h&quot;
+<span class="lineNum">      25 </span>                :            : #include &quot;spdlog/spdlog.h&quot;
+<span class="lineNum">      26 </span>                :            : 
+<span class="lineNum">      27 </span>                :            : /*!
+<span class="lineNum">      28 </span>                :            :  * \brief check if the given SituationSnapshot is within valid input range
+<span class="lineNum">      29 </span>                :            :  *
+<span class="lineNum">      30 </span>                :            :  * \param[in] input the SituationSnapshot as an input value
+<span class="lineNum">      31 </span>                :            :  * \param[in] logErrors enables error logging
+<span class="lineNum">      32 </span>                :            :  *
+<span class="lineNum">      33 </span>                :            :  * \returns \c true if SituationSnapshot is considered to be within the specified input range
+<span class="lineNum">      34 </span>                :            :  *
+<span class="lineNum">      35 </span>                :            :  * \note the specified input range is defined by the ranges of all members, plus:
+<a name="36"><span class="lineNum">      36 </span>                :            :  *       ::ad::rss::world::TimeIndex(1) &lt;= timeIndex</a>
+<span class="lineNum">      37 </span>                :            :  */
+<span class="lineNum">      38 </span>                :<span class="lineCov">       4037 : inline bool withinValidInputRange(::ad::rss::situation::SituationSnapshot const &amp;input, bool const logErrors = true)</span>
+<span class="lineNum">      39 </span>                :            : {
+<span class="lineNum">      40 </span>                :            :   // check for generic member input ranges
+<span class="lineNum">      41 </span>                :<span class="lineCov">       4037 :   bool inValidInputRange = true;</span>
+<span class="lineNum">      42 </span>                :<span class="lineCov">       4037 :   inValidInputRange = withinValidInputRange(input.situations, logErrors);</span>
+<span class="lineNum">      43 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 4036 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       4037 :   if (!inValidInputRange &amp;&amp; logErrors)</span>
+<span class="lineNum">      44 </span>                :            :   {
+<span class="lineNum">      45 </span>                :<span class="lineCov">          2 :     spdlog::error(&quot;withinValidInputRange(::ad::rss::situation::SituationSnapshot)&gt;&gt; {} has invalid member&quot;,</span>
+<span class="lineNum">      46 </span>                :<span class="lineCov">          1 :                   input); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      47 </span>                :            :   }
+<span class="lineNum">      48 </span>                :            : 
+<span class="lineNum">      49 </span>                :            :   // check for individual input ranges
+<span class="lineNum">      50 </span>        [<span class="branchCov" title="Branch 0 was taken 4036 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">       4037 :   if (inValidInputRange)</span>
+<span class="lineNum">      51 </span>                :            :   {
+<span class="lineNum">      52 </span>                :<span class="lineCov">       4036 :     inValidInputRange = (::ad::rss::world::TimeIndex(1) &lt;= input.timeIndex);</span>
+<span class="lineNum">      53 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 4036 times"> + </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineCov">       4036 :     if (!inValidInputRange &amp;&amp; logErrors)</span>
+<span class="lineNum">      54 </span>                :            :     {
+<span class="lineNum">      55 </span>                :<span class="lineNoCov">          0 :       spdlog::error(&quot;withinValidInputRange(::ad::rss::situation::SituationSnapshot)&gt;&gt; {} element {} out of valid input &quot;</span>
+<span class="lineNum">      56 </span>                :            :                     &quot;range [{}, {}]&quot;,
+<span class="lineNum">      57 </span>                :            :                     input,
+<span class="lineNum">      58 </span>                :            :                     input.timeIndex,
+<span class="lineNum">      59 </span>                :            :                     ::ad::rss::world::TimeIndex(1),
+<span class="lineNum">      60 </span>                :<span class="lineNoCov">          0 :                     &quot;Undefined&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      61 </span>                :            :     }
+<span class="lineNum">      62 </span>                :            :   }
+<span class="lineNum">      63 </span>                :            : 
+<span class="lineNum">      64 </span>                :<span class="lineCov">       4037 :   return inValidInputRange;</span>
+<span class="lineNum">      65 </span>                :            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

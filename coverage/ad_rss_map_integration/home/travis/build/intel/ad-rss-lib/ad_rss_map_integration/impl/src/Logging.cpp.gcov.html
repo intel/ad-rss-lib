@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - ad-rss-lib - /home/travis/build/intel/ad-rss-lib/ad_rss_map_integration/impl/src/Logging.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../../../../../index.html">top level</a> - <a href="index.html">home/travis/build/intel/ad-rss-lib/ad_rss_map_integration/impl/src</a> - Logging.cpp<span style="font-size: 80%;"> (source / <a href="Logging.cpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">ad-rss-lib</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-03-06 13:50:47</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntryLo">50.0 %</td>
+          </tr>
+          <tr><td><img src="../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : // ----------------- BEGIN LICENSE BLOCK ---------------------------------</a>
+<span class="lineNum">       2 </span>                :            : //
+<span class="lineNum">       3 </span>                :            : // Copyright (C) 2019-2020 Intel Corporation
+<span class="lineNum">       4 </span>                :            : //
+<span class="lineNum">       5 </span>                :            : // SPDX-License-Identifier: LGPL-2.1-only
+<span class="lineNum">       6 </span>                :            : //
+<span class="lineNum">       7 </span>                :            : // ----------------- END LICENSE BLOCK -----------------------------------
+<span class="lineNum">       8 </span>                :            : 
+<span class="lineNum">       9 </span>                :            : #include &quot;ad/rss/map/Logging.hpp&quot;
+<span class="lineNum">      10 </span>                :            : 
+<span class="lineNum">      11 </span>                :            : #include &lt;spdlog/sinks/stdout_color_sinks.h&gt;
+<span class="lineNum">      12 </span>                :            : 
+<span class="lineNum">      13 </span>                :            : namespace ad {
+<span class="lineNum">      14 </span>                :            : namespace rss {
+<span class="lineNum">      15 </span>                :            : namespace map {
+<span class="lineNum">      16 </span>                :            : 
+<span class="lineNum">      17 </span>                :            : class Logging
+<span class="lineNum">      18 </span>                :            : {
+<span class="lineNum">      19 </span>                :            : public:
+<span class="lineNum">      20 </span>                :            :   static Logging &amp;instance();
+<span class="lineNum">      21 </span>                :            : 
+<span class="lineNum">      22 </span>                :            :   std::shared_ptr&lt;spdlog::logger&gt; mLogger;
+<span class="lineNum">      23 </span>                :            : 
+<span class="lineNum">      24 </span>                :            : private:
+<span class="lineNum">      25 </span>                :            :   // Copy operators and constructors are deleted to avoid accidental copies
+<span class="lineNum">      26 </span>                :            :   Logging(Logging const &amp;) = delete;
+<span class="lineNum">      27 </span>                :            :   Logging(Logging const &amp;&amp;) = delete;
+<span class="lineNum">      28 </span>                :            :   Logging &amp;operator=(Logging &amp;&amp;) = delete;
+<span class="lineNum">      29 </span>                :            :   Logging &amp;operator=(Logging const &amp;) = delete;
+<span class="lineNum">      30 </span>                :            : 
+<span class="lineNum">      31 </span>                :            :   explicit Logging();
+<span class="lineNum">      32 </span>                :            :   ~Logging();
+<a name="33"><span class="lineNum">      33 </span>                :            : };</a>
+<span class="lineNum">      34 </span>                :            : 
+<span class="lineNum">      35 </span>                :<span class="lineCov">         46 : Logging &amp;Logging::instance()</span>
+<span class="lineNum">      36 </span>                :            : {
+<span class="lineNum">      37 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 45 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         46 :   static Logging singleton;</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>][<span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
+<span class="lineNum">      38 </span>                :<span class="lineCov">         46 :   return singleton;</span>
+<a name="39"><span class="lineNum">      39 </span>                :            : }</a>
+<span class="lineNum">      40 </span>                :            : 
+<span class="lineNum">      41 </span>                :<span class="lineCov">          2 : Logging::Logging()</span>
+<span class="lineNum">      42 </span>                :            : {
+<span class="lineNum">      43 </span>[<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">          1 :   mLogger = spdlog::stdout_color_mt(&quot;rss_map_integration&quot;);</span>
+<a name="44"><span class="lineNum">      44 </span>                :<span class="lineCov">          1 : }</span></a>
+<span class="lineNum">      45 </span>                :            : 
+<span class="lineNum">      46 </span>                :<span class="lineCov">          2 : Logging::~Logging()</span>
+<span class="lineNum">      47 </span>                :            : {
+<a name="48"><span class="lineNum">      48 </span>                :<span class="lineCov">          1 : }</span></a>
+<span class="lineNum">      49 </span>                :            : 
+<span class="lineNum">      50 </span>                :<span class="lineCov">         46 : std::shared_ptr&lt;spdlog::logger&gt; getLogger()</span>
+<span class="lineNum">      51 </span>                :            : {
+<span class="lineNum">      52 </span>                :<span class="lineCov">         46 :   return Logging::instance().mLogger;</span>
+<span class="lineNum">      53 </span>                :            : }
+<span class="lineNum">      54 </span>                :            : 
+<span class="lineNum">      55 </span>                :            : } // namespace map
+<span class="lineNum">      56 </span>                :            : } // namespace rss
+<span class="lineNum">      57 </span>                :            : } // namespace ad
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

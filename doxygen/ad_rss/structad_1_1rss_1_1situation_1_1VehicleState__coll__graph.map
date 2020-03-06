@@ -1,0 +1,6 @@
+<map id="ad::rss::situation::VehicleState" name="ad::rss::situation::VehicleState">
+<area shape="rect" id="node2" href="$structad_1_1rss_1_1situation_1_1VelocityRange.html" title="DataType VelocityRange. " alt="" coords="342,5,470,47"/>
+<area shape="rect" id="node3" href="$structad_1_1rss_1_1world_1_1RssDynamics.html" title="DataType RssDynamics. " alt="" coords="307,71,505,98"/>
+<area shape="rect" id="node4" href="$structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="11,31,191,72"/>
+<area shape="rect" id="node5" href="$structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="5,96,196,137"/>
+</map>

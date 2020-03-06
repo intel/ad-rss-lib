@@ -1,0 +1,16 @@
+<map id="generated/include/ad/rss/situation/SituationSnapshot.hpp" name="generated/include/ad/rss/situation/SituationSnapshot.hpp">
+<area shape="rect" id="node6" href="$SituationVector_8hpp.html" title="ad/rss/situation/Situation\lVector.hpp" alt="" coords="657,95,838,136"/>
+<area shape="rect" id="node27" href="$TimeIndex_8hpp.html" title="ad/rss/world/TimeIndex.hpp" alt="" coords="45,102,240,129"/>
+<area shape="rect" id="node8" href="$Situation_8hpp.html" title="ad/rss/situation/Situation.hpp" alt="" coords="643,184,852,211"/>
+<area shape="rect" id="node9" href="$RelativePosition_8hpp.html" title="ad/rss/situation/Relative\lPosition.hpp" alt="" coords="2006,348,2180,389"/>
+<area shape="rect" id="node14" href="$SituationId_8hpp.html" title="ad/rss/situation/Situation\lId.hpp" alt="" coords="248,259,429,300"/>
+<area shape="rect" id="node16" href="$SituationType_8hpp.html" title="ad/rss/situation/Situation\lType.hpp" alt="" coords="2650,437,2832,479"/>
+<area shape="rect" id="node17" href="$VehicleState_8hpp.html" title="ad/rss/situation/Vehicle\lState.hpp" alt="" coords="955,259,1124,300"/>
+<area shape="rect" id="node26" href="$ObjectId_8hpp.html" title="ad/rss/world/ObjectId.hpp" alt="" coords="454,266,636,293"/>
+<area shape="rect" id="node11" href="$LateralRelativePosition_8hpp.html" title="ad/rss/situation/Lateral\lRelativePosition.hpp" alt="" coords="2408,437,2576,479"/>
+<area shape="rect" id="node13" href="$LongitudinalRelativePosition_8hpp.html" title="ad/rss/situation/Longitudinal\lRelativePosition.hpp" alt="" coords="2182,437,2383,479"/>
+<area shape="rect" id="node18" href="$VelocityRange_8hpp.html" title="ad/rss/situation/Velocity\lRange.hpp" alt="" coords="501,437,674,479"/>
+<area shape="rect" id="node20" href="$RssDynamics_8hpp.html" title="ad/rss/world/RssDynamics.hpp" alt="" coords="1078,355,1292,382"/>
+<area shape="rect" id="node23" href="$LateralRssAccelerationValues_8hpp.html" title="ad/rss/world/LateralRssAcceleration\lValues.hpp" alt="" coords="1135,437,1382,479"/>
+<area shape="rect" id="node25" href="$LongitudinalRssAccelerationValues_8hpp.html" title="ad/rss/world/Longitudinal\lRssAccelerationValues.hpp" alt="" coords="1406,437,1599,479"/>
+</map>

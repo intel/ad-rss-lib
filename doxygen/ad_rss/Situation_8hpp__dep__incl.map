@@ -1,0 +1,9 @@
+<map id="generated/include/ad/rss/situation/Situation.hpp" name="generated/include/ad/rss/situation/Situation.hpp">
+<area shape="rect" id="node2" href="$SituationValidInputRange_8hpp.html" title="generated/include/ad\l/rss/situation/SituationValid\lInputRange.hpp" alt="" coords="19,95,213,151"/>
+<area shape="rect" id="node5" href="$SituationVector_8hpp.html" title="generated/include/ad\l/rss/situation/SituationVector.hpp" alt="" coords="238,102,471,143"/>
+<area shape="rect" id="node3" href="$SituationVectorValidInputRange_8hpp.html" title="generated/include/ad\l/rss/situation/SituationVector\lValidInputRange.hpp" alt="" coords="13,199,219,255"/>
+<area shape="rect" id="node4" href="$SituationSnapshotValidInputRange_8hpp.html" title="generated/include/ad\l/rss/situation/SituationSnapshot\lValidInputRange.hpp" alt="" coords="5,303,232,359"/>
+<area shape="rect" id="node6" href="$SituationSnapshot_8hpp.html" title="generated/include/ad\l/rss/situation/SituationSnapshot.hpp" alt="" coords="243,206,498,247"/>
+<area shape="rect" id="node7" href="$RssSituationChecking_8hpp.html" title="impl/include/ad/rss\l/core/RssSituationChecking.hpp" alt="" coords="258,310,481,351"/>
+<area shape="rect" id="node8" href="$RssSituationExtraction_8hpp.html" title="impl/include/ad/rss\l/core/RssSituationExtraction.hpp" alt="" coords="505,310,735,351"/>
+</map>
