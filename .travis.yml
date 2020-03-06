@@ -62,7 +62,6 @@ matrix:
       addons:
         apt:
           packages:
-          packages:
             - cmake
             - build-essential
             - lcov
@@ -84,9 +83,13 @@ matrix:
         - sudo apt-get update
         - sudo apt-get install python3-colcon-common-extensions
       script:
-        - colcon build --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DBUILD_APIDOC=ON
+        - colcon build --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DBUILD_COVERAGE=ON -DBUILD_APIDOC=ON
+        - colcon test --packages-select ad_rss ad_rss_map_integration
         - export PATH=$PATH:~/.local/lib/python2.7/site-packages/mkdocs/
         - mkdocs build
+      after_script:
+        - bash .github/.travis/code_coverage.sh
+        - bash .github/.travis/deploy.sh false
       after_failures:
         - tail --lines=2000 build.log
 
@@ -102,8 +105,6 @@ matrix:
 
     - env: TEST="Documentation Deployment"
       if: branch = master AND type != pull_request
-      git:
-        depth: false
       addons:
         apt:
           packages:
@@ -134,7 +135,7 @@ matrix:
         - mkdocs build
       after_script:
         - bash .github/.travis/code_coverage.sh
-        - bash .github/.travis/deploy.sh
+        - bash .github/.travis/deploy.sh true
       after_failure:
         - tail --lines=2000 build.log
 
