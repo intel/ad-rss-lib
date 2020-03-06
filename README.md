@@ -12,7 +12,8 @@
 2. [License](#license)
 3. [Documentation](#documentation)
 4. [Releases](#releases)
-   1. [Release 1.x](#release_1)
+   1. [Release 2.x](#release_2)
+   2. [Release 1.x](#release_1)
 5. [Getting Started](#started)
    1. [Supported Systems](#systems)
 6. [Building the library](#building)
@@ -38,7 +39,7 @@ The scope, design and architecture of this C++ library for RSS is described in m
 
 ### Integrating RSS with automated driving maps
 When RSS is to be integrated into a larger system it is usually up to the user implementation to provide the required input into RSS based on the environment information
-available within the system. The [*ad_rss_map_integration*](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/Main.html) library provides a C++ implementation
+available within the system. The [*ad_rss_map_integration*](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/Main/) library provides a C++ implementation
 for integrating RSS with automated driving maps.
 
 ### Usage of ad-rss-lib
@@ -76,13 +77,16 @@ In addition, the terms in the following apply:
 Visit the project's [GitHub page](https://intel.github.io/ad-rss-lib/) to access the online version of the full documentation of this library. This includes:
 
 * [Doxygen](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/index.html)
-* [Background documentation](https://intel.github.io/ad-rss-lib/ad_rss/Main.html).
-* [Integrate RSS with AD map data](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/Main.html) and respective [Doxygen](https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/index.html).
+* [Background documentation](https://intel.github.io/ad-rss-lib/ad_rss/Overview/).
+* [Integrate RSS with AD map data](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/Main/) and respective [Doxygen](https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/index.html).
 
 If you have any additional question not answered therein, you might find more in the [FAQ](https://intel.github.io/ad-rss-lib/FAQ/index.html)
 
 ## Releases <a name="releases"></a>
 General release notes and changes can be found in the [Changelog](https://intel.github.io/ad-rss-lib/CHANGELOG/index.html)
+
+#### Release 2.x.x <a name="release_2"></a>
+These releases extend the 1.x version with map integration for extended usability.
 
 #### Release 1.x.x <a name="release_1"></a>
 The initial release of the C++ software library for RSS implements a subset of the rules and calculations specified in the published RSS paper. This means that this release handles a subset of autonomous driving scenarios, described below. Scenarios other than this subset cannot be handled.
@@ -129,11 +133,11 @@ Besides Ubuntu 16.04 we are currently supporting the following Linux OS and comp
 
 |                 | Ubuntu 14.04 | Ubuntu 16.04 | Ubuntu 18.04 |
 |:---------------:|:------------:|:------------:|:------------:|
-|  Clang 3.4      |       x      |              |              |
-|  Clang 3.8/3.9  |       x      |       x      |              |
+|  Clang 3.4      |   only 1.x   |              |              |
+|  Clang 3.8/3.9  |   only 1.x   |       x      |              |
 |  Clang 5.0      |              |       x      |              |
-|  Clang 6.0      |              |       x      |       x      |
-|   GCC 4.8       |       x      |              |              |
+|  Clang 6.0      |              |       x      |   only 1.x   |
+|   GCC 4.8       |   only 1.x   |              |              |
 | GCC 5.4/5.5     |              |       x      |              |
 |   GCC 6.0       |              |       x      |              |
 |   GCC 7.3       |              |       x      |       x      |
