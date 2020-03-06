@@ -256,6 +256,7 @@
 <li><a href="#license">License</a></li>
 <li><a href="#documentation">Documentation</a></li>
 <li><a href="#releases">Releases</a><ol>
+<li><a href="#release_2">Release 2.x</a></li>
 <li><a href="#release_1">Release 1.x</a></li>
 </ol>
 </li>
@@ -282,7 +283,7 @@
 <p>The scope, design and architecture of this C++ library for RSS is described in more detail in the following document packaged with this release. This documentation includes guidance on the usage of the RSS library and its integration into an autonomous driving system. Users of this library are strongly encouraged to read this documentation prior to integration of the library.</p>
 <h3 id="integrating-rss-with-automated-driving-maps">Integrating RSS with automated driving maps<a class="headerlink" href="#integrating-rss-with-automated-driving-maps" title="Permanent link">&para;</a></h3>
 <p>When RSS is to be integrated into a larger system it is usually up to the user implementation to provide the required input into RSS based on the environment information
-available within the system. The <a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/Main.html"><em>ad_rss_map_integration</em></a> library provides a C++ implementation
+available within the system. The <a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/Main/"><em>ad_rss_map_integration</em></a> library provides a C++ implementation
 for integrating RSS with automated driving maps.</p>
 <h3 id="usage-of-ad-rss-lib">Usage of ad-rss-lib<a class="headerlink" href="#usage-of-ad-rss-lib" title="Permanent link">&para;</a></h3>
 <p>If you use ad-rss-lib for any publication, please cite the IV'2019 paper:</p>
@@ -311,12 +312,14 @@ Please see the <a href="https://intel.github.io/ad-rss-lib/ad_rss/ad_rss_python/
 <p>Visit the project's <a href="https://intel.github.io/ad-rss-lib/">GitHub page</a> to access the online version of the full documentation of this library. This includes:</p>
 <ul>
 <li><a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/index.html">Doxygen</a></li>
-<li><a href="https://intel.github.io/ad-rss-lib/ad_rss/Main.html">Background documentation</a>.</li>
-<li><a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/Main.html">Integrate RSS with AD map data</a> and respective <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/index.html">Doxygen</a>.</li>
+<li><a href="https://intel.github.io/ad-rss-lib/ad_rss/Overview/">Background documentation</a>.</li>
+<li><a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/Main/">Integrate RSS with AD map data</a> and respective <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/index.html">Doxygen</a>.</li>
 </ul>
 <p>If you have any additional question not answered therein, you might find more in the <a href="https://intel.github.io/ad-rss-lib/FAQ/index.html">FAQ</a></p>
 <h2 id="releases">Releases <a name="releases"></a><a class="headerlink" href="#releases" title="Permanent link">&para;</a></h2>
 <p>General release notes and changes can be found in the <a href="https://intel.github.io/ad-rss-lib/CHANGELOG/index.html">Changelog</a></p>
+<h4>Release 2.x.x <a name="release_2"></a></h4>
+<p>These releases extend the 1.x version with map integration for extended usability.</p>
 <h4>Release 1.x.x <a name="release_1"></a></h4>
 <p>The initial release of the C++ software library for RSS implements a subset of the rules and calculations specified in the published RSS paper. This means that this release handles a subset of autonomous driving scenarios, described below. Scenarios other than this subset cannot be handled.</p>
 <h5>Features &amp; Limitations</h5>
@@ -365,13 +368,13 @@ To install the dependencies for Ubuntu 16.04 execute the following command:</p>
 <tbody>
 <tr>
 <td align="center">Clang 3.4</td>
-<td align="center">x</td>
+<td align="center">only 1.x</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
 <tr>
 <td align="center">Clang 3.8/3.9</td>
-<td align="center">x</td>
+<td align="center">only 1.x</td>
 <td align="center">x</td>
 <td align="center"></td>
 </tr>
@@ -385,11 +388,11 @@ To install the dependencies for Ubuntu 16.04 execute the following command:</p>
 <td align="center">Clang 6.0</td>
 <td align="center"></td>
 <td align="center">x</td>
-<td align="center">x</td>
+<td align="center">only 1.x</td>
 </tr>
 <tr>
 <td align="center">GCC 4.8</td>
-<td align="center">x</td>
+<td align="center">only 1.x</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
@@ -483,5 +486,5 @@ ad_rss$&gt; make clang-tidy
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2020-01-30 12:32:49
+Build Date UTC : 2020-03-06 08:20:35
 -->
