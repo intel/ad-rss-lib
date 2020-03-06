@@ -1,0 +1,455 @@
+[0.178s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--executor', 'sequential', '--packages-up-to', 'ad_rss', 'ad_rss_map_integration', '--cmake-args', '-DCMAKE_BUILD_TYPE=Debug', '-DBUILD_TESTING=ON', '-DBUILD_COVERAGE=ON', '-DBUILD_APIDOC=ON']
+[0.178s] DEBUG:colcon:Parsed command line arguments: Namespace(ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=['-DCMAKE_BUILD_TYPE=Debug', '-DBUILD_TESTING=ON', '-DBUILD_COVERAGE=ON', '-DBUILD_APIDOC=ON'], cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='sequential', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7f5c265ab5c0>>, merge_install=False, metas=['./colcon.meta'], packages_above=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=['ad_rss', 'ad_rss_map_integration'], parallel_workers=2, paths=None, symlink_install=False, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7f5c265ab5c0>, verb_name='build', verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7f5c265ab940>)
+[0.226s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.227s] INFO:colcon.colcon_metadata.package_discovery.colcon_meta:Using configuration from '/home/travis/build/intel/ad-rss-lib/colcon.meta'
+[0.227s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.227s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.227s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.227s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.227s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.227s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/travis/build/intel/ad-rss-lib'
+[0.227s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.228s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.228s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.228s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.228s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.228s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.228s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.228s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.228s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss) by extensions ['ignore', 'ignore_ament_install']
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss) by extension 'ignore'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss) by extension 'ignore_ament_install'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss) by extensions ['colcon_pkg']
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss) by extension 'colcon_pkg'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss) by extensions ['colcon_meta']
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss) by extension 'colcon_meta'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss) by extensions ['ros']
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss) by extension 'ros'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss) by extensions ['cmake', 'python']
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss) by extension 'cmake'
+[0.251s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss) by extension 'python'
+[0.251s] DEBUG:colcon.colcon_core.package_identification:Package 'ad_rss' with type 'cmake' and name 'ad_rss'
+[0.251s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss_map_integration) by extensions ['ignore', 'ignore_ament_install']
+[0.251s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss_map_integration) by extension 'ignore'
+[0.251s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss_map_integration) by extension 'ignore_ament_install'
+[0.251s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss_map_integration) by extensions ['colcon_pkg']
+[0.251s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss_map_integration) by extension 'colcon_pkg'
+[0.251s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss_map_integration) by extensions ['colcon_meta']
+[0.251s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss_map_integration) by extension 'colcon_meta'
+[0.251s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss_map_integration) by extensions ['ros']
+[0.252s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss_map_integration) by extension 'ros'
+[0.252s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss_map_integration) by extensions ['cmake', 'python']
+[0.252s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss_map_integration) by extension 'cmake'
+[0.253s] Level 1:colcon.colcon_core.package_identification:_identify(ad_rss_map_integration) by extension 'python'
+[0.253s] DEBUG:colcon.colcon_core.package_identification:Package 'ad_rss_map_integration' with type 'cmake' and name 'ad_rss_map_integration'
+[0.253s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.254s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.254s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.254s] Level 1:colcon.colcon_core.package_identification:_identify(cmake) by extensions ['ignore', 'ignore_ament_install']
+[0.254s] Level 1:colcon.colcon_core.package_identification:_identify(cmake) by extension 'ignore'
+[0.254s] Level 1:colcon.colcon_core.package_identification:_identify(cmake) by extension 'ignore_ament_install'
+[0.254s] Level 1:colcon.colcon_core.package_identification:_identify(cmake) by extensions ['colcon_pkg']
+[0.254s] Level 1:colcon.colcon_core.package_identification:_identify(cmake) by extension 'colcon_pkg'
+[0.254s] Level 1:colcon.colcon_core.package_identification:_identify(cmake) by extensions ['colcon_meta']
+[0.254s] Level 1:colcon.colcon_core.package_identification:_identify(cmake) by extension 'colcon_meta'
+[0.254s] Level 1:colcon.colcon_core.package_identification:_identify(cmake) by extensions ['ros']
+[0.254s] Level 1:colcon.colcon_core.package_identification:_identify(cmake) by extension 'ros'
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(cmake) by extensions ['cmake', 'python']
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(cmake) by extension 'cmake'
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(cmake) by extension 'python'
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(cmake) by extensions ['python_setup_py']
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(cmake) by extension 'python_setup_py'
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extensions ['ignore', 'ignore_ament_install']
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extension 'ignore'
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extension 'ignore_ament_install'
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extensions ['colcon_pkg']
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extension 'colcon_pkg'
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extensions ['colcon_meta']
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extension 'colcon_meta'
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extensions ['ros']
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extension 'ros'
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extensions ['cmake', 'python']
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extension 'cmake'
+[0.255s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extension 'python'
+[0.256s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extensions ['python_setup_py']
+[0.256s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies) by extension 'python_setup_py'
+[0.256s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map) by extensions ['ignore', 'ignore_ament_install']
+[0.256s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map) by extension 'ignore'
+[0.256s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map) by extension 'ignore_ament_install'
+[0.256s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map) by extensions ['colcon_pkg']
+[0.256s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map) by extension 'colcon_pkg'
+[0.256s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map) by extensions ['colcon_meta']
+[0.256s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map) by extension 'colcon_meta'
+[0.256s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map) by extensions ['ros']
+[0.256s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map) by extension 'ros'
+[0.256s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map) by extensions ['cmake', 'python']
+[0.256s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map) by extension 'cmake'
+[0.256s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map) by extension 'python'
+[0.256s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map) by extensions ['python_setup_py']
+[0.256s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map) by extension 'python_setup_py'
+[0.257s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access) by extensions ['ignore', 'ignore_ament_install']
+[0.257s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access) by extension 'ignore'
+[0.257s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access) by extension 'ignore_ament_install'
+[0.257s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access) by extensions ['colcon_pkg']
+[0.257s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access) by extension 'colcon_pkg'
+[0.257s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access) by extensions ['colcon_meta']
+[0.257s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access) by extension 'colcon_meta'
+[0.257s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access) by extensions ['ros']
+[0.257s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access) by extension 'ros'
+[0.257s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access) by extensions ['cmake', 'python']
+[0.258s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access) by extension 'cmake'
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access) by extension 'python'
+[0.262s] DEBUG:colcon.colcon_core.package_identification:Package 'dependencies/map/ad_map_access' with type 'cmake' and name 'ad_map_access'
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access_test_support) by extensions ['ignore', 'ignore_ament_install']
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access_test_support) by extension 'ignore'
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access_test_support) by extension 'ignore_ament_install'
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access_test_support) by extensions ['colcon_pkg']
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access_test_support) by extension 'colcon_pkg'
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access_test_support) by extensions ['colcon_meta']
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access_test_support) by extension 'colcon_meta'
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access_test_support) by extensions ['ros']
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access_test_support) by extension 'ros'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access_test_support) by extensions ['cmake', 'python']
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access_test_support) by extension 'cmake'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_access_test_support) by extension 'python'
+[0.264s] DEBUG:colcon.colcon_core.package_identification:Package 'dependencies/map/ad_map_access_test_support' with type 'cmake' and name 'ad_map_access_test_support'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_opendrive_reader) by extensions ['ignore', 'ignore_ament_install']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_opendrive_reader) by extension 'ignore'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_opendrive_reader) by extension 'ignore_ament_install'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_opendrive_reader) by extensions ['colcon_pkg']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_opendrive_reader) by extension 'colcon_pkg'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_opendrive_reader) by extensions ['colcon_meta']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_opendrive_reader) by extension 'colcon_meta'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_opendrive_reader) by extensions ['ros']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_opendrive_reader) by extension 'ros'
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_opendrive_reader) by extensions ['cmake', 'python']
+[0.264s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_opendrive_reader) by extension 'cmake'
+[0.265s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_map_opendrive_reader) by extension 'python'
+[0.265s] DEBUG:colcon.colcon_core.package_identification:Package 'dependencies/map/ad_map_opendrive_reader' with type 'cmake' and name 'ad_map_opendrive_reader'
+[0.265s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_physics) by extensions ['ignore', 'ignore_ament_install']
+[0.265s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_physics) by extension 'ignore'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_physics) by extension 'ignore_ament_install'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_physics) by extensions ['colcon_pkg']
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_physics) by extension 'colcon_pkg'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_physics) by extensions ['colcon_meta']
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_physics) by extension 'colcon_meta'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_physics) by extensions ['ros']
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_physics) by extension 'ros'
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_physics) by extensions ['cmake', 'python']
+[0.266s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_physics) by extension 'cmake'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/ad_physics) by extension 'python'
+[0.268s] DEBUG:colcon.colcon_core.package_identification:Package 'dependencies/map/ad_physics' with type 'cmake' and name 'ad_physics'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/cmake) by extensions ['ignore', 'ignore_ament_install']
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/cmake) by extension 'ignore'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/cmake) by extension 'ignore_ament_install'
+[0.268s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/cmake) by extensions ['colcon_pkg']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/cmake) by extension 'colcon_pkg'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/cmake) by extensions ['colcon_meta']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/cmake) by extension 'colcon_meta'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/cmake) by extensions ['ros']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/cmake) by extension 'ros'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/cmake) by extensions ['cmake', 'python']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/cmake) by extension 'cmake'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/cmake) by extension 'python'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/cmake) by extensions ['python_setup_py']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/cmake) by extension 'python_setup_py'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies) by extensions ['ignore', 'ignore_ament_install']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies) by extension 'ignore'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies) by extension 'ignore_ament_install'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies) by extensions ['colcon_pkg']
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies) by extension 'colcon_pkg'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies) by extensions ['colcon_meta']
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies) by extension 'colcon_meta'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies) by extensions ['ros']
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies) by extension 'ros'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies) by extensions ['cmake', 'python']
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies) by extension 'cmake'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies) by extension 'python'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies) by extensions ['python_setup_py']
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies) by extension 'python_setup_py'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies/spdlog) by extensions ['ignore', 'ignore_ament_install']
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies/spdlog) by extension 'ignore'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies/spdlog) by extension 'ignore_ament_install'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies/spdlog) by extensions ['colcon_pkg']
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies/spdlog) by extension 'colcon_pkg'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies/spdlog) by extensions ['colcon_meta']
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies/spdlog) by extension 'colcon_meta'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies/spdlog) by extensions ['ros']
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies/spdlog) by extension 'ros'
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies/spdlog) by extensions ['cmake', 'python']
+[0.271s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies/spdlog) by extension 'cmake'
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/dependencies/spdlog) by extension 'python'
+[0.274s] DEBUG:colcon.colcon_core.package_identification:Package 'dependencies/map/dependencies/spdlog' with type 'cmake' and name 'spdlog'
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc) by extensions ['ignore', 'ignore_ament_install']
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc) by extension 'ignore'
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc) by extension 'ignore_ament_install'
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc) by extensions ['colcon_pkg']
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc) by extension 'colcon_pkg'
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc) by extensions ['colcon_meta']
+[0.274s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc) by extension 'colcon_meta'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc) by extensions ['ros']
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc) by extension 'ros'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc) by extensions ['cmake', 'python']
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc) by extension 'cmake'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc) by extension 'python'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc) by extensions ['python_setup_py']
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc) by extension 'python_setup_py'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access) by extensions ['ignore', 'ignore_ament_install']
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access) by extension 'ignore'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access) by extension 'ignore_ament_install'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access) by extensions ['colcon_pkg']
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access) by extension 'colcon_pkg'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access) by extensions ['colcon_meta']
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access) by extension 'colcon_meta'
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access) by extensions ['ros']
+[0.275s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access) by extension 'ros'
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access) by extensions ['cmake', 'python']
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access) by extension 'cmake'
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access) by extension 'python'
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access) by extensions ['python_setup_py']
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access) by extension 'python_setup_py'
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access/images) by extensions ['ignore', 'ignore_ament_install']
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access/images) by extension 'ignore'
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access/images) by extension 'ignore_ament_install'
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access/images) by extensions ['colcon_pkg']
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access/images) by extension 'colcon_pkg'
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access/images) by extensions ['colcon_meta']
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access/images) by extension 'colcon_meta'
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access/images) by extensions ['ros']
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access/images) by extension 'ros'
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access/images) by extensions ['cmake', 'python']
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access/images) by extension 'cmake'
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access/images) by extension 'python'
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access/images) by extensions ['python_setup_py']
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_access/images) by extension 'python_setup_py'
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_opendrive_reader) by extensions ['ignore', 'ignore_ament_install']
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_opendrive_reader) by extension 'ignore'
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_opendrive_reader) by extension 'ignore_ament_install'
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_opendrive_reader) by extensions ['colcon_pkg']
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_opendrive_reader) by extension 'colcon_pkg'
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_opendrive_reader) by extensions ['colcon_meta']
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_opendrive_reader) by extension 'colcon_meta'
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_opendrive_reader) by extensions ['ros']
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_opendrive_reader) by extension 'ros'
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_opendrive_reader) by extensions ['cmake', 'python']
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_opendrive_reader) by extension 'cmake'
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_opendrive_reader) by extension 'python'
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_opendrive_reader) by extensions ['python_setup_py']
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_map_opendrive_reader) by extension 'python_setup_py'
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_physics) by extensions ['ignore', 'ignore_ament_install']
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_physics) by extension 'ignore'
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_physics) by extension 'ignore_ament_install'
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_physics) by extensions ['colcon_pkg']
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_physics) by extension 'colcon_pkg'
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_physics) by extensions ['colcon_meta']
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_physics) by extension 'colcon_meta'
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_physics) by extensions ['ros']
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_physics) by extension 'ros'
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_physics) by extensions ['cmake', 'python']
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_physics) by extension 'cmake'
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_physics) by extension 'python'
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_physics) by extensions ['python_setup_py']
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/ad_physics) by extension 'python_setup_py'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/map_maker) by extensions ['ignore', 'ignore_ament_install']
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/map_maker) by extension 'ignore'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/map_maker) by extension 'ignore_ament_install'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/map_maker) by extensions ['colcon_pkg']
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/map_maker) by extension 'colcon_pkg'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/map_maker) by extensions ['colcon_meta']
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/map_maker) by extension 'colcon_meta'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/map_maker) by extensions ['ros']
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/map_maker) by extension 'ros'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/map_maker) by extensions ['cmake', 'python']
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/map_maker) by extension 'cmake'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/map_maker) by extension 'python'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/map_maker) by extensions ['python_setup_py']
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/doc/map_maker) by extension 'python_setup_py'
+[0.280s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools) by extensions ['ignore', 'ignore_ament_install']
+[0.280s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools) by extension 'ignore'
+[0.280s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools) by extension 'ignore_ament_install'
+[0.280s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools) by extensions ['colcon_pkg']
+[0.280s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools) by extension 'colcon_pkg'
+[0.280s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools) by extensions ['colcon_meta']
+[0.280s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools) by extension 'colcon_meta'
+[0.280s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools) by extensions ['ros']
+[0.280s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools) by extension 'ros'
+[0.280s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools) by extensions ['cmake', 'python']
+[0.280s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools) by extension 'cmake'
+[0.280s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools) by extension 'python'
+[0.280s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools) by extensions ['python_setup_py']
+[0.280s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools) by extension 'python_setup_py'
+[0.281s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis) by extensions ['ignore', 'ignore_ament_install']
+[0.281s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis) by extension 'ignore'
+[0.281s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis) by extension 'ignore_ament_install'
+[0.281s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis) by extensions ['colcon_pkg']
+[0.281s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis) by extension 'colcon_pkg'
+[0.281s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis) by extensions ['colcon_meta']
+[0.281s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis) by extension 'colcon_meta'
+[0.281s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis) by extensions ['ros']
+[0.281s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis) by extension 'ros'
+[0.281s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis) by extensions ['cmake', 'python']
+[0.281s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis) by extension 'cmake'
+[0.282s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis) by extension 'python'
+[0.282s] DEBUG:colcon.colcon_core.package_identification:Package 'dependencies/map/tools/ad_map_access_qgis' with type 'cmake' and name 'ad_map_access_qgis'
+[0.283s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis_python) by extensions ['ignore', 'ignore_ament_install']
+[0.283s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis_python) by extension 'ignore'
+[0.283s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis_python) by extension 'ignore_ament_install'
+[0.283s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis_python) by extensions ['colcon_pkg']
+[0.283s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis_python) by extension 'colcon_pkg'
+[0.283s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis_python) by extensions ['colcon_meta']
+[0.283s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis_python) by extension 'colcon_meta'
+[0.283s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis_python) by extensions ['ros']
+[0.283s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis_python) by extension 'ros'
+[0.283s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis_python) by extensions ['cmake', 'python']
+[0.283s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis_python) by extension 'cmake'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/ad_map_access_qgis_python) by extension 'python'
+[0.284s] DEBUG:colcon.colcon_core.package_identification:Package 'dependencies/map/tools/ad_map_access_qgis_python' with type 'cmake' and name 'ad_map_access_qgis_python'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/map_maker) by extensions ['ignore', 'ignore_ament_install']
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/map_maker) by extension 'ignore'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/map_maker) by extension 'ignore_ament_install'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/map_maker) by extensions ['colcon_pkg']
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/map_maker) by extension 'colcon_pkg'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/map_maker) by extensions ['colcon_meta']
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/map_maker) by extension 'colcon_meta'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/map_maker) by extensions ['ros']
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/map_maker) by extension 'ros'
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/map_maker) by extensions ['cmake', 'python']
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/map_maker) by extension 'cmake'
+[0.287s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/map_maker) by extension 'python'
+[0.287s] DEBUG:colcon.colcon_core.package_identification:Package 'dependencies/map/tools/map_maker' with type 'cmake' and name 'MapMaker'
+[0.287s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/python) by extensions ['ignore', 'ignore_ament_install']
+[0.287s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/python) by extension 'ignore'
+[0.287s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/python) by extension 'ignore_ament_install'
+[0.288s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/python) by extensions ['colcon_pkg']
+[0.288s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/python) by extension 'colcon_pkg'
+[0.288s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/python) by extensions ['colcon_meta']
+[0.288s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/python) by extension 'colcon_meta'
+[0.288s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/python) by extensions ['ros']
+[0.288s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/python) by extension 'ros'
+[0.288s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/python) by extensions ['cmake', 'python']
+[0.288s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/python) by extension 'cmake'
+[0.288s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/python) by extension 'python'
+[0.288s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/python) by extensions ['python_setup_py']
+[0.288s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/map/tools/python) by extension 'python_setup_py'
+[0.288s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/spdlog) by extensions ['ignore', 'ignore_ament_install']
+[0.288s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/spdlog) by extension 'ignore'
+[0.288s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/spdlog) by extension 'ignore_ament_install'
+[0.288s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/spdlog) by extensions ['colcon_pkg']
+[0.288s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/spdlog) by extension 'colcon_pkg'
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/spdlog) by extensions ['colcon_meta']
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/spdlog) by extension 'colcon_meta'
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/spdlog) by extensions ['ros']
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/spdlog) by extension 'ros'
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/spdlog) by extensions ['cmake', 'python']
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/spdlog) by extension 'cmake'
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(dependencies/spdlog) by extension 'python'
+[0.291s] DEBUG:colcon.colcon_core.package_identification:Package 'dependencies/spdlog' with type 'cmake' and name 'spdlog'
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(doc) by extensions ['ignore', 'ignore_ament_install']
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(doc) by extension 'ignore'
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(doc) by extension 'ignore_ament_install'
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(doc) by extensions ['colcon_pkg']
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(doc) by extension 'colcon_pkg'
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(doc) by extensions ['colcon_meta']
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(doc) by extension 'colcon_meta'
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(doc) by extensions ['ros']
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(doc) by extension 'ros'
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(doc) by extensions ['cmake', 'python']
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(doc) by extension 'cmake'
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(doc) by extension 'python'
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(doc) by extensions ['python_setup_py']
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(doc) by extension 'python_setup_py'
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss) by extensions ['ignore', 'ignore_ament_install']
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss) by extension 'ignore'
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss) by extension 'ignore_ament_install'
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss) by extensions ['colcon_pkg']
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss) by extension 'colcon_pkg'
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss) by extensions ['colcon_meta']
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss) by extension 'colcon_meta'
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss) by extensions ['ros']
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss) by extension 'ros'
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss) by extensions ['cmake', 'python']
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss) by extension 'cmake'
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss) by extension 'python'
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss) by extensions ['python_setup_py']
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss) by extension 'python_setup_py'
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss_map_integration) by extensions ['ignore', 'ignore_ament_install']
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss_map_integration) by extension 'ignore'
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss_map_integration) by extension 'ignore_ament_install'
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss_map_integration) by extensions ['colcon_pkg']
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss_map_integration) by extension 'colcon_pkg'
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss_map_integration) by extensions ['colcon_meta']
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss_map_integration) by extension 'colcon_meta'
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss_map_integration) by extensions ['ros']
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss_map_integration) by extension 'ros'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss_map_integration) by extensions ['cmake', 'python']
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss_map_integration) by extension 'cmake'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss_map_integration) by extension 'python'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss_map_integration) by extensions ['python_setup_py']
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(doc/ad_rss_map_integration) by extension 'python_setup_py'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(doc/apidoc) by extensions ['ignore', 'ignore_ament_install']
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(doc/apidoc) by extension 'ignore'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(doc/apidoc) by extension 'ignore_ament_install'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(doc/apidoc) by extensions ['colcon_pkg']
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(doc/apidoc) by extension 'colcon_pkg'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(doc/apidoc) by extensions ['colcon_meta']
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(doc/apidoc) by extension 'colcon_meta'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(doc/apidoc) by extensions ['ros']
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(doc/apidoc) by extension 'ros'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(doc/apidoc) by extensions ['cmake', 'python']
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(doc/apidoc) by extension 'cmake'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(doc/apidoc) by extension 'python'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(doc/apidoc) by extensions ['python_setup_py']
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(doc/apidoc) by extension 'python_setup_py'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images) by extensions ['ignore', 'ignore_ament_install']
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images) by extension 'ignore'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images) by extension 'ignore_ament_install'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images) by extensions ['colcon_pkg']
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images) by extension 'colcon_pkg'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images) by extensions ['colcon_meta']
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images) by extension 'colcon_meta'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images) by extensions ['ros']
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images) by extension 'ros'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images) by extensions ['cmake', 'python']
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images) by extension 'cmake'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images) by extension 'python'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images) by extensions ['python_setup_py']
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images) by extension 'python_setup_py'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images/img) by extensions ['ignore', 'ignore_ament_install']
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images/img) by extension 'ignore'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images/img) by extension 'ignore_ament_install'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images/img) by extensions ['colcon_pkg']
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images/img) by extension 'colcon_pkg'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images/img) by extensions ['colcon_meta']
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images/img) by extension 'colcon_meta'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images/img) by extensions ['ros']
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images/img) by extension 'ros'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images/img) by extensions ['cmake', 'python']
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images/img) by extension 'cmake'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images/img) by extension 'python'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images/img) by extensions ['python_setup_py']
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(doc/images/img) by extension 'python_setup_py'
+[0.297s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.297s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.297s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.297s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.297s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.297s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.297s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.297s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.297s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.297s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.297s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.304s] INFO:colcon.colcon_core.package_selection:Skipping package 'ad_map_access_qgis' in 'dependencies/map/tools/ad_map_access_qgis'
+[0.304s] INFO:colcon.colcon_core.package_selection:Skipping package 'ad_map_access_test_support' in 'dependencies/map/ad_map_access_test_support'
+[0.304s] INFO:colcon.colcon_core.package_selection:Skipping package 'ad_map_access_qgis_python' in 'dependencies/map/tools/ad_map_access_qgis_python'
+[0.304s] INFO:colcon.colcon_core.package_selection:Skipping package 'MapMaker' in 'dependencies/map/tools/map_maker'
+[0.304s] ERROR:colcon:colcon build: Duplicate package names not supported:
+- spdlog:
+  - dependencies/map/dependencies/spdlog
+  - dependencies/spdlog
