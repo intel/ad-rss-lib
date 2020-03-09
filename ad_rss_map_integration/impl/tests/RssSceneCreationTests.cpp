@@ -81,11 +81,11 @@ TEST_F(RssSceneCreationTestRoadBoundaries, testAppendRoadBoundaries)
 
     EXPECT_TRUE(withinValidInputRange(scene.objectRssDynamics));
     EXPECT_EQ(::ad::physics::Acceleration(0.), scene.objectRssDynamics.alphaLat.accelMax);
-    EXPECT_EQ(::ad::physics::Acceleration(0.01), scene.objectRssDynamics.alphaLat.brakeMin);
+    EXPECT_EQ(::ad::physics::Acceleration(-0.01), scene.objectRssDynamics.alphaLat.brakeMin);
     EXPECT_EQ(::ad::physics::Acceleration(0.), scene.objectRssDynamics.alphaLon.accelMax);
-    EXPECT_EQ(::ad::physics::Acceleration(0.01), scene.objectRssDynamics.alphaLon.brakeMax);
-    EXPECT_EQ(::ad::physics::Acceleration(0.01), scene.objectRssDynamics.alphaLon.brakeMin);
-    EXPECT_EQ(::ad::physics::Acceleration(0.01), scene.objectRssDynamics.alphaLon.brakeMinCorrect);
+    EXPECT_EQ(::ad::physics::Acceleration(-0.01), scene.objectRssDynamics.alphaLon.brakeMax);
+    EXPECT_EQ(::ad::physics::Acceleration(-0.01), scene.objectRssDynamics.alphaLon.brakeMin);
+    EXPECT_EQ(::ad::physics::Acceleration(-0.01), scene.objectRssDynamics.alphaLon.brakeMinCorrect);
     EXPECT_EQ(::ad::physics::Distance(0.), scene.objectRssDynamics.lateralFluctuationMargin);
     EXPECT_EQ(::ad::physics::Duration(0.01), scene.objectRssDynamics.responseTime);
 

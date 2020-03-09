@@ -197,7 +197,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
         // no intersection in between, but merging
         // we interpret this now as intersection case
         // @todo: analyze in more detail how such scenes have to be handled
-        getLogger()->trace(
+        getLogger()->info(
           "RssSceneCreation::appendScenes[ {} ]>> no intersections on merging connecting route found: create "
           "merging-intersection same prio use-case {}",
           objectId,
@@ -314,22 +314,23 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
                   }
                   else
                   {
-                    // @todo: can this strange constellation happen?
-                    //
-                    getLogger()->warn(
+                    // This can happen if the cars are too far away from each other for creating an opposing
+                    // connecting route, but we find two predictions of the two vehicles ending at the same
+                    // intersection
+                    // Therefore, later this situation might switch to the opposite type above.
+                    // Now: Create an intersection scene
+                    getLogger()->trace(
                       "RssSceneCreation::appendScenes[ {} ]>> egoRoute: {} objectRoute: {} intersection "
                       "{} object route crosses intersection but merging situation {}: create "
-                      "merging-intersection same prio use-case",
+                      "intersection scene",
                       objectId,
                       egoRoute,
                       objectRoute,
                       intersection->entryParaPoints(),
                       connectingRoute);
                     result = result
-                      && sceneCreator.appendMergingScene(connectingRoute,
-                                                         ::ad::rss::situation::SituationType::IntersectionSamePriority,
-                                                         egoObject,
-                                                         otherObject);
+                      && sceneCreator.appendIntersectionScene(
+                           intersection, egoRoute, objectRoute, *intersectionOtherRoute, egoObject, otherObject);
                     sceneAppended = true;
                   }
                 }

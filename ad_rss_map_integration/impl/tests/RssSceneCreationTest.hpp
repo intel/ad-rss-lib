@@ -28,12 +28,12 @@ struct RssSceneCreationTest : ::testing::Test
   const ::ad::physics::Duration cResponseTimeOtherVehicles{2};
 
   const ::ad::physics::Acceleration cMaximumLongitudinalAcceleration{3.5};
-  const ::ad::physics::Acceleration cMinimumLongitudinalBrakingDeceleleration{4};
-  const ::ad::physics::Acceleration cMaximumLongitudinalBrakingDeceleleration{8};
-  const ::ad::physics::Acceleration cMinimumLongitudinalBrakingDecelelerationCorrect{3};
+  const ::ad::physics::Acceleration cMinimumLongitudinalBrakingDeceleleration{-4};
+  const ::ad::physics::Acceleration cMaximumLongitudinalBrakingDeceleleration{-8};
+  const ::ad::physics::Acceleration cMinimumLongitudinalBrakingDecelelerationCorrect{-3};
 
   const ::ad::physics::Acceleration cMaximumLateralAcceleration{0.2};
-  const ::ad::physics::Acceleration cMinimumLateralBrakingDeceleleration{0.8};
+  const ::ad::physics::Acceleration cMinimumLateralBrakingDeceleleration{-0.8};
 
   typedef std::tuple<::ad::rss::situation::SituationType, size_t, size_t, ::ad::physics::Speed> ExpectedResultTuple;
   typedef std::tuple<::ad::map::point::Longitude, ::ad::map::point::Latitude, double> ObjectGeoLocationTuple;
