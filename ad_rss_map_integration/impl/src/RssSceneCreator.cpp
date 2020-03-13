@@ -6,7 +6,7 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "RssSceneCreator.hpp"
+#include "ad/rss/map/RssSceneCreator.hpp"
 #include <ad/rss/world/SceneValidInputRange.hpp>
 #include "ad/rss/map/Logging.hpp"
 
