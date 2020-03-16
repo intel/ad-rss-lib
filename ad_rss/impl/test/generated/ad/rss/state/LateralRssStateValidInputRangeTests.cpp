@@ -30,8 +30,6 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRange)
   valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLat.accelMax = valueAlphaLatAccelMax;
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-  valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
@@ -57,8 +55,6 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeResponseTooSmall)
   valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLat.accelMax = valueAlphaLatAccelMax;
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-  valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
@@ -88,8 +84,6 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeResponseTooBig)
   valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLat.accelMax = valueAlphaLatAccelMax;
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-  valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
@@ -119,8 +113,6 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeAlphaLatTooSmall)
   valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLat.accelMax = valueAlphaLatAccelMax;
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-  valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
@@ -152,8 +144,6 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeAlphaLatTooBig)
   valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLat.accelMax = valueAlphaLatAccelMax;
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-  valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
@@ -185,8 +175,6 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeRssStateInformation
   valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLat.accelMax = valueAlphaLatAccelMax;
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-  valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
@@ -218,8 +206,6 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeRssStateInformation
   valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLat.accelMax = valueAlphaLatAccelMax;
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-  valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;

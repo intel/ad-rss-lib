@@ -6,7 +6,7 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "RssObjectConversion.hpp"
+#include "ad/rss/map/RssObjectConversion.hpp"
 
 #include <ad/map/point/HeadingOperation.hpp>
 #include <ad/map/route/RouteOperation.hpp>

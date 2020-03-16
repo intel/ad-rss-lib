@@ -27,8 +27,6 @@ protected:
     valueAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
     value.accelMax = valueAccelMax;
     ::ad::physics::Acceleration valueBrakeMin(-1e2);
-    valueBrakeMin = ::ad::physics::Acceleration(
-      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     value.brakeMin = valueBrakeMin;
     mValue = value;
   }

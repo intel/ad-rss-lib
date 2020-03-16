@@ -31,13 +31,11 @@ protected:
     ::ad::physics::Acceleration valueBrakeMin(-1e2);
     value.brakeMin = valueBrakeMin;
     ::ad::physics::Acceleration valueBrakeMinCorrect(-1e2);
-    valueBrakeMinCorrect = ::ad::physics::Acceleration(
-      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     value.brakeMinCorrect = valueBrakeMinCorrect;
-    value.brakeMin = value.brakeMinCorrect;
-    value.brakeMax = value.brakeMin;
     value.brakeMin = value.brakeMax;
     value.brakeMinCorrect = value.brakeMin;
+    value.brakeMin = value.brakeMinCorrect;
+    value.brakeMax = value.brakeMin;
     mValue = value;
   }
 

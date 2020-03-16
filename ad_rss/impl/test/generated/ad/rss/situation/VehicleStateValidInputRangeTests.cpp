@@ -49,21 +49,17 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRange)
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-1e2);
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueDynamicsAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLonBrakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMax;
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLon.brakeMin;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamics.alphaLon = valueDynamicsAlphaLon;
   ::ad::rss::world::LateralRssAccelerationValues valueDynamicsAlphaLat;
   ::ad::physics::Acceleration valueDynamicsAlphaLatAccelMax(-1e2);
   valueDynamicsAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueDynamicsAlphaLat.accelMax = valueDynamicsAlphaLatAccelMax;
   ::ad::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-1e2);
-  valueDynamicsAlphaLatBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLat.brakeMin = valueDynamicsAlphaLatBrakeMin;
   valueDynamics.alphaLat = valueDynamicsAlphaLat;
   ::ad::physics::Distance valueDynamicsLateralFluctuationMargin(0.);
@@ -119,21 +115,17 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeVelocityTooSmall)
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-1e2);
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueDynamicsAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLonBrakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMax;
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLon.brakeMin;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamics.alphaLon = valueDynamicsAlphaLon;
   ::ad::rss::world::LateralRssAccelerationValues valueDynamicsAlphaLat;
   ::ad::physics::Acceleration valueDynamicsAlphaLatAccelMax(-1e2);
   valueDynamicsAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueDynamicsAlphaLat.accelMax = valueDynamicsAlphaLatAccelMax;
   ::ad::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-1e2);
-  valueDynamicsAlphaLatBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLat.brakeMin = valueDynamicsAlphaLatBrakeMin;
   valueDynamics.alphaLat = valueDynamicsAlphaLat;
   ::ad::physics::Distance valueDynamicsLateralFluctuationMargin(0.);
@@ -197,21 +189,17 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeVelocityTooBig)
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-1e2);
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueDynamicsAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLonBrakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMax;
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLon.brakeMin;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamics.alphaLon = valueDynamicsAlphaLon;
   ::ad::rss::world::LateralRssAccelerationValues valueDynamicsAlphaLat;
   ::ad::physics::Acceleration valueDynamicsAlphaLatAccelMax(-1e2);
   valueDynamicsAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueDynamicsAlphaLat.accelMax = valueDynamicsAlphaLatAccelMax;
   ::ad::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-1e2);
-  valueDynamicsAlphaLatBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLat.brakeMin = valueDynamicsAlphaLatBrakeMin;
   valueDynamics.alphaLat = valueDynamicsAlphaLat;
   ::ad::physics::Distance valueDynamicsLateralFluctuationMargin(0.);
@@ -275,21 +263,17 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsTooSmall)
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-1e2);
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueDynamicsAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLonBrakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMax;
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLon.brakeMin;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamics.alphaLon = valueDynamicsAlphaLon;
   ::ad::rss::world::LateralRssAccelerationValues valueDynamicsAlphaLat;
   ::ad::physics::Acceleration valueDynamicsAlphaLatAccelMax(-1e2);
   valueDynamicsAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueDynamicsAlphaLat.accelMax = valueDynamicsAlphaLatAccelMax;
   ::ad::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-1e2);
-  valueDynamicsAlphaLatBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLat.brakeMin = valueDynamicsAlphaLatBrakeMin;
   valueDynamics.alphaLat = valueDynamicsAlphaLat;
   ::ad::physics::Distance valueDynamicsLateralFluctuationMargin(0.);
@@ -353,21 +337,17 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsTooBig)
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-1e2);
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueDynamicsAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLonBrakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMax;
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLon.brakeMin;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamics.alphaLon = valueDynamicsAlphaLon;
   ::ad::rss::world::LateralRssAccelerationValues valueDynamicsAlphaLat;
   ::ad::physics::Acceleration valueDynamicsAlphaLatAccelMax(-1e2);
   valueDynamicsAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueDynamicsAlphaLat.accelMax = valueDynamicsAlphaLatAccelMax;
   ::ad::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-1e2);
-  valueDynamicsAlphaLatBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLat.brakeMin = valueDynamicsAlphaLatBrakeMin;
   valueDynamics.alphaLat = valueDynamicsAlphaLat;
   ::ad::physics::Distance valueDynamicsLateralFluctuationMargin(0.);
@@ -431,21 +411,17 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterInterse
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-1e2);
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueDynamicsAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLonBrakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMax;
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLon.brakeMin;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamics.alphaLon = valueDynamicsAlphaLon;
   ::ad::rss::world::LateralRssAccelerationValues valueDynamicsAlphaLat;
   ::ad::physics::Acceleration valueDynamicsAlphaLatAccelMax(-1e2);
   valueDynamicsAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueDynamicsAlphaLat.accelMax = valueDynamicsAlphaLatAccelMax;
   ::ad::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-1e2);
-  valueDynamicsAlphaLatBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLat.brakeMin = valueDynamicsAlphaLatBrakeMin;
   valueDynamics.alphaLat = valueDynamicsAlphaLat;
   ::ad::physics::Distance valueDynamicsLateralFluctuationMargin(0.);
@@ -505,21 +481,17 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterInterse
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-1e2);
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueDynamicsAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLonBrakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMax;
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLon.brakeMin;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamics.alphaLon = valueDynamicsAlphaLon;
   ::ad::rss::world::LateralRssAccelerationValues valueDynamicsAlphaLat;
   ::ad::physics::Acceleration valueDynamicsAlphaLatAccelMax(-1e2);
   valueDynamicsAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueDynamicsAlphaLat.accelMax = valueDynamicsAlphaLatAccelMax;
   ::ad::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-1e2);
-  valueDynamicsAlphaLatBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLat.brakeMin = valueDynamicsAlphaLatBrakeMin;
   valueDynamics.alphaLat = valueDynamicsAlphaLat;
   ::ad::physics::Distance valueDynamicsLateralFluctuationMargin(0.);
@@ -587,21 +559,17 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveInterse
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-1e2);
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueDynamicsAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLonBrakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMax;
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLon.brakeMin;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamics.alphaLon = valueDynamicsAlphaLon;
   ::ad::rss::world::LateralRssAccelerationValues valueDynamicsAlphaLat;
   ::ad::physics::Acceleration valueDynamicsAlphaLatAccelMax(-1e2);
   valueDynamicsAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueDynamicsAlphaLat.accelMax = valueDynamicsAlphaLatAccelMax;
   ::ad::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-1e2);
-  valueDynamicsAlphaLatBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLat.brakeMin = valueDynamicsAlphaLatBrakeMin;
   valueDynamics.alphaLat = valueDynamicsAlphaLat;
   ::ad::physics::Distance valueDynamicsLateralFluctuationMargin(0.);
@@ -661,21 +629,17 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveInterse
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-1e2);
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueDynamicsAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLonBrakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
-  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMax;
   valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLon.brakeMin;
+  valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
+  valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
   valueDynamics.alphaLon = valueDynamicsAlphaLon;
   ::ad::rss::world::LateralRssAccelerationValues valueDynamicsAlphaLat;
   ::ad::physics::Acceleration valueDynamicsAlphaLatAccelMax(-1e2);
   valueDynamicsAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueDynamicsAlphaLat.accelMax = valueDynamicsAlphaLatAccelMax;
   ::ad::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-1e2);
-  valueDynamicsAlphaLatBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueDynamicsAlphaLat.brakeMin = valueDynamicsAlphaLatBrakeMin;
   valueDynamics.alphaLat = valueDynamicsAlphaLat;
   ::ad::physics::Distance valueDynamicsLateralFluctuationMargin(0.);

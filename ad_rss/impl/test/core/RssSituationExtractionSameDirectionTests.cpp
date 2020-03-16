@@ -399,7 +399,7 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeFails)
   EXPECT_FALSE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   worldModel.scenes[1].objectRssDynamics = originalRssDynamics;
 
-  worldModel.scenes[1].objectRssDynamics.alphaLat.brakeMin = Acceleration(3.33);
+  worldModel.scenes[1].objectRssDynamics.alphaLat.brakeMin = Acceleration(-3.33);
   worldModel.timeIndex++;
   EXPECT_FALSE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   worldModel.scenes[1].objectRssDynamics = originalRssDynamics;
@@ -410,19 +410,19 @@ TEST_F(RssSituationExtractionSameDirectionTests, mergeFails)
   worldModel.scenes[1].objectRssDynamics = originalRssDynamics;
 
   worldModel.scenes[1].objectRssDynamics.alphaLon.brakeMax
-    = worldModel.scenes[1].objectRssDynamics.alphaLon.brakeMax + Acceleration(1.);
+    = worldModel.scenes[1].objectRssDynamics.alphaLon.brakeMax + Acceleration(-1.);
   worldModel.timeIndex++;
   EXPECT_FALSE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   worldModel.scenes[1].objectRssDynamics = originalRssDynamics;
 
   worldModel.scenes[1].objectRssDynamics.alphaLon.brakeMin
-    = worldModel.scenes[1].objectRssDynamics.alphaLon.brakeMin - Acceleration(1.);
+    = worldModel.scenes[1].objectRssDynamics.alphaLon.brakeMin - Acceleration(-1.);
   worldModel.timeIndex++;
   EXPECT_FALSE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   worldModel.scenes[1].objectRssDynamics = originalRssDynamics;
 
   worldModel.scenes[1].objectRssDynamics.alphaLon.brakeMinCorrect
-    = worldModel.scenes[1].objectRssDynamics.alphaLon.brakeMinCorrect + Acceleration(.5);
+    = worldModel.scenes[1].objectRssDynamics.alphaLon.brakeMinCorrect + Acceleration(-.5);
   worldModel.timeIndex++;
   EXPECT_FALSE(situationExtraction.extractSituations(worldModel, situationSnapshot));
   worldModel.scenes[1].objectRssDynamics = originalRssDynamics;

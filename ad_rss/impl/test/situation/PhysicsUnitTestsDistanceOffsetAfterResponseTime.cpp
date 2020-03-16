@@ -54,7 +54,7 @@ TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, negative_time)
 TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, deceleration_to_stop_equal_response_time_longitudinal)
 {
   Distance distanceOffsetB(0.);
-  ASSERT_TRUE(calculateStoppingDistance(Speed(4.), Acceleration(4.), distanceOffsetB));
+  ASSERT_TRUE(calculateStoppingDistance(Speed(4.), Acceleration(-4.), distanceOffsetB));
 
   for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
   {

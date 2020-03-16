@@ -6,7 +6,7 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "RssSceneCreator.hpp"
+#include "ad/rss/map/RssSceneCreator.hpp"
 #include <ad/rss/world/SceneValidInputRange.hpp>
 #include "ad/rss/map/Logging.hpp"
 
@@ -375,11 +375,11 @@ bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const
 
   ::ad::rss::world::RssDynamics staticDynamics;
   staticDynamics.alphaLat.accelMax = ::ad::physics::Acceleration(0.);
-  staticDynamics.alphaLat.brakeMin = ::ad::physics::Acceleration(0.01);
+  staticDynamics.alphaLat.brakeMin = ::ad::physics::Acceleration(-0.01);
   staticDynamics.alphaLon.accelMax = ::ad::physics::Acceleration(0.);
-  staticDynamics.alphaLon.brakeMax = ::ad::physics::Acceleration(0.01);
-  staticDynamics.alphaLon.brakeMin = ::ad::physics::Acceleration(0.01);
-  staticDynamics.alphaLon.brakeMinCorrect = ::ad::physics::Acceleration(0.01);
+  staticDynamics.alphaLon.brakeMax = ::ad::physics::Acceleration(-0.01);
+  staticDynamics.alphaLon.brakeMin = ::ad::physics::Acceleration(-0.01);
+  staticDynamics.alphaLon.brakeMinCorrect = ::ad::physics::Acceleration(-0.01);
   staticDynamics.lateralFluctuationMargin = ::ad::physics::Distance(0.0);
   staticDynamics.responseTime = ::ad::physics::Duration(0.01);
 

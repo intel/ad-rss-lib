@@ -14,7 +14,7 @@
 #include <ad/map/intersection/Intersection.hpp>
 #include <ad/map/route/FullRoute.hpp>
 #include <ad/rss/world/WorldModel.hpp>
-#include "RssObjectConversion.hpp"
+#include "ad/rss/map/RssObjectConversion.hpp"
 #include "ad/rss/map/RssSceneCreation.hpp"
 
 /*!

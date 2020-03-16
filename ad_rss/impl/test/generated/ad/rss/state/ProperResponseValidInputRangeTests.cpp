@@ -41,13 +41,11 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRange)
   ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
   ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
@@ -56,8 +54,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRange)
   valueAlphaLatRightAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatRight.accelMax = valueAlphaLatRightAccelMax;
   ::ad::physics::Acceleration valueAlphaLatRightBrakeMin(-1e2);
-  valueAlphaLatRightBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatRight.brakeMin = valueAlphaLatRightBrakeMin;
   value.alphaLatRight = valueAlphaLatRight;
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
@@ -67,8 +63,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRange)
   valueAlphaLatLeftAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatLeft.accelMax = valueAlphaLatLeftAccelMax;
   ::ad::physics::Acceleration valueAlphaLatLeftBrakeMin(-1e2);
-  valueAlphaLatLeftBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatLeft.brakeMin = valueAlphaLatLeftBrakeMin;
   value.alphaLatLeft = valueAlphaLatLeft;
   ASSERT_TRUE(withinValidInputRange(value));
@@ -97,13 +91,11 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLongitudinalResponse
   ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
   ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
@@ -112,8 +104,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLongitudinalResponse
   valueAlphaLatRightAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatRight.accelMax = valueAlphaLatRightAccelMax;
   ::ad::physics::Acceleration valueAlphaLatRightBrakeMin(-1e2);
-  valueAlphaLatRightBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatRight.brakeMin = valueAlphaLatRightBrakeMin;
   value.alphaLatRight = valueAlphaLatRight;
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
@@ -123,8 +113,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLongitudinalResponse
   valueAlphaLatLeftAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatLeft.accelMax = valueAlphaLatLeftAccelMax;
   ::ad::physics::Acceleration valueAlphaLatLeftBrakeMin(-1e2);
-  valueAlphaLatLeftBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatLeft.brakeMin = valueAlphaLatLeftBrakeMin;
   value.alphaLatLeft = valueAlphaLatLeft;
 
@@ -158,13 +146,11 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLongitudinalResponse
   ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
   ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
@@ -173,8 +159,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLongitudinalResponse
   valueAlphaLatRightAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatRight.accelMax = valueAlphaLatRightAccelMax;
   ::ad::physics::Acceleration valueAlphaLatRightBrakeMin(-1e2);
-  valueAlphaLatRightBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatRight.brakeMin = valueAlphaLatRightBrakeMin;
   value.alphaLatRight = valueAlphaLatRight;
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
@@ -184,8 +168,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLongitudinalResponse
   valueAlphaLatLeftAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatLeft.accelMax = valueAlphaLatLeftAccelMax;
   ::ad::physics::Acceleration valueAlphaLatLeftBrakeMin(-1e2);
-  valueAlphaLatLeftBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatLeft.brakeMin = valueAlphaLatLeftBrakeMin;
   value.alphaLatLeft = valueAlphaLatLeft;
 
@@ -219,13 +201,11 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLonTooSmall)
   ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
   ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
@@ -234,8 +214,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLonTooSmall)
   valueAlphaLatRightAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatRight.accelMax = valueAlphaLatRightAccelMax;
   ::ad::physics::Acceleration valueAlphaLatRightBrakeMin(-1e2);
-  valueAlphaLatRightBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatRight.brakeMin = valueAlphaLatRightBrakeMin;
   value.alphaLatRight = valueAlphaLatRight;
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
@@ -245,8 +223,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLonTooSmall)
   valueAlphaLatLeftAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatLeft.accelMax = valueAlphaLatLeftAccelMax;
   ::ad::physics::Acceleration valueAlphaLatLeftBrakeMin(-1e2);
-  valueAlphaLatLeftBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatLeft.brakeMin = valueAlphaLatLeftBrakeMin;
   value.alphaLatLeft = valueAlphaLatLeft;
 
@@ -281,13 +257,11 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLonTooBig)
   ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
   ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
@@ -296,8 +270,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLonTooBig)
   valueAlphaLatRightAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatRight.accelMax = valueAlphaLatRightAccelMax;
   ::ad::physics::Acceleration valueAlphaLatRightBrakeMin(-1e2);
-  valueAlphaLatRightBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatRight.brakeMin = valueAlphaLatRightBrakeMin;
   value.alphaLatRight = valueAlphaLatRight;
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
@@ -307,8 +279,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLonTooBig)
   valueAlphaLatLeftAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatLeft.accelMax = valueAlphaLatLeftAccelMax;
   ::ad::physics::Acceleration valueAlphaLatLeftBrakeMin(-1e2);
-  valueAlphaLatLeftBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatLeft.brakeMin = valueAlphaLatLeftBrakeMin;
   value.alphaLatLeft = valueAlphaLatLeft;
 
@@ -343,13 +313,11 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseRight
   ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
   ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
@@ -358,8 +326,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseRight
   valueAlphaLatRightAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatRight.accelMax = valueAlphaLatRightAccelMax;
   ::ad::physics::Acceleration valueAlphaLatRightBrakeMin(-1e2);
-  valueAlphaLatRightBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatRight.brakeMin = valueAlphaLatRightBrakeMin;
   value.alphaLatRight = valueAlphaLatRight;
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
@@ -369,8 +335,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseRight
   valueAlphaLatLeftAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatLeft.accelMax = valueAlphaLatLeftAccelMax;
   ::ad::physics::Acceleration valueAlphaLatLeftBrakeMin(-1e2);
-  valueAlphaLatLeftBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatLeft.brakeMin = valueAlphaLatLeftBrakeMin;
   value.alphaLatLeft = valueAlphaLatLeft;
 
@@ -403,13 +367,11 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseRight
   ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
   ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
@@ -418,8 +380,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseRight
   valueAlphaLatRightAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatRight.accelMax = valueAlphaLatRightAccelMax;
   ::ad::physics::Acceleration valueAlphaLatRightBrakeMin(-1e2);
-  valueAlphaLatRightBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatRight.brakeMin = valueAlphaLatRightBrakeMin;
   value.alphaLatRight = valueAlphaLatRight;
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
@@ -429,8 +389,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseRight
   valueAlphaLatLeftAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatLeft.accelMax = valueAlphaLatLeftAccelMax;
   ::ad::physics::Acceleration valueAlphaLatLeftBrakeMin(-1e2);
-  valueAlphaLatLeftBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatLeft.brakeMin = valueAlphaLatLeftBrakeMin;
   value.alphaLatLeft = valueAlphaLatLeft;
 
@@ -463,13 +421,11 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLatRightTooSmal
   ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
   ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
@@ -478,8 +434,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLatRightTooSmal
   valueAlphaLatRightAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatRight.accelMax = valueAlphaLatRightAccelMax;
   ::ad::physics::Acceleration valueAlphaLatRightBrakeMin(-1e2);
-  valueAlphaLatRightBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatRight.brakeMin = valueAlphaLatRightBrakeMin;
   value.alphaLatRight = valueAlphaLatRight;
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
@@ -489,8 +443,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLatRightTooSmal
   valueAlphaLatLeftAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatLeft.accelMax = valueAlphaLatLeftAccelMax;
   ::ad::physics::Acceleration valueAlphaLatLeftBrakeMin(-1e2);
-  valueAlphaLatLeftBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatLeft.brakeMin = valueAlphaLatLeftBrakeMin;
   value.alphaLatLeft = valueAlphaLatLeft;
 
@@ -525,13 +477,11 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLatRightTooBig)
   ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
   ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
@@ -540,8 +490,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLatRightTooBig)
   valueAlphaLatRightAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatRight.accelMax = valueAlphaLatRightAccelMax;
   ::ad::physics::Acceleration valueAlphaLatRightBrakeMin(-1e2);
-  valueAlphaLatRightBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatRight.brakeMin = valueAlphaLatRightBrakeMin;
   value.alphaLatRight = valueAlphaLatRight;
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
@@ -551,8 +499,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLatRightTooBig)
   valueAlphaLatLeftAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatLeft.accelMax = valueAlphaLatLeftAccelMax;
   ::ad::physics::Acceleration valueAlphaLatLeftBrakeMin(-1e2);
-  valueAlphaLatLeftBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatLeft.brakeMin = valueAlphaLatLeftBrakeMin;
   value.alphaLatLeft = valueAlphaLatLeft;
 
@@ -587,13 +533,11 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseLeftT
   ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
   ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
@@ -602,8 +546,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseLeftT
   valueAlphaLatRightAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatRight.accelMax = valueAlphaLatRightAccelMax;
   ::ad::physics::Acceleration valueAlphaLatRightBrakeMin(-1e2);
-  valueAlphaLatRightBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatRight.brakeMin = valueAlphaLatRightBrakeMin;
   value.alphaLatRight = valueAlphaLatRight;
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
@@ -613,8 +555,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseLeftT
   valueAlphaLatLeftAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatLeft.accelMax = valueAlphaLatLeftAccelMax;
   ::ad::physics::Acceleration valueAlphaLatLeftBrakeMin(-1e2);
-  valueAlphaLatLeftBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatLeft.brakeMin = valueAlphaLatLeftBrakeMin;
   value.alphaLatLeft = valueAlphaLatLeft;
 
@@ -647,13 +587,11 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseLeftT
   ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
   ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
@@ -662,8 +600,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseLeftT
   valueAlphaLatRightAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatRight.accelMax = valueAlphaLatRightAccelMax;
   ::ad::physics::Acceleration valueAlphaLatRightBrakeMin(-1e2);
-  valueAlphaLatRightBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatRight.brakeMin = valueAlphaLatRightBrakeMin;
   value.alphaLatRight = valueAlphaLatRight;
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
@@ -673,8 +609,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseLeftT
   valueAlphaLatLeftAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatLeft.accelMax = valueAlphaLatLeftAccelMax;
   ::ad::physics::Acceleration valueAlphaLatLeftBrakeMin(-1e2);
-  valueAlphaLatLeftBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatLeft.brakeMin = valueAlphaLatLeftBrakeMin;
   value.alphaLatLeft = valueAlphaLatLeft;
 
@@ -707,13 +641,11 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLatLeftTooSmall
   ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
   ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
@@ -722,8 +654,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLatLeftTooSmall
   valueAlphaLatRightAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatRight.accelMax = valueAlphaLatRightAccelMax;
   ::ad::physics::Acceleration valueAlphaLatRightBrakeMin(-1e2);
-  valueAlphaLatRightBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatRight.brakeMin = valueAlphaLatRightBrakeMin;
   value.alphaLatRight = valueAlphaLatRight;
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
@@ -733,8 +663,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLatLeftTooSmall
   valueAlphaLatLeftAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatLeft.accelMax = valueAlphaLatLeftAccelMax;
   ::ad::physics::Acceleration valueAlphaLatLeftBrakeMin(-1e2);
-  valueAlphaLatLeftBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatLeft.brakeMin = valueAlphaLatLeftBrakeMin;
   value.alphaLatLeft = valueAlphaLatLeft;
 
@@ -769,13 +697,11 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLatLeftTooBig)
   ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
   valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
   ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-  valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
   valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
   value.alphaLon = valueAlphaLon;
   ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
   value.lateralResponseRight = valueLateralResponseRight;
@@ -784,8 +710,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLatLeftTooBig)
   valueAlphaLatRightAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatRight.accelMax = valueAlphaLatRightAccelMax;
   ::ad::physics::Acceleration valueAlphaLatRightBrakeMin(-1e2);
-  valueAlphaLatRightBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatRight.brakeMin = valueAlphaLatRightBrakeMin;
   value.alphaLatRight = valueAlphaLatRight;
   ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
@@ -795,8 +719,6 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAlphaLatLeftTooBig)
   valueAlphaLatLeftAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
   valueAlphaLatLeft.accelMax = valueAlphaLatLeftAccelMax;
   ::ad::physics::Acceleration valueAlphaLatLeftBrakeMin(-1e2);
-  valueAlphaLatLeftBrakeMin = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   valueAlphaLatLeft.brakeMin = valueAlphaLatLeftBrakeMin;
   value.alphaLatLeft = valueAlphaLatLeft;
 

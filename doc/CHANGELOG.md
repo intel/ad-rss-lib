@@ -1,6 +1,7 @@
 ## Latest changes
 
 #### :ghost: Maintenance
+* Deceleration values are given as negative values from now on in preparation of the integration of unstructured scenes
 * Fix: reworked scene creation
   - handle empty ego route correctly
   - handle use-case: ego vehicle at back

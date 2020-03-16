@@ -32,8 +32,6 @@ protected:
     valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
     valueAlphaLat.accelMax = valueAlphaLatAccelMax;
     ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-    valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
-      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
     value.alphaLat = valueAlphaLat;
     ::ad::rss::state::RssStateInformation valueRssStateInformation;
@@ -123,6 +121,7 @@ TEST_F(LateralRssStateTests, comparisonOperatorAlphaLatDiffers)
   ::ad::physics::Acceleration alphaLatAccelMax(1e2);
   alphaLat.accelMax = alphaLatAccelMax;
   ::ad::physics::Acceleration alphaLatBrakeMin(1e2);
+  alphaLatBrakeMin = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
   alphaLat.brakeMin = alphaLatBrakeMin;
   valueA.alphaLat = alphaLat;
   ::ad::rss::state::LateralRssState valueB = mValue;
