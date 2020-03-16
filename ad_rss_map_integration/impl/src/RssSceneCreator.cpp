@@ -383,9 +383,6 @@ bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const
   staticDynamics.lateralFluctuationMargin = ::ad::physics::Distance(0.0);
   staticDynamics.responseTime = ::ad::physics::Duration(0.01);
 
-  ::ad::rss::world::ObjectId const rightBorderId = std::numeric_limits<::ad::rss::world::ObjectId>::max();
-  ::ad::rss::world::ObjectId const leftBorderId = std::numeric_limits<::ad::rss::world::ObjectId>::max() - 1;
-
   ::ad::rss::world::OccupiedRegionVector rightBorderOccupiedRegions;
   ::ad::rss::world::OccupiedRegionVector leftBorderOccupiedRegions;
   for (auto const &roadSegment : route.roadSegments)
@@ -410,12 +407,12 @@ bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const
     leftBorderOccupiedRegions.push_back(region);
   }
 
-  auto rightBorderObject = std::make_shared<RssObjectConversion>(rightBorderId,
+  auto rightBorderObject = std::make_shared<RssObjectConversion>(getRightBorderObjectId(),
                                                                  ::ad::rss::world::ObjectType::ArtificialObject,
                                                                  rightBorderOccupiedRegions,
                                                                  ::ad::physics::Speed(0),
                                                                  staticDynamics);
-  auto leftBorderObject = std::make_shared<RssObjectConversion>(leftBorderId,
+  auto leftBorderObject = std::make_shared<RssObjectConversion>(getLeftBorderObjectId(),
                                                                 ::ad::rss::world::ObjectType::ArtificialObject,
                                                                 leftBorderOccupiedRegions,
                                                                 ::ad::physics::Speed(0),
