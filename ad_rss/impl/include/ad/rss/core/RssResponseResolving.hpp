@@ -14,6 +14,7 @@
 #include <map>
 #include "ad/rss/state/ProperResponse.hpp"
 #include "ad/rss/state/RssStateSnapshot.hpp"
+#include "ad/rss/world/AccelerationRestriction.hpp"
 
 /*!
  * @brief namespace ad
@@ -50,63 +51,43 @@ public:
    *
    * @param[in]  currentStateSnapshot all the rss states gathered for the current situations
    * @param[out] response the proper overall response state
+   * @param[out] accelerationRestriction - The restrictions on the vehicle acceleration to become RSS safe.
    *
-   * @return true if response could be calculated, false otherwise
+   * @return true if response and acceleration restriction could be calculated, false otherwise
    * If false is returned the internal state has not been updated
    */
-  bool provideProperResponse(state::RssStateSnapshot const &currentStateSnapshot, state::ProperResponse &response);
+  bool provideProperResponse(state::RssStateSnapshot const &currentStateSnapshot,
+                             state::ProperResponse &response,
+                             world::AccelerationRestriction &accelerationRestriction);
 
 private:
-  /**
-   * @brief determine the resulting RSS response
-   *
-   * @param[in] previousResponse the previous RSS response
-   * @param[in] newResponse      the RSS response to be considered in addition
-   *
-   * The RSS responses are combined in a form that the most severe response of both becomes the resulting response.
-   * The responses are compared with each other based on the enumeration values.
-   * Therefore, these values need have to be ordered strictly ascending in respect to their severity.
-   *
-   * @returns the resulting RSS response
-   */
-  template <typename Response>
-  static Response combineResponse(Response const &previousResponse, Response const &newResponse)
-  {
-    if (previousResponse > newResponse)
-    {
-      return previousResponse;
-    }
-    return newResponse;
-  }
+  /*!
+  * @brief updateAccelerationRestriction
+  *
+  * Updates the longitudinal accelerationRestriction
+  *
+  * @param[in] state - The longitudinal state to update the acceleration restrictions with
+ *  @param[inout] response -- the combined RSS response to become RSS safe.
+  * @param[inout] accelerationRestriction - The combined restrictions on the vehicle acceleration to become RSS safe.
+  *
+  */
+  void combineState(::ad::rss::state::LongitudinalRssState const &state,
+                    ::ad::rss::state::LongitudinalResponse &response,
+                    ::ad::physics::AccelerationRange &accelerationRange);
 
-  /**
-   * @brief combine two LateralRssAccelerationValues in worst-case manner
-   *
-   * @param[in] left the first LateralRssAccelerationValues
-   * @param[in] right the second LateralRssAccelerationValues
-   *
-   * The LateralRssAccelerationValues are combined in a form that the most restrictive acceleration values
-   * of both becomes the resulting LateralRssAccelerationValues.
-   *
-   * @returns the resulting LateralRssAccelerationValues
-   */
-  static world::LateralRssAccelerationValues combineRssDynamics(world::LateralRssAccelerationValues const &left,
-                                                                world::LateralRssAccelerationValues const &right);
-
-  /**
-   * @brief combine two LongitudinalRssAccelerationValues in worst-case manner
-   *
-   * @param[in] left the first LongitudinalRssAccelerationValues
-   * @param[in] right the second LongitudinalRssAccelerationValues
-   *
-   * The LongitudinalRssAccelerationValues are combined in a form that the most restrictive acceleration values
-   * of both becomes the resulting LongitudinalRssAccelerationValues.
-   *
-   * @returns the resulting LongitudinalRssAccelerationValues
-   */
-  static world::LongitudinalRssAccelerationValues
-  combineRssDynamics(world::LongitudinalRssAccelerationValues const &left,
-                     world::LongitudinalRssAccelerationValues const &right);
+  /*!
+  * @brief updateAccelerationRestriction
+  *
+  * Updates the lateral accelerationRestrictions
+  *
+  * @param[in] state - The lateral state to update the acceleration restrictions with
+  * @param[inout] response -- the combined RSS response to become RSS safe.
+  * @param[inout] accelerationRestriction - The restrictions on the vehicle acceleration to become RSS safe.
+  *
+  */
+  void combineState(::ad::rss::state::LateralRssState const &state,
+                    ::ad::rss::state::LateralResponse &response,
+                    ::ad::physics::AccelerationRange &accelerationRange);
 
   struct RssSafeState
   {

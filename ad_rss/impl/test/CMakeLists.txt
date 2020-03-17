@@ -14,17 +14,6 @@ set(EXEC_NAME ad-rss-tests)
 include(generated/testfiles.cmake)
 
 set(RSS_TEST_SOURCES
-  core/RssResponseCombineTests.cpp
-  core/RssSituationExtractionInputRangeTests.cpp
-  core/RssSituationExtractionRelativePositionTests.cpp
-  situation/RssSituationCheckingInputRangeTests.cpp
-  situation/RssSituationCheckingTestsIntersectionInputRangeTests.cpp
-  situation/RssSituationCheckingTestsIntersectionNoPriority.cpp
-  situation/RssSituationCheckingTestsIntersectionPriority.cpp
-  situation/RssSituationCheckingTestsLateral.cpp
-  situation/RssSituationCheckingTestsLongitudinal.cpp
-  situation/RssSituationCheckingTestsNotRelevant.cpp
-  situation/RssSituationCheckingTestsOppositeDirection.cpp
   main.cpp
   core/RssCheckIntersectionTests.cpp
   core/RssCheckLateralTests.cpp
@@ -35,9 +24,10 @@ set(RSS_TEST_SOURCES
   core/RssCheckSceneTests.cpp
   core/RssCheckTimeIndexTests.cpp
   core/RssResponseResolvingTests.cpp
-  core/RssResponseTransformationTests.cpp
+  core/RssSituationExtractionInputRangeTests.cpp
   core/RssSituationExtractionIntersectionTests.cpp
   core/RssSituationExtractionOppositeDirectionTests.cpp
+  core/RssSituationExtractionRelativePositionTests.cpp
   core/RssSituationExtractionSameDirectionTests.cpp
   situation/PhysicsUnitTestsDistanceOffsetAfterResponseTime.cpp
   situation/PhysicsUnitTestsInputRangeChecks.cpp
@@ -48,6 +38,14 @@ set(RSS_TEST_SOURCES
   situation/RssFormulaTestsCalculateSafeLateralDistance.cpp
   situation/RssFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
   situation/RssFormulaTestsInputRangeChecks.cpp
+  situation/RssSituationCheckingInputRangeTests.cpp
+  situation/RssSituationCheckingTestsIntersectionInputRangeTests.cpp
+  situation/RssSituationCheckingTestsIntersectionNoPriority.cpp
+  situation/RssSituationCheckingTestsIntersectionPriority.cpp
+  situation/RssSituationCheckingTestsLateral.cpp
+  situation/RssSituationCheckingTestsLongitudinal.cpp
+  situation/RssSituationCheckingTestsNotRelevant.cpp
+  situation/RssSituationCheckingTestsOppositeDirection.cpp
   situation/VehicleTests.cpp
   state/RssStateSafeTests.cpp
   test_support/TestSupport.cpp

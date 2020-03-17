@@ -23,8 +23,6 @@
 #include <sstream>
 #include "ad/rss/state/LateralResponse.hpp"
 #include "ad/rss/state/LongitudinalResponse.hpp"
-#include "ad/rss/world/LateralRssAccelerationValues.hpp"
-#include "ad/rss/world/LongitudinalRssAccelerationValues.hpp"
 #include "ad/rss/world/ObjectIdVector.hpp"
 #include "ad/rss/world/TimeIndex.hpp"
 /*!
@@ -106,9 +104,8 @@ struct ProperResponse
   bool operator==(const ProperResponse &other) const
   {
     return (timeIndex == other.timeIndex) && (isSafe == other.isSafe) && (dangerousObjects == other.dangerousObjects)
-      && (longitudinalResponse == other.longitudinalResponse) && (alphaLon == other.alphaLon)
-      && (lateralResponseRight == other.lateralResponseRight) && (alphaLatRight == other.alphaLatRight)
-      && (lateralResponseLeft == other.lateralResponseLeft) && (alphaLatLeft == other.alphaLatLeft);
+      && (longitudinalResponse == other.longitudinalResponse) && (lateralResponseRight == other.lateralResponseRight)
+      && (lateralResponseLeft == other.lateralResponseLeft);
   }
 
   /**
@@ -146,29 +143,14 @@ struct ProperResponse
   ::ad::rss::state::LongitudinalResponse longitudinalResponse;
 
   /*!
-   * RSS dynamics values along longitudinal coordinate system axis.
-   */
-  ::ad::rss::world::LongitudinalRssAccelerationValues alphaLon;
-
-  /*!
    * The current lateral rss state at right side in respect to ego-vehicle driving direction.
    */
   ::ad::rss::state::LateralResponse lateralResponseRight;
 
   /*!
-   * RSS dynamics values along lateral coordinate system axis.
-   */
-  ::ad::rss::world::LateralRssAccelerationValues alphaLatRight;
-
-  /*!
    * The current lateral rss state at left side in respect to ego-vehicle driving direction.
    */
   ::ad::rss::state::LateralResponse lateralResponseLeft;
-
-  /*!
-   * RSS dynamics values along lateral coordinate system axis.
-   */
-  ::ad::rss::world::LateralRssAccelerationValues alphaLatLeft;
 };
 
 } // namespace state
@@ -217,20 +199,11 @@ inline std::ostream &operator<<(std::ostream &os, ProperResponse const &_value)
   os << "longitudinalResponse:";
   os << _value.longitudinalResponse;
   os << ",";
-  os << "alphaLon:";
-  os << _value.alphaLon;
-  os << ",";
   os << "lateralResponseRight:";
   os << _value.lateralResponseRight;
   os << ",";
-  os << "alphaLatRight:";
-  os << _value.alphaLatRight;
-  os << ",";
   os << "lateralResponseLeft:";
   os << _value.lateralResponseLeft;
-  os << ",";
-  os << "alphaLatLeft:";
-  os << _value.alphaLatLeft;
   os << ")";
   return os;
 }

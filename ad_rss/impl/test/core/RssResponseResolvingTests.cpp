@@ -81,9 +81,15 @@ protected:
   {
     RssResponseResolving provider;
 
-    EXPECT_EQ(expectedResultT1, provider.provideProperResponse(rssStateSnapshotT1, resultProperResponseT1));
-    EXPECT_EQ(expectedResultT2, provider.provideProperResponse(rssStateSnapshotT2, resultProperResponseT2));
-    EXPECT_EQ(expectedResultT3, provider.provideProperResponse(rssStateSnapshotT3, resultProperResponseT3));
+    EXPECT_EQ(
+      expectedResultT1,
+      provider.provideProperResponse(rssStateSnapshotT1, resultProperResponseT1, resultAccelerationRestrictionT1));
+    EXPECT_EQ(
+      expectedResultT2,
+      provider.provideProperResponse(rssStateSnapshotT2, resultProperResponseT2, resultAccelerationRestrictionT2));
+    EXPECT_EQ(
+      expectedResultT3,
+      provider.provideProperResponse(rssStateSnapshotT3, resultProperResponseT3, resultAccelerationRestrictionT3));
   }
 
   state::RssStateSnapshot rssStateSnapshotT1;
@@ -93,6 +99,10 @@ protected:
   state::ProperResponse resultProperResponseT1;
   state::ProperResponse resultProperResponseT2;
   state::ProperResponse resultProperResponseT3;
+
+  world::AccelerationRestriction resultAccelerationRestrictionT1;
+  world::AccelerationRestriction resultAccelerationRestrictionT2;
+  world::AccelerationRestriction resultAccelerationRestrictionT3;
 };
 
 TEST_F(RssResponseResolvingTests, validateTestSetup)

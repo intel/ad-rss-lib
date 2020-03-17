@@ -139,6 +139,22 @@ public:
    */
   bool appendRoadBoundaryScenes(::ad::map::route::FullRoute const &egoRoute, RssObjectConversion::ConstPtr egoObject);
 
+  /*!
+   * @returns the constant ObjectId of the virtual right border
+   */
+  static ::ad::rss::world::ObjectId getRightBorderObjectId()
+  {
+    return std::numeric_limits<::ad::rss::world::ObjectId>::max();
+  }
+
+  /*!
+   * @returns the constant ObjectId of the virtual left border
+   */
+  static ::ad::rss::world::ObjectId getLeftBorderObjectId()
+  {
+    return std::numeric_limits<::ad::rss::world::ObjectId>::max() - 1;
+  }
+
 private:
   /**
    * @brief helper function to actually create the road area

@@ -22,8 +22,6 @@
 #include "ad/rss/state/LateralResponseValidInputRange.hpp"
 #include "ad/rss/state/LongitudinalResponseValidInputRange.hpp"
 #include "ad/rss/state/ProperResponse.hpp"
-#include "ad/rss/world/LateralRssAccelerationValuesValidInputRange.hpp"
-#include "ad/rss/world/LongitudinalRssAccelerationValuesValidInputRange.hpp"
 #include "ad/rss/world/ObjectIdVectorValidInputRange.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
@@ -44,11 +42,9 @@ inline bool withinValidInputRange(::ad::rss::state::ProperResponse const &input,
   // check for generic member input ranges
   bool inValidInputRange = true;
   inValidInputRange = withinValidInputRange(input.dangerousObjects, logErrors)
-    && withinValidInputRange(input.longitudinalResponse, logErrors) && withinValidInputRange(input.alphaLon, logErrors)
+    && withinValidInputRange(input.longitudinalResponse, logErrors)
     && withinValidInputRange(input.lateralResponseRight, logErrors)
-    && withinValidInputRange(input.alphaLatRight, logErrors)
-    && withinValidInputRange(input.lateralResponseLeft, logErrors)
-    && withinValidInputRange(input.alphaLatLeft, logErrors);
+    && withinValidInputRange(input.lateralResponseLeft, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::state::ProperResponse)>> {} has invalid member",

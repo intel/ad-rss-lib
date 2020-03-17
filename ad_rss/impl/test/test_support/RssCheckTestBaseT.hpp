@@ -16,7 +16,7 @@
 #include "ad/rss/core/RssCheck.hpp"
 #include "wrap_new.hpp"
 
-#define RSS_CHECK_TEST_DEBUG_OUT 0
+#define RSS_CHECK_TEST_DEBUG_OUT 1
 
 namespace ad {
 namespace rss {
@@ -435,18 +435,16 @@ protected:
   void testRestriction(physics::AccelerationRange const &longitudinalRange,
                        state::LongitudinalResponse expectedLonResponse)
   {
+    EXPECT_EQ(longitudinalRange.minimum, worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMax);
     switch (expectedLonResponse)
     {
       case state::LongitudinalResponse::None:
-        EXPECT_EQ(longitudinalRange.minimum, worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMax);
         EXPECT_EQ(longitudinalRange.maximum, worldModel.defaultEgoVehicleRssDynamics.alphaLon.accelMax);
         break;
       case state::LongitudinalResponse::BrakeMin:
-        EXPECT_EQ(longitudinalRange.minimum, worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMax);
         EXPECT_EQ(longitudinalRange.maximum, worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMin);
         break;
       case state::LongitudinalResponse::BrakeMinCorrect:
-        EXPECT_EQ(longitudinalRange.minimum, worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMax);
         EXPECT_EQ(longitudinalRange.maximum, worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMinCorrect);
         break;
       default:
@@ -457,14 +455,13 @@ protected:
 
   void testRestriction(physics::AccelerationRange const &lateralRange, state::LateralResponse expectedLatResponse)
   {
+    EXPECT_EQ(lateralRange.minimum, std::numeric_limits<physics::Acceleration>::lowest());
     switch (expectedLatResponse)
     {
       case state::LateralResponse::None:
-        EXPECT_EQ(lateralRange.minimum, worldModel.defaultEgoVehicleRssDynamics.alphaLat.brakeMin);
         EXPECT_EQ(lateralRange.maximum, worldModel.defaultEgoVehicleRssDynamics.alphaLat.accelMax);
         break;
       case state::LateralResponse::BrakeMin:
-        EXPECT_EQ(lateralRange.minimum, std::numeric_limits<physics::Acceleration>::lowest());
         EXPECT_EQ(lateralRange.maximum, worldModel.defaultEgoVehicleRssDynamics.alphaLat.brakeMin);
         break;
       default:
