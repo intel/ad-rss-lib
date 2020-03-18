@@ -89,7 +89,7 @@ struct RssSceneCreationTest : ::testing::Test
   void SetUp() override
   {
     ::ad::map::access::cleanup();
-    //::ad::rss::map::getLogger()->set_level(spdlog::level::trace);
+    //::ad::rss::map::getLogger()->set_level(spdlog::level::debug);
     //::ad::map::access::getLogger()->set_level(spdlog::level::trace);
     initMap();
     initializeEgoVehicle();
@@ -232,8 +232,8 @@ struct RssSceneCreationTestTown01 : RssSceneCreationTest
 
     egoSpeed = ::ad::physics::Speed(5.);
 
-    // laneId: offset  120149:0.16  (ego turn right)
-    auto positionEndGeo = ::ad::map::point::createGeoPoint(::ad::map::point::Longitude(8.00188527300496979),
+    // laneId: offset  120149:0.52  (ego turn right)
+    auto positionEndGeo = ::ad::map::point::createGeoPoint(::ad::map::point::Longitude(8.003),
                                                            ::ad::map::point::Latitude(48.99821051747871792),
                                                            ::ad::map::point::Altitude(0.));
 

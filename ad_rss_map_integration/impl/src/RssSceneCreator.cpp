@@ -140,18 +140,21 @@ bool RssSceneCreator::appendNotRelevantScene(::ad::map::route::FullRoute const &
   // ensure occupied regions filled meaningful to provide some means on where the ego and the object are located
   otherObject->fillNotRelevantSceneBoundingBox();
   ::ad::rss::world::RoadArea egoVehicleRoad;
-  if (route.roadSegments.empty())
+  if (!route.roadSegments.empty())
   {
-    // in case the ego route is actually not available, we fill also the ego object with the dummy occupied regions
-    egoObject->fillNotRelevantSceneBoundingBox();
-  }
-  else
-  {
-    // in case the ego route is actually available, we can fill the occupied regions as usual
+    // in case the ego route is actually available, we can try to fill the occupied regions as usual
     egoVehicleRoad
       = createRoadArea(route, route.minLaneOffset, route.maxLaneOffset, ::ad::map::lane::LaneIdSet(), {egoObject});
   }
-  getLogger()->debug("RssSceneCreator::appendNotRelevantScene[ {} ]>>situation {}",
+
+  if (egoObject->getRssObject().occupiedRegions.empty())
+  {
+    // in case the ego route was actually not available, or the ego vehicle is not driving within the route
+    // we fill also the ego object with the dummy occupied regions
+    egoObject->fillNotRelevantSceneBoundingBox();
+  }
+
+  getLogger()->debug("RssSceneCreator::appendNotRelevantScene[{}]>>situation {}",
                      otherObject->getId(),
                      ::ad::rss::situation::SituationType::NotRelevant);
   return appendScene(::ad::rss::situation::SituationType::NotRelevant,
@@ -191,14 +194,14 @@ bool RssSceneCreator::appendNonIntersectionScene(::ad::map::route::ConnectingRou
   }
   else
   {
-    getLogger()->error("RssSceneCreator::appendNonIntersectionScene[ {} ]>> situation {} expected either routeA or "
+    getLogger()->error("RssSceneCreator::appendNonIntersectionScene[{}]>> situation {} expected either routeA or "
                        "routeB not to be empty {}",
                        otherObject->getId(),
                        situationType,
                        connectingRoute);
     return false;
   }
-  getLogger()->debug("RssSceneCreator::appendNonIntersectionScene[ {} ]>> situation {} road area {}",
+  getLogger()->debug("RssSceneCreator::appendNonIntersectionScene[{}]>> situation {}\n road area {}",
                      otherObject->getId(),
                      situationType,
                      egoVehicleRoad);
@@ -230,7 +233,7 @@ bool RssSceneCreator::appendMergingScene(::ad::map::route::ConnectingRoute const
 {
   if (connectingRoute.routeA.roadSegments.empty() || connectingRoute.routeB.roadSegments.empty())
   {
-    getLogger()->error("RssSceneCreator::appendMergingScene[ {} ]>> situation {} connecting route empty {}",
+    getLogger()->error("RssSceneCreator::appendMergingScene[{}]>> situation {} connecting route empty {}",
                        iOtherObject->getId(),
                        situationType,
                        connectingRoute);
@@ -241,17 +244,13 @@ bool RssSceneCreator::appendMergingScene(::ad::map::route::ConnectingRoute const
   auto otherObject = std::make_shared<RssObjectConversion>(*iOtherObject);
 
   auto const egoVehicleRoad = createMergingRoadArea(connectingRoute.routeA, egoObject);
-  getLogger()->debug("RssSceneCreator::appendMergingScene[ {} ]>> situation {} ego road area {}",
-                     otherObject->getId(),
-                     situationType,
-                     egoVehicleRoad);
-
   auto const intersectingRoad = createMergingRoadArea(connectingRoute.routeB, otherObject);
-  getLogger()->debug("RssSceneCreator::appendMergingScene[ {} ]>> situation {} intersection road area {}",
+  getLogger()->debug("RssSceneCreator::appendMergingScene[{}]>> situation {}\n"
+                     " ego road area {}\n intersection road area {}",
                      otherObject->getId(),
                      situationType,
+                     egoVehicleRoad,
                      intersectingRoad);
-
   return appendScene(situationType, egoObject, egoVehicleRoad, otherObject, intersectingRoad);
 }
 
@@ -281,7 +280,7 @@ bool RssSceneCreator::appendIntersectionScene(::ad::map::intersection::Intersect
     bool intersectionRouteHasGreen = true;
     if (intersection->applicableTrafficLights().empty())
     {
-      getLogger()->warn("RssSceneCreation::appendIntersectionScene[ {} ]>> traffic light intersection has no "
+      getLogger()->warn("RssSceneCreation::appendIntersectionScene[{}]>> traffic light intersection has no "
                         "applicable traffic lights {}",
                         otherObject->getId(),
                         std::to_string(intersection->incomingLanesOnRoute()));
@@ -319,7 +318,7 @@ bool RssSceneCreator::appendIntersectionScene(::ad::map::intersection::Intersect
         situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;
       }
     }
-    getLogger()->debug("RssSceneCreation::appendIntersectionScene[ {} ]>> traffic light intersection intersection "
+    getLogger()->debug("RssSceneCreation::appendIntersectionScene[{}]>> traffic light intersection intersection "
                        "route has green: {} situation: {}",
                        otherObject->getId(),
                        intersectionRouteHasGreen,
@@ -349,15 +348,12 @@ bool RssSceneCreator::appendIntersectionScene(::ad::map::intersection::Intersect
   }
 
   auto const egoVehicleRoad = createIntersectionRoadArea(egoRoute, intersection, egoObject);
-  getLogger()->debug("RssSceneCreation::appendIntersectionScene[ {} ]>> situation {} ego road area {}",
-                     otherObject->getId(),
-                     situationType,
-                     egoVehicleRoad);
-
   auto const intersectingRoad = createIntersectionRoadArea(objectRoute, intersection, otherObject);
-  getLogger()->debug("RssSceneCreation::appendIntersectionScene[ {} ]>> situation {} intersection road area {}",
+  getLogger()->debug("RssSceneCreation::appendIntersectionScene[{}]>> situation {}\n"
+                     " ego road area {}\n intersection road area {}",
                      otherObject->getId(),
                      situationType,
+                     egoVehicleRoad,
                      intersectingRoad);
 
   return appendScene(situationType, egoObject, egoVehicleRoad, otherObject, intersectingRoad);
@@ -371,7 +367,7 @@ bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const
   auto const egoVehicleRoad
     = createRoadArea(route, route.minLaneOffset, route.maxLaneOffset, ::ad::map::lane::LaneIdSet(), {egoObject});
 
-  getLogger()->debug("RssSceneCreator::appendRoadBoundaryScenes[ ]>> ego road area {}", egoVehicleRoad);
+  getLogger()->debug("RssSceneCreator::appendRoadBoundaryScenes[]>> ego road area {}", egoVehicleRoad);
 
   ::ad::rss::world::RssDynamics staticDynamics;
   staticDynamics.alphaLat.accelMax = ::ad::physics::Acceleration(0.);
@@ -448,16 +444,29 @@ bool RssSceneCreator::appendScene(::ad::rss::situation::SituationType const &sit
   scene.object = otherObject->getRssObject();
   scene.objectRssDynamics = otherObject->getRssDynamics();
 
-  getLogger()->debug("RssSceneCreator::appendScene[ {} ]>> object {}", otherObject->getId(), scene.object);
-  getLogger()->debug("RssSceneCreator::appendScene[ {} ]>> ego {}", otherObject->getId(), scene.egoVehicle);
+  getLogger()->trace("RssSceneCreator::appendScene[{}]>> object {}", otherObject->getId(), scene.object);
+  getLogger()->trace("RssSceneCreator::appendScene[{}]>> ego {}", otherObject->getId(), scene.egoVehicle);
 
-  if (withinValidInputRange(scene))
+  if (scene.egoVehicle.occupiedRegions.empty())
+  {
+    ::ad::map::match::Object matchObject;
+    if (egoObject->getObjectMapMatchedPosition() != nullptr)
+    {
+      matchObject = *egoObject->getObjectMapMatchedPosition();
+    }
+    getLogger()->warn("RssSceneCreator::appendScene[{}]>> dropping scene because ego occupied regions empty {} -> {}",
+                      otherObject->getId(),
+                      matchObject,
+                      scene);
+    return false;
+  }
+  else if (withinValidInputRange(scene))
   {
     return mSceneCreation.appendSceneToWorldModel(scene);
   }
   else
   {
-    getLogger()->error("RssSceneCreator::appendScene[ {} ]>> scene no valid {}", otherObject->getId(), scene);
+    getLogger()->error("RssSceneCreator::appendScene[{}]>> scene no valid {}", otherObject->getId(), scene);
     return false;
   }
 }
