@@ -91,6 +91,11 @@ public:
    */
   ~RssObjectConversion() = default;
 
+  /*!
+   * \brief standard assignement operator
+   */
+  RssObjectConversion &operator=(const RssObjectConversion &other) = default;
+
   /** @returns RssDynamics of the object
    *
    * If updateSpeedLimit() was called in between the maxSpeed value of the dynamics will be adapted to these.
