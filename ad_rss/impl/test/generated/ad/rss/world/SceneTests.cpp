@@ -60,7 +60,6 @@ protected:
     ::ad::physics::Speed valueEgoVehicleVelocitySpeedLonMax(-100.);
     valueEgoVehicleVelocity.speedLonMax = valueEgoVehicleVelocitySpeedLonMax;
     ::ad::physics::Speed valueEgoVehicleVelocitySpeedLatMin(-100.);
-    valueEgoVehicleVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
     valueEgoVehicleVelocity.speedLatMin = valueEgoVehicleVelocitySpeedLatMin;
     ::ad::physics::Speed valueEgoVehicleVelocitySpeedLatMax(-100.);
     valueEgoVehicleVelocity.speedLatMax = valueEgoVehicleVelocitySpeedLatMax;
@@ -137,7 +136,6 @@ protected:
     ::ad::physics::Speed valueObjectVelocitySpeedLonMax(-100.);
     valueObjectVelocity.speedLonMax = valueObjectVelocitySpeedLonMax;
     ::ad::physics::Speed valueObjectVelocitySpeedLatMin(-100.);
-    valueObjectVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
     valueObjectVelocity.speedLatMin = valueObjectVelocitySpeedLatMin;
     ::ad::physics::Speed valueObjectVelocitySpeedLatMax(-100.);
     valueObjectVelocity.speedLatMax = valueObjectVelocitySpeedLatMax;
@@ -340,7 +338,6 @@ TEST_F(SceneTests, comparisonOperatorEgoVehicleDiffers)
   ::ad::physics::Speed egoVehicleVelocitySpeedLatMin(100.);
   egoVehicleVelocity.speedLatMin = egoVehicleVelocitySpeedLatMin;
   ::ad::physics::Speed egoVehicleVelocitySpeedLatMax(100.);
-  egoVehicleVelocitySpeedLatMax = ::ad::physics::Speed(10.); // set to valid value within struct
   egoVehicleVelocity.speedLatMax = egoVehicleVelocitySpeedLatMax;
   egoVehicleVelocity.speedLatMax = egoVehicleVelocity.speedLatMin;
   egoVehicleVelocity.speedLonMax = egoVehicleVelocity.speedLonMin;
@@ -435,7 +432,6 @@ TEST_F(SceneTests, comparisonOperatorObjectDiffers)
   ::ad::physics::Speed objectVelocitySpeedLatMin(100.);
   objectVelocity.speedLatMin = objectVelocitySpeedLatMin;
   ::ad::physics::Speed objectVelocitySpeedLatMax(100.);
-  objectVelocitySpeedLatMax = ::ad::physics::Speed(10.); // set to valid value within struct
   objectVelocity.speedLatMax = objectVelocitySpeedLatMax;
   objectVelocity.speedLatMax = objectVelocity.speedLatMin;
   objectVelocity.speedLonMax = objectVelocity.speedLonMin;

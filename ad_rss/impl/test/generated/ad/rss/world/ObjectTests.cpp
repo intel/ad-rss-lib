@@ -57,7 +57,6 @@ protected:
     ::ad::physics::Speed valueVelocitySpeedLonMax(-100.);
     valueVelocity.speedLonMax = valueVelocitySpeedLonMax;
     ::ad::physics::Speed valueVelocitySpeedLatMin(-100.);
-    valueVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
     valueVelocity.speedLatMin = valueVelocitySpeedLatMin;
     ::ad::physics::Speed valueVelocitySpeedLatMax(-100.);
     valueVelocity.speedLatMax = valueVelocitySpeedLatMax;
@@ -181,7 +180,6 @@ TEST_F(ObjectTests, comparisonOperatorVelocityDiffers)
   ::ad::physics::Speed velocitySpeedLatMin(100.);
   velocity.speedLatMin = velocitySpeedLatMin;
   ::ad::physics::Speed velocitySpeedLatMax(100.);
-  velocitySpeedLatMax = ::ad::physics::Speed(10.); // set to valid value within struct
   velocity.speedLatMax = velocitySpeedLatMax;
   velocity.speedLatMax = velocity.speedLatMin;
   velocity.speedLonMax = velocity.speedLonMin;

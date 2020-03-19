@@ -216,7 +216,7 @@ TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherSouth2North, e4_o2)
   performSceneTest(locationEastOutgoing(),
                    locationSouth2North(),
                    std::initializer_list<ExpectedResultTuple>{std::make_tuple(
-                     ::ad::rss::situation::SituationType::NotRelevant, 0u, 0u, ::ad::physics::Speed(100.))});
+                     ::ad::rss::situation::SituationType::NotRelevant, 1u, 0u, ::ad::physics::Speed(100.))});
 }
 
 TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherSouth2North, e4_o3)
@@ -224,7 +224,7 @@ TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherSouth2North, e4_o3)
   performSceneTest(locationEastOutgoing(),
                    locationNorthExiting(),
                    std::initializer_list<ExpectedResultTuple>{std::make_tuple(
-                     ::ad::rss::situation::SituationType::NotRelevant, 0u, 0u, ::ad::physics::Speed(100.))});
+                     ::ad::rss::situation::SituationType::NotRelevant, 1u, 0u, ::ad::physics::Speed(100.))});
 }
 
 TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherSouth2North, e4_o4)
@@ -232,7 +232,7 @@ TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherSouth2North, e4_o4)
   performSceneTest(locationEastOutgoing(),
                    locationNorthOutgoing(),
                    std::initializer_list<ExpectedResultTuple>{std::make_tuple(
-                     ::ad::rss::situation::SituationType::NotRelevant, 0u, 0u, ::ad::physics::Speed(100.))});
+                     ::ad::rss::situation::SituationType::NotRelevant, 1u, 0u, ::ad::physics::Speed(100.))});
 }
 
 struct RssSceneCreationTestWithoutRouteEgoSouth2EastOtherSouth2North : public RssSceneCreationTestWithoutRoute

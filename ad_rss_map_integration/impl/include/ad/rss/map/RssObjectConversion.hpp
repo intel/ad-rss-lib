@@ -129,6 +129,13 @@ public:
    */
   void fillNotRelevantSceneBoundingBox();
 
+  /** @brief return the map matched position object this was created with (might be nullptr)
+   */
+  ::ad::map::match::Object const *getObjectMapMatchedPosition() const
+  {
+    return mObjectMapMatchedPosition;
+  }
+
 private:
   ::ad::rss::world::Object mRssObject;
   ::ad::map::match::Object const *mObjectMapMatchedPosition;

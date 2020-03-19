@@ -1,15 +1,29 @@
 ## Latest changes
 
-#### :ghost: Maintenance
-* Deceleration values are given as negative values from now on in preparation of the integration of unstructured scenes
-* Fix: reworked scene creation
-  - handle empty ego route correctly
-  - handle use-case: ego vehicle at back
-  - handle use-case: merging route
-  - restricting routes to relevant scene region to prevent from inaccourate relative distances
-* Make use of ad::map::route::getENUHeadingOfRoute() for more accurate object heading on route calculation
-* Adaptions for python binding built to support newer boost versions
+## Release 3.0.0
+
+#### :rocket: New Features
+* In preparation of the integration of unstructured scenes:
+  - Deceleration values are given as negative values from now on
+  - Remove separate Response Transformation to ease the merge of situations
+  - On LateralResponse::None, the minimum value is not brakeMin anymore (that value was in each case irrelevant)
+* Reworked scene creation
+  - Made RssSceneCreation a class with supporting classes RssObjectConversion and RssSceneCreator
+    to support multi-threaded scene appending.
+  - Allow for scene specific ego vehicle RSS dynamics
+  - Handle empty ego route correctly
+  - Handle use-case: ego vehicle at back
+  - Handle use-case: merging route
+  - Restricting routes to relevant scene region to prevent from inaccourate relative distances
+  - Ensure that NotRelevantScene also provides filled occupied region content
+  - Workaround for route start within intersections: Use objectRoute intersection in intersection scenes if ego route
+     predictions don't provide intersection data at all (to be solved finally within ad::map::intersection::Intersection() class)
+  - Massively extended scene creation unit tests
+  - Make use of ad::map::route::getENUHeadingOfRoute() for more accurate object heading on route calculation
 * Renamed Math* -> Physics* and made header public
+
+#### :ghost: Maintenance
+* Adaptions for python binding built to support newer boost versions as well as multiple python versions at the same time
 
 ## Release 2.0.0
 #### :rocket: New Features

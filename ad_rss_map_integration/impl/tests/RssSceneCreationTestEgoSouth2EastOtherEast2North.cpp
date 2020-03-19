@@ -254,7 +254,7 @@ TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherEast2North, e4_o1)
     locationEastEntering(),
     std::initializer_list<ExpectedResultTuple>{
       // here the other is behind us
-      std::make_tuple(::ad::rss::situation::SituationType::NotRelevant, 0u, 0u, ::ad::physics::Speed(100.))});
+      std::make_tuple(::ad::rss::situation::SituationType::NotRelevant, 1u, 0u, ::ad::physics::Speed(100.))});
 }
 
 TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherEast2North, e4_o2)
@@ -264,7 +264,7 @@ TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherEast2North, e4_o2)
     locationEast2North(),
     std::initializer_list<ExpectedResultTuple>{
       // here the other is behind us
-      std::make_tuple(::ad::rss::situation::SituationType::NotRelevant, 0u, 0u, ::ad::physics::Speed(100.))});
+      std::make_tuple(::ad::rss::situation::SituationType::NotRelevant, 1u, 0u, ::ad::physics::Speed(100.))});
 }
 
 TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherEast2North, e4_o3)
@@ -274,7 +274,7 @@ TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherEast2North, e4_o3)
     locationNorthExiting(),
     std::initializer_list<ExpectedResultTuple>{
       // here the other is behind us
-      std::make_tuple(::ad::rss::situation::SituationType::NotRelevant, 0u, 0u, ::ad::physics::Speed(100.))});
+      std::make_tuple(::ad::rss::situation::SituationType::NotRelevant, 1u, 0u, ::ad::physics::Speed(100.))});
 }
 
 TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherEast2North, e4_o4)
@@ -284,7 +284,7 @@ TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherEast2North, e4_o4)
     locationNorthOutgoing(),
     std::initializer_list<ExpectedResultTuple>{
       // here the other is behind us
-      std::make_tuple(::ad::rss::situation::SituationType::NotRelevant, 0u, 0u, ::ad::physics::Speed(100.))});
+      std::make_tuple(::ad::rss::situation::SituationType::NotRelevant, 1u, 0u, ::ad::physics::Speed(100.))});
 }
 
 struct RssSceneCreationTestWithoutRouteEgoSouth2EastOtherEast2North : public RssSceneCreationTestWithoutRoute
@@ -316,33 +316,21 @@ TEST_F(RssSceneCreationTestWithoutRouteEgoSouth2EastOtherEast2North, e0_o0)
       // ego-turn-right: all 2 object predictions lead to the opposite direction case
       std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 3u, 0u, ::ad::physics::Speed(100.)),
       std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 3u, 0u, ::ad::physics::Speed(100.)),
-      // ego-straight-then-right: object prediction 1: in first intersection:
+      // ego-straight-then-right: object prediction 1
       // object coming form right has prio
       std::make_tuple(
         ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 3u, 2u, ::ad::physics::Speed(100.)),
-      // ego-straight-then-right: object prediction 2: first intersection:
+      // ego-straight-then-right: object prediction 2
       // object coming form right has prio
       std::make_tuple(
         ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 3u, 2u, ::ad::physics::Speed(100.)),
-      // ego-straight-then-right: object prediction 2: second intersection:
-      // object prediction comes from the same intersection arm
-      // @todo: should lead to a different route, since this route is actually from the connecting route within the
-      // first
-      // intersection!!! AND THEREFORE WRONG HERE!!!
-      std::make_tuple(::ad::rss::situation::SituationType::SameDirection, 3u, 0u, ::ad::physics::Speed(100.)),
-      // ego-straight-then-straight: object prediction 1: in first intersection:
+      // ego-straight-then-straight: object prediction 1
       // object coming form right has prio
       std::make_tuple(
         ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 3u, 2u, ::ad::physics::Speed(100.)),
-      // ego-straight-then-straight: object prediction 2: in first intersection:
+      // ego-straight-then-straight: object prediction 2
       std::make_tuple(
-        ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 3u, 2u, ::ad::physics::Speed(100.)),
-      // ego-straight-then-straight: object prediction 2: in second intersection:
-      // object prediction comes from the same intersection arm
-      // @todo: should lead to a different route, since this route is actually from the connecting route within the
-      // first
-      // intersection!!! AND THEREFORE WRONG HERE!!!
-      std::make_tuple(::ad::rss::situation::SituationType::SameDirection, 3u, 0u, ::ad::physics::Speed(100.))});
+        ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 3u, 2u, ::ad::physics::Speed(100.))});
 }
 
 TEST_F(RssSceneCreationTestWithoutRouteEgoSouth2EastOtherEast2North, e2_o0)
@@ -353,21 +341,15 @@ TEST_F(RssSceneCreationTestWithoutRouteEgoSouth2EastOtherEast2North, e2_o0)
     // here we get 2 object predictions and 3 ego predictions:
     // but because ego predictions start within current (first) intersection
     // the first intersection uses the object is totally ignored
-    // Furthermore, because of the shorter connecting route, none of the object predictions enter the 2nd
-    // intersection (so that is also not present in the results)
     // @todo: intersection creation has to support also creation of already entered intersections
     // to get the current intersection also considered appropriate!!
     //
     std::initializer_list<ExpectedResultTuple>{
       // ego-turn-right: only these ego predictions lead to the opposite direction case
       std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 2u, 0u, ::ad::physics::Speed(100.)),
-      std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 2u, 0u, ::ad::physics::Speed(100.)),
-      // ego-straight-then-right: first intersection not present (@todo: to be fixed)
-      // ego-straight-then-right: second intersection leads to same direction use-case (@todo: to be fixed)
-      std::make_tuple(::ad::rss::situation::SituationType::SameDirection, 2u, 0u, ::ad::physics::Speed(100.)),
-      // ego-straight-then-straight: first intersection not present (@todo: to be fixed)
-      // ego-straight-then-straight: second intersection leads to same direction use-case (@todo: to be fixed)
-      std::make_tuple(::ad::rss::situation::SituationType::SameDirection, 2u, 0u, ::ad::physics::Speed(100.))});
+      std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 2u, 0u, ::ad::physics::Speed(100.))});
+  // ego-straight-then-right: first intersection not present (@todo: to be fixed)
+  // ego-straight-then-straight: first intersection not present (@todo: to be fixed)
 }
 
 TEST_F(RssSceneCreationTestWithoutRouteEgoSouth2EastOtherEast2North, e0_o4)

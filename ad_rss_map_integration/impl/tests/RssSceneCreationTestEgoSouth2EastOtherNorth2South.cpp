@@ -276,8 +276,8 @@ TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherNorth2South, e4_o2)
     locationEastOutgoing(),
     locationNorth2South(),
     std::initializer_list<ExpectedResultTuple>{
-      // here the other is behind us, but no possibility ot turn left anymore
-      std::make_tuple(::ad::rss::situation::SituationType::NotRelevant, 0u, 0u, ::ad::physics::Speed(100.))});
+      // here the other is behind us, but no possibility to turn left anymore
+      std::make_tuple(::ad::rss::situation::SituationType::NotRelevant, 1u, 0u, ::ad::physics::Speed(100.))});
 }
 
 TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherNorth2South, e4_o3)
@@ -286,8 +286,8 @@ TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherNorth2South, e4_o3)
     locationEastOutgoing(),
     locationSouthExiting(),
     std::initializer_list<ExpectedResultTuple>{
-      // here the other is behind us, but no possibility ot turn left anymore
-      std::make_tuple(::ad::rss::situation::SituationType::NotRelevant, 0u, 0u, ::ad::physics::Speed(100.))});
+      // here the other is behind us, but no possibility to turn left anymore
+      std::make_tuple(::ad::rss::situation::SituationType::NotRelevant, 1u, 0u, ::ad::physics::Speed(100.))});
 }
 
 TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherNorth2South, e4_o4)
@@ -296,8 +296,8 @@ TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherNorth2South, e4_o4)
     locationEastOutgoing(),
     locationSouthOutgoing(),
     std::initializer_list<ExpectedResultTuple>{
-      // here the other is behind us, but no possibility ot turn left anymore
-      std::make_tuple(::ad::rss::situation::SituationType::NotRelevant, 0u, 0u, ::ad::physics::Speed(100.))});
+      // here the other is behind us, but no possibility to turn left anymore
+      std::make_tuple(::ad::rss::situation::SituationType::NotRelevant, 1u, 0u, ::ad::physics::Speed(100.))});
 }
 
 struct RssSceneCreationTestWithoutRouteEgoSouth2EastOtherNorth2South : public RssSceneCreationTestWithoutRoute

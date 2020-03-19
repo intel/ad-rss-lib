@@ -65,7 +65,6 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   ::ad::physics::Speed elementEgoVehicleVelocitySpeedLonMax(-100.);
   elementEgoVehicleVelocity.speedLonMax = elementEgoVehicleVelocitySpeedLonMax;
   ::ad::physics::Speed elementEgoVehicleVelocitySpeedLatMin(-100.);
-  elementEgoVehicleVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
   elementEgoVehicleVelocity.speedLatMin = elementEgoVehicleVelocitySpeedLatMin;
   ::ad::physics::Speed elementEgoVehicleVelocitySpeedLatMax(-100.);
   elementEgoVehicleVelocity.speedLatMax = elementEgoVehicleVelocitySpeedLatMax;
@@ -142,7 +141,6 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   ::ad::physics::Speed elementObjectVelocitySpeedLonMax(-100.);
   elementObjectVelocity.speedLonMax = elementObjectVelocitySpeedLonMax;
   ::ad::physics::Speed elementObjectVelocitySpeedLatMin(-100.);
-  elementObjectVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
   elementObjectVelocity.speedLatMin = elementObjectVelocitySpeedLatMin;
   ::ad::physics::Speed elementObjectVelocitySpeedLatMax(-100.);
   elementObjectVelocity.speedLatMax = elementObjectVelocitySpeedLatMax;
@@ -290,7 +288,6 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax
   ::ad::physics::Speed elementEgoVehicleVelocitySpeedLonMax(-100.);
   elementEgoVehicleVelocity.speedLonMax = elementEgoVehicleVelocitySpeedLonMax;
   ::ad::physics::Speed elementEgoVehicleVelocitySpeedLatMin(-100.);
-  elementEgoVehicleVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
   elementEgoVehicleVelocity.speedLatMin = elementEgoVehicleVelocitySpeedLatMin;
   ::ad::physics::Speed elementEgoVehicleVelocitySpeedLatMax(-100.);
   elementEgoVehicleVelocity.speedLatMax = elementEgoVehicleVelocitySpeedLatMax;
@@ -367,7 +364,6 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax
   ::ad::physics::Speed elementObjectVelocitySpeedLonMax(-100.);
   elementObjectVelocity.speedLonMax = elementObjectVelocitySpeedLonMax;
   ::ad::physics::Speed elementObjectVelocitySpeedLatMin(-100.);
-  elementObjectVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
   elementObjectVelocity.speedLatMin = elementObjectVelocitySpeedLatMin;
   ::ad::physics::Speed elementObjectVelocitySpeedLatMax(-100.);
   elementObjectVelocity.speedLatMax = elementObjectVelocitySpeedLatMax;
@@ -525,7 +521,6 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeElementValid)
   ::ad::physics::Speed elementEgoVehicleVelocitySpeedLonMax(-100.);
   elementEgoVehicleVelocity.speedLonMax = elementEgoVehicleVelocitySpeedLonMax;
   ::ad::physics::Speed elementEgoVehicleVelocitySpeedLatMin(-100.);
-  elementEgoVehicleVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
   elementEgoVehicleVelocity.speedLatMin = elementEgoVehicleVelocitySpeedLatMin;
   ::ad::physics::Speed elementEgoVehicleVelocitySpeedLatMax(-100.);
   elementEgoVehicleVelocity.speedLatMax = elementEgoVehicleVelocitySpeedLatMax;
@@ -602,7 +597,6 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeElementValid)
   ::ad::physics::Speed elementObjectVelocitySpeedLonMax(-100.);
   elementObjectVelocity.speedLonMax = elementObjectVelocitySpeedLonMax;
   ::ad::physics::Speed elementObjectVelocitySpeedLatMin(-100.);
-  elementObjectVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
   elementObjectVelocity.speedLatMin = elementObjectVelocitySpeedLatMin;
   ::ad::physics::Speed elementObjectVelocitySpeedLatMax(-100.);
   elementObjectVelocity.speedLatMax = elementObjectVelocitySpeedLatMax;
