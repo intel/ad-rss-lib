@@ -131,8 +131,26 @@ bool RssSceneCreator::appendNotRelevantScene(::ad::map::route::FullRoute const &
                                              RssObjectConversion::ConstPtr iEgoObject,
                                              RssObjectConversion::ConstPtr iOtherObject)
 {
+  if (!bool(iEgoObject) || !bool(iOtherObject))
+  {
+    getLogger()->error("RssSceneCreator::appendNotRelevantScene[]>> ego/other object input is NULL");
+    return false;
+  }
   auto egoObject = std::make_shared<RssObjectConversion>(*iEgoObject);
+  if (!bool(egoObject))
+  {
+    getLogger()->error("RssSceneCreator::appendNotRelevantScene[{}]>> failed to create copy of ego RssObjectConversion",
+                       iOtherObject->getId());
+    return false;
+  }
   auto otherObject = std::make_shared<RssObjectConversion>(*iOtherObject);
+  if (!bool(otherObject))
+  {
+    getLogger()->error(
+      "RssSceneCreator::appendNotRelevantScene[{}]>> failed to create copy of other RssObjectConversion",
+      iOtherObject->getId());
+    return false;
+  }
 
   // in the end this scene is only for convenience to get to know that we considered it and e.g. visualize it
   // It could be left out completely
@@ -180,8 +198,27 @@ bool RssSceneCreator::appendNonIntersectionScene(::ad::map::route::ConnectingRou
                                                  RssObjectConversion::ConstPtr iEgoObject,
                                                  RssObjectConversion::ConstPtr iOtherObject)
 {
+  if (!bool(iEgoObject) || !bool(iOtherObject))
+  {
+    getLogger()->error("RssSceneCreator::appendNonIntersectionScene[]>> ego/other object input is NULL");
+    return false;
+  }
   auto egoObject = std::make_shared<RssObjectConversion>(*iEgoObject);
+  if (!bool(egoObject))
+  {
+    getLogger()->error(
+      "RssSceneCreator::appendNonIntersectionScene[{}]>> failed to create copy of ego RssObjectConversion",
+      iOtherObject->getId());
+    return false;
+  }
   auto otherObject = std::make_shared<RssObjectConversion>(*iOtherObject);
+  if (!bool(otherObject))
+  {
+    getLogger()->error(
+      "RssSceneCreator::appendNonIntersectionScene[{}]>> failed to create copy of other RssObjectConversion",
+      iOtherObject->getId());
+    return false;
+  }
 
   ::ad::rss::world::RoadArea egoVehicleRoad;
   if (!connectingRoute.routeA.roadSegments.empty())
@@ -231,6 +268,11 @@ bool RssSceneCreator::appendMergingScene(::ad::map::route::ConnectingRoute const
                                          RssObjectConversion::ConstPtr iEgoObject,
                                          RssObjectConversion::ConstPtr iOtherObject)
 {
+  if (!bool(iEgoObject) || !bool(iOtherObject))
+  {
+    getLogger()->error("RssSceneCreator::appendMergingScene[]>> ego/other object input is NULL");
+    return false;
+  }
   if (connectingRoute.routeA.roadSegments.empty() || connectingRoute.routeB.roadSegments.empty())
   {
     getLogger()->error("RssSceneCreator::appendMergingScene[{}]>> situation {} connecting route empty {}",
@@ -241,7 +283,19 @@ bool RssSceneCreator::appendMergingScene(::ad::map::route::ConnectingRoute const
   }
 
   auto egoObject = std::make_shared<RssObjectConversion>(*iEgoObject);
+  if (!bool(egoObject))
+  {
+    getLogger()->error("RssSceneCreator::appendMergingScene[{}]>> failed to create copy of ego RssObjectConversion",
+                       iOtherObject->getId());
+    return false;
+  }
   auto otherObject = std::make_shared<RssObjectConversion>(*iOtherObject);
+  if (!bool(otherObject))
+  {
+    getLogger()->error("RssSceneCreator::appendMergingScene[{}]>> failed to create copy of other RssObjectConversion",
+                       iOtherObject->getId());
+    return false;
+  }
 
   auto const egoVehicleRoad = createMergingRoadArea(connectingRoute.routeA, egoObject);
   auto const intersectingRoad = createMergingRoadArea(connectingRoute.routeB, otherObject);
@@ -270,8 +324,27 @@ bool RssSceneCreator::appendIntersectionScene(::ad::map::intersection::Intersect
                                               RssObjectConversion::ConstPtr iEgoObject,
                                               RssObjectConversion::ConstPtr iOtherObject)
 {
+  if (!bool(iEgoObject) || !bool(iOtherObject))
+  {
+    getLogger()->error("RssSceneCreator::appendIntersectionScene[]>> ego/other object input is NULL");
+    return false;
+  }
   auto egoObject = std::make_shared<RssObjectConversion>(*iEgoObject);
+  if (!bool(egoObject))
+  {
+    getLogger()->error(
+      "RssSceneCreator::appendIntersectionScene[{}]>> failed to create copy of ego RssObjectConversion",
+      iOtherObject->getId());
+    return false;
+  }
   auto otherObject = std::make_shared<RssObjectConversion>(*iOtherObject);
+  if (!bool(otherObject))
+  {
+    getLogger()->error(
+      "RssSceneCreator::appendIntersectionScene[{}]>> failed to create copy of other RssObjectConversion",
+      iOtherObject->getId());
+    return false;
+  }
 
   auto situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;
   if (intersection->intersectionType() == ::ad::map::intersection::IntersectionType::TrafficLight)
@@ -362,7 +435,17 @@ bool RssSceneCreator::appendIntersectionScene(::ad::map::intersection::Intersect
 bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const &route,
                                                RssObjectConversion::ConstPtr iEgoObject)
 {
+  if (!bool(iEgoObject))
+  {
+    getLogger()->error("RssSceneCreator::appendRoadBoundaryScenes[]>> ego object input is NULL");
+    return false;
+  }
   auto egoObject = std::make_shared<RssObjectConversion>(*iEgoObject);
+  if (!bool(egoObject))
+  {
+    getLogger()->error("RssSceneCreator::appendRoadBoundaryScenes[]>> failed to create copy of RssObjectConversion");
+    return false;
+  }
 
   auto const egoVehicleRoad
     = createRoadArea(route, route.minLaneOffset, route.maxLaneOffset, ::ad::map::lane::LaneIdSet(), {egoObject});
@@ -408,11 +491,24 @@ bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const
                                                                  rightBorderOccupiedRegions,
                                                                  ::ad::physics::Speed(0),
                                                                  staticDynamics);
+  if (!bool(rightBorderObject))
+  {
+    getLogger()->error(
+      "RssSceneCreator::appendRoadBoundaryScenes[]>> failed to create copy of right border RssObjectConversion");
+    return false;
+  }
+
   auto leftBorderObject = std::make_shared<RssObjectConversion>(getLeftBorderObjectId(),
                                                                 ::ad::rss::world::ObjectType::ArtificialObject,
                                                                 leftBorderOccupiedRegions,
                                                                 ::ad::physics::Speed(0),
                                                                 staticDynamics);
+  if (!bool(leftBorderObject))
+  {
+    getLogger()->error(
+      "RssSceneCreator::appendRoadBoundaryScenes[]>> failed to create copy of left border RssObjectConversion");
+    return false;
+  }
 
   auto result = appendScene(::ad::rss::situation::SituationType::SameDirection,
                             egoObject,
@@ -435,6 +531,12 @@ bool RssSceneCreator::appendScene(::ad::rss::situation::SituationType const &sit
                                   RssObjectConversion::ConstPtr otherObject,
                                   ::ad::rss::world::RoadArea const &intersectingRoad)
 {
+  if (!bool(egoObject) || !bool(otherObject))
+  {
+    getLogger()->error("RssSceneCreator::appendScene[]>> ego/other object input is NULL");
+    return false;
+  }
+
   ::ad::rss::world::Scene scene;
   scene.situationType = situationType;
   scene.egoVehicle = egoObject->getRssObject();
