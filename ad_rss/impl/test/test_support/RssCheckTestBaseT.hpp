@@ -16,7 +16,7 @@
 #include "ad/rss/core/RssCheck.hpp"
 #include "wrap_new.hpp"
 
-#define RSS_CHECK_TEST_DEBUG_OUT 1
+#define RSS_CHECK_TEST_DEBUG_OUT 0
 
 namespace ad {
 namespace rss {
