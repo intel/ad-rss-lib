@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -88,14 +88,12 @@ private:
    * @brief Extract the RSS situation of the ego vehicle and the object to be checked.
    *
    * @param [in] timeIndex the time index of the current situation
-   * @param [in] egoVehicleRssDynamics the RSS dynamics of the ego vehicle
    * @param [in] currentScene the information on the current scene with the object to be checked
    * @param [out] situation the situation to be analyzed with RSS
    *
    * @return true if the situation could be created, false if there was an error during the operation.
    */
   bool extractSituationInputRangeChecked(world::TimeIndex const &timeIndex,
-                                         world::RssDynamics const &egoVehicleRssDynamics,
                                          world::Scene const &currentScene,
                                          situation::Situation &situation);
   enum class MergeMode

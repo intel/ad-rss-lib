@@ -21,6 +21,7 @@
 #include <limits>
 #include "ad/rss/situation/SituationSnapshot.hpp"
 #include "ad/rss/situation/SituationVectorValidInputRange.hpp"
+#include "ad/rss/world/RssDynamicsValidInputRange.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
 
@@ -39,7 +40,8 @@ inline bool withinValidInputRange(::ad::rss::situation::SituationSnapshot const 
 {
   // check for generic member input ranges
   bool inValidInputRange = true;
-  inValidInputRange = withinValidInputRange(input.situations, logErrors);
+  inValidInputRange = withinValidInputRange(input.defaultEgoVehicleRssDynamics, logErrors)
+    && withinValidInputRange(input.situations, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::situation::SituationSnapshot)>> {} has invalid member",

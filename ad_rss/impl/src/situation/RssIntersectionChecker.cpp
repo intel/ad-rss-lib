@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -9,9 +9,9 @@
 #include "RssIntersectionChecker.hpp"
 #include <cmath>
 #include <limits>
-#include "Math.hpp"
 #include "RssFormulas.hpp"
 #include "RssSituation.hpp"
+#include "ad/rss/situation/Physics.hpp"
 
 namespace ad {
 
@@ -65,7 +65,7 @@ bool checkLateralIntersect(Situation const &situation, bool &isSafe)
   result = result && calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon.minimum,
                                                   situation.egoVehicleState.dynamics.maxSpeed,
                                                   situation.egoVehicleState.dynamics.responseTime,
-                                                  -1. * situation.egoVehicleState.dynamics.alphaLon.brakeMax,
+                                                  situation.egoVehicleState.dynamics.alphaLon.brakeMax,
                                                   situation.egoVehicleState.dynamics.alphaLon.brakeMax,
                                                   situation.egoVehicleState.distanceToLeaveIntersection,
                                                   timeToLeaveEgo);
@@ -73,7 +73,7 @@ bool checkLateralIntersect(Situation const &situation, bool &isSafe)
   result = result && calculateTimeToCoverDistance(situation.otherVehicleState.velocity.speedLon.minimum,
                                                   situation.egoVehicleState.dynamics.maxSpeed,
                                                   situation.otherVehicleState.dynamics.responseTime,
-                                                  -1. * situation.otherVehicleState.dynamics.alphaLon.brakeMax,
+                                                  situation.otherVehicleState.dynamics.alphaLon.brakeMax,
                                                   situation.otherVehicleState.dynamics.alphaLon.brakeMax,
                                                   situation.otherVehicleState.distanceToLeaveIntersection,
                                                   timeToLeaveOther);

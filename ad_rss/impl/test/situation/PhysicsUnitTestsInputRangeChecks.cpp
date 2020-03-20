@@ -1,13 +1,13 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "situation/Math.hpp"
+#include "ad/rss/situation/Physics.hpp"
 
 namespace ad {
 namespace rss {
@@ -31,13 +31,13 @@ Speed calculateSpeedInAcceleratedMovement(Speed const &speed,
                                           Acceleration const &acceleration,
                                           Duration const &duration);
 
-TEST(MathUnitTestsInputRangeChecks, negative_speed)
+TEST(PhysicsUnitTestsInputRangeChecks, negative_speed)
 {
   Duration requiredTime(0.);
   EXPECT_FALSE(calculateTimeForDistance(Speed(-1.), Acceleration(0.), Distance(1.), requiredTime));
 }
 
-TEST(MathUnitTestsInputRangeChecks, speed_and_acceleration_zero)
+TEST(PhysicsUnitTestsInputRangeChecks, speed_and_acceleration_zero)
 {
   Duration requiredTime(0.);
   EXPECT_TRUE(calculateTimeForDistance(Speed(0.), Acceleration(0.), Distance(1.), requiredTime));
@@ -46,14 +46,14 @@ TEST(MathUnitTestsInputRangeChecks, speed_and_acceleration_zero)
 
 #if INVALID_AD_PHYSICS_SPEED_THROWS_EXCEPTION && INVALID_AD_PHYSICS_ACCELERATION_THROWS_EXCEPTION                      \
   && INVALID_AD_PHYSICS_DURATION_THROWS_EXCEPTION && INVALID_AD_PHYSICS_DISTANCE_THROWS_EXCEPTION
-TEST(MathUnitTestsInputRangeChecks, calculateDistanceOffsetInAccerlatedMovementThrows)
+TEST(PhysicsUnitTestsInputRangeChecks, calculateDistanceOffsetInAccerlatedMovementThrows)
 {
   EXPECT_THROW(calculateDistanceOffsetInAcceleratedMovement(Speed(), Acceleration(0), Duration(0)), std::out_of_range);
   EXPECT_THROW(calculateDistanceOffsetInAcceleratedMovement(Speed(0), Acceleration(), Duration(0)), std::out_of_range);
   EXPECT_THROW(calculateDistanceOffsetInAcceleratedMovement(Speed(0), Acceleration(0), Duration()), std::out_of_range);
 }
 
-TEST(MathUnitTestsInputRangeChecks, calculateDistanceOffsetInAccerlatedLimitedMovementThrows)
+TEST(PhysicsUnitTestsInputRangeChecks, calculateDistanceOffsetInAccerlatedLimitedMovementThrows)
 {
   EXPECT_THROW(calculateDistanceOffsetInAcceleratedLimitedMovement(Speed(), Speed(0), Acceleration(0), Duration(0)),
                std::out_of_range);
@@ -65,14 +65,14 @@ TEST(MathUnitTestsInputRangeChecks, calculateDistanceOffsetInAccerlatedLimitedMo
                std::out_of_range);
 }
 
-TEST(MathUnitTestsInputRangeChecks, calculateSpeedInAcceleratedMovementThrows)
+TEST(PhysicsUnitTestsInputRangeChecks, calculateSpeedInAcceleratedMovementThrows)
 {
   EXPECT_THROW(calculateSpeedInAcceleratedMovement(Speed(), Acceleration(0), Duration(0)), std::out_of_range);
   EXPECT_THROW(calculateSpeedInAcceleratedMovement(Speed(0), Acceleration(), Duration(0)), std::out_of_range);
   EXPECT_THROW(calculateSpeedInAcceleratedMovement(Speed(0), Acceleration(0), Duration()), std::out_of_range);
 }
 
-TEST(MathUnitTestsInputRangeChecks, calculateTimeToCoverDistanceThrows)
+TEST(PhysicsUnitTestsInputRangeChecks, calculateTimeToCoverDistanceThrows)
 {
   Duration requiredTime(0.);
   EXPECT_THROW(calculateTimeToCoverDistance(Speed(),

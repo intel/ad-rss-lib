@@ -39,11 +39,11 @@ class InterfaceTest(unittest.TestCase):
         objectRssDynamics = rss.RssDynamics()
         objectRssDynamics.responseTime = physics.Duration(0.5)
         objectRssDynamics.alphaLat.accelMax = physics.Acceleration(1.)
-        objectRssDynamics.alphaLat.brakeMin = physics.Acceleration(1.)
+        objectRssDynamics.alphaLat.brakeMin = physics.Acceleration(-1.)
         objectRssDynamics.alphaLon.accelMax = physics.Acceleration(4.)
-        objectRssDynamics.alphaLon.brakeMax = physics.Acceleration(8.)
-        objectRssDynamics.alphaLon.brakeMinCorrect = physics.Acceleration(4.)
-        objectRssDynamics.alphaLon.brakeMin = physics.Acceleration(4.)
+        objectRssDynamics.alphaLon.brakeMax = physics.Acceleration(-8.)
+        objectRssDynamics.alphaLon.brakeMinCorrect = physics.Acceleration(-4.)
+        objectRssDynamics.alphaLon.brakeMin = physics.Acceleration(-4.)
         objectRssDynamics.lateralFluctuationMargin = physics.Distance(0.)
         return objectRssDynamics
 
@@ -51,11 +51,11 @@ class InterfaceTest(unittest.TestCase):
         egoRssDynamics = rss.RssDynamics()
         egoRssDynamics.responseTime = physics.Duration(0.2)
         egoRssDynamics.alphaLat.accelMax = physics.Acceleration(0.1)
-        egoRssDynamics.alphaLat.brakeMin = physics.Acceleration(0.1)
+        egoRssDynamics.alphaLat.brakeMin = physics.Acceleration(-0.1)
         egoRssDynamics.alphaLon.accelMax = physics.Acceleration(0.1)
-        egoRssDynamics.alphaLon.brakeMax = physics.Acceleration(8.)
-        egoRssDynamics.alphaLon.brakeMinCorrect = physics.Acceleration(4.)
-        egoRssDynamics.alphaLon.brakeMin = physics.Acceleration(4.)
+        egoRssDynamics.alphaLon.brakeMax = physics.Acceleration(-8.)
+        egoRssDynamics.alphaLon.brakeMinCorrect = physics.Acceleration(-4.)
+        egoRssDynamics.alphaLon.brakeMin = physics.Acceleration(-4.)
         egoRssDynamics.lateralFluctuationMargin = physics.Distance(0.)
         return egoRssDynamics
 

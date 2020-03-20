@@ -32,21 +32,17 @@ protected:
     ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
     valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
     ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-    valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-    valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-    valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
     valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
     valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+    valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+    valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
     value.alphaLon = valueAlphaLon;
     ::ad::rss::world::LateralRssAccelerationValues valueAlphaLat;
     ::ad::physics::Acceleration valueAlphaLatAccelMax(-1e2);
     valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
     valueAlphaLat.accelMax = valueAlphaLatAccelMax;
     ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-    valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
-      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
     value.alphaLat = valueAlphaLat;
     ::ad::physics::Distance valueLateralFluctuationMargin(0.);
@@ -118,11 +114,12 @@ TEST_F(RssDynamicsTests, comparisonOperatorAlphaLonDiffers)
   ::ad::physics::Acceleration alphaLonBrakeMin(1e2);
   alphaLon.brakeMin = alphaLonBrakeMin;
   ::ad::physics::Acceleration alphaLonBrakeMinCorrect(1e2);
+  alphaLonBrakeMinCorrect = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
   alphaLon.brakeMinCorrect = alphaLonBrakeMinCorrect;
-  alphaLon.brakeMax = alphaLon.brakeMin;
-  alphaLon.brakeMin = alphaLon.brakeMinCorrect;
   alphaLon.brakeMinCorrect = alphaLon.brakeMin;
   alphaLon.brakeMin = alphaLon.brakeMax;
+  alphaLon.brakeMax = alphaLon.brakeMin;
+  alphaLon.brakeMin = alphaLon.brakeMinCorrect;
   valueA.alphaLon = alphaLon;
   ::ad::rss::world::RssDynamics valueB = mValue;
 
@@ -137,6 +134,7 @@ TEST_F(RssDynamicsTests, comparisonOperatorAlphaLatDiffers)
   ::ad::physics::Acceleration alphaLatAccelMax(1e2);
   alphaLat.accelMax = alphaLatAccelMax;
   ::ad::physics::Acceleration alphaLatBrakeMin(1e2);
+  alphaLatBrakeMin = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
   alphaLat.brakeMin = alphaLatBrakeMin;
   valueA.alphaLat = alphaLat;
   ::ad::rss::world::RssDynamics valueB = mValue;

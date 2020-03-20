@@ -136,13 +136,14 @@ protected:
       createRoadAreaNonIntersection();
     }
 
-    worldModel.egoVehicleRssDynamics = getEgoRssDynamics();
+    worldModel.defaultEgoVehicleRssDynamics = getEgoRssDynamics();
     for (uint32_t index = 0u; index < getNumberOfSceneObjects(); index++)
     {
       world::Scene scene;
       scene.situationType = getSituationType();
       scene.object = getSceneObject(index);
       scene.objectRssDynamics = getObjectRssDynamics();
+      scene.egoVehicleRssDynamics = getEgoRssDynamics();
       scene.egoVehicle = objectAsEgo(getEgoObject());
       scene.egoVehicleRoad = roadArea;
       scene.intersectingRoad = otherRoadArea;
@@ -434,19 +435,17 @@ protected:
   void testRestriction(physics::AccelerationRange const &longitudinalRange,
                        state::LongitudinalResponse expectedLonResponse)
   {
+    EXPECT_EQ(longitudinalRange.minimum, worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMax);
     switch (expectedLonResponse)
     {
       case state::LongitudinalResponse::None:
-        EXPECT_EQ(longitudinalRange.minimum, -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMax);
-        EXPECT_EQ(longitudinalRange.maximum, worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
+        EXPECT_EQ(longitudinalRange.maximum, worldModel.defaultEgoVehicleRssDynamics.alphaLon.accelMax);
         break;
       case state::LongitudinalResponse::BrakeMin:
-        EXPECT_EQ(longitudinalRange.minimum, -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMax);
-        EXPECT_EQ(longitudinalRange.maximum, -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMin);
+        EXPECT_EQ(longitudinalRange.maximum, worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMin);
         break;
       case state::LongitudinalResponse::BrakeMinCorrect:
-        EXPECT_EQ(longitudinalRange.minimum, -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMax);
-        EXPECT_EQ(longitudinalRange.maximum, -1. * worldModel.egoVehicleRssDynamics.alphaLon.brakeMinCorrect);
+        EXPECT_EQ(longitudinalRange.maximum, worldModel.defaultEgoVehicleRssDynamics.alphaLon.brakeMinCorrect);
         break;
       default:
         EXPECT_TRUE(false);
@@ -456,15 +455,14 @@ protected:
 
   void testRestriction(physics::AccelerationRange const &lateralRange, state::LateralResponse expectedLatResponse)
   {
+    EXPECT_EQ(lateralRange.minimum, std::numeric_limits<physics::Acceleration>::lowest());
     switch (expectedLatResponse)
     {
       case state::LateralResponse::None:
-        EXPECT_EQ(lateralRange.minimum, -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin);
-        EXPECT_EQ(lateralRange.maximum, worldModel.egoVehicleRssDynamics.alphaLat.accelMax);
+        EXPECT_EQ(lateralRange.maximum, worldModel.defaultEgoVehicleRssDynamics.alphaLat.accelMax);
         break;
       case state::LateralResponse::BrakeMin:
-        EXPECT_EQ(lateralRange.minimum, std::numeric_limits<physics::Acceleration>::lowest());
-        EXPECT_EQ(lateralRange.maximum, -1. * worldModel.egoVehicleRssDynamics.alphaLat.brakeMin);
+        EXPECT_EQ(lateralRange.maximum, worldModel.defaultEgoVehicleRssDynamics.alphaLat.brakeMin);
         break;
       default:
         EXPECT_TRUE(false);
@@ -519,7 +517,7 @@ protected:
       {
         case situation::SituationType::SameDirection:
           dMin = calculateLongitudinalMinSafeDistance(scene.egoVehicle.velocity.speedLonMin,
-                                                      worldModel.egoVehicleRssDynamics,
+                                                      scene.egoVehicleRssDynamics,
                                                       scene.object.velocity.speedLonMax,
                                                       scene.objectRssDynamics);
           break;
@@ -529,12 +527,12 @@ protected:
             dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(scene.object.velocity.speedLonMax,
                                                                          scene.objectRssDynamics,
                                                                          scene.egoVehicle.velocity.speedLonMax,
-                                                                         worldModel.egoVehicleRssDynamics);
+                                                                         scene.egoVehicleRssDynamics);
           }
           else
           {
             dMin = calculateLongitudinalMinSafeDistanceOppositeDirection(scene.egoVehicle.velocity.speedLonMax,
-                                                                         worldModel.egoVehicleRssDynamics,
+                                                                         scene.egoVehicleRssDynamics,
                                                                          scene.object.velocity.speedLonMax,
                                                                          scene.objectRssDynamics);
           }

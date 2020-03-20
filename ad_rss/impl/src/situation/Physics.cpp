@@ -1,12 +1,12 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "Math.hpp"
+#include "ad/rss/situation/Physics.hpp"
 #include <algorithm>
 #include <limits>
 #include "ad/physics/Operation.hpp"
@@ -63,15 +63,27 @@ Speed calculateSpeedInAcceleratedMovement(Speed const &speed,
 
 bool calculateStoppingDistance(Speed const &currentSpeed, Acceleration const &deceleration, Distance &stoppingDistance)
 {
-  if (deceleration <= Acceleration(0.))
+  if (deceleration == Acceleration(0.))
   {
-    // deceleration must be positive
+    if (currentSpeed != Speed(0.))
+    {
+      // not reaching zero speed
+      return false;
+    }
+    else
+    {
+      stoppingDistance = Distance(0.);
+      return true;
+    }
+  }
+  if (std::signbit(static_cast<double>(deceleration)) == std::signbit(static_cast<double>(currentSpeed)))
+  {
+    // not reaching zero speed
     return false;
   }
 
-  // s = v^2 / (2 *a)
-  // keep the signbit of the current Speed
-  stoppingDistance = (currentSpeed * std::fabs(currentSpeed)) / (2.0 * deceleration);
+  // s = v^2 / (2 * -a)
+  stoppingDistance = (currentSpeed * currentSpeed) / (2.0 * -deceleration);
   return true;
 }
 
@@ -207,7 +219,7 @@ bool calculateTimeToCoverDistance(Speed const &currentSpeed,
                                   Distance const &distanceToCover,
                                   Duration &requiredTime)
 {
-  if ((currentSpeed < Speed(0.)) || (deceleration < Acceleration(0.)) || (distanceToCover < Distance(0.)))
+  if (distanceToCover < Distance(0.))
   {
     return false;
   }
@@ -226,13 +238,14 @@ bool calculateTimeToCoverDistance(Speed const &currentSpeed,
 
   if (result)
   {
-    if (distanceAfterResponseTime > distanceToCover)
+    if (distanceAfterResponseTime >= distanceToCover)
     {
+      // TODO: obey max speed
       result = calculateTimeForDistance(currentSpeed, acceleration, distanceToCover, requiredTime);
     }
     else
     {
-      Speed resultingSpeed;
+      Speed speedAfterResponseTime;
 
       result = calculateSpeedAfterResponseTime( // LCOV_EXCL_LINE: wrong detection
         CoordinateSystemAxis::Longitudinal,
@@ -240,23 +253,30 @@ bool calculateTimeToCoverDistance(Speed const &currentSpeed,
         maxSpeed,
         acceleration,
         responseTime,
-        resultingSpeed);
+        speedAfterResponseTime);
 
-      Distance stoppingDistance;
-      result = result && calculateStoppingDistance(resultingSpeed, deceleration, stoppingDistance);
-
-      if (result)
+      if (speedAfterResponseTime == Speed(0.))
       {
-        if (distanceAfterResponseTime + stoppingDistance > distanceToCover)
-        {
-          Distance remainingDistance = distanceToCover - distanceAfterResponseTime;
+        requiredTime = std::numeric_limits<Duration>::max();
+      }
+      else
+      {
+        Distance stoppingDistance;
+        result = result && calculateStoppingDistance(speedAfterResponseTime, deceleration, stoppingDistance);
 
-          result = calculateTimeForDistance(resultingSpeed, deceleration, remainingDistance, requiredTime);
-          requiredTime += responseTime;
-        }
-        else
+        if (result)
         {
-          requiredTime = std::numeric_limits<Duration>::max();
+          if (distanceAfterResponseTime + stoppingDistance > distanceToCover)
+          {
+            Distance remainingDistance = distanceToCover - distanceAfterResponseTime;
+
+            result = calculateTimeForDistance(speedAfterResponseTime, deceleration, remainingDistance, requiredTime);
+            requiredTime += responseTime;
+          }
+          else
+          {
+            requiredTime = std::numeric_limits<Duration>::max();
+          }
         }
       }
     }

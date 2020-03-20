@@ -22,6 +22,7 @@
 #include "ad/rss/state/LateralResponseValidInputRange.hpp"
 #include "ad/rss/state/LateralRssState.hpp"
 #include "ad/rss/state/RssStateInformationValidInputRange.hpp"
+#include "ad/rss/world/LateralRssAccelerationValuesValidInputRange.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
 
@@ -39,8 +40,8 @@ inline bool withinValidInputRange(::ad::rss::state::LateralRssState const &input
 {
   // check for generic member input ranges
   bool inValidInputRange = true;
-  inValidInputRange
-    = withinValidInputRange(input.response, logErrors) && withinValidInputRange(input.rssStateInformation, logErrors);
+  inValidInputRange = withinValidInputRange(input.response, logErrors)
+    && withinValidInputRange(input.alphaLat, logErrors) && withinValidInputRange(input.rssStateInformation, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::state::LateralRssState)>> {} has invalid member",

@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -33,11 +33,11 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, ego_following_no_overlap
     situation.egoVehicleState.distanceToLeaveIntersection = Distance(15);
 
     situation.egoVehicleState.dynamics.alphaLon.accelMax = Acceleration(2.);
-    situation.egoVehicleState.dynamics.alphaLon.brakeMin = Acceleration(4.);
+    situation.egoVehicleState.dynamics.alphaLon.brakeMin = Acceleration(-4.);
 
     situation.otherVehicleState = createVehicleStateForLongitudinalMotion(10);
     situation.otherVehicleState.dynamics.alphaLon.accelMax = Acceleration(2.);
-    situation.otherVehicleState.dynamics.alphaLon.brakeMin = Acceleration(4.);
+    situation.otherVehicleState.dynamics.alphaLon.brakeMin = Acceleration(-4.);
     situation.otherVehicleState.distanceToEnterIntersection = Distance(16);
     situation.otherVehicleState.distanceToLeaveIntersection = Distance(16);
 
@@ -88,7 +88,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_
     leadingVehicle.distanceToEnterIntersection = Distance(2);
     leadingVehicle.distanceToLeaveIntersection = Distance(2);
     leadingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-    leadingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+    leadingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
     if (situationType == SituationType::IntersectionObjectHasPriority)
     {
       leadingVehicle.hasPriority = true;
@@ -100,7 +100,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_
 
     followingVehicle = createVehicleStateForLongitudinalMotion(30);
     followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-    followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+    followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
     followingVehicle.distanceToEnterIntersection = Distance(12.);
     followingVehicle.distanceToLeaveIntersection = Distance(12.);
 
@@ -136,7 +136,7 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50kmh_safe_distance_ego_
     leadingVehicle.distanceToLeaveIntersection = Distance(10.);
     followingVehicle = createVehicleStateForLongitudinalMotion(50);
     followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-    followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+    followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
     followingVehicle.distanceToEnterIntersection = Distance(70.);
     followingVehicle.distanceToLeaveIntersection = Distance(70.);
 
@@ -174,10 +174,10 @@ TEST_F(RssSituationCheckingTestsIntersectionNoPriority, 50km_h_stop_before_inter
       leadingVehicle.distanceToEnterIntersection = Distance(80.);
       leadingVehicle.distanceToLeaveIntersection = Distance(80.);
       leadingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-      leadingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+      leadingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
       followingVehicle = createVehicleStateForLongitudinalMotion(50);
       followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-      followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+      followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
       followingVehicle.distanceToEnterIntersection = Distance(110.);
       followingVehicle.distanceToLeaveIntersection = Distance(110.);
 

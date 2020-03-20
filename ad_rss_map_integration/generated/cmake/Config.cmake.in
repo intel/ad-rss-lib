@@ -17,8 +17,8 @@
 
 include(CMakeFindDependencyMacro)
 
-find_dependency(ad_map_access 1.1.0)
-find_dependency(ad_rss 2.0.0)
+find_dependency(ad_map_access 2.0.0)
+find_dependency(ad_rss 3.0.0)
 
 include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")
 

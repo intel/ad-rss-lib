@@ -1,6 +1,6 @@
 # ----------------- BEGIN LICENSE BLOCK ---------------------------------
 #
-# Copyright (C) 2018-2019 Intel Corporation
+# Copyright (C) 2018-2020 Intel Corporation
 #
 # SPDX-License-Identifier: LGPL-2.1-only
 #
@@ -13,6 +13,7 @@ set(ad_rss_map_integration_SOURCES
   ${CMAKE_CURRENT_LIST_DIR}/src/Logging.cpp
   ${CMAKE_CURRENT_LIST_DIR}/src/RssObjectConversion.cpp
   ${CMAKE_CURRENT_LIST_DIR}/src/RssSceneCreation.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/src/RssSceneCreator.cpp
 )
 
 # specify the include directories of the Generator Managed Library ad_map_access.

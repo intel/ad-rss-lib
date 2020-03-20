@@ -8,185 +8,222 @@
 
 #include "ad/rss/map/RssObjectConversion.hpp"
 
-#include <ad/map/lane/LaneOperation.hpp>
-#include <ad/map/match/MapMatchedOperation.hpp>
-#include <ad/map/match/ObjectValidInputRange.hpp>
-#include <ad/map/point/Operation.hpp>
-#include <ad/map/route/LaneIntervalOperation.hpp>
+#include <ad/map/point/HeadingOperation.hpp>
 #include <ad/map/route/RouteOperation.hpp>
-#include <ad/rss/world/ObjectId.hpp>
-#include <ad/rss/world/ObjectValidInputRange.hpp>
+#include <ad/physics/Operation.hpp>
+#include <ad/rss/situation/Physics.hpp>
+#include <algorithm>
+#include "ad/rss/map/Logging.hpp"
 
 namespace ad {
 namespace rss {
 namespace map {
-namespace RssObjectConversion {
 
-std::pair<bool, ::ad::rss::world::LaneSegment>
-getLaneSegmentFromRoadArea(::ad::rss::world::RoadArea const &objectRoadArea,
-                           ::ad::rss::world::LaneSegmentId const &laneId)
+RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
+                                         ::ad::rss::world::ObjectType const &objectType,
+                                         ::ad::map::match::Object const &objectMapMatchedPosition,
+                                         ::ad::physics::Speed const &objectSpeed,
+                                         ::ad::rss::world::RssDynamics const &rssDynamics)
+  : mObjectMapMatchedPosition(&objectMapMatchedPosition)
+  , mSpeed(std::fabs(objectSpeed))
+  , mMaxSpeed(0.)
+  , mRssDynamics(rssDynamics)
 {
-  for (auto const &roadSegment : objectRoadArea)
-  {
-    for (auto const &laneSegment : roadSegment)
-    {
-      if (laneSegment.id == laneId)
-      {
-        return std::make_pair(true, laneSegment);
-      }
-    }
-  }
-  return std::make_pair(false, ::ad::rss::world::LaneSegment());
+  mRssObject.objectId = objectId;
+  mRssObject.objectType = objectType;
+  mRssObject.velocity.speedLonMin = ::ad::physics::Speed(0.);
+  mRssObject.velocity.speedLonMax = ::ad::physics::Speed(0.);
+  mRssObject.velocity.speedLatMin = ::ad::physics::Speed(0.);
+  mRssObject.velocity.speedLatMax = ::ad::physics::Speed(0.);
 }
 
-bool convertBoundingBox(::ad::map::match::MapMatchedObjectBoundingBox const &boundingBox,
-                        ::ad::rss::world::RoadArea const &objectRoadArea,
-                        ::ad::map::lane::LaneIdSet const &negativeRouteDirectionLanes,
-                        ::ad::rss::world::OccupiedRegionVector &regions)
+RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
+                                         ::ad::rss::world::ObjectType const &objectType,
+                                         ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions,
+                                         ::ad::physics::Speed const &objectSpeed,
+                                         ::ad::rss::world::RssDynamics const &rssDynamics)
+  : mObjectMapMatchedPosition(nullptr)
+  , mSpeed(std::fabs(objectSpeed))
+  , mMaxSpeed(0.)
+  , mRssDynamics(rssDynamics)
 {
-  regions.clear();
-
-  for (auto const &boundingBoxRegion : boundingBox.laneOccupiedRegions)
-  {
-    ::ad::rss::world::LaneSegmentId const segmentId(static_cast<uint64_t>(boundingBoxRegion.laneId));
-    if (getLaneSegmentFromRoadArea(objectRoadArea, segmentId).first)
-    {
-      ::ad::rss::world::OccupiedRegion occupiedRegion;
-      occupiedRegion.segmentId = segmentId;
-      if (negativeRouteDirectionLanes.find(boundingBoxRegion.laneId) != negativeRouteDirectionLanes.end())
-      {
-        occupiedRegion.lonRange.maximum
-          = ::ad::physics::ParametricValue(1.) - boundingBoxRegion.longitudinalRange.minimum;
-        occupiedRegion.lonRange.minimum
-          = ::ad::physics::ParametricValue(1.) - boundingBoxRegion.longitudinalRange.maximum;
-        occupiedRegion.latRange.maximum = ::ad::physics::ParametricValue(1.) - boundingBoxRegion.lateralRange.minimum;
-        occupiedRegion.latRange.minimum = ::ad::physics::ParametricValue(1.) - boundingBoxRegion.lateralRange.maximum;
-      }
-      else
-      {
-        occupiedRegion.lonRange = boundingBoxRegion.longitudinalRange;
-        occupiedRegion.latRange = boundingBoxRegion.lateralRange;
-      }
-      regions.push_back(occupiedRegion);
-    }
-  }
-
-  return !regions.empty();
+  mRssObject.objectId = objectId;
+  mRssObject.objectType = objectType;
+  mRssObject.velocity.speedLonMin = ::ad::physics::Speed(0.);
+  mRssObject.velocity.speedLonMax = ::ad::physics::Speed(0.);
+  mRssObject.velocity.speedLatMin = ::ad::physics::Speed(0.);
+  mRssObject.velocity.speedLatMax = ::ad::physics::Speed(0.);
+  mRssObject.occupiedRegions = objectOccupiedRegions;
 }
 
-// TODO: it might even make sense to allow speeds coming from external objects to be also ranges
-// 1.) be able to cope with uncertainties of measurements
-// 2.) especially when introducing artificial objects to be respected in occulsion scenarios
-//     Then one can expect vehicles with different current velocities approaching e.g. an intersection
-//     So for worst case analysis the whole interval between 0-maxEstimate might be relevant to cover...
-bool convertVelocity(::ad::map::match::Object const &objectMatchObject,
-                     ::ad::physics::Speed const &objectSpeed,
-                     ::ad::rss::world::RoadArea const &objectRoadArea,
-                     ::ad::rss::world::Object &rssObject)
+::ad::rss::world::Object const &RssObjectConversion::getRssObject() const
 {
-  bool objectVelocityInitialized = false;
-  // TODO: How should we finally do the velocity conversion?
-  // A) Start the search at front left up to rear right to find the most suitable point for velocity conversion
-  //    usually one of the front positions has a map matching point within the road area
-  //    the first match wins
-  // B) Other possibility would be collecting all cases for the whole vehicle and get to the worst case estimate
-  // Current selection is B)
-  auto objectMapPosition = objectMatchObject.mapMatchedBoundingBox;
-  for (auto referencePointPosition : {::ad::map::match::ObjectReferencePoints::FrontLeft,
-                                      ::ad::map::match::ObjectReferencePoints::FrontRight,
-                                      ::ad::map::match::ObjectReferencePoints::Center,
-                                      ::ad::map::match::ObjectReferencePoints::RearLeft,
-                                      ::ad::map::match::ObjectReferencePoints::RearRight})
-  {
-    std::size_t const referencePointIndex(static_cast<std::size_t>(referencePointPosition));
-    if (objectMapPosition.referencePointPositions.size() > referencePointIndex)
-    {
-      auto const objectHeading = objectMatchObject.enuPosition.heading;
-      for (auto const &mapMatchedPosition : objectMapPosition.referencePointPositions[referencePointIndex])
-      {
-        // only actual in lane matches are considered
-        if (mapMatchedPosition.type != ::ad::map::match::MapMatchedPositionType::LANE_IN)
-        {
-          continue;
-        }
-
-        ::ad::rss::world::LaneSegmentId const segmentId(
-          static_cast<uint64_t>(mapMatchedPosition.lanePoint.paraPoint.laneId));
-        auto const laneSegmentResult = getLaneSegmentFromRoadArea(objectRoadArea, segmentId);
-
-        // only lanes actually present in the current road area are considered
-        if (laneSegmentResult.first)
-        {
-          ::ad::map::point::ENUHeading laneHeadingOffset(0.);
-          if (laneSegmentResult.second.drivingDirection == ::ad::rss::world::LaneDrivingDirection::Negative)
-          {
-            laneHeadingOffset = ::ad::map::point::ENUHeading(M_PI);
-          }
-          auto const laneHeading
-            = ::ad::map::lane::getLaneENUHeading(mapMatchedPosition.lanePoint.paraPoint) + laneHeadingOffset;
-          auto headingDifference = ::ad::map::point::normalizeENUHeading(laneHeading - objectHeading);
-          auto const absSpeed = std::fabs(objectSpeed);
-          auto const speedLon = std::fabs(std::cos(static_cast<double>(headingDifference))) * absSpeed;
-          auto const speedLat = std::sin(static_cast<double>(headingDifference)) * absSpeed;
-          if (!objectVelocityInitialized)
-          {
-            objectVelocityInitialized = true;
-            rssObject.velocity.speedLonMin = speedLon;
-            rssObject.velocity.speedLonMax = speedLon;
-            rssObject.velocity.speedLatMin = speedLat;
-            rssObject.velocity.speedLatMax = speedLat;
-          }
-          else
-          {
-            rssObject.velocity.speedLonMin = std::min(rssObject.velocity.speedLonMin, speedLon);
-            rssObject.velocity.speedLonMax = std::max(rssObject.velocity.speedLonMax, speedLon);
-            rssObject.velocity.speedLatMin = std::min(rssObject.velocity.speedLatMin, speedLat);
-            rssObject.velocity.speedLatMax = std::max(rssObject.velocity.speedLatMax, speedLat);
-          }
-        }
-      }
-    }
-  }
-  return objectVelocityInitialized;
+  return mRssObject;
 }
 
-bool convertObject(::ad::rss::world::ObjectId const &objectId,
-                   ::ad::rss::world::ObjectType const &objectType,
-                   ::ad::map::match::Object const &objectMatchObject,
-                   ::ad::physics::Speed const &objectSpeed,
-                   ::ad::rss::world::RoadArea const &objectRoadArea,
-                   ::ad::map::lane::LaneIdSet const &negativeRouteDirectionLanes,
-                   ::ad::rss::world::Object &rssObject)
+::ad::rss::world::ObjectId RssObjectConversion::getId() const
 {
-  if (!withinValidInputRange(objectType) || !withinValidInputRange(objectMatchObject)
-      || !withinValidInputRange(objectSpeed))
+  return mRssObject.objectId;
+}
+
+::ad::rss::world::RssDynamics RssObjectConversion::getRssDynamics() const
+{
+  ::ad::rss::world::RssDynamics resultDynamics(mRssDynamics);
+  if (mMaxSpeed != ::ad::physics::Speed(0.))
   {
-    return false;
+    resultDynamics.maxSpeed = mMaxSpeed;
   }
-  ::ad::rss::world::Object newRssObject;
-  newRssObject.objectId = objectId;
-  newRssObject.objectType = objectType;
+  return resultDynamics;
+}
 
-  if (objectRoadArea.size() > 0u)
+bool RssObjectConversion::calculateMinStoppingDistance(::ad::physics::Distance &minStoppingDistance) const
+{
+  // calculate rough distance to be relevant at the moment
+  ::ad::physics::Speed speedAfterResponseTime;
+  auto result = situation::calculateSpeedAfterResponseTime(situation::CoordinateSystemAxis::Longitudinal,
+                                                           std::fabs(mSpeed),
+                                                           physics::Speed::getMax(),
+                                                           mRssDynamics.alphaLon.accelMax,
+                                                           mRssDynamics.responseTime,
+                                                           speedAfterResponseTime);
+  if (!result)
   {
-    auto result = convertVelocity(objectMatchObject, objectSpeed, objectRoadArea, newRssObject);
-    result = result && convertBoundingBox(objectMatchObject.mapMatchedBoundingBox,
-                                          objectRoadArea,
-                                          negativeRouteDirectionLanes,
-                                          newRssObject.occupiedRegions);
-
-    // even if the input within the range of the
-    if (!result || !withinValidInputRange(newRssObject))
-    {
-      return false;
-    }
+    getLogger()->error(
+      "RssObjectConversion::calculateminStoppingDistance[ {} ]>> error calculating speed after response time {} {}",
+      mRssObject.objectId,
+      std::fabs(mSpeed),
+      mRssDynamics);
+    return result;
   }
 
-  rssObject = newRssObject;
+  result = situation::calculateStoppingDistance(
+    speedAfterResponseTime, mRssDynamics.alphaLon.brakeMinCorrect, minStoppingDistance);
+  if (!result)
+  {
+    getLogger()->error(
+      "RssObjectConversion::calculateminStoppingDistance[ {} ]>> error calculating stopping distance {} {}",
+      mRssObject.objectId,
+      speedAfterResponseTime,
+      mRssDynamics);
+    return result;
+  }
+
+  // overestimate stopping distance a bit
+  minStoppingDistance += speedAfterResponseTime * mRssDynamics.responseTime;
+
   return true;
 }
 
-} // namespace RssObjectConversion
+void RssObjectConversion::updateSpeedLimit(::ad::physics::Speed const &maxSpeed)
+{
+  mMaxSpeed = std::max(mMaxSpeed, maxSpeed);
+}
+
+void RssObjectConversion::addRestrictedOccupiedRegion(::ad::map::match::LaneOccupiedRegion const &laneOccupiedRegion,
+                                                      ::ad::map::route::LaneInterval const &laneInterval)
+{
+  ::ad::rss::world::OccupiedRegion occupiedRegion;
+  occupiedRegion.segmentId = ::ad::rss::world::LaneSegmentId(static_cast<uint64_t>(laneOccupiedRegion.laneId));
+
+  ::ad::physics::ParametricValue cutAtStart;
+  if (::ad::map::route::isRouteDirectionNegative(laneInterval))
+  {
+    occupiedRegion.lonRange.maximum = ::ad::physics::ParametricValue(1.) - laneOccupiedRegion.longitudinalRange.minimum;
+    occupiedRegion.lonRange.minimum = ::ad::physics::ParametricValue(1.) - laneOccupiedRegion.longitudinalRange.maximum;
+
+    occupiedRegion.latRange.maximum = ::ad::physics::ParametricValue(1.) - laneOccupiedRegion.lateralRange.minimum;
+    occupiedRegion.latRange.minimum = ::ad::physics::ParametricValue(1.) - laneOccupiedRegion.lateralRange.maximum;
+    cutAtStart = ::ad::physics::ParametricValue(1.) - laneInterval.start;
+  }
+  else
+  {
+    occupiedRegion.lonRange = laneOccupiedRegion.longitudinalRange;
+    occupiedRegion.latRange = laneOccupiedRegion.lateralRange;
+    cutAtStart = laneInterval.start;
+  }
+
+  // scale region to the lane interval sizes
+  auto const intervalLength = calcParametricLength(laneInterval);
+  if (intervalLength == ::ad::physics::ParametricValue(0.))
+  {
+    occupiedRegion.lonRange.minimum = ::ad::physics::ParametricValue(0.);
+    occupiedRegion.lonRange.maximum = ::ad::physics::ParametricValue(1.);
+  }
+  else
+  {
+    // move region
+    occupiedRegion.lonRange.minimum -= cutAtStart;
+    occupiedRegion.lonRange.maximum -= cutAtStart;
+    // scale region
+    occupiedRegion.lonRange.minimum = occupiedRegion.lonRange.minimum / static_cast<double>(intervalLength);
+    occupiedRegion.lonRange.maximum = occupiedRegion.lonRange.maximum / static_cast<double>(intervalLength);
+    // restrict to segment
+    occupiedRegion.lonRange.minimum
+      = std::min(std::max(occupiedRegion.lonRange.minimum, ::ad::physics::ParametricValue(0.)),
+                 ::ad::physics::ParametricValue(1.));
+    occupiedRegion.lonRange.maximum
+      = std::min(std::max(occupiedRegion.lonRange.maximum, ::ad::physics::ParametricValue(0.)),
+                 ::ad::physics::ParametricValue(1.));
+  }
+  getLogger()->trace("RssObjectConversion::addRestrictedOccupiedRegion[ {} ]>>laneOccupiedRegion {} laneInterval {} -> "
+                     "occupiedRegion {}",
+                     getId(),
+                     laneOccupiedRegion,
+                     laneInterval,
+                     occupiedRegion);
+
+  mRssObject.occupiedRegions.push_back(occupiedRegion);
+}
+
+void RssObjectConversion::fillNotRelevantSceneBoundingBox()
+{
+  if (mObjectMapMatchedPosition != nullptr)
+  {
+    for (auto const &laneOccupiedRegion : mObjectMapMatchedPosition->mapMatchedBoundingBox.laneOccupiedRegions)
+    {
+      ::ad::map::route::LaneInterval dummyLaneInterval;
+      dummyLaneInterval.laneId = laneOccupiedRegion.laneId;
+      dummyLaneInterval.start = physics::ParametricValue(0.);
+      dummyLaneInterval.end = physics::ParametricValue(1.);
+      addRestrictedOccupiedRegion(laneOccupiedRegion, dummyLaneInterval);
+    }
+  }
+}
+
+void RssObjectConversion::laneIntervalAdded(::ad::map::route::LaneInterval const &laneInterval)
+{
+  if (mObjectMapMatchedPosition != nullptr)
+  {
+    auto findLaneIntervalResult
+      = std::find_if(mObjectMapMatchedPosition->mapMatchedBoundingBox.laneOccupiedRegions.begin(),
+                     mObjectMapMatchedPosition->mapMatchedBoundingBox.laneOccupiedRegions.end(),
+                     [laneInterval](::ad::map::match::LaneOccupiedRegion const &occupiedRegion) {
+                       return laneInterval.laneId == occupiedRegion.laneId;
+                     });
+    if (findLaneIntervalResult != mObjectMapMatchedPosition->mapMatchedBoundingBox.laneOccupiedRegions.end())
+    {
+      addRestrictedOccupiedRegion(*findLaneIntervalResult, laneInterval);
+    }
+  }
+}
+
+void RssObjectConversion::updateVelocityOnRoute(::ad::map::route::FullRoute const &route)
+{
+  double headingDiff = 0.;
+  if (mObjectMapMatchedPosition != nullptr)
+  {
+    auto const routeHeading = getENUHeadingOfRoute(*mObjectMapMatchedPosition, route);
+    headingDiff = static_cast<double>(
+      ::ad::map::point::normalizeENUHeading(routeHeading - mObjectMapMatchedPosition->enuPosition.heading));
+  }
+
+  mRssObject.velocity.speedLonMin = std::fabs(std::cos(headingDiff)) * mSpeed;
+  mRssObject.velocity.speedLonMax = mRssObject.velocity.speedLonMin;
+
+  mRssObject.velocity.speedLatMin = std::sin(headingDiff) * mSpeed;
+  mRssObject.velocity.speedLatMax = mRssObject.velocity.speedLatMin;
+}
+
 } // namespace map
 } // namespace rss
 } // namespace ad

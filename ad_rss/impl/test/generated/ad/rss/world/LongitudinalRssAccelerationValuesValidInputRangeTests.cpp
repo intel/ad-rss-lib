@@ -29,13 +29,11 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRange)
   ::ad::physics::Acceleration valueBrakeMin(-1e2);
   value.brakeMin = valueBrakeMin;
   ::ad::physics::Acceleration valueBrakeMinCorrect(-1e2);
-  valueBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   value.brakeMinCorrect = valueBrakeMinCorrect;
-  value.brakeMin = value.brakeMinCorrect;
-  value.brakeMax = value.brakeMin;
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
+  value.brakeMin = value.brakeMinCorrect;
+  value.brakeMax = value.brakeMin;
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
@@ -50,13 +48,11 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRangeA
   ::ad::physics::Acceleration valueBrakeMin(-1e2);
   value.brakeMin = valueBrakeMin;
   ::ad::physics::Acceleration valueBrakeMinCorrect(-1e2);
-  valueBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   value.brakeMinCorrect = valueBrakeMinCorrect;
-  value.brakeMin = value.brakeMinCorrect;
-  value.brakeMax = value.brakeMin;
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
+  value.brakeMin = value.brakeMinCorrect;
+  value.brakeMax = value.brakeMin;
 
   // override member with data type value below input range minimum
   ::ad::physics::Acceleration invalidInitializedMember(-1e2 * 1.1);
@@ -81,13 +77,11 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRangeA
   ::ad::physics::Acceleration valueBrakeMin(-1e2);
   value.brakeMin = valueBrakeMin;
   ::ad::physics::Acceleration valueBrakeMinCorrect(-1e2);
-  valueBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   value.brakeMinCorrect = valueBrakeMinCorrect;
-  value.brakeMin = value.brakeMinCorrect;
-  value.brakeMax = value.brakeMin;
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
+  value.brakeMin = value.brakeMinCorrect;
+  value.brakeMax = value.brakeMin;
 
   // override member with data type value above input range maximum
   ::ad::physics::Acceleration invalidInitializedMember(1e2 * 1.1);
@@ -114,13 +108,11 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRangeB
   ::ad::physics::Acceleration valueBrakeMin(-1e2);
   value.brakeMin = valueBrakeMin;
   ::ad::physics::Acceleration valueBrakeMinCorrect(-1e2);
-  valueBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   value.brakeMinCorrect = valueBrakeMinCorrect;
-  value.brakeMin = value.brakeMinCorrect;
-  value.brakeMax = value.brakeMin;
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
+  value.brakeMin = value.brakeMinCorrect;
+  value.brakeMax = value.brakeMin;
 
   // override member with data type value below input range minimum
   ::ad::physics::Acceleration invalidInitializedMember(-1e2 * 1.1);
@@ -139,13 +131,11 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRangeB
   ::ad::physics::Acceleration valueBrakeMin(-1e2);
   value.brakeMin = valueBrakeMin;
   ::ad::physics::Acceleration valueBrakeMinCorrect(-1e2);
-  valueBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   value.brakeMinCorrect = valueBrakeMinCorrect;
-  value.brakeMin = value.brakeMinCorrect;
-  value.brakeMax = value.brakeMin;
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
+  value.brakeMin = value.brakeMinCorrect;
+  value.brakeMax = value.brakeMin;
 
   // override member with data type value above input range maximum
   ::ad::physics::Acceleration invalidInitializedMember(1e2 * 1.1);
@@ -172,13 +162,11 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRangeB
   ::ad::physics::Acceleration valueBrakeMin(-1e2);
   value.brakeMin = valueBrakeMin;
   ::ad::physics::Acceleration valueBrakeMinCorrect(-1e2);
-  valueBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   value.brakeMinCorrect = valueBrakeMinCorrect;
-  value.brakeMin = value.brakeMinCorrect;
-  value.brakeMax = value.brakeMin;
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
+  value.brakeMin = value.brakeMinCorrect;
+  value.brakeMax = value.brakeMin;
 
   // override member with data type value below input range minimum
   ::ad::physics::Acceleration invalidInitializedMember(-1e2 * 1.1);
@@ -197,13 +185,11 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRangeB
   ::ad::physics::Acceleration valueBrakeMin(-1e2);
   value.brakeMin = valueBrakeMin;
   ::ad::physics::Acceleration valueBrakeMinCorrect(-1e2);
-  valueBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   value.brakeMinCorrect = valueBrakeMinCorrect;
-  value.brakeMin = value.brakeMinCorrect;
-  value.brakeMax = value.brakeMin;
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
+  value.brakeMin = value.brakeMinCorrect;
+  value.brakeMax = value.brakeMin;
 
   // override member with data type value above input range maximum
   ::ad::physics::Acceleration invalidInitializedMember(1e2 * 1.1);
@@ -230,21 +216,14 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRangeB
   ::ad::physics::Acceleration valueBrakeMin(-1e2);
   value.brakeMin = valueBrakeMin;
   ::ad::physics::Acceleration valueBrakeMinCorrect(-1e2);
-  valueBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   value.brakeMinCorrect = valueBrakeMinCorrect;
-  value.brakeMin = value.brakeMinCorrect;
-  value.brakeMax = value.brakeMin;
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
+  value.brakeMin = value.brakeMinCorrect;
+  value.brakeMax = value.brakeMin;
 
   // override member with data type value below input range minimum
   ::ad::physics::Acceleration invalidInitializedMember(-1e2 * 1.1);
-  value.brakeMinCorrect = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
-
-  // override member with value below struct member input range minimum
-  invalidInitializedMember = ::ad::physics::Acceleration(0.); // set to valid value within struct
   value.brakeMinCorrect = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -260,16 +239,19 @@ TEST(LongitudinalRssAccelerationValuesValidInputRangeTests, testValidInputRangeB
   ::ad::physics::Acceleration valueBrakeMin(-1e2);
   value.brakeMin = valueBrakeMin;
   ::ad::physics::Acceleration valueBrakeMinCorrect(-1e2);
-  valueBrakeMinCorrect = ::ad::physics::Acceleration(
-    0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
   value.brakeMinCorrect = valueBrakeMinCorrect;
-  value.brakeMin = value.brakeMinCorrect;
-  value.brakeMax = value.brakeMin;
   value.brakeMin = value.brakeMax;
   value.brakeMinCorrect = value.brakeMin;
+  value.brakeMin = value.brakeMinCorrect;
+  value.brakeMax = value.brakeMin;
 
   // override member with data type value above input range maximum
   ::ad::physics::Acceleration invalidInitializedMember(1e2 * 1.1);
+  value.brakeMinCorrect = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+
+  // override member with value above struct member input range maximum
+  invalidInitializedMember = ::ad::physics::Acceleration(0.); // set to valid value within struct
   value.brakeMinCorrect = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }

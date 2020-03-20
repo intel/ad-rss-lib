@@ -18,11 +18,12 @@ class RssSituationExtractionOppositeDirectionTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    worldModel.egoVehicleRssDynamics = getEgoRssDynamics();
+    worldModel.defaultEgoVehicleRssDynamics = getEgoRssDynamics();
     leadingObject = createObject(36., 0.);
     leadingObject.objectId = 0;
     scene.situationType = situation::SituationType::OppositeDirection;
     scene.objectRssDynamics = getObjectRssDynamics();
+    scene.egoVehicleRssDynamics = getEgoRssDynamics();
 
     {
       world::OccupiedRegion occupiedRegion;
@@ -81,7 +82,7 @@ TEST_F(RssSituationExtractionOppositeDirectionTests, noLongitudinalDifference)
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
+            scene.egoVehicleRssDynamics.alphaLon.accelMax);
 
   ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
             situation::LateralRelativePosition::AtLeft);
@@ -107,9 +108,9 @@ TEST_F(RssSituationExtractionOppositeDirectionTests, longitudinalDifference)
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10));
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            worldModel.egoVehicleRssDynamics.alphaLon.accelMax);
+            scene.egoVehicleRssDynamics.alphaLon.accelMax);
   ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.brakeMin,
-            worldModel.egoVehicleRssDynamics.alphaLon.brakeMin);
+            scene.egoVehicleRssDynamics.alphaLon.brakeMin);
 
   ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
             situation::LateralRelativePosition::AtRight);

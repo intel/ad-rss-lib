@@ -138,14 +138,14 @@ struct Velocity
    * The lateral component of the velocity is always measured orthogonal to the center
    * line of the current lane.
    */
-  ::ad::physics::Speed speedLatMin{-10.};
+  ::ad::physics::Speed speedLatMin{-100.};
 
   /*!
    * The range maximum of the lateral speed component of the velocity vector.
    * The lateral component of the velocity is always measured orthogonal to the center
    * line of the current lane.
    */
-  ::ad::physics::Speed speedLatMax{10.};
+  ::ad::physics::Speed speedLatMax{100.};
 };
 
 } // namespace world
