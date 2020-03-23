@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-03-19 10:45:26</td>
+            <td class="headerValue">2020-03-23 18:00:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -129,7 +129,7 @@
 <span class="lineNum">      58 </span>                :            :   /*!
 <a name="59"><span class="lineNum">      59 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      60 </span>                :            :    */
-<span class="lineNum">      61 </span>                :<span class="lineCov">     244316 :   RssState() = default;</span>
+<span class="lineNum">      61 </span>                :<span class="lineCov">     244326 :   RssState() = default;</span>
 <span class="lineNum">      62 </span>                :            : 
 <span class="lineNum">      63 </span>                :            :   /*!
 <span class="lineNum">      64 </span>                :            :    * \brief standard destructor
@@ -251,25 +251,25 @@
 <span class="lineNum">     180 </span>                :            :  * \returns The stream object.
 <a name="181"><span class="lineNum">     181 </span>                :            :  *</a>
 <span class="lineNum">     182 </span>                :            :  */
-<span class="lineNum">     183 </span>                :<span class="lineCov">    1002470 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, RssState const &amp;_value)</span>
+<span class="lineNum">     183 </span>                :<span class="lineCov">    1002472 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, RssState const &amp;_value)</span>
 <span class="lineNum">     184 </span>                :            : {
-<span class="lineNum">     185 </span>                :<span class="lineCov">    1002470 :   os &lt;&lt; &quot;RssState(&quot;;</span>
-<span class="lineNum">     186 </span>                :<span class="lineCov">    1002470 :   os &lt;&lt; &quot;objectId:&quot;;</span>
-<span class="lineNum">     187 </span>                :<span class="lineCov">    1002470 :   os &lt;&lt; _value.objectId;</span>
-<span class="lineNum">     188 </span>                :<span class="lineCov">    1002470 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     189 </span>                :<span class="lineCov">    1002470 :   os &lt;&lt; &quot;situationId:&quot;;</span>
-<span class="lineNum">     190 </span>                :<span class="lineCov">    1002470 :   os &lt;&lt; _value.situationId;</span>
-<span class="lineNum">     191 </span>                :<span class="lineCov">    1002470 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     192 </span>                :<span class="lineCov">    1002470 :   os &lt;&lt; &quot;longitudinalState:&quot;;</span>
-<span class="lineNum">     193 </span>                :<span class="lineCov">    1002470 :   os &lt;&lt; _value.longitudinalState;</span>
-<span class="lineNum">     194 </span>                :<span class="lineCov">    1002470 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     195 </span>                :<span class="lineCov">    1002470 :   os &lt;&lt; &quot;lateralStateRight:&quot;;</span>
-<span class="lineNum">     196 </span>                :<span class="lineCov">    1002470 :   os &lt;&lt; _value.lateralStateRight;</span>
-<span class="lineNum">     197 </span>                :<span class="lineCov">    1002470 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     198 </span>                :<span class="lineCov">    1002470 :   os &lt;&lt; &quot;lateralStateLeft:&quot;;</span>
-<span class="lineNum">     199 </span>                :<span class="lineCov">    1002470 :   os &lt;&lt; _value.lateralStateLeft;</span>
-<span class="lineNum">     200 </span>                :<span class="lineCov">    1002470 :   os &lt;&lt; &quot;)&quot;;</span>
-<span class="lineNum">     201 </span>                :<span class="lineCov">    1002470 :   return os;</span>
+<span class="lineNum">     185 </span>                :<span class="lineCov">    1002472 :   os &lt;&lt; &quot;RssState(&quot;;</span>
+<span class="lineNum">     186 </span>                :<span class="lineCov">    1002472 :   os &lt;&lt; &quot;objectId:&quot;;</span>
+<span class="lineNum">     187 </span>                :<span class="lineCov">    1002472 :   os &lt;&lt; _value.objectId;</span>
+<span class="lineNum">     188 </span>                :<span class="lineCov">    1002472 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     189 </span>                :<span class="lineCov">    1002472 :   os &lt;&lt; &quot;situationId:&quot;;</span>
+<span class="lineNum">     190 </span>                :<span class="lineCov">    1002472 :   os &lt;&lt; _value.situationId;</span>
+<span class="lineNum">     191 </span>                :<span class="lineCov">    1002472 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     192 </span>                :<span class="lineCov">    1002472 :   os &lt;&lt; &quot;longitudinalState:&quot;;</span>
+<span class="lineNum">     193 </span>                :<span class="lineCov">    1002472 :   os &lt;&lt; _value.longitudinalState;</span>
+<span class="lineNum">     194 </span>                :<span class="lineCov">    1002472 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     195 </span>                :<span class="lineCov">    1002472 :   os &lt;&lt; &quot;lateralStateRight:&quot;;</span>
+<span class="lineNum">     196 </span>                :<span class="lineCov">    1002472 :   os &lt;&lt; _value.lateralStateRight;</span>
+<span class="lineNum">     197 </span>                :<span class="lineCov">    1002472 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     198 </span>                :<span class="lineCov">    1002472 :   os &lt;&lt; &quot;lateralStateLeft:&quot;;</span>
+<span class="lineNum">     199 </span>                :<span class="lineCov">    1002472 :   os &lt;&lt; _value.lateralStateLeft;</span>
+<span class="lineNum">     200 </span>                :<span class="lineCov">    1002472 :   os &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     201 </span>                :<span class="lineCov">    1002472 :   return os;</span>
 <span class="lineNum">     202 </span>                :            : }
 <span class="lineNum">     203 </span>                :            : 
 <span class="lineNum">     204 </span>                :            : } // namespace state

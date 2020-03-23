@@ -39,6 +39,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -85,9 +86,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
 <div class="title">RssSceneCreation.hpp File Reference</div>  </div>
 </div><!--header-->
@@ -95,14 +95,29 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &lt;ad/map/match/Types.hpp&gt;</code><br />
 <code>#include &lt;ad/map/route/Types.hpp&gt;</code><br />
 <code>#include &lt;ad/rss/world/WorldModel.hpp&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for RssSceneCreation.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="RssSceneCreation_8hpp__incl.png" border="0" usemap="#impl_2include_2ad_2rss_2map_2RssSceneCreation_8hpp" alt=""/></div>
 </div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="RssSceneCreation_8hpp__dep__incl.png" border="0" usemap="#impl_2include_2ad_2rss_2map_2RssSceneCreation_8hppdep" alt=""/></div>
+<map name="impl_2include_2ad_2rss_2map_2RssSceneCreation_8hppdep" id="impl_2include_2ad_2rss_2map_2RssSceneCreation_8hppdep">
+<area shape="rect" id="node2" href="RssSceneCreator_8hpp.html" title="impl/include/ad/rss\l/map/RssSceneCreator.hpp" alt="" coords="9,95,205,136"/>
+</map>
+</div>
 </div>
 <p><a href="RssSceneCreation_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html">ad::rss::map::RssSceneCreation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">class providing supporting functions to create a world model and its scenes.  <a href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacead"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead.html">ad</a></td></tr>
@@ -114,40 +129,6 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacead_1_1rss_1_1map"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1map.html">ad::rss::map</a></td></tr>
 <tr class="memdesc:namespacead_1_1rss_1_1map"><td class="mdescLeft">&#160;</td><td class="mdescRight">namespace map <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacead_1_1rss_1_1map_1_1RssSceneCreation"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html">ad::rss::map::RssSceneCreation</a></td></tr>
-<tr class="memdesc:namespacead_1_1rss_1_1map_1_1RssSceneCreation"><td class="mdescLeft">&#160;</td><td class="mdescRight">namespace providing supporting functions to create a world model and its scenes. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a403aae6dce3c77a8aec01dd9808dd964"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964">ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode</a> { <a class="el" href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964a6adf97f83acf6453d4a6a4b1070f3754">ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::None</a>, 
-<a class="el" href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964a11b07d3fc528d7508ce659379b112418">ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::ExactSpeedLimit</a>, 
-<a class="el" href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964a69c4b6ce533a6f047232e0d0427ddc1e">ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit5</a>, 
-<a class="el" href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964a249a5ca3412167f0c66e804f6b7012e8">ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10</a>
- }<tr class="memdesc:a403aae6dce3c77a8aec01dd9808dd964"><td class="mdescLeft">&#160;</td><td class="mdescRight">enumeration defining the modes of speed limit consideration within RSS accelerated movement.  <a href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:a403aae6dce3c77a8aec01dd9808dd964"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1e1925439dfc368b8159f57dcfb1c67"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#aa1e1925439dfc368b8159f57dcfb1c67">ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode</a> { <a class="el" href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#aa1e1925439dfc368b8159f57dcfb1c67a0aee4187ed7ba5765756acf4b3d282f1">ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly</a>, 
-<a class="el" href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#aa1e1925439dfc368b8159f57dcfb1c67a49b274f93693d2463023c5146e243fdb">ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::ExpandRouteToOppositeLanes</a>, 
-<a class="el" href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#aa1e1925439dfc368b8159f57dcfb1c67aade3f3bfb4333202a3509242f6ce1b52">ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::ExpandRouteToAllNeighbors</a>
- }<tr class="memdesc:aa1e1925439dfc368b8159f57dcfb1c67"><td class="mdescLeft">&#160;</td><td class="mdescRight">enumeration defining the operation modes of <a class="el" href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#a0b2c6103ac5cc38ff5afb407c21af748" title="create scenes between ego vehicle and road boundaries ">appendRoadBoundaries()</a> function.  <a href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#aa1e1925439dfc368b8159f57dcfb1c67">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:aa1e1925439dfc368b8159f57dcfb1c67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:af63a75e5b9429cde2cc8fd4593c853bf"><td class="memItemLeft" align="right" valign="top">::ad::rss::world::WorldModel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#af63a75e5b9429cde2cc8fd4593c853bf">ad::rss::map::RssSceneCreation::initializeWorldModel</a> (::ad::rss::world::TimeIndex const &amp;timeIndex,::ad::rss::world::RssDynamics const &amp;egoRssDynamics)</td></tr>
-<tr class="memdesc:af63a75e5b9429cde2cc8fd4593c853bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a world model object and initialize with ego dynamics  <a href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#af63a75e5b9429cde2cc8fd4593c853bf">More...</a><br /></td></tr>
-<tr class="separator:af63a75e5b9429cde2cc8fd4593c853bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa40294acf6a9832066157b47e3f72275"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#aa40294acf6a9832066157b47e3f72275">ad::rss::map::RssSceneCreation::finalizeWorldModel</a> (::ad::rss::world::RssDynamics const &amp;egoRssDynamics,::ad::rss::world::WorldModel &amp;worldModel)</td></tr>
-<tr class="memdesc:aa40294acf6a9832066157b47e3f72275"><td class="mdescLeft">&#160;</td><td class="mdescRight">finalize the world model object and correct ego dynamics maxSpeed if required  <a href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#aa40294acf6a9832066157b47e3f72275">More...</a><br /></td></tr>
-<tr class="separator:aa40294acf6a9832066157b47e3f72275"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17d4d1d650d747788b2e235d8aca9aca"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#a17d4d1d650d747788b2e235d8aca9aca">ad::rss::map::RssSceneCreation::appendScenes</a> (::ad::rss::world::ObjectId const &amp;egoId,::ad::map::match::Object const &amp;egoMatchObject,::ad::physics::Speed const &amp;egoSpeed,::ad::map::route::FullRoute const &amp;egoRoute,::ad::rss::world::ObjectId const &amp;objectId,::ad::rss::world::ObjectType const &amp;objectType,::ad::map::match::Object const &amp;objectMatchObject,::ad::physics::Speed const &amp;objectSpeed,::ad::rss::world::RssDynamics const &amp;objectRssDynamics, RestrictSpeedLimitMode const &amp;restrictSpeedLimitMode,::ad::map::landmark::LandmarkIdSet const &amp;greenTrafficLights,::ad::rss::world::WorldModel &amp;worldModel)</td></tr>
-<tr class="memdesc:a17d4d1d650d747788b2e235d8aca9aca"><td class="mdescLeft">&#160;</td><td class="mdescRight">create possible scenes between ego vehicle and the object  <a href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#a17d4d1d650d747788b2e235d8aca9aca">More...</a><br /></td></tr>
-<tr class="separator:a17d4d1d650d747788b2e235d8aca9aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b2c6103ac5cc38ff5afb407c21af748"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#a0b2c6103ac5cc38ff5afb407c21af748">ad::rss::map::RssSceneCreation::appendRoadBoundaries</a> (::ad::rss::world::ObjectId const &amp;egoId,::ad::map::match::Object const &amp;egoMatchObject,::ad::physics::Speed const &amp;egoSpeed,::ad::map::route::FullRoute const &amp;route, AppendRoadBoundariesMode const operationMode,::ad::rss::world::WorldModel &amp;worldModel)</td></tr>
-<tr class="memdesc:a0b2c6103ac5cc38ff5afb407c21af748"><td class="mdescLeft">&#160;</td><td class="mdescRight">create scenes between ego vehicle and road boundaries  <a href="namespacead_1_1rss_1_1map_1_1RssSceneCreation.html#a0b2c6103ac5cc38ff5afb407c21af748">More...</a><br /></td></tr>
-<tr class="separator:a0b2c6103ac5cc38ff5afb407c21af748"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

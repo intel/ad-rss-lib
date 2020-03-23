@@ -31,13 +31,13 @@
             <td class="headerValue">ad-rss-lib</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">240</td>
             <td class="headerCovTableEntry">241</td>
+            <td class="headerCovTableEntry">242</td>
             <td class="headerCovTableEntryHi">99.6 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-03-19 10:45:26</td>
+            <td class="headerValue">2020-03-23 18:00:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">15</td>
@@ -71,7 +71,7 @@
 <pre class="source">
 <a name="1"><span class="lineNum">       1 </span>                :            : // ----------------- BEGIN LICENSE BLOCK ---------------------------------</a>
 <span class="lineNum">       2 </span>                :            : //
-<span class="lineNum">       3 </span>                :            : // Copyright (C) 2018-2019 Intel Corporation
+<span class="lineNum">       3 </span>                :            : // Copyright (C) 2018-2020 Intel Corporation
 <span class="lineNum">       4 </span>                :            : //
 <span class="lineNum">       5 </span>                :            : // SPDX-License-Identifier: LGPL-2.1-only
 <span class="lineNum">       6 </span>                :            : //
@@ -92,22 +92,22 @@
 <span class="lineNum">      21 </span>                :            : using physics::Distance;
 <a name="22"><span class="lineNum">      22 </span>                :            : using physics::MetricRange;</a>
 <span class="lineNum">      23 </span>                :            : 
-<span class="lineNum">      24 </span>                :<span class="lineCov">       1454 : RssSituationExtraction::RssSituationExtraction()</span>
+<span class="lineNum">      24 </span>                :<span class="lineCov">       1456 : RssSituationExtraction::RssSituationExtraction()</span>
 <span class="lineNum">      25 </span>                :            : {
 <span class="lineNum">      26 </span>                :            :   try
 <span class="lineNum">      27 </span>                :            :   {
-<span class="lineNum">      28 </span>        [<span class="branchCov" title="Branch 1 was taken 714 times"> + </span><span class="branchCov" title="Branch 2 was taken 13 times"> + </span>]:<span class="lineCov">        727 :     mSituationIdProvider = std::unique_ptr&lt;world::RssSituationIdProvider&gt;(new world::RssSituationIdProvider());</span>
+<span class="lineNum">      28 </span>        [<span class="branchCov" title="Branch 1 was taken 715 times"> + </span><span class="branchCov" title="Branch 2 was taken 13 times"> + </span>]:<span class="lineCov">        728 :     mSituationIdProvider = std::unique_ptr&lt;world::RssSituationIdProvider&gt;(new world::RssSituationIdProvider());</span>
 <span class="lineNum">      29 </span>                :            :   }
 <span class="lineNum">      30 </span>        [<span class="branchCov" title="Branch 2 was taken 13 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         26 :   catch (...)</span>
 <span class="lineNum">      31 </span>                :            :   {
 <span class="lineNum">      32 </span>        [<span class="branchCov" title="Branch 1 was taken 13 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         13 :     spdlog::critical(&quot;RssSituationExtraction object initialization failed&quot;);</span>
 <span class="lineNum">      33 </span>                :<span class="lineCov">         13 :     mSituationIdProvider = nullptr;</span>
 <span class="lineNum">      34 </span>                :            :   }
-<a name="35"><span class="lineNum">      35 </span>                :<span class="lineCov">        740 : }</span></a>
+<a name="35"><span class="lineNum">      35 </span>                :<span class="lineCov">        741 : }</span></a>
 <span class="lineNum">      36 </span>                :            : 
-<span class="lineNum">      37 </span>                :<span class="lineCov">       1454 : RssSituationExtraction::~RssSituationExtraction()</span>
+<span class="lineNum">      37 </span>                :<span class="lineCov">       1456 : RssSituationExtraction::~RssSituationExtraction()</span>
 <span class="lineNum">      38 </span>                :            : {
-<a name="39"><span class="lineNum">      39 </span>                :<span class="lineCov">        727 : }</span></a>
+<a name="39"><span class="lineNum">      39 </span>                :<span class="lineCov">        728 : }</span></a>
 <span class="lineNum">      40 </span>                :            : 
 <span class="lineNum">      41 </span>                :<span class="lineCov">       3979 : void RssSituationExtraction::calcluateRelativeLongitudinalPosition(</span>
 <span class="lineNum">      42 </span>                :            :   MetricRange const &amp;egoMetricRange,
@@ -143,7 +143,7 @@
 <span class="lineNum">      70 </span>                :<span class="lineCov">       1039 :       longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;</span>
 <span class="lineNum">      71 </span>                :            :     }
 <span class="lineNum">      72 </span>                :            :   }
-<a name="73"><span class="lineNum">      73 </span>                :<span class="lineCov">       3832 : }</span></a>
+<a name="73"><span class="lineNum">      73 </span>                :<span class="lineCov">       3833 : }</span></a>
 <span class="lineNum">      74 </span>                :            : 
 <span class="lineNum">      75 </span>                :<span class="lineCov">        799 : void RssSituationExtraction::calcluateRelativeLongitudinalPositionIntersection(</span>
 <span class="lineNum">      76 </span>                :            :   MetricRange const &amp;egoMetricRange,
@@ -181,40 +181,40 @@
 <span class="lineNum">     106 </span>                :            :   }
 <a name="107"><span class="lineNum">     107 </span>                :<span class="lineCov">        799 : }</span></a>
 <span class="lineNum">     108 </span>                :            : 
-<span class="lineNum">     109 </span>                :<span class="lineCov">       3832 : void RssSituationExtraction::calcluateRelativeLateralPosition(MetricRange const &amp;egoMetricRange,</span>
+<span class="lineNum">     109 </span>                :<span class="lineCov">       3833 : void RssSituationExtraction::calcluateRelativeLateralPosition(MetricRange const &amp;egoMetricRange,</span>
 <span class="lineNum">     110 </span>                :            :                                                               MetricRange const &amp;otherMetricRange,
 <span class="lineNum">     111 </span>                :            :                                                               situation::LateralRelativePosition &amp;lateralPosition,
 <span class="lineNum">     112 </span>                :            :                                                               Distance &amp;lateralDistance)
 <span class="lineNum">     113 </span>                :            : {
-<span class="lineNum">     114 </span>        [<span class="branchCov" title="Branch 1 was taken 1150 times"> + </span><span class="branchCov" title="Branch 2 was taken 2682 times"> + </span>]:<span class="lineCov">       3832 :   if (egoMetricRange.minimum &gt; otherMetricRange.maximum)</span>
+<span class="lineNum">     114 </span>        [<span class="branchCov" title="Branch 1 was taken 1150 times"> + </span><span class="branchCov" title="Branch 2 was taken 2683 times"> + </span>]:<span class="lineCov">       3833 :   if (egoMetricRange.minimum &gt; otherMetricRange.maximum)</span>
 <span class="lineNum">     115 </span>                :            :   {
 <span class="lineNum">     116 </span>                :<span class="lineCov">       1150 :     lateralPosition = situation::LateralRelativePosition::AtRight;</span>
 <span class="lineNum">     117 </span>                :<span class="lineCov">       1150 :     lateralDistance = egoMetricRange.minimum - otherMetricRange.maximum;</span>
 <span class="lineNum">     118 </span>                :            :   }
-<span class="lineNum">     119 </span>        [<span class="branchCov" title="Branch 1 was taken 935 times"> + </span><span class="branchCov" title="Branch 2 was taken 1747 times"> + </span>]:<span class="lineCov">       2682 :   else if (otherMetricRange.minimum &gt; egoMetricRange.maximum)</span>
+<span class="lineNum">     119 </span>        [<span class="branchCov" title="Branch 1 was taken 935 times"> + </span><span class="branchCov" title="Branch 2 was taken 1748 times"> + </span>]:<span class="lineCov">       2683 :   else if (otherMetricRange.minimum &gt; egoMetricRange.maximum)</span>
 <span class="lineNum">     120 </span>                :            :   {
 <span class="lineNum">     121 </span>                :<span class="lineCov">        935 :     lateralPosition = situation::LateralRelativePosition::AtLeft;</span>
 <span class="lineNum">     122 </span>                :<span class="lineCov">        935 :     lateralDistance = otherMetricRange.minimum - egoMetricRange.maximum;</span>
 <span class="lineNum">     123 </span>                :            :   }
 <span class="lineNum">     124 </span>                :            :   else
 <span class="lineNum">     125 </span>                :            :   {
-<span class="lineNum">     126 </span>                :<span class="lineCov">       1747 :     lateralDistance = Distance(0.);</span>
-<span class="lineNum">     127 </span>[<span class="branchCov" title="Branch 1 was taken 1282 times"> + </span><span class="branchCov" title="Branch 2 was taken 465 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 105 times"> + </span><span class="branchCov" title="Branch 5 was taken 1177 times"> + </span>]:<span class="lineCov">       1747 :     if ((egoMetricRange.minimum &gt; otherMetricRange.minimum) &amp;&amp; (egoMetricRange.maximum &gt; otherMetricRange.maximum))</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 105 times"> + </span><span class="branchCov" title="Branch 7 was taken 1642 times"> + </span>]
+<span class="lineNum">     126 </span>                :<span class="lineCov">       1748 :     lateralDistance = Distance(0.);</span>
+<span class="lineNum">     127 </span>[<span class="branchCov" title="Branch 1 was taken 1282 times"> + </span><span class="branchCov" title="Branch 2 was taken 466 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 105 times"> + </span><span class="branchCov" title="Branch 5 was taken 1177 times"> + </span>]:<span class="lineCov">       1748 :     if ((egoMetricRange.minimum &gt; otherMetricRange.minimum) &amp;&amp; (egoMetricRange.maximum &gt; otherMetricRange.maximum))</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 105 times"> + </span><span class="branchCov" title="Branch 7 was taken 1643 times"> + </span>]
 <span class="lineNum">     128 </span>                :            :     {
 <span class="lineNum">     129 </span>                :<span class="lineCov">        105 :       lateralPosition = situation::LateralRelativePosition::OverlapRight;</span>
 <span class="lineNum">     130 </span>                :            :     }
-<span class="lineNum">     131 </span>[<span class="branchCov" title="Branch 1 was taken 242 times"> + </span><span class="branchCov" title="Branch 2 was taken 1400 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 105 times"> + </span><span class="branchCov" title="Branch 5 was taken 137 times"> + </span>]:<span class="lineCov">       1642 :     else if ((egoMetricRange.minimum &lt; otherMetricRange.minimum) &amp;&amp; (egoMetricRange.maximum &lt; otherMetricRange.maximum))</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 105 times"> + </span><span class="branchCov" title="Branch 7 was taken 1537 times"> + </span>]
+<span class="lineNum">     131 </span>[<span class="branchCov" title="Branch 1 was taken 243 times"> + </span><span class="branchCov" title="Branch 2 was taken 1400 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 106 times"> + </span><span class="branchCov" title="Branch 5 was taken 137 times"> + </span>]:<span class="lineCov">       1643 :     else if ((egoMetricRange.minimum &lt; otherMetricRange.minimum) &amp;&amp; (egoMetricRange.maximum &lt; otherMetricRange.maximum))</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 106 times"> + </span><span class="branchCov" title="Branch 7 was taken 1537 times"> + </span>]
 <span class="lineNum">     132 </span>                :            :     {
-<span class="lineNum">     133 </span>                :<span class="lineCov">        105 :       lateralPosition = situation::LateralRelativePosition::OverlapLeft;</span>
+<span class="lineNum">     133 </span>                :<span class="lineCov">        106 :       lateralPosition = situation::LateralRelativePosition::OverlapLeft;</span>
 <span class="lineNum">     134 </span>                :            :     }
 <span class="lineNum">     135 </span>                :            :     else
 <span class="lineNum">     136 </span>                :            :     {
 <span class="lineNum">     137 </span>                :<span class="lineCov">       1537 :       lateralPosition = situation::LateralRelativePosition::Overlap;</span>
 <span class="lineNum">     138 </span>                :            :     }
 <span class="lineNum">     139 </span>                :            :   }
-<a name="140"><span class="lineNum">     140 </span>                :<span class="lineCov">       3832 : }</span></a>
+<a name="140"><span class="lineNum">     140 </span>                :<span class="lineCov">       3833 : }</span></a>
 <span class="lineNum">     141 </span>                :            : 
 <span class="lineNum">     142 </span>                :<span class="lineCov">       3960 : bool RssSituationExtraction::convertObjectsNonIntersection(world::Scene const &amp;currentScene,</span>
 <span class="lineNum">     143 </span>                :            :                                                            situation::Situation &amp;situation)
@@ -237,38 +237,38 @@
 <span class="lineNum">     160 </span>                :            :   calcluateRelativeLongitudinalPosition(egoVehicleDimension.longitudinalDimensions,
 <span class="lineNum">     161 </span>                :            :                                         objectToBeCheckedDimension.longitudinalDimensions,
 <span class="lineNum">     162 </span>                :            :                                         longitudinalPosition,
-<span class="lineNum">     163 </span>        [<span class="branchCov" title="Branch 1 was taken 3812 times"> + </span><span class="branchCov" title="Branch 2 was taken 147 times"> + </span>]:<span class="lineCov">       3959 :                                         longitudinalDistance);</span>
+<span class="lineNum">     163 </span>        [<span class="branchCov" title="Branch 1 was taken 3813 times"> + </span><span class="branchCov" title="Branch 2 was taken 146 times"> + </span>]:<span class="lineCov">       3959 :                                         longitudinalDistance);</span>
 <span class="lineNum">     164 </span>                :            : 
-<span class="lineNum">     165 </span>                :<span class="lineCov">       3812 :   situation.relativePosition.longitudinalPosition = longitudinalPosition;</span>
-<span class="lineNum">     166 </span>                :<span class="lineCov">       3812 :   situation.relativePosition.longitudinalDistance = longitudinalDistance;</span>
+<span class="lineNum">     165 </span>                :<span class="lineCov">       3813 :   situation.relativePosition.longitudinalPosition = longitudinalPosition;</span>
+<span class="lineNum">     166 </span>                :<span class="lineCov">       3813 :   situation.relativePosition.longitudinalDistance = longitudinalDistance;</span>
 <span class="lineNum">     167 </span>                :            : 
-<span class="lineNum">     168 </span>                :<span class="lineCov">       3812 :   situation.egoVehicleState.isInCorrectLane = !egoVehicleDimension.onNegativeLane;</span>
+<span class="lineNum">     168 </span>                :<span class="lineCov">       3813 :   situation.egoVehicleState.isInCorrectLane = !egoVehicleDimension.onNegativeLane;</span>
 <span class="lineNum">     169 </span>                :            : 
-<span class="lineNum">     170 </span>        [<span class="branchCov" title="Branch 0 was taken 1071 times"> + </span><span class="branchCov" title="Branch 1 was taken 2741 times"> + </span>]:<span class="lineCov">       3812 :   if (currentScene.situationType == ::ad::rss::situation::SituationType::OppositeDirection)</span>
+<span class="lineNum">     170 </span>        [<span class="branchCov" title="Branch 0 was taken 1071 times"> + </span><span class="branchCov" title="Branch 1 was taken 2742 times"> + </span>]:<span class="lineCov">       3813 :   if (currentScene.situationType == ::ad::rss::situation::SituationType::OppositeDirection)</span>
 <span class="lineNum">     171 </span>                :            :   {
 <span class="lineNum">     172 </span>                :<span class="lineCov">       1071 :     situation.otherVehicleState.isInCorrectLane = !objectToBeCheckedDimension.onPositiveLane;</span>
 <span class="lineNum">     173 </span>                :            :   }
 <span class="lineNum">     174 </span>                :            :   else
 <span class="lineNum">     175 </span>                :            :   {
-<span class="lineNum">     176 </span>                :<span class="lineCov">       2741 :     situation.otherVehicleState.isInCorrectLane = !objectToBeCheckedDimension.onNegativeLane;</span>
+<span class="lineNum">     176 </span>                :<span class="lineCov">       2742 :     situation.otherVehicleState.isInCorrectLane = !objectToBeCheckedDimension.onNegativeLane;</span>
 <span class="lineNum">     177 </span>                :            :   }
 <span class="lineNum">     178 </span>                :            : 
 <span class="lineNum">     179 </span>                :            :   /**
 <span class="lineNum">     180 </span>                :            :    * Set lateral restrictions
 <span class="lineNum">     181 </span>                :            :    */
-<span class="lineNum">     182 </span>        [<span class="branchCov" title="Branch 0 was taken 3812 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3812 :   if (result)</span>
+<span class="lineNum">     182 </span>        [<span class="branchCov" title="Branch 0 was taken 3813 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3813 :   if (result)</span>
 <span class="lineNum">     183 </span>                :            :   {
 <span class="lineNum">     184 </span>                :            :     situation::LateralRelativePosition lateralPosition;
-<span class="lineNum">     185 </span>                :<span class="lineCov">       3812 :     Distance lateralDistance;</span>
+<span class="lineNum">     185 </span>                :<span class="lineCov">       3813 :     Distance lateralDistance;</span>
 <span class="lineNum">     186 </span>                :            :     calcluateRelativeLateralPosition(egoVehicleDimension.lateralDimensions,
 <span class="lineNum">     187 </span>                :            :                                      objectToBeCheckedDimension.lateralDimensions,
 <span class="lineNum">     188 </span>                :            :                                      lateralPosition,
-<span class="lineNum">     189 </span>        [<span class="branchCov" title="Branch 1 was taken 3812 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       3812 :                                      lateralDistance);</span>
+<span class="lineNum">     189 </span>        [<span class="branchCov" title="Branch 1 was taken 3813 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       3813 :                                      lateralDistance);</span>
 <span class="lineNum">     190 </span>                :            : 
-<span class="lineNum">     191 </span>                :<span class="lineCov">       3812 :     situation.relativePosition.lateralPosition = lateralPosition;</span>
-<span class="lineNum">     192 </span>                :<span class="lineCov">       3812 :     situation.relativePosition.lateralDistance = lateralDistance;</span>
+<span class="lineNum">     191 </span>                :<span class="lineCov">       3813 :     situation.relativePosition.lateralPosition = lateralPosition;</span>
+<span class="lineNum">     192 </span>                :<span class="lineCov">       3813 :     situation.relativePosition.lateralDistance = lateralDistance;</span>
 <span class="lineNum">     193 </span>                :            :   }
-<span class="lineNum">     194 </span>                :<span class="lineCov">       3813 :   return result;</span>
+<span class="lineNum">     194 </span>                :<span class="lineCov">       3814 :   return result;</span>
 <a name="195"><span class="lineNum">     195 </span>                :            : }</a>
 <span class="lineNum">     196 </span>                :            : 
 <span class="lineNum">     197 </span>                :<span class="lineCov">       1599 : void RssSituationExtraction::convertToIntersectionCentric(MetricRange const &amp;objectDimension,</span>
@@ -353,303 +353,302 @@
 <a name="275"><span class="lineNum">     275 </span>                :            : }</a>
 <span class="lineNum">     276 </span>                :            : 
 <span class="lineNum">     277 </span>                :<span class="lineCov">       5018 : bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex const &amp;timeIndex,</span>
-<span class="lineNum">     278 </span>                :            :                                                                world::RssDynamics const &amp;egoVehicleRssDynamics,
-<span class="lineNum">     279 </span>                :            :                                                                world::Scene const &amp;currentScene,
-<span class="lineNum">     280 </span>                :            :                                                                situation::Situation &amp;situation)
-<span class="lineNum">     281 </span>                :            : {
-<span class="lineNum">     282 </span>                :            :   // ensure the object types are semantically correct
-<span class="lineNum">     283 </span>                :            :   // @toDo: add this restriction to the data type model
-<span class="lineNum">     284 </span>                :            :   //       and extend generated withinValidInputRange by these
-<span class="lineNum">     285 </span>        [<span class="branchCov" title="Branch 0 was taken 5 times"> + </span><span class="branchCov" title="Branch 1 was taken 5013 times"> + </span>]:<span class="lineCov">       5018 :   if (((currentScene.object.objectType != world::ObjectType::OtherVehicle)</span>
-<span class="lineNum">     286 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          5 :        &amp;&amp; (currentScene.object.objectType != world::ObjectType::ArtificialObject))</span>
-<span class="lineNum">     287 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 5011 times"> + </span>]:<span class="lineCov">       5015 :       || (currentScene.egoVehicle.objectType != world::ObjectType::EgoVehicle))</span>
-<span class="lineNum">     288 </span>                :            :   {
-<span class="lineNum">     289 </span>                :<span class="lineCov">          7 :     spdlog::error(&quot;RssSituationExtraction::extractSituationInputRangeChecked&gt;&gt; Invalid object type. Ego: {} Object: {}&quot;,</span>
-<span class="lineNum">     290 </span>                :            :                   currentScene.egoVehicle,
-<span class="lineNum">     291 </span>        [<span class="branchCov" title="Branch 1 was taken 7 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          7 :                   currentScene.object);</span>
-<span class="lineNum">     292 </span>                :<span class="lineCov">          7 :     return false;</span>
-<span class="lineNum">     293 </span>                :            :   }
-<span class="lineNum">     294 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 5010 times"> + </span>]:<span class="lineCov">       5011 :   if (currentScene.object.objectId == currentScene.egoVehicle.objectId)</span>
-<span class="lineNum">     295 </span>                :            :   {
-<span class="lineNum">     296 </span>                :<span class="lineCov">          1 :     spdlog::error(&quot;RssSituationExtraction::extractSituationInputRangeChecked&gt;&gt; Object and ego vehicle must not have &quot;</span>
-<span class="lineNum">     297 </span>                :            :                   &quot;the same id. Ego: {} Object: {}&quot;,
-<span class="lineNum">     298 </span>                :            :                   currentScene.egoVehicle,
-<span class="lineNum">     299 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :                   currentScene.object);</span>
-<span class="lineNum">     300 </span>                :<span class="lineCov">          1 :     return false;</span>
-<span class="lineNum">     301 </span>                :            :   }
-<span class="lineNum">     302 </span>        [<span class="branchCov" title="Branch 1 was taken 15 times"> + </span><span class="branchCov" title="Branch 2 was taken 4995 times"> + </span>]:<span class="lineCov">       5010 :   if (!static_cast&lt;bool&gt;(mSituationIdProvider))</span>
-<span class="lineNum">     303 </span>                :            :   {
-<span class="lineNum">     304 </span>                :<span class="lineCov">         15 :     return false;</span>
-<span class="lineNum">     305 </span>                :            :   }
-<span class="lineNum">     306 </span>                :            : 
-<span class="lineNum">     307 </span>                :<span class="lineCov">       4995 :   bool result = false;</span>
-<span class="lineNum">     308 </span>                :            : 
-<span class="lineNum">     309 </span>                :            :   try
-<span class="lineNum">     310 </span>                :            :   {
-<span class="lineNum">     311 </span>        [<span class="branchCov" title="Branch 2 was taken 4950 times"> + </span><span class="branchCov" title="Branch 3 was taken 45 times"> + </span>]:<span class="lineCov">       4995 :     situation.situationId = mSituationIdProvider-&gt;getSituationId(timeIndex, currentScene);</span>
-<span class="lineNum">     312 </span>                :<span class="lineCov">       4950 :     situation.objectId = currentScene.object.objectId;</span>
-<span class="lineNum">     313 </span>                :<span class="lineCov">       4950 :     situation.situationType = currentScene.situationType;</span>
-<span class="lineNum">     314 </span>                :            : 
-<span class="lineNum">     315 </span>                :<span class="lineCov">       4950 :     situation.egoVehicleState.hasPriority = false;</span>
-<span class="lineNum">     316 </span>                :<span class="lineCov">       4950 :     situation.otherVehicleState.hasPriority = false;</span>
-<span class="lineNum">     317 </span>                :            : 
-<span class="lineNum">     318 </span>                :<span class="lineCov">       4950 :     situation.egoVehicleState.isInCorrectLane = true;</span>
-<span class="lineNum">     319 </span>                :<span class="lineCov">       4950 :     situation.otherVehicleState.isInCorrectLane = true;</span>
-<span class="lineNum">     320 </span>                :            : 
-<span class="lineNum">     321 </span>                :<span class="lineCov">       4950 :     situation.egoVehicleState.distanceToEnterIntersection = Distance(0.);</span>
-<span class="lineNum">     322 </span>                :<span class="lineCov">       4950 :     situation.egoVehicleState.distanceToLeaveIntersection = Distance(1000.);</span>
-<span class="lineNum">     323 </span>                :            : 
-<span class="lineNum">     324 </span>                :<span class="lineCov">       4950 :     situation.otherVehicleState.distanceToEnterIntersection = Distance(0.);</span>
-<span class="lineNum">     325 </span>                :<span class="lineCov">       4950 :     situation.otherVehicleState.distanceToLeaveIntersection = Distance(1000.);</span>
-<span class="lineNum">     326 </span>                :            : 
-<span class="lineNum">     327 </span>        [<span class="branchCov" title="Branch 1 was taken 4950 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       4950 :     convertVehicleStateDynamics(currentScene.egoVehicle, egoVehicleRssDynamics, situation.egoVehicleState);</span>
-<span class="lineNum">     328 </span>        [<span class="branchCov" title="Branch 1 was taken 4950 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       4950 :     convertVehicleStateDynamics(currentScene.object, currentScene.objectRssDynamics, situation.otherVehicleState);</span>
-<span class="lineNum">     329 </span>                :            : 
-<span class="lineNum">     330 </span>  [<span class="branchCov" title="Branch 0 was taken 3960 times"> + </span><span class="branchCov" title="Branch 1 was taken 843 times"> + </span><span class="branchCov" title="Branch 2 was taken 146 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">       4950 :     switch (currentScene.situationType)</span>
-<span class="lineNum">     331 </span>                :            :     {
-<span class="lineNum">     332 </span>                :            :       case ad::rss::situation::SituationType::SameDirection:
-<span class="lineNum">     333 </span>                :            :       case ad::rss::situation::SituationType::OppositeDirection:
-<span class="lineNum">     334 </span>                :            :       {
-<span class="lineNum">     335 </span>        [<span class="branchCov" title="Branch 1 was taken 3813 times"> + </span><span class="branchCov" title="Branch 2 was taken 147 times"> + </span>]:<span class="lineCov">       3960 :         result = convertObjectsNonIntersection(currentScene, situation);</span>
-<span class="lineNum">     336 </span>                :            : 
-<span class="lineNum">     337 </span>                :<span class="lineCov">       3813 :         break;</span>
-<span class="lineNum">     338 </span>                :            :       }
-<span class="lineNum">     339 </span>                :            :       case ad::rss::situation::SituationType::IntersectionEgoHasPriority:
-<span class="lineNum">     340 </span>                :            :       case ad::rss::situation::SituationType::IntersectionObjectHasPriority:
-<span class="lineNum">     341 </span>                :            :       case ad::rss::situation::SituationType::IntersectionSamePriority:
-<span class="lineNum">     342 </span>                :            :       {
-<span class="lineNum">     343 </span>        [<span class="branchCov" title="Branch 1 was taken 842 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">        843 :         result = convertObjectsIntersection(currentScene, situation);</span>
-<span class="lineNum">     344 </span>                :<span class="lineCov">        842 :         break;</span>
-<span class="lineNum">     345 </span>                :            :       }
-<span class="lineNum">     346 </span>                :            :       case ad::rss::situation::SituationType::NotRelevant:
-<span class="lineNum">     347 </span>                :            :       {
-<span class="lineNum">     348 </span>                :<span class="lineCov">        146 :         result = true;</span>
-<span class="lineNum">     349 </span>                :<span class="lineCov">        146 :         break;</span>
-<span class="lineNum">     350 </span>                :            :       }
-<span class="lineNum">     351 </span>                :            :       default:
-<span class="lineNum">     352 </span>                :            :       {
-<span class="lineNum">     353 </span>                :<span class="lineCov">        194 :         spdlog::error(&quot;RssSituationExtraction::extractSituationInputRangeChecked&gt;&gt; Invalid situation type {}&quot;,</span>
-<span class="lineNum">     354 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :                       currentScene);</span>
-<span class="lineNum">     355 </span>                :<span class="lineCov">          1 :         result = false;</span>
-<span class="lineNum">     356 </span>                :<span class="lineCov">          1 :         break;</span>
-<span class="lineNum">     357 </span>                :            :       }
-<span class="lineNum">     358 </span>                :            :     }
-<span class="lineNum">     359 </span>                :            :   }
-<span class="lineNum">     360 </span>                :<span class="lineCov">        386 :   catch (...)</span>
-<span class="lineNum">     361 </span>                :            :   {
-<span class="lineNum">     362 </span>                :<span class="lineCov">        193 :     spdlog::critical(</span>
-<span class="lineNum">     363 </span>        [<span class="branchCov" title="Branch 1 was taken 193 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        193 :       &quot;RssSituationExtraction::extractSituationInputRangeChecked&gt;&gt; Exception catched {} {}&quot;, timeIndex, currentScene);</span>
-<span class="lineNum">     364 </span>                :<span class="lineCov">        193 :     result = false;</span>
-<span class="lineNum">     365 </span>                :            :   }
-<span class="lineNum">     366 </span>                :            : 
-<span class="lineNum">     367 </span>                :<span class="lineCov">       5018 :   return result;</span>
-<a name="368"><span class="lineNum">     368 </span>                :            : }</a>
-<span class="lineNum">     369 </span>                :            : 
-<span class="lineNum">     370 </span>                :<span class="lineCov">         54 : bool RssSituationExtraction::mergeVehicleStates(MergeMode const &amp;mergeMode,</span>
-<span class="lineNum">     371 </span>                :            :                                                 situation::VehicleState const &amp;otherVehicleState,
-<span class="lineNum">     372 </span>                :            :                                                 situation::VehicleState &amp;mergedVehicleState)
-<span class="lineNum">     373 </span>                :            : {
-<span class="lineNum">     374 </span>                :            :   // on vehicle states there are only differences in intersection distances allowed due to different road definitions
-<span class="lineNum">     375 </span>        [<span class="branchCov" title="Branch 1 was taken 8 times"> + </span><span class="branchCov" title="Branch 2 was taken 46 times"> + </span>]:<span class="lineCov">        108 :   if ((otherVehicleState.dynamics.alphaLat.accelMax != mergedVehicleState.dynamics.alphaLat.accelMax)</span>
-<span class="lineNum">     376 </span>        [<span class="branchCov" title="Branch 1 was taken 52 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">         53 :       || (otherVehicleState.dynamics.alphaLat.brakeMin != mergedVehicleState.dynamics.alphaLat.brakeMin)</span>
-<span class="lineNum">     377 </span>        [<span class="branchCov" title="Branch 1 was taken 51 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">         52 :       || (otherVehicleState.dynamics.alphaLon.accelMax != mergedVehicleState.dynamics.alphaLon.accelMax)</span>
-<span class="lineNum">     378 </span>        [<span class="branchCov" title="Branch 1 was taken 50 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">         51 :       || (otherVehicleState.dynamics.alphaLon.brakeMinCorrect != mergedVehicleState.dynamics.alphaLon.brakeMinCorrect)</span>
-<span class="lineNum">     379 </span>        [<span class="branchCov" title="Branch 1 was taken 49 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">         50 :       || (otherVehicleState.dynamics.alphaLon.brakeMin != mergedVehicleState.dynamics.alphaLon.brakeMin)</span>
-<span class="lineNum">     380 </span>        [<span class="branchCov" title="Branch 1 was taken 48 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">         49 :       || (otherVehicleState.dynamics.alphaLon.brakeMax != mergedVehicleState.dynamics.alphaLon.brakeMax)</span>
-<span class="lineNum">     381 </span>        [<span class="branchCov" title="Branch 1 was taken 47 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">         48 :       || (otherVehicleState.dynamics.lateralFluctuationMargin != mergedVehicleState.dynamics.lateralFluctuationMargin)</span>
-<span class="lineNum">     382 </span>        [<span class="branchCov" title="Branch 1 was taken 46 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">         47 :       || (otherVehicleState.dynamics.responseTime != mergedVehicleState.dynamics.responseTime)</span>
-<span class="lineNum">     383 </span>[<span class="branchCov" title="Branch 0 was taken 53 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 46 times"> + </span>]:<span class="lineCov">        107 :       || (otherVehicleState.hasPriority != mergedVehicleState.hasPriority))</span>
-<span class="lineNum">     384 </span>                :            :   {
-<span class="lineNum">     385 </span>                :<span class="lineCov">          8 :     return false;</span>
-<span class="lineNum">     386 </span>                :            :   }
-<span class="lineNum">     387 </span>                :            :   // consider the worst cases
-<span class="lineNum">     388 </span>        [<span class="branchCov" title="Branch 0 was taken 27 times"> + </span><span class="branchCov" title="Branch 1 was taken 19 times"> + </span>]:<span class="lineCov">         46 :   if (mergeMode == MergeMode::EgoVehicle)</span>
-<span class="lineNum">     389 </span>                :            :   {
-<span class="lineNum">     390 </span>                :            :     // worst case for ego vehicle is not driving in correct lane
-<span class="lineNum">     391 </span>[<span class="branchCov" title="Branch 0 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 26 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">         27 :     mergedVehicleState.isInCorrectLane = mergedVehicleState.isInCorrectLane &amp;&amp; otherVehicleState.isInCorrectLane;</span>
-<span class="lineNum">     392 </span>                :            :   }
-<span class="lineNum">     393 </span>                :            :   else
-<span class="lineNum">     394 </span>                :            :   {
-<span class="lineNum">     395 </span>                :            :     // worst case for other vehicle is driving in correct lane
-<span class="lineNum">     396 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 19 times"> + </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineCov">         19 :     mergedVehicleState.isInCorrectLane = mergedVehicleState.isInCorrectLane || otherVehicleState.isInCorrectLane;</span>
-<span class="lineNum">     397 </span>                :            :   }
-<span class="lineNum">     398 </span>                :            : 
-<span class="lineNum">     399 </span>                :            :   mergedVehicleState.distanceToEnterIntersection
-<span class="lineNum">     400 </span>                :<span class="lineCov">         46 :     = std::min(mergedVehicleState.distanceToEnterIntersection, otherVehicleState.distanceToEnterIntersection);</span>
-<span class="lineNum">     401 </span>                :            :   mergedVehicleState.distanceToLeaveIntersection
-<span class="lineNum">     402 </span>                :<span class="lineCov">         46 :     = std::max(mergedVehicleState.distanceToLeaveIntersection, otherVehicleState.distanceToLeaveIntersection);</span>
-<span class="lineNum">     403 </span>                :            :   mergedVehicleState.velocity.speedLon.minimum
-<span class="lineNum">     404 </span>                :<span class="lineCov">         46 :     = std::min(mergedVehicleState.velocity.speedLon.minimum, otherVehicleState.velocity.speedLon.minimum);</span>
-<span class="lineNum">     405 </span>                :            :   mergedVehicleState.velocity.speedLon.maximum
-<span class="lineNum">     406 </span>                :<span class="lineCov">         46 :     = std::max(mergedVehicleState.velocity.speedLon.maximum, otherVehicleState.velocity.speedLon.maximum);</span>
-<span class="lineNum">     407 </span>                :            :   mergedVehicleState.velocity.speedLat.minimum
-<span class="lineNum">     408 </span>                :<span class="lineCov">         46 :     = std::min(mergedVehicleState.velocity.speedLat.minimum, otherVehicleState.velocity.speedLat.minimum);</span>
-<span class="lineNum">     409 </span>                :            :   mergedVehicleState.velocity.speedLat.maximum
-<span class="lineNum">     410 </span>                :<span class="lineCov">         46 :     = std::max(mergedVehicleState.velocity.speedLat.maximum, otherVehicleState.velocity.speedLat.maximum);</span>
-<span class="lineNum">     411 </span>                :            : 
-<span class="lineNum">     412 </span>                :<span class="lineCov">         46 :   return true;</span>
-<a name="413"><span class="lineNum">     413 </span>                :            : }</a>
-<span class="lineNum">     414 </span>                :            : 
-<span class="lineNum">     415 </span>                :<span class="lineCov">         27 : bool RssSituationExtraction::mergeSituations(situation::Situation const &amp;otherSituation,</span>
-<span class="lineNum">     416 </span>                :            :                                              situation::Situation &amp;mergedSituation)
-<span class="lineNum">     417 </span>                :            : {
-<span class="lineNum">     418 </span>        [<span class="branchCov" title="Branch 0 was taken 8 times"> + </span><span class="branchCov" title="Branch 1 was taken 19 times"> + </span>]:<span class="lineCov">         54 :   if ( // basic data has to match</span>
-<span class="lineNum">     419 </span>        [<span class="branchCov" title="Branch 0 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         27 :     (otherSituation.situationId != mergedSituation.situationId) || (otherSituation.objectId != mergedSituation.objectId)</span>
-<span class="lineNum">     420 </span>        [<span class="branchCov" title="Branch 0 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         27 :     || (otherSituation.situationType != mergedSituation.situationType)</span>
-<span class="lineNum">     421 </span>[<span class="branchCov" title="Branch 1 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         81 :     || !mergeVehicleStates(MergeMode::EgoVehicle, otherSituation.egoVehicleState, mergedSituation.egoVehicleState)</span>
+<span class="lineNum">     278 </span>                :            :                                                                world::Scene const &amp;currentScene,
+<span class="lineNum">     279 </span>                :            :                                                                situation::Situation &amp;situation)
+<span class="lineNum">     280 </span>                :            : {
+<span class="lineNum">     281 </span>                :            :   // ensure the object types are semantically correct
+<span class="lineNum">     282 </span>                :            :   // @toDo: add this restriction to the data type model
+<span class="lineNum">     283 </span>                :            :   //       and extend generated withinValidInputRange by these
+<span class="lineNum">     284 </span>        [<span class="branchCov" title="Branch 0 was taken 5 times"> + </span><span class="branchCov" title="Branch 1 was taken 5013 times"> + </span>]:<span class="lineCov">       5018 :   if (((currentScene.object.objectType != world::ObjectType::OtherVehicle)</span>
+<span class="lineNum">     285 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          5 :        &amp;&amp; (currentScene.object.objectType != world::ObjectType::ArtificialObject))</span>
+<span class="lineNum">     286 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 5011 times"> + </span>]:<span class="lineCov">       5015 :       || (currentScene.egoVehicle.objectType != world::ObjectType::EgoVehicle))</span>
+<span class="lineNum">     287 </span>                :            :   {
+<span class="lineNum">     288 </span>                :<span class="lineCov">          7 :     spdlog::error(&quot;RssSituationExtraction::extractSituationInputRangeChecked&gt;&gt; Invalid object type. Ego: {} Object: {}&quot;,</span>
+<span class="lineNum">     289 </span>                :            :                   currentScene.egoVehicle,
+<span class="lineNum">     290 </span>        [<span class="branchCov" title="Branch 1 was taken 7 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          7 :                   currentScene.object);</span>
+<span class="lineNum">     291 </span>                :<span class="lineCov">          7 :     return false;</span>
+<span class="lineNum">     292 </span>                :            :   }
+<span class="lineNum">     293 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 5010 times"> + </span>]:<span class="lineCov">       5011 :   if (currentScene.object.objectId == currentScene.egoVehicle.objectId)</span>
+<span class="lineNum">     294 </span>                :            :   {
+<span class="lineNum">     295 </span>                :<span class="lineCov">          1 :     spdlog::error(&quot;RssSituationExtraction::extractSituationInputRangeChecked&gt;&gt; Object and ego vehicle must not have &quot;</span>
+<span class="lineNum">     296 </span>                :            :                   &quot;the same id. Ego: {} Object: {}&quot;,
+<span class="lineNum">     297 </span>                :            :                   currentScene.egoVehicle,
+<span class="lineNum">     298 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :                   currentScene.object);</span>
+<span class="lineNum">     299 </span>                :<span class="lineCov">          1 :     return false;</span>
+<span class="lineNum">     300 </span>                :            :   }
+<span class="lineNum">     301 </span>        [<span class="branchCov" title="Branch 1 was taken 15 times"> + </span><span class="branchCov" title="Branch 2 was taken 4995 times"> + </span>]:<span class="lineCov">       5010 :   if (!static_cast&lt;bool&gt;(mSituationIdProvider))</span>
+<span class="lineNum">     302 </span>                :            :   {
+<span class="lineNum">     303 </span>                :<span class="lineCov">         15 :     return false;</span>
+<span class="lineNum">     304 </span>                :            :   }
+<span class="lineNum">     305 </span>                :            : 
+<span class="lineNum">     306 </span>                :<span class="lineCov">       4995 :   bool result = false;</span>
+<span class="lineNum">     307 </span>                :            : 
+<span class="lineNum">     308 </span>                :            :   try
+<span class="lineNum">     309 </span>                :            :   {
+<span class="lineNum">     310 </span>        [<span class="branchCov" title="Branch 2 was taken 4950 times"> + </span><span class="branchCov" title="Branch 3 was taken 45 times"> + </span>]:<span class="lineCov">       4995 :     situation.situationId = mSituationIdProvider-&gt;getSituationId(timeIndex, currentScene);</span>
+<span class="lineNum">     311 </span>                :<span class="lineCov">       4950 :     situation.objectId = currentScene.object.objectId;</span>
+<span class="lineNum">     312 </span>                :<span class="lineCov">       4950 :     situation.situationType = currentScene.situationType;</span>
+<span class="lineNum">     313 </span>                :            : 
+<span class="lineNum">     314 </span>                :<span class="lineCov">       4950 :     situation.egoVehicleState.hasPriority = false;</span>
+<span class="lineNum">     315 </span>                :<span class="lineCov">       4950 :     situation.otherVehicleState.hasPriority = false;</span>
+<span class="lineNum">     316 </span>                :            : 
+<span class="lineNum">     317 </span>                :<span class="lineCov">       4950 :     situation.egoVehicleState.isInCorrectLane = true;</span>
+<span class="lineNum">     318 </span>                :<span class="lineCov">       4950 :     situation.otherVehicleState.isInCorrectLane = true;</span>
+<span class="lineNum">     319 </span>                :            : 
+<span class="lineNum">     320 </span>                :<span class="lineCov">       4950 :     situation.egoVehicleState.distanceToEnterIntersection = Distance(0.);</span>
+<span class="lineNum">     321 </span>                :<span class="lineCov">       4950 :     situation.egoVehicleState.distanceToLeaveIntersection = Distance(1000.);</span>
+<span class="lineNum">     322 </span>                :            : 
+<span class="lineNum">     323 </span>                :<span class="lineCov">       4950 :     situation.otherVehicleState.distanceToEnterIntersection = Distance(0.);</span>
+<span class="lineNum">     324 </span>                :<span class="lineCov">       4950 :     situation.otherVehicleState.distanceToLeaveIntersection = Distance(1000.);</span>
+<span class="lineNum">     325 </span>                :            : 
+<span class="lineNum">     326 </span>        [<span class="branchCov" title="Branch 1 was taken 4950 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       4950 :     convertVehicleStateDynamics(currentScene.egoVehicle, currentScene.egoVehicleRssDynamics, situation.egoVehicleState);</span>
+<span class="lineNum">     327 </span>        [<span class="branchCov" title="Branch 1 was taken 4950 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       4950 :     convertVehicleStateDynamics(currentScene.object, currentScene.objectRssDynamics, situation.otherVehicleState);</span>
+<span class="lineNum">     328 </span>                :            : 
+<span class="lineNum">     329 </span>  [<span class="branchCov" title="Branch 0 was taken 3960 times"> + </span><span class="branchCov" title="Branch 1 was taken 843 times"> + </span><span class="branchCov" title="Branch 2 was taken 146 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">       4950 :     switch (currentScene.situationType)</span>
+<span class="lineNum">     330 </span>                :            :     {
+<span class="lineNum">     331 </span>                :            :       case ad::rss::situation::SituationType::SameDirection:
+<span class="lineNum">     332 </span>                :            :       case ad::rss::situation::SituationType::OppositeDirection:
+<span class="lineNum">     333 </span>                :            :       {
+<span class="lineNum">     334 </span>        [<span class="branchCov" title="Branch 1 was taken 3814 times"> + </span><span class="branchCov" title="Branch 2 was taken 146 times"> + </span>]:<span class="lineCov">       3960 :         result = convertObjectsNonIntersection(currentScene, situation);</span>
+<span class="lineNum">     335 </span>                :            : 
+<span class="lineNum">     336 </span>                :<span class="lineCov">       3814 :         break;</span>
+<span class="lineNum">     337 </span>                :            :       }
+<span class="lineNum">     338 </span>                :            :       case ad::rss::situation::SituationType::IntersectionEgoHasPriority:
+<span class="lineNum">     339 </span>                :            :       case ad::rss::situation::SituationType::IntersectionObjectHasPriority:
+<span class="lineNum">     340 </span>                :            :       case ad::rss::situation::SituationType::IntersectionSamePriority:
+<span class="lineNum">     341 </span>                :            :       {
+<span class="lineNum">     342 </span>        [<span class="branchCov" title="Branch 1 was taken 842 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">        843 :         result = convertObjectsIntersection(currentScene, situation);</span>
+<span class="lineNum">     343 </span>                :<span class="lineCov">        842 :         break;</span>
+<span class="lineNum">     344 </span>                :            :       }
+<span class="lineNum">     345 </span>                :            :       case ad::rss::situation::SituationType::NotRelevant:
+<span class="lineNum">     346 </span>                :            :       {
+<span class="lineNum">     347 </span>                :<span class="lineCov">        146 :         result = true;</span>
+<span class="lineNum">     348 </span>                :<span class="lineCov">        146 :         break;</span>
+<span class="lineNum">     349 </span>                :            :       }
+<span class="lineNum">     350 </span>                :            :       default:
+<span class="lineNum">     351 </span>                :            :       {
+<span class="lineNum">     352 </span>                :<span class="lineCov">        193 :         spdlog::error(&quot;RssSituationExtraction::extractSituationInputRangeChecked&gt;&gt; Invalid situation type {}&quot;,</span>
+<span class="lineNum">     353 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :                       currentScene);</span>
+<span class="lineNum">     354 </span>                :<span class="lineCov">          1 :         result = false;</span>
+<span class="lineNum">     355 </span>                :<span class="lineCov">          1 :         break;</span>
+<span class="lineNum">     356 </span>                :            :       }
+<span class="lineNum">     357 </span>                :            :     }
+<span class="lineNum">     358 </span>                :            :   }
+<span class="lineNum">     359 </span>                :<span class="lineCov">        384 :   catch (...)</span>
+<span class="lineNum">     360 </span>                :            :   {
+<span class="lineNum">     361 </span>                :<span class="lineCov">        192 :     spdlog::critical(</span>
+<span class="lineNum">     362 </span>        [<span class="branchCov" title="Branch 1 was taken 192 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        192 :       &quot;RssSituationExtraction::extractSituationInputRangeChecked&gt;&gt; Exception catched {} {}&quot;, timeIndex, currentScene);</span>
+<span class="lineNum">     363 </span>                :<span class="lineCov">        192 :     result = false;</span>
+<span class="lineNum">     364 </span>                :            :   }
+<span class="lineNum">     365 </span>                :            : 
+<span class="lineNum">     366 </span>                :<span class="lineCov">       5018 :   return result;</span>
+<a name="367"><span class="lineNum">     367 </span>                :            : }</a>
+<span class="lineNum">     368 </span>                :            : 
+<span class="lineNum">     369 </span>                :<span class="lineCov">         54 : bool RssSituationExtraction::mergeVehicleStates(MergeMode const &amp;mergeMode,</span>
+<span class="lineNum">     370 </span>                :            :                                                 situation::VehicleState const &amp;otherVehicleState,
+<span class="lineNum">     371 </span>                :            :                                                 situation::VehicleState &amp;mergedVehicleState)
+<span class="lineNum">     372 </span>                :            : {
+<span class="lineNum">     373 </span>                :            :   // on vehicle states there are only differences in intersection distances allowed due to different road definitions
+<span class="lineNum">     374 </span>        [<span class="branchCov" title="Branch 1 was taken 8 times"> + </span><span class="branchCov" title="Branch 2 was taken 46 times"> + </span>]:<span class="lineCov">        108 :   if ((otherVehicleState.dynamics.alphaLat.accelMax != mergedVehicleState.dynamics.alphaLat.accelMax)</span>
+<span class="lineNum">     375 </span>        [<span class="branchCov" title="Branch 1 was taken 52 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">         53 :       || (otherVehicleState.dynamics.alphaLat.brakeMin != mergedVehicleState.dynamics.alphaLat.brakeMin)</span>
+<span class="lineNum">     376 </span>        [<span class="branchCov" title="Branch 1 was taken 51 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">         52 :       || (otherVehicleState.dynamics.alphaLon.accelMax != mergedVehicleState.dynamics.alphaLon.accelMax)</span>
+<span class="lineNum">     377 </span>        [<span class="branchCov" title="Branch 1 was taken 50 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">         51 :       || (otherVehicleState.dynamics.alphaLon.brakeMinCorrect != mergedVehicleState.dynamics.alphaLon.brakeMinCorrect)</span>
+<span class="lineNum">     378 </span>        [<span class="branchCov" title="Branch 1 was taken 49 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">         50 :       || (otherVehicleState.dynamics.alphaLon.brakeMin != mergedVehicleState.dynamics.alphaLon.brakeMin)</span>
+<span class="lineNum">     379 </span>        [<span class="branchCov" title="Branch 1 was taken 48 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">         49 :       || (otherVehicleState.dynamics.alphaLon.brakeMax != mergedVehicleState.dynamics.alphaLon.brakeMax)</span>
+<span class="lineNum">     380 </span>        [<span class="branchCov" title="Branch 1 was taken 47 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">         48 :       || (otherVehicleState.dynamics.lateralFluctuationMargin != mergedVehicleState.dynamics.lateralFluctuationMargin)</span>
+<span class="lineNum">     381 </span>        [<span class="branchCov" title="Branch 1 was taken 46 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">         47 :       || (otherVehicleState.dynamics.responseTime != mergedVehicleState.dynamics.responseTime)</span>
+<span class="lineNum">     382 </span>[<span class="branchCov" title="Branch 0 was taken 53 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 46 times"> + </span>]:<span class="lineCov">        107 :       || (otherVehicleState.hasPriority != mergedVehicleState.hasPriority))</span>
+<span class="lineNum">     383 </span>                :            :   {
+<span class="lineNum">     384 </span>                :<span class="lineCov">          8 :     return false;</span>
+<span class="lineNum">     385 </span>                :            :   }
+<span class="lineNum">     386 </span>                :            :   // consider the worst cases
+<span class="lineNum">     387 </span>        [<span class="branchCov" title="Branch 0 was taken 27 times"> + </span><span class="branchCov" title="Branch 1 was taken 19 times"> + </span>]:<span class="lineCov">         46 :   if (mergeMode == MergeMode::EgoVehicle)</span>
+<span class="lineNum">     388 </span>                :            :   {
+<span class="lineNum">     389 </span>                :            :     // worst case for ego vehicle is not driving in correct lane
+<span class="lineNum">     390 </span>[<span class="branchCov" title="Branch 0 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 26 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">         27 :     mergedVehicleState.isInCorrectLane = mergedVehicleState.isInCorrectLane &amp;&amp; otherVehicleState.isInCorrectLane;</span>
+<span class="lineNum">     391 </span>                :            :   }
+<span class="lineNum">     392 </span>                :            :   else
+<span class="lineNum">     393 </span>                :            :   {
+<span class="lineNum">     394 </span>                :            :     // worst case for other vehicle is driving in correct lane
+<span class="lineNum">     395 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 19 times"> + </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineCov">         19 :     mergedVehicleState.isInCorrectLane = mergedVehicleState.isInCorrectLane || otherVehicleState.isInCorrectLane;</span>
+<span class="lineNum">     396 </span>                :            :   }
+<span class="lineNum">     397 </span>                :            : 
+<span class="lineNum">     398 </span>                :            :   mergedVehicleState.distanceToEnterIntersection
+<span class="lineNum">     399 </span>                :<span class="lineCov">         46 :     = std::min(mergedVehicleState.distanceToEnterIntersection, otherVehicleState.distanceToEnterIntersection);</span>
+<span class="lineNum">     400 </span>                :            :   mergedVehicleState.distanceToLeaveIntersection
+<span class="lineNum">     401 </span>                :<span class="lineCov">         46 :     = std::max(mergedVehicleState.distanceToLeaveIntersection, otherVehicleState.distanceToLeaveIntersection);</span>
+<span class="lineNum">     402 </span>                :            :   mergedVehicleState.velocity.speedLon.minimum
+<span class="lineNum">     403 </span>                :<span class="lineCov">         46 :     = std::min(mergedVehicleState.velocity.speedLon.minimum, otherVehicleState.velocity.speedLon.minimum);</span>
+<span class="lineNum">     404 </span>                :            :   mergedVehicleState.velocity.speedLon.maximum
+<span class="lineNum">     405 </span>                :<span class="lineCov">         46 :     = std::max(mergedVehicleState.velocity.speedLon.maximum, otherVehicleState.velocity.speedLon.maximum);</span>
+<span class="lineNum">     406 </span>                :            :   mergedVehicleState.velocity.speedLat.minimum
+<span class="lineNum">     407 </span>                :<span class="lineCov">         46 :     = std::min(mergedVehicleState.velocity.speedLat.minimum, otherVehicleState.velocity.speedLat.minimum);</span>
+<span class="lineNum">     408 </span>                :            :   mergedVehicleState.velocity.speedLat.maximum
+<span class="lineNum">     409 </span>                :<span class="lineCov">         46 :     = std::max(mergedVehicleState.velocity.speedLat.maximum, otherVehicleState.velocity.speedLat.maximum);</span>
+<span class="lineNum">     410 </span>                :            : 
+<span class="lineNum">     411 </span>                :<span class="lineCov">         46 :   return true;</span>
+<a name="412"><span class="lineNum">     412 </span>                :            : }</a>
+<span class="lineNum">     413 </span>                :            : 
+<span class="lineNum">     414 </span>                :<span class="lineCov">         27 : bool RssSituationExtraction::mergeSituations(situation::Situation const &amp;otherSituation,</span>
+<span class="lineNum">     415 </span>                :            :                                              situation::Situation &amp;mergedSituation)
+<span class="lineNum">     416 </span>                :            : {
+<span class="lineNum">     417 </span>        [<span class="branchCov" title="Branch 0 was taken 8 times"> + </span><span class="branchCov" title="Branch 1 was taken 19 times"> + </span>]:<span class="lineCov">         54 :   if ( // basic data has to match</span>
+<span class="lineNum">     418 </span>        [<span class="branchCov" title="Branch 0 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         27 :     (otherSituation.situationId != mergedSituation.situationId) || (otherSituation.objectId != mergedSituation.objectId)</span>
+<span class="lineNum">     419 </span>        [<span class="branchCov" title="Branch 0 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         27 :     || (otherSituation.situationType != mergedSituation.situationType)</span>
+<span class="lineNum">     420 </span>[<span class="branchCov" title="Branch 1 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         81 :     || !mergeVehicleStates(MergeMode::EgoVehicle, otherSituation.egoVehicleState, mergedSituation.egoVehicleState)</span>
 <span class="lineNum">         </span>[<span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 27 times"> + </span>][<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>]
-<span class="lineNum">     422 </span>[<span class="branchCov" title="Branch 0 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         54 :     || !mergeVehicleStates(</span>
+<span class="lineNum">     421 </span>[<span class="branchCov" title="Branch 0 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         54 :     || !mergeVehicleStates(</span>
 <span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 8 times"> + </span><span class="branchCov" title="Branch 6 was taken 19 times"> + </span>][<span class="branchCov" title="Branch 7 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>]
 <span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>]
-<span class="lineNum">     423 </span>                :<span class="lineCov">         27 :          MergeMode::OtherVehicle, otherSituation.otherVehicleState, mergedSituation.otherVehicleState))</span>
-<span class="lineNum">     424 </span>                :            :   {
-<span class="lineNum">     425 </span>                :<span class="lineCov">          8 :     return false;</span>
-<span class="lineNum">     426 </span>                :            :   }
-<span class="lineNum">     427 </span>                :            : 
-<span class="lineNum">     428 </span>                :            :   // worst case
-<span class="lineNum">     429 </span>                :            :   mergedSituation.relativePosition.longitudinalDistance = std::min(
-<span class="lineNum">     430 </span>                :<span class="lineCov">         19 :     mergedSituation.relativePosition.longitudinalDistance, otherSituation.relativePosition.longitudinalDistance);</span>
-<span class="lineNum">     431 </span>        [<span class="branchCov" title="Branch 0 was taken 8 times"> + </span><span class="branchCov" title="Branch 1 was taken 11 times"> + </span>]:<span class="lineCov">         19 :   if (otherSituation.relativePosition.longitudinalPosition != mergedSituation.relativePosition.longitudinalPosition)</span>
-<span class="lineNum">     432 </span>                :            :   {
-<span class="lineNum">     433 </span>        [<span class="branchCov" title="Branch 0 was taken 7 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          8 :     if ((mergedSituation.relativePosition.longitudinalPosition == situation::LongitudinalRelativePosition::Overlap)</span>
-<span class="lineNum">     434 </span>        [<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          7 :         || (otherSituation.relativePosition.longitudinalPosition == situation::LongitudinalRelativePosition::Overlap)</span>
-<span class="lineNum">     435 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          6 :         || ((mergedSituation.relativePosition.longitudinalPosition &lt; situation::LongitudinalRelativePosition::Overlap)</span>
-<span class="lineNum">     436 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          3 :             &amp;&amp; (otherSituation.relativePosition.longitudinalPosition</span>
-<span class="lineNum">     437 </span>                :            :                 &gt; situation::LongitudinalRelativePosition::Overlap))
-<span class="lineNum">     438 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          5 :         || ((mergedSituation.relativePosition.longitudinalPosition &gt; situation::LongitudinalRelativePosition::Overlap)</span>
-<span class="lineNum">     439 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          3 :             &amp;&amp; (otherSituation.relativePosition.longitudinalPosition</span>
-<span class="lineNum">     440 </span>                :            :                 &lt; situation::LongitudinalRelativePosition::Overlap)))
-<span class="lineNum">     441 </span>                :            :     {
-<span class="lineNum">     442 </span>                :            :       // overlap is also worst case for contradicting input, ensure the longitudinal distance becomes 0.
-<span class="lineNum">     443 </span>                :<span class="lineCov">          4 :       mergedSituation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;</span>
-<span class="lineNum">     444 </span>                :<span class="lineCov">          4 :       mergedSituation.relativePosition.longitudinalDistance = Distance(0.);</span>
-<span class="lineNum">     445 </span>                :            :     }
-<span class="lineNum">     446 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          4 :     else if ((mergedSituation.relativePosition.longitudinalPosition</span>
-<span class="lineNum">     447 </span>                :            :               == situation::LongitudinalRelativePosition::OverlapFront)
-<span class="lineNum">     448 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          3 :              || (otherSituation.relativePosition.longitudinalPosition</span>
-<span class="lineNum">     449 </span>                :            :                  == situation::LongitudinalRelativePosition::OverlapFront))
-<span class="lineNum">     450 </span>                :            :     {
-<span class="lineNum">     451 </span>                :            :       // one of the both is overlap font (the other then only can be InFront in here)
-<span class="lineNum">     452 </span>                :<span class="lineCov">          2 :       mergedSituation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::OverlapFront;</span>
-<span class="lineNum">     453 </span>                :            :     }
-<span class="lineNum">     454 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     else if ((mergedSituation.relativePosition.longitudinalPosition</span>
-<span class="lineNum">     455 </span>                :            :               == situation::LongitudinalRelativePosition::OverlapBack)
-<span class="lineNum">     456 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :              || (otherSituation.relativePosition.longitudinalPosition</span>
-<span class="lineNum">     457 </span>                :            :                  == situation::LongitudinalRelativePosition::OverlapBack))
-<span class="lineNum">     458 </span>                :            :     {
-<span class="lineNum">     459 </span>                :            :       // one of the both is overlap back (the other then only can be AtBack in here)
-<span class="lineNum">     460 </span>                :<span class="lineCov">          2 :       mergedSituation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::OverlapBack;</span>
-<span class="lineNum">     461 </span>                :            :     }
-<span class="lineNum">     462 </span>                :            :     else
-<span class="lineNum">     463 </span>                :            :     {
-<span class="lineNum">     464 </span>                :            :       // LCOV_EXCL_START: unreachable code, keep to be on the safe side
-<span class="lineNum">     465 </span>                :            :       // this is impossible to reach, set to overlap having longitudinal distance to 0. to be on the safe side
-<span class="lineNum">     466 </span>                :            :       mergedSituation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;
-<span class="lineNum">     467 </span>                :            :       mergedSituation.relativePosition.longitudinalDistance = Distance(0.);
-<span class="lineNum">     468 </span>                :            :       // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
-<span class="lineNum">     469 </span>                :            :     }
-<span class="lineNum">     470 </span>                :            :   }
-<span class="lineNum">     471 </span>                :            : 
-<span class="lineNum">     472 </span>                :            :   mergedSituation.relativePosition.lateralDistance
-<span class="lineNum">     473 </span>                :<span class="lineCov">         19 :     = std::min(mergedSituation.relativePosition.lateralDistance, otherSituation.relativePosition.lateralDistance);</span>
-<span class="lineNum">     474 </span>        [<span class="branchCov" title="Branch 0 was taken 8 times"> + </span><span class="branchCov" title="Branch 1 was taken 11 times"> + </span>]:<span class="lineCov">         19 :   if (otherSituation.relativePosition.lateralPosition != mergedSituation.relativePosition.lateralPosition)</span>
-<span class="lineNum">     475 </span>                :            :   {
-<span class="lineNum">     476 </span>        [<span class="branchCov" title="Branch 0 was taken 7 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          8 :     if ((mergedSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::Overlap)</span>
-<span class="lineNum">     477 </span>        [<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          7 :         || (otherSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::Overlap)</span>
-<span class="lineNum">     478 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          6 :         || ((mergedSituation.relativePosition.lateralPosition &lt; situation::LateralRelativePosition::Overlap)</span>
-<span class="lineNum">     479 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          3 :             &amp;&amp; (otherSituation.relativePosition.lateralPosition &gt; situation::LateralRelativePosition::Overlap))</span>
-<span class="lineNum">     480 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          5 :         || ((mergedSituation.relativePosition.lateralPosition &gt; situation::LateralRelativePosition::Overlap)</span>
-<span class="lineNum">     481 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          3 :             &amp;&amp; (otherSituation.relativePosition.lateralPosition &lt; situation::LateralRelativePosition::Overlap)))</span>
-<span class="lineNum">     482 </span>                :            :     {
-<span class="lineNum">     483 </span>                :            :       // overlap is also worst case for contradicting input, ensure the lateral distance becomes 0.
-<span class="lineNum">     484 </span>                :<span class="lineCov">          4 :       mergedSituation.relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;</span>
-<span class="lineNum">     485 </span>                :<span class="lineCov">          4 :       mergedSituation.relativePosition.lateralDistance = Distance(0.);</span>
-<span class="lineNum">     486 </span>                :            :     }
-<span class="lineNum">     487 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          4 :     else if ((mergedSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::OverlapLeft)</span>
-<span class="lineNum">     488 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          3 :              || (otherSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::OverlapLeft))</span>
-<span class="lineNum">     489 </span>                :            :     {
-<span class="lineNum">     490 </span>                :            :       // one of the both is overlap left (the other then only can be AtLeft in here)
-<span class="lineNum">     491 </span>                :<span class="lineCov">          2 :       mergedSituation.relativePosition.lateralPosition = situation::LateralRelativePosition::OverlapLeft;</span>
-<span class="lineNum">     492 </span>                :            :     }
-<span class="lineNum">     493 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     else if ((mergedSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::OverlapRight)</span>
-<span class="lineNum">     494 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :              || (otherSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::OverlapRight))</span>
-<span class="lineNum">     495 </span>                :            :     {
-<span class="lineNum">     496 </span>                :            :       // one of the both is overlap right (the other then only can be AtRight in here)
-<span class="lineNum">     497 </span>                :<span class="lineCov">          2 :       mergedSituation.relativePosition.lateralPosition = situation::LateralRelativePosition::OverlapRight;</span>
-<span class="lineNum">     498 </span>                :            :     }
-<span class="lineNum">     499 </span>                :            :     else
-<span class="lineNum">     500 </span>                :            :     {
-<span class="lineNum">     501 </span>                :            :       // LCOV_EXCL_START: unreachable code, keep to be on the safe side
-<span class="lineNum">     502 </span>                :            :       // this is impossible to reach, set to overlap having lateral distance to 0. to be on the safe side
-<span class="lineNum">     503 </span>                :            :       mergedSituation.relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
-<span class="lineNum">     504 </span>                :            :       mergedSituation.relativePosition.lateralDistance = Distance(0.);
-<span class="lineNum">     505 </span>                :            :       // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
-<span class="lineNum">     506 </span>                :            :     }
-<span class="lineNum">     507 </span>                :            :   }
-<span class="lineNum">     508 </span>                :            : 
-<span class="lineNum">     509 </span>                :<span class="lineCov">         27 :   return true;</span>
-<a name="510"><span class="lineNum">     510 </span>                :            : }</a>
-<span class="lineNum">     511 </span>                :            : 
-<span class="lineNum">     512 </span>                :<span class="lineCov">       4262 : bool RssSituationExtraction::extractSituations(world::WorldModel const &amp;worldModel,</span>
-<span class="lineNum">     513 </span>                :            :                                                situation::SituationSnapshot &amp;situationSnapshot)
-<span class="lineNum">     514 </span>                :            : {
-<span class="lineNum">     515 </span>        [<span class="branchCov" title="Branch 1 was taken 29 times"> + </span><span class="branchCov" title="Branch 2 was taken 4233 times"> + </span>]:<span class="lineCov">       4262 :   if (!withinValidInputRange(worldModel))</span>
-<span class="lineNum">     516 </span>                :            :   {
-<span class="lineNum">     517 </span>        [<span class="branchCov" title="Branch 2 was taken 29 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         43 :     spdlog::error(&quot;RssSituationExtraction::extractSituation&gt;&gt; Invalid input {}&quot;, worldModel);</span>
-<span class="lineNum">     518 </span>                :<span class="lineCov">         29 :     return false;</span>
-<span class="lineNum">     519 </span>                :            :   }
-<span class="lineNum">     520 </span>                :            : 
-<span class="lineNum">     521 </span>                :<span class="lineCov">       4233 :   bool result = true;</span>
-<span class="lineNum">     522 </span>                :            :   try
-<span class="lineNum">     523 </span>                :            :   {
-<span class="lineNum">     524 </span>                :<span class="lineCov">       4233 :     situationSnapshot.timeIndex = worldModel.timeIndex;</span>
+<span class="lineNum">     422 </span>                :<span class="lineCov">         27 :          MergeMode::OtherVehicle, otherSituation.otherVehicleState, mergedSituation.otherVehicleState))</span>
+<span class="lineNum">     423 </span>                :            :   {
+<span class="lineNum">     424 </span>                :<span class="lineCov">          8 :     return false;</span>
+<span class="lineNum">     425 </span>                :            :   }
+<span class="lineNum">     426 </span>                :            : 
+<span class="lineNum">     427 </span>                :            :   // worst case
+<span class="lineNum">     428 </span>                :            :   mergedSituation.relativePosition.longitudinalDistance = std::min(
+<span class="lineNum">     429 </span>                :<span class="lineCov">         19 :     mergedSituation.relativePosition.longitudinalDistance, otherSituation.relativePosition.longitudinalDistance);</span>
+<span class="lineNum">     430 </span>        [<span class="branchCov" title="Branch 0 was taken 8 times"> + </span><span class="branchCov" title="Branch 1 was taken 11 times"> + </span>]:<span class="lineCov">         19 :   if (otherSituation.relativePosition.longitudinalPosition != mergedSituation.relativePosition.longitudinalPosition)</span>
+<span class="lineNum">     431 </span>                :            :   {
+<span class="lineNum">     432 </span>        [<span class="branchCov" title="Branch 0 was taken 7 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          8 :     if ((mergedSituation.relativePosition.longitudinalPosition == situation::LongitudinalRelativePosition::Overlap)</span>
+<span class="lineNum">     433 </span>        [<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          7 :         || (otherSituation.relativePosition.longitudinalPosition == situation::LongitudinalRelativePosition::Overlap)</span>
+<span class="lineNum">     434 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          6 :         || ((mergedSituation.relativePosition.longitudinalPosition &lt; situation::LongitudinalRelativePosition::Overlap)</span>
+<span class="lineNum">     435 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          3 :             &amp;&amp; (otherSituation.relativePosition.longitudinalPosition</span>
+<span class="lineNum">     436 </span>                :            :                 &gt; situation::LongitudinalRelativePosition::Overlap))
+<span class="lineNum">     437 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          5 :         || ((mergedSituation.relativePosition.longitudinalPosition &gt; situation::LongitudinalRelativePosition::Overlap)</span>
+<span class="lineNum">     438 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          3 :             &amp;&amp; (otherSituation.relativePosition.longitudinalPosition</span>
+<span class="lineNum">     439 </span>                :            :                 &lt; situation::LongitudinalRelativePosition::Overlap)))
+<span class="lineNum">     440 </span>                :            :     {
+<span class="lineNum">     441 </span>                :            :       // overlap is also worst case for contradicting input, ensure the longitudinal distance becomes 0.
+<span class="lineNum">     442 </span>                :<span class="lineCov">          4 :       mergedSituation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;</span>
+<span class="lineNum">     443 </span>                :<span class="lineCov">          4 :       mergedSituation.relativePosition.longitudinalDistance = Distance(0.);</span>
+<span class="lineNum">     444 </span>                :            :     }
+<span class="lineNum">     445 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          4 :     else if ((mergedSituation.relativePosition.longitudinalPosition</span>
+<span class="lineNum">     446 </span>                :            :               == situation::LongitudinalRelativePosition::OverlapFront)
+<span class="lineNum">     447 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          3 :              || (otherSituation.relativePosition.longitudinalPosition</span>
+<span class="lineNum">     448 </span>                :            :                  == situation::LongitudinalRelativePosition::OverlapFront))
+<span class="lineNum">     449 </span>                :            :     {
+<span class="lineNum">     450 </span>                :            :       // one of the both is overlap font (the other then only can be InFront in here)
+<span class="lineNum">     451 </span>                :<span class="lineCov">          2 :       mergedSituation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::OverlapFront;</span>
+<span class="lineNum">     452 </span>                :            :     }
+<span class="lineNum">     453 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     else if ((mergedSituation.relativePosition.longitudinalPosition</span>
+<span class="lineNum">     454 </span>                :            :               == situation::LongitudinalRelativePosition::OverlapBack)
+<span class="lineNum">     455 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :              || (otherSituation.relativePosition.longitudinalPosition</span>
+<span class="lineNum">     456 </span>                :            :                  == situation::LongitudinalRelativePosition::OverlapBack))
+<span class="lineNum">     457 </span>                :            :     {
+<span class="lineNum">     458 </span>                :            :       // one of the both is overlap back (the other then only can be AtBack in here)
+<span class="lineNum">     459 </span>                :<span class="lineCov">          2 :       mergedSituation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::OverlapBack;</span>
+<span class="lineNum">     460 </span>                :            :     }
+<span class="lineNum">     461 </span>                :            :     else
+<span class="lineNum">     462 </span>                :            :     {
+<span class="lineNum">     463 </span>                :            :       // LCOV_EXCL_START: unreachable code, keep to be on the safe side
+<span class="lineNum">     464 </span>                :            :       // this is impossible to reach, set to overlap having longitudinal distance to 0. to be on the safe side
+<span class="lineNum">     465 </span>                :            :       mergedSituation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;
+<span class="lineNum">     466 </span>                :            :       mergedSituation.relativePosition.longitudinalDistance = Distance(0.);
+<span class="lineNum">     467 </span>                :            :       // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
+<span class="lineNum">     468 </span>                :            :     }
+<span class="lineNum">     469 </span>                :            :   }
+<span class="lineNum">     470 </span>                :            : 
+<span class="lineNum">     471 </span>                :            :   mergedSituation.relativePosition.lateralDistance
+<span class="lineNum">     472 </span>                :<span class="lineCov">         19 :     = std::min(mergedSituation.relativePosition.lateralDistance, otherSituation.relativePosition.lateralDistance);</span>
+<span class="lineNum">     473 </span>        [<span class="branchCov" title="Branch 0 was taken 8 times"> + </span><span class="branchCov" title="Branch 1 was taken 11 times"> + </span>]:<span class="lineCov">         19 :   if (otherSituation.relativePosition.lateralPosition != mergedSituation.relativePosition.lateralPosition)</span>
+<span class="lineNum">     474 </span>                :            :   {
+<span class="lineNum">     475 </span>        [<span class="branchCov" title="Branch 0 was taken 7 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          8 :     if ((mergedSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::Overlap)</span>
+<span class="lineNum">     476 </span>        [<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          7 :         || (otherSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::Overlap)</span>
+<span class="lineNum">     477 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          6 :         || ((mergedSituation.relativePosition.lateralPosition &lt; situation::LateralRelativePosition::Overlap)</span>
+<span class="lineNum">     478 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          3 :             &amp;&amp; (otherSituation.relativePosition.lateralPosition &gt; situation::LateralRelativePosition::Overlap))</span>
+<span class="lineNum">     479 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          5 :         || ((mergedSituation.relativePosition.lateralPosition &gt; situation::LateralRelativePosition::Overlap)</span>
+<span class="lineNum">     480 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          3 :             &amp;&amp; (otherSituation.relativePosition.lateralPosition &lt; situation::LateralRelativePosition::Overlap)))</span>
+<span class="lineNum">     481 </span>                :            :     {
+<span class="lineNum">     482 </span>                :            :       // overlap is also worst case for contradicting input, ensure the lateral distance becomes 0.
+<span class="lineNum">     483 </span>                :<span class="lineCov">          4 :       mergedSituation.relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;</span>
+<span class="lineNum">     484 </span>                :<span class="lineCov">          4 :       mergedSituation.relativePosition.lateralDistance = Distance(0.);</span>
+<span class="lineNum">     485 </span>                :            :     }
+<span class="lineNum">     486 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          4 :     else if ((mergedSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::OverlapLeft)</span>
+<span class="lineNum">     487 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          3 :              || (otherSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::OverlapLeft))</span>
+<span class="lineNum">     488 </span>                :            :     {
+<span class="lineNum">     489 </span>                :            :       // one of the both is overlap left (the other then only can be AtLeft in here)
+<span class="lineNum">     490 </span>                :<span class="lineCov">          2 :       mergedSituation.relativePosition.lateralPosition = situation::LateralRelativePosition::OverlapLeft;</span>
+<span class="lineNum">     491 </span>                :            :     }
+<span class="lineNum">     492 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     else if ((mergedSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::OverlapRight)</span>
+<span class="lineNum">     493 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :              || (otherSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::OverlapRight))</span>
+<span class="lineNum">     494 </span>                :            :     {
+<span class="lineNum">     495 </span>                :            :       // one of the both is overlap right (the other then only can be AtRight in here)
+<span class="lineNum">     496 </span>                :<span class="lineCov">          2 :       mergedSituation.relativePosition.lateralPosition = situation::LateralRelativePosition::OverlapRight;</span>
+<span class="lineNum">     497 </span>                :            :     }
+<span class="lineNum">     498 </span>                :            :     else
+<span class="lineNum">     499 </span>                :            :     {
+<span class="lineNum">     500 </span>                :            :       // LCOV_EXCL_START: unreachable code, keep to be on the safe side
+<span class="lineNum">     501 </span>                :            :       // this is impossible to reach, set to overlap having lateral distance to 0. to be on the safe side
+<span class="lineNum">     502 </span>                :            :       mergedSituation.relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
+<span class="lineNum">     503 </span>                :            :       mergedSituation.relativePosition.lateralDistance = Distance(0.);
+<span class="lineNum">     504 </span>                :            :       // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
+<span class="lineNum">     505 </span>                :            :     }
+<span class="lineNum">     506 </span>                :            :   }
+<span class="lineNum">     507 </span>                :            : 
+<span class="lineNum">     508 </span>                :<span class="lineCov">         27 :   return true;</span>
+<a name="509"><span class="lineNum">     509 </span>                :            : }</a>
+<span class="lineNum">     510 </span>                :            : 
+<span class="lineNum">     511 </span>                :<span class="lineCov">       4263 : bool RssSituationExtraction::extractSituations(world::WorldModel const &amp;worldModel,</span>
+<span class="lineNum">     512 </span>                :            :                                                situation::SituationSnapshot &amp;situationSnapshot)
+<span class="lineNum">     513 </span>                :            : {
+<span class="lineNum">     514 </span>        [<span class="branchCov" title="Branch 1 was taken 30 times"> + </span><span class="branchCov" title="Branch 2 was taken 4233 times"> + </span>]:<span class="lineCov">       4263 :   if (!withinValidInputRange(worldModel))</span>
+<span class="lineNum">     515 </span>                :            :   {
+<span class="lineNum">     516 </span>        [<span class="branchCov" title="Branch 2 was taken 30 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         44 :     spdlog::error(&quot;RssSituationExtraction::extractSituation&gt;&gt; Invalid input {}&quot;, worldModel);</span>
+<span class="lineNum">     517 </span>                :<span class="lineCov">         30 :     return false;</span>
+<span class="lineNum">     518 </span>                :            :   }
+<span class="lineNum">     519 </span>                :            : 
+<span class="lineNum">     520 </span>                :<span class="lineCov">       4233 :   bool result = true;</span>
+<span class="lineNum">     521 </span>                :            :   try
+<span class="lineNum">     522 </span>                :            :   {
+<span class="lineNum">     523 </span>                :<span class="lineCov">       4233 :     situationSnapshot.timeIndex = worldModel.timeIndex;</span>
+<span class="lineNum">     524 </span>                :<span class="lineCov">       4233 :     situationSnapshot.defaultEgoVehicleRssDynamics = worldModel.defaultEgoVehicleRssDynamics;</span>
 <span class="lineNum">     525 </span>                :<span class="lineCov">       4233 :     situationSnapshot.situations.clear();</span>
 <span class="lineNum">     526 </span>        [<span class="branchCov" title="Branch 3 was taken 5011 times"> + </span><span class="branchCov" title="Branch 4 was taken 4219 times"> + </span>]:<span class="lineCov">       9230 :     for (auto const &amp;scene : worldModel.scenes)</span>
 <span class="lineNum">     527 </span>                :            :     {
 <span class="lineNum">     528 </span>        [<span class="branchCov" title="Branch 1 was taken 5011 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5011 :       situation::Situation situation;</span>
-<span class="lineNum">     529 </span>                :            :       bool const extractResult
-<span class="lineNum">     530 </span>        [<span class="branchCov" title="Branch 1 was taken 5011 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5011 :         = extractSituationInputRangeChecked(worldModel.timeIndex, worldModel.egoVehicleRssDynamics, scene, situation);</span>
-<span class="lineNum">     531 </span>                :            : 
-<span class="lineNum">     532 </span>                :            :       // if the situation is relevant, add it to situationSnapshot
-<span class="lineNum">     533 </span>        [<span class="branchCov" title="Branch 0 was taken 4864 times"> + </span><span class="branchCov" title="Branch 1 was taken 147 times"> + </span>]:<span class="lineCov">       5011 :       if (scene.situationType != ad::rss::situation::SituationType::NotRelevant)</span>
-<span class="lineNum">     534 </span>                :            :       {
-<span class="lineNum">     535 </span>        [<span class="branchCov" title="Branch 0 was taken 4610 times"> + </span><span class="branchCov" title="Branch 1 was taken 254 times"> + </span>]:<span class="lineCov">       4864 :         if (extractResult)</span>
-<span class="lineNum">     536 </span>                :            :         {
-<span class="lineNum">     537 </span>                :            :           // situation id creation might detect that different scenes are representing identical situations
-<span class="lineNum">     538 </span>                :            :           // ensure the situationSnapshot is unique while containing the worst-case situation
-<a name="539"><span class="lineNum">     539 </span>                :            :           auto findResult = std::find_if(situationSnapshot.situations.begin(),</a>
-<span class="lineNum">     540 </span>                :            :                                          situationSnapshot.situations.end(),
-<span class="lineNum">     541 </span>                :<span class="lineCov">       5572 :                                          [&amp;situation](ad::rss::situation::Situation const &amp;checkSituation) {</span>
-<span class="lineNum">     542 </span>                :<span class="lineCov">      11144 :                                            return checkSituation.situationId == situation.situationId;</span>
-<span class="lineNum">     543 </span>        [<span class="branchCov" title="Branch 3 was taken 4610 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">      10182 :                                          });</span>
-<span class="lineNum">     544 </span>        [<span class="branchCov" title="Branch 2 was taken 4583 times"> + </span><span class="branchCov" title="Branch 3 was taken 27 times"> + </span>]:<span class="lineCov">       4610 :           if (findResult == situationSnapshot.situations.end())</span>
-<span class="lineNum">     545 </span>                :            :           {
-<span class="lineNum">     546 </span>        [<span class="branchCov" title="Branch 1 was taken 4569 times"> + </span><span class="branchCov" title="Branch 2 was taken 14 times"> + </span>]:<span class="lineCov">       4583 :             situationSnapshot.situations.push_back(situation);</span>
-<span class="lineNum">     547 </span>                :            :           }
-<span class="lineNum">     548 </span>[<span class="branchCov" title="Branch 2 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 8 times"> + </span><span class="branchCov" title="Branch 5 was taken 19 times"> + </span>]:<span class="lineCov">         27 :           else if (!mergeSituations(situation, *findResult))</span>
-<span class="lineNum">     549 </span>                :            :           {
-<span class="lineNum">     550 </span>                :<span class="lineCov">       4596 :             result = false;</span>
-<span class="lineNum">     551 </span>                :            :           }
-<span class="lineNum">     552 </span>                :            :         }
-<span class="lineNum">     553 </span>                :            :         else
-<span class="lineNum">     554 </span>                :            :         {
-<span class="lineNum">     555 </span>        [<span class="branchCov" title="Branch 2 was taken 254 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        268 :           spdlog::error(&quot;RssSituationExtraction::extractSituations&gt;&gt; Extraction failed {}&quot;, scene);</span>
-<span class="lineNum">     556 </span>                :<span class="lineCov">       4850 :           result = false;</span>
-<span class="lineNum">     557 </span>                :            :         }
-<span class="lineNum">     558 </span>                :            :       }
-<span class="lineNum">     559 </span>                :            :     }
-<span class="lineNum">     560 </span>                :            :   }
-<span class="lineNum">     561 </span>                :<span class="lineCov">         28 :   catch (...)</span>
-<span class="lineNum">     562 </span>                :            :   {
-<span class="lineNum">     563 </span>        [<span class="branchCov" title="Branch 2 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         14 :     spdlog::critical(&quot;RssSituationExtraction::extractSituations&gt;&gt; Exception caught {}&quot;, worldModel);</span>
-<span class="lineNum">     564 </span>                :<span class="lineCov">         14 :     result = false;</span>
-<span class="lineNum">     565 </span>                :            :   }
-<span class="lineNum">     566 </span>                :<span class="lineCov">       4262 :   return result;</span>
-<span class="lineNum">     567 </span>                :            : }
-<span class="lineNum">     568 </span>                :            : 
-<a name="569"><span class="lineNum">     569 </span>                :            : } // namespace core</a>
-<span class="lineNum">     570 </span>                :            : } // namespace rss
-<span class="lineNum">     571 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
+<span class="lineNum">     529 </span>        [<span class="branchCov" title="Branch 1 was taken 5011 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5011 :       bool const extractResult = extractSituationInputRangeChecked(worldModel.timeIndex, scene, situation);</span>
+<span class="lineNum">     530 </span>                :            : 
+<span class="lineNum">     531 </span>                :            :       // if the situation is relevant, add it to situationSnapshot
+<span class="lineNum">     532 </span>        [<span class="branchCov" title="Branch 0 was taken 4864 times"> + </span><span class="branchCov" title="Branch 1 was taken 147 times"> + </span>]:<span class="lineCov">       5011 :       if (scene.situationType != ad::rss::situation::SituationType::NotRelevant)</span>
+<span class="lineNum">     533 </span>                :            :       {
+<span class="lineNum">     534 </span>        [<span class="branchCov" title="Branch 0 was taken 4611 times"> + </span><span class="branchCov" title="Branch 1 was taken 253 times"> + </span>]:<span class="lineCov">       4864 :         if (extractResult)</span>
+<span class="lineNum">     535 </span>                :            :         {
+<span class="lineNum">     536 </span>                :            :           // situation id creation might detect that different scenes are representing identical situations
+<span class="lineNum">     537 </span>                :            :           // ensure the situationSnapshot is unique while containing the worst-case situation
+<a name="538"><span class="lineNum">     538 </span>                :            :           auto findResult = std::find_if(situationSnapshot.situations.begin(),</a>
+<span class="lineNum">     539 </span>                :            :                                          situationSnapshot.situations.end(),
+<span class="lineNum">     540 </span>                :<span class="lineCov">       5572 :                                          [&amp;situation](ad::rss::situation::Situation const &amp;checkSituation) {</span>
+<span class="lineNum">     541 </span>                :<span class="lineCov">      11144 :                                            return checkSituation.situationId == situation.situationId;</span>
+<span class="lineNum">     542 </span>        [<span class="branchCov" title="Branch 3 was taken 4611 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">      10183 :                                          });</span>
+<span class="lineNum">     543 </span>        [<span class="branchCov" title="Branch 2 was taken 4584 times"> + </span><span class="branchCov" title="Branch 3 was taken 27 times"> + </span>]:<span class="lineCov">       4611 :           if (findResult == situationSnapshot.situations.end())</span>
+<span class="lineNum">     544 </span>                :            :           {
+<span class="lineNum">     545 </span>        [<span class="branchCov" title="Branch 1 was taken 4570 times"> + </span><span class="branchCov" title="Branch 2 was taken 14 times"> + </span>]:<span class="lineCov">       4584 :             situationSnapshot.situations.push_back(situation);</span>
+<span class="lineNum">     546 </span>                :            :           }
+<span class="lineNum">     547 </span>[<span class="branchCov" title="Branch 2 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 8 times"> + </span><span class="branchCov" title="Branch 5 was taken 19 times"> + </span>]:<span class="lineCov">         27 :           else if (!mergeSituations(situation, *findResult))</span>
+<span class="lineNum">     548 </span>                :            :           {
+<span class="lineNum">     549 </span>                :<span class="lineCov">       4597 :             result = false;</span>
+<span class="lineNum">     550 </span>                :            :           }
+<span class="lineNum">     551 </span>                :            :         }
+<span class="lineNum">     552 </span>                :            :         else
+<span class="lineNum">     553 </span>                :            :         {
+<span class="lineNum">     554 </span>        [<span class="branchCov" title="Branch 2 was taken 253 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        267 :           spdlog::error(&quot;RssSituationExtraction::extractSituations&gt;&gt; Extraction failed {}&quot;, scene);</span>
+<span class="lineNum">     555 </span>                :<span class="lineCov">       4850 :           result = false;</span>
+<span class="lineNum">     556 </span>                :            :         }
+<span class="lineNum">     557 </span>                :            :       }
+<span class="lineNum">     558 </span>                :            :     }
+<span class="lineNum">     559 </span>                :            :   }
+<span class="lineNum">     560 </span>                :<span class="lineCov">         28 :   catch (...)</span>
+<span class="lineNum">     561 </span>                :            :   {
+<span class="lineNum">     562 </span>        [<span class="branchCov" title="Branch 2 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         14 :     spdlog::critical(&quot;RssSituationExtraction::extractSituations&gt;&gt; Exception caught {}&quot;, worldModel);</span>
+<span class="lineNum">     563 </span>                :<span class="lineCov">         14 :     result = false;</span>
+<span class="lineNum">     564 </span>                :            :   }
+<span class="lineNum">     565 </span>                :<span class="lineCov">       4263 :   return result;</span>
+<span class="lineNum">     566 </span>                :            : }
+<span class="lineNum">     567 </span>                :            : 
+<a name="568"><span class="lineNum">     568 </span>                :            : } // namespace core</a>
+<span class="lineNum">     569 </span>                :            : } // namespace rss
+<span class="lineNum">     570 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
 </pre>
       </td>
     </tr>

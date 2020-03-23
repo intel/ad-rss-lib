@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-03-19 10:45:26</td>
+            <td class="headerValue">2020-03-23 18:00:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -89,13 +89,13 @@
 <span class="lineNum">      18 </span>                :            : #include &quot;ad/rss/situation/LongitudinalRelativePosition.hpp&quot;
 <a name="19"><span class="lineNum">      19 </span>                :            : #include &lt;stdexcept&gt;</a>
 <span class="lineNum">      20 </span>                :            : 
-<span class="lineNum">      21 </span>                :<span class="lineCov">    1004091 : std::string toString(::ad::rss::situation::LongitudinalRelativePosition const e)</span>
+<span class="lineNum">      21 </span>                :<span class="lineCov">    1004094 : std::string toString(::ad::rss::situation::LongitudinalRelativePosition const e)</span>
 <span class="lineNum">      22 </span>                :            : {
-<span class="lineNum">      23 </span>  [<span class="branchCov" title="Branch 0 was taken 4055 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1000011 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">    1004091 :   switch (e)</span>
+<span class="lineNum">      23 </span>  [<span class="branchCov" title="Branch 0 was taken 4058 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1000011 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">    1004094 :   switch (e)</span>
 <span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 10 times"> + </span><span class="branchCov" title="Branch 5 was taken 13 times"> + </span>]
 <span class="lineNum">      24 </span>                :            :   {
 <span class="lineNum">      25 </span>                :            :     case ::ad::rss::situation::LongitudinalRelativePosition::InFront:
-<span class="lineNum">      26 </span>                :<span class="lineCov">       4055 :       return std::string(&quot;::ad::rss::situation::LongitudinalRelativePosition::InFront&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      26 </span>                :<span class="lineCov">       4058 :       return std::string(&quot;::ad::rss::situation::LongitudinalRelativePosition::InFront&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      27 </span>                :            :     case ::ad::rss::situation::LongitudinalRelativePosition::OverlapFront:
 <span class="lineNum">      28 </span>                :<span class="lineCov">          1 :       return std::string(&quot;::ad::rss::situation::LongitudinalRelativePosition::OverlapFront&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      29 </span>                :            :     case ::ad::rss::situation::LongitudinalRelativePosition::Overlap:
@@ -105,7 +105,7 @@
 <span class="lineNum">      33 </span>                :            :     case ::ad::rss::situation::LongitudinalRelativePosition::AtBack:
 <span class="lineNum">      34 </span>                :<span class="lineCov">         10 :       return std::string(&quot;::ad::rss::situation::LongitudinalRelativePosition::AtBack&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      35 </span>                :            :     default:
-<span class="lineNum">      36 </span>                :<span class="lineCov">    1004091 :       return std::string(&quot;UNKNOWN ENUM VALUE&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      36 </span>                :<span class="lineCov">    1004094 :       return std::string(&quot;UNKNOWN ENUM VALUE&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      37 </span>                :            :   }
 <a name="38"><span class="lineNum">      38 </span>                :            : }</a>
 <span class="lineNum">      39 </span>                :            : 

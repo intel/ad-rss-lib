@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-03-19 10:45:26</td>
+            <td class="headerValue">2020-03-23 18:00:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">33</td>
+            <td class="headerCovTableEntry">32</td>
             <td class="headerCovTableEntry">52</td>
-            <td class="headerCovTableEntryLo">63.5 %</td>
+            <td class="headerCovTableEntryLo">61.5 %</td>
           </tr>
           <tr><td><img src="../../../../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -105,30 +105,30 @@
 <span class="lineNum">      34 </span>                :            :  *
 <span class="lineNum">      35 </span>                :            :  * \note the specified input range is defined by the ranges of all members, plus:
 <span class="lineNum">      36 </span>                :            :  *       ::ad::physics::Acceleration(0.) &lt;= accelMax &lt;= ::ad::physics::Acceleration(1e2)
-<a name="37"><span class="lineNum">      37 </span>                :            :  *       ::ad::physics::Acceleration(0.) &lt; brakeMin &lt;= ::ad::physics::Acceleration(1e2)</a>
+<a name="37"><span class="lineNum">      37 </span>                :            :  *       ::ad::physics::Acceleration(-1e2) &lt;= brakeMin &lt; ::ad::physics::Acceleration(0.)</a>
 <span class="lineNum">      38 </span>                :            :  */
-<span class="lineNum">      39 </span>                :<span class="lineCov">     255990 : inline bool withinValidInputRange(::ad::rss::world::LateralRssAccelerationValues const &amp;input,</span>
+<span class="lineNum">      39 </span>                :<span class="lineCov">     272509 : inline bool withinValidInputRange(::ad::rss::world::LateralRssAccelerationValues const &amp;input,</span>
 <span class="lineNum">      40 </span>                :            :                                   bool const logErrors = true)
 <span class="lineNum">      41 </span>                :            : {
 <span class="lineNum">      42 </span>                :            :   // check for generic member input ranges
-<span class="lineNum">      43 </span>                :<span class="lineCov">     255990 :   bool inValidInputRange = true;</span>
+<span class="lineNum">      43 </span>                :<span class="lineCov">     272509 :   bool inValidInputRange = true;</span>
 <span class="lineNum">      44 </span>                :            :   inValidInputRange
-<span class="lineNum">      45 </span>[<span class="branchCov" title="Branch 1 was taken 255985 times"> + </span><span class="branchCov" title="Branch 2 was taken 5 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 255982 times"> + </span><span class="branchCov" title="Branch 5 was taken 3 times"> + </span>]:<span class="lineCov">     255990 :     = withinValidInputRange(input.accelMax, logErrors) &amp;&amp; withinValidInputRange(input.brakeMin, logErrors);</span>
-<span class="lineNum">      46 </span>[<span class="branchCov" title="Branch 0 was taken 8 times"> + </span><span class="branchCov" title="Branch 1 was taken 255982 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 8 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     255990 :   if (!inValidInputRange &amp;&amp; logErrors)</span>
+<span class="lineNum">      45 </span>[<span class="branchCov" title="Branch 1 was taken 272502 times"> + </span><span class="branchCov" title="Branch 2 was taken 7 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 272499 times"> + </span><span class="branchCov" title="Branch 5 was taken 3 times"> + </span>]:<span class="lineCov">     272509 :     = withinValidInputRange(input.accelMax, logErrors) &amp;&amp; withinValidInputRange(input.brakeMin, logErrors);</span>
+<span class="lineNum">      46 </span>[<span class="branchCov" title="Branch 0 was taken 10 times"> + </span><span class="branchCov" title="Branch 1 was taken 272499 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     272509 :   if (!inValidInputRange &amp;&amp; logErrors)</span>
 <span class="lineNum">      47 </span>                :            :   {
-<span class="lineNum">      48 </span>                :<span class="lineCov">         16 :     spdlog::error(&quot;withinValidInputRange(::ad::rss::world::LateralRssAccelerationValues)&gt;&gt; {} has invalid member&quot;,</span>
-<span class="lineNum">      49 </span>                :<span class="lineCov">          8 :                   input); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      48 </span>                :<span class="lineCov">         20 :     spdlog::error(&quot;withinValidInputRange(::ad::rss::world::LateralRssAccelerationValues)&gt;&gt; {} has invalid member&quot;,</span>
+<span class="lineNum">      49 </span>                :<span class="lineCov">         10 :                   input); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      50 </span>                :            :   }
 <span class="lineNum">      51 </span>                :            : 
 <span class="lineNum">      52 </span>                :            :   // check for individual input ranges
-<span class="lineNum">      53 </span>        [<span class="branchCov" title="Branch 0 was taken 255982 times"> + </span><span class="branchCov" title="Branch 1 was taken 8 times"> + </span>]:<span class="lineCov">     255990 :   if (inValidInputRange)</span>
+<span class="lineNum">      53 </span>        [<span class="branchCov" title="Branch 0 was taken 272499 times"> + </span><span class="branchCov" title="Branch 1 was taken 10 times"> + </span>]:<span class="lineCov">     272509 :   if (inValidInputRange)</span>
 <span class="lineNum">      54 </span>                :            :   {
 <span class="lineNum">      55 </span>                :            :     inValidInputRange
-<span class="lineNum">      56 </span>[<span class="branchCov" title="Branch 2 was taken 255982 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 254979 times"> + </span><span class="branchCov" title="Branch 5 was taken 1003 times"> + </span>]:<span class="lineCov">     255982 :       = (::ad::physics::Acceleration(0.) &lt;= input.accelMax) &amp;&amp; (input.accelMax &lt;= ::ad::physics::Acceleration(1e2));</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 254979 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 254979 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 12 was taken 254979 times"> + </span><span class="branchCov" title="Branch 13 was taken 1003 times"> + </span>][<span class="branchCov" title="Branch 14 was taken 255982 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span>]
+<span class="lineNum">      56 </span>[<span class="branchCov" title="Branch 2 was taken 272499 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 271496 times"> + </span><span class="branchCov" title="Branch 5 was taken 1003 times"> + </span>]:<span class="lineCov">     272499 :       = (::ad::physics::Acceleration(0.) &lt;= input.accelMax) &amp;&amp; (input.accelMax &lt;= ::ad::physics::Acceleration(1e2));</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 271496 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 271496 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 12 was taken 271496 times"> + </span><span class="branchCov" title="Branch 13 was taken 1003 times"> + </span>][<span class="branchCov" title="Branch 14 was taken 272499 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span>]
 <span class="lineNum">         </span>  [<span class="branchNoExec" title="Branch 16 was not executed"> # </span><span class="branchNoExec" title="Branch 17 was not executed"> # </span><span class="branchNoExec" title="Branch 18 was not executed"> # </span><span class="branchNoExec" title="Branch 19 was not executed"> # </span>]
-<span class="lineNum">      57 </span>[<span class="branchCov" title="Branch 0 was taken 1003 times"> + </span><span class="branchCov" title="Branch 1 was taken 254979 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1003 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     255982 :     if (!inValidInputRange &amp;&amp; logErrors)</span>
+<span class="lineNum">      57 </span>[<span class="branchCov" title="Branch 0 was taken 1003 times"> + </span><span class="branchCov" title="Branch 1 was taken 271496 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1003 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     272499 :     if (!inValidInputRange &amp;&amp; logErrors)</span>
 <span class="lineNum">      58 </span>                :            :     {
 <span class="lineNum">      59 </span>                :<span class="lineCov">       2006 :       spdlog::error(&quot;withinValidInputRange(::ad::rss::world::LateralRssAccelerationValues)&gt;&gt; {} element {} out of &quot;</span>
 <span class="lineNum">      60 </span>                :            :                     &quot;valid input range [{}, {}]&quot;,
@@ -139,25 +139,25 @@
 <span class="lineNum">      65 </span>                :            :     }
 <span class="lineNum">      66 </span>                :            :   }
 <span class="lineNum">      67 </span>                :            : 
-<span class="lineNum">      68 </span>        [<span class="branchCov" title="Branch 0 was taken 254979 times"> + </span><span class="branchCov" title="Branch 1 was taken 1011 times"> + </span>]:<span class="lineCov">     255990 :   if (inValidInputRange)</span>
+<span class="lineNum">      68 </span>        [<span class="branchCov" title="Branch 0 was taken 271496 times"> + </span><span class="branchCov" title="Branch 1 was taken 1013 times"> + </span>]:<span class="lineCov">     272509 :   if (inValidInputRange)</span>
 <span class="lineNum">      69 </span>                :            :   {
 <span class="lineNum">      70 </span>                :            :     inValidInputRange
-<span class="lineNum">      71 </span>[<span class="branchCov" title="Branch 2 was taken 254979 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 252977 times"> + </span><span class="branchCov" title="Branch 5 was taken 2002 times"> + </span>]:<span class="lineCov">     254979 :       = (::ad::physics::Acceleration(0.) &lt; input.brakeMin) &amp;&amp; (input.brakeMin &lt;= ::ad::physics::Acceleration(1e2));</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 252977 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 252977 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 12 was taken 252977 times"> + </span><span class="branchCov" title="Branch 13 was taken 2002 times"> + </span>][<span class="branchCov" title="Branch 14 was taken 254979 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span>]
+<span class="lineNum">      71 </span>[<span class="branchCov" title="Branch 2 was taken 271496 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 271496 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">     271496 :       = (::ad::physics::Acceleration(-1e2) &lt;= input.brakeMin) &amp;&amp; (input.brakeMin &lt; ::ad::physics::Acceleration(0.));</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 271496 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 269494 times"> + </span><span class="branchCov" title="Branch 11 was taken 2002 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 12 was taken 271496 times"> + </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span>][<span class="branchCov" title="Branch 14 was taken 271496 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span>]
 <span class="lineNum">         </span>  [<span class="branchNoExec" title="Branch 16 was not executed"> # </span><span class="branchNoExec" title="Branch 17 was not executed"> # </span><span class="branchNoExec" title="Branch 18 was not executed"> # </span><span class="branchNoExec" title="Branch 19 was not executed"> # </span>]
-<span class="lineNum">      72 </span>[<span class="branchCov" title="Branch 0 was taken 2002 times"> + </span><span class="branchCov" title="Branch 1 was taken 252977 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 2002 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     254979 :     if (!inValidInputRange &amp;&amp; logErrors)</span>
+<span class="lineNum">      72 </span>[<span class="branchCov" title="Branch 0 was taken 2002 times"> + </span><span class="branchCov" title="Branch 1 was taken 269494 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 2002 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     271496 :     if (!inValidInputRange &amp;&amp; logErrors)</span>
 <span class="lineNum">      73 </span>                :            :     {
 <span class="lineNum">      74 </span>                :<span class="lineCov">       4004 :       spdlog::error(&quot;withinValidInputRange(::ad::rss::world::LateralRssAccelerationValues)&gt;&gt; {} element {} out of &quot;</span>
 <span class="lineNum">      75 </span>                :            :                     &quot;valid input range [{}, {}]&quot;,
 <span class="lineNum">      76 </span>                :            :                     input,
 <span class="lineNum">      77 </span>                :            :                     input.brakeMin,
-<span class="lineNum">      78 </span>                :            :                     ::ad::physics::Acceleration(0.),
-<span class="lineNum">      79 </span>                :<span class="lineCov">       2002 :                     ::ad::physics::Acceleration(1e2)); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      78 </span>                :            :                     ::ad::physics::Acceleration(-1e2),
+<span class="lineNum">      79 </span>                :<span class="lineCov">       2002 :                     ::ad::physics::Acceleration(0.)); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      80 </span>                :            :     }
 <span class="lineNum">      81 </span>                :            :   }
 <span class="lineNum">      82 </span>                :            : 
-<span class="lineNum">      83 </span>                :<span class="lineCov">     255990 :   return inValidInputRange;</span>
+<span class="lineNum">      83 </span>                :<span class="lineCov">     272509 :   return inValidInputRange;</span>
 <span class="lineNum">      84 </span>                :            : }
 </pre>
       </td>

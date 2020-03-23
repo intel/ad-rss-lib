@@ -1,5 +1,6 @@
 <map id="generated/include/ad/rss/state/LateralRssState.hpp" name="generated/include/ad/rss/state/LateralRssState.hpp">
-<area shape="rect" id="node5" href="$LateralResponse_8hpp.html" title="ad/rss/state/LateralResponse.hpp" alt="" coords="36,169,270,196"/>
-<area shape="rect" id="node7" href="$RssStateInformation_8hpp.html" title="ad/rss/state/RssStateInformation.hpp" alt="" coords="527,95,787,121"/>
-<area shape="rect" id="node10" href="$RssStateEvaluator_8hpp.html" title="ad/rss/state/RssStateEvaluator.hpp" alt="" coords="496,169,743,196"/>
+<area shape="rect" id="node5" href="$LateralResponse_8hpp.html" title="ad/rss/state/LateralResponse.hpp" alt="" coords="37,184,272,211"/>
+<area shape="rect" id="node7" href="$RssStateInformation_8hpp.html" title="ad/rss/state/RssStateInformation.hpp" alt="" coords="554,102,814,129"/>
+<area shape="rect" id="node11" href="$LateralRssAccelerationValues_8hpp.html" title="ad/rss/world/LateralRssAcceleration\lValues.hpp" alt="" coords="887,95,1134,136"/>
+<area shape="rect" id="node10" href="$RssStateEvaluator_8hpp.html" title="ad/rss/state/RssStateEvaluator.hpp" alt="" coords="295,184,542,211"/>
 </map>

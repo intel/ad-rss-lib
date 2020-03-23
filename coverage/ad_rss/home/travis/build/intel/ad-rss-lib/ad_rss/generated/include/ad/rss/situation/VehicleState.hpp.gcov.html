@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-03-19 10:45:26</td>
+            <td class="headerValue">2020-03-23 18:00:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -132,7 +132,7 @@
 <span class="lineNum">      61 </span>                :            :   /*!
 <a name="62"><span class="lineNum">      62 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      63 </span>                :            :    */
-<span class="lineNum">      64 </span>                :<span class="lineCov">      21428 :   VehicleState() = default;</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">      21452 :   VehicleState() = default;</span>
 <span class="lineNum">      65 </span>                :            : 
 <span class="lineNum">      66 </span>                :            :   /*!
 <span class="lineNum">      67 </span>                :            :    * \brief standard destructor
@@ -257,28 +257,28 @@
 <span class="lineNum">     186 </span>                :            :  * \returns The stream object.
 <a name="187"><span class="lineNum">     187 </span>                :            :  *</a>
 <span class="lineNum">     188 </span>                :            :  */
-<span class="lineNum">     189 </span>                :<span class="lineCov">    2020152 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, VehicleState const &amp;_value)</span>
+<span class="lineNum">     189 </span>                :<span class="lineCov">    2020156 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, VehicleState const &amp;_value)</span>
 <span class="lineNum">     190 </span>                :            : {
-<span class="lineNum">     191 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; &quot;VehicleState(&quot;;</span>
-<span class="lineNum">     192 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; &quot;velocity:&quot;;</span>
-<span class="lineNum">     193 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; _value.velocity;</span>
-<span class="lineNum">     194 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     195 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; &quot;dynamics:&quot;;</span>
-<span class="lineNum">     196 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; _value.dynamics;</span>
-<span class="lineNum">     197 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     198 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; &quot;hasPriority:&quot;;</span>
-<span class="lineNum">     199 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; _value.hasPriority;</span>
-<span class="lineNum">     200 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     201 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; &quot;isInCorrectLane:&quot;;</span>
-<span class="lineNum">     202 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; _value.isInCorrectLane;</span>
-<span class="lineNum">     203 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     204 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; &quot;distanceToEnterIntersection:&quot;;</span>
-<span class="lineNum">     205 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; _value.distanceToEnterIntersection;</span>
-<span class="lineNum">     206 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     207 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; &quot;distanceToLeaveIntersection:&quot;;</span>
-<span class="lineNum">     208 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; _value.distanceToLeaveIntersection;</span>
-<span class="lineNum">     209 </span>                :<span class="lineCov">    2020152 :   os &lt;&lt; &quot;)&quot;;</span>
-<span class="lineNum">     210 </span>                :<span class="lineCov">    2020152 :   return os;</span>
+<span class="lineNum">     191 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; &quot;VehicleState(&quot;;</span>
+<span class="lineNum">     192 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; &quot;velocity:&quot;;</span>
+<span class="lineNum">     193 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; _value.velocity;</span>
+<span class="lineNum">     194 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     195 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; &quot;dynamics:&quot;;</span>
+<span class="lineNum">     196 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; _value.dynamics;</span>
+<span class="lineNum">     197 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     198 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; &quot;hasPriority:&quot;;</span>
+<span class="lineNum">     199 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; _value.hasPriority;</span>
+<span class="lineNum">     200 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     201 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; &quot;isInCorrectLane:&quot;;</span>
+<span class="lineNum">     202 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; _value.isInCorrectLane;</span>
+<span class="lineNum">     203 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     204 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; &quot;distanceToEnterIntersection:&quot;;</span>
+<span class="lineNum">     205 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; _value.distanceToEnterIntersection;</span>
+<span class="lineNum">     206 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     207 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; &quot;distanceToLeaveIntersection:&quot;;</span>
+<span class="lineNum">     208 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; _value.distanceToLeaveIntersection;</span>
+<span class="lineNum">     209 </span>                :<span class="lineCov">    2020156 :   os &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     210 </span>                :<span class="lineCov">    2020156 :   return os;</span>
 <span class="lineNum">     211 </span>                :            : }
 <span class="lineNum">     212 </span>                :            : 
 <span class="lineNum">     213 </span>                :            : } // namespace situation

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-03-19 10:45:26</td>
+            <td class="headerValue">2020-03-23 18:00:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -115,7 +115,7 @@
 <span class="lineNum">      44 </span>                :            :  * An object is described by several aspects: the unique id of an object, the type of the object, the lane regions the
 <a name="45"><span class="lineNum">      45 </span>                :            :  * object occupies, the objects velocity within its lane.</a>
 <span class="lineNum">      46 </span>                :            :  */
-<span class="lineNum">      47 </span>                :<span class="lineCov">      15482 : struct Object</span>
+<span class="lineNum">      47 </span>                :<span class="lineCov">      15398 : struct Object</span>
 <span class="lineNum">      48 </span>                :            : {
 <span class="lineNum">      49 </span>                :            :   /*!
 <span class="lineNum">      50 </span>                :            :    * \brief Smart pointer on Object
@@ -130,22 +130,22 @@
 <span class="lineNum">      59 </span>                :            :   /*!
 <a name="60"><span class="lineNum">      60 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      61 </span>                :            :    */
-<span class="lineNum">      62 </span>                :<span class="lineCov">      27474 :   Object() = default;</span>
+<span class="lineNum">      62 </span>                :<span class="lineCov">      27322 :   Object() = default;</span>
 <span class="lineNum">      63 </span>                :            : 
 <span class="lineNum">      64 </span>                :            :   /*!
 <a name="65"><span class="lineNum">      65 </span>                :            :    * \brief standard destructor</a>
 <span class="lineNum">      66 </span>                :            :    */
-<span class="lineNum">      67 </span>                :<span class="lineCov">      73012 :   ~Object() = default;</span>
+<span class="lineNum">      67 </span>                :<span class="lineCov">      72832 :   ~Object() = default;</span>
 <span class="lineNum">      68 </span>                :            : 
 <span class="lineNum">      69 </span>                :            :   /*!
 <a name="70"><span class="lineNum">      70 </span>                :            :    * \brief standard copy constructor</a>
 <span class="lineNum">      71 </span>                :            :    */
-<span class="lineNum">      72 </span>                :<span class="lineCov">      37274 :   Object(const Object &amp;other) = default;</span>
+<span class="lineNum">      72 </span>                :<span class="lineCov">      37248 :   Object(const Object &amp;other) = default;</span>
 <span class="lineNum">      73 </span>                :            : 
 <span class="lineNum">      74 </span>                :            :   /*!
 <a name="75"><span class="lineNum">      75 </span>                :            :    * \brief standard move constructor</a>
 <span class="lineNum">      76 </span>                :            :    */
-<span class="lineNum">      77 </span>                :<span class="lineCov">       8292 :   Object(Object &amp;&amp;other) = default;</span>
+<span class="lineNum">      77 </span>                :<span class="lineCov">       8290 :   Object(Object &amp;&amp;other) = default;</span>
 <span class="lineNum">      78 </span>                :            : 
 <span class="lineNum">      79 </span>                :            :   /**
 <span class="lineNum">      80 </span>                :            :    * \brief standard assignment operator
@@ -172,11 +172,11 @@
 <span class="lineNum">     101 </span>                :            :    *
 <a name="102"><span class="lineNum">     102 </span>                :            :    * \returns \c true if both Object are equal</a>
 <span class="lineNum">     103 </span>                :            :    */
-<span class="lineNum">     104 </span>                :<span class="lineCov">         56 :   bool operator==(const Object &amp;other) const</span>
+<span class="lineNum">     104 </span>                :<span class="lineCov">         58 :   bool operator==(const Object &amp;other) const</span>
 <span class="lineNum">     105 </span>                :            :   {
-<span class="lineNum">     106 </span>        [<span class="branchCov" title="Branch 0 was taken 48 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">         50 :     return (objectId == other.objectId) &amp;&amp; (objectType == other.objectType)</span>
-<span class="lineNum">     107 </span>[<span class="branchCov" title="Branch 0 was taken 50 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 46 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        106 :       &amp;&amp; (occupiedRegions == other.occupiedRegions) &amp;&amp; (velocity == other.velocity);</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 44 times"> + </span><span class="branchCov" title="Branch 7 was taken 2 times"> + </span>]
+<span class="lineNum">     106 </span>        [<span class="branchCov" title="Branch 0 was taken 50 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">         52 :     return (objectId == other.objectId) &amp;&amp; (objectType == other.objectType)</span>
+<span class="lineNum">     107 </span>[<span class="branchCov" title="Branch 0 was taken 52 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 48 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        110 :       &amp;&amp; (occupiedRegions == other.occupiedRegions) &amp;&amp; (velocity == other.velocity);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 46 times"> + </span><span class="branchCov" title="Branch 7 was taken 2 times"> + </span>]
 <span class="lineNum">     108 </span>                :            :   }
 <span class="lineNum">     109 </span>                :            : 
 <span class="lineNum">     110 </span>                :            :   /**
@@ -243,22 +243,22 @@
 <span class="lineNum">     171 </span>                :            :  * \returns The stream object.
 <a name="172"><span class="lineNum">     172 </span>                :            :  *</a>
 <span class="lineNum">     173 </span>                :            :  */
-<span class="lineNum">     174 </span>                :<span class="lineCov">    2003251 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, Object const &amp;_value)</span>
+<span class="lineNum">     174 </span>                :<span class="lineCov">    2003250 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, Object const &amp;_value)</span>
 <span class="lineNum">     175 </span>                :            : {
-<span class="lineNum">     176 </span>                :<span class="lineCov">    2003251 :   os &lt;&lt; &quot;Object(&quot;;</span>
-<span class="lineNum">     177 </span>                :<span class="lineCov">    2003251 :   os &lt;&lt; &quot;objectId:&quot;;</span>
-<span class="lineNum">     178 </span>                :<span class="lineCov">    2003251 :   os &lt;&lt; _value.objectId;</span>
-<span class="lineNum">     179 </span>                :<span class="lineCov">    2003251 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     180 </span>                :<span class="lineCov">    2003251 :   os &lt;&lt; &quot;objectType:&quot;;</span>
-<span class="lineNum">     181 </span>                :<span class="lineCov">    2003251 :   os &lt;&lt; _value.objectType;</span>
-<span class="lineNum">     182 </span>                :<span class="lineCov">    2003251 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     183 </span>                :<span class="lineCov">    2003251 :   os &lt;&lt; &quot;occupiedRegions:&quot;;</span>
-<span class="lineNum">     184 </span>                :<span class="lineCov">    2003251 :   os &lt;&lt; _value.occupiedRegions;</span>
-<span class="lineNum">     185 </span>                :<span class="lineCov">    2003251 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     186 </span>                :<span class="lineCov">    2003251 :   os &lt;&lt; &quot;velocity:&quot;;</span>
-<span class="lineNum">     187 </span>                :<span class="lineCov">    2003251 :   os &lt;&lt; _value.velocity;</span>
-<span class="lineNum">     188 </span>                :<span class="lineCov">    2003251 :   os &lt;&lt; &quot;)&quot;;</span>
-<span class="lineNum">     189 </span>                :<span class="lineCov">    2003251 :   return os;</span>
+<span class="lineNum">     176 </span>                :<span class="lineCov">    2003250 :   os &lt;&lt; &quot;Object(&quot;;</span>
+<span class="lineNum">     177 </span>                :<span class="lineCov">    2003250 :   os &lt;&lt; &quot;objectId:&quot;;</span>
+<span class="lineNum">     178 </span>                :<span class="lineCov">    2003250 :   os &lt;&lt; _value.objectId;</span>
+<span class="lineNum">     179 </span>                :<span class="lineCov">    2003250 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     180 </span>                :<span class="lineCov">    2003250 :   os &lt;&lt; &quot;objectType:&quot;;</span>
+<span class="lineNum">     181 </span>                :<span class="lineCov">    2003250 :   os &lt;&lt; _value.objectType;</span>
+<span class="lineNum">     182 </span>                :<span class="lineCov">    2003250 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     183 </span>                :<span class="lineCov">    2003250 :   os &lt;&lt; &quot;occupiedRegions:&quot;;</span>
+<span class="lineNum">     184 </span>                :<span class="lineCov">    2003250 :   os &lt;&lt; _value.occupiedRegions;</span>
+<span class="lineNum">     185 </span>                :<span class="lineCov">    2003250 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     186 </span>                :<span class="lineCov">    2003250 :   os &lt;&lt; &quot;velocity:&quot;;</span>
+<span class="lineNum">     187 </span>                :<span class="lineCov">    2003250 :   os &lt;&lt; _value.velocity;</span>
+<span class="lineNum">     188 </span>                :<span class="lineCov">    2003250 :   os &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     189 </span>                :<span class="lineCov">    2003250 :   return os;</span>
 <span class="lineNum">     190 </span>                :            : }
 <span class="lineNum">     191 </span>                :            : 
 <span class="lineNum">     192 </span>                :            : } // namespace world

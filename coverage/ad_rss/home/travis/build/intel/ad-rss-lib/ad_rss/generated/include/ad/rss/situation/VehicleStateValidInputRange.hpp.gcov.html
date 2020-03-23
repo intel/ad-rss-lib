@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-03-19 10:45:26</td>
+            <td class="headerValue">2020-03-23 18:00:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -109,28 +109,28 @@
 <span class="lineNum">      38 </span>                :            :  *       ::ad::physics::Distance(0.) &lt;= distanceToEnterIntersection &lt;= distanceToLeaveIntersection
 <a name="39"><span class="lineNum">      39 </span>                :            :  *       distanceToEnterIntersection &lt;= distanceToLeaveIntersection &lt;= ::ad::physics::Distance(1e4)</a>
 <span class="lineNum">      40 </span>                :            :  */
-<span class="lineNum">      41 </span>                :<span class="lineCov">     245273 : inline bool withinValidInputRange(::ad::rss::situation::VehicleState const &amp;input, bool const logErrors = true)</span>
+<span class="lineNum">      41 </span>                :<span class="lineCov">     245277 : inline bool withinValidInputRange(::ad::rss::situation::VehicleState const &amp;input, bool const logErrors = true)</span>
 <span class="lineNum">      42 </span>                :            : {
 <span class="lineNum">      43 </span>                :            :   // check for generic member input ranges
-<span class="lineNum">      44 </span>                :<span class="lineCov">     245273 :   bool inValidInputRange = true;</span>
-<span class="lineNum">      45 </span>                :<span class="lineCov">     245273 :   inValidInputRange = withinValidInputRange(input.velocity, logErrors)</span>
-<span class="lineNum">      46 </span>        [<span class="branchCov" title="Branch 1 was taken 233256 times"> + </span><span class="branchCov" title="Branch 2 was taken 12009 times"> + </span>]:<span class="lineCov">     245265 :     &amp;&amp; withinValidInputRange(input.dynamics, logErrors)</span>
-<span class="lineNum">      47 </span>        [<span class="branchCov" title="Branch 1 was taken 233254 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">     233256 :     &amp;&amp; withinValidInputRange(input.distanceToEnterIntersection, logErrors)</span>
-<span class="lineNum">      48 </span>[<span class="branchCov" title="Branch 0 was taken 245265 times"> + </span><span class="branchCov" title="Branch 1 was taken 8 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 233252 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">     490538 :     &amp;&amp; withinValidInputRange(input.distanceToLeaveIntersection, logErrors);</span>
-<span class="lineNum">      49 </span>[<span class="branchCov" title="Branch 0 was taken 12021 times"> + </span><span class="branchCov" title="Branch 1 was taken 233252 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 12021 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     245273 :   if (!inValidInputRange &amp;&amp; logErrors)</span>
+<span class="lineNum">      44 </span>                :<span class="lineCov">     245277 :   bool inValidInputRange = true;</span>
+<span class="lineNum">      45 </span>                :<span class="lineCov">     245277 :   inValidInputRange = withinValidInputRange(input.velocity, logErrors)</span>
+<span class="lineNum">      46 </span>        [<span class="branchCov" title="Branch 1 was taken 233260 times"> + </span><span class="branchCov" title="Branch 2 was taken 12009 times"> + </span>]:<span class="lineCov">     245269 :     &amp;&amp; withinValidInputRange(input.dynamics, logErrors)</span>
+<span class="lineNum">      47 </span>        [<span class="branchCov" title="Branch 1 was taken 233258 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">     233260 :     &amp;&amp; withinValidInputRange(input.distanceToEnterIntersection, logErrors)</span>
+<span class="lineNum">      48 </span>[<span class="branchCov" title="Branch 0 was taken 245269 times"> + </span><span class="branchCov" title="Branch 1 was taken 8 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 233256 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">     490546 :     &amp;&amp; withinValidInputRange(input.distanceToLeaveIntersection, logErrors);</span>
+<span class="lineNum">      49 </span>[<span class="branchCov" title="Branch 0 was taken 12021 times"> + </span><span class="branchCov" title="Branch 1 was taken 233256 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 12021 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     245277 :   if (!inValidInputRange &amp;&amp; logErrors)</span>
 <span class="lineNum">      50 </span>                :            :   {
 <span class="lineNum">      51 </span>                :<span class="lineCov">      24042 :     spdlog::error(&quot;withinValidInputRange(::ad::rss::situation::VehicleState)&gt;&gt; {} has invalid member&quot;,</span>
 <span class="lineNum">      52 </span>                :<span class="lineCov">      12021 :                   input); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      53 </span>                :            :   }
 <span class="lineNum">      54 </span>                :            : 
 <span class="lineNum">      55 </span>                :            :   // check for individual input ranges
-<span class="lineNum">      56 </span>        [<span class="branchCov" title="Branch 0 was taken 233252 times"> + </span><span class="branchCov" title="Branch 1 was taken 12021 times"> + </span>]:<span class="lineCov">     245273 :   if (inValidInputRange)</span>
+<span class="lineNum">      56 </span>        [<span class="branchCov" title="Branch 0 was taken 233256 times"> + </span><span class="branchCov" title="Branch 1 was taken 12021 times"> + </span>]:<span class="lineCov">     245277 :   if (inValidInputRange)</span>
 <span class="lineNum">      57 </span>                :            :   {
-<span class="lineNum">      58 </span>[<span class="branchCov" title="Branch 2 was taken 233252 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 233252 times"> + </span>]:<span class="lineCov">     699756 :     inValidInputRange = (::ad::physics::Distance(0.) &lt;= input.distanceToEnterIntersection)</span>
+<span class="lineNum">      58 </span>[<span class="branchCov" title="Branch 2 was taken 233256 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 233256 times"> + </span>]:<span class="lineCov">     699768 :     inValidInputRange = (::ad::physics::Distance(0.) &lt;= input.distanceToEnterIntersection)</span>
 <span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
-<span class="lineNum">      59 </span>[<span class="branchCov" title="Branch 0 was taken 233252 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 233252 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">     466504 :       &amp;&amp; (input.distanceToEnterIntersection &lt;= input.distanceToLeaveIntersection);</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 233252 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
-<span class="lineNum">      60 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 233252 times"> + </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineCov">     233252 :     if (!inValidInputRange &amp;&amp; logErrors)</span>
+<span class="lineNum">      59 </span>[<span class="branchCov" title="Branch 0 was taken 233256 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 233256 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">     466512 :       &amp;&amp; (input.distanceToEnterIntersection &lt;= input.distanceToLeaveIntersection);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 233256 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
+<span class="lineNum">      60 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 233256 times"> + </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineCov">     233256 :     if (!inValidInputRange &amp;&amp; logErrors)</span>
 <span class="lineNum">      61 </span>                :            :     {
 <span class="lineNum">      62 </span>                :<span class="lineNoCov">          0 :       spdlog::error(</span>
 <span class="lineNum">      63 </span>                :            :         &quot;withinValidInputRange(::ad::rss::situation::VehicleState)&gt;&gt; {} element {} out of valid input range [{}, {}]&quot;,
@@ -141,13 +141,13 @@
 <span class="lineNum">      68 </span>                :            :     }
 <span class="lineNum">      69 </span>                :            :   }
 <span class="lineNum">      70 </span>                :            : 
-<span class="lineNum">      71 </span>        [<span class="branchCov" title="Branch 0 was taken 233252 times"> + </span><span class="branchCov" title="Branch 1 was taken 12021 times"> + </span>]:<span class="lineCov">     245273 :   if (inValidInputRange)</span>
+<span class="lineNum">      71 </span>        [<span class="branchCov" title="Branch 0 was taken 233256 times"> + </span><span class="branchCov" title="Branch 1 was taken 12021 times"> + </span>]:<span class="lineCov">     245277 :   if (inValidInputRange)</span>
 <span class="lineNum">      72 </span>                :            :   {
-<span class="lineNum">      73 </span>        [<span class="branchCov" title="Branch 1 was taken 233252 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">     233252 :     inValidInputRange = (input.distanceToEnterIntersection &lt;= input.distanceToLeaveIntersection)</span>
-<span class="lineNum">      74 </span>[<span class="branchCov" title="Branch 0 was taken 233252 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 233252 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">     233252 :       &amp;&amp; (input.distanceToLeaveIntersection &lt;= ::ad::physics::Distance(1e4));</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 233251 times"> + </span><span class="branchCov" title="Branch 7 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 8 was taken 233252 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
+<span class="lineNum">      73 </span>        [<span class="branchCov" title="Branch 1 was taken 233256 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">     233256 :     inValidInputRange = (input.distanceToEnterIntersection &lt;= input.distanceToLeaveIntersection)</span>
+<span class="lineNum">      74 </span>[<span class="branchCov" title="Branch 0 was taken 233256 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 233256 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">     233256 :       &amp;&amp; (input.distanceToLeaveIntersection &lt;= ::ad::physics::Distance(1e4));</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 233255 times"> + </span><span class="branchCov" title="Branch 7 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 8 was taken 233256 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
 <span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
-<span class="lineNum">      75 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 233251 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     233252 :     if (!inValidInputRange &amp;&amp; logErrors)</span>
+<span class="lineNum">      75 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 233255 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     233256 :     if (!inValidInputRange &amp;&amp; logErrors)</span>
 <span class="lineNum">      76 </span>                :            :     {
 <span class="lineNum">      77 </span>                :<span class="lineCov">          2 :       spdlog::error(</span>
 <span class="lineNum">      78 </span>                :            :         &quot;withinValidInputRange(::ad::rss::situation::VehicleState)&gt;&gt; {} element {} out of valid input range [{}, {}]&quot;,
@@ -158,7 +158,7 @@
 <span class="lineNum">      83 </span>                :            :     }
 <span class="lineNum">      84 </span>                :            :   }
 <span class="lineNum">      85 </span>                :            : 
-<span class="lineNum">      86 </span>                :<span class="lineCov">     245273 :   return inValidInputRange;</span>
+<span class="lineNum">      86 </span>                :<span class="lineCov">     245277 :   return inValidInputRange;</span>
 <span class="lineNum">      87 </span>                :            : }
 </pre>
       </td>

@@ -31,17 +31,17 @@
             <td class="headerValue">ad-rss-lib</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">69</td>
-            <td class="headerCovTableEntry">71</td>
-            <td class="headerCovTableEntryHi">97.2 %</td>
+            <td class="headerCovTableEntry">104</td>
+            <td class="headerCovTableEntry">112</td>
+            <td class="headerCovTableEntryHi">92.9 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-03-19 10:45:36</td>
+            <td class="headerValue">2020-03-23 18:00:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">6</td>
-            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntry">14</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">65</td>
-            <td class="headerCovTableEntry">106</td>
-            <td class="headerCovTableEntryLo">61.3 %</td>
+            <td class="headerCovTableEntry">54</td>
+            <td class="headerCovTableEntry">104</td>
+            <td class="headerCovTableEntryLo">51.9 %</td>
           </tr>
           <tr><td><img src="../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -79,192 +79,225 @@
 <span class="lineNum">       8 </span>                :            : 
 <span class="lineNum">       9 </span>                :            : #include &quot;ad/rss/map/RssObjectConversion.hpp&quot;
 <span class="lineNum">      10 </span>                :            : 
-<span class="lineNum">      11 </span>                :            : #include &lt;ad/map/lane/LaneOperation.hpp&gt;
-<span class="lineNum">      12 </span>                :            : #include &lt;ad/map/match/MapMatchedOperation.hpp&gt;
-<span class="lineNum">      13 </span>                :            : #include &lt;ad/map/match/ObjectValidInputRange.hpp&gt;
-<span class="lineNum">      14 </span>                :            : #include &lt;ad/map/point/Operation.hpp&gt;
-<span class="lineNum">      15 </span>                :            : #include &lt;ad/map/route/LaneIntervalOperation.hpp&gt;
-<span class="lineNum">      16 </span>                :            : #include &lt;ad/map/route/RouteOperation.hpp&gt;
-<span class="lineNum">      17 </span>                :            : #include &lt;ad/rss/world/ObjectId.hpp&gt;
-<span class="lineNum">      18 </span>                :            : #include &lt;ad/rss/world/ObjectValidInputRange.hpp&gt;
-<span class="lineNum">      19 </span>                :            : 
-<span class="lineNum">      20 </span>                :            : namespace ad {
-<span class="lineNum">      21 </span>                :            : namespace rss {
-<span class="lineNum">      22 </span>                :            : namespace map {
-<span class="lineNum">      23 </span>                :            : namespace RssObjectConversion {
-<a name="24"><span class="lineNum">      24 </span>                :            : </a>
-<span class="lineNum">      25 </span>                :            : std::pair&lt;bool, ::ad::rss::world::LaneSegment&gt;
-<span class="lineNum">      26 </span>                :<span class="lineCov">        114 : getLaneSegmentFromRoadArea(::ad::rss::world::RoadArea const &amp;objectRoadArea,</span>
-<span class="lineNum">      27 </span>                :            :                            ::ad::rss::world::LaneSegmentId const &amp;laneId)
-<span class="lineNum">      28 </span>                :            : {
-<span class="lineNum">      29 </span>        [<span class="branchCov" title="Branch 3 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        180 :   for (auto const &amp;roadSegment : objectRoadArea)</span>
-<span class="lineNum">      30 </span>                :            :   {
-<span class="lineNum">      31 </span>        [<span class="branchCov" title="Branch 3 was taken 276 times"> + </span><span class="branchCov" title="Branch 4 was taken 66 times"> + </span>]:<span class="lineCov">        342 :     for (auto const &amp;laneSegment : roadSegment)</span>
-<span class="lineNum">      32 </span>                :            :     {
-<span class="lineNum">      33 </span>        [<span class="branchCov" title="Branch 0 was taken 114 times"> + </span><span class="branchCov" title="Branch 1 was taken 162 times"> + </span>]:<span class="lineCov">        276 :       if (laneSegment.id == laneId)</span>
-<span class="lineNum">      34 </span>                :            :       {
-<span class="lineNum">      35 </span>                :<span class="lineCov">        114 :         return std::make_pair(true, laneSegment);</span>
-<span class="lineNum">      36 </span>                :            :       }
-<span class="lineNum">      37 </span>                :            :     }
-<span class="lineNum">      38 </span>                :            :   }
-<span class="lineNum">      39 </span>                :<span class="lineNoCov">          0 :   return std::make_pair(false, ::ad::rss::world::LaneSegment());</span>
-<a name="40"><span class="lineNum">      40 </span>                :            : }</a>
-<span class="lineNum">      41 </span>                :            : 
-<span class="lineNum">      42 </span>                :<span class="lineCov">         19 : bool convertBoundingBox(::ad::map::match::MapMatchedObjectBoundingBox const &amp;boundingBox,</span>
-<span class="lineNum">      43 </span>                :            :                         ::ad::rss::world::RoadArea const &amp;objectRoadArea,
-<span class="lineNum">      44 </span>                :            :                         ::ad::map::lane::LaneIdSet const &amp;negativeRouteDirectionLanes,
-<span class="lineNum">      45 </span>                :            :                         ::ad::rss::world::OccupiedRegionVector &amp;regions)
-<span class="lineNum">      46 </span>                :            : {
-<span class="lineNum">      47 </span>                :<span class="lineCov">         19 :   regions.clear();</span>
-<span class="lineNum">      48 </span>                :            : 
-<span class="lineNum">      49 </span>        [<span class="branchCov" title="Branch 3 was taken 19 times"> + </span><span class="branchCov" title="Branch 4 was taken 19 times"> + </span>]:<span class="lineCov">         38 :   for (auto const &amp;boundingBoxRegion : boundingBox.laneOccupiedRegions)</span>
-<span class="lineNum">      50 </span>                :            :   {
-<span class="lineNum">      51 </span>                :<span class="lineCov">         19 :     ::ad::rss::world::LaneSegmentId const segmentId(static_cast&lt;uint64_t&gt;(boundingBoxRegion.laneId));</span>
-<span class="lineNum">      52 </span>[<span class="branchCov" title="Branch 1 was taken 19 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 19 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         19 :     if (getLaneSegmentFromRoadArea(objectRoadArea, segmentId).first)</span>
-<span class="lineNum">      53 </span>                :            :     {
-<span class="lineNum">      54 </span>        [<span class="branchCov" title="Branch 1 was taken 19 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         19 :       ::ad::rss::world::OccupiedRegion occupiedRegion;</span>
-<span class="lineNum">      55 </span>                :<span class="lineCov">         19 :       occupiedRegion.segmentId = segmentId;</span>
-<span class="lineNum">      56 </span>[<span class="branchCov" title="Branch 2 was taken 19 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 14 times"> + </span><span class="branchCov" title="Branch 6 was taken 5 times"> + </span>]:<span class="lineCov">         19 :       if (negativeRouteDirectionLanes.find(boundingBoxRegion.laneId) != negativeRouteDirectionLanes.end())</span>
-<span class="lineNum">      57 </span>                :            :       {
-<span class="lineNum">      58 </span>                :            :         occupiedRegion.lonRange.maximum
-<span class="lineNum">      59 </span>        [<span class="branchCov" title="Branch 2 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         14 :           = ::ad::physics::ParametricValue(1.) - boundingBoxRegion.longitudinalRange.minimum;</span>
-<span class="lineNum">      60 </span>                :            :         occupiedRegion.lonRange.minimum
-<span class="lineNum">      61 </span>        [<span class="branchCov" title="Branch 2 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         14 :           = ::ad::physics::ParametricValue(1.) - boundingBoxRegion.longitudinalRange.maximum;</span>
-<span class="lineNum">      62 </span>        [<span class="branchCov" title="Branch 2 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         14 :         occupiedRegion.latRange.maximum = ::ad::physics::ParametricValue(1.) - boundingBoxRegion.lateralRange.minimum;</span>
-<span class="lineNum">      63 </span>        [<span class="branchCov" title="Branch 2 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         14 :         occupiedRegion.latRange.minimum = ::ad::physics::ParametricValue(1.) - boundingBoxRegion.lateralRange.maximum;</span>
-<span class="lineNum">      64 </span>                :            :       }
-<span class="lineNum">      65 </span>                :            :       else
-<span class="lineNum">      66 </span>                :            :       {
-<span class="lineNum">      67 </span>                :<span class="lineCov">          5 :         occupiedRegion.lonRange = boundingBoxRegion.longitudinalRange;</span>
-<span class="lineNum">      68 </span>                :<span class="lineCov">          5 :         occupiedRegion.latRange = boundingBoxRegion.lateralRange;</span>
-<span class="lineNum">      69 </span>                :            :       }
-<span class="lineNum">      70 </span>        [<span class="branchCov" title="Branch 1 was taken 19 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         19 :       regions.push_back(occupiedRegion);</span>
-<span class="lineNum">      71 </span>                :            :     }
-<span class="lineNum">      72 </span>                :            :   }
-<span class="lineNum">      73 </span>                :            : 
-<span class="lineNum">      74 </span>                :<span class="lineCov">         19 :   return !regions.empty();</span>
-<span class="lineNum">      75 </span>                :            : }
-<span class="lineNum">      76 </span>                :            : 
-<span class="lineNum">      77 </span>                :            : // TODO: it might even make sense to allow speeds coming from external objects to be also ranges
-<span class="lineNum">      78 </span>                :            : // 1.) be able to cope with uncertainties of measurements
-<span class="lineNum">      79 </span>                :            : // 2.) especially when introducing artificial objects to be respected in occulsion scenarios
-<a name="80"><span class="lineNum">      80 </span>                :            : //     Then one can expect vehicles with different current velocities approaching e.g. an intersection</a>
-<span class="lineNum">      81 </span>                :            : //     So for worst case analysis the whole interval between 0-maxEstimate might be relevant to cover...
-<span class="lineNum">      82 </span>                :<span class="lineCov">         19 : bool convertVelocity(::ad::map::match::Object const &amp;objectMatchObject,</span>
-<span class="lineNum">      83 </span>                :            :                      ::ad::physics::Speed const &amp;objectSpeed,
-<span class="lineNum">      84 </span>                :            :                      ::ad::rss::world::RoadArea const &amp;objectRoadArea,
-<span class="lineNum">      85 </span>                :            :                      ::ad::rss::world::Object &amp;rssObject)
-<span class="lineNum">      86 </span>                :            : {
-<span class="lineNum">      87 </span>                :<span class="lineCov">         19 :   bool objectVelocityInitialized = false;</span>
-<span class="lineNum">      88 </span>                :            :   // TODO: How should we finally do the velocity conversion?
-<span class="lineNum">      89 </span>                :            :   // A) Start the search at front left up to rear right to find the most suitable point for velocity conversion
-<span class="lineNum">      90 </span>                :            :   //    usually one of the front positions has a map matching point within the road area
-<span class="lineNum">      91 </span>                :            :   //    the first match wins
-<span class="lineNum">      92 </span>                :            :   // B) Other possibility would be collecting all cases for the whole vehicle and get to the worst case estimate
-<span class="lineNum">      93 </span>                :            :   // Current selection is B)
-<span class="lineNum">      94 </span>        [<span class="branchCov" title="Branch 1 was taken 19 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         38 :   auto objectMapPosition = objectMatchObject.mapMatchedBoundingBox;</span>
-<span class="lineNum">      95 </span>        [<span class="branchCov" title="Branch 0 was taken 95 times"> + </span><span class="branchCov" title="Branch 1 was taken 19 times"> + </span>]:<span class="lineCov">        114 :   for (auto referencePointPosition : {::ad::map::match::ObjectReferencePoints::FrontLeft,</span>
-<span class="lineNum">      96 </span>                :            :                                       ::ad::map::match::ObjectReferencePoints::FrontRight,
-<span class="lineNum">      97 </span>                :            :                                       ::ad::map::match::ObjectReferencePoints::Center,
-<span class="lineNum">      98 </span>                :            :                                       ::ad::map::match::ObjectReferencePoints::RearLeft,
-<span class="lineNum">      99 </span>                :<span class="lineCov">         19 :                                       ::ad::map::match::ObjectReferencePoints::RearRight})</span>
-<span class="lineNum">     100 </span>                :            :   {
-<span class="lineNum">     101 </span>                :<span class="lineCov">         95 :     std::size_t const referencePointIndex(static_cast&lt;std::size_t&gt;(referencePointPosition));</span>
-<span class="lineNum">     102 </span>        [<span class="branchCov" title="Branch 1 was taken 95 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         95 :     if (objectMapPosition.referencePointPositions.size() &gt; referencePointIndex)</span>
-<span class="lineNum">     103 </span>                :            :     {
-<span class="lineNum">     104 </span>                :<span class="lineCov">         95 :       auto const objectHeading = objectMatchObject.enuPosition.heading;</span>
-<span class="lineNum">     105 </span>        [<span class="branchCov" title="Branch 4 was taken 95 times"> + </span><span class="branchCov" title="Branch 5 was taken 95 times"> + </span>]:<span class="lineCov">        190 :       for (auto const &amp;mapMatchedPosition : objectMapPosition.referencePointPositions[referencePointIndex])</span>
-<span class="lineNum">     106 </span>                :            :       {
-<span class="lineNum">     107 </span>                :            :         // only actual in lane matches are considered
-<span class="lineNum">     108 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 95 times"> + </span>]:<span class="lineCov">         95 :         if (mapMatchedPosition.type != ::ad::map::match::MapMatchedPositionType::LANE_IN)</span>
-<span class="lineNum">     109 </span>                :            :         {
-<span class="lineNum">     110 </span>                :<span class="lineNoCov">          0 :           continue;</span>
-<span class="lineNum">     111 </span>                :            :         }
-<span class="lineNum">     112 </span>                :            : 
-<span class="lineNum">     113 </span>                :            :         ::ad::rss::world::LaneSegmentId const segmentId(
-<span class="lineNum">     114 </span>                :<span class="lineCov">         95 :           static_cast&lt;uint64_t&gt;(mapMatchedPosition.lanePoint.paraPoint.laneId));</span>
-<span class="lineNum">     115 </span>        [<span class="branchCov" title="Branch 1 was taken 95 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         95 :         auto const laneSegmentResult = getLaneSegmentFromRoadArea(objectRoadArea, segmentId);</span>
+<span class="lineNum">      11 </span>                :            : #include &lt;ad/map/point/HeadingOperation.hpp&gt;
+<span class="lineNum">      12 </span>                :            : #include &lt;ad/map/route/RouteOperation.hpp&gt;
+<span class="lineNum">      13 </span>                :            : #include &lt;ad/physics/Operation.hpp&gt;
+<span class="lineNum">      14 </span>                :            : #include &lt;ad/rss/situation/Physics.hpp&gt;
+<span class="lineNum">      15 </span>                :            : #include &lt;algorithm&gt;
+<span class="lineNum">      16 </span>                :            : #include &quot;ad/rss/map/Logging.hpp&quot;
+<span class="lineNum">      17 </span>                :            : 
+<span class="lineNum">      18 </span>                :            : namespace ad {
+<span class="lineNum">      19 </span>                :            : namespace rss {
+<a name="20"><span class="lineNum">      20 </span>                :            : namespace map {</a>
+<span class="lineNum">      21 </span>                :            : 
+<span class="lineNum">      22 </span>                :<span class="lineCov">        430 : RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &amp;objectId,</span>
+<span class="lineNum">      23 </span>                :            :                                          ::ad::rss::world::ObjectType const &amp;objectType,
+<span class="lineNum">      24 </span>                :            :                                          ::ad::map::match::Object const &amp;objectMapMatchedPosition,
+<span class="lineNum">      25 </span>                :            :                                          ::ad::physics::Speed const &amp;objectSpeed,
+<span class="lineNum">      26 </span>                :            :                                          ::ad::rss::world::RssDynamics const &amp;rssDynamics)
+<span class="lineNum">      27 </span>                :            :   : mObjectMapMatchedPosition(&amp;objectMapMatchedPosition)
+<span class="lineNum">      28 </span>                :            :   , mSpeed(std::fabs(objectSpeed))
+<span class="lineNum">      29 </span>                :            :   , mMaxSpeed(0.)
+<span class="lineNum">      30 </span>                :<span class="lineCov">        430 :   , mRssDynamics(rssDynamics)</span>
+<span class="lineNum">      31 </span>                :            : {
+<span class="lineNum">      32 </span>                :<span class="lineCov">        430 :   mRssObject.objectId = objectId;</span>
+<span class="lineNum">      33 </span>                :<span class="lineCov">        430 :   mRssObject.objectType = objectType;</span>
+<span class="lineNum">      34 </span>                :<span class="lineCov">        430 :   mRssObject.velocity.speedLonMin = ::ad::physics::Speed(0.);</span>
+<span class="lineNum">      35 </span>                :<span class="lineCov">        430 :   mRssObject.velocity.speedLonMax = ::ad::physics::Speed(0.);</span>
+<span class="lineNum">      36 </span>                :<span class="lineCov">        430 :   mRssObject.velocity.speedLatMin = ::ad::physics::Speed(0.);</span>
+<span class="lineNum">      37 </span>                :<span class="lineCov">        430 :   mRssObject.velocity.speedLatMax = ::ad::physics::Speed(0.);</span>
+<a name="38"><span class="lineNum">      38 </span>                :<span class="lineCov">        430 : }</span></a>
+<span class="lineNum">      39 </span>                :            : 
+<span class="lineNum">      40 </span>                :<span class="lineCov">          6 : RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &amp;objectId,</span>
+<span class="lineNum">      41 </span>                :            :                                          ::ad::rss::world::ObjectType const &amp;objectType,
+<span class="lineNum">      42 </span>                :            :                                          ::ad::rss::world::OccupiedRegionVector const &amp;objectOccupiedRegions,
+<span class="lineNum">      43 </span>                :            :                                          ::ad::physics::Speed const &amp;objectSpeed,
+<span class="lineNum">      44 </span>                :            :                                          ::ad::rss::world::RssDynamics const &amp;rssDynamics)
+<span class="lineNum">      45 </span>                :            :   : mObjectMapMatchedPosition(nullptr)
+<span class="lineNum">      46 </span>                :            :   , mSpeed(std::fabs(objectSpeed))
+<span class="lineNum">      47 </span>                :            :   , mMaxSpeed(0.)
+<span class="lineNum">      48 </span>                :<span class="lineCov">          6 :   , mRssDynamics(rssDynamics)</span>
+<span class="lineNum">      49 </span>                :            : {
+<span class="lineNum">      50 </span>                :<span class="lineCov">          6 :   mRssObject.objectId = objectId;</span>
+<span class="lineNum">      51 </span>                :<span class="lineCov">          6 :   mRssObject.objectType = objectType;</span>
+<span class="lineNum">      52 </span>                :<span class="lineCov">          6 :   mRssObject.velocity.speedLonMin = ::ad::physics::Speed(0.);</span>
+<span class="lineNum">      53 </span>                :<span class="lineCov">          6 :   mRssObject.velocity.speedLonMax = ::ad::physics::Speed(0.);</span>
+<span class="lineNum">      54 </span>                :<span class="lineCov">          6 :   mRssObject.velocity.speedLatMin = ::ad::physics::Speed(0.);</span>
+<span class="lineNum">      55 </span>                :<span class="lineCov">          6 :   mRssObject.velocity.speedLatMax = ::ad::physics::Speed(0.);</span>
+<span class="lineNum">      56 </span>        [<span class="branchCov" title="Branch 1 was taken 6 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          6 :   mRssObject.occupiedRegions = objectOccupiedRegions;</span>
+<a name="57"><span class="lineNum">      57 </span>                :<span class="lineCov">          6 : }</span></a>
+<span class="lineNum">      58 </span>                :            : 
+<span class="lineNum">      59 </span>                :<span class="lineCov">        624 : ::ad::rss::world::Object const &amp;RssObjectConversion::getRssObject() const</span>
+<span class="lineNum">      60 </span>                :            : {
+<span class="lineNum">      61 </span>                :<span class="lineCov">        624 :   return mRssObject;</span>
+<a name="62"><span class="lineNum">      62 </span>                :            : }</a>
+<span class="lineNum">      63 </span>                :            : 
+<span class="lineNum">      64 </span>                :<span class="lineCov">       1533 : ::ad::rss::world::ObjectId RssObjectConversion::getId() const</span>
+<span class="lineNum">      65 </span>                :            : {
+<span class="lineNum">      66 </span>                :<span class="lineCov">       1533 :   return mRssObject.objectId;</span>
+<a name="67"><span class="lineNum">      67 </span>                :            : }</a>
+<span class="lineNum">      68 </span>                :            : 
+<span class="lineNum">      69 </span>                :<span class="lineCov">        568 : ::ad::rss::world::RssDynamics RssObjectConversion::getRssDynamics() const</span>
+<span class="lineNum">      70 </span>                :            : {
+<span class="lineNum">      71 </span>                :<span class="lineCov">        568 :   ::ad::rss::world::RssDynamics resultDynamics(mRssDynamics);</span>
+<span class="lineNum">      72 </span>[<span class="branchCov" title="Branch 2 was taken 568 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 326 times"> + </span><span class="branchCov" title="Branch 5 was taken 242 times"> + </span>]:<span class="lineCov">        568 :   if (mMaxSpeed != ::ad::physics::Speed(0.))</span>
+<span class="lineNum">      73 </span>                :            :   {
+<span class="lineNum">      74 </span>                :<span class="lineCov">        326 :     resultDynamics.maxSpeed = mMaxSpeed;</span>
+<span class="lineNum">      75 </span>                :            :   }
+<span class="lineNum">      76 </span>                :<span class="lineCov">        568 :   return resultDynamics;</span>
+<a name="77"><span class="lineNum">      77 </span>                :            : }</a>
+<span class="lineNum">      78 </span>                :            : 
+<span class="lineNum">      79 </span>                :<span class="lineCov">        213 : bool RssObjectConversion::calculateMinStoppingDistance(::ad::physics::Distance &amp;minStoppingDistance) const</span>
+<span class="lineNum">      80 </span>                :            : {
+<span class="lineNum">      81 </span>                :            :   // calculate rough distance to be relevant at the moment
+<span class="lineNum">      82 </span>                :<span class="lineCov">        213 :   ::ad::physics::Speed speedAfterResponseTime;</span>
+<span class="lineNum">      83 </span>                :<span class="lineNoCov">          0 :   auto result = situation::calculateSpeedAfterResponseTime(situation::CoordinateSystemAxis::Longitudinal,</span>
+<span class="lineNum">      84 </span>                :<span class="lineCov">        213 :                                                            std::fabs(mSpeed),</span>
+<span class="lineNum">      85 </span>                :<span class="lineCov">        213 :                                                            physics::Speed::getMax(),</span>
+<span class="lineNum">      86 </span>                :<span class="lineCov">        213 :                                                            mRssDynamics.alphaLon.accelMax,</span>
+<span class="lineNum">      87 </span>                :<span class="lineCov">        213 :                                                            mRssDynamics.responseTime,</span>
+<span class="lineNum">      88 </span>        [<span class="branchCov" title="Branch 1 was taken 213 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        213 :                                                            speedAfterResponseTime);</span>
+<span class="lineNum">      89 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 213 times"> + </span>]:<span class="lineCov">        213 :   if (!result)</span>
+<span class="lineNum">      90 </span>                :            :   {
+<span class="lineNum">      91 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(</span>
+<span class="lineNum">      92 </span>                :            :       &quot;RssObjectConversion::calculateminStoppingDistance[ {} ]&gt;&gt; error calculating speed after response time {} {}&quot;,
+<span class="lineNum">      93 </span>                :            :       mRssObject.objectId,
+<span class="lineNum">      94 </span>                :<span class="lineNoCov">          0 :       std::fabs(mSpeed),</span>
+<span class="lineNum">      95 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       mRssDynamics);</span>
+<span class="lineNum">      96 </span>                :<span class="lineNoCov">          0 :     return result;</span>
+<span class="lineNum">      97 </span>                :            :   }
+<span class="lineNum">      98 </span>                :            : 
+<span class="lineNum">      99 </span>                :<span class="lineCov">        213 :   result = situation::calculateStoppingDistance(</span>
+<span class="lineNum">     100 </span>        [<span class="branchCov" title="Branch 1 was taken 213 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        213 :     speedAfterResponseTime, mRssDynamics.alphaLon.brakeMinCorrect, minStoppingDistance);</span>
+<span class="lineNum">     101 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 213 times"> + </span>]:<span class="lineCov">        213 :   if (!result)</span>
+<span class="lineNum">     102 </span>                :            :   {
+<span class="lineNum">     103 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(</span>
+<span class="lineNum">     104 </span>                :            :       &quot;RssObjectConversion::calculateminStoppingDistance[ {} ]&gt;&gt; error calculating stopping distance {} {}&quot;,
+<span class="lineNum">     105 </span>                :            :       mRssObject.objectId,
+<span class="lineNum">     106 </span>                :            :       speedAfterResponseTime,
+<span class="lineNum">     107 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       mRssDynamics);</span>
+<span class="lineNum">     108 </span>                :<span class="lineNoCov">          0 :     return result;</span>
+<span class="lineNum">     109 </span>                :            :   }
+<span class="lineNum">     110 </span>                :            : 
+<span class="lineNum">     111 </span>                :            :   // overestimate stopping distance a bit
+<span class="lineNum">     112 </span>[<span class="branchCov" title="Branch 1 was taken 213 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 213 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        213 :   minStoppingDistance += speedAfterResponseTime * mRssDynamics.responseTime;</span>
+<span class="lineNum">     113 </span>                :            : 
+<span class="lineNum">     114 </span>                :<span class="lineCov">        213 :   return true;</span>
+<a name="115"><span class="lineNum">     115 </span>                :            : }</a>
 <span class="lineNum">     116 </span>                :            : 
-<span class="lineNum">     117 </span>                :            :         // only lanes actually present in the current road area are considered
-<span class="lineNum">     118 </span>        [<span class="branchCov" title="Branch 0 was taken 95 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         95 :         if (laneSegmentResult.first)</span>
-<span class="lineNum">     119 </span>                :            :         {
-<span class="lineNum">     120 </span>                :<span class="lineCov">         95 :           ::ad::map::point::ENUHeading laneHeadingOffset(0.);</span>
-<span class="lineNum">     121 </span>        [<span class="branchCov" title="Branch 0 was taken 25 times"> + </span><span class="branchCov" title="Branch 1 was taken 70 times"> + </span>]:<span class="lineCov">         95 :           if (laneSegmentResult.second.drivingDirection == ::ad::rss::world::LaneDrivingDirection::Negative)</span>
-<span class="lineNum">     122 </span>                :            :           {
-<span class="lineNum">     123 </span>                :<span class="lineCov">         25 :             laneHeadingOffset = ::ad::map::point::ENUHeading(M_PI);</span>
-<span class="lineNum">     124 </span>                :            :           }
-<span class="lineNum">     125 </span>                :            :           auto const laneHeading
-<span class="lineNum">     126 </span>[<span class="branchCov" title="Branch 1 was taken 95 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 95 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         95 :             = ::ad::map::lane::getLaneENUHeading(mapMatchedPosition.lanePoint.paraPoint) + laneHeadingOffset;</span>
-<span class="lineNum">     127 </span>[<span class="branchCov" title="Branch 1 was taken 95 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 95 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         95 :           auto headingDifference = ::ad::map::point::normalizeENUHeading(laneHeading - objectHeading);</span>
-<span class="lineNum">     128 </span>                :<span class="lineCov">         95 :           auto const absSpeed = std::fabs(objectSpeed);</span>
-<span class="lineNum">     129 </span>        [<span class="branchCov" title="Branch 2 was taken 95 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         95 :           auto const speedLon = std::fabs(std::cos(static_cast&lt;double&gt;(headingDifference))) * absSpeed;</span>
-<span class="lineNum">     130 </span>        [<span class="branchCov" title="Branch 2 was taken 95 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         95 :           auto const speedLat = std::sin(static_cast&lt;double&gt;(headingDifference)) * absSpeed;</span>
-<span class="lineNum">     131 </span>        [<span class="branchCov" title="Branch 0 was taken 19 times"> + </span><span class="branchCov" title="Branch 1 was taken 76 times"> + </span>]:<span class="lineCov">         95 :           if (!objectVelocityInitialized)</span>
-<span class="lineNum">     132 </span>                :            :           {
-<span class="lineNum">     133 </span>                :<span class="lineCov">         19 :             objectVelocityInitialized = true;</span>
-<span class="lineNum">     134 </span>                :<span class="lineCov">         19 :             rssObject.velocity.speedLonMin = speedLon;</span>
-<span class="lineNum">     135 </span>                :<span class="lineCov">         19 :             rssObject.velocity.speedLonMax = speedLon;</span>
-<span class="lineNum">     136 </span>                :<span class="lineCov">         19 :             rssObject.velocity.speedLatMin = speedLat;</span>
-<span class="lineNum">     137 </span>                :<span class="lineCov">         19 :             rssObject.velocity.speedLatMax = speedLat;</span>
-<span class="lineNum">     138 </span>                :            :           }
-<span class="lineNum">     139 </span>                :            :           else
-<span class="lineNum">     140 </span>                :            :           {
-<span class="lineNum">     141 </span>        [<span class="branchCov" title="Branch 1 was taken 76 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         76 :             rssObject.velocity.speedLonMin = std::min(rssObject.velocity.speedLonMin, speedLon);</span>
-<span class="lineNum">     142 </span>        [<span class="branchCov" title="Branch 1 was taken 76 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         76 :             rssObject.velocity.speedLonMax = std::max(rssObject.velocity.speedLonMax, speedLon);</span>
-<span class="lineNum">     143 </span>        [<span class="branchCov" title="Branch 1 was taken 76 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         76 :             rssObject.velocity.speedLatMin = std::min(rssObject.velocity.speedLatMin, speedLat);</span>
-<span class="lineNum">     144 </span>        [<span class="branchCov" title="Branch 1 was taken 76 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         95 :             rssObject.velocity.speedLatMax = std::max(rssObject.velocity.speedLatMax, speedLat);</span>
-<span class="lineNum">     145 </span>                :            :           }
-<span class="lineNum">     146 </span>                :            :         }
-<span class="lineNum">     147 </span>                :            :       }
-<span class="lineNum">     148 </span>                :            :     }
-<span class="lineNum">     149 </span>                :            :   }
-<span class="lineNum">     150 </span>                :<span class="lineCov">         19 :   return objectVelocityInitialized;</span>
-<a name="151"><span class="lineNum">     151 </span>                :            : }</a>
-<span class="lineNum">     152 </span>                :            : 
-<span class="lineNum">     153 </span>                :<span class="lineCov">         23 : bool convertObject(::ad::rss::world::ObjectId const &amp;objectId,</span>
-<span class="lineNum">     154 </span>                :            :                    ::ad::rss::world::ObjectType const &amp;objectType,
-<span class="lineNum">     155 </span>                :            :                    ::ad::map::match::Object const &amp;objectMatchObject,
-<span class="lineNum">     156 </span>                :            :                    ::ad::physics::Speed const &amp;objectSpeed,
-<span class="lineNum">     157 </span>                :            :                    ::ad::rss::world::RoadArea const &amp;objectRoadArea,
-<span class="lineNum">     158 </span>                :            :                    ::ad::map::lane::LaneIdSet const &amp;negativeRouteDirectionLanes,
-<span class="lineNum">     159 </span>                :            :                    ::ad::rss::world::Object &amp;rssObject)
-<span class="lineNum">     160 </span>                :            : {
-<span class="lineNum">     161 </span>[<span class="branchCov" title="Branch 1 was taken 23 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 23 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         69 :   if (!withinValidInputRange(objectType) || !withinValidInputRange(objectMatchObject)</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 22 times"> + </span><span class="branchCov" title="Branch 7 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 8 was taken 2 times"> + </span><span class="branchCov" title="Branch 9 was taken 21 times"> + </span>]
-<span class="lineNum">     162 </span>[<span class="branchCov" title="Branch 0 was taken 23 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 22 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         46 :       || !withinValidInputRange(objectSpeed))</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 1 time"> + </span><span class="branchCov" title="Branch 6 was taken 21 times"> + </span>]
-<span class="lineNum">     163 </span>                :            :   {
-<span class="lineNum">     164 </span>                :<span class="lineCov">          2 :     return false;</span>
-<span class="lineNum">     165 </span>                :            :   }
-<span class="lineNum">     166 </span>        [<span class="branchCov" title="Branch 1 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         44 :   ::ad::rss::world::Object newRssObject;</span>
-<span class="lineNum">     167 </span>                :<span class="lineCov">         21 :   newRssObject.objectId = objectId;</span>
-<span class="lineNum">     168 </span>                :<span class="lineCov">         21 :   newRssObject.objectType = objectType;</span>
-<span class="lineNum">     169 </span>                :            : 
-<span class="lineNum">     170 </span>        [<span class="branchCov" title="Branch 1 was taken 19 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">         21 :   if (objectRoadArea.size() &gt; 0u)</span>
-<span class="lineNum">     171 </span>                :            :   {
-<span class="lineNum">     172 </span>        [<span class="branchCov" title="Branch 1 was taken 19 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         19 :     auto result = convertVelocity(objectMatchObject, objectSpeed, objectRoadArea, newRssObject);</span>
-<span class="lineNum">     173 </span>[<span class="branchCov" title="Branch 0 was taken 19 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 19 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         19 :     result = result &amp;&amp; convertBoundingBox(objectMatchObject.mapMatchedBoundingBox,</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 19 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
-<span class="lineNum">     174 </span>                :            :                                           objectRoadArea,
-<span class="lineNum">     175 </span>                :            :                                           negativeRouteDirectionLanes,
-<span class="lineNum">     176 </span>                :<span class="lineCov">         19 :                                           newRssObject.occupiedRegions);</span>
+<span class="lineNum">     117 </span>                :<span class="lineCov">       1313 : void RssObjectConversion::updateSpeedLimit(::ad::physics::Speed const &amp;maxSpeed)</span>
+<span class="lineNum">     118 </span>                :            : {
+<span class="lineNum">     119 </span>                :<span class="lineCov">       1313 :   mMaxSpeed = std::max(mMaxSpeed, maxSpeed);</span>
+<a name="120"><span class="lineNum">     120 </span>                :<span class="lineCov">       1313 : }</span></a>
+<span class="lineNum">     121 </span>                :            : 
+<span class="lineNum">     122 </span>                :<span class="lineCov">        687 : void RssObjectConversion::addRestrictedOccupiedRegion(::ad::map::match::LaneOccupiedRegion const &amp;laneOccupiedRegion,</span>
+<span class="lineNum">     123 </span>                :            :                                                       ::ad::map::route::LaneInterval const &amp;laneInterval)
+<span class="lineNum">     124 </span>                :            : {
+<span class="lineNum">     125 </span>        [<span class="branchCov" title="Branch 1 was taken 687 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        687 :   ::ad::rss::world::OccupiedRegion occupiedRegion;</span>
+<span class="lineNum">     126 </span>                :<span class="lineCov">        687 :   occupiedRegion.segmentId = ::ad::rss::world::LaneSegmentId(static_cast&lt;uint64_t&gt;(laneOccupiedRegion.laneId));</span>
+<span class="lineNum">     127 </span>                :            : 
+<span class="lineNum">     128 </span>                :<span class="lineCov">        687 :   ::ad::physics::ParametricValue cutAtStart;</span>
+<span class="lineNum">     129 </span>[<span class="branchCov" title="Branch 1 was taken 687 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 185 times"> + </span><span class="branchCov" title="Branch 4 was taken 502 times"> + </span>]:<span class="lineCov">        687 :   if (::ad::map::route::isRouteDirectionNegative(laneInterval))</span>
+<span class="lineNum">     130 </span>                :            :   {
+<span class="lineNum">     131 </span>        [<span class="branchCov" title="Branch 2 was taken 185 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        185 :     occupiedRegion.lonRange.maximum = ::ad::physics::ParametricValue(1.) - laneOccupiedRegion.longitudinalRange.minimum;</span>
+<span class="lineNum">     132 </span>        [<span class="branchCov" title="Branch 2 was taken 185 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        185 :     occupiedRegion.lonRange.minimum = ::ad::physics::ParametricValue(1.) - laneOccupiedRegion.longitudinalRange.maximum;</span>
+<span class="lineNum">     133 </span>                :            : 
+<span class="lineNum">     134 </span>        [<span class="branchCov" title="Branch 2 was taken 185 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        185 :     occupiedRegion.latRange.maximum = ::ad::physics::ParametricValue(1.) - laneOccupiedRegion.lateralRange.minimum;</span>
+<span class="lineNum">     135 </span>        [<span class="branchCov" title="Branch 2 was taken 185 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        185 :     occupiedRegion.latRange.minimum = ::ad::physics::ParametricValue(1.) - laneOccupiedRegion.lateralRange.maximum;</span>
+<span class="lineNum">     136 </span>        [<span class="branchCov" title="Branch 2 was taken 185 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        185 :     cutAtStart = ::ad::physics::ParametricValue(1.) - laneInterval.start;</span>
+<span class="lineNum">     137 </span>                :            :   }
+<span class="lineNum">     138 </span>                :            :   else
+<span class="lineNum">     139 </span>                :            :   {
+<span class="lineNum">     140 </span>                :<span class="lineCov">        502 :     occupiedRegion.lonRange = laneOccupiedRegion.longitudinalRange;</span>
+<span class="lineNum">     141 </span>                :<span class="lineCov">        502 :     occupiedRegion.latRange = laneOccupiedRegion.lateralRange;</span>
+<span class="lineNum">     142 </span>                :<span class="lineCov">        502 :     cutAtStart = laneInterval.start;</span>
+<span class="lineNum">     143 </span>                :            :   }
+<span class="lineNum">     144 </span>                :            : 
+<span class="lineNum">     145 </span>                :            :   // scale region to the lane interval sizes
+<span class="lineNum">     146 </span>        [<span class="branchCov" title="Branch 1 was taken 687 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        687 :   auto const intervalLength = calcParametricLength(laneInterval);</span>
+<span class="lineNum">     147 </span>[<span class="branchCov" title="Branch 2 was taken 687 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 64 times"> + </span><span class="branchCov" title="Branch 5 was taken 623 times"> + </span>]:<span class="lineCov">        687 :   if (intervalLength == ::ad::physics::ParametricValue(0.))</span>
+<span class="lineNum">     148 </span>                :            :   {
+<span class="lineNum">     149 </span>                :<span class="lineCov">         64 :     occupiedRegion.lonRange.minimum = ::ad::physics::ParametricValue(0.);</span>
+<span class="lineNum">     150 </span>                :<span class="lineCov">         64 :     occupiedRegion.lonRange.maximum = ::ad::physics::ParametricValue(1.);</span>
+<span class="lineNum">     151 </span>                :            :   }
+<span class="lineNum">     152 </span>                :            :   else
+<span class="lineNum">     153 </span>                :            :   {
+<span class="lineNum">     154 </span>                :            :     // move region
+<span class="lineNum">     155 </span>        [<span class="branchCov" title="Branch 1 was taken 623 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        623 :     occupiedRegion.lonRange.minimum -= cutAtStart;</span>
+<span class="lineNum">     156 </span>        [<span class="branchCov" title="Branch 1 was taken 623 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        623 :     occupiedRegion.lonRange.maximum -= cutAtStart;</span>
+<span class="lineNum">     157 </span>                :            :     // scale region
+<span class="lineNum">     158 </span>        [<span class="branchCov" title="Branch 2 was taken 623 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        623 :     occupiedRegion.lonRange.minimum = occupiedRegion.lonRange.minimum / static_cast&lt;double&gt;(intervalLength);</span>
+<span class="lineNum">     159 </span>        [<span class="branchCov" title="Branch 2 was taken 623 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        623 :     occupiedRegion.lonRange.maximum = occupiedRegion.lonRange.maximum / static_cast&lt;double&gt;(intervalLength);</span>
+<span class="lineNum">     160 </span>                :            :     // restrict to segment
+<span class="lineNum">     161 </span>                :            :     occupiedRegion.lonRange.minimum
+<span class="lineNum">     162 </span>        [<span class="branchCov" title="Branch 2 was taken 623 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        623 :       = std::min(std::max(occupiedRegion.lonRange.minimum, ::ad::physics::ParametricValue(0.)),</span>
+<span class="lineNum">     163 </span>        [<span class="branchCov" title="Branch 2 was taken 623 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       1246 :                  ::ad::physics::ParametricValue(1.));</span>
+<span class="lineNum">     164 </span>                :            :     occupiedRegion.lonRange.maximum
+<span class="lineNum">     165 </span>        [<span class="branchCov" title="Branch 2 was taken 623 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        623 :       = std::min(std::max(occupiedRegion.lonRange.maximum, ::ad::physics::ParametricValue(0.)),</span>
+<span class="lineNum">     166 </span>        [<span class="branchCov" title="Branch 2 was taken 623 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       1246 :                  ::ad::physics::ParametricValue(1.));</span>
+<span class="lineNum">     167 </span>                :            :   }
+<span class="lineNum">     168 </span>        [<span class="branchCov" title="Branch 2 was taken 687 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       1374 :   getLogger()-&gt;trace(&quot;RssObjectConversion::addRestrictedOccupiedRegion[ {} ]&gt;&gt;laneOccupiedRegion {} laneInterval {} -&gt; &quot;</span>
+<span class="lineNum">     169 </span>                :            :                      &quot;occupiedRegion {}&quot;,
+<span class="lineNum">     170 </span>        [<span class="branchCov" title="Branch 1 was taken 687 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        687 :                      getId(),</span>
+<span class="lineNum">     171 </span>                :            :                      laneOccupiedRegion,
+<span class="lineNum">     172 </span>                :            :                      laneInterval,
+<span class="lineNum">     173 </span>        [<span class="branchCov" title="Branch 1 was taken 687 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        687 :                      occupiedRegion);</span>
+<span class="lineNum">     174 </span>                :            : 
+<span class="lineNum">     175 </span>        [<span class="branchCov" title="Branch 1 was taken 687 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        687 :   mRssObject.occupiedRegions.push_back(occupiedRegion);</span>
+<a name="176"><span class="lineNum">     176 </span>                :<span class="lineCov">        687 : }</span></a>
 <span class="lineNum">     177 </span>                :            : 
-<span class="lineNum">     178 </span>                :            :     // even if the input within the range of the
-<span class="lineNum">     179 </span>[<span class="branchCov" title="Branch 0 was taken 19 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 19 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         19 :     if (!result || !withinValidInputRange(newRssObject))</span>
-<span class="lineNum">         </span>[<span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 19 times"> + </span>][<span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchCov" title="Branch 8 was taken 19 times"> + </span>]
-<span class="lineNum">     180 </span>                :            :     {
-<span class="lineNum">     181 </span>                :<span class="lineCov">         19 :       return false;</span>
-<span class="lineNum">     182 </span>                :            :     }
-<span class="lineNum">     183 </span>                :            :   }
-<span class="lineNum">     184 </span>                :            : 
-<span class="lineNum">     185 </span>        [<span class="branchCov" title="Branch 1 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         21 :   rssObject = newRssObject;</span>
-<span class="lineNum">     186 </span>                :<span class="lineCov">         21 :   return true;</span>
-<span class="lineNum">     187 </span>                :            : }
-<span class="lineNum">     188 </span>                :            : 
-<span class="lineNum">     189 </span>                :            : } // namespace RssObjectConversion
-<a name="190"><span class="lineNum">     190 </span>                :            : } // namespace map</a>
-<span class="lineNum">     191 </span>                :            : } // namespace rss
-<span class="lineNum">     192 </span>[<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          4 : } // namespace ad</span>
+<span class="lineNum">     178 </span>                :<span class="lineCov">         62 : void RssObjectConversion::fillNotRelevantSceneBoundingBox()</span>
+<span class="lineNum">     179 </span>                :            : {
+<span class="lineNum">     180 </span>        [<span class="branchCov" title="Branch 0 was taken 62 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         62 :   if (mObjectMapMatchedPosition != nullptr)</span>
+<span class="lineNum">     181 </span>                :            :   {
+<span class="lineNum">     182 </span>        [<span class="branchCov" title="Branch 3 was taken 142 times"> + </span><span class="branchCov" title="Branch 4 was taken 62 times"> + </span>]:<span class="lineCov">        204 :     for (auto const &amp;laneOccupiedRegion : mObjectMapMatchedPosition-&gt;mapMatchedBoundingBox.laneOccupiedRegions)</span>
+<span class="lineNum">     183 </span>                :            :     {
+<span class="lineNum">     184 </span>        [<span class="branchCov" title="Branch 1 was taken 142 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        142 :       ::ad::map::route::LaneInterval dummyLaneInterval;</span>
+<span class="lineNum">     185 </span>                :<span class="lineCov">        142 :       dummyLaneInterval.laneId = laneOccupiedRegion.laneId;</span>
+<span class="lineNum">     186 </span>                :<span class="lineCov">        142 :       dummyLaneInterval.start = physics::ParametricValue(0.);</span>
+<span class="lineNum">     187 </span>                :<span class="lineCov">        142 :       dummyLaneInterval.end = physics::ParametricValue(1.);</span>
+<span class="lineNum">     188 </span>        [<span class="branchCov" title="Branch 1 was taken 142 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        142 :       addRestrictedOccupiedRegion(laneOccupiedRegion, dummyLaneInterval);</span>
+<span class="lineNum">     189 </span>                :            :     }
+<span class="lineNum">     190 </span>                :            :   }
+<a name="191"><span class="lineNum">     191 </span>                :<span class="lineCov">         62 : }</span></a>
+<span class="lineNum">     192 </span>                :            : 
+<span class="lineNum">     193 </span>                :<span class="lineCov">       1313 : void RssObjectConversion::laneIntervalAdded(::ad::map::route::LaneInterval const &amp;laneInterval)</span>
+<span class="lineNum">     194 </span>                :            : {
+<span class="lineNum">     195 </span>        [<span class="branchCov" title="Branch 0 was taken 1313 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1313 :   if (mObjectMapMatchedPosition != nullptr)</span>
+<span class="lineNum">     196 </span>                :            :   {
+<span class="lineNum">     197 </span>                :            :     auto findLaneIntervalResult
+<a name="198"><span class="lineNum">     198 </span>                :<span class="lineCov">       1313 :       = std::find_if(mObjectMapMatchedPosition-&gt;mapMatchedBoundingBox.laneOccupiedRegions.begin(),</span></a>
+<span class="lineNum">     199 </span>                :<span class="lineCov">       1313 :                      mObjectMapMatchedPosition-&gt;mapMatchedBoundingBox.laneOccupiedRegions.end(),</span>
+<span class="lineNum">     200 </span>                :<span class="lineCov">       2048 :                      [laneInterval](::ad::map::match::LaneOccupiedRegion const &amp;occupiedRegion) {</span>
+<span class="lineNum">     201 </span>                :<span class="lineCov">       2048 :                        return laneInterval.laneId == occupiedRegion.laneId;</span>
+<span class="lineNum">     202 </span>        [<span class="branchCov" title="Branch 3 was taken 1313 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       3361 :                      });</span>
+<span class="lineNum">     203 </span>        [<span class="branchCov" title="Branch 2 was taken 545 times"> + </span><span class="branchCov" title="Branch 3 was taken 768 times"> + </span>]:<span class="lineCov">       1313 :     if (findLaneIntervalResult != mObjectMapMatchedPosition-&gt;mapMatchedBoundingBox.laneOccupiedRegions.end())</span>
+<span class="lineNum">     204 </span>                :            :     {
+<span class="lineNum">     205 </span>        [<span class="branchCov" title="Branch 2 was taken 545 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       1313 :       addRestrictedOccupiedRegion(*findLaneIntervalResult, laneInterval);</span>
+<span class="lineNum">     206 </span>                :            :     }
+<span class="lineNum">     207 </span>                :            :   }
+<a name="208"><span class="lineNum">     208 </span>                :<span class="lineCov">       1313 : }</span></a>
+<span class="lineNum">     209 </span>                :            : 
+<span class="lineNum">     210 </span>                :<span class="lineCov">        498 : void RssObjectConversion::updateVelocityOnRoute(::ad::map::route::FullRoute const &amp;route)</span>
+<span class="lineNum">     211 </span>                :            : {
+<span class="lineNum">     212 </span>                :<span class="lineCov">        498 :   double headingDiff = 0.;</span>
+<span class="lineNum">     213 </span>        [<span class="branchCov" title="Branch 0 was taken 498 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        498 :   if (mObjectMapMatchedPosition != nullptr)</span>
+<span class="lineNum">     214 </span>                :            :   {
+<span class="lineNum">     215 </span>        [<span class="branchCov" title="Branch 1 was taken 498 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        498 :     auto const routeHeading = getENUHeadingOfRoute(*mObjectMapMatchedPosition, route);</span>
+<span class="lineNum">     216 </span>                :            :     headingDiff = static_cast&lt;double&gt;(
+<span class="lineNum">     217 </span>[<span class="branchCov" title="Branch 1 was taken 498 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 498 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        498 :       ::ad::map::point::normalizeENUHeading(routeHeading - mObjectMapMatchedPosition-&gt;enuPosition.heading));</span>
+<span class="lineNum">     218 </span>                :            :   }
+<span class="lineNum">     219 </span>                :            : 
+<span class="lineNum">     220 </span>        [<span class="branchCov" title="Branch 1 was taken 497 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">        498 :   mRssObject.velocity.speedLonMin = std::fabs(std::cos(headingDiff)) * mSpeed;</span>
+<span class="lineNum">     221 </span>                :<span class="lineCov">        497 :   mRssObject.velocity.speedLonMax = mRssObject.velocity.speedLonMin;</span>
+<span class="lineNum">     222 </span>                :            : 
+<span class="lineNum">     223 </span>        [<span class="branchCov" title="Branch 1 was taken 497 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        497 :   mRssObject.velocity.speedLatMin = std::sin(headingDiff) * mSpeed;</span>
+<span class="lineNum">     224 </span>                :<span class="lineCov">        497 :   mRssObject.velocity.speedLatMax = mRssObject.velocity.speedLatMin;</span>
+<span class="lineNum">     225 </span>                :<span class="lineCov">        497 : }</span>
+<span class="lineNum">     226 </span>                :            : 
+<a name="227"><span class="lineNum">     227 </span>                :            : } // namespace map</a>
+<span class="lineNum">     228 </span>                :            : } // namespace rss
+<span class="lineNum">     229 </span>[<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          4 : } // namespace ad</span>
 </pre>
       </td>
     </tr>

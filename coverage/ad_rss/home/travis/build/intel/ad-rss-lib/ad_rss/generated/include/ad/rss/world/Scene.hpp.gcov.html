@@ -31,13 +31,13 @@
             <td class="headerValue">ad-rss-lib</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">36</td>
-            <td class="headerCovTableEntry">36</td>
+            <td class="headerCovTableEntry">40</td>
+            <td class="headerCovTableEntry">40</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-03-19 10:45:26</td>
+            <td class="headerValue">2020-03-23 18:00:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">18</td>
-            <td class="headerCovTableEntry">24</td>
-            <td class="headerCovTableEntryMed">75.0 %</td>
+            <td class="headerCovTableEntry">20</td>
+            <td class="headerCovTableEntry">26</td>
+            <td class="headerCovTableEntryMed">76.9 %</td>
           </tr>
           <tr><td><img src="../../../../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -116,7 +116,7 @@
 <span class="lineNum">      45 </span>                :            :  * between ego vehicle and the object have to be part of this. RSS has to be able to calculate minimum and maximum
 <a name="46"><span class="lineNum">      46 </span>                :            :  * distances between ego vehicle and object as well as accelerated movements within this area.</a>
 <span class="lineNum">      47 </span>                :            :  */
-<span class="lineNum">      48 </span>                :<span class="lineCov">         30 : struct Scene</span>
+<span class="lineNum">      48 </span>                :<span class="lineCov">         32 : struct Scene</span>
 <span class="lineNum">      49 </span>                :            : {
 <span class="lineNum">      50 </span>                :            :   /*!
 <span class="lineNum">      51 </span>                :            :    * \brief Smart pointer on Scene
@@ -131,18 +131,18 @@
 <span class="lineNum">      60 </span>                :            :   /*!
 <a name="61"><span class="lineNum">      61 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      62 </span>                :            :    */
-<span class="lineNum">      63 </span>                :<span class="lineCov">       1810 :   Scene() = default;</span>
+<span class="lineNum">      63 </span>                :<span class="lineCov">       1808 :   Scene() = default;</span>
 <span class="lineNum">      64 </span>                :            : 
 <span class="lineNum">      65 </span>                :            :   /*!
 <a name="66"><span class="lineNum">      66 </span>                :            :    * \brief standard destructor</a>
 <span class="lineNum">      67 </span>                :            :    */
-<span class="lineNum">      68 </span>                :<span class="lineCov">      10292 :   ~Scene() = default;</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">      10284 :   ~Scene() = default;</span>
 <span class="lineNum">      69 </span>                :            : 
 <span class="lineNum">      70 </span>                :            :   /*!
 <a name="71"><span class="lineNum">      71 </span>                :            :    * \brief standard copy constructor</a>
 <span class="lineNum">      72 </span>                :            :    */
-<span class="lineNum">      73 </span>[<span class="branchCov" title="Branch 2 was taken 4126 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 4126 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">       4126 :   Scene(const Scene &amp;other) = default;</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 8 was taken 4126 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
+<span class="lineNum">      73 </span>[<span class="branchCov" title="Branch 2 was taken 4123 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 4123 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">       4123 :   Scene(const Scene &amp;other) = default;</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 8 was taken 4123 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
 <span class="lineNum">      74 </span>                :            : 
 <span class="lineNum">      75 </span>                :            :   /*!
 <a name="76"><span class="lineNum">      76 </span>                :            :    * \brief standard move constructor</a>
@@ -174,131 +174,142 @@
 <span class="lineNum">     102 </span>                :            :    *
 <a name="103"><span class="lineNum">     103 </span>                :            :    * \returns \c true if both Scene are equal</a>
 <span class="lineNum">     104 </span>                :            :    */
-<span class="lineNum">     105 </span>                :<span class="lineCov">         26 :   bool operator==(const Scene &amp;other) const</span>
+<span class="lineNum">     105 </span>                :<span class="lineCov">         28 :   bool operator==(const Scene &amp;other) const</span>
 <span class="lineNum">     106 </span>                :            :   {
-<span class="lineNum">     107 </span>[<span class="branchCov" title="Branch 1 was taken 20 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 18 times"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>]:<span class="lineCov">         22 :     return (situationType == other.situationType) &amp;&amp; (egoVehicle == other.egoVehicle) &amp;&amp; (object == other.object)</span>
-<span class="lineNum">     108 </span>[<span class="branchCov" title="Branch 1 was taken 16 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 14 times"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>]:<span class="lineCov">         18 :       &amp;&amp; (objectRssDynamics == other.objectRssDynamics) &amp;&amp; (intersectingRoad == other.intersectingRoad)</span>
-<span class="lineNum">     109 </span>[<span class="branchCov" title="Branch 0 was taken 22 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 12 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">         48 :       &amp;&amp; (egoVehicleRoad == other.egoVehicleRoad);</span>
-<span class="lineNum">     110 </span>                :            :   }
-<span class="lineNum">     111 </span>                :            : 
-<span class="lineNum">     112 </span>                :            :   /**
-<span class="lineNum">     113 </span>                :            :    * \brief standard comparison operator
-<span class="lineNum">     114 </span>                :            :    *
-<span class="lineNum">     115 </span>                :            :    * \param[in] other Other Scene.
-<span class="lineNum">     116 </span>                :            :    *
-<a name="117"><span class="lineNum">     117 </span>                :            :    * \returns \c true if both Scene are different</a>
-<span class="lineNum">     118 </span>                :            :    */
-<span class="lineNum">     119 </span>                :<span class="lineCov">          7 :   bool operator!=(const Scene &amp;other) const</span>
-<span class="lineNum">     120 </span>                :            :   {
-<span class="lineNum">     121 </span>                :<span class="lineCov">          7 :     return !operator==(other);</span>
-<span class="lineNum">     122 </span>                :            :   }
-<span class="lineNum">     123 </span>                :            : 
-<span class="lineNum">     124 </span>                :            :   /*!
-<span class="lineNum">     125 </span>                :            :    * The type of the current situation. Depending on this type the other fields of the RssArea might be left empty.
-<span class="lineNum">     126 </span>                :            :    */
-<span class="lineNum">     127 </span>                :            :   ::ad::rss::situation::SituationType situationType{::ad::rss::situation::SituationType::SameDirection};
-<span class="lineNum">     128 </span>                :            : 
-<span class="lineNum">     129 </span>                :            :   /*!
-<span class="lineNum">     130 </span>                :            :    * The ego vehicle in the context of this scene.
-<span class="lineNum">     131 </span>                :            :    */
-<span class="lineNum">     132 </span>                :            :   ::ad::rss::world::Object egoVehicle;
-<span class="lineNum">     133 </span>                :            : 
-<span class="lineNum">     134 </span>                :            :   /*!
-<span class="lineNum">     135 </span>                :            :    * The object this scene refers to.
-<span class="lineNum">     136 </span>                :            :    */
-<span class="lineNum">     137 </span>                :            :   ::ad::rss::world::Object object;
-<span class="lineNum">     138 </span>                :            : 
-<span class="lineNum">     139 </span>                :            :   /*!
-<span class="lineNum">     140 </span>                :            :    * Defines the objects dynamics to be applied. This parameters are provided on a per object basis to be able to adapt
-<span class="lineNum">     141 </span>                :            :    * these e.g. in respect to object type or the weather conditions.
-<span class="lineNum">     142 </span>                :            :    */
-<span class="lineNum">     143 </span>                :            :   ::ad::rss::world::RssDynamics objectRssDynamics;
-<span class="lineNum">     144 </span>                :            : 
-<span class="lineNum">     145 </span>                :            :   /*!
-<span class="lineNum">     146 </span>                :            :    * The RssRoadArea an intersecting vehicle is driving in. The driving direction of the intersecting vehicle define the
-<span class="lineNum">     147 </span>                :            :    * ordering of the road segments. The road area should contain all neigboring lanes the other vehcile is able to drive
-<span class="lineNum">     148 </span>                :            :    * in.  In non-intersection situations this road area is empty.
-<span class="lineNum">     149 </span>                :            :    */
-<span class="lineNum">     150 </span>                :            :   ::ad::rss::world::RoadArea intersectingRoad;
-<span class="lineNum">     151 </span>                :            : 
-<span class="lineNum">     152 </span>                :            :   /*!
-<span class="lineNum">     153 </span>                :            :    * The RssRoadArea the ego vehicle is driving in. The driving direction of the ego vehicle define the ordering of the
-<span class="lineNum">     154 </span>                :            :    * road segments. In non-intersection situations the object is also driving in this road area.
-<span class="lineNum">     155 </span>                :            :    */
-<span class="lineNum">     156 </span>                :            :   ::ad::rss::world::RoadArea egoVehicleRoad;
-<span class="lineNum">     157 </span>                :            : };
-<span class="lineNum">     158 </span>                :            : 
-<span class="lineNum">     159 </span>                :            : } // namespace world
-<span class="lineNum">     160 </span>                :            : } // namespace rss
-<span class="lineNum">     161 </span>                :            : } // namespace ad
-<span class="lineNum">     162 </span>                :            : 
-<span class="lineNum">     163 </span>                :            : /*!
-<span class="lineNum">     164 </span>                :            :  * \brief protect the definition of functions from duplicates by typedef usage within other data types
-<span class="lineNum">     165 </span>                :            :  */
-<span class="lineNum">     166 </span>                :            : #ifndef GEN_GUARD_AD_RSS_WORLD_SCENE
-<span class="lineNum">     167 </span>                :            : #define GEN_GUARD_AD_RSS_WORLD_SCENE
-<span class="lineNum">     168 </span>                :            : /*!
-<span class="lineNum">     169 </span>                :            :  * @brief namespace ad
-<span class="lineNum">     170 </span>                :            :  */
-<span class="lineNum">     171 </span>                :            : namespace ad {
-<span class="lineNum">     172 </span>                :            : /*!
-<span class="lineNum">     173 </span>                :            :  * @brief namespace rss
-<span class="lineNum">     174 </span>                :            :  */
-<span class="lineNum">     175 </span>                :            : namespace rss {
+<span class="lineNum">     107 </span>        [<span class="branchCov" title="Branch 1 was taken 22 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">         24 :     return (situationType == other.situationType) &amp;&amp; (egoVehicle == other.egoVehicle)</span>
+<span class="lineNum">     108 </span>[<span class="branchCov" title="Branch 1 was taken 20 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 18 times"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>]:<span class="lineCov">         22 :       &amp;&amp; (egoVehicleRssDynamics == other.egoVehicleRssDynamics) &amp;&amp; (object == other.object)</span>
+<span class="lineNum">     109 </span>[<span class="branchCov" title="Branch 1 was taken 16 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 14 times"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>]:<span class="lineCov">         18 :       &amp;&amp; (objectRssDynamics == other.objectRssDynamics) &amp;&amp; (intersectingRoad == other.intersectingRoad)</span>
+<span class="lineNum">     110 </span>[<span class="branchCov" title="Branch 0 was taken 24 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 12 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">         52 :       &amp;&amp; (egoVehicleRoad == other.egoVehicleRoad);</span>
+<span class="lineNum">     111 </span>                :            :   }
+<span class="lineNum">     112 </span>                :            : 
+<span class="lineNum">     113 </span>                :            :   /**
+<span class="lineNum">     114 </span>                :            :    * \brief standard comparison operator
+<span class="lineNum">     115 </span>                :            :    *
+<span class="lineNum">     116 </span>                :            :    * \param[in] other Other Scene.
+<span class="lineNum">     117 </span>                :            :    *
+<a name="118"><span class="lineNum">     118 </span>                :            :    * \returns \c true if both Scene are different</a>
+<span class="lineNum">     119 </span>                :            :    */
+<span class="lineNum">     120 </span>                :<span class="lineCov">          8 :   bool operator!=(const Scene &amp;other) const</span>
+<span class="lineNum">     121 </span>                :            :   {
+<span class="lineNum">     122 </span>                :<span class="lineCov">          8 :     return !operator==(other);</span>
+<span class="lineNum">     123 </span>                :            :   }
+<span class="lineNum">     124 </span>                :            : 
+<span class="lineNum">     125 </span>                :            :   /*!
+<span class="lineNum">     126 </span>                :            :    * The type of the current situation. Depending on this type the other fields of the RssArea might be left empty.
+<span class="lineNum">     127 </span>                :            :    */
+<span class="lineNum">     128 </span>                :            :   ::ad::rss::situation::SituationType situationType{::ad::rss::situation::SituationType::SameDirection};
+<span class="lineNum">     129 </span>                :            : 
+<span class="lineNum">     130 </span>                :            :   /*!
+<span class="lineNum">     131 </span>                :            :    * The ego vehicle in the context of this scene.
+<span class="lineNum">     132 </span>                :            :    */
+<span class="lineNum">     133 </span>                :            :   ::ad::rss::world::Object egoVehicle;
+<span class="lineNum">     134 </span>                :            : 
+<span class="lineNum">     135 </span>                :            :   /*!
+<span class="lineNum">     136 </span>                :            :    * Defines the ego vehicle dynamics to be applied.
+<span class="lineNum">     137 </span>                :            :    * This parameters are provided on a per situation basis to be able to adapt these
+<span class="lineNum">     138 </span>                :            :    * e.g. in respect to object type.
+<span class="lineNum">     139 </span>                :            :    */
+<span class="lineNum">     140 </span>                :            :   ::ad::rss::world::RssDynamics egoVehicleRssDynamics;
+<span class="lineNum">     141 </span>                :            : 
+<span class="lineNum">     142 </span>                :            :   /*!
+<span class="lineNum">     143 </span>                :            :    * The object this scene refers to.
+<span class="lineNum">     144 </span>                :            :    */
+<span class="lineNum">     145 </span>                :            :   ::ad::rss::world::Object object;
+<span class="lineNum">     146 </span>                :            : 
+<span class="lineNum">     147 </span>                :            :   /*!
+<span class="lineNum">     148 </span>                :            :    * Defines the objects dynamics to be applied. This parameters are provided on a per object basis to be able to adapt
+<span class="lineNum">     149 </span>                :            :    * these e.g. in respect to object type or the weather conditions.
+<span class="lineNum">     150 </span>                :            :    */
+<span class="lineNum">     151 </span>                :            :   ::ad::rss::world::RssDynamics objectRssDynamics;
+<span class="lineNum">     152 </span>                :            : 
+<span class="lineNum">     153 </span>                :            :   /*!
+<span class="lineNum">     154 </span>                :            :    * The RssRoadArea an intersecting vehicle is driving in. The driving direction of the intersecting vehicle define the
+<span class="lineNum">     155 </span>                :            :    * ordering of the road segments. The road area should contain all neigboring lanes the other vehcile is able to drive
+<span class="lineNum">     156 </span>                :            :    * in.  In non-intersection situations this road area is empty.
+<span class="lineNum">     157 </span>                :            :    */
+<span class="lineNum">     158 </span>                :            :   ::ad::rss::world::RoadArea intersectingRoad;
+<span class="lineNum">     159 </span>                :            : 
+<span class="lineNum">     160 </span>                :            :   /*!
+<span class="lineNum">     161 </span>                :            :    * The RssRoadArea the ego vehicle is driving in. The driving direction of the ego vehicle define the ordering of the
+<span class="lineNum">     162 </span>                :            :    * road segments. In non-intersection situations the object is also driving in this road area.
+<span class="lineNum">     163 </span>                :            :    */
+<span class="lineNum">     164 </span>                :            :   ::ad::rss::world::RoadArea egoVehicleRoad;
+<span class="lineNum">     165 </span>                :            : };
+<span class="lineNum">     166 </span>                :            : 
+<span class="lineNum">     167 </span>                :            : } // namespace world
+<span class="lineNum">     168 </span>                :            : } // namespace rss
+<span class="lineNum">     169 </span>                :            : } // namespace ad
+<span class="lineNum">     170 </span>                :            : 
+<span class="lineNum">     171 </span>                :            : /*!
+<span class="lineNum">     172 </span>                :            :  * \brief protect the definition of functions from duplicates by typedef usage within other data types
+<span class="lineNum">     173 </span>                :            :  */
+<span class="lineNum">     174 </span>                :            : #ifndef GEN_GUARD_AD_RSS_WORLD_SCENE
+<span class="lineNum">     175 </span>                :            : #define GEN_GUARD_AD_RSS_WORLD_SCENE
 <span class="lineNum">     176 </span>                :            : /*!
-<span class="lineNum">     177 </span>                :            :  * @brief namespace world
+<span class="lineNum">     177 </span>                :            :  * @brief namespace ad
 <span class="lineNum">     178 </span>                :            :  */
-<span class="lineNum">     179 </span>                :            : namespace world {
-<span class="lineNum">     180 </span>                :            : 
-<span class="lineNum">     181 </span>                :            : /**
-<span class="lineNum">     182 </span>                :            :  * \brief standard ostream operator
-<span class="lineNum">     183 </span>                :            :  *
-<span class="lineNum">     184 </span>                :            :  * \param[in] os The output stream to write to
-<span class="lineNum">     185 </span>                :            :  * \param[in] _value Scene value
-<span class="lineNum">     186 </span>                :            :  *
-<span class="lineNum">     187 </span>                :            :  * \returns The stream object.
-<a name="188"><span class="lineNum">     188 </span>                :            :  *</a>
-<span class="lineNum">     189 </span>                :            :  */
-<span class="lineNum">     190 </span>                :<span class="lineCov">    1001605 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, Scene const &amp;_value)</span>
-<span class="lineNum">     191 </span>                :            : {
-<span class="lineNum">     192 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; &quot;Scene(&quot;;</span>
-<span class="lineNum">     193 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; &quot;situationType:&quot;;</span>
-<span class="lineNum">     194 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; _value.situationType;</span>
-<span class="lineNum">     195 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     196 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; &quot;egoVehicle:&quot;;</span>
-<span class="lineNum">     197 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; _value.egoVehicle;</span>
-<span class="lineNum">     198 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     199 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; &quot;object:&quot;;</span>
-<span class="lineNum">     200 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; _value.object;</span>
-<span class="lineNum">     201 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     202 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; &quot;objectRssDynamics:&quot;;</span>
-<span class="lineNum">     203 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; _value.objectRssDynamics;</span>
-<span class="lineNum">     204 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     205 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; &quot;intersectingRoad:&quot;;</span>
-<span class="lineNum">     206 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; _value.intersectingRoad;</span>
-<span class="lineNum">     207 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     208 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; &quot;egoVehicleRoad:&quot;;</span>
-<span class="lineNum">     209 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; _value.egoVehicleRoad;</span>
-<span class="lineNum">     210 </span>                :<span class="lineCov">    1001605 :   os &lt;&lt; &quot;)&quot;;</span>
-<span class="lineNum">     211 </span>                :<span class="lineCov">    1001605 :   return os;</span>
-<span class="lineNum">     212 </span>                :            : }
-<span class="lineNum">     213 </span>                :            : 
-<span class="lineNum">     214 </span>                :            : } // namespace world
-<span class="lineNum">     215 </span>                :            : } // namespace rss
-<span class="lineNum">     216 </span>                :            : } // namespace ad
-<span class="lineNum">     217 </span>                :            : 
-<span class="lineNum">     218 </span>                :            : namespace std {
-<span class="lineNum">     219 </span>                :            : /*!
-<a name="220"><span class="lineNum">     220 </span>                :            :  * \brief overload of the std::to_string for Scene</a>
-<span class="lineNum">     221 </span>                :            :  */
-<span class="lineNum">     222 </span>                :<span class="lineCov">          1 : inline std::string to_string(::ad::rss::world::Scene const &amp;value)</span>
-<span class="lineNum">     223 </span>                :            : {
-<span class="lineNum">     224 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          2 :   stringstream sstream;</span>
-<span class="lineNum">     225 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :   sstream &lt;&lt; value;</span>
-<span class="lineNum">     226 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          2 :   return sstream.str();</span>
-<span class="lineNum">     227 </span>                :            : }
-<span class="lineNum">     228 </span>                :            : } // namespace std
-<span class="lineNum">     229 </span>                :            : #endif // GEN_GUARD_AD_RSS_WORLD_SCENE
+<span class="lineNum">     179 </span>                :            : namespace ad {
+<span class="lineNum">     180 </span>                :            : /*!
+<span class="lineNum">     181 </span>                :            :  * @brief namespace rss
+<span class="lineNum">     182 </span>                :            :  */
+<span class="lineNum">     183 </span>                :            : namespace rss {
+<span class="lineNum">     184 </span>                :            : /*!
+<span class="lineNum">     185 </span>                :            :  * @brief namespace world
+<span class="lineNum">     186 </span>                :            :  */
+<span class="lineNum">     187 </span>                :            : namespace world {
+<span class="lineNum">     188 </span>                :            : 
+<span class="lineNum">     189 </span>                :            : /**
+<span class="lineNum">     190 </span>                :            :  * \brief standard ostream operator
+<span class="lineNum">     191 </span>                :            :  *
+<span class="lineNum">     192 </span>                :            :  * \param[in] os The output stream to write to
+<span class="lineNum">     193 </span>                :            :  * \param[in] _value Scene value
+<span class="lineNum">     194 </span>                :            :  *
+<span class="lineNum">     195 </span>                :            :  * \returns The stream object.
+<a name="196"><span class="lineNum">     196 </span>                :            :  *</a>
+<span class="lineNum">     197 </span>                :            :  */
+<span class="lineNum">     198 </span>                :<span class="lineCov">    1001604 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, Scene const &amp;_value)</span>
+<span class="lineNum">     199 </span>                :            : {
+<span class="lineNum">     200 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; &quot;Scene(&quot;;</span>
+<span class="lineNum">     201 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; &quot;situationType:&quot;;</span>
+<span class="lineNum">     202 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; _value.situationType;</span>
+<span class="lineNum">     203 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     204 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; &quot;egoVehicle:&quot;;</span>
+<span class="lineNum">     205 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; _value.egoVehicle;</span>
+<span class="lineNum">     206 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     207 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; &quot;egoVehicleRssDynamics:&quot;;</span>
+<span class="lineNum">     208 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; _value.egoVehicleRssDynamics;</span>
+<span class="lineNum">     209 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     210 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; &quot;object:&quot;;</span>
+<span class="lineNum">     211 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; _value.object;</span>
+<span class="lineNum">     212 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     213 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; &quot;objectRssDynamics:&quot;;</span>
+<span class="lineNum">     214 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; _value.objectRssDynamics;</span>
+<span class="lineNum">     215 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     216 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; &quot;intersectingRoad:&quot;;</span>
+<span class="lineNum">     217 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; _value.intersectingRoad;</span>
+<span class="lineNum">     218 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     219 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; &quot;egoVehicleRoad:&quot;;</span>
+<span class="lineNum">     220 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; _value.egoVehicleRoad;</span>
+<span class="lineNum">     221 </span>                :<span class="lineCov">    1001604 :   os &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     222 </span>                :<span class="lineCov">    1001604 :   return os;</span>
+<span class="lineNum">     223 </span>                :            : }
+<span class="lineNum">     224 </span>                :            : 
+<span class="lineNum">     225 </span>                :            : } // namespace world
+<span class="lineNum">     226 </span>                :            : } // namespace rss
+<span class="lineNum">     227 </span>                :            : } // namespace ad
+<span class="lineNum">     228 </span>                :            : 
+<span class="lineNum">     229 </span>                :            : namespace std {
+<span class="lineNum">     230 </span>                :            : /*!
+<a name="231"><span class="lineNum">     231 </span>                :            :  * \brief overload of the std::to_string for Scene</a>
+<span class="lineNum">     232 </span>                :            :  */
+<span class="lineNum">     233 </span>                :<span class="lineCov">          1 : inline std::string to_string(::ad::rss::world::Scene const &amp;value)</span>
+<span class="lineNum">     234 </span>                :            : {
+<span class="lineNum">     235 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          2 :   stringstream sstream;</span>
+<span class="lineNum">     236 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :   sstream &lt;&lt; value;</span>
+<span class="lineNum">     237 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          2 :   return sstream.str();</span>
+<span class="lineNum">     238 </span>                :            : }
+<span class="lineNum">     239 </span>                :            : } // namespace std
+<span class="lineNum">     240 </span>                :            : #endif // GEN_GUARD_AD_RSS_WORLD_SCENE
 </pre>
       </td>
     </tr>

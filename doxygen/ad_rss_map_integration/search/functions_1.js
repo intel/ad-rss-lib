@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['convertobject',['convertObject',['../namespacead_1_1rss_1_1map_1_1RssObjectConversion.html#ac751ae3e834d9e30f053c4645e762be6',1,'ad::rss::map::RssObjectConversion']]]
+  ['calculateminstoppingdistance',['calculateMinStoppingDistance',['../classad_1_1rss_1_1map_1_1RssObjectConversion.html#a8c987b388c5b129dc87799826a2e1e28',1,'ad::rss::map::RssObjectConversion']]]
 ];

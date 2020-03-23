@@ -1,8 +1,7 @@
 <map id="generated/include/ad/rss/world/SceneVector.hpp" name="generated/include/ad/rss/world/SceneVector.hpp">
-<area shape="rect" id="node2" href="$SceneVectorValidInputRange_8hpp.html" title="generated/include/ad\l/rss/world/SceneVectorValid\lInputRange.hpp" alt="" coords="17,95,214,151"/>
-<area shape="rect" id="node4" href="$WorldModel_8hpp.html" title="generated/include/ad\l/rss/world/WorldModel.hpp" alt="" coords="238,102,425,143"/>
+<area shape="rect" id="node2" href="$SceneVectorValidInputRange_8hpp.html" title="generated/include/ad\l/rss/world/SceneVectorValid\lInputRange.hpp" alt="" coords="13,95,210,151"/>
+<area shape="rect" id="node4" href="$WorldModel_8hpp.html" title="generated/include/ad\l/rss/world/WorldModel.hpp" alt="" coords="234,102,421,143"/>
 <area shape="rect" id="node3" href="$WorldModelValidInputRange_8hpp.html" title="generated/include/ad\l/rss/world/WorldModelValidInput\lRange.hpp" alt="" coords="5,199,225,255"/>
-<area shape="rect" id="node5" href="$RssCheck_8hpp.html" title="impl/include/ad/rss\l/core/RssCheck.hpp" alt="" coords="250,206,397,247"/>
-<area shape="rect" id="node6" href="$RssResponseTransformation_8hpp.html" title="impl/include/ad/rss\l/core/RssResponseTransformation.hpp" alt="" coords="421,206,685,247"/>
-<area shape="rect" id="node7" href="$RssSituationExtraction_8hpp.html" title="impl/include/ad/rss\l/core/RssSituationExtraction.hpp" alt="" coords="709,206,938,247"/>
+<area shape="rect" id="node5" href="$RssCheck_8hpp.html" title="impl/include/ad/rss\l/core/RssCheck.hpp" alt="" coords="251,206,398,247"/>
+<area shape="rect" id="node6" href="$RssSituationExtraction_8hpp.html" title="impl/include/ad/rss\l/core/RssSituationExtraction.hpp" alt="" coords="422,206,651,247"/>
 </map>

@@ -105,10 +105,13 @@ Collaboration diagram for ad::rss::state::RssStateSnapshot:</div>
 <div class="dyncontent">
 <div class="center"><img src="structad_1_1rss_1_1state_1_1RssStateSnapshot__coll__graph.png" border="0" usemap="#ad_1_1rss_1_1state_1_1RssStateSnapshot_coll__map" alt="Collaboration graph"/></div>
 <map name="ad_1_1rss_1_1state_1_1RssStateSnapshot_coll__map" id="ad_1_1rss_1_1state_1_1RssStateSnapshot_coll__map">
-<area shape="rect" id="node3" href="structad_1_1rss_1_1state_1_1RssState.html" title="DataType RssState. " alt="" coords="97,228,267,255"/>
-<area shape="rect" id="node4" href="structad_1_1rss_1_1state_1_1LateralRssState.html" title="DataType LateralRssState. " alt="" coords="5,109,185,151"/>
-<area shape="rect" id="node5" href="structad_1_1rss_1_1state_1_1RssStateInformation.html" title="DataType RssStateInformation. " alt="" coords="119,5,290,47"/>
-<area shape="rect" id="node6" href="structad_1_1rss_1_1state_1_1LongitudinalRssState.html" title="DataType LongitudinalRssState. " alt="" coords="209,109,400,151"/>
+<area shape="rect" id="node3" href="structad_1_1rss_1_1state_1_1RssState.html" title="DataType RssState. " alt="" coords="736,107,907,134"/>
+<area shape="rect" id="node4" href="structad_1_1rss_1_1state_1_1LateralRssState.html" title="DataType LateralRssState. " alt="" coords="385,100,565,141"/>
+<area shape="rect" id="node5" href="structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="11,180,191,221"/>
+<area shape="rect" id="node9" href="structad_1_1rss_1_1world_1_1RssDynamics.html" title="DataType RssDynamics. " alt="" coords="376,166,575,193"/>
+<area shape="rect" id="node6" href="structad_1_1rss_1_1state_1_1RssStateInformation.html" title="DataType RssStateInformation. " alt="" coords="15,5,186,47"/>
+<area shape="rect" id="node7" href="structad_1_1rss_1_1state_1_1LongitudinalRssState.html" title="DataType LongitudinalRssState. " alt="" coords="380,35,571,76"/>
+<area shape="rect" id="node8" href="structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="5,103,196,144"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -158,6 +161,8 @@ Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a2bb09c8775c4cc1c10083cab49e9acff"><td class="memItemLeft" align="right" valign="top">::<a class="el" href="namespacead_1_1rss_1_1world.html#abe42cf8b14cca8d78261eedf3df9722e">ad::rss::world::TimeIndex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1state_1_1RssStateSnapshot.html#a2bb09c8775c4cc1c10083cab49e9acff">timeIndex</a> {0u}</td></tr>
 <tr class="separator:a2bb09c8775c4cc1c10083cab49e9acff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7457d3da8bec067b3d7de5d890fd0ef3"><td class="memItemLeft" align="right" valign="top">::<a class="el" href="structad_1_1rss_1_1world_1_1RssDynamics.html">ad::rss::world::RssDynamics</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1state_1_1RssStateSnapshot.html#a7457d3da8bec067b3d7de5d890fd0ef3">defaultEgoVehicleRssDynamics</a></td></tr>
+<tr class="separator:a7457d3da8bec067b3d7de5d890fd0ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a3c5cbe5415dffcf4f733718cf80901"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7a3c5cbe5415dffcf4f733718cf80901"></a>
 ::<a class="el" href="namespacead_1_1rss_1_1state.html#a5b9eee170f7be7ffc08441e11536aa58">ad::rss::state::RssStateVector</a>&#160;</td><td class="memItemRight" valign="bottom"><b>individualResponses</b></td></tr>
 <tr class="separator:a7a3c5cbe5415dffcf4f733718cf80901"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -299,6 +304,19 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a7457d3da8bec067b3d7de5d890fd0ef3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">::<a class="el" href="structad_1_1rss_1_1world_1_1RssDynamics.html">ad::rss::world::RssDynamics</a> ad::rss::state::RssStateSnapshot::defaultEgoVehicleRssDynamics</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Defines the standard ego vehicle dynamics to be applied i.e. when there is no dangerous scene. This parameters are provided in addtion on a per situation basis to be able to adapt these e.g. in respect to object type or the weather conditions </p>
+
+</div>
+</div>
 <a class="anchor" id="a2bb09c8775c4cc1c10083cab49e9acff"></a>
 <div class="memitem">
 <div class="memproto">

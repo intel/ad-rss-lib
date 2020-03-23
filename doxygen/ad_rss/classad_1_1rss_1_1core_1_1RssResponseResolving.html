@@ -106,15 +106,15 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1core_1_1RssResponseResolving.html#a4c672a78a3869c382f580d8650a46be9">RssResponseResolving</a> ()</td></tr>
 <tr class="memdesc:a4c672a78a3869c382f580d8650a46be9"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor <br /></td></tr>
 <tr class="separator:a4c672a78a3869c382f580d8650a46be9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5f369a80c0a713f3a9a272b4f756ff0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1core_1_1RssResponseResolving.html#ab5f369a80c0a713f3a9a272b4f756ff0">provideProperResponse</a> (<a class="el" href="structad_1_1rss_1_1state_1_1RssStateSnapshot.html">state::RssStateSnapshot</a> const &amp;currentStateSnapshot, <a class="el" href="structad_1_1rss_1_1state_1_1ProperResponse.html">state::ProperResponse</a> &amp;response)</td></tr>
-<tr class="memdesc:ab5f369a80c0a713f3a9a272b4f756ff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the proper response out of the current responses.  <a href="#ab5f369a80c0a713f3a9a272b4f756ff0">More...</a><br /></td></tr>
-<tr class="separator:ab5f369a80c0a713f3a9a272b4f756ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36e5f0c6dd5cee87b260c8c9b815c647"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1core_1_1RssResponseResolving.html#a36e5f0c6dd5cee87b260c8c9b815c647">provideProperResponse</a> (<a class="el" href="structad_1_1rss_1_1state_1_1RssStateSnapshot.html">state::RssStateSnapshot</a> const &amp;currentStateSnapshot, <a class="el" href="structad_1_1rss_1_1state_1_1ProperResponse.html">state::ProperResponse</a> &amp;response, <a class="el" href="structad_1_1rss_1_1world_1_1AccelerationRestriction.html">world::AccelerationRestriction</a> &amp;accelerationRestriction)</td></tr>
+<tr class="memdesc:a36e5f0c6dd5cee87b260c8c9b815c647"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the proper response out of the current responses.  <a href="#a36e5f0c6dd5cee87b260c8c9b815c647">More...</a><br /></td></tr>
+<tr class="separator:a36e5f0c6dd5cee87b260c8c9b815c647"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classad_1_1rss_1_1core_1_1RssResponseResolving.html" title="RssResponseResolving. ">RssResponseResolving</a>. </p>
 <p>Class to resolve the responseStateVector of the different situation specific responses into a single responseState. This class tracks the RSS response state of every situation id over time and especially stores the respective response state before the danger threshold time. This requires that the id of a RSS situation remains constant over time in case it refers to the same object; otherwise tracking over time will fail. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="ab5f369a80c0a713f3a9a272b4f756ff0"></a>
+<a class="anchor" id="a36e5f0c6dd5cee87b260c8c9b815c647"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -128,7 +128,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structad_1_1rss_1_1state_1_1ProperResponse.html">state::ProperResponse</a> &amp;&#160;</td>
-          <td class="paramname"><em>response</em>&#160;</td>
+          <td class="paramname"><em>response</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1world_1_1AccelerationRestriction.html">world::AccelerationRestriction</a> &amp;&#160;</td>
+          <td class="paramname"><em>accelerationRestriction</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -142,11 +148,12 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">currentStateSnapshot</td><td>all the rss states gathered for the current situations </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">response</td><td>the proper overall response state</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">response</td><td>the proper overall response state </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">accelerationRestriction</td><td>- The restrictions on the vehicle acceleration to become RSS safe.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if response could be calculated, false otherwise If false is returned the internal state has not been updated </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if response and acceleration restriction could be calculated, false otherwise If false is returned the internal state has not been updated </dd></dl>
 
 </div>
 </div>

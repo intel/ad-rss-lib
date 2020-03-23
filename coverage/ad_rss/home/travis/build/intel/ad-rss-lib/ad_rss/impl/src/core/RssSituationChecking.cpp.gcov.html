@@ -31,13 +31,13 @@
             <td class="headerValue">ad-rss-lib</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">79</td>
-            <td class="headerCovTableEntry">82</td>
-            <td class="headerCovTableEntryHi">96.3 %</td>
+            <td class="headerCovTableEntry">83</td>
+            <td class="headerCovTableEntry">86</td>
+            <td class="headerCovTableEntryHi">96.5 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-03-19 10:45:26</td>
+            <td class="headerValue">2020-03-23 18:00:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">8</td>
@@ -71,7 +71,7 @@
 <pre class="source">
 <a name="1"><span class="lineNum">       1 </span>                :            : // ----------------- BEGIN LICENSE BLOCK ---------------------------------</a>
 <span class="lineNum">       2 </span>                :            : //
-<span class="lineNum">       3 </span>                :            : // Copyright (C) 2018-2019 Intel Corporation
+<span class="lineNum">       3 </span>                :            : // Copyright (C) 2018-2020 Intel Corporation
 <span class="lineNum">       4 </span>                :            : //
 <span class="lineNum">       5 </span>                :            : // SPDX-License-Identifier: LGPL-2.1-only
 <span class="lineNum">       6 </span>                :            : //
@@ -94,167 +94,175 @@
 <span class="lineNum">      23 </span>                :            : {
 <span class="lineNum">      24 </span>                :            :   Yes,
 <span class="lineNum">      25 </span>                :            :   No
-<span class="lineNum">      26 </span>                :            : };
-<a name="27"><span class="lineNum">      27 </span>                :            : </a>
-<span class="lineNum">      28 </span>                :            : inline state::RssState
-<span class="lineNum">      29 </span>                :<span class="lineCov">      67023 : createRssState(situation::SituationId const &amp;situationId, world::ObjectId const &amp;objectId, IsSafe const &amp;isSafeValue)</span>
-<span class="lineNum">      30 </span>                :            : {
-<span class="lineNum">      31 </span>                :<span class="lineCov">      67023 :   bool const isSafe = (isSafeValue == IsSafe::Yes);</span>
-<span class="lineNum">      32 </span>        [<span class="branchCov" title="Branch 1 was taken 67023 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      67023 :   state::RssStateInformation emptyRssStateInfo;</span>
-<span class="lineNum">      33 </span>                :<span class="lineCov">      67023 :   emptyRssStateInfo.currentDistance = std::numeric_limits&lt;physics::Distance&gt;::max();</span>
-<span class="lineNum">      34 </span>                :<span class="lineCov">      67023 :   emptyRssStateInfo.safeDistance = std::numeric_limits&lt;physics::Distance&gt;::max();</span>
-<span class="lineNum">      35 </span>                :<span class="lineCov">      67023 :   emptyRssStateInfo.evaluator = state::RssStateEvaluator::None;</span>
-<span class="lineNum">      36 </span>                :            : 
-<span class="lineNum">      37 </span>        [<span class="branchCov" title="Branch 1 was taken 67023 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      67023 :   state::RssState resultRssState;</span>
-<span class="lineNum">      38 </span>                :<span class="lineCov">      67023 :   resultRssState.situationId = situationId;</span>
-<span class="lineNum">      39 </span>                :<span class="lineCov">      67023 :   resultRssState.objectId = objectId;</span>
-<span class="lineNum">      40 </span>                :<span class="lineCov">      67023 :   resultRssState.lateralStateLeft.isSafe = isSafe;</span>
-<span class="lineNum">      41 </span>                :            :   resultRssState.lateralStateLeft.response
-<span class="lineNum">      42 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 67022 times"> + </span>]:<span class="lineCov">      67023 :     = isSafe ? (::ad::rss::state::LateralResponse::None) : (::ad::rss::state::LateralResponse::BrakeMin);</span>
-<span class="lineNum">      43 </span>                :<span class="lineCov">      67023 :   resultRssState.lateralStateLeft.rssStateInformation = emptyRssStateInfo;</span>
-<span class="lineNum">      44 </span>                :<span class="lineCov">      67023 :   resultRssState.lateralStateRight.isSafe = isSafe;</span>
-<span class="lineNum">      45 </span>                :            :   resultRssState.lateralStateRight.response
-<span class="lineNum">      46 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 67022 times"> + </span>]:<span class="lineCov">      67023 :     = isSafe ? (::ad::rss::state::LateralResponse::None) : (::ad::rss::state::LateralResponse::BrakeMin);</span>
-<span class="lineNum">      47 </span>                :<span class="lineCov">      67023 :   resultRssState.lateralStateRight.rssStateInformation = emptyRssStateInfo;</span>
-<span class="lineNum">      48 </span>                :<span class="lineCov">      67023 :   resultRssState.longitudinalState.isSafe = isSafe;</span>
-<span class="lineNum">      49 </span>                :            :   resultRssState.longitudinalState.response
-<span class="lineNum">      50 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 67022 times"> + </span>]:<span class="lineCov">      67023 :     = isSafe ? (::ad::rss::state::LongitudinalResponse::None) : (::ad::rss::state::LongitudinalResponse::BrakeMin);</span>
-<span class="lineNum">      51 </span>                :<span class="lineCov">      67023 :   resultRssState.longitudinalState.rssStateInformation = emptyRssStateInfo;</span>
-<span class="lineNum">      52 </span>                :            : 
-<span class="lineNum">      53 </span>                :<span class="lineCov">      67023 :   return resultRssState;</span>
-<a name="54"><span class="lineNum">      54 </span>                :            : }</a>
-<span class="lineNum">      55 </span>                :            : 
-<span class="lineNum">      56 </span>                :<span class="lineCov">       1576 : RssSituationChecking::RssSituationChecking()</span>
-<span class="lineNum">      57 </span>                :            : {
-<span class="lineNum">      58 </span>                :            :   try
-<span class="lineNum">      59 </span>                :            :   {
-<span class="lineNum">      60 </span>[<span class="branchCov" title="Branch 1 was taken 775 times"> + </span><span class="branchCov" title="Branch 2 was taken 13 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 775 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        788 :     mIntersectionChecker = std::unique_ptr&lt;situation::RssIntersectionChecker&gt;(new situation::RssIntersectionChecker());</span>
-<span class="lineNum">      61 </span>                :            :   }
-<span class="lineNum">      62 </span>        [<span class="branchCov" title="Branch 2 was taken 13 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         26 :   catch (...)</span>
-<span class="lineNum">      63 </span>                :            :   {
-<span class="lineNum">      64 </span>        [<span class="branchCov" title="Branch 1 was taken 13 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         13 :     spdlog::critical(&quot;RssSituationChecking object initialization failed&quot;);</span>
-<span class="lineNum">      65 </span>                :<span class="lineCov">         13 :     mIntersectionChecker = nullptr;</span>
+<a name="26"><span class="lineNum">      26 </span>                :            : };</a>
+<span class="lineNum">      27 </span>                :            : 
+<span class="lineNum">      28 </span>                :<span class="lineCov">      67024 : inline state::RssState createRssState(situation::SituationId const &amp;situationId,</span>
+<span class="lineNum">      29 </span>                :            :                                       world::ObjectId const &amp;objectId,
+<span class="lineNum">      30 </span>                :            :                                       world::RssDynamics const &amp;egoDynamics,
+<span class="lineNum">      31 </span>                :            :                                       IsSafe const &amp;isSafeValue)
+<span class="lineNum">      32 </span>                :            : {
+<span class="lineNum">      33 </span>                :<span class="lineCov">      67024 :   bool const isSafe = (isSafeValue == IsSafe::Yes);</span>
+<span class="lineNum">      34 </span>        [<span class="branchCov" title="Branch 1 was taken 67024 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      67024 :   state::RssStateInformation emptyRssStateInfo;</span>
+<span class="lineNum">      35 </span>                :<span class="lineCov">      67024 :   emptyRssStateInfo.currentDistance = std::numeric_limits&lt;physics::Distance&gt;::max();</span>
+<span class="lineNum">      36 </span>                :<span class="lineCov">      67024 :   emptyRssStateInfo.safeDistance = std::numeric_limits&lt;physics::Distance&gt;::max();</span>
+<span class="lineNum">      37 </span>                :<span class="lineCov">      67024 :   emptyRssStateInfo.evaluator = state::RssStateEvaluator::None;</span>
+<span class="lineNum">      38 </span>                :            : 
+<span class="lineNum">      39 </span>        [<span class="branchCov" title="Branch 1 was taken 67024 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      67024 :   state::RssState resultRssState;</span>
+<span class="lineNum">      40 </span>                :<span class="lineCov">      67024 :   resultRssState.situationId = situationId;</span>
+<span class="lineNum">      41 </span>                :<span class="lineCov">      67024 :   resultRssState.objectId = objectId;</span>
+<span class="lineNum">      42 </span>                :<span class="lineCov">      67024 :   resultRssState.lateralStateLeft.isSafe = isSafe;</span>
+<span class="lineNum">      43 </span>                :            :   resultRssState.lateralStateLeft.response
+<span class="lineNum">      44 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 67023 times"> + </span>]:<span class="lineCov">      67024 :     = isSafe ? (::ad::rss::state::LateralResponse::None) : (::ad::rss::state::LateralResponse::BrakeMin);</span>
+<span class="lineNum">      45 </span>                :<span class="lineCov">      67024 :   resultRssState.lateralStateLeft.alphaLat = egoDynamics.alphaLat;</span>
+<span class="lineNum">      46 </span>                :<span class="lineCov">      67024 :   resultRssState.lateralStateLeft.rssStateInformation = emptyRssStateInfo;</span>
+<span class="lineNum">      47 </span>                :<span class="lineCov">      67024 :   resultRssState.lateralStateRight.isSafe = isSafe;</span>
+<span class="lineNum">      48 </span>                :            :   resultRssState.lateralStateRight.response
+<span class="lineNum">      49 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 67023 times"> + </span>]:<span class="lineCov">      67024 :     = isSafe ? (::ad::rss::state::LateralResponse::None) : (::ad::rss::state::LateralResponse::BrakeMin);</span>
+<span class="lineNum">      50 </span>                :<span class="lineCov">      67024 :   resultRssState.lateralStateRight.alphaLat = egoDynamics.alphaLat;</span>
+<span class="lineNum">      51 </span>                :<span class="lineCov">      67024 :   resultRssState.lateralStateRight.rssStateInformation = emptyRssStateInfo;</span>
+<span class="lineNum">      52 </span>                :<span class="lineCov">      67024 :   resultRssState.longitudinalState.isSafe = isSafe;</span>
+<span class="lineNum">      53 </span>                :            :   resultRssState.longitudinalState.response
+<span class="lineNum">      54 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 67023 times"> + </span>]:<span class="lineCov">      67024 :     = isSafe ? (::ad::rss::state::LongitudinalResponse::None) : (::ad::rss::state::LongitudinalResponse::BrakeMin);</span>
+<span class="lineNum">      55 </span>                :<span class="lineCov">      67024 :   resultRssState.longitudinalState.alphaLon = egoDynamics.alphaLon;</span>
+<span class="lineNum">      56 </span>                :<span class="lineCov">      67024 :   resultRssState.longitudinalState.rssStateInformation = emptyRssStateInfo;</span>
+<span class="lineNum">      57 </span>                :            : 
+<span class="lineNum">      58 </span>                :<span class="lineCov">      67024 :   return resultRssState;</span>
+<a name="59"><span class="lineNum">      59 </span>                :            : }</a>
+<span class="lineNum">      60 </span>                :            : 
+<span class="lineNum">      61 </span>                :<span class="lineCov">       1578 : RssSituationChecking::RssSituationChecking()</span>
+<span class="lineNum">      62 </span>                :            : {
+<span class="lineNum">      63 </span>                :            :   try
+<span class="lineNum">      64 </span>                :            :   {
+<span class="lineNum">      65 </span>[<span class="branchCov" title="Branch 1 was taken 776 times"> + </span><span class="branchCov" title="Branch 2 was taken 13 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 776 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        789 :     mIntersectionChecker = std::unique_ptr&lt;situation::RssIntersectionChecker&gt;(new situation::RssIntersectionChecker());</span>
 <span class="lineNum">      66 </span>                :            :   }
-<a name="67"><span class="lineNum">      67 </span>                :<span class="lineCov">        788 : }</span></a>
-<span class="lineNum">      68 </span>                :            : 
-<span class="lineNum">      69 </span>                :<span class="lineCov">       1576 : RssSituationChecking::~RssSituationChecking()</span>
-<span class="lineNum">      70 </span>                :            : {
-<a name="71"><span class="lineNum">      71 </span>                :<span class="lineCov">        788 : }</span></a>
-<span class="lineNum">      72 </span>                :            : 
-<span class="lineNum">      73 </span>                :<span class="lineCov">      67034 : bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation const &amp;situation,</span>
-<span class="lineNum">      74 </span>                :            :                                                            state::RssState &amp;rssState)
+<span class="lineNum">      67 </span>        [<span class="branchCov" title="Branch 2 was taken 13 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         26 :   catch (...)</span>
+<span class="lineNum">      68 </span>                :            :   {
+<span class="lineNum">      69 </span>        [<span class="branchCov" title="Branch 1 was taken 13 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         13 :     spdlog::critical(&quot;RssSituationChecking object initialization failed&quot;);</span>
+<span class="lineNum">      70 </span>                :<span class="lineCov">         13 :     mIntersectionChecker = nullptr;</span>
+<span class="lineNum">      71 </span>                :            :   }
+<a name="72"><span class="lineNum">      72 </span>                :<span class="lineCov">        789 : }</span></a>
+<span class="lineNum">      73 </span>                :            : 
+<span class="lineNum">      74 </span>                :<span class="lineCov">       1578 : RssSituationChecking::~RssSituationChecking()</span>
 <span class="lineNum">      75 </span>                :            : {
-<span class="lineNum">      76 </span>                :<span class="lineCov">      67034 :   bool result = false;</span>
-<span class="lineNum">      77 </span>                :            :   // global try catch block to ensure this library call doesn't throw an exception
-<span class="lineNum">      78 </span>                :            :   try
-<span class="lineNum">      79 </span>                :            :   {
-<span class="lineNum">      80 </span>        [<span class="branchCov" title="Branch 1 was taken 12 times"> + </span><span class="branchCov" title="Branch 2 was taken 67022 times"> + </span>]:<span class="lineCov">      67034 :     if (!static_cast&lt;bool&gt;(mIntersectionChecker))</span>
-<span class="lineNum">      81 </span>                :            :     {
-<span class="lineNum">      82 </span>        [<span class="branchCov" title="Branch 1 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         12 :       spdlog::critical(&quot;RssSituationChecking::checkSituationInputRangeChecked&gt;&gt; object not properly initialized&quot;);</span>
-<span class="lineNum">      83 </span>                :<span class="lineCov">         12 :       return false;</span>
-<span class="lineNum">      84 </span>                :            :     }
-<span class="lineNum">      85 </span>                :            : 
-<span class="lineNum">      86 </span>        [<span class="branchCov" title="Branch 1 was taken 67022 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      67022 :     rssState = createRssState(situation.situationId, situation.objectId, IsSafe::No);</span>
-<span class="lineNum">      87 </span>                :            : 
-<span class="lineNum">      88 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 65135 times"> + </span><span class="branchCov" title="Branch 2 was taken 1074 times"> + </span><span class="branchCov" title="Branch 3 was taken 811 times"> + </span> :<span class="lineCov">      67022 :     switch (situation.situationType)</span>
+<a name="76"><span class="lineNum">      76 </span>                :<span class="lineCov">        789 : }</span></a>
+<span class="lineNum">      77 </span>                :            : 
+<span class="lineNum">      78 </span>                :<span class="lineCov">      67035 : bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation const &amp;situation,</span>
+<span class="lineNum">      79 </span>                :            :                                                            state::RssState &amp;rssState)
+<span class="lineNum">      80 </span>                :            : {
+<span class="lineNum">      81 </span>                :<span class="lineCov">      67035 :   bool result = false;</span>
+<span class="lineNum">      82 </span>                :            :   // global try catch block to ensure this library call doesn't throw an exception
+<span class="lineNum">      83 </span>                :            :   try
+<span class="lineNum">      84 </span>                :            :   {
+<span class="lineNum">      85 </span>        [<span class="branchCov" title="Branch 1 was taken 12 times"> + </span><span class="branchCov" title="Branch 2 was taken 67023 times"> + </span>]:<span class="lineCov">      67035 :     if (!static_cast&lt;bool&gt;(mIntersectionChecker))</span>
+<span class="lineNum">      86 </span>                :            :     {
+<span class="lineNum">      87 </span>        [<span class="branchCov" title="Branch 1 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         12 :       spdlog::critical(&quot;RssSituationChecking::checkSituationInputRangeChecked&gt;&gt; object not properly initialized&quot;);</span>
+<span class="lineNum">      88 </span>                :<span class="lineCov">         12 :       return false;</span>
+<span class="lineNum">      89 </span>                :            :     }
+<span class="lineNum">      90 </span>                :            : 
+<span class="lineNum">      91 </span>                :            :     rssState
+<span class="lineNum">      92 </span>        [<span class="branchCov" title="Branch 1 was taken 67023 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      67023 :       = createRssState(situation.situationId, situation.objectId, situation.egoVehicleState.dynamics, IsSafe::No);</span>
+<span class="lineNum">      93 </span>                :            : 
+<span class="lineNum">      94 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 65136 times"> + </span><span class="branchCov" title="Branch 2 was taken 1074 times"> + </span><span class="branchCov" title="Branch 3 was taken 811 times"> + </span> :<span class="lineCov">      67023 :     switch (situation.situationType)</span>
 <span class="lineNum">         </span>            <span class="branchCov" title="Branch 4 was taken 1 time"> + </span>]
-<span class="lineNum">      89 </span>                :            :     {
-<span class="lineNum">      90 </span>                :            :       case situation::SituationType::NotRelevant:
-<span class="lineNum">      91 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :         rssState = createRssState(situation.situationId, situation.objectId, IsSafe::Yes);</span>
-<span class="lineNum">      92 </span>                :<span class="lineCov">          1 :         result = true;</span>
-<span class="lineNum">      93 </span>                :<span class="lineCov">          1 :         break;</span>
-<span class="lineNum">      94 </span>                :            :       case situation::SituationType::SameDirection:
-<span class="lineNum">      95 </span>        [<span class="branchCov" title="Branch 1 was taken 65135 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      65135 :         result = calculateRssStateNonIntersectionSameDirection(situation, rssState);</span>
-<span class="lineNum">      96 </span>                :<span class="lineCov">      65135 :         break;</span>
-<span class="lineNum">      97 </span>                :            :       case situation::SituationType::OppositeDirection:
-<span class="lineNum">      98 </span>        [<span class="branchCov" title="Branch 1 was taken 1074 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1074 :         result = calculateRssStateNonIntersectionOppositeDirection(situation, rssState);</span>
-<span class="lineNum">      99 </span>                :<span class="lineCov">       1074 :         break;</span>
-<span class="lineNum">     100 </span>                :            : 
-<span class="lineNum">     101 </span>                :            :       case situation::SituationType::IntersectionEgoHasPriority:
-<span class="lineNum">     102 </span>                :            :       case situation::SituationType::IntersectionObjectHasPriority:
-<span class="lineNum">     103 </span>                :            :       case situation::SituationType::IntersectionSamePriority:
-<span class="lineNum">     104 </span>        [<span class="branchCov" title="Branch 2 was taken 811 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        811 :         result = mIntersectionChecker-&gt;calculateRssStateIntersection(mCurrentTimeIndex, situation, rssState);</span>
-<span class="lineNum">     105 </span>                :<span class="lineCov">        811 :         break;</span>
-<span class="lineNum">     106 </span>                :            :       default:
-<span class="lineNum">     107 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :         spdlog::error(&quot;RssSituationChecking::checkSituationInputRangeChecked&gt;&gt; Invalid situation type {}&quot;, situation);</span>
-<span class="lineNum">     108 </span>                :<span class="lineCov">          1 :         result = false;</span>
-<span class="lineNum">     109 </span>                :<span class="lineCov">          1 :         break;</span>
-<span class="lineNum">     110 </span>                :            :     }
-<span class="lineNum">     111 </span>                :            :   }
-<span class="lineNum">     112 </span>                :<span class="lineNoCov">          0 :   catch (...)</span>
-<span class="lineNum">     113 </span>                :            :   {
-<span class="lineNum">     114 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     spdlog::critical(&quot;RssSituationChecking::checkSituationInputRangeChecked&gt;&gt; Exception caught {}&quot;, situation);</span>
-<span class="lineNum">     115 </span>                :<span class="lineNoCov">          0 :     result = false;</span>
-<span class="lineNum">     116 </span>                :            :   }
-<span class="lineNum">     117 </span>                :            : 
-<span class="lineNum">     118 </span>                :<span class="lineCov">      67034 :   return result;</span>
-<a name="119"><span class="lineNum">     119 </span>                :            : }</a>
-<span class="lineNum">     120 </span>                :            : 
-<span class="lineNum">     121 </span>                :<span class="lineCov">       4036 : bool RssSituationChecking::checkSituations(situation::SituationSnapshot const &amp;situationSnapshot,</span>
-<span class="lineNum">     122 </span>                :            :                                            state::RssStateSnapshot &amp;rssStateSnapshot)
-<span class="lineNum">     123 </span>                :            : {
-<span class="lineNum">     124 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 4035 times"> + </span>]:<span class="lineCov">       4036 :   if (!withinValidInputRange(situationSnapshot))</span>
-<span class="lineNum">     125 </span>                :            :   {
-<span class="lineNum">     126 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :     spdlog::error(&quot;RssSituationChecking::checkSituations&gt;&gt; Invalid input {}&quot;, situationSnapshot);</span>
-<span class="lineNum">     127 </span>                :<span class="lineCov">          1 :     return false;</span>
-<span class="lineNum">     128 </span>                :            :   }
-<span class="lineNum">     129 </span>        [<span class="branchCov" title="Branch 1 was taken 25 times"> + </span><span class="branchCov" title="Branch 2 was taken 4010 times"> + </span>]:<span class="lineCov">       4035 :   if (!checkTimeIncreasingConsistently(situationSnapshot.timeIndex))</span>
-<span class="lineNum">     130 </span>                :            :   {
-<span class="lineNum">     131 </span>        [<span class="branchCov" title="Branch 2 was taken 25 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         39 :     spdlog::error(&quot;RssSituationChecking::checkSituations&gt;&gt; Inconsistent time {}&quot;, situationSnapshot.timeIndex);</span>
-<span class="lineNum">     132 </span>                :<span class="lineCov">         25 :     return false;</span>
-<span class="lineNum">     133 </span>                :            :   }
-<span class="lineNum">     134 </span>                :<span class="lineCov">       4010 :   bool result = true;</span>
-<span class="lineNum">     135 </span>                :            :   // global try catch block to ensure this library call doesn't throw an exception
-<span class="lineNum">     136 </span>                :            :   try
+<span class="lineNum">      95 </span>                :            :     {
+<span class="lineNum">      96 </span>                :            :       case situation::SituationType::NotRelevant:
+<span class="lineNum">      97 </span>                :            :         rssState
+<span class="lineNum">      98 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :           = createRssState(situation.situationId, situation.objectId, situation.egoVehicleState.dynamics, IsSafe::Yes);</span>
+<span class="lineNum">      99 </span>                :<span class="lineCov">          1 :         result = true;</span>
+<span class="lineNum">     100 </span>                :<span class="lineCov">          1 :         break;</span>
+<span class="lineNum">     101 </span>                :            :       case situation::SituationType::SameDirection:
+<span class="lineNum">     102 </span>        [<span class="branchCov" title="Branch 1 was taken 65136 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      65136 :         result = calculateRssStateNonIntersectionSameDirection(situation, rssState);</span>
+<span class="lineNum">     103 </span>                :<span class="lineCov">      65136 :         break;</span>
+<span class="lineNum">     104 </span>                :            :       case situation::SituationType::OppositeDirection:
+<span class="lineNum">     105 </span>        [<span class="branchCov" title="Branch 1 was taken 1074 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1074 :         result = calculateRssStateNonIntersectionOppositeDirection(situation, rssState);</span>
+<span class="lineNum">     106 </span>                :<span class="lineCov">       1074 :         break;</span>
+<span class="lineNum">     107 </span>                :            : 
+<span class="lineNum">     108 </span>                :            :       case situation::SituationType::IntersectionEgoHasPriority:
+<span class="lineNum">     109 </span>                :            :       case situation::SituationType::IntersectionObjectHasPriority:
+<span class="lineNum">     110 </span>                :            :       case situation::SituationType::IntersectionSamePriority:
+<span class="lineNum">     111 </span>        [<span class="branchCov" title="Branch 2 was taken 811 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        811 :         result = mIntersectionChecker-&gt;calculateRssStateIntersection(mCurrentTimeIndex, situation, rssState);</span>
+<span class="lineNum">     112 </span>                :<span class="lineCov">        811 :         break;</span>
+<span class="lineNum">     113 </span>                :            :       default:
+<span class="lineNum">     114 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :         spdlog::error(&quot;RssSituationChecking::checkSituationInputRangeChecked&gt;&gt; Invalid situation type {}&quot;, situation);</span>
+<span class="lineNum">     115 </span>                :<span class="lineCov">          1 :         result = false;</span>
+<span class="lineNum">     116 </span>                :<span class="lineCov">          1 :         break;</span>
+<span class="lineNum">     117 </span>                :            :     }
+<span class="lineNum">     118 </span>                :            :   }
+<span class="lineNum">     119 </span>                :<span class="lineNoCov">          0 :   catch (...)</span>
+<span class="lineNum">     120 </span>                :            :   {
+<span class="lineNum">     121 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     spdlog::critical(&quot;RssSituationChecking::checkSituationInputRangeChecked&gt;&gt; Exception caught {}&quot;, situation);</span>
+<span class="lineNum">     122 </span>                :<span class="lineNoCov">          0 :     result = false;</span>
+<span class="lineNum">     123 </span>                :            :   }
+<span class="lineNum">     124 </span>                :            : 
+<span class="lineNum">     125 </span>                :<span class="lineCov">      67035 :   return result;</span>
+<a name="126"><span class="lineNum">     126 </span>                :            : }</a>
+<span class="lineNum">     127 </span>                :            : 
+<span class="lineNum">     128 </span>                :<span class="lineCov">       4037 : bool RssSituationChecking::checkSituations(situation::SituationSnapshot const &amp;situationSnapshot,</span>
+<span class="lineNum">     129 </span>                :            :                                            state::RssStateSnapshot &amp;rssStateSnapshot)
+<span class="lineNum">     130 </span>                :            : {
+<span class="lineNum">     131 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 4036 times"> + </span>]:<span class="lineCov">       4037 :   if (!withinValidInputRange(situationSnapshot))</span>
+<span class="lineNum">     132 </span>                :            :   {
+<span class="lineNum">     133 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :     spdlog::error(&quot;RssSituationChecking::checkSituations&gt;&gt; Invalid input {}&quot;, situationSnapshot);</span>
+<span class="lineNum">     134 </span>                :<span class="lineCov">          1 :     return false;</span>
+<span class="lineNum">     135 </span>                :            :   }
+<span class="lineNum">     136 </span>        [<span class="branchCov" title="Branch 1 was taken 25 times"> + </span><span class="branchCov" title="Branch 2 was taken 4011 times"> + </span>]:<span class="lineCov">       4036 :   if (!checkTimeIncreasingConsistently(situationSnapshot.timeIndex))</span>
 <span class="lineNum">     137 </span>                :            :   {
-<span class="lineNum">     138 </span>                :<span class="lineCov">       4010 :     rssStateSnapshot.timeIndex = situationSnapshot.timeIndex;</span>
-<span class="lineNum">     139 </span>                :<span class="lineCov">       4010 :     rssStateSnapshot.individualResponses.clear();</span>
-<span class="lineNum">     140 </span>        [<span class="branchCov" title="Branch 3 was taken 54949 times"> + </span><span class="branchCov" title="Branch 4 was taken 3981 times"> + </span>]:<span class="lineCov">      58930 :     for (auto const &amp;situation : situationSnapshot.situations)</span>
-<span class="lineNum">     141 </span>                :            :     {
-<span class="lineNum">     142 </span>        [<span class="branchCov" title="Branch 1 was taken 54949 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      54949 :       state::RssState rssState;</span>
-<span class="lineNum">     143 </span>        [<span class="branchCov" title="Branch 1 was taken 54949 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      54949 :       bool const checkResult = checkSituationInputRangeChecked(situation, rssState);</span>
-<span class="lineNum">     144 </span>        [<span class="branchCov" title="Branch 0 was taken 54934 times"> + </span><span class="branchCov" title="Branch 1 was taken 15 times"> + </span>]:<span class="lineCov">      54949 :       if (checkResult)</span>
-<span class="lineNum">     145 </span>                :            :       {
-<span class="lineNum">     146 </span>        [<span class="branchCov" title="Branch 1 was taken 54920 times"> + </span><span class="branchCov" title="Branch 2 was taken 14 times"> + </span>]:<span class="lineCov">      54934 :         rssStateSnapshot.individualResponses.push_back(rssState);</span>
-<span class="lineNum">     147 </span>                :            :       }
-<span class="lineNum">     148 </span>                :            :       else
-<span class="lineNum">     149 </span>                :            :       {
-<span class="lineNum">     150 </span>                :<span class="lineCov">         15 :         result = false;</span>
-<span class="lineNum">     151 </span>                :<span class="lineCov">       3996 :         break;</span>
-<span class="lineNum">     152 </span>                :            :       }
-<span class="lineNum">     153 </span>                :            :     }
-<span class="lineNum">     154 </span>                :            :   }
-<span class="lineNum">     155 </span>                :<span class="lineCov">         28 :   catch (...)</span>
-<span class="lineNum">     156 </span>                :            :   {
-<span class="lineNum">     157 </span>        [<span class="branchCov" title="Branch 2 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         14 :     spdlog::critical(&quot;RssSituationChecking::checkSituations&gt;&gt; Exception catched {}&quot;, situationSnapshot);</span>
-<span class="lineNum">     158 </span>                :<span class="lineCov">         14 :     result = false;</span>
-<span class="lineNum">     159 </span>                :            :   }
-<span class="lineNum">     160 </span>        [<span class="branchCov" title="Branch 0 was taken 29 times"> + </span><span class="branchCov" title="Branch 1 was taken 3981 times"> + </span>]:<span class="lineCov">       4010 :   if (!result)</span>
-<span class="lineNum">     161 </span>                :            :   {
-<span class="lineNum">     162 </span>                :<span class="lineCov">         29 :     rssStateSnapshot.individualResponses.clear();</span>
-<span class="lineNum">     163 </span>                :            :   }
-<span class="lineNum">     164 </span>                :<span class="lineCov">       4036 :   return result;</span>
-<a name="165"><span class="lineNum">     165 </span>                :            : }</a>
-<span class="lineNum">     166 </span>                :            : 
-<span class="lineNum">     167 </span>                :<span class="lineCov">       4112 : bool RssSituationChecking::checkTimeIncreasingConsistently(world::TimeIndex const &amp;nextTimeIndex)</span>
-<span class="lineNum">     168 </span>                :            : {
-<span class="lineNum">     169 </span>                :<span class="lineCov">       4112 :   bool timeIsIncreasing = false;</span>
-<span class="lineNum">     170 </span>        [<span class="branchCov" title="Branch 0 was taken 4108 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>]:<span class="lineCov">       4112 :   if (mCurrentTimeIndex != nextTimeIndex)</span>
-<span class="lineNum">     171 </span>                :            :   {
-<span class="lineNum">     172 </span>                :            :     // check for overflow
-<span class="lineNum">     173 </span>                :<span class="lineCov">       4108 :     world::TimeIndex const deltaTimeIndex = nextTimeIndex - mCurrentTimeIndex;</span>
-<span class="lineNum">     174 </span>        [<span class="branchCov" title="Branch 1 was taken 4087 times"> + </span><span class="branchCov" title="Branch 2 was taken 21 times"> + </span>]:<span class="lineCov">       4108 :     if (deltaTimeIndex &lt; (std::numeric_limits&lt;world::TimeIndex&gt;::max() / 2))</span>
-<span class="lineNum">     175 </span>                :            :     {
-<span class="lineNum">     176 </span>                :<span class="lineCov">       4108 :       timeIsIncreasing = true;</span>
-<span class="lineNum">     177 </span>                :            :     }
-<span class="lineNum">     178 </span>                :            :   }
-<span class="lineNum">     179 </span>                :<span class="lineCov">       4112 :   mCurrentTimeIndex = nextTimeIndex;</span>
-<span class="lineNum">     180 </span>                :<span class="lineCov">       4112 :   return timeIsIncreasing;</span>
-<span class="lineNum">     181 </span>                :            : }
-<span class="lineNum">     182 </span>                :            : 
-<a name="183"><span class="lineNum">     183 </span>                :            : } // namespace core</a>
-<span class="lineNum">     184 </span>                :            : } // namespace rss
-<span class="lineNum">     185 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
+<span class="lineNum">     138 </span>        [<span class="branchCov" title="Branch 2 was taken 25 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         39 :     spdlog::error(&quot;RssSituationChecking::checkSituations&gt;&gt; Inconsistent time {}&quot;, situationSnapshot.timeIndex);</span>
+<span class="lineNum">     139 </span>                :<span class="lineCov">         25 :     return false;</span>
+<span class="lineNum">     140 </span>                :            :   }
+<span class="lineNum">     141 </span>                :<span class="lineCov">       4011 :   bool result = true;</span>
+<span class="lineNum">     142 </span>                :            :   // global try catch block to ensure this library call doesn't throw an exception
+<span class="lineNum">     143 </span>                :            :   try
+<span class="lineNum">     144 </span>                :            :   {
+<span class="lineNum">     145 </span>                :<span class="lineCov">       4011 :     rssStateSnapshot.timeIndex = situationSnapshot.timeIndex;</span>
+<span class="lineNum">     146 </span>                :<span class="lineCov">       4011 :     rssStateSnapshot.defaultEgoVehicleRssDynamics = situationSnapshot.defaultEgoVehicleRssDynamics;</span>
+<span class="lineNum">     147 </span>                :<span class="lineCov">       4011 :     rssStateSnapshot.individualResponses.clear();</span>
+<span class="lineNum">     148 </span>        [<span class="branchCov" title="Branch 3 was taken 54950 times"> + </span><span class="branchCov" title="Branch 4 was taken 3982 times"> + </span>]:<span class="lineCov">      58932 :     for (auto const &amp;situation : situationSnapshot.situations)</span>
+<span class="lineNum">     149 </span>                :            :     {
+<span class="lineNum">     150 </span>        [<span class="branchCov" title="Branch 1 was taken 54950 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      54950 :       state::RssState rssState;</span>
+<span class="lineNum">     151 </span>        [<span class="branchCov" title="Branch 1 was taken 54950 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      54950 :       bool const checkResult = checkSituationInputRangeChecked(situation, rssState);</span>
+<span class="lineNum">     152 </span>        [<span class="branchCov" title="Branch 0 was taken 54935 times"> + </span><span class="branchCov" title="Branch 1 was taken 15 times"> + </span>]:<span class="lineCov">      54950 :       if (checkResult)</span>
+<span class="lineNum">     153 </span>                :            :       {
+<span class="lineNum">     154 </span>        [<span class="branchCov" title="Branch 1 was taken 54921 times"> + </span><span class="branchCov" title="Branch 2 was taken 14 times"> + </span>]:<span class="lineCov">      54935 :         rssStateSnapshot.individualResponses.push_back(rssState);</span>
+<span class="lineNum">     155 </span>                :            :       }
+<span class="lineNum">     156 </span>                :            :       else
+<span class="lineNum">     157 </span>                :            :       {
+<span class="lineNum">     158 </span>                :<span class="lineCov">         15 :         result = false;</span>
+<span class="lineNum">     159 </span>                :<span class="lineCov">       3997 :         break;</span>
+<span class="lineNum">     160 </span>                :            :       }
+<span class="lineNum">     161 </span>                :            :     }
+<span class="lineNum">     162 </span>                :            :   }
+<span class="lineNum">     163 </span>                :<span class="lineCov">         28 :   catch (...)</span>
+<span class="lineNum">     164 </span>                :            :   {
+<span class="lineNum">     165 </span>        [<span class="branchCov" title="Branch 2 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         14 :     spdlog::critical(&quot;RssSituationChecking::checkSituations&gt;&gt; Exception catched {}&quot;, situationSnapshot);</span>
+<span class="lineNum">     166 </span>                :<span class="lineCov">         14 :     result = false;</span>
+<span class="lineNum">     167 </span>                :            :   }
+<span class="lineNum">     168 </span>        [<span class="branchCov" title="Branch 0 was taken 29 times"> + </span><span class="branchCov" title="Branch 1 was taken 3982 times"> + </span>]:<span class="lineCov">       4011 :   if (!result)</span>
+<span class="lineNum">     169 </span>                :            :   {
+<span class="lineNum">     170 </span>                :<span class="lineCov">         29 :     rssStateSnapshot.individualResponses.clear();</span>
+<span class="lineNum">     171 </span>                :            :   }
+<span class="lineNum">     172 </span>                :<span class="lineCov">       4037 :   return result;</span>
+<a name="173"><span class="lineNum">     173 </span>                :            : }</a>
+<span class="lineNum">     174 </span>                :            : 
+<span class="lineNum">     175 </span>                :<span class="lineCov">       4113 : bool RssSituationChecking::checkTimeIncreasingConsistently(world::TimeIndex const &amp;nextTimeIndex)</span>
+<span class="lineNum">     176 </span>                :            : {
+<span class="lineNum">     177 </span>                :<span class="lineCov">       4113 :   bool timeIsIncreasing = false;</span>
+<span class="lineNum">     178 </span>        [<span class="branchCov" title="Branch 0 was taken 4109 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>]:<span class="lineCov">       4113 :   if (mCurrentTimeIndex != nextTimeIndex)</span>
+<span class="lineNum">     179 </span>                :            :   {
+<span class="lineNum">     180 </span>                :            :     // check for overflow
+<span class="lineNum">     181 </span>                :<span class="lineCov">       4109 :     world::TimeIndex const deltaTimeIndex = nextTimeIndex - mCurrentTimeIndex;</span>
+<span class="lineNum">     182 </span>        [<span class="branchCov" title="Branch 1 was taken 4088 times"> + </span><span class="branchCov" title="Branch 2 was taken 21 times"> + </span>]:<span class="lineCov">       4109 :     if (deltaTimeIndex &lt; (std::numeric_limits&lt;world::TimeIndex&gt;::max() / 2))</span>
+<span class="lineNum">     183 </span>                :            :     {
+<span class="lineNum">     184 </span>                :<span class="lineCov">       4109 :       timeIsIncreasing = true;</span>
+<span class="lineNum">     185 </span>                :            :     }
+<span class="lineNum">     186 </span>                :            :   }
+<span class="lineNum">     187 </span>                :<span class="lineCov">       4113 :   mCurrentTimeIndex = nextTimeIndex;</span>
+<span class="lineNum">     188 </span>                :<span class="lineCov">       4113 :   return timeIsIncreasing;</span>
+<span class="lineNum">     189 </span>                :            : }
+<span class="lineNum">     190 </span>                :            : 
+<a name="191"><span class="lineNum">     191 </span>                :            : } // namespace core</a>
+<span class="lineNum">     192 </span>                :            : } // namespace rss
+<span class="lineNum">     193 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
 </pre>
       </td>
     </tr>

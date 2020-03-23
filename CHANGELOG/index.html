@@ -181,6 +181,9 @@
     <li class="toctree-l2"><a href="#latest-changes">Latest changes</a></li>
     
 
+    <li class="toctree-l2"><a href="#release-300">Release 3.0.0</a></li>
+    
+
     <li class="toctree-l2"><a href="#release-200">Release 2.0.0</a></li>
     
 
@@ -244,6 +247,36 @@
             <div class="section">
               
                 <h2 id="latest-changes">Latest changes<a class="headerlink" href="#latest-changes" title="Permanent link">&para;</a></h2>
+<h2 id="release-300">Release 3.0.0<a class="headerlink" href="#release-300" title="Permanent link">&para;</a></h2>
+<h4><img alt="🚀" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f680.png" title=":rocket:" /> New Features</h4>
+<ul>
+<li>In preparation of the integration of unstructured scenes:<ul>
+<li>Deceleration values are given as negative values from now on</li>
+<li>Remove separate Response Transformation to ease the merge of situations</li>
+<li>On LateralResponse::None, the minimum value is not brakeMin anymore (that value was in each case irrelevant)</li>
+</ul>
+</li>
+<li>Reworked scene creation<ul>
+<li>Made RssSceneCreation a class with supporting classes RssObjectConversion and RssSceneCreator
+  to support multi-threaded scene appending.</li>
+<li>Allow for scene specific ego vehicle RSS dynamics</li>
+<li>Handle empty ego route correctly</li>
+<li>Handle use-case: ego vehicle at back</li>
+<li>Handle use-case: merging route</li>
+<li>Restricting routes to relevant scene region to prevent from inaccourate relative distances</li>
+<li>Ensure that NotRelevantScene also provides filled occupied region content</li>
+<li>Workaround for route start within intersections: Use objectRoute intersection in intersection scenes if ego route
+   predictions don't provide intersection data at all (to be solved finally within ad:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:intersection::Intersection() class)</li>
+<li>Massively extended scene creation unit tests</li>
+<li>Make use of ad:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:route::getENUHeadingOfRoute() for more accurate object heading on route calculation</li>
+</ul>
+</li>
+<li>Renamed Math<em> -&gt; Physics</em> and made header public</li>
+</ul>
+<h4><img alt="👻" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f47b.png" title=":ghost:" /> Maintenance</h4>
+<ul>
+<li>Adaptions for python binding built to support newer boost versions as well as multiple python versions at the same time</li>
+</ul>
 <h2 id="release-200">Release 2.0.0<a class="headerlink" href="#release-200" title="Permanent link">&para;</a></h2>
 <h4><img alt="🚀" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f680.png" title=":rocket:" /> New Features</h4>
 <ul>

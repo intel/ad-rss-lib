@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-03-19 10:45:26</td>
+            <td class="headerValue">2020-03-23 18:00:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -126,7 +126,7 @@
 <span class="lineNum">      55 </span>                :            :   /*!
 <a name="56"><span class="lineNum">      56 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      57 </span>                :            :    */
-<span class="lineNum">      58 </span>                :<span class="lineCov">      21670 :   VelocityRange() = default;</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">      21706 :   VelocityRange() = default;</span>
 <span class="lineNum">      59 </span>                :            : 
 <span class="lineNum">      60 </span>                :            :   /*!
 <span class="lineNum">      61 </span>                :            :    * \brief standard destructor
@@ -231,16 +231,16 @@
 <span class="lineNum">     160 </span>                :            :  * \returns The stream object.
 <a name="161"><span class="lineNum">     161 </span>                :            :  *</a>
 <span class="lineNum">     162 </span>                :            :  */
-<span class="lineNum">     163 </span>                :<span class="lineCov">    2020166 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, VelocityRange const &amp;_value)</span>
+<span class="lineNum">     163 </span>                :<span class="lineCov">    2020170 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, VelocityRange const &amp;_value)</span>
 <span class="lineNum">     164 </span>                :            : {
-<span class="lineNum">     165 </span>                :<span class="lineCov">    2020166 :   os &lt;&lt; &quot;VelocityRange(&quot;;</span>
-<span class="lineNum">     166 </span>                :<span class="lineCov">    2020166 :   os &lt;&lt; &quot;speedLon:&quot;;</span>
-<span class="lineNum">     167 </span>                :<span class="lineCov">    2020166 :   os &lt;&lt; _value.speedLon;</span>
-<span class="lineNum">     168 </span>                :<span class="lineCov">    2020166 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     169 </span>                :<span class="lineCov">    2020166 :   os &lt;&lt; &quot;speedLat:&quot;;</span>
-<span class="lineNum">     170 </span>                :<span class="lineCov">    2020166 :   os &lt;&lt; _value.speedLat;</span>
-<span class="lineNum">     171 </span>                :<span class="lineCov">    2020166 :   os &lt;&lt; &quot;)&quot;;</span>
-<span class="lineNum">     172 </span>                :<span class="lineCov">    2020166 :   return os;</span>
+<span class="lineNum">     165 </span>                :<span class="lineCov">    2020170 :   os &lt;&lt; &quot;VelocityRange(&quot;;</span>
+<span class="lineNum">     166 </span>                :<span class="lineCov">    2020170 :   os &lt;&lt; &quot;speedLon:&quot;;</span>
+<span class="lineNum">     167 </span>                :<span class="lineCov">    2020170 :   os &lt;&lt; _value.speedLon;</span>
+<span class="lineNum">     168 </span>                :<span class="lineCov">    2020170 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     169 </span>                :<span class="lineCov">    2020170 :   os &lt;&lt; &quot;speedLat:&quot;;</span>
+<span class="lineNum">     170 </span>                :<span class="lineCov">    2020170 :   os &lt;&lt; _value.speedLat;</span>
+<span class="lineNum">     171 </span>                :<span class="lineCov">    2020170 :   os &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     172 </span>                :<span class="lineCov">    2020170 :   return os;</span>
 <span class="lineNum">     173 </span>                :            : }
 <span class="lineNum">     174 </span>                :            : 
 <span class="lineNum">     175 </span>                :            : } // namespace situation

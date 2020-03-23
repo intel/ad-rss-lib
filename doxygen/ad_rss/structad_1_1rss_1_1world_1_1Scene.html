@@ -106,7 +106,7 @@ Collaboration diagram for ad::rss::world::Scene:</div>
 <div class="center"><img src="structad_1_1rss_1_1world_1_1Scene__coll__graph.png" border="0" usemap="#ad_1_1rss_1_1world_1_1Scene_coll__map" alt="Collaboration graph"/></div>
 <map name="ad_1_1rss_1_1world_1_1Scene_coll__map" id="ad_1_1rss_1_1world_1_1Scene_coll__map">
 <area shape="rect" id="node3" title="STL class. " alt="" coords="324,7,451,33"/>
-<area shape="rect" id="node5" href="structad_1_1rss_1_1world_1_1Object.html" title="DataType Object. " alt="" coords="663,101,818,128"/>
+<area shape="rect" id="node5" href="structad_1_1rss_1_1world_1_1Object.html" title="DataType Object. " alt="" coords="663,107,818,133"/>
 <area shape="rect" id="node7" href="structad_1_1rss_1_1world_1_1OccupiedRegion.html" title="DataType OccupiedRegion. " alt="" coords="5,58,179,99"/>
 <area shape="rect" id="node8" href="structad_1_1rss_1_1world_1_1Velocity.html" title="DataType Velocity. " alt="" coords="306,124,469,151"/>
 <area shape="rect" id="node9" href="structad_1_1rss_1_1world_1_1RssDynamics.html" title="DataType RssDynamics. " alt="" coords="641,183,840,209"/>
@@ -163,6 +163,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a5b13d828efaedbb8d6e2fd496dd5fb37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5079471f2c18cb3cd04d7f13930a01c6"><td class="memItemLeft" align="right" valign="top">::<a class="el" href="structad_1_1rss_1_1world_1_1Object.html">ad::rss::world::Object</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1world_1_1Scene.html#a5079471f2c18cb3cd04d7f13930a01c6">egoVehicle</a></td></tr>
 <tr class="separator:a5079471f2c18cb3cd04d7f13930a01c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae3cec91fa41bd19114fd8a05927cf19"><td class="memItemLeft" align="right" valign="top">::<a class="el" href="structad_1_1rss_1_1world_1_1RssDynamics.html">ad::rss::world::RssDynamics</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1world_1_1Scene.html#aae3cec91fa41bd19114fd8a05927cf19">egoVehicleRssDynamics</a></td></tr>
+<tr class="separator:aae3cec91fa41bd19114fd8a05927cf19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1aab367a906c2d933b91fa43229cd771"><td class="memItemLeft" align="right" valign="top">::<a class="el" href="structad_1_1rss_1_1world_1_1Object.html">ad::rss::world::Object</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1world_1_1Scene.html#a1aab367a906c2d933b91fa43229cd771">object</a></td></tr>
 <tr class="separator:a1aab367a906c2d933b91fa43229cd771"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a294b47a6d09686f1232e815e15aa83"><td class="memItemLeft" align="right" valign="top">::<a class="el" href="structad_1_1rss_1_1world_1_1RssDynamics.html">ad::rss::world::RssDynamics</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1world_1_1Scene.html#a0a294b47a6d09686f1232e815e15aa83">objectRssDynamics</a></td></tr>
@@ -332,6 +334,19 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>The RssRoadArea the ego vehicle is driving in. The driving direction of the ego vehicle define the ordering of the road segments. In non-intersection situations the object is also driving in this road area. </p>
+
+</div>
+</div>
+<a class="anchor" id="aae3cec91fa41bd19114fd8a05927cf19"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">::<a class="el" href="structad_1_1rss_1_1world_1_1RssDynamics.html">ad::rss::world::RssDynamics</a> ad::rss::world::Scene::egoVehicleRssDynamics</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Defines the ego vehicle dynamics to be applied. This parameters are provided on a per situation basis to be able to adapt these e.g. in respect to object type. </p>
 
 </div>
 </div>

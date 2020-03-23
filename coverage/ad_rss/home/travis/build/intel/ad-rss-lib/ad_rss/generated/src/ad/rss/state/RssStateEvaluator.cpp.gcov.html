@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-03-19 10:45:26</td>
+            <td class="headerValue">2020-03-23 18:00:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -89,14 +89,14 @@
 <span class="lineNum">      18 </span>                :            : #include &quot;ad/rss/state/RssStateEvaluator.hpp&quot;
 <a name="19"><span class="lineNum">      19 </span>                :            : #include &lt;stdexcept&gt;</a>
 <span class="lineNum">      20 </span>                :            : 
-<span class="lineNum">      21 </span>                :<span class="lineCov">    3008460 : std::string toString(::ad::rss::state::RssStateEvaluator const e)</span>
+<span class="lineNum">      21 </span>                :<span class="lineCov">    3008476 : std::string toString(::ad::rss::state::RssStateEvaluator const e)</span>
 <span class="lineNum">      22 </span>                :            : {
-<span class="lineNum">      23 </span>  [<span class="branchCov" title="Branch 0 was taken 3004568 times"> + </span><span class="branchCov" title="Branch 1 was taken 399 times"> + </span><span class="branchCov" title="Branch 2 was taken 201 times"> + </span><span class="branchCov" title="Branch 3 was taken 225 times"> + </span> :<span class="lineCov">    3008460 :   switch (e)</span>
-<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 389 times"> + </span><span class="branchCov" title="Branch 5 was taken 2434 times"> + </span><span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchCov" title="Branch 7 was taken 1 time"> + </span><span class="branchCov" title="Branch 8 was taken 1 time"> + </span> 
+<span class="lineNum">      23 </span>  [<span class="branchCov" title="Branch 0 was taken 3004578 times"> + </span><span class="branchCov" title="Branch 1 was taken 399 times"> + </span><span class="branchCov" title="Branch 2 was taken 201 times"> + </span><span class="branchCov" title="Branch 3 was taken 227 times"> + </span> :<span class="lineCov">    3008476 :   switch (e)</span>
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 389 times"> + </span><span class="branchCov" title="Branch 5 was taken 2438 times"> + </span><span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchCov" title="Branch 7 was taken 1 time"> + </span><span class="branchCov" title="Branch 8 was taken 1 time"> + </span> 
 <span class="lineNum">         </span>      <span class="branchCov" title="Branch 9 was taken 1 time"> + </span><span class="branchCov" title="Branch 10 was taken 233 times"> + </span><span class="branchCov" title="Branch 11 was taken 7 times"> + </span>]
 <span class="lineNum">      24 </span>                :            :   {
 <span class="lineNum">      25 </span>                :            :     case ::ad::rss::state::RssStateEvaluator::None:
-<span class="lineNum">      26 </span>                :<span class="lineCov">    3004568 :       return std::string(&quot;::ad::rss::state::RssStateEvaluator::None&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      26 </span>                :<span class="lineCov">    3004578 :       return std::string(&quot;::ad::rss::state::RssStateEvaluator::None&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      27 </span>                :            :     case ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane:
 <span class="lineNum">      28 </span>                :            :       return std::string(
 <span class="lineNum">      29 </span>                :<span class="lineCov">        399 :         &quot;::ad::rss::state::RssStateEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane&quot;); // LCOV_EXCL_BR_LINE</span>
@@ -105,12 +105,12 @@
 <span class="lineNum">      32 </span>                :<span class="lineCov">        201 :         &quot;::ad::rss::state::RssStateEvaluator::LongitudinalDistanceOppositeDirection&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      33 </span>                :            :     case ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionEgoFront:
 <span class="lineNum">      34 </span>                :            :       return std::string(
-<span class="lineNum">      35 </span>                :<span class="lineCov">        225 :         &quot;::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionEgoFront&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      35 </span>                :<span class="lineCov">        227 :         &quot;::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionEgoFront&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      36 </span>                :            :     case ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionOtherInFront:
 <span class="lineNum">      37 </span>                :            :       return std::string(
 <span class="lineNum">      38 </span>                :<span class="lineCov">        389 :         &quot;::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionOtherInFront&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      39 </span>                :            :     case ::ad::rss::state::RssStateEvaluator::LateralDistance:
-<span class="lineNum">      40 </span>                :<span class="lineCov">       2434 :       return std::string(&quot;::ad::rss::state::RssStateEvaluator::LateralDistance&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      40 </span>                :<span class="lineCov">       2438 :       return std::string(&quot;::ad::rss::state::RssStateEvaluator::LateralDistance&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      41 </span>                :            :     case ::ad::rss::state::RssStateEvaluator::IntersectionOtherPriorityEgoAbleToStop:
 <span class="lineNum">      42 </span>                :            :       return std::string(
 <span class="lineNum">      43 </span>                :<span class="lineCov">          1 :         &quot;::ad::rss::state::RssStateEvaluator::IntersectionOtherPriorityEgoAbleToStop&quot;); // LCOV_EXCL_BR_LINE</span>
@@ -124,7 +124,7 @@
 <span class="lineNum">      51 </span>                :            :     case ::ad::rss::state::RssStateEvaluator::IntersectionOverlap:
 <span class="lineNum">      52 </span>                :<span class="lineCov">        233 :       return std::string(&quot;::ad::rss::state::RssStateEvaluator::IntersectionOverlap&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      53 </span>                :            :     default:
-<span class="lineNum">      54 </span>                :<span class="lineCov">    3008460 :       return std::string(&quot;UNKNOWN ENUM VALUE&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      54 </span>                :<span class="lineCov">    3008476 :       return std::string(&quot;UNKNOWN ENUM VALUE&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      55 </span>                :            :   }
 <a name="56"><span class="lineNum">      56 </span>                :            : }</a>
 <span class="lineNum">      57 </span>                :            : 

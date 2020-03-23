@@ -288,13 +288,11 @@ between the two vehicles present, because one vehicle just follows the other, po
 to be calculated and combined with each other. As in an AD vehicle the ego route usually is known
 that route is taken as basis for the ego vehicle, if present. Every intersection present in both
 routes of these combinations might result in a new situation to be considered:
-| <img alt="opposite direction situation" src="../../images/two_cars_intersection_highway_entry.png" /> |
+| <img alt="special intersection situation" src="../../images/two_cars_intersection_highway_entry.png" /> |
 | -- |
 | <em>Besides classical X-intersection or T-intersections also areas where lanes vanish and a lateral conflict is unavoidable have to be treated as intersection cases.</em> |</p>
 <ul>
-<li>If both drive through the intersection coming from the same intersection arm,
-  a same direction situation is created</li>
-<li>If both drive through the intersection coming from opposite intersection arms with routes not crossing,
+<li>If both drive through the intersection coming from different intersection arms without crossing routes,
   the vehicles pass each other and an opposite direction situation is created</li>
 <li>Else, the routes within the intersection are crossing each other and an intersection situation is created.
   To decide which of the vehicles has priority within the intersection the capabilities of the class
@@ -307,7 +305,7 @@ routes of these combinations might result in a new situation to be considered:
 <p>The consideration of intersections with all the possible routes leads to an increase in the number
 of situations. Therefore, to reduce the computational effort of the actual safety analysis,
 within the <em>ad_rss</em> core implementation situations that represent the same scene are merged
-if they describe the same situation (i.e. the same route through the intersection).
+if they describe the 'same' situation (i.e. the same route through the intersection).
 To achieve this, and still be able to keep the worst case assessment, the distances to enter/leave the
 intersection both are intervals to provide the minimum and maximum observed distance to enter and leave
 the respective intersection.</p>
@@ -388,11 +386,10 @@ are the conversion of the velocity and of the bounding box.</p>
 </tr>
 </tbody>
 </table>
-<p>To convert the velocity of a vehicle within the situation, one can take the center point of the vehicle and the vehicle orientation in respect to the road area driving direction as basis to split the vehicle speed into its lateral and longitudinal components in respect to the lane segment.</p>
+<p>To convert the velocity of a vehicle within the situation, one can take the center point of the vehicle and the vehicle orientation in respect to the road area driving direction
+as basis to split the vehicle speed into its lateral and longitudinal components in respect to the borders of the road area.</p>
 <p>Having a detailed look at the left vehicle within the above sketched scene. Let it drive with 10m/s
-in parallel to the lanes. Regardless which vehicle reference point one takes into account (Center, RearLeft, RearRight, FrontLeft, FrontRight) the split of the velocity leads to
-longitudinal velocity component of <span><span class="MathJax_Preview">v_{lon} = 10 m/s</span><script type="math/tex">v_{lon} = 10 m/s</script></span> and a lateral velocity component
-of <span><span class="MathJax_Preview">v_{lat} = 0 m/s</span><script type="math/tex">v_{lat} = 0 m/s</script></span>.</p>
+in parallel to the lanes. The split of the velocity leads to longitudinal velocity component of <span><span class="MathJax_Preview">v_{lon} = 10 m/s</span><script type="math/tex">v_{lon} = 10 m/s</script></span> and a lateral velocity component of <span><span class="MathJax_Preview">v_{lat} = 0 m/s</span><script type="math/tex">v_{lat} = 0 m/s</script></span>.</p>
 <table>
 <thead>
 <tr>
@@ -401,7 +398,7 @@ of <span><span class="MathJax_Preview">v_{lat} = 0 m/s</span><script type="math/
 </thead>
 <tbody>
 <tr>
-<td><em>Vehicle reference points and velocity conversion on straight lanes</em></td>
+<td><em>Vehicle velocity conversion on straight lanes</em></td>
 </tr>
 </tbody>
 </table>
@@ -416,15 +413,10 @@ of <span><span class="MathJax_Preview">v_{lat} = \sin(20\circ) * 10 m/s = 3.4 m/
 </thead>
 <tbody>
 <tr>
-<td><em>Vehicle reference points and velocity conversion in curves</em></td>
+<td><em>Vehicle velocity conversion in curves</em></td>
 </tr>
 </tbody>
 </table>
-<p>But since the curve has not the same radius over the whole vehicle bounding box, the
-vehicle orientation in respect to the lane differs when considering different reference points.</p>
-<p>To ensure the worst case is covered, all reference points are considered and the respective
-velocity components become velocity intervals. So the velocity of the vehicle in the curve
-will become e.g. <span><span class="MathJax_Preview">v_{lon} = [ 9.2 m/s; 9.8 m/s]</span><script type="math/tex">v_{lon} = [ 9.2 m/s; 9.8 m/s]</script></span> <span><span class="MathJax_Preview">v_{lat} = [ 3.3 m/s; 3.5 m/s]</span><script type="math/tex">v_{lat} = [ 3.3 m/s; 3.5 m/s]</script></span>.</p>
 <h4>Construction of the situation based bounding box of the vehicles within the road area</h4>
 <p>Based on the Road Area, the individual bounding box of the vehicles are calculated.</p>
 <table>
@@ -476,8 +468,28 @@ the following image:</p>
 </tbody>
 </table>
 <h4>Calculation of Metric distances within the Road Area</h4>
-<p>To get a better understanding of why it is important to restrict the road area in its extend,
-the actual calculation of metric bounding box and metric distances within the road area within <em>ad_rss</em> are sketched in the following section.</p>
+<p>The minimal (maximal) metric position <span><span class="MathJax_Preview">p^{lon}_{min}</span><script type="math/tex">p^{lon}_{min}</script></span> (<span><span class="MathJax_Preview">p^{lon}_{max}</span><script type="math/tex">p^{lon}_{max}</script></span>) in longitudinal direction of a vehicle within the road area
+is calculated by taking the sum of all minimal (maximal) metric lengths of all previous road segments,
+plus the parametric scaled minimal (maximal) length of the first road segment it touches (explained in detail in the subsections below).
+Like this, the <span><span class="MathJax_Preview">\Delta</span><script type="math/tex">\Delta</script></span> of every part of the road segment up to the vehicle is finally incorporated into it's
+metric length within the road area <span><span class="MathJax_Preview">l = p^{lon}_{max} - p^{lon}_{min}</span><script type="math/tex">l = p^{lon}_{max} - p^{lon}_{min}</script></span>: The vehicle gets stretched by each of the <span><span class="MathJax_Preview">\Delta</span><script type="math/tex">\Delta</script></span>.</p>
+<p>To calculate the longitudinal distance of two vehicles towards each other the maximum position of the vehicle at the back is
+subtracted from the minimum position of the vehicle in front: <span><span class="MathJax_Preview">d^{lon} = p^{lon}_{front,min} - p^{lon}_{back,max}</span><script type="math/tex">d^{lon} = p^{lon}_{front,min} - p^{lon}_{back,max}</script></span>
+This happens in a similar way in lateral direction and with the distance towards the intersection.
+Because the <em>ad_rss</em> implementation takes all parts of the road area into account as
+provided from outside (i.e. does <em>not</em> cut-off the road area before the first car),
+the <span><span class="MathJax_Preview">\Delta</span><script type="math/tex">\Delta</script></span> is incorporated as negative component into <span><span class="MathJax_Preview">d^{lon}</span><script type="math/tex">d^{lon}</script></span>.
+The following Figure provides an example:</p>
+<p>| <img alt="Example on restricting the extend of the road area" src="../../images/scene_creation_cut_required.png" /> |
+| -- |
+| <em>Example: Let the actual distance of the two cars be <span><span class="MathJax_Preview">d^{lon}_{real} = 17\,m</span><script type="math/tex">d^{lon}_{real} = 17\,m</script></span>.
+   Further let the right border of the road area curve within the intersection be 15\,m and the outer border be 23\,m.
+   With the transformation into </em>ad_rss<em> situation based coordinate system the information on the actual road geometry gets lost, so that the
+   difference of the border length of 6\,m in a road segment at the beginning leads to a decreased metric distance
+   of the two cars of <span><span class="MathJax_Preview">d^{lon}_{RoadArea} = 11\,m</span><script type="math/tex">d^{lon}_{RoadArea} = 11\,m</script></span>.
+   Cutting the road area after the (red) vehicle in the back would lead to <span><span class="MathJax_Preview">d^{lon}_{RoadArea} = d^{lon}_{real} = 17\,m</span><script type="math/tex">d^{lon}_{RoadArea} = d^{lon}_{real} = 17\,m</script></span>.</em> |</p>
+<p>To understand the details of why it is important to restrict the road area in its extend,
+the actual realized calculation of metric bounding box and metric distances within the road area within <em>ad_rss</em> are sketched in the following sections.</p>
 <h5>Metrics of road segments within Road Area</h5>
 <p>The overall metric minima/maxima of the road segment at index r (<span><span class="MathJax_Preview">RS_{min}^r, RS_{max}^r</span><script type="math/tex">RS_{min}^r, RS_{max}^r</script></span>) is calculated by combination of the minima/maxima (<span><span class="MathJax_Preview">LS_{min},LS_{max}</span><script type="math/tex">LS_{min},LS_{max}</script></span>) of the contained lane segments:</p>
 <p><span><span class="MathJax_Preview">RS_{lon,min}^r = \min\limits_{l}⁡(LS_{lon,min}^{r,l})</span><script type="math/tex">RS_{lon,min}^r = \min\limits_{l}⁡(LS_{lon,min}^{r,l})</script></span></p>

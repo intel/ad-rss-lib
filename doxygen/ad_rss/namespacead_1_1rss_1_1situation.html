@@ -196,6 +196,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a60df383faf799b44de81da992aa7e9f6"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a60df383faf799b44de81da992aa7e9f6">operator&lt;&lt;</a> (std::ostream &amp;os, <a class="el" href="structad_1_1rss_1_1situation_1_1VelocityRange.html">VelocityRange</a> const &amp;_value)</td></tr>
 <tr class="memdesc:a60df383faf799b44de81da992aa7e9f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">standard ostream operator  <a href="#a60df383faf799b44de81da992aa7e9f6">More...</a><br /></td></tr>
 <tr class="separator:a60df383faf799b44de81da992aa7e9f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a626fdbf8e05cf4a7217cf6c79ebbf730"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a626fdbf8e05cf4a7217cf6c79ebbf730">calculateStoppingDistance</a> (physics::Speed const &amp;currentSpeed, physics::Acceleration const &amp;deceleration, physics::Distance &amp;stoppingDistance)</td></tr>
+<tr class="memdesc:a626fdbf8e05cf4a7217cf6c79ebbf730"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the stopping distance for a given speed and deceleration on a constant accelerated movement.  <a href="#a626fdbf8e05cf4a7217cf6c79ebbf730">More...</a><br /></td></tr>
+<tr class="separator:a626fdbf8e05cf4a7217cf6c79ebbf730"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9e2c61192c0998cef69807b6fa57feb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#ab9e2c61192c0998cef69807b6fa57feb">calculateSpeedAfterResponseTime</a> (<a class="el" href="namespacead_1_1rss_1_1situation.html#a6b604faa8946a9c36736dedf6e51c00c">CoordinateSystemAxis</a> const &amp;axis, physics::Speed const &amp;currentSpeed, physics::Speed const &amp;maxSpeed, physics::Acceleration const &amp;acceleration, physics::Duration const &amp;responseTime, physics::Speed &amp;resultingSpeed)</td></tr>
+<tr class="memdesc:ab9e2c61192c0998cef69807b6fa57feb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the vehicle speed after a given period of time on a constant accelerated movement.  <a href="#ab9e2c61192c0998cef69807b6fa57feb">More...</a><br /></td></tr>
+<tr class="separator:ab9e2c61192c0998cef69807b6fa57feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6d20e100d9cfa31f567e37f5ef471d8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#ad6d20e100d9cfa31f567e37f5ef471d8">calculateDistanceOffsetAfterResponseTime</a> (<a class="el" href="namespacead_1_1rss_1_1situation.html#a6b604faa8946a9c36736dedf6e51c00c">CoordinateSystemAxis</a> const &amp;axis, physics::Speed const &amp;currentSpeed, physics::Speed const &amp;maxSpeed, physics::Acceleration const &amp;acceleration, physics::Duration const &amp;responseTime, physics::Distance &amp;distanceOffset)</td></tr>
+<tr class="memdesc:ad6d20e100d9cfa31f567e37f5ef471d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the distance offset of a vehicle after a given period of time on a constant accelerated movement.  <a href="#ad6d20e100d9cfa31f567e37f5ef471d8">More...</a><br /></td></tr>
+<tr class="separator:ad6d20e100d9cfa31f567e37f5ef471d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8250c05d60818bd1139a3e7f69122a87"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a8250c05d60818bd1139a3e7f69122a87">calculateTimeToCoverDistance</a> (physics::Speed const &amp;currentSpeed, physics::Speed const &amp;maxSpeed, physics::Duration const &amp;responseTime, physics::Acceleration const &amp;acceleration, physics::Acceleration const &amp;deceleration, physics::Distance const &amp;distanceToCover, physics::Duration &amp;requiredTime)</td></tr>
+<tr class="memdesc:a8250c05d60818bd1139a3e7f69122a87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the time needed to cover a given distance.  <a href="#a8250c05d60818bd1139a3e7f69122a87">More...</a><br /></td></tr>
+<tr class="separator:a8250c05d60818bd1139a3e7f69122a87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>namespace situation </p>
@@ -387,6 +399,249 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ad6d20e100d9cfa31f567e37f5ef471d8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::calculateDistanceOffsetAfterResponseTime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacead_1_1rss_1_1situation.html#a6b604faa8946a9c36736dedf6e51c00c">CoordinateSystemAxis</a> const &amp;&#160;</td>
+          <td class="paramname"><em>axis</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Speed const &amp;&#160;</td>
+          <td class="paramname"><em>currentSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Speed const &amp;&#160;</td>
+          <td class="paramname"><em>maxSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const &amp;&#160;</td>
+          <td class="paramname"><em>acceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Duration const &amp;&#160;</td>
+          <td class="paramname"><em>responseTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance &amp;&#160;</td>
+          <td class="paramname"><em>distanceOffset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the distance offset of a vehicle after a given period of time on a constant accelerated movement. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">axis</td><td>is the coordinate axis this calculation is for </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">currentSpeed</td><td>is the current speed of the vehicle (in longitudinal direction this has to be always positive) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">maxSpeed</td><td>is the maximum speed of the vehicle (only used in longitudinal direction, has to be always positive) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">acceleration</td><td>is the acceleration of the vehicle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">responseTime</td><td>is the (positive) period of time the vehicle keeps accelerating </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">distanceOffset</td><td>is the distance offset from the current position In decelerated longitudinal situation, the distance offset is restricted to the point in time the vehicle stops; if the vehicle is able to stop within the response time, it's equal to the stopping distance. Therefore, the distance offset in longitudinal case is always positive. In lateral situation, the sign of the distance offset can be positive or negative; the following is always true: 'lateral_position_after_response_time' = distanceOffset + 'current_lateral_position'</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false otherwise </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab9e2c61192c0998cef69807b6fa57feb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::calculateSpeedAfterResponseTime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacead_1_1rss_1_1situation.html#a6b604faa8946a9c36736dedf6e51c00c">CoordinateSystemAxis</a> const &amp;&#160;</td>
+          <td class="paramname"><em>axis</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Speed const &amp;&#160;</td>
+          <td class="paramname"><em>currentSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Speed const &amp;&#160;</td>
+          <td class="paramname"><em>maxSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const &amp;&#160;</td>
+          <td class="paramname"><em>acceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Duration const &amp;&#160;</td>
+          <td class="paramname"><em>responseTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Speed &amp;&#160;</td>
+          <td class="paramname"><em>resultingSpeed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the vehicle speed after a given period of time on a constant accelerated movement. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">axis</td><td>is the coordinate axis this calculation is for </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">currentSpeed</td><td>is the current speed of the vehicle (in longitudinal direction this has to be always positive) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">maxSpeed</td><td>is the maximum speed of the vehicle (e.g. restricted by a limit) (only used in longitudinal direction, has to be always positive) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">acceleration</td><td>is the acceleration of the vehicle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">responseTime</td><td>is the (positive) period of time the vehicle keeps accelerating </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">resultingSpeed</td><td>is the resulting speed after <em>responseTime</em> In longitudinal direction, the resulting speed &gt;= 0. Especially, the vehicle is not starting to drive in reverse direction after standing still. In lateral direction, the resulting speed might have a different sign than the currentSpeed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false otherwise </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a626fdbf8e05cf4a7217cf6c79ebbf730"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::calculateStoppingDistance </td>
+          <td>(</td>
+          <td class="paramtype">physics::Speed const &amp;&#160;</td>
+          <td class="paramname"><em>currentSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const &amp;&#160;</td>
+          <td class="paramname"><em>deceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance &amp;&#160;</td>
+          <td class="paramname"><em>stoppingDistance</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the stopping distance for a given speed and deceleration on a constant accelerated movement. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">currentSpeed</td><td>is the current speed of the vehicle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">deceleration</td><td>is the applied deceleration </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">stoppingDistance</td><td>is the resulting stopping distance The sign of the stoppingDistance equals the sign of the currentSpeed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false if a stop cannot be reached </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8250c05d60818bd1139a3e7f69122a87"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::calculateTimeToCoverDistance </td>
+          <td>(</td>
+          <td class="paramtype">physics::Speed const &amp;&#160;</td>
+          <td class="paramname"><em>currentSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Speed const &amp;&#160;</td>
+          <td class="paramname"><em>maxSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Duration const &amp;&#160;</td>
+          <td class="paramname"><em>responseTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const &amp;&#160;</td>
+          <td class="paramname"><em>acceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const &amp;&#160;</td>
+          <td class="paramname"><em>deceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance const &amp;&#160;</td>
+          <td class="paramname"><em>distanceToCover</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Duration &amp;&#160;</td>
+          <td class="paramname"><em>requiredTime</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the time needed to cover a given distance. </p>
+<p>The function will respect acceleration during response time and then braking till zero velocity If the distance is not covered when then velocity reaches zero, infinite time will be returned</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">currentSpeed</td><td>starting velocity </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">maxSpeed</td><td>maximum velocity </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">responseTime</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">acceleration</td><td>during response time </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">deceleration</td><td>after response time </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">distanceToCover</td><td>distance that should be covered </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">requiredTime</td><td>time needed to cover the distance</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on, success, false otherwise </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="afa661f572d405a3dc8a02f72b1efdb01"></a>
 <div class="memitem">
 <div class="memproto">
@@ -563,50 +818,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a583848866259dc2030249797be1f32b3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream&amp; ad::rss::situation::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1situation_1_1SituationSnapshot.html">SituationSnapshot</a> const &amp;&#160;</td>
-          <td class="paramname"><em>_value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>standard ostream operator </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">os</td><td>The output stream to write to </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">_value</td><td><a class="el" href="structad_1_1rss_1_1situation_1_1SituationSnapshot.html" title="DataType SituationSnapshot. ">SituationSnapshot</a> value</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The stream object. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a60df383faf799b44de81da992aa7e9f6"></a>
 <div class="memitem">
 <div class="memproto">
@@ -644,6 +855,50 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">os</td><td>The output stream to write to </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">_value</td><td><a class="el" href="structad_1_1rss_1_1situation_1_1VelocityRange.html" title="DataType VelocityRange. ">VelocityRange</a> value</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The stream object. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a583848866259dc2030249797be1f32b3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream&amp; ad::rss::situation::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1situation_1_1SituationSnapshot.html">SituationSnapshot</a> const &amp;&#160;</td>
+          <td class="paramname"><em>_value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>standard ostream operator </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">os</td><td>The output stream to write to </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_value</td><td><a class="el" href="structad_1_1rss_1_1situation_1_1SituationSnapshot.html" title="DataType SituationSnapshot. ">SituationSnapshot</a> value</td></tr>
   </table>
   </dd>
 </dl>

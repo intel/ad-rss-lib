@@ -1,7 +1,7 @@
 <map id="generated/include/ad/rss/state/LateralResponse.hpp" name="generated/include/ad/rss/state/LateralResponse.hpp">
-<area shape="rect" id="node2" href="$LateralResponseValidInputRange_8hpp.html" title="generated/include/ad\l/rss/state/LateralResponseValid\lInputRange.hpp" alt="" coords="696,95,917,151"/>
-<area shape="rect" id="node8" href="$LateralRssState_8hpp.html" title="generated/include/ad\l/rss/state/LateralRssState.hpp" alt="" coords="457,102,671,143"/>
-<area shape="rect" id="node15" href="$ProperResponse_8hpp.html" title="generated/include/ad\l/rss/state/ProperResponse.hpp" alt="" coords="953,102,1170,143"/>
+<area shape="rect" id="node2" href="$LateralResponseValidInputRange_8hpp.html" title="generated/include/ad\l/rss/state/LateralResponseValid\lInputRange.hpp" alt="" coords="537,95,759,151"/>
+<area shape="rect" id="node8" href="$LateralRssState_8hpp.html" title="generated/include/ad\l/rss/state/LateralRssState.hpp" alt="" coords="298,102,513,143"/>
+<area shape="rect" id="node15" href="$ProperResponse_8hpp.html" title="generated/include/ad\l/rss/state/ProperResponse.hpp" alt="" coords="783,102,1001,143"/>
 <area shape="rect" id="node3" href="$LateralRssStateValidInputRange_8hpp.html" title="generated/include/ad\l/rss/state/LateralRssStateValid\lInputRange.hpp" alt="" coords="455,199,673,255"/>
 <area shape="rect" id="node7" href="$ProperResponseValidInputRange_8hpp.html" title="generated/include/ad\l/rss/state/ProperResponseValid\lInputRange.hpp" alt="" coords="697,199,916,255"/>
 <area shape="rect" id="node4" href="$RssStateValidInputRange_8hpp.html" title="generated/include/ad\l/rss/state/RssStateValidInput\lRange.hpp" alt="" coords="475,303,680,359"/>
@@ -11,7 +11,6 @@
 <area shape="rect" id="node10" href="$RssStateVector_8hpp.html" title="generated/include/ad\l/rss/state/RssStateVector.hpp" alt="" coords="240,310,451,351"/>
 <area shape="rect" id="node14" href="$RssStateOperation_8hpp.html" title="impl/include/ad/rss\l/state/RssStateOperation.hpp" alt="" coords="5,310,216,351"/>
 <area shape="rect" id="node11" href="$RssStateSnapshot_8hpp.html" title="generated/include/ad\l/rss/state/RssStateSnapshot.hpp" alt="" coords="221,414,453,455"/>
-<area shape="rect" id="node12" href="$RssResponseResolving_8hpp.html" title="impl/include/ad/rss\l/core/RssResponseResolving.hpp" alt="" coords="917,518,1145,559"/>
+<area shape="rect" id="node12" href="$RssResponseResolving_8hpp.html" title="impl/include/ad/rss\l/core/RssResponseResolving.hpp" alt="" coords="773,518,1001,559"/>
 <area shape="rect" id="node13" href="$RssSituationChecking_8hpp.html" title="impl/include/ad/rss\l/core/RssSituationChecking.hpp" alt="" coords="226,518,449,559"/>
-<area shape="rect" id="node16" href="$RssResponseTransformation_8hpp.html" title="impl/include/ad/rss\l/core/RssResponseTransformation.hpp" alt="" coords="940,206,1204,247"/>
 </map>

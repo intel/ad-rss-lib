@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-03-19 10:45:26</td>
+            <td class="headerValue">2020-03-23 18:00:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -89,16 +89,16 @@
 <span class="lineNum">      18 </span>                :            : #include &quot;ad/rss/world/LaneSegmentType.hpp&quot;
 <a name="19"><span class="lineNum">      19 </span>                :            : #include &lt;stdexcept&gt;</a>
 <span class="lineNum">      20 </span>                :            : 
-<span class="lineNum">      21 </span>                :<span class="lineCov">       6775 : std::string toString(::ad::rss::world::LaneSegmentType const e)</span>
+<span class="lineNum">      21 </span>                :<span class="lineCov">       6718 : std::string toString(::ad::rss::world::LaneSegmentType const e)</span>
 <span class="lineNum">      22 </span>                :            : {
-<span class="lineNum">      23 </span>     [<span class="branchCov" title="Branch 0 was taken 6529 times"> + </span><span class="branchCov" title="Branch 1 was taken 231 times"> + </span><span class="branchCov" title="Branch 2 was taken 15 times"> + </span>]:<span class="lineCov">       6775 :   switch (e)</span>
+<span class="lineNum">      23 </span>     [<span class="branchCov" title="Branch 0 was taken 6474 times"> + </span><span class="branchCov" title="Branch 1 was taken 229 times"> + </span><span class="branchCov" title="Branch 2 was taken 15 times"> + </span>]:<span class="lineCov">       6718 :   switch (e)</span>
 <span class="lineNum">      24 </span>                :            :   {
 <span class="lineNum">      25 </span>                :            :     case ::ad::rss::world::LaneSegmentType::Normal:
-<span class="lineNum">      26 </span>                :<span class="lineCov">       6529 :       return std::string(&quot;::ad::rss::world::LaneSegmentType::Normal&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      26 </span>                :<span class="lineCov">       6474 :       return std::string(&quot;::ad::rss::world::LaneSegmentType::Normal&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      27 </span>                :            :     case ::ad::rss::world::LaneSegmentType::Intersection:
-<span class="lineNum">      28 </span>                :<span class="lineCov">        231 :       return std::string(&quot;::ad::rss::world::LaneSegmentType::Intersection&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      28 </span>                :<span class="lineCov">        229 :       return std::string(&quot;::ad::rss::world::LaneSegmentType::Intersection&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      29 </span>                :            :     default:
-<span class="lineNum">      30 </span>                :<span class="lineCov">       6775 :       return std::string(&quot;UNKNOWN ENUM VALUE&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      30 </span>                :<span class="lineCov">       6718 :       return std::string(&quot;UNKNOWN ENUM VALUE&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      31 </span>                :            :   }
 <a name="32"><span class="lineNum">      32 </span>                :            : }</a>
 <span class="lineNum">      33 </span>                :            : 

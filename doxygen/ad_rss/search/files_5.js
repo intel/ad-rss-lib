@@ -10,7 +10,6 @@ var searchData=
   ['rssdynamics_2ehpp',['RssDynamics.hpp',['../RssDynamics_8hpp.html',1,'']]],
   ['rssdynamicsvalidinputrange_2ehpp',['RssDynamicsValidInputRange.hpp',['../RssDynamicsValidInputRange_8hpp.html',1,'']]],
   ['rssresponseresolving_2ehpp',['RssResponseResolving.hpp',['../RssResponseResolving_8hpp.html',1,'']]],
-  ['rssresponsetransformation_2ehpp',['RssResponseTransformation.hpp',['../RssResponseTransformation_8hpp.html',1,'']]],
   ['rsssituationchecking_2ehpp',['RssSituationChecking.hpp',['../RssSituationChecking_8hpp.html',1,'']]],
   ['rsssituationextraction_2ehpp',['RssSituationExtraction.hpp',['../RssSituationExtraction_8hpp.html',1,'']]],
   ['rssstate_2ehpp',['RssState.hpp',['../RssState_8hpp.html',1,'']]],

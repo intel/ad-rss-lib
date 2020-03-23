@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-03-19 10:45:26</td>
+            <td class="headerValue">2020-03-23 18:00:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -89,9 +89,9 @@
 <span class="lineNum">      18 </span>                :            : #include &quot;ad/rss/state/LongitudinalResponse.hpp&quot;
 <a name="19"><span class="lineNum">      19 </span>                :            : #include &lt;stdexcept&gt;</a>
 <span class="lineNum">      20 </span>                :            : 
-<span class="lineNum">      21 </span>                :<span class="lineCov">    1004511 : std::string toString(::ad::rss::state::LongitudinalResponse const e)</span>
+<span class="lineNum">      21 </span>                :<span class="lineCov">    1004508 : std::string toString(::ad::rss::state::LongitudinalResponse const e)</span>
 <span class="lineNum">      22 </span>                :            : {
-<span class="lineNum">      23 </span>  [<span class="branchCov" title="Branch 0 was taken 1307 times"> + </span><span class="branchCov" title="Branch 1 was taken 400 times"> + </span><span class="branchCov" title="Branch 2 was taken 776 times"> + </span><span class="branchCov" title="Branch 3 was taken 1002028 times"> + </span>]:<span class="lineCov">    1004511 :   switch (e)</span>
+<span class="lineNum">      23 </span>  [<span class="branchCov" title="Branch 0 was taken 1307 times"> + </span><span class="branchCov" title="Branch 1 was taken 400 times"> + </span><span class="branchCov" title="Branch 2 was taken 776 times"> + </span><span class="branchCov" title="Branch 3 was taken 1002025 times"> + </span>]:<span class="lineCov">    1004508 :   switch (e)</span>
 <span class="lineNum">      24 </span>                :            :   {
 <span class="lineNum">      25 </span>                :            :     case ::ad::rss::state::LongitudinalResponse::None:
 <span class="lineNum">      26 </span>                :<span class="lineCov">       1307 :       return std::string(&quot;::ad::rss::state::LongitudinalResponse::None&quot;); // LCOV_EXCL_BR_LINE</span>
@@ -100,7 +100,7 @@
 <span class="lineNum">      29 </span>                :            :     case ::ad::rss::state::LongitudinalResponse::BrakeMin:
 <span class="lineNum">      30 </span>                :<span class="lineCov">        776 :       return std::string(&quot;::ad::rss::state::LongitudinalResponse::BrakeMin&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      31 </span>                :            :     default:
-<span class="lineNum">      32 </span>                :<span class="lineCov">    1004511 :       return std::string(&quot;UNKNOWN ENUM VALUE&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      32 </span>                :<span class="lineCov">    1004508 :       return std::string(&quot;UNKNOWN ENUM VALUE&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      33 </span>                :            :   }
 <a name="34"><span class="lineNum">      34 </span>                :            : }</a>
 <span class="lineNum">      35 </span>                :            : 

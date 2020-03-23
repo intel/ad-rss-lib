@@ -1,5 +1,7 @@
 <map id="ad::rss::state::RssState" name="ad::rss::state::RssState">
-<area shape="rect" id="node2" href="$structad_1_1rss_1_1state_1_1LateralRssState.html" title="DataType LateralRssState. " alt="" coords="5,109,185,151"/>
-<area shape="rect" id="node3" href="$structad_1_1rss_1_1state_1_1RssStateInformation.html" title="DataType RssStateInformation. " alt="" coords="119,5,290,47"/>
-<area shape="rect" id="node4" href="$structad_1_1rss_1_1state_1_1LongitudinalRssState.html" title="DataType LongitudinalRssState. " alt="" coords="209,109,400,151"/>
+<area shape="rect" id="node2" href="$structad_1_1rss_1_1state_1_1LateralRssState.html" title="DataType LateralRssState. " alt="" coords="381,41,561,83"/>
+<area shape="rect" id="node3" href="$structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="11,5,191,47"/>
+<area shape="rect" id="node4" href="$structad_1_1rss_1_1state_1_1RssStateInformation.html" title="DataType RssStateInformation. " alt="" coords="15,73,186,115"/>
+<area shape="rect" id="node5" href="$structad_1_1rss_1_1state_1_1LongitudinalRssState.html" title="DataType LongitudinalRssState. " alt="" coords="376,107,567,148"/>
+<area shape="rect" id="node6" href="$structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="5,141,196,183"/>
 </map>

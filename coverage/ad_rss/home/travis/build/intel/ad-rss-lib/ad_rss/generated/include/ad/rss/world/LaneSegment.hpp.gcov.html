@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-03-19 10:45:26</td>
+            <td class="headerValue">2020-03-23 18:00:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -129,7 +129,7 @@
 <span class="lineNum">      58 </span>                :            :   /*!
 <a name="59"><span class="lineNum">      59 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      60 </span>                :            :    */
-<span class="lineNum">      61 </span>                :<span class="lineCov">       5350 :   LaneSegment() = default;</span>
+<span class="lineNum">      61 </span>                :<span class="lineCov">       5332 :   LaneSegment() = default;</span>
 <span class="lineNum">      62 </span>                :            : 
 <span class="lineNum">      63 </span>                :            :   /*!
 <span class="lineNum">      64 </span>                :            :    * \brief standard destructor
@@ -247,25 +247,25 @@
 <span class="lineNum">     175 </span>                :            :  * \returns The stream object.
 <a name="176"><span class="lineNum">     176 </span>                :            :  *</a>
 <span class="lineNum">     177 </span>                :            :  */
-<span class="lineNum">     178 </span>                :<span class="lineCov">       6730 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, LaneSegment const &amp;_value)</span>
+<span class="lineNum">     178 </span>                :<span class="lineCov">       6707 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, LaneSegment const &amp;_value)</span>
 <span class="lineNum">     179 </span>                :            : {
-<span class="lineNum">     180 </span>                :<span class="lineCov">       6730 :   os &lt;&lt; &quot;LaneSegment(&quot;;</span>
-<span class="lineNum">     181 </span>                :<span class="lineCov">       6730 :   os &lt;&lt; &quot;id:&quot;;</span>
-<span class="lineNum">     182 </span>                :<span class="lineCov">       6730 :   os &lt;&lt; _value.id;</span>
-<span class="lineNum">     183 </span>                :<span class="lineCov">       6730 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     184 </span>                :<span class="lineCov">       6730 :   os &lt;&lt; &quot;type:&quot;;</span>
-<span class="lineNum">     185 </span>                :<span class="lineCov">       6730 :   os &lt;&lt; _value.type;</span>
-<span class="lineNum">     186 </span>                :<span class="lineCov">       6730 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     187 </span>                :<span class="lineCov">       6730 :   os &lt;&lt; &quot;drivingDirection:&quot;;</span>
-<span class="lineNum">     188 </span>                :<span class="lineCov">       6730 :   os &lt;&lt; _value.drivingDirection;</span>
-<span class="lineNum">     189 </span>                :<span class="lineCov">       6730 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     190 </span>                :<span class="lineCov">       6730 :   os &lt;&lt; &quot;length:&quot;;</span>
-<span class="lineNum">     191 </span>                :<span class="lineCov">       6730 :   os &lt;&lt; _value.length;</span>
-<span class="lineNum">     192 </span>                :<span class="lineCov">       6730 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     193 </span>                :<span class="lineCov">       6730 :   os &lt;&lt; &quot;width:&quot;;</span>
-<span class="lineNum">     194 </span>                :<span class="lineCov">       6730 :   os &lt;&lt; _value.width;</span>
-<span class="lineNum">     195 </span>                :<span class="lineCov">       6730 :   os &lt;&lt; &quot;)&quot;;</span>
-<span class="lineNum">     196 </span>                :<span class="lineCov">       6730 :   return os;</span>
+<span class="lineNum">     180 </span>                :<span class="lineCov">       6707 :   os &lt;&lt; &quot;LaneSegment(&quot;;</span>
+<span class="lineNum">     181 </span>                :<span class="lineCov">       6707 :   os &lt;&lt; &quot;id:&quot;;</span>
+<span class="lineNum">     182 </span>                :<span class="lineCov">       6707 :   os &lt;&lt; _value.id;</span>
+<span class="lineNum">     183 </span>                :<span class="lineCov">       6707 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     184 </span>                :<span class="lineCov">       6707 :   os &lt;&lt; &quot;type:&quot;;</span>
+<span class="lineNum">     185 </span>                :<span class="lineCov">       6707 :   os &lt;&lt; _value.type;</span>
+<span class="lineNum">     186 </span>                :<span class="lineCov">       6707 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     187 </span>                :<span class="lineCov">       6707 :   os &lt;&lt; &quot;drivingDirection:&quot;;</span>
+<span class="lineNum">     188 </span>                :<span class="lineCov">       6707 :   os &lt;&lt; _value.drivingDirection;</span>
+<span class="lineNum">     189 </span>                :<span class="lineCov">       6707 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     190 </span>                :<span class="lineCov">       6707 :   os &lt;&lt; &quot;length:&quot;;</span>
+<span class="lineNum">     191 </span>                :<span class="lineCov">       6707 :   os &lt;&lt; _value.length;</span>
+<span class="lineNum">     192 </span>                :<span class="lineCov">       6707 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     193 </span>                :<span class="lineCov">       6707 :   os &lt;&lt; &quot;width:&quot;;</span>
+<span class="lineNum">     194 </span>                :<span class="lineCov">       6707 :   os &lt;&lt; _value.width;</span>
+<span class="lineNum">     195 </span>                :<span class="lineCov">       6707 :   os &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     196 </span>                :<span class="lineCov">       6707 :   return os;</span>
 <span class="lineNum">     197 </span>                :            : }
 <span class="lineNum">     198 </span>                :            : 
 <span class="lineNum">     199 </span>                :            : } // namespace world

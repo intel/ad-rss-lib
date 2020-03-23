@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-03-19 10:45:26</td>
+            <td class="headerValue">2020-03-23 18:00:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -130,12 +130,12 @@
 <span class="lineNum">      59 </span>                :            :   /*!
 <a name="60"><span class="lineNum">      60 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      61 </span>                :            :    */
-<span class="lineNum">      62 </span>                :<span class="lineCov">       8672 :   ProperResponse() = default;</span>
+<span class="lineNum">      62 </span>                :<span class="lineCov">       8662 :   ProperResponse() = default;</span>
 <span class="lineNum">      63 </span>                :            : 
 <span class="lineNum">      64 </span>                :            :   /*!
 <a name="65"><span class="lineNum">      65 </span>                :            :    * \brief standard destructor</a>
 <span class="lineNum">      66 </span>                :            :    */
-<span class="lineNum">      67 </span>                :<span class="lineCov">       8708 :   ~ProperResponse() = default;</span>
+<span class="lineNum">      67 </span>                :<span class="lineCov">       8698 :   ~ProperResponse() = default;</span>
 <span class="lineNum">      68 </span>                :            : 
 <span class="lineNum">      69 </span>                :            :   /*!
 <a name="70"><span class="lineNum">      70 </span>                :            :    * \brief standard copy constructor</a>
@@ -255,28 +255,28 @@
 <span class="lineNum">     184 </span>                :            :  * \returns The stream object.
 <a name="185"><span class="lineNum">     185 </span>                :            :  *</a>
 <span class="lineNum">     186 </span>                :            :  */
-<span class="lineNum">     187 </span>                :<span class="lineCov">         17 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, ProperResponse const &amp;_value)</span>
+<span class="lineNum">     187 </span>                :<span class="lineCov">          8 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, ProperResponse const &amp;_value)</span>
 <span class="lineNum">     188 </span>                :            : {
-<span class="lineNum">     189 </span>                :<span class="lineCov">         17 :   os &lt;&lt; &quot;ProperResponse(&quot;;</span>
-<span class="lineNum">     190 </span>                :<span class="lineCov">         17 :   os &lt;&lt; &quot;timeIndex:&quot;;</span>
-<span class="lineNum">     191 </span>                :<span class="lineCov">         17 :   os &lt;&lt; _value.timeIndex;</span>
-<span class="lineNum">     192 </span>                :<span class="lineCov">         17 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     193 </span>                :<span class="lineCov">         17 :   os &lt;&lt; &quot;isSafe:&quot;;</span>
-<span class="lineNum">     194 </span>                :<span class="lineCov">         17 :   os &lt;&lt; _value.isSafe;</span>
-<span class="lineNum">     195 </span>                :<span class="lineCov">         17 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     196 </span>                :<span class="lineCov">         17 :   os &lt;&lt; &quot;dangerousObjects:&quot;;</span>
-<span class="lineNum">     197 </span>                :<span class="lineCov">         17 :   os &lt;&lt; _value.dangerousObjects;</span>
-<span class="lineNum">     198 </span>                :<span class="lineCov">         17 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     199 </span>                :<span class="lineCov">         17 :   os &lt;&lt; &quot;longitudinalResponse:&quot;;</span>
-<span class="lineNum">     200 </span>                :<span class="lineCov">         17 :   os &lt;&lt; _value.longitudinalResponse;</span>
-<span class="lineNum">     201 </span>                :<span class="lineCov">         17 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     202 </span>                :<span class="lineCov">         17 :   os &lt;&lt; &quot;lateralResponseRight:&quot;;</span>
-<span class="lineNum">     203 </span>                :<span class="lineCov">         17 :   os &lt;&lt; _value.lateralResponseRight;</span>
-<span class="lineNum">     204 </span>                :<span class="lineCov">         17 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     205 </span>                :<span class="lineCov">         17 :   os &lt;&lt; &quot;lateralResponseLeft:&quot;;</span>
-<span class="lineNum">     206 </span>                :<span class="lineCov">         17 :   os &lt;&lt; _value.lateralResponseLeft;</span>
-<span class="lineNum">     207 </span>                :<span class="lineCov">         17 :   os &lt;&lt; &quot;)&quot;;</span>
-<span class="lineNum">     208 </span>                :<span class="lineCov">         17 :   return os;</span>
+<span class="lineNum">     189 </span>                :<span class="lineCov">          8 :   os &lt;&lt; &quot;ProperResponse(&quot;;</span>
+<span class="lineNum">     190 </span>                :<span class="lineCov">          8 :   os &lt;&lt; &quot;timeIndex:&quot;;</span>
+<span class="lineNum">     191 </span>                :<span class="lineCov">          8 :   os &lt;&lt; _value.timeIndex;</span>
+<span class="lineNum">     192 </span>                :<span class="lineCov">          8 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     193 </span>                :<span class="lineCov">          8 :   os &lt;&lt; &quot;isSafe:&quot;;</span>
+<span class="lineNum">     194 </span>                :<span class="lineCov">          8 :   os &lt;&lt; _value.isSafe;</span>
+<span class="lineNum">     195 </span>                :<span class="lineCov">          8 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     196 </span>                :<span class="lineCov">          8 :   os &lt;&lt; &quot;dangerousObjects:&quot;;</span>
+<span class="lineNum">     197 </span>                :<span class="lineCov">          8 :   os &lt;&lt; _value.dangerousObjects;</span>
+<span class="lineNum">     198 </span>                :<span class="lineCov">          8 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     199 </span>                :<span class="lineCov">          8 :   os &lt;&lt; &quot;longitudinalResponse:&quot;;</span>
+<span class="lineNum">     200 </span>                :<span class="lineCov">          8 :   os &lt;&lt; _value.longitudinalResponse;</span>
+<span class="lineNum">     201 </span>                :<span class="lineCov">          8 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     202 </span>                :<span class="lineCov">          8 :   os &lt;&lt; &quot;lateralResponseRight:&quot;;</span>
+<span class="lineNum">     203 </span>                :<span class="lineCov">          8 :   os &lt;&lt; _value.lateralResponseRight;</span>
+<span class="lineNum">     204 </span>                :<span class="lineCov">          8 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     205 </span>                :<span class="lineCov">          8 :   os &lt;&lt; &quot;lateralResponseLeft:&quot;;</span>
+<span class="lineNum">     206 </span>                :<span class="lineCov">          8 :   os &lt;&lt; _value.lateralResponseLeft;</span>
+<span class="lineNum">     207 </span>                :<span class="lineCov">          8 :   os &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     208 </span>                :<span class="lineCov">          8 :   return os;</span>
 <span class="lineNum">     209 </span>                :            : }
 <span class="lineNum">     210 </span>                :            : 
 <span class="lineNum">     211 </span>                :            : } // namespace state
