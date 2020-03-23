@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -16,6 +16,7 @@ const TestSupport cTestSupport;
 void resetRssState(state::LongitudinalRssState &state)
 {
   state.response = state::LongitudinalResponse::None;
+  state.alphaLon = getEgoRssDynamics().alphaLon;
   state.isSafe = true;
   state.rssStateInformation.currentDistance = physics::Distance::getMax();
   state.rssStateInformation.safeDistance = physics::Distance::getMax();
@@ -25,6 +26,7 @@ void resetRssState(state::LongitudinalRssState &state)
 void resetRssState(state::LateralRssState &state)
 {
   state.response = state::LateralResponse::None;
+  state.alphaLat = getEgoRssDynamics().alphaLat;
   state.isSafe = true;
   state.rssStateInformation.currentDistance = physics::Distance::getMax();
   state.rssStateInformation.safeDistance = physics::Distance::getMax();
@@ -148,7 +150,7 @@ Distance calculateLongitudinalStoppingDistance(Speed const &objectSpeed,
   dMin += 0.5 * acceleration * accelerationTime * accelerationTime;
   dMin += objectMaxSpeed * (responseTime - accelerationTime);
   Speed const speedMax = std::min(objectMaxSpeed, objectSpeed + responseTime * acceleration);
-  dMin += (speedMax * speedMax) / (2. * deceleration);
+  dMin += (speedMax * speedMax) / (2. * -deceleration);
   return dMin;
 }
 
@@ -207,12 +209,12 @@ Distance calculateLateralMinSafeDistance(physics::Speed const &leftObjectSpeed,
   Distance dMin = (leftObjectSpeed + lObjectVelAfterResTime) / 2. * leftObjectRssDynamics.responseTime;
   if (lObjectVelAfterResTime > Speed(0.))
   {
-    dMin += lObjectVelAfterResTime * lObjectVelAfterResTime / (2. * leftObjectRssDynamics.alphaLat.brakeMin);
+    dMin += lObjectVelAfterResTime * lObjectVelAfterResTime / (2. * -leftObjectRssDynamics.alphaLat.brakeMin);
   }
   dMin -= (rightObjectSpeed + rObjectVelAfterResTime) / 2. * rightObjectRssDynamics.responseTime;
   if (rObjectVelAfterResTime < Speed(0.))
   {
-    dMin += rObjectVelAfterResTime * rObjectVelAfterResTime / (2. * rightObjectRssDynamics.alphaLat.brakeMin);
+    dMin += rObjectVelAfterResTime * rObjectVelAfterResTime / (2. * -rightObjectRssDynamics.alphaLat.brakeMin);
   }
 
   return std::max(dMin, Distance(0.));
@@ -247,6 +249,7 @@ state::LateralRssState TestSupport::stateWithInformation(state::LateralRssState 
 {
   state::LateralRssState resultState = lateralState;
 
+  resultState.alphaLat = situation.egoVehicleState.dynamics.alphaLat;
   resultState.rssStateInformation.evaluator = state::RssStateEvaluator::LateralDistance;
   resultState.rssStateInformation.currentDistance = situation.relativePosition.lateralDistance;
   switch (situation.situationType)
@@ -289,6 +292,7 @@ state::LateralRssState TestSupport::stateWithInformation(state::LateralRssState 
       resultState.rssStateInformation.safeDistance = Distance(-1.);
       break;
   }
+
   return resultState;
 }
 
@@ -297,6 +301,7 @@ state::LongitudinalRssState TestSupport::stateWithInformation(state::Longitudina
 {
   state::LongitudinalRssState resultState = longitudinalState;
 
+  resultState.alphaLon = situation.egoVehicleState.dynamics.alphaLon;
   resultState.rssStateInformation.currentDistance = situation.relativePosition.longitudinalDistance;
 
   switch (situation.situationType)

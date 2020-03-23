@@ -34,9 +34,9 @@
  *
  * \note the specified input range is defined by the ranges of all members, plus:
  *       ::ad::physics::Acceleration(0.) <= accelMax <= ::ad::physics::Acceleration(1e2)
- *       brakeMin <= brakeMax <= ::ad::physics::Acceleration(1e2)
- *       brakeMinCorrect <= brakeMin <= brakeMax
- *       ::ad::physics::Acceleration(0.) < brakeMinCorrect <= brakeMin
+ *       ::ad::physics::Acceleration(-1e2) <= brakeMax <= brakeMin
+ *       brakeMax <= brakeMin <= brakeMinCorrect
+ *       brakeMin <= brakeMinCorrect < ::ad::physics::Acceleration(0.)
  */
 inline bool withinValidInputRange(::ad::rss::world::LongitudinalRssAccelerationValues const &input,
                                   bool const logErrors = true)
@@ -70,44 +70,44 @@ inline bool withinValidInputRange(::ad::rss::world::LongitudinalRssAccelerationV
 
   if (inValidInputRange)
   {
-    inValidInputRange = (input.brakeMin <= input.brakeMax) && (input.brakeMax <= ::ad::physics::Acceleration(1e2));
+    inValidInputRange = (::ad::physics::Acceleration(-1e2) <= input.brakeMax) && (input.brakeMax <= input.brakeMin);
     if (!inValidInputRange && logErrors)
     {
       spdlog::error("withinValidInputRange(::ad::rss::world::LongitudinalRssAccelerationValues)>> {} element {} out of "
                     "valid input range [{}, {}]",
                     input,
                     input.brakeMax,
-                    input.brakeMin,
-                    ::ad::physics::Acceleration(1e2)); // LCOV_EXCL_BR_LINE
+                    ::ad::physics::Acceleration(-1e2),
+                    input.brakeMin); // LCOV_EXCL_BR_LINE
     }
   }
 
   if (inValidInputRange)
   {
-    inValidInputRange = (input.brakeMinCorrect <= input.brakeMin) && (input.brakeMin <= input.brakeMax);
+    inValidInputRange = (input.brakeMax <= input.brakeMin) && (input.brakeMin <= input.brakeMinCorrect);
     if (!inValidInputRange && logErrors)
     {
       spdlog::error("withinValidInputRange(::ad::rss::world::LongitudinalRssAccelerationValues)>> {} element {} out of "
                     "valid input range [{}, {}]",
                     input,
                     input.brakeMin,
-                    input.brakeMinCorrect,
-                    input.brakeMax); // LCOV_EXCL_BR_LINE
+                    input.brakeMax,
+                    input.brakeMinCorrect); // LCOV_EXCL_BR_LINE
     }
   }
 
   if (inValidInputRange)
   {
     inValidInputRange
-      = (::ad::physics::Acceleration(0.) < input.brakeMinCorrect) && (input.brakeMinCorrect <= input.brakeMin);
+      = (input.brakeMin <= input.brakeMinCorrect) && (input.brakeMinCorrect < ::ad::physics::Acceleration(0.));
     if (!inValidInputRange && logErrors)
     {
       spdlog::error("withinValidInputRange(::ad::rss::world::LongitudinalRssAccelerationValues)>> {} element {} out of "
                     "valid input range [{}, {}]",
                     input,
                     input.brakeMinCorrect,
-                    ::ad::physics::Acceleration(0.),
-                    input.brakeMin); // LCOV_EXCL_BR_LINE
+                    input.brakeMin,
+                    ::ad::physics::Acceleration(0.)); // LCOV_EXCL_BR_LINE
     }
   }
 

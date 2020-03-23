@@ -27,7 +27,6 @@ TEST(VelocityValidInputRangeTests, testValidInputRange)
   ::ad::physics::Speed valueSpeedLonMax(-100.);
   value.speedLonMax = valueSpeedLonMax;
   ::ad::physics::Speed valueSpeedLatMin(-100.);
-  valueSpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
   value.speedLatMin = valueSpeedLatMin;
   ::ad::physics::Speed valueSpeedLatMax(-100.);
   value.speedLatMax = valueSpeedLatMax;
@@ -47,7 +46,6 @@ TEST(VelocityValidInputRangeTests, testValidInputRangeSpeedLonMinTooSmall)
   ::ad::physics::Speed valueSpeedLonMax(-100.);
   value.speedLonMax = valueSpeedLonMax;
   ::ad::physics::Speed valueSpeedLatMin(-100.);
-  valueSpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
   value.speedLatMin = valueSpeedLatMin;
   ::ad::physics::Speed valueSpeedLatMax(-100.);
   value.speedLatMax = valueSpeedLatMax;
@@ -77,7 +75,6 @@ TEST(VelocityValidInputRangeTests, testValidInputRangeSpeedLonMinTooBig)
   ::ad::physics::Speed valueSpeedLonMax(-100.);
   value.speedLonMax = valueSpeedLonMax;
   ::ad::physics::Speed valueSpeedLatMin(-100.);
-  valueSpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
   value.speedLatMin = valueSpeedLatMin;
   ::ad::physics::Speed valueSpeedLatMax(-100.);
   value.speedLatMax = valueSpeedLatMax;
@@ -109,7 +106,6 @@ TEST(VelocityValidInputRangeTests, testValidInputRangeSpeedLonMaxTooSmall)
   ::ad::physics::Speed valueSpeedLonMax(-100.);
   value.speedLonMax = valueSpeedLonMax;
   ::ad::physics::Speed valueSpeedLatMin(-100.);
-  valueSpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
   value.speedLatMin = valueSpeedLatMin;
   ::ad::physics::Speed valueSpeedLatMax(-100.);
   value.speedLatMax = valueSpeedLatMax;
@@ -133,7 +129,6 @@ TEST(VelocityValidInputRangeTests, testValidInputRangeSpeedLonMaxTooBig)
   ::ad::physics::Speed valueSpeedLonMax(-100.);
   value.speedLonMax = valueSpeedLonMax;
   ::ad::physics::Speed valueSpeedLatMin(-100.);
-  valueSpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
   value.speedLatMin = valueSpeedLatMin;
   ::ad::physics::Speed valueSpeedLatMax(-100.);
   value.speedLatMax = valueSpeedLatMax;
@@ -165,7 +160,6 @@ TEST(VelocityValidInputRangeTests, testValidInputRangeSpeedLatMinTooSmall)
   ::ad::physics::Speed valueSpeedLonMax(-100.);
   value.speedLonMax = valueSpeedLonMax;
   ::ad::physics::Speed valueSpeedLatMin(-100.);
-  valueSpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
   value.speedLatMin = valueSpeedLatMin;
   ::ad::physics::Speed valueSpeedLatMax(-100.);
   value.speedLatMax = valueSpeedLatMax;
@@ -176,11 +170,6 @@ TEST(VelocityValidInputRangeTests, testValidInputRangeSpeedLatMinTooSmall)
 
   // override member with data type value below input range minimum
   ::ad::physics::Speed invalidInitializedMember(-100. * 1.1);
-  value.speedLatMin = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
-
-  // override member with value below struct member input range minimum
-  invalidInitializedMember = ::ad::physics::Speed(-10. * 1.1); // set to invalid value within struct
   value.speedLatMin = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -194,7 +183,6 @@ TEST(VelocityValidInputRangeTests, testValidInputRangeSpeedLatMinTooBig)
   ::ad::physics::Speed valueSpeedLonMax(-100.);
   value.speedLonMax = valueSpeedLonMax;
   ::ad::physics::Speed valueSpeedLatMin(-100.);
-  valueSpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
   value.speedLatMin = valueSpeedLatMin;
   ::ad::physics::Speed valueSpeedLatMax(-100.);
   value.speedLatMax = valueSpeedLatMax;
@@ -226,7 +214,6 @@ TEST(VelocityValidInputRangeTests, testValidInputRangeSpeedLatMaxTooSmall)
   ::ad::physics::Speed valueSpeedLonMax(-100.);
   value.speedLonMax = valueSpeedLonMax;
   ::ad::physics::Speed valueSpeedLatMin(-100.);
-  valueSpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
   value.speedLatMin = valueSpeedLatMin;
   ::ad::physics::Speed valueSpeedLatMax(-100.);
   value.speedLatMax = valueSpeedLatMax;
@@ -250,7 +237,6 @@ TEST(VelocityValidInputRangeTests, testValidInputRangeSpeedLatMaxTooBig)
   ::ad::physics::Speed valueSpeedLonMax(-100.);
   value.speedLonMax = valueSpeedLonMax;
   ::ad::physics::Speed valueSpeedLatMin(-100.);
-  valueSpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
   value.speedLatMin = valueSpeedLatMin;
   ::ad::physics::Speed valueSpeedLatMax(-100.);
   value.speedLatMax = valueSpeedLatMax;
@@ -261,11 +247,6 @@ TEST(VelocityValidInputRangeTests, testValidInputRangeSpeedLatMaxTooBig)
 
   // override member with data type value above input range maximum
   ::ad::physics::Speed invalidInitializedMember(100. * 1.1);
-  value.speedLatMax = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
-
-  // override member with value above struct member input range maximum
-  invalidInitializedMember = ::ad::physics::Speed(10. * 1.1); // set to invalid value within struct
   value.speedLatMax = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }

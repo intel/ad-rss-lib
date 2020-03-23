@@ -102,7 +102,7 @@ struct WorldModel
    */
   bool operator==(const WorldModel &other) const
   {
-    return (timeIndex == other.timeIndex) && (egoVehicleRssDynamics == other.egoVehicleRssDynamics)
+    return (timeIndex == other.timeIndex) && (defaultEgoVehicleRssDynamics == other.defaultEgoVehicleRssDynamics)
       && (scenes == other.scenes);
   }
 
@@ -126,10 +126,12 @@ struct WorldModel
   ::ad::rss::world::TimeIndex timeIndex{0u};
 
   /*!
-   * Defines the ego vehicle dynamics to be applied. This parameters are provided on a per object basis to be able to
-   * adapt these e.g. in respect to object type or the weather conditions.
+   * Defines the standard ego vehicle dynamics to be applied i.e. when there is no  dangerous
+   * scene.
+   * This parameters are provided in addtion on a per situation basis to be able to adapt
+   * these e.g. in respect to object type or the weather conditions
    */
-  ::ad::rss::world::RssDynamics egoVehicleRssDynamics;
+  ::ad::rss::world::RssDynamics defaultEgoVehicleRssDynamics;
 
   /*!
    * All scenes
@@ -174,8 +176,8 @@ inline std::ostream &operator<<(std::ostream &os, WorldModel const &_value)
   os << "timeIndex:";
   os << _value.timeIndex;
   os << ",";
-  os << "egoVehicleRssDynamics:";
-  os << _value.egoVehicleRssDynamics;
+  os << "defaultEgoVehicleRssDynamics:";
+  os << _value.defaultEgoVehicleRssDynamics;
   os << ",";
   os << "scenes:";
   os << _value.scenes;

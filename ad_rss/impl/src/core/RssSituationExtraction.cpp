@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -275,7 +275,6 @@ bool RssSituationExtraction::convertObjectsIntersection(world::Scene const &curr
 }
 
 bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex const &timeIndex,
-                                                               world::RssDynamics const &egoVehicleRssDynamics,
                                                                world::Scene const &currentScene,
                                                                situation::Situation &situation)
 {
@@ -324,7 +323,7 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex 
     situation.otherVehicleState.distanceToEnterIntersection = Distance(0.);
     situation.otherVehicleState.distanceToLeaveIntersection = Distance(1000.);
 
-    convertVehicleStateDynamics(currentScene.egoVehicle, egoVehicleRssDynamics, situation.egoVehicleState);
+    convertVehicleStateDynamics(currentScene.egoVehicle, currentScene.egoVehicleRssDynamics, situation.egoVehicleState);
     convertVehicleStateDynamics(currentScene.object, currentScene.objectRssDynamics, situation.otherVehicleState);
 
     switch (currentScene.situationType)
@@ -522,12 +521,12 @@ bool RssSituationExtraction::extractSituations(world::WorldModel const &worldMod
   try
   {
     situationSnapshot.timeIndex = worldModel.timeIndex;
+    situationSnapshot.defaultEgoVehicleRssDynamics = worldModel.defaultEgoVehicleRssDynamics;
     situationSnapshot.situations.clear();
     for (auto const &scene : worldModel.scenes)
     {
       situation::Situation situation;
-      bool const extractResult
-        = extractSituationInputRangeChecked(worldModel.timeIndex, worldModel.egoVehicleRssDynamics, scene, situation);
+      bool const extractResult = extractSituationInputRangeChecked(worldModel.timeIndex, scene, situation);
 
       // if the situation is relevant, add it to situationSnapshot
       if (scene.situationType != ad::rss::situation::SituationType::NotRelevant)

@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -38,12 +38,12 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_le
   leadingVehicle.distanceToEnterIntersection = Distance(2.);
   leadingVehicle.distanceToLeaveIntersection = Distance(2.);
   leadingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-  leadingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  leadingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
   leadingVehicle.hasPriority = true;
 
   followingVehicle = createVehicleStateForLongitudinalMotion(30);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
   followingVehicle.distanceToEnterIntersection = Distance(12.);
   followingVehicle.distanceToLeaveIntersection = Distance(12.);
 
@@ -65,7 +65,7 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50kmh_safe_distance_ego_fo
   leadingVehicle.distanceToLeaveIntersection = Distance(10.);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
   followingVehicle.distanceToEnterIntersection = Distance(70.);
   followingVehicle.distanceToLeaveIntersection = Distance(70.);
 
@@ -88,10 +88,10 @@ TEST_F(RssSituationCheckingTestsIntersectionPriority, 50km_h_stop_before_interse
   leadingVehicle.distanceToEnterIntersection = Distance(80.);
   leadingVehicle.distanceToLeaveIntersection = Distance(80.);
   leadingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-  leadingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  leadingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
-  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(4.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
   followingVehicle.distanceToEnterIntersection = Distance(110.);
   followingVehicle.distanceToLeaveIntersection = Distance(110.);
 

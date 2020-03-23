@@ -29,7 +29,6 @@ protected:
     ::ad::physics::Speed valueSpeedLonMax(-100.);
     value.speedLonMax = valueSpeedLonMax;
     ::ad::physics::Speed valueSpeedLatMin(-100.);
-    valueSpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
     value.speedLatMin = valueSpeedLatMin;
     ::ad::physics::Speed valueSpeedLatMax(-100.);
     value.speedLatMax = valueSpeedLatMax;

@@ -40,8 +40,8 @@ inline bool withinValidInputRange(::ad::rss::world::WorldModel const &input, boo
 {
   // check for generic member input ranges
   bool inValidInputRange = true;
-  inValidInputRange
-    = withinValidInputRange(input.egoVehicleRssDynamics, logErrors) && withinValidInputRange(input.scenes, logErrors);
+  inValidInputRange = withinValidInputRange(input.defaultEgoVehicleRssDynamics, logErrors)
+    && withinValidInputRange(input.scenes, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::world::WorldModel)>> {} has invalid member",
