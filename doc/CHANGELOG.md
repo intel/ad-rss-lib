@@ -1,5 +1,8 @@
 ## Latest changes
 
+#### :ghost: Maintenance
+* Fixed python binding for multiple python version built
+
 ## Release 3.0.0
 
 #### :rocket: New Features

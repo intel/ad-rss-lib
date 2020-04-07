@@ -36,7 +36,7 @@ foreach(binding ${PYTHON_BINDINGS})
   list(APPEND targets ${target})
 
   add_library(${target}
-    ${CMAKE_CURRENT_BINARY_DIR}/AdRssPythonWrapper.cpp
+    ${CMAKE_CURRENT_BINARY_DIR}/AdRssPythonWrapper${binding}.cpp
   )
   target_compile_definitions(${target} PUBLIC ${TARGET_COMPILE_DEFINITIONS})
   target_compile_options(${target} PRIVATE ${TARGET_COMPILE_OPTIONS})

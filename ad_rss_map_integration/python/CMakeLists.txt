@@ -48,7 +48,7 @@ foreach(binding ${PYTHON_BINDINGS})
   list(APPEND targets ${target})
 
   add_library(${target}
-    ${CMAKE_CURRENT_BINARY_DIR}/AdRssMapIntegrationPythonWrapper.cpp
+    ${CMAKE_CURRENT_BINARY_DIR}/AdRssMapIntegrationPythonWrapper${binding}.cpp
   )
   target_compile_definitions(${target} PUBLIC ${TARGET_COMPILE_DEFINITIONS} "-DBOOST_PYTHON_MAX_ARITY=15")
   target_compile_options(${target} PRIVATE ${TARGET_COMPILE_OPTIONS})

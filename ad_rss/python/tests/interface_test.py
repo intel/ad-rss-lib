@@ -13,8 +13,14 @@ Simple unittest module to ensure that the Python binding is functional
 """
 import unittest
 
-import libad_rss_python as rss
-import libad_physics_python as physics
+import sys
+
+if sys.version_info.major == 3:
+    import libad_physics_python3 as physics
+    import libad_rss_python3 as rss
+else:
+    import libad_physics_python2 as physics
+    import libad_rss_python2 as rss
 
 
 class InterfaceTest(unittest.TestCase):
@@ -89,18 +95,27 @@ class InterfaceTest(unittest.TestCase):
         rss_scene.objectRssDynamics.alphaLon.brakeMin = physics.Acceleration(-4.)
         rss_scene.objectRssDynamics.lateralFluctuationMargin = physics.Distance(0.)
 
+        rss_scene.egoVehicleRssDynamics.responseTime = physics.Duration(0.2)
+        rss_scene.egoVehicleRssDynamics.alphaLat.accelMax = physics.Acceleration(0.1)
+        rss_scene.egoVehicleRssDynamics.alphaLat.brakeMin = physics.Acceleration(-0.1)
+        rss_scene.egoVehicleRssDynamics.alphaLon.accelMax = physics.Acceleration(0.1)
+        rss_scene.egoVehicleRssDynamics.alphaLon.brakeMax = physics.Acceleration(-8.)
+        rss_scene.egoVehicleRssDynamics.alphaLon.brakeMin = physics.Acceleration(-4.)
+        rss_scene.egoVehicleRssDynamics.alphaLon.brakeMinCorrect = physics.Acceleration(-4.)
+        rss_scene.egoVehicleRssDynamics.lateralFluctuationMargin = physics.Distance(0.)
+
         self.world_model = rss.WorldModel()
 
         self.world_model.timeIndex = 1
         self.world_model.scenes.append(rss_scene)
-        self.world_model.egoVehicleRssDynamics.responseTime = physics.Duration(0.2)
-        self.world_model.egoVehicleRssDynamics.alphaLat.accelMax = physics.Acceleration(0.1)
-        self.world_model.egoVehicleRssDynamics.alphaLat.brakeMin = physics.Acceleration(-0.1)
-        self.world_model.egoVehicleRssDynamics.alphaLon.accelMax = physics.Acceleration(0.1)
-        self.world_model.egoVehicleRssDynamics.alphaLon.brakeMax = physics.Acceleration(-8.)
-        self.world_model.egoVehicleRssDynamics.alphaLon.brakeMin = physics.Acceleration(-4.)
-        self.world_model.egoVehicleRssDynamics.alphaLon.brakeMinCorrect = physics.Acceleration(-4.)
-        self.world_model.egoVehicleRssDynamics.lateralFluctuationMargin = physics.Distance(0.)
+        self.world_model.defaultEgoVehicleRssDynamics.responseTime = physics.Duration(0.2)
+        self.world_model.defaultEgoVehicleRssDynamics.alphaLat.accelMax = physics.Acceleration(0.1)
+        self.world_model.defaultEgoVehicleRssDynamics.alphaLat.brakeMin = physics.Acceleration(-0.1)
+        self.world_model.defaultEgoVehicleRssDynamics.alphaLon.accelMax = physics.Acceleration(0.1)
+        self.world_model.defaultEgoVehicleRssDynamics.alphaLon.brakeMax = physics.Acceleration(-8.)
+        self.world_model.defaultEgoVehicleRssDynamics.alphaLon.brakeMin = physics.Acceleration(-4.)
+        self.world_model.defaultEgoVehicleRssDynamics.alphaLon.brakeMinCorrect = physics.Acceleration(-4.)
+        self.world_model.defaultEgoVehicleRssDynamics.lateralFluctuationMargin = physics.Distance(0.)
 
     def test_interface(self):
         """
@@ -126,10 +141,9 @@ class InterfaceTest(unittest.TestCase):
         self.assertTrue(rss_situation_checking.checkSituations(rss_situation_snapshot, rss_state_snapshot))
 
         rss_proper_response = rss.ProperResponse()
-        self.assertTrue(rss_response_resolving.provideProperResponse(rss_state_snapshot, rss_proper_response))
-
         acceleration_restriction = rss.AccelerationRestriction()
-        self.assertTrue(rss.transformProperResponse(self.world_model, rss_proper_response, acceleration_restriction))
+        self.assertTrue(rss_response_resolving.provideProperResponse(
+            rss_state_snapshot, rss_proper_response, acceleration_restriction))
 
         print ("== Acceleration Restrictions ==")
         print (acceleration_restriction)
