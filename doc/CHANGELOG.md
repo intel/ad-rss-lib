@@ -1,7 +1,9 @@
 ## Latest changes
 
+## Release 3.0.1
 #### :ghost: Maintenance
 * Fixed python binding for multiple python version built
+* Added python interface test execution
 
 ## Release 3.0.0
 
