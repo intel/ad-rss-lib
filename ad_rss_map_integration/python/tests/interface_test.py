@@ -30,7 +30,7 @@ else:
     import libad_rss_map_integration_python2 as rssmap
 
 
-class AdRssMapIntegrationInterfaceTest(unittest.TestCase):
+class AdRssMapIntegrationPythonTest(unittest.TestCase):
 
     """
     Test class for Python interface
@@ -178,7 +178,7 @@ class AdRssMapIntegrationInterfaceTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    if os.environ['GTEST_OUTPUT'] and os.environ['GTEST_OUTPUT'].startswith('xml:'):
+    if os.environ.get('GTEST_OUTPUT') and os.environ['GTEST_OUTPUT'].startswith('xml:'):
         base_folder = os.environ['GTEST_OUTPUT'][4:]
         result_filename = base_folder + 'ad_rss_map_integration_interface_test_python' + \
             str(sys.version_info.major) + ".xml"
