@@ -25,7 +25,7 @@ else:
     import libad_rss_python2 as rss
 
 
-class InterfaceTest(unittest.TestCase):
+class AdRssInterfaceTest(unittest.TestCase):
 
     """
     Test class for Python interface

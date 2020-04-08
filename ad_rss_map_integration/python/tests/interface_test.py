@@ -30,7 +30,7 @@ else:
     import libad_rss_map_integration_python2 as rssmap
 
 
-class InterfaceTest(unittest.TestCase):
+class AdRssMapIntegrationInterfaceTest(unittest.TestCase):
 
     """
     Test class for Python interface
