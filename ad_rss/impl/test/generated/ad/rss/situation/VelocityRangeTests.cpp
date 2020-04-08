@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/situation/VelocityRange.hpp"
@@ -53,7 +58,8 @@ TEST_F(VelocityRangeTests, copyConstruction)
 
 TEST_F(VelocityRangeTests, moveConstruction)
 {
-  ::ad::rss::situation::VelocityRange value(std::move(::ad::rss::situation::VelocityRange(mValue)));
+  ::ad::rss::situation::VelocityRange tmpValue(mValue);
+  ::ad::rss::situation::VelocityRange value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -66,8 +72,9 @@ TEST_F(VelocityRangeTests, copyAssignment)
 
 TEST_F(VelocityRangeTests, moveAssignment)
 {
+  ::ad::rss::situation::VelocityRange tmpValue(mValue);
   ::ad::rss::situation::VelocityRange value;
-  value = std::move(::ad::rss::situation::VelocityRange(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -122,3 +129,7 @@ TEST_F(VelocityRangeTests, comparisonOperatorSpeedLatDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

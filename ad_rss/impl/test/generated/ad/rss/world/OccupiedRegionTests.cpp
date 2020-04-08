@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/world/OccupiedRegion.hpp"
@@ -55,7 +60,8 @@ TEST_F(OccupiedRegionTests, copyConstruction)
 
 TEST_F(OccupiedRegionTests, moveConstruction)
 {
-  ::ad::rss::world::OccupiedRegion value(std::move(::ad::rss::world::OccupiedRegion(mValue)));
+  ::ad::rss::world::OccupiedRegion tmpValue(mValue);
+  ::ad::rss::world::OccupiedRegion value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -68,8 +74,9 @@ TEST_F(OccupiedRegionTests, copyAssignment)
 
 TEST_F(OccupiedRegionTests, moveAssignment)
 {
+  ::ad::rss::world::OccupiedRegion tmpValue(mValue);
   ::ad::rss::world::OccupiedRegion value;
-  value = std::move(::ad::rss::world::OccupiedRegion(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -135,3 +142,7 @@ TEST_F(OccupiedRegionTests, comparisonOperatorLatRangeDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

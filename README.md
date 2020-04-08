@@ -133,18 +133,20 @@ To download the library, you may run:
 ```
 
 #### Supported systems <a name="systems"></a>
-Besides Ubuntu 16.04 we are currently supporting the following Linux OS and compiler combinations:
+Development systems are Ubuntu 16.04 and Ubuntu 18.04.
+Following compiler combinations are [tested continously](https://github.com/intel/ad-rss-lib/blob/master/.travis.yml):
 
-|                 | Ubuntu 14.04 | Ubuntu 16.04 | Ubuntu 18.04 |
-|:---------------:|:------------:|:------------:|:------------:|
-|  Clang 3.4      |   only 1.x   |              |              |
-|  Clang 3.8/3.9  |   only 1.x   |       x      |              |
-|  Clang 5.0      |              |       x      |              |
-|  Clang 6.0      |              |       x      |   only 1.x   |
-|   GCC 4.8       |   only 1.x   |              |              |
-| GCC 5.4/5.5     |              |       x      |              |
-|   GCC 6.0       |              |       x      |              |
-|   GCC 7.3       |              |       x      |       x      |
+|                 | Ubuntu 16.04 | Ubuntu 18.04 |
+|:---------------:|:------------:|:------------:|
+|  Clang 5.0      |      x       |              |
+|  Clang 6.0      |      x       |              |
+|  Clang 7        |              |       x      |
+|  Clang 8        |              |       x      |
+|   GCC 5         |      x       |              |
+|   GCC 6         |      x       |              |
+|   GCC 7         |              |       x      |
+|   GCC 8         |              |       x      |
+|   GCC 9         |              |       x      |
 
 Important: cmake is required to be at least version 3.5!
 

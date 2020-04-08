@@ -120,7 +120,7 @@ def generate_python_wrapper(header_directories, include_paths, library_name, cpp
     builder.write_module(cpp_filename)
 
 
-def post_process_python_wrapper(header_directories, cpp_filename, additional_replacements={}, spdx_license="MIT", fix_include_directives=True, fix_enum_class=True):
+def post_process_python_wrapper(header_directories, cpp_filename_in, cpp_filename_out, additional_replacements={}, spdx_license="MIT", fix_include_directives=True, fix_enum_class=True):
     """
     Post process generated binding code
 
@@ -131,8 +131,10 @@ def post_process_python_wrapper(header_directories, cpp_filename, additional_rep
     :param header_directories: directories with headers the python binding is created for; used to remove the prefix from
       generated include directives
     :type header_directories: list<string>
-    :param cpp_filename: the output name of the C++ file to be post processed
-    :type cpp_filename: string
+    :param cpp_filename_in: the input name of the C++ file to be post processed
+    :type cpp_filename_in: string
+    :param cpp_filename_out: the output name of the C++ file to be post processed
+    :type cpp_filename_out: string
     :param fix_include_directives: should the include directives be fixed (default: True)
     :type fix_include_directives: boolean
     :param fix_enum_class: should the enum classes be fixed (default: True)
@@ -145,22 +147,28 @@ def post_process_python_wrapper(header_directories, cpp_filename, additional_rep
     enum_namespace_full = ""
     enum_started = False
 
-    file_input = fileinput.input(cpp_filename, inplace=True)
+    file_input = fileinput.input(cpp_filename_in)
+    file_output = open(cpp_filename_out, "w")
     write_prefix = True
     for line in file_input:
-        # the STDOUT is redirected to the file
         if write_prefix:
 
-            print("/*\n"
-                  " * ----------------- BEGIN LICENSE BLOCK ---------------------------------\n"
-                  " *\n"
-                  " * Copyright (c) 2020 Intel Corporation\n"
-                  " *\n"
-                  " * SPDX-License-Identifier: " + spdx_license + "\n"
-                  " *\n"
-                  " * ----------------- END LICENSE BLOCK -----------------------------------\n"
-                  " */\n"
-                  "// clang-format off")
+            file_output.write("/*\n"
+                              " * ----------------- BEGIN LICENSE BLOCK ---------------------------------\n"
+                              " *\n"
+                              " * Copyright (c) 2020 Intel Corporation\n"
+                              " *\n"
+                              " * SPDX-License-Identifier: " + spdx_license + "\n"
+                              " *\n"
+                              " * ----------------- END LICENSE BLOCK -----------------------------------\n"
+                              " */\n"
+                              "// clang-format off\n"
+                              "#pragma GCC diagnostic push\n"
+                              "#pragma GCC diagnostic ignored \"-Wshadow\"\n"
+                              "#pragma GCC diagnostic ignored \"-Wignored-qualifiers\"\n"
+                              "#if defined(__clang__) && (__clang_major__ >= 7)\n"
+                              "#  pragma GCC diagnostic ignored \"-Wself-assign-overloaded\"\n"
+                              "#endif\n\n")
             write_prefix = False
 
         # Remove the leading include
@@ -169,6 +177,12 @@ def post_process_python_wrapper(header_directories, cpp_filename, additional_rep
                 if not header_dir.endswith("/"):
                     header_dir = header_dir + "/"
                 line = line.replace(header_dir, "")
+
+        # Move boost/python include down for clang
+        if line.startswith("#include \"boost/python.hpp\""):
+            continue
+        elif line.startswith("namespace bp"):
+            file_output.write("#include \"boost/python.hpp\"\n")
 
         # Fix C++ enum classes
         if fix_enum_class:
@@ -188,7 +202,7 @@ def post_process_python_wrapper(header_directories, cpp_filename, additional_rep
         for replacement in additional_replacements:
             line = line.replace(replacement[0], replacement[1])
 
-        print line,
+        file_output.write(line)
 
-        if len(line) == 1 and line.startswith('}'):
-            print("// clang-format on")
+    file_output.write("\n#pragma GCC diagnostic pop\n"
+                      "// clang-format on\n")

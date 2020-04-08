@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/situation/RelativePosition.hpp"
@@ -47,7 +52,8 @@ TEST_F(RelativePositionTests, copyConstruction)
 
 TEST_F(RelativePositionTests, moveConstruction)
 {
-  ::ad::rss::situation::RelativePosition value(std::move(::ad::rss::situation::RelativePosition(mValue)));
+  ::ad::rss::situation::RelativePosition tmpValue(mValue);
+  ::ad::rss::situation::RelativePosition value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -60,8 +66,9 @@ TEST_F(RelativePositionTests, copyAssignment)
 
 TEST_F(RelativePositionTests, moveAssignment)
 {
+  ::ad::rss::situation::RelativePosition tmpValue(mValue);
   ::ad::rss::situation::RelativePosition value;
-  value = std::move(::ad::rss::situation::RelativePosition(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -127,3 +134,7 @@ TEST_F(RelativePositionTests, comparisonOperatorLateralDistanceDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif
