@@ -13,15 +13,24 @@ Simple unittest module to ensure that the Python binding is functional
 """
 
 import unittest
+import xmlrunner
 import math
+import sys
+import os
 
-import libad_rss_python as rss
-import libad_physics_python as physics
-import libad_map_access_python as admap
-import libad_rss_map_integration_python as rssmap
+if sys.version_info.major == 3:
+    import libad_physics_python3 as physics
+    import libad_rss_python3 as rss
+    import libad_map_access_python3 as admap
+    import libad_rss_map_integration_python3 as rssmap
+else:
+    import libad_physics_python2 as physics
+    import libad_rss_python2 as rss
+    import libad_map_access_python2 as admap
+    import libad_rss_map_integration_python2 as rssmap
 
 
-class InterfaceTest(unittest.TestCase):
+class AdRssMapIntegrationInterfaceTest(unittest.TestCase):
 
     """
     Test class for Python interface
@@ -32,7 +41,7 @@ class InterfaceTest(unittest.TestCase):
     egoVehicleId = 123
     egoPosition = admap.ENUObjectPosition()
     egoSpeed = physics.Speed()
-    egoMapMatchedBoundingBox = admap.MapMatchedObjectBoundingBox()
+    egoObject = admap.Object()
     egoRoute = admap.FullRoute()
 
     def _get_object_vehicle_dynamics(self):
@@ -59,37 +68,32 @@ class InterfaceTest(unittest.TestCase):
         egoRssDynamics.lateralFluctuationMargin = physics.Distance(0.)
         return egoRssDynamics
 
-    def _initialize_object(self, lon, lat, yawAngle, resultPosition, resultMapMatchedBoundingBox):
+    def _initialize_object(self, lon, lat, yawAngle, resultObject):
         positionGeo = admap.createGeoPoint(lon, lat, admap.Altitude(0.))
 
         # fill the result position
-        resultPosition.centerPoint = admap.toENU(positionGeo)
-        resultPosition.heading = admap.createENUHeading(yawAngle)
-        resultPosition.dimension.length = physics.Distance(4.5)
-        resultPosition.dimension.width = physics.Distance(2.)
-        resultPosition.dimension.height = physics.Distance(1.5)
-        resultPosition.enuReferencePoint = admap.getENUReferencePoint()
+        resultObject.enuPosition.centerPoint = admap.toENU(positionGeo)
+        resultObject.enuPosition.heading = admap.createENUHeading(yawAngle)
+        resultObject.enuPosition.dimension.length = physics.Distance(4.5)
+        resultObject.enuPosition.dimension.width = physics.Distance(2.)
+        resultObject.enuPosition.dimension.height = physics.Distance(1.5)
+        resultObject.enuPosition.enuReferencePoint = admap.getENUReferencePoint()
 
         mapMatching = admap.AdMapMatching()
-        mapMatchedBoundingBox = mapMatching.getMapMatchedBoundingBox(
-            resultPosition, physics.Distance(0.1), physics.Probability(0.5))
+        resultObject.mapMatchedBoundingBox = mapMatching.getMapMatchedBoundingBox(
+            resultObject.enuPosition, physics.Distance(0.1))
 
-        self.assertGreaterEqual(len(mapMatchedBoundingBox.referencePointPositions),
+        self.assertGreaterEqual(len(resultObject.mapMatchedBoundingBox.referencePointPositions),
                                 admap.ObjectReferencePoints.Center)
-        self.assertGreaterEqual(len(mapMatchedBoundingBox
+        self.assertGreaterEqual(len(resultObject.mapMatchedBoundingBox
                                     .referencePointPositions[admap.ObjectReferencePoints.Center]), 0)
-
-        # fill the result bounding box
-        resultMapMatchedBoundingBox.laneOccupiedRegions = mapMatchedBoundingBox.laneOccupiedRegions
-        resultMapMatchedBoundingBox.referencePointPositions = mapMatchedBoundingBox.referencePointPositions
 
     def _initialize_ego_vehicle(self):
         # laneId: offset 240151:0.55
         self._initialize_object(admap.Longitude(8.00125444865324766),
                                 admap.Latitude(48.99758627528235877),
                                 math.pi / 2,
-                                self.egoPosition,
-                                self.egoMapMatchedBoundingBox)
+                                self.egoObject)
 
         self.egoSpeed = physics.Speed(5.)
 
@@ -99,7 +103,7 @@ class InterfaceTest(unittest.TestCase):
                                               admap.Altitude(0.))
 
         self.egoRoute = admap.planRoute(
-            self.egoMapMatchedBoundingBox.referencePointPositions[
+            self.egoObject.mapMatchedBoundingBox.referencePointPositions[
                 admap.ObjectReferencePoints.Center][0].lanePoint.paraPoint,
             positionEndGeo)
 
@@ -112,39 +116,35 @@ class InterfaceTest(unittest.TestCase):
 
         self._initialize_ego_vehicle()
 
-        self.world_model = rssmap.initializeWorldModel(1, self._get_ego_vehicle_dynamics())
-        print ("== Initial world model ==")
-        print (self.world_model)
+        scene_creation = rssmap.RssSceneCreation(1, self._get_ego_vehicle_dynamics())
 
         otherVehicleId = 20
         otherVehicleSpeed = physics.Speed(10.)
 
-        otherVehiclePosition = admap.ENUObjectPosition()
-        otherVehicleMapMatchedBoundingBox = admap.MapMatchedObjectBoundingBox()
+        otherVehicleObject = admap.Object()
 
         # laneId: offset  120149:0.16  around the intersection in front same direction on ego route
         self._initialize_object(
             admap.Longitude(8.00188527300496979),
             admap.Latitude(48.99821051747871792),
             0,
-            otherVehiclePosition,
-            otherVehicleMapMatchedBoundingBox)
+            otherVehicleObject)
 
-        self.assertTrue(rssmap.appendScenes(
+        self.assertTrue(scene_creation.appendScenes(
             self.egoVehicleId,
-            self.egoMapMatchedBoundingBox,
+            self.egoObject,
             self.egoSpeed,
+            self._get_ego_vehicle_dynamics(),
             self.egoRoute,
             otherVehicleId,
             rss.ObjectType.OtherVehicle,
-            otherVehicleMapMatchedBoundingBox,
+            otherVehicleObject,
             otherVehicleSpeed,
             self._get_object_vehicle_dynamics(),
-            rssmap.RestrictSpeedLimitMode.IncreasedSpeedLimit10,
-            admap.LandmarkIdSet(),
-            self.world_model))
+            rssmap.RssSceneCreation.RestrictSpeedLimitMode.IncreasedSpeedLimit10,
+            admap.LandmarkIdSet()))
 
-        self.assertTrue(rssmap.finalizeWorldModel(self._get_ego_vehicle_dynamics(), self.world_model))
+        self.world_model = scene_creation.getWorldModel()
         print ("== Final world model ==")
         print (self.world_model)
 
@@ -162,10 +162,9 @@ class InterfaceTest(unittest.TestCase):
         self.assertTrue(rss_situation_checking.checkSituations(rss_situation_snapshot, rss_state_snapshot))
 
         rss_proper_response = rss.ProperResponse()
-        self.assertTrue(rss_response_resolving.provideProperResponse(rss_state_snapshot, rss_proper_response))
-
         acceleration_restriction = rss.AccelerationRestriction()
-        self.assertTrue(rss.transformProperResponse(self.world_model, rss_proper_response, acceleration_restriction))
+        self.assertTrue(rss_response_resolving.provideProperResponse(
+            rss_state_snapshot, rss_proper_response, acceleration_restriction))
 
         print ("== Acceleration Restrictions ==")
         print (acceleration_restriction)
@@ -179,4 +178,11 @@ class InterfaceTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    if os.environ['GTEST_OUTPUT'] and os.environ['GTEST_OUTPUT'].startswith('xml:'):
+        base_folder = os.environ['GTEST_OUTPUT'][4:]
+        result_filename = base_folder + 'ad_rss_map_integration_interface_test_python' + \
+            str(sys.version_info.major) + ".xml"
+        with open(result_filename, "w+") as result_file:
+            unittest.main(testRunner=xmlrunner.XMLTestRunner(output=result_file))
+    else:
+        unittest.main()
