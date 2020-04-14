@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -54,7 +54,7 @@ class RssSituationExtraction;
  *
  * Class providing the functionality of the RSS check sequence at once with the RSS world model as input and
  * restrictions of the acceleration for the actuator control as output. This class internally makes use of the
- * RssSituationExtraction, RssSituationChecking, RssResponseResolving and RssResponseTransformation functionality.
+ * RssSituationExtraction, RssSituationChecking, RssResponseResolving functionality.
  */
 class RssCheck
 {
