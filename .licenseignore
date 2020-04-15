@@ -1,6 +1,6 @@
-.clang*
-.md
-.png
+\.clang*
+\.md
+\.png
 LICENSE
 cmake/
 doc/

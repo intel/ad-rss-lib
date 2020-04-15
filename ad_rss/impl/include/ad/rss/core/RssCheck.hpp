@@ -12,6 +12,9 @@
 #pragma once
 
 #include <memory>
+#include "ad/rss/situation/SituationSnapshot.hpp"
+#include "ad/rss/state/ProperResponse.hpp"
+#include "ad/rss/state/RssStateSnapshot.hpp"
 #include "ad/rss/world/AccelerationRestriction.hpp"
 #include "ad/rss/world/WorldModel.hpp"
 
@@ -23,22 +26,6 @@ namespace ad {
  * @brief namespace rss
  */
 namespace rss {
-/*!
- * @brief namespace situation
- */
-namespace situation {
-
-class SituationSnapshot;
-} // namespace situation
-
-/*!
- * @brief namespace state
- */
-namespace state {
-
-class ProperResponse;
-class RssStateSnapshot;
-} // namespace state
 
 /*!
  * @brief namespace core
