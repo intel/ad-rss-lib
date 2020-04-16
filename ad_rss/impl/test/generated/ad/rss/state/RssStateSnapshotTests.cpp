@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/state/RssStateSnapshot.hpp"
@@ -194,7 +199,8 @@ TEST_F(RssStateSnapshotTests, copyConstruction)
 
 TEST_F(RssStateSnapshotTests, moveConstruction)
 {
-  ::ad::rss::state::RssStateSnapshot value(std::move(::ad::rss::state::RssStateSnapshot(mValue)));
+  ::ad::rss::state::RssStateSnapshot tmpValue(mValue);
+  ::ad::rss::state::RssStateSnapshot value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -207,8 +213,9 @@ TEST_F(RssStateSnapshotTests, copyAssignment)
 
 TEST_F(RssStateSnapshotTests, moveAssignment)
 {
+  ::ad::rss::state::RssStateSnapshot tmpValue(mValue);
   ::ad::rss::state::RssStateSnapshot value;
-  value = std::move(::ad::rss::state::RssStateSnapshot(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -406,3 +413,7 @@ TEST_F(RssStateSnapshotTests, comparisonOperatorIndividualResponsesDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

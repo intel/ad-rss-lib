@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/situation/VehicleState.hpp"
@@ -97,7 +102,8 @@ TEST_F(VehicleStateTests, copyConstruction)
 
 TEST_F(VehicleStateTests, moveConstruction)
 {
-  ::ad::rss::situation::VehicleState value(std::move(::ad::rss::situation::VehicleState(mValue)));
+  ::ad::rss::situation::VehicleState tmpValue(mValue);
+  ::ad::rss::situation::VehicleState value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -110,8 +116,9 @@ TEST_F(VehicleStateTests, copyAssignment)
 
 TEST_F(VehicleStateTests, moveAssignment)
 {
+  ::ad::rss::situation::VehicleState tmpValue(mValue);
   ::ad::rss::situation::VehicleState value;
-  value = std::move(::ad::rss::situation::VehicleState(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -244,3 +251,7 @@ TEST_F(VehicleStateTests, comparisonOperatorDistanceToLeaveIntersectionDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

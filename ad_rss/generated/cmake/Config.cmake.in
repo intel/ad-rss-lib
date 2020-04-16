@@ -10,14 +10,14 @@
 ##
 # Generated file
 #
-# Generator Version : 11.0.0-1917
+# Generator Version : 11.0.0-1988
 ##
 
 @PACKAGE_INIT@
 
 include(CMakeFindDependencyMacro)
 
-find_dependency(ad_physics 2.0.2)
+find_dependency(ad_physics 2.0.3)
 find_dependency(spdlog)
 
 include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")

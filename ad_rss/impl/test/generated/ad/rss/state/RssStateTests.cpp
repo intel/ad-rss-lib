@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/state/RssState.hpp"
@@ -118,7 +123,8 @@ TEST_F(RssStateTests, copyConstruction)
 
 TEST_F(RssStateTests, moveConstruction)
 {
-  ::ad::rss::state::RssState value(std::move(::ad::rss::state::RssState(mValue)));
+  ::ad::rss::state::RssState tmpValue(mValue);
+  ::ad::rss::state::RssState value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -131,8 +137,9 @@ TEST_F(RssStateTests, copyAssignment)
 
 TEST_F(RssStateTests, moveAssignment)
 {
+  ::ad::rss::state::RssState tmpValue(mValue);
   ::ad::rss::state::RssState value;
-  value = std::move(::ad::rss::state::RssState(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -276,3 +283,7 @@ TEST_F(RssStateTests, comparisonOperatorLateralStateLeftDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

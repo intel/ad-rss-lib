@@ -10,7 +10,7 @@
 ##
 # Generated file
 #
-# Generator Version : 11.0.0-1917
+# Generator Version : 11.0.0-1988
 ##
 
 cmake_minimum_required(VERSION 3.5)
@@ -31,7 +31,7 @@ if ((NOT ad_rss_SOURCES) OR (NOT ad_rss_INCLUDE_DIRS))
   message(FATAL_ERROR "${PROJECT_NAME}: Variable ad_rss_SOURCES or ad_rss_INCLUDE_DIRS pointing to the generator managed library not set!")
 endif()
 
-find_package(ad_physics 2.0.2 REQUIRED CONFIG)
+find_package(ad_physics 2.0.3 REQUIRED CONFIG)
 find_package(spdlog REQUIRED CONFIG)
 
 add_library(${PROJECT_NAME}

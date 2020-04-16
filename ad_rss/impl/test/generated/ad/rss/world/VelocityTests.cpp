@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/world/Velocity.hpp"
@@ -50,7 +55,8 @@ TEST_F(VelocityTests, copyConstruction)
 
 TEST_F(VelocityTests, moveConstruction)
 {
-  ::ad::rss::world::Velocity value(std::move(::ad::rss::world::Velocity(mValue)));
+  ::ad::rss::world::Velocity tmpValue(mValue);
+  ::ad::rss::world::Velocity value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -63,8 +69,9 @@ TEST_F(VelocityTests, copyAssignment)
 
 TEST_F(VelocityTests, moveAssignment)
 {
+  ::ad::rss::world::Velocity tmpValue(mValue);
   ::ad::rss::world::Velocity value;
-  value = std::move(::ad::rss::world::Velocity(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -129,3 +136,7 @@ TEST_F(VelocityTests, comparisonOperatorSpeedLatMaxDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

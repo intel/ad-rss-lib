@@ -162,7 +162,13 @@ def post_process_python_wrapper(header_directories, cpp_filename_in, cpp_filenam
                               " *\n"
                               " * ----------------- END LICENSE BLOCK -----------------------------------\n"
                               " */\n"
-                              "// clang-format off")
+                              "// clang-format off\n"
+                              "#pragma GCC diagnostic push\n"
+                              "#pragma GCC diagnostic ignored \"-Wshadow\"\n"
+                              "#pragma GCC diagnostic ignored \"-Wignored-qualifiers\"\n"
+                              "#if defined(__clang__) && (__clang_major__ >= 7)\n"
+                              "#  pragma GCC diagnostic ignored \"-Wself-assign-overloaded\"\n"
+                              "#endif\n\n")
             write_prefix = False
 
         # Remove the leading include
@@ -171,6 +177,12 @@ def post_process_python_wrapper(header_directories, cpp_filename_in, cpp_filenam
                 if not header_dir.endswith("/"):
                     header_dir = header_dir + "/"
                 line = line.replace(header_dir, "")
+
+        # Move boost/python include down for clang
+        if line.startswith("#include \"boost/python.hpp\""):
+            continue
+        elif line.startswith("namespace bp"):
+            file_output.write("#include \"boost/python.hpp\"\n")
 
         # Fix C++ enum classes
         if fix_enum_class:
@@ -192,5 +204,5 @@ def post_process_python_wrapper(header_directories, cpp_filename_in, cpp_filenam
 
         file_output.write(line)
 
-        if len(line) == 1 and line.startswith('}'):
-            file_output.write("// clang-format on")
+    file_output.write("\n#pragma GCC diagnostic pop\n"
+                      "// clang-format on\n")

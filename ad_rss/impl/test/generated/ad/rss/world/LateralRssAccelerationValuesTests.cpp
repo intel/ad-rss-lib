@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/world/LateralRssAccelerationValues.hpp"
@@ -42,8 +47,8 @@ TEST_F(LateralRssAccelerationValuesTests, copyConstruction)
 
 TEST_F(LateralRssAccelerationValuesTests, moveConstruction)
 {
-  ::ad::rss::world::LateralRssAccelerationValues value(
-    std::move(::ad::rss::world::LateralRssAccelerationValues(mValue)));
+  ::ad::rss::world::LateralRssAccelerationValues tmpValue(mValue);
+  ::ad::rss::world::LateralRssAccelerationValues value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -56,8 +61,9 @@ TEST_F(LateralRssAccelerationValuesTests, copyAssignment)
 
 TEST_F(LateralRssAccelerationValuesTests, moveAssignment)
 {
+  ::ad::rss::world::LateralRssAccelerationValues tmpValue(mValue);
   ::ad::rss::world::LateralRssAccelerationValues value;
-  value = std::move(::ad::rss::world::LateralRssAccelerationValues(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -100,3 +106,7 @@ TEST_F(LateralRssAccelerationValuesTests, comparisonOperatorBrakeMinDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

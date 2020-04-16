@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/world/Object.hpp"
@@ -79,7 +84,8 @@ TEST_F(ObjectTests, copyConstruction)
 
 TEST_F(ObjectTests, moveConstruction)
 {
-  ::ad::rss::world::Object value(std::move(::ad::rss::world::Object(mValue)));
+  ::ad::rss::world::Object tmpValue(mValue);
+  ::ad::rss::world::Object value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -92,8 +98,9 @@ TEST_F(ObjectTests, copyAssignment)
 
 TEST_F(ObjectTests, moveAssignment)
 {
+  ::ad::rss::world::Object tmpValue(mValue);
   ::ad::rss::world::Object value;
-  value = std::move(::ad::rss::world::Object(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -191,3 +198,7 @@ TEST_F(ObjectTests, comparisonOperatorVelocityDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif
