@@ -63,31 +63,45 @@ after_failure:
 
 jobs:
   include:
-    - name: "Build and Unit Tests gcc-5, gcc-6 (Ubuntu 16.04)"
+    - name: "Build and Unit Tests gcc-5 (Ubuntu 16.04)"
+      dist: xenial
+      compiler: gcc
+
+    - name: "Build and Unit Tests gcc-6 (Ubuntu 16.04)"
       dist: xenial
       compiler: gcc
       env:
         EXTRA_PACKAGES="g++-6"
-        CC1=/usr/bin/gcc-6
-        CXX1=/usr/bin/g++-6
+        CC0=/usr/bin/gcc-6
+        CXX0=/usr/bin/g++-6
 
-    - name: "Build and Unit Tests clang-5.0, clang-6.0 (Ubuntu 16.04)"
+    - name: "Build and Unit Tests clang-5.0 (Ubuntu 16.04)"
       dist: xenial
       compiler: clang
       env:
-        EXTRA_PACKAGES="clang-5.0 clang-6.0"
+        EXTRA_PACKAGES="clang-5.0"
         CC0=/usr/bin/clang-5.0
         CXX0=/usr/bin/clang++-5.0
-        CC1=/usr/bin/clang-6.0
-        CXX1=/usr/bin/clang++-6.0
 
-    - name: "Build and Unit Tests gcc-7, gcc-8 (Ubuntu 18.04)"
+    - name: "Build and Unit Tests clang-6.0 (Ubuntu 16.04)"
+      dist: xenial
+      compiler: clang
+      env:
+        EXTRA_PACKAGES="clang-6.0"
+        CC0=/usr/bin/clang-6.0
+        CXX0=/usr/bin/clang++-6.0
+
+    - name: "Build and Unit Tests gcc-7 (Ubuntu 18.04)"
+      dist: bionic
+      compiler: gcc
+
+    - name: "Build and Unit Tests gcc-8 (Ubuntu 18.04)"
       dist: bionic
       compiler: gcc
       env:
         EXTRA_PACKAGES="g++-8"
-        CC1=/usr/bin/gcc-8
-        CXX1=/usr/bin/g++-8
+        CC0=/usr/bin/gcc-8
+        CXX0=/usr/bin/g++-8
 
     - name: "Build and Unit Tests gcc-9 (Ubuntu 18.04)"
       dist: bionic
@@ -97,13 +111,17 @@ jobs:
         CC0=/usr/bin/gcc-9
         CXX0=/usr/bin/g++-9
 
-    - name: "Build and Unit Tests clang-7, clang-8 (Ubuntu 18.04)"
+    - name: "Build and Unit Tests clang-7 (Ubuntu 18.04)"
+      dist: bionic
+      compiler: clang
+
+    - name: "Build and Unit Tests clang-8 (Ubuntu 18.04)"
       dist: bionic
       compiler: clang
       env:
         EXTRA_PACKAGES="clang-8"
-        CC1=/usr/bin/clang-8
-        CXX1=/usr/bin/clang++-8
+        CC0=/usr/bin/clang-8
+        CXX0=/usr/bin/clang++-8
 
     - name: "Check Code Formatting"
       addons:
@@ -124,7 +142,7 @@ jobs:
         - git submodule update --init
         - colcon build --event-handlers console_direct+ --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DBUILD_COVERAGE=ON -DBUILD_APIDOC=ON
         - colcon test --event-handlers console_direct+ --packages-select ad_rss ad_rss_map_integration
-        - colcon test-result"
+        - colcon test-result
         - export PATH=$PATH:~/.local/lib/python2.7/site-packages/mkdocs/
         - mkdocs build
       after_script:
@@ -141,7 +159,7 @@ jobs:
         - git submodule update --init
         - colcon build --event-handlers console_direct+ --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DBUILD_COVERAGE=ON -DBUILD_APIDOC=ON
         - colcon test --event-handlers console_direct+ --packages-select ad_rss ad_rss_map_integration
-        - colcon test-result"
+        - colcon test-result
         - export PATH=$PATH:~/.local/lib/python2.7/site-packages/mkdocs/
         - mkdocs build
       after_script:
