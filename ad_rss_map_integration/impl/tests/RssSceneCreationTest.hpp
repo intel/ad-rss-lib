@@ -129,7 +129,7 @@ struct RssSceneCreationTest : ::testing::Test
     ASSERT_GE(object.mapMatchedBoundingBox
                 .referencePointPositions[static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center)]
                 .size(),
-              0);
+              0u);
   }
 
   void checkSceneResults(::ad::rss::world::WorldModel const &worldModel,
