@@ -24,7 +24,6 @@ addons:
       - cmake
       - doxygen
       - graphviz
-      - lcov
       - libboost-all-dev
       - libgtest-dev
       - liblapacke-dev
