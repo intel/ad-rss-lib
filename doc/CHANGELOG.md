@@ -5,6 +5,7 @@
 * Fixed python binding for multiple python version built
 * Added python interface test execution
 * Updated documentation
+* Fixed clang-8 and gcc-9 build
 
 ## Release 3.0.0
 
