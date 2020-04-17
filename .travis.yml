@@ -22,8 +22,6 @@ addons:
       - build-essential
       - castxml
       - cmake
-      - doxygen
-      - graphviz
       - libboost-all-dev
       - libgtest-dev
       - liblapacke-dev
@@ -134,7 +132,7 @@ jobs:
 
     - name: "Build Documentation"
       env:
-        EXTRA_PACKAGES="lcov"
+        EXTRA_PACKAGES="doxygen graphviz lcov"
       before_script:
         - pip install --user mkdocs>=1.0 markdown-include pymdown-extensions==6.2 pygments mdx_truly_sane_lists
       script:
@@ -151,7 +149,7 @@ jobs:
     - name: "Documentation Deployment"
       if: branch = master AND type != pull_request
       env:
-        EXTRA_PACKAGES="lcov"
+        EXTRA_PACKAGES="doxygen graphviz lcov"
       before_script:
         - pip install --user mkdocs>=1.0 markdown-include pymdown-extensions==6.2 pygments mdx_truly_sane_lists
       script:
