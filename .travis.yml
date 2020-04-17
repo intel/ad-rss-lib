@@ -11,6 +11,9 @@ language: cpp
 dist: xenial
 os: linux
 
+git:
+  submodules: false
+
 addons:
   apt:
     sources:
