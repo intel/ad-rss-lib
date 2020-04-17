@@ -133,14 +133,15 @@ To download the library, you may run:
 ```
 
 #### Supported systems <a name="systems"></a>
-Development systems are Ubuntu 16.04 and Ubuntu 18.04 supporting the following compiler combinations:
+Development systems are Ubuntu 16.04 and Ubuntu 18.04.
+Following compiler combinations are [tested continously](https://github.com/intel/ad-rss-lib/blob/master/.travis.yml):
 
 |                 | Ubuntu 16.04 | Ubuntu 18.04 |
 |:---------------:|:------------:|:------------:|
 |  Clang 5.0      |      x       |              |
-|  Clang 6.0      |              |       x      |
+|  Clang 6.0      |      x       |              |
 |  Clang 7        |              |       x      |
-|  Clang 8        |      x       |       x      |
+|  Clang 8        |              |       x      |
 |   GCC 5         |      x       |              |
 |   GCC 6         |      x       |              |
 |   GCC 7         |              |       x      |
