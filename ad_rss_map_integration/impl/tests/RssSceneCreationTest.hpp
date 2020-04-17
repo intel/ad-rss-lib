@@ -139,19 +139,35 @@ struct RssSceneCreationTest : ::testing::Test
     EXPECT_TRUE(withinValidInputRange(worldModel));
     ASSERT_EQ(expectedResults.size(), worldModel.scenes.size());
 
+    std::vector<ExpectedResultTuple> notMatchedResults = expectedResults;
     for (auto i = 0u; i < worldModel.scenes.size(); ++i)
     {
       auto &scene = worldModel.scenes[i];
-      auto &expectedResultTuple = expectedResults[i];
-
       EXPECT_TRUE(withinValidInputRange(scene)) << i;
       EXPECT_EQ(::ad::rss::world::ObjectType::OtherVehicle, scene.object.objectType) << i;
       EXPECT_EQ(otherVehicleId, scene.object.objectId) << i;
-      EXPECT_EQ(std::get<0>(expectedResultTuple), scene.situationType) << i;
-      EXPECT_EQ(std::get<1>(expectedResultTuple), scene.egoVehicleRoad.size()) << i;
-      EXPECT_EQ(std::get<2>(expectedResultTuple), scene.intersectingRoad.size()) << i;
-      EXPECT_EQ(getObjectVehicleDynamics(std::get<3>(expectedResultTuple)), scene.objectRssDynamics) << i;
+      auto findResult
+        = std::find_if(notMatchedResults.begin(),
+                       notMatchedResults.end(),
+                       [this, scene](ExpectedResultTuple const &expectedResultTuple) {
+                         return (std::get<0>(expectedResultTuple) == scene.situationType)
+                           && (std::get<1>(expectedResultTuple) == scene.egoVehicleRoad.size())
+                           && (std::get<2>(expectedResultTuple) == scene.intersectingRoad.size())
+                           && (getObjectVehicleDynamics(std::get<3>(expectedResultTuple)) == scene.objectRssDynamics);
+                       });
+      if (findResult != notMatchedResults.end())
+      {
+        notMatchedResults.erase(findResult);
+      }
+      else
+      {
+        EXPECT_TRUE(false) << " scene index: " << i << " not found" << scene;
+      }
     }
+    EXPECT_TRUE(notMatchedResults.empty())
+      << " not all expected results observed: " << std::get<0>(notMatchedResults[0]) << ", "
+      << std::get<1>(notMatchedResults[0]) << ", " << std::get<2>(notMatchedResults[0]) << ", "
+      << getObjectVehicleDynamics(std::get<3>(notMatchedResults[0]));
   }
 
   void shortenEgoRoute(ObjectGeoLocationTuple const &egoGeoLocation)
