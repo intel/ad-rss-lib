@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/situation/SituationSnapshot.hpp"
@@ -279,7 +284,8 @@ TEST_F(SituationSnapshotTests, copyConstruction)
 
 TEST_F(SituationSnapshotTests, moveConstruction)
 {
-  ::ad::rss::situation::SituationSnapshot value(std::move(::ad::rss::situation::SituationSnapshot(mValue)));
+  ::ad::rss::situation::SituationSnapshot tmpValue(mValue);
+  ::ad::rss::situation::SituationSnapshot value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -292,8 +298,9 @@ TEST_F(SituationSnapshotTests, copyAssignment)
 
 TEST_F(SituationSnapshotTests, moveAssignment)
 {
+  ::ad::rss::situation::SituationSnapshot tmpValue(mValue);
   ::ad::rss::situation::SituationSnapshot value;
-  value = std::move(::ad::rss::situation::SituationSnapshot(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -569,3 +576,7 @@ TEST_F(SituationSnapshotTests, comparisonOperatorSituationsDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

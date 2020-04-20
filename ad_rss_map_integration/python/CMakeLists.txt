@@ -48,7 +48,7 @@ foreach(binding ${PYTHON_BINDINGS})
   list(APPEND targets ${target})
 
   add_library(${target}
-    ${CMAKE_CURRENT_BINARY_DIR}/AdRssMapIntegrationPythonWrapper.cpp
+    ${CMAKE_CURRENT_BINARY_DIR}/AdRssMapIntegrationPythonWrapper${binding}.cpp
   )
   target_compile_definitions(${target} PUBLIC ${TARGET_COMPILE_DEFINITIONS} "-DBOOST_PYTHON_MAX_ARITY=15")
   target_compile_options(${target} PRIVATE ${TARGET_COMPILE_OPTIONS})
@@ -67,6 +67,16 @@ foreach(binding ${PYTHON_BINDINGS})
     spdlog::spdlog
     ${PYTHON_BINDING_PACKAGE_LIBRARIES_${binding}}
   )
+
+  if (BUILD_TESTING)
+    add_test(NAME ${target}_test
+      COMMAND ${lc_binding} -m interface_test
+      WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/tests
+    )
+    get_python_test_environment(ad_physics ad_map_access ad_rss)
+    set_tests_properties(${target}_test PROPERTIES ENVIRONMENT "${PYTHON_TEST_ENVIRONMENT}")
+  endif()
+
 endforeach()
 
 ################################################################################

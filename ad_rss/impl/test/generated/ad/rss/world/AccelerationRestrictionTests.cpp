@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/world/AccelerationRestriction.hpp"
@@ -64,7 +69,8 @@ TEST_F(AccelerationRestrictionTests, copyConstruction)
 
 TEST_F(AccelerationRestrictionTests, moveConstruction)
 {
-  ::ad::rss::world::AccelerationRestriction value(std::move(::ad::rss::world::AccelerationRestriction(mValue)));
+  ::ad::rss::world::AccelerationRestriction tmpValue(mValue);
+  ::ad::rss::world::AccelerationRestriction value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -77,8 +83,9 @@ TEST_F(AccelerationRestrictionTests, copyAssignment)
 
 TEST_F(AccelerationRestrictionTests, moveAssignment)
 {
+  ::ad::rss::world::AccelerationRestriction tmpValue(mValue);
   ::ad::rss::world::AccelerationRestriction value;
-  value = std::move(::ad::rss::world::AccelerationRestriction(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -161,3 +168,7 @@ TEST_F(AccelerationRestrictionTests, comparisonOperatorLateralRightRangeDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

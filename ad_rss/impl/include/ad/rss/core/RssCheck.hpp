@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -12,6 +12,9 @@
 #pragma once
 
 #include <memory>
+#include "ad/rss/situation/SituationSnapshot.hpp"
+#include "ad/rss/state/ProperResponse.hpp"
+#include "ad/rss/state/RssStateSnapshot.hpp"
 #include "ad/rss/world/AccelerationRestriction.hpp"
 #include "ad/rss/world/WorldModel.hpp"
 
@@ -23,22 +26,6 @@ namespace ad {
  * @brief namespace rss
  */
 namespace rss {
-/*!
- * @brief namespace situation
- */
-namespace situation {
-
-class SituationSnapshot;
-} // namespace situation
-
-/*!
- * @brief namespace state
- */
-namespace state {
-
-class ProperResponse;
-class RssStateSnapshot;
-} // namespace state
 
 /*!
  * @brief namespace core
@@ -54,7 +41,7 @@ class RssSituationExtraction;
  *
  * Class providing the functionality of the RSS check sequence at once with the RSS world model as input and
  * restrictions of the acceleration for the actuator control as output. This class internally makes use of the
- * RssSituationExtraction, RssSituationChecking, RssResponseResolving and RssResponseTransformation functionality.
+ * RssSituationExtraction, RssSituationChecking, RssResponseResolving functionality.
  */
 class RssCheck
 {

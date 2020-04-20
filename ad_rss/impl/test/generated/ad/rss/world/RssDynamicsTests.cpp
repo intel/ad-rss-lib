@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/world/RssDynamics.hpp"
@@ -67,7 +72,8 @@ TEST_F(RssDynamicsTests, copyConstruction)
 
 TEST_F(RssDynamicsTests, moveConstruction)
 {
-  ::ad::rss::world::RssDynamics value(std::move(::ad::rss::world::RssDynamics(mValue)));
+  ::ad::rss::world::RssDynamics tmpValue(mValue);
+  ::ad::rss::world::RssDynamics value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -80,8 +86,9 @@ TEST_F(RssDynamicsTests, copyAssignment)
 
 TEST_F(RssDynamicsTests, moveAssignment)
 {
+  ::ad::rss::world::RssDynamics tmpValue(mValue);
   ::ad::rss::world::RssDynamics value;
-  value = std::move(::ad::rss::world::RssDynamics(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -175,3 +182,7 @@ TEST_F(RssDynamicsTests, comparisonOperatorMaxSpeedDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

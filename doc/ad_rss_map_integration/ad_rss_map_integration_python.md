@@ -13,16 +13,17 @@ Python library as module and use it as any other Python module.
  ad_rss_map_integration_python$>  export PYTHONPATH=$PYTHONPATH:<path/to/>install/ad_rss_map_integration/lib:<path/to/>install/ad_rss/lib:<path/to/>install/ad_map_access/lib:<path/to/>install/ad_physics/lib
  ad_rss_map_integration_python$>  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<path/to/>install/ad_rss_map_integration/lib:<path/to/>install/ad_rss/lib:<path/to/>install/ad_map_access/lib:<path/to/>install/ad_map_opendrive_reader/lib:<path/to/>install/ad_physics/lib
  ad_rss_map_integration_python$>  python
- >>> import libad_physics_python as physics
- >>> import libad_map_access_python as admap
- >>> import libad_rss_python as rss
- >>> import libad_rss_map_integration_python as rssmap
+ >>> import libad_physics_python3 as physics
+ >>> import libad_map_access_python3 as admap
+ >>> import libad_rss_python3 as rss
+ >>> import libad_rss_map_integration_python3 as rssmap
  >>> admap.init("tests/resources/Town01.txt")
  >>> lanes = admap.getLanes()
  >>> print(len(lanes))
- >>> world_model = rssmap.initializeWorldModel(1, rss.RssDynamics())
- >>> rssmap.finalizeWorldModel(rss.RssDynamics(), world_model)
+ >>> scene_creation = rssmap.RssSceneCreation(1, rss.RssDynamics())
+ >>> world_model = scene_creation.getWorldModel()
  >>> print(world_model)
 ```
 
+When using python2 you have to import libad_physics_python2, libad_rss_python2, lib_ad_map_access_python2 and libda_rss_map_integration_python2 instead.
 For some simple examples, you might also want to spot into the ad_rss_map_integration_python/tests folder.
