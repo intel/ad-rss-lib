@@ -24,5 +24,5 @@ get_coverage() {
     bash <(curl -s https://codecov.io/bash) -f cleanedCoverage.info || echo "Codecov did not collect coverage reports"
 }
 
-get_coverage build/ad_rss ad_rss ad-rss
-get_coverage build/ad_rss_map_integration ad_rss_map_integration ad-rss-map-integration
+get_coverage build/ad_rss ad_rss ad_rss
+get_coverage build/ad_rss_map_integration ad_rss_map_integration ad_rss_map_integration
