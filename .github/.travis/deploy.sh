@@ -12,8 +12,7 @@
 git clone --quiet --branch=gh-pages https://${GITHUB_TOKEN}@github.com/intel/ad-rss-lib.git gh-pages > /dev/null 2>&1
 
 # clean old
-rm -rf gh-pages
-mkdir gh-pages
+rm -rf gh-pages/*
 cd gh-pages
 
 # docu website
