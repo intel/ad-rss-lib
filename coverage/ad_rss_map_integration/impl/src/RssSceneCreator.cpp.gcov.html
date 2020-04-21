@@ -1,0 +1,684 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - ad_rss_map_integration - impl/src/RssSceneCreator.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">impl/src</a> - RssSceneCreator.cpp<span style="font-size: 80%;"> (source / <a href="RssSceneCreator.cpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">ad_rss_map_integration</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">164</td>
+            <td class="headerCovTableEntry">268</td>
+            <td class="headerCovTableEntryLo">61.2 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-04-21 18:15:43</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntryMed">85.7 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">166</td>
+            <td class="headerCovTableEntry">486</td>
+            <td class="headerCovTableEntryLo">34.2 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : // ----------------- BEGIN LICENSE BLOCK ---------------------------------</a>
+<span class="lineNum">       2 </span>                :            : //
+<span class="lineNum">       3 </span>                :            : // Copyright (C) 2019-2020 Intel Corporation
+<span class="lineNum">       4 </span>                :            : //
+<span class="lineNum">       5 </span>                :            : // SPDX-License-Identifier: LGPL-2.1-only
+<span class="lineNum">       6 </span>                :            : //
+<span class="lineNum">       7 </span>                :            : // ----------------- END LICENSE BLOCK -----------------------------------
+<span class="lineNum">       8 </span>                :            : 
+<span class="lineNum">       9 </span>                :            : #include &quot;ad/rss/map/RssSceneCreator.hpp&quot;
+<span class="lineNum">      10 </span>                :            : #include &lt;ad/rss/world/SceneValidInputRange.hpp&gt;
+<span class="lineNum">      11 </span>                :            : #include &quot;ad/rss/map/Logging.hpp&quot;
+<span class="lineNum">      12 </span>                :            : 
+<span class="lineNum">      13 </span>                :            : /*!
+<span class="lineNum">      14 </span>                :            :  * @brief namespace rss
+<span class="lineNum">      15 </span>                :            :  */
+<span class="lineNum">      16 </span>                :            : namespace ad {
+<span class="lineNum">      17 </span>                :            : /*!
+<span class="lineNum">      18 </span>                :            :  * @brief namespace rss
+<span class="lineNum">      19 </span>                :            :  */
+<span class="lineNum">      20 </span>                :            : namespace rss {
+<span class="lineNum">      21 </span>                :            : /*!
+<span class="lineNum">      22 </span>                :            :  * @brief namespace map
+<span class="lineNum">      23 </span>                :            :  */
+<a name="24"><span class="lineNum">      24 </span>                :            : namespace map {</a>
+<span class="lineNum">      25 </span>                :            : 
+<span class="lineNum">      26 </span>                :<span class="lineCov">        213 : RssSceneCreator::RssSceneCreator(RssSceneCreation::RestrictSpeedLimitMode const &amp;restrictSpeedLimitMode,</span>
+<span class="lineNum">      27 </span>                :            :                                  ::ad::map::landmark::LandmarkIdSet const &amp;greenTrafficLights,
+<span class="lineNum">      28 </span>                :            :                                  RssSceneCreation &amp;sceneCreation)
+<span class="lineNum">      29 </span>                :            :   : mGreenTrafficLights(greenTrafficLights)
+<span class="lineNum">      30 </span>                :<span class="lineCov">        213 :   , mSceneCreation(sceneCreation)</span>
+<span class="lineNum">      31 </span>                :            : {
+<span class="lineNum">      32 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 151 times"> + </span><span class="branchCov" title="Branch 3 was taken 62 times"> + </span>]:<span class="lineCov">        213 :   switch (restrictSpeedLimitMode)</span>
+<span class="lineNum">      33 </span>                :            :   {
+<span class="lineNum">      34 </span>                :            :     case RssSceneCreation::RestrictSpeedLimitMode::ExactSpeedLimit:
+<span class="lineNum">      35 </span>                :<span class="lineNoCov">          0 :       mSpeedLimitFactor = 1.;</span>
+<span class="lineNum">      36 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">      37 </span>                :            :     case RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit5:
+<span class="lineNum">      38 </span>                :<span class="lineNoCov">          0 :       mSpeedLimitFactor = 1.05;</span>
+<span class="lineNum">      39 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">      40 </span>                :            :     case RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10:
+<span class="lineNum">      41 </span>                :<span class="lineCov">        151 :       mSpeedLimitFactor = 1.1;</span>
+<span class="lineNum">      42 </span>                :<span class="lineCov">        151 :       break;</span>
+<span class="lineNum">      43 </span>                :            :     case RssSceneCreation::RestrictSpeedLimitMode::None:
+<span class="lineNum">      44 </span>                :            :     default:
+<span class="lineNum">      45 </span>                :<span class="lineCov">         62 :       mSpeedLimitFactor = 0.;</span>
+<span class="lineNum">      46 </span>                :<span class="lineCov">         62 :       break;</span>
+<a name="47"><span class="lineNum">      47 </span>                :            :   }</a>
+<span class="lineNum">      48 </span>                :<span class="lineCov">        213 : }</span>
+<span class="lineNum">      49 </span>                :<span class="lineCov">          4 : RssSceneCreator::RssSceneCreator(RssSceneCreation &amp;sceneCreation)</span>
+<span class="lineNum">      50 </span>                :            :   : mSpeedLimitFactor(0.)
+<span class="lineNum">      51 </span>                :            :   , mGreenTrafficLights()
+<span class="lineNum">      52 </span>                :<span class="lineCov">          4 :   , mSceneCreation(sceneCreation)</span>
+<span class="lineNum">      53 </span>                :            : {
+<a name="54"><span class="lineNum">      54 </span>                :<span class="lineCov">          4 : }</span></a>
+<span class="lineNum">      55 </span>                :            : 
+<span class="lineNum">      56 </span>                :<span class="lineCov">        309 : ::ad::rss::world::RoadArea RssSceneCreator::createRoadArea(::ad::map::route::FullRoute const &amp;route,</span>
+<span class="lineNum">      57 </span>                :            :                                                            ::ad::map::route::RouteLaneOffset const minLaneOffset,
+<span class="lineNum">      58 </span>                :            :                                                            ::ad::map::route::RouteLaneOffset const maxLaneOffset,
+<span class="lineNum">      59 </span>                :            :                                                            ::ad::map::lane::LaneIdSet const &amp;intersectionLanes,
+<span class="lineNum">      60 </span>                :            :                                                            std::vector&lt;RssObjectConversion::Ptr&gt; objects)
+<span class="lineNum">      61 </span>                :            : {
+<span class="lineNum">      62 </span>                :<span class="lineCov">        309 :   ::ad::rss::world::RoadArea area;</span>
+<span class="lineNum">      63 </span>                :<span class="lineCov">        309 :   bool intersectionEntered = false;</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">        309 :   bool intersectionLeft = false;</span>
+<span class="lineNum">      65 </span>        [<span class="branchCov" title="Branch 3 was taken 681 times"> + </span><span class="branchCov" title="Branch 4 was taken 243 times"> + </span>]:<span class="lineCov">        990 :   for (auto roadSegmentIter = route.roadSegments.begin(); roadSegmentIter != route.roadSegments.end();</span>
+<span class="lineNum">      66 </span>                :            :        roadSegmentIter++)
+<span class="lineNum">      67 </span>                :            :   {
+<span class="lineNum">      68 </span>                :<span class="lineCov">       1296 :     ::ad::rss::world::RoadSegment rssRoadSegment;</span>
+<span class="lineNum">      69 </span>                :            :     // RoadSegments are in strict order from right to left
+<span class="lineNum">      70 </span>                :            :     // RSS order is vice-versa
+<span class="lineNum">      71 </span>[<span class="branchCov" title="Branch 3 was taken 1652 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 1037 times"> + </span><span class="branchCov" title="Branch 6 was taken 615 times"> + </span>]:<span class="lineCov">       3304 :     for (auto laneSegmentIter = roadSegmentIter-&gt;drivableLaneSegments.crbegin();</span>
+<span class="lineNum">      72 </span>                :<span class="lineCov">       1652 :          laneSegmentIter != roadSegmentIter-&gt;drivableLaneSegments.crend();</span>
+<span class="lineNum">      73 </span>                :            :          laneSegmentIter++)
+<span class="lineNum">      74 </span>                :            :     {
+<span class="lineNum">      75 </span>[<span class="branchCov" title="Branch 1 was taken 1037 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 1037 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       1037 :       if ((laneSegmentIter-&gt;routeLaneOffset &gt;= minLaneOffset) &amp;&amp; (laneSegmentIter-&gt;routeLaneOffset &lt;= maxLaneOffset))</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 1037 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>][<span class="branchCov" title="Branch 8 was taken 858 times"> + </span><span class="branchCov" title="Branch 9 was taken 179 times"> + </span>]
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 10 was taken 858 times"> + </span><span class="branchCov" title="Branch 11 was taken 179 times"> + </span>]
+<span class="lineNum">      76 </span>                :            :       {
+<span class="lineNum">      77 </span>        [<span class="branchCov" title="Branch 1 was taken 858 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        858 :         ::ad::rss::world::LaneSegment rssLaneSegment;</span>
+<span class="lineNum">      78 </span>        [<span class="branchCov" title="Branch 1 was taken 858 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        858 :         rssLaneSegment.id = ::ad::rss::world::LaneSegmentId(laneSegmentIter-&gt;laneInterval.laneId);</span>
+<span class="lineNum">      79 </span>[<span class="branchCov" title="Branch 1 was taken 858 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 858 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        858 :         if (intersectionLanes.count(laneSegmentIter-&gt;laneInterval.laneId) &gt; 0)</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 80 times"> + </span><span class="branchCov" title="Branch 7 was taken 778 times"> + </span>]
+<span class="lineNum">      80 </span>                :            :         {
+<span class="lineNum">      81 </span>                :<span class="lineCov">         80 :           rssLaneSegment.type = ::ad::rss::world::LaneSegmentType::Intersection;</span>
+<span class="lineNum">      82 </span>                :<span class="lineCov">         80 :           intersectionEntered = true;</span>
+<span class="lineNum">      83 </span>                :            :         }
+<span class="lineNum">      84 </span>                :            :         else
+<span class="lineNum">      85 </span>                :            :         {
+<span class="lineNum">      86 </span>        [<span class="branchCov" title="Branch 0 was taken 66 times"> + </span><span class="branchCov" title="Branch 1 was taken 712 times"> + </span>]:<span class="lineCov">        778 :           if (intersectionEntered)</span>
+<span class="lineNum">      87 </span>                :            :           {
+<span class="lineNum">      88 </span>                :            :             // route is leaving the intersection again, stop
+<span class="lineNum">      89 </span>                :<span class="lineCov">         66 :             intersectionLeft = true;</span>
+<span class="lineNum">      90 </span>                :<span class="lineCov">         66 :             break;</span>
+<span class="lineNum">      91 </span>                :            :           }
+<span class="lineNum">      92 </span>                :<span class="lineCov">        712 :           rssLaneSegment.type = ::ad::rss::world::LaneSegmentType::Normal;</span>
+<span class="lineNum">      93 </span>                :            :         }
+<span class="lineNum">      94 </span>[<span class="branchCov" title="Branch 1 was taken 792 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 177 times"> + </span><span class="branchCov" title="Branch 4 was taken 615 times"> + </span>]:<span class="lineCov">        792 :         if (laneSegmentIter-&gt;laneInterval.wrongWay)</span>
+<span class="lineNum">      95 </span>                :            :         {
+<span class="lineNum">      96 </span>                :<span class="lineCov">        177 :           rssLaneSegment.drivingDirection = ::ad::rss::world::LaneDrivingDirection::Negative;</span>
+<span class="lineNum">      97 </span>                :            :         }
+<span class="lineNum">      98 </span>                :            :         else
+<span class="lineNum">      99 </span>                :            :         {
+<span class="lineNum">     100 </span>                :<span class="lineCov">        615 :           rssLaneSegment.drivingDirection = ::ad::rss::world::LaneDrivingDirection::Positive;</span>
+<span class="lineNum">     101 </span>                :            :         }
+<span class="lineNum">     102 </span>[<span class="branchCov" title="Branch 1 was taken 792 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 792 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        792 :         getMetricRanges(laneSegmentIter-&gt;laneInterval, rssLaneSegment.length, rssLaneSegment.width);</span>
+<span class="lineNum">     103 </span>                :            : 
+<span class="lineNum">     104 </span>[<span class="branchCov" title="Branch 1 was taken 792 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 792 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">       1584 :         auto const speedLimitRestrictions = getSpeedLimits(laneSegmentIter-&gt;laneInterval);</span>
+<span class="lineNum">     105 </span>        [<span class="branchCov" title="Branch 3 was taken 1313 times"> + </span><span class="branchCov" title="Branch 4 was taken 792 times"> + </span>]:<span class="lineCov">       2105 :         for (auto object : objects)</span>
+<span class="lineNum">     106 </span>                :            :         {
+<span class="lineNum">     107 </span>        [<span class="branchCov" title="Branch 3 was taken 1313 times"> + </span><span class="branchCov" title="Branch 4 was taken 1313 times"> + </span>]:<span class="lineCov">       2626 :           for (auto const &amp;speedLimitRestriction : speedLimitRestrictions)</span>
+<span class="lineNum">     108 </span>                :            :           {
+<span class="lineNum">     109 </span>[<span class="branchCov" title="Branch 1 was taken 1313 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 1313 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">       1313 :             object-&gt;updateSpeedLimit(speedLimitRestriction.speedLimit * mSpeedLimitFactor);</span>
+<span class="lineNum">     110 </span>                :            :           }
+<span class="lineNum">     111 </span>[<span class="branchCov" title="Branch 1 was taken 1313 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 1313 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">       1313 :           object-&gt;laneIntervalAdded(laneSegmentIter-&gt;laneInterval);</span>
+<span class="lineNum">     112 </span>                :            :         }
+<span class="lineNum">     113 </span>                :            : 
+<span class="lineNum">     114 </span>        [<span class="branchCov" title="Branch 1 was taken 792 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        792 :         rssRoadSegment.push_back(rssLaneSegment);</span>
+<span class="lineNum">     115 </span>                :            :       }
+<span class="lineNum">     116 </span>                :            :     }
+<span class="lineNum">     117 </span>        [<span class="branchCov" title="Branch 0 was taken 66 times"> + </span><span class="branchCov" title="Branch 1 was taken 615 times"> + </span>]:<span class="lineCov">        681 :     if (intersectionLeft)</span>
+<span class="lineNum">     118 </span>                :            :     {
+<span class="lineNum">     119 </span>                :<span class="lineCov">         66 :       break;</span>
+<span class="lineNum">     120 </span>                :            :     }
+<span class="lineNum">     121 </span>[<span class="branchCov" title="Branch 1 was taken 615 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 615 times"> + </span><span class="branchCov" title="Branch 5 was taken 66 times"> + </span>]:<span class="lineCov">        681 :     area.push_back(rssRoadSegment);</span>
+<span class="lineNum">     122 </span>                :            :   }
+<span class="lineNum">     123 </span>        [<span class="branchCov" title="Branch 3 was taken 498 times"> + </span><span class="branchCov" title="Branch 4 was taken 308 times"> + </span>]:<span class="lineCov">        807 :   for (auto object : objects)</span>
+<span class="lineNum">     124 </span>                :            :   {
+<span class="lineNum">     125 </span>        [<span class="branchCov" title="Branch 2 was taken 497 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">        498 :     object-&gt;updateVelocityOnRoute(route);</span>
+<span class="lineNum">     126 </span>                :            :   }
+<span class="lineNum">     127 </span>                :<span class="lineCov">        308 :   return area;</span>
+<a name="128"><span class="lineNum">     128 </span>                :            : }</a>
+<span class="lineNum">     129 </span>                :            : 
+<span class="lineNum">     130 </span>                :<span class="lineCov">         56 : bool RssSceneCreator::appendNotRelevantScene(::ad::map::route::FullRoute const &amp;route,</span>
+<span class="lineNum">     131 </span>                :            :                                              RssObjectConversion::ConstPtr iEgoObject,
+<span class="lineNum">     132 </span>                :            :                                              RssObjectConversion::ConstPtr iOtherObject)
+<span class="lineNum">     133 </span>                :            : {
+<span class="lineNum">     134 </span>[<span class="branchCov" title="Branch 1 was taken 56 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 56 times"> + </span>]:<span class="lineCov">         56 :   if (!bool(iEgoObject) || !bool(iOtherObject))</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 56 times"> + </span>]
+<span class="lineNum">     135 </span>                :            :   {
+<span class="lineNum">     136 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(&quot;RssSceneCreator::appendNotRelevantScene[]&gt;&gt; ego/other object input is NULL&quot;);</span>
+<span class="lineNum">     137 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     138 </span>                :            :   }
+<span class="lineNum">     139 </span>        [<span class="branchCov" title="Branch 2 was taken 56 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        112 :   auto egoObject = std::make_shared&lt;RssObjectConversion&gt;(*iEgoObject);</span>
+<span class="lineNum">     140 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 56 times"> + </span>]:<span class="lineCov">         56 :   if (!bool(egoObject))</span>
+<span class="lineNum">     141 </span>                :            :   {
+<span class="lineNum">     142 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(&quot;RssSceneCreator::appendNotRelevantScene[{}]&gt;&gt; failed to create copy of ego RssObjectConversion&quot;,</span>
+<span class="lineNum">     143 </span>  [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :                        iOtherObject-&gt;getId());</span>
+<span class="lineNum">     144 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     145 </span>                :            :   }
+<span class="lineNum">     146 </span>        [<span class="branchCov" title="Branch 2 was taken 56 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        112 :   auto otherObject = std::make_shared&lt;RssObjectConversion&gt;(*iOtherObject);</span>
+<span class="lineNum">     147 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 56 times"> + </span>]:<span class="lineCov">         56 :   if (!bool(otherObject))</span>
+<span class="lineNum">     148 </span>                :            :   {
+<span class="lineNum">     149 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(</span>
+<span class="lineNum">     150 </span>                :            :       &quot;RssSceneCreator::appendNotRelevantScene[{}]&gt;&gt; failed to create copy of other RssObjectConversion&quot;,
+<span class="lineNum">     151 </span>  [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :       iOtherObject-&gt;getId());</span>
+<span class="lineNum">     152 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     153 </span>                :            :   }
+<span class="lineNum">     154 </span>                :            : 
+<span class="lineNum">     155 </span>                :            :   // in the end this scene is only for convenience to get to know that we considered it and e.g. visualize it
+<span class="lineNum">     156 </span>                :            :   // It could be left out completely
+<span class="lineNum">     157 </span>                :            : 
+<span class="lineNum">     158 </span>                :            :   // ensure occupied regions filled meaningful to provide some means on where the ego and the object are located
+<span class="lineNum">     159 </span>        [<span class="branchCov" title="Branch 2 was taken 56 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         56 :   otherObject-&gt;fillNotRelevantSceneBoundingBox();</span>
+<span class="lineNum">     160 </span>                :<span class="lineCov">        112 :   ::ad::rss::world::RoadArea egoVehicleRoad;</span>
+<span class="lineNum">     161 </span>        [<span class="branchCov" title="Branch 1 was taken 50 times"> + </span><span class="branchCov" title="Branch 2 was taken 6 times"> + </span>]:<span class="lineCov">         56 :   if (!route.roadSegments.empty())</span>
+<span class="lineNum">     162 </span>                :            :   {
+<span class="lineNum">     163 </span>                :            :     // in case the ego route is actually available, we can try to fill the occupied regions as usual
+<span class="lineNum">     164 </span>                :            :     egoVehicleRoad
+<span class="lineNum">     165 </span>[<span class="branchCov" title="Branch 3 was taken 50 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>][<span class="branchCov" title="Branch 7 was taken 50 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>]:<span class="lineCov">        100 :       = createRoadArea(route, route.minLaneOffset, route.maxLaneOffset, ::ad::map::lane::LaneIdSet(), {egoObject});</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 14 was taken 50 times"> + </span><span class="branchCov" title="Branch 15 was taken 50 times"> + </span>][<span class="branchNoExec" title="Branch 20 was not executed"> # </span><span class="branchNoExec" title="Branch 21 was not executed"> # </span>]
+<span class="lineNum">     166 </span>                :            :   }
+<span class="lineNum">     167 </span>                :            : 
+<span class="lineNum">     168 </span>[<span class="branchCov" title="Branch 2 was taken 56 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 6 times"> + </span><span class="branchCov" title="Branch 6 was taken 50 times"> + </span>]:<span class="lineCov">         56 :   if (egoObject-&gt;getRssObject().occupiedRegions.empty())</span>
+<span class="lineNum">     169 </span>                :            :   {
+<span class="lineNum">     170 </span>                :            :     // in case the ego route was actually not available, or the ego vehicle is not driving within the route
+<span class="lineNum">     171 </span>                :            :     // we fill also the ego object with the dummy occupied regions
+<span class="lineNum">     172 </span>        [<span class="branchCov" title="Branch 2 was taken 6 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          6 :     egoObject-&gt;fillNotRelevantSceneBoundingBox();</span>
+<span class="lineNum">     173 </span>                :            :   }
+<span class="lineNum">     174 </span>                :            : 
+<span class="lineNum">     175 </span>        [<span class="branchCov" title="Branch 2 was taken 56 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        112 :   getLogger()-&gt;debug(&quot;RssSceneCreator::appendNotRelevantScene[{}]&gt;&gt;situation {}&quot;,</span>
+<span class="lineNum">     176 </span>        [<span class="branchCov" title="Branch 2 was taken 56 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         56 :                      otherObject-&gt;getId(),</span>
+<span class="lineNum">     177 </span>        [<span class="branchCov" title="Branch 1 was taken 56 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         56 :                      ::ad::rss::situation::SituationType::NotRelevant);</span>
+<span class="lineNum">     178 </span>                :<span class="lineCov">        112 :   return appendScene(::ad::rss::situation::SituationType::NotRelevant,</span>
+<span class="lineNum">     179 </span>                :            :                      egoObject,
+<span class="lineNum">     180 </span>                :            :                      egoVehicleRoad,
+<span class="lineNum">     181 </span>                :            :                      otherObject,
+<span class="lineNum">     182 </span>        [<span class="branchCov" title="Branch 1 was taken 56 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         56 :                      ::ad::rss::world::RoadArea());</span>
+<a name="183"><span class="lineNum">     183 </span>                :            : }</a>
+<span class="lineNum">     184 </span>                :            : 
+<span class="lineNum">     185 </span>                :<span class="lineCov">        189 : ::ad::rss::world::RoadArea RssSceneCreator::createNonIntersectionRoadArea(::ad::map::route::FullRoute const &amp;route,</span>
+<span class="lineNum">     186 </span>                :            :                                                                           std::vector&lt;RssObjectConversion::Ptr&gt; objects)
+<span class="lineNum">     187 </span>                :            : {
+<span class="lineNum">     188 </span>                :            :   // take only the relevant part of the route, the two vehicles are driving on
+<span class="lineNum">     189 </span>                :<span class="lineCov">        189 :   ::ad::map::route::RouteLaneOffset const minLaneOffset = std::min(0, route.destinationLaneOffset);</span>
+<span class="lineNum">     190 </span>                :<span class="lineCov">        189 :   ::ad::map::route::RouteLaneOffset const maxLaneOffset = std::max(0, route.destinationLaneOffset);</span>
+<span class="lineNum">     191 </span>                :            : 
+<span class="lineNum">     192 </span>                :            :   // no intersections on route
+<span class="lineNum">     193 </span>        [<span class="branchCov" title="Branch 3 was taken 189 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        189 :   return createRoadArea(route, minLaneOffset, maxLaneOffset, ::ad::map::lane::LaneIdSet(), objects);</span>
+<a name="194"><span class="lineNum">     194 </span>                :            : }</a>
+<span class="lineNum">     195 </span>                :            : 
+<span class="lineNum">     196 </span>                :<span class="lineCov">        189 : bool RssSceneCreator::appendNonIntersectionScene(::ad::map::route::ConnectingRoute const &amp;connectingRoute,</span>
+<span class="lineNum">     197 </span>                :            :                                                  ::ad::rss::situation::SituationType const &amp;situationType,
+<span class="lineNum">     198 </span>                :            :                                                  RssObjectConversion::ConstPtr iEgoObject,
+<span class="lineNum">     199 </span>                :            :                                                  RssObjectConversion::ConstPtr iOtherObject)
+<span class="lineNum">     200 </span>                :            : {
+<span class="lineNum">     201 </span>[<span class="branchCov" title="Branch 1 was taken 189 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 189 times"> + </span>]:<span class="lineCov">        189 :   if (!bool(iEgoObject) || !bool(iOtherObject))</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 189 times"> + </span>]
+<span class="lineNum">     202 </span>                :            :   {
+<span class="lineNum">     203 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(&quot;RssSceneCreator::appendNonIntersectionScene[]&gt;&gt; ego/other object input is NULL&quot;);</span>
+<span class="lineNum">     204 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     205 </span>                :            :   }
+<span class="lineNum">     206 </span>        [<span class="branchCov" title="Branch 2 was taken 189 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        378 :   auto egoObject = std::make_shared&lt;RssObjectConversion&gt;(*iEgoObject);</span>
+<span class="lineNum">     207 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 189 times"> + </span>]:<span class="lineCov">        189 :   if (!bool(egoObject))</span>
+<span class="lineNum">     208 </span>                :            :   {
+<span class="lineNum">     209 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(</span>
+<span class="lineNum">     210 </span>                :            :       &quot;RssSceneCreator::appendNonIntersectionScene[{}]&gt;&gt; failed to create copy of ego RssObjectConversion&quot;,
+<span class="lineNum">     211 </span>  [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :       iOtherObject-&gt;getId());</span>
+<span class="lineNum">     212 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     213 </span>                :            :   }
+<span class="lineNum">     214 </span>        [<span class="branchCov" title="Branch 2 was taken 189 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        378 :   auto otherObject = std::make_shared&lt;RssObjectConversion&gt;(*iOtherObject);</span>
+<span class="lineNum">     215 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 189 times"> + </span>]:<span class="lineCov">        189 :   if (!bool(otherObject))</span>
+<span class="lineNum">     216 </span>                :            :   {
+<span class="lineNum">     217 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(</span>
+<span class="lineNum">     218 </span>                :            :       &quot;RssSceneCreator::appendNonIntersectionScene[{}]&gt;&gt; failed to create copy of other RssObjectConversion&quot;,
+<span class="lineNum">     219 </span>  [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :       iOtherObject-&gt;getId());</span>
+<span class="lineNum">     220 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     221 </span>                :            :   }
+<span class="lineNum">     222 </span>                :            : 
+<span class="lineNum">     223 </span>                :<span class="lineCov">        378 :   ::ad::rss::world::RoadArea egoVehicleRoad;</span>
+<span class="lineNum">     224 </span>        [<span class="branchCov" title="Branch 1 was taken 143 times"> + </span><span class="branchCov" title="Branch 2 was taken 46 times"> + </span>]:<span class="lineCov">        189 :   if (!connectingRoute.routeA.roadSegments.empty())</span>
+<span class="lineNum">     225 </span>                :            :   {
+<span class="lineNum">     226 </span>[<span class="branchCov" title="Branch 4 was taken 143 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>][<span class="branchCov" title="Branch 7 was taken 143 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>]:<span class="lineCov">        429 :     egoVehicleRoad = createNonIntersectionRoadArea(connectingRoute.routeA, {egoObject, otherObject});</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 13 was taken 286 times"> + </span><span class="branchCov" title="Branch 14 was taken 143 times"> + </span>][<span class="branchNoExec" title="Branch 18 was not executed"> # </span><span class="branchNoExec" title="Branch 19 was not executed"> # </span>]
+<span class="lineNum">     227 </span>                :            :   }
+<span class="lineNum">     228 </span>        [<span class="branchCov" title="Branch 1 was taken 46 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         46 :   else if (!connectingRoute.routeB.roadSegments.empty())</span>
+<span class="lineNum">     229 </span>                :            :   {
+<span class="lineNum">     230 </span>[<span class="branchCov" title="Branch 4 was taken 46 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>][<span class="branchCov" title="Branch 7 was taken 46 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>]:<span class="lineCov">        138 :     egoVehicleRoad = createNonIntersectionRoadArea(connectingRoute.routeB, {egoObject, otherObject});</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 13 was taken 92 times"> + </span><span class="branchCov" title="Branch 14 was taken 46 times"> + </span>][<span class="branchNoExec" title="Branch 18 was not executed"> # </span><span class="branchNoExec" title="Branch 19 was not executed"> # </span>]
+<span class="lineNum">     231 </span>                :            :   }
+<span class="lineNum">     232 </span>                :            :   else
+<span class="lineNum">     233 </span>                :            :   {
+<span class="lineNum">     234 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(&quot;RssSceneCreator::appendNonIntersectionScene[{}]&gt;&gt; situation {} expected either routeA or &quot;</span>
+<span class="lineNum">     235 </span>                :            :                        &quot;routeB not to be empty {}&quot;,
+<span class="lineNum">     236 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :                        otherObject-&gt;getId(),</span>
+<span class="lineNum">     237 </span>                :            :                        situationType,
+<span class="lineNum">     238 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                        connectingRoute);</span>
+<span class="lineNum">     239 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     240 </span>                :            :   }
+<span class="lineNum">     241 </span>        [<span class="branchCov" title="Branch 2 was taken 189 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        378 :   getLogger()-&gt;debug(&quot;RssSceneCreator::appendNonIntersectionScene[{}]&gt;&gt; situation {}\n road area {}&quot;,</span>
+<span class="lineNum">     242 </span>        [<span class="branchCov" title="Branch 2 was taken 189 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        189 :                      otherObject-&gt;getId(),</span>
+<span class="lineNum">     243 </span>                :            :                      situationType,
+<span class="lineNum">     244 </span>        [<span class="branchCov" title="Branch 1 was taken 189 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        189 :                      egoVehicleRoad);</span>
+<span class="lineNum">     245 </span>                :            : 
+<span class="lineNum">     246 </span>        [<span class="branchCov" title="Branch 4 was taken 189 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        189 :   return appendScene(situationType, egoObject, egoVehicleRoad, otherObject, ::ad::rss::world::RoadArea());</span>
+<a name="247"><span class="lineNum">     247 </span>                :            : }</a>
+<span class="lineNum">     248 </span>                :            : 
+<span class="lineNum">     249 </span>                :<span class="lineNoCov">          0 : ::ad::rss::world::RoadArea RssSceneCreator::createMergingRoadArea(::ad::map::route::FullRoute const &amp;route,</span>
+<span class="lineNum">     250 </span>                :            :                                                                   RssObjectConversion::Ptr object)
+<span class="lineNum">     251 </span>                :            : {
+<span class="lineNum">     252 </span>                :            :   // the last road segment of the merging road is the intersecting one
+<span class="lineNum">     253 </span>                :<span class="lineNoCov">          0 :   ::ad::map::lane::LaneIdSet intersectionLanes;</span>
+<span class="lineNum">     254 </span>        [<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   for (auto laneSegmentIter = route.roadSegments.back().drivableLaneSegments.begin();</span>
+<span class="lineNum">     255 </span>                :<span class="lineNoCov">          0 :        laneSegmentIter != route.roadSegments.back().drivableLaneSegments.end();</span>
+<span class="lineNum">     256 </span>                :            :        laneSegmentIter++)
+<span class="lineNum">     257 </span>                :            :   {
+<span class="lineNum">     258 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     intersectionLanes.insert(laneSegmentIter-&gt;laneInterval.laneId);</span>
+<span class="lineNum">     259 </span>                :            :   }
+<span class="lineNum">     260 </span>                :            :   // @todo: there might be more lanes in the merging roads that overlap, so add these also to the intersection lanes!
+<span class="lineNum">     261 </span>                :            : 
+<span class="lineNum">     262 </span>                :            :   // take the whole route
+<span class="lineNum">     263 </span>[<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>][<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]:<span class="lineNoCov">          0 :   return createRoadArea(route, route.minLaneOffset, route.maxLaneOffset, intersectionLanes, {object});</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>][<span class="branchNoExec" title="Branch 15 was not executed"> # </span><span class="branchNoExec" title="Branch 16 was not executed"> # </span>]
+<a name="264"><span class="lineNum">     264 </span>                :            : }</a>
+<span class="lineNum">     265 </span>                :            : 
+<span class="lineNum">     266 </span>                :<span class="lineNoCov">          0 : bool RssSceneCreator::appendMergingScene(::ad::map::route::ConnectingRoute const &amp;connectingRoute,</span>
+<span class="lineNum">     267 </span>                :            :                                          ::ad::rss::situation::SituationType const &amp;situationType,
+<span class="lineNum">     268 </span>                :            :                                          RssObjectConversion::ConstPtr iEgoObject,
+<span class="lineNum">     269 </span>                :            :                                          RssObjectConversion::ConstPtr iOtherObject)
+<span class="lineNum">     270 </span>                :            : {
+<span class="lineNum">     271 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (!bool(iEgoObject) || !bool(iOtherObject))</span>
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
+<span class="lineNum">     272 </span>                :            :   {
+<span class="lineNum">     273 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(&quot;RssSceneCreator::appendMergingScene[]&gt;&gt; ego/other object input is NULL&quot;);</span>
+<span class="lineNum">     274 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     275 </span>                :            :   }
+<span class="lineNum">     276 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (connectingRoute.routeA.roadSegments.empty() || connectingRoute.routeB.roadSegments.empty())</span>
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
+<span class="lineNum">     277 </span>                :            :   {
+<span class="lineNum">     278 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(&quot;RssSceneCreator::appendMergingScene[{}]&gt;&gt; situation {} connecting route empty {}&quot;,</span>
+<span class="lineNum">     279 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :                        iOtherObject-&gt;getId(),</span>
+<span class="lineNum">     280 </span>                :            :                        situationType,
+<span class="lineNum">     281 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                        connectingRoute);</span>
+<span class="lineNum">     282 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     283 </span>                :            :   }
+<span class="lineNum">     284 </span>                :            : 
+<span class="lineNum">     285 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto egoObject = std::make_shared&lt;RssObjectConversion&gt;(*iEgoObject);</span>
+<span class="lineNum">     286 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (!bool(egoObject))</span>
+<span class="lineNum">     287 </span>                :            :   {
+<span class="lineNum">     288 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(&quot;RssSceneCreator::appendMergingScene[{}]&gt;&gt; failed to create copy of ego RssObjectConversion&quot;,</span>
+<span class="lineNum">     289 </span>  [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :                        iOtherObject-&gt;getId());</span>
+<span class="lineNum">     290 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     291 </span>                :            :   }
+<span class="lineNum">     292 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto otherObject = std::make_shared&lt;RssObjectConversion&gt;(*iOtherObject);</span>
+<span class="lineNum">     293 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (!bool(otherObject))</span>
+<span class="lineNum">     294 </span>                :            :   {
+<span class="lineNum">     295 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(&quot;RssSceneCreator::appendMergingScene[{}]&gt;&gt; failed to create copy of other RssObjectConversion&quot;,</span>
+<span class="lineNum">     296 </span>  [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :                        iOtherObject-&gt;getId());</span>
+<span class="lineNum">     297 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     298 </span>                :            :   }
+<span class="lineNum">     299 </span>                :            : 
+<span class="lineNum">     300 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto const egoVehicleRoad = createMergingRoadArea(connectingRoute.routeA, egoObject);</span>
+<span class="lineNum">     301 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto const intersectingRoad = createMergingRoadArea(connectingRoute.routeB, otherObject);</span>
+<span class="lineNum">     302 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   getLogger()-&gt;debug(&quot;RssSceneCreator::appendMergingScene[{}]&gt;&gt; situation {}\n&quot;</span>
+<span class="lineNum">     303 </span>                :            :                      &quot; ego road area {}\n intersection road area {}&quot;,
+<span class="lineNum">     304 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :                      otherObject-&gt;getId(),</span>
+<span class="lineNum">     305 </span>                :            :                      situationType,
+<span class="lineNum">     306 </span>                :            :                      egoVehicleRoad,
+<span class="lineNum">     307 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                      intersectingRoad);</span>
+<span class="lineNum">     308 </span>        [<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   return appendScene(situationType, egoObject, egoVehicleRoad, otherObject, intersectingRoad);</span>
+<span class="lineNum">     309 </span>                :            : }
+<a name="310"><span class="lineNum">     310 </span>                :            : </a>
+<span class="lineNum">     311 </span>                :            : ::ad::rss::world::RoadArea
+<span class="lineNum">     312 </span>                :<span class="lineCov">         66 : RssSceneCreator::createIntersectionRoadArea(::ad::map::route::FullRoute const &amp;route,</span>
+<span class="lineNum">     313 </span>                :            :                                             ::ad::map::intersection::IntersectionConstPtr intersection,
+<span class="lineNum">     314 </span>                :            :                                             RssObjectConversion::Ptr object)
+<span class="lineNum">     315 </span>                :            : {
+<span class="lineNum">     316 </span>                :            :   // only the lanes of the intersection under consideration are marked as intersection;
+<span class="lineNum">     317 </span>[<span class="branchCov" title="Branch 3 was taken 66 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>][<span class="branchCov" title="Branch 7 was taken 66 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>]:<span class="lineCov">        132 :   return createRoadArea(route, route.minLaneOffset, route.maxLaneOffset, intersection-&gt;internalLanes(), {object});</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 10 was taken 66 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>][<span class="branchCov" title="Branch 14 was taken 66 times"> + </span><span class="branchCov" title="Branch 15 was taken 66 times"> + </span>]
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 19 was not executed"> # </span><span class="branchNoExec" title="Branch 20 was not executed"> # </span>]
+<a name="318"><span class="lineNum">     318 </span>                :            : }</a>
+<span class="lineNum">     319 </span>                :            : 
+<span class="lineNum">     320 </span>                :<span class="lineCov">         33 : bool RssSceneCreator::appendIntersectionScene(::ad::map::intersection::IntersectionPtr intersection,</span>
+<span class="lineNum">     321 </span>                :            :                                               ::ad::map::route::FullRoute const &amp;egoRoute,
+<span class="lineNum">     322 </span>                :            :                                               ::ad::map::route::FullRoute const &amp;objectRoute,
+<span class="lineNum">     323 </span>                :            :                                               ::ad::map::route::FullRoute const &amp;intersectionOtherRoute,
+<span class="lineNum">     324 </span>                :            :                                               RssObjectConversion::ConstPtr iEgoObject,
+<span class="lineNum">     325 </span>                :            :                                               RssObjectConversion::ConstPtr iOtherObject)
+<span class="lineNum">     326 </span>                :            : {
+<span class="lineNum">     327 </span>[<span class="branchCov" title="Branch 1 was taken 33 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 33 times"> + </span>]:<span class="lineCov">         33 :   if (!bool(iEgoObject) || !bool(iOtherObject))</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 33 times"> + </span>]
+<span class="lineNum">     328 </span>                :            :   {
+<span class="lineNum">     329 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(&quot;RssSceneCreator::appendIntersectionScene[]&gt;&gt; ego/other object input is NULL&quot;);</span>
+<span class="lineNum">     330 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     331 </span>                :            :   }
+<span class="lineNum">     332 </span>        [<span class="branchCov" title="Branch 2 was taken 33 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         66 :   auto egoObject = std::make_shared&lt;RssObjectConversion&gt;(*iEgoObject);</span>
+<span class="lineNum">     333 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 33 times"> + </span>]:<span class="lineCov">         33 :   if (!bool(egoObject))</span>
+<span class="lineNum">     334 </span>                :            :   {
+<span class="lineNum">     335 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(</span>
+<span class="lineNum">     336 </span>                :            :       &quot;RssSceneCreator::appendIntersectionScene[{}]&gt;&gt; failed to create copy of ego RssObjectConversion&quot;,
+<span class="lineNum">     337 </span>  [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :       iOtherObject-&gt;getId());</span>
+<span class="lineNum">     338 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     339 </span>                :            :   }
+<span class="lineNum">     340 </span>        [<span class="branchCov" title="Branch 2 was taken 33 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         66 :   auto otherObject = std::make_shared&lt;RssObjectConversion&gt;(*iOtherObject);</span>
+<span class="lineNum">     341 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 33 times"> + </span>]:<span class="lineCov">         33 :   if (!bool(otherObject))</span>
+<span class="lineNum">     342 </span>                :            :   {
+<span class="lineNum">     343 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(</span>
+<span class="lineNum">     344 </span>                :            :       &quot;RssSceneCreator::appendIntersectionScene[{}]&gt;&gt; failed to create copy of other RssObjectConversion&quot;,
+<span class="lineNum">     345 </span>  [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :       iOtherObject-&gt;getId());</span>
+<span class="lineNum">     346 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     347 </span>                :            :   }
+<span class="lineNum">     348 </span>                :            : 
+<span class="lineNum">     349 </span>                :<span class="lineCov">         33 :   auto situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;</span>
+<span class="lineNum">     350 </span>[<span class="branchCov" title="Branch 2 was taken 33 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 33 times"> + </span>]:<span class="lineCov">         33 :   if (intersection-&gt;intersectionType() == ::ad::map::intersection::IntersectionType::TrafficLight)</span>
+<span class="lineNum">     351 </span>                :            :   {
+<span class="lineNum">     352 </span>                :            :     // in case no traffic light actually modeled (map error), we assume others have always priority
+<span class="lineNum">     353 </span>                :<span class="lineNoCov">          0 :     bool intersectionRouteHasGreen = true;</span>
+<span class="lineNum">     354 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (intersection-&gt;applicableTrafficLights().empty())</span>
+<span class="lineNum">     355 </span>                :            :     {
+<span class="lineNum">     356 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :       getLogger()-&gt;warn(&quot;RssSceneCreation::appendIntersectionScene[{}]&gt;&gt; traffic light intersection has no &quot;</span>
+<span class="lineNum">     357 </span>                :            :                         &quot;applicable traffic lights {}&quot;,
+<span class="lineNum">     358 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :                         otherObject-&gt;getId(),</span>
+<span class="lineNum">     359 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :                         std::to_string(intersection-&gt;incomingLanesOnRoute()));</span>
+<span class="lineNum">         </span>  [<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">     360 </span>                :<span class="lineNoCov">          0 :       intersectionRouteHasGreen = false;</span>
+<span class="lineNum">     361 </span>                :            :     }
+<span class="lineNum">     362 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>]:<span class="lineNoCov">          0 :     for (auto relevantTrafficLight : intersection-&gt;applicableTrafficLights())</span>
+<span class="lineNum">     363 </span>                :            :     {
+<span class="lineNum">     364 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :       if (mGreenTrafficLights.find(relevantTrafficLight) == mGreenTrafficLights.end())</span>
+<span class="lineNum">     365 </span>                :            :       {
+<span class="lineNum">     366 </span>                :            :         // if any relevant traffic light is not green, intersection route has no priority
+<span class="lineNum">     367 </span>                :<span class="lineNoCov">          0 :         intersectionRouteHasGreen = false;</span>
+<span class="lineNum">     368 </span>                :<span class="lineNoCov">          0 :         break;</span>
+<span class="lineNum">     369 </span>                :            :       }
+<span class="lineNum">     370 </span>                :            :     }
+<span class="lineNum">     371 </span>                :            : 
+<span class="lineNum">     372 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (!intersectionRouteHasGreen || intersection-&gt;objectRouteCrossesLanesWithHigherPriority(intersectionOtherRoute))</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>][<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">     373 </span>                :            :     {
+<span class="lineNum">     374 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       if (intersectionOtherRoute.routePlanningCounter == objectRoute.routePlanningCounter)</span>
+<span class="lineNum">     375 </span>                :            :       {
+<span class="lineNum">     376 </span>                :<span class="lineNoCov">          0 :         situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;</span>
+<span class="lineNum">     377 </span>                :            :       }
+<span class="lineNum">     378 </span>                :            :       else
+<span class="lineNum">     379 </span>                :            :       {
+<span class="lineNum">     380 </span>                :<span class="lineNoCov">          0 :         situationType = ::ad::rss::situation::SituationType::IntersectionEgoHasPriority;</span>
+<span class="lineNum">     381 </span>                :            :       }
+<span class="lineNum">     382 </span>                :            :     }
+<span class="lineNum">     383 </span>                :            :     else
+<span class="lineNum">     384 </span>                :            :     {
+<span class="lineNum">     385 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       if (intersectionOtherRoute.routePlanningCounter == objectRoute.routePlanningCounter)</span>
+<span class="lineNum">     386 </span>                :            :       {
+<span class="lineNum">     387 </span>                :<span class="lineNoCov">          0 :         situationType = ::ad::rss::situation::SituationType::IntersectionEgoHasPriority;</span>
+<span class="lineNum">     388 </span>                :            :       }
+<span class="lineNum">     389 </span>                :            :       else
+<span class="lineNum">     390 </span>                :            :       {
+<span class="lineNum">     391 </span>                :<span class="lineNoCov">          0 :         situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;</span>
+<span class="lineNum">     392 </span>                :            :       }
+<span class="lineNum">     393 </span>                :            :     }
+<span class="lineNum">     394 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;debug(&quot;RssSceneCreation::appendIntersectionScene[{}]&gt;&gt; traffic light intersection intersection &quot;</span>
+<span class="lineNum">     395 </span>                :            :                        &quot;route has green: {} situation: {}&quot;,
+<span class="lineNum">     396 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :                        otherObject-&gt;getId(),</span>
+<span class="lineNum">     397 </span>                :            :                        intersectionRouteHasGreen,
+<span class="lineNum">     398 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                        situationType);</span>
+<span class="lineNum">     399 </span>                :            :   }
+<span class="lineNum">     400 </span>[<span class="branchCov" title="Branch 2 was taken 33 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 12 times"> + </span><span class="branchCov" title="Branch 5 was taken 21 times"> + </span>]:<span class="lineCov">         33 :   else if (intersection-&gt;objectRouteCrossesLanesWithHigherPriority(intersectionOtherRoute))</span>
+<span class="lineNum">     401 </span>                :            :   {
+<span class="lineNum">     402 </span>        [<span class="branchCov" title="Branch 0 was taken 8 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>]:<span class="lineCov">         12 :     if (intersectionOtherRoute.routePlanningCounter == objectRoute.routePlanningCounter)</span>
+<span class="lineNum">     403 </span>                :            :     {
+<span class="lineNum">     404 </span>                :<span class="lineCov">          8 :       situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;</span>
+<span class="lineNum">     405 </span>                :            :     }
+<span class="lineNum">     406 </span>                :            :     else
+<span class="lineNum">     407 </span>                :            :     {
+<span class="lineNum">     408 </span>                :<span class="lineCov">         12 :       situationType = ::ad::rss::situation::SituationType::IntersectionEgoHasPriority;</span>
+<span class="lineNum">     409 </span>                :            :     }
+<span class="lineNum">     410 </span>                :            :   }
+<span class="lineNum">     411 </span>                :            :   else
+<span class="lineNum">     412 </span>                :            :   {
+<span class="lineNum">     413 </span>        [<span class="branchCov" title="Branch 0 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         21 :     if (intersectionOtherRoute.routePlanningCounter == objectRoute.routePlanningCounter)</span>
+<span class="lineNum">     414 </span>                :            :     {
+<span class="lineNum">     415 </span>                :<span class="lineCov">         21 :       situationType = ::ad::rss::situation::SituationType::IntersectionEgoHasPriority;</span>
+<span class="lineNum">     416 </span>                :            :     }
+<span class="lineNum">     417 </span>                :            :     else
+<span class="lineNum">     418 </span>                :            :     {
+<span class="lineNum">     419 </span>                :<span class="lineNoCov">          0 :       situationType = ::ad::rss::situation::SituationType::IntersectionObjectHasPriority;</span>
+<span class="lineNum">     420 </span>                :            :     }
+<span class="lineNum">     421 </span>                :            :   }
+<span class="lineNum">     422 </span>                :            : 
+<span class="lineNum">     423 </span>        [<span class="branchCov" title="Branch 3 was taken 33 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         66 :   auto const egoVehicleRoad = createIntersectionRoadArea(egoRoute, intersection, egoObject);</span>
+<span class="lineNum">     424 </span>        [<span class="branchCov" title="Branch 3 was taken 33 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         66 :   auto const intersectingRoad = createIntersectionRoadArea(objectRoute, intersection, otherObject);</span>
+<span class="lineNum">     425 </span>        [<span class="branchCov" title="Branch 2 was taken 33 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         66 :   getLogger()-&gt;debug(&quot;RssSceneCreation::appendIntersectionScene[{}]&gt;&gt; situation {}\n&quot;</span>
+<span class="lineNum">     426 </span>                :            :                      &quot; ego road area {}\n intersection road area {}&quot;,
+<span class="lineNum">     427 </span>        [<span class="branchCov" title="Branch 2 was taken 33 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         33 :                      otherObject-&gt;getId(),</span>
+<span class="lineNum">     428 </span>                :            :                      situationType,
+<span class="lineNum">     429 </span>                :            :                      egoVehicleRoad,
+<span class="lineNum">     430 </span>        [<span class="branchCov" title="Branch 1 was taken 33 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         33 :                      intersectingRoad);</span>
+<span class="lineNum">     431 </span>                :            : 
+<span class="lineNum">     432 </span>        [<span class="branchCov" title="Branch 3 was taken 33 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         33 :   return appendScene(situationType, egoObject, egoVehicleRoad, otherObject, intersectingRoad);</span>
+<a name="433"><span class="lineNum">     433 </span>                :            : }</a>
+<span class="lineNum">     434 </span>                :            : 
+<span class="lineNum">     435 </span>                :<span class="lineCov">          4 : bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const &amp;route,</span>
+<span class="lineNum">     436 </span>                :            :                                                RssObjectConversion::ConstPtr iEgoObject)
+<span class="lineNum">     437 </span>                :            : {
+<span class="lineNum">     438 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 4 times"> + </span>]:<span class="lineCov">          4 :   if (!bool(iEgoObject))</span>
+<span class="lineNum">     439 </span>                :            :   {
+<span class="lineNum">     440 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(&quot;RssSceneCreator::appendRoadBoundaryScenes[]&gt;&gt; ego object input is NULL&quot;);</span>
+<span class="lineNum">     441 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     442 </span>                :            :   }
+<span class="lineNum">     443 </span>        [<span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          8 :   auto egoObject = std::make_shared&lt;RssObjectConversion&gt;(*iEgoObject);</span>
+<span class="lineNum">     444 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 4 times"> + </span>]:<span class="lineCov">          4 :   if (!bool(egoObject))</span>
+<span class="lineNum">     445 </span>                :            :   {
+<span class="lineNum">     446 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineCov">          1 :     getLogger()-&gt;error(&quot;RssSceneCreator::appendRoadBoundaryScenes[]&gt;&gt; failed to create copy of RssObjectConversion&quot;);</span>
+<span class="lineNum">     447 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     448 </span>                :            :   }
+<span class="lineNum">     449 </span>                :            : 
+<span class="lineNum">     450 </span>                :            :   auto const egoVehicleRoad
+<span class="lineNum">     451 </span>[<span class="branchCov" title="Branch 3 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>][<span class="branchCov" title="Branch 7 was taken 3 times"> + </span><span class="branchCov" title="Branch 8 was taken 1 time"> + </span>]:<span class="lineCov">         12 :     = createRoadArea(route, route.minLaneOffset, route.maxLaneOffset, ::ad::map::lane::LaneIdSet(), {egoObject});</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 12 was taken 3 times"> + </span><span class="branchCov" title="Branch 13 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 18 was taken 1 time"> + </span><span class="branchCov" title="Branch 19 was taken 1 time"> + </span>]
+<span class="lineNum">     452 </span>                :            : 
+<span class="lineNum">     453 </span>[<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 6 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]:<span class="lineCov">          3 :   getLogger()-&gt;debug(&quot;RssSceneCreator::appendRoadBoundaryScenes[]&gt;&gt; ego road area {}&quot;, egoVehicleRoad);</span>
+<span class="lineNum">     454 </span>                :            : 
+<span class="lineNum">     455 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          3 :   ::ad::rss::world::RssDynamics staticDynamics;</span>
+<span class="lineNum">     456 </span>                :<span class="lineCov">          3 :   staticDynamics.alphaLat.accelMax = ::ad::physics::Acceleration(0.);</span>
+<span class="lineNum">     457 </span>                :<span class="lineCov">          3 :   staticDynamics.alphaLat.brakeMin = ::ad::physics::Acceleration(-0.01);</span>
+<span class="lineNum">     458 </span>                :<span class="lineCov">          3 :   staticDynamics.alphaLon.accelMax = ::ad::physics::Acceleration(0.);</span>
+<span class="lineNum">     459 </span>                :<span class="lineCov">          3 :   staticDynamics.alphaLon.brakeMax = ::ad::physics::Acceleration(-0.01);</span>
+<span class="lineNum">     460 </span>                :<span class="lineCov">          3 :   staticDynamics.alphaLon.brakeMin = ::ad::physics::Acceleration(-0.01);</span>
+<span class="lineNum">     461 </span>                :<span class="lineCov">          3 :   staticDynamics.alphaLon.brakeMinCorrect = ::ad::physics::Acceleration(-0.01);</span>
+<span class="lineNum">     462 </span>                :<span class="lineCov">          3 :   staticDynamics.lateralFluctuationMargin = ::ad::physics::Distance(0.0);</span>
+<span class="lineNum">     463 </span>                :<span class="lineCov">          3 :   staticDynamics.responseTime = ::ad::physics::Duration(0.01);</span>
+<span class="lineNum">     464 </span>                :            : 
+<span class="lineNum">     465 </span>                :<span class="lineCov">          6 :   ::ad::rss::world::OccupiedRegionVector rightBorderOccupiedRegions;</span>
+<span class="lineNum">     466 </span>                :<span class="lineCov">          6 :   ::ad::rss::world::OccupiedRegionVector leftBorderOccupiedRegions;</span>
+<span class="lineNum">     467 </span>        [<span class="branchCov" title="Branch 3 was taken 3 times"> + </span><span class="branchCov" title="Branch 4 was taken 3 times"> + </span>]:<span class="lineCov">          6 :   for (auto const &amp;roadSegment : route.roadSegments)</span>
+<span class="lineNum">     468 </span>                :            :   {
+<span class="lineNum">     469 </span>                :<span class="lineCov">          3 :     auto &amp;rightmostLane = roadSegment.drivableLaneSegments.front();</span>
+<span class="lineNum">     470 </span>                :            : 
+<span class="lineNum">     471 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          3 :     ::ad::rss::world::OccupiedRegion region;</span>
+<span class="lineNum">     472 </span>                :<span class="lineCov">          3 :     region.lonRange.minimum = ::ad::physics::ParametricValue(0.);</span>
+<span class="lineNum">     473 </span>                :<span class="lineCov">          3 :     region.lonRange.maximum = ::ad::physics::ParametricValue(1.);</span>
+<span class="lineNum">     474 </span>                :<span class="lineCov">          3 :     region.latRange.minimum = ::ad::physics::ParametricValue(0.999);</span>
+<span class="lineNum">     475 </span>                :<span class="lineCov">          3 :     region.latRange.maximum = ::ad::physics::ParametricValue(1.);</span>
+<span class="lineNum">     476 </span>                :<span class="lineCov">          3 :     region.segmentId = ::ad::rss::world::LaneSegmentId(rightmostLane.laneInterval.laneId);</span>
+<span class="lineNum">     477 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          3 :     rightBorderOccupiedRegions.push_back(region);</span>
+<span class="lineNum">     478 </span>                :            : 
+<span class="lineNum">     479 </span>                :<span class="lineCov">          3 :     auto &amp;leftmostLane = roadSegment.drivableLaneSegments.back();</span>
+<span class="lineNum">     480 </span>                :            : 
+<span class="lineNum">     481 </span>                :<span class="lineCov">          3 :     region.lonRange.minimum = ::ad::physics::ParametricValue(0.);</span>
+<span class="lineNum">     482 </span>                :<span class="lineCov">          3 :     region.lonRange.maximum = ::ad::physics::ParametricValue(1.);</span>
+<span class="lineNum">     483 </span>                :<span class="lineCov">          3 :     region.latRange.minimum = ::ad::physics::ParametricValue(0.);</span>
+<span class="lineNum">     484 </span>                :<span class="lineCov">          3 :     region.latRange.maximum = ::ad::physics::ParametricValue(0.001);</span>
+<span class="lineNum">     485 </span>                :<span class="lineCov">          3 :     region.segmentId = ::ad::rss::world::LaneSegmentId(leftmostLane.laneInterval.laneId);</span>
+<span class="lineNum">     486 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          3 :     leftBorderOccupiedRegions.push_back(region);</span>
+<span class="lineNum">     487 </span>                :            :   }
+<span class="lineNum">     488 </span>                :            : 
+<span class="lineNum">     489 </span>                :<span class="lineCov">          3 :   auto rightBorderObject = std::make_shared&lt;RssObjectConversion&gt;(getRightBorderObjectId(),</span>
+<span class="lineNum">     490 </span>                :            :                                                                  ::ad::rss::world::ObjectType::ArtificialObject,
+<span class="lineNum">     491 </span>                :            :                                                                  rightBorderOccupiedRegions,
+<span class="lineNum">     492 </span>                :            :                                                                  ::ad::physics::Speed(0),
+<span class="lineNum">     493 </span>        [<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          9 :                                                                  staticDynamics);</span>
+<span class="lineNum">     494 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span>]:<span class="lineCov">          3 :   if (!bool(rightBorderObject))</span>
+<span class="lineNum">     495 </span>                :            :   {
+<span class="lineNum">     496 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(</span>
+<span class="lineNum">     497 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       &quot;RssSceneCreator::appendRoadBoundaryScenes[]&gt;&gt; failed to create copy of right border RssObjectConversion&quot;);</span>
+<span class="lineNum">     498 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     499 </span>                :            :   }
+<span class="lineNum">     500 </span>                :            : 
+<span class="lineNum">     501 </span>                :<span class="lineCov">          3 :   auto leftBorderObject = std::make_shared&lt;RssObjectConversion&gt;(getLeftBorderObjectId(),</span>
+<span class="lineNum">     502 </span>                :            :                                                                 ::ad::rss::world::ObjectType::ArtificialObject,
+<span class="lineNum">     503 </span>                :            :                                                                 leftBorderOccupiedRegions,
+<span class="lineNum">     504 </span>                :            :                                                                 ::ad::physics::Speed(0),
+<span class="lineNum">     505 </span>        [<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          9 :                                                                 staticDynamics);</span>
+<span class="lineNum">     506 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span>]:<span class="lineCov">          3 :   if (!bool(leftBorderObject))</span>
+<span class="lineNum">     507 </span>                :            :   {
+<span class="lineNum">     508 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(</span>
+<span class="lineNum">     509 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       &quot;RssSceneCreator::appendRoadBoundaryScenes[]&gt;&gt; failed to create copy of left border RssObjectConversion&quot;);</span>
+<span class="lineNum">     510 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     511 </span>                :            :   }
+<span class="lineNum">     512 </span>                :            : 
+<span class="lineNum">     513 </span>                :<span class="lineCov">          6 :   auto result = appendScene(::ad::rss::situation::SituationType::SameDirection,</span>
+<span class="lineNum">     514 </span>                :            :                             egoObject,
+<span class="lineNum">     515 </span>                :            :                             egoVehicleRoad,
+<span class="lineNum">     516 </span>                :            :                             rightBorderObject,
+<span class="lineNum">     517 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          3 :                             ::ad::rss::world::RoadArea());</span>
+<span class="lineNum">     518 </span>                :            : 
+<span class="lineNum">     519 </span>                :<span class="lineCov">          6 :   result &amp;= appendScene(::ad::rss::situation::SituationType::SameDirection,</span>
+<span class="lineNum">     520 </span>                :            :                         egoObject,
+<span class="lineNum">     521 </span>                :            :                         egoVehicleRoad,
+<span class="lineNum">     522 </span>                :            :                         leftBorderObject,
+<span class="lineNum">     523 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          3 :                         ::ad::rss::world::RoadArea());</span>
+<span class="lineNum">     524 </span>                :            : 
+<span class="lineNum">     525 </span>                :<span class="lineCov">          3 :   return result;</span>
+<a name="526"><span class="lineNum">     526 </span>                :            : }</a>
+<span class="lineNum">     527 </span>                :            : 
+<span class="lineNum">     528 </span>                :<span class="lineCov">        284 : bool RssSceneCreator::appendScene(::ad::rss::situation::SituationType const &amp;situationType,</span>
+<span class="lineNum">     529 </span>                :            :                                   RssObjectConversion::ConstPtr egoObject,
+<span class="lineNum">     530 </span>                :            :                                   ::ad::rss::world::RoadArea const &amp;egoRoad,
+<span class="lineNum">     531 </span>                :            :                                   RssObjectConversion::ConstPtr otherObject,
+<span class="lineNum">     532 </span>                :            :                                   ::ad::rss::world::RoadArea const &amp;intersectingRoad)
+<span class="lineNum">     533 </span>                :            : {
+<span class="lineNum">     534 </span>[<span class="branchCov" title="Branch 1 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 284 times"> + </span>]:<span class="lineCov">        284 :   if (!bool(egoObject) || !bool(otherObject))</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 284 times"> + </span>]
+<span class="lineNum">     535 </span>                :            :   {
+<span class="lineNum">     536 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(&quot;RssSceneCreator::appendScene[]&gt;&gt; ego/other object input is NULL&quot;);</span>
+<span class="lineNum">     537 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     538 </span>                :            :   }
+<span class="lineNum">     539 </span>                :            : 
+<span class="lineNum">     540 </span>        [<span class="branchCov" title="Branch 1 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        568 :   ::ad::rss::world::Scene scene;</span>
+<span class="lineNum">     541 </span>                :<span class="lineCov">        284 :   scene.situationType = situationType;</span>
+<span class="lineNum">     542 </span>[<span class="branchCov" title="Branch 2 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">        284 :   scene.egoVehicle = egoObject-&gt;getRssObject();</span>
+<span class="lineNum">     543 </span>        [<span class="branchCov" title="Branch 2 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        284 :   scene.egoVehicleRssDynamics = egoObject-&gt;getRssDynamics();</span>
+<span class="lineNum">     544 </span>        [<span class="branchCov" title="Branch 1 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        284 :   scene.egoVehicleRoad = egoRoad;</span>
+<span class="lineNum">     545 </span>        [<span class="branchCov" title="Branch 1 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        284 :   scene.intersectingRoad = intersectingRoad;</span>
+<span class="lineNum">     546 </span>[<span class="branchCov" title="Branch 2 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">        284 :   scene.object = otherObject-&gt;getRssObject();</span>
+<span class="lineNum">     547 </span>        [<span class="branchCov" title="Branch 2 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        284 :   scene.objectRssDynamics = otherObject-&gt;getRssDynamics();</span>
+<span class="lineNum">     548 </span>                :            : 
+<span class="lineNum">     549 </span>[<span class="branchCov" title="Branch 2 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 6 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]:<span class="lineCov">        284 :   getLogger()-&gt;trace(&quot;RssSceneCreator::appendScene[{}]&gt;&gt; object {}&quot;, otherObject-&gt;getId(), scene.object);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 10 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">     550 </span>[<span class="branchCov" title="Branch 2 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 6 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]:<span class="lineCov">        284 :   getLogger()-&gt;trace(&quot;RssSceneCreator::appendScene[{}]&gt;&gt; ego {}&quot;, otherObject-&gt;getId(), scene.egoVehicle);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 10 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">     551 </span>                :            : 
+<span class="lineNum">     552 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 284 times"> + </span>]:<span class="lineCov">        284 :   if (scene.egoVehicle.occupiedRegions.empty())</span>
+<span class="lineNum">     553 </span>                :            :   {
+<span class="lineNum">     554 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     ::ad::map::match::Object matchObject;</span>
+<span class="lineNum">     555 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (egoObject-&gt;getObjectMapMatchedPosition() != nullptr)</span>
+<span class="lineNum">     556 </span>                :            :     {
+<span class="lineNum">     557 </span>        [<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :       matchObject = *egoObject-&gt;getObjectMapMatchedPosition();</span>
+<span class="lineNum">     558 </span>                :            :     }
+<span class="lineNum">     559 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;warn(&quot;RssSceneCreator::appendScene[{}]&gt;&gt; dropping scene because ego occupied regions empty {} -&gt; {}&quot;,</span>
+<span class="lineNum">     560 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :                       otherObject-&gt;getId(),</span>
+<span class="lineNum">     561 </span>                :            :                       matchObject,
+<span class="lineNum">     562 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                       scene);</span>
+<span class="lineNum">     563 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     564 </span>                :            :   }
+<span class="lineNum">     565 </span>[<span class="branchCov" title="Branch 1 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        284 :   else if (withinValidInputRange(scene))</span>
+<span class="lineNum">     566 </span>                :            :   {
+<span class="lineNum">     567 </span>        [<span class="branchCov" title="Branch 1 was taken 284 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        284 :     return mSceneCreation.appendSceneToWorldModel(scene);</span>
+<span class="lineNum">     568 </span>                :            :   }
+<span class="lineNum">     569 </span>                :            :   else
+<span class="lineNum">     570 </span>                :            :   {
+<span class="lineNum">     571 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]:<span class="lineNoCov">          0 :     getLogger()-&gt;error(&quot;RssSceneCreator::appendScene[{}]&gt;&gt; scene no valid {}&quot;, otherObject-&gt;getId(), scene);</span>
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
+<span class="lineNum">     572 </span>                :<span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">     573 </span>                :            :   }
+<span class="lineNum">     574 </span>                :            : }
+<span class="lineNum">     575 </span>                :            : 
+<a name="576"><span class="lineNum">     576 </span>                :            : } // namespace map</a>
+<span class="lineNum">     577 </span>                :            : } // namespace rss
+<span class="lineNum">     578 </span>[<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          4 : } // namespace ad</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -235,15 +235,16 @@ Python library as module and use it as any other Python module.</p>
 <pre><code class="bash"> ad_rss_python$&gt;  export PYTHONPATH=$PYTHONPATH:&lt;path/to/&gt;install/ad_rss/lib:&lt;path/to/&gt;install/ad_physics/lib
  ad_rss_python$&gt;  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:&lt;path/to/&gt;install/ad_rss/lib:&lt;path/to/&gt;install/ad_physics/lib
  ad_rss_python$&gt;  python
- &gt;&gt;&gt; import libad_physics_python as physics
- &gt;&gt;&gt; import libad_rss_python as rss
+ &gt;&gt;&gt; import libad_physics_python3 as physics
+ &gt;&gt;&gt; import libad_rss_python3 as rss
  &gt;&gt;&gt; distance = physics.Distance(2.0)
  &gt;&gt;&gt; print(distance)
  &gt;&gt;&gt; world_model = rss.WorldModel()
  &gt;&gt;&gt; print(world_model)
 </code></pre>
 
-<p>For some simple examples, you might also want to spot into the ad_rss_python/tests folder.</p>
+<p>When using python2 you have to import libad_physics_python2 and libad_rss_python2 instead.
+For some simple examples, you might also want to spot into the ad_rss_python/tests folder.</p>
               
             </div>
           </div>

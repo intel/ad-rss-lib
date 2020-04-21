@@ -235,19 +235,20 @@ Python library as module and use it as any other Python module.</p>
 <pre><code class="bash"> ad_rss_map_integration_python$&gt;  export PYTHONPATH=$PYTHONPATH:&lt;path/to/&gt;install/ad_rss_map_integration/lib:&lt;path/to/&gt;install/ad_rss/lib:&lt;path/to/&gt;install/ad_map_access/lib:&lt;path/to/&gt;install/ad_physics/lib
  ad_rss_map_integration_python$&gt;  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:&lt;path/to/&gt;install/ad_rss_map_integration/lib:&lt;path/to/&gt;install/ad_rss/lib:&lt;path/to/&gt;install/ad_map_access/lib:&lt;path/to/&gt;install/ad_map_opendrive_reader/lib:&lt;path/to/&gt;install/ad_physics/lib
  ad_rss_map_integration_python$&gt;  python
- &gt;&gt;&gt; import libad_physics_python as physics
- &gt;&gt;&gt; import libad_map_access_python as admap
- &gt;&gt;&gt; import libad_rss_python as rss
- &gt;&gt;&gt; import libad_rss_map_integration_python as rssmap
+ &gt;&gt;&gt; import libad_physics_python3 as physics
+ &gt;&gt;&gt; import libad_map_access_python3 as admap
+ &gt;&gt;&gt; import libad_rss_python3 as rss
+ &gt;&gt;&gt; import libad_rss_map_integration_python3 as rssmap
  &gt;&gt;&gt; admap.init(&quot;tests/resources/Town01.txt&quot;)
  &gt;&gt;&gt; lanes = admap.getLanes()
  &gt;&gt;&gt; print(len(lanes))
- &gt;&gt;&gt; world_model = rssmap.initializeWorldModel(1, rss.RssDynamics())
- &gt;&gt;&gt; rssmap.finalizeWorldModel(rss.RssDynamics(), world_model)
+ &gt;&gt;&gt; scene_creation = rssmap.RssSceneCreation(1, rss.RssDynamics())
+ &gt;&gt;&gt; world_model = scene_creation.getWorldModel()
  &gt;&gt;&gt; print(world_model)
 </code></pre>
 
-<p>For some simple examples, you might also want to spot into the ad_rss_map_integration_python/tests folder.</p>
+<p>When using python2 you have to import libad_physics_python2, libad_rss_python2, lib_ad_map_access_python2 and libda_rss_map_integration_python2 instead.
+For some simple examples, you might also want to spot into the ad_rss_map_integration_python/tests folder.</p>
               
             </div>
           </div>

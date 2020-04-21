@@ -71,17 +71,37 @@
     <a class="current" href="./">Design Discussions</a>
     <ul class="subnav">
             
-    <li class="toctree-l3"><a href="#ad-rss-lib-realization">ad-rss-lib Realization</a></li>
+    <li class="toctree-l3"><a href="#rss-checks-and-response">RSS checks and response</a></li>
     
         <ul>
         
-            <li><a class="toctree-l4" href="#rss-checks-and-response">RSS checks and response</a></li>
+            <li><a class="toctree-l4" href="#longitudinal-conflicts">Longitudinal conflicts</a></li>
         
-            <li><a class="toctree-l4" href="#situation-based-coordinate-system">Situation-Based Coordinate System</a></li>
+            <li><a class="toctree-l4" href="#lateral-conflicts">Lateral conflicts</a></li>
         
-            <li><a class="toctree-l4" href="#summary">Summary</a></li>
+            <li><a class="toctree-l4" href="#combining-longitudinal-and-lateral-response">Combining longitudinal and lateral response</a></li>
+        
+            <li><a class="toctree-l4" href="#combining-all-situations-of-a-given-point-in-time">Combining all situations of a given point in time</a></li>
+        
+            <li><a class="toctree-l4" href="#handling-of-intersections">Handling of Intersections</a></li>
+        
+            <li><a class="toctree-l4" href="#response-time-and-other-parameters">Response Time and Other Parameters</a></li>
         
         </ul>
+    
+
+    <li class="toctree-l3"><a href="#situation-based-coordinate-system">Situation-Based Coordinate System</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#comparing-movements-in-lane-based-coordinate-systems">Comparing movements in lane-based coordinate systems</a></li>
+        
+            <li><a class="toctree-l4" href="#design-alternative-iterative-approach-optional">Design alternative: Iterative Approach [optional]</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#summary">Summary</a></li>
     
 
     </ul>
@@ -233,8 +253,8 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="ad-rss-lib-realization">ad-rss-lib Realization<a class="headerlink" href="#ad-rss-lib-realization" title="Permanent link">&para;</a></h2>
-<h3 id="rss-checks-and-response">RSS checks and response<a class="headerlink" href="#rss-checks-and-response" title="Permanent link">&para;</a></h3>
+                <h1>ad-rss-lib Realization</h1>
+<h2 id="rss-checks-and-response">RSS checks and response<a class="headerlink" href="#rss-checks-and-response" title="Permanent link">&para;</a></h2>
 <p>To check whether the ego vehicle is in a safe state, all the objects in the
 surrounding must be respected. To do so the ad-rss-lib will perform an analysis
 against all the objects in the environment individually. Meaning, for each
@@ -265,14 +285,14 @@ The situations types that have to be identified are:</p>
 </ul>
 </li>
 </ol>
-<h4>Longitudinal conflicts</h4>
+<h3 id="longitudinal-conflicts">Longitudinal conflicts<a class="headerlink" href="#longitudinal-conflicts" title="Permanent link">&para;</a></h3>
 <p>The behavior for longitudinal conflicts (checks and response) for vehicles
 driving in the same direction are implemented as described in the definitions 1,
 3 and 4 of the <a href="https://arxiv.org/abs/1708.06374">RSS paper</a>. For the case of vehicles driving
 in opposite directions, the implementation follows the definitions 2, 3 and 4 of
 the paper.</p>
 <p>In detail, the current realization looks as follows:</p>
-<h5>Same direction</h5>
+<h4>Same direction</h4>
 <p>If the longitudinal distance is not safe and</p>
 <ol>
 <li>if the ego vehicle is in front, the other vehicle
@@ -281,7 +301,7 @@ the paper.</p>
 <li>otherwise, the ego vehicle has to break longitudinally with at
    least <span><span class="MathJax_Preview">\alpha_{min,brake}</span><script type="math/tex">\alpha_{min,brake}</script></span>.</li>
 </ol>
-<h5>Opposite direction</h5>
+<h4>Opposite direction</h4>
 <p>If the longitudinal distance is not safe and</p>
 <ol>
 <li>if the ego vehicle is driving in the correct direction,
@@ -290,7 +310,7 @@ the paper.</p>
 <li>otherwise, the ego vehicle has to break longitudinally with at
    least <span><span class="MathJax_Preview">\alpha_{min,brake}</span><script type="math/tex">\alpha_{min,brake}</script></span>.</li>
 </ol>
-<h4>Lateral conflicts</h4>
+<h3 id="lateral-conflicts">Lateral conflicts<a class="headerlink" href="#lateral-conflicts" title="Permanent link">&para;</a></h3>
 <p>The lateral checks and the proper response follow the definitions 5, 6, 7 and 8
 of the <a href="https://arxiv.org/abs/1708.06374">RSS paper</a>.</p>
 <p>In detail, the current realization looks as follows:
@@ -303,7 +323,7 @@ If the lateral distance is not safe and</p>
 <li>otherwise, the ego vehicle has to break
    laterally with at least <span><span class="MathJax_Preview">\alpha^{lat}_{brake,min}</span><script type="math/tex">\alpha^{lat}_{brake,min}</script></span> on both sides</li>
 </ol>
-<h4>Combining longitudinal and lateral response</h4>
+<h3 id="combining-longitudinal-and-lateral-response">Combining longitudinal and lateral response<a class="headerlink" href="#combining-longitudinal-and-lateral-response" title="Permanent link">&para;</a></h3>
 <p>The combination of longitudinal and lateral response of a single situation
 (object - ego vehicle pair) is implemented as described in definitions
 9 and 10 of the <a href="https://arxiv.org/abs/1708.06374">RSS paper</a>.</p>
@@ -316,7 +336,7 @@ is checked:</p>
 <li>if there was no lateral conflict, the combined response breaks laterally</li>
 <li>if there was no longitudinal conflict, the combined response breaks longitudinally</li>
 </ol>
-<h4>Combining all situations of a given point in time</h4>
+<h3 id="combining-all-situations-of-a-given-point-in-time">Combining all situations of a given point in time<a class="headerlink" href="#combining-all-situations-of-a-given-point-in-time" title="Permanent link">&para;</a></h3>
 <p>Since this RSS implementation performs the above mentioned check separately for
 each situation, the overall response of the ego vehicle has to consider
 all individual situations of the current scene.</p>
@@ -352,7 +372,7 @@ better escape for the current situation. If this is the case, for example by
 braking harder, or changing lanes quicker, RSS will not forbid this maneuver,
 as long as it does not create another conflict, and is compliant with the
 restrictions calculated by RSS.</p>
-<h4>Handling of Intersections</h4>
+<h3 id="handling-of-intersections">Handling of Intersections<a class="headerlink" href="#handling-of-intersections" title="Permanent link">&para;</a></h3>
 <p>The behavior for intersection conflicts (checks and response) for vehicles is
 implemented as described in the definitions 16, 17 and 18 of the <a href="https://arxiv.org/abs/1708.06374">RSS paper</a></p>
 <p>In detail, the current realization looks as follows:</p>
@@ -384,7 +404,7 @@ such kind of improper behavior cannot be handled by the current ad-rss-lib.</p>
 always a lateral conflict in case of intersections. This will be addressed
 in future.</p>
 </div>
-<h4>Response Time and Other Parameters</h4>
+<h3 id="response-time-and-other-parameters">Response Time and Other Parameters<a class="headerlink" href="#response-time-and-other-parameters" title="Permanent link">&para;</a></h3>
 <p>According to the papers each traffic participant has a response time, and is
 objected to respect certain acceleration limits (e.g. maximum acceleration
 <span><span class="MathJax_Preview">\alpha_{accel,max}</span><script type="math/tex">\alpha_{accel,max}</script></span>, maximum deceleration <span><span class="MathJax_Preview">\alpha_{brake,max}</span><script type="math/tex">\alpha_{brake,max}</script></span>, etc.). Within
@@ -403,7 +423,7 @@ defines a feasible parameter set, which is provided as input to the
 ad-rss-lib.</p>
 </div>
 <p>A discussion on the parameter selection can be found in the <a href="https://intel.github.io/ad-rss-lib/background/Appendix-ParameterDiscussion/index.html#parameter-discussion">parameter discussion section</a>.</p>
-<h3 id="situation-based-coordinate-system">Situation-Based Coordinate System<a class="headerlink" href="#situation-based-coordinate-system" title="Permanent link">&para;</a></h3>
+<h2 id="situation-based-coordinate-system">Situation-Based Coordinate System<a class="headerlink" href="#situation-based-coordinate-system" title="Permanent link">&para;</a></h2>
 <p>As described in the <a href="https://arxiv.org/abs/1708.06374">RSS paper</a> in section 3.2 "Preliminaries — A Lane-Based Coordinate
 System", all RSS calculations are
 based on a lane-centric coordinate system. This system uses adjacent, straight
@@ -417,14 +437,14 @@ over the Cartesian system is that it allows the direct calculation of
 longitudinal and lateral distances of objects.</p>
 <p>However, when transforming the Cartesian space into a lane-based coordinate
 system, several challenges have to be taken into consideration.</p>
-<h4>Comparing movements in lane-based coordinate systems</h4>
+<h3 id="comparing-movements-in-lane-based-coordinate-systems">Comparing movements in lane-based coordinate systems<a class="headerlink" href="#comparing-movements-in-lane-based-coordinate-systems" title="Permanent link">&para;</a></h3>
 <p>During the transformation process to a lane-based coordinate system, not only
 the position but also the the velocities and accelerations have to be
 transformed. As a matter of fact, the resulting values depend on the actual
 lane geometry, and thus, velocities and accelerations of different lane-based
 coordinate systems cannot be compared to each other anymore (ego vehicle - object pair). To illustrate this
 problems, let us consider the following examples:</p>
-<h5>Discontinuity Problem: Two parallel lanes, different width</h5>
+<h4>Discontinuity Problem: Two parallel lanes, different width</h4>
 <table>
 <thead>
 <tr>
@@ -447,7 +467,7 @@ different acceleration constants in different lanes. This situation is getting
 even worse, if a car is changing the lane from lane A to lane B: then the
 closed formula for constant accelerated movement to calculate the lateral
 distance over time cannot be applied anymore directly.</p>
-<h5>Changing Acceleration Problem: Lane is widening/narrowing</h5>
+<h4>Changing Acceleration Problem: Lane is widening/narrowing</h4>
 <table>
 <thead>
 <tr>
@@ -465,7 +485,7 @@ width at the beginning is <em>4 m</em> and <em>100 m</em> away the lane is narro
 In such a case the Cartesian lateral acceleration value of <em>1 m/<span><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> is
 changing from <em>0.25 lat/<span><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> at the beginning towards <em>0.5 lat/<span><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> while
 advancing within the lane.</p>
-<h5>Changing Distances Problem: Lane with a narrow curve</h5>
+<h4>Changing Distances Problem: Lane with a narrow curve</h4>
 <table>
 <thead>
 <tr>
@@ -486,7 +506,7 @@ has a length of about <em>157.1 m</em>, the center line <em>163.4 m</em> the out
 to <em>1.0 lon/<span><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> for the center line, <em>0.96 lon/<span><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> for the outer border and
 <em>1.04 lon/<span><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> for the inner border. Therefore, the longitudinal acceleration
 changes over time, if the vehicle changes its lateral position within the lane.</p>
-<h5>Summary</h5>
+<h4>Summary</h4>
 <p>As sketched in the previous sections both the longitudinal as well as the
 lateral acceleration values, as well as velocities within the lane-based
 coordinate system cannot be considered as constant anymore. Moreover, these
@@ -504,7 +524,7 @@ border values are selected and processed by the RSS formulas.
 Like this, it is assured that the calculations are sound, nevertheless this
 might lead to a more cautious behavior of the vehicle.
 The following subsections describe the selected approach in more detail.</p>
-<h5>Two parallel lanes, different width</h5>
+<h4>Two parallel lanes, different width</h4>
 <p>As described in the previous section, the border between neighboring lanes
 of different width introduces discontinuities of the lateral acceleration values
 (see Figure 1).</p>
@@ -536,7 +556,7 @@ right of the ego vehicle in a lane C having a constant width of <em>3 m</em>, ha
 take all three lanes into account with resulting width of <em>9 m</em>. Therefore, a
 different situation-based coordinate system <span><span class="MathJax_Preview">SCS_j</span><script type="math/tex">SCS_j</script></span> is required, when checking
 another object.</p>
-<h5>Lane is widening or has a narrow curve</h5>
+<h4>Lane is widening or has a narrow curve</h4>
 <p>The individual situation specific coordinate system <span><span class="MathJax_Preview">SCS</span><script type="math/tex">SCS</script></span> does not yet cover
 the situations of widening lanes or narrow curves. To take the variation of the
 lane width and length into account, it is required to apply the extrema
@@ -557,7 +577,7 @@ values into the situation-based coordinate system <span><span class="MathJax_Pre
 <p>The performed operations can be interpreted as enlarging the vehicles
 bounding boxes to ensure the worst case is covered.</p>
 </div>
-<h5>Road area</h5>
+<h4>Road area</h4>
 <p>To overcome the problems of discontinuities, changing lateral and
 longitudinal distances resulting in not comparable velocities and accelerations
 the situation based coordinate system merges in a first step all lanes segments
@@ -607,7 +627,7 @@ intersecting parts. The case that a lane is ending or two lanes are
 merged into one single lane have to be treated like intersections since
 a lateral conflict is unavoidable.</p>
 </div>
-<h5>Considerations on reverse transformation of the proper response</h5>
+<h4>Considerations on reverse transformation of the proper response</h4>
 <p>As the proper response is referring to the situation-based coordinate
 systems, the response has to be transformed back considering the actual
 lane geometry. Therefore, first the transformation into the
@@ -659,7 +679,7 @@ the library at hand, the reverse transformation from the situation-specific
 into a vehicle-centric lane coordinate system is not required, as the RSS
 response is defined such that it is independent of these two coordinate system.</p>
 </div>
-<h5>Summary</h5>
+<h4>Summary</h4>
 <p>The presented construction of a continuous situation-based coordinates system
 will allow the pairwise calculation of the safe distances between ego vehicle
 and objects with the assumption of constant acceleration. Still, the worst case
@@ -681,7 +701,7 @@ dangerous situations and deduction of a proper response.</p>
 worst case assumption. Therefore, it is required to choose the correct
 minimum or maximum value of the positions in the situation-based coordinate
 system to assure that always the worst case is considered.</p>
-<h4>Design alternative: Iterative Approach [optional]</h4>
+<h3 id="design-alternative-iterative-approach-optional">Design alternative: Iterative Approach [optional]<a class="headerlink" href="#design-alternative-iterative-approach-optional" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -704,7 +724,7 @@ to know the lane geometries in detail to be able to calculate the acceleration
 values to be used for every position within the situation-based coordinate
 systems. Therefore, this design approach is not selected by this ad-rss-lib
 implementation.</p>
-<h3 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h3>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
 <div class="admonition summary">
 <p class="admonition-title">Summary</p>
 <ul>
