@@ -41,8 +41,8 @@ perform required matching, planning and analysis operations.
 The high level design documentation provides more insights on the architecture and functionality
 of this library.
 
-1. [Construction of the RSS Scenes](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/ConstructRSSScenes/index.html)
-2. [Handling of road boundaries](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/HandleRoadBoundaries/index.html)
+1. [Construction of the RSS Scenes](./ConstructRSSScenes.md)
+2. [Handling of road boundaries](./HandleRoadBoundaries.md)
 
 ## API documentation <a name="apidoc"></a>
 Detailed documentation on API level is available via
