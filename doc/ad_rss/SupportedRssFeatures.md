@@ -5,8 +5,8 @@ The release versions 3.x do not extend the core features. Only some interface ch
 
 ## Release 2.x
 
-The release versions 2.x extend the core features only to support [speed limits](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/ConstructRSSScenes/index.html#considerspeedlimits).
-Furthermore some interface changes were applied to support the integration with [AD map data](ad_rss_map_integration/Main.md).
+The release versions 2.x extend the core features only to support [speed limits](../ad_rss_map_integration/ConstructRSSScenes.md#considerspeedlimits).
+Furthermore some interface changes were applied to support the integration with [AD map data](../ad_rss_map_integration/Main.md#introduction).
 
 ## Release 1.x
 
