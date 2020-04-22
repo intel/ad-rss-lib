@@ -57,7 +57,7 @@ AD map data. To account for this the _Sense Subsystem_ provides separate output 
 
 The _Extract RSS World Model_ entity is responsible to transform the internal world model data of the _Sense subsytem_ into the input world model data rssWorldModelData [ad::rss::world::WorldModel](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html) required by the _RSS Subsystem_.
 The user has to implement this functionality as part of the RSS integration efforts into the ADS system.
-The [_ad\_rss\_map\_integration_ library](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/Main) provides an example implementation based on automated driving maps on how such might be
+The [_ad\_rss\_map\_integration_ library](../ad_rss_map_integration/Main.md) provides an example implementation based on automated driving maps on how such might be
 calculated and how the global Cartesian data can be transformed into a lane based representation.
 
 ## RSS Subsystem
