@@ -176,7 +176,7 @@ time, as this acceleration is already considered.
     defines a feasible parameter set, which is provided as input to the
     ad-rss-lib.
 
-A discussion on the parameter selection can be found in the [parameter discussion section](https://intel.github.io/ad-rss-lib/background/Appendix-ParameterDiscussion/index.html#parameter-discussion).
+A discussion on the parameter selection can be found in the [parameter discussion section](./Appendix-ParameterDiscussion.md#parameter-discussion).
 
 ## Situation-Based Coordinate System
 As described in the [RSS paper](https://arxiv.org/abs/1708.06374) in section 3.2 "Preliminaries — A Lane-Based Coordinate
