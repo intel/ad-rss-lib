@@ -1,4 +1,6 @@
 ## Latest changes
+#### :ghost: Maintenance
+* Improved BUILDING documentation
 
 ## Release 3.0.1
 #### :ghost: Maintenance
