@@ -124,10 +124,15 @@
     <li class="toctree-l3"><a href="#dependencies">Dependencies</a></li>
     
 
-    <li class="toctree-l3"><a href="#building-all-libraries">Building all libraries</a></li>
+    <li class="toctree-l3"><a href="#building">Building</a></li>
     
-
-    <li class="toctree-l3"><a href="#building-a-single-library">Building a single library</a></li>
+        <ul>
+        
+            <li><a class="toctree-l4" href="#colcon-build">Colcon build</a></li>
+        
+            <li><a class="toctree-l4" href="#plain-cmake-build">Plain CMake build</a></li>
+        
+        </ul>
     
 
     <li class="toctree-l3"><a href="#cmake-options">CMake options</a></li>
@@ -287,7 +292,7 @@ $&gt;  pip install --user https://bitbucket.org/ompl/pyplusplus/get/1.8.1.zip
 <li>ad_physics</li>
 <li>spdlog</li>
 </ul>
-<h2 id="building-all-libraries">Building all libraries<a class="headerlink" href="#building-all-libraries" title="Permanent link">&para;</a></h2>
+<h2 id="building">Building<a class="headerlink" href="#building" title="Permanent link">&para;</a></h2>
 <p>For compiling all libraries (and potentially also some dependencies), it is suggested to use <a href="https://colcon.readthedocs.io/">colcon</a>.
 Please use the link above for installation instructions.</p>
 <p>This repository is prepared as colcon workspace including all dependencies not provided as installable packages by the OS.
@@ -295,6 +300,7 @@ Those dependencies are part of the <strong>dependencies</strong> folder as GIT s
 <pre><code class="bash"> ad_rss$&gt;  git submodule update --init
 </code></pre>
 
+<h3 id="colcon-build">Colcon build<a class="headerlink" href="#colcon-build" title="Permanent link">&para;</a></h3>
 <p>Once this is done, the full set of dependencies and components can be built calling:</p>
 <pre><code class="bash"> ad_rss$&gt; colcon build
 </code></pre>
@@ -314,12 +320,31 @@ colcon meta file:</p>
 <pre><code class="bash"> ad_rss$&gt; colcon build --metas colcon_python.meta
 </code></pre>
 
-<h2 id="building-a-single-library">Building a single library<a class="headerlink" href="#building-a-single-library" title="Permanent link">&para;</a></h2>
-<p>The ad_rss (same applies to the other libraries) library is built with a standard cmake toolchain. Simply run the following commands to build the library:</p>
-<pre><code class="bash"> ad_rss$&gt; mkdir build
- ad_rss$&gt; cd build
- build$&gt;  cmake ..
- build$&gt;  make
+<h3 id="plain-cmake-build">Plain CMake build<a class="headerlink" href="#plain-cmake-build" title="Permanent link">&para;</a></h3>
+<p>The ad_rss (same applies to the other libraries) library is built with a standard cmake toolchain.
+Therefore, a full list of step by step calls could look like e.g.:</p>
+<pre><code class="bash"> ad_rss$&gt; mkdir install
+ ad_rss$&gt; mkdir -p build/{spdlog,ad_physics,ad_map_opendrive_reader,ad_map_access,ad_rss,ad_rss_map_integration}
+ ad_rss$&gt; cd build/spdlog
+ ad_rss/build/spdlog$&gt; cmake ../../dependencies/spdlog -DCMAKE_INSTALL_PREFIX=../../install -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DSPDLOG_BUILD_TESTS=OFF -DSPDLOG_BUILD_EXAMPLE=Off
+ ad_rss/build/spdlog$&gt; make install
+ ad_rss/build/spdlog$&gt; cd ../ad_physics
+ ad_rss/build/ad_physics$&gt; cmake ../../dependencies/map/ad_physics -DCMAKE_INSTALL_PREFIX=../../install
+ ad_rss/build/ad_physics$&gt; make install
+ ad_rss/build/ad_physics$&gt; cd ../ad_map_opendrive_reader
+ ad_rss/build/ad_map_opendrive_reader$&gt; cmake ../../dependencies/map/ad_map_opendrive_reader -DCMAKE_INSTALL_PREFIX=../../install
+ ad_rss/build/ad_map_opendrive_reader$&gt; make install
+ ad_rss/build/ad_map_opendrive_reader$&gt; cd ../ad_map_access
+ ad_rss/build/ad_map_access$&gt; cmake ../../dependencies/map/ad_map_access -DCMAKE_INSTALL_PREFIX=../../install
+ ad_rss/build/ad_map_access$&gt; make install
+ ad_rss/build/ad_map_access$&gt; cd ../ad_rss
+ ad_rss/build/ad_rss$&gt; cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install
+ ad_rss/build/ad_rss$&gt; make install
+ ad_rss/build/ad_rss$&gt; cd ../ad_rss_map_integration
+ ad_rss/build/ad_rss_map_integration$&gt; cmake ../../ad_rss_map_integration -DCMAKE_INSTALL_PREFIX=../../install
+ ad_rss/build/ad_rss_map_integration$&gt; make install
+ ad_rss/build/ad_rss_map_integration$&gt; cd ../..
+ ad_rss$&gt; echo &quot;Hurray, all built!&quot;
 </code></pre>
 
 <h2 id="cmake-options">CMake options<a class="headerlink" href="#cmake-options" title="Permanent link">&para;</a></h2>
@@ -335,29 +360,29 @@ e.g. "-DBUILD_TESTING=ON -DBUILD_APIDOC=ON".</p>
 <h4>Unit tests</h4>
 <p>When BUILD_TESTING is enabled, the "make" call will automatically compile the Unit tests.
 They can be executed using CMake's ctest application.</p>
-<pre><code class="bash"> build$&gt;  cmake -DBUILD_TESTING=ON ..
- build$&gt;  make
- build$&gt;  ctest
+<pre><code class="bash"> ad_rss/build/ad_rss$&gt; cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install -DBUILD_TESTING=ON
+ ad_rss/build/ad_rss$&gt; make install
+ ad_rss/build/ad_rss$&gt; ctest
 </code></pre>
 
 <h4>API documentation</h4>
 <p>When BUILD_APIDOC is enabled, the "make" call will automatically generate the API documentation.</p>
-<pre><code class="bash"> build$&gt;  cmake -DBUILD_APIDOC=ON ..
- build$&gt;  make
+<pre><code class="bash"> ad_rss/build/ad_rss$&gt; cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install -DBUILD_APIDOC=ON
+ ad_rss/build/ad_rss$&gt; make install
 </code></pre>
 
 <p>The API documentation is written to the <em>apidoc</em> folder within the <em>build</em> directory.</p>
 <h4>Build hardening</h4>
 <p>Usually, build hardening is injected by the surrounding build system. Nevertheless, the CMakeLists.txt defines
 hardening flags to ensure the code is compatible to respective flags. To enable hardening compiler and linker flags:</p>
-<pre><code class="bash"> build$&gt;  cmake -DBUILD_HARDENING=ON ..
- build$&gt;  make
+<pre><code class="bash"> ad_rss/build/ad_rss$&gt; cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install -DBUILD_HARDENING=ON
+ ad_rss/build/ad_rss$&gt; make install
 </code></pre>
 
 <h4>Python binding</h4>
 <p>With this option enabled, Python bindings are generated and compiled. This option is disabled by default.</p>
-<pre><code class="bash"> build$&gt;  cmake -DBUILD_PYTHON_BINDING=ON ..
- build$&gt;  make
+<pre><code class="bash"> ad_rss/build/ad_rss$&gt; cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install -DBUILD_PYTHON_BINDING=ON
+ ad_rss/build/ad_rss$&gt; make install
 </code></pre>
               
             </div>
