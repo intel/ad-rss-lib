@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -35,11 +35,11 @@ namespace situation {
  * @brief Calculate the stopping distance for a given speed and deceleration on a constant accelerated movement
  *
  * @param[in]  currentSpeed           is the current speed of the vehicle
- * @param[in]  deceleration           is the applied (positive) deceleration
+ * @param[in]  deceleration           is the applied deceleration
  * @param[out] stoppingDistance       is the resulting stopping distance
  *                                    The sign of the stoppingDistance equals the sign of the currentSpeed.
  *
- * @return true on success, false otherwise
+ * @return true on success, false if a stop cannot be reached
  */
 bool calculateStoppingDistance(physics::Speed const &currentSpeed,
                                physics::Acceleration const &deceleration,

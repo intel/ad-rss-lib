@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/world/Scene.hpp"
@@ -60,7 +65,6 @@ protected:
     ::ad::physics::Speed valueEgoVehicleVelocitySpeedLonMax(-100.);
     valueEgoVehicleVelocity.speedLonMax = valueEgoVehicleVelocitySpeedLonMax;
     ::ad::physics::Speed valueEgoVehicleVelocitySpeedLatMin(-100.);
-    valueEgoVehicleVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
     valueEgoVehicleVelocity.speedLatMin = valueEgoVehicleVelocitySpeedLatMin;
     ::ad::physics::Speed valueEgoVehicleVelocitySpeedLatMax(-100.);
     valueEgoVehicleVelocity.speedLatMax = valueEgoVehicleVelocitySpeedLatMax;
@@ -70,6 +74,38 @@ protected:
     valueEgoVehicleVelocity.speedLatMin = valueEgoVehicleVelocity.speedLatMax;
     valueEgoVehicle.velocity = valueEgoVehicleVelocity;
     value.egoVehicle = valueEgoVehicle;
+    ::ad::rss::world::RssDynamics valueEgoVehicleRssDynamics;
+    ::ad::rss::world::LongitudinalRssAccelerationValues valueEgoVehicleRssDynamicsAlphaLon;
+    ::ad::physics::Acceleration valueEgoVehicleRssDynamicsAlphaLonAccelMax(-1e2);
+    valueEgoVehicleRssDynamicsAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    valueEgoVehicleRssDynamicsAlphaLon.accelMax = valueEgoVehicleRssDynamicsAlphaLonAccelMax;
+    ::ad::physics::Acceleration valueEgoVehicleRssDynamicsAlphaLonBrakeMax(-1e2);
+    valueEgoVehicleRssDynamicsAlphaLon.brakeMax = valueEgoVehicleRssDynamicsAlphaLonBrakeMax;
+    ::ad::physics::Acceleration valueEgoVehicleRssDynamicsAlphaLonBrakeMin(-1e2);
+    valueEgoVehicleRssDynamicsAlphaLon.brakeMin = valueEgoVehicleRssDynamicsAlphaLonBrakeMin;
+    ::ad::physics::Acceleration valueEgoVehicleRssDynamicsAlphaLonBrakeMinCorrect(-1e2);
+    valueEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect = valueEgoVehicleRssDynamicsAlphaLonBrakeMinCorrect;
+    valueEgoVehicleRssDynamicsAlphaLon.brakeMin = valueEgoVehicleRssDynamicsAlphaLon.brakeMax;
+    valueEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect = valueEgoVehicleRssDynamicsAlphaLon.brakeMin;
+    valueEgoVehicleRssDynamicsAlphaLon.brakeMin = valueEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect;
+    valueEgoVehicleRssDynamicsAlphaLon.brakeMax = valueEgoVehicleRssDynamicsAlphaLon.brakeMin;
+    valueEgoVehicleRssDynamics.alphaLon = valueEgoVehicleRssDynamicsAlphaLon;
+    ::ad::rss::world::LateralRssAccelerationValues valueEgoVehicleRssDynamicsAlphaLat;
+    ::ad::physics::Acceleration valueEgoVehicleRssDynamicsAlphaLatAccelMax(-1e2);
+    valueEgoVehicleRssDynamicsAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    valueEgoVehicleRssDynamicsAlphaLat.accelMax = valueEgoVehicleRssDynamicsAlphaLatAccelMax;
+    ::ad::physics::Acceleration valueEgoVehicleRssDynamicsAlphaLatBrakeMin(-1e2);
+    valueEgoVehicleRssDynamicsAlphaLat.brakeMin = valueEgoVehicleRssDynamicsAlphaLatBrakeMin;
+    valueEgoVehicleRssDynamics.alphaLat = valueEgoVehicleRssDynamicsAlphaLat;
+    ::ad::physics::Distance valueEgoVehicleRssDynamicsLateralFluctuationMargin(0.);
+    valueEgoVehicleRssDynamics.lateralFluctuationMargin = valueEgoVehicleRssDynamicsLateralFluctuationMargin;
+    ::ad::physics::Duration valueEgoVehicleRssDynamicsResponseTime(0.);
+    valueEgoVehicleRssDynamicsResponseTime
+      = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
+    valueEgoVehicleRssDynamics.responseTime = valueEgoVehicleRssDynamicsResponseTime;
+    ::ad::physics::Speed valueEgoVehicleRssDynamicsMaxSpeed(-100.);
+    valueEgoVehicleRssDynamics.maxSpeed = valueEgoVehicleRssDynamicsMaxSpeed;
+    value.egoVehicleRssDynamics = valueEgoVehicleRssDynamics;
     ::ad::rss::world::Object valueObject;
     ::ad::rss::world::ObjectId valueObjectObjectId(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
     valueObject.objectId = valueObjectObjectId;
@@ -105,7 +141,6 @@ protected:
     ::ad::physics::Speed valueObjectVelocitySpeedLonMax(-100.);
     valueObjectVelocity.speedLonMax = valueObjectVelocitySpeedLonMax;
     ::ad::physics::Speed valueObjectVelocitySpeedLatMin(-100.);
-    valueObjectVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
     valueObjectVelocity.speedLatMin = valueObjectVelocitySpeedLatMin;
     ::ad::physics::Speed valueObjectVelocitySpeedLatMax(-100.);
     valueObjectVelocity.speedLatMax = valueObjectVelocitySpeedLatMax;
@@ -125,21 +160,17 @@ protected:
     ::ad::physics::Acceleration valueObjectRssDynamicsAlphaLonBrakeMin(-1e2);
     valueObjectRssDynamicsAlphaLon.brakeMin = valueObjectRssDynamicsAlphaLonBrakeMin;
     ::ad::physics::Acceleration valueObjectRssDynamicsAlphaLonBrakeMinCorrect(-1e2);
-    valueObjectRssDynamicsAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     valueObjectRssDynamicsAlphaLon.brakeMinCorrect = valueObjectRssDynamicsAlphaLonBrakeMinCorrect;
-    valueObjectRssDynamicsAlphaLon.brakeMin = valueObjectRssDynamicsAlphaLon.brakeMinCorrect;
-    valueObjectRssDynamicsAlphaLon.brakeMax = valueObjectRssDynamicsAlphaLon.brakeMin;
     valueObjectRssDynamicsAlphaLon.brakeMin = valueObjectRssDynamicsAlphaLon.brakeMax;
     valueObjectRssDynamicsAlphaLon.brakeMinCorrect = valueObjectRssDynamicsAlphaLon.brakeMin;
+    valueObjectRssDynamicsAlphaLon.brakeMin = valueObjectRssDynamicsAlphaLon.brakeMinCorrect;
+    valueObjectRssDynamicsAlphaLon.brakeMax = valueObjectRssDynamicsAlphaLon.brakeMin;
     valueObjectRssDynamics.alphaLon = valueObjectRssDynamicsAlphaLon;
     ::ad::rss::world::LateralRssAccelerationValues valueObjectRssDynamicsAlphaLat;
     ::ad::physics::Acceleration valueObjectRssDynamicsAlphaLatAccelMax(-1e2);
     valueObjectRssDynamicsAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
     valueObjectRssDynamicsAlphaLat.accelMax = valueObjectRssDynamicsAlphaLatAccelMax;
     ::ad::physics::Acceleration valueObjectRssDynamicsAlphaLatBrakeMin(-1e2);
-    valueObjectRssDynamicsAlphaLatBrakeMin = ::ad::physics::Acceleration(
-      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     valueObjectRssDynamicsAlphaLat.brakeMin = valueObjectRssDynamicsAlphaLatBrakeMin;
     valueObjectRssDynamics.alphaLat = valueObjectRssDynamicsAlphaLat;
     ::ad::physics::Distance valueObjectRssDynamicsLateralFluctuationMargin(0.);
@@ -226,7 +257,8 @@ TEST_F(SceneTests, copyConstruction)
 
 TEST_F(SceneTests, moveConstruction)
 {
-  ::ad::rss::world::Scene value(std::move(::ad::rss::world::Scene(mValue)));
+  ::ad::rss::world::Scene tmpValue(mValue);
+  ::ad::rss::world::Scene value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -239,8 +271,9 @@ TEST_F(SceneTests, copyAssignment)
 
 TEST_F(SceneTests, moveAssignment)
 {
+  ::ad::rss::world::Scene tmpValue(mValue);
   ::ad::rss::world::Scene value;
-  value = std::move(::ad::rss::world::Scene(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -302,7 +335,7 @@ TEST_F(SceneTests, comparisonOperatorEgoVehicleDiffers)
   egoVehicleOccupiedRegionsElementLatRange.maximum = egoVehicleOccupiedRegionsElementLatRange.minimum;
   egoVehicleOccupiedRegionsElementLatRange.minimum = egoVehicleOccupiedRegionsElementLatRange.maximum;
   egoVehicleOccupiedRegionsElement.latRange = egoVehicleOccupiedRegionsElementLatRange;
-  egoVehicleOccupiedRegions.resize(0 + 1, egoVehicleOccupiedRegionsElement);
+  egoVehicleOccupiedRegions.resize(1 + 1, egoVehicleOccupiedRegionsElement);
   egoVehicle.occupiedRegions = egoVehicleOccupiedRegions;
   ::ad::rss::world::Velocity egoVehicleVelocity;
   ::ad::physics::Speed egoVehicleVelocitySpeedLonMin(100.);
@@ -312,7 +345,6 @@ TEST_F(SceneTests, comparisonOperatorEgoVehicleDiffers)
   ::ad::physics::Speed egoVehicleVelocitySpeedLatMin(100.);
   egoVehicleVelocity.speedLatMin = egoVehicleVelocitySpeedLatMin;
   ::ad::physics::Speed egoVehicleVelocitySpeedLatMax(100.);
-  egoVehicleVelocitySpeedLatMax = ::ad::physics::Speed(10.); // set to valid value within struct
   egoVehicleVelocity.speedLatMax = egoVehicleVelocitySpeedLatMax;
   egoVehicleVelocity.speedLatMax = egoVehicleVelocity.speedLatMin;
   egoVehicleVelocity.speedLonMax = egoVehicleVelocity.speedLonMin;
@@ -320,6 +352,48 @@ TEST_F(SceneTests, comparisonOperatorEgoVehicleDiffers)
   egoVehicleVelocity.speedLonMin = egoVehicleVelocity.speedLonMax;
   egoVehicle.velocity = egoVehicleVelocity;
   valueA.egoVehicle = egoVehicle;
+  ::ad::rss::world::Scene valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(SceneTests, comparisonOperatorEgoVehicleRssDynamicsDiffers)
+{
+  ::ad::rss::world::Scene valueA = mValue;
+  ::ad::rss::world::RssDynamics egoVehicleRssDynamics;
+  ::ad::rss::world::LongitudinalRssAccelerationValues egoVehicleRssDynamicsAlphaLon;
+  ::ad::physics::Acceleration egoVehicleRssDynamicsAlphaLonAccelMax(1e2);
+  egoVehicleRssDynamicsAlphaLon.accelMax = egoVehicleRssDynamicsAlphaLonAccelMax;
+  ::ad::physics::Acceleration egoVehicleRssDynamicsAlphaLonBrakeMax(1e2);
+  egoVehicleRssDynamicsAlphaLon.brakeMax = egoVehicleRssDynamicsAlphaLonBrakeMax;
+  ::ad::physics::Acceleration egoVehicleRssDynamicsAlphaLonBrakeMin(1e2);
+  egoVehicleRssDynamicsAlphaLon.brakeMin = egoVehicleRssDynamicsAlphaLonBrakeMin;
+  ::ad::physics::Acceleration egoVehicleRssDynamicsAlphaLonBrakeMinCorrect(1e2);
+  egoVehicleRssDynamicsAlphaLonBrakeMinCorrect
+    = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
+  egoVehicleRssDynamicsAlphaLon.brakeMinCorrect = egoVehicleRssDynamicsAlphaLonBrakeMinCorrect;
+  egoVehicleRssDynamicsAlphaLon.brakeMinCorrect = egoVehicleRssDynamicsAlphaLon.brakeMin;
+  egoVehicleRssDynamicsAlphaLon.brakeMin = egoVehicleRssDynamicsAlphaLon.brakeMax;
+  egoVehicleRssDynamicsAlphaLon.brakeMax = egoVehicleRssDynamicsAlphaLon.brakeMin;
+  egoVehicleRssDynamicsAlphaLon.brakeMin = egoVehicleRssDynamicsAlphaLon.brakeMinCorrect;
+  egoVehicleRssDynamics.alphaLon = egoVehicleRssDynamicsAlphaLon;
+  ::ad::rss::world::LateralRssAccelerationValues egoVehicleRssDynamicsAlphaLat;
+  ::ad::physics::Acceleration egoVehicleRssDynamicsAlphaLatAccelMax(1e2);
+  egoVehicleRssDynamicsAlphaLat.accelMax = egoVehicleRssDynamicsAlphaLatAccelMax;
+  ::ad::physics::Acceleration egoVehicleRssDynamicsAlphaLatBrakeMin(1e2);
+  egoVehicleRssDynamicsAlphaLatBrakeMin = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
+  egoVehicleRssDynamicsAlphaLat.brakeMin = egoVehicleRssDynamicsAlphaLatBrakeMin;
+  egoVehicleRssDynamics.alphaLat = egoVehicleRssDynamicsAlphaLat;
+  ::ad::physics::Distance egoVehicleRssDynamicsLateralFluctuationMargin(1e9);
+  egoVehicleRssDynamicsLateralFluctuationMargin = ::ad::physics::Distance(1.); // set to valid value within struct
+  egoVehicleRssDynamics.lateralFluctuationMargin = egoVehicleRssDynamicsLateralFluctuationMargin;
+  ::ad::physics::Duration egoVehicleRssDynamicsResponseTime(1e6);
+  egoVehicleRssDynamicsResponseTime = ::ad::physics::Duration(10.); // set to valid value within struct
+  egoVehicleRssDynamics.responseTime = egoVehicleRssDynamicsResponseTime;
+  ::ad::physics::Speed egoVehicleRssDynamicsMaxSpeed(100.);
+  egoVehicleRssDynamics.maxSpeed = egoVehicleRssDynamicsMaxSpeed;
+  valueA.egoVehicleRssDynamics = egoVehicleRssDynamics;
   ::ad::rss::world::Scene valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
@@ -355,7 +429,7 @@ TEST_F(SceneTests, comparisonOperatorObjectDiffers)
   objectOccupiedRegionsElementLatRange.maximum = objectOccupiedRegionsElementLatRange.minimum;
   objectOccupiedRegionsElementLatRange.minimum = objectOccupiedRegionsElementLatRange.maximum;
   objectOccupiedRegionsElement.latRange = objectOccupiedRegionsElementLatRange;
-  objectOccupiedRegions.resize(0 + 1, objectOccupiedRegionsElement);
+  objectOccupiedRegions.resize(1 + 1, objectOccupiedRegionsElement);
   object.occupiedRegions = objectOccupiedRegions;
   ::ad::rss::world::Velocity objectVelocity;
   ::ad::physics::Speed objectVelocitySpeedLonMin(100.);
@@ -365,7 +439,6 @@ TEST_F(SceneTests, comparisonOperatorObjectDiffers)
   ::ad::physics::Speed objectVelocitySpeedLatMin(100.);
   objectVelocity.speedLatMin = objectVelocitySpeedLatMin;
   ::ad::physics::Speed objectVelocitySpeedLatMax(100.);
-  objectVelocitySpeedLatMax = ::ad::physics::Speed(10.); // set to valid value within struct
   objectVelocity.speedLatMax = objectVelocitySpeedLatMax;
   objectVelocity.speedLatMax = objectVelocity.speedLatMin;
   objectVelocity.speedLonMax = objectVelocity.speedLonMin;
@@ -391,16 +464,18 @@ TEST_F(SceneTests, comparisonOperatorObjectRssDynamicsDiffers)
   ::ad::physics::Acceleration objectRssDynamicsAlphaLonBrakeMin(1e2);
   objectRssDynamicsAlphaLon.brakeMin = objectRssDynamicsAlphaLonBrakeMin;
   ::ad::physics::Acceleration objectRssDynamicsAlphaLonBrakeMinCorrect(1e2);
+  objectRssDynamicsAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
   objectRssDynamicsAlphaLon.brakeMinCorrect = objectRssDynamicsAlphaLonBrakeMinCorrect;
-  objectRssDynamicsAlphaLon.brakeMax = objectRssDynamicsAlphaLon.brakeMin;
-  objectRssDynamicsAlphaLon.brakeMin = objectRssDynamicsAlphaLon.brakeMinCorrect;
   objectRssDynamicsAlphaLon.brakeMinCorrect = objectRssDynamicsAlphaLon.brakeMin;
   objectRssDynamicsAlphaLon.brakeMin = objectRssDynamicsAlphaLon.brakeMax;
+  objectRssDynamicsAlphaLon.brakeMax = objectRssDynamicsAlphaLon.brakeMin;
+  objectRssDynamicsAlphaLon.brakeMin = objectRssDynamicsAlphaLon.brakeMinCorrect;
   objectRssDynamics.alphaLon = objectRssDynamicsAlphaLon;
   ::ad::rss::world::LateralRssAccelerationValues objectRssDynamicsAlphaLat;
   ::ad::physics::Acceleration objectRssDynamicsAlphaLatAccelMax(1e2);
   objectRssDynamicsAlphaLat.accelMax = objectRssDynamicsAlphaLatAccelMax;
   ::ad::physics::Acceleration objectRssDynamicsAlphaLatBrakeMin(1e2);
+  objectRssDynamicsAlphaLatBrakeMin = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
   objectRssDynamicsAlphaLat.brakeMin = objectRssDynamicsAlphaLatBrakeMin;
   objectRssDynamics.alphaLat = objectRssDynamicsAlphaLat;
   ::ad::physics::Distance objectRssDynamicsLateralFluctuationMargin(1e9);
@@ -499,3 +574,7 @@ TEST_F(SceneTests, comparisonOperatorEgoVehicleRoadDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

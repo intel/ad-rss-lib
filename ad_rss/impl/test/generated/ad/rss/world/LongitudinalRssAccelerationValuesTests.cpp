@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/world/LongitudinalRssAccelerationValues.hpp"
@@ -31,13 +36,11 @@ protected:
     ::ad::physics::Acceleration valueBrakeMin(-1e2);
     value.brakeMin = valueBrakeMin;
     ::ad::physics::Acceleration valueBrakeMinCorrect(-1e2);
-    valueBrakeMinCorrect = ::ad::physics::Acceleration(
-      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     value.brakeMinCorrect = valueBrakeMinCorrect;
-    value.brakeMin = value.brakeMinCorrect;
-    value.brakeMax = value.brakeMin;
     value.brakeMin = value.brakeMax;
     value.brakeMinCorrect = value.brakeMin;
+    value.brakeMin = value.brakeMinCorrect;
+    value.brakeMax = value.brakeMin;
     mValue = value;
   }
 
@@ -52,8 +55,8 @@ TEST_F(LongitudinalRssAccelerationValuesTests, copyConstruction)
 
 TEST_F(LongitudinalRssAccelerationValuesTests, moveConstruction)
 {
-  ::ad::rss::world::LongitudinalRssAccelerationValues value(
-    std::move(::ad::rss::world::LongitudinalRssAccelerationValues(mValue)));
+  ::ad::rss::world::LongitudinalRssAccelerationValues tmpValue(mValue);
+  ::ad::rss::world::LongitudinalRssAccelerationValues value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -66,8 +69,9 @@ TEST_F(LongitudinalRssAccelerationValuesTests, copyAssignment)
 
 TEST_F(LongitudinalRssAccelerationValuesTests, moveAssignment)
 {
+  ::ad::rss::world::LongitudinalRssAccelerationValues tmpValue(mValue);
   ::ad::rss::world::LongitudinalRssAccelerationValues value;
-  value = std::move(::ad::rss::world::LongitudinalRssAccelerationValues(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -132,3 +136,7 @@ TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorBrakeMinCorrect
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

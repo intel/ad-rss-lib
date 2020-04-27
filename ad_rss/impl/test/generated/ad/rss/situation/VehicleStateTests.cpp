@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/situation/VehicleState.hpp"
@@ -51,21 +56,17 @@ protected:
     ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMin(-1e2);
     valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLonBrakeMin;
     ::ad::physics::Acceleration valueDynamicsAlphaLonBrakeMinCorrect(-1e2);
-    valueDynamicsAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLonBrakeMinCorrect;
-    valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
-    valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
     valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMax;
     valueDynamicsAlphaLon.brakeMinCorrect = valueDynamicsAlphaLon.brakeMin;
+    valueDynamicsAlphaLon.brakeMin = valueDynamicsAlphaLon.brakeMinCorrect;
+    valueDynamicsAlphaLon.brakeMax = valueDynamicsAlphaLon.brakeMin;
     valueDynamics.alphaLon = valueDynamicsAlphaLon;
     ::ad::rss::world::LateralRssAccelerationValues valueDynamicsAlphaLat;
     ::ad::physics::Acceleration valueDynamicsAlphaLatAccelMax(-1e2);
     valueDynamicsAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
     valueDynamicsAlphaLat.accelMax = valueDynamicsAlphaLatAccelMax;
     ::ad::physics::Acceleration valueDynamicsAlphaLatBrakeMin(-1e2);
-    valueDynamicsAlphaLatBrakeMin = ::ad::physics::Acceleration(
-      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     valueDynamicsAlphaLat.brakeMin = valueDynamicsAlphaLatBrakeMin;
     valueDynamics.alphaLat = valueDynamicsAlphaLat;
     ::ad::physics::Distance valueDynamicsLateralFluctuationMargin(0.);
@@ -101,7 +102,8 @@ TEST_F(VehicleStateTests, copyConstruction)
 
 TEST_F(VehicleStateTests, moveConstruction)
 {
-  ::ad::rss::situation::VehicleState value(std::move(::ad::rss::situation::VehicleState(mValue)));
+  ::ad::rss::situation::VehicleState tmpValue(mValue);
+  ::ad::rss::situation::VehicleState value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -114,8 +116,9 @@ TEST_F(VehicleStateTests, copyAssignment)
 
 TEST_F(VehicleStateTests, moveAssignment)
 {
+  ::ad::rss::situation::VehicleState tmpValue(mValue);
   ::ad::rss::situation::VehicleState value;
-  value = std::move(::ad::rss::situation::VehicleState(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -176,16 +179,18 @@ TEST_F(VehicleStateTests, comparisonOperatorDynamicsDiffers)
   ::ad::physics::Acceleration dynamicsAlphaLonBrakeMin(1e2);
   dynamicsAlphaLon.brakeMin = dynamicsAlphaLonBrakeMin;
   ::ad::physics::Acceleration dynamicsAlphaLonBrakeMinCorrect(1e2);
+  dynamicsAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
   dynamicsAlphaLon.brakeMinCorrect = dynamicsAlphaLonBrakeMinCorrect;
-  dynamicsAlphaLon.brakeMax = dynamicsAlphaLon.brakeMin;
-  dynamicsAlphaLon.brakeMin = dynamicsAlphaLon.brakeMinCorrect;
   dynamicsAlphaLon.brakeMinCorrect = dynamicsAlphaLon.brakeMin;
   dynamicsAlphaLon.brakeMin = dynamicsAlphaLon.brakeMax;
+  dynamicsAlphaLon.brakeMax = dynamicsAlphaLon.brakeMin;
+  dynamicsAlphaLon.brakeMin = dynamicsAlphaLon.brakeMinCorrect;
   dynamics.alphaLon = dynamicsAlphaLon;
   ::ad::rss::world::LateralRssAccelerationValues dynamicsAlphaLat;
   ::ad::physics::Acceleration dynamicsAlphaLatAccelMax(1e2);
   dynamicsAlphaLat.accelMax = dynamicsAlphaLatAccelMax;
   ::ad::physics::Acceleration dynamicsAlphaLatBrakeMin(1e2);
+  dynamicsAlphaLatBrakeMin = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
   dynamicsAlphaLat.brakeMin = dynamicsAlphaLatBrakeMin;
   dynamics.alphaLat = dynamicsAlphaLat;
   ::ad::physics::Distance dynamicsLateralFluctuationMargin(1e9);
@@ -246,3 +251,7 @@ TEST_F(VehicleStateTests, comparisonOperatorDistanceToLeaveIntersectionDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

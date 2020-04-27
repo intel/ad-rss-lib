@@ -13,24 +13,6 @@ include(GNUInstallDirs)
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 14)
 
-find_package(PythonInterp REQUIRED)
-
-if (PYTHONINTERP_FOUND)
-  if (PYTHON_VERSION_MAJOR EQUAL 3)
-    find_package(Boost COMPONENTS REQUIRED python${PYTHON_VERSION_SUFFIX})
-    find_package(PythonInterp 3)
-    find_package(PythonLibs 3 REQUIRED)
-  else()
-    find_package(Boost COMPONENTS REQUIRED python)
-    find_package(PythonInterp 2.7 EXACT REQUIRED)
-    find_package(PythonLibs 2.7 EXACT)
-    if (PYTHONLIBS_VERSION_STRING VERSION_GREATER "2.7")
-      set(PYTHON_INCLUDE_DIRS "/usr/include/python2.7")
-      set(PYTHON_LIBRARIES "/usr/lib/x86_64-linux-gnu/libpython2.7.so")
-    endif()
-  endif()
-endif()
-
 find_package(ad_physics REQUIRED CONFIG)
 get_target_property(AD_PHYSICS_INCLUDES ad_physics INTERFACE_INCLUDE_DIRECTORIES)
 
@@ -41,37 +23,53 @@ list(APPEND INCLUDE_DIRS ${AD_PHYSICS_INCLUDES} ${SPDLOG_INCLUDES})
 
 string (REPLACE ";" "\", \"" GENPY_INCLUDE_DIRS "${INCLUDE_DIRS}")
 
+find_python_binding_packages()
+
 configure_file(generate_python_lib.py.in generate_python_lib.py)
-configure_file(../../dependencies/map/tools/python/python_wrapper_helper.py python_wrapper_helper.py COPYONLY)
 
 generate_python_binding_source_code(${CMAKE_CURRENT_BINARY_DIR})
 
-add_library(${PROJECT_NAME}
-  ${CMAKE_CURRENT_BINARY_DIR}/AdRssPythonWrapper.cpp
-)
+foreach(binding ${PYTHON_BINDINGS})
+  string(TOLOWER ${binding} lc_binding)
+  set(target ad_rss_${lc_binding})
 
-target_compile_definitions(${PROJECT_NAME} PUBLIC ${TARGET_COMPILE_DEFINITIONS})
-target_compile_options(${PROJECT_NAME} PRIVATE ${TARGET_COMPILE_OPTIONS})
-set_property(TARGET ${PROJECT_NAME} APPEND_STRING PROPERTY LINK_FLAGS ${TARGET_LINK_FLAGS})
+  list(APPEND targets ${target})
 
-target_include_directories(${PROJECT_NAME} PRIVATE
-  ${PYTHON_INCLUDE_DIRS}
-  ${CMAKE_CURRENT_BINARY_DIR}
-)
+  add_library(${target}
+    ${CMAKE_CURRENT_BINARY_DIR}/AdRssPythonWrapper${binding}.cpp
+  )
+  target_compile_definitions(${target} PUBLIC ${TARGET_COMPILE_DEFINITIONS})
+  target_compile_options(${target} PRIVATE ${TARGET_COMPILE_OPTIONS})
+  set_property(TARGET ${target} APPEND_STRING PROPERTY LINK_FLAGS ${TARGET_LINK_FLAGS})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
-  ad_rss
-  ad_physics
-  spdlog::spdlog
-  Boost::python
-  ${PYTHON_LIBRARIES}
-)
+  target_include_directories(${target} PRIVATE
+    ${PYTHON_BINDING_PACKAGE_INCLUDE_DIRS_${binding}}
+    ${CMAKE_CURRENT_BINARY_DIR}
+  )
+
+  target_link_libraries(${target} PRIVATE
+    ad_rss
+    ad_physics
+    spdlog::spdlog
+    ${PYTHON_BINDING_PACKAGE_LIBRARIES_${binding}}
+  )
+
+  if (BUILD_TESTING)
+    add_test(NAME ${target}_test
+      COMMAND ${lc_binding} -m interface_test
+      WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/tests
+    )
+    get_python_test_environment(ad_physics)
+    set_tests_properties(${target}_test PROPERTIES ENVIRONMENT "${PYTHON_TEST_ENVIRONMENT}")
+  endif()
+
+endforeach()
 
 ################################################################################
 # Install section
 ################################################################################
 
-install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}_EXPORT
+install(TARGETS ${targets} EXPORT ${PROJECT_NAME}_EXPORT
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )

@@ -1,6 +1,6 @@
-## ad-rss-lib Realization
+# ad-rss-lib Realization
 
-### RSS checks and response
+## RSS checks and response
 To check whether the ego vehicle is in a safe state, all the objects in the
 surrounding must be respected. To do so the ad-rss-lib will perform an analysis
 against all the objects in the environment individually. Meaning, for each
@@ -27,7 +27,7 @@ The situations types that have to be identified are:
    - both vehicles have same priority (no vehicle has priority over
      the other vehicle)
 
-#### Longitudinal conflicts
+### Longitudinal conflicts
 The behavior for longitudinal conflicts (checks and response) for vehicles
 driving in the same direction are implemented as described in the definitions 1,
 3 and 4 of the [RSS paper](https://arxiv.org/abs/1708.06374). For the case of vehicles driving
@@ -36,7 +36,7 @@ the paper.
 
 In detail, the current realization looks as follows:
 
-##### Same direction
+#### Same direction
 
 If the longitudinal distance is not safe and
 
@@ -46,7 +46,7 @@ If the longitudinal distance is not safe and
 2. otherwise, the ego vehicle has to break longitudinally with at
    least $\alpha_{min,brake}$.
 
-##### Opposite direction
+#### Opposite direction
 
 If the longitudinal distance is not safe and
 
@@ -56,7 +56,7 @@ If the longitudinal distance is not safe and
 2. otherwise, the ego vehicle has to break longitudinally with at
    least $\alpha_{min,brake}$.
 
-#### Lateral conflicts
+### Lateral conflicts
 The lateral checks and the proper response follow the definitions 5, 6, 7 and 8
 of the [RSS paper](https://arxiv.org/abs/1708.06374).
 
@@ -70,7 +70,7 @@ If the lateral distance is not safe and
 3. otherwise, the ego vehicle has to break
    laterally with at least $\alpha^{lat}_{brake,min}$ on both sides
 
-#### Combining longitudinal and lateral response
+### Combining longitudinal and lateral response
 The combination of longitudinal and lateral response of a single situation
 (object - ego vehicle pair) is implemented as described in definitions
 9 and 10 of the [RSS paper](https://arxiv.org/abs/1708.06374).
@@ -85,7 +85,7 @@ is checked:
 1. if there was no lateral conflict, the combined response breaks laterally
 2. if there was no longitudinal conflict, the combined response breaks longitudinally
 
-#### Combining all situations of a given point in time
+### Combining all situations of a given point in time
 Since this RSS implementation performs the above mentioned check separately for
 each situation, the overall response of the ego vehicle has to consider
 all individual situations of the current scene.
@@ -94,7 +94,7 @@ The current realization loops over all situations and combines the lateral left,
 the lateral right and the longitudinal response states of these by selecting
 the most severe response of each component respectively.
 
-#### Evasive maneuvers
+### Evasive maneuvers
 !!! IMPORTANT
     This initial implementation does not yet cover evasive maneuvers to
     compensate for improper behavior of others according to definitions 11, 12
@@ -127,7 +127,7 @@ braking harder, or changing lanes quicker, RSS will not forbid this maneuver,
 as long as it does not create another conflict, and is compliant with the
 restrictions calculated by RSS.
 
-#### Handling of Intersections
+### Handling of Intersections
 The behavior for intersection conflicts (checks and response) for vehicles is
 implemented as described in the definitions 16, 17 and 18 of the [RSS paper](https://arxiv.org/abs/1708.06374)
 
@@ -158,7 +158,7 @@ In detail, the current realization looks as follows:
     always a lateral conflict in case of intersections. This will be addressed
     in future.
 
-#### Response Time and Other Parameters
+### Response Time and Other Parameters
 According to the papers each traffic participant has a response time, and is
 objected to respect certain acceleration limits (e.g. maximum acceleration
 $\alpha_{accel,max}$, maximum deceleration $\alpha_{brake,max}$, etc.). Within
@@ -176,9 +176,9 @@ time, as this acceleration is already considered.
     defines a feasible parameter set, which is provided as input to the
     ad-rss-lib.
 
-A discussion on the parameter selection can be found in the [parameter discussion section](https://intel.github.io/ad-rss-lib/background/Appendix-ParameterDiscussion/index.html#parameter-discussion).
+A discussion on the parameter selection can be found in the [parameter discussion section](./Appendix-ParameterDiscussion.md#parameter-discussion).
 
-### Situation-Based Coordinate System
+## Situation-Based Coordinate System
 As described in the [RSS paper](https://arxiv.org/abs/1708.06374) in section 3.2 "Preliminaries — A Lane-Based Coordinate
 System", all RSS calculations are
 based on a lane-centric coordinate system. This system uses adjacent, straight
@@ -194,7 +194,7 @@ longitudinal and lateral distances of objects.
 However, when transforming the Cartesian space into a lane-based coordinate
 system, several challenges have to be taken into consideration.
 
-#### Comparing movements in lane-based coordinate systems
+### Comparing movements in lane-based coordinate systems
 During the transformation process to a lane-based coordinate system, not only
 the position but also the the velocities and accelerations have to be
 transformed. As a matter of fact, the resulting values depend on the actual
@@ -202,7 +202,7 @@ lane geometry, and thus, velocities and accelerations of different lane-based
 coordinate systems cannot be compared to each other anymore (ego vehicle - object pair). To illustrate this
 problems, let us consider the following examples:
 
-##### Discontinuity Problem: Two parallel lanes, different width
+#### Discontinuity Problem: Two parallel lanes, different width
 
 | ![](../images/lanes_with_different_width.svg) |
 |:--:|
@@ -219,7 +219,7 @@ even worse, if a car is changing the lane from lane A to lane B: then the
 closed formula for constant accelerated movement to calculate the lateral
 distance over time cannot be applied anymore directly.
 
-##### Changing Acceleration Problem: Lane is widening/narrowing
+#### Changing Acceleration Problem: Lane is widening/narrowing
 
 | ![](../images/lane_width_narrowing.svg) |
 |:--:|
@@ -231,7 +231,7 @@ In such a case the Cartesian lateral acceleration value of _1 m/$s^2$_ is
 changing from _0.25 lat/$s^2$_ at the beginning towards _0.5 lat/$s^2$_ while
 advancing within the lane.
 
-##### Changing Distances Problem: Lane with a narrow curve
+#### Changing Distances Problem: Lane with a narrow curve
 
 | ![](../images/lane_constant_curve.svg) |
 |:--:|
@@ -246,7 +246,7 @@ to _1.0 lon/$s^2$_ for the center line, _0.96 lon/$s^2$_ for the outer border an
 _1.04 lon/$s^2$_ for the inner border. Therefore, the longitudinal acceleration
 changes over time, if the vehicle changes its lateral position within the lane.
 
-##### Summary
+#### Summary
 As sketched in the previous sections both the longitudinal as well as the
 lateral acceleration values, as well as velocities within the lane-based
 coordinate system cannot be considered as constant anymore. Moreover, these
@@ -266,7 +266,7 @@ Like this, it is assured that the calculations are sound, nevertheless this
 might lead to a more cautious behavior of the vehicle.
 The following subsections describe the selected approach in more detail.
 
-##### Two parallel lanes, different width
+#### Two parallel lanes, different width
 As described in the previous section, the border between neighboring lanes
 of different width introduces discontinuities of the lateral acceleration values
 (see Figure 1).
@@ -294,7 +294,7 @@ take all three lanes into account with resulting width of _9 m_. Therefore, a
 different situation-based coordinate system $SCS_j$ is required, when checking
 another object.
 
-##### Lane is widening or has a narrow curve
+#### Lane is widening or has a narrow curve
 The individual situation specific coordinate system $SCS$ does not yet cover
 the situations of widening lanes or narrow curves. To take the variation of the
 lane width and length into account, it is required to apply the extrema
@@ -317,7 +317,7 @@ values into the situation-based coordinate system $SCS_k$.
     The performed operations can be interpreted as enlarging the vehicles
     bounding boxes to ensure the worst case is covered.
 
-##### Road area
+#### Road area
 To overcome the problems of discontinuities, changing lateral and
 longitudinal distances resulting in not comparable velocities and accelerations
 the situation based coordinate system merges in a first step all lanes segments
@@ -352,7 +352,7 @@ the situation specific coordinate systems.
     merged into one single lane have to be treated like intersections since
     a lateral conflict is unavoidable.
 
-##### Considerations on reverse transformation of the proper response
+#### Considerations on reverse transformation of the proper response
 As the proper response is referring to the situation-based coordinate
 systems, the response has to be transformed back considering the actual
 lane geometry. Therefore, first the transformation into the
@@ -390,7 +390,7 @@ definition of a lateral velocity of 0 in lane A/lane B in Cartesian space.
     into a vehicle-centric lane coordinate system is not required, as the RSS
     response is defined such that it is independent of these two coordinate system.
 
-##### Summary
+#### Summary
 The presented construction of a continuous situation-based coordinates system
 will allow the pairwise calculation of the safe distances between ego vehicle
 and objects with the assumption of constant acceleration. Still, the worst case
@@ -416,7 +416,7 @@ minimum or maximum value of the positions in the situation-based coordinate
 system to assure that always the worst case is considered.
 
 
-#### Design alternative: Iterative Approach [optional]
+### Design alternative: Iterative Approach [optional]
 
 | ![](../images/lanes_with_different_width_iterative.svg) |
 |:--:|
@@ -434,7 +434,7 @@ values to be used for every position within the situation-based coordinate
 systems. Therefore, this design approach is not selected by this ad-rss-lib
 implementation.
 
-### Summary
+## Summary
 
 !!! Summary
     * RSS checks are performed on the current state on a ego vehicle - object pair

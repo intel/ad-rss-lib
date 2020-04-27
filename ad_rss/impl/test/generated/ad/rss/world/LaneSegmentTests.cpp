@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/world/LaneSegment.hpp"
@@ -59,7 +64,8 @@ TEST_F(LaneSegmentTests, copyConstruction)
 
 TEST_F(LaneSegmentTests, moveConstruction)
 {
-  ::ad::rss::world::LaneSegment value(std::move(::ad::rss::world::LaneSegment(mValue)));
+  ::ad::rss::world::LaneSegment tmpValue(mValue);
+  ::ad::rss::world::LaneSegment value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -72,8 +78,9 @@ TEST_F(LaneSegmentTests, copyAssignment)
 
 TEST_F(LaneSegmentTests, moveAssignment)
 {
+  ::ad::rss::world::LaneSegment tmpValue(mValue);
   ::ad::rss::world::LaneSegment value;
-  value = std::move(::ad::rss::world::LaneSegment(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -163,3 +170,7 @@ TEST_F(LaneSegmentTests, comparisonOperatorWidthDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

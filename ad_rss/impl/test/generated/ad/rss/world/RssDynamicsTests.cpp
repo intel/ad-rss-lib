@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/world/RssDynamics.hpp"
@@ -32,21 +37,17 @@ protected:
     ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
     valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
     ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-    valueAlphaLonBrakeMinCorrect = ::ad::physics::Acceleration(
-      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-    valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-    valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
     valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
     valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+    valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+    valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
     value.alphaLon = valueAlphaLon;
     ::ad::rss::world::LateralRssAccelerationValues valueAlphaLat;
     ::ad::physics::Acceleration valueAlphaLatAccelMax(-1e2);
     valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
     valueAlphaLat.accelMax = valueAlphaLatAccelMax;
     ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-    valueAlphaLatBrakeMin = ::ad::physics::Acceleration(
-      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
     value.alphaLat = valueAlphaLat;
     ::ad::physics::Distance valueLateralFluctuationMargin(0.);
@@ -71,7 +72,8 @@ TEST_F(RssDynamicsTests, copyConstruction)
 
 TEST_F(RssDynamicsTests, moveConstruction)
 {
-  ::ad::rss::world::RssDynamics value(std::move(::ad::rss::world::RssDynamics(mValue)));
+  ::ad::rss::world::RssDynamics tmpValue(mValue);
+  ::ad::rss::world::RssDynamics value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -84,8 +86,9 @@ TEST_F(RssDynamicsTests, copyAssignment)
 
 TEST_F(RssDynamicsTests, moveAssignment)
 {
+  ::ad::rss::world::RssDynamics tmpValue(mValue);
   ::ad::rss::world::RssDynamics value;
-  value = std::move(::ad::rss::world::RssDynamics(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -118,11 +121,12 @@ TEST_F(RssDynamicsTests, comparisonOperatorAlphaLonDiffers)
   ::ad::physics::Acceleration alphaLonBrakeMin(1e2);
   alphaLon.brakeMin = alphaLonBrakeMin;
   ::ad::physics::Acceleration alphaLonBrakeMinCorrect(1e2);
+  alphaLonBrakeMinCorrect = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
   alphaLon.brakeMinCorrect = alphaLonBrakeMinCorrect;
-  alphaLon.brakeMax = alphaLon.brakeMin;
-  alphaLon.brakeMin = alphaLon.brakeMinCorrect;
   alphaLon.brakeMinCorrect = alphaLon.brakeMin;
   alphaLon.brakeMin = alphaLon.brakeMax;
+  alphaLon.brakeMax = alphaLon.brakeMin;
+  alphaLon.brakeMin = alphaLon.brakeMinCorrect;
   valueA.alphaLon = alphaLon;
   ::ad::rss::world::RssDynamics valueB = mValue;
 
@@ -137,6 +141,7 @@ TEST_F(RssDynamicsTests, comparisonOperatorAlphaLatDiffers)
   ::ad::physics::Acceleration alphaLatAccelMax(1e2);
   alphaLat.accelMax = alphaLatAccelMax;
   ::ad::physics::Acceleration alphaLatBrakeMin(1e2);
+  alphaLatBrakeMin = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
   alphaLat.brakeMin = alphaLatBrakeMin;
   valueA.alphaLat = alphaLat;
   ::ad::rss::world::RssDynamics valueB = mValue;
@@ -177,3 +182,7 @@ TEST_F(RssDynamicsTests, comparisonOperatorMaxSpeedDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

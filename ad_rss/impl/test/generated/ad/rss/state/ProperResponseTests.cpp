@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/state/ProperResponse.hpp"
@@ -52,7 +57,8 @@ TEST_F(ProperResponseTests, copyConstruction)
 
 TEST_F(ProperResponseTests, moveConstruction)
 {
-  ::ad::rss::state::ProperResponse value(std::move(::ad::rss::state::ProperResponse(mValue)));
+  ::ad::rss::state::ProperResponse tmpValue(mValue);
+  ::ad::rss::state::ProperResponse value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -65,8 +71,9 @@ TEST_F(ProperResponseTests, copyAssignment)
 
 TEST_F(ProperResponseTests, moveAssignment)
 {
+  ::ad::rss::state::ProperResponse tmpValue(mValue);
   ::ad::rss::state::ProperResponse value;
-  value = std::move(::ad::rss::state::ProperResponse(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -155,3 +162,7 @@ TEST_F(ProperResponseTests, comparisonOperatorLateralResponseLeftDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

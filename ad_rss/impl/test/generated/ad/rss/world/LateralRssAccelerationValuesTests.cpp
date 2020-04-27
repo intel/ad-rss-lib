@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/world/LateralRssAccelerationValues.hpp"
@@ -27,8 +32,6 @@ protected:
     valueAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
     value.accelMax = valueAccelMax;
     ::ad::physics::Acceleration valueBrakeMin(-1e2);
-    valueBrakeMin = ::ad::physics::Acceleration(
-      0. + ::ad::physics::Acceleration::cPrecisionValue); // set to valid value within struct
     value.brakeMin = valueBrakeMin;
     mValue = value;
   }
@@ -44,8 +47,8 @@ TEST_F(LateralRssAccelerationValuesTests, copyConstruction)
 
 TEST_F(LateralRssAccelerationValuesTests, moveConstruction)
 {
-  ::ad::rss::world::LateralRssAccelerationValues value(
-    std::move(::ad::rss::world::LateralRssAccelerationValues(mValue)));
+  ::ad::rss::world::LateralRssAccelerationValues tmpValue(mValue);
+  ::ad::rss::world::LateralRssAccelerationValues value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -58,8 +61,9 @@ TEST_F(LateralRssAccelerationValuesTests, copyAssignment)
 
 TEST_F(LateralRssAccelerationValuesTests, moveAssignment)
 {
+  ::ad::rss::world::LateralRssAccelerationValues tmpValue(mValue);
   ::ad::rss::world::LateralRssAccelerationValues value;
-  value = std::move(::ad::rss::world::LateralRssAccelerationValues(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -102,3 +106,7 @@ TEST_F(LateralRssAccelerationValuesTests, comparisonOperatorBrakeMinDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

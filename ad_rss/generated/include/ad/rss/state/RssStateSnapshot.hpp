@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1917
+ * Generator Version : 11.0.0-1988
  */
 
 #pragma once
@@ -22,6 +22,7 @@
 #include <memory>
 #include <sstream>
 #include "ad/rss/state/RssStateVector.hpp"
+#include "ad/rss/world/RssDynamics.hpp"
 #include "ad/rss/world/TimeIndex.hpp"
 /*!
  * @brief namespace ad
@@ -100,7 +101,8 @@ struct RssStateSnapshot
    */
   bool operator==(const RssStateSnapshot &other) const
   {
-    return (timeIndex == other.timeIndex) && (individualResponses == other.individualResponses);
+    return (timeIndex == other.timeIndex) && (defaultEgoVehicleRssDynamics == other.defaultEgoVehicleRssDynamics)
+      && (individualResponses == other.individualResponses);
   }
 
   /**
@@ -121,6 +123,14 @@ struct RssStateSnapshot
    * world model must not be zero.
    */
   ::ad::rss::world::TimeIndex timeIndex{0u};
+
+  /*!
+   * Defines the standard ego vehicle dynamics to be applied i.e. when there is no  dangerous
+   * scene.
+   * This parameters are provided in addtion on a per situation basis to be able to adapt
+   * these e.g. in respect to object type or the weather conditions
+   */
+  ::ad::rss::world::RssDynamics defaultEgoVehicleRssDynamics;
   ::ad::rss::state::RssStateVector individualResponses;
 };
 
@@ -160,6 +170,9 @@ inline std::ostream &operator<<(std::ostream &os, RssStateSnapshot const &_value
   os << "RssStateSnapshot(";
   os << "timeIndex:";
   os << _value.timeIndex;
+  os << ",";
+  os << "defaultEgoVehicleRssDynamics:";
+  os << _value.defaultEgoVehicleRssDynamics;
   os << ",";
   os << "individualResponses:";
   os << _value.individualResponses;

@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1917
+ * Generator Version : 11.0.0-1988
  */
 
 #pragma once
@@ -34,7 +34,7 @@
  *
  * \note the specified input range is defined by the ranges of all members, plus:
  *       ::ad::physics::Acceleration(0.) <= accelMax <= ::ad::physics::Acceleration(1e2)
- *       ::ad::physics::Acceleration(0.) < brakeMin <= ::ad::physics::Acceleration(1e2)
+ *       ::ad::physics::Acceleration(-1e2) <= brakeMin < ::ad::physics::Acceleration(0.)
  */
 inline bool withinValidInputRange(::ad::rss::world::LateralRssAccelerationValues const &input,
                                   bool const logErrors = true)
@@ -68,15 +68,15 @@ inline bool withinValidInputRange(::ad::rss::world::LateralRssAccelerationValues
   if (inValidInputRange)
   {
     inValidInputRange
-      = (::ad::physics::Acceleration(0.) < input.brakeMin) && (input.brakeMin <= ::ad::physics::Acceleration(1e2));
+      = (::ad::physics::Acceleration(-1e2) <= input.brakeMin) && (input.brakeMin < ::ad::physics::Acceleration(0.));
     if (!inValidInputRange && logErrors)
     {
       spdlog::error("withinValidInputRange(::ad::rss::world::LateralRssAccelerationValues)>> {} element {} out of "
                     "valid input range [{}, {}]",
                     input,
                     input.brakeMin,
-                    ::ad::physics::Acceleration(0.),
-                    ::ad::physics::Acceleration(1e2)); // LCOV_EXCL_BR_LINE
+                    ::ad::physics::Acceleration(-1e2),
+                    ::ad::physics::Acceleration(0.)); // LCOV_EXCL_BR_LINE
     }
   }
 

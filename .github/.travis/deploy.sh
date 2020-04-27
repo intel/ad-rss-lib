@@ -10,16 +10,25 @@
 ##
 
 git clone --quiet --branch=gh-pages https://${GITHUB_TOKEN}@github.com/intel/ad-rss-lib.git gh-pages > /dev/null 2>&1
+
+# clean old
+rm -rf gh-pages/*
 cd gh-pages
 
-mkdir -p doxygen/ad_rss/
-mkdir -p doxygen/ad_rss_map_integration/
-mkdir coverage
-cp -r ../coverage/* coverage/.
-cp -r ../build/ad_rss/apidoc/html/* doxygen/ad_rss/.
-cp -r ../build/ad_rss_map_integration/apidoc/html/* doxygen/ad_rss_map_integration/.
+# docu website
 cp -r ../site/* .
 
+# apidoc
+mkdir -p doxygen/ad_rss/
+mkdir -p doxygen/ad_rss_map_integration/
+cp -r ../build/ad_rss/apidoc/html/* doxygen/ad_rss/.
+cp -r ../build/ad_rss_map_integration/apidoc/html/* doxygen/ad_rss_map_integration/.
+
+# coverage
+mkdir coverage
+cp -r ../coverage/* coverage/.
+
+# commit
 git add -f .
 git status
 

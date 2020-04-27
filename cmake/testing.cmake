@@ -2,8 +2,6 @@
 #
 # Copyright (C) 2019 Intel Corporation
 #
-# SPDX-License-Identifier: LGPL-2.1-only
-#
 # ----------------- END LICENSE BLOCK -----------------------------------
 
 include(CMakeDependentOption)

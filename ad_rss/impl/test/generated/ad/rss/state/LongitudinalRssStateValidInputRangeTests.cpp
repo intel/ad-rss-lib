@@ -25,6 +25,21 @@ TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRange)
   value.isSafe = valueIsSafe;
   ::ad::rss::state::LongitudinalResponse valueResponse(::ad::rss::state::LongitudinalResponse::None);
   value.response = valueResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueAlphaLon.accelMax = valueAlphaLonAccelMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
+  valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
+  value.alphaLon = valueAlphaLon;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
   ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
   valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
@@ -43,6 +58,21 @@ TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRangeResponseTooSma
   value.isSafe = valueIsSafe;
   ::ad::rss::state::LongitudinalResponse valueResponse(::ad::rss::state::LongitudinalResponse::None);
   value.response = valueResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueAlphaLon.accelMax = valueAlphaLonAccelMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
+  valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
+  value.alphaLon = valueAlphaLon;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
   ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
   valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
@@ -66,6 +96,21 @@ TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRangeResponseTooBig
   value.isSafe = valueIsSafe;
   ::ad::rss::state::LongitudinalResponse valueResponse(::ad::rss::state::LongitudinalResponse::None);
   value.response = valueResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueAlphaLon.accelMax = valueAlphaLonAccelMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
+  valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
+  value.alphaLon = valueAlphaLon;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
   ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
   valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
@@ -82,6 +127,84 @@ TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRangeResponseTooBig
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
+TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRangeAlphaLonTooSmall)
+{
+  ::ad::rss::state::LongitudinalRssState value;
+  bool valueIsSafe{true};
+  value.isSafe = valueIsSafe;
+  ::ad::rss::state::LongitudinalResponse valueResponse(::ad::rss::state::LongitudinalResponse::None);
+  value.response = valueResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueAlphaLon.accelMax = valueAlphaLonAccelMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
+  valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
+  value.alphaLon = valueAlphaLon;
+  ::ad::rss::state::RssStateInformation valueRssStateInformation;
+  ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
+  valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
+  ::ad::physics::Distance valueRssStateInformationCurrentDistance(0.);
+  valueRssStateInformation.currentDistance = valueRssStateInformationCurrentDistance;
+  ::ad::rss::state::RssStateEvaluator valueRssStateInformationEvaluator(::ad::rss::state::RssStateEvaluator::None);
+  valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
+  value.rssStateInformation = valueRssStateInformation;
+
+  // override member with data type value below input range minimum
+  ::ad::rss::world::LongitudinalRssAccelerationValues invalidInitializedMember;
+  ::ad::physics::Acceleration invalidInitializedMemberAccelMax(-1e2 * 1.1);
+  invalidInitializedMember.accelMax = invalidInitializedMemberAccelMax;
+  value.alphaLon = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRangeAlphaLonTooBig)
+{
+  ::ad::rss::state::LongitudinalRssState value;
+  bool valueIsSafe{true};
+  value.isSafe = valueIsSafe;
+  ::ad::rss::state::LongitudinalResponse valueResponse(::ad::rss::state::LongitudinalResponse::None);
+  value.response = valueResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueAlphaLon.accelMax = valueAlphaLonAccelMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
+  valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
+  value.alphaLon = valueAlphaLon;
+  ::ad::rss::state::RssStateInformation valueRssStateInformation;
+  ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
+  valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
+  ::ad::physics::Distance valueRssStateInformationCurrentDistance(0.);
+  valueRssStateInformation.currentDistance = valueRssStateInformationCurrentDistance;
+  ::ad::rss::state::RssStateEvaluator valueRssStateInformationEvaluator(::ad::rss::state::RssStateEvaluator::None);
+  valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
+  value.rssStateInformation = valueRssStateInformation;
+
+  // override member with data type value above input range maximum
+  ::ad::rss::world::LongitudinalRssAccelerationValues invalidInitializedMember;
+  ::ad::physics::Acceleration invalidInitializedMemberAccelMax(1e2 * 1.1);
+  invalidInitializedMember.accelMax = invalidInitializedMemberAccelMax;
+  value.alphaLon = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
 TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRangeRssStateInformationTooSmall)
 {
   ::ad::rss::state::LongitudinalRssState value;
@@ -89,6 +212,21 @@ TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRangeRssStateInform
   value.isSafe = valueIsSafe;
   ::ad::rss::state::LongitudinalResponse valueResponse(::ad::rss::state::LongitudinalResponse::None);
   value.response = valueResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueAlphaLon.accelMax = valueAlphaLonAccelMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
+  valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
+  value.alphaLon = valueAlphaLon;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
   ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
   valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
@@ -113,6 +251,21 @@ TEST(LongitudinalRssStateValidInputRangeTests, testValidInputRangeRssStateInform
   value.isSafe = valueIsSafe;
   ::ad::rss::state::LongitudinalResponse valueResponse(::ad::rss::state::LongitudinalResponse::None);
   value.response = valueResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueAlphaLon.accelMax = valueAlphaLonAccelMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
+  valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
+  value.alphaLon = valueAlphaLon;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
   ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
   valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;

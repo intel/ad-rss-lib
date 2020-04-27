@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/world/Object.hpp"
@@ -57,7 +62,6 @@ protected:
     ::ad::physics::Speed valueVelocitySpeedLonMax(-100.);
     valueVelocity.speedLonMax = valueVelocitySpeedLonMax;
     ::ad::physics::Speed valueVelocitySpeedLatMin(-100.);
-    valueVelocitySpeedLatMin = ::ad::physics::Speed(-10.); // set to valid value within struct
     valueVelocity.speedLatMin = valueVelocitySpeedLatMin;
     ::ad::physics::Speed valueVelocitySpeedLatMax(-100.);
     valueVelocity.speedLatMax = valueVelocitySpeedLatMax;
@@ -80,7 +84,8 @@ TEST_F(ObjectTests, copyConstruction)
 
 TEST_F(ObjectTests, moveConstruction)
 {
-  ::ad::rss::world::Object value(std::move(::ad::rss::world::Object(mValue)));
+  ::ad::rss::world::Object tmpValue(mValue);
+  ::ad::rss::world::Object value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -93,8 +98,9 @@ TEST_F(ObjectTests, copyAssignment)
 
 TEST_F(ObjectTests, moveAssignment)
 {
+  ::ad::rss::world::Object tmpValue(mValue);
   ::ad::rss::world::Object value;
-  value = std::move(::ad::rss::world::Object(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -162,7 +168,7 @@ TEST_F(ObjectTests, comparisonOperatorOccupiedRegionsDiffers)
   occupiedRegionsElementLatRange.maximum = occupiedRegionsElementLatRange.minimum;
   occupiedRegionsElementLatRange.minimum = occupiedRegionsElementLatRange.maximum;
   occupiedRegionsElement.latRange = occupiedRegionsElementLatRange;
-  occupiedRegions.resize(0 + 1, occupiedRegionsElement);
+  occupiedRegions.resize(1 + 1, occupiedRegionsElement);
   valueA.occupiedRegions = occupiedRegions;
   ::ad::rss::world::Object valueB = mValue;
 
@@ -181,7 +187,6 @@ TEST_F(ObjectTests, comparisonOperatorVelocityDiffers)
   ::ad::physics::Speed velocitySpeedLatMin(100.);
   velocity.speedLatMin = velocitySpeedLatMin;
   ::ad::physics::Speed velocitySpeedLatMax(100.);
-  velocitySpeedLatMax = ::ad::physics::Speed(10.); // set to valid value within struct
   velocity.speedLatMax = velocitySpeedLatMax;
   velocity.speedLatMax = velocity.speedLatMin;
   velocity.speedLonMax = velocity.speedLonMin;
@@ -193,3 +198,7 @@ TEST_F(ObjectTests, comparisonOperatorVelocityDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

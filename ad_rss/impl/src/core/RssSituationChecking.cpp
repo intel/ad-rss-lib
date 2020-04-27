@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -25,8 +25,10 @@ enum class IsSafe
   No
 };
 
-inline state::RssState
-createRssState(situation::SituationId const &situationId, world::ObjectId const &objectId, IsSafe const &isSafeValue)
+inline state::RssState createRssState(situation::SituationId const &situationId,
+                                      world::ObjectId const &objectId,
+                                      world::RssDynamics const &egoDynamics,
+                                      IsSafe const &isSafeValue)
 {
   bool const isSafe = (isSafeValue == IsSafe::Yes);
   state::RssStateInformation emptyRssStateInfo;
@@ -40,14 +42,17 @@ createRssState(situation::SituationId const &situationId, world::ObjectId const 
   resultRssState.lateralStateLeft.isSafe = isSafe;
   resultRssState.lateralStateLeft.response
     = isSafe ? (::ad::rss::state::LateralResponse::None) : (::ad::rss::state::LateralResponse::BrakeMin);
+  resultRssState.lateralStateLeft.alphaLat = egoDynamics.alphaLat;
   resultRssState.lateralStateLeft.rssStateInformation = emptyRssStateInfo;
   resultRssState.lateralStateRight.isSafe = isSafe;
   resultRssState.lateralStateRight.response
     = isSafe ? (::ad::rss::state::LateralResponse::None) : (::ad::rss::state::LateralResponse::BrakeMin);
+  resultRssState.lateralStateRight.alphaLat = egoDynamics.alphaLat;
   resultRssState.lateralStateRight.rssStateInformation = emptyRssStateInfo;
   resultRssState.longitudinalState.isSafe = isSafe;
   resultRssState.longitudinalState.response
     = isSafe ? (::ad::rss::state::LongitudinalResponse::None) : (::ad::rss::state::LongitudinalResponse::BrakeMin);
+  resultRssState.longitudinalState.alphaLon = egoDynamics.alphaLon;
   resultRssState.longitudinalState.rssStateInformation = emptyRssStateInfo;
 
   return resultRssState;
@@ -83,12 +88,14 @@ bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation 
       return false;
     }
 
-    rssState = createRssState(situation.situationId, situation.objectId, IsSafe::No);
+    rssState
+      = createRssState(situation.situationId, situation.objectId, situation.egoVehicleState.dynamics, IsSafe::No);
 
     switch (situation.situationType)
     {
       case situation::SituationType::NotRelevant:
-        rssState = createRssState(situation.situationId, situation.objectId, IsSafe::Yes);
+        rssState
+          = createRssState(situation.situationId, situation.objectId, situation.egoVehicleState.dynamics, IsSafe::Yes);
         result = true;
         break;
       case situation::SituationType::SameDirection:
@@ -136,6 +143,7 @@ bool RssSituationChecking::checkSituations(situation::SituationSnapshot const &s
   try
   {
     rssStateSnapshot.timeIndex = situationSnapshot.timeIndex;
+    rssStateSnapshot.defaultEgoVehicleRssDynamics = situationSnapshot.defaultEgoVehicleRssDynamics;
     rssStateSnapshot.individualResponses.clear();
     for (auto const &situation : situationSnapshot.situations)
     {

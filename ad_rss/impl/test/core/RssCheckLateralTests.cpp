@@ -53,7 +53,7 @@ TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Towards_Each_Other)
     Distance const dMin = calculateLateralMinSafeDistance(worldModel.scenes[0].object.velocity.speedLatMax,
                                                           worldModel.scenes[0].objectRssDynamics,
                                                           worldModel.scenes[0].egoVehicle.velocity.speedLatMax,
-                                                          worldModel.egoVehicleRssDynamics);
+                                                          worldModel.scenes[0].egoVehicleRssDynamics);
 
     ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
 
@@ -155,7 +155,7 @@ TEST_F(RssCheckLateralEgoLeftTest, Lateral_Velocity_Towards_Each_Other)
     worldModel.timeIndex++;
 
     Distance const dMin = calculateLateralMinSafeDistance(worldModel.scenes[0].egoVehicle.velocity.speedLatMax,
-                                                          worldModel.egoVehicleRssDynamics,
+                                                          worldModel.scenes[0].egoVehicleRssDynamics,
                                                           worldModel.scenes[0].object.velocity.speedLatMax,
                                                           worldModel.scenes[0].objectRssDynamics);
 
@@ -167,6 +167,7 @@ TEST_F(RssCheckLateralEgoLeftTest, Lateral_Velocity_Towards_Each_Other)
     }
     else
     {
+      // TODO: never reached
       testRestrictions(accelerationRestriction,
                        state::LongitudinalResponse::None,
                        state::LateralResponse::None,
@@ -251,7 +252,7 @@ protected:
         Distance const dMinLeft = calculateLateralMinSafeDistance(worldModel.scenes[0].object.velocity.speedLatMax,
                                                                   worldModel.scenes[0].objectRssDynamics,
                                                                   worldModel.scenes[0].egoVehicle.velocity.speedLatMax,
-                                                                  worldModel.egoVehicleRssDynamics);
+                                                                  worldModel.scenes[0].egoVehicleRssDynamics);
         Distance const dActualLeft
           = (ParametricValue(1) - worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum
              + worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum)
@@ -266,7 +267,7 @@ protected:
         }
 
         Distance const dMinRight = calculateLateralMinSafeDistance(worldModel.scenes[1].egoVehicle.velocity.speedLatMax,
-                                                                   worldModel.egoVehicleRssDynamics,
+                                                                   worldModel.scenes[1].egoVehicleRssDynamics,
                                                                    worldModel.scenes[1].object.velocity.speedLatMax,
                                                                    worldModel.scenes[1].objectRssDynamics);
         Distance const dActualRight
@@ -290,9 +291,14 @@ protected:
 
 #if RSS_CHECK_TEST_DEBUG_OUT
         std::cout << "Testing[j=" << j << ", i=" << i << "]: dMinLeft=" << static_cast<double>(dMinLeft)
-                  << " dActualLeft=" << static_cast<double>(dActualLeft)
+                  << " dActualLeft=" << static_cast<double>(dActualLeft) << " leftResponse="
+                  << ((expectedLatResponseLeft == state::LateralResponse::BrakeMin) ? "BrakeMin" : "None")
                   << " dMinRight=" << static_cast<double>(dMinRight)
-                  << " dActualRight=" << static_cast<double>(dActualRight) << std::endl;
+                  << " dActualRight=" << static_cast<double>(dActualRight) << " rightResponse="
+                  << ((expectedLatResponseRight == state::LateralResponse::BrakeMin) ? "BrakeMin" : "None")
+                  << " lonResponse="
+                  << ((expectedLonResponse == state::LongitudinalResponse::BrakeMin) ? "BrakeMin" : "None")
+                  << std::endl;
 #endif
         EXPECT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
         testRestrictions(

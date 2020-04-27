@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -22,7 +22,7 @@ TEST(RssFormulaTestsCalculateDistanceAfterStatedBrakingPattern, longitudinal_neg
                                                                 cMaxSpeed,
                                                                 Duration(1),
                                                                 Acceleration(3.5),
-                                                                Acceleration(4.),
+                                                                Acceleration(-4.),
                                                                 distanceOffset));
 }
 
@@ -37,7 +37,7 @@ TEST(RssFormulaTestsCalculateDistanceAfterStatedBrakingPattern, lateral_negative
                                                                  cMaxSpeed,
                                                                  Duration(responseTime),
                                                                  Acceleration(3.5),
-                                                                 Acceleration(4.),
+                                                                 Acceleration(-4.),
                                                                  distanceOffsetA));
     Distance distanceOffsetB(0.);
     ASSERT_TRUE(calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis::Lateral,
@@ -45,7 +45,7 @@ TEST(RssFormulaTestsCalculateDistanceAfterStatedBrakingPattern, lateral_negative
                                                                  cMaxSpeed,
                                                                  Duration(responseTime),
                                                                  Acceleration(-3.5),
-                                                                 Acceleration(-4.),
+                                                                 Acceleration(4.),
                                                                  distanceOffsetB));
     ASSERT_NEAR(static_cast<double>(distanceOffsetA), -static_cast<double>(distanceOffsetB), cDoubleNear);
     ASSERT_NEAR(expectedDistanceOffset[responseTime - 1u], static_cast<double>(distanceOffsetA), 1.);
@@ -97,7 +97,7 @@ TEST(RssFormulaTestsCalculateDistanceAfterStatedBrakingPatternEgoVehicle, leadin
                                                                cMaxSpeed,
                                                                cResponseTimeOtherVehicles,
                                                                Acceleration(2.),
-                                                               Acceleration(4.),
+                                                               Acceleration(-4.),
                                                                distanceOffset));
   ASSERT_NEAR(static_cast<double>(distanceOffset), 71.77, cDoubleNear);
 }

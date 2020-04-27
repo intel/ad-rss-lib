@@ -12,6 +12,11 @@
  * Generated file
  */
 
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
+#endif
+
 #include <gtest/gtest.h>
 #include <limits>
 #include "ad/rss/state/LongitudinalRssState.hpp"
@@ -27,6 +32,21 @@ protected:
     value.isSafe = valueIsSafe;
     ::ad::rss::state::LongitudinalResponse valueResponse(::ad::rss::state::LongitudinalResponse::None);
     value.response = valueResponse;
+    ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+    ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+    valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    valueAlphaLon.accelMax = valueAlphaLonAccelMax;
+    ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+    valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
+    ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+    valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
+    ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+    valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
+    valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
+    valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+    valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+    valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
+    value.alphaLon = valueAlphaLon;
     ::ad::rss::state::RssStateInformation valueRssStateInformation;
     ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
     valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
@@ -49,7 +69,8 @@ TEST_F(LongitudinalRssStateTests, copyConstruction)
 
 TEST_F(LongitudinalRssStateTests, moveConstruction)
 {
-  ::ad::rss::state::LongitudinalRssState value(std::move(::ad::rss::state::LongitudinalRssState(mValue)));
+  ::ad::rss::state::LongitudinalRssState tmpValue(mValue);
+  ::ad::rss::state::LongitudinalRssState value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
@@ -62,8 +83,9 @@ TEST_F(LongitudinalRssStateTests, copyAssignment)
 
 TEST_F(LongitudinalRssStateTests, moveAssignment)
 {
+  ::ad::rss::state::LongitudinalRssState tmpValue(mValue);
   ::ad::rss::state::LongitudinalRssState value;
-  value = std::move(::ad::rss::state::LongitudinalRssState(mValue));
+  value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
@@ -107,6 +129,30 @@ TEST_F(LongitudinalRssStateTests, comparisonOperatorResponseDiffers)
   EXPECT_TRUE(valueA != valueB);
 }
 
+TEST_F(LongitudinalRssStateTests, comparisonOperatorAlphaLonDiffers)
+{
+  ::ad::rss::state::LongitudinalRssState valueA = mValue;
+  ::ad::rss::world::LongitudinalRssAccelerationValues alphaLon;
+  ::ad::physics::Acceleration alphaLonAccelMax(1e2);
+  alphaLon.accelMax = alphaLonAccelMax;
+  ::ad::physics::Acceleration alphaLonBrakeMax(1e2);
+  alphaLon.brakeMax = alphaLonBrakeMax;
+  ::ad::physics::Acceleration alphaLonBrakeMin(1e2);
+  alphaLon.brakeMin = alphaLonBrakeMin;
+  ::ad::physics::Acceleration alphaLonBrakeMinCorrect(1e2);
+  alphaLonBrakeMinCorrect = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
+  alphaLon.brakeMinCorrect = alphaLonBrakeMinCorrect;
+  alphaLon.brakeMinCorrect = alphaLon.brakeMin;
+  alphaLon.brakeMin = alphaLon.brakeMax;
+  alphaLon.brakeMax = alphaLon.brakeMin;
+  alphaLon.brakeMin = alphaLon.brakeMinCorrect;
+  valueA.alphaLon = alphaLon;
+  ::ad::rss::state::LongitudinalRssState valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
 TEST_F(LongitudinalRssStateTests, comparisonOperatorRssStateInformationDiffers)
 {
   ::ad::rss::state::LongitudinalRssState valueA = mValue;
@@ -124,3 +170,7 @@ TEST_F(LongitudinalRssStateTests, comparisonOperatorRssStateInformationDiffers)
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
+
+#if defined(__clang__) && (__clang_major__ >= 7)
+#pragma GCC diagnostic pop
+#endif

@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1917
+ * Generator Version : 11.0.0-1988
  */
 
 #pragma once
@@ -22,6 +22,7 @@
 #include <sstream>
 #include "ad/rss/state/LongitudinalResponse.hpp"
 #include "ad/rss/state/RssStateInformation.hpp"
+#include "ad/rss/world/LongitudinalRssAccelerationValues.hpp"
 /*!
  * @brief namespace ad
  */
@@ -99,7 +100,7 @@ struct LongitudinalRssState
    */
   bool operator==(const LongitudinalRssState &other) const
   {
-    return (isSafe == other.isSafe) && (response == other.response)
+    return (isSafe == other.isSafe) && (response == other.response) && (alphaLon == other.alphaLon)
       && (rssStateInformation == other.rssStateInformation);
   }
 
@@ -124,6 +125,11 @@ struct LongitudinalRssState
    * required response in longitudinal direction
    */
   ::ad::rss::state::LongitudinalResponse response{::ad::rss::state::LongitudinalResponse::BrakeMin};
+
+  /*!
+   * RSS dynamics values along longitudinal coordinate system axis.
+   */
+  ::ad::rss::world::LongitudinalRssAccelerationValues alphaLon;
 
   /*!
    * Information on the evaluation of the Rss state.
@@ -170,6 +176,9 @@ inline std::ostream &operator<<(std::ostream &os, LongitudinalRssState const &_v
   os << ",";
   os << "response:";
   os << _value.response;
+  os << ",";
+  os << "alphaLon:";
+  os << _value.alphaLon;
   os << ",";
   os << "rssStateInformation:";
   os << _value.rssStateInformation;

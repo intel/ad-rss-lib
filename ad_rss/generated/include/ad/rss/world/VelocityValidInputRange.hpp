@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1917
+ * Generator Version : 11.0.0-1988
  */
 
 #pragma once
@@ -35,8 +35,8 @@
  * \note the specified input range is defined by the ranges of all members, plus:
  *       ::ad::physics::Speed(0.) <= speedLonMin <= speedLonMax
  *       speedLonMin <= speedLonMax <= ::ad::physics::Speed(100.)
- *       ::ad::physics::Speed(-10.) <= speedLatMin <= speedLatMax
- *       speedLatMin <= speedLatMax <= ::ad::physics::Speed(10.)
+ *       ::ad::physics::Speed(-100.) <= speedLatMin <= speedLatMax
+ *       speedLatMin <= speedLatMax <= ::ad::physics::Speed(100.)
  */
 inline bool withinValidInputRange(::ad::rss::world::Velocity const &input, bool const logErrors = true)
 {
@@ -82,21 +82,21 @@ inline bool withinValidInputRange(::ad::rss::world::Velocity const &input, bool 
 
   if (inValidInputRange)
   {
-    inValidInputRange = (::ad::physics::Speed(-10.) <= input.speedLatMin) && (input.speedLatMin <= input.speedLatMax);
+    inValidInputRange = (::ad::physics::Speed(-100.) <= input.speedLatMin) && (input.speedLatMin <= input.speedLatMax);
     if (!inValidInputRange && logErrors)
     {
       spdlog::error(
         "withinValidInputRange(::ad::rss::world::Velocity)>> {} element {} out of valid input range [{}, {}]",
         input,
         input.speedLatMin,
-        ::ad::physics::Speed(-10.),
+        ::ad::physics::Speed(-100.),
         input.speedLatMax); // LCOV_EXCL_BR_LINE
     }
   }
 
   if (inValidInputRange)
   {
-    inValidInputRange = (input.speedLatMin <= input.speedLatMax) && (input.speedLatMax <= ::ad::physics::Speed(10.));
+    inValidInputRange = (input.speedLatMin <= input.speedLatMax) && (input.speedLatMax <= ::ad::physics::Speed(100.));
     if (!inValidInputRange && logErrors)
     {
       spdlog::error(
@@ -104,7 +104,7 @@ inline bool withinValidInputRange(::ad::rss::world::Velocity const &input, bool 
         input,
         input.speedLatMax,
         input.speedLatMin,
-        ::ad::physics::Speed(10.)); // LCOV_EXCL_BR_LINE
+        ::ad::physics::Speed(100.)); // LCOV_EXCL_BR_LINE
     }
   }
 

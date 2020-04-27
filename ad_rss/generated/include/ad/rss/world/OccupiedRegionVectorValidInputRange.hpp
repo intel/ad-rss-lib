@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1917
+ * Generator Version : 11.0.0-1988
  */
 
 #pragma once
@@ -33,12 +33,12 @@
  * \returns \c true if OccupiedRegionVector is considered to be within the specified input range
  *
  * \note the specified input range is defined by
- *       0 <= \c input.size() <= 1000
+ *       1 <= \c input.size() <= 1000
  *       and the ranges of all vector elements
  */
 inline bool withinValidInputRange(::ad::rss::world::OccupiedRegionVector const &input, bool const logErrors = true)
 {
-  bool inValidInputRange = (input.size() <= std::size_t(1000));
+  bool inValidInputRange = ((std::size_t(1)) <= input.size()) && (input.size() <= std::size_t(1000));
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::world::OccupiedRegionVector)>> {}, invalid input range",

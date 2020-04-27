@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1917
+ * Generator Version : 11.0.0-1988
  */
 
 #pragma once
@@ -22,6 +22,7 @@
 #include <sstream>
 #include "ad/rss/state/LateralResponse.hpp"
 #include "ad/rss/state/RssStateInformation.hpp"
+#include "ad/rss/world/LateralRssAccelerationValues.hpp"
 /*!
  * @brief namespace ad
  */
@@ -99,7 +100,7 @@ struct LateralRssState
    */
   bool operator==(const LateralRssState &other) const
   {
-    return (isSafe == other.isSafe) && (response == other.response)
+    return (isSafe == other.isSafe) && (response == other.response) && (alphaLat == other.alphaLat)
       && (rssStateInformation == other.rssStateInformation);
   }
 
@@ -124,6 +125,11 @@ struct LateralRssState
    * required response in lateral direction
    */
   ::ad::rss::state::LateralResponse response;
+
+  /*!
+   * RSS dynamics values along lateral coordinate system axis.
+   */
+  ::ad::rss::world::LateralRssAccelerationValues alphaLat;
 
   /*!
    * Information on the evaluation of the Rss state.
@@ -170,6 +176,9 @@ inline std::ostream &operator<<(std::ostream &os, LateralRssState const &_value)
   os << ",";
   os << "response:";
   os << _value.response;
+  os << ",";
+  os << "alphaLat:";
+  os << _value.alphaLat;
   os << ",";
   os << "rssStateInformation:";
   os << _value.rssStateInformation;
