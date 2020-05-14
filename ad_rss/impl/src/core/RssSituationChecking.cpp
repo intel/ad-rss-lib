@@ -176,27 +176,24 @@ bool RssSituationChecking::checkSituations(situation::SituationSnapshot const &s
     rssStateSnapshot.individualResponses.clear();
 
     bool egoUnstructuredSceneStateInfoCalculated = false; // only calculate once on first unstructured scene
-    for (auto const &situation : situationSnapshot.situations)
+    for (auto it = situationSnapshot.situations.begin(); (it != situationSnapshot.situations.end()) && result; ++it)
     {
+      auto situation = *it;
       if ((situation.situationType == ad::rss::situation::SituationType::Unstructured)
           && !egoUnstructuredSceneStateInfoCalculated)
       {
         egoUnstructuredSceneStateInfoCalculated = true;
-        mUnstructuredSceneChecker->calculateUnstructuredSceneStateInfo(
+        result = mUnstructuredSceneChecker->calculateUnstructuredSceneStateInfo(
           situation.egoVehicleState, rssStateSnapshot.unstructuredSceneEgoInformation);
       }
-      state::RssState rssState;
-      bool const checkResult = checkSituationInputRangeChecked(situation, rssState);
-      if (checkResult)
+      if (result)
       {
+        state::RssState rssState;
+        result = checkSituationInputRangeChecked(situation, rssState);
         rssStateSnapshot.individualResponses.push_back(rssState);
       }
-      else
-      {
-        result = false;
-        break;
-      }
     }
+    mUnstructuredSceneChecker->updateStates();
   }
   catch (...)
   {

@@ -27,9 +27,9 @@ namespace unstructured {
 
 const double TrajectoryVehicle::maxRadius = 1000.0;
 
-bool TrajectoryVehicle::getMaxTrajectory(::ad::rss::situation::VehicleState const &vehicleState,
-                                         ad::rss::unstructured::Polygon &brakePolygon,
-                                         ad::rss::unstructured::Polygon &continueForwardPolygon)
+bool TrajectoryVehicle::calculateTrajectorySets(::ad::rss::situation::VehicleState const &vehicleState,
+                                                ad::rss::unstructured::Polygon &brakePolygon,
+                                                ad::rss::unstructured::Polygon &continueForwardPolygon)
 {
   ad::physics::Duration timeToStop;
   auto result = ad::rss::situation::calculateTimeToStop(vehicleState.objectState.speed,
@@ -38,24 +38,45 @@ bool TrajectoryVehicle::getMaxTrajectory(::ad::rss::situation::VehicleState cons
                                                         vehicleState.dynamics.alphaLon.accelMax,
                                                         vehicleState.dynamics.alphaLon.brakeMin,
                                                         timeToStop);
+  ad::rss::unstructured::Polygon continueForwardPolygonPart;
   if (result)
   {
     // continue forward with vehicleState.dynamics.alphaLon.accelMax
-    auto continueForwardPolygonPart
+    continueForwardPolygonPart
       = createTrajectorySet(vehicleState, timeToStop, vehicleState.dynamics.alphaLon.accelMax, "green");
     // brake with vehicleState.dynamics.alphaLon.brakeMin
     brakePolygon = createTrajectorySet(vehicleState, timeToStop, vehicleState.dynamics.alphaLon.brakeMin, "red");
 
-    // the continue forward polygon also contains the brakePolygon, therefore join them
-    std::vector<Polygon> unionPolygons;
-    boost::geometry::union_(brakePolygon.outer(), continueForwardPolygonPart.outer(), unionPolygons);
-    if (unionPolygons.size() != 1)
+    if (!checkAndFixPolygon(brakePolygon, "brake"))
     {
-      return false;
+      result = false;
     }
-    else
+  }
+
+  // the continue forward polygon also contains the brakePolygon, therefore join them (if possible)
+  if (result)
+  {
+    result = checkAndFixPolygon(continueForwardPolygonPart, "continueForward");
+    if (result)
     {
-      continueForwardPolygon = unionPolygons[0];
+      std::vector<Polygon> unionPolygons;
+      boost::geometry::union_(brakePolygon.outer(), continueForwardPolygonPart.outer(), unionPolygons);
+      if (unionPolygons.size() != 1)
+      {
+        SPDLOG_DEBUG("Could not calculate final continue forward polygon. Expected 1 polygon after union, found {}",
+                     unionPolygons.size());
+        result = false;
+      }
+      else
+      {
+        continueForwardPolygon = unionPolygons[0];
+      }
+    }
+
+    if (!result)
+    {
+      continueForwardPolygon = continueForwardPolygonPart;
+      result = true;
     }
   }
   return result;
@@ -182,7 +203,6 @@ ad::rss::unstructured::Line TrajectoryVehicle::calculateSide(Trajectory const &s
   {
     auto vehiclePt = getVehicleCorner(sidePts.front(), dimension, cornerBack);
     boost::geometry::append(maxLine, vehiclePt);
-    // DebugDrawer::getInstance()->drawPoint(vehiclePt.x(), vehiclePt.y(), "red", ns + "first");
   }
   int idx = 0;
   for (Trajectory::const_iterator it = sidePts.begin(); it != sidePts.end(); ++it)
@@ -200,23 +220,12 @@ ad::rss::unstructured::Line TrajectoryVehicle::calculateSide(Trajectory const &s
       ad::rss::unstructured::Line vehicleSideLine;
       boost::geometry::append(vehicleSideLine, getVehicleCorner(pt, dimension, cornerFront));
       boost::geometry::append(vehicleSideLine, getVehicleCorner(pt, dimension, cornerBack));
-
-      std::vector<ad::rss::unstructured::Point> intersections;
-      boost::geometry::intersection(lastVehicleSideLine, vehicleSideLine, intersections);
-      if (!intersections.empty())
-      {
-        vehiclePt = intersections.front();
-      }
-      else
-      {
-        vehiclePt = getVehicleCorner(pt, dimension, cornerFront);
-      }
+      vehiclePt = getVehicleCorner(pt, dimension, cornerFront);
       lastVehicleSideLine = vehicleSideLine;
     }
     if (addPoint)
     {
       boost::geometry::append(maxLine, vehiclePt);
-      // DebugDrawer::getInstance()->drawPoint(vehiclePt.x(), vehiclePt.y(), "red", ns + "x" + std::to_string(idx));
     }
     idx++;
   }
@@ -225,7 +234,6 @@ ad::rss::unstructured::Line TrajectoryVehicle::calculateSide(Trajectory const &s
   {
     auto vehiclePt = getVehicleCorner(sidePts.back(), dimension, cornerFront);
     boost::geometry::append(maxLine, vehiclePt);
-    // DebugDrawer::getInstance()->drawPoint(vehiclePt.x(), vehiclePt.y(), "red", ns + "last");
   }
 
   // remove similar points
@@ -244,8 +252,6 @@ ad::rss::unstructured::Line TrajectoryVehicle::calculateSide(Trajectory const &s
       ++it;
     }
   }
-
-  removeSpikes(0.7, maxLine);
   return maxLine;
 }
 
@@ -315,7 +321,7 @@ Trajectory TrajectoryVehicle::createTrajectory(ad::rss::situation::VehicleState 
     if ((currentTime == ad::physics::Duration(0.0)) || (currentSpeed > ad::physics::Speed::getPrecision()))
     {
       //-- calculate radius --
-      // until response time, it changes depending on the yawRate
+      // until response time, it changes depending on the yawRate and speed
       // after response time, it's fixed
       ad::physics::Distance currentRadius;
       if (currentTime < vehicleState.dynamics.responseTime)
@@ -374,7 +380,7 @@ Trajectory TrajectoryVehicle::createTrajectory(ad::rss::situation::VehicleState 
       distanceSoFar = currentDistance;
 
       auto heading = TrajectoryHeading::straight;
-      if (std::abs(currentRadius) <= 200)
+      if (std::abs(currentRadius) <= ad::physics::Distance(maxRadius))
       {
         if (std::abs(currentRadius) < vehicleState.dynamics.unstructuredSettings.vehicleMinRadius)
         {

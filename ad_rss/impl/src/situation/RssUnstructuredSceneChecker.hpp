@@ -82,21 +82,33 @@ public:
                                      Situation const &situation,
                                      state::RssState &rssState);
 
-  void calculateUnstructuredSceneStateInfo(::ad::rss::situation::VehicleState const &egoState,
+  bool calculateUnstructuredSceneStateInfo(::ad::rss::situation::VehicleState const &egoState,
                                            ::ad::rss::state::UnstructuredSceneStateInformation &stateInfo);
+
+  void updateStates();
 
 private:
   void convertPolygon(unstructured::Polygon const &polygon, world::UnstructuredTrajectorySet &trajectorySet);
 
-  bool calculateState(::ad::rss::situation::VehicleState const &egoState,
-                      ::ad::rss::situation::VehicleState const &otherState,
-                      state::UnstructuredSceneRssState &rssState);
+  bool calculateState(Situation const &situation, state::UnstructuredSceneRssState &rssState);
 
-  bool getMaxTrajectory(::ad::rss::situation::VehicleState const &vehicleState,
-                        ad::rss::unstructured::Polygon &brakePolygon,
-                        ad::rss::unstructured::Polygon &continueForwardPolygon);
+  bool calculateTrajectorySets(::ad::rss::situation::VehicleState const &vehicleState,
+                               ad::rss::unstructured::Polygon &brakePolygon,
+                               ad::rss::unstructured::Polygon &continueForwardPolygon);
 
-  bool mLastIsSafeBrakeOtherHasPrio{false};
+  /**
+   * @brief typedef for the mapping of situation id to the corresponding otherMustBrake value before the danger
+   * threshold time
+   */
+  typedef std::map<situation::SituationId, bool> OtherMustBrakeStateBeforeDangerThresholdTimeMap;
+
+  /**
+   * @brief the state of each situation before the danger threshold time
+   *
+   * Needs to be stored to check which is the required behaviour to solve the situation
+   */
+  OtherMustBrakeStateBeforeDangerThresholdTimeMap mOtherMustBrakeStatesBeforeDangerThresholdTime;
+  OtherMustBrakeStateBeforeDangerThresholdTimeMap mNewOtherMustBrakeStatesBeforeDangerThresholdTime;
 };
 
 } // namespace situation

@@ -33,15 +33,16 @@ RssUnstructuredSceneChecker::~RssUnstructuredSceneChecker()
 {
 }
 
-void RssUnstructuredSceneChecker::calculateUnstructuredSceneStateInfo(
+bool RssUnstructuredSceneChecker::calculateUnstructuredSceneStateInfo(
   ::ad::rss::situation::VehicleState const &vehicleState,
   ::ad::rss::state::UnstructuredSceneStateInformation &stateInfo)
 {
   unstructured::Polygon brake;
   unstructured::Polygon continueForward;
-  getMaxTrajectory(vehicleState, brake, continueForward);
+  auto result = calculateTrajectorySets(vehicleState, brake, continueForward);
   convertPolygon(brake, stateInfo.brakeTrajectorySet);
   convertPolygon(continueForward, stateInfo.continueForwardTrajectorySet);
+  return result;
 }
 
 bool RssUnstructuredSceneChecker::calculateRssStateUnstructured(world::TimeIndex const &timeIndex,
@@ -49,8 +50,13 @@ bool RssUnstructuredSceneChecker::calculateRssStateUnstructured(world::TimeIndex
                                                                 state::RssState &rssState)
 {
   // TODO: does definition 20 mean that we need to use stopping time of ego-vehicle (instead of stopping time of other)
-  calculateUnstructuredSceneStateInfo(situation.otherVehicleState, rssState.unstructuredSceneState.rssStateInformation);
-  return calculateState(situation.egoVehicleState, situation.otherVehicleState, rssState.unstructuredSceneState);
+  auto result = calculateUnstructuredSceneStateInfo(situation.otherVehicleState,
+                                                    rssState.unstructuredSceneState.rssStateInformation);
+  if (result)
+  {
+    result = calculateState(situation, rssState.unstructuredSceneState);
+  }
+  return result;
 }
 
 void RssUnstructuredSceneChecker::convertPolygon(unstructured::Polygon const &polygon,
@@ -65,111 +71,121 @@ void RssUnstructuredSceneChecker::convertPolygon(unstructured::Polygon const &po
   }
 }
 
-bool RssUnstructuredSceneChecker::calculateState(::ad::rss::situation::VehicleState const &egoState,
-                                                 ::ad::rss::situation::VehicleState const &otherState,
-                                                 state::UnstructuredSceneRssState &rssState)
+bool RssUnstructuredSceneChecker::calculateState(Situation const &situation, state::UnstructuredSceneRssState &rssState)
 {
   bool result = true;
 
   // TODO get rid of duplicated calculation
   ::ad::rss::state::UnstructuredSceneStateInformation egoStateInfo;
-  calculateUnstructuredSceneStateInfo(egoState, egoStateInfo);
+  result = calculateUnstructuredSceneStateInfo(situation.egoVehicleState, egoStateInfo);
 
-  auto const &egoBrake = egoStateInfo.brakeTrajectorySet;
-  auto const &egoContinueForward = egoStateInfo.continueForwardTrajectorySet;
-  auto const &opponentBrake = rssState.rssStateInformation.brakeTrajectorySet;
-  auto const &opponentContinueForward = rssState.rssStateInformation.continueForwardTrajectorySet;
-
-  // check if distance is safe
-  bool egoBrakeOtherContinueForwardOverlap = ad::rss::unstructured::collides(egoBrake, opponentContinueForward);
-  bool otherBrakeEgoContinueForwardOverlap = ad::rss::unstructured::collides(opponentBrake, egoContinueForward);
-  bool egoBrakeOtherBrakeOverlap = ad::rss::unstructured::collides(egoBrake, opponentBrake);
-
-  bool isSafeBrakeEgoHasPrio = !egoBrakeOtherContinueForwardOverlap && otherBrakeEgoContinueForwardOverlap;
-  bool isSafeBrakeOtherHasPrio = !otherBrakeEgoContinueForwardOverlap && egoBrakeOtherContinueForwardOverlap;
-  bool isSafeBrakeBoth = !egoBrakeOtherBrakeOverlap;
-
-  auto isSafe = isSafeBrakeOtherHasPrio || isSafeBrakeEgoHasPrio || isSafeBrakeBoth;
-
-  DrivingMode mode{DrivingMode::Invalid};
-
-  if (isSafe)
+  if (result)
   {
-    SPDLOG_INFO("is safe. Store values.");
-    mLastIsSafeBrakeOtherHasPrio = isSafeBrakeOtherHasPrio;
-    mode = DrivingMode::ContinueForward;
-  }
-  else
-  {
-    // not safe
+    auto const &egoBrake = egoStateInfo.brakeTrajectorySet;
+    auto const &egoContinueForward = egoStateInfo.continueForwardTrajectorySet;
+    auto const &opponentBrake = rssState.rssStateInformation.brakeTrajectorySet;
+    auto const &opponentContinueForward = rssState.rssStateInformation.continueForwardTrajectorySet;
 
-    // Rule 1: If both cars were already at a full stop, then one can drive away from other vehicle
-    if (((egoState.objectState.speed == ad::physics::Speed(0.))
-         && (otherState.objectState.speed == ad::physics::Speed(0.))))
+    // check if distance is safe
+    bool egoBrakeOtherContinueForwardOverlap = ad::rss::unstructured::collides(egoBrake, opponentContinueForward);
+    bool otherBrakeEgoContinueForwardOverlap = ad::rss::unstructured::collides(opponentBrake, egoContinueForward);
+    bool egoBrakeOtherBrakeOverlap = ad::rss::unstructured::collides(egoBrake, opponentBrake);
+
+    bool isSafeEgoMustBrake = !egoBrakeOtherContinueForwardOverlap && otherBrakeEgoContinueForwardOverlap;
+    bool isSafeOtherMustBrake = !otherBrakeEgoContinueForwardOverlap && egoBrakeOtherContinueForwardOverlap;
+    bool isSafeBrakeBoth = !egoBrakeOtherBrakeOverlap;
+
+    auto isSafe = isSafeEgoMustBrake || isSafeOtherMustBrake || isSafeBrakeBoth;
+
+    DrivingMode mode{DrivingMode::Invalid};
+
+    if (isSafe)
     {
-      SPDLOG_INFO("Rule 1: both stopped, unsafe distance -> drive away.");
-      mode = DrivingMode::DriveAway;
+      SPDLOG_INFO("Situation {} safe. Store value otherMustBrake: {}",
+                  situation.situationId,
+                  isSafeOtherMustBrake ? "true" : "false");
+      mNewOtherMustBrakeStatesBeforeDangerThresholdTime[situation.situationId] = isSafeOtherMustBrake;
+      mode = DrivingMode::ContinueForward;
     }
-
-    // Rule 2: If:
-    // - ego-brake and other-continue-forward not overlap
-    // and
-    // - other-brake and ego-continue-forward overlap
-    if ((mode == DrivingMode::Invalid) && mLastIsSafeBrakeOtherHasPrio)
+    else
     {
-      if (egoState.objectState.speed > ad::physics::Speed(0.))
+      // not safe
+      bool lastOtherMustBrake = false;
+      auto foundStateIt = mOtherMustBrakeStatesBeforeDangerThresholdTime.find(situation.situationId);
+      if (foundStateIt != mOtherMustBrakeStatesBeforeDangerThresholdTime.end())
       {
-        SPDLOG_INFO("Rule 2: opponent is moving -> continue forward");
-        mode = DrivingMode::ContinueForward;
+        lastOtherMustBrake = foundStateIt->second;
+        mNewOtherMustBrakeStatesBeforeDangerThresholdTime[situation.situationId] = lastOtherMustBrake;
       }
-      else
+
+      // Rule 1: If both cars were already at a full stop, then one can drive away from other vehicle
+      if (((situation.egoVehicleState.objectState.speed == ad::physics::Speed(0.))
+           && (situation.otherVehicleState.objectState.speed == ad::physics::Speed(0.))))
       {
-        SPDLOG_INFO("Rule 2: opponent is stopped -> drive away");
+        SPDLOG_INFO("Situation {} Rule 1: both stopped, unsafe distance -> drive away.", situation.situationId);
         mode = DrivingMode::DriveAway;
       }
+
+      // Rule 2: If:
+      // - ego-brake and other-continue-forward not overlap
+      // and
+      // - other-brake and ego-continue-forward overlap
+      if ((mode == DrivingMode::Invalid) && lastOtherMustBrake)
+      {
+        if (situation.egoVehicleState.objectState.speed > ad::physics::Speed(0.))
+        {
+          SPDLOG_INFO("Situation {} Rule 2: opponent is moving -> continue forward", situation.situationId);
+          mode = DrivingMode::ContinueForward;
+        }
+        else
+        {
+          SPDLOG_INFO("Situation {} Rule 2: opponent is stopped -> drive away", situation.situationId);
+          mode = DrivingMode::DriveAway;
+        }
+      }
+
+      // Rule 3: Brake
+      if (mode == DrivingMode::Invalid)
+      {
+        SPDLOG_INFO("Situation {} Rule 3: brake (brake collides with other brake)", situation.situationId);
+        mode = DrivingMode::Brake;
+      }
     }
 
-    // Rule 3: Brake
-    if (mode == DrivingMode::Invalid)
+    switch (mode)
     {
-      SPDLOG_INFO("Rule 3: brake (brake collides with other brake)");
-      mode = DrivingMode::Brake;
-    }
-  }
+      case DrivingMode::ContinueForward:
+        rssState.response = state::UnstructuredSceneResponse::ContinueForward;
+        rssState.isSafe = true;
+        break;
+      case DrivingMode::Brake:
+        rssState.response = state::UnstructuredSceneResponse::Brake;
+        rssState.isSafe = false;
+        break;
+      case DrivingMode::DriveAway:
+      {
+        ad::rss::unstructured::getAllowedDrivingCorridorWhenBothStopped(
+          ad::rss::unstructured::toPoint(situation.otherVehicleState.objectState.centerPoint),
+          ad::rss::unstructured::toPoint(situation.egoVehicleState.objectState.centerPoint),
+          situation.egoVehicleState.dynamics.unstructuredSettings.driveAwayMaxAngle,
+          rssState.headingRange);
 
-  switch (mode)
-  {
-    case DrivingMode::ContinueForward:
-      rssState.response = state::UnstructuredSceneResponse::ContinueForward;
-      rssState.isSafe = true;
-      break;
-    case DrivingMode::Brake:
-      rssState.response = state::UnstructuredSceneResponse::Brake;
-      rssState.isSafe = false;
-      break;
-    case DrivingMode::DriveAway:
-    {
-      ad::rss::unstructured::getAllowedDrivingCorridorWhenBothStopped(
-        ad::rss::unstructured::toPoint(otherState.objectState.centerPoint),
-        ad::rss::unstructured::toPoint(egoState.objectState.centerPoint),
-        egoState.dynamics.unstructuredSettings.driveAwayMaxAngle,
-        rssState.headingRange);
-
-      rssState.response = state::UnstructuredSceneResponse::DriveAway;
-      rssState.isSafe = false;
-      break;
+        rssState.response = state::UnstructuredSceneResponse::DriveAway;
+        rssState.isSafe = false;
+        break;
+      }
+      case DrivingMode::Invalid:
+        result = false;
+        break;
     }
-    case DrivingMode::Invalid:
-      result = false;
-      break;
   }
 
   return result;
 }
 
-bool RssUnstructuredSceneChecker::getMaxTrajectory(::ad::rss::situation::VehicleState const &vehicleState,
-                                                   ad::rss::unstructured::Polygon &brakePolygon,
-                                                   ad::rss::unstructured::Polygon &continueForwardPolygon)
+bool RssUnstructuredSceneChecker::calculateTrajectorySets(::ad::rss::situation::VehicleState const &vehicleState,
+                                                          ad::rss::unstructured::Polygon &brakePolygon,
+                                                          ad::rss::unstructured::Polygon &continueForwardPolygon)
 {
   bool result = true;
   switch (vehicleState.objectType)
@@ -181,13 +197,13 @@ bool RssUnstructuredSceneChecker::getMaxTrajectory(::ad::rss::situation::Vehicle
     case ::ad::rss::world::ObjectType::OtherVehicle:
     {
       ad::rss::unstructured::TrajectoryVehicle trajectoryVehicle;
-      trajectoryVehicle.getMaxTrajectory(vehicleState, brakePolygon, continueForwardPolygon);
+      result = trajectoryVehicle.calculateTrajectorySets(vehicleState, brakePolygon, continueForwardPolygon);
       break;
     }
     case ::ad::rss::world::ObjectType::Pedestrian:
     {
       ad::rss::unstructured::TrajectoryPedestrian trajectoryPedestrian;
-      trajectoryPedestrian.getMaxTrajectory(vehicleState, brakePolygon, continueForwardPolygon);
+      result = trajectoryPedestrian.calculateTrajectorySets(vehicleState, brakePolygon, continueForwardPolygon);
       break;
     }
     case ::ad::rss::world::ObjectType::ArtificialObject:
@@ -195,6 +211,13 @@ bool RssUnstructuredSceneChecker::getMaxTrajectory(::ad::rss::situation::Vehicle
       break;
   }
   return result;
+}
+
+void RssUnstructuredSceneChecker::updateStates()
+{
+  mOtherMustBrakeStatesBeforeDangerThresholdTime.clear();
+  mOtherMustBrakeStatesBeforeDangerThresholdTime.swap(mNewOtherMustBrakeStatesBeforeDangerThresholdTime);
+  mNewOtherMustBrakeStatesBeforeDangerThresholdTime.clear();
 }
 
 } // namespace situation

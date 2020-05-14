@@ -185,9 +185,9 @@ TrajectoryPoint TrajectoryPedestrian::calculateTrajectoryEndPoint(ad::physics::D
   return TrajectoryPoint(finalPoint, finalAngle, heading);
 }
 
-bool TrajectoryPedestrian::getMaxTrajectory(::ad::rss::situation::VehicleState const &vehicleState,
-                                            ad::rss::unstructured::Polygon &brakePolygon,
-                                            ad::rss::unstructured::Polygon &continueForwardPolygon)
+bool TrajectoryPedestrian::calculateTrajectorySets(::ad::rss::situation::VehicleState const &vehicleState,
+                                                   ad::rss::unstructured::Polygon &brakePolygon,
+                                                   ad::rss::unstructured::Polygon &continueForwardPolygon)
 {
   ad::physics::Duration timeToStop;
   auto result = ad::rss::situation::calculateTimeToStop(vehicleState.objectState.speed,

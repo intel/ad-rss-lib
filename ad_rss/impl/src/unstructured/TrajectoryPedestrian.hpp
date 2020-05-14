@@ -38,9 +38,9 @@ public:
   {
   }
 
-  bool getMaxTrajectory(::ad::rss::situation::VehicleState const &vehicleState,
-                        ad::rss::unstructured::Polygon &brakePolygon,
-                        ad::rss::unstructured::Polygon &continueForwardPolygon);
+  bool calculateTrajectorySets(::ad::rss::situation::VehicleState const &vehicleState,
+                               ad::rss::unstructured::Polygon &brakePolygon,
+                               ad::rss::unstructured::Polygon &continueForwardPolygon);
 
 private:
   bool calculateTrajectorySet(ad::physics::Duration const &currentTime,

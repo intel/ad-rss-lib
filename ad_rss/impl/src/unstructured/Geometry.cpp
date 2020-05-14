@@ -131,47 +131,6 @@ void splitLineAtIntersectionPoint(ad::rss::unstructured::Point intersectionPoint
   }
 }
 
-void removeSpikes(double const limitAngle, ad::rss::unstructured::Line &line)
-{
-  // remove spikes
-  double lastAngle;
-  auto it = line.begin();
-  while (it != line.end())
-  {
-    auto pointRemoved = true;
-    while ((it != line.begin()) && pointRemoved && ((it + 1) != line.end()))
-    {
-      auto const predecessor = it - 1;
-      auto const current = it;
-      auto const successor = it + 1;
-
-      // calculate angle between predecessor, current and successor. If it's smaller than a threshold, the point is
-      // removed
-      // using Law of cosines
-      auto a = sqrt((predecessor->x() - current->x()) * (predecessor->x() - current->x())
-                    + (predecessor->y() - current->y())
-                      * (predecessor->y() - current->y())); // distance between predecessor and current
-      auto b = sqrt((current->x() - successor->x()) * (current->x() - successor->x())
-                    + (current->y() - successor->y())
-                      * (current->y() - successor->y())); // distance between current and successor
-      auto c = sqrt((successor->x() - predecessor->x()) * (successor->x() - predecessor->x())
-                    + (successor->y() - predecessor->y())
-                      * (successor->y() - predecessor->y())); // distance between successor and predecessor
-
-      auto angle = std::acos((a * a + b * b - c * c) / (2 * a * b));
-      if (angle < limitAngle)
-      {
-        it = line.erase(it);
-      }
-      else
-      {
-        pointRemoved = false;
-      }
-    }
-    it++;
-  }
-}
-
 ad::physics::Angle normalizeAngle(ad::physics::Angle const &yaw)
 {
   return ad::physics::Angle(std::fmod(std::fmod(static_cast<double>(yaw), 2 * M_PI) + 2 * M_PI, 2 * M_PI));

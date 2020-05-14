@@ -72,6 +72,8 @@ Point getVehicleCorner(TrajectoryPoint const &point,
                        ad::physics::Dimension2D const &dimension,
                        VehicleCorner const corner);
 
+bool checkAndFixPolygon(Polygon &polygon, std::string const &description);
+
 #if defined(DRAW_TRAJECTORIES)
 
 inline void
