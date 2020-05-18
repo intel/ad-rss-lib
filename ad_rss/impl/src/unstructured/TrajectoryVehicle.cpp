@@ -27,18 +27,18 @@ namespace unstructured {
 
 const double TrajectoryVehicle::maxRadius = 1000.0;
 
-bool TrajectoryVehicle::calculateTrajectorySets(::ad::rss::situation::VehicleState const &vehicleState,
-                                                ad::rss::unstructured::Polygon &brakePolygon,
-                                                ad::rss::unstructured::Polygon &continueForwardPolygon)
+bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &vehicleState,
+                                                Polygon &brakePolygon,
+                                                Polygon &continueForwardPolygon)
 {
   ad::physics::Duration timeToStop;
-  auto result = ad::rss::situation::calculateTimeToStop(vehicleState.objectState.speed,
-                                                        vehicleState.dynamics.responseTime,
-                                                        vehicleState.dynamics.maxSpeed,
-                                                        vehicleState.dynamics.alphaLon.accelMax,
-                                                        vehicleState.dynamics.alphaLon.brakeMin,
-                                                        timeToStop);
-  ad::rss::unstructured::Polygon continueForwardPolygonPart;
+  auto result = situation::calculateTimeToStop(vehicleState.objectState.speed,
+                                               vehicleState.dynamics.responseTime,
+                                               vehicleState.dynamics.maxSpeed,
+                                               vehicleState.dynamics.alphaLon.accelMax,
+                                               vehicleState.dynamics.alphaLon.brakeMin,
+                                               timeToStop);
+  Polygon continueForwardPolygonPart;
   if (result)
   {
     // continue forward with vehicleState.dynamics.alphaLon.accelMax
@@ -82,81 +82,72 @@ bool TrajectoryVehicle::calculateTrajectorySets(::ad::rss::situation::VehicleSta
   return result;
 }
 
-TrajectoryPoint TrajectoryVehicle::getMaxTrajectoryPoint(ad::rss::situation::VehicleState const &vehicleState,
-                                                         ad::physics::Duration const &inputTime,
-                                                         ad::physics::Acceleration const &aUntilResponseTime,
-                                                         ad::physics::Acceleration const &aAfterResponseTime,
-                                                         ad::physics::RatioValue const &yawRateRatio,
-                                                         std::string const &ns) const
+TrajectoryPoint TrajectoryVehicle::getFinalTrajectoryPoint(situation::VehicleState const &vehicleState,
+                                                           ad::physics::Duration const &duration,
+                                                           ad::physics::Acceleration const &aUntilResponseTime,
+                                                           ad::physics::Acceleration const &aAfterResponseTime,
+                                                           ad::physics::RatioValue const &yawRateChangeRatio,
+                                                           std::string const &debugNamespace) const
 {
-  auto trajectory = createTrajectory(vehicleState, inputTime, aUntilResponseTime, aAfterResponseTime, yawRateRatio, ns);
+  auto trajectory
+    = createTrajectory(vehicleState, duration, aUntilResponseTime, aAfterResponseTime, yawRateChangeRatio);
 #if DRAW_TRAJECTORIES
-  // Draw trajectory
-  ad::rss::unstructured::Line linePts;
+  Line linePts;
   for (auto const &pt : trajectory)
   {
     linePts.push_back(pt.position);
   }
-  DEBUG_DRAWING_LINE(linePts, "orange", ns + "_trajectory");
+  DEBUG_DRAWING_LINE(linePts, "orange", debugNamespace + "_trajectory");
 #endif
 #if DRAW_FINAL_POSITION
-  drawFinalPosition(trajectory.back(), vehicleState.objectState.dimension, ns + "_vehicle_final_position");
+  drawFinalPosition(trajectory.back(), vehicleState.objectState.dimension, debugNamespace + "_vehicle_final_position");
 #endif
   return trajectory.back();
 }
 
-ad::rss::unstructured::Polygon
-TrajectoryVehicle::createTrajectorySet(ad::rss::situation::VehicleState const &vehicleState,
-                                       ad::physics::Duration currentTime,
-                                       ad::physics::Acceleration aAfterResponseTime,
-                                       std::string const &ns)
+Polygon TrajectoryVehicle::createTrajectorySet(situation::VehicleState const &vehicleState,
+                                               ad::physics::Duration duration,
+                                               ad::physics::Acceleration aAfterResponseTime,
+                                               std::string const &debugNamespace)
 {
   // calculate left/right end points
   auto accelStepSize = (vehicleState.dynamics.alphaLon.accelMax - vehicleState.dynamics.alphaLon.brakeMax) / 20.0;
   Trajectory rightTrajectoryMax;
   Trajectory leftTrajectoryMax;
+  // max yaw-change-rate, brakeMax to accelMax in x steps
+  for (ad::physics::Acceleration accel = vehicleState.dynamics.alphaLon.brakeMax;
+       accel <= vehicleState.dynamics.alphaLon.accelMax;
+       accel += accelStepSize)
   {
-    // max yaw-change-rate, brakeMax to accelMax in x steps
-    int idx = 0;
-    for (ad::physics::Acceleration accel = vehicleState.dynamics.alphaLon.brakeMax;
-         accel <= vehicleState.dynamics.alphaLon.accelMax;
-         accel += accelStepSize)
-    {
-      auto right = getMaxTrajectoryPoint(
-        vehicleState, currentTime, accel, aAfterResponseTime, -1.0, ns + "_right" + std::to_string(idx));
-      rightTrajectoryMax.push_back(right);
+    auto right = getFinalTrajectoryPoint(
+      vehicleState, duration, accel, aAfterResponseTime, -1.0, debugNamespace + "_right_" + std::to_string(accel));
+    rightTrajectoryMax.push_back(right);
 
-      auto left = getMaxTrajectoryPoint(
-        vehicleState, currentTime, accel, aAfterResponseTime, 1.0, ns + "_left" + std::to_string(idx));
-      leftTrajectoryMax.push_back(left);
-      idx++;
-    }
+    auto left = getFinalTrajectoryPoint(
+      vehicleState, duration, accel, aAfterResponseTime, 1.0, debugNamespace + "_left_" + std::to_string(accel));
+    leftTrajectoryMax.push_back(left);
   }
 
   // calculate front end points
   Trajectory frontTrajectoryMax;
+  for (auto yawRateChangeRatio = ad::physics::RatioValue(-1.0); yawRateChangeRatio <= ad::physics::RatioValue(1.0);
+       yawRateChangeRatio += ad::physics::RatioValue(0.1))
   {
-    int idx = 0;
-    for (auto yawRateRatio = ad::physics::RatioValue(-1.0); yawRateRatio <= ad::physics::RatioValue(1.0);
-         yawRateRatio += ad::physics::RatioValue(0.1))
-    {
-      auto pt = getMaxTrajectoryPoint(vehicleState,
-                                      currentTime,
+    auto pt = getFinalTrajectoryPoint(vehicleState,
+                                      duration,
                                       vehicleState.dynamics.alphaLon.accelMax,
                                       aAfterResponseTime,
-                                      yawRateRatio,
-                                      ns + "_front" + std::to_string(idx));
-      frontTrajectoryMax.push_back(pt);
-      idx++;
-    }
+                                      yawRateChangeRatio,
+                                      debugNamespace + "_front_" + std::to_string(yawRateChangeRatio));
+    frontTrajectoryMax.push_back(pt);
   }
   // at this point all relevant end points are calculated
 
   // Calculate sides with respect to vehicle dimensions
-  auto leftBorder = calculateSide(
-    leftTrajectoryMax, TrajectoryHeading::left, vehicleState.objectState.dimension, ns + "_left_with_dimension");
-  auto rightBorder = calculateSide(
-    rightTrajectoryMax, TrajectoryHeading::right, vehicleState.objectState.dimension, ns + "_right_with_dimension");
+  auto leftBorder
+    = calculateTrajectorySetSide(leftTrajectoryMax, TrajectoryHeading::left, vehicleState.objectState.dimension);
+  auto rightBorder
+    = calculateTrajectorySetSide(rightTrajectoryMax, TrajectoryHeading::right, vehicleState.objectState.dimension);
 
   // Calculate front side
   // Two modes can be active:
@@ -165,7 +156,7 @@ TrajectoryVehicle::createTrajectorySet(ad::rss::situation::VehicleState const &v
   auto frontBorder = calculateFrontWithDimension(frontTrajectoryMax, vehicleState.objectState.dimension);
 
   // construct the resulting polygon
-  ad::rss::unstructured::Polygon output;
+  Polygon output;
   boost::geometry::append(output, rightBorder);
   boost::geometry::append(output, frontBorder);
   std::reverse(leftBorder.begin(), leftBorder.end());
@@ -174,130 +165,16 @@ TrajectoryVehicle::createTrajectorySet(ad::rss::situation::VehicleState const &v
   return output;
 }
 
-ad::rss::unstructured::Line TrajectoryVehicle::calculateSide(Trajectory const &sidePts,
-                                                             TrajectoryHeading const side,
-                                                             ad::physics::Dimension2D const &dimension,
-                                                             std::string const &ns) const
-{
-  TrajectoryHeading headingToTest;
-  VehicleCorner cornerBack;
-  VehicleCorner cornerFront;
-  if (side == TrajectoryHeading::left)
-  {
-    headingToTest = TrajectoryHeading::right;
-    cornerBack = VehicleCorner::backLeft;
-    cornerFront = VehicleCorner::frontLeft;
-  }
-  else
-  {
-    headingToTest = TrajectoryHeading::left;
-    cornerBack = VehicleCorner::backRight;
-    cornerFront = VehicleCorner::frontRight;
-  }
-  TrajectoryHeading heading = getTrajectoryHeading(sidePts);
-
-  ad::rss::unstructured::Line lastVehicleSideLine;
-
-  ad::rss::unstructured::Line maxLine;
-  if (heading != headingToTest)
-  {
-    auto vehiclePt = getVehicleCorner(sidePts.front(), dimension, cornerBack);
-    boost::geometry::append(maxLine, vehiclePt);
-  }
-  int idx = 0;
-  for (Trajectory::const_iterator it = sidePts.begin(); it != sidePts.end(); ++it)
-  {
-    auto const &pt = *it;
-    ad::rss::unstructured::Point vehiclePt;
-
-    bool addPoint = true;
-    if (heading == headingToTest)
-    {
-      vehiclePt = getVehicleCorner(pt, dimension, cornerBack);
-    }
-    else
-    {
-      ad::rss::unstructured::Line vehicleSideLine;
-      boost::geometry::append(vehicleSideLine, getVehicleCorner(pt, dimension, cornerFront));
-      boost::geometry::append(vehicleSideLine, getVehicleCorner(pt, dimension, cornerBack));
-      vehiclePt = getVehicleCorner(pt, dimension, cornerFront);
-      lastVehicleSideLine = vehicleSideLine;
-    }
-    if (addPoint)
-    {
-      boost::geometry::append(maxLine, vehiclePt);
-    }
-    idx++;
-  }
-
-  if (heading == headingToTest)
-  {
-    auto vehiclePt = getVehicleCorner(sidePts.back(), dimension, cornerFront);
-    boost::geometry::append(maxLine, vehiclePt);
-  }
-
-  // remove similar points
-  auto it = maxLine.begin();
-  auto epsilon = ad::physics::Distance(0.01);
-  while (it != maxLine.end())
-  {
-    // remove odd numbers
-    if ((it != maxLine.begin()) && (fabs((it - 1)->x() - it->x()) < epsilon)
-        && (fabs((it - 1)->y() - it->y()) < epsilon))
-    {
-      it = maxLine.erase(it);
-    }
-    else
-    {
-      ++it;
-    }
-  }
-  return maxLine;
-}
-
-TrajectoryHeading TrajectoryVehicle::getTrajectoryHeading(Trajectory const &trajectoryPoints) const
-{
-  // majority of headings decide (imprecise if heading changes)
-  auto headingVote = 0; // negative means right
-  for (auto const &pt : trajectoryPoints)
-  {
-    switch (pt.heading)
-    {
-      case TrajectoryHeading::right:
-        headingVote -= 1;
-        break;
-      case TrajectoryHeading::left:
-        headingVote += 1;
-        break;
-      case TrajectoryHeading::straight:
-        break;
-    }
-  }
-
-  TrajectoryHeading heading;
-  if (headingVote < 0)
-  {
-    heading = TrajectoryHeading::right;
-  }
-  else
-  {
-    heading = TrajectoryHeading::left;
-  }
-  return heading;
-}
-
-Trajectory TrajectoryVehicle::createTrajectory(ad::rss::situation::VehicleState const &vehicleState,
-                                               ad::physics::Duration const &inputTime,
+Trajectory TrajectoryVehicle::createTrajectory(situation::VehicleState const &vehicleState,
+                                               ad::physics::Duration const &duration,
                                                ad::physics::Acceleration const &aUntilResponseTime,
                                                ad::physics::Acceleration const &aAfterResponseTime,
-                                               ad::physics::RatioValue const &yawRateRatio,
-                                               std::string const &ns) const
+                                               ad::physics::RatioValue const &yawRateChangeRatio) const
 {
   Trajectory trajectory;
-  std::vector<ad::rss::unstructured::Point> points;
+  std::vector<Point> points;
 
-  auto currentPoint
-    = ad::rss::unstructured::Point(vehicleState.objectState.centerPoint.x, vehicleState.objectState.centerPoint.y);
+  auto currentPoint = Point(vehicleState.objectState.centerPoint.x, vehicleState.objectState.centerPoint.y);
   auto currentAngle = vehicleState.objectState.yaw - ad::physics::Angle(M_PI / 2.0);
   ad::physics::Speed currentSpeed;
   ad::physics::Distance distanceSoFar = ad::physics::Distance(0.0);
@@ -307,16 +184,16 @@ Trajectory TrajectoryVehicle::createTrajectory(ad::rss::situation::VehicleState 
   // right -> straight -> left
   auto headingChangedLeftToStraight = false;
   auto headingChangedStraightToRight = false;
-  for (auto currentTime = ad::physics::Duration(0.0); currentTime <= inputTime;
+  for (auto currentTime = ad::physics::Duration(0.0); currentTime <= duration;
        currentTime += vehicleState.dynamics.unstructuredSettings.vehicleTrajectoryCalculationStep)
   {
-    ad::rss::situation::calculateSpeed(currentTime,
-                                       vehicleState.objectState.speed,
-                                       vehicleState.dynamics.responseTime,
-                                       vehicleState.dynamics.maxSpeed,
-                                       aUntilResponseTime,
-                                       aAfterResponseTime,
-                                       currentSpeed);
+    situation::calculateSpeed(currentTime,
+                              vehicleState.objectState.speed,
+                              vehicleState.dynamics.responseTime,
+                              vehicleState.dynamics.maxSpeed,
+                              aUntilResponseTime,
+                              aAfterResponseTime,
+                              currentSpeed);
 
     if ((currentTime == ad::physics::Duration(0.0)) || (currentSpeed > ad::physics::Speed::getPrecision()))
     {
@@ -326,10 +203,10 @@ Trajectory TrajectoryVehicle::createTrajectory(ad::rss::situation::VehicleState 
       ad::physics::Distance currentRadius;
       if (currentTime < vehicleState.dynamics.responseTime)
       {
-        auto currentYawRate = calculateYawRate(currentTime,
-                                               vehicleState,
+        auto currentYawRate = calculateYawRate(vehicleState,
+                                               currentTime,
                                                vehicleState.dynamics.unstructuredSettings.vehicleYawRateChangePerSecond,
-                                               yawRateRatio);
+                                               yawRateChangeRatio);
         if (currentYawRate == ad::physics::AngularVelocity(0.))
         {
           currentRadius = ad::physics::Distance(TrajectoryVehicle::maxRadius);
@@ -342,18 +219,18 @@ Trajectory TrajectoryVehicle::createTrajectory(ad::rss::situation::VehicleState 
       else
       {
         auto yawRateResponseTime
-          = calculateYawRate(vehicleState.dynamics.responseTime,
-                             vehicleState,
+          = calculateYawRate(vehicleState,
+                             vehicleState.dynamics.responseTime,
                              vehicleState.dynamics.unstructuredSettings.vehicleYawRateChangePerSecond,
-                             yawRateRatio);
+                             yawRateChangeRatio);
         ad::physics::Speed speedAtResponseTime;
-        ad::rss::situation::calculateSpeed(vehicleState.dynamics.responseTime,
-                                           vehicleState.objectState.speed,
-                                           vehicleState.dynamics.responseTime,
-                                           vehicleState.dynamics.maxSpeed,
-                                           aUntilResponseTime,
-                                           aAfterResponseTime,
-                                           speedAtResponseTime);
+        situation::calculateSpeed(vehicleState.dynamics.responseTime,
+                                  vehicleState.objectState.speed,
+                                  vehicleState.dynamics.responseTime,
+                                  vehicleState.dynamics.maxSpeed,
+                                  aUntilResponseTime,
+                                  aAfterResponseTime,
+                                  speedAtResponseTime);
         currentRadius = static_cast<double>(speedAtResponseTime) / yawRateResponseTime; // TODO limit
         if (std::abs(currentRadius) < vehicleState.dynamics.unstructuredSettings.vehicleMinRadius)
         {
@@ -369,13 +246,13 @@ Trajectory TrajectoryVehicle::createTrajectory(ad::rss::situation::VehicleState 
       }
 
       ad::physics::Distance currentDistance;
-      ad::rss::situation::calculateDistanceOffset(currentTime,
-                                                  vehicleState.objectState.speed,
-                                                  vehicleState.dynamics.responseTime,
-                                                  vehicleState.dynamics.maxSpeed,
-                                                  aUntilResponseTime,
-                                                  aAfterResponseTime,
-                                                  currentDistance);
+      situation::calculateDistanceOffset(currentTime,
+                                         vehicleState.objectState.speed,
+                                         vehicleState.dynamics.responseTime,
+                                         vehicleState.dynamics.maxSpeed,
+                                         aUntilResponseTime,
+                                         aAfterResponseTime,
+                                         currentDistance);
       auto distanceToNextPoint = currentDistance - distanceSoFar;
       distanceSoFar = currentDistance;
 
@@ -405,8 +282,8 @@ Trajectory TrajectoryVehicle::createTrajectory(ad::rss::situation::VehicleState 
         {
           heading = TrajectoryHeading::right;
         }
-        ad::rss::unstructured::Point circleOrigin = ad::rss::unstructured::Point(
-          currentPoint.x() - currentRadius * cos(currentAngle), currentPoint.y() - currentRadius * sin(currentAngle));
+        Point circleOrigin = Point(currentPoint.x() - currentRadius * cos(currentAngle),
+                                   currentPoint.y() - currentRadius * sin(currentAngle));
 
         currentAngle += static_cast<double>(distanceToNextPoint) / currentRadius;
 
@@ -416,9 +293,9 @@ Trajectory TrajectoryVehicle::createTrajectory(ad::rss::situation::VehicleState 
       {
         // go straight
         currentAngle += static_cast<double>(distanceToNextPoint) / currentRadius;
-        currentPoint = ad::rss::unstructured::Point(
-          currentPoint.x() + distanceToNextPoint * cos(static_cast<double>(currentAngle) + M_PI / 2.0),
-          currentPoint.y() + distanceToNextPoint * sin(static_cast<double>(currentAngle) + M_PI / 2.0));
+        currentPoint
+          = Point(currentPoint.x() + distanceToNextPoint * cos(static_cast<double>(currentAngle) + M_PI / 2.0),
+                  currentPoint.y() + distanceToNextPoint * sin(static_cast<double>(currentAngle) + M_PI / 2.0));
       }
       if (!trajectory.empty())
       {
@@ -462,37 +339,147 @@ Trajectory TrajectoryVehicle::createTrajectory(ad::rss::situation::VehicleState 
   return trajectory;
 }
 
-ad::physics::AngularVelocity
-TrajectoryVehicle::calculateYawRate(ad::physics::Duration const &currentTime,
-                                    ad::rss::situation::VehicleState const &vehicleState,
-                                    ad::physics::ParametricValue const &yawRateDiffPerSecond,
-                                    ad::physics::RatioValue const &yawRateRatio) const
+ad::physics::AngularVelocity TrajectoryVehicle::calculateYawRate(situation::VehicleState const &vehicleState,
+                                                                 ad::physics::Duration const &duration,
+                                                                 ad::physics::ParametricValue const &maxYawRateChange,
+                                                                 ad::physics::RatioValue const &ratio) const
 {
-  auto calcTime = currentTime;
+  auto calcTime = duration;
   if (calcTime > vehicleState.dynamics.responseTime)
   {
     calcTime = vehicleState.dynamics.responseTime;
   }
 
   return vehicleState.objectState.yawRate
-    + yawRateDiffPerSecond * static_cast<double>(calcTime) * static_cast<double>(yawRateRatio);
+    + maxYawRateChange * static_cast<double>(calcTime) * static_cast<double>(ratio);
 }
 
-Line TrajectoryVehicle::calculateFrontWithDimension(Trajectory const &trajectory,
-                                                    ad::physics::Dimension2D const &dimension)
+Line TrajectoryVehicle::calculateTrajectorySetSide(std::vector<TrajectoryPoint> const &finalTrajectoryPoints,
+                                                   TrajectoryHeading const side,
+                                                   ad::physics::Dimension2D const &vehicleDimension) const
 {
-  // create lines through lefts, rights, centers
-  ad::rss::unstructured::Line leftLine, rightLine, centerLine;
-  for (auto const &pt : trajectory)
+  TrajectoryHeading headingToTest;
+  VehicleCorner cornerBack;
+  VehicleCorner cornerFront;
+  if (side == TrajectoryHeading::left)
   {
-    boost::geometry::append(centerLine, pt.position);
-    boost::geometry::append(leftLine, getVehicleCorner(pt, dimension, VehicleCorner::frontLeft));
-    boost::geometry::append(rightLine, getVehicleCorner(pt, dimension, VehicleCorner::frontRight));
+    headingToTest = TrajectoryHeading::right;
+    cornerBack = VehicleCorner::backLeft;
+    cornerFront = VehicleCorner::frontLeft;
+  }
+  else
+  {
+    headingToTest = TrajectoryHeading::left;
+    cornerBack = VehicleCorner::backRight;
+    cornerFront = VehicleCorner::frontRight;
+  }
+  TrajectoryHeading heading = getTrajectoryHeading(finalTrajectoryPoints);
+
+  Line lastVehicleSideLine;
+
+  Line maxLine;
+  if (heading != headingToTest)
+  {
+    auto vehiclePt = getVehicleCorner(finalTrajectoryPoints.front(), vehicleDimension, cornerBack);
+    boost::geometry::append(maxLine, vehiclePt);
   }
 
-  std::vector<ad::rss::unstructured::Point> intersections;
+  for (Trajectory::const_iterator it = finalTrajectoryPoints.begin(); it != finalTrajectoryPoints.end(); ++it)
+  {
+    auto const &pt = *it;
+    Point vehiclePt;
+
+    bool addPoint = true;
+    if (heading == headingToTest)
+    {
+      vehiclePt = getVehicleCorner(pt, vehicleDimension, cornerBack);
+    }
+    else
+    {
+      Line vehicleSideLine;
+      boost::geometry::append(vehicleSideLine, getVehicleCorner(pt, vehicleDimension, cornerFront));
+      boost::geometry::append(vehicleSideLine, getVehicleCorner(pt, vehicleDimension, cornerBack));
+      vehiclePt = getVehicleCorner(pt, vehicleDimension, cornerFront);
+      lastVehicleSideLine = vehicleSideLine;
+    }
+    if (addPoint)
+    {
+      boost::geometry::append(maxLine, vehiclePt);
+    }
+  }
+
+  if (heading == headingToTest)
+  {
+    auto vehiclePt = getVehicleCorner(finalTrajectoryPoints.back(), vehicleDimension, cornerFront);
+    boost::geometry::append(maxLine, vehiclePt);
+  }
+
+  // remove similar points
+  auto it = maxLine.begin();
+  auto epsilon = ad::physics::Distance(0.01);
+  while (it != maxLine.end())
+  {
+    // remove odd numbers
+    if ((it != maxLine.begin()) && (fabs((it - 1)->x() - it->x()) < epsilon)
+        && (fabs((it - 1)->y() - it->y()) < epsilon))
+    {
+      it = maxLine.erase(it);
+    }
+    else
+    {
+      ++it;
+    }
+  }
+  return maxLine;
+}
+
+TrajectoryHeading
+TrajectoryVehicle::getTrajectoryHeading(std::vector<TrajectoryPoint> const &finalTrajectoryPoints) const
+{
+  // majority of headings decide (imprecise if heading changes)
+  auto headingVote = 0; // negative means right
+  for (auto const &pt : finalTrajectoryPoints)
+  {
+    switch (pt.heading)
+    {
+      case TrajectoryHeading::right:
+        headingVote -= 1;
+        break;
+      case TrajectoryHeading::left:
+        headingVote += 1;
+        break;
+      case TrajectoryHeading::straight:
+        break;
+    }
+  }
+
+  TrajectoryHeading heading;
+  if (headingVote < 0)
+  {
+    heading = TrajectoryHeading::right;
+  }
+  else
+  {
+    heading = TrajectoryHeading::left;
+  }
+  return heading;
+}
+
+Line TrajectoryVehicle::calculateFrontWithDimension(std::vector<TrajectoryPoint> const &finalTrajectoryPoints,
+                                                    ad::physics::Dimension2D const &vehicleDimension)
+{
+  // create lines through lefts, rights, centers
+  Line leftLine, rightLine, centerLine;
+  for (auto const &pt : finalTrajectoryPoints)
+  {
+    boost::geometry::append(centerLine, pt.position);
+    boost::geometry::append(leftLine, getVehicleCorner(pt, vehicleDimension, VehicleCorner::frontLeft));
+    boost::geometry::append(rightLine, getVehicleCorner(pt, vehicleDimension, VehicleCorner::frontRight));
+  }
+
+  std::vector<Point> intersections;
   boost::geometry::intersection(leftLine, rightLine, intersections);
-  ad::rss::unstructured::Line resultBorder;
+  Line resultBorder;
   if (intersections.empty())
   {
     //(1) no intersection, use more distant line as resultBorder
@@ -513,12 +500,12 @@ Line TrajectoryVehicle::calculateFrontWithDimension(Trajectory const &trajectory
     auto const &intersectionPoint = intersections.back();
 
     // split lines into pieces before and after the intersection point
-    ad::rss::unstructured::Line leftBeforeSection;
-    ad::rss::unstructured::Line leftAfterSection;
+    Line leftBeforeSection;
+    Line leftAfterSection;
     splitLineAtIntersectionPoint(intersectionPoint, leftLine, leftBeforeSection, leftAfterSection);
 
-    ad::rss::unstructured::Line rightBeforeSection;
-    ad::rss::unstructured::Line rightAfterSection;
+    Line rightBeforeSection;
+    Line rightAfterSection;
     splitLineAtIntersectionPoint(intersectionPoint, rightLine, rightBeforeSection, rightAfterSection);
 
     // calculate if before or after part is more distant, append them accordingly

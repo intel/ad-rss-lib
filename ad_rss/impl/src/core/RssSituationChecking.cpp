@@ -114,6 +114,9 @@ bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation 
                               situation.egoVehicleState.dynamics,
                               IsSafe::No);
 
+    ::ad::rss::state::UnstructuredSceneStateInformation unstructuredEgoStateInfo;
+    auto unstructuredEgoStateInfoCalculated = false;
+
     switch (situation.situationType)
     {
       case situation::SituationType::NotRelevant:
@@ -137,7 +140,17 @@ bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation 
         result = mIntersectionChecker->calculateRssStateIntersection(mCurrentTimeIndex, situation, rssState);
         break;
       case situation::SituationType::Unstructured:
-        result = mUnstructuredSceneChecker->calculateRssStateUnstructured(mCurrentTimeIndex, situation, rssState);
+        if (!unstructuredEgoStateInfoCalculated)
+        {
+          unstructuredEgoStateInfoCalculated = true;
+          result = mUnstructuredSceneChecker->calculateUnstructuredSceneStateInfo(situation.egoVehicleState,
+                                                                                  unstructuredEgoStateInfo);
+        }
+        if (result)
+        {
+          result = mUnstructuredSceneChecker->calculateRssStateUnstructured(
+            mCurrentTimeIndex, situation, unstructuredEgoStateInfo, rssState);
+        }
         break;
       default:
         spdlog::error("RssSituationChecking::checkSituationInputRangeChecked>> Invalid situation type {}", situation);

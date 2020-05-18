@@ -35,18 +35,31 @@ namespace unstructured {
 
 // Specify the basic type
 typedef boost::geometry::model::d2::point_xy<double> Point;
-
-typedef boost::geometry::model::linestring<Point> linestring_type;
 typedef boost::geometry::model::linestring<Point> Line;
-typedef boost::geometry::model::multi_linestring<linestring_type> MultiLineString;
+typedef boost::geometry::model::multi_linestring<Line> MultiLine;
 typedef boost::geometry::model::polygon<Point, false> Polygon; // counterclockwise
 typedef boost::geometry::model::multi_point<Point> MultiPoint;
 typedef boost::geometry::model::box<Point> Box;
 
+/**
+ * @brief convert a Distance2D to Point
+ *
+ * @param[in] distance distance to convert
+ *
+ * @returns point
+ */
 inline Point toPoint(ad::physics::Distance2D const &distance)
 {
   return Point(static_cast<double>(distance.x), static_cast<double>(distance.y));
 }
+
+/**
+ * @brief convert a Point to a Distance2D
+ *
+ * @param[in] point point to convert
+ *
+ * @returns distance
+ */
 inline ad::physics::Distance2D toDistance(Point const &point)
 {
   ad::physics::Distance2D distance;
@@ -55,46 +68,123 @@ inline ad::physics::Distance2D toDistance(Point const &point)
   return distance;
 }
 
-ad::physics::Angle normalizeAngle(ad::physics::Angle const &yaw);
+/**
+ * @brief convert a trajectory set to a polygon
+ *
+ * @param[in] trajectorySet trajectory set to convert
+ * @param[out] polygon converted polygon
+ */
+void toPolygon(world::UnstructuredTrajectorySet const &trajectorySet, Polygon &polygon);
 
+/**
+ * @brief convert a polygon to a trajectory set
+ *
+ * @param[in] polygon polygon to convert
+ * @param[out] trajectorySet converted trajectory set
+ */
+void toTrajectorySet(Polygon const &polygon, world::UnstructuredTrajectorySet &trajectorySet);
+
+/**
+ * @brief normalize an angle
+ *
+ * @param[in] angle angle to normalize
+ *
+ * @returns normalized angle
+ */
+ad::physics::Angle normalizeAngle(ad::physics::Angle const &angle);
+
+/**
+ * @brief check if an angle is within a range
+ *
+ * @param[in] angle angle to check
+ * @param[in] range angle range
+ *
+ * @returns true if inside angle range, otherwise false
+ */
 bool isInsideAngleRange(ad::physics::Angle const &angle, ad::physics::AngleRange const &range);
 
+/**
+ * @brief get the overlap between two angle ranges
+ *
+ * @param[in]  a            first angle range
+ * @param[in]  b            second angle range
+ * @param[out] overlapRange overlapping heading range
+ *
+ * @returns true if overlap exists, otherwise false
+ */
 bool getHeadingOverlap(ad::physics::AngleRange const &a,
                        ad::physics::AngleRange const &b,
-                       ad::rss::state::HeadingRange &overlapRange);
+                       state::HeadingRange &overlapRange);
 
-bool getHeadingOverlap(ad::physics::AngleRange const &angleRange, ad::rss::state::HeadingRange &overlapRange);
+/**
+ * @brief get the overlap between an angle range and a heading range
+ *
+ * @param[in]    a            angle range
+ * @param[inout] overlapRange overlapping heading range
+ *
+ * @returns true if overlap exists, otherwise false
+ */
+bool getHeadingOverlap(ad::physics::AngleRange const &angleRange, state::HeadingRange &overlapRange);
 
-ad::rss::unstructured::Point rotateAroundPoint(ad::rss::unstructured::Point const &absoluteOrigin,
-                                               ad::rss::unstructured::Point const &relativePoint,
-                                               ad::physics::Angle const &angle);
+/**
+ * @brief rotate a point around another point
+ *
+ * @param[in] origin         absolute origin
+ * @param[in] relativePoint  point to rotate, relative to origin
+ * @param[in] angle          angle to rotate the point
+ *
+ * @returns rotated point
+ */
+Point rotateAroundPoint(Point const &origin, Point const &relativePoint, ad::physics::Angle const &angle);
 
-ad::rss::unstructured::Point getPointOnCircle(ad::rss::unstructured::Point const &origin,
-                                              ad::physics::Distance const &radius,
-                                              ad::physics::Angle const &angle);
-ad::rss::unstructured::Point getCircleOrigin(ad::rss::unstructured::Point const &point,
-                                             ad::physics::Distance const &radius,
-                                             ad::physics::Angle const &angle);
+/**
+ * @brief calculate a point on a circle
+ *
+ * @param[in] origin absolute origin
+ * @param[in] radius radius of circle
+ * @param[in] angle  angle to rotate the point
+ *
+ * @returns resulting point
+ */
+Point getPointOnCircle(Point const &origin, ad::physics::Distance const &radius, ad::physics::Angle const &angle);
 
-ad::physics::Distance getDistance(ad::rss::unstructured::Point const &point1,
-                                  ad::rss::unstructured::Point const &point2);
+/**
+ * @brief calculate the circle origin
+ *
+ * @param[in] point  point on circle
+ * @param[in] radius radius of circle
+ * @param[in] angle  circle angle for point
+ *
+ * @returns circle origin
+ */
+Point getCircleOrigin(Point const &point, ad::physics::Distance const &radius, ad::physics::Angle const &angle);
 
+/**
+ * @brief calculate points on a circle arc
+ *
+ * @param[in]  origin           absolute origin
+ * @param[in]  radius           radius of circle
+ * @param[in]  from             starting angle
+ * @param[in]  delta            angle of the arc
+ * @param[in]  counterClockwise direction of the arc
+ * @param[out] geometry         geometry the calculated points are added to
+ */
 template <typename T>
-void drawCirclePart(T &line,
-                    ad::rss::unstructured::Point center,
-                    ad::physics::Distance const &radius,
-                    ad::physics::Angle const &from,
-                    ad::physics::Angle const &delta,
-                    bool const counterClockwise)
+void calculateCircleArc(Point origin,
+                        ad::physics::Distance const &radius,
+                        ad::physics::Angle const &from,
+                        ad::physics::Angle const &delta,
+                        bool const counterClockwise,
+                        T &geometry)
 {
-  ad::physics::Angle currentAngle = ad::rss::unstructured::normalizeAngle(from);
+  ad::physics::Angle currentAngle = normalizeAngle(from);
   ad::physics::Angle maxAngle;
   if (counterClockwise)
   {
     maxAngle = currentAngle + delta;
     while (currentAngle < maxAngle)
     {
-      boost::geometry::append(line, getPointOnCircle(center, radius, currentAngle));
+      boost::geometry::append(geometry, getPointOnCircle(origin, radius, currentAngle));
       currentAngle += 0.1;
     }
   }
@@ -103,34 +193,36 @@ void drawCirclePart(T &line,
     maxAngle = currentAngle - delta;
     while (currentAngle > maxAngle)
     {
-      boost::geometry::append(line, getPointOnCircle(center, radius, currentAngle));
+      boost::geometry::append(geometry, getPointOnCircle(origin, radius, currentAngle));
       currentAngle -= 0.1;
     }
   }
   if (currentAngle != maxAngle)
   {
-    boost::geometry::append(line, getPointOnCircle(center, radius, maxAngle));
+    boost::geometry::append(geometry, getPointOnCircle(origin, radius, maxAngle));
   }
 }
 
-bool getAllowedDrivingCorridorWhenBothStopped(ad::rss::unstructured::Point const &otherVehicleLocation,
-                                              ad::rss::unstructured::Point const &startingPoint,
-                                              ::ad::physics::Angle const &maxAllowedAngleWhenBothStopped,
-                                              ::ad::physics::AngleRange &range);
+/**
+ * @brief check if two trajectory sets collide
+ *
+ * @param[in]  trajectorySet1 first trajectory set
+ * @param[in]  trajectorySet2 second trajectory set
+ *
+ * @returns true if trajectory sets collide, otherwise false
+ */
+bool collides(world::UnstructuredTrajectorySet const &trajectorySet1,
+              world::UnstructuredTrajectorySet const &trajectorySet2);
 
-void convertTrajectorySet(ad::rss::world::UnstructuredTrajectorySet const &trajectorySet,
-                          ad::rss::unstructured::Polygon &polygon);
-
-bool collides(ad::rss::world::UnstructuredTrajectorySet area1, ad::rss::world::UnstructuredTrajectorySet area2);
-
-bool collides(ad::rss::unstructured::Polygon polygon1, ad::rss::unstructured::Point point);
-
-void splitLineAtIntersectionPoint(ad::rss::unstructured::Point intersectionPoint,
-                                  ad::rss::unstructured::Line const &line,
-                                  ad::rss::unstructured::Line &before,
-                                  ad::rss::unstructured::Line &after);
-
-void removeSpikes(double const limitAngle, ad::rss::unstructured::Line &line);
+/**
+ * @brief split a line at an intersection point
+ *
+ * @param[in]  intersectionPoint point to split a line at
+ * @param[in]  line              line to split
+ * @param[out] before            line before the intersection point
+ * @param[out] after             line after the intersection point
+ */
+void splitLineAtIntersectionPoint(Point const &intersectionPoint, Line const &line, Line &before, Line &after);
 
 } // namespace unstructured
 } // namespace rss

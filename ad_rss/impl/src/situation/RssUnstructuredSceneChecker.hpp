@@ -76,25 +76,49 @@ public:
    * @param[out] rssState  rssState of the ego vehicle
    *
    * @returns false if a failure occurred during calculations, true otherwise
-   *
    */
   bool calculateRssStateUnstructured(world::TimeIndex const &timeIndex,
                                      Situation const &situation,
+                                     state::UnstructuredSceneStateInformation const &egoStateInfo,
                                      state::RssState &rssState);
 
-  bool calculateUnstructuredSceneStateInfo(::ad::rss::situation::VehicleState const &egoState,
-                                           ::ad::rss::state::UnstructuredSceneStateInformation &stateInfo);
+  /**
+   * @brief Calculate the unstructured scene state info
+   *
+   * @param[in]  egoState state of the vehicle
+   * @param[out] stateInfo the calculated state info
+   *
+   * @returns false if a failure occurred during calculations, true otherwise
+   */
+  bool calculateUnstructuredSceneStateInfo(situation::VehicleState const &egoState,
+                                           state::UnstructuredSceneStateInformation &stateInfo) const;
 
+  /**
+   * @brief updates states, needs to be called after every situation checking loop
+   */
   void updateStates();
 
 private:
-  void convertPolygon(unstructured::Polygon const &polygon, world::UnstructuredTrajectorySet &trajectorySet);
+  bool calculateState(Situation const &situation,
+                      state::UnstructuredSceneStateInformation const &egoStateInfo,
+                      state::UnstructuredSceneRssState &rssState);
 
-  bool calculateState(Situation const &situation, state::UnstructuredSceneRssState &rssState);
+  bool calculateTrajectorySets(situation::VehicleState const &vehicleState,
+                               unstructured::Polygon &brakePolygon,
+                               unstructured::Polygon &continueForwardPolygon) const;
 
-  bool calculateTrajectorySets(::ad::rss::situation::VehicleState const &vehicleState,
-                               ad::rss::unstructured::Polygon &brakePolygon,
-                               ad::rss::unstructured::Polygon &continueForwardPolygon);
+  /**
+   * @brief calculate the angle range that is allowed to drive away
+   *
+   * @param[in]  otherVehicleLocation the location of the other vehicle
+   * @param[in]  trajectorySet2 second trajectory set
+   *
+   * @returns true if trajectory sets collide, otherwise false
+   */
+  bool calculateDriveAwayAngle(unstructured::Point const &otherVehicleLocation,
+                               unstructured::Point const &startingPoint,
+                               ::ad::physics::Angle const &maxAllowedAngleWhenBothStopped,
+                               ::ad::physics::AngleRange &range) const;
 
   /**
    * @brief typedef for the mapping of situation id to the corresponding otherMustBrake value before the danger

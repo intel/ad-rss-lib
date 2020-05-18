@@ -53,41 +53,64 @@ enum class VehicleCorner
 
 struct TrajectoryPoint
 {
-  TrajectoryPoint(ad::rss::unstructured::Point const &inPoint,
-                  ad::physics::Angle const &inAngle,
-                  TrajectoryHeading const &inHeading)
+  TrajectoryPoint(Point const &inPoint, ad::physics::Angle const &inAngle, TrajectoryHeading const &inHeading)
     : position(inPoint)
     , angle(inAngle)
     , heading(inHeading)
   {
   }
-  ad::rss::unstructured::Point position;
+  Point position;
   ad::physics::Angle angle;
   TrajectoryHeading heading;
 };
 
 using Trajectory = std::vector<TrajectoryPoint>;
 
+/**
+ * @brief get the point describing the corner of a vehicle
+ *
+ * @param[in] point            trajectory point
+ * @param[in] vehicleDimension vehicle dimension
+ * @param[in] corner           which corner to calculate
+ *
+ * @returns corner point of the vehicle
+ */
 Point getVehicleCorner(TrajectoryPoint const &point,
-                       ad::physics::Dimension2D const &dimension,
+                       ad::physics::Dimension2D const &vehicleDimension,
                        VehicleCorner const corner);
 
+/**
+ * @brief check if a polygon is valid. If not, try to fix it
+ *
+ * @param[in] polygon      trajectory point
+ * @param[in] description description for logging
+ *
+ * @returns true if valid, otherwise false
+ */
 bool checkAndFixPolygon(Polygon &polygon, std::string const &description);
 
 #if defined(DRAW_TRAJECTORIES)
-
-inline void
-drawFinalPosition(TrajectoryPoint const &pt, ad::physics::Dimension2D const &dimension, std::string const &ns)
+/**
+ * @brief debug drawing of a vehicle on  apoint of trajectory
+ *
+ * @param[in] point            trajectory point
+ * @param[in] vehicleDimension vehicle dimension
+ * @param[in] debugNamespace   namespace to use for debug drawings
+ *
+ */
+inline void drawFinalPosition(TrajectoryPoint const &point,
+                              ad::physics::Dimension2D const &vehicleDimension,
+                              std::string const &debugNamespace)
 {
   // draw final vehicle position
-  ad::rss::unstructured::Polygon polygon;
-  auto firstPoint = getVehicleCorner(pt, dimension, VehicleCorner::frontLeft);
+  Polygon polygon;
+  auto firstPoint = getVehicleCorner(point, vehicleDimension, VehicleCorner::frontLeft);
   boost::geometry::append(polygon, firstPoint);
-  boost::geometry::append(polygon, getVehicleCorner(pt, dimension, VehicleCorner::frontRight));
-  boost::geometry::append(polygon, getVehicleCorner(pt, dimension, VehicleCorner::backRight));
-  boost::geometry::append(polygon, getVehicleCorner(pt, dimension, VehicleCorner::backLeft));
+  boost::geometry::append(polygon, getVehicleCorner(point, vehicleDimension, VehicleCorner::frontRight));
+  boost::geometry::append(polygon, getVehicleCorner(point, vehicleDimension, VehicleCorner::backRight));
+  boost::geometry::append(polygon, getVehicleCorner(point, vehicleDimension, VehicleCorner::backLeft));
   boost::geometry::append(polygon, firstPoint);
-  DEBUG_DRAWING_POLYGON(polygon, "yellow", ns);
+  DEBUG_DRAWING_POLYGON(polygon, "yellow", debugNamespace);
 }
 #endif
 

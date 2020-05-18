@@ -27,7 +27,7 @@ namespace rss {
  */
 namespace unstructured {
 
-ad::rss::unstructured::Point rotateAroundPoint(ad::rss::unstructured::Point const &absoluteOrigin,
+ad::rss::unstructured::Point rotateAroundPoint(ad::rss::unstructured::Point const &origin,
                                                ad::rss::unstructured::Point const &relativePoint,
                                                ad::physics::Angle const &angle)
 {
@@ -35,8 +35,7 @@ ad::rss::unstructured::Point rotateAroundPoint(ad::rss::unstructured::Point cons
 
   boost::geometry::strategy::transform::rotate_transformer<boost::geometry::radian, double, 2, 2> rotate(
     static_cast<double>(-angle));
-  boost::geometry::strategy::transform::translate_transformer<double, 2, 2> translate(absoluteOrigin.x(),
-                                                                                      absoluteOrigin.y());
+  boost::geometry::strategy::transform::translate_transformer<double, 2, 2> translate(origin.x(), origin.y());
   boost::geometry::transform(resultPoint, resultPoint, rotate);
   boost::geometry::transform(resultPoint, resultPoint, translate);
   return resultPoint;
@@ -64,27 +63,7 @@ ad::physics::Distance getDistance(ad::rss::unstructured::Point const &point1,
                                     + (point1.y() - point2.y()) * (point1.y() - point2.y())));
 }
 
-bool getAllowedDrivingCorridorWhenBothStopped(ad::rss::unstructured::Point const &otherVehicleLocation,
-                                              ad::rss::unstructured::Point const &startingPoint,
-                                              ::ad::physics::Angle const &maxAllowedAngleWhenBothStopped,
-                                              ::ad::physics::AngleRange &range)
-{
-  auto substractedLocationVector = ad::rss::unstructured::Point((startingPoint.x() - otherVehicleLocation.x()),
-                                                                (startingPoint.y() - otherVehicleLocation.y()));
-
-  // get vector angle
-  double substractedLocationVectorAngle = std::atan2(static_cast<double>(substractedLocationVector.y()),
-                                                     static_cast<double>(substractedLocationVector.x()));
-
-  range.minimum
-    = ad::rss::unstructured::normalizeAngle(substractedLocationVectorAngle - maxAllowedAngleWhenBothStopped);
-  range.maximum
-    = ad::rss::unstructured::normalizeAngle(substractedLocationVectorAngle + maxAllowedAngleWhenBothStopped);
-  return true;
-}
-
-void convertTrajectorySet(ad::rss::world::UnstructuredTrajectorySet const &trajectorySet,
-                          ad::rss::unstructured::Polygon &polygon)
+void toPolygon(ad::rss::world::UnstructuredTrajectorySet const &trajectorySet, ad::rss::unstructured::Polygon &polygon)
 {
   for (auto const &distance : trajectorySet)
   {
@@ -92,21 +71,28 @@ void convertTrajectorySet(ad::rss::world::UnstructuredTrajectorySet const &traje
   }
 }
 
-bool collides(ad::rss::world::UnstructuredTrajectorySet area1, ad::rss::world::UnstructuredTrajectorySet area2)
+void toTrajectorySet(unstructured::Polygon const &polygon, world::UnstructuredTrajectorySet &trajectorySet)
 {
-  ad::rss::unstructured::Polygon polygon1, polygon2;
-  convertTrajectorySet(area1, polygon1);
-  convertTrajectorySet(area2, polygon2);
-  auto result = !boost::geometry::disjoint(polygon1, polygon2);
-  return result;
+  for (auto const &point : polygon.outer())
+  {
+    ad::physics::Distance2D distance;
+    distance.x = point.x();
+    distance.y = point.y();
+    trajectorySet.push_back(unstructured::toDistance(point));
+  }
 }
 
-bool collides(ad::rss::unstructured::Polygon polygon1, ad::rss::unstructured::Point point)
+bool collides(ad::rss::world::UnstructuredTrajectorySet const &trajectorySet1,
+              ad::rss::world::UnstructuredTrajectorySet const &trajectorySet2)
 {
-  return boost::geometry::within(point, polygon1);
+  ad::rss::unstructured::Polygon polygon1;
+  ad::rss::unstructured::Polygon polygon2;
+  toPolygon(trajectorySet1, polygon1);
+  toPolygon(trajectorySet2, polygon2);
+  return !boost::geometry::disjoint(polygon1, polygon2);
 }
 
-void splitLineAtIntersectionPoint(ad::rss::unstructured::Point intersectionPoint,
+void splitLineAtIntersectionPoint(ad::rss::unstructured::Point const &intersectionPoint,
                                   ad::rss::unstructured::Line const &line,
                                   ad::rss::unstructured::Line &before,
                                   ad::rss::unstructured::Line &after)
@@ -131,9 +117,9 @@ void splitLineAtIntersectionPoint(ad::rss::unstructured::Point intersectionPoint
   }
 }
 
-ad::physics::Angle normalizeAngle(ad::physics::Angle const &yaw)
+ad::physics::Angle normalizeAngle(ad::physics::Angle const &angle)
 {
-  return ad::physics::Angle(std::fmod(std::fmod(static_cast<double>(yaw), 2 * M_PI) + 2 * M_PI, 2 * M_PI));
+  return ad::physics::Angle(std::fmod(std::fmod(static_cast<double>(angle), 2 * M_PI) + 2 * M_PI, 2 * M_PI));
 }
 
 bool isInsideAngleRange(ad::physics::Angle const &angle, ad::physics::AngleRange const &range)

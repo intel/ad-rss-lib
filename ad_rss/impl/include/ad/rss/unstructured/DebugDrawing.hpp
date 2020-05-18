@@ -37,14 +37,14 @@ class DebugDrawing
 public:
   struct DebugLine
   {
-    ad::rss::unstructured::Line line;
+    Line line;
     std::string color{"white"};
     std::string ns;
   };
 
   struct DebugPolygon
   {
-    ad::rss::unstructured::Polygon polygon;
+    Polygon polygon;
     std::string color{"white"};
     std::string ns;
   };
@@ -53,26 +53,44 @@ public:
   {
   }
 
+  /**
+   * @brief singelton instance getter
+   */
   static DebugDrawing *getInstance()
   {
     static DebugDrawing *mSingleton = new DebugDrawing();
     return mSingleton;
   }
 
+  /**
+   * @brief clean up all geometries to draw (before a new cycle)
+   */
   void reset()
   {
     mLines.clear();
     mPolygons.clear();
   }
 
-  void drawLine(ad::rss::unstructured::Line const &line, std::string const &color = "white", std::string const &ns = "")
+  /**
+   * @brief draw a line
+   *
+   * @param[in] line line to draw
+   * @param[in] color line color
+   * @param[in] ns namespace to identify geometry
+   */
+  void drawLine(Line const &line, std::string const &color = "white", std::string const &ns = "")
   {
     mLines.push_back(DebugLine{line, color, ns});
   }
 
-  void drawPolygon(ad::rss::unstructured::Polygon const &polygon,
-                   std::string const &color = "white",
-                   std::string const &ns = "")
+  /**
+   * @brief draw a polygon
+   *
+   * @param[in] polygon polygon to draw
+   * @param[in] color line color
+   * @param[in] ns namespace to identify geometry
+   */
+  void drawPolygon(Polygon const &polygon, std::string const &color = "white", std::string const &ns = "")
   {
     mPolygons.push_back(DebugPolygon{polygon, color, ns});
   }
