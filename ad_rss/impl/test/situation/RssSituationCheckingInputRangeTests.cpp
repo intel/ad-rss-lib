@@ -33,18 +33,18 @@ protected:
 
   virtual void performTestRun()
   {
-    EXPECT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+    EXPECT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, rssStateSnaphot));
   }
   core::RssSituationChecking situationChecking;
   VehicleState leadingVehicle;
   VehicleState followingVehicle;
   Situation situation;
-  state::RssState rssState;
+  state::RssStateSnapshot rssStateSnaphot;
 };
 
 TEST_F(RssSituationCheckingInputRangeTests, validateTestSetup)
 {
-  EXPECT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  EXPECT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssStateSnaphot));
 }
 
 /**
@@ -282,7 +282,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_correct_deceleration_br
   situation.egoVehicleState.dynamics.alphaLon.brakeMax = Acceleration(-4.);
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = Acceleration(-4.);
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssStateSnaphot));
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, longitudinal_correct_deceleration_brake_min_equals_brake_min_correct)
@@ -291,7 +291,7 @@ TEST_F(RssSituationCheckingInputRangeTests, longitudinal_correct_deceleration_br
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = Acceleration(-3.);
   situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = Acceleration(-3.);
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssStateSnaphot));
 }
 
 TEST_F(RssSituationCheckingInputRangeTests,
@@ -301,7 +301,7 @@ TEST_F(RssSituationCheckingInputRangeTests,
   situation.egoVehicleState.dynamics.alphaLon.brakeMin = Acceleration(-3.);
   situation.egoVehicleState.dynamics.alphaLon.brakeMinCorrect = Acceleration(-3.);
 
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssStateSnaphot));
 }
 
 TEST_F(RssSituationCheckingInputRangeTests, situationSnapshotSizeRange)

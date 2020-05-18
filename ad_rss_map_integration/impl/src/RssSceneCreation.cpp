@@ -331,7 +331,7 @@ bool RssSceneCreation::appendStructuredScenes(::ad::rss::map::RssSceneCreator &s
 
             for (auto const &intersection : intersectionsOnRoute)
             {
-              if (!intersection->objectRouteCrossesIntersectionRoute(*intersectionOtherRoute))
+              if (!intersection->objectRouteCrossesIntersection(*intersectionOtherRoute))
               {
                 getLogger()->trace(
                   "RssSceneCreation::appendScenes[{}]>> found object route not crossing intersection on route:\n"
@@ -476,9 +476,6 @@ bool RssSceneCreation::appendRoadBoundaries(::ad::rss::world::ObjectId const &eg
     getLogger()->warn("RssSceneCreation::appendRoadBoundaries>> ego without occupied regions skipping.");
     return false;
   }
-  // for the analysis we are only interested in the near term route
-  ::ad::map::route::FullRoute route = inputRoute;
-  ::ad::map::route::shortenRouteToDistance(route, ::ad::physics::Distance(20.));
 
   if (inputRoute.roadSegments.empty())
   {

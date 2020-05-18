@@ -52,7 +52,9 @@ RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objec
 RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
                                          ::ad::rss::world::ObjectType const &objectType,
                                          ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions,
+                                         ::ad::map::match::ENUObjectPosition const &objectEnuPosition,
                                          ::ad::physics::Speed const &objectSpeed,
+                                         ::ad::physics::AngularVelocity const &objectYawRate,
                                          ::ad::rss::world::RssDynamics const &rssDynamics)
   : mObjectMapMatchedPosition(nullptr)
   , mMaxSpeed(0.)
@@ -65,7 +67,14 @@ RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objec
   mRssObject.velocity.speedLatMin = ::ad::physics::Speed(0.);
   mRssObject.velocity.speedLatMax = ::ad::physics::Speed(0.);
   mRssObject.occupiedRegions = objectOccupiedRegions;
+
+  mRssObject.state.yaw = ::ad::physics::Angle(static_cast<double>(objectEnuPosition.heading));
+  mRssObject.state.centerPoint.x = ::ad::physics::Distance(static_cast<double>(objectEnuPosition.centerPoint.x));
+  mRssObject.state.centerPoint.y = ::ad::physics::Distance(static_cast<double>(objectEnuPosition.centerPoint.y));
+  mRssObject.state.dimension.width = ::ad::physics::Distance(static_cast<double>(objectEnuPosition.dimension.width));
+  mRssObject.state.dimension.length = ::ad::physics::Distance(static_cast<double>(objectEnuPosition.dimension.length));
   mRssObject.state.speed = std::fabs(objectSpeed);
+  mRssObject.state.yawRate = objectYawRate;
 }
 
 ::ad::rss::world::Object const &RssObjectConversion::getRssObject() const

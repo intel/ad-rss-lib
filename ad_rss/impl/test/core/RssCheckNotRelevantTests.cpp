@@ -57,8 +57,8 @@ TEST_F(RssCheckNotRelevantTest, NotRelevant)
 using RssCheckNotRelevantOutOfMemoryTest = RssCheckNotRelevantTestBase<RssCheckOutOfMemoryTestBase>;
 TEST_P(RssCheckNotRelevantOutOfMemoryTest, outOfMemoryAnyTime)
 {
-  // throw at some vaules will succeed, but that's expected in this case as no actual calculations are performed.
-  performOutOfMemoryTest({3u, 5u, 6u});
+  // throw at some values will succeed, but that's expected in this case as no actual calculations are performed.
+  performOutOfMemoryTest({3u, 4u, 5u, 7u, 8u});
 }
 INSTANTIATE_TEST_CASE_P(Range, RssCheckNotRelevantOutOfMemoryTest, ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
 

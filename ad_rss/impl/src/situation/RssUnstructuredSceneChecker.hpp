@@ -38,7 +38,7 @@ namespace situation {
  * @brief Class to check whether an unstructured scene is safe and to determine the proper response for the situation
  *
  * Class performs required check to if situation is safe
- * TODOClass will maintain the previous state of the situation in order to provide the proper response.
+ * Class will maintain the previous state of the situation in order to provide the proper response.
  */
 class RssUnstructuredSceneChecker
 {
@@ -61,27 +61,29 @@ public:
   /**
    * @brief Constructor
    */
-  RssUnstructuredSceneChecker();
+  RssUnstructuredSceneChecker() = default;
 
   /**
    * @brief Destructor
    */
-  ~RssUnstructuredSceneChecker();
+  ~RssUnstructuredSceneChecker() = default;
 
   /**
    * @brief Calculate safety checks and determine required rssState for unstructured situations
    *
    * @param[in]  timeIndex the time index of the situation
    * @param[in]  situation situation to analyze
-   * @param[out] rssState  rssState of the ego vehicle
+   * @param[out] egoStateInfo  rssState of the ego vehicle (Be aware: only calculated/updated once per timestep)
+   * @param[out] rssState  rssState of the vehicle
    *
    * @returns false if a failure occurred during calculations, true otherwise
    */
   bool calculateRssStateUnstructured(world::TimeIndex const &timeIndex,
                                      Situation const &situation,
-                                     state::UnstructuredSceneStateInformation const &egoStateInfo,
+                                     state::UnstructuredSceneStateInformation &egoStateInfo,
                                      state::RssState &rssState);
 
+private:
   /**
    * @brief Calculate the unstructured scene state info
    *
@@ -93,12 +95,6 @@ public:
   bool calculateUnstructuredSceneStateInfo(situation::VehicleState const &egoState,
                                            state::UnstructuredSceneStateInformation &stateInfo) const;
 
-  /**
-   * @brief updates states, needs to be called after every situation checking loop
-   */
-  void updateStates();
-
-private:
   bool calculateState(Situation const &situation,
                       state::UnstructuredSceneStateInformation const &egoStateInfo,
                       state::UnstructuredSceneRssState &rssState);
@@ -132,7 +128,15 @@ private:
    * Needs to be stored to check which is the required behaviour to solve the situation
    */
   OtherMustBrakeStateBeforeDangerThresholdTimeMap mOtherMustBrakeStatesBeforeDangerThresholdTime;
+  /**
+   * @brief the new states to be considered in next time step
+   */
   OtherMustBrakeStateBeforeDangerThresholdTimeMap mNewOtherMustBrakeStatesBeforeDangerThresholdTime;
+  /**
+   * @brief time index of the current processing step
+   * If time index increases we need to update the state maps
+   */
+  world::TimeIndex mCurrentTimeIndex{0u};
 };
 
 } // namespace situation

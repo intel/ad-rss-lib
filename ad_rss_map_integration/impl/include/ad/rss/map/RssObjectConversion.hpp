@@ -69,13 +69,17 @@ public:
    * @param[in] objectId the object id
    * @param[in] objectType the object type
    * @param[in] objectOccupiedRegions the object's occupied regions explicitly
+   * @param[in] objectEnuPosition the object's enu position
    * @param[in] objectSpeed the object's speed
+   * @param[in] objectYawRate the object's yaw rate
    * @param[in] rssDynamics the object's (initial) RSS dynamics
    */
   RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
                       ::ad::rss::world::ObjectType const &objectType,
                       ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions,
+                      ::ad::map::match::ENUObjectPosition const &objectEnuPosition,
                       ::ad::physics::Speed const &objectSpeed,
+                      ::ad::physics::AngularVelocity const &objectYawRate,
                       ::ad::rss::world::RssDynamics const &rssDynamics);
 
   /*!

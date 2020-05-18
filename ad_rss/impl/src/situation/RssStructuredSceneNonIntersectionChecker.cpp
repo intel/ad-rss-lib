@@ -1,21 +1,143 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "RssSituation.hpp"
+#include "RssStructuredSceneNonIntersectionChecker.hpp"
 #include "RssFormulas.hpp"
+#include "ad/rss/state/RssStateOperation.hpp"
 
 namespace ad {
 namespace rss {
 namespace situation {
 
-bool calculateRssStateNonIntersectionSameDirection(Situation const &situation, state::RssState &rssState)
+bool RssStructuredSceneNonIntersectionChecker::calculateRssStateNonIntersection(world::TimeIndex const &timeIndex,
+                                                                                Situation const &situation,
+                                                                                state::RssState &rssState)
 {
-  bool result = calculateLongitudinalRssStateNonIntersectionSameDirection(situation, rssState.longitudinalState);
+  if (timeIndex != mCurrentTimeIndex)
+  {
+    mLastStatesBeforeDangerThresholdTime.swap(mNewStatesBeforeDangerThresholdTime);
+    mNewStatesBeforeDangerThresholdTime.clear();
+    mCurrentTimeIndex = timeIndex;
+  }
+
+  rssState.situationId = situation.situationId;
+  rssState.situationType = situation.situationType;
+  rssState.objectId = situation.objectId;
+
+  rssState.longitudinalState.isSafe = false;
+  rssState.longitudinalState.response = state::LongitudinalResponse::BrakeMin;
+  rssState.longitudinalState.alphaLon = situation.egoVehicleState.dynamics.alphaLon;
+
+  rssState.lateralStateLeft.isSafe = false;
+  rssState.lateralStateLeft.response = state::LateralResponse::BrakeMin;
+  rssState.lateralStateLeft.alphaLat = situation.egoVehicleState.dynamics.alphaLat;
+
+  rssState.lateralStateRight.isSafe = false;
+  rssState.lateralStateRight.response = state::LateralResponse::BrakeMin;
+  rssState.lateralStateRight.alphaLat = situation.egoVehicleState.dynamics.alphaLat;
+
+  bool result = false;
+  // first calculate the current state
+  if (situation.situationType == situation::SituationType::SameDirection)
+  {
+    result = calculateRssStateSameDirection(situation, rssState);
+  }
+  else if (situation.situationType == situation::SituationType::OppositeDirection)
+  {
+    result = calculateRssStateOppositeDirection(situation, rssState);
+  }
+  else
+  {
+    spdlog::error(
+      "RssStructuredSceneNonIntersectionChecker::calculateRssStateNonIntersection>> situation type invalid {}",
+      situation);
+  }
+
+  // second calculate proper response in respect to the state before danger threshold according to definition 10 of the
+  // RSS paper v6
+  RssSafeState nonDangerousStateToRemember;
+  if (isDangerous(rssState))
+  {
+    auto const previousNonDangerousState = mLastStatesBeforeDangerThresholdTime.find(rssState.situationId);
+    if (previousNonDangerousState != mLastStatesBeforeDangerThresholdTime.end())
+    {
+      nonDangerousStateToRemember = previousNonDangerousState->second;
+    }
+  }
+  else
+  {
+    nonDangerousStateToRemember.longitudinalSafe = isLongitudinalSafe(rssState);
+    nonDangerousStateToRemember.lateralSafe = isLateralSafe(rssState);
+  }
+
+  if ((nonDangerousStateToRemember.lateralSafe) && (nonDangerousStateToRemember.longitudinalSafe))
+  {
+    // Both longitudinal and lateral distances became dangerous at the same time
+    if (isDangerous(rssState))
+    {
+      spdlog::info("RssStructuredSceneNonIntersectionChecker>> State is dangerous (t_b == t_b,lon == t_b,lat) {}",
+                   rssState);
+    }
+  }
+  else if (nonDangerousStateToRemember.lateralSafe)
+  {
+    // @todo: Handling of a cut-in by a leading vehicle as stated in definitions 11-13 of the RSS paper v6
+    //        will be handled outside of this function. As a consequence.
+    //        There is currently no response for a cut-in of a leading vehicle
+    rssState.longitudinalState.response = state::LongitudinalResponse::None;
+    if (isDangerous(rssState))
+    {
+      spdlog::info(
+        "RssStructuredSceneNonIntersectionChecker>> State is dangerous (t_b == t_b,lat) No longitudinal response: {}",
+        rssState);
+    }
+  }
+  else if (nonDangerousStateToRemember.longitudinalSafe)
+  {
+    rssState.lateralStateLeft.response = state::LateralResponse::None;
+    rssState.lateralStateRight.response = state::LateralResponse::None;
+    if (isDangerous(rssState))
+    {
+      spdlog::info(
+        "RssStructuredSceneNonIntersectionChecker>> State is dangerous (t_b == t_b,lon) No lateral response: {}",
+        rssState);
+    }
+  }
+  else
+  {
+    // no non dangerous state available
+    if (isDangerous(rssState))
+    {
+      spdlog::info("RssStructuredSceneNonIntersectionChecker>> State is dangerous, no non dangerous state available {}",
+                   rssState);
+    }
+  }
+
+  // store state for the next time step
+  if (nonDangerousStateToRemember.longitudinalSafe || nonDangerousStateToRemember.lateralSafe)
+  {
+    auto const insertResult = mNewStatesBeforeDangerThresholdTime.insert(
+      RssSafeStateBeforeDangerThresholdTimeMap::value_type(situation.situationId, nonDangerousStateToRemember));
+
+    if (!insertResult.second)
+    {
+      result = false;
+      spdlog::error("RssStructuredSceneNonIntersectionChecker>> map insertion failed unexpectedly");
+    }
+  }
+
+  return result;
+}
+
+bool RssStructuredSceneNonIntersectionChecker::calculateRssStateSameDirection(Situation const &situation,
+                                                                              state::RssState &rssState)
+{
+  bool result = calculateLongitudinalRssStateSameDirection(situation, rssState.longitudinalState);
   if (result)
   {
     result = calculateLateralRssState(situation, rssState.lateralStateLeft, rssState.lateralStateRight);
@@ -23,9 +145,10 @@ bool calculateRssStateNonIntersectionSameDirection(Situation const &situation, s
   return result;
 }
 
-bool calculateRssStateNonIntersectionOppositeDirection(Situation const &situation, state::RssState &rssState)
+bool RssStructuredSceneNonIntersectionChecker::calculateRssStateOppositeDirection(Situation const &situation,
+                                                                                  state::RssState &rssState)
 {
-  bool result = calculateLongitudinalRssStateNonIntersectionOppositeDirection(situation, rssState.longitudinalState);
+  bool result = calculateLongitudinalRssStateOppositeDirection(situation, rssState.longitudinalState);
   if (result)
   {
     result = calculateLateralRssState(situation, rssState.lateralStateLeft, rssState.lateralStateRight);
@@ -33,8 +156,8 @@ bool calculateRssStateNonIntersectionOppositeDirection(Situation const &situatio
   return result;
 }
 
-bool calculateLongitudinalRssStateNonIntersectionSameDirection(Situation const &situation,
-                                                               state::LongitudinalRssState &rssState)
+bool RssStructuredSceneNonIntersectionChecker::calculateLongitudinalRssStateSameDirection(
+  Situation const &situation, state::LongitudinalRssState &rssState)
 {
   bool result = false;
 
@@ -77,8 +200,8 @@ bool calculateLongitudinalRssStateNonIntersectionSameDirection(Situation const &
   return result;
 }
 
-bool calculateLongitudinalRssStateNonIntersectionOppositeDirection(Situation const &situation,
-                                                                   state::LongitudinalRssState &rssState)
+bool RssStructuredSceneNonIntersectionChecker::calculateLongitudinalRssStateOppositeDirection(
+  Situation const &situation, state::LongitudinalRssState &rssState)
 {
   bool result = false;
 
@@ -118,9 +241,9 @@ bool calculateLongitudinalRssStateNonIntersectionOppositeDirection(Situation con
   return result;
 }
 
-bool calculateLateralRssState(Situation const &situation,
-                              state::LateralRssState &rssStateLeft,
-                              state::LateralRssState &rssStateRight)
+bool RssStructuredSceneNonIntersectionChecker::calculateLateralRssState(Situation const &situation,
+                                                                        state::LateralRssState &rssStateLeft,
+                                                                        state::LateralRssState &rssStateRight)
 {
   rssStateLeft.isSafe = false;
   rssStateLeft.response = state::LateralResponse::BrakeMin;

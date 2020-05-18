@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -31,39 +31,39 @@ namespace rss {
  */
 namespace situation {
 
-/*!
- * \brief Enum LongitudinalResponse
- *
- * Enumeration defining the possible longitudinal responses
- *
- * Be aware: there has to be a strict order of the enumeration values according to
- * the strictness of the response
- */
-enum class IntersectionState : std::uint32_t
-{
-  NonPrioAbleToBreak = 0u,       /*!< NonPrio-Vehicle can stop in front intersection */
-  SafeLongitudinalDistance = 1u, /*!< There is a safe longitudinal distance  between the vehicles*/
-  NoTimeOverlap = 2u             /*!< There is no time overlap between the paths of the two vehicles */
-};
-
 /**
  * @brief Class to check whether an intersection is safe and to determine the proper response for the situation
  *
  * Class performs required check to if situation is safe
  * Class will maintain the previous state of the situation in order to provide the proper response.
  */
-class RssIntersectionChecker
+class RssStructuredSceneIntersectionChecker
 {
 public:
+  /*!
+   * \brief Enum LongitudinalResponse
+   *
+   * Enumeration defining the possible longitudinal responses
+   *
+   * Be aware: there has to be a strict order of the enumeration values according to
+   * the strictness of the response
+   */
+  enum class IntersectionState : std::uint32_t
+  {
+    NonPrioAbleToBreak = 0u,       /*!< NonPrio-Vehicle can stop in front intersection */
+    SafeLongitudinalDistance = 1u, /*!< There is a safe longitudinal distance  between the vehicles*/
+    NoTimeOverlap = 2u             /*!< There is no time overlap between the paths of the two vehicles */
+  };
+
   /**
    * @brief Constructor
    */
-  RssIntersectionChecker();
+  RssStructuredSceneIntersectionChecker() = default;
 
   /**
    * @brief Destructor
    */
-  ~RssIntersectionChecker();
+  ~RssStructuredSceneIntersectionChecker() = default;
 
   /**
    * @brief Calculate safety checks and determine required rssState for intersection situations
@@ -80,20 +80,28 @@ public:
                                      state::RssState &rssState);
 
 private:
+  bool checkLateralIntersect(Situation const &situation, bool &isSafe);
+
+  bool checkIntersectionSafe(Situation const &situation,
+                             state::RssStateInformation &rssStateInformation,
+                             bool &isSafe,
+                             IntersectionState &intersectionState);
+
   typedef std::map<SituationId, IntersectionState> RssIntersectionStateMap;
+
   /**
    * @brief last safe IntersectionState of each situation of previous time step
    */
   RssIntersectionStateMap mLastSafeStateMap;
 
   /**
-   * @brief last safe IntersectionState of each situation of current time step
+   * @brief new safe IntersectionState of each situation of current time step
    */
-  RssIntersectionStateMap mCurrentSafeStateMap;
+  RssIntersectionStateMap mNewSafeStateMap;
 
   /**
    * @brief time index of the current processing step
-   * If time index increases we need to update the mLastSafeStateMap
+   * If time index increases we need to update the state maps
    */
   world::TimeIndex mCurrentTimeIndex{0u};
 };

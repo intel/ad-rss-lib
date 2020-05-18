@@ -12,7 +12,6 @@
 #include "../unstructured/TrajectoryPedestrian.hpp"
 #include "../unstructured/TrajectoryVehicle.hpp"
 #include "RssFormulas.hpp"
-#include "RssSituation.hpp"
 #include "ad/rss/situation/Physics.hpp"
 #include "ad/rss/unstructured/Geometry.hpp"
 
@@ -25,14 +24,6 @@ namespace situation {
 
 using situation::calculateTimeToCoverDistance;
 
-RssUnstructuredSceneChecker::RssUnstructuredSceneChecker()
-{
-}
-
-RssUnstructuredSceneChecker::~RssUnstructuredSceneChecker()
-{
-}
-
 bool RssUnstructuredSceneChecker::calculateUnstructuredSceneStateInfo(
   situation::VehicleState const &vehicleState, state::UnstructuredSceneStateInformation &stateInfo) const
 {
@@ -44,15 +35,30 @@ bool RssUnstructuredSceneChecker::calculateUnstructuredSceneStateInfo(
   return result;
 }
 
-bool RssUnstructuredSceneChecker::calculateRssStateUnstructured(
-  world::TimeIndex const &timeIndex,
-  Situation const &situation,
-  state::UnstructuredSceneStateInformation const &egoStateInfo,
-  state::RssState &rssState)
+bool RssUnstructuredSceneChecker::calculateRssStateUnstructured(world::TimeIndex const &timeIndex,
+                                                                Situation const &situation,
+                                                                state::UnstructuredSceneStateInformation &egoStateInfo,
+                                                                state::RssState &rssState)
 {
-  // TODO: does definition 20 mean that we need to use stopping time of ego-vehicle (instead of stopping time of other)
-  auto result = calculateUnstructuredSceneStateInfo(situation.otherVehicleState,
-                                                    rssState.unstructuredSceneState.rssStateInformation);
+  bool result = true;
+  if (timeIndex != mCurrentTimeIndex)
+  {
+    mOtherMustBrakeStatesBeforeDangerThresholdTime.swap(mNewOtherMustBrakeStatesBeforeDangerThresholdTime);
+    mNewOtherMustBrakeStatesBeforeDangerThresholdTime.clear();
+    mCurrentTimeIndex = timeIndex;
+
+    // ego state only has to be calculated once per time step
+    result = calculateUnstructuredSceneStateInfo(situation.egoVehicleState, egoStateInfo);
+  }
+
+  if (result)
+  {
+    // TODO: does definition 20 mean that we need to use stopping time of ego-vehicle (instead of stopping time of
+    // other)
+    result = calculateUnstructuredSceneStateInfo(situation.otherVehicleState,
+                                                 rssState.unstructuredSceneState.rssStateInformation);
+  }
+
   if (result)
   {
     result = calculateState(situation, egoStateInfo, rssState.unstructuredSceneState);
@@ -193,13 +199,6 @@ bool RssUnstructuredSceneChecker::calculateTrajectorySets(situation::VehicleStat
       break;
   }
   return result;
-}
-
-void RssUnstructuredSceneChecker::updateStates()
-{
-  mOtherMustBrakeStatesBeforeDangerThresholdTime.clear();
-  mOtherMustBrakeStatesBeforeDangerThresholdTime.swap(mNewOtherMustBrakeStatesBeforeDangerThresholdTime);
-  mNewOtherMustBrakeStatesBeforeDangerThresholdTime.clear();
 }
 
 bool RssUnstructuredSceneChecker::calculateDriveAwayAngle(unstructured::Point const &otherVehicleLocation,

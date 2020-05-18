@@ -33,6 +33,7 @@ struct RssSceneCreationTestTown04 : RssSceneCreationTest
     initializeObjectENU(egoMatchObject.enuPosition.centerPoint, egoMatchObject.enuPosition.heading, egoMatchObject);
 
     egoSpeed = ::ad::physics::Speed(5.);
+    egoYawRate = ::ad::physics::AngularVelocity(0.);
 
     ::ad::map::point::ENUPoint target;
     target.x = ::ad::map::point::ENUCoordinate(240.0);
@@ -90,7 +91,7 @@ TEST_F(RssSceneCreationTestTown04, testVehicleBehindConnectingRoute)
   EXPECT_TRUE(withinValidInputRange(worldModel));
 
   spdlog::info("WordModel: {}", worldModel);
-  EXPECT_EQ(worldModel.scenes.size(), 1u);
+  ASSERT_EQ(worldModel.scenes.size(), 1u);
 
   ::ad::rss::state::ProperResponse routeResponse;
   ::ad::rss::situation::SituationSnapshot situationSnapshot;
@@ -101,6 +102,8 @@ TEST_F(RssSceneCreationTestTown04, testVehicleBehindConnectingRoute)
   spdlog::info("RouteResponse: {}", routeResponse);
   spdlog::info("StateSnapshot: {}", stateSnapshot);
   spdlog::info("SituationSnapshot: {}", situationSnapshot);
+  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
+
   EXPECT_FALSE(routeResponse.isSafe);
   EXPECT_EQ(::ad::rss::situation::LongitudinalRelativePosition::InFront,
             situationSnapshot.situations.front().relativePosition.longitudinalPosition);
