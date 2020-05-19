@@ -5,11 +5,10 @@ provided by Intel Corporation (“Intel”) to the recipient (“Recipient”)._
 
 1. The Software implements the RSS calculations and rules corresponding to the following scenarios:
    - Multi-lane roads, i.e. longitudinal and lateral safe distance and proper response determination; and
-   - Intersections, i.e. two or more routes of different geometry, rules for intersections of routes, with priority/right of way, and longitudinal and lateral proper response determination. However, in the case of intersections, it is assumed that there is always a lateral conflict.
+   - Intersections, i.e. two or more routes of different geometry, rules for intersections of routes, with priority/right of way, and longitudinal and lateral proper response determination. However, in the case of intersections, it is assumed that there is always a lateral conflict; and
+   - Unstructured roads and pedestrians.
 
    The following parts of RSS are __NOT__ implemented in this release of the Software:
-   - Unstructured roads, e.g. parking lots and wide round-abouts;
-   - Pedestrians, bicyclists and other vulnerable road users;
    - Occlusions;
    - Longitudinal or lateral evasive maneuvers as defined by RSS; and
    - Intersections without a lateral conflict.
