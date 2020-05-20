@@ -47,10 +47,12 @@ set(RSS_TEST_SOURCES
   situation/RssSituationCheckingTestsLongitudinal.cpp
   situation/RssSituationCheckingTestsNotRelevant.cpp
   situation/RssSituationCheckingTestsOppositeDirection.cpp
+  situation/RssUnstructuredSceneCheckerTest.cpp
   situation/VehicleTests.cpp
   state/RssStateSafeTests.cpp
   test_support/TestSupport.cpp
   test_support/wrap_new.cpp
+  unstructured/GeometryTests.cpp
   world/RssSituationIdProviderTests.cpp
   ${GENERATED_TEST_SOURCES}
 )

@@ -18,6 +18,7 @@
 #include "ad/rss/situation/VehicleState.hpp"
 #include "ad/rss/state/ProperResponse.hpp"
 #include "ad/rss/state/RssState.hpp"
+#include "ad/rss/unstructured/Geometry.hpp"
 #include "ad/rss/world/Object.hpp"
 #include "ad/rss/world/RoadSegment.hpp"
 
@@ -278,6 +279,11 @@ Distance calculateLateralMinSafeDistance(physics::Speed const &leftObjectSpeed,
                                          world::RssDynamics const &leftObjectRssDynamics,
                                          physics::Speed const &rightObjectSpeed,
                                          world::RssDynamics const &rightObjectRssDynamics);
+
+void getUnstructuredVehicle(unstructured::Point const &backLeft,
+                            bool positiveDirection,
+                            state::UnstructuredSceneStateInformation &stateInfo,
+                            situation::VehicleState &vehicleState);
 
 /**
  * @brief class providing constants for longitudinal/lateral RSS states

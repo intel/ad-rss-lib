@@ -475,5 +475,66 @@ state::LongitudinalRssState TestSupport::stateWithInformation(state::Longitudina
   return resultState;
 }
 
+void getUnstructuredVehicle(unstructured::Point const &backLeft,
+                            bool positiveDirection,
+                            state::UnstructuredSceneStateInformation &stateInfo,
+                            situation::VehicleState &vehicleState)
+{
+  if (positiveDirection)
+  {
+    vehicleState.objectState.centerPoint.x = ad::physics::Distance(backLeft.x() + 0.5);
+    vehicleState.objectState.centerPoint.y = ad::physics::Distance(backLeft.y() + 0.5);
+    vehicleState.objectState.yaw = M_PI / 2.;
+  }
+  else
+  {
+    vehicleState.objectState.centerPoint.x = ad::physics::Distance(backLeft.x() - 0.5);
+    vehicleState.objectState.centerPoint.y = ad::physics::Distance(backLeft.y() - 0.5);
+    vehicleState.objectState.yaw = 3. / 2. * M_PI;
+  }
+
+  stateInfo.brakeTrajectorySet.clear();
+  stateInfo.continueForwardTrajectorySet.clear();
+  // brake
+  stateInfo.brakeTrajectorySet.push_back(unstructured::toDistance(backLeft));
+  stateInfo.continueForwardTrajectorySet.push_back(unstructured::toDistance(backLeft));
+  if (positiveDirection)
+  {
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x() + 1, backLeft.y() + 1.)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x() + 1, backLeft.y() + 1.)));
+
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x() + 1., backLeft.y() + 2.)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x() + 1., backLeft.y() + 3.)));
+
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x(), backLeft.y() + 2.)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x(), backLeft.y() + 3.)));
+  }
+  else
+  {
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x() - 1., backLeft.y() - 1.)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x() - 1., backLeft.y() - 1.)));
+
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x() - 1., backLeft.y() - 2.)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x() - 1., backLeft.y() - 3.)));
+
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x(), backLeft.y() - 2.)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x(), backLeft.y() - 3.)));
+  }
+  stateInfo.brakeTrajectorySet.push_back(stateInfo.brakeTrajectorySet.front());
+  stateInfo.continueForwardTrajectorySet.push_back(stateInfo.continueForwardTrajectorySet.front());
+}
+
 } // namespace rss
 } // namespace ad

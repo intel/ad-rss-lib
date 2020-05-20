@@ -19,8 +19,6 @@
 #include "ad/rss/unstructured/Geometry.hpp"
 #include "ad/rss/world/TimeIndex.hpp"
 
-class TrafficParticipant;
-
 /*!
  * @brief namespace ad
  */
@@ -97,13 +95,20 @@ private:
   bool calculateUnstructuredSceneStateInfo(situation::VehicleState const &egoState,
                                            state::UnstructuredSceneStateInformation &stateInfo) const;
 
+  /**
+   * @brief Calculate the unstructured scene state
+   *
+   * @param[in]  situation situation to analyze
+   * @param[in]  egoStateInfo the trajectory sets of the ego vehicle
+   * @param[in]  otherStateInfo the trajectory sets of the other traffic participant
+   * @param[out] rssState the calculated rss state
+   *
+   * @returns false if a failure occurred during calculations, true otherwise
+   */
   bool calculateState(Situation const &situation,
                       state::UnstructuredSceneStateInformation const &egoStateInfo,
+                      state::UnstructuredSceneStateInformation const &otherStateInfo,
                       state::UnstructuredSceneRssState &rssState);
-
-  bool calculateTrajectorySets(situation::VehicleState const &vehicleState,
-                               unstructured::Polygon &brakePolygon,
-                               unstructured::Polygon &continueForwardPolygon) const;
 
   /**
    * @brief calculate the angle range that is allowed to drive away

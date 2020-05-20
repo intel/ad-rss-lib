@@ -27,11 +27,38 @@ using situation::calculateTimeToCoverDistance;
 bool RssUnstructuredSceneChecker::calculateUnstructuredSceneStateInfo(
   situation::VehicleState const &vehicleState, state::UnstructuredSceneStateInformation &stateInfo) const
 {
+  bool result = true;
   unstructured::Polygon brake;
   unstructured::Polygon continueForward;
-  auto result = calculateTrajectorySets(vehicleState, brake, continueForward);
-  unstructured::toTrajectorySet(brake, stateInfo.brakeTrajectorySet);
-  unstructured::toTrajectorySet(continueForward, stateInfo.continueForwardTrajectorySet);
+
+  switch (vehicleState.objectType)
+  {
+    case world::ObjectType::Invalid:
+      result = false;
+      break;
+    case world::ObjectType::EgoVehicle:
+    case world::ObjectType::OtherVehicle:
+    {
+      unstructured::TrajectoryVehicle trajectoryVehicle;
+      result = trajectoryVehicle.calculateTrajectorySets(vehicleState, brake, continueForward);
+      break;
+    }
+    case world::ObjectType::Pedestrian:
+    {
+      unstructured::TrajectoryPedestrian trajectoryPedestrian;
+      result = trajectoryPedestrian.calculateTrajectorySets(vehicleState, brake, continueForward);
+      break;
+    }
+    case world::ObjectType::ArtificialObject:
+      result = false;
+      break;
+  }
+
+  if (result)
+  {
+    unstructured::toTrajectorySet(brake, stateInfo.brakeTrajectorySet);
+    unstructured::toTrajectorySet(continueForward, stateInfo.continueForwardTrajectorySet);
+  }
   return result;
 }
 
@@ -51,35 +78,40 @@ bool RssUnstructuredSceneChecker::calculateRssStateUnstructured(world::TimeIndex
     result = calculateUnstructuredSceneStateInfo(situation.egoVehicleState, egoStateInfo);
   }
 
+  state::UnstructuredSceneStateInformation otherStateInfo;
   if (result)
   {
-    // TODO: does definition 20 mean that we need to use stopping time of ego-vehicle (instead of stopping time of
-    // other)
-    result = calculateUnstructuredSceneStateInfo(situation.otherVehicleState,
-                                                 rssState.unstructuredSceneState.rssStateInformation);
+    result = calculateUnstructuredSceneStateInfo(situation.otherVehicleState, otherStateInfo);
   }
 
   if (result)
   {
-    result = calculateState(situation, egoStateInfo, rssState.unstructuredSceneState);
+    result = calculateState(situation, egoStateInfo, otherStateInfo, rssState.unstructuredSceneState);
   }
   return result;
 }
 
 bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
                                                  state::UnstructuredSceneStateInformation const &egoStateInfo,
+                                                 state::UnstructuredSceneStateInformation const &otherStateInfo,
                                                  state::UnstructuredSceneRssState &rssState)
 {
   bool result = true;
   auto const &egoBrake = egoStateInfo.brakeTrajectorySet;
   auto const &egoContinueForward = egoStateInfo.continueForwardTrajectorySet;
-  auto const &opponentBrake = rssState.rssStateInformation.brakeTrajectorySet;
-  auto const &opponentContinueForward = rssState.rssStateInformation.continueForwardTrajectorySet;
+  auto const &otherBrake = otherStateInfo.brakeTrajectorySet;
+  auto const &otherContinueForward = otherStateInfo.continueForwardTrajectorySet;
+
+  if (egoBrake.empty() || egoContinueForward.empty() || otherBrake.empty() || otherContinueForward.empty())
+  {
+    SPDLOG_INFO("Situation {} refers to empty trajectory sets", situation.situationId);
+    return false;
+  }
 
   // check if distance is safe
-  bool egoBrakeOtherContinueForwardOverlap = unstructured::collides(egoBrake, opponentContinueForward);
-  bool otherBrakeEgoContinueForwardOverlap = unstructured::collides(opponentBrake, egoContinueForward);
-  bool egoBrakeOtherBrakeOverlap = unstructured::collides(egoBrake, opponentBrake);
+  bool egoBrakeOtherContinueForwardOverlap = unstructured::collides(egoBrake, otherContinueForward);
+  bool otherBrakeEgoContinueForwardOverlap = unstructured::collides(otherBrake, egoContinueForward);
+  bool egoBrakeOtherBrakeOverlap = unstructured::collides(egoBrake, otherBrake);
 
   bool isSafeEgoMustBrake = !egoBrakeOtherContinueForwardOverlap && otherBrakeEgoContinueForwardOverlap;
   bool isSafeOtherMustBrake = !otherBrakeEgoContinueForwardOverlap && egoBrakeOtherContinueForwardOverlap;
@@ -168,36 +200,6 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
       break;
   }
 
-  return result;
-}
-
-bool RssUnstructuredSceneChecker::calculateTrajectorySets(situation::VehicleState const &vehicleState,
-                                                          unstructured::Polygon &brakePolygon,
-                                                          unstructured::Polygon &continueForwardPolygon) const
-{
-  bool result = true;
-  switch (vehicleState.objectType)
-  {
-    case world::ObjectType::Invalid:
-      result = false;
-      break;
-    case world::ObjectType::EgoVehicle:
-    case world::ObjectType::OtherVehicle:
-    {
-      unstructured::TrajectoryVehicle trajectoryVehicle;
-      result = trajectoryVehicle.calculateTrajectorySets(vehicleState, brakePolygon, continueForwardPolygon);
-      break;
-    }
-    case world::ObjectType::Pedestrian:
-    {
-      unstructured::TrajectoryPedestrian trajectoryPedestrian;
-      result = trajectoryPedestrian.calculateTrajectorySets(vehicleState, brakePolygon, continueForwardPolygon);
-      break;
-    }
-    case world::ObjectType::ArtificialObject:
-      result = false;
-      break;
-  }
   return result;
 }
 

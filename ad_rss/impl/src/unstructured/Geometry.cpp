@@ -153,8 +153,16 @@ bool getHeadingOverlap(ad::physics::AngleRange const &a,
     {
       if (!((a.minimum == b.minimum) && (a.maximum == b.maximum)))
       {
-        overlapRange.innerRange.minimum = b.minimum;
-        overlapRange.innerRange.maximum = b.maximum;
+        if (b.maximum < b.minimum)
+        {
+          overlapRange.innerRange.minimum = b.maximum;
+          overlapRange.innerRange.maximum = b.minimum;
+        }
+        else
+        {
+          overlapRange.innerRange.minimum = b.minimum;
+          overlapRange.innerRange.maximum = b.maximum;
+        }
       }
       overlapRange.outerRange.minimum = a.minimum;
       overlapRange.outerRange.maximum = a.maximum;

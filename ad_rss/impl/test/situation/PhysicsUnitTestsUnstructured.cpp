@@ -354,8 +354,8 @@ TEST(MathUnitTestsAngles, overlapHeadingRange)
   overlapRange.outerRange.minimum = ad::physics::Angle(3. / 4. * M_PI);
   overlapRange.outerRange.maximum = ad::physics::Angle(1. / 4. * M_PI);
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(angleRange, overlapRange));
-  ASSERT_EQ(ad::physics::Angle(3. / 4. * M_PI), overlapRange.innerRange.minimum);
-  ASSERT_EQ(ad::physics::Angle(1. / 4. * M_PI), overlapRange.innerRange.maximum);
+  ASSERT_EQ(ad::physics::Angle(1. / 4. * M_PI), overlapRange.innerRange.minimum);
+  ASSERT_EQ(ad::physics::Angle(3. / 4. * M_PI), overlapRange.innerRange.maximum);
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.outerRange.minimum);
   ASSERT_EQ(ad::physics::Angle(M_PI), overlapRange.outerRange.maximum);
 
