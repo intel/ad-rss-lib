@@ -34,6 +34,11 @@ namespace situation {
 /**
  * @brief Class to check whether an intersection is safe and to determine the proper response for the situation
  *
+ *
+ * Note: Implements the checks and responses given by the definitions 16-18 of the RSS paper (arXiv:1708.06374v6)
+ *       The more detailed lateral intersection handling according to definitions 14 and 15 is not considered, yet.
+ *       Instead, the current implementation always considers a lateral conflict within intersections and doesn't trigger any lateral response.
+ *
  * Class performs required check to if situation is safe
  * Class will maintain the previous state of the situation in order to provide the proper response.
  */

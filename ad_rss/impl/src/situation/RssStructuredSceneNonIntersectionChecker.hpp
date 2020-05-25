@@ -33,6 +33,8 @@ namespace situation {
  * @brief Class to check whether a non-intersection structured scene is safe and to determine the proper response for
  * the situation
  *
+ * Note: Implements the checks and responses given by the definitions 1-10 of the RSS paper (arXiv:1708.06374v6)
+ *
  * Class performs required check to if situation is safe
  * Class will maintain the previous state of the situation in order to provide the proper response.
  */
