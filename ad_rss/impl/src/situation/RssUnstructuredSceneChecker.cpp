@@ -17,8 +17,6 @@
 
 namespace ad {
 
-using physics::Duration;
-
 namespace rss {
 namespace situation {
 
@@ -51,6 +49,11 @@ bool RssUnstructuredSceneChecker::calculateUnstructuredSceneStateInfo(
     }
     case world::ObjectType::ArtificialObject:
       result = false;
+      break;
+    default:
+      result = false;
+      throw std::runtime_error(
+        "RssUnstructuredSceneChecker::calculateUnstructuredSceneStateInfo>> invalid object type");
       break;
   }
 
@@ -104,7 +107,7 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
 
   if (egoBrake.empty() || egoContinueForward.empty() || otherBrake.empty() || otherContinueForward.empty())
   {
-    SPDLOG_INFO("Situation {} refers to empty trajectory sets", situation.situationId);
+    spdlog::info("Situation {} refers to empty trajectory sets", situation.situationId);
     return false;
   }
 
@@ -123,9 +126,9 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
 
   if (isSafe)
   {
-    SPDLOG_INFO("Situation {} safe. Store value otherMustBrake: {}",
-                situation.situationId,
-                isSafeOtherMustBrake ? "true" : "false");
+    spdlog::info("Situation {} safe. Store value otherMustBrake: {}",
+                 situation.situationId,
+                 isSafeOtherMustBrake ? "true" : "false");
     mNewOtherMustBrakeStatesBeforeDangerThresholdTime[situation.situationId] = isSafeOtherMustBrake;
     mode = DrivingMode::ContinueForward;
   }
@@ -144,7 +147,7 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
     if (((situation.egoVehicleState.objectState.speed == ad::physics::Speed(0.))
          && (situation.otherVehicleState.objectState.speed == ad::physics::Speed(0.))))
     {
-      SPDLOG_INFO("Situation {} Rule 1: both stopped, unsafe distance -> drive away.", situation.situationId);
+      spdlog::info("Situation {} Rule 1: both stopped, unsafe distance -> drive away.", situation.situationId);
       mode = DrivingMode::DriveAway;
     }
 
@@ -156,12 +159,12 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
     {
       if (situation.egoVehicleState.objectState.speed > ad::physics::Speed(0.))
       {
-        SPDLOG_INFO("Situation {} Rule 2: opponent is moving -> continue forward", situation.situationId);
+        spdlog::info("Situation {} Rule 2: opponent is moving -> continue forward", situation.situationId);
         mode = DrivingMode::ContinueForward;
       }
       else
       {
-        SPDLOG_INFO("Situation {} Rule 2: opponent is stopped -> drive away", situation.situationId);
+        spdlog::info("Situation {} Rule 2: opponent is stopped -> drive away", situation.situationId);
         mode = DrivingMode::DriveAway;
       }
     }
@@ -169,7 +172,7 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
     // Rule 3: Brake
     if (mode == DrivingMode::Invalid)
     {
-      SPDLOG_INFO("Situation {} Rule 3: brake (brake collides with other brake)", situation.situationId);
+      spdlog::info("Situation {} Rule 3: brake (brake collides with other brake)", situation.situationId);
       mode = DrivingMode::Brake;
     }
   }
@@ -198,6 +201,10 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
     case DrivingMode::Invalid:
       result = false;
       break;
+    default:
+      result = false;
+      throw std::runtime_error("RssUnstructuredSceneChecker::calculateState>> invalid driving mode");
+      break;
   }
 
   return result;
@@ -208,15 +215,14 @@ bool RssUnstructuredSceneChecker::calculateDriveAwayAngle(unstructured::Point co
                                                           ::ad::physics::Angle const &maxAllowedAngleWhenBothStopped,
                                                           ::ad::physics::AngleRange &range) const
 {
-  auto substractedLocationVector = unstructured::Point((startingPoint.x() - otherVehicleLocation.x()),
-                                                       (startingPoint.y() - otherVehicleLocation.y()));
+  auto const substractedLocationVector = startingPoint - otherVehicleLocation;
 
   // get vector angle
-  double substractedLocationVectorAngle = std::atan2(static_cast<double>(substractedLocationVector.y()),
-                                                     static_cast<double>(substractedLocationVector.x()));
+  auto const substractedLocationVectorAngle = ::ad::physics::Angle(
+    std::atan2(static_cast<double>(substractedLocationVector.y()), static_cast<double>(substractedLocationVector.x())));
 
-  range.minimum = unstructured::normalizeAngle(substractedLocationVectorAngle - maxAllowedAngleWhenBothStopped);
-  range.maximum = unstructured::normalizeAngle(substractedLocationVectorAngle + maxAllowedAngleWhenBothStopped);
+  range.minimum = physics::normalizeAngle(substractedLocationVectorAngle - maxAllowedAngleWhenBothStopped);
+  range.maximum = physics::normalizeAngle(substractedLocationVectorAngle + maxAllowedAngleWhenBothStopped);
   return true;
 }
 

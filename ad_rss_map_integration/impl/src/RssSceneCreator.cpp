@@ -464,7 +464,7 @@ bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const
   staticDynamics.responseTime = ::ad::physics::Duration(0.01);
   staticDynamics.unstructuredSettings.pedestrianTurningRadius = ad::physics::Distance(0.);
   staticDynamics.unstructuredSettings.driveAwayMaxAngle = ad::physics::Angle(0.);
-  staticDynamics.unstructuredSettings.vehicleYawRateChangePerSecond = ad::physics::ParametricValue(0.);
+  staticDynamics.unstructuredSettings.vehicleYawRateChange = ad::physics::AngularAcceleration(0.);
   staticDynamics.unstructuredSettings.vehicleMinRadius = ad::physics::Distance(0.);
   staticDynamics.unstructuredSettings.vehicleTrajectoryCalculationStep = ad::physics::Duration(0.);
 

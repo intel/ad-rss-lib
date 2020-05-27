@@ -37,6 +37,12 @@ class DebugDrawing
 public:
   struct DebugLine
   {
+    DebugLine(Line const &iLine, std::string const &iColor, std::string const &iNs)
+      : line(iLine)
+      , color(iColor)
+      , ns(iNs)
+    {
+    }
     Line line;
     std::string color{"white"};
     std::string ns;
@@ -44,14 +50,18 @@ public:
 
   struct DebugPolygon
   {
+    DebugPolygon(Polygon const &iPolygon, std::string const &iColor, std::string const &iNs)
+      : polygon(iPolygon)
+      , color(iColor)
+      , ns(iNs)
+    {
+    }
     Polygon polygon;
     std::string color{"white"};
     std::string ns;
   };
 
-  explicit DebugDrawing()
-  {
-  }
+  explicit DebugDrawing() = default;
 
   /**
    * @brief singelton instance getter
@@ -80,7 +90,7 @@ public:
    */
   void drawLine(Line const &line, std::string const &color = "white", std::string const &ns = "")
   {
-    mLines.push_back(DebugLine{line, color, ns});
+    mLines.push_back(DebugLine(line, color, ns));
   }
 
   /**
@@ -92,7 +102,7 @@ public:
    */
   void drawPolygon(Polygon const &polygon, std::string const &color = "white", std::string const &ns = "")
   {
-    mPolygons.push_back(DebugPolygon{polygon, color, ns});
+    mPolygons.push_back(DebugPolygon(polygon, color, ns));
   }
 
   std::vector<DebugLine> mLines;

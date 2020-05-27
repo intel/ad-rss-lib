@@ -11,6 +11,7 @@
  */
 
 #include "TrajectoryCommon.hpp"
+#include <ad/physics/Operation.hpp>
 
 /*!
  * @brief namespace ad
@@ -30,24 +31,27 @@ Point getVehicleCorner(TrajectoryPoint const &point,
                        VehicleCorner const corner)
 {
   Point resultPoint;
-  auto const vehicleAngle = static_cast<double>(point.angle) - M_PI / 2.0;
+  auto const vehicleAngle = point.angle - ad::physics::cPI_2;
   switch (corner)
   {
     case VehicleCorner::frontLeft:
       resultPoint = rotateAroundPoint(
-        point.position, Point(-vehicleDimension.width / 2.0, vehicleDimension.length / 2.0), vehicleAngle);
+        point.position, toPoint(-vehicleDimension.width / 2.0, vehicleDimension.length / 2.0), vehicleAngle);
       break;
     case VehicleCorner::frontRight:
       resultPoint = rotateAroundPoint(
-        point.position, Point(vehicleDimension.width / 2.0, vehicleDimension.length / 2.0), vehicleAngle);
+        point.position, toPoint(vehicleDimension.width / 2.0, vehicleDimension.length / 2.0), vehicleAngle);
       break;
     case VehicleCorner::backLeft:
       resultPoint = rotateAroundPoint(
-        point.position, Point(-vehicleDimension.width / 2.0, -vehicleDimension.length / 2.0), vehicleAngle);
+        point.position, toPoint(-vehicleDimension.width / 2.0, -vehicleDimension.length / 2.0), vehicleAngle);
       break;
     case VehicleCorner::backRight:
       resultPoint = rotateAroundPoint(
-        point.position, Point(vehicleDimension.width / 2.0, -vehicleDimension.length / 2.0), vehicleAngle);
+        point.position, toPoint(vehicleDimension.width / 2.0, -vehicleDimension.length / 2.0), vehicleAngle);
+      break;
+    default:
+      throw std::runtime_error("unstructured::getVehicleCorner>> invalid corner requested");
       break;
   }
   return resultPoint;
@@ -65,7 +69,7 @@ bool checkAndFixPolygon(Polygon &polygon, std::string const &description)
 
     if (!result && (failure == boost::geometry::failure_spikes))
     {
-      SPDLOG_DEBUG("{} polygon: Remove spikes", description);
+      spdlog::debug("{} polygon: Remove spikes", description);
       boost::geometry::remove_spikes(polygon);
       recheck = true;
     }
@@ -73,7 +77,7 @@ bool checkAndFixPolygon(Polygon &polygon, std::string const &description)
 
   if (!result)
   {
-    SPDLOG_DEBUG("{} polygon invalid. {}", description, failure);
+    spdlog::debug("{} polygon invalid. {}", description, failure);
     // DebugDrawing::getInstance()->drawPolygon(polygon, "orange", "dbg_" + description);
   }
   return result;

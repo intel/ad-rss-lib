@@ -32,7 +32,7 @@ namespace unstructured {
 class TrajectoryPedestrian
 {
 public:
-  static const double maxRadius;
+  static const ad::physics::Distance maxRadius;
 
   TrajectoryPedestrian()
   {

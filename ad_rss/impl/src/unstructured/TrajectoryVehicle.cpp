@@ -10,8 +10,8 @@
  */
 
 #include "TrajectoryVehicle.hpp"
+#include <ad/physics/Operation.hpp>
 #include <algorithm>
-#include <pipes/DebugDrawer.hpp>
 /*!
  * @brief namespace ad
  */
@@ -25,7 +25,7 @@ namespace rss {
  */
 namespace unstructured {
 
-const double TrajectoryVehicle::maxRadius = 1000.0;
+const ad::physics::Distance TrajectoryVehicle::maxRadius = 1000.0;
 
 bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &vehicleState,
                                                 Polygon &brakePolygon,
@@ -63,8 +63,8 @@ bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &v
       boost::geometry::union_(brakePolygon.outer(), continueForwardPolygonPart.outer(), unionPolygons);
       if (unionPolygons.size() != 1)
       {
-        SPDLOG_DEBUG("Could not calculate final continue forward polygon. Expected 1 polygon after union, found {}",
-                     unionPolygons.size());
+        spdlog::debug("Could not calculate final continue forward polygon. Expected 1 polygon after union, found {}",
+                      unionPolygons.size());
         result = false;
       }
       else
@@ -101,6 +101,8 @@ TrajectoryPoint TrajectoryVehicle::getFinalTrajectoryPoint(situation::VehicleSta
 #endif
 #if DRAW_FINAL_POSITION
   drawFinalPosition(trajectory.back(), vehicleState.objectState.dimension, debugNamespace + "_vehicle_final_position");
+#else
+  (void)debugNamespace;
 #endif
   return trajectory.back();
 }
@@ -119,12 +121,20 @@ Polygon TrajectoryVehicle::createTrajectorySet(situation::VehicleState const &ve
        accel <= vehicleState.dynamics.alphaLon.accelMax;
        accel += accelStepSize)
   {
-    auto right = getFinalTrajectoryPoint(
-      vehicleState, duration, accel, aAfterResponseTime, -1.0, debugNamespace + "_right_" + std::to_string(accel));
+    auto right = getFinalTrajectoryPoint(vehicleState,
+                                         duration,
+                                         accel,
+                                         aAfterResponseTime,
+                                         ad::physics::RatioValue(-1.0),
+                                         debugNamespace + "_right_" + std::to_string(accel));
     rightTrajectoryMax.push_back(right);
 
-    auto left = getFinalTrajectoryPoint(
-      vehicleState, duration, accel, aAfterResponseTime, 1.0, debugNamespace + "_left_" + std::to_string(accel));
+    auto left = getFinalTrajectoryPoint(vehicleState,
+                                        duration,
+                                        accel,
+                                        aAfterResponseTime,
+                                        ad::physics::RatioValue(1.0),
+                                        debugNamespace + "_left_" + std::to_string(accel));
     leftTrajectoryMax.push_back(left);
   }
 
@@ -174,16 +184,14 @@ Trajectory TrajectoryVehicle::createTrajectory(situation::VehicleState const &ve
   Trajectory trajectory;
   std::vector<Point> points;
 
-  auto currentPoint = Point(vehicleState.objectState.centerPoint.x, vehicleState.objectState.centerPoint.y);
-  auto currentAngle = vehicleState.objectState.yaw - ad::physics::Angle(M_PI / 2.0);
+  auto currentPoint = toPoint(vehicleState.objectState.centerPoint);
+  auto currentAngle = vehicleState.objectState.yaw - ad::physics::cPI_2;
   ad::physics::Speed currentSpeed;
   ad::physics::Distance distanceSoFar = ad::physics::Distance(0.0);
 
   // during trajectory calculation, the heading might change once from:
   // left -> straight -> right
   // right -> straight -> left
-  auto headingChangedLeftToStraight = false;
-  auto headingChangedStraightToRight = false;
   for (auto currentTime = ad::physics::Duration(0.0); currentTime <= duration;
        currentTime += vehicleState.dynamics.unstructuredSettings.vehicleTrajectoryCalculationStep)
   {
@@ -205,7 +213,7 @@ Trajectory TrajectoryVehicle::createTrajectory(situation::VehicleState const &ve
       {
         auto currentYawRate = calculateYawRate(vehicleState,
                                                currentTime,
-                                               vehicleState.dynamics.unstructuredSettings.vehicleYawRateChangePerSecond,
+                                               vehicleState.dynamics.unstructuredSettings.vehicleYawRateChange,
                                                yawRateChangeRatio);
         if (currentYawRate == ad::physics::AngularVelocity(0.))
         {
@@ -213,16 +221,17 @@ Trajectory TrajectoryVehicle::createTrajectory(situation::VehicleState const &ve
         }
         else
         {
-          currentRadius = std::min(static_cast<double>(currentSpeed) / currentYawRate, TrajectoryVehicle::maxRadius);
+          currentRadius
+            = std::min(ad::physics::Distance(static_cast<double>(currentSpeed) / static_cast<double>(currentYawRate)),
+                       TrajectoryVehicle::maxRadius);
         }
       }
       else
       {
-        auto yawRateResponseTime
-          = calculateYawRate(vehicleState,
-                             vehicleState.dynamics.responseTime,
-                             vehicleState.dynamics.unstructuredSettings.vehicleYawRateChangePerSecond,
-                             yawRateChangeRatio);
+        auto yawRateResponseTime = calculateYawRate(vehicleState,
+                                                    vehicleState.dynamics.responseTime,
+                                                    vehicleState.dynamics.unstructuredSettings.vehicleYawRateChange,
+                                                    yawRateChangeRatio);
         ad::physics::Speed speedAtResponseTime;
         situation::calculateSpeed(vehicleState.dynamics.responseTime,
                                   vehicleState.objectState.speed,
@@ -231,8 +240,9 @@ Trajectory TrajectoryVehicle::createTrajectory(situation::VehicleState const &ve
                                   aUntilResponseTime,
                                   aAfterResponseTime,
                                   speedAtResponseTime);
-        currentRadius = static_cast<double>(speedAtResponseTime) / yawRateResponseTime; // TODO limit
-        if (std::abs(currentRadius) < vehicleState.dynamics.unstructuredSettings.vehicleMinRadius)
+        currentRadius = ad::physics::Distance(static_cast<double>(speedAtResponseTime)
+                                              / static_cast<double>(yawRateResponseTime)); // TODO limit
+        if (std::fabs(currentRadius) < vehicleState.dynamics.unstructuredSettings.vehicleMinRadius)
         {
           if (yawRateResponseTime > ad::physics::AngularVelocity(0.0))
           {
@@ -257,9 +267,9 @@ Trajectory TrajectoryVehicle::createTrajectory(situation::VehicleState const &ve
       distanceSoFar = currentDistance;
 
       auto heading = TrajectoryHeading::straight;
-      if (std::abs(currentRadius) <= ad::physics::Distance(maxRadius))
+      if (std::fabs(currentRadius) <= maxRadius)
       {
-        if (std::abs(currentRadius) < vehicleState.dynamics.unstructuredSettings.vehicleMinRadius)
+        if (std::fabs(currentRadius) < vehicleState.dynamics.unstructuredSettings.vehicleMinRadius)
         {
           if (currentRadius > ad::physics::Distance(0.0))
           {
@@ -282,51 +292,21 @@ Trajectory TrajectoryVehicle::createTrajectory(situation::VehicleState const &ve
         {
           heading = TrajectoryHeading::right;
         }
-        Point circleOrigin = Point(currentPoint.x() - currentRadius * cos(currentAngle),
-                                   currentPoint.y() - currentRadius * sin(currentAngle));
+        Point const circleOrigin = getCircleOrigin(currentPoint, currentRadius, currentAngle);
 
-        currentAngle += static_cast<double>(distanceToNextPoint) / currentRadius;
+        currentAngle += ad::physics::Angle(distanceToNextPoint / currentRadius);
 
         currentPoint = getPointOnCircle(circleOrigin, currentRadius, currentAngle);
       }
       else
       {
         // go straight
-        currentAngle += static_cast<double>(distanceToNextPoint) / currentRadius;
-        currentPoint
-          = Point(currentPoint.x() + distanceToNextPoint * cos(static_cast<double>(currentAngle) + M_PI / 2.0),
-                  currentPoint.y() + distanceToNextPoint * sin(static_cast<double>(currentAngle) + M_PI / 2.0));
-      }
-      if (!trajectory.empty())
-      {
-        if (heading == TrajectoryHeading::left)
-        {
-          if (trajectory.back().heading == TrajectoryHeading::straight)
-          {
-            headingChangedLeftToStraight = true;
-          }
-          else if (trajectory.back().heading == TrajectoryHeading::right)
-          {
-            headingChangedLeftToStraight = true;
-            headingChangedStraightToRight = true;
-          }
-        }
-        else if (heading == TrajectoryHeading::right)
-        {
-          if (trajectory.back().heading == TrajectoryHeading::straight)
-          {
-            headingChangedStraightToRight = true;
-          }
-          else if (trajectory.back().heading == TrajectoryHeading::left)
-          {
-            headingChangedLeftToStraight = true;
-            headingChangedStraightToRight = true;
-          }
-        }
+        currentAngle += ad::physics::Angle(distanceToNextPoint / currentRadius);
+        currentPoint = getPointOnCircle(currentPoint, distanceToNextPoint, currentAngle + ad::physics::cPI_2);
       }
       points.push_back(currentPoint);
 
-      trajectory.push_back(TrajectoryPoint(currentPoint, static_cast<double>(currentAngle) + M_PI / 2.0, heading));
+      trajectory.push_back(TrajectoryPoint(currentPoint, currentAngle + ad::physics::cPI_2, heading));
     }
     else
     {
@@ -339,10 +319,11 @@ Trajectory TrajectoryVehicle::createTrajectory(situation::VehicleState const &ve
   return trajectory;
 }
 
-ad::physics::AngularVelocity TrajectoryVehicle::calculateYawRate(situation::VehicleState const &vehicleState,
-                                                                 ad::physics::Duration const &duration,
-                                                                 ad::physics::ParametricValue const &maxYawRateChange,
-                                                                 ad::physics::RatioValue const &ratio) const
+ad::physics::AngularVelocity
+TrajectoryVehicle::calculateYawRate(situation::VehicleState const &vehicleState,
+                                    ad::physics::Duration const &duration,
+                                    ad::physics::AngularAcceleration const &maxYawRateChange,
+                                    ad::physics::RatioValue const &ratio) const
 {
   auto calcTime = duration;
   if (calcTime > vehicleState.dynamics.responseTime)
@@ -350,8 +331,7 @@ ad::physics::AngularVelocity TrajectoryVehicle::calculateYawRate(situation::Vehi
     calcTime = vehicleState.dynamics.responseTime;
   }
 
-  return vehicleState.objectState.yawRate
-    + maxYawRateChange * static_cast<double>(calcTime) * static_cast<double>(ratio);
+  return vehicleState.objectState.yawRate + maxYawRateChange * calcTime * ratio;
 }
 
 Line TrajectoryVehicle::calculateTrajectorySetSide(std::vector<TrajectoryPoint> const &finalTrajectoryPoints,
@@ -416,7 +396,7 @@ Line TrajectoryVehicle::calculateTrajectorySetSide(std::vector<TrajectoryPoint> 
 
   // remove similar points
   auto it = maxLine.begin();
-  auto epsilon = ad::physics::Distance(0.01);
+  auto const epsilon(0.01);
   while (it != maxLine.end())
   {
     // remove odd numbers
@@ -449,6 +429,9 @@ TrajectoryVehicle::getTrajectoryHeading(std::vector<TrajectoryPoint> const &fina
         headingVote += 1;
         break;
       case TrajectoryHeading::straight:
+        break;
+      default:
+        throw std::runtime_error("TrajectoryVehicle::getTrajectoryHeading>> invalid trajectory heading");
         break;
     }
   }

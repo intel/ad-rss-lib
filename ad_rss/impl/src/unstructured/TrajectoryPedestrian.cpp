@@ -10,6 +10,7 @@
  */
 
 #include "TrajectoryPedestrian.hpp"
+#include <ad/physics/Operation.hpp>
 #include "ad/rss/situation/Physics.hpp"
 
 /*!
@@ -25,7 +26,7 @@ namespace rss {
  */
 namespace unstructured {
 
-const double TrajectoryPedestrian::maxRadius = 1000.;
+const ad::physics::Distance TrajectoryPedestrian::maxRadius(1000.);
 
 bool TrajectoryPedestrian::calculateTrajectorySets(situation::VehicleState const &vehicleState,
                                                    Polygon &brakePolygon,
@@ -98,10 +99,10 @@ bool TrajectoryPedestrian::createTrajectorySet(situation::VehicleState const &ve
                                        vehicleState.dynamics.alphaLon.accelMax,
                                        aAfterResponseTime,
                                        maxDistance);
-    calculateCircleArc(Point(vehicleState.objectState.centerPoint.x, vehicleState.objectState.centerPoint.y),
-                       static_cast<double>(maxDistance),
-                       0,
-                       2 * M_PI,
+    calculateCircleArc(toPoint(vehicleState.objectState.centerPoint),
+                       maxDistance,
+                       ad::physics::Angle(0.),
+                       ad::physics::c2PI,
                        true,
                        trajectorySet);
   }
@@ -115,8 +116,8 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
                                                               ad::physics::RatioValue const &angleChangeRatio,
                                                               std::string const &debugNamespace) const
 {
-  auto startingAngle = vehicleState.objectState.yaw - ad::physics::Angle(M_PI / 2.);
-  auto startingPoint = Point(vehicleState.objectState.centerPoint.x, vehicleState.objectState.centerPoint.y);
+  auto startingAngle = vehicleState.objectState.yaw - ad::physics::cPI_2;
+  auto startingPoint = toPoint(vehicleState.objectState.centerPoint);
   ad::physics::Distance maxDistance;
   situation::calculateDistanceOffset(duration,
                                      vehicleState.objectState.speed,
@@ -134,7 +135,8 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
   ad::physics::Angle finalAngle = vehicleState.objectState.yaw;
   TrajectoryHeading heading;
 
-  if (std::abs(angleChangeRatio) > vehicleState.dynamics.unstructuredSettings.pedestrianTurningRadius / maxRadius)
+  if (static_cast<double>(std::fabs(angleChangeRatio))
+      > vehicleState.dynamics.unstructuredSettings.pedestrianTurningRadius / maxRadius)
   {
     auto radius = vehicleState.dynamics.unstructuredSettings.pedestrianTurningRadius / angleChangeRatio;
 
@@ -147,7 +149,7 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
                                        aUntilResponseTime,
                                        ad::physics::Acceleration(0.),
                                        distanceUntilReponseTime);
-    auto angleChange = ad::physics::Angle(static_cast<double>(distanceUntilReponseTime) / radius);
+    auto angleChange = ad::physics::Angle(distanceUntilReponseTime / radius);
     heading = (radius > ad::physics::Distance(0.)) ? TrajectoryHeading::left : TrajectoryHeading::right;
 
     auto pointAfterResponseTime = getPointOnCircle(circleOrigin, radius, startingAngle + angleChange);
@@ -157,11 +159,10 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
 #endif
 
     auto remainingDistance = maxDistance - distanceUntilReponseTime;
+    ad::physics::Angle const deltaAngle = ad::physics::cPI_2 - angleChange - startingAngle;
     // after response time continue on a straight line
-    finalPoint = Point(pointAfterResponseTime.x()
-                         - static_cast<double>(remainingDistance) * cos(M_PI / 2 - angleChange - startingAngle),
-                       pointAfterResponseTime.y()
-                         + static_cast<double>(remainingDistance) * sin(M_PI / 2 - angleChange - startingAngle));
+    finalPoint = pointAfterResponseTime
+      + toPoint(-std::cos(deltaAngle) * remainingDistance, std::sin(deltaAngle) * remainingDistance);
 #if DRAW_TRAJECTORIES
     boost::geometry::append(linePts, finalPoint);
 #endif
@@ -170,8 +171,7 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
   else
   {
     // straight line
-    finalPoint = Point(startingPoint.x() - static_cast<double>(maxDistance) * sin(startingAngle),
-                       startingPoint.y() + static_cast<double>(maxDistance) * cos(startingAngle));
+    finalPoint = startingPoint + toPoint(-std::sin(startingAngle) * maxDistance, std::cos(startingAngle) * maxDistance);
 #if DRAW_TRAJECTORIES
     boost::geometry::append(linePts, startingPoint);
     boost::geometry::append(linePts, finalPoint);
@@ -181,6 +181,8 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
 
 #if DRAW_TRAJECTORIES
   DEBUG_DRAWING_LINE(linePts, "orange", debugNamespace + "trajectory");
+#else
+  (void)debugNamespace;
 #endif
 
   return TrajectoryPoint(finalPoint, finalAngle, heading);

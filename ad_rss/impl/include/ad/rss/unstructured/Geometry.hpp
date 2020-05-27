@@ -16,7 +16,8 @@
 #include <boost/geometry/geometries/geometries.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
-#include "ad/physics/Angle.hpp"
+#include "ad/physics/AngleOperation.hpp"
+#include "ad/physics/Distance.hpp"
 #include "ad/rss/state/HeadingRange.hpp"
 #include "ad/rss/world/UnstructuredTrajectorySet.hpp"
 
@@ -42,7 +43,7 @@ typedef boost::geometry::model::multi_point<Point> MultiPoint;
 typedef boost::geometry::model::box<Point> Box;
 
 /**
- * @brief convert a Distance2D to Point
+ * @brief create a Point from a Distance2D
  *
  * @param[in] distance distance to convert
  *
@@ -51,6 +52,19 @@ typedef boost::geometry::model::box<Point> Box;
 inline Point toPoint(ad::physics::Distance2D const &distance)
 {
   return Point(static_cast<double>(distance.x), static_cast<double>(distance.y));
+}
+
+/**
+ * @brief create a Point from two Distance components
+ *
+ * @param[in] distanceX x component of distance
+ * @param[in] distanceY y component of distance
+ *
+ * @returns point
+ */
+inline Point toPoint(ad::physics::Distance const &distanceX, ad::physics::Distance const &distanceY)
+{
+  return Point(static_cast<double>(distanceX), static_cast<double>(distanceY));
 }
 
 /**
@@ -63,8 +77,8 @@ inline Point toPoint(ad::physics::Distance2D const &distance)
 inline ad::physics::Distance2D toDistance(Point const &point)
 {
   ad::physics::Distance2D distance;
-  distance.x = point.x();
-  distance.y = point.y();
+  distance.x = ad::physics::Distance(point.x());
+  distance.y = ad::physics::Distance(point.y());
   return distance;
 }
 
@@ -83,15 +97,6 @@ void toPolygon(world::UnstructuredTrajectorySet const &trajectorySet, Polygon &p
  * @param[out] trajectorySet converted trajectory set
  */
 void toTrajectorySet(Polygon const &polygon, world::UnstructuredTrajectorySet &trajectorySet);
-
-/**
- * @brief normalize an angle
- *
- * @param[in] angle angle to normalize
- *
- * @returns normalized angle
- */
-ad::physics::Angle normalizeAngle(ad::physics::Angle const &angle);
 
 /**
  * @brief check if an angle is within a range
@@ -177,7 +182,7 @@ void calculateCircleArc(Point origin,
                         bool const counterClockwise,
                         T &geometry)
 {
-  ad::physics::Angle currentAngle = normalizeAngle(from);
+  ad::physics::Angle currentAngle = physics::normalizeAngle(from);
   ad::physics::Angle maxAngle;
   if (counterClockwise)
   {
@@ -185,7 +190,7 @@ void calculateCircleArc(Point origin,
     while (currentAngle < maxAngle)
     {
       boost::geometry::append(geometry, getPointOnCircle(origin, radius, currentAngle));
-      currentAngle += 0.1;
+      currentAngle += ad::physics::Angle(0.1);
     }
   }
   else
@@ -194,7 +199,7 @@ void calculateCircleArc(Point origin,
     while (currentAngle > maxAngle)
     {
       boost::geometry::append(geometry, getPointOnCircle(origin, radius, currentAngle));
-      currentAngle -= 0.1;
+      currentAngle -= ad::physics::Angle(0.1);
     }
   }
   if (currentAngle != maxAngle)
@@ -227,3 +232,35 @@ void splitLineAtIntersectionPoint(Point const &intersectionPoint, Line const &li
 } // namespace unstructured
 } // namespace rss
 } // namespace ad
+
+/*!
+ * @brief Point operation: vector addition
+ *
+ * @param[in] a point a
+ * @param[in] b point b
+ *
+ * @returns c = a + b
+ */
+inline ad::rss::unstructured::Point operator+(ad::rss::unstructured::Point const &a,
+                                              ad::rss::unstructured::Point const &b)
+{
+  auto result = a;
+  boost::geometry::add_point(result, b);
+  return result;
+}
+
+/*!
+ * @brief Point operation: vector subtraction
+ *
+ * @param[in] a point a
+ * @param[in] b point b
+ *
+ * @returns c = a - b
+ */
+inline ad::rss::unstructured::Point operator-(ad::rss::unstructured::Point const &a,
+                                              ad::rss::unstructured::Point const &b)
+{
+  auto result = a;
+  boost::geometry::subtract_point(result, b);
+  return result;
+}

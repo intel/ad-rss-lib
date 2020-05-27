@@ -49,7 +49,7 @@ struct RssSceneCreationTest : ::testing::Test
     ::ad::rss::world::UnstructuredSettings unstructuredSettings;
     unstructuredSettings.pedestrianTurningRadius = ad::physics::Distance(2.0);
     unstructuredSettings.driveAwayMaxAngle = ad::physics::Angle(2.4);
-    unstructuredSettings.vehicleYawRateChangePerSecond = ad::physics::ParametricValue(0.3);
+    unstructuredSettings.vehicleYawRateChange = ad::physics::AngularAcceleration(0.3);
     unstructuredSettings.vehicleMinRadius = ad::physics::Distance(3.5);
     unstructuredSettings.vehicleTrajectoryCalculationStep = ad::physics::Duration(0.2);
     return unstructuredSettings;

@@ -10,6 +10,7 @@
  */
 
 #include "ad/rss/unstructured/Geometry.hpp"
+#include <ad/physics/Operation.hpp>
 #include <algorithm>
 #include <cmath>
 #include <limits>
@@ -45,29 +46,28 @@ ad::rss::unstructured::Point getPointOnCircle(ad::rss::unstructured::Point const
                                               ad::physics::Distance const &radius,
                                               ad::physics::Angle const &angle)
 {
-  return ad::rss::unstructured::Point(origin.x() + static_cast<double>(radius) * cos(angle),
-                                      origin.y() + static_cast<double>(radius) * sin(angle));
+  return origin + toPoint(std::cos(angle) * radius, std::sin(angle) * radius);
 }
+
 ad::rss::unstructured::Point getCircleOrigin(ad::rss::unstructured::Point const &point,
                                              ad::physics::Distance const &radius,
                                              ad::physics::Angle const &angle)
 {
-  return ad::rss::unstructured::Point(point.x() - static_cast<double>(radius) * cos(angle),
-                                      point.y() - static_cast<double>(radius) * sin(angle));
+  return point - toPoint(std::cos(angle) * radius, std::sin(angle) * radius);
 }
 
 ad::physics::Distance getDistance(ad::rss::unstructured::Point const &point1,
                                   ad::rss::unstructured::Point const &point2)
 {
-  return ad::physics::Distance(sqrt((point1.x() - point2.x()) * (point1.x() - point2.x())
-                                    + (point1.y() - point2.y()) * (point1.y() - point2.y())));
+  auto const directionalVector = point1 - point2;
+  return sqrt(boost::geometry::dot_product(directionalVector, directionalVector));
 }
 
 void toPolygon(ad::rss::world::UnstructuredTrajectorySet const &trajectorySet, ad::rss::unstructured::Polygon &polygon)
 {
   for (auto const &distance : trajectorySet)
   {
-    ::boost::geometry::append(polygon, ad::rss::unstructured::toPoint(distance));
+    ::boost::geometry::append(polygon, toPoint(distance));
   }
 }
 
@@ -75,10 +75,7 @@ void toTrajectorySet(unstructured::Polygon const &polygon, world::UnstructuredTr
 {
   for (auto const &point : polygon.outer())
   {
-    ad::physics::Distance2D distance;
-    distance.x = point.x();
-    distance.y = point.y();
-    trajectorySet.push_back(unstructured::toDistance(point));
+    trajectorySet.push_back(toDistance(point));
   }
 }
 
@@ -105,21 +102,14 @@ void splitLineAtIntersectionPoint(ad::rss::unstructured::Point const &intersecti
     if (((it + 1) != line.end()) && (currentSection != &after))
     {
       auto const nextPt = *(it + 1);
-      auto pt2intersection
-        = ad::rss::unstructured::Point(intersectionPoint.x() - pt.x(), intersectionPoint.y() - pt.y());
-      auto nextPt2intersection
-        = ad::rss::unstructured::Point(intersectionPoint.x() - nextPt.x(), intersectionPoint.y() - nextPt.y());
-      if (boost::geometry::dot_product(pt2intersection, nextPt2intersection) < 0)
+      auto const pt2intersection = intersectionPoint - pt;
+      auto const nextPt2intersection = intersectionPoint - nextPt;
+      if (boost::geometry::dot_product(pt2intersection, nextPt2intersection) < 0.)
       {
         currentSection = &after;
       }
     }
   }
-}
-
-ad::physics::Angle normalizeAngle(ad::physics::Angle const &angle)
-{
-  return ad::physics::Angle(std::fmod(std::fmod(static_cast<double>(angle), 2 * M_PI) + 2 * M_PI, 2 * M_PI));
 }
 
 bool isInsideAngleRange(ad::physics::Angle const &angle, ad::physics::AngleRange const &range)

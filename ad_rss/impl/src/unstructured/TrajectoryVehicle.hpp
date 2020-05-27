@@ -35,7 +35,7 @@ namespace unstructured {
 class TrajectoryVehicle
 {
 public:
-  static const double maxRadius;
+  static const ad::physics::Distance maxRadius;
 
   TrajectoryVehicle()
   {
@@ -118,7 +118,7 @@ private:
    */
   ad::physics::AngularVelocity calculateYawRate(situation::VehicleState const &vehicleState,
                                                 ad::physics::Duration const &duration,
-                                                ad::physics::ParametricValue const &maxYawRateChange,
+                                                ad::physics::AngularAcceleration const &maxYawRateChange,
                                                 ad::physics::RatioValue const &ratio) const;
 
   /**

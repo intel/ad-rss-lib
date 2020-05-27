@@ -21,6 +21,10 @@ TEST(GeometryTests, toPoint)
   auto point = toPoint(distance);
   ASSERT_EQ(1.0, point.x());
   ASSERT_EQ(2.0, point.y());
+
+  point = toPoint(ad::physics::Distance(2.0), ad::physics::Distance(1.0));
+  ASSERT_EQ(2.0, point.x());
+  ASSERT_EQ(1.0, point.y());
 }
 
 TEST(GeometryTests, toDistance)
@@ -59,14 +63,6 @@ TEST(GeometryTests, toTrajectorySet)
   ASSERT_EQ(::ad::physics::Distance(2.0), trajectorySet[0].y);
   ASSERT_EQ(::ad::physics::Distance(1.0), trajectorySet[1].x);
   ASSERT_EQ(::ad::physics::Distance(3.0), trajectorySet[1].y);
-}
-
-TEST(GeometryTests, normalizeAngle)
-{
-  ASSERT_EQ(::ad::physics::Angle(M_PI), normalizeAngle(ad::physics::Angle(M_PI)));
-  ASSERT_EQ(::ad::physics::Angle(0.0), normalizeAngle(ad::physics::Angle(2 * M_PI)));
-  ASSERT_EQ(::ad::physics::Angle(M_PI), normalizeAngle(ad::physics::Angle(-5 * M_PI)));
-  ASSERT_EQ(::ad::physics::Angle(0.0), normalizeAngle(ad::physics::Angle(6 * M_PI)));
 }
 
 TEST(GeometryTests, isInsideAngleRange)
