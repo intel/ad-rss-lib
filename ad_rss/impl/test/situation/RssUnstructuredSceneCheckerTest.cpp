@@ -18,10 +18,10 @@ TEST(RssUnstructuredSceneCheckerTests, calculateDriveAwayAngle)
   ::ad::physics::AngleRange range;
   RssUnstructuredSceneChecker unstructuredSceneChecker;
   ASSERT_TRUE(unstructuredSceneChecker.calculateDriveAwayAngle(
-    unstructured::Point(1, 0), unstructured::Point(0, 0), ::ad::physics::Angle(M_PI / 4.), range));
+    unstructured::Point(1, 0), unstructured::Point(0, 0), physics::cPI / 4., range));
   // TODO: FIX!
-  // ASSERT_EQ(range.minimum, ::ad::physics::Angle(M_PI/4.));
-  // ASSERT_EQ(range.maximum, ::ad::physics::Angle(5. * M_PI/4.));
+  // ASSERT_EQ(range.minimum, 1. / 4. * physics::cPI);
+  // ASSERT_EQ(range.maximum, 5. / 4. * physics::cPI);
 }
 
 TEST(RssUnstructuredSceneCheckerTests, calculateState_emptyTrajectorySets)
@@ -46,7 +46,7 @@ TEST(RssUnstructuredSceneCheckerTests, calculateState_frontal_stopped)
   situation.situationType = SituationType::Unstructured;
   situation.egoVehicleState = createVehicleState(world::ObjectType::EgoVehicle, 0.0, 0.0);
   situation.otherVehicleState = createVehicleState(world::ObjectType::OtherVehicle, 0.0, 0.0);
-  situation.egoVehicleState.dynamics.unstructuredSettings.driveAwayMaxAngle = M_PI / 4.;
+  situation.egoVehicleState.dynamics.unstructuredSettings.driveAwayMaxAngle = physics::cPI / 4.;
   state::UnstructuredSceneStateInformation egoStateInfo;
   state::UnstructuredSceneStateInformation otherStateInfo;
   getUnstructuredVehicle(unstructured::Point(0., 0.), true, egoStateInfo, situation.egoVehicleState);
@@ -60,8 +60,8 @@ TEST(RssUnstructuredSceneCheckerTests, calculateState_frontal_stopped)
   ASSERT_TRUE(unstructuredSceneChecker.calculateState(situation, egoStateInfo, otherStateInfo, unstructuredSceneState));
   ASSERT_FALSE(unstructuredSceneState.isSafe);
   ASSERT_EQ(unstructuredSceneState.response, state::UnstructuredSceneResponse::DriveAway); // as both stopped
-  ASSERT_EQ(unstructuredSceneState.headingRange.minimum, ::ad::physics::Angle(5. / 4. * M_PI));
-  ASSERT_EQ(unstructuredSceneState.headingRange.maximum, ::ad::physics::Angle(7. / 4. * M_PI));
+  ASSERT_EQ(unstructuredSceneState.headingRange.minimum, 5. / 4. * physics::cPI);
+  ASSERT_EQ(unstructuredSceneState.headingRange.maximum, 7. / 4. * physics::cPI);
 }
 
 } // namespace unstructured

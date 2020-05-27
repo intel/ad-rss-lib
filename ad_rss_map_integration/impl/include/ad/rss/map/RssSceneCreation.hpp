@@ -191,19 +191,8 @@ private:
 
   bool appendStructuredScenes(::ad::rss::map::RssSceneCreator &sceneCreator,
                               std::shared_ptr<RssObjectConversion const> const &egoObject,
-                              ::ad::rss::world::ObjectId const &egoId,
-                              ::ad::map::match::Object const &egoMatchObject,
-                              ::ad::physics::Speed const &egoSpeed,
-                              ::ad::physics::AngularVelocity const &egoYawRate,
-                              ::ad::rss::world::RssDynamics const &egoRssDynamics,
                               ::ad::map::route::FullRoute const &egoRoute,
-                              std::shared_ptr<RssObjectConversion const> const &otherObject,
-                              ::ad::rss::world::ObjectId const &objectId,
-                              ::ad::rss::world::ObjectType const &objectType,
-                              ::ad::map::match::Object const &objectMatchObject,
-                              ::ad::physics::Speed const &objectSpeed,
-                              ::ad::physics::AngularVelocity const &objectYawRate,
-                              ::ad::rss::world::RssDynamics const &objectRssDynamics);
+                              std::shared_ptr<RssObjectConversion const> const &otherObject);
 
   bool appendSceneToWorldModel(::ad::rss::world::Scene const &scene);
 

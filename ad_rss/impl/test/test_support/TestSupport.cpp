@@ -37,7 +37,7 @@ void resetRssState(state::UnstructuredSceneRssState &state)
 {
   state.response = state::UnstructuredSceneResponse::None;
   state.headingRange.minimum = ad::physics::Angle(0.0);
-  state.headingRange.maximum = ad::physics::Angle(2. * M_PI);
+  state.headingRange.maximum = ad::physics::c2PI;
   state.isSafe = true;
 }
 
@@ -66,7 +66,7 @@ void resetRssState(state::ProperResponse &properResponse)
   properResponse.headingRange.innerRange.minimum = ad::physics::Angle(0.0);
   properResponse.headingRange.innerRange.maximum = ad::physics::Angle(0.0);
   properResponse.headingRange.outerRange.minimum = ad::physics::Angle(0.0);
-  properResponse.headingRange.outerRange.maximum = ad::physics::Angle(2. * M_PI);
+  properResponse.headingRange.outerRange.maximum = ad::physics::c2PI;
 }
 
 world::RssDynamics getObjectRssDynamics()
@@ -484,13 +484,13 @@ void getUnstructuredVehicle(unstructured::Point const &backLeft,
   {
     vehicleState.objectState.centerPoint.x = ad::physics::Distance(backLeft.x() + 0.5);
     vehicleState.objectState.centerPoint.y = ad::physics::Distance(backLeft.y() + 0.5);
-    vehicleState.objectState.yaw = M_PI / 2.;
+    vehicleState.objectState.yaw = ad::physics::cPI_2;
   }
   else
   {
     vehicleState.objectState.centerPoint.x = ad::physics::Distance(backLeft.x() - 0.5);
     vehicleState.objectState.centerPoint.y = ad::physics::Distance(backLeft.y() - 0.5);
-    vehicleState.objectState.yaw = 3. / 2. * M_PI;
+    vehicleState.objectState.yaw = 3. * ad::physics::cPI_2;
   }
 
   stateInfo.brakeTrajectorySet.clear();

@@ -42,8 +42,6 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
     response.lateralResponseLeft = state::LateralResponse::None;
     response.lateralResponseRight = state::LateralResponse::None;
 
-    response.accelerationRestrictions.timeIndex = response.timeIndex;
-
     // absolute maxima are given by the default dynamics
     response.accelerationRestrictions.longitudinalRange.maximum
       = currentStateSnapshot.defaultEgoVehicleRssDynamics.alphaLon.accelMax;

@@ -25,7 +25,7 @@ namespace rss {
  */
 namespace unstructured {
 
-const ad::physics::Distance TrajectoryVehicle::maxRadius = 1000.0;
+const ad::physics::Distance TrajectoryVehicle::maxRadius(1000.0);
 
 bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &vehicleState,
                                                 Polygon &brakePolygon,

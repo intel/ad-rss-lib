@@ -287,128 +287,128 @@ TEST(MathUnitTestsAngles, overlapHeadingRange)
   //-------------
   // angleRange contains outer
   angleRange.minimum = ad::physics::Angle(0.0);
-  angleRange.maximum = ad::physics::Angle(M_PI);
+  angleRange.maximum = physics::cPI;
   overlapRange.innerRange.minimum = ad::physics::Angle(0.0);
   overlapRange.innerRange.maximum = ad::physics::Angle(0.0);
-  overlapRange.outerRange.minimum = ad::physics::Angle(1. / 4. * M_PI);
-  overlapRange.outerRange.maximum = ad::physics::Angle(1. / 2. * M_PI);
+  overlapRange.outerRange.minimum = 1. / 4. * physics::cPI;
+  overlapRange.outerRange.maximum = 1. / 2. * physics::cPI;
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(angleRange, overlapRange));
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.innerRange.minimum);
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.innerRange.maximum);
-  ASSERT_EQ(ad::physics::Angle(1. / 4. * M_PI), overlapRange.outerRange.minimum);
-  ASSERT_EQ(ad::physics::Angle(1. / 2. * M_PI), overlapRange.outerRange.maximum);
+  ASSERT_EQ(1. / 4. * physics::cPI, overlapRange.outerRange.minimum);
+  ASSERT_EQ(1. / 2. * physics::cPI, overlapRange.outerRange.maximum);
 
   // angleRange inside outer
-  angleRange.minimum = ad::physics::Angle(1. / 4. * M_PI);
-  angleRange.maximum = ad::physics::Angle(1. / 2. * M_PI);
+  angleRange.minimum = 1. / 4. * physics::cPI;
+  angleRange.maximum = 1. / 2. * physics::cPI;
   overlapRange.innerRange.minimum = ad::physics::Angle(0.0);
   overlapRange.innerRange.maximum = ad::physics::Angle(0.0);
   overlapRange.outerRange.minimum = ad::physics::Angle(0.0);
-  overlapRange.outerRange.maximum = ad::physics::Angle(M_PI);
+  overlapRange.outerRange.maximum = physics::cPI;
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(angleRange, overlapRange));
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.innerRange.minimum);
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.innerRange.maximum);
-  ASSERT_EQ(ad::physics::Angle(1. / 4. * M_PI), overlapRange.outerRange.minimum);
-  ASSERT_EQ(ad::physics::Angle(1. / 2. * M_PI), overlapRange.outerRange.maximum);
+  ASSERT_EQ(1. / 4. * physics::cPI, overlapRange.outerRange.minimum);
+  ASSERT_EQ(1. / 2. * physics::cPI, overlapRange.outerRange.maximum);
 
   // angleRange intersects with outer, is higher
-  angleRange.minimum = ad::physics::Angle(1. / 2. * M_PI);
-  angleRange.maximum = ad::physics::Angle(3. / 2. * M_PI);
+  angleRange.minimum = 1. / 2. * physics::cPI;
+  angleRange.maximum = 3. / 2. * physics::cPI;
   overlapRange.innerRange.minimum = ad::physics::Angle(0.0);
   overlapRange.innerRange.maximum = ad::physics::Angle(0.0);
   overlapRange.outerRange.minimum = ad::physics::Angle(0.0);
-  overlapRange.outerRange.maximum = ad::physics::Angle(M_PI);
+  overlapRange.outerRange.maximum = physics::cPI;
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(angleRange, overlapRange));
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.innerRange.minimum);
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.innerRange.maximum);
-  ASSERT_EQ(ad::physics::Angle(1. / 2. * M_PI), overlapRange.outerRange.minimum);
-  ASSERT_EQ(ad::physics::Angle(M_PI), overlapRange.outerRange.maximum);
+  ASSERT_EQ(1. / 2. * physics::cPI, overlapRange.outerRange.minimum);
+  ASSERT_EQ(physics::cPI, overlapRange.outerRange.maximum);
 
   // angleRange intersects with outer, is lower
-  angleRange.minimum = ad::physics::Angle(1. / 2. * M_PI);
-  angleRange.maximum = ad::physics::Angle(3. / 2. * M_PI);
+  angleRange.minimum = 1. / 2. * physics::cPI;
+  angleRange.maximum = 3. / 2. * physics::cPI;
   overlapRange.innerRange.minimum = ad::physics::Angle(0.0);
   overlapRange.innerRange.maximum = ad::physics::Angle(0.0);
-  overlapRange.outerRange.minimum = ad::physics::Angle(M_PI);
+  overlapRange.outerRange.minimum = physics::cPI;
   overlapRange.outerRange.maximum = ad::physics::Angle(0.0);
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(angleRange, overlapRange));
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.innerRange.minimum);
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.innerRange.maximum);
-  ASSERT_EQ(ad::physics::Angle(M_PI), overlapRange.outerRange.minimum);
-  ASSERT_EQ(ad::physics::Angle(3. / 2. * M_PI), overlapRange.outerRange.maximum);
+  ASSERT_EQ(physics::cPI, overlapRange.outerRange.minimum);
+  ASSERT_EQ(3. / 2. * physics::cPI, overlapRange.outerRange.maximum);
 
   // angleRange does not intersect
   angleRange.minimum = ad::physics::Angle(0.0);
-  angleRange.maximum = ad::physics::Angle(1. / 4. * M_PI);
+  angleRange.maximum = 1. / 4. * physics::cPI;
   overlapRange.innerRange.minimum = ad::physics::Angle(0.0);
   overlapRange.innerRange.maximum = ad::physics::Angle(0.0);
-  overlapRange.outerRange.minimum = ad::physics::Angle(5. / 8. * M_PI);
-  overlapRange.outerRange.maximum = ad::physics::Angle(7. / 8. * M_PI);
+  overlapRange.outerRange.minimum = 5. / 8. * physics::cPI;
+  overlapRange.outerRange.maximum = 7. / 8. * physics::cPI;
   ASSERT_FALSE(ad::rss::unstructured::getHeadingOverlap(angleRange, overlapRange));
 
   // intersection, two ranges
   angleRange.minimum = ad::physics::Angle(0.0);
-  angleRange.maximum = ad::physics::Angle(M_PI);
+  angleRange.maximum = physics::cPI;
   overlapRange.innerRange.minimum = ad::physics::Angle(0.0);
   overlapRange.innerRange.maximum = ad::physics::Angle(0.0);
-  overlapRange.outerRange.minimum = ad::physics::Angle(3. / 4. * M_PI);
-  overlapRange.outerRange.maximum = ad::physics::Angle(1. / 4. * M_PI);
+  overlapRange.outerRange.minimum = 3. / 4. * physics::cPI;
+  overlapRange.outerRange.maximum = 1. / 4. * physics::cPI;
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(angleRange, overlapRange));
-  ASSERT_EQ(ad::physics::Angle(1. / 4. * M_PI), overlapRange.innerRange.minimum);
-  ASSERT_EQ(ad::physics::Angle(3. / 4. * M_PI), overlapRange.innerRange.maximum);
+  ASSERT_EQ(1. / 4. * physics::cPI, overlapRange.innerRange.minimum);
+  ASSERT_EQ(3. / 4. * physics::cPI, overlapRange.innerRange.maximum);
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.outerRange.minimum);
-  ASSERT_EQ(ad::physics::Angle(M_PI), overlapRange.outerRange.maximum);
+  ASSERT_EQ(physics::cPI, overlapRange.outerRange.maximum);
 
   //-------------
   // with innerRange
   //-------------
   // no intersection
-  angleRange.minimum = ad::physics::Angle(3. / 4. * M_PI);
-  angleRange.maximum = ad::physics::Angle(M_PI);
-  overlapRange.innerRange.minimum = ad::physics::Angle(7. / 4. * M_PI);
-  overlapRange.innerRange.maximum = ad::physics::Angle(1. / 4. * M_PI);
-  overlapRange.outerRange.minimum = ad::physics::Angle(3. / 2. * M_PI);
-  overlapRange.outerRange.maximum = ad::physics::Angle(1. / 2. * M_PI);
+  angleRange.minimum = 3. / 4. * physics::cPI;
+  angleRange.maximum = physics::cPI;
+  overlapRange.innerRange.minimum = 7. / 4. * physics::cPI;
+  overlapRange.innerRange.maximum = 1. / 4. * physics::cPI;
+  overlapRange.outerRange.minimum = 3. / 2. * physics::cPI;
+  overlapRange.outerRange.maximum = 1. / 2. * physics::cPI;
   ASSERT_FALSE(ad::rss::unstructured::getHeadingOverlap(angleRange, overlapRange));
 
   // intersects, one resulting range (the lower one)
   angleRange.minimum = ad::physics::Angle(0.0);
-  angleRange.maximum = ad::physics::Angle(1. / 4. * M_PI);
-  overlapRange.innerRange.minimum = ad::physics::Angle(1. / 4. * M_PI);
-  overlapRange.innerRange.maximum = ad::physics::Angle(1. / 2. * M_PI);
+  angleRange.maximum = 1. / 4. * physics::cPI;
+  overlapRange.innerRange.minimum = 1. / 4. * physics::cPI;
+  overlapRange.innerRange.maximum = 1. / 2. * physics::cPI;
   overlapRange.outerRange.minimum = ad::physics::Angle(0.0);
-  overlapRange.outerRange.maximum = ad::physics::Angle(M_PI);
+  overlapRange.outerRange.maximum = physics::cPI;
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(angleRange, overlapRange));
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.innerRange.minimum);
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.innerRange.maximum);
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.outerRange.minimum);
-  ASSERT_EQ(ad::physics::Angle(1. / 4. * M_PI), overlapRange.outerRange.maximum);
+  ASSERT_EQ(1. / 4. * physics::cPI, overlapRange.outerRange.maximum);
 
   // intersects, one resulting range (the upper one)
-  angleRange.minimum = ad::physics::Angle(3. / 4. * M_PI);
-  angleRange.maximum = ad::physics::Angle(7. / 8. * M_PI);
-  overlapRange.innerRange.minimum = ad::physics::Angle(1. / 4. * M_PI);
-  overlapRange.innerRange.maximum = ad::physics::Angle(1. / 2. * M_PI);
+  angleRange.minimum = 3. / 4. * physics::cPI;
+  angleRange.maximum = 7. / 8. * physics::cPI;
+  overlapRange.innerRange.minimum = 1. / 4. * physics::cPI;
+  overlapRange.innerRange.maximum = 1. / 2. * physics::cPI;
   overlapRange.outerRange.minimum = ad::physics::Angle(0.0);
-  overlapRange.outerRange.maximum = ad::physics::Angle(M_PI);
+  overlapRange.outerRange.maximum = physics::cPI;
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(angleRange, overlapRange));
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.innerRange.minimum);
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.innerRange.maximum);
-  ASSERT_EQ(ad::physics::Angle(3. / 4. * M_PI), overlapRange.outerRange.minimum);
-  ASSERT_EQ(ad::physics::Angle(7. / 8. * M_PI), overlapRange.outerRange.maximum);
+  ASSERT_EQ(3. / 4. * physics::cPI, overlapRange.outerRange.minimum);
+  ASSERT_EQ(7. / 8. * physics::cPI, overlapRange.outerRange.maximum);
 
   // intersects, two resulting range
-  angleRange.minimum = ad::physics::Angle(1. / 4. * M_PI);
-  angleRange.maximum = ad::physics::Angle(3. / 4. * M_PI);
-  overlapRange.innerRange.minimum = ad::physics::Angle(1. / 2. * M_PI);
-  overlapRange.innerRange.maximum = ad::physics::Angle(M_PI);
+  angleRange.minimum = 1. / 4. * physics::cPI;
+  angleRange.maximum = 3. / 4. * physics::cPI;
+  overlapRange.innerRange.minimum = 1. / 2. * physics::cPI;
+  overlapRange.innerRange.maximum = physics::cPI;
   overlapRange.outerRange.minimum = ad::physics::Angle(0.0);
-  overlapRange.outerRange.maximum = ad::physics::Angle(3. / 2. * M_PI);
+  overlapRange.outerRange.maximum = 3. / 2. * physics::cPI;
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(angleRange, overlapRange));
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.innerRange.minimum);
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRange.innerRange.maximum);
-  ASSERT_EQ(ad::physics::Angle(1. / 4. * M_PI), overlapRange.outerRange.minimum);
-  ASSERT_EQ(ad::physics::Angle(1. / 2. * M_PI), overlapRange.outerRange.maximum);
+  ASSERT_EQ(1. / 4. * physics::cPI, overlapRange.outerRange.minimum);
+  ASSERT_EQ(1. / 2. * physics::cPI, overlapRange.outerRange.maximum);
 }
 
 } // namespace situation

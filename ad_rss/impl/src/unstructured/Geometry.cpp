@@ -60,7 +60,7 @@ ad::physics::Distance getDistance(ad::rss::unstructured::Point const &point1,
                                   ad::rss::unstructured::Point const &point2)
 {
   auto const directionalVector = point1 - point2;
-  return sqrt(boost::geometry::dot_product(directionalVector, directionalVector));
+  return ad::physics::Distance(sqrt(boost::geometry::dot_product(directionalVector, directionalVector)));
 }
 
 void toPolygon(ad::rss::world::UnstructuredTrajectorySet const &trajectorySet, ad::rss::unstructured::Polygon &polygon)
