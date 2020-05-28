@@ -470,7 +470,7 @@ protected:
     }
   }
 
-  void testRestrictions(world::AccelerationRestriction const &accelerationRestriction,
+  void testRestrictions(state::AccelerationRestriction const &accelerationRestriction,
                         state::LongitudinalResponse expectedLonResponse = state::LongitudinalResponse::None,
                         state::LateralResponse expectedLatResponseLeft = state::LateralResponse::None,
                         state::LateralResponse expectedLatResponseRight = state::LateralResponse::None)

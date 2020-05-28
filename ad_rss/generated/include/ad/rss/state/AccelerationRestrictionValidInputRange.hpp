@@ -20,7 +20,7 @@
 #include <cmath>
 #include <limits>
 #include "ad/physics/AccelerationRangeValidInputRange.hpp"
-#include "ad/rss/world/AccelerationRestriction.hpp"
+#include "ad/rss/state/AccelerationRestriction.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
 
@@ -34,7 +34,7 @@
  *
  * \note the specified input range is defined by the ranges of all members
  */
-inline bool withinValidInputRange(::ad::rss::world::AccelerationRestriction const &input, bool const logErrors = true)
+inline bool withinValidInputRange(::ad::rss::state::AccelerationRestriction const &input, bool const logErrors = true)
 {
   // check for generic member input ranges
   bool inValidInputRange = true;
@@ -43,7 +43,7 @@ inline bool withinValidInputRange(::ad::rss::world::AccelerationRestriction cons
     && withinValidInputRange(input.lateralRightRange, logErrors);
   if (!inValidInputRange && logErrors)
   {
-    spdlog::error("withinValidInputRange(::ad::rss::world::AccelerationRestriction)>> {} has invalid member",
+    spdlog::error("withinValidInputRange(::ad::rss::state::AccelerationRestriction)>> {} has invalid member",
                   input); // LCOV_EXCL_BR_LINE
   }
 

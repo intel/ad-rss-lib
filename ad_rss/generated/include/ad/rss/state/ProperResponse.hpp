@@ -21,10 +21,10 @@
 #include <limits>
 #include <memory>
 #include <sstream>
+#include "ad/rss/state/AccelerationRestriction.hpp"
 #include "ad/rss/state/HeadingRange.hpp"
 #include "ad/rss/state/LateralResponse.hpp"
 #include "ad/rss/state/LongitudinalResponse.hpp"
-#include "ad/rss/world/AccelerationRestriction.hpp"
 #include "ad/rss/world/ObjectIdVector.hpp"
 #include "ad/rss/world/TimeIndex.hpp"
 /*!
@@ -155,7 +155,7 @@ struct ProperResponse
    */
   ::ad::rss::state::LateralResponse lateralResponseLeft;
   ::ad::rss::state::HeadingRange headingRange;
-  ::ad::rss::world::AccelerationRestriction accelerationRestrictions;
+  ::ad::rss::state::AccelerationRestriction accelerationRestrictions;
 };
 
 } // namespace state

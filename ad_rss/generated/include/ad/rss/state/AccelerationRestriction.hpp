@@ -30,9 +30,9 @@ namespace ad {
  */
 namespace rss {
 /*!
- * @brief namespace world
+ * @brief namespace state
  */
-namespace world {
+namespace state {
 
 /*!
  * \brief DataType AccelerationRestriction
@@ -130,15 +130,15 @@ struct AccelerationRestriction
   ::ad::physics::AccelerationRange lateralRightRange;
 };
 
-} // namespace world
+} // namespace state
 } // namespace rss
 } // namespace ad
 
 /*!
  * \brief protect the definition of functions from duplicates by typedef usage within other data types
  */
-#ifndef GEN_GUARD_AD_RSS_WORLD_ACCELERATIONRESTRICTION
-#define GEN_GUARD_AD_RSS_WORLD_ACCELERATIONRESTRICTION
+#ifndef GEN_GUARD_AD_RSS_STATE_ACCELERATIONRESTRICTION
+#define GEN_GUARD_AD_RSS_STATE_ACCELERATIONRESTRICTION
 /*!
  * @brief namespace ad
  */
@@ -148,9 +148,9 @@ namespace ad {
  */
 namespace rss {
 /*!
- * @brief namespace world
+ * @brief namespace state
  */
-namespace world {
+namespace state {
 
 /**
  * \brief standard ostream operator
@@ -176,7 +176,7 @@ inline std::ostream &operator<<(std::ostream &os, AccelerationRestriction const 
   return os;
 }
 
-} // namespace world
+} // namespace state
 } // namespace rss
 } // namespace ad
 
@@ -184,11 +184,11 @@ namespace std {
 /*!
  * \brief overload of the std::to_string for AccelerationRestriction
  */
-inline std::string to_string(::ad::rss::world::AccelerationRestriction const &value)
+inline std::string to_string(::ad::rss::state::AccelerationRestriction const &value)
 {
   stringstream sstream;
   sstream << value;
   return sstream.str();
 }
 } // namespace std
-#endif // GEN_GUARD_AD_RSS_WORLD_ACCELERATIONRESTRICTION
+#endif // GEN_GUARD_AD_RSS_STATE_ACCELERATIONRESTRICTION

@@ -13,7 +13,6 @@
 
 #include "ad/rss/state/ProperResponse.hpp"
 #include "ad/rss/state/RssStateSnapshot.hpp"
-#include "ad/rss/world/AccelerationRestriction.hpp"
 
 /*!
  * @brief namespace ad
@@ -64,7 +63,7 @@ private:
   *
   * @param[in] state - The longitudinal state to update the acceleration restrictions with
  *  @param[inout] response -- the combined RSS response to become RSS safe.
-  * @param[inout] accelerationRestriction - The combined restrictions on the vehicle acceleration to become RSS safe.
+  * @param[inout] accelerationRange - The combined restrictions on the vehicle acceleration to become RSS safe.
   *
   */
   void combineState(::ad::rss::state::LongitudinalRssState const &state,
@@ -78,7 +77,7 @@ private:
   *
   * @param[in] state - The lateral state to update the acceleration restrictions with
   * @param[inout] response -- the combined RSS response to become RSS safe.
-  * @param[inout] accelerationRestriction - The restrictions on the vehicle acceleration to become RSS safe.
+  * @param[inout] accelerationRange - The restrictions on the vehicle acceleration to become RSS safe.
   *
   */
   void combineState(::ad::rss::state::LateralRssState const &state,

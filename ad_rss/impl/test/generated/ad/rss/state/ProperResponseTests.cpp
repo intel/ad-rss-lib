@@ -57,7 +57,7 @@ protected:
     valueHeadingRangeInnerRange.maximum = valueHeadingRangeInnerRangeMaximum;
     valueHeadingRange.innerRange = valueHeadingRangeInnerRange;
     value.headingRange = valueHeadingRange;
-    ::ad::rss::world::AccelerationRestriction valueAccelerationRestrictions;
+    ::ad::rss::state::AccelerationRestriction valueAccelerationRestrictions;
     ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralLeftRange;
     ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMinimum(-1e2);
     valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRangeMinimum;
@@ -229,7 +229,7 @@ TEST_F(ProperResponseTests, comparisonOperatorHeadingRangeDiffers)
 TEST_F(ProperResponseTests, comparisonOperatorAccelerationRestrictionsDiffers)
 {
   ::ad::rss::state::ProperResponse valueA = mValue;
-  ::ad::rss::world::AccelerationRestriction accelerationRestrictions;
+  ::ad::rss::state::AccelerationRestriction accelerationRestrictions;
   ::ad::physics::AccelerationRange accelerationRestrictionsLateralLeftRange;
   ::ad::physics::Acceleration accelerationRestrictionsLateralLeftRangeMinimum(1e2);
   accelerationRestrictionsLateralLeftRange.minimum = accelerationRestrictionsLateralLeftRangeMinimum;

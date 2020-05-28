@@ -50,7 +50,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRange)
   valueHeadingRangeInnerRange.maximum = valueHeadingRangeInnerRangeMaximum;
   valueHeadingRange.innerRange = valueHeadingRangeInnerRange;
   value.headingRange = valueHeadingRange;
-  ::ad::rss::world::AccelerationRestriction valueAccelerationRestrictions;
+  ::ad::rss::state::AccelerationRestriction valueAccelerationRestrictions;
   ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralLeftRange;
   ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMinimum(-1e2);
   valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRangeMinimum;
@@ -111,7 +111,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLongitudinalResponse
   valueHeadingRangeInnerRange.maximum = valueHeadingRangeInnerRangeMaximum;
   valueHeadingRange.innerRange = valueHeadingRangeInnerRange;
   value.headingRange = valueHeadingRange;
-  ::ad::rss::world::AccelerationRestriction valueAccelerationRestrictions;
+  ::ad::rss::state::AccelerationRestriction valueAccelerationRestrictions;
   ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralLeftRange;
   ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMinimum(-1e2);
   valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRangeMinimum;
@@ -177,7 +177,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLongitudinalResponse
   valueHeadingRangeInnerRange.maximum = valueHeadingRangeInnerRangeMaximum;
   valueHeadingRange.innerRange = valueHeadingRangeInnerRange;
   value.headingRange = valueHeadingRange;
-  ::ad::rss::world::AccelerationRestriction valueAccelerationRestrictions;
+  ::ad::rss::state::AccelerationRestriction valueAccelerationRestrictions;
   ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralLeftRange;
   ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMinimum(-1e2);
   valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRangeMinimum;
@@ -243,7 +243,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseRight
   valueHeadingRangeInnerRange.maximum = valueHeadingRangeInnerRangeMaximum;
   valueHeadingRange.innerRange = valueHeadingRangeInnerRange;
   value.headingRange = valueHeadingRange;
-  ::ad::rss::world::AccelerationRestriction valueAccelerationRestrictions;
+  ::ad::rss::state::AccelerationRestriction valueAccelerationRestrictions;
   ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralLeftRange;
   ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMinimum(-1e2);
   valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRangeMinimum;
@@ -308,7 +308,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseRight
   valueHeadingRangeInnerRange.maximum = valueHeadingRangeInnerRangeMaximum;
   valueHeadingRange.innerRange = valueHeadingRangeInnerRange;
   value.headingRange = valueHeadingRange;
-  ::ad::rss::world::AccelerationRestriction valueAccelerationRestrictions;
+  ::ad::rss::state::AccelerationRestriction valueAccelerationRestrictions;
   ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralLeftRange;
   ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMinimum(-1e2);
   valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRangeMinimum;
@@ -373,7 +373,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseLeftT
   valueHeadingRangeInnerRange.maximum = valueHeadingRangeInnerRangeMaximum;
   valueHeadingRange.innerRange = valueHeadingRangeInnerRange;
   value.headingRange = valueHeadingRange;
-  ::ad::rss::world::AccelerationRestriction valueAccelerationRestrictions;
+  ::ad::rss::state::AccelerationRestriction valueAccelerationRestrictions;
   ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralLeftRange;
   ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMinimum(-1e2);
   valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRangeMinimum;
@@ -438,7 +438,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseLeftT
   valueHeadingRangeInnerRange.maximum = valueHeadingRangeInnerRangeMaximum;
   valueHeadingRange.innerRange = valueHeadingRangeInnerRange;
   value.headingRange = valueHeadingRange;
-  ::ad::rss::world::AccelerationRestriction valueAccelerationRestrictions;
+  ::ad::rss::state::AccelerationRestriction valueAccelerationRestrictions;
   ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralLeftRange;
   ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMinimum(-1e2);
   valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRangeMinimum;
@@ -503,7 +503,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeHeadingRangeTooSmall
   valueHeadingRangeInnerRange.maximum = valueHeadingRangeInnerRangeMaximum;
   valueHeadingRange.innerRange = valueHeadingRangeInnerRange;
   value.headingRange = valueHeadingRange;
-  ::ad::rss::world::AccelerationRestriction valueAccelerationRestrictions;
+  ::ad::rss::state::AccelerationRestriction valueAccelerationRestrictions;
   ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralLeftRange;
   ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMinimum(-1e2);
   valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRangeMinimum;
@@ -572,7 +572,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeHeadingRangeTooBig)
   valueHeadingRangeInnerRange.maximum = valueHeadingRangeInnerRangeMaximum;
   valueHeadingRange.innerRange = valueHeadingRangeInnerRange;
   value.headingRange = valueHeadingRange;
-  ::ad::rss::world::AccelerationRestriction valueAccelerationRestrictions;
+  ::ad::rss::state::AccelerationRestriction valueAccelerationRestrictions;
   ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralLeftRange;
   ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMinimum(-1e2);
   valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRangeMinimum;
@@ -641,7 +641,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAccelerationRestrict
   valueHeadingRangeInnerRange.maximum = valueHeadingRangeInnerRangeMaximum;
   valueHeadingRange.innerRange = valueHeadingRangeInnerRange;
   value.headingRange = valueHeadingRange;
-  ::ad::rss::world::AccelerationRestriction valueAccelerationRestrictions;
+  ::ad::rss::state::AccelerationRestriction valueAccelerationRestrictions;
   ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralLeftRange;
   ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMinimum(-1e2);
   valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRangeMinimum;
@@ -669,7 +669,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAccelerationRestrict
   value.accelerationRestrictions = valueAccelerationRestrictions;
 
   // override member with data type value below input range minimum
-  ::ad::rss::world::AccelerationRestriction invalidInitializedMember;
+  ::ad::rss::state::AccelerationRestriction invalidInitializedMember;
   ::ad::physics::AccelerationRange invalidInitializedMemberLateralLeftRange;
   ::ad::physics::Acceleration invalidInitializedMemberLateralLeftRangeMinimum(-1e2 * 1.1);
   invalidInitializedMemberLateralLeftRange.minimum = invalidInitializedMemberLateralLeftRangeMinimum;
@@ -710,7 +710,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAccelerationRestrict
   valueHeadingRangeInnerRange.maximum = valueHeadingRangeInnerRangeMaximum;
   valueHeadingRange.innerRange = valueHeadingRangeInnerRange;
   value.headingRange = valueHeadingRange;
-  ::ad::rss::world::AccelerationRestriction valueAccelerationRestrictions;
+  ::ad::rss::state::AccelerationRestriction valueAccelerationRestrictions;
   ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralLeftRange;
   ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMinimum(-1e2);
   valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRangeMinimum;
@@ -738,7 +738,7 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAccelerationRestrict
   value.accelerationRestrictions = valueAccelerationRestrictions;
 
   // override member with data type value above input range maximum
-  ::ad::rss::world::AccelerationRestriction invalidInitializedMember;
+  ::ad::rss::state::AccelerationRestriction invalidInitializedMember;
   ::ad::physics::AccelerationRange invalidInitializedMemberLateralLeftRange;
   ::ad::physics::Acceleration invalidInitializedMemberLateralLeftRangeMinimum(1e2 * 1.1);
   invalidInitializedMemberLateralLeftRange.minimum = invalidInitializedMemberLateralLeftRangeMinimum;

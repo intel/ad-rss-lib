@@ -19,11 +19,11 @@
 
 #include <cmath>
 #include <limits>
+#include "ad/rss/state/AccelerationRestrictionValidInputRange.hpp"
 #include "ad/rss/state/HeadingRangeValidInputRange.hpp"
 #include "ad/rss/state/LateralResponseValidInputRange.hpp"
 #include "ad/rss/state/LongitudinalResponseValidInputRange.hpp"
 #include "ad/rss/state/ProperResponse.hpp"
-#include "ad/rss/world/AccelerationRestrictionValidInputRange.hpp"
 #include "ad/rss/world/ObjectIdVectorValidInputRange.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"

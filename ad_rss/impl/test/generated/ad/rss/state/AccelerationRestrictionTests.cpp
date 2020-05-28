@@ -19,7 +19,7 @@
 
 #include <gtest/gtest.h>
 #include <limits>
-#include "ad/rss/world/AccelerationRestriction.hpp"
+#include "ad/rss/state/AccelerationRestriction.hpp"
 
 class AccelerationRestrictionTests : public testing::Test
 {
@@ -27,7 +27,7 @@ protected:
   virtual void SetUp() override
   {
     // valid initialization
-    ::ad::rss::world::AccelerationRestriction value;
+    ::ad::rss::state::AccelerationRestriction value;
     ::ad::physics::AccelerationRange valueLateralLeftRange;
     ::ad::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
     valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
@@ -55,41 +55,41 @@ protected:
     mValue = value;
   }
 
-  ::ad::rss::world::AccelerationRestriction mValue;
+  ::ad::rss::state::AccelerationRestriction mValue;
 };
 
 TEST_F(AccelerationRestrictionTests, copyConstruction)
 {
-  ::ad::rss::world::AccelerationRestriction value(mValue);
+  ::ad::rss::state::AccelerationRestriction value(mValue);
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(AccelerationRestrictionTests, moveConstruction)
 {
-  ::ad::rss::world::AccelerationRestriction tmpValue(mValue);
-  ::ad::rss::world::AccelerationRestriction value(std::move(tmpValue));
+  ::ad::rss::state::AccelerationRestriction tmpValue(mValue);
+  ::ad::rss::state::AccelerationRestriction value(std::move(tmpValue));
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(AccelerationRestrictionTests, copyAssignment)
 {
-  ::ad::rss::world::AccelerationRestriction value;
+  ::ad::rss::state::AccelerationRestriction value;
   value = mValue;
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(AccelerationRestrictionTests, moveAssignment)
 {
-  ::ad::rss::world::AccelerationRestriction tmpValue(mValue);
-  ::ad::rss::world::AccelerationRestriction value;
+  ::ad::rss::state::AccelerationRestriction tmpValue(mValue);
+  ::ad::rss::state::AccelerationRestriction value;
   value = std::move(tmpValue);
   EXPECT_EQ(mValue, value);
 }
 
 TEST_F(AccelerationRestrictionTests, comparisonOperatorEqual)
 {
-  ::ad::rss::world::AccelerationRestriction valueA = mValue;
-  ::ad::rss::world::AccelerationRestriction valueB = mValue;
+  ::ad::rss::state::AccelerationRestriction valueA = mValue;
+  ::ad::rss::state::AccelerationRestriction valueB = mValue;
 
   EXPECT_TRUE(valueA == valueB);
   EXPECT_FALSE(valueA != valueB);
@@ -106,7 +106,7 @@ TEST_F(AccelerationRestrictionTests, stringConversionTest)
 
 TEST_F(AccelerationRestrictionTests, comparisonOperatorLateralLeftRangeDiffers)
 {
-  ::ad::rss::world::AccelerationRestriction valueA = mValue;
+  ::ad::rss::state::AccelerationRestriction valueA = mValue;
   ::ad::physics::AccelerationRange lateralLeftRange;
   ::ad::physics::Acceleration lateralLeftRangeMinimum(1e2);
   lateralLeftRange.minimum = lateralLeftRangeMinimum;
@@ -115,7 +115,7 @@ TEST_F(AccelerationRestrictionTests, comparisonOperatorLateralLeftRangeDiffers)
   lateralLeftRange.maximum = lateralLeftRange.minimum;
   lateralLeftRange.minimum = lateralLeftRange.maximum;
   valueA.lateralLeftRange = lateralLeftRange;
-  ::ad::rss::world::AccelerationRestriction valueB = mValue;
+  ::ad::rss::state::AccelerationRestriction valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
@@ -123,7 +123,7 @@ TEST_F(AccelerationRestrictionTests, comparisonOperatorLateralLeftRangeDiffers)
 
 TEST_F(AccelerationRestrictionTests, comparisonOperatorLongitudinalRangeDiffers)
 {
-  ::ad::rss::world::AccelerationRestriction valueA = mValue;
+  ::ad::rss::state::AccelerationRestriction valueA = mValue;
   ::ad::physics::AccelerationRange longitudinalRange;
   ::ad::physics::Acceleration longitudinalRangeMinimum(1e2);
   longitudinalRange.minimum = longitudinalRangeMinimum;
@@ -132,7 +132,7 @@ TEST_F(AccelerationRestrictionTests, comparisonOperatorLongitudinalRangeDiffers)
   longitudinalRange.maximum = longitudinalRange.minimum;
   longitudinalRange.minimum = longitudinalRange.maximum;
   valueA.longitudinalRange = longitudinalRange;
-  ::ad::rss::world::AccelerationRestriction valueB = mValue;
+  ::ad::rss::state::AccelerationRestriction valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
@@ -140,7 +140,7 @@ TEST_F(AccelerationRestrictionTests, comparisonOperatorLongitudinalRangeDiffers)
 
 TEST_F(AccelerationRestrictionTests, comparisonOperatorLateralRightRangeDiffers)
 {
-  ::ad::rss::world::AccelerationRestriction valueA = mValue;
+  ::ad::rss::state::AccelerationRestriction valueA = mValue;
   ::ad::physics::AccelerationRange lateralRightRange;
   ::ad::physics::Acceleration lateralRightRangeMinimum(1e2);
   lateralRightRange.minimum = lateralRightRangeMinimum;
@@ -149,7 +149,7 @@ TEST_F(AccelerationRestrictionTests, comparisonOperatorLateralRightRangeDiffers)
   lateralRightRange.maximum = lateralRightRange.minimum;
   lateralRightRange.minimum = lateralRightRange.maximum;
   valueA.lateralRightRange = lateralRightRange;
-  ::ad::rss::world::AccelerationRestriction valueB = mValue;
+  ::ad::rss::state::AccelerationRestriction valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
