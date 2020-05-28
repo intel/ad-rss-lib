@@ -32,8 +32,7 @@
  *
  * \returns \c true if AccelerationRestriction is considered to be within the specified input range
  *
- * \note the specified input range is defined by the ranges of all members, plus:
- *       ::ad::rss::world::TimeIndex(1) <= timeIndex
+ * \note the specified input range is defined by the ranges of all members
  */
 inline bool withinValidInputRange(::ad::rss::world::AccelerationRestriction const &input, bool const logErrors = true)
 {
@@ -46,21 +45,6 @@ inline bool withinValidInputRange(::ad::rss::world::AccelerationRestriction cons
   {
     spdlog::error("withinValidInputRange(::ad::rss::world::AccelerationRestriction)>> {} has invalid member",
                   input); // LCOV_EXCL_BR_LINE
-  }
-
-  // check for individual input ranges
-  if (inValidInputRange)
-  {
-    inValidInputRange = (::ad::rss::world::TimeIndex(1) <= input.timeIndex);
-    if (!inValidInputRange && logErrors)
-    {
-      spdlog::error("withinValidInputRange(::ad::rss::world::AccelerationRestriction)>> {} element {} out of valid "
-                    "input range [{}, {}]",
-                    input,
-                    input.timeIndex,
-                    ::ad::rss::world::TimeIndex(1),
-                    "Undefined"); // LCOV_EXCL_BR_LINE
-    }
   }
 
   return inValidInputRange;

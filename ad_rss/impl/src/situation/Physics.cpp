@@ -8,6 +8,7 @@
 
 #include "ad/rss/situation/Physics.hpp"
 #include <algorithm>
+#include <cmath>
 #include <limits>
 #include "ad/physics/Operation.hpp"
 
@@ -87,7 +88,7 @@ bool calculateStoppingDistance(Speed const &currentSpeed, Acceleration const &de
   return true;
 }
 
-bool calculateSpeedAfterResponseTime(CoordinateSystemAxis const &axis,
+bool calculateSpeedAfterAcceleration(CoordinateSystemAxis const &axis,
                                      Speed const &currentSpeed,
                                      Speed const &maxSpeed,
                                      Acceleration const &acceleration,
@@ -247,7 +248,7 @@ bool calculateTimeToCoverDistance(Speed const &currentSpeed,
     {
       Speed speedAfterResponseTime;
 
-      result = calculateSpeedAfterResponseTime( // LCOV_EXCL_LINE: wrong detection
+      result = calculateSpeedAfterAcceleration( // LCOV_EXCL_LINE: wrong detection
         CoordinateSystemAxis::Longitudinal,
         currentSpeed,
         maxSpeed,
@@ -283,6 +284,116 @@ bool calculateTimeToCoverDistance(Speed const &currentSpeed,
   }
 
   return result;
+}
+
+void calculateSpeed(Duration const &currentTime,
+                    Speed const &initialSpeed,
+                    Duration const &responseTime,
+                    Speed const &maxSpeed,
+                    Acceleration const &aUntilReponseTime,
+                    Acceleration const &aAfterResponseTime,
+                    Speed &resultingSpeed)
+{
+  resultingSpeed = initialSpeed + aUntilReponseTime * std::min(currentTime, responseTime);
+  if (resultingSpeed < Speed(0.))
+  {
+    resultingSpeed = Speed(0.);
+  }
+
+  if (currentTime > responseTime)
+  {
+    resultingSpeed += (currentTime - responseTime) * aAfterResponseTime;
+  }
+  if (resultingSpeed < Speed(0.))
+  {
+    resultingSpeed = Speed(0.);
+  }
+  else if (resultingSpeed > maxSpeed)
+  {
+    resultingSpeed = maxSpeed;
+  }
+}
+
+void calculateDistanceOffset(Duration const &currentTime,
+                             Speed const &initialSpeed,
+                             Speed const &maxSpeed,
+                             Acceleration const &acceleration,
+                             Distance &distanceOffset)
+{
+  distanceOffset = initialSpeed * currentTime;
+
+  Speed vCurrent;
+  calculateSpeedAfterAcceleration(
+    CoordinateSystemAxis::Longitudinal, initialSpeed, maxSpeed, acceleration, currentTime, vCurrent);
+
+  Duration timeToFinalSpeed = Duration(0.);
+  if (acceleration != Acceleration(0.))
+  {
+    timeToFinalSpeed = (vCurrent - initialSpeed) / acceleration;
+  }
+  distanceOffset += 0.5 * acceleration * timeToFinalSpeed * timeToFinalSpeed;
+  distanceOffset += (vCurrent - initialSpeed) * (currentTime - timeToFinalSpeed);
+}
+
+void calculateDistanceOffset(Duration const &currentTime,
+                             Speed const &initialSpeed,
+                             Duration const &responseTime,
+                             Speed const &maxSpeed,
+                             Acceleration const &aUntilResponseTime,
+                             Acceleration const &aAfterResponseTime,
+                             Distance &distanceOffset)
+{
+  calculateDistanceOffset(
+    std::min(currentTime, responseTime), initialSpeed, maxSpeed, aUntilResponseTime, distanceOffset);
+
+  if (currentTime > responseTime)
+  {
+    Speed vResponseTime;
+    calculateSpeedAfterAcceleration(
+      CoordinateSystemAxis::Longitudinal, initialSpeed, maxSpeed, aUntilResponseTime, responseTime, vResponseTime);
+    Distance distanceAfterResponseTime;
+    calculateDistanceOffset(
+      currentTime - responseTime, vResponseTime, maxSpeed, aAfterResponseTime, distanceAfterResponseTime);
+    distanceOffset += distanceAfterResponseTime;
+  }
+}
+
+bool calculateTimeToStop(Speed initialSpeed,
+                         Duration responseTime,
+                         Speed maxSpeed,
+                         Acceleration aUntilResponseTimeMax,
+                         Acceleration aAfterResponseTime,
+                         Duration &result)
+{
+  if ((aUntilResponseTimeMax < Acceleration(0.)) && (initialSpeed <= Speed(0.)))
+  { // deceleration until response time, but no initial speed.
+    result = Duration(0.);
+    return false;
+  }
+
+  Speed vResponseTime;
+  calculateSpeedAfterAcceleration(
+    CoordinateSystemAxis::Longitudinal, initialSpeed, maxSpeed, aUntilResponseTimeMax, responseTime, vResponseTime);
+
+  if ((aAfterResponseTime >= Acceleration(0.)) && (vResponseTime > Speed(0.)))
+  { // continues to drive forever
+    result = Duration(0.);
+    return false;
+  }
+
+  // 0 = Vinit + a * t
+  // t = -Vinit/a
+  if (vResponseTime == Speed(0.))
+  {
+    // vehicle stopped before response time
+    result = -initialSpeed / aUntilResponseTimeMax;
+  }
+  else
+  {
+    Duration timeToStop = -vResponseTime / aAfterResponseTime;
+    result = responseTime + timeToStop;
+  }
+  return true;
 }
 
 } // namespace situation

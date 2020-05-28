@@ -1,4 +1,11 @@
+
 ## Latest changes
+
+## Release 4.0.0
+
+#### :rocket: New Features
+* Support of unstructured scenes/pedestrians
+
 #### :ghost: Maintenance
 * Improved BUILDING documentation
 
@@ -15,7 +22,7 @@
 * In preparation of the integration of unstructured scenes:
   - Deceleration values are given as negative values from now on
   - Remove separate Response Transformation to ease the merge of situations
-  - On LateralResponse::None, the minimum value is not brakeMin anymore (that value was in each case irrelevant)
+  - On `LateralResponse::None`, the minimum value is not brakeMin anymore (that value was in each case irrelevant)
 * Reworked scene creation
   - Made RssSceneCreation a class with supporting classes RssObjectConversion and RssSceneCreator
     to support multi-threaded scene appending.
@@ -26,9 +33,9 @@
   - Restricting routes to relevant scene region to prevent from inaccourate relative distances
   - Ensure that NotRelevantScene also provides filled occupied region content
   - Workaround for route start within intersections: Use objectRoute intersection in intersection scenes if ego route
-     predictions don't provide intersection data at all (to be solved finally within ad::map::intersection::Intersection() class)
+     predictions don't provide intersection data at all (to be solved finally within `ad::map::intersection::Intersection()` class)
   - Massively extended scene creation unit tests
-  - Make use of ad::map::route::getENUHeadingOfRoute() for more accurate object heading on route calculation
+  - Make use of `ad::map::route::getENUHeadingOfRoute()` for more accurate object heading on route calculation
 * Renamed Math* -> Physics* and made header public
 
 #### :ghost: Maintenance
@@ -40,15 +47,15 @@
 * Added logging support with spdlog
 * Introduced maxSpeed to RssDynamics and RSS calculations to support speed limits
   [for details see](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/ConstructRSSScenes/index.html#considerspeedlimits)
-* world::Velocity supports speed range input to be able to cope with speed fluctuations (i.e. in curves)
+* `world::Velocity` supports speed range input to be able to cope with speed fluctuations (i.e. in curves)
 
 #### :ghost: Maintenance
 * Refactored types and namespaces
-  - renamed ad_rss::physics::TimeIndex -> ad::world::TimeIndex
-  - renamed ad_rss::physics::CoordinateSystemAxis -> ad::situation::CoordinateSystemAxis
-  - renamed ad_rss::physics -> ad::physics and replaced by separate library (ad_physics)
+  - renamed `ad_rss::physics::TimeIndex` -> `ad::world::TimeIndex`
+  - renamed `ad_rss::physics::CoordinateSystemAxis` -> `ad::situation::CoordinateSystemAxis`
+  - renamed `ad_rss::physics` -> `ad::physics` and replaced by separate library (ad_physics)
     to ensure map and rss are using the same base types
-  - renamed ad_rss -> ad::rss
+  - renamed `ad_rss` -> `ad::rss`
 * Renamed actual shared library ad-rss-lib -> ad_rss
 * Refactored folder layout
 * Introduced colcon build [for details see](https://intel.github.io/ad-rss-lib/BUILDING/index.html)
@@ -80,9 +87,9 @@
 
 ## Release 1.3.0
 * Allow multiple situations per ego vehicle/object pair: Add RssSituationIdProvider and made RssSituationExtraction a class holding RssSituationIdProvider instance to keep track of the different situation classes
-* Renamed world::Dynamics in world::RssDynamics, extended it by responseTime and separated it from world::Object; world::Scene got the objectRssDynamics and world::WorldModel the egoVehicleRssDynamics each as separate elements
-* Extended world::Scene by egoVehicle object description as occupied regions and velocity are actually scene dependent (e.g. when considering different vehicle predictions)
-* Added world::ObjectType::Invalid
+* Renamed `world::Dynamics` in `world::RssDynamics`, extended it by responseTime and separated it from `world::Object`; `world::Scene` got the objectRssDynamics and `world::WorldModel` the egoVehicleRssDynamics each as separate elements
+* Extended `world::Scene` by egoVehicle object description as occupied regions and velocity are actually scene dependent (e.g. when considering different vehicle predictions)
+* Added `world::ObjectType::Invalid`
 * Small updates to be compliant to clang-tidy-3.8 static code analysis
 * Added basic FAQ
 * Added official support for Ubuntu 14.04 (GCC 4.8, Clang 3.4 and 3.8/3.9)

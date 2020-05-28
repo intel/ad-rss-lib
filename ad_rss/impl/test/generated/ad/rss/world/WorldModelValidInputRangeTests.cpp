@@ -49,7 +49,9 @@ TEST(WorldModelValidInputRangeTests, testValidInputRange)
   ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLatBrakeMin(-1e2);
   valueDefaultEgoVehicleRssDynamicsAlphaLat.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLatBrakeMin;
   valueDefaultEgoVehicleRssDynamics.alphaLat = valueDefaultEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin(-1e9);
+  valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueDefaultEgoVehicleRssDynamics.lateralFluctuationMargin
     = valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin;
   ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsResponseTime(0.);
@@ -58,6 +60,23 @@ TEST(WorldModelValidInputRangeTests, testValidInputRange)
   valueDefaultEgoVehicleRssDynamics.responseTime = valueDefaultEgoVehicleRssDynamicsResponseTime;
   ::ad::physics::Speed valueDefaultEgoVehicleRssDynamicsMaxSpeed(-100.);
   valueDefaultEgoVehicleRssDynamics.maxSpeed = valueDefaultEgoVehicleRssDynamicsMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
+  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
+    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.driveAwayMaxAngle
+    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleYawRateChange
+    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
+    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  valueDefaultEgoVehicleRssDynamics.unstructuredSettings = valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
   value.defaultEgoVehicleRssDynamics = valueDefaultEgoVehicleRssDynamics;
   ::ad::rss::world::SceneVector valueScenes;
   ::ad::rss::world::Scene valueScenesElement;
@@ -118,6 +137,26 @@ TEST(WorldModelValidInputRangeTests, testValidInputRange)
   valueScenesElementEgoVehicleVelocity.speedLonMin = valueScenesElementEgoVehicleVelocity.speedLonMax;
   valueScenesElementEgoVehicleVelocity.speedLatMin = valueScenesElementEgoVehicleVelocity.speedLatMax;
   valueScenesElementEgoVehicle.velocity = valueScenesElementEgoVehicleVelocity;
+  ::ad::rss::world::ObjectState valueScenesElementEgoVehicleState;
+  ::ad::physics::Angle valueScenesElementEgoVehicleStateYaw(-6.283185308);
+  valueScenesElementEgoVehicleState.yaw = valueScenesElementEgoVehicleStateYaw;
+  ::ad::physics::Dimension2D valueScenesElementEgoVehicleStateDimension;
+  ::ad::physics::Distance valueScenesElementEgoVehicleStateDimensionLength(-1e9);
+  valueScenesElementEgoVehicleStateDimension.length = valueScenesElementEgoVehicleStateDimensionLength;
+  ::ad::physics::Distance valueScenesElementEgoVehicleStateDimensionWidth(-1e9);
+  valueScenesElementEgoVehicleStateDimension.width = valueScenesElementEgoVehicleStateDimensionWidth;
+  valueScenesElementEgoVehicleState.dimension = valueScenesElementEgoVehicleStateDimension;
+  ::ad::physics::AngularVelocity valueScenesElementEgoVehicleStateYawRate(-100.);
+  valueScenesElementEgoVehicleState.yawRate = valueScenesElementEgoVehicleStateYawRate;
+  ::ad::physics::Distance2D valueScenesElementEgoVehicleStateCenterPoint;
+  ::ad::physics::Distance valueScenesElementEgoVehicleStateCenterPointX(-1e9);
+  valueScenesElementEgoVehicleStateCenterPoint.x = valueScenesElementEgoVehicleStateCenterPointX;
+  ::ad::physics::Distance valueScenesElementEgoVehicleStateCenterPointY(-1e9);
+  valueScenesElementEgoVehicleStateCenterPoint.y = valueScenesElementEgoVehicleStateCenterPointY;
+  valueScenesElementEgoVehicleState.centerPoint = valueScenesElementEgoVehicleStateCenterPoint;
+  ::ad::physics::Speed valueScenesElementEgoVehicleStateSpeed(-100.);
+  valueScenesElementEgoVehicleState.speed = valueScenesElementEgoVehicleStateSpeed;
+  valueScenesElementEgoVehicle.state = valueScenesElementEgoVehicleState;
   valueScenesElement.egoVehicle = valueScenesElementEgoVehicle;
   ::ad::rss::world::RssDynamics valueScenesElementEgoVehicleRssDynamics;
   ::ad::rss::world::LongitudinalRssAccelerationValues valueScenesElementEgoVehicleRssDynamicsAlphaLon;
@@ -147,7 +186,9 @@ TEST(WorldModelValidInputRangeTests, testValidInputRange)
   ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLatBrakeMin(-1e2);
   valueScenesElementEgoVehicleRssDynamicsAlphaLat.brakeMin = valueScenesElementEgoVehicleRssDynamicsAlphaLatBrakeMin;
   valueScenesElementEgoVehicleRssDynamics.alphaLat = valueScenesElementEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin(-1e9);
+  valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementEgoVehicleRssDynamics.lateralFluctuationMargin
     = valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin;
   ::ad::physics::Duration valueScenesElementEgoVehicleRssDynamicsResponseTime(0.);
@@ -156,6 +197,26 @@ TEST(WorldModelValidInputRangeTests, testValidInputRange)
   valueScenesElementEgoVehicleRssDynamics.responseTime = valueScenesElementEgoVehicleRssDynamicsResponseTime;
   ::ad::physics::Speed valueScenesElementEgoVehicleRssDynamicsMaxSpeed(-100.);
   valueScenesElementEgoVehicleRssDynamics.maxSpeed = valueScenesElementEgoVehicleRssDynamicsMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings;
+  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.driveAwayMaxAngle
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange(
+    -1e2);
+  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleYawRateChange
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(
+    0.);
+  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  valueScenesElementEgoVehicleRssDynamics.unstructuredSettings
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings;
   valueScenesElement.egoVehicleRssDynamics = valueScenesElementEgoVehicleRssDynamics;
   ::ad::rss::world::Object valueScenesElementObject;
   ::ad::rss::world::ObjectId valueScenesElementObjectObjectId(
@@ -209,6 +270,26 @@ TEST(WorldModelValidInputRangeTests, testValidInputRange)
   valueScenesElementObjectVelocity.speedLonMin = valueScenesElementObjectVelocity.speedLonMax;
   valueScenesElementObjectVelocity.speedLatMin = valueScenesElementObjectVelocity.speedLatMax;
   valueScenesElementObject.velocity = valueScenesElementObjectVelocity;
+  ::ad::rss::world::ObjectState valueScenesElementObjectState;
+  ::ad::physics::Angle valueScenesElementObjectStateYaw(-6.283185308);
+  valueScenesElementObjectState.yaw = valueScenesElementObjectStateYaw;
+  ::ad::physics::Dimension2D valueScenesElementObjectStateDimension;
+  ::ad::physics::Distance valueScenesElementObjectStateDimensionLength(-1e9);
+  valueScenesElementObjectStateDimension.length = valueScenesElementObjectStateDimensionLength;
+  ::ad::physics::Distance valueScenesElementObjectStateDimensionWidth(-1e9);
+  valueScenesElementObjectStateDimension.width = valueScenesElementObjectStateDimensionWidth;
+  valueScenesElementObjectState.dimension = valueScenesElementObjectStateDimension;
+  ::ad::physics::AngularVelocity valueScenesElementObjectStateYawRate(-100.);
+  valueScenesElementObjectState.yawRate = valueScenesElementObjectStateYawRate;
+  ::ad::physics::Distance2D valueScenesElementObjectStateCenterPoint;
+  ::ad::physics::Distance valueScenesElementObjectStateCenterPointX(-1e9);
+  valueScenesElementObjectStateCenterPoint.x = valueScenesElementObjectStateCenterPointX;
+  ::ad::physics::Distance valueScenesElementObjectStateCenterPointY(-1e9);
+  valueScenesElementObjectStateCenterPoint.y = valueScenesElementObjectStateCenterPointY;
+  valueScenesElementObjectState.centerPoint = valueScenesElementObjectStateCenterPoint;
+  ::ad::physics::Speed valueScenesElementObjectStateSpeed(-100.);
+  valueScenesElementObjectState.speed = valueScenesElementObjectStateSpeed;
+  valueScenesElementObject.state = valueScenesElementObjectState;
   valueScenesElement.object = valueScenesElementObject;
   ::ad::rss::world::RssDynamics valueScenesElementObjectRssDynamics;
   ::ad::rss::world::LongitudinalRssAccelerationValues valueScenesElementObjectRssDynamicsAlphaLon;
@@ -236,7 +317,9 @@ TEST(WorldModelValidInputRangeTests, testValidInputRange)
   ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLatBrakeMin(-1e2);
   valueScenesElementObjectRssDynamicsAlphaLat.brakeMin = valueScenesElementObjectRssDynamicsAlphaLatBrakeMin;
   valueScenesElementObjectRssDynamics.alphaLat = valueScenesElementObjectRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueScenesElementObjectRssDynamicsLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueScenesElementObjectRssDynamicsLateralFluctuationMargin(-1e9);
+  valueScenesElementObjectRssDynamicsLateralFluctuationMargin
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementObjectRssDynamics.lateralFluctuationMargin
     = valueScenesElementObjectRssDynamicsLateralFluctuationMargin;
   ::ad::physics::Duration valueScenesElementObjectRssDynamicsResponseTime(0.);
@@ -245,6 +328,23 @@ TEST(WorldModelValidInputRangeTests, testValidInputRange)
   valueScenesElementObjectRssDynamics.responseTime = valueScenesElementObjectRssDynamicsResponseTime;
   ::ad::physics::Speed valueScenesElementObjectRssDynamicsMaxSpeed(-100.);
   valueScenesElementObjectRssDynamics.maxSpeed = valueScenesElementObjectRssDynamicsMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueScenesElementObjectRssDynamicsUnstructuredSettings;
+  ::ad::physics::Distance valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianTurningRadius
+    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueScenesElementObjectRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueScenesElementObjectRssDynamicsUnstructuredSettings.driveAwayMaxAngle
+    = valueScenesElementObjectRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleYawRateChange
+    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleMinRadius
+    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  valueScenesElementObjectRssDynamics.unstructuredSettings = valueScenesElementObjectRssDynamicsUnstructuredSettings;
   valueScenesElement.objectRssDynamics = valueScenesElementObjectRssDynamics;
   ::ad::rss::world::RoadArea valueScenesElementIntersectingRoad;
   ::ad::rss::world::RoadSegment valueScenesElementIntersectingRoadElement;
@@ -260,10 +360,12 @@ TEST(WorldModelValidInputRangeTests, testValidInputRange)
   valueScenesElementIntersectingRoadElementElement.drivingDirection
     = valueScenesElementIntersectingRoadElementElementDrivingDirection;
   ::ad::physics::MetricRange valueScenesElementIntersectingRoadElementElementLength;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMinimum(0.);
+  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMinimum(-1e9);
+  valueScenesElementIntersectingRoadElementElementLengthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementIntersectingRoadElementElementLength.minimum
     = valueScenesElementIntersectingRoadElementElementLengthMinimum;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMaximum(0.);
+  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMaximum(-1e9);
   valueScenesElementIntersectingRoadElementElementLength.maximum
     = valueScenesElementIntersectingRoadElementElementLengthMaximum;
   valueScenesElementIntersectingRoadElementElementLength.maximum
@@ -272,10 +374,12 @@ TEST(WorldModelValidInputRangeTests, testValidInputRange)
     = valueScenesElementIntersectingRoadElementElementLength.maximum;
   valueScenesElementIntersectingRoadElementElement.length = valueScenesElementIntersectingRoadElementElementLength;
   ::ad::physics::MetricRange valueScenesElementIntersectingRoadElementElementWidth;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMinimum(0.);
+  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMinimum(-1e9);
+  valueScenesElementIntersectingRoadElementElementWidthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementIntersectingRoadElementElementWidth.minimum
     = valueScenesElementIntersectingRoadElementElementWidthMinimum;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMaximum(0.);
+  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMaximum(-1e9);
   valueScenesElementIntersectingRoadElementElementWidth.maximum
     = valueScenesElementIntersectingRoadElementElementWidthMaximum;
   valueScenesElementIntersectingRoadElementElementWidth.maximum
@@ -300,10 +404,12 @@ TEST(WorldModelValidInputRangeTests, testValidInputRange)
   valueScenesElementEgoVehicleRoadElementElement.drivingDirection
     = valueScenesElementEgoVehicleRoadElementElementDrivingDirection;
   ::ad::physics::MetricRange valueScenesElementEgoVehicleRoadElementElementLength;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMinimum(0.);
+  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMinimum(-1e9);
+  valueScenesElementEgoVehicleRoadElementElementLengthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementEgoVehicleRoadElementElementLength.minimum
     = valueScenesElementEgoVehicleRoadElementElementLengthMinimum;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMaximum(0.);
+  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMaximum(-1e9);
   valueScenesElementEgoVehicleRoadElementElementLength.maximum
     = valueScenesElementEgoVehicleRoadElementElementLengthMaximum;
   valueScenesElementEgoVehicleRoadElementElementLength.maximum
@@ -312,10 +418,12 @@ TEST(WorldModelValidInputRangeTests, testValidInputRange)
     = valueScenesElementEgoVehicleRoadElementElementLength.maximum;
   valueScenesElementEgoVehicleRoadElementElement.length = valueScenesElementEgoVehicleRoadElementElementLength;
   ::ad::physics::MetricRange valueScenesElementEgoVehicleRoadElementElementWidth;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMinimum(0.);
+  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMinimum(-1e9);
+  valueScenesElementEgoVehicleRoadElementElementWidthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementEgoVehicleRoadElementElementWidth.minimum
     = valueScenesElementEgoVehicleRoadElementElementWidthMinimum;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMaximum(0.);
+  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMaximum(-1e9);
   valueScenesElementEgoVehicleRoadElementElementWidth.maximum
     = valueScenesElementEgoVehicleRoadElementElementWidthMaximum;
   valueScenesElementEgoVehicleRoadElementElementWidth.maximum
@@ -362,7 +470,9 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLatBrakeMin(-1e2);
   valueDefaultEgoVehicleRssDynamicsAlphaLat.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLatBrakeMin;
   valueDefaultEgoVehicleRssDynamics.alphaLat = valueDefaultEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin(-1e9);
+  valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueDefaultEgoVehicleRssDynamics.lateralFluctuationMargin
     = valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin;
   ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsResponseTime(0.);
@@ -371,6 +481,23 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueDefaultEgoVehicleRssDynamics.responseTime = valueDefaultEgoVehicleRssDynamicsResponseTime;
   ::ad::physics::Speed valueDefaultEgoVehicleRssDynamicsMaxSpeed(-100.);
   valueDefaultEgoVehicleRssDynamics.maxSpeed = valueDefaultEgoVehicleRssDynamicsMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
+  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
+    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.driveAwayMaxAngle
+    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleYawRateChange
+    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
+    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  valueDefaultEgoVehicleRssDynamics.unstructuredSettings = valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
   value.defaultEgoVehicleRssDynamics = valueDefaultEgoVehicleRssDynamics;
   ::ad::rss::world::SceneVector valueScenes;
   ::ad::rss::world::Scene valueScenesElement;
@@ -431,6 +558,26 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueScenesElementEgoVehicleVelocity.speedLonMin = valueScenesElementEgoVehicleVelocity.speedLonMax;
   valueScenesElementEgoVehicleVelocity.speedLatMin = valueScenesElementEgoVehicleVelocity.speedLatMax;
   valueScenesElementEgoVehicle.velocity = valueScenesElementEgoVehicleVelocity;
+  ::ad::rss::world::ObjectState valueScenesElementEgoVehicleState;
+  ::ad::physics::Angle valueScenesElementEgoVehicleStateYaw(-6.283185308);
+  valueScenesElementEgoVehicleState.yaw = valueScenesElementEgoVehicleStateYaw;
+  ::ad::physics::Dimension2D valueScenesElementEgoVehicleStateDimension;
+  ::ad::physics::Distance valueScenesElementEgoVehicleStateDimensionLength(-1e9);
+  valueScenesElementEgoVehicleStateDimension.length = valueScenesElementEgoVehicleStateDimensionLength;
+  ::ad::physics::Distance valueScenesElementEgoVehicleStateDimensionWidth(-1e9);
+  valueScenesElementEgoVehicleStateDimension.width = valueScenesElementEgoVehicleStateDimensionWidth;
+  valueScenesElementEgoVehicleState.dimension = valueScenesElementEgoVehicleStateDimension;
+  ::ad::physics::AngularVelocity valueScenesElementEgoVehicleStateYawRate(-100.);
+  valueScenesElementEgoVehicleState.yawRate = valueScenesElementEgoVehicleStateYawRate;
+  ::ad::physics::Distance2D valueScenesElementEgoVehicleStateCenterPoint;
+  ::ad::physics::Distance valueScenesElementEgoVehicleStateCenterPointX(-1e9);
+  valueScenesElementEgoVehicleStateCenterPoint.x = valueScenesElementEgoVehicleStateCenterPointX;
+  ::ad::physics::Distance valueScenesElementEgoVehicleStateCenterPointY(-1e9);
+  valueScenesElementEgoVehicleStateCenterPoint.y = valueScenesElementEgoVehicleStateCenterPointY;
+  valueScenesElementEgoVehicleState.centerPoint = valueScenesElementEgoVehicleStateCenterPoint;
+  ::ad::physics::Speed valueScenesElementEgoVehicleStateSpeed(-100.);
+  valueScenesElementEgoVehicleState.speed = valueScenesElementEgoVehicleStateSpeed;
+  valueScenesElementEgoVehicle.state = valueScenesElementEgoVehicleState;
   valueScenesElement.egoVehicle = valueScenesElementEgoVehicle;
   ::ad::rss::world::RssDynamics valueScenesElementEgoVehicleRssDynamics;
   ::ad::rss::world::LongitudinalRssAccelerationValues valueScenesElementEgoVehicleRssDynamicsAlphaLon;
@@ -460,7 +607,9 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLatBrakeMin(-1e2);
   valueScenesElementEgoVehicleRssDynamicsAlphaLat.brakeMin = valueScenesElementEgoVehicleRssDynamicsAlphaLatBrakeMin;
   valueScenesElementEgoVehicleRssDynamics.alphaLat = valueScenesElementEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin(-1e9);
+  valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementEgoVehicleRssDynamics.lateralFluctuationMargin
     = valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin;
   ::ad::physics::Duration valueScenesElementEgoVehicleRssDynamicsResponseTime(0.);
@@ -469,6 +618,26 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueScenesElementEgoVehicleRssDynamics.responseTime = valueScenesElementEgoVehicleRssDynamicsResponseTime;
   ::ad::physics::Speed valueScenesElementEgoVehicleRssDynamicsMaxSpeed(-100.);
   valueScenesElementEgoVehicleRssDynamics.maxSpeed = valueScenesElementEgoVehicleRssDynamicsMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings;
+  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.driveAwayMaxAngle
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange(
+    -1e2);
+  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleYawRateChange
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(
+    0.);
+  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  valueScenesElementEgoVehicleRssDynamics.unstructuredSettings
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings;
   valueScenesElement.egoVehicleRssDynamics = valueScenesElementEgoVehicleRssDynamics;
   ::ad::rss::world::Object valueScenesElementObject;
   ::ad::rss::world::ObjectId valueScenesElementObjectObjectId(
@@ -522,6 +691,26 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueScenesElementObjectVelocity.speedLonMin = valueScenesElementObjectVelocity.speedLonMax;
   valueScenesElementObjectVelocity.speedLatMin = valueScenesElementObjectVelocity.speedLatMax;
   valueScenesElementObject.velocity = valueScenesElementObjectVelocity;
+  ::ad::rss::world::ObjectState valueScenesElementObjectState;
+  ::ad::physics::Angle valueScenesElementObjectStateYaw(-6.283185308);
+  valueScenesElementObjectState.yaw = valueScenesElementObjectStateYaw;
+  ::ad::physics::Dimension2D valueScenesElementObjectStateDimension;
+  ::ad::physics::Distance valueScenesElementObjectStateDimensionLength(-1e9);
+  valueScenesElementObjectStateDimension.length = valueScenesElementObjectStateDimensionLength;
+  ::ad::physics::Distance valueScenesElementObjectStateDimensionWidth(-1e9);
+  valueScenesElementObjectStateDimension.width = valueScenesElementObjectStateDimensionWidth;
+  valueScenesElementObjectState.dimension = valueScenesElementObjectStateDimension;
+  ::ad::physics::AngularVelocity valueScenesElementObjectStateYawRate(-100.);
+  valueScenesElementObjectState.yawRate = valueScenesElementObjectStateYawRate;
+  ::ad::physics::Distance2D valueScenesElementObjectStateCenterPoint;
+  ::ad::physics::Distance valueScenesElementObjectStateCenterPointX(-1e9);
+  valueScenesElementObjectStateCenterPoint.x = valueScenesElementObjectStateCenterPointX;
+  ::ad::physics::Distance valueScenesElementObjectStateCenterPointY(-1e9);
+  valueScenesElementObjectStateCenterPoint.y = valueScenesElementObjectStateCenterPointY;
+  valueScenesElementObjectState.centerPoint = valueScenesElementObjectStateCenterPoint;
+  ::ad::physics::Speed valueScenesElementObjectStateSpeed(-100.);
+  valueScenesElementObjectState.speed = valueScenesElementObjectStateSpeed;
+  valueScenesElementObject.state = valueScenesElementObjectState;
   valueScenesElement.object = valueScenesElementObject;
   ::ad::rss::world::RssDynamics valueScenesElementObjectRssDynamics;
   ::ad::rss::world::LongitudinalRssAccelerationValues valueScenesElementObjectRssDynamicsAlphaLon;
@@ -549,7 +738,9 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLatBrakeMin(-1e2);
   valueScenesElementObjectRssDynamicsAlphaLat.brakeMin = valueScenesElementObjectRssDynamicsAlphaLatBrakeMin;
   valueScenesElementObjectRssDynamics.alphaLat = valueScenesElementObjectRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueScenesElementObjectRssDynamicsLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueScenesElementObjectRssDynamicsLateralFluctuationMargin(-1e9);
+  valueScenesElementObjectRssDynamicsLateralFluctuationMargin
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementObjectRssDynamics.lateralFluctuationMargin
     = valueScenesElementObjectRssDynamicsLateralFluctuationMargin;
   ::ad::physics::Duration valueScenesElementObjectRssDynamicsResponseTime(0.);
@@ -558,6 +749,23 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueScenesElementObjectRssDynamics.responseTime = valueScenesElementObjectRssDynamicsResponseTime;
   ::ad::physics::Speed valueScenesElementObjectRssDynamicsMaxSpeed(-100.);
   valueScenesElementObjectRssDynamics.maxSpeed = valueScenesElementObjectRssDynamicsMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueScenesElementObjectRssDynamicsUnstructuredSettings;
+  ::ad::physics::Distance valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianTurningRadius
+    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueScenesElementObjectRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueScenesElementObjectRssDynamicsUnstructuredSettings.driveAwayMaxAngle
+    = valueScenesElementObjectRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleYawRateChange
+    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleMinRadius
+    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  valueScenesElementObjectRssDynamics.unstructuredSettings = valueScenesElementObjectRssDynamicsUnstructuredSettings;
   valueScenesElement.objectRssDynamics = valueScenesElementObjectRssDynamics;
   ::ad::rss::world::RoadArea valueScenesElementIntersectingRoad;
   ::ad::rss::world::RoadSegment valueScenesElementIntersectingRoadElement;
@@ -573,10 +781,12 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueScenesElementIntersectingRoadElementElement.drivingDirection
     = valueScenesElementIntersectingRoadElementElementDrivingDirection;
   ::ad::physics::MetricRange valueScenesElementIntersectingRoadElementElementLength;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMinimum(0.);
+  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMinimum(-1e9);
+  valueScenesElementIntersectingRoadElementElementLengthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementIntersectingRoadElementElementLength.minimum
     = valueScenesElementIntersectingRoadElementElementLengthMinimum;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMaximum(0.);
+  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMaximum(-1e9);
   valueScenesElementIntersectingRoadElementElementLength.maximum
     = valueScenesElementIntersectingRoadElementElementLengthMaximum;
   valueScenesElementIntersectingRoadElementElementLength.maximum
@@ -585,10 +795,12 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
     = valueScenesElementIntersectingRoadElementElementLength.maximum;
   valueScenesElementIntersectingRoadElementElement.length = valueScenesElementIntersectingRoadElementElementLength;
   ::ad::physics::MetricRange valueScenesElementIntersectingRoadElementElementWidth;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMinimum(0.);
+  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMinimum(-1e9);
+  valueScenesElementIntersectingRoadElementElementWidthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementIntersectingRoadElementElementWidth.minimum
     = valueScenesElementIntersectingRoadElementElementWidthMinimum;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMaximum(0.);
+  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMaximum(-1e9);
   valueScenesElementIntersectingRoadElementElementWidth.maximum
     = valueScenesElementIntersectingRoadElementElementWidthMaximum;
   valueScenesElementIntersectingRoadElementElementWidth.maximum
@@ -613,10 +825,12 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueScenesElementEgoVehicleRoadElementElement.drivingDirection
     = valueScenesElementEgoVehicleRoadElementElementDrivingDirection;
   ::ad::physics::MetricRange valueScenesElementEgoVehicleRoadElementElementLength;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMinimum(0.);
+  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMinimum(-1e9);
+  valueScenesElementEgoVehicleRoadElementElementLengthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementEgoVehicleRoadElementElementLength.minimum
     = valueScenesElementEgoVehicleRoadElementElementLengthMinimum;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMaximum(0.);
+  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMaximum(-1e9);
   valueScenesElementEgoVehicleRoadElementElementLength.maximum
     = valueScenesElementEgoVehicleRoadElementElementLengthMaximum;
   valueScenesElementEgoVehicleRoadElementElementLength.maximum
@@ -625,10 +839,12 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
     = valueScenesElementEgoVehicleRoadElementElementLength.maximum;
   valueScenesElementEgoVehicleRoadElementElement.length = valueScenesElementEgoVehicleRoadElementElementLength;
   ::ad::physics::MetricRange valueScenesElementEgoVehicleRoadElementElementWidth;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMinimum(0.);
+  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMinimum(-1e9);
+  valueScenesElementEgoVehicleRoadElementElementWidthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementEgoVehicleRoadElementElementWidth.minimum
     = valueScenesElementEgoVehicleRoadElementElementWidthMinimum;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMaximum(0.);
+  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMaximum(-1e9);
   valueScenesElementEgoVehicleRoadElementElementWidth.maximum
     = valueScenesElementEgoVehicleRoadElementElementWidthMaximum;
   valueScenesElementEgoVehicleRoadElementElementWidth.maximum
@@ -683,7 +899,9 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLatBrakeMin(-1e2);
   valueDefaultEgoVehicleRssDynamicsAlphaLat.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLatBrakeMin;
   valueDefaultEgoVehicleRssDynamics.alphaLat = valueDefaultEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin(-1e9);
+  valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueDefaultEgoVehicleRssDynamics.lateralFluctuationMargin
     = valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin;
   ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsResponseTime(0.);
@@ -692,6 +910,23 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueDefaultEgoVehicleRssDynamics.responseTime = valueDefaultEgoVehicleRssDynamicsResponseTime;
   ::ad::physics::Speed valueDefaultEgoVehicleRssDynamicsMaxSpeed(-100.);
   valueDefaultEgoVehicleRssDynamics.maxSpeed = valueDefaultEgoVehicleRssDynamicsMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
+  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
+    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.driveAwayMaxAngle
+    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleYawRateChange
+    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
+    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  valueDefaultEgoVehicleRssDynamics.unstructuredSettings = valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
   value.defaultEgoVehicleRssDynamics = valueDefaultEgoVehicleRssDynamics;
   ::ad::rss::world::SceneVector valueScenes;
   ::ad::rss::world::Scene valueScenesElement;
@@ -752,6 +987,26 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueScenesElementEgoVehicleVelocity.speedLonMin = valueScenesElementEgoVehicleVelocity.speedLonMax;
   valueScenesElementEgoVehicleVelocity.speedLatMin = valueScenesElementEgoVehicleVelocity.speedLatMax;
   valueScenesElementEgoVehicle.velocity = valueScenesElementEgoVehicleVelocity;
+  ::ad::rss::world::ObjectState valueScenesElementEgoVehicleState;
+  ::ad::physics::Angle valueScenesElementEgoVehicleStateYaw(-6.283185308);
+  valueScenesElementEgoVehicleState.yaw = valueScenesElementEgoVehicleStateYaw;
+  ::ad::physics::Dimension2D valueScenesElementEgoVehicleStateDimension;
+  ::ad::physics::Distance valueScenesElementEgoVehicleStateDimensionLength(-1e9);
+  valueScenesElementEgoVehicleStateDimension.length = valueScenesElementEgoVehicleStateDimensionLength;
+  ::ad::physics::Distance valueScenesElementEgoVehicleStateDimensionWidth(-1e9);
+  valueScenesElementEgoVehicleStateDimension.width = valueScenesElementEgoVehicleStateDimensionWidth;
+  valueScenesElementEgoVehicleState.dimension = valueScenesElementEgoVehicleStateDimension;
+  ::ad::physics::AngularVelocity valueScenesElementEgoVehicleStateYawRate(-100.);
+  valueScenesElementEgoVehicleState.yawRate = valueScenesElementEgoVehicleStateYawRate;
+  ::ad::physics::Distance2D valueScenesElementEgoVehicleStateCenterPoint;
+  ::ad::physics::Distance valueScenesElementEgoVehicleStateCenterPointX(-1e9);
+  valueScenesElementEgoVehicleStateCenterPoint.x = valueScenesElementEgoVehicleStateCenterPointX;
+  ::ad::physics::Distance valueScenesElementEgoVehicleStateCenterPointY(-1e9);
+  valueScenesElementEgoVehicleStateCenterPoint.y = valueScenesElementEgoVehicleStateCenterPointY;
+  valueScenesElementEgoVehicleState.centerPoint = valueScenesElementEgoVehicleStateCenterPoint;
+  ::ad::physics::Speed valueScenesElementEgoVehicleStateSpeed(-100.);
+  valueScenesElementEgoVehicleState.speed = valueScenesElementEgoVehicleStateSpeed;
+  valueScenesElementEgoVehicle.state = valueScenesElementEgoVehicleState;
   valueScenesElement.egoVehicle = valueScenesElementEgoVehicle;
   ::ad::rss::world::RssDynamics valueScenesElementEgoVehicleRssDynamics;
   ::ad::rss::world::LongitudinalRssAccelerationValues valueScenesElementEgoVehicleRssDynamicsAlphaLon;
@@ -781,7 +1036,9 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLatBrakeMin(-1e2);
   valueScenesElementEgoVehicleRssDynamicsAlphaLat.brakeMin = valueScenesElementEgoVehicleRssDynamicsAlphaLatBrakeMin;
   valueScenesElementEgoVehicleRssDynamics.alphaLat = valueScenesElementEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin(-1e9);
+  valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementEgoVehicleRssDynamics.lateralFluctuationMargin
     = valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin;
   ::ad::physics::Duration valueScenesElementEgoVehicleRssDynamicsResponseTime(0.);
@@ -790,6 +1047,26 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueScenesElementEgoVehicleRssDynamics.responseTime = valueScenesElementEgoVehicleRssDynamicsResponseTime;
   ::ad::physics::Speed valueScenesElementEgoVehicleRssDynamicsMaxSpeed(-100.);
   valueScenesElementEgoVehicleRssDynamics.maxSpeed = valueScenesElementEgoVehicleRssDynamicsMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings;
+  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.driveAwayMaxAngle
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange(
+    -1e2);
+  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleYawRateChange
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(
+    0.);
+  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  valueScenesElementEgoVehicleRssDynamics.unstructuredSettings
+    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings;
   valueScenesElement.egoVehicleRssDynamics = valueScenesElementEgoVehicleRssDynamics;
   ::ad::rss::world::Object valueScenesElementObject;
   ::ad::rss::world::ObjectId valueScenesElementObjectObjectId(
@@ -843,6 +1120,26 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueScenesElementObjectVelocity.speedLonMin = valueScenesElementObjectVelocity.speedLonMax;
   valueScenesElementObjectVelocity.speedLatMin = valueScenesElementObjectVelocity.speedLatMax;
   valueScenesElementObject.velocity = valueScenesElementObjectVelocity;
+  ::ad::rss::world::ObjectState valueScenesElementObjectState;
+  ::ad::physics::Angle valueScenesElementObjectStateYaw(-6.283185308);
+  valueScenesElementObjectState.yaw = valueScenesElementObjectStateYaw;
+  ::ad::physics::Dimension2D valueScenesElementObjectStateDimension;
+  ::ad::physics::Distance valueScenesElementObjectStateDimensionLength(-1e9);
+  valueScenesElementObjectStateDimension.length = valueScenesElementObjectStateDimensionLength;
+  ::ad::physics::Distance valueScenesElementObjectStateDimensionWidth(-1e9);
+  valueScenesElementObjectStateDimension.width = valueScenesElementObjectStateDimensionWidth;
+  valueScenesElementObjectState.dimension = valueScenesElementObjectStateDimension;
+  ::ad::physics::AngularVelocity valueScenesElementObjectStateYawRate(-100.);
+  valueScenesElementObjectState.yawRate = valueScenesElementObjectStateYawRate;
+  ::ad::physics::Distance2D valueScenesElementObjectStateCenterPoint;
+  ::ad::physics::Distance valueScenesElementObjectStateCenterPointX(-1e9);
+  valueScenesElementObjectStateCenterPoint.x = valueScenesElementObjectStateCenterPointX;
+  ::ad::physics::Distance valueScenesElementObjectStateCenterPointY(-1e9);
+  valueScenesElementObjectStateCenterPoint.y = valueScenesElementObjectStateCenterPointY;
+  valueScenesElementObjectState.centerPoint = valueScenesElementObjectStateCenterPoint;
+  ::ad::physics::Speed valueScenesElementObjectStateSpeed(-100.);
+  valueScenesElementObjectState.speed = valueScenesElementObjectStateSpeed;
+  valueScenesElementObject.state = valueScenesElementObjectState;
   valueScenesElement.object = valueScenesElementObject;
   ::ad::rss::world::RssDynamics valueScenesElementObjectRssDynamics;
   ::ad::rss::world::LongitudinalRssAccelerationValues valueScenesElementObjectRssDynamicsAlphaLon;
@@ -870,7 +1167,9 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLatBrakeMin(-1e2);
   valueScenesElementObjectRssDynamicsAlphaLat.brakeMin = valueScenesElementObjectRssDynamicsAlphaLatBrakeMin;
   valueScenesElementObjectRssDynamics.alphaLat = valueScenesElementObjectRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueScenesElementObjectRssDynamicsLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueScenesElementObjectRssDynamicsLateralFluctuationMargin(-1e9);
+  valueScenesElementObjectRssDynamicsLateralFluctuationMargin
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementObjectRssDynamics.lateralFluctuationMargin
     = valueScenesElementObjectRssDynamicsLateralFluctuationMargin;
   ::ad::physics::Duration valueScenesElementObjectRssDynamicsResponseTime(0.);
@@ -879,6 +1178,23 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueScenesElementObjectRssDynamics.responseTime = valueScenesElementObjectRssDynamicsResponseTime;
   ::ad::physics::Speed valueScenesElementObjectRssDynamicsMaxSpeed(-100.);
   valueScenesElementObjectRssDynamics.maxSpeed = valueScenesElementObjectRssDynamicsMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueScenesElementObjectRssDynamicsUnstructuredSettings;
+  ::ad::physics::Distance valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianTurningRadius
+    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueScenesElementObjectRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueScenesElementObjectRssDynamicsUnstructuredSettings.driveAwayMaxAngle
+    = valueScenesElementObjectRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleYawRateChange
+    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleMinRadius
+    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  valueScenesElementObjectRssDynamics.unstructuredSettings = valueScenesElementObjectRssDynamicsUnstructuredSettings;
   valueScenesElement.objectRssDynamics = valueScenesElementObjectRssDynamics;
   ::ad::rss::world::RoadArea valueScenesElementIntersectingRoad;
   ::ad::rss::world::RoadSegment valueScenesElementIntersectingRoadElement;
@@ -894,10 +1210,12 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueScenesElementIntersectingRoadElementElement.drivingDirection
     = valueScenesElementIntersectingRoadElementElementDrivingDirection;
   ::ad::physics::MetricRange valueScenesElementIntersectingRoadElementElementLength;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMinimum(0.);
+  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMinimum(-1e9);
+  valueScenesElementIntersectingRoadElementElementLengthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementIntersectingRoadElementElementLength.minimum
     = valueScenesElementIntersectingRoadElementElementLengthMinimum;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMaximum(0.);
+  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMaximum(-1e9);
   valueScenesElementIntersectingRoadElementElementLength.maximum
     = valueScenesElementIntersectingRoadElementElementLengthMaximum;
   valueScenesElementIntersectingRoadElementElementLength.maximum
@@ -906,10 +1224,12 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
     = valueScenesElementIntersectingRoadElementElementLength.maximum;
   valueScenesElementIntersectingRoadElementElement.length = valueScenesElementIntersectingRoadElementElementLength;
   ::ad::physics::MetricRange valueScenesElementIntersectingRoadElementElementWidth;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMinimum(0.);
+  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMinimum(-1e9);
+  valueScenesElementIntersectingRoadElementElementWidthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementIntersectingRoadElementElementWidth.minimum
     = valueScenesElementIntersectingRoadElementElementWidthMinimum;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMaximum(0.);
+  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMaximum(-1e9);
   valueScenesElementIntersectingRoadElementElementWidth.maximum
     = valueScenesElementIntersectingRoadElementElementWidthMaximum;
   valueScenesElementIntersectingRoadElementElementWidth.maximum
@@ -934,10 +1254,12 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueScenesElementEgoVehicleRoadElementElement.drivingDirection
     = valueScenesElementEgoVehicleRoadElementElementDrivingDirection;
   ::ad::physics::MetricRange valueScenesElementEgoVehicleRoadElementElementLength;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMinimum(0.);
+  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMinimum(-1e9);
+  valueScenesElementEgoVehicleRoadElementElementLengthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementEgoVehicleRoadElementElementLength.minimum
     = valueScenesElementEgoVehicleRoadElementElementLengthMinimum;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMaximum(0.);
+  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMaximum(-1e9);
   valueScenesElementEgoVehicleRoadElementElementLength.maximum
     = valueScenesElementEgoVehicleRoadElementElementLengthMaximum;
   valueScenesElementEgoVehicleRoadElementElementLength.maximum
@@ -946,10 +1268,12 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
     = valueScenesElementEgoVehicleRoadElementElementLength.maximum;
   valueScenesElementEgoVehicleRoadElementElement.length = valueScenesElementEgoVehicleRoadElementElementLength;
   ::ad::physics::MetricRange valueScenesElementEgoVehicleRoadElementElementWidth;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMinimum(0.);
+  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMinimum(-1e9);
+  valueScenesElementEgoVehicleRoadElementElementWidthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
   valueScenesElementEgoVehicleRoadElementElementWidth.minimum
     = valueScenesElementEgoVehicleRoadElementElementWidthMinimum;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMaximum(0.);
+  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMaximum(-1e9);
   valueScenesElementEgoVehicleRoadElementElementWidth.maximum
     = valueScenesElementEgoVehicleRoadElementElementWidthMaximum;
   valueScenesElementEgoVehicleRoadElementElementWidth.maximum

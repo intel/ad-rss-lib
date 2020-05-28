@@ -14,7 +14,7 @@
 ##
 
 cmake_minimum_required(VERSION 3.5)
-project(ad_rss VERSION 3.0.1)
+project(ad_rss VERSION 4.0.0)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -31,7 +31,7 @@ if ((NOT ad_rss_SOURCES) OR (NOT ad_rss_INCLUDE_DIRS))
   message(FATAL_ERROR "${PROJECT_NAME}: Variable ad_rss_SOURCES or ad_rss_INCLUDE_DIRS pointing to the generator managed library not set!")
 endif()
 
-find_package(ad_physics 2.0.3 REQUIRED CONFIG)
+find_package(ad_physics 2.1.1 REQUIRED CONFIG)
 find_package(spdlog REQUIRED CONFIG)
 
 add_library(${PROJECT_NAME}
@@ -43,6 +43,7 @@ add_library(${PROJECT_NAME}
   src/ad/rss/state/LateralResponse.cpp
   src/ad/rss/state/LongitudinalResponse.cpp
   src/ad/rss/state/RssStateEvaluator.cpp
+  src/ad/rss/state/UnstructuredSceneResponse.cpp
   src/ad/rss/world/LaneDrivingDirection.cpp
   src/ad/rss/world/LaneSegmentType.cpp
   src/ad/rss/world/ObjectType.cpp

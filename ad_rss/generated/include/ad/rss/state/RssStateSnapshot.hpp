@@ -22,6 +22,7 @@
 #include <memory>
 #include <sstream>
 #include "ad/rss/state/RssStateVector.hpp"
+#include "ad/rss/state/UnstructuredSceneStateInformation.hpp"
 #include "ad/rss/world/RssDynamics.hpp"
 #include "ad/rss/world/TimeIndex.hpp"
 /*!
@@ -102,7 +103,8 @@ struct RssStateSnapshot
   bool operator==(const RssStateSnapshot &other) const
   {
     return (timeIndex == other.timeIndex) && (defaultEgoVehicleRssDynamics == other.defaultEgoVehicleRssDynamics)
-      && (individualResponses == other.individualResponses);
+      && (individualResponses == other.individualResponses)
+      && (unstructuredSceneEgoInformation == other.unstructuredSceneEgoInformation);
   }
 
   /**
@@ -132,6 +134,7 @@ struct RssStateSnapshot
    */
   ::ad::rss::world::RssDynamics defaultEgoVehicleRssDynamics;
   ::ad::rss::state::RssStateVector individualResponses;
+  ::ad::rss::state::UnstructuredSceneStateInformation unstructuredSceneEgoInformation;
 };
 
 } // namespace state
@@ -176,6 +179,9 @@ inline std::ostream &operator<<(std::ostream &os, RssStateSnapshot const &_value
   os << ",";
   os << "individualResponses:";
   os << _value.individualResponses;
+  os << ",";
+  os << "unstructuredSceneEgoInformation:";
+  os << _value.unstructuredSceneEgoInformation;
   os << ")";
   return os;
 }

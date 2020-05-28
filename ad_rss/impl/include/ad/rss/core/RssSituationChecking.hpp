@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -27,7 +27,9 @@ namespace rss {
  * @brief Forward declaration
  */
 namespace situation {
-class RssIntersectionChecker;
+class RssStructuredSceneIntersectionChecker;
+class RssStructuredSceneNonIntersectionChecker;
+class RssUnstructuredSceneChecker;
 } // namespace situation
 
 /*!
@@ -69,11 +71,12 @@ private:
    * @brief Check if the current situation is safe.
    *
    * @param[in] situation      the Situation that should be analyzed
-   * @param[out] rssState      the rssState state for the current situation
+   * @param[out] rssStateSnapshot the rss state snapshot the current state has to be appended
    *
    * @return true if situation could be analyzed, false if there was an error during evaluation
    */
-  bool checkSituationInputRangeChecked(situation::Situation const &situation, state::RssState &rssState);
+  bool checkSituationInputRangeChecked(situation::Situation const &situation,
+                                       state::RssStateSnapshot &rssStateSnapshot);
 
   /*!
    * @brief check to ensure time index is consistent
@@ -84,7 +87,9 @@ private:
    */
   bool checkTimeIncreasingConsistently(world::TimeIndex const &nextTimeIndex);
 
-  std::unique_ptr<ad::rss::situation::RssIntersectionChecker> mIntersectionChecker;
+  std::unique_ptr<ad::rss::situation::RssStructuredSceneIntersectionChecker> mIntersectionChecker;
+  std::unique_ptr<ad::rss::situation::RssStructuredSceneNonIntersectionChecker> mNonIntersectionChecker;
+  std::unique_ptr<ad::rss::situation::RssUnstructuredSceneChecker> mUnstructuredSceneChecker;
   world::TimeIndex mCurrentTimeIndex{0u};
 };
 } // namespace core

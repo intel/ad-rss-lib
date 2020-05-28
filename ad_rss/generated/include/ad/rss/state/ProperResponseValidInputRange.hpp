@@ -19,9 +19,11 @@
 
 #include <cmath>
 #include <limits>
+#include "ad/rss/state/HeadingRangeValidInputRange.hpp"
 #include "ad/rss/state/LateralResponseValidInputRange.hpp"
 #include "ad/rss/state/LongitudinalResponseValidInputRange.hpp"
 #include "ad/rss/state/ProperResponse.hpp"
+#include "ad/rss/world/AccelerationRestrictionValidInputRange.hpp"
 #include "ad/rss/world/ObjectIdVectorValidInputRange.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
@@ -44,7 +46,9 @@ inline bool withinValidInputRange(::ad::rss::state::ProperResponse const &input,
   inValidInputRange = withinValidInputRange(input.dangerousObjects, logErrors)
     && withinValidInputRange(input.longitudinalResponse, logErrors)
     && withinValidInputRange(input.lateralResponseRight, logErrors)
-    && withinValidInputRange(input.lateralResponseLeft, logErrors);
+    && withinValidInputRange(input.lateralResponseLeft, logErrors)
+    && withinValidInputRange(input.headingRange, logErrors)
+    && withinValidInputRange(input.accelerationRestrictions, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::state::ProperResponse)>> {} has invalid member",

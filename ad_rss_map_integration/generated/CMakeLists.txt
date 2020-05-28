@@ -32,7 +32,7 @@ if ((NOT ad_rss_map_integration_SOURCES) OR (NOT ad_rss_map_integration_INCLUDE_
 endif()
 
 find_package(ad_map_access 2.0.3 REQUIRED CONFIG)
-find_package(ad_rss 3.0.1 REQUIRED CONFIG)
+find_package(ad_rss 4.0.0 REQUIRED CONFIG)
 
 add_library(${PROJECT_NAME}
   ${ad_rss_map_integration_SOURCES}

@@ -282,7 +282,8 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex 
   // @toDo: add this restriction to the data type model
   //       and extend generated withinValidInputRange by these
   if (((currentScene.object.objectType != world::ObjectType::OtherVehicle)
-       && (currentScene.object.objectType != world::ObjectType::ArtificialObject))
+       && (currentScene.object.objectType != world::ObjectType::ArtificialObject)
+       && (currentScene.object.objectType != world::ObjectType::Pedestrian))
       || (currentScene.egoVehicle.objectType != world::ObjectType::EgoVehicle))
   {
     spdlog::error("RssSituationExtraction::extractSituationInputRangeChecked>> Invalid object type. Ego: {} Object: {}",
@@ -310,6 +311,12 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex 
     situation.situationId = mSituationIdProvider->getSituationId(timeIndex, currentScene);
     situation.objectId = currentScene.object.objectId;
     situation.situationType = currentScene.situationType;
+
+    situation.egoVehicleState.objectType = currentScene.egoVehicle.objectType;
+    situation.otherVehicleState.objectType = currentScene.object.objectType;
+
+    situation.egoVehicleState.objectState = currentScene.egoVehicle.state;
+    situation.otherVehicleState.objectState = currentScene.object.state;
 
     situation.egoVehicleState.hasPriority = false;
     situation.otherVehicleState.hasPriority = false;
@@ -343,6 +350,7 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex 
         break;
       }
       case ad::rss::situation::SituationType::NotRelevant:
+      case ad::rss::situation::SituationType::Unstructured:
       {
         result = true;
         break;

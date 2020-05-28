@@ -33,13 +33,26 @@ void resetRssState(state::LateralRssState &state)
   state.rssStateInformation.evaluator = state::RssStateEvaluator::None;
 }
 
-void resetRssState(state::RssState &rssState, situation::SituationId const situationId, world::ObjectId const objectId)
+void resetRssState(state::UnstructuredSceneRssState &state)
+{
+  state.response = state::UnstructuredSceneResponse::None;
+  state.headingRange.minimum = ad::physics::Angle(0.0);
+  state.headingRange.maximum = ad::physics::c2PI;
+  state.isSafe = true;
+}
+
+void resetRssState(state::RssState &rssState,
+                   situation::SituationId const situationId,
+                   world::ObjectId const objectId,
+                   situation::SituationType const situationType)
 {
   rssState.situationId = situationId;
   rssState.objectId = objectId;
+  rssState.situationType = situationType;
   resetRssState(rssState.longitudinalState);
   resetRssState(rssState.lateralStateLeft);
   resetRssState(rssState.lateralStateRight);
+  resetRssState(rssState.unstructuredSceneState);
 }
 
 void resetRssState(state::ProperResponse &properResponse)
@@ -50,6 +63,10 @@ void resetRssState(state::ProperResponse &properResponse)
   properResponse.longitudinalResponse = state::LongitudinalResponse::None;
   properResponse.lateralResponseLeft = state::LateralResponse::None;
   properResponse.lateralResponseRight = state::LateralResponse::None;
+  properResponse.headingRange.innerRange.minimum = ad::physics::Angle(0.0);
+  properResponse.headingRange.innerRange.maximum = ad::physics::Angle(0.0);
+  properResponse.headingRange.outerRange.minimum = ad::physics::Angle(0.0);
+  properResponse.headingRange.outerRange.maximum = ad::physics::c2PI;
 }
 
 world::RssDynamics getObjectRssDynamics()
@@ -65,6 +82,13 @@ world::RssDynamics getObjectRssDynamics()
   rssDynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
 
   rssDynamics.responseTime = cResponseTimeOtherVehicles;
+
+  rssDynamics.unstructuredSettings.pedestrianTurningRadius = ad::physics::Distance(2.0);
+  rssDynamics.unstructuredSettings.driveAwayMaxAngle = ad::physics::Angle(2.4);
+  rssDynamics.unstructuredSettings.vehicleYawRateChange = ad::physics::AngularAcceleration(0.3);
+  rssDynamics.unstructuredSettings.vehicleMinRadius = ad::physics::Distance(3.5);
+  rssDynamics.unstructuredSettings.vehicleTrajectoryCalculationStep = ad::physics::Duration(0.2);
+
   return rssDynamics;
 }
 
@@ -81,6 +105,13 @@ world::RssDynamics getEgoRssDynamics()
   rssDynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
 
   rssDynamics.responseTime = cResponseTimeEgoVehicle;
+
+  rssDynamics.unstructuredSettings.pedestrianTurningRadius = ad::physics::Distance(2.0);
+  rssDynamics.unstructuredSettings.driveAwayMaxAngle = ad::physics::Angle(2.4);
+  rssDynamics.unstructuredSettings.vehicleYawRateChange = ad::physics::AngularAcceleration(0.3);
+  rssDynamics.unstructuredSettings.vehicleMinRadius = ad::physics::Distance(3.5);
+  rssDynamics.unstructuredSettings.vehicleTrajectoryCalculationStep = ad::physics::Duration(0.2);
+
   return rssDynamics;
 }
 
@@ -93,10 +124,26 @@ world::Object createObject(double const lonVelocity, double const latVelocity)
   object.velocity.speedLonMax = kmhToMeterPerSec(lonVelocity);
   object.velocity.speedLatMin = kmhToMeterPerSec(latVelocity);
   object.velocity.speedLatMax = kmhToMeterPerSec(latVelocity);
+  object.state = createObjectState(lonVelocity, latVelocity);
   return object;
 }
 
-situation::VehicleState createVehicleState(double const lonVelocity, double const latVelocity)
+world::ObjectState createObjectState(double const lonVelocity, double const latVelocity)
+{
+  world::ObjectState state;
+  state.yaw = ad::physics::Angle(0.0);
+  state.dimension.length = ad::physics::Distance(4.0);
+  state.dimension.width = ad::physics::Distance(2.0);
+  state.yawRate = ad::physics::AngularVelocity(0.0);
+  state.centerPoint.x = ad::physics::Distance(0.0);
+  state.centerPoint.y = ad::physics::Distance(0.0);
+  state.speed = ad::physics::Speed(std::sqrt(kmhToMeterPerSec(lonVelocity) * kmhToMeterPerSec(lonVelocity)
+                                             + kmhToMeterPerSec(latVelocity) * kmhToMeterPerSec(latVelocity)));
+  return state;
+}
+
+situation::VehicleState
+createVehicleState(world::ObjectType const objectType, double const lonVelocity, double const latVelocity)
 {
   situation::VehicleState state;
 
@@ -109,7 +156,8 @@ situation::VehicleState createVehicleState(double const lonVelocity, double cons
   state.distanceToLeaveIntersection = Distance(1000.);
   state.hasPriority = false;
   state.isInCorrectLane = true;
-
+  state.objectType = objectType;
+  state.objectState = createObjectState(lonVelocity, latVelocity);
   return state;
 }
 
@@ -425,6 +473,67 @@ state::LongitudinalRssState TestSupport::stateWithInformation(state::Longitudina
   }
 
   return resultState;
+}
+
+void getUnstructuredVehicle(unstructured::Point const &backLeft,
+                            bool positiveDirection,
+                            state::UnstructuredSceneStateInformation &stateInfo,
+                            situation::VehicleState &vehicleState)
+{
+  if (positiveDirection)
+  {
+    vehicleState.objectState.centerPoint.x = ad::physics::Distance(backLeft.x() + 0.5);
+    vehicleState.objectState.centerPoint.y = ad::physics::Distance(backLeft.y() + 0.5);
+    vehicleState.objectState.yaw = ad::physics::cPI_2;
+  }
+  else
+  {
+    vehicleState.objectState.centerPoint.x = ad::physics::Distance(backLeft.x() - 0.5);
+    vehicleState.objectState.centerPoint.y = ad::physics::Distance(backLeft.y() - 0.5);
+    vehicleState.objectState.yaw = 3. * ad::physics::cPI_2;
+  }
+
+  stateInfo.brakeTrajectorySet.clear();
+  stateInfo.continueForwardTrajectorySet.clear();
+  // brake
+  stateInfo.brakeTrajectorySet.push_back(unstructured::toDistance(backLeft));
+  stateInfo.continueForwardTrajectorySet.push_back(unstructured::toDistance(backLeft));
+  if (positiveDirection)
+  {
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x() + 1, backLeft.y() + 1.)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x() + 1, backLeft.y() + 1.)));
+
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x() + 1., backLeft.y() + 2.)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x() + 1., backLeft.y() + 3.)));
+
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x(), backLeft.y() + 2.)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x(), backLeft.y() + 3.)));
+  }
+  else
+  {
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x() - 1., backLeft.y() - 1.)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x() - 1., backLeft.y() - 1.)));
+
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x() - 1., backLeft.y() - 2.)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x() - 1., backLeft.y() - 3.)));
+
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x(), backLeft.y() - 2.)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(backLeft.x(), backLeft.y() - 3.)));
+  }
+  stateInfo.brakeTrajectorySet.push_back(stateInfo.brakeTrajectorySet.front());
+  stateInfo.continueForwardTrajectorySet.push_back(stateInfo.continueForwardTrajectorySet.front());
 }
 
 } // namespace rss

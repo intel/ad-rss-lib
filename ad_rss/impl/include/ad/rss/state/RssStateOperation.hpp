@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -51,6 +51,18 @@ inline bool isLateralSafe(RssState const &rssState)
 }
 
 /**
+ * @brief is rss unstructured scene state safe
+ *
+ * @param[in] rssState to check
+ *
+ * true if safe, false if not
+ */
+inline bool isUnstructuredSceneSafe(RssState const &rssState)
+{
+  return rssState.unstructuredSceneState.isSafe;
+}
+
+/**
  * @brief is rss state dangerous
  *
  * @param[in] rssState to check
@@ -59,7 +71,14 @@ inline bool isLateralSafe(RssState const &rssState)
  */
 inline bool isDangerous(RssState const &rssState)
 {
-  return !isLongitudinalSafe(rssState) && !isLateralSafe(rssState);
+  if (rssState.situationType == ad::rss::situation::SituationType::Unstructured)
+  {
+    return !isUnstructuredSceneSafe(rssState);
+  }
+  else
+  {
+    return !isLongitudinalSafe(rssState) && !isLateralSafe(rssState);
+  }
 }
 
 } // namespace state

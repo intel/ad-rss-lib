@@ -18,6 +18,7 @@
 #include "ad/rss/situation/VehicleState.hpp"
 #include "ad/rss/state/ProperResponse.hpp"
 #include "ad/rss/state/RssState.hpp"
+#include "ad/rss/unstructured/Geometry.hpp"
 #include "ad/rss/world/Object.hpp"
 #include "ad/rss/world/RoadSegment.hpp"
 
@@ -50,13 +51,24 @@ void resetRssState(state::LongitudinalRssState &state);
 void resetRssState(state::LateralRssState &state);
 
 /**
+ * @brief resets the RSS state to it's safe state
+ *
+ * @param[in/out] state the unstructured RSS state to be reset
+ */
+void resetRssState(state::UnstructuredSceneRssState &state);
+
+/**
  * @brief resets the RSS state within the RssState to it's safe state
  *
  * @param[in/out] rssState the response state to be reset
  * @param[in] situationId the situation id to be set within the RssState
  * @param[in] objectId the object id to be set within the RssState
+ * @param[in] situationType the situation type to be set within the RssState
  */
-void resetRssState(state::RssState &rssState, situation::SituationId const situationId, world::ObjectId const objectId);
+void resetRssState(state::RssState &rssState,
+                   situation::SituationId const situationId,
+                   world::ObjectId const objectId,
+                   situation::SituationType const situationType);
 
 /**
  * @brief resets the RSS state of the proper response to it's safe state
@@ -129,12 +141,24 @@ world::Object createObject(double const lonVelocity, double const latVelocity);
 /**
  * @brief create a vehicle state
  *
+ * @param[in] objectType type of object
  * @param[in] lonVelocity the longitudinal velocity to be applied
  * @param[in] latVelocity the lateral velocity to be applied
  *
  * @returns a vehicle state with applied lon/lat velocities
  */
-situation::VehicleState createVehicleState(double const lonVelocity, double const latVelocity);
+situation::VehicleState
+createVehicleState(world::ObjectType const objectType, double const lonVelocity, double const latVelocity);
+
+/**
+ * @brief create an object state
+ *
+ * @param[in] lonVelocity the longitudinal velocity to be applied
+ * @param[in] latVelocity the lateral velocity to be applied
+ *
+ * @returns an object state with applied lon/lat velocities
+ */
+world::ObjectState createObjectState(double const lonVelocity, double const latVelocity);
 
 /**
  * @brief create a vehicle state for longitudianl motion
@@ -147,7 +171,7 @@ situation::VehicleState createVehicleState(double const lonVelocity, double cons
  */
 inline situation::VehicleState createVehicleStateForLongitudinalMotion(double const lonVelocity)
 {
-  return createVehicleState(lonVelocity, 0.);
+  return createVehicleState(world::ObjectType::OtherVehicle, lonVelocity, 0.);
 }
 
 /**
@@ -161,7 +185,7 @@ inline situation::VehicleState createVehicleStateForLongitudinalMotion(double co
  */
 inline situation::VehicleState createVehicleStateForLateralMotion(double const latVelocity)
 {
-  return createVehicleState(0., latVelocity);
+  return createVehicleState(world::ObjectType::OtherVehicle, 0., latVelocity);
 }
 
 /**
@@ -255,6 +279,11 @@ Distance calculateLateralMinSafeDistance(physics::Speed const &leftObjectSpeed,
                                          world::RssDynamics const &leftObjectRssDynamics,
                                          physics::Speed const &rightObjectSpeed,
                                          world::RssDynamics const &rightObjectRssDynamics);
+
+void getUnstructuredVehicle(unstructured::Point const &backLeft,
+                            bool positiveDirection,
+                            state::UnstructuredSceneStateInformation &stateInfo,
+                            situation::VehicleState &vehicleState);
 
 /**
  * @brief class providing constants for longitudinal/lateral RSS states

@@ -50,7 +50,8 @@ protected:
     ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
     valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
     value.alphaLat = valueAlphaLat;
-    ::ad::physics::Distance valueLateralFluctuationMargin(0.);
+    ::ad::physics::Distance valueLateralFluctuationMargin(-1e9);
+    valueLateralFluctuationMargin = ::ad::physics::Distance(0.); // set to valid value within struct
     value.lateralFluctuationMargin = valueLateralFluctuationMargin;
     ::ad::physics::Duration valueResponseTime(0.);
     valueResponseTime
@@ -58,6 +59,19 @@ protected:
     value.responseTime = valueResponseTime;
     ::ad::physics::Speed valueMaxSpeed(-100.);
     value.maxSpeed = valueMaxSpeed;
+    ::ad::rss::world::UnstructuredSettings valueUnstructuredSettings;
+    ::ad::physics::Distance valueUnstructuredSettingsPedestrianTurningRadius(-1e9);
+    valueUnstructuredSettings.pedestrianTurningRadius = valueUnstructuredSettingsPedestrianTurningRadius;
+    ::ad::physics::Angle valueUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+    valueUnstructuredSettings.driveAwayMaxAngle = valueUnstructuredSettingsDriveAwayMaxAngle;
+    ::ad::physics::AngularAcceleration valueUnstructuredSettingsVehicleYawRateChange(-1e2);
+    valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
+    ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
+    valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
+    ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+    valueUnstructuredSettings.vehicleTrajectoryCalculationStep
+      = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+    value.unstructuredSettings = valueUnstructuredSettings;
     mValue = value;
   }
 
@@ -177,6 +191,27 @@ TEST_F(RssDynamicsTests, comparisonOperatorMaxSpeedDiffers)
   ::ad::rss::world::RssDynamics valueA = mValue;
   ::ad::physics::Speed maxSpeed(100.);
   valueA.maxSpeed = maxSpeed;
+  ::ad::rss::world::RssDynamics valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(RssDynamicsTests, comparisonOperatorUnstructuredSettingsDiffers)
+{
+  ::ad::rss::world::RssDynamics valueA = mValue;
+  ::ad::rss::world::UnstructuredSettings unstructuredSettings;
+  ::ad::physics::Distance unstructuredSettingsPedestrianTurningRadius(1e9);
+  unstructuredSettings.pedestrianTurningRadius = unstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle unstructuredSettingsDriveAwayMaxAngle(6.283185308);
+  unstructuredSettings.driveAwayMaxAngle = unstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration unstructuredSettingsVehicleYawRateChange(1e2);
+  unstructuredSettings.vehicleYawRateChange = unstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance unstructuredSettingsVehicleMinRadius(1e9);
+  unstructuredSettings.vehicleMinRadius = unstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration unstructuredSettingsVehicleTrajectoryCalculationStep(1e6);
+  unstructuredSettings.vehicleTrajectoryCalculationStep = unstructuredSettingsVehicleTrajectoryCalculationStep;
+  valueA.unstructuredSettings = unstructuredSettings;
   ::ad::rss::world::RssDynamics valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

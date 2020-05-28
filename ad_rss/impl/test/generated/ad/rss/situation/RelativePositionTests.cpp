@@ -31,12 +31,12 @@ protected:
     ::ad::rss::situation::LongitudinalRelativePosition valueLongitudinalPosition(
       ::ad::rss::situation::LongitudinalRelativePosition::InFront);
     value.longitudinalPosition = valueLongitudinalPosition;
-    ::ad::physics::Distance valueLongitudinalDistance(0.);
+    ::ad::physics::Distance valueLongitudinalDistance(-1e9);
     value.longitudinalDistance = valueLongitudinalDistance;
     ::ad::rss::situation::LateralRelativePosition valueLateralPosition(
       ::ad::rss::situation::LateralRelativePosition::AtLeft);
     value.lateralPosition = valueLateralPosition;
-    ::ad::physics::Distance valueLateralDistance(0.);
+    ::ad::physics::Distance valueLateralDistance(-1e9);
     value.lateralDistance = valueLateralDistance;
     mValue = value;
   }

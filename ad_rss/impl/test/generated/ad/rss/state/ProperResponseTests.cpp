@@ -43,6 +43,46 @@ protected:
     value.lateralResponseRight = valueLateralResponseRight;
     ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
     value.lateralResponseLeft = valueLateralResponseLeft;
+    ::ad::rss::state::HeadingRange valueHeadingRange;
+    ::ad::physics::AngleRange valueHeadingRangeOuterRange;
+    ::ad::physics::Angle valueHeadingRangeOuterRangeMinimum(-6.283185308);
+    valueHeadingRangeOuterRange.minimum = valueHeadingRangeOuterRangeMinimum;
+    ::ad::physics::Angle valueHeadingRangeOuterRangeMaximum(-6.283185308);
+    valueHeadingRangeOuterRange.maximum = valueHeadingRangeOuterRangeMaximum;
+    valueHeadingRange.outerRange = valueHeadingRangeOuterRange;
+    ::ad::physics::AngleRange valueHeadingRangeInnerRange;
+    ::ad::physics::Angle valueHeadingRangeInnerRangeMinimum(-6.283185308);
+    valueHeadingRangeInnerRange.minimum = valueHeadingRangeInnerRangeMinimum;
+    ::ad::physics::Angle valueHeadingRangeInnerRangeMaximum(-6.283185308);
+    valueHeadingRangeInnerRange.maximum = valueHeadingRangeInnerRangeMaximum;
+    valueHeadingRange.innerRange = valueHeadingRangeInnerRange;
+    value.headingRange = valueHeadingRange;
+    ::ad::rss::world::AccelerationRestriction valueAccelerationRestrictions;
+    ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralLeftRange;
+    ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMinimum(-1e2);
+    valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRangeMinimum;
+    ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMaximum(-1e2);
+    valueAccelerationRestrictionsLateralLeftRange.maximum = valueAccelerationRestrictionsLateralLeftRangeMaximum;
+    valueAccelerationRestrictionsLateralLeftRange.maximum = valueAccelerationRestrictionsLateralLeftRange.minimum;
+    valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRange.maximum;
+    valueAccelerationRestrictions.lateralLeftRange = valueAccelerationRestrictionsLateralLeftRange;
+    ::ad::physics::AccelerationRange valueAccelerationRestrictionsLongitudinalRange;
+    ::ad::physics::Acceleration valueAccelerationRestrictionsLongitudinalRangeMinimum(-1e2);
+    valueAccelerationRestrictionsLongitudinalRange.minimum = valueAccelerationRestrictionsLongitudinalRangeMinimum;
+    ::ad::physics::Acceleration valueAccelerationRestrictionsLongitudinalRangeMaximum(-1e2);
+    valueAccelerationRestrictionsLongitudinalRange.maximum = valueAccelerationRestrictionsLongitudinalRangeMaximum;
+    valueAccelerationRestrictionsLongitudinalRange.maximum = valueAccelerationRestrictionsLongitudinalRange.minimum;
+    valueAccelerationRestrictionsLongitudinalRange.minimum = valueAccelerationRestrictionsLongitudinalRange.maximum;
+    valueAccelerationRestrictions.longitudinalRange = valueAccelerationRestrictionsLongitudinalRange;
+    ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralRightRange;
+    ::ad::physics::Acceleration valueAccelerationRestrictionsLateralRightRangeMinimum(-1e2);
+    valueAccelerationRestrictionsLateralRightRange.minimum = valueAccelerationRestrictionsLateralRightRangeMinimum;
+    ::ad::physics::Acceleration valueAccelerationRestrictionsLateralRightRangeMaximum(-1e2);
+    valueAccelerationRestrictionsLateralRightRange.maximum = valueAccelerationRestrictionsLateralRightRangeMaximum;
+    valueAccelerationRestrictionsLateralRightRange.maximum = valueAccelerationRestrictionsLateralRightRange.minimum;
+    valueAccelerationRestrictionsLateralRightRange.minimum = valueAccelerationRestrictionsLateralRightRange.maximum;
+    valueAccelerationRestrictions.lateralRightRange = valueAccelerationRestrictionsLateralRightRange;
+    value.accelerationRestrictions = valueAccelerationRestrictions;
     mValue = value;
   }
 
@@ -157,6 +197,64 @@ TEST_F(ProperResponseTests, comparisonOperatorLateralResponseLeftDiffers)
   ::ad::rss::state::ProperResponse valueA = mValue;
   ::ad::rss::state::LateralResponse lateralResponseLeft(::ad::rss::state::LateralResponse::BrakeMin);
   valueA.lateralResponseLeft = lateralResponseLeft;
+  ::ad::rss::state::ProperResponse valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(ProperResponseTests, comparisonOperatorHeadingRangeDiffers)
+{
+  ::ad::rss::state::ProperResponse valueA = mValue;
+  ::ad::rss::state::HeadingRange headingRange;
+  ::ad::physics::AngleRange headingRangeOuterRange;
+  ::ad::physics::Angle headingRangeOuterRangeMinimum(6.283185308);
+  headingRangeOuterRange.minimum = headingRangeOuterRangeMinimum;
+  ::ad::physics::Angle headingRangeOuterRangeMaximum(6.283185308);
+  headingRangeOuterRange.maximum = headingRangeOuterRangeMaximum;
+  headingRange.outerRange = headingRangeOuterRange;
+  ::ad::physics::AngleRange headingRangeInnerRange;
+  ::ad::physics::Angle headingRangeInnerRangeMinimum(6.283185308);
+  headingRangeInnerRange.minimum = headingRangeInnerRangeMinimum;
+  ::ad::physics::Angle headingRangeInnerRangeMaximum(6.283185308);
+  headingRangeInnerRange.maximum = headingRangeInnerRangeMaximum;
+  headingRange.innerRange = headingRangeInnerRange;
+  valueA.headingRange = headingRange;
+  ::ad::rss::state::ProperResponse valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(ProperResponseTests, comparisonOperatorAccelerationRestrictionsDiffers)
+{
+  ::ad::rss::state::ProperResponse valueA = mValue;
+  ::ad::rss::world::AccelerationRestriction accelerationRestrictions;
+  ::ad::physics::AccelerationRange accelerationRestrictionsLateralLeftRange;
+  ::ad::physics::Acceleration accelerationRestrictionsLateralLeftRangeMinimum(1e2);
+  accelerationRestrictionsLateralLeftRange.minimum = accelerationRestrictionsLateralLeftRangeMinimum;
+  ::ad::physics::Acceleration accelerationRestrictionsLateralLeftRangeMaximum(1e2);
+  accelerationRestrictionsLateralLeftRange.maximum = accelerationRestrictionsLateralLeftRangeMaximum;
+  accelerationRestrictionsLateralLeftRange.maximum = accelerationRestrictionsLateralLeftRange.minimum;
+  accelerationRestrictionsLateralLeftRange.minimum = accelerationRestrictionsLateralLeftRange.maximum;
+  accelerationRestrictions.lateralLeftRange = accelerationRestrictionsLateralLeftRange;
+  ::ad::physics::AccelerationRange accelerationRestrictionsLongitudinalRange;
+  ::ad::physics::Acceleration accelerationRestrictionsLongitudinalRangeMinimum(1e2);
+  accelerationRestrictionsLongitudinalRange.minimum = accelerationRestrictionsLongitudinalRangeMinimum;
+  ::ad::physics::Acceleration accelerationRestrictionsLongitudinalRangeMaximum(1e2);
+  accelerationRestrictionsLongitudinalRange.maximum = accelerationRestrictionsLongitudinalRangeMaximum;
+  accelerationRestrictionsLongitudinalRange.maximum = accelerationRestrictionsLongitudinalRange.minimum;
+  accelerationRestrictionsLongitudinalRange.minimum = accelerationRestrictionsLongitudinalRange.maximum;
+  accelerationRestrictions.longitudinalRange = accelerationRestrictionsLongitudinalRange;
+  ::ad::physics::AccelerationRange accelerationRestrictionsLateralRightRange;
+  ::ad::physics::Acceleration accelerationRestrictionsLateralRightRangeMinimum(1e2);
+  accelerationRestrictionsLateralRightRange.minimum = accelerationRestrictionsLateralRightRangeMinimum;
+  ::ad::physics::Acceleration accelerationRestrictionsLateralRightRangeMaximum(1e2);
+  accelerationRestrictionsLateralRightRange.maximum = accelerationRestrictionsLateralRightRangeMaximum;
+  accelerationRestrictionsLateralRightRange.maximum = accelerationRestrictionsLateralRightRange.minimum;
+  accelerationRestrictionsLateralRightRange.minimum = accelerationRestrictionsLateralRightRange.maximum;
+  accelerationRestrictions.lateralRightRange = accelerationRestrictionsLateralRightRange;
+  valueA.accelerationRestrictions = accelerationRestrictions;
   ::ad::rss::state::ProperResponse valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

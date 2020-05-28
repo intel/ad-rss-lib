@@ -11,7 +11,6 @@
 
 #pragma once
 
-#include <map>
 #include "ad/rss/state/ProperResponse.hpp"
 #include "ad/rss/state/RssStateSnapshot.hpp"
 #include "ad/rss/world/AccelerationRestriction.hpp"
@@ -51,14 +50,11 @@ public:
    *
    * @param[in]  currentStateSnapshot all the rss states gathered for the current situations
    * @param[out] response the proper overall response state
-   * @param[out] accelerationRestriction - The restrictions on the vehicle acceleration to become RSS safe.
    *
    * @return true if response and acceleration restriction could be calculated, false otherwise
    * If false is returned the internal state has not been updated
    */
-  bool provideProperResponse(state::RssStateSnapshot const &currentStateSnapshot,
-                             state::ProperResponse &response,
-                             world::AccelerationRestriction &accelerationRestriction);
+  bool provideProperResponse(state::RssStateSnapshot const &currentStateSnapshot, state::ProperResponse &response);
 
 private:
   /*!
@@ -88,24 +84,6 @@ private:
   void combineState(::ad::rss::state::LateralRssState const &state,
                     ::ad::rss::state::LateralResponse &response,
                     ::ad::physics::AccelerationRange &accelerationRange);
-
-  struct RssSafeState
-  {
-    bool longitudinalSafe{false};
-    bool lateralSafe{false};
-  };
-
-  /**
-   * @brief typedef for the mapping of object id to the corresponding RssSafeState before the danger threshold time
-   */
-  typedef std::map<situation::SituationId, RssSafeState> RssSafeStateBeforeDangerThresholdTimeMap;
-
-  /**
-   * @brief the state of each situation before the danger threshold time
-   *
-   * Needs to be stored to check which is the proper response required to solve an unclear situation
-   */
-  RssSafeStateBeforeDangerThresholdTimeMap mStatesBeforeDangerThresholdTime;
 };
 
 } // namespace core

@@ -21,9 +21,6 @@
 TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRange)
 {
   ::ad::rss::world::AccelerationRestriction value;
-  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
-  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
   ::ad::physics::AccelerationRange valueLateralLeftRange;
   ::ad::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
   valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
@@ -54,9 +51,6 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRange)
 TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeftRangeTooSmall)
 {
   ::ad::rss::world::AccelerationRestriction value;
-  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
-  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
   ::ad::physics::AccelerationRange valueLateralLeftRange;
   ::ad::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
   valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
@@ -93,9 +87,6 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeft
 TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeftRangeTooBig)
 {
   ::ad::rss::world::AccelerationRestriction value;
-  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
-  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
   ::ad::physics::AccelerationRange valueLateralLeftRange;
   ::ad::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
   valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
@@ -132,9 +123,6 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeft
 TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudinalRangeTooSmall)
 {
   ::ad::rss::world::AccelerationRestriction value;
-  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
-  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
   ::ad::physics::AccelerationRange valueLateralLeftRange;
   ::ad::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
   valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
@@ -171,9 +159,6 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudina
 TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudinalRangeTooBig)
 {
   ::ad::rss::world::AccelerationRestriction value;
-  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
-  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
   ::ad::physics::AccelerationRange valueLateralLeftRange;
   ::ad::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
   valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
@@ -210,9 +195,6 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudina
 TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRightRangeTooSmall)
 {
   ::ad::rss::world::AccelerationRestriction value;
-  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
-  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
   ::ad::physics::AccelerationRange valueLateralLeftRange;
   ::ad::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
   valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
@@ -249,9 +231,6 @@ TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRigh
 TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRightRangeTooBig)
 {
   ::ad::rss::world::AccelerationRestriction value;
-  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
-  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
   ::ad::physics::AccelerationRange valueLateralLeftRange;
   ::ad::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
   valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;

@@ -47,7 +47,7 @@ bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const
 {
   Speed resultingSpeed = Speed(0.);
   bool result
-    = calculateSpeedAfterResponseTime(axis, currentSpeed, maxSpeed, acceleration, responseTime, resultingSpeed);
+    = calculateSpeedAfterAcceleration(axis, currentSpeed, maxSpeed, acceleration, responseTime, resultingSpeed);
 
   Distance distanceOffsetAfterResponseTime = Distance(0.);
   result = result && calculateDistanceOffsetAfterResponseTime(

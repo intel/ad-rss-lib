@@ -43,7 +43,8 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRange)
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(-1e9);
+  valueLateralFluctuationMargin = ::ad::physics::Distance(0.); // set to valid value within struct
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
   ::ad::physics::Duration valueResponseTime(0.);
   valueResponseTime
@@ -51,6 +52,19 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRange)
   value.responseTime = valueResponseTime;
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueUnstructuredSettings;
+  ::ad::physics::Distance valueUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueUnstructuredSettings.pedestrianTurningRadius = valueUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueUnstructuredSettings.driveAwayMaxAngle = valueUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  value.unstructuredSettings = valueUnstructuredSettings;
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
@@ -79,7 +93,8 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooSmall)
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(-1e9);
+  valueLateralFluctuationMargin = ::ad::physics::Distance(0.); // set to valid value within struct
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
   ::ad::physics::Duration valueResponseTime(0.);
   valueResponseTime
@@ -87,6 +102,19 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooSmall)
   value.responseTime = valueResponseTime;
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueUnstructuredSettings;
+  ::ad::physics::Distance valueUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueUnstructuredSettings.pedestrianTurningRadius = valueUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueUnstructuredSettings.driveAwayMaxAngle = valueUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value below input range minimum
   ::ad::rss::world::LongitudinalRssAccelerationValues invalidInitializedMember;
@@ -121,7 +149,8 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooBig)
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(-1e9);
+  valueLateralFluctuationMargin = ::ad::physics::Distance(0.); // set to valid value within struct
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
   ::ad::physics::Duration valueResponseTime(0.);
   valueResponseTime
@@ -129,6 +158,19 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooBig)
   value.responseTime = valueResponseTime;
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueUnstructuredSettings;
+  ::ad::physics::Distance valueUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueUnstructuredSettings.pedestrianTurningRadius = valueUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueUnstructuredSettings.driveAwayMaxAngle = valueUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value above input range maximum
   ::ad::rss::world::LongitudinalRssAccelerationValues invalidInitializedMember;
@@ -163,7 +205,8 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooSmall)
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(-1e9);
+  valueLateralFluctuationMargin = ::ad::physics::Distance(0.); // set to valid value within struct
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
   ::ad::physics::Duration valueResponseTime(0.);
   valueResponseTime
@@ -171,6 +214,19 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooSmall)
   value.responseTime = valueResponseTime;
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueUnstructuredSettings;
+  ::ad::physics::Distance valueUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueUnstructuredSettings.pedestrianTurningRadius = valueUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueUnstructuredSettings.driveAwayMaxAngle = valueUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value below input range minimum
   ::ad::rss::world::LateralRssAccelerationValues invalidInitializedMember;
@@ -205,7 +261,8 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooBig)
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(-1e9);
+  valueLateralFluctuationMargin = ::ad::physics::Distance(0.); // set to valid value within struct
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
   ::ad::physics::Duration valueResponseTime(0.);
   valueResponseTime
@@ -213,6 +270,19 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooBig)
   value.responseTime = valueResponseTime;
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueUnstructuredSettings;
+  ::ad::physics::Distance valueUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueUnstructuredSettings.pedestrianTurningRadius = valueUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueUnstructuredSettings.driveAwayMaxAngle = valueUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value above input range maximum
   ::ad::rss::world::LateralRssAccelerationValues invalidInitializedMember;
@@ -247,7 +317,8 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMargi
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(-1e9);
+  valueLateralFluctuationMargin = ::ad::physics::Distance(0.); // set to valid value within struct
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
   ::ad::physics::Duration valueResponseTime(0.);
   valueResponseTime
@@ -255,9 +326,28 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMargi
   value.responseTime = valueResponseTime;
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueUnstructuredSettings;
+  ::ad::physics::Distance valueUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueUnstructuredSettings.pedestrianTurningRadius = valueUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueUnstructuredSettings.driveAwayMaxAngle = valueUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value below input range minimum
-  ::ad::physics::Distance invalidInitializedMember(0. - ::ad::physics::Distance::cPrecisionValue);
+  ::ad::physics::Distance invalidInitializedMember(-1e9 * 1.1);
+  value.lateralFluctuationMargin = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+
+  // override member with value below struct member input range minimum
+  invalidInitializedMember
+    = ::ad::physics::Distance(0. - ::ad::physics::Distance::cPrecisionValue); // set to invalid value within struct
   value.lateralFluctuationMargin = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -287,7 +377,8 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMargi
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(-1e9);
+  valueLateralFluctuationMargin = ::ad::physics::Distance(0.); // set to valid value within struct
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
   ::ad::physics::Duration valueResponseTime(0.);
   valueResponseTime
@@ -295,6 +386,19 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMargi
   value.responseTime = valueResponseTime;
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueUnstructuredSettings;
+  ::ad::physics::Distance valueUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueUnstructuredSettings.pedestrianTurningRadius = valueUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueUnstructuredSettings.driveAwayMaxAngle = valueUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value above input range maximum
   ::ad::physics::Distance invalidInitializedMember(1e9 * 1.1);
@@ -340,7 +444,8 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeResponseTimeTooSmall)
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(-1e9);
+  valueLateralFluctuationMargin = ::ad::physics::Distance(0.); // set to valid value within struct
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
   ::ad::physics::Duration valueResponseTime(0.);
   valueResponseTime
@@ -348,6 +453,19 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeResponseTimeTooSmall)
   value.responseTime = valueResponseTime;
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueUnstructuredSettings;
+  ::ad::physics::Distance valueUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueUnstructuredSettings.pedestrianTurningRadius = valueUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueUnstructuredSettings.driveAwayMaxAngle = valueUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value below input range minimum
   ::ad::physics::Duration invalidInitializedMember(0. - ::ad::physics::Duration::cPrecisionValue);
@@ -385,7 +503,8 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeResponseTimeTooBig)
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(-1e9);
+  valueLateralFluctuationMargin = ::ad::physics::Distance(0.); // set to valid value within struct
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
   ::ad::physics::Duration valueResponseTime(0.);
   valueResponseTime
@@ -393,6 +512,19 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeResponseTimeTooBig)
   value.responseTime = valueResponseTime;
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueUnstructuredSettings;
+  ::ad::physics::Distance valueUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueUnstructuredSettings.pedestrianTurningRadius = valueUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueUnstructuredSettings.driveAwayMaxAngle = valueUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value above input range maximum
   ::ad::physics::Duration invalidInitializedMember(1e6 * 1.1);
@@ -438,7 +570,8 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeMaxSpeedTooSmall)
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(-1e9);
+  valueLateralFluctuationMargin = ::ad::physics::Distance(0.); // set to valid value within struct
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
   ::ad::physics::Duration valueResponseTime(0.);
   valueResponseTime
@@ -446,6 +579,19 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeMaxSpeedTooSmall)
   value.responseTime = valueResponseTime;
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueUnstructuredSettings;
+  ::ad::physics::Distance valueUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueUnstructuredSettings.pedestrianTurningRadius = valueUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueUnstructuredSettings.driveAwayMaxAngle = valueUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value below input range minimum
   ::ad::physics::Speed invalidInitializedMember(-100. * 1.1);
@@ -478,7 +624,8 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeMaxSpeedTooBig)
   ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
-  ::ad::physics::Distance valueLateralFluctuationMargin(0.);
+  ::ad::physics::Distance valueLateralFluctuationMargin(-1e9);
+  valueLateralFluctuationMargin = ::ad::physics::Distance(0.); // set to valid value within struct
   value.lateralFluctuationMargin = valueLateralFluctuationMargin;
   ::ad::physics::Duration valueResponseTime(0.);
   valueResponseTime
@@ -486,6 +633,19 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeMaxSpeedTooBig)
   value.responseTime = valueResponseTime;
   ::ad::physics::Speed valueMaxSpeed(-100.);
   value.maxSpeed = valueMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueUnstructuredSettings;
+  ::ad::physics::Distance valueUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueUnstructuredSettings.pedestrianTurningRadius = valueUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueUnstructuredSettings.driveAwayMaxAngle = valueUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value above input range maximum
   ::ad::physics::Speed invalidInitializedMember(100. * 1.1);
@@ -498,5 +658,117 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangemaxSpeedDefault)
   ::ad::rss::world::RssDynamics value;
   ::ad::physics::Speed valueDefault;
   value.maxSpeed = valueDefault;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(RssDynamicsValidInputRangeTests, testValidInputRangeUnstructuredSettingsTooSmall)
+{
+  ::ad::rss::world::RssDynamics value;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueAlphaLon.accelMax = valueAlphaLonAccelMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
+  valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
+  value.alphaLon = valueAlphaLon;
+  ::ad::rss::world::LateralRssAccelerationValues valueAlphaLat;
+  ::ad::physics::Acceleration valueAlphaLatAccelMax(-1e2);
+  valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueAlphaLat.accelMax = valueAlphaLatAccelMax;
+  ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
+  valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
+  value.alphaLat = valueAlphaLat;
+  ::ad::physics::Distance valueLateralFluctuationMargin(-1e9);
+  valueLateralFluctuationMargin = ::ad::physics::Distance(0.); // set to valid value within struct
+  value.lateralFluctuationMargin = valueLateralFluctuationMargin;
+  ::ad::physics::Duration valueResponseTime(0.);
+  valueResponseTime
+    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
+  value.responseTime = valueResponseTime;
+  ::ad::physics::Speed valueMaxSpeed(-100.);
+  value.maxSpeed = valueMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueUnstructuredSettings;
+  ::ad::physics::Distance valueUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueUnstructuredSettings.pedestrianTurningRadius = valueUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueUnstructuredSettings.driveAwayMaxAngle = valueUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  value.unstructuredSettings = valueUnstructuredSettings;
+
+  // override member with data type value below input range minimum
+  ::ad::rss::world::UnstructuredSettings invalidInitializedMember;
+  ::ad::physics::Distance invalidInitializedMemberPedestrianTurningRadius(-1e9 * 1.1);
+  invalidInitializedMember.pedestrianTurningRadius = invalidInitializedMemberPedestrianTurningRadius;
+  value.unstructuredSettings = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(RssDynamicsValidInputRangeTests, testValidInputRangeUnstructuredSettingsTooBig)
+{
+  ::ad::rss::world::RssDynamics value;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+  ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+  valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueAlphaLon.accelMax = valueAlphaLonAccelMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+  valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+  valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
+  ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+  valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
+  valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+  valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+  valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
+  value.alphaLon = valueAlphaLon;
+  ::ad::rss::world::LateralRssAccelerationValues valueAlphaLat;
+  ::ad::physics::Acceleration valueAlphaLatAccelMax(-1e2);
+  valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueAlphaLat.accelMax = valueAlphaLatAccelMax;
+  ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
+  valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
+  value.alphaLat = valueAlphaLat;
+  ::ad::physics::Distance valueLateralFluctuationMargin(-1e9);
+  valueLateralFluctuationMargin = ::ad::physics::Distance(0.); // set to valid value within struct
+  value.lateralFluctuationMargin = valueLateralFluctuationMargin;
+  ::ad::physics::Duration valueResponseTime(0.);
+  valueResponseTime
+    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
+  value.responseTime = valueResponseTime;
+  ::ad::physics::Speed valueMaxSpeed(-100.);
+  value.maxSpeed = valueMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings valueUnstructuredSettings;
+  ::ad::physics::Distance valueUnstructuredSettingsPedestrianTurningRadius(-1e9);
+  valueUnstructuredSettings.pedestrianTurningRadius = valueUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle valueUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+  valueUnstructuredSettings.driveAwayMaxAngle = valueUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration valueUnstructuredSettingsVehicleYawRateChange(-1e2);
+  valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
+  valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+  valueUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  value.unstructuredSettings = valueUnstructuredSettings;
+
+  // override member with data type value above input range maximum
+  ::ad::rss::world::UnstructuredSettings invalidInitializedMember;
+  ::ad::physics::Distance invalidInitializedMemberPedestrianTurningRadius(1e9 * 1.1);
+  invalidInitializedMember.pedestrianTurningRadius = invalidInitializedMemberPedestrianTurningRadius;
+  value.unstructuredSettings = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }

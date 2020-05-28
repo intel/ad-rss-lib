@@ -155,6 +155,8 @@ public:
     return std::numeric_limits<::ad::rss::world::ObjectId>::max() - 1;
   }
 
+  bool appendUnstructuredScene(RssObjectConversion::ConstPtr iEgoObject, RssObjectConversion::ConstPtr iOtherObject);
+
 private:
   /**
    * @brief helper function to actually create the road area

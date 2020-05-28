@@ -20,6 +20,7 @@
 #include <cmath>
 #include <limits>
 #include "ad/rss/world/Object.hpp"
+#include "ad/rss/world/ObjectStateValidInputRange.hpp"
 #include "ad/rss/world/ObjectTypeValidInputRange.hpp"
 #include "ad/rss/world/OccupiedRegionVectorValidInputRange.hpp"
 #include "ad/rss/world/VelocityValidInputRange.hpp"
@@ -41,7 +42,8 @@ inline bool withinValidInputRange(::ad::rss::world::Object const &input, bool co
   // check for generic member input ranges
   bool inValidInputRange = true;
   inValidInputRange = withinValidInputRange(input.objectType, logErrors)
-    && withinValidInputRange(input.occupiedRegions, logErrors) && withinValidInputRange(input.velocity, logErrors);
+    && withinValidInputRange(input.occupiedRegions, logErrors) && withinValidInputRange(input.velocity, logErrors)
+    && withinValidInputRange(input.state, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::world::Object)>> {} has invalid member",

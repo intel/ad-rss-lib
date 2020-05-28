@@ -16,7 +16,7 @@ available within the system.
 | -- |
 | *Integration of RSS into an AD system with its general Sense, Plan and Act main components* |
 
-To calculate such input to RSS, the ad::rss::world::WorldModel, usually a-priori knowledge on the environment
+To calculate such input to RSS, the `ad::rss::world::WorldModel`, usually a-priori knowledge on the environment
 and especially on map information is required: Given the positions of all of the traffic participants,
 a map matched position has to be calculated and a combination of route planning and prediction based
 on the road topology has to be performed. Then, the route connecting the ego-vehicle and the

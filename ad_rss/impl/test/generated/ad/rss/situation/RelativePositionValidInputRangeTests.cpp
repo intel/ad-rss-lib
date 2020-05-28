@@ -24,12 +24,12 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRange)
   ::ad::rss::situation::LongitudinalRelativePosition valueLongitudinalPosition(
     ::ad::rss::situation::LongitudinalRelativePosition::InFront);
   value.longitudinalPosition = valueLongitudinalPosition;
-  ::ad::physics::Distance valueLongitudinalDistance(0.);
+  ::ad::physics::Distance valueLongitudinalDistance(-1e9);
   value.longitudinalDistance = valueLongitudinalDistance;
   ::ad::rss::situation::LateralRelativePosition valueLateralPosition(
     ::ad::rss::situation::LateralRelativePosition::AtLeft);
   value.lateralPosition = valueLateralPosition;
-  ::ad::physics::Distance valueLateralDistance(0.);
+  ::ad::physics::Distance valueLateralDistance(-1e9);
   value.lateralDistance = valueLateralDistance;
   ASSERT_TRUE(withinValidInputRange(value));
 }
@@ -40,12 +40,12 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRangeLongitudinalPositi
   ::ad::rss::situation::LongitudinalRelativePosition valueLongitudinalPosition(
     ::ad::rss::situation::LongitudinalRelativePosition::InFront);
   value.longitudinalPosition = valueLongitudinalPosition;
-  ::ad::physics::Distance valueLongitudinalDistance(0.);
+  ::ad::physics::Distance valueLongitudinalDistance(-1e9);
   value.longitudinalDistance = valueLongitudinalDistance;
   ::ad::rss::situation::LateralRelativePosition valueLateralPosition(
     ::ad::rss::situation::LateralRelativePosition::AtLeft);
   value.lateralPosition = valueLateralPosition;
-  ::ad::physics::Distance valueLateralDistance(0.);
+  ::ad::physics::Distance valueLateralDistance(-1e9);
   value.lateralDistance = valueLateralDistance;
 
   // override member with data type value below input range minimum
@@ -61,12 +61,12 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRangeLongitudinalPositi
   ::ad::rss::situation::LongitudinalRelativePosition valueLongitudinalPosition(
     ::ad::rss::situation::LongitudinalRelativePosition::InFront);
   value.longitudinalPosition = valueLongitudinalPosition;
-  ::ad::physics::Distance valueLongitudinalDistance(0.);
+  ::ad::physics::Distance valueLongitudinalDistance(-1e9);
   value.longitudinalDistance = valueLongitudinalDistance;
   ::ad::rss::situation::LateralRelativePosition valueLateralPosition(
     ::ad::rss::situation::LateralRelativePosition::AtLeft);
   value.lateralPosition = valueLateralPosition;
-  ::ad::physics::Distance valueLateralDistance(0.);
+  ::ad::physics::Distance valueLateralDistance(-1e9);
   value.lateralDistance = valueLateralDistance;
 
   // override member with data type value above input range maximum
@@ -82,16 +82,16 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRangeLongitudinalDistan
   ::ad::rss::situation::LongitudinalRelativePosition valueLongitudinalPosition(
     ::ad::rss::situation::LongitudinalRelativePosition::InFront);
   value.longitudinalPosition = valueLongitudinalPosition;
-  ::ad::physics::Distance valueLongitudinalDistance(0.);
+  ::ad::physics::Distance valueLongitudinalDistance(-1e9);
   value.longitudinalDistance = valueLongitudinalDistance;
   ::ad::rss::situation::LateralRelativePosition valueLateralPosition(
     ::ad::rss::situation::LateralRelativePosition::AtLeft);
   value.lateralPosition = valueLateralPosition;
-  ::ad::physics::Distance valueLateralDistance(0.);
+  ::ad::physics::Distance valueLateralDistance(-1e9);
   value.lateralDistance = valueLateralDistance;
 
   // override member with data type value below input range minimum
-  ::ad::physics::Distance invalidInitializedMember(0. - ::ad::physics::Distance::cPrecisionValue);
+  ::ad::physics::Distance invalidInitializedMember(-1e9 * 1.1);
   value.longitudinalDistance = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -102,12 +102,12 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRangeLongitudinalDistan
   ::ad::rss::situation::LongitudinalRelativePosition valueLongitudinalPosition(
     ::ad::rss::situation::LongitudinalRelativePosition::InFront);
   value.longitudinalPosition = valueLongitudinalPosition;
-  ::ad::physics::Distance valueLongitudinalDistance(0.);
+  ::ad::physics::Distance valueLongitudinalDistance(-1e9);
   value.longitudinalDistance = valueLongitudinalDistance;
   ::ad::rss::situation::LateralRelativePosition valueLateralPosition(
     ::ad::rss::situation::LateralRelativePosition::AtLeft);
   value.lateralPosition = valueLateralPosition;
-  ::ad::physics::Distance valueLateralDistance(0.);
+  ::ad::physics::Distance valueLateralDistance(-1e9);
   value.lateralDistance = valueLateralDistance;
 
   // override member with data type value above input range maximum
@@ -130,12 +130,12 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRangeLateralPositionToo
   ::ad::rss::situation::LongitudinalRelativePosition valueLongitudinalPosition(
     ::ad::rss::situation::LongitudinalRelativePosition::InFront);
   value.longitudinalPosition = valueLongitudinalPosition;
-  ::ad::physics::Distance valueLongitudinalDistance(0.);
+  ::ad::physics::Distance valueLongitudinalDistance(-1e9);
   value.longitudinalDistance = valueLongitudinalDistance;
   ::ad::rss::situation::LateralRelativePosition valueLateralPosition(
     ::ad::rss::situation::LateralRelativePosition::AtLeft);
   value.lateralPosition = valueLateralPosition;
-  ::ad::physics::Distance valueLateralDistance(0.);
+  ::ad::physics::Distance valueLateralDistance(-1e9);
   value.lateralDistance = valueLateralDistance;
 
   // override member with data type value below input range minimum
@@ -151,12 +151,12 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRangeLateralPositionToo
   ::ad::rss::situation::LongitudinalRelativePosition valueLongitudinalPosition(
     ::ad::rss::situation::LongitudinalRelativePosition::InFront);
   value.longitudinalPosition = valueLongitudinalPosition;
-  ::ad::physics::Distance valueLongitudinalDistance(0.);
+  ::ad::physics::Distance valueLongitudinalDistance(-1e9);
   value.longitudinalDistance = valueLongitudinalDistance;
   ::ad::rss::situation::LateralRelativePosition valueLateralPosition(
     ::ad::rss::situation::LateralRelativePosition::AtLeft);
   value.lateralPosition = valueLateralPosition;
-  ::ad::physics::Distance valueLateralDistance(0.);
+  ::ad::physics::Distance valueLateralDistance(-1e9);
   value.lateralDistance = valueLateralDistance;
 
   // override member with data type value above input range maximum
@@ -172,16 +172,16 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRangeLateralDistanceToo
   ::ad::rss::situation::LongitudinalRelativePosition valueLongitudinalPosition(
     ::ad::rss::situation::LongitudinalRelativePosition::InFront);
   value.longitudinalPosition = valueLongitudinalPosition;
-  ::ad::physics::Distance valueLongitudinalDistance(0.);
+  ::ad::physics::Distance valueLongitudinalDistance(-1e9);
   value.longitudinalDistance = valueLongitudinalDistance;
   ::ad::rss::situation::LateralRelativePosition valueLateralPosition(
     ::ad::rss::situation::LateralRelativePosition::AtLeft);
   value.lateralPosition = valueLateralPosition;
-  ::ad::physics::Distance valueLateralDistance(0.);
+  ::ad::physics::Distance valueLateralDistance(-1e9);
   value.lateralDistance = valueLateralDistance;
 
   // override member with data type value below input range minimum
-  ::ad::physics::Distance invalidInitializedMember(0. - ::ad::physics::Distance::cPrecisionValue);
+  ::ad::physics::Distance invalidInitializedMember(-1e9 * 1.1);
   value.lateralDistance = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -192,12 +192,12 @@ TEST(RelativePositionValidInputRangeTests, testValidInputRangeLateralDistanceToo
   ::ad::rss::situation::LongitudinalRelativePosition valueLongitudinalPosition(
     ::ad::rss::situation::LongitudinalRelativePosition::InFront);
   value.longitudinalPosition = valueLongitudinalPosition;
-  ::ad::physics::Distance valueLongitudinalDistance(0.);
+  ::ad::physics::Distance valueLongitudinalDistance(-1e9);
   value.longitudinalDistance = valueLongitudinalDistance;
   ::ad::rss::situation::LateralRelativePosition valueLateralPosition(
     ::ad::rss::situation::LateralRelativePosition::AtLeft);
   value.lateralPosition = valueLateralPosition;
-  ::ad::physics::Distance valueLateralDistance(0.);
+  ::ad::physics::Distance valueLateralDistance(-1e9);
   value.lateralDistance = valueLateralDistance;
 
   // override member with data type value above input range maximum

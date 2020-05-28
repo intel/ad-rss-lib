@@ -28,9 +28,6 @@ protected:
   {
     // valid initialization
     ::ad::rss::world::AccelerationRestriction value;
-    ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
-    valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
-    value.timeIndex = valueTimeIndex;
     ::ad::physics::AccelerationRange valueLateralLeftRange;
     ::ad::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
     valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
@@ -105,17 +102,6 @@ TEST_F(AccelerationRestrictionTests, stringConversionTest)
   std::string ostreamStr = stream.str();
   std::string toStr = std::to_string(mValue);
   ASSERT_EQ(ostreamStr, toStr);
-}
-
-TEST_F(AccelerationRestrictionTests, comparisonOperatorTimeIndexDiffers)
-{
-  ::ad::rss::world::AccelerationRestriction valueA = mValue;
-  ::ad::rss::world::TimeIndex timeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::max());
-  valueA.timeIndex = timeIndex;
-  ::ad::rss::world::AccelerationRestriction valueB = mValue;
-
-  EXPECT_FALSE(valueA == valueB);
-  EXPECT_TRUE(valueA != valueB);
 }
 
 TEST_F(AccelerationRestrictionTests, comparisonOperatorLateralLeftRangeDiffers)

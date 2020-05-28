@@ -21,8 +21,10 @@
 #include <limits>
 #include <memory>
 #include <sstream>
+#include "ad/rss/state/HeadingRange.hpp"
 #include "ad/rss/state/LateralResponse.hpp"
 #include "ad/rss/state/LongitudinalResponse.hpp"
+#include "ad/rss/world/AccelerationRestriction.hpp"
 #include "ad/rss/world/ObjectIdVector.hpp"
 #include "ad/rss/world/TimeIndex.hpp"
 /*!
@@ -105,7 +107,8 @@ struct ProperResponse
   {
     return (timeIndex == other.timeIndex) && (isSafe == other.isSafe) && (dangerousObjects == other.dangerousObjects)
       && (longitudinalResponse == other.longitudinalResponse) && (lateralResponseRight == other.lateralResponseRight)
-      && (lateralResponseLeft == other.lateralResponseLeft);
+      && (lateralResponseLeft == other.lateralResponseLeft) && (headingRange == other.headingRange)
+      && (accelerationRestrictions == other.accelerationRestrictions);
   }
 
   /**
@@ -151,6 +154,8 @@ struct ProperResponse
    * The current lateral rss state at left side in respect to ego-vehicle driving direction.
    */
   ::ad::rss::state::LateralResponse lateralResponseLeft;
+  ::ad::rss::state::HeadingRange headingRange;
+  ::ad::rss::world::AccelerationRestriction accelerationRestrictions;
 };
 
 } // namespace state
@@ -204,6 +209,12 @@ inline std::ostream &operator<<(std::ostream &os, ProperResponse const &_value)
   os << ",";
   os << "lateralResponseLeft:";
   os << _value.lateralResponseLeft;
+  os << ",";
+  os << "headingRange:";
+  os << _value.headingRange;
+  os << ",";
+  os << "accelerationRestrictions:";
+  os << _value.accelerationRestrictions;
   os << ")";
   return os;
 }

@@ -70,7 +70,8 @@ enum class SituationType : int32_t
   /*!
    * Both drive on individual roads which intersect at the end. Object and ego vehicle have same priority.
    */
-  IntersectionSamePriority = 5
+  IntersectionSamePriority = 5,
+  Unstructured = 6
 };
 
 } // namespace situation

@@ -34,6 +34,8 @@ std::string toString(::ad::rss::situation::SituationType const e)
       return std::string("::ad::rss::situation::SituationType::IntersectionObjectHasPriority"); // LCOV_EXCL_BR_LINE
     case ::ad::rss::situation::SituationType::IntersectionSamePriority:
       return std::string("::ad::rss::situation::SituationType::IntersectionSamePriority"); // LCOV_EXCL_BR_LINE
+    case ::ad::rss::situation::SituationType::Unstructured:
+      return std::string("::ad::rss::situation::SituationType::Unstructured"); // LCOV_EXCL_BR_LINE
     default:
       return std::string("UNKNOWN ENUM VALUE"); // LCOV_EXCL_BR_LINE
   }
@@ -88,6 +90,14 @@ template <>::ad::rss::situation::SituationType fromString(std::string const &str
   if (str == std::string("IntersectionSamePriority")) // LCOV_EXCL_BR_LINE
   {
     return ::ad::rss::situation::SituationType::IntersectionSamePriority;
+  }
+  if (str == std::string("::ad::rss::situation::SituationType::Unstructured")) // LCOV_EXCL_BR_LINE
+  {
+    return ::ad::rss::situation::SituationType::Unstructured;
+  }
+  if (str == std::string("Unstructured")) // LCOV_EXCL_BR_LINE
+  {
+    return ::ad::rss::situation::SituationType::Unstructured;
   }
   throw std::out_of_range("Invalid enum literal"); // LCOV_EXCL_BR_LINE
 }

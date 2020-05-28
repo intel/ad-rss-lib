@@ -38,11 +38,10 @@ RssCheck::~RssCheck()
 {
 }
 
-bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldModel,
-                                                situation::SituationSnapshot &situationSnapshot,
-                                                state::RssStateSnapshot &rssStateSnapshot,
-                                                state::ProperResponse &properResponse,
-                                                world::AccelerationRestriction &accelerationRestriction)
+bool RssCheck::calculateProperResponse(world::WorldModel const &worldModel,
+                                       situation::SituationSnapshot &situationSnapshot,
+                                       state::RssStateSnapshot &rssStateSnapshot,
+                                       state::ProperResponse &properResponse)
 {
   bool result = false;
   // global try catch block to ensure this library call doesn't throw an exception
@@ -51,7 +50,7 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
     if (!static_cast<bool>(mResponseResolving) || !static_cast<bool>(mSituationChecking)
         || !static_cast<bool>(mSituationExtraction))
     {
-      spdlog::critical("RssCheck::calculateAccelerationRestriction>> object not properly initialized");
+      spdlog::critical("RssCheck::calculateProperResponse>> object not properly initialized");
       return false;
     }
 
@@ -64,28 +63,25 @@ bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldMo
 
     if (result)
     {
-      result = mResponseResolving->provideProperResponse(rssStateSnapshot, properResponse, accelerationRestriction);
+      result = mResponseResolving->provideProperResponse(rssStateSnapshot, properResponse);
     }
   }
   // LCOV_EXCL_START: unreachable code, keep to be on the safe side
   catch (...)
   {
-    spdlog::critical("RssCheck::calculateAccelerationRestriction>> Exception catched");
+    spdlog::critical("RssCheck::calculateProperResponse>> Exception catched");
     result = false;
   }
   // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
   return result;
 }
 
-bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &worldModel,
-                                                world::AccelerationRestriction &accelerationRestriction)
+bool RssCheck::calculateProperResponse(world::WorldModel const &worldModel, state::ProperResponse &properResponse)
 {
   situation::SituationSnapshot situationSnapshot;
   state::RssStateSnapshot rssStateSnapshot;
-  state::ProperResponse properResponse;
 
-  return calculateAccelerationRestriction(
-    worldModel, situationSnapshot, rssStateSnapshot, properResponse, accelerationRestriction);
+  return calculateProperResponse(worldModel, situationSnapshot, rssStateSnapshot, properResponse);
 }
 
 } // namespace core

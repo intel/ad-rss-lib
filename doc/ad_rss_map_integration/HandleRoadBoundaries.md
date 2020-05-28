@@ -38,7 +38,7 @@ route? Do we want to allow the vehicle to be able to enter the opposite lanes wh
 the speed difference towards other cars is expected to be much higher? Do we even want to
 allow the vehicle to enter non-drivable lanes like shoulder lanes or even pedestrian ways?
 As these questions may be answered differently in respect to the kind of road, the situation, etc.
-*ad_rss_map_integration* allows the user to select between different modes  (ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode) when calling
-ad::rss::map::RssSceneCreation::AppendRoadBoundaries().
+*ad_rss_map_integration* allows the user to select between different modes  (`ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode`) when calling
+`ad::rss::map::RssSceneCreation::AppendRoadBoundaries()`.
 
-On the other hand, since the virtual objects are of static nature, the current implementation sets the ad::rss::world::RssDynamics of the road boundary objects to some fixed values: no acceleration, minimal response time, etc. The same is true for the breadth of the road boundaries, which are just fixed to 0.001 of the respective lane segment.
+On the other hand, since the virtual objects are of static nature, the current implementation sets the `ad::rss::world::RssDynamics` of the road boundary objects to some fixed values: no acceleration, minimal response time, etc. The same is true for the breadth of the road boundaries, which are just fixed to 0.001 of the respective lane segment.

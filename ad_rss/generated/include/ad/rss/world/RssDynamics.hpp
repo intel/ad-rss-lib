@@ -26,6 +26,7 @@
 #include "ad/physics/Speed.hpp"
 #include "ad/rss/world/LateralRssAccelerationValues.hpp"
 #include "ad/rss/world/LongitudinalRssAccelerationValues.hpp"
+#include "ad/rss/world/UnstructuredSettings.hpp"
 /*!
  * @brief namespace ad
  */
@@ -107,7 +108,7 @@ struct RssDynamics
   {
     return (alphaLon == other.alphaLon) && (alphaLat == other.alphaLat)
       && (lateralFluctuationMargin == other.lateralFluctuationMargin) && (responseTime == other.responseTime)
-      && (maxSpeed == other.maxSpeed);
+      && (maxSpeed == other.maxSpeed) && (unstructuredSettings == other.unstructuredSettings);
   }
 
   /**
@@ -146,6 +147,7 @@ struct RssDynamics
    * Defines the maximum speed of the object.
    */
   ::ad::physics::Speed maxSpeed{100};
+  ::ad::rss::world::UnstructuredSettings unstructuredSettings;
 };
 
 } // namespace world
@@ -196,6 +198,9 @@ inline std::ostream &operator<<(std::ostream &os, RssDynamics const &_value)
   os << ",";
   os << "maxSpeed:";
   os << _value.maxSpeed;
+  os << ",";
+  os << "unstructuredSettings:";
+  os << _value.unstructuredSettings;
   os << ")";
   return os;
 }

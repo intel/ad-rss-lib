@@ -57,7 +57,9 @@ protected:
     ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLatBrakeMin(-1e2);
     valueDefaultEgoVehicleRssDynamicsAlphaLat.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLatBrakeMin;
     valueDefaultEgoVehicleRssDynamics.alphaLat = valueDefaultEgoVehicleRssDynamicsAlphaLat;
-    ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin(0.);
+    ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin(-1e9);
+    valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin
+      = ::ad::physics::Distance(0.); // set to valid value within struct
     valueDefaultEgoVehicleRssDynamics.lateralFluctuationMargin
       = valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin;
     ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsResponseTime(0.);
@@ -66,6 +68,23 @@ protected:
     valueDefaultEgoVehicleRssDynamics.responseTime = valueDefaultEgoVehicleRssDynamicsResponseTime;
     ::ad::physics::Speed valueDefaultEgoVehicleRssDynamicsMaxSpeed(-100.);
     valueDefaultEgoVehicleRssDynamics.maxSpeed = valueDefaultEgoVehicleRssDynamicsMaxSpeed;
+    ::ad::rss::world::UnstructuredSettings valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
+    ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
+    ::ad::physics::Angle valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.driveAwayMaxAngle
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+    ::ad::physics::AngularAcceleration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange(-1e2);
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleYawRateChange
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange;
+    ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
+    ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+    valueDefaultEgoVehicleRssDynamics.unstructuredSettings = valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
     value.defaultEgoVehicleRssDynamics = valueDefaultEgoVehicleRssDynamics;
     ::ad::rss::situation::SituationVector valueSituations;
     ::ad::rss::situation::Situation valueSituationsElement;
@@ -140,7 +159,9 @@ protected:
     valueSituationsElementEgoVehicleStateDynamicsAlphaLat.brakeMin
       = valueSituationsElementEgoVehicleStateDynamicsAlphaLatBrakeMin;
     valueSituationsElementEgoVehicleStateDynamics.alphaLat = valueSituationsElementEgoVehicleStateDynamicsAlphaLat;
-    ::ad::physics::Distance valueSituationsElementEgoVehicleStateDynamicsLateralFluctuationMargin(0.);
+    ::ad::physics::Distance valueSituationsElementEgoVehicleStateDynamicsLateralFluctuationMargin(-1e9);
+    valueSituationsElementEgoVehicleStateDynamicsLateralFluctuationMargin
+      = ::ad::physics::Distance(0.); // set to valid value within struct
     valueSituationsElementEgoVehicleStateDynamics.lateralFluctuationMargin
       = valueSituationsElementEgoVehicleStateDynamicsLateralFluctuationMargin;
     ::ad::physics::Duration valueSituationsElementEgoVehicleStateDynamicsResponseTime(0.);
@@ -150,17 +171,69 @@ protected:
       = valueSituationsElementEgoVehicleStateDynamicsResponseTime;
     ::ad::physics::Speed valueSituationsElementEgoVehicleStateDynamicsMaxSpeed(-100.);
     valueSituationsElementEgoVehicleStateDynamics.maxSpeed = valueSituationsElementEgoVehicleStateDynamicsMaxSpeed;
+    ::ad::rss::world::UnstructuredSettings valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettings;
+    ::ad::physics::Distance valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius(
+      -1e9);
+    valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettings.pedestrianTurningRadius
+      = valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius;
+    ::ad::physics::Angle valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsDriveAwayMaxAngle(
+      -6.283185308);
+    valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettings.driveAwayMaxAngle
+      = valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+    ::ad::physics::AngularAcceleration
+      valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleYawRateChange(-1e2);
+    valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettings.vehicleYawRateChange
+      = valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleYawRateChange;
+    ::ad::physics::Distance valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
+    valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettings.vehicleMinRadius
+      = valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleMinRadius;
+    ::ad::physics::Duration
+      valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+    valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+      = valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+    valueSituationsElementEgoVehicleStateDynamics.unstructuredSettings
+      = valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettings;
     valueSituationsElementEgoVehicleState.dynamics = valueSituationsElementEgoVehicleStateDynamics;
     bool valueSituationsElementEgoVehicleStateHasPriority{true};
     valueSituationsElementEgoVehicleState.hasPriority = valueSituationsElementEgoVehicleStateHasPriority;
     bool valueSituationsElementEgoVehicleStateIsInCorrectLane{true};
     valueSituationsElementEgoVehicleState.isInCorrectLane = valueSituationsElementEgoVehicleStateIsInCorrectLane;
-    ::ad::physics::Distance valueSituationsElementEgoVehicleStateDistanceToEnterIntersection(0.);
+    ::ad::physics::Distance valueSituationsElementEgoVehicleStateDistanceToEnterIntersection(-1e9);
+    valueSituationsElementEgoVehicleStateDistanceToEnterIntersection
+      = ::ad::physics::Distance(0.); // set to valid value within struct
     valueSituationsElementEgoVehicleState.distanceToEnterIntersection
       = valueSituationsElementEgoVehicleStateDistanceToEnterIntersection;
-    ::ad::physics::Distance valueSituationsElementEgoVehicleStateDistanceToLeaveIntersection(0.);
+    ::ad::physics::Distance valueSituationsElementEgoVehicleStateDistanceToLeaveIntersection(-1e9);
     valueSituationsElementEgoVehicleState.distanceToLeaveIntersection
       = valueSituationsElementEgoVehicleStateDistanceToLeaveIntersection;
+    ::ad::rss::world::ObjectType valueSituationsElementEgoVehicleStateObjectType(::ad::rss::world::ObjectType::Invalid);
+    valueSituationsElementEgoVehicleState.objectType = valueSituationsElementEgoVehicleStateObjectType;
+    ::ad::rss::world::ObjectState valueSituationsElementEgoVehicleStateObjectState;
+    ::ad::physics::Angle valueSituationsElementEgoVehicleStateObjectStateYaw(-6.283185308);
+    valueSituationsElementEgoVehicleStateObjectState.yaw = valueSituationsElementEgoVehicleStateObjectStateYaw;
+    ::ad::physics::Dimension2D valueSituationsElementEgoVehicleStateObjectStateDimension;
+    ::ad::physics::Distance valueSituationsElementEgoVehicleStateObjectStateDimensionLength(-1e9);
+    valueSituationsElementEgoVehicleStateObjectStateDimension.length
+      = valueSituationsElementEgoVehicleStateObjectStateDimensionLength;
+    ::ad::physics::Distance valueSituationsElementEgoVehicleStateObjectStateDimensionWidth(-1e9);
+    valueSituationsElementEgoVehicleStateObjectStateDimension.width
+      = valueSituationsElementEgoVehicleStateObjectStateDimensionWidth;
+    valueSituationsElementEgoVehicleStateObjectState.dimension
+      = valueSituationsElementEgoVehicleStateObjectStateDimension;
+    ::ad::physics::AngularVelocity valueSituationsElementEgoVehicleStateObjectStateYawRate(-100.);
+    valueSituationsElementEgoVehicleStateObjectState.yawRate = valueSituationsElementEgoVehicleStateObjectStateYawRate;
+    ::ad::physics::Distance2D valueSituationsElementEgoVehicleStateObjectStateCenterPoint;
+    ::ad::physics::Distance valueSituationsElementEgoVehicleStateObjectStateCenterPointX(-1e9);
+    valueSituationsElementEgoVehicleStateObjectStateCenterPoint.x
+      = valueSituationsElementEgoVehicleStateObjectStateCenterPointX;
+    ::ad::physics::Distance valueSituationsElementEgoVehicleStateObjectStateCenterPointY(-1e9);
+    valueSituationsElementEgoVehicleStateObjectStateCenterPoint.y
+      = valueSituationsElementEgoVehicleStateObjectStateCenterPointY;
+    valueSituationsElementEgoVehicleStateObjectState.centerPoint
+      = valueSituationsElementEgoVehicleStateObjectStateCenterPoint;
+    ::ad::physics::Speed valueSituationsElementEgoVehicleStateObjectStateSpeed(-100.);
+    valueSituationsElementEgoVehicleStateObjectState.speed = valueSituationsElementEgoVehicleStateObjectStateSpeed;
+    valueSituationsElementEgoVehicleState.objectState = valueSituationsElementEgoVehicleStateObjectState;
     valueSituationsElementEgoVehicleState.distanceToLeaveIntersection
       = valueSituationsElementEgoVehicleState.distanceToEnterIntersection;
     valueSituationsElementEgoVehicleState.distanceToEnterIntersection
@@ -228,7 +301,9 @@ protected:
     valueSituationsElementOtherVehicleStateDynamicsAlphaLat.brakeMin
       = valueSituationsElementOtherVehicleStateDynamicsAlphaLatBrakeMin;
     valueSituationsElementOtherVehicleStateDynamics.alphaLat = valueSituationsElementOtherVehicleStateDynamicsAlphaLat;
-    ::ad::physics::Distance valueSituationsElementOtherVehicleStateDynamicsLateralFluctuationMargin(0.);
+    ::ad::physics::Distance valueSituationsElementOtherVehicleStateDynamicsLateralFluctuationMargin(-1e9);
+    valueSituationsElementOtherVehicleStateDynamicsLateralFluctuationMargin
+      = ::ad::physics::Distance(0.); // set to valid value within struct
     valueSituationsElementOtherVehicleStateDynamics.lateralFluctuationMargin
       = valueSituationsElementOtherVehicleStateDynamicsLateralFluctuationMargin;
     ::ad::physics::Duration valueSituationsElementOtherVehicleStateDynamicsResponseTime(0.);
@@ -238,17 +313,71 @@ protected:
       = valueSituationsElementOtherVehicleStateDynamicsResponseTime;
     ::ad::physics::Speed valueSituationsElementOtherVehicleStateDynamicsMaxSpeed(-100.);
     valueSituationsElementOtherVehicleStateDynamics.maxSpeed = valueSituationsElementOtherVehicleStateDynamicsMaxSpeed;
+    ::ad::rss::world::UnstructuredSettings valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettings;
+    ::ad::physics::Distance valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius(
+      -1e9);
+    valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettings.pedestrianTurningRadius
+      = valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius;
+    ::ad::physics::Angle valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsDriveAwayMaxAngle(
+      -6.283185308);
+    valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettings.driveAwayMaxAngle
+      = valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+    ::ad::physics::AngularAcceleration
+      valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleYawRateChange(-1e2);
+    valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettings.vehicleYawRateChange
+      = valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleYawRateChange;
+    ::ad::physics::Distance valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
+    valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettings.vehicleMinRadius
+      = valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleMinRadius;
+    ::ad::physics::Duration
+      valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+    valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+      = valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+    valueSituationsElementOtherVehicleStateDynamics.unstructuredSettings
+      = valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettings;
     valueSituationsElementOtherVehicleState.dynamics = valueSituationsElementOtherVehicleStateDynamics;
     bool valueSituationsElementOtherVehicleStateHasPriority{true};
     valueSituationsElementOtherVehicleState.hasPriority = valueSituationsElementOtherVehicleStateHasPriority;
     bool valueSituationsElementOtherVehicleStateIsInCorrectLane{true};
     valueSituationsElementOtherVehicleState.isInCorrectLane = valueSituationsElementOtherVehicleStateIsInCorrectLane;
-    ::ad::physics::Distance valueSituationsElementOtherVehicleStateDistanceToEnterIntersection(0.);
+    ::ad::physics::Distance valueSituationsElementOtherVehicleStateDistanceToEnterIntersection(-1e9);
+    valueSituationsElementOtherVehicleStateDistanceToEnterIntersection
+      = ::ad::physics::Distance(0.); // set to valid value within struct
     valueSituationsElementOtherVehicleState.distanceToEnterIntersection
       = valueSituationsElementOtherVehicleStateDistanceToEnterIntersection;
-    ::ad::physics::Distance valueSituationsElementOtherVehicleStateDistanceToLeaveIntersection(0.);
+    ::ad::physics::Distance valueSituationsElementOtherVehicleStateDistanceToLeaveIntersection(-1e9);
     valueSituationsElementOtherVehicleState.distanceToLeaveIntersection
       = valueSituationsElementOtherVehicleStateDistanceToLeaveIntersection;
+    ::ad::rss::world::ObjectType valueSituationsElementOtherVehicleStateObjectType(
+      ::ad::rss::world::ObjectType::Invalid);
+    valueSituationsElementOtherVehicleState.objectType = valueSituationsElementOtherVehicleStateObjectType;
+    ::ad::rss::world::ObjectState valueSituationsElementOtherVehicleStateObjectState;
+    ::ad::physics::Angle valueSituationsElementOtherVehicleStateObjectStateYaw(-6.283185308);
+    valueSituationsElementOtherVehicleStateObjectState.yaw = valueSituationsElementOtherVehicleStateObjectStateYaw;
+    ::ad::physics::Dimension2D valueSituationsElementOtherVehicleStateObjectStateDimension;
+    ::ad::physics::Distance valueSituationsElementOtherVehicleStateObjectStateDimensionLength(-1e9);
+    valueSituationsElementOtherVehicleStateObjectStateDimension.length
+      = valueSituationsElementOtherVehicleStateObjectStateDimensionLength;
+    ::ad::physics::Distance valueSituationsElementOtherVehicleStateObjectStateDimensionWidth(-1e9);
+    valueSituationsElementOtherVehicleStateObjectStateDimension.width
+      = valueSituationsElementOtherVehicleStateObjectStateDimensionWidth;
+    valueSituationsElementOtherVehicleStateObjectState.dimension
+      = valueSituationsElementOtherVehicleStateObjectStateDimension;
+    ::ad::physics::AngularVelocity valueSituationsElementOtherVehicleStateObjectStateYawRate(-100.);
+    valueSituationsElementOtherVehicleStateObjectState.yawRate
+      = valueSituationsElementOtherVehicleStateObjectStateYawRate;
+    ::ad::physics::Distance2D valueSituationsElementOtherVehicleStateObjectStateCenterPoint;
+    ::ad::physics::Distance valueSituationsElementOtherVehicleStateObjectStateCenterPointX(-1e9);
+    valueSituationsElementOtherVehicleStateObjectStateCenterPoint.x
+      = valueSituationsElementOtherVehicleStateObjectStateCenterPointX;
+    ::ad::physics::Distance valueSituationsElementOtherVehicleStateObjectStateCenterPointY(-1e9);
+    valueSituationsElementOtherVehicleStateObjectStateCenterPoint.y
+      = valueSituationsElementOtherVehicleStateObjectStateCenterPointY;
+    valueSituationsElementOtherVehicleStateObjectState.centerPoint
+      = valueSituationsElementOtherVehicleStateObjectStateCenterPoint;
+    ::ad::physics::Speed valueSituationsElementOtherVehicleStateObjectStateSpeed(-100.);
+    valueSituationsElementOtherVehicleStateObjectState.speed = valueSituationsElementOtherVehicleStateObjectStateSpeed;
+    valueSituationsElementOtherVehicleState.objectState = valueSituationsElementOtherVehicleStateObjectState;
     valueSituationsElementOtherVehicleState.distanceToLeaveIntersection
       = valueSituationsElementOtherVehicleState.distanceToEnterIntersection;
     valueSituationsElementOtherVehicleState.distanceToEnterIntersection
@@ -259,13 +388,13 @@ protected:
       ::ad::rss::situation::LongitudinalRelativePosition::InFront);
     valueSituationsElementRelativePosition.longitudinalPosition
       = valueSituationsElementRelativePositionLongitudinalPosition;
-    ::ad::physics::Distance valueSituationsElementRelativePositionLongitudinalDistance(0.);
+    ::ad::physics::Distance valueSituationsElementRelativePositionLongitudinalDistance(-1e9);
     valueSituationsElementRelativePosition.longitudinalDistance
       = valueSituationsElementRelativePositionLongitudinalDistance;
     ::ad::rss::situation::LateralRelativePosition valueSituationsElementRelativePositionLateralPosition(
       ::ad::rss::situation::LateralRelativePosition::AtLeft);
     valueSituationsElementRelativePosition.lateralPosition = valueSituationsElementRelativePositionLateralPosition;
-    ::ad::physics::Distance valueSituationsElementRelativePositionLateralDistance(0.);
+    ::ad::physics::Distance valueSituationsElementRelativePositionLateralDistance(-1e9);
     valueSituationsElementRelativePosition.lateralDistance = valueSituationsElementRelativePositionLateralDistance;
     valueSituationsElement.relativePosition = valueSituationsElementRelativePosition;
     valueSituations.resize(1, valueSituationsElement);
@@ -370,6 +499,23 @@ TEST_F(SituationSnapshotTests, comparisonOperatorDefaultEgoVehicleRssDynamicsDif
   defaultEgoVehicleRssDynamics.responseTime = defaultEgoVehicleRssDynamicsResponseTime;
   ::ad::physics::Speed defaultEgoVehicleRssDynamicsMaxSpeed(100.);
   defaultEgoVehicleRssDynamics.maxSpeed = defaultEgoVehicleRssDynamicsMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings defaultEgoVehicleRssDynamicsUnstructuredSettings;
+  ::ad::physics::Distance defaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(1e9);
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle defaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(6.283185308);
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.driveAwayMaxAngle
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange(1e2);
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleYawRateChange
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(1e9);
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(1e6);
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  defaultEgoVehicleRssDynamics.unstructuredSettings = defaultEgoVehicleRssDynamicsUnstructuredSettings;
   valueA.defaultEgoVehicleRssDynamics = defaultEgoVehicleRssDynamics;
   ::ad::rss::situation::SituationSnapshot valueB = mValue;
 
@@ -387,8 +533,7 @@ TEST_F(SituationSnapshotTests, comparisonOperatorSituationsDiffers)
   situationsElement.situationId = situationsElementSituationId;
   ::ad::rss::world::ObjectId situationsElementObjectId(std::numeric_limits<::ad::rss::world::ObjectId>::max());
   situationsElement.objectId = situationsElementObjectId;
-  ::ad::rss::situation::SituationType situationsElementSituationType(
-    ::ad::rss::situation::SituationType::IntersectionSamePriority);
+  ::ad::rss::situation::SituationType situationsElementSituationType(::ad::rss::situation::SituationType::Unstructured);
   situationsElement.situationType = situationsElementSituationType;
   ::ad::rss::situation::VehicleState situationsElementEgoVehicleState;
   ::ad::rss::situation::VelocityRange situationsElementEgoVehicleStateVelocity;
@@ -448,6 +593,26 @@ TEST_F(SituationSnapshotTests, comparisonOperatorSituationsDiffers)
   situationsElementEgoVehicleStateDynamics.responseTime = situationsElementEgoVehicleStateDynamicsResponseTime;
   ::ad::physics::Speed situationsElementEgoVehicleStateDynamicsMaxSpeed(100.);
   situationsElementEgoVehicleStateDynamics.maxSpeed = situationsElementEgoVehicleStateDynamicsMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings situationsElementEgoVehicleStateDynamicsUnstructuredSettings;
+  ::ad::physics::Distance situationsElementEgoVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius(1e9);
+  situationsElementEgoVehicleStateDynamicsUnstructuredSettings.pedestrianTurningRadius
+    = situationsElementEgoVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle situationsElementEgoVehicleStateDynamicsUnstructuredSettingsDriveAwayMaxAngle(6.283185308);
+  situationsElementEgoVehicleStateDynamicsUnstructuredSettings.driveAwayMaxAngle
+    = situationsElementEgoVehicleStateDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration situationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleYawRateChange(
+    1e2);
+  situationsElementEgoVehicleStateDynamicsUnstructuredSettings.vehicleYawRateChange
+    = situationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance situationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleMinRadius(1e9);
+  situationsElementEgoVehicleStateDynamicsUnstructuredSettings.vehicleMinRadius
+    = situationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration situationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(
+    1e6);
+  situationsElementEgoVehicleStateDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = situationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  situationsElementEgoVehicleStateDynamics.unstructuredSettings
+    = situationsElementEgoVehicleStateDynamicsUnstructuredSettings;
   situationsElementEgoVehicleState.dynamics = situationsElementEgoVehicleStateDynamics;
   bool situationsElementEgoVehicleStateHasPriority{false};
   situationsElementEgoVehicleState.hasPriority = situationsElementEgoVehicleStateHasPriority;
@@ -461,6 +626,31 @@ TEST_F(SituationSnapshotTests, comparisonOperatorSituationsDiffers)
     = ::ad::physics::Distance(1e4); // set to valid value within struct
   situationsElementEgoVehicleState.distanceToLeaveIntersection
     = situationsElementEgoVehicleStateDistanceToLeaveIntersection;
+  ::ad::rss::world::ObjectType situationsElementEgoVehicleStateObjectType(
+    ::ad::rss::world::ObjectType::ArtificialObject);
+  situationsElementEgoVehicleState.objectType = situationsElementEgoVehicleStateObjectType;
+  ::ad::rss::world::ObjectState situationsElementEgoVehicleStateObjectState;
+  ::ad::physics::Angle situationsElementEgoVehicleStateObjectStateYaw(6.283185308);
+  situationsElementEgoVehicleStateObjectState.yaw = situationsElementEgoVehicleStateObjectStateYaw;
+  ::ad::physics::Dimension2D situationsElementEgoVehicleStateObjectStateDimension;
+  ::ad::physics::Distance situationsElementEgoVehicleStateObjectStateDimensionLength(1e9);
+  situationsElementEgoVehicleStateObjectStateDimension.length
+    = situationsElementEgoVehicleStateObjectStateDimensionLength;
+  ::ad::physics::Distance situationsElementEgoVehicleStateObjectStateDimensionWidth(1e9);
+  situationsElementEgoVehicleStateObjectStateDimension.width
+    = situationsElementEgoVehicleStateObjectStateDimensionWidth;
+  situationsElementEgoVehicleStateObjectState.dimension = situationsElementEgoVehicleStateObjectStateDimension;
+  ::ad::physics::AngularVelocity situationsElementEgoVehicleStateObjectStateYawRate(100.);
+  situationsElementEgoVehicleStateObjectState.yawRate = situationsElementEgoVehicleStateObjectStateYawRate;
+  ::ad::physics::Distance2D situationsElementEgoVehicleStateObjectStateCenterPoint;
+  ::ad::physics::Distance situationsElementEgoVehicleStateObjectStateCenterPointX(1e9);
+  situationsElementEgoVehicleStateObjectStateCenterPoint.x = situationsElementEgoVehicleStateObjectStateCenterPointX;
+  ::ad::physics::Distance situationsElementEgoVehicleStateObjectStateCenterPointY(1e9);
+  situationsElementEgoVehicleStateObjectStateCenterPoint.y = situationsElementEgoVehicleStateObjectStateCenterPointY;
+  situationsElementEgoVehicleStateObjectState.centerPoint = situationsElementEgoVehicleStateObjectStateCenterPoint;
+  ::ad::physics::Speed situationsElementEgoVehicleStateObjectStateSpeed(100.);
+  situationsElementEgoVehicleStateObjectState.speed = situationsElementEgoVehicleStateObjectStateSpeed;
+  situationsElementEgoVehicleState.objectState = situationsElementEgoVehicleStateObjectState;
   situationsElementEgoVehicleState.distanceToLeaveIntersection
     = situationsElementEgoVehicleState.distanceToEnterIntersection;
   situationsElementEgoVehicleState.distanceToEnterIntersection
@@ -539,6 +729,26 @@ TEST_F(SituationSnapshotTests, comparisonOperatorSituationsDiffers)
   situationsElementOtherVehicleStateDynamics.responseTime = situationsElementOtherVehicleStateDynamicsResponseTime;
   ::ad::physics::Speed situationsElementOtherVehicleStateDynamicsMaxSpeed(100.);
   situationsElementOtherVehicleStateDynamics.maxSpeed = situationsElementOtherVehicleStateDynamicsMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings situationsElementOtherVehicleStateDynamicsUnstructuredSettings;
+  ::ad::physics::Distance situationsElementOtherVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius(1e9);
+  situationsElementOtherVehicleStateDynamicsUnstructuredSettings.pedestrianTurningRadius
+    = situationsElementOtherVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle situationsElementOtherVehicleStateDynamicsUnstructuredSettingsDriveAwayMaxAngle(6.283185308);
+  situationsElementOtherVehicleStateDynamicsUnstructuredSettings.driveAwayMaxAngle
+    = situationsElementOtherVehicleStateDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration situationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleYawRateChange(
+    1e2);
+  situationsElementOtherVehicleStateDynamicsUnstructuredSettings.vehicleYawRateChange
+    = situationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance situationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleMinRadius(1e9);
+  situationsElementOtherVehicleStateDynamicsUnstructuredSettings.vehicleMinRadius
+    = situationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration
+    situationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(1e6);
+  situationsElementOtherVehicleStateDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = situationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  situationsElementOtherVehicleStateDynamics.unstructuredSettings
+    = situationsElementOtherVehicleStateDynamicsUnstructuredSettings;
   situationsElementOtherVehicleState.dynamics = situationsElementOtherVehicleStateDynamics;
   bool situationsElementOtherVehicleStateHasPriority{false};
   situationsElementOtherVehicleState.hasPriority = situationsElementOtherVehicleStateHasPriority;
@@ -552,6 +762,33 @@ TEST_F(SituationSnapshotTests, comparisonOperatorSituationsDiffers)
     = ::ad::physics::Distance(1e4); // set to valid value within struct
   situationsElementOtherVehicleState.distanceToLeaveIntersection
     = situationsElementOtherVehicleStateDistanceToLeaveIntersection;
+  ::ad::rss::world::ObjectType situationsElementOtherVehicleStateObjectType(
+    ::ad::rss::world::ObjectType::ArtificialObject);
+  situationsElementOtherVehicleState.objectType = situationsElementOtherVehicleStateObjectType;
+  ::ad::rss::world::ObjectState situationsElementOtherVehicleStateObjectState;
+  ::ad::physics::Angle situationsElementOtherVehicleStateObjectStateYaw(6.283185308);
+  situationsElementOtherVehicleStateObjectState.yaw = situationsElementOtherVehicleStateObjectStateYaw;
+  ::ad::physics::Dimension2D situationsElementOtherVehicleStateObjectStateDimension;
+  ::ad::physics::Distance situationsElementOtherVehicleStateObjectStateDimensionLength(1e9);
+  situationsElementOtherVehicleStateObjectStateDimension.length
+    = situationsElementOtherVehicleStateObjectStateDimensionLength;
+  ::ad::physics::Distance situationsElementOtherVehicleStateObjectStateDimensionWidth(1e9);
+  situationsElementOtherVehicleStateObjectStateDimension.width
+    = situationsElementOtherVehicleStateObjectStateDimensionWidth;
+  situationsElementOtherVehicleStateObjectState.dimension = situationsElementOtherVehicleStateObjectStateDimension;
+  ::ad::physics::AngularVelocity situationsElementOtherVehicleStateObjectStateYawRate(100.);
+  situationsElementOtherVehicleStateObjectState.yawRate = situationsElementOtherVehicleStateObjectStateYawRate;
+  ::ad::physics::Distance2D situationsElementOtherVehicleStateObjectStateCenterPoint;
+  ::ad::physics::Distance situationsElementOtherVehicleStateObjectStateCenterPointX(1e9);
+  situationsElementOtherVehicleStateObjectStateCenterPoint.x
+    = situationsElementOtherVehicleStateObjectStateCenterPointX;
+  ::ad::physics::Distance situationsElementOtherVehicleStateObjectStateCenterPointY(1e9);
+  situationsElementOtherVehicleStateObjectStateCenterPoint.y
+    = situationsElementOtherVehicleStateObjectStateCenterPointY;
+  situationsElementOtherVehicleStateObjectState.centerPoint = situationsElementOtherVehicleStateObjectStateCenterPoint;
+  ::ad::physics::Speed situationsElementOtherVehicleStateObjectStateSpeed(100.);
+  situationsElementOtherVehicleStateObjectState.speed = situationsElementOtherVehicleStateObjectStateSpeed;
+  situationsElementOtherVehicleState.objectState = situationsElementOtherVehicleStateObjectState;
   situationsElementOtherVehicleState.distanceToLeaveIntersection
     = situationsElementOtherVehicleState.distanceToEnterIntersection;
   situationsElementOtherVehicleState.distanceToEnterIntersection

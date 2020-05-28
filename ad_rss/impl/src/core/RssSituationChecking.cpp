@@ -9,8 +9,9 @@
 #include "ad/rss/core/RssSituationChecking.hpp"
 #include <algorithm>
 #include <memory>
-#include "../situation/RssIntersectionChecker.hpp"
-#include "../situation/RssSituation.hpp"
+#include "../situation/RssStructuredSceneIntersectionChecker.hpp"
+#include "../situation/RssStructuredSceneNonIntersectionChecker.hpp"
+#include "../situation/RssUnstructuredSceneChecker.hpp"
 #include "ad/rss/situation/SituationSnapshotValidInputRange.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
@@ -26,6 +27,7 @@ enum class IsSafe
 };
 
 inline state::RssState createRssState(situation::SituationId const &situationId,
+                                      situation::SituationType const &situationType,
                                       world::ObjectId const &objectId,
                                       world::RssDynamics const &egoDynamics,
                                       IsSafe const &isSafeValue)
@@ -38,6 +40,7 @@ inline state::RssState createRssState(situation::SituationId const &situationId,
 
   state::RssState resultRssState;
   resultRssState.situationId = situationId;
+  resultRssState.situationType = situationType;
   resultRssState.objectId = objectId;
   resultRssState.lateralStateLeft.isSafe = isSafe;
   resultRssState.lateralStateLeft.response
@@ -54,7 +57,9 @@ inline state::RssState createRssState(situation::SituationId const &situationId,
     = isSafe ? (::ad::rss::state::LongitudinalResponse::None) : (::ad::rss::state::LongitudinalResponse::BrakeMin);
   resultRssState.longitudinalState.alphaLon = egoDynamics.alphaLon;
   resultRssState.longitudinalState.rssStateInformation = emptyRssStateInfo;
-
+  resultRssState.unstructuredSceneState.headingRange.minimum = ad::physics::Angle(0.0);
+  resultRssState.unstructuredSceneState.headingRange.maximum = ad::physics::c2PI;
+  resultRssState.unstructuredSceneState.response = ad::rss::state::UnstructuredSceneResponse::None;
   return resultRssState;
 }
 
@@ -62,12 +67,19 @@ RssSituationChecking::RssSituationChecking()
 {
   try
   {
-    mIntersectionChecker = std::unique_ptr<situation::RssIntersectionChecker>(new situation::RssIntersectionChecker());
+    mNonIntersectionChecker = std::unique_ptr<situation::RssStructuredSceneNonIntersectionChecker>(
+      new situation::RssStructuredSceneNonIntersectionChecker());
+    mIntersectionChecker = std::unique_ptr<situation::RssStructuredSceneIntersectionChecker>(
+      new situation::RssStructuredSceneIntersectionChecker());
+    mUnstructuredSceneChecker
+      = std::unique_ptr<situation::RssUnstructuredSceneChecker>(new situation::RssUnstructuredSceneChecker());
   }
   catch (...)
   {
     spdlog::critical("RssSituationChecking object initialization failed");
+    mNonIntersectionChecker = nullptr;
     mIntersectionChecker = nullptr;
+    mUnstructuredSceneChecker = nullptr;
   }
 }
 
@@ -76,33 +88,38 @@ RssSituationChecking::~RssSituationChecking()
 }
 
 bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation const &situation,
-                                                           state::RssState &rssState)
+                                                           state::RssStateSnapshot &rssStateSnapshot)
 {
   bool result = false;
   // global try catch block to ensure this library call doesn't throw an exception
   try
   {
-    if (!static_cast<bool>(mIntersectionChecker))
+    if ((!static_cast<bool>(mNonIntersectionChecker)) || (!static_cast<bool>(mIntersectionChecker))
+        || (!static_cast<bool>(mUnstructuredSceneChecker)))
     {
       spdlog::critical("RssSituationChecking::checkSituationInputRangeChecked>> object not properly initialized");
       return false;
     }
 
-    rssState
-      = createRssState(situation.situationId, situation.objectId, situation.egoVehicleState.dynamics, IsSafe::No);
+    auto rssState = createRssState(situation.situationId,
+                                   situation.situationType,
+                                   situation.objectId,
+                                   situation.egoVehicleState.dynamics,
+                                   IsSafe::No);
 
     switch (situation.situationType)
     {
       case situation::SituationType::NotRelevant:
-        rssState
-          = createRssState(situation.situationId, situation.objectId, situation.egoVehicleState.dynamics, IsSafe::Yes);
+        rssState = createRssState(situation.situationId,
+                                  situation.situationType,
+                                  situation.objectId,
+                                  situation.egoVehicleState.dynamics,
+                                  IsSafe::Yes);
         result = true;
         break;
       case situation::SituationType::SameDirection:
-        result = calculateRssStateNonIntersectionSameDirection(situation, rssState);
-        break;
       case situation::SituationType::OppositeDirection:
-        result = calculateRssStateNonIntersectionOppositeDirection(situation, rssState);
+        result = mNonIntersectionChecker->calculateRssStateNonIntersection(mCurrentTimeIndex, situation, rssState);
         break;
 
       case situation::SituationType::IntersectionEgoHasPriority:
@@ -110,10 +127,19 @@ bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation 
       case situation::SituationType::IntersectionSamePriority:
         result = mIntersectionChecker->calculateRssStateIntersection(mCurrentTimeIndex, situation, rssState);
         break;
+      case situation::SituationType::Unstructured:
+        result = mUnstructuredSceneChecker->calculateRssStateUnstructured(
+          mCurrentTimeIndex, situation, rssStateSnapshot.unstructuredSceneEgoInformation, rssState);
+        break;
       default:
         spdlog::error("RssSituationChecking::checkSituationInputRangeChecked>> Invalid situation type {}", situation);
         result = false;
         break;
+    }
+
+    if (result)
+    {
+      rssStateSnapshot.individualResponses.push_back(rssState);
     }
   }
   catch (...)
@@ -145,19 +171,10 @@ bool RssSituationChecking::checkSituations(situation::SituationSnapshot const &s
     rssStateSnapshot.timeIndex = situationSnapshot.timeIndex;
     rssStateSnapshot.defaultEgoVehicleRssDynamics = situationSnapshot.defaultEgoVehicleRssDynamics;
     rssStateSnapshot.individualResponses.clear();
-    for (auto const &situation : situationSnapshot.situations)
+
+    for (auto it = situationSnapshot.situations.begin(); (it != situationSnapshot.situations.end()) && result; ++it)
     {
-      state::RssState rssState;
-      bool const checkResult = checkSituationInputRangeChecked(situation, rssState);
-      if (checkResult)
-      {
-        rssStateSnapshot.individualResponses.push_back(rssState);
-      }
-      else
-      {
-        result = false;
-        break;
-      }
+      result = checkSituationInputRangeChecked(*it, rssStateSnapshot);
     }
   }
   catch (...)

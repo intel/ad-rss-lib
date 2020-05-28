@@ -18,11 +18,9 @@
 #pragma once
 
 #include <iostream>
-#include <limits>
 #include <memory>
 #include <sstream>
 #include "ad/physics/AccelerationRange.hpp"
-#include "ad/rss/world/TimeIndex.hpp"
 /*!
  * @brief namespace ad
  */
@@ -100,8 +98,8 @@ struct AccelerationRestriction
    */
   bool operator==(const AccelerationRestriction &other) const
   {
-    return (timeIndex == other.timeIndex) && (lateralLeftRange == other.lateralLeftRange)
-      && (longitudinalRange == other.longitudinalRange) && (lateralRightRange == other.lateralRightRange);
+    return (lateralLeftRange == other.lateralLeftRange) && (longitudinalRange == other.longitudinalRange)
+      && (lateralRightRange == other.lateralRightRange);
   }
 
   /**
@@ -115,11 +113,6 @@ struct AccelerationRestriction
   {
     return !operator==(other);
   }
-
-  /*!
-   * The time index these acceleration restrictions are referring to.
-   */
-  ::ad::rss::world::TimeIndex timeIndex{0u};
 
   /*!
    * The range of the acceleration restriction in lateral left direction.
@@ -171,9 +164,6 @@ namespace world {
 inline std::ostream &operator<<(std::ostream &os, AccelerationRestriction const &_value)
 {
   os << "AccelerationRestriction(";
-  os << "timeIndex:";
-  os << _value.timeIndex;
-  os << ",";
   os << "lateralLeftRange:";
   os << _value.lateralLeftRange;
   os << ",";

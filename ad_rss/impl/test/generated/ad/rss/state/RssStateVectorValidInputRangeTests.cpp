@@ -54,9 +54,9 @@ TEST(RssStateVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   elementLongitudinalStateAlphaLon.brakeMax = elementLongitudinalStateAlphaLon.brakeMin;
   elementLongitudinalState.alphaLon = elementLongitudinalStateAlphaLon;
   ::ad::rss::state::RssStateInformation elementLongitudinalStateRssStateInformation;
-  ::ad::physics::Distance elementLongitudinalStateRssStateInformationSafeDistance(0.);
+  ::ad::physics::Distance elementLongitudinalStateRssStateInformationSafeDistance(-1e9);
   elementLongitudinalStateRssStateInformation.safeDistance = elementLongitudinalStateRssStateInformationSafeDistance;
-  ::ad::physics::Distance elementLongitudinalStateRssStateInformationCurrentDistance(0.);
+  ::ad::physics::Distance elementLongitudinalStateRssStateInformationCurrentDistance(-1e9);
   elementLongitudinalStateRssStateInformation.currentDistance
     = elementLongitudinalStateRssStateInformationCurrentDistance;
   ::ad::rss::state::RssStateEvaluator elementLongitudinalStateRssStateInformationEvaluator(
@@ -77,9 +77,9 @@ TEST(RssStateVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   elementLateralStateRightAlphaLat.brakeMin = elementLateralStateRightAlphaLatBrakeMin;
   elementLateralStateRight.alphaLat = elementLateralStateRightAlphaLat;
   ::ad::rss::state::RssStateInformation elementLateralStateRightRssStateInformation;
-  ::ad::physics::Distance elementLateralStateRightRssStateInformationSafeDistance(0.);
+  ::ad::physics::Distance elementLateralStateRightRssStateInformationSafeDistance(-1e9);
   elementLateralStateRightRssStateInformation.safeDistance = elementLateralStateRightRssStateInformationSafeDistance;
-  ::ad::physics::Distance elementLateralStateRightRssStateInformationCurrentDistance(0.);
+  ::ad::physics::Distance elementLateralStateRightRssStateInformationCurrentDistance(-1e9);
   elementLateralStateRightRssStateInformation.currentDistance
     = elementLateralStateRightRssStateInformationCurrentDistance;
   ::ad::rss::state::RssStateEvaluator elementLateralStateRightRssStateInformationEvaluator(
@@ -100,9 +100,9 @@ TEST(RssStateVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   elementLateralStateLeftAlphaLat.brakeMin = elementLateralStateLeftAlphaLatBrakeMin;
   elementLateralStateLeft.alphaLat = elementLateralStateLeftAlphaLat;
   ::ad::rss::state::RssStateInformation elementLateralStateLeftRssStateInformation;
-  ::ad::physics::Distance elementLateralStateLeftRssStateInformationSafeDistance(0.);
+  ::ad::physics::Distance elementLateralStateLeftRssStateInformationSafeDistance(-1e9);
   elementLateralStateLeftRssStateInformation.safeDistance = elementLateralStateLeftRssStateInformationSafeDistance;
-  ::ad::physics::Distance elementLateralStateLeftRssStateInformationCurrentDistance(0.);
+  ::ad::physics::Distance elementLateralStateLeftRssStateInformationCurrentDistance(-1e9);
   elementLateralStateLeftRssStateInformation.currentDistance
     = elementLateralStateLeftRssStateInformationCurrentDistance;
   ::ad::rss::state::RssStateEvaluator elementLateralStateLeftRssStateInformationEvaluator(
@@ -110,6 +110,48 @@ TEST(RssStateVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   elementLateralStateLeftRssStateInformation.evaluator = elementLateralStateLeftRssStateInformationEvaluator;
   elementLateralStateLeft.rssStateInformation = elementLateralStateLeftRssStateInformation;
   element.lateralStateLeft = elementLateralStateLeft;
+  ::ad::rss::state::UnstructuredSceneRssState elementUnstructuredSceneState;
+  bool elementUnstructuredSceneStateIsSafe{true};
+  elementUnstructuredSceneState.isSafe = elementUnstructuredSceneStateIsSafe;
+  ::ad::rss::state::UnstructuredSceneResponse elementUnstructuredSceneStateResponse(
+    ::ad::rss::state::UnstructuredSceneResponse::None);
+  elementUnstructuredSceneState.response = elementUnstructuredSceneStateResponse;
+  ::ad::physics::AngleRange elementUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle elementUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
+  elementUnstructuredSceneStateHeadingRange.minimum = elementUnstructuredSceneStateHeadingRangeMinimum;
+  ::ad::physics::Angle elementUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
+  elementUnstructuredSceneStateHeadingRange.maximum = elementUnstructuredSceneStateHeadingRangeMaximum;
+  elementUnstructuredSceneState.headingRange = elementUnstructuredSceneStateHeadingRange;
+  ::ad::rss::state::UnstructuredSceneStateInformation elementUnstructuredSceneStateRssStateInformation;
+  ::ad::rss::world::UnstructuredTrajectorySet elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
+  ::ad::physics::Distance2D elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
+  ::ad::physics::Distance elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);
+  elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
+    = elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX;
+  ::ad::physics::Distance elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY(-1e9);
+  elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.y
+    = elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY;
+  elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet.resize(
+    1, elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
+  elementUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
+    = elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
+  ::ad::rss::world::UnstructuredTrajectorySet
+    elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
+  ::ad::physics::Distance2D elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
+  ::ad::physics::Distance elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(-1e9);
+  elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
+    = elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX;
+  ::ad::physics::Distance elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY(-1e9);
+  elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.y
+    = elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY;
+  elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet.resize(
+    1, elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement);
+  elementUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
+    = elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
+  elementUnstructuredSceneState.rssStateInformation = elementUnstructuredSceneStateRssStateInformation;
+  element.unstructuredSceneState = elementUnstructuredSceneState;
+  ::ad::rss::situation::SituationType elementSituationType(::ad::rss::situation::SituationType::NotRelevant);
+  element.situationType = elementSituationType;
   value.resize(1000, element);
   ASSERT_TRUE(withinValidInputRange(value));
 }
@@ -144,9 +186,9 @@ TEST(RssStateVectorValidInputRangeTests, testValidInputRangeHigherThanInputRange
   elementLongitudinalStateAlphaLon.brakeMax = elementLongitudinalStateAlphaLon.brakeMin;
   elementLongitudinalState.alphaLon = elementLongitudinalStateAlphaLon;
   ::ad::rss::state::RssStateInformation elementLongitudinalStateRssStateInformation;
-  ::ad::physics::Distance elementLongitudinalStateRssStateInformationSafeDistance(0.);
+  ::ad::physics::Distance elementLongitudinalStateRssStateInformationSafeDistance(-1e9);
   elementLongitudinalStateRssStateInformation.safeDistance = elementLongitudinalStateRssStateInformationSafeDistance;
-  ::ad::physics::Distance elementLongitudinalStateRssStateInformationCurrentDistance(0.);
+  ::ad::physics::Distance elementLongitudinalStateRssStateInformationCurrentDistance(-1e9);
   elementLongitudinalStateRssStateInformation.currentDistance
     = elementLongitudinalStateRssStateInformationCurrentDistance;
   ::ad::rss::state::RssStateEvaluator elementLongitudinalStateRssStateInformationEvaluator(
@@ -167,9 +209,9 @@ TEST(RssStateVectorValidInputRangeTests, testValidInputRangeHigherThanInputRange
   elementLateralStateRightAlphaLat.brakeMin = elementLateralStateRightAlphaLatBrakeMin;
   elementLateralStateRight.alphaLat = elementLateralStateRightAlphaLat;
   ::ad::rss::state::RssStateInformation elementLateralStateRightRssStateInformation;
-  ::ad::physics::Distance elementLateralStateRightRssStateInformationSafeDistance(0.);
+  ::ad::physics::Distance elementLateralStateRightRssStateInformationSafeDistance(-1e9);
   elementLateralStateRightRssStateInformation.safeDistance = elementLateralStateRightRssStateInformationSafeDistance;
-  ::ad::physics::Distance elementLateralStateRightRssStateInformationCurrentDistance(0.);
+  ::ad::physics::Distance elementLateralStateRightRssStateInformationCurrentDistance(-1e9);
   elementLateralStateRightRssStateInformation.currentDistance
     = elementLateralStateRightRssStateInformationCurrentDistance;
   ::ad::rss::state::RssStateEvaluator elementLateralStateRightRssStateInformationEvaluator(
@@ -190,9 +232,9 @@ TEST(RssStateVectorValidInputRangeTests, testValidInputRangeHigherThanInputRange
   elementLateralStateLeftAlphaLat.brakeMin = elementLateralStateLeftAlphaLatBrakeMin;
   elementLateralStateLeft.alphaLat = elementLateralStateLeftAlphaLat;
   ::ad::rss::state::RssStateInformation elementLateralStateLeftRssStateInformation;
-  ::ad::physics::Distance elementLateralStateLeftRssStateInformationSafeDistance(0.);
+  ::ad::physics::Distance elementLateralStateLeftRssStateInformationSafeDistance(-1e9);
   elementLateralStateLeftRssStateInformation.safeDistance = elementLateralStateLeftRssStateInformationSafeDistance;
-  ::ad::physics::Distance elementLateralStateLeftRssStateInformationCurrentDistance(0.);
+  ::ad::physics::Distance elementLateralStateLeftRssStateInformationCurrentDistance(-1e9);
   elementLateralStateLeftRssStateInformation.currentDistance
     = elementLateralStateLeftRssStateInformationCurrentDistance;
   ::ad::rss::state::RssStateEvaluator elementLateralStateLeftRssStateInformationEvaluator(
@@ -200,6 +242,48 @@ TEST(RssStateVectorValidInputRangeTests, testValidInputRangeHigherThanInputRange
   elementLateralStateLeftRssStateInformation.evaluator = elementLateralStateLeftRssStateInformationEvaluator;
   elementLateralStateLeft.rssStateInformation = elementLateralStateLeftRssStateInformation;
   element.lateralStateLeft = elementLateralStateLeft;
+  ::ad::rss::state::UnstructuredSceneRssState elementUnstructuredSceneState;
+  bool elementUnstructuredSceneStateIsSafe{true};
+  elementUnstructuredSceneState.isSafe = elementUnstructuredSceneStateIsSafe;
+  ::ad::rss::state::UnstructuredSceneResponse elementUnstructuredSceneStateResponse(
+    ::ad::rss::state::UnstructuredSceneResponse::None);
+  elementUnstructuredSceneState.response = elementUnstructuredSceneStateResponse;
+  ::ad::physics::AngleRange elementUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle elementUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
+  elementUnstructuredSceneStateHeadingRange.minimum = elementUnstructuredSceneStateHeadingRangeMinimum;
+  ::ad::physics::Angle elementUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
+  elementUnstructuredSceneStateHeadingRange.maximum = elementUnstructuredSceneStateHeadingRangeMaximum;
+  elementUnstructuredSceneState.headingRange = elementUnstructuredSceneStateHeadingRange;
+  ::ad::rss::state::UnstructuredSceneStateInformation elementUnstructuredSceneStateRssStateInformation;
+  ::ad::rss::world::UnstructuredTrajectorySet elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
+  ::ad::physics::Distance2D elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
+  ::ad::physics::Distance elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);
+  elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
+    = elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX;
+  ::ad::physics::Distance elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY(-1e9);
+  elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.y
+    = elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY;
+  elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet.resize(
+    1, elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
+  elementUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
+    = elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
+  ::ad::rss::world::UnstructuredTrajectorySet
+    elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
+  ::ad::physics::Distance2D elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
+  ::ad::physics::Distance elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(-1e9);
+  elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
+    = elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX;
+  ::ad::physics::Distance elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY(-1e9);
+  elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.y
+    = elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY;
+  elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet.resize(
+    1, elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement);
+  elementUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
+    = elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
+  elementUnstructuredSceneState.rssStateInformation = elementUnstructuredSceneStateRssStateInformation;
+  element.unstructuredSceneState = elementUnstructuredSceneState;
+  ::ad::rss::situation::SituationType elementSituationType(::ad::rss::situation::SituationType::NotRelevant);
+  element.situationType = elementSituationType;
   value.resize(1001, element);
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -247,9 +331,9 @@ TEST(RssStateVectorValidInputRangeTests, testValidInputRangeElementValid)
   elementLongitudinalStateAlphaLon.brakeMax = elementLongitudinalStateAlphaLon.brakeMin;
   elementLongitudinalState.alphaLon = elementLongitudinalStateAlphaLon;
   ::ad::rss::state::RssStateInformation elementLongitudinalStateRssStateInformation;
-  ::ad::physics::Distance elementLongitudinalStateRssStateInformationSafeDistance(0.);
+  ::ad::physics::Distance elementLongitudinalStateRssStateInformationSafeDistance(-1e9);
   elementLongitudinalStateRssStateInformation.safeDistance = elementLongitudinalStateRssStateInformationSafeDistance;
-  ::ad::physics::Distance elementLongitudinalStateRssStateInformationCurrentDistance(0.);
+  ::ad::physics::Distance elementLongitudinalStateRssStateInformationCurrentDistance(-1e9);
   elementLongitudinalStateRssStateInformation.currentDistance
     = elementLongitudinalStateRssStateInformationCurrentDistance;
   ::ad::rss::state::RssStateEvaluator elementLongitudinalStateRssStateInformationEvaluator(
@@ -270,9 +354,9 @@ TEST(RssStateVectorValidInputRangeTests, testValidInputRangeElementValid)
   elementLateralStateRightAlphaLat.brakeMin = elementLateralStateRightAlphaLatBrakeMin;
   elementLateralStateRight.alphaLat = elementLateralStateRightAlphaLat;
   ::ad::rss::state::RssStateInformation elementLateralStateRightRssStateInformation;
-  ::ad::physics::Distance elementLateralStateRightRssStateInformationSafeDistance(0.);
+  ::ad::physics::Distance elementLateralStateRightRssStateInformationSafeDistance(-1e9);
   elementLateralStateRightRssStateInformation.safeDistance = elementLateralStateRightRssStateInformationSafeDistance;
-  ::ad::physics::Distance elementLateralStateRightRssStateInformationCurrentDistance(0.);
+  ::ad::physics::Distance elementLateralStateRightRssStateInformationCurrentDistance(-1e9);
   elementLateralStateRightRssStateInformation.currentDistance
     = elementLateralStateRightRssStateInformationCurrentDistance;
   ::ad::rss::state::RssStateEvaluator elementLateralStateRightRssStateInformationEvaluator(
@@ -293,9 +377,9 @@ TEST(RssStateVectorValidInputRangeTests, testValidInputRangeElementValid)
   elementLateralStateLeftAlphaLat.brakeMin = elementLateralStateLeftAlphaLatBrakeMin;
   elementLateralStateLeft.alphaLat = elementLateralStateLeftAlphaLat;
   ::ad::rss::state::RssStateInformation elementLateralStateLeftRssStateInformation;
-  ::ad::physics::Distance elementLateralStateLeftRssStateInformationSafeDistance(0.);
+  ::ad::physics::Distance elementLateralStateLeftRssStateInformationSafeDistance(-1e9);
   elementLateralStateLeftRssStateInformation.safeDistance = elementLateralStateLeftRssStateInformationSafeDistance;
-  ::ad::physics::Distance elementLateralStateLeftRssStateInformationCurrentDistance(0.);
+  ::ad::physics::Distance elementLateralStateLeftRssStateInformationCurrentDistance(-1e9);
   elementLateralStateLeftRssStateInformation.currentDistance
     = elementLateralStateLeftRssStateInformationCurrentDistance;
   ::ad::rss::state::RssStateEvaluator elementLateralStateLeftRssStateInformationEvaluator(
@@ -303,6 +387,48 @@ TEST(RssStateVectorValidInputRangeTests, testValidInputRangeElementValid)
   elementLateralStateLeftRssStateInformation.evaluator = elementLateralStateLeftRssStateInformationEvaluator;
   elementLateralStateLeft.rssStateInformation = elementLateralStateLeftRssStateInformation;
   element.lateralStateLeft = elementLateralStateLeft;
+  ::ad::rss::state::UnstructuredSceneRssState elementUnstructuredSceneState;
+  bool elementUnstructuredSceneStateIsSafe{true};
+  elementUnstructuredSceneState.isSafe = elementUnstructuredSceneStateIsSafe;
+  ::ad::rss::state::UnstructuredSceneResponse elementUnstructuredSceneStateResponse(
+    ::ad::rss::state::UnstructuredSceneResponse::None);
+  elementUnstructuredSceneState.response = elementUnstructuredSceneStateResponse;
+  ::ad::physics::AngleRange elementUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle elementUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
+  elementUnstructuredSceneStateHeadingRange.minimum = elementUnstructuredSceneStateHeadingRangeMinimum;
+  ::ad::physics::Angle elementUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
+  elementUnstructuredSceneStateHeadingRange.maximum = elementUnstructuredSceneStateHeadingRangeMaximum;
+  elementUnstructuredSceneState.headingRange = elementUnstructuredSceneStateHeadingRange;
+  ::ad::rss::state::UnstructuredSceneStateInformation elementUnstructuredSceneStateRssStateInformation;
+  ::ad::rss::world::UnstructuredTrajectorySet elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
+  ::ad::physics::Distance2D elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
+  ::ad::physics::Distance elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);
+  elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
+    = elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX;
+  ::ad::physics::Distance elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY(-1e9);
+  elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.y
+    = elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY;
+  elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet.resize(
+    1, elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
+  elementUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
+    = elementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
+  ::ad::rss::world::UnstructuredTrajectorySet
+    elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
+  ::ad::physics::Distance2D elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
+  ::ad::physics::Distance elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(-1e9);
+  elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
+    = elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX;
+  ::ad::physics::Distance elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY(-1e9);
+  elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.y
+    = elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY;
+  elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet.resize(
+    1, elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement);
+  elementUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
+    = elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
+  elementUnstructuredSceneState.rssStateInformation = elementUnstructuredSceneStateRssStateInformation;
+  element.unstructuredSceneState = elementUnstructuredSceneState;
+  ::ad::rss::situation::SituationType elementSituationType(::ad::rss::situation::SituationType::NotRelevant);
+  element.situationType = elementSituationType;
   value.push_back(element);
   ASSERT_TRUE(withinValidInputRange(value));
 }

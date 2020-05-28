@@ -28,17 +28,19 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRange)
   ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
   value.drivingDirection = valueDrivingDirection;
   ::ad::physics::MetricRange valueLength;
-  ::ad::physics::Distance valueLengthMinimum(0.);
+  ::ad::physics::Distance valueLengthMinimum(-1e9);
+  valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueLength.minimum = valueLengthMinimum;
-  ::ad::physics::Distance valueLengthMaximum(0.);
+  ::ad::physics::Distance valueLengthMaximum(-1e9);
   valueLength.maximum = valueLengthMaximum;
   valueLength.maximum = valueLength.minimum;
   valueLength.minimum = valueLength.maximum;
   value.length = valueLength;
   ::ad::physics::MetricRange valueWidth;
-  ::ad::physics::Distance valueWidthMinimum(0.);
+  ::ad::physics::Distance valueWidthMinimum(-1e9);
+  valueWidthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueWidth.minimum = valueWidthMinimum;
-  ::ad::physics::Distance valueWidthMaximum(0.);
+  ::ad::physics::Distance valueWidthMaximum(-1e9);
   valueWidth.maximum = valueWidthMaximum;
   valueWidth.maximum = valueWidth.minimum;
   valueWidth.minimum = valueWidth.maximum;
@@ -56,17 +58,19 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeTypeTooSmall)
   ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
   value.drivingDirection = valueDrivingDirection;
   ::ad::physics::MetricRange valueLength;
-  ::ad::physics::Distance valueLengthMinimum(0.);
+  ::ad::physics::Distance valueLengthMinimum(-1e9);
+  valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueLength.minimum = valueLengthMinimum;
-  ::ad::physics::Distance valueLengthMaximum(0.);
+  ::ad::physics::Distance valueLengthMaximum(-1e9);
   valueLength.maximum = valueLengthMaximum;
   valueLength.maximum = valueLength.minimum;
   valueLength.minimum = valueLength.maximum;
   value.length = valueLength;
   ::ad::physics::MetricRange valueWidth;
-  ::ad::physics::Distance valueWidthMinimum(0.);
+  ::ad::physics::Distance valueWidthMinimum(-1e9);
+  valueWidthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueWidth.minimum = valueWidthMinimum;
-  ::ad::physics::Distance valueWidthMaximum(0.);
+  ::ad::physics::Distance valueWidthMaximum(-1e9);
   valueWidth.maximum = valueWidthMaximum;
   valueWidth.maximum = valueWidth.minimum;
   valueWidth.minimum = valueWidth.maximum;
@@ -88,17 +92,19 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeTypeTooBig)
   ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
   value.drivingDirection = valueDrivingDirection;
   ::ad::physics::MetricRange valueLength;
-  ::ad::physics::Distance valueLengthMinimum(0.);
+  ::ad::physics::Distance valueLengthMinimum(-1e9);
+  valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueLength.minimum = valueLengthMinimum;
-  ::ad::physics::Distance valueLengthMaximum(0.);
+  ::ad::physics::Distance valueLengthMaximum(-1e9);
   valueLength.maximum = valueLengthMaximum;
   valueLength.maximum = valueLength.minimum;
   valueLength.minimum = valueLength.maximum;
   value.length = valueLength;
   ::ad::physics::MetricRange valueWidth;
-  ::ad::physics::Distance valueWidthMinimum(0.);
+  ::ad::physics::Distance valueWidthMinimum(-1e9);
+  valueWidthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueWidth.minimum = valueWidthMinimum;
-  ::ad::physics::Distance valueWidthMaximum(0.);
+  ::ad::physics::Distance valueWidthMaximum(-1e9);
   valueWidth.maximum = valueWidthMaximum;
   valueWidth.maximum = valueWidth.minimum;
   valueWidth.minimum = valueWidth.maximum;
@@ -120,17 +126,19 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeDrivingDirectionTooSmal
   ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
   value.drivingDirection = valueDrivingDirection;
   ::ad::physics::MetricRange valueLength;
-  ::ad::physics::Distance valueLengthMinimum(0.);
+  ::ad::physics::Distance valueLengthMinimum(-1e9);
+  valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueLength.minimum = valueLengthMinimum;
-  ::ad::physics::Distance valueLengthMaximum(0.);
+  ::ad::physics::Distance valueLengthMaximum(-1e9);
   valueLength.maximum = valueLengthMaximum;
   valueLength.maximum = valueLength.minimum;
   valueLength.minimum = valueLength.maximum;
   value.length = valueLength;
   ::ad::physics::MetricRange valueWidth;
-  ::ad::physics::Distance valueWidthMinimum(0.);
+  ::ad::physics::Distance valueWidthMinimum(-1e9);
+  valueWidthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueWidth.minimum = valueWidthMinimum;
-  ::ad::physics::Distance valueWidthMaximum(0.);
+  ::ad::physics::Distance valueWidthMaximum(-1e9);
   valueWidth.maximum = valueWidthMaximum;
   valueWidth.maximum = valueWidth.minimum;
   valueWidth.minimum = valueWidth.maximum;
@@ -153,17 +161,19 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeDrivingDirectionTooBig)
   ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
   value.drivingDirection = valueDrivingDirection;
   ::ad::physics::MetricRange valueLength;
-  ::ad::physics::Distance valueLengthMinimum(0.);
+  ::ad::physics::Distance valueLengthMinimum(-1e9);
+  valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueLength.minimum = valueLengthMinimum;
-  ::ad::physics::Distance valueLengthMaximum(0.);
+  ::ad::physics::Distance valueLengthMaximum(-1e9);
   valueLength.maximum = valueLengthMaximum;
   valueLength.maximum = valueLength.minimum;
   valueLength.minimum = valueLength.maximum;
   value.length = valueLength;
   ::ad::physics::MetricRange valueWidth;
-  ::ad::physics::Distance valueWidthMinimum(0.);
+  ::ad::physics::Distance valueWidthMinimum(-1e9);
+  valueWidthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueWidth.minimum = valueWidthMinimum;
-  ::ad::physics::Distance valueWidthMaximum(0.);
+  ::ad::physics::Distance valueWidthMaximum(-1e9);
   valueWidth.maximum = valueWidthMaximum;
   valueWidth.maximum = valueWidth.minimum;
   valueWidth.minimum = valueWidth.maximum;
@@ -186,17 +196,19 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeLengthTooSmall)
   ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
   value.drivingDirection = valueDrivingDirection;
   ::ad::physics::MetricRange valueLength;
-  ::ad::physics::Distance valueLengthMinimum(0.);
+  ::ad::physics::Distance valueLengthMinimum(-1e9);
+  valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueLength.minimum = valueLengthMinimum;
-  ::ad::physics::Distance valueLengthMaximum(0.);
+  ::ad::physics::Distance valueLengthMaximum(-1e9);
   valueLength.maximum = valueLengthMaximum;
   valueLength.maximum = valueLength.minimum;
   valueLength.minimum = valueLength.maximum;
   value.length = valueLength;
   ::ad::physics::MetricRange valueWidth;
-  ::ad::physics::Distance valueWidthMinimum(0.);
+  ::ad::physics::Distance valueWidthMinimum(-1e9);
+  valueWidthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueWidth.minimum = valueWidthMinimum;
-  ::ad::physics::Distance valueWidthMaximum(0.);
+  ::ad::physics::Distance valueWidthMaximum(-1e9);
   valueWidth.maximum = valueWidthMaximum;
   valueWidth.maximum = valueWidth.minimum;
   valueWidth.minimum = valueWidth.maximum;
@@ -204,7 +216,7 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeLengthTooSmall)
 
   // override member with data type value below input range minimum
   ::ad::physics::MetricRange invalidInitializedMember;
-  ::ad::physics::Distance invalidInitializedMemberMinimum(0. - ::ad::physics::Distance::cPrecisionValue);
+  ::ad::physics::Distance invalidInitializedMemberMinimum(-1e9 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
   value.length = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -220,17 +232,19 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeLengthTooBig)
   ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
   value.drivingDirection = valueDrivingDirection;
   ::ad::physics::MetricRange valueLength;
-  ::ad::physics::Distance valueLengthMinimum(0.);
+  ::ad::physics::Distance valueLengthMinimum(-1e9);
+  valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueLength.minimum = valueLengthMinimum;
-  ::ad::physics::Distance valueLengthMaximum(0.);
+  ::ad::physics::Distance valueLengthMaximum(-1e9);
   valueLength.maximum = valueLengthMaximum;
   valueLength.maximum = valueLength.minimum;
   valueLength.minimum = valueLength.maximum;
   value.length = valueLength;
   ::ad::physics::MetricRange valueWidth;
-  ::ad::physics::Distance valueWidthMinimum(0.);
+  ::ad::physics::Distance valueWidthMinimum(-1e9);
+  valueWidthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueWidth.minimum = valueWidthMinimum;
-  ::ad::physics::Distance valueWidthMaximum(0.);
+  ::ad::physics::Distance valueWidthMaximum(-1e9);
   valueWidth.maximum = valueWidthMaximum;
   valueWidth.maximum = valueWidth.minimum;
   valueWidth.minimum = valueWidth.maximum;
@@ -254,17 +268,19 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeWidthTooSmall)
   ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
   value.drivingDirection = valueDrivingDirection;
   ::ad::physics::MetricRange valueLength;
-  ::ad::physics::Distance valueLengthMinimum(0.);
+  ::ad::physics::Distance valueLengthMinimum(-1e9);
+  valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueLength.minimum = valueLengthMinimum;
-  ::ad::physics::Distance valueLengthMaximum(0.);
+  ::ad::physics::Distance valueLengthMaximum(-1e9);
   valueLength.maximum = valueLengthMaximum;
   valueLength.maximum = valueLength.minimum;
   valueLength.minimum = valueLength.maximum;
   value.length = valueLength;
   ::ad::physics::MetricRange valueWidth;
-  ::ad::physics::Distance valueWidthMinimum(0.);
+  ::ad::physics::Distance valueWidthMinimum(-1e9);
+  valueWidthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueWidth.minimum = valueWidthMinimum;
-  ::ad::physics::Distance valueWidthMaximum(0.);
+  ::ad::physics::Distance valueWidthMaximum(-1e9);
   valueWidth.maximum = valueWidthMaximum;
   valueWidth.maximum = valueWidth.minimum;
   valueWidth.minimum = valueWidth.maximum;
@@ -272,7 +288,7 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeWidthTooSmall)
 
   // override member with data type value below input range minimum
   ::ad::physics::MetricRange invalidInitializedMember;
-  ::ad::physics::Distance invalidInitializedMemberMinimum(0. - ::ad::physics::Distance::cPrecisionValue);
+  ::ad::physics::Distance invalidInitializedMemberMinimum(-1e9 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
   value.width = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -288,17 +304,19 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeWidthTooBig)
   ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
   value.drivingDirection = valueDrivingDirection;
   ::ad::physics::MetricRange valueLength;
-  ::ad::physics::Distance valueLengthMinimum(0.);
+  ::ad::physics::Distance valueLengthMinimum(-1e9);
+  valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueLength.minimum = valueLengthMinimum;
-  ::ad::physics::Distance valueLengthMaximum(0.);
+  ::ad::physics::Distance valueLengthMaximum(-1e9);
   valueLength.maximum = valueLengthMaximum;
   valueLength.maximum = valueLength.minimum;
   valueLength.minimum = valueLength.maximum;
   value.length = valueLength;
   ::ad::physics::MetricRange valueWidth;
-  ::ad::physics::Distance valueWidthMinimum(0.);
+  ::ad::physics::Distance valueWidthMinimum(-1e9);
+  valueWidthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   valueWidth.minimum = valueWidthMinimum;
-  ::ad::physics::Distance valueWidthMaximum(0.);
+  ::ad::physics::Distance valueWidthMaximum(-1e9);
   valueWidth.maximum = valueWidthMaximum;
   valueWidth.maximum = valueWidth.minimum;
   valueWidth.minimum = valueWidth.maximum;

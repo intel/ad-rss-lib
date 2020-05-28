@@ -25,6 +25,7 @@
 #include "ad/rss/world/LateralRssAccelerationValuesValidInputRange.hpp"
 #include "ad/rss/world/LongitudinalRssAccelerationValuesValidInputRange.hpp"
 #include "ad/rss/world/RssDynamics.hpp"
+#include "ad/rss/world/UnstructuredSettingsValidInputRange.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
 
@@ -47,7 +48,8 @@ inline bool withinValidInputRange(::ad::rss::world::RssDynamics const &input, bo
   inValidInputRange = withinValidInputRange(input.alphaLon, logErrors)
     && withinValidInputRange(input.alphaLat, logErrors)
     && withinValidInputRange(input.lateralFluctuationMargin, logErrors)
-    && withinValidInputRange(input.responseTime, logErrors) && withinValidInputRange(input.maxSpeed, logErrors);
+    && withinValidInputRange(input.responseTime, logErrors) && withinValidInputRange(input.maxSpeed, logErrors)
+    && withinValidInputRange(input.unstructuredSettings, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::world::RssDynamics)>> {} has invalid member",

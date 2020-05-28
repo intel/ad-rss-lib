@@ -70,6 +70,26 @@ protected:
     valueVelocity.speedLonMin = valueVelocity.speedLonMax;
     valueVelocity.speedLatMin = valueVelocity.speedLatMax;
     value.velocity = valueVelocity;
+    ::ad::rss::world::ObjectState valueState;
+    ::ad::physics::Angle valueStateYaw(-6.283185308);
+    valueState.yaw = valueStateYaw;
+    ::ad::physics::Dimension2D valueStateDimension;
+    ::ad::physics::Distance valueStateDimensionLength(-1e9);
+    valueStateDimension.length = valueStateDimensionLength;
+    ::ad::physics::Distance valueStateDimensionWidth(-1e9);
+    valueStateDimension.width = valueStateDimensionWidth;
+    valueState.dimension = valueStateDimension;
+    ::ad::physics::AngularVelocity valueStateYawRate(-100.);
+    valueState.yawRate = valueStateYawRate;
+    ::ad::physics::Distance2D valueStateCenterPoint;
+    ::ad::physics::Distance valueStateCenterPointX(-1e9);
+    valueStateCenterPoint.x = valueStateCenterPointX;
+    ::ad::physics::Distance valueStateCenterPointY(-1e9);
+    valueStateCenterPoint.y = valueStateCenterPointY;
+    valueState.centerPoint = valueStateCenterPoint;
+    ::ad::physics::Speed valueStateSpeed(-100.);
+    valueState.speed = valueStateSpeed;
+    value.state = valueState;
     mValue = value;
   }
 
@@ -193,6 +213,35 @@ TEST_F(ObjectTests, comparisonOperatorVelocityDiffers)
   velocity.speedLatMin = velocity.speedLatMax;
   velocity.speedLonMin = velocity.speedLonMax;
   valueA.velocity = velocity;
+  ::ad::rss::world::Object valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(ObjectTests, comparisonOperatorStateDiffers)
+{
+  ::ad::rss::world::Object valueA = mValue;
+  ::ad::rss::world::ObjectState state;
+  ::ad::physics::Angle stateYaw(6.283185308);
+  state.yaw = stateYaw;
+  ::ad::physics::Dimension2D stateDimension;
+  ::ad::physics::Distance stateDimensionLength(1e9);
+  stateDimension.length = stateDimensionLength;
+  ::ad::physics::Distance stateDimensionWidth(1e9);
+  stateDimension.width = stateDimensionWidth;
+  state.dimension = stateDimension;
+  ::ad::physics::AngularVelocity stateYawRate(100.);
+  state.yawRate = stateYawRate;
+  ::ad::physics::Distance2D stateCenterPoint;
+  ::ad::physics::Distance stateCenterPointX(1e9);
+  stateCenterPoint.x = stateCenterPointX;
+  ::ad::physics::Distance stateCenterPointY(1e9);
+  stateCenterPoint.y = stateCenterPointY;
+  state.centerPoint = stateCenterPoint;
+  ::ad::physics::Speed stateSpeed(100.);
+  state.speed = stateSpeed;
+  valueA.state = state;
   ::ad::rss::world::Object valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

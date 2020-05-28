@@ -53,21 +53,25 @@ RssSceneCreation::RssSceneCreation(::ad::rss::world::TimeIndex const &timeIndex,
 bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
                                     ::ad::map::match::Object const &egoMatchObject,
                                     ::ad::physics::Speed const &egoSpeed,
+                                    ::ad::physics::AngularVelocity const &egoYawRate,
                                     ::ad::rss::world::RssDynamics const &egoRssDynamics,
                                     ::ad::map::route::FullRoute const &egoRouteInput,
                                     ::ad::rss::world::ObjectId const &objectId,
                                     ::ad::rss::world::ObjectType const &objectType,
                                     ::ad::map::match::Object const &objectMatchObject,
                                     ::ad::physics::Speed const &objectSpeed,
+                                    ::ad::physics::AngularVelocity const &objectYawRate,
                                     ::ad::rss::world::RssDynamics const &objectRssDynamics,
                                     RestrictSpeedLimitMode const &restrictSpeedLimitMode,
-                                    ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights)
+                                    ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights,
+                                    ::ad::rss::map::RssMode const &mode)
 {
   if (mFinalized)
   {
     getLogger()->error("RssSceneCreation::appendScenes[{}]>> error world model already finalized.", objectId);
     return false;
   }
+
   if (egoMatchObject.mapMatchedBoundingBox.laneOccupiedRegions.empty())
   {
     getLogger()->warn("RssSceneCreation::appendScenes[{}]>> ego without occupied regions skipping.", objectId);
@@ -79,21 +83,48 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
     return false;
   }
 
+  auto egoObject = std::make_shared<RssObjectConversion const>(
+    egoId, ::ad::rss::world::ObjectType::EgoVehicle, egoMatchObject, egoSpeed, egoYawRate, egoRssDynamics);
+  auto otherObject = std::make_shared<RssObjectConversion const>(
+    objectId, objectType, objectMatchObject, objectSpeed, objectYawRate, objectRssDynamics);
+
+  RssSceneCreator sceneCreator(restrictSpeedLimitMode, greenTrafficLights, *this);
+
+  if (mode == ::ad::rss::map::RssMode::Unstructured)
+  {
+    return sceneCreator.appendUnstructuredScene(egoObject, otherObject);
+  }
+  else
+  {
+    return appendStructuredScenes(sceneCreator, egoObject, egoRouteInput, otherObject);
+  }
+}
+
+bool RssSceneCreation::appendStructuredScenes(::ad::rss::map::RssSceneCreator &sceneCreator,
+                                              std::shared_ptr<RssObjectConversion const> const &egoObject,
+                                              ::ad::map::route::FullRoute const &egoRouteInput,
+                                              std::shared_ptr<RssObjectConversion const> const &otherObject)
+{
   bool result = false;
   bool sceneAppended = false;
 
-  auto egoObject = std::make_shared<RssObjectConversion const>(
-    egoId, ::ad::rss::world::ObjectType::EgoVehicle, egoMatchObject, egoSpeed, egoRssDynamics);
-  auto otherObject = std::make_shared<RssObjectConversion const>(
-    objectId, objectType, objectMatchObject, objectSpeed, objectRssDynamics);
-  RssSceneCreator sceneCreator(restrictSpeedLimitMode, greenTrafficLights, *this);
+  if ((egoObject->getObjectMapMatchedPosition() == nullptr) || (otherObject->getObjectMapMatchedPosition() == nullptr))
+  {
+    getLogger()->error("RssSceneCreation::appendScenes[{}]>> invalid RssObjectConversion entity passed",
+                       otherObject->getId());
+    return false;
+  }
+
+  auto const &egoMatchObject = *egoObject->getObjectMapMatchedPosition();
+  auto const &objectMatchObject = *otherObject->getObjectMapMatchedPosition();
 
   try
   {
     physics::Distance minStoppingDistance;
     if (!egoObject->calculateMinStoppingDistance(minStoppingDistance))
     {
-      getLogger()->error("RssSceneCreation::appendScenes[{}]>> error calculating min stopping distance", objectId);
+      getLogger()->error("RssSceneCreation::appendScenes[{}]>> error calculating min stopping distance",
+                         otherObject->getId());
       return false;
     }
 
@@ -107,13 +138,14 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
     if (connectingRoute.type == ::ad::map::route::ConnectingRouteType::Invalid)
     {
       getLogger()->debug("RssSceneCreation::appendScenes[{}]>> no connecting route available to object with {} meters",
-                         objectId,
+                         otherObject->getId(),
                          maxConnectingRouteDistance);
       auto const appendResult = sceneCreator.appendNotRelevantScene(egoRouteInput, egoObject, otherObject);
       return appendResult;
     }
-    getLogger()->trace(
-      "RssSceneCreation::appendScenes[{}]>> connecting route available to object:\n {}", objectId, connectingRoute);
+    getLogger()->trace("RssSceneCreation::appendScenes[{}]>> connecting route available to object:\n {}",
+                       otherObject->getId(),
+                       connectingRoute);
 
     // prepare ego route
     auto const predictionLength = ::ad::map::route::calcLength(connectingRoute) + ::ad::physics::Distance(20.);
@@ -157,7 +189,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
             objectOnOneOfOurRoutes = true;
             getLogger()->trace("RssSceneCreation::appendScenes[{}]>> driving in front on our route:\n"
                                " objectMatchObject({})\n egoRoute({})",
-                               objectId,
+                               otherObject->getId(),
                                objectMatchObject,
                                egoRoute);
             break;
@@ -166,7 +198,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
           {
             getLogger()->trace("RssSceneCreation::appendScenes[{}]>> driving in front but not on route:\n"
                                " objectMatchObject({})\n egoRoute({})",
-                               objectId,
+                               otherObject->getId(),
                                objectMatchObject,
                                egoRoute);
           }
@@ -176,7 +208,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
       {
         getLogger()->debug("RssSceneCreation::appendScenes[{}]>> relevant following connecting route found: create "
                            "same direction use-case\n {}",
-                           objectId,
+                           otherObject->getId(),
                            connectingRoute);
         auto const appendResult = sceneCreator.appendNonIntersectionScene(
           connectingRoute, ::ad::rss::situation::SituationType::SameDirection, egoObject, otherObject);
@@ -197,7 +229,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
         getLogger()->debug(
           "RssSceneCreation::appendScenes[{}]>> no intersections on opposing connecting route found: create "
           "opposite direction use-case\n {}",
-          objectId,
+          otherObject->getId(),
           connectingRoute);
         auto const appendResult = sceneCreator.appendNonIntersectionScene(
           connectingRoute, ::ad::rss::situation::SituationType::OppositeDirection, egoObject, otherObject);
@@ -213,7 +245,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
         getLogger()->info(
           "RssSceneCreation::appendScenes[{}]>> no intersections on merging connecting route found: create "
           "merging-intersection same prio use-case\n {}",
-          objectId,
+          otherObject->getId(),
           connectingRoute);
         auto const appendResult = sceneCreator.appendMergingScene(
           connectingRoute, ::ad::rss::situation::SituationType::IntersectionSamePriority, egoObject, otherObject);
@@ -228,13 +260,14 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
       // or:   ConnectingRouteType::Merging with intersections
       for (auto const &egoRoute : egoPredictedRoutes)
       {
-        getLogger()->trace("RssSceneCreation::appendScenes[{}]>> investigate egoRoute({})", objectId, egoRoute);
+        getLogger()->trace(
+          "RssSceneCreation::appendScenes[{}]>> investigate egoRoute({})", otherObject->getId(), egoRoute);
         auto intersectionsOnEgoRoute = ::ad::map::intersection::Intersection::getIntersectionsForRoute(egoRoute);
         if (intersectionsOnEgoRoute.empty() && (connectingRoute.type == ::ad::map::route::ConnectingRouteType::Merging))
         {
           getLogger()->debug("RssSceneCreation::appendScenes[{}]>> no intersections on route found: create"
                              "merging-intersection same prio use-case:\n egoRoute({})",
-                             objectId,
+                             otherObject->getId(),
                              egoRoute);
           auto const appendResult = sceneCreator.appendMergingScene(
             connectingRoute, ::ad::rss::situation::SituationType::IntersectionSamePriority, egoObject, otherObject);
@@ -265,7 +298,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
                 getLogger()->debug("RssSceneCreation::appendScenes[{}]>> no intersections on route found: create "
                                    "opposite direction use-case:\n"
                                    " egoRoute({})",
-                                   objectId,
+                                   otherObject->getId(),
                                    egoRoute);
                 auto const appendResult = sceneCreator.appendNonIntersectionScene(
                   connectingRoute, ::ad::rss::situation::SituationType::OppositeDirection, egoObject, otherObject);
@@ -278,7 +311,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
                 getLogger()->trace("RssSceneCreation::appendScenes[{}]>> no intersection on ego route, but"
                                    "opposite connecting route; checking intersections in object route:\n"
                                    " egoRoute({})\n objectRoute({})",
-                                   objectId,
+                                   otherObject->getId(),
                                    egoRoute,
                                    objectRoute);
               }
@@ -291,7 +324,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
                 getLogger()->trace(
                   "RssSceneCreation::appendScenes[{}]>> found object route not crossing intersection on route:\n"
                   " egoRoute({})\n objectRoute({})\n intersection({})",
-                  objectId,
+                  otherObject->getId(),
                   egoRoute,
                   objectRoute,
                   intersection->entryParaPoints());
@@ -308,7 +341,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
                 getLogger()->debug("RssSceneCreation::appendScenes[{}]>> object route from same arm as intersection "
                                    "looks like merging situation far in future: create intersection scene\n"
                                    " egoRoute({})\n objectRoute({})\n intersection({})\n {}",
-                                   objectId,
+                                   otherObject->getId(),
                                    egoRoute,
                                    objectRoute,
                                    intersection->entryParaPoints(),
@@ -327,7 +360,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
                   getLogger()->debug("RssSceneCreation::appendScenes[{}]>> object route opposite and not crossing: "
                                      "opposite direction scene:\n"
                                      " egoRoute({})\n objectRoute({})\n intersection({})",
-                                     objectId,
+                                     otherObject->getId(),
                                      egoRoute,
                                      objectRoute,
                                      intersection->entryParaPoints());
@@ -347,7 +380,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
                                      "merging situation: create "
                                      "intersection scene\n",
                                      " egoRoute({})\n objectRoute({})\n intersection({})\n {}",
-                                     objectId,
+                                     otherObject->getId(),
                                      egoRoute,
                                      objectRoute,
                                      intersection->entryParaPoints(),
@@ -363,7 +396,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
                 getLogger()->debug("RssSceneCreation::appendScenes[{}]>> object route crosses intersection route: "
                                    "intersection scene\n"
                                    " egoRoute({})\n objectRoute({})\n intersectionLanesOnRoute({})\n intersection({})",
-                                   objectId,
+                                   otherObject->getId(),
                                    egoRoute,
                                    objectRoute,
                                    intersection->paraPointsOnRoute(),
@@ -381,7 +414,8 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
   }
   catch (std::exception const &e)
   {
-    getLogger()->error("RssSceneCreation::appendScenes[{}]>> Failed. Catched exception: {}", objectId, e.what());
+    getLogger()->error(
+      "RssSceneCreation::appendScenes[{}]>> Failed. Catched exception: {}", otherObject->getId(), e.what());
   }
 
   if (!sceneAppended)
@@ -391,7 +425,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
       getLogger()->debug("RssSceneCreation::appendScenes[{}]>> detailed analysis did not find any relevant "
                          "situation. Append non relevant scene\n"
                          " objectMatchObject({})\n egoMatchObject({})\n egoRoute({})",
-                         objectId,
+                         otherObject->getId(),
                          objectMatchObject,
                          egoMatchObject,
                          egoRouteInput);
@@ -401,7 +435,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
       getLogger()->warn("RssSceneCreation::appendScenes[{}]>> an operation failed and no scene could have been "
                         "created. Try to append non relevant scene\n"
                         " objectMatchObject({})\n egoMatchObject({})\n egoRoute({})",
-                        objectId,
+                        otherObject->getId(),
                         objectMatchObject,
                         egoMatchObject,
                         egoRouteInput);
@@ -416,6 +450,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
 bool RssSceneCreation::appendRoadBoundaries(::ad::rss::world::ObjectId const &egoId,
                                             ::ad::map::match::Object const &egoMatchObject,
                                             ::ad::physics::Speed const &egoSpeed,
+                                            ::ad::physics::AngularVelocity const &egoYawRate,
                                             ::ad::rss::world::RssDynamics const &egoRssDynamics,
                                             ::ad::map::route::FullRoute const &inputRoute,
                                             AppendRoadBoundariesMode const operationMode)
@@ -452,7 +487,7 @@ bool RssSceneCreation::appendRoadBoundaries(::ad::rss::world::ObjectId const &eg
     }
 
     auto egoObject = std::make_shared<RssObjectConversion const>(
-      egoId, ::ad::rss::world::ObjectType::EgoVehicle, egoMatchObject, egoSpeed, egoRssDynamics);
+      egoId, ::ad::rss::world::ObjectType::EgoVehicle, egoMatchObject, egoSpeed, egoYawRate, egoRssDynamics);
 
     RssSceneCreator sceneCreator(*this);
     getLogger()->debug("RssSceneCreation::appendRoadBoundaries[]>>\n"

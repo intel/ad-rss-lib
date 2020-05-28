@@ -57,7 +57,9 @@ protected:
     ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLatBrakeMin(-1e2);
     valueDefaultEgoVehicleRssDynamicsAlphaLat.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLatBrakeMin;
     valueDefaultEgoVehicleRssDynamics.alphaLat = valueDefaultEgoVehicleRssDynamicsAlphaLat;
-    ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin(0.);
+    ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin(-1e9);
+    valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin
+      = ::ad::physics::Distance(0.); // set to valid value within struct
     valueDefaultEgoVehicleRssDynamics.lateralFluctuationMargin
       = valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin;
     ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsResponseTime(0.);
@@ -66,6 +68,23 @@ protected:
     valueDefaultEgoVehicleRssDynamics.responseTime = valueDefaultEgoVehicleRssDynamicsResponseTime;
     ::ad::physics::Speed valueDefaultEgoVehicleRssDynamicsMaxSpeed(-100.);
     valueDefaultEgoVehicleRssDynamics.maxSpeed = valueDefaultEgoVehicleRssDynamicsMaxSpeed;
+    ::ad::rss::world::UnstructuredSettings valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
+    ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
+    ::ad::physics::Angle valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.driveAwayMaxAngle
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+    ::ad::physics::AngularAcceleration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange(-1e2);
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleYawRateChange
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange;
+    ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
+    ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+    valueDefaultEgoVehicleRssDynamics.unstructuredSettings = valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
     value.defaultEgoVehicleRssDynamics = valueDefaultEgoVehicleRssDynamics;
     ::ad::rss::state::RssStateVector valueIndividualResponses;
     ::ad::rss::state::RssState valueIndividualResponsesElement;
@@ -108,10 +127,10 @@ protected:
     valueIndividualResponsesElementLongitudinalState.alphaLon
       = valueIndividualResponsesElementLongitudinalStateAlphaLon;
     ::ad::rss::state::RssStateInformation valueIndividualResponsesElementLongitudinalStateRssStateInformation;
-    ::ad::physics::Distance valueIndividualResponsesElementLongitudinalStateRssStateInformationSafeDistance(0.);
+    ::ad::physics::Distance valueIndividualResponsesElementLongitudinalStateRssStateInformationSafeDistance(-1e9);
     valueIndividualResponsesElementLongitudinalStateRssStateInformation.safeDistance
       = valueIndividualResponsesElementLongitudinalStateRssStateInformationSafeDistance;
-    ::ad::physics::Distance valueIndividualResponsesElementLongitudinalStateRssStateInformationCurrentDistance(0.);
+    ::ad::physics::Distance valueIndividualResponsesElementLongitudinalStateRssStateInformationCurrentDistance(-1e9);
     valueIndividualResponsesElementLongitudinalStateRssStateInformation.currentDistance
       = valueIndividualResponsesElementLongitudinalStateRssStateInformationCurrentDistance;
     ::ad::rss::state::RssStateEvaluator valueIndividualResponsesElementLongitudinalStateRssStateInformationEvaluator(
@@ -140,10 +159,10 @@ protected:
     valueIndividualResponsesElementLateralStateRight.alphaLat
       = valueIndividualResponsesElementLateralStateRightAlphaLat;
     ::ad::rss::state::RssStateInformation valueIndividualResponsesElementLateralStateRightRssStateInformation;
-    ::ad::physics::Distance valueIndividualResponsesElementLateralStateRightRssStateInformationSafeDistance(0.);
+    ::ad::physics::Distance valueIndividualResponsesElementLateralStateRightRssStateInformationSafeDistance(-1e9);
     valueIndividualResponsesElementLateralStateRightRssStateInformation.safeDistance
       = valueIndividualResponsesElementLateralStateRightRssStateInformationSafeDistance;
-    ::ad::physics::Distance valueIndividualResponsesElementLateralStateRightRssStateInformationCurrentDistance(0.);
+    ::ad::physics::Distance valueIndividualResponsesElementLateralStateRightRssStateInformationCurrentDistance(-1e9);
     valueIndividualResponsesElementLateralStateRightRssStateInformation.currentDistance
       = valueIndividualResponsesElementLateralStateRightRssStateInformationCurrentDistance;
     ::ad::rss::state::RssStateEvaluator valueIndividualResponsesElementLateralStateRightRssStateInformationEvaluator(
@@ -170,10 +189,10 @@ protected:
       = valueIndividualResponsesElementLateralStateLeftAlphaLatBrakeMin;
     valueIndividualResponsesElementLateralStateLeft.alphaLat = valueIndividualResponsesElementLateralStateLeftAlphaLat;
     ::ad::rss::state::RssStateInformation valueIndividualResponsesElementLateralStateLeftRssStateInformation;
-    ::ad::physics::Distance valueIndividualResponsesElementLateralStateLeftRssStateInformationSafeDistance(0.);
+    ::ad::physics::Distance valueIndividualResponsesElementLateralStateLeftRssStateInformationSafeDistance(-1e9);
     valueIndividualResponsesElementLateralStateLeftRssStateInformation.safeDistance
       = valueIndividualResponsesElementLateralStateLeftRssStateInformationSafeDistance;
-    ::ad::physics::Distance valueIndividualResponsesElementLateralStateLeftRssStateInformationCurrentDistance(0.);
+    ::ad::physics::Distance valueIndividualResponsesElementLateralStateLeftRssStateInformationCurrentDistance(-1e9);
     valueIndividualResponsesElementLateralStateLeftRssStateInformation.currentDistance
       = valueIndividualResponsesElementLateralStateLeftRssStateInformationCurrentDistance;
     ::ad::rss::state::RssStateEvaluator valueIndividualResponsesElementLateralStateLeftRssStateInformationEvaluator(
@@ -183,8 +202,92 @@ protected:
     valueIndividualResponsesElementLateralStateLeft.rssStateInformation
       = valueIndividualResponsesElementLateralStateLeftRssStateInformation;
     valueIndividualResponsesElement.lateralStateLeft = valueIndividualResponsesElementLateralStateLeft;
+    ::ad::rss::state::UnstructuredSceneRssState valueIndividualResponsesElementUnstructuredSceneState;
+    bool valueIndividualResponsesElementUnstructuredSceneStateIsSafe{true};
+    valueIndividualResponsesElementUnstructuredSceneState.isSafe
+      = valueIndividualResponsesElementUnstructuredSceneStateIsSafe;
+    ::ad::rss::state::UnstructuredSceneResponse valueIndividualResponsesElementUnstructuredSceneStateResponse(
+      ::ad::rss::state::UnstructuredSceneResponse::None);
+    valueIndividualResponsesElementUnstructuredSceneState.response
+      = valueIndividualResponsesElementUnstructuredSceneStateResponse;
+    ::ad::physics::AngleRange valueIndividualResponsesElementUnstructuredSceneStateHeadingRange;
+    ::ad::physics::Angle valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
+    valueIndividualResponsesElementUnstructuredSceneStateHeadingRange.minimum
+      = valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeMinimum;
+    ::ad::physics::Angle valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
+    valueIndividualResponsesElementUnstructuredSceneStateHeadingRange.maximum
+      = valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeMaximum;
+    valueIndividualResponsesElementUnstructuredSceneState.headingRange
+      = valueIndividualResponsesElementUnstructuredSceneStateHeadingRange;
+    ::ad::rss::state::UnstructuredSceneStateInformation
+      valueIndividualResponsesElementUnstructuredSceneStateRssStateInformation;
+    ::ad::rss::world::UnstructuredTrajectorySet
+      valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
+    ::ad::physics::Distance2D
+      valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
+    ::ad::physics::Distance
+      valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);
+    valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
+      = valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX;
+    ::ad::physics::Distance
+      valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY(-1e9);
+    valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.y
+      = valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY;
+    valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet.resize(
+      1, valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
+    valueIndividualResponsesElementUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
+      = valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
+    ::ad::rss::world::UnstructuredTrajectorySet
+      valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
+    ::ad::physics::Distance2D
+      valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
+    ::ad::physics::Distance
+      valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(
+        -1e9);
+    valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
+      = valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX;
+    ::ad::physics::Distance
+      valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY(
+        -1e9);
+    valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.y
+      = valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY;
+    valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet.resize(
+      1, valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement);
+    valueIndividualResponsesElementUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
+      = valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
+    valueIndividualResponsesElementUnstructuredSceneState.rssStateInformation
+      = valueIndividualResponsesElementUnstructuredSceneStateRssStateInformation;
+    valueIndividualResponsesElement.unstructuredSceneState = valueIndividualResponsesElementUnstructuredSceneState;
+    ::ad::rss::situation::SituationType valueIndividualResponsesElementSituationType(
+      ::ad::rss::situation::SituationType::NotRelevant);
+    valueIndividualResponsesElement.situationType = valueIndividualResponsesElementSituationType;
     valueIndividualResponses.resize(1, valueIndividualResponsesElement);
     value.individualResponses = valueIndividualResponses;
+    ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneEgoInformation;
+    ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneEgoInformationBrakeTrajectorySet;
+    ::ad::physics::Distance2D valueUnstructuredSceneEgoInformationBrakeTrajectorySetElement;
+    ::ad::physics::Distance valueUnstructuredSceneEgoInformationBrakeTrajectorySetElementX(-1e9);
+    valueUnstructuredSceneEgoInformationBrakeTrajectorySetElement.x
+      = valueUnstructuredSceneEgoInformationBrakeTrajectorySetElementX;
+    ::ad::physics::Distance valueUnstructuredSceneEgoInformationBrakeTrajectorySetElementY(-1e9);
+    valueUnstructuredSceneEgoInformationBrakeTrajectorySetElement.y
+      = valueUnstructuredSceneEgoInformationBrakeTrajectorySetElementY;
+    valueUnstructuredSceneEgoInformationBrakeTrajectorySet.resize(
+      1, valueUnstructuredSceneEgoInformationBrakeTrajectorySetElement);
+    valueUnstructuredSceneEgoInformation.brakeTrajectorySet = valueUnstructuredSceneEgoInformationBrakeTrajectorySet;
+    ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneEgoInformationContinueForwardTrajectorySet;
+    ::ad::physics::Distance2D valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElement;
+    ::ad::physics::Distance valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElementX(-1e9);
+    valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElement.x
+      = valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElementX;
+    ::ad::physics::Distance valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElementY(-1e9);
+    valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElement.y
+      = valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElementY;
+    valueUnstructuredSceneEgoInformationContinueForwardTrajectorySet.resize(
+      1, valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElement);
+    valueUnstructuredSceneEgoInformation.continueForwardTrajectorySet
+      = valueUnstructuredSceneEgoInformationContinueForwardTrajectorySet;
+    value.unstructuredSceneEgoInformation = valueUnstructuredSceneEgoInformation;
     mValue = value;
   }
 
@@ -285,6 +388,23 @@ TEST_F(RssStateSnapshotTests, comparisonOperatorDefaultEgoVehicleRssDynamicsDiff
   defaultEgoVehicleRssDynamics.responseTime = defaultEgoVehicleRssDynamicsResponseTime;
   ::ad::physics::Speed defaultEgoVehicleRssDynamicsMaxSpeed(100.);
   defaultEgoVehicleRssDynamics.maxSpeed = defaultEgoVehicleRssDynamicsMaxSpeed;
+  ::ad::rss::world::UnstructuredSettings defaultEgoVehicleRssDynamicsUnstructuredSettings;
+  ::ad::physics::Distance defaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(1e9);
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
+  ::ad::physics::Angle defaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(6.283185308);
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.driveAwayMaxAngle
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
+  ::ad::physics::AngularAcceleration defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange(1e2);
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleYawRateChange
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange;
+  ::ad::physics::Distance defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(1e9);
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
+  ::ad::physics::Duration defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(1e6);
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  defaultEgoVehicleRssDynamics.unstructuredSettings = defaultEgoVehicleRssDynamicsUnstructuredSettings;
   valueA.defaultEgoVehicleRssDynamics = defaultEgoVehicleRssDynamics;
   ::ad::rss::state::RssStateSnapshot valueB = mValue;
 
@@ -406,8 +526,96 @@ TEST_F(RssStateSnapshotTests, comparisonOperatorIndividualResponsesDiffers)
   individualResponsesElementLateralStateLeft.rssStateInformation
     = individualResponsesElementLateralStateLeftRssStateInformation;
   individualResponsesElement.lateralStateLeft = individualResponsesElementLateralStateLeft;
+  ::ad::rss::state::UnstructuredSceneRssState individualResponsesElementUnstructuredSceneState;
+  bool individualResponsesElementUnstructuredSceneStateIsSafe{false};
+  individualResponsesElementUnstructuredSceneState.isSafe = individualResponsesElementUnstructuredSceneStateIsSafe;
+  ::ad::rss::state::UnstructuredSceneResponse individualResponsesElementUnstructuredSceneStateResponse(
+    ::ad::rss::state::UnstructuredSceneResponse::Brake);
+  individualResponsesElementUnstructuredSceneState.response = individualResponsesElementUnstructuredSceneStateResponse;
+  ::ad::physics::AngleRange individualResponsesElementUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle individualResponsesElementUnstructuredSceneStateHeadingRangeMinimum(6.283185308);
+  individualResponsesElementUnstructuredSceneStateHeadingRange.minimum
+    = individualResponsesElementUnstructuredSceneStateHeadingRangeMinimum;
+  ::ad::physics::Angle individualResponsesElementUnstructuredSceneStateHeadingRangeMaximum(6.283185308);
+  individualResponsesElementUnstructuredSceneStateHeadingRange.maximum
+    = individualResponsesElementUnstructuredSceneStateHeadingRangeMaximum;
+  individualResponsesElementUnstructuredSceneState.headingRange
+    = individualResponsesElementUnstructuredSceneStateHeadingRange;
+  ::ad::rss::state::UnstructuredSceneStateInformation
+    individualResponsesElementUnstructuredSceneStateRssStateInformation;
+  ::ad::rss::world::UnstructuredTrajectorySet
+    individualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
+  ::ad::physics::Distance2D
+    individualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
+  ::ad::physics::Distance individualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(
+    1e9);
+  individualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
+    = individualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX;
+  ::ad::physics::Distance individualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY(
+    1e9);
+  individualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.y
+    = individualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY;
+  individualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet.resize(
+    2, individualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
+  individualResponsesElementUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
+    = individualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
+  ::ad::rss::world::UnstructuredTrajectorySet
+    individualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
+  ::ad::physics::Distance2D
+    individualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
+  ::ad::physics::Distance
+    individualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(1e9);
+  individualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
+    = individualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX;
+  ::ad::physics::Distance
+    individualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY(1e9);
+  individualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.y
+    = individualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY;
+  individualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet.resize(
+    2, individualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement);
+  individualResponsesElementUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
+    = individualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
+  individualResponsesElementUnstructuredSceneState.rssStateInformation
+    = individualResponsesElementUnstructuredSceneStateRssStateInformation;
+  individualResponsesElement.unstructuredSceneState = individualResponsesElementUnstructuredSceneState;
+  ::ad::rss::situation::SituationType individualResponsesElementSituationType(
+    ::ad::rss::situation::SituationType::Unstructured);
+  individualResponsesElement.situationType = individualResponsesElementSituationType;
   individualResponses.resize(0 + 1, individualResponsesElement);
   valueA.individualResponses = individualResponses;
+  ::ad::rss::state::RssStateSnapshot valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(RssStateSnapshotTests, comparisonOperatorUnstructuredSceneEgoInformationDiffers)
+{
+  ::ad::rss::state::RssStateSnapshot valueA = mValue;
+  ::ad::rss::state::UnstructuredSceneStateInformation unstructuredSceneEgoInformation;
+  ::ad::rss::world::UnstructuredTrajectorySet unstructuredSceneEgoInformationBrakeTrajectorySet;
+  ::ad::physics::Distance2D unstructuredSceneEgoInformationBrakeTrajectorySetElement;
+  ::ad::physics::Distance unstructuredSceneEgoInformationBrakeTrajectorySetElementX(1e9);
+  unstructuredSceneEgoInformationBrakeTrajectorySetElement.x
+    = unstructuredSceneEgoInformationBrakeTrajectorySetElementX;
+  ::ad::physics::Distance unstructuredSceneEgoInformationBrakeTrajectorySetElementY(1e9);
+  unstructuredSceneEgoInformationBrakeTrajectorySetElement.y
+    = unstructuredSceneEgoInformationBrakeTrajectorySetElementY;
+  unstructuredSceneEgoInformationBrakeTrajectorySet.resize(2, unstructuredSceneEgoInformationBrakeTrajectorySetElement);
+  unstructuredSceneEgoInformation.brakeTrajectorySet = unstructuredSceneEgoInformationBrakeTrajectorySet;
+  ::ad::rss::world::UnstructuredTrajectorySet unstructuredSceneEgoInformationContinueForwardTrajectorySet;
+  ::ad::physics::Distance2D unstructuredSceneEgoInformationContinueForwardTrajectorySetElement;
+  ::ad::physics::Distance unstructuredSceneEgoInformationContinueForwardTrajectorySetElementX(1e9);
+  unstructuredSceneEgoInformationContinueForwardTrajectorySetElement.x
+    = unstructuredSceneEgoInformationContinueForwardTrajectorySetElementX;
+  ::ad::physics::Distance unstructuredSceneEgoInformationContinueForwardTrajectorySetElementY(1e9);
+  unstructuredSceneEgoInformationContinueForwardTrajectorySetElement.y
+    = unstructuredSceneEgoInformationContinueForwardTrajectorySetElementY;
+  unstructuredSceneEgoInformationContinueForwardTrajectorySet.resize(
+    2, unstructuredSceneEgoInformationContinueForwardTrajectorySetElement);
+  unstructuredSceneEgoInformation.continueForwardTrajectorySet
+    = unstructuredSceneEgoInformationContinueForwardTrajectorySet;
+  valueA.unstructuredSceneEgoInformation = unstructuredSceneEgoInformation;
   ::ad::rss::state::RssStateSnapshot valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
