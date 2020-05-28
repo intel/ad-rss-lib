@@ -15,7 +15,6 @@
 #include "ad/rss/situation/SituationSnapshot.hpp"
 #include "ad/rss/state/ProperResponse.hpp"
 #include "ad/rss/state/RssStateSnapshot.hpp"
-#include "ad/rss/world/AccelerationRestriction.hpp"
 #include "ad/rss/world/WorldModel.hpp"
 
 /*!
