@@ -240,8 +240,16 @@ Trajectory TrajectoryVehicle::createTrajectory(situation::VehicleState const &ve
                                   aUntilResponseTime,
                                   aAfterResponseTime,
                                   speedAtResponseTime);
-        currentRadius = ad::physics::Distance(static_cast<double>(speedAtResponseTime)
-                                              / static_cast<double>(yawRateResponseTime)); // TODO limit
+        if (std::fabs(static_cast<double>(yawRateResponseTime))
+            < std::fabs(static_cast<double>(speedAtResponseTime) / static_cast<double>(maxRadius)))
+        {
+          currentRadius = maxRadius;
+        }
+        else
+        {
+          currentRadius = ad::physics::Distance(static_cast<double>(speedAtResponseTime)
+                                                / static_cast<double>(yawRateResponseTime));
+        }
         if (std::fabs(currentRadius) < vehicleState.dynamics.unstructuredSettings.vehicleMinRadius)
         {
           if (yawRateResponseTime > ad::physics::AngularVelocity(0.0))
