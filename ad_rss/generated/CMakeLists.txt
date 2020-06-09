@@ -25,11 +25,18 @@ set(CMAKE_CXX_STANDARD 14)
 option(BUILD_SHARED_LIBS "Build shared libraries instead of static ones" ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+set(INCLUDE_DIRS)
+set(LIBRARIES)
+
 include(ad_rss)
 
 if ((NOT ad_rss_SOURCES) OR (NOT ad_rss_INCLUDE_DIRS))
   message(FATAL_ERROR "${PROJECT_NAME}: Variable ad_rss_SOURCES or ad_rss_INCLUDE_DIRS pointing to the generator managed library not set!")
 endif()
+
+find_package(Boost REQUIRED)
+list(APPEND INCLUDE_DIRS ${Boost_INCLUDE_DIRS})
+list(APPEND LIBRARIES ${Boost_LIBRARIES})
 
 find_package(ad_physics 2.1.1 REQUIRED CONFIG)
 find_package(spdlog REQUIRED CONFIG)
@@ -62,12 +69,15 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
   ${ad_rss_TARGET_INCLUDE_DIRECTORIES}
   "$<BUILD_INTERFACE:${ad_rss_INCLUDE_DIRS}>"
+  ${INCLUDE_DIRS}
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
   ad_physics
   spdlog::spdlog
   ${ad_rss_TARGET_LINK_LIBRARIES}
+  PRIVATE
+  ${LIBRARIES}
 )
 
 set(BINDING_TYPE MOCKUP)

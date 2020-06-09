@@ -17,6 +17,10 @@
 
 include(CMakeFindDependencyMacro)
 
+find_package(Boost REQUIRED)
+list(APPEND INCLUDE_DIRS ${Boost_INCLUDE_DIRS})
+list(APPEND LIBRARIES ${Boost_LIBRARIES})
+
 find_dependency(ad_physics 2.1.1)
 find_dependency(spdlog)
 

@@ -81,15 +81,16 @@ bool RssUnstructuredSceneChecker::calculateRssStateUnstructured(world::TimeIndex
     result = calculateUnstructuredSceneStateInfo(situation.egoVehicleState, egoStateInfo);
   }
 
-  state::UnstructuredSceneStateInformation otherStateInfo;
   if (result)
   {
-    result = calculateUnstructuredSceneStateInfo(situation.otherVehicleState, otherStateInfo);
+    result = calculateUnstructuredSceneStateInfo(situation.otherVehicleState,
+                                                 rssState.unstructuredSceneState.rssStateInformation);
   }
 
   if (result)
   {
-    result = calculateState(situation, egoStateInfo, otherStateInfo, rssState.unstructuredSceneState);
+    result = calculateState(
+      situation, egoStateInfo, rssState.unstructuredSceneState.rssStateInformation, rssState.unstructuredSceneState);
   }
   return result;
 }

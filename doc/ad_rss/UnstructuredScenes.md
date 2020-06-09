@@ -1,12 +1,12 @@
 ## Overview
 
 Unstructured scenes implement unstructured roads (described in chapter 3.7.2 of the [RSS paper](https://arxiv.org/abs/1708.06374), definitions 19-22) and pedestrians (described in chapter 3.8).
-In contrast to the structured scenes, two dimensional trajectories with lateral and longitudinal components are calculated.
+In contrast to the structured scenes, two dimensional trajectories with lateral and longitudinal component are calculated.
 
 
 ### World Modeling
 
-TODO: you can select which situation should be calculated as unstructured.
+To allow customization, every scene within the [`ad::rss::world::WorldModel`](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html) can be calculated as unstructured, depending on the `situationType`.
 
 ### Behavior model/Trajectory Calculation
 
@@ -15,7 +15,7 @@ Limits are defined to be able to calculate all possible trajectories.
 
 #### Vehicle
 
-* The change of the yaw rate $h'(t)$ is limited: The maximum change of the yaw rate until response time can be specified by `UnstructuredSettings::vehicleYawRateChangePerSecond`.
+* The change of the yaw rate $h'(t)$ is limited: The maximum change of the yaw rate until response time can be specified by `UnstructuredSettings::vehicleYawRateChange`.
 * The radius of the circle, the vehicle is driving on is $r(t) = v(t)/h'(t)$
 * At emergency, after the response time, the vehicle continues driving on a circle (i.e. no further yaw rate change)
 * The minimum radius `UnstructuredSettings::vehicleMinRadius` defines the minimal radius a vehicle is able to drive on
@@ -26,7 +26,7 @@ TODO: Add image showing possible trajectories
 
 #### Pedestrian
 
-* The change of heading $|h'(t)| is limited. That means, the maximum trajectory is defined by a circle until response time. The radius of this circle can be specified by `UnstructuredSettings::pedestrianTurningRadius`.
+* The change of heading $|h'(t)|$ is limited. That means, the maximum trajectory is defined by a circle until response time. The radius of this circle can be specified by `UnstructuredSettings::pedestrianTurningRadius`.
 * At emergency, after the response time, the pedestrian will continue at a straight line
 * If the pedestrian is standing, we assign it to all possible lines originating from his current position.
 
@@ -50,7 +50,7 @@ Each combination is used to calculate a final trajectory point (i.e. a position 
 Afterwards the vehicle dimensions are applied and a border polygon is calculated which defines the trajectory set.
 
 !!! IMPORTANT
-    The initial implementation uses simplifications that might not calculate valid trajectory sets for certain parameters.
+    The current implementation uses simplifications that might not calculate valid trajectory sets for certain parameters.
 
 There are two relevant trajectory sets: for braking $T(C_{b})$ and continue-forward $T(C_{f})$. The difference is the longitudinal acceleration after response time:
 
