@@ -143,8 +143,9 @@ bool RssSceneCreation::appendStructuredScenes(::ad::rss::map::RssSceneCreator &s
       auto const appendResult = sceneCreator.appendNotRelevantScene(egoRouteInput, egoObject, otherObject);
       return appendResult;
     }
-    getLogger()->trace("RssSceneCreation::appendScenes[{}]>> connecting route available to object:\n {}",
+    getLogger()->trace("RssSceneCreation::appendScenes[{}]>> connecting route of length {} available to object:\n {}",
                        otherObject->getId(),
+                       ad::map::route::calcLength(connectingRoute),
                        connectingRoute);
 
     // prepare ego route
@@ -262,6 +263,11 @@ bool RssSceneCreation::appendStructuredScenes(::ad::rss::map::RssSceneCreator &s
       {
         getLogger()->trace(
           "RssSceneCreation::appendScenes[{}]>> investigate egoRoute({})", otherObject->getId(), egoRoute);
+        // @todo: intersection creation has to support also creation of already entered intersections
+        // to get intersections currently driving in also considered appropriate!!
+        // The below is calculated wrong if there is -- besides the currently ignored entered intersection another one
+        // ...
+        //
         auto intersectionsOnEgoRoute = ::ad::map::intersection::Intersection::getIntersectionsForRoute(egoRoute);
         if (intersectionsOnEgoRoute.empty() && (connectingRoute.type == ::ad::map::route::ConnectingRouteType::Merging))
         {
