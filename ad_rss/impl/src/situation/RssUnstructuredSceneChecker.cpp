@@ -75,6 +75,8 @@ bool RssUnstructuredSceneChecker::calculateRssStateUnstructured(world::TimeIndex
   {
     mOtherMustBrakeStatesBeforeDangerThresholdTime.swap(mNewOtherMustBrakeStatesBeforeDangerThresholdTime);
     mNewOtherMustBrakeStatesBeforeDangerThresholdTime.clear();
+    egoStateInfo.brakeTrajectorySet.clear();
+    egoStateInfo.continueForwardTrajectorySet.clear();
     mCurrentTimeIndex = timeIndex;
 
     // ego state only has to be calculated once per time step
