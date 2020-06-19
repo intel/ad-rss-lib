@@ -192,8 +192,8 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
       break;
     case DrivingMode::DriveAway:
     {
-      calculateDriveAwayAngle(unstructured::toPoint(situation.otherVehicleState.objectState.centerPoint),
-                              unstructured::toPoint(situation.egoVehicleState.objectState.centerPoint),
+      calculateDriveAwayAngle(unstructured::toPoint(situation.egoVehicleState.objectState.centerPoint),
+                              unstructured::toPoint(situation.otherVehicleState.objectState.centerPoint),
                               situation.egoVehicleState.dynamics.unstructuredSettings.driveAwayMaxAngle,
                               rssState.headingRange);
 
@@ -213,19 +213,27 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
   return result;
 }
 
-bool RssUnstructuredSceneChecker::calculateDriveAwayAngle(unstructured::Point const &otherVehicleLocation,
-                                                          unstructured::Point const &startingPoint,
+bool RssUnstructuredSceneChecker::calculateDriveAwayAngle(unstructured::Point const &egoVehicleLocation,
+                                                          unstructured::Point const &otherVehicleLocation,
                                                           ::ad::physics::Angle const &maxAllowedAngleWhenBothStopped,
-                                                          ::ad::physics::AngleRange &range) const
+                                                          ::ad::rss::state::HeadingRange &range) const
 {
-  auto const substractedLocationVector = startingPoint - otherVehicleLocation;
+  auto const substractedLocationVector = egoVehicleLocation - otherVehicleLocation;
 
   // get vector angle
   auto const substractedLocationVectorAngle = ::ad::physics::Angle(
     std::atan2(static_cast<double>(substractedLocationVector.y()), static_cast<double>(substractedLocationVector.x())));
 
-  range.minimum = physics::normalizeAngle(substractedLocationVectorAngle - maxAllowedAngleWhenBothStopped);
-  range.maximum = physics::normalizeAngle(substractedLocationVectorAngle + maxAllowedAngleWhenBothStopped);
+  if (maxAllowedAngleWhenBothStopped < ::ad::physics::cPI_2)
+  {
+    range.begin = physics::normalizeAngleSigned(substractedLocationVectorAngle + maxAllowedAngleWhenBothStopped);
+    range.end = physics::normalizeAngleSigned(substractedLocationVectorAngle - maxAllowedAngleWhenBothStopped);
+  }
+  else
+  {
+    range.begin = physics::normalizeAngleSigned(substractedLocationVectorAngle - maxAllowedAngleWhenBothStopped);
+    range.end = physics::normalizeAngleSigned(substractedLocationVectorAngle + maxAllowedAngleWhenBothStopped);
+  }
   return true;
 }
 

@@ -79,17 +79,13 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
     response.accelerationRestrictions.lateralLeftRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
     response.accelerationRestrictions.lateralRightRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
 
-    response.headingRange.outerRange.minimum = ad::physics::Angle(0.0);
-    response.headingRange.outerRange.maximum = ad::physics::Angle(2 * M_PI);
-    response.headingRange.innerRange.minimum = ad::physics::Angle(0.0);
-    response.headingRange.innerRange.maximum = ad::physics::Angle(0.0);
-
-    auto finalUnstructuredResponse = ad::rss::state::UnstructuredSceneResponse::ContinueForward;
-    ad::rss::state::HeadingRange finalHeadingRange;
-    finalHeadingRange.outerRange.minimum = ad::physics::Angle(0.0);
-    finalHeadingRange.outerRange.maximum = ad::physics::Angle(2.0 * M_PI);
-    finalHeadingRange.innerRange.minimum = ad::physics::Angle(0.0);
-    finalHeadingRange.innerRange.maximum = ad::physics::Angle(0.0);
+    auto finalUnstructuredResponse = state::UnstructuredSceneResponse::ContinueForward;
+    state::HeadingRange initialHeadingRange;
+    initialHeadingRange.begin = ad::physics::Angle(0.0);
+    initialHeadingRange.end = ad::physics::c2PI;
+    response.headingRanges.push_back(initialHeadingRange);
+    std::vector<state::HeadingRange> finalHeadingRanges;
+    finalHeadingRanges.push_back(initialHeadingRange);
 
     bool unstructuredSceneFound = false;
     bool structuredSceneFound = false;
@@ -103,27 +99,22 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
           spdlog::info("RssResponseResolving::provideProperResponse>> Unstructured state is dangerous: {}",
                        currentState);
           response.dangerousObjects.push_back(currentState.objectId);
-          if ((finalUnstructuredResponse == ad::rss::state::UnstructuredSceneResponse::Brake)
-              || (currentState.unstructuredSceneState.response == ad::rss::state::UnstructuredSceneResponse::Brake))
+          if ((finalUnstructuredResponse == state::UnstructuredSceneResponse::Brake)
+              || (currentState.unstructuredSceneState.response == state::UnstructuredSceneResponse::Brake))
           {
-            finalUnstructuredResponse = ad::rss::state::UnstructuredSceneResponse::Brake;
+            finalUnstructuredResponse = state::UnstructuredSceneResponse::Brake;
           }
-          else if (currentState.unstructuredSceneState.response == ad::rss::state::UnstructuredSceneResponse::DriveAway)
+          else if (currentState.unstructuredSceneState.response == state::UnstructuredSceneResponse::DriveAway)
           {
-            if (finalUnstructuredResponse == ad::rss::state::UnstructuredSceneResponse::DriveAway)
+            auto overlapAvailable
+              = unstructured::getHeadingOverlap(currentState.unstructuredSceneState.headingRange, finalHeadingRanges);
+            if (overlapAvailable)
             {
-              // update heading range
-              auto overlapAvailable = ad::rss::unstructured::getHeadingOverlap(
-                currentState.unstructuredSceneState.headingRange, finalHeadingRange);
-              if (!overlapAvailable)
-              {
-                finalUnstructuredResponse = ad::rss::state::UnstructuredSceneResponse::Brake;
-              }
+              finalUnstructuredResponse = state::UnstructuredSceneResponse::DriveAway;
             }
-            else // continue forward
+            else
             {
-              finalUnstructuredResponse = ad::rss::state::UnstructuredSceneResponse::DriveAway;
-              finalHeadingRange.outerRange = currentState.unstructuredSceneState.headingRange;
+              finalUnstructuredResponse = state::UnstructuredSceneResponse::Brake;
             }
           }
         }
@@ -164,7 +155,7 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
 
     if (unstructuredSceneFound)
     {
-      if (finalUnstructuredResponse == ad::rss::state::UnstructuredSceneResponse::Brake)
+      if (finalUnstructuredResponse == state::UnstructuredSceneResponse::Brake)
       {
         response.isSafe = false;
         response.longitudinalResponse = state::LongitudinalResponse::BrakeMin;
@@ -173,11 +164,11 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
         response.accelerationRestrictions.longitudinalRange.maximum
           = currentStateSnapshot.defaultEgoVehicleRssDynamics.alphaLon.brakeMin;
       }
-      else if (finalUnstructuredResponse == ad::rss::state::UnstructuredSceneResponse::DriveAway)
+      else if (finalUnstructuredResponse == state::UnstructuredSceneResponse::DriveAway)
       {
         response.isSafe = false;
         response.longitudinalResponse = state::LongitudinalResponse::BrakeMin;
-        response.headingRange = finalHeadingRange;
+        response.headingRanges = finalHeadingRanges;
         response.accelerationRestrictions.longitudinalRange.minimum
           = currentStateSnapshot.defaultEgoVehicleRssDynamics.alphaLon.brakeMax;
         response.accelerationRestrictions.longitudinalRange.maximum
@@ -215,8 +206,8 @@ template <typename Response> Response combineResponse(Response const &previousRe
   return newResponse;
 }
 
-void RssResponseResolving::combineState(::ad::rss::state::LongitudinalRssState const &state,
-                                        ::ad::rss::state::LongitudinalResponse &response,
+void RssResponseResolving::combineState(state::LongitudinalRssState const &state,
+                                        state::LongitudinalResponse &response,
                                         ::ad::physics::AccelerationRange &accelerationRange)
 {
   response = combineResponse(state.response, response);
@@ -225,13 +216,13 @@ void RssResponseResolving::combineState(::ad::rss::state::LongitudinalRssState c
   accelerationRange.minimum = std::max(accelerationRange.minimum, state.alphaLon.brakeMax);
   switch (state.response)
   {
-    case ::ad::rss::state::LongitudinalResponse::BrakeMin:
+    case state::LongitudinalResponse::BrakeMin:
       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLon.brakeMin);
       break;
-    case ::ad::rss::state::LongitudinalResponse::BrakeMinCorrect:
+    case state::LongitudinalResponse::BrakeMinCorrect:
       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLon.brakeMinCorrect);
       break;
-    case ::ad::rss::state::LongitudinalResponse::None:
+    case state::LongitudinalResponse::None:
       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLon.accelMax);
       break;
     default:
@@ -243,8 +234,8 @@ void RssResponseResolving::combineState(::ad::rss::state::LongitudinalRssState c
   // LCOV_EXCL_BR_STOP
 }
 
-void RssResponseResolving::combineState(::ad::rss::state::LateralRssState const &state,
-                                        ::ad::rss::state::LateralResponse &response,
+void RssResponseResolving::combineState(state::LateralRssState const &state,
+                                        state::LateralResponse &response,
                                         ::ad::physics::AccelerationRange &accelerationRange)
 {
   response = combineResponse(state.response, response);
@@ -253,10 +244,10 @@ void RssResponseResolving::combineState(::ad::rss::state::LateralRssState const 
   accelerationRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
   switch (state.response)
   {
-    case ::ad::rss::state::LateralResponse::BrakeMin:
+    case state::LateralResponse::BrakeMin:
       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLat.brakeMin);
       break;
-    case ::ad::rss::state::LateralResponse::None:
+    case state::LateralResponse::None:
       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLat.accelMax);
       break;
     default:

@@ -27,6 +27,7 @@ namespace rss {
 namespace unstructured {
 
 const ad::physics::Distance TrajectoryPedestrian::maxRadius(1000.);
+const ad::physics::Angle TrajectoryPedestrian::circleStepWidth(0.1);
 
 bool TrajectoryPedestrian::calculateTrajectorySets(situation::VehicleState const &vehicleState,
                                                    Polygon &brakePolygon,
@@ -103,7 +104,7 @@ bool TrajectoryPedestrian::createTrajectorySet(situation::VehicleState const &ve
                        maxDistance,
                        ad::physics::Angle(0.),
                        ad::physics::c2PI,
-                       true,
+                       circleStepWidth,
                        trajectorySet);
   }
   return result;
