@@ -131,10 +131,6 @@ public:
    */
   void updateVelocityOnRoute(::ad::map::route::FullRoute const &route);
 
-  /** @brief fill occupied regions with all dummy regions from the map::match::LaneOccupiedRegionList
-   */
-  void fillNotRelevantSceneBoundingBox();
-
   /** @brief return the map matched position object this was created with (might be nullptr)
    */
   ::ad::map::match::Object const *getObjectMapMatchedPosition() const

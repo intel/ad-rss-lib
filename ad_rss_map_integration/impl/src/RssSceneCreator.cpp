@@ -155,27 +155,19 @@ bool RssSceneCreator::appendNotRelevantScene(::ad::map::route::FullRoute const &
 
   // in the end this scene is only for convenience to get to know that we considered it and e.g. visualize it
   // It could be left out completely
-
-  // ensure occupied regions filled meaningful to provide some means on where the ego and the object are located
-  otherObject->fillNotRelevantSceneBoundingBox();
   ::ad::rss::world::RoadArea egoVehicleRoad;
   if (!route.roadSegments.empty())
   {
-    // in case the ego route is actually available, we can try to fill the occupied regions as usual
+    // in case the ego route is actually available, we can try to fill the route as usual to have some hint where the
+    // ego is driving
     egoVehicleRoad
       = createRoadArea(route, route.minLaneOffset, route.maxLaneOffset, ::ad::map::lane::LaneIdSet(), {egoObject});
-  }
-
-  if (egoObject->getRssObject().occupiedRegions.empty())
-  {
-    // in case the ego route was actually not available, or the ego vehicle is not driving within the route
-    // we fill also the ego object with the dummy occupied regions
-    egoObject->fillNotRelevantSceneBoundingBox();
   }
 
   getLogger()->debug("RssSceneCreator::appendNotRelevantScene[{}]>>situation {}",
                      otherObject->getId(),
                      ::ad::rss::situation::SituationType::NotRelevant);
+
   return appendScene(::ad::rss::situation::SituationType::NotRelevant,
                      egoObject,
                      egoVehicleRoad,
@@ -600,20 +592,7 @@ bool RssSceneCreator::appendScene(::ad::rss::situation::SituationType const &sit
   getLogger()->trace("RssSceneCreator::appendScene[{}]>> object {}", otherObject->getId(), scene.object);
   getLogger()->trace("RssSceneCreator::appendScene[{}]>> ego {}", otherObject->getId(), scene.egoVehicle);
 
-  if (scene.egoVehicle.occupiedRegions.empty())
-  {
-    ::ad::map::match::Object matchObject;
-    if (egoObject->getObjectMapMatchedPosition() != nullptr)
-    {
-      matchObject = *egoObject->getObjectMapMatchedPosition();
-    }
-    getLogger()->warn("RssSceneCreator::appendScene[{}]>> dropping scene because ego occupied regions empty {} -> {}",
-                      otherObject->getId(),
-                      matchObject,
-                      scene);
-    return false;
-  }
-  else if (withinValidInputRange(scene))
+  if (withinValidInputRange(scene))
   {
     return mSceneCreation.appendSceneToWorldModel(scene);
   }
@@ -648,9 +627,6 @@ bool RssSceneCreator::appendUnstructuredScene(RssObjectConversion::ConstPtr iEgo
       iOtherObject->getId());
     return false;
   }
-
-  egoObject->fillNotRelevantSceneBoundingBox();
-  otherObject->fillNotRelevantSceneBoundingBox();
 
   getLogger()->debug("RssSceneCreator::appendUnstructuredScene[{}]>>", otherObject->getId());
 
