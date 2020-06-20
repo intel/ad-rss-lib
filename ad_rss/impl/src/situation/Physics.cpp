@@ -25,9 +25,17 @@ Distance calculateDistanceOffsetInAcceleratedMovement(Speed const &speed,
                                                       Acceleration const &acceleration,
                                                       Duration const &duration)
 {
-  // s(t) = (a/2) * t^2 + v0 * t
-  Distance const distanceOffset = (acceleration * 0.5 * duration * duration) + (speed * duration);
-  return distanceOffset;
+  if (speed == Speed(0.))
+  {
+    Distance const distanceOffset = 0.;
+    return distanceoffset;
+  }
+  else
+  {
+    // s(t) = (a/2) * t^2 + v0 * t
+    Distance const distanceOffset = (acceleration * 0.5 * duration * duration) + (speed * duration);
+    return distanceOffset;
+  }
 }
 
 Distance calculateDistanceOffsetInAcceleratedLimitedMovement(Speed const &speed,
@@ -56,9 +64,19 @@ Speed calculateSpeedInAcceleratedMovement(Speed const &speed,
                                           Acceleration const &acceleration,
                                           Duration const &duration)
 {
-  // v(t) =v0 + a * t
-  Speed const resultingSpeed = speed + acceleration * duration;
-  return resultingSpeed;
+  // if car's lateral speed is equal to 0, as for the current timestamp,
+  // i think its lateral distance should be equal to 0.
+  if (speed == Speed(0.))
+  {
+    Speed const resultingSpeed = speed;
+    return resultingSpeed;
+  }
+  esle
+  {
+    // v(t) =v0 + a * t
+    Speed const resultingSpeed = speed + acceleration * duration;
+    return resultingSpeed;
+  }
 }
 
 bool calculateStoppingDistance(Speed const &currentSpeed, Acceleration const &deceleration, Distance &stoppingDistance)
