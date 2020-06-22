@@ -13,7 +13,7 @@ namespace ad {
 namespace rss {
 namespace situation {
 
-TEST(RssUnstructuredSceneCheckerTests, calculateDriveAwayAngle)
+TEST(RssSituationCheckingTestsUnstructuredSceneChecker, calculateDriveAwayAngle)
 {
   ::ad::rss::state::HeadingRange range;
   RssUnstructuredSceneChecker unstructuredSceneChecker;
@@ -58,7 +58,7 @@ TEST(RssUnstructuredSceneCheckerTests, calculateDriveAwayAngle)
   ASSERT_EQ(range.end, physics::cPI);
 }
 
-TEST(RssUnstructuredSceneCheckerTests, calculateState_emptyTrajectorySets)
+TEST(RssSituationCheckingTestsUnstructuredSceneChecker, calculateState_emptyTrajectorySets)
 {
   RssUnstructuredSceneChecker unstructuredSceneChecker;
   state::UnstructuredSceneRssState unstructuredSceneState;
@@ -72,7 +72,7 @@ TEST(RssUnstructuredSceneCheckerTests, calculateState_emptyTrajectorySets)
     unstructuredSceneChecker.calculateState(situation, egoStateInfo, otherStateInfo, unstructuredSceneState));
 }
 
-TEST(RssUnstructuredSceneCheckerTests, calculateState_frontal_stopped)
+TEST(RssSituationCheckingTestsUnstructuredSceneChecker, calculateState_frontal_stopped)
 {
   RssUnstructuredSceneChecker unstructuredSceneChecker;
   state::UnstructuredSceneRssState unstructuredSceneState;

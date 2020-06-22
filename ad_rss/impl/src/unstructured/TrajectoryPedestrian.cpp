@@ -93,13 +93,13 @@ bool TrajectoryPedestrian::createTrajectorySet(situation::VehicleState const &ve
   {
     // If pedestrian is standing, he might start walking in any direction
     ad::physics::Distance maxDistance;
-    situation::calculateDistanceOffset(duration,
-                                       vehicleState.objectState.speed,
-                                       vehicleState.dynamics.responseTime,
-                                       vehicleState.dynamics.maxSpeed,
-                                       vehicleState.dynamics.alphaLon.accelMax,
-                                       aAfterResponseTime,
-                                       maxDistance);
+    result = situation::calculateDistanceOffset(duration,
+                                                vehicleState.objectState.speed,
+                                                vehicleState.dynamics.responseTime,
+                                                vehicleState.dynamics.maxSpeed,
+                                                vehicleState.dynamics.alphaLon.accelMax,
+                                                aAfterResponseTime,
+                                                maxDistance);
     calculateCircleArc(toPoint(vehicleState.objectState.centerPoint),
                        maxDistance,
                        ad::physics::Angle(0.),
@@ -155,7 +155,6 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
 
     auto pointAfterResponseTime = getPointOnCircle(circleOrigin, radius, startingAngle + angleChange);
 #if DRAW_TRAJECTORIES
-    // todo: draw circle part
     boost::geometry::append(linePts, pointAfterResponseTime);
 #endif
 

@@ -50,7 +50,7 @@ bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const
     = calculateSpeedAfterAcceleration(axis, currentSpeed, maxSpeed, acceleration, responseTime, resultingSpeed);
 
   Distance distanceOffsetAfterResponseTime = Distance(0.);
-  result = result && calculateDistanceOffsetAfterResponseTime(
+  result = result && calculateDistanceOffsetAfterDuration(
                        axis, currentSpeed, maxSpeed, acceleration, responseTime, distanceOffsetAfterResponseTime);
 
   Distance distanceToStop = Distance(0.);

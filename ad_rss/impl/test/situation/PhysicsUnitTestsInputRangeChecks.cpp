@@ -17,10 +17,11 @@ Distance calculateDistanceOffsetInAcceleratedMovement(Speed const &speed,
                                                       Acceleration const &acceleration,
                                                       Duration const &duration);
 
-Distance calculateDistanceOffsetInAcceleratedLimitedMovement(Speed const &speed,
-                                                             Speed const &maxSpeed,
-                                                             Acceleration const &acceleration,
-                                                             Duration const &duration);
+bool calculateDistanceOffsetInAcceleratedLimitedMovement(Speed const &speed,
+                                                         Speed const &maxSpeed,
+                                                         Acceleration const &acceleration,
+                                                         Duration const &duration,
+                                                         Distance &distanceOffset);
 
 bool calculateTimeForDistance(Speed const &currentSpeed,
                               Acceleration const &acceleration,
@@ -55,14 +56,19 @@ TEST(PhysicsUnitTestsInputRangeChecks, calculateDistanceOffsetInAccerlatedMoveme
 
 TEST(PhysicsUnitTestsInputRangeChecks, calculateDistanceOffsetInAccerlatedLimitedMovementThrows)
 {
-  EXPECT_THROW(calculateDistanceOffsetInAcceleratedLimitedMovement(Speed(), Speed(0), Acceleration(0), Duration(0)),
-               std::out_of_range);
-  EXPECT_THROW(calculateDistanceOffsetInAcceleratedLimitedMovement(Speed(0), Speed(), Acceleration(0), Duration(0)),
-               std::out_of_range);
-  EXPECT_THROW(calculateDistanceOffsetInAcceleratedLimitedMovement(Speed(0), Speed(0), Acceleration(), Duration(0)),
-               std::out_of_range);
-  EXPECT_THROW(calculateDistanceOffsetInAcceleratedLimitedMovement(Speed(0), Speed(0), Acceleration(0), Duration()),
-               std::out_of_range);
+  Distance result;
+  EXPECT_THROW(
+    calculateDistanceOffsetInAcceleratedLimitedMovement(Speed(), Speed(0), Acceleration(0), Duration(0), result),
+    std::out_of_range);
+  EXPECT_THROW(
+    calculateDistanceOffsetInAcceleratedLimitedMovement(Speed(0), Speed(), Acceleration(0), Duration(0), result),
+    std::out_of_range);
+  EXPECT_THROW(
+    calculateDistanceOffsetInAcceleratedLimitedMovement(Speed(0), Speed(0), Acceleration(), Duration(0), result),
+    std::out_of_range);
+  EXPECT_THROW(
+    calculateDistanceOffsetInAcceleratedLimitedMovement(Speed(0), Speed(0), Acceleration(0), Duration(), result),
+    std::out_of_range);
 }
 
 TEST(PhysicsUnitTestsInputRangeChecks, calculateSpeedInAcceleratedMovementThrows)
