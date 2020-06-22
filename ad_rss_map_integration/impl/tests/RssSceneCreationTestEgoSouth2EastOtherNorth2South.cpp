@@ -324,22 +324,17 @@ TEST_F(RssSceneCreationTestWithoutRouteEgoSouth2EastOtherNorth2South, e0_o0)
   performSceneTest(
     locationSouthIncoming(),
     locationNorthIncoming(),
-    // here we get 2 object predictions and 3 ego predictions
+    // here we get 2 object predictions and 2 ego predictions
     std::initializer_list<ExpectedResultTuple>{
       // ego-turn-right: other-turn-left
       std::make_tuple(
         ::ad::rss::situation::SituationType::IntersectionEgoHasPriority, 2u, 2u, ::ad::physics::Speed(100.)),
       // ego-turn-right: other-straight
       std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 4u, 0u, ::ad::physics::Speed(100.)),
-      // ego-straight-then-right: other-turn-left
+      // ego-straight: other-turn-left
       std::make_tuple(
         ::ad::rss::situation::SituationType::IntersectionEgoHasPriority, 3u, 2u, ::ad::physics::Speed(100.)),
-      // ego-straight-then-right: other-straight
-      std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 4u, 0u, ::ad::physics::Speed(100.)),
-      // ego-straight-then-straight: other-turn-left
-      std::make_tuple(
-        ::ad::rss::situation::SituationType::IntersectionEgoHasPriority, 3u, 2u, ::ad::physics::Speed(100.)),
-      // ego-straight-then-straight: other-straight
+      // ego-straight: other-straight
       std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 4u, 0u, ::ad::physics::Speed(100.))});
 }
 

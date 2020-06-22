@@ -102,34 +102,34 @@ void toTrajectorySet(Polygon const &polygon, world::UnstructuredTrajectorySet &t
  * @brief check if an angle is within a range
  *
  * @param[in] angle angle to check
- * @param[in] range angle range
+ * @param[in] range heading range
  *
  * @returns true if inside angle range, otherwise false
  */
-bool isInsideAngleRange(ad::physics::Angle const &angle, ad::physics::AngleRange const &range);
+bool isInsideHeadingRange(ad::physics::Angle const &angle, state::HeadingRange const &range);
 
 /**
  * @brief get the overlap between two angle ranges
  *
- * @param[in]  a            first angle range
- * @param[in]  b            second angle range
- * @param[out] overlapRange overlapping heading range
+ * @param[in]  a            first heading range
+ * @param[in]  b            second heading range
+ * @param[out] overlapRange overlapping heading ranges
  *
  * @returns true if overlap exists, otherwise false
  */
-bool getHeadingOverlap(ad::physics::AngleRange const &a,
-                       ad::physics::AngleRange const &b,
-                       state::HeadingRange &overlapRange);
+bool getHeadingOverlap(state::HeadingRange const &a,
+                       state::HeadingRange const &b,
+                       std::vector<state::HeadingRange> &overlapRanges);
 
 /**
  * @brief get the overlap between an angle range and a heading range
  *
- * @param[in]    a            angle range
- * @param[inout] overlapRange overlapping heading range
+ * @param[in]    headingRange angle range
+ * @param[inout] overlapRanges overlapping heading ranges
  *
  * @returns true if overlap exists, otherwise false
  */
-bool getHeadingOverlap(ad::physics::AngleRange const &angleRange, state::HeadingRange &overlapRange);
+bool getHeadingOverlap(state::HeadingRange const &headingRange, std::vector<state::HeadingRange> &overlapRanges);
 
 /**
  * @brief rotate a point around another point
@@ -167,42 +167,28 @@ Point getCircleOrigin(Point const &point, ad::physics::Distance const &radius, a
 /**
  * @brief calculate points on a circle arc
  *
- * @param[in]  origin           absolute origin
- * @param[in]  radius           radius of circle
- * @param[in]  from             starting angle
- * @param[in]  delta            angle of the arc
- * @param[in]  counterClockwise direction of the arc
- * @param[out] geometry         geometry the calculated points are added to
+ * @param[in]  origin   absolute origin
+ * @param[in]  radius   radius of circle
+ * @param[in]  from     starting angle
+ * @param[in]  delta    angle of the arc
+ * @param[out] geometry geometry the calculated points are added to
  */
 template <typename T>
 void calculateCircleArc(Point origin,
                         ad::physics::Distance const &radius,
                         ad::physics::Angle const &from,
                         ad::physics::Angle const &delta,
-                        bool const counterClockwise,
+                        ad::physics::Angle const &stepWidth,
                         T &geometry)
 {
-  ad::physics::Angle currentAngle = physics::normalizeAngle(from);
-  ad::physics::Angle maxAngle;
-  if (counterClockwise)
+  ad::physics::Angle currentAngle = from;
+  ad::physics::Angle maxAngle = currentAngle + delta;
+  while (currentAngle <= maxAngle)
   {
-    maxAngle = currentAngle + delta;
-    while (currentAngle < maxAngle)
-    {
-      boost::geometry::append(geometry, getPointOnCircle(origin, radius, currentAngle));
-      currentAngle += ad::physics::Angle(0.1);
-    }
+    boost::geometry::append(geometry, getPointOnCircle(origin, radius, currentAngle));
+    currentAngle += stepWidth;
   }
-  else
-  {
-    maxAngle = currentAngle - delta;
-    while (currentAngle > maxAngle)
-    {
-      boost::geometry::append(geometry, getPointOnCircle(origin, radius, currentAngle));
-      currentAngle -= ad::physics::Angle(0.1);
-    }
-  }
-  if (currentAngle != maxAngle)
+  if (currentAngle - stepWidth != maxAngle)
   {
     boost::geometry::append(geometry, getPointOnCircle(origin, radius, maxAngle));
   }

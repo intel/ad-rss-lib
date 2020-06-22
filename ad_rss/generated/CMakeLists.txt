@@ -38,7 +38,7 @@ find_package(Boost REQUIRED)
 list(APPEND INCLUDE_DIRS ${Boost_INCLUDE_DIRS})
 list(APPEND LIBRARIES ${Boost_LIBRARIES})
 
-find_package(ad_physics 2.1.1 REQUIRED CONFIG)
+find_package(ad_physics 2.1.0 REQUIRED CONFIG)
 find_package(spdlog REQUIRED CONFIG)
 
 add_library(${PROJECT_NAME}

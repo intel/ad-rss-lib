@@ -43,20 +43,14 @@ protected:
     value.lateralResponseRight = valueLateralResponseRight;
     ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
     value.lateralResponseLeft = valueLateralResponseLeft;
-    ::ad::rss::state::HeadingRange valueHeadingRange;
-    ::ad::physics::AngleRange valueHeadingRangeOuterRange;
-    ::ad::physics::Angle valueHeadingRangeOuterRangeMinimum(-6.283185308);
-    valueHeadingRangeOuterRange.minimum = valueHeadingRangeOuterRangeMinimum;
-    ::ad::physics::Angle valueHeadingRangeOuterRangeMaximum(-6.283185308);
-    valueHeadingRangeOuterRange.maximum = valueHeadingRangeOuterRangeMaximum;
-    valueHeadingRange.outerRange = valueHeadingRangeOuterRange;
-    ::ad::physics::AngleRange valueHeadingRangeInnerRange;
-    ::ad::physics::Angle valueHeadingRangeInnerRangeMinimum(-6.283185308);
-    valueHeadingRangeInnerRange.minimum = valueHeadingRangeInnerRangeMinimum;
-    ::ad::physics::Angle valueHeadingRangeInnerRangeMaximum(-6.283185308);
-    valueHeadingRangeInnerRange.maximum = valueHeadingRangeInnerRangeMaximum;
-    valueHeadingRange.innerRange = valueHeadingRangeInnerRange;
-    value.headingRange = valueHeadingRange;
+    ::ad::rss::state::HeadingRangeVector valueHeadingRanges;
+    ::ad::rss::state::HeadingRange valueHeadingRangesElement;
+    ::ad::physics::Angle valueHeadingRangesElementBegin(-6.283185308);
+    valueHeadingRangesElement.begin = valueHeadingRangesElementBegin;
+    ::ad::physics::Angle valueHeadingRangesElementEnd(-6.283185308);
+    valueHeadingRangesElement.end = valueHeadingRangesElementEnd;
+    valueHeadingRanges.resize(1, valueHeadingRangesElement);
+    value.headingRanges = valueHeadingRanges;
     ::ad::rss::state::AccelerationRestriction valueAccelerationRestrictions;
     ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralLeftRange;
     ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMinimum(-1e2);
@@ -203,23 +197,17 @@ TEST_F(ProperResponseTests, comparisonOperatorLateralResponseLeftDiffers)
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(ProperResponseTests, comparisonOperatorHeadingRangeDiffers)
+TEST_F(ProperResponseTests, comparisonOperatorHeadingRangesDiffers)
 {
   ::ad::rss::state::ProperResponse valueA = mValue;
-  ::ad::rss::state::HeadingRange headingRange;
-  ::ad::physics::AngleRange headingRangeOuterRange;
-  ::ad::physics::Angle headingRangeOuterRangeMinimum(6.283185308);
-  headingRangeOuterRange.minimum = headingRangeOuterRangeMinimum;
-  ::ad::physics::Angle headingRangeOuterRangeMaximum(6.283185308);
-  headingRangeOuterRange.maximum = headingRangeOuterRangeMaximum;
-  headingRange.outerRange = headingRangeOuterRange;
-  ::ad::physics::AngleRange headingRangeInnerRange;
-  ::ad::physics::Angle headingRangeInnerRangeMinimum(6.283185308);
-  headingRangeInnerRange.minimum = headingRangeInnerRangeMinimum;
-  ::ad::physics::Angle headingRangeInnerRangeMaximum(6.283185308);
-  headingRangeInnerRange.maximum = headingRangeInnerRangeMaximum;
-  headingRange.innerRange = headingRangeInnerRange;
-  valueA.headingRange = headingRange;
+  ::ad::rss::state::HeadingRangeVector headingRanges;
+  ::ad::rss::state::HeadingRange headingRangesElement;
+  ::ad::physics::Angle headingRangesElementBegin(6.283185308);
+  headingRangesElement.begin = headingRangesElementBegin;
+  ::ad::physics::Angle headingRangesElementEnd(6.283185308);
+  headingRangesElement.end = headingRangesElementEnd;
+  headingRanges.resize(2, headingRangesElement);
+  valueA.headingRanges = headingRanges;
   ::ad::rss::state::ProperResponse valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

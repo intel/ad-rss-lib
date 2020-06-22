@@ -196,21 +196,6 @@ void RssObjectConversion::addRestrictedOccupiedRegion(::ad::map::match::LaneOccu
   mRssObject.occupiedRegions.push_back(occupiedRegion);
 }
 
-void RssObjectConversion::fillNotRelevantSceneBoundingBox()
-{
-  if (mObjectMapMatchedPosition != nullptr)
-  {
-    for (auto const &laneOccupiedRegion : mObjectMapMatchedPosition->mapMatchedBoundingBox.laneOccupiedRegions)
-    {
-      ::ad::map::route::LaneInterval dummyLaneInterval;
-      dummyLaneInterval.laneId = laneOccupiedRegion.laneId;
-      dummyLaneInterval.start = physics::ParametricValue(0.);
-      dummyLaneInterval.end = physics::ParametricValue(1.);
-      addRestrictedOccupiedRegion(laneOccupiedRegion, dummyLaneInterval);
-    }
-  }
-}
-
 void RssObjectConversion::laneIntervalAdded(::ad::map::route::LaneInterval const &laneInterval)
 {
   if (mObjectMapMatchedPosition != nullptr)

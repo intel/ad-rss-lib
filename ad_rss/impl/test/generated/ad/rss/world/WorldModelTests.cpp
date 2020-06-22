@@ -611,7 +611,7 @@ TEST_F(WorldModelTests, comparisonOperatorScenesDiffers)
   scenesElementEgoVehicleOccupiedRegionsElementLatRange.minimum
     = scenesElementEgoVehicleOccupiedRegionsElementLatRange.maximum;
   scenesElementEgoVehicleOccupiedRegionsElement.latRange = scenesElementEgoVehicleOccupiedRegionsElementLatRange;
-  scenesElementEgoVehicleOccupiedRegions.resize(1 + 1, scenesElementEgoVehicleOccupiedRegionsElement);
+  scenesElementEgoVehicleOccupiedRegions.resize(0 + 1, scenesElementEgoVehicleOccupiedRegionsElement);
   scenesElementEgoVehicle.occupiedRegions = scenesElementEgoVehicleOccupiedRegions;
   ::ad::rss::world::Velocity scenesElementEgoVehicleVelocity;
   ::ad::physics::Speed scenesElementEgoVehicleVelocitySpeedLonMin(100.);
@@ -728,7 +728,7 @@ TEST_F(WorldModelTests, comparisonOperatorScenesDiffers)
   scenesElementObjectOccupiedRegionsElementLatRange.maximum = scenesElementObjectOccupiedRegionsElementLatRange.minimum;
   scenesElementObjectOccupiedRegionsElementLatRange.minimum = scenesElementObjectOccupiedRegionsElementLatRange.maximum;
   scenesElementObjectOccupiedRegionsElement.latRange = scenesElementObjectOccupiedRegionsElementLatRange;
-  scenesElementObjectOccupiedRegions.resize(1 + 1, scenesElementObjectOccupiedRegionsElement);
+  scenesElementObjectOccupiedRegions.resize(0 + 1, scenesElementObjectOccupiedRegionsElement);
   scenesElementObject.occupiedRegions = scenesElementObjectOccupiedRegions;
   ::ad::rss::world::Velocity scenesElementObjectVelocity;
   ::ad::physics::Speed scenesElementObjectVelocitySpeedLonMin(100.);

@@ -19,7 +19,7 @@
 
 #include <cmath>
 #include <limits>
-#include "ad/physics/AngleRangeValidInputRange.hpp"
+#include "ad/rss/state/HeadingRangeValidInputRange.hpp"
 #include "ad/rss/state/UnstructuredSceneResponseValidInputRange.hpp"
 #include "ad/rss/state/UnstructuredSceneRssState.hpp"
 #include "ad/rss/state/UnstructuredSceneStateInformationValidInputRange.hpp"

@@ -113,15 +113,17 @@ private:
   /**
    * @brief calculate the angle range that is allowed to drive away
    *
+   * @param[in]  egoVehicleLocation the location of the ego vehicle
    * @param[in]  otherVehicleLocation the location of the other vehicle
-   * @param[in]  trajectorySet2 second trajectory set
+   * @param[in]  maxAllowedAngleWhenBothStopped the maximum angle for calculation
+   * @param[out] range resulting heading range
    *
-   * @returns true if trajectory sets collide, otherwise false
+   * @returns false if a failure occurred during calculations, true otherwise
    */
-  bool calculateDriveAwayAngle(unstructured::Point const &otherVehicleLocation,
-                               unstructured::Point const &startingPoint,
+  bool calculateDriveAwayAngle(unstructured::Point const &egoVehicleLocation,
+                               unstructured::Point const &otherVehicleLocation,
                                ::ad::physics::Angle const &maxAllowedAngleWhenBothStopped,
-                               ::ad::physics::AngleRange &range) const;
+                               state::HeadingRange &range) const;
 
   /**
    * @brief typedef for the mapping of situation id to the corresponding otherMustBrake value before the danger

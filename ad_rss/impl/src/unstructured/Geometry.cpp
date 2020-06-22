@@ -106,130 +106,88 @@ void splitLineAtIntersectionPoint(ad::rss::unstructured::Point const &intersecti
       auto const nextPt2intersection = intersectionPoint - nextPt;
       if (boost::geometry::dot_product(pt2intersection, nextPt2intersection) < 0.)
       {
+        boost::geometry::append(*currentSection, intersectionPoint);
         currentSection = &after;
+        boost::geometry::append(*currentSection, intersectionPoint);
       }
     }
   }
 }
 
-bool isInsideAngleRange(ad::physics::Angle const &angle, ad::physics::AngleRange const &range)
+bool isInsideHeadingRange(ad::physics::Angle const &angle, ad::rss::state::HeadingRange const &range)
 {
-  if (range.maximum >= range.minimum)
+  if (range.end >= range.begin)
   {
-    return (angle >= range.minimum) && (angle <= range.maximum);
+    return (angle >= range.begin) && (angle <= range.end);
   }
   else
   {
-    return (angle >= range.minimum) || (angle <= range.maximum);
+    return (angle >= range.begin) || (angle <= range.end);
   }
 }
 
-bool getHeadingOverlap(ad::physics::AngleRange const &a,
-                       ad::physics::AngleRange const &b,
-                       ad::rss::state::HeadingRange &overlapRange)
+bool getHeadingOverlap(ad::rss::state::HeadingRange const &a,
+                       ad::rss::state::HeadingRange const &b,
+                       std::vector<ad::rss::state::HeadingRange> &overlapRanges)
 {
-  bool aStartsInB = isInsideAngleRange(a.minimum, b);
-  bool aEndsInB = isInsideAngleRange(a.maximum, b);
-  bool bStartsInA = isInsideAngleRange(b.minimum, a);
-  bool bEndsInA = isInsideAngleRange(b.maximum, a);
+  bool aStartsInB = isInsideHeadingRange(a.begin, b);
+  bool aEndsInB = isInsideHeadingRange(a.end, b);
+  bool bStartsInA = isInsideHeadingRange(b.begin, a);
+  bool bEndsInA = isInsideHeadingRange(b.end, a);
 
   auto overlaps = aStartsInB || aEndsInB || bStartsInA || bEndsInA;
 
-  overlapRange.innerRange.minimum = ad::physics::Angle(0.0);
-  overlapRange.innerRange.maximum = ad::physics::Angle(0.0);
   if (overlaps)
   {
+    ad::rss::state::HeadingRange range;
     if (aStartsInB && aEndsInB && bStartsInA && bEndsInA)
     {
-      if (!((a.minimum == b.minimum) && (a.maximum == b.maximum)))
+      if (!((a.begin == b.begin) && (a.end == b.end)))
       {
-        if (b.maximum < b.minimum)
-        {
-          overlapRange.innerRange.minimum = b.maximum;
-          overlapRange.innerRange.maximum = b.minimum;
-        }
-        else
-        {
-          overlapRange.innerRange.minimum = b.minimum;
-          overlapRange.innerRange.maximum = b.maximum;
-        }
+        ad::rss::state::HeadingRange secondRange;
+        secondRange.begin = a.begin;
+        secondRange.end = b.end;
+        overlapRanges.push_back(secondRange);
       }
-      overlapRange.outerRange.minimum = a.minimum;
-      overlapRange.outerRange.maximum = a.maximum;
+      range.begin = b.begin;
+      range.end = a.end;
     }
     else if (aStartsInB && aEndsInB)
     {
-      overlapRange.outerRange.minimum = a.minimum;
-      overlapRange.outerRange.maximum = a.maximum;
+      range.begin = a.begin;
+      range.end = a.end;
     }
     else if (bStartsInA && bEndsInA)
     {
-      overlapRange.outerRange.minimum = b.minimum;
-      overlapRange.outerRange.maximum = b.maximum;
+      range.begin = b.begin;
+      range.end = b.end;
     }
-    else if (aStartsInB && !aEndsInB) // at max, a overlaps b
+    else if (aStartsInB && !aEndsInB)
     {
-      overlapRange.outerRange.minimum = a.minimum;
-      overlapRange.outerRange.maximum = b.maximum;
+      range.begin = a.begin;
+      range.end = b.end;
     }
-    else if (bStartsInA && !bEndsInA) // at max, b overlaps a
+    else if (bStartsInA && !bEndsInA)
     {
-      overlapRange.outerRange.minimum = b.minimum;
-      overlapRange.outerRange.maximum = a.maximum;
+      range.begin = b.begin;
+      range.end = a.end;
     }
+    overlapRanges.push_back(range);
     return true;
   }
   return false;
 }
 
-bool getHeadingOverlap(ad::physics::AngleRange const &angleRange, ad::rss::state::HeadingRange &overlapRange)
+bool getHeadingOverlap(ad::rss::state::HeadingRange const &headingRange,
+                       std::vector<ad::rss::state::HeadingRange> &overlapRanges)
 {
-  bool result = false;
-  if (overlapRange.innerRange.minimum == overlapRange.innerRange.maximum)
+  std::vector<ad::rss::state::HeadingRange> newOverlapRanges;
+  for (auto const &range : overlapRanges)
   {
-    // no inner range
-    result = getHeadingOverlap(angleRange, overlapRange.outerRange, overlapRange);
+    getHeadingOverlap(headingRange, range, newOverlapRanges);
   }
-  else
-  {
-    // inner range exists
-    ad::physics::AngleRange maxRange;
-    maxRange.minimum = overlapRange.innerRange.maximum;
-    maxRange.maximum = overlapRange.outerRange.maximum;
-    ad::physics::AngleRange minRange;
-    minRange.minimum = overlapRange.outerRange.minimum;
-    minRange.maximum = overlapRange.innerRange.minimum;
-
-    ad::rss::state::HeadingRange minOverlapRange;
-    ad::rss::state::HeadingRange maxOverlapRange;
-
-    auto maxResult = getHeadingOverlap(angleRange, maxRange, maxOverlapRange);
-    auto minResult = getHeadingOverlap(angleRange, minRange, minOverlapRange);
-
-    if (minResult && maxResult)
-    {
-      overlapRange.innerRange.maximum = maxOverlapRange.outerRange.minimum;
-      overlapRange.outerRange.maximum = maxOverlapRange.outerRange.maximum;
-      overlapRange.innerRange.minimum = minOverlapRange.innerRange.minimum;
-      overlapRange.outerRange.minimum = minOverlapRange.innerRange.maximum;
-      result = true;
-    }
-    else if (minResult)
-    {
-      overlapRange = minOverlapRange;
-      result = true;
-    }
-    else if (maxResult)
-    {
-      overlapRange = maxOverlapRange;
-      result = true;
-    }
-    else
-    {
-      result = false;
-    }
-  }
-  return result;
+  overlapRanges = newOverlapRanges;
+  return !overlapRanges.empty();
 }
 
 } // namespace unstructured

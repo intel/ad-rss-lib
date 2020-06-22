@@ -198,13 +198,13 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRange)
     ::ad::rss::state::UnstructuredSceneResponse::None);
   valueIndividualResponsesElementUnstructuredSceneState.response
     = valueIndividualResponsesElementUnstructuredSceneStateResponse;
-  ::ad::physics::AngleRange valueIndividualResponsesElementUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
-  valueIndividualResponsesElementUnstructuredSceneStateHeadingRange.minimum
-    = valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeMinimum;
-  ::ad::physics::Angle valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
-  valueIndividualResponsesElementUnstructuredSceneStateHeadingRange.maximum
-    = valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueIndividualResponsesElementUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
+  valueIndividualResponsesElementUnstructuredSceneStateHeadingRange.begin
+    = valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeBegin;
+  ::ad::physics::Angle valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
+  valueIndividualResponsesElementUnstructuredSceneStateHeadingRange.end
+    = valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeEnd;
   valueIndividualResponsesElementUnstructuredSceneState.headingRange
     = valueIndividualResponsesElementUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation
@@ -457,13 +457,13 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicleR
     ::ad::rss::state::UnstructuredSceneResponse::None);
   valueIndividualResponsesElementUnstructuredSceneState.response
     = valueIndividualResponsesElementUnstructuredSceneStateResponse;
-  ::ad::physics::AngleRange valueIndividualResponsesElementUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
-  valueIndividualResponsesElementUnstructuredSceneStateHeadingRange.minimum
-    = valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeMinimum;
-  ::ad::physics::Angle valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
-  valueIndividualResponsesElementUnstructuredSceneStateHeadingRange.maximum
-    = valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueIndividualResponsesElementUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
+  valueIndividualResponsesElementUnstructuredSceneStateHeadingRange.begin
+    = valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeBegin;
+  ::ad::physics::Angle valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
+  valueIndividualResponsesElementUnstructuredSceneStateHeadingRange.end
+    = valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeEnd;
   valueIndividualResponsesElementUnstructuredSceneState.headingRange
     = valueIndividualResponsesElementUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation
@@ -724,13 +724,13 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicleR
     ::ad::rss::state::UnstructuredSceneResponse::None);
   valueIndividualResponsesElementUnstructuredSceneState.response
     = valueIndividualResponsesElementUnstructuredSceneStateResponse;
-  ::ad::physics::AngleRange valueIndividualResponsesElementUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
-  valueIndividualResponsesElementUnstructuredSceneStateHeadingRange.minimum
-    = valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeMinimum;
-  ::ad::physics::Angle valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
-  valueIndividualResponsesElementUnstructuredSceneStateHeadingRange.maximum
-    = valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueIndividualResponsesElementUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
+  valueIndividualResponsesElementUnstructuredSceneStateHeadingRange.begin
+    = valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeBegin;
+  ::ad::physics::Angle valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
+  valueIndividualResponsesElementUnstructuredSceneStateHeadingRange.end
+    = valueIndividualResponsesElementUnstructuredSceneStateHeadingRangeEnd;
   valueIndividualResponsesElementUnstructuredSceneState.headingRange
     = valueIndividualResponsesElementUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation

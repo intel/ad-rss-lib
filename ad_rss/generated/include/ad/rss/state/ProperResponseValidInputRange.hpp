@@ -20,7 +20,7 @@
 #include <cmath>
 #include <limits>
 #include "ad/rss/state/AccelerationRestrictionValidInputRange.hpp"
-#include "ad/rss/state/HeadingRangeValidInputRange.hpp"
+#include "ad/rss/state/HeadingRangeVectorValidInputRange.hpp"
 #include "ad/rss/state/LateralResponseValidInputRange.hpp"
 #include "ad/rss/state/LongitudinalResponseValidInputRange.hpp"
 #include "ad/rss/state/ProperResponse.hpp"
@@ -47,7 +47,7 @@ inline bool withinValidInputRange(::ad::rss::state::ProperResponse const &input,
     && withinValidInputRange(input.longitudinalResponse, logErrors)
     && withinValidInputRange(input.lateralResponseRight, logErrors)
     && withinValidInputRange(input.lateralResponseLeft, logErrors)
-    && withinValidInputRange(input.headingRange, logErrors)
+    && withinValidInputRange(input.headingRanges, logErrors)
     && withinValidInputRange(input.accelerationRestrictions, logErrors);
   if (!inValidInputRange && logErrors)
   {

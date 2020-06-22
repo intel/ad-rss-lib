@@ -57,8 +57,8 @@ inline state::RssState createRssState(situation::SituationId const &situationId,
     = isSafe ? (::ad::rss::state::LongitudinalResponse::None) : (::ad::rss::state::LongitudinalResponse::BrakeMin);
   resultRssState.longitudinalState.alphaLon = egoDynamics.alphaLon;
   resultRssState.longitudinalState.rssStateInformation = emptyRssStateInfo;
-  resultRssState.unstructuredSceneState.headingRange.minimum = ad::physics::Angle(0.0);
-  resultRssState.unstructuredSceneState.headingRange.maximum = ad::physics::c2PI;
+  resultRssState.unstructuredSceneState.headingRange.begin = ad::physics::Angle(0.0);
+  resultRssState.unstructuredSceneState.headingRange.end = ad::physics::c2PI;
   resultRssState.unstructuredSceneState.response = ad::rss::state::UnstructuredSceneResponse::None;
   return resultRssState;
 }

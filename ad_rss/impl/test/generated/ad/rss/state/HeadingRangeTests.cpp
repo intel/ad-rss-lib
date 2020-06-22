@@ -28,18 +28,10 @@ protected:
   {
     // valid initialization
     ::ad::rss::state::HeadingRange value;
-    ::ad::physics::AngleRange valueOuterRange;
-    ::ad::physics::Angle valueOuterRangeMinimum(-6.283185308);
-    valueOuterRange.minimum = valueOuterRangeMinimum;
-    ::ad::physics::Angle valueOuterRangeMaximum(-6.283185308);
-    valueOuterRange.maximum = valueOuterRangeMaximum;
-    value.outerRange = valueOuterRange;
-    ::ad::physics::AngleRange valueInnerRange;
-    ::ad::physics::Angle valueInnerRangeMinimum(-6.283185308);
-    valueInnerRange.minimum = valueInnerRangeMinimum;
-    ::ad::physics::Angle valueInnerRangeMaximum(-6.283185308);
-    valueInnerRange.maximum = valueInnerRangeMaximum;
-    value.innerRange = valueInnerRange;
+    ::ad::physics::Angle valueBegin(-6.283185308);
+    value.begin = valueBegin;
+    ::ad::physics::Angle valueEnd(-6.283185308);
+    value.end = valueEnd;
     mValue = value;
   }
 
@@ -92,30 +84,22 @@ TEST_F(HeadingRangeTests, stringConversionTest)
   ASSERT_EQ(ostreamStr, toStr);
 }
 
-TEST_F(HeadingRangeTests, comparisonOperatorOuterRangeDiffers)
+TEST_F(HeadingRangeTests, comparisonOperatorBeginDiffers)
 {
   ::ad::rss::state::HeadingRange valueA = mValue;
-  ::ad::physics::AngleRange outerRange;
-  ::ad::physics::Angle outerRangeMinimum(6.283185308);
-  outerRange.minimum = outerRangeMinimum;
-  ::ad::physics::Angle outerRangeMaximum(6.283185308);
-  outerRange.maximum = outerRangeMaximum;
-  valueA.outerRange = outerRange;
+  ::ad::physics::Angle begin(6.283185308);
+  valueA.begin = begin;
   ::ad::rss::state::HeadingRange valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(HeadingRangeTests, comparisonOperatorInnerRangeDiffers)
+TEST_F(HeadingRangeTests, comparisonOperatorEndDiffers)
 {
   ::ad::rss::state::HeadingRange valueA = mValue;
-  ::ad::physics::AngleRange innerRange;
-  ::ad::physics::Angle innerRangeMinimum(6.283185308);
-  innerRange.minimum = innerRangeMinimum;
-  ::ad::physics::Angle innerRangeMaximum(6.283185308);
-  innerRange.maximum = innerRangeMaximum;
-  valueA.innerRange = innerRange;
+  ::ad::physics::Angle end(6.283185308);
+  valueA.end = end;
   ::ad::rss::state::HeadingRange valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

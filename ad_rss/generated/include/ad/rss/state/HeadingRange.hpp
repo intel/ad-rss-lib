@@ -18,9 +18,10 @@
 #pragma once
 
 #include <iostream>
+#include <limits>
 #include <memory>
 #include <sstream>
-#include "ad/physics/AngleRange.hpp"
+#include "ad/physics/Angle.hpp"
 /*!
  * @brief namespace ad
  */
@@ -96,7 +97,7 @@ struct HeadingRange
    */
   bool operator==(const HeadingRange &other) const
   {
-    return (outerRange == other.outerRange) && (innerRange == other.innerRange);
+    return (begin == other.begin) && (end == other.end);
   }
 
   /**
@@ -111,8 +112,8 @@ struct HeadingRange
     return !operator==(other);
   }
 
-  ::ad::physics::AngleRange outerRange;
-  ::ad::physics::AngleRange innerRange;
+  ::ad::physics::Angle begin;
+  ::ad::physics::Angle end;
 };
 
 } // namespace state
@@ -149,11 +150,11 @@ namespace state {
 inline std::ostream &operator<<(std::ostream &os, HeadingRange const &_value)
 {
   os << "HeadingRange(";
-  os << "outerRange:";
-  os << _value.outerRange;
+  os << "begin:";
+  os << _value.begin;
   os << ",";
-  os << "innerRange:";
-  os << _value.innerRange;
+  os << "end:";
+  os << _value.end;
   os << ")";
   return os;
 }

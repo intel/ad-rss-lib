@@ -25,11 +25,11 @@ TEST(UnstructuredSceneRssStateValidInputRangeTests, testValidInputRange)
   value.isSafe = valueIsSafe;
   ::ad::rss::state::UnstructuredSceneResponse valueResponse(::ad::rss::state::UnstructuredSceneResponse::None);
   value.response = valueResponse;
-  ::ad::physics::AngleRange valueHeadingRange;
-  ::ad::physics::Angle valueHeadingRangeMinimum(-6.283185308);
-  valueHeadingRange.minimum = valueHeadingRangeMinimum;
-  ::ad::physics::Angle valueHeadingRangeMaximum(-6.283185308);
-  valueHeadingRange.maximum = valueHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueHeadingRange;
+  ::ad::physics::Angle valueHeadingRangeBegin(-6.283185308);
+  valueHeadingRange.begin = valueHeadingRangeBegin;
+  ::ad::physics::Angle valueHeadingRangeEnd(-6.283185308);
+  valueHeadingRange.end = valueHeadingRangeEnd;
   value.headingRange = valueHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation valueRssStateInformation;
   ::ad::rss::world::UnstructuredTrajectorySet valueRssStateInformationBrakeTrajectorySet;
@@ -62,11 +62,11 @@ TEST(UnstructuredSceneRssStateValidInputRangeTests, testValidInputRangeResponseT
   value.isSafe = valueIsSafe;
   ::ad::rss::state::UnstructuredSceneResponse valueResponse(::ad::rss::state::UnstructuredSceneResponse::None);
   value.response = valueResponse;
-  ::ad::physics::AngleRange valueHeadingRange;
-  ::ad::physics::Angle valueHeadingRangeMinimum(-6.283185308);
-  valueHeadingRange.minimum = valueHeadingRangeMinimum;
-  ::ad::physics::Angle valueHeadingRangeMaximum(-6.283185308);
-  valueHeadingRange.maximum = valueHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueHeadingRange;
+  ::ad::physics::Angle valueHeadingRangeBegin(-6.283185308);
+  valueHeadingRange.begin = valueHeadingRangeBegin;
+  ::ad::physics::Angle valueHeadingRangeEnd(-6.283185308);
+  valueHeadingRange.end = valueHeadingRangeEnd;
   value.headingRange = valueHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation valueRssStateInformation;
   ::ad::rss::world::UnstructuredTrajectorySet valueRssStateInformationBrakeTrajectorySet;
@@ -104,11 +104,11 @@ TEST(UnstructuredSceneRssStateValidInputRangeTests, testValidInputRangeResponseT
   value.isSafe = valueIsSafe;
   ::ad::rss::state::UnstructuredSceneResponse valueResponse(::ad::rss::state::UnstructuredSceneResponse::None);
   value.response = valueResponse;
-  ::ad::physics::AngleRange valueHeadingRange;
-  ::ad::physics::Angle valueHeadingRangeMinimum(-6.283185308);
-  valueHeadingRange.minimum = valueHeadingRangeMinimum;
-  ::ad::physics::Angle valueHeadingRangeMaximum(-6.283185308);
-  valueHeadingRange.maximum = valueHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueHeadingRange;
+  ::ad::physics::Angle valueHeadingRangeBegin(-6.283185308);
+  valueHeadingRange.begin = valueHeadingRangeBegin;
+  ::ad::physics::Angle valueHeadingRangeEnd(-6.283185308);
+  valueHeadingRange.end = valueHeadingRangeEnd;
   value.headingRange = valueHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation valueRssStateInformation;
   ::ad::rss::world::UnstructuredTrajectorySet valueRssStateInformationBrakeTrajectorySet;
@@ -146,11 +146,11 @@ TEST(UnstructuredSceneRssStateValidInputRangeTests, testValidInputRangeHeadingRa
   value.isSafe = valueIsSafe;
   ::ad::rss::state::UnstructuredSceneResponse valueResponse(::ad::rss::state::UnstructuredSceneResponse::None);
   value.response = valueResponse;
-  ::ad::physics::AngleRange valueHeadingRange;
-  ::ad::physics::Angle valueHeadingRangeMinimum(-6.283185308);
-  valueHeadingRange.minimum = valueHeadingRangeMinimum;
-  ::ad::physics::Angle valueHeadingRangeMaximum(-6.283185308);
-  valueHeadingRange.maximum = valueHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueHeadingRange;
+  ::ad::physics::Angle valueHeadingRangeBegin(-6.283185308);
+  valueHeadingRange.begin = valueHeadingRangeBegin;
+  ::ad::physics::Angle valueHeadingRangeEnd(-6.283185308);
+  valueHeadingRange.end = valueHeadingRangeEnd;
   value.headingRange = valueHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation valueRssStateInformation;
   ::ad::rss::world::UnstructuredTrajectorySet valueRssStateInformationBrakeTrajectorySet;
@@ -175,9 +175,9 @@ TEST(UnstructuredSceneRssStateValidInputRangeTests, testValidInputRangeHeadingRa
   value.rssStateInformation = valueRssStateInformation;
 
   // override member with data type value below input range minimum
-  ::ad::physics::AngleRange invalidInitializedMember;
-  ::ad::physics::Angle invalidInitializedMemberMinimum(-6.283185308 * 1.1);
-  invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
+  ::ad::rss::state::HeadingRange invalidInitializedMember;
+  ::ad::physics::Angle invalidInitializedMemberBegin(-6.283185308 * 1.1);
+  invalidInitializedMember.begin = invalidInitializedMemberBegin;
   value.headingRange = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -189,11 +189,11 @@ TEST(UnstructuredSceneRssStateValidInputRangeTests, testValidInputRangeHeadingRa
   value.isSafe = valueIsSafe;
   ::ad::rss::state::UnstructuredSceneResponse valueResponse(::ad::rss::state::UnstructuredSceneResponse::None);
   value.response = valueResponse;
-  ::ad::physics::AngleRange valueHeadingRange;
-  ::ad::physics::Angle valueHeadingRangeMinimum(-6.283185308);
-  valueHeadingRange.minimum = valueHeadingRangeMinimum;
-  ::ad::physics::Angle valueHeadingRangeMaximum(-6.283185308);
-  valueHeadingRange.maximum = valueHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueHeadingRange;
+  ::ad::physics::Angle valueHeadingRangeBegin(-6.283185308);
+  valueHeadingRange.begin = valueHeadingRangeBegin;
+  ::ad::physics::Angle valueHeadingRangeEnd(-6.283185308);
+  valueHeadingRange.end = valueHeadingRangeEnd;
   value.headingRange = valueHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation valueRssStateInformation;
   ::ad::rss::world::UnstructuredTrajectorySet valueRssStateInformationBrakeTrajectorySet;
@@ -218,9 +218,9 @@ TEST(UnstructuredSceneRssStateValidInputRangeTests, testValidInputRangeHeadingRa
   value.rssStateInformation = valueRssStateInformation;
 
   // override member with data type value above input range maximum
-  ::ad::physics::AngleRange invalidInitializedMember;
-  ::ad::physics::Angle invalidInitializedMemberMinimum(6.283185308 * 1.1);
-  invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
+  ::ad::rss::state::HeadingRange invalidInitializedMember;
+  ::ad::physics::Angle invalidInitializedMemberBegin(6.283185308 * 1.1);
+  invalidInitializedMember.begin = invalidInitializedMemberBegin;
   value.headingRange = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }

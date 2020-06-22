@@ -19,31 +19,26 @@
 
 #include <cmath>
 #include <limits>
-#include "ad/rss/world/OccupiedRegionValidInputRange.hpp"
-#include "ad/rss/world/OccupiedRegionVector.hpp"
+#include "ad/rss/state/HeadingRangeValidInputRange.hpp"
+#include "ad/rss/state/HeadingRangeVector.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
 
 /*!
- * \brief check if the given OccupiedRegionVector is within valid input range
+ * \brief check if the given HeadingRangeVector is within valid input range
  *
- * \param[in] input the OccupiedRegionVector as an input value
+ * \param[in] input the HeadingRangeVector as an input value
  * \param[in] logErrors enables error logging
  *
- * \returns \c true if OccupiedRegionVector is considered to be within the specified input range
+ * \returns \c true if HeadingRangeVector is considered to be within the specified input range
  *
  * \note the specified input range is defined by
- *       0 <= \c input.size() <= 1000
+ *       0 <= \c input.size() <= 0
  *       and the ranges of all vector elements
  */
-inline bool withinValidInputRange(::ad::rss::world::OccupiedRegionVector const &input, bool const logErrors = true)
+inline bool withinValidInputRange(::ad::rss::state::HeadingRangeVector const &input, bool const logErrors = true)
 {
-  bool inValidInputRange = (input.size() <= std::size_t(1000));
-  if (!inValidInputRange && logErrors)
-  {
-    spdlog::error("withinValidInputRange(::ad::rss::world::OccupiedRegionVector)>> {}, invalid input range",
-                  input); // LCOV_EXCL_BR_LINE
-  }
+  bool inValidInputRange = true;
 
   if (inValidInputRange)
   {
@@ -53,7 +48,7 @@ inline bool withinValidInputRange(::ad::rss::world::OccupiedRegionVector const &
       inValidInputRange = inValidInputRange && memberInValidInputRange;
       if (!memberInValidInputRange && logErrors)
       {
-        spdlog::error("withinValidInputRange(::ad::rss::world::OccupiedRegionVector)>> {}, invalid member {}",
+        spdlog::error("withinValidInputRange(::ad::rss::state::HeadingRangeVector)>> {}, invalid member {}",
                       input,
                       member); // LCOV_EXCL_BR_LINE
       }

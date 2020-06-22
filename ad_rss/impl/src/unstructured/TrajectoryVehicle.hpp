@@ -35,6 +35,9 @@ namespace unstructured {
 class TrajectoryVehicle
 {
 public:
+  /**
+   * @brief The maximum radius before assuming forward movement
+   */
   static const ad::physics::Distance maxRadius;
 
   TrajectoryVehicle()

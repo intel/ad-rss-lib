@@ -105,11 +105,11 @@ TEST(RssStateValidInputRangeTests, testValidInputRange)
   ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
     ::ad::rss::state::UnstructuredSceneResponse::None);
   valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::physics::AngleRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.minimum = valueUnstructuredSceneStateHeadingRangeMinimum;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.maximum = valueUnstructuredSceneStateHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
   valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
   ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
@@ -231,11 +231,11 @@ TEST(RssStateValidInputRangeTests, testValidInputRangeLongitudinalStateTooSmall)
   ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
     ::ad::rss::state::UnstructuredSceneResponse::None);
   valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::physics::AngleRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.minimum = valueUnstructuredSceneStateHeadingRangeMinimum;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.maximum = valueUnstructuredSceneStateHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
   valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
   ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
@@ -364,11 +364,11 @@ TEST(RssStateValidInputRangeTests, testValidInputRangeLongitudinalStateTooBig)
   ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
     ::ad::rss::state::UnstructuredSceneResponse::None);
   valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::physics::AngleRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.minimum = valueUnstructuredSceneStateHeadingRangeMinimum;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.maximum = valueUnstructuredSceneStateHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
   valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
   ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
@@ -497,11 +497,11 @@ TEST(RssStateValidInputRangeTests, testValidInputRangeLateralStateRightTooSmall)
   ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
     ::ad::rss::state::UnstructuredSceneResponse::None);
   valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::physics::AngleRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.minimum = valueUnstructuredSceneStateHeadingRangeMinimum;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.maximum = valueUnstructuredSceneStateHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
   valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
   ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
@@ -630,11 +630,11 @@ TEST(RssStateValidInputRangeTests, testValidInputRangeLateralStateRightTooBig)
   ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
     ::ad::rss::state::UnstructuredSceneResponse::None);
   valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::physics::AngleRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.minimum = valueUnstructuredSceneStateHeadingRangeMinimum;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.maximum = valueUnstructuredSceneStateHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
   valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
   ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
@@ -763,11 +763,11 @@ TEST(RssStateValidInputRangeTests, testValidInputRangeLateralStateLeftTooSmall)
   ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
     ::ad::rss::state::UnstructuredSceneResponse::None);
   valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::physics::AngleRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.minimum = valueUnstructuredSceneStateHeadingRangeMinimum;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.maximum = valueUnstructuredSceneStateHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
   valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
   ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
@@ -896,11 +896,11 @@ TEST(RssStateValidInputRangeTests, testValidInputRangeLateralStateLeftTooBig)
   ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
     ::ad::rss::state::UnstructuredSceneResponse::None);
   valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::physics::AngleRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.minimum = valueUnstructuredSceneStateHeadingRangeMinimum;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.maximum = valueUnstructuredSceneStateHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
   valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
   ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
@@ -1029,11 +1029,11 @@ TEST(RssStateValidInputRangeTests, testValidInputRangeUnstructuredSceneStateTooS
   ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
     ::ad::rss::state::UnstructuredSceneResponse::None);
   valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::physics::AngleRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.minimum = valueUnstructuredSceneStateHeadingRangeMinimum;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.maximum = valueUnstructuredSceneStateHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
   valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
   ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
@@ -1162,11 +1162,11 @@ TEST(RssStateValidInputRangeTests, testValidInputRangeUnstructuredSceneStateTooB
   ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
     ::ad::rss::state::UnstructuredSceneResponse::None);
   valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::physics::AngleRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.minimum = valueUnstructuredSceneStateHeadingRangeMinimum;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.maximum = valueUnstructuredSceneStateHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
   valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
   ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
@@ -1295,11 +1295,11 @@ TEST(RssStateValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)
   ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
     ::ad::rss::state::UnstructuredSceneResponse::None);
   valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::physics::AngleRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.minimum = valueUnstructuredSceneStateHeadingRangeMinimum;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.maximum = valueUnstructuredSceneStateHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
   valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
   ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
@@ -1425,11 +1425,11 @@ TEST(RssStateValidInputRangeTests, testValidInputRangeSituationTypeTooBig)
   ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
     ::ad::rss::state::UnstructuredSceneResponse::None);
   valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::physics::AngleRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMinimum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.minimum = valueUnstructuredSceneStateHeadingRangeMinimum;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeMaximum(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.maximum = valueUnstructuredSceneStateHeadingRangeMaximum;
+  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
+  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
+  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
   valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
   ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;

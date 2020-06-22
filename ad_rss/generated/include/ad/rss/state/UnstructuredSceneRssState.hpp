@@ -20,7 +20,7 @@
 #include <iostream>
 #include <memory>
 #include <sstream>
-#include "ad/physics/AngleRange.hpp"
+#include "ad/rss/state/HeadingRange.hpp"
 #include "ad/rss/state/UnstructuredSceneResponse.hpp"
 #include "ad/rss/state/UnstructuredSceneStateInformation.hpp"
 /*!
@@ -116,7 +116,7 @@ struct UnstructuredSceneRssState
 
   bool isSafe;
   ::ad::rss::state::UnstructuredSceneResponse response;
-  ::ad::physics::AngleRange headingRange;
+  ::ad::rss::state::HeadingRange headingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation rssStateInformation;
 };
 

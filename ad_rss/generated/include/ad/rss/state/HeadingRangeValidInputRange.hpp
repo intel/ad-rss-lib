@@ -19,7 +19,7 @@
 
 #include <cmath>
 #include <limits>
-#include "ad/physics/AngleRangeValidInputRange.hpp"
+#include "ad/physics/AngleValidInputRange.hpp"
 #include "ad/rss/state/HeadingRange.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
@@ -38,8 +38,7 @@ inline bool withinValidInputRange(::ad::rss::state::HeadingRange const &input, b
 {
   // check for generic member input ranges
   bool inValidInputRange = true;
-  inValidInputRange
-    = withinValidInputRange(input.outerRange, logErrors) && withinValidInputRange(input.innerRange, logErrors);
+  inValidInputRange = withinValidInputRange(input.begin, logErrors) && withinValidInputRange(input.end, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::state::HeadingRange)>> {} has invalid member",

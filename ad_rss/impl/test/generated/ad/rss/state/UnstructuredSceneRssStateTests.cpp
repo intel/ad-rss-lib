@@ -32,11 +32,11 @@ protected:
     value.isSafe = valueIsSafe;
     ::ad::rss::state::UnstructuredSceneResponse valueResponse(::ad::rss::state::UnstructuredSceneResponse::None);
     value.response = valueResponse;
-    ::ad::physics::AngleRange valueHeadingRange;
-    ::ad::physics::Angle valueHeadingRangeMinimum(-6.283185308);
-    valueHeadingRange.minimum = valueHeadingRangeMinimum;
-    ::ad::physics::Angle valueHeadingRangeMaximum(-6.283185308);
-    valueHeadingRange.maximum = valueHeadingRangeMaximum;
+    ::ad::rss::state::HeadingRange valueHeadingRange;
+    ::ad::physics::Angle valueHeadingRangeBegin(-6.283185308);
+    valueHeadingRange.begin = valueHeadingRangeBegin;
+    ::ad::physics::Angle valueHeadingRangeEnd(-6.283185308);
+    valueHeadingRange.end = valueHeadingRangeEnd;
     value.headingRange = valueHeadingRange;
     ::ad::rss::state::UnstructuredSceneStateInformation valueRssStateInformation;
     ::ad::rss::world::UnstructuredTrajectorySet valueRssStateInformationBrakeTrajectorySet;
@@ -136,11 +136,11 @@ TEST_F(UnstructuredSceneRssStateTests, comparisonOperatorResponseDiffers)
 TEST_F(UnstructuredSceneRssStateTests, comparisonOperatorHeadingRangeDiffers)
 {
   ::ad::rss::state::UnstructuredSceneRssState valueA = mValue;
-  ::ad::physics::AngleRange headingRange;
-  ::ad::physics::Angle headingRangeMinimum(6.283185308);
-  headingRange.minimum = headingRangeMinimum;
-  ::ad::physics::Angle headingRangeMaximum(6.283185308);
-  headingRange.maximum = headingRangeMaximum;
+  ::ad::rss::state::HeadingRange headingRange;
+  ::ad::physics::Angle headingRangeBegin(6.283185308);
+  headingRange.begin = headingRangeBegin;
+  ::ad::physics::Angle headingRangeEnd(6.283185308);
+  headingRange.end = headingRangeEnd;
   valueA.headingRange = headingRange;
   ::ad::rss::state::UnstructuredSceneRssState valueB = mValue;
 

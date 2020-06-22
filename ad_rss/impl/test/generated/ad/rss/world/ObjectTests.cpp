@@ -188,7 +188,7 @@ TEST_F(ObjectTests, comparisonOperatorOccupiedRegionsDiffers)
   occupiedRegionsElementLatRange.maximum = occupiedRegionsElementLatRange.minimum;
   occupiedRegionsElementLatRange.minimum = occupiedRegionsElementLatRange.maximum;
   occupiedRegionsElement.latRange = occupiedRegionsElementLatRange;
-  occupiedRegions.resize(1 + 1, occupiedRegionsElement);
+  occupiedRegions.resize(0 + 1, occupiedRegionsElement);
   valueA.occupiedRegions = occupiedRegions;
   ::ad::rss::world::Object valueB = mValue;
 

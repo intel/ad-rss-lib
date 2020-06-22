@@ -36,8 +36,8 @@ void resetRssState(state::LateralRssState &state)
 void resetRssState(state::UnstructuredSceneRssState &state)
 {
   state.response = state::UnstructuredSceneResponse::None;
-  state.headingRange.minimum = ad::physics::Angle(0.0);
-  state.headingRange.maximum = ad::physics::c2PI;
+  state.headingRange.begin = ad::physics::Angle(0.0);
+  state.headingRange.end = ad::physics::c2PI;
   state.isSafe = true;
 }
 
@@ -63,10 +63,12 @@ void resetRssState(state::ProperResponse &properResponse)
   properResponse.longitudinalResponse = state::LongitudinalResponse::None;
   properResponse.lateralResponseLeft = state::LateralResponse::None;
   properResponse.lateralResponseRight = state::LateralResponse::None;
-  properResponse.headingRange.innerRange.minimum = ad::physics::Angle(0.0);
-  properResponse.headingRange.innerRange.maximum = ad::physics::Angle(0.0);
-  properResponse.headingRange.outerRange.minimum = ad::physics::Angle(0.0);
-  properResponse.headingRange.outerRange.maximum = ad::physics::c2PI;
+
+  properResponse.headingRanges.clear();
+  state::HeadingRange initialHeadingRange;
+  initialHeadingRange.begin = ad::physics::Angle(0.0);
+  initialHeadingRange.end = ad::physics::c2PI;
+  properResponse.headingRanges.push_back(initialHeadingRange);
 }
 
 world::RssDynamics getObjectRssDynamics()

@@ -32,7 +32,15 @@ namespace unstructured {
 class TrajectoryPedestrian
 {
 public:
+  /**
+   * @brief The maximum radius before assuming forward movement
+   */
   static const ad::physics::Distance maxRadius;
+
+  /**
+   * @brief Step width while calculating points on circle
+   */
+  static const ad::physics::Angle circleStepWidth;
 
   TrajectoryPedestrian()
   {
