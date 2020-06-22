@@ -98,14 +98,14 @@ public:
   ~RssObjectConversion() = default;
 
   /*!
-   * \brief standard assignment operator
+   * \brief delete standard assignment operator
    */
-  RssObjectConversion &operator=(const RssObjectConversion &other) = default;
+  RssObjectConversion &operator=(const RssObjectConversion &other) = delete;
 
   /*!
-   * \brief standard move assignment operator
+   * \brief delete standard move assignment operator
    */
-  RssObjectConversion &operator=(RssObjectConversion &&other) = default;
+  RssObjectConversion &operator=(RssObjectConversion &&other) = delete;
 
   /** @returns RssDynamics of the object
    *

@@ -592,6 +592,17 @@ bool RssSceneCreator::appendScene(::ad::rss::situation::SituationType const &sit
   getLogger()->trace("RssSceneCreator::appendScene[{}]>> object {}", otherObject->getId(), scene.object);
   getLogger()->trace("RssSceneCreator::appendScene[{}]>> ego {}", otherObject->getId(), scene.egoVehicle);
 
+  if ((situationType != ::ad::rss::situation::SituationType::Unstructured)
+      && (situationType != ::ad::rss::situation::SituationType::NotRelevant)
+      && (scene.egoVehicle.occupiedRegions.empty() || scene.object.occupiedRegions.empty()))
+  {
+    getLogger()->debug(
+      "RssSceneCreator::appendScene[{}]>> ego or object not on route. Structured scene not valid. Dropping. {}",
+      otherObject->getId(),
+      scene);
+    return false;
+  }
+
   if (withinValidInputRange(scene))
   {
     return mSceneCreation.appendSceneToWorldModel(scene);
