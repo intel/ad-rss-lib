@@ -79,7 +79,11 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
 
   RssSceneCreator sceneCreator(restrictSpeedLimitMode, greenTrafficLights, *this);
 
-  if (mode == ::ad::rss::map::RssMode::Unstructured)
+  if (mode == ::ad::rss::map::RssMode::NotRelevant)
+  {
+    return sceneCreator.appendNotRelevantScene(egoRouteInput, egoObject, otherObject);
+  }
+  else if (mode == ::ad::rss::map::RssMode::Unstructured)
   {
     return sceneCreator.appendUnstructuredScene(egoObject, otherObject);
   }

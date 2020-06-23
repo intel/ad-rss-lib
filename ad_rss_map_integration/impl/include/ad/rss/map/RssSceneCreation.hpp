@@ -37,8 +37,9 @@ class RssObjectConversion;
  */
 enum class RssMode
 {
-  Structured,
-  Unstructured
+  NotRelevant, //!< the scene is not relevant (but should be visible as NotRelvant scene)
+  Structured,  //!< the scene requires structured analysis
+  Unstructured //!< the scene requires unstructured analysis
 };
 
 /*!
