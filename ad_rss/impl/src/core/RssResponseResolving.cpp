@@ -80,12 +80,8 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
     response.accelerationRestrictions.lateralRightRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
 
     auto finalUnstructuredResponse = state::UnstructuredSceneResponse::ContinueForward;
-    state::HeadingRange initialHeadingRange;
-    initialHeadingRange.begin = ad::physics::Angle(0.0);
-    initialHeadingRange.end = ad::physics::c2PI;
-    response.headingRanges.push_back(initialHeadingRange);
+    response.headingRanges.clear();
     std::vector<state::HeadingRange> finalHeadingRanges;
-    finalHeadingRanges.push_back(initialHeadingRange);
 
     bool unstructuredSceneFound = false;
     bool structuredSceneFound = false;

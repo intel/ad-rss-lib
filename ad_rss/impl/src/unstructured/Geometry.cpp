@@ -182,9 +182,16 @@ bool getHeadingOverlap(ad::rss::state::HeadingRange const &headingRange,
                        std::vector<ad::rss::state::HeadingRange> &overlapRanges)
 {
   std::vector<ad::rss::state::HeadingRange> newOverlapRanges;
-  for (auto const &range : overlapRanges)
+  if (overlapRanges.empty())
   {
-    getHeadingOverlap(headingRange, range, newOverlapRanges);
+    newOverlapRanges.push_back(headingRange);
+  }
+  else
+  {
+    for (auto const &range : overlapRanges)
+    {
+      getHeadingOverlap(headingRange, range, newOverlapRanges);
+    }
   }
   overlapRanges = newOverlapRanges;
   return !overlapRanges.empty();

@@ -224,16 +224,8 @@ bool RssUnstructuredSceneChecker::calculateDriveAwayAngle(unstructured::Point co
   auto const substractedLocationVectorAngle = ::ad::physics::Angle(
     std::atan2(static_cast<double>(substractedLocationVector.y()), static_cast<double>(substractedLocationVector.x())));
 
-  if (maxAllowedAngleWhenBothStopped < ::ad::physics::cPI_2)
-  {
-    range.begin = physics::normalizeAngleSigned(substractedLocationVectorAngle + maxAllowedAngleWhenBothStopped);
-    range.end = physics::normalizeAngleSigned(substractedLocationVectorAngle - maxAllowedAngleWhenBothStopped);
-  }
-  else
-  {
-    range.begin = physics::normalizeAngleSigned(substractedLocationVectorAngle - maxAllowedAngleWhenBothStopped);
-    range.end = physics::normalizeAngleSigned(substractedLocationVectorAngle + maxAllowedAngleWhenBothStopped);
-  }
+  range.begin = physics::normalizeAngleSigned(substractedLocationVectorAngle - maxAllowedAngleWhenBothStopped);
+  range.end = physics::normalizeAngleSigned(substractedLocationVectorAngle + maxAllowedAngleWhenBothStopped);
   return true;
 }
 
