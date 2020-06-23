@@ -17,20 +17,20 @@ TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, longitudinal_negative_spee
 {
   Distance distanceOffset(0.);
 
-  ASSERT_FALSE(calculateDistanceOffsetAfterResponseTime(
+  ASSERT_FALSE(calculateDistanceOffsetAfterDuration(
     CoordinateSystemAxis::Longitudinal, Speed(-10.), cMaxSpeed, Acceleration(2), Duration(1), distanceOffset));
 }
 
-TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, lateral_negative_speed_and_negative_acceleration)
+TEST(PhysicsUnitTestsDistanceOffsetAfterDuration, lateral_negative_speed_and_negative_acceleration)
 {
   Distance distanceOffsetA(0.);
   Distance distanceOffsetB(0.);
 
   for (auto responseTime = 1; responseTime < 20; responseTime++)
   {
-    ASSERT_TRUE(calculateDistanceOffsetAfterResponseTime(
+    ASSERT_TRUE(calculateDistanceOffsetAfterDuration(
       CoordinateSystemAxis::Lateral, Speed(-10.), cMaxSpeed, Acceleration(2), Duration(responseTime), distanceOffsetA));
-    ASSERT_TRUE(calculateDistanceOffsetAfterResponseTime(
+    ASSERT_TRUE(calculateDistanceOffsetAfterDuration(
       CoordinateSystemAxis::Lateral, Speed(10.), cMaxSpeed, Acceleration(-2), Duration(responseTime), distanceOffsetB));
 
     ASSERT_NEAR(-static_cast<double>(distanceOffsetA), static_cast<double>(distanceOffsetB), cDoubleNear);
@@ -40,18 +40,18 @@ TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, lateral_negative_speed_and
   }
 }
 
-TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, negative_time)
+TEST(PhysicsUnitTestsDistanceOffsetAfterDuration, negative_time)
 {
   Distance distanceOffset(0.);
 
   for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
   {
-    EXPECT_FALSE(calculateDistanceOffsetAfterResponseTime(
+    EXPECT_FALSE(calculateDistanceOffsetAfterDuration(
       axis, Speed(1.), cMaxSpeed, Acceleration(2.), Duration(-1.), distanceOffset));
   }
 }
 
-TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, deceleration_to_stop_equal_response_time_longitudinal)
+TEST(PhysicsUnitTestsDistanceOffsetAfterDuration, deceleration_to_stop_equal_response_time_longitudinal)
 {
   Distance distanceOffsetB(0.);
   ASSERT_TRUE(calculateStoppingDistance(Speed(4.), Acceleration(-4.), distanceOffsetB));
@@ -59,7 +59,7 @@ TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, deceleration_to_stop_equal
   for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
   {
     Distance distanceOffsetA(0.);
-    ASSERT_TRUE(calculateDistanceOffsetAfterResponseTime(
+    ASSERT_TRUE(calculateDistanceOffsetAfterDuration(
       axis, Speed(4.), cMaxSpeed, Acceleration(-4.), Duration(10.), distanceOffsetA));
 
     if (axis == CoordinateSystemAxis::Longitudinal)
@@ -73,26 +73,26 @@ TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, deceleration_to_stop_equal
   }
 }
 
-TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, checks_zero_acceleration)
+TEST(PhysicsUnitTestsDistanceOffsetAfterDuration, checks_zero_acceleration)
 {
   Distance distanceOffset(0.);
 
   for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
   {
-    ASSERT_TRUE(calculateDistanceOffsetAfterResponseTime(
-      axis, Speed(4.), cMaxSpeed, Acceleration(0.), Duration(1.), distanceOffset));
+    ASSERT_TRUE(
+      calculateDistanceOffsetAfterDuration(axis, Speed(4.), cMaxSpeed, Acceleration(0.), Duration(1.), distanceOffset));
     ASSERT_NEAR(static_cast<double>(distanceOffset), 4., cDoubleNear);
   }
 }
 
-TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, checks_max_speed_lon_no_acceleration)
+TEST(PhysicsUnitTestsDistanceOffsetAfterDuration, checks_max_speed_lon_no_acceleration)
 {
   Distance distanceOffset(0.);
 
   for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
   {
-    ASSERT_TRUE(calculateDistanceOffsetAfterResponseTime(
-      axis, Speed(4.), Speed(4.), Acceleration(2.), Duration(1.), distanceOffset));
+    ASSERT_TRUE(
+      calculateDistanceOffsetAfterDuration(axis, Speed(4.), Speed(4.), Acceleration(2.), Duration(1.), distanceOffset));
     if (axis == CoordinateSystemAxis::Longitudinal)
     {
       ASSERT_NEAR(static_cast<double>(distanceOffset), 4., cDoubleNear);
@@ -104,24 +104,24 @@ TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, checks_max_speed_lon_no_ac
   }
 }
 
-TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, checks_acceleration_time1s)
+TEST(PhysicsUnitTestsDistanceOffsetAfterDuration, checks_acceleration_time1s)
 {
   for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
   {
     Distance distanceOffset(0.);
-    ASSERT_TRUE(calculateDistanceOffsetAfterResponseTime(
-      axis, Speed(4.), cMaxSpeed, Acceleration(2.), Duration(1.), distanceOffset));
+    ASSERT_TRUE(
+      calculateDistanceOffsetAfterDuration(axis, Speed(4.), cMaxSpeed, Acceleration(2.), Duration(1.), distanceOffset));
     ASSERT_NEAR(static_cast<double>(distanceOffset), 5., cDoubleNear);
   }
 }
 
-TEST(PhysicsUnitTestsDistanceOffsetAfterResponseTime, checks_acceleration_time2s)
+TEST(PhysicsUnitTestsDistanceOffsetAfterDuration, checks_acceleration_time2s)
 {
   for (auto axis : {CoordinateSystemAxis::Longitudinal, CoordinateSystemAxis::Lateral})
   {
     Distance distanceOffset(0.);
-    ASSERT_TRUE(calculateDistanceOffsetAfterResponseTime(
-      axis, Speed(4.), cMaxSpeed, Acceleration(2.), Duration(2.), distanceOffset));
+    ASSERT_TRUE(
+      calculateDistanceOffsetAfterDuration(axis, Speed(4.), cMaxSpeed, Acceleration(2.), Duration(2.), distanceOffset));
     ASSERT_NEAR(static_cast<double>(distanceOffset), 12., cDoubleNear);
   }
 }

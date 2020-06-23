@@ -29,7 +29,9 @@ set(RSS_TEST_SOURCES
   core/RssSituationExtractionOppositeDirectionTests.cpp
   core/RssSituationExtractionRelativePositionTests.cpp
   core/RssSituationExtractionSameDirectionTests.cpp
+  situation/PhysicsUnitTestsCalculateTimeToStop.cpp
   situation/PhysicsUnitTestsDistanceOffsetAfterResponseTime.cpp
+  situation/PhysicsUnitTestsDistanceOffsetInAcceleratedLimitedMovement.cpp
   situation/PhysicsUnitTestsInputRangeChecks.cpp
   situation/PhysicsUnitTestsStoppingDistance.cpp
   situation/PhysicsUnitTestsTimeToCoverDistance.cpp
@@ -47,7 +49,7 @@ set(RSS_TEST_SOURCES
   situation/RssSituationCheckingTestsLongitudinal.cpp
   situation/RssSituationCheckingTestsNotRelevant.cpp
   situation/RssSituationCheckingTestsOppositeDirection.cpp
-  situation/RssUnstructuredSceneCheckerTest.cpp
+  situation/RssSituationCheckingTestsUnstructuredSceneChecker.cpp
   situation/VehicleTests.cpp
   state/RssStateSafeTests.cpp
   test_support/TestSupport.cpp

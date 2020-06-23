@@ -33,6 +33,23 @@ namespace rss {
  * @brief namespace situation
  */
 namespace situation {
+/**
+ *
+ * @brief Calculate the distance on a constant accelerated movement (with a limiting maximum speed)
+ *
+ * @param[in]  currentSpeed           is the current speed of the vehicle
+ * @param[in]  maxSpeed               is the maximum speed of the vehicle
+ * @param[in]  acceleration           is the applied acceleration
+ * @param[in]  duration               is the duration to apply the acceleration
+ * @param[out] distanceOffset         is the distance offset from the current position
+ *
+ * @return true on success, false if a stop cannot be reached
+ */
+bool calculateDistanceOffsetInAcceleratedLimitedMovement(physics::Speed const &speed,
+                                                         physics::Speed const &maxSpeed,
+                                                         physics::Acceleration const &acceleration,
+                                                         physics::Duration const &duration,
+                                                         physics::Distance &distanceOffset);
 
 /**
  * @brief Calculate the stopping distance for a given speed and deceleration on a constant accelerated movement
@@ -57,8 +74,8 @@ bool calculateStoppingDistance(physics::Speed const &currentSpeed,
  * @param[in]  maxSpeed        is the maximum speed of the vehicle (e.g. restricted by a limit)
  *                             (only used in longitudinal direction, has to be always positive)
  * @param[in]  acceleration    is the acceleration of the vehicle
- * @param[in]  time            is the (positive) period of time the vehicle keeps accelerating
- * @param[out] resultingSpeed  is the resulting speed after \a responseTime
+ * @param[in]  duration        is the (positive) period of time the vehicle keeps accelerating
+ * @param[out] resultingSpeed  is the resulting speed after \a duration
  *                             In longitudinal direction, the resulting speed >= 0. Especially, the vehicle is not
  *                             starting to drive in reverse direction after standing still. In lateral direction,
  *                             the resulting speed might have a different sign than the currentSpeed.
@@ -69,7 +86,7 @@ bool calculateSpeedAfterAcceleration(CoordinateSystemAxis const &axis,
                                      physics::Speed const &currentSpeed,
                                      physics::Speed const &maxSpeed,
                                      physics::Acceleration const &acceleration,
-                                     physics::Duration const &time,
+                                     physics::Duration const &duration,
                                      physics::Speed &resultingSpeed);
 
 /**
@@ -81,7 +98,7 @@ bool calculateSpeedAfterAcceleration(CoordinateSystemAxis const &axis,
  * @param[in]  maxSpeed         is the maximum speed of the vehicle
  *                              (only used in longitudinal direction, has to be always positive)
  * @param[in]  acceleration     is the acceleration of the vehicle
- * @param[in]  responseTime     is the (positive) period of time the vehicle keeps accelerating
+ * @param[in]  duration         is the (positive) period of time the vehicle keeps accelerating
  * @param[out] distanceOffset   is the distance offset from the current position
  *                              In decelerated longitudinal situation, the distance offset is restricted to the point
  *                              in time the vehicle stops; if the vehicle is able to stop within the response time,
@@ -92,66 +109,109 @@ bool calculateSpeedAfterAcceleration(CoordinateSystemAxis const &axis,
  *
  * @return true on success, false otherwise
  */
-bool calculateDistanceOffsetAfterResponseTime(CoordinateSystemAxis const &axis,
-                                              physics::Speed const &currentSpeed,
-                                              physics::Speed const &maxSpeed,
-                                              physics::Acceleration const &acceleration,
-                                              physics::Duration const &responseTime,
-                                              physics::Distance &distanceOffset);
+bool calculateDistanceOffsetAfterDuration(CoordinateSystemAxis const &axis,
+                                          physics::Speed const &currentSpeed,
+                                          physics::Speed const &maxSpeed,
+                                          physics::Acceleration const &acceleration,
+                                          physics::Duration const &duration,
+                                          physics::Distance &distanceOffset);
 
 /**
  * @brief Calculate the time needed to cover a given distance
  *
- * The function will respect acceleration during response time and then braking till zero velocity
+ * The function will use two values for acceleration, one until reaching the response time, the
+ * second one afterwards.
  * If the distance is not covered when then velocity reaches zero, infinite time will be returned
  *
- * @param[in] currentSpeed starting velocity
- * @param[in] maxSpeed maximum velocity
- * @param[in] responseTime
- * @param[in] acceleration during response time
- * @param[in] deceleration after response time
- * @param[in] distanceToCover distance that should be covered
- * @param[out] requiredTime time needed to cover the distance
+ * @param[in]  currentSpeed       starting velocity
+ * @param[in]  maxSpeed           maximum velocity
+ * @param[in]  responseTime       the time after which \a aAfterResponseTime is used instead of
+ *                                \a aUntilResponseTime as acceleration
+ * @param[in]  aUntilResponseTime during response time
+ * @param[in]  aAfterResponseTime after response time
+ * @param[in]  distanceToCover    distance that should be covered
+ * @param[out] requiredTime      time needed to cover the distance
  *
  * @return true on, success, false otherwise
- *
  */
 bool calculateTimeToCoverDistance(physics::Speed const &currentSpeed,
                                   physics::Speed const &maxSpeed,
                                   physics::Duration const &responseTime,
-                                  physics::Acceleration const &acceleration,
-                                  physics::Acceleration const &deceleration,
+                                  physics::Acceleration const &aUntilResponseTime,
+                                  physics::Acceleration const &aAfterResponseTime,
                                   physics::Distance const &distanceToCover,
                                   physics::Duration &requiredTime);
 
-void calculateSpeed(physics::Duration const &currentTime,
-                    physics::Speed const &initialSpeed,
+/**
+ * @brief Calculate the speed after a given duration
+ *
+ * The function will use two values for acceleration, one until reaching the response time, the
+ * second one afterwards.
+ *
+ * @param[in] duration           the duration for which the speed gets calculated
+ * @param[in] currentSpeed       starting velocity
+ * @param[in] responseTime       the time after which \a aAfterResponseTime is used instead of
+ *                               \a aUntilResponseTime as acceleration
+ * @param[in] maxSpeed           maximum velocity
+ * @param[in] aUntilResponseTime acceleration until response time
+ * @param[in] aAfterResponseTime acceleration after response time
+ * @param[out] resultingSpeed    resulting speed after \a duration
+ */
+void calculateSpeed(physics::Duration const &duration,
+                    physics::Speed const &currentSpeed,
                     physics::Duration const &responseTime,
                     physics::Speed const &maxSpeed,
                     physics::Acceleration const &aUntilReponseTime,
                     physics::Acceleration const &aAfterResponseTime,
                     physics::Speed &resultingSpeed);
 
-void calculateDistanceOffset(physics::Duration const &currentTime,
+/**
+ * @brief Calculate the distance offset after a constant accelerated movement.
+ *
+ * The function will use two values for acceleration, one until reaching the response time, the
+ * second one afterwards.
+ *
+ * @param[in] duration           the duration for which the speed gets calculated
+ * @param[in] currentSpeed       starting velocity
+ * @param[in] responseTime       the time after which \a aAfterResponseTime is used instead of
+ *                               \a aUntilResponseTime as acceleration
+ * @param[in] maxSpeed           maximum velocity
+ * @param[in] aUntilResponseTime acceleration until response time
+ * @param[in] aAfterResponseTime acceleration after response time
+ * @param[out] distanceOffset    resulting distance
+ *
+ * @return true on, success, false otherwise
+ */
+bool calculateDistanceOffset(physics::Duration const &duration,
                              physics::Speed const &currentSpeed,
-                             physics::Speed const &maxSpeed,
-                             physics::Acceleration const &acceleration,
-                             physics::Distance &distanceOffset);
-
-void calculateDistanceOffset(physics::Duration const &currentTime,
-                             physics::Speed const &initialSpeed,
                              physics::Duration const &responseTime,
                              physics::Speed const &maxSpeed,
                              physics::Acceleration const &aUntilResponseTime,
                              physics::Acceleration const &aAfterResponseTime,
                              physics::Distance &distanceOffset);
 
-bool calculateTimeToStop(physics::Speed initialSpeed,
-                         physics::Duration responseTime,
-                         physics::Speed maxSpeed,
-                         physics::Acceleration aUntilResponseTimeMax,
-                         physics::Acceleration aAfterResponseTime,
-                         physics::Duration &result);
+/**
+ * @brief Calculate the stopping time after a constant accelerated movement.
+ *
+ * The function will use two values for acceleration, one until reaching the response time, the
+ * second one afterwards.
+ *
+ * @param[in] currentSpeed       starting velocity
+ * @param[in] responseTime       the time after which \a aAfterResponseTime is used instead of
+ *                               \a aUntilResponseTime as acceleration
+ * @param[in] maxSpeed           maximum velocity
+ * @param[in] aUntilResponseTime acceleration until response time
+ * @param[in] aAfterResponseTime acceleration after response time
+ * @param[out] stopDuration      resulting duration
+ *
+ * @return true on, success, false otherwise
+ */
+bool calculateTimeToStop(physics::Speed const &currentSpeed,
+                         physics::Duration const &responseTime,
+                         physics::Speed const &maxSpeed,
+                         physics::Acceleration const &aUntilResponseTime,
+                         physics::Acceleration const &aAfterResponseTime,
+                         physics::Duration &stopDuration);
 
 } // namespace situation
 } // namespace rss
