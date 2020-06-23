@@ -535,33 +535,28 @@ bool RssSituationExtraction::extractSituations(world::WorldModel const &worldMod
     {
       situation::Situation situation;
       bool const extractResult = extractSituationInputRangeChecked(worldModel.timeIndex, scene, situation);
-
-      // if the situation is relevant, add it to situationSnapshot
-      if (scene.situationType != ad::rss::situation::SituationType::NotRelevant)
+      if (extractResult)
       {
-        if (extractResult)
+        // situation id creation might detect that different scenes are representing identical situations
+        // ensure the situationSnapshot is unique while containing the worst-case situation
+        auto findResult = std::find_if(situationSnapshot.situations.begin(),
+                                       situationSnapshot.situations.end(),
+                                       [&situation](ad::rss::situation::Situation const &checkSituation) {
+                                         return checkSituation.situationId == situation.situationId;
+                                       });
+        if (findResult == situationSnapshot.situations.end())
         {
-          // situation id creation might detect that different scenes are representing identical situations
-          // ensure the situationSnapshot is unique while containing the worst-case situation
-          auto findResult = std::find_if(situationSnapshot.situations.begin(),
-                                         situationSnapshot.situations.end(),
-                                         [&situation](ad::rss::situation::Situation const &checkSituation) {
-                                           return checkSituation.situationId == situation.situationId;
-                                         });
-          if (findResult == situationSnapshot.situations.end())
-          {
-            situationSnapshot.situations.push_back(situation);
-          }
-          else if (!mergeSituations(situation, *findResult))
-          {
-            result = false;
-          }
+          situationSnapshot.situations.push_back(situation);
         }
-        else
+        else if (!mergeSituations(situation, *findResult))
         {
-          spdlog::error("RssSituationExtraction::extractSituations>> Extraction failed {}", scene);
           result = false;
         }
+      }
+      else
+      {
+        spdlog::error("RssSituationExtraction::extractSituations>> Extraction failed {}", scene);
+        result = false;
       }
     }
   }
