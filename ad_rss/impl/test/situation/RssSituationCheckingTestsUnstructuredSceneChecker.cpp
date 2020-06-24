@@ -19,28 +19,28 @@ TEST(RssSituationCheckingTestsUnstructuredSceneChecker, calculateDriveAwayAngle)
   RssUnstructuredSceneChecker unstructuredSceneChecker;
   ASSERT_TRUE(unstructuredSceneChecker.calculateDriveAwayAngle(
     unstructured::Point(0, 0), unstructured::Point(1, 0), physics::cPI / 4., range));
-  ASSERT_EQ(range.begin, -3. / 4. * physics::cPI);
-  ASSERT_EQ(range.end, 3. / 4. * physics::cPI);
-
-  ASSERT_TRUE(unstructuredSceneChecker.calculateDriveAwayAngle(
-    unstructured::Point(0, 0), unstructured::Point(0, 1), physics::cPI / 4., range));
-  ASSERT_EQ(range.begin, -1. / 4. * physics::cPI);
+  ASSERT_EQ(range.begin, 3. / 4. * physics::cPI);
   ASSERT_EQ(range.end, -3. / 4. * physics::cPI);
 
   ASSERT_TRUE(unstructuredSceneChecker.calculateDriveAwayAngle(
-    unstructured::Point(0, 0), unstructured::Point(-1, 0), physics::cPI / 4., range));
-  ASSERT_EQ(range.begin, 1. / 4. * physics::cPI);
+    unstructured::Point(0, 0), unstructured::Point(0, 1), physics::cPI / 4., range));
+  ASSERT_EQ(range.begin, -3. / 4. * physics::cPI);
   ASSERT_EQ(range.end, -1. / 4. * physics::cPI);
 
   ASSERT_TRUE(unstructuredSceneChecker.calculateDriveAwayAngle(
-    unstructured::Point(0, 0), unstructured::Point(0, -1), physics::cPI / 4., range));
-  ASSERT_EQ(range.begin, 3. / 4. * physics::cPI);
+    unstructured::Point(0, 0), unstructured::Point(-1, 0), physics::cPI / 4., range));
+  ASSERT_EQ(range.begin, -1. / 4. * physics::cPI);
   ASSERT_EQ(range.end, 1. / 4. * physics::cPI);
 
   ASSERT_TRUE(unstructuredSceneChecker.calculateDriveAwayAngle(
+    unstructured::Point(0, 0), unstructured::Point(0, -1), physics::cPI / 4., range));
+  ASSERT_EQ(range.begin, 1. / 4. * physics::cPI);
+  ASSERT_EQ(range.end, 3. / 4. * physics::cPI);
+
+  ASSERT_TRUE(unstructuredSceneChecker.calculateDriveAwayAngle(
     unstructured::Point(0, 0), unstructured::Point(1, 1), physics::cPI / 4., range));
-  ASSERT_EQ(range.begin, -physics::cPI_2);
-  ASSERT_EQ(range.end, physics::cPI);
+  ASSERT_EQ(range.begin, physics::cPI);
+  ASSERT_EQ(range.end, -physics::cPI_2);
 
   ASSERT_TRUE(unstructuredSceneChecker.calculateDriveAwayAngle(
     unstructured::Point(0, 0), unstructured::Point(0, 1), 3. / 4. * physics::cPI, range));
@@ -94,8 +94,8 @@ TEST(RssSituationCheckingTestsUnstructuredSceneChecker, calculateState_frontal_s
   ASSERT_TRUE(unstructuredSceneChecker.calculateState(situation, egoStateInfo, otherStateInfo, unstructuredSceneState));
   ASSERT_FALSE(unstructuredSceneState.isSafe);
   ASSERT_EQ(unstructuredSceneState.response, state::UnstructuredSceneResponse::DriveAway); // as both stopped
-  ASSERT_EQ(unstructuredSceneState.headingRange.begin, -1. / 4. * physics::cPI);
-  ASSERT_EQ(unstructuredSceneState.headingRange.end, -3. / 4. * physics::cPI);
+  ASSERT_EQ(unstructuredSceneState.headingRange.begin, -3. / 4. * physics::cPI);
+  ASSERT_EQ(unstructuredSceneState.headingRange.end, -1. / 4. * physics::cPI);
 }
 
 } // namespace unstructured
