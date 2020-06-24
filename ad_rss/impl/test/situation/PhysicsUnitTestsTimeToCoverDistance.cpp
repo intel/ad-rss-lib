@@ -95,10 +95,9 @@ TEST(PhysicsUnitTestsTimeToCoverDistance, test_zero_distance)
 TEST(PhysicsUnitTestsTimeToCoverDistance, max_speed_reached_before_response_time)
 {
   Duration requiredTime(0.);
-  // TODO: fix
-  // EXPECT_TRUE(calculateTimeToCoverDistance(
-  //   Speed(1.0), Speed(2.0), Duration(1.5), Acceleration(2.), Acceleration(-0.5), Distance(1.75), requiredTime));
-  // EXPECT_NEAR(1.0, static_cast<double>(requiredTime), cDoubleNear);
+  EXPECT_TRUE(calculateTimeToCoverDistance(
+    Speed(1.0), Speed(2.0), Duration(1.5), Acceleration(2.), Acceleration(-0.5), Distance(1.75), requiredTime));
+  EXPECT_NEAR(1.0, static_cast<double>(requiredTime), cDoubleNear);
 }
 
 } // namespace situation
