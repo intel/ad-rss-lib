@@ -24,6 +24,7 @@ bool calculateDistanceOffsetInAcceleratedLimitedMovement(Speed const &speed,
                                                          Distance &distanceOffset);
 
 bool calculateTimeForDistance(Speed const &currentSpeed,
+                              Speed const &maxSpeed,
                               Acceleration const &acceleration,
                               Distance const &distanceToCover,
                               Duration &requiredTime);
@@ -35,13 +36,13 @@ Speed calculateSpeedInAcceleratedMovement(Speed const &speed,
 TEST(PhysicsUnitTestsInputRangeChecks, negative_speed)
 {
   Duration requiredTime(0.);
-  EXPECT_FALSE(calculateTimeForDistance(Speed(-1.), Acceleration(0.), Distance(1.), requiredTime));
+  EXPECT_FALSE(calculateTimeForDistance(Speed(-1.), Speed(2.), Acceleration(0.), Distance(1.), requiredTime));
 }
 
 TEST(PhysicsUnitTestsInputRangeChecks, speed_and_acceleration_zero)
 {
   Duration requiredTime(0.);
-  EXPECT_TRUE(calculateTimeForDistance(Speed(0.), Acceleration(0.), Distance(1.), requiredTime));
+  EXPECT_TRUE(calculateTimeForDistance(Speed(0.), Speed(2.), Acceleration(0.), Distance(1.), requiredTime));
   EXPECT_EQ(requiredTime, std::numeric_limits<Duration>::max());
 }
 

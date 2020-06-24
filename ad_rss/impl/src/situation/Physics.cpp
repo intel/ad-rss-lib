@@ -171,6 +171,7 @@ bool calculateDistanceOffsetAfterDuration(CoordinateSystemAxis const &axis,
 }
 
 bool calculateTimeForDistance(Speed const &currentSpeed,
+                              Speed const &maxSpeed,
                               Acceleration const &acceleration,
                               Distance const &distanceToCover,
                               Duration &requiredTime)
@@ -214,6 +215,26 @@ bool calculateTimeForDistance(Speed const &currentSpeed,
     {
       requiredTime = t1;
     }
+
+    // check if max speed is reached before distance is reached
+    if (acceleration > Acceleration(0.))
+    {
+      auto maxSpeedTime = (maxSpeed - currentSpeed) / acceleration;
+      if (requiredTime > maxSpeedTime)
+      {
+        // split calculation into 1. accelerated movement and 2. maxSpeed movement
+        Distance distanceWhenReachingMaxSpeed;
+        result = calculateDistanceOffsetAfterDuration(CoordinateSystemAxis::Longitudinal,
+                                                      currentSpeed,
+                                                      maxSpeed,
+                                                      acceleration,
+                                                      maxSpeedTime,
+                                                      distanceWhenReachingMaxSpeed);
+        result
+          &= calculateTimeForDistance(currentSpeed, maxSpeed, acceleration, distanceWhenReachingMaxSpeed, requiredTime);
+        requiredTime += (distanceToCover - distanceWhenReachingMaxSpeed) / maxSpeed;
+      }
+    }
   }
   return result;
 }
@@ -247,8 +268,7 @@ bool calculateTimeToCoverDistance(Speed const &currentSpeed,
   {
     if (distanceAfterResponseTime >= distanceToCover)
     {
-      // TODO: obey max speed
-      result = calculateTimeForDistance(currentSpeed, aUntilResponseTime, distanceToCover, requiredTime);
+      result = calculateTimeForDistance(currentSpeed, maxSpeed, aUntilResponseTime, distanceToCover, requiredTime);
     }
     else
     {
@@ -277,8 +297,8 @@ bool calculateTimeToCoverDistance(Speed const &currentSpeed,
           {
             Distance remainingDistance = distanceToCover - distanceAfterResponseTime;
 
-            result
-              = calculateTimeForDistance(speedAfterResponseTime, aAfterResponseTime, remainingDistance, requiredTime);
+            result = calculateTimeForDistance(
+              speedAfterResponseTime, maxSpeed, aAfterResponseTime, remainingDistance, requiredTime);
             requiredTime += responseTime;
           }
           else
