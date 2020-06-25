@@ -208,10 +208,13 @@ private:
 } // namespace rss
 } // namespace ad
 
+/*!
+ * @brief namespace std
+ */
 namespace std {
 
 /*!
- * \brief overload of the std::to_string for RssMode
+ * \brief overload of the std::to_string for RestrictSpeedLimitMode
  */
 inline string to_string(::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode const &value)
 {
