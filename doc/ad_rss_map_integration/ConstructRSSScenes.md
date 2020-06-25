@@ -238,10 +238,10 @@ Having the vehicles metric bounding boxes and the distances to the intersection 
 $d_{lon} = \max⁡ (0, d_{enter}^A - d_{enter}^B - (BB_{lon,max}^B -BB_{lon,min}^B))$
 
 ### Consider speed limits <a name="considerspeedlimits"></a>
-Since the [RSS paper](https://arxiv.org/abs/1708.06374) is assuming worst-case behavior of
-other traffic participants, vehicles are allowed to accelerate with maximum possible acceleration
+The [RSS paper](https://arxiv.org/abs/1708.06374) is assuming reasonable behavior of
+other traffic participants. By the general RSS formulas, vehicles are allowed to accelerate with maximum possible acceleration
 within their reaction time. Especially in urban scenarios this can lead to unnecessarily big safety
-distances if expecting that fast driving vehicles are able to accelerate even beyond speed limits.
+distances if expecting that fast driving vehicles will accelerate even further beyond the speed limits within their reaction time.
 As it's unreasonable behavior of others to accelerate far beyond the maximum allowed speed,
 the construction of the scenes with `ad::rss::map::RssSceneCreation::appendScenes()` supports
 to select between different modes to consider the speed limit within RSS accelerated movement,
