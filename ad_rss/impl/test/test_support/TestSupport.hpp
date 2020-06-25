@@ -280,7 +280,15 @@ Distance calculateLateralMinSafeDistance(physics::Speed const &leftObjectSpeed,
                                          physics::Speed const &rightObjectSpeed,
                                          world::RssDynamics const &rightObjectRssDynamics);
 
-void getUnstructuredVehicle(unstructured::Point const &backLeft,
+/**
+ * @brief update the vehicle state and unstructured scene state info
+ *
+ * @param[in] backLeft position of the vehicle
+ * @param[in] positiveDirection direction selection
+ * @param[out] stateInfo unstructured state info
+ * @param[out] vehicleState resulting vehicle state
+ */
+void getUnstructuredVehicle(unstructured::Point const &centerPoint,
                             bool positiveDirection,
                             state::UnstructuredSceneStateInformation &stateInfo,
                             situation::VehicleState &vehicleState);
