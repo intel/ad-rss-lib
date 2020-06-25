@@ -36,6 +36,7 @@ void resetRssState(state::LateralRssState &state)
 void resetRssState(state::UnstructuredSceneRssState &state)
 {
   state.response = state::UnstructuredSceneResponse::None;
+  state.alphaLon = getEgoRssDynamics().alphaLon;
   state.headingRange.begin = ad::physics::Angle(0.0);
   state.headingRange.end = ad::physics::c2PI;
   state.isSafe = true;
