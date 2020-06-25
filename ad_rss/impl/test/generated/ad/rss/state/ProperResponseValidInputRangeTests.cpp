@@ -70,6 +70,9 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRange)
   valueAccelerationRestrictionsLateralRightRange.minimum = valueAccelerationRestrictionsLateralRightRange.maximum;
   valueAccelerationRestrictions.lateralRightRange = valueAccelerationRestrictionsLateralRightRange;
   value.accelerationRestrictions = valueAccelerationRestrictions;
+  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneResponse(
+    ::ad::rss::state::UnstructuredSceneResponse::None);
+  value.unstructuredSceneResponse = valueUnstructuredSceneResponse;
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
@@ -125,6 +128,9 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLongitudinalResponse
   valueAccelerationRestrictionsLateralRightRange.minimum = valueAccelerationRestrictionsLateralRightRange.maximum;
   valueAccelerationRestrictions.lateralRightRange = valueAccelerationRestrictionsLateralRightRange;
   value.accelerationRestrictions = valueAccelerationRestrictions;
+  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneResponse(
+    ::ad::rss::state::UnstructuredSceneResponse::None);
+  value.unstructuredSceneResponse = valueUnstructuredSceneResponse;
 
   // override member with data type value below input range minimum
   ::ad::rss::state::LongitudinalResponse invalidInitializedMember(
@@ -185,6 +191,9 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLongitudinalResponse
   valueAccelerationRestrictionsLateralRightRange.minimum = valueAccelerationRestrictionsLateralRightRange.maximum;
   valueAccelerationRestrictions.lateralRightRange = valueAccelerationRestrictionsLateralRightRange;
   value.accelerationRestrictions = valueAccelerationRestrictions;
+  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneResponse(
+    ::ad::rss::state::UnstructuredSceneResponse::None);
+  value.unstructuredSceneResponse = valueUnstructuredSceneResponse;
 
   // override member with data type value above input range maximum
   ::ad::rss::state::LongitudinalResponse invalidInitializedMember(
@@ -245,6 +254,9 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseRight
   valueAccelerationRestrictionsLateralRightRange.minimum = valueAccelerationRestrictionsLateralRightRange.maximum;
   valueAccelerationRestrictions.lateralRightRange = valueAccelerationRestrictionsLateralRightRange;
   value.accelerationRestrictions = valueAccelerationRestrictions;
+  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneResponse(
+    ::ad::rss::state::UnstructuredSceneResponse::None);
+  value.unstructuredSceneResponse = valueUnstructuredSceneResponse;
 
   // override member with data type value below input range minimum
   ::ad::rss::state::LateralResponse invalidInitializedMember(static_cast<::ad::rss::state::LateralResponse>(-1));
@@ -304,6 +316,9 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseRight
   valueAccelerationRestrictionsLateralRightRange.minimum = valueAccelerationRestrictionsLateralRightRange.maximum;
   valueAccelerationRestrictions.lateralRightRange = valueAccelerationRestrictionsLateralRightRange;
   value.accelerationRestrictions = valueAccelerationRestrictions;
+  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneResponse(
+    ::ad::rss::state::UnstructuredSceneResponse::None);
+  value.unstructuredSceneResponse = valueUnstructuredSceneResponse;
 
   // override member with data type value above input range maximum
   ::ad::rss::state::LateralResponse invalidInitializedMember(static_cast<::ad::rss::state::LateralResponse>(-1));
@@ -363,6 +378,9 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseLeftT
   valueAccelerationRestrictionsLateralRightRange.minimum = valueAccelerationRestrictionsLateralRightRange.maximum;
   valueAccelerationRestrictions.lateralRightRange = valueAccelerationRestrictionsLateralRightRange;
   value.accelerationRestrictions = valueAccelerationRestrictions;
+  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneResponse(
+    ::ad::rss::state::UnstructuredSceneResponse::None);
+  value.unstructuredSceneResponse = valueUnstructuredSceneResponse;
 
   // override member with data type value below input range minimum
   ::ad::rss::state::LateralResponse invalidInitializedMember(static_cast<::ad::rss::state::LateralResponse>(-1));
@@ -422,6 +440,9 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeLateralResponseLeftT
   valueAccelerationRestrictionsLateralRightRange.minimum = valueAccelerationRestrictionsLateralRightRange.maximum;
   valueAccelerationRestrictions.lateralRightRange = valueAccelerationRestrictionsLateralRightRange;
   value.accelerationRestrictions = valueAccelerationRestrictions;
+  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneResponse(
+    ::ad::rss::state::UnstructuredSceneResponse::None);
+  value.unstructuredSceneResponse = valueUnstructuredSceneResponse;
 
   // override member with data type value above input range maximum
   ::ad::rss::state::LateralResponse invalidInitializedMember(static_cast<::ad::rss::state::LateralResponse>(-1));
@@ -481,6 +502,9 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAccelerationRestrict
   valueAccelerationRestrictionsLateralRightRange.minimum = valueAccelerationRestrictionsLateralRightRange.maximum;
   valueAccelerationRestrictions.lateralRightRange = valueAccelerationRestrictionsLateralRightRange;
   value.accelerationRestrictions = valueAccelerationRestrictions;
+  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneResponse(
+    ::ad::rss::state::UnstructuredSceneResponse::None);
+  value.unstructuredSceneResponse = valueUnstructuredSceneResponse;
 
   // override member with data type value below input range minimum
   ::ad::rss::state::AccelerationRestriction invalidInitializedMember;
@@ -544,6 +568,9 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAccelerationRestrict
   valueAccelerationRestrictionsLateralRightRange.minimum = valueAccelerationRestrictionsLateralRightRange.maximum;
   valueAccelerationRestrictions.lateralRightRange = valueAccelerationRestrictionsLateralRightRange;
   value.accelerationRestrictions = valueAccelerationRestrictions;
+  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneResponse(
+    ::ad::rss::state::UnstructuredSceneResponse::None);
+  value.unstructuredSceneResponse = valueUnstructuredSceneResponse;
 
   // override member with data type value above input range maximum
   ::ad::rss::state::AccelerationRestriction invalidInitializedMember;
@@ -552,5 +579,131 @@ TEST(ProperResponseValidInputRangeTests, testValidInputRangeAccelerationRestrict
   invalidInitializedMemberLateralLeftRange.minimum = invalidInitializedMemberLateralLeftRangeMinimum;
   invalidInitializedMember.lateralLeftRange = invalidInitializedMemberLateralLeftRange;
   value.accelerationRestrictions = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(ProperResponseValidInputRangeTests, testValidInputRangeUnstructuredSceneResponseTooSmall)
+{
+  ::ad::rss::state::ProperResponse value;
+  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
+  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
+  value.timeIndex = valueTimeIndex;
+  bool valueIsSafe{true};
+  value.isSafe = valueIsSafe;
+  ::ad::rss::world::ObjectIdVector valueDangerousObjects;
+  ::ad::rss::world::ObjectId valueDangerousObjectsElement(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  valueDangerousObjects.resize(1, valueDangerousObjectsElement);
+  value.dangerousObjects = valueDangerousObjects;
+  ::ad::rss::state::LongitudinalResponse valueLongitudinalResponse(::ad::rss::state::LongitudinalResponse::None);
+  value.longitudinalResponse = valueLongitudinalResponse;
+  ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
+  value.lateralResponseRight = valueLateralResponseRight;
+  ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
+  value.lateralResponseLeft = valueLateralResponseLeft;
+  ::ad::rss::state::HeadingRangeVector valueHeadingRanges;
+  ::ad::rss::state::HeadingRange valueHeadingRangesElement;
+  ::ad::physics::Angle valueHeadingRangesElementBegin(-6.283185308);
+  valueHeadingRangesElement.begin = valueHeadingRangesElementBegin;
+  ::ad::physics::Angle valueHeadingRangesElementEnd(-6.283185308);
+  valueHeadingRangesElement.end = valueHeadingRangesElementEnd;
+  valueHeadingRanges.resize(1, valueHeadingRangesElement);
+  value.headingRanges = valueHeadingRanges;
+  ::ad::rss::state::AccelerationRestriction valueAccelerationRestrictions;
+  ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralLeftRange;
+  ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMinimum(-1e2);
+  valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRangeMinimum;
+  ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMaximum(-1e2);
+  valueAccelerationRestrictionsLateralLeftRange.maximum = valueAccelerationRestrictionsLateralLeftRangeMaximum;
+  valueAccelerationRestrictionsLateralLeftRange.maximum = valueAccelerationRestrictionsLateralLeftRange.minimum;
+  valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRange.maximum;
+  valueAccelerationRestrictions.lateralLeftRange = valueAccelerationRestrictionsLateralLeftRange;
+  ::ad::physics::AccelerationRange valueAccelerationRestrictionsLongitudinalRange;
+  ::ad::physics::Acceleration valueAccelerationRestrictionsLongitudinalRangeMinimum(-1e2);
+  valueAccelerationRestrictionsLongitudinalRange.minimum = valueAccelerationRestrictionsLongitudinalRangeMinimum;
+  ::ad::physics::Acceleration valueAccelerationRestrictionsLongitudinalRangeMaximum(-1e2);
+  valueAccelerationRestrictionsLongitudinalRange.maximum = valueAccelerationRestrictionsLongitudinalRangeMaximum;
+  valueAccelerationRestrictionsLongitudinalRange.maximum = valueAccelerationRestrictionsLongitudinalRange.minimum;
+  valueAccelerationRestrictionsLongitudinalRange.minimum = valueAccelerationRestrictionsLongitudinalRange.maximum;
+  valueAccelerationRestrictions.longitudinalRange = valueAccelerationRestrictionsLongitudinalRange;
+  ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralRightRange;
+  ::ad::physics::Acceleration valueAccelerationRestrictionsLateralRightRangeMinimum(-1e2);
+  valueAccelerationRestrictionsLateralRightRange.minimum = valueAccelerationRestrictionsLateralRightRangeMinimum;
+  ::ad::physics::Acceleration valueAccelerationRestrictionsLateralRightRangeMaximum(-1e2);
+  valueAccelerationRestrictionsLateralRightRange.maximum = valueAccelerationRestrictionsLateralRightRangeMaximum;
+  valueAccelerationRestrictionsLateralRightRange.maximum = valueAccelerationRestrictionsLateralRightRange.minimum;
+  valueAccelerationRestrictionsLateralRightRange.minimum = valueAccelerationRestrictionsLateralRightRange.maximum;
+  valueAccelerationRestrictions.lateralRightRange = valueAccelerationRestrictionsLateralRightRange;
+  value.accelerationRestrictions = valueAccelerationRestrictions;
+  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneResponse(
+    ::ad::rss::state::UnstructuredSceneResponse::None);
+  value.unstructuredSceneResponse = valueUnstructuredSceneResponse;
+
+  // override member with data type value below input range minimum
+  ::ad::rss::state::UnstructuredSceneResponse invalidInitializedMember(
+    static_cast<::ad::rss::state::UnstructuredSceneResponse>(-1));
+  value.unstructuredSceneResponse = invalidInitializedMember;
+  ASSERT_FALSE(withinValidInputRange(value));
+}
+
+TEST(ProperResponseValidInputRangeTests, testValidInputRangeUnstructuredSceneResponseTooBig)
+{
+  ::ad::rss::state::ProperResponse value;
+  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
+  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
+  value.timeIndex = valueTimeIndex;
+  bool valueIsSafe{true};
+  value.isSafe = valueIsSafe;
+  ::ad::rss::world::ObjectIdVector valueDangerousObjects;
+  ::ad::rss::world::ObjectId valueDangerousObjectsElement(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  valueDangerousObjects.resize(1, valueDangerousObjectsElement);
+  value.dangerousObjects = valueDangerousObjects;
+  ::ad::rss::state::LongitudinalResponse valueLongitudinalResponse(::ad::rss::state::LongitudinalResponse::None);
+  value.longitudinalResponse = valueLongitudinalResponse;
+  ::ad::rss::state::LateralResponse valueLateralResponseRight(::ad::rss::state::LateralResponse::None);
+  value.lateralResponseRight = valueLateralResponseRight;
+  ::ad::rss::state::LateralResponse valueLateralResponseLeft(::ad::rss::state::LateralResponse::None);
+  value.lateralResponseLeft = valueLateralResponseLeft;
+  ::ad::rss::state::HeadingRangeVector valueHeadingRanges;
+  ::ad::rss::state::HeadingRange valueHeadingRangesElement;
+  ::ad::physics::Angle valueHeadingRangesElementBegin(-6.283185308);
+  valueHeadingRangesElement.begin = valueHeadingRangesElementBegin;
+  ::ad::physics::Angle valueHeadingRangesElementEnd(-6.283185308);
+  valueHeadingRangesElement.end = valueHeadingRangesElementEnd;
+  valueHeadingRanges.resize(1, valueHeadingRangesElement);
+  value.headingRanges = valueHeadingRanges;
+  ::ad::rss::state::AccelerationRestriction valueAccelerationRestrictions;
+  ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralLeftRange;
+  ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMinimum(-1e2);
+  valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRangeMinimum;
+  ::ad::physics::Acceleration valueAccelerationRestrictionsLateralLeftRangeMaximum(-1e2);
+  valueAccelerationRestrictionsLateralLeftRange.maximum = valueAccelerationRestrictionsLateralLeftRangeMaximum;
+  valueAccelerationRestrictionsLateralLeftRange.maximum = valueAccelerationRestrictionsLateralLeftRange.minimum;
+  valueAccelerationRestrictionsLateralLeftRange.minimum = valueAccelerationRestrictionsLateralLeftRange.maximum;
+  valueAccelerationRestrictions.lateralLeftRange = valueAccelerationRestrictionsLateralLeftRange;
+  ::ad::physics::AccelerationRange valueAccelerationRestrictionsLongitudinalRange;
+  ::ad::physics::Acceleration valueAccelerationRestrictionsLongitudinalRangeMinimum(-1e2);
+  valueAccelerationRestrictionsLongitudinalRange.minimum = valueAccelerationRestrictionsLongitudinalRangeMinimum;
+  ::ad::physics::Acceleration valueAccelerationRestrictionsLongitudinalRangeMaximum(-1e2);
+  valueAccelerationRestrictionsLongitudinalRange.maximum = valueAccelerationRestrictionsLongitudinalRangeMaximum;
+  valueAccelerationRestrictionsLongitudinalRange.maximum = valueAccelerationRestrictionsLongitudinalRange.minimum;
+  valueAccelerationRestrictionsLongitudinalRange.minimum = valueAccelerationRestrictionsLongitudinalRange.maximum;
+  valueAccelerationRestrictions.longitudinalRange = valueAccelerationRestrictionsLongitudinalRange;
+  ::ad::physics::AccelerationRange valueAccelerationRestrictionsLateralRightRange;
+  ::ad::physics::Acceleration valueAccelerationRestrictionsLateralRightRangeMinimum(-1e2);
+  valueAccelerationRestrictionsLateralRightRange.minimum = valueAccelerationRestrictionsLateralRightRangeMinimum;
+  ::ad::physics::Acceleration valueAccelerationRestrictionsLateralRightRangeMaximum(-1e2);
+  valueAccelerationRestrictionsLateralRightRange.maximum = valueAccelerationRestrictionsLateralRightRangeMaximum;
+  valueAccelerationRestrictionsLateralRightRange.maximum = valueAccelerationRestrictionsLateralRightRange.minimum;
+  valueAccelerationRestrictionsLateralRightRange.minimum = valueAccelerationRestrictionsLateralRightRange.maximum;
+  valueAccelerationRestrictions.lateralRightRange = valueAccelerationRestrictionsLateralRightRange;
+  value.accelerationRestrictions = valueAccelerationRestrictions;
+  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneResponse(
+    ::ad::rss::state::UnstructuredSceneResponse::None);
+  value.unstructuredSceneResponse = valueUnstructuredSceneResponse;
+
+  // override member with data type value above input range maximum
+  ::ad::rss::state::UnstructuredSceneResponse invalidInitializedMember(
+    static_cast<::ad::rss::state::UnstructuredSceneResponse>(-1));
+  value.unstructuredSceneResponse = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }

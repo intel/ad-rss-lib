@@ -149,6 +149,21 @@ TEST(RssStateVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   elementUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
     = elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
   elementUnstructuredSceneState.rssStateInformation = elementUnstructuredSceneStateRssStateInformation;
+  ::ad::rss::world::LongitudinalRssAccelerationValues elementUnstructuredSceneStateAlphaLon;
+  ::ad::physics::Acceleration elementUnstructuredSceneStateAlphaLonAccelMax(-1e2);
+  elementUnstructuredSceneStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  elementUnstructuredSceneStateAlphaLon.accelMax = elementUnstructuredSceneStateAlphaLonAccelMax;
+  ::ad::physics::Acceleration elementUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
+  elementUnstructuredSceneStateAlphaLon.brakeMax = elementUnstructuredSceneStateAlphaLonBrakeMax;
+  ::ad::physics::Acceleration elementUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
+  elementUnstructuredSceneStateAlphaLon.brakeMin = elementUnstructuredSceneStateAlphaLonBrakeMin;
+  ::ad::physics::Acceleration elementUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
+  elementUnstructuredSceneStateAlphaLon.brakeMinCorrect = elementUnstructuredSceneStateAlphaLonBrakeMinCorrect;
+  elementUnstructuredSceneStateAlphaLon.brakeMin = elementUnstructuredSceneStateAlphaLon.brakeMax;
+  elementUnstructuredSceneStateAlphaLon.brakeMinCorrect = elementUnstructuredSceneStateAlphaLon.brakeMin;
+  elementUnstructuredSceneStateAlphaLon.brakeMin = elementUnstructuredSceneStateAlphaLon.brakeMinCorrect;
+  elementUnstructuredSceneStateAlphaLon.brakeMax = elementUnstructuredSceneStateAlphaLon.brakeMin;
+  elementUnstructuredSceneState.alphaLon = elementUnstructuredSceneStateAlphaLon;
   element.unstructuredSceneState = elementUnstructuredSceneState;
   ::ad::rss::situation::SituationType elementSituationType(::ad::rss::situation::SituationType::NotRelevant);
   element.situationType = elementSituationType;
@@ -281,6 +296,21 @@ TEST(RssStateVectorValidInputRangeTests, testValidInputRangeHigherThanInputRange
   elementUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
     = elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
   elementUnstructuredSceneState.rssStateInformation = elementUnstructuredSceneStateRssStateInformation;
+  ::ad::rss::world::LongitudinalRssAccelerationValues elementUnstructuredSceneStateAlphaLon;
+  ::ad::physics::Acceleration elementUnstructuredSceneStateAlphaLonAccelMax(-1e2);
+  elementUnstructuredSceneStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  elementUnstructuredSceneStateAlphaLon.accelMax = elementUnstructuredSceneStateAlphaLonAccelMax;
+  ::ad::physics::Acceleration elementUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
+  elementUnstructuredSceneStateAlphaLon.brakeMax = elementUnstructuredSceneStateAlphaLonBrakeMax;
+  ::ad::physics::Acceleration elementUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
+  elementUnstructuredSceneStateAlphaLon.brakeMin = elementUnstructuredSceneStateAlphaLonBrakeMin;
+  ::ad::physics::Acceleration elementUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
+  elementUnstructuredSceneStateAlphaLon.brakeMinCorrect = elementUnstructuredSceneStateAlphaLonBrakeMinCorrect;
+  elementUnstructuredSceneStateAlphaLon.brakeMin = elementUnstructuredSceneStateAlphaLon.brakeMax;
+  elementUnstructuredSceneStateAlphaLon.brakeMinCorrect = elementUnstructuredSceneStateAlphaLon.brakeMin;
+  elementUnstructuredSceneStateAlphaLon.brakeMin = elementUnstructuredSceneStateAlphaLon.brakeMinCorrect;
+  elementUnstructuredSceneStateAlphaLon.brakeMax = elementUnstructuredSceneStateAlphaLon.brakeMin;
+  elementUnstructuredSceneState.alphaLon = elementUnstructuredSceneStateAlphaLon;
   element.unstructuredSceneState = elementUnstructuredSceneState;
   ::ad::rss::situation::SituationType elementSituationType(::ad::rss::situation::SituationType::NotRelevant);
   element.situationType = elementSituationType;
@@ -426,6 +456,21 @@ TEST(RssStateVectorValidInputRangeTests, testValidInputRangeElementValid)
   elementUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
     = elementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
   elementUnstructuredSceneState.rssStateInformation = elementUnstructuredSceneStateRssStateInformation;
+  ::ad::rss::world::LongitudinalRssAccelerationValues elementUnstructuredSceneStateAlphaLon;
+  ::ad::physics::Acceleration elementUnstructuredSceneStateAlphaLonAccelMax(-1e2);
+  elementUnstructuredSceneStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  elementUnstructuredSceneStateAlphaLon.accelMax = elementUnstructuredSceneStateAlphaLonAccelMax;
+  ::ad::physics::Acceleration elementUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
+  elementUnstructuredSceneStateAlphaLon.brakeMax = elementUnstructuredSceneStateAlphaLonBrakeMax;
+  ::ad::physics::Acceleration elementUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
+  elementUnstructuredSceneStateAlphaLon.brakeMin = elementUnstructuredSceneStateAlphaLonBrakeMin;
+  ::ad::physics::Acceleration elementUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
+  elementUnstructuredSceneStateAlphaLon.brakeMinCorrect = elementUnstructuredSceneStateAlphaLonBrakeMinCorrect;
+  elementUnstructuredSceneStateAlphaLon.brakeMin = elementUnstructuredSceneStateAlphaLon.brakeMax;
+  elementUnstructuredSceneStateAlphaLon.brakeMinCorrect = elementUnstructuredSceneStateAlphaLon.brakeMin;
+  elementUnstructuredSceneStateAlphaLon.brakeMin = elementUnstructuredSceneStateAlphaLon.brakeMinCorrect;
+  elementUnstructuredSceneStateAlphaLon.brakeMax = elementUnstructuredSceneStateAlphaLon.brakeMin;
+  elementUnstructuredSceneState.alphaLon = elementUnstructuredSceneStateAlphaLon;
   element.unstructuredSceneState = elementUnstructuredSceneState;
   ::ad::rss::situation::SituationType elementSituationType(::ad::rss::situation::SituationType::NotRelevant);
   element.situationType = elementSituationType;

@@ -23,6 +23,7 @@
 #include "ad/rss/state/UnstructuredSceneResponseValidInputRange.hpp"
 #include "ad/rss/state/UnstructuredSceneRssState.hpp"
 #include "ad/rss/state/UnstructuredSceneStateInformationValidInputRange.hpp"
+#include "ad/rss/world/LongitudinalRssAccelerationValuesValidInputRange.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
 
@@ -42,7 +43,7 @@ inline bool withinValidInputRange(::ad::rss::state::UnstructuredSceneRssState co
   bool inValidInputRange = true;
   inValidInputRange = withinValidInputRange(input.response, logErrors)
     && withinValidInputRange(input.headingRange, logErrors)
-    && withinValidInputRange(input.rssStateInformation, logErrors);
+    && withinValidInputRange(input.rssStateInformation, logErrors) && withinValidInputRange(input.alphaLon, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::state::UnstructuredSceneRssState)>> {} has invalid member",

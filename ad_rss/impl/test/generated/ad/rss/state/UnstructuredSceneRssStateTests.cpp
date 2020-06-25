@@ -59,6 +59,21 @@ protected:
       1, valueRssStateInformationContinueForwardTrajectorySetElement);
     valueRssStateInformation.continueForwardTrajectorySet = valueRssStateInformationContinueForwardTrajectorySet;
     value.rssStateInformation = valueRssStateInformation;
+    ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
+    ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
+    valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    valueAlphaLon.accelMax = valueAlphaLonAccelMax;
+    ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
+    valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
+    ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
+    valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
+    ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
+    valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
+    valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
+    valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
+    valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
+    valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
+    value.alphaLon = valueAlphaLon;
     mValue = value;
   }
 
@@ -169,6 +184,30 @@ TEST_F(UnstructuredSceneRssStateTests, comparisonOperatorRssStateInformationDiff
   rssStateInformationContinueForwardTrajectorySet.resize(2, rssStateInformationContinueForwardTrajectorySetElement);
   rssStateInformation.continueForwardTrajectorySet = rssStateInformationContinueForwardTrajectorySet;
   valueA.rssStateInformation = rssStateInformation;
+  ::ad::rss::state::UnstructuredSceneRssState valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(UnstructuredSceneRssStateTests, comparisonOperatorAlphaLonDiffers)
+{
+  ::ad::rss::state::UnstructuredSceneRssState valueA = mValue;
+  ::ad::rss::world::LongitudinalRssAccelerationValues alphaLon;
+  ::ad::physics::Acceleration alphaLonAccelMax(1e2);
+  alphaLon.accelMax = alphaLonAccelMax;
+  ::ad::physics::Acceleration alphaLonBrakeMax(1e2);
+  alphaLon.brakeMax = alphaLonBrakeMax;
+  ::ad::physics::Acceleration alphaLonBrakeMin(1e2);
+  alphaLon.brakeMin = alphaLonBrakeMin;
+  ::ad::physics::Acceleration alphaLonBrakeMinCorrect(1e2);
+  alphaLonBrakeMinCorrect = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
+  alphaLon.brakeMinCorrect = alphaLonBrakeMinCorrect;
+  alphaLon.brakeMinCorrect = alphaLon.brakeMin;
+  alphaLon.brakeMin = alphaLon.brakeMax;
+  alphaLon.brakeMax = alphaLon.brakeMin;
+  alphaLon.brakeMin = alphaLon.brakeMinCorrect;
+  valueA.alphaLon = alphaLon;
   ::ad::rss::state::UnstructuredSceneRssState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

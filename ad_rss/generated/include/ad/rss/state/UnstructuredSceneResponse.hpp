@@ -39,8 +39,8 @@ namespace state {
 enum class UnstructuredSceneResponse : int32_t
 {
   None = 0,
-  DriveAway = 1,
-  ContinueForward = 2,
+  ContinueForward = 1,
+  DriveAway = 2,
   Brake = 3
 };
 

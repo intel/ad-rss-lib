@@ -41,6 +41,7 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
     response.longitudinalResponse = state::LongitudinalResponse::None;
     response.lateralResponseLeft = state::LateralResponse::None;
     response.lateralResponseRight = state::LateralResponse::None;
+    response.unstructuredSceneResponse = state::UnstructuredSceneResponse::None;
 
     // absolute maxima are given by the default dynamics
     response.accelerationRestrictions.longitudinalRange.maximum
@@ -78,52 +79,35 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
     // a robust and correct manner
     response.accelerationRestrictions.lateralLeftRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
     response.accelerationRestrictions.lateralRightRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
-
-    auto finalUnstructuredResponse = state::UnstructuredSceneResponse::ContinueForward;
     response.headingRanges.clear();
-    std::vector<state::HeadingRange> finalHeadingRanges;
+    physics::Acceleration driveAwayBrakeMin = currentStateSnapshot.defaultEgoVehicleRssDynamics.alphaLon.accelMax;
+    bool unstructuredDriveAwayToBrakeTransitionOccured = false;
 
-    bool unstructuredSceneFound = false;
-    bool structuredSceneFound = false;
     for (auto const &currentState : currentStateSnapshot.individualResponses)
     {
       if (isDangerous(currentState))
       {
+        response.isSafe = false;
+        if (std::find(response.dangerousObjects.begin(), response.dangerousObjects.end(), currentState.objectId)
+            == response.dangerousObjects.end())
+        {
+          response.dangerousObjects.push_back(currentState.objectId);
+        }
+
         if (currentState.situationType == situation::SituationType::Unstructured)
         {
-          unstructuredSceneFound = true;
           spdlog::info("RssResponseResolving::provideProperResponse>> Unstructured state is dangerous: {}",
                        currentState);
-          response.dangerousObjects.push_back(currentState.objectId);
-          if ((finalUnstructuredResponse == state::UnstructuredSceneResponse::Brake)
-              || (currentState.unstructuredSceneState.response == state::UnstructuredSceneResponse::Brake))
-          {
-            finalUnstructuredResponse = state::UnstructuredSceneResponse::Brake;
-          }
-          else if (currentState.unstructuredSceneState.response == state::UnstructuredSceneResponse::DriveAway)
-          {
-            auto overlapAvailable
-              = unstructured::getHeadingOverlap(currentState.unstructuredSceneState.headingRange, finalHeadingRanges);
-            if (overlapAvailable)
-            {
-              finalUnstructuredResponse = state::UnstructuredSceneResponse::DriveAway;
-            }
-            else
-            {
-              finalUnstructuredResponse = state::UnstructuredSceneResponse::Brake;
-            }
-          }
+          combineState(currentState.unstructuredSceneState,
+                       driveAwayBrakeMin,
+                       unstructuredDriveAwayToBrakeTransitionOccured,
+                       response.unstructuredSceneResponse,
+                       response.headingRanges,
+                       response.accelerationRestrictions.longitudinalRange);
         }
         else // structured
         {
-          structuredSceneFound = true;
           spdlog::info("RssResponseResolving::provideProperResponse>> Structured state is dangerous: {}", currentState);
-          response.isSafe = false;
-          if (std::find(response.dangerousObjects.begin(), response.dangerousObjects.end(), currentState.objectId)
-              == response.dangerousObjects.end())
-          {
-            response.dangerousObjects.push_back(currentState.objectId);
-          }
 
           combineState(currentState.longitudinalState,
                        response.longitudinalResponse,
@@ -141,35 +125,14 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
                        response.accelerationRestrictions.lateralRightRange);
         }
       }
-      if (structuredSceneFound && unstructuredSceneFound)
-      {
-        spdlog::critical("RssResponseResolving::provideProperResponse>> Combination of structured and unstructured "
-                         "scene not supported yet!");
-        result = false;
-      }
     }
 
-    if (unstructuredSceneFound)
+    if (unstructuredDriveAwayToBrakeTransitionOccured
+        && (response.unstructuredSceneResponse == state::UnstructuredSceneResponse::DriveAway))
     {
-      if (finalUnstructuredResponse == state::UnstructuredSceneResponse::Brake)
-      {
-        response.isSafe = false;
-        response.longitudinalResponse = state::LongitudinalResponse::BrakeMin;
-        response.accelerationRestrictions.longitudinalRange.minimum
-          = currentStateSnapshot.defaultEgoVehicleRssDynamics.alphaLon.brakeMax;
-        response.accelerationRestrictions.longitudinalRange.maximum
-          = currentStateSnapshot.defaultEgoVehicleRssDynamics.alphaLon.brakeMin;
-      }
-      else if (finalUnstructuredResponse == state::UnstructuredSceneResponse::DriveAway)
-      {
-        response.isSafe = false;
-        response.longitudinalResponse = state::LongitudinalResponse::BrakeMin;
-        response.headingRanges = finalHeadingRanges;
-        response.accelerationRestrictions.longitudinalRange.minimum
-          = currentStateSnapshot.defaultEgoVehicleRssDynamics.alphaLon.brakeMax;
-        response.accelerationRestrictions.longitudinalRange.maximum
-          = currentStateSnapshot.defaultEgoVehicleRssDynamics.alphaLon.brakeMin;
-      }
+      response.unstructuredSceneResponse = state::UnstructuredSceneResponse::Brake;
+      response.accelerationRestrictions.longitudinalRange.maximum
+        = std::min(response.accelerationRestrictions.longitudinalRange.maximum, driveAwayBrakeMin);
     }
   }
   catch (...)
@@ -202,9 +165,49 @@ template <typename Response> Response combineResponse(Response const &previousRe
   return newResponse;
 }
 
+void RssResponseResolving::combineState(state::UnstructuredSceneRssState const &state,
+                                        physics::Acceleration &driveAwayBrakeMin,
+                                        bool &driveAwayToBrakeTransition,
+                                        state::UnstructuredSceneResponse &response,
+                                        state::HeadingRangeVector &responseHeadingRanges,
+                                        physics::AccelerationRange &accelerationRange)
+{
+  if ((response != state::UnstructuredSceneResponse::Brake)
+      && (state.response == state::UnstructuredSceneResponse::DriveAway))
+  {
+    driveAwayBrakeMin = std::min(driveAwayBrakeMin, state.alphaLon.brakeMin);
+    if (!driveAwayToBrakeTransition)
+    {
+      auto const overlapAvailable = unstructured::getHeadingOverlap(state.headingRange, responseHeadingRanges);
+      if (!overlapAvailable)
+      {
+        driveAwayToBrakeTransition = true;
+      }
+    }
+  }
+
+  if (state.response > response)
+  {
+    response = state.response;
+  }
+
+  // LCOV_EXCL_BR_START: unreachable exceptions due to valid input range checks
+  accelerationRange.minimum = std::max(accelerationRange.minimum, state.alphaLon.brakeMax);
+  if (state.response == state::UnstructuredSceneResponse::Brake)
+  {
+    responseHeadingRanges.clear();
+    accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLon.brakeMin);
+  }
+  else
+  {
+    accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLon.accelMax);
+  }
+  // LCOV_EXCL_BR_STOP
+}
+
 void RssResponseResolving::combineState(state::LongitudinalRssState const &state,
                                         state::LongitudinalResponse &response,
-                                        ::ad::physics::AccelerationRange &accelerationRange)
+                                        physics::AccelerationRange &accelerationRange)
 {
   response = combineResponse(state.response, response);
 
@@ -232,7 +235,7 @@ void RssResponseResolving::combineState(state::LongitudinalRssState const &state
 
 void RssResponseResolving::combineState(state::LateralRssState const &state,
                                         state::LateralResponse &response,
-                                        ::ad::physics::AccelerationRange &accelerationRange)
+                                        physics::AccelerationRange &accelerationRange)
 {
   response = combineResponse(state.response, response);
 

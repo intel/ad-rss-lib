@@ -243,6 +243,31 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRange)
     = valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
   valueIndividualResponsesElementUnstructuredSceneState.rssStateInformation
     = valueIndividualResponsesElementUnstructuredSceneStateRssStateInformation;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueIndividualResponsesElementUnstructuredSceneStateAlphaLon;
+  ::ad::physics::Acceleration valueIndividualResponsesElementUnstructuredSceneStateAlphaLonAccelMax(-1e2);
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLonAccelMax
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.accelMax
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLonAccelMax;
+  ::ad::physics::Acceleration valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMax
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMax;
+  ::ad::physics::Acceleration valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMin
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMin;
+  ::ad::physics::Acceleration valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMinCorrect
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMinCorrect;
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMin
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMax;
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMinCorrect
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMin;
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMin
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMinCorrect;
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMax
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMin;
+  valueIndividualResponsesElementUnstructuredSceneState.alphaLon
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLon;
   valueIndividualResponsesElement.unstructuredSceneState = valueIndividualResponsesElementUnstructuredSceneState;
   ::ad::rss::situation::SituationType valueIndividualResponsesElementSituationType(
     ::ad::rss::situation::SituationType::NotRelevant);
@@ -502,6 +527,31 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicleR
     = valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
   valueIndividualResponsesElementUnstructuredSceneState.rssStateInformation
     = valueIndividualResponsesElementUnstructuredSceneStateRssStateInformation;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueIndividualResponsesElementUnstructuredSceneStateAlphaLon;
+  ::ad::physics::Acceleration valueIndividualResponsesElementUnstructuredSceneStateAlphaLonAccelMax(-1e2);
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLonAccelMax
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.accelMax
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLonAccelMax;
+  ::ad::physics::Acceleration valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMax
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMax;
+  ::ad::physics::Acceleration valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMin
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMin;
+  ::ad::physics::Acceleration valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMinCorrect
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMinCorrect;
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMin
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMax;
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMinCorrect
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMin;
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMin
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMinCorrect;
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMax
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMin;
+  valueIndividualResponsesElementUnstructuredSceneState.alphaLon
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLon;
   valueIndividualResponsesElement.unstructuredSceneState = valueIndividualResponsesElementUnstructuredSceneState;
   ::ad::rss::situation::SituationType valueIndividualResponsesElementSituationType(
     ::ad::rss::situation::SituationType::NotRelevant);
@@ -769,6 +819,31 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicleR
     = valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
   valueIndividualResponsesElementUnstructuredSceneState.rssStateInformation
     = valueIndividualResponsesElementUnstructuredSceneStateRssStateInformation;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueIndividualResponsesElementUnstructuredSceneStateAlphaLon;
+  ::ad::physics::Acceleration valueIndividualResponsesElementUnstructuredSceneStateAlphaLonAccelMax(-1e2);
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLonAccelMax
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.accelMax
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLonAccelMax;
+  ::ad::physics::Acceleration valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMax
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMax;
+  ::ad::physics::Acceleration valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMin
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMin;
+  ::ad::physics::Acceleration valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMinCorrect
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLonBrakeMinCorrect;
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMin
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMax;
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMinCorrect
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMin;
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMin
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMinCorrect;
+  valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMax
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLon.brakeMin;
+  valueIndividualResponsesElementUnstructuredSceneState.alphaLon
+    = valueIndividualResponsesElementUnstructuredSceneStateAlphaLon;
   valueIndividualResponsesElement.unstructuredSceneState = valueIndividualResponsesElementUnstructuredSceneState;
   ::ad::rss::situation::SituationType valueIndividualResponsesElementSituationType(
     ::ad::rss::situation::SituationType::NotRelevant);

@@ -148,6 +148,21 @@ protected:
     valueUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
       = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
     valueUnstructuredSceneState.rssStateInformation = valueUnstructuredSceneStateRssStateInformation;
+    ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructuredSceneStateAlphaLon;
+    ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonAccelMax(-1e2);
+    valueUnstructuredSceneStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    valueUnstructuredSceneStateAlphaLon.accelMax = valueUnstructuredSceneStateAlphaLonAccelMax;
+    ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
+    valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLonBrakeMax;
+    ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
+    valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLonBrakeMin;
+    ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
+    valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLonBrakeMinCorrect;
+    valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMax;
+    valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLon.brakeMin;
+    valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMinCorrect;
+    valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLon.brakeMin;
+    valueUnstructuredSceneState.alphaLon = valueUnstructuredSceneStateAlphaLon;
     value.unstructuredSceneState = valueUnstructuredSceneState;
     ::ad::rss::situation::SituationType valueSituationType(::ad::rss::situation::SituationType::NotRelevant);
     value.situationType = valueSituationType;
@@ -367,6 +382,22 @@ TEST_F(RssStateTests, comparisonOperatorUnstructuredSceneStateDiffers)
   unstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
     = unstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
   unstructuredSceneState.rssStateInformation = unstructuredSceneStateRssStateInformation;
+  ::ad::rss::world::LongitudinalRssAccelerationValues unstructuredSceneStateAlphaLon;
+  ::ad::physics::Acceleration unstructuredSceneStateAlphaLonAccelMax(1e2);
+  unstructuredSceneStateAlphaLon.accelMax = unstructuredSceneStateAlphaLonAccelMax;
+  ::ad::physics::Acceleration unstructuredSceneStateAlphaLonBrakeMax(1e2);
+  unstructuredSceneStateAlphaLon.brakeMax = unstructuredSceneStateAlphaLonBrakeMax;
+  ::ad::physics::Acceleration unstructuredSceneStateAlphaLonBrakeMin(1e2);
+  unstructuredSceneStateAlphaLon.brakeMin = unstructuredSceneStateAlphaLonBrakeMin;
+  ::ad::physics::Acceleration unstructuredSceneStateAlphaLonBrakeMinCorrect(1e2);
+  unstructuredSceneStateAlphaLonBrakeMinCorrect
+    = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
+  unstructuredSceneStateAlphaLon.brakeMinCorrect = unstructuredSceneStateAlphaLonBrakeMinCorrect;
+  unstructuredSceneStateAlphaLon.brakeMinCorrect = unstructuredSceneStateAlphaLon.brakeMin;
+  unstructuredSceneStateAlphaLon.brakeMin = unstructuredSceneStateAlphaLon.brakeMax;
+  unstructuredSceneStateAlphaLon.brakeMax = unstructuredSceneStateAlphaLon.brakeMin;
+  unstructuredSceneStateAlphaLon.brakeMin = unstructuredSceneStateAlphaLon.brakeMinCorrect;
+  unstructuredSceneState.alphaLon = unstructuredSceneStateAlphaLon;
   valueA.unstructuredSceneState = unstructuredSceneState;
   ::ad::rss::state::RssState valueB = mValue;
 

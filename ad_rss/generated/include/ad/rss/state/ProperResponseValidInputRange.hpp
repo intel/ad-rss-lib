@@ -24,6 +24,7 @@
 #include "ad/rss/state/LateralResponseValidInputRange.hpp"
 #include "ad/rss/state/LongitudinalResponseValidInputRange.hpp"
 #include "ad/rss/state/ProperResponse.hpp"
+#include "ad/rss/state/UnstructuredSceneResponseValidInputRange.hpp"
 #include "ad/rss/world/ObjectIdVectorValidInputRange.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
@@ -48,7 +49,8 @@ inline bool withinValidInputRange(::ad::rss::state::ProperResponse const &input,
     && withinValidInputRange(input.lateralResponseRight, logErrors)
     && withinValidInputRange(input.lateralResponseLeft, logErrors)
     && withinValidInputRange(input.headingRanges, logErrors)
-    && withinValidInputRange(input.accelerationRestrictions, logErrors);
+    && withinValidInputRange(input.accelerationRestrictions, logErrors)
+    && withinValidInputRange(input.unstructuredSceneResponse, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::state::ProperResponse)>> {} has invalid member",

@@ -25,6 +25,7 @@
 #include "ad/rss/state/HeadingRangeVector.hpp"
 #include "ad/rss/state/LateralResponse.hpp"
 #include "ad/rss/state/LongitudinalResponse.hpp"
+#include "ad/rss/state/UnstructuredSceneResponse.hpp"
 #include "ad/rss/world/ObjectIdVector.hpp"
 #include "ad/rss/world/TimeIndex.hpp"
 /*!
@@ -108,7 +109,8 @@ struct ProperResponse
     return (timeIndex == other.timeIndex) && (isSafe == other.isSafe) && (dangerousObjects == other.dangerousObjects)
       && (longitudinalResponse == other.longitudinalResponse) && (lateralResponseRight == other.lateralResponseRight)
       && (lateralResponseLeft == other.lateralResponseLeft) && (headingRanges == other.headingRanges)
-      && (accelerationRestrictions == other.accelerationRestrictions);
+      && (accelerationRestrictions == other.accelerationRestrictions)
+      && (unstructuredSceneResponse == other.unstructuredSceneResponse);
   }
 
   /**
@@ -156,6 +158,7 @@ struct ProperResponse
   ::ad::rss::state::LateralResponse lateralResponseLeft;
   ::ad::rss::state::HeadingRangeVector headingRanges;
   ::ad::rss::state::AccelerationRestriction accelerationRestrictions;
+  ::ad::rss::state::UnstructuredSceneResponse unstructuredSceneResponse;
 };
 
 } // namespace state
@@ -215,6 +218,9 @@ inline std::ostream &operator<<(std::ostream &os, ProperResponse const &_value)
   os << ",";
   os << "accelerationRestrictions:";
   os << _value.accelerationRestrictions;
+  os << ",";
+  os << "unstructuredSceneResponse:";
+  os << _value.unstructuredSceneResponse;
   os << ")";
   return os;
 }

@@ -15,6 +15,8 @@
 #include <ad/map/route/Types.hpp>
 #include <ad/rss/world/WorldModel.hpp>
 #include <mutex>
+#include <ostream>
+#include <string>
 
 /*!
  * @brief namespace rss
@@ -205,3 +207,73 @@ private:
 } // namespace map
 } // namespace rss
 } // namespace ad
+
+namespace std {
+
+/*!
+ * \brief overload of the std::to_string for RssMode
+ */
+inline string to_string(::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode const &value)
+{
+  switch (value)
+  {
+    case ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::None:
+      return string("::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::None");
+    case ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::ExactSpeedLimit:
+      return string("::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::ExactSpeedLimit");
+    case ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit5:
+      return string("::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit5");
+    case ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10:
+      return string("::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10");
+    default:
+      return string("::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode UNKNOWN ENUM VALUE");
+  }
+}
+
+/**
+ * \brief standard ostream operator
+ *
+ * \param[in] os The output stream to write to
+ * \param[in] value RestrictSpeedLimitMode value
+ *
+ * \returns The stream object.
+ *
+ */
+inline ostream &operator<<(ostream &os, ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode const &value)
+{
+  return os << std::to_string(value);
+}
+
+/*!
+ * \brief overload of the std::to_string for RssMode
+ */
+inline string to_string(::ad::rss::map::RssMode const &value)
+{
+  switch (value)
+  {
+    case ::ad::rss::map::RssMode::NotRelevant:
+      return string("::ad::rss::map::RssMode::NotRelevant");
+    case ::ad::rss::map::RssMode::Structured:
+      return string("::ad::rss::map::RssMode::Structured");
+    case ::ad::rss::map::RssMode::Unstructured:
+      return string("::ad::rss::map::RssMode::Unstructured");
+    default:
+      return string("::ad::rss::map::RssMode UNKNOWN ENUM VALUE");
+  }
+}
+
+/**
+ * \brief standard ostream operator
+ *
+ * \param[in] os The output stream to write to
+ * \param[in] value RssMode value
+ *
+ * \returns The stream object.
+ *
+ */
+inline ostream &operator<<(ostream &os, ::ad::rss::map::RssMode const &value)
+{
+  return os << to_string(value);
+}
+
+} // namespace std

@@ -29,17 +29,17 @@ TEST(UnstructuredSceneResponseTests, testFromString)
     fromString<::ad::rss::state::UnstructuredSceneResponse>("::ad::rss::state::UnstructuredSceneResponse::None"),
     ::ad::rss::state::UnstructuredSceneResponse::None);
 
-  ASSERT_EQ(fromString<::ad::rss::state::UnstructuredSceneResponse>("DriveAway"),
-            ::ad::rss::state::UnstructuredSceneResponse::DriveAway);
-  ASSERT_EQ(
-    fromString<::ad::rss::state::UnstructuredSceneResponse>("::ad::rss::state::UnstructuredSceneResponse::DriveAway"),
-    ::ad::rss::state::UnstructuredSceneResponse::DriveAway);
-
   ASSERT_EQ(fromString<::ad::rss::state::UnstructuredSceneResponse>("ContinueForward"),
             ::ad::rss::state::UnstructuredSceneResponse::ContinueForward);
   ASSERT_EQ(fromString<::ad::rss::state::UnstructuredSceneResponse>(
               "::ad::rss::state::UnstructuredSceneResponse::ContinueForward"),
             ::ad::rss::state::UnstructuredSceneResponse::ContinueForward);
+
+  ASSERT_EQ(fromString<::ad::rss::state::UnstructuredSceneResponse>("DriveAway"),
+            ::ad::rss::state::UnstructuredSceneResponse::DriveAway);
+  ASSERT_EQ(
+    fromString<::ad::rss::state::UnstructuredSceneResponse>("::ad::rss::state::UnstructuredSceneResponse::DriveAway"),
+    ::ad::rss::state::UnstructuredSceneResponse::DriveAway);
 
   ASSERT_EQ(fromString<::ad::rss::state::UnstructuredSceneResponse>("Brake"),
             ::ad::rss::state::UnstructuredSceneResponse::Brake);
@@ -60,15 +60,15 @@ TEST(UnstructuredSceneResponseTests, testToString)
   minValue = std::min(minValue, static_cast<int32_t>(::ad::rss::state::UnstructuredSceneResponse::None));
   maxValue = std::max(maxValue, static_cast<int32_t>(::ad::rss::state::UnstructuredSceneResponse::None));
 
-  ASSERT_EQ(toString(::ad::rss::state::UnstructuredSceneResponse::DriveAway),
-            "::ad::rss::state::UnstructuredSceneResponse::DriveAway");
-  minValue = std::min(minValue, static_cast<int32_t>(::ad::rss::state::UnstructuredSceneResponse::DriveAway));
-  maxValue = std::max(maxValue, static_cast<int32_t>(::ad::rss::state::UnstructuredSceneResponse::DriveAway));
-
   ASSERT_EQ(toString(::ad::rss::state::UnstructuredSceneResponse::ContinueForward),
             "::ad::rss::state::UnstructuredSceneResponse::ContinueForward");
   minValue = std::min(minValue, static_cast<int32_t>(::ad::rss::state::UnstructuredSceneResponse::ContinueForward));
   maxValue = std::max(maxValue, static_cast<int32_t>(::ad::rss::state::UnstructuredSceneResponse::ContinueForward));
+
+  ASSERT_EQ(toString(::ad::rss::state::UnstructuredSceneResponse::DriveAway),
+            "::ad::rss::state::UnstructuredSceneResponse::DriveAway");
+  minValue = std::min(minValue, static_cast<int32_t>(::ad::rss::state::UnstructuredSceneResponse::DriveAway));
+  maxValue = std::max(maxValue, static_cast<int32_t>(::ad::rss::state::UnstructuredSceneResponse::DriveAway));
 
   ASSERT_EQ(toString(::ad::rss::state::UnstructuredSceneResponse::Brake),
             "::ad::rss::state::UnstructuredSceneResponse::Brake");

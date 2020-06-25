@@ -36,8 +36,8 @@
 inline bool withinValidInputRange(::ad::rss::state::UnstructuredSceneResponse const &input, bool const logErrors = true)
 {
   bool inValidInputRange = (input == ::ad::rss::state::UnstructuredSceneResponse::None)
-    || (input == ::ad::rss::state::UnstructuredSceneResponse::DriveAway)
     || (input == ::ad::rss::state::UnstructuredSceneResponse::ContinueForward)
+    || (input == ::ad::rss::state::UnstructuredSceneResponse::DriveAway)
     || (input == ::ad::rss::state::UnstructuredSceneResponse::Brake);
   if (!inValidInputRange && logErrors)
   {

@@ -24,10 +24,10 @@ std::string toString(::ad::rss::state::UnstructuredSceneResponse const e)
   {
     case ::ad::rss::state::UnstructuredSceneResponse::None:
       return std::string("::ad::rss::state::UnstructuredSceneResponse::None"); // LCOV_EXCL_BR_LINE
-    case ::ad::rss::state::UnstructuredSceneResponse::DriveAway:
-      return std::string("::ad::rss::state::UnstructuredSceneResponse::DriveAway"); // LCOV_EXCL_BR_LINE
     case ::ad::rss::state::UnstructuredSceneResponse::ContinueForward:
       return std::string("::ad::rss::state::UnstructuredSceneResponse::ContinueForward"); // LCOV_EXCL_BR_LINE
+    case ::ad::rss::state::UnstructuredSceneResponse::DriveAway:
+      return std::string("::ad::rss::state::UnstructuredSceneResponse::DriveAway"); // LCOV_EXCL_BR_LINE
     case ::ad::rss::state::UnstructuredSceneResponse::Brake:
       return std::string("::ad::rss::state::UnstructuredSceneResponse::Brake"); // LCOV_EXCL_BR_LINE
     default:
@@ -45,14 +45,6 @@ template <>::ad::rss::state::UnstructuredSceneResponse fromString(std::string co
   {
     return ::ad::rss::state::UnstructuredSceneResponse::None;
   }
-  if (str == std::string("::ad::rss::state::UnstructuredSceneResponse::DriveAway")) // LCOV_EXCL_BR_LINE
-  {
-    return ::ad::rss::state::UnstructuredSceneResponse::DriveAway;
-  }
-  if (str == std::string("DriveAway")) // LCOV_EXCL_BR_LINE
-  {
-    return ::ad::rss::state::UnstructuredSceneResponse::DriveAway;
-  }
   if (str == std::string("::ad::rss::state::UnstructuredSceneResponse::ContinueForward")) // LCOV_EXCL_BR_LINE
   {
     return ::ad::rss::state::UnstructuredSceneResponse::ContinueForward;
@@ -60,6 +52,14 @@ template <>::ad::rss::state::UnstructuredSceneResponse fromString(std::string co
   if (str == std::string("ContinueForward")) // LCOV_EXCL_BR_LINE
   {
     return ::ad::rss::state::UnstructuredSceneResponse::ContinueForward;
+  }
+  if (str == std::string("::ad::rss::state::UnstructuredSceneResponse::DriveAway")) // LCOV_EXCL_BR_LINE
+  {
+    return ::ad::rss::state::UnstructuredSceneResponse::DriveAway;
+  }
+  if (str == std::string("DriveAway")) // LCOV_EXCL_BR_LINE
+  {
+    return ::ad::rss::state::UnstructuredSceneResponse::DriveAway;
   }
   if (str == std::string("::ad::rss::state::UnstructuredSceneResponse::Brake")) // LCOV_EXCL_BR_LINE
   {

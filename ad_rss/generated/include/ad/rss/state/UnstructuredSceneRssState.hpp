@@ -23,6 +23,7 @@
 #include "ad/rss/state/HeadingRange.hpp"
 #include "ad/rss/state/UnstructuredSceneResponse.hpp"
 #include "ad/rss/state/UnstructuredSceneStateInformation.hpp"
+#include "ad/rss/world/LongitudinalRssAccelerationValues.hpp"
 /*!
  * @brief namespace ad
  */
@@ -99,7 +100,7 @@ struct UnstructuredSceneRssState
   bool operator==(const UnstructuredSceneRssState &other) const
   {
     return (isSafe == other.isSafe) && (response == other.response) && (headingRange == other.headingRange)
-      && (rssStateInformation == other.rssStateInformation);
+      && (rssStateInformation == other.rssStateInformation) && (alphaLon == other.alphaLon);
   }
 
   /**
@@ -118,6 +119,11 @@ struct UnstructuredSceneRssState
   ::ad::rss::state::UnstructuredSceneResponse response;
   ::ad::rss::state::HeadingRange headingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation rssStateInformation;
+
+  /*!
+   * RSS dynamics values along longitudinal coordinate system axis.
+   */
+  ::ad::rss::world::LongitudinalRssAccelerationValues alphaLon;
 };
 
 } // namespace state
@@ -165,6 +171,9 @@ inline std::ostream &operator<<(std::ostream &os, UnstructuredSceneRssState cons
   os << ",";
   os << "rssStateInformation:";
   os << _value.rssStateInformation;
+  os << ",";
+  os << "alphaLon:";
+  os << _value.alphaLon;
   os << ")";
   return os;
 }

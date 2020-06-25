@@ -77,6 +77,9 @@ protected:
     valueAccelerationRestrictionsLateralRightRange.minimum = valueAccelerationRestrictionsLateralRightRange.maximum;
     valueAccelerationRestrictions.lateralRightRange = valueAccelerationRestrictionsLateralRightRange;
     value.accelerationRestrictions = valueAccelerationRestrictions;
+    ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneResponse(
+      ::ad::rss::state::UnstructuredSceneResponse::None);
+    value.unstructuredSceneResponse = valueUnstructuredSceneResponse;
     mValue = value;
   }
 
@@ -243,6 +246,18 @@ TEST_F(ProperResponseTests, comparisonOperatorAccelerationRestrictionsDiffers)
   accelerationRestrictionsLateralRightRange.minimum = accelerationRestrictionsLateralRightRange.maximum;
   accelerationRestrictions.lateralRightRange = accelerationRestrictionsLateralRightRange;
   valueA.accelerationRestrictions = accelerationRestrictions;
+  ::ad::rss::state::ProperResponse valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(ProperResponseTests, comparisonOperatorUnstructuredSceneResponseDiffers)
+{
+  ::ad::rss::state::ProperResponse valueA = mValue;
+  ::ad::rss::state::UnstructuredSceneResponse unstructuredSceneResponse(
+    ::ad::rss::state::UnstructuredSceneResponse::Brake);
+  valueA.unstructuredSceneResponse = unstructuredSceneResponse;
   ::ad::rss::state::ProperResponse valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

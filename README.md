@@ -12,9 +12,10 @@
 2. [License](#license)
 3. [Documentation](#documentation)
 4. [Releases](#releases)
-   1. [Release 3.x](#release_3)
-   2. [Release 2.x](#release_2)
-   3. [Release 1.x](#release_1)
+   1. [Release 4.x](#release_4)
+   2. [Release 3.x](#release_3)
+   3. [Release 2.x](#release_2)
+   4. [Release 1.x](#release_1)
 5. [Getting Started](#started)
    1. [Supported Systems](#systems)
 6. [Building the library](#building)
@@ -85,6 +86,9 @@ If you have any additional question not answered therein, you might find more in
 
 ## Releases <a name="releases"></a>
 General release notes and changes can be found in the [Changelog](https://intel.github.io/ad-rss-lib/CHANGELOG/index.html)
+
+#### Release 4.x.x <a name="release_4"></a>
+These releases extends the 3.x version with handling of unstructured roads and pedestrians.
 
 #### Release 3.x.x <a name="release_3"></a>
 These releases improve the 2.x version capabilities on scene creation.
