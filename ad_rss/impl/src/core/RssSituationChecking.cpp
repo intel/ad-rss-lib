@@ -174,6 +174,8 @@ bool RssSituationChecking::checkSituations(situation::SituationSnapshot const &s
     rssStateSnapshot.timeIndex = situationSnapshot.timeIndex;
     rssStateSnapshot.defaultEgoVehicleRssDynamics = situationSnapshot.defaultEgoVehicleRssDynamics;
     rssStateSnapshot.individualResponses.clear();
+    rssStateSnapshot.unstructuredSceneEgoInformation.brakeTrajectorySet.clear();
+    rssStateSnapshot.unstructuredSceneEgoInformation.continueForwardTrajectorySet.clear();
 
     for (auto it = situationSnapshot.situations.begin(); (it != situationSnapshot.situations.end()) && result; ++it)
     {
