@@ -19,7 +19,6 @@
 #include "ad/physics/Distance.hpp"
 #include "ad/physics/Duration.hpp"
 #include "ad/physics/Speed.hpp"
-#include "ad/rss/situation/CoordinateSystemAxis.hpp"
 
 /*!
  * @brief namespace ad
@@ -33,23 +32,36 @@ namespace rss {
  * @brief namespace situation
  */
 namespace situation {
+
 /**
+ * @brief Calculate the distance traveled after a given period of time on a constant accelerated movement
  *
- * @brief Calculate the distance on a constant accelerated movement (with a limiting maximum speed)
+ * @param[in]  speed    is the current speed
+ * @param[in]  acceleration    is the acceleration value to be considered
+ * @param[in]  duration        is the (positive) period of time the acceleration is performed
+*  @param[out] distanceOffset   is the distance offset from the current position.
  *
- * @param[in]  currentSpeed           is the current speed of the vehicle
- * @param[in]  maxSpeed               is the maximum speed of the vehicle
- * @param[in]  acceleration           is the applied acceleration
- * @param[in]  duration               is the duration to apply the acceleration
- * @param[out] distanceOffset         is the distance offset from the current position
- *
- * @return true on success, false if a stop cannot be reached
+ * @return true on success, false otherwise
  */
-bool calculateDistanceOffsetInAcceleratedLimitedMovement(physics::Speed const &speed,
-                                                         physics::Speed const &maxSpeed,
-                                                         physics::Acceleration const &acceleration,
-                                                         physics::Duration const &duration,
-                                                         physics::Distance &distanceOffset);
+bool calculateDistanceOffsetInAcceleratedMovement(physics::Speed const &speed,
+                                                  physics::Acceleration const &acceleration,
+                                                  physics::Duration const &duration,
+                                                  physics::Distance &distanceOffset);
+
+/**
+ * @brief Calculate the speed after a given period of time on a constant accelerated movement
+ *
+ * @param[in]  speed    is the current speed
+ * @param[in]  acceleration    is the acceleration value to be considered
+ * @param[in]  duration        is the (positive) period of time the acceleration is performed
+ * @param[out] resultingSpeed  is the resulting speed after \a duration
+ *
+ * @return true on success, false otherwise
+ */
+bool calculateSpeedInAcceleratedMovement(physics::Speed const &speed,
+                                         physics::Acceleration const &acceleration,
+                                         physics::Duration const &duration,
+                                         physics::Speed &resultingSpeed);
 
 /**
  * @brief Calculate the stopping distance for a given speed and deceleration on a constant accelerated movement
@@ -68,53 +80,49 @@ bool calculateStoppingDistance(physics::Speed const &currentSpeed,
 /**
  * @brief Calculate the vehicle speed after a given period of time on a constant accelerated movement
  *
- * @param[in]  axis            is the coordinate axis this calculation is for
- * @param[in]  currentSpeed    is the current speed of the vehicle
- *                             (in longitudinal direction this has to be always positive)
+ * The accelerated movement is limited. The acceleration stops if the speed reaches a limiting maximum speed
+ * or zero (on negative acceleration values).
+ *
+ * @param[in]  currentSpeed    is the current speed of the vehicle (has to be always positive)
  * @param[in]  maxSpeed        is the maximum speed of the vehicle (e.g. restricted by a limit)
- *                             (only used in longitudinal direction, has to be always positive)
+ *                             (has to be always positive)
  * @param[in]  acceleration    is the acceleration of the vehicle
  * @param[in]  duration        is the (positive) period of time the vehicle keeps accelerating
  * @param[out] resultingSpeed  is the resulting speed after \a duration
- *                             In longitudinal direction, the resulting speed >= 0. Especially, the vehicle is not
- *                             starting to drive in reverse direction after standing still. In lateral direction,
- *                             the resulting speed might have a different sign than the currentSpeed.
+ *                             The resulting speed >= 0. Especially, the vehicle is not
+ *                             starting to drive in reverse direction after standing still.
  *
  * @return true on success, false otherwise
  */
-bool calculateSpeedAfterAcceleration(CoordinateSystemAxis const &axis,
-                                     physics::Speed const &currentSpeed,
-                                     physics::Speed const &maxSpeed,
-                                     physics::Acceleration const &acceleration,
-                                     physics::Duration const &duration,
-                                     physics::Speed &resultingSpeed);
+bool calculateSpeedAfterAcceleratedLimitedMovement(physics::Speed const &currentSpeed,
+                                                   physics::Speed const &maxSpeed,
+                                                   physics::Acceleration const &acceleration,
+                                                   physics::Duration const &duration,
+                                                   physics::Speed &resultingSpeed);
 
 /**
  * @brief Calculate the distance offset of a vehicle after a given period of time on a constant accelerated movement
  *
- * @param[in]  axis             is the coordinate axis this calculation is for
- * @param[in]  currentSpeed     is the current speed of the vehicle
- *                              (in longitudinal direction this has to be always positive)
- * @param[in]  maxSpeed         is the maximum speed of the vehicle
- *                              (only used in longitudinal direction, has to be always positive)
+ * The accelerated movement is limited. The acceleration stops if the speed reaches a limiting maximum speed
+ * or zero (on negative acceleration values).
+ *
+ * @param[in]  currentSpeed     is the current speed of the vehicle (has to be always positive)
+ * @param[in]  maxSpeed         is the maximum speed of the vehicle (has to be always positive)
  * @param[in]  acceleration     is the acceleration of the vehicle
  * @param[in]  duration         is the (positive) period of time the vehicle keeps accelerating
  * @param[out] distanceOffset   is the distance offset from the current position
  *                              In decelerated longitudinal situation, the distance offset is restricted to the point
  *                              in time the vehicle stops; if the vehicle is able to stop within the response time,
  *                              it's equal to the stopping distance. Therefore, the distance offset in longitudinal
- *                              case is always positive. In lateral situation, the sign of the distance offset can be
- *                              positive or negative; the following is always true:
- *                              'lateral_position_after_response_time' = distanceOffset + 'current_lateral_position'
+ *                              case is always positive.
  *
  * @return true on success, false otherwise
  */
-bool calculateDistanceOffsetAfterDuration(CoordinateSystemAxis const &axis,
-                                          physics::Speed const &currentSpeed,
-                                          physics::Speed const &maxSpeed,
-                                          physics::Acceleration const &acceleration,
-                                          physics::Duration const &duration,
-                                          physics::Distance &distanceOffset);
+bool calculateDistanceOffsetAfterAcceleratedLimitedMovement(physics::Speed const &currentSpeed,
+                                                            physics::Speed const &maxSpeed,
+                                                            physics::Acceleration const &acceleration,
+                                                            physics::Duration const &duration,
+                                                            physics::Distance &distanceOffset);
 
 /**
  * @brief Calculate the time needed to cover a given distance

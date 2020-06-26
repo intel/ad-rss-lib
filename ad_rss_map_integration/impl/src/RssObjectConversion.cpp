@@ -101,12 +101,11 @@ bool RssObjectConversion::calculateMinStoppingDistance(::ad::physics::Distance &
 {
   // calculate rough distance to be relevant at the moment
   ::ad::physics::Speed speedAfterResponseTime;
-  auto result = situation::calculateSpeedAfterAcceleration(situation::CoordinateSystemAxis::Longitudinal,
-                                                           mRssObject.state.speed,
-                                                           physics::Speed::getMax(),
-                                                           mRssDynamics.alphaLon.accelMax,
-                                                           mRssDynamics.responseTime,
-                                                           speedAfterResponseTime);
+  auto result = situation::calculateSpeedAfterAcceleratedLimitedMovement(mRssObject.state.speed,
+                                                                         physics::Speed::getMax(),
+                                                                         mRssDynamics.alphaLon.accelMax,
+                                                                         mRssDynamics.responseTime,
+                                                                         speedAfterResponseTime);
   if (!result)
   {
     getLogger()->error(

@@ -30,12 +30,11 @@ set(RSS_TEST_SOURCES
   core/RssSituationExtractionRelativePositionTests.cpp
   core/RssSituationExtractionSameDirectionTests.cpp
   situation/PhysicsUnitTestsCalculateTimeToStop.cpp
-  situation/PhysicsUnitTestsDistanceOffsetAfterResponseTime.cpp
-  situation/PhysicsUnitTestsDistanceOffsetInAcceleratedLimitedMovement.cpp
+  situation/PhysicsUnitTestsDistanceOffset.cpp
   situation/PhysicsUnitTestsInputRangeChecks.cpp
   situation/PhysicsUnitTestsStoppingDistance.cpp
   situation/PhysicsUnitTestsTimeToCoverDistance.cpp
-  situation/PhysicsUnitTestsVelocityAfterResponseTime.cpp
+  situation/PhysicsUnitTestsSpeed.cpp
   situation/PhysicsUnitTestsUnstructured.cpp
   situation/RssFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
   situation/RssFormulaTestsCalculateSafeLateralDistance.cpp

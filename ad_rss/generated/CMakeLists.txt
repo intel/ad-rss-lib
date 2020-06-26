@@ -43,7 +43,6 @@ find_package(spdlog REQUIRED CONFIG)
 
 add_library(${PROJECT_NAME}
   ${ad_rss_SOURCES}
-  src/ad/rss/situation/CoordinateSystemAxis.cpp
   src/ad/rss/situation/LateralRelativePosition.cpp
   src/ad/rss/situation/LongitudinalRelativePosition.cpp
   src/ad/rss/situation/SituationType.cpp

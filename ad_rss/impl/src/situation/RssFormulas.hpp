@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -12,7 +12,6 @@
 
 #pragma once
 
-#include "ad/rss/situation/CoordinateSystemAxis.hpp"
 #include "ad/rss/situation/VehicleState.hpp"
 
 /*!
@@ -29,12 +28,12 @@ namespace rss {
 namespace situation {
 
 /**
- * @brief Calculate the distance offset of a vehicle when applying the \a "stated braking pattern" with given
+ * @brief Calculate the longitudinal distance offset of a vehicle when applying the \a "stated braking pattern" with
+ * given
  *        deceleration
  *
- * @param[in]  axis              is the coordinate axis this calculation is for
- * @param[in]  currentSpeed      is the current vehicle speed
- * @param[in]  maxSpeed          is the maximum vehicle speed
+ * @param[in]  currentLongitudinalSpeed      is the current longitudinal vehicle speed
+ * @param[in]  maxSpeed          is the maximum vehicle speed to be considered in accelerated movement
  * @param[in]  responseTime      is the response time of the vehicle
  * @param[in]  acceleration      the acceleration of the vehicle during responseTime
  * @param[in]  deceleration      is the applied breaking deceleration
@@ -43,14 +42,31 @@ namespace situation {
  *
  * @return true on successful calculation, false otherwise
  */
-bool calculateDistanceOffsetAfterStatedBrakingPattern(CoordinateSystemAxis const &axis,
-                                                      physics::Speed const &currentSpeed,
-                                                      physics::Speed const &maxSpeed,
-                                                      physics::Duration const &responseTime,
-                                                      physics::Acceleration const &acceleration,
-                                                      physics::Acceleration const &deceleration,
-                                                      physics::Distance &distanceOffset);
+bool calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern(physics::Speed const &currentLongitudinalSpeed,
+                                                                  physics::Speed const &maxSpeed,
+                                                                  physics::Duration const &responseTime,
+                                                                  physics::Acceleration const &acceleration,
+                                                                  physics::Acceleration const &deceleration,
+                                                                  physics::Distance &distanceOffset);
 
+/**
+ * @brief Calculate the lateral distance offset of a vehicle when applying the \a "stated braking pattern" with given
+ *        deceleration
+ *
+ * @param[in]  currentLateralSpeed  is the current lateral vehicle speed
+ * @param[in]  responseTime      is the response time of the vehicle
+ * @param[in]  acceleration      the acceleration of the vehicle during responseTime
+ * @param[in]  deceleration      is the applied breaking deceleration
+ * @param[out] distanceOffset    is the distance offset of the vehicle from the current position after
+ *                               \a "the stated braking pattern"
+ *
+ * @return true on successful calculation, false otherwise
+ */
+bool calculateLateralDistanceOffsetAfterStatedBrakingPattern(physics::Speed const &currentLateralSpeed,
+                                                             physics::Duration const &responseTime,
+                                                             physics::Acceleration const &acceleration,
+                                                             physics::Acceleration const &deceleration,
+                                                             physics::Distance &distanceOffset);
 /**
  * @brief Calculate the \a "safe longitudinal distance" between the two vehicles,
  *        Assuming: Maximum deceleration for leading vehicle, and \a "stated breaking pattern" for following vehicle

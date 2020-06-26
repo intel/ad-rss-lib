@@ -93,7 +93,17 @@ The following diagram describes the decision making.
 
 The condition 22.1.b at the last safe point in time might lead to the behavior "Continue Forward" although the situation is dangerous. The reason is, that the conditions 22.1 define, which traffic participant has to brake and which one can continue.
 
-### Driving away
+### Response
+
+#### Continue Forward
+
+If the result is _continue_forward_ no acceleration restrictions are applied.
+
+#### Brake
+
+If the result is _brake_, the longitudinal acceleration restriction is set to `alphaLon.brakeMin` of the state.
+
+#### Driving away
 
 In certain situations the ego vehicle might be allowed to drive away from a dangerous situation using a given heading range.
 
@@ -109,3 +119,4 @@ As multiple situations might allow different ranges to drive away, the [`ad::rss
 |:--:|
 | *Allowed heading ranges in blue* |
 
+If multiple states result in _drive_away_, but no headingRange overlap is available the state is escalated to _brake_.
