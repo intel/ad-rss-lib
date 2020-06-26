@@ -13,25 +13,11 @@ namespace ad {
 namespace rss {
 namespace situation {
 
-Distance calculateDistanceOffsetInAcceleratedMovement(Speed const &speed,
-                                                      Acceleration const &acceleration,
-                                                      Duration const &duration);
-
-bool calculateDistanceOffsetInAcceleratedLimitedMovement(Speed const &speed,
-                                                         Speed const &maxSpeed,
-                                                         Acceleration const &acceleration,
-                                                         Duration const &duration,
-                                                         Distance &distanceOffset);
-
 bool calculateTimeForDistance(Speed const &currentSpeed,
                               Speed const &maxSpeed,
                               Acceleration const &acceleration,
                               Distance const &distanceToCover,
                               Duration &requiredTime);
-
-Speed calculateSpeedInAcceleratedMovement(Speed const &speed,
-                                          Acceleration const &acceleration,
-                                          Duration const &duration);
 
 TEST(PhysicsUnitTestsInputRangeChecks, negative_speed)
 {
