@@ -22,15 +22,11 @@ Limits are defined to be able to calculate all possible trajectories.
 
 The current implementation calculates the location and heading based on time increments (specified by `UnstructuredSettings::vehicleTrajectoryCalculationStep`). This might lead to an increasing error the farer the point is.
 
-TODO: Add image showing possible trajectories
-
 #### Pedestrian
 
 * The change of heading $|h'(t)|$ is limited. That means, the maximum trajectory is defined by a circle until response time. The radius of this circle can be specified by `UnstructuredSettings::pedestrianTurningRadius`.
 * At emergency, after the response time, the pedestrian will continue at a straight line
 * If the pedestrian is standing, we assign it to all possible lines originating from his current position.
-
-TODO: Add image showing possible trajectories
 
 ### Trajectory Set Calculation
 
@@ -62,6 +58,10 @@ There are two relevant trajectory sets: for braking $T(C_{b})$ and continue-forw
 This is similar for all traffic participants and uses the same rss formulas as in the structured case.
 
 The lateral change is depending on the type of traffic participant, as described above.
+
+| ![](../images/unstructured_trajectory_sets.png) |
+|:--:|
+| *Example trajectory sets for car and pedestrian (red: brake-, green: continue-forward-trajectory)* |
 
 ### Decision making
 
@@ -103,5 +103,9 @@ The angle between $\tau_{ego}(t) − \tau_{other}(t)$  and $\tau'_{ego}(t)$ need
 
 $\theta$ can be specified by `UnstructuredSettings::driveAwayMaxAngle`
 
-TODO: example image showing the drive away angle
+As multiple situations might allow different ranges to drive away, the [`ad::rss::state::ProperResponse`](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html) provides a vector of `headingRanges`. Together with the steering range of the vehicle the allowed heading range can be calculated.
+
+| ![](../images/unstructured_drive_away.png) |
+|:--:|
+| *Allowed heading ranges in blue* |
 
