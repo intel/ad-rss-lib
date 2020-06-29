@@ -135,9 +135,15 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
         = std::min(response.accelerationRestrictions.longitudinalRange.maximum, driveAwayBrakeMin);
     }
   }
+  catch (std::exception &e)
+  {
+    spdlog::critical(
+      "RssResponseResolving::provideProperResponse>> Exception caught'{}' {}", e.what(), currentStateSnapshot);
+    result = false;
+  }
   catch (...)
   {
-    spdlog::critical("RssResponseResolving::provideProperResponse>> Exception catched");
+    spdlog::critical("RssResponseResolving::provideProperResponse>> Exception caught {}", currentStateSnapshot);
     result = false;
   }
 

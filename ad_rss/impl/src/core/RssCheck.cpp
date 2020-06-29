@@ -69,7 +69,7 @@ bool RssCheck::calculateProperResponse(world::WorldModel const &worldModel,
   // LCOV_EXCL_START: unreachable code, keep to be on the safe side
   catch (...)
   {
-    spdlog::critical("RssCheck::calculateProperResponse>> Exception catched");
+    spdlog::critical("RssCheck::calculateProperResponse>> Exception caught");
     result = false;
   }
   // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side

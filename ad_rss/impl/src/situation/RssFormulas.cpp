@@ -6,7 +6,7 @@
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
-#include "RssFormulas.hpp"
+#include "ad/rss/situation/RssFormulas.hpp"
 #include <algorithm>
 #include "ad/rss/situation/Physics.hpp"
 #include "ad/rss/situation/VehicleStateValidInputRange.hpp"

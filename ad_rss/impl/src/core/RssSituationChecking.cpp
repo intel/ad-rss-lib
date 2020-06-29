@@ -145,6 +145,12 @@ bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation 
       rssStateSnapshot.individualResponses.push_back(rssState);
     }
   }
+  catch (std::exception &e)
+  {
+    spdlog::critical(
+      "RssSituationChecking::checkSituationInputRangeChecked>> Exception caught '{}' {}", e.what(), situation);
+    result = false;
+  }
   catch (...)
   {
     spdlog::critical("RssSituationChecking::checkSituationInputRangeChecked>> Exception caught {}", situation);
@@ -184,7 +190,7 @@ bool RssSituationChecking::checkSituations(situation::SituationSnapshot const &s
   }
   catch (...)
   {
-    spdlog::critical("RssSituationChecking::checkSituations>> Exception catched {}", situationSnapshot);
+    spdlog::critical("RssSituationChecking::checkSituations>> Exception caught {}", situationSnapshot);
     result = false;
   }
   if (!result)

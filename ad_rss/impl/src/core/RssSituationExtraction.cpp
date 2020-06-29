@@ -364,10 +364,18 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex 
       }
     }
   }
+  catch (std::exception &e)
+  {
+    spdlog::critical("RssSituationExtraction::extractSituationInputRangeChecked>> Exception caught '{}' {} {}",
+                     e.what(),
+                     timeIndex,
+                     currentScene);
+    result = false;
+  }
   catch (...)
   {
     spdlog::critical(
-      "RssSituationExtraction::extractSituationInputRangeChecked>> Exception catched {} {}", timeIndex, currentScene);
+      "RssSituationExtraction::extractSituationInputRangeChecked>> Exception caught {} {}", timeIndex, currentScene);
     result = false;
   }
 
@@ -559,6 +567,11 @@ bool RssSituationExtraction::extractSituations(world::WorldModel const &worldMod
         result = false;
       }
     }
+  }
+  catch (std::exception &e)
+  {
+    spdlog::critical("RssSituationExtraction::extractSituations>> Exception caught '{}' {}", e.what(), worldModel);
+    result = false;
   }
   catch (...)
   {

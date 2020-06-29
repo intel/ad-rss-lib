@@ -7,7 +7,7 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "RssStructuredSceneNonIntersectionChecker.hpp"
-#include "RssFormulas.hpp"
+#include "ad/rss/situation/RssFormulas.hpp"
 #include "ad/rss/state/RssStateOperation.hpp"
 
 namespace ad {

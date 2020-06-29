@@ -203,7 +203,7 @@ Trajectory TrajectoryVehicle::createTrajectory(situation::VehicleState const &ve
                               aAfterResponseTime,
                               currentSpeed);
 
-    if ((currentTime == ad::physics::Duration(0.0)) || (currentSpeed > ad::physics::Speed::getPrecision()))
+    if ((currentTime == ad::physics::Duration(0.0)) || (currentSpeed > ad::physics::Speed(0.)))
     {
       //-- calculate radius --
       // until response time, it changes depending on the yawRate and speed
@@ -285,7 +285,7 @@ Trajectory TrajectoryVehicle::createTrajectory(situation::VehicleState const &ve
           }
           else if (currentRadius == ad::physics::Distance(0.0))
           {
-            std::cout << "Invalid radius " << std::endl;
+            throw std::runtime_error("TrajectoryVehicle::createTrajectory>> invalid zero radius");
           }
           else
           {

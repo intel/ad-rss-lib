@@ -452,7 +452,7 @@ bool RssSceneCreation::appendStructuredScenes(::ad::rss::map::RssSceneCreator &s
     }
     else
     {
-      getLogger()->warn(
+      getLogger()->info(
         "RssSceneCreation::appendStructuredScenes[{}]>> an operation failed and no scene could have been "
         "created. Try to append non relevant scene\n"
         " objectMatchObject({})\n egoMatchObject({})\n egoRoute({})",

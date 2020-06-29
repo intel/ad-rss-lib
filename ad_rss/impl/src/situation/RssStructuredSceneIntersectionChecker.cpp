@@ -9,8 +9,8 @@
 #include "RssStructuredSceneIntersectionChecker.hpp"
 #include <cmath>
 #include <limits>
-#include "RssFormulas.hpp"
 #include "ad/rss/situation/Physics.hpp"
+#include "ad/rss/situation/RssFormulas.hpp"
 
 namespace ad {
 
