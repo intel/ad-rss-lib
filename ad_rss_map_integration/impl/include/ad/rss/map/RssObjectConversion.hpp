@@ -52,7 +52,8 @@ public:
    * @param[in] objectId the object id
    * @param[in] objectType the object type
    * @param[in] objectMapMatchedPosition the object's position described by its map matched bounding box and position
-   * @param[in] objectSpeed the object's speed
+   * @param[in] objectSpeed the object's speed (only positive speed is supported, see isOriginalSpeedAcceptable() for
+   * details)
    * @param[in] objectYawRate the object's yaw rate
    * @param[in] rssDynamics the object's (initial) RSS dynamics
    */
@@ -70,7 +71,8 @@ public:
    * @param[in] objectType the object type
    * @param[in] objectOccupiedRegions the object's occupied regions explicitly
    * @param[in] objectEnuPosition the object's enu position
-   * @param[in] objectSpeed the object's speed
+   * @param[in] objectSpeed the object's speed (only positive speed is supported, see isOriginalSpeedAcceptable() for
+   * details)
    * @param[in] objectYawRate the object's yaw rate
    * @param[in] rssDynamics the object's (initial) RSS dynamics
    */
@@ -148,11 +150,46 @@ public:
     return mObjectMapMatchedPosition;
   }
 
+  /** @brief check if the original input speed is in acceptable range
+   *
+   *  Negative speed is not supported by the RSS implementation; therefore negative input speeds are mapped to zero
+   * speed by this class.
+   *
+   *  But up to a certain small negative speed value, negative speeds still might want to be accepted to account for
+   * slowly backward drifting vehicles.
+   *  Therefore, the constructor of this class maps all negative speeds to zero, but stores the original provided speed
+   * for later analysis.
+   *  This function can be used to check for an acceptable speed.
+   *
+   *  @param[in] acceptableNegativeSpeed a small negative speed value that should be allowed to be mapped to zero
+   * without error (default -0.5m/s).
+   *
+   *  @returns \c true if the original speed equals the current internal object speed.
+   *  It also returns \c true if the original speed is equal or larger than the provided acceptableNegativeSpeed.
+   */
+  bool isOriginalSpeedAcceptable(::ad::physics::Speed const acceptableNegativeSpeed = ::ad::physics::Speed(-0.5)) const;
+
+  /**
+   * @returns the original object speed provided as input
+   */
+  ::ad::physics::Speed const &getOriginalObjectSpeed() const
+  {
+    return mOriginalObjectSpeed;
+  }
+
 private:
   ::ad::rss::world::Object mRssObject;
   ::ad::map::match::Object const *mObjectMapMatchedPosition;
   ::ad::physics::Speed mMaxSpeed;
+  ::ad::physics::Speed const mOriginalObjectSpeed;
   ::ad::rss::world::RssDynamics const &mRssDynamics;
+
+  void initializeRssObject(::ad::rss::world::ObjectId const &objectId,
+                           ::ad::rss::world::ObjectType const &objectType,
+                           ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions,
+                           ::ad::map::match::ENUObjectPosition const &objectEnuPosition,
+                           ::ad::physics::Speed const &objectSpeed,
+                           ::ad::physics::AngularVelocity const &objectYawRate);
 
   void addRestrictedOccupiedRegion(::ad::map::match::LaneOccupiedRegion const &laneOccupiedRegion,
                                    ::ad::map::route::LaneInterval const &laneInterval);

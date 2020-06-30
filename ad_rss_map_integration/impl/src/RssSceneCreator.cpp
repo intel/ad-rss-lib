@@ -592,15 +592,34 @@ bool RssSceneCreator::appendScene(::ad::rss::situation::SituationType const &sit
   getLogger()->trace("RssSceneCreator::appendScene[{}]>> object {}", otherObject->getId(), scene.object);
   getLogger()->trace("RssSceneCreator::appendScene[{}]>> ego {}", otherObject->getId(), scene.egoVehicle);
 
-  if ((situationType != ::ad::rss::situation::SituationType::Unstructured)
-      && (situationType != ::ad::rss::situation::SituationType::NotRelevant)
-      && (scene.egoVehicle.occupiedRegions.empty() || scene.object.occupiedRegions.empty()))
+  if (situationType != ::ad::rss::situation::SituationType::NotRelevant)
   {
-    getLogger()->debug(
-      "RssSceneCreator::appendScene[{}]>> ego or object not on route. Structured scene not valid. Dropping. {}",
-      otherObject->getId(),
-      scene);
-    return false;
+    // relevant situations have to consider some more checks to filter out unsupported situations
+    if ((situationType != ::ad::rss::situation::SituationType::Unstructured)
+        && (scene.egoVehicle.occupiedRegions.empty() || scene.object.occupiedRegions.empty()))
+    {
+      getLogger()->debug(
+        "RssSceneCreator::appendScene[{}]>> ego or object not on route. Structured scene not valid. Dropping. {}",
+        otherObject->getId(),
+        scene);
+      return false;
+    }
+    else if (!egoObject->isOriginalSpeedAcceptable())
+    {
+      getLogger()->debug("RssSceneCreator::appendScene[{}]>> ego original speed {} is not acceptable. Dropping. {}",
+                         otherObject->getId(),
+                         egoObject->getOriginalObjectSpeed(),
+                         scene);
+      return false;
+    }
+    else if (!otherObject->isOriginalSpeedAcceptable())
+    {
+      getLogger()->warn("RssSceneCreator::appendScene[{}]>> other original speed {} is not acceptable. Dropping. {}",
+                        otherObject->getId(),
+                        otherObject->getOriginalObjectSpeed(),
+                        scene);
+      return false;
+    }
   }
 
   if (withinValidInputRange(scene))

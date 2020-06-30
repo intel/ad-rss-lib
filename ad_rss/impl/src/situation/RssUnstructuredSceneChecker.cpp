@@ -11,8 +11,8 @@
 #include <limits>
 #include "../unstructured/TrajectoryPedestrian.hpp"
 #include "../unstructured/TrajectoryVehicle.hpp"
-#include "RssFormulas.hpp"
 #include "ad/rss/situation/Physics.hpp"
+#include "ad/rss/situation/RssFormulas.hpp"
 #include "ad/rss/unstructured/Geometry.hpp"
 
 namespace ad {

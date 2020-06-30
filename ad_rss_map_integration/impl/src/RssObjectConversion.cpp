@@ -11,7 +11,7 @@
 #include <ad/map/point/HeadingOperation.hpp>
 #include <ad/map/route/RouteOperation.hpp>
 #include <ad/physics/Operation.hpp>
-#include <ad/rss/situation/Physics.hpp>
+#include <ad/rss/situation/RssFormulas.hpp>
 #include <algorithm>
 #include "ad/rss/map/Logging.hpp"
 
@@ -27,26 +27,15 @@ RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objec
                                          ::ad::rss::world::RssDynamics const &rssDynamics)
   : mObjectMapMatchedPosition(&objectMapMatchedPosition)
   , mMaxSpeed(0.)
+  , mOriginalObjectSpeed(objectSpeed)
   , mRssDynamics(rssDynamics)
 {
-  mRssObject.objectId = objectId;
-  mRssObject.objectType = objectType;
-  mRssObject.velocity.speedLonMin = ::ad::physics::Speed(0.);
-  mRssObject.velocity.speedLonMax = ::ad::physics::Speed(0.);
-  mRssObject.velocity.speedLatMin = ::ad::physics::Speed(0.);
-  mRssObject.velocity.speedLatMax = ::ad::physics::Speed(0.);
-
-  mRssObject.state.yaw = ::ad::physics::Angle(static_cast<double>(objectMapMatchedPosition.enuPosition.heading));
-  mRssObject.state.centerPoint.x
-    = ::ad::physics::Distance(static_cast<double>(objectMapMatchedPosition.enuPosition.centerPoint.x));
-  mRssObject.state.centerPoint.y
-    = ::ad::physics::Distance(static_cast<double>(objectMapMatchedPosition.enuPosition.centerPoint.y));
-  mRssObject.state.dimension.width
-    = ::ad::physics::Distance(static_cast<double>(objectMapMatchedPosition.enuPosition.dimension.width));
-  mRssObject.state.dimension.length
-    = ::ad::physics::Distance(static_cast<double>(objectMapMatchedPosition.enuPosition.dimension.length));
-  mRssObject.state.speed = std::fabs(objectSpeed);
-  mRssObject.state.yawRate = objectYawRate;
+  initializeRssObject(objectId,
+                      objectType,
+                      ::ad::rss::world::OccupiedRegionVector(),
+                      objectMapMatchedPosition.enuPosition,
+                      objectSpeed,
+                      objectYawRate);
 }
 
 RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
@@ -58,7 +47,18 @@ RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objec
                                          ::ad::rss::world::RssDynamics const &rssDynamics)
   : mObjectMapMatchedPosition(nullptr)
   , mMaxSpeed(0.)
+  , mOriginalObjectSpeed(objectSpeed)
   , mRssDynamics(rssDynamics)
+{
+  initializeRssObject(objectId, objectType, objectOccupiedRegions, objectEnuPosition, objectSpeed, objectYawRate);
+}
+
+void RssObjectConversion::initializeRssObject(::ad::rss::world::ObjectId const &objectId,
+                                              ::ad::rss::world::ObjectType const &objectType,
+                                              ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions,
+                                              ::ad::map::match::ENUObjectPosition const &objectEnuPosition,
+                                              ::ad::physics::Speed const &objectSpeed,
+                                              ::ad::physics::AngularVelocity const &objectYawRate)
 {
   mRssObject.objectId = objectId;
   mRssObject.objectType = objectType;
@@ -73,8 +73,31 @@ RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objec
   mRssObject.state.centerPoint.y = ::ad::physics::Distance(static_cast<double>(objectEnuPosition.centerPoint.y));
   mRssObject.state.dimension.width = ::ad::physics::Distance(static_cast<double>(objectEnuPosition.dimension.width));
   mRssObject.state.dimension.length = ::ad::physics::Distance(static_cast<double>(objectEnuPosition.dimension.length));
-  mRssObject.state.speed = std::fabs(objectSpeed);
-  mRssObject.state.yawRate = objectYawRate;
+
+  // restrict to positive speeds
+  mRssObject.state.speed = std::max(::ad::physics::Speed(0.), objectSpeed);
+  if (mRssObject.state.speed == ::ad::physics::Speed(0.))
+  {
+    // ensure angular speed is also zero if speed is zero
+    mRssObject.state.yawRate = ::ad::physics::AngularVelocity(0.);
+  }
+  else
+  {
+    mRssObject.state.yawRate = objectYawRate;
+  }
+}
+
+bool RssObjectConversion::isOriginalSpeedAcceptable(::ad::physics::Speed const acceptableNegativeSpeed) const
+{
+  if (mRssObject.state.speed == mOriginalObjectSpeed)
+  {
+    return true;
+  }
+  if (mOriginalObjectSpeed >= acceptableNegativeSpeed)
+  {
+    return true;
+  }
+  return false;
 }
 
 ::ad::rss::world::Object const &RssObjectConversion::getRssObject() const
@@ -99,39 +122,23 @@ RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objec
 
 bool RssObjectConversion::calculateMinStoppingDistance(::ad::physics::Distance &minStoppingDistance) const
 {
-  // calculate rough distance to be relevant at the moment
-  ::ad::physics::Speed speedAfterResponseTime;
-  auto result = situation::calculateSpeedAfterAcceleratedLimitedMovement(mRssObject.state.speed,
-                                                                         physics::Speed::getMax(),
-                                                                         mRssDynamics.alphaLon.accelMax,
-                                                                         mRssDynamics.responseTime,
-                                                                         speedAfterResponseTime);
+  auto const result
+    = situation::calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern(mRssObject.state.speed,
+                                                                              physics::Speed::getMax(),
+                                                                              mRssDynamics.responseTime,
+                                                                              mRssDynamics.alphaLon.accelMax,
+                                                                              mRssDynamics.alphaLon.brakeMinCorrect,
+                                                                              minStoppingDistance);
+
   if (!result)
   {
-    getLogger()->error(
-      "RssObjectConversion::calculateminStoppingDistance[ {} ]>> error calculating speed after response time {} {}",
-      mRssObject.objectId,
-      mRssObject.state.speed,
-      mRssDynamics);
-    return result;
+    getLogger()->error("RssObjectConversion::calculateminStoppingDistance[ {} ]>> error calculating longitudinal "
+                       "distance offset after stated braking pattern {} {}",
+                       mRssObject.objectId,
+                       mRssObject.state.speed,
+                       mRssDynamics);
   }
-
-  result = situation::calculateStoppingDistance(
-    speedAfterResponseTime, mRssDynamics.alphaLon.brakeMinCorrect, minStoppingDistance);
-  if (!result)
-  {
-    getLogger()->error(
-      "RssObjectConversion::calculateminStoppingDistance[ {} ]>> error calculating stopping distance {} {}",
-      mRssObject.objectId,
-      speedAfterResponseTime,
-      mRssDynamics);
-    return result;
-  }
-
-  // overestimate stopping distance a bit
-  minStoppingDistance += speedAfterResponseTime * mRssDynamics.responseTime;
-
-  return true;
+  return result;
 }
 
 void RssObjectConversion::updateSpeedLimit(::ad::physics::Speed const &maxSpeed)

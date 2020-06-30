@@ -7,7 +7,7 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "situation/RssFormulas.hpp"
+#include "ad/rss/situation/RssFormulas.hpp"
 
 namespace ad {
 namespace rss {
