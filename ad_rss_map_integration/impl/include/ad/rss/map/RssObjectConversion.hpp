@@ -111,7 +111,8 @@ public:
 
   /** @returns RssDynamics of the object
    *
-   * If updateSpeedLimit() was called in between the maxSpeed value of the dynamics will be adapted to these.
+   * If updateSpeedLimit() was called in between the maxSpeedOnAcceleration value of the dynamics will be adapted to
+   * these.
    */
   ::ad::rss::world::RssDynamics getRssDynamics() const;
 
@@ -133,7 +134,7 @@ public:
 
   /** @brief update the max speed content
    */
-  void updateSpeedLimit(::ad::physics::Speed const &maxSpeed);
+  void updateSpeedLimit(::ad::physics::Speed const &maxSpeedOnAcceleration);
 
   /** @brief lane interval was added to the object route, so append relevant occupied regions
    */
@@ -180,7 +181,7 @@ public:
 private:
   ::ad::rss::world::Object mRssObject;
   ::ad::map::match::Object const *mObjectMapMatchedPosition;
-  ::ad::physics::Speed mMaxSpeed;
+  ::ad::physics::Speed mMaxSpeedOnAcceleration;
   ::ad::physics::Speed const mOriginalObjectSpeed;
   ::ad::rss::world::RssDynamics const &mRssDynamics;
 

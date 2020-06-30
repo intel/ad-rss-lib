@@ -55,7 +55,8 @@ struct RssSceneCreationTest : ::testing::Test
     return unstructuredSettings;
   }
 
-  ::ad::rss::world::RssDynamics getEgoVehicleDynamics(::ad::physics::Speed const maxSpeed = ::ad::physics::Speed(100.))
+  ::ad::rss::world::RssDynamics getEgoVehicleDynamics(::ad::physics::Speed const maxSpeedOnAcceleration
+                                                      = ::ad::physics::Speed(100.))
   {
     ::ad::rss::world::RssDynamics result;
     result.alphaLat.accelMax = cMaximumLateralAcceleration;
@@ -69,14 +70,14 @@ struct RssSceneCreationTest : ::testing::Test
     result.lateralFluctuationMargin = ::ad::physics::Distance(0.);
 
     result.responseTime = cResponseTimeEgoVehicle;
-    result.maxSpeed = maxSpeed;
+    result.maxSpeedOnAcceleration = maxSpeedOnAcceleration;
 
     result.unstructuredSettings = getUnstructuredSettings();
 
     return result;
   }
 
-  ::ad::rss::world::RssDynamics getObjectVehicleDynamics(::ad::physics::Speed const maxSpeed
+  ::ad::rss::world::RssDynamics getObjectVehicleDynamics(::ad::physics::Speed const maxSpeedOnAcceleration
                                                          = ::ad::physics::Speed(100.))
   {
     ::ad::rss::world::RssDynamics result;
@@ -91,7 +92,7 @@ struct RssSceneCreationTest : ::testing::Test
     result.lateralFluctuationMargin = ::ad::physics::Distance(0.);
 
     result.responseTime = cResponseTimeOtherVehicles;
-    result.maxSpeed = maxSpeed;
+    result.maxSpeedOnAcceleration = maxSpeedOnAcceleration;
 
     result.unstructuredSettings = getUnstructuredSettings();
 

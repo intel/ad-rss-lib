@@ -90,7 +90,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   RssStructuredSceneNonIntersectionChecker checker;
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
-  followingVehicle.dynamics.maxSpeed = kmhToMeterPerSec(50.);
+  followingVehicle.dynamics.maxSpeedOnAcceleration = kmhToMeterPerSec(50.);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
   followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
 
@@ -109,7 +109,27 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   RssStructuredSceneNonIntersectionChecker checker;
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
-  followingVehicle.dynamics.maxSpeed = kmhToMeterPerSec(50.);
+  followingVehicle.dynamics.maxSpeedOnAcceleration = kmhToMeterPerSec(50.);
+  followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
+
+  situation.egoVehicleState = followingVehicle;
+  situation.otherVehicleState = leadingVehicle;
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(38.));
+
+  ASSERT_TRUE(checker.calculateRssStateNonIntersection(timeIndex++, situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState,
+            TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+}
+
+TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_40kmh_maxspeed_unsafe)
+{
+  RssStructuredSceneNonIntersectionChecker checker;
+  leadingVehicle = createVehicleStateForLongitudinalMotion(50);
+  followingVehicle = createVehicleStateForLongitudinalMotion(50);
+  followingVehicle.dynamics.maxSpeedOnAcceleration = kmhToMeterPerSec(40.);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
   followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
 
@@ -174,7 +194,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   RssStructuredSceneNonIntersectionChecker checker;
   leadingVehicle = createVehicleStateForLongitudinalMotion(0);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
-  followingVehicle.dynamics.maxSpeed = kmhToMeterPerSec(50.);
+  followingVehicle.dynamics.maxSpeedOnAcceleration = kmhToMeterPerSec(50.);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
   followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
 

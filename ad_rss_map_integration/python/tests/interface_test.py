@@ -57,7 +57,7 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
     def _get_object_vehicle_dynamics(self):
         objectRssDynamics = rss.RssDynamics()
         objectRssDynamics.responseTime = physics.Duration(0.5)
-        objectRssDynamics.maxSpeed = physics.Speed(0.)
+        objectRssDynamics.maxSpeedOnAcceleration = physics.Speed(0.)
         objectRssDynamics.alphaLat.accelMax = physics.Acceleration(1.)
         objectRssDynamics.alphaLat.brakeMin = physics.Acceleration(-1.)
         objectRssDynamics.alphaLon.accelMax = physics.Acceleration(4.)
@@ -71,7 +71,7 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
     def _get_ego_vehicle_dynamics(self):
         egoRssDynamics = rss.RssDynamics()
         egoRssDynamics.responseTime = physics.Duration(0.2)
-        egoRssDynamics.maxSpeed = physics.Speed(0.)
+        egoRssDynamics.maxSpeedOnAcceleration = physics.Speed(0.)
         egoRssDynamics.alphaLat.accelMax = physics.Acceleration(0.1)
         egoRssDynamics.alphaLat.brakeMin = physics.Acceleration(-0.1)
         egoRssDynamics.alphaLon.accelMax = physics.Acceleration(0.1)

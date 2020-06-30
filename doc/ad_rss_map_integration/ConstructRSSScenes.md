@@ -247,12 +247,12 @@ the construction of the scenes with `ad::rss::map::RssSceneCreation::appendScene
 to select between different modes to consider the speed limit within RSS accelerated movement,
 by setting the `ad::rss::world::RssDynamics` dynamics accordingly:
 
-* `None`: Do not change the objects maxSpeed parameter of the RssDynamics
-* `ExactSpeedLimit`: Set the objects maxSpeed parameter of the RssDynamics to the maximal
+* `None`: Do not change the objects maxSpeedOnAcceleration parameter of the RssDynamics
+* `ExactSpeedLimit`: Set the objects maxSpeedOnAcceleration parameter of the RssDynamics to the maximal
   allowed speed of the relevant road section
-* `IncreasedSpeedLimit5`: Set the objects maxSpeed parameter of the RssDynamics to the maximal
+* `IncreasedSpeedLimit5`: Set the objects maxSpeedOnAcceleration parameter of the RssDynamics to the maximal
   allowed speed of the relevant road section + 5 percent
-* `IncreasedSpeedLimit10`: Set the objects maxSpeed parameter of the RssDynamics to the maximal
+* `IncreasedSpeedLimit10`: Set the objects maxSpeedOnAcceleration parameter of the RssDynamics to the maximal
   allowed speed of the relevant road section + 10 percent
 
 In general, this extends the scope of the RSS paper, but might be a reasonable change to improve

@@ -36,7 +36,7 @@ bool TrajectoryPedestrian::calculateTrajectorySets(situation::VehicleState const
   ad::physics::Duration timeToStop;
   auto result = situation::calculateTimeToStop(vehicleState.objectState.speed,
                                                vehicleState.dynamics.responseTime,
-                                               vehicleState.dynamics.maxSpeed,
+                                               vehicleState.dynamics.maxSpeedOnAcceleration,
                                                vehicleState.dynamics.alphaLon.accelMax,
                                                vehicleState.dynamics.alphaLon.brakeMax,
                                                timeToStop);
@@ -92,14 +92,16 @@ bool TrajectoryPedestrian::createTrajectorySet(situation::VehicleState const &ve
   else
   {
     // If pedestrian is standing, he might start walking in any direction
+    ad::physics::Speed speed;
     ad::physics::Distance maxDistance;
-    result = situation::calculateDistanceOffset(duration,
-                                                vehicleState.objectState.speed,
-                                                vehicleState.dynamics.responseTime,
-                                                vehicleState.dynamics.maxSpeed,
-                                                vehicleState.dynamics.alphaLon.accelMax,
-                                                aAfterResponseTime,
-                                                maxDistance);
+    result = situation::calculateSpeedAndDistanceOffset(duration,
+                                                        vehicleState.objectState.speed,
+                                                        vehicleState.dynamics.responseTime,
+                                                        vehicleState.dynamics.maxSpeedOnAcceleration,
+                                                        vehicleState.dynamics.alphaLon.accelMax,
+                                                        aAfterResponseTime,
+                                                        speed,
+                                                        maxDistance);
     calculateCircleArc(toPoint(vehicleState.objectState.centerPoint),
                        maxDistance,
                        ad::physics::Angle(0.),
@@ -119,14 +121,16 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
 {
   auto startingAngle = vehicleState.objectState.yaw - ad::physics::cPI_2;
   auto startingPoint = toPoint(vehicleState.objectState.centerPoint);
+  ad::physics::Speed speed;
   ad::physics::Distance maxDistance;
-  situation::calculateDistanceOffset(duration,
-                                     vehicleState.objectState.speed,
-                                     vehicleState.dynamics.responseTime,
-                                     vehicleState.dynamics.maxSpeed,
-                                     aUntilResponseTime,
-                                     aAfterResponseTime,
-                                     maxDistance);
+  situation::calculateSpeedAndDistanceOffset(duration,
+                                             vehicleState.objectState.speed,
+                                             vehicleState.dynamics.responseTime,
+                                             vehicleState.dynamics.maxSpeedOnAcceleration,
+                                             aUntilResponseTime,
+                                             aAfterResponseTime,
+                                             speed,
+                                             maxDistance);
 
 #if DRAW_TRAJECTORIES
   Line linePts;
@@ -143,13 +147,14 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
 
     auto circleOrigin = getCircleOrigin(startingPoint, radius, startingAngle);
     ad::physics::Distance distanceUntilReponseTime;
-    situation::calculateDistanceOffset(vehicleState.dynamics.responseTime,
-                                       vehicleState.objectState.speed,
-                                       vehicleState.dynamics.responseTime,
-                                       vehicleState.dynamics.maxSpeed,
-                                       aUntilResponseTime,
-                                       ad::physics::Acceleration(0.),
-                                       distanceUntilReponseTime);
+
+    situation::calculateAcceleratedLimitedMovement(vehicleState.objectState.speed,
+                                                   vehicleState.dynamics.maxSpeedOnAcceleration,
+                                                   aUntilResponseTime,
+                                                   vehicleState.dynamics.responseTime,
+                                                   speed,
+                                                   distanceUntilReponseTime);
+
     auto angleChange = ad::physics::Angle(distanceUntilReponseTime / radius);
     heading = (radius > ad::physics::Distance(0.)) ? TrajectoryHeading::left : TrajectoryHeading::right;
 

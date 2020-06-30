@@ -29,12 +29,11 @@ set(RSS_TEST_SOURCES
   core/RssSituationExtractionOppositeDirectionTests.cpp
   core/RssSituationExtractionRelativePositionTests.cpp
   core/RssSituationExtractionSameDirectionTests.cpp
+  situation/PhysicsUnitTestsAcceleratedLimitedMovement.cpp
   situation/PhysicsUnitTestsCalculateTimeToStop.cpp
-  situation/PhysicsUnitTestsDistanceOffset.cpp
   situation/PhysicsUnitTestsInputRangeChecks.cpp
   situation/PhysicsUnitTestsStoppingDistance.cpp
   situation/PhysicsUnitTestsTimeToCoverDistance.cpp
-  situation/PhysicsUnitTestsSpeed.cpp
   situation/PhysicsUnitTestsUnstructured.cpp
   situation/RssFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
   situation/RssFormulaTestsCalculateSafeLateralDistance.cpp

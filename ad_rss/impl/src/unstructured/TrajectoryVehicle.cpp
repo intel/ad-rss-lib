@@ -34,7 +34,7 @@ bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &v
   ad::physics::Duration timeToStop;
   auto result = situation::calculateTimeToStop(vehicleState.objectState.speed,
                                                vehicleState.dynamics.responseTime,
-                                               vehicleState.dynamics.maxSpeed,
+                                               vehicleState.dynamics.maxSpeedOnAcceleration,
                                                vehicleState.dynamics.alphaLon.accelMax,
                                                vehicleState.dynamics.alphaLon.brakeMin,
                                                timeToStop);
@@ -195,13 +195,15 @@ Trajectory TrajectoryVehicle::createTrajectory(situation::VehicleState const &ve
   for (auto currentTime = ad::physics::Duration(0.0); currentTime <= duration;
        currentTime += vehicleState.dynamics.unstructuredSettings.vehicleTrajectoryCalculationStep)
   {
-    situation::calculateSpeed(currentTime,
-                              vehicleState.objectState.speed,
-                              vehicleState.dynamics.responseTime,
-                              vehicleState.dynamics.maxSpeed,
-                              aUntilResponseTime,
-                              aAfterResponseTime,
-                              currentSpeed);
+    ad::physics::Distance currentDistance;
+    situation::calculateSpeedAndDistanceOffset(currentTime,
+                                               vehicleState.objectState.speed,
+                                               vehicleState.dynamics.responseTime,
+                                               vehicleState.dynamics.maxSpeedOnAcceleration,
+                                               aUntilResponseTime,
+                                               aAfterResponseTime,
+                                               currentSpeed,
+                                               currentDistance);
 
     if ((currentTime == ad::physics::Duration(0.0)) || (currentSpeed > ad::physics::Speed(0.)))
     {
@@ -233,13 +235,14 @@ Trajectory TrajectoryVehicle::createTrajectory(situation::VehicleState const &ve
                                                     vehicleState.dynamics.unstructuredSettings.vehicleYawRateChange,
                                                     yawRateChangeRatio);
         ad::physics::Speed speedAtResponseTime;
-        situation::calculateSpeed(vehicleState.dynamics.responseTime,
-                                  vehicleState.objectState.speed,
-                                  vehicleState.dynamics.responseTime,
-                                  vehicleState.dynamics.maxSpeed,
-                                  aUntilResponseTime,
-                                  aAfterResponseTime,
-                                  speedAtResponseTime);
+        ad::physics::Distance distanceAtResponseTime;
+        situation::calculateAcceleratedLimitedMovement(vehicleState.objectState.speed,
+                                                       vehicleState.dynamics.maxSpeedOnAcceleration,
+                                                       aUntilResponseTime,
+                                                       vehicleState.dynamics.responseTime,
+                                                       speedAtResponseTime,
+                                                       distanceAtResponseTime);
+
         if (std::fabs(static_cast<double>(yawRateResponseTime))
             < std::fabs(static_cast<double>(speedAtResponseTime) / static_cast<double>(maxRadius)))
         {
@@ -263,14 +266,6 @@ Trajectory TrajectoryVehicle::createTrajectory(situation::VehicleState const &ve
         }
       }
 
-      ad::physics::Distance currentDistance;
-      situation::calculateDistanceOffset(currentTime,
-                                         vehicleState.objectState.speed,
-                                         vehicleState.dynamics.responseTime,
-                                         vehicleState.dynamics.maxSpeed,
-                                         aUntilResponseTime,
-                                         aAfterResponseTime,
-                                         currentDistance);
       auto distanceToNextPoint = currentDistance - distanceSoFar;
       distanceSoFar = currentDistance;
 

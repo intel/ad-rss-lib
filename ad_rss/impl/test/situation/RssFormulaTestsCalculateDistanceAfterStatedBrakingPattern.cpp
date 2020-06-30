@@ -18,7 +18,7 @@ TEST(RssFormulaTestsCalculateDistanceAfterStatedBrakingPattern, longitudinal_neg
   Distance distanceOffset(0.);
 
   ASSERT_FALSE(calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern(
-    Speed(-10.), cMaxSpeed, Duration(1), Acceleration(3.5), Acceleration(-4.), distanceOffset));
+    Speed(-10.), cMaxSpeedOnAcceleration, Duration(1), Acceleration(3.5), Acceleration(-4.), distanceOffset));
 }
 
 TEST(RssFormulaTestsCalculateDistanceAfterStatedBrakingPattern, lateral_negative_speed)
@@ -42,7 +42,7 @@ TEST(RssFormulaTestsCalculateDistanceAfterStatedBrakingPattern, negative_time)
   Distance distanceOffset(0.);
 
   EXPECT_FALSE(calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern(
-    Speed(1.), cMaxSpeed, Duration(-1), Acceleration(3.5), Acceleration(4.), distanceOffset));
+    Speed(1.), cMaxSpeedOnAcceleration, Duration(-1), Acceleration(3.5), Acceleration(4.), distanceOffset));
   EXPECT_FALSE(calculateLateralDistanceOffsetAfterStatedBrakingPattern(
     Speed(1.), Duration(-1), Acceleration(3.5), Acceleration(4.), distanceOffset));
 }
@@ -51,7 +51,7 @@ TEST(RssFormulaTestsCalculateDistanceAfterStatedBreakingPatternOtherVehicle, lea
 {
   Distance distanceOffset(0.);
   ASSERT_TRUE(calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern(kmhToMeterPerSec(100),
-                                                                           cMaxSpeed,
+                                                                           cMaxSpeedOnAcceleration,
                                                                            cResponseTimeOtherVehicles,
                                                                            cMaximumLongitudinalAcceleration,
                                                                            cMinimumLongitudinalBrakingDeceleleration,
@@ -63,7 +63,7 @@ TEST(RssFormulaTestsCalculateDistanceAfterStatedBrakingPatternEgoVehicle, leadin
 {
   Distance distanceOffset(0.);
   ASSERT_TRUE(calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern(kmhToMeterPerSec(100),
-                                                                           cMaxSpeed,
+                                                                           cMaxSpeedOnAcceleration,
                                                                            cResponseTimeEgoVehicle,
                                                                            cMaximumLongitudinalAcceleration,
                                                                            cMinimumLongitudinalBrakingDeceleleration,
@@ -74,8 +74,12 @@ TEST(RssFormulaTestsCalculateDistanceAfterStatedBrakingPatternEgoVehicle, leadin
 TEST(RssFormulaTestsCalculateDistanceAfterStatedBrakingPatternEgoVehicle, leading_other_checks_50kmh)
 {
   Distance distanceOffset(0.);
-  ASSERT_TRUE(calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern(
-    kmhToMeterPerSec(50), cMaxSpeed, cResponseTimeOtherVehicles, Acceleration(2.), Acceleration(-4.), distanceOffset));
+  ASSERT_TRUE(calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern(kmhToMeterPerSec(50),
+                                                                           cMaxSpeedOnAcceleration,
+                                                                           cResponseTimeOtherVehicles,
+                                                                           Acceleration(2.),
+                                                                           Acceleration(-4.),
+                                                                           distanceOffset));
   ASSERT_NEAR(static_cast<double>(distanceOffset), 71.77, cDoubleNear);
 }
 

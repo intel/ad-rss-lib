@@ -26,7 +26,7 @@ RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objec
                                          ::ad::physics::AngularVelocity const &objectYawRate,
                                          ::ad::rss::world::RssDynamics const &rssDynamics)
   : mObjectMapMatchedPosition(&objectMapMatchedPosition)
-  , mMaxSpeed(0.)
+  , mMaxSpeedOnAcceleration(0.)
   , mOriginalObjectSpeed(objectSpeed)
   , mRssDynamics(rssDynamics)
 {
@@ -46,7 +46,7 @@ RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objec
                                          ::ad::physics::AngularVelocity const &objectYawRate,
                                          ::ad::rss::world::RssDynamics const &rssDynamics)
   : mObjectMapMatchedPosition(nullptr)
-  , mMaxSpeed(0.)
+  , mMaxSpeedOnAcceleration(0.)
   , mOriginalObjectSpeed(objectSpeed)
   , mRssDynamics(rssDynamics)
 {
@@ -113,9 +113,9 @@ bool RssObjectConversion::isOriginalSpeedAcceptable(::ad::physics::Speed const a
 ::ad::rss::world::RssDynamics RssObjectConversion::getRssDynamics() const
 {
   ::ad::rss::world::RssDynamics resultDynamics(mRssDynamics);
-  if (mMaxSpeed != ::ad::physics::Speed(0.))
+  if (mMaxSpeedOnAcceleration != ::ad::physics::Speed(0.))
   {
-    resultDynamics.maxSpeed = mMaxSpeed;
+    resultDynamics.maxSpeedOnAcceleration = mMaxSpeedOnAcceleration;
   }
   return resultDynamics;
 }
@@ -141,9 +141,9 @@ bool RssObjectConversion::calculateMinStoppingDistance(::ad::physics::Distance &
   return result;
 }
 
-void RssObjectConversion::updateSpeedLimit(::ad::physics::Speed const &maxSpeed)
+void RssObjectConversion::updateSpeedLimit(::ad::physics::Speed const &maxSpeedOnAcceleration)
 {
-  mMaxSpeed = std::max(mMaxSpeed, maxSpeed);
+  mMaxSpeedOnAcceleration = std::max(mMaxSpeedOnAcceleration, maxSpeedOnAcceleration);
 }
 
 void RssObjectConversion::addRestrictedOccupiedRegion(::ad::map::match::LaneOccupiedRegion const &laneOccupiedRegion,

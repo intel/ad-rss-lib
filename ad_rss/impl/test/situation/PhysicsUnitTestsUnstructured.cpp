@@ -14,95 +14,116 @@ namespace ad {
 namespace rss {
 namespace situation {
 
-TEST(MathUnitTestsStoppingDistance, decelerationAfterResponseNotStoppedYet)
+TEST(MathUnitTestsSpeedAndDistanceOffset, decelerationAfterResponseNotStoppedYet)
 {
-  Distance result;
-  ASSERT_TRUE(calculateDistanceOffset(Duration(2.0),      // currentTime
-                                      Speed(4.0),         // initialSpeed
-                                      Duration(1.0),      // responseTime
-                                      Speed(36.0),        // maxSpeed
-                                      Acceleration(2.0),  // aUntilResponseTime
-                                      Acceleration(-3.0), // double acceleration
-                                      result));
-  ASSERT_EQ(result, Distance(9.5));
+  Speed speed;
+  Distance distanceOffset;
+  ASSERT_TRUE(calculateSpeedAndDistanceOffset(Duration(2.0),      // currentTime
+                                              Speed(4.0),         // initialSpeed
+                                              Duration(1.0),      // responseTime
+                                              Speed(36.0),        // maxSpeedOnAcceleration
+                                              Acceleration(2.0),  // aUntilResponseTime
+                                              Acceleration(-3.0), // double acceleration
+                                              speed,
+                                              distanceOffset));
+  ASSERT_EQ(distanceOffset, Distance(9.5));
+  ASSERT_EQ(speed, Speed(3.));
 }
 
-TEST(MathUnitTestsStoppingDistance, decelerationAfterResponseStopped)
+TEST(MathUnitTestsSpeedAndDistanceOffset, decelerationAfterResponseStopped)
 {
-  Distance result;
-  ASSERT_TRUE(calculateDistanceOffset(Duration(5.0),      // currentTime
-                                      Speed(4.0),         // initialSpeed
-                                      Duration(1.0),      // responseTime
-                                      Speed(36.0),        // maxSpeed
-                                      Acceleration(2.0),  // aUntilResponseTime
-                                      Acceleration(-3.0), // double acceleration
-                                      result));
-  ASSERT_EQ(result, Distance(11.0));
+  Speed speed;
+  Distance distanceOffset;
+  ASSERT_TRUE(calculateSpeedAndDistanceOffset(Duration(5.0),      // currentTime
+                                              Speed(4.0),         // initialSpeed
+                                              Duration(1.0),      // responseTime
+                                              Speed(36.0),        // maxSpeedOnAcceleration
+                                              Acceleration(2.0),  // aUntilResponseTime
+                                              Acceleration(-3.0), // double acceleration
+                                              speed,
+                                              distanceOffset));
+  ASSERT_EQ(distanceOffset, Distance(11.0));
+  ASSERT_EQ(speed, Speed(0.));
 }
 
-TEST(MathUnitTestsStoppingDistance, accelerationAfterResponse)
+TEST(MathUnitTestsSpeedAndDistanceOffset, accelerationAfterResponse)
 {
-  Distance result;
-  ASSERT_TRUE(calculateDistanceOffset(Duration(2.0),     // currentTime
-                                      Speed(4.0),        // initialSpeed
-                                      Duration(1.0),     // responseTime
-                                      Speed(36.0),       // maxSpeed
-                                      Acceleration(2.0), // aUntilResponseTime
-                                      Acceleration(2.0), // double acceleration
-                                      result));
-  ASSERT_EQ(result, Distance(12.0));
+  Speed speed;
+  Distance distanceOffset;
+  ASSERT_TRUE(calculateSpeedAndDistanceOffset(Duration(2.0),     // currentTime
+                                              Speed(4.0),        // initialSpeed
+                                              Duration(1.0),     // responseTime
+                                              Speed(36.0),       // maxSpeedOnAcceleration
+                                              Acceleration(2.0), // aUntilResponseTime
+                                              Acceleration(2.0), // double acceleration
+                                              speed,
+                                              distanceOffset));
+  ASSERT_EQ(distanceOffset, Distance(12.0));
+  ASSERT_EQ(speed, Speed(8.));
 }
 
-TEST(MathUnitTestsStoppingDistance, accelerationAfterResponseWithMaxSpeed)
+TEST(MathUnitTestsSpeedAndDistanceOffset, accelerationAfterResponseWithMaxSpeedOnAcceleration)
 {
-  Distance result;
-  ASSERT_TRUE(calculateDistanceOffset(Duration(3.0),     // currentTime
-                                      Speed(4.0),        // initialSpeed
-                                      Duration(1.0),     // responseTime
-                                      Speed(8.0),        // maxSpeed
-                                      Acceleration(2.0), // aUntilResponseTime
-                                      Acceleration(2.0), // double acceleration
-                                      result));
-  ASSERT_EQ(result, Distance(20.0));
+  Speed speed;
+  Distance distanceOffset;
+  ASSERT_TRUE(calculateSpeedAndDistanceOffset(Duration(3.0),     // currentTime
+                                              Speed(4.0),        // initialSpeed
+                                              Duration(1.0),     // responseTime
+                                              Speed(8.0),        // maxSpeedOnAcceleration
+                                              Acceleration(2.0), // aUntilResponseTime
+                                              Acceleration(2.0), // double acceleration
+                                              speed,
+                                              distanceOffset));
+  ASSERT_EQ(distanceOffset, Distance(20.0));
+  ASSERT_EQ(speed, Speed(8.));
 }
 
-TEST(MathUnitTestsStoppingDistance, responseTimeNotReachedAccel)
+TEST(MathUnitTestsSpeedAndDistanceOffset, responseTimeNotReachedAccel)
 {
-  Distance result;
-  ASSERT_TRUE(calculateDistanceOffset(Duration(1.0),     // currentTime
-                                      Speed(4.0),        // initialSpeed
-                                      Duration(2.0),     // responseTime
-                                      Speed(8.0),        // maxSpeed
-                                      Acceleration(2.0), // aUntilResponseTime
-                                      Acceleration(0.0), // double acceleration
-                                      result));
-  ASSERT_EQ(result, Distance(5.0));
+  Speed speed;
+  Distance distanceOffset;
+  ASSERT_TRUE(calculateSpeedAndDistanceOffset(Duration(1.0),     // currentTime
+                                              Speed(4.0),        // initialSpeed
+                                              Duration(2.0),     // responseTime
+                                              Speed(8.0),        // maxSpeedOnAcceleration
+                                              Acceleration(2.0), // aUntilResponseTime
+                                              Acceleration(0.0), // double acceleration
+                                              speed,
+                                              distanceOffset));
+  ASSERT_EQ(distanceOffset, Distance(5.0));
+  ASSERT_EQ(speed, Speed(6.));
 }
 
-TEST(MathUnitTestsStoppingDistance, responseTimeNotReachedDecel)
+TEST(MathUnitTestsSpeedAndDistanceOffset, responseTimeNotReachedDecel)
 {
-  Distance result;
-  ASSERT_TRUE(calculateDistanceOffset(Duration(1.0),      // currentTime
-                                      Speed(4.0),         // initialSpeed
-                                      Duration(2.0),      // responseTime
-                                      Speed(8.0),         // maxSpeed
-                                      Acceleration(-2.0), // aUntilResponseTime
-                                      Acceleration(0.0),  // double acceleration
-                                      result));
-  ASSERT_EQ(result, Distance(3.0));
+  Speed speed;
+  Distance distanceOffset;
+  ASSERT_TRUE(calculateSpeedAndDistanceOffset(Duration(1.0),      // currentTime
+                                              Speed(4.0),         // initialSpeed
+                                              Duration(2.0),      // responseTime
+                                              Speed(8.0),         // maxSpeedOnAcceleration
+                                              Acceleration(-2.0), // aUntilResponseTime
+                                              Acceleration(0.0),  // double acceleration
+                                              speed,
+                                              distanceOffset));
+  ASSERT_EQ(distanceOffset, Distance(3.0));
+  ASSERT_EQ(speed, Speed(2.));
 }
 
-TEST(MathUnitTestsStoppingDistance, responseTimeNotReachedAccelMaxSpeedReached)
+TEST(MathUnitTestsSpeedAndDistanceOffset, responseTimeNotReachedAccelMaxSpeedOnAccelerationReached)
 {
-  Distance result;
-  ASSERT_TRUE(calculateDistanceOffset(Duration(2.0),     // currentTime
-                                      Speed(4.0),        // initialSpeed
-                                      Duration(2.0),     // responseTime
-                                      Speed(6.0),        // maxSpeed
-                                      Acceleration(2.0), // aUntilResponseTime
-                                      Acceleration(0.0), // double acceleration
-                                      result));
-  ASSERT_EQ(result, Distance(11.0));
+  Speed speed;
+  Distance distanceOffset;
+  ASSERT_TRUE(calculateSpeedAndDistanceOffset(Duration(2.0),     // currentTime
+                                              Speed(4.0),        // initialSpeed
+                                              Duration(2.0),     // responseTime
+                                              Speed(6.0),        // maxSpeedOnAcceleration
+                                              Acceleration(2.0), // aUntilResponseTime
+                                              Acceleration(0.0), // double acceleration
+                                              speed,
+                                              distanceOffset));
+  ASSERT_EQ(distanceOffset, Distance(11.0));
+  ASSERT_EQ(speed, Speed(6.));
 }
 
 } // namespace situation
