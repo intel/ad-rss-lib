@@ -71,23 +71,26 @@ public:
   enum class RestrictSpeedLimitMode
   {
     /**
-     * Do not change the objects maxSpeed parameter of objectRssDynamics.
+     * Do not change the objects maxSpeedOnAcceleration parameter of objectRssDynamics.
      */
     None,
     /**
-     * Set the objects maxSpeed parameter of objectRssDynamics to the maximal allowed speed of the relevant road section
+     * Set the objects maxSpeedOnAcceleration parameter of objectRssDynamics to the maximal allowed speed of the
+     * relevant road section
      */
     ExactSpeedLimit,
 
     /**
-     * Set the objects maxSpeed parameter of objectRssDynamics to the maximal allowed speed of the relevant road section
+     * Set the objects maxSpeedOnAcceleration parameter of objectRssDynamics to the maximal allowed speed of the
+     * relevant road section
      * +
      * 5 percent
      */
     IncreasedSpeedLimit5,
 
     /**
-     * Set the objects maxSpeed parameter of objectRssDynamics to the maximal allowed speed of the relevant road section
+     * Set the objects maxSpeedOnAcceleration parameter of objectRssDynamics to the maximal allowed speed of the
+     * relevant road section
      * +
      * 10 percent
      */
@@ -113,8 +116,8 @@ public:
    * @param[in] objectSpeed the object's speed
    * @param[in] objectYawRate the object's yaw rate
    * @param[in] objectRssDynamics the object's RssDynamics to be applied
-   * @param[in] restrictSpeedLimitMode the mode to select the behavior of objectRssDynamics.maxSpeed and
-   * egoRssDynamics.maxSpeed
+   * @param[in] restrictSpeedLimitMode the mode to select the behavior of objectRssDynamics.maxSpeedOnAcceleration and
+   * egoRssDynamics.maxSpeedOnAcceleration
    * parameter
    * @param[in] greenTrafficLights the list of known green traffic lights.
    *   Required to derive the correct priority rule for the ego vehicle when approaching a traffic light intersection.

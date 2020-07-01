@@ -107,7 +107,7 @@ class AdRssPythonTest(unittest.TestCase):
         road_segment.append(lane_segment)
         rss_scene.egoVehicleRoad.append(road_segment)
         rss_scene.objectRssDynamics.responseTime = physics.Duration(0.5)
-        rss_scene.objectRssDynamics.maxSpeed = physics.Speed(0.)
+        rss_scene.objectRssDynamics.maxSpeedOnAcceleration = physics.Speed(0.)
         rss_scene.objectRssDynamics.alphaLat.accelMax = physics.Acceleration(1.)
         rss_scene.objectRssDynamics.alphaLat.brakeMin = physics.Acceleration(-1.)
         rss_scene.objectRssDynamics.alphaLon.accelMax = physics.Acceleration(4.)
@@ -118,7 +118,7 @@ class AdRssPythonTest(unittest.TestCase):
         rss_scene.objectRssDynamics.unstructuredSettings = self._getUnstructuedSettings()
 
         rss_scene.egoVehicleRssDynamics.responseTime = physics.Duration(0.2)
-        rss_scene.egoVehicleRssDynamics.maxSpeed = physics.Speed(0.)
+        rss_scene.egoVehicleRssDynamics.maxSpeedOnAcceleration = physics.Speed(0.)
         rss_scene.egoVehicleRssDynamics.alphaLat.accelMax = physics.Acceleration(0.1)
         rss_scene.egoVehicleRssDynamics.alphaLat.brakeMin = physics.Acceleration(-0.1)
         rss_scene.egoVehicleRssDynamics.alphaLon.accelMax = physics.Acceleration(0.1)
@@ -133,7 +133,7 @@ class AdRssPythonTest(unittest.TestCase):
         self.world_model.timeIndex = 1
         self.world_model.scenes.append(rss_scene)
         self.world_model.defaultEgoVehicleRssDynamics.responseTime = physics.Duration(0.2)
-        self.world_model.defaultEgoVehicleRssDynamics.maxSpeed = physics.Speed(0.)
+        self.world_model.defaultEgoVehicleRssDynamics.maxSpeedOnAcceleration = physics.Speed(0.)
         self.world_model.defaultEgoVehicleRssDynamics.alphaLat.accelMax = physics.Acceleration(0.1)
         self.world_model.defaultEgoVehicleRssDynamics.alphaLat.brakeMin = physics.Acceleration(-0.1)
         self.world_model.defaultEgoVehicleRssDynamics.alphaLon.accelMax = physics.Acceleration(0.1)

@@ -38,9 +38,24 @@ namespace state {
  */
 enum class UnstructuredSceneResponse : int32_t
 {
+  /*!
+   * No response.
+   */
   None = 0,
+
+  /*!
+   * The object is allowed to continue forward.
+   */
   ContinueForward = 1,
+
+  /*!
+   * The object is allowed to drive away within the calculated heading range.
+   */
   DriveAway = 2,
+
+  /*!
+   * The vehicle has to brake.
+   */
   Brake = 3
 };
 

@@ -42,7 +42,11 @@ namespace world {
 /*!
  * \brief DataType ObjectState
  *
- * State of an object
+ * State of an object in the local reference coordinate system (e.g. ENU).
+ * As the evaluation results of multiple scenes have to be merged, this reference system
+ * has to be the same for all entries at a specific time.
+ * The proper response, i.e. the headingRanges of the unstructured scene response,
+ * refers to this local reference coodinate system.
  */
 struct ObjectState
 {
@@ -119,10 +123,29 @@ struct ObjectState
     return !operator==(other);
   }
 
+  /*!
+   * The heading angle of the object in the local reference coordinate system (e.g. ENU).
+   */
   ::ad::physics::Angle yaw;
+
+  /*!
+   * The dimension of the object in the local reference coordinate system (e.g. ENU).
+   */
   ::ad::physics::Dimension2D dimension;
+
+  /*!
+   * The angular velocity of the object in the local reference coordinate system (e.g. ENU).
+   */
   ::ad::physics::AngularVelocity yawRate;
+
+  /*!
+   * The center point of the object in the local reference coordinate system (e.g. ENU).
+   */
   ::ad::physics::Distance2D centerPoint;
+
+  /*!
+   * The speed of the object in the local reference coordinate system (e.g. ENU).
+   */
   ::ad::physics::Speed speed;
 };
 

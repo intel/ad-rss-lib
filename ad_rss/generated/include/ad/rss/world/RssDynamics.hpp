@@ -108,7 +108,8 @@ struct RssDynamics
   {
     return (alphaLon == other.alphaLon) && (alphaLat == other.alphaLat)
       && (lateralFluctuationMargin == other.lateralFluctuationMargin) && (responseTime == other.responseTime)
-      && (maxSpeed == other.maxSpeed) && (unstructuredSettings == other.unstructuredSettings);
+      && (maxSpeedOnAcceleration == other.maxSpeedOnAcceleration)
+      && (unstructuredSettings == other.unstructuredSettings);
   }
 
   /**
@@ -144,9 +145,17 @@ struct RssDynamics
   ::ad::physics::Duration responseTime;
 
   /*!
-   * Defines the maximum speed of the object.
+   * Defines the maximum speed of the object to be considered while acceleration within
+   * the response time. The acceleration will be stopped if this speed limit is reached.
+   * In case the speed before the acceleration is already higher or equal to this value,
+   * no further acceleration will take place during the response time (in this case
+   * speed before response time == speed after response time).
    */
-  ::ad::physics::Speed maxSpeed{100};
+  ::ad::physics::Speed maxSpeedOnAcceleration{100};
+
+  /*!
+   * Settings to be considered for evaluation in unstructured mode.
+   */
   ::ad::rss::world::UnstructuredSettings unstructuredSettings;
 };
 
@@ -196,8 +205,8 @@ inline std::ostream &operator<<(std::ostream &os, RssDynamics const &_value)
   os << "responseTime:";
   os << _value.responseTime;
   os << ",";
-  os << "maxSpeed:";
-  os << _value.maxSpeed;
+  os << "maxSpeedOnAcceleration:";
+  os << _value.maxSpeedOnAcceleration;
   os << ",";
   os << "unstructuredSettings:";
   os << _value.unstructuredSettings;

@@ -33,7 +33,7 @@ const physics::Acceleration cMinimumLongitudinalBrakingDecelelerationCorrect(-3)
 const physics::Acceleration cMaximumLateralAcceleration(0.2);
 const physics::Acceleration cMinimumLateralBrakingDeceleleration(-0.8);
 
-const physics::Speed cMaxSpeed(100.);
+const physics::Speed cMaxSpeedOnAcceleration(100.);
 
 } // namespace rss
 } // namespace ad

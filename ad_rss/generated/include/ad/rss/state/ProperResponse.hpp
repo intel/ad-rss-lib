@@ -156,8 +156,21 @@ struct ProperResponse
    * The current lateral rss state at left side in respect to ego-vehicle driving direction.
    */
   ::ad::rss::state::LateralResponse lateralResponseLeft;
+
+  /*!
+   * The vector of allowed heading ranges to be applied in the unstructured drive away case after considering all
+   * unstructured scenes.
+   */
   ::ad::rss::state::HeadingRangeVector headingRanges;
+
+  /*!
+   * The resulting acceleration restrictions after considering all individual RSS constellations.
+   */
   ::ad::rss::state::AccelerationRestriction accelerationRestrictions;
+
+  /*!
+   * The unstructured scene response considered within this proper response.
+   */
   ::ad::rss::state::UnstructuredSceneResponse unstructuredSceneResponse;
 };
 

@@ -36,7 +36,7 @@ bool RssStructuredSceneIntersectionChecker::checkLateralIntersect(Situation cons
   Duration timeToLeaveOther;
 
   bool result = calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon.maximum,
-                                             situation.egoVehicleState.dynamics.maxSpeed,
+                                             situation.egoVehicleState.dynamics.maxSpeedOnAcceleration,
                                              situation.egoVehicleState.dynamics.responseTime,
                                              situation.egoVehicleState.dynamics.alphaLon.accelMax,
                                              situation.egoVehicleState.dynamics.alphaLon.brakeMin,
@@ -44,7 +44,7 @@ bool RssStructuredSceneIntersectionChecker::checkLateralIntersect(Situation cons
                                              timeToReachEgo);
 
   result = result && calculateTimeToCoverDistance(situation.otherVehicleState.velocity.speedLon.maximum,
-                                                  situation.egoVehicleState.dynamics.maxSpeed,
+                                                  situation.egoVehicleState.dynamics.maxSpeedOnAcceleration,
                                                   situation.otherVehicleState.dynamics.responseTime,
                                                   situation.otherVehicleState.dynamics.alphaLon.accelMax,
                                                   situation.otherVehicleState.dynamics.alphaLon.brakeMin,
@@ -52,7 +52,7 @@ bool RssStructuredSceneIntersectionChecker::checkLateralIntersect(Situation cons
                                                   timeToReachOther);
 
   result = result && calculateTimeToCoverDistance(situation.egoVehicleState.velocity.speedLon.minimum,
-                                                  situation.egoVehicleState.dynamics.maxSpeed,
+                                                  situation.egoVehicleState.dynamics.maxSpeedOnAcceleration,
                                                   situation.egoVehicleState.dynamics.responseTime,
                                                   situation.egoVehicleState.dynamics.alphaLon.brakeMax,
                                                   situation.egoVehicleState.dynamics.alphaLon.brakeMax,
@@ -60,7 +60,7 @@ bool RssStructuredSceneIntersectionChecker::checkLateralIntersect(Situation cons
                                                   timeToLeaveEgo);
 
   result = result && calculateTimeToCoverDistance(situation.otherVehicleState.velocity.speedLon.minimum,
-                                                  situation.egoVehicleState.dynamics.maxSpeed,
+                                                  situation.egoVehicleState.dynamics.maxSpeedOnAcceleration,
                                                   situation.otherVehicleState.dynamics.responseTime,
                                                   situation.otherVehicleState.dynamics.alphaLon.brakeMax,
                                                   situation.otherVehicleState.dynamics.alphaLon.brakeMax,

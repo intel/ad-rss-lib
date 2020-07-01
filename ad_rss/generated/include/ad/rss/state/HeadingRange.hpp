@@ -37,6 +37,8 @@ namespace state {
 
 /*!
  * \brief DataType HeadingRange
+ *
+ * Defines an interval for the allowed heading range of the vehicle.
  */
 struct HeadingRange
 {
@@ -112,7 +114,14 @@ struct HeadingRange
     return !operator==(other);
   }
 
+  /*!
+   * The begin of the heading range interval.
+   */
   ::ad::physics::Angle begin;
+
+  /*!
+   * The end of the heading range interval.
+   */
   ::ad::physics::Angle end;
 };
 

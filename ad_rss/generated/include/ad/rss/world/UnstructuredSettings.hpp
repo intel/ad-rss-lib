@@ -40,6 +40,8 @@ namespace world {
 
 /*!
  * \brief DataType UnstructuredSettings
+ *
+ * Parameter settings to be used for unstructured scene handling.
  */
 struct UnstructuredSettings
 {
@@ -118,12 +120,36 @@ struct UnstructuredSettings
   }
 
   /*!
-   * only used with precise trajectory calculation
+   * The change of heading |h'(t)| is limited.
+   * That means, the maximum trajectory is defined by a circle until response time.
+   * This parameter specifies the radius of that circle.
    */
   ::ad::physics::Distance pedestrianTurningRadius;
+
+  /*!
+   * In certain situations the ego vehicle might be allowed to drive away from a dangerous
+   * object using a given heading range.
+   * This parameter defines the maximum possible angle the vehicle is able to drive away.
+   */
   ::ad::physics::Angle driveAwayMaxAngle;
+
+  /*!
+   * The change of the heading h'(t) is limited while the response time.
+   * This specifies the maximum change of the yaw rate during response time.
+   */
   ::ad::physics::AngularAcceleration vehicleYawRateChange;
+
+  /*!
+   * Defines the minimal radius a vehicle is able to drive on.
+   */
   ::ad::physics::Distance vehicleMinRadius;
+
+  /*!
+   * The current unstructured implementation calculates the location and heading based
+   * on time increments.
+   * That might lead to an increasing error the farer the point is.
+   * This parameter defines the time interval for this incremental calculation.
+   */
   ::ad::physics::Duration vehicleTrajectoryCalculationStep;
 };
 

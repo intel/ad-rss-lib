@@ -37,19 +37,16 @@ inline bool vehicleStateWithinVaildInputRange(VehicleState const &vehicleState)
 }
 
 bool calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern(Speed const &currentSpeed,
-                                                                  Speed const &maxSpeed,
+                                                                  Speed const &maxSpeedOnAcceleration,
                                                                   Duration const &responseTime,
                                                                   Acceleration const &acceleration,
                                                                   Acceleration const &deceleration,
                                                                   Distance &distanceOffset)
 {
   Speed resultingSpeed = Speed(0.);
-  bool result
-    = calculateSpeedAfterAcceleratedLimitedMovement(currentSpeed, maxSpeed, acceleration, responseTime, resultingSpeed);
-
   Distance distanceOffsetAfterResponseTime = Distance(0.);
-  result = result && calculateDistanceOffsetAfterAcceleratedLimitedMovement(
-                       currentSpeed, maxSpeed, acceleration, responseTime, distanceOffsetAfterResponseTime);
+  bool result = calculateAcceleratedLimitedMovement(
+    currentSpeed, maxSpeedOnAcceleration, acceleration, responseTime, resultingSpeed, distanceOffsetAfterResponseTime);
 
   Distance distanceToStop = Distance(0.);
   if (std::signbit(static_cast<double>(resultingSpeed)) != std::signbit(static_cast<double>(deceleration)))
@@ -109,7 +106,7 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
 
   bool result = calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
     followingVehicle.velocity.speedLon.maximum,
-    followingVehicle.dynamics.maxSpeed,
+    followingVehicle.dynamics.maxSpeedOnAcceleration,
     followingVehicle.dynamics.responseTime,
     followingVehicle.dynamics.alphaLon.accelMax,
     followingVehicle.dynamics.alphaLon.brakeMin,
@@ -164,7 +161,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &corr
 
   bool result = calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
     correctVehicle.velocity.speedLon.maximum,
-    correctVehicle.dynamics.maxSpeed,
+    correctVehicle.dynamics.maxSpeedOnAcceleration,
     correctVehicle.dynamics.responseTime,
     correctVehicle.dynamics.alphaLon.accelMax,
     correctVehicle.dynamics.alphaLon.brakeMinCorrect,
@@ -176,7 +173,7 @@ bool calculateSafeLongitudinalDistanceOppositeDirection(VehicleState const &corr
   {
     result = calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
       oppositeVehicle.velocity.speedLon.maximum,
-      oppositeVehicle.dynamics.maxSpeed,
+      oppositeVehicle.dynamics.maxSpeedOnAcceleration,
       oppositeVehicle.dynamics.responseTime,
       oppositeVehicle.dynamics.alphaLon.accelMax,
       oppositeVehicle.dynamics.alphaLon.brakeMin,
@@ -225,7 +222,7 @@ bool checkStopInFrontIntersection(VehicleState const &vehicle, Distance &safeDis
   safeDistance = Distance(0.);
   bool result = calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
     vehicle.velocity.speedLon.maximum,
-    vehicle.dynamics.maxSpeed,
+    vehicle.dynamics.maxSpeedOnAcceleration,
     vehicle.dynamics.responseTime,
     vehicle.dynamics.alphaLon.accelMax,
     vehicle.dynamics.alphaLon.brakeMin,

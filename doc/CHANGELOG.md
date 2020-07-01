@@ -45,7 +45,7 @@
 #### :rocket: New Features
 * Added Integrating RSS with automated driving maps (ad_rss_map_integration)
 * Added logging support with spdlog
-* Introduced maxSpeed to RssDynamics and RSS calculations to support speed limits
+* Introduced maxSpeedOnAcceleration to RssDynamics and RSS calculations to support speed limits
   [for details see](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/ConstructRSSScenes/index.html#considerspeedlimits)
 * `world::Velocity` supports speed range input to be able to cope with speed fluctuations (i.e. in curves)
 

@@ -115,9 +115,24 @@ struct UnstructuredSceneRssState
     return !operator==(other);
   }
 
+  /*!
+   * Determines if the unstructured scene is safe.
+   */
   bool isSafe;
+
+  /*!
+   * The response resulting from an unstructured scene constellation.
+   */
   ::ad::rss::state::UnstructuredSceneResponse response;
+
+  /*!
+   * The allowed heading range resulting from a unstructured scene drive away response.
+   */
   ::ad::rss::state::HeadingRange headingRange;
+
+  /*!
+   * Additional information on the creation of the RSS state.
+   */
   ::ad::rss::state::UnstructuredSceneStateInformation rssStateInformation;
 
   /*!

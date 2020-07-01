@@ -62,9 +62,9 @@ private:
   * Updates the longitudinal accelerationRestriction
   *
   * @param[in] state - The unstructured scene state to update the acceleration restrictions with
- *  @param[inout] response -- the combined RSS response to become RSS safe.
  *  @param[inout] driveAwayBrakeMin -- the minimal brakeMin of all drive-away states
  *  @param[inout] driveAwayToBrakeTransition -- a transition from drive-Away to Brake happened
+ *  @param[inout] response -- the combined RSS response to become RSS safe.
  *  @param[inout] responseHeadingRanges -- the combined RSS response heading ranges (for driving away)
   * @param[inout] accelerationRange - The combined restrictions on the vehicle acceleration to become RSS safe.
   *

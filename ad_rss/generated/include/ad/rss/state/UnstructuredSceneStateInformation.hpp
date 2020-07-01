@@ -112,7 +112,14 @@ struct UnstructuredSceneStateInformation
     return !operator==(other);
   }
 
+  /*!
+   * The set of brake trajectories considered on calculation of the RSS state.
+   */
   ::ad::rss::world::UnstructuredTrajectorySet brakeTrajectorySet;
+
+  /*!
+   * The set of continue forward trajectories considered on calculation of the RSS state.
+   */
   ::ad::rss::world::UnstructuredTrajectorySet continueForwardTrajectorySet;
 };
 

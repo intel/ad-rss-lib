@@ -36,6 +36,8 @@ namespace state {
 
 /*!
  * \brief DataType HeadingRangeVector
+ *
+ * A vector of heading ranges.
  */
 typedef std::vector<::ad::rss::state::HeadingRange> HeadingRangeVector;
 

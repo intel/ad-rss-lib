@@ -33,7 +33,7 @@ namespace situation {
  *        deceleration
  *
  * @param[in]  currentLongitudinalSpeed      is the current longitudinal vehicle speed
- * @param[in]  maxSpeed          is the maximum vehicle speed to be considered in accelerated movement
+ * @param[in]  maxSpeedOnAcceleration          is the maximum vehicle speed to be considered in accelerated movement
  * @param[in]  responseTime      is the response time of the vehicle
  * @param[in]  acceleration      the acceleration of the vehicle during responseTime
  * @param[in]  deceleration      is the applied breaking deceleration
@@ -43,7 +43,7 @@ namespace situation {
  * @return true on successful calculation, false otherwise
  */
 bool calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern(physics::Speed const &currentLongitudinalSpeed,
-                                                                  physics::Speed const &maxSpeed,
+                                                                  physics::Speed const &maxSpeedOnAcceleration,
                                                                   physics::Duration const &responseTime,
                                                                   physics::Acceleration const &acceleration,
                                                                   physics::Acceleration const &deceleration,

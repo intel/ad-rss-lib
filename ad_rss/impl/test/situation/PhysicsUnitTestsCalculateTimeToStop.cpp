@@ -19,7 +19,7 @@ TEST(PhysicsUnitTestsCalculateTimeToStop, maxTimeToStopInitialSpeedZero)
   Duration result;
   ASSERT_TRUE(calculateTimeToStop(Speed(0.),          // initialSpeed
                                   Duration(1.0),      // responseTime
-                                  Speed(4.0),         // maxSpeed
+                                  Speed(4.0),         // maxSpeedOnAcceleration
                                   Acceleration(2.0),  // aUntilResponseTimeMax
                                   Acceleration(-2.0), // aAfterResponseTime
                                   result));
@@ -31,7 +31,7 @@ TEST(PhysicsUnitTestsCalculateTimeToStop, maxTimeToStopInitialSpeedZeroDecelerat
   Duration result;
   ASSERT_FALSE(calculateTimeToStop(Speed(0.),          // initialSpeed
                                    Duration(1.0),      // responseTime
-                                   Speed(4.0),         // maxSpeed
+                                   Speed(4.0),         // maxSpeedOnAcceleration
                                    Acceleration(-2.0), // aUntilResponseTimeMax
                                    Acceleration(-2.0), // aAfterResponseTime
                                    result));
@@ -43,7 +43,7 @@ TEST(PhysicsUnitTestsCalculateTimeToStop, maxTimeToStopInitialSpeedDeceleration)
   Duration result;
   ASSERT_TRUE(calculateTimeToStop(Speed(2.),          // initialSpeed
                                   Duration(1.0),      // responseTime
-                                  Speed(4.0),         // maxSpeed
+                                  Speed(4.0),         // maxSpeedOnAcceleration
                                   Acceleration(-1.0), // aUntilResponseTimeMax
                                   Acceleration(-2.0), // aAfterResponseTime
                                   result));
@@ -55,7 +55,7 @@ TEST(PhysicsUnitTestsCalculateTimeToStop, maxTimeToStopInitialSpeedAccelZero)
   Duration result;
   ASSERT_TRUE(calculateTimeToStop(Speed(2.),          // initialSpeed
                                   Duration(1.0),      // responseTime
-                                  Speed(4.0),         // maxSpeed
+                                  Speed(4.0),         // maxSpeedOnAcceleration
                                   Acceleration(0.0),  // aUntilResponseTimeMax
                                   Acceleration(-2.0), // aAfterResponseTime
                                   result));
@@ -67,7 +67,7 @@ TEST(PhysicsUnitTestsCalculateTimeToStop, maxTimeToStopInitialSpeedAccelZeroZero
   Duration result;
   ASSERT_FALSE(calculateTimeToStop(Speed(2.),         // initialSpeed
                                    Duration(1.0),     // responseTime
-                                   Speed(4.0),        // maxSpeed
+                                   Speed(4.0),        // maxSpeedOnAcceleration
                                    Acceleration(0.0), // aUntilResponseTimeMax
                                    Acceleration(0.0), // aAfterResponseTime
                                    result));
@@ -79,19 +79,19 @@ TEST(PhysicsUnitTestsCalculateTimeToStop, maxTimeToStopInitialSpeedStopBeforeRes
   Duration result;
   ASSERT_TRUE(calculateTimeToStop(Speed(2.),          // initialSpeed
                                   Duration(1.0),      // responseTime
-                                  Speed(4.0),         // maxSpeed
+                                  Speed(4.0),         // maxSpeedOnAcceleration
                                   Acceleration(-4.0), // aUntilResponseTimeMax
                                   Acceleration(0.0),  // aAfterResponseTime
                                   result));
   ASSERT_EQ(result, Duration(0.5));
 }
 
-TEST(PhysicsUnitTestsCalculateTimeToStop, maxTimeToStopMaxSpeedReachedInResponseTime)
+TEST(PhysicsUnitTestsCalculateTimeToStop, maxTimeToStopMaxSpeedOnAccelerationReachedInResponseTime)
 {
   Duration result;
   ASSERT_TRUE(calculateTimeToStop(Speed(2.),          // initialSpeed
                                   Duration(1.0),      // responseTime
-                                  Speed(4.0),         // maxSpeed
+                                  Speed(4.0),         // maxSpeedOnAcceleration
                                   Acceleration(4.0),  // aUntilResponseTimeMax
                                   Acceleration(-2.0), // aAfterResponseTime
                                   result));

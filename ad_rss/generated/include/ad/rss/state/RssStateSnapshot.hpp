@@ -133,7 +133,15 @@ struct RssStateSnapshot
    * these e.g. in respect to object type or the weather conditions
    */
   ::ad::rss::world::RssDynamics defaultEgoVehicleRssDynamics;
+
+  /*!
+   * The vector holding the RSS states of the individual constellations considered.
+   */
   ::ad::rss::state::RssStateVector individualResponses;
+
+  /*!
+   * Additional information on the ego vehicle unstructured scene calculation.
+   */
   ::ad::rss::state::UnstructuredSceneStateInformation unstructuredSceneEgoInformation;
 };
 

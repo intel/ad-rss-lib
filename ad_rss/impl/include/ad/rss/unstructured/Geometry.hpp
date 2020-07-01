@@ -34,13 +34,10 @@ namespace rss {
  */
 namespace unstructured {
 
-// Specify the basic type
+// Basic types
 typedef boost::geometry::model::d2::point_xy<double> Point;
 typedef boost::geometry::model::linestring<Point> Line;
-typedef boost::geometry::model::multi_linestring<Line> MultiLine;
 typedef boost::geometry::model::polygon<Point, false> Polygon; // counterclockwise
-typedef boost::geometry::model::multi_point<Point> MultiPoint;
-typedef boost::geometry::model::box<Point> Box;
 
 /**
  * @brief create a Point from a Distance2D

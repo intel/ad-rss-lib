@@ -57,8 +57,8 @@ protected:
     valueResponseTime
       = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
     value.responseTime = valueResponseTime;
-    ::ad::physics::Speed valueMaxSpeed(-100.);
-    value.maxSpeed = valueMaxSpeed;
+    ::ad::physics::Speed valueMaxSpeedOnAcceleration(-100.);
+    value.maxSpeedOnAcceleration = valueMaxSpeedOnAcceleration;
     ::ad::rss::world::UnstructuredSettings valueUnstructuredSettings;
     ::ad::physics::Distance valueUnstructuredSettingsPedestrianTurningRadius(-1e9);
     valueUnstructuredSettings.pedestrianTurningRadius = valueUnstructuredSettingsPedestrianTurningRadius;
@@ -186,11 +186,11 @@ TEST_F(RssDynamicsTests, comparisonOperatorResponseTimeDiffers)
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(RssDynamicsTests, comparisonOperatorMaxSpeedDiffers)
+TEST_F(RssDynamicsTests, comparisonOperatorMaxSpeedOnAccelerationDiffers)
 {
   ::ad::rss::world::RssDynamics valueA = mValue;
-  ::ad::physics::Speed maxSpeed(100.);
-  valueA.maxSpeed = maxSpeed;
+  ::ad::physics::Speed maxSpeedOnAcceleration(100.);
+  valueA.maxSpeedOnAcceleration = maxSpeedOnAcceleration;
   ::ad::rss::world::RssDynamics valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

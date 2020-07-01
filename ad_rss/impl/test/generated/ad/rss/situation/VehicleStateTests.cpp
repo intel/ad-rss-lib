@@ -76,8 +76,8 @@ protected:
     valueDynamicsResponseTime
       = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
     valueDynamics.responseTime = valueDynamicsResponseTime;
-    ::ad::physics::Speed valueDynamicsMaxSpeed(-100.);
-    valueDynamics.maxSpeed = valueDynamicsMaxSpeed;
+    ::ad::physics::Speed valueDynamicsMaxSpeedOnAcceleration(-100.);
+    valueDynamics.maxSpeedOnAcceleration = valueDynamicsMaxSpeedOnAcceleration;
     ::ad::rss::world::UnstructuredSettings valueDynamicsUnstructuredSettings;
     ::ad::physics::Distance valueDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
     valueDynamicsUnstructuredSettings.pedestrianTurningRadius
@@ -237,8 +237,8 @@ TEST_F(VehicleStateTests, comparisonOperatorDynamicsDiffers)
   ::ad::physics::Duration dynamicsResponseTime(1e6);
   dynamicsResponseTime = ::ad::physics::Duration(10.); // set to valid value within struct
   dynamics.responseTime = dynamicsResponseTime;
-  ::ad::physics::Speed dynamicsMaxSpeed(100.);
-  dynamics.maxSpeed = dynamicsMaxSpeed;
+  ::ad::physics::Speed dynamicsMaxSpeedOnAcceleration(100.);
+  dynamics.maxSpeedOnAcceleration = dynamicsMaxSpeedOnAcceleration;
   ::ad::rss::world::UnstructuredSettings dynamicsUnstructuredSettings;
   ::ad::physics::Distance dynamicsUnstructuredSettingsPedestrianTurningRadius(1e9);
   dynamicsUnstructuredSettings.pedestrianTurningRadius = dynamicsUnstructuredSettingsPedestrianTurningRadius;

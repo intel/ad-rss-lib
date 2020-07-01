@@ -150,7 +150,15 @@ struct RssState
    * The current lateral rss state at left side in respect to ego-vehicle driving direction.
    */
   ::ad::rss::state::LateralRssState lateralStateLeft;
+
+  /*!
+   * The state of the unstructured scene.
+   */
   ::ad::rss::state::UnstructuredSceneRssState unstructuredSceneState;
+
+  /*!
+   * This type of situation this RssState was calculated on.
+   */
   ::ad::rss::situation::SituationType situationType;
 };
 

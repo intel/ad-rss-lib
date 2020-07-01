@@ -156,7 +156,15 @@ struct VehicleState
    * The maximum distance to cover by the vehicle to leave the intersection completely.
    */
   ::ad::physics::Distance distanceToLeaveIntersection{std::numeric_limits<::ad::physics::Distance>::max()};
+
+  /*!
+   * The type of object.
+   */
   ::ad::rss::world::ObjectType objectType;
+
+  /*!
+   * The state of the object required to perform unstructured scene calculations.
+   */
   ::ad::rss::world::ObjectState objectState;
 };
 

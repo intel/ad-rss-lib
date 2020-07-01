@@ -48,7 +48,8 @@ inline bool withinValidInputRange(::ad::rss::world::RssDynamics const &input, bo
   inValidInputRange = withinValidInputRange(input.alphaLon, logErrors)
     && withinValidInputRange(input.alphaLat, logErrors)
     && withinValidInputRange(input.lateralFluctuationMargin, logErrors)
-    && withinValidInputRange(input.responseTime, logErrors) && withinValidInputRange(input.maxSpeed, logErrors)
+    && withinValidInputRange(input.responseTime, logErrors)
+    && withinValidInputRange(input.maxSpeedOnAcceleration, logErrors)
     && withinValidInputRange(input.unstructuredSettings, logErrors);
   if (!inValidInputRange && logErrors)
   {

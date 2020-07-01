@@ -58,8 +58,8 @@ TEST(SituationSnapshotValidInputRangeTests, testValidInputRange)
   valueDefaultEgoVehicleRssDynamicsResponseTime
     = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   valueDefaultEgoVehicleRssDynamics.responseTime = valueDefaultEgoVehicleRssDynamicsResponseTime;
-  ::ad::physics::Speed valueDefaultEgoVehicleRssDynamicsMaxSpeed(-100.);
-  valueDefaultEgoVehicleRssDynamics.maxSpeed = valueDefaultEgoVehicleRssDynamicsMaxSpeed;
+  ::ad::physics::Speed valueDefaultEgoVehicleRssDynamicsMaxSpeedOnAcceleration(-100.);
+  valueDefaultEgoVehicleRssDynamics.maxSpeedOnAcceleration = valueDefaultEgoVehicleRssDynamicsMaxSpeedOnAcceleration;
   ::ad::rss::world::UnstructuredSettings valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
   ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
   valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
@@ -160,8 +160,9 @@ TEST(SituationSnapshotValidInputRangeTests, testValidInputRange)
     = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   valueSituationsElementEgoVehicleStateDynamics.responseTime
     = valueSituationsElementEgoVehicleStateDynamicsResponseTime;
-  ::ad::physics::Speed valueSituationsElementEgoVehicleStateDynamicsMaxSpeed(-100.);
-  valueSituationsElementEgoVehicleStateDynamics.maxSpeed = valueSituationsElementEgoVehicleStateDynamicsMaxSpeed;
+  ::ad::physics::Speed valueSituationsElementEgoVehicleStateDynamicsMaxSpeedOnAcceleration(-100.);
+  valueSituationsElementEgoVehicleStateDynamics.maxSpeedOnAcceleration
+    = valueSituationsElementEgoVehicleStateDynamicsMaxSpeedOnAcceleration;
   ::ad::rss::world::UnstructuredSettings valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettings;
   ::ad::physics::Distance valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius(
     -1e9);
@@ -301,8 +302,9 @@ TEST(SituationSnapshotValidInputRangeTests, testValidInputRange)
     = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   valueSituationsElementOtherVehicleStateDynamics.responseTime
     = valueSituationsElementOtherVehicleStateDynamicsResponseTime;
-  ::ad::physics::Speed valueSituationsElementOtherVehicleStateDynamicsMaxSpeed(-100.);
-  valueSituationsElementOtherVehicleStateDynamics.maxSpeed = valueSituationsElementOtherVehicleStateDynamicsMaxSpeed;
+  ::ad::physics::Speed valueSituationsElementOtherVehicleStateDynamicsMaxSpeedOnAcceleration(-100.);
+  valueSituationsElementOtherVehicleStateDynamics.maxSpeedOnAcceleration
+    = valueSituationsElementOtherVehicleStateDynamicsMaxSpeedOnAcceleration;
   ::ad::rss::world::UnstructuredSettings valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettings;
   ::ad::physics::Distance valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius(
     -1e9);
@@ -431,8 +433,8 @@ TEST(SituationSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicle
   valueDefaultEgoVehicleRssDynamicsResponseTime
     = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   valueDefaultEgoVehicleRssDynamics.responseTime = valueDefaultEgoVehicleRssDynamicsResponseTime;
-  ::ad::physics::Speed valueDefaultEgoVehicleRssDynamicsMaxSpeed(-100.);
-  valueDefaultEgoVehicleRssDynamics.maxSpeed = valueDefaultEgoVehicleRssDynamicsMaxSpeed;
+  ::ad::physics::Speed valueDefaultEgoVehicleRssDynamicsMaxSpeedOnAcceleration(-100.);
+  valueDefaultEgoVehicleRssDynamics.maxSpeedOnAcceleration = valueDefaultEgoVehicleRssDynamicsMaxSpeedOnAcceleration;
   ::ad::rss::world::UnstructuredSettings valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
   ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
   valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
@@ -533,8 +535,9 @@ TEST(SituationSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicle
     = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   valueSituationsElementEgoVehicleStateDynamics.responseTime
     = valueSituationsElementEgoVehicleStateDynamicsResponseTime;
-  ::ad::physics::Speed valueSituationsElementEgoVehicleStateDynamicsMaxSpeed(-100.);
-  valueSituationsElementEgoVehicleStateDynamics.maxSpeed = valueSituationsElementEgoVehicleStateDynamicsMaxSpeed;
+  ::ad::physics::Speed valueSituationsElementEgoVehicleStateDynamicsMaxSpeedOnAcceleration(-100.);
+  valueSituationsElementEgoVehicleStateDynamics.maxSpeedOnAcceleration
+    = valueSituationsElementEgoVehicleStateDynamicsMaxSpeedOnAcceleration;
   ::ad::rss::world::UnstructuredSettings valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettings;
   ::ad::physics::Distance valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius(
     -1e9);
@@ -674,8 +677,9 @@ TEST(SituationSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicle
     = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   valueSituationsElementOtherVehicleStateDynamics.responseTime
     = valueSituationsElementOtherVehicleStateDynamicsResponseTime;
-  ::ad::physics::Speed valueSituationsElementOtherVehicleStateDynamicsMaxSpeed(-100.);
-  valueSituationsElementOtherVehicleStateDynamics.maxSpeed = valueSituationsElementOtherVehicleStateDynamicsMaxSpeed;
+  ::ad::physics::Speed valueSituationsElementOtherVehicleStateDynamicsMaxSpeedOnAcceleration(-100.);
+  valueSituationsElementOtherVehicleStateDynamics.maxSpeedOnAcceleration
+    = valueSituationsElementOtherVehicleStateDynamicsMaxSpeedOnAcceleration;
   ::ad::rss::world::UnstructuredSettings valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettings;
   ::ad::physics::Distance valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius(
     -1e9);
@@ -812,8 +816,8 @@ TEST(SituationSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicle
   valueDefaultEgoVehicleRssDynamicsResponseTime
     = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   valueDefaultEgoVehicleRssDynamics.responseTime = valueDefaultEgoVehicleRssDynamicsResponseTime;
-  ::ad::physics::Speed valueDefaultEgoVehicleRssDynamicsMaxSpeed(-100.);
-  valueDefaultEgoVehicleRssDynamics.maxSpeed = valueDefaultEgoVehicleRssDynamicsMaxSpeed;
+  ::ad::physics::Speed valueDefaultEgoVehicleRssDynamicsMaxSpeedOnAcceleration(-100.);
+  valueDefaultEgoVehicleRssDynamics.maxSpeedOnAcceleration = valueDefaultEgoVehicleRssDynamicsMaxSpeedOnAcceleration;
   ::ad::rss::world::UnstructuredSettings valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
   ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
   valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
@@ -914,8 +918,9 @@ TEST(SituationSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicle
     = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   valueSituationsElementEgoVehicleStateDynamics.responseTime
     = valueSituationsElementEgoVehicleStateDynamicsResponseTime;
-  ::ad::physics::Speed valueSituationsElementEgoVehicleStateDynamicsMaxSpeed(-100.);
-  valueSituationsElementEgoVehicleStateDynamics.maxSpeed = valueSituationsElementEgoVehicleStateDynamicsMaxSpeed;
+  ::ad::physics::Speed valueSituationsElementEgoVehicleStateDynamicsMaxSpeedOnAcceleration(-100.);
+  valueSituationsElementEgoVehicleStateDynamics.maxSpeedOnAcceleration
+    = valueSituationsElementEgoVehicleStateDynamicsMaxSpeedOnAcceleration;
   ::ad::rss::world::UnstructuredSettings valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettings;
   ::ad::physics::Distance valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius(
     -1e9);
@@ -1055,8 +1060,9 @@ TEST(SituationSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicle
     = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
   valueSituationsElementOtherVehicleStateDynamics.responseTime
     = valueSituationsElementOtherVehicleStateDynamicsResponseTime;
-  ::ad::physics::Speed valueSituationsElementOtherVehicleStateDynamicsMaxSpeed(-100.);
-  valueSituationsElementOtherVehicleStateDynamics.maxSpeed = valueSituationsElementOtherVehicleStateDynamicsMaxSpeed;
+  ::ad::physics::Speed valueSituationsElementOtherVehicleStateDynamicsMaxSpeedOnAcceleration(-100.);
+  valueSituationsElementOtherVehicleStateDynamics.maxSpeedOnAcceleration
+    = valueSituationsElementOtherVehicleStateDynamicsMaxSpeedOnAcceleration;
   ::ad::rss::world::UnstructuredSettings valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettings;
   ::ad::physics::Distance valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius(
     -1e9);

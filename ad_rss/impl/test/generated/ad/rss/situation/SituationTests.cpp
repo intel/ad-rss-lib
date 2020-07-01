@@ -85,8 +85,8 @@ protected:
     valueEgoVehicleStateDynamicsResponseTime
       = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
     valueEgoVehicleStateDynamics.responseTime = valueEgoVehicleStateDynamicsResponseTime;
-    ::ad::physics::Speed valueEgoVehicleStateDynamicsMaxSpeed(-100.);
-    valueEgoVehicleStateDynamics.maxSpeed = valueEgoVehicleStateDynamicsMaxSpeed;
+    ::ad::physics::Speed valueEgoVehicleStateDynamicsMaxSpeedOnAcceleration(-100.);
+    valueEgoVehicleStateDynamics.maxSpeedOnAcceleration = valueEgoVehicleStateDynamicsMaxSpeedOnAcceleration;
     ::ad::rss::world::UnstructuredSettings valueEgoVehicleStateDynamicsUnstructuredSettings;
     ::ad::physics::Distance valueEgoVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
     valueEgoVehicleStateDynamicsUnstructuredSettings.pedestrianTurningRadius
@@ -191,8 +191,8 @@ protected:
     valueOtherVehicleStateDynamicsResponseTime
       = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
     valueOtherVehicleStateDynamics.responseTime = valueOtherVehicleStateDynamicsResponseTime;
-    ::ad::physics::Speed valueOtherVehicleStateDynamicsMaxSpeed(-100.);
-    valueOtherVehicleStateDynamics.maxSpeed = valueOtherVehicleStateDynamicsMaxSpeed;
+    ::ad::physics::Speed valueOtherVehicleStateDynamicsMaxSpeedOnAcceleration(-100.);
+    valueOtherVehicleStateDynamics.maxSpeedOnAcceleration = valueOtherVehicleStateDynamicsMaxSpeedOnAcceleration;
     ::ad::rss::world::UnstructuredSettings valueOtherVehicleStateDynamicsUnstructuredSettings;
     ::ad::physics::Distance valueOtherVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
     valueOtherVehicleStateDynamicsUnstructuredSettings.pedestrianTurningRadius
@@ -394,8 +394,8 @@ TEST_F(SituationTests, comparisonOperatorEgoVehicleStateDiffers)
   ::ad::physics::Duration egoVehicleStateDynamicsResponseTime(1e6);
   egoVehicleStateDynamicsResponseTime = ::ad::physics::Duration(10.); // set to valid value within struct
   egoVehicleStateDynamics.responseTime = egoVehicleStateDynamicsResponseTime;
-  ::ad::physics::Speed egoVehicleStateDynamicsMaxSpeed(100.);
-  egoVehicleStateDynamics.maxSpeed = egoVehicleStateDynamicsMaxSpeed;
+  ::ad::physics::Speed egoVehicleStateDynamicsMaxSpeedOnAcceleration(100.);
+  egoVehicleStateDynamics.maxSpeedOnAcceleration = egoVehicleStateDynamicsMaxSpeedOnAcceleration;
   ::ad::rss::world::UnstructuredSettings egoVehicleStateDynamicsUnstructuredSettings;
   ::ad::physics::Distance egoVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius(1e9);
   egoVehicleStateDynamicsUnstructuredSettings.pedestrianTurningRadius
@@ -506,8 +506,8 @@ TEST_F(SituationTests, comparisonOperatorOtherVehicleStateDiffers)
   ::ad::physics::Duration otherVehicleStateDynamicsResponseTime(1e6);
   otherVehicleStateDynamicsResponseTime = ::ad::physics::Duration(10.); // set to valid value within struct
   otherVehicleStateDynamics.responseTime = otherVehicleStateDynamicsResponseTime;
-  ::ad::physics::Speed otherVehicleStateDynamicsMaxSpeed(100.);
-  otherVehicleStateDynamics.maxSpeed = otherVehicleStateDynamicsMaxSpeed;
+  ::ad::physics::Speed otherVehicleStateDynamicsMaxSpeedOnAcceleration(100.);
+  otherVehicleStateDynamics.maxSpeedOnAcceleration = otherVehicleStateDynamicsMaxSpeedOnAcceleration;
   ::ad::rss::world::UnstructuredSettings otherVehicleStateDynamicsUnstructuredSettings;
   ::ad::physics::Distance otherVehicleStateDynamicsUnstructuredSettingsPedestrianTurningRadius(1e9);
   otherVehicleStateDynamicsUnstructuredSettings.pedestrianTurningRadius
