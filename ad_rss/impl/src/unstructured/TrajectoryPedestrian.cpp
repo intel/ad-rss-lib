@@ -22,7 +22,7 @@ namespace ad {
  */
 namespace rss {
 /*!
- * @brief namespace situation
+ * @brief namespace unstructured
  */
 namespace unstructured {
 

@@ -32,10 +32,13 @@ namespace ad {
  */
 namespace rss {
 /*!
- * @brief namespace situation
+ * @brief namespace unstructured
  */
 namespace unstructured {
 
+/**
+ * @brief heading of a trajectory
+ */
 enum class TrajectoryHeading
 {
   left,
@@ -43,6 +46,9 @@ enum class TrajectoryHeading
   straight
 };
 
+/**
+ * @brief corner of a vehicle
+ */
 enum class VehicleCorner
 {
   frontLeft,
@@ -51,6 +57,9 @@ enum class VehicleCorner
   backRight
 };
 
+/**
+ * @brief a point of a trajectory
+ */
 struct TrajectoryPoint
 {
   TrajectoryPoint(Point const &inPoint, ad::physics::Angle const &inAngle, TrajectoryHeading const &inHeading)
@@ -59,11 +68,26 @@ struct TrajectoryPoint
     , heading(inHeading)
   {
   }
+
+  /*!
+   * The current position
+   */
   Point position;
+
+  /*!
+   * The current heading angle
+   */
   ad::physics::Angle angle;
+
+  /*!
+   * The current heading direction
+   */
   TrajectoryHeading heading;
 };
 
+/*!
+  * a trajectory
+  */
 using Trajectory = std::vector<TrajectoryPoint>;
 
 /**

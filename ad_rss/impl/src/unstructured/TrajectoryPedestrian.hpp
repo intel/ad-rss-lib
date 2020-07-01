@@ -25,10 +25,13 @@ namespace ad {
  */
 namespace rss {
 /*!
- * @brief namespace situation
+ * @brief namespace unstructured
  */
 namespace unstructured {
 
+/**
+ * @brief Calculates the trajectory sets of a pedestrian
+ */
 class TrajectoryPedestrian
 {
 public:
