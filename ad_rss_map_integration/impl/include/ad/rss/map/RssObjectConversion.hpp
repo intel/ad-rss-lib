@@ -55,6 +55,7 @@ public:
    * @param[in] objectSpeed the object's speed (only positive speed is supported, see isOriginalSpeedAcceptable() for
    * details)
    * @param[in] objectYawRate the object's yaw rate
+   * @param[in] objectSteeringAngle the object's steering angle
    * @param[in] rssDynamics the object's (initial) RSS dynamics
    */
   RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
@@ -62,6 +63,7 @@ public:
                       ::ad::map::match::Object const &objectMapMatchedPosition,
                       ::ad::physics::Speed const &objectSpeed,
                       ::ad::physics::AngularVelocity const &objectYawRate,
+                      ::ad::physics::Angle const &objectSteeringAngle,
                       ::ad::rss::world::RssDynamics const &rssDynamics);
 
   /*!
@@ -74,6 +76,7 @@ public:
    * @param[in] objectSpeed the object's speed (only positive speed is supported, see isOriginalSpeedAcceptable() for
    * details)
    * @param[in] objectYawRate the object's yaw rate
+   * @param[in] objectSteeringAngle the object's steering angle
    * @param[in] rssDynamics the object's (initial) RSS dynamics
    */
   RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
@@ -82,6 +85,7 @@ public:
                       ::ad::map::match::ENUObjectPosition const &objectEnuPosition,
                       ::ad::physics::Speed const &objectSpeed,
                       ::ad::physics::AngularVelocity const &objectYawRate,
+                      ::ad::physics::Angle const &objectSteeringAngle,
                       ::ad::rss::world::RssDynamics const &rssDynamics);
 
   /*!
@@ -190,7 +194,8 @@ private:
                            ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions,
                            ::ad::map::match::ENUObjectPosition const &objectEnuPosition,
                            ::ad::physics::Speed const &objectSpeed,
-                           ::ad::physics::AngularVelocity const &objectYawRate);
+                           ::ad::physics::AngularVelocity const &objectYawRate,
+                           ::ad::physics::Angle const &objectSteeringAngle);
 
   void addRestrictedOccupiedRegion(::ad::map::match::LaneOccupiedRegion const &laneOccupiedRegion,
                                    ::ad::map::route::LaneInterval const &laneInterval);

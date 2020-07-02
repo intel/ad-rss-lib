@@ -54,6 +54,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
                                     ::ad::map::match::Object const &egoMatchObject,
                                     ::ad::physics::Speed const &egoSpeed,
                                     ::ad::physics::AngularVelocity const &egoYawRate,
+                                    ::ad::physics::Angle const &egoSteeringAngle,
                                     ::ad::rss::world::RssDynamics const &egoRssDynamics,
                                     ::ad::map::route::FullRoute const &egoRouteInput,
                                     ::ad::rss::world::ObjectId const &objectId,
@@ -61,6 +62,7 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
                                     ::ad::map::match::Object const &objectMatchObject,
                                     ::ad::physics::Speed const &objectSpeed,
                                     ::ad::physics::AngularVelocity const &objectYawRate,
+                                    ::ad::physics::Angle const &objectSteeringAngle,
                                     ::ad::rss::world::RssDynamics const &objectRssDynamics,
                                     RestrictSpeedLimitMode const &restrictSpeedLimitMode,
                                     ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights,
@@ -72,10 +74,15 @@ bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
     return false;
   }
 
-  auto egoObject = std::make_shared<RssObjectConversion const>(
-    egoId, ::ad::rss::world::ObjectType::EgoVehicle, egoMatchObject, egoSpeed, egoYawRate, egoRssDynamics);
+  auto egoObject = std::make_shared<RssObjectConversion const>(egoId,
+                                                               ::ad::rss::world::ObjectType::EgoVehicle,
+                                                               egoMatchObject,
+                                                               egoSpeed,
+                                                               egoYawRate,
+                                                               egoSteeringAngle,
+                                                               egoRssDynamics);
   auto otherObject = std::make_shared<RssObjectConversion const>(
-    objectId, objectType, objectMatchObject, objectSpeed, objectYawRate, objectRssDynamics);
+    objectId, objectType, objectMatchObject, objectSpeed, objectYawRate, objectSteeringAngle, objectRssDynamics);
 
   RssSceneCreator sceneCreator(restrictSpeedLimitMode, greenTrafficLights, *this);
 
@@ -472,6 +479,7 @@ bool RssSceneCreation::appendRoadBoundaries(::ad::rss::world::ObjectId const &eg
                                             ::ad::map::match::Object const &egoMatchObject,
                                             ::ad::physics::Speed const &egoSpeed,
                                             ::ad::physics::AngularVelocity const &egoYawRate,
+                                            ::ad::physics::Angle const &egoSteeringAngle,
                                             ::ad::rss::world::RssDynamics const &egoRssDynamics,
                                             ::ad::map::route::FullRoute const &inputRoute,
                                             AppendRoadBoundariesMode const operationMode)
@@ -507,8 +515,13 @@ bool RssSceneCreation::appendRoadBoundaries(::ad::rss::world::ObjectId const &eg
       route = ::ad::map::route::getRouteExpandedToAllNeighborLanes(route);
     }
 
-    auto egoObject = std::make_shared<RssObjectConversion const>(
-      egoId, ::ad::rss::world::ObjectType::EgoVehicle, egoMatchObject, egoSpeed, egoYawRate, egoRssDynamics);
+    auto egoObject = std::make_shared<RssObjectConversion const>(egoId,
+                                                                 ::ad::rss::world::ObjectType::EgoVehicle,
+                                                                 egoMatchObject,
+                                                                 egoSpeed,
+                                                                 egoYawRate,
+                                                                 egoSteeringAngle,
+                                                                 egoRssDynamics);
 
     RssSceneCreator sceneCreator(*this);
     getLogger()->debug("RssSceneCreation::appendRoadBoundaries[]>>\n"

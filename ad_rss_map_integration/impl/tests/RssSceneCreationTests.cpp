@@ -24,8 +24,14 @@ TEST_F(RssSceneCreationTestRoadBoundaries, testAppendRoadBoundaries)
                           ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::ExpandRouteToOppositeLanes,
                           ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::ExpandRouteToAllNeighbors})
   {
-    EXPECT_TRUE(sceneCreation.appendRoadBoundaries(
-      egoVehicleId, egoMatchObject, egoSpeed, egoYawRate, getEgoVehicleDynamics(), egoRoute, appendMode));
+    EXPECT_TRUE(sceneCreation.appendRoadBoundaries(egoVehicleId,
+                                                   egoMatchObject,
+                                                   egoSpeed,
+                                                   egoYawRate,
+                                                   egoSteeringAngle,
+                                                   getEgoVehicleDynamics(),
+                                                   egoRoute,
+                                                   appendMode));
   }
   EXPECT_EQ(sceneCreation.mWorldModel.scenes.size(), 6u);
 
@@ -35,6 +41,7 @@ TEST_F(RssSceneCreationTestRoadBoundaries, testAppendRoadBoundaries)
                                        ::ad::map::match::Object(),
                                        egoSpeed,
                                        egoYawRate,
+                                       egoSteeringAngle,
                                        getEgoVehicleDynamics(),
                                        egoRoute,
                                        ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly));
@@ -45,6 +52,7 @@ TEST_F(RssSceneCreationTestRoadBoundaries, testAppendRoadBoundaries)
                                        egoMatchObject,
                                        ::ad::physics::Speed(),
                                        egoYawRate,
+                                       egoSteeringAngle,
                                        getEgoVehicleDynamics(),
                                        egoRoute,
                                        ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly));
@@ -55,6 +63,7 @@ TEST_F(RssSceneCreationTestRoadBoundaries, testAppendRoadBoundaries)
                                        egoMatchObject,
                                        egoSpeed,
                                        egoYawRate,
+                                       egoSteeringAngle,
                                        getEgoVehicleDynamics(),
                                        ::ad::map::route::FullRoute(),
                                        ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly));

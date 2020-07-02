@@ -127,7 +127,6 @@ TEST(RssSituationCheckingTestsUnstructuredSceneChecker, calculateState_frontal_e
 TEST(RssSituationCheckingTestsUnstructuredSceneChecker, calculateState_ego_in_front_driving_continueforward)
 {
   RssUnstructuredSceneChecker unstructuredSceneChecker;
-  state::UnstructuredSceneRssState unstructuredSceneState;
   Situation situation;
   situation.situationType = SituationType::Unstructured;
   situation.egoVehicleState = createVehicleState(world::ObjectType::EgoVehicle, 1.0, 0.0);
@@ -153,11 +152,11 @@ TEST(RssSituationCheckingTestsUnstructuredSceneChecker, calculateState_ego_in_fr
 TEST(RssSituationCheckingTestsUnstructuredSceneChecker, calculateState_ego_in_front_stopped_drive_away)
 {
   RssUnstructuredSceneChecker unstructuredSceneChecker;
-  state::UnstructuredSceneRssState unstructuredSceneState;
   Situation situation;
   situation.situationType = SituationType::Unstructured;
   situation.egoVehicleState = createVehicleState(world::ObjectType::EgoVehicle, 1.0, 0.0);
   situation.egoVehicleState.objectState.centerPoint.x = physics::Distance(20.0);
+  situation.egoVehicleState.dynamics.unstructuredSettings.driveAwayMaxAngle = 3. * physics::cPI / 4.;
   situation.otherVehicleState = createVehicleState(world::ObjectType::OtherVehicle, 1.0, 0.0);
   situation.otherVehicleState.objectState.centerPoint.x = physics::Distance(0.0);
   state::UnstructuredSceneStateInformation egoStateInfo;
@@ -175,6 +174,70 @@ TEST(RssSituationCheckingTestsUnstructuredSceneChecker, calculateState_ego_in_fr
     unstructuredSceneChecker.calculateRssStateUnstructured(world::TimeIndex(2.), situation, egoStateInfo, rssState));
   ASSERT_FALSE(rssState.unstructuredSceneState.isSafe);
   ASSERT_EQ(rssState.unstructuredSceneState.response, state::UnstructuredSceneResponse::DriveAway);
+}
+
+TEST(RssSituationCheckingTestsUnstructuredSceneChecker, calculateState_other_in_front_stopped_drive_away)
+{
+  RssUnstructuredSceneChecker unstructuredSceneChecker;
+  Situation situation;
+  situation.situationId = 1;
+  situation.situationType = SituationType::Unstructured;
+  situation.egoVehicleState = createVehicleState(world::ObjectType::EgoVehicle, 1.0, 0.0);
+  situation.egoVehicleState.objectState.centerPoint.x = physics::Distance(0.0);
+  situation.egoVehicleState.dynamics.unstructuredSettings.driveAwayMaxAngle = 3. * physics::cPI / 4.;
+  situation.otherVehicleState = createVehicleState(world::ObjectType::OtherVehicle, 0.0, 0.0);
+  situation.otherVehicleState.objectState.centerPoint.x = physics::Distance(20.0);
+  state::UnstructuredSceneStateInformation egoStateInfo;
+
+  state::RssState rssState;
+  ASSERT_TRUE(
+    unstructuredSceneChecker.calculateRssStateUnstructured(world::TimeIndex(1.), situation, egoStateInfo, rssState));
+  ASSERT_TRUE(rssState.unstructuredSceneState.isSafe);
+  ASSERT_EQ(rssState.unstructuredSceneState.response, state::UnstructuredSceneResponse::ContinueForward);
+
+  // other must brake, ego drive away
+  situation.egoVehicleState.objectState.centerPoint.x = physics::Distance(5.0);
+  situation.egoVehicleState.objectState.speed = physics::Speed(0.0);
+  ASSERT_TRUE(
+    unstructuredSceneChecker.calculateRssStateUnstructured(world::TimeIndex(2.), situation, egoStateInfo, rssState));
+  ASSERT_FALSE(rssState.unstructuredSceneState.isSafe);
+  ASSERT_EQ(rssState.unstructuredSceneState.response, state::UnstructuredSceneResponse::DriveAway);
+
+  // ego drives away with forbidden heading
+  situation.egoVehicleState.objectState.centerPoint.x = physics::Distance(5.0);
+  situation.egoVehicleState.objectState.speed = physics::Speed(5.0);
+  situation.egoVehicleState.objectState.steeringAngle = physics::cPI / 5.;
+  ASSERT_TRUE(
+    unstructuredSceneChecker.calculateRssStateUnstructured(world::TimeIndex(3.), situation, egoStateInfo, rssState));
+  ASSERT_FALSE(rssState.unstructuredSceneState.isSafe);
+  ASSERT_EQ(rssState.unstructuredSceneState.response, state::UnstructuredSceneResponse::Brake);
+
+  // ego forced to stop. drive away again possible
+  situation.egoVehicleState.objectState.centerPoint.x = physics::Distance(5.0);
+  situation.egoVehicleState.objectState.speed = physics::Speed(0.0);
+  ASSERT_TRUE(
+    unstructuredSceneChecker.calculateRssStateUnstructured(world::TimeIndex(4.), situation, egoStateInfo, rssState));
+  ASSERT_FALSE(rssState.unstructuredSceneState.isSafe);
+  ASSERT_EQ(rssState.unstructuredSceneState.response, state::UnstructuredSceneResponse::DriveAway);
+
+  // ego drives away with allowed heading
+  situation.egoVehicleState.objectState.centerPoint.x = physics::Distance(5.0);
+  situation.egoVehicleState.objectState.speed = physics::Speed(5.0);
+  situation.egoVehicleState.objectState.steeringAngle = physics::cPI / 4.;
+  ASSERT_TRUE(
+    unstructuredSceneChecker.calculateRssStateUnstructured(world::TimeIndex(5.), situation, egoStateInfo, rssState));
+  ASSERT_FALSE(rssState.unstructuredSceneState.isSafe);
+  ASSERT_EQ(rssState.unstructuredSceneState.response, state::UnstructuredSceneResponse::DriveAway);
+
+  // ego drives away with allowed heading but other started to move again
+  situation.egoVehicleState.objectState.centerPoint.x = physics::Distance(5.0);
+  situation.egoVehicleState.objectState.speed = physics::Speed(5.0);
+  situation.egoVehicleState.objectState.steeringAngle = physics::cPI / 4.;
+  situation.otherVehicleState.objectState.centerPoint.x = physics::Distance(21.0);
+  ASSERT_TRUE(
+    unstructuredSceneChecker.calculateRssStateUnstructured(world::TimeIndex(6.), situation, egoStateInfo, rssState));
+  ASSERT_FALSE(rssState.unstructuredSceneState.isSafe);
+  ASSERT_EQ(rssState.unstructuredSceneState.response, state::UnstructuredSceneResponse::Brake);
 }
 
 } // namespace unstructured

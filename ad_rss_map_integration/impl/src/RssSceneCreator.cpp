@@ -511,6 +511,7 @@ bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const
                                                                  rightBorderPosition,
                                                                  ::ad::physics::Speed(0),
                                                                  ::ad::physics::AngularVelocity(0.),
+                                                                 ::ad::physics::Angle(0.),
                                                                  staticDynamics);
   if (!bool(rightBorderObject))
   {
@@ -545,6 +546,7 @@ bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const
                                                                 leftBorderPosition,
                                                                 ::ad::physics::Speed(0),
                                                                 ::ad::physics::AngularVelocity(0.),
+                                                                ::ad::physics::Angle(0.),
                                                                 staticDynamics);
   if (!bool(leftBorderObject))
   {

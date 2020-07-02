@@ -211,6 +211,7 @@ struct RssSceneCreationTest : ::testing::Test
     ::ad::rss::world::ObjectId otherVehicleId{10};
     ::ad::physics::Speed otherVehicleSpeed{10.};
     ::ad::physics::AngularVelocity otherVehicleYawRate{0.};
+    ::ad::physics::Angle otherVehicleSteeringAngle{0.};
 
     ::ad::map::match::Object otherMatchObject;
 
@@ -228,6 +229,7 @@ struct RssSceneCreationTest : ::testing::Test
                                            egoMatchObject,
                                            egoSpeed,
                                            egoYawRate,
+                                           egoSteeringAngle,
                                            getEgoVehicleDynamics(),
                                            testRoute,
                                            otherVehicleId,
@@ -235,6 +237,7 @@ struct RssSceneCreationTest : ::testing::Test
                                            otherMatchObject,
                                            otherVehicleSpeed,
                                            otherVehicleYawRate,
+                                           otherVehicleSteeringAngle,
                                            getObjectVehicleDynamics(),
                                            speedLimitMode,
                                            ::ad::map::landmark::LandmarkIdSet(),
@@ -247,6 +250,7 @@ struct RssSceneCreationTest : ::testing::Test
   ::ad::rss::world::ObjectId egoVehicleId{123u};
   ::ad::physics::Speed egoSpeed;
   ::ad::physics::AngularVelocity egoYawRate;
+  ::ad::physics::Angle egoSteeringAngle;
   ::ad::map::match::Object egoMatchObject;
   ::ad::map::route::FullRoute egoRoute;
 };
@@ -269,6 +273,7 @@ struct RssSceneCreationTestTown01 : RssSceneCreationTest
 
     egoSpeed = ::ad::physics::Speed(5.);
     egoYawRate = ::ad::physics::AngularVelocity(0.);
+    egoSteeringAngle = ::ad::physics::Angle(0.);
 
     // laneId: offset  120149:0.52  (ego turn right)
     auto positionEndGeo = ::ad::map::point::createGeoPoint(::ad::map::point::Longitude(8.003),

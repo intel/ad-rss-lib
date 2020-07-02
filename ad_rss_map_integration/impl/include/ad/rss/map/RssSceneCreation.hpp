@@ -106,6 +106,7 @@ public:
    * @param[in] egoMatchObject the ego vehicle's position described by its map matched bounding box and position
    * @param[in] egoSpeed the ego vehicle's speed
    * @param[in] egoYawRate the ego vehicle's yaw rate
+   * @param[in] egoSteeringAngle the ego vehicle's steering angle
    * @param[in] egoRssDynamics the ego vehicles' RssDynamics to be applied
    * @param[in] egoRoute the route the ego vehicle intends to take.
    *   If the given route is empty, all potential route predictions of the ego vehicle are taken into account if
@@ -115,6 +116,7 @@ public:
    * @param[in] objectMatchObject the object's position described by its map matched bounding box and position
    * @param[in] objectSpeed the object's speed
    * @param[in] objectYawRate the object's yaw rate
+   * @param[in] objectSteeringAngle the ego vehicle's steering angle
    * @param[in] objectRssDynamics the object's RssDynamics to be applied
    * @param[in] restrictSpeedLimitMode the mode to select the behavior of objectRssDynamics.maxSpeedOnAcceleration and
    * egoRssDynamics.maxSpeedOnAcceleration
@@ -129,6 +131,7 @@ public:
                     ::ad::map::match::Object const &egoMatchObject,
                     ::ad::physics::Speed const &egoSpeed,
                     ::ad::physics::AngularVelocity const &egoYawRate,
+                    ::ad::physics::Angle const &egoSteeringAngle,
                     ::ad::rss::world::RssDynamics const &egoRssDynamics,
                     ::ad::map::route::FullRoute const &egoRoute,
                     ::ad::rss::world::ObjectId const &objectId,
@@ -136,6 +139,7 @@ public:
                     ::ad::map::match::Object const &objectMatchObject,
                     ::ad::physics::Speed const &objectSpeed,
                     ::ad::physics::AngularVelocity const &objectYawRate,
+                    ::ad::physics::Angle const &objectSteeringAngle,
                     ::ad::rss::world::RssDynamics const &objectRssDynamics,
                     RestrictSpeedLimitMode const &restrictSpeedLimitMode,
                     ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights,
@@ -170,6 +174,7 @@ public:
    * @param[in] egoMatchObject the ego vehicle's position described by its map matched bounding box and position
    * @param[in] egoSpeed the ego vehicle's speed
    * @param[in] egoYawRate the ego vehicle's yaw rate
+   * @param[in] egoSteeringAngle the ego vehicle's steering angle
    * @param[in] egoRssDynamics the ego vehicles' RssDynamics to be applied
    * @param[in] egoRoute the route the ego vehicle intends to take.
    *
@@ -179,6 +184,7 @@ public:
                             ::ad::map::match::Object const &egoMatchObject,
                             ::ad::physics::Speed const &egoSpeed,
                             ::ad::physics::AngularVelocity const &egoYawRate,
+                            ::ad::physics::Angle const &egoSteeringAngle,
                             ::ad::rss::world::RssDynamics const &egoRssDynamics,
                             ::ad::map::route::FullRoute const &route,
                             AppendRoadBoundariesMode const operationMode);

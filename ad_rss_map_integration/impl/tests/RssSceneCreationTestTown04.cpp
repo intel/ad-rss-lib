@@ -61,6 +61,7 @@ TEST_F(RssSceneCreationTestTown04, testVehicleBehindConnectingRoute)
   ::ad::rss::world::ObjectId otherVehicleId = ::ad::rss::world::ObjectId(10);
   ::ad::physics::Speed otherVehicleSpeed{5.};
   ::ad::physics::AngularVelocity otherVehicleYawRate{0.};
+  ::ad::physics::Angle otherVehicleSteeringAngle{0.};
   ::ad::map::match::Object otherMatchObject;
 
   otherMatchObject.enuPosition.centerPoint.x = ::ad::map::point::ENUCoordinate(124.568);
@@ -75,6 +76,7 @@ TEST_F(RssSceneCreationTestTown04, testVehicleBehindConnectingRoute)
                                egoMatchObject,
                                egoSpeed,
                                egoYawRate,
+                               egoSteeringAngle,
                                getEgoVehicleDynamics(),
                                egoRoute,
                                otherVehicleId,
@@ -82,6 +84,7 @@ TEST_F(RssSceneCreationTestTown04, testVehicleBehindConnectingRoute)
                                otherMatchObject,
                                otherVehicleSpeed,
                                otherVehicleYawRate,
+                               otherVehicleSteeringAngle,
                                getObjectVehicleDynamics(),
                                ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10,
                                ::ad::map::landmark::LandmarkIdSet(),
