@@ -50,39 +50,21 @@ RssSceneCreation::RssSceneCreation(::ad::rss::world::TimeIndex const &timeIndex,
   return std::move(mWorldModel);
 }
 
-bool RssSceneCreation::appendScenes(::ad::rss::world::ObjectId const &egoId,
-                                    ::ad::map::match::Object const &egoMatchObject,
-                                    ::ad::physics::Speed const &egoSpeed,
-                                    ::ad::physics::AngularVelocity const &egoYawRate,
-                                    ::ad::physics::Angle const &egoSteeringAngle,
-                                    ::ad::rss::world::RssDynamics const &egoRssDynamics,
+bool RssSceneCreation::appendScenes(RssObjectData const &egoObjectData,
                                     ::ad::map::route::FullRoute const &egoRouteInput,
-                                    ::ad::rss::world::ObjectId const &objectId,
-                                    ::ad::rss::world::ObjectType const &objectType,
-                                    ::ad::map::match::Object const &objectMatchObject,
-                                    ::ad::physics::Speed const &objectSpeed,
-                                    ::ad::physics::AngularVelocity const &objectYawRate,
-                                    ::ad::physics::Angle const &objectSteeringAngle,
-                                    ::ad::rss::world::RssDynamics const &objectRssDynamics,
+                                    RssObjectData const &otherObjectData,
                                     RestrictSpeedLimitMode const &restrictSpeedLimitMode,
                                     ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights,
                                     ::ad::rss::map::RssMode const &mode)
 {
   if (mFinalized)
   {
-    getLogger()->error("RssSceneCreation::appendScenes[{}]>> error world model already finalized.", objectId);
+    getLogger()->error("RssSceneCreation::appendScenes[{}]>> error world model already finalized.", otherObjectData.id);
     return false;
   }
 
-  auto egoObject = std::make_shared<RssObjectConversion const>(egoId,
-                                                               ::ad::rss::world::ObjectType::EgoVehicle,
-                                                               egoMatchObject,
-                                                               egoSpeed,
-                                                               egoYawRate,
-                                                               egoSteeringAngle,
-                                                               egoRssDynamics);
-  auto otherObject = std::make_shared<RssObjectConversion const>(
-    objectId, objectType, objectMatchObject, objectSpeed, objectYawRate, objectSteeringAngle, objectRssDynamics);
+  auto egoObject = std::make_shared<RssObjectConversion const>(egoObjectData);
+  auto otherObject = std::make_shared<RssObjectConversion const>(otherObjectData);
 
   RssSceneCreator sceneCreator(restrictSpeedLimitMode, greenTrafficLights, *this);
 
@@ -475,12 +457,7 @@ bool RssSceneCreation::appendStructuredScenes(::ad::rss::map::RssSceneCreator &s
   return result;
 }
 
-bool RssSceneCreation::appendRoadBoundaries(::ad::rss::world::ObjectId const &egoId,
-                                            ::ad::map::match::Object const &egoMatchObject,
-                                            ::ad::physics::Speed const &egoSpeed,
-                                            ::ad::physics::AngularVelocity const &egoYawRate,
-                                            ::ad::physics::Angle const &egoSteeringAngle,
-                                            ::ad::rss::world::RssDynamics const &egoRssDynamics,
+bool RssSceneCreation::appendRoadBoundaries(RssObjectData const &egoObjectData,
                                             ::ad::map::route::FullRoute const &inputRoute,
                                             AppendRoadBoundariesMode const operationMode)
 {
@@ -489,7 +466,7 @@ bool RssSceneCreation::appendRoadBoundaries(::ad::rss::world::ObjectId const &eg
     getLogger()->error("RssSceneCreation::appendRoadBoundaries>> error world model already finalized.");
     return false;
   }
-  if (egoMatchObject.mapMatchedBoundingBox.laneOccupiedRegions.empty())
+  if (egoObjectData.matchObject.mapMatchedBoundingBox.laneOccupiedRegions.empty())
   {
     getLogger()->warn("RssSceneCreation::appendRoadBoundaries>> ego without occupied regions skipping.");
     return false;
@@ -515,13 +492,7 @@ bool RssSceneCreation::appendRoadBoundaries(::ad::rss::world::ObjectId const &eg
       route = ::ad::map::route::getRouteExpandedToAllNeighborLanes(route);
     }
 
-    auto egoObject = std::make_shared<RssObjectConversion const>(egoId,
-                                                                 ::ad::rss::world::ObjectType::EgoVehicle,
-                                                                 egoMatchObject,
-                                                                 egoSpeed,
-                                                                 egoYawRate,
-                                                                 egoSteeringAngle,
-                                                                 egoRssDynamics);
+    auto egoObject = std::make_shared<RssObjectConversion const>(egoObjectData);
 
     RssSceneCreator sceneCreator(*this);
     getLogger()->debug("RssSceneCreation::appendRoadBoundaries[]>>\n"

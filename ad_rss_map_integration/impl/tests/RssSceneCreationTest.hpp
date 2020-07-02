@@ -225,20 +225,27 @@ struct RssSceneCreationTest : ::testing::Test
       speedLimitMode = ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10;
     }
 
-    EXPECT_TRUE(sceneCreation.appendScenes(egoVehicleId,
-                                           egoMatchObject,
-                                           egoSpeed,
-                                           egoYawRate,
-                                           egoSteeringAngle,
-                                           getEgoVehicleDynamics(),
+    ::ad::rss::map::RssObjectData egoObjectData;
+    egoObjectData.id = egoVehicleId;
+    egoObjectData.type = ::ad::rss::world::ObjectType::EgoVehicle;
+    egoObjectData.matchObject = egoMatchObject;
+    egoObjectData.speed = egoSpeed;
+    egoObjectData.yawRate = egoYawRate;
+    egoObjectData.steeringAngle = egoSteeringAngle;
+    egoObjectData.rssDynamics = getEgoVehicleDynamics();
+
+    ::ad::rss::map::RssObjectData otherObjectData;
+    otherObjectData.id = otherVehicleId;
+    otherObjectData.type = ::ad::rss::world::ObjectType::OtherVehicle;
+    otherObjectData.matchObject = otherMatchObject;
+    otherObjectData.speed = otherVehicleSpeed;
+    otherObjectData.yawRate = otherVehicleYawRate;
+    otherObjectData.steeringAngle = otherVehicleSteeringAngle;
+    otherObjectData.rssDynamics = getObjectVehicleDynamics();
+
+    EXPECT_TRUE(sceneCreation.appendScenes(egoObjectData,
                                            testRoute,
-                                           otherVehicleId,
-                                           ::ad::rss::world::ObjectType::OtherVehicle,
-                                           otherMatchObject,
-                                           otherVehicleSpeed,
-                                           otherVehicleYawRate,
-                                           otherVehicleSteeringAngle,
-                                           getObjectVehicleDynamics(),
+                                           otherObjectData,
                                            speedLimitMode,
                                            ::ad::map::landmark::LandmarkIdSet(),
                                            ::ad::rss::map::RssMode::Structured));
