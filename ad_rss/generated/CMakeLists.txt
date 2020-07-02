@@ -14,7 +14,7 @@
 ##
 
 cmake_minimum_required(VERSION 3.5)
-project(ad_rss VERSION 3.0.1)
+project(ad_rss VERSION 4.0.0)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -25,24 +25,31 @@ set(CMAKE_CXX_STANDARD 14)
 option(BUILD_SHARED_LIBS "Build shared libraries instead of static ones" ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+set(INCLUDE_DIRS)
+set(LIBRARIES)
+
 include(ad_rss)
 
 if ((NOT ad_rss_SOURCES) OR (NOT ad_rss_INCLUDE_DIRS))
   message(FATAL_ERROR "${PROJECT_NAME}: Variable ad_rss_SOURCES or ad_rss_INCLUDE_DIRS pointing to the generator managed library not set!")
 endif()
 
-find_package(ad_physics 2.0.3 REQUIRED CONFIG)
+find_package(Boost REQUIRED)
+list(APPEND INCLUDE_DIRS ${Boost_INCLUDE_DIRS})
+list(APPEND LIBRARIES ${Boost_LIBRARIES})
+
+find_package(ad_physics 2.1.0 REQUIRED CONFIG)
 find_package(spdlog REQUIRED CONFIG)
 
 add_library(${PROJECT_NAME}
   ${ad_rss_SOURCES}
-  src/ad/rss/situation/CoordinateSystemAxis.cpp
   src/ad/rss/situation/LateralRelativePosition.cpp
   src/ad/rss/situation/LongitudinalRelativePosition.cpp
   src/ad/rss/situation/SituationType.cpp
   src/ad/rss/state/LateralResponse.cpp
   src/ad/rss/state/LongitudinalResponse.cpp
   src/ad/rss/state/RssStateEvaluator.cpp
+  src/ad/rss/state/UnstructuredSceneResponse.cpp
   src/ad/rss/world/LaneDrivingDirection.cpp
   src/ad/rss/world/LaneSegmentType.cpp
   src/ad/rss/world/ObjectType.cpp
@@ -61,12 +68,15 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
   ${ad_rss_TARGET_INCLUDE_DIRECTORIES}
   "$<BUILD_INTERFACE:${ad_rss_INCLUDE_DIRS}>"
+  ${INCLUDE_DIRS}
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
   ad_physics
   spdlog::spdlog
   ${ad_rss_TARGET_LINK_LIBRARIES}
+  PRIVATE
+  ${LIBRARIES}
 )
 
 set(BINDING_TYPE MOCKUP)

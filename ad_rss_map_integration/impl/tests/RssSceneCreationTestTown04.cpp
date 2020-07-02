@@ -33,6 +33,7 @@ struct RssSceneCreationTestTown04 : RssSceneCreationTest
     initializeObjectENU(egoMatchObject.enuPosition.centerPoint, egoMatchObject.enuPosition.heading, egoMatchObject);
 
     egoSpeed = ::ad::physics::Speed(5.);
+    egoYawRate = ::ad::physics::AngularVelocity(0.);
 
     ::ad::map::point::ENUPoint target;
     target.x = ::ad::map::point::ENUCoordinate(240.0);
@@ -59,6 +60,7 @@ TEST_F(RssSceneCreationTestTown04, testVehicleBehindConnectingRoute)
 
   ::ad::rss::world::ObjectId otherVehicleId = ::ad::rss::world::ObjectId(10);
   ::ad::physics::Speed otherVehicleSpeed{5.};
+  ::ad::physics::AngularVelocity otherVehicleYawRate{0.};
   ::ad::map::match::Object otherMatchObject;
 
   otherMatchObject.enuPosition.centerPoint.x = ::ad::map::point::ENUCoordinate(124.568);
@@ -72,33 +74,36 @@ TEST_F(RssSceneCreationTestTown04, testVehicleBehindConnectingRoute)
     sceneCreation.appendScenes(egoVehicleId,
                                egoMatchObject,
                                egoSpeed,
+                               egoYawRate,
                                getEgoVehicleDynamics(),
                                egoRoute,
                                otherVehicleId,
                                ::ad::rss::world::ObjectType::OtherVehicle,
                                otherMatchObject,
                                otherVehicleSpeed,
+                               otherVehicleYawRate,
                                getObjectVehicleDynamics(),
                                ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10,
-                               ::ad::map::landmark::LandmarkIdSet()));
+                               ::ad::map::landmark::LandmarkIdSet(),
+                               ::ad::rss::map::RssMode::Structured));
 
   auto const worldModel = sceneCreation.getWorldModel();
   EXPECT_TRUE(withinValidInputRange(worldModel));
 
   spdlog::info("WordModel: {}", worldModel);
-  EXPECT_EQ(worldModel.scenes.size(), 1u);
+  ASSERT_EQ(worldModel.scenes.size(), 1u);
 
   ::ad::rss::state::ProperResponse routeResponse;
-  ::ad::rss::world::AccelerationRestriction routeAccelerationRestriction;
   ::ad::rss::situation::SituationSnapshot situationSnapshot;
   ::ad::rss::state::RssStateSnapshot stateSnapshot;
-  EXPECT_TRUE(rssCheck.calculateAccelerationRestriction(
-    worldModel, situationSnapshot, stateSnapshot, routeResponse, routeAccelerationRestriction));
+  EXPECT_TRUE(rssCheck.calculateProperResponse(worldModel, situationSnapshot, stateSnapshot, routeResponse));
 
   // not safe, since the one behind us is far too near
   spdlog::info("RouteResponse: {}", routeResponse);
   spdlog::info("StateSnapshot: {}", stateSnapshot);
   spdlog::info("SituationSnapshot: {}", situationSnapshot);
+  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
+
   EXPECT_FALSE(routeResponse.isSafe);
   EXPECT_EQ(::ad::rss::situation::LongitudinalRelativePosition::InFront,
             situationSnapshot.situations.front().relativePosition.longitudinalPosition);

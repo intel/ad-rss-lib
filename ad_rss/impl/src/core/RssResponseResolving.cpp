@@ -10,6 +10,7 @@
 #include <algorithm>
 #include "ad/rss/state/RssStateOperation.hpp"
 #include "ad/rss/state/RssStateSnapshotValidInputRange.hpp"
+#include "ad/rss/unstructured/Geometry.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
 
@@ -22,8 +23,7 @@ RssResponseResolving::RssResponseResolving()
 }
 
 bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &currentStateSnapshot,
-                                                 state::ProperResponse &response,
-                                                 world::AccelerationRestriction &accelerationRestriction)
+                                                 state::ProperResponse &response)
 {
   if (!withinValidInputRange(currentStateSnapshot))
   {
@@ -41,19 +41,18 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
     response.longitudinalResponse = state::LongitudinalResponse::None;
     response.lateralResponseLeft = state::LateralResponse::None;
     response.lateralResponseRight = state::LateralResponse::None;
-
-    accelerationRestriction.timeIndex = response.timeIndex;
+    response.unstructuredSceneResponse = state::UnstructuredSceneResponse::None;
 
     // absolute maxima are given by the default dynamics
-    accelerationRestriction.longitudinalRange.maximum
+    response.accelerationRestrictions.longitudinalRange.maximum
       = currentStateSnapshot.defaultEgoVehicleRssDynamics.alphaLon.accelMax;
-    accelerationRestriction.lateralLeftRange.maximum
+    response.accelerationRestrictions.lateralLeftRange.maximum
       = currentStateSnapshot.defaultEgoVehicleRssDynamics.alphaLat.accelMax;
-    accelerationRestriction.lateralRightRange.maximum
+    response.accelerationRestrictions.lateralRightRange.maximum
       = currentStateSnapshot.defaultEgoVehicleRssDynamics.alphaLat.accelMax;
 
     // absolute minimum in longitudinal direction is given by brakeMax
-    accelerationRestriction.longitudinalRange.minimum
+    response.accelerationRestrictions.longitudinalRange.minimum
       = currentStateSnapshot.defaultEgoVehicleRssDynamics.alphaLon.brakeMax;
 
     // in lateral dimension, this is handled differently
@@ -63,11 +62,11 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
     // it can decelerate the movement to the left in an unbounded manner.
     // At the point the vehicle direction is turning, the right restrictions are becoming valid.
     //
-    // @todo: we should try to come to a closed description in here, so that
+    // @todo: ideally we should try to come to a closed description in here, so that
     // we only have ONE lateral acceleration range combining the whole result
     // This will make it easier outside
     // But: in this case we have to ensure that the orientation of the situation
-    // is respected accordingly, as especially within intersections this might differ!
+    // is respected accordingly, as especially within intersections this might differ depending on the driven route!
     // Furthermore, we might need to have some knowledge on the expected cycle time,
     // to be able to restrict counter-steering at the right point in time BEFORE the turn over
     // the minimum therefore, would then change dynamically while counter steering...
@@ -75,97 +74,76 @@ bool RssResponseResolving::provideProperResponse(state::RssStateSnapshot const &
     // Currently the final transformation back has to be performed outside which requires
     // deeper understanding there; so the above is more or less up to the system integrator
     // to calculate while transforming back from vehicle coordinates to control data
+    //
     // => Would make it much easier to integrate in the outside if we can solve this internally in
     // a robust and correct manner
-    accelerationRestriction.lateralLeftRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
-    accelerationRestriction.lateralRightRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
+    response.accelerationRestrictions.lateralLeftRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
+    response.accelerationRestrictions.lateralRightRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
+    response.headingRanges.clear();
+    physics::Acceleration driveAwayBrakeMin = currentStateSnapshot.defaultEgoVehicleRssDynamics.alphaLon.accelMax;
+    bool unstructuredDriveAwayToBrakeTransitionOccured = false;
 
-    RssSafeStateBeforeDangerThresholdTimeMap newStatesBeforeDangerThresholdTime;
     for (auto const &currentState : currentStateSnapshot.individualResponses)
     {
-      // The response belonging to the last state before the danger threshold time
-      RssSafeState nonDangerousStateToRemember;
       if (isDangerous(currentState))
       {
-        spdlog::info("RssResponseResolving::provideProperResponse>> State is dangerous: {}", currentState);
         response.isSafe = false;
         if (std::find(response.dangerousObjects.begin(), response.dangerousObjects.end(), currentState.objectId)
             == response.dangerousObjects.end())
         {
           response.dangerousObjects.push_back(currentState.objectId);
         }
-        auto const previousNonDangerousState = mStatesBeforeDangerThresholdTime.find(currentState.situationId);
-        if (previousNonDangerousState != mStatesBeforeDangerThresholdTime.end())
+
+        if (currentState.situationType == situation::SituationType::Unstructured)
         {
-          if (previousNonDangerousState->second.lateralSafe)
-          {
-            // we might need to check here if left or right is the dangerous side
-            // but for the combineLateralResponse will only respect the more severe response
-            // omitting the check should have the same result
-            //
-            // @todo: Handling of a cut-in by a leading vehicle as stated in definitions 11-13 of the RSS paper v6
-            //        will be handled outside of this function. As a consequence.
-            //        There is currently no response for a cut-in of a leading vehicle
-            combineState(
-              currentState.lateralStateLeft, response.lateralResponseLeft, accelerationRestriction.lateralLeftRange);
-
-            combineState(
-              currentState.lateralStateRight, response.lateralResponseRight, accelerationRestriction.lateralRightRange);
-          }
-          if (previousNonDangerousState->second.longitudinalSafe)
-          {
-            combineState(
-              currentState.longitudinalState, response.longitudinalResponse, accelerationRestriction.longitudinalRange);
-          }
-
-          nonDangerousStateToRemember = previousNonDangerousState->second;
+          spdlog::info("RssResponseResolving::provideProperResponse>> Unstructured state is dangerous: {}",
+                       currentState);
+          combineState(currentState.unstructuredSceneState,
+                       driveAwayBrakeMin,
+                       unstructuredDriveAwayToBrakeTransitionOccured,
+                       response.unstructuredSceneResponse,
+                       response.headingRanges,
+                       response.accelerationRestrictions.longitudinalRange);
         }
-        else
+        else // structured
         {
-          // There is a lateral and a longitudinal conflict so both longitudinal and lateral distances became
-          // dangerous at the same time
-          combineState(
-            currentState.longitudinalState, response.longitudinalResponse, accelerationRestriction.longitudinalRange);
+          spdlog::info("RssResponseResolving::provideProperResponse>> Structured state is dangerous: {}", currentState);
+
+          combineState(currentState.longitudinalState,
+                       response.longitudinalResponse,
+                       response.accelerationRestrictions.longitudinalRange);
 
           // we might need to check here if left or right is the dangerous side
           // but for the combineLateralResponse will only respect the more severe response
           // omitting the check should have the same result
-          combineState(
-            currentState.lateralStateLeft, response.lateralResponseLeft, accelerationRestriction.lateralLeftRange);
+          combineState(currentState.lateralStateLeft,
+                       response.lateralResponseLeft,
+                       response.accelerationRestrictions.lateralLeftRange);
 
-          combineState(
-            currentState.lateralStateRight, response.lateralResponseRight, accelerationRestriction.lateralRightRange);
-        }
-      }
-      else
-      {
-        nonDangerousStateToRemember.longitudinalSafe = isLongitudinalSafe(currentState);
-        nonDangerousStateToRemember.lateralSafe = isLateralSafe(currentState);
-      }
-
-      // store state for the next iteration
-      if (nonDangerousStateToRemember.longitudinalSafe || nonDangerousStateToRemember.lateralSafe)
-      {
-        auto const insertResult = newStatesBeforeDangerThresholdTime.insert(
-          RssSafeStateBeforeDangerThresholdTimeMap::value_type(currentState.situationId, nonDangerousStateToRemember));
-
-        if (result)
-        {
-          result = insertResult.second;
+          combineState(currentState.lateralStateRight,
+                       response.lateralResponseRight,
+                       response.accelerationRestrictions.lateralRightRange);
         }
       }
     }
 
-    if (result)
+    if (unstructuredDriveAwayToBrakeTransitionOccured
+        && (response.unstructuredSceneResponse == state::UnstructuredSceneResponse::DriveAway))
     {
-      // Determine resulting response
-      mStatesBeforeDangerThresholdTime.clear();
-      mStatesBeforeDangerThresholdTime.swap(newStatesBeforeDangerThresholdTime);
+      response.unstructuredSceneResponse = state::UnstructuredSceneResponse::Brake;
+      response.accelerationRestrictions.longitudinalRange.maximum
+        = std::min(response.accelerationRestrictions.longitudinalRange.maximum, driveAwayBrakeMin);
     }
+  }
+  catch (std::exception &e)
+  {
+    spdlog::critical(
+      "RssResponseResolving::provideProperResponse>> Exception caught'{}' {}", e.what(), currentStateSnapshot);
+    result = false;
   }
   catch (...)
   {
-    spdlog::critical("RssResponseResolving::provideProperResponse>> Exception catched");
+    spdlog::critical("RssResponseResolving::provideProperResponse>> Exception caught {}", currentStateSnapshot);
     result = false;
   }
 
@@ -193,9 +171,49 @@ template <typename Response> Response combineResponse(Response const &previousRe
   return newResponse;
 }
 
-void RssResponseResolving::combineState(::ad::rss::state::LongitudinalRssState const &state,
-                                        ::ad::rss::state::LongitudinalResponse &response,
-                                        ::ad::physics::AccelerationRange &accelerationRange)
+void RssResponseResolving::combineState(state::UnstructuredSceneRssState const &state,
+                                        physics::Acceleration &driveAwayBrakeMin,
+                                        bool &driveAwayToBrakeTransition,
+                                        state::UnstructuredSceneResponse &response,
+                                        state::HeadingRangeVector &responseHeadingRanges,
+                                        physics::AccelerationRange &accelerationRange)
+{
+  if ((response != state::UnstructuredSceneResponse::Brake)
+      && (state.response == state::UnstructuredSceneResponse::DriveAway))
+  {
+    driveAwayBrakeMin = std::min(driveAwayBrakeMin, state.alphaLon.brakeMin);
+    if (!driveAwayToBrakeTransition)
+    {
+      auto const overlapAvailable = unstructured::getHeadingOverlap(state.headingRange, responseHeadingRanges);
+      if (!overlapAvailable)
+      {
+        driveAwayToBrakeTransition = true;
+      }
+    }
+  }
+
+  if (state.response > response)
+  {
+    response = state.response;
+  }
+
+  // LCOV_EXCL_BR_START: unreachable exceptions due to valid input range checks
+  accelerationRange.minimum = std::max(accelerationRange.minimum, state.alphaLon.brakeMax);
+  if (state.response == state::UnstructuredSceneResponse::Brake)
+  {
+    responseHeadingRanges.clear();
+    accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLon.brakeMin);
+  }
+  else
+  {
+    accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLon.accelMax);
+  }
+  // LCOV_EXCL_BR_STOP
+}
+
+void RssResponseResolving::combineState(state::LongitudinalRssState const &state,
+                                        state::LongitudinalResponse &response,
+                                        physics::AccelerationRange &accelerationRange)
 {
   response = combineResponse(state.response, response);
 
@@ -203,13 +221,13 @@ void RssResponseResolving::combineState(::ad::rss::state::LongitudinalRssState c
   accelerationRange.minimum = std::max(accelerationRange.minimum, state.alphaLon.brakeMax);
   switch (state.response)
   {
-    case ::ad::rss::state::LongitudinalResponse::BrakeMin:
+    case state::LongitudinalResponse::BrakeMin:
       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLon.brakeMin);
       break;
-    case ::ad::rss::state::LongitudinalResponse::BrakeMinCorrect:
+    case state::LongitudinalResponse::BrakeMinCorrect:
       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLon.brakeMinCorrect);
       break;
-    case ::ad::rss::state::LongitudinalResponse::None:
+    case state::LongitudinalResponse::None:
       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLon.accelMax);
       break;
     default:
@@ -221,9 +239,9 @@ void RssResponseResolving::combineState(::ad::rss::state::LongitudinalRssState c
   // LCOV_EXCL_BR_STOP
 }
 
-void RssResponseResolving::combineState(::ad::rss::state::LateralRssState const &state,
-                                        ::ad::rss::state::LateralResponse &response,
-                                        ::ad::physics::AccelerationRange &accelerationRange)
+void RssResponseResolving::combineState(state::LateralRssState const &state,
+                                        state::LateralResponse &response,
+                                        physics::AccelerationRange &accelerationRange)
 {
   response = combineResponse(state.response, response);
 
@@ -231,10 +249,10 @@ void RssResponseResolving::combineState(::ad::rss::state::LateralRssState const 
   accelerationRange.minimum = std::numeric_limits<physics::Acceleration>::lowest();
   switch (state.response)
   {
-    case ::ad::rss::state::LateralResponse::BrakeMin:
+    case state::LateralResponse::BrakeMin:
       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLat.brakeMin);
       break;
-    case ::ad::rss::state::LateralResponse::None:
+    case state::LateralResponse::None:
       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLat.accelMax);
       break;
     default:

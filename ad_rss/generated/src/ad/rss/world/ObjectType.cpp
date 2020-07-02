@@ -28,6 +28,8 @@ std::string toString(::ad::rss::world::ObjectType const e)
       return std::string("::ad::rss::world::ObjectType::EgoVehicle"); // LCOV_EXCL_BR_LINE
     case ::ad::rss::world::ObjectType::OtherVehicle:
       return std::string("::ad::rss::world::ObjectType::OtherVehicle"); // LCOV_EXCL_BR_LINE
+    case ::ad::rss::world::ObjectType::Pedestrian:
+      return std::string("::ad::rss::world::ObjectType::Pedestrian"); // LCOV_EXCL_BR_LINE
     case ::ad::rss::world::ObjectType::ArtificialObject:
       return std::string("::ad::rss::world::ObjectType::ArtificialObject"); // LCOV_EXCL_BR_LINE
     default:
@@ -60,6 +62,14 @@ template <>::ad::rss::world::ObjectType fromString(std::string const &str)
   if (str == std::string("OtherVehicle")) // LCOV_EXCL_BR_LINE
   {
     return ::ad::rss::world::ObjectType::OtherVehicle;
+  }
+  if (str == std::string("::ad::rss::world::ObjectType::Pedestrian")) // LCOV_EXCL_BR_LINE
+  {
+    return ::ad::rss::world::ObjectType::Pedestrian;
+  }
+  if (str == std::string("Pedestrian")) // LCOV_EXCL_BR_LINE
+  {
+    return ::ad::rss::world::ObjectType::Pedestrian;
   }
   if (str == std::string("::ad::rss::world::ObjectType::ArtificialObject")) // LCOV_EXCL_BR_LINE
   {

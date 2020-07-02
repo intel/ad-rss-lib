@@ -56,9 +56,14 @@ enum class ObjectType : int32_t
   OtherVehicle = 2,
 
   /*!
+   * The object is a pedestrian
+   */
+  Pedestrian = 3,
+
+  /*!
    * The object is an artificial one.
    */
-  ArtificialObject = 3
+  ArtificialObject = 4
 };
 
 } // namespace world

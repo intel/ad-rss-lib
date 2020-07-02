@@ -22,6 +22,7 @@
 #include <memory>
 #include <sstream>
 #include "ad/rss/world/ObjectId.hpp"
+#include "ad/rss/world/ObjectState.hpp"
 #include "ad/rss/world/ObjectType.hpp"
 #include "ad/rss/world/OccupiedRegionVector.hpp"
 #include "ad/rss/world/Velocity.hpp"
@@ -42,7 +43,7 @@ namespace world {
  * \brief DataType Object
  *
  * An object is described by several aspects: the unique id of an object, the type of the object, the lane regions the
- * object occupies, the objects velocity within its lane.
+ * object occupies, the objects velocity within its lane and its state.
  */
 struct Object
 {
@@ -104,7 +105,7 @@ struct Object
   bool operator==(const Object &other) const
   {
     return (objectId == other.objectId) && (objectType == other.objectType)
-      && (occupiedRegions == other.occupiedRegions) && (velocity == other.velocity);
+      && (occupiedRegions == other.occupiedRegions) && (velocity == other.velocity) && (state == other.state);
   }
 
   /**
@@ -138,6 +139,11 @@ struct Object
    * Defines the objects velocity in respect to its current major lane.
    */
   ::ad::rss::world::Velocity velocity;
+
+  /*!
+   * Defines the state of the object in respect to a local reference coordinate system (e.g. ENU)
+   */
+  ::ad::rss::world::ObjectState state;
 };
 
 } // namespace world
@@ -185,6 +191,9 @@ inline std::ostream &operator<<(std::ostream &os, Object const &_value)
   os << ",";
   os << "velocity:";
   os << _value.velocity;
+  os << ",";
+  os << "state:";
+  os << _value.state;
   os << ")";
   return os;
 }

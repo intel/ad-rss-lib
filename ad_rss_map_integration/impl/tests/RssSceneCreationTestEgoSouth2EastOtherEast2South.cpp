@@ -345,18 +345,20 @@ TEST_F(RssSceneCreationTestWithoutRouteEgoSouth2EastOtherEast2South, e2_o0)
   performSceneTest(
     locationSouth2East(),
     locationEastIncoming(),
-    // here we get 2 object predictions and 3 ego predictions:
-    // but because ego predictions start within current (first) intersection
-    // the first intersection uses the object is totally ignored
-    // @todo: intersection creation has to support also creation of already entered intersections
-    // to get the current intersection also considered appropriate!!
-    //
+    // here we get 2 object predictions and 2 ego predictions:
     std::initializer_list<ExpectedResultTuple>{
-      // ego-turn-right: only these ego predictions lead to the opposite direction case
+      // ego-turn-right: all 2 object predictions lead to the opposite direction case
       std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 2u, 0u, ::ad::physics::Speed(100.)),
-      std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 2u, 0u, ::ad::physics::Speed(100.))});
-  // ego-straight-then-right: first intersection not present (@todo: to be fixed)
-  // ego-straight-then-straight: first intersection not present (@todo: to be fixed)
+      std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 2u, 0u, ::ad::physics::Speed(100.)),
+      // ego-straight: object prediction 1
+      // first intersection 'not present'; works because no other intersection in prediction and objects intersection is
+      // taken (@todo: to be fixed)
+      // object coming form right has prio
+      std::make_tuple(
+        ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 2u, 2u, ::ad::physics::Speed(100.)),
+      // ego-straight: object prediction 2
+      std::make_tuple(
+        ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 2u, 2u, ::ad::physics::Speed(100.))});
 }
 
 TEST_F(RssSceneCreationTestWithoutRouteEgoSouth2EastOtherEast2South, e0_o4)

@@ -30,14 +30,18 @@ def main():
     include_dirs = {
         "${GENPY_INCLUDE_DIRS}"
     }
+    # currently ignored files
+    ignore_files = {
+        "unstructured/DebugDrawing.hpp",
+    }
 
     generate_python_wrapper(library_name="libad_rss_python",
                             cpp_filename="AdRssPythonWrapper.cpp.in",
                             header_directories=header_dirs,
                             include_paths=include_dirs,
                             declarations={
-                                "ad", "toString", "fromString", "std::to_string", "std::sqrt", "std::fabs", "std::numeric_limits"}
-                            )
+                                "ad", "toString", "fromString", "std::to_string", "std::sqrt", "std::fabs", "std::numeric_limits"},
+                            ignore_files=ignore_files)
 
     # these are additional replacements that have to be done...
     additional_replacements = {

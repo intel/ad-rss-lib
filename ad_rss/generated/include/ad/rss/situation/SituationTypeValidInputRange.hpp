@@ -40,7 +40,8 @@ inline bool withinValidInputRange(::ad::rss::situation::SituationType const &inp
     || (input == ::ad::rss::situation::SituationType::OppositeDirection)
     || (input == ::ad::rss::situation::SituationType::IntersectionEgoHasPriority)
     || (input == ::ad::rss::situation::SituationType::IntersectionObjectHasPriority)
-    || (input == ::ad::rss::situation::SituationType::IntersectionSamePriority);
+    || (input == ::ad::rss::situation::SituationType::IntersectionSamePriority)
+    || (input == ::ad::rss::situation::SituationType::Unstructured);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::situation::SituationType)>> {}, raw value: {} ",

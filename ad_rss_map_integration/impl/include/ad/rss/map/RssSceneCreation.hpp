@@ -15,6 +15,8 @@
 #include <ad/map/route/Types.hpp>
 #include <ad/rss/world/WorldModel.hpp>
 #include <mutex>
+#include <ostream>
+#include <string>
 
 /*!
  * @brief namespace rss
@@ -28,6 +30,20 @@ namespace rss {
  * @brief namespace map
  */
 namespace map {
+
+class RssSceneCreator;
+class RssObjectConversion;
+
+/*!
+ * @brief Specifies the scene mode
+ */
+enum class RssMode
+{
+  NotRelevant, //!< the scene is not relevant (but should be visible as NotRelvant scene)
+  Structured,  //!< the scene requires structured analysis
+  Unstructured //!< the scene requires unstructured analysis
+};
+
 /*!
  * @brief class providing supporting functions to create a world model and its scenes.
  *
@@ -55,23 +71,26 @@ public:
   enum class RestrictSpeedLimitMode
   {
     /**
-     * Do not change the objects maxSpeed parameter of objectRssDynamics.
+     * Do not change the objects maxSpeedOnAcceleration parameter of objectRssDynamics.
      */
     None,
     /**
-     * Set the objects maxSpeed parameter of objectRssDynamics to the maximal allowed speed of the relevant road section
+     * Set the objects maxSpeedOnAcceleration parameter of objectRssDynamics to the maximal allowed speed of the
+     * relevant road section
      */
     ExactSpeedLimit,
 
     /**
-     * Set the objects maxSpeed parameter of objectRssDynamics to the maximal allowed speed of the relevant road section
+     * Set the objects maxSpeedOnAcceleration parameter of objectRssDynamics to the maximal allowed speed of the
+     * relevant road section
      * +
      * 5 percent
      */
     IncreasedSpeedLimit5,
 
     /**
-     * Set the objects maxSpeed parameter of objectRssDynamics to the maximal allowed speed of the relevant road section
+     * Set the objects maxSpeedOnAcceleration parameter of objectRssDynamics to the maximal allowed speed of the
+     * relevant road section
      * +
      * 10 percent
      */
@@ -86,6 +105,7 @@ public:
    * @param[in] egoId the ego vehicle id
    * @param[in] egoMatchObject the ego vehicle's position described by its map matched bounding box and position
    * @param[in] egoSpeed the ego vehicle's speed
+   * @param[in] egoYawRate the ego vehicle's yaw rate
    * @param[in] egoRssDynamics the ego vehicles' RssDynamics to be applied
    * @param[in] egoRoute the route the ego vehicle intends to take.
    *   If the given route is empty, all potential route predictions of the ego vehicle are taken into account if
@@ -94,27 +114,32 @@ public:
    * @param[in] objectType the object type
    * @param[in] objectMatchObject the object's position described by its map matched bounding box and position
    * @param[in] objectSpeed the object's speed
+   * @param[in] objectYawRate the object's yaw rate
    * @param[in] objectRssDynamics the object's RssDynamics to be applied
-   * @param[in] restrictSpeedLimitMode the mode to select the behavior of objectRssDynamics.maxSpeed and
-   * egoRssDynamics.maxSpeed
+   * @param[in] restrictSpeedLimitMode the mode to select the behavior of objectRssDynamics.maxSpeedOnAcceleration and
+   * egoRssDynamics.maxSpeedOnAcceleration
    * parameter
    * @param[in] greenTrafficLights the list of known green traffic lights.
    *   Required to derive the correct priority rule for the ego vehicle when approaching a traffic light intersection.
+   * @param[in] mode the mode of this scene
    *
    * @returns \c true if the operation succeeded.
    */
   bool appendScenes(::ad::rss::world::ObjectId const &egoId,
                     ::ad::map::match::Object const &egoMatchObject,
                     ::ad::physics::Speed const &egoSpeed,
+                    ::ad::physics::AngularVelocity const &egoYawRate,
                     ::ad::rss::world::RssDynamics const &egoRssDynamics,
                     ::ad::map::route::FullRoute const &egoRoute,
                     ::ad::rss::world::ObjectId const &objectId,
                     ::ad::rss::world::ObjectType const &objectType,
                     ::ad::map::match::Object const &objectMatchObject,
                     ::ad::physics::Speed const &objectSpeed,
+                    ::ad::physics::AngularVelocity const &objectYawRate,
                     ::ad::rss::world::RssDynamics const &objectRssDynamics,
                     RestrictSpeedLimitMode const &restrictSpeedLimitMode,
-                    ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights);
+                    ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights,
+                    ::ad::rss::map::RssMode const &mode);
 
   /**
    * @brief enumeration defining the operation modes of appendRoadBoundaries() function.
@@ -144,6 +169,7 @@ public:
    * @param[in] egoId the ego vehicle id
    * @param[in] egoMatchObject the ego vehicle's position described by its map matched bounding box and position
    * @param[in] egoSpeed the ego vehicle's speed
+   * @param[in] egoYawRate the ego vehicle's yaw rate
    * @param[in] egoRssDynamics the ego vehicles' RssDynamics to be applied
    * @param[in] egoRoute the route the ego vehicle intends to take.
    *
@@ -152,6 +178,7 @@ public:
   bool appendRoadBoundaries(::ad::rss::world::ObjectId const &egoId,
                             ::ad::map::match::Object const &egoMatchObject,
                             ::ad::physics::Speed const &egoSpeed,
+                            ::ad::physics::AngularVelocity const &egoYawRate,
                             ::ad::rss::world::RssDynamics const &egoRssDynamics,
                             ::ad::map::route::FullRoute const &route,
                             AppendRoadBoundariesMode const operationMode);
@@ -168,6 +195,11 @@ public:
 private:
   friend class RssSceneCreator;
 
+  bool appendStructuredScenes(::ad::rss::map::RssSceneCreator &sceneCreator,
+                              std::shared_ptr<RssObjectConversion const> const &egoObject,
+                              ::ad::map::route::FullRoute const &egoRoute,
+                              std::shared_ptr<RssObjectConversion const> const &otherObject);
+
   bool appendSceneToWorldModel(::ad::rss::world::Scene const &scene);
 
   ::ad::rss::world::WorldModel mWorldModel;
@@ -178,3 +210,76 @@ private:
 } // namespace map
 } // namespace rss
 } // namespace ad
+
+/*!
+ * @brief namespace std
+ */
+namespace std {
+
+/*!
+ * \brief overload of the std::to_string for RestrictSpeedLimitMode
+ */
+inline string to_string(::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode const &value)
+{
+  switch (value)
+  {
+    case ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::None:
+      return string("::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::None");
+    case ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::ExactSpeedLimit:
+      return string("::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::ExactSpeedLimit");
+    case ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit5:
+      return string("::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit5");
+    case ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10:
+      return string("::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10");
+    default:
+      return string("::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode UNKNOWN ENUM VALUE");
+  }
+}
+
+/**
+ * \brief standard ostream operator
+ *
+ * \param[in] os The output stream to write to
+ * \param[in] value RestrictSpeedLimitMode value
+ *
+ * \returns The stream object.
+ *
+ */
+inline ostream &operator<<(ostream &os, ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode const &value)
+{
+  return os << std::to_string(value);
+}
+
+/*!
+ * \brief overload of the std::to_string for RssMode
+ */
+inline string to_string(::ad::rss::map::RssMode const &value)
+{
+  switch (value)
+  {
+    case ::ad::rss::map::RssMode::NotRelevant:
+      return string("::ad::rss::map::RssMode::NotRelevant");
+    case ::ad::rss::map::RssMode::Structured:
+      return string("::ad::rss::map::RssMode::Structured");
+    case ::ad::rss::map::RssMode::Unstructured:
+      return string("::ad::rss::map::RssMode::Unstructured");
+    default:
+      return string("::ad::rss::map::RssMode UNKNOWN ENUM VALUE");
+  }
+}
+
+/**
+ * \brief standard ostream operator
+ *
+ * \param[in] os The output stream to write to
+ * \param[in] value RssMode value
+ *
+ * \returns The stream object.
+ *
+ */
+inline ostream &operator<<(ostream &os, ::ad::rss::map::RssMode const &value)
+{
+  return os << to_string(value);
+}
+
+} // namespace std

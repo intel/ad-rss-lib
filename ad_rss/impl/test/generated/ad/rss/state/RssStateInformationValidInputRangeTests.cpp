@@ -21,9 +21,9 @@
 TEST(RssStateInformationValidInputRangeTests, testValidInputRange)
 {
   ::ad::rss::state::RssStateInformation value;
-  ::ad::physics::Distance valueSafeDistance(0.);
+  ::ad::physics::Distance valueSafeDistance(-1e9);
   value.safeDistance = valueSafeDistance;
-  ::ad::physics::Distance valueCurrentDistance(0.);
+  ::ad::physics::Distance valueCurrentDistance(-1e9);
   value.currentDistance = valueCurrentDistance;
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
@@ -33,15 +33,15 @@ TEST(RssStateInformationValidInputRangeTests, testValidInputRange)
 TEST(RssStateInformationValidInputRangeTests, testValidInputRangeSafeDistanceTooSmall)
 {
   ::ad::rss::state::RssStateInformation value;
-  ::ad::physics::Distance valueSafeDistance(0.);
+  ::ad::physics::Distance valueSafeDistance(-1e9);
   value.safeDistance = valueSafeDistance;
-  ::ad::physics::Distance valueCurrentDistance(0.);
+  ::ad::physics::Distance valueCurrentDistance(-1e9);
   value.currentDistance = valueCurrentDistance;
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
 
   // override member with data type value below input range minimum
-  ::ad::physics::Distance invalidInitializedMember(0. - ::ad::physics::Distance::cPrecisionValue);
+  ::ad::physics::Distance invalidInitializedMember(-1e9 * 1.1);
   value.safeDistance = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -49,9 +49,9 @@ TEST(RssStateInformationValidInputRangeTests, testValidInputRangeSafeDistanceToo
 TEST(RssStateInformationValidInputRangeTests, testValidInputRangeSafeDistanceTooBig)
 {
   ::ad::rss::state::RssStateInformation value;
-  ::ad::physics::Distance valueSafeDistance(0.);
+  ::ad::physics::Distance valueSafeDistance(-1e9);
   value.safeDistance = valueSafeDistance;
-  ::ad::physics::Distance valueCurrentDistance(0.);
+  ::ad::physics::Distance valueCurrentDistance(-1e9);
   value.currentDistance = valueCurrentDistance;
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
@@ -73,15 +73,15 @@ TEST(RssStateInformationValidInputRangeTests, testValidInputRangesafeDistanceDef
 TEST(RssStateInformationValidInputRangeTests, testValidInputRangeCurrentDistanceTooSmall)
 {
   ::ad::rss::state::RssStateInformation value;
-  ::ad::physics::Distance valueSafeDistance(0.);
+  ::ad::physics::Distance valueSafeDistance(-1e9);
   value.safeDistance = valueSafeDistance;
-  ::ad::physics::Distance valueCurrentDistance(0.);
+  ::ad::physics::Distance valueCurrentDistance(-1e9);
   value.currentDistance = valueCurrentDistance;
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
 
   // override member with data type value below input range minimum
-  ::ad::physics::Distance invalidInitializedMember(0. - ::ad::physics::Distance::cPrecisionValue);
+  ::ad::physics::Distance invalidInitializedMember(-1e9 * 1.1);
   value.currentDistance = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
@@ -89,9 +89,9 @@ TEST(RssStateInformationValidInputRangeTests, testValidInputRangeCurrentDistance
 TEST(RssStateInformationValidInputRangeTests, testValidInputRangeCurrentDistanceTooBig)
 {
   ::ad::rss::state::RssStateInformation value;
-  ::ad::physics::Distance valueSafeDistance(0.);
+  ::ad::physics::Distance valueSafeDistance(-1e9);
   value.safeDistance = valueSafeDistance;
-  ::ad::physics::Distance valueCurrentDistance(0.);
+  ::ad::physics::Distance valueCurrentDistance(-1e9);
   value.currentDistance = valueCurrentDistance;
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
@@ -113,9 +113,9 @@ TEST(RssStateInformationValidInputRangeTests, testValidInputRangecurrentDistance
 TEST(RssStateInformationValidInputRangeTests, testValidInputRangeEvaluatorTooSmall)
 {
   ::ad::rss::state::RssStateInformation value;
-  ::ad::physics::Distance valueSafeDistance(0.);
+  ::ad::physics::Distance valueSafeDistance(-1e9);
   value.safeDistance = valueSafeDistance;
-  ::ad::physics::Distance valueCurrentDistance(0.);
+  ::ad::physics::Distance valueCurrentDistance(-1e9);
   value.currentDistance = valueCurrentDistance;
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
@@ -129,9 +129,9 @@ TEST(RssStateInformationValidInputRangeTests, testValidInputRangeEvaluatorTooSma
 TEST(RssStateInformationValidInputRangeTests, testValidInputRangeEvaluatorTooBig)
 {
   ::ad::rss::state::RssStateInformation value;
-  ::ad::physics::Distance valueSafeDistance(0.);
+  ::ad::physics::Distance valueSafeDistance(-1e9);
   value.safeDistance = valueSafeDistance;
-  ::ad::physics::Distance valueCurrentDistance(0.);
+  ::ad::physics::Distance valueCurrentDistance(-1e9);
   value.currentDistance = valueCurrentDistance;
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;

@@ -56,6 +56,11 @@ TEST(SituationTypeTests, testFromString)
     fromString<::ad::rss::situation::SituationType>("::ad::rss::situation::SituationType::IntersectionSamePriority"),
     ::ad::rss::situation::SituationType::IntersectionSamePriority);
 
+  ASSERT_EQ(fromString<::ad::rss::situation::SituationType>("Unstructured"),
+            ::ad::rss::situation::SituationType::Unstructured);
+  ASSERT_EQ(fromString<::ad::rss::situation::SituationType>("::ad::rss::situation::SituationType::Unstructured"),
+            ::ad::rss::situation::SituationType::Unstructured);
+
   EXPECT_ANY_THROW({ fromString<::ad::rss::situation::SituationType>("NOT A VALID ENUM LITERAL"); });
 }
 
@@ -95,6 +100,11 @@ TEST(SituationTypeTests, testToString)
             "::ad::rss::situation::SituationType::IntersectionSamePriority");
   minValue = std::min(minValue, static_cast<int32_t>(::ad::rss::situation::SituationType::IntersectionSamePriority));
   maxValue = std::max(maxValue, static_cast<int32_t>(::ad::rss::situation::SituationType::IntersectionSamePriority));
+
+  ASSERT_EQ(toString(::ad::rss::situation::SituationType::Unstructured),
+            "::ad::rss::situation::SituationType::Unstructured");
+  minValue = std::min(minValue, static_cast<int32_t>(::ad::rss::situation::SituationType::Unstructured));
+  maxValue = std::max(maxValue, static_cast<int32_t>(::ad::rss::situation::SituationType::Unstructured));
 
   ASSERT_EQ(toString(static_cast<::ad::rss::situation::SituationType>(minValue - 1)), "UNKNOWN ENUM VALUE");
   ASSERT_EQ(toString(static_cast<::ad::rss::situation::SituationType>(maxValue + 1)), "UNKNOWN ENUM VALUE");

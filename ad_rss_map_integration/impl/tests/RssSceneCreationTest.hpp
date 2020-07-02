@@ -44,7 +44,19 @@ struct RssSceneCreationTest : ::testing::Test
     withoutRouteWithoutSpeedLimit
   };
 
-  ::ad::rss::world::RssDynamics getEgoVehicleDynamics(::ad::physics::Speed const maxSpeed = ::ad::physics::Speed(100.))
+  ::ad::rss::world::UnstructuredSettings getUnstructuredSettings()
+  {
+    ::ad::rss::world::UnstructuredSettings unstructuredSettings;
+    unstructuredSettings.pedestrianTurningRadius = ad::physics::Distance(2.0);
+    unstructuredSettings.driveAwayMaxAngle = ad::physics::Angle(2.4);
+    unstructuredSettings.vehicleYawRateChange = ad::physics::AngularAcceleration(0.3);
+    unstructuredSettings.vehicleMinRadius = ad::physics::Distance(3.5);
+    unstructuredSettings.vehicleTrajectoryCalculationStep = ad::physics::Duration(0.2);
+    return unstructuredSettings;
+  }
+
+  ::ad::rss::world::RssDynamics getEgoVehicleDynamics(::ad::physics::Speed const maxSpeedOnAcceleration
+                                                      = ::ad::physics::Speed(100.))
   {
     ::ad::rss::world::RssDynamics result;
     result.alphaLat.accelMax = cMaximumLateralAcceleration;
@@ -58,12 +70,14 @@ struct RssSceneCreationTest : ::testing::Test
     result.lateralFluctuationMargin = ::ad::physics::Distance(0.);
 
     result.responseTime = cResponseTimeEgoVehicle;
-    result.maxSpeed = maxSpeed;
+    result.maxSpeedOnAcceleration = maxSpeedOnAcceleration;
+
+    result.unstructuredSettings = getUnstructuredSettings();
 
     return result;
   }
 
-  ::ad::rss::world::RssDynamics getObjectVehicleDynamics(::ad::physics::Speed const maxSpeed
+  ::ad::rss::world::RssDynamics getObjectVehicleDynamics(::ad::physics::Speed const maxSpeedOnAcceleration
                                                          = ::ad::physics::Speed(100.))
   {
     ::ad::rss::world::RssDynamics result;
@@ -78,7 +92,9 @@ struct RssSceneCreationTest : ::testing::Test
     result.lateralFluctuationMargin = ::ad::physics::Distance(0.);
 
     result.responseTime = cResponseTimeOtherVehicles;
-    result.maxSpeed = maxSpeed;
+    result.maxSpeedOnAcceleration = maxSpeedOnAcceleration;
+
+    result.unstructuredSettings = getUnstructuredSettings();
 
     return result;
   }
@@ -194,6 +210,7 @@ struct RssSceneCreationTest : ::testing::Test
 
     ::ad::rss::world::ObjectId otherVehicleId{10};
     ::ad::physics::Speed otherVehicleSpeed{10.};
+    ::ad::physics::AngularVelocity otherVehicleYawRate{0.};
 
     ::ad::map::match::Object otherMatchObject;
 
@@ -210,15 +227,18 @@ struct RssSceneCreationTest : ::testing::Test
     EXPECT_TRUE(sceneCreation.appendScenes(egoVehicleId,
                                            egoMatchObject,
                                            egoSpeed,
+                                           egoYawRate,
                                            getEgoVehicleDynamics(),
                                            testRoute,
                                            otherVehicleId,
                                            ::ad::rss::world::ObjectType::OtherVehicle,
                                            otherMatchObject,
                                            otherVehicleSpeed,
+                                           otherVehicleYawRate,
                                            getObjectVehicleDynamics(),
                                            speedLimitMode,
-                                           ::ad::map::landmark::LandmarkIdSet()));
+                                           ::ad::map::landmark::LandmarkIdSet(),
+                                           ::ad::rss::map::RssMode::Structured));
 
     auto const worldModel = sceneCreation.getWorldModel();
     checkSceneResults(worldModel, otherVehicleId, expectedResults);
@@ -226,6 +246,7 @@ struct RssSceneCreationTest : ::testing::Test
 
   ::ad::rss::world::ObjectId egoVehicleId{123u};
   ::ad::physics::Speed egoSpeed;
+  ::ad::physics::AngularVelocity egoYawRate;
   ::ad::map::match::Object egoMatchObject;
   ::ad::map::route::FullRoute egoRoute;
 };
@@ -247,6 +268,7 @@ struct RssSceneCreationTestTown01 : RssSceneCreationTest
     initializeObjectGeo(egoGeoLocation, egoMatchObject);
 
     egoSpeed = ::ad::physics::Speed(5.);
+    egoYawRate = ::ad::physics::AngularVelocity(0.);
 
     // laneId: offset  120149:0.52  (ego turn right)
     auto positionEndGeo = ::ad::map::point::createGeoPoint(::ad::map::point::Longitude(8.003),

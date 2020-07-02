@@ -22,6 +22,8 @@
 #include "ad/physics/DistanceValidInputRange.hpp"
 #include "ad/rss/situation/VehicleState.hpp"
 #include "ad/rss/situation/VelocityRangeValidInputRange.hpp"
+#include "ad/rss/world/ObjectStateValidInputRange.hpp"
+#include "ad/rss/world/ObjectTypeValidInputRange.hpp"
 #include "ad/rss/world/RssDynamicsValidInputRange.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
@@ -45,7 +47,8 @@ inline bool withinValidInputRange(::ad::rss::situation::VehicleState const &inpu
   inValidInputRange = withinValidInputRange(input.velocity, logErrors)
     && withinValidInputRange(input.dynamics, logErrors)
     && withinValidInputRange(input.distanceToEnterIntersection, logErrors)
-    && withinValidInputRange(input.distanceToLeaveIntersection, logErrors);
+    && withinValidInputRange(input.distanceToLeaveIntersection, logErrors)
+    && withinValidInputRange(input.objectType, logErrors) && withinValidInputRange(input.objectState, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::situation::VehicleState)>> {} has invalid member",

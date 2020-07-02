@@ -20,7 +20,7 @@
 /*!
  * The major version of ad_rss
  */
-#define AD_RSS_VERSION_MAJOR 3
+#define AD_RSS_VERSION_MAJOR 4
 
 /*!
  * The minor version of ad_rss
@@ -30,9 +30,9 @@
 /*!
  * The revision of ad_rss
  */
-#define AD_RSS_VERSION_REVISION 1
+#define AD_RSS_VERSION_REVISION 0
 
 /*!
  * The version of ad_rss as string
  */
-#define AD_RSS_VERSION_STRING "3.0.1"
+#define AD_RSS_VERSION_STRING "4.0.0"

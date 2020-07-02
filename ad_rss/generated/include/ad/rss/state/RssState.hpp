@@ -22,8 +22,10 @@
 #include <memory>
 #include <sstream>
 #include "ad/rss/situation/SituationId.hpp"
+#include "ad/rss/situation/SituationType.hpp"
 #include "ad/rss/state/LateralRssState.hpp"
 #include "ad/rss/state/LongitudinalRssState.hpp"
+#include "ad/rss/state/UnstructuredSceneRssState.hpp"
 #include "ad/rss/world/ObjectId.hpp"
 /*!
  * @brief namespace ad
@@ -104,7 +106,8 @@ struct RssState
   {
     return (objectId == other.objectId) && (situationId == other.situationId)
       && (longitudinalState == other.longitudinalState) && (lateralStateRight == other.lateralStateRight)
-      && (lateralStateLeft == other.lateralStateLeft);
+      && (lateralStateLeft == other.lateralStateLeft) && (unstructuredSceneState == other.unstructuredSceneState)
+      && (situationType == other.situationType);
   }
 
   /**
@@ -147,6 +150,16 @@ struct RssState
    * The current lateral rss state at left side in respect to ego-vehicle driving direction.
    */
   ::ad::rss::state::LateralRssState lateralStateLeft;
+
+  /*!
+   * The state of the unstructured scene.
+   */
+  ::ad::rss::state::UnstructuredSceneRssState unstructuredSceneState;
+
+  /*!
+   * This type of situation this RssState was calculated on.
+   */
+  ::ad::rss::situation::SituationType situationType;
 };
 
 } // namespace state
@@ -197,6 +210,12 @@ inline std::ostream &operator<<(std::ostream &os, RssState const &_value)
   os << ",";
   os << "lateralStateLeft:";
   os << _value.lateralStateLeft;
+  os << ",";
+  os << "unstructuredSceneState:";
+  os << _value.unstructuredSceneState;
+  os << ",";
+  os << "situationType:";
+  os << _value.situationType;
   os << ")";
   return os;
 }

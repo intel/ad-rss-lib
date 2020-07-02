@@ -15,7 +15,6 @@
 #include "ad/rss/situation/SituationSnapshot.hpp"
 #include "ad/rss/state/ProperResponse.hpp"
 #include "ad/rss/state/RssStateSnapshot.hpp"
-#include "ad/rss/world/AccelerationRestriction.hpp"
 #include "ad/rss/world/WorldModel.hpp"
 
 /*!
@@ -54,32 +53,29 @@ public:
   ~RssCheck();
 
   /**
-   * @brief calculateAccelerationRestriction
+   * @brief calculateProperResponse
    *
    * @param [in] worldModel - the current world model information
-   * \param [out] accelerationRestriction - The restrictions on the vehicle acceleration to become RSS safe.
+   * \param [out] accelerationRestriction - The proper response to become RSS safe.
    *
-   * @return return true if the acceleration restrictions could be calculated, false otherwise.
+   * @return return true if the proper response could be calculated, false otherwise.
    */
-  bool calculateAccelerationRestriction(world::WorldModel const &worldModel,
-                                        world::AccelerationRestriction &accelerationRestriction);
+  bool calculateProperResponse(world::WorldModel const &worldModel, state::ProperResponse &properResponse);
 
   /**
-   * @brief calculateAccelerationRestriction
+   * @brief calculateProperResponse
    *
    * @param [in] worldModel - the current world model information
    * \param [out] situationSnapshot - The intermediate situation snapshot
    * \param [out] rssStateSnapshot - The intermediate rss state snapshot
    * \param [out] properResponse - The intermediate proper response
-   * \param [out] accelerationRestriction - The restrictions on the vehicle acceleration to become RSS safe.
    *
-   * @return return true if the acceleration restrictions could be calculated, false otherwise.
+   * @return return true if the proper response could be calculated, false otherwise.
    */
-  bool calculateAccelerationRestriction(world::WorldModel const &worldModel,
-                                        situation::SituationSnapshot &situationSnapshot,
-                                        state::RssStateSnapshot &rssStateSnapshot,
-                                        state::ProperResponse &properResponse,
-                                        world::AccelerationRestriction &accelerationRestriction);
+  bool calculateProperResponse(world::WorldModel const &worldModel,
+                               situation::SituationSnapshot &situationSnapshot,
+                               state::RssStateSnapshot &rssStateSnapshot,
+                               state::ProperResponse &properResponse);
 
 private:
   std::unique_ptr<RssResponseResolving> mResponseResolving;

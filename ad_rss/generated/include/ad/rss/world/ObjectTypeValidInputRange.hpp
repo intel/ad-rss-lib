@@ -37,7 +37,7 @@ inline bool withinValidInputRange(::ad::rss::world::ObjectType const &input, boo
 {
   bool inValidInputRange = (input == ::ad::rss::world::ObjectType::Invalid)
     || (input == ::ad::rss::world::ObjectType::EgoVehicle) || (input == ::ad::rss::world::ObjectType::OtherVehicle)
-    || (input == ::ad::rss::world::ObjectType::ArtificialObject);
+    || (input == ::ad::rss::world::ObjectType::Pedestrian) || (input == ::ad::rss::world::ObjectType::ArtificialObject);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::world::ObjectType)>> {}, raw value: {} ",

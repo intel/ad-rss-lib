@@ -41,12 +41,23 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
     egoVehicleId = 123
     egoPosition = admap.ENUObjectPosition()
     egoSpeed = physics.Speed()
+    egoYawRate = physics.AngularVelocity()
     egoObject = admap.Object()
     egoRoute = admap.FullRoute()
+
+    def _getUnstructuedSettings(self):
+        unstructuredSettings = rss.UnstructuredSettings()
+        unstructuredSettings.pedestrianTurningRadius = physics.Distance(2.0)
+        unstructuredSettings.driveAwayMaxAngle = physics.Angle(2.4)
+        unstructuredSettings.vehicleYawRateChange = physics.AngularAcceleration(0.3)
+        unstructuredSettings.vehicleMinRadius = physics.Distance(3.5)
+        unstructuredSettings.vehicleTrajectoryCalculationStep = physics.Duration(0.2)
+        return unstructuredSettings
 
     def _get_object_vehicle_dynamics(self):
         objectRssDynamics = rss.RssDynamics()
         objectRssDynamics.responseTime = physics.Duration(0.5)
+        objectRssDynamics.maxSpeedOnAcceleration = physics.Speed(0.)
         objectRssDynamics.alphaLat.accelMax = physics.Acceleration(1.)
         objectRssDynamics.alphaLat.brakeMin = physics.Acceleration(-1.)
         objectRssDynamics.alphaLon.accelMax = physics.Acceleration(4.)
@@ -54,11 +65,13 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
         objectRssDynamics.alphaLon.brakeMinCorrect = physics.Acceleration(-4.)
         objectRssDynamics.alphaLon.brakeMin = physics.Acceleration(-4.)
         objectRssDynamics.lateralFluctuationMargin = physics.Distance(0.)
+        objectRssDynamics.unstructuredSettings = self._getUnstructuedSettings()
         return objectRssDynamics
 
     def _get_ego_vehicle_dynamics(self):
         egoRssDynamics = rss.RssDynamics()
         egoRssDynamics.responseTime = physics.Duration(0.2)
+        egoRssDynamics.maxSpeedOnAcceleration = physics.Speed(0.)
         egoRssDynamics.alphaLat.accelMax = physics.Acceleration(0.1)
         egoRssDynamics.alphaLat.brakeMin = physics.Acceleration(-0.1)
         egoRssDynamics.alphaLon.accelMax = physics.Acceleration(0.1)
@@ -66,6 +79,7 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
         egoRssDynamics.alphaLon.brakeMinCorrect = physics.Acceleration(-4.)
         egoRssDynamics.alphaLon.brakeMin = physics.Acceleration(-4.)
         egoRssDynamics.lateralFluctuationMargin = physics.Distance(0.)
+        egoRssDynamics.unstructuredSettings = self._getUnstructuedSettings()
         return egoRssDynamics
 
     def _initialize_object(self, lon, lat, yawAngle, resultObject):
@@ -96,6 +110,7 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
                                 self.egoObject)
 
         self.egoSpeed = physics.Speed(5.)
+        self.egoYawRate = physics.AngularVelocity(0.)
 
         # laneId: offset  120149:0.16
         positionEndGeo = admap.createGeoPoint(admap.Longitude(8.00188527300496979),
@@ -120,6 +135,7 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
 
         otherVehicleId = 20
         otherVehicleSpeed = physics.Speed(10.)
+        otherVehicleYawRate = physics.AngularVelocity(0.)
 
         otherVehicleObject = admap.Object()
 
@@ -134,15 +150,18 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
             self.egoVehicleId,
             self.egoObject,
             self.egoSpeed,
+            self.egoYawRate,
             self._get_ego_vehicle_dynamics(),
             self.egoRoute,
             otherVehicleId,
             rss.ObjectType.OtherVehicle,
             otherVehicleObject,
             otherVehicleSpeed,
+            otherVehicleYawRate,
             self._get_object_vehicle_dynamics(),
             rssmap.RssSceneCreation.RestrictSpeedLimitMode.IncreasedSpeedLimit10,
-            admap.LandmarkIdSet()))
+            admap.LandmarkIdSet(),
+            rssmap.RssMode.Structured))
 
         self.world_model = scene_creation.getWorldModel()
         print ("== Final world model ==")
@@ -162,12 +181,10 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
         self.assertTrue(rss_situation_checking.checkSituations(rss_situation_snapshot, rss_state_snapshot))
 
         rss_proper_response = rss.ProperResponse()
-        acceleration_restriction = rss.AccelerationRestriction()
-        self.assertTrue(rss_response_resolving.provideProperResponse(
-            rss_state_snapshot, rss_proper_response, acceleration_restriction))
+        self.assertTrue(rss_response_resolving.provideProperResponse(rss_state_snapshot, rss_proper_response))
 
-        print ("== Acceleration Restrictions ==")
-        print (acceleration_restriction)
+        print ("== Proper Response ==")
+        print (rss_proper_response)
 
         longitudinal_distance = rss_situation_snapshot.situations[0].relativePosition.longitudinalDistance
 

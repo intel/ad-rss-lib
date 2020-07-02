@@ -35,17 +35,19 @@ protected:
     ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
     value.drivingDirection = valueDrivingDirection;
     ::ad::physics::MetricRange valueLength;
-    ::ad::physics::Distance valueLengthMinimum(0.);
+    ::ad::physics::Distance valueLengthMinimum(-1e9);
+    valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
     valueLength.minimum = valueLengthMinimum;
-    ::ad::physics::Distance valueLengthMaximum(0.);
+    ::ad::physics::Distance valueLengthMaximum(-1e9);
     valueLength.maximum = valueLengthMaximum;
     valueLength.maximum = valueLength.minimum;
     valueLength.minimum = valueLength.maximum;
     value.length = valueLength;
     ::ad::physics::MetricRange valueWidth;
-    ::ad::physics::Distance valueWidthMinimum(0.);
+    ::ad::physics::Distance valueWidthMinimum(-1e9);
+    valueWidthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
     valueWidth.minimum = valueWidthMinimum;
-    ::ad::physics::Distance valueWidthMaximum(0.);
+    ::ad::physics::Distance valueWidthMaximum(-1e9);
     valueWidth.maximum = valueWidthMaximum;
     valueWidth.maximum = valueWidth.minimum;
     valueWidth.minimum = valueWidth.maximum;

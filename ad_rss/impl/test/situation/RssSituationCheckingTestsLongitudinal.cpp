@@ -7,7 +7,7 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "ad/rss/core/RssSituationChecking.hpp"
+#include "situation/RssStructuredSceneNonIntersectionChecker.hpp"
 
 namespace ad {
 namespace rss {
@@ -19,12 +19,12 @@ protected:
   virtual void SetUp()
   {
     situation.situationType = SituationType::SameDirection;
+    situation.situationId = SituationId(111);
   }
 
   virtual void TearDown()
   {
   }
-  core::RssSituationChecking situationChecking;
   VehicleState leadingVehicle;
   VehicleState followingVehicle;
   Situation situation;
@@ -34,6 +34,7 @@ protected:
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_ego_safe_distance)
 {
+  RssStructuredSceneNonIntersectionChecker checker;
   leadingVehicle = createVehicleStateForLongitudinalMotion(100);
   followingVehicle = createVehicleStateForLongitudinalMotion(10);
 
@@ -41,15 +42,15 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_ego_safe_di
   situation.otherVehicleState = followingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(95.));
 
-  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(checker.calculateRssStateNonIntersection(timeIndex++, situation, rssState));
   ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 }
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_safe)
 {
+  RssStructuredSceneNonIntersectionChecker checker;
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
@@ -59,15 +60,15 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(60.));
 
-  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(checker.calculateRssStateNonIntersection(timeIndex++, situation, rssState));
   ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 }
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_unsafe)
 {
+  RssStructuredSceneNonIntersectionChecker checker;
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
@@ -77,8 +78,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(58.));
 
-  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(checker.calculateRssStateNonIntersection(timeIndex++, situation, rssState));
   ASSERT_EQ(rssState.longitudinalState,
             TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
   ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
@@ -87,9 +87,10 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_maxspeed_safe)
 {
+  RssStructuredSceneNonIntersectionChecker checker;
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
-  followingVehicle.dynamics.maxSpeed = kmhToMeterPerSec(50.);
+  followingVehicle.dynamics.maxSpeedOnAcceleration = kmhToMeterPerSec(50.);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
   followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
 
@@ -97,18 +98,18 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(40.));
 
-  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(checker.calculateRssStateNonIntersection(timeIndex++, situation, rssState));
   ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 }
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_maxspeed_unsafe)
 {
+  RssStructuredSceneNonIntersectionChecker checker;
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
-  followingVehicle.dynamics.maxSpeed = kmhToMeterPerSec(50.);
+  followingVehicle.dynamics.maxSpeedOnAcceleration = kmhToMeterPerSec(50.);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
   followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
 
@@ -116,8 +117,27 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(38.));
 
-  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(checker.calculateRssStateNonIntersection(timeIndex++, situation, rssState));
+  ASSERT_EQ(rssState.longitudinalState,
+            TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+}
+
+TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_40kmh_maxspeed_unsafe)
+{
+  RssStructuredSceneNonIntersectionChecker checker;
+  leadingVehicle = createVehicleStateForLongitudinalMotion(50);
+  followingVehicle = createVehicleStateForLongitudinalMotion(50);
+  followingVehicle.dynamics.maxSpeedOnAcceleration = kmhToMeterPerSec(40.);
+  followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
+  followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
+
+  situation.egoVehicleState = followingVehicle;
+  situation.otherVehicleState = leadingVehicle;
+  situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(38.));
+
+  ASSERT_TRUE(checker.calculateRssStateNonIntersection(timeIndex++, situation, rssState));
   ASSERT_EQ(rssState.longitudinalState,
             TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
   ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
@@ -126,6 +146,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_no_accel_unsafe)
 {
+  RssStructuredSceneNonIntersectionChecker checker;
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(0.);
@@ -135,8 +156,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(39.));
 
-  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(checker.calculateRssStateNonIntersection(timeIndex++, situation, rssState));
   ASSERT_EQ(rssState.longitudinalState,
             TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
   ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
@@ -145,6 +165,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_other_standing)
 {
+  RssStructuredSceneNonIntersectionChecker checker;
   leadingVehicle = createVehicleStateForLongitudinalMotion(0);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
@@ -154,27 +175,26 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(71.8));
 
-  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(checker.calculateRssStateNonIntersection(timeIndex++, situation, rssState));
   ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(71.6));
 
-  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(checker.calculateRssStateNonIntersection(timeIndex++, situation, rssState));
   ASSERT_EQ(rssState.longitudinalState,
             TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
-  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 }
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh_maxspeed_other_standing)
 {
+  RssStructuredSceneNonIntersectionChecker checker;
   leadingVehicle = createVehicleStateForLongitudinalMotion(0);
   followingVehicle = createVehicleStateForLongitudinalMotion(50);
-  followingVehicle.dynamics.maxSpeed = kmhToMeterPerSec(50.);
+  followingVehicle.dynamics.maxSpeedOnAcceleration = kmhToMeterPerSec(50.);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
   followingVehicle.dynamics.alphaLon.brakeMin = Acceleration(-4.);
 
@@ -182,24 +202,23 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_50kmh
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(52.));
 
-  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(checker.calculateRssStateNonIntersection(timeIndex++, situation, rssState));
   ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(50.));
 
-  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(checker.calculateRssStateNonIntersection(timeIndex++, situation, rssState));
   ASSERT_EQ(rssState.longitudinalState,
             TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
-  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 }
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_0kmh_other_standing)
 {
+  RssStructuredSceneNonIntersectionChecker checker;
   leadingVehicle = createVehicleStateForLongitudinalMotion(0);
   followingVehicle = createVehicleStateForLongitudinalMotion(0);
   followingVehicle.dynamics.alphaLon.accelMax = Acceleration(2.);
@@ -209,24 +228,23 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_leading_other_0kmh_
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(6.1));
 
-  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(checker.calculateRssStateNonIntersection(timeIndex++, situation, rssState));
   ASSERT_EQ(rssState.longitudinalState, TestSupport::stateWithInformation(cTestSupport.cLongitudinalSafe, situation));
-  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(6.));
 
-  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(checker.calculateRssStateNonIntersection(timeIndex++, situation, rssState));
   ASSERT_EQ(rssState.longitudinalState,
             TestSupport::stateWithInformation(cTestSupport.cLongitudinalBrakeMin, situation));
-  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
-  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralBrakeMin, situation));
+  ASSERT_EQ(rssState.lateralStateLeft, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
+  ASSERT_EQ(rssState.lateralStateRight, TestSupport::stateWithInformation(cTestSupport.cLateralNone, situation));
 }
 
 TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_both_negative_velocity)
 {
+  RssStructuredSceneNonIntersectionChecker checker;
   leadingVehicle = createVehicleStateForLongitudinalMotion(-50);
   followingVehicle = createVehicleStateForLongitudinalMotion(-50);
 
@@ -234,8 +252,7 @@ TEST_F(RssSituationCheckingTestsLongitudinal, same_direction_both_negative_veloc
   situation.otherVehicleState = leadingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::AtBack, Distance(71.6));
 
-  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
-  ASSERT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_FALSE(checker.calculateRssStateNonIntersection(timeIndex++, situation, rssState));
 }
 
 } // namespace situation

@@ -33,9 +33,9 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRange)
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
-  ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
+  ::ad::physics::Distance valueRssStateInformationSafeDistance(-1e9);
   valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueRssStateInformationCurrentDistance(0.);
+  ::ad::physics::Distance valueRssStateInformationCurrentDistance(-1e9);
   valueRssStateInformation.currentDistance = valueRssStateInformationCurrentDistance;
   ::ad::rss::state::RssStateEvaluator valueRssStateInformationEvaluator(::ad::rss::state::RssStateEvaluator::None);
   valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
@@ -58,9 +58,9 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeResponseTooSmall)
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
-  ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
+  ::ad::physics::Distance valueRssStateInformationSafeDistance(-1e9);
   valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueRssStateInformationCurrentDistance(0.);
+  ::ad::physics::Distance valueRssStateInformationCurrentDistance(-1e9);
   valueRssStateInformation.currentDistance = valueRssStateInformationCurrentDistance;
   ::ad::rss::state::RssStateEvaluator valueRssStateInformationEvaluator(::ad::rss::state::RssStateEvaluator::None);
   valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
@@ -87,9 +87,9 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeResponseTooBig)
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
-  ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
+  ::ad::physics::Distance valueRssStateInformationSafeDistance(-1e9);
   valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueRssStateInformationCurrentDistance(0.);
+  ::ad::physics::Distance valueRssStateInformationCurrentDistance(-1e9);
   valueRssStateInformation.currentDistance = valueRssStateInformationCurrentDistance;
   ::ad::rss::state::RssStateEvaluator valueRssStateInformationEvaluator(::ad::rss::state::RssStateEvaluator::None);
   valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
@@ -116,9 +116,9 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeAlphaLatTooSmall)
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
-  ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
+  ::ad::physics::Distance valueRssStateInformationSafeDistance(-1e9);
   valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueRssStateInformationCurrentDistance(0.);
+  ::ad::physics::Distance valueRssStateInformationCurrentDistance(-1e9);
   valueRssStateInformation.currentDistance = valueRssStateInformationCurrentDistance;
   ::ad::rss::state::RssStateEvaluator valueRssStateInformationEvaluator(::ad::rss::state::RssStateEvaluator::None);
   valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
@@ -147,9 +147,9 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeAlphaLatTooBig)
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
-  ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
+  ::ad::physics::Distance valueRssStateInformationSafeDistance(-1e9);
   valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueRssStateInformationCurrentDistance(0.);
+  ::ad::physics::Distance valueRssStateInformationCurrentDistance(-1e9);
   valueRssStateInformation.currentDistance = valueRssStateInformationCurrentDistance;
   ::ad::rss::state::RssStateEvaluator valueRssStateInformationEvaluator(::ad::rss::state::RssStateEvaluator::None);
   valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
@@ -178,9 +178,9 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeRssStateInformation
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
-  ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
+  ::ad::physics::Distance valueRssStateInformationSafeDistance(-1e9);
   valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueRssStateInformationCurrentDistance(0.);
+  ::ad::physics::Distance valueRssStateInformationCurrentDistance(-1e9);
   valueRssStateInformation.currentDistance = valueRssStateInformationCurrentDistance;
   ::ad::rss::state::RssStateEvaluator valueRssStateInformationEvaluator(::ad::rss::state::RssStateEvaluator::None);
   valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
@@ -188,7 +188,7 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeRssStateInformation
 
   // override member with data type value below input range minimum
   ::ad::rss::state::RssStateInformation invalidInitializedMember;
-  ::ad::physics::Distance invalidInitializedMemberSafeDistance(0. - ::ad::physics::Distance::cPrecisionValue);
+  ::ad::physics::Distance invalidInitializedMemberSafeDistance(-1e9 * 1.1);
   invalidInitializedMember.safeDistance = invalidInitializedMemberSafeDistance;
   value.rssStateInformation = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
@@ -209,9 +209,9 @@ TEST(LateralRssStateValidInputRangeTests, testValidInputRangeRssStateInformation
   valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
   value.alphaLat = valueAlphaLat;
   ::ad::rss::state::RssStateInformation valueRssStateInformation;
-  ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
+  ::ad::physics::Distance valueRssStateInformationSafeDistance(-1e9);
   valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueRssStateInformationCurrentDistance(0.);
+  ::ad::physics::Distance valueRssStateInformationCurrentDistance(-1e9);
   valueRssStateInformation.currentDistance = valueRssStateInformationCurrentDistance;
   ::ad::rss::state::RssStateEvaluator valueRssStateInformationEvaluator(::ad::rss::state::RssStateEvaluator::None);
   valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;

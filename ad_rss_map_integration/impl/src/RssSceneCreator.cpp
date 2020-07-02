@@ -7,6 +7,7 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "ad/rss/map/RssSceneCreator.hpp"
+#include <ad/map/lane/LaneOperation.hpp>
 #include <ad/rss/world/SceneValidInputRange.hpp>
 #include "ad/rss/map/Logging.hpp"
 
@@ -154,27 +155,19 @@ bool RssSceneCreator::appendNotRelevantScene(::ad::map::route::FullRoute const &
 
   // in the end this scene is only for convenience to get to know that we considered it and e.g. visualize it
   // It could be left out completely
-
-  // ensure occupied regions filled meaningful to provide some means on where the ego and the object are located
-  otherObject->fillNotRelevantSceneBoundingBox();
   ::ad::rss::world::RoadArea egoVehicleRoad;
   if (!route.roadSegments.empty())
   {
-    // in case the ego route is actually available, we can try to fill the occupied regions as usual
+    // in case the ego route is actually available, we can try to fill the route as usual to have some hint where the
+    // ego is driving
     egoVehicleRoad
       = createRoadArea(route, route.minLaneOffset, route.maxLaneOffset, ::ad::map::lane::LaneIdSet(), {egoObject});
-  }
-
-  if (egoObject->getRssObject().occupiedRegions.empty())
-  {
-    // in case the ego route was actually not available, or the ego vehicle is not driving within the route
-    // we fill also the ego object with the dummy occupied regions
-    egoObject->fillNotRelevantSceneBoundingBox();
   }
 
   getLogger()->debug("RssSceneCreator::appendNotRelevantScene[{}]>>situation {}",
                      otherObject->getId(),
                      ::ad::rss::situation::SituationType::NotRelevant);
+
   return appendScene(::ad::rss::situation::SituationType::NotRelevant,
                      egoObject,
                      egoVehicleRoad,
@@ -461,9 +454,15 @@ bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const
   staticDynamics.alphaLon.brakeMinCorrect = ::ad::physics::Acceleration(-0.01);
   staticDynamics.lateralFluctuationMargin = ::ad::physics::Distance(0.0);
   staticDynamics.responseTime = ::ad::physics::Duration(0.01);
+  staticDynamics.unstructuredSettings.pedestrianTurningRadius = ad::physics::Distance(0.);
+  staticDynamics.unstructuredSettings.driveAwayMaxAngle = ad::physics::Angle(0.);
+  staticDynamics.unstructuredSettings.vehicleYawRateChange = ad::physics::AngularAcceleration(0.);
+  staticDynamics.unstructuredSettings.vehicleMinRadius = ad::physics::Distance(0.);
+  staticDynamics.unstructuredSettings.vehicleTrajectoryCalculationStep = ad::physics::Duration(0.);
 
   ::ad::rss::world::OccupiedRegionVector rightBorderOccupiedRegions;
   ::ad::rss::world::OccupiedRegionVector leftBorderOccupiedRegions;
+
   for (auto const &roadSegment : route.roadSegments)
   {
     auto &rightmostLane = roadSegment.drivableLaneSegments.front();
@@ -486,10 +485,32 @@ bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const
     leftBorderOccupiedRegions.push_back(region);
   }
 
+  ::ad::map::match::ENUObjectPosition rightBorderPosition;
+  ::ad::physics::ParametricValue rightBorderOffsetLat;
+  auto const rightBorderInterval = route.roadSegments.front().drivableLaneSegments.front().laneInterval;
+  if (::ad::map::route::isRouteDirectionPositive(rightBorderInterval))
+  {
+    rightBorderOffsetLat = ::ad::physics::ParametricValue(1.);
+  }
+  else
+  {
+    rightBorderOffsetLat = ::ad::physics::ParametricValue(0.);
+  }
+  auto const rightBorderParaPoint = getIntervalStart(rightBorderInterval);
+  rightBorderPosition.enuReferencePoint = ::ad::map::access::getENUReferencePoint();
+  rightBorderPosition.centerPoint = ::ad::map::lane::getENULanePoint(rightBorderParaPoint, rightBorderOffsetLat);
+  rightBorderPosition.heading
+    = ::ad::map::lane::getLaneENUHeading(rightBorderParaPoint, rightBorderPosition.enuReferencePoint);
+  rightBorderPosition.dimension.height = ::ad::physics::Distance(0.1);
+  rightBorderPosition.dimension.length = ::ad::physics::Distance(0.1);
+  rightBorderPosition.dimension.width = ::ad::physics::Distance(0.1);
+
   auto rightBorderObject = std::make_shared<RssObjectConversion>(getRightBorderObjectId(),
                                                                  ::ad::rss::world::ObjectType::ArtificialObject,
                                                                  rightBorderOccupiedRegions,
+                                                                 rightBorderPosition,
                                                                  ::ad::physics::Speed(0),
+                                                                 ::ad::physics::AngularVelocity(0.),
                                                                  staticDynamics);
   if (!bool(rightBorderObject))
   {
@@ -498,10 +519,32 @@ bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const
     return false;
   }
 
+  ::ad::map::match::ENUObjectPosition leftBorderPosition;
+  ::ad::physics::ParametricValue leftBorderOffsetLat;
+  auto const leftBorderInterval = route.roadSegments.front().drivableLaneSegments.back().laneInterval;
+  if (::ad::map::route::isRouteDirectionPositive(leftBorderInterval))
+  {
+    leftBorderOffsetLat = ::ad::physics::ParametricValue(0.);
+  }
+  else
+  {
+    leftBorderOffsetLat = ::ad::physics::ParametricValue(1.);
+  }
+  auto const leftBorderParaPoint = getIntervalStart(leftBorderInterval);
+  leftBorderPosition.enuReferencePoint = ::ad::map::access::getENUReferencePoint();
+  leftBorderPosition.centerPoint = ::ad::map::lane::getENULanePoint(leftBorderParaPoint, leftBorderOffsetLat);
+  leftBorderPosition.heading
+    = ::ad::map::lane::getLaneENUHeading(leftBorderParaPoint, leftBorderPosition.enuReferencePoint);
+  leftBorderPosition.dimension.height = ::ad::physics::Distance(0.1);
+  leftBorderPosition.dimension.length = ::ad::physics::Distance(0.1);
+  leftBorderPosition.dimension.width = ::ad::physics::Distance(0.1);
+
   auto leftBorderObject = std::make_shared<RssObjectConversion>(getLeftBorderObjectId(),
                                                                 ::ad::rss::world::ObjectType::ArtificialObject,
                                                                 leftBorderOccupiedRegions,
+                                                                leftBorderPosition,
                                                                 ::ad::physics::Speed(0),
+                                                                ::ad::physics::AngularVelocity(0.),
                                                                 staticDynamics);
   if (!bool(leftBorderObject))
   {
@@ -549,20 +592,37 @@ bool RssSceneCreator::appendScene(::ad::rss::situation::SituationType const &sit
   getLogger()->trace("RssSceneCreator::appendScene[{}]>> object {}", otherObject->getId(), scene.object);
   getLogger()->trace("RssSceneCreator::appendScene[{}]>> ego {}", otherObject->getId(), scene.egoVehicle);
 
-  if (scene.egoVehicle.occupiedRegions.empty())
+  if (situationType != ::ad::rss::situation::SituationType::NotRelevant)
   {
-    ::ad::map::match::Object matchObject;
-    if (egoObject->getObjectMapMatchedPosition() != nullptr)
+    // relevant situations have to consider some more checks to filter out unsupported situations
+    if ((situationType != ::ad::rss::situation::SituationType::Unstructured)
+        && (scene.egoVehicle.occupiedRegions.empty() || scene.object.occupiedRegions.empty()))
     {
-      matchObject = *egoObject->getObjectMapMatchedPosition();
+      getLogger()->debug(
+        "RssSceneCreator::appendScene[{}]>> ego or object not on route. Structured scene not valid. Dropping. {}",
+        otherObject->getId(),
+        scene);
+      return false;
     }
-    getLogger()->warn("RssSceneCreator::appendScene[{}]>> dropping scene because ego occupied regions empty {} -> {}",
-                      otherObject->getId(),
-                      matchObject,
-                      scene);
-    return false;
+    else if (!egoObject->isOriginalSpeedAcceptable())
+    {
+      getLogger()->debug("RssSceneCreator::appendScene[{}]>> ego original speed {} is not acceptable. Dropping. {}",
+                         otherObject->getId(),
+                         egoObject->getOriginalObjectSpeed(),
+                         scene);
+      return false;
+    }
+    else if (!otherObject->isOriginalSpeedAcceptable())
+    {
+      getLogger()->warn("RssSceneCreator::appendScene[{}]>> other original speed {} is not acceptable. Dropping. {}",
+                        otherObject->getId(),
+                        otherObject->getOriginalObjectSpeed(),
+                        scene);
+      return false;
+    }
   }
-  else if (withinValidInputRange(scene))
+
+  if (withinValidInputRange(scene))
   {
     return mSceneCreation.appendSceneToWorldModel(scene);
   }
@@ -573,6 +633,39 @@ bool RssSceneCreator::appendScene(::ad::rss::situation::SituationType const &sit
   }
 }
 
+bool RssSceneCreator::appendUnstructuredScene(RssObjectConversion::ConstPtr iEgoObject,
+                                              RssObjectConversion::ConstPtr iOtherObject)
+{
+  if (!bool(iEgoObject) || !bool(iOtherObject))
+  {
+    getLogger()->error("RssSceneCreator::appendUnstructuredScene[]>> ego/other object input is NULL");
+    return false;
+  }
+  auto egoObject = std::make_shared<RssObjectConversion>(*iEgoObject);
+  if (!bool(egoObject))
+  {
+    getLogger()->error(
+      "RssSceneCreator::appendUnstructuredScene[{}]>> failed to create copy of ego RssObjectConversion",
+      iOtherObject->getId());
+    return false;
+  }
+  auto otherObject = std::make_shared<RssObjectConversion>(*iOtherObject);
+  if (!bool(otherObject))
+  {
+    getLogger()->error(
+      "RssSceneCreator::appendUnstructuredScene[{}]>> failed to create copy of other RssObjectConversion",
+      iOtherObject->getId());
+    return false;
+  }
+
+  getLogger()->debug("RssSceneCreator::appendUnstructuredScene[{}]>>", otherObject->getId());
+
+  return appendScene(::ad::rss::situation::SituationType::Unstructured,
+                     egoObject,
+                     ::ad::rss::world::RoadArea(),
+                     otherObject,
+                     ::ad::rss::world::RoadArea());
+}
 } // namespace map
 } // namespace rss
 } // namespace ad

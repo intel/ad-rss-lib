@@ -65,7 +65,7 @@ TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities_NoLateralCon
 
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;
 
-  world::AccelerationRestriction accelerationRestriction;
+  state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
@@ -74,9 +74,9 @@ TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities_NoLateralCon
     worldModel.scenes[0].egoVehicle.velocity.speedLonMax = kmhToMeterPerSec(i);
     worldModel.timeIndex++;
 
-    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+    ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
-    testRestrictions(accelerationRestriction);
+    testRestrictions(properResponse.accelerationRestrictions);
   }
 }
 

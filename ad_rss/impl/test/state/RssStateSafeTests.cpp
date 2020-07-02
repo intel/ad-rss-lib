@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -16,7 +16,7 @@ namespace state {
 TEST(RssStateSafeTests, isSafe)
 {
   state::RssState rssState;
-  resetRssState(rssState, 1u, 1u);
+  resetRssState(rssState, 1u, 1u, situation::SituationType::SameDirection);
 
   ASSERT_FALSE(isDangerous(rssState));
   ASSERT_TRUE(isLongitudinalSafe(rssState));

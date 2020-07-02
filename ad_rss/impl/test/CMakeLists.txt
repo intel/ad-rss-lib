@@ -29,11 +29,12 @@ set(RSS_TEST_SOURCES
   core/RssSituationExtractionOppositeDirectionTests.cpp
   core/RssSituationExtractionRelativePositionTests.cpp
   core/RssSituationExtractionSameDirectionTests.cpp
-  situation/PhysicsUnitTestsDistanceOffsetAfterResponseTime.cpp
+  situation/PhysicsUnitTestsAcceleratedLimitedMovement.cpp
+  situation/PhysicsUnitTestsCalculateTimeToStop.cpp
   situation/PhysicsUnitTestsInputRangeChecks.cpp
   situation/PhysicsUnitTestsStoppingDistance.cpp
   situation/PhysicsUnitTestsTimeToCoverDistance.cpp
-  situation/PhysicsUnitTestsVelocityAfterResponseTime.cpp
+  situation/PhysicsUnitTestsUnstructured.cpp
   situation/RssFormulaTestsCalculateDistanceAfterStatedBrakingPattern.cpp
   situation/RssFormulaTestsCalculateSafeLateralDistance.cpp
   situation/RssFormulaTestsCalculateSafeLongitudinalDistanceSameDirection.cpp
@@ -46,10 +47,12 @@ set(RSS_TEST_SOURCES
   situation/RssSituationCheckingTestsLongitudinal.cpp
   situation/RssSituationCheckingTestsNotRelevant.cpp
   situation/RssSituationCheckingTestsOppositeDirection.cpp
+  situation/RssSituationCheckingTestsUnstructuredSceneChecker.cpp
   situation/VehicleTests.cpp
   state/RssStateSafeTests.cpp
   test_support/TestSupport.cpp
   test_support/wrap_new.cpp
+  unstructured/GeometryTests.cpp
   world/RssSituationIdProviderTests.cpp
   ${GENERATED_TEST_SOURCES}
 )
@@ -81,3 +84,4 @@ target_include_directories(${EXEC_NAME}
 
 target_compile_options(${EXEC_NAME} PRIVATE ${TARGET_COMPILE_OPTIONS})
 set_property(TARGET ${EXEC_NAME} APPEND_STRING PROPERTY LINK_FLAGS ${TARGET_LINK_FLAGS})
+
