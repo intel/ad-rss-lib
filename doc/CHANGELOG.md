@@ -5,8 +5,33 @@
 
 #### :rocket: New Features
 * Support of unstructured scenes/pedestrians
+  - Extended `ad::rss::situation::SituationType` by `Unstructured` value
+  - Extended `ad::rss::situation::VehicleState` by `ad::rss::world::ObjectType` and `ad::rss::world::ObjectState` members
+  - Extended `ad::rss::state::ProperResponse` by `ad::rss::state::UnstructuredSceneResponse` and `ad::rss::state::HeadingRangeVector` members
+  - Renamed `ad::rss::world::AccelerationRestriction` -> `ad::rss::state::AccelerationRestriction` and integrated it
+    as a member into the `ad::rss::state::ProperResponse`.
+  - Reflected this merge of the data types by renaming `ad::rss::core::RssCheck::calculateAccelerationRestriction()`
+    to `ad::rss::core::RssCheck::calculateProperResponse()` and adapting the function parameters accordingly.
+    Same applies for `ad::rss::core::RssResponseResolving::provideProperResponse()`.
+  - Extended `ad::rss::state::RssState` by `ad::rss::situation::SituationType` and `ad::rss::state::UnstructuredSceneRssState` members.
+  - Extended `ad::rss::state::RssStateSnapshot` by `ad::rss::state::UnstructuredSceneStateInformation` member
+  - Extended `ad::rss::world::ObjectType` by `Pedestrian` value
+  - Extended `ad::rss::world::Object` by `::ad::rss::world::ObjectState` member
+  - Extended `ad::rss::world::RssDynamics` by `ad::rss::world::UnstructuredSettings` member
+  - Extended `ad::rss::map::RssSceneCreation::appendScenes()` parameters by `ad::physics::AngularVelocity` of ego and object
+    and provide the mode of operation `ad::rss::map::RssMode` (NotRelevant, Structured, Unstructured)
+  - Extended `ad::rss::map::RssSceneCreator` and `ad::rss::map::RssObjectConversion` classes to support unstructured scenes
 
 #### :ghost: Maintenance
+* Harmonized physics calcualions
+  - Removed `ad::rss::situation::CoordinateSystemAxis` type
+  - Refactored and extended calculations within Physics.hpp for unstructured cases
+  - Made RssFormular.hpp public
+* Fixed consideration of maximum speed on accelerating:
+  - Renamed `ad::rss::world::RssDynamics::maxSpeed` member to `maxSpeedOnAcceleration` to clarify that it's not the general max speed
+    of the vehicle, but the maximum speed to be considered while accelerating within the response time.
+  - Fixed the calcualtions to consider the case that the current speed before the acceleration can already be higher than
+    the `maxSpeedOnAcceleration` parameter and in this case just no acceleration takes place
 * Improved BUILDING documentation
 
 ## Release 3.0.1
@@ -45,7 +70,7 @@
 #### :rocket: New Features
 * Added Integrating RSS with automated driving maps (ad_rss_map_integration)
 * Added logging support with spdlog
-* Introduced maxSpeedOnAcceleration to RssDynamics and RSS calculations to support speed limits
+* Introduced maxSpeed to RssDynamics and RSS calculations to support speed limits
   [for details see](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/ConstructRSSScenes/index.html#considerspeedlimits)
 * `world::Velocity` supports speed range input to be able to cope with speed fluctuations (i.e. in curves)
 
