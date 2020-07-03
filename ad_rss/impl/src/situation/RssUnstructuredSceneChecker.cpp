@@ -101,7 +101,7 @@ bool RssUnstructuredSceneChecker::calculateRssStateUnstructured(world::TimeIndex
       // 1. other vehicle did not move since mode switched to drive-away
       // 2. ego is driving within the allowed heading range
       // -> keep drive-away mode
-      spdlog::info("Situation {} ego vehicle driving away with allowed heading.", situation.situationId);
+      spdlog::debug("Situation {} ego vehicle driving away with allowed heading.", situation.situationId);
       rssState.unstructuredSceneState.response = state::UnstructuredSceneResponse::DriveAway;
       rssState.unstructuredSceneState.isSafe = false;
       rssState.unstructuredSceneState.headingRange = foundDriveAwayStateIt->second.allowedHeadingRange;
@@ -132,7 +132,7 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
 
   if (egoBrake.empty() || egoContinueForward.empty() || otherBrake.empty() || otherContinueForward.empty())
   {
-    spdlog::info("Situation {} refers to empty trajectory sets", situation.situationId);
+    spdlog::warn("Situation {} refers to empty trajectory sets", situation.situationId);
     return false;
   }
 
@@ -151,9 +151,9 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
 
   if (isSafe)
   {
-    spdlog::info("Situation {} safe. Store value otherMustBrake: {}",
-                 situation.situationId,
-                 isSafeOtherMustBrake ? "true" : "false");
+    spdlog::debug("Situation {} safe. Store value otherMustBrake: {}",
+                  situation.situationId,
+                  isSafeOtherMustBrake ? "true" : "false");
     mNewOtherMustBrakeStatesBeforeDangerThresholdTime[situation.situationId] = isSafeOtherMustBrake;
     mode = DrivingMode::ContinueForward;
   }
@@ -172,7 +172,7 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
     if (((situation.egoVehicleState.objectState.speed == physics::Speed(0.))
          && (situation.otherVehicleState.objectState.speed == physics::Speed(0.))))
     {
-      spdlog::info("Situation {} Rule 1: both stopped, unsafe distance -> drive away.", situation.situationId);
+      spdlog::debug("Situation {} Rule 1: both stopped, unsafe distance -> drive away.", situation.situationId);
       mode = DrivingMode::DriveAway;
     }
 
@@ -184,12 +184,12 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
     {
       if (situation.egoVehicleState.objectState.speed > physics::Speed(0.))
       {
-        spdlog::info("Situation {} Rule 2: opponent is moving -> continue forward", situation.situationId);
+        spdlog::debug("Situation {} Rule 2: opponent is moving -> continue forward", situation.situationId);
         mode = DrivingMode::ContinueForward;
       }
       else
       {
-        spdlog::info("Situation {} Rule 2: opponent is stopped -> drive away", situation.situationId);
+        spdlog::debug("Situation {} Rule 2: opponent is stopped -> drive away", situation.situationId);
         mode = DrivingMode::DriveAway;
       }
     }
@@ -197,7 +197,7 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
     // Rule 3: Brake
     if (mode == DrivingMode::Invalid)
     {
-      spdlog::info("Situation {} Rule 3: brake (brake collides with other brake)", situation.situationId);
+      spdlog::debug("Situation {} Rule 3: brake (brake collides with other brake)", situation.situationId);
       mode = DrivingMode::Brake;
     }
   }
