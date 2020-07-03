@@ -11,41 +11,53 @@
 #include <ad/map/point/HeadingOperation.hpp>
 #include <ad/map/route/RouteOperation.hpp>
 #include <ad/physics/Operation.hpp>
-#include <ad/rss/situation/Physics.hpp>
+#include <ad/rss/situation/RssFormulas.hpp>
 #include <algorithm>
 #include "ad/rss/map/Logging.hpp"
+#include "ad/rss/map/RssSceneCreator.hpp"
 
 namespace ad {
 namespace rss {
 namespace map {
 
-RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
-                                         ::ad::rss::world::ObjectType const &objectType,
-                                         ::ad::map::match::Object const &objectMapMatchedPosition,
-                                         ::ad::physics::Speed const &objectSpeed,
-                                         ::ad::rss::world::RssDynamics const &rssDynamics)
-  : mObjectMapMatchedPosition(&objectMapMatchedPosition)
-  , mSpeed(std::fabs(objectSpeed))
-  , mMaxSpeed(0.)
-  , mRssDynamics(rssDynamics)
+RssObjectConversion::RssObjectConversion(RssObjectData const &objectData)
+  : mObjectMapMatchedPosition(&objectData.matchObject)
+  , mMaxSpeedOnAcceleration(0.)
+  , mOriginalObjectSpeed(objectData.speed)
+  , mRssDynamics(objectData.rssDynamics)
 {
-  mRssObject.objectId = objectId;
-  mRssObject.objectType = objectType;
-  mRssObject.velocity.speedLonMin = ::ad::physics::Speed(0.);
-  mRssObject.velocity.speedLonMax = ::ad::physics::Speed(0.);
-  mRssObject.velocity.speedLatMin = ::ad::physics::Speed(0.);
-  mRssObject.velocity.speedLatMax = ::ad::physics::Speed(0.);
+  initializeRssObject(objectData.id,
+                      objectData.type,
+                      ::ad::rss::world::OccupiedRegionVector(),
+                      objectData.matchObject.enuPosition,
+                      objectData.speed,
+                      objectData.yawRate,
+                      objectData.steeringAngle);
 }
 
-RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
-                                         ::ad::rss::world::ObjectType const &objectType,
-                                         ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions,
-                                         ::ad::physics::Speed const &objectSpeed,
-                                         ::ad::rss::world::RssDynamics const &rssDynamics)
+RssObjectConversion::RssObjectConversion(RssObjectData const &objectData,
+                                         ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions)
   : mObjectMapMatchedPosition(nullptr)
-  , mSpeed(std::fabs(objectSpeed))
-  , mMaxSpeed(0.)
-  , mRssDynamics(rssDynamics)
+  , mMaxSpeedOnAcceleration(0.)
+  , mOriginalObjectSpeed(objectData.speed)
+  , mRssDynamics(objectData.rssDynamics)
+{
+  initializeRssObject(objectData.id,
+                      objectData.type,
+                      objectOccupiedRegions,
+                      objectData.matchObject.enuPosition,
+                      objectData.speed,
+                      objectData.yawRate,
+                      objectData.steeringAngle);
+}
+
+void RssObjectConversion::initializeRssObject(::ad::rss::world::ObjectId const &objectId,
+                                              ::ad::rss::world::ObjectType const &objectType,
+                                              ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions,
+                                              ::ad::map::match::ENUObjectPosition const &objectEnuPosition,
+                                              ::ad::physics::Speed const &objectSpeed,
+                                              ::ad::physics::AngularVelocity const &objectYawRate,
+                                              ::ad::physics::Angle const &objectSteeringAngle)
 {
   mRssObject.objectId = objectId;
   mRssObject.objectType = objectType;
@@ -54,6 +66,38 @@ RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objec
   mRssObject.velocity.speedLatMin = ::ad::physics::Speed(0.);
   mRssObject.velocity.speedLatMax = ::ad::physics::Speed(0.);
   mRssObject.occupiedRegions = objectOccupiedRegions;
+
+  mRssObject.state.yaw = ::ad::physics::Angle(static_cast<double>(objectEnuPosition.heading));
+  mRssObject.state.centerPoint.x = ::ad::physics::Distance(static_cast<double>(objectEnuPosition.centerPoint.x));
+  mRssObject.state.centerPoint.y = ::ad::physics::Distance(static_cast<double>(objectEnuPosition.centerPoint.y));
+  mRssObject.state.dimension.width = ::ad::physics::Distance(static_cast<double>(objectEnuPosition.dimension.width));
+  mRssObject.state.dimension.length = ::ad::physics::Distance(static_cast<double>(objectEnuPosition.dimension.length));
+  mRssObject.state.steeringAngle = objectSteeringAngle;
+
+  // restrict to positive speeds
+  mRssObject.state.speed = std::max(::ad::physics::Speed(0.), objectSpeed);
+  if (mRssObject.state.speed == ::ad::physics::Speed(0.))
+  {
+    // ensure angular speed is also zero if speed is zero
+    mRssObject.state.yawRate = ::ad::physics::AngularVelocity(0.);
+  }
+  else
+  {
+    mRssObject.state.yawRate = objectYawRate;
+  }
+}
+
+bool RssObjectConversion::isOriginalSpeedAcceptable(::ad::physics::Speed const acceptableNegativeSpeed) const
+{
+  if (mRssObject.state.speed == mOriginalObjectSpeed)
+  {
+    return true;
+  }
+  if (mOriginalObjectSpeed >= acceptableNegativeSpeed)
+  {
+    return true;
+  }
+  return false;
 }
 
 ::ad::rss::world::Object const &RssObjectConversion::getRssObject() const
@@ -69,54 +113,37 @@ RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objec
 ::ad::rss::world::RssDynamics RssObjectConversion::getRssDynamics() const
 {
   ::ad::rss::world::RssDynamics resultDynamics(mRssDynamics);
-  if (mMaxSpeed != ::ad::physics::Speed(0.))
+  if (mMaxSpeedOnAcceleration != ::ad::physics::Speed(0.))
   {
-    resultDynamics.maxSpeed = mMaxSpeed;
+    resultDynamics.maxSpeedOnAcceleration = mMaxSpeedOnAcceleration;
   }
   return resultDynamics;
 }
 
 bool RssObjectConversion::calculateMinStoppingDistance(::ad::physics::Distance &minStoppingDistance) const
 {
-  // calculate rough distance to be relevant at the moment
-  ::ad::physics::Speed speedAfterResponseTime;
-  auto result = situation::calculateSpeedAfterResponseTime(situation::CoordinateSystemAxis::Longitudinal,
-                                                           std::fabs(mSpeed),
-                                                           physics::Speed::getMax(),
-                                                           mRssDynamics.alphaLon.accelMax,
-                                                           mRssDynamics.responseTime,
-                                                           speedAfterResponseTime);
+  auto const result
+    = situation::calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern(mRssObject.state.speed,
+                                                                              physics::Speed::getMax(),
+                                                                              mRssDynamics.responseTime,
+                                                                              mRssDynamics.alphaLon.accelMax,
+                                                                              mRssDynamics.alphaLon.brakeMinCorrect,
+                                                                              minStoppingDistance);
+
   if (!result)
   {
-    getLogger()->error(
-      "RssObjectConversion::calculateminStoppingDistance[ {} ]>> error calculating speed after response time {} {}",
-      mRssObject.objectId,
-      std::fabs(mSpeed),
-      mRssDynamics);
-    return result;
+    getLogger()->error("RssObjectConversion::calculateminStoppingDistance[ {} ]>> error calculating longitudinal "
+                       "distance offset after stated braking pattern {} {}",
+                       mRssObject.objectId,
+                       mRssObject.state.speed,
+                       mRssDynamics);
   }
-
-  result = situation::calculateStoppingDistance(
-    speedAfterResponseTime, mRssDynamics.alphaLon.brakeMinCorrect, minStoppingDistance);
-  if (!result)
-  {
-    getLogger()->error(
-      "RssObjectConversion::calculateminStoppingDistance[ {} ]>> error calculating stopping distance {} {}",
-      mRssObject.objectId,
-      speedAfterResponseTime,
-      mRssDynamics);
-    return result;
-  }
-
-  // overestimate stopping distance a bit
-  minStoppingDistance += speedAfterResponseTime * mRssDynamics.responseTime;
-
-  return true;
+  return result;
 }
 
-void RssObjectConversion::updateSpeedLimit(::ad::physics::Speed const &maxSpeed)
+void RssObjectConversion::updateSpeedLimit(::ad::physics::Speed const &maxSpeedOnAcceleration)
 {
-  mMaxSpeed = std::max(mMaxSpeed, maxSpeed);
+  mMaxSpeedOnAcceleration = std::max(mMaxSpeedOnAcceleration, maxSpeedOnAcceleration);
 }
 
 void RssObjectConversion::addRestrictedOccupiedRegion(::ad::map::match::LaneOccupiedRegion const &laneOccupiedRegion,
@@ -175,21 +202,6 @@ void RssObjectConversion::addRestrictedOccupiedRegion(::ad::map::match::LaneOccu
   mRssObject.occupiedRegions.push_back(occupiedRegion);
 }
 
-void RssObjectConversion::fillNotRelevantSceneBoundingBox()
-{
-  if (mObjectMapMatchedPosition != nullptr)
-  {
-    for (auto const &laneOccupiedRegion : mObjectMapMatchedPosition->mapMatchedBoundingBox.laneOccupiedRegions)
-    {
-      ::ad::map::route::LaneInterval dummyLaneInterval;
-      dummyLaneInterval.laneId = laneOccupiedRegion.laneId;
-      dummyLaneInterval.start = physics::ParametricValue(0.);
-      dummyLaneInterval.end = physics::ParametricValue(1.);
-      addRestrictedOccupiedRegion(laneOccupiedRegion, dummyLaneInterval);
-    }
-  }
-}
-
 void RssObjectConversion::laneIntervalAdded(::ad::map::route::LaneInterval const &laneInterval)
 {
   if (mObjectMapMatchedPosition != nullptr)
@@ -217,10 +229,10 @@ void RssObjectConversion::updateVelocityOnRoute(::ad::map::route::FullRoute cons
       ::ad::map::point::normalizeENUHeading(routeHeading - mObjectMapMatchedPosition->enuPosition.heading));
   }
 
-  mRssObject.velocity.speedLonMin = std::fabs(std::cos(headingDiff)) * mSpeed;
+  mRssObject.velocity.speedLonMin = std::fabs(std::cos(headingDiff)) * mRssObject.state.speed;
   mRssObject.velocity.speedLonMax = mRssObject.velocity.speedLonMin;
 
-  mRssObject.velocity.speedLatMin = std::sin(headingDiff) * mSpeed;
+  mRssObject.velocity.speedLatMin = std::sin(headingDiff) * mRssObject.state.speed;
   mRssObject.velocity.speedLatMax = mRssObject.velocity.speedLatMin;
 }
 

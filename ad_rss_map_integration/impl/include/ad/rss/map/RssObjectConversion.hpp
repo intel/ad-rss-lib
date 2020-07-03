@@ -11,10 +11,9 @@
 
 #pragma once
 
-#include <ad/map/match/Object.hpp>
+#include <ad/rss/map/RssObjectData.hpp>
+
 #include <ad/map/route/FullRoute.hpp>
-#include <ad/rss/world/Object.hpp>
-#include <ad/rss/world/RssDynamics.hpp>
 #include <memory>
 
 /*!
@@ -49,32 +48,18 @@ public:
   /*!
    * @brief constructor
    *
-   * @param[in] objectId the object id
-   * @param[in] objectType the object type
-   * @param[in] objectMapMatchedPosition the object's position described by its map matched bounding box and position
-   * @param[in] objectSpeed the object's speed
-   * @param[in] rssDynamics the object's (initial) RSS dynamics
+   * @param[in] objectData the object data
    */
-  RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
-                      ::ad::rss::world::ObjectType const &objectType,
-                      ::ad::map::match::Object const &objectMapMatchedPosition,
-                      ::ad::physics::Speed const &objectSpeed,
-                      ::ad::rss::world::RssDynamics const &rssDynamics);
+  explicit RssObjectConversion(RssObjectData const &objectData);
 
   /*!
    * @brief constructor with explicit occupied regions
    *
-   * @param[in] objectId the object id
-   * @param[in] objectType the object type
+   * @param[in] objectData the object data
    * @param[in] objectOccupiedRegions the object's occupied regions explicitly
-   * @param[in] objectSpeed the object's speed
-   * @param[in] rssDynamics the object's (initial) RSS dynamics
    */
-  RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
-                      ::ad::rss::world::ObjectType const &objectType,
-                      ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions,
-                      ::ad::physics::Speed const &objectSpeed,
-                      ::ad::rss::world::RssDynamics const &rssDynamics);
+  RssObjectConversion(RssObjectData const &objectData,
+                      ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions);
 
   /*!
    * \brief standard copy constructor
@@ -91,9 +76,20 @@ public:
    */
   ~RssObjectConversion() = default;
 
+  /*!
+   * \brief delete standard assignment operator
+   */
+  RssObjectConversion &operator=(const RssObjectConversion &other) = delete;
+
+  /*!
+   * \brief delete standard move assignment operator
+   */
+  RssObjectConversion &operator=(RssObjectConversion &&other) = delete;
+
   /** @returns RssDynamics of the object
    *
-   * If updateSpeedLimit() was called in between the maxSpeed value of the dynamics will be adapted to these.
+   * If updateSpeedLimit() was called in between the maxSpeedOnAcceleration value of the dynamics will be adapted to
+   * these.
    */
   ::ad::rss::world::RssDynamics getRssDynamics() const;
 
@@ -115,7 +111,7 @@ public:
 
   /** @brief update the max speed content
    */
-  void updateSpeedLimit(::ad::physics::Speed const &maxSpeed);
+  void updateSpeedLimit(::ad::physics::Speed const &maxSpeedOnAcceleration);
 
   /** @brief lane interval was added to the object route, so append relevant occupied regions
    */
@@ -125,10 +121,6 @@ public:
    */
   void updateVelocityOnRoute(::ad::map::route::FullRoute const &route);
 
-  /** @brief fill occupied regions with all dummy regions from the map::match::LaneOccupiedRegionList
-   */
-  void fillNotRelevantSceneBoundingBox();
-
   /** @brief return the map matched position object this was created with (might be nullptr)
    */
   ::ad::map::match::Object const *getObjectMapMatchedPosition() const
@@ -136,12 +128,47 @@ public:
     return mObjectMapMatchedPosition;
   }
 
+  /** @brief check if the original input speed is in acceptable range
+   *
+   *  Negative speed is not supported by the RSS implementation; therefore negative input speeds are mapped to zero
+   * speed by this class.
+   *
+   *  But up to a certain small negative speed value, negative speeds still might want to be accepted to account for
+   * slowly backward drifting vehicles.
+   *  Therefore, the constructor of this class maps all negative speeds to zero, but stores the original provided speed
+   * for later analysis.
+   *  This function can be used to check for an acceptable speed.
+   *
+   *  @param[in] acceptableNegativeSpeed a small negative speed value that should be allowed to be mapped to zero
+   * without error (default -0.5m/s).
+   *
+   *  @returns \c true if the original speed equals the current internal object speed.
+   *  It also returns \c true if the original speed is equal or larger than the provided acceptableNegativeSpeed.
+   */
+  bool isOriginalSpeedAcceptable(::ad::physics::Speed const acceptableNegativeSpeed = ::ad::physics::Speed(-0.5)) const;
+
+  /**
+   * @returns the original object speed provided as input
+   */
+  ::ad::physics::Speed const &getOriginalObjectSpeed() const
+  {
+    return mOriginalObjectSpeed;
+  }
+
 private:
   ::ad::rss::world::Object mRssObject;
   ::ad::map::match::Object const *mObjectMapMatchedPosition;
-  ::ad::physics::Speed const mSpeed;
-  ::ad::physics::Speed mMaxSpeed;
+  ::ad::physics::Speed mMaxSpeedOnAcceleration;
+  ::ad::physics::Speed const mOriginalObjectSpeed;
   ::ad::rss::world::RssDynamics const &mRssDynamics;
+
+  void initializeRssObject(::ad::rss::world::ObjectId const &objectId,
+                           ::ad::rss::world::ObjectType const &objectType,
+                           ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions,
+                           ::ad::map::match::ENUObjectPosition const &objectEnuPosition,
+                           ::ad::physics::Speed const &objectSpeed,
+                           ::ad::physics::AngularVelocity const &objectYawRate,
+                           ::ad::physics::Angle const &objectSteeringAngle);
 
   void addRestrictedOccupiedRegion(::ad::map::match::LaneOccupiedRegion const &laneOccupiedRegion,
                                    ::ad::map::route::LaneInterval const &laneInterval);

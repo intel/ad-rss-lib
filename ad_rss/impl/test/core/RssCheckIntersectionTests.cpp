@@ -30,7 +30,7 @@ protected:
 
   void performIntersectionTest()
   {
-    world::AccelerationRestriction accelerationRestriction;
+    state::ProperResponse properResponse;
     core::RssCheck rssCheck;
     for (auto egoVehicleSegmentId : {world::LaneSegmentId(0), world::LaneSegmentId(3)})
     {
@@ -47,7 +47,7 @@ protected:
         }
         worldModel.timeIndex++;
 
-        ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+        ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
 #if RSS_CHECK_TEST_DEBUG_OUT
         std::cout << "Testing: segment[" << egoVehicleSegmentId << "] range min=" << i
@@ -55,11 +55,11 @@ protected:
 #endif
         if (isBrakeExpected(i))
         {
-          TESTBASE::testRestrictions(accelerationRestriction, state::LongitudinalResponse::BrakeMin);
+          TESTBASE::testRestrictions(properResponse.accelerationRestrictions, state::LongitudinalResponse::BrakeMin);
         }
         else
         {
-          TESTBASE::testRestrictions(accelerationRestriction);
+          TESTBASE::testRestrictions(properResponse.accelerationRestrictions);
         }
       }
     }

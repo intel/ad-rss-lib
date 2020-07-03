@@ -1,13 +1,13 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "situation/RssFormulas.hpp"
+#include "ad/rss/situation/RssFormulas.hpp"
 
 namespace ad {
 namespace rss {

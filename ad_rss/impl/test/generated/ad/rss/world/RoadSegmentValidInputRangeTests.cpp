@@ -35,17 +35,19 @@ TEST(RoadSegmentValidInputRangeTests, testValidInputRangeValidInputRangeMin)
   ::ad::rss::world::LaneDrivingDirection elementDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
   element.drivingDirection = elementDrivingDirection;
   ::ad::physics::MetricRange elementLength;
-  ::ad::physics::Distance elementLengthMinimum(0.);
+  ::ad::physics::Distance elementLengthMinimum(-1e9);
+  elementLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   elementLength.minimum = elementLengthMinimum;
-  ::ad::physics::Distance elementLengthMaximum(0.);
+  ::ad::physics::Distance elementLengthMaximum(-1e9);
   elementLength.maximum = elementLengthMaximum;
   elementLength.maximum = elementLength.minimum;
   elementLength.minimum = elementLength.maximum;
   element.length = elementLength;
   ::ad::physics::MetricRange elementWidth;
-  ::ad::physics::Distance elementWidthMinimum(0.);
+  ::ad::physics::Distance elementWidthMinimum(-1e9);
+  elementWidthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   elementWidth.minimum = elementWidthMinimum;
-  ::ad::physics::Distance elementWidthMaximum(0.);
+  ::ad::physics::Distance elementWidthMaximum(-1e9);
   elementWidth.maximum = elementWidthMaximum;
   elementWidth.maximum = elementWidth.minimum;
   elementWidth.minimum = elementWidth.maximum;
@@ -65,17 +67,19 @@ TEST(RoadSegmentValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   ::ad::rss::world::LaneDrivingDirection elementDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
   element.drivingDirection = elementDrivingDirection;
   ::ad::physics::MetricRange elementLength;
-  ::ad::physics::Distance elementLengthMinimum(0.);
+  ::ad::physics::Distance elementLengthMinimum(-1e9);
+  elementLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   elementLength.minimum = elementLengthMinimum;
-  ::ad::physics::Distance elementLengthMaximum(0.);
+  ::ad::physics::Distance elementLengthMaximum(-1e9);
   elementLength.maximum = elementLengthMaximum;
   elementLength.maximum = elementLength.minimum;
   elementLength.minimum = elementLength.maximum;
   element.length = elementLength;
   ::ad::physics::MetricRange elementWidth;
-  ::ad::physics::Distance elementWidthMinimum(0.);
+  ::ad::physics::Distance elementWidthMinimum(-1e9);
+  elementWidthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   elementWidth.minimum = elementWidthMinimum;
-  ::ad::physics::Distance elementWidthMaximum(0.);
+  ::ad::physics::Distance elementWidthMaximum(-1e9);
   elementWidth.maximum = elementWidthMaximum;
   elementWidth.maximum = elementWidth.minimum;
   elementWidth.minimum = elementWidth.maximum;
@@ -95,17 +99,19 @@ TEST(RoadSegmentValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax
   ::ad::rss::world::LaneDrivingDirection elementDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
   element.drivingDirection = elementDrivingDirection;
   ::ad::physics::MetricRange elementLength;
-  ::ad::physics::Distance elementLengthMinimum(0.);
+  ::ad::physics::Distance elementLengthMinimum(-1e9);
+  elementLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   elementLength.minimum = elementLengthMinimum;
-  ::ad::physics::Distance elementLengthMaximum(0.);
+  ::ad::physics::Distance elementLengthMaximum(-1e9);
   elementLength.maximum = elementLengthMaximum;
   elementLength.maximum = elementLength.minimum;
   elementLength.minimum = elementLength.maximum;
   element.length = elementLength;
   ::ad::physics::MetricRange elementWidth;
-  ::ad::physics::Distance elementWidthMinimum(0.);
+  ::ad::physics::Distance elementWidthMinimum(-1e9);
+  elementWidthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   elementWidth.minimum = elementWidthMinimum;
-  ::ad::physics::Distance elementWidthMaximum(0.);
+  ::ad::physics::Distance elementWidthMaximum(-1e9);
   elementWidth.maximum = elementWidthMaximum;
   elementWidth.maximum = elementWidth.minimum;
   elementWidth.minimum = elementWidth.maximum;
@@ -135,17 +141,19 @@ TEST(RoadSegmentValidInputRangeTests, testValidInputRangeElementValid)
   ::ad::rss::world::LaneDrivingDirection elementDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
   element.drivingDirection = elementDrivingDirection;
   ::ad::physics::MetricRange elementLength;
-  ::ad::physics::Distance elementLengthMinimum(0.);
+  ::ad::physics::Distance elementLengthMinimum(-1e9);
+  elementLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   elementLength.minimum = elementLengthMinimum;
-  ::ad::physics::Distance elementLengthMaximum(0.);
+  ::ad::physics::Distance elementLengthMaximum(-1e9);
   elementLength.maximum = elementLengthMaximum;
   elementLength.maximum = elementLength.minimum;
   elementLength.minimum = elementLength.maximum;
   element.length = elementLength;
   ::ad::physics::MetricRange elementWidth;
-  ::ad::physics::Distance elementWidthMinimum(0.);
+  ::ad::physics::Distance elementWidthMinimum(-1e9);
+  elementWidthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
   elementWidth.minimum = elementWidthMinimum;
-  ::ad::physics::Distance elementWidthMaximum(0.);
+  ::ad::physics::Distance elementWidthMaximum(-1e9);
   elementWidth.maximum = elementWidthMaximum;
   elementWidth.maximum = elementWidth.minimum;
   elementWidth.minimum = elementWidth.maximum;

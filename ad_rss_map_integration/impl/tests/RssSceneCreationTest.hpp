@@ -44,7 +44,19 @@ struct RssSceneCreationTest : ::testing::Test
     withoutRouteWithoutSpeedLimit
   };
 
-  ::ad::rss::world::RssDynamics getEgoVehicleDynamics(::ad::physics::Speed const maxSpeed = ::ad::physics::Speed(100.))
+  ::ad::rss::world::UnstructuredSettings getUnstructuredSettings()
+  {
+    ::ad::rss::world::UnstructuredSettings unstructuredSettings;
+    unstructuredSettings.pedestrianTurningRadius = ad::physics::Distance(2.0);
+    unstructuredSettings.driveAwayMaxAngle = ad::physics::Angle(2.4);
+    unstructuredSettings.vehicleYawRateChange = ad::physics::AngularAcceleration(0.3);
+    unstructuredSettings.vehicleMinRadius = ad::physics::Distance(3.5);
+    unstructuredSettings.vehicleTrajectoryCalculationStep = ad::physics::Duration(0.2);
+    return unstructuredSettings;
+  }
+
+  ::ad::rss::world::RssDynamics getEgoVehicleDynamics(::ad::physics::Speed const maxSpeedOnAcceleration
+                                                      = ::ad::physics::Speed(100.))
   {
     ::ad::rss::world::RssDynamics result;
     result.alphaLat.accelMax = cMaximumLateralAcceleration;
@@ -58,12 +70,14 @@ struct RssSceneCreationTest : ::testing::Test
     result.lateralFluctuationMargin = ::ad::physics::Distance(0.);
 
     result.responseTime = cResponseTimeEgoVehicle;
-    result.maxSpeed = maxSpeed;
+    result.maxSpeedOnAcceleration = maxSpeedOnAcceleration;
+
+    result.unstructuredSettings = getUnstructuredSettings();
 
     return result;
   }
 
-  ::ad::rss::world::RssDynamics getObjectVehicleDynamics(::ad::physics::Speed const maxSpeed
+  ::ad::rss::world::RssDynamics getObjectVehicleDynamics(::ad::physics::Speed const maxSpeedOnAcceleration
                                                          = ::ad::physics::Speed(100.))
   {
     ::ad::rss::world::RssDynamics result;
@@ -78,17 +92,58 @@ struct RssSceneCreationTest : ::testing::Test
     result.lateralFluctuationMargin = ::ad::physics::Distance(0.);
 
     result.responseTime = cResponseTimeOtherVehicles;
-    result.maxSpeed = maxSpeed;
+    result.maxSpeedOnAcceleration = maxSpeedOnAcceleration;
+
+    result.unstructuredSettings = getUnstructuredSettings();
 
     return result;
   }
 
-  virtual void initMap() = 0;
+  enum class MapToLoad
+  {
+    Town01,
+    Town04,
+    None
+  };
+
+  virtual MapToLoad getMapToLoad() = 0;
+
+  void initMap()
+  {
+    static MapToLoad loadedMap = MapToLoad::None;
+
+    MapToLoad mapToLoad = getMapToLoad();
+    if (mapToLoad != loadedMap)
+    {
+      ::ad::map::access::cleanup();
+      switch (mapToLoad)
+      {
+        case MapToLoad::Town01:
+          // using priority to the right intersections
+          ASSERT_TRUE(::ad::map::access::init("resources/Town01.txt"));
+          break;
+        case MapToLoad::Town04:
+        {
+          std::ifstream fileStream("resources/Town04.xodr");
+          std::string town04OpenDriveContent((std::istreambuf_iterator<char>(fileStream)),
+                                             std::istreambuf_iterator<char>());
+          ASSERT_TRUE(::ad::map::access::initFromOpenDriveContent(
+            town04OpenDriveContent, 0.2, ::ad::map::intersection::IntersectionType::TrafficLight));
+          break;
+        }
+        case MapToLoad::None:
+        default:
+          ASSERT_TRUE(false);
+          break;
+      }
+      loadedMap = mapToLoad;
+    }
+  }
+
   virtual void initializeEgoVehicle() = 0;
 
   void SetUp() override
   {
-    ::ad::map::access::cleanup();
     //::ad::rss::map::getLogger()->set_level(spdlog::level::debug);
     //::ad::map::access::getLogger()->set_level(spdlog::level::trace);
     initMap();
@@ -97,7 +152,6 @@ struct RssSceneCreationTest : ::testing::Test
 
   void TearDown() override
   {
-    ::ad::map::access::cleanup();
   }
 
   void initializeObjectGeo(ObjectGeoLocationTuple const &objectLocation, ::ad::map::match::Object &object)
@@ -194,6 +248,8 @@ struct RssSceneCreationTest : ::testing::Test
 
     ::ad::rss::world::ObjectId otherVehicleId{10};
     ::ad::physics::Speed otherVehicleSpeed{10.};
+    ::ad::physics::AngularVelocity otherVehicleYawRate{0.};
+    ::ad::physics::Angle otherVehicleSteeringAngle{0.};
 
     ::ad::map::match::Object otherMatchObject;
 
@@ -207,18 +263,30 @@ struct RssSceneCreationTest : ::testing::Test
       speedLimitMode = ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10;
     }
 
-    EXPECT_TRUE(sceneCreation.appendScenes(egoVehicleId,
-                                           egoMatchObject,
-                                           egoSpeed,
-                                           getEgoVehicleDynamics(),
+    ::ad::rss::map::RssObjectData egoObjectData;
+    egoObjectData.id = egoVehicleId;
+    egoObjectData.type = ::ad::rss::world::ObjectType::EgoVehicle;
+    egoObjectData.matchObject = egoMatchObject;
+    egoObjectData.speed = egoSpeed;
+    egoObjectData.yawRate = egoYawRate;
+    egoObjectData.steeringAngle = egoSteeringAngle;
+    egoObjectData.rssDynamics = getEgoVehicleDynamics();
+
+    ::ad::rss::map::RssObjectData otherObjectData;
+    otherObjectData.id = otherVehicleId;
+    otherObjectData.type = ::ad::rss::world::ObjectType::OtherVehicle;
+    otherObjectData.matchObject = otherMatchObject;
+    otherObjectData.speed = otherVehicleSpeed;
+    otherObjectData.yawRate = otherVehicleYawRate;
+    otherObjectData.steeringAngle = otherVehicleSteeringAngle;
+    otherObjectData.rssDynamics = getObjectVehicleDynamics();
+
+    EXPECT_TRUE(sceneCreation.appendScenes(egoObjectData,
                                            testRoute,
-                                           otherVehicleId,
-                                           ::ad::rss::world::ObjectType::OtherVehicle,
-                                           otherMatchObject,
-                                           otherVehicleSpeed,
-                                           getObjectVehicleDynamics(),
+                                           otherObjectData,
                                            speedLimitMode,
-                                           ::ad::map::landmark::LandmarkIdSet()));
+                                           ::ad::map::landmark::LandmarkIdSet(),
+                                           ::ad::rss::map::RssMode::Structured));
 
     auto const worldModel = sceneCreation.getWorldModel();
     checkSceneResults(worldModel, otherVehicleId, expectedResults);
@@ -226,16 +294,17 @@ struct RssSceneCreationTest : ::testing::Test
 
   ::ad::rss::world::ObjectId egoVehicleId{123u};
   ::ad::physics::Speed egoSpeed;
+  ::ad::physics::AngularVelocity egoYawRate;
+  ::ad::physics::Angle egoSteeringAngle;
   ::ad::map::match::Object egoMatchObject;
   ::ad::map::route::FullRoute egoRoute;
 };
 
 struct RssSceneCreationTestTown01 : RssSceneCreationTest
 {
-  void initMap() override
+  MapToLoad getMapToLoad() override
   {
-    // using priority to the right intersections
-    ASSERT_TRUE(::ad::map::access::init("resources/Town01.txt"));
+    return MapToLoad::Town01;
   }
 
   void initializeEgoVehicle() override
@@ -247,6 +316,8 @@ struct RssSceneCreationTestTown01 : RssSceneCreationTest
     initializeObjectGeo(egoGeoLocation, egoMatchObject);
 
     egoSpeed = ::ad::physics::Speed(5.);
+    egoYawRate = ::ad::physics::AngularVelocity(0.);
+    egoSteeringAngle = ::ad::physics::Angle(0.);
 
     // laneId: offset  120149:0.52  (ego turn right)
     auto positionEndGeo = ::ad::map::point::createGeoPoint(::ad::map::point::Longitude(8.003),

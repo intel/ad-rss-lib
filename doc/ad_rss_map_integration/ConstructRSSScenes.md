@@ -26,11 +26,11 @@ Situation Based Coordinate System. As a result of this there might be multiple
 situations at the same time to be considered between two vehicles.
 
 Before the actual road area of the vehicles can be calculated, the type of situation
-has to be determined, which is performed within ad::rss::map::RssSceneCreation::appendScenes() as follows:
+has to be determined, which is performed within `ad::rss::map::RssSceneCreation::appendScenes()` as follows:
 
 #### Calculate the connecting route
 Based on road network data, the vehicle position and the object position, the shortest connecting route
-between these two is calculated (ad::map::route::planning::calculateConnectingRoute()).
+between these two is calculated (`ad::map::route::planning::calculateConnectingRoute()`).
 To cover also opposite direction and intersection use-cases, the nominal driving direction
 on the lanes is disregarded when the connecting route is calculated.
 Furthermore, as the map matched positions of vehicle and object might span over multiple
@@ -41,28 +41,31 @@ lanes, all possible combinations are taken into account.
 1. If both vehicles are driving in the same direction with respect to the connecting route
 a same direction situation is created. This is done, regardless if there are intersections
 between the two vehicles present, because one vehicle just follows the other, potentially through the intersection.
-| ![same direction situation](../images/two_cars_same_direction.png) |
-| -- |
-| *One vehicle is following the other on the same road by driving in the same direction: either on the same lane or on another parallel lane* |
+
+  | ![same direction situation](../images/two_cars_same_direction.png) |
+  | -- |
+  | *One vehicle is following the other on the same road by driving in the same direction: either on the same lane or on another parallel lane* |
 
 2. If both vehicles drive in opposite direction and there is no intersection in between an opposite direction situation is created.
-| ![opposite direction situation](../images/two_cars_opposite_direction.png) |
-| -- |
-| *Both vehicle are approaching each other on the same road by driving in the opposite direction: either on the same lane or on another parallel lane* |
+
+  | ![opposite direction situation](../images/two_cars_opposite_direction.png) |
+  | -- |
+  | *Both vehicle are approaching each other on the same road by driving in the opposite direction: either on the same lane or on another parallel lane* |
 
 3. Otherwise, the potential future routes of the vehicles have
 to be calculated and combined with each other. As in an AD vehicle the ego route usually is known
 that route is taken as basis for the ego vehicle, if present. Every intersection present in both
 routes of these combinations might result in a new situation to be considered:
-| ![special intersection situation](../images/two_cars_intersection_highway_entry.png) |
-| -- |
-| *Besides classical X-intersection or T-intersections also areas where lanes vanish and a lateral conflict is unavoidable have to be treated as intersection cases.* |
+
+  | ![special intersection situation](../images/two_cars_intersection_highway_entry.png) |
+  | -- |
+  | *Besides classical X-intersection or T-intersections also areas where lanes vanish and a lateral conflict is unavoidable have to be treated as intersection cases.* |
 
   * If both drive through the intersection coming from different intersection arms without crossing routes,
     the vehicles pass each other and an opposite direction situation is created
   * Else, the routes within the intersection are crossing each other and an intersection situation is created.
     To decide which of the vehicles has priority within the intersection the capabilities of the class
-    ad::map::intersection::Intersection() are used. In case of traffic light intersections, the kind
+    `ad::map::intersection::Intersection()` are used. In case of traffic light intersections, the kind
     and status of the relevant traffic light determines the current priorities.
 
 #### Handling of similar situations
@@ -107,7 +110,7 @@ In intersection situations, both vehicles approach from different roads. Therefo
 
 ### Conversion of the vehicle data in respect to the Road Area  <a name="convertvehicledata"></a>
 Having the situations and the respective Road Area(s) constructed, the vehicle data has to be
-converted into the desired RSS object format ad::rss::world::Object. The main aspects of this
+converted into the desired RSS object format `ad::rss::world::Object`. The main aspects of this
 are the conversion of the velocity and of the bounding box.
 
 #### Conversion of the vehicle velocity within the road area
@@ -140,9 +143,9 @@ Based on the Road Area, the individual bounding box of the vehicles are calculat
 | -- |
 | *Road Area with lane Ids assigned* |
 
-For this, the ad::map::match::LaneOccupiedRegionList with the occupied regions calculated on basis of
+For this, the `ad::map::match::LaneOccupiedRegionList` with the occupied regions calculated on basis of
 the real lane geometries (see *ad_map_access* for reference) is transformed into the
-ad::rss:world::OccupiedRegionVector mainly by:
+`ad::rss:world::OccupiedRegionVector` mainly by:
 
 * consider only lanes present in the Road Area
 * adapt the parametric range in respect to the driving direction of the lane segment
@@ -178,12 +181,7 @@ The following Figure provides an example:
 
 | ![Example on restricting the extend of the road area](../images/scene_creation_cut_required.png) |
 | -- |
-| *Example: Let the actual distance of the two cars be $d^{lon}_{real} = 17\,m$.
-   Further let the right border of the road area curve within the intersection be 15\,m and the outer border be 23\,m.
-   With the transformation into *ad_rss* situation based coordinate system the information on the actual road geometry gets lost, so that the
-   difference of the border length of 6\,m in a road segment at the beginning leads to a decreased metric distance
-   of the two cars of $d^{lon}_{RoadArea} = 11\,m$.
-   Cutting the road area after the (red) vehicle in the back would lead to $d^{lon}_{RoadArea} = d^{lon}_{real} = 17\,m$.* |
+| *Example: Let the actual distance of the two cars be $d^{lon}_{real} = 17\,m$. Further let the right border of the road area curve within the intersection be $15\,m$ and the outer border be $23\,m$. With the transformation into *ad_rss* situation based coordinate system the information on the actual road geometry gets lost, so that the difference of the border length of $6\,m$ in a road segment at the beginning leads to a decreased metric distance of the two cars of $d^{lon}_{RoadArea} = 11\,m$. Cutting the road area after the (red) vehicle in the back would lead to $d^{lon}_{RoadArea} = d^{lon}_{real} = 17\,m$.* |
 
 To understand the details of why it is important to restrict the road area in its extend,
 the actual realized calculation of metric bounding box and metric distances within the road area within *ad_rss* are sketched in the following sections.
@@ -240,21 +238,21 @@ Having the vehicles metric bounding boxes and the distances to the intersection 
 $d_{lon} = \max⁡ (0, d_{enter}^A - d_{enter}^B - (BB_{lon,max}^B -BB_{lon,min}^B))$
 
 ### Consider speed limits <a name="considerspeedlimits"></a>
-Since the [RSS paper](https://arxiv.org/abs/1708.06374) is assuming worst-case behavior of
-other traffic participants, vehicles are allowed to accelerate with maximum possible acceleration
+The [RSS paper](https://arxiv.org/abs/1708.06374) is assuming reasonable behavior of
+other traffic participants. By the general RSS formulas, vehicles are allowed to accelerate with maximum possible acceleration
 within their reaction time. Especially in urban scenarios this can lead to unnecessarily big safety
-distances if expecting that fast driving vehicles are able to accelerate even beyond speed limits.
+distances if expecting that fast driving vehicles will accelerate even further beyond the speed limits within their reaction time.
 As it's unreasonable behavior of others to accelerate far beyond the maximum allowed speed,
-the construction of the scenes with ad::rss::map::RssSceneCreation::appendScenes() supports
+the construction of the scenes with `ad::rss::map::RssSceneCreation::appendScenes()` supports
 to select between different modes to consider the speed limit within RSS accelerated movement,
-by setting the ad::rss::world::RssDynamics dynamics accordingly:
+by setting the `ad::rss::world::RssDynamics` dynamics accordingly:
 
-* None: Do not change the objects maxSpeed parameter of the RssDynamics
-* ExactSpeedLimit: Set the objects maxSpeed parameter of the RssDynamics to the maximal
+* `None`: Do not change the objects maxSpeedOnAcceleration parameter of the RssDynamics
+* `ExactSpeedLimit`: Set the objects maxSpeedOnAcceleration parameter of the RssDynamics to the maximal
   allowed speed of the relevant road section
-* IncreasedSpeedLimit5: Set the objects maxSpeed parameter of the RssDynamics to the maximal
+* `IncreasedSpeedLimit5`: Set the objects maxSpeedOnAcceleration parameter of the RssDynamics to the maximal
   allowed speed of the relevant road section + 5 percent
-* IncreasedSpeedLimit10: Set the objects maxSpeed parameter of the RssDynamics to the maximal
+* `IncreasedSpeedLimit10`: Set the objects maxSpeedOnAcceleration parameter of the RssDynamics to the maximal
   allowed speed of the relevant road section + 10 percent
 
 In general, this extends the scope of the RSS paper, but might be a reasonable change to improve

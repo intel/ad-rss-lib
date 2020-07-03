@@ -42,7 +42,8 @@ public:
   /*!
    * @brief constructor
    *
-   * @param[in] restrictSpeedLimitMode the mode to select the behavior of objectRssDynamics.maxSpeed and egoMaxSpeed
+   * @param[in] restrictSpeedLimitMode the mode to select the behavior of objectRssDynamics.maxSpeedOnAcceleration and
+   * egoMaxSpeedOnAcceleration
    * parameter
    * @param[in] greenTrafficLights the list of known green traffic lights.
    *   Required to derive the correct priority rule for the ego vehicle when approaching a traffic light intersection.
@@ -154,6 +155,8 @@ public:
   {
     return std::numeric_limits<::ad::rss::world::ObjectId>::max() - 1;
   }
+
+  bool appendUnstructuredScene(RssObjectConversion::ConstPtr iEgoObject, RssObjectConversion::ConstPtr iOtherObject);
 
 private:
   /**

@@ -28,9 +28,9 @@ protected:
   {
     // valid initialization
     ::ad::rss::state::RssStateInformation value;
-    ::ad::physics::Distance valueSafeDistance(0.);
+    ::ad::physics::Distance valueSafeDistance(-1e9);
     value.safeDistance = valueSafeDistance;
-    ::ad::physics::Distance valueCurrentDistance(0.);
+    ::ad::physics::Distance valueCurrentDistance(-1e9);
     value.currentDistance = valueCurrentDistance;
     ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
     value.evaluator = valueEvaluator;

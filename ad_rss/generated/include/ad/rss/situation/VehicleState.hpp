@@ -23,6 +23,8 @@
 #include <sstream>
 #include "ad/physics/Distance.hpp"
 #include "ad/rss/situation/VelocityRange.hpp"
+#include "ad/rss/world/ObjectState.hpp"
+#include "ad/rss/world/ObjectType.hpp"
 #include "ad/rss/world/RssDynamics.hpp"
 /*!
  * @brief namespace ad
@@ -108,7 +110,8 @@ struct VehicleState
     return (velocity == other.velocity) && (dynamics == other.dynamics) && (hasPriority == other.hasPriority)
       && (isInCorrectLane == other.isInCorrectLane)
       && (distanceToEnterIntersection == other.distanceToEnterIntersection)
-      && (distanceToLeaveIntersection == other.distanceToLeaveIntersection);
+      && (distanceToLeaveIntersection == other.distanceToLeaveIntersection) && (objectType == other.objectType)
+      && (objectState == other.objectState);
   }
 
   /**
@@ -153,6 +156,16 @@ struct VehicleState
    * The maximum distance to cover by the vehicle to leave the intersection completely.
    */
   ::ad::physics::Distance distanceToLeaveIntersection{std::numeric_limits<::ad::physics::Distance>::max()};
+
+  /*!
+   * The type of object.
+   */
+  ::ad::rss::world::ObjectType objectType;
+
+  /*!
+   * The state of the object required to perform unstructured scene calculations.
+   */
+  ::ad::rss::world::ObjectState objectState;
 };
 
 } // namespace situation
@@ -206,6 +219,12 @@ inline std::ostream &operator<<(std::ostream &os, VehicleState const &_value)
   os << ",";
   os << "distanceToLeaveIntersection:";
   os << _value.distanceToLeaveIntersection;
+  os << ",";
+  os << "objectType:";
+  os << _value.objectType;
+  os << ",";
+  os << "objectState:";
+  os << _value.objectState;
   os << ")";
   return os;
 }

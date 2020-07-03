@@ -7,7 +7,7 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 
 #include "TestSupport.hpp"
-#include "ad/rss/core/RssSituationChecking.hpp"
+#include "situation/RssStructuredSceneIntersectionChecker.hpp"
 
 namespace ad {
 namespace rss {
@@ -23,9 +23,9 @@ protected:
 
   void performTestRun()
   {
-    EXPECT_FALSE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+    RssStructuredSceneIntersectionChecker checker;
+    EXPECT_FALSE(checker.calculateRssStateIntersection(timeIndex++, situation, rssState));
   }
-  core::RssSituationChecking situationChecking;
   VehicleState leadingVehicle;
   VehicleState followingVehicle;
   Situation situation;
@@ -35,6 +35,7 @@ protected:
 
 TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, no_priority_vehicle)
 {
+  RssStructuredSceneIntersectionChecker checker;
   leadingVehicle = createVehicleStateForLongitudinalMotion(50);
   leadingVehicle.distanceToEnterIntersection = Distance(10.);
   leadingVehicle.distanceToLeaveIntersection = Distance(10.);
@@ -48,8 +49,7 @@ TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, no_priority_vehicle
   situation.otherVehicleState = followingVehicle;
   situation.relativePosition = createRelativeLongitudinalPosition(LongitudinalRelativePosition::InFront, Distance(60.));
 
-  ASSERT_TRUE(situationChecking.checkTimeIncreasingConsistently(timeIndex++));
-  ASSERT_TRUE(situationChecking.checkSituationInputRangeChecked(situation, rssState));
+  ASSERT_TRUE(checker.calculateRssStateIntersection(timeIndex++, situation, rssState));
 }
 
 TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, distanceToLeaveSmallerEgo)

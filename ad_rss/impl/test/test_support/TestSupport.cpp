@@ -33,13 +33,27 @@ void resetRssState(state::LateralRssState &state)
   state.rssStateInformation.evaluator = state::RssStateEvaluator::None;
 }
 
-void resetRssState(state::RssState &rssState, situation::SituationId const situationId, world::ObjectId const objectId)
+void resetRssState(state::UnstructuredSceneRssState &state)
+{
+  state.response = state::UnstructuredSceneResponse::None;
+  state.alphaLon = getEgoRssDynamics().alphaLon;
+  state.headingRange.begin = ad::physics::Angle(0.0);
+  state.headingRange.end = ad::physics::c2PI;
+  state.isSafe = true;
+}
+
+void resetRssState(state::RssState &rssState,
+                   situation::SituationId const situationId,
+                   world::ObjectId const objectId,
+                   situation::SituationType const situationType)
 {
   rssState.situationId = situationId;
   rssState.objectId = objectId;
+  rssState.situationType = situationType;
   resetRssState(rssState.longitudinalState);
   resetRssState(rssState.lateralStateLeft);
   resetRssState(rssState.lateralStateRight);
+  resetRssState(rssState.unstructuredSceneState);
 }
 
 void resetRssState(state::ProperResponse &properResponse)
@@ -50,6 +64,12 @@ void resetRssState(state::ProperResponse &properResponse)
   properResponse.longitudinalResponse = state::LongitudinalResponse::None;
   properResponse.lateralResponseLeft = state::LateralResponse::None;
   properResponse.lateralResponseRight = state::LateralResponse::None;
+
+  properResponse.headingRanges.clear();
+  state::HeadingRange initialHeadingRange;
+  initialHeadingRange.begin = ad::physics::Angle(0.0);
+  initialHeadingRange.end = ad::physics::c2PI;
+  properResponse.headingRanges.push_back(initialHeadingRange);
 }
 
 world::RssDynamics getObjectRssDynamics()
@@ -65,6 +85,13 @@ world::RssDynamics getObjectRssDynamics()
   rssDynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
 
   rssDynamics.responseTime = cResponseTimeOtherVehicles;
+
+  rssDynamics.unstructuredSettings.pedestrianTurningRadius = ad::physics::Distance(2.0);
+  rssDynamics.unstructuredSettings.driveAwayMaxAngle = ad::physics::Angle(2.4);
+  rssDynamics.unstructuredSettings.vehicleYawRateChange = ad::physics::AngularAcceleration(0.3);
+  rssDynamics.unstructuredSettings.vehicleMinRadius = ad::physics::Distance(3.5);
+  rssDynamics.unstructuredSettings.vehicleTrajectoryCalculationStep = ad::physics::Duration(0.2);
+
   return rssDynamics;
 }
 
@@ -81,6 +108,13 @@ world::RssDynamics getEgoRssDynamics()
   rssDynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
 
   rssDynamics.responseTime = cResponseTimeEgoVehicle;
+
+  rssDynamics.unstructuredSettings.pedestrianTurningRadius = ad::physics::Distance(2.0);
+  rssDynamics.unstructuredSettings.driveAwayMaxAngle = ad::physics::Angle(2.4);
+  rssDynamics.unstructuredSettings.vehicleYawRateChange = ad::physics::AngularAcceleration(0.3);
+  rssDynamics.unstructuredSettings.vehicleMinRadius = ad::physics::Distance(3.5);
+  rssDynamics.unstructuredSettings.vehicleTrajectoryCalculationStep = ad::physics::Duration(0.2);
+
   return rssDynamics;
 }
 
@@ -93,10 +127,27 @@ world::Object createObject(double const lonVelocity, double const latVelocity)
   object.velocity.speedLonMax = kmhToMeterPerSec(lonVelocity);
   object.velocity.speedLatMin = kmhToMeterPerSec(latVelocity);
   object.velocity.speedLatMax = kmhToMeterPerSec(latVelocity);
+  object.state = createObjectState(lonVelocity, latVelocity);
   return object;
 }
 
-situation::VehicleState createVehicleState(double const lonVelocity, double const latVelocity)
+world::ObjectState createObjectState(double const lonVelocity, double const latVelocity)
+{
+  world::ObjectState state;
+  state.yaw = ad::physics::Angle(0.0);
+  state.steeringAngle = ad::physics::Angle(0.0);
+  state.dimension.length = ad::physics::Distance(4.0);
+  state.dimension.width = ad::physics::Distance(2.0);
+  state.yawRate = ad::physics::AngularVelocity(0.0);
+  state.centerPoint.x = ad::physics::Distance(0.0);
+  state.centerPoint.y = ad::physics::Distance(0.0);
+  state.speed = ad::physics::Speed(std::sqrt(kmhToMeterPerSec(lonVelocity) * kmhToMeterPerSec(lonVelocity)
+                                             + kmhToMeterPerSec(latVelocity) * kmhToMeterPerSec(latVelocity)));
+  return state;
+}
+
+situation::VehicleState
+createVehicleState(world::ObjectType const objectType, double const lonVelocity, double const latVelocity)
 {
   situation::VehicleState state;
 
@@ -109,7 +160,8 @@ situation::VehicleState createVehicleState(double const lonVelocity, double cons
   state.distanceToLeaveIntersection = Distance(1000.);
   state.hasPriority = false;
   state.isInCorrectLane = true;
-
+  state.objectType = objectType;
+  state.objectState = createObjectState(lonVelocity, latVelocity);
   return state;
 }
 
@@ -136,20 +188,27 @@ situation::RelativePosition createRelativeLateralPosition(situation::LateralRela
 }
 
 Distance calculateLongitudinalStoppingDistance(Speed const &objectSpeed,
-                                               Speed const &objectMaxSpeed,
+                                               Speed const &objectMaxSpeedOnAcceleration,
                                                Acceleration const &acceleration,
                                                Acceleration const &deceleration,
                                                Duration const &responseTime)
 {
   Duration accelerationTime = responseTime;
-  if (acceleration != Acceleration(0.))
+  Speed speedMax = std::min(objectMaxSpeedOnAcceleration, objectSpeed + responseTime * acceleration);
+  if (objectSpeed >= objectMaxSpeedOnAcceleration)
   {
-    accelerationTime = std::min(accelerationTime, std::fabs(objectMaxSpeed - objectSpeed) / acceleration);
+    // no acceleration if already faster than maxSpeedOnAcceleration
+    accelerationTime = Duration(0.);
+    speedMax = objectSpeed;
+  }
+  else if (acceleration != Acceleration(0.))
+  {
+    // maybe the acceleration time is less, if maxSpeedOnAcceleration is reached before response time
+    accelerationTime = std::min(accelerationTime, std::fabs(objectMaxSpeedOnAcceleration - objectSpeed) / acceleration);
   }
   Distance dMin = objectSpeed * accelerationTime;
   dMin += 0.5 * acceleration * accelerationTime * accelerationTime;
-  dMin += objectMaxSpeed * (responseTime - accelerationTime);
-  Speed const speedMax = std::min(objectMaxSpeed, objectSpeed + responseTime * acceleration);
+  dMin += speedMax * (responseTime - accelerationTime);
   dMin += (speedMax * speedMax) / (2. * -deceleration);
   return dMin;
 }
@@ -161,13 +220,13 @@ Distance calculateLongitudinalMinSafeDistance(physics::Speed const &followingObj
 {
   Distance const followingStoppingDistance
     = calculateLongitudinalStoppingDistance(followingObjectSpeed,
-                                            followingObjectRssDynamics.maxSpeed,
+                                            followingObjectRssDynamics.maxSpeedOnAcceleration,
                                             followingObjectRssDynamics.alphaLon.accelMax,
                                             followingObjectRssDynamics.alphaLon.brakeMin,
                                             followingObjectRssDynamics.responseTime);
   Distance const leadingStoppingDistance
     = calculateLongitudinalStoppingDistance(leadingObjectSpeed,
-                                            leadingObjectRssDynamics.maxSpeed,
+                                            leadingObjectRssDynamics.maxSpeedOnAcceleration,
                                             leadingObjectRssDynamics.alphaLon.accelMax,
                                             leadingObjectRssDynamics.alphaLon.brakeMax,
                                             Duration(0));
@@ -183,13 +242,13 @@ calculateLongitudinalMinSafeDistanceOppositeDirection(physics::Speed const &obje
 {
   Distance const correctStoppingDistance
     = calculateLongitudinalStoppingDistance(objectInCorrectLaneSpeed,
-                                            objectInCorrectLaneRssDynamics.maxSpeed,
+                                            objectInCorrectLaneRssDynamics.maxSpeedOnAcceleration,
                                             objectInCorrectLaneRssDynamics.alphaLon.accelMax,
                                             objectInCorrectLaneRssDynamics.alphaLon.brakeMinCorrect,
                                             objectInCorrectLaneRssDynamics.responseTime);
   Distance const notCorrectStoppingDistance
     = calculateLongitudinalStoppingDistance(objectNotInCorrectLaneSpeed,
-                                            objectNotInCorrectLaneRssDynamics.maxSpeed,
+                                            objectNotInCorrectLaneRssDynamics.maxSpeedOnAcceleration,
                                             objectNotInCorrectLaneRssDynamics.alphaLon.accelMax,
                                             objectNotInCorrectLaneRssDynamics.alphaLon.brakeMin,
                                             objectNotInCorrectLaneRssDynamics.responseTime);
@@ -357,7 +416,7 @@ state::LongitudinalRssState TestSupport::stateWithInformation(state::Longitudina
         resultState.rssStateInformation.currentDistance = situation.egoVehicleState.distanceToEnterIntersection;
         resultState.rssStateInformation.safeDistance
           = calculateLongitudinalStoppingDistance(situation.egoVehicleState.velocity.speedLon.maximum,
-                                                  situation.egoVehicleState.dynamics.maxSpeed,
+                                                  situation.egoVehicleState.dynamics.maxSpeedOnAcceleration,
                                                   situation.egoVehicleState.dynamics.alphaLon.accelMax,
                                                   situation.egoVehicleState.dynamics.alphaLon.brakeMin,
                                                   situation.egoVehicleState.dynamics.responseTime);
@@ -372,7 +431,7 @@ state::LongitudinalRssState TestSupport::stateWithInformation(state::Longitudina
         resultState.rssStateInformation.currentDistance = situation.otherVehicleState.distanceToEnterIntersection;
         resultState.rssStateInformation.safeDistance
           = calculateLongitudinalStoppingDistance(situation.otherVehicleState.velocity.speedLon.maximum,
-                                                  situation.otherVehicleState.dynamics.maxSpeed,
+                                                  situation.otherVehicleState.dynamics.maxSpeedOnAcceleration,
                                                   situation.otherVehicleState.dynamics.alphaLon.accelMax,
                                                   situation.otherVehicleState.dynamics.alphaLon.brakeMin,
                                                   situation.otherVehicleState.dynamics.responseTime);
@@ -425,6 +484,73 @@ state::LongitudinalRssState TestSupport::stateWithInformation(state::Longitudina
   }
 
   return resultState;
+}
+
+void getUnstructuredVehicle(unstructured::Point const &centerPoint,
+                            bool positiveDirection,
+                            state::UnstructuredSceneStateInformation &stateInfo,
+                            situation::VehicleState &vehicleState)
+{
+  vehicleState.objectState.centerPoint.x = ad::physics::Distance(centerPoint.x());
+  vehicleState.objectState.centerPoint.y = ad::physics::Distance(centerPoint.y());
+  if (positiveDirection)
+  {
+    vehicleState.objectState.yaw = ad::physics::cPI_2;
+  }
+  else
+  {
+    vehicleState.objectState.yaw = 3. * ad::physics::cPI_2;
+  }
+
+  stateInfo.brakeTrajectorySet.clear();
+  stateInfo.continueForwardTrajectorySet.clear();
+  // brake
+  if (positiveDirection)
+  {
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(centerPoint.x() - 0.5, centerPoint.y() - 0.5)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(centerPoint.x() - 0.5, centerPoint.y() - 0.5)));
+
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(centerPoint.x() + 0.5, centerPoint.y() - 0.5)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(centerPoint.x() + 0.5, centerPoint.y() - 0.5)));
+
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(centerPoint.x() + 0.5, centerPoint.y() + 1.5)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(centerPoint.x() + 0.5, centerPoint.y() + 2.5)));
+
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(centerPoint.x() - 0.5, centerPoint.y() + 1.5)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(centerPoint.x() - 0.5, centerPoint.y() + 2.5)));
+  }
+  else
+  {
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(centerPoint.x() + 0.5, centerPoint.y() + 0.5)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(centerPoint.x() + 0.5, centerPoint.y() + 0.5)));
+
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(centerPoint.x() - 0.5, centerPoint.y() + 0.5)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(centerPoint.x() - 0.5, centerPoint.y() + 0.5)));
+
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(centerPoint.x() - 0.5, centerPoint.y() - 1.5)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(centerPoint.x() - 0.5, centerPoint.y() - 2.5)));
+
+    stateInfo.brakeTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(centerPoint.x() + 0.5, centerPoint.y() - 1.5)));
+    stateInfo.continueForwardTrajectorySet.push_back(
+      unstructured::toDistance(unstructured::Point(centerPoint.x() + 0.5, centerPoint.y() - 2.5)));
+  }
+  stateInfo.brakeTrajectorySet.push_back(stateInfo.brakeTrajectorySet.front());
+  stateInfo.continueForwardTrajectorySet.push_back(stateInfo.continueForwardTrajectorySet.front());
 }
 
 } // namespace rss

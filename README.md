@@ -12,9 +12,10 @@
 2. [License](#license)
 3. [Documentation](#documentation)
 4. [Releases](#releases)
-   1. [Release 3.x](#release_3)
-   2. [Release 2.x](#release_2)
-   3. [Release 1.x](#release_1)
+   1. [Release 4.x](#release_4)
+   2. [Release 3.x](#release_3)
+   3. [Release 2.x](#release_2)
+   4. [Release 1.x](#release_1)
 5. [Getting Started](#started)
    1. [Supported Systems](#systems)
 6. [Building the library](#building)
@@ -86,6 +87,9 @@ If you have any additional question not answered therein, you might find more in
 ## Releases <a name="releases"></a>
 General release notes and changes can be found in the [Changelog](https://intel.github.io/ad-rss-lib/CHANGELOG/index.html)
 
+#### Release 4.x.x <a name="release_4"></a>
+These releases extends the 3.x version with handling of unstructured roads and pedestrians.
+
 #### Release 3.x.x <a name="release_3"></a>
 These releases improve the 2.x version capabilities on scene creation.
 
@@ -99,12 +103,11 @@ The initial release of the C++ software library for RSS implements a subset of t
 This release implements the RSS calculations and rules corresponding to the following scenarios:
 
 * Multi-lane roads, i.e. longitudinal and lateral safe distance and proper response determination; and
-* Intersections, i.e. two or more routes of different geometry, rules for intersections of routes, with priority/right of way, and longitudinal and lateral proper response determination. However, in the case of intersections, it is assumed that there is always a lateral conflict.
+* Intersections, i.e. two or more routes of different geometry, rules for intersections of routes, with priority/right of way, and longitudinal and lateral proper response determination. However, in the case of intersections, it is assumed that there is always a lateral conflict; and
+* Unstructured roads and pedestrians.
 
 The following parts of RSS are NOT implemented in this release of the library software:
 
-* Unstructured roads, e.g. parking lots and wide round-abouts;
-* Pedestrians, bicyclists and other vulnerable road users;
 * Occlusions;
 * Longitudinal or lateral evasive maneuvers as defined by RSS; and
 * Intersections without a lateral conflict.
@@ -117,7 +120,7 @@ Note: The RSS module in this library does not initiate evasive manuevers. At the
 Currently, the focused operating system is Ubuntu 16.04. Nevertheless, the library should work in a similar way for any other Linux OS.
 To install the dependencies for Ubuntu 16.04 execute the following command:
 ```bash
- user$> sudo apt-get install git build-essential cmake
+ user$> sudo apt-get install git build-essential cmake libboost-dev
 ```
 
 If you want to use doxygen for API documentation, please also install:

@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2019 Intel Corporation
+// Copyright (C) 2018-2020 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -25,6 +25,11 @@ using physics::MetricRange;
 bool calculateLateralDimensions(RoadArea const &roadArea, std::vector<MetricRange> &lateralRanges)
 {
   bool result = true;
+  if (roadArea.empty())
+  {
+    spdlog::error("RssSituationCoordinateSystemConversion::calculateLateralDimensions>> road area empty");
+    return false;
+  }
 
   try
   {
@@ -44,6 +49,11 @@ bool calculateLateralDimensions(RoadArea const &roadArea, std::vector<MetricRang
       Distance lateralDistanceMin = std::numeric_limits<Distance>::max();
       for (const auto &roadSegment : roadArea)
       {
+        if (roadSegment.empty())
+        {
+          spdlog::error("RssSituationCoordinateSystemConversion::calculateLateralDimensions>> road segment empty");
+          return false;
+        }
         if (roadSegment.size() > currentLateralIndex)
         {
           roadSegmentFound = true;
@@ -139,6 +149,9 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
       {
         if (object.occupiedRegions.empty())
         {
+          spdlog::error(
+            "RssSituationCoordinateSystemConversion::calculateObjectDimensions>> occupied region of object {} empty",
+            object.objectId);
           return false;
         }
         extractors.push_back(RssObjectPositionExtractor(object.occupiedRegions));
@@ -190,6 +203,12 @@ bool calculateObjectDimensions(std::vector<Object> const &objects,
           objectDimensions.push_back(extractedDimensions);
         }
       }
+    }
+    else
+    {
+      spdlog::error("RssSituationCoordinateSystemConversion::calculateObjectDimensions>> calculateLateralDimensions of "
+                    "object {} failed",
+                    objects.front().objectId);
     }
   }
   catch (...)

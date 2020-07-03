@@ -14,6 +14,7 @@ Simple unittest module to ensure that the Python binding is functional
 
 import unittest
 import xmlrunner
+import math
 import sys
 import os
 
@@ -36,20 +37,46 @@ class AdRssPythonTest(unittest.TestCase):
     road_length = 1000.0
     road_width = 5.0
 
+    def _getUnstructuedSettings(self):
+        """
+        Fill unstructured settings
+        """
+        unstructuredSettings = rss.UnstructuredSettings()
+        unstructuredSettings.pedestrianTurningRadius = physics.Distance(2.0)
+        unstructuredSettings.driveAwayMaxAngle = physics.Angle(2.4)
+        unstructuredSettings.vehicleYawRateChange = physics.AngularAcceleration(0.3)
+        unstructuredSettings.vehicleMinRadius = physics.Distance(3.5)
+        unstructuredSettings.vehicleTrajectoryCalculationStep = physics.Duration(0.2)
+        return unstructuredSettings
+
+    def _createObject(self, objectId, objectType, lonVelocity, latVelocity, occupiedRegion):
+        """
+        Fill basic object data
+        """
+        rss_vehicle = rss.Object()
+        rss_vehicle.objectId = objectId
+        rss_vehicle.objectType = objectType
+        rss_vehicle.velocity.speedLonMin = lonVelocity
+        rss_vehicle.velocity.speedLonMax = lonVelocity
+        rss_vehicle.velocity.speedLatMin = latVelocity
+        rss_vehicle.velocity.speedLatMax = latVelocity
+
+        rss_vehicle.state.yaw = physics.Angle(0.0)
+        rss_vehicle.state.dimension.length = physics.Distance(4.0)
+        rss_vehicle.state.dimension.width = physics.Distance(2.0)
+        rss_vehicle.state.yawRate = physics.AngularVelocity(0.0)
+        rss_vehicle.state.centerPoint.x = physics.Distance(0.0)
+        rss_vehicle.state.centerPoint.y = physics.Distance(0.0)
+        rss_vehicle.state.speed = math.sqrt(lonVelocity * lonVelocity + latVelocity * latVelocity)
+        rss_vehicle.state.steeringAngle = physics.Angle(0.0)
+
+        rss_vehicle.occupiedRegions.append(occupiedRegion)
+        return rss_vehicle
+
     def _prepare_world_model(self):
         """
         Setup RSS world model
         """
-
-        rss_vehicle_a = rss.Object()
-        rss_vehicle_b = rss.Object()
-
-        rss_vehicle_a.objectType = rss.ObjectType.EgoVehicle
-        rss_vehicle_a.velocity.speedLonMin = physics.Speed(20.0)
-        rss_vehicle_a.velocity.speedLonMax = physics.Speed(20.0)
-        rss_vehicle_a.velocity.speedLatMin = physics.Speed(0.0)
-        rss_vehicle_a.velocity.speedLatMax = physics.Speed(0.0)
-        rss_vehicle_a.objectId = 0
 
         occupied_region = rss.OccupiedRegion()
         occupied_region.segmentId = 0
@@ -57,19 +84,11 @@ class AdRssPythonTest(unittest.TestCase):
         occupied_region.latRange.maximum = physics.ParametricValue(2.0 / self.road_width)
         occupied_region.lonRange.minimum = physics.ParametricValue(0.)
         occupied_region.lonRange.maximum = physics.ParametricValue(5.0 / self.road_length)
-
-        rss_vehicle_a.occupiedRegions.append(occupied_region)
-
-        rss_vehicle_b.objectType = rss.ObjectType.OtherVehicle
-        rss_vehicle_b.velocity.speedLonMin = physics.Speed(10.0)
-        rss_vehicle_b.velocity.speedLonMax = physics.Speed(10.0)
-        rss_vehicle_b.velocity.speedLatMin = physics.Speed(0.0)
-        rss_vehicle_b.velocity.speedLatMax = physics.Speed(0.0)
-        rss_vehicle_b.objectId = 1
+        rss_vehicle_a = self._createObject(0, rss.ObjectType.EgoVehicle, 20., 0., occupied_region)
 
         occupied_region.lonRange.minimum = physics.ParametricValue(100.0 / self.road_length)
         occupied_region.lonRange.maximum = physics.ParametricValue((5.0 + 100) / self.road_length)
-        rss_vehicle_b.occupiedRegions.append(occupied_region)
+        rss_vehicle_b = self._createObject(1, rss.ObjectType.OtherVehicle, 10., 0., occupied_region)
 
         rss_scene = rss.Scene()
 
@@ -89,6 +108,7 @@ class AdRssPythonTest(unittest.TestCase):
         road_segment.append(lane_segment)
         rss_scene.egoVehicleRoad.append(road_segment)
         rss_scene.objectRssDynamics.responseTime = physics.Duration(0.5)
+        rss_scene.objectRssDynamics.maxSpeedOnAcceleration = physics.Speed(0.)
         rss_scene.objectRssDynamics.alphaLat.accelMax = physics.Acceleration(1.)
         rss_scene.objectRssDynamics.alphaLat.brakeMin = physics.Acceleration(-1.)
         rss_scene.objectRssDynamics.alphaLon.accelMax = physics.Acceleration(4.)
@@ -96,8 +116,10 @@ class AdRssPythonTest(unittest.TestCase):
         rss_scene.objectRssDynamics.alphaLon.brakeMinCorrect = physics.Acceleration(-4.)
         rss_scene.objectRssDynamics.alphaLon.brakeMin = physics.Acceleration(-4.)
         rss_scene.objectRssDynamics.lateralFluctuationMargin = physics.Distance(0.)
+        rss_scene.objectRssDynamics.unstructuredSettings = self._getUnstructuedSettings()
 
         rss_scene.egoVehicleRssDynamics.responseTime = physics.Duration(0.2)
+        rss_scene.egoVehicleRssDynamics.maxSpeedOnAcceleration = physics.Speed(0.)
         rss_scene.egoVehicleRssDynamics.alphaLat.accelMax = physics.Acceleration(0.1)
         rss_scene.egoVehicleRssDynamics.alphaLat.brakeMin = physics.Acceleration(-0.1)
         rss_scene.egoVehicleRssDynamics.alphaLon.accelMax = physics.Acceleration(0.1)
@@ -105,12 +127,14 @@ class AdRssPythonTest(unittest.TestCase):
         rss_scene.egoVehicleRssDynamics.alphaLon.brakeMin = physics.Acceleration(-4.)
         rss_scene.egoVehicleRssDynamics.alphaLon.brakeMinCorrect = physics.Acceleration(-4.)
         rss_scene.egoVehicleRssDynamics.lateralFluctuationMargin = physics.Distance(0.)
+        rss_scene.egoVehicleRssDynamics.unstructuredSettings = self._getUnstructuedSettings()
 
         self.world_model = rss.WorldModel()
 
         self.world_model.timeIndex = 1
         self.world_model.scenes.append(rss_scene)
         self.world_model.defaultEgoVehicleRssDynamics.responseTime = physics.Duration(0.2)
+        self.world_model.defaultEgoVehicleRssDynamics.maxSpeedOnAcceleration = physics.Speed(0.)
         self.world_model.defaultEgoVehicleRssDynamics.alphaLat.accelMax = physics.Acceleration(0.1)
         self.world_model.defaultEgoVehicleRssDynamics.alphaLat.brakeMin = physics.Acceleration(-0.1)
         self.world_model.defaultEgoVehicleRssDynamics.alphaLon.accelMax = physics.Acceleration(0.1)
@@ -118,6 +142,7 @@ class AdRssPythonTest(unittest.TestCase):
         self.world_model.defaultEgoVehicleRssDynamics.alphaLon.brakeMin = physics.Acceleration(-4.)
         self.world_model.defaultEgoVehicleRssDynamics.alphaLon.brakeMinCorrect = physics.Acceleration(-4.)
         self.world_model.defaultEgoVehicleRssDynamics.lateralFluctuationMargin = physics.Distance(0.)
+        self.world_model.defaultEgoVehicleRssDynamics.unstructuredSettings = self._getUnstructuedSettings()
 
     def test_interface(self):
         """
@@ -143,12 +168,10 @@ class AdRssPythonTest(unittest.TestCase):
         self.assertTrue(rss_situation_checking.checkSituations(rss_situation_snapshot, rss_state_snapshot))
 
         rss_proper_response = rss.ProperResponse()
-        acceleration_restriction = rss.AccelerationRestriction()
-        self.assertTrue(rss_response_resolving.provideProperResponse(
-            rss_state_snapshot, rss_proper_response, acceleration_restriction))
+        self.assertTrue(rss_response_resolving.provideProperResponse(rss_state_snapshot, rss_proper_response))
 
-        print ("== Acceleration Restrictions ==")
-        print (acceleration_restriction)
+        print ("== Proper Response ==")
+        print (rss_proper_response)
 
         longitudinal_distance = float(rss_situation_snapshot.situations[0].relativePosition.longitudinalDistance)
 

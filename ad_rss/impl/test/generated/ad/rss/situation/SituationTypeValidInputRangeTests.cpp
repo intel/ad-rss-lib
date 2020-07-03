@@ -26,6 +26,7 @@ TEST(SituationTypeValidInputRangeTests, testValidInputRangeValid)
   ASSERT_TRUE(withinValidInputRange(::ad::rss::situation::SituationType::IntersectionEgoHasPriority));
   ASSERT_TRUE(withinValidInputRange(::ad::rss::situation::SituationType::IntersectionObjectHasPriority));
   ASSERT_TRUE(withinValidInputRange(::ad::rss::situation::SituationType::IntersectionSamePriority));
+  ASSERT_TRUE(withinValidInputRange(::ad::rss::situation::SituationType::Unstructured));
 }
 
 TEST(SituationTypeValidInputRangeTests, testValidInputRangeInvalid)
@@ -39,6 +40,7 @@ TEST(SituationTypeValidInputRangeTests, testValidInputRangeInvalid)
   minValue
     = std::min(minValue, static_cast<int32_t>(::ad::rss::situation::SituationType::IntersectionObjectHasPriority));
   minValue = std::min(minValue, static_cast<int32_t>(::ad::rss::situation::SituationType::IntersectionSamePriority));
+  minValue = std::min(minValue, static_cast<int32_t>(::ad::rss::situation::SituationType::Unstructured));
 
   ASSERT_FALSE(withinValidInputRange(static_cast<::ad::rss::situation::SituationType>(minValue - 1)));
 }

@@ -19,9 +19,12 @@ get_target_property(AD_PHYSICS_INCLUDES ad_physics INTERFACE_INCLUDE_DIRECTORIES
 find_package(spdlog REQUIRED CONFIG)
 get_target_property(SPDLOG_INCLUDES spdlog::spdlog INTERFACE_INCLUDE_DIRECTORIES)
 
-list(APPEND INCLUDE_DIRS ${AD_PHYSICS_INCLUDES} ${SPDLOG_INCLUDES})
+find_package(Boost REQUIRED)
+
+list(APPEND INCLUDE_DIRS ${Boost_INCLUDE_DIRS} ${AD_PHYSICS_INCLUDES} ${SPDLOG_INCLUDES})
 
 string (REPLACE ";" "\", \"" GENPY_INCLUDE_DIRS "${INCLUDE_DIRS}")
+
 
 find_python_binding_packages()
 
@@ -61,6 +64,7 @@ foreach(binding ${PYTHON_BINDINGS})
     )
     get_python_test_environment(ad_physics)
     set_tests_properties(${target}_test PROPERTIES ENVIRONMENT "${PYTHON_TEST_ENVIRONMENT}")
+    message(STATUS "PYTHON_TEST_ENVIRONMENT=${PYTHON_TEST_ENVIRONMENT}")
   endif()
 
 endforeach()

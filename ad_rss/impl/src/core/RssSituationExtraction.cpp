@@ -282,7 +282,8 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex 
   // @toDo: add this restriction to the data type model
   //       and extend generated withinValidInputRange by these
   if (((currentScene.object.objectType != world::ObjectType::OtherVehicle)
-       && (currentScene.object.objectType != world::ObjectType::ArtificialObject))
+       && (currentScene.object.objectType != world::ObjectType::ArtificialObject)
+       && (currentScene.object.objectType != world::ObjectType::Pedestrian))
       || (currentScene.egoVehicle.objectType != world::ObjectType::EgoVehicle))
   {
     spdlog::error("RssSituationExtraction::extractSituationInputRangeChecked>> Invalid object type. Ego: {} Object: {}",
@@ -310,6 +311,12 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex 
     situation.situationId = mSituationIdProvider->getSituationId(timeIndex, currentScene);
     situation.objectId = currentScene.object.objectId;
     situation.situationType = currentScene.situationType;
+
+    situation.egoVehicleState.objectType = currentScene.egoVehicle.objectType;
+    situation.otherVehicleState.objectType = currentScene.object.objectType;
+
+    situation.egoVehicleState.objectState = currentScene.egoVehicle.state;
+    situation.otherVehicleState.objectState = currentScene.object.state;
 
     situation.egoVehicleState.hasPriority = false;
     situation.otherVehicleState.hasPriority = false;
@@ -343,6 +350,7 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex 
         break;
       }
       case ad::rss::situation::SituationType::NotRelevant:
+      case ad::rss::situation::SituationType::Unstructured:
       {
         result = true;
         break;
@@ -356,10 +364,18 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex 
       }
     }
   }
+  catch (std::exception &e)
+  {
+    spdlog::critical("RssSituationExtraction::extractSituationInputRangeChecked>> Exception caught '{}' {} {}",
+                     e.what(),
+                     timeIndex,
+                     currentScene);
+    result = false;
+  }
   catch (...)
   {
     spdlog::critical(
-      "RssSituationExtraction::extractSituationInputRangeChecked>> Exception catched {} {}", timeIndex, currentScene);
+      "RssSituationExtraction::extractSituationInputRangeChecked>> Exception caught {} {}", timeIndex, currentScene);
     result = false;
   }
 
@@ -527,35 +543,35 @@ bool RssSituationExtraction::extractSituations(world::WorldModel const &worldMod
     {
       situation::Situation situation;
       bool const extractResult = extractSituationInputRangeChecked(worldModel.timeIndex, scene, situation);
-
-      // if the situation is relevant, add it to situationSnapshot
-      if (scene.situationType != ad::rss::situation::SituationType::NotRelevant)
+      if (extractResult)
       {
-        if (extractResult)
+        // situation id creation might detect that different scenes are representing identical situations
+        // ensure the situationSnapshot is unique while containing the worst-case situation
+        auto findResult = std::find_if(situationSnapshot.situations.begin(),
+                                       situationSnapshot.situations.end(),
+                                       [&situation](ad::rss::situation::Situation const &checkSituation) {
+                                         return checkSituation.situationId == situation.situationId;
+                                       });
+        if (findResult == situationSnapshot.situations.end())
         {
-          // situation id creation might detect that different scenes are representing identical situations
-          // ensure the situationSnapshot is unique while containing the worst-case situation
-          auto findResult = std::find_if(situationSnapshot.situations.begin(),
-                                         situationSnapshot.situations.end(),
-                                         [&situation](ad::rss::situation::Situation const &checkSituation) {
-                                           return checkSituation.situationId == situation.situationId;
-                                         });
-          if (findResult == situationSnapshot.situations.end())
-          {
-            situationSnapshot.situations.push_back(situation);
-          }
-          else if (!mergeSituations(situation, *findResult))
-          {
-            result = false;
-          }
+          situationSnapshot.situations.push_back(situation);
         }
-        else
+        else if (!mergeSituations(situation, *findResult))
         {
-          spdlog::error("RssSituationExtraction::extractSituations>> Extraction failed {}", scene);
           result = false;
         }
       }
+      else
+      {
+        spdlog::error("RssSituationExtraction::extractSituations>> Extraction failed {}", scene);
+        result = false;
+      }
     }
+  }
+  catch (std::exception &e)
+  {
+    spdlog::critical("RssSituationExtraction::extractSituations>> Exception caught '{}' {}", e.what(), worldModel);
+    result = false;
   }
   catch (...)
   {

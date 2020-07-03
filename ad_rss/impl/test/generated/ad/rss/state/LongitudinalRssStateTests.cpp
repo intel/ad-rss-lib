@@ -48,9 +48,9 @@ protected:
     valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
     value.alphaLon = valueAlphaLon;
     ::ad::rss::state::RssStateInformation valueRssStateInformation;
-    ::ad::physics::Distance valueRssStateInformationSafeDistance(0.);
+    ::ad::physics::Distance valueRssStateInformationSafeDistance(-1e9);
     valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
-    ::ad::physics::Distance valueRssStateInformationCurrentDistance(0.);
+    ::ad::physics::Distance valueRssStateInformationCurrentDistance(-1e9);
     valueRssStateInformation.currentDistance = valueRssStateInformationCurrentDistance;
     ::ad::rss::state::RssStateEvaluator valueRssStateInformationEvaluator(::ad::rss::state::RssStateEvaluator::None);
     valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;

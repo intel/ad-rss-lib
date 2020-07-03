@@ -19,9 +19,11 @@
 
 #include <cmath>
 #include <limits>
+#include "ad/rss/situation/SituationTypeValidInputRange.hpp"
 #include "ad/rss/state/LateralRssStateValidInputRange.hpp"
 #include "ad/rss/state/LongitudinalRssStateValidInputRange.hpp"
 #include "ad/rss/state/RssState.hpp"
+#include "ad/rss/state/UnstructuredSceneRssStateValidInputRange.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
 
@@ -41,7 +43,9 @@ inline bool withinValidInputRange(::ad::rss::state::RssState const &input, bool 
   bool inValidInputRange = true;
   inValidInputRange = withinValidInputRange(input.longitudinalState, logErrors)
     && withinValidInputRange(input.lateralStateRight, logErrors)
-    && withinValidInputRange(input.lateralStateLeft, logErrors);
+    && withinValidInputRange(input.lateralStateLeft, logErrors)
+    && withinValidInputRange(input.unstructuredSceneState, logErrors)
+    && withinValidInputRange(input.situationType, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::state::RssState)>> {} has invalid member",

@@ -35,6 +35,10 @@ TEST(ObjectTypeTests, testFromString)
   ASSERT_EQ(fromString<::ad::rss::world::ObjectType>("::ad::rss::world::ObjectType::OtherVehicle"),
             ::ad::rss::world::ObjectType::OtherVehicle);
 
+  ASSERT_EQ(fromString<::ad::rss::world::ObjectType>("Pedestrian"), ::ad::rss::world::ObjectType::Pedestrian);
+  ASSERT_EQ(fromString<::ad::rss::world::ObjectType>("::ad::rss::world::ObjectType::Pedestrian"),
+            ::ad::rss::world::ObjectType::Pedestrian);
+
   ASSERT_EQ(fromString<::ad::rss::world::ObjectType>("ArtificialObject"),
             ::ad::rss::world::ObjectType::ArtificialObject);
   ASSERT_EQ(fromString<::ad::rss::world::ObjectType>("::ad::rss::world::ObjectType::ArtificialObject"),
@@ -59,6 +63,10 @@ TEST(ObjectTypeTests, testToString)
   ASSERT_EQ(toString(::ad::rss::world::ObjectType::OtherVehicle), "::ad::rss::world::ObjectType::OtherVehicle");
   minValue = std::min(minValue, static_cast<int32_t>(::ad::rss::world::ObjectType::OtherVehicle));
   maxValue = std::max(maxValue, static_cast<int32_t>(::ad::rss::world::ObjectType::OtherVehicle));
+
+  ASSERT_EQ(toString(::ad::rss::world::ObjectType::Pedestrian), "::ad::rss::world::ObjectType::Pedestrian");
+  minValue = std::min(minValue, static_cast<int32_t>(::ad::rss::world::ObjectType::Pedestrian));
+  maxValue = std::max(maxValue, static_cast<int32_t>(::ad::rss::world::ObjectType::Pedestrian));
 
   ASSERT_EQ(toString(::ad::rss::world::ObjectType::ArtificialObject), "::ad::rss::world::ObjectType::ArtificialObject");
   minValue = std::min(minValue, static_cast<int32_t>(::ad::rss::world::ObjectType::ArtificialObject));

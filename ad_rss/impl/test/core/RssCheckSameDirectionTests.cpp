@@ -76,7 +76,7 @@ TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities_NoLateralConfl
 
   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;
 
-  world::AccelerationRestriction accelerationRestriction;
+  state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
@@ -85,9 +85,9 @@ TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities_NoLateralConfl
     worldModel.scenes[0].egoVehicle.velocity.speedLonMax = kmhToMeterPerSec(i);
     worldModel.timeIndex++;
 
-    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+    ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
-    testRestrictions(accelerationRestriction);
+    testRestrictions(properResponse.accelerationRestrictions);
   }
 }
 
@@ -102,7 +102,7 @@ TEST_F(RssCheckSameDirectionOtherLeadingTest, _DifferentVelocities_NoLateralConf
   worldModel.scenes[1].object.occupiedRegions[0].segmentId = 8;
   worldModel.scenes[1].object.objectId = 2;
 
-  world::AccelerationRestriction accelerationRestriction;
+  state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
@@ -111,9 +111,9 @@ TEST_F(RssCheckSameDirectionOtherLeadingTest, _DifferentVelocities_NoLateralConf
     worldModel.scenes[0].egoVehicle.velocity.speedLonMax = kmhToMeterPerSec(i);
     worldModel.timeIndex++;
 
-    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+    ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
-    testRestrictions(accelerationRestriction);
+    testRestrictions(properResponse.accelerationRestrictions);
   }
 }
 
@@ -121,7 +121,7 @@ using RssCheckSameDirectionEgoLeadingTest = RssCheckSameDirectionEgoLeadingTestB
 
 TEST_F(RssCheckSameDirectionEgoLeadingTest, DifferentVelocities)
 {
-  world::AccelerationRestriction accelerationRestriction;
+  state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
@@ -130,10 +130,10 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, DifferentVelocities)
     worldModel.scenes[0].object.velocity.speedLonMax = kmhToMeterPerSec(i);
     worldModel.timeIndex++;
 
-    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+    ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
     // no matter how fast the following vehicle is, the ego must never brake as it leads
-    testRestrictions(accelerationRestriction);
+    testRestrictions(properResponse.accelerationRestrictions);
   }
 }
 
@@ -147,7 +147,7 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Front)
   worldModel.scenes[0].object.occupiedRegions[0].lonRange.maximum = ParametricValue(0.45);
   worldModel.scenes[0].object.occupiedRegions[0].lonRange.minimum = ParametricValue(0.35);
 
-  world::AccelerationRestriction accelerationRestriction;
+  state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
@@ -156,10 +156,10 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Front)
     worldModel.scenes[0].object.velocity.speedLonMax = kmhToMeterPerSec(i);
     worldModel.timeIndex++;
 
-    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+    ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
     // no matter how fast the following vehicle is, the ego must never brake as it leads
-    testRestrictions(accelerationRestriction);
+    testRestrictions(properResponse.accelerationRestrictions);
   }
 }
 
@@ -173,7 +173,7 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Right)
   worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = ParametricValue(0.45);
   worldModel.scenes[0].object.occupiedRegions[0].latRange.minimum = ParametricValue(0.35);
 
-  world::AccelerationRestriction accelerationRestriction;
+  state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
@@ -182,10 +182,10 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Right)
     worldModel.scenes[0].object.velocity.speedLonMax = kmhToMeterPerSec(i);
     worldModel.timeIndex++;
 
-    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+    ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
     // no matter how fast the following vehicle is, the ego must never brake as it leads
-    testRestrictions(accelerationRestriction);
+    testRestrictions(properResponse.accelerationRestrictions);
   }
 }
 
@@ -199,7 +199,7 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Left)
   worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = ParametricValue(0.45);
   worldModel.scenes[0].object.occupiedRegions[0].latRange.minimum = ParametricValue(0.35);
 
-  world::AccelerationRestriction accelerationRestriction;
+  state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
@@ -208,10 +208,10 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Left)
     worldModel.scenes[0].object.velocity.speedLonMax = kmhToMeterPerSec(i);
     worldModel.timeIndex++;
 
-    ASSERT_TRUE(rssCheck.calculateAccelerationRestriction(worldModel, accelerationRestriction));
+    ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
     // no matter how fast the following vehicle is, the ego must never brake as it leads
-    testRestrictions(accelerationRestriction);
+    testRestrictions(properResponse.accelerationRestrictions);
   }
 }
 
