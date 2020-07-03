@@ -64,6 +64,7 @@ foreach(binding ${PYTHON_BINDINGS})
     )
     get_python_test_environment(ad_physics)
     set_tests_properties(${target}_test PROPERTIES ENVIRONMENT "${PYTHON_TEST_ENVIRONMENT}")
+    message(STATUS "PYTHON_TEST_ENVIRONMENT=${PYTHON_TEST_ENVIRONMENT}")
   endif()
 
 endforeach()

@@ -68,6 +68,7 @@ class AdRssPythonTest(unittest.TestCase):
         rss_vehicle.state.centerPoint.x = physics.Distance(0.0)
         rss_vehicle.state.centerPoint.y = physics.Distance(0.0)
         rss_vehicle.state.speed = math.sqrt(lonVelocity * lonVelocity + latVelocity * latVelocity)
+        rss_vehicle.state.steeringAngle = physics.Angle(0.0)
 
         rss_vehicle.occupiedRegions.append(occupiedRegion)
         return rss_vehicle

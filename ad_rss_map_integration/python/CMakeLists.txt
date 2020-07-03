@@ -73,8 +73,9 @@ foreach(binding ${PYTHON_BINDINGS})
       COMMAND ${lc_binding} -m interface_test
       WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/tests
     )
-    get_python_test_environment(ad_physics ad_map_access ad_rss)
+    get_python_test_environment(ad_physics ad_map_opendrive_reader ad_map_access ad_rss)
     set_tests_properties(${target}_test PROPERTIES ENVIRONMENT "${PYTHON_TEST_ENVIRONMENT}")
+    message(STATUS "PYTHON_TEST_ENVIRONMENT=${PYTHON_TEST_ENVIRONMENT}")
   endif()
 
 endforeach()
