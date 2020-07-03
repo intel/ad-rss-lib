@@ -105,11 +105,14 @@ Collaboration diagram for ad::rss::state::RssState:</div>
 <div class="dyncontent">
 <div class="center"><img src="structad_1_1rss_1_1state_1_1RssState__coll__graph.png" border="0" usemap="#ad_1_1rss_1_1state_1_1RssState_coll__map" alt="Collaboration graph"/></div>
 <map name="ad_1_1rss_1_1state_1_1RssState_coll__map" id="ad_1_1rss_1_1state_1_1RssState_coll__map">
-<area shape="rect" id="node2" href="structad_1_1rss_1_1state_1_1LateralRssState.html" title="DataType LateralRssState. " alt="" coords="381,41,561,83"/>
-<area shape="rect" id="node3" href="structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="11,5,191,47"/>
-<area shape="rect" id="node4" href="structad_1_1rss_1_1state_1_1RssStateInformation.html" title="DataType RssStateInformation. " alt="" coords="15,73,186,115"/>
-<area shape="rect" id="node5" href="structad_1_1rss_1_1state_1_1LongitudinalRssState.html" title="DataType LongitudinalRssState. " alt="" coords="376,107,567,148"/>
-<area shape="rect" id="node6" href="structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="5,141,196,183"/>
+<area shape="rect" id="node2" href="structad_1_1rss_1_1state_1_1UnstructuredSceneRssState.html" title="DataType UnstructuredSceneRssState. " alt="" coords="809,95,1008,137"/>
+<area shape="rect" id="node3" href="structad_1_1rss_1_1state_1_1HeadingRange.html" title="DataType HeadingRange. " alt="" coords="423,80,629,107"/>
+<area shape="rect" id="node4" href="structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="431,147,621,189"/>
+<area shape="rect" id="node10" href="structad_1_1rss_1_1state_1_1LongitudinalRssState.html" title="DataType LongitudinalRssState. " alt="" coords="813,186,1004,227"/>
+<area shape="rect" id="node5" href="structad_1_1rss_1_1state_1_1UnstructuredSceneStateInformation.html" title="DataType UnstructuredSceneStateInformation. " alt="" coords="427,14,625,55"/>
+<area shape="rect" id="node7" href="structad_1_1rss_1_1state_1_1LateralRssState.html" title="DataType LateralRssState. " alt="" coords="819,254,999,295"/>
+<area shape="rect" id="node8" href="structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="436,299,616,341"/>
+<area shape="rect" id="node9" href="structad_1_1rss_1_1state_1_1RssStateInformation.html" title="DataType RssStateInformation. " alt="" coords="441,231,611,273"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -167,6 +170,10 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ac1adfb5055fd13ebd7157af8e9a95c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51d3ee4ad967bf47cb54d52fb2135ed0"><td class="memItemLeft" align="right" valign="top">::<a class="el" href="structad_1_1rss_1_1state_1_1LateralRssState.html">ad::rss::state::LateralRssState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1state_1_1RssState.html#a51d3ee4ad967bf47cb54d52fb2135ed0">lateralStateLeft</a></td></tr>
 <tr class="separator:a51d3ee4ad967bf47cb54d52fb2135ed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95ef42026f226e7811b3009df65f0528"><td class="memItemLeft" align="right" valign="top">::<a class="el" href="structad_1_1rss_1_1state_1_1UnstructuredSceneRssState.html">ad::rss::state::UnstructuredSceneRssState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1state_1_1RssState.html#a95ef42026f226e7811b3009df65f0528">unstructuredSceneState</a></td></tr>
+<tr class="separator:a95ef42026f226e7811b3009df65f0528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10405565fa81af45d7430a08f19edb16"><td class="memItemLeft" align="right" valign="top">::<a class="el" href="namespacead_1_1rss_1_1situation.html#abc84e194db29a5fe35e669411b480470">ad::rss::situation::SituationType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1state_1_1RssState.html#a10405565fa81af45d7430a08f19edb16">situationType</a></td></tr>
+<tr class="separator:a10405565fa81af45d7430a08f19edb16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>DataType <a class="el" href="structad_1_1rss_1_1state_1_1RssState.html" title="DataType RssState. ">RssState</a>. </p>
@@ -367,6 +374,32 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Id of the situation this state refers to. The id has to remain unique over time representing the situation (ego-vehicle / object pair) under investigation. It is used to track the state of the ego-vehicle / object constellation i.e. at point of danger threshold time. </p>
+
+</div>
+</div>
+<a class="anchor" id="a10405565fa81af45d7430a08f19edb16"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">::<a class="el" href="namespacead_1_1rss_1_1situation.html#abc84e194db29a5fe35e669411b480470">ad::rss::situation::SituationType</a> ad::rss::state::RssState::situationType</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This type of situation this <a class="el" href="structad_1_1rss_1_1state_1_1RssState.html" title="DataType RssState. ">RssState</a> was calculated on. </p>
+
+</div>
+</div>
+<a class="anchor" id="a95ef42026f226e7811b3009df65f0528"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">::<a class="el" href="structad_1_1rss_1_1state_1_1UnstructuredSceneRssState.html">ad::rss::state::UnstructuredSceneRssState</a> ad::rss::state::RssState::unstructuredSceneState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The state of the unstructured scene. </p>
 
 </div>
 </div>

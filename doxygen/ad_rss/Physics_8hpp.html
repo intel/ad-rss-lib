@@ -92,18 +92,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Physics.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;ad/physics/Acceleration.hpp&quot;</code><br />
+<div class="textblock"><code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;ad/physics/Acceleration.hpp&quot;</code><br />
+<code>#include &quot;ad/physics/Angle.hpp&quot;</code><br />
+<code>#include &quot;ad/physics/AngleRange.hpp&quot;</code><br />
 <code>#include &quot;ad/physics/Distance.hpp&quot;</code><br />
 <code>#include &quot;ad/physics/Duration.hpp&quot;</code><br />
 <code>#include &quot;ad/physics/Speed.hpp&quot;</code><br />
-<code>#include &quot;<a class="el" href="CoordinateSystemAxis_8hpp_source.html">ad/rss/situation/CoordinateSystemAxis.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Physics.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="Physics_8hpp__incl.png" border="0" usemap="#impl_2include_2ad_2rss_2situation_2Physics_8hpp" alt=""/></div>
-<map name="impl_2include_2ad_2rss_2situation_2Physics_8hpp" id="impl_2include_2ad_2rss_2situation_2Physics_8hpp">
-<area shape="rect" id="node6" href="CoordinateSystemAxis_8hpp.html" title="ad/rss/situation/Coordinate\lSystemAxis.hpp" alt="" coords="819,95,1013,136"/>
-</map>
 </div>
 </div>
 <p><a href="Physics_8hpp_source.html">Go to the source code of this file.</a></p>
@@ -122,18 +121,27 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a626fdbf8e05cf4a7217cf6c79ebbf730"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a626fdbf8e05cf4a7217cf6c79ebbf730">ad::rss::situation::calculateStoppingDistance</a> (physics::Speed const &amp;currentSpeed, physics::Acceleration const &amp;deceleration, physics::Distance &amp;stoppingDistance)</td></tr>
-<tr class="memdesc:a626fdbf8e05cf4a7217cf6c79ebbf730"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the stopping distance for a given speed and deceleration on a constant accelerated movement.  <a href="namespacead_1_1rss_1_1situation.html#a626fdbf8e05cf4a7217cf6c79ebbf730">More...</a><br /></td></tr>
-<tr class="separator:a626fdbf8e05cf4a7217cf6c79ebbf730"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9e2c61192c0998cef69807b6fa57feb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#ab9e2c61192c0998cef69807b6fa57feb">ad::rss::situation::calculateSpeedAfterResponseTime</a> (CoordinateSystemAxis const &amp;axis, physics::Speed const &amp;currentSpeed, physics::Speed const &amp;maxSpeed, physics::Acceleration const &amp;acceleration, physics::Duration const &amp;responseTime, physics::Speed &amp;resultingSpeed)</td></tr>
-<tr class="memdesc:ab9e2c61192c0998cef69807b6fa57feb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the vehicle speed after a given period of time on a constant accelerated movement.  <a href="namespacead_1_1rss_1_1situation.html#ab9e2c61192c0998cef69807b6fa57feb">More...</a><br /></td></tr>
-<tr class="separator:ab9e2c61192c0998cef69807b6fa57feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6d20e100d9cfa31f567e37f5ef471d8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#ad6d20e100d9cfa31f567e37f5ef471d8">ad::rss::situation::calculateDistanceOffsetAfterResponseTime</a> (CoordinateSystemAxis const &amp;axis, physics::Speed const &amp;currentSpeed, physics::Speed const &amp;maxSpeed, physics::Acceleration const &amp;acceleration, physics::Duration const &amp;responseTime, physics::Distance &amp;distanceOffset)</td></tr>
-<tr class="memdesc:ad6d20e100d9cfa31f567e37f5ef471d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the distance offset of a vehicle after a given period of time on a constant accelerated movement.  <a href="namespacead_1_1rss_1_1situation.html#ad6d20e100d9cfa31f567e37f5ef471d8">More...</a><br /></td></tr>
-<tr class="separator:ad6d20e100d9cfa31f567e37f5ef471d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8250c05d60818bd1139a3e7f69122a87"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a8250c05d60818bd1139a3e7f69122a87">ad::rss::situation::calculateTimeToCoverDistance</a> (physics::Speed const &amp;currentSpeed, physics::Speed const &amp;maxSpeed, physics::Duration const &amp;responseTime, physics::Acceleration const &amp;acceleration, physics::Acceleration const &amp;deceleration, physics::Distance const &amp;distanceToCover, physics::Duration &amp;requiredTime)</td></tr>
-<tr class="memdesc:a8250c05d60818bd1139a3e7f69122a87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the time needed to cover a given distance.  <a href="namespacead_1_1rss_1_1situation.html#a8250c05d60818bd1139a3e7f69122a87">More...</a><br /></td></tr>
-<tr class="separator:a8250c05d60818bd1139a3e7f69122a87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8af514064e43657e33f9ccaad996da1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#ae8af514064e43657e33f9ccaad996da1">ad::rss::situation::calculateDistanceOffsetInAcceleratedMovement</a> (physics::Speed const speed, physics::Acceleration const acceleration, physics::Duration const duration, physics::Distance &amp;distanceOffset)</td></tr>
+<tr class="memdesc:ae8af514064e43657e33f9ccaad996da1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the distance traveled after a given period of time on a constant accelerated movement.  <a href="namespacead_1_1rss_1_1situation.html#ae8af514064e43657e33f9ccaad996da1">More...</a><br /></td></tr>
+<tr class="separator:ae8af514064e43657e33f9ccaad996da1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ed8bcab8741f84a28cd2f4d624b968d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a1ed8bcab8741f84a28cd2f4d624b968d">ad::rss::situation::calculateSpeedInAcceleratedMovement</a> (physics::Speed const speed, physics::Acceleration const acceleration, physics::Duration const duration, physics::Speed &amp;resultingSpeed)</td></tr>
+<tr class="memdesc:a1ed8bcab8741f84a28cd2f4d624b968d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the speed after a given period of time on a constant accelerated movement.  <a href="namespacead_1_1rss_1_1situation.html#a1ed8bcab8741f84a28cd2f4d624b968d">More...</a><br /></td></tr>
+<tr class="separator:a1ed8bcab8741f84a28cd2f4d624b968d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66dd4c7a777c2a996b95c7dd7435b543"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a66dd4c7a777c2a996b95c7dd7435b543">ad::rss::situation::calculateStoppingDistance</a> (physics::Speed const currentSpeed, physics::Acceleration const deceleration, physics::Distance &amp;stoppingDistance)</td></tr>
+<tr class="memdesc:a66dd4c7a777c2a996b95c7dd7435b543"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the stopping distance for a given speed and deceleration on a constant accelerated movement.  <a href="namespacead_1_1rss_1_1situation.html#a66dd4c7a777c2a996b95c7dd7435b543">More...</a><br /></td></tr>
+<tr class="separator:a66dd4c7a777c2a996b95c7dd7435b543"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afacb7252f1fc654b56b34c58e6254b10"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#afacb7252f1fc654b56b34c58e6254b10">ad::rss::situation::calculateAcceleratedLimitedMovement</a> (physics::Speed const currentSpeed, physics::Speed const maxSpeedOnAcceleration, physics::Acceleration const acceleration, physics::Duration const duration, physics::Speed &amp;resultingSpeed, physics::Distance &amp;distanceOffset)</td></tr>
+<tr class="memdesc:afacb7252f1fc654b56b34c58e6254b10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the vehicle speed after a given period of time on a constant accelerated movement.  <a href="namespacead_1_1rss_1_1situation.html#afacb7252f1fc654b56b34c58e6254b10">More...</a><br /></td></tr>
+<tr class="separator:afacb7252f1fc654b56b34c58e6254b10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7feefda4d53c6ecac7717672e55775e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#ab7feefda4d53c6ecac7717672e55775e">ad::rss::situation::calculateTimeToCoverDistance</a> (physics::Speed const currentSpeed, physics::Speed const maxSpeedOnAcceleration, physics::Duration const responseTime, physics::Acceleration const aUntilResponseTime, physics::Acceleration const aAfterResponseTime, physics::Distance const distanceToCover, physics::Duration &amp;requiredTime)</td></tr>
+<tr class="memdesc:ab7feefda4d53c6ecac7717672e55775e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the time needed to cover a given distance.  <a href="namespacead_1_1rss_1_1situation.html#ab7feefda4d53c6ecac7717672e55775e">More...</a><br /></td></tr>
+<tr class="separator:ab7feefda4d53c6ecac7717672e55775e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5369b8e2105c93972af49116a69f986"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#ae5369b8e2105c93972af49116a69f986">ad::rss::situation::calculateSpeedAndDistanceOffset</a> (physics::Duration const duration, physics::Speed const currentSpeed, physics::Duration const responseTime, physics::Speed const maxSpeedOnAcceleration, physics::Acceleration const aUntilReponseTime, physics::Acceleration const aAfterResponseTime, physics::Speed &amp;resultingSpeed, physics::Distance &amp;distanceOffset)</td></tr>
+<tr class="memdesc:ae5369b8e2105c93972af49116a69f986"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the speed and distance offset after a given duration in a two phased limited constant accelerated movement.  <a href="namespacead_1_1rss_1_1situation.html#ae5369b8e2105c93972af49116a69f986">More...</a><br /></td></tr>
+<tr class="separator:ae5369b8e2105c93972af49116a69f986"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a784fc6c80df97167d68ba5e78b30418b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a784fc6c80df97167d68ba5e78b30418b">ad::rss::situation::calculateTimeToStop</a> (physics::Speed const currentSpeed, physics::Duration const responseTime, physics::Speed const maxSpeedOnAcceleration, physics::Acceleration const aUntilResponseTime, physics::Acceleration const aAfterResponseTime, physics::Duration &amp;stopDuration)</td></tr>
+<tr class="memdesc:a784fc6c80df97167d68ba5e78b30418b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the stopping time in a two phased limited constant accelerated movement.  <a href="namespacead_1_1rss_1_1situation.html#a784fc6c80df97167d68ba5e78b30418b">More...</a><br /></td></tr>
+<tr class="separator:a784fc6c80df97167d68ba5e78b30418b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

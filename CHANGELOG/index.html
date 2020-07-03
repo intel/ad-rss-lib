@@ -72,6 +72,10 @@
                 </li>
                 <li class="">
                     
+    <a class="" href="../ad_rss/UnstructuredScenes/">Unstructured Scenes</a>
+                </li>
+                <li class="">
+                    
     <a class="" href="../ad_rss/HLD-ArchitectureOverview/">System Integration</a>
                 </li>
                 <li class="">
@@ -181,6 +185,9 @@
     <li class="toctree-l2"><a href="#latest-changes">Latest changes</a></li>
     
 
+    <li class="toctree-l2"><a href="#release-400">Release 4.0.0</a></li>
+    
+
     <li class="toctree-l2"><a href="#release-301">Release 3.0.1</a></li>
     
 
@@ -250,8 +257,44 @@
             <div class="section">
               
                 <h2 id="latest-changes">Latest changes<a class="headerlink" href="#latest-changes" title="Permanent link">&para;</a></h2>
+<h2 id="release-400">Release 4.0.0<a class="headerlink" href="#release-400" title="Permanent link">&para;</a></h2>
+<h4><img alt="🚀" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f680.png" title=":rocket:" /> New Features</h4>
+<ul>
+<li>Support of unstructured scenes/pedestrians<ul>
+<li>Extended <code>ad::rss::situation::SituationType</code> by <code>Unstructured</code> value</li>
+<li>Extended <code>ad::rss::situation::VehicleState</code> by <code>ad::rss::world::ObjectType</code> and <code>ad::rss::world::ObjectState</code> members</li>
+<li>Extended <code>ad::rss::state::ProperResponse</code> by <code>ad::rss::state::UnstructuredSceneResponse</code> and <code>ad::rss::state::HeadingRangeVector</code> members</li>
+<li>Renamed <code>ad::rss::world::AccelerationRestriction</code> -&gt; <code>ad::rss::state::AccelerationRestriction</code> and integrated it
+  as a member into the <code>ad::rss::state::ProperResponse</code>.</li>
+<li>Reflected this merge of the data types by renaming <code>ad::rss::core::RssCheck::calculateAccelerationRestriction()</code>
+  to <code>ad::rss::core::RssCheck::calculateProperResponse()</code> and adapting the function parameters accordingly.
+  Same applies for <code>ad::rss::core::RssResponseResolving::provideProperResponse()</code>.</li>
+<li>Extended <code>ad::rss::state::RssState</code> by <code>ad::rss::situation::SituationType</code> and <code>ad::rss::state::UnstructuredSceneRssState</code> members.</li>
+<li>Extended <code>ad::rss::state::RssStateSnapshot</code> by <code>ad::rss::state::UnstructuredSceneStateInformation</code> member</li>
+<li>Extended <code>ad::rss::world::ObjectType</code> by <code>Pedestrian</code> value</li>
+<li>Extended <code>ad::rss::world::Object</code> by <code>::ad::rss::world::ObjectState</code> member</li>
+<li>Extended <code>ad::rss::world::RssDynamics</code> by <code>ad::rss::world::UnstructuredSettings</code> member</li>
+<li>Extended <code>ad::rss::map::RssSceneCreation::appendScenes()</code> parameters by <code>ad::physics::AngularVelocity</code> of ego and object
+  and provide the mode of operation <code>ad::rss::map::RssMode</code> (NotRelevant, Structured, Unstructured)</li>
+<li>Extended <code>ad::rss::map::RssSceneCreator</code> and <code>ad::rss::map::RssObjectConversion</code> classes to support unstructured scenes</li>
+</ul>
+</li>
+</ul>
 <h4><img alt="👻" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f47b.png" title=":ghost:" /> Maintenance</h4>
 <ul>
+<li>Harmonized physics calcualions<ul>
+<li>Removed <code>ad::rss::situation::CoordinateSystemAxis</code> type</li>
+<li>Refactored and extended calculations within Physics.hpp for unstructured cases</li>
+<li>Made RssFormular.hpp public</li>
+</ul>
+</li>
+<li>Fixed consideration of maximum speed on accelerating:<ul>
+<li>Renamed <code>ad::rss::world::RssDynamics::maxSpeed</code> member to <code>maxSpeedOnAcceleration</code> to clarify that it's not the general max speed
+  of the vehicle, but the maximum speed to be considered while accelerating within the response time.</li>
+<li>Fixed the calcualtions to consider the case that the current speed before the acceleration can already be higher than
+  the <code>maxSpeedOnAcceleration</code> parameter and in this case just no acceleration takes place</li>
+</ul>
+</li>
 <li>Improved BUILDING documentation</li>
 </ul>
 <h2 id="release-301">Release 3.0.1<a class="headerlink" href="#release-301" title="Permanent link">&para;</a></h2>
@@ -268,7 +311,7 @@
 <li>In preparation of the integration of unstructured scenes:<ul>
 <li>Deceleration values are given as negative values from now on</li>
 <li>Remove separate Response Transformation to ease the merge of situations</li>
-<li>On LateralResponse::None, the minimum value is not brakeMin anymore (that value was in each case irrelevant)</li>
+<li>On <code>LateralResponse::None</code>, the minimum value is not brakeMin anymore (that value was in each case irrelevant)</li>
 </ul>
 </li>
 <li>Reworked scene creation<ul>
@@ -281,9 +324,9 @@
 <li>Restricting routes to relevant scene region to prevent from inaccourate relative distances</li>
 <li>Ensure that NotRelevantScene also provides filled occupied region content</li>
 <li>Workaround for route start within intersections: Use objectRoute intersection in intersection scenes if ego route
-   predictions don't provide intersection data at all (to be solved finally within ad:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:intersection::Intersection() class)</li>
+   predictions don't provide intersection data at all (to be solved finally within <code>ad::map::intersection::Intersection()</code> class)</li>
 <li>Massively extended scene creation unit tests</li>
-<li>Make use of ad:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:route::getENUHeadingOfRoute() for more accurate object heading on route calculation</li>
+<li>Make use of <code>ad::map::route::getENUHeadingOfRoute()</code> for more accurate object heading on route calculation</li>
 </ul>
 </li>
 <li>Renamed Math<em> -&gt; Physics</em> and made header public</li>
@@ -299,16 +342,16 @@
 <li>Added logging support with spdlog</li>
 <li>Introduced maxSpeed to RssDynamics and RSS calculations to support speed limits
   <a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/ConstructRSSScenes/index.html#considerspeedlimits">for details see</a></li>
-<li>world::Velocity supports speed range input to be able to cope with speed fluctuations (i.e. in curves)</li>
+<li><code>world::Velocity</code> supports speed range input to be able to cope with speed fluctuations (i.e. in curves)</li>
 </ul>
 <h4><img alt="👻" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f47b.png" title=":ghost:" /> Maintenance</h4>
 <ul>
 <li>Refactored types and namespaces<ul>
-<li>renamed ad_rss::physics::TimeIndex -&gt; ad::world::TimeIndex</li>
-<li>renamed ad_rss::physics::CoordinateSystemAxis -&gt; ad::situation::CoordinateSystemAxis</li>
-<li>renamed ad_rss::physics -&gt; ad::physics and replaced by separate library (ad_physics)
+<li>renamed <code>ad_rss::physics::TimeIndex</code> -&gt; <code>ad::world::TimeIndex</code></li>
+<li>renamed <code>ad_rss::physics::CoordinateSystemAxis</code> -&gt; <code>ad::situation::CoordinateSystemAxis</code></li>
+<li>renamed <code>ad_rss::physics</code> -&gt; <code>ad::physics</code> and replaced by separate library (ad_physics)
   to ensure map and rss are using the same base types</li>
-<li>renamed ad_rss -&gt; ad::rss</li>
+<li>renamed <code>ad_rss</code> -&gt; <code>ad::rss</code></li>
 </ul>
 </li>
 <li>Renamed actual shared library ad-rss-lib -&gt; ad_rss</li>
@@ -346,9 +389,9 @@
 <h2 id="release-130">Release 1.3.0<a class="headerlink" href="#release-130" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Allow multiple situations per ego vehicle/object pair: Add RssSituationIdProvider and made RssSituationExtraction a class holding RssSituationIdProvider instance to keep track of the different situation classes</li>
-<li>Renamed world::Dynamics in world::RssDynamics, extended it by responseTime and separated it from world::Object; world::Scene got the objectRssDynamics and world::WorldModel the egoVehicleRssDynamics each as separate elements</li>
-<li>Extended world::Scene by egoVehicle object description as occupied regions and velocity are actually scene dependent (e.g. when considering different vehicle predictions)</li>
-<li>Added world::ObjectType::Invalid</li>
+<li>Renamed <code>world::Dynamics</code> in <code>world::RssDynamics</code>, extended it by responseTime and separated it from <code>world::Object</code>; <code>world::Scene</code> got the objectRssDynamics and <code>world::WorldModel</code> the egoVehicleRssDynamics each as separate elements</li>
+<li>Extended <code>world::Scene</code> by egoVehicle object description as occupied regions and velocity are actually scene dependent (e.g. when considering different vehicle predictions)</li>
+<li>Added <code>world::ObjectType::Invalid</code></li>
 <li>Small updates to be compliant to clang-tidy-3.8 static code analysis</li>
 <li>Added basic FAQ</li>
 <li>Added official support for Ubuntu 14.04 (GCC 4.8, Clang 3.4 and 3.8/3.9)</li>

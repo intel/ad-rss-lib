@@ -105,8 +105,9 @@ Collaboration diagram for ad::rss::world::RssDynamics:</div>
 <div class="dyncontent">
 <div class="center"><img src="structad_1_1rss_1_1world_1_1RssDynamics__coll__graph.png" border="0" usemap="#ad_1_1rss_1_1world_1_1RssDynamics_coll__map" alt="Collaboration graph"/></div>
 <map name="ad_1_1rss_1_1world_1_1RssDynamics_coll__map" id="ad_1_1rss_1_1world_1_1RssDynamics_coll__map">
-<area shape="rect" id="node2" href="structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="11,5,191,47"/>
-<area shape="rect" id="node3" href="structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="5,71,196,112"/>
+<area shape="rect" id="node2" href="structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="15,5,195,47"/>
+<area shape="rect" id="node3" href="structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="9,71,200,112"/>
+<area shape="rect" id="node4" href="structad_1_1rss_1_1world_1_1UnstructuredSettings.html" title="DataType UnstructuredSettings. " alt="" coords="5,136,204,177"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -162,8 +163,10 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a673abe88c683409a71bc8f82c32c497e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90fa1e72435de00a9e1be3daf101fa7c"><td class="memItemLeft" align="right" valign="top">::ad::physics::Duration&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1world_1_1RssDynamics.html#a90fa1e72435de00a9e1be3daf101fa7c">responseTime</a></td></tr>
 <tr class="separator:a90fa1e72435de00a9e1be3daf101fa7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a635288b730cd5e204e4a166a711b0fbe"><td class="memItemLeft" align="right" valign="top">::ad::physics::Speed&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1world_1_1RssDynamics.html#a635288b730cd5e204e4a166a711b0fbe">maxSpeed</a> {100}</td></tr>
-<tr class="separator:a635288b730cd5e204e4a166a711b0fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a708d81f82e5992597a91c2ea8d11f79b"><td class="memItemLeft" align="right" valign="top">::ad::physics::Speed&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1world_1_1RssDynamics.html#a708d81f82e5992597a91c2ea8d11f79b">maxSpeedOnAcceleration</a> {100}</td></tr>
+<tr class="separator:a708d81f82e5992597a91c2ea8d11f79b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa24877f260936ccd323e03891b592e59"><td class="memItemLeft" align="right" valign="top">::<a class="el" href="structad_1_1rss_1_1world_1_1UnstructuredSettings.html">ad::rss::world::UnstructuredSettings</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1world_1_1RssDynamics.html#aa24877f260936ccd323e03891b592e59">unstructuredSettings</a></td></tr>
+<tr class="separator:aa24877f260936ccd323e03891b592e59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>DataType <a class="el" href="structad_1_1rss_1_1world_1_1RssDynamics.html" title="DataType RssDynamics. ">RssDynamics</a>. </p>
@@ -341,16 +344,16 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a635288b730cd5e204e4a166a711b0fbe"></a>
+<a class="anchor" id="a708d81f82e5992597a91c2ea8d11f79b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">::ad::physics::Speed ad::rss::world::RssDynamics::maxSpeed {100}</td>
+          <td class="memname">::ad::physics::Speed ad::rss::world::RssDynamics::maxSpeedOnAcceleration {100}</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Defines the maximum speed of the object. </p>
+<p>Defines the maximum speed of the object to be considered while acceleration within the response time. The acceleration will be stopped if this speed limit is reached. In case the speed before the acceleration is already higher or equal to this value, no further acceleration will take place during the response time (in this case speed before response time == speed after response time). </p>
 
 </div>
 </div>
@@ -364,6 +367,19 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Defines the response time of the object to be considered. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa24877f260936ccd323e03891b592e59"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">::<a class="el" href="structad_1_1rss_1_1world_1_1UnstructuredSettings.html">ad::rss::world::UnstructuredSettings</a> ad::rss::world::RssDynamics::unstructuredSettings</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Settings to be considered for evaluation in unstructured mode. </p>
 
 </div>
 </div>

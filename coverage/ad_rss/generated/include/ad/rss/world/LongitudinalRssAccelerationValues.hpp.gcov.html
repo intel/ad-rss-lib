@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -126,7 +126,7 @@
 <span class="lineNum">      55 </span>                :            :   /*!
 <a name="56"><span class="lineNum">      56 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      57 </span>                :            :    */
-<span class="lineNum">      58 </span>                :<span class="lineCov">     295866 :   LongitudinalRssAccelerationValues() = default;</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">     321588 :   LongitudinalRssAccelerationValues() = default;</span>
 <span class="lineNum">      59 </span>                :            : 
 <span class="lineNum">      60 </span>                :            :   /*!
 <span class="lineNum">      61 </span>                :            :    * \brief standard destructor
@@ -168,10 +168,10 @@
 <span class="lineNum">      97 </span>                :            :    *
 <a name="98"><span class="lineNum">      98 </span>                :            :    * \returns \c true if both LongitudinalRssAccelerationValues are equal</a>
 <span class="lineNum">      99 </span>                :            :    */
-<span class="lineNum">     100 </span>                :<span class="lineCov">        245 :   bool operator==(const LongitudinalRssAccelerationValues &amp;other) const</span>
+<span class="lineNum">     100 </span>                :<span class="lineCov">        284 :   bool operator==(const LongitudinalRssAccelerationValues &amp;other) const</span>
 <span class="lineNum">     101 </span>                :            :   {
-<span class="lineNum">     102 </span>[<span class="branchCov" title="Branch 2 was taken 225 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 5 was taken 223 times"> + </span><span class="branchCov" title="Branch 6 was taken 2 times"> + </span>]:<span class="lineCov">        472 :     return (accelMax == other.accelMax) &amp;&amp; (brakeMax == other.brakeMax) &amp;&amp; (brakeMin == other.brakeMin)</span>
-<span class="lineNum">     103 </span>[<span class="branchCov" title="Branch 0 was taken 227 times"> + </span><span class="branchCov" title="Branch 1 was taken 18 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 221 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        472 :       &amp;&amp; (brakeMinCorrect == other.brakeMinCorrect);</span>
+<span class="lineNum">     102 </span>[<span class="branchCov" title="Branch 2 was taken 262 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 5 was taken 260 times"> + </span><span class="branchCov" title="Branch 6 was taken 2 times"> + </span>]:<span class="lineCov">        548 :     return (accelMax == other.accelMax) &amp;&amp; (brakeMax == other.brakeMax) &amp;&amp; (brakeMin == other.brakeMin)</span>
+<span class="lineNum">     103 </span>[<span class="branchCov" title="Branch 0 was taken 264 times"> + </span><span class="branchCov" title="Branch 1 was taken 20 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 258 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        548 :       &amp;&amp; (brakeMinCorrect == other.brakeMinCorrect);</span>
 <span class="lineNum">     104 </span>                :            :   }
 <span class="lineNum">     105 </span>                :            : 
 <span class="lineNum">     106 </span>                :            :   /**
@@ -241,22 +241,22 @@
 <span class="lineNum">     170 </span>                :            :  * \returns The stream object.
 <a name="171"><span class="lineNum">     171 </span>                :            :  *</a>
 <span class="lineNum">     172 </span>                :            :  */
-<span class="lineNum">     173 </span>                :<span class="lineCov">    5047036 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, LongitudinalRssAccelerationValues const &amp;_value)</span>
+<span class="lineNum">     173 </span>                :<span class="lineCov">    6075987 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, LongitudinalRssAccelerationValues const &amp;_value)</span>
 <span class="lineNum">     174 </span>                :            : {
-<span class="lineNum">     175 </span>                :<span class="lineCov">    5047036 :   os &lt;&lt; &quot;LongitudinalRssAccelerationValues(&quot;;</span>
-<span class="lineNum">     176 </span>                :<span class="lineCov">    5047036 :   os &lt;&lt; &quot;accelMax:&quot;;</span>
-<span class="lineNum">     177 </span>                :<span class="lineCov">    5047036 :   os &lt;&lt; _value.accelMax;</span>
-<span class="lineNum">     178 </span>                :<span class="lineCov">    5047036 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     179 </span>                :<span class="lineCov">    5047036 :   os &lt;&lt; &quot;brakeMax:&quot;;</span>
-<span class="lineNum">     180 </span>                :<span class="lineCov">    5047036 :   os &lt;&lt; _value.brakeMax;</span>
-<span class="lineNum">     181 </span>                :<span class="lineCov">    5047036 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     182 </span>                :<span class="lineCov">    5047036 :   os &lt;&lt; &quot;brakeMin:&quot;;</span>
-<span class="lineNum">     183 </span>                :<span class="lineCov">    5047036 :   os &lt;&lt; _value.brakeMin;</span>
-<span class="lineNum">     184 </span>                :<span class="lineCov">    5047036 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     185 </span>                :<span class="lineCov">    5047036 :   os &lt;&lt; &quot;brakeMinCorrect:&quot;;</span>
-<span class="lineNum">     186 </span>                :<span class="lineCov">    5047036 :   os &lt;&lt; _value.brakeMinCorrect;</span>
-<span class="lineNum">     187 </span>                :<span class="lineCov">    5047036 :   os &lt;&lt; &quot;)&quot;;</span>
-<span class="lineNum">     188 </span>                :<span class="lineCov">    5047036 :   return os;</span>
+<span class="lineNum">     175 </span>                :<span class="lineCov">    6075987 :   os &lt;&lt; &quot;LongitudinalRssAccelerationValues(&quot;;</span>
+<span class="lineNum">     176 </span>                :<span class="lineCov">    6075987 :   os &lt;&lt; &quot;accelMax:&quot;;</span>
+<span class="lineNum">     177 </span>                :<span class="lineCov">    6075987 :   os &lt;&lt; _value.accelMax;</span>
+<span class="lineNum">     178 </span>                :<span class="lineCov">    6075987 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     179 </span>                :<span class="lineCov">    6075987 :   os &lt;&lt; &quot;brakeMax:&quot;;</span>
+<span class="lineNum">     180 </span>                :<span class="lineCov">    6075987 :   os &lt;&lt; _value.brakeMax;</span>
+<span class="lineNum">     181 </span>                :<span class="lineCov">    6075987 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     182 </span>                :<span class="lineCov">    6075987 :   os &lt;&lt; &quot;brakeMin:&quot;;</span>
+<span class="lineNum">     183 </span>                :<span class="lineCov">    6075987 :   os &lt;&lt; _value.brakeMin;</span>
+<span class="lineNum">     184 </span>                :<span class="lineCov">    6075987 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     185 </span>                :<span class="lineCov">    6075987 :   os &lt;&lt; &quot;brakeMinCorrect:&quot;;</span>
+<span class="lineNum">     186 </span>                :<span class="lineCov">    6075987 :   os &lt;&lt; _value.brakeMinCorrect;</span>
+<span class="lineNum">     187 </span>                :<span class="lineCov">    6075987 :   os &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     188 </span>                :<span class="lineCov">    6075987 :   return os;</span>
 <span class="lineNum">     189 </span>                :            : }
 <span class="lineNum">     190 </span>                :            : 
 <span class="lineNum">     191 </span>                :            : } // namespace world

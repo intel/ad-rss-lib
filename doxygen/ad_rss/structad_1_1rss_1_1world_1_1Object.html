@@ -105,8 +105,9 @@ Collaboration diagram for ad::rss::world::Object:</div>
 <div class="dyncontent">
 <div class="center"><img src="structad_1_1rss_1_1world_1_1Object__coll__graph.png" border="0" usemap="#ad_1_1rss_1_1world_1_1Object_coll__map" alt="Collaboration graph"/></div>
 <map name="ad_1_1rss_1_1world_1_1Object_coll__map" id="ad_1_1rss_1_1world_1_1Object_coll__map">
-<area shape="rect" id="node3" href="structad_1_1rss_1_1world_1_1OccupiedRegion.html" title="DataType OccupiedRegion. " alt="" coords="12,5,185,47"/>
-<area shape="rect" id="node4" href="structad_1_1rss_1_1world_1_1Velocity.html" title="DataType Velocity. " alt="" coords="216,117,379,143"/>
+<area shape="rect" id="node3" href="structad_1_1rss_1_1world_1_1OccupiedRegion.html" title="DataType OccupiedRegion. " alt="" coords="5,5,179,47"/>
+<area shape="rect" id="node4" href="structad_1_1rss_1_1world_1_1ObjectState.html" title="DataType ObjectState. " alt="" coords="292,71,483,98"/>
+<area shape="rect" id="node5" href="structad_1_1rss_1_1world_1_1Velocity.html" title="DataType Velocity. " alt="" coords="306,122,469,149"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -162,10 +163,12 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ab2f48cf0662be1d9af53aa5ce0e5b362"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23e7c72257f8513c0f13dc44af621a97"><td class="memItemLeft" align="right" valign="top">::<a class="el" href="structad_1_1rss_1_1world_1_1Velocity.html">ad::rss::world::Velocity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1world_1_1Object.html#a23e7c72257f8513c0f13dc44af621a97">velocity</a></td></tr>
 <tr class="separator:a23e7c72257f8513c0f13dc44af621a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2b3e2d49063cf57298cc4b77ed6137b"><td class="memItemLeft" align="right" valign="top">::<a class="el" href="structad_1_1rss_1_1world_1_1ObjectState.html">ad::rss::world::ObjectState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1world_1_1Object.html#ae2b3e2d49063cf57298cc4b77ed6137b">state</a></td></tr>
+<tr class="separator:ae2b3e2d49063cf57298cc4b77ed6137b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>DataType <a class="el" href="structad_1_1rss_1_1world_1_1Object.html" title="DataType Object. ">Object</a>. </p>
-<p>An object is described by several aspects: the unique id of an object, the type of the object, the lane regions the object occupies, the objects velocity within its lane. </p>
+<p>An object is described by several aspects: the unique id of an object, the type of the object, the lane regions the object occupies, the objects velocity within its lane and its state. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="af1722fd11b2244d36c6c463d69457a25"></a>
 <div class="memitem">
@@ -336,6 +339,19 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Defines the lane regions the object occupies. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae2b3e2d49063cf57298cc4b77ed6137b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">::<a class="el" href="structad_1_1rss_1_1world_1_1ObjectState.html">ad::rss::world::ObjectState</a> ad::rss::world::Object::state</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Defines the state of the object in respect to a reference coordinate system (e.g. ENU) </p>
 
 </div>
 </div>

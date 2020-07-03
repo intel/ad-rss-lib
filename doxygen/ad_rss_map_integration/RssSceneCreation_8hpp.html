@@ -87,19 +87,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">RssSceneCreation.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;ad/map/match/Types.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;ad/map/landmark/Types.hpp&gt;</code><br />
 <code>#include &lt;ad/map/route/Types.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="RssObjectData_8hpp_source.html">ad/rss/map/RssObjectData.hpp</a>&gt;</code><br />
 <code>#include &lt;ad/rss/world/WorldModel.hpp&gt;</code><br />
 <code>#include &lt;mutex&gt;</code><br />
+<code>#include &lt;ostream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for RssSceneCreation.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="RssSceneCreation_8hpp__incl.png" border="0" usemap="#impl_2include_2ad_2rss_2map_2RssSceneCreation_8hpp" alt=""/></div>
+<map name="impl_2include_2ad_2rss_2map_2RssSceneCreation_8hpp" id="impl_2include_2ad_2rss_2map_2RssSceneCreation_8hpp">
+<area shape="rect" id="node4" href="RssObjectData_8hpp.html" title="ad/rss/map/RssObjectData.hpp" alt="" coords="433,95,653,121"/>
+</map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -129,7 +137,122 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacead_1_1rss_1_1map"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1map.html">ad::rss::map</a></td></tr>
 <tr class="memdesc:namespacead_1_1rss_1_1map"><td class="mdescLeft">&#160;</td><td class="mdescRight">namespace map <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:adcb01232986ed83a0c540cd5d03ef495"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1map.html#adcb01232986ed83a0c540cd5d03ef495">ad::rss::map::RssMode</a> { <a class="el" href="namespacead_1_1rss_1_1map.html#adcb01232986ed83a0c540cd5d03ef495a19888364fb1076a2724fd072b768e304">ad::rss::map::RssMode::NotRelevant</a>, 
+<a class="el" href="namespacead_1_1rss_1_1map.html#adcb01232986ed83a0c540cd5d03ef495a854cc9d26f059f347c097abc58efbc94">ad::rss::map::RssMode::Structured</a>, 
+<a class="el" href="namespacead_1_1rss_1_1map.html#adcb01232986ed83a0c540cd5d03ef495ae7ef56695ea04d5a8ed28ad8f4c0057d">ad::rss::map::RssMode::Unstructured</a>
+ }<tr class="memdesc:adcb01232986ed83a0c540cd5d03ef495"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the scene mode.  <a href="namespacead_1_1rss_1_1map.html#adcb01232986ed83a0c540cd5d03ef495">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:adcb01232986ed83a0c540cd5d03ef495"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a4aa3eb300080730be02e92cbf63c39a9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4aa3eb300080730be02e92cbf63c39a9"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RssSceneCreation_8hpp.html#a4aa3eb300080730be02e92cbf63c39a9">std::to_string</a> (::<a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964">ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode</a> const &amp;value)</td></tr>
+<tr class="memdesc:a4aa3eb300080730be02e92cbf63c39a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">overload of the std::to_string for RestrictSpeedLimitMode <br /></td></tr>
+<tr class="separator:a4aa3eb300080730be02e92cbf63c39a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06ff742d5617f19a29bf95ee67e64d86"><td class="memItemLeft" align="right" valign="top">ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RssSceneCreation_8hpp.html#a06ff742d5617f19a29bf95ee67e64d86">std::operator&lt;&lt;</a> (ostream &amp;os,::<a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964">ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode</a> const &amp;value)</td></tr>
+<tr class="memdesc:a06ff742d5617f19a29bf95ee67e64d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">standard ostream operator  <a href="RssSceneCreation_8hpp.html#a06ff742d5617f19a29bf95ee67e64d86">More...</a><br /></td></tr>
+<tr class="separator:a06ff742d5617f19a29bf95ee67e64d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5200988ae7839858fbe068a653864594"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5200988ae7839858fbe068a653864594"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RssSceneCreation_8hpp.html#a5200988ae7839858fbe068a653864594">std::to_string</a> (::<a class="el" href="namespacead_1_1rss_1_1map.html#adcb01232986ed83a0c540cd5d03ef495">ad::rss::map::RssMode</a> const &amp;value)</td></tr>
+<tr class="memdesc:a5200988ae7839858fbe068a653864594"><td class="mdescLeft">&#160;</td><td class="mdescRight">overload of the std::to_string for RssMode <br /></td></tr>
+<tr class="separator:a5200988ae7839858fbe068a653864594"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc5bd3a72a0980b257ac23ef3d93e626"><td class="memItemLeft" align="right" valign="top">ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RssSceneCreation_8hpp.html#acc5bd3a72a0980b257ac23ef3d93e626">std::operator&lt;&lt;</a> (ostream &amp;os,::<a class="el" href="namespacead_1_1rss_1_1map.html#adcb01232986ed83a0c540cd5d03ef495">ad::rss::map::RssMode</a> const &amp;value)</td></tr>
+<tr class="memdesc:acc5bd3a72a0980b257ac23ef3d93e626"><td class="mdescLeft">&#160;</td><td class="mdescRight">standard ostream operator  <a href="RssSceneCreation_8hpp.html#acc5bd3a72a0980b257ac23ef3d93e626">More...</a><br /></td></tr>
+<tr class="separator:acc5bd3a72a0980b257ac23ef3d93e626"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="file_a06ff742d5617f19a29bf95ee67e64d86"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ostream&amp; std::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">::<a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964">ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode</a> const &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>standard ostream operator </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">os</td><td>The output stream to write to </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>RestrictSpeedLimitMode value</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The stream object. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="file_acc5bd3a72a0980b257ac23ef3d93e626"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ostream&amp; std::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">::<a class="el" href="namespacead_1_1rss_1_1map.html#adcb01232986ed83a0c540cd5d03ef495">ad::rss::map::RssMode</a> const &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>standard ostream operator </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">os</td><td>The output stream to write to </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>RssMode value</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The stream object. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

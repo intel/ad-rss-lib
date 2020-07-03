@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -127,7 +127,7 @@
 <span class="lineNum">      56 </span>                :            :   /*!
 <a name="57"><span class="lineNum">      57 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      58 </span>                :            :    */
-<span class="lineNum">      59 </span>                :<span class="lineCov">     488864 :   LateralRssState() = default;</span>
+<span class="lineNum">      59 </span>                :<span class="lineCov">     269692 :   LateralRssState() = default;</span>
 <span class="lineNum">      60 </span>                :            : 
 <span class="lineNum">      61 </span>                :            :   /*!
 <span class="lineNum">      62 </span>                :            :    * \brief standard destructor
@@ -169,10 +169,10 @@
 <span class="lineNum">      98 </span>                :            :    *
 <a name="99"><span class="lineNum">      99 </span>                :            :    * \returns \c true if both LateralRssState are equal</a>
 <span class="lineNum">     100 </span>                :            :    */
-<span class="lineNum">     101 </span>                :<span class="lineCov">        190 :   bool operator==(const LateralRssState &amp;other) const</span>
+<span class="lineNum">     101 </span>                :<span class="lineCov">        204 :   bool operator==(const LateralRssState &amp;other) const</span>
 <span class="lineNum">     102 </span>                :            :   {
-<span class="lineNum">     103 </span>[<span class="branchCov" title="Branch 0 was taken 182 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 180 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        184 :     return (isSafe == other.isSafe) &amp;&amp; (response == other.response) &amp;&amp; (alphaLat == other.alphaLat)</span>
-<span class="lineNum">     104 </span>[<span class="branchCov" title="Branch 0 was taken 184 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 178 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        374 :       &amp;&amp; (rssStateInformation == other.rssStateInformation);</span>
+<span class="lineNum">     103 </span>[<span class="branchCov" title="Branch 0 was taken 196 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 194 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        198 :     return (isSafe == other.isSafe) &amp;&amp; (response == other.response) &amp;&amp; (alphaLat == other.alphaLat)</span>
+<span class="lineNum">     104 </span>[<span class="branchCov" title="Branch 0 was taken 198 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 192 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        402 :       &amp;&amp; (rssStateInformation == other.rssStateInformation);</span>
 <span class="lineNum">     105 </span>                :            :   }
 <span class="lineNum">     106 </span>                :            : 
 <span class="lineNum">     107 </span>                :            :   /**
@@ -239,22 +239,22 @@
 <span class="lineNum">     168 </span>                :            :  * \returns The stream object.
 <a name="169"><span class="lineNum">     169 </span>                :            :  *</a>
 <span class="lineNum">     170 </span>                :            :  */
-<span class="lineNum">     171 </span>                :<span class="lineCov">    2004956 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, LateralRssState const &amp;_value)</span>
+<span class="lineNum">     171 </span>                :<span class="lineCov">    2031436 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, LateralRssState const &amp;_value)</span>
 <span class="lineNum">     172 </span>                :            : {
-<span class="lineNum">     173 </span>                :<span class="lineCov">    2004956 :   os &lt;&lt; &quot;LateralRssState(&quot;;</span>
-<span class="lineNum">     174 </span>                :<span class="lineCov">    2004956 :   os &lt;&lt; &quot;isSafe:&quot;;</span>
-<span class="lineNum">     175 </span>                :<span class="lineCov">    2004956 :   os &lt;&lt; _value.isSafe;</span>
-<span class="lineNum">     176 </span>                :<span class="lineCov">    2004956 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     177 </span>                :<span class="lineCov">    2004956 :   os &lt;&lt; &quot;response:&quot;;</span>
-<span class="lineNum">     178 </span>                :<span class="lineCov">    2004956 :   os &lt;&lt; _value.response;</span>
-<span class="lineNum">     179 </span>                :<span class="lineCov">    2004956 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     180 </span>                :<span class="lineCov">    2004956 :   os &lt;&lt; &quot;alphaLat:&quot;;</span>
-<span class="lineNum">     181 </span>                :<span class="lineCov">    2004956 :   os &lt;&lt; _value.alphaLat;</span>
-<span class="lineNum">     182 </span>                :<span class="lineCov">    2004956 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     183 </span>                :<span class="lineCov">    2004956 :   os &lt;&lt; &quot;rssStateInformation:&quot;;</span>
-<span class="lineNum">     184 </span>                :<span class="lineCov">    2004956 :   os &lt;&lt; _value.rssStateInformation;</span>
-<span class="lineNum">     185 </span>                :<span class="lineCov">    2004956 :   os &lt;&lt; &quot;)&quot;;</span>
-<span class="lineNum">     186 </span>                :<span class="lineCov">    2004956 :   return os;</span>
+<span class="lineNum">     173 </span>                :<span class="lineCov">    2031436 :   os &lt;&lt; &quot;LateralRssState(&quot;;</span>
+<span class="lineNum">     174 </span>                :<span class="lineCov">    2031436 :   os &lt;&lt; &quot;isSafe:&quot;;</span>
+<span class="lineNum">     175 </span>                :<span class="lineCov">    2031436 :   os &lt;&lt; _value.isSafe;</span>
+<span class="lineNum">     176 </span>                :<span class="lineCov">    2031436 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     177 </span>                :<span class="lineCov">    2031436 :   os &lt;&lt; &quot;response:&quot;;</span>
+<span class="lineNum">     178 </span>                :<span class="lineCov">    2031436 :   os &lt;&lt; _value.response;</span>
+<span class="lineNum">     179 </span>                :<span class="lineCov">    2031436 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     180 </span>                :<span class="lineCov">    2031436 :   os &lt;&lt; &quot;alphaLat:&quot;;</span>
+<span class="lineNum">     181 </span>                :<span class="lineCov">    2031436 :   os &lt;&lt; _value.alphaLat;</span>
+<span class="lineNum">     182 </span>                :<span class="lineCov">    2031436 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     183 </span>                :<span class="lineCov">    2031436 :   os &lt;&lt; &quot;rssStateInformation:&quot;;</span>
+<span class="lineNum">     184 </span>                :<span class="lineCov">    2031436 :   os &lt;&lt; _value.rssStateInformation;</span>
+<span class="lineNum">     185 </span>                :<span class="lineCov">    2031436 :   os &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     186 </span>                :<span class="lineCov">    2031436 :   return os;</span>
 <span class="lineNum">     187 </span>                :            : }
 <span class="lineNum">     188 </span>                :            : 
 <span class="lineNum">     189 </span>                :            : } // namespace state

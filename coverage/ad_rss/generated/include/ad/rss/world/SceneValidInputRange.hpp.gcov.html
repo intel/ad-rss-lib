@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -113,14 +113,14 @@
 <span class="lineNum">      42 </span>                :            :   // check for generic member input ranges
 <span class="lineNum">      43 </span>                :<span class="lineCov">       7048 :   bool inValidInputRange = true;</span>
 <span class="lineNum">      44 </span>                :<span class="lineCov">       7048 :   inValidInputRange = withinValidInputRange(input.situationType, logErrors)</span>
-<span class="lineNum">      45 </span>        [<span class="branchCov" title="Branch 1 was taken 6034 times"> + </span><span class="branchCov" title="Branch 2 was taken 12 times"> + </span>]:<span class="lineCov">       6046 :     &amp;&amp; withinValidInputRange(input.egoVehicle, logErrors)</span>
-<span class="lineNum">      46 </span>[<span class="branchCov" title="Branch 1 was taken 6032 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 6024 times"> + </span><span class="branchCov" title="Branch 5 was taken 8 times"> + </span>]:<span class="lineCov">       6034 :     &amp;&amp; withinValidInputRange(input.egoVehicleRssDynamics, logErrors) &amp;&amp; withinValidInputRange(input.object, logErrors)</span>
-<span class="lineNum">      47 </span>        [<span class="branchCov" title="Branch 1 was taken 6022 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">       6024 :     &amp;&amp; withinValidInputRange(input.objectRssDynamics, logErrors)</span>
-<span class="lineNum">      48 </span>        [<span class="branchCov" title="Branch 1 was taken 6022 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       6022 :     &amp;&amp; withinValidInputRange(input.intersectingRoad, logErrors)</span>
-<span class="lineNum">      49 </span>[<span class="branchCov" title="Branch 0 was taken 6046 times"> + </span><span class="branchCov" title="Branch 1 was taken 1002 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 6018 times"> + </span><span class="branchCov" title="Branch 4 was taken 4 times"> + </span>]:<span class="lineCov">      13094 :     &amp;&amp; withinValidInputRange(input.egoVehicleRoad, logErrors);</span>
-<span class="lineNum">      50 </span>[<span class="branchCov" title="Branch 0 was taken 1030 times"> + </span><span class="branchCov" title="Branch 1 was taken 6018 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1030 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       7048 :   if (!inValidInputRange &amp;&amp; logErrors)</span>
+<span class="lineNum">      45 </span>        [<span class="branchCov" title="Branch 1 was taken 6036 times"> + </span><span class="branchCov" title="Branch 2 was taken 10 times"> + </span>]:<span class="lineCov">       6046 :     &amp;&amp; withinValidInputRange(input.egoVehicle, logErrors)</span>
+<span class="lineNum">      46 </span>[<span class="branchCov" title="Branch 1 was taken 6034 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 6027 times"> + </span><span class="branchCov" title="Branch 5 was taken 7 times"> + </span>]:<span class="lineCov">       6036 :     &amp;&amp; withinValidInputRange(input.egoVehicleRssDynamics, logErrors) &amp;&amp; withinValidInputRange(input.object, logErrors)</span>
+<span class="lineNum">      47 </span>        [<span class="branchCov" title="Branch 1 was taken 6025 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">       6027 :     &amp;&amp; withinValidInputRange(input.objectRssDynamics, logErrors)</span>
+<span class="lineNum">      48 </span>        [<span class="branchCov" title="Branch 1 was taken 6025 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       6025 :     &amp;&amp; withinValidInputRange(input.intersectingRoad, logErrors)</span>
+<span class="lineNum">      49 </span>[<span class="branchCov" title="Branch 0 was taken 6046 times"> + </span><span class="branchCov" title="Branch 1 was taken 1002 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 6021 times"> + </span><span class="branchCov" title="Branch 4 was taken 4 times"> + </span>]:<span class="lineCov">      13094 :     &amp;&amp; withinValidInputRange(input.egoVehicleRoad, logErrors);</span>
+<span class="lineNum">      50 </span>[<span class="branchCov" title="Branch 0 was taken 1027 times"> + </span><span class="branchCov" title="Branch 1 was taken 6021 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1027 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       7048 :   if (!inValidInputRange &amp;&amp; logErrors)</span>
 <span class="lineNum">      51 </span>                :            :   {
-<span class="lineNum">      52 </span>                :<span class="lineCov">       1030 :     spdlog::error(&quot;withinValidInputRange(::ad::rss::world::Scene)&gt;&gt; {} has invalid member&quot;, input); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      52 </span>                :<span class="lineCov">       1027 :     spdlog::error(&quot;withinValidInputRange(::ad::rss::world::Scene)&gt;&gt; {} has invalid member&quot;, input); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      53 </span>                :            :   }
 <span class="lineNum">      54 </span>                :            : 
 <span class="lineNum">      55 </span>                :<span class="lineCov">       7048 :   return inValidInputRange;</span>

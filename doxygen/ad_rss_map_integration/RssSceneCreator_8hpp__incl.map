@@ -1,4 +1,5 @@
 <map id="impl/include/ad/rss/map/RssSceneCreator.hpp" name="impl/include/ad/rss/map/RssSceneCreator.hpp">
-<area shape="rect" id="node5" href="$RssObjectConversion_8hpp.html" title="ad/rss/map/RssObjectConversion.hpp" alt="" coords="491,102,751,129"/>
-<area shape="rect" id="node10" href="$RssSceneCreation_8hpp.html" title="ad/rss/map/RssSceneCreation.hpp" alt="" coords="1172,102,1415,129"/>
+<area shape="rect" id="node5" href="$RssObjectConversion_8hpp.html" title="ad/rss/map/RssObjectConversion.hpp" alt="" coords="231,102,491,129"/>
+<area shape="rect" id="node11" href="$RssSceneCreation_8hpp.html" title="ad/rss/map/RssSceneCreation.hpp" alt="" coords="787,102,1030,129"/>
+<area shape="rect" id="node6" href="$RssObjectData_8hpp.html" title="ad/rss/map/RssObjectData.hpp" alt="" coords="359,184,579,211"/>
 </map>

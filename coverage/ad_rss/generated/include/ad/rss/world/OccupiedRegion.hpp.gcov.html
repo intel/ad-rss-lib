@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -129,7 +129,7 @@
 <span class="lineNum">      58 </span>                :            :   /*!
 <a name="59"><span class="lineNum">      59 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      60 </span>                :            :    */
-<span class="lineNum">      61 </span>                :<span class="lineCov">      11998 :   OccupiedRegion() = default;</span>
+<span class="lineNum">      61 </span>                :<span class="lineCov">      12002 :   OccupiedRegion() = default;</span>
 <span class="lineNum">      62 </span>                :            : 
 <span class="lineNum">      63 </span>                :            :   /*!
 <span class="lineNum">      64 </span>                :            :    * \brief standard destructor
@@ -171,10 +171,10 @@
 <span class="lineNum">     100 </span>                :            :    *
 <a name="101"><span class="lineNum">     101 </span>                :            :    * \returns \c true if both OccupiedRegion are equal</a>
 <span class="lineNum">     102 </span>                :            :    */
-<span class="lineNum">     103 </span>                :<span class="lineCov">         60 :   bool operator==(const OccupiedRegion &amp;other) const</span>
+<span class="lineNum">     103 </span>                :<span class="lineCov">         64 :   bool operator==(const OccupiedRegion &amp;other) const</span>
 <span class="lineNum">     104 </span>                :            :   {
-<span class="lineNum">     105 </span>[<span class="branchCov" title="Branch 0 was taken 58 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 56 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">         60 :     return (segmentId == other.segmentId) &amp;&amp; (lonRange == other.lonRange) &amp;&amp; (latRange == other.latRange);</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 54 times"> + </span><span class="branchCov" title="Branch 7 was taken 2 times"> + </span>]
+<span class="lineNum">     105 </span>[<span class="branchCov" title="Branch 0 was taken 60 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 58 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">         64 :     return (segmentId == other.segmentId) &amp;&amp; (lonRange == other.lonRange) &amp;&amp; (latRange == other.latRange);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 56 times"> + </span><span class="branchCov" title="Branch 7 was taken 2 times"> + </span>]
 <span class="lineNum">     106 </span>                :            :   }
 <span class="lineNum">     107 </span>                :            : 
 <span class="lineNum">     108 </span>                :            :   /**
@@ -236,19 +236,19 @@
 <span class="lineNum">     164 </span>                :            :  * \returns The stream object.
 <a name="165"><span class="lineNum">     165 </span>                :            :  *</a>
 <span class="lineNum">     166 </span>                :            :  */
-<span class="lineNum">     167 </span>                :<span class="lineCov">       4248 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, OccupiedRegion const &amp;_value)</span>
+<span class="lineNum">     167 </span>                :<span class="lineCov">    1004231 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, OccupiedRegion const &amp;_value)</span>
 <span class="lineNum">     168 </span>                :            : {
-<span class="lineNum">     169 </span>                :<span class="lineCov">       4248 :   os &lt;&lt; &quot;OccupiedRegion(&quot;;</span>
-<span class="lineNum">     170 </span>                :<span class="lineCov">       4248 :   os &lt;&lt; &quot;segmentId:&quot;;</span>
-<span class="lineNum">     171 </span>                :<span class="lineCov">       4248 :   os &lt;&lt; _value.segmentId;</span>
-<span class="lineNum">     172 </span>                :<span class="lineCov">       4248 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     173 </span>                :<span class="lineCov">       4248 :   os &lt;&lt; &quot;lonRange:&quot;;</span>
-<span class="lineNum">     174 </span>                :<span class="lineCov">       4248 :   os &lt;&lt; _value.lonRange;</span>
-<span class="lineNum">     175 </span>                :<span class="lineCov">       4248 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     176 </span>                :<span class="lineCov">       4248 :   os &lt;&lt; &quot;latRange:&quot;;</span>
-<span class="lineNum">     177 </span>                :<span class="lineCov">       4248 :   os &lt;&lt; _value.latRange;</span>
-<span class="lineNum">     178 </span>                :<span class="lineCov">       4248 :   os &lt;&lt; &quot;)&quot;;</span>
-<span class="lineNum">     179 </span>                :<span class="lineCov">       4248 :   return os;</span>
+<span class="lineNum">     169 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; &quot;OccupiedRegion(&quot;;</span>
+<span class="lineNum">     170 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; &quot;segmentId:&quot;;</span>
+<span class="lineNum">     171 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; _value.segmentId;</span>
+<span class="lineNum">     172 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     173 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; &quot;lonRange:&quot;;</span>
+<span class="lineNum">     174 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; _value.lonRange;</span>
+<span class="lineNum">     175 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     176 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; &quot;latRange:&quot;;</span>
+<span class="lineNum">     177 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; _value.latRange;</span>
+<span class="lineNum">     178 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     179 </span>                :<span class="lineCov">    1004231 :   return os;</span>
 <span class="lineNum">     180 </span>                :            : }
 <span class="lineNum">     181 </span>                :            : 
 <span class="lineNum">     182 </span>                :            : } // namespace world

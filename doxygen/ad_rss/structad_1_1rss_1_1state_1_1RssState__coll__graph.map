@@ -1,7 +1,10 @@
 <map id="ad::rss::state::RssState" name="ad::rss::state::RssState">
-<area shape="rect" id="node2" href="$structad_1_1rss_1_1state_1_1LateralRssState.html" title="DataType LateralRssState. " alt="" coords="381,41,561,83"/>
-<area shape="rect" id="node3" href="$structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="11,5,191,47"/>
-<area shape="rect" id="node4" href="$structad_1_1rss_1_1state_1_1RssStateInformation.html" title="DataType RssStateInformation. " alt="" coords="15,73,186,115"/>
-<area shape="rect" id="node5" href="$structad_1_1rss_1_1state_1_1LongitudinalRssState.html" title="DataType LongitudinalRssState. " alt="" coords="376,107,567,148"/>
-<area shape="rect" id="node6" href="$structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="5,141,196,183"/>
+<area shape="rect" id="node2" href="$structad_1_1rss_1_1state_1_1UnstructuredSceneRssState.html" title="DataType UnstructuredSceneRssState. " alt="" coords="809,95,1008,137"/>
+<area shape="rect" id="node3" href="$structad_1_1rss_1_1state_1_1HeadingRange.html" title="DataType HeadingRange. " alt="" coords="423,80,629,107"/>
+<area shape="rect" id="node4" href="$structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="431,147,621,189"/>
+<area shape="rect" id="node10" href="$structad_1_1rss_1_1state_1_1LongitudinalRssState.html" title="DataType LongitudinalRssState. " alt="" coords="813,186,1004,227"/>
+<area shape="rect" id="node5" href="$structad_1_1rss_1_1state_1_1UnstructuredSceneStateInformation.html" title="DataType UnstructuredSceneStateInformation. " alt="" coords="427,14,625,55"/>
+<area shape="rect" id="node7" href="$structad_1_1rss_1_1state_1_1LateralRssState.html" title="DataType LateralRssState. " alt="" coords="819,254,999,295"/>
+<area shape="rect" id="node8" href="$structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="436,299,616,341"/>
+<area shape="rect" id="node9" href="$structad_1_1rss_1_1state_1_1RssStateInformation.html" title="DataType RssStateInformation. " alt="" coords="441,231,611,273"/>
 </map>

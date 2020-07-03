@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['extractsituations',['extractSituations',['../classad_1_1rss_1_1core_1_1RssSituationExtraction.html#a39cdc00c2f5f151fbffdb9ffbcdda7f5',1,'ad::rss::core::RssSituationExtraction']]]
+  ['drawline',['drawLine',['../classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#a867f15b54b6bfa5c27ac5b2ff34f8c19',1,'ad::rss::unstructured::DebugDrawing']]],
+  ['drawpolygon',['drawPolygon',['../classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#ab18baaa2a05e8d85ff189391c00ebf16',1,'ad::rss::unstructured::DebugDrawing']]]
 ];

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:52</td>
+            <td class="headerValue">2020-07-03 15:02:55</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -103,11 +103,11 @@
 <span class="lineNum">      32 </span>                :            :   ~Logging();
 <a name="33"><span class="lineNum">      33 </span>                :            : };</a>
 <span class="lineNum">      34 </span>                :            : 
-<span class="lineNum">      35 </span>                :<span class="lineCov">       2174 : Logging &amp;Logging::instance()</span>
+<span class="lineNum">      35 </span>                :<span class="lineCov">       2014 : Logging &amp;Logging::instance()</span>
 <span class="lineNum">      36 </span>                :            : {
-<span class="lineNum">      37 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 2173 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       2174 :   static Logging singleton;</span>
+<span class="lineNum">      37 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 2013 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       2014 :   static Logging singleton;</span>
 <span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>][<span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
-<span class="lineNum">      38 </span>                :<span class="lineCov">       2174 :   return singleton;</span>
+<span class="lineNum">      38 </span>                :<span class="lineCov">       2014 :   return singleton;</span>
 <a name="39"><span class="lineNum">      39 </span>                :            : }</a>
 <span class="lineNum">      40 </span>                :            : 
 <span class="lineNum">      41 </span>                :<span class="lineCov">          2 : Logging::Logging()</span>
@@ -119,9 +119,9 @@
 <span class="lineNum">      47 </span>                :            : {
 <a name="48"><span class="lineNum">      48 </span>                :<span class="lineCov">          1 : }</span></a>
 <span class="lineNum">      49 </span>                :            : 
-<span class="lineNum">      50 </span>                :<span class="lineCov">       2174 : std::shared_ptr&lt;spdlog::logger&gt; getLogger()</span>
+<span class="lineNum">      50 </span>                :<span class="lineCov">       2014 : std::shared_ptr&lt;spdlog::logger&gt; getLogger()</span>
 <span class="lineNum">      51 </span>                :            : {
-<span class="lineNum">      52 </span>                :<span class="lineCov">       2174 :   return Logging::instance().mLogger;</span>
+<span class="lineNum">      52 </span>                :<span class="lineCov">       2014 :   return Logging::instance().mLogger;</span>
 <span class="lineNum">      53 </span>                :            : }
 <span class="lineNum">      54 </span>                :            : 
 <span class="lineNum">      55 </span>                :            : } // namespace map

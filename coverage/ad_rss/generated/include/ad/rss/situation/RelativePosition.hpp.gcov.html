@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -128,7 +128,7 @@
 <span class="lineNum">      57 </span>                :            :   /*!
 <a name="58"><span class="lineNum">      58 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      59 </span>                :            :    */
-<span class="lineNum">      60 </span>                :<span class="lineCov">      10592 :   RelativePosition() = default;</span>
+<span class="lineNum">      60 </span>                :<span class="lineCov">      10614 :   RelativePosition() = default;</span>
 <span class="lineNum">      61 </span>                :            : 
 <span class="lineNum">      62 </span>                :            :   /*!
 <span class="lineNum">      63 </span>                :            :    * \brief standard destructor
@@ -242,22 +242,22 @@
 <span class="lineNum">     170 </span>                :            :  * \returns The stream object.
 <a name="171"><span class="lineNum">     171 </span>                :            :  *</a>
 <span class="lineNum">     172 </span>                :            :  */
-<span class="lineNum">     173 </span>                :<span class="lineCov">    1004080 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, RelativePosition const &amp;_value)</span>
+<span class="lineNum">     173 </span>                :<span class="lineCov">    1004088 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, RelativePosition const &amp;_value)</span>
 <span class="lineNum">     174 </span>                :            : {
-<span class="lineNum">     175 </span>                :<span class="lineCov">    1004080 :   os &lt;&lt; &quot;RelativePosition(&quot;;</span>
-<span class="lineNum">     176 </span>                :<span class="lineCov">    1004080 :   os &lt;&lt; &quot;longitudinalPosition:&quot;;</span>
-<span class="lineNum">     177 </span>                :<span class="lineCov">    1004080 :   os &lt;&lt; _value.longitudinalPosition;</span>
-<span class="lineNum">     178 </span>                :<span class="lineCov">    1004080 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     179 </span>                :<span class="lineCov">    1004080 :   os &lt;&lt; &quot;longitudinalDistance:&quot;;</span>
-<span class="lineNum">     180 </span>                :<span class="lineCov">    1004080 :   os &lt;&lt; _value.longitudinalDistance;</span>
-<span class="lineNum">     181 </span>                :<span class="lineCov">    1004080 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     182 </span>                :<span class="lineCov">    1004080 :   os &lt;&lt; &quot;lateralPosition:&quot;;</span>
-<span class="lineNum">     183 </span>                :<span class="lineCov">    1004080 :   os &lt;&lt; _value.lateralPosition;</span>
-<span class="lineNum">     184 </span>                :<span class="lineCov">    1004080 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     185 </span>                :<span class="lineCov">    1004080 :   os &lt;&lt; &quot;lateralDistance:&quot;;</span>
-<span class="lineNum">     186 </span>                :<span class="lineCov">    1004080 :   os &lt;&lt; _value.lateralDistance;</span>
-<span class="lineNum">     187 </span>                :<span class="lineCov">    1004080 :   os &lt;&lt; &quot;)&quot;;</span>
-<span class="lineNum">     188 </span>                :<span class="lineCov">    1004080 :   return os;</span>
+<span class="lineNum">     175 </span>                :<span class="lineCov">    1004088 :   os &lt;&lt; &quot;RelativePosition(&quot;;</span>
+<span class="lineNum">     176 </span>                :<span class="lineCov">    1004088 :   os &lt;&lt; &quot;longitudinalPosition:&quot;;</span>
+<span class="lineNum">     177 </span>                :<span class="lineCov">    1004088 :   os &lt;&lt; _value.longitudinalPosition;</span>
+<span class="lineNum">     178 </span>                :<span class="lineCov">    1004088 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     179 </span>                :<span class="lineCov">    1004088 :   os &lt;&lt; &quot;longitudinalDistance:&quot;;</span>
+<span class="lineNum">     180 </span>                :<span class="lineCov">    1004088 :   os &lt;&lt; _value.longitudinalDistance;</span>
+<span class="lineNum">     181 </span>                :<span class="lineCov">    1004088 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     182 </span>                :<span class="lineCov">    1004088 :   os &lt;&lt; &quot;lateralPosition:&quot;;</span>
+<span class="lineNum">     183 </span>                :<span class="lineCov">    1004088 :   os &lt;&lt; _value.lateralPosition;</span>
+<span class="lineNum">     184 </span>                :<span class="lineCov">    1004088 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     185 </span>                :<span class="lineCov">    1004088 :   os &lt;&lt; &quot;lateralDistance:&quot;;</span>
+<span class="lineNum">     186 </span>                :<span class="lineCov">    1004088 :   os &lt;&lt; _value.lateralDistance;</span>
+<span class="lineNum">     187 </span>                :<span class="lineCov">    1004088 :   os &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     188 </span>                :<span class="lineCov">    1004088 :   return os;</span>
 <span class="lineNum">     189 </span>                :            : }
 <span class="lineNum">     190 </span>                :            : 
 <span class="lineNum">     191 </span>                :            : } // namespace situation

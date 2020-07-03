@@ -72,6 +72,10 @@
                 </li>
                 <li class="">
                     
+    <a class="" href="../../ad_rss/UnstructuredScenes/">Unstructured Scenes</a>
+                </li>
+                <li class="">
+                    
     <a class="" href="../../ad_rss/HLD-ArchitectureOverview/">System Integration</a>
                 </li>
                 <li class="">
@@ -263,9 +267,9 @@ route? Do we want to allow the vehicle to be able to enter the opposite lanes wh
 the speed difference towards other cars is expected to be much higher? Do we even want to
 allow the vehicle to enter non-drivable lanes like shoulder lanes or even pedestrian ways?
 As these questions may be answered differently in respect to the kind of road, the situation, etc.
-<em>ad_rss_map_integration</em> allows the user to select between different modes  (ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssSceneCreation::AppendRoadBoundariesMode) when calling
-ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssSceneCreation::AppendRoadBoundaries().</p>
-<p>On the other hand, since the virtual objects are of static nature, the current implementation sets the ad::rss::world::RssDynamics of the road boundary objects to some fixed values: no acceleration, minimal response time, etc. The same is true for the breadth of the road boundaries, which are just fixed to 0.001 of the respective lane segment.</p>
+<em>ad_rss_map_integration</em> allows the user to select between different modes  (<code>ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode</code>) when calling
+<code>ad::rss::map::RssSceneCreation::AppendRoadBoundaries()</code>.</p>
+<p>On the other hand, since the virtual objects are of static nature, the current implementation sets the <code>ad::rss::world::RssDynamics</code> of the road boundary objects to some fixed values: no acceleration, minimal response time, etc. The same is true for the breadth of the road boundaries, which are just fixed to 0.001 of the respective lane segment.</p>
               
             </div>
           </div>

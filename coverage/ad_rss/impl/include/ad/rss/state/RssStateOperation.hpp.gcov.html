@@ -31,27 +31,27 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">6</td>
-            <td class="headerCovTableEntry">6</td>
-            <td class="headerCovTableEntryHi">100.0 %</td>
+            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntryLo">70.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntryHi">100.0 %</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntryMed">75.0 %</td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">8</td>
-            <td class="headerCovTableEntry">8</td>
-            <td class="headerCovTableEntryHi">100.0 %</td>
+            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntryHi">90.0 %</td>
           </tr>
           <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -71,7 +71,7 @@
 <pre class="source">
 <a name="1"><span class="lineNum">       1 </span>                :            : // ----------------- BEGIN LICENSE BLOCK ---------------------------------</a>
 <span class="lineNum">       2 </span>                :            : //
-<span class="lineNum">       3 </span>                :            : // Copyright (C) 2018-2019 Intel Corporation
+<span class="lineNum">       3 </span>                :            : // Copyright (C) 2018-2020 Intel Corporation
 <span class="lineNum">       4 </span>                :            : //
 <span class="lineNum">       5 </span>                :            : // SPDX-License-Identifier: LGPL-2.1-only
 <span class="lineNum">       6 </span>                :            : //
@@ -104,9 +104,9 @@
 <span class="lineNum">      33 </span>                :            :  *
 <a name="34"><span class="lineNum">      34 </span>                :            :  * true if safe, false if not</a>
 <span class="lineNum">      35 </span>                :            :  */
-<span class="lineNum">      36 </span>                :<span class="lineCov">       7518 : inline bool isLongitudinalSafe(RssState const &amp;rssState)</span>
+<span class="lineNum">      36 </span>                :<span class="lineCov">     189916 : inline bool isLongitudinalSafe(RssState const &amp;rssState)</span>
 <span class="lineNum">      37 </span>                :            : {
-<span class="lineNum">      38 </span>                :<span class="lineCov">       7518 :   return rssState.longitudinalState.isSafe;</span>
+<span class="lineNum">      38 </span>                :<span class="lineCov">     189916 :   return rssState.longitudinalState.isSafe;</span>
 <span class="lineNum">      39 </span>                :            : }
 <span class="lineNum">      40 </span>                :            : 
 <span class="lineNum">      41 </span>                :            : /**
@@ -116,26 +116,45 @@
 <span class="lineNum">      45 </span>                :            :  *
 <a name="46"><span class="lineNum">      46 </span>                :            :  * true if safe, false if not</a>
 <span class="lineNum">      47 </span>                :            :  */
-<span class="lineNum">      48 </span>                :<span class="lineCov">       5574 : inline bool isLateralSafe(RssState const &amp;rssState)</span>
+<span class="lineNum">      48 </span>                :<span class="lineCov">      84159 : inline bool isLateralSafe(RssState const &amp;rssState)</span>
 <span class="lineNum">      49 </span>                :            : {
-<span class="lineNum">      50 </span>[<span class="branchCov" title="Branch 0 was taken 3139 times"> + </span><span class="branchCov" title="Branch 1 was taken 2435 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 2540 times"> + </span><span class="branchCov" title="Branch 3 was taken 599 times"> + </span>]:<span class="lineCov">       5574 :   return rssState.lateralStateRight.isSafe &amp;&amp; rssState.lateralStateLeft.isSafe;</span>
+<span class="lineNum">      50 </span>[<span class="branchCov" title="Branch 0 was taken 6170 times"> + </span><span class="branchCov" title="Branch 1 was taken 77989 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 4693 times"> + </span><span class="branchCov" title="Branch 3 was taken 1477 times"> + </span>]:<span class="lineCov">      84159 :   return rssState.lateralStateRight.isSafe &amp;&amp; rssState.lateralStateLeft.isSafe;</span>
 <span class="lineNum">      51 </span>                :            : }
 <span class="lineNum">      52 </span>                :            : 
 <span class="lineNum">      53 </span>                :            : /**
-<span class="lineNum">      54 </span>                :            :  * @brief is rss state dangerous
+<span class="lineNum">      54 </span>                :            :  * @brief is rss unstructured scene state safe
 <span class="lineNum">      55 </span>                :            :  *
 <span class="lineNum">      56 </span>                :            :  * @param[in] rssState to check
 <span class="lineNum">      57 </span>                :            :  *
-<a name="58"><span class="lineNum">      58 </span>                :            :  * true if dangerous, false if not</a>
+<a name="58"><span class="lineNum">      58 </span>                :            :  * true if safe, false if not</a>
 <span class="lineNum">      59 </span>                :            :  */
-<span class="lineNum">      60 </span>                :<span class="lineCov">       4485 : inline bool isDangerous(RssState const &amp;rssState)</span>
+<span class="lineNum">      60 </span>                :<span class="lineNoCov">          0 : inline bool isUnstructuredSceneSafe(RssState const &amp;rssState)</span>
 <span class="lineNum">      61 </span>                :            : {
-<span class="lineNum">      62 </span>[<span class="branchCov" title="Branch 1 was taken 2541 times"> + </span><span class="branchCov" title="Branch 2 was taken 1944 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 1454 times"> + </span><span class="branchCov" title="Branch 5 was taken 1087 times"> + </span>]:<span class="lineCov">       4485 :   return !isLongitudinalSafe(rssState) &amp;&amp; !isLateralSafe(rssState);</span>
+<span class="lineNum">      62 </span>                :<span class="lineNoCov">          0 :   return rssState.unstructuredSceneState.isSafe;</span>
 <span class="lineNum">      63 </span>                :            : }
 <span class="lineNum">      64 </span>                :            : 
-<span class="lineNum">      65 </span>                :            : } // namespace state
-<span class="lineNum">      66 </span>                :            : } // namespace rss
-<span class="lineNum">      67 </span>                :            : } // namespace ad
+<span class="lineNum">      65 </span>                :            : /**
+<span class="lineNum">      66 </span>                :            :  * @brief is rss state dangerous
+<span class="lineNum">      67 </span>                :            :  *
+<span class="lineNum">      68 </span>                :            :  * @param[in] rssState to check
+<span class="lineNum">      69 </span>                :            :  *
+<a name="70"><span class="lineNum">      70 </span>                :            :  * true if dangerous, false if not</a>
+<span class="lineNum">      71 </span>                :            :  */
+<span class="lineNum">      72 </span>                :<span class="lineCov">     136955 : inline bool isDangerous(RssState const &amp;rssState)</span>
+<span class="lineNum">      73 </span>                :            : {
+<span class="lineNum">      74 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 136955 times"> + </span>]:<span class="lineCov">     136955 :   if (rssState.situationType == ad::rss::situation::SituationType::Unstructured)</span>
+<span class="lineNum">      75 </span>                :            :   {
+<span class="lineNum">      76 </span>                :<span class="lineNoCov">          0 :     return !isUnstructuredSceneSafe(rssState);</span>
+<span class="lineNum">      77 </span>                :            :   }
+<span class="lineNum">      78 </span>                :            :   else
+<span class="lineNum">      79 </span>                :            :   {
+<span class="lineNum">      80 </span>[<span class="branchCov" title="Branch 1 was taken 31198 times"> + </span><span class="branchCov" title="Branch 2 was taken 105757 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 27928 times"> + </span><span class="branchCov" title="Branch 5 was taken 3270 times"> + </span>]:<span class="lineCov">     136955 :     return !isLongitudinalSafe(rssState) &amp;&amp; !isLateralSafe(rssState);</span>
+<span class="lineNum">      81 </span>                :            :   }
+<span class="lineNum">      82 </span>                :            : }
+<span class="lineNum">      83 </span>                :            : 
+<span class="lineNum">      84 </span>                :            : } // namespace state
+<span class="lineNum">      85 </span>                :            : } // namespace rss
+<span class="lineNum">      86 </span>                :            : } // namespace ad
 </pre>
       </td>
     </tr>

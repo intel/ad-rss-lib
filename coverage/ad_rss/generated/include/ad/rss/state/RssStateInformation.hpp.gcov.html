@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -127,7 +127,7 @@
 <span class="lineNum">      56 </span>                :            :   /*!
 <a name="57"><span class="lineNum">      57 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      58 </span>                :            :    */
-<span class="lineNum">      59 </span>                :<span class="lineCov">     867730 :   RssStateInformation() = default;</span>
+<span class="lineNum">      59 </span>                :<span class="lineCov">     539362 :   RssStateInformation() = default;</span>
 <span class="lineNum">      60 </span>                :            : 
 <span class="lineNum">      61 </span>                :            :   /*!
 <span class="lineNum">      62 </span>                :            :    * \brief standard destructor
@@ -169,10 +169,10 @@
 <span class="lineNum">      98 </span>                :            :    *
 <a name="99"><span class="lineNum">      99 </span>                :            :    * \returns \c true if both RssStateInformation are equal</a>
 <span class="lineNum">     100 </span>                :            :    */
-<span class="lineNum">     101 </span>                :<span class="lineCov">        289 :   bool operator==(const RssStateInformation &amp;other) const</span>
+<span class="lineNum">     101 </span>                :<span class="lineCov">        310 :   bool operator==(const RssStateInformation &amp;other) const</span>
 <span class="lineNum">     102 </span>                :            :   {
-<span class="lineNum">     103 </span>        [<span class="branchCov" title="Branch 2 was taken 281 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">        572 :     return (safeDistance == other.safeDistance) &amp;&amp; (currentDistance == other.currentDistance)</span>
-<span class="lineNum">     104 </span>[<span class="branchCov" title="Branch 0 was taken 283 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 279 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">        572 :       &amp;&amp; (evaluator == other.evaluator);</span>
+<span class="lineNum">     103 </span>        [<span class="branchCov" title="Branch 2 was taken 302 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">        614 :     return (safeDistance == other.safeDistance) &amp;&amp; (currentDistance == other.currentDistance)</span>
+<span class="lineNum">     104 </span>[<span class="branchCov" title="Branch 0 was taken 304 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 300 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">        614 :       &amp;&amp; (evaluator == other.evaluator);</span>
 <span class="lineNum">     105 </span>                :            :   }
 <span class="lineNum">     106 </span>                :            : 
 <span class="lineNum">     107 </span>                :            :   /**
@@ -235,19 +235,19 @@
 <span class="lineNum">     164 </span>                :            :  * \returns The stream object.
 <a name="165"><span class="lineNum">     165 </span>                :            :  *</a>
 <span class="lineNum">     166 </span>                :            :  */
-<span class="lineNum">     167 </span>                :<span class="lineCov">    3008453 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, RssStateInformation const &amp;_value)</span>
+<span class="lineNum">     167 </span>                :<span class="lineCov">    3048173 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, RssStateInformation const &amp;_value)</span>
 <span class="lineNum">     168 </span>                :            : {
-<span class="lineNum">     169 </span>                :<span class="lineCov">    3008453 :   os &lt;&lt; &quot;RssStateInformation(&quot;;</span>
-<span class="lineNum">     170 </span>                :<span class="lineCov">    3008453 :   os &lt;&lt; &quot;safeDistance:&quot;;</span>
-<span class="lineNum">     171 </span>                :<span class="lineCov">    3008453 :   os &lt;&lt; _value.safeDistance;</span>
-<span class="lineNum">     172 </span>                :<span class="lineCov">    3008453 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     173 </span>                :<span class="lineCov">    3008453 :   os &lt;&lt; &quot;currentDistance:&quot;;</span>
-<span class="lineNum">     174 </span>                :<span class="lineCov">    3008453 :   os &lt;&lt; _value.currentDistance;</span>
-<span class="lineNum">     175 </span>                :<span class="lineCov">    3008453 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     176 </span>                :<span class="lineCov">    3008453 :   os &lt;&lt; &quot;evaluator:&quot;;</span>
-<span class="lineNum">     177 </span>                :<span class="lineCov">    3008453 :   os &lt;&lt; _value.evaluator;</span>
-<span class="lineNum">     178 </span>                :<span class="lineCov">    3008453 :   os &lt;&lt; &quot;)&quot;;</span>
-<span class="lineNum">     179 </span>                :<span class="lineCov">    3008453 :   return os;</span>
+<span class="lineNum">     169 </span>                :<span class="lineCov">    3048173 :   os &lt;&lt; &quot;RssStateInformation(&quot;;</span>
+<span class="lineNum">     170 </span>                :<span class="lineCov">    3048173 :   os &lt;&lt; &quot;safeDistance:&quot;;</span>
+<span class="lineNum">     171 </span>                :<span class="lineCov">    3048173 :   os &lt;&lt; _value.safeDistance;</span>
+<span class="lineNum">     172 </span>                :<span class="lineCov">    3048173 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     173 </span>                :<span class="lineCov">    3048173 :   os &lt;&lt; &quot;currentDistance:&quot;;</span>
+<span class="lineNum">     174 </span>                :<span class="lineCov">    3048173 :   os &lt;&lt; _value.currentDistance;</span>
+<span class="lineNum">     175 </span>                :<span class="lineCov">    3048173 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     176 </span>                :<span class="lineCov">    3048173 :   os &lt;&lt; &quot;evaluator:&quot;;</span>
+<span class="lineNum">     177 </span>                :<span class="lineCov">    3048173 :   os &lt;&lt; _value.evaluator;</span>
+<span class="lineNum">     178 </span>                :<span class="lineCov">    3048173 :   os &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     179 </span>                :<span class="lineCov">    3048173 :   return os;</span>
 <span class="lineNum">     180 </span>                :            : }
 <span class="lineNum">     181 </span>                :            : 
 <span class="lineNum">     182 </span>                :            : } // namespace state

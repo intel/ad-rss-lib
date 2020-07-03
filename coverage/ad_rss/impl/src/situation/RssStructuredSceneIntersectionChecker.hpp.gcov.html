@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - ad_rss - impl/src/situation/RssStructuredSceneIntersectionChecker.hpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">impl/src/situation</a> - RssStructuredSceneIntersectionChecker.hpp<span style="font-size: 80%;"> (source / <a href="RssStructuredSceneIntersectionChecker.hpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">ad_rss</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">-</td>
+          </tr>
+          <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : // ----------------- BEGIN LICENSE BLOCK ---------------------------------</a>
+<span class="lineNum">       2 </span>                :            : //
+<span class="lineNum">       3 </span>                :            : // Copyright (C) 2018-2020 Intel Corporation
+<span class="lineNum">       4 </span>                :            : //
+<span class="lineNum">       5 </span>                :            : // SPDX-License-Identifier: LGPL-2.1-only
+<span class="lineNum">       6 </span>                :            : //
+<span class="lineNum">       7 </span>                :            : // ----------------- END LICENSE BLOCK -----------------------------------
+<span class="lineNum">       8 </span>                :            : 
+<span class="lineNum">       9 </span>                :            : /**
+<span class="lineNum">      10 </span>                :            :  * @file
+<span class="lineNum">      11 </span>                :            :  */
+<span class="lineNum">      12 </span>                :            : 
+<span class="lineNum">      13 </span>                :            : #pragma once
+<span class="lineNum">      14 </span>                :            : 
+<span class="lineNum">      15 </span>                :            : #include &lt;cstdint&gt;
+<span class="lineNum">      16 </span>                :            : #include &lt;map&gt;
+<span class="lineNum">      17 </span>                :            : #include &quot;ad/rss/situation/Situation.hpp&quot;
+<span class="lineNum">      18 </span>                :            : #include &quot;ad/rss/state/RssState.hpp&quot;
+<span class="lineNum">      19 </span>                :            : #include &quot;ad/rss/world/TimeIndex.hpp&quot;
+<span class="lineNum">      20 </span>                :            : 
+<span class="lineNum">      21 </span>                :            : /*!
+<span class="lineNum">      22 </span>                :            :  * @brief namespace ad
+<span class="lineNum">      23 </span>                :            :  */
+<span class="lineNum">      24 </span>                :            : namespace ad {
+<span class="lineNum">      25 </span>                :            : /*!
+<span class="lineNum">      26 </span>                :            :  * @brief namespace rss
+<span class="lineNum">      27 </span>                :            :  */
+<span class="lineNum">      28 </span>                :            : namespace rss {
+<span class="lineNum">      29 </span>                :            : /*!
+<span class="lineNum">      30 </span>                :            :  * @brief namespace situation
+<span class="lineNum">      31 </span>                :            :  */
+<span class="lineNum">      32 </span>                :            : namespace situation {
+<span class="lineNum">      33 </span>                :            : 
+<span class="lineNum">      34 </span>                :            : /**
+<span class="lineNum">      35 </span>                :            :  * @brief Class to check whether an intersection is safe and to determine the proper response for the situation
+<span class="lineNum">      36 </span>                :            :  *
+<span class="lineNum">      37 </span>                :            :  *
+<span class="lineNum">      38 </span>                :            :  * Note: Implements the checks and responses given by the definitions 16-18 of the RSS paper (arXiv:1708.06374v6)
+<span class="lineNum">      39 </span>                :            :  *       The more detailed lateral intersection handling according to definitions 14 and 15 is not considered, yet.
+<span class="lineNum">      40 </span>                :            :  *       Instead, the current implementation always considers a lateral conflict within intersections and doesn't
+<span class="lineNum">      41 </span>                :            :  * trigger any lateral response.
+<span class="lineNum">      42 </span>                :            :  *
+<span class="lineNum">      43 </span>                :            :  * Class performs required check to if situation is safe
+<span class="lineNum">      44 </span>                :            :  * Class will maintain the previous state of the situation in order to provide the proper response.
+<span class="lineNum">      45 </span>                :            :  */
+<span class="lineNum">      46 </span>                :            : class RssStructuredSceneIntersectionChecker
+<span class="lineNum">      47 </span>                :            : {
+<span class="lineNum">      48 </span>                :            : public:
+<span class="lineNum">      49 </span>                :            :   /*!
+<span class="lineNum">      50 </span>                :            :    * \brief Enum LongitudinalResponse
+<span class="lineNum">      51 </span>                :            :    *
+<span class="lineNum">      52 </span>                :            :    * Enumeration defining the possible longitudinal responses
+<span class="lineNum">      53 </span>                :            :    *
+<span class="lineNum">      54 </span>                :            :    * Be aware: there has to be a strict order of the enumeration values according to
+<span class="lineNum">      55 </span>                :            :    * the strictness of the response
+<span class="lineNum">      56 </span>                :            :    */
+<span class="lineNum">      57 </span>                :            :   enum class IntersectionState : std::uint32_t
+<span class="lineNum">      58 </span>                :            :   {
+<span class="lineNum">      59 </span>                :            :     NonPrioAbleToBreak = 0u,       /*!&lt; NonPrio-Vehicle can stop in front intersection */
+<span class="lineNum">      60 </span>                :            :     SafeLongitudinalDistance = 1u, /*!&lt; There is a safe longitudinal distance  between the vehicles*/
+<span class="lineNum">      61 </span>                :            :     NoTimeOverlap = 2u             /*!&lt; There is no time overlap between the paths of the two vehicles */
+<span class="lineNum">      62 </span>                :            :   };
+<span class="lineNum">      63 </span>                :            : 
+<span class="lineNum">      64 </span>                :            :   /**
+<a name="65"><span class="lineNum">      65 </span>                :            :    * @brief Constructor</a>
+<span class="lineNum">      66 </span>                :            :    */
+<span class="lineNum">      67 </span>                :<span class="lineCov">       1470 :   RssStructuredSceneIntersectionChecker() = default;</span>
+<span class="lineNum">      68 </span>                :            : 
+<span class="lineNum">      69 </span>                :            :   /**
+<a name="70"><span class="lineNum">      70 </span>                :            :    * @brief Destructor</a>
+<span class="lineNum">      71 </span>                :            :    */
+<span class="lineNum">      72 </span>                :<span class="lineCov">       1470 :   ~RssStructuredSceneIntersectionChecker() = default;</span>
+<span class="lineNum">      73 </span>                :            : 
+<span class="lineNum">      74 </span>                :            :   /**
+<span class="lineNum">      75 </span>                :            :    * @brief Calculate safety checks and determine required rssState for intersection situations
+<span class="lineNum">      76 </span>                :            :    *
+<span class="lineNum">      77 </span>                :            :    * @param[in]  timeIndex the time index of the situation
+<span class="lineNum">      78 </span>                :            :    * @param[in]  situation situation to analyze
+<span class="lineNum">      79 </span>                :            :    * @param[out] rssState  rssState of the ego vehicle
+<span class="lineNum">      80 </span>                :            :    *
+<span class="lineNum">      81 </span>                :            :    * @returns false if a failure occurred during calculations, true otherwise
+<span class="lineNum">      82 </span>                :            :    *
+<span class="lineNum">      83 </span>                :            :    */
+<span class="lineNum">      84 </span>                :            :   bool calculateRssStateIntersection(world::TimeIndex const &amp;timeIndex,
+<span class="lineNum">      85 </span>                :            :                                      Situation const &amp;situation,
+<span class="lineNum">      86 </span>                :            :                                      state::RssState &amp;rssState);
+<span class="lineNum">      87 </span>                :            : 
+<span class="lineNum">      88 </span>                :            : private:
+<span class="lineNum">      89 </span>                :            :   bool checkLateralIntersect(Situation const &amp;situation, bool &amp;isSafe);
+<span class="lineNum">      90 </span>                :            : 
+<span class="lineNum">      91 </span>                :            :   bool checkIntersectionSafe(Situation const &amp;situation,
+<span class="lineNum">      92 </span>                :            :                              state::RssStateInformation &amp;rssStateInformation,
+<span class="lineNum">      93 </span>                :            :                              bool &amp;isSafe,
+<span class="lineNum">      94 </span>                :            :                              IntersectionState &amp;intersectionState);
+<span class="lineNum">      95 </span>                :            : 
+<span class="lineNum">      96 </span>                :            :   typedef std::map&lt;SituationId, IntersectionState&gt; RssIntersectionStateMap;
+<span class="lineNum">      97 </span>                :            : 
+<span class="lineNum">      98 </span>                :            :   /**
+<span class="lineNum">      99 </span>                :            :    * @brief last safe IntersectionState of each situation of previous time step
+<span class="lineNum">     100 </span>                :            :    */
+<span class="lineNum">     101 </span>                :            :   RssIntersectionStateMap mLastSafeStateMap;
+<span class="lineNum">     102 </span>                :            : 
+<span class="lineNum">     103 </span>                :            :   /**
+<span class="lineNum">     104 </span>                :            :    * @brief new safe IntersectionState of each situation of current time step
+<span class="lineNum">     105 </span>                :            :    */
+<span class="lineNum">     106 </span>                :            :   RssIntersectionStateMap mNewSafeStateMap;
+<span class="lineNum">     107 </span>                :            : 
+<span class="lineNum">     108 </span>                :            :   /**
+<span class="lineNum">     109 </span>                :            :    * @brief time index of the current processing step
+<span class="lineNum">     110 </span>                :            :    * If time index increases we need to update the state maps
+<span class="lineNum">     111 </span>                :            :    */
+<span class="lineNum">     112 </span>                :            :   world::TimeIndex mCurrentTimeIndex{0u};
+<span class="lineNum">     113 </span>                :            : };
+<span class="lineNum">     114 </span>                :            : 
+<span class="lineNum">     115 </span>                :            : } // namespace situation
+<span class="lineNum">     116 </span>                :            : } // namespace rss
+<span class="lineNum">     117 </span>                :            : } // namespace ad
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

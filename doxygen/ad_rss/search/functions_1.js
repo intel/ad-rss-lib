@@ -1,9 +1,23 @@
 var searchData=
 [
-  ['calculateaccelerationrestriction',['calculateAccelerationRestriction',['../classad_1_1rss_1_1core_1_1RssCheck.html#aaded7bc01e921bcc9f05f60c98e7195c',1,'ad::rss::core::RssCheck::calculateAccelerationRestriction(world::WorldModel const &amp;worldModel, world::AccelerationRestriction &amp;accelerationRestriction)'],['../classad_1_1rss_1_1core_1_1RssCheck.html#af089df87dd8527817d62209b7948a088',1,'ad::rss::core::RssCheck::calculateAccelerationRestriction(world::WorldModel const &amp;worldModel, situation::SituationSnapshot &amp;situationSnapshot, state::RssStateSnapshot &amp;rssStateSnapshot, state::ProperResponse &amp;properResponse, world::AccelerationRestriction &amp;accelerationRestriction)']]],
-  ['calculatedistanceoffsetafterresponsetime',['calculateDistanceOffsetAfterResponseTime',['../namespacead_1_1rss_1_1situation.html#ad6d20e100d9cfa31f567e37f5ef471d8',1,'ad::rss::situation']]],
-  ['calculatespeedafterresponsetime',['calculateSpeedAfterResponseTime',['../namespacead_1_1rss_1_1situation.html#ab9e2c61192c0998cef69807b6fa57feb',1,'ad::rss::situation']]],
-  ['calculatestoppingdistance',['calculateStoppingDistance',['../namespacead_1_1rss_1_1situation.html#a626fdbf8e05cf4a7217cf6c79ebbf730',1,'ad::rss::situation']]],
-  ['calculatetimetocoverdistance',['calculateTimeToCoverDistance',['../namespacead_1_1rss_1_1situation.html#a8250c05d60818bd1139a3e7f69122a87',1,'ad::rss::situation']]],
-  ['checksituations',['checkSituations',['../classad_1_1rss_1_1core_1_1RssSituationChecking.html#a34c1de7f0b676963302f7b27dc9b0d55',1,'ad::rss::core::RssSituationChecking']]]
+  ['calculateacceleratedlimitedmovement',['calculateAcceleratedLimitedMovement',['../namespacead_1_1rss_1_1situation.html#afacb7252f1fc654b56b34c58e6254b10',1,'ad::rss::situation']]],
+  ['calculatecirclearc',['calculateCircleArc',['../namespacead_1_1rss_1_1unstructured.html#a3e28d34ab2b37eb9f80fea873894b2bd',1,'ad::rss::unstructured']]],
+  ['calculatedistanceoffsetinacceleratedmovement',['calculateDistanceOffsetInAcceleratedMovement',['../namespacead_1_1rss_1_1situation.html#ae8af514064e43657e33f9ccaad996da1',1,'ad::rss::situation']]],
+  ['calculatelateraldistanceoffsetafterstatedbrakingpattern',['calculateLateralDistanceOffsetAfterStatedBrakingPattern',['../namespacead_1_1rss_1_1situation.html#a2b6ab4ec2415e65f24b6d41c5513e506',1,'ad::rss::situation']]],
+  ['calculatelongitudinaldistanceoffsetafterstatedbrakingpattern',['calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern',['../namespacead_1_1rss_1_1situation.html#a68f8908de89e09d7d0a6addc19373068',1,'ad::rss::situation']]],
+  ['calculateproperresponse',['calculateProperResponse',['../classad_1_1rss_1_1core_1_1RssCheck.html#a392b1c6126ca9feafbffa04e9dc18c38',1,'ad::rss::core::RssCheck::calculateProperResponse(world::WorldModel const &amp;worldModel, state::ProperResponse &amp;properResponse)'],['../classad_1_1rss_1_1core_1_1RssCheck.html#a1bee1f94a1d3cf448e53beac2265bdd5',1,'ad::rss::core::RssCheck::calculateProperResponse(world::WorldModel const &amp;worldModel, situation::SituationSnapshot &amp;situationSnapshot, state::RssStateSnapshot &amp;rssStateSnapshot, state::ProperResponse &amp;properResponse)']]],
+  ['calculatesafelateraldistance',['calculateSafeLateralDistance',['../namespacead_1_1rss_1_1situation.html#a4fcfb42dca6a86f9cc8f53a03c10fb2e',1,'ad::rss::situation']]],
+  ['calculatesafelongitudinaldistanceoppositedirection',['calculateSafeLongitudinalDistanceOppositeDirection',['../namespacead_1_1rss_1_1situation.html#aa9cbff930eca8d7ac482aeb7c607e386',1,'ad::rss::situation']]],
+  ['calculatesafelongitudinaldistancesamedirection',['calculateSafeLongitudinalDistanceSameDirection',['../namespacead_1_1rss_1_1situation.html#a53d848312dde71c5a74ddccbadd94d31',1,'ad::rss::situation']]],
+  ['calculatespeedanddistanceoffset',['calculateSpeedAndDistanceOffset',['../namespacead_1_1rss_1_1situation.html#ae5369b8e2105c93972af49116a69f986',1,'ad::rss::situation']]],
+  ['calculatespeedinacceleratedmovement',['calculateSpeedInAcceleratedMovement',['../namespacead_1_1rss_1_1situation.html#a1ed8bcab8741f84a28cd2f4d624b968d',1,'ad::rss::situation']]],
+  ['calculatestoppingdistance',['calculateStoppingDistance',['../namespacead_1_1rss_1_1situation.html#a66dd4c7a777c2a996b95c7dd7435b543',1,'ad::rss::situation']]],
+  ['calculatetimetocoverdistance',['calculateTimeToCoverDistance',['../namespacead_1_1rss_1_1situation.html#ab7feefda4d53c6ecac7717672e55775e',1,'ad::rss::situation']]],
+  ['calculatetimetostop',['calculateTimeToStop',['../namespacead_1_1rss_1_1situation.html#a784fc6c80df97167d68ba5e78b30418b',1,'ad::rss::situation']]],
+  ['checksafelateraldistance',['checkSafeLateralDistance',['../namespacead_1_1rss_1_1situation.html#a5841567473c32176c7b3d24b104bf082',1,'ad::rss::situation']]],
+  ['checksafelongitudinaldistanceoppositedirection',['checkSafeLongitudinalDistanceOppositeDirection',['../namespacead_1_1rss_1_1situation.html#a232c10899b09b9ebf3a04b73e01d7b18',1,'ad::rss::situation']]],
+  ['checksafelongitudinaldistancesamedirection',['checkSafeLongitudinalDistanceSameDirection',['../namespacead_1_1rss_1_1situation.html#aa22a133657a672bc20c0309120c698ee',1,'ad::rss::situation']]],
+  ['checksituations',['checkSituations',['../classad_1_1rss_1_1core_1_1RssSituationChecking.html#a34c1de7f0b676963302f7b27dc9b0d55',1,'ad::rss::core::RssSituationChecking']]],
+  ['checkstopinfrontintersection',['checkStopInFrontIntersection',['../namespacead_1_1rss_1_1situation.html#a6a6e68c8f080ab8d2fcaa9c00af81445',1,'ad::rss::situation']]],
+  ['collides',['collides',['../namespacead_1_1rss_1_1unstructured.html#a679ba1838ea305cd7db9dce0b3d5b282',1,'ad::rss::unstructured']]]
 ];

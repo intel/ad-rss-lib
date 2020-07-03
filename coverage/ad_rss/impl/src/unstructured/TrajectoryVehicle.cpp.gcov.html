@@ -1,0 +1,623 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - ad_rss - impl/src/unstructured/TrajectoryVehicle.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">impl/src/unstructured</a> - TrajectoryVehicle.cpp<span style="font-size: 80%;"> (source / <a href="TrajectoryVehicle.cpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">ad_rss</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">179</td>
+            <td class="headerCovTableEntry">197</td>
+            <td class="headerCovTableEntryHi">90.9 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">198</td>
+            <td class="headerCovTableEntry">370</td>
+            <td class="headerCovTableEntryLo">53.5 %</td>
+          </tr>
+          <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : // ----------------- BEGIN LICENSE BLOCK ---------------------------------</a>
+<span class="lineNum">       2 </span>                :            : //
+<span class="lineNum">       3 </span>                :            : // Copyright (C) 2020 Intel Corporation
+<span class="lineNum">       4 </span>                :            : //
+<span class="lineNum">       5 </span>                :            : // SPDX-License-Identifier: LGPL-2.1-only
+<span class="lineNum">       6 </span>                :            : //
+<span class="lineNum">       7 </span>                :            : // ----------------- END LICENSE BLOCK -----------------------------------
+<span class="lineNum">       8 </span>                :            : /**
+<span class="lineNum">       9 </span>                :            :  * @file
+<span class="lineNum">      10 </span>                :            :  */
+<span class="lineNum">      11 </span>                :            : 
+<span class="lineNum">      12 </span>                :            : #include &quot;TrajectoryVehicle.hpp&quot;
+<span class="lineNum">      13 </span>                :            : #include &lt;ad/physics/Operation.hpp&gt;
+<span class="lineNum">      14 </span>                :            : #include &lt;algorithm&gt;
+<span class="lineNum">      15 </span>                :            : /*!
+<span class="lineNum">      16 </span>                :            :  * @brief namespace ad
+<span class="lineNum">      17 </span>                :            :  */
+<span class="lineNum">      18 </span>                :            : namespace ad {
+<span class="lineNum">      19 </span>                :            : /*!
+<span class="lineNum">      20 </span>                :            :  * @brief namespace rss
+<span class="lineNum">      21 </span>                :            :  */
+<span class="lineNum">      22 </span>                :            : namespace rss {
+<span class="lineNum">      23 </span>                :            : /*!
+<span class="lineNum">      24 </span>                :            :  * @brief namespace unstructured
+<span class="lineNum">      25 </span>                :            :  */
+<span class="lineNum">      26 </span>                :            : namespace unstructured {
+<span class="lineNum">      27 </span>                :            : 
+<a name="28"><span class="lineNum">      28 </span>                :<span class="lineCov">          2 : const ad::physics::Distance TrajectoryVehicle::maxRadius(1000.0);</span></a>
+<span class="lineNum">      29 </span>                :            : 
+<span class="lineNum">      30 </span>                :<span class="lineCov">         20 : bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &amp;vehicleState,</span>
+<span class="lineNum">      31 </span>                :            :                                                 Polygon &amp;brakePolygon,
+<span class="lineNum">      32 </span>                :            :                                                 Polygon &amp;continueForwardPolygon)
+<span class="lineNum">      33 </span>                :            : {
+<span class="lineNum">      34 </span>                :<span class="lineCov">         20 :   ad::physics::Duration timeToStop;</span>
+<span class="lineNum">      35 </span>                :            :   auto result = situation::calculateTimeToStop(vehicleState.objectState.speed,
+<span class="lineNum">      36 </span>                :            :                                                vehicleState.dynamics.responseTime,
+<span class="lineNum">      37 </span>                :            :                                                vehicleState.dynamics.maxSpeedOnAcceleration,
+<span class="lineNum">      38 </span>                :            :                                                vehicleState.dynamics.alphaLon.accelMax,
+<span class="lineNum">      39 </span>                :            :                                                vehicleState.dynamics.alphaLon.brakeMin,
+<span class="lineNum">      40 </span>        [<span class="branchCov" title="Branch 1 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         20 :                                                timeToStop);</span>
+<span class="lineNum">      41 </span>        [<span class="branchCov" title="Branch 1 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         40 :   Polygon continueForwardPolygonPart;</span>
+<span class="lineNum">      42 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :   if (result)</span>
+<span class="lineNum">      43 </span>                :            :   {
+<span class="lineNum">      44 </span>                :            :     // continue forward with vehicleState.dynamics.alphaLon.accelMax
+<span class="lineNum">      45 </span>                :            :     continueForwardPolygonPart
+<span class="lineNum">      46 </span>[<span class="branchCov" title="Branch 2 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">         20 :       = createTrajectorySet(vehicleState, timeToStop, vehicleState.dynamics.alphaLon.accelMax, &quot;green&quot;);</span>
+<span class="lineNum">      47 </span>                :            :     // brake with vehicleState.dynamics.alphaLon.brakeMin
+<span class="lineNum">      48 </span>[<span class="branchCov" title="Branch 2 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">         20 :     brakePolygon = createTrajectorySet(vehicleState, timeToStop, vehicleState.dynamics.alphaLon.brakeMin, &quot;red&quot;);</span>
+<span class="lineNum">      49 </span>                :            : 
+<span class="lineNum">      50 </span>[<span class="branchCov" title="Branch 2 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">         20 :     if (!checkAndFixPolygon(brakePolygon, &quot;brake&quot;))</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 20 times"> + </span>]
+<span class="lineNum">      51 </span>                :            :     {
+<span class="lineNum">      52 </span>                :<span class="lineNoCov">          0 :       result = false;</span>
+<span class="lineNum">      53 </span>                :            :     }
+<span class="lineNum">      54 </span>                :            :   }
+<span class="lineNum">      55 </span>                :            : 
+<span class="lineNum">      56 </span>                :            :   // the continue forward polygon also contains the brakePolygon, therefore join them (if possible)
+<span class="lineNum">      57 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :   if (result)</span>
+<span class="lineNum">      58 </span>                :            :   {
+<span class="lineNum">      59 </span>[<span class="branchCov" title="Branch 2 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">         20 :     result = checkAndFixPolygon(continueForwardPolygonPart, &quot;continueForward&quot;);</span>
+<span class="lineNum">      60 </span>        [<span class="branchCov" title="Branch 0 was taken 17 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">         20 :     if (result)</span>
+<span class="lineNum">      61 </span>                :            :     {
+<span class="lineNum">      62 </span>                :<span class="lineCov">         34 :       std::vector&lt;Polygon&gt; unionPolygons;</span>
+<span class="lineNum">      63 </span>        [<span class="branchCov" title="Branch 3 was taken 17 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         17 :       boost::geometry::union_(brakePolygon.outer(), continueForwardPolygonPart.outer(), unionPolygons);</span>
+<span class="lineNum">      64 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 17 times"> + </span>]:<span class="lineCov">         17 :       if (unionPolygons.size() != 1)</span>
+<span class="lineNum">      65 </span>                :            :       {
+<span class="lineNum">      66 </span>                :<span class="lineNoCov">          0 :         spdlog::debug(&quot;Could not calculate final continue forward polygon. Expected 1 polygon after union, found {}&quot;,</span>
+<span class="lineNum">      67 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :                       unionPolygons.size());</span>
+<span class="lineNum">      68 </span>                :<span class="lineNoCov">          0 :         result = false;</span>
+<span class="lineNum">      69 </span>                :            :       }
+<span class="lineNum">      70 </span>                :            :       else
+<span class="lineNum">      71 </span>                :            :       {
+<span class="lineNum">      72 </span>        [<span class="branchCov" title="Branch 2 was taken 17 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         17 :         continueForwardPolygon = unionPolygons[0];</span>
+<span class="lineNum">      73 </span>                :            :       }
+<span class="lineNum">      74 </span>                :            :     }
+<span class="lineNum">      75 </span>                :            : 
+<span class="lineNum">      76 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 17 times"> + </span>]:<span class="lineCov">         20 :     if (!result)</span>
+<span class="lineNum">      77 </span>                :            :     {
+<span class="lineNum">      78 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          3 :       continueForwardPolygon = continueForwardPolygonPart;</span>
+<span class="lineNum">      79 </span>                :<span class="lineCov">         20 :       result = true;</span>
+<span class="lineNum">      80 </span>                :            :     }
+<span class="lineNum">      81 </span>                :            :   }
+<span class="lineNum">      82 </span>                :<span class="lineCov">         20 :   return result;</span>
+<a name="83"><span class="lineNum">      83 </span>                :            : }</a>
+<span class="lineNum">      84 </span>                :            : 
+<span class="lineNum">      85 </span>                :<span class="lineCov">       2520 : TrajectoryPoint TrajectoryVehicle::getFinalTrajectoryPoint(situation::VehicleState const &amp;vehicleState,</span>
+<span class="lineNum">      86 </span>                :            :                                                            ad::physics::Duration const &amp;duration,
+<span class="lineNum">      87 </span>                :            :                                                            ad::physics::Acceleration const &amp;aUntilResponseTime,
+<span class="lineNum">      88 </span>                :            :                                                            ad::physics::Acceleration const &amp;aAfterResponseTime,
+<span class="lineNum">      89 </span>                :            :                                                            ad::physics::RatioValue const &amp;yawRateChangeRatio,
+<span class="lineNum">      90 </span>                :            :                                                            std::string const &amp;debugNamespace) const
+<span class="lineNum">      91 </span>                :            : {
+<span class="lineNum">      92 </span>                :            :   auto trajectory
+<span class="lineNum">      93 </span>        [<span class="branchCov" title="Branch 1 was taken 2520 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5040 :     = createTrajectory(vehicleState, duration, aUntilResponseTime, aAfterResponseTime, yawRateChangeRatio);</span>
+<span class="lineNum">      94 </span>                :            : #if DRAW_TRAJECTORIES
+<span class="lineNum">      95 </span>                :            :   Line linePts;
+<span class="lineNum">      96 </span>                :            :   for (auto const &amp;pt : trajectory)
+<span class="lineNum">      97 </span>                :            :   {
+<span class="lineNum">      98 </span>                :            :     linePts.push_back(pt.position);
+<span class="lineNum">      99 </span>                :            :   }
+<span class="lineNum">     100 </span>                :            :   DEBUG_DRAWING_LINE(linePts, &quot;orange&quot;, debugNamespace + &quot;_trajectory&quot;);
+<span class="lineNum">     101 </span>                :            : #endif
+<span class="lineNum">     102 </span>                :            : #if DRAW_FINAL_POSITION
+<span class="lineNum">     103 </span>                :            :   drawFinalPosition(trajectory.back(), vehicleState.objectState.dimension, debugNamespace + &quot;_vehicle_final_position&quot;);
+<span class="lineNum">     104 </span>                :            : #else
+<span class="lineNum">     105 </span>                :            :   (void)debugNamespace;
+<span class="lineNum">     106 </span>                :            : #endif
+<span class="lineNum">     107 </span>                :<span class="lineCov">       5040 :   return trajectory.back();</span>
+<a name="108"><span class="lineNum">     108 </span>                :            : }</a>
+<span class="lineNum">     109 </span>                :            : 
+<span class="lineNum">     110 </span>                :<span class="lineCov">         40 : Polygon TrajectoryVehicle::createTrajectorySet(situation::VehicleState const &amp;vehicleState,</span>
+<span class="lineNum">     111 </span>                :            :                                                ad::physics::Duration duration,
+<span class="lineNum">     112 </span>                :            :                                                ad::physics::Acceleration aAfterResponseTime,
+<span class="lineNum">     113 </span>                :            :                                                std::string const &amp;debugNamespace)
+<span class="lineNum">     114 </span>                :            : {
+<span class="lineNum">     115 </span>                :            :   // calculate left/right end points
+<span class="lineNum">     116 </span>[<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         40 :   auto accelStepSize = (vehicleState.dynamics.alphaLon.accelMax - vehicleState.dynamics.alphaLon.brakeMax) / 20.0;</span>
+<span class="lineNum">     117 </span>                :<span class="lineCov">         80 :   Trajectory rightTrajectoryMax;</span>
+<span class="lineNum">     118 </span>                :<span class="lineCov">         80 :   Trajectory leftTrajectoryMax;</span>
+<span class="lineNum">     119 </span>                :            :   // max yaw-change-rate, brakeMax to accelMax in x steps
+<span class="lineNum">     120 </span>[<span class="branchCov" title="Branch 1 was taken 880 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 840 times"> + </span><span class="branchCov" title="Branch 4 was taken 40 times"> + </span>]:<span class="lineCov">        880 :   for (ad::physics::Acceleration accel = vehicleState.dynamics.alphaLon.brakeMax;</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
+<span class="lineNum">     121 </span>                :<span class="lineCov">        880 :        accel &lt;= vehicleState.dynamics.alphaLon.accelMax;</span>
+<span class="lineNum">     122 </span>                :            :        accel += accelStepSize)
+<span class="lineNum">     123 </span>                :            :   {
+<span class="lineNum">     124 </span>                :            :     auto right = getFinalTrajectoryPoint(vehicleState,
+<span class="lineNum">     125 </span>                :            :                                          duration,
+<span class="lineNum">     126 </span>                :            :                                          accel,
+<span class="lineNum">     127 </span>                :            :                                          aAfterResponseTime,
+<span class="lineNum">     128 </span>                :            :                                          ad::physics::RatioValue(-1.0),
+<span class="lineNum">     129 </span>[<span class="branchCov" title="Branch 1 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        840 :                                          debugNamespace + &quot;_right_&quot; + std::to_string(accel));</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchCov" title="Branch 11 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 12 was not taken"> - </span>]
+<span class="lineNum">     130 </span>        [<span class="branchCov" title="Branch 1 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        840 :     rightTrajectoryMax.push_back(right);</span>
+<span class="lineNum">     131 </span>                :            : 
+<span class="lineNum">     132 </span>                :            :     auto left = getFinalTrajectoryPoint(vehicleState,
+<span class="lineNum">     133 </span>                :            :                                         duration,
+<span class="lineNum">     134 </span>                :            :                                         accel,
+<span class="lineNum">     135 </span>                :            :                                         aAfterResponseTime,
+<span class="lineNum">     136 </span>                :            :                                         ad::physics::RatioValue(1.0),
+<span class="lineNum">     137 </span>[<span class="branchCov" title="Branch 1 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        840 :                                         debugNamespace + &quot;_left_&quot; + std::to_string(accel));</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchCov" title="Branch 11 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 12 was not taken"> - </span>]
+<span class="lineNum">     138 </span>        [<span class="branchCov" title="Branch 1 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        840 :     leftTrajectoryMax.push_back(left);</span>
+<span class="lineNum">     139 </span>                :            :   }
+<span class="lineNum">     140 </span>                :            : 
+<span class="lineNum">     141 </span>                :            :   // calculate front end points
+<span class="lineNum">     142 </span>                :<span class="lineCov">         80 :   Trajectory frontTrajectoryMax;</span>
+<span class="lineNum">     143 </span>        [<span class="branchCov" title="Branch 3 was taken 880 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        880 :   for (auto yawRateChangeRatio = ad::physics::RatioValue(-1.0); yawRateChangeRatio &lt;= ad::physics::RatioValue(1.0);</span>
+<span class="lineNum">         </span>  [<span class="branchCov" title="Branch 5 was taken 840 times"> + </span><span class="branchCov" title="Branch 6 was taken 40 times"> + </span><span class="branchCov" title="Branch 8 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
+<span class="lineNum">     144 </span>                :<span class="lineCov">        840 :        yawRateChangeRatio += ad::physics::RatioValue(0.1))</span>
+<span class="lineNum">     145 </span>                :            :   {
+<span class="lineNum">     146 </span>                :            :     auto pt = getFinalTrajectoryPoint(vehicleState,
+<span class="lineNum">     147 </span>                :            :                                       duration,
+<span class="lineNum">     148 </span>                :            :                                       vehicleState.dynamics.alphaLon.accelMax,
+<span class="lineNum">     149 </span>                :            :                                       aAfterResponseTime,
+<span class="lineNum">     150 </span>                :            :                                       yawRateChangeRatio,
+<span class="lineNum">     151 </span>[<span class="branchCov" title="Branch 1 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        840 :                                       debugNamespace + &quot;_front_&quot; + std::to_string(yawRateChangeRatio));</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">     152 </span>        [<span class="branchCov" title="Branch 1 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        840 :     frontTrajectoryMax.push_back(pt);</span>
+<span class="lineNum">     153 </span>                :            :   }
+<span class="lineNum">     154 </span>                :            :   // at this point all relevant end points are calculated
+<span class="lineNum">     155 </span>                :            : 
+<span class="lineNum">     156 </span>                :            :   // Calculate sides with respect to vehicle dimensions
+<span class="lineNum">     157 </span>                :            :   auto leftBorder
+<span class="lineNum">     158 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         80 :     = calculateTrajectorySetSide(leftTrajectoryMax, TrajectoryHeading::left, vehicleState.objectState.dimension);</span>
+<span class="lineNum">     159 </span>                :            :   auto rightBorder
+<span class="lineNum">     160 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         80 :     = calculateTrajectorySetSide(rightTrajectoryMax, TrajectoryHeading::right, vehicleState.objectState.dimension);</span>
+<span class="lineNum">     161 </span>                :            : 
+<span class="lineNum">     162 </span>                :            :   // Calculate front side
+<span class="lineNum">     163 </span>                :            :   // Two modes can be active:
+<span class="lineNum">     164 </span>                :            :   //(1) the line through all frontLeft or the frontRight corners of a vehicle define the front
+<span class="lineNum">     165 </span>                :            :   //(2) the front is defined partially by the frontLeft corner line and the frontRight corner line.
+<span class="lineNum">     166 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         80 :   auto frontBorder = calculateFrontWithDimension(frontTrajectoryMax, vehicleState.objectState.dimension);</span>
+<span class="lineNum">     167 </span>                :            : 
+<span class="lineNum">     168 </span>                :            :   // construct the resulting polygon
+<span class="lineNum">     169 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         40 :   Polygon output;</span>
+<span class="lineNum">     170 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         40 :   boost::geometry::append(output, rightBorder);</span>
+<span class="lineNum">     171 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         40 :   boost::geometry::append(output, frontBorder);</span>
+<span class="lineNum">     172 </span>        [<span class="branchCov" title="Branch 3 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         40 :   std::reverse(leftBorder.begin(), leftBorder.end());</span>
+<span class="lineNum">     173 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         40 :   boost::geometry::append(output, leftBorder);</span>
+<span class="lineNum">     174 </span>        [<span class="branchCov" title="Branch 2 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         40 :   boost::geometry::append(output, rightBorder.front());</span>
+<span class="lineNum">     175 </span>                :<span class="lineCov">         80 :   return output;</span>
+<a name="176"><span class="lineNum">     176 </span>                :            : }</a>
+<span class="lineNum">     177 </span>                :            : 
+<span class="lineNum">     178 </span>                :<span class="lineCov">       2520 : Trajectory TrajectoryVehicle::createTrajectory(situation::VehicleState const &amp;vehicleState,</span>
+<span class="lineNum">     179 </span>                :            :                                                ad::physics::Duration const &amp;duration,
+<span class="lineNum">     180 </span>                :            :                                                ad::physics::Acceleration const &amp;aUntilResponseTime,
+<span class="lineNum">     181 </span>                :            :                                                ad::physics::Acceleration const &amp;aAfterResponseTime,
+<span class="lineNum">     182 </span>                :            :                                                ad::physics::RatioValue const &amp;yawRateChangeRatio) const
+<span class="lineNum">     183 </span>                :            : {
+<span class="lineNum">     184 </span>                :<span class="lineCov">       2520 :   Trajectory trajectory;</span>
+<span class="lineNum">     185 </span>                :<span class="lineCov">       5040 :   std::vector&lt;Point&gt; points;</span>
+<span class="lineNum">     186 </span>                :            : 
+<span class="lineNum">     187 </span>        [<span class="branchCov" title="Branch 1 was taken 2520 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2520 :   auto currentPoint = toPoint(vehicleState.objectState.centerPoint);</span>
+<span class="lineNum">     188 </span>        [<span class="branchCov" title="Branch 1 was taken 2520 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2520 :   auto currentAngle = vehicleState.objectState.yaw - ad::physics::cPI_2;</span>
+<span class="lineNum">     189 </span>                :<span class="lineCov">       2520 :   ad::physics::Speed currentSpeed;</span>
+<span class="lineNum">     190 </span>                :<span class="lineCov">       2520 :   ad::physics::Distance distanceSoFar = ad::physics::Distance(0.0);</span>
+<span class="lineNum">     191 </span>                :            : 
+<span class="lineNum">     192 </span>                :            :   // during trajectory calculation, the heading might change once from:
+<span class="lineNum">     193 </span>                :            :   // left -&gt; straight -&gt; right
+<span class="lineNum">     194 </span>                :            :   // right -&gt; straight -&gt; left
+<span class="lineNum">     195 </span>[<span class="branchCov" title="Branch 2 was taken 45054 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 42534 times"> + </span><span class="branchCov" title="Branch 5 was taken 2520 times"> + </span>]:<span class="lineCov">      45054 :   for (auto currentTime = ad::physics::Duration(0.0); currentTime &lt;= duration;</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 7 was taken 42534 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>]
+<span class="lineNum">     196 </span>                :<span class="lineCov">      42534 :        currentTime += vehicleState.dynamics.unstructuredSettings.vehicleTrajectoryCalculationStep)</span>
+<span class="lineNum">     197 </span>                :            :   {
+<span class="lineNum">     198 </span>                :<span class="lineCov">      42534 :     ad::physics::Distance currentDistance;</span>
+<span class="lineNum">     199 </span>                :            :     situation::calculateSpeedAndDistanceOffset(currentTime,
+<span class="lineNum">     200 </span>                :            :                                                vehicleState.objectState.speed,
+<span class="lineNum">     201 </span>                :            :                                                vehicleState.dynamics.responseTime,
+<span class="lineNum">     202 </span>                :            :                                                vehicleState.dynamics.maxSpeedOnAcceleration,
+<span class="lineNum">     203 </span>                :            :                                                aUntilResponseTime,
+<span class="lineNum">     204 </span>                :            :                                                aAfterResponseTime,
+<span class="lineNum">     205 </span>                :            :                                                currentSpeed,
+<span class="lineNum">     206 </span>        [<span class="branchCov" title="Branch 1 was taken 42534 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      42534 :                                                currentDistance);</span>
+<span class="lineNum">     207 </span>                :            : 
+<span class="lineNum">     208 </span>[<span class="branchCov" title="Branch 2 was taken 42534 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 40014 times"> + </span><span class="branchCov" title="Branch 5 was taken 2520 times"> + </span>]:<span class="lineCov">      42534 :     if ((currentTime == ad::physics::Duration(0.0)) || (currentSpeed &gt; ad::physics::Speed(0.)))</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 40014 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 32387 times"> + </span><span class="branchCov" title="Branch 11 was taken 7627 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 12 was taken 40014 times"> + </span><span class="branchCov" title="Branch 13 was taken 2520 times"> + </span>][<span class="branchCov" title="Branch 14 was taken 42534 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span>]
+<span class="lineNum">         </span>  [<span class="branchCov" title="Branch 16 was taken 34907 times"> + </span><span class="branchCov" title="Branch 17 was taken 7627 times"> + </span><span class="branchNoExec" title="Branch 18 was not executed"> # </span><span class="branchNoExec" title="Branch 19 was not executed"> # </span> 
+<span class="lineNum">         </span>         <span class="branchNoExec" title="Branch 20 was not executed"> # </span><span class="branchNoExec" title="Branch 21 was not executed"> # </span>]
+<span class="lineNum">     209 </span>                :            :     {
+<span class="lineNum">     210 </span>                :            :       //-- calculate radius --
+<span class="lineNum">     211 </span>                :            :       // until response time, it changes depending on the yawRate and speed
+<span class="lineNum">     212 </span>                :            :       // after response time, it's fixed
+<span class="lineNum">     213 </span>                :<span class="lineCov">      34907 :       ad::physics::Distance currentRadius;</span>
+<span class="lineNum">     214 </span>[<span class="branchCov" title="Branch 1 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 16200 times"> + </span><span class="branchCov" title="Branch 4 was taken 18707 times"> + </span>]:<span class="lineCov">      34907 :       if (currentTime &lt; vehicleState.dynamics.responseTime)</span>
+<span class="lineNum">     215 </span>                :            :       {
+<span class="lineNum">     216 </span>                :            :         auto currentYawRate = calculateYawRate(vehicleState,
+<span class="lineNum">     217 </span>                :            :                                                currentTime,
+<span class="lineNum">     218 </span>                :            :                                                vehicleState.dynamics.unstructuredSettings.vehicleYawRateChange,
+<span class="lineNum">     219 </span>        [<span class="branchCov" title="Branch 1 was taken 16200 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      16200 :                                                yawRateChangeRatio);</span>
+<span class="lineNum">     220 </span>[<span class="branchCov" title="Branch 2 was taken 16200 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 2880 times"> + </span><span class="branchCov" title="Branch 5 was taken 13320 times"> + </span>]:<span class="lineCov">      16200 :         if (currentYawRate == ad::physics::AngularVelocity(0.))</span>
+<span class="lineNum">     221 </span>                :            :         {
+<span class="lineNum">     222 </span>                :<span class="lineCov">       2880 :           currentRadius = ad::physics::Distance(TrajectoryVehicle::maxRadius);</span>
+<span class="lineNum">     223 </span>                :            :         }
+<span class="lineNum">     224 </span>                :            :         else
+<span class="lineNum">     225 </span>                :            :         {
+<span class="lineNum">     226 </span>                :            :           currentRadius
+<span class="lineNum">     227 </span>                :<span class="lineCov">      13320 :             = std::min(ad::physics::Distance(static_cast&lt;double&gt;(currentSpeed) / static_cast&lt;double&gt;(currentYawRate)),</span>
+<span class="lineNum">     228 </span>        [<span class="branchCov" title="Branch 2 was taken 13320 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">      16200 :                        TrajectoryVehicle::maxRadius);</span>
+<span class="lineNum">     229 </span>                :            :         }
+<span class="lineNum">     230 </span>                :            :       }
+<span class="lineNum">     231 </span>                :            :       else
+<span class="lineNum">     232 </span>                :            :       {
+<span class="lineNum">     233 </span>                :            :         auto yawRateResponseTime = calculateYawRate(vehicleState,
+<span class="lineNum">     234 </span>                :            :                                                     vehicleState.dynamics.responseTime,
+<span class="lineNum">     235 </span>                :            :                                                     vehicleState.dynamics.unstructuredSettings.vehicleYawRateChange,
+<span class="lineNum">     236 </span>        [<span class="branchCov" title="Branch 1 was taken 18707 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      18707 :                                                     yawRateChangeRatio);</span>
+<span class="lineNum">     237 </span>                :<span class="lineCov">      18707 :         ad::physics::Speed speedAtResponseTime;</span>
+<span class="lineNum">     238 </span>                :<span class="lineCov">      18707 :         ad::physics::Distance distanceAtResponseTime;</span>
+<span class="lineNum">     239 </span>                :            :         situation::calculateAcceleratedLimitedMovement(vehicleState.objectState.speed,
+<span class="lineNum">     240 </span>                :            :                                                        vehicleState.dynamics.maxSpeedOnAcceleration,
+<span class="lineNum">     241 </span>                :            :                                                        aUntilResponseTime,
+<span class="lineNum">     242 </span>                :            :                                                        vehicleState.dynamics.responseTime,
+<span class="lineNum">     243 </span>                :            :                                                        speedAtResponseTime,
+<span class="lineNum">     244 </span>        [<span class="branchCov" title="Branch 1 was taken 18707 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      18707 :                                                        distanceAtResponseTime);</span>
+<span class="lineNum">     245 </span>                :            : 
+<span class="lineNum">     246 </span>        [<span class="branchCov" title="Branch 1 was taken 415 times"> + </span><span class="branchCov" title="Branch 2 was taken 18292 times"> + </span>]:<span class="lineCov">      37414 :         if (std::fabs(static_cast&lt;double&gt;(yawRateResponseTime))</span>
+<span class="lineNum">     247 </span>                :<span class="lineCov">      18707 :             &lt; std::fabs(static_cast&lt;double&gt;(speedAtResponseTime) / static_cast&lt;double&gt;(maxRadius)))</span>
+<span class="lineNum">     248 </span>                :            :         {
+<span class="lineNum">     249 </span>                :<span class="lineCov">        415 :           currentRadius = maxRadius;</span>
+<span class="lineNum">     250 </span>                :            :         }
+<span class="lineNum">     251 </span>                :            :         else
+<span class="lineNum">     252 </span>                :            :         {
+<span class="lineNum">     253 </span>                :<span class="lineCov">      18292 :           currentRadius = ad::physics::Distance(static_cast&lt;double&gt;(speedAtResponseTime)</span>
+<span class="lineNum">     254 </span>                :<span class="lineCov">      18292 :                                                 / static_cast&lt;double&gt;(yawRateResponseTime));</span>
+<span class="lineNum">     255 </span>                :            :         }
+<span class="lineNum">     256 </span>[<span class="branchCov" title="Branch 2 was taken 18707 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 5894 times"> + </span><span class="branchCov" title="Branch 5 was taken 12813 times"> + </span>]:<span class="lineCov">      18707 :         if (std::fabs(currentRadius) &lt; vehicleState.dynamics.unstructuredSettings.vehicleMinRadius)</span>
+<span class="lineNum">     257 </span>                :            :         {
+<span class="lineNum">     258 </span>[<span class="branchCov" title="Branch 2 was taken 5894 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 2947 times"> + </span><span class="branchCov" title="Branch 5 was taken 2947 times"> + </span>]:<span class="lineCov">       5894 :           if (yawRateResponseTime &gt; ad::physics::AngularVelocity(0.0))</span>
+<span class="lineNum">     259 </span>                :            :           {
+<span class="lineNum">     260 </span>                :<span class="lineCov">       2947 :             currentRadius = vehicleState.dynamics.unstructuredSettings.vehicleMinRadius;</span>
+<span class="lineNum">     261 </span>                :            :           }
+<span class="lineNum">     262 </span>                :            :           else
+<span class="lineNum">     263 </span>                :            :           {
+<span class="lineNum">     264 </span>        [<span class="branchCov" title="Branch 1 was taken 2947 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      18707 :             currentRadius = -vehicleState.dynamics.unstructuredSettings.vehicleMinRadius;</span>
+<span class="lineNum">     265 </span>                :            :           }
+<span class="lineNum">     266 </span>                :            :         }
+<span class="lineNum">     267 </span>                :            :       }
+<span class="lineNum">     268 </span>                :            : 
+<span class="lineNum">     269 </span>        [<span class="branchCov" title="Branch 1 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      34907 :       auto distanceToNextPoint = currentDistance - distanceSoFar;</span>
+<span class="lineNum">     270 </span>                :<span class="lineCov">      34907 :       distanceSoFar = currentDistance;</span>
+<span class="lineNum">     271 </span>                :            : 
+<span class="lineNum">     272 </span>                :<span class="lineCov">      34907 :       auto heading = TrajectoryHeading::straight;</span>
+<span class="lineNum">     273 </span>[<span class="branchCov" title="Branch 2 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">      34907 :       if (std::fabs(currentRadius) &lt;= maxRadius)</span>
+<span class="lineNum">     274 </span>                :            :       {
+<span class="lineNum">     275 </span>[<span class="branchCov" title="Branch 2 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 1336 times"> + </span><span class="branchCov" title="Branch 5 was taken 33571 times"> + </span>]:<span class="lineCov">      34907 :         if (std::fabs(currentRadius) &lt; vehicleState.dynamics.unstructuredSettings.vehicleMinRadius)</span>
+<span class="lineNum">     276 </span>                :            :         {
+<span class="lineNum">     277 </span>[<span class="branchCov" title="Branch 2 was taken 1336 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 668 times"> + </span><span class="branchCov" title="Branch 5 was taken 668 times"> + </span>]:<span class="lineCov">       1336 :           if (currentRadius &gt; ad::physics::Distance(0.0))</span>
+<span class="lineNum">     278 </span>                :            :           {
+<span class="lineNum">     279 </span>                :<span class="lineCov">        668 :             currentRadius = vehicleState.dynamics.unstructuredSettings.vehicleMinRadius;</span>
+<span class="lineNum">     280 </span>                :            :           }
+<span class="lineNum">     281 </span>[<span class="branchCov" title="Branch 2 was taken 668 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 668 times"> + </span>]:<span class="lineCov">        668 :           else if (currentRadius == ad::physics::Distance(0.0))</span>
+<span class="lineNum">     282 </span>                :            :           {
+<span class="lineNum">     283 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :             throw std::runtime_error(&quot;TrajectoryVehicle::createTrajectory&gt;&gt; invalid zero radius&quot;);</span>
+<span class="lineNum">     284 </span>                :            :           }
+<span class="lineNum">     285 </span>                :            :           else
+<span class="lineNum">     286 </span>                :            :           {
+<span class="lineNum">     287 </span>        [<span class="branchCov" title="Branch 1 was taken 668 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1336 :             currentRadius = -vehicleState.dynamics.unstructuredSettings.vehicleMinRadius;</span>
+<span class="lineNum">     288 </span>                :            :           }
+<span class="lineNum">     289 </span>                :            :         }
+<span class="lineNum">     290 </span>[<span class="branchCov" title="Branch 2 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 19101 times"> + </span><span class="branchCov" title="Branch 5 was taken 15806 times"> + </span>]:<span class="lineCov">      34907 :         if (currentRadius &gt; ad::physics::Distance(0.0))</span>
+<span class="lineNum">     291 </span>                :            :         {
+<span class="lineNum">     292 </span>                :<span class="lineCov">      19101 :           heading = TrajectoryHeading::left;</span>
+<span class="lineNum">     293 </span>                :            :         }
+<span class="lineNum">     294 </span>                :            :         else
+<span class="lineNum">     295 </span>                :            :         {
+<span class="lineNum">     296 </span>                :<span class="lineCov">      15806 :           heading = TrajectoryHeading::right;</span>
+<span class="lineNum">     297 </span>                :            :         }
+<span class="lineNum">     298 </span>        [<span class="branchCov" title="Branch 1 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      34907 :         Point const circleOrigin = getCircleOrigin(currentPoint, currentRadius, currentAngle);</span>
+<span class="lineNum">     299 </span>                :            : 
+<span class="lineNum">     300 </span>[<span class="branchCov" title="Branch 1 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">      34907 :         currentAngle += ad::physics::Angle(distanceToNextPoint / currentRadius);</span>
+<span class="lineNum">     301 </span>                :            : 
+<span class="lineNum">     302 </span>        [<span class="branchCov" title="Branch 1 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      34907 :         currentPoint = getPointOnCircle(circleOrigin, currentRadius, currentAngle);</span>
+<span class="lineNum">     303 </span>                :            :       }
+<span class="lineNum">     304 </span>                :            :       else
+<span class="lineNum">     305 </span>                :            :       {
+<span class="lineNum">     306 </span>                :            :         // go straight
+<span class="lineNum">     307 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :         currentAngle += ad::physics::Angle(distanceToNextPoint / currentRadius);</span>
+<span class="lineNum">     308 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :         currentPoint = getPointOnCircle(currentPoint, distanceToNextPoint, currentAngle + ad::physics::cPI_2);</span>
+<span class="lineNum">     309 </span>                :            :       }
+<span class="lineNum">     310 </span>        [<span class="branchCov" title="Branch 1 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      34907 :       points.push_back(currentPoint);</span>
+<span class="lineNum">     311 </span>                :            : 
+<span class="lineNum">     312 </span>[<span class="branchCov" title="Branch 1 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">      34907 :       trajectory.push_back(TrajectoryPoint(currentPoint, currentAngle + ad::physics::cPI_2, heading));</span>
+<span class="lineNum">     313 </span>                :            :     }
+<span class="lineNum">     314 </span>                :            :     else
+<span class="lineNum">     315 </span>                :            :     {
+<span class="lineNum">     316 </span>[<span class="branchCov" title="Branch 2 was taken 7627 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 6310 times"> + </span><span class="branchCov" title="Branch 5 was taken 1317 times"> + </span>]:<span class="lineCov">       7627 :       if ((aUntilResponseTime &lt; ad::physics::Acceleration(0.0)) &amp;&amp; (currentTime &lt; vehicleState.dynamics.responseTime))</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 6310 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchCov" title="Branch 9 was taken 1072 times"> + </span><span class="branchCov" title="Branch 10 was taken 5238 times"> + </span>]
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 11 was taken 7627 times"> + </span><span class="branchNoCov" title="Branch 12 was not taken"> - </span>]
+<span class="lineNum">         </span>  [<span class="branchCov" title="Branch 13 was taken 1072 times"> + </span><span class="branchCov" title="Branch 14 was taken 6555 times"> + </span><span class="branchNoExec" title="Branch 15 was not executed"> # </span><span class="branchNoExec" title="Branch 16 was not executed"> # </span>]
+<span class="lineNum">     317 </span>                :            :       {
+<span class="lineNum">     318 </span>                :<span class="lineCov">       1072 :         currentTime = vehicleState.dynamics.responseTime;</span>
+<span class="lineNum">     319 </span>                :            :       }
+<span class="lineNum">     320 </span>                :            :     }
+<span class="lineNum">     321 </span>                :            :   }
+<span class="lineNum">     322 </span>                :<span class="lineCov">       5040 :   return trajectory;</span>
+<span class="lineNum">     323 </span>                :            : }
+<a name="324"><span class="lineNum">     324 </span>                :            : </a>
+<span class="lineNum">     325 </span>                :            : ad::physics::AngularVelocity
+<span class="lineNum">     326 </span>                :<span class="lineCov">      34907 : TrajectoryVehicle::calculateYawRate(situation::VehicleState const &amp;vehicleState,</span>
+<span class="lineNum">     327 </span>                :            :                                     ad::physics::Duration const &amp;duration,
+<span class="lineNum">     328 </span>                :            :                                     ad::physics::AngularAcceleration const &amp;maxYawRateChange,
+<span class="lineNum">     329 </span>                :            :                                     ad::physics::RatioValue const &amp;ratio) const
+<span class="lineNum">     330 </span>                :            : {
+<span class="lineNum">     331 </span>                :<span class="lineCov">      34907 :   auto calcTime = duration;</span>
+<span class="lineNum">     332 </span>[<span class="branchCov" title="Branch 1 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 34907 times"> + </span>]:<span class="lineCov">      34907 :   if (calcTime &gt; vehicleState.dynamics.responseTime)</span>
+<span class="lineNum">     333 </span>                :            :   {
+<span class="lineNum">     334 </span>                :<span class="lineNoCov">          0 :     calcTime = vehicleState.dynamics.responseTime;</span>
+<span class="lineNum">     335 </span>                :            :   }
+<span class="lineNum">     336 </span>                :            : 
+<span class="lineNum">     337 </span>[<span class="branchCov" title="Branch 1 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">      34907 :   return vehicleState.objectState.yawRate + maxYawRateChange * calcTime * ratio;</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 7 was taken 34907 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>]
+<a name="338"><span class="lineNum">     338 </span>                :            : }</a>
+<span class="lineNum">     339 </span>                :            : 
+<span class="lineNum">     340 </span>                :<span class="lineCov">         80 : Line TrajectoryVehicle::calculateTrajectorySetSide(std::vector&lt;TrajectoryPoint&gt; const &amp;finalTrajectoryPoints,</span>
+<span class="lineNum">     341 </span>                :            :                                                    TrajectoryHeading const side,
+<span class="lineNum">     342 </span>                :            :                                                    ad::physics::Dimension2D const &amp;vehicleDimension) const
+<span class="lineNum">     343 </span>                :            : {
+<span class="lineNum">     344 </span>                :            :   TrajectoryHeading headingToTest;
+<span class="lineNum">     345 </span>                :            :   VehicleCorner cornerBack;
+<span class="lineNum">     346 </span>                :            :   VehicleCorner cornerFront;
+<span class="lineNum">     347 </span>        [<span class="branchCov" title="Branch 0 was taken 40 times"> + </span><span class="branchCov" title="Branch 1 was taken 40 times"> + </span>]:<span class="lineCov">         80 :   if (side == TrajectoryHeading::left)</span>
+<span class="lineNum">     348 </span>                :            :   {
+<span class="lineNum">     349 </span>                :<span class="lineCov">         40 :     headingToTest = TrajectoryHeading::right;</span>
+<span class="lineNum">     350 </span>                :<span class="lineCov">         40 :     cornerBack = VehicleCorner::backLeft;</span>
+<span class="lineNum">     351 </span>                :<span class="lineCov">         40 :     cornerFront = VehicleCorner::frontLeft;</span>
+<span class="lineNum">     352 </span>                :            :   }
+<span class="lineNum">     353 </span>                :            :   else
+<span class="lineNum">     354 </span>                :            :   {
+<span class="lineNum">     355 </span>                :<span class="lineCov">         40 :     headingToTest = TrajectoryHeading::left;</span>
+<span class="lineNum">     356 </span>                :<span class="lineCov">         40 :     cornerBack = VehicleCorner::backRight;</span>
+<span class="lineNum">     357 </span>                :<span class="lineCov">         40 :     cornerFront = VehicleCorner::frontRight;</span>
+<span class="lineNum">     358 </span>                :            :   }
+<span class="lineNum">     359 </span>        [<span class="branchCov" title="Branch 1 was taken 80 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         80 :   TrajectoryHeading heading = getTrajectoryHeading(finalTrajectoryPoints);</span>
+<span class="lineNum">     360 </span>                :            : 
+<span class="lineNum">     361 </span>                :<span class="lineCov">        160 :   Line lastVehicleSideLine;</span>
+<span class="lineNum">     362 </span>                :            : 
+<span class="lineNum">     363 </span>                :<span class="lineCov">         80 :   Line maxLine;</span>
+<span class="lineNum">     364 </span>        [<span class="branchCov" title="Branch 0 was taken 63 times"> + </span><span class="branchCov" title="Branch 1 was taken 17 times"> + </span>]:<span class="lineCov">         80 :   if (heading != headingToTest)</span>
+<span class="lineNum">     365 </span>                :            :   {
+<span class="lineNum">     366 </span>        [<span class="branchCov" title="Branch 2 was taken 63 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         63 :     auto vehiclePt = getVehicleCorner(finalTrajectoryPoints.front(), vehicleDimension, cornerBack);</span>
+<span class="lineNum">     367 </span>        [<span class="branchCov" title="Branch 1 was taken 63 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         63 :     boost::geometry::append(maxLine, vehiclePt);</span>
+<span class="lineNum">     368 </span>                :            :   }
+<span class="lineNum">     369 </span>                :            : 
+<span class="lineNum">     370 </span>        [<span class="branchCov" title="Branch 3 was taken 1680 times"> + </span><span class="branchCov" title="Branch 4 was taken 80 times"> + </span>]:<span class="lineCov">       1760 :   for (Trajectory::const_iterator it = finalTrajectoryPoints.begin(); it != finalTrajectoryPoints.end(); ++it)</span>
+<span class="lineNum">     371 </span>                :            :   {
+<span class="lineNum">     372 </span>                :<span class="lineCov">       1680 :     auto const &amp;pt = *it;</span>
+<span class="lineNum">     373 </span>        [<span class="branchCov" title="Branch 1 was taken 1680 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1680 :     Point vehiclePt;</span>
+<span class="lineNum">     374 </span>                :            : 
+<span class="lineNum">     375 </span>                :<span class="lineCov">       1680 :     bool addPoint = true;</span>
+<span class="lineNum">     376 </span>        [<span class="branchCov" title="Branch 0 was taken 357 times"> + </span><span class="branchCov" title="Branch 1 was taken 1323 times"> + </span>]:<span class="lineCov">       1680 :     if (heading == headingToTest)</span>
+<span class="lineNum">     377 </span>                :            :     {
+<span class="lineNum">     378 </span>        [<span class="branchCov" title="Branch 1 was taken 357 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        357 :       vehiclePt = getVehicleCorner(pt, vehicleDimension, cornerBack);</span>
+<span class="lineNum">     379 </span>                :            :     }
+<span class="lineNum">     380 </span>                :            :     else
+<span class="lineNum">     381 </span>                :            :     {
+<span class="lineNum">     382 </span>                :<span class="lineCov">       2646 :       Line vehicleSideLine;</span>
+<span class="lineNum">     383 </span>[<span class="branchCov" title="Branch 1 was taken 1323 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 1323 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">       1323 :       boost::geometry::append(vehicleSideLine, getVehicleCorner(pt, vehicleDimension, cornerFront));</span>
+<span class="lineNum">     384 </span>[<span class="branchCov" title="Branch 1 was taken 1323 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 1323 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">       1323 :       boost::geometry::append(vehicleSideLine, getVehicleCorner(pt, vehicleDimension, cornerBack));</span>
+<span class="lineNum">     385 </span>        [<span class="branchCov" title="Branch 1 was taken 1323 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1323 :       vehiclePt = getVehicleCorner(pt, vehicleDimension, cornerFront);</span>
+<span class="lineNum">     386 </span>        [<span class="branchCov" title="Branch 1 was taken 1323 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1323 :       lastVehicleSideLine = vehicleSideLine;</span>
+<span class="lineNum">     387 </span>                :            :     }
+<span class="lineNum">     388 </span>        [<span class="branchCov" title="Branch 0 was taken 1680 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1680 :     if (addPoint)</span>
+<span class="lineNum">     389 </span>                :            :     {
+<span class="lineNum">     390 </span>        [<span class="branchCov" title="Branch 1 was taken 1680 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1680 :       boost::geometry::append(maxLine, vehiclePt);</span>
+<span class="lineNum">     391 </span>                :            :     }
+<span class="lineNum">     392 </span>                :            :   }
+<span class="lineNum">     393 </span>                :            : 
+<span class="lineNum">     394 </span>        [<span class="branchCov" title="Branch 0 was taken 17 times"> + </span><span class="branchCov" title="Branch 1 was taken 63 times"> + </span>]:<span class="lineCov">         80 :   if (heading == headingToTest)</span>
+<span class="lineNum">     395 </span>                :            :   {
+<span class="lineNum">     396 </span>        [<span class="branchCov" title="Branch 2 was taken 17 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         17 :     auto vehiclePt = getVehicleCorner(finalTrajectoryPoints.back(), vehicleDimension, cornerFront);</span>
+<span class="lineNum">     397 </span>        [<span class="branchCov" title="Branch 1 was taken 17 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         17 :     boost::geometry::append(maxLine, vehiclePt);</span>
+<span class="lineNum">     398 </span>                :            :   }
+<span class="lineNum">     399 </span>                :            : 
+<span class="lineNum">     400 </span>                :            :   // remove similar points
+<span class="lineNum">     401 </span>                :<span class="lineCov">         80 :   auto it = maxLine.begin();</span>
+<span class="lineNum">     402 </span>                :<span class="lineCov">         80 :   auto const epsilon(0.01);</span>
+<span class="lineNum">     403 </span>        [<span class="branchCov" title="Branch 2 was taken 1760 times"> + </span><span class="branchCov" title="Branch 3 was taken 80 times"> + </span>]:<span class="lineCov">       1840 :   while (it != maxLine.end())</span>
+<span class="lineNum">     404 </span>                :            :   {
+<span class="lineNum">     405 </span>                :            :     // remove odd numbers
+<span class="lineNum">     406 </span>[<span class="branchCov" title="Branch 5 was taken 1680 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>][<span class="branchCov" title="Branch 9 was taken 1680 times"> + </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span>]:<span class="lineCov">       5200 :     if ((it != maxLine.begin()) &amp;&amp; (fabs((it - 1)-&gt;x() - it-&gt;x()) &lt; epsilon)</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 11 was taken 820 times"> + </span><span class="branchCov" title="Branch 12 was taken 860 times"> + </span>][<span class="branchCov" title="Branch 13 was taken 1680 times"> + </span><span class="branchCov" title="Branch 14 was taken 80 times"> + </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 15 was taken 1760 times"> + </span><span class="branchNoCov" title="Branch 16 was not taken"> - </span>][<span class="branchCov" title="Branch 17 was taken 820 times"> + </span><span class="branchCov" title="Branch 18 was taken 940 times"> + </span> 
+<span class="lineNum">         </span>   <span class="branchNoExec" title="Branch 19 was not executed"> # </span><span class="branchNoExec" title="Branch 20 was not executed"> # </span><span class="branchNoExec" title="Branch 21 was not executed"> # </span><span class="branchNoExec" title="Branch 22 was not executed"> # </span>]
+<span class="lineNum">     407 </span>[<span class="branchCov" title="Branch 0 was taken 1680 times"> + </span><span class="branchCov" title="Branch 1 was taken 80 times"> + </span>][<span class="branchCov" title="Branch 5 was taken 820 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">       3440 :         &amp;&amp; (fabs((it - 1)-&gt;y() - it-&gt;y()) &lt; epsilon))</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 9 was taken 820 times"> + </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span>][<span class="branchCov" title="Branch 11 was taken 820 times"> + </span><span class="branchNoCov" title="Branch 12 was not taken"> - </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 13 was taken 820 times"> + </span><span class="branchCov" title="Branch 14 was taken 940 times"> + </span>][<span class="branchNoExec" title="Branch 15 was not executed"> # </span><span class="branchNoExec" title="Branch 16 was not executed"> # </span>]
+<span class="lineNum">     408 </span>                :            :     {
+<span class="lineNum">     409 </span>        [<span class="branchCov" title="Branch 2 was taken 820 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        820 :       it = maxLine.erase(it);</span>
+<span class="lineNum">     410 </span>                :            :     }
+<span class="lineNum">     411 </span>                :            :     else
+<span class="lineNum">     412 </span>                :            :     {
+<span class="lineNum">     413 </span>                :<span class="lineCov">        940 :       ++it;</span>
+<span class="lineNum">     414 </span>                :            :     }
+<span class="lineNum">     415 </span>                :            :   }
+<span class="lineNum">     416 </span>                :<span class="lineCov">        160 :   return maxLine;</span>
+<span class="lineNum">     417 </span>                :            : }
+<a name="418"><span class="lineNum">     418 </span>                :            : </a>
+<span class="lineNum">     419 </span>                :            : TrajectoryHeading
+<span class="lineNum">     420 </span>                :<span class="lineCov">         80 : TrajectoryVehicle::getTrajectoryHeading(std::vector&lt;TrajectoryPoint&gt; const &amp;finalTrajectoryPoints) const</span>
+<span class="lineNum">     421 </span>                :            : {
+<span class="lineNum">     422 </span>                :            :   // majority of headings decide (imprecise if heading changes)
+<span class="lineNum">     423 </span>                :<span class="lineCov">         80 :   auto headingVote = 0; // negative means right</span>
+<span class="lineNum">     424 </span>        [<span class="branchCov" title="Branch 3 was taken 1680 times"> + </span><span class="branchCov" title="Branch 4 was taken 80 times"> + </span>]:<span class="lineCov">       1760 :   for (auto const &amp;pt : finalTrajectoryPoints)</span>
+<span class="lineNum">     425 </span>                :            :   {
+<span class="lineNum">     426 </span>  [<span class="branchCov" title="Branch 0 was taken 618 times"> + </span><span class="branchCov" title="Branch 1 was taken 1062 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       1680 :     switch (pt.heading)</span>
+<span class="lineNum">     427 </span>                :            :     {
+<span class="lineNum">     428 </span>                :            :       case TrajectoryHeading::right:
+<span class="lineNum">     429 </span>                :<span class="lineCov">        618 :         headingVote -= 1;</span>
+<span class="lineNum">     430 </span>                :<span class="lineCov">        618 :         break;</span>
+<span class="lineNum">     431 </span>                :            :       case TrajectoryHeading::left:
+<span class="lineNum">     432 </span>                :<span class="lineCov">       1062 :         headingVote += 1;</span>
+<span class="lineNum">     433 </span>                :<span class="lineCov">       1062 :         break;</span>
+<span class="lineNum">     434 </span>                :            :       case TrajectoryHeading::straight:
+<span class="lineNum">     435 </span>                :<span class="lineNoCov">          0 :         break;</span>
+<span class="lineNum">     436 </span>                :            :       default:
+<span class="lineNum">     437 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :         throw std::runtime_error(&quot;TrajectoryVehicle::getTrajectoryHeading&gt;&gt; invalid trajectory heading&quot;);</span>
+<span class="lineNum">     438 </span>                :            :         break;
+<span class="lineNum">     439 </span>                :            :     }
+<span class="lineNum">     440 </span>                :            :   }
+<span class="lineNum">     441 </span>                :            : 
+<span class="lineNum">     442 </span>                :            :   TrajectoryHeading heading;
+<span class="lineNum">     443 </span>        [<span class="branchCov" title="Branch 0 was taken 23 times"> + </span><span class="branchCov" title="Branch 1 was taken 57 times"> + </span>]:<span class="lineCov">         80 :   if (headingVote &lt; 0)</span>
+<span class="lineNum">     444 </span>                :            :   {
+<span class="lineNum">     445 </span>                :<span class="lineCov">         23 :     heading = TrajectoryHeading::right;</span>
+<span class="lineNum">     446 </span>                :            :   }
+<span class="lineNum">     447 </span>                :            :   else
+<span class="lineNum">     448 </span>                :            :   {
+<span class="lineNum">     449 </span>                :<span class="lineCov">         57 :     heading = TrajectoryHeading::left;</span>
+<span class="lineNum">     450 </span>                :            :   }
+<span class="lineNum">     451 </span>                :<span class="lineCov">         80 :   return heading;</span>
+<a name="452"><span class="lineNum">     452 </span>                :            : }</a>
+<span class="lineNum">     453 </span>                :            : 
+<span class="lineNum">     454 </span>                :<span class="lineCov">         40 : Line TrajectoryVehicle::calculateFrontWithDimension(std::vector&lt;TrajectoryPoint&gt; const &amp;finalTrajectoryPoints,</span>
+<span class="lineNum">     455 </span>                :            :                                                     ad::physics::Dimension2D const &amp;vehicleDimension)
+<span class="lineNum">     456 </span>                :            : {
+<span class="lineNum">     457 </span>                :            :   // create lines through lefts, rights, centers
+<span class="lineNum">     458 </span>                :<span class="lineCov">         80 :   Line leftLine, rightLine, centerLine;</span>
+<span class="lineNum">     459 </span>        [<span class="branchCov" title="Branch 3 was taken 840 times"> + </span><span class="branchCov" title="Branch 4 was taken 40 times"> + </span>]:<span class="lineCov">        880 :   for (auto const &amp;pt : finalTrajectoryPoints)</span>
+<span class="lineNum">     460 </span>                :            :   {
+<span class="lineNum">     461 </span>        [<span class="branchCov" title="Branch 1 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        840 :     boost::geometry::append(centerLine, pt.position);</span>
+<span class="lineNum">     462 </span>[<span class="branchCov" title="Branch 1 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        840 :     boost::geometry::append(leftLine, getVehicleCorner(pt, vehicleDimension, VehicleCorner::frontLeft));</span>
+<span class="lineNum">     463 </span>[<span class="branchCov" title="Branch 1 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 840 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        840 :     boost::geometry::append(rightLine, getVehicleCorner(pt, vehicleDimension, VehicleCorner::frontRight));</span>
+<span class="lineNum">     464 </span>                :            :   }
+<span class="lineNum">     465 </span>                :            : 
+<span class="lineNum">     466 </span>                :<span class="lineCov">         80 :   std::vector&lt;Point&gt; intersections;</span>
+<span class="lineNum">     467 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         40 :   boost::geometry::intersection(leftLine, rightLine, intersections);</span>
+<span class="lineNum">     468 </span>                :<span class="lineCov">         40 :   Line resultBorder;</span>
+<span class="lineNum">     469 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 40 times"> + </span>]:<span class="lineCov">         40 :   if (intersections.empty())</span>
+<span class="lineNum">     470 </span>                :            :   {
+<span class="lineNum">     471 </span>                :            :     //(1) no intersection, use more distant line as resultBorder
+<span class="lineNum">     472 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     auto const frontLeftToCenterDistance = boost::geometry::comparable_distance(leftLine, centerLine);</span>
+<span class="lineNum">     473 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     auto const frontRightToCenterDistance = boost::geometry::comparable_distance(rightLine, centerLine);</span>
+<span class="lineNum">     474 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (frontLeftToCenterDistance &gt; frontRightToCenterDistance)</span>
+<span class="lineNum">     475 </span>                :            :     {
+<span class="lineNum">     476 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       resultBorder = leftLine;</span>
+<span class="lineNum">     477 </span>                :            :     }
+<span class="lineNum">     478 </span>                :            :     else
+<span class="lineNum">     479 </span>                :            :     {
+<span class="lineNum">     480 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       resultBorder = rightLine;</span>
+<span class="lineNum">     481 </span>                :            :     }
+<span class="lineNum">     482 </span>                :            :   }
+<span class="lineNum">     483 </span>                :            :   else
+<span class="lineNum">     484 </span>                :            :   {
+<span class="lineNum">     485 </span>                :            :     //(2) intersection found, calculate front
+<span class="lineNum">     486 </span>                :<span class="lineCov">         40 :     auto const &amp;intersectionPoint = intersections.back();</span>
+<span class="lineNum">     487 </span>                :            : 
+<span class="lineNum">     488 </span>                :            :     // split lines into pieces before and after the intersection point
+<span class="lineNum">     489 </span>                :<span class="lineCov">         80 :     Line leftBeforeSection;</span>
+<span class="lineNum">     490 </span>                :<span class="lineCov">         80 :     Line leftAfterSection;</span>
+<span class="lineNum">     491 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         40 :     splitLineAtIntersectionPoint(intersectionPoint, leftLine, leftBeforeSection, leftAfterSection);</span>
+<span class="lineNum">     492 </span>                :            : 
+<span class="lineNum">     493 </span>                :<span class="lineCov">         80 :     Line rightBeforeSection;</span>
+<span class="lineNum">     494 </span>                :<span class="lineCov">         80 :     Line rightAfterSection;</span>
+<span class="lineNum">     495 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         40 :     splitLineAtIntersectionPoint(intersectionPoint, rightLine, rightBeforeSection, rightAfterSection);</span>
+<span class="lineNum">     496 </span>                :            : 
+<span class="lineNum">     497 </span>                :            :     // calculate if before or after part is more distant, append them accordingly
+<span class="lineNum">     498 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         40 :     auto leftBeforeDistance = boost::geometry::comparable_distance(leftBeforeSection, centerLine);</span>
+<span class="lineNum">     499 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         40 :     auto rightBeforeDistance = boost::geometry::comparable_distance(rightBeforeSection, centerLine);</span>
+<span class="lineNum">     500 </span>        [<span class="branchCov" title="Branch 0 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :     if (leftBeforeDistance &gt; rightBeforeDistance)</span>
+<span class="lineNum">     501 </span>                :            :     {
+<span class="lineNum">     502 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         40 :       resultBorder = leftBeforeSection;</span>
+<span class="lineNum">     503 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         40 :       boost::geometry::append(resultBorder, intersectionPoint);</span>
+<span class="lineNum">     504 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         40 :       boost::geometry::append(resultBorder, rightAfterSection);</span>
+<span class="lineNum">     505 </span>                :            :     }
+<span class="lineNum">     506 </span>                :            :     else
+<span class="lineNum">     507 </span>                :            :     {
+<span class="lineNum">     508 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       resultBorder = rightBeforeSection;</span>
+<span class="lineNum">     509 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       boost::geometry::append(resultBorder, intersectionPoint);</span>
+<span class="lineNum">     510 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       boost::geometry::append(resultBorder, leftAfterSection);</span>
+<span class="lineNum">     511 </span>                :            :     }
+<span class="lineNum">     512 </span>                :            :   }
+<span class="lineNum">     513 </span>                :<span class="lineCov">         80 :   return resultBorder;</span>
+<span class="lineNum">     514 </span>                :            : }
+<span class="lineNum">     515 </span>                :            : 
+<a name="516"><span class="lineNum">     516 </span>                :            : } // namespace unstructured</a>
+<span class="lineNum">     517 </span>                :            : } // namespace rss
+<span class="lineNum">     518 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

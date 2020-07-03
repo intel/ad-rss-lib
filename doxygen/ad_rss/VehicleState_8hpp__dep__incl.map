@@ -1,6 +1,7 @@
 <map id="generated/include/ad/rss/situation/VehicleState.hpp" name="generated/include/ad/rss/situation/VehicleState.hpp">
 <area shape="rect" id="node2" href="$Situation_8hpp.html" title="generated/include/ad\l/rss/situation/Situation.hpp" alt="" coords="237,102,430,143"/>
 <area shape="rect" id="node11" href="$VehicleStateValidInputRange_8hpp.html" title="generated/include/ad\l/rss/situation/VehicleState\lValidInputRange.hpp" alt="" coords="25,95,213,151"/>
+<area shape="rect" id="node12" href="$RssFormulas_8hpp.html" title="impl/include/ad/rss\l/situation/RssFormulas.hpp" alt="" coords="455,102,649,143"/>
 <area shape="rect" id="node3" href="$SituationValidInputRange_8hpp.html" title="generated/include/ad\l/rss/situation/SituationValid\lInputRange.hpp" alt="" coords="21,199,216,255"/>
 <area shape="rect" id="node6" href="$SituationVector_8hpp.html" title="generated/include/ad\l/rss/situation/SituationVector.hpp" alt="" coords="241,206,474,247"/>
 <area shape="rect" id="node4" href="$SituationVectorValidInputRange_8hpp.html" title="generated/include/ad\l/rss/situation/SituationVector\lValidInputRange.hpp" alt="" coords="15,303,222,359"/>

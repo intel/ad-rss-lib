@@ -113,7 +113,7 @@ Public Types</h2></td></tr>
 <tr class="memitem:aa1e1925439dfc368b8159f57dcfb1c67"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#aa1e1925439dfc368b8159f57dcfb1c67">AppendRoadBoundariesMode</a> { <a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#aa1e1925439dfc368b8159f57dcfb1c67a0aee4187ed7ba5765756acf4b3d282f1">AppendRoadBoundariesMode::RouteOnly</a>, 
 <a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#aa1e1925439dfc368b8159f57dcfb1c67a49b274f93693d2463023c5146e243fdb">AppendRoadBoundariesMode::ExpandRouteToOppositeLanes</a>, 
 <a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#aa1e1925439dfc368b8159f57dcfb1c67aade3f3bfb4333202a3509242f6ce1b52">AppendRoadBoundariesMode::ExpandRouteToAllNeighbors</a>
- }<tr class="memdesc:aa1e1925439dfc368b8159f57dcfb1c67"><td class="mdescLeft">&#160;</td><td class="mdescRight">enumeration defining the operation modes of <a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a1c588da090131f4d62889e4ee297f721" title="create scenes between ego vehicle and road boundaries ">appendRoadBoundaries()</a> function.  <a href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#aa1e1925439dfc368b8159f57dcfb1c67">More...</a><br /></td></tr>
+ }<tr class="memdesc:aa1e1925439dfc368b8159f57dcfb1c67"><td class="mdescLeft">&#160;</td><td class="mdescRight">enumeration defining the operation modes of <a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a73461aff776915797c6afb3e428f06ae" title="create scenes between ego vehicle and road boundaries ">appendRoadBoundaries()</a> function.  <a href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#aa1e1925439dfc368b8159f57dcfb1c67">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:aa1e1925439dfc368b8159f57dcfb1c67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -122,12 +122,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a50b1ec27cfc44fef94cdfba43383a023"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a50b1ec27cfc44fef94cdfba43383a023">RssSceneCreation</a> (::ad::rss::world::TimeIndex const &amp;timeIndex,::ad::rss::world::RssDynamics const &amp;defaultEgoRssDynamics)</td></tr>
 <tr class="memdesc:a50b1ec27cfc44fef94cdfba43383a023"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a scene creation object  <a href="#a50b1ec27cfc44fef94cdfba43383a023">More...</a><br /></td></tr>
 <tr class="separator:a50b1ec27cfc44fef94cdfba43383a023"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75890e91aa716b3f9297cdcccd754cf5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a75890e91aa716b3f9297cdcccd754cf5">appendScenes</a> (::ad::rss::world::ObjectId const &amp;egoId,::ad::map::match::Object const &amp;egoMatchObject,::ad::physics::Speed const &amp;egoSpeed,::ad::rss::world::RssDynamics const &amp;egoRssDynamics,::ad::map::route::FullRoute const &amp;egoRoute,::ad::rss::world::ObjectId const &amp;objectId,::ad::rss::world::ObjectType const &amp;objectType,::ad::map::match::Object const &amp;objectMatchObject,::ad::physics::Speed const &amp;objectSpeed,::ad::rss::world::RssDynamics const &amp;objectRssDynamics, <a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964">RestrictSpeedLimitMode</a> const &amp;restrictSpeedLimitMode,::ad::map::landmark::LandmarkIdSet const &amp;greenTrafficLights)</td></tr>
-<tr class="memdesc:a75890e91aa716b3f9297cdcccd754cf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">create possible scenes between ego vehicle and the object  <a href="#a75890e91aa716b3f9297cdcccd754cf5">More...</a><br /></td></tr>
-<tr class="separator:a75890e91aa716b3f9297cdcccd754cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c588da090131f4d62889e4ee297f721"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a1c588da090131f4d62889e4ee297f721">appendRoadBoundaries</a> (::ad::rss::world::ObjectId const &amp;egoId,::ad::map::match::Object const &amp;egoMatchObject,::ad::physics::Speed const &amp;egoSpeed,::ad::rss::world::RssDynamics const &amp;egoRssDynamics,::ad::map::route::FullRoute const &amp;route, <a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#aa1e1925439dfc368b8159f57dcfb1c67">AppendRoadBoundariesMode</a> const operationMode)</td></tr>
-<tr class="memdesc:a1c588da090131f4d62889e4ee297f721"><td class="mdescLeft">&#160;</td><td class="mdescRight">create scenes between ego vehicle and road boundaries  <a href="#a1c588da090131f4d62889e4ee297f721">More...</a><br /></td></tr>
-<tr class="separator:a1c588da090131f4d62889e4ee297f721"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bfed14b56879b2ff53282e1da378474"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a7bfed14b56879b2ff53282e1da378474">appendScenes</a> (<a class="el" href="structad_1_1rss_1_1map_1_1RssObjectData.html">RssObjectData</a> const &amp;egoObjectData,::ad::map::route::FullRoute const &amp;egoRoute, <a class="el" href="structad_1_1rss_1_1map_1_1RssObjectData.html">RssObjectData</a> const &amp;otherObjectData, <a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964">RestrictSpeedLimitMode</a> const &amp;restrictSpeedLimitMode,::ad::map::landmark::LandmarkIdSet const &amp;greenTrafficLights,::<a class="el" href="namespacead_1_1rss_1_1map.html#adcb01232986ed83a0c540cd5d03ef495">ad::rss::map::RssMode</a> const &amp;mode)</td></tr>
+<tr class="memdesc:a7bfed14b56879b2ff53282e1da378474"><td class="mdescLeft">&#160;</td><td class="mdescRight">create possible scenes between ego vehicle and the object  <a href="#a7bfed14b56879b2ff53282e1da378474">More...</a><br /></td></tr>
+<tr class="separator:a7bfed14b56879b2ff53282e1da378474"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73461aff776915797c6afb3e428f06ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a73461aff776915797c6afb3e428f06ae">appendRoadBoundaries</a> (<a class="el" href="structad_1_1rss_1_1map_1_1RssObjectData.html">RssObjectData</a> const &amp;egoObjectData,::ad::map::route::FullRoute const &amp;route, <a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#aa1e1925439dfc368b8159f57dcfb1c67">AppendRoadBoundariesMode</a> const operationMode)</td></tr>
+<tr class="memdesc:a73461aff776915797c6afb3e428f06ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">create scenes between ego vehicle and road boundaries  <a href="#a73461aff776915797c6afb3e428f06ae">More...</a><br /></td></tr>
+<tr class="separator:a73461aff776915797c6afb3e428f06ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6e22163230d40372562af2a5367e559"><td class="memItemLeft" align="right" valign="top">::ad::rss::world::WorldModel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#af6e22163230d40372562af2a5367e559">getWorldModel</a> ()</td></tr>
 <tr class="memdesc:af6e22163230d40372562af2a5367e559"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the final world model object  <a href="#af6e22163230d40372562af2a5367e559">More...</a><br /></td></tr>
 <tr class="separator:af6e22163230d40372562af2a5367e559"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,7 +140,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RssSceneCreator</b><
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>class providing supporting functions to create a world model and its scenes. </p>
-<p>The <a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a75890e91aa716b3f9297cdcccd754cf5" title="create possible scenes between ego vehicle and the object ">appendScenes()</a> and <a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a1c588da090131f4d62889e4ee297f721" title="create scenes between ego vehicle and road boundaries ">appendRoadBoundaries()</a> are multi-thread safe </p>
+<p>The <a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a7bfed14b56879b2ff53282e1da378474" title="create possible scenes between ego vehicle and the object ">appendScenes()</a> and <a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a73461aff776915797c6afb3e428f06ae" title="create scenes between ego vehicle and road boundaries ">appendRoadBoundaries()</a> are multi-thread safe </p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a class="anchor" id="aa1e1925439dfc368b8159f57dcfb1c67"></a>
 <div class="memitem">
@@ -160,7 +160,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RssSceneCreator</b><
 </table>
 </div><div class="memdoc">
 
-<p>enumeration defining the operation modes of <a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a1c588da090131f4d62889e4ee297f721" title="create scenes between ego vehicle and road boundaries ">appendRoadBoundaries()</a> function. </p>
+<p>enumeration defining the operation modes of <a class="el" href="classad_1_1rss_1_1map_1_1RssSceneCreation.html#a73461aff776915797c6afb3e428f06ae" title="create scenes between ego vehicle and road boundaries ">appendRoadBoundaries()</a> function. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="aa1e1925439dfc368b8159f57dcfb1c67a0aee4187ed7ba5765756acf4b3d282f1"></a>RouteOnly&#160;</td><td class="fielddoc">
 <p>The borders are created at the left border of the leftmost and the right border righmost lane of the provided route. </p>
@@ -197,18 +197,18 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RssSceneCreator</b><
 <p>Depending on this mode the objectRssDynamics are calculated dynamically or not. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="a403aae6dce3c77a8aec01dd9808dd964a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc">
-<p>Do not change the objects maxSpeed parameter of objectRssDynamics. </p>
+<p>Do not change the objects maxSpeedOnAcceleration parameter of objectRssDynamics. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a403aae6dce3c77a8aec01dd9808dd964a11b07d3fc528d7508ce659379b112418"></a>ExactSpeedLimit&#160;</td><td class="fielddoc">
-<p>Set the objects maxSpeed parameter of objectRssDynamics to the maximal allowed speed of the relevant road section </p>
+<p>Set the objects maxSpeedOnAcceleration parameter of objectRssDynamics to the maximal allowed speed of the relevant road section </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a403aae6dce3c77a8aec01dd9808dd964a69c4b6ce533a6f047232e0d0427ddc1e"></a>IncreasedSpeedLimit5&#160;</td><td class="fielddoc">
-<p>Set the objects maxSpeed parameter of objectRssDynamics to the maximal allowed speed of the relevant road section</p><ul>
+<p>Set the objects maxSpeedOnAcceleration parameter of objectRssDynamics to the maximal allowed speed of the relevant road section</p><ul>
 <li>5 percent </li>
 </ul>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a403aae6dce3c77a8aec01dd9808dd964a249a5ca3412167f0c66e804f6b7012e8"></a>IncreasedSpeedLimit10&#160;</td><td class="fielddoc">
-<p>Set the objects maxSpeed parameter of objectRssDynamics to the maximal allowed speed of the relevant road section</p><ul>
+<p>Set the objects maxSpeedOnAcceleration parameter of objectRssDynamics to the maximal allowed speed of the relevant road section</p><ul>
 <li>10 percent </li>
 </ul>
 </td></tr>
@@ -254,33 +254,15 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RssSceneCreator</b><
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a1c588da090131f4d62889e4ee297f721"></a>
+<a class="anchor" id="a73461aff776915797c6afb3e428f06ae"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool ad::rss::map::RssSceneCreation::appendRoadBoundaries </td>
           <td>(</td>
-          <td class="paramtype">::ad::rss::world::ObjectId const &amp;&#160;</td>
-          <td class="paramname"><em>egoId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">::ad::map::match::Object const &amp;&#160;</td>
-          <td class="paramname"><em>egoMatchObject</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">::ad::physics::Speed const &amp;&#160;</td>
-          <td class="paramname"><em>egoSpeed</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">::ad::rss::world::RssDynamics const &amp;&#160;</td>
-          <td class="paramname"><em>egoRssDynamics</em>, </td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1map_1_1RssObjectData.html">RssObjectData</a> const &amp;&#160;</td>
+          <td class="paramname"><em>egoObjectData</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -306,11 +288,9 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RssSceneCreator</b><
 <p>Based on the map information static object scenes at the borders of the driveable lanes are created. For detailed operation modes see the operation modes at <em>AppendRoadBoundariesMode</em>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">egoId</td><td>the ego vehicle id </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">egoMatchObject</td><td>the ego vehicle's position described by its map matched bounding box and position </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">egoSpeed</td><td>the ego vehicle's speed </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">egoRssDynamics</td><td>the ego vehicles' RssDynamics to be applied </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">egoRoute</td><td>the route the ego vehicle intends to take.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">egoObjectData</td><td>the ego vehicle's data </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">egoRoute</td><td>the route the ego vehicle intends to take. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">operationMode</td><td>the mode how the road boundaries shall be handled</td></tr>
   </table>
   </dd>
 </dl>
@@ -318,33 +298,15 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RssSceneCreator</b><
 
 </div>
 </div>
-<a class="anchor" id="a75890e91aa716b3f9297cdcccd754cf5"></a>
+<a class="anchor" id="a7bfed14b56879b2ff53282e1da378474"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool ad::rss::map::RssSceneCreation::appendScenes </td>
           <td>(</td>
-          <td class="paramtype">::ad::rss::world::ObjectId const &amp;&#160;</td>
-          <td class="paramname"><em>egoId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">::ad::map::match::Object const &amp;&#160;</td>
-          <td class="paramname"><em>egoMatchObject</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">::ad::physics::Speed const &amp;&#160;</td>
-          <td class="paramname"><em>egoSpeed</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">::ad::rss::world::RssDynamics const &amp;&#160;</td>
-          <td class="paramname"><em>egoRssDynamics</em>, </td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1map_1_1RssObjectData.html">RssObjectData</a> const &amp;&#160;</td>
+          <td class="paramname"><em>egoObjectData</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -355,32 +317,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RssSceneCreator</b><
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">::ad::rss::world::ObjectId const &amp;&#160;</td>
-          <td class="paramname"><em>objectId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">::ad::rss::world::ObjectType const &amp;&#160;</td>
-          <td class="paramname"><em>objectType</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">::ad::map::match::Object const &amp;&#160;</td>
-          <td class="paramname"><em>objectMatchObject</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">::ad::physics::Speed const &amp;&#160;</td>
-          <td class="paramname"><em>objectSpeed</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">::ad::rss::world::RssDynamics const &amp;&#160;</td>
-          <td class="paramname"><em>objectRssDynamics</em>, </td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1map_1_1RssObjectData.html">RssObjectData</a> const &amp;&#160;</td>
+          <td class="paramname"><em>otherObjectData</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -392,7 +330,13 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RssSceneCreator</b><
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">::ad::map::landmark::LandmarkIdSet const &amp;&#160;</td>
-          <td class="paramname"><em>greenTrafficLights</em>&#160;</td>
+          <td class="paramname"><em>greenTrafficLights</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">::<a class="el" href="namespacead_1_1rss_1_1map.html#adcb01232986ed83a0c540cd5d03ef495">ad::rss::map::RssMode</a> const &amp;&#160;</td>
+          <td class="paramname"><em>mode</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -406,18 +350,12 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RssSceneCreator</b><
 <p>Based on the map information a connecting route between ego vehicle and the object is created.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">egoId</td><td>the ego vehicle id </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">egoMatchObject</td><td>the ego vehicle's position described by its map matched bounding box and position </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">egoSpeed</td><td>the ego vehicle's speed </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">egoRssDynamics</td><td>the ego vehicles' RssDynamics to be applied </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">egoObjectData</td><td>the ego vehicle's data </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">egoRoute</td><td>the route the ego vehicle intends to take. If the given route is empty, all potential route predictions of the ego vehicle are taken into account if required. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">objectId</td><td>the object id </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">objectType</td><td>the object type </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">objectMatchObject</td><td>the object's position described by its map matched bounding box and position </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">objectSpeed</td><td>the object's speed </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">objectRssDynamics</td><td>the object's RssDynamics to be applied </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">restrictSpeedLimitMode</td><td>the mode to select the behavior of objectRssDynamics.maxSpeed and egoRssDynamics.maxSpeed parameter </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">greenTrafficLights</td><td>the list of known green traffic lights. Required to derive the correct priority rule for the ego vehicle when approaching a traffic light intersection.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">otherObjectData</td><td>the other object's data </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">restrictSpeedLimitMode</td><td>the mode to select the behavior of objectRssDynamics.maxSpeedOnAcceleration and egoRssDynamics.maxSpeedOnAcceleration parameter </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">greenTrafficLights</td><td>the list of known green traffic lights. Required to derive the correct priority rule for the ego vehicle when approaching a traffic light intersection. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>the mode of this scene</td></tr>
   </table>
   </dd>
 </dl>

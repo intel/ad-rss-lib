@@ -1,7 +1,9 @@
 <map id="generated/include/ad/rss/world/RssDynamicsValidInputRange.hpp" name="generated/include/ad/rss/world/RssDynamicsValidInputRange.hpp">
-<area shape="rect" id="node7" href="$LateralRssAccelerationValuesValidInputRange_8hpp.html" title="ad/rss/world/LateralRssAcceleration\lValuesValidInputRange.hpp" alt="" coords="673,117,920,158"/>
-<area shape="rect" id="node16" href="$LongitudinalRssAccelerationValuesValidInputRange_8hpp.html" title="ad/rss/world/Longitudinal\lRssAccelerationValuesValidInput\lRange.hpp" alt="" coords="994,109,1220,165"/>
-<area shape="rect" id="node18" href="$RssDynamics_8hpp.html" title="ad/rss/world/RssDynamics.hpp" alt="" coords="1670,124,1885,151"/>
-<area shape="rect" id="node9" href="$LateralRssAccelerationValues_8hpp.html" title="ad/rss/world/LateralRssAcceleration\lValues.hpp" alt="" coords="1344,213,1590,255"/>
-<area shape="rect" id="node17" href="$LongitudinalRssAccelerationValues_8hpp.html" title="ad/rss/world/Longitudinal\lRssAccelerationValues.hpp" alt="" coords="1614,213,1808,255"/>
+<area shape="rect" id="node7" href="$LateralRssAccelerationValuesValidInputRange_8hpp.html" title="ad/rss/world/LateralRssAcceleration\lValuesValidInputRange.hpp" alt="" coords="1693,117,1940,158"/>
+<area shape="rect" id="node16" href="$LongitudinalRssAccelerationValuesValidInputRange_8hpp.html" title="ad/rss/world/Longitudinal\lRssAccelerationValuesValidInput\lRange.hpp" alt="" coords="1442,109,1669,165"/>
+<area shape="rect" id="node18" href="$RssDynamics_8hpp.html" title="ad/rss/world/RssDynamics.hpp" alt="" coords="712,124,927,151"/>
+<area shape="rect" id="node25" href="$UnstructuredSettingsValidInputRange_8hpp.html" title="ad/rss/world/Unstructured\lSettingsValidInputRange.hpp" alt="" coords="2115,117,2321,158"/>
+<area shape="rect" id="node9" href="$LateralRssAccelerationValues_8hpp.html" title="ad/rss/world/LateralRssAcceleration\lValues.hpp" alt="" coords="1075,213,1321,255"/>
+<area shape="rect" id="node17" href="$LongitudinalRssAccelerationValues_8hpp.html" title="ad/rss/world/Longitudinal\lRssAccelerationValues.hpp" alt="" coords="857,213,1051,255"/>
+<area shape="rect" id="node22" href="$UnstructuredSettings_8hpp.html" title="ad/rss/world/Unstructured\lSettings.hpp" alt="" coords="595,213,782,255"/>
 </map>

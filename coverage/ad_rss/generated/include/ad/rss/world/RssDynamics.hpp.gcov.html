@@ -31,13 +31,13 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">29</td>
-            <td class="headerCovTableEntry">29</td>
+            <td class="headerCovTableEntry">33</td>
+            <td class="headerCovTableEntry">33</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">13</td>
-            <td class="headerCovTableEntry">16</td>
-            <td class="headerCovTableEntryMed">81.2 %</td>
+            <td class="headerCovTableEntry">15</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntryMed">83.3 %</td>
           </tr>
           <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -97,196 +97,210 @@
 <span class="lineNum">      26 </span>                :            : #include &quot;ad/physics/Speed.hpp&quot;
 <span class="lineNum">      27 </span>                :            : #include &quot;ad/rss/world/LateralRssAccelerationValues.hpp&quot;
 <span class="lineNum">      28 </span>                :            : #include &quot;ad/rss/world/LongitudinalRssAccelerationValues.hpp&quot;
-<span class="lineNum">      29 </span>                :            : /*!
-<span class="lineNum">      30 </span>                :            :  * @brief namespace ad
-<span class="lineNum">      31 </span>                :            :  */
-<span class="lineNum">      32 </span>                :            : namespace ad {
-<span class="lineNum">      33 </span>                :            : /*!
-<span class="lineNum">      34 </span>                :            :  * @brief namespace rss
-<span class="lineNum">      35 </span>                :            :  */
-<span class="lineNum">      36 </span>                :            : namespace rss {
-<span class="lineNum">      37 </span>                :            : /*!
-<span class="lineNum">      38 </span>                :            :  * @brief namespace world
-<span class="lineNum">      39 </span>                :            :  */
-<span class="lineNum">      40 </span>                :            : namespace world {
-<span class="lineNum">      41 </span>                :            : 
-<span class="lineNum">      42 </span>                :            : /*!
-<span class="lineNum">      43 </span>                :            :  * \brief DataType RssDynamics
-<span class="lineNum">      44 </span>                :            :  *
-<span class="lineNum">      45 </span>                :            :  * Describes the RSS dynamics values to be applied for an object within the metric world frame. The dynamics consist of
-<span class="lineNum">      46 </span>                :            :  * a longitudinal component, a lateral component and a lateral fluctuation margin to be taken into account to compensate
-<span class="lineNum">      47 </span>                :            :  * for lateral fluctuations.
-<span class="lineNum">      48 </span>                :            :  */
-<span class="lineNum">      49 </span>                :            : struct RssDynamics
-<span class="lineNum">      50 </span>                :            : {
-<span class="lineNum">      51 </span>                :            :   /*!
-<span class="lineNum">      52 </span>                :            :    * \brief Smart pointer on RssDynamics
-<span class="lineNum">      53 </span>                :            :    */
-<span class="lineNum">      54 </span>                :            :   typedef std::shared_ptr&lt;RssDynamics&gt; Ptr;
-<span class="lineNum">      55 </span>                :            : 
-<span class="lineNum">      56 </span>                :            :   /*!
-<span class="lineNum">      57 </span>                :            :    * \brief Smart pointer on constant RssDynamics
-<span class="lineNum">      58 </span>                :            :    */
-<span class="lineNum">      59 </span>                :            :   typedef std::shared_ptr&lt;RssDynamics const&gt; ConstPtr;
-<span class="lineNum">      60 </span>                :            : 
-<span class="lineNum">      61 </span>                :            :   /*!
-<a name="62"><span class="lineNum">      62 </span>                :            :    * \brief standard constructor</a>
-<span class="lineNum">      63 </span>                :            :    */
-<span class="lineNum">      64 </span>                :<span class="lineCov">      50708 :   RssDynamics() = default;</span>
-<span class="lineNum">      65 </span>                :            : 
-<span class="lineNum">      66 </span>                :            :   /*!
-<span class="lineNum">      67 </span>                :            :    * \brief standard destructor
-<span class="lineNum">      68 </span>                :            :    */
-<span class="lineNum">      69 </span>                :            :   ~RssDynamics() = default;
-<span class="lineNum">      70 </span>                :            : 
-<span class="lineNum">      71 </span>                :            :   /*!
-<span class="lineNum">      72 </span>                :            :    * \brief standard copy constructor
-<span class="lineNum">      73 </span>                :            :    */
-<span class="lineNum">      74 </span>                :            :   RssDynamics(const RssDynamics &amp;other) = default;
-<span class="lineNum">      75 </span>                :            : 
-<span class="lineNum">      76 </span>                :            :   /*!
-<span class="lineNum">      77 </span>                :            :    * \brief standard move constructor
-<span class="lineNum">      78 </span>                :            :    */
-<span class="lineNum">      79 </span>                :            :   RssDynamics(RssDynamics &amp;&amp;other) = default;
-<span class="lineNum">      80 </span>                :            : 
-<span class="lineNum">      81 </span>                :            :   /**
-<span class="lineNum">      82 </span>                :            :    * \brief standard assignment operator
-<span class="lineNum">      83 </span>                :            :    *
-<span class="lineNum">      84 </span>                :            :    * \param[in] other Other RssDynamics
-<span class="lineNum">      85 </span>                :            :    *
-<span class="lineNum">      86 </span>                :            :    * \returns Reference to this RssDynamics.
-<span class="lineNum">      87 </span>                :            :    */
-<span class="lineNum">      88 </span>                :            :   RssDynamics &amp;operator=(const RssDynamics &amp;other) = default;
-<span class="lineNum">      89 </span>                :            : 
-<span class="lineNum">      90 </span>                :            :   /**
-<span class="lineNum">      91 </span>                :            :    * \brief standard move operator
-<span class="lineNum">      92 </span>                :            :    *
-<span class="lineNum">      93 </span>                :            :    * \param[in] other Other RssDynamics
-<span class="lineNum">      94 </span>                :            :    *
-<span class="lineNum">      95 </span>                :            :    * \returns Reference to this RssDynamics.
-<span class="lineNum">      96 </span>                :            :    */
-<span class="lineNum">      97 </span>                :            :   RssDynamics &amp;operator=(RssDynamics &amp;&amp;other) = default;
-<span class="lineNum">      98 </span>                :            : 
-<span class="lineNum">      99 </span>                :            :   /**
-<span class="lineNum">     100 </span>                :            :    * \brief standard comparison operator
-<span class="lineNum">     101 </span>                :            :    *
-<span class="lineNum">     102 </span>                :            :    * \param[in] other Other RssDynamics
-<span class="lineNum">     103 </span>                :            :    *
-<a name="104"><span class="lineNum">     104 </span>                :            :    * \returns \c true if both RssDynamics are equal</a>
-<span class="lineNum">     105 </span>                :            :    */
-<span class="lineNum">     106 </span>                :<span class="lineCov">        132 :   bool operator==(const RssDynamics &amp;other) const</span>
-<span class="lineNum">     107 </span>                :            :   {
-<span class="lineNum">     108 </span>        [<span class="branchCov" title="Branch 2 was taken 116 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">        250 :     return (alphaLon == other.alphaLon) &amp;&amp; (alphaLat == other.alphaLat)</span>
-<span class="lineNum">     109 </span>[<span class="branchCov" title="Branch 1 was taken 114 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 112 times"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>]:<span class="lineCov">        116 :       &amp;&amp; (lateralFluctuationMargin == other.lateralFluctuationMargin) &amp;&amp; (responseTime == other.responseTime)</span>
-<span class="lineNum">     110 </span>[<span class="branchCov" title="Branch 0 was taken 118 times"> + </span><span class="branchCov" title="Branch 1 was taken 14 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 110 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        250 :       &amp;&amp; (maxSpeed == other.maxSpeed);</span>
-<span class="lineNum">     111 </span>                :            :   }
-<span class="lineNum">     112 </span>                :            : 
-<span class="lineNum">     113 </span>                :            :   /**
-<span class="lineNum">     114 </span>                :            :    * \brief standard comparison operator
-<span class="lineNum">     115 </span>                :            :    *
-<span class="lineNum">     116 </span>                :            :    * \param[in] other Other RssDynamics.
+<span class="lineNum">      29 </span>                :            : #include &quot;ad/rss/world/UnstructuredSettings.hpp&quot;
+<span class="lineNum">      30 </span>                :            : /*!
+<span class="lineNum">      31 </span>                :            :  * @brief namespace ad
+<span class="lineNum">      32 </span>                :            :  */
+<span class="lineNum">      33 </span>                :            : namespace ad {
+<span class="lineNum">      34 </span>                :            : /*!
+<span class="lineNum">      35 </span>                :            :  * @brief namespace rss
+<span class="lineNum">      36 </span>                :            :  */
+<span class="lineNum">      37 </span>                :            : namespace rss {
+<span class="lineNum">      38 </span>                :            : /*!
+<span class="lineNum">      39 </span>                :            :  * @brief namespace world
+<span class="lineNum">      40 </span>                :            :  */
+<span class="lineNum">      41 </span>                :            : namespace world {
+<span class="lineNum">      42 </span>                :            : 
+<span class="lineNum">      43 </span>                :            : /*!
+<span class="lineNum">      44 </span>                :            :  * \brief DataType RssDynamics
+<span class="lineNum">      45 </span>                :            :  *
+<span class="lineNum">      46 </span>                :            :  * Describes the RSS dynamics values to be applied for an object within the metric world frame. The dynamics consist of
+<span class="lineNum">      47 </span>                :            :  * a longitudinal component, a lateral component and a lateral fluctuation margin to be taken into account to compensate
+<span class="lineNum">      48 </span>                :            :  * for lateral fluctuations.
+<span class="lineNum">      49 </span>                :            :  */
+<span class="lineNum">      50 </span>                :            : struct RssDynamics
+<span class="lineNum">      51 </span>                :            : {
+<span class="lineNum">      52 </span>                :            :   /*!
+<span class="lineNum">      53 </span>                :            :    * \brief Smart pointer on RssDynamics
+<span class="lineNum">      54 </span>                :            :    */
+<span class="lineNum">      55 </span>                :            :   typedef std::shared_ptr&lt;RssDynamics&gt; Ptr;
+<span class="lineNum">      56 </span>                :            : 
+<span class="lineNum">      57 </span>                :            :   /*!
+<span class="lineNum">      58 </span>                :            :    * \brief Smart pointer on constant RssDynamics
+<span class="lineNum">      59 </span>                :            :    */
+<span class="lineNum">      60 </span>                :            :   typedef std::shared_ptr&lt;RssDynamics const&gt; ConstPtr;
+<span class="lineNum">      61 </span>                :            : 
+<span class="lineNum">      62 </span>                :            :   /*!
+<a name="63"><span class="lineNum">      63 </span>                :            :    * \brief standard constructor</a>
+<span class="lineNum">      64 </span>                :            :    */
+<span class="lineNum">      65 </span>                :<span class="lineCov">      50974 :   RssDynamics() = default;</span>
+<span class="lineNum">      66 </span>                :            : 
+<span class="lineNum">      67 </span>                :            :   /*!
+<span class="lineNum">      68 </span>                :            :    * \brief standard destructor
+<span class="lineNum">      69 </span>                :            :    */
+<span class="lineNum">      70 </span>                :            :   ~RssDynamics() = default;
+<span class="lineNum">      71 </span>                :            : 
+<span class="lineNum">      72 </span>                :            :   /*!
+<span class="lineNum">      73 </span>                :            :    * \brief standard copy constructor
+<span class="lineNum">      74 </span>                :            :    */
+<span class="lineNum">      75 </span>                :            :   RssDynamics(const RssDynamics &amp;other) = default;
+<span class="lineNum">      76 </span>                :            : 
+<span class="lineNum">      77 </span>                :            :   /*!
+<span class="lineNum">      78 </span>                :            :    * \brief standard move constructor
+<span class="lineNum">      79 </span>                :            :    */
+<span class="lineNum">      80 </span>                :            :   RssDynamics(RssDynamics &amp;&amp;other) = default;
+<span class="lineNum">      81 </span>                :            : 
+<span class="lineNum">      82 </span>                :            :   /**
+<span class="lineNum">      83 </span>                :            :    * \brief standard assignment operator
+<span class="lineNum">      84 </span>                :            :    *
+<span class="lineNum">      85 </span>                :            :    * \param[in] other Other RssDynamics
+<span class="lineNum">      86 </span>                :            :    *
+<span class="lineNum">      87 </span>                :            :    * \returns Reference to this RssDynamics.
+<span class="lineNum">      88 </span>                :            :    */
+<span class="lineNum">      89 </span>                :            :   RssDynamics &amp;operator=(const RssDynamics &amp;other) = default;
+<span class="lineNum">      90 </span>                :            : 
+<span class="lineNum">      91 </span>                :            :   /**
+<span class="lineNum">      92 </span>                :            :    * \brief standard move operator
+<span class="lineNum">      93 </span>                :            :    *
+<span class="lineNum">      94 </span>                :            :    * \param[in] other Other RssDynamics
+<span class="lineNum">      95 </span>                :            :    *
+<span class="lineNum">      96 </span>                :            :    * \returns Reference to this RssDynamics.
+<span class="lineNum">      97 </span>                :            :    */
+<span class="lineNum">      98 </span>                :            :   RssDynamics &amp;operator=(RssDynamics &amp;&amp;other) = default;
+<span class="lineNum">      99 </span>                :            : 
+<span class="lineNum">     100 </span>                :            :   /**
+<span class="lineNum">     101 </span>                :            :    * \brief standard comparison operator
+<span class="lineNum">     102 </span>                :            :    *
+<span class="lineNum">     103 </span>                :            :    * \param[in] other Other RssDynamics
+<span class="lineNum">     104 </span>                :            :    *
+<a name="105"><span class="lineNum">     105 </span>                :            :    * \returns \c true if both RssDynamics are equal</a>
+<span class="lineNum">     106 </span>                :            :    */
+<span class="lineNum">     107 </span>                :<span class="lineCov">        140 :   bool operator==(const RssDynamics &amp;other) const</span>
+<span class="lineNum">     108 </span>                :            :   {
+<span class="lineNum">     109 </span>        [<span class="branchCov" title="Branch 2 was taken 124 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">        266 :     return (alphaLon == other.alphaLon) &amp;&amp; (alphaLat == other.alphaLat)</span>
+<span class="lineNum">     110 </span>[<span class="branchCov" title="Branch 1 was taken 122 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 120 times"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>]:<span class="lineCov">        124 :       &amp;&amp; (lateralFluctuationMargin == other.lateralFluctuationMargin) &amp;&amp; (responseTime == other.responseTime)</span>
+<span class="lineNum">     111 </span>        [<span class="branchCov" title="Branch 1 was taken 118 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">        120 :       &amp;&amp; (maxSpeedOnAcceleration == other.maxSpeedOnAcceleration)</span>
+<span class="lineNum">     112 </span>[<span class="branchCov" title="Branch 0 was taken 126 times"> + </span><span class="branchCov" title="Branch 1 was taken 14 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 116 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        266 :       &amp;&amp; (unstructuredSettings == other.unstructuredSettings);</span>
+<span class="lineNum">     113 </span>                :            :   }
+<span class="lineNum">     114 </span>                :            : 
+<span class="lineNum">     115 </span>                :            :   /**
+<span class="lineNum">     116 </span>                :            :    * \brief standard comparison operator
 <span class="lineNum">     117 </span>                :            :    *
-<a name="118"><span class="lineNum">     118 </span>                :            :    * \returns \c true if both RssDynamics are different</a>
-<span class="lineNum">     119 </span>                :            :    */
-<span class="lineNum">     120 </span>                :<span class="lineCov">          6 :   bool operator!=(const RssDynamics &amp;other) const</span>
-<span class="lineNum">     121 </span>                :            :   {
-<span class="lineNum">     122 </span>                :<span class="lineCov">          6 :     return !operator==(other);</span>
-<span class="lineNum">     123 </span>                :            :   }
-<span class="lineNum">     124 </span>                :            : 
-<span class="lineNum">     125 </span>                :            :   /*!
-<span class="lineNum">     126 </span>                :            :    * RSS dynamics values along longitudinal coordinate system axis.
-<span class="lineNum">     127 </span>                :            :    */
-<span class="lineNum">     128 </span>                :            :   ::ad::rss::world::LongitudinalRssAccelerationValues alphaLon;
-<span class="lineNum">     129 </span>                :            : 
-<span class="lineNum">     130 </span>                :            :   /*!
-<span class="lineNum">     131 </span>                :            :    * RSS dynamics values along lateral coordinate system axis.
-<span class="lineNum">     132 </span>                :            :    */
-<span class="lineNum">     133 </span>                :            :   ::ad::rss::world::LateralRssAccelerationValues alphaLat;
-<span class="lineNum">     134 </span>                :            : 
-<span class="lineNum">     135 </span>                :            :   /*!
-<span class="lineNum">     136 </span>                :            :    * Defines the lateral fluctuation margin to be taken into account.
-<span class="lineNum">     137 </span>                :            :    */
-<span class="lineNum">     138 </span>                :            :   ::ad::physics::Distance lateralFluctuationMargin{0.0};
-<span class="lineNum">     139 </span>                :            : 
-<span class="lineNum">     140 </span>                :            :   /*!
-<span class="lineNum">     141 </span>                :            :    * Defines the response time of the object to be considered.
-<span class="lineNum">     142 </span>                :            :    */
-<span class="lineNum">     143 </span>                :            :   ::ad::physics::Duration responseTime;
-<span class="lineNum">     144 </span>                :            : 
-<span class="lineNum">     145 </span>                :            :   /*!
-<span class="lineNum">     146 </span>                :            :    * Defines the maximum speed of the object.
-<span class="lineNum">     147 </span>                :            :    */
-<span class="lineNum">     148 </span>                :            :   ::ad::physics::Speed maxSpeed{100};
-<span class="lineNum">     149 </span>                :            : };
-<span class="lineNum">     150 </span>                :            : 
-<span class="lineNum">     151 </span>                :            : } // namespace world
-<span class="lineNum">     152 </span>                :            : } // namespace rss
-<span class="lineNum">     153 </span>                :            : } // namespace ad
-<span class="lineNum">     154 </span>                :            : 
-<span class="lineNum">     155 </span>                :            : /*!
-<span class="lineNum">     156 </span>                :            :  * \brief protect the definition of functions from duplicates by typedef usage within other data types
-<span class="lineNum">     157 </span>                :            :  */
-<span class="lineNum">     158 </span>                :            : #ifndef GEN_GUARD_AD_RSS_WORLD_RSSDYNAMICS
-<span class="lineNum">     159 </span>                :            : #define GEN_GUARD_AD_RSS_WORLD_RSSDYNAMICS
-<span class="lineNum">     160 </span>                :            : /*!
-<span class="lineNum">     161 </span>                :            :  * @brief namespace ad
-<span class="lineNum">     162 </span>                :            :  */
-<span class="lineNum">     163 </span>                :            : namespace ad {
-<span class="lineNum">     164 </span>                :            : /*!
-<span class="lineNum">     165 </span>                :            :  * @brief namespace rss
-<span class="lineNum">     166 </span>                :            :  */
-<span class="lineNum">     167 </span>                :            : namespace rss {
-<span class="lineNum">     168 </span>                :            : /*!
-<span class="lineNum">     169 </span>                :            :  * @brief namespace world
-<span class="lineNum">     170 </span>                :            :  */
-<span class="lineNum">     171 </span>                :            : namespace world {
-<span class="lineNum">     172 </span>                :            : 
-<span class="lineNum">     173 </span>                :            : /**
-<span class="lineNum">     174 </span>                :            :  * \brief standard ostream operator
-<span class="lineNum">     175 </span>                :            :  *
-<span class="lineNum">     176 </span>                :            :  * \param[in] os The output stream to write to
-<span class="lineNum">     177 </span>                :            :  * \param[in] _value RssDynamics value
-<span class="lineNum">     178 </span>                :            :  *
-<span class="lineNum">     179 </span>                :            :  * \returns The stream object.
-<a name="180"><span class="lineNum">     180 </span>                :            :  *</a>
+<span class="lineNum">     118 </span>                :            :    * \param[in] other Other RssDynamics.
+<span class="lineNum">     119 </span>                :            :    *
+<a name="120"><span class="lineNum">     120 </span>                :            :    * \returns \c true if both RssDynamics are different</a>
+<span class="lineNum">     121 </span>                :            :    */
+<span class="lineNum">     122 </span>                :<span class="lineCov">          7 :   bool operator!=(const RssDynamics &amp;other) const</span>
+<span class="lineNum">     123 </span>                :            :   {
+<span class="lineNum">     124 </span>                :<span class="lineCov">          7 :     return !operator==(other);</span>
+<span class="lineNum">     125 </span>                :            :   }
+<span class="lineNum">     126 </span>                :            : 
+<span class="lineNum">     127 </span>                :            :   /*!
+<span class="lineNum">     128 </span>                :            :    * RSS dynamics values along longitudinal coordinate system axis.
+<span class="lineNum">     129 </span>                :            :    */
+<span class="lineNum">     130 </span>                :            :   ::ad::rss::world::LongitudinalRssAccelerationValues alphaLon;
+<span class="lineNum">     131 </span>                :            : 
+<span class="lineNum">     132 </span>                :            :   /*!
+<span class="lineNum">     133 </span>                :            :    * RSS dynamics values along lateral coordinate system axis.
+<span class="lineNum">     134 </span>                :            :    */
+<span class="lineNum">     135 </span>                :            :   ::ad::rss::world::LateralRssAccelerationValues alphaLat;
+<span class="lineNum">     136 </span>                :            : 
+<span class="lineNum">     137 </span>                :            :   /*!
+<span class="lineNum">     138 </span>                :            :    * Defines the lateral fluctuation margin to be taken into account.
+<span class="lineNum">     139 </span>                :            :    */
+<span class="lineNum">     140 </span>                :            :   ::ad::physics::Distance lateralFluctuationMargin{0.0};
+<span class="lineNum">     141 </span>                :            : 
+<span class="lineNum">     142 </span>                :            :   /*!
+<span class="lineNum">     143 </span>                :            :    * Defines the response time of the object to be considered.
+<span class="lineNum">     144 </span>                :            :    */
+<span class="lineNum">     145 </span>                :            :   ::ad::physics::Duration responseTime;
+<span class="lineNum">     146 </span>                :            : 
+<span class="lineNum">     147 </span>                :            :   /*!
+<span class="lineNum">     148 </span>                :            :    * Defines the maximum speed of the object to be considered while acceleration within
+<span class="lineNum">     149 </span>                :            :    * the response time. The acceleration will be stopped if this speed limit is reached.
+<span class="lineNum">     150 </span>                :            :    * In case the speed before the acceleration is already higher or equal to this value,
+<span class="lineNum">     151 </span>                :            :    * no further acceleration will take place during the response time (in this case
+<span class="lineNum">     152 </span>                :            :    * speed before response time == speed after response time).
+<span class="lineNum">     153 </span>                :            :    */
+<span class="lineNum">     154 </span>                :            :   ::ad::physics::Speed maxSpeedOnAcceleration{100};
+<span class="lineNum">     155 </span>                :            : 
+<span class="lineNum">     156 </span>                :            :   /*!
+<span class="lineNum">     157 </span>                :            :    * Settings to be considered for evaluation in unstructured mode.
+<span class="lineNum">     158 </span>                :            :    */
+<span class="lineNum">     159 </span>                :            :   ::ad::rss::world::UnstructuredSettings unstructuredSettings;
+<span class="lineNum">     160 </span>                :            : };
+<span class="lineNum">     161 </span>                :            : 
+<span class="lineNum">     162 </span>                :            : } // namespace world
+<span class="lineNum">     163 </span>                :            : } // namespace rss
+<span class="lineNum">     164 </span>                :            : } // namespace ad
+<span class="lineNum">     165 </span>                :            : 
+<span class="lineNum">     166 </span>                :            : /*!
+<span class="lineNum">     167 </span>                :            :  * \brief protect the definition of functions from duplicates by typedef usage within other data types
+<span class="lineNum">     168 </span>                :            :  */
+<span class="lineNum">     169 </span>                :            : #ifndef GEN_GUARD_AD_RSS_WORLD_RSSDYNAMICS
+<span class="lineNum">     170 </span>                :            : #define GEN_GUARD_AD_RSS_WORLD_RSSDYNAMICS
+<span class="lineNum">     171 </span>                :            : /*!
+<span class="lineNum">     172 </span>                :            :  * @brief namespace ad
+<span class="lineNum">     173 </span>                :            :  */
+<span class="lineNum">     174 </span>                :            : namespace ad {
+<span class="lineNum">     175 </span>                :            : /*!
+<span class="lineNum">     176 </span>                :            :  * @brief namespace rss
+<span class="lineNum">     177 </span>                :            :  */
+<span class="lineNum">     178 </span>                :            : namespace rss {
+<span class="lineNum">     179 </span>                :            : /*!
+<span class="lineNum">     180 </span>                :            :  * @brief namespace world
 <span class="lineNum">     181 </span>                :            :  */
-<span class="lineNum">     182 </span>                :<span class="lineCov">    4035511 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, RssDynamics const &amp;_value)</span>
-<span class="lineNum">     183 </span>                :            : {
-<span class="lineNum">     184 </span>                :<span class="lineCov">    4035511 :   os &lt;&lt; &quot;RssDynamics(&quot;;</span>
-<span class="lineNum">     185 </span>                :<span class="lineCov">    4035511 :   os &lt;&lt; &quot;alphaLon:&quot;;</span>
-<span class="lineNum">     186 </span>                :<span class="lineCov">    4035511 :   os &lt;&lt; _value.alphaLon;</span>
-<span class="lineNum">     187 </span>                :<span class="lineCov">    4035511 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     188 </span>                :<span class="lineCov">    4035511 :   os &lt;&lt; &quot;alphaLat:&quot;;</span>
-<span class="lineNum">     189 </span>                :<span class="lineCov">    4035511 :   os &lt;&lt; _value.alphaLat;</span>
-<span class="lineNum">     190 </span>                :<span class="lineCov">    4035511 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     191 </span>                :<span class="lineCov">    4035511 :   os &lt;&lt; &quot;lateralFluctuationMargin:&quot;;</span>
-<span class="lineNum">     192 </span>                :<span class="lineCov">    4035511 :   os &lt;&lt; _value.lateralFluctuationMargin;</span>
-<span class="lineNum">     193 </span>                :<span class="lineCov">    4035511 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     194 </span>                :<span class="lineCov">    4035511 :   os &lt;&lt; &quot;responseTime:&quot;;</span>
-<span class="lineNum">     195 </span>                :<span class="lineCov">    4035511 :   os &lt;&lt; _value.responseTime;</span>
-<span class="lineNum">     196 </span>                :<span class="lineCov">    4035511 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     197 </span>                :<span class="lineCov">    4035511 :   os &lt;&lt; &quot;maxSpeed:&quot;;</span>
-<span class="lineNum">     198 </span>                :<span class="lineCov">    4035511 :   os &lt;&lt; _value.maxSpeed;</span>
-<span class="lineNum">     199 </span>                :<span class="lineCov">    4035511 :   os &lt;&lt; &quot;)&quot;;</span>
-<span class="lineNum">     200 </span>                :<span class="lineCov">    4035511 :   return os;</span>
-<span class="lineNum">     201 </span>                :            : }
-<span class="lineNum">     202 </span>                :            : 
-<span class="lineNum">     203 </span>                :            : } // namespace world
-<span class="lineNum">     204 </span>                :            : } // namespace rss
-<span class="lineNum">     205 </span>                :            : } // namespace ad
-<span class="lineNum">     206 </span>                :            : 
-<span class="lineNum">     207 </span>                :            : namespace std {
-<span class="lineNum">     208 </span>                :            : /*!
-<a name="209"><span class="lineNum">     209 </span>                :            :  * \brief overload of the std::to_string for RssDynamics</a>
-<span class="lineNum">     210 </span>                :            :  */
-<span class="lineNum">     211 </span>                :<span class="lineCov">          1 : inline std::string to_string(::ad::rss::world::RssDynamics const &amp;value)</span>
-<span class="lineNum">     212 </span>                :            : {
-<span class="lineNum">     213 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          2 :   stringstream sstream;</span>
-<span class="lineNum">     214 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :   sstream &lt;&lt; value;</span>
-<span class="lineNum">     215 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          2 :   return sstream.str();</span>
-<span class="lineNum">     216 </span>                :            : }
-<span class="lineNum">     217 </span>                :            : } // namespace std
-<span class="lineNum">     218 </span>                :            : #endif // GEN_GUARD_AD_RSS_WORLD_RSSDYNAMICS
+<span class="lineNum">     182 </span>                :            : namespace world {
+<span class="lineNum">     183 </span>                :            : 
+<span class="lineNum">     184 </span>                :            : /**
+<span class="lineNum">     185 </span>                :            :  * \brief standard ostream operator
+<span class="lineNum">     186 </span>                :            :  *
+<span class="lineNum">     187 </span>                :            :  * \param[in] os The output stream to write to
+<span class="lineNum">     188 </span>                :            :  * \param[in] _value RssDynamics value
+<span class="lineNum">     189 </span>                :            :  *
+<span class="lineNum">     190 </span>                :            :  * \returns The stream object.
+<a name="191"><span class="lineNum">     191 </span>                :            :  *</a>
+<span class="lineNum">     192 </span>                :            :  */
+<span class="lineNum">     193 </span>                :<span class="lineCov">    4035498 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, RssDynamics const &amp;_value)</span>
+<span class="lineNum">     194 </span>                :            : {
+<span class="lineNum">     195 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; &quot;RssDynamics(&quot;;</span>
+<span class="lineNum">     196 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; &quot;alphaLon:&quot;;</span>
+<span class="lineNum">     197 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; _value.alphaLon;</span>
+<span class="lineNum">     198 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     199 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; &quot;alphaLat:&quot;;</span>
+<span class="lineNum">     200 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; _value.alphaLat;</span>
+<span class="lineNum">     201 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     202 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; &quot;lateralFluctuationMargin:&quot;;</span>
+<span class="lineNum">     203 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; _value.lateralFluctuationMargin;</span>
+<span class="lineNum">     204 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     205 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; &quot;responseTime:&quot;;</span>
+<span class="lineNum">     206 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; _value.responseTime;</span>
+<span class="lineNum">     207 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     208 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; &quot;maxSpeedOnAcceleration:&quot;;</span>
+<span class="lineNum">     209 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; _value.maxSpeedOnAcceleration;</span>
+<span class="lineNum">     210 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     211 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; &quot;unstructuredSettings:&quot;;</span>
+<span class="lineNum">     212 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; _value.unstructuredSettings;</span>
+<span class="lineNum">     213 </span>                :<span class="lineCov">    4035498 :   os &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     214 </span>                :<span class="lineCov">    4035498 :   return os;</span>
+<span class="lineNum">     215 </span>                :            : }
+<span class="lineNum">     216 </span>                :            : 
+<span class="lineNum">     217 </span>                :            : } // namespace world
+<span class="lineNum">     218 </span>                :            : } // namespace rss
+<span class="lineNum">     219 </span>                :            : } // namespace ad
+<span class="lineNum">     220 </span>                :            : 
+<span class="lineNum">     221 </span>                :            : namespace std {
+<span class="lineNum">     222 </span>                :            : /*!
+<a name="223"><span class="lineNum">     223 </span>                :            :  * \brief overload of the std::to_string for RssDynamics</a>
+<span class="lineNum">     224 </span>                :            :  */
+<span class="lineNum">     225 </span>                :<span class="lineCov">          1 : inline std::string to_string(::ad::rss::world::RssDynamics const &amp;value)</span>
+<span class="lineNum">     226 </span>                :            : {
+<span class="lineNum">     227 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          2 :   stringstream sstream;</span>
+<span class="lineNum">     228 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :   sstream &lt;&lt; value;</span>
+<span class="lineNum">     229 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          2 :   return sstream.str();</span>
+<span class="lineNum">     230 </span>                :            : }
+<span class="lineNum">     231 </span>                :            : } // namespace std
+<span class="lineNum">     232 </span>                :            : #endif // GEN_GUARD_AD_RSS_WORLD_RSSDYNAMICS
 </pre>
       </td>
     </tr>

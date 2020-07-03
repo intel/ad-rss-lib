@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -89,23 +89,23 @@
 <span class="lineNum">      18 </span>                :            : #include &quot;ad/rss/situation/LateralRelativePosition.hpp&quot;
 <a name="19"><span class="lineNum">      19 </span>                :            : #include &lt;stdexcept&gt;</a>
 <span class="lineNum">      20 </span>                :            : 
-<span class="lineNum">      21 </span>                :<span class="lineCov">    1004092 : std::string toString(::ad::rss::situation::LateralRelativePosition const e)</span>
+<span class="lineNum">      21 </span>                :<span class="lineCov">    1004100 : std::string toString(::ad::rss::situation::LateralRelativePosition const e)</span>
 <span class="lineNum">      22 </span>                :            : {
-<span class="lineNum">      23 </span>  [<span class="branchCov" title="Branch 0 was taken 1026 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchCov" title="Branch 2 was taken 1003052 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">    1004092 :   switch (e)</span>
-<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 4 times"> + </span><span class="branchCov" title="Branch 5 was taken 7 times"> + </span>]
+<span class="lineNum">      23 </span>  [<span class="branchCov" title="Branch 0 was taken 1027 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchCov" title="Branch 2 was taken 1003058 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">    1004100 :   switch (e)</span>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 5 times"> + </span><span class="branchCov" title="Branch 5 was taken 7 times"> + </span>]
 <span class="lineNum">      24 </span>                :            :   {
 <span class="lineNum">      25 </span>                :            :     case ::ad::rss::situation::LateralRelativePosition::AtLeft:
-<span class="lineNum">      26 </span>                :<span class="lineCov">       1026 :       return std::string(&quot;::ad::rss::situation::LateralRelativePosition::AtLeft&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      26 </span>                :<span class="lineCov">       1027 :       return std::string(&quot;::ad::rss::situation::LateralRelativePosition::AtLeft&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      27 </span>                :            :     case ::ad::rss::situation::LateralRelativePosition::OverlapLeft:
 <span class="lineNum">      28 </span>                :<span class="lineCov">          2 :       return std::string(&quot;::ad::rss::situation::LateralRelativePosition::OverlapLeft&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      29 </span>                :            :     case ::ad::rss::situation::LateralRelativePosition::Overlap:
-<span class="lineNum">      30 </span>                :<span class="lineCov">    1003052 :       return std::string(&quot;::ad::rss::situation::LateralRelativePosition::Overlap&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      30 </span>                :<span class="lineCov">    1003058 :       return std::string(&quot;::ad::rss::situation::LateralRelativePosition::Overlap&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      31 </span>                :            :     case ::ad::rss::situation::LateralRelativePosition::OverlapRight:
 <span class="lineNum">      32 </span>                :<span class="lineCov">          1 :       return std::string(&quot;::ad::rss::situation::LateralRelativePosition::OverlapRight&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      33 </span>                :            :     case ::ad::rss::situation::LateralRelativePosition::AtRight:
-<span class="lineNum">      34 </span>                :<span class="lineCov">          4 :       return std::string(&quot;::ad::rss::situation::LateralRelativePosition::AtRight&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      34 </span>                :<span class="lineCov">          5 :       return std::string(&quot;::ad::rss::situation::LateralRelativePosition::AtRight&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      35 </span>                :            :     default:
-<span class="lineNum">      36 </span>                :<span class="lineCov">    1004092 :       return std::string(&quot;UNKNOWN ENUM VALUE&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      36 </span>                :<span class="lineCov">    1004100 :       return std::string(&quot;UNKNOWN ENUM VALUE&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      37 </span>                :            :   }
 <a name="38"><span class="lineNum">      38 </span>                :            : }</a>
 <span class="lineNum">      39 </span>                :            : 

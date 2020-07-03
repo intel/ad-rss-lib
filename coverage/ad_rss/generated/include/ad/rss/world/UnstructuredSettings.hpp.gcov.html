@@ -1,0 +1,308 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - ad_rss - generated/include/ad/rss/world/UnstructuredSettings.hpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../../index.html">top level</a> - <a href="index.html">generated/include/ad/rss/world</a> - UnstructuredSettings.hpp<span style="font-size: 80%;"> (source / <a href="UnstructuredSettings.hpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">ad_rss</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">29</td>
+            <td class="headerCovTableEntry">29</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntryMed">81.2 %</td>
+          </tr>
+          <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : /*</a>
+<span class="lineNum">       2 </span>                :            :  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
+<span class="lineNum">       3 </span>                :            :  *
+<span class="lineNum">       4 </span>                :            :  * Copyright (C) 2018-2020 Intel Corporation
+<span class="lineNum">       5 </span>                :            :  *
+<span class="lineNum">       6 </span>                :            :  * SPDX-License-Identifier: LGPL-2.1-only
+<span class="lineNum">       7 </span>                :            :  *
+<span class="lineNum">       8 </span>                :            :  * ----------------- END LICENSE BLOCK -----------------------------------
+<span class="lineNum">       9 </span>                :            :  */
+<span class="lineNum">      10 </span>                :            : 
+<span class="lineNum">      11 </span>                :            : /**
+<span class="lineNum">      12 </span>                :            :  * Generated file
+<span class="lineNum">      13 </span>                :            :  * @file
+<span class="lineNum">      14 </span>                :            :  *
+<span class="lineNum">      15 </span>                :            :  * Generator Version : 11.0.0-1988
+<span class="lineNum">      16 </span>                :            :  */
+<span class="lineNum">      17 </span>                :            : 
+<span class="lineNum">      18 </span>                :            : #pragma once
+<span class="lineNum">      19 </span>                :            : 
+<span class="lineNum">      20 </span>                :            : #include &lt;iostream&gt;
+<span class="lineNum">      21 </span>                :            : #include &lt;limits&gt;
+<span class="lineNum">      22 </span>                :            : #include &lt;memory&gt;
+<span class="lineNum">      23 </span>                :            : #include &lt;sstream&gt;
+<span class="lineNum">      24 </span>                :            : #include &quot;ad/physics/Angle.hpp&quot;
+<span class="lineNum">      25 </span>                :            : #include &quot;ad/physics/AngularAcceleration.hpp&quot;
+<span class="lineNum">      26 </span>                :            : #include &quot;ad/physics/Distance.hpp&quot;
+<span class="lineNum">      27 </span>                :            : #include &quot;ad/physics/Duration.hpp&quot;
+<span class="lineNum">      28 </span>                :            : /*!
+<span class="lineNum">      29 </span>                :            :  * @brief namespace ad
+<span class="lineNum">      30 </span>                :            :  */
+<span class="lineNum">      31 </span>                :            : namespace ad {
+<span class="lineNum">      32 </span>                :            : /*!
+<span class="lineNum">      33 </span>                :            :  * @brief namespace rss
+<span class="lineNum">      34 </span>                :            :  */
+<span class="lineNum">      35 </span>                :            : namespace rss {
+<span class="lineNum">      36 </span>                :            : /*!
+<span class="lineNum">      37 </span>                :            :  * @brief namespace world
+<span class="lineNum">      38 </span>                :            :  */
+<span class="lineNum">      39 </span>                :            : namespace world {
+<span class="lineNum">      40 </span>                :            : 
+<span class="lineNum">      41 </span>                :            : /*!
+<span class="lineNum">      42 </span>                :            :  * \brief DataType UnstructuredSettings
+<span class="lineNum">      43 </span>                :            :  *
+<span class="lineNum">      44 </span>                :            :  * Parameter settings to be used for unstructured scene handling.
+<span class="lineNum">      45 </span>                :            :  */
+<span class="lineNum">      46 </span>                :            : struct UnstructuredSettings
+<span class="lineNum">      47 </span>                :            : {
+<span class="lineNum">      48 </span>                :            :   /*!
+<span class="lineNum">      49 </span>                :            :    * \brief Smart pointer on UnstructuredSettings
+<span class="lineNum">      50 </span>                :            :    */
+<span class="lineNum">      51 </span>                :            :   typedef std::shared_ptr&lt;UnstructuredSettings&gt; Ptr;
+<span class="lineNum">      52 </span>                :            : 
+<span class="lineNum">      53 </span>                :            :   /*!
+<span class="lineNum">      54 </span>                :            :    * \brief Smart pointer on constant UnstructuredSettings
+<span class="lineNum">      55 </span>                :            :    */
+<span class="lineNum">      56 </span>                :            :   typedef std::shared_ptr&lt;UnstructuredSettings const&gt; ConstPtr;
+<span class="lineNum">      57 </span>                :            : 
+<span class="lineNum">      58 </span>                :            :   /*!
+<a name="59"><span class="lineNum">      59 </span>                :            :    * \brief standard constructor</a>
+<span class="lineNum">      60 </span>                :            :    */
+<span class="lineNum">      61 </span>                :<span class="lineCov">      51562 :   UnstructuredSettings() = default;</span>
+<span class="lineNum">      62 </span>                :            : 
+<span class="lineNum">      63 </span>                :            :   /*!
+<span class="lineNum">      64 </span>                :            :    * \brief standard destructor
+<span class="lineNum">      65 </span>                :            :    */
+<span class="lineNum">      66 </span>                :            :   ~UnstructuredSettings() = default;
+<span class="lineNum">      67 </span>                :            : 
+<span class="lineNum">      68 </span>                :            :   /*!
+<span class="lineNum">      69 </span>                :            :    * \brief standard copy constructor
+<span class="lineNum">      70 </span>                :            :    */
+<span class="lineNum">      71 </span>                :            :   UnstructuredSettings(const UnstructuredSettings &amp;other) = default;
+<span class="lineNum">      72 </span>                :            : 
+<span class="lineNum">      73 </span>                :            :   /*!
+<span class="lineNum">      74 </span>                :            :    * \brief standard move constructor
+<span class="lineNum">      75 </span>                :            :    */
+<span class="lineNum">      76 </span>                :            :   UnstructuredSettings(UnstructuredSettings &amp;&amp;other) = default;
+<span class="lineNum">      77 </span>                :            : 
+<span class="lineNum">      78 </span>                :            :   /**
+<span class="lineNum">      79 </span>                :            :    * \brief standard assignment operator
+<span class="lineNum">      80 </span>                :            :    *
+<span class="lineNum">      81 </span>                :            :    * \param[in] other Other UnstructuredSettings
+<span class="lineNum">      82 </span>                :            :    *
+<span class="lineNum">      83 </span>                :            :    * \returns Reference to this UnstructuredSettings.
+<span class="lineNum">      84 </span>                :            :    */
+<span class="lineNum">      85 </span>                :            :   UnstructuredSettings &amp;operator=(const UnstructuredSettings &amp;other) = default;
+<span class="lineNum">      86 </span>                :            : 
+<span class="lineNum">      87 </span>                :            :   /**
+<span class="lineNum">      88 </span>                :            :    * \brief standard move operator
+<span class="lineNum">      89 </span>                :            :    *
+<span class="lineNum">      90 </span>                :            :    * \param[in] other Other UnstructuredSettings
+<span class="lineNum">      91 </span>                :            :    *
+<span class="lineNum">      92 </span>                :            :    * \returns Reference to this UnstructuredSettings.
+<span class="lineNum">      93 </span>                :            :    */
+<span class="lineNum">      94 </span>                :            :   UnstructuredSettings &amp;operator=(UnstructuredSettings &amp;&amp;other) = default;
+<span class="lineNum">      95 </span>                :            : 
+<span class="lineNum">      96 </span>                :            :   /**
+<span class="lineNum">      97 </span>                :            :    * \brief standard comparison operator
+<span class="lineNum">      98 </span>                :            :    *
+<span class="lineNum">      99 </span>                :            :    * \param[in] other Other UnstructuredSettings
+<span class="lineNum">     100 </span>                :            :    *
+<a name="101"><span class="lineNum">     101 </span>                :            :    * \returns \c true if both UnstructuredSettings are equal</a>
+<span class="lineNum">     102 </span>                :            :    */
+<span class="lineNum">     103 </span>                :<span class="lineCov">        134 :   bool operator==(const UnstructuredSettings &amp;other) const</span>
+<span class="lineNum">     104 </span>                :            :   {
+<span class="lineNum">     105 </span>        [<span class="branchCov" title="Branch 2 was taken 128 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">        264 :     return (pedestrianTurningRadius == other.pedestrianTurningRadius) &amp;&amp; (driveAwayMaxAngle == other.driveAwayMaxAngle)</span>
+<span class="lineNum">     106 </span>[<span class="branchCov" title="Branch 1 was taken 126 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 124 times"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>]:<span class="lineCov">        128 :       &amp;&amp; (vehicleYawRateChange == other.vehicleYawRateChange) &amp;&amp; (vehicleMinRadius == other.vehicleMinRadius)</span>
+<span class="lineNum">     107 </span>[<span class="branchCov" title="Branch 0 was taken 130 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 122 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        264 :       &amp;&amp; (vehicleTrajectoryCalculationStep == other.vehicleTrajectoryCalculationStep);</span>
+<span class="lineNum">     108 </span>                :            :   }
+<span class="lineNum">     109 </span>                :            : 
+<span class="lineNum">     110 </span>                :            :   /**
+<span class="lineNum">     111 </span>                :            :    * \brief standard comparison operator
+<span class="lineNum">     112 </span>                :            :    *
+<span class="lineNum">     113 </span>                :            :    * \param[in] other Other UnstructuredSettings.
+<span class="lineNum">     114 </span>                :            :    *
+<a name="115"><span class="lineNum">     115 </span>                :            :    * \returns \c true if both UnstructuredSettings are different</a>
+<span class="lineNum">     116 </span>                :            :    */
+<span class="lineNum">     117 </span>                :<span class="lineCov">          6 :   bool operator!=(const UnstructuredSettings &amp;other) const</span>
+<span class="lineNum">     118 </span>                :            :   {
+<span class="lineNum">     119 </span>                :<span class="lineCov">          6 :     return !operator==(other);</span>
+<span class="lineNum">     120 </span>                :            :   }
+<span class="lineNum">     121 </span>                :            : 
+<span class="lineNum">     122 </span>                :            :   /*!
+<span class="lineNum">     123 </span>                :            :    * The change of heading |h'(t)| is limited.
+<span class="lineNum">     124 </span>                :            :    * That means, the maximum trajectory is defined by a circle until response time.
+<span class="lineNum">     125 </span>                :            :    * This parameter specifies the radius of that circle.
+<span class="lineNum">     126 </span>                :            :    */
+<span class="lineNum">     127 </span>                :            :   ::ad::physics::Distance pedestrianTurningRadius;
+<span class="lineNum">     128 </span>                :            : 
+<span class="lineNum">     129 </span>                :            :   /*!
+<span class="lineNum">     130 </span>                :            :    * In certain situations the ego vehicle might be allowed to drive away from a dangerous
+<span class="lineNum">     131 </span>                :            :    * object using a given heading range.
+<span class="lineNum">     132 </span>                :            :    * This parameter defines the maximum possible angle the vehicle is able to drive away.
+<span class="lineNum">     133 </span>                :            :    */
+<span class="lineNum">     134 </span>                :            :   ::ad::physics::Angle driveAwayMaxAngle;
+<span class="lineNum">     135 </span>                :            : 
+<span class="lineNum">     136 </span>                :            :   /*!
+<span class="lineNum">     137 </span>                :            :    * The change of the heading h'(t) is limited while the response time.
+<span class="lineNum">     138 </span>                :            :    * This specifies the maximum change of the yaw rate during response time.
+<span class="lineNum">     139 </span>                :            :    */
+<span class="lineNum">     140 </span>                :            :   ::ad::physics::AngularAcceleration vehicleYawRateChange;
+<span class="lineNum">     141 </span>                :            : 
+<span class="lineNum">     142 </span>                :            :   /*!
+<span class="lineNum">     143 </span>                :            :    * Defines the minimal radius a vehicle is able to drive on.
+<span class="lineNum">     144 </span>                :            :    */
+<span class="lineNum">     145 </span>                :            :   ::ad::physics::Distance vehicleMinRadius;
+<span class="lineNum">     146 </span>                :            : 
+<span class="lineNum">     147 </span>                :            :   /*!
+<span class="lineNum">     148 </span>                :            :    * The current unstructured implementation calculates the location and heading based
+<span class="lineNum">     149 </span>                :            :    * on time increments.
+<span class="lineNum">     150 </span>                :            :    * That might lead to an increasing error the farer the point is.
+<span class="lineNum">     151 </span>                :            :    * This parameter defines the time interval for this incremental calculation.
+<span class="lineNum">     152 </span>                :            :    */
+<span class="lineNum">     153 </span>                :            :   ::ad::physics::Duration vehicleTrajectoryCalculationStep;
+<span class="lineNum">     154 </span>                :            : };
+<span class="lineNum">     155 </span>                :            : 
+<span class="lineNum">     156 </span>                :            : } // namespace world
+<span class="lineNum">     157 </span>                :            : } // namespace rss
+<span class="lineNum">     158 </span>                :            : } // namespace ad
+<span class="lineNum">     159 </span>                :            : 
+<span class="lineNum">     160 </span>                :            : /*!
+<span class="lineNum">     161 </span>                :            :  * \brief protect the definition of functions from duplicates by typedef usage within other data types
+<span class="lineNum">     162 </span>                :            :  */
+<span class="lineNum">     163 </span>                :            : #ifndef GEN_GUARD_AD_RSS_WORLD_UNSTRUCTUREDSETTINGS
+<span class="lineNum">     164 </span>                :            : #define GEN_GUARD_AD_RSS_WORLD_UNSTRUCTUREDSETTINGS
+<span class="lineNum">     165 </span>                :            : /*!
+<span class="lineNum">     166 </span>                :            :  * @brief namespace ad
+<span class="lineNum">     167 </span>                :            :  */
+<span class="lineNum">     168 </span>                :            : namespace ad {
+<span class="lineNum">     169 </span>                :            : /*!
+<span class="lineNum">     170 </span>                :            :  * @brief namespace rss
+<span class="lineNum">     171 </span>                :            :  */
+<span class="lineNum">     172 </span>                :            : namespace rss {
+<span class="lineNum">     173 </span>                :            : /*!
+<span class="lineNum">     174 </span>                :            :  * @brief namespace world
+<span class="lineNum">     175 </span>                :            :  */
+<span class="lineNum">     176 </span>                :            : namespace world {
+<span class="lineNum">     177 </span>                :            : 
+<span class="lineNum">     178 </span>                :            : /**
+<span class="lineNum">     179 </span>                :            :  * \brief standard ostream operator
+<span class="lineNum">     180 </span>                :            :  *
+<span class="lineNum">     181 </span>                :            :  * \param[in] os The output stream to write to
+<span class="lineNum">     182 </span>                :            :  * \param[in] _value UnstructuredSettings value
+<span class="lineNum">     183 </span>                :            :  *
+<span class="lineNum">     184 </span>                :            :  * \returns The stream object.
+<a name="185"><span class="lineNum">     185 </span>                :            :  *</a>
+<span class="lineNum">     186 </span>                :            :  */
+<span class="lineNum">     187 </span>                :<span class="lineCov">    4035517 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, UnstructuredSettings const &amp;_value)</span>
+<span class="lineNum">     188 </span>                :            : {
+<span class="lineNum">     189 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;UnstructuredSettings(&quot;;</span>
+<span class="lineNum">     190 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;pedestrianTurningRadius:&quot;;</span>
+<span class="lineNum">     191 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.pedestrianTurningRadius;</span>
+<span class="lineNum">     192 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     193 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;driveAwayMaxAngle:&quot;;</span>
+<span class="lineNum">     194 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.driveAwayMaxAngle;</span>
+<span class="lineNum">     195 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     196 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;vehicleYawRateChange:&quot;;</span>
+<span class="lineNum">     197 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.vehicleYawRateChange;</span>
+<span class="lineNum">     198 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     199 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;vehicleMinRadius:&quot;;</span>
+<span class="lineNum">     200 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.vehicleMinRadius;</span>
+<span class="lineNum">     201 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     202 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;vehicleTrajectoryCalculationStep:&quot;;</span>
+<span class="lineNum">     203 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.vehicleTrajectoryCalculationStep;</span>
+<span class="lineNum">     204 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     205 </span>                :<span class="lineCov">    4035517 :   return os;</span>
+<span class="lineNum">     206 </span>                :            : }
+<span class="lineNum">     207 </span>                :            : 
+<span class="lineNum">     208 </span>                :            : } // namespace world
+<span class="lineNum">     209 </span>                :            : } // namespace rss
+<span class="lineNum">     210 </span>                :            : } // namespace ad
+<span class="lineNum">     211 </span>                :            : 
+<span class="lineNum">     212 </span>                :            : namespace std {
+<span class="lineNum">     213 </span>                :            : /*!
+<a name="214"><span class="lineNum">     214 </span>                :            :  * \brief overload of the std::to_string for UnstructuredSettings</a>
+<span class="lineNum">     215 </span>                :            :  */
+<span class="lineNum">     216 </span>                :<span class="lineCov">          1 : inline std::string to_string(::ad::rss::world::UnstructuredSettings const &amp;value)</span>
+<span class="lineNum">     217 </span>                :            : {
+<span class="lineNum">     218 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          2 :   stringstream sstream;</span>
+<span class="lineNum">     219 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :   sstream &lt;&lt; value;</span>
+<span class="lineNum">     220 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          2 :   return sstream.str();</span>
+<span class="lineNum">     221 </span>                :            : }
+<span class="lineNum">     222 </span>                :            : } // namespace std
+<span class="lineNum">     223 </span>                :            : #endif // GEN_GUARD_AD_RSS_WORLD_UNSTRUCTUREDSETTINGS
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

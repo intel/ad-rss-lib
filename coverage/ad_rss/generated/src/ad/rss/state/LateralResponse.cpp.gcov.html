@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -89,16 +89,16 @@
 <span class="lineNum">      18 </span>                :            : #include &quot;ad/rss/state/LateralResponse.hpp&quot;
 <a name="19"><span class="lineNum">      19 </span>                :            : #include &lt;stdexcept&gt;</a>
 <span class="lineNum">      20 </span>                :            : 
-<span class="lineNum">      21 </span>                :<span class="lineCov">    2004994 : std::string toString(::ad::rss::state::LateralResponse const e)</span>
+<span class="lineNum">      21 </span>                :<span class="lineCov">    2031484 : std::string toString(::ad::rss::state::LateralResponse const e)</span>
 <span class="lineNum">      22 </span>                :            : {
-<span class="lineNum">      23 </span>     [<span class="branchCov" title="Branch 0 was taken 2003135 times"> + </span><span class="branchCov" title="Branch 1 was taken 1832 times"> + </span><span class="branchCov" title="Branch 2 was taken 27 times"> + </span>]:<span class="lineCov">    2004994 :   switch (e)</span>
+<span class="lineNum">      23 </span>     [<span class="branchCov" title="Branch 0 was taken 2007039 times"> + </span><span class="branchCov" title="Branch 1 was taken 24418 times"> + </span><span class="branchCov" title="Branch 2 was taken 27 times"> + </span>]:<span class="lineCov">    2031484 :   switch (e)</span>
 <span class="lineNum">      24 </span>                :            :   {
 <span class="lineNum">      25 </span>                :            :     case ::ad::rss::state::LateralResponse::None:
-<span class="lineNum">      26 </span>                :<span class="lineCov">    2003135 :       return std::string(&quot;::ad::rss::state::LateralResponse::None&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      26 </span>                :<span class="lineCov">    2007039 :       return std::string(&quot;::ad::rss::state::LateralResponse::None&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      27 </span>                :            :     case ::ad::rss::state::LateralResponse::BrakeMin:
-<span class="lineNum">      28 </span>                :<span class="lineCov">       1832 :       return std::string(&quot;::ad::rss::state::LateralResponse::BrakeMin&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      28 </span>                :<span class="lineCov">      24418 :       return std::string(&quot;::ad::rss::state::LateralResponse::BrakeMin&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      29 </span>                :            :     default:
-<span class="lineNum">      30 </span>                :<span class="lineCov">    2004994 :       return std::string(&quot;UNKNOWN ENUM VALUE&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      30 </span>                :<span class="lineCov">    2031484 :       return std::string(&quot;UNKNOWN ENUM VALUE&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      31 </span>                :            :   }
 <a name="32"><span class="lineNum">      32 </span>                :            : }</a>
 <span class="lineNum">      33 </span>                :            : 

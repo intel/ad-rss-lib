@@ -1,0 +1,254 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - ad_rss - impl/src/situation/RssUnstructuredSceneChecker.hpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">impl/src/situation</a> - RssUnstructuredSceneChecker.hpp<span style="font-size: 80%;"> (source / <a href="RssUnstructuredSceneChecker.hpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">ad_rss</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">-</td>
+          </tr>
+          <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : // ----------------- BEGIN LICENSE BLOCK ---------------------------------</a>
+<span class="lineNum">       2 </span>                :            : //
+<span class="lineNum">       3 </span>                :            : // Copyright (C) 2020 Intel Corporation
+<span class="lineNum">       4 </span>                :            : //
+<span class="lineNum">       5 </span>                :            : // SPDX-License-Identifier: LGPL-2.1-only
+<span class="lineNum">       6 </span>                :            : //
+<span class="lineNum">       7 </span>                :            : // ----------------- END LICENSE BLOCK -----------------------------------
+<span class="lineNum">       8 </span>                :            : 
+<span class="lineNum">       9 </span>                :            : /**
+<span class="lineNum">      10 </span>                :            :  * @file
+<span class="lineNum">      11 </span>                :            :  */
+<span class="lineNum">      12 </span>                :            : 
+<span class="lineNum">      13 </span>                :            : #pragma once
+<span class="lineNum">      14 </span>                :            : 
+<span class="lineNum">      15 </span>                :            : #include &lt;cstdint&gt;
+<span class="lineNum">      16 </span>                :            : #include &lt;map&gt;
+<span class="lineNum">      17 </span>                :            : #include &quot;ad/rss/situation/Situation.hpp&quot;
+<span class="lineNum">      18 </span>                :            : #include &quot;ad/rss/state/RssState.hpp&quot;
+<span class="lineNum">      19 </span>                :            : #include &quot;ad/rss/unstructured/Geometry.hpp&quot;
+<span class="lineNum">      20 </span>                :            : #include &quot;ad/rss/world/TimeIndex.hpp&quot;
+<span class="lineNum">      21 </span>                :            : 
+<span class="lineNum">      22 </span>                :            : /*!
+<span class="lineNum">      23 </span>                :            :  * @brief namespace ad
+<span class="lineNum">      24 </span>                :            :  */
+<span class="lineNum">      25 </span>                :            : namespace ad {
+<span class="lineNum">      26 </span>                :            : /*!
+<span class="lineNum">      27 </span>                :            :  * @brief namespace rss
+<span class="lineNum">      28 </span>                :            :  */
+<span class="lineNum">      29 </span>                :            : namespace rss {
+<span class="lineNum">      30 </span>                :            : /*!
+<span class="lineNum">      31 </span>                :            :  * @brief namespace situation
+<span class="lineNum">      32 </span>                :            :  */
+<span class="lineNum">      33 </span>                :            : namespace situation {
+<span class="lineNum">      34 </span>                :            : 
+<span class="lineNum">      35 </span>                :            : /**
+<span class="lineNum">      36 </span>                :            :  * @brief Class to check whether an unstructured scene is safe and to determine the proper response for the situation
+<span class="lineNum">      37 </span>                :            :  *
+<span class="lineNum">      38 </span>                :            :  * Note: Implements the checks and responses given by the definitions 19-22 of the RSS paper (arXiv:1708.06374v6)
+<span class="lineNum">      39 </span>                :            :  *
+<span class="lineNum">      40 </span>                :            :  * Class performs required check to if situation is safe
+<span class="lineNum">      41 </span>                :            :  * Class will maintain the previous state of the situation in order to provide the proper response.
+<span class="lineNum">      42 </span>                :            :  */
+<span class="lineNum">      43 </span>                :            : class RssUnstructuredSceneChecker
+<span class="lineNum">      44 </span>                :            : {
+<span class="lineNum">      45 </span>                :            : public:
+<span class="lineNum">      46 </span>                :            :   enum class SafeState
+<span class="lineNum">      47 </span>                :            :   {
+<span class="lineNum">      48 </span>                :            :     safe,
+<span class="lineNum">      49 </span>                :            :     unsafeBrakeOtherHasPrio,
+<span class="lineNum">      50 </span>                :            :     unsafeBrakeEgoHasPrio,
+<span class="lineNum">      51 </span>                :            :     unsafeBrakeBoth
+<span class="lineNum">      52 </span>                :            :   };
+<span class="lineNum">      53 </span>                :            : 
+<span class="lineNum">      54 </span>                :            :   enum class DrivingMode
+<span class="lineNum">      55 </span>                :            :   {
+<span class="lineNum">      56 </span>                :            :     DriveAway,
+<span class="lineNum">      57 </span>                :            :     ContinueForward,
+<span class="lineNum">      58 </span>                :            :     Brake,
+<span class="lineNum">      59 </span>                :            :     Invalid
+<span class="lineNum">      60 </span>                :            :   };
+<span class="lineNum">      61 </span>                :            :   /**
+<a name="62"><span class="lineNum">      62 </span>                :            :    * @brief Constructor</a>
+<span class="lineNum">      63 </span>                :            :    */
+<span class="lineNum">      64 </span>                :<span class="lineCov">       1424 :   RssUnstructuredSceneChecker() = default;</span>
+<span class="lineNum">      65 </span>                :            : 
+<span class="lineNum">      66 </span>                :            :   /**
+<a name="67"><span class="lineNum">      67 </span>                :            :    * @brief Destructor</a>
+<span class="lineNum">      68 </span>                :            :    */
+<span class="lineNum">      69 </span>                :<span class="lineCov">       1424 :   ~RssUnstructuredSceneChecker() = default;</span>
+<span class="lineNum">      70 </span>                :            : 
+<span class="lineNum">      71 </span>                :            :   /**
+<span class="lineNum">      72 </span>                :            :    * @brief Calculate safety checks and determine required rssState for unstructured situations
+<span class="lineNum">      73 </span>                :            :    *
+<span class="lineNum">      74 </span>                :            :    * @param[in]  timeIndex the time index of the situation
+<span class="lineNum">      75 </span>                :            :    * @param[in]  situation situation to analyze
+<span class="lineNum">      76 </span>                :            :    * @param[out] egoStateInfo  rssState of the ego vehicle (Be aware: only calculated/updated once per timestep)
+<span class="lineNum">      77 </span>                :            :    * @param[out] rssState  rssState of the vehicle
+<span class="lineNum">      78 </span>                :            :    *
+<span class="lineNum">      79 </span>                :            :    * @returns false if a failure occurred during calculations, true otherwise
+<span class="lineNum">      80 </span>                :            :    */
+<span class="lineNum">      81 </span>                :            :   bool calculateRssStateUnstructured(world::TimeIndex const &amp;timeIndex,
+<span class="lineNum">      82 </span>                :            :                                      Situation const &amp;situation,
+<span class="lineNum">      83 </span>                :            :                                      state::UnstructuredSceneStateInformation &amp;egoStateInfo,
+<span class="lineNum">      84 </span>                :            :                                      state::RssState &amp;rssState);
+<span class="lineNum">      85 </span>                :            : 
+<span class="lineNum">      86 </span>                :            : private:
+<span class="lineNum">      87 </span>                :            :   /**
+<span class="lineNum">      88 </span>                :            :    * @brief Calculate the unstructured scene state info
+<span class="lineNum">      89 </span>                :            :    *
+<span class="lineNum">      90 </span>                :            :    * @param[in]  egoState state of the vehicle
+<span class="lineNum">      91 </span>                :            :    * @param[out] stateInfo the calculated state info
+<span class="lineNum">      92 </span>                :            :    *
+<span class="lineNum">      93 </span>                :            :    * @returns false if a failure occurred during calculations, true otherwise
+<span class="lineNum">      94 </span>                :            :    */
+<span class="lineNum">      95 </span>                :            :   bool calculateUnstructuredSceneStateInfo(situation::VehicleState const &amp;egoState,
+<span class="lineNum">      96 </span>                :            :                                            state::UnstructuredSceneStateInformation &amp;stateInfo) const;
+<span class="lineNum">      97 </span>                :            : 
+<span class="lineNum">      98 </span>                :            :   /**
+<span class="lineNum">      99 </span>                :            :    * @brief Calculate the unstructured scene state
+<span class="lineNum">     100 </span>                :            :    *
+<span class="lineNum">     101 </span>                :            :    * @param[in]  situation situation to analyze
+<span class="lineNum">     102 </span>                :            :    * @param[in]  egoStateInfo the trajectory sets of the ego vehicle
+<span class="lineNum">     103 </span>                :            :    * @param[in]  otherStateInfo the trajectory sets of the other traffic participant
+<span class="lineNum">     104 </span>                :            :    * @param[out] rssState the calculated rss state
+<span class="lineNum">     105 </span>                :            :    *
+<span class="lineNum">     106 </span>                :            :    * @returns false if a failure occurred during calculations, true otherwise
+<span class="lineNum">     107 </span>                :            :    */
+<span class="lineNum">     108 </span>                :            :   bool calculateState(Situation const &amp;situation,
+<span class="lineNum">     109 </span>                :            :                       state::UnstructuredSceneStateInformation const &amp;egoStateInfo,
+<span class="lineNum">     110 </span>                :            :                       state::UnstructuredSceneStateInformation const &amp;otherStateInfo,
+<span class="lineNum">     111 </span>                :            :                       state::UnstructuredSceneRssState &amp;rssState);
+<span class="lineNum">     112 </span>                :            : 
+<span class="lineNum">     113 </span>                :            :   /**
+<span class="lineNum">     114 </span>                :            :    * @brief calculate the angle range that is allowed to drive away
+<span class="lineNum">     115 </span>                :            :    *
+<span class="lineNum">     116 </span>                :            :    * @param[in]  egoVehicleLocation the location of the ego vehicle
+<span class="lineNum">     117 </span>                :            :    * @param[in]  otherVehicleLocation the location of the other vehicle
+<span class="lineNum">     118 </span>                :            :    * @param[in]  maxAllowedAngleWhenBothStopped the maximum angle for calculation
+<span class="lineNum">     119 </span>                :            :    * @param[out] range resulting heading range
+<span class="lineNum">     120 </span>                :            :    *
+<span class="lineNum">     121 </span>                :            :    * @returns false if a failure occurred during calculations, true otherwise
+<span class="lineNum">     122 </span>                :            :    */
+<span class="lineNum">     123 </span>                :            :   bool calculateDriveAwayAngle(unstructured::Point const &amp;egoVehicleLocation,
+<span class="lineNum">     124 </span>                :            :                                unstructured::Point const &amp;otherVehicleLocation,
+<span class="lineNum">     125 </span>                :            :                                physics::Angle const &amp;maxAllowedAngleWhenBothStopped,
+<span class="lineNum">     126 </span>                :            :                                state::HeadingRange &amp;range) const;
+<span class="lineNum">     127 </span>                :            : 
+<span class="lineNum">     128 </span>                :            :   /**
+<span class="lineNum">     129 </span>                :            :    * @brief typedef for the mapping of situation id to the corresponding otherMustBrake value before the danger
+<span class="lineNum">     130 </span>                :            :    * threshold time
+<span class="lineNum">     131 </span>                :            :    */
+<span class="lineNum">     132 </span>                :            :   typedef std::map&lt;situation::SituationId, bool&gt; OtherMustBrakeStateBeforeDangerThresholdTimeMap;
+<span class="lineNum">     133 </span>                :            : 
+<span class="lineNum">     134 </span>                :            :   /**
+<span class="lineNum">     135 </span>                :            :    * @brief the state of each situation before the danger threshold time
+<span class="lineNum">     136 </span>                :            :    *
+<span class="lineNum">     137 </span>                :            :    * Needs to be stored to check which is the required behaviour to solve the situation
+<span class="lineNum">     138 </span>                :            :    */
+<span class="lineNum">     139 </span>                :            :   OtherMustBrakeStateBeforeDangerThresholdTimeMap mOtherMustBrakeStatesBeforeDangerThresholdTime;
+<span class="lineNum">     140 </span>                :            : 
+<span class="lineNum">     141 </span>                :            :   /**
+<span class="lineNum">     142 </span>                :            :    * @brief the new states to be considered in next time step
+<span class="lineNum">     143 </span>                :            :    */
+<span class="lineNum">     144 </span>                :            :   OtherMustBrakeStateBeforeDangerThresholdTimeMap mNewOtherMustBrakeStatesBeforeDangerThresholdTime;
+<span class="lineNum">     145 </span>                :            : 
+<span class="lineNum">     146 </span>                :            :   /**
+<span class="lineNum">     147 </span>                :            :    * @brief time index of the current processing step
+<span class="lineNum">     148 </span>                :            :    * If time index increases we need to update the state maps
+<span class="lineNum">     149 </span>                :            :    */
+<span class="lineNum">     150 </span>                :            :   world::TimeIndex mCurrentTimeIndex{0u};
+<span class="lineNum">     151 </span>                :            : 
+<span class="lineNum">     152 </span>                :            :   /**
+<a name="153"><span class="lineNum">     153 </span>                :            :    * @brief Store required data for drive away calculations between timesteps</a>
+<span class="lineNum">     154 </span>                :            :    */
+<span class="lineNum">     155 </span>                :<span class="lineCov">         16 :   struct DriveAwayState</span>
+<span class="lineNum">     156 </span>                :            :   {
+<span class="lineNum">     157 </span>                :            :     state::HeadingRange allowedHeadingRange;
+<span class="lineNum">     158 </span>                :            :     physics::Distance2D otherPosition;
+<span class="lineNum">     159 </span>                :            :   };
+<span class="lineNum">     160 </span>                :            : 
+<span class="lineNum">     161 </span>                :            :   /**
+<span class="lineNum">     162 </span>                :            :    * @brief map to state drive-away data for situations
+<span class="lineNum">     163 </span>                :            :    */
+<span class="lineNum">     164 </span>                :            :   std::map&lt;situation::SituationId, DriveAwayState&gt; mDriveAwayStateMap;
+<span class="lineNum">     165 </span>                :            : };
+<span class="lineNum">     166 </span>                :            : 
+<span class="lineNum">     167 </span>                :            : } // namespace situation
+<span class="lineNum">     168 </span>                :            : } // namespace rss
+<span class="lineNum">     169 </span>                :            : } // namespace ad
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

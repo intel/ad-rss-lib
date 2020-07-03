@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -106,16 +106,16 @@
 <span class="lineNum">      35 </span>                :            :  *       0 &lt;= \c input.size() &lt;= 1000
 <a name="36"><span class="lineNum">      36 </span>                :            :  *       and the ranges of all vector elements</a>
 <span class="lineNum">      37 </span>                :            :  */
-<span class="lineNum">      38 </span>                :<span class="lineCov">         10 : inline bool withinValidInputRange(::ad::rss::world::ObjectIdVector const &amp;input, bool const logErrors = true)</span>
+<span class="lineNum">      38 </span>                :<span class="lineCov">         14 : inline bool withinValidInputRange(::ad::rss::world::ObjectIdVector const &amp;input, bool const logErrors = true)</span>
 <span class="lineNum">      39 </span>                :            : {
-<span class="lineNum">      40 </span>                :<span class="lineCov">         10 :   bool inValidInputRange = (input.size() &lt;= std::size_t(1000));</span>
-<span class="lineNum">      41 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 9 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         10 :   if (!inValidInputRange &amp;&amp; logErrors)</span>
+<span class="lineNum">      40 </span>                :<span class="lineCov">         14 :   bool inValidInputRange = (input.size() &lt;= std::size_t(1000));</span>
+<span class="lineNum">      41 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 13 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         14 :   if (!inValidInputRange &amp;&amp; logErrors)</span>
 <span class="lineNum">      42 </span>                :            :   {
 <span class="lineNum">      43 </span>                :<span class="lineCov">          2 :     spdlog::error(&quot;withinValidInputRange(::ad::rss::world::ObjectIdVector)&gt;&gt; {}, invalid input range&quot;,</span>
 <span class="lineNum">      44 </span>                :<span class="lineCov">          1 :                   input); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      45 </span>                :            :   }
 <span class="lineNum">      46 </span>                :            : 
-<span class="lineNum">      47 </span>                :<span class="lineCov">         10 :   return inValidInputRange;</span>
+<span class="lineNum">      47 </span>                :<span class="lineCov">         14 :   return inValidInputRange;</span>
 <span class="lineNum">      48 </span>                :            : }
 </pre>
       </td>

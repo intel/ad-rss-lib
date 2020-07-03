@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -130,7 +130,7 @@
 <span class="lineNum">      59 </span>                :            :   /*!
 <a name="60"><span class="lineNum">      60 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      61 </span>                :            :    */
-<span class="lineNum">      62 </span>                :<span class="lineCov">      27592 :   Velocity() = default;</span>
+<span class="lineNum">      62 </span>                :<span class="lineCov">      27606 :   Velocity() = default;</span>
 <span class="lineNum">      63 </span>                :            : 
 <span class="lineNum">      64 </span>                :            :   /*!
 <span class="lineNum">      65 </span>                :            :    * \brief standard destructor
@@ -172,11 +172,11 @@
 <span class="lineNum">     101 </span>                :            :    *
 <a name="102"><span class="lineNum">     102 </span>                :            :    * \returns \c true if both Velocity are equal</a>
 <span class="lineNum">     103 </span>                :            :    */
-<span class="lineNum">     104 </span>                :<span class="lineCov">         62 :   bool operator==(const Velocity &amp;other) const</span>
+<span class="lineNum">     104 </span>                :<span class="lineCov">         64 :   bool operator==(const Velocity &amp;other) const</span>
 <span class="lineNum">     105 </span>                :            :   {
-<span class="lineNum">     106 </span>        [<span class="branchCov" title="Branch 2 was taken 56 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">        120 :     return (speedLonMin == other.speedLonMin) &amp;&amp; (speedLonMax == other.speedLonMax)</span>
-<span class="lineNum">     107 </span>[<span class="branchCov" title="Branch 0 was taken 58 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 54 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        120 :       &amp;&amp; (speedLatMin == other.speedLatMin) &amp;&amp; (speedLatMax == other.speedLatMax);</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 52 times"> + </span><span class="branchCov" title="Branch 7 was taken 2 times"> + </span>]
+<span class="lineNum">     106 </span>        [<span class="branchCov" title="Branch 2 was taken 58 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">        124 :     return (speedLonMin == other.speedLonMin) &amp;&amp; (speedLonMax == other.speedLonMax)</span>
+<span class="lineNum">     107 </span>[<span class="branchCov" title="Branch 0 was taken 60 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 56 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">        124 :       &amp;&amp; (speedLatMin == other.speedLatMin) &amp;&amp; (speedLatMax == other.speedLatMax);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 54 times"> + </span><span class="branchCov" title="Branch 7 was taken 2 times"> + </span>]
 <span class="lineNum">     108 </span>                :            :   }
 <span class="lineNum">     109 </span>                :            : 
 <span class="lineNum">     110 </span>                :            :   /**
@@ -251,22 +251,22 @@
 <span class="lineNum">     179 </span>                :            :  * \returns The stream object.
 <a name="180"><span class="lineNum">     180 </span>                :            :  *</a>
 <span class="lineNum">     181 </span>                :            :  */
-<span class="lineNum">     182 </span>                :<span class="lineCov">    2003269 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, Velocity const &amp;_value)</span>
+<span class="lineNum">     182 </span>                :<span class="lineCov">    2003252 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, Velocity const &amp;_value)</span>
 <span class="lineNum">     183 </span>                :            : {
-<span class="lineNum">     184 </span>                :<span class="lineCov">    2003269 :   os &lt;&lt; &quot;Velocity(&quot;;</span>
-<span class="lineNum">     185 </span>                :<span class="lineCov">    2003269 :   os &lt;&lt; &quot;speedLonMin:&quot;;</span>
-<span class="lineNum">     186 </span>                :<span class="lineCov">    2003269 :   os &lt;&lt; _value.speedLonMin;</span>
-<span class="lineNum">     187 </span>                :<span class="lineCov">    2003269 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     188 </span>                :<span class="lineCov">    2003269 :   os &lt;&lt; &quot;speedLonMax:&quot;;</span>
-<span class="lineNum">     189 </span>                :<span class="lineCov">    2003269 :   os &lt;&lt; _value.speedLonMax;</span>
-<span class="lineNum">     190 </span>                :<span class="lineCov">    2003269 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     191 </span>                :<span class="lineCov">    2003269 :   os &lt;&lt; &quot;speedLatMin:&quot;;</span>
-<span class="lineNum">     192 </span>                :<span class="lineCov">    2003269 :   os &lt;&lt; _value.speedLatMin;</span>
-<span class="lineNum">     193 </span>                :<span class="lineCov">    2003269 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     194 </span>                :<span class="lineCov">    2003269 :   os &lt;&lt; &quot;speedLatMax:&quot;;</span>
-<span class="lineNum">     195 </span>                :<span class="lineCov">    2003269 :   os &lt;&lt; _value.speedLatMax;</span>
-<span class="lineNum">     196 </span>                :<span class="lineCov">    2003269 :   os &lt;&lt; &quot;)&quot;;</span>
-<span class="lineNum">     197 </span>                :<span class="lineCov">    2003269 :   return os;</span>
+<span class="lineNum">     184 </span>                :<span class="lineCov">    2003252 :   os &lt;&lt; &quot;Velocity(&quot;;</span>
+<span class="lineNum">     185 </span>                :<span class="lineCov">    2003252 :   os &lt;&lt; &quot;speedLonMin:&quot;;</span>
+<span class="lineNum">     186 </span>                :<span class="lineCov">    2003252 :   os &lt;&lt; _value.speedLonMin;</span>
+<span class="lineNum">     187 </span>                :<span class="lineCov">    2003252 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     188 </span>                :<span class="lineCov">    2003252 :   os &lt;&lt; &quot;speedLonMax:&quot;;</span>
+<span class="lineNum">     189 </span>                :<span class="lineCov">    2003252 :   os &lt;&lt; _value.speedLonMax;</span>
+<span class="lineNum">     190 </span>                :<span class="lineCov">    2003252 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     191 </span>                :<span class="lineCov">    2003252 :   os &lt;&lt; &quot;speedLatMin:&quot;;</span>
+<span class="lineNum">     192 </span>                :<span class="lineCov">    2003252 :   os &lt;&lt; _value.speedLatMin;</span>
+<span class="lineNum">     193 </span>                :<span class="lineCov">    2003252 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     194 </span>                :<span class="lineCov">    2003252 :   os &lt;&lt; &quot;speedLatMax:&quot;;</span>
+<span class="lineNum">     195 </span>                :<span class="lineCov">    2003252 :   os &lt;&lt; _value.speedLatMax;</span>
+<span class="lineNum">     196 </span>                :<span class="lineCov">    2003252 :   os &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     197 </span>                :<span class="lineCov">    2003252 :   return os;</span>
 <span class="lineNum">     198 </span>                :            : }
 <span class="lineNum">     199 </span>                :            : 
 <span class="lineNum">     200 </span>                :            : } // namespace world

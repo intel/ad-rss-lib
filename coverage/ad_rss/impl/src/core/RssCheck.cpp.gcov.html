@@ -31,13 +31,13 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">30</td>
-            <td class="headerCovTableEntry">30</td>
+            <td class="headerCovTableEntry">29</td>
+            <td class="headerCovTableEntry">29</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">6</td>
@@ -109,59 +109,55 @@
 <span class="lineNum">      38 </span>                :            : {
 <a name="39"><span class="lineNum">      39 </span>                :<span class="lineCov">        739 : }</span></a>
 <span class="lineNum">      40 </span>                :            : 
-<span class="lineNum">      41 </span>                :<span class="lineCov">       4269 : bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &amp;worldModel,</span>
-<span class="lineNum">      42 </span>                :            :                                                 situation::SituationSnapshot &amp;situationSnapshot,
-<span class="lineNum">      43 </span>                :            :                                                 state::RssStateSnapshot &amp;rssStateSnapshot,
-<span class="lineNum">      44 </span>                :            :                                                 state::ProperResponse &amp;properResponse,
-<span class="lineNum">      45 </span>                :            :                                                 world::AccelerationRestriction &amp;accelerationRestriction)
-<span class="lineNum">      46 </span>                :            : {
-<span class="lineNum">      47 </span>                :<span class="lineCov">       4269 :   bool result = false;</span>
-<span class="lineNum">      48 </span>                :            :   // global try catch block to ensure this library call doesn't throw an exception
-<span class="lineNum">      49 </span>                :            :   try
-<span class="lineNum">      50 </span>                :            :   {
-<span class="lineNum">      51 </span>[<span class="branchCov" title="Branch 2 was taken 4230 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 39 times"> + </span><span class="branchCov" title="Branch 5 was taken 4230 times"> + </span>]:<span class="lineCov">      12768 :     if (!static_cast&lt;bool&gt;(mResponseResolving) || !static_cast&lt;bool&gt;(mSituationChecking)</span>
-<span class="lineNum">      52 </span>[<span class="branchCov" title="Branch 0 was taken 4230 times"> + </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 4230 times"> + </span>]:<span class="lineCov">       8499 :         || !static_cast&lt;bool&gt;(mSituationExtraction))</span>
-<span class="lineNum">      53 </span>                :            :     {
-<span class="lineNum">      54 </span>        [<span class="branchCov" title="Branch 1 was taken 39 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         39 :       spdlog::critical(&quot;RssCheck::calculateAccelerationRestriction&gt;&gt; object not properly initialized&quot;);</span>
-<span class="lineNum">      55 </span>                :<span class="lineCov">         39 :       return false;</span>
-<span class="lineNum">      56 </span>                :            :     }
-<span class="lineNum">      57 </span>                :            : 
-<span class="lineNum">      58 </span>        [<span class="branchCov" title="Branch 2 was taken 4230 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       4230 :     result = mSituationExtraction-&gt;extractSituations(worldModel, situationSnapshot);</span>
-<span class="lineNum">      59 </span>                :            : 
-<span class="lineNum">      60 </span>        [<span class="branchCov" title="Branch 0 was taken 3935 times"> + </span><span class="branchCov" title="Branch 1 was taken 295 times"> + </span>]:<span class="lineCov">       4230 :     if (result)</span>
-<span class="lineNum">      61 </span>                :            :     {
-<span class="lineNum">      62 </span>        [<span class="branchCov" title="Branch 2 was taken 3935 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       3935 :       result = mSituationChecking-&gt;checkSituations(situationSnapshot, rssStateSnapshot);</span>
-<span class="lineNum">      63 </span>                :            :     }
-<span class="lineNum">      64 </span>                :            : 
-<span class="lineNum">      65 </span>        [<span class="branchCov" title="Branch 0 was taken 3881 times"> + </span><span class="branchCov" title="Branch 1 was taken 349 times"> + </span>]:<span class="lineCov">       4230 :     if (result)</span>
-<span class="lineNum">      66 </span>                :            :     {
-<span class="lineNum">      67 </span>        [<span class="branchCov" title="Branch 2 was taken 3881 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       3881 :       result = mResponseResolving-&gt;provideProperResponse(rssStateSnapshot, properResponse, accelerationRestriction);</span>
-<span class="lineNum">      68 </span>                :            :     }
-<span class="lineNum">      69 </span>                :            :   }
-<span class="lineNum">      70 </span>                :            :   // LCOV_EXCL_START: unreachable code, keep to be on the safe side
-<span class="lineNum">      71 </span>                :            :   catch (...)
-<span class="lineNum">      72 </span>                :            :   {
-<span class="lineNum">      73 </span>                :            :     spdlog::critical(&quot;RssCheck::calculateAccelerationRestriction&gt;&gt; Exception catched&quot;);
-<span class="lineNum">      74 </span>                :            :     result = false;
-<span class="lineNum">      75 </span>                :            :   }
-<span class="lineNum">      76 </span>                :            :   // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
-<span class="lineNum">      77 </span>                :<span class="lineCov">       4269 :   return result;</span>
-<a name="78"><span class="lineNum">      78 </span>                :            : }</a>
-<span class="lineNum">      79 </span>                :            : 
-<span class="lineNum">      80 </span>                :<span class="lineCov">       4268 : bool RssCheck::calculateAccelerationRestriction(world::WorldModel const &amp;worldModel,</span>
-<span class="lineNum">      81 </span>                :            :                                                 world::AccelerationRestriction &amp;accelerationRestriction)
-<span class="lineNum">      82 </span>                :            : {
-<span class="lineNum">      83 </span>        [<span class="branchCov" title="Branch 1 was taken 4268 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       8536 :   situation::SituationSnapshot situationSnapshot;</span>
-<span class="lineNum">      84 </span>        [<span class="branchCov" title="Branch 1 was taken 4268 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       8536 :   state::RssStateSnapshot rssStateSnapshot;</span>
-<span class="lineNum">      85 </span>                :<span class="lineCov">       8536 :   state::ProperResponse properResponse;</span>
+<span class="lineNum">      41 </span>                :<span class="lineCov">       4269 : bool RssCheck::calculateProperResponse(world::WorldModel const &amp;worldModel,</span>
+<span class="lineNum">      42 </span>                :            :                                        situation::SituationSnapshot &amp;situationSnapshot,
+<span class="lineNum">      43 </span>                :            :                                        state::RssStateSnapshot &amp;rssStateSnapshot,
+<span class="lineNum">      44 </span>                :            :                                        state::ProperResponse &amp;properResponse)
+<span class="lineNum">      45 </span>                :            : {
+<span class="lineNum">      46 </span>                :<span class="lineCov">       4269 :   bool result = false;</span>
+<span class="lineNum">      47 </span>                :            :   // global try catch block to ensure this library call doesn't throw an exception
+<span class="lineNum">      48 </span>                :            :   try
+<span class="lineNum">      49 </span>                :            :   {
+<span class="lineNum">      50 </span>[<span class="branchCov" title="Branch 2 was taken 4230 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 39 times"> + </span><span class="branchCov" title="Branch 5 was taken 4230 times"> + </span>]:<span class="lineCov">      12768 :     if (!static_cast&lt;bool&gt;(mResponseResolving) || !static_cast&lt;bool&gt;(mSituationChecking)</span>
+<span class="lineNum">      51 </span>[<span class="branchCov" title="Branch 0 was taken 4230 times"> + </span><span class="branchCov" title="Branch 1 was taken 39 times"> + </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 4230 times"> + </span>]:<span class="lineCov">       8499 :         || !static_cast&lt;bool&gt;(mSituationExtraction))</span>
+<span class="lineNum">      52 </span>                :            :     {
+<span class="lineNum">      53 </span>        [<span class="branchCov" title="Branch 1 was taken 39 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         39 :       spdlog::critical(&quot;RssCheck::calculateProperResponse&gt;&gt; object not properly initialized&quot;);</span>
+<span class="lineNum">      54 </span>                :<span class="lineCov">         39 :       return false;</span>
+<span class="lineNum">      55 </span>                :            :     }
+<span class="lineNum">      56 </span>                :            : 
+<span class="lineNum">      57 </span>        [<span class="branchCov" title="Branch 2 was taken 4230 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       4230 :     result = mSituationExtraction-&gt;extractSituations(worldModel, situationSnapshot);</span>
+<span class="lineNum">      58 </span>                :            : 
+<span class="lineNum">      59 </span>        [<span class="branchCov" title="Branch 0 was taken 3933 times"> + </span><span class="branchCov" title="Branch 1 was taken 297 times"> + </span>]:<span class="lineCov">       4230 :     if (result)</span>
+<span class="lineNum">      60 </span>                :            :     {
+<span class="lineNum">      61 </span>        [<span class="branchCov" title="Branch 2 was taken 3933 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       3933 :       result = mSituationChecking-&gt;checkSituations(situationSnapshot, rssStateSnapshot);</span>
+<span class="lineNum">      62 </span>                :            :     }
+<span class="lineNum">      63 </span>                :            : 
+<span class="lineNum">      64 </span>        [<span class="branchCov" title="Branch 0 was taken 3840 times"> + </span><span class="branchCov" title="Branch 1 was taken 390 times"> + </span>]:<span class="lineCov">       4230 :     if (result)</span>
+<span class="lineNum">      65 </span>                :            :     {
+<span class="lineNum">      66 </span>        [<span class="branchCov" title="Branch 2 was taken 3840 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       3840 :       result = mResponseResolving-&gt;provideProperResponse(rssStateSnapshot, properResponse);</span>
+<span class="lineNum">      67 </span>                :            :     }
+<span class="lineNum">      68 </span>                :            :   }
+<span class="lineNum">      69 </span>                :            :   // LCOV_EXCL_START: unreachable code, keep to be on the safe side
+<span class="lineNum">      70 </span>                :            :   catch (...)
+<span class="lineNum">      71 </span>                :            :   {
+<span class="lineNum">      72 </span>                :            :     spdlog::critical(&quot;RssCheck::calculateProperResponse&gt;&gt; Exception caught&quot;);
+<span class="lineNum">      73 </span>                :            :     result = false;
+<span class="lineNum">      74 </span>                :            :   }
+<span class="lineNum">      75 </span>                :            :   // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
+<span class="lineNum">      76 </span>                :<span class="lineCov">       4269 :   return result;</span>
+<a name="77"><span class="lineNum">      77 </span>                :            : }</a>
+<span class="lineNum">      78 </span>                :            : 
+<span class="lineNum">      79 </span>                :<span class="lineCov">       4268 : bool RssCheck::calculateProperResponse(world::WorldModel const &amp;worldModel, state::ProperResponse &amp;properResponse)</span>
+<span class="lineNum">      80 </span>                :            : {
+<span class="lineNum">      81 </span>        [<span class="branchCov" title="Branch 1 was taken 4268 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       8536 :   situation::SituationSnapshot situationSnapshot;</span>
+<span class="lineNum">      82 </span>        [<span class="branchCov" title="Branch 1 was taken 4268 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       8536 :   state::RssStateSnapshot rssStateSnapshot;</span>
+<span class="lineNum">      83 </span>                :            : 
+<span class="lineNum">      84 </span>        [<span class="branchCov" title="Branch 1 was taken 4268 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       8536 :   return calculateProperResponse(worldModel, situationSnapshot, rssStateSnapshot, properResponse);</span>
+<span class="lineNum">      85 </span>                :            : }
 <span class="lineNum">      86 </span>                :            : 
-<span class="lineNum">      87 </span>                :            :   return calculateAccelerationRestriction(
-<span class="lineNum">      88 </span>        [<span class="branchCov" title="Branch 1 was taken 4268 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       8536 :     worldModel, situationSnapshot, rssStateSnapshot, properResponse, accelerationRestriction);</span>
-<span class="lineNum">      89 </span>                :            : }
-<span class="lineNum">      90 </span>                :            : 
-<a name="91"><span class="lineNum">      91 </span>                :            : } // namespace core</a>
-<span class="lineNum">      92 </span>                :            : } // namespace rss
-<span class="lineNum">      93 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
+<a name="87"><span class="lineNum">      87 </span>                :            : } // namespace core</a>
+<span class="lineNum">      88 </span>                :            : } // namespace rss
+<span class="lineNum">      89 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
 </pre>
       </td>
     </tr>

@@ -1,6 +1,10 @@
 <map id="generated/include/ad/rss/world/ObjectTypeValidInputRange.hpp" name="generated/include/ad/rss/world/ObjectTypeValidInputRange.hpp">
-<area shape="rect" id="node2" href="$ObjectValidInputRange_8hpp.html" title="generated/include/ad\l/rss/world/ObjectValidInput\lRange.hpp" alt="" coords="39,109,228,165"/>
-<area shape="rect" id="node3" href="$SceneValidInputRange_8hpp.html" title="generated/include/ad\l/rss/world/SceneValidInputRange.hpp" alt="" coords="5,213,261,255"/>
-<area shape="rect" id="node4" href="$SceneVectorValidInputRange_8hpp.html" title="generated/include/ad\l/rss/world/SceneVectorValid\lInputRange.hpp" alt="" coords="35,303,232,359"/>
-<area shape="rect" id="node5" href="$WorldModelValidInputRange_8hpp.html" title="generated/include/ad\l/rss/world/WorldModelValidInput\lRange.hpp" alt="" coords="23,407,243,463"/>
+<area shape="rect" id="node2" href="$VehicleStateValidInputRange_8hpp.html" title="generated/include/ad\l/rss/situation/VehicleState\lValidInputRange.hpp" alt="" coords="42,109,230,165"/>
+<area shape="rect" id="node6" href="$ObjectValidInputRange_8hpp.html" title="generated/include/ad\l/rss/world/ObjectValidInput\lRange.hpp" alt="" coords="264,109,453,165"/>
+<area shape="rect" id="node3" href="$SituationValidInputRange_8hpp.html" title="generated/include/ad\l/rss/situation/SituationValid\lInputRange.hpp" alt="" coords="21,213,216,269"/>
+<area shape="rect" id="node4" href="$SituationVectorValidInputRange_8hpp.html" title="generated/include/ad\l/rss/situation/SituationVector\lValidInputRange.hpp" alt="" coords="15,317,222,373"/>
+<area shape="rect" id="node5" href="$SituationSnapshotValidInputRange_8hpp.html" title="generated/include/ad\l/rss/situation/SituationSnapshot\lValidInputRange.hpp" alt="" coords="5,421,232,477"/>
+<area shape="rect" id="node7" href="$SceneValidInputRange_8hpp.html" title="generated/include/ad\l/rss/world/SceneValidInputRange.hpp" alt="" coords="240,221,496,262"/>
+<area shape="rect" id="node8" href="$SceneVectorValidInputRange_8hpp.html" title="generated/include/ad\l/rss/world/SceneVectorValid\lInputRange.hpp" alt="" coords="269,317,467,373"/>
+<area shape="rect" id="node9" href="$WorldModelValidInputRange_8hpp.html" title="generated/include/ad\l/rss/world/WorldModelValidInput\lRange.hpp" alt="" coords="258,421,478,477"/>
 </map>

@@ -105,10 +105,12 @@ Collaboration diagram for ad::rss::situation::VehicleState:</div>
 <div class="dyncontent">
 <div class="center"><img src="structad_1_1rss_1_1situation_1_1VehicleState__coll__graph.png" border="0" usemap="#ad_1_1rss_1_1situation_1_1VehicleState_coll__map" alt="Collaboration graph"/></div>
 <map name="ad_1_1rss_1_1situation_1_1VehicleState_coll__map" id="ad_1_1rss_1_1situation_1_1VehicleState_coll__map">
-<area shape="rect" id="node2" href="structad_1_1rss_1_1situation_1_1VelocityRange.html" title="DataType VelocityRange. " alt="" coords="342,5,470,47"/>
-<area shape="rect" id="node3" href="structad_1_1rss_1_1world_1_1RssDynamics.html" title="DataType RssDynamics. " alt="" coords="307,71,505,98"/>
-<area shape="rect" id="node4" href="structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="11,31,191,72"/>
-<area shape="rect" id="node5" href="structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="5,96,196,137"/>
+<area shape="rect" id="node2" href="structad_1_1rss_1_1situation_1_1VelocityRange.html" title="DataType VelocityRange. " alt="" coords="427,5,555,47"/>
+<area shape="rect" id="node3" href="structad_1_1rss_1_1world_1_1ObjectState.html" title="DataType ObjectState. " alt="" coords="396,71,587,98"/>
+<area shape="rect" id="node4" href="structad_1_1rss_1_1world_1_1RssDynamics.html" title="DataType RssDynamics. " alt="" coords="392,122,591,149"/>
+<area shape="rect" id="node5" href="structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="15,49,195,91"/>
+<area shape="rect" id="node6" href="structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="9,115,200,156"/>
+<area shape="rect" id="node7" href="structad_1_1rss_1_1world_1_1UnstructuredSettings.html" title="DataType UnstructuredSettings. " alt="" coords="5,180,204,221"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -168,6 +170,10 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ac5c26ecc8c6076bc91fa213b5fe60013"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77688a3f2caa416c1971046946bd4c9f"><td class="memItemLeft" align="right" valign="top">::ad::physics::Distance&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html#a77688a3f2caa416c1971046946bd4c9f">distanceToLeaveIntersection</a> {std::numeric_limits&lt;::ad::physics::Distance&gt;::max()}</td></tr>
 <tr class="separator:a77688a3f2caa416c1971046946bd4c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f8ca9bf9c77dfcb97c4fd32956dd069"><td class="memItemLeft" align="right" valign="top">::<a class="el" href="namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625">ad::rss::world::ObjectType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html#a4f8ca9bf9c77dfcb97c4fd32956dd069">objectType</a></td></tr>
+<tr class="separator:a4f8ca9bf9c77dfcb97c4fd32956dd069"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1db50d6ee21b80b93cb61bfd09fb8cd5"><td class="memItemLeft" align="right" valign="top">::<a class="el" href="structad_1_1rss_1_1world_1_1ObjectState.html">ad::rss::world::ObjectState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html#a1db50d6ee21b80b93cb61bfd09fb8cd5">objectState</a></td></tr>
+<tr class="separator:a1db50d6ee21b80b93cb61bfd09fb8cd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>DataType <a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html" title="DataType VehicleState. ">VehicleState</a>. </p>
@@ -368,6 +374,32 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Flag indicating if the vehicle driving in the correct lane </p>
+
+</div>
+</div>
+<a class="anchor" id="a1db50d6ee21b80b93cb61bfd09fb8cd5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">::<a class="el" href="structad_1_1rss_1_1world_1_1ObjectState.html">ad::rss::world::ObjectState</a> ad::rss::situation::VehicleState::objectState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The state of the object required to perform unstructured scene calculations. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4f8ca9bf9c77dfcb97c4fd32956dd069"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">::<a class="el" href="namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625">ad::rss::world::ObjectType</a> ad::rss::situation::VehicleState::objectType</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The type of object. </p>
 
 </div>
 </div>

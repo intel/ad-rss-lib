@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - ad_rss - impl/src/unstructured/Geometry.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">impl/src/unstructured</a> - Geometry.cpp<span style="font-size: 80%;"> (source / <a href="Geometry.cpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">ad_rss</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">82</td>
+            <td class="headerCovTableEntry">86</td>
+            <td class="headerCovTableEntryHi">95.3 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntryHi">92.3 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">106</td>
+            <td class="headerCovTableEntry">162</td>
+            <td class="headerCovTableEntryLo">65.4 %</td>
+          </tr>
+          <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : // ----------------- BEGIN LICENSE BLOCK ---------------------------------</a>
+<span class="lineNum">       2 </span>                :            : //
+<span class="lineNum">       3 </span>                :            : // Copyright (C) 2020 Intel Corporation
+<span class="lineNum">       4 </span>                :            : //
+<span class="lineNum">       5 </span>                :            : // SPDX-License-Identifier: LGPL-2.1-only
+<span class="lineNum">       6 </span>                :            : //
+<span class="lineNum">       7 </span>                :            : // ----------------- END LICENSE BLOCK -----------------------------------
+<span class="lineNum">       8 </span>                :            : /**
+<span class="lineNum">       9 </span>                :            :  * @file
+<span class="lineNum">      10 </span>                :            :  */
+<span class="lineNum">      11 </span>                :            : 
+<span class="lineNum">      12 </span>                :            : #include &quot;ad/rss/unstructured/Geometry.hpp&quot;
+<span class="lineNum">      13 </span>                :            : #include &lt;ad/physics/Operation.hpp&gt;
+<span class="lineNum">      14 </span>                :            : #include &lt;algorithm&gt;
+<span class="lineNum">      15 </span>                :            : #include &lt;cmath&gt;
+<span class="lineNum">      16 </span>                :            : #include &lt;limits&gt;
+<span class="lineNum">      17 </span>                :            : 
+<span class="lineNum">      18 </span>                :            : /*!
+<span class="lineNum">      19 </span>                :            :  * @brief namespace ad
+<span class="lineNum">      20 </span>                :            :  */
+<span class="lineNum">      21 </span>                :            : namespace ad {
+<span class="lineNum">      22 </span>                :            : /*!
+<span class="lineNum">      23 </span>                :            :  * @brief namespace rss
+<span class="lineNum">      24 </span>                :            :  */
+<span class="lineNum">      25 </span>                :            : namespace rss {
+<span class="lineNum">      26 </span>                :            : /*!
+<span class="lineNum">      27 </span>                :            :  * @brief namespace situation
+<span class="lineNum">      28 </span>                :            :  */
+<a name="29"><span class="lineNum">      29 </span>                :            : namespace unstructured {</a>
+<span class="lineNum">      30 </span>                :            : 
+<span class="lineNum">      31 </span>                :<span class="lineCov">       6087 : ad::rss::unstructured::Point rotateAroundPoint(ad::rss::unstructured::Point const &amp;origin,</span>
+<span class="lineNum">      32 </span>                :            :                                                ad::rss::unstructured::Point const &amp;relativePoint,
+<span class="lineNum">      33 </span>                :            :                                                ad::physics::Angle const &amp;angle)
+<span class="lineNum">      34 </span>                :            : {
+<span class="lineNum">      35 </span>                :<span class="lineCov">       6087 :   ad::rss::unstructured::Point resultPoint = relativePoint;</span>
+<span class="lineNum">      36 </span>                :            : 
+<span class="lineNum">      37 </span>                :            :   boost::geometry::strategy::transform::rotate_transformer&lt;boost::geometry::radian, double, 2, 2&gt; rotate(
+<span class="lineNum">      38 </span>[<span class="branchCov" title="Branch 1 was taken 6087 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 6087 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">      12174 :     static_cast&lt;double&gt;(-angle));</span>
+<span class="lineNum">      39 </span>[<span class="branchCov" title="Branch 1 was taken 6087 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 6087 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">      12174 :   boost::geometry::strategy::transform::translate_transformer&lt;double, 2, 2&gt; translate(origin.x(), origin.y());</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 7 was taken 6087 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>]
+<span class="lineNum">      40 </span>        [<span class="branchCov" title="Branch 1 was taken 6087 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       6087 :   boost::geometry::transform(resultPoint, resultPoint, rotate);</span>
+<span class="lineNum">      41 </span>        [<span class="branchCov" title="Branch 1 was taken 6087 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       6087 :   boost::geometry::transform(resultPoint, resultPoint, translate);</span>
+<span class="lineNum">      42 </span>                :<span class="lineCov">       6087 :   return resultPoint;</span>
+<a name="43"><span class="lineNum">      43 </span>                :            : }</a>
+<span class="lineNum">      44 </span>                :            : 
+<span class="lineNum">      45 </span>                :<span class="lineCov">      34912 : ad::rss::unstructured::Point getPointOnCircle(ad::rss::unstructured::Point const &amp;origin,</span>
+<span class="lineNum">      46 </span>                :            :                                               ad::physics::Distance const &amp;radius,
+<span class="lineNum">      47 </span>                :            :                                               ad::physics::Angle const &amp;angle)
+<span class="lineNum">      48 </span>                :            : {
+<span class="lineNum">      49 </span>[<span class="branchCov" title="Branch 2 was taken 34912 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 34912 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">      34912 :   return origin + toPoint(std::cos(angle) * radius, std::sin(angle) * radius);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 34912 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>][<span class="branchCov" title="Branch 11 was taken 34912 times"> + </span><span class="branchNoCov" title="Branch 12 was not taken"> - </span>]
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 14 was taken 34912 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span>]
+<a name="50"><span class="lineNum">      50 </span>                :            : }</a>
+<span class="lineNum">      51 </span>                :            : 
+<span class="lineNum">      52 </span>                :<span class="lineCov">      34908 : ad::rss::unstructured::Point getCircleOrigin(ad::rss::unstructured::Point const &amp;point,</span>
+<span class="lineNum">      53 </span>                :            :                                              ad::physics::Distance const &amp;radius,
+<span class="lineNum">      54 </span>                :            :                                              ad::physics::Angle const &amp;angle)
+<span class="lineNum">      55 </span>                :            : {
+<span class="lineNum">      56 </span>[<span class="branchCov" title="Branch 2 was taken 34908 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 34908 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">      34908 :   return point - toPoint(std::cos(angle) * radius, std::sin(angle) * radius);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 34908 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>][<span class="branchCov" title="Branch 11 was taken 34908 times"> + </span><span class="branchNoCov" title="Branch 12 was not taken"> - </span>]
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 14 was taken 34908 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span>]
+<a name="57"><span class="lineNum">      57 </span>                :            : }</a>
+<span class="lineNum">      58 </span>                :            : 
+<span class="lineNum">      59 </span>                :<span class="lineNoCov">          0 : ad::physics::Distance getDistance(ad::rss::unstructured::Point const &amp;point1,</span>
+<span class="lineNum">      60 </span>                :            :                                   ad::rss::unstructured::Point const &amp;point2)
+<span class="lineNum">      61 </span>                :            : {
+<span class="lineNum">      62 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto const directionalVector = point1 - point2;</span>
+<span class="lineNum">      63 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   return ad::physics::Distance(sqrt(boost::geometry::dot_product(directionalVector, directionalVector)));</span>
+<a name="64"><span class="lineNum">      64 </span>                :            : }</a>
+<span class="lineNum">      65 </span>                :            : 
+<span class="lineNum">      66 </span>                :<span class="lineCov">         85 : void toPolygon(ad::rss::world::UnstructuredTrajectorySet const &amp;trajectorySet, ad::rss::unstructured::Polygon &amp;polygon)</span>
+<span class="lineNum">      67 </span>                :            : {
+<span class="lineNum">      68 </span>        [<span class="branchCov" title="Branch 3 was taken 6509 times"> + </span><span class="branchCov" title="Branch 4 was taken 85 times"> + </span>]:<span class="lineCov">       6594 :   for (auto const &amp;distance : trajectorySet)</span>
+<span class="lineNum">      69 </span>                :            :   {
+<span class="lineNum">      70 </span>[<span class="branchCov" title="Branch 1 was taken 6509 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 6509 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">       6509 :     ::boost::geometry::append(polygon, toPoint(distance));</span>
+<span class="lineNum">      71 </span>                :            :   }
+<a name="72"><span class="lineNum">      72 </span>                :<span class="lineCov">         85 : }</span></a>
+<span class="lineNum">      73 </span>                :            : 
+<span class="lineNum">      74 </span>                :<span class="lineCov">         41 : void toTrajectorySet(unstructured::Polygon const &amp;polygon, world::UnstructuredTrajectorySet &amp;trajectorySet)</span>
+<span class="lineNum">      75 </span>                :            : {
+<span class="lineNum">      76 </span>        [<span class="branchCov" title="Branch 4 was taken 2023 times"> + </span><span class="branchCov" title="Branch 5 was taken 41 times"> + </span>]:<span class="lineCov">       2064 :   for (auto const &amp;point : polygon.outer())</span>
+<span class="lineNum">      77 </span>                :            :   {
+<span class="lineNum">      78 </span>[<span class="branchCov" title="Branch 1 was taken 2023 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 2023 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">       2023 :     trajectorySet.push_back(toDistance(point));</span>
+<span class="lineNum">      79 </span>                :            :   }
+<a name="80"><span class="lineNum">      80 </span>                :<span class="lineCov">         41 : }</span></a>
+<span class="lineNum">      81 </span>                :            : 
+<span class="lineNum">      82 </span>                :<span class="lineCov">         42 : bool collides(ad::rss::world::UnstructuredTrajectorySet const &amp;trajectorySet1,</span>
+<span class="lineNum">      83 </span>                :            :               ad::rss::world::UnstructuredTrajectorySet const &amp;trajectorySet2)
+<span class="lineNum">      84 </span>                :            : {
+<span class="lineNum">      85 </span>        [<span class="branchCov" title="Branch 1 was taken 42 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         84 :   ad::rss::unstructured::Polygon polygon1;</span>
+<span class="lineNum">      86 </span>        [<span class="branchCov" title="Branch 1 was taken 42 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         84 :   ad::rss::unstructured::Polygon polygon2;</span>
+<span class="lineNum">      87 </span>        [<span class="branchCov" title="Branch 1 was taken 42 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         42 :   toPolygon(trajectorySet1, polygon1);</span>
+<span class="lineNum">      88 </span>        [<span class="branchCov" title="Branch 1 was taken 42 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         42 :   toPolygon(trajectorySet2, polygon2);</span>
+<span class="lineNum">      89 </span>        [<span class="branchCov" title="Branch 1 was taken 42 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         84 :   return !boost::geometry::disjoint(polygon1, polygon2);</span>
+<a name="90"><span class="lineNum">      90 </span>                :            : }</a>
+<span class="lineNum">      91 </span>                :            : 
+<span class="lineNum">      92 </span>                :<span class="lineCov">         81 : void splitLineAtIntersectionPoint(ad::rss::unstructured::Point const &amp;intersectionPoint,</span>
+<span class="lineNum">      93 </span>                :            :                                   ad::rss::unstructured::Line const &amp;line,
+<span class="lineNum">      94 </span>                :            :                                   ad::rss::unstructured::Line &amp;before,
+<span class="lineNum">      95 </span>                :            :                                   ad::rss::unstructured::Line &amp;after)
+<span class="lineNum">      96 </span>                :            : {
+<span class="lineNum">      97 </span>                :<span class="lineCov">         81 :   auto *currentSection = &amp;before;</span>
+<span class="lineNum">      98 </span>        [<span class="branchCov" title="Branch 3 was taken 1683 times"> + </span><span class="branchCov" title="Branch 4 was taken 81 times"> + </span>]:<span class="lineCov">       1764 :   for (auto it = line.begin(); it != line.end(); ++it)</span>
+<span class="lineNum">      99 </span>                :            :   {
+<span class="lineNum">     100 </span>                :<span class="lineCov">       1683 :     auto const pt = *it;</span>
+<span class="lineNum">     101 </span>        [<span class="branchCov" title="Branch 2 was taken 1683 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       1683 :     boost::geometry::append(*currentSection, *it);</span>
+<span class="lineNum">     102 </span>[<span class="branchCov" title="Branch 3 was taken 1602 times"> + </span><span class="branchCov" title="Branch 4 was taken 81 times"> + </span>][<span class="branchCov" title="Branch 5 was taken 834 times"> + </span><span class="branchCov" title="Branch 6 was taken 768 times"> + </span>]:<span class="lineCov">       1683 :     if (((it + 1) != line.end()) &amp;&amp; (currentSection != &amp;after))</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 1683 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchCov" title="Branch 9 was taken 1683 times"> + </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span>]
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 11 was taken 834 times"> + </span><span class="branchCov" title="Branch 12 was taken 849 times"> + </span>]
+<span class="lineNum">     103 </span>                :            :     {
+<span class="lineNum">     104 </span>                :<span class="lineCov">        834 :       auto const nextPt = *(it + 1);</span>
+<span class="lineNum">     105 </span>        [<span class="branchCov" title="Branch 1 was taken 834 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        834 :       auto const pt2intersection = intersectionPoint - pt;</span>
+<span class="lineNum">     106 </span>        [<span class="branchCov" title="Branch 1 was taken 834 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        834 :       auto const nextPt2intersection = intersectionPoint - nextPt;</span>
+<span class="lineNum">     107 </span>[<span class="branchCov" title="Branch 1 was taken 834 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 81 times"> + </span><span class="branchCov" title="Branch 4 was taken 753 times"> + </span>]:<span class="lineCov">        834 :       if (boost::geometry::dot_product(pt2intersection, nextPt2intersection) &lt; 0.)</span>
+<span class="lineNum">     108 </span>                :            :       {
+<span class="lineNum">     109 </span>        [<span class="branchCov" title="Branch 1 was taken 81 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         81 :         boost::geometry::append(*currentSection, intersectionPoint);</span>
+<span class="lineNum">     110 </span>                :<span class="lineCov">         81 :         currentSection = &amp;after;</span>
+<span class="lineNum">     111 </span>        [<span class="branchCov" title="Branch 1 was taken 81 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        834 :         boost::geometry::append(*currentSection, intersectionPoint);</span>
+<span class="lineNum">     112 </span>                :            :       }
+<span class="lineNum">     113 </span>                :            :     }
+<span class="lineNum">     114 </span>                :            :   }
+<a name="115"><span class="lineNum">     115 </span>                :<span class="lineCov">         81 : }</span></a>
+<span class="lineNum">     116 </span>                :            : 
+<span class="lineNum">     117 </span>                :<span class="lineCov">         80 : bool isInsideHeadingRange(ad::physics::Angle const &amp;angle, ad::rss::state::HeadingRange const &amp;range)</span>
+<span class="lineNum">     118 </span>                :            : {
+<span class="lineNum">     119 </span>        [<span class="branchCov" title="Branch 1 was taken 70 times"> + </span><span class="branchCov" title="Branch 2 was taken 10 times"> + </span>]:<span class="lineCov">         80 :   if (range.end &gt;= range.begin)</span>
+<span class="lineNum">     120 </span>                :            :   {
+<span class="lineNum">     121 </span>[<span class="branchCov" title="Branch 1 was taken 51 times"> + </span><span class="branchCov" title="Branch 2 was taken 19 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 29 times"> + </span><span class="branchCov" title="Branch 5 was taken 22 times"> + </span>]:<span class="lineCov">         70 :     return (angle &gt;= range.begin) &amp;&amp; (angle &lt;= range.end);</span>
+<span class="lineNum">     122 </span>                :            :   }
+<span class="lineNum">     123 </span>                :            :   else
+<span class="lineNum">     124 </span>                :            :   {
+<span class="lineNum">     125 </span>[<span class="branchCov" title="Branch 1 was taken 5 times"> + </span><span class="branchCov" title="Branch 2 was taken 5 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 2 times"> + </span><span class="branchCov" title="Branch 5 was taken 3 times"> + </span>]:<span class="lineCov">         10 :     return (angle &gt;= range.begin) || (angle &lt;= range.end);</span>
+<span class="lineNum">     126 </span>                :            :   }
+<a name="127"><span class="lineNum">     127 </span>                :            : }</a>
+<span class="lineNum">     128 </span>                :            : 
+<span class="lineNum">     129 </span>                :<span class="lineCov">         18 : bool getHeadingOverlap(ad::rss::state::HeadingRange const &amp;a,</span>
+<span class="lineNum">     130 </span>                :            :                        ad::rss::state::HeadingRange const &amp;b,
+<span class="lineNum">     131 </span>                :            :                        std::vector&lt;ad::rss::state::HeadingRange&gt; &amp;overlapRanges)
+<span class="lineNum">     132 </span>                :            : {
+<span class="lineNum">     133 </span>                :<span class="lineCov">         18 :   bool aStartsInB = isInsideHeadingRange(a.begin, b);</span>
+<span class="lineNum">     134 </span>                :<span class="lineCov">         18 :   bool aEndsInB = isInsideHeadingRange(a.end, b);</span>
+<span class="lineNum">     135 </span>                :<span class="lineCov">         18 :   bool bStartsInA = isInsideHeadingRange(b.begin, a);</span>
+<span class="lineNum">     136 </span>                :<span class="lineCov">         18 :   bool bEndsInA = isInsideHeadingRange(b.end, a);</span>
+<span class="lineNum">     137 </span>                :            : 
+<span class="lineNum">     138 </span>[<span class="branchCov" title="Branch 0 was taken 9 times"> + </span><span class="branchCov" title="Branch 1 was taken 9 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 8 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">         18 :   auto overlaps = aStartsInB || aEndsInB || bStartsInA || bEndsInA;</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 6 times"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>][<span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 6 times"> + </span>]
+<span class="lineNum">     139 </span>                :            : 
+<span class="lineNum">     140 </span>        [<span class="branchCov" title="Branch 0 was taken 12 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>]:<span class="lineCov">         18 :   if (overlaps)</span>
+<span class="lineNum">     141 </span>                :            :   {
+<span class="lineNum">     142 </span>        [<span class="branchCov" title="Branch 1 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         12 :     ad::rss::state::HeadingRange range;</span>
+<span class="lineNum">     143 </span>[<span class="branchCov" title="Branch 0 was taken 9 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 6 times"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span>]:<span class="lineCov">         12 :     if (aStartsInB &amp;&amp; aEndsInB &amp;&amp; bStartsInA &amp;&amp; bEndsInA)</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 4 times"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 6 was taken 3 times"> + </span><span class="branchCov" title="Branch 7 was taken 1 time"> + </span>]
+<span class="lineNum">     144 </span>                :            :     {
+<span class="lineNum">     145 </span>[<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">          3 :       if (!((a.begin == b.begin) &amp;&amp; (a.end == b.end)))</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 1 time"> + </span>]
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 10 was taken 2 times"> + </span><span class="branchCov" title="Branch 11 was taken 1 time"> + </span>]
+<span class="lineNum">     146 </span>                :            :       {
+<span class="lineNum">     147 </span>        [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          2 :         ad::rss::state::HeadingRange secondRange;</span>
+<span class="lineNum">     148 </span>                :<span class="lineCov">          2 :         secondRange.begin = a.begin;</span>
+<span class="lineNum">     149 </span>                :<span class="lineCov">          2 :         secondRange.end = b.end;</span>
+<span class="lineNum">     150 </span>        [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          2 :         overlapRanges.push_back(secondRange);</span>
+<span class="lineNum">     151 </span>                :            :       }
+<span class="lineNum">     152 </span>                :<span class="lineCov">          3 :       range.begin = b.begin;</span>
+<span class="lineNum">     153 </span>                :<span class="lineCov">          3 :       range.end = a.end;</span>
+<span class="lineNum">     154 </span>                :            :     }
+<span class="lineNum">     155 </span>[<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span>]:<span class="lineCov">          9 :     else if (aStartsInB &amp;&amp; aEndsInB)</span>
+<span class="lineNum">     156 </span>                :            :     {
+<span class="lineNum">     157 </span>                :<span class="lineCov">          3 :       range.begin = a.begin;</span>
+<span class="lineNum">     158 </span>                :<span class="lineCov">          3 :       range.end = a.end;</span>
+<span class="lineNum">     159 </span>                :            :     }
+<span class="lineNum">     160 </span>[<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">          6 :     else if (bStartsInA &amp;&amp; bEndsInA)</span>
+<span class="lineNum">     161 </span>                :            :     {
+<span class="lineNum">     162 </span>                :<span class="lineCov">          3 :       range.begin = b.begin;</span>
+<span class="lineNum">     163 </span>                :<span class="lineCov">          3 :       range.end = b.end;</span>
+<span class="lineNum">     164 </span>                :            :     }
+<span class="lineNum">     165 </span>[<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          3 :     else if (aStartsInB &amp;&amp; !aEndsInB)</span>
+<span class="lineNum">     166 </span>                :            :     {
+<span class="lineNum">     167 </span>                :<span class="lineCov">          2 :       range.begin = a.begin;</span>
+<span class="lineNum">     168 </span>                :<span class="lineCov">          2 :       range.end = b.end;</span>
+<span class="lineNum">     169 </span>                :            :     }
+<span class="lineNum">     170 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :     else if (bStartsInA &amp;&amp; !bEndsInA)</span>
+<span class="lineNum">     171 </span>                :            :     {
+<span class="lineNum">     172 </span>                :<span class="lineCov">          1 :       range.begin = b.begin;</span>
+<span class="lineNum">     173 </span>                :<span class="lineCov">          1 :       range.end = a.end;</span>
+<span class="lineNum">     174 </span>                :            :     }
+<span class="lineNum">     175 </span>        [<span class="branchCov" title="Branch 1 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         12 :     overlapRanges.push_back(range);</span>
+<span class="lineNum">     176 </span>                :<span class="lineCov">         12 :     return true;</span>
+<span class="lineNum">     177 </span>                :            :   }
+<span class="lineNum">     178 </span>                :<span class="lineCov">         18 :   return false;</span>
+<a name="179"><span class="lineNum">     179 </span>                :            : }</a>
+<span class="lineNum">     180 </span>                :            : 
+<span class="lineNum">     181 </span>                :<span class="lineCov">         11 : bool getHeadingOverlap(ad::rss::state::HeadingRange const &amp;headingRange,</span>
+<span class="lineNum">     182 </span>                :            :                        std::vector&lt;ad::rss::state::HeadingRange&gt; &amp;overlapRanges)
+<span class="lineNum">     183 </span>                :            : {
+<span class="lineNum">     184 </span>                :<span class="lineCov">         22 :   std::vector&lt;ad::rss::state::HeadingRange&gt; newOverlapRanges;</span>
+<span class="lineNum">     185 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 11 times"> + </span>]:<span class="lineCov">         11 :   if (overlapRanges.empty())</span>
+<span class="lineNum">     186 </span>                :            :   {
+<span class="lineNum">     187 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     newOverlapRanges.push_back(headingRange);</span>
+<span class="lineNum">     188 </span>                :            :   }
+<span class="lineNum">     189 </span>                :            :   else
+<span class="lineNum">     190 </span>                :            :   {
+<span class="lineNum">     191 </span>        [<span class="branchCov" title="Branch 3 was taken 16 times"> + </span><span class="branchCov" title="Branch 4 was taken 11 times"> + </span>]:<span class="lineCov">         27 :     for (auto const &amp;range : overlapRanges)</span>
+<span class="lineNum">     192 </span>                :            :     {
+<span class="lineNum">     193 </span>        [<span class="branchCov" title="Branch 1 was taken 16 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         16 :       getHeadingOverlap(headingRange, range, newOverlapRanges);</span>
+<span class="lineNum">     194 </span>                :            :     }
+<span class="lineNum">     195 </span>                :            :   }
+<span class="lineNum">     196 </span>        [<span class="branchCov" title="Branch 1 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         11 :   overlapRanges = newOverlapRanges;</span>
+<span class="lineNum">     197 </span>                :<span class="lineCov">         22 :   return !overlapRanges.empty();</span>
+<span class="lineNum">     198 </span>                :            : }
+<span class="lineNum">     199 </span>                :            : 
+<a name="200"><span class="lineNum">     200 </span>                :            : } // namespace unstructured</a>
+<span class="lineNum">     201 </span>                :            : } // namespace rss
+<span class="lineNum">     202 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

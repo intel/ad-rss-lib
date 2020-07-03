@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -121,12 +121,12 @@
 <span class="lineNum">      50 </span>        [<span class="branchCov" title="Branch 3 was taken 7037 times"> + </span><span class="branchCov" title="Branch 4 was taken 4261 times"> + </span>]:<span class="lineCov">      11298 :     for (auto const &amp;member : input)</span>
 <span class="lineNum">      51 </span>                :            :     {
 <span class="lineNum">      52 </span>        [<span class="branchCov" title="Branch 1 was taken 7037 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       7037 :       bool memberInValidInputRange = withinValidInputRange(member, logErrors);</span>
-<span class="lineNum">      53 </span>[<span class="branchCov" title="Branch 0 was taken 6039 times"> + </span><span class="branchCov" title="Branch 1 was taken 998 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 6017 times"> + </span><span class="branchCov" title="Branch 3 was taken 22 times"> + </span>]:<span class="lineCov">       7037 :       inValidInputRange = inValidInputRange &amp;&amp; memberInValidInputRange;</span>
-<span class="lineNum">      54 </span>[<span class="branchCov" title="Branch 0 was taken 1020 times"> + </span><span class="branchCov" title="Branch 1 was taken 6017 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1020 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       7037 :       if (!memberInValidInputRange &amp;&amp; logErrors)</span>
+<span class="lineNum">      53 </span>[<span class="branchCov" title="Branch 0 was taken 6039 times"> + </span><span class="branchCov" title="Branch 1 was taken 998 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 6020 times"> + </span><span class="branchCov" title="Branch 3 was taken 19 times"> + </span>]:<span class="lineCov">       7037 :       inValidInputRange = inValidInputRange &amp;&amp; memberInValidInputRange;</span>
+<span class="lineNum">      54 </span>[<span class="branchCov" title="Branch 0 was taken 1017 times"> + </span><span class="branchCov" title="Branch 1 was taken 6020 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1017 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       7037 :       if (!memberInValidInputRange &amp;&amp; logErrors)</span>
 <span class="lineNum">      55 </span>                :            :       {
-<span class="lineNum">      56 </span>                :<span class="lineCov">       2040 :         spdlog::error(&quot;withinValidInputRange(::ad::rss::world::SceneVector)&gt;&gt; {}, invalid member {}&quot;,</span>
+<span class="lineNum">      56 </span>                :<span class="lineCov">       2034 :         spdlog::error(&quot;withinValidInputRange(::ad::rss::world::SceneVector)&gt;&gt; {}, invalid member {}&quot;,</span>
 <span class="lineNum">      57 </span>                :            :                       input,
-<span class="lineNum">      58 </span>                :<span class="lineCov">       1020 :                       member); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">       1017 :                       member); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      59 </span>                :            :       }
 <span class="lineNum">      60 </span>                :            :     }
 <span class="lineNum">      61 </span>                :            :   }

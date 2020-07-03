@@ -1,10 +1,8 @@
 var searchData=
 [
-  ['oppositedirection',['OppositeDirection',['../namespacead_1_1rss_1_1situation.html#abc84e194db29a5fe35e669411b480470a65d0c0f484d594a3fc6b1d73bd0924d4',1,'ad::rss::situation']]],
-  ['othervehicle',['OtherVehicle',['../namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625a63a4c4a07d18a1b880010fe8f8cb41c4',1,'ad::rss::world']]],
-  ['overlap',['Overlap',['../namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74a2359a16283d7b4bfaaff2f6e90cbd116',1,'ad::rss::situation::Overlap()'],['../namespacead_1_1rss_1_1situation.html#a960eb154dc8043ed23a149a9f5b99e39a2359a16283d7b4bfaaff2f6e90cbd116',1,'ad::rss::situation::Overlap()']]],
-  ['overlapback',['OverlapBack',['../namespacead_1_1rss_1_1situation.html#a960eb154dc8043ed23a149a9f5b99e39a15215e1bf306155fc302985a94929c29',1,'ad::rss::situation']]],
-  ['overlapfront',['OverlapFront',['../namespacead_1_1rss_1_1situation.html#a960eb154dc8043ed23a149a9f5b99e39a0dc08f185832cf1c66dd3fd74939fad8',1,'ad::rss::situation']]],
-  ['overlapleft',['OverlapLeft',['../namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74a7f274f0608dc5bdb242086028fe46eee',1,'ad::rss::situation']]],
-  ['overlapright',['OverlapRight',['../namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74a88a1a975c29d12a7cc15a295b2da4e9c',1,'ad::rss::situation']]]
+  ['lateraldistance',['LateralDistance',['../namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a741358c1526273b8b66d7f2aedc76c69',1,'ad::rss::state']]],
+  ['longitudinaldistanceoppositedirection',['LongitudinalDistanceOppositeDirection',['../namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a7094123a0b1571ac7d987fdbbe6cd564',1,'ad::rss::state']]],
+  ['longitudinaldistanceoppositedirectionegocorrectlane',['LongitudinalDistanceOppositeDirectionEgoCorrectLane',['../namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a058b337860ed84be29a53dfe791ff63a',1,'ad::rss::state']]],
+  ['longitudinaldistancesamedirectionegofront',['LongitudinalDistanceSameDirectionEgoFront',['../namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a99ce2e77797bc64afe07ce8a9616d36f',1,'ad::rss::state']]],
+  ['longitudinaldistancesamedirectionotherinfront',['LongitudinalDistanceSameDirectionOtherInFront',['../namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a53abeab5ba270ac66ca20d37de72090c',1,'ad::rss::state']]]
 ];

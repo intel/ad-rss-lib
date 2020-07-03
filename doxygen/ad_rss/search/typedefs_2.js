@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['objectid',['ObjectId',['../namespacead_1_1rss_1_1world.html#aaa07145582c2132afadb5a792b939988',1,'ad::rss::world']]],
-  ['objectidvector',['ObjectIdVector',['../namespacead_1_1rss_1_1world.html#ab0051bdb051432a7fa50ab628f9ff663',1,'ad::rss::world']]],
-  ['occupiedregionvector',['OccupiedRegionVector',['../namespacead_1_1rss_1_1world.html#ac5d8cf46bf97ef1fa81f4ba90d43d984',1,'ad::rss::world']]]
+  ['lanesegmentid',['LaneSegmentId',['../namespacead_1_1rss_1_1world.html#a42e9d2d7d59fca054c818ce2aa7fd213',1,'ad::rss::world']]]
 ];

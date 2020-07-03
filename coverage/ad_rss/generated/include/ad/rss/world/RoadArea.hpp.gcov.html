@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -132,19 +132,19 @@
 <span class="lineNum">      61 </span>                :            :  * \returns The stream object.
 <a name="62"><span class="lineNum">      62 </span>                :            :  *</a>
 <span class="lineNum">      63 </span>                :            :  */
-<span class="lineNum">      64 </span>                :<span class="lineCov">    2003214 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, vector&lt;::ad::rss::world::RoadSegment&gt; const &amp;_value)</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">    2003196 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, vector&lt;::ad::rss::world::RoadSegment&gt; const &amp;_value)</span>
 <span class="lineNum">      65 </span>                :            : {
-<span class="lineNum">      66 </span>                :<span class="lineCov">    2003214 :   os &lt;&lt; &quot;[&quot;;</span>
-<span class="lineNum">      67 </span>        [<span class="branchCov" title="Branch 3 was taken 4076 times"> + </span><span class="branchCov" title="Branch 4 was taken 2003214 times"> + </span>]:<span class="lineCov">    2007290 :   for (auto it = _value.begin(); it != _value.end(); it++)</span>
+<span class="lineNum">      66 </span>                :<span class="lineCov">    2003196 :   os &lt;&lt; &quot;[&quot;;</span>
+<span class="lineNum">      67 </span>        [<span class="branchCov" title="Branch 3 was taken 4049 times"> + </span><span class="branchCov" title="Branch 4 was taken 2003196 times"> + </span>]:<span class="lineCov">    2007245 :   for (auto it = _value.begin(); it != _value.end(); it++)</span>
 <span class="lineNum">      68 </span>                :            :   {
-<span class="lineNum">      69 </span>        [<span class="branchCov" title="Branch 2 was taken 1336 times"> + </span><span class="branchCov" title="Branch 3 was taken 2740 times"> + </span>]:<span class="lineCov">       4076 :     if (it != _value.begin())</span>
+<span class="lineNum">      69 </span>        [<span class="branchCov" title="Branch 2 was taken 1318 times"> + </span><span class="branchCov" title="Branch 3 was taken 2731 times"> + </span>]:<span class="lineCov">       4049 :     if (it != _value.begin())</span>
 <span class="lineNum">      70 </span>                :            :     {
-<span class="lineNum">      71 </span>        [<span class="branchCov" title="Branch 1 was taken 1336 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1336 :       os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">      71 </span>        [<span class="branchCov" title="Branch 1 was taken 1318 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1318 :       os &lt;&lt; &quot;,&quot;;</span>
 <span class="lineNum">      72 </span>                :            :     }
-<span class="lineNum">      73 </span>        [<span class="branchCov" title="Branch 2 was taken 4076 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       4076 :     os &lt;&lt; *it;</span>
+<span class="lineNum">      73 </span>        [<span class="branchCov" title="Branch 2 was taken 4049 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       4049 :     os &lt;&lt; *it;</span>
 <span class="lineNum">      74 </span>                :            :   }
-<span class="lineNum">      75 </span>                :<span class="lineCov">    2003214 :   os &lt;&lt; &quot;]&quot;;</span>
-<span class="lineNum">      76 </span>                :<span class="lineCov">    2003214 :   return os;</span>
+<span class="lineNum">      75 </span>                :<span class="lineCov">    2003196 :   os &lt;&lt; &quot;]&quot;;</span>
+<span class="lineNum">      76 </span>                :<span class="lineCov">    2003196 :   return os;</span>
 <span class="lineNum">      77 </span>                :            : }
 <span class="lineNum">      78 </span>                :            : } // namespace std
 <span class="lineNum">      79 </span>                :            : 

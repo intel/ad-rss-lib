@@ -21,17 +21,21 @@ var searchData=
   ['situationsnapshot',['SituationSnapshot',['../structad_1_1rss_1_1situation_1_1SituationSnapshot.html#af245fa3a50c24dca49b3dd672aff3fbf',1,'ad::rss::situation::SituationSnapshot::SituationSnapshot()=default'],['../structad_1_1rss_1_1situation_1_1SituationSnapshot.html#a5e5f98fb4b43afec2950295cc10cd7f8',1,'ad::rss::situation::SituationSnapshot::SituationSnapshot(const SituationSnapshot &amp;other)=default'],['../structad_1_1rss_1_1situation_1_1SituationSnapshot.html#a9c88710c2b30f9a4fa30de283868755c',1,'ad::rss::situation::SituationSnapshot::SituationSnapshot(SituationSnapshot &amp;&amp;other)=default']]],
   ['situationsnapshot_2ehpp',['SituationSnapshot.hpp',['../SituationSnapshot_8hpp.html',1,'']]],
   ['situationsnapshotvalidinputrange_2ehpp',['SituationSnapshotValidInputRange.hpp',['../SituationSnapshotValidInputRange_8hpp.html',1,'']]],
-  ['situationtype',['situationType',['../structad_1_1rss_1_1situation_1_1Situation.html#affd5101f8b410bc6be04bb6d56c1f679',1,'ad::rss::situation::Situation::situationType()'],['../structad_1_1rss_1_1world_1_1Scene.html#a5b13d828efaedbb8d6e2fd496dd5fb37',1,'ad::rss::world::Scene::situationType()'],['../namespacead_1_1rss_1_1situation.html#abc84e194db29a5fe35e669411b480470',1,'ad::rss::situation::SituationType()']]],
+  ['situationtype',['situationType',['../structad_1_1rss_1_1situation_1_1Situation.html#affd5101f8b410bc6be04bb6d56c1f679',1,'ad::rss::situation::Situation::situationType()'],['../structad_1_1rss_1_1state_1_1RssState.html#a10405565fa81af45d7430a08f19edb16',1,'ad::rss::state::RssState::situationType()'],['../structad_1_1rss_1_1world_1_1Scene.html#a5b13d828efaedbb8d6e2fd496dd5fb37',1,'ad::rss::world::Scene::situationType()'],['../namespacead_1_1rss_1_1situation.html#abc84e194db29a5fe35e669411b480470',1,'ad::rss::situation::SituationType()']]],
   ['situationtype_2ehpp',['SituationType.hpp',['../SituationType_8hpp.html',1,'']]],
   ['situationtypevalidinputrange_2ehpp',['SituationTypeValidInputRange.hpp',['../SituationTypeValidInputRange_8hpp.html',1,'']]],
   ['situationvalidinputrange_2ehpp',['SituationValidInputRange.hpp',['../SituationValidInputRange_8hpp.html',1,'']]],
   ['situationvector',['SituationVector',['../namespacead_1_1rss_1_1situation.html#ad8ebf8ce9900082976aecaa2f582897d',1,'ad::rss::situation']]],
   ['situationvector_2ehpp',['SituationVector.hpp',['../SituationVector_8hpp.html',1,'']]],
   ['situationvectorvalidinputrange_2ehpp',['SituationVectorValidInputRange.hpp',['../SituationVectorValidInputRange_8hpp.html',1,'']]],
+  ['speed',['speed',['../structad_1_1rss_1_1world_1_1ObjectState.html#a74d0bc75533e9f6014c743c1039b9005',1,'ad::rss::world::ObjectState']]],
   ['speedlat',['speedLat',['../structad_1_1rss_1_1situation_1_1VelocityRange.html#a416a292eb19ba1aff6a2189da7b01e5c',1,'ad::rss::situation::VelocityRange']]],
   ['speedlatmax',['speedLatMax',['../structad_1_1rss_1_1world_1_1Velocity.html#a27a4254029ac7654f8df3f97b962ce21',1,'ad::rss::world::Velocity']]],
   ['speedlatmin',['speedLatMin',['../structad_1_1rss_1_1world_1_1Velocity.html#a615f7b1cac2759a32a9e76e8b8875e55',1,'ad::rss::world::Velocity']]],
   ['speedlon',['speedLon',['../structad_1_1rss_1_1situation_1_1VelocityRange.html#ab5cd91ed8e3d065cbf30978425c7a165',1,'ad::rss::situation::VelocityRange']]],
   ['speedlonmax',['speedLonMax',['../structad_1_1rss_1_1world_1_1Velocity.html#a01e4c0479e1df0a1229bdc8be101ecda',1,'ad::rss::world::Velocity']]],
-  ['speedlonmin',['speedLonMin',['../structad_1_1rss_1_1world_1_1Velocity.html#a217e9ae1f3d52cd4b2ea25283a618a3a',1,'ad::rss::world::Velocity']]]
+  ['speedlonmin',['speedLonMin',['../structad_1_1rss_1_1world_1_1Velocity.html#a217e9ae1f3d52cd4b2ea25283a618a3a',1,'ad::rss::world::Velocity']]],
+  ['splitlineatintersectionpoint',['splitLineAtIntersectionPoint',['../namespacead_1_1rss_1_1unstructured.html#a652ff0e6616764d8289d2ae5bd0e4887',1,'ad::rss::unstructured']]],
+  ['state',['state',['../structad_1_1rss_1_1world_1_1Object.html#ae2b3e2d49063cf57298cc4b77ed6137b',1,'ad::rss::world::Object']]],
+  ['steeringangle',['steeringAngle',['../structad_1_1rss_1_1world_1_1ObjectState.html#a3f67b3ed4c8e0f34969afb4f7d25960a',1,'ad::rss::world::ObjectState']]]
 ];

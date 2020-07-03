@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -136,7 +136,7 @@
 <span class="lineNum">      65 </span>                :            :   /*!
 <a name="66"><span class="lineNum">      66 </span>                :            :    * \brief standard constructor</a>
 <span class="lineNum">      67 </span>                :            :    */
-<span class="lineNum">      68 </span>                :<span class="lineCov">      10282 :   Situation() = default;</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">      10302 :   Situation() = default;</span>
 <span class="lineNum">      69 </span>                :            : 
 <span class="lineNum">      70 </span>                :            :   /*!
 <span class="lineNum">      71 </span>                :            :    * \brief standard destructor
@@ -262,28 +262,28 @@
 <span class="lineNum">     191 </span>                :            :  * \returns The stream object.
 <a name="192"><span class="lineNum">     192 </span>                :            :  *</a>
 <span class="lineNum">     193 </span>                :            :  */
-<span class="lineNum">     194 </span>                :<span class="lineCov">    1004066 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, Situation const &amp;_value)</span>
+<span class="lineNum">     194 </span>                :<span class="lineCov">    1004074 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, Situation const &amp;_value)</span>
 <span class="lineNum">     195 </span>                :            : {
-<span class="lineNum">     196 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; &quot;Situation(&quot;;</span>
-<span class="lineNum">     197 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; &quot;situationId:&quot;;</span>
-<span class="lineNum">     198 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; _value.situationId;</span>
-<span class="lineNum">     199 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     200 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; &quot;objectId:&quot;;</span>
-<span class="lineNum">     201 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; _value.objectId;</span>
-<span class="lineNum">     202 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     203 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; &quot;situationType:&quot;;</span>
-<span class="lineNum">     204 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; _value.situationType;</span>
-<span class="lineNum">     205 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     206 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; &quot;egoVehicleState:&quot;;</span>
-<span class="lineNum">     207 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; _value.egoVehicleState;</span>
-<span class="lineNum">     208 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     209 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; &quot;otherVehicleState:&quot;;</span>
-<span class="lineNum">     210 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; _value.otherVehicleState;</span>
-<span class="lineNum">     211 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     212 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; &quot;relativePosition:&quot;;</span>
-<span class="lineNum">     213 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; _value.relativePosition;</span>
-<span class="lineNum">     214 </span>                :<span class="lineCov">    1004066 :   os &lt;&lt; &quot;)&quot;;</span>
-<span class="lineNum">     215 </span>                :<span class="lineCov">    1004066 :   return os;</span>
+<span class="lineNum">     196 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; &quot;Situation(&quot;;</span>
+<span class="lineNum">     197 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; &quot;situationId:&quot;;</span>
+<span class="lineNum">     198 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; _value.situationId;</span>
+<span class="lineNum">     199 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     200 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; &quot;objectId:&quot;;</span>
+<span class="lineNum">     201 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; _value.objectId;</span>
+<span class="lineNum">     202 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     203 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; &quot;situationType:&quot;;</span>
+<span class="lineNum">     204 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; _value.situationType;</span>
+<span class="lineNum">     205 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     206 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; &quot;egoVehicleState:&quot;;</span>
+<span class="lineNum">     207 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; _value.egoVehicleState;</span>
+<span class="lineNum">     208 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     209 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; &quot;otherVehicleState:&quot;;</span>
+<span class="lineNum">     210 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; _value.otherVehicleState;</span>
+<span class="lineNum">     211 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     212 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; &quot;relativePosition:&quot;;</span>
+<span class="lineNum">     213 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; _value.relativePosition;</span>
+<span class="lineNum">     214 </span>                :<span class="lineCov">    1004074 :   os &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     215 </span>                :<span class="lineCov">    1004074 :   return os;</span>
 <span class="lineNum">     216 </span>                :            : }
 <span class="lineNum">     217 </span>                :            : 
 <span class="lineNum">     218 </span>                :            : } // namespace situation

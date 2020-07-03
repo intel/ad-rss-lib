@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Unstructured Scenes - Intel ad-rss-lib</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Unstructured Scenes";
+    var mkdocs_page_input_path = "ad_rss/UnstructuredScenes.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Intel ad-rss-lib</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../RELEASE_NOTES_AND_DISCLAIMERS/">Release Notes and Disclaimer</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Background</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Overview/">Overview</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Unstructured Scenes</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#overview">Overview</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#world-modeling">World Modeling</a></li>
+        
+            <li><a class="toctree-l4" href="#behavior-modeltrajectory-calculation">Behavior Model/Trajectory Calculation</a></li>
+        
+            <li><a class="toctree-l4" href="#trajectory-set-calculation">Trajectory Set Calculation</a></li>
+        
+            <li><a class="toctree-l4" href="#decision-making">Decision making</a></li>
+        
+            <li><a class="toctree-l4" href="#response">Response</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../HLD-ArchitectureOverview/">System Integration</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../HLD-Safety/">Safety</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../HLD-Security/">Security</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../Appendix-ParameterDiscussion/">Parameter Discussion</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../SupportedRssFeatures/">Supported RSS Features</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Map Integration</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../ad_rss_map_integration/Main/">Overview</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../ad_rss_map_integration/ConstructRSSScenes/">Construction of the RSS Scenes</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../ad_rss_map_integration/HandleRoadBoundaries/">Handling of road boundaries</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Building</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../BUILDING/">General build instructions</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Python Integration</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../ad_rss_python/">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../ad_rss_map_integration/ad_rss_map_integration_python/">Map Integration</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Doxygen</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/index.html">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/index.html">Map Integration</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Code Coverage</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/ad_rss/">Core Library</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="https://intel.github.io/ad-rss-lib/coverage/ad_rss_map_integration/">Map Integration</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../FAQ/">FAQ</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../CHANGELOG/">Changelog</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Intel ad-rss-lib</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Background &raquo;</li>
+        
+      
+    
+    <li>Unstructured Scenes</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/intel/ad-rss-lib/edit/master/doc/ad_rss/UnstructuredScenes.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Unstructured scenes implement unstructured roads (described in chapter 3.7.2 of the <a href="https://arxiv.org/abs/1708.06374">RSS paper</a>, definitions 19-22) and pedestrians (described in chapter 3.8).
+In contrast to the structured scenes, two dimensional trajectories with lateral and longitudinal component are calculated.</p>
+<h3 id="world-modeling">World Modeling<a class="headerlink" href="#world-modeling" title="Permanent link">&para;</a></h3>
+<p>To allow customization, every scene within the <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html"><code>ad::rss::world::WorldModel</code></a> can be calculated as unstructured, depending on the <code>situationType</code>.</p>
+<h3 id="behavior-modeltrajectory-calculation">Behavior Model/Trajectory Calculation<a class="headerlink" href="#behavior-modeltrajectory-calculation" title="Permanent link">&para;</a></h3>
+<p>There are two different behavior models, for vehicles and pedestrians. They define the possible movement over time.
+Limits are defined to be able to calculate all possible trajectories.</p>
+<h4>Vehicle</h4>
+<ul>
+<li>The change of the yaw rate <span><span class="MathJax_Preview">h'(t)</span><script type="math/tex">h'(t)</script></span> is limited: The maximum change of the yaw rate until response time can be specified by <code>UnstructuredSettings::vehicleYawRateChange</code>.</li>
+<li>The radius of the circle, the vehicle is driving on is <span><span class="MathJax_Preview">r(t) = v(t)/h'(t)</span><script type="math/tex">r(t) = v(t)/h'(t)</script></span></li>
+<li>At emergency, after the response time, the vehicle continues driving on a circle (i.e. no further yaw rate change)</li>
+<li>The minimum radius <code>UnstructuredSettings::vehicleMinRadius</code> defines the minimal radius a vehicle is able to drive on</li>
+</ul>
+<p>The current implementation calculates the location and heading based on time increments (specified by <code>UnstructuredSettings::vehicleTrajectoryCalculationStep</code>). This might lead to an increasing error the farer the point is.</p>
+<h4>Pedestrian</h4>
+<ul>
+<li>The change of heading <span><span class="MathJax_Preview">|h'(t)|</span><script type="math/tex">|h'(t)|</script></span> is limited. That means, the maximum trajectory is defined by a circle until response time. The radius of this circle can be specified by <code>UnstructuredSettings::pedestrianTurningRadius</code>.</li>
+<li>At emergency, after the response time, the pedestrian will continue at a straight line</li>
+<li>If the pedestrian is standing, we assign it to all possible lines originating from his current position.</li>
+</ul>
+<h3 id="trajectory-set-calculation">Trajectory Set Calculation<a class="headerlink" href="#trajectory-set-calculation" title="Permanent link">&para;</a></h3>
+<p>To calculate a trajectory set, the maximum/minimum values for both, longitudinal and lateral component are applied.</p>
+<p>The longitudinal boundaries of a trajectory set are defined by the minimum/maximum accelerations, the lateral by the maximum heading change to the left and right.</p>
+<table>
+<thead>
+<tr>
+<th>Side</th>
+<th>Longitudinal</th>
+<th>Lateral</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Front</td>
+<td>max acceleration</td>
+<td>max left .. max right</td>
+</tr>
+<tr>
+<td>Back</td>
+<td>max braking</td>
+<td>max left .. max right</td>
+</tr>
+<tr>
+<td>Left</td>
+<td>max braking .. max acceleration</td>
+<td>max left</td>
+</tr>
+<tr>
+<td>Right</td>
+<td>max braking .. max acceleration</td>
+<td>max right</td>
+</tr>
+</tbody>
+</table>
+<p>Each combination is used to calculate a final trajectory point (i.e. a position and a heading). Ranges are sampled.</p>
+<p>Afterwards the vehicle dimensions are applied and a border polygon is calculated which defines the trajectory set.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The current implementation uses simplifications that might not calculate valid trajectory sets for certain parameters.</p>
+</div>
+<p>There are two relevant trajectory sets: for braking <span><span class="MathJax_Preview">T(C_{b})</span><script type="math/tex">T(C_{b})</script></span> and continue-forward <span><span class="MathJax_Preview">T(C_{f})</span><script type="math/tex">T(C_{f})</script></span>. The difference is the longitudinal acceleration after response time:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><span><span class="MathJax_Preview">\alpha_{\rho,min}</span><script type="math/tex">\alpha_{\rho,min}</script></span></th>
+<th><span><span class="MathJax_Preview">\alpha_{\rho,max}</span><script type="math/tex">\alpha_{\rho,max}</script></span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span><span class="MathJax_Preview">T(C_{b})</span><script type="math/tex">T(C_{b})</script></span></td>
+<td><span><span class="MathJax_Preview">\alpha_{brake,max}</span><script type="math/tex">\alpha_{brake,max}</script></span></td>
+<td><span><span class="MathJax_Preview">\alpha_{brake,min}</span><script type="math/tex">\alpha_{brake,min}</script></span></td>
+</tr>
+<tr>
+<td><span><span class="MathJax_Preview">T(C_{f})</span><script type="math/tex">T(C_{f})</script></span></td>
+<td><span><span class="MathJax_Preview">\alpha_{brake,max}</span><script type="math/tex">\alpha_{brake,max}</script></span></td>
+<td><span><span class="MathJax_Preview">\alpha_{accel,max}</span><script type="math/tex">\alpha_{accel,max}</script></span></td>
+</tr>
+</tbody>
+</table>
+<p>This is similar for all traffic participants and uses the same rss formulas as in the structured case.</p>
+<p>The lateral change is depending on the type of traffic participant, as described above.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="" src="../../images/unstructured_trajectory_sets.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>Example trajectory sets for car and pedestrian (red: brake-, green: continue-forward-trajectory)</em></td>
+</tr>
+</tbody>
+</table>
+<h3 id="decision-making">Decision making<a class="headerlink" href="#decision-making" title="Permanent link">&para;</a></h3>
+<p>The <a href="https://arxiv.org/abs/1708.06374">RSS paper</a> definition 22 states conditions, that are relevant to calculate if a situation is dangerous and how to behave then.</p>
+<p>Depending on their values, three decisions are possible:</p>
+<ul>
+<li><em>brake</em>: Longitudinal braking</li>
+<li><em>continue forward</em>: Continue driving without limitations</li>
+<li><em>drive away</em>: Drive away within a certain heading range</li>
+</ul>
+<p>The conditions are based on the brake and continue-forward trajectory sets for the ego vehicle and another traffic participant.</p>
+<p>Condition 22.1</p>
+<p>a.) <span><span class="MathJax_Preview">T_{ego, brake} \cap T_{other, forward} = 0</span><script type="math/tex">T_{ego, brake} \cap T_{other, forward} = 0</script></span> and <span><span class="MathJax_Preview">T_{other, brake} \cap T_{ego, forward} \ne 0</span><script type="math/tex">T_{other, brake} \cap T_{ego, forward} \ne 0</script></span></p>
+<p>b.) <span><span class="MathJax_Preview">T_{other, brake} \cap T_{ego, forward} = 0</span><script type="math/tex">T_{other, brake} \cap T_{ego, forward} = 0</script></span> and <span><span class="MathJax_Preview">T_{ego, brake} \cap T_{other, forward} \ne 0</span><script type="math/tex">T_{ego, brake} \cap T_{other, forward} \ne 0</script></span></p>
+<p>Condition 22.2</p>
+<p><span><span class="MathJax_Preview">T_{ego, brake} \cap T_{other, brake} = 0</span><script type="math/tex">T_{ego, brake} \cap T_{other, brake} = 0</script></span></p>
+<p>The following diagram describes the decision making.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="" src="../../images/unstructured_decision.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>Decision making</em></td>
+</tr>
+</tbody>
+</table>
+<p>The condition 22.1.b at the last safe point in time might lead to the behavior "Continue Forward" although the situation is dangerous. The reason is, that the conditions 22.1 define, which traffic participant has to brake and which one can continue.</p>
+<h3 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h3>
+<h4>Continue Forward</h4>
+<p>If the result is <em>continue_forward</em> no acceleration restrictions are applied.</p>
+<h4>Brake</h4>
+<p>If the result is <em>brake</em>, the longitudinal acceleration restriction is set to <code>alphaLon.brakeMin</code> of the state.</p>
+<h4>Driving away</h4>
+<p>In certain situations the ego vehicle might be allowed to drive away from a dangerous situation using a given heading range.</p>
+<p>The heading range is calculated using the position vectors of the traffic participants and the velocity vector of the ego.</p>
+<p>The angle between <span><span class="MathJax_Preview">\tau_{ego}(t) − \tau_{other}(t)</span><script type="math/tex">\tau_{ego}(t) − \tau_{other}(t)</script></span>  and <span><span class="MathJax_Preview">\tau'_{ego}(t)</span><script type="math/tex">\tau'_{ego}(t)</script></span> needs to be <span><span class="MathJax_Preview">\le \theta</span><script type="math/tex">\le \theta</script></span></p>
+<p><span><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span> can be specified by <code>UnstructuredSettings::driveAwayMaxAngle</code></p>
+<p>As multiple situations might allow different ranges to drive away, the <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html"><code>ad::rss::state::ProperResponse</code></a> provides a vector of <code>headingRanges</code>. Together with the steering range of the vehicle the allowed heading range can be calculated.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="" src="../../images/unstructured_drive_away.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>Allowed heading ranges in blue</em></td>
+</tr>
+</tbody>
+</table>
+<p>If multiple states result in <em>drive_away</em>, but no headingRange overlap is available the state is escalated to <em>brake</em>.</p>
+<p>The <em>drive_away</em> mode remains active as long as:</p>
+<ol>
+<li>The ego vehicle moves with a steering angle that is within the allowed heading range</li>
+<li>The other vehicle doesn't move</li>
+</ol>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../HLD-ArchitectureOverview/" class="btn btn-neutral float-right" title="System Integration">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../HLD-KeyDesignDecisionsAndAlternatives/" class="btn btn-neutral" title="Design Discussions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/intel/ad-rss-lib/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../HLD-KeyDesignDecisionsAndAlternatives/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../HLD-ArchitectureOverview/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

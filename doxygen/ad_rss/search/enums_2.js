@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['objecttype',['ObjectType',['../namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625',1,'ad::rss::world']]]
+  ['rssstateevaluator',['RssStateEvaluator',['../namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5',1,'ad::rss::state']]]
 ];

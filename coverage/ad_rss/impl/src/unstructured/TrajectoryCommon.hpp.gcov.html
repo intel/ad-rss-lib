@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - ad_rss - impl/src/unstructured/TrajectoryCommon.hpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">impl/src/unstructured</a> - TrajectoryCommon.hpp<span style="font-size: 80%;"> (source / <a href="TrajectoryCommon.hpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">ad_rss</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">-</td>
+          </tr>
+          <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : // ----------------- BEGIN LICENSE BLOCK ---------------------------------</a>
+<span class="lineNum">       2 </span>                :            : //
+<span class="lineNum">       3 </span>                :            : // Copyright (C) 2020 Intel Corporation
+<span class="lineNum">       4 </span>                :            : //
+<span class="lineNum">       5 </span>                :            : // SPDX-License-Identifier: LGPL-2.1-only
+<span class="lineNum">       6 </span>                :            : //
+<span class="lineNum">       7 </span>                :            : // ----------------- END LICENSE BLOCK -----------------------------------
+<span class="lineNum">       8 </span>                :            : /**
+<span class="lineNum">       9 </span>                :            :  * @file
+<span class="lineNum">      10 </span>                :            :  */
+<span class="lineNum">      11 </span>                :            : 
+<span class="lineNum">      12 </span>                :            : #pragma once
+<span class="lineNum">      13 </span>                :            : 
+<span class="lineNum">      14 </span>                :            : #include &lt;ad/physics/Angle.hpp&gt;
+<span class="lineNum">      15 </span>                :            : #include &lt;ad/physics/Dimension2D.hpp&gt;
+<span class="lineNum">      16 </span>                :            : #include &lt;ad/physics/Distance.hpp&gt;
+<span class="lineNum">      17 </span>                :            : #include &quot;ad/rss/unstructured/Geometry.hpp&quot;
+<span class="lineNum">      18 </span>                :            : 
+<span class="lineNum">      19 </span>                :            : #define DRAW_FINAL_POSITION 0
+<span class="lineNum">      20 </span>                :            : #define DRAW_TRAJECTORIES 0
+<span class="lineNum">      21 </span>                :            : 
+<span class="lineNum">      22 </span>                :            : #if defined(DRAW_TRAJECTORIES) || defined(DRAW_FINAL_POSITION)
+<span class="lineNum">      23 </span>                :            : #include &quot;ad/rss/unstructured/DebugDrawing.hpp&quot;
+<span class="lineNum">      24 </span>                :            : #endif
+<span class="lineNum">      25 </span>                :            : 
+<span class="lineNum">      26 </span>                :            : /*!
+<span class="lineNum">      27 </span>                :            :  * @brief namespace ad
+<span class="lineNum">      28 </span>                :            :  */
+<span class="lineNum">      29 </span>                :            : namespace ad {
+<span class="lineNum">      30 </span>                :            : /*!
+<span class="lineNum">      31 </span>                :            :  * @brief namespace rss
+<span class="lineNum">      32 </span>                :            :  */
+<span class="lineNum">      33 </span>                :            : namespace rss {
+<span class="lineNum">      34 </span>                :            : /*!
+<span class="lineNum">      35 </span>                :            :  * @brief namespace unstructured
+<span class="lineNum">      36 </span>                :            :  */
+<span class="lineNum">      37 </span>                :            : namespace unstructured {
+<span class="lineNum">      38 </span>                :            : 
+<span class="lineNum">      39 </span>                :            : /**
+<span class="lineNum">      40 </span>                :            :  * @brief heading of a trajectory
+<span class="lineNum">      41 </span>                :            :  */
+<span class="lineNum">      42 </span>                :            : enum class TrajectoryHeading
+<span class="lineNum">      43 </span>                :            : {
+<span class="lineNum">      44 </span>                :            :   left,
+<span class="lineNum">      45 </span>                :            :   right,
+<span class="lineNum">      46 </span>                :            :   straight
+<span class="lineNum">      47 </span>                :            : };
+<span class="lineNum">      48 </span>                :            : 
+<span class="lineNum">      49 </span>                :            : /**
+<span class="lineNum">      50 </span>                :            :  * @brief corner of a vehicle
+<span class="lineNum">      51 </span>                :            :  */
+<span class="lineNum">      52 </span>                :            : enum class VehicleCorner
+<span class="lineNum">      53 </span>                :            : {
+<span class="lineNum">      54 </span>                :            :   frontLeft,
+<span class="lineNum">      55 </span>                :            :   frontRight,
+<span class="lineNum">      56 </span>                :            :   backLeft,
+<span class="lineNum">      57 </span>                :            :   backRight
+<span class="lineNum">      58 </span>                :            : };
+<span class="lineNum">      59 </span>                :            : 
+<span class="lineNum">      60 </span>                :            : /**
+<span class="lineNum">      61 </span>                :            :  * @brief a point of a trajectory
+<span class="lineNum">      62 </span>                :            :  */
+<a name="63"><span class="lineNum">      63 </span>                :            : struct TrajectoryPoint</a>
+<span class="lineNum">      64 </span>                :            : {
+<span class="lineNum">      65 </span>                :<span class="lineCov">      34907 :   TrajectoryPoint(Point const &amp;inPoint, ad::physics::Angle const &amp;inAngle, TrajectoryHeading const &amp;inHeading)</span>
+<span class="lineNum">      66 </span>                :            :     : position(inPoint)
+<span class="lineNum">      67 </span>                :            :     , angle(inAngle)
+<span class="lineNum">      68 </span>                :<span class="lineCov">      34907 :     , heading(inHeading)</span>
+<span class="lineNum">      69 </span>                :            :   {
+<span class="lineNum">      70 </span>                :<span class="lineCov">      34907 :   }</span>
+<span class="lineNum">      71 </span>                :            : 
+<span class="lineNum">      72 </span>                :            :   /*!
+<span class="lineNum">      73 </span>                :            :    * The current position
+<span class="lineNum">      74 </span>                :            :    */
+<span class="lineNum">      75 </span>                :            :   Point position;
+<span class="lineNum">      76 </span>                :            : 
+<span class="lineNum">      77 </span>                :            :   /*!
+<span class="lineNum">      78 </span>                :            :    * The current heading angle
+<span class="lineNum">      79 </span>                :            :    */
+<span class="lineNum">      80 </span>                :            :   ad::physics::Angle angle;
+<span class="lineNum">      81 </span>                :            : 
+<span class="lineNum">      82 </span>                :            :   /*!
+<span class="lineNum">      83 </span>                :            :    * The current heading direction
+<span class="lineNum">      84 </span>                :            :    */
+<span class="lineNum">      85 </span>                :            :   TrajectoryHeading heading;
+<span class="lineNum">      86 </span>                :            : };
+<span class="lineNum">      87 </span>                :            : 
+<span class="lineNum">      88 </span>                :            : /*!
+<span class="lineNum">      89 </span>                :            :   * a trajectory
+<span class="lineNum">      90 </span>                :            :   */
+<span class="lineNum">      91 </span>                :            : using Trajectory = std::vector&lt;TrajectoryPoint&gt;;
+<span class="lineNum">      92 </span>                :            : 
+<span class="lineNum">      93 </span>                :            : /**
+<span class="lineNum">      94 </span>                :            :  * @brief get the point describing the corner of a vehicle
+<span class="lineNum">      95 </span>                :            :  *
+<span class="lineNum">      96 </span>                :            :  * @param[in] point            trajectory point
+<span class="lineNum">      97 </span>                :            :  * @param[in] vehicleDimension vehicle dimension
+<span class="lineNum">      98 </span>                :            :  * @param[in] corner           which corner to calculate
+<span class="lineNum">      99 </span>                :            :  *
+<span class="lineNum">     100 </span>                :            :  * @returns corner point of the vehicle
+<span class="lineNum">     101 </span>                :            :  */
+<span class="lineNum">     102 </span>                :            : Point getVehicleCorner(TrajectoryPoint const &amp;point,
+<span class="lineNum">     103 </span>                :            :                        ad::physics::Dimension2D const &amp;vehicleDimension,
+<span class="lineNum">     104 </span>                :            :                        VehicleCorner const corner);
+<span class="lineNum">     105 </span>                :            : 
+<span class="lineNum">     106 </span>                :            : /**
+<span class="lineNum">     107 </span>                :            :  * @brief check if a polygon is valid. If not, try to fix it
+<span class="lineNum">     108 </span>                :            :  *
+<span class="lineNum">     109 </span>                :            :  * @param[in] polygon      trajectory point
+<span class="lineNum">     110 </span>                :            :  * @param[in] description description for logging
+<span class="lineNum">     111 </span>                :            :  *
+<span class="lineNum">     112 </span>                :            :  * @returns true if valid, otherwise false
+<span class="lineNum">     113 </span>                :            :  */
+<span class="lineNum">     114 </span>                :            : bool checkAndFixPolygon(Polygon &amp;polygon, std::string const &amp;description);
+<span class="lineNum">     115 </span>                :            : 
+<span class="lineNum">     116 </span>                :            : #if defined(DRAW_TRAJECTORIES)
+<span class="lineNum">     117 </span>                :            : /**
+<span class="lineNum">     118 </span>                :            :  * @brief debug drawing of a vehicle on  apoint of trajectory
+<span class="lineNum">     119 </span>                :            :  *
+<span class="lineNum">     120 </span>                :            :  * @param[in] point            trajectory point
+<span class="lineNum">     121 </span>                :            :  * @param[in] vehicleDimension vehicle dimension
+<span class="lineNum">     122 </span>                :            :  * @param[in] debugNamespace   namespace to use for debug drawings
+<span class="lineNum">     123 </span>                :            :  *
+<span class="lineNum">     124 </span>                :            :  */
+<span class="lineNum">     125 </span>                :            : inline void drawFinalPosition(TrajectoryPoint const &amp;point,
+<span class="lineNum">     126 </span>                :            :                               ad::physics::Dimension2D const &amp;vehicleDimension,
+<span class="lineNum">     127 </span>                :            :                               std::string const &amp;debugNamespace)
+<span class="lineNum">     128 </span>                :            : {
+<span class="lineNum">     129 </span>                :            :   // draw final vehicle position
+<span class="lineNum">     130 </span>                :            :   Polygon polygon;
+<span class="lineNum">     131 </span>                :            :   auto firstPoint = getVehicleCorner(point, vehicleDimension, VehicleCorner::frontLeft);
+<span class="lineNum">     132 </span>                :            :   boost::geometry::append(polygon, firstPoint);
+<span class="lineNum">     133 </span>                :            :   boost::geometry::append(polygon, getVehicleCorner(point, vehicleDimension, VehicleCorner::frontRight));
+<span class="lineNum">     134 </span>                :            :   boost::geometry::append(polygon, getVehicleCorner(point, vehicleDimension, VehicleCorner::backRight));
+<span class="lineNum">     135 </span>                :            :   boost::geometry::append(polygon, getVehicleCorner(point, vehicleDimension, VehicleCorner::backLeft));
+<span class="lineNum">     136 </span>                :            :   boost::geometry::append(polygon, firstPoint);
+<span class="lineNum">     137 </span>                :            :   DEBUG_DRAWING_POLYGON(polygon, &quot;yellow&quot;, debugNamespace);
+<span class="lineNum">     138 </span>                :            : }
+<span class="lineNum">     139 </span>                :            : #endif
+<span class="lineNum">     140 </span>                :            : 
+<span class="lineNum">     141 </span>                :            : } // namespace unstructured
+<span class="lineNum">     142 </span>                :            : } // namespace rss
+<span class="lineNum">     143 </span>                :            : } // namespace ad
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

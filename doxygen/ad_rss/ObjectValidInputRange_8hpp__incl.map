@@ -1,13 +1,15 @@
 <map id="generated/include/ad/rss/world/ObjectValidInputRange.hpp" name="generated/include/ad/rss/world/ObjectValidInputRange.hpp">
-<area shape="rect" id="node4" href="$Object_8hpp.html" title="ad/rss/world/Object.hpp" alt="" coords="1670,117,1841,143"/>
-<area shape="rect" id="node19" href="$ObjectTypeValidInputRange_8hpp.html" title="ad/rss/world/ObjectTypeValid\lInputRange.hpp" alt="" coords="835,199,1036,240"/>
-<area shape="rect" id="node22" href="$OccupiedRegionVectorValidInputRange_8hpp.html" title="ad/rss/world/OccupiedRegion\lVectorValidInputRange.hpp" alt="" coords="506,109,709,151"/>
-<area shape="rect" id="node25" href="$VelocityValidInputRange_8hpp.html" title="ad/rss/world/VelocityValid\lInputRange.hpp" alt="" coords="149,199,330,240"/>
-<area shape="rect" id="node8" href="$ObjectId_8hpp.html" title="ad/rss/world/ObjectId.hpp" alt="" coords="2167,206,2349,233"/>
-<area shape="rect" id="node10" href="$ObjectType_8hpp.html" title="ad/rss/world/ObjectType.hpp" alt="" coords="1843,295,2041,322"/>
-<area shape="rect" id="node12" href="$OccupiedRegionVector_8hpp.html" title="ad/rss/world/OccupiedRegion\lVector.hpp" alt="" coords="1515,199,1718,240"/>
-<area shape="rect" id="node17" href="$Velocity_8hpp.html" title="ad/rss/world/Velocity.hpp" alt="" coords="1403,295,1580,322"/>
-<area shape="rect" id="node14" href="$OccupiedRegion_8hpp.html" title="ad/rss/world/OccupiedRegion.hpp" alt="" coords="1148,295,1379,322"/>
-<area shape="rect" id="node16" href="$LaneSegmentId_8hpp.html" title="ad/rss/world/LaneSegment\lId.hpp" alt="" coords="1265,377,1457,419"/>
-<area shape="rect" id="node23" href="$OccupiedRegionValidInputRange_8hpp.html" title="ad/rss/world/OccupiedRegion\lValidInputRange.hpp" alt="" coords="506,199,709,240"/>
+<area shape="rect" id="node4" href="$Object_8hpp.html" title="ad/rss/world/Object.hpp" alt="" coords="1303,117,1474,143"/>
+<area shape="rect" id="node24" href="$ObjectStateValidInputRange_8hpp.html" title="ad/rss/world/ObjectState\lValidInputRange.hpp" alt="" coords="2806,199,2985,240"/>
+<area shape="rect" id="node32" href="$ObjectTypeValidInputRange_8hpp.html" title="ad/rss/world/ObjectTypeValid\lInputRange.hpp" alt="" coords="3367,199,3568,240"/>
+<area shape="rect" id="node33" href="$OccupiedRegionVectorValidInputRange_8hpp.html" title="ad/rss/world/OccupiedRegion\lVectorValidInputRange.hpp" alt="" coords="3643,109,3846,151"/>
+<area shape="rect" id="node36" href="$VelocityValidInputRange_8hpp.html" title="ad/rss/world/VelocityValid\lInputRange.hpp" alt="" coords="3059,199,3241,240"/>
+<area shape="rect" id="node8" href="$ObjectId_8hpp.html" title="ad/rss/world/ObjectId.hpp" alt="" coords="1141,206,1324,233"/>
+<area shape="rect" id="node10" href="$ObjectState_8hpp.html" title="ad/rss/world/ObjectState.hpp" alt="" coords="723,295,929,322"/>
+<area shape="rect" id="node16" href="$ObjectType_8hpp.html" title="ad/rss/world/ObjectType.hpp" alt="" coords="1004,295,1203,322"/>
+<area shape="rect" id="node18" href="$OccupiedRegionVector_8hpp.html" title="ad/rss/world/OccupiedRegion\lVector.hpp" alt="" coords="1631,199,1834,240"/>
+<area shape="rect" id="node23" href="$Velocity_8hpp.html" title="ad/rss/world/Velocity.hpp" alt="" coords="1379,295,1556,322"/>
+<area shape="rect" id="node20" href="$OccupiedRegion_8hpp.html" title="ad/rss/world/OccupiedRegion.hpp" alt="" coords="1769,295,2000,322"/>
+<area shape="rect" id="node22" href="$LaneSegmentId_8hpp.html" title="ad/rss/world/LaneSegment\lId.hpp" alt="" coords="1605,377,1797,419"/>
+<area shape="rect" id="node34" href="$OccupiedRegionValidInputRange_8hpp.html" title="ad/rss/world/OccupiedRegion\lValidInputRange.hpp" alt="" coords="3694,199,3897,240"/>
 </map>

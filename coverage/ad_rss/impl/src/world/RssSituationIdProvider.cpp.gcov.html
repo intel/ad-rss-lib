@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-04-24 06:30:31</td>
+            <td class="headerValue">2020-07-03 15:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">11</td>
@@ -84,21 +84,21 @@
 <span class="lineNum">      13 </span>                :            : namespace rss {
 <a name="14"><span class="lineNum">      14 </span>                :            : namespace world {</a>
 <span class="lineNum">      15 </span>                :            : 
-<span class="lineNum">      16 </span>                :<span class="lineCov">        923 : RssSituationIdProvider::SituationData::SituationData(TimeIndex timeIndex,</span>
+<span class="lineNum">      16 </span>                :<span class="lineCov">        924 : RssSituationIdProvider::SituationData::SituationData(TimeIndex timeIndex,</span>
 <span class="lineNum">      17 </span>                :            :                                                      situation::SituationId const situationId,
 <span class="lineNum">      18 </span>                :            :                                                      Scene const &amp;scene)
 <span class="lineNum">      19 </span>                :            :   : mTimeIndex(timeIndex)
-<span class="lineNum">      20 </span>                :<span class="lineCov">        923 :   , mSituationType(scene.situationType)</span>
-<span class="lineNum">      21 </span>                :<span class="lineCov">        953 :   , mSituationId(situationId)</span>
+<span class="lineNum">      20 </span>                :<span class="lineCov">        924 :   , mSituationType(scene.situationType)</span>
+<span class="lineNum">      21 </span>                :<span class="lineCov">        954 :   , mSituationId(situationId)</span>
 <span class="lineNum">      22 </span>                :            : {
-<span class="lineNum">      23 </span>        [<span class="branchCov" title="Branch 0 was taken 852 times"> + </span><span class="branchCov" title="Branch 1 was taken 71 times"> + </span>]:<span class="lineCov">        923 :   if ((mSituationType == situation::SituationType::IntersectionEgoHasPriority)</span>
-<span class="lineNum">      24 </span>        [<span class="branchCov" title="Branch 0 was taken 804 times"> + </span><span class="branchCov" title="Branch 1 was taken 48 times"> + </span>]:<span class="lineCov">        852 :       || (mSituationType == situation::SituationType::IntersectionObjectHasPriority)</span>
-<span class="lineNum">      25 </span>        [<span class="branchCov" title="Branch 0 was taken 47 times"> + </span><span class="branchCov" title="Branch 1 was taken 757 times"> + </span>]:<span class="lineCov">        804 :       || (mSituationType == situation::SituationType::IntersectionSamePriority))</span>
+<span class="lineNum">      23 </span>        [<span class="branchCov" title="Branch 0 was taken 853 times"> + </span><span class="branchCov" title="Branch 1 was taken 71 times"> + </span>]:<span class="lineCov">        924 :   if ((mSituationType == situation::SituationType::IntersectionEgoHasPriority)</span>
+<span class="lineNum">      24 </span>        [<span class="branchCov" title="Branch 0 was taken 805 times"> + </span><span class="branchCov" title="Branch 1 was taken 48 times"> + </span>]:<span class="lineCov">        853 :       || (mSituationType == situation::SituationType::IntersectionObjectHasPriority)</span>
+<span class="lineNum">      25 </span>        [<span class="branchCov" title="Branch 0 was taken 47 times"> + </span><span class="branchCov" title="Branch 1 was taken 758 times"> + </span>]:<span class="lineCov">        805 :       || (mSituationType == situation::SituationType::IntersectionSamePriority))</span>
 <span class="lineNum">      26 </span>                :            :   {
 <span class="lineNum">      27 </span>[<span class="branchCov" title="Branch 1 was taken 154 times"> + </span><span class="branchCov" title="Branch 2 was taken 12 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 151 times"> + </span><span class="branchCov" title="Branch 5 was taken 3 times"> + </span>]:<span class="lineCov">        166 :     mEgoVehicleIntersectionArea = getIntersectionArea(scene.egoVehicleRoad);</span>
 <span class="lineNum">      28 </span>[<span class="branchCov" title="Branch 1 was taken 139 times"> + </span><span class="branchCov" title="Branch 2 was taken 12 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 136 times"> + </span><span class="branchCov" title="Branch 5 was taken 3 times"> + </span>]:<span class="lineCov">        151 :     mObjectIntersectionArea = getIntersectionArea(scene.intersectingRoad);</span>
 <span class="lineNum">      29 </span>                :            :   }
-<span class="lineNum">      30 </span>                :<span class="lineCov">        893 : }</span>
+<span class="lineNum">      30 </span>                :<span class="lineCov">        894 : }</span>
 <a name="31"><span class="lineNum">      31 </span>                :            : </a>
 <span class="lineNum">      32 </span>                :            : RssSituationIdProvider::SituationData::IntersectionArea
 <span class="lineNum">      33 </span>                :<span class="lineCov">       1767 : RssSituationIdProvider::SituationData::getIntersectionArea(RoadArea roadArea)</span>
@@ -135,19 +135,19 @@
 <span class="lineNum">      64 </span>                :<span class="lineCov">       1472 :   return differenceSet.size() == expectedDifference;</span>
 <a name="65"><span class="lineNum">      65 </span>                :            : }</a>
 <span class="lineNum">      66 </span>                :            : 
-<span class="lineNum">      67 </span>                :<span class="lineCov">       4101 : bool RssSituationIdProvider::SituationData::updateSituation(TimeIndex const timeIndex, Scene const &amp;scene)</span>
+<span class="lineNum">      67 </span>                :<span class="lineCov">       4102 : bool RssSituationIdProvider::SituationData::updateSituation(TimeIndex const timeIndex, Scene const &amp;scene)</span>
 <span class="lineNum">      68 </span>                :            : {
-<span class="lineNum">      69 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 4100 times"> + </span>]:<span class="lineCov">       4101 :   if (scene.situationType != mSituationType)</span>
+<span class="lineNum">      69 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 4101 times"> + </span>]:<span class="lineCov">       4102 :   if (scene.situationType != mSituationType)</span>
 <span class="lineNum">      70 </span>                :            :   {
 <span class="lineNum">      71 </span>                :<span class="lineCov">          1 :     return false;</span>
 <span class="lineNum">      72 </span>                :            :   }
 <span class="lineNum">      73 </span>                :            : 
-<span class="lineNum">      74 </span>                :<span class="lineCov">       8201 :   IntersectionArea sceneEgoVehicleIntersectionArea;</span>
-<span class="lineNum">      75 </span>                :<span class="lineCov">       8200 :   IntersectionArea sceneObjectIntersectionArea;</span>
+<span class="lineNum">      74 </span>                :<span class="lineCov">       8203 :   IntersectionArea sceneEgoVehicleIntersectionArea;</span>
+<span class="lineNum">      75 </span>                :<span class="lineCov">       8202 :   IntersectionArea sceneObjectIntersectionArea;</span>
 <span class="lineNum">      76 </span>                :            : 
-<span class="lineNum">      77 </span>        [<span class="branchCov" title="Branch 0 was taken 3724 times"> + </span><span class="branchCov" title="Branch 1 was taken 376 times"> + </span>]:<span class="lineCov">       4100 :   if ((mSituationType == situation::SituationType::IntersectionEgoHasPriority)</span>
-<span class="lineNum">      78 </span>        [<span class="branchCov" title="Branch 0 was taken 3543 times"> + </span><span class="branchCov" title="Branch 1 was taken 181 times"> + </span>]:<span class="lineCov">       3724 :       || (mSituationType == situation::SituationType::IntersectionObjectHasPriority)</span>
-<span class="lineNum">      79 </span>        [<span class="branchCov" title="Branch 0 was taken 181 times"> + </span><span class="branchCov" title="Branch 1 was taken 3362 times"> + </span>]:<span class="lineCov">       3543 :       || (mSituationType == situation::SituationType::IntersectionSamePriority))</span>
+<span class="lineNum">      77 </span>        [<span class="branchCov" title="Branch 0 was taken 3725 times"> + </span><span class="branchCov" title="Branch 1 was taken 376 times"> + </span>]:<span class="lineCov">       4101 :   if ((mSituationType == situation::SituationType::IntersectionEgoHasPriority)</span>
+<span class="lineNum">      78 </span>        [<span class="branchCov" title="Branch 0 was taken 3544 times"> + </span><span class="branchCov" title="Branch 1 was taken 181 times"> + </span>]:<span class="lineCov">       3725 :       || (mSituationType == situation::SituationType::IntersectionObjectHasPriority)</span>
+<span class="lineNum">      79 </span>        [<span class="branchCov" title="Branch 0 was taken 181 times"> + </span><span class="branchCov" title="Branch 1 was taken 3363 times"> + </span>]:<span class="lineCov">       3544 :       || (mSituationType == situation::SituationType::IntersectionSamePriority))</span>
 <span class="lineNum">      80 </span>                :            :   {
 <span class="lineNum">      81 </span>                :            :     // extract the intersection areas of the scene
 <span class="lineNum">      82 </span>[<span class="branchCov" title="Branch 1 was taken 738 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 738 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        738 :     sceneEgoVehicleIntersectionArea = getIntersectionArea(scene.egoVehicleRoad);</span>
@@ -168,72 +168,72 @@
 <span class="lineNum">      97 </span>                :            :     // therefore, the situation is treated to be the same if the situation type matches
 <span class="lineNum">      98 </span>                :            :   }
 <span class="lineNum">      99 </span>                :            : 
-<span class="lineNum">     100 </span>                :<span class="lineCov">       4096 :   mTimeIndex = timeIndex;</span>
-<span class="lineNum">     101 </span>                :<span class="lineCov">       4096 :   return true;</span>
+<span class="lineNum">     100 </span>                :<span class="lineCov">       4097 :   mTimeIndex = timeIndex;</span>
+<span class="lineNum">     101 </span>                :<span class="lineCov">       4097 :   return true;</span>
 <a name="102"><span class="lineNum">     102 </span>                :            : }</a>
 <span class="lineNum">     103 </span>                :            : 
-<span class="lineNum">     104 </span>                :<span class="lineCov">       5019 : void RssSituationIdProvider::updateTime(TimeIndex const &amp;timeIndex)</span>
+<span class="lineNum">     104 </span>                :<span class="lineCov">       5021 : void RssSituationIdProvider::updateTime(TimeIndex const &amp;timeIndex)</span>
 <span class="lineNum">     105 </span>                :            : {
-<span class="lineNum">     106 </span>        [<span class="branchCov" title="Branch 0 was taken 4227 times"> + </span><span class="branchCov" title="Branch 1 was taken 792 times"> + </span>]:<span class="lineCov">       5019 :   if (timeIndex != mCurrentTime)</span>
+<span class="lineNum">     106 </span>        [<span class="branchCov" title="Branch 0 was taken 4229 times"> + </span><span class="branchCov" title="Branch 1 was taken 792 times"> + </span>]:<span class="lineCov">       5021 :   if (timeIndex != mCurrentTime)</span>
 <span class="lineNum">     107 </span>                :            :   {
-<span class="lineNum">     108 </span>                :<span class="lineCov">       4227 :     mLastTime = mCurrentTime;</span>
-<span class="lineNum">     109 </span>                :<span class="lineCov">       4227 :     mCurrentTime = timeIndex;</span>
+<span class="lineNum">     108 </span>                :<span class="lineCov">       4229 :     mLastTime = mCurrentTime;</span>
+<span class="lineNum">     109 </span>                :<span class="lineCov">       4229 :     mCurrentTime = timeIndex;</span>
 <span class="lineNum">     110 </span>                :            : 
 <span class="lineNum">     111 </span>                :            :     // next time step, remove outdated data
-<span class="lineNum">     112 </span>        [<span class="branchCov" title="Branch 3 was taken 4064 times"> + </span><span class="branchCov" title="Branch 4 was taken 4227 times"> + </span>]:<span class="lineCov">       8291 :     for (auto iter = mSituationData.begin(); iter != mSituationData.end();)</span>
+<span class="lineNum">     112 </span>        [<span class="branchCov" title="Branch 3 was taken 4065 times"> + </span><span class="branchCov" title="Branch 4 was taken 4229 times"> + </span>]:<span class="lineCov">       8294 :     for (auto iter = mSituationData.begin(); iter != mSituationData.end();)</span>
 <span class="lineNum">     113 </span>                :            :     {
-<span class="lineNum">     114 </span>[<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 4063 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">       4064 :       if ((iter-&gt;second.mTimeIndex != mLastTime) &amp;&amp; (iter-&gt;second.mTimeIndex != mCurrentTime))</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchCov" title="Branch 7 was taken 4063 times"> + </span>]
+<span class="lineNum">     114 </span>[<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 4064 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">       4065 :       if ((iter-&gt;second.mTimeIndex != mLastTime) &amp;&amp; (iter-&gt;second.mTimeIndex != mCurrentTime))</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchCov" title="Branch 7 was taken 4064 times"> + </span>]
 <span class="lineNum">     115 </span>                :            :       {
 <span class="lineNum">     116 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :         iter = mSituationData.erase(iter);</span>
 <span class="lineNum">     117 </span>                :            :       }
 <span class="lineNum">     118 </span>                :            :       else
 <span class="lineNum">     119 </span>                :            :       {
-<span class="lineNum">     120 </span>                :<span class="lineCov">       4063 :         ++iter;</span>
+<span class="lineNum">     120 </span>                :<span class="lineCov">       4064 :         ++iter;</span>
 <span class="lineNum">     121 </span>                :            :       }
 <span class="lineNum">     122 </span>                :            :     }
 <span class="lineNum">     123 </span>                :            :   }
-<a name="124"><span class="lineNum">     124 </span>                :<span class="lineCov">       5019 : }</span></a>
+<a name="124"><span class="lineNum">     124 </span>                :<span class="lineCov">       5021 : }</span></a>
 <span class="lineNum">     125 </span>                :            : 
-<span class="lineNum">     126 </span>                :<span class="lineCov">       5019 : situation::SituationId RssSituationIdProvider::getSituationId(TimeIndex const &amp;timeIndex, Scene const &amp;scene)</span>
+<span class="lineNum">     126 </span>                :<span class="lineCov">       5021 : situation::SituationId RssSituationIdProvider::getSituationId(TimeIndex const &amp;timeIndex, Scene const &amp;scene)</span>
 <span class="lineNum">     127 </span>                :            : {
-<span class="lineNum">     128 </span>        [<span class="branchCov" title="Branch 1 was taken 5019 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5019 :   updateTime(timeIndex);</span>
+<span class="lineNum">     128 </span>        [<span class="branchCov" title="Branch 1 was taken 5021 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5021 :   updateTime(timeIndex);</span>
 <span class="lineNum">     129 </span>                :            : 
-<a name="130"><span class="lineNum">     130 </span>        [<span class="branchCov" title="Branch 1 was taken 5019 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5019 :   auto const objectDataRange = mSituationData.equal_range(scene.object.objectId);</span></a>
+<a name="130"><span class="lineNum">     130 </span>        [<span class="branchCov" title="Branch 1 was taken 5021 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       5021 :   auto const objectDataRange = mSituationData.equal_range(scene.object.objectId);</span></a>
 <span class="lineNum">     131 </span>                :            :   auto findResult = std::find_if(
-<span class="lineNum">     132 </span>                :<span class="lineCov">       4101 :     objectDataRange.first, objectDataRange.second, [&amp;scene, this](SituationDataMap::value_type &amp;situation) {</span>
-<span class="lineNum">     133 </span>                :<span class="lineCov">       4101 :       return situation.second.updateSituation(this-&gt;mCurrentTime, scene);</span>
-<span class="lineNum">     134 </span>        [<span class="branchCov" title="Branch 1 was taken 5019 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       9120 :     });</span>
-<span class="lineNum">     135 </span>        [<span class="branchCov" title="Branch 1 was taken 4096 times"> + </span><span class="branchCov" title="Branch 2 was taken 923 times"> + </span>]:<span class="lineCov">       5019 :   if (findResult != objectDataRange.second)</span>
+<span class="lineNum">     132 </span>                :<span class="lineCov">       4102 :     objectDataRange.first, objectDataRange.second, [&amp;scene, this](SituationDataMap::value_type &amp;situation) {</span>
+<span class="lineNum">     133 </span>                :<span class="lineCov">       4102 :       return situation.second.updateSituation(this-&gt;mCurrentTime, scene);</span>
+<span class="lineNum">     134 </span>        [<span class="branchCov" title="Branch 1 was taken 5021 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       9123 :     });</span>
+<span class="lineNum">     135 </span>        [<span class="branchCov" title="Branch 1 was taken 4097 times"> + </span><span class="branchCov" title="Branch 2 was taken 924 times"> + </span>]:<span class="lineCov">       5021 :   if (findResult != objectDataRange.second)</span>
 <span class="lineNum">     136 </span>                :            :   {
-<span class="lineNum">     137 </span>                :<span class="lineCov">       4096 :     return findResult-&gt;second.mSituationId;</span>
+<span class="lineNum">     137 </span>                :<span class="lineCov">       4097 :     return findResult-&gt;second.mSituationId;</span>
 <span class="lineNum">     138 </span>                :            :   }
 <span class="lineNum">     139 </span>                :            :   auto insertResult = mSituationData.emplace_hint(
-<span class="lineNum">     140 </span>[<span class="branchCov" title="Branch 1 was taken 923 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 893 times"> + </span><span class="branchCov" title="Branch 5 was taken 30 times"> + </span>]:<span class="lineCov">        923 :     objectDataRange.first, scene.object.objectId, SituationData(mCurrentTime, getFreeSituationId(), scene));</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 8 was taken 878 times"> + </span><span class="branchCov" title="Branch 9 was taken 15 times"> + </span>]
-<span class="lineNum">     141 </span>        [<span class="branchCov" title="Branch 2 was taken 878 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        878 :   if (insertResult != mSituationData.end())</span>
+<span class="lineNum">     140 </span>[<span class="branchCov" title="Branch 1 was taken 924 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 894 times"> + </span><span class="branchCov" title="Branch 5 was taken 30 times"> + </span>]:<span class="lineCov">        924 :     objectDataRange.first, scene.object.objectId, SituationData(mCurrentTime, getFreeSituationId(), scene));</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 8 was taken 879 times"> + </span><span class="branchCov" title="Branch 9 was taken 15 times"> + </span>]
+<span class="lineNum">     141 </span>        [<span class="branchCov" title="Branch 2 was taken 879 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        879 :   if (insertResult != mSituationData.end())</span>
 <span class="lineNum">     142 </span>                :            :   {
-<span class="lineNum">     143 </span>                :<span class="lineCov">        878 :     return insertResult-&gt;second.mSituationId;</span>
+<span class="lineNum">     143 </span>                :<span class="lineCov">        879 :     return insertResult-&gt;second.mSituationId;</span>
 <span class="lineNum">     144 </span>                :            :   }
 <span class="lineNum">     145 </span>                :            :   // LCOV_EXCL_START: unreachable code, keep to be on the safe side
 <span class="lineNum">     146 </span>                :            :   throw std::runtime_error(&quot;RssSituationIdProvider::getSituationId&gt;&gt; cannot add scene to situation map&quot;);
 <span class="lineNum">     147 </span>                :            :   // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
 <a name="148"><span class="lineNum">     148 </span>                :            : }</a>
 <span class="lineNum">     149 </span>                :            : 
-<span class="lineNum">     150 </span>                :<span class="lineCov">        923 : situation::SituationId RssSituationIdProvider::getFreeSituationId()</span>
+<span class="lineNum">     150 </span>                :<span class="lineCov">        924 : situation::SituationId RssSituationIdProvider::getFreeSituationId()</span>
 <span class="lineNum">     151 </span>                :            : {
-<span class="lineNum">     152 </span>                :<span class="lineCov">        923 :   bool situationIdFound = false;</span>
+<span class="lineNum">     152 </span>                :<span class="lineCov">        924 :   bool situationIdFound = false;</span>
 <span class="lineNum">     153 </span>                :            :   do // LCOV_EXCL_LINE: lcov analysis misses this line
 <span class="lineNum">     154 </span>                :            :   {
-<a name="155"><span class="lineNum">     155 </span>                :<span class="lineCov">        923 :     mNextSituationId++;</span></a>
+<a name="155"><span class="lineNum">     155 </span>                :<span class="lineCov">        924 :     mNextSituationId++;</span></a>
 <span class="lineNum">     156 </span>                :            :     auto findResult = std::find_if(
 <span class="lineNum">     157 </span>                :<span class="lineCov">       5076 :       mSituationData.begin(), mSituationData.end(), [this](SituationDataMap::value_type const &amp;situation) {</span>
 <span class="lineNum">     158 </span>                :<span class="lineCov">      10152 :         return (situation.second.mSituationId == this-&gt;mNextSituationId);</span>
-<span class="lineNum">     159 </span>        [<span class="branchCov" title="Branch 3 was taken 923 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       5999 :       });</span>
-<span class="lineNum">     160 </span>                :<span class="lineCov">        923 :     situationIdFound = findResult == mSituationData.end();</span>
-<span class="lineNum">     161 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 923 times"> + </span>]:<span class="lineCov">        923 :   } while (!situationIdFound);</span>
+<span class="lineNum">     159 </span>        [<span class="branchCov" title="Branch 3 was taken 924 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       6000 :       });</span>
+<span class="lineNum">     160 </span>                :<span class="lineCov">        924 :     situationIdFound = findResult == mSituationData.end();</span>
+<span class="lineNum">     161 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 924 times"> + </span>]:<span class="lineCov">        924 :   } while (!situationIdFound);</span>
 <span class="lineNum">     162 </span>                :            : 
-<span class="lineNum">     163 </span>                :<span class="lineCov">        923 :   return mNextSituationId;</span>
+<span class="lineNum">     163 </span>                :<span class="lineCov">        924 :   return mNextSituationId;</span>
 <span class="lineNum">     164 </span>                :            : }
 <span class="lineNum">     165 </span>                :            : 
 <a name="166"><span class="lineNum">     166 </span>                :            : } // namespace world</a>
