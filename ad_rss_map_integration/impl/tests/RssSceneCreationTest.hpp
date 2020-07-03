@@ -99,12 +99,45 @@ struct RssSceneCreationTest : ::testing::Test
     return result;
   }
 
-  virtual void initMap() = 0;
+  enum class MapToLoad
+  {
+    Town01,
+    Town04,
+    None,
+  };
+
+  virtual MapToLoad getMapToLoad() = 0;
+
+  void initMap()
+  {
+    static MapToLoad loadedMap = MapToLoad::None;
+
+    MapToLoad mapToLoad = getMapToLoad();
+    if (mapToLoad != loadedMap)
+    {
+      ::ad::map::access::cleanup();
+      switch (mapToLoad)
+      {
+        case MapToLoad::Town01:
+          // using priority to the right intersections
+          ASSERT_TRUE(::ad::map::access::init("resources/Town01.txt"));
+          break;
+        case MapToLoad::Town04:
+          std::ifstream fileStream("resources/Town04.xodr");
+          std::string town04OpenDriveContent((std::istreambuf_iterator<char>(fileStream)),
+                                             std::istreambuf_iterator<char>());
+          ASSERT_TRUE(::ad::map::access::initFromOpenDriveContent(
+            town04OpenDriveContent, 0.2, ::ad::map::intersection::IntersectionType::TrafficLight));
+          break;
+      }
+      loadedMap = mapToLoad;
+    }
+  }
+
   virtual void initializeEgoVehicle() = 0;
 
   void SetUp() override
   {
-    ::ad::map::access::cleanup();
     //::ad::rss::map::getLogger()->set_level(spdlog::level::debug);
     //::ad::map::access::getLogger()->set_level(spdlog::level::trace);
     initMap();
@@ -113,7 +146,6 @@ struct RssSceneCreationTest : ::testing::Test
 
   void TearDown() override
   {
-    ::ad::map::access::cleanup();
   }
 
   void initializeObjectGeo(ObjectGeoLocationTuple const &objectLocation, ::ad::map::match::Object &object)
@@ -264,10 +296,9 @@ struct RssSceneCreationTest : ::testing::Test
 
 struct RssSceneCreationTestTown01 : RssSceneCreationTest
 {
-  void initMap() override
+  MapToLoad getMapToLoad() override
   {
-    // using priority to the right intersections
-    ASSERT_TRUE(::ad::map::access::init("resources/Town01.txt"));
+    return MapToLoad::Town01;
   }
 
   void initializeEgoVehicle() override
