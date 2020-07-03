@@ -103,7 +103,7 @@ struct RssSceneCreationTest : ::testing::Test
   {
     Town01,
     Town04,
-    None,
+    None
   };
 
   virtual MapToLoad getMapToLoad() = 0;
@@ -123,11 +123,16 @@ struct RssSceneCreationTest : ::testing::Test
           ASSERT_TRUE(::ad::map::access::init("resources/Town01.txt"));
           break;
         case MapToLoad::Town04:
+        {
           std::ifstream fileStream("resources/Town04.xodr");
           std::string town04OpenDriveContent((std::istreambuf_iterator<char>(fileStream)),
                                              std::istreambuf_iterator<char>());
           ASSERT_TRUE(::ad::map::access::initFromOpenDriveContent(
             town04OpenDriveContent, 0.2, ::ad::map::intersection::IntersectionType::TrafficLight));
+          break;
+        }
+        case MapToLoad::None:
+          ASSERT_TRUE(false);
           break;
       }
       loadedMap = mapToLoad;
