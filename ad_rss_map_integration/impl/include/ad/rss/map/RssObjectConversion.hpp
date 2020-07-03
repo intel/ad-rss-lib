@@ -11,10 +11,9 @@
 
 #pragma once
 
-#include <ad/map/match/Object.hpp>
+#include <ad/rss/map/RssObjectData.hpp>
+
 #include <ad/map/route/FullRoute.hpp>
-#include <ad/rss/world/Object.hpp>
-#include <ad/rss/world/RssDynamics.hpp>
 #include <memory>
 
 /*!
@@ -49,40 +48,18 @@ public:
   /*!
    * @brief constructor
    *
-   * @param[in] objectId the object id
-   * @param[in] objectType the object type
-   * @param[in] objectMapMatchedPosition the object's position described by its map matched bounding box and position
-   * @param[in] objectSpeed the object's speed (only positive speed is supported, see isOriginalSpeedAcceptable() for
-   * details)
-   * @param[in] objectYawRate the object's yaw rate
-   * @param[in] rssDynamics the object's (initial) RSS dynamics
+   * @param[in] objectData the object data
    */
-  RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
-                      ::ad::rss::world::ObjectType const &objectType,
-                      ::ad::map::match::Object const &objectMapMatchedPosition,
-                      ::ad::physics::Speed const &objectSpeed,
-                      ::ad::physics::AngularVelocity const &objectYawRate,
-                      ::ad::rss::world::RssDynamics const &rssDynamics);
+  explicit RssObjectConversion(RssObjectData const &objectData);
 
   /*!
    * @brief constructor with explicit occupied regions
    *
-   * @param[in] objectId the object id
-   * @param[in] objectType the object type
+   * @param[in] objectData the object data
    * @param[in] objectOccupiedRegions the object's occupied regions explicitly
-   * @param[in] objectEnuPosition the object's enu position
-   * @param[in] objectSpeed the object's speed (only positive speed is supported, see isOriginalSpeedAcceptable() for
-   * details)
-   * @param[in] objectYawRate the object's yaw rate
-   * @param[in] rssDynamics the object's (initial) RSS dynamics
    */
-  RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
-                      ::ad::rss::world::ObjectType const &objectType,
-                      ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions,
-                      ::ad::map::match::ENUObjectPosition const &objectEnuPosition,
-                      ::ad::physics::Speed const &objectSpeed,
-                      ::ad::physics::AngularVelocity const &objectYawRate,
-                      ::ad::rss::world::RssDynamics const &rssDynamics);
+  RssObjectConversion(RssObjectData const &objectData,
+                      ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions);
 
   /*!
    * \brief standard copy constructor
@@ -190,7 +167,8 @@ private:
                            ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions,
                            ::ad::map::match::ENUObjectPosition const &objectEnuPosition,
                            ::ad::physics::Speed const &objectSpeed,
-                           ::ad::physics::AngularVelocity const &objectYawRate);
+                           ::ad::physics::AngularVelocity const &objectYawRate,
+                           ::ad::physics::Angle const &objectSteeringAngle);
 
   void addRestrictedOccupiedRegion(::ad::map::match::LaneOccupiedRegion const &laneOccupiedRegion,
                                    ::ad::map::route::LaneInterval const &laneInterval);

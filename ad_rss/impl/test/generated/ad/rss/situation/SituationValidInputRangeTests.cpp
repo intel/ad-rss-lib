@@ -127,6 +127,8 @@ TEST(SituationValidInputRangeTests, testValidInputRange)
   valueEgoVehicleStateObjectState.centerPoint = valueEgoVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateObjectStateSpeed(-100.);
   valueEgoVehicleStateObjectState.speed = valueEgoVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueEgoVehicleStateObjectState.steeringAngle = valueEgoVehicleStateObjectStateSteeringAngle;
   valueEgoVehicleState.objectState = valueEgoVehicleStateObjectState;
   valueEgoVehicleState.distanceToLeaveIntersection = valueEgoVehicleState.distanceToEnterIntersection;
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
@@ -231,6 +233,8 @@ TEST(SituationValidInputRangeTests, testValidInputRange)
   valueOtherVehicleStateObjectState.centerPoint = valueOtherVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueOtherVehicleStateObjectStateSpeed(-100.);
   valueOtherVehicleStateObjectState.speed = valueOtherVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueOtherVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueOtherVehicleStateObjectState.steeringAngle = valueOtherVehicleStateObjectStateSteeringAngle;
   valueOtherVehicleState.objectState = valueOtherVehicleStateObjectState;
   valueOtherVehicleState.distanceToLeaveIntersection = valueOtherVehicleState.distanceToEnterIntersection;
   valueOtherVehicleState.distanceToEnterIntersection = valueOtherVehicleState.distanceToLeaveIntersection;
@@ -359,6 +363,8 @@ TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)
   valueEgoVehicleStateObjectState.centerPoint = valueEgoVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateObjectStateSpeed(-100.);
   valueEgoVehicleStateObjectState.speed = valueEgoVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueEgoVehicleStateObjectState.steeringAngle = valueEgoVehicleStateObjectStateSteeringAngle;
   valueEgoVehicleState.objectState = valueEgoVehicleStateObjectState;
   valueEgoVehicleState.distanceToLeaveIntersection = valueEgoVehicleState.distanceToEnterIntersection;
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
@@ -463,6 +469,8 @@ TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)
   valueOtherVehicleStateObjectState.centerPoint = valueOtherVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueOtherVehicleStateObjectStateSpeed(-100.);
   valueOtherVehicleStateObjectState.speed = valueOtherVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueOtherVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueOtherVehicleStateObjectState.steeringAngle = valueOtherVehicleStateObjectStateSteeringAngle;
   valueOtherVehicleState.objectState = valueOtherVehicleStateObjectState;
   valueOtherVehicleState.distanceToLeaveIntersection = valueOtherVehicleState.distanceToEnterIntersection;
   valueOtherVehicleState.distanceToEnterIntersection = valueOtherVehicleState.distanceToLeaveIntersection;
@@ -595,6 +603,8 @@ TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooBig)
   valueEgoVehicleStateObjectState.centerPoint = valueEgoVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateObjectStateSpeed(-100.);
   valueEgoVehicleStateObjectState.speed = valueEgoVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueEgoVehicleStateObjectState.steeringAngle = valueEgoVehicleStateObjectStateSteeringAngle;
   valueEgoVehicleState.objectState = valueEgoVehicleStateObjectState;
   valueEgoVehicleState.distanceToLeaveIntersection = valueEgoVehicleState.distanceToEnterIntersection;
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
@@ -699,6 +709,8 @@ TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooBig)
   valueOtherVehicleStateObjectState.centerPoint = valueOtherVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueOtherVehicleStateObjectStateSpeed(-100.);
   valueOtherVehicleStateObjectState.speed = valueOtherVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueOtherVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueOtherVehicleStateObjectState.steeringAngle = valueOtherVehicleStateObjectStateSteeringAngle;
   valueOtherVehicleState.objectState = valueOtherVehicleStateObjectState;
   valueOtherVehicleState.distanceToLeaveIntersection = valueOtherVehicleState.distanceToEnterIntersection;
   valueOtherVehicleState.distanceToEnterIntersection = valueOtherVehicleState.distanceToLeaveIntersection;
@@ -831,6 +843,8 @@ TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooSmall)
   valueEgoVehicleStateObjectState.centerPoint = valueEgoVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateObjectStateSpeed(-100.);
   valueEgoVehicleStateObjectState.speed = valueEgoVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueEgoVehicleStateObjectState.steeringAngle = valueEgoVehicleStateObjectStateSteeringAngle;
   valueEgoVehicleState.objectState = valueEgoVehicleStateObjectState;
   valueEgoVehicleState.distanceToLeaveIntersection = valueEgoVehicleState.distanceToEnterIntersection;
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
@@ -935,6 +949,8 @@ TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooSmall)
   valueOtherVehicleStateObjectState.centerPoint = valueOtherVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueOtherVehicleStateObjectStateSpeed(-100.);
   valueOtherVehicleStateObjectState.speed = valueOtherVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueOtherVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueOtherVehicleStateObjectState.steeringAngle = valueOtherVehicleStateObjectStateSteeringAngle;
   valueOtherVehicleState.objectState = valueOtherVehicleStateObjectState;
   valueOtherVehicleState.distanceToLeaveIntersection = valueOtherVehicleState.distanceToEnterIntersection;
   valueOtherVehicleState.distanceToEnterIntersection = valueOtherVehicleState.distanceToLeaveIntersection;
@@ -1073,6 +1089,8 @@ TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooBig)
   valueEgoVehicleStateObjectState.centerPoint = valueEgoVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateObjectStateSpeed(-100.);
   valueEgoVehicleStateObjectState.speed = valueEgoVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueEgoVehicleStateObjectState.steeringAngle = valueEgoVehicleStateObjectStateSteeringAngle;
   valueEgoVehicleState.objectState = valueEgoVehicleStateObjectState;
   valueEgoVehicleState.distanceToLeaveIntersection = valueEgoVehicleState.distanceToEnterIntersection;
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
@@ -1177,6 +1195,8 @@ TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooBig)
   valueOtherVehicleStateObjectState.centerPoint = valueOtherVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueOtherVehicleStateObjectStateSpeed(-100.);
   valueOtherVehicleStateObjectState.speed = valueOtherVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueOtherVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueOtherVehicleStateObjectState.steeringAngle = valueOtherVehicleStateObjectStateSteeringAngle;
   valueOtherVehicleState.objectState = valueOtherVehicleStateObjectState;
   valueOtherVehicleState.distanceToLeaveIntersection = valueOtherVehicleState.distanceToEnterIntersection;
   valueOtherVehicleState.distanceToEnterIntersection = valueOtherVehicleState.distanceToLeaveIntersection;
@@ -1315,6 +1335,8 @@ TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooSmall
   valueEgoVehicleStateObjectState.centerPoint = valueEgoVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateObjectStateSpeed(-100.);
   valueEgoVehicleStateObjectState.speed = valueEgoVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueEgoVehicleStateObjectState.steeringAngle = valueEgoVehicleStateObjectStateSteeringAngle;
   valueEgoVehicleState.objectState = valueEgoVehicleStateObjectState;
   valueEgoVehicleState.distanceToLeaveIntersection = valueEgoVehicleState.distanceToEnterIntersection;
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
@@ -1419,6 +1441,8 @@ TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooSmall
   valueOtherVehicleStateObjectState.centerPoint = valueOtherVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueOtherVehicleStateObjectStateSpeed(-100.);
   valueOtherVehicleStateObjectState.speed = valueOtherVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueOtherVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueOtherVehicleStateObjectState.steeringAngle = valueOtherVehicleStateObjectStateSteeringAngle;
   valueOtherVehicleState.objectState = valueOtherVehicleStateObjectState;
   valueOtherVehicleState.distanceToLeaveIntersection = valueOtherVehicleState.distanceToEnterIntersection;
   valueOtherVehicleState.distanceToEnterIntersection = valueOtherVehicleState.distanceToLeaveIntersection;
@@ -1557,6 +1581,8 @@ TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooBig)
   valueEgoVehicleStateObjectState.centerPoint = valueEgoVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateObjectStateSpeed(-100.);
   valueEgoVehicleStateObjectState.speed = valueEgoVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueEgoVehicleStateObjectState.steeringAngle = valueEgoVehicleStateObjectStateSteeringAngle;
   valueEgoVehicleState.objectState = valueEgoVehicleStateObjectState;
   valueEgoVehicleState.distanceToLeaveIntersection = valueEgoVehicleState.distanceToEnterIntersection;
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
@@ -1661,6 +1687,8 @@ TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooBig)
   valueOtherVehicleStateObjectState.centerPoint = valueOtherVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueOtherVehicleStateObjectStateSpeed(-100.);
   valueOtherVehicleStateObjectState.speed = valueOtherVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueOtherVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueOtherVehicleStateObjectState.steeringAngle = valueOtherVehicleStateObjectStateSteeringAngle;
   valueOtherVehicleState.objectState = valueOtherVehicleStateObjectState;
   valueOtherVehicleState.distanceToLeaveIntersection = valueOtherVehicleState.distanceToEnterIntersection;
   valueOtherVehicleState.distanceToEnterIntersection = valueOtherVehicleState.distanceToLeaveIntersection;
@@ -1799,6 +1827,8 @@ TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooSmall)
   valueEgoVehicleStateObjectState.centerPoint = valueEgoVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateObjectStateSpeed(-100.);
   valueEgoVehicleStateObjectState.speed = valueEgoVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueEgoVehicleStateObjectState.steeringAngle = valueEgoVehicleStateObjectStateSteeringAngle;
   valueEgoVehicleState.objectState = valueEgoVehicleStateObjectState;
   valueEgoVehicleState.distanceToLeaveIntersection = valueEgoVehicleState.distanceToEnterIntersection;
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
@@ -1903,6 +1933,8 @@ TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooSmall)
   valueOtherVehicleStateObjectState.centerPoint = valueOtherVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueOtherVehicleStateObjectStateSpeed(-100.);
   valueOtherVehicleStateObjectState.speed = valueOtherVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueOtherVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueOtherVehicleStateObjectState.steeringAngle = valueOtherVehicleStateObjectStateSteeringAngle;
   valueOtherVehicleState.objectState = valueOtherVehicleStateObjectState;
   valueOtherVehicleState.distanceToLeaveIntersection = valueOtherVehicleState.distanceToEnterIntersection;
   valueOtherVehicleState.distanceToEnterIntersection = valueOtherVehicleState.distanceToLeaveIntersection;
@@ -2038,6 +2070,8 @@ TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooBig)
   valueEgoVehicleStateObjectState.centerPoint = valueEgoVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateObjectStateSpeed(-100.);
   valueEgoVehicleStateObjectState.speed = valueEgoVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueEgoVehicleStateObjectState.steeringAngle = valueEgoVehicleStateObjectStateSteeringAngle;
   valueEgoVehicleState.objectState = valueEgoVehicleStateObjectState;
   valueEgoVehicleState.distanceToLeaveIntersection = valueEgoVehicleState.distanceToEnterIntersection;
   valueEgoVehicleState.distanceToEnterIntersection = valueEgoVehicleState.distanceToLeaveIntersection;
@@ -2142,6 +2176,8 @@ TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooBig)
   valueOtherVehicleStateObjectState.centerPoint = valueOtherVehicleStateObjectStateCenterPoint;
   ::ad::physics::Speed valueOtherVehicleStateObjectStateSpeed(-100.);
   valueOtherVehicleStateObjectState.speed = valueOtherVehicleStateObjectStateSpeed;
+  ::ad::physics::Angle valueOtherVehicleStateObjectStateSteeringAngle(-6.283185308);
+  valueOtherVehicleStateObjectState.steeringAngle = valueOtherVehicleStateObjectStateSteeringAngle;
   valueOtherVehicleState.objectState = valueOtherVehicleStateObjectState;
   valueOtherVehicleState.distanceToLeaveIntersection = valueOtherVehicleState.distanceToEnterIntersection;
   valueOtherVehicleState.distanceToEnterIntersection = valueOtherVehicleState.distanceToLeaveIntersection;

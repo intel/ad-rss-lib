@@ -92,6 +92,8 @@ protected:
     valueEgoVehicleState.centerPoint = valueEgoVehicleStateCenterPoint;
     ::ad::physics::Speed valueEgoVehicleStateSpeed(-100.);
     valueEgoVehicleState.speed = valueEgoVehicleStateSpeed;
+    ::ad::physics::Angle valueEgoVehicleStateSteeringAngle(-6.283185308);
+    valueEgoVehicleState.steeringAngle = valueEgoVehicleStateSteeringAngle;
     valueEgoVehicle.state = valueEgoVehicleState;
     value.egoVehicle = valueEgoVehicle;
     ::ad::rss::world::RssDynamics valueEgoVehicleRssDynamics;
@@ -207,6 +209,8 @@ protected:
     valueObjectState.centerPoint = valueObjectStateCenterPoint;
     ::ad::physics::Speed valueObjectStateSpeed(-100.);
     valueObjectState.speed = valueObjectStateSpeed;
+    ::ad::physics::Angle valueObjectStateSteeringAngle(-6.283185308);
+    valueObjectState.steeringAngle = valueObjectStateSteeringAngle;
     valueObject.state = valueObjectState;
     value.object = valueObject;
     ::ad::rss::world::RssDynamics valueObjectRssDynamics;
@@ -451,6 +455,8 @@ TEST_F(SceneTests, comparisonOperatorEgoVehicleDiffers)
   egoVehicleState.centerPoint = egoVehicleStateCenterPoint;
   ::ad::physics::Speed egoVehicleStateSpeed(100.);
   egoVehicleState.speed = egoVehicleStateSpeed;
+  ::ad::physics::Angle egoVehicleStateSteeringAngle(6.283185308);
+  egoVehicleState.steeringAngle = egoVehicleStateSteeringAngle;
   egoVehicle.state = egoVehicleState;
   valueA.egoVehicle = egoVehicle;
   ::ad::rss::world::Scene valueB = mValue;
@@ -582,6 +588,8 @@ TEST_F(SceneTests, comparisonOperatorObjectDiffers)
   objectState.centerPoint = objectStateCenterPoint;
   ::ad::physics::Speed objectStateSpeed(100.);
   objectState.speed = objectStateSpeed;
+  ::ad::physics::Angle objectStateSteeringAngle(6.283185308);
+  objectState.steeringAngle = objectStateSteeringAngle;
   object.state = objectState;
   valueA.object = object;
   ::ad::rss::world::Scene valueB = mValue;

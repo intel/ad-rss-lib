@@ -123,6 +123,8 @@ protected:
     valueObjectState.centerPoint = valueObjectStateCenterPoint;
     ::ad::physics::Speed valueObjectStateSpeed(-100.);
     valueObjectState.speed = valueObjectStateSpeed;
+    ::ad::physics::Angle valueObjectStateSteeringAngle(-6.283185308);
+    valueObjectState.steeringAngle = valueObjectStateSteeringAngle;
     value.objectState = valueObjectState;
     value.distanceToLeaveIntersection = value.distanceToEnterIntersection;
     value.distanceToEnterIntersection = value.distanceToLeaveIntersection;
@@ -336,6 +338,8 @@ TEST_F(VehicleStateTests, comparisonOperatorObjectStateDiffers)
   objectState.centerPoint = objectStateCenterPoint;
   ::ad::physics::Speed objectStateSpeed(100.);
   objectState.speed = objectStateSpeed;
+  ::ad::physics::Angle objectStateSteeringAngle(6.283185308);
+  objectState.steeringAngle = objectStateSteeringAngle;
   valueA.objectState = objectState;
   ::ad::rss::situation::VehicleState valueB = mValue;
 

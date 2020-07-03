@@ -71,6 +71,7 @@ bool RssUnstructuredSceneChecker::calculateRssStateUnstructured(world::TimeIndex
                                                                 state::RssState &rssState)
 {
   bool result = true;
+
   if (timeIndex != mCurrentTimeIndex)
   {
     mOtherMustBrakeStatesBeforeDangerThresholdTime.swap(mNewOtherMustBrakeStatesBeforeDangerThresholdTime);
@@ -89,8 +90,31 @@ bool RssUnstructuredSceneChecker::calculateRssStateUnstructured(world::TimeIndex
 
   if (result)
   {
-    result = calculateState(
-      situation, egoStateInfo, rssState.unstructuredSceneState.rssStateInformation, rssState.unstructuredSceneState);
+    auto foundDriveAwayStateIt = mDriveAwayStateMap.find(situation.situationId);
+    if ((foundDriveAwayStateIt != mDriveAwayStateMap.end())
+        && (situation.otherVehicleState.objectState.centerPoint == foundDriveAwayStateIt->second.otherPosition)
+        && (unstructured::isInsideHeadingRange(
+             normalizeAngleSigned(situation.egoVehicleState.objectState.yaw
+                                  + situation.egoVehicleState.objectState.steeringAngle),
+             foundDriveAwayStateIt->second.allowedHeadingRange)))
+    {
+      // 1. other vehicle did not move since mode switched to drive-away
+      // 2. ego is driving within the allowed heading range
+      // -> keep drive-away mode
+      spdlog::info("Situation {} ego vehicle driving away with allowed heading.", situation.situationId);
+      rssState.unstructuredSceneState.response = state::UnstructuredSceneResponse::DriveAway;
+      rssState.unstructuredSceneState.isSafe = false;
+      rssState.unstructuredSceneState.headingRange = foundDriveAwayStateIt->second.allowedHeadingRange;
+    }
+    else
+    {
+      if (foundDriveAwayStateIt != mDriveAwayStateMap.end())
+      {
+        mDriveAwayStateMap.erase(foundDriveAwayStateIt);
+      }
+      result = calculateState(
+        situation, egoStateInfo, rssState.unstructuredSceneState.rssStateInformation, rssState.unstructuredSceneState);
+    }
   }
   return result;
 }
@@ -145,8 +169,8 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
     }
 
     // Rule 1: If both cars were already at a full stop, then one can drive away from other vehicle
-    if (((situation.egoVehicleState.objectState.speed == ad::physics::Speed(0.))
-         && (situation.otherVehicleState.objectState.speed == ad::physics::Speed(0.))))
+    if (((situation.egoVehicleState.objectState.speed == physics::Speed(0.))
+         && (situation.otherVehicleState.objectState.speed == physics::Speed(0.))))
     {
       spdlog::info("Situation {} Rule 1: both stopped, unsafe distance -> drive away.", situation.situationId);
       mode = DrivingMode::DriveAway;
@@ -158,7 +182,7 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
     // - other-brake and ego-continue-forward overlap
     if ((mode == DrivingMode::Invalid) && lastOtherMustBrake)
     {
-      if (situation.egoVehicleState.objectState.speed > ad::physics::Speed(0.))
+      if (situation.egoVehicleState.objectState.speed > physics::Speed(0.))
       {
         spdlog::info("Situation {} Rule 2: opponent is moving -> continue forward", situation.situationId);
         mode = DrivingMode::ContinueForward;
@@ -194,7 +218,10 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
                               unstructured::toPoint(situation.otherVehicleState.objectState.centerPoint),
                               situation.egoVehicleState.dynamics.unstructuredSettings.driveAwayMaxAngle,
                               rssState.headingRange);
-
+      DriveAwayState driveAwayState;
+      driveAwayState.allowedHeadingRange = rssState.headingRange;
+      driveAwayState.otherPosition = situation.otherVehicleState.objectState.centerPoint;
+      mDriveAwayStateMap[situation.situationId] = driveAwayState;
       rssState.response = state::UnstructuredSceneResponse::DriveAway;
       rssState.isSafe = false;
       break;
@@ -213,13 +240,13 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
 
 bool RssUnstructuredSceneChecker::calculateDriveAwayAngle(unstructured::Point const &egoVehicleLocation,
                                                           unstructured::Point const &otherVehicleLocation,
-                                                          ::ad::physics::Angle const &maxAllowedAngleWhenBothStopped,
-                                                          ::ad::rss::state::HeadingRange &range) const
+                                                          physics::Angle const &maxAllowedAngleWhenBothStopped,
+                                                          state::HeadingRange &range) const
 {
   auto const substractedLocationVector = egoVehicleLocation - otherVehicleLocation;
 
   // get vector angle
-  auto const substractedLocationVectorAngle = ::ad::physics::Angle(
+  auto const substractedLocationVectorAngle = physics::Angle(
     std::atan2(static_cast<double>(substractedLocationVector.y()), static_cast<double>(substractedLocationVector.x())));
 
   range.begin = physics::normalizeAngleSigned(substractedLocationVectorAngle - maxAllowedAngleWhenBothStopped);

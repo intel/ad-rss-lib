@@ -146,19 +146,28 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
             0,
             otherVehicleObject)
 
+        egoObjectData = rssmap.RssObjectData()
+        egoObjectData.id = self.egoVehicleId
+        egoObjectData.type = rss.ObjectType.EgoVehicle
+        egoObjectData.matchObject = self.egoObject
+        egoObjectData.speed = self.egoSpeed
+        egoObjectData.yawRate = self.egoYawRate
+        egoObjectData.steeringAngle = physics.Angle(0.)
+        egoObjectData.rssDynamics = self._get_ego_vehicle_dynamics()
+
+        otherObjectData = rssmap.RssObjectData()
+        otherObjectData.id = otherVehicleId
+        otherObjectData.type = rss.ObjectType.OtherVehicle
+        otherObjectData.matchObject = otherVehicleObject
+        otherObjectData.speed = otherVehicleSpeed
+        otherObjectData.yawRate = otherVehicleYawRate
+        otherObjectData.steeringAngle = physics.Angle(0.)
+        otherObjectData.rssDynamics = self._get_object_vehicle_dynamics()
+
         self.assertTrue(scene_creation.appendScenes(
-            self.egoVehicleId,
-            self.egoObject,
-            self.egoSpeed,
-            self.egoYawRate,
-            self._get_ego_vehicle_dynamics(),
+            egoObjectData,
             self.egoRoute,
-            otherVehicleId,
-            rss.ObjectType.OtherVehicle,
-            otherVehicleObject,
-            otherVehicleSpeed,
-            otherVehicleYawRate,
-            self._get_object_vehicle_dynamics(),
+            otherObjectData,
             rssmap.RssSceneCreation.RestrictSpeedLimitMode.IncreasedSpeedLimit10,
             admap.LandmarkIdSet(),
             rssmap.RssMode.Structured))

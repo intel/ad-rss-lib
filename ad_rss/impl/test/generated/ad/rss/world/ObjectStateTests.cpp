@@ -46,6 +46,8 @@ protected:
     value.centerPoint = valueCenterPoint;
     ::ad::physics::Speed valueSpeed(-100.);
     value.speed = valueSpeed;
+    ::ad::physics::Angle valueSteeringAngle(-6.283185308);
+    value.steeringAngle = valueSteeringAngle;
     mValue = value;
   }
 
@@ -155,6 +157,17 @@ TEST_F(ObjectStateTests, comparisonOperatorSpeedDiffers)
   ::ad::rss::world::ObjectState valueA = mValue;
   ::ad::physics::Speed speed(100.);
   valueA.speed = speed;
+  ::ad::rss::world::ObjectState valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(ObjectStateTests, comparisonOperatorSteeringAngleDiffers)
+{
+  ::ad::rss::world::ObjectState valueA = mValue;
+  ::ad::physics::Angle steeringAngle(6.283185308);
+  valueA.steeringAngle = steeringAngle;
   ::ad::rss::world::ObjectState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

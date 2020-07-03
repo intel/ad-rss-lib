@@ -122,7 +122,7 @@ private:
    */
   bool calculateDriveAwayAngle(unstructured::Point const &egoVehicleLocation,
                                unstructured::Point const &otherVehicleLocation,
-                               ::ad::physics::Angle const &maxAllowedAngleWhenBothStopped,
+                               physics::Angle const &maxAllowedAngleWhenBothStopped,
                                state::HeadingRange &range) const;
 
   /**
@@ -137,15 +137,31 @@ private:
    * Needs to be stored to check which is the required behaviour to solve the situation
    */
   OtherMustBrakeStateBeforeDangerThresholdTimeMap mOtherMustBrakeStatesBeforeDangerThresholdTime;
+
   /**
    * @brief the new states to be considered in next time step
    */
   OtherMustBrakeStateBeforeDangerThresholdTimeMap mNewOtherMustBrakeStatesBeforeDangerThresholdTime;
+
   /**
    * @brief time index of the current processing step
    * If time index increases we need to update the state maps
    */
   world::TimeIndex mCurrentTimeIndex{0u};
+
+  /**
+   * @brief Store required data for drive away calculations between timesteps
+   */
+  struct DriveAwayState
+  {
+    state::HeadingRange allowedHeadingRange;
+    physics::Distance2D otherPosition;
+  };
+
+  /**
+   * @brief map to state drive-away data for situations
+   */
+  std::map<situation::SituationId, DriveAwayState> mDriveAwayStateMap;
 };
 
 } // namespace situation

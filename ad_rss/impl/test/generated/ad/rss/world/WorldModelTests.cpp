@@ -165,6 +165,8 @@ protected:
     valueScenesElementEgoVehicleState.centerPoint = valueScenesElementEgoVehicleStateCenterPoint;
     ::ad::physics::Speed valueScenesElementEgoVehicleStateSpeed(-100.);
     valueScenesElementEgoVehicleState.speed = valueScenesElementEgoVehicleStateSpeed;
+    ::ad::physics::Angle valueScenesElementEgoVehicleStateSteeringAngle(-6.283185308);
+    valueScenesElementEgoVehicleState.steeringAngle = valueScenesElementEgoVehicleStateSteeringAngle;
     valueScenesElementEgoVehicle.state = valueScenesElementEgoVehicleState;
     valueScenesElement.egoVehicle = valueScenesElementEgoVehicle;
     ::ad::rss::world::RssDynamics valueScenesElementEgoVehicleRssDynamics;
@@ -299,6 +301,8 @@ protected:
     valueScenesElementObjectState.centerPoint = valueScenesElementObjectStateCenterPoint;
     ::ad::physics::Speed valueScenesElementObjectStateSpeed(-100.);
     valueScenesElementObjectState.speed = valueScenesElementObjectStateSpeed;
+    ::ad::physics::Angle valueScenesElementObjectStateSteeringAngle(-6.283185308);
+    valueScenesElementObjectState.steeringAngle = valueScenesElementObjectStateSteeringAngle;
     valueScenesElementObject.state = valueScenesElementObjectState;
     valueScenesElement.object = valueScenesElementObject;
     ::ad::rss::world::RssDynamics valueScenesElementObjectRssDynamics;
@@ -648,6 +652,8 @@ TEST_F(WorldModelTests, comparisonOperatorScenesDiffers)
   scenesElementEgoVehicleState.centerPoint = scenesElementEgoVehicleStateCenterPoint;
   ::ad::physics::Speed scenesElementEgoVehicleStateSpeed(100.);
   scenesElementEgoVehicleState.speed = scenesElementEgoVehicleStateSpeed;
+  ::ad::physics::Angle scenesElementEgoVehicleStateSteeringAngle(6.283185308);
+  scenesElementEgoVehicleState.steeringAngle = scenesElementEgoVehicleStateSteeringAngle;
   scenesElementEgoVehicle.state = scenesElementEgoVehicleState;
   scenesElement.egoVehicle = scenesElementEgoVehicle;
   ::ad::rss::world::RssDynamics scenesElementEgoVehicleRssDynamics;
@@ -765,6 +771,8 @@ TEST_F(WorldModelTests, comparisonOperatorScenesDiffers)
   scenesElementObjectState.centerPoint = scenesElementObjectStateCenterPoint;
   ::ad::physics::Speed scenesElementObjectStateSpeed(100.);
   scenesElementObjectState.speed = scenesElementObjectStateSpeed;
+  ::ad::physics::Angle scenesElementObjectStateSteeringAngle(6.283185308);
+  scenesElementObjectState.steeringAngle = scenesElementObjectStateSteeringAngle;
   scenesElementObject.state = scenesElementObjectState;
   scenesElement.object = scenesElementObject;
   ::ad::rss::world::RssDynamics scenesElementObjectRssDynamics;

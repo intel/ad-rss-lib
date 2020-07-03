@@ -20,42 +20,38 @@ TEST_F(RssSceneCreationTestRoadBoundaries, testAppendRoadBoundaries)
 {
   ::ad::rss::map::RssSceneCreation sceneCreation(1u, getEgoVehicleDynamics());
 
+  ::ad::rss::map::RssObjectData egoObjectData;
+  egoObjectData.id = egoVehicleId;
+  egoObjectData.type = ::ad::rss::world::ObjectType::EgoVehicle;
+  egoObjectData.matchObject = egoMatchObject;
+  egoObjectData.speed = egoSpeed;
+  egoObjectData.yawRate = egoYawRate;
+  egoObjectData.steeringAngle = egoSteeringAngle;
+  egoObjectData.rssDynamics = getEgoVehicleDynamics();
+
   for (auto appendMode : {::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly,
                           ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::ExpandRouteToOppositeLanes,
                           ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::ExpandRouteToAllNeighbors})
   {
-    EXPECT_TRUE(sceneCreation.appendRoadBoundaries(
-      egoVehicleId, egoMatchObject, egoSpeed, egoYawRate, getEgoVehicleDynamics(), egoRoute, appendMode));
+    EXPECT_TRUE(sceneCreation.appendRoadBoundaries(egoObjectData, egoRoute, appendMode));
   }
   EXPECT_EQ(sceneCreation.mWorldModel.scenes.size(), 6u);
 
+  auto egoObjectCorruptBoundingBox = egoObjectData;
+  egoObjectCorruptBoundingBox.matchObject = ::ad::map::match::Object();
   // invalid bounding box
-  EXPECT_FALSE(
-    sceneCreation.appendRoadBoundaries(egoVehicleId,
-                                       ::ad::map::match::Object(),
-                                       egoSpeed,
-                                       egoYawRate,
-                                       getEgoVehicleDynamics(),
-                                       egoRoute,
-                                       ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly));
+  EXPECT_FALSE(sceneCreation.appendRoadBoundaries(
+    egoObjectCorruptBoundingBox, egoRoute, ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly));
 
   // invalid speed
-  EXPECT_FALSE(
-    sceneCreation.appendRoadBoundaries(egoVehicleId,
-                                       egoMatchObject,
-                                       ::ad::physics::Speed(),
-                                       egoYawRate,
-                                       getEgoVehicleDynamics(),
-                                       egoRoute,
-                                       ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly));
+  auto egoObjectCorruptSpeed = egoObjectData;
+  egoObjectCorruptSpeed.speed = ::ad::physics::Speed();
+  EXPECT_FALSE(sceneCreation.appendRoadBoundaries(
+    egoObjectCorruptSpeed, egoRoute, ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly));
 
   // invalid route
   EXPECT_FALSE(
-    sceneCreation.appendRoadBoundaries(egoVehicleId,
-                                       egoMatchObject,
-                                       egoSpeed,
-                                       egoYawRate,
-                                       getEgoVehicleDynamics(),
+    sceneCreation.appendRoadBoundaries(egoObjectData,
                                        ::ad::map::route::FullRoute(),
                                        ::ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode::RouteOnly));
 

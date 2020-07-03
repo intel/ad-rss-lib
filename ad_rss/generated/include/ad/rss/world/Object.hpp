@@ -141,7 +141,7 @@ struct Object
   ::ad::rss::world::Velocity velocity;
 
   /*!
-   * Defines the state of the object in respect to a local reference coordinate system (e.g. ENU)
+   * Defines the state of the object in respect to a reference coordinate system (e.g. ENU)
    */
   ::ad::rss::world::ObjectState state;
 };

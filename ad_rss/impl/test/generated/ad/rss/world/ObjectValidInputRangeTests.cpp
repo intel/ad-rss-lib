@@ -82,6 +82,8 @@ TEST(ObjectValidInputRangeTests, testValidInputRange)
   valueState.centerPoint = valueStateCenterPoint;
   ::ad::physics::Speed valueStateSpeed(-100.);
   valueState.speed = valueStateSpeed;
+  ::ad::physics::Angle valueStateSteeringAngle(-6.283185308);
+  valueState.steeringAngle = valueStateSteeringAngle;
   value.state = valueState;
   ASSERT_TRUE(withinValidInputRange(value));
 }
@@ -150,6 +152,8 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeObjectTypeTooSmall)
   valueState.centerPoint = valueStateCenterPoint;
   ::ad::physics::Speed valueStateSpeed(-100.);
   valueState.speed = valueStateSpeed;
+  ::ad::physics::Angle valueStateSteeringAngle(-6.283185308);
+  valueState.steeringAngle = valueStateSteeringAngle;
   value.state = valueState;
 
   // override member with data type value below input range minimum
@@ -222,6 +226,8 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeObjectTypeTooBig)
   valueState.centerPoint = valueStateCenterPoint;
   ::ad::physics::Speed valueStateSpeed(-100.);
   valueState.speed = valueStateSpeed;
+  ::ad::physics::Angle valueStateSteeringAngle(-6.283185308);
+  valueState.steeringAngle = valueStateSteeringAngle;
   value.state = valueState;
 
   // override member with data type value above input range maximum
@@ -294,6 +300,8 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeVelocityTooSmall)
   valueState.centerPoint = valueStateCenterPoint;
   ::ad::physics::Speed valueStateSpeed(-100.);
   valueState.speed = valueStateSpeed;
+  ::ad::physics::Angle valueStateSteeringAngle(-6.283185308);
+  valueState.steeringAngle = valueStateSteeringAngle;
   value.state = valueState;
 
   // override member with data type value below input range minimum
@@ -368,6 +376,8 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeVelocityTooBig)
   valueState.centerPoint = valueStateCenterPoint;
   ::ad::physics::Speed valueStateSpeed(-100.);
   valueState.speed = valueStateSpeed;
+  ::ad::physics::Angle valueStateSteeringAngle(-6.283185308);
+  valueState.steeringAngle = valueStateSteeringAngle;
   value.state = valueState;
 
   // override member with data type value above input range maximum
@@ -442,6 +452,8 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeStateTooSmall)
   valueState.centerPoint = valueStateCenterPoint;
   ::ad::physics::Speed valueStateSpeed(-100.);
   valueState.speed = valueStateSpeed;
+  ::ad::physics::Angle valueStateSteeringAngle(-6.283185308);
+  valueState.steeringAngle = valueStateSteeringAngle;
   value.state = valueState;
 
   // override member with data type value below input range minimum
@@ -516,6 +528,8 @@ TEST(ObjectValidInputRangeTests, testValidInputRangeStateTooBig)
   valueState.centerPoint = valueStateCenterPoint;
   ::ad::physics::Speed valueStateSpeed(-100.);
   valueState.speed = valueStateSpeed;
+  ::ad::physics::Angle valueStateSteeringAngle(-6.283185308);
+  valueState.steeringAngle = valueStateSteeringAngle;
   value.state = valueState;
 
   // override member with data type value above input range maximum

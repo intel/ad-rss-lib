@@ -44,7 +44,7 @@ inline bool withinValidInputRange(::ad::rss::world::ObjectState const &input, bo
   bool inValidInputRange = true;
   inValidInputRange = withinValidInputRange(input.yaw, logErrors) && withinValidInputRange(input.dimension, logErrors)
     && withinValidInputRange(input.yawRate, logErrors) && withinValidInputRange(input.centerPoint, logErrors)
-    && withinValidInputRange(input.speed, logErrors);
+    && withinValidInputRange(input.speed, logErrors) && withinValidInputRange(input.steeringAngle, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::world::ObjectState)>> {} has invalid member",

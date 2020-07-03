@@ -8,7 +8,7 @@ In contrast to the structured scenes, two dimensional trajectories with lateral 
 
 To allow customization, every scene within the [`ad::rss::world::WorldModel`](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html) can be calculated as unstructured, depending on the `situationType`.
 
-### Behavior model/Trajectory Calculation
+### Behavior Model/Trajectory Calculation
 
 There are two different behavior models, for vehicles and pedestrians. They define the possible movement over time.
 Limits are defined to be able to calculate all possible trajectories.
@@ -120,3 +120,9 @@ As multiple situations might allow different ranges to drive away, the [`ad::rss
 | *Allowed heading ranges in blue* |
 
 If multiple states result in _drive_away_, but no headingRange overlap is available the state is escalated to _brake_.
+
+The _drive_away_ mode remains active as long as:
+
+1. The ego vehicle moves with a steering angle that is within the allowed heading range
+2. The other vehicle doesn't move
+

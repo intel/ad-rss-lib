@@ -11,8 +11,9 @@
 
 #pragma once
 
-#include <ad/map/match/Types.hpp>
+#include <ad/map/landmark/Types.hpp>
 #include <ad/map/route/Types.hpp>
+#include <ad/rss/map/RssObjectData.hpp>
 #include <ad/rss/world/WorldModel.hpp>
 #include <mutex>
 #include <ostream>
@@ -102,20 +103,11 @@ public:
    *
    * Based on the map information a connecting route between ego vehicle and the object is created.
    *
-   * @param[in] egoId the ego vehicle id
-   * @param[in] egoMatchObject the ego vehicle's position described by its map matched bounding box and position
-   * @param[in] egoSpeed the ego vehicle's speed
-   * @param[in] egoYawRate the ego vehicle's yaw rate
-   * @param[in] egoRssDynamics the ego vehicles' RssDynamics to be applied
+   * @param[in] egoObjectData the ego vehicle's data
    * @param[in] egoRoute the route the ego vehicle intends to take.
    *   If the given route is empty, all potential route predictions of the ego vehicle are taken into account if
    * required.
-   * @param[in] objectId the object id
-   * @param[in] objectType the object type
-   * @param[in] objectMatchObject the object's position described by its map matched bounding box and position
-   * @param[in] objectSpeed the object's speed
-   * @param[in] objectYawRate the object's yaw rate
-   * @param[in] objectRssDynamics the object's RssDynamics to be applied
+   * @param[in] otherObjectData the other object's data
    * @param[in] restrictSpeedLimitMode the mode to select the behavior of objectRssDynamics.maxSpeedOnAcceleration and
    * egoRssDynamics.maxSpeedOnAcceleration
    * parameter
@@ -125,18 +117,9 @@ public:
    *
    * @returns \c true if the operation succeeded.
    */
-  bool appendScenes(::ad::rss::world::ObjectId const &egoId,
-                    ::ad::map::match::Object const &egoMatchObject,
-                    ::ad::physics::Speed const &egoSpeed,
-                    ::ad::physics::AngularVelocity const &egoYawRate,
-                    ::ad::rss::world::RssDynamics const &egoRssDynamics,
+  bool appendScenes(RssObjectData const &egoObjectData,
                     ::ad::map::route::FullRoute const &egoRoute,
-                    ::ad::rss::world::ObjectId const &objectId,
-                    ::ad::rss::world::ObjectType const &objectType,
-                    ::ad::map::match::Object const &objectMatchObject,
-                    ::ad::physics::Speed const &objectSpeed,
-                    ::ad::physics::AngularVelocity const &objectYawRate,
-                    ::ad::rss::world::RssDynamics const &objectRssDynamics,
+                    RssObjectData const &otherObjectData,
                     RestrictSpeedLimitMode const &restrictSpeedLimitMode,
                     ::ad::map::landmark::LandmarkIdSet const &greenTrafficLights,
                     ::ad::rss::map::RssMode const &mode);
@@ -166,20 +149,13 @@ public:
    * Based on the map information static object scenes at the borders of the driveable lanes are created.
    * For detailed operation modes see the operation modes at \a AppendRoadBoundariesMode.
    *
-   * @param[in] egoId the ego vehicle id
-   * @param[in] egoMatchObject the ego vehicle's position described by its map matched bounding box and position
-   * @param[in] egoSpeed the ego vehicle's speed
-   * @param[in] egoYawRate the ego vehicle's yaw rate
-   * @param[in] egoRssDynamics the ego vehicles' RssDynamics to be applied
+   * @param[in] egoObjectData the ego vehicle's data
    * @param[in] egoRoute the route the ego vehicle intends to take.
+   * @param[in] operationMode the mode how the road boundaries shall be handled
    *
    * @returns \c true if the operation succeeded.
    */
-  bool appendRoadBoundaries(::ad::rss::world::ObjectId const &egoId,
-                            ::ad::map::match::Object const &egoMatchObject,
-                            ::ad::physics::Speed const &egoSpeed,
-                            ::ad::physics::AngularVelocity const &egoYawRate,
-                            ::ad::rss::world::RssDynamics const &egoRssDynamics,
+  bool appendRoadBoundaries(RssObjectData const &egoObjectData,
                             ::ad::map::route::FullRoute const &route,
                             AppendRoadBoundariesMode const operationMode);
 
