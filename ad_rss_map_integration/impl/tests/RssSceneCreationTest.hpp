@@ -132,6 +132,7 @@ struct RssSceneCreationTest : ::testing::Test
           break;
         }
         case MapToLoad::None:
+        default:
           ASSERT_TRUE(false);
           break;
       }
