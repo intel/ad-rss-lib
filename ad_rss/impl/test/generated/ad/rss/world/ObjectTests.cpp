@@ -89,6 +89,8 @@ protected:
     valueState.centerPoint = valueStateCenterPoint;
     ::ad::physics::Speed valueStateSpeed(-100.);
     valueState.speed = valueStateSpeed;
+    ::ad::physics::Angle valueStateSteeringAngle(-6.283185308);
+    valueState.steeringAngle = valueStateSteeringAngle;
     value.state = valueState;
     mValue = value;
   }
@@ -241,6 +243,8 @@ TEST_F(ObjectTests, comparisonOperatorStateDiffers)
   state.centerPoint = stateCenterPoint;
   ::ad::physics::Speed stateSpeed(100.);
   state.speed = stateSpeed;
+  ::ad::physics::Angle stateSteeringAngle(6.283185308);
+  state.steeringAngle = stateSteeringAngle;
   valueA.state = state;
   ::ad::rss::world::Object valueB = mValue;
 

@@ -505,13 +505,16 @@ bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const
   rightBorderPosition.dimension.length = ::ad::physics::Distance(0.1);
   rightBorderPosition.dimension.width = ::ad::physics::Distance(0.1);
 
-  auto rightBorderObject = std::make_shared<RssObjectConversion>(getRightBorderObjectId(),
-                                                                 ::ad::rss::world::ObjectType::ArtificialObject,
-                                                                 rightBorderOccupiedRegions,
-                                                                 rightBorderPosition,
-                                                                 ::ad::physics::Speed(0),
-                                                                 ::ad::physics::AngularVelocity(0.),
-                                                                 staticDynamics);
+  RssObjectData rightBorderObjectData;
+  rightBorderObjectData.id = getRightBorderObjectId();
+  rightBorderObjectData.type = ::ad::rss::world::ObjectType::ArtificialObject;
+  rightBorderObjectData.matchObject.enuPosition = rightBorderPosition;
+  rightBorderObjectData.speed = ::ad::physics::Speed(0);
+  rightBorderObjectData.yawRate = ::ad::physics::AngularVelocity(0.);
+  rightBorderObjectData.steeringAngle = ::ad::physics::Angle(0.);
+  rightBorderObjectData.rssDynamics = staticDynamics;
+
+  auto rightBorderObject = std::make_shared<RssObjectConversion>(rightBorderObjectData, rightBorderOccupiedRegions);
   if (!bool(rightBorderObject))
   {
     getLogger()->error(
@@ -539,13 +542,16 @@ bool RssSceneCreator::appendRoadBoundaryScenes(::ad::map::route::FullRoute const
   leftBorderPosition.dimension.length = ::ad::physics::Distance(0.1);
   leftBorderPosition.dimension.width = ::ad::physics::Distance(0.1);
 
-  auto leftBorderObject = std::make_shared<RssObjectConversion>(getLeftBorderObjectId(),
-                                                                ::ad::rss::world::ObjectType::ArtificialObject,
-                                                                leftBorderOccupiedRegions,
-                                                                leftBorderPosition,
-                                                                ::ad::physics::Speed(0),
-                                                                ::ad::physics::AngularVelocity(0.),
-                                                                staticDynamics);
+  RssObjectData leftBorderObjectData;
+  leftBorderObjectData.id = getLeftBorderObjectId();
+  leftBorderObjectData.type = ::ad::rss::world::ObjectType::ArtificialObject;
+  leftBorderObjectData.matchObject.enuPosition = leftBorderPosition;
+  leftBorderObjectData.speed = ::ad::physics::Speed(0);
+  leftBorderObjectData.yawRate = ::ad::physics::AngularVelocity(0.);
+  leftBorderObjectData.steeringAngle = ::ad::physics::Angle(0.);
+  leftBorderObjectData.rssDynamics = staticDynamics;
+
+  auto leftBorderObject = std::make_shared<RssObjectConversion>(leftBorderObjectData, leftBorderOccupiedRegions);
   if (!bool(leftBorderObject))
   {
     getLogger()->error(

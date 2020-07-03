@@ -14,43 +14,41 @@
 #include <ad/rss/situation/RssFormulas.hpp>
 #include <algorithm>
 #include "ad/rss/map/Logging.hpp"
+#include "ad/rss/map/RssSceneCreator.hpp"
 
 namespace ad {
 namespace rss {
 namespace map {
 
-RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
-                                         ::ad::rss::world::ObjectType const &objectType,
-                                         ::ad::map::match::Object const &objectMapMatchedPosition,
-                                         ::ad::physics::Speed const &objectSpeed,
-                                         ::ad::physics::AngularVelocity const &objectYawRate,
-                                         ::ad::rss::world::RssDynamics const &rssDynamics)
-  : mObjectMapMatchedPosition(&objectMapMatchedPosition)
+RssObjectConversion::RssObjectConversion(RssObjectData const &objectData)
+  : mObjectMapMatchedPosition(&objectData.matchObject)
   , mMaxSpeedOnAcceleration(0.)
-  , mOriginalObjectSpeed(objectSpeed)
-  , mRssDynamics(rssDynamics)
+  , mOriginalObjectSpeed(objectData.speed)
+  , mRssDynamics(objectData.rssDynamics)
 {
-  initializeRssObject(objectId,
-                      objectType,
+  initializeRssObject(objectData.id,
+                      objectData.type,
                       ::ad::rss::world::OccupiedRegionVector(),
-                      objectMapMatchedPosition.enuPosition,
-                      objectSpeed,
-                      objectYawRate);
+                      objectData.matchObject.enuPosition,
+                      objectData.speed,
+                      objectData.yawRate,
+                      objectData.steeringAngle);
 }
 
-RssObjectConversion::RssObjectConversion(::ad::rss::world::ObjectId const &objectId,
-                                         ::ad::rss::world::ObjectType const &objectType,
-                                         ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions,
-                                         ::ad::map::match::ENUObjectPosition const &objectEnuPosition,
-                                         ::ad::physics::Speed const &objectSpeed,
-                                         ::ad::physics::AngularVelocity const &objectYawRate,
-                                         ::ad::rss::world::RssDynamics const &rssDynamics)
+RssObjectConversion::RssObjectConversion(RssObjectData const &objectData,
+                                         ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions)
   : mObjectMapMatchedPosition(nullptr)
   , mMaxSpeedOnAcceleration(0.)
-  , mOriginalObjectSpeed(objectSpeed)
-  , mRssDynamics(rssDynamics)
+  , mOriginalObjectSpeed(objectData.speed)
+  , mRssDynamics(objectData.rssDynamics)
 {
-  initializeRssObject(objectId, objectType, objectOccupiedRegions, objectEnuPosition, objectSpeed, objectYawRate);
+  initializeRssObject(objectData.id,
+                      objectData.type,
+                      objectOccupiedRegions,
+                      objectData.matchObject.enuPosition,
+                      objectData.speed,
+                      objectData.yawRate,
+                      objectData.steeringAngle);
 }
 
 void RssObjectConversion::initializeRssObject(::ad::rss::world::ObjectId const &objectId,
@@ -58,7 +56,8 @@ void RssObjectConversion::initializeRssObject(::ad::rss::world::ObjectId const &
                                               ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions,
                                               ::ad::map::match::ENUObjectPosition const &objectEnuPosition,
                                               ::ad::physics::Speed const &objectSpeed,
-                                              ::ad::physics::AngularVelocity const &objectYawRate)
+                                              ::ad::physics::AngularVelocity const &objectYawRate,
+                                              ::ad::physics::Angle const &objectSteeringAngle)
 {
   mRssObject.objectId = objectId;
   mRssObject.objectType = objectType;
@@ -73,6 +72,7 @@ void RssObjectConversion::initializeRssObject(::ad::rss::world::ObjectId const &
   mRssObject.state.centerPoint.y = ::ad::physics::Distance(static_cast<double>(objectEnuPosition.centerPoint.y));
   mRssObject.state.dimension.width = ::ad::physics::Distance(static_cast<double>(objectEnuPosition.dimension.width));
   mRssObject.state.dimension.length = ::ad::physics::Distance(static_cast<double>(objectEnuPosition.dimension.length));
+  mRssObject.state.steeringAngle = objectSteeringAngle;
 
   // restrict to positive speeds
   mRssObject.state.speed = std::max(::ad::physics::Speed(0.), objectSpeed);

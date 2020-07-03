@@ -42,11 +42,11 @@ namespace world {
 /*!
  * \brief DataType ObjectState
  *
- * State of an object in the local reference coordinate system (e.g. ENU).
+ * State of an object in the reference coordinate system (e.g. ENU).
  * As the evaluation results of multiple scenes have to be merged, this reference system
  * has to be the same for all entries at a specific time.
  * The proper response, i.e. the headingRanges of the unstructured scene response,
- * refers to this local reference coodinate system.
+ * refers to this reference coodinate system.
  */
 struct ObjectState
 {
@@ -108,7 +108,7 @@ struct ObjectState
   bool operator==(const ObjectState &other) const
   {
     return (yaw == other.yaw) && (dimension == other.dimension) && (yawRate == other.yawRate)
-      && (centerPoint == other.centerPoint) && (speed == other.speed);
+      && (centerPoint == other.centerPoint) && (speed == other.speed) && (steeringAngle == other.steeringAngle);
   }
 
   /**
@@ -124,29 +124,34 @@ struct ObjectState
   }
 
   /*!
-   * The heading angle of the object in the local reference coordinate system (e.g. ENU).
+   * The heading angle of the object in the reference coordinate system (e.g. ENU).
    */
   ::ad::physics::Angle yaw;
 
   /*!
-   * The dimension of the object in the local reference coordinate system (e.g. ENU).
+   * The dimension of the object in the reference coordinate system (e.g. ENU).
    */
   ::ad::physics::Dimension2D dimension;
 
   /*!
-   * The angular velocity of the object in the local reference coordinate system (e.g. ENU).
+   * The angular velocity of the object in the reference coordinate system (e.g. ENU).
    */
   ::ad::physics::AngularVelocity yawRate;
 
   /*!
-   * The center point of the object in the local reference coordinate system (e.g. ENU).
+   * The center point of the object in the reference coordinate system (e.g. ENU).
    */
   ::ad::physics::Distance2D centerPoint;
 
   /*!
-   * The speed of the object in the local reference coordinate system (e.g. ENU).
+   * The speed of the object in the reference coordinate system (e.g. ENU).
    */
   ::ad::physics::Speed speed;
+
+  /*!
+   * The steering angle of the object in the object frame.
+   */
+  ::ad::physics::Angle steeringAngle;
 };
 
 } // namespace world
@@ -197,6 +202,9 @@ inline std::ostream &operator<<(std::ostream &os, ObjectState const &_value)
   os << ",";
   os << "speed:";
   os << _value.speed;
+  os << ",";
+  os << "steeringAngle:";
+  os << _value.steeringAngle;
   os << ")";
   return os;
 }

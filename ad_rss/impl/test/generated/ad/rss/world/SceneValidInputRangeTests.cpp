@@ -85,6 +85,8 @@ TEST(SceneValidInputRangeTests, testValidInputRange)
   valueEgoVehicleState.centerPoint = valueEgoVehicleStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateSpeed(-100.);
   valueEgoVehicleState.speed = valueEgoVehicleStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateSteeringAngle(-6.283185308);
+  valueEgoVehicleState.steeringAngle = valueEgoVehicleStateSteeringAngle;
   valueEgoVehicle.state = valueEgoVehicleState;
   value.egoVehicle = valueEgoVehicle;
   ::ad::rss::world::RssDynamics valueEgoVehicleRssDynamics;
@@ -199,6 +201,8 @@ TEST(SceneValidInputRangeTests, testValidInputRange)
   valueObjectState.centerPoint = valueObjectStateCenterPoint;
   ::ad::physics::Speed valueObjectStateSpeed(-100.);
   valueObjectState.speed = valueObjectStateSpeed;
+  ::ad::physics::Angle valueObjectStateSteeringAngle(-6.283185308);
+  valueObjectState.steeringAngle = valueObjectStateSteeringAngle;
   valueObject.state = valueObjectState;
   value.object = valueObject;
   ::ad::rss::world::RssDynamics valueObjectRssDynamics;
@@ -385,6 +389,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)
   valueEgoVehicleState.centerPoint = valueEgoVehicleStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateSpeed(-100.);
   valueEgoVehicleState.speed = valueEgoVehicleStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateSteeringAngle(-6.283185308);
+  valueEgoVehicleState.steeringAngle = valueEgoVehicleStateSteeringAngle;
   valueEgoVehicle.state = valueEgoVehicleState;
   value.egoVehicle = valueEgoVehicle;
   ::ad::rss::world::RssDynamics valueEgoVehicleRssDynamics;
@@ -499,6 +505,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)
   valueObjectState.centerPoint = valueObjectStateCenterPoint;
   ::ad::physics::Speed valueObjectStateSpeed(-100.);
   valueObjectState.speed = valueObjectStateSpeed;
+  ::ad::physics::Angle valueObjectStateSteeringAngle(-6.283185308);
+  valueObjectState.steeringAngle = valueObjectStateSteeringAngle;
   valueObject.state = valueObjectState;
   value.object = valueObject;
   ::ad::rss::world::RssDynamics valueObjectRssDynamics;
@@ -689,6 +697,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeSituationTypeTooBig)
   valueEgoVehicleState.centerPoint = valueEgoVehicleStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateSpeed(-100.);
   valueEgoVehicleState.speed = valueEgoVehicleStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateSteeringAngle(-6.283185308);
+  valueEgoVehicleState.steeringAngle = valueEgoVehicleStateSteeringAngle;
   valueEgoVehicle.state = valueEgoVehicleState;
   value.egoVehicle = valueEgoVehicle;
   ::ad::rss::world::RssDynamics valueEgoVehicleRssDynamics;
@@ -803,6 +813,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeSituationTypeTooBig)
   valueObjectState.centerPoint = valueObjectStateCenterPoint;
   ::ad::physics::Speed valueObjectStateSpeed(-100.);
   valueObjectState.speed = valueObjectStateSpeed;
+  ::ad::physics::Angle valueObjectStateSteeringAngle(-6.283185308);
+  valueObjectState.steeringAngle = valueObjectStateSteeringAngle;
   valueObject.state = valueObjectState;
   value.object = valueObject;
   ::ad::rss::world::RssDynamics valueObjectRssDynamics;
@@ -993,6 +1005,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeEgoVehicleTooSmall)
   valueEgoVehicleState.centerPoint = valueEgoVehicleStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateSpeed(-100.);
   valueEgoVehicleState.speed = valueEgoVehicleStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateSteeringAngle(-6.283185308);
+  valueEgoVehicleState.steeringAngle = valueEgoVehicleStateSteeringAngle;
   valueEgoVehicle.state = valueEgoVehicleState;
   value.egoVehicle = valueEgoVehicle;
   ::ad::rss::world::RssDynamics valueEgoVehicleRssDynamics;
@@ -1107,6 +1121,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeEgoVehicleTooSmall)
   valueObjectState.centerPoint = valueObjectStateCenterPoint;
   ::ad::physics::Speed valueObjectStateSpeed(-100.);
   valueObjectState.speed = valueObjectStateSpeed;
+  ::ad::physics::Angle valueObjectStateSteeringAngle(-6.283185308);
+  valueObjectState.steeringAngle = valueObjectStateSteeringAngle;
   valueObject.state = valueObjectState;
   value.object = valueObject;
   ::ad::rss::world::RssDynamics valueObjectRssDynamics;
@@ -1299,6 +1315,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeEgoVehicleTooBig)
   valueEgoVehicleState.centerPoint = valueEgoVehicleStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateSpeed(-100.);
   valueEgoVehicleState.speed = valueEgoVehicleStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateSteeringAngle(-6.283185308);
+  valueEgoVehicleState.steeringAngle = valueEgoVehicleStateSteeringAngle;
   valueEgoVehicle.state = valueEgoVehicleState;
   value.egoVehicle = valueEgoVehicle;
   ::ad::rss::world::RssDynamics valueEgoVehicleRssDynamics;
@@ -1413,6 +1431,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeEgoVehicleTooBig)
   valueObjectState.centerPoint = valueObjectStateCenterPoint;
   ::ad::physics::Speed valueObjectStateSpeed(-100.);
   valueObjectState.speed = valueObjectStateSpeed;
+  ::ad::physics::Angle valueObjectStateSteeringAngle(-6.283185308);
+  valueObjectState.steeringAngle = valueObjectStateSteeringAngle;
   valueObject.state = valueObjectState;
   value.object = valueObject;
   ::ad::rss::world::RssDynamics valueObjectRssDynamics;
@@ -1605,6 +1625,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeEgoVehicleRssDynamicsTooSmall
   valueEgoVehicleState.centerPoint = valueEgoVehicleStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateSpeed(-100.);
   valueEgoVehicleState.speed = valueEgoVehicleStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateSteeringAngle(-6.283185308);
+  valueEgoVehicleState.steeringAngle = valueEgoVehicleStateSteeringAngle;
   valueEgoVehicle.state = valueEgoVehicleState;
   value.egoVehicle = valueEgoVehicle;
   ::ad::rss::world::RssDynamics valueEgoVehicleRssDynamics;
@@ -1719,6 +1741,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeEgoVehicleRssDynamicsTooSmall
   valueObjectState.centerPoint = valueObjectStateCenterPoint;
   ::ad::physics::Speed valueObjectStateSpeed(-100.);
   valueObjectState.speed = valueObjectStateSpeed;
+  ::ad::physics::Angle valueObjectStateSteeringAngle(-6.283185308);
+  valueObjectState.steeringAngle = valueObjectStateSteeringAngle;
   valueObject.state = valueObjectState;
   value.object = valueObject;
   ::ad::rss::world::RssDynamics valueObjectRssDynamics;
@@ -1913,6 +1937,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeEgoVehicleRssDynamicsTooBig)
   valueEgoVehicleState.centerPoint = valueEgoVehicleStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateSpeed(-100.);
   valueEgoVehicleState.speed = valueEgoVehicleStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateSteeringAngle(-6.283185308);
+  valueEgoVehicleState.steeringAngle = valueEgoVehicleStateSteeringAngle;
   valueEgoVehicle.state = valueEgoVehicleState;
   value.egoVehicle = valueEgoVehicle;
   ::ad::rss::world::RssDynamics valueEgoVehicleRssDynamics;
@@ -2027,6 +2053,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeEgoVehicleRssDynamicsTooBig)
   valueObjectState.centerPoint = valueObjectStateCenterPoint;
   ::ad::physics::Speed valueObjectStateSpeed(-100.);
   valueObjectState.speed = valueObjectStateSpeed;
+  ::ad::physics::Angle valueObjectStateSteeringAngle(-6.283185308);
+  valueObjectState.steeringAngle = valueObjectStateSteeringAngle;
   valueObject.state = valueObjectState;
   value.object = valueObject;
   ::ad::rss::world::RssDynamics valueObjectRssDynamics;
@@ -2221,6 +2249,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeObjectTooSmall)
   valueEgoVehicleState.centerPoint = valueEgoVehicleStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateSpeed(-100.);
   valueEgoVehicleState.speed = valueEgoVehicleStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateSteeringAngle(-6.283185308);
+  valueEgoVehicleState.steeringAngle = valueEgoVehicleStateSteeringAngle;
   valueEgoVehicle.state = valueEgoVehicleState;
   value.egoVehicle = valueEgoVehicle;
   ::ad::rss::world::RssDynamics valueEgoVehicleRssDynamics;
@@ -2335,6 +2365,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeObjectTooSmall)
   valueObjectState.centerPoint = valueObjectStateCenterPoint;
   ::ad::physics::Speed valueObjectStateSpeed(-100.);
   valueObjectState.speed = valueObjectStateSpeed;
+  ::ad::physics::Angle valueObjectStateSteeringAngle(-6.283185308);
+  valueObjectState.steeringAngle = valueObjectStateSteeringAngle;
   valueObject.state = valueObjectState;
   value.object = valueObject;
   ::ad::rss::world::RssDynamics valueObjectRssDynamics;
@@ -2527,6 +2559,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeObjectTooBig)
   valueEgoVehicleState.centerPoint = valueEgoVehicleStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateSpeed(-100.);
   valueEgoVehicleState.speed = valueEgoVehicleStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateSteeringAngle(-6.283185308);
+  valueEgoVehicleState.steeringAngle = valueEgoVehicleStateSteeringAngle;
   valueEgoVehicle.state = valueEgoVehicleState;
   value.egoVehicle = valueEgoVehicle;
   ::ad::rss::world::RssDynamics valueEgoVehicleRssDynamics;
@@ -2641,6 +2675,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeObjectTooBig)
   valueObjectState.centerPoint = valueObjectStateCenterPoint;
   ::ad::physics::Speed valueObjectStateSpeed(-100.);
   valueObjectState.speed = valueObjectStateSpeed;
+  ::ad::physics::Angle valueObjectStateSteeringAngle(-6.283185308);
+  valueObjectState.steeringAngle = valueObjectStateSteeringAngle;
   valueObject.state = valueObjectState;
   value.object = valueObject;
   ::ad::rss::world::RssDynamics valueObjectRssDynamics;
@@ -2833,6 +2869,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeObjectRssDynamicsTooSmall)
   valueEgoVehicleState.centerPoint = valueEgoVehicleStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateSpeed(-100.);
   valueEgoVehicleState.speed = valueEgoVehicleStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateSteeringAngle(-6.283185308);
+  valueEgoVehicleState.steeringAngle = valueEgoVehicleStateSteeringAngle;
   valueEgoVehicle.state = valueEgoVehicleState;
   value.egoVehicle = valueEgoVehicle;
   ::ad::rss::world::RssDynamics valueEgoVehicleRssDynamics;
@@ -2947,6 +2985,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeObjectRssDynamicsTooSmall)
   valueObjectState.centerPoint = valueObjectStateCenterPoint;
   ::ad::physics::Speed valueObjectStateSpeed(-100.);
   valueObjectState.speed = valueObjectStateSpeed;
+  ::ad::physics::Angle valueObjectStateSteeringAngle(-6.283185308);
+  valueObjectState.steeringAngle = valueObjectStateSteeringAngle;
   valueObject.state = valueObjectState;
   value.object = valueObject;
   ::ad::rss::world::RssDynamics valueObjectRssDynamics;
@@ -3141,6 +3181,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeObjectRssDynamicsTooBig)
   valueEgoVehicleState.centerPoint = valueEgoVehicleStateCenterPoint;
   ::ad::physics::Speed valueEgoVehicleStateSpeed(-100.);
   valueEgoVehicleState.speed = valueEgoVehicleStateSpeed;
+  ::ad::physics::Angle valueEgoVehicleStateSteeringAngle(-6.283185308);
+  valueEgoVehicleState.steeringAngle = valueEgoVehicleStateSteeringAngle;
   valueEgoVehicle.state = valueEgoVehicleState;
   value.egoVehicle = valueEgoVehicle;
   ::ad::rss::world::RssDynamics valueEgoVehicleRssDynamics;
@@ -3255,6 +3297,8 @@ TEST(SceneValidInputRangeTests, testValidInputRangeObjectRssDynamicsTooBig)
   valueObjectState.centerPoint = valueObjectStateCenterPoint;
   ::ad::physics::Speed valueObjectStateSpeed(-100.);
   valueObjectState.speed = valueObjectStateSpeed;
+  ::ad::physics::Angle valueObjectStateSteeringAngle(-6.283185308);
+  valueObjectState.steeringAngle = valueObjectStateSteeringAngle;
   valueObject.state = valueObjectState;
   value.object = valueObject;
   ::ad::rss::world::RssDynamics valueObjectRssDynamics;

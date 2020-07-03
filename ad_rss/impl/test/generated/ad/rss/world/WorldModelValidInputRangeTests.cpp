@@ -156,6 +156,8 @@ TEST(WorldModelValidInputRangeTests, testValidInputRange)
   valueScenesElementEgoVehicleState.centerPoint = valueScenesElementEgoVehicleStateCenterPoint;
   ::ad::physics::Speed valueScenesElementEgoVehicleStateSpeed(-100.);
   valueScenesElementEgoVehicleState.speed = valueScenesElementEgoVehicleStateSpeed;
+  ::ad::physics::Angle valueScenesElementEgoVehicleStateSteeringAngle(-6.283185308);
+  valueScenesElementEgoVehicleState.steeringAngle = valueScenesElementEgoVehicleStateSteeringAngle;
   valueScenesElementEgoVehicle.state = valueScenesElementEgoVehicleState;
   valueScenesElement.egoVehicle = valueScenesElementEgoVehicle;
   ::ad::rss::world::RssDynamics valueScenesElementEgoVehicleRssDynamics;
@@ -290,6 +292,8 @@ TEST(WorldModelValidInputRangeTests, testValidInputRange)
   valueScenesElementObjectState.centerPoint = valueScenesElementObjectStateCenterPoint;
   ::ad::physics::Speed valueScenesElementObjectStateSpeed(-100.);
   valueScenesElementObjectState.speed = valueScenesElementObjectStateSpeed;
+  ::ad::physics::Angle valueScenesElementObjectStateSteeringAngle(-6.283185308);
+  valueScenesElementObjectState.steeringAngle = valueScenesElementObjectStateSteeringAngle;
   valueScenesElementObject.state = valueScenesElementObjectState;
   valueScenesElement.object = valueScenesElementObject;
   ::ad::rss::world::RssDynamics valueScenesElementObjectRssDynamics;
@@ -579,6 +583,8 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueScenesElementEgoVehicleState.centerPoint = valueScenesElementEgoVehicleStateCenterPoint;
   ::ad::physics::Speed valueScenesElementEgoVehicleStateSpeed(-100.);
   valueScenesElementEgoVehicleState.speed = valueScenesElementEgoVehicleStateSpeed;
+  ::ad::physics::Angle valueScenesElementEgoVehicleStateSteeringAngle(-6.283185308);
+  valueScenesElementEgoVehicleState.steeringAngle = valueScenesElementEgoVehicleStateSteeringAngle;
   valueScenesElementEgoVehicle.state = valueScenesElementEgoVehicleState;
   valueScenesElement.egoVehicle = valueScenesElementEgoVehicle;
   ::ad::rss::world::RssDynamics valueScenesElementEgoVehicleRssDynamics;
@@ -713,6 +719,8 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueScenesElementObjectState.centerPoint = valueScenesElementObjectStateCenterPoint;
   ::ad::physics::Speed valueScenesElementObjectStateSpeed(-100.);
   valueScenesElementObjectState.speed = valueScenesElementObjectStateSpeed;
+  ::ad::physics::Angle valueScenesElementObjectStateSteeringAngle(-6.283185308);
+  valueScenesElementObjectState.steeringAngle = valueScenesElementObjectStateSteeringAngle;
   valueScenesElementObject.state = valueScenesElementObjectState;
   valueScenesElement.object = valueScenesElementObject;
   ::ad::rss::world::RssDynamics valueScenesElementObjectRssDynamics;
@@ -1010,6 +1018,8 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueScenesElementEgoVehicleState.centerPoint = valueScenesElementEgoVehicleStateCenterPoint;
   ::ad::physics::Speed valueScenesElementEgoVehicleStateSpeed(-100.);
   valueScenesElementEgoVehicleState.speed = valueScenesElementEgoVehicleStateSpeed;
+  ::ad::physics::Angle valueScenesElementEgoVehicleStateSteeringAngle(-6.283185308);
+  valueScenesElementEgoVehicleState.steeringAngle = valueScenesElementEgoVehicleStateSteeringAngle;
   valueScenesElementEgoVehicle.state = valueScenesElementEgoVehicleState;
   valueScenesElement.egoVehicle = valueScenesElementEgoVehicle;
   ::ad::rss::world::RssDynamics valueScenesElementEgoVehicleRssDynamics;
@@ -1144,6 +1154,8 @@ TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDyna
   valueScenesElementObjectState.centerPoint = valueScenesElementObjectStateCenterPoint;
   ::ad::physics::Speed valueScenesElementObjectStateSpeed(-100.);
   valueScenesElementObjectState.speed = valueScenesElementObjectStateSpeed;
+  ::ad::physics::Angle valueScenesElementObjectStateSteeringAngle(-6.283185308);
+  valueScenesElementObjectState.steeringAngle = valueScenesElementObjectStateSteeringAngle;
   valueScenesElementObject.state = valueScenesElementObjectState;
   valueScenesElement.object = valueScenesElementObject;
   ::ad::rss::world::RssDynamics valueScenesElementObjectRssDynamics;

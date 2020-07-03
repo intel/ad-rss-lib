@@ -135,6 +135,7 @@ world::ObjectState createObjectState(double const lonVelocity, double const latV
 {
   world::ObjectState state;
   state.yaw = ad::physics::Angle(0.0);
+  state.steeringAngle = ad::physics::Angle(0.0);
   state.dimension.length = ad::physics::Distance(4.0);
   state.dimension.width = ad::physics::Distance(2.0);
   state.yawRate = ad::physics::AngularVelocity(0.0);

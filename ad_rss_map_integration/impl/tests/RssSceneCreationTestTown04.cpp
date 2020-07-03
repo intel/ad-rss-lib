@@ -15,12 +15,9 @@ struct RssSceneCreationTestTown04 : RssSceneCreationTest
     return TestMode::withRouteWithSpeedLimit;
   }
 
-  void initMap() override
+  MapToLoad getMapToLoad() override
   {
-    std::ifstream fileStream("resources/Town04.xodr");
-    std::string town04OpenDriveContent((std::istreambuf_iterator<char>(fileStream)), std::istreambuf_iterator<char>());
-    ASSERT_TRUE(::ad::map::access::initFromOpenDriveContent(
-      town04OpenDriveContent, 0.2, ::ad::map::intersection::IntersectionType::TrafficLight));
+    return MapToLoad::Town04;
   }
 
   void initializeEgoVehicle() override
@@ -34,6 +31,7 @@ struct RssSceneCreationTestTown04 : RssSceneCreationTest
 
     egoSpeed = ::ad::physics::Speed(5.);
     egoYawRate = ::ad::physics::AngularVelocity(0.);
+    egoSteeringAngle = ::ad::physics::Angle(0.);
 
     ::ad::map::point::ENUPoint target;
     target.x = ::ad::map::point::ENUCoordinate(240.0);
@@ -61,6 +59,7 @@ TEST_F(RssSceneCreationTestTown04, testVehicleBehindConnectingRoute)
   ::ad::rss::world::ObjectId otherVehicleId = ::ad::rss::world::ObjectId(10);
   ::ad::physics::Speed otherVehicleSpeed{5.};
   ::ad::physics::AngularVelocity otherVehicleYawRate{0.};
+  ::ad::physics::Angle otherVehicleSteeringAngle{0.};
   ::ad::map::match::Object otherMatchObject;
 
   otherMatchObject.enuPosition.centerPoint.x = ::ad::map::point::ENUCoordinate(124.568);
@@ -70,19 +69,28 @@ TEST_F(RssSceneCreationTestTown04, testVehicleBehindConnectingRoute)
 
   initializeObjectENU(otherMatchObject.enuPosition.centerPoint, otherMatchObject.enuPosition.heading, otherMatchObject);
 
+  ::ad::rss::map::RssObjectData egoObjectData;
+  egoObjectData.id = egoVehicleId;
+  egoObjectData.type = ::ad::rss::world::ObjectType::EgoVehicle;
+  egoObjectData.matchObject = egoMatchObject;
+  egoObjectData.speed = egoSpeed;
+  egoObjectData.yawRate = egoYawRate;
+  egoObjectData.steeringAngle = egoSteeringAngle;
+  egoObjectData.rssDynamics = getEgoVehicleDynamics();
+
+  ::ad::rss::map::RssObjectData otherObjectData;
+  otherObjectData.id = otherVehicleId;
+  otherObjectData.type = ::ad::rss::world::ObjectType::OtherVehicle;
+  otherObjectData.matchObject = otherMatchObject;
+  otherObjectData.speed = otherVehicleSpeed;
+  otherObjectData.yawRate = otherVehicleYawRate;
+  otherObjectData.steeringAngle = otherVehicleSteeringAngle;
+  otherObjectData.rssDynamics = getObjectVehicleDynamics();
+
   EXPECT_TRUE(
-    sceneCreation.appendScenes(egoVehicleId,
-                               egoMatchObject,
-                               egoSpeed,
-                               egoYawRate,
-                               getEgoVehicleDynamics(),
+    sceneCreation.appendScenes(egoObjectData,
                                egoRoute,
-                               otherVehicleId,
-                               ::ad::rss::world::ObjectType::OtherVehicle,
-                               otherMatchObject,
-                               otherVehicleSpeed,
-                               otherVehicleYawRate,
-                               getObjectVehicleDynamics(),
+                               otherObjectData,
                                ::ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode::IncreasedSpeedLimit10,
                                ::ad::map::landmark::LandmarkIdSet(),
                                ::ad::rss::map::RssMode::Structured));

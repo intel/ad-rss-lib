@@ -92,6 +92,8 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   elementEgoVehicleState.centerPoint = elementEgoVehicleStateCenterPoint;
   ::ad::physics::Speed elementEgoVehicleStateSpeed(-100.);
   elementEgoVehicleState.speed = elementEgoVehicleStateSpeed;
+  ::ad::physics::Angle elementEgoVehicleStateSteeringAngle(-6.283185308);
+  elementEgoVehicleState.steeringAngle = elementEgoVehicleStateSteeringAngle;
   elementEgoVehicle.state = elementEgoVehicleState;
   element.egoVehicle = elementEgoVehicle;
   ::ad::rss::world::RssDynamics elementEgoVehicleRssDynamics;
@@ -207,6 +209,8 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
   elementObjectState.centerPoint = elementObjectStateCenterPoint;
   ::ad::physics::Speed elementObjectStateSpeed(-100.);
   elementObjectState.speed = elementObjectStateSpeed;
+  ::ad::physics::Angle elementObjectStateSteeringAngle(-6.283185308);
+  elementObjectState.steeringAngle = elementObjectStateSteeringAngle;
   elementObject.state = elementObjectState;
   element.object = elementObject;
   ::ad::rss::world::RssDynamics elementObjectRssDynamics;
@@ -396,6 +400,8 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax
   elementEgoVehicleState.centerPoint = elementEgoVehicleStateCenterPoint;
   ::ad::physics::Speed elementEgoVehicleStateSpeed(-100.);
   elementEgoVehicleState.speed = elementEgoVehicleStateSpeed;
+  ::ad::physics::Angle elementEgoVehicleStateSteeringAngle(-6.283185308);
+  elementEgoVehicleState.steeringAngle = elementEgoVehicleStateSteeringAngle;
   elementEgoVehicle.state = elementEgoVehicleState;
   element.egoVehicle = elementEgoVehicle;
   ::ad::rss::world::RssDynamics elementEgoVehicleRssDynamics;
@@ -511,6 +517,8 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax
   elementObjectState.centerPoint = elementObjectStateCenterPoint;
   ::ad::physics::Speed elementObjectStateSpeed(-100.);
   elementObjectState.speed = elementObjectStateSpeed;
+  ::ad::physics::Angle elementObjectStateSteeringAngle(-6.283185308);
+  elementObjectState.steeringAngle = elementObjectStateSteeringAngle;
   elementObject.state = elementObjectState;
   element.object = elementObject;
   ::ad::rss::world::RssDynamics elementObjectRssDynamics;
@@ -710,6 +718,8 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeElementValid)
   elementEgoVehicleState.centerPoint = elementEgoVehicleStateCenterPoint;
   ::ad::physics::Speed elementEgoVehicleStateSpeed(-100.);
   elementEgoVehicleState.speed = elementEgoVehicleStateSpeed;
+  ::ad::physics::Angle elementEgoVehicleStateSteeringAngle(-6.283185308);
+  elementEgoVehicleState.steeringAngle = elementEgoVehicleStateSteeringAngle;
   elementEgoVehicle.state = elementEgoVehicleState;
   element.egoVehicle = elementEgoVehicle;
   ::ad::rss::world::RssDynamics elementEgoVehicleRssDynamics;
@@ -825,6 +835,8 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeElementValid)
   elementObjectState.centerPoint = elementObjectStateCenterPoint;
   ::ad::physics::Speed elementObjectStateSpeed(-100.);
   elementObjectState.speed = elementObjectStateSpeed;
+  ::ad::physics::Angle elementObjectStateSteeringAngle(-6.283185308);
+  elementObjectState.steeringAngle = elementObjectStateSteeringAngle;
   elementObject.state = elementObjectState;
   element.object = elementObject;
   ::ad::rss::world::RssDynamics elementObjectRssDynamics;
