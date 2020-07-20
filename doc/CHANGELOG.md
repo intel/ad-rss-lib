@@ -1,6 +1,12 @@
 
 ## Latest changes
 
+## Release 4.0.1
+
+#### :ghost: Maintenance
+* Fixed drive away mode in unstructured scenes
+* Fixed version number of ad_rss_map_integration
+
 ## Release 4.0.0
 
 #### :rocket: New Features
