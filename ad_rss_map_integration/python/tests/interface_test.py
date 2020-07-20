@@ -173,8 +173,8 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
             rssmap.RssMode.Structured))
 
         self.world_model = scene_creation.getWorldModel()
-        print("== Final world model ==")
-        print(self.world_model)
+        print ("== Final world model ==")
+        print (self.world_model)
 
         rss_response_resolving = rss.RssResponseResolving()
         rss_situation_checking = rss.RssSituationChecking()
