@@ -90,30 +90,67 @@ bool RssUnstructuredSceneChecker::calculateRssStateUnstructured(world::TimeIndex
 
   if (result)
   {
+    result = calculateState(
+      situation, egoStateInfo, rssState.unstructuredSceneState.rssStateInformation, rssState.unstructuredSceneState);
+  }
+
+  if (result)
+  {
     auto foundDriveAwayStateIt = mDriveAwayStateMap.find(situation.situationId);
-    if ((foundDriveAwayStateIt != mDriveAwayStateMap.end())
-        && (situation.otherVehicleState.objectState.centerPoint == foundDriveAwayStateIt->second.otherPosition)
-        && (unstructured::isInsideHeadingRange(
-             normalizeAngleSigned(situation.egoVehicleState.objectState.yaw
-                                  + situation.egoVehicleState.objectState.steeringAngle),
-             foundDriveAwayStateIt->second.allowedHeadingRange)))
+
+    if (foundDriveAwayStateIt != mDriveAwayStateMap.end())
     {
-      // 1. other vehicle did not move since mode switched to drive-away
-      // 2. ego is driving within the allowed heading range
-      // -> keep drive-away mode
-      spdlog::debug("Situation {} ego vehicle driving away with allowed heading.", situation.situationId);
-      rssState.unstructuredSceneState.response = state::UnstructuredSceneResponse::DriveAway;
-      rssState.unstructuredSceneState.isSafe = false;
-      rssState.unstructuredSceneState.headingRange = foundDriveAwayStateIt->second.allowedHeadingRange;
-    }
-    else
-    {
-      if (foundDriveAwayStateIt != mDriveAwayStateMap.end())
+      auto steeringAngle = normalizeAngleSigned(situation.egoVehicleState.objectState.yaw
+                                                + situation.egoVehicleState.objectState.steeringAngle);
+      bool keepDriveAwayState = true;
+
+      if (rssState.unstructuredSceneState.isSafe)
+      {
+        spdlog::trace("Situation {} Remove previous drive-away state as situation became safe again.",
+                      situation.situationId);
+        keepDriveAwayState = false;
+      }
+      else if (situation.otherVehicleState.objectState.centerPoint != foundDriveAwayStateIt->second.otherPosition)
+      {
+        spdlog::trace("Situation {} Remove previous drive-away state as other object has moved.",
+                      situation.situationId);
+        keepDriveAwayState = false;
+      }
+      else if (!unstructured::isInsideHeadingRange(steeringAngle, foundDriveAwayStateIt->second.allowedHeadingRange))
+      {
+        spdlog::trace("Situation {} Remove previous drive-away state as steering angle {} is not within range {}.",
+                      situation.situationId,
+                      steeringAngle,
+                      foundDriveAwayStateIt->second.allowedHeadingRange);
+        keepDriveAwayState = false;
+      }
+
+      if (keepDriveAwayState)
+      {
+        spdlog::debug("Situation {} ego vehicle driving away with previously allowed heading {}.",
+                      situation.situationId,
+                      foundDriveAwayStateIt->second.allowedHeadingRange);
+        rssState.unstructuredSceneState.response = state::UnstructuredSceneResponse::DriveAway;
+        rssState.unstructuredSceneState.isSafe = false;
+        rssState.unstructuredSceneState.headingRange = foundDriveAwayStateIt->second.allowedHeadingRange;
+      }
+      else
       {
         mDriveAwayStateMap.erase(foundDriveAwayStateIt);
       }
-      result = calculateState(
-        situation, egoStateInfo, rssState.unstructuredSceneState.rssStateInformation, rssState.unstructuredSceneState);
+    }
+    else
+    {
+      if (rssState.unstructuredSceneState.response == state::UnstructuredSceneResponse::DriveAway)
+      {
+        spdlog::debug("Situation {} store drive-away state with allowed heading range {}.",
+                      situation.situationId,
+                      rssState.unstructuredSceneState.headingRange);
+        DriveAwayState driveAwayState;
+        driveAwayState.allowedHeadingRange = rssState.unstructuredSceneState.headingRange;
+        driveAwayState.otherPosition = situation.otherVehicleState.objectState.centerPoint;
+        mDriveAwayStateMap[situation.situationId] = driveAwayState;
+      }
     }
   }
   return result;
@@ -147,6 +184,11 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
 
   auto isSafe = isSafeEgoMustBrake || isSafeOtherMustBrake || isSafeBrakeBoth;
 
+  spdlog::trace("Situation {} safe check: isSafeEgoMustBrake: {}, isSafeOtherMustBrake: {}, isSafeBrakeBoth: {}",
+                situation.situationId,
+                isSafeEgoMustBrake,
+                isSafeOtherMustBrake,
+                isSafeBrakeBoth);
   DrivingMode mode{DrivingMode::Invalid};
 
   if (isSafe)
@@ -218,10 +260,6 @@ bool RssUnstructuredSceneChecker::calculateState(Situation const &situation,
                               unstructured::toPoint(situation.otherVehicleState.objectState.centerPoint),
                               situation.egoVehicleState.dynamics.unstructuredSettings.driveAwayMaxAngle,
                               rssState.headingRange);
-      DriveAwayState driveAwayState;
-      driveAwayState.allowedHeadingRange = rssState.headingRange;
-      driveAwayState.otherPosition = situation.otherVehicleState.objectState.centerPoint;
-      mDriveAwayStateMap[situation.situationId] = driveAwayState;
       rssState.response = state::UnstructuredSceneResponse::DriveAway;
       rssState.isSafe = false;
       break;

@@ -31,7 +31,7 @@ def get_list_of_files(directory, ignore_files):
             for ignore_file in ignore_files:
                 if full_path.find(ignore_file) != -1:
                     skip = True
-                    print ("Skipping file: " + full_path)
+                    print("Skipping file: " + full_path)
             if not skip:
                 if full_path.endswith(".h") or full_path.endswith(".hpp"):
                     all_files.append(full_path)

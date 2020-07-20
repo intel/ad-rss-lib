@@ -20,7 +20,7 @@
 /*!
  * The major version of ad_rss_map_integration
  */
-#define AD_RSS_MAP_INTEGRATION_VERSION_MAJOR 3
+#define AD_RSS_MAP_INTEGRATION_VERSION_MAJOR 4
 
 /*!
  * The minor version of ad_rss_map_integration
@@ -35,4 +35,4 @@
 /*!
  * The version of ad_rss_map_integration as string
  */
-#define AD_RSS_MAP_INTEGRATION_VERSION_STRING "3.0.1"
+#define AD_RSS_MAP_INTEGRATION_VERSION_STRING "4.0.1"
