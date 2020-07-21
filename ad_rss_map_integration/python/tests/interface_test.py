@@ -127,7 +127,7 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
         Main test part
         """
         self.assertTrue(admap.init("resources/Town01.txt"))
-        print ("== Map Loaded ==")
+        print("== Map Loaded ==")
 
         self._initialize_ego_vehicle()
 
@@ -173,8 +173,8 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
             rssmap.RssMode.Structured))
 
         self.world_model = scene_creation.getWorldModel()
-        print ("== Final world model ==")
-        print (self.world_model)
+        print("== Final world model ==")
+        print(self.world_model)
 
         rss_response_resolving = rss.RssResponseResolving()
         rss_situation_checking = rss.RssSituationChecking()
@@ -183,8 +183,8 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
         rss_situation_snapshot = rss.SituationSnapshot()
         self.assertTrue(rss_sitation_extraction.extractSituations(self.world_model, rss_situation_snapshot))
 
-        print ("== Situation Snaphost ==")
-        print (rss_situation_snapshot)
+        print("== Situation Snaphost ==")
+        print(rss_situation_snapshot)
 
         rss_state_snapshot = rss.RssStateSnapshot()
         self.assertTrue(rss_situation_checking.checkSituations(rss_situation_snapshot, rss_state_snapshot))
@@ -192,8 +192,8 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
         rss_proper_response = rss.ProperResponse()
         self.assertTrue(rss_response_resolving.provideProperResponse(rss_state_snapshot, rss_proper_response))
 
-        print ("== Proper Response ==")
-        print (rss_proper_response)
+        print("== Proper Response ==")
+        print(rss_proper_response)
 
         longitudinal_distance = rss_situation_snapshot.situations[0].relativePosition.longitudinalDistance
 

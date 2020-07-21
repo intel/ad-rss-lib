@@ -151,7 +151,7 @@ class AdRssPythonTest(unittest.TestCase):
 
         self._prepare_world_model()
 
-        print ("== Input World Model ==")
+        print("== Input World Model ==")
         print(self.world_model)
 
         rss_response_resolving = rss.RssResponseResolving()
@@ -161,8 +161,8 @@ class AdRssPythonTest(unittest.TestCase):
         rss_situation_snapshot = rss.SituationSnapshot()
         self.assertTrue(rss_sitation_extraction.extractSituations(self.world_model, rss_situation_snapshot))
 
-        print ("== Situation Snaphost ==")
-        print (rss_situation_snapshot)
+        print("== Situation Snaphost ==")
+        print(rss_situation_snapshot)
 
         rss_state_snapshot = rss.RssStateSnapshot()
         self.assertTrue(rss_situation_checking.checkSituations(rss_situation_snapshot, rss_state_snapshot))
@@ -170,8 +170,8 @@ class AdRssPythonTest(unittest.TestCase):
         rss_proper_response = rss.ProperResponse()
         self.assertTrue(rss_response_resolving.provideProperResponse(rss_state_snapshot, rss_proper_response))
 
-        print ("== Proper Response ==")
-        print (rss_proper_response)
+        print("== Proper Response ==")
+        print(rss_proper_response)
 
         longitudinal_distance = float(rss_situation_snapshot.situations[0].relativePosition.longitudinalDistance)
 

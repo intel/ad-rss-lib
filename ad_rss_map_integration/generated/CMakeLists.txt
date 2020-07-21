@@ -14,7 +14,7 @@
 ##
 
 cmake_minimum_required(VERSION 3.5)
-project(ad_rss_map_integration VERSION 3.0.1)
+project(ad_rss_map_integration VERSION 4.0.1)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -32,7 +32,7 @@ if ((NOT ad_rss_map_integration_SOURCES) OR (NOT ad_rss_map_integration_INCLUDE_
 endif()
 
 find_package(ad_map_access 2.1.0 REQUIRED CONFIG)
-find_package(ad_rss 4.0.0 REQUIRED CONFIG)
+find_package(ad_rss 4.0.1 REQUIRED CONFIG)
 
 add_library(${PROJECT_NAME}
   ${ad_rss_map_integration_SOURCES}
