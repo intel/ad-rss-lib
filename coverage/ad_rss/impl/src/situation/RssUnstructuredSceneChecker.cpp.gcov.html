@@ -31,13 +31,13 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">104</td>
             <td class="headerCovTableEntry">117</td>
-            <td class="headerCovTableEntryMed">88.9 %</td>
+            <td class="headerCovTableEntry">133</td>
+            <td class="headerCovTableEntryMed">88.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-07-03 15:02:32</td>
+            <td class="headerValue">2020-07-21 14:39:14</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">6</td>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">105</td>
-            <td class="headerCovTableEntry">174</td>
-            <td class="headerCovTableEntryLo">60.3 %</td>
+            <td class="headerCovTableEntry">109</td>
+            <td class="headerCovTableEntry">182</td>
+            <td class="headerCovTableEntryLo">59.9 %</td>
           </tr>
           <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -162,184 +162,218 @@
 <span class="lineNum">      90 </span>                :            : 
 <span class="lineNum">      91 </span>        [<span class="branchCov" title="Branch 0 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         10 :   if (result)</span>
 <span class="lineNum">      92 </span>                :            :   {
-<span class="lineNum">      93 </span>        [<span class="branchCov" title="Branch 1 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         10 :     auto foundDriveAwayStateIt = mDriveAwayStateMap.find(situation.situationId);</span>
-<span class="lineNum">      94 </span>        [<span class="branchCov" title="Branch 2 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         20 :     if ((foundDriveAwayStateIt != mDriveAwayStateMap.end())</span>
-<span class="lineNum">         </span>  [<span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchCov" title="Branch 5 was taken 9 times"> + </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
-<span class="lineNum">      95 </span>[<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 2 times"> + </span><span class="branchCov" title="Branch 5 was taken 1 time"> + </span>]:<span class="lineCov">          3 :         &amp;&amp; (situation.otherVehicleState.objectState.centerPoint == foundDriveAwayStateIt-&gt;second.otherPosition)</span>
-<span class="lineNum">      96 </span>[<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 7 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         13 :         &amp;&amp; (unstructured::isInsideHeadingRange(</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 1 time"> + </span><span class="branchCov" title="Branch 6 was taken 1 time"> + </span>]
-<span class="lineNum">      97 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchCov" title="Branch 4 was taken 8 times"> + </span>]:<span class="lineCov">         12 :              normalizeAngleSigned(situation.egoVehicleState.objectState.yaw</span>
-<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]
-<span class="lineNum">      98 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchCov" title="Branch 4 was taken 8 times"> + </span>]:<span class="lineCov">         12 :                                   + situation.egoVehicleState.objectState.steeringAngle),</span>
-<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]
-<span class="lineNum">      99 </span>                :<span class="lineCov">          2 :              foundDriveAwayStateIt-&gt;second.allowedHeadingRange)))</span>
-<span class="lineNum">     100 </span>                :            :     {
-<span class="lineNum">     101 </span>                :            :       // 1. other vehicle did not move since mode switched to drive-away
-<span class="lineNum">     102 </span>                :            :       // 2. ego is driving within the allowed heading range
-<span class="lineNum">     103 </span>                :            :       // -&gt; keep drive-away mode
-<span class="lineNum">     104 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :       spdlog::debug(&quot;Situation {} ego vehicle driving away with allowed heading.&quot;, situation.situationId);</span>
-<span class="lineNum">     105 </span>                :<span class="lineCov">          1 :       rssState.unstructuredSceneState.response = state::UnstructuredSceneResponse::DriveAway;</span>
-<span class="lineNum">     106 </span>                :<span class="lineCov">          1 :       rssState.unstructuredSceneState.isSafe = false;</span>
-<span class="lineNum">     107 </span>                :<span class="lineCov">          1 :       rssState.unstructuredSceneState.headingRange = foundDriveAwayStateIt-&gt;second.allowedHeadingRange;</span>
-<span class="lineNum">     108 </span>                :            :     }
-<span class="lineNum">     109 </span>                :            :     else
-<span class="lineNum">     110 </span>                :            :     {
-<span class="lineNum">     111 </span>        [<span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchCov" title="Branch 3 was taken 7 times"> + </span>]:<span class="lineCov">          9 :       if (foundDriveAwayStateIt != mDriveAwayStateMap.end())</span>
-<span class="lineNum">     112 </span>                :            :       {
-<span class="lineNum">     113 </span>        [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          2 :         mDriveAwayStateMap.erase(foundDriveAwayStateIt);</span>
-<span class="lineNum">     114 </span>                :            :       }
-<span class="lineNum">     115 </span>                :<span class="lineCov">          9 :       result = calculateState(</span>
-<span class="lineNum">     116 </span>        [<span class="branchCov" title="Branch 1 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         10 :         situation, egoStateInfo, rssState.unstructuredSceneState.rssStateInformation, rssState.unstructuredSceneState);</span>
-<span class="lineNum">     117 </span>                :            :     }
-<span class="lineNum">     118 </span>                :            :   }
-<span class="lineNum">     119 </span>                :<span class="lineCov">         10 :   return result;</span>
-<a name="120"><span class="lineNum">     120 </span>                :            : }</a>
-<span class="lineNum">     121 </span>                :            : 
-<span class="lineNum">     122 </span>                :<span class="lineCov">         14 : bool RssUnstructuredSceneChecker::calculateState(Situation const &amp;situation,</span>
-<span class="lineNum">     123 </span>                :            :                                                  state::UnstructuredSceneStateInformation const &amp;egoStateInfo,
-<span class="lineNum">     124 </span>                :            :                                                  state::UnstructuredSceneStateInformation const &amp;otherStateInfo,
-<span class="lineNum">     125 </span>                :            :                                                  state::UnstructuredSceneRssState &amp;rssState)
-<span class="lineNum">     126 </span>                :            : {
-<span class="lineNum">     127 </span>                :<span class="lineCov">         14 :   bool result = true;</span>
-<span class="lineNum">     128 </span>                :<span class="lineCov">         14 :   auto const &amp;egoBrake = egoStateInfo.brakeTrajectorySet;</span>
-<span class="lineNum">     129 </span>                :<span class="lineCov">         14 :   auto const &amp;egoContinueForward = egoStateInfo.continueForwardTrajectorySet;</span>
-<span class="lineNum">     130 </span>                :<span class="lineCov">         14 :   auto const &amp;otherBrake = otherStateInfo.brakeTrajectorySet;</span>
-<span class="lineNum">     131 </span>                :<span class="lineCov">         14 :   auto const &amp;otherContinueForward = otherStateInfo.continueForwardTrajectorySet;</span>
-<span class="lineNum">     132 </span>                :            : 
-<span class="lineNum">     133 </span>[<span class="branchCov" title="Branch 1 was taken 13 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 4 was taken 13 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         14 :   if (egoBrake.empty() || egoContinueForward.empty() || otherBrake.empty() || otherContinueForward.empty())</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 13 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchCov" title="Branch 11 was taken 13 times"> + </span>]
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 12 was taken 1 time"> + </span><span class="branchCov" title="Branch 13 was taken 13 times"> + </span>]
-<span class="lineNum">     134 </span>                :            :   {
-<span class="lineNum">     135 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :     spdlog::warn(&quot;Situation {} refers to empty trajectory sets&quot;, situation.situationId);</span>
-<span class="lineNum">     136 </span>                :<span class="lineCov">          1 :     return false;</span>
-<span class="lineNum">     137 </span>                :            :   }
-<span class="lineNum">     138 </span>                :            : 
-<span class="lineNum">     139 </span>                :            :   // check if distance is safe
-<span class="lineNum">     140 </span>                :<span class="lineCov">         13 :   bool egoBrakeOtherContinueForwardOverlap = unstructured::collides(egoBrake, otherContinueForward);</span>
-<span class="lineNum">     141 </span>                :<span class="lineCov">         13 :   bool otherBrakeEgoContinueForwardOverlap = unstructured::collides(otherBrake, egoContinueForward);</span>
-<span class="lineNum">     142 </span>                :<span class="lineCov">         13 :   bool egoBrakeOtherBrakeOverlap = unstructured::collides(egoBrake, otherBrake);</span>
-<span class="lineNum">     143 </span>                :            : 
-<span class="lineNum">     144 </span>[<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 11 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">         13 :   bool isSafeEgoMustBrake = !egoBrakeOtherContinueForwardOverlap &amp;&amp; otherBrakeEgoContinueForwardOverlap;</span>
-<span class="lineNum">     145 </span>[<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 10 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">         13 :   bool isSafeOtherMustBrake = !otherBrakeEgoContinueForwardOverlap &amp;&amp; egoBrakeOtherContinueForwardOverlap;</span>
-<span class="lineNum">     146 </span>                :<span class="lineCov">         13 :   bool isSafeBrakeBoth = !egoBrakeOtherBrakeOverlap;</span>
-<span class="lineNum">     147 </span>                :            : 
-<span class="lineNum">     148 </span>[<span class="branchCov" title="Branch 0 was taken 12 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 2 was taken 10 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">         13 :   auto isSafe = isSafeEgoMustBrake || isSafeOtherMustBrake || isSafeBrakeBoth;</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 4 was taken 2 times"> + </span><span class="branchCov" title="Branch 5 was taken 8 times"> + </span>]
-<span class="lineNum">     149 </span>                :            : 
-<span class="lineNum">     150 </span>                :<span class="lineCov">         13 :   DrivingMode mode{DrivingMode::Invalid};</span>
-<span class="lineNum">     151 </span>                :            : 
-<span class="lineNum">     152 </span>        [<span class="branchCov" title="Branch 0 was taken 5 times"> + </span><span class="branchCov" title="Branch 1 was taken 8 times"> + </span>]:<span class="lineCov">         13 :   if (isSafe)</span>
-<span class="lineNum">     153 </span>                :            :   {
-<span class="lineNum">     154 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          5 :     spdlog::debug(&quot;Situation {} safe. Store value otherMustBrake: {}&quot;,</span>
-<span class="lineNum">     155 </span>                :            :                   situation.situationId,
-<span class="lineNum">     156 </span>        [<span class="branchCov" title="Branch 1 was taken 5 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          5 :                   isSafeOtherMustBrake ? &quot;true&quot; : &quot;false&quot;);</span>
-<span class="lineNum">     157 </span>                :<span class="lineCov">          5 :     mNewOtherMustBrakeStatesBeforeDangerThresholdTime[situation.situationId] = isSafeOtherMustBrake;</span>
-<span class="lineNum">     158 </span>                :<span class="lineCov">          5 :     mode = DrivingMode::ContinueForward;</span>
-<span class="lineNum">     159 </span>                :            :   }
-<span class="lineNum">     160 </span>                :            :   else
-<span class="lineNum">     161 </span>                :            :   {
-<span class="lineNum">     162 </span>                :            :     // not safe
-<span class="lineNum">     163 </span>                :<span class="lineCov">          8 :     bool lastOtherMustBrake = false;</span>
-<span class="lineNum">     164 </span>        [<span class="branchCov" title="Branch 1 was taken 8 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          8 :     auto foundStateIt = mOtherMustBrakeStatesBeforeDangerThresholdTime.find(situation.situationId);</span>
-<span class="lineNum">     165 </span>        [<span class="branchCov" title="Branch 2 was taken 5 times"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span>]:<span class="lineCov">          8 :     if (foundStateIt != mOtherMustBrakeStatesBeforeDangerThresholdTime.end())</span>
-<span class="lineNum">     166 </span>                :            :     {
-<span class="lineNum">     167 </span>                :<span class="lineCov">          5 :       lastOtherMustBrake = foundStateIt-&gt;second;</span>
-<span class="lineNum">     168 </span>        [<span class="branchCov" title="Branch 1 was taken 5 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          5 :       mNewOtherMustBrakeStatesBeforeDangerThresholdTime[situation.situationId] = lastOtherMustBrake;</span>
-<span class="lineNum">     169 </span>                :            :     }
-<span class="lineNum">     170 </span>                :            : 
-<span class="lineNum">     171 </span>                :            :     // Rule 1: If both cars were already at a full stop, then one can drive away from other vehicle
-<span class="lineNum">     172 </span>[<span class="branchCov" title="Branch 2 was taken 8 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 8 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         16 :     if (((situation.egoVehicleState.objectState.speed == physics::Speed(0.))</span>
-<span class="lineNum">         </span>  [<span class="branchCov" title="Branch 6 was taken 3 times"> + </span><span class="branchCov" title="Branch 7 was taken 5 times"> + </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
-<span class="lineNum">     173 </span>[<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">          8 :          &amp;&amp; (situation.otherVehicleState.objectState.speed == physics::Speed(0.))))</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 3 times"> + </span><span class="branchCov" title="Branch 7 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 8 was taken 4 times"> + </span><span class="branchCov" title="Branch 9 was taken 4 times"> + </span>]
+<span class="lineNum">      93 </span>                :<span class="lineCov">         10 :     result = calculateState(</span>
+<span class="lineNum">      94 </span>                :<span class="lineCov">         10 :       situation, egoStateInfo, rssState.unstructuredSceneState.rssStateInformation, rssState.unstructuredSceneState);</span>
+<span class="lineNum">      95 </span>                :            :   }
+<span class="lineNum">      96 </span>                :            : 
+<span class="lineNum">      97 </span>        [<span class="branchCov" title="Branch 0 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         10 :   if (result)</span>
+<span class="lineNum">      98 </span>                :            :   {
+<span class="lineNum">      99 </span>        [<span class="branchCov" title="Branch 1 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         10 :     auto foundDriveAwayStateIt = mDriveAwayStateMap.find(situation.situationId);</span>
+<span class="lineNum">     100 </span>                :            : 
+<span class="lineNum">     101 </span>        [<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchCov" title="Branch 3 was taken 7 times"> + </span>]:<span class="lineCov">         10 :     if (foundDriveAwayStateIt != mDriveAwayStateMap.end())</span>
+<span class="lineNum">     102 </span>                :            :     {
+<span class="lineNum">     103 </span>                :            :       auto steeringAngle = normalizeAngleSigned(situation.egoVehicleState.objectState.yaw
+<span class="lineNum">     104 </span>[<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">          3 :                                                 + situation.egoVehicleState.objectState.steeringAngle);</span>
+<span class="lineNum">     105 </span>                :<span class="lineCov">          3 :       bool keepDriveAwayState = true;</span>
+<span class="lineNum">     106 </span>                :            : 
+<span class="lineNum">     107 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          3 :       if (rssState.unstructuredSceneState.isSafe)</span>
+<span class="lineNum">     108 </span>                :            :       {
+<span class="lineNum">     109 </span>                :<span class="lineNoCov">          0 :         spdlog::trace(&quot;Situation {} Remove previous drive-away state as situation became safe again.&quot;,</span>
+<span class="lineNum">     110 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                       situation.situationId);</span>
+<span class="lineNum">     111 </span>                :<span class="lineNoCov">          0 :         keepDriveAwayState = false;</span>
+<span class="lineNum">     112 </span>                :            :       }
+<span class="lineNum">     113 </span>[<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>]:<span class="lineCov">          3 :       else if (situation.otherVehicleState.objectState.centerPoint != foundDriveAwayStateIt-&gt;second.otherPosition)</span>
+<span class="lineNum">     114 </span>                :            :       {
+<span class="lineNum">     115 </span>                :<span class="lineCov">          1 :         spdlog::trace(&quot;Situation {} Remove previous drive-away state as other object has moved.&quot;,</span>
+<span class="lineNum">     116 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :                       situation.situationId);</span>
+<span class="lineNum">     117 </span>                :<span class="lineCov">          1 :         keepDriveAwayState = false;</span>
+<span class="lineNum">     118 </span>                :            :       }
+<span class="lineNum">     119 </span>[<span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchCov" title="Branch 5 was taken 1 time"> + </span>]:<span class="lineCov">          2 :       else if (!unstructured::isInsideHeadingRange(steeringAngle, foundDriveAwayStateIt-&gt;second.allowedHeadingRange))</span>
+<span class="lineNum">     120 </span>                :            :       {
+<span class="lineNum">     121 </span>                :<span class="lineCov">          1 :         spdlog::trace(&quot;Situation {} Remove previous drive-away state as steering angle {} is not within range {}.&quot;,</span>
+<span class="lineNum">     122 </span>                :            :                       situation.situationId,
+<span class="lineNum">     123 </span>                :            :                       steeringAngle,
+<span class="lineNum">     124 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          2 :                       foundDriveAwayStateIt-&gt;second.allowedHeadingRange);</span>
+<span class="lineNum">     125 </span>                :<span class="lineCov">          1 :         keepDriveAwayState = false;</span>
+<span class="lineNum">     126 </span>                :            :       }
+<span class="lineNum">     127 </span>                :            : 
+<span class="lineNum">     128 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          3 :       if (keepDriveAwayState)</span>
+<span class="lineNum">     129 </span>                :            :       {
+<span class="lineNum">     130 </span>                :<span class="lineCov">          1 :         spdlog::debug(&quot;Situation {} ego vehicle driving away with previously allowed heading {}.&quot;,</span>
+<span class="lineNum">     131 </span>                :            :                       situation.situationId,
+<span class="lineNum">     132 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          2 :                       foundDriveAwayStateIt-&gt;second.allowedHeadingRange);</span>
+<span class="lineNum">     133 </span>                :<span class="lineCov">          1 :         rssState.unstructuredSceneState.response = state::UnstructuredSceneResponse::DriveAway;</span>
+<span class="lineNum">     134 </span>                :<span class="lineCov">          1 :         rssState.unstructuredSceneState.isSafe = false;</span>
+<span class="lineNum">     135 </span>                :<span class="lineCov">          1 :         rssState.unstructuredSceneState.headingRange = foundDriveAwayStateIt-&gt;second.allowedHeadingRange;</span>
+<span class="lineNum">     136 </span>                :            :       }
+<span class="lineNum">     137 </span>                :            :       else
+<span class="lineNum">     138 </span>                :            :       {
+<span class="lineNum">     139 </span>        [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          3 :         mDriveAwayStateMap.erase(foundDriveAwayStateIt);</span>
+<span class="lineNum">     140 </span>                :            :       }
+<span class="lineNum">     141 </span>                :            :     }
+<span class="lineNum">     142 </span>                :            :     else
+<span class="lineNum">     143 </span>                :            :     {
+<span class="lineNum">     144 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>]:<span class="lineCov">          7 :       if (rssState.unstructuredSceneState.response == state::UnstructuredSceneResponse::DriveAway)</span>
+<span class="lineNum">     145 </span>                :            :       {
+<span class="lineNum">     146 </span>                :<span class="lineCov">          3 :         spdlog::debug(&quot;Situation {} store drive-away state with allowed heading range {}.&quot;,</span>
+<span class="lineNum">     147 </span>                :            :                       situation.situationId,
+<span class="lineNum">     148 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          3 :                       rssState.unstructuredSceneState.headingRange);</span>
+<span class="lineNum">     149 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          3 :         DriveAwayState driveAwayState;</span>
+<span class="lineNum">     150 </span>                :<span class="lineCov">          3 :         driveAwayState.allowedHeadingRange = rssState.unstructuredSceneState.headingRange;</span>
+<span class="lineNum">     151 </span>                :<span class="lineCov">          3 :         driveAwayState.otherPosition = situation.otherVehicleState.objectState.centerPoint;</span>
+<span class="lineNum">     152 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         10 :         mDriveAwayStateMap[situation.situationId] = driveAwayState;</span>
+<span class="lineNum">     153 </span>                :            :       }
+<span class="lineNum">     154 </span>                :            :     }
+<span class="lineNum">     155 </span>                :            :   }
+<span class="lineNum">     156 </span>                :<span class="lineCov">         10 :   return result;</span>
+<a name="157"><span class="lineNum">     157 </span>                :            : }</a>
+<span class="lineNum">     158 </span>                :            : 
+<span class="lineNum">     159 </span>                :<span class="lineCov">         15 : bool RssUnstructuredSceneChecker::calculateState(Situation const &amp;situation,</span>
+<span class="lineNum">     160 </span>                :            :                                                  state::UnstructuredSceneStateInformation const &amp;egoStateInfo,
+<span class="lineNum">     161 </span>                :            :                                                  state::UnstructuredSceneStateInformation const &amp;otherStateInfo,
+<span class="lineNum">     162 </span>                :            :                                                  state::UnstructuredSceneRssState &amp;rssState)
+<span class="lineNum">     163 </span>                :            : {
+<span class="lineNum">     164 </span>                :<span class="lineCov">         15 :   bool result = true;</span>
+<span class="lineNum">     165 </span>                :<span class="lineCov">         15 :   auto const &amp;egoBrake = egoStateInfo.brakeTrajectorySet;</span>
+<span class="lineNum">     166 </span>                :<span class="lineCov">         15 :   auto const &amp;egoContinueForward = egoStateInfo.continueForwardTrajectorySet;</span>
+<span class="lineNum">     167 </span>                :<span class="lineCov">         15 :   auto const &amp;otherBrake = otherStateInfo.brakeTrajectorySet;</span>
+<span class="lineNum">     168 </span>                :<span class="lineCov">         15 :   auto const &amp;otherContinueForward = otherStateInfo.continueForwardTrajectorySet;</span>
+<span class="lineNum">     169 </span>                :            : 
+<span class="lineNum">     170 </span>[<span class="branchCov" title="Branch 1 was taken 14 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 4 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         15 :   if (egoBrake.empty() || egoContinueForward.empty() || otherBrake.empty() || otherContinueForward.empty())</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchCov" title="Branch 11 was taken 14 times"> + </span>]
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 12 was taken 1 time"> + </span><span class="branchCov" title="Branch 13 was taken 14 times"> + </span>]
+<span class="lineNum">     171 </span>                :            :   {
+<span class="lineNum">     172 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :     spdlog::warn(&quot;Situation {} refers to empty trajectory sets&quot;, situation.situationId);</span>
+<span class="lineNum">     173 </span>                :<span class="lineCov">          1 :     return false;</span>
+<span class="lineNum">     174 </span>                :            :   }
+<span class="lineNum">     175 </span>                :            : 
+<span class="lineNum">     176 </span>                :            :   // check if distance is safe
+<span class="lineNum">     177 </span>        [<span class="branchCov" title="Branch 1 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         14 :   bool egoBrakeOtherContinueForwardOverlap = unstructured::collides(egoBrake, otherContinueForward);</span>
+<span class="lineNum">     178 </span>        [<span class="branchCov" title="Branch 1 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         14 :   bool otherBrakeEgoContinueForwardOverlap = unstructured::collides(otherBrake, egoContinueForward);</span>
+<span class="lineNum">     179 </span>        [<span class="branchCov" title="Branch 1 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         14 :   bool egoBrakeOtherBrakeOverlap = unstructured::collides(egoBrake, otherBrake);</span>
+<span class="lineNum">     180 </span>                :            : 
+<span class="lineNum">     181 </span>[<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 12 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">         14 :   bool isSafeEgoMustBrake = !egoBrakeOtherContinueForwardOverlap &amp;&amp; otherBrakeEgoContinueForwardOverlap;</span>
+<span class="lineNum">     182 </span>[<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 11 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">         14 :   bool isSafeOtherMustBrake = !otherBrakeEgoContinueForwardOverlap &amp;&amp; egoBrakeOtherContinueForwardOverlap;</span>
+<span class="lineNum">     183 </span>                :<span class="lineCov">         14 :   bool isSafeBrakeBoth = !egoBrakeOtherBrakeOverlap;</span>
+<span class="lineNum">     184 </span>                :            : 
+<span class="lineNum">     185 </span>[<span class="branchCov" title="Branch 0 was taken 13 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 2 was taken 11 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">         14 :   auto isSafe = isSafeEgoMustBrake || isSafeOtherMustBrake || isSafeBrakeBoth;</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 4 was taken 2 times"> + </span><span class="branchCov" title="Branch 5 was taken 9 times"> + </span>]
+<span class="lineNum">     186 </span>                :            : 
+<span class="lineNum">     187 </span>                :<span class="lineCov">         14 :   spdlog::trace(&quot;Situation {} safe check: isSafeEgoMustBrake: {}, isSafeOtherMustBrake: {}, isSafeBrakeBoth: {}&quot;,</span>
+<span class="lineNum">     188 </span>                :            :                 situation.situationId,
+<span class="lineNum">     189 </span>                :            :                 isSafeEgoMustBrake,
+<span class="lineNum">     190 </span>                :            :                 isSafeOtherMustBrake,
+<span class="lineNum">     191 </span>        [<span class="branchCov" title="Branch 1 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         14 :                 isSafeBrakeBoth);</span>
+<span class="lineNum">     192 </span>                :<span class="lineCov">         14 :   DrivingMode mode{DrivingMode::Invalid};</span>
+<span class="lineNum">     193 </span>                :            : 
+<span class="lineNum">     194 </span>        [<span class="branchCov" title="Branch 0 was taken 5 times"> + </span><span class="branchCov" title="Branch 1 was taken 9 times"> + </span>]:<span class="lineCov">         14 :   if (isSafe)</span>
+<span class="lineNum">     195 </span>                :            :   {
+<span class="lineNum">     196 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          5 :     spdlog::debug(&quot;Situation {} safe. Store value otherMustBrake: {}&quot;,</span>
+<span class="lineNum">     197 </span>                :            :                   situation.situationId,
+<span class="lineNum">     198 </span>        [<span class="branchCov" title="Branch 1 was taken 5 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          5 :                   isSafeOtherMustBrake ? &quot;true&quot; : &quot;false&quot;);</span>
+<span class="lineNum">     199 </span>        [<span class="branchCov" title="Branch 1 was taken 5 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          5 :     mNewOtherMustBrakeStatesBeforeDangerThresholdTime[situation.situationId] = isSafeOtherMustBrake;</span>
+<span class="lineNum">     200 </span>                :<span class="lineCov">          5 :     mode = DrivingMode::ContinueForward;</span>
+<span class="lineNum">     201 </span>                :            :   }
+<span class="lineNum">     202 </span>                :            :   else
+<span class="lineNum">     203 </span>                :            :   {
+<span class="lineNum">     204 </span>                :            :     // not safe
+<span class="lineNum">     205 </span>                :<span class="lineCov">          9 :     bool lastOtherMustBrake = false;</span>
+<span class="lineNum">     206 </span>        [<span class="branchCov" title="Branch 1 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          9 :     auto foundStateIt = mOtherMustBrakeStatesBeforeDangerThresholdTime.find(situation.situationId);</span>
+<span class="lineNum">     207 </span>        [<span class="branchCov" title="Branch 2 was taken 7 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">          9 :     if (foundStateIt != mOtherMustBrakeStatesBeforeDangerThresholdTime.end())</span>
+<span class="lineNum">     208 </span>                :            :     {
+<span class="lineNum">     209 </span>                :<span class="lineCov">          7 :       lastOtherMustBrake = foundStateIt-&gt;second;</span>
+<span class="lineNum">     210 </span>        [<span class="branchCov" title="Branch 1 was taken 7 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          7 :       mNewOtherMustBrakeStatesBeforeDangerThresholdTime[situation.situationId] = lastOtherMustBrake;</span>
+<span class="lineNum">     211 </span>                :            :     }
+<span class="lineNum">     212 </span>                :            : 
+<span class="lineNum">     213 </span>                :            :     // Rule 1: If both cars were already at a full stop, then one can drive away from other vehicle
+<span class="lineNum">     214 </span>[<span class="branchCov" title="Branch 2 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         18 :     if (((situation.egoVehicleState.objectState.speed == physics::Speed(0.))</span>
+<span class="lineNum">         </span>  [<span class="branchCov" title="Branch 6 was taken 3 times"> + </span><span class="branchCov" title="Branch 7 was taken 6 times"> + </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">     215 </span>[<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 5 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">          9 :          &amp;&amp; (situation.otherVehicleState.objectState.speed == physics::Speed(0.))))</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 3 times"> + </span><span class="branchCov" title="Branch 7 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 8 was taken 4 times"> + </span><span class="branchCov" title="Branch 9 was taken 5 times"> + </span>]
 <span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
-<span class="lineNum">     174 </span>                :            :     {
-<span class="lineNum">     175 </span>        [<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          3 :       spdlog::debug(&quot;Situation {} Rule 1: both stopped, unsafe distance -&gt; drive away.&quot;, situation.situationId);</span>
-<span class="lineNum">     176 </span>                :<span class="lineCov">          3 :       mode = DrivingMode::DriveAway;</span>
-<span class="lineNum">     177 </span>                :            :     }
-<span class="lineNum">     178 </span>                :            : 
-<span class="lineNum">     179 </span>                :            :     // Rule 2: If:
-<span class="lineNum">     180 </span>                :            :     // - ego-brake and other-continue-forward not overlap
-<span class="lineNum">     181 </span>                :            :     // and
-<span class="lineNum">     182 </span>                :            :     // - other-brake and ego-continue-forward overlap
-<span class="lineNum">     183 </span>[<span class="branchCov" title="Branch 0 was taken 5 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span>]:<span class="lineCov">          8 :     if ((mode == DrivingMode::Invalid) &amp;&amp; lastOtherMustBrake)</span>
-<span class="lineNum">     184 </span>                :            :     {
-<span class="lineNum">     185 </span>[<span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchCov" title="Branch 5 was taken 1 time"> + </span>]:<span class="lineCov">          2 :       if (situation.egoVehicleState.objectState.speed &gt; physics::Speed(0.))</span>
-<span class="lineNum">     186 </span>                :            :       {
-<span class="lineNum">     187 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :         spdlog::debug(&quot;Situation {} Rule 2: opponent is moving -&gt; continue forward&quot;, situation.situationId);</span>
-<span class="lineNum">     188 </span>                :<span class="lineCov">          1 :         mode = DrivingMode::ContinueForward;</span>
-<span class="lineNum">     189 </span>                :            :       }
-<span class="lineNum">     190 </span>                :            :       else
-<span class="lineNum">     191 </span>                :            :       {
-<span class="lineNum">     192 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :         spdlog::debug(&quot;Situation {} Rule 2: opponent is stopped -&gt; drive away&quot;, situation.situationId);</span>
-<span class="lineNum">     193 </span>                :<span class="lineCov">          2 :         mode = DrivingMode::DriveAway;</span>
-<span class="lineNum">     194 </span>                :            :       }
-<span class="lineNum">     195 </span>                :            :     }
-<span class="lineNum">     196 </span>                :            : 
-<span class="lineNum">     197 </span>                :            :     // Rule 3: Brake
-<span class="lineNum">     198 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 5 times"> + </span>]:<span class="lineCov">          8 :     if (mode == DrivingMode::Invalid)</span>
-<span class="lineNum">     199 </span>                :            :     {
-<span class="lineNum">     200 </span>        [<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          3 :       spdlog::debug(&quot;Situation {} Rule 3: brake (brake collides with other brake)&quot;, situation.situationId);</span>
-<span class="lineNum">     201 </span>                :<span class="lineCov">          8 :       mode = DrivingMode::Brake;</span>
-<span class="lineNum">     202 </span>                :            :     }
-<span class="lineNum">     203 </span>                :            :   }
-<span class="lineNum">     204 </span>                :            : 
-<span class="lineNum">     205 </span>  [<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         13 :   switch (mode)</span>
-<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 4 was not taken"> - </span>]
-<span class="lineNum">     206 </span>                :            :   {
-<span class="lineNum">     207 </span>                :            :     case DrivingMode::ContinueForward:
-<span class="lineNum">     208 </span>                :<span class="lineCov">          6 :       rssState.response = state::UnstructuredSceneResponse::ContinueForward;</span>
-<span class="lineNum">     209 </span>                :<span class="lineCov">          6 :       rssState.isSafe = true;</span>
-<span class="lineNum">     210 </span>                :<span class="lineCov">          6 :       break;</span>
-<span class="lineNum">     211 </span>                :            :     case DrivingMode::Brake:
-<span class="lineNum">     212 </span>                :<span class="lineCov">          3 :       rssState.response = state::UnstructuredSceneResponse::Brake;</span>
-<span class="lineNum">     213 </span>                :<span class="lineCov">          3 :       rssState.isSafe = false;</span>
-<span class="lineNum">     214 </span>                :<span class="lineCov">          3 :       break;</span>
-<span class="lineNum">     215 </span>                :            :     case DrivingMode::DriveAway:
 <span class="lineNum">     216 </span>                :            :     {
-<span class="lineNum">     217 </span>        [<span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          4 :       calculateDriveAwayAngle(unstructured::toPoint(situation.egoVehicleState.objectState.centerPoint),</span>
-<span class="lineNum">     218 </span>        [<span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          4 :                               unstructured::toPoint(situation.otherVehicleState.objectState.centerPoint),</span>
-<span class="lineNum">     219 </span>                :            :                               situation.egoVehicleState.dynamics.unstructuredSettings.driveAwayMaxAngle,
-<span class="lineNum">     220 </span>        [<span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          4 :                               rssState.headingRange);</span>
-<span class="lineNum">     221 </span>        [<span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          4 :       DriveAwayState driveAwayState;</span>
-<span class="lineNum">     222 </span>                :<span class="lineCov">          4 :       driveAwayState.allowedHeadingRange = rssState.headingRange;</span>
-<span class="lineNum">     223 </span>                :<span class="lineCov">          4 :       driveAwayState.otherPosition = situation.otherVehicleState.objectState.centerPoint;</span>
-<span class="lineNum">     224 </span>        [<span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          4 :       mDriveAwayStateMap[situation.situationId] = driveAwayState;</span>
-<span class="lineNum">     225 </span>                :<span class="lineCov">          4 :       rssState.response = state::UnstructuredSceneResponse::DriveAway;</span>
-<span class="lineNum">     226 </span>                :<span class="lineCov">          4 :       rssState.isSafe = false;</span>
-<span class="lineNum">     227 </span>                :<span class="lineCov">          4 :       break;</span>
-<span class="lineNum">     228 </span>                :            :     }
-<span class="lineNum">     229 </span>                :            :     case DrivingMode::Invalid:
-<span class="lineNum">     230 </span>                :<span class="lineNoCov">          0 :       result = false;</span>
-<span class="lineNum">     231 </span>                :<span class="lineNoCov">          0 :       break;</span>
-<span class="lineNum">     232 </span>                :            :     default:
-<span class="lineNum">     233 </span>                :<span class="lineNoCov">          0 :       result = false;</span>
-<span class="lineNum">     234 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :       throw std::runtime_error(&quot;RssUnstructuredSceneChecker::calculateState&gt;&gt; invalid driving mode&quot;);</span>
-<span class="lineNum">     235 </span>                :            :       break;
-<span class="lineNum">     236 </span>                :            :   }
-<span class="lineNum">     237 </span>                :            : 
-<span class="lineNum">     238 </span>                :<span class="lineCov">         14 :   return result;</span>
-<a name="239"><span class="lineNum">     239 </span>                :            : }</a>
-<span class="lineNum">     240 </span>                :            : 
-<span class="lineNum">     241 </span>                :<span class="lineCov">         12 : bool RssUnstructuredSceneChecker::calculateDriveAwayAngle(unstructured::Point const &amp;egoVehicleLocation,</span>
-<span class="lineNum">     242 </span>                :            :                                                           unstructured::Point const &amp;otherVehicleLocation,
-<span class="lineNum">     243 </span>                :            :                                                           physics::Angle const &amp;maxAllowedAngleWhenBothStopped,
-<span class="lineNum">     244 </span>                :            :                                                           state::HeadingRange &amp;range) const
-<span class="lineNum">     245 </span>                :            : {
-<span class="lineNum">     246 </span>        [<span class="branchCov" title="Branch 1 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         12 :   auto const substractedLocationVector = egoVehicleLocation - otherVehicleLocation;</span>
-<span class="lineNum">     247 </span>                :            : 
-<span class="lineNum">     248 </span>                :            :   // get vector angle
-<span class="lineNum">     249 </span>                :            :   auto const substractedLocationVectorAngle = physics::Angle(
-<span class="lineNum">     250 </span>[<span class="branchCov" title="Branch 1 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         12 :     std::atan2(static_cast&lt;double&gt;(substractedLocationVector.y()), static_cast&lt;double&gt;(substractedLocationVector.x())));</span>
-<span class="lineNum">     251 </span>                :            : 
-<span class="lineNum">     252 </span>[<span class="branchCov" title="Branch 1 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         12 :   range.begin = physics::normalizeAngleSigned(substractedLocationVectorAngle - maxAllowedAngleWhenBothStopped);</span>
-<span class="lineNum">     253 </span>[<span class="branchCov" title="Branch 1 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         12 :   range.end = physics::normalizeAngleSigned(substractedLocationVectorAngle + maxAllowedAngleWhenBothStopped);</span>
-<span class="lineNum">     254 </span>                :<span class="lineCov">         12 :   return true;</span>
-<span class="lineNum">     255 </span>                :            : }
-<span class="lineNum">     256 </span>                :            : 
-<a name="257"><span class="lineNum">     257 </span>                :            : } // namespace situation</a>
-<span class="lineNum">     258 </span>                :            : } // namespace rss
-<span class="lineNum">     259 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
+<span class="lineNum">     217 </span>        [<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          3 :       spdlog::debug(&quot;Situation {} Rule 1: both stopped, unsafe distance -&gt; drive away.&quot;, situation.situationId);</span>
+<span class="lineNum">     218 </span>                :<span class="lineCov">          3 :       mode = DrivingMode::DriveAway;</span>
+<span class="lineNum">     219 </span>                :            :     }
+<span class="lineNum">     220 </span>                :            : 
+<span class="lineNum">     221 </span>                :            :     // Rule 2: If:
+<span class="lineNum">     222 </span>                :            :     // - ego-brake and other-continue-forward not overlap
+<span class="lineNum">     223 </span>                :            :     // and
+<span class="lineNum">     224 </span>                :            :     // - other-brake and ego-continue-forward overlap
+<span class="lineNum">     225 </span>[<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchCov" title="Branch 3 was taken 4 times"> + </span>]:<span class="lineCov">          9 :     if ((mode == DrivingMode::Invalid) &amp;&amp; lastOtherMustBrake)</span>
+<span class="lineNum">     226 </span>                :            :     {
+<span class="lineNum">     227 </span>[<span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchCov" title="Branch 5 was taken 1 time"> + </span>]:<span class="lineCov">          2 :       if (situation.egoVehicleState.objectState.speed &gt; physics::Speed(0.))</span>
+<span class="lineNum">     228 </span>                :            :       {
+<span class="lineNum">     229 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :         spdlog::debug(&quot;Situation {} Rule 2: opponent is moving -&gt; continue forward&quot;, situation.situationId);</span>
+<span class="lineNum">     230 </span>                :<span class="lineCov">          1 :         mode = DrivingMode::ContinueForward;</span>
+<span class="lineNum">     231 </span>                :            :       }
+<span class="lineNum">     232 </span>                :            :       else
+<span class="lineNum">     233 </span>                :            :       {
+<span class="lineNum">     234 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :         spdlog::debug(&quot;Situation {} Rule 2: opponent is stopped -&gt; drive away&quot;, situation.situationId);</span>
+<span class="lineNum">     235 </span>                :<span class="lineCov">          2 :         mode = DrivingMode::DriveAway;</span>
+<span class="lineNum">     236 </span>                :            :       }
+<span class="lineNum">     237 </span>                :            :     }
+<span class="lineNum">     238 </span>                :            : 
+<span class="lineNum">     239 </span>                :            :     // Rule 3: Brake
+<span class="lineNum">     240 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 5 times"> + </span>]:<span class="lineCov">          9 :     if (mode == DrivingMode::Invalid)</span>
+<span class="lineNum">     241 </span>                :            :     {
+<span class="lineNum">     242 </span>        [<span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          4 :       spdlog::debug(&quot;Situation {} Rule 3: brake (brake collides with other brake)&quot;, situation.situationId);</span>
+<span class="lineNum">     243 </span>                :<span class="lineCov">          9 :       mode = DrivingMode::Brake;</span>
+<span class="lineNum">     244 </span>                :            :     }
+<span class="lineNum">     245 </span>                :            :   }
+<span class="lineNum">     246 </span>                :            : 
+<span class="lineNum">     247 </span>  [<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         14 :   switch (mode)</span>
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 4 was not taken"> - </span>]
+<span class="lineNum">     248 </span>                :            :   {
+<span class="lineNum">     249 </span>                :            :     case DrivingMode::ContinueForward:
+<span class="lineNum">     250 </span>                :<span class="lineCov">          6 :       rssState.response = state::UnstructuredSceneResponse::ContinueForward;</span>
+<span class="lineNum">     251 </span>                :<span class="lineCov">          6 :       rssState.isSafe = true;</span>
+<span class="lineNum">     252 </span>                :<span class="lineCov">          6 :       break;</span>
+<span class="lineNum">     253 </span>                :            :     case DrivingMode::Brake:
+<span class="lineNum">     254 </span>                :<span class="lineCov">          4 :       rssState.response = state::UnstructuredSceneResponse::Brake;</span>
+<span class="lineNum">     255 </span>                :<span class="lineCov">          4 :       rssState.isSafe = false;</span>
+<span class="lineNum">     256 </span>                :<span class="lineCov">          4 :       break;</span>
+<span class="lineNum">     257 </span>                :            :     case DrivingMode::DriveAway:
+<span class="lineNum">     258 </span>                :            :     {
+<span class="lineNum">     259 </span>        [<span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          4 :       calculateDriveAwayAngle(unstructured::toPoint(situation.egoVehicleState.objectState.centerPoint),</span>
+<span class="lineNum">     260 </span>        [<span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          4 :                               unstructured::toPoint(situation.otherVehicleState.objectState.centerPoint),</span>
+<span class="lineNum">     261 </span>                :            :                               situation.egoVehicleState.dynamics.unstructuredSettings.driveAwayMaxAngle,
+<span class="lineNum">     262 </span>        [<span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          4 :                               rssState.headingRange);</span>
+<span class="lineNum">     263 </span>                :<span class="lineCov">          4 :       rssState.response = state::UnstructuredSceneResponse::DriveAway;</span>
+<span class="lineNum">     264 </span>                :<span class="lineCov">          4 :       rssState.isSafe = false;</span>
+<span class="lineNum">     265 </span>                :<span class="lineCov">          4 :       break;</span>
+<span class="lineNum">     266 </span>                :            :     }
+<span class="lineNum">     267 </span>                :            :     case DrivingMode::Invalid:
+<span class="lineNum">     268 </span>                :<span class="lineNoCov">          0 :       result = false;</span>
+<span class="lineNum">     269 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     270 </span>                :            :     default:
+<span class="lineNum">     271 </span>                :<span class="lineNoCov">          0 :       result = false;</span>
+<span class="lineNum">     272 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :       throw std::runtime_error(&quot;RssUnstructuredSceneChecker::calculateState&gt;&gt; invalid driving mode&quot;);</span>
+<span class="lineNum">     273 </span>                :            :       break;
+<span class="lineNum">     274 </span>                :            :   }
+<span class="lineNum">     275 </span>                :            : 
+<span class="lineNum">     276 </span>                :<span class="lineCov">         15 :   return result;</span>
+<a name="277"><span class="lineNum">     277 </span>                :            : }</a>
+<span class="lineNum">     278 </span>                :            : 
+<span class="lineNum">     279 </span>                :<span class="lineCov">         12 : bool RssUnstructuredSceneChecker::calculateDriveAwayAngle(unstructured::Point const &amp;egoVehicleLocation,</span>
+<span class="lineNum">     280 </span>                :            :                                                           unstructured::Point const &amp;otherVehicleLocation,
+<span class="lineNum">     281 </span>                :            :                                                           physics::Angle const &amp;maxAllowedAngleWhenBothStopped,
+<span class="lineNum">     282 </span>                :            :                                                           state::HeadingRange &amp;range) const
+<span class="lineNum">     283 </span>                :            : {
+<span class="lineNum">     284 </span>        [<span class="branchCov" title="Branch 1 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         12 :   auto const substractedLocationVector = egoVehicleLocation - otherVehicleLocation;</span>
+<span class="lineNum">     285 </span>                :            : 
+<span class="lineNum">     286 </span>                :            :   // get vector angle
+<span class="lineNum">     287 </span>                :            :   auto const substractedLocationVectorAngle = physics::Angle(
+<span class="lineNum">     288 </span>[<span class="branchCov" title="Branch 1 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         12 :     std::atan2(static_cast&lt;double&gt;(substractedLocationVector.y()), static_cast&lt;double&gt;(substractedLocationVector.x())));</span>
+<span class="lineNum">     289 </span>                :            : 
+<span class="lineNum">     290 </span>[<span class="branchCov" title="Branch 1 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         12 :   range.begin = physics::normalizeAngleSigned(substractedLocationVectorAngle - maxAllowedAngleWhenBothStopped);</span>
+<span class="lineNum">     291 </span>[<span class="branchCov" title="Branch 1 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 12 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         12 :   range.end = physics::normalizeAngleSigned(substractedLocationVectorAngle + maxAllowedAngleWhenBothStopped);</span>
+<span class="lineNum">     292 </span>                :<span class="lineCov">         12 :   return true;</span>
+<span class="lineNum">     293 </span>                :            : }
+<span class="lineNum">     294 </span>                :            : 
+<a name="295"><span class="lineNum">     295 </span>                :            : } // namespace situation</a>
+<span class="lineNum">     296 </span>                :            : } // namespace rss
+<span class="lineNum">     297 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
 </pre>
       </td>
     </tr>
