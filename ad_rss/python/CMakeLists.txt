@@ -34,46 +34,61 @@ generate_python_binding_source_code(${CMAKE_CURRENT_BINARY_DIR})
 
 foreach(binding ${PYTHON_BINDINGS})
   string(TOLOWER ${binding} lc_binding)
-  set(target ad_rss_${lc_binding})
 
-  list(APPEND targets ${target})
+  configure_file(ad/__init__.py.in ${lc_binding}/ad/__init__.py)
+  configure_file(ad/rss/__init__.py.in ${lc_binding}/ad/rss/__init__.py)
 
-  add_library(${target}
-    ${CMAKE_CURRENT_BINARY_DIR}/AdRssPythonWrapper${binding}.cpp
-  )
-  target_compile_definitions(${target} PUBLIC ${TARGET_COMPILE_DEFINITIONS})
-  target_compile_options(${target} PRIVATE ${TARGET_COMPILE_OPTIONS})
-  set_property(TARGET ${target} APPEND_STRING PROPERTY LINK_FLAGS ${TARGET_LINK_FLAGS})
+  foreach(component core situation state world)
 
-  target_include_directories(${target} PRIVATE
-    ${PYTHON_BINDING_PACKAGE_INCLUDE_DIRS_${binding}}
-    ${CMAKE_CURRENT_BINARY_DIR}
-  )
+    set(target ad_rss_${component}_${lc_binding})
 
-  target_link_libraries(${target} PRIVATE
-    ad_rss
-    ad_physics
-    spdlog::spdlog
-    ${PYTHON_BINDING_PACKAGE_LIBRARIES_${binding}}
-  )
+    configure_file(ad/rss/${component}/__init__.py.in ${lc_binding}/ad/rss/${component}/__init__.py)
 
+    add_library(${target}
+      ${CMAKE_CURRENT_BINARY_DIR}/AdRss${component}PythonWrapper${binding}.cpp
+      )
+    target_compile_definitions(${target} PUBLIC ${TARGET_COMPILE_DEFINITIONS})
+    target_compile_options(${target} PRIVATE ${TARGET_COMPILE_OPTIONS})
+    set_property(TARGET ${target} APPEND_STRING PROPERTY LINK_FLAGS ${TARGET_LINK_FLAGS})
+
+    target_include_directories(${target} PRIVATE
+      ${PYTHON_BINDING_PACKAGE_INCLUDE_DIRS_${binding}}
+      ${CMAKE_CURRENT_BINARY_DIR}
+      )
+
+    target_link_libraries(${target} PRIVATE
+      ad_rss
+      ad_physics
+      spdlog::spdlog
+      ${PYTHON_BINDING_PACKAGE_LIBRARIES_${binding}}
+      )
+
+    install(TARGETS ${target}
+      ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/${lc_binding}/ad/rss/${component}
+      LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/${lc_binding}/ad/rss/${component}
+      )
+
+  endforeach()
+
+  ################################################################################
+  # Install section
+  ################################################################################
+
+  install(DIRECTORY
+    ${CMAKE_CURRENT_BINARY_DIR}/${lc_binding}/ad
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/${lc_binding}/
+    )
+
+  #####################################################################
+  # Tests
+  #####################################################################
   if (BUILD_TESTING)
     add_test(NAME ${target}_test
       COMMAND ${lc_binding} -m interface_test
       WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/tests
     )
-    get_python_test_environment(ad_physics)
+    get_python_test_environment(${lc_binding} ad_physics)
     set_tests_properties(${target}_test PROPERTIES ENVIRONMENT "${PYTHON_TEST_ENVIRONMENT}")
-    message(STATUS "PYTHON_TEST_ENVIRONMENT=${PYTHON_TEST_ENVIRONMENT}")
   endif()
 
 endforeach()
-
-################################################################################
-# Install section
-################################################################################
-
-install(TARGETS ${targets} EXPORT ${PROJECT_NAME}_EXPORT
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-)

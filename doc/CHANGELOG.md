@@ -1,6 +1,10 @@
 
 ## Latest changes
 
+#### :ghost: Maintenance
+* Build documentation update to make the plain cmake build more robust and especially make repeated builds with -DBUILD_PYTHON_BINDING=ON working
+* Improved user interface of python binding
+
 ## Release 4.0.1
 
 #### :ghost: Maintenance
