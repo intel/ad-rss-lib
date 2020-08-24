@@ -1,5 +1,8 @@
 
 ## Latest changes
+#### :ghost: Maintenance
+* Improved user interface of python binding
+* Suppressed python code generation build output
 
 ## Release 4.1.0
 

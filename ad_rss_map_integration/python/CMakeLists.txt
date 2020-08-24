@@ -43,12 +43,16 @@ generate_python_binding_source_code(${CMAKE_CURRENT_BINARY_DIR})
 
 foreach(binding ${PYTHON_BINDINGS})
   string(TOLOWER ${binding} lc_binding)
-  set(target ad_rss_map_integration_${lc_binding})
 
-  list(APPEND targets ${target})
+  configure_file(ad/__init__.py.in ${lc_binding}/ad/__init__.py)
+  configure_file(ad/rss/__init__.py.in ${lc_binding}/ad/rss/__init__.py)
+
+  set(target ad_rss_map_${lc_binding})
+
+  configure_file(ad/rss/map/__init__.py.in ${lc_binding}/ad/rss/map/__init__.py)
 
   add_library(${target}
-    ${CMAKE_CURRENT_BINARY_DIR}/AdRssMapIntegrationPythonWrapper${binding}.cpp
+    ${CMAKE_CURRENT_BINARY_DIR}/AdRssmapPythonWrapper${binding}.cpp
   )
   target_compile_definitions(${target} PUBLIC ${TARGET_COMPILE_DEFINITIONS} "-DBOOST_PYTHON_MAX_ARITY=15")
   target_compile_options(${target} PRIVATE ${TARGET_COMPILE_OPTIONS})
@@ -68,23 +72,29 @@ foreach(binding ${PYTHON_BINDINGS})
     ${PYTHON_BINDING_PACKAGE_LIBRARIES_${binding}}
   )
 
+  ################################################################################
+  # Install section
+  ################################################################################
+  install(TARGETS ${target}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/${lc_binding}/ad/rss/map
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/${lc_binding}/ad/rss/map
+    )
+
+  install(DIRECTORY
+    ${CMAKE_CURRENT_BINARY_DIR}/${lc_binding}/ad
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/${lc_binding}/
+    )
+
+  #####################################################################
+  # Tests
+  #####################################################################
   if (BUILD_TESTING)
     add_test(NAME ${target}_test
       COMMAND ${lc_binding} -m interface_test
       WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/tests
     )
-    get_python_test_environment(ad_physics ad_map_opendrive_reader ad_map_access ad_rss)
+    get_python_test_environment(${lc_binding} ad_physics ad_map_opendrive_reader ad_map_access ad_rss)
     set_tests_properties(${target}_test PROPERTIES ENVIRONMENT "${PYTHON_TEST_ENVIRONMENT}")
-    message(STATUS "PYTHON_TEST_ENVIRONMENT=${PYTHON_TEST_ENVIRONMENT}")
   endif()
 
 endforeach()
-
-################################################################################
-# Install section
-################################################################################
-
-install(TARGETS ${targets} EXPORT ${PROJECT_NAME}_EXPORT
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-)

@@ -1,0 +1,12 @@
+# ----------------- BEGIN LICENSE BLOCK ---------------------------------
+#
+# Copyright (c) 2020 Intel Corporation
+#
+# SPDX-License-Identifier: LGPL-2.1-only
+#
+# ----------------- END LICENSE BLOCK -----------------------------------
+
+"""
+ad:rss namespace python directory. This is a plain collecting namespace.
+"""
+__path__ = __import__('pkgutil').extend_path(__path__, __name__)

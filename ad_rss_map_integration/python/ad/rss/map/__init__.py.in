@@ -1,0 +1,19 @@
+# ----------------- BEGIN LICENSE BLOCK ---------------------------------
+#
+# Copyright (c) 2020 Intel Corporation
+#
+# SPDX-License-Identifier: LGPL-2.1-only
+#
+# ----------------- END LICENSE BLOCK -----------------------------------
+
+"""
+This module provides a @lc_binding@ interface to the C++ ad::rss::map implementation
+"""
+
+import sys
+import os.path
+sys.path.append(os.path.dirname(__file__))
+
+import ad.rss.core
+import ad.map
+from libad_rss_map_@lc_binding@ import *

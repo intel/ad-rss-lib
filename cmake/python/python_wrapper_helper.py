@@ -31,7 +31,7 @@ def get_list_of_files(directory, ignore_files):
             for ignore_file in ignore_files:
                 if full_path.find(ignore_file) != -1:
                     skip = True
-                    print("Skipping file: " + full_path)
+                    print ("Skipping file: " + full_path)
             if not skip:
                 if full_path.endswith(".h") or full_path.endswith(".hpp"):
                     all_files.append(full_path)
@@ -39,7 +39,7 @@ def get_list_of_files(directory, ignore_files):
     return all_files
 
 
-def generate_python_wrapper(header_directories, include_paths, library_name, cpp_filename, declarations, ignore_declarations={}, ignore_files={}):
+def generate_python_wrapper(header_directories, include_paths, library_name, cpp_filename, declarations, main_namespace="", ignore_declarations={}, ignore_files={}):
     """
     Function to generate Python-C++ binding code by calling pygccxml and py++
 
@@ -96,9 +96,6 @@ def generate_python_wrapper(header_directories, include_paths, library_name, cpp
         xml_generator_config=xml_generator_config,
         indexing_suite_version=2)
 
-    for ignore_declaration in ignore_declarations:
-        builder.decls(lambda decl: ignore_declaration in decl.name).exclude()
-
     # for some reason there is a problem with variables named 'length'
     # the filename is empty and the line no is set to -1
     # therefore the declaration is not processed in the code later on
@@ -106,9 +103,50 @@ def generate_python_wrapper(header_directories, include_paths, library_name, cpp
     for decl in builder.decls("length"):
         if isinstance(decl, decl_wrappers.variable_wrapper.variable_t):
             if isinstance(decl.parent, decl_wrappers.class_wrapper.class_t):
-                decl.location.file_name = decl.parent.location.file_name
-                decl.location.line = decl.parent.location.line + 1
-                decl.ignore = False
+                if decl.ignore:
+                    decl.location.file_name = decl.parent.location.file_name
+                    decl.location.line = decl.parent.location.line + 1
+                    decl.ignore = False
+
+    if main_namespace != "":
+        if main_namespace.startswith("::"):
+            main_namespace = main_namespace[2:]
+        top_namespace_split = main_namespace.find(":")
+        top_namespace = ""
+        if top_namespace_split > 1:
+            top_namespace = main_namespace[:top_namespace_split+2]
+        print("Main namespace defined, namespace filtering enabled: top-namespace '{}' main-namespace '{}'".format(top_namespace, main_namespace))
+
+    for decl in builder.decls():
+        for ignore_declaration in ignore_declarations:
+            if ignore_declaration in decl.name or ignore_declaration in decl.alias:
+                decl.exclude()
+                decl.ignore = True
+                decl.already_exposed = True
+                # print("declaration to ignore found: {} (alias {})".format(decl, decl.alias))
+                break;
+        if main_namespace != "":
+            if isinstance(decl, decl_wrappers.class_wrapper.class_t) or isinstance(decl, decl_wrappers.class_wrapper.class_declaration_t) or isinstance(decl, decl_wrappers.typedef_wrapper.typedef_t):
+                decl_full_string = "{}".format(decl)
+                if main_namespace in decl_full_string:
+                    # namespace present, ok
+                    # print("typedef/class main namespace found: {}".format(decl_full_string))
+                    continue
+                if decl_full_string in main_namespace:
+                    # declaration is a parent of main namespace, ok
+                    # print("typedef/class declaration of upper level namespace found: {}".format(decl_full_string))
+                    continue
+                if top_namespace != "" and not top_namespace in decl_full_string:
+                    # global or std defaults, ok
+                    # print("typedef/class outside top namespace found: {}".format(decl_full_string))
+                    continue
+                # print("typedef/class outside of main namespace found. Ignoring: {}".format(decl_full_string))
+                decl.exclude()
+                decl.ignore = True
+                decl.already_exposed = True
+
+    # debug declarations
+    # builder.print_declarations()
 
     # Automatically detect properties and associated getters/setters
     builder.classes().add_properties(exclude_accessors=True)
@@ -120,7 +158,7 @@ def generate_python_wrapper(header_directories, include_paths, library_name, cpp
     builder.write_module(cpp_filename)
 
 
-def post_process_python_wrapper(header_directories, cpp_filename_in, cpp_filename_out, additional_replacements={}, spdx_license="MIT", fix_include_directives=True, fix_enum_class=True):
+def post_process_python_wrapper(header_directories, cpp_filename_in, cpp_filename_out, additional_replacements={}, additional_includes={}, spdx_license="MIT", fix_include_directives=True, fix_enum_class=True):
     """
     Post process generated binding code
 
@@ -169,6 +207,10 @@ def post_process_python_wrapper(header_directories, cpp_filename_in, cpp_filenam
                               "#if defined(__clang__) && (__clang_major__ >= 7)\n"
                               "#  pragma GCC diagnostic ignored \"-Wself-assign-overloaded\"\n"
                               "#endif\n\n")
+
+            for additional_include in additional_includes:
+                file_output.write("#include <{}>\n".format(additional_include))
+
             write_prefix = False
 
         # Remove the leading include
@@ -177,12 +219,6 @@ def post_process_python_wrapper(header_directories, cpp_filename_in, cpp_filenam
                 if not header_dir.endswith("/"):
                     header_dir = header_dir + "/"
                 line = line.replace(header_dir, "")
-
-        # Move boost/python include down for clang
-        if line.startswith("#include \"boost/python.hpp\""):
-            continue
-        elif line.startswith("namespace bp"):
-            file_output.write("#include \"boost/python.hpp\"\n")
 
         # Fix C++ enum classes
         if fix_enum_class:

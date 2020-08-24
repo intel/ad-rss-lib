@@ -23,12 +23,24 @@ def main():
     """
     Main function to generate Python-C++ binding code
     """
-    header_dirs = {
+    include_dirs = {
+        "${GENPY_INCLUDE_DIRS}",
         "${CMAKE_CURRENT_LIST_DIR}/../generated/include/",
         "${CMAKE_CURRENT_LIST_DIR}/../impl/include/"
     }
-    include_dirs = {
-        "${GENPY_INCLUDE_DIRS}"
+
+    declarations={"toString", "fromString", "std::to_string", "std::sqrt", "std::fabs", "std::numeric_limits"}
+
+    additional_replacements = {
+    }
+
+    main_namespace="ad::rss::map"
+
+    declarations_component=declarations.copy()
+    declarations_component.add(main_namespace)
+
+    header_dirs = {
+        "${CMAKE_CURRENT_LIST_DIR}/../impl/include/ad/rss/map"
     }
 
     ignore_files = {
@@ -36,41 +48,33 @@ def main():
         "RssObjectConversion.hpp",
         "RssSceneCreator.hpp",
     }
+    ignore_declarations={}
+    additional_includes={}
 
-    generate_python_wrapper(library_name="libad_rss_map_integration_python",
-                            cpp_filename="AdRssMapIntegrationPythonWrapper.cpp.in",
+    library_name="libad_rss_map_python"
+
+    generate_python_wrapper(library_name=library_name,
+                            cpp_filename="AdRssmapPythonWrapper.cpp.in",
                             header_directories=header_dirs,
                             include_paths=include_dirs,
-                            ignore_files=ignore_files,
-                            declarations={
-                                "ad", "toString", "fromString", "std::to_string", "std::sqrt", "std::fabs", "std::numeric_limits"}
-                            )
-
-    additional_replacements = {
-        # duplicated definition of RoadArea, LaneIdSet, LandmarkIdSet
-        ("{ //::std::vector< std::vector< ad::rss::world::LaneSegment > >",
-         " { /*::std::vector< std::vector< ad::rss::world::LaneSegment > >"),
-        ("std::vector< std::vector< ad::rss::world::LaneSegment > > >() );",
-         "std::vector< std::vector< ad::rss::world::LaneSegment > > >() ); */"),
-        ("{ //::std::set< ad::map::lane::LaneId >", " { /*::std::set< ad::map::lane::LaneId >"),
-        ("std::set< ad::map::lane::LaneId > >() );", "std::set< ad::map::lane::LaneId > >() );*/"),
-        ("{ //::std::set< ad::map::landmark::LandmarkId >", " { /*::std::set< ad::map::landmark::LandmarkId >"),
-        ("std::set< ad::map::landmark::LandmarkId > >() );", "std::set< ad::map::landmark::LandmarkId > >() );*/")
-    }
+                            main_namespace=main_namespace,
+                            declarations=declarations_component,
+                            ignore_declarations=ignore_declarations,
+                            ignore_files=ignore_files)
 
     additional_replacements_python2=additional_replacements.copy()
-    additional_replacements_python2.add(("libad_rss_map_integration_python", "libad_rss_map_integration_python2"))
+    additional_replacements_python2.add(("libad_rss_map_python", "libad_rss_map_python2"))
     post_process_python_wrapper(header_directories=header_dirs,
-                                cpp_filename_in="AdRssMapIntegrationPythonWrapper.cpp.in",
-                                cpp_filename_out="AdRssMapIntegrationPythonWrapperPYTHON2.cpp",
+                                cpp_filename_in="AdRssmapPythonWrapper.cpp.in",
+                                cpp_filename_out="AdRssmapPythonWrapperPYTHON2.cpp",
                                 additional_replacements=additional_replacements_python2,
                                 spdx_license="LGPL-2.1-only")
 
     additional_replacements_python3=additional_replacements.copy()
-    additional_replacements_python3.add(("libad_rss_map_integration_python", "libad_rss_map_integration_python3"))
+    additional_replacements_python3.add(("libad_rss_map_python", "libad_rss_map_python3"))
     post_process_python_wrapper(header_directories=header_dirs,
-                                cpp_filename_in="AdRssMapIntegrationPythonWrapper.cpp.in",
-                                cpp_filename_out="AdRssMapIntegrationPythonWrapperPYTHON3.cpp",
+                                cpp_filename_in="AdRssmapPythonWrapper.cpp.in",
+                                cpp_filename_out="AdRssmapPythonWrapperPYTHON3.cpp",
                                 additional_replacements=additional_replacements_python3,
                                 spdx_license="LGPL-2.1-only")
 
