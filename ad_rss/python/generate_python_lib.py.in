@@ -24,9 +24,9 @@ def main():
     Main function to generate Python-C++ binding code
     """
     include_dirs = {
-        "${GENPY_INCLUDE_DIRS}",
-        "${CMAKE_CURRENT_LIST_DIR}/../generated/include/",
-        "${CMAKE_CURRENT_LIST_DIR}/../impl/include/"
+        "@GENPY_INCLUDE_DIRS@",
+        "@CMAKE_CURRENT_LIST_DIR@/../generated/include/",
+        "@CMAKE_CURRENT_LIST_DIR@/../impl/include/"
     }
 
     declarations={"toString", "fromString", "std::to_string", "std::sqrt", "std::fabs", "std::numeric_limits"}
@@ -54,22 +54,22 @@ def main():
 
         if component == "core":
             header_dirs = {
-                "${CMAKE_CURRENT_LIST_DIR}/../impl/include/ad/rss/{}".format(component)
+                "@CMAKE_CURRENT_LIST_DIR@/../impl/include/ad/rss/{}".format(component)
             }
         elif component == "world":
             header_dirs = {
-                "${CMAKE_CURRENT_LIST_DIR}/../generated/include/ad/rss/{}".format(component),
+                "@CMAKE_CURRENT_LIST_DIR@/../generated/include/ad/rss/{}".format(component),
             }
         else:
             header_dirs = {
-                "${CMAKE_CURRENT_LIST_DIR}/../generated/include/ad/rss/{}".format(component),
-                "${CMAKE_CURRENT_LIST_DIR}/../impl/include/ad/rss/{}".format(component)
+                "@CMAKE_CURRENT_LIST_DIR@/../generated/include/ad/rss/{}".format(component),
+                "@CMAKE_CURRENT_LIST_DIR@/../impl/include/ad/rss/{}".format(component)
             }
 
         library_name="libad_rss_{}_python".format(component)
 
         generate_python_wrapper(library_name=library_name,
-                                cpp_filename="AdRss{}PythonWrapper.cpp.in".format(component),
+                                cpp_filename="AdRss-{}-PythonWrapper.cpp.in".format(component),
                                 header_directories=header_dirs,
                                 include_paths=include_dirs,
                                 main_namespace=main_namespace,
@@ -77,22 +77,14 @@ def main():
                                 ignore_declarations=ignore_declarations,
                                 ignore_files=ignore_files)
 
-        additional_replacements_python2=additional_replacements.copy()
-        additional_replacements_python2.add(("libad_rss_{}_python".format(component), "libad_rss_{}_python2".format(component)))
-        post_process_python_wrapper(header_directories=header_dirs,
-                                    cpp_filename_in="AdRss{}PythonWrapper.cpp.in".format(component),
-                                    cpp_filename_out="AdRss{}PythonWrapperPYTHON2.cpp".format(component),
-                                    additional_replacements=additional_replacements_python2,
-                                    spdx_license="LGPL-2.1-only")
-
-        additional_replacements_python3=additional_replacements.copy()
-        additional_replacements_python3.add(("libad_rss_{}_python".format(component), "libad_rss_{}_python3".format(component)))
-        post_process_python_wrapper(header_directories=header_dirs,
-                                    cpp_filename_in="AdRss{}PythonWrapper.cpp.in".format(component),
-                                    cpp_filename_out="AdRss{}PythonWrapperPYTHON3.cpp".format(component),
-                                    additional_replacements=additional_replacements_python3,
-                                    spdx_license="LGPL-2.1-only")
-
+        for binding in @PYTHON_BINDING_STRING_LIST@:
+            additional_replacements_binding=additional_replacements.copy()
+            additional_replacements_binding.add(("libad_rss_{}_python".format(component), "libad_rss_{}_{}".format(component, binding)))
+            post_process_python_wrapper(header_directories=header_dirs,
+                                        cpp_filename_in="AdRss-{}-PythonWrapper.cpp.in".format(component),
+                                        cpp_filename_out="AdRss-{}-PythonWrapper-{}.cpp".format(component, binding),
+                                        additional_replacements=additional_replacements_binding,
+                                        spdx_license="LGPL-2.1-only")
 
 if __name__ == '__main__':
     main()
