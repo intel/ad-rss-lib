@@ -7,7 +7,7 @@
 # ----------------- END LICENSE BLOCK -----------------------------------
 
 """
-This module provides a @lc_binding@ interface to the C++ ad::rss::map implementation
+This module provides a @binding@ interface to the C++ ad::rss::map implementation
 """
 
 import sys
@@ -16,4 +16,4 @@ sys.path.append(os.path.dirname(__file__))
 
 import ad.rss.core
 import ad.map
-from libad_rss_map_@lc_binding@ import *
+from libad_rss_map_@binding_string@ import *

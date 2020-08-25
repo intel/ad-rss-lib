@@ -7,7 +7,7 @@
 # ----------------- END LICENSE BLOCK -----------------------------------
 
 """
-This module provides a @lc_binding@ interface to the C++ ad::rss::core implementation
+This module provides a @binding@ interface to the C++ ad::rss::core implementation
 """
 
 import sys
@@ -18,4 +18,4 @@ import ad.physics
 import ad.rss.situation
 import ad.rss.state
 import ad.rss.world
-from libad_rss_core_@lc_binding@ import *
+from libad_rss_core_@binding_string@ import *
