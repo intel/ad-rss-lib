@@ -89,31 +89,6 @@ bool collides(ad::rss::world::UnstructuredTrajectorySet const &trajectorySet1,
   return !boost::geometry::disjoint(polygon1, polygon2);
 }
 
-void splitLineAtIntersectionPoint(ad::rss::unstructured::Point const &intersectionPoint,
-                                  ad::rss::unstructured::Line const &line,
-                                  ad::rss::unstructured::Line &before,
-                                  ad::rss::unstructured::Line &after)
-{
-  auto *currentSection = &before;
-  for (auto it = line.begin(); it != line.end(); ++it)
-  {
-    auto const pt = *it;
-    boost::geometry::append(*currentSection, *it);
-    if (((it + 1) != line.end()) && (currentSection != &after))
-    {
-      auto const nextPt = *(it + 1);
-      auto const pt2intersection = intersectionPoint - pt;
-      auto const nextPt2intersection = intersectionPoint - nextPt;
-      if (boost::geometry::dot_product(pt2intersection, nextPt2intersection) < 0.)
-      {
-        boost::geometry::append(*currentSection, intersectionPoint);
-        currentSection = &after;
-        boost::geometry::append(*currentSection, intersectionPoint);
-      }
-    }
-  }
-}
-
 bool isInsideHeadingRange(ad::physics::Angle const &angle, ad::rss::state::HeadingRange const &range)
 {
   if (range.end >= range.begin)

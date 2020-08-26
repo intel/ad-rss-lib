@@ -15,6 +15,7 @@
 #include <ad/physics/Dimension2D.hpp>
 #include <ad/physics/Distance.hpp>
 #include "ad/rss/unstructured/Geometry.hpp"
+#include "ad/rss/situation/VehicleState.hpp"
 
 #define DRAW_FINAL_POSITION 0
 #define DRAW_TRAJECTORIES 0
@@ -37,16 +38,6 @@ namespace rss {
 namespace unstructured {
 
 /**
- * @brief heading of a trajectory
- */
-enum class TrajectoryHeading
-{
-  left,
-  right,
-  straight
-};
-
-/**
  * @brief corner of a vehicle
  */
 enum class VehicleCorner
@@ -62,10 +53,24 @@ enum class VehicleCorner
  */
 struct TrajectoryPoint
 {
-  TrajectoryPoint(Point const &inPoint, ad::physics::Angle const &inAngle, TrajectoryHeading const &inHeading)
+  TrajectoryPoint() {}
+
+  TrajectoryPoint(situation::VehicleState const &vehicleState)
+  {
+    position = toPoint(vehicleState.objectState.centerPoint);
+    angle = vehicleState.objectState.yaw;
+    speed = vehicleState.objectState.speed;
+    yawRate = vehicleState.objectState.yawRate;
+  }
+
+  TrajectoryPoint(Point const &inPoint,
+    ad::physics::Angle const &inAngle,
+    ad::physics::Speed const &inSpeed,
+    physics::AngularVelocity const &inYawRate)
     : position(inPoint)
     , angle(inAngle)
-    , heading(inHeading)
+    , speed(inSpeed)
+    , yawRate(inYawRate)
   {
   }
 
@@ -75,14 +80,19 @@ struct TrajectoryPoint
   Point position;
 
   /*!
+   * The current position
+   */
+  ad::physics::Speed speed;
+
+  /*!
    * The current heading angle
    */
   ad::physics::Angle angle;
 
   /*!
-   * The current heading direction
+   * The current yawRate
    */
-  TrajectoryHeading heading;
+  physics::AngularVelocity yawRate;
 };
 
 /*!

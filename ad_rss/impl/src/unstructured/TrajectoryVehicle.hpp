@@ -43,6 +43,75 @@ public:
    */
   static const ad::physics::Distance maxRadius;
 
+  static const int frontIntermediateRatioSteps;
+  static const int backIntermediateRatioSteps;
+  static const int responseTimeIntermediateAccelerationSteps;
+  static const int continueForwardIntermediateAccelerationSteps;
+  
+  struct TrajectorySetStep
+  {
+    TrajectorySetStep()
+    {}
+
+    TrajectorySetStep(TrajectoryPoint const &inLeft, TrajectoryPoint const &inRight, TrajectoryPoint const &inCenter)
+    : center(inCenter)
+    {
+      left.push_back(inLeft);
+      right.push_back(inRight);
+    }
+    std::vector<TrajectoryPoint> left; //with positive yaw rate ratio
+    std::vector<TrajectoryPoint> right; //with negative yaw rate ratio
+    TrajectoryPoint center;
+  };
+
+  struct VehicleLocation
+  {
+    VehicleLocation()
+    {}
+
+    VehicleLocation(TrajectoryPoint const &pt, situation::VehicleState const &vehicleState)
+    {
+      frontLeft = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::frontLeft);
+      frontRight = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::frontRight);
+      backLeft = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::backLeft);
+      backRight = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::backRight);
+    }
+
+    Polygon toPolygon()
+    {
+      Polygon vehiclePolygon;
+      boost::geometry::append(vehiclePolygon, frontRight);
+      boost::geometry::append(vehiclePolygon, frontLeft);
+      boost::geometry::append(vehiclePolygon, backLeft);
+      boost::geometry::append(vehiclePolygon, backRight);
+      boost::geometry::append(vehiclePolygon, frontRight);
+      return vehiclePolygon;
+    }
+    MultiPoint toMultiPoint()
+    {
+      MultiPoint geometry;
+      boost::geometry::append(geometry, frontRight);
+      boost::geometry::append(geometry, frontLeft);
+      boost::geometry::append(geometry, backLeft);
+      boost::geometry::append(geometry, backRight);
+      boost::geometry::append(geometry, frontRight);
+      return geometry;
+    }
+    
+    Point frontLeft;
+    Point frontRight;
+    Point backLeft;
+    Point backRight;
+  };
+
+  struct TrajectorySetStepVehicleLocation
+  {
+    VehicleLocation left;
+    VehicleLocation right;
+    VehicleLocation center;
+  };
+
+
   TrajectoryVehicle()
   {
   }
@@ -62,103 +131,77 @@ public:
 
 private:
   /**
-   * @brief Get the final point of a trajectory
-   *
-   * @param[in] vehicleState       current state of the vehicle
-   * @param[in] duration           duration to follow the trajectory
-   * @param[in] aUntilResponseTime acceleration to apply until response time
-   * @param[in] aAfterResponseTime acceleration to apply after response time
-   * @param[in] yawRateRatio       change of yaw over time
-   * @param[in] debugNamespace     namespace to use for debug drawings
-   *
-   * @returns final trajectory point
-   */
-  TrajectoryPoint getFinalTrajectoryPoint(ad::rss::situation::VehicleState const &vehicleState,
-                                          ad::physics::Duration const &duration,
-                                          ad::physics::Acceleration const &aUntilResponseTime,
-                                          ad::physics::Acceleration const &aAfterResponseTime,
-                                          ad::physics::RatioValue const &yawRateRatio,
-                                          std::string const &debugNamespace) const;
-
-  /**
-   * @brief Create a trajectory set
-   *
-   * @param[in] vehicleState       current state of the vehicle
-   * @param[in] duration           duration to follow the trajectory
-   * @param[in] aAfterResponseTime acceleration to apply after response time
-   * @param[in] debugNamespace     namespace to use for debug drawings
-   *
-   * @returns final trajectory point
-   */
-  Polygon createTrajectorySet(situation::VehicleState const &vehicleState,
-                              ad::physics::Duration duration,
-                              ad::physics::Acceleration aAfterResponseTime,
-                              std::string const &debugNamespace);
-
-  /**
-   * @brief Create a trajectory
-   *
-   * @param[in] vehicleState       current state of the vehicle
-   * @param[in] duration           duration to follow the trajectory
-   * @param[in] aUntilResponseTime acceleration to apply until response time
-   * @param[in] aAfterResponseTime acceleration to apply after response time
-   * @param[in] yawRateChangeRatio yaw rate change ratio
-   *
-   * @returns calculated trajectory
-   */
-  Trajectory createTrajectory(situation::VehicleState const &vehicleState,
-                              ad::physics::Duration const &duration,
-                              ad::physics::Acceleration const &aUntilResponseTime,
-                              ad::physics::Acceleration const &aAfterResponseTime,
-                              ad::physics::RatioValue const &yawRateChangeRatio) const;
-
-  /**
    * @brief Calculate the yaw rate after a duration
    *
    * @param[in] vehicleState     current state of the vehicle
    * @param[in] duration         duration of yaw rate change
    * @param[in] maxYawRateChange maximum yaw rate change per second
    * @param[in] ratio            yaw rate change ratio
+   * TODO
    *
    * @returns yaw rate
    */
   ad::physics::AngularVelocity calculateYawRate(situation::VehicleState const &vehicleState,
-                                                ad::physics::Duration const &duration,
+                                                ad::physics::Duration const &timeInMovementUntilResponseTime,
                                                 ad::physics::AngularAcceleration const &maxYawRateChange,
                                                 ad::physics::RatioValue const &ratio) const;
 
-  /**
-   * @brief Calculate the side of a trajectory set polygon
-   *
-   * @param[in] finalTrajectoryPoints all final trajectory points relevant for side
-   * @param[in] side                  side to calculate
-   * @param[in] vehicleDimension      dimension of the vehicle
-   *
-   * @returns line describing the trajectory set side
-   */
-  Line calculateTrajectorySetSide(std::vector<TrajectoryPoint> const &finalTrajectoryPoints,
-                                  TrajectoryHeading const side,
-                                  ad::physics::Dimension2D const &vehicleDimension) const;
+void getResponseTimeTrajectoryPoints(
+  situation::VehicleState const &vehicleState,
+  std::vector<TrajectorySetStep> &trajectorySetSteps,
+  TrajectorySetStep &frontSide,
+  TrajectorySetStep &backSide) const;
 
-  /**
-   * @brief get the heading of a trajectory
-   *
-   * @param[in] finalTrajectoryPoints trajectory points to use
-   *
-   * @returns the heading of the trajectory
-   */
-  TrajectoryHeading getTrajectoryHeading(std::vector<TrajectoryPoint> const &finalTrajectoryPoints) const;
+TrajectoryPoint getResponseTimeTrajectoryPoint(situation::VehicleState const &vehicleState,
+                                               ad::physics::Acceleration const &aUntilResponseTime,
+                                               ad::physics::RatioValue const &yawRateChangeRatio) const;
+                             
+bool calculateNextTrajectoryPoint(TrajectoryPoint &currentPoint,
+                                                physics::Acceleration const &acceleration,
+                                                physics::Duration const &duration,
+                                                ::ad::rss::world::RssDynamics const &dynamics,
+                                                bool afterResponseTime) const; //TODO complete dynamics needed?         
+                                               
 
-  /**
-   * @brief get the heading of a trajectory
-   *
-   * @param[in] finalTrajectoryPoints all final trajectory points relevant for front
-   * @param[in] vehicleDimension      dimension of the vehicle
-   *
-   * @returns line describing the trajectory set front
-   */
-  Line calculateFrontWithDimension(std::vector<TrajectoryPoint> const &finalTrajectoryPoints,
-                                   ad::physics::Dimension2D const &vehicleDimension);
+void calculateBrake(situation::VehicleState const &vehicleState,
+                    ad::physics::Duration const &timeAfterResponseTime,
+                    std::vector<TrajectorySetStep> const &trajectorySetSteps,
+                    TrajectorySetStep const &frontSide,
+                    TrajectorySetStep const &backSide,
+                    Polygon &resultPolygon,
+                    TrajectorySetStepVehicleLocation &brakeMinStepVehicleLocation) const;
+  
+void calculateContinueForward(Polygon const &brakePolygon,
+                              TrajectorySetStep const &frontSide,
+                              std::vector<TrajectorySetStep> const &trajectorySetSteps,
+                              TrajectorySetStepVehicleLocation const &previousStepVehicleLocation,
+                              situation::VehicleState const &vehicleState,
+                              physics::Duration const &timeAfterResponseTime,
+                              Polygon &resultPolygon) const;
+
+Polygon unionize(Polygon const &a, Polygon const &b) const;
+
+void drawPolygon(Polygon const &polygon) const;
+
+void calculateEstimationBetweenSteps(Polygon &polygon,
+                                    TrajectorySetStepVehicleLocation const &previousVehicleLocation,
+                                    TrajectorySetStepVehicleLocation const &currentVehicleLocation) const;
+
+void calculateTrajectorySetFrontAndSide(TrajectorySetStep const &frontSide,
+                                        std::vector<TrajectorySetStep> const &trajectorySetSteps,
+                                        TrajectorySetStepVehicleLocation const &previousStepVehicleLocation,
+                                        situation::VehicleState const &vehicleState,
+                                        physics::Duration const &timeAfterResponseTime,
+                                        std::vector<physics::Acceleration> const &accelerations,
+                                        Polygon &resultPolygon,
+                                        TrajectorySetStepVehicleLocation &frontSideStepVehicleLocation) const;
+                                                 
+void calculateStepPolygon(TrajectorySetStep const &step, 
+                          situation::VehicleState const &vehicleState,
+                          physics::Duration const &timeAfterResponseTime,
+                          physics::Acceleration const &acceleration,
+                          Polygon &polygon,
+                          TrajectorySetStepVehicleLocation &stepVehicleLocation) const;
 };
 
 } // namespace unstructured

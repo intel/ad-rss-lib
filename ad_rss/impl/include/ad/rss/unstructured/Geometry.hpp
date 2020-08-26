@@ -38,6 +38,7 @@ namespace unstructured {
 typedef boost::geometry::model::d2::point_xy<double> Point;
 typedef boost::geometry::model::linestring<Point> Line;
 typedef boost::geometry::model::polygon<Point, false> Polygon; // counterclockwise
+typedef boost::geometry::model::multi_point<Point> MultiPoint;
 
 /**
  * @brief create a Point from a Distance2D
@@ -201,16 +202,6 @@ void calculateCircleArc(Point origin,
  */
 bool collides(world::UnstructuredTrajectorySet const &trajectorySet1,
               world::UnstructuredTrajectorySet const &trajectorySet2);
-
-/**
- * @brief split a line at an intersection point
- *
- * @param[in]  intersectionPoint point to split a line at
- * @param[in]  line              line to split
- * @param[out] before            line before the intersection point
- * @param[out] after             line after the intersection point
- */
-void splitLineAtIntersectionPoint(Point const &intersectionPoint, Line const &line, Line &before, Line &after);
 
 } // namespace unstructured
 } // namespace rss

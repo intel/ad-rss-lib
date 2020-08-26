@@ -138,7 +138,6 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
 #endif
   Point finalPoint;
   ad::physics::Angle finalAngle = vehicleState.objectState.yaw;
-  TrajectoryHeading heading;
 
   if (static_cast<double>(std::fabs(angleChangeRatio))
       > vehicleState.dynamics.unstructuredSettings.pedestrianTurningRadius / maxRadius)
@@ -156,7 +155,6 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
                                                    distanceUntilReponseTime);
 
     auto angleChange = ad::physics::Angle(distanceUntilReponseTime / radius);
-    heading = (radius > ad::physics::Distance(0.)) ? TrajectoryHeading::left : TrajectoryHeading::right;
 
     auto pointAfterResponseTime = getPointOnCircle(circleOrigin, radius, startingAngle + angleChange);
 #if DRAW_TRAJECTORIES
@@ -181,7 +179,6 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
     boost::geometry::append(linePts, startingPoint);
     boost::geometry::append(linePts, finalPoint);
 #endif
-    heading = TrajectoryHeading::straight;
   }
 
 #if DRAW_TRAJECTORIES
@@ -190,7 +187,7 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
   (void)debugNamespace;
 #endif
 
-  return TrajectoryPoint(finalPoint, finalAngle, heading);
+  return TrajectoryPoint(finalPoint, finalAngle, speed, physics::AngularVelocity(0.));
 }
 
 Polygon TrajectoryPedestrian::calculateFrontWithDimension(Trajectory const &trajectory,
