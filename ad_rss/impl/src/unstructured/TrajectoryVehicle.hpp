@@ -46,8 +46,9 @@ public:
   static const int frontIntermediateRatioSteps;
   static const int backIntermediateRatioSteps;
   static const int responseTimeIntermediateAccelerationSteps;
+  static const int brakeIntermediateAccelerationSteps;
   static const int continueForwardIntermediateAccelerationSteps;
-  
+
   struct TrajectorySetStep
   {
     TrajectorySetStep()
@@ -146,15 +147,16 @@ private:
                                                 ad::physics::AngularAcceleration const &maxYawRateChange,
                                                 ad::physics::RatioValue const &ratio) const;
 
-void getResponseTimeTrajectoryPoints(
+bool getResponseTimeTrajectoryPoints(
   situation::VehicleState const &vehicleState,
   std::vector<TrajectorySetStep> &trajectorySetSteps,
   TrajectorySetStep &frontSide,
   TrajectorySetStep &backSide) const;
 
-TrajectoryPoint getResponseTimeTrajectoryPoint(situation::VehicleState const &vehicleState,
+bool getResponseTimeTrajectoryPoint(situation::VehicleState const &vehicleState,
                                                ad::physics::Acceleration const &aUntilResponseTime,
-                                               ad::physics::RatioValue const &yawRateChangeRatio) const;
+                                               ad::physics::RatioValue const &yawRateChangeRatio,
+                                               TrajectoryPoint &resultTrajectoryPoint) const;
                              
 bool calculateNextTrajectoryPoint(TrajectoryPoint &currentPoint,
                                                 physics::Acceleration const &acceleration,
@@ -163,7 +165,7 @@ bool calculateNextTrajectoryPoint(TrajectoryPoint &currentPoint,
                                                 bool afterResponseTime) const; //TODO complete dynamics needed?         
                                                
 
-void calculateBrake(situation::VehicleState const &vehicleState,
+bool calculateBrake(situation::VehicleState const &vehicleState,
                     ad::physics::Duration const &timeAfterResponseTime,
                     std::vector<TrajectorySetStep> const &trajectorySetSteps,
                     TrajectorySetStep const &frontSide,
@@ -171,7 +173,7 @@ void calculateBrake(situation::VehicleState const &vehicleState,
                     Polygon &resultPolygon,
                     TrajectorySetStepVehicleLocation &brakeMinStepVehicleLocation) const;
   
-void calculateContinueForward(Polygon const &brakePolygon,
+bool calculateContinueForward(Polygon const &brakePolygon,
                               TrajectorySetStep const &frontSide,
                               std::vector<TrajectorySetStep> const &trajectorySetSteps,
                               TrajectorySetStepVehicleLocation const &previousStepVehicleLocation,
@@ -179,15 +181,15 @@ void calculateContinueForward(Polygon const &brakePolygon,
                               physics::Duration const &timeAfterResponseTime,
                               Polygon &resultPolygon) const;
 
-Polygon unionize(Polygon const &a, Polygon const &b) const;
+bool combinePolygon(Polygon const &a, Polygon const &b, Polygon &result) const;
 
 void drawPolygon(Polygon const &polygon) const;
 
-void calculateEstimationBetweenSteps(Polygon &polygon,
+bool calculateEstimationBetweenSteps(Polygon &polygon,
                                     TrajectorySetStepVehicleLocation const &previousVehicleLocation,
                                     TrajectorySetStepVehicleLocation const &currentVehicleLocation) const;
 
-void calculateTrajectorySetFrontAndSide(TrajectorySetStep const &frontSide,
+bool calculateTrajectorySetFrontAndSide(TrajectorySetStep const &frontSide,
                                         std::vector<TrajectorySetStep> const &trajectorySetSteps,
                                         TrajectorySetStepVehicleLocation const &previousStepVehicleLocation,
                                         situation::VehicleState const &vehicleState,
@@ -196,7 +198,7 @@ void calculateTrajectorySetFrontAndSide(TrajectorySetStep const &frontSide,
                                         Polygon &resultPolygon,
                                         TrajectorySetStepVehicleLocation &frontSideStepVehicleLocation) const;
                                                  
-void calculateStepPolygon(TrajectorySetStep const &step, 
+bool calculateStepPolygon(TrajectorySetStep const &step, 
                           situation::VehicleState const &vehicleState,
                           physics::Duration const &timeAfterResponseTime,
                           physics::Acceleration const &acceleration,
