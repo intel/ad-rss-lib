@@ -316,16 +316,12 @@ bool TrajectoryVehicle::calculateNextTrajectoryPoint(TrajectoryPoint &currentPoi
         currentRadius = -dynamics.unstructuredSettings.vehicleMinRadius;
       }
     }
-
-    auto previousPosition = currentPoint.position;
     auto tmpAngle = currentPoint.angle - ad::physics::cPI_2;
     Point const circleOrigin = getCircleOrigin(currentPoint.position, currentRadius, tmpAngle);
     auto diffAngle = ad::physics::Angle(currentDistance / currentRadius);
     tmpAngle += diffAngle;
     currentPoint.position = getPointOnCircle(circleOrigin, currentRadius, tmpAngle);
     currentPoint.angle = tmpAngle + ad::physics::cPI_2;
-
-    auto diff = currentPoint.position - previousPosition;
   }
   currentPoint.speed = finalSpeed;
   return true;
