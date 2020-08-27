@@ -26,12 +26,6 @@ namespace rss {
  */
 namespace unstructured {
 
-const ad::physics::Distance TrajectoryVehicle::maxRadius(400.0);
-const int TrajectoryVehicle::frontIntermediateRatioSteps = 0;
-const int TrajectoryVehicle::backIntermediateRatioSteps = 0;
-const int TrajectoryVehicle::responseTimeIntermediateAccelerationSteps = 0;
-const int TrajectoryVehicle::brakeIntermediateAccelerationSteps = 0;
-const int TrajectoryVehicle::continueForwardIntermediateAccelerationSteps = 0;
 
 bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &vehicleState,
                                                 Polygon &brakePolygon,
@@ -114,7 +108,7 @@ bool TrajectoryVehicle::getResponseTimeTrajectoryPoints(
   TrajectorySetStep &backSide) const
 {  
   auto result = true;
-  auto ratioDiffBack = physics::RatioValue(2.0 / (2.0 * backIntermediateRatioSteps + 2.0));
+  auto ratioDiffBack = physics::RatioValue(2.0 / (2.0 * vehicleState.dynamics.unstructuredSettings.vehicleBackIntermediateRatioSteps + 2.0));
   for (auto ratioValue = physics::RatioValue(-1.0); (ratioValue <= physics::RatioValue(1.0)) && result; ratioValue += ratioDiffBack)
   {
       auto accel = vehicleState.dynamics.alphaLon.brakeMax;
@@ -134,7 +128,7 @@ bool TrajectoryVehicle::getResponseTimeTrajectoryPoints(
       }
     }
   
-  auto ratioDiffFront = physics::RatioValue(2.0 / (2.0 * frontIntermediateRatioSteps + 2.0));
+  auto ratioDiffFront = physics::RatioValue(2.0 / (2.0 * vehicleState.dynamics.unstructuredSettings.vehicleFrontIntermediateRatioSteps + 2.0));
   for (auto ratioValue = physics::RatioValue(-1.0); (ratioValue <= physics::RatioValue(1.0)) && result; ratioValue += ratioDiffFront)
   {
       auto accel = vehicleState.dynamics.alphaLon.accelMax;
@@ -154,7 +148,7 @@ bool TrajectoryVehicle::getResponseTimeTrajectoryPoints(
       }
   }
   
-  auto accelStepSize = (vehicleState.dynamics.alphaLon.accelMax - vehicleState.dynamics.alphaLon.brakeMax) / (1.0 + responseTimeIntermediateAccelerationSteps);
+  auto accelStepSize = (vehicleState.dynamics.alphaLon.accelMax - vehicleState.dynamics.alphaLon.brakeMax) / (1.0 + vehicleState.dynamics.unstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps);
   for (ad::physics::Acceleration accel = vehicleState.dynamics.alphaLon.brakeMax + accelStepSize;
       (accel < vehicleState.dynamics.alphaLon.accelMax) && result;
       accel += accelStepSize)
@@ -263,7 +257,7 @@ bool TrajectoryVehicle::calculateNextTrajectoryPoint(TrajectoryPoint &currentPoi
     spdlog::warn("TrajectoryVehicle::calculateNextTrajectoryPoint>> calculateAcceleratedLimitedMovement() failed.");
   }
     
-  auto currentRadius = TrajectoryVehicle::maxRadius;
+  auto currentRadius = dynamics.unstructuredSettings.vehicleMaxRadius;
   if (currentPoint.yawRate != physics::AngularVelocity(0.))
   {
     if (afterResponseTime)
@@ -274,21 +268,21 @@ bool TrajectoryVehicle::calculateNextTrajectoryPoint(TrajectoryPoint &currentPoi
     {
       currentRadius = ad::physics::Distance(static_cast<double>(currentPoint.speed) / static_cast<double>(currentPoint.yawRate));
     }
-    if (std::fabs(currentRadius) > TrajectoryVehicle::maxRadius)
+    if (std::fabs(currentRadius) > dynamics.unstructuredSettings.vehicleMaxRadius)
     {
       if (currentRadius > physics::Distance(0.))
       {
-        currentRadius = TrajectoryVehicle::maxRadius;
+        currentRadius = dynamics.unstructuredSettings.vehicleMaxRadius;
       }
       else
       {
-        currentRadius = -TrajectoryVehicle::maxRadius;
+        currentRadius = -dynamics.unstructuredSettings.vehicleMaxRadius;
       }
     }
   }
 
   //calculate position
-  if (std::fabs(currentRadius) == TrajectoryVehicle::maxRadius)
+  if (std::fabs(currentRadius) == dynamics.unstructuredSettings.vehicleMaxRadius)
   {
     //straight forward
     auto previousPosition = currentPoint.position;
@@ -367,7 +361,7 @@ bool TrajectoryVehicle::calculateBrake(situation::VehicleState const &vehicleSta
   if (result)
   {
     std::vector<physics::Acceleration> accelerations;
-    auto accelStepSize = (-vehicleState.dynamics.alphaLon.brakeMax + vehicleState.dynamics.alphaLon.brakeMin) / (1.0 + brakeIntermediateAccelerationSteps);
+    auto accelStepSize = (-vehicleState.dynamics.alphaLon.brakeMax + vehicleState.dynamics.alphaLon.brakeMin) / (1.0 + vehicleState.dynamics.unstructuredSettings.vehicleBrakeIntermediateAccelerationSteps);
     for (auto acceleration = vehicleState.dynamics.alphaLon.brakeMax + accelStepSize;
       acceleration < vehicleState.dynamics.alphaLon.brakeMin;
       acceleration += accelStepSize)
@@ -403,7 +397,7 @@ bool TrajectoryVehicle::calculateContinueForward(Polygon const &brakePolygon,
                                                  Polygon &resultPolygon) const
 {
   std::vector<physics::Acceleration> accelerationsContinueForward;
-  auto accelStepSize = (vehicleState.dynamics.alphaLon.accelMax - vehicleState.dynamics.alphaLon.brakeMin) / (1.0 + continueForwardIntermediateAccelerationSteps);
+  auto accelStepSize = (vehicleState.dynamics.alphaLon.accelMax - vehicleState.dynamics.alphaLon.brakeMin) / (1.0 + vehicleState.dynamics.unstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps);
   for (auto acceleration = vehicleState.dynamics.alphaLon.brakeMin + accelStepSize;
       acceleration < vehicleState.dynamics.alphaLon.accelMax;
       acceleration += accelStepSize)

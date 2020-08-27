@@ -38,16 +38,6 @@ namespace unstructured {
 class TrajectoryVehicle
 {
 public:
-  /**
-   * @brief The maximum radius before assuming forward movement
-   */
-  static const ad::physics::Distance maxRadius;
-
-  static const int frontIntermediateRatioSteps;
-  static const int backIntermediateRatioSteps;
-  static const int responseTimeIntermediateAccelerationSteps;
-  static const int brakeIntermediateAccelerationSteps;
-  static const int continueForwardIntermediateAccelerationSteps;
 
   struct TrajectorySetStep
   {
