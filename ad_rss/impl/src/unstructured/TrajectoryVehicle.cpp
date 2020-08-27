@@ -214,7 +214,7 @@ bool TrajectoryVehicle::getResponseTimeTrajectoryPoint(situation::VehicleState c
                                               timeInMovementUntilResponseTime);
       if (!result)
       {
-        spdlog::warn("TrajectoryVehicle::getResponseTimeTrajectoryPoint>> Could not calculate time to stop for speed "
+        spdlog::debug("TrajectoryVehicle::getResponseTimeTrajectoryPoint>> Could not calculate time to stop for speed "
                      "{}, responseTime {}, acceleration {}",
                      vehicleState.objectState.speed,
                      vehicleState.dynamics.responseTime,
@@ -267,7 +267,7 @@ bool TrajectoryVehicle::calculateNextTrajectoryPoint(TrajectoryPoint &currentPoi
     currentPoint.speed, dynamics.maxSpeedOnAcceleration, acceleration, duration, finalSpeed, currentDistance);
   if (!result)
   {
-    spdlog::warn("TrajectoryVehicle::calculateNextTrajectoryPoint>> calculateAcceleratedLimitedMovement() failed.");
+    spdlog::debug("TrajectoryVehicle::calculateNextTrajectoryPoint>> calculateAcceleratedLimitedMovement() failed.");
   }
 
   auto currentRadius = dynamics.unstructuredSettings.vehicleMaxRadius;
@@ -356,7 +356,7 @@ bool TrajectoryVehicle::calculateBrake(situation::VehicleState const &vehicleSta
                                             timeToStopBrakeMax);
     if (!result)
     {
-      spdlog::warn(
+      spdlog::debug(
         "TrajectoryVehicle::calculateBrake>> Could not calculate time to stop. speed {}, timeAfterResponseTime {}",
         backSide.center.speed,
         timeAfterResponseTime);
@@ -374,7 +374,7 @@ bool TrajectoryVehicle::calculateBrake(situation::VehicleState const &vehicleSta
                                   brakeMaxVehicleLocations);
     if (!result)
     {
-      spdlog::warn("TrajectoryVehicle::calculateBrake>> Could not calculate brake max step polygon.");
+      spdlog::debug("TrajectoryVehicle::calculateBrake>> Could not calculate brake max step polygon.");
     }
   }
 
@@ -402,7 +402,7 @@ bool TrajectoryVehicle::calculateBrake(situation::VehicleState const &vehicleSta
                                                 brakeMinStepVehicleLocation);
     if (!result)
     {
-      spdlog::warn("TrajectoryVehicle::calculateBrake>> Could not calculate front and side polygon.");
+      spdlog::debug("TrajectoryVehicle::calculateBrake>> Could not calculate front and side polygon.");
     }
   }
   return result;
@@ -440,7 +440,7 @@ bool TrajectoryVehicle::calculateContinueForward(situation::VehicleState const &
                                                    frontSideStepVehicleLocation);
   if (!result)
   {
-    spdlog::warn("TrajectoryVehicle::calculateContinueForward>> Could not calculate front and side polygon.");
+    spdlog::debug("TrajectoryVehicle::calculateContinueForward>> Could not calculate front and side polygon.");
   }
   return result;
 }
@@ -501,7 +501,7 @@ bool TrajectoryVehicle::calculateTrajectorySetFrontAndSide(
                                       currentStepVehicleLocation);
         if (!result)
         {
-          spdlog::warn("TrajectoryVehicle::calculateTrajectorySetFrontAndSide>> Could not calculate step polygon.");
+          spdlog::debug("TrajectoryVehicle::calculateTrajectorySetFrontAndSide>> Could not calculate step polygon.");
         }
       }
       if (result)
@@ -510,7 +510,7 @@ bool TrajectoryVehicle::calculateTrajectorySetFrontAndSide(
           = calculateEstimationBetweenSteps(resultPolygon, previousStepVehicleLocation, currentStepVehicleLocation);
         if (!result)
         {
-          spdlog::warn(
+          spdlog::debug(
             "TrajectoryVehicle::calculateTrajectorySetFrontAndSide>> Could not calculate between steps polygon.");
         }
         previousStepVehicleLocation = currentStepVehicleLocation;
@@ -719,7 +719,7 @@ bool TrajectoryVehicle::combinePolygon(Polygon const &a, Polygon const &b, Polyg
     boost::geometry::union_(a.outer(), b.outer(), unionPolygons);
     if (unionPolygons.size() != 1)
     {
-      spdlog::warn("Could not calculate combined polygon. Expected 1 polygon after union, found {}",
+      spdlog::debug("Could not calculate combined polygon. Expected 1 polygon after union, found {}",
                    unionPolygons.size());
       return false;
     }

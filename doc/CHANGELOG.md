@@ -1,7 +1,10 @@
 
 ## Latest changes
 
+## Release 4.1.0
+
 #### :ghost: Maintenance
+* Update unstructured trajectory set calculation
 * Build documentation update to make the plain cmake build more robust and especially make repeated builds with -DBUILD_PYTHON_BINDING=ON working
 
 ## Release 4.0.1
