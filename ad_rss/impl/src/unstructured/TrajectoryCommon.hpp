@@ -14,8 +14,8 @@
 #include <ad/physics/Angle.hpp>
 #include <ad/physics/Dimension2D.hpp>
 #include <ad/physics/Distance.hpp>
-#include "ad/rss/unstructured/Geometry.hpp"
 #include "ad/rss/situation/VehicleState.hpp"
+#include "ad/rss/unstructured/Geometry.hpp"
 
 #define DRAW_FINAL_POSITION 0
 #define DRAW_TRAJECTORIES 0
@@ -53,7 +53,9 @@ enum class VehicleCorner
  */
 struct TrajectoryPoint
 {
-  TrajectoryPoint() {}
+  TrajectoryPoint()
+  {
+  }
 
   TrajectoryPoint(situation::VehicleState const &vehicleState)
   {
@@ -64,9 +66,9 @@ struct TrajectoryPoint
   }
 
   TrajectoryPoint(Point const &inPoint,
-    ad::physics::Angle const &inAngle,
-    ad::physics::Speed const &inSpeed,
-    physics::AngularVelocity const &inYawRate)
+                  ad::physics::Angle const &inAngle,
+                  ad::physics::Speed const &inSpeed,
+                  physics::AngularVelocity const &inYawRate)
     : position(inPoint)
     , angle(inAngle)
     , speed(inSpeed)
