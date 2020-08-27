@@ -215,10 +215,10 @@ bool TrajectoryVehicle::getResponseTimeTrajectoryPoint(situation::VehicleState c
       if (!result)
       {
         spdlog::debug("TrajectoryVehicle::getResponseTimeTrajectoryPoint>> Could not calculate time to stop for speed "
-                     "{}, responseTime {}, acceleration {}",
-                     vehicleState.objectState.speed,
-                     vehicleState.dynamics.responseTime,
-                     aUntilResponseTime);
+                      "{}, responseTime {}, acceleration {}",
+                      vehicleState.objectState.speed,
+                      vehicleState.dynamics.responseTime,
+                      aUntilResponseTime);
       }
       timeInMovementUntilResponseTime = std::min(vehicleState.dynamics.responseTime, timeInMovementUntilResponseTime);
     }
@@ -597,7 +597,8 @@ bool TrajectoryVehicle::calculateStepPolygon(situation::VehicleState const &vehi
       currentPointRight, acceleration, timeAfterResponseTime, vehicleState.dynamics, true);
     auto vehicleLocationRight = TrafficParticipantLocation(currentPointRight, vehicleState);
 #if defined(DRAW_FINAL_POSITION)
-    DEBUG_DRAWING_POLYGON(vehicleLocationRight.toPolygon(), "yellow", debugNamespace + "_right_" + std::to_string(count));
+    DEBUG_DRAWING_POLYGON(
+      vehicleLocationRight.toPolygon(), "yellow", debugNamespace + "_right_" + std::to_string(count));
 #endif
     boost::geometry::append(frontPtsRight, vehicleLocationRight.toMultiPoint());
     if (it == step.right.begin())
@@ -715,7 +716,7 @@ bool TrajectoryVehicle::combinePolygon(Polygon const &a, Polygon const &b, Polyg
     if (unionPolygons.size() != 1)
     {
       spdlog::debug("Could not calculate combined polygon. Expected 1 polygon after union, found {}",
-                   unionPolygons.size());
+                    unionPolygons.size());
       return false;
     }
     else
