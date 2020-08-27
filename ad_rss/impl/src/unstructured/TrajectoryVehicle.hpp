@@ -173,8 +173,6 @@ bool calculateContinueForward(Polygon const &brakePolygon,
 
 bool combinePolygon(Polygon const &a, Polygon const &b, Polygon &result) const;
 
-void drawPolygon(Polygon const &polygon) const;
-
 bool calculateEstimationBetweenSteps(Polygon &polygon,
                                     TrajectorySetStepVehicleLocation const &previousVehicleLocation,
                                     TrajectorySetStepVehicleLocation const &currentVehicleLocation) const;

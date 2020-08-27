@@ -49,14 +49,16 @@ bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &v
     {
       spdlog::debug("TrajectoryVehicle::calculateTrajectorySets>> Could not calculate reponse time trajectory points.");
     }
+    else
+    {
+      spdlog::trace("Trajectory points at response time: front left {}, front right {}, back left {}, back right {}, steps {}", frontSide.left.size(), frontSide.right.size(), backSide.left.size(), backSide.right.size(), trajectorySetSteps.size());
+    }
   }
 
   TrajectorySetStepVehicleLocation brakeMinVehicleLocations;
   auto timeAfterResponseTime = timeToStop - vehicleState.dynamics.responseTime;    
   if (result)
   {
-    spdlog::warn("DEBUG () timeAfterResponseTime {}, front left {}, front right {}, steps {}",timeAfterResponseTime, frontSide.left.size(), frontSide.right.size(), trajectorySetSteps.size());
-    
     result = calculateBrake(vehicleState, 
                   timeAfterResponseTime,
                   trajectorySetSteps,
@@ -84,11 +86,6 @@ bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &v
       spdlog::warn("TrajectoryVehicle::calculateTrajectorySets>> calculateContinueForward() failed.");
     }
   }
-  drawPolygon(brakePolygon);
-  drawPolygon(continueForwardPolygon);
-
-  spdlog::warn("PLOT NEXT");
-  spdlog::warn("PLOT FLUSH");
   return result;
 }
 
@@ -531,7 +528,6 @@ bool TrajectoryVehicle::calculateStepPolygon(TrajectorySetStep const &step,
     auto currentPointLeft = step.left[i];
     result = calculateNextTrajectoryPoint(currentPointLeft, acceleration, timeAfterResponseTime, vehicleState.dynamics, true);
     auto vehicleLocationLeft = VehicleLocation(currentPointLeft, vehicleState);
-    drawPolygon(vehicleLocationLeft.toPolygon());
     boost::geometry::append(frontPtsLeft, vehicleLocationLeft.toMultiPoint());
     if (i == 0)
     {
@@ -545,7 +541,6 @@ bool TrajectoryVehicle::calculateStepPolygon(TrajectorySetStep const &step,
     auto currentPointCenter = step.center;
     result = calculateNextTrajectoryPoint(currentPointCenter, acceleration, timeAfterResponseTime, vehicleState.dynamics, true);
     auto vehicleLocationCenter = VehicleLocation(currentPointCenter, vehicleState);
-      drawPolygon(vehicleLocationCenter.toPolygon());
     boost::geometry::append(frontPtsLeft, vehicleLocationCenter.toMultiPoint());
     stepVehicleLocation.center = vehicleLocationCenter;
     boost::geometry::append(frontPtsRight, vehicleLocationCenter.toMultiPoint());
@@ -556,7 +551,6 @@ bool TrajectoryVehicle::calculateStepPolygon(TrajectorySetStep const &step,
     auto currentPointRight = step.right[i];
     result = calculateNextTrajectoryPoint(currentPointRight, acceleration, timeAfterResponseTime, vehicleState.dynamics, true);
     auto vehicleLocationRight = VehicleLocation(currentPointRight, vehicleState);
-    drawPolygon(vehicleLocationRight.toPolygon());
     boost::geometry::append(frontPtsRight, vehicleLocationRight.toMultiPoint()); 
     if (i == step.right.size() -1)
     {
@@ -680,16 +674,6 @@ bool TrajectoryVehicle::combinePolygon(Polygon const &a, Polygon const &b, Polyg
     }
   }
   return true;
-}
-
-void TrajectoryVehicle::drawPolygon(Polygon const &polygon) const
-{
-    spdlog::warn("[[");
-    for (auto pt: polygon.outer())
-    {
-    spdlog::warn("[{},{}],", pt.x(), pt.y());
-    }
-    spdlog::warn("]]");
 }
 
 } // namespace unstructured
