@@ -74,7 +74,7 @@ bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &v
                             brakeMinStepVehicleLocations);
     if (!result)
     {
-      spdlog::warn("TrajectoryVehicle::calculateTrajectorySets>> calculateBrake() failed.");
+      spdlog::debug("TrajectoryVehicle::calculateTrajectorySets>> calculateBrake() failed.");
     }
   }
 
@@ -89,7 +89,7 @@ bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &v
                                       continueForwardPolygon);
     if (!result)
     {
-      spdlog::warn("TrajectoryVehicle::calculateTrajectorySets>> calculateContinueForward() failed.");
+      spdlog::debug("TrajectoryVehicle::calculateTrajectorySets>> calculateContinueForward() failed.");
     }
   }
   return result;
@@ -299,7 +299,6 @@ bool TrajectoryVehicle::calculateNextTrajectoryPoint(TrajectoryPoint &currentPoi
   if (std::fabs(currentRadius) == dynamics.unstructuredSettings.vehicleMaxRadius)
   {
     // straight forward
-    auto previousPosition = currentPoint.position;
     auto diff = toPoint(std::cos(currentPoint.angle) * currentDistance, std::sin(currentPoint.angle) * currentDistance);
     currentPoint.position = currentPoint.position + diff;
   }
