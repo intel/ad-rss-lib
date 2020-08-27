@@ -36,8 +36,21 @@ protected:
     value.vehicleYawRateChange = valueVehicleYawRateChange;
     ::ad::physics::Distance valueVehicleMinRadius(-1e9);
     value.vehicleMinRadius = valueVehicleMinRadius;
+    ::ad::physics::Distance valueVehicleMaxRadius(-1e9);
+    value.vehicleMaxRadius = valueVehicleMaxRadius;
     ::ad::physics::Duration valueVehicleTrajectoryCalculationStep(0.);
     value.vehicleTrajectoryCalculationStep = valueVehicleTrajectoryCalculationStep;
+    uint32_t valueVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+    value.vehicleFrontIntermediateRatioSteps = valueVehicleFrontIntermediateRatioSteps;
+    uint32_t valueVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+    value.vehicleBackIntermediateRatioSteps = valueVehicleBackIntermediateRatioSteps;
+    uint32_t valueVehicleResponseTimeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+    value.vehicleResponseTimeIntermediateAccelerationSteps = valueVehicleResponseTimeIntermediateAccelerationSteps;
+    uint32_t valueVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+    value.vehicleBrakeIntermediateAccelerationSteps = valueVehicleBrakeIntermediateAccelerationSteps;
+    uint32_t valueVehicleContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+    value.vehicleContinueForwardIntermediateAccelerationSteps
+      = valueVehicleContinueForwardIntermediateAccelerationSteps;
     mValue = value;
   }
 
@@ -134,11 +147,77 @@ TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleMinRadiusDiffers)
   EXPECT_TRUE(valueA != valueB);
 }
 
+TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleMaxRadiusDiffers)
+{
+  ::ad::rss::world::UnstructuredSettings valueA = mValue;
+  ::ad::physics::Distance vehicleMaxRadius(1e9);
+  valueA.vehicleMaxRadius = vehicleMaxRadius;
+  ::ad::rss::world::UnstructuredSettings valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
 TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleTrajectoryCalculationStepDiffers)
 {
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
   ::ad::physics::Duration vehicleTrajectoryCalculationStep(1e6);
   valueA.vehicleTrajectoryCalculationStep = vehicleTrajectoryCalculationStep;
+  ::ad::rss::world::UnstructuredSettings valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleFrontIntermediateRatioStepsDiffers)
+{
+  ::ad::rss::world::UnstructuredSettings valueA = mValue;
+  uint32_t vehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::max()};
+  valueA.vehicleFrontIntermediateRatioSteps = vehicleFrontIntermediateRatioSteps;
+  ::ad::rss::world::UnstructuredSettings valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleBackIntermediateRatioStepsDiffers)
+{
+  ::ad::rss::world::UnstructuredSettings valueA = mValue;
+  uint32_t vehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::max()};
+  valueA.vehicleBackIntermediateRatioSteps = vehicleBackIntermediateRatioSteps;
+  ::ad::rss::world::UnstructuredSettings valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleResponseTimeIntermediateAccelerationStepsDiffers)
+{
+  ::ad::rss::world::UnstructuredSettings valueA = mValue;
+  uint32_t vehicleResponseTimeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::max()};
+  valueA.vehicleResponseTimeIntermediateAccelerationSteps = vehicleResponseTimeIntermediateAccelerationSteps;
+  ::ad::rss::world::UnstructuredSettings valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleBrakeIntermediateAccelerationStepsDiffers)
+{
+  ::ad::rss::world::UnstructuredSettings valueA = mValue;
+  uint32_t vehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::max()};
+  valueA.vehicleBrakeIntermediateAccelerationSteps = vehicleBrakeIntermediateAccelerationSteps;
+  ::ad::rss::world::UnstructuredSettings valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleContinueForwardIntermediateAccelerationStepsDiffers)
+{
+  ::ad::rss::world::UnstructuredSettings valueA = mValue;
+  uint32_t vehicleContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::max()};
+  valueA.vehicleContinueForwardIntermediateAccelerationSteps = vehicleContinueForwardIntermediateAccelerationSteps;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
