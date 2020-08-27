@@ -57,32 +57,6 @@ Point getVehicleCorner(TrajectoryPoint const &point,
   return resultPoint;
 }
 
-bool checkAndFixPolygon(Polygon &polygon, std::string const &description)
-{
-  boost::geometry::validity_failure_type failure;
-  auto recheck = true;
-  auto result = true;
-  while (recheck)
-  {
-    recheck = false;
-    result = boost::geometry::is_valid(polygon, failure);
-
-    if (!result && (failure == boost::geometry::failure_spikes))
-    {
-      spdlog::debug("{} polygon: Remove spikes", description);
-      boost::geometry::remove_spikes(polygon);
-      recheck = true;
-    }
-  }
-
-  if (!result)
-  {
-    spdlog::debug("{} polygon invalid. {}", description, failure);
-    // DebugDrawing::getInstance()->drawPolygon(polygon, "orange", "dbg_" + description);
-  }
-  return result;
-}
-
 } // namespace unstructured
 } // namespace rss
 } // namespace ad

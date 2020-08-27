@@ -71,9 +71,9 @@ bool TrajectoryPedestrian::createTrajectorySet(situation::VehicleState const &ve
                                            std::to_string(aAfterResponseTime) + "_" + std::to_string(i));
       frontPts.push_back(endPt);
 #if DRAW_FINAL_POSITION
-      drawFinalPosition(endPt,
-                        vehicleState.objectState.dimension,
-                        std::to_string(aAfterResponseTime) + "_" + std::to_string(i) + "_vehicle_final_position");
+      DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(endPt, vehicleState).toPolygon(),
+                            "yellow",
+                            std::to_string(aAfterResponseTime) + "_" + std::to_string(i) + "_vehicle_final_position");
 #endif
     }
     auto frontPolygon = calculateFrontWithDimension(frontPts, vehicleState.objectState.dimension);
@@ -222,9 +222,9 @@ Polygon TrajectoryPedestrian::calculateBackWithDimension(situation::VehicleState
   boost::geometry::append(backPolygon,
                           getVehicleCorner(accelLeft, vehicleState.objectState.dimension, VehicleCorner::frontRight));
 #if DRAW_FINAL_POSITION
-  drawFinalPosition(accelLeft,
-                    vehicleState.objectState.dimension,
-                    std::to_string(aAfterResponseTime) + "_back_accelLeft_vehicle_final_position_right");
+  DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(accelLeft, vehicleState).toPolygon(),
+                        "yellow",
+                        std::to_string(aAfterResponseTime) + "_back_accelLeft_vehicle_final_position_right");
 #endif
 
   auto accelRight = getFinalTrajectoryPoint(vehicleState,
@@ -237,9 +237,9 @@ Polygon TrajectoryPedestrian::calculateBackWithDimension(situation::VehicleState
   boost::geometry::append(backPolygon,
                           getVehicleCorner(accelRight, vehicleState.objectState.dimension, VehicleCorner::frontLeft));
 #if DRAW_FINAL_POSITION
-  drawFinalPosition(accelRight,
-                    vehicleState.objectState.dimension,
-                    std::to_string(aAfterResponseTime) + "_back_accelRight_vehicle_final_position_right");
+  DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(accelRight, vehicleState).toPolygon(),
+                        "yellow",
+                        std::to_string(aAfterResponseTime) + "_back_accelRight_vehicle_final_position_right");
 #endif
   auto brakeMaxRight = getFinalTrajectoryPoint(vehicleState,
                                                duration,
@@ -251,9 +251,9 @@ Polygon TrajectoryPedestrian::calculateBackWithDimension(situation::VehicleState
   boost::geometry::append(backPolygon,
                           getVehicleCorner(brakeMaxRight, vehicleState.objectState.dimension, VehicleCorner::backLeft));
 #if DRAW_FINAL_POSITION
-  drawFinalPosition(brakeMaxRight,
-                    vehicleState.objectState.dimension,
-                    std::to_string(aAfterResponseTime) + "_back_brakeMaxRight_vehicle_final_position_right");
+  DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(brakeMaxRight, vehicleState).toPolygon(),
+                        "yellow",
+                        std::to_string(aAfterResponseTime) + "_back_brakeMaxRight_vehicle_final_position_right");
 #endif
   auto brakeMaxLeft = getFinalTrajectoryPoint(vehicleState,
                                               duration,
@@ -265,9 +265,9 @@ Polygon TrajectoryPedestrian::calculateBackWithDimension(situation::VehicleState
   boost::geometry::append(backPolygon,
                           getVehicleCorner(brakeMaxLeft, vehicleState.objectState.dimension, VehicleCorner::backRight));
 #if DRAW_FINAL_POSITION
-  drawFinalPosition(brakeMaxLeft,
-                    vehicleState.objectState.dimension,
-                    std::to_string(aAfterResponseTime) + "_back_brakeMaxLeft_vehicle_final_position_left");
+  DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(brakeMaxLeft, vehicleState).toPolygon(),
+                        "yellow",
+                        std::to_string(aAfterResponseTime) + "_back_brakeMaxLeft_vehicle_final_position_left");
 #endif
 
   boost::geometry::append(backPolygon, backPolygon.outer().front());

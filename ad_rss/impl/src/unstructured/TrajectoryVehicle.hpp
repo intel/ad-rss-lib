@@ -55,52 +55,11 @@ public:
     TrajectoryPoint center;
   };
 
-  struct VehicleLocation
-  {
-    VehicleLocation()
-    {
-    }
-
-    VehicleLocation(TrajectoryPoint const &pt, situation::VehicleState const &vehicleState)
-    {
-      frontLeft = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::frontLeft);
-      frontRight = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::frontRight);
-      backLeft = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::backLeft);
-      backRight = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::backRight);
-    }
-
-    Polygon toPolygon()
-    {
-      Polygon vehiclePolygon;
-      boost::geometry::append(vehiclePolygon, frontRight);
-      boost::geometry::append(vehiclePolygon, frontLeft);
-      boost::geometry::append(vehiclePolygon, backLeft);
-      boost::geometry::append(vehiclePolygon, backRight);
-      boost::geometry::append(vehiclePolygon, frontRight);
-      return vehiclePolygon;
-    }
-    MultiPoint toMultiPoint()
-    {
-      MultiPoint geometry;
-      boost::geometry::append(geometry, frontRight);
-      boost::geometry::append(geometry, frontLeft);
-      boost::geometry::append(geometry, backLeft);
-      boost::geometry::append(geometry, backRight);
-      boost::geometry::append(geometry, frontRight);
-      return geometry;
-    }
-
-    Point frontLeft;
-    Point frontRight;
-    Point backLeft;
-    Point backRight;
-  };
-
   struct TrajectorySetStepVehicleLocation
   {
-    VehicleLocation left;
-    VehicleLocation right;
-    VehicleLocation center;
+    TrafficParticipantLocation left;
+    TrafficParticipantLocation right;
+    TrafficParticipantLocation center;
   };
 
   TrajectoryVehicle()
@@ -258,6 +217,7 @@ private:
    * @param[in]  responseTimeFrontSide             the trajectory points defining the front
    * @param[in]  initialStepVehicleLocation        the vehicle locations for the initial calculation step
    * @param[in]  accelerations                     accelerations to calculate
+   * @param[in]  debugNamespace                    namespace for debugging purposes
    * @param[out] resultPolygon                     the resulting polygon
    * @param[out] frontSideStepVehicleLocation      vehicle locations of the front side
    *
@@ -269,6 +229,7 @@ private:
                                           TrajectorySetStep const &responseTimeFrontSide,
                                           TrajectorySetStepVehicleLocation const &initialStepVehicleLocation,
                                           std::vector<physics::Acceleration> const &accelerations,
+                                          std::string const &debugNamespace,
                                           Polygon &resultPolygon,
                                           TrajectorySetStepVehicleLocation &frontSideStepVehicleLocation) const;
 
@@ -279,6 +240,7 @@ private:
    * @param[in]  timeAfterResponseTime time after the response time to move
    * @param[in]  step                  step to use for calculations
    * @param[in]  acceleration          acceleration to use
+   * @param[in]  debugNamespace        namespace for debugging purposes
    * @param[out] polygon               the resulting polygon
    * @param[out] stepVehicleLocation   vehicle locations after calculation
    *
@@ -288,6 +250,7 @@ private:
                             physics::Duration const &timeAfterResponseTime,
                             TrajectorySetStep const &step,
                             physics::Acceleration const &acceleration,
+                            std::string const &debugNamespace,
                             Polygon &polygon,
                             TrajectorySetStepVehicleLocation &stepVehicleLocation) const;
 };

@@ -70,8 +70,8 @@ struct TrajectoryPoint
                   ad::physics::Speed const &inSpeed,
                   physics::AngularVelocity const &inYawRate)
     : position(inPoint)
-    , angle(inAngle)
     , speed(inSpeed)
+    , angle(inAngle)
     , yawRate(inYawRate)
   {
   }
@@ -97,11 +97,6 @@ struct TrajectoryPoint
   physics::AngularVelocity yawRate;
 };
 
-/*!
-  * a trajectory
-  */
-using Trajectory = std::vector<TrajectoryPoint>;
-
 /**
  * @brief get the point describing the corner of a vehicle
  *
@@ -115,40 +110,51 @@ Point getVehicleCorner(TrajectoryPoint const &point,
                        ad::physics::Dimension2D const &vehicleDimension,
                        VehicleCorner const corner);
 
-/**
- * @brief check if a polygon is valid. If not, try to fix it
- *
- * @param[in] polygon      trajectory point
- * @param[in] description description for logging
- *
- * @returns true if valid, otherwise false
- */
-bool checkAndFixPolygon(Polygon &polygon, std::string const &description);
-
-#if defined(DRAW_TRAJECTORIES)
-/**
- * @brief debug drawing of a vehicle on  apoint of trajectory
- *
- * @param[in] point            trajectory point
- * @param[in] vehicleDimension vehicle dimension
- * @param[in] debugNamespace   namespace to use for debug drawings
- *
- */
-inline void drawFinalPosition(TrajectoryPoint const &point,
-                              ad::physics::Dimension2D const &vehicleDimension,
-                              std::string const &debugNamespace)
+struct TrafficParticipantLocation
 {
-  // draw final vehicle position
-  Polygon polygon;
-  auto firstPoint = getVehicleCorner(point, vehicleDimension, VehicleCorner::frontLeft);
-  boost::geometry::append(polygon, firstPoint);
-  boost::geometry::append(polygon, getVehicleCorner(point, vehicleDimension, VehicleCorner::frontRight));
-  boost::geometry::append(polygon, getVehicleCorner(point, vehicleDimension, VehicleCorner::backRight));
-  boost::geometry::append(polygon, getVehicleCorner(point, vehicleDimension, VehicleCorner::backLeft));
-  boost::geometry::append(polygon, firstPoint);
-  DEBUG_DRAWING_POLYGON(polygon, "yellow", debugNamespace);
-}
-#endif
+  TrafficParticipantLocation()
+  {
+  }
+
+  TrafficParticipantLocation(TrajectoryPoint const &pt, situation::VehicleState const &vehicleState)
+  {
+    frontLeft = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::frontLeft);
+    frontRight = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::frontRight);
+    backLeft = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::backLeft);
+    backRight = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::backRight);
+  }
+
+  Polygon toPolygon()
+  {
+    Polygon vehiclePolygon;
+    boost::geometry::append(vehiclePolygon, frontRight);
+    boost::geometry::append(vehiclePolygon, frontLeft);
+    boost::geometry::append(vehiclePolygon, backLeft);
+    boost::geometry::append(vehiclePolygon, backRight);
+    boost::geometry::append(vehiclePolygon, frontRight);
+    return vehiclePolygon;
+  }
+  MultiPoint toMultiPoint()
+  {
+    MultiPoint geometry;
+    boost::geometry::append(geometry, frontRight);
+    boost::geometry::append(geometry, frontLeft);
+    boost::geometry::append(geometry, backLeft);
+    boost::geometry::append(geometry, backRight);
+    boost::geometry::append(geometry, frontRight);
+    return geometry;
+  }
+
+  Point frontLeft;
+  Point frontRight;
+  Point backLeft;
+  Point backRight;
+};
+
+/*!
+  * a trajectory
+  */
+using Trajectory = std::vector<TrajectoryPoint>;
 
 } // namespace unstructured
 } // namespace rss
