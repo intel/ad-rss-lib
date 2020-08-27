@@ -38,12 +38,13 @@ bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &v
                                                vehicleState.dynamics.alphaLon.brakeMin,
                                                timeToStop);
 
-  TrajectorySetStep frontSide;
-  TrajectorySetStep backSide;
-  std::vector<TrajectorySetStep> trajectorySetSteps;
+  TrajectorySetStep responseTimeFrontSide;
+  TrajectorySetStep responseTimeBackSide;
+  std::vector<TrajectorySetStep> responseTimeTrajectorySetSteps;
   if (result)
   {
-    result = getResponseTimeTrajectoryPoints(vehicleState, trajectorySetSteps, frontSide, backSide);
+    result = getResponseTimeTrajectoryPoints(
+      vehicleState, responseTimeTrajectorySetSteps, responseTimeFrontSide, responseTimeBackSide);
     if (!result)
     {
       spdlog::debug("TrajectoryVehicle::calculateTrajectorySets>> Could not calculate reponse time trajectory points.");
@@ -52,25 +53,25 @@ bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &v
     {
       spdlog::trace(
         "Trajectory points at response time: front left {}, front right {}, back left {}, back right {}, steps {}",
-        frontSide.left.size(),
-        frontSide.right.size(),
-        backSide.left.size(),
-        backSide.right.size(),
-        trajectorySetSteps.size());
+        responseTimeFrontSide.left.size(),
+        responseTimeFrontSide.right.size(),
+        responseTimeBackSide.left.size(),
+        responseTimeBackSide.right.size(),
+        responseTimeTrajectorySetSteps.size());
     }
   }
 
-  TrajectorySetStepVehicleLocation brakeMinVehicleLocations;
+  TrajectorySetStepVehicleLocation brakeMinStepVehicleLocations;
   auto timeAfterResponseTime = timeToStop - vehicleState.dynamics.responseTime;
   if (result)
   {
     result = calculateBrake(vehicleState,
                             timeAfterResponseTime,
-                            trajectorySetSteps,
-                            frontSide,
-                            backSide,
+                            responseTimeTrajectorySetSteps,
+                            responseTimeFrontSide,
+                            responseTimeBackSide,
                             brakePolygon,
-                            brakeMinVehicleLocations);
+                            brakeMinStepVehicleLocations);
     if (!result)
     {
       spdlog::warn("TrajectoryVehicle::calculateTrajectorySets>> calculateBrake() failed.");
@@ -79,12 +80,12 @@ bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &v
 
   if (result)
   {
-    result = calculateContinueForward(brakePolygon,
-                                      frontSide,
-                                      trajectorySetSteps,
-                                      brakeMinVehicleLocations,
-                                      vehicleState,
+    result = calculateContinueForward(vehicleState,
                                       timeAfterResponseTime,
+                                      responseTimeTrajectorySetSteps,
+                                      responseTimeFrontSide,
+                                      brakePolygon,
+                                      brakeMinStepVehicleLocations,
                                       continueForwardPolygon);
     if (!result)
     {
@@ -249,7 +250,7 @@ bool TrajectoryVehicle::calculateNextTrajectoryPoint(TrajectoryPoint &currentPoi
                                                      physics::Acceleration const &acceleration,
                                                      physics::Duration const &duration,
                                                      ::ad::rss::world::RssDynamics const &dynamics,
-                                                     bool afterResponseTime) const // TODO complete dynamics needed?
+                                                     bool afterResponseTime) const
 {
   ad::physics::Distance currentDistance;
   physics::Speed finalSpeed;
@@ -355,9 +356,9 @@ bool TrajectoryVehicle::calculateBrake(situation::VehicleState const &vehicleSta
 
   if (result)
   {
-    result = calculateStepPolygon(backSide,
-                                  vehicleState,
+    result = calculateStepPolygon(vehicleState,
                                   timeToStopBrakeMax,
+                                  backSide,
                                   vehicleState.dynamics.alphaLon.brakeMax,
                                   resultPolygon,
                                   brakeMaxVehicleLocations);
@@ -380,11 +381,11 @@ bool TrajectoryVehicle::calculateBrake(situation::VehicleState const &vehicleSta
     }
     accelerations.push_back(vehicleState.dynamics.alphaLon.brakeMin);
 
-    result = calculateTrajectorySetFrontAndSide(frontSide,
-                                                trajectorySetSteps,
-                                                brakeMaxVehicleLocations,
-                                                vehicleState,
+    result = calculateTrajectorySetFrontAndSide(vehicleState,
                                                 timeAfterResponseTime,
+                                                trajectorySetSteps,
+                                                frontSide,
+                                                brakeMaxVehicleLocations,
                                                 accelerations,
                                                 resultPolygon,
                                                 brakeMinStepVehicleLocation);
@@ -396,12 +397,12 @@ bool TrajectoryVehicle::calculateBrake(situation::VehicleState const &vehicleSta
   return result;
 }
 
-bool TrajectoryVehicle::calculateContinueForward(Polygon const &brakePolygon,
-                                                 TrajectorySetStep const &frontSide,
-                                                 std::vector<TrajectorySetStep> const &trajectorySetSteps,
-                                                 TrajectorySetStepVehicleLocation const &previousStepVehicleLocation,
-                                                 situation::VehicleState const &vehicleState,
+bool TrajectoryVehicle::calculateContinueForward(situation::VehicleState const &vehicleState,
                                                  physics::Duration const &timeAfterResponseTime,
+                                                 std::vector<TrajectorySetStep> const &responseTimeTrajectorySetSteps,
+                                                 TrajectorySetStep const &responseTimeFrontSide,
+                                                 Polygon const &brakePolygon,
+                                                 TrajectorySetStepVehicleLocation const &brakeMinStepVehicleLocation,
                                                  Polygon &resultPolygon) const
 {
   std::vector<physics::Acceleration> accelerationsContinueForward;
@@ -417,11 +418,11 @@ bool TrajectoryVehicle::calculateContinueForward(Polygon const &brakePolygon,
 
   resultPolygon = brakePolygon;
   TrajectorySetStepVehicleLocation frontSideStepVehicleLocation; // unused
-  auto result = calculateTrajectorySetFrontAndSide(frontSide,
-                                                   trajectorySetSteps,
-                                                   previousStepVehicleLocation,
-                                                   vehicleState,
+  auto result = calculateTrajectorySetFrontAndSide(vehicleState,
                                                    timeAfterResponseTime,
+                                                   responseTimeTrajectorySetSteps,
+                                                   responseTimeFrontSide,
+                                                   brakeMinStepVehicleLocation,
                                                    accelerationsContinueForward,
                                                    resultPolygon,
                                                    frontSideStepVehicleLocation);
@@ -433,11 +434,11 @@ bool TrajectoryVehicle::calculateContinueForward(Polygon const &brakePolygon,
 }
 
 bool TrajectoryVehicle::calculateTrajectorySetFrontAndSide(
-  TrajectorySetStep const &frontSide,
-  std::vector<TrajectorySetStep> const &trajectorySetSteps,
-  TrajectorySetStepVehicleLocation const &initialStepVehicleLocation,
   situation::VehicleState const &vehicleState,
   physics::Duration const &timeAfterResponseTime,
+  std::vector<TrajectorySetStep> const &responseTimeTrajectorySetSteps,
+  TrajectorySetStep const &responseTimeFrontSide,
+  TrajectorySetStepVehicleLocation const &initialStepVehicleLocation,
   std::vector<physics::Acceleration> const &accelerations,
   Polygon &resultPolygon,
   TrajectorySetStepVehicleLocation &frontSideStepVehicleLocation) const
@@ -449,7 +450,9 @@ bool TrajectoryVehicle::calculateTrajectorySetFrontAndSide(
   //-------------
   for (auto itAcceleration = accelerations.begin(); (itAcceleration != accelerations.end()) && result; ++itAcceleration)
   {
-    for (auto itStep = trajectorySetSteps.begin(); (itStep != trajectorySetSteps.end()) && result; ++itStep)
+    for (auto itStep = responseTimeTrajectorySetSteps.begin();
+         (itStep != responseTimeTrajectorySetSteps.end()) && result;
+         ++itStep)
     {
       auto currentPointLeft = itStep->left[0];
       auto currentPointRight = itStep->right[0];
@@ -479,7 +482,7 @@ bool TrajectoryVehicle::calculateTrajectorySetFrontAndSide(
       if (result)
       {
         result = calculateStepPolygon(
-          *itStep, vehicleState, calculationTime, *itAcceleration, stepPolygon, currentStepVehicleLocation);
+          vehicleState, calculationTime, *itStep, *itAcceleration, stepPolygon, currentStepVehicleLocation);
         if (!result)
         {
           spdlog::warn("TrajectoryVehicle::calculateTrajectorySetFrontAndSide>> Could not calculate step polygon.");
@@ -510,8 +513,12 @@ bool TrajectoryVehicle::calculateTrajectorySetFrontAndSide(
   Polygon frontPolygon;
   if (result)
   {
-    result = calculateStepPolygon(
-      frontSide, vehicleState, timeAfterResponseTime, accelerations.back(), frontPolygon, frontSideStepVehicleLocation);
+    result = calculateStepPolygon(vehicleState,
+                                  timeAfterResponseTime,
+                                  responseTimeFrontSide,
+                                  accelerations.back(),
+                                  frontPolygon,
+                                  frontSideStepVehicleLocation);
   }
   if (result)
   {
@@ -524,9 +531,9 @@ bool TrajectoryVehicle::calculateTrajectorySetFrontAndSide(
   return result;
 }
 
-bool TrajectoryVehicle::calculateStepPolygon(TrajectorySetStep const &step,
-                                             situation::VehicleState const &vehicleState,
+bool TrajectoryVehicle::calculateStepPolygon(situation::VehicleState const &vehicleState,
                                              physics::Duration const &timeAfterResponseTime,
+                                             TrajectorySetStep const &step,
                                              physics::Acceleration const &acceleration,
                                              Polygon &polygon,
                                              TrajectorySetStepVehicleLocation &stepVehicleLocation) const

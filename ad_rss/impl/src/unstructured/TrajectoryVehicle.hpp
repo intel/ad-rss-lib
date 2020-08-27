@@ -125,10 +125,9 @@ private:
    * @brief Calculate the yaw rate after a duration
    *
    * @param[in] vehicleState     current state of the vehicle
-   * @param[in] duration         duration of yaw rate change
+   * @param[in] timeInMovementUntilResponseTime         duration of yaw rate change
    * @param[in] maxYawRateChange maximum yaw rate change per second
    * @param[in] ratio            yaw rate change ratio
-   * TODO
    *
    * @returns yaw rate
    */
@@ -137,56 +136,157 @@ private:
                                                 ad::physics::AngularAcceleration const &maxYawRateChange,
                                                 ad::physics::RatioValue const &ratio) const;
 
+  /**
+   * @brief Calculate all trajectory points at response time
+   *
+   * @param[in]  vehicleState current state of the vehicle
+   * @param[out] trajectorySetSteps intermediate steps between back and front
+   * @param[out] frontSide the trajectory points defining the front
+   * @param[out] backSide the trajectory points defining the back
+   *
+   * @returns false if a failure occurred during calculations, true otherwise
+   */
   bool getResponseTimeTrajectoryPoints(situation::VehicleState const &vehicleState,
                                        std::vector<TrajectorySetStep> &trajectorySetSteps,
                                        TrajectorySetStep &frontSide,
                                        TrajectorySetStep &backSide) const;
 
+  /**
+   * @brief Calculate a single trajectory point at response time
+   *
+   * @param[in]  vehicleState          current state of the vehicle
+   * @param[in]  aUntilResponseTime    acceleration until response time
+   * @param[in]  yawRateChangeRatio    yaw rate change ratio
+   * @param[out] resultTrajectoryPoint resulting trajectory point
+   *
+   * @returns false if a failure occurred during calculations, true otherwise
+   */
   bool getResponseTimeTrajectoryPoint(situation::VehicleState const &vehicleState,
                                       ad::physics::Acceleration const &aUntilResponseTime,
                                       ad::physics::RatioValue const &yawRateChangeRatio,
                                       TrajectoryPoint &resultTrajectoryPoint) const;
 
+  /**
+   * @brief Calculate a next trajectory point using a linear calculation
+   *
+   * @param[inout] currentPoint        trajectory point to use for calculation
+   * @param[in]  acceleration          acceleration to use
+   * @param[in]  duration              duration of accelerated movement
+   * @param[in]  dynamics              dynamics to use
+   * @param[in]  afterResponseTime     is the movement happening after response time (no more heading change)
+   *
+   * @returns false if a failure occurred during calculations, true otherwise
+   */
   bool calculateNextTrajectoryPoint(TrajectoryPoint &currentPoint,
                                     physics::Acceleration const &acceleration,
                                     physics::Duration const &duration,
                                     ::ad::rss::world::RssDynamics const &dynamics,
-                                    bool afterResponseTime) const; // TODO complete dynamics needed?
+                                    bool afterResponseTime) const;
 
+  /**
+   * @brief Calculate the brake trajectory set
+   *
+   * @param[in]  vehicleState                      current state of the vehicle
+   * @param[in]  timeAfterResponseTime             time after the response time to move
+   * @param[in]  responseTimeTrajectorySetSteps    intermediate steps between back and front
+   * @param[in]  responseTimeFrontSide             the trajectory points defining the front
+   * @param[in]  responseTimeBackSide              the trajectory points defining the back
+   * @param[out] resultPolygon                     the resulting brake polygon
+   * @param[out] brakeMinStepVehicleLocation       the vehicle locations for brakeMin after response time
+   *
+   * @returns false if a failure occurred during calculations, true otherwise
+   */
   bool calculateBrake(situation::VehicleState const &vehicleState,
                       ad::physics::Duration const &timeAfterResponseTime,
-                      std::vector<TrajectorySetStep> const &trajectorySetSteps,
-                      TrajectorySetStep const &frontSide,
-                      TrajectorySetStep const &backSide,
+                      std::vector<TrajectorySetStep> const &responseTimeTrajectorySetSteps,
+                      TrajectorySetStep const &responseTimeFrontSide,
+                      TrajectorySetStep const &responseTimeBackSide,
                       Polygon &resultPolygon,
                       TrajectorySetStepVehicleLocation &brakeMinStepVehicleLocation) const;
 
-  bool calculateContinueForward(Polygon const &brakePolygon,
-                                TrajectorySetStep const &frontSide,
-                                std::vector<TrajectorySetStep> const &trajectorySetSteps,
-                                TrajectorySetStepVehicleLocation const &previousStepVehicleLocation,
-                                situation::VehicleState const &vehicleState,
+  /**
+   * @brief Calculate the continue forward trajectory set
+   *
+   * @param[in]  vehicleState                      current state of the vehicle
+   * @param[in]  timeAfterResponseTime             time after the response time to move
+   * @param[in]  responseTimeTrajectorySetSteps    intermediate steps between back and front
+   * @param[in]  responseTimeFrontSide             the trajectory points defining the front
+   * @param[in]  brakePolygon                      the polygon defining the brake trajectory set
+   * @param[in]  brakeMinStepVehicleLocation       the vehicle locations for brakeMin after response time
+   * @param[out] resultPolygon                     the resulting continue forward polygon
+   *
+   * @returns false if a failure occurred during calculations, true otherwise
+   */
+  bool calculateContinueForward(situation::VehicleState const &vehicleState,
                                 physics::Duration const &timeAfterResponseTime,
+                                std::vector<TrajectorySetStep> const &responseTimeTrajectorySetSteps,
+                                TrajectorySetStep const &responseTimeFrontSide,
+                                Polygon const &brakePolygon,
+                                TrajectorySetStepVehicleLocation const &brakeMinStepVehicleLocation,
                                 Polygon &resultPolygon) const;
 
+  /**
+   * @brief Combine two polygons
+   *
+   * @param[in]  a       polygon a
+   * @param[in]  b       polygon b
+   * @param[out] result  resulting polygon
+   *
+   * @returns false if a failure occurred during calculations, true otherwise
+   */
   bool combinePolygon(Polygon const &a, Polygon const &b, Polygon &result) const;
 
+  /**
+   * @brief Calculate a trajectory set estimation between two steps
+   *
+   * @param[inout] polygon      polygon to work on
+   * @param[in]  previousVehicleLocation the previous possible vehicle locations
+   * @param[in]  currentVehicleLocation the current possible vehicle locations
+   *
+   * @returns false if a failure occurred during calculations, true otherwise
+   */
   bool calculateEstimationBetweenSteps(Polygon &polygon,
                                        TrajectorySetStepVehicleLocation const &previousVehicleLocation,
                                        TrajectorySetStepVehicleLocation const &currentVehicleLocation) const;
 
-  bool calculateTrajectorySetFrontAndSide(TrajectorySetStep const &frontSide,
-                                          std::vector<TrajectorySetStep> const &trajectorySetSteps,
-                                          TrajectorySetStepVehicleLocation const &previousStepVehicleLocation,
-                                          situation::VehicleState const &vehicleState,
+  /**
+   * @brief Calculate a trajectory set for the front and the sides
+   *
+   * @param[in]  vehicleState                      current state of the vehicle
+   * @param[in]  timeAfterResponseTime             time after the response time to move
+   * @param[in]  responseTimeTrajectorySetSteps    intermediate steps between back and front
+   * @param[in]  responseTimeFrontSide             the trajectory points defining the front
+   * @param[in]  initialStepVehicleLocation        the vehicle locations for the initial calculation step
+   * @param[in]  accelerations                     accelerations to calculate
+   * @param[out] resultPolygon                     the resulting polygon
+   * @param[out] frontSideStepVehicleLocation      vehicle locations of the front side
+   *
+   * @returns false if a failure occurred during calculations, true otherwise
+   */
+  bool calculateTrajectorySetFrontAndSide(situation::VehicleState const &vehicleState,
                                           physics::Duration const &timeAfterResponseTime,
+                                          std::vector<TrajectorySetStep> const &responseTimeTrajectorySetSteps,
+                                          TrajectorySetStep const &responseTimeFrontSide,
+                                          TrajectorySetStepVehicleLocation const &initialStepVehicleLocation,
                                           std::vector<physics::Acceleration> const &accelerations,
                                           Polygon &resultPolygon,
                                           TrajectorySetStepVehicleLocation &frontSideStepVehicleLocation) const;
 
-  bool calculateStepPolygon(TrajectorySetStep const &step,
-                            situation::VehicleState const &vehicleState,
+  /**
+   * @brief Calculate a polygon for one step
+   *
+   * @param[in]  vehicleState          current state of the vehicle
+   * @param[in]  timeAfterResponseTime time after the response time to move
+   * @param[in]  step                  step to use for calculations
+   * @param[in]  acceleration          acceleration to use
+   * @param[out] polygon               the resulting polygon
+   * @param[out] stepVehicleLocation   vehicle locations after calculation
+   *
+   * @returns false if a failure occurred during calculations, true otherwise
+   */
+  bool calculateStepPolygon(situation::VehicleState const &vehicleState,
                             physics::Duration const &timeAfterResponseTime,
+                            TrajectorySetStep const &step,
                             physics::Acceleration const &acceleration,
                             Polygon &polygon,
                             TrajectorySetStepVehicleLocation &stepVehicleLocation) const;
