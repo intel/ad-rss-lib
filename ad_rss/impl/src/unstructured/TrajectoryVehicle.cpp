@@ -691,7 +691,7 @@ bool TrajectoryVehicle::calculateEstimationBetweenSteps(
 #if DEBUG_DRAWING
       DEBUG_DRAWING_POLYGON(hullBack, "yellow", debugNamespace + "_hull_back");
 #else
-    (void)debugNamespace;
+      (void)debugNamespace;
 #endif
       result = combinePolygon(polygon, hullBack, polygon);
     }
