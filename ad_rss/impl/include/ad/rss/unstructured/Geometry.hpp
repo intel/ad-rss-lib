@@ -270,19 +270,33 @@ inline bool operator!=(ad::rss::unstructured::Point const &a, ad::rss::unstructu
 namespace std {
 
 /*!
+ * @brief to_string overload for Point
+ *
+ * @param[in] value a point
+ *
+ * @returns string describing point
+ */
+inline std::string to_string(ad::rss::unstructured::Point const &value)
+{
+  std::stringstream stream;
+  stream << "[" << value.x() << "," << value.y() << "]";
+  return stream.str();
+}
+
+/*!
  * @brief to_string overload for Polygon
  *
  * @param[in] value a polygon
  *
  * @returns string describing polygon
  */
-inline std::string to_string(ad::rss::unstructured::Polygon value)
+inline std::string to_string(ad::rss::unstructured::Polygon const &value)
 {
   std::stringstream stream;
   stream << "[";
   for (auto pt : value.outer())
   {
-    stream << "[" << pt.x() << "," << pt.y() << "],";
+    stream << std::to_string(pt) << ",";
   }
   stream << "]";
   return stream.str();

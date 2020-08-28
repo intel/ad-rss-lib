@@ -17,7 +17,7 @@
 #include "ad/rss/situation/VehicleState.hpp"
 #include "ad/rss/unstructured/Geometry.hpp"
 
-#define DEBUG_DRAWING 1
+#define DEBUG_DRAWING 0
 
 #if defined(DEBUG_DRAWING)
 #include "ad/rss/unstructured/DebugDrawing.hpp"
