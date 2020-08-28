@@ -84,7 +84,7 @@ bool RssUnstructuredSceneChecker::calculateRssStateUnstructured(world::TimeIndex
     auto finish = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(finish - start);
     spdlog::trace(
-      "{}: Calculation time for ego brake/continueForward trajectory sets: {}ms", timeIndex, 0.001 * duration.count());
+      "{}: Calculation time for ego brake/continueForward trajectory sets: {}ms", timeIndex, 0.001 * static_cast<double>(duration.count()));
   }
 
   if (result)
@@ -97,7 +97,7 @@ bool RssUnstructuredSceneChecker::calculateRssStateUnstructured(world::TimeIndex
     spdlog::trace("{} situation {}: Calculation time for other brake/continueForward trajectory sets: {}ms",
                   timeIndex,
                   situation.situationId,
-                  0.001 * duration.count());
+                  0.001 * static_cast<double>(duration.count()));
   }
 
   if (result)
