@@ -17,10 +17,9 @@
 #include "ad/rss/situation/VehicleState.hpp"
 #include "ad/rss/unstructured/Geometry.hpp"
 
-#define DRAW_FINAL_POSITION 0
-#define DRAW_TRAJECTORIES 0
+#define DEBUG_DRAWING 1
 
-#if defined(DRAW_TRAJECTORIES) || defined(DRAW_FINAL_POSITION)
+#if defined(DEBUG_DRAWING)
 #include "ad/rss/unstructured/DebugDrawing.hpp"
 #endif
 

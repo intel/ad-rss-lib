@@ -16,6 +16,7 @@
 #include <boost/geometry/geometries/geometries.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
+#include <sstream>
 #include "ad/physics/AngleOperation.hpp"
 #include "ad/physics/Distance.hpp"
 #include "ad/rss/state/HeadingRange.hpp"
@@ -237,4 +238,71 @@ inline ad::rss::unstructured::Point operator-(ad::rss::unstructured::Point const
   auto result = a;
   boost::geometry::subtract_point(result, b);
   return result;
+}
+
+/*!
+ * @brief comparison operation: Point
+ *
+ * @param[in] a point a
+ * @param[in] b point b
+ *
+ * @returns a == b
+ */
+inline bool operator==(ad::rss::unstructured::Point const &a, ad::rss::unstructured::Point const &b)
+{
+  return (a.x() == b.x()) && (a.y() == b.y());
+}
+
+/*!
+ * @brief comparison operation: Points not equal
+ *
+ * @param[in] a point a
+ * @param[in] b point b
+ *
+ * @returns a != b
+ */
+inline bool operator!=(ad::rss::unstructured::Point const &a, ad::rss::unstructured::Point const &b)
+{
+  return !(a == b);
+}
+
+namespace std {
+
+/*!
+ * @brief to_string overload for Polygon
+ *
+ * @param[in] value a polygon
+ *
+ * @returns string describing polygon
+ */
+inline std::string to_string(ad::rss::unstructured::Polygon value)
+{
+  std::stringstream stream;
+  stream << "[";
+  for (auto pt : value.outer())
+  {
+    stream << "[" << pt.x() << "," << pt.y() << "],";
+  }
+  stream << "]";
+  return stream.str();
+}
+
+/*!
+ * @brief to_string overload for Line
+ *
+ * @param[in] value a line
+ *
+ * @returns string describing line
+ */
+inline std::string to_string(ad::rss::unstructured::Line value)
+{
+  std::stringstream stream;
+  stream << "[";
+  for (auto pt : value)
+  {
+    stream << "[" << pt.x() << "," << pt.y() << "],";
+  }
+  stream << "]";
+  return stream.str();
+}
 }

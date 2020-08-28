@@ -70,7 +70,7 @@ bool TrajectoryPedestrian::createTrajectorySet(situation::VehicleState const &ve
                                            i,
                                            std::to_string(aAfterResponseTime) + "_" + std::to_string(i));
       frontPts.push_back(endPt);
-#if DRAW_FINAL_POSITION
+#if defined(DEBUG_DRAWING)
       DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(endPt, vehicleState).toPolygon(),
                             "yellow",
                             std::to_string(aAfterResponseTime) + "_" + std::to_string(i) + "_vehicle_final_position");
@@ -132,7 +132,7 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
                                              speed,
                                              maxDistance);
 
-#if DRAW_TRAJECTORIES
+#if defined(DEBUG_DRAWING)
   Line linePts;
   boost::geometry::append(linePts, startingPoint);
 #endif
@@ -157,7 +157,7 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
     auto angleChange = ad::physics::Angle(distanceUntilReponseTime / radius);
 
     auto pointAfterResponseTime = getPointOnCircle(circleOrigin, radius, startingAngle + angleChange);
-#if DRAW_TRAJECTORIES
+#if defined(DEBUG_DRAWING)
     boost::geometry::append(linePts, pointAfterResponseTime);
 #endif
 
@@ -166,7 +166,7 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
     // after response time continue on a straight line
     finalPoint = pointAfterResponseTime
       + toPoint(-std::cos(deltaAngle) * remainingDistance, std::sin(deltaAngle) * remainingDistance);
-#if DRAW_TRAJECTORIES
+#if defined(DEBUG_DRAWING)
     boost::geometry::append(linePts, finalPoint);
 #endif
     finalAngle = vehicleState.objectState.yaw + angleChange;
@@ -175,13 +175,13 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
   {
     // straight line
     finalPoint = startingPoint + toPoint(-std::sin(startingAngle) * maxDistance, std::cos(startingAngle) * maxDistance);
-#if DRAW_TRAJECTORIES
+#if defined(DEBUG_DRAWING)
     boost::geometry::append(linePts, startingPoint);
     boost::geometry::append(linePts, finalPoint);
 #endif
   }
 
-#if DRAW_TRAJECTORIES
+#if defined(DEBUG_DRAWING)
   DEBUG_DRAWING_LINE(linePts, "orange", debugNamespace + "trajectory");
 #else
   (void)debugNamespace;
@@ -221,7 +221,7 @@ Polygon TrajectoryPedestrian::calculateBackWithDimension(situation::VehicleState
 
   boost::geometry::append(backPolygon,
                           getVehicleCorner(accelLeft, vehicleState.objectState.dimension, VehicleCorner::frontRight));
-#if DRAW_FINAL_POSITION
+#if defined(DEBUG_DRAWING)
   DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(accelLeft, vehicleState).toPolygon(),
                         "yellow",
                         std::to_string(aAfterResponseTime) + "_back_accelLeft_vehicle_final_position_right");
@@ -236,7 +236,7 @@ Polygon TrajectoryPedestrian::calculateBackWithDimension(situation::VehicleState
 
   boost::geometry::append(backPolygon,
                           getVehicleCorner(accelRight, vehicleState.objectState.dimension, VehicleCorner::frontLeft));
-#if DRAW_FINAL_POSITION
+#if defined(DEBUG_DRAWING)
   DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(accelRight, vehicleState).toPolygon(),
                         "yellow",
                         std::to_string(aAfterResponseTime) + "_back_accelRight_vehicle_final_position_right");
@@ -250,7 +250,7 @@ Polygon TrajectoryPedestrian::calculateBackWithDimension(situation::VehicleState
 
   boost::geometry::append(backPolygon,
                           getVehicleCorner(brakeMaxRight, vehicleState.objectState.dimension, VehicleCorner::backLeft));
-#if DRAW_FINAL_POSITION
+#if defined(DEBUG_DRAWING)
   DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(brakeMaxRight, vehicleState).toPolygon(),
                         "yellow",
                         std::to_string(aAfterResponseTime) + "_back_brakeMaxRight_vehicle_final_position_right");
@@ -264,7 +264,7 @@ Polygon TrajectoryPedestrian::calculateBackWithDimension(situation::VehicleState
 
   boost::geometry::append(backPolygon,
                           getVehicleCorner(brakeMaxLeft, vehicleState.objectState.dimension, VehicleCorner::backRight));
-#if DRAW_FINAL_POSITION
+#if defined(DEBUG_DRAWING)
   DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(brakeMaxLeft, vehicleState).toPolygon(),
                         "yellow",
                         std::to_string(aAfterResponseTime) + "_back_brakeMaxLeft_vehicle_final_position_left");

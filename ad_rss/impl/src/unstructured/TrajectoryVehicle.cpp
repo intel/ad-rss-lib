@@ -92,6 +92,11 @@ bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &v
       spdlog::debug("TrajectoryVehicle::calculateTrajectorySets>> calculateContinueForward() failed.");
     }
   }
+#if defined(DEBUG_DRAWING)
+  DEBUG_DRAWING_POLYGON(brakePolygon, "red", "brake");
+  DEBUG_DRAWING_POLYGON(continueForwardPolygon, "green", "continueForward");
+  spdlog::warn("DRAW DONE");
+#endif
   return result;
 }
 
@@ -458,7 +463,7 @@ bool TrajectoryVehicle::calculateTrajectorySetFrontAndSide(
   //-------------
   for (auto itAcceleration = accelerations.begin(); (itAcceleration != accelerations.end()) && result; ++itAcceleration)
   {
-    int i = 0;
+    int idx = 0;
     for (auto itStep = responseTimeTrajectorySetSteps.begin();
          (itStep != responseTimeTrajectorySetSteps.end()) && result;
          ++itStep)
@@ -487,16 +492,21 @@ bool TrajectoryVehicle::calculateTrajectorySetFrontAndSide(
       TrajectorySetStepVehicleLocation currentStepVehicleLocation;
       if (result)
       {
-        result = calculateStepPolygon(vehicleState,
-                                      calculationTime,
-                                      *itStep,
-                                      *itAcceleration,
-                                      debugNamespace + "_" + std::to_string(*itAcceleration) + "_" + std::to_string(i),
-                                      stepPolygon,
-                                      currentStepVehicleLocation);
+        result
+          = calculateStepPolygon(vehicleState,
+                                 calculationTime,
+                                 *itStep,
+                                 *itAcceleration,
+                                 debugNamespace + "_" + std::to_string(*itAcceleration) + "_" + std::to_string(idx),
+                                 stepPolygon,
+                                 currentStepVehicleLocation);
         if (!result)
         {
-          spdlog::debug("TrajectoryVehicle::calculateTrajectorySetFrontAndSide>> Could not calculate step polygon.");
+          spdlog::debug("TrajectoryVehicle::calculateTrajectorySetFrontAndSide>> Could not calculate step polygon for "
+                        "speed {}, acceleration {}, calcTime {}",
+                        itStep->center.speed,
+                        *itAcceleration,
+                        calculationTime);
         }
       }
       if (result)
@@ -505,8 +515,11 @@ bool TrajectoryVehicle::calculateTrajectorySetFrontAndSide(
           = calculateEstimationBetweenSteps(resultPolygon, previousStepVehicleLocation, currentStepVehicleLocation);
         if (!result)
         {
-          spdlog::debug(
-            "TrajectoryVehicle::calculateTrajectorySetFrontAndSide>> Could not calculate between steps polygon.");
+          spdlog::debug("TrajectoryVehicle::calculateTrajectorySetFrontAndSide>> Could not calculate between steps "
+                        "polygon. Speed {}, acceleration {}, calcTime {}",
+                        itStep->center.speed,
+                        *itAcceleration,
+                        calculationTime);
         }
         previousStepVehicleLocation = currentStepVehicleLocation;
       }
@@ -515,7 +528,7 @@ bool TrajectoryVehicle::calculateTrajectorySetFrontAndSide(
       {
         result = combinePolygon(resultPolygon, stepPolygon, resultPolygon);
       }
-      ++i;
+      ++idx;
     }
   }
 
@@ -536,6 +549,11 @@ bool TrajectoryVehicle::calculateTrajectorySetFrontAndSide(
   if (result)
   {
     result = calculateEstimationBetweenSteps(resultPolygon, previousStepVehicleLocation, frontSideStepVehicleLocation);
+    if (!result)
+    {
+      spdlog::debug("TrajectoryVehicle::calculateTrajectorySetFrontAndSide>> Could not calculate between last step and "
+                    "front polygon.");
+    }
   }
   if (result)
   {
@@ -556,22 +574,22 @@ bool TrajectoryVehicle::calculateStepPolygon(situation::VehicleState const &vehi
   MultiPoint frontPtsLeft;
   MultiPoint frontPtsRight;
 
-  int count = 0;
+  int idx = 0;
   for (auto it = step.left.begin(); (it != step.left.end()) && result; ++it)
   {
     auto currentPointLeft = *it;
     result = calculateNextTrajectoryPoint(
       currentPointLeft, acceleration, timeAfterResponseTime, vehicleState.dynamics, true);
     auto vehicleLocationLeft = TrafficParticipantLocation(currentPointLeft, vehicleState);
-#if defined(DRAW_FINAL_POSITION)
-    DEBUG_DRAWING_POLYGON(vehicleLocationLeft.toPolygon(), "yellow", debugNamespace + "_left_" + std::to_string(count));
+#if defined(DEBUG_DRAWING)
+    DEBUG_DRAWING_POLYGON(vehicleLocationLeft.toPolygon(), "black", debugNamespace + "_left_" + std::to_string(idx));
 #endif
     boost::geometry::append(frontPtsLeft, vehicleLocationLeft.toMultiPoint());
     if (it == step.left.end() - 1)
     {
       stepVehicleLocation.left = vehicleLocationLeft;
     }
-    ++count;
+    ++idx;
   }
 
   // center
@@ -581,31 +599,30 @@ bool TrajectoryVehicle::calculateStepPolygon(situation::VehicleState const &vehi
     result = calculateNextTrajectoryPoint(
       currentPointCenter, acceleration, timeAfterResponseTime, vehicleState.dynamics, true);
     auto vehicleLocationCenter = TrafficParticipantLocation(currentPointCenter, vehicleState);
-#if defined(DRAW_FINAL_POSITION)
-    DEBUG_DRAWING_POLYGON(vehicleLocationCenter.toPolygon(), "yellow", debugNamespace + "_center");
+#if defined(DEBUG_DRAWING)
+    DEBUG_DRAWING_POLYGON(vehicleLocationCenter.toPolygon(), "black", debugNamespace + "_center");
 #endif
     boost::geometry::append(frontPtsLeft, vehicleLocationCenter.toMultiPoint());
     stepVehicleLocation.center = vehicleLocationCenter;
     boost::geometry::append(frontPtsRight, vehicleLocationCenter.toMultiPoint());
   }
 
-  count = 0;
+  idx = 0;
   for (auto it = step.right.begin(); (it != step.right.end()) && result; ++it)
   {
     auto currentPointRight = *it;
     result = calculateNextTrajectoryPoint(
       currentPointRight, acceleration, timeAfterResponseTime, vehicleState.dynamics, true);
     auto vehicleLocationRight = TrafficParticipantLocation(currentPointRight, vehicleState);
-#if defined(DRAW_FINAL_POSITION)
-    DEBUG_DRAWING_POLYGON(
-      vehicleLocationRight.toPolygon(), "yellow", debugNamespace + "_right_" + std::to_string(count));
+#if defined(DEBUG_DRAWING)
+    DEBUG_DRAWING_POLYGON(vehicleLocationRight.toPolygon(), "black", debugNamespace + "_right_" + std::to_string(idx));
 #endif
     boost::geometry::append(frontPtsRight, vehicleLocationRight.toMultiPoint());
     if (it == step.right.begin())
     {
       stepVehicleLocation.right = vehicleLocationRight;
     }
-    ++count;
+    ++idx;
   }
 
   if (result)
@@ -625,76 +642,106 @@ bool TrajectoryVehicle::calculateEstimationBetweenSteps(
   TrajectorySetStepVehicleLocation const &currentStepVehicleLocation) const
 {
   // Fill potential gap between two calculation steps by using the previous and current step
-
+  auto result = true;
   //-------------
   // back
   //-------------
-  MultiPoint interimPtsBackLeft;
-  boost::geometry::append(interimPtsBackLeft, previousStepVehicleLocation.left.backLeft);
-  boost::geometry::append(interimPtsBackLeft, previousStepVehicleLocation.left.backRight);
-  boost::geometry::append(interimPtsBackLeft, previousStepVehicleLocation.center.backLeft);
-  boost::geometry::append(interimPtsBackLeft, previousStepVehicleLocation.center.backRight);
-  boost::geometry::append(interimPtsBackLeft, currentStepVehicleLocation.left.backLeft);
-  boost::geometry::append(interimPtsBackLeft, currentStepVehicleLocation.left.backRight);
-  boost::geometry::append(interimPtsBackLeft, currentStepVehicleLocation.center.backLeft);
-  boost::geometry::append(interimPtsBackLeft, currentStepVehicleLocation.center.backRight);
-  Polygon hullBackLeft;
-  boost::geometry::convex_hull(interimPtsBackLeft, hullBackLeft);
-
-  MultiPoint interimPtsBackRight;
-  boost::geometry::append(interimPtsBackRight, previousStepVehicleLocation.right.backLeft);
-  boost::geometry::append(interimPtsBackRight, previousStepVehicleLocation.right.backRight);
-  boost::geometry::append(interimPtsBackRight, previousStepVehicleLocation.center.backLeft);
-  boost::geometry::append(interimPtsBackRight, previousStepVehicleLocation.center.backRight);
-  boost::geometry::append(interimPtsBackRight, currentStepVehicleLocation.right.backLeft);
-  boost::geometry::append(interimPtsBackRight, currentStepVehicleLocation.right.backRight);
-  boost::geometry::append(interimPtsBackRight, currentStepVehicleLocation.center.backLeft);
-  boost::geometry::append(interimPtsBackRight, currentStepVehicleLocation.center.backRight);
-  Polygon hullBackRight;
-  boost::geometry::convex_hull(interimPtsBackRight, hullBackRight);
-  Polygon hullBack;
-  auto result = combinePolygon(hullBackRight, hullBackLeft, hullBack);
-
-  if (result)
+  if ((previousStepVehicleLocation.left.backLeft != currentStepVehicleLocation.left.backLeft)
+      || (previousStepVehicleLocation.left.backRight != currentStepVehicleLocation.left.backRight)
+      || (previousStepVehicleLocation.center.backLeft != currentStepVehicleLocation.center.backLeft)
+      || (previousStepVehicleLocation.center.backRight != currentStepVehicleLocation.center.backRight))
   {
-    result = combinePolygon(polygon, hullBack, polygon);
+    MultiPoint interimPtsBackLeft;
+    boost::geometry::append(interimPtsBackLeft, previousStepVehicleLocation.left.backLeft);
+    boost::geometry::append(interimPtsBackLeft, previousStepVehicleLocation.left.backRight);
+    boost::geometry::append(interimPtsBackLeft, previousStepVehicleLocation.center.backLeft);
+    boost::geometry::append(interimPtsBackLeft, previousStepVehicleLocation.center.backRight);
+    boost::geometry::append(interimPtsBackLeft, currentStepVehicleLocation.left.backLeft);
+    boost::geometry::append(interimPtsBackLeft, currentStepVehicleLocation.left.backRight);
+    boost::geometry::append(interimPtsBackLeft, currentStepVehicleLocation.center.backLeft);
+    boost::geometry::append(interimPtsBackLeft, currentStepVehicleLocation.center.backRight);
+    Polygon hullBackLeft;
+    boost::geometry::convex_hull(interimPtsBackLeft, hullBackLeft);
+
+    MultiPoint interimPtsBackRight;
+    boost::geometry::append(interimPtsBackRight, previousStepVehicleLocation.right.backLeft);
+    boost::geometry::append(interimPtsBackRight, previousStepVehicleLocation.right.backRight);
+    boost::geometry::append(interimPtsBackRight, previousStepVehicleLocation.center.backLeft);
+    boost::geometry::append(interimPtsBackRight, previousStepVehicleLocation.center.backRight);
+    boost::geometry::append(interimPtsBackRight, currentStepVehicleLocation.right.backLeft);
+    boost::geometry::append(interimPtsBackRight, currentStepVehicleLocation.right.backRight);
+    boost::geometry::append(interimPtsBackRight, currentStepVehicleLocation.center.backLeft);
+    boost::geometry::append(interimPtsBackRight, currentStepVehicleLocation.center.backRight);
+    Polygon hullBackRight;
+    boost::geometry::convex_hull(interimPtsBackRight, hullBackRight);
+    Polygon hullBack;
+    result = combinePolygon(hullBackRight, hullBackLeft, hullBack);
+    if (!result)
+    {
+      spdlog::debug("TrajectoryVehicle::calculateEstimationBetweenSteps>> Could not estimation polygon with points "
+                    "backLeft {}, backRight {}",
+                    std::to_string(hullBackLeft),
+                    std::to_string(hullBackRight));
+    }
+
+    if (result)
+    {
+      result = combinePolygon(polygon, hullBack, polygon);
+    }
   }
 
   //-------------
   // front
   //-------------
-  Polygon hullFront;
-  if (result)
+  if ((previousStepVehicleLocation.left.frontLeft != currentStepVehicleLocation.left.frontLeft)
+      || (previousStepVehicleLocation.left.frontRight != currentStepVehicleLocation.left.frontRight)
+      || (previousStepVehicleLocation.center.frontLeft != currentStepVehicleLocation.center.frontLeft)
+      || (previousStepVehicleLocation.center.frontRight != currentStepVehicleLocation.center.frontRight))
   {
-    MultiPoint interimPtsFrontLeft;
-    boost::geometry::append(interimPtsFrontLeft, previousStepVehicleLocation.left.frontLeft);
-    boost::geometry::append(interimPtsFrontLeft, previousStepVehicleLocation.left.frontRight);
-    boost::geometry::append(interimPtsFrontLeft, previousStepVehicleLocation.center.frontLeft);
-    boost::geometry::append(interimPtsFrontLeft, previousStepVehicleLocation.center.frontRight);
-    boost::geometry::append(interimPtsFrontLeft, currentStepVehicleLocation.left.frontLeft);
-    boost::geometry::append(interimPtsFrontLeft, currentStepVehicleLocation.left.frontRight);
-    boost::geometry::append(interimPtsFrontLeft, currentStepVehicleLocation.center.frontLeft);
-    boost::geometry::append(interimPtsFrontLeft, currentStepVehicleLocation.center.frontRight);
-    Polygon hullFrontLeft;
-    boost::geometry::convex_hull(interimPtsFrontLeft, hullFrontLeft);
+    Polygon hullFront;
+    if (result)
+    {
+      MultiPoint interimPtsFrontLeft;
+      boost::geometry::append(interimPtsFrontLeft, previousStepVehicleLocation.left.frontLeft);
+      boost::geometry::append(interimPtsFrontLeft, previousStepVehicleLocation.left.frontRight);
+      boost::geometry::append(interimPtsFrontLeft, previousStepVehicleLocation.center.frontLeft);
+      boost::geometry::append(interimPtsFrontLeft, previousStepVehicleLocation.center.frontRight);
+      boost::geometry::append(interimPtsFrontLeft, currentStepVehicleLocation.left.frontLeft);
+      boost::geometry::append(interimPtsFrontLeft, currentStepVehicleLocation.left.frontRight);
+      boost::geometry::append(interimPtsFrontLeft, currentStepVehicleLocation.center.frontLeft);
+      boost::geometry::append(interimPtsFrontLeft, currentStepVehicleLocation.center.frontRight);
+      Polygon hullFrontLeft;
+      boost::geometry::convex_hull(interimPtsFrontLeft, hullFrontLeft);
 
-    MultiPoint interimPtsFrontRight;
-    boost::geometry::append(interimPtsFrontRight, previousStepVehicleLocation.right.frontLeft);
-    boost::geometry::append(interimPtsFrontRight, previousStepVehicleLocation.right.frontRight);
-    boost::geometry::append(interimPtsFrontRight, previousStepVehicleLocation.center.frontLeft);
-    boost::geometry::append(interimPtsFrontRight, previousStepVehicleLocation.center.frontRight);
-    boost::geometry::append(interimPtsFrontRight, currentStepVehicleLocation.right.frontLeft);
-    boost::geometry::append(interimPtsFrontRight, currentStepVehicleLocation.right.frontRight);
-    boost::geometry::append(interimPtsFrontRight, currentStepVehicleLocation.center.frontLeft);
-    boost::geometry::append(interimPtsFrontRight, currentStepVehicleLocation.center.frontRight);
-    Polygon hullFrontRight;
-    boost::geometry::convex_hull(interimPtsFrontRight, hullFrontRight);
-    result = combinePolygon(hullFrontRight, hullFrontLeft, hullFront);
-  }
+#if defined(DEBUG_DRAWING)
+      DEBUG_DRAWING_POLYGON(hullFrontLeft, "yellow", "estimation_hull_front_left");
+#endif
 
-  if (result)
-  {
-    result = combinePolygon(polygon, hullFront, polygon);
+      MultiPoint interimPtsFrontRight;
+      boost::geometry::append(interimPtsFrontRight, previousStepVehicleLocation.right.frontLeft);
+      boost::geometry::append(interimPtsFrontRight, previousStepVehicleLocation.right.frontRight);
+      boost::geometry::append(interimPtsFrontRight, previousStepVehicleLocation.center.frontLeft);
+      boost::geometry::append(interimPtsFrontRight, previousStepVehicleLocation.center.frontRight);
+      boost::geometry::append(interimPtsFrontRight, currentStepVehicleLocation.right.frontLeft);
+      boost::geometry::append(interimPtsFrontRight, currentStepVehicleLocation.right.frontRight);
+      boost::geometry::append(interimPtsFrontRight, currentStepVehicleLocation.center.frontLeft);
+      boost::geometry::append(interimPtsFrontRight, currentStepVehicleLocation.center.frontRight);
+      Polygon hullFrontRight;
+      boost::geometry::convex_hull(interimPtsFrontRight, hullFrontRight);
+      result = combinePolygon(hullFrontRight, hullFrontLeft, hullFront);
+      if (!result)
+      {
+        spdlog::debug("TrajectoryVehicle::calculateEstimationBetweenSteps>> Could not estimation polygon with points "
+                      "frontLeft {}, frontRight {}",
+                      std::to_string(hullFrontLeft),
+                      std::to_string(hullFrontRight));
+      }
+    }
+
+    if (result)
+    {
+      result = combinePolygon(polygon, hullFront, polygon);
+    }
   }
   return result;
 }
