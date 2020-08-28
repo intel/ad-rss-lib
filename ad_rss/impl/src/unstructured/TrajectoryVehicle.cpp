@@ -92,7 +92,7 @@ bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &v
       spdlog::debug("TrajectoryVehicle::calculateTrajectorySets>> calculateContinueForward() failed.");
     }
   }
-#if defined(DEBUG_DRAWING)
+#if DEBUG_DRAWING
   DEBUG_DRAWING_POLYGON(brakePolygon, "red", "brake");
   DEBUG_DRAWING_POLYGON(continueForwardPolygon, "green", "continueForward");
   spdlog::warn("DRAW DONE");
@@ -582,7 +582,7 @@ bool TrajectoryVehicle::calculateStepPolygon(situation::VehicleState const &vehi
     result = calculateNextTrajectoryPoint(
       currentPointLeft, acceleration, timeAfterResponseTime, vehicleState.dynamics, true);
     auto vehicleLocationLeft = TrafficParticipantLocation(currentPointLeft, vehicleState);
-#if defined(DEBUG_DRAWING)
+#if DEBUG_DRAWING
     DEBUG_DRAWING_POLYGON(vehicleLocationLeft.toPolygon(), "black", debugNamespace + "_left_" + std::to_string(idx));
 #endif
     boost::geometry::append(frontPtsLeft, vehicleLocationLeft.toMultiPoint());
@@ -600,7 +600,7 @@ bool TrajectoryVehicle::calculateStepPolygon(situation::VehicleState const &vehi
     result = calculateNextTrajectoryPoint(
       currentPointCenter, acceleration, timeAfterResponseTime, vehicleState.dynamics, true);
     auto vehicleLocationCenter = TrafficParticipantLocation(currentPointCenter, vehicleState);
-#if defined(DEBUG_DRAWING)
+#if DEBUG_DRAWING
     DEBUG_DRAWING_POLYGON(vehicleLocationCenter.toPolygon(), "black", debugNamespace + "_center");
 #endif
     boost::geometry::append(frontPtsLeft, vehicleLocationCenter.toMultiPoint());
@@ -615,7 +615,7 @@ bool TrajectoryVehicle::calculateStepPolygon(situation::VehicleState const &vehi
     result = calculateNextTrajectoryPoint(
       currentPointRight, acceleration, timeAfterResponseTime, vehicleState.dynamics, true);
     auto vehicleLocationRight = TrafficParticipantLocation(currentPointRight, vehicleState);
-#if defined(DEBUG_DRAWING)
+#if DEBUG_DRAWING
     DEBUG_DRAWING_POLYGON(vehicleLocationRight.toPolygon(), "black", debugNamespace + "_right_" + std::to_string(idx));
 #endif
     boost::geometry::append(frontPtsRight, vehicleLocationRight.toMultiPoint());
@@ -688,7 +688,7 @@ bool TrajectoryVehicle::calculateEstimationBetweenSteps(
 
     if (result)
     {
-#if defined(DEBUG_DRAWING)
+#if DEBUG_DRAWING
       DEBUG_DRAWING_POLYGON(hullBack, "yellow", debugNamespace + "_hull_back");
 #endif
       result = combinePolygon(polygon, hullBack, polygon);
@@ -741,7 +741,7 @@ bool TrajectoryVehicle::calculateEstimationBetweenSteps(
 
     if (result)
     {
-#if defined(DEBUG_DRAWING)
+#if DEBUG_DRAWING
       DEBUG_DRAWING_POLYGON(hullFront, "yellow", debugNamespace + "_hull_front");
 #endif
       result = combinePolygon(polygon, hullFront, polygon);
