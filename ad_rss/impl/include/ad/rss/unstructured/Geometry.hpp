@@ -250,7 +250,8 @@ inline ad::rss::unstructured::Point operator-(ad::rss::unstructured::Point const
  */
 inline bool operator==(ad::rss::unstructured::Point const &a, ad::rss::unstructured::Point const &b)
 {
-  return (a.x() == b.x()) && (a.y() == b.y());
+  return (std::abs(a.x() - b.x()) <= std::numeric_limits<double>::epsilon())
+    && (std::abs(a.y() - b.y()) <= std::numeric_limits<double>::epsilon());
 }
 
 /*!

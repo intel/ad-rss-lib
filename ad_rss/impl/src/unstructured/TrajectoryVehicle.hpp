@@ -198,15 +198,17 @@ private:
   /**
    * @brief Calculate a trajectory set estimation between two steps
    *
-   * @param[inout] polygon      polygon to work on
+   * @param[inout] polygon               polygon to work on
    * @param[in]  previousVehicleLocation the previous possible vehicle locations
-   * @param[in]  currentVehicleLocation the current possible vehicle locations
+   * @param[in]  currentVehicleLocation  the current possible vehicle locations
+   * @param[in]  debugNamespace          namespace for debugging purposes
    *
    * @returns false if a failure occurred during calculations, true otherwise
    */
   bool calculateEstimationBetweenSteps(Polygon &polygon,
                                        TrajectorySetStepVehicleLocation const &previousVehicleLocation,
-                                       TrajectorySetStepVehicleLocation const &currentVehicleLocation) const;
+                                       TrajectorySetStepVehicleLocation const &currentVehicleLocation,
+                                       std::string const &debugNamespace) const;
 
   /**
    * @brief Calculate a trajectory set for the front and the sides

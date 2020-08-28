@@ -511,8 +511,8 @@ bool TrajectoryVehicle::calculateTrajectorySetFrontAndSide(
       }
       if (result)
       {
-        result
-          = calculateEstimationBetweenSteps(resultPolygon, previousStepVehicleLocation, currentStepVehicleLocation);
+        result = calculateEstimationBetweenSteps(
+          resultPolygon, previousStepVehicleLocation, currentStepVehicleLocation, debugNamespace + "_step_estimation");
         if (!result)
         {
           spdlog::debug("TrajectoryVehicle::calculateTrajectorySetFrontAndSide>> Could not calculate between steps "
@@ -548,7 +548,8 @@ bool TrajectoryVehicle::calculateTrajectorySetFrontAndSide(
   }
   if (result)
   {
-    result = calculateEstimationBetweenSteps(resultPolygon, previousStepVehicleLocation, frontSideStepVehicleLocation);
+    result = calculateEstimationBetweenSteps(
+      resultPolygon, previousStepVehicleLocation, frontSideStepVehicleLocation, debugNamespace + "_front_estimation");
     if (!result)
     {
       spdlog::debug("TrajectoryVehicle::calculateTrajectorySetFrontAndSide>> Could not calculate between last step and "
@@ -639,7 +640,8 @@ bool TrajectoryVehicle::calculateStepPolygon(situation::VehicleState const &vehi
 bool TrajectoryVehicle::calculateEstimationBetweenSteps(
   Polygon &polygon,
   TrajectorySetStepVehicleLocation const &previousStepVehicleLocation,
-  TrajectorySetStepVehicleLocation const &currentStepVehicleLocation) const
+  TrajectorySetStepVehicleLocation const &currentStepVehicleLocation,
+  std::string const &debugNamespace) const
 {
   // Fill potential gap between two calculation steps by using the previous and current step
   auto result = true;
@@ -686,6 +688,9 @@ bool TrajectoryVehicle::calculateEstimationBetweenSteps(
 
     if (result)
     {
+#if defined(DEBUG_DRAWING)
+      DEBUG_DRAWING_POLYGON(hullBack, "yellow", debugNamespace + "_hull_back");
+#endif
       result = combinePolygon(polygon, hullBack, polygon);
     }
   }
@@ -713,10 +718,6 @@ bool TrajectoryVehicle::calculateEstimationBetweenSteps(
       Polygon hullFrontLeft;
       boost::geometry::convex_hull(interimPtsFrontLeft, hullFrontLeft);
 
-#if defined(DEBUG_DRAWING)
-      DEBUG_DRAWING_POLYGON(hullFrontLeft, "yellow", "estimation_hull_front_left");
-#endif
-
       MultiPoint interimPtsFrontRight;
       boost::geometry::append(interimPtsFrontRight, previousStepVehicleLocation.right.frontLeft);
       boost::geometry::append(interimPtsFrontRight, previousStepVehicleLocation.right.frontRight);
@@ -740,6 +741,9 @@ bool TrajectoryVehicle::calculateEstimationBetweenSteps(
 
     if (result)
     {
+#if defined(DEBUG_DRAWING)
+      DEBUG_DRAWING_POLYGON(hullFront, "yellow", debugNamespace + "_hull_front");
+#endif
       result = combinePolygon(polygon, hullFront, polygon);
     }
   }
