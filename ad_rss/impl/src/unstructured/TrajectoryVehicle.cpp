@@ -233,7 +233,7 @@ bool TrajectoryVehicle::getResponseTimeTrajectoryPoint(situation::VehicleState c
   {
     auto timeStep = vehicleState.dynamics.unstructuredSettings.vehicleTrajectoryCalculationStep;
     if (vehicleState.dynamics.responseTime
-        > currentTime + vehicleState.dynamics.unstructuredSettings.vehicleTrajectoryCalculationStep)
+        >= currentTime + vehicleState.dynamics.unstructuredSettings.vehicleTrajectoryCalculationStep)
     {
       currentTime += vehicleState.dynamics.unstructuredSettings.vehicleTrajectoryCalculationStep;
     }
@@ -268,6 +268,12 @@ bool TrajectoryVehicle::calculateNextTrajectoryPoint(TrajectoryPoint &currentPoi
 {
   ad::physics::Distance currentDistance;
   physics::Speed finalSpeed;
+
+  if (duration == physics::Duration(0.))
+  {
+    return true;
+  }
+
   auto result = situation::calculateAcceleratedLimitedMovement(
     currentPoint.speed, dynamics.maxSpeedOnAcceleration, acceleration, duration, finalSpeed, currentDistance);
   if (!result)
@@ -275,67 +281,47 @@ bool TrajectoryVehicle::calculateNextTrajectoryPoint(TrajectoryPoint &currentPoi
     spdlog::debug("TrajectoryVehicle::calculateNextTrajectoryPoint>> calculateAcceleratedLimitedMovement() failed.");
   }
 
-  auto currentRadius = dynamics.unstructuredSettings.vehicleMaxRadius;
+  auto currentRadius = physics::Distance::getMax();
   if (currentPoint.yawRate != physics::AngularVelocity(0.))
   {
     if (afterResponseTime)
     {
-      currentRadius = ad::physics::Distance(1. / static_cast<double>(currentPoint.yawRate));
+      currentRadius = physics::Distance(1.) / static_cast<double>(currentPoint.yawRate) * static_cast<double>(duration);
     }
     else
     {
       currentRadius
         = ad::physics::Distance(static_cast<double>(currentPoint.speed) / static_cast<double>(currentPoint.yawRate));
     }
-    if (std::fabs(currentRadius) > dynamics.unstructuredSettings.vehicleMaxRadius)
+  }
+
+  if (std::fabs(currentRadius) < dynamics.unstructuredSettings.vehicleMinRadius)
+  {
+    if (currentRadius > physics::Distance(0.))
     {
-      if (currentRadius > physics::Distance(0.))
-      {
-        currentRadius = dynamics.unstructuredSettings.vehicleMaxRadius;
-      }
-      else
-      {
-        currentRadius = -dynamics.unstructuredSettings.vehicleMaxRadius;
-      }
+      currentRadius = dynamics.unstructuredSettings.vehicleMinRadius;
+    }
+    else
+    {
+      currentRadius = -dynamics.unstructuredSettings.vehicleMinRadius;
     }
   }
 
-  // calculate position
-  if (std::fabs(currentRadius) == dynamics.unstructuredSettings.vehicleMaxRadius)
-  {
-    // straight forward
-    auto diff = toPoint(std::cos(currentPoint.angle) * currentDistance, std::sin(currentPoint.angle) * currentDistance);
-    currentPoint.position = currentPoint.position + diff;
-  }
-  else
-  {
-    if (std::fabs(currentRadius) < dynamics.unstructuredSettings.vehicleMinRadius)
-    {
-      if (currentRadius > physics::Distance(0.))
-      {
-        currentRadius = dynamics.unstructuredSettings.vehicleMinRadius;
-      }
-      else
-      {
-        currentRadius = -dynamics.unstructuredSettings.vehicleMinRadius;
-      }
-    }
-    auto tmpAngle = currentPoint.angle - ad::physics::cPI_2;
-    Point const circleOrigin = getCircleOrigin(currentPoint.position, currentRadius, tmpAngle);
-    auto diffAngle = ad::physics::Angle(currentDistance / currentRadius);
-    tmpAngle += diffAngle;
-    currentPoint.position = getPointOnCircle(circleOrigin, currentRadius, tmpAngle);
-    currentPoint.angle = tmpAngle + ad::physics::cPI_2;
-  }
+  Point const circleOrigin
+    = getCircleOrigin(currentPoint.position, currentRadius, currentPoint.angle - ad::physics::cPI_2);
+  auto diffAngle = physics::Angle(currentDistance / currentRadius);
+
+  currentPoint.angle += diffAngle;
+  currentPoint.position = rotateAroundPoint(circleOrigin, currentPoint.position - circleOrigin, diffAngle);
   currentPoint.speed = finalSpeed;
-  return true;
+  return result;
 }
 
 bool TrajectoryVehicle::calculateBrake(situation::VehicleState const &vehicleState,
                                        ad::physics::Duration const &timeAfterResponseTime,
-                                       std::vector<TrajectorySetStep> const &trajectorySetSteps,
-                                       TrajectorySetStep const &frontSide,
-                                       TrajectorySetStep const &backSide,
+                                       std::vector<TrajectorySetStep> const &responseTimeTrajectorySetSteps,
+                                       TrajectorySetStep const &responseTimeFrontSide,
+                                       TrajectorySetStep const &responseTimeBackSide,
                                        Polygon &resultPolygon,
                                        TrajectorySetStepVehicleLocation &brakeMinStepVehicleLocation) const
 {
@@ -346,9 +332,9 @@ bool TrajectoryVehicle::calculateBrake(situation::VehicleState const &vehicleSta
   TrajectorySetStepVehicleLocation brakeMaxVehicleLocations;
   auto result = true;
 
-  if (backSide.center.speed > physics::Speed(0.))
+  if (responseTimeBackSide.center.speed > physics::Speed(0.))
   {
-    result = situation::calculateTimeToStop(backSide.center.speed,
+    result = situation::calculateTimeToStop(responseTimeBackSide.center.speed,
                                             timeAfterResponseTime,
                                             vehicleState.dynamics.maxSpeedOnAcceleration,
                                             vehicleState.dynamics.alphaLon.brakeMax,
@@ -358,7 +344,7 @@ bool TrajectoryVehicle::calculateBrake(situation::VehicleState const &vehicleSta
     {
       spdlog::debug(
         "TrajectoryVehicle::calculateBrake>> Could not calculate time to stop. speed {}, timeAfterResponseTime {}",
-        backSide.center.speed,
+        responseTimeBackSide.center.speed,
         timeAfterResponseTime);
     }
   }
@@ -367,7 +353,7 @@ bool TrajectoryVehicle::calculateBrake(situation::VehicleState const &vehicleSta
   {
     result = calculateStepPolygon(vehicleState,
                                   timeToStopBrakeMax,
-                                  backSide,
+                                  responseTimeBackSide,
                                   vehicleState.dynamics.alphaLon.brakeMax,
                                   "brake_brakeMax",
                                   resultPolygon,
@@ -378,6 +364,9 @@ bool TrajectoryVehicle::calculateBrake(situation::VehicleState const &vehicleSta
     }
   }
 
+  //-------------
+  // front + sides
+  //-------------
   if (result)
   {
     std::vector<physics::Acceleration> accelerations;
@@ -393,8 +382,8 @@ bool TrajectoryVehicle::calculateBrake(situation::VehicleState const &vehicleSta
 
     result = calculateTrajectorySetFrontAndSide(vehicleState,
                                                 timeAfterResponseTime,
-                                                trajectorySetSteps,
-                                                frontSide,
+                                                responseTimeTrajectorySetSteps,
+                                                responseTimeFrontSide,
                                                 brakeMaxVehicleLocations,
                                                 accelerations,
                                                 "brake",
@@ -416,16 +405,16 @@ bool TrajectoryVehicle::calculateContinueForward(situation::VehicleState const &
                                                  TrajectorySetStepVehicleLocation const &brakeMinStepVehicleLocation,
                                                  Polygon &resultPolygon) const
 {
-  std::vector<physics::Acceleration> accelerationsContinueForward;
+  std::vector<physics::Acceleration> accelerations;
   auto accelStepSize = (vehicleState.dynamics.alphaLon.accelMax - vehicleState.dynamics.alphaLon.brakeMin)
     / (1.0 + vehicleState.dynamics.unstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps);
   for (auto acceleration = vehicleState.dynamics.alphaLon.brakeMin + accelStepSize;
        acceleration < vehicleState.dynamics.alphaLon.accelMax;
        acceleration += accelStepSize)
   {
-    accelerationsContinueForward.push_back(acceleration);
+    accelerations.push_back(acceleration);
   }
-  accelerationsContinueForward.push_back(vehicleState.dynamics.alphaLon.accelMax);
+  accelerations.push_back(vehicleState.dynamics.alphaLon.accelMax);
 
   resultPolygon = brakePolygon;
   TrajectorySetStepVehicleLocation frontSideStepVehicleLocation; // unused
@@ -434,7 +423,7 @@ bool TrajectoryVehicle::calculateContinueForward(situation::VehicleState const &
                                                    responseTimeTrajectorySetSteps,
                                                    responseTimeFrontSide,
                                                    brakeMinStepVehicleLocation,
-                                                   accelerationsContinueForward,
+                                                   accelerations,
                                                    "continueForward",
                                                    resultPolygon,
                                                    frontSideStepVehicleLocation);
@@ -584,6 +573,8 @@ bool TrajectoryVehicle::calculateStepPolygon(situation::VehicleState const &vehi
     auto vehicleLocationLeft = TrafficParticipantLocation(currentPointLeft, vehicleState);
 #if DEBUG_DRAWING
     DEBUG_DRAWING_POLYGON(vehicleLocationLeft.toPolygon(), "black", debugNamespace + "_left_" + std::to_string(idx));
+#else
+    (void)debugNamespace;
 #endif
     boost::geometry::append(frontPtsLeft, vehicleLocationLeft.toMultiPoint());
     if (it == step.left.end() - 1)
@@ -601,7 +592,7 @@ bool TrajectoryVehicle::calculateStepPolygon(situation::VehicleState const &vehi
       currentPointCenter, acceleration, timeAfterResponseTime, vehicleState.dynamics, true);
     auto vehicleLocationCenter = TrafficParticipantLocation(currentPointCenter, vehicleState);
 #if DEBUG_DRAWING
-    DEBUG_DRAWING_POLYGON(vehicleLocationCenter.toPolygon(), "black", debugNamespace + "_center");
+    DEBUG_DRAWING_POLYGON(vehicleLocationCenter.toPolygon(), "blue", debugNamespace + "_center");
 #endif
     boost::geometry::append(frontPtsLeft, vehicleLocationCenter.toMultiPoint());
     stepVehicleLocation.center = vehicleLocationCenter;
@@ -616,7 +607,7 @@ bool TrajectoryVehicle::calculateStepPolygon(situation::VehicleState const &vehi
       currentPointRight, acceleration, timeAfterResponseTime, vehicleState.dynamics, true);
     auto vehicleLocationRight = TrafficParticipantLocation(currentPointRight, vehicleState);
 #if DEBUG_DRAWING
-    DEBUG_DRAWING_POLYGON(vehicleLocationRight.toPolygon(), "black", debugNamespace + "_right_" + std::to_string(idx));
+    DEBUG_DRAWING_POLYGON(vehicleLocationRight.toPolygon(), "blue", debugNamespace + "_right_" + std::to_string(idx));
 #endif
     boost::geometry::append(frontPtsRight, vehicleLocationRight.toMultiPoint());
     if (it == step.right.begin())

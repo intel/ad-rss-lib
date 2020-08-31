@@ -19,7 +19,7 @@
 
 #define DEBUG_DRAWING 0
 
-#if defined(DEBUG_DRAWING)
+#if DEBUG_DRAWING
 #include "ad/rss/unstructured/DebugDrawing.hpp"
 #endif
 
