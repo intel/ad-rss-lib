@@ -68,8 +68,6 @@ protected:
     valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
     ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
     valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
-    ::ad::physics::Distance valueUnstructuredSettingsVehicleMaxRadius(-1e9);
-    valueUnstructuredSettings.vehicleMaxRadius = valueUnstructuredSettingsVehicleMaxRadius;
     ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
     valueUnstructuredSettings.vehicleTrajectoryCalculationStep
       = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
@@ -228,8 +226,6 @@ TEST_F(RssDynamicsTests, comparisonOperatorUnstructuredSettingsDiffers)
   unstructuredSettings.vehicleYawRateChange = unstructuredSettingsVehicleYawRateChange;
   ::ad::physics::Distance unstructuredSettingsVehicleMinRadius(1e9);
   unstructuredSettings.vehicleMinRadius = unstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Distance unstructuredSettingsVehicleMaxRadius(1e9);
-  unstructuredSettings.vehicleMaxRadius = unstructuredSettingsVehicleMaxRadius;
   ::ad::physics::Duration unstructuredSettingsVehicleTrajectoryCalculationStep(1e6);
   unstructuredSettings.vehicleTrajectoryCalculationStep = unstructuredSettingsVehicleTrajectoryCalculationStep;
   uint32_t unstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::max()};

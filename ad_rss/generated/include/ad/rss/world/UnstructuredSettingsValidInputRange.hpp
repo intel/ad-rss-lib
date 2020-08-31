@@ -45,7 +45,6 @@ inline bool withinValidInputRange(::ad::rss::world::UnstructuredSettings const &
     && withinValidInputRange(input.driveAwayMaxAngle, logErrors)
     && withinValidInputRange(input.vehicleYawRateChange, logErrors)
     && withinValidInputRange(input.vehicleMinRadius, logErrors)
-    && withinValidInputRange(input.vehicleMaxRadius, logErrors)
     && withinValidInputRange(input.vehicleTrajectoryCalculationStep, logErrors);
   if (!inValidInputRange && logErrors)
   {

@@ -105,7 +105,6 @@ struct UnstructuredSettings
   {
     return (pedestrianTurningRadius == other.pedestrianTurningRadius) && (driveAwayMaxAngle == other.driveAwayMaxAngle)
       && (vehicleYawRateChange == other.vehicleYawRateChange) && (vehicleMinRadius == other.vehicleMinRadius)
-      && (vehicleMaxRadius == other.vehicleMaxRadius)
       && (vehicleTrajectoryCalculationStep == other.vehicleTrajectoryCalculationStep)
       && (vehicleFrontIntermediateRatioSteps == other.vehicleFrontIntermediateRatioSteps)
       && (vehicleBackIntermediateRatioSteps == other.vehicleBackIntermediateRatioSteps)
@@ -151,11 +150,6 @@ struct UnstructuredSettings
    * Defines the minimal radius a vehicle is able to drive on.
    */
   ::ad::physics::Distance vehicleMinRadius;
-
-  /*!
-   * Defines the maximal radius a vehicle is handled as turning. Afterwards it's seen as driving straight
-   */
-  ::ad::physics::Distance vehicleMaxRadius{400.0};
 
   /*!
    * The current unstructured implementation calculates the location and heading based
@@ -247,9 +241,6 @@ inline std::ostream &operator<<(std::ostream &os, UnstructuredSettings const &_v
   os << ",";
   os << "vehicleMinRadius:";
   os << _value.vehicleMinRadius;
-  os << ",";
-  os << "vehicleMaxRadius:";
-  os << _value.vehicleMaxRadius;
   os << ",";
   os << "vehicleTrajectoryCalculationStep:";
   os << _value.vehicleTrajectoryCalculationStep;

@@ -36,8 +36,6 @@ protected:
     value.vehicleYawRateChange = valueVehicleYawRateChange;
     ::ad::physics::Distance valueVehicleMinRadius(-1e9);
     value.vehicleMinRadius = valueVehicleMinRadius;
-    ::ad::physics::Distance valueVehicleMaxRadius(-1e9);
-    value.vehicleMaxRadius = valueVehicleMaxRadius;
     ::ad::physics::Duration valueVehicleTrajectoryCalculationStep(0.);
     value.vehicleTrajectoryCalculationStep = valueVehicleTrajectoryCalculationStep;
     uint32_t valueVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
@@ -141,17 +139,6 @@ TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleMinRadiusDiffers)
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
   ::ad::physics::Distance vehicleMinRadius(1e9);
   valueA.vehicleMinRadius = vehicleMinRadius;
-  ::ad::rss::world::UnstructuredSettings valueB = mValue;
-
-  EXPECT_FALSE(valueA == valueB);
-  EXPECT_TRUE(valueA != valueB);
-}
-
-TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleMaxRadiusDiffers)
-{
-  ::ad::rss::world::UnstructuredSettings valueA = mValue;
-  ::ad::physics::Distance vehicleMaxRadius(1e9);
-  valueA.vehicleMaxRadius = vehicleMaxRadius;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

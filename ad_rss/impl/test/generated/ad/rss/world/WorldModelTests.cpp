@@ -81,9 +81,6 @@ protected:
     ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
     valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
       = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
-    ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMaxRadius(-1e9);
-    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleMaxRadius
-      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMaxRadius;
     ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
     valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
       = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
@@ -588,9 +585,6 @@ TEST_F(WorldModelTests, comparisonOperatorDefaultEgoVehicleRssDynamicsDiffers)
   ::ad::physics::Distance defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(1e9);
   defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
     = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Distance defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMaxRadius(1e9);
-  defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleMaxRadius
-    = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMaxRadius;
   ::ad::physics::Duration defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(1e6);
   defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;

@@ -61,8 +61,6 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRange)
   valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
   ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
   valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Distance valueUnstructuredSettingsVehicleMaxRadius(-1e9);
-  valueUnstructuredSettings.vehicleMaxRadius = valueUnstructuredSettingsVehicleMaxRadius;
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
@@ -130,8 +128,6 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooSmall)
   valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
   ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
   valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Distance valueUnstructuredSettingsVehicleMaxRadius(-1e9);
-  valueUnstructuredSettings.vehicleMaxRadius = valueUnstructuredSettingsVehicleMaxRadius;
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
@@ -205,8 +201,6 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooBig)
   valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
   ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
   valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Distance valueUnstructuredSettingsVehicleMaxRadius(-1e9);
-  valueUnstructuredSettings.vehicleMaxRadius = valueUnstructuredSettingsVehicleMaxRadius;
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
@@ -280,8 +274,6 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooSmall)
   valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
   ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
   valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Distance valueUnstructuredSettingsVehicleMaxRadius(-1e9);
-  valueUnstructuredSettings.vehicleMaxRadius = valueUnstructuredSettingsVehicleMaxRadius;
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
@@ -355,8 +347,6 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooBig)
   valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
   ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
   valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Distance valueUnstructuredSettingsVehicleMaxRadius(-1e9);
-  valueUnstructuredSettings.vehicleMaxRadius = valueUnstructuredSettingsVehicleMaxRadius;
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
@@ -430,8 +420,6 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMargi
   valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
   ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
   valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Distance valueUnstructuredSettingsVehicleMaxRadius(-1e9);
-  valueUnstructuredSettings.vehicleMaxRadius = valueUnstructuredSettingsVehicleMaxRadius;
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
@@ -509,8 +497,6 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMargi
   valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
   ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
   valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Distance valueUnstructuredSettingsVehicleMaxRadius(-1e9);
-  valueUnstructuredSettings.vehicleMaxRadius = valueUnstructuredSettingsVehicleMaxRadius;
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
@@ -595,8 +581,6 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeResponseTimeTooSmall)
   valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
   ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
   valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Distance valueUnstructuredSettingsVehicleMaxRadius(-1e9);
-  valueUnstructuredSettings.vehicleMaxRadius = valueUnstructuredSettingsVehicleMaxRadius;
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
@@ -673,8 +657,6 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeResponseTimeTooBig)
   valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
   ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
   valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Distance valueUnstructuredSettingsVehicleMaxRadius(-1e9);
-  valueUnstructuredSettings.vehicleMaxRadius = valueUnstructuredSettingsVehicleMaxRadius;
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
@@ -759,8 +741,6 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeMaxSpeedOnAccelerationT
   valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
   ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
   valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Distance valueUnstructuredSettingsVehicleMaxRadius(-1e9);
-  valueUnstructuredSettings.vehicleMaxRadius = valueUnstructuredSettingsVehicleMaxRadius;
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
@@ -832,8 +812,6 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeMaxSpeedOnAccelerationT
   valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
   ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
   valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Distance valueUnstructuredSettingsVehicleMaxRadius(-1e9);
-  valueUnstructuredSettings.vehicleMaxRadius = valueUnstructuredSettingsVehicleMaxRadius;
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
@@ -913,8 +891,6 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeUnstructuredSettingsToo
   valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
   ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
   valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Distance valueUnstructuredSettingsVehicleMaxRadius(-1e9);
-  valueUnstructuredSettings.vehicleMaxRadius = valueUnstructuredSettingsVehicleMaxRadius;
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
@@ -988,8 +964,6 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeUnstructuredSettingsToo
   valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
   ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
   valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Distance valueUnstructuredSettingsVehicleMaxRadius(-1e9);
-  valueUnstructuredSettings.vehicleMaxRadius = valueUnstructuredSettingsVehicleMaxRadius;
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
