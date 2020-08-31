@@ -92,7 +92,7 @@ public:
   {
     mLines.push_back(DebugLine(line, color, ns));
 
-    spdlog::warn("DRAW;{};{};{};LINE", ns, color, std::to_string(line));
+    spdlog::trace("DRAW;{};{};{};LINE", ns, color, std::to_string(line));
   }
 
   /**
@@ -106,7 +106,7 @@ public:
   {
     mPolygons.push_back(DebugPolygon(polygon, color, ns));
 
-    spdlog::warn("DRAW;{};{};{};POLYGON", ns, color, std::to_string(polygon));
+    spdlog::trace("DRAW;{};{};{};POLYGON", ns, color, std::to_string(polygon));
   }
 
   std::vector<DebugLine> mLines;
