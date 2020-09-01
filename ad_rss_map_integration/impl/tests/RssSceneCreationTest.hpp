@@ -176,7 +176,7 @@ struct RssSceneCreationTest : ::testing::Test
 
     ::ad::map::match::AdMapMatching mapMatching;
     object.mapMatchedBoundingBox
-      = mapMatching.getMapMatchedBoundingBox(object.enuPosition, ::ad::physics::Distance(0.1));
+      = mapMatching.getMapMatchedBoundingBox(object.enuPosition, ::ad::physics::Distance(2.0));
 
     ASSERT_GE(object.mapMatchedBoundingBox.referencePointPositions.size(),
               static_cast<uint64_t>(::ad::map::match::ObjectReferencePoints::Center));

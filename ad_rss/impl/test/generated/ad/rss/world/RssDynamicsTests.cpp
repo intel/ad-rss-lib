@@ -71,6 +71,23 @@ protected:
     ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
     valueUnstructuredSettings.vehicleTrajectoryCalculationStep
       = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+    uint32_t valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+    valueUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+      = valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+    uint32_t valueUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+    valueUnstructuredSettings.vehicleBackIntermediateRatioSteps
+      = valueUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+    uint32_t valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+      = valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+    uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+    valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+      = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+    uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+      = valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
     value.unstructuredSettings = valueUnstructuredSettings;
     mValue = value;
   }
@@ -211,6 +228,20 @@ TEST_F(RssDynamicsTests, comparisonOperatorUnstructuredSettingsDiffers)
   unstructuredSettings.vehicleMinRadius = unstructuredSettingsVehicleMinRadius;
   ::ad::physics::Duration unstructuredSettingsVehicleTrajectoryCalculationStep(1e6);
   unstructuredSettings.vehicleTrajectoryCalculationStep = unstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t unstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::max()};
+  unstructuredSettings.vehicleFrontIntermediateRatioSteps = unstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t unstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::max()};
+  unstructuredSettings.vehicleBackIntermediateRatioSteps = unstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t unstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::max()};
+  unstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = unstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t unstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::max()};
+  unstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = unstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t unstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::max()};
+  unstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = unstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   valueA.unstructuredSettings = unstructuredSettings;
   ::ad::rss::world::RssDynamics valueB = mValue;
 

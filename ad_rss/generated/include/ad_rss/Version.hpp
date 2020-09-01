@@ -25,14 +25,14 @@
 /*!
  * The minor version of ad_rss
  */
-#define AD_RSS_VERSION_MINOR 0
+#define AD_RSS_VERSION_MINOR 1
 
 /*!
  * The revision of ad_rss
  */
-#define AD_RSS_VERSION_REVISION 1
+#define AD_RSS_VERSION_REVISION 0
 
 /*!
  * The version of ad_rss as string
  */
-#define AD_RSS_VERSION_STRING "4.0.1"
+#define AD_RSS_VERSION_STRING "4.1.0"

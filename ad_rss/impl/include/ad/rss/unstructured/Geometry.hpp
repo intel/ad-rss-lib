@@ -16,6 +16,7 @@
 #include <boost/geometry/geometries/geometries.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
+#include <sstream>
 #include "ad/physics/AngleOperation.hpp"
 #include "ad/physics/Distance.hpp"
 #include "ad/rss/state/HeadingRange.hpp"
@@ -38,6 +39,7 @@ namespace unstructured {
 typedef boost::geometry::model::d2::point_xy<double> Point;
 typedef boost::geometry::model::linestring<Point> Line;
 typedef boost::geometry::model::polygon<Point, false> Polygon; // counterclockwise
+typedef boost::geometry::model::multi_point<Point> MultiPoint;
 
 /**
  * @brief create a Point from a Distance2D
@@ -202,16 +204,6 @@ void calculateCircleArc(Point origin,
 bool collides(world::UnstructuredTrajectorySet const &trajectorySet1,
               world::UnstructuredTrajectorySet const &trajectorySet2);
 
-/**
- * @brief split a line at an intersection point
- *
- * @param[in]  intersectionPoint point to split a line at
- * @param[in]  line              line to split
- * @param[out] before            line before the intersection point
- * @param[out] after             line after the intersection point
- */
-void splitLineAtIntersectionPoint(Point const &intersectionPoint, Line const &line, Line &before, Line &after);
-
 } // namespace unstructured
 } // namespace rss
 } // namespace ad
@@ -246,4 +238,86 @@ inline ad::rss::unstructured::Point operator-(ad::rss::unstructured::Point const
   auto result = a;
   boost::geometry::subtract_point(result, b);
   return result;
+}
+
+/*!
+ * @brief comparison operation: Point
+ *
+ * @param[in] a point a
+ * @param[in] b point b
+ *
+ * @returns a == b
+ */
+inline bool operator==(ad::rss::unstructured::Point const &a, ad::rss::unstructured::Point const &b)
+{
+  return (std::abs(a.x() - b.x()) <= std::numeric_limits<double>::epsilon())
+    && (std::abs(a.y() - b.y()) <= std::numeric_limits<double>::epsilon());
+}
+
+/*!
+ * @brief comparison operation: Points not equal
+ *
+ * @param[in] a point a
+ * @param[in] b point b
+ *
+ * @returns a != b
+ */
+inline bool operator!=(ad::rss::unstructured::Point const &a, ad::rss::unstructured::Point const &b)
+{
+  return !(a == b);
+}
+
+namespace std {
+
+/*!
+ * @brief to_string overload for Point
+ *
+ * @param[in] value a point
+ *
+ * @returns string describing point
+ */
+inline std::string to_string(ad::rss::unstructured::Point const &value)
+{
+  std::stringstream stream;
+  stream << "[" << value.x() << "," << value.y() << "]";
+  return stream.str();
+}
+
+/*!
+ * @brief to_string overload for Polygon
+ *
+ * @param[in] value a polygon
+ *
+ * @returns string describing polygon
+ */
+inline std::string to_string(ad::rss::unstructured::Polygon const &value)
+{
+  std::stringstream stream;
+  stream << "[";
+  for (auto pt : value.outer())
+  {
+    stream << std::to_string(pt) << ",";
+  }
+  stream << "]";
+  return stream.str();
+}
+
+/*!
+ * @brief to_string overload for Line
+ *
+ * @param[in] value a line
+ *
+ * @returns string describing line
+ */
+inline std::string to_string(ad::rss::unstructured::Line value)
+{
+  std::stringstream stream;
+  stream << "[";
+  for (auto pt : value)
+  {
+    stream << "[" << pt.x() << "," << pt.y() << "],";
+  }
+  stream << "]";
+  return stream.str();
+}
 }

@@ -64,6 +64,23 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRange)
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   value.unstructuredSettings = valueUnstructuredSettings;
   ASSERT_TRUE(withinValidInputRange(value));
 }
@@ -114,6 +131,23 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooSmall)
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value below input range minimum
@@ -170,6 +204,23 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLonTooBig)
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value above input range maximum
@@ -226,6 +277,23 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooSmall)
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value below input range minimum
@@ -282,6 +350,23 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeAlphaLatTooBig)
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value above input range maximum
@@ -338,6 +423,23 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMargi
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value below input range minimum
@@ -398,6 +500,23 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeLateralFluctuationMargi
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value above input range maximum
@@ -465,6 +584,23 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeResponseTimeTooSmall)
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value below input range minimum
@@ -524,6 +660,23 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeResponseTimeTooBig)
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value above input range maximum
@@ -591,6 +744,23 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeMaxSpeedOnAccelerationT
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value below input range minimum
@@ -645,6 +815,23 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeMaxSpeedOnAccelerationT
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value above input range maximum
@@ -707,6 +894,23 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeUnstructuredSettingsToo
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value below input range minimum
@@ -763,6 +967,23 @@ TEST(RssDynamicsValidInputRangeTests, testValidInputRangeUnstructuredSettingsToo
   ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   value.unstructuredSettings = valueUnstructuredSettings;
 
   // override member with data type value above input range maximum

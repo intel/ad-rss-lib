@@ -8,27 +8,7 @@ In contrast to the structured scenes, two dimensional trajectories with lateral 
 
 To allow customization, every scene within the [`ad::rss::world::WorldModel`](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html) can be calculated as unstructured, depending on the `situationType`.
 
-### Behavior Model/Trajectory Calculation
-
-There are two different behavior models, for vehicles and pedestrians. They define the possible movement over time.
-Limits are defined to be able to calculate all possible trajectories.
-
-#### Vehicle
-
-* The change of the yaw rate $h'(t)$ is limited: The maximum change of the yaw rate until response time can be specified by `UnstructuredSettings::vehicleYawRateChange`.
-* The radius of the circle, the vehicle is driving on is $r(t) = v(t)/h'(t)$
-* At emergency, after the response time, the vehicle continues driving on a circle (i.e. no further yaw rate change)
-* The minimum radius `UnstructuredSettings::vehicleMinRadius` defines the minimal radius a vehicle is able to drive on
-
-The current implementation calculates the location and heading based on time increments (specified by `UnstructuredSettings::vehicleTrajectoryCalculationStep`). This might lead to an increasing error the farer the point is.
-
-#### Pedestrian
-
-* The change of heading $|h'(t)|$ is limited. That means, the maximum trajectory is defined by a circle until response time. The radius of this circle can be specified by `UnstructuredSettings::pedestrianTurningRadius`.
-* At emergency, after the response time, the pedestrian will continue at a straight line
-* If the pedestrian is standing, we assign it to all possible lines originating from his current position.
-
-### Trajectory Set Calculation
+### Behavior Model/Trajectory Set Calculation
 
 To calculate a trajectory set, the maximum/minimum values for both, longitudinal and lateral component are applied.
 
@@ -57,11 +37,45 @@ There are two relevant trajectory sets: for braking $T(C_{b})$ and continue-forw
 
 This is similar for all traffic participants and uses the same rss formulas as in the structured case.
 
-The lateral change is depending on the type of traffic participant, as described above.
+The lateral change is depending on the type of traffic participant, as described below.
 
 | ![](../images/unstructured_trajectory_sets.png) |
 |:--:|
 | *Example trajectory sets for car and pedestrian (red: brake-, green: continue-forward-trajectory)* |
+
+There are two different behavior models, for vehicles and pedestrians.
+
+#### Vehicle
+
+* The change of the yaw rate $h'(t)$ is limited: The maximum change of the yaw rate until response time can be specified by `UnstructuredSettings::vehicleYawRateChange`.
+* The radius of the circle, the vehicle is driving on is $r(t) = v(t)/h'(t)$
+* At emergency, after the response time, the vehicle continues driving on a circle (i.e. no further yaw rate change)
+* The minimum radius `UnstructuredSettings::vehicleMinRadius` defines the minimal radius a vehicle is able to drive on
+
+The calculation is done in three steps.
+
+1. Calculate the possible vehicle states and locations at response time
+2. Calculate the final vehicle state and location for brake and continueForward
+3. Create the corresponding trajectory set polygons
+
+In the first step, the vehicle state at response time is calculated by using time increments, specified by `UnstructuredSettings::vehicleTrajectoryCalculationStep`. (This might lead to an increasing error the farer the point is). The amount of states can be customized by several parameters:
+
+- `UnstructuredSettings::vehicleResponseTimeIntermediateAccelerationSteps` specifies how many acceleration values between `alphaLon.brakeMax` and `alphaLon.AccelMax` should be used for calculation.
+- `UnstructuredSettings::vehicleBackIntermediateRatioSteps` specifies how many steps beside maximum yaw rate change to the left/right and no change at all should be calculated. The value is specifying the steps on one side, therefore the resulting intermediate steps are twice this value. This value is used for the back of the trajectory set.
+- `UnstructuredSettings::vehicleFrontIntermediateRatioSteps` similar to above, but for the front of the trajectory set.
+
+In the second step, the final vehicle state is calculated for each of the response-time vehicle states by using the corresponding acceleration driven on a circle. The following parameters can be specified:
+
+- `UnstructuredSettings::vehicleContinueForwardIntermediateAccelerationSteps` specifies the intermediate acceleration steps (between brakeMin and accelMax) used while calculating the continue forward trajectory set. This is applied to all `UnstructuredSettings::vehicleResponseTimeIntermediateAccelerationSteps`, therefore it has only an effect if that value is >0.
+- `UnstructuredSettings::vehicleBrakeIntermediateAccelerationSteps` specifies the intermediate acceleration steps (between brakeMax and brakeMin) used while calculating the brake trajectory set. This is applied to all `UnstructuredSettings::vehicleResponseTimeIntermediateAccelerationSteps`, therefore it has only an effect if that value is >0.
+
+In the third step the final trajectory sets are calculated. To reach an acceptable calculation time some simplification are applied. Keep in mind, that this might cause invalid responses! For each value of acceleration a final state is calculated. This contains of at least three vehicles states: two with maximum yaw rate change to left and right and one with no yaw rate change. For the back and front of the trajectory set there might also be intermediate values for the yaw rate change. For the front a convex hull of all states (including vehicle dimensions) is calculated. For the ones defining the sides of the trajectory set (where only max left/right and center vehicle state are available) a polygon is calculated by merging the convex hull of left+center and right+center. To create the trajectory set all polygons are merged together, including polygons for the linear estimation between the steps.
+
+#### Pedestrian
+
+* The change of heading $|h'(t)|$ is limited. That means, the maximum trajectory is defined by a circle until response time. The radius of this circle can be specified by `UnstructuredSettings::pedestrianTurningRadius`.
+* At emergency, after the response time, the pedestrian will continue at a straight line
+* If the pedestrian is standing, we assign it to all possible lines originating from his current position.
 
 ### Decision making
 

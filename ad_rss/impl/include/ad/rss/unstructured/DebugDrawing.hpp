@@ -91,6 +91,8 @@ public:
   void drawLine(Line const &line, std::string const &color = "white", std::string const &ns = "")
   {
     mLines.push_back(DebugLine(line, color, ns));
+
+    spdlog::trace("DRAW;{};{};{};LINE", ns, color, std::to_string(line));
   }
 
   /**
@@ -103,6 +105,8 @@ public:
   void drawPolygon(Polygon const &polygon, std::string const &color = "white", std::string const &ns = "")
   {
     mPolygons.push_back(DebugPolygon(polygon, color, ns));
+
+    spdlog::trace("DRAW;{};{};{};POLYGON", ns, color, std::to_string(polygon));
   }
 
   std::vector<DebugLine> mLines;

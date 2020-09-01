@@ -17,6 +17,7 @@
 
 #pragma once
 
+#include <cstdint>
 #include <iostream>
 #include <limits>
 #include <memory>
@@ -104,7 +105,13 @@ struct UnstructuredSettings
   {
     return (pedestrianTurningRadius == other.pedestrianTurningRadius) && (driveAwayMaxAngle == other.driveAwayMaxAngle)
       && (vehicleYawRateChange == other.vehicleYawRateChange) && (vehicleMinRadius == other.vehicleMinRadius)
-      && (vehicleTrajectoryCalculationStep == other.vehicleTrajectoryCalculationStep);
+      && (vehicleTrajectoryCalculationStep == other.vehicleTrajectoryCalculationStep)
+      && (vehicleFrontIntermediateRatioSteps == other.vehicleFrontIntermediateRatioSteps)
+      && (vehicleBackIntermediateRatioSteps == other.vehicleBackIntermediateRatioSteps)
+      && (vehicleResponseTimeIntermediateAccelerationSteps == other.vehicleResponseTimeIntermediateAccelerationSteps)
+      && (vehicleBrakeIntermediateAccelerationSteps == other.vehicleBrakeIntermediateAccelerationSteps)
+      && (vehicleContinueForwardIntermediateAccelerationSteps
+          == other.vehicleContinueForwardIntermediateAccelerationSteps);
   }
 
   /**
@@ -151,6 +158,42 @@ struct UnstructuredSettings
    * This parameter defines the time interval for this incremental calculation.
    */
   ::ad::physics::Duration vehicleTrajectoryCalculationStep;
+
+  /*!
+   * During calculation of the trajectory set, multiple yaw rate ratios are used. The default is max left, max right and
+   * no yaw rate change. By specifying a value larger than zero more intermediate steps are used. The value is
+   * specifying the steps on one side, therefore the resulting intermedate steps are twice this value. This value is
+   * used for the front of the trajectory set.
+   */
+  uint32_t vehicleFrontIntermediateRatioSteps{0};
+
+  /*!
+   * During calculation of the trajectory set, multiple yaw rate ratios are used. The default is max left, max right and
+   * no yaw rate change. By specifying a value larger than zero more intermediate steps are used. The value is
+   * specifying the steps on one side, therefore the resulting intermedate steps are twice this value. This value is
+   * used for the back of the trajectory set.
+   */
+  uint32_t vehicleBackIntermediateRatioSteps{0};
+
+  /*!
+   * Specifies the intermediate acceleration steps (between brakeMax and accelMax) used while calculating the states at
+   * response time. These are later used for calculating the trajectory sets.
+   */
+  uint32_t vehicleResponseTimeIntermediateAccelerationSteps{0};
+
+  /*!
+   * Specifies the intermediate acceleration steps (between brakeMax and brakeMin) used while calculating the cbrake
+   * trajectory set. This is applied to all vehicleResponseIntermediateAccelerationSteps, therefore it has only an
+   * effect if that value is >0.
+   */
+  uint32_t vehicleBrakeIntermediateAccelerationSteps{0};
+
+  /*!
+   * Specifies the intermediate acceleration steps (between brakeMin and accelMax) used while calculating the continue
+   * forward trajectory set. This is applied to all vehicleResponseIntermediateAccelerationSteps, therefore it has only
+   * an effect if that value is >0.
+   */
+  uint32_t vehicleContinueForwardIntermediateAccelerationSteps{0};
 };
 
 } // namespace world
@@ -201,6 +244,21 @@ inline std::ostream &operator<<(std::ostream &os, UnstructuredSettings const &_v
   os << ",";
   os << "vehicleTrajectoryCalculationStep:";
   os << _value.vehicleTrajectoryCalculationStep;
+  os << ",";
+  os << "vehicleFrontIntermediateRatioSteps:";
+  os << _value.vehicleFrontIntermediateRatioSteps;
+  os << ",";
+  os << "vehicleBackIntermediateRatioSteps:";
+  os << _value.vehicleBackIntermediateRatioSteps;
+  os << ",";
+  os << "vehicleResponseTimeIntermediateAccelerationSteps:";
+  os << _value.vehicleResponseTimeIntermediateAccelerationSteps;
+  os << ",";
+  os << "vehicleBrakeIntermediateAccelerationSteps:";
+  os << _value.vehicleBrakeIntermediateAccelerationSteps;
+  os << ",";
+  os << "vehicleContinueForwardIntermediateAccelerationSteps:";
+  os << _value.vehicleContinueForwardIntermediateAccelerationSteps;
   os << ")";
   return os;
 }

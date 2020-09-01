@@ -70,10 +70,10 @@ bool TrajectoryPedestrian::createTrajectorySet(situation::VehicleState const &ve
                                            i,
                                            std::to_string(aAfterResponseTime) + "_" + std::to_string(i));
       frontPts.push_back(endPt);
-#if DRAW_FINAL_POSITION
-      drawFinalPosition(endPt,
-                        vehicleState.objectState.dimension,
-                        std::to_string(aAfterResponseTime) + "_" + std::to_string(i) + "_vehicle_final_position");
+#if DEBUG_DRAWING
+      DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(endPt, vehicleState).toPolygon(),
+                            "yellow",
+                            std::to_string(aAfterResponseTime) + "_" + std::to_string(i) + "_vehicle_final_position");
 #endif
     }
     auto frontPolygon = calculateFrontWithDimension(frontPts, vehicleState.objectState.dimension);
@@ -132,13 +132,12 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
                                              speed,
                                              maxDistance);
 
-#if DRAW_TRAJECTORIES
+#if DEBUG_DRAWING
   Line linePts;
   boost::geometry::append(linePts, startingPoint);
 #endif
   Point finalPoint;
   ad::physics::Angle finalAngle = vehicleState.objectState.yaw;
-  TrajectoryHeading heading;
 
   if (static_cast<double>(std::fabs(angleChangeRatio))
       > vehicleState.dynamics.unstructuredSettings.pedestrianTurningRadius / maxRadius)
@@ -156,10 +155,9 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
                                                    distanceUntilReponseTime);
 
     auto angleChange = ad::physics::Angle(distanceUntilReponseTime / radius);
-    heading = (radius > ad::physics::Distance(0.)) ? TrajectoryHeading::left : TrajectoryHeading::right;
 
     auto pointAfterResponseTime = getPointOnCircle(circleOrigin, radius, startingAngle + angleChange);
-#if DRAW_TRAJECTORIES
+#if DEBUG_DRAWING
     boost::geometry::append(linePts, pointAfterResponseTime);
 #endif
 
@@ -168,7 +166,7 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
     // after response time continue on a straight line
     finalPoint = pointAfterResponseTime
       + toPoint(-std::cos(deltaAngle) * remainingDistance, std::sin(deltaAngle) * remainingDistance);
-#if DRAW_TRAJECTORIES
+#if DEBUG_DRAWING
     boost::geometry::append(linePts, finalPoint);
 #endif
     finalAngle = vehicleState.objectState.yaw + angleChange;
@@ -177,20 +175,19 @@ TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::Vehicle
   {
     // straight line
     finalPoint = startingPoint + toPoint(-std::sin(startingAngle) * maxDistance, std::cos(startingAngle) * maxDistance);
-#if DRAW_TRAJECTORIES
+#if DEBUG_DRAWING
     boost::geometry::append(linePts, startingPoint);
     boost::geometry::append(linePts, finalPoint);
 #endif
-    heading = TrajectoryHeading::straight;
   }
 
-#if DRAW_TRAJECTORIES
+#if DEBUG_DRAWING
   DEBUG_DRAWING_LINE(linePts, "orange", debugNamespace + "trajectory");
 #else
   (void)debugNamespace;
 #endif
 
-  return TrajectoryPoint(finalPoint, finalAngle, heading);
+  return TrajectoryPoint(finalPoint, finalAngle, speed, physics::AngularVelocity(0.));
 }
 
 Polygon TrajectoryPedestrian::calculateFrontWithDimension(Trajectory const &trajectory,
@@ -224,10 +221,10 @@ Polygon TrajectoryPedestrian::calculateBackWithDimension(situation::VehicleState
 
   boost::geometry::append(backPolygon,
                           getVehicleCorner(accelLeft, vehicleState.objectState.dimension, VehicleCorner::frontRight));
-#if DRAW_FINAL_POSITION
-  drawFinalPosition(accelLeft,
-                    vehicleState.objectState.dimension,
-                    std::to_string(aAfterResponseTime) + "_back_accelLeft_vehicle_final_position_right");
+#if DEBUG_DRAWING
+  DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(accelLeft, vehicleState).toPolygon(),
+                        "yellow",
+                        std::to_string(aAfterResponseTime) + "_back_accelLeft_vehicle_final_position_right");
 #endif
 
   auto accelRight = getFinalTrajectoryPoint(vehicleState,
@@ -239,10 +236,10 @@ Polygon TrajectoryPedestrian::calculateBackWithDimension(situation::VehicleState
 
   boost::geometry::append(backPolygon,
                           getVehicleCorner(accelRight, vehicleState.objectState.dimension, VehicleCorner::frontLeft));
-#if DRAW_FINAL_POSITION
-  drawFinalPosition(accelRight,
-                    vehicleState.objectState.dimension,
-                    std::to_string(aAfterResponseTime) + "_back_accelRight_vehicle_final_position_right");
+#if DEBUG_DRAWING
+  DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(accelRight, vehicleState).toPolygon(),
+                        "yellow",
+                        std::to_string(aAfterResponseTime) + "_back_accelRight_vehicle_final_position_right");
 #endif
   auto brakeMaxRight = getFinalTrajectoryPoint(vehicleState,
                                                duration,
@@ -253,10 +250,10 @@ Polygon TrajectoryPedestrian::calculateBackWithDimension(situation::VehicleState
 
   boost::geometry::append(backPolygon,
                           getVehicleCorner(brakeMaxRight, vehicleState.objectState.dimension, VehicleCorner::backLeft));
-#if DRAW_FINAL_POSITION
-  drawFinalPosition(brakeMaxRight,
-                    vehicleState.objectState.dimension,
-                    std::to_string(aAfterResponseTime) + "_back_brakeMaxRight_vehicle_final_position_right");
+#if DEBUG_DRAWING
+  DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(brakeMaxRight, vehicleState).toPolygon(),
+                        "yellow",
+                        std::to_string(aAfterResponseTime) + "_back_brakeMaxRight_vehicle_final_position_right");
 #endif
   auto brakeMaxLeft = getFinalTrajectoryPoint(vehicleState,
                                               duration,
@@ -267,10 +264,10 @@ Polygon TrajectoryPedestrian::calculateBackWithDimension(situation::VehicleState
 
   boost::geometry::append(backPolygon,
                           getVehicleCorner(brakeMaxLeft, vehicleState.objectState.dimension, VehicleCorner::backRight));
-#if DRAW_FINAL_POSITION
-  drawFinalPosition(brakeMaxLeft,
-                    vehicleState.objectState.dimension,
-                    std::to_string(aAfterResponseTime) + "_back_brakeMaxLeft_vehicle_final_position_left");
+#if DEBUG_DRAWING
+  DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(brakeMaxLeft, vehicleState).toPolygon(),
+                        "yellow",
+                        std::to_string(aAfterResponseTime) + "_back_brakeMaxLeft_vehicle_final_position_left");
 #endif
 
   boost::geometry::append(backPolygon, backPolygon.outer().front());

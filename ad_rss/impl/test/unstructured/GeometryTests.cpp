@@ -339,30 +339,6 @@ TEST(GeometryTests, collides)
   ASSERT_TRUE(collides(set1, set2));
 }
 
-TEST(GeometryTests, splitLineAtIntersectionPoint)
-{
-  Line line;
-  boost::geometry::append(line, Point(0., 0.));
-  boost::geometry::append(line, Point(1., 1.));
-  boost::geometry::append(line, Point(3., 3.));
-  Line before;
-  Line after;
-  splitLineAtIntersectionPoint(Point(2., 2.), line, before, after);
-  auto epsilon = 1.e-5;
-  ASSERT_EQ(3, before.size());
-  ASSERT_NEAR(0., before[0].x(), epsilon);
-  ASSERT_NEAR(0., before[0].y(), epsilon);
-  ASSERT_NEAR(1., before[1].x(), epsilon);
-  ASSERT_NEAR(1., before[1].y(), epsilon);
-  ASSERT_NEAR(2., before[2].x(), epsilon);
-  ASSERT_NEAR(2., before[2].y(), epsilon);
-  ASSERT_EQ(2, after.size());
-  ASSERT_NEAR(2., after[0].x(), epsilon);
-  ASSERT_NEAR(2., after[0].y(), epsilon);
-  ASSERT_NEAR(3., after[1].x(), epsilon);
-  ASSERT_NEAR(3., after[1].y(), epsilon);
-}
-
 } // namespace unstructured
 } // namespace rss
 } // namespace ad
