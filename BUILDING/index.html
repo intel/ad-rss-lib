@@ -272,6 +272,7 @@
 <ul>
 <li><strong><em>all components when enabling unit tests</em></strong>:<ul>
 <li>gtest aka. googletests &lt; 1.10 : <a href="https://github.com/google/googletest">https://github.com/google/googletest</a></li>
+<li>xmlrunner</li>
 </ul>
 </li>
 </ul>
@@ -286,8 +287,7 @@
 
 <p>Additional dependencies for the python bindings:</p>
 <pre><code class="bash">$&gt;  sudo apt-get install castxml
-$&gt;  pip install --user pygccxml
-$&gt;  pip install --user https://bitbucket.org/ompl/pyplusplus/get/1.8.1.zip
+$&gt;  pip install --user pygccxml pyplusplus xmlrunner
 </code></pre>
 
 <p>Remaining dependencies:</p>
@@ -330,22 +330,22 @@ Therefore, a full list of step by step calls could look like e.g.:</p>
 <pre><code class="bash"> ad_rss$&gt; mkdir install
  ad_rss$&gt; mkdir -p build/{spdlog,ad_physics,ad_map_opendrive_reader,ad_map_access,ad_rss,ad_rss_map_integration}
  ad_rss$&gt; cd build/spdlog
- ad_rss/build/spdlog$&gt; cmake ../../dependencies/spdlog -DCMAKE_INSTALL_PREFIX=../../install -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DSPDLOG_BUILD_TESTS=OFF -DSPDLOG_BUILD_EXAMPLE=Off
+ ad_rss/build/spdlog$&gt; cmake ../../dependencies/spdlog -DCMAKE_INSTALL_PREFIX=../../install/spdlog -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DSPDLOG_BUILD_TESTS=OFF -DSPDLOG_BUILD_EXAMPLE=Off
  ad_rss/build/spdlog$&gt; make install
  ad_rss/build/spdlog$&gt; cd ../ad_physics
- ad_rss/build/ad_physics$&gt; cmake ../../dependencies/map/ad_physics -DCMAKE_INSTALL_PREFIX=../../install
+ ad_rss/build/ad_physics$&gt; cmake ../../dependencies/map/ad_physics -DCMAKE_INSTALL_PREFIX=../../install/ad_physics -DCMAKE_PREFIX_PATH=../../install/spdlog
  ad_rss/build/ad_physics$&gt; make install
  ad_rss/build/ad_physics$&gt; cd ../ad_map_opendrive_reader
- ad_rss/build/ad_map_opendrive_reader$&gt; cmake ../../dependencies/map/ad_map_opendrive_reader -DCMAKE_INSTALL_PREFIX=../../install
+ ad_rss/build/ad_map_opendrive_reader$&gt; cmake ../../dependencies/map/ad_map_opendrive_reader -DCMAKE_INSTALL_PREFIX=../../install/ad_map_opendrive_reader -DCMAKE_PREFIX_PATH=&quot;../../install/spdlog;../../install/ad_physics&quot;
  ad_rss/build/ad_map_opendrive_reader$&gt; make install
  ad_rss/build/ad_map_opendrive_reader$&gt; cd ../ad_map_access
- ad_rss/build/ad_map_access$&gt; cmake ../../dependencies/map/ad_map_access -DCMAKE_INSTALL_PREFIX=../../install
+ ad_rss/build/ad_map_access$&gt; cmake ../../dependencies/map/ad_map_access -DCMAKE_INSTALL_PREFIX=../../install/ad_map_access -DCMAKE_PREFIX_PATH=&quot;../../install/spdlog;../../install/ad_physics;../../install/ad_map_opendrive_reader&quot;
  ad_rss/build/ad_map_access$&gt; make install
  ad_rss/build/ad_map_access$&gt; cd ../ad_rss
- ad_rss/build/ad_rss$&gt; cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install
+ ad_rss/build/ad_rss$&gt; cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install/ad_rss -DCMAKE_PREFIX_PATH=&quot;../../install/spdlog;../../install/ad_physics&quot;
  ad_rss/build/ad_rss$&gt; make install
  ad_rss/build/ad_rss$&gt; cd ../ad_rss_map_integration
- ad_rss/build/ad_rss_map_integration$&gt; cmake ../../ad_rss_map_integration -DCMAKE_INSTALL_PREFIX=../../install
+ ad_rss/build/ad_rss_map_integration$&gt; cmake ../../ad_rss_map_integration -DCMAKE_INSTALL_PREFIX=../../install/ad_rss_map_integration -DCMAKE_PREFIX_PATH=&quot;../../install/spdlog;../../install/ad_physics;../../install/ad_map_opendrive_reader;../../install/ad_map_access;../../install/ad_rss&quot;
  ad_rss/build/ad_rss_map_integration$&gt; make install
  ad_rss/build/ad_rss_map_integration$&gt; cd ../..
  ad_rss$&gt; echo &quot;Hurray, all built!&quot;
@@ -364,14 +364,14 @@ e.g. "-DBUILD_TESTING=ON -DBUILD_APIDOC=ON".</p>
 <h4>Unit tests</h4>
 <p>When BUILD_TESTING is enabled, the "make" call will automatically compile the Unit tests.
 They can be executed using CMake's ctest application.</p>
-<pre><code class="bash"> ad_rss/build/ad_rss$&gt; cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install -DBUILD_TESTING=ON
+<pre><code class="bash"> ad_rss/build/ad_rss$&gt; cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install/ad_rss -DCMAKE_PREFIX_PATH=&quot;../../install/spdlog;../../install/ad_physics&quot; -DBUILD_TESTING=ON
  ad_rss/build/ad_rss$&gt; make install
  ad_rss/build/ad_rss$&gt; ctest
 </code></pre>
 
 <h4>API documentation</h4>
 <p>When BUILD_APIDOC is enabled, the "make" call will automatically generate the API documentation.</p>
-<pre><code class="bash"> ad_rss/build/ad_rss$&gt; cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install -DBUILD_APIDOC=ON
+<pre><code class="bash"> ad_rss/build/ad_rss$&gt; cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install/ad_rss -DCMAKE_PREFIX_PATH=&quot;../../install/spdlog;../../install/ad_physics&quot; -DBUILD_APIDOC=ON
  ad_rss/build/ad_rss$&gt; make install
 </code></pre>
 
@@ -379,13 +379,13 @@ They can be executed using CMake's ctest application.</p>
 <h4>Build hardening</h4>
 <p>Usually, build hardening is injected by the surrounding build system. Nevertheless, the CMakeLists.txt defines
 hardening flags to ensure the code is compatible to respective flags. To enable hardening compiler and linker flags:</p>
-<pre><code class="bash"> ad_rss/build/ad_rss$&gt; cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install -DBUILD_HARDENING=ON
+<pre><code class="bash"> ad_rss/build/ad_rss$&gt; cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install/ad_rss -DCMAKE_PREFIX_PATH=&quot;../../install/spdlog;../../install/ad_physics&quot; -DBUILD_HARDENING=ON
  ad_rss/build/ad_rss$&gt; make install
 </code></pre>
 
 <h4>Python binding</h4>
-<p>With this option enabled, Python bindings are generated and compiled. This option is disabled by default.</p>
-<pre><code class="bash"> ad_rss/build/ad_rss$&gt; cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install -DBUILD_PYTHON_BINDING=ON
+<p>With this option enabled, Python bindings are generated and compiled. This option is disabled by default. You have to enable the python binding also on the respective dependent component. ad_physics in this case.</p>
+<pre><code class="bash"> ad_rss/build/ad_rss$&gt; cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install/ad_rss -DCMAKE_PREFIX_PATH=&quot;../../install/spdlog;../../install/ad_physics&quot; -DBUILD_PYTHON_BINDING=ON
  ad_rss/build/ad_rss$&gt; make install
 </code></pre>
               

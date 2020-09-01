@@ -97,6 +97,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;boost/geometry/geometries/geometries.hpp&gt;</code><br />
 <code>#include &lt;boost/geometry/geometries/point_xy.hpp&gt;</code><br />
 <code>#include &lt;boost/geometry/geometries/polygon.hpp&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
 <code>#include &quot;ad/physics/AngleOperation.hpp&quot;</code><br />
 <code>#include &quot;ad/physics/Distance.hpp&quot;</code><br />
 <code>#include &quot;<a class="el" href="HeadingRange_8hpp_source.html">ad/rss/state/HeadingRange.hpp</a>&quot;</code><br />
@@ -106,8 +107,8 @@ Include dependency graph for Geometry.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="Geometry_8hpp__incl.png" border="0" usemap="#impl_2include_2ad_2rss_2unstructured_2Geometry_8hpp" alt=""/></div>
 <map name="impl_2include_2ad_2rss_2unstructured_2Geometry_8hpp" id="impl_2include_2ad_2rss_2unstructured_2Geometry_8hpp">
-<area shape="rect" id="node8" href="HeadingRange_8hpp.html" title="ad/rss/state/HeadingRange.hpp" alt="" coords="1513,102,1736,129"/>
-<area shape="rect" id="node14" href="UnstructuredTrajectorySet_8hpp.html" title="ad/rss/world/Unstructured\lTrajectorySet.hpp" alt="" coords="1302,95,1489,136"/>
+<area shape="rect" id="node9" href="HeadingRange_8hpp.html" title="ad/rss/state/HeadingRange.hpp" alt="" coords="1117,102,1340,129"/>
+<area shape="rect" id="node14" href="UnstructuredTrajectorySet_8hpp.html" title="ad/rss/world/Unstructured\lTrajectorySet.hpp" alt="" coords="857,95,1043,136"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -144,6 +145,9 @@ typedef boost::geometry::model::linestring&lt; Point &gt;&#160;</td><td class="m
 <tr class="memitem:a6a33464df9ab710a1e70656733d48003"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6a33464df9ab710a1e70656733d48003"></a>
 typedef boost::geometry::model::polygon&lt; Point, false &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ad::rss::unstructured::Polygon</b></td></tr>
 <tr class="separator:a6a33464df9ab710a1e70656733d48003"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7ae6a1b4f0a4350485acc39a1dc6d61"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac7ae6a1b4f0a4350485acc39a1dc6d61"></a>
+typedef boost::geometry::model::multi_point&lt; Point &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ad::rss::unstructured::MultiPoint</b></td></tr>
+<tr class="separator:ac7ae6a1b4f0a4350485acc39a1dc6d61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -187,17 +191,73 @@ Functions</h2></td></tr>
 <tr class="memitem:a679ba1838ea305cd7db9dce0b3d5b282"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1unstructured.html#a679ba1838ea305cd7db9dce0b3d5b282">ad::rss::unstructured::collides</a> (world::UnstructuredTrajectorySet const &amp;trajectorySet1, world::UnstructuredTrajectorySet const &amp;trajectorySet2)</td></tr>
 <tr class="memdesc:a679ba1838ea305cd7db9dce0b3d5b282"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if two trajectory sets collide  <a href="namespacead_1_1rss_1_1unstructured.html#a679ba1838ea305cd7db9dce0b3d5b282">More...</a><br /></td></tr>
 <tr class="separator:a679ba1838ea305cd7db9dce0b3d5b282"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a652ff0e6616764d8289d2ae5bd0e4887"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1unstructured.html#a652ff0e6616764d8289d2ae5bd0e4887">ad::rss::unstructured::splitLineAtIntersectionPoint</a> (Point const &amp;intersectionPoint, Line const &amp;line, Line &amp;before, Line &amp;after)</td></tr>
-<tr class="memdesc:a652ff0e6616764d8289d2ae5bd0e4887"><td class="mdescLeft">&#160;</td><td class="mdescRight">split a line at an intersection point  <a href="namespacead_1_1rss_1_1unstructured.html#a652ff0e6616764d8289d2ae5bd0e4887">More...</a><br /></td></tr>
-<tr class="separator:a652ff0e6616764d8289d2ae5bd0e4887"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48473ee9f7cc910c8cf1acbcba28125d"><td class="memItemLeft" align="right" valign="top">ad::rss::unstructured::Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Geometry_8hpp.html#a48473ee9f7cc910c8cf1acbcba28125d">operator+</a> (ad::rss::unstructured::Point const &amp;a, ad::rss::unstructured::Point const &amp;b)</td></tr>
 <tr class="memdesc:a48473ee9f7cc910c8cf1acbcba28125d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point operation: vector addition.  <a href="#a48473ee9f7cc910c8cf1acbcba28125d">More...</a><br /></td></tr>
 <tr class="separator:a48473ee9f7cc910c8cf1acbcba28125d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb0897ddb37bc0384433c2d6e743e504"><td class="memItemLeft" align="right" valign="top">ad::rss::unstructured::Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Geometry_8hpp.html#afb0897ddb37bc0384433c2d6e743e504">operator-</a> (ad::rss::unstructured::Point const &amp;a, ad::rss::unstructured::Point const &amp;b)</td></tr>
 <tr class="memdesc:afb0897ddb37bc0384433c2d6e743e504"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point operation: vector subtraction.  <a href="#afb0897ddb37bc0384433c2d6e743e504">More...</a><br /></td></tr>
 <tr class="separator:afb0897ddb37bc0384433c2d6e743e504"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f209b187665df674c6481a91fbcc911"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Geometry_8hpp.html#a9f209b187665df674c6481a91fbcc911">operator==</a> (ad::rss::unstructured::Point const &amp;a, ad::rss::unstructured::Point const &amp;b)</td></tr>
+<tr class="memdesc:a9f209b187665df674c6481a91fbcc911"><td class="mdescLeft">&#160;</td><td class="mdescRight">comparison operation: Point  <a href="#a9f209b187665df674c6481a91fbcc911">More...</a><br /></td></tr>
+<tr class="separator:a9f209b187665df674c6481a91fbcc911"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36506063154097c341063641331ac94c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Geometry_8hpp.html#a36506063154097c341063641331ac94c">operator!=</a> (ad::rss::unstructured::Point const &amp;a, ad::rss::unstructured::Point const &amp;b)</td></tr>
+<tr class="memdesc:a36506063154097c341063641331ac94c"><td class="mdescLeft">&#160;</td><td class="mdescRight">comparison operation: Points not equal  <a href="#a36506063154097c341063641331ac94c">More...</a><br /></td></tr>
+<tr class="separator:a36506063154097c341063641331ac94c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fca85877eeb5626c0b3418361c76637"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Geometry_8hpp.html#a9fca85877eeb5626c0b3418361c76637">std::to_string</a> (ad::rss::unstructured::Point const &amp;value)</td></tr>
+<tr class="memdesc:a9fca85877eeb5626c0b3418361c76637"><td class="mdescLeft">&#160;</td><td class="mdescRight">to_string overload for Point  <a href="Geometry_8hpp.html#a9fca85877eeb5626c0b3418361c76637">More...</a><br /></td></tr>
+<tr class="separator:a9fca85877eeb5626c0b3418361c76637"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c6b6cf1d8fb29618bd33e2d63729471"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Geometry_8hpp.html#a0c6b6cf1d8fb29618bd33e2d63729471">std::to_string</a> (ad::rss::unstructured::Polygon const &amp;value)</td></tr>
+<tr class="memdesc:a0c6b6cf1d8fb29618bd33e2d63729471"><td class="mdescLeft">&#160;</td><td class="mdescRight">to_string overload for Polygon  <a href="Geometry_8hpp.html#a0c6b6cf1d8fb29618bd33e2d63729471">More...</a><br /></td></tr>
+<tr class="separator:a0c6b6cf1d8fb29618bd33e2d63729471"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a853bfd0b9a1d140823451871845b6aca"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Geometry_8hpp.html#a853bfd0b9a1d140823451871845b6aca">std::to_string</a> (ad::rss::unstructured::Line value)</td></tr>
+<tr class="memdesc:a853bfd0b9a1d140823451871845b6aca"><td class="mdescLeft">&#160;</td><td class="mdescRight">to_string overload for Line  <a href="Geometry_8hpp.html#a853bfd0b9a1d140823451871845b6aca">More...</a><br /></td></tr>
+<tr class="separator:a853bfd0b9a1d140823451871845b6aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a36506063154097c341063641331ac94c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator!= </td>
+          <td>(</td>
+          <td class="paramtype">ad::rss::unstructured::Point const &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ad::rss::unstructured::Point const &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>comparison operation: Points not equal </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>point a </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>point b</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a != b </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a48473ee9f7cc910c8cf1acbcba28125d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -283,6 +343,149 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>c = a - b </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9f209b187665df674c6481a91fbcc911"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator== </td>
+          <td>(</td>
+          <td class="paramtype">ad::rss::unstructured::Point const &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ad::rss::unstructured::Point const &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>comparison operation: Point </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>point a </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>point b</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a == b </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="file_a9fca85877eeb5626c0b3418361c76637"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string std::to_string </td>
+          <td>(</td>
+          <td class="paramtype">ad::rss::unstructured::Point const &amp;&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>to_string overload for Point </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>a point</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string describing point </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="file_a0c6b6cf1d8fb29618bd33e2d63729471"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string std::to_string </td>
+          <td>(</td>
+          <td class="paramtype">ad::rss::unstructured::Polygon const &amp;&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>to_string overload for Polygon </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>a polygon</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string describing polygon </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="file_a853bfd0b9a1d140823451871845b6aca"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string std::to_string </td>
+          <td>(</td>
+          <td class="paramtype">ad::rss::unstructured::Line&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>to_string overload for Line </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>a line</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string describing line </dd></dl>
 
 </div>
 </div>

@@ -113,6 +113,9 @@ typedef boost::geometry::model::linestring&lt; Point &gt;&#160;</td><td class="m
 <tr class="memitem:a6a33464df9ab710a1e70656733d48003"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6a33464df9ab710a1e70656733d48003"></a>
 typedef boost::geometry::model::polygon&lt; Point, false &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Polygon</b></td></tr>
 <tr class="separator:a6a33464df9ab710a1e70656733d48003"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7ae6a1b4f0a4350485acc39a1dc6d61"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac7ae6a1b4f0a4350485acc39a1dc6d61"></a>
+typedef boost::geometry::model::multi_point&lt; Point &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>MultiPoint</b></td></tr>
+<tr class="separator:ac7ae6a1b4f0a4350485acc39a1dc6d61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -156,9 +159,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a679ba1838ea305cd7db9dce0b3d5b282"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1unstructured.html#a679ba1838ea305cd7db9dce0b3d5b282">collides</a> (<a class="el" href="namespacead_1_1rss_1_1world.html#aacc0460b854a547da2790778846c07d3">world::UnstructuredTrajectorySet</a> const &amp;trajectorySet1, <a class="el" href="namespacead_1_1rss_1_1world.html#aacc0460b854a547da2790778846c07d3">world::UnstructuredTrajectorySet</a> const &amp;trajectorySet2)</td></tr>
 <tr class="memdesc:a679ba1838ea305cd7db9dce0b3d5b282"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if two trajectory sets collide  <a href="#a679ba1838ea305cd7db9dce0b3d5b282">More...</a><br /></td></tr>
 <tr class="separator:a679ba1838ea305cd7db9dce0b3d5b282"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a652ff0e6616764d8289d2ae5bd0e4887"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1unstructured.html#a652ff0e6616764d8289d2ae5bd0e4887">splitLineAtIntersectionPoint</a> (Point const &amp;intersectionPoint, Line const &amp;line, Line &amp;before, Line &amp;after)</td></tr>
-<tr class="memdesc:a652ff0e6616764d8289d2ae5bd0e4887"><td class="mdescLeft">&#160;</td><td class="mdescRight">split a line at an intersection point  <a href="#a652ff0e6616764d8289d2ae5bd0e4887">More...</a><br /></td></tr>
-<tr class="separator:a652ff0e6616764d8289d2ae5bd0e4887"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>namespace situation </p>
@@ -504,55 +504,6 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>rotated point </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a652ff0e6616764d8289d2ae5bd0e4887"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ad::rss::unstructured::splitLineAtIntersectionPoint </td>
-          <td>(</td>
-          <td class="paramtype">Point const &amp;&#160;</td>
-          <td class="paramname"><em>intersectionPoint</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Line const &amp;&#160;</td>
-          <td class="paramname"><em>line</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Line &amp;&#160;</td>
-          <td class="paramname"><em>before</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Line &amp;&#160;</td>
-          <td class="paramname"><em>after</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>split a line at an intersection point </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">intersectionPoint</td><td>point to split a line at </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">line</td><td>line to split </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">before</td><td>line before the intersection point </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">after</td><td>line after the intersection point </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>

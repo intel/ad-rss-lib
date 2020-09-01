@@ -31,17 +31,17 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">24</td>
-            <td class="headerCovTableEntry">28</td>
-            <td class="headerCovTableEntryMed">85.7 %</td>
+            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntry">15</td>
+            <td class="headerCovTableEntryHi">93.3 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-07-21 14:39:14</td>
+            <td class="headerValue">2020-09-01 13:49:15</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">4</td>
-            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">37</td>
-            <td class="headerCovTableEntry">71</td>
-            <td class="headerCovTableEntryLo">52.1 %</td>
+            <td class="headerCovTableEntry">28</td>
+            <td class="headerCovTableEntry">55</td>
+            <td class="headerCovTableEntryLo">50.9 %</td>
           </tr>
           <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -97,74 +97,48 @@
 <span class="lineNum">      26 </span>                :            :  */
 <a name="27"><span class="lineNum">      27 </span>                :            : namespace unstructured {</a>
 <span class="lineNum">      28 </span>                :            : 
-<span class="lineNum">      29 </span>                :<span class="lineCov">       6086 : Point getVehicleCorner(TrajectoryPoint const &amp;point,</span>
+<span class="lineNum">      29 </span>                :<span class="lineCov">        720 : Point getVehicleCorner(TrajectoryPoint const &amp;point,</span>
 <span class="lineNum">      30 </span>                :            :                        ad::physics::Dimension2D const &amp;vehicleDimension,
 <span class="lineNum">      31 </span>                :            :                        VehicleCorner const corner)
 <span class="lineNum">      32 </span>                :            : {
-<span class="lineNum">      33 </span>        [<span class="branchCov" title="Branch 1 was taken 6086 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       6086 :   Point resultPoint;</span>
-<span class="lineNum">      34 </span>        [<span class="branchCov" title="Branch 1 was taken 6086 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       6086 :   auto const vehicleAngle = point.angle - ad::physics::cPI_2;</span>
-<span class="lineNum">      35 </span>  [<span class="branchCov" title="Branch 0 was taken 2520 times"> + </span><span class="branchCov" title="Branch 1 was taken 1823 times"> + </span><span class="branchCov" title="Branch 2 was taken 880 times"> + </span><span class="branchCov" title="Branch 3 was taken 863 times"> + </span> :<span class="lineCov">       6086 :   switch (corner)</span>
+<span class="lineNum">      33 </span>        [<span class="branchCov" title="Branch 1 was taken 720 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        720 :   Point resultPoint;</span>
+<span class="lineNum">      34 </span>        [<span class="branchCov" title="Branch 1 was taken 720 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        720 :   auto const vehicleAngle = point.angle - ad::physics::cPI_2;</span>
+<span class="lineNum">      35 </span>  [<span class="branchCov" title="Branch 0 was taken 180 times"> + </span><span class="branchCov" title="Branch 1 was taken 180 times"> + </span><span class="branchCov" title="Branch 2 was taken 180 times"> + </span><span class="branchCov" title="Branch 3 was taken 180 times"> + </span> :<span class="lineCov">        720 :   switch (corner)</span>
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 4 was not taken"> - </span>]
 <span class="lineNum">      36 </span>                :            :   {
 <span class="lineNum">      37 </span>                :            :     case VehicleCorner::frontLeft:
 <span class="lineNum">      38 </span>                :            :       resultPoint = rotateAroundPoint(
-<span class="lineNum">      39 </span>[<span class="branchCov" title="Branch 1 was taken 2520 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 2520 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">       2520 :         point.position, toPoint(-vehicleDimension.width / 2.0, vehicleDimension.length / 2.0), vehicleAngle);</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 2520 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 2520 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 13 was taken 2520 times"> + </span><span class="branchNoCov" title="Branch 14 was not taken"> - </span>]
-<span class="lineNum">      40 </span>                :<span class="lineCov">       2520 :       break;</span>
+<span class="lineNum">      39 </span>[<span class="branchCov" title="Branch 1 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        180 :         point.position, toPoint(-vehicleDimension.width / 2.0, vehicleDimension.length / 2.0), vehicleAngle);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 13 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 14 was not taken"> - </span>]
+<span class="lineNum">      40 </span>                :<span class="lineCov">        180 :       break;</span>
 <span class="lineNum">      41 </span>                :            :     case VehicleCorner::frontRight:
 <span class="lineNum">      42 </span>                :            :       resultPoint = rotateAroundPoint(
-<span class="lineNum">      43 </span>[<span class="branchCov" title="Branch 1 was taken 1823 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 1823 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">       1823 :         point.position, toPoint(vehicleDimension.width / 2.0, vehicleDimension.length / 2.0), vehicleAngle);</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 1823 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 1823 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
-<span class="lineNum">      44 </span>                :<span class="lineCov">       1823 :       break;</span>
+<span class="lineNum">      43 </span>[<span class="branchCov" title="Branch 1 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        180 :         point.position, toPoint(vehicleDimension.width / 2.0, vehicleDimension.length / 2.0), vehicleAngle);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">      44 </span>                :<span class="lineCov">        180 :       break;</span>
 <span class="lineNum">      45 </span>                :            :     case VehicleCorner::backLeft:
 <span class="lineNum">      46 </span>                :            :       resultPoint = rotateAroundPoint(
-<span class="lineNum">      47 </span>[<span class="branchCov" title="Branch 1 was taken 880 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 880 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        880 :         point.position, toPoint(-vehicleDimension.width / 2.0, -vehicleDimension.length / 2.0), vehicleAngle);</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 880 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 880 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 13 was taken 880 times"> + </span><span class="branchNoCov" title="Branch 14 was not taken"> - </span>][<span class="branchCov" title="Branch 16 was taken 880 times"> + </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span>]
-<span class="lineNum">      48 </span>                :<span class="lineCov">        880 :       break;</span>
+<span class="lineNum">      47 </span>[<span class="branchCov" title="Branch 1 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        180 :         point.position, toPoint(-vehicleDimension.width / 2.0, -vehicleDimension.length / 2.0), vehicleAngle);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 13 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 14 was not taken"> - </span>][<span class="branchCov" title="Branch 16 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span>]
+<span class="lineNum">      48 </span>                :<span class="lineCov">        180 :       break;</span>
 <span class="lineNum">      49 </span>                :            :     case VehicleCorner::backRight:
 <span class="lineNum">      50 </span>                :            :       resultPoint = rotateAroundPoint(
-<span class="lineNum">      51 </span>[<span class="branchCov" title="Branch 1 was taken 863 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 863 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        863 :         point.position, toPoint(vehicleDimension.width / 2.0, -vehicleDimension.length / 2.0), vehicleAngle);</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 863 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 863 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 13 was taken 863 times"> + </span><span class="branchNoCov" title="Branch 14 was not taken"> - </span>]
-<span class="lineNum">      52 </span>                :<span class="lineCov">        863 :       break;</span>
+<span class="lineNum">      51 </span>[<span class="branchCov" title="Branch 1 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        180 :         point.position, toPoint(vehicleDimension.width / 2.0, -vehicleDimension.length / 2.0), vehicleAngle);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 7 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>][<span class="branchCov" title="Branch 10 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 13 was taken 180 times"> + </span><span class="branchNoCov" title="Branch 14 was not taken"> - </span>]
+<span class="lineNum">      52 </span>                :<span class="lineCov">        180 :       break;</span>
 <span class="lineNum">      53 </span>                :            :     default:
 <span class="lineNum">      54 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :       throw std::runtime_error(&quot;unstructured::getVehicleCorner&gt;&gt; invalid corner requested&quot;);</span>
 <span class="lineNum">      55 </span>                :            :       break;
 <span class="lineNum">      56 </span>                :            :   }
-<span class="lineNum">      57 </span>                :<span class="lineCov">       6086 :   return resultPoint;</span>
-<a name="58"><span class="lineNum">      58 </span>                :            : }</a>
+<span class="lineNum">      57 </span>                :<span class="lineCov">        720 :   return resultPoint;</span>
+<span class="lineNum">      58 </span>                :            : }
 <span class="lineNum">      59 </span>                :            : 
-<span class="lineNum">      60 </span>                :<span class="lineCov">         40 : bool checkAndFixPolygon(Polygon &amp;polygon, std::string const &amp;description)</span>
-<span class="lineNum">      61 </span>                :            : {
-<span class="lineNum">      62 </span>                :            :   boost::geometry::validity_failure_type failure;
-<span class="lineNum">      63 </span>                :<span class="lineCov">         40 :   auto recheck = true;</span>
-<span class="lineNum">      64 </span>                :<span class="lineCov">         40 :   auto result = true;</span>
-<span class="lineNum">      65 </span>        [<span class="branchCov" title="Branch 0 was taken 40 times"> + </span><span class="branchCov" title="Branch 1 was taken 40 times"> + </span>]:<span class="lineCov">         80 :   while (recheck)</span>
-<span class="lineNum">      66 </span>                :            :   {
-<span class="lineNum">      67 </span>                :<span class="lineCov">         40 :     recheck = false;</span>
-<span class="lineNum">      68 </span>        [<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         40 :     result = boost::geometry::is_valid(polygon, failure);</span>
-<span class="lineNum">      69 </span>                :            : 
-<span class="lineNum">      70 </span>[<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 37 times"> + </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span>]:<span class="lineCov">         40 :     if (!result &amp;&amp; (failure == boost::geometry::failure_spikes))</span>
-<span class="lineNum">      71 </span>                :            :     {
-<span class="lineNum">      72 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :       spdlog::debug(&quot;{} polygon: Remove spikes&quot;, description);</span>
-<span class="lineNum">      73 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       boost::geometry::remove_spikes(polygon);</span>
-<span class="lineNum">      74 </span>                :<span class="lineNoCov">          0 :       recheck = true;</span>
-<span class="lineNum">      75 </span>                :            :     }
-<span class="lineNum">      76 </span>                :            :   }
-<span class="lineNum">      77 </span>                :            : 
-<span class="lineNum">      78 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 37 times"> + </span>]:<span class="lineCov">         40 :   if (!result)</span>
-<span class="lineNum">      79 </span>                :            :   {
-<span class="lineNum">      80 </span>        [<span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          3 :     spdlog::debug(&quot;{} polygon invalid. {}&quot;, description, failure);</span>
-<span class="lineNum">      81 </span>                :            :     // DebugDrawing::getInstance()-&gt;drawPolygon(polygon, &quot;orange&quot;, &quot;dbg_&quot; + description);
-<span class="lineNum">      82 </span>                :            :   }
-<span class="lineNum">      83 </span>                :<span class="lineCov">         40 :   return result;</span>
-<span class="lineNum">      84 </span>                :            : }
-<span class="lineNum">      85 </span>                :            : 
-<a name="86"><span class="lineNum">      86 </span>                :            : } // namespace unstructured</a>
-<span class="lineNum">      87 </span>                :            : } // namespace rss
-<span class="lineNum">      88 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
+<a name="60"><span class="lineNum">      60 </span>                :            : } // namespace unstructured</a>
+<span class="lineNum">      61 </span>                :            : } // namespace rss
+<span class="lineNum">      62 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
 </pre>
       </td>
     </tr>

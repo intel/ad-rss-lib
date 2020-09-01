@@ -35,7 +35,6 @@ var searchData=
   ['speedlon',['speedLon',['../structad_1_1rss_1_1situation_1_1VelocityRange.html#ab5cd91ed8e3d065cbf30978425c7a165',1,'ad::rss::situation::VelocityRange']]],
   ['speedlonmax',['speedLonMax',['../structad_1_1rss_1_1world_1_1Velocity.html#a01e4c0479e1df0a1229bdc8be101ecda',1,'ad::rss::world::Velocity']]],
   ['speedlonmin',['speedLonMin',['../structad_1_1rss_1_1world_1_1Velocity.html#a217e9ae1f3d52cd4b2ea25283a618a3a',1,'ad::rss::world::Velocity']]],
-  ['splitlineatintersectionpoint',['splitLineAtIntersectionPoint',['../namespacead_1_1rss_1_1unstructured.html#a652ff0e6616764d8289d2ae5bd0e4887',1,'ad::rss::unstructured']]],
   ['state',['state',['../structad_1_1rss_1_1world_1_1Object.html#ae2b3e2d49063cf57298cc4b77ed6137b',1,'ad::rss::world::Object']]],
   ['steeringangle',['steeringAngle',['../structad_1_1rss_1_1world_1_1ObjectState.html#a3f67b3ed4c8e0f34969afb4f7d25960a',1,'ad::rss::world::ObjectState']]]
 ];
