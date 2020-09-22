@@ -55,7 +55,7 @@ TEST_P(RssCheckOppositeDirectionEgoCorrectOutOfMemoryTest, outOfMemoryAnyTime)
 }
 INSTANTIATE_TEST_CASE_P(Range,
                         RssCheckOppositeDirectionEgoCorrectOutOfMemoryTest,
-                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
+                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u), );
 
 TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities_NoLateralConflict)
 {
@@ -128,7 +128,7 @@ TEST_P(RssCheckOppositeDirectionOtherCorrectOutOfMemoryTest, outOfMemoryAnyTime)
 }
 INSTANTIATE_TEST_CASE_P(Range,
                         RssCheckOppositeDirectionOtherCorrectOutOfMemoryTest,
-                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
+                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u), );
 
 template <class TESTBASE> class RssCheckOppositeDirectionBothCorrectTestBase : public TESTBASE
 {
@@ -178,7 +178,7 @@ TEST_P(RssCheckOppositeDirectionBothCorrectOutOfMemoryTest, outOfMemoryAnyTime)
 }
 INSTANTIATE_TEST_CASE_P(Range,
                         RssCheckOppositeDirectionBothCorrectOutOfMemoryTest,
-                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
+                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u), );
 
 } // namespace core
 } // namespace rss

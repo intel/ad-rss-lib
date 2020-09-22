@@ -273,7 +273,7 @@ TEST_P(RssCheckSameDirectionOtherLeadingOutOfMemoryTest, outOfMemoryAnyTime)
 }
 INSTANTIATE_TEST_CASE_P(Range,
                         RssCheckSameDirectionOtherLeadingOutOfMemoryTest,
-                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
+                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u), );
 
 using RssCheckSameDirectionEgoLeadingOutOfMemoryTest
   = RssCheckSameDirectionEgoLeadingTestBase<RssCheckOutOfMemoryTestBase>;
@@ -283,7 +283,7 @@ TEST_P(RssCheckSameDirectionEgoLeadingOutOfMemoryTest, outOfMemoryAnyTime)
 }
 INSTANTIATE_TEST_CASE_P(Range,
                         RssCheckSameDirectionEgoLeadingOutOfMemoryTest,
-                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
+                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u), );
 
 using RssCheckSameDirectionEgoInTheMiddleOutOfMemoryTest
   = RssCheckSameDirectionEgoInTheMiddleTestBase<RssCheckOutOfMemoryTestBase>;
@@ -293,7 +293,7 @@ TEST_P(RssCheckSameDirectionEgoInTheMiddleOutOfMemoryTest, outOfMemoryAnyTime)
 }
 INSTANTIATE_TEST_CASE_P(Range,
                         RssCheckSameDirectionEgoInTheMiddleOutOfMemoryTest,
-                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
+                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u), );
 
 } // namespace core
 } // namespace rss

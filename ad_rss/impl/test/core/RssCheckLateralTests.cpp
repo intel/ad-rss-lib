@@ -34,7 +34,7 @@ TEST_P(RssCheckLateralEgoRightOutOfMemoryTest, outOfMemoryAnyTime)
 }
 INSTANTIATE_TEST_CASE_P(Range,
                         RssCheckLateralEgoRightOutOfMemoryTest,
-                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
+                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u), );
 
 TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Towards_Each_Other)
 {
@@ -141,7 +141,7 @@ TEST_P(RssCheckLateralEgoLeftOutOfMemoryTest, outOfMemoryAnyTime)
 }
 INSTANTIATE_TEST_CASE_P(Range,
                         RssCheckLateralEgoLeftOutOfMemoryTest,
-                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
+                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u), );
 
 TEST_F(RssCheckLateralEgoLeftTest, Lateral_Velocity_Towards_Each_Other)
 {
@@ -319,7 +319,7 @@ TEST_P(RssCheckLateralEgoInTheMiddleOutOfMemoryTest, outOfMemoryAnyTime)
 }
 INSTANTIATE_TEST_CASE_P(Range,
                         RssCheckLateralEgoInTheMiddleOutOfMemoryTest,
-                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
+                        ::testing::Range(uint64_t(0u), uint64_t(50u), 1u), );
 
 TEST_F(RssCheckLateralEgoInTheMiddleTest, No_Lateral_Velocity)
 {
