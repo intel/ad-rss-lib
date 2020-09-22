@@ -20,6 +20,7 @@ import os
 
 import ad
 
+
 class AdRssMapIntegrationPythonTest(unittest.TestCase):
 
     """
@@ -104,8 +105,8 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
 
         # laneId: offset  120149:0.16
         positionEndGeo = ad.map.point.createGeoPoint(ad.map.point.Longitude(8.00188527300496979),
-                                              ad.map.point.Latitude(48.99821051747871792),
-                                              ad.map.point.Altitude(0.))
+                                                     ad.map.point.Latitude(48.99821051747871792),
+                                                     ad.map.point.Altitude(0.))
 
         self.egoRoute = ad.map.route.planRoute(
             self.egoObject.mapMatchedBoundingBox.referencePointPositions[

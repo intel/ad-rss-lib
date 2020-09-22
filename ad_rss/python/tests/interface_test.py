@@ -20,6 +20,7 @@ import os
 
 import ad
 
+
 class AdRssPythonTest(unittest.TestCase):
 
     """
