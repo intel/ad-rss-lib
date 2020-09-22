@@ -15,6 +15,8 @@ from pyplusplus import module_builder, decl_wrappers
 
 import fileinput
 
+import warnings
+
 
 def get_list_of_files(directory, ignore_files):
     """
@@ -60,6 +62,8 @@ def generate_python_wrapper(header_directories, include_paths, library_name, cpp
     :type ignore_files: list<string>
     :return:
     """
+
+    warnings.filterwarnings(action="once", category=DeprecationWarning)
 
     # Find out the xml generator (gccxml or castxml)
     generator_path, generator_name = utils.find_xml_generator()
@@ -114,8 +118,9 @@ def generate_python_wrapper(header_directories, include_paths, library_name, cpp
         top_namespace_split = main_namespace.find(":")
         top_namespace = ""
         if top_namespace_split > 1:
-            top_namespace = main_namespace[:top_namespace_split+2]
-        print("Main namespace defined, namespace filtering enabled: top-namespace '{}' main-namespace '{}'".format(top_namespace, main_namespace))
+            top_namespace = main_namespace[:top_namespace_split + 2]
+        print("Main namespace defined, namespace filtering enabled: top-namespace '{}' main-namespace '{}'".format(
+            top_namespace, main_namespace))
 
     for decl in builder.decls():
         for ignore_declaration in ignore_declarations:
@@ -124,7 +129,7 @@ def generate_python_wrapper(header_directories, include_paths, library_name, cpp
                 decl.ignore = True
                 decl.already_exposed = True
                 # print("declaration to ignore found: {} (alias {})".format(decl, decl.alias))
-                break;
+                break
         if main_namespace != "":
             if isinstance(decl, decl_wrappers.class_wrapper.class_t) or isinstance(decl, decl_wrappers.class_wrapper.class_declaration_t) or isinstance(decl, decl_wrappers.typedef_wrapper.typedef_t):
                 decl_full_string = "{}".format(decl)
@@ -155,7 +160,11 @@ def generate_python_wrapper(header_directories, include_paths, library_name, cpp
     builder.build_code_creator(module_name=library_name)
 
     # Writes the C++ interface file
+    if os.path.exists(cpp_filename):
+        os.remove(cpp_filename)
     builder.write_module(cpp_filename)
+
+    print("generate_python_wrapper(): {} written.".format(cpp_filename))
 
 
 def post_process_python_wrapper(header_directories, cpp_filename_in, cpp_filename_out, additional_replacements={}, additional_includes={}, spdx_license="MIT", fix_include_directives=True, fix_enum_class=True):
@@ -242,3 +251,5 @@ def post_process_python_wrapper(header_directories, cpp_filename_in, cpp_filenam
 
     file_output.write("\n#pragma GCC diagnostic pop\n"
                       "// clang-format on\n")
+
+    print("post_process_python_wrapper(): {} written.".format(cpp_filename_out))

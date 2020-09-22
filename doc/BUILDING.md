@@ -12,6 +12,7 @@ The components within this repository have some dependencies:
  - **ad_rss_map_integration**:
    - *ad_rss*
    - ad_map_access: <https://github.com/carla-simulator/map.git>
+      - proj: <https://www.osgeo.org/projects/proj/>
    - spdlog: <https://github.com/gabime/spdlog.git>
    - **ad_rss_map_integration_python** (if Python binding build enabled):
      - ad_map_access_python: <https://github.com/carla-simulator/map.git>
@@ -44,6 +45,7 @@ Remaining dependencies:
  - ad_map_access
  - ad_physics
  - spdlog
+ - proj
 
 ## Building
 For compiling all libraries (and potentially also some dependencies), it is suggested to use [colcon](https://colcon.readthedocs.io/).
@@ -76,13 +78,20 @@ colcon meta file:
 ```bash
  ad_rss$> colcon build --metas colcon_python.meta
 ```
+__colcon_python.meta__ enables python build (-DBUILD_PYTHON_BINDING=ON) and
+as well static build (-DBUILD_SHARED_LIBS=OFF) to ease the usage of the python modules
+as they don't require extending the LD_LIBRARY_PATH when linked statically against its non-system dependencies.
+
 
 ### Plain CMake build
 The ad_rss (same applies to the other libraries) library is built with a standard cmake toolchain.
 Therefore, a full list of step by step calls could look like e.g.:
 ```bash
  ad_rss$> mkdir install
- ad_rss$> mkdir -p build/{spdlog,ad_physics,ad_map_opendrive_reader,ad_map_access,ad_rss,ad_rss_map_integration}
+ ad_rss$> mkdir -p build/{proj,spdlog,ad_physics,ad_map_opendrive_reader,ad_map_access,ad_rss,ad_rss_map_integration}
+ ad_rss$> cd build/proj
+ ad_rss/build/proj$> cmake ../../dependencies/PROJ -DCMAKE_INSTALL_PREFIX=../../install/proj -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+ ad_rss/build/proj$> make install
  ad_rss$> cd build/spdlog
  ad_rss/build/spdlog$> cmake ../../dependencies/spdlog -DCMAKE_INSTALL_PREFIX=../../install/spdlog -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DSPDLOG_BUILD_TESTS=OFF -DSPDLOG_BUILD_EXAMPLE=Off
  ad_rss/build/spdlog$> make install
@@ -90,16 +99,16 @@ Therefore, a full list of step by step calls could look like e.g.:
  ad_rss/build/ad_physics$> cmake ../../dependencies/map/ad_physics -DCMAKE_INSTALL_PREFIX=../../install/ad_physics -DCMAKE_PREFIX_PATH=../../install/spdlog
  ad_rss/build/ad_physics$> make install
  ad_rss/build/ad_physics$> cd ../ad_map_opendrive_reader
- ad_rss/build/ad_map_opendrive_reader$> cmake ../../dependencies/map/ad_map_opendrive_reader -DCMAKE_INSTALL_PREFIX=../../install/ad_map_opendrive_reader -DCMAKE_PREFIX_PATH="../../install/spdlog;../../install/ad_physics"
+ ad_rss/build/ad_map_opendrive_reader$> cmake ../../dependencies/map/ad_map_opendrive_reader -DCMAKE_INSTALL_PREFIX=../../install/ad_map_opendrive_reader -DCMAKE_PREFIX_PATH="../../install/proj;../../install/spdlog;../../install/ad_physics"
  ad_rss/build/ad_map_opendrive_reader$> make install
  ad_rss/build/ad_map_opendrive_reader$> cd ../ad_map_access
- ad_rss/build/ad_map_access$> cmake ../../dependencies/map/ad_map_access -DCMAKE_INSTALL_PREFIX=../../install/ad_map_access -DCMAKE_PREFIX_PATH="../../install/spdlog;../../install/ad_physics;../../install/ad_map_opendrive_reader"
+ ad_rss/build/ad_map_access$> cmake ../../dependencies/map/ad_map_access -DCMAKE_INSTALL_PREFIX=../../install/ad_map_access -DCMAKE_PREFIX_PATH="../../install/proj;../../install/spdlog;../../install/ad_physics;../../install/ad_map_opendrive_reader"
  ad_rss/build/ad_map_access$> make install
  ad_rss/build/ad_map_access$> cd ../ad_rss
  ad_rss/build/ad_rss$> cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install/ad_rss -DCMAKE_PREFIX_PATH="../../install/spdlog;../../install/ad_physics"
  ad_rss/build/ad_rss$> make install
  ad_rss/build/ad_rss$> cd ../ad_rss_map_integration
- ad_rss/build/ad_rss_map_integration$> cmake ../../ad_rss_map_integration -DCMAKE_INSTALL_PREFIX=../../install/ad_rss_map_integration -DCMAKE_PREFIX_PATH="../../install/spdlog;../../install/ad_physics;../../install/ad_map_opendrive_reader;../../install/ad_map_access;../../install/ad_rss"
+ ad_rss/build/ad_rss_map_integration$> cmake ../../ad_rss_map_integration -DCMAKE_INSTALL_PREFIX=../../install/ad_rss_map_integration -DCMAKE_PREFIX_PATH="../../install/proj;../../install/spdlog;../../install/ad_physics;../../install/ad_map_opendrive_reader;../../install/ad_map_access;../../install/ad_rss"
  ad_rss/build/ad_rss_map_integration$> make install
  ad_rss/build/ad_rss_map_integration$> cd ../..
  ad_rss$> echo "Hurray, all built!"
@@ -142,8 +151,12 @@ hardening flags to ensure the code is compatible to respective flags. To enable 
 ```
 
 #### Python binding
-With this option enabled, Python bindings are generated and compiled. This option is disabled by default. You have to enable the python binding also on the respective dependent component. ad_physics in this case.
+With this option enabled, Python bindings are generated and compiled.
+When compiling Python bindings it's recommended to build and link the other
+libraries statically to prevent from dependencies on the LD_LIBRARY_PATH at execution time.
+This option is disabled by default.
+You have to enable the python binding also on the respective dependent component. ad_physics in this case.
 ```bash
- ad_rss/build/ad_rss$> cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install/ad_rss -DCMAKE_PREFIX_PATH="../../install/spdlog;../../install/ad_physics" -DBUILD_PYTHON_BINDING=ON
+ ad_rss/build/ad_rss$> cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install/ad_rss -DCMAKE_PREFIX_PATH="../../install/spdlog;../../install/ad_physics" -DBUILD_PYTHON_BINDING=ON -DBUILD_SHARED_LIBS=OFF
  ad_rss/build/ad_rss$> make install
 ```

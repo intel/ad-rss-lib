@@ -7,6 +7,11 @@
 # ----------------- END LICENSE BLOCK -----------------------------------
 
 """
-Top level ad namespace python directory. This is a plain collecting namespace.
+Import ad_rss module for @binding_string@
 """
-__path__ = __import__('pkgutil').extend_path(__path__, __name__)
+
+import sys
+import os.path
+sys.path.append(os.path.dirname(__file__))
+
+from ad_rss_@binding_string@_module import *

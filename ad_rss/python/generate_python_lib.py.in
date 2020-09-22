@@ -66,9 +66,7 @@ def main():
                 "@CMAKE_CURRENT_LIST_DIR@/../impl/include/ad/rss/{}".format(component)
             }
 
-        library_name="libad_rss_{}_python".format(component)
-
-        generate_python_wrapper(library_name=library_name,
+        generate_python_wrapper(library_name=component,
                                 cpp_filename="AdRss-{}-PythonWrapper.cpp.in".format(component),
                                 header_directories=header_dirs,
                                 include_paths=include_dirs,
@@ -77,14 +75,23 @@ def main():
                                 ignore_declarations=ignore_declarations,
                                 ignore_files=ignore_files)
 
-        for binding in @PYTHON_BINDING_STRING_LIST@:
-            additional_replacements_binding=additional_replacements.copy()
-            additional_replacements_binding.add(("libad_rss_{}_python".format(component), "libad_rss_{}_{}".format(component, binding)))
-            post_process_python_wrapper(header_directories=header_dirs,
-                                        cpp_filename_in="AdRss-{}-PythonWrapper.cpp.in".format(component),
-                                        cpp_filename_out="AdRss-{}-PythonWrapper-{}.cpp".format(component, binding),
-                                        additional_replacements=additional_replacements_binding,
-                                        spdx_license="LGPL-2.1-only")
+        additional_replacements_component = additional_replacements.copy()
+        additional_replacements_component.add(
+                ("BOOST_PYTHON_MODULE({}){{".format(component),
+                 "void export_ad_rss_{}(){{\n\n".format(component) +
+                 "  bp::object ad_rss_{}_module(bp::handle<>(bp::borrowed(PyImport_AddModule(\"ad.rss.{}\"))));\n".format(component, component) +
+                 "  bp::scope().attr(\"{}\") = ad_rss_{}_module;\n".format(component, component) +
+                 "  bp::scope submodule_scope = ad_rss_{}_module;\n\n".format(component) +
+                 "  bp::scope().attr(\"__doc__\") = \"Python binding of ad::rss::{} C++ code for @binding_string@\";".format(component) +
+                 "  bp::scope().attr(\"__copyright__\") = \"Copyright (C) 2019-2020 Intel Corporation\";" +
+                 "  bp::scope().attr(\"__license__\") = \"LGPL-2.1-only\";"
+                ))
+        post_process_python_wrapper(header_directories=header_dirs,
+                                    cpp_filename_in="AdRss-{}-PythonWrapper.cpp.in".format(component),
+                                    cpp_filename_out="AdRss-{}-PythonWrapper.cpp".format(component),
+                                    additional_replacements=additional_replacements_component,
+                                    spdx_license="LGPL-2.1-only"
+        )
 
 if __name__ == '__main__':
     main()
