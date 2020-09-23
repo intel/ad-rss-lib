@@ -122,6 +122,7 @@ There are some build options available:
  - BUILD_APIDOC: Enables API documentation building
  - BUILD_HARDENING: Enables hardening compiler and linker flags
  - BUILD_PYTHON_BINDING: Enables the build of the respective python bindings
+ - PYTHON_BINDING_VERSIONS: standard search for python boost bindings is for multiple versions e.g. "2.7 3.5 3.6. 3.7" (see cmake/python-binding.cmake for details); this search can be restricted from outside if this variable is set (Default not-set).
 
 By default, all options are set to off. Any of these could be activate by adding them to the initial cmake call above as "-D<OPTION>=[ON|OFF]",
 e.g. "-DBUILD_TESTING=ON -DBUILD_APIDOC=ON".
