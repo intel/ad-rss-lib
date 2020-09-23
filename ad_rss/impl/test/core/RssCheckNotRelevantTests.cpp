@@ -59,7 +59,7 @@ TEST_P(RssCheckNotRelevantOutOfMemoryTest, outOfMemoryAnyTime)
 {
   performOutOfMemoryTest();
 }
-INSTANTIATE_TEST_CASE_P(Range, RssCheckNotRelevantOutOfMemoryTest, ::testing::Range(uint64_t(0u), uint64_t(50u), 1u), );
+INSTANTIATE_TEST_CASE_P(Range, RssCheckNotRelevantOutOfMemoryTest, ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));
 
 } // namespace core
 } // namespace rss
