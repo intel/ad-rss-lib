@@ -13,7 +13,7 @@ Python package and use it as any other Python module.
 ```bash
  ad_rss_map_integration_python$>  export PYTHONPATH=$PYTHONPATH:<path/to/>install/ad_rss_map_integration/lib/python3.6
  ad_rss_map_integration_python$>  python3.6
- >>> import ad
+ >>> import ad_rss_map_integration as ad
  >>> scene_creation = ad.rss.map.RssSceneCreation(1, ad.rss.world.RssDynamics())
  >>> world_model = scene_creation.getWorldModel()
  >>> print(world_model)

@@ -18,7 +18,7 @@ import math
 import sys
 import os
 
-import ad
+import ad_rss as ad
 
 
 class AdRssPythonTest(unittest.TestCase):

@@ -13,7 +13,7 @@ Python package and use it as any other Python module.
 ```bash
  ad_rss_python$>  export PYTHONPATH=$PYTHONPATH:<path/to/>install/ad_rss/lib/python3.6
  ad_rss_python$>  python3.6
- >>> import ad
+ >>> import ad_rss as ad
  >>> world_model = ad.rss.world.WorldModel()
  >>> print(world_model)
 ```

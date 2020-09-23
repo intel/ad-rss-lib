@@ -45,7 +45,7 @@ foreach(binding ${PYTHON_BINDINGS})
 
   string(REPLACE "." "" binding_string ${binding})
 
-  configure_file(ad/__init__.py.in ${binding}/ad/__init__.py)
+  configure_file(__init__.py.in ${binding}/ad_rss_map_integration/__init__.py)
 
   set(target ad_rss_map_integration_${binding_string})
   ################################################################################
@@ -150,12 +150,12 @@ foreach(binding ${PYTHON_BINDINGS})
   )
 
   install(DIRECTORY
-    ${CMAKE_CURRENT_BINARY_DIR}/${binding}/ad
+    ${CMAKE_CURRENT_BINARY_DIR}/${binding}/ad_rss_map_integration
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/${binding}/
     )
   install(TARGETS ${target}_module
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/${binding}/ad
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/${binding}/ad
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/${binding}/ad_rss_map_integration
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/${binding}/ad_rss_map_integration
     )
 
   #####################################################################

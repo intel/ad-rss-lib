@@ -18,7 +18,7 @@ import math
 import sys
 import os
 
-import ad
+import ad_rss_map_integration as ad
 
 
 class AdRssMapIntegrationPythonTest(unittest.TestCase):

@@ -61,10 +61,10 @@ def main():
     additional_replacements = {
                 ("BOOST_PYTHON_MODULE({}){{".format(component),
                  "void export_ad_rss_{}(){{\n\n".format(component) +
-                 "  bp::object ad_rss_{}_module(bp::handle<>(bp::borrowed(PyImport_AddModule(\"ad.rss.{}\"))));\n".format(component, component) +
+                 "  bp::object ad_rss_{}_module(bp::handle<>(bp::borrowed(PyImport_AddModule(\"{}\"))));\n".format(component, component) +
                  "  bp::scope().attr(\"{}\") = ad_rss_{}_module;\n".format(component, component) +
                  "  bp::scope submodule_scope = ad_rss_{}_module;\n\n".format(component) +
-                 "  bp::scope().attr(\"__doc__\") = \"Python binding of ad::rss::{} C++ code for @binding_string@\";".format(component) +
+                 "  bp::scope().attr(\"__doc__\") = \"Python binding of ad_rss_map_integration ad::rss::{} C++ code for @binding_string@\";".format(component) +
                  "  bp::scope().attr(\"__copyright__\") = \"Copyright (C) 2019-2020 Intel Corporation\";" +
                  "  bp::scope().attr(\"__license__\") = \"LGPL-2.1-only\";"
                 )}
