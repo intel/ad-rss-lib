@@ -36,8 +36,7 @@ def main():
         ("\"vector_less__ad_scope_rss_scope_world_scope_LaneSegment__greater_\"", "\"RoadSegment\"")
     }
 
-    # leave out unstructured completely, because boost::geometry types not exported and DebugDrawing has errors; not required at the moment
-    for component in ["core", "situation", "state", "world"]:
+    for component in ["core", "situation", "state", "unstructured", "world"]:
         main_namespace="ad::rss::{}".format(component)
 
         declarations_component=declarations.copy()
@@ -59,6 +58,14 @@ def main():
         elif component == "world":
             header_dirs = {
                 "@CMAKE_CURRENT_LIST_DIR@/../generated/include/ad/rss/{}".format(component),
+            }
+        elif component == "unstructured":
+            header_dirs = {
+                "@CMAKE_CURRENT_LIST_DIR@/../impl/include/ad/rss/{}".format(component)
+            }
+            ignore_files={
+                # leave out DebugDrawing having errors
+                "DebugDrawing.hpp"
             }
         else:
             header_dirs = {

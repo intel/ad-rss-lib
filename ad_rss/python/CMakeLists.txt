@@ -48,6 +48,7 @@ foreach(binding ${PYTHON_BINDINGS})
     ${CMAKE_CURRENT_BINARY_DIR}/AdRss-core-PythonWrapper.cpp
     ${CMAKE_CURRENT_BINARY_DIR}/AdRss-situation-PythonWrapper.cpp
     ${CMAKE_CURRENT_BINARY_DIR}/AdRss-state-PythonWrapper.cpp
+    ${CMAKE_CURRENT_BINARY_DIR}/AdRss-unstructured-PythonWrapper.cpp
     ${CMAKE_CURRENT_BINARY_DIR}/AdRss-world-PythonWrapper.cpp
     ${CMAKE_CURRENT_BINARY_DIR}/AdRssPython-${binding_string}.cpp
   )
