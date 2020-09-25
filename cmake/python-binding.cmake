@@ -55,6 +55,14 @@ function(find_python_binding_packages)
       string(REGEX REPLACE "^([0-9]+\.[0-9]+).*" "\\1" PYTHON_MAJ_DOT_MIN ${PYTHONLIBS_VERSION_STRING})
       set(BINDING_NAME "python${PYTHON_MAJ_DOT_MIN}")
       if(BOOST_PYTHON_SHORT_NAME)
+        if (REPORT_FIND_PACKAGE_ERROR)
+          message(FATAL_ERROR "Newer boost python versions (verified for 1.71.0/1.72.0 for now) don't support search for multiple versions,"
+            " because in the first run the Boost::python target is created and the detailed python-sub versions are scanned once."
+            " Consecutive runs don't scan the sub versions anymore and therefore the Boost::python IMPORTED_LOCATION_RELEASE is"
+            " not touched. A second scan is impossible.\n"
+            "Please provide your desired boost_python version via PYTHON_BINDING_VERSIONS cmake variable (e.g. one out of: ${PYTHON_BINDING_VERSIONS})")
+        endif()
+        set(REPORT_FIND_PACKAGE_ERROR 1)
         set(BOOST_COMPONENT_${BINDING_NAME} python${PYTHON_MAJ_MIN})
       else()
         set(BOOST_COMPONENT_${BINDING_NAME} python-py${PYTHON_MAJ_MIN})
