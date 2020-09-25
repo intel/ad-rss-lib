@@ -89,10 +89,11 @@ bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &v
                                       continueForwardPolygon);
     if (!result)
     {
-      //fallback
-      spdlog::warn("TrajectoryVehicle::calculateTrajectorySets>> calculateContinueForward() failed. Use brakePolygon as fallback.");
+      // fallback
+      spdlog::warn("TrajectoryVehicle::calculateTrajectorySets>> calculateContinueForward() failed. Use brakePolygon "
+                   "as fallback.");
       result = true;
-      continueForwardPolygon = brakePolygon; 
+      continueForwardPolygon = brakePolygon;
     }
   }
 #if DEBUG_DRAWING
@@ -128,7 +129,7 @@ bool TrajectoryVehicle::getResponseTimeTrajectoryPoints(situation::VehicleState 
     physics::Duration timeInMovementUntilResponseTime;
     result = getTimeInMovementUntilResponse(vehicleState, accel, timeInMovementUntilResponseTime);
     for (auto ratioValue = physics::RatioValue(-1.0); (ratioValue <= physics::RatioValue(1.0)) && result;
-        ratioValue += ratioDiffBack)
+         ratioValue += ratioDiffBack)
     {
       TrajectoryPoint pt;
       result = getResponseTimeTrajectoryPoint(vehicleState, timeInMovementUntilResponseTime, accel, ratioValue, pt);
@@ -153,12 +154,12 @@ bool TrajectoryVehicle::getResponseTimeTrajectoryPoints(situation::VehicleState 
   {
     auto ratioDiffFront = physics::RatioValue(
       2.0 / (2.0 * vehicleState.dynamics.unstructuredSettings.vehicleFrontIntermediateRatioSteps + 2.0));
-    
+
     auto accel = vehicleState.dynamics.alphaLon.accelMax;
     physics::Duration timeInMovementUntilResponseTime;
     result = getTimeInMovementUntilResponse(vehicleState, accel, timeInMovementUntilResponseTime);
     for (auto ratioValue = physics::RatioValue(-1.0); (ratioValue <= physics::RatioValue(1.0)) && result;
-        ratioValue += ratioDiffFront)
+         ratioValue += ratioDiffFront)
     {
       TrajectoryPoint pt;
       result = getResponseTimeTrajectoryPoint(vehicleState, timeInMovementUntilResponseTime, accel, ratioValue, pt);
@@ -193,15 +194,18 @@ bool TrajectoryVehicle::getResponseTimeTrajectoryPoints(situation::VehicleState 
     result = getTimeInMovementUntilResponse(vehicleState, accel, timeInMovementUntilResponseTime);
     if (result)
     {
-      result = getResponseTimeTrajectoryPoint(vehicleState, timeInMovementUntilResponseTime, accel, physics::RatioValue(-1.0), right);
+      result = getResponseTimeTrajectoryPoint(
+        vehicleState, timeInMovementUntilResponseTime, accel, physics::RatioValue(-1.0), right);
     }
     if (result)
     {
-      result = getResponseTimeTrajectoryPoint(vehicleState, timeInMovementUntilResponseTime, accel, physics::RatioValue(1.0), left);
+      result = getResponseTimeTrajectoryPoint(
+        vehicleState, timeInMovementUntilResponseTime, accel, physics::RatioValue(1.0), left);
     }
     if (result)
     {
-      result = getResponseTimeTrajectoryPoint(vehicleState, timeInMovementUntilResponseTime, accel, physics::RatioValue(0.0), center);
+      result = getResponseTimeTrajectoryPoint(
+        vehicleState, timeInMovementUntilResponseTime, accel, physics::RatioValue(0.0), center);
     }
     trajectorySetSteps.push_back(TrajectorySetStep(left, right, center));
   }

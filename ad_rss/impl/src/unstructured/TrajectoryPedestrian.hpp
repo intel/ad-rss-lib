@@ -73,11 +73,11 @@ private:
    * @returns false if a failure occurred during calculations, true otherwise
    */
   bool calculateStepPolygon(situation::VehicleState const &vehicleState,
-                                             physics::Distance const &distance,
-                                             TrajectorySetStep const &step,
-                                             std::string const &debugNamespace,
-                                                          Polygon &polygon) const;
-             
+                            physics::Distance const &distance,
+                            TrajectorySetStep const &step,
+                            std::string const &debugNamespace,
+                            Polygon &polygon) const;
+
   /**
    * @brief Calculate all trajectory points at response time
    *
@@ -105,18 +105,18 @@ private:
                                       ad::physics::Acceleration const &aUntilResponseTime,
                                       ad::physics::RatioValue const &yawRateChangeRatio,
                                       TrajectoryPoint &resultTrajectoryPoint) const;
-              
+
   /**
    * @brief Calculate the final point after response time
    *
    * @param[in]  pointAfterResponseTime point at response time
    * @param[in]  distance               distance of the final point
    *
-   * @returns final point 
+   * @returns final point
    */
   TrajectoryPoint calculateFinalPoint(TrajectoryPoint const &pointAfterResponseTime,
-                                                  physics::Distance const &distance) const;
-                     
+                                      physics::Distance const &distance) const;
+
   /**
    * @brief Calculate a side polygon
    *
@@ -125,11 +125,11 @@ private:
    * @param[in]  finalPointMax         maximum point
    *
    * @returns polygon describing the side
-   */                                
+   */
   Polygon calculateSidePolygon(situation::VehicleState const &vehicleState,
-                                              TrajectoryPoint const &finalPointMin,
-                                              TrajectoryPoint const &finalPointMax) const;
-                             
+                               TrajectoryPoint const &finalPointMin,
+                               TrajectoryPoint const &finalPointMax) const;
+
   /**
    * @brief Calculate the trajectory sets if pedestrian stands still
    *
@@ -139,12 +139,12 @@ private:
    * @param[out] continueForwardPolygon the trajectory set for continue-forward behavior
    *
    * @returns false if a failure occurred during calculations, true otherwise
-   */                                 
+   */
   bool calculateTrajectorySetsStandingStill(situation::VehicleState const &vehicleState,
-  physics::Duration const &timeToStop,
-                                                    Polygon &brakePolygon,
-                                                    Polygon &continueForwardPolygon) const;
-                     
+                                            physics::Duration const &timeToStop,
+                                            Polygon &brakePolygon,
+                                            Polygon &continueForwardPolygon) const;
+
   /**
    * @brief Calculate the trajectory sets if pedestrian is currently moving
    *
@@ -154,11 +154,11 @@ private:
    * @param[out] continueForwardPolygon the trajectory set for continue-forward behavior
    *
    * @returns false if a failure occurred during calculations, true otherwise
-   */  
+   */
   bool calculateTrajectorySetsMoving(situation::VehicleState const &vehicleState,
-  physics::Duration const &timeToStop,
-                                                    Polygon &brakePolygon,
-                                                    Polygon &continueForwardPolygon) const;
+                                     physics::Duration const &timeToStop,
+                                     Polygon &brakePolygon,
+                                     Polygon &continueForwardPolygon) const;
 };
 
 } // namespace unstructured

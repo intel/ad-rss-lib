@@ -38,7 +38,6 @@ namespace unstructured {
 class TrajectoryVehicle
 {
 public:
-
   struct TrajectorySetStepVehicleLocation
   {
     TrafficParticipantLocation left;
@@ -137,9 +136,9 @@ private:
    *
    * @returns false if a failure occurred during calculations, true otherwise
    */
-bool getTimeInMovementUntilResponse(situation::VehicleState const &vehicleState,
-                                                       ad::physics::Acceleration const &aUntilResponseTime,
-                                                       ad::physics::Duration &timeInMovementUntilResponseTime) const;
+  bool getTimeInMovementUntilResponse(situation::VehicleState const &vehicleState,
+                                      ad::physics::Acceleration const &aUntilResponseTime,
+                                      ad::physics::Duration &timeInMovementUntilResponseTime) const;
 
   /**
    * @brief Calculate the brake trajectory set
