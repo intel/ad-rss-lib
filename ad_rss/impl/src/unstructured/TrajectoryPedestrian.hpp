@@ -64,61 +64,101 @@ public:
 
 private:
   /**
-   * @brief Create a trajectory set
+   * @brief calculate step polygon
    *
-   * @param[in]  vehicleState       current state of the vehicle
-   * @param[in]  duration           duration to follow the trajectory
-   * @param[in]  aAfterResponseTime acceleration to apply after response time
-   * @param[out] trajectorySet      resulting trajectory set
+   * @param[in] step              the front points
+   * @param[in] vehicleDimension   vehicle dimension
+   * @param[out] resultPolygon     polygon describing the front
    *
    * @returns false if a failure occurred during calculations, true otherwise
    */
-  bool createTrajectorySet(situation::VehicleState const &vehicleState,
-                           ad::physics::Duration const &duration,
-                           ad::physics::Acceleration const &aAfterResponseTime,
-                           Polygon &trajectorySet);
+  bool calculateStepPolygon(situation::VehicleState const &vehicleState,
+                                             physics::Distance const &distance,
+                                             TrajectorySetStep const &step,
+                                             std::string const &debugNamespace,
+                                                          Polygon &polygon) const;
+             
+  /**
+   * @brief Calculate all trajectory points at response time
+   *
+   * @param[in]  vehicleState current state of the vehicle
+   * @param[out] frontSide the trajectory points defining the front
+   * @param[out] backSide the trajectory points defining the back
+   *
+   * @returns false if a failure occurred during calculations, true otherwise
+   */
+  bool getResponseTimeTrajectoryPoints(situation::VehicleState const &vehicleState,
+                                       TrajectorySetStep &frontSide,
+                                       TrajectorySetStep &backSide) const;
 
   /**
-   * @brief Get the final point of a trajectory
+   * @brief Calculate a single trajectory point at response time
    *
-   * @param[in] vehicleState       current state of the vehicle
-   * @param[in] duration           duration to follow the trajectory
-   * @param[in] aUntilResponseTime acceleration to apply until response time
-   * @param[in] aAfterResponseTime acceleration to apply after response time
-   * @param[in] yawRateRatio       change of yaw over time
-   * @param[in] debugNamespace     namespace to use for debug drawings
+   * @param[in]  vehicleState          current state of the vehicle
+   * @param[in]  aUntilResponseTime    acceleration until response time
+   * @param[in]  yawRateChangeRatio    yaw rate change ratio
+   * @param[out] resultTrajectoryPoint resulting trajectory point
    *
-   * @returns final trajectory point
+   * @returns false if a failure occurred during calculations, true otherwise
    */
-  TrajectoryPoint getFinalTrajectoryPoint(situation::VehicleState const &vehicleState,
-                                          ad::physics::Duration const &duration,
-                                          ad::physics::Acceleration const &aUntilResponseTime,
-                                          ad::physics::Acceleration const &aAfterResponseTime,
-                                          ad::physics::RatioValue const &yawRateRatio,
-                                          std::string const &debugNamespace) const;
-
+  bool getResponseTimeTrajectoryPoint(situation::VehicleState const &vehicleState,
+                                      ad::physics::Acceleration const &aUntilResponseTime,
+                                      ad::physics::RatioValue const &yawRateChangeRatio,
+                                      TrajectoryPoint &resultTrajectoryPoint) const;
+              
   /**
-   * @brief calculate front of a trajectory set
+   * @brief Calculate the final point after response time
    *
-   * @param[in] vehicleState       current state of the vehicle
-   * @param[in] vehicleDimension   vehicle dimension
+   * @param[in]  pointAfterResponseTime point at response time
+   * @param[in]  distance               distance of the final point
    *
-   * @returns polygon describing the front
+   * @returns final point 
    */
-  Polygon calculateFrontWithDimension(Trajectory const &trajectory, ad::physics::Dimension2D const &vehicleDimension);
-
+  TrajectoryPoint calculateFinalPoint(TrajectoryPoint const &pointAfterResponseTime,
+                                                  physics::Distance const &distance) const;
+                     
   /**
-   * @brief calculate back of a trajectory set
+   * @brief Calculate a side polygon
    *
-   * @param[in] vehicleState       current state of the vehicle
-   * @param[in] vehicleDimension   vehicle dimension
-   * @param[in] aAfterResponseTime acceleration to apply after response time
+   * @param[in]  vehicleState          current state of the vehicle
+   * @param[in]  finalPointMin         minimal point
+   * @param[in]  finalPointMax         maximum point
    *
-   * @returns polygon describing the back
-   */
-  Polygon calculateBackWithDimension(situation::VehicleState const &vehicleState,
-                                     ad::physics::Duration const &duration,
-                                     ad::physics::Acceleration const &aAfterResponseTime);
+   * @returns polygon describing the side
+   */                                
+  Polygon calculateSidePolygon(situation::VehicleState const &vehicleState,
+                                              TrajectoryPoint const &finalPointMin,
+                                              TrajectoryPoint const &finalPointMax) const;
+                             
+  /**
+   * @brief Calculate the trajectory sets if pedestrian stands still
+   *
+   * @param[in]  vehicleState           current state of the pedestrian
+   * @param[in]  timeToStop             time to step with stated braking pattern
+   * @param[out] brakePolygon           the trajectory set for braking behavior
+   * @param[out] continueForwardPolygon the trajectory set for continue-forward behavior
+   *
+   * @returns false if a failure occurred during calculations, true otherwise
+   */                                 
+  bool calculateTrajectorySetsStandingStill(situation::VehicleState const &vehicleState,
+  physics::Duration const &timeToStop,
+                                                    Polygon &brakePolygon,
+                                                    Polygon &continueForwardPolygon) const;
+                     
+  /**
+   * @brief Calculate the trajectory sets if pedestrian is currently moving
+   *
+   * @param[in]  vehicleState           current state of the pedestrian
+   * @param[in]  timeToStop             time to step with stated braking pattern
+   * @param[out] brakePolygon           the trajectory set for braking behavior
+   * @param[out] continueForwardPolygon the trajectory set for continue-forward behavior
+   *
+   * @returns false if a failure occurred during calculations, true otherwise
+   */  
+  bool calculateTrajectorySetsMoving(situation::VehicleState const &vehicleState,
+  physics::Duration const &timeToStop,
+                                                    Polygon &brakePolygon,
+                                                    Polygon &continueForwardPolygon) const;
 };
 
 } // namespace unstructured

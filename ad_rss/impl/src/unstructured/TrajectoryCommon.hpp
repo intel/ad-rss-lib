@@ -96,6 +96,23 @@ struct TrajectoryPoint
   physics::AngularVelocity yawRate;
 };
 
+struct TrajectorySetStep
+{
+  TrajectorySetStep()
+  {
+  }
+
+  TrajectorySetStep(TrajectoryPoint const &inLeft, TrajectoryPoint const &inRight, TrajectoryPoint const &inCenter)
+    : center(inCenter)
+  {
+    left.push_back(inLeft);
+    right.push_back(inRight);
+  }
+  std::vector<TrajectoryPoint> left;  // with positive yaw rate ratio
+  std::vector<TrajectoryPoint> right; // with negative yaw rate ratio
+  TrajectoryPoint center;
+};
+
 /**
  * @brief get the point describing the corner of a vehicle
  *
