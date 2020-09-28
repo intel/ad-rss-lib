@@ -1,6 +1,8 @@
 
 ## Latest changes
 
+## Release 4.2.0
+
 #### :ghost: Maintenance
 * Update unstructured trajectory set calculation for pedestrians
 * Improved user interface of python binding

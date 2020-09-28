@@ -28,7 +28,7 @@ protected:
   {
     // valid initialization
     ::ad::rss::state::UnstructuredSceneStateInformation value;
-    ::ad::rss::world::UnstructuredTrajectorySet valueBrakeTrajectorySet;
+    ::ad::physics::Distance2DList valueBrakeTrajectorySet;
     ::ad::physics::Distance2D valueBrakeTrajectorySetElement;
     ::ad::physics::Distance valueBrakeTrajectorySetElementX(-1e9);
     valueBrakeTrajectorySetElement.x = valueBrakeTrajectorySetElementX;
@@ -36,7 +36,7 @@ protected:
     valueBrakeTrajectorySetElement.y = valueBrakeTrajectorySetElementY;
     valueBrakeTrajectorySet.resize(1, valueBrakeTrajectorySetElement);
     value.brakeTrajectorySet = valueBrakeTrajectorySet;
-    ::ad::rss::world::UnstructuredTrajectorySet valueContinueForwardTrajectorySet;
+    ::ad::physics::Distance2DList valueContinueForwardTrajectorySet;
     ::ad::physics::Distance2D valueContinueForwardTrajectorySetElement;
     ::ad::physics::Distance valueContinueForwardTrajectorySetElementX(-1e9);
     valueContinueForwardTrajectorySetElement.x = valueContinueForwardTrajectorySetElementX;
@@ -99,7 +99,7 @@ TEST_F(UnstructuredSceneStateInformationTests, stringConversionTest)
 TEST_F(UnstructuredSceneStateInformationTests, comparisonOperatorBrakeTrajectorySetDiffers)
 {
   ::ad::rss::state::UnstructuredSceneStateInformation valueA = mValue;
-  ::ad::rss::world::UnstructuredTrajectorySet brakeTrajectorySet;
+  ::ad::physics::Distance2DList brakeTrajectorySet;
   ::ad::physics::Distance2D brakeTrajectorySetElement;
   ::ad::physics::Distance brakeTrajectorySetElementX(1e9);
   brakeTrajectorySetElement.x = brakeTrajectorySetElementX;
@@ -116,7 +116,7 @@ TEST_F(UnstructuredSceneStateInformationTests, comparisonOperatorBrakeTrajectory
 TEST_F(UnstructuredSceneStateInformationTests, comparisonOperatorContinueForwardTrajectorySetDiffers)
 {
   ::ad::rss::state::UnstructuredSceneStateInformation valueA = mValue;
-  ::ad::rss::world::UnstructuredTrajectorySet continueForwardTrajectorySet;
+  ::ad::physics::Distance2DList continueForwardTrajectorySet;
   ::ad::physics::Distance2D continueForwardTrajectorySetElement;
   ::ad::physics::Distance continueForwardTrajectorySetElementX(1e9);
   continueForwardTrajectorySetElement.x = continueForwardTrajectorySetElementX;

@@ -122,7 +122,7 @@ protected:
     valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
     valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
     ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
-    ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
+    ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
     ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
     ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);
     valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
@@ -134,8 +134,7 @@ protected:
       1, valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
     valueUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
       = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-    ::ad::rss::world::UnstructuredTrajectorySet
-      valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
+    ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
     ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
     ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(-1e9);
     valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
@@ -357,7 +356,7 @@ TEST_F(RssStateTests, comparisonOperatorUnstructuredSceneStateDiffers)
   unstructuredSceneStateHeadingRange.end = unstructuredSceneStateHeadingRangeEnd;
   unstructuredSceneState.headingRange = unstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation unstructuredSceneStateRssStateInformation;
-  ::ad::rss::world::UnstructuredTrajectorySet unstructuredSceneStateRssStateInformationBrakeTrajectorySet;
+  ::ad::physics::Distance2DList unstructuredSceneStateRssStateInformationBrakeTrajectorySet;
   ::ad::physics::Distance2D unstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
   ::ad::physics::Distance unstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(1e9);
   unstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
@@ -369,7 +368,7 @@ TEST_F(RssStateTests, comparisonOperatorUnstructuredSceneStateDiffers)
     2, unstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
   unstructuredSceneStateRssStateInformation.brakeTrajectorySet
     = unstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::rss::world::UnstructuredTrajectorySet unstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
+  ::ad::physics::Distance2DList unstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
   ::ad::physics::Distance2D unstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
   ::ad::physics::Distance unstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(1e9);
   unstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
