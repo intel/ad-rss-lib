@@ -2,6 +2,7 @@
 ## Latest changes
 
 #### :ghost: Maintenance
+* Update unstructured trajectory set calculation for pedestrians
 * Improved user interface of python binding
 * Suppressed python code generation build output
 

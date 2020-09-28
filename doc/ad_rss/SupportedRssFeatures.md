@@ -1,6 +1,6 @@
 ## Release 4.x
 
-The release version 4.x extends the core features by unstructured scene calculation. 
+The release version 4.x extends the core features by unstructured constellation calculation. 
 
 ## Release 3.x
 

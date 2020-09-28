@@ -1,12 +1,12 @@
 ## Overview
 
-Unstructured scenes implement unstructured roads (described in chapter 3.7.2 of the [RSS paper](https://arxiv.org/abs/1708.06374), definitions 19-22) and pedestrians (described in chapter 3.8).
-In contrast to the structured scenes, two dimensional trajectories with lateral and longitudinal component are calculated.
+Unstructured constellations implement unstructured roads (described in chapter 3.7.2 of the [RSS paper](https://arxiv.org/abs/1708.06374), definitions 19-22) and pedestrians (described in chapter 3.8).
+In contrast to the structured constellations, two dimensional trajectories with lateral and longitudinal component are calculated.
 
 
 ### World Modeling
 
-To allow customization, every scene within the [`ad::rss::world::WorldModel`](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html) can be calculated as unstructured, depending on the `situationType`.
+To allow customization, every constellations within the [`ad::rss::world::WorldModel`](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html) can be calculated as unstructured, depending on the `situationType`.
 
 ### Behavior Model/Trajectory Set Calculation
 
@@ -79,7 +79,7 @@ In the third step the final trajectory sets are calculated. To reach an acceptab
 
 ### Decision making
 
-The [RSS paper](https://arxiv.org/abs/1708.06374) definition 22 states conditions, that are relevant to calculate if a situation is dangerous and how to behave then.
+The [RSS paper](https://arxiv.org/abs/1708.06374) definition 22 states conditions, that are relevant to calculate if a constellation is dangerous and how to behave then.
 
 Depending on their values, three decisions are possible:
 
@@ -105,7 +105,7 @@ The following diagram describes the decision making.
 |:--:|
 | *Decision making* |
 
-The condition 22.1.b at the last safe point in time might lead to the behavior "Continue Forward" although the situation is dangerous. The reason is, that the conditions 22.1 define, which traffic participant has to brake and which one can continue.
+The condition 22.1.b at the last safe point in time might lead to the behavior "Continue Forward" although the constellation is dangerous. The reason is, that the conditions 22.1 define, which traffic participant has to brake and which one can continue.
 
 ### Response
 
@@ -119,7 +119,7 @@ If the result is _brake_, the longitudinal acceleration restriction is set to `a
 
 #### Driving away
 
-In certain situations the ego vehicle might be allowed to drive away from a dangerous situation using a given heading range.
+In certain situations the ego vehicle might be allowed to drive away from a dangerous constellation using a given heading range.
 
 The heading range is calculated using the position vectors of the traffic participants and the velocity vector of the ego.
 
@@ -127,7 +127,7 @@ The angle between $\tau_{ego}(t) − \tau_{other}(t)$  and $\tau'_{ego}(t)$ need
 
 $\theta$ can be specified by `UnstructuredSettings::driveAwayMaxAngle`
 
-As multiple situations might allow different ranges to drive away, the [`ad::rss::state::ProperResponse`](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html) provides a vector of `headingRanges`. Together with the steering range of the vehicle the allowed heading range can be calculated.
+As multiple constellations might allow different ranges to drive away, the [`ad::rss::state::ProperResponse`](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html) provides a vector of `headingRanges`. Together with the steering range of the vehicle the allowed heading range can be calculated.
 
 | ![](../images/unstructured_drive_away.png) |
 |:--:|
