@@ -139,6 +139,33 @@ class AdRssPythonTest(unittest.TestCase):
         self.world_model.defaultEgoVehicleRssDynamics.lateralFluctuationMargin = ad.physics.Distance(0.)
         self.world_model.defaultEgoVehicleRssDynamics.unstructuredSettings = self._getUnstructuedSettings()
 
+    def test_getHeadingOverlap(self):
+        """
+        Additional test for unstructured
+        """
+        heading_range = ad.rss.state.HeadingRange()
+        heading_range.begin = ad.physics.Angle(0)
+        heading_range.end = ad.physics.cPI
+
+        overlap_ranges = ad.rss.state.HeadingRangeVector()
+        result_range = ad.rss.state.HeadingRange()
+        result_range.begin = ad.physics.Angle(0)
+        result_range.end = ad.physics.Angle(0)
+        overlap_ranges.append(result_range)
+
+        result_range.begin = ad.physics.Angle(1. / 4. * ad.physics.cPI)
+        result_range.end = ad.physics.Angle(1. / 2. * ad.physics.cPI)
+        overlap_ranges.append(result_range)
+
+        self.assertTrue(ad.rss.unstructured.getHeadingOverlap(heading_range, overlap_ranges))
+        self.assertEqual(2, len(overlap_ranges))
+        self.assertEqual(ad.physics.Angle(0.0), overlap_ranges[0].begin)
+        self.assertEqual(ad.physics.Angle(0.0), overlap_ranges[0].end)
+        self.assertEqual(1. / 4. * ad.physics.cPI, overlap_ranges[1].begin)
+        self.assertEqual(1. / 2. * ad.physics.cPI, overlap_ranges[1].end)
+
+
+
     def test_interface(self):
         """
         Main test part

@@ -11,6 +11,7 @@
 extern void export_ad_rss_core();
 extern void export_ad_rss_situation();
 extern void export_ad_rss_state();
+extern void export_ad_rss_unstructured();
 extern void export_ad_rss_world();
 
 namespace bp = boost::python;
@@ -29,5 +30,6 @@ void export_ad_rss_python()
   export_ad_rss_situation();
   export_ad_rss_state();
   export_ad_rss_world();
+  export_ad_rss_unstructured();
   export_ad_rss_core();
 }
