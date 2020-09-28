@@ -10,7 +10,7 @@ nav:
 - Background:
   - Overview: ad_rss/Overview.md
   - Design Discussions: ad_rss/HLD-KeyDesignDecisionsAndAlternatives.md
-  - Unstructured Scenes: ad_rss/UnstructuredScenes.md
+  - Unstructured Constellations: ad_rss/UnstructuredConstellations.md
   - System Integration: ad_rss/HLD-ArchitectureOverview.md
   - Safety: ad_rss/HLD-Safety.md
   - Security: ad_rss/HLD-Security.md

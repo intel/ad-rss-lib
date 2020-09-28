@@ -89,13 +89,17 @@ bool TrajectoryVehicle::calculateTrajectorySets(situation::VehicleState const &v
                                       continueForwardPolygon);
     if (!result)
     {
-      spdlog::debug("TrajectoryVehicle::calculateTrajectorySets>> calculateContinueForward() failed.");
+      // fallback
+      spdlog::warn("TrajectoryVehicle::calculateTrajectorySets>> calculateContinueForward() failed. Use brakePolygon "
+                   "as fallback.");
+      result = true;
+      continueForwardPolygon = brakePolygon;
     }
   }
 #if DEBUG_DRAWING
   DEBUG_DRAWING_POLYGON(brakePolygon, "red", "brake");
   DEBUG_DRAWING_POLYGON(continueForwardPolygon, "green", "continueForward");
-  spdlog::warn("DRAW DONE");
+  spdlog::trace("DRAW DONE");
 #endif
   return result;
 }
@@ -118,50 +122,59 @@ bool TrajectoryVehicle::getResponseTimeTrajectoryPoints(situation::VehicleState 
   //-------------
   // back
   //-------------
-  auto ratioDiffBack = physics::RatioValue(
-    2.0 / (2.0 * vehicleState.dynamics.unstructuredSettings.vehicleBackIntermediateRatioSteps + 2.0));
-  for (auto ratioValue = physics::RatioValue(-1.0); (ratioValue <= physics::RatioValue(1.0)) && result;
-       ratioValue += ratioDiffBack)
   {
+    auto ratioDiffBack = physics::RatioValue(
+      2.0 / (2.0 * vehicleState.dynamics.unstructuredSettings.vehicleBackIntermediateRatioSteps + 2.0));
     auto accel = vehicleState.dynamics.alphaLon.brakeMax;
-    TrajectoryPoint pt;
-    result = getResponseTimeTrajectoryPoint(vehicleState, accel, ratioValue, pt);
-    if (ratioValue == physics::RatioValue(0.))
+    physics::Duration timeInMovementUntilResponseTime;
+    result = getTimeInMovementUntilResponse(vehicleState, accel, timeInMovementUntilResponseTime);
+    for (auto ratioValue = physics::RatioValue(-1.0); (ratioValue <= physics::RatioValue(1.0)) && result;
+         ratioValue += ratioDiffBack)
     {
-      backSide.center = pt;
-    }
-    else if (ratioValue > physics::RatioValue(0.))
-    {
-      backSide.left.push_back(pt);
-    }
-    else
-    {
-      backSide.right.push_back(pt);
+      TrajectoryPoint pt;
+      result = getResponseTimeTrajectoryPoint(vehicleState, timeInMovementUntilResponseTime, accel, ratioValue, pt);
+      if (ratioValue == physics::RatioValue(0.))
+      {
+        backSide.center = pt;
+      }
+      else if (ratioValue > physics::RatioValue(0.))
+      {
+        backSide.left.push_back(pt);
+      }
+      else
+      {
+        backSide.right.push_back(pt);
+      }
     }
   }
 
   //-------------
   // front
   //-------------
-  auto ratioDiffFront = physics::RatioValue(
-    2.0 / (2.0 * vehicleState.dynamics.unstructuredSettings.vehicleFrontIntermediateRatioSteps + 2.0));
-  for (auto ratioValue = physics::RatioValue(-1.0); (ratioValue <= physics::RatioValue(1.0)) && result;
-       ratioValue += ratioDiffFront)
   {
+    auto ratioDiffFront = physics::RatioValue(
+      2.0 / (2.0 * vehicleState.dynamics.unstructuredSettings.vehicleFrontIntermediateRatioSteps + 2.0));
+
     auto accel = vehicleState.dynamics.alphaLon.accelMax;
-    TrajectoryPoint pt;
-    result = getResponseTimeTrajectoryPoint(vehicleState, accel, ratioValue, pt);
-    if (ratioValue == physics::RatioValue(0.))
+    physics::Duration timeInMovementUntilResponseTime;
+    result = getTimeInMovementUntilResponse(vehicleState, accel, timeInMovementUntilResponseTime);
+    for (auto ratioValue = physics::RatioValue(-1.0); (ratioValue <= physics::RatioValue(1.0)) && result;
+         ratioValue += ratioDiffFront)
     {
-      frontSide.center = pt;
-    }
-    else if (ratioValue > physics::RatioValue(0.))
-    {
-      frontSide.left.push_back(pt);
-    }
-    else
-    {
-      frontSide.right.push_back(pt);
+      TrajectoryPoint pt;
+      result = getResponseTimeTrajectoryPoint(vehicleState, timeInMovementUntilResponseTime, accel, ratioValue, pt);
+      if (ratioValue == physics::RatioValue(0.))
+      {
+        frontSide.center = pt;
+      }
+      else if (ratioValue > physics::RatioValue(0.))
+      {
+        frontSide.left.push_back(pt);
+      }
+      else
+      {
+        frontSide.right.push_back(pt);
+      }
     }
   }
 
@@ -177,32 +190,34 @@ bool TrajectoryVehicle::getResponseTimeTrajectoryPoints(situation::VehicleState 
     TrajectoryPoint right;
     TrajectoryPoint left;
     TrajectoryPoint center;
-    result = getResponseTimeTrajectoryPoint(vehicleState, accel, physics::RatioValue(-1.0), right);
+    physics::Duration timeInMovementUntilResponseTime;
+    result = getTimeInMovementUntilResponse(vehicleState, accel, timeInMovementUntilResponseTime);
     if (result)
     {
-      result = getResponseTimeTrajectoryPoint(vehicleState, accel, physics::RatioValue(1.0), left);
+      result = getResponseTimeTrajectoryPoint(
+        vehicleState, timeInMovementUntilResponseTime, accel, physics::RatioValue(-1.0), right);
     }
     if (result)
     {
-      result = getResponseTimeTrajectoryPoint(vehicleState, accel, physics::RatioValue(0.0), center);
+      result = getResponseTimeTrajectoryPoint(
+        vehicleState, timeInMovementUntilResponseTime, accel, physics::RatioValue(1.0), left);
+    }
+    if (result)
+    {
+      result = getResponseTimeTrajectoryPoint(
+        vehicleState, timeInMovementUntilResponseTime, accel, physics::RatioValue(0.0), center);
     }
     trajectorySetSteps.push_back(TrajectorySetStep(left, right, center));
   }
   return result;
 }
 
-bool TrajectoryVehicle::getResponseTimeTrajectoryPoint(situation::VehicleState const &vehicleState,
+bool TrajectoryVehicle::getTimeInMovementUntilResponse(situation::VehicleState const &vehicleState,
                                                        ad::physics::Acceleration const &aUntilResponseTime,
-                                                       ad::physics::RatioValue const &yawRateChangeRatio,
-                                                       TrajectoryPoint &resultTrajectoryPoint) const
+                                                       ad::physics::Duration &timeInMovementUntilResponseTime) const
 {
   auto result = true;
-  TrajectoryPoint currentPoint(vehicleState);
-
-  auto currentTime = ad::physics::Duration(0.0);
-
-  ad::physics::Duration timeInMovementUntilResponseTime
-    = vehicleState.dynamics.responseTime; // until this time, the yaw rate changes
+  timeInMovementUntilResponseTime = vehicleState.dynamics.responseTime; // until this time, the yaw rate changes
   if (aUntilResponseTime < physics::Acceleration(0.))
   {
     if (vehicleState.objectState.speed == physics::Speed(0.))
@@ -228,6 +243,19 @@ bool TrajectoryVehicle::getResponseTimeTrajectoryPoint(situation::VehicleState c
       timeInMovementUntilResponseTime = std::min(vehicleState.dynamics.responseTime, timeInMovementUntilResponseTime);
     }
   }
+  return result;
+}
+
+bool TrajectoryVehicle::getResponseTimeTrajectoryPoint(situation::VehicleState const &vehicleState,
+                                                       ad::physics::Duration const &timeInMovementUntilResponseTime,
+                                                       ad::physics::Acceleration const &aUntilResponseTime,
+                                                       ad::physics::RatioValue const &yawRateChangeRatio,
+                                                       TrajectoryPoint &resultTrajectoryPoint) const
+{
+  auto result = true;
+  TrajectoryPoint currentPoint(vehicleState);
+
+  auto currentTime = ad::physics::Duration(0.0);
 
   while ((currentTime < vehicleState.dynamics.responseTime) && result)
   {
@@ -741,34 +769,6 @@ bool TrajectoryVehicle::calculateEstimationBetweenSteps(
     }
   }
   return result;
-}
-
-bool TrajectoryVehicle::combinePolygon(Polygon const &a, Polygon const &b, Polygon &result) const
-{
-  if (a.outer().empty() && !b.outer().empty())
-  {
-    result = b;
-  }
-  else if (!a.outer().empty() && b.outer().empty())
-  {
-    result = a;
-  }
-  else
-  {
-    std::vector<Polygon> unionPolygons;
-    boost::geometry::union_(a.outer(), b.outer(), unionPolygons);
-    if (unionPolygons.size() != 1)
-    {
-      spdlog::debug("Could not calculate combined polygon. Expected 1 polygon after union, found {}",
-                    unionPolygons.size());
-      return false;
-    }
-    else
-    {
-      result = std::move(unionPolygons[0]);
-    }
-  }
-  return true;
 }
 
 } // namespace unstructured

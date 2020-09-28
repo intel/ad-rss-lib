@@ -204,6 +204,17 @@ void calculateCircleArc(Point origin,
 bool collides(world::UnstructuredTrajectorySet const &trajectorySet1,
               world::UnstructuredTrajectorySet const &trajectorySet2);
 
+/**
+ * @brief Combine two polygons
+ *
+ * @param[in]  a       polygon a
+ * @param[in]  b       polygon b
+ * @param[out] result  resulting polygon
+ *
+ * @returns false if a failure occurred during calculations, true otherwise
+ */
+bool combinePolygon(Polygon const &a, Polygon const &b, Polygon &result);
+
 } // namespace unstructured
 } // namespace rss
 } // namespace ad

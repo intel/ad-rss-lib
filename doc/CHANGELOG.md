@@ -1,6 +1,9 @@
 
 ## Latest changes
 
+#### :ghost: Maintenance
+* Update unstructured trajectory set calculation for pedestrians
+
 ## Release 4.1.0
 
 #### :ghost: Maintenance

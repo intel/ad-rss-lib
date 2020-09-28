@@ -38,23 +38,6 @@ namespace unstructured {
 class TrajectoryVehicle
 {
 public:
-  struct TrajectorySetStep
-  {
-    TrajectorySetStep()
-    {
-    }
-
-    TrajectorySetStep(TrajectoryPoint const &inLeft, TrajectoryPoint const &inRight, TrajectoryPoint const &inCenter)
-      : center(inCenter)
-    {
-      left.push_back(inLeft);
-      right.push_back(inRight);
-    }
-    std::vector<TrajectoryPoint> left;  // with positive yaw rate ratio
-    std::vector<TrajectoryPoint> right; // with negative yaw rate ratio
-    TrajectoryPoint center;
-  };
-
   struct TrajectorySetStepVehicleLocation
   {
     TrafficParticipantLocation left;
@@ -114,6 +97,7 @@ private:
    * @brief Calculate a single trajectory point at response time
    *
    * @param[in]  vehicleState          current state of the vehicle
+   * @param[in]  timeInMovementUntilResponseTime time in movement until response time
    * @param[in]  aUntilResponseTime    acceleration until response time
    * @param[in]  yawRateChangeRatio    yaw rate change ratio
    * @param[out] resultTrajectoryPoint resulting trajectory point
@@ -121,6 +105,7 @@ private:
    * @returns false if a failure occurred during calculations, true otherwise
    */
   bool getResponseTimeTrajectoryPoint(situation::VehicleState const &vehicleState,
+                                      ad::physics::Duration const &timeInMovementUntilResponseTime,
                                       ad::physics::Acceleration const &aUntilResponseTime,
                                       ad::physics::RatioValue const &yawRateChangeRatio,
                                       TrajectoryPoint &resultTrajectoryPoint) const;
@@ -141,6 +126,19 @@ private:
                                     physics::Duration const &duration,
                                     ::ad::rss::world::RssDynamics const &dynamics,
                                     bool afterResponseTime) const;
+
+  /**
+   * @brief Calculate a time in movement until response time
+   *
+   * @param[in]  vehicleState                      current state of the vehicle
+   * @param[in]  aUntilResponseTime          acceleration to use
+   * @param[out]  timeInMovementUntilResponseTime   resulting time in movement
+   *
+   * @returns false if a failure occurred during calculations, true otherwise
+   */
+  bool getTimeInMovementUntilResponse(situation::VehicleState const &vehicleState,
+                                      ad::physics::Acceleration const &aUntilResponseTime,
+                                      ad::physics::Duration &timeInMovementUntilResponseTime) const;
 
   /**
    * @brief Calculate the brake trajectory set
@@ -183,17 +181,6 @@ private:
                                 Polygon const &brakePolygon,
                                 TrajectorySetStepVehicleLocation const &brakeMinStepVehicleLocation,
                                 Polygon &resultPolygon) const;
-
-  /**
-   * @brief Combine two polygons
-   *
-   * @param[in]  a       polygon a
-   * @param[in]  b       polygon b
-   * @param[out] result  resulting polygon
-   *
-   * @returns false if a failure occurred during calculations, true otherwise
-   */
-  bool combinePolygon(Polygon const &a, Polygon const &b, Polygon &result) const;
 
   /**
    * @brief Calculate a trajectory set estimation between two steps

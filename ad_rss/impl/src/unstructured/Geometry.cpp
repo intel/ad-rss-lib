@@ -172,6 +172,34 @@ bool getHeadingOverlap(ad::rss::state::HeadingRange const &headingRange,
   return !overlapRanges.empty();
 }
 
+bool combinePolygon(Polygon const &a, Polygon const &b, Polygon &result)
+{
+  if (a.outer().empty() && !b.outer().empty())
+  {
+    result = b;
+  }
+  else if (!a.outer().empty() && b.outer().empty())
+  {
+    result = a;
+  }
+  else
+  {
+    std::vector<Polygon> unionPolygons;
+    boost::geometry::union_(a.outer(), b.outer(), unionPolygons);
+    if (unionPolygons.size() != 1)
+    {
+      spdlog::debug("Could not calculate combined polygon. Expected 1 polygon after union, found {}",
+                    unionPolygons.size());
+      return false;
+    }
+    else
+    {
+      result = std::move(unionPolygons[0]);
+    }
+  }
+  return true;
+}
+
 } // namespace unstructured
 } // namespace rss
 } // namespace ad
