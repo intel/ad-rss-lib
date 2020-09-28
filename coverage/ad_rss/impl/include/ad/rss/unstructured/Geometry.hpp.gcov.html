@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-09-01 13:49:15</td>
+            <td class="headerValue">2020-09-28 10:16:34</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">8</td>
@@ -276,127 +276,138 @@
 <span class="lineNum">     204 </span>                :            : bool collides(world::UnstructuredTrajectorySet const &amp;trajectorySet1,
 <span class="lineNum">     205 </span>                :            :               world::UnstructuredTrajectorySet const &amp;trajectorySet2);
 <span class="lineNum">     206 </span>                :            : 
-<span class="lineNum">     207 </span>                :            : } // namespace unstructured
-<span class="lineNum">     208 </span>                :            : } // namespace rss
-<span class="lineNum">     209 </span>                :            : } // namespace ad
-<span class="lineNum">     210 </span>                :            : 
-<span class="lineNum">     211 </span>                :            : /*!
-<span class="lineNum">     212 </span>                :            :  * @brief Point operation: vector addition
+<span class="lineNum">     207 </span>                :            : /**
+<span class="lineNum">     208 </span>                :            :  * @brief Combine two polygons
+<span class="lineNum">     209 </span>                :            :  *
+<span class="lineNum">     210 </span>                :            :  * @param[in]  a       polygon a
+<span class="lineNum">     211 </span>                :            :  * @param[in]  b       polygon b
+<span class="lineNum">     212 </span>                :            :  * @param[out] result  resulting polygon
 <span class="lineNum">     213 </span>                :            :  *
-<span class="lineNum">     214 </span>                :            :  * @param[in] a point a
-<span class="lineNum">     215 </span>                :            :  * @param[in] b point b
-<span class="lineNum">     216 </span>                :            :  *
-<a name="217"><span class="lineNum">     217 </span>                :            :  * @returns c = a + b</a>
-<span class="lineNum">     218 </span>                :            :  */
-<span class="lineNum">     219 </span>                :<span class="lineCov">          5 : inline ad::rss::unstructured::Point operator+(ad::rss::unstructured::Point const &amp;a,</span>
-<span class="lineNum">     220 </span>                :            :                                               ad::rss::unstructured::Point const &amp;b)
-<span class="lineNum">     221 </span>                :            : {
-<span class="lineNum">     222 </span>                :<span class="lineCov">          5 :   auto result = a;</span>
-<span class="lineNum">     223 </span>        [<span class="branchCov" title="Branch 1 was taken 5 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          5 :   boost::geometry::add_point(result, b);</span>
-<span class="lineNum">     224 </span>                :<span class="lineCov">          5 :   return result;</span>
-<span class="lineNum">     225 </span>                :            : }
-<span class="lineNum">     226 </span>                :            : 
-<span class="lineNum">     227 </span>                :            : /*!
-<span class="lineNum">     228 </span>                :            :  * @brief Point operation: vector subtraction
-<span class="lineNum">     229 </span>                :            :  *
-<span class="lineNum">     230 </span>                :            :  * @param[in] a point a
-<span class="lineNum">     231 </span>                :            :  * @param[in] b point b
-<span class="lineNum">     232 </span>                :            :  *
-<a name="233"><span class="lineNum">     233 </span>                :            :  * @returns c = a - b</a>
-<span class="lineNum">     234 </span>                :            :  */
-<span class="lineNum">     235 </span>                :<span class="lineCov">       2653 : inline ad::rss::unstructured::Point operator-(ad::rss::unstructured::Point const &amp;a,</span>
-<span class="lineNum">     236 </span>                :            :                                               ad::rss::unstructured::Point const &amp;b)
-<span class="lineNum">     237 </span>                :            : {
-<span class="lineNum">     238 </span>                :<span class="lineCov">       2653 :   auto result = a;</span>
-<span class="lineNum">     239 </span>        [<span class="branchCov" title="Branch 1 was taken 2653 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2653 :   boost::geometry::subtract_point(result, b);</span>
-<span class="lineNum">     240 </span>                :<span class="lineCov">       2653 :   return result;</span>
-<span class="lineNum">     241 </span>                :            : }
-<span class="lineNum">     242 </span>                :            : 
-<span class="lineNum">     243 </span>                :            : /*!
-<span class="lineNum">     244 </span>                :            :  * @brief comparison operation: Point
-<span class="lineNum">     245 </span>                :            :  *
-<span class="lineNum">     246 </span>                :            :  * @param[in] a point a
-<span class="lineNum">     247 </span>                :            :  * @param[in] b point b
-<span class="lineNum">     248 </span>                :            :  *
-<a name="249"><span class="lineNum">     249 </span>                :            :  * @returns a == b</a>
-<span class="lineNum">     250 </span>                :            :  */
-<span class="lineNum">     251 </span>                :<span class="lineCov">         80 : inline bool operator==(ad::rss::unstructured::Point const &amp;a, ad::rss::unstructured::Point const &amp;b)</span>
-<span class="lineNum">     252 </span>                :            : {
-<span class="lineNum">     253 </span>                :<span class="lineCov">         80 :   return (std::abs(a.x() - b.x()) &lt;= std::numeric_limits&lt;double&gt;::epsilon())</span>
-<span class="lineNum">     254 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 80 times"> + </span>][<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]:<span class="lineCov">         80 :     &amp;&amp; (std::abs(a.y() - b.y()) &lt;= std::numeric_limits&lt;double&gt;::epsilon());</span>
-<span class="lineNum">     255 </span>                :            : }
-<span class="lineNum">     256 </span>                :            : 
-<span class="lineNum">     257 </span>                :            : /*!
-<span class="lineNum">     258 </span>                :            :  * @brief comparison operation: Points not equal
+<span class="lineNum">     214 </span>                :            :  * @returns false if a failure occurred during calculations, true otherwise
+<span class="lineNum">     215 </span>                :            :  */
+<span class="lineNum">     216 </span>                :            : bool combinePolygon(Polygon const &amp;a, Polygon const &amp;b, Polygon &amp;result);
+<span class="lineNum">     217 </span>                :            : 
+<span class="lineNum">     218 </span>                :            : } // namespace unstructured
+<span class="lineNum">     219 </span>                :            : } // namespace rss
+<span class="lineNum">     220 </span>                :            : } // namespace ad
+<span class="lineNum">     221 </span>                :            : 
+<span class="lineNum">     222 </span>                :            : /*!
+<span class="lineNum">     223 </span>                :            :  * @brief Point operation: vector addition
+<span class="lineNum">     224 </span>                :            :  *
+<span class="lineNum">     225 </span>                :            :  * @param[in] a point a
+<span class="lineNum">     226 </span>                :            :  * @param[in] b point b
+<span class="lineNum">     227 </span>                :            :  *
+<a name="228"><span class="lineNum">     228 </span>                :            :  * @returns c = a + b</a>
+<span class="lineNum">     229 </span>                :            :  */
+<span class="lineNum">     230 </span>                :<span class="lineCov">          5 : inline ad::rss::unstructured::Point operator+(ad::rss::unstructured::Point const &amp;a,</span>
+<span class="lineNum">     231 </span>                :            :                                               ad::rss::unstructured::Point const &amp;b)
+<span class="lineNum">     232 </span>                :            : {
+<span class="lineNum">     233 </span>                :<span class="lineCov">          5 :   auto result = a;</span>
+<span class="lineNum">     234 </span>        [<span class="branchCov" title="Branch 1 was taken 5 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          5 :   boost::geometry::add_point(result, b);</span>
+<span class="lineNum">     235 </span>                :<span class="lineCov">          5 :   return result;</span>
+<span class="lineNum">     236 </span>                :            : }
+<span class="lineNum">     237 </span>                :            : 
+<span class="lineNum">     238 </span>                :            : /*!
+<span class="lineNum">     239 </span>                :            :  * @brief Point operation: vector subtraction
+<span class="lineNum">     240 </span>                :            :  *
+<span class="lineNum">     241 </span>                :            :  * @param[in] a point a
+<span class="lineNum">     242 </span>                :            :  * @param[in] b point b
+<span class="lineNum">     243 </span>                :            :  *
+<a name="244"><span class="lineNum">     244 </span>                :            :  * @returns c = a - b</a>
+<span class="lineNum">     245 </span>                :            :  */
+<span class="lineNum">     246 </span>                :<span class="lineCov">       2653 : inline ad::rss::unstructured::Point operator-(ad::rss::unstructured::Point const &amp;a,</span>
+<span class="lineNum">     247 </span>                :            :                                               ad::rss::unstructured::Point const &amp;b)
+<span class="lineNum">     248 </span>                :            : {
+<span class="lineNum">     249 </span>                :<span class="lineCov">       2653 :   auto result = a;</span>
+<span class="lineNum">     250 </span>        [<span class="branchCov" title="Branch 1 was taken 2653 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2653 :   boost::geometry::subtract_point(result, b);</span>
+<span class="lineNum">     251 </span>                :<span class="lineCov">       2653 :   return result;</span>
+<span class="lineNum">     252 </span>                :            : }
+<span class="lineNum">     253 </span>                :            : 
+<span class="lineNum">     254 </span>                :            : /*!
+<span class="lineNum">     255 </span>                :            :  * @brief comparison operation: Point
+<span class="lineNum">     256 </span>                :            :  *
+<span class="lineNum">     257 </span>                :            :  * @param[in] a point a
+<span class="lineNum">     258 </span>                :            :  * @param[in] b point b
 <span class="lineNum">     259 </span>                :            :  *
-<span class="lineNum">     260 </span>                :            :  * @param[in] a point a
-<span class="lineNum">     261 </span>                :            :  * @param[in] b point b
-<span class="lineNum">     262 </span>                :            :  *
-<a name="263"><span class="lineNum">     263 </span>                :            :  * @returns a != b</a>
-<span class="lineNum">     264 </span>                :            :  */
-<span class="lineNum">     265 </span>                :<span class="lineCov">         80 : inline bool operator!=(ad::rss::unstructured::Point const &amp;a, ad::rss::unstructured::Point const &amp;b)</span>
-<span class="lineNum">     266 </span>                :            : {
-<span class="lineNum">     267 </span>                :<span class="lineCov">         80 :   return !(a == b);</span>
-<span class="lineNum">     268 </span>                :            : }
-<span class="lineNum">     269 </span>                :            : 
-<span class="lineNum">     270 </span>                :            : namespace std {
-<span class="lineNum">     271 </span>                :            : 
-<span class="lineNum">     272 </span>                :            : /*!
-<span class="lineNum">     273 </span>                :            :  * @brief to_string overload for Point
-<span class="lineNum">     274 </span>                :            :  *
-<span class="lineNum">     275 </span>                :            :  * @param[in] value a point
-<span class="lineNum">     276 </span>                :            :  *
-<a name="277"><span class="lineNum">     277 </span>                :            :  * @returns string describing point</a>
-<span class="lineNum">     278 </span>                :            :  */
-<span class="lineNum">     279 </span>                :<span class="lineNoCov">          0 : inline std::string to_string(ad::rss::unstructured::Point const &amp;value)</span>
-<span class="lineNum">     280 </span>                :            : {
-<span class="lineNum">     281 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   std::stringstream stream;</span>
-<span class="lineNum">     282 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :   stream &lt;&lt; &quot;[&quot; &lt;&lt; value.x() &lt;&lt; &quot;,&quot; &lt;&lt; value.y() &lt;&lt; &quot;]&quot;;</span>
+<a name="260"><span class="lineNum">     260 </span>                :            :  * @returns a == b</a>
+<span class="lineNum">     261 </span>                :            :  */
+<span class="lineNum">     262 </span>                :<span class="lineCov">         80 : inline bool operator==(ad::rss::unstructured::Point const &amp;a, ad::rss::unstructured::Point const &amp;b)</span>
+<span class="lineNum">     263 </span>                :            : {
+<span class="lineNum">     264 </span>                :<span class="lineCov">         80 :   return (std::abs(a.x() - b.x()) &lt;= std::numeric_limits&lt;double&gt;::epsilon())</span>
+<span class="lineNum">     265 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 80 times"> + </span>][<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]:<span class="lineCov">         80 :     &amp;&amp; (std::abs(a.y() - b.y()) &lt;= std::numeric_limits&lt;double&gt;::epsilon());</span>
+<span class="lineNum">     266 </span>                :            : }
+<span class="lineNum">     267 </span>                :            : 
+<span class="lineNum">     268 </span>                :            : /*!
+<span class="lineNum">     269 </span>                :            :  * @brief comparison operation: Points not equal
+<span class="lineNum">     270 </span>                :            :  *
+<span class="lineNum">     271 </span>                :            :  * @param[in] a point a
+<span class="lineNum">     272 </span>                :            :  * @param[in] b point b
+<span class="lineNum">     273 </span>                :            :  *
+<a name="274"><span class="lineNum">     274 </span>                :            :  * @returns a != b</a>
+<span class="lineNum">     275 </span>                :            :  */
+<span class="lineNum">     276 </span>                :<span class="lineCov">         80 : inline bool operator!=(ad::rss::unstructured::Point const &amp;a, ad::rss::unstructured::Point const &amp;b)</span>
+<span class="lineNum">     277 </span>                :            : {
+<span class="lineNum">     278 </span>                :<span class="lineCov">         80 :   return !(a == b);</span>
+<span class="lineNum">     279 </span>                :            : }
+<span class="lineNum">     280 </span>                :            : 
+<span class="lineNum">     281 </span>                :            : namespace std {
+<span class="lineNum">     282 </span>                :            : 
+<span class="lineNum">     283 </span>                :            : /*!
+<span class="lineNum">     284 </span>                :            :  * @brief to_string overload for Point
+<span class="lineNum">     285 </span>                :            :  *
+<span class="lineNum">     286 </span>                :            :  * @param[in] value a point
+<span class="lineNum">     287 </span>                :            :  *
+<a name="288"><span class="lineNum">     288 </span>                :            :  * @returns string describing point</a>
+<span class="lineNum">     289 </span>                :            :  */
+<span class="lineNum">     290 </span>                :<span class="lineNoCov">          0 : inline std::string to_string(ad::rss::unstructured::Point const &amp;value)</span>
+<span class="lineNum">     291 </span>                :            : {
+<span class="lineNum">     292 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   std::stringstream stream;</span>
+<span class="lineNum">     293 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :   stream &lt;&lt; &quot;[&quot; &lt;&lt; value.x() &lt;&lt; &quot;,&quot; &lt;&lt; value.y() &lt;&lt; &quot;]&quot;;</span>
 <span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>][<span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
 <span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 13 was not executed"> # </span><span class="branchNoExec" title="Branch 14 was not executed"> # </span>][<span class="branchNoExec" title="Branch 16 was not executed"> # </span><span class="branchNoExec" title="Branch 17 was not executed"> # </span>]
 <span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 19 was not executed"> # </span><span class="branchNoExec" title="Branch 20 was not executed"> # </span>]
-<span class="lineNum">     283 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   return stream.str();</span>
-<span class="lineNum">     284 </span>                :            : }
-<span class="lineNum">     285 </span>                :            : 
-<span class="lineNum">     286 </span>                :            : /*!
-<span class="lineNum">     287 </span>                :            :  * @brief to_string overload for Polygon
-<span class="lineNum">     288 </span>                :            :  *
-<span class="lineNum">     289 </span>                :            :  * @param[in] value a polygon
-<span class="lineNum">     290 </span>                :            :  *
-<a name="291"><span class="lineNum">     291 </span>                :            :  * @returns string describing polygon</a>
-<span class="lineNum">     292 </span>                :            :  */
-<span class="lineNum">     293 </span>                :<span class="lineNoCov">          0 : inline std::string to_string(ad::rss::unstructured::Polygon const &amp;value)</span>
-<span class="lineNum">     294 </span>                :            : {
-<span class="lineNum">     295 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   std::stringstream stream;</span>
-<span class="lineNum">     296 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   stream &lt;&lt; &quot;[&quot;;</span>
-<span class="lineNum">     297 </span>        [<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :   for (auto pt : value.outer())</span>
-<span class="lineNum">     298 </span>                :            :   {
-<span class="lineNum">     299 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     stream &lt;&lt; std::to_string(pt) &lt;&lt; &quot;,&quot;;</span>
+<span class="lineNum">     294 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   return stream.str();</span>
+<span class="lineNum">     295 </span>                :            : }
+<span class="lineNum">     296 </span>                :            : 
+<span class="lineNum">     297 </span>                :            : /*!
+<span class="lineNum">     298 </span>                :            :  * @brief to_string overload for Polygon
+<span class="lineNum">     299 </span>                :            :  *
+<span class="lineNum">     300 </span>                :            :  * @param[in] value a polygon
+<span class="lineNum">     301 </span>                :            :  *
+<a name="302"><span class="lineNum">     302 </span>                :            :  * @returns string describing polygon</a>
+<span class="lineNum">     303 </span>                :            :  */
+<span class="lineNum">     304 </span>                :<span class="lineNoCov">          0 : inline std::string to_string(ad::rss::unstructured::Polygon const &amp;value)</span>
+<span class="lineNum">     305 </span>                :            : {
+<span class="lineNum">     306 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   std::stringstream stream;</span>
+<span class="lineNum">     307 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   stream &lt;&lt; &quot;[&quot;;</span>
+<span class="lineNum">     308 </span>        [<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :   for (auto pt : value.outer())</span>
+<span class="lineNum">     309 </span>                :            :   {
+<span class="lineNum">     310 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     stream &lt;&lt; std::to_string(pt) &lt;&lt; &quot;,&quot;;</span>
 <span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>]
-<span class="lineNum">     300 </span>                :            :   }
-<span class="lineNum">     301 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   stream &lt;&lt; &quot;]&quot;;</span>
-<span class="lineNum">     302 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   return stream.str();</span>
-<span class="lineNum">     303 </span>                :            : }
-<span class="lineNum">     304 </span>                :            : 
-<span class="lineNum">     305 </span>                :            : /*!
-<span class="lineNum">     306 </span>                :            :  * @brief to_string overload for Line
-<span class="lineNum">     307 </span>                :            :  *
-<span class="lineNum">     308 </span>                :            :  * @param[in] value a line
-<span class="lineNum">     309 </span>                :            :  *
-<span class="lineNum">     310 </span>                :            :  * @returns string describing line
-<span class="lineNum">     311 </span>                :            :  */
-<span class="lineNum">     312 </span>                :            : inline std::string to_string(ad::rss::unstructured::Line value)
-<span class="lineNum">     313 </span>                :            : {
-<span class="lineNum">     314 </span>                :            :   std::stringstream stream;
-<span class="lineNum">     315 </span>                :            :   stream &lt;&lt; &quot;[&quot;;
-<span class="lineNum">     316 </span>                :            :   for (auto pt : value)
-<span class="lineNum">     317 </span>                :            :   {
-<span class="lineNum">     318 </span>                :            :     stream &lt;&lt; &quot;[&quot; &lt;&lt; pt.x() &lt;&lt; &quot;,&quot; &lt;&lt; pt.y() &lt;&lt; &quot;],&quot;;
-<span class="lineNum">     319 </span>                :            :   }
-<span class="lineNum">     320 </span>                :            :   stream &lt;&lt; &quot;]&quot;;
-<span class="lineNum">     321 </span>                :            :   return stream.str();
-<span class="lineNum">     322 </span>                :            : }
-<span class="lineNum">     323 </span>                :            : }
+<span class="lineNum">     311 </span>                :            :   }
+<span class="lineNum">     312 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   stream &lt;&lt; &quot;]&quot;;</span>
+<span class="lineNum">     313 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   return stream.str();</span>
+<span class="lineNum">     314 </span>                :            : }
+<span class="lineNum">     315 </span>                :            : 
+<span class="lineNum">     316 </span>                :            : /*!
+<span class="lineNum">     317 </span>                :            :  * @brief to_string overload for Line
+<span class="lineNum">     318 </span>                :            :  *
+<span class="lineNum">     319 </span>                :            :  * @param[in] value a line
+<span class="lineNum">     320 </span>                :            :  *
+<span class="lineNum">     321 </span>                :            :  * @returns string describing line
+<span class="lineNum">     322 </span>                :            :  */
+<span class="lineNum">     323 </span>                :            : inline std::string to_string(ad::rss::unstructured::Line value)
+<span class="lineNum">     324 </span>                :            : {
+<span class="lineNum">     325 </span>                :            :   std::stringstream stream;
+<span class="lineNum">     326 </span>                :            :   stream &lt;&lt; &quot;[&quot;;
+<span class="lineNum">     327 </span>                :            :   for (auto pt : value)
+<span class="lineNum">     328 </span>                :            :   {
+<span class="lineNum">     329 </span>                :            :     stream &lt;&lt; &quot;[&quot; &lt;&lt; pt.x() &lt;&lt; &quot;,&quot; &lt;&lt; pt.y() &lt;&lt; &quot;],&quot;;
+<span class="lineNum">     330 </span>                :            :   }
+<span class="lineNum">     331 </span>                :            :   stream &lt;&lt; &quot;]&quot;;
+<span class="lineNum">     332 </span>                :            :   return stream.str();
+<span class="lineNum">     333 </span>                :            : }
+<span class="lineNum">     334 </span>                :            : }
 </pre>
       </td>
     </tr>

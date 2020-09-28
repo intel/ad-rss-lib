@@ -19,5 +19,6 @@ var searchData=
   ['checksafelongitudinaldistancesamedirection',['checkSafeLongitudinalDistanceSameDirection',['../namespacead_1_1rss_1_1situation.html#aa22a133657a672bc20c0309120c698ee',1,'ad::rss::situation']]],
   ['checksituations',['checkSituations',['../classad_1_1rss_1_1core_1_1RssSituationChecking.html#a34c1de7f0b676963302f7b27dc9b0d55',1,'ad::rss::core::RssSituationChecking']]],
   ['checkstopinfrontintersection',['checkStopInFrontIntersection',['../namespacead_1_1rss_1_1situation.html#a6a6e68c8f080ab8d2fcaa9c00af81445',1,'ad::rss::situation']]],
-  ['collides',['collides',['../namespacead_1_1rss_1_1unstructured.html#a679ba1838ea305cd7db9dce0b3d5b282',1,'ad::rss::unstructured']]]
+  ['collides',['collides',['../namespacead_1_1rss_1_1unstructured.html#a679ba1838ea305cd7db9dce0b3d5b282',1,'ad::rss::unstructured']]],
+  ['combinepolygon',['combinePolygon',['../namespacead_1_1rss_1_1unstructured.html#aaa806d85b99347eb556791e4d6aed523',1,'ad::rss::unstructured']]]
 ];

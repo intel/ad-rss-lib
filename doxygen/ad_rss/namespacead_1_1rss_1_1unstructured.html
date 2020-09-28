@@ -159,6 +159,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a679ba1838ea305cd7db9dce0b3d5b282"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1unstructured.html#a679ba1838ea305cd7db9dce0b3d5b282">collides</a> (<a class="el" href="namespacead_1_1rss_1_1world.html#aacc0460b854a547da2790778846c07d3">world::UnstructuredTrajectorySet</a> const &amp;trajectorySet1, <a class="el" href="namespacead_1_1rss_1_1world.html#aacc0460b854a547da2790778846c07d3">world::UnstructuredTrajectorySet</a> const &amp;trajectorySet2)</td></tr>
 <tr class="memdesc:a679ba1838ea305cd7db9dce0b3d5b282"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if two trajectory sets collide  <a href="#a679ba1838ea305cd7db9dce0b3d5b282">More...</a><br /></td></tr>
 <tr class="separator:a679ba1838ea305cd7db9dce0b3d5b282"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa806d85b99347eb556791e4d6aed523"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1unstructured.html#aaa806d85b99347eb556791e4d6aed523">combinePolygon</a> (Polygon const &amp;a, Polygon const &amp;b, Polygon &amp;result)</td></tr>
+<tr class="memdesc:aaa806d85b99347eb556791e4d6aed523"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combine two polygons.  <a href="#aaa806d85b99347eb556791e4d6aed523">More...</a><br /></td></tr>
+<tr class="separator:aaa806d85b99347eb556791e4d6aed523"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>namespace situation </p>
@@ -260,6 +263,49 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if trajectory sets collide, otherwise false </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aaa806d85b99347eb556791e4d6aed523"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::unstructured::combinePolygon </td>
+          <td>(</td>
+          <td class="paramtype">Polygon const &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Polygon const &amp;&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Polygon &amp;&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Combine two polygons. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>polygon a </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>polygon b </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">result</td><td>resulting polygon</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>false if a failure occurred during calculations, true otherwise </dd></dl>
 
 </div>
 </div>

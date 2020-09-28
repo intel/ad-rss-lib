@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Unstructured Scenes - Intel ad-rss-lib</title>
+  <title>Unstructured Constellations - Intel ad-rss-lib</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Unstructured Scenes";
-    var mkdocs_page_input_path = "ad_rss/UnstructuredScenes.md";
+    var mkdocs_page_name = "Unstructured Constellations";
+    var mkdocs_page_input_path = "ad_rss/UnstructuredConstellations.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -72,7 +72,7 @@
                 </li>
                 <li class=" current">
                     
-    <a class="current" href="./">Unstructured Scenes</a>
+    <a class="current" href="./">Unstructured Constellations</a>
     <ul class="subnav">
             
     <li class="toctree-l3"><a href="#overview">Overview</a></li>
@@ -226,10 +226,10 @@
         
       
     
-    <li>Unstructured Scenes</li>
+    <li>Unstructured Constellations</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/intel/ad-rss-lib/edit/master/doc/ad_rss/UnstructuredScenes.md"
+        <a href="https://github.com/intel/ad-rss-lib/edit/master/doc/ad_rss/UnstructuredConstellations.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -240,10 +240,10 @@
             <div class="section">
               
                 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Unstructured scenes implement unstructured roads (described in chapter 3.7.2 of the <a href="https://arxiv.org/abs/1708.06374">RSS paper</a>, definitions 19-22) and pedestrians (described in chapter 3.8).
-In contrast to the structured scenes, two dimensional trajectories with lateral and longitudinal component are calculated.</p>
+<p>Unstructured constellations implement unstructured roads (described in chapter 3.7.2 of the <a href="https://arxiv.org/abs/1708.06374">RSS paper</a>, definitions 19-22) and pedestrians (described in chapter 3.8).
+In contrast to the structured constellations, two dimensional trajectories with lateral and longitudinal component are calculated.</p>
 <h3 id="world-modeling">World Modeling<a class="headerlink" href="#world-modeling" title="Permanent link">&para;</a></h3>
-<p>To allow customization, every scene within the <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html"><code>ad::rss::world::WorldModel</code></a> can be calculated as unstructured, depending on the <code>situationType</code>.</p>
+<p>To allow customization, every constellations within the <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html"><code>ad::rss::world::WorldModel</code></a> can be calculated as unstructured, depending on the <code>situationType</code>.</p>
 <h3 id="behavior-modeltrajectory-set-calculation">Behavior Model/Trajectory Set Calculation<a class="headerlink" href="#behavior-modeltrajectory-set-calculation" title="Permanent link">&para;</a></h3>
 <p>To calculate a trajectory set, the maximum/minimum values for both, longitudinal and lateral component are applied.</p>
 <p>The longitudinal boundaries of a trajectory set are defined by the minimum/maximum accelerations, the lateral by the maximum heading change to the left and right.</p>
@@ -353,7 +353,7 @@ In contrast to the structured scenes, two dimensional trajectories with lateral 
 <li>If the pedestrian is standing, we assign it to all possible lines originating from his current position.</li>
 </ul>
 <h3 id="decision-making">Decision making<a class="headerlink" href="#decision-making" title="Permanent link">&para;</a></h3>
-<p>The <a href="https://arxiv.org/abs/1708.06374">RSS paper</a> definition 22 states conditions, that are relevant to calculate if a situation is dangerous and how to behave then.</p>
+<p>The <a href="https://arxiv.org/abs/1708.06374">RSS paper</a> definition 22 states conditions, that are relevant to calculate if a constellation is dangerous and how to behave then.</p>
 <p>Depending on their values, three decisions are possible:</p>
 <ul>
 <li><em>brake</em>: Longitudinal braking</li>
@@ -379,18 +379,18 @@ In contrast to the structured scenes, two dimensional trajectories with lateral 
 </tr>
 </tbody>
 </table>
-<p>The condition 22.1.b at the last safe point in time might lead to the behavior "Continue Forward" although the situation is dangerous. The reason is, that the conditions 22.1 define, which traffic participant has to brake and which one can continue.</p>
+<p>The condition 22.1.b at the last safe point in time might lead to the behavior "Continue Forward" although the constellation is dangerous. The reason is, that the conditions 22.1 define, which traffic participant has to brake and which one can continue.</p>
 <h3 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h3>
 <h4>Continue Forward</h4>
 <p>If the result is <em>continue_forward</em> no acceleration restrictions are applied.</p>
 <h4>Brake</h4>
 <p>If the result is <em>brake</em>, the longitudinal acceleration restriction is set to <code>alphaLon.brakeMin</code> of the state.</p>
 <h4>Driving away</h4>
-<p>In certain situations the ego vehicle might be allowed to drive away from a dangerous situation using a given heading range.</p>
+<p>In certain situations the ego vehicle might be allowed to drive away from a dangerous constellation using a given heading range.</p>
 <p>The heading range is calculated using the position vectors of the traffic participants and the velocity vector of the ego.</p>
 <p>The angle between <span><span class="MathJax_Preview">\tau_{ego}(t) − \tau_{other}(t)</span><script type="math/tex">\tau_{ego}(t) − \tau_{other}(t)</script></span>  and <span><span class="MathJax_Preview">\tau'_{ego}(t)</span><script type="math/tex">\tau'_{ego}(t)</script></span> needs to be <span><span class="MathJax_Preview">\le \theta</span><script type="math/tex">\le \theta</script></span></p>
 <p><span><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span> can be specified by <code>UnstructuredSettings::driveAwayMaxAngle</code></p>
-<p>As multiple situations might allow different ranges to drive away, the <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html"><code>ad::rss::state::ProperResponse</code></a> provides a vector of <code>headingRanges</code>. Together with the steering range of the vehicle the allowed heading range can be calculated.</p>
+<p>As multiple constellations might allow different ranges to drive away, the <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html"><code>ad::rss::state::ProperResponse</code></a> provides a vector of <code>headingRanges</code>. Together with the steering range of the vehicle the allowed heading range can be calculated.</p>
 <table>
 <thead>
 <tr>

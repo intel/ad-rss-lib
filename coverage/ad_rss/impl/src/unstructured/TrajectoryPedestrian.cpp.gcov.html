@@ -32,26 +32,26 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntry">73</td>
-            <td class="headerCovTableEntryLo">4.1 %</td>
+            <td class="headerCovTableEntry">196</td>
+            <td class="headerCovTableEntryLo">1.5 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-09-01 13:49:15</td>
+            <td class="headerValue">2020-09-28 10:16:34</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">2</td>
-            <td class="headerCovTableEntry">7</td>
-            <td class="headerCovTableEntryLo">28.6 %</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntryLo">20.0 %</td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">2</td>
-            <td class="headerCovTableEntry">176</td>
-            <td class="headerCovTableEntryLo">1.1 %</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">392</td>
+            <td class="headerCovTableEntryLo">0.8 %</td>
           </tr>
           <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -98,7 +98,7 @@
 <span class="lineNum">      27 </span>                :            : namespace unstructured {
 <span class="lineNum">      28 </span>                :            : 
 <span class="lineNum">      29 </span>                :<span class="lineCov">          2 : const ad::physics::Distance TrajectoryPedestrian::maxRadius(1000.);</span>
-<a name="30"><span class="lineNum">      30 </span>                :<span class="lineCov">          2 : const ad::physics::Angle TrajectoryPedestrian::circleStepWidth(0.1);</span></a>
+<a name="30"><span class="lineNum">      30 </span>        [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          2 : const ad::physics::Angle TrajectoryPedestrian::circleStepWidth(physics::c2PI / 20.);</span></a>
 <span class="lineNum">      31 </span>                :            : 
 <span class="lineNum">      32 </span>                :<span class="lineNoCov">          0 : bool TrajectoryPedestrian::calculateTrajectorySets(situation::VehicleState const &amp;vehicleState,</span>
 <span class="lineNum">      33 </span>                :            :                                                    Polygon &amp;brakePolygon,
@@ -109,256 +109,560 @@
 <span class="lineNum">      38 </span>                :            :                                                vehicleState.dynamics.responseTime,
 <span class="lineNum">      39 </span>                :            :                                                vehicleState.dynamics.maxSpeedOnAcceleration,
 <span class="lineNum">      40 </span>                :            :                                                vehicleState.dynamics.alphaLon.accelMax,
-<span class="lineNum">      41 </span>                :            :                                                vehicleState.dynamics.alphaLon.brakeMax,
+<span class="lineNum">      41 </span>                :            :                                                vehicleState.dynamics.alphaLon.brakeMin,
 <span class="lineNum">      42 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                                timeToStop);</span>
-<span class="lineNum">      43 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
-<span class="lineNum">      44 </span>                :            :   {
-<span class="lineNum">      45 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     result = createTrajectorySet(vehicleState, timeToStop, vehicleState.dynamics.alphaLon.brakeMin, brakePolygon);</span>
-<span class="lineNum">      46 </span>                :            :   }
-<span class="lineNum">      47 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
-<span class="lineNum">      48 </span>                :            :   {
-<span class="lineNum">      49 </span>                :            :     result
-<span class="lineNum">      50 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       = createTrajectorySet(vehicleState, timeToStop, vehicleState.dynamics.alphaLon.accelMax, continueForwardPolygon);</span>
-<span class="lineNum">      51 </span>                :            :   }
-<span class="lineNum">      52 </span>                :<span class="lineNoCov">          0 :   return result;</span>
-<a name="53"><span class="lineNum">      53 </span>                :            : }</a>
-<span class="lineNum">      54 </span>                :            : 
-<span class="lineNum">      55 </span>                :<span class="lineNoCov">          0 : bool TrajectoryPedestrian::createTrajectorySet(situation::VehicleState const &amp;vehicleState,</span>
-<span class="lineNum">      56 </span>                :            :                                                ad::physics::Duration const &amp;duration,
-<span class="lineNum">      57 </span>                :            :                                                ad::physics::Acceleration const &amp;aAfterResponseTime,
-<span class="lineNum">      58 </span>                :            :                                                Polygon &amp;trajectorySet)
-<span class="lineNum">      59 </span>                :            : {
-<span class="lineNum">      60 </span>                :<span class="lineNoCov">          0 :   auto result = true;</span>
-<span class="lineNum">      61 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (vehicleState.objectState.speed != ad::physics::Speed(0.))</span>
-<span class="lineNum">      62 </span>                :            :   {
-<span class="lineNum">      63 </span>                :<span class="lineNoCov">          0 :     Trajectory frontPts;</span>
-<span class="lineNum">      64 </span>[<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :     for (auto i = ad::physics::RatioValue(1.0); i &gt;= ad::physics::RatioValue(-1.0); i -= ad::physics::RatioValue(0.1))</span>
-<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>]
-<span class="lineNum">      65 </span>                :            :     {
-<span class="lineNum">      66 </span>                :            :       auto endPt = getFinalTrajectoryPoint(vehicleState,
-<span class="lineNum">      67 </span>                :            :                                            duration,
-<span class="lineNum">      68 </span>                :            :                                            vehicleState.dynamics.alphaLon.accelMax,
-<span class="lineNum">      69 </span>                :            :                                            aAfterResponseTime,
-<span class="lineNum">      70 </span>                :            :                                            i,
-<span class="lineNum">      71 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                            std::to_string(aAfterResponseTime) + &quot;_&quot; + std::to_string(i));</span>
-<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>][<span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
-<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 13 was not executed"> # </span><span class="branchNoExec" title="Branch 14 was not executed"> # </span>]
-<span class="lineNum">      72 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       frontPts.push_back(endPt);</span>
-<span class="lineNum">      73 </span>                :            : #if DEBUG_DRAWING
-<span class="lineNum">      74 </span>                :            :       DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(endPt, vehicleState).toPolygon(),
-<span class="lineNum">      75 </span>                :            :                             &quot;yellow&quot;,
-<span class="lineNum">      76 </span>                :            :                             std::to_string(aAfterResponseTime) + &quot;_&quot; + std::to_string(i) + &quot;_vehicle_final_position&quot;);
-<span class="lineNum">      77 </span>                :            : #endif
-<span class="lineNum">      78 </span>                :            :     }
-<span class="lineNum">      79 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     auto frontPolygon = calculateFrontWithDimension(frontPts, vehicleState.objectState.dimension);</span>
-<span class="lineNum">      80 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     auto backPolygon = calculateBackWithDimension(vehicleState, duration, aAfterResponseTime);</span>
-<span class="lineNum">      81 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     std::vector&lt;Polygon&gt; unionPolygons;</span>
-<span class="lineNum">      82 </span>        [<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :     boost::geometry::union_(frontPolygon.outer(), backPolygon.outer(), unionPolygons);</span>
-<span class="lineNum">      83 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (unionPolygons.size() != 1)</span>
-<span class="lineNum">      84 </span>                :            :     {
-<span class="lineNum">      85 </span>                :<span class="lineNoCov">          0 :       return false;</span>
-<span class="lineNum">      86 </span>                :            :     }
-<span class="lineNum">      87 </span>                :            :     else
-<span class="lineNum">      88 </span>                :            :     {
-<span class="lineNum">      89 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :       trajectorySet = unionPolygons[0];</span>
-<span class="lineNum">      90 </span>                :            :     }
-<span class="lineNum">      91 </span>                :            :   }
-<span class="lineNum">      92 </span>                :            :   else
-<span class="lineNum">      93 </span>                :            :   {
-<span class="lineNum">      94 </span>                :            :     // If pedestrian is standing, he might start walking in any direction
-<span class="lineNum">      95 </span>                :<span class="lineNoCov">          0 :     ad::physics::Speed speed;</span>
-<span class="lineNum">      96 </span>                :<span class="lineNoCov">          0 :     ad::physics::Distance maxDistance;</span>
-<span class="lineNum">      97 </span>                :            :     result = situation::calculateSpeedAndDistanceOffset(duration,
-<span class="lineNum">      98 </span>                :            :                                                         vehicleState.objectState.speed,
-<span class="lineNum">      99 </span>                :            :                                                         vehicleState.dynamics.responseTime,
-<span class="lineNum">     100 </span>                :            :                                                         vehicleState.dynamics.maxSpeedOnAcceleration,
-<span class="lineNum">     101 </span>                :            :                                                         vehicleState.dynamics.alphaLon.accelMax,
-<span class="lineNum">     102 </span>                :            :                                                         aAfterResponseTime,
-<span class="lineNum">     103 </span>                :            :                                                         speed,
-<span class="lineNum">     104 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                                         maxDistance);</span>
-<span class="lineNum">     105 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     calculateCircleArc(toPoint(vehicleState.objectState.centerPoint),</span>
-<span class="lineNum">     106 </span>                :            :                        maxDistance,
-<span class="lineNum">     107 </span>                :            :                        ad::physics::Angle(0.),
-<span class="lineNum">     108 </span>                :            :                        ad::physics::c2PI,
-<span class="lineNum">     109 </span>                :            :                        circleStepWidth,
-<span class="lineNum">     110 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                        trajectorySet);</span>
-<span class="lineNum">     111 </span>                :            :   }
-<span class="lineNum">     112 </span>                :<span class="lineNoCov">          0 :   return result;</span>
-<a name="113"><span class="lineNum">     113 </span>                :            : }</a>
-<span class="lineNum">     114 </span>                :            : 
-<span class="lineNum">     115 </span>                :<span class="lineNoCov">          0 : TrajectoryPoint TrajectoryPedestrian::getFinalTrajectoryPoint(situation::VehicleState const &amp;vehicleState,</span>
-<span class="lineNum">     116 </span>                :            :                                                               ad::physics::Duration const &amp;duration,
-<span class="lineNum">     117 </span>                :            :                                                               ad::physics::Acceleration const &amp;aUntilResponseTime,
-<span class="lineNum">     118 </span>                :            :                                                               ad::physics::Acceleration const &amp;aAfterResponseTime,
-<span class="lineNum">     119 </span>                :            :                                                               ad::physics::RatioValue const &amp;angleChangeRatio,
-<span class="lineNum">     120 </span>                :            :                                                               std::string const &amp;debugNamespace) const
-<span class="lineNum">     121 </span>                :            : {
-<span class="lineNum">     122 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto startingAngle = vehicleState.objectState.yaw - ad::physics::cPI_2;</span>
-<span class="lineNum">     123 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto startingPoint = toPoint(vehicleState.objectState.centerPoint);</span>
-<span class="lineNum">     124 </span>                :<span class="lineNoCov">          0 :   ad::physics::Speed speed;</span>
-<span class="lineNum">     125 </span>                :<span class="lineNoCov">          0 :   ad::physics::Distance maxDistance;</span>
-<span class="lineNum">     126 </span>                :            :   situation::calculateSpeedAndDistanceOffset(duration,
-<span class="lineNum">     127 </span>                :            :                                              vehicleState.objectState.speed,
-<span class="lineNum">     128 </span>                :            :                                              vehicleState.dynamics.responseTime,
-<span class="lineNum">     129 </span>                :            :                                              vehicleState.dynamics.maxSpeedOnAcceleration,
-<span class="lineNum">     130 </span>                :            :                                              aUntilResponseTime,
-<span class="lineNum">     131 </span>                :            :                                              aAfterResponseTime,
-<span class="lineNum">     132 </span>                :            :                                              speed,
-<span class="lineNum">     133 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                              maxDistance);</span>
-<span class="lineNum">     134 </span>                :            : 
-<span class="lineNum">     135 </span>                :            : #if DEBUG_DRAWING
-<span class="lineNum">     136 </span>                :            :   Line linePts;
-<span class="lineNum">     137 </span>                :            :   boost::geometry::append(linePts, startingPoint);
-<span class="lineNum">     138 </span>                :            : #endif
-<span class="lineNum">     139 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   Point finalPoint;</span>
-<span class="lineNum">     140 </span>                :<span class="lineNoCov">          0 :   ad::physics::Angle finalAngle = vehicleState.objectState.yaw;</span>
-<span class="lineNum">     141 </span>                :            : 
-<span class="lineNum">     142 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (static_cast&lt;double&gt;(std::fabs(angleChangeRatio))</span>
-<span class="lineNum">     143 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       &gt; vehicleState.dynamics.unstructuredSettings.pedestrianTurningRadius / maxRadius)</span>
-<span class="lineNum">     144 </span>                :            :   {
-<span class="lineNum">     145 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     auto radius = vehicleState.dynamics.unstructuredSettings.pedestrianTurningRadius / angleChangeRatio;</span>
-<span class="lineNum">     146 </span>                :            : 
-<span class="lineNum">     147 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     auto circleOrigin = getCircleOrigin(startingPoint, radius, startingAngle);</span>
-<span class="lineNum">     148 </span>                :<span class="lineNoCov">          0 :     ad::physics::Distance distanceUntilReponseTime;</span>
-<span class="lineNum">     149 </span>                :            : 
-<span class="lineNum">     150 </span>                :            :     situation::calculateAcceleratedLimitedMovement(vehicleState.objectState.speed,
-<span class="lineNum">     151 </span>                :            :                                                    vehicleState.dynamics.maxSpeedOnAcceleration,
-<span class="lineNum">     152 </span>                :            :                                                    aUntilResponseTime,
-<span class="lineNum">     153 </span>                :            :                                                    vehicleState.dynamics.responseTime,
-<span class="lineNum">     154 </span>                :            :                                                    speed,
-<span class="lineNum">     155 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                                    distanceUntilReponseTime);</span>
-<span class="lineNum">     156 </span>                :            : 
-<span class="lineNum">     157 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     auto angleChange = ad::physics::Angle(distanceUntilReponseTime / radius);</span>
-<span class="lineNum">     158 </span>                :            : 
-<span class="lineNum">     159 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     auto pointAfterResponseTime = getPointOnCircle(circleOrigin, radius, startingAngle + angleChange);</span>
-<span class="lineNum">     160 </span>                :            : #if DEBUG_DRAWING
-<span class="lineNum">     161 </span>                :            :     boost::geometry::append(linePts, pointAfterResponseTime);
-<span class="lineNum">     162 </span>                :            : #endif
-<span class="lineNum">     163 </span>                :            : 
-<span class="lineNum">     164 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     auto remainingDistance = maxDistance - distanceUntilReponseTime;</span>
-<span class="lineNum">     165 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     ad::physics::Angle const deltaAngle = ad::physics::cPI_2 - angleChange - startingAngle;</span>
-<span class="lineNum">     166 </span>                :            :     // after response time continue on a straight line
-<span class="lineNum">     167 </span>                :            :     finalPoint = pointAfterResponseTime
-<span class="lineNum">     168 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :       + toPoint(-std::cos(deltaAngle) * remainingDistance, std::sin(deltaAngle) * remainingDistance);</span>
-<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>][<span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
-<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 13 was not executed"> # </span><span class="branchNoExec" title="Branch 14 was not executed"> # </span>][<span class="branchNoExec" title="Branch 16 was not executed"> # </span><span class="branchNoExec" title="Branch 17 was not executed"> # </span>]
-<span class="lineNum">     169 </span>                :            : #if DEBUG_DRAWING
-<span class="lineNum">     170 </span>                :            :     boost::geometry::append(linePts, finalPoint);
-<span class="lineNum">     171 </span>                :            : #endif
-<span class="lineNum">     172 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     finalAngle = vehicleState.objectState.yaw + angleChange;</span>
-<span class="lineNum">     173 </span>                :            :   }
-<span class="lineNum">     174 </span>                :            :   else
-<span class="lineNum">     175 </span>                :            :   {
-<span class="lineNum">     176 </span>                :            :     // straight line
-<span class="lineNum">     177 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     finalPoint = startingPoint + toPoint(-std::sin(startingAngle) * maxDistance, std::cos(startingAngle) * maxDistance);</span>
-<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>][<span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
-<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 13 was not executed"> # </span><span class="branchNoExec" title="Branch 14 was not executed"> # </span>][<span class="branchNoExec" title="Branch 16 was not executed"> # </span><span class="branchNoExec" title="Branch 17 was not executed"> # </span>]
-<span class="lineNum">     178 </span>                :            : #if DEBUG_DRAWING
-<span class="lineNum">     179 </span>                :            :     boost::geometry::append(linePts, startingPoint);
-<span class="lineNum">     180 </span>                :            :     boost::geometry::append(linePts, finalPoint);
-<span class="lineNum">     181 </span>                :            : #endif
+<span class="lineNum">      43 </span>                :            : 
+<span class="lineNum">      44 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
+<span class="lineNum">      45 </span>                :            :   {
+<span class="lineNum">      46 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (vehicleState.objectState.speed == ad::physics::Speed(0.))</span>
+<span class="lineNum">      47 </span>                :            :     {
+<span class="lineNum">      48 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       result = calculateTrajectorySetsStandingStill(vehicleState, timeToStop, brakePolygon, continueForwardPolygon);</span>
+<span class="lineNum">      49 </span>                :            :     }
+<span class="lineNum">      50 </span>                :            :     else
+<span class="lineNum">      51 </span>                :            :     {
+<span class="lineNum">      52 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       result = calculateTrajectorySetsMoving(vehicleState, timeToStop, brakePolygon, continueForwardPolygon);</span>
+<span class="lineNum">      53 </span>                :            :     }
+<span class="lineNum">      54 </span>                :            :   }
+<span class="lineNum">      55 </span>                :            : #if DEBUG_DRAWING
+<span class="lineNum">      56 </span>                :            :   DEBUG_DRAWING_POLYGON(brakePolygon, &quot;red&quot;, &quot;brake_pedestrian&quot;);
+<span class="lineNum">      57 </span>                :            :   DEBUG_DRAWING_POLYGON(continueForwardPolygon, &quot;green&quot;, &quot;continueForward_pedestrian&quot;);
+<span class="lineNum">      58 </span>                :            : #endif
+<span class="lineNum">      59 </span>                :<span class="lineNoCov">          0 :   return result;</span>
+<a name="60"><span class="lineNum">      60 </span>                :            : }</a>
+<span class="lineNum">      61 </span>                :            : 
+<span class="lineNum">      62 </span>                :<span class="lineNoCov">          0 : bool TrajectoryPedestrian::calculateTrajectorySetsMoving(situation::VehicleState const &amp;vehicleState,</span>
+<span class="lineNum">      63 </span>                :            :                                                          physics::Duration const &amp;timeToStop,
+<span class="lineNum">      64 </span>                :            :                                                          Polygon &amp;brakePolygon,
+<span class="lineNum">      65 </span>                :            :                                                          Polygon &amp;continueForwardPolygon) const
+<span class="lineNum">      66 </span>                :            : {
+<span class="lineNum">      67 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   TrajectorySetStep responseTimeFrontSide;</span>
+<span class="lineNum">      68 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   TrajectorySetStep responseTimeBackSide;</span>
+<span class="lineNum">      69 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto result = getResponseTimeTrajectoryPoints(vehicleState, responseTimeFrontSide, responseTimeBackSide);</span>
+<span class="lineNum">      70 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (!result)</span>
+<span class="lineNum">      71 </span>                :            :   {
+<span class="lineNum">      72 </span>                :            :     spdlog::debug(
+<span class="lineNum">      73 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       &quot;TrajectoryPedestrian::calculateTrajectorySets&gt;&gt; Could not calculate reponse time trajectory points.&quot;);</span>
+<span class="lineNum">      74 </span>                :            :   }
+<span class="lineNum">      75 </span>                :            :   else
+<span class="lineNum">      76 </span>                :            :   {
+<span class="lineNum">      77 </span>                :<span class="lineNoCov">          0 :     spdlog::trace(&quot;Trajectory points at response time: front left {}, front right {}, back left {}, back right {}&quot;,</span>
+<span class="lineNum">      78 </span>                :<span class="lineNoCov">          0 :                   responseTimeFrontSide.left.size(),</span>
+<span class="lineNum">      79 </span>                :<span class="lineNoCov">          0 :                   responseTimeFrontSide.right.size(),</span>
+<span class="lineNum">      80 </span>                :<span class="lineNoCov">          0 :                   responseTimeBackSide.left.size(),</span>
+<span class="lineNum">      81 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :                   responseTimeBackSide.right.size());</span>
+<span class="lineNum">      82 </span>                :            :   }
+<span class="lineNum">      83 </span>                :            : 
+<span class="lineNum">      84 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto timeAfterResponseTime = timeToStop - vehicleState.dynamics.responseTime;</span>
+<span class="lineNum">      85 </span>                :            : 
+<span class="lineNum">      86 </span>                :<span class="lineNoCov">          0 :   auto timeToStopBrakeMax = physics::Duration(0.);</span>
+<span class="lineNum">      87 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (responseTimeBackSide.center.speed &gt; physics::Speed(0.))</span>
+<span class="lineNum">      88 </span>                :            :   {
+<span class="lineNum">      89 </span>                :            :     result = situation::calculateTimeToStop(
+<span class="lineNum">      90 </span>                :            :       responseTimeBackSide.center.speed,
+<span class="lineNum">      91 </span>                :            :       timeAfterResponseTime, // this is the time to stop with brakemin, therefore sufficient here
+<span class="lineNum">      92 </span>                :            :       vehicleState.dynamics.maxSpeedOnAcceleration,
+<span class="lineNum">      93 </span>                :            :       vehicleState.dynamics.alphaLon.brakeMax,
+<span class="lineNum">      94 </span>                :            :       vehicleState.dynamics.alphaLon.brakeMax,
+<span class="lineNum">      95 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       timeToStopBrakeMax);</span>
+<span class="lineNum">      96 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (!result)</span>
+<span class="lineNum">      97 </span>                :            :     {
+<span class="lineNum">      98 </span>                :<span class="lineNoCov">          0 :       spdlog::debug(&quot;TrajectoryPedestrian::calculateTrajectorySets&gt;&gt; Could not calculate time to stop. speed {}, &quot;</span>
+<span class="lineNum">      99 </span>                :            :                     &quot;timeAfterResponseTime {}&quot;,
+<span class="lineNum">     100 </span>                :            :                     responseTimeBackSide.center.speed,
+<span class="lineNum">     101 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                     timeAfterResponseTime);</span>
+<span class="lineNum">     102 </span>                :            :     }
+<span class="lineNum">     103 </span>                :            :   }
+<span class="lineNum">     104 </span>                :            : 
+<span class="lineNum">     105 </span>                :<span class="lineNoCov">          0 :   physics::Distance maxBrakeDistance = physics::Distance(0.);</span>
+<span class="lineNum">     106 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
+<span class="lineNum">     107 </span>                :            :   {
+<span class="lineNum">     108 </span>                :<span class="lineNoCov">          0 :     physics::Speed speed;</span>
+<span class="lineNum">     109 </span>                :            :     result = situation::calculateSpeedAndDistanceOffset(timeToStopBrakeMax,
+<span class="lineNum">     110 </span>                :            :                                                         responseTimeBackSide.center.speed,
+<span class="lineNum">     111 </span>                :            :                                                         timeToStopBrakeMax,
+<span class="lineNum">     112 </span>                :            :                                                         vehicleState.dynamics.maxSpeedOnAcceleration,
+<span class="lineNum">     113 </span>                :            :                                                         vehicleState.dynamics.alphaLon.brakeMax,
+<span class="lineNum">     114 </span>                :            :                                                         vehicleState.dynamics.alphaLon.brakeMax,
+<span class="lineNum">     115 </span>                :            :                                                         speed,
+<span class="lineNum">     116 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                                         maxBrakeDistance);</span>
+<span class="lineNum">     117 </span>                :            :   }
+<span class="lineNum">     118 </span>                :            : 
+<span class="lineNum">     119 </span>                :<span class="lineNoCov">          0 :   physics::Distance minBrakeDistance = physics::Distance(0.);</span>
+<span class="lineNum">     120 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
+<span class="lineNum">     121 </span>                :            :   {
+<span class="lineNum">     122 </span>                :<span class="lineNoCov">          0 :     physics::Speed speed;</span>
+<span class="lineNum">     123 </span>                :            :     result = situation::calculateSpeedAndDistanceOffset(timeAfterResponseTime,
+<span class="lineNum">     124 </span>                :            :                                                         responseTimeFrontSide.center.speed,
+<span class="lineNum">     125 </span>                :            :                                                         timeAfterResponseTime,
+<span class="lineNum">     126 </span>                :            :                                                         vehicleState.dynamics.maxSpeedOnAcceleration,
+<span class="lineNum">     127 </span>                :            :                                                         vehicleState.dynamics.alphaLon.brakeMin,
+<span class="lineNum">     128 </span>                :            :                                                         vehicleState.dynamics.alphaLon.brakeMin,
+<span class="lineNum">     129 </span>                :            :                                                         speed,
+<span class="lineNum">     130 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                                         minBrakeDistance);</span>
+<span class="lineNum">     131 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (!result)</span>
+<span class="lineNum">     132 </span>                :            :     {
+<span class="lineNum">     133 </span>                :<span class="lineNoCov">          0 :       spdlog::debug(&quot;TrajectoryPedestrian::calculateTrajectorySets&gt;&gt; Could not calculate speed and distance offset for &quot;</span>
+<span class="lineNum">     134 </span>                :            :                     &quot;t={} and minBrake={}.&quot;,
+<span class="lineNum">     135 </span>                :            :                     timeAfterResponseTime,
+<span class="lineNum">     136 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                     vehicleState.dynamics.alphaLon.brakeMin);</span>
+<span class="lineNum">     137 </span>                :            :     }
+<span class="lineNum">     138 </span>                :            :   }
+<span class="lineNum">     139 </span>                :            : 
+<span class="lineNum">     140 </span>                :<span class="lineNoCov">          0 :   physics::Distance accelMaxDistance = physics::Distance(0.);</span>
+<span class="lineNum">     141 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
+<span class="lineNum">     142 </span>                :            :   {
+<span class="lineNum">     143 </span>                :<span class="lineNoCov">          0 :     physics::Speed speed;</span>
+<span class="lineNum">     144 </span>                :            :     result = situation::calculateSpeedAndDistanceOffset(timeAfterResponseTime,
+<span class="lineNum">     145 </span>                :            :                                                         responseTimeFrontSide.center.speed,
+<span class="lineNum">     146 </span>                :            :                                                         timeAfterResponseTime,
+<span class="lineNum">     147 </span>                :            :                                                         vehicleState.dynamics.maxSpeedOnAcceleration,
+<span class="lineNum">     148 </span>                :            :                                                         vehicleState.dynamics.alphaLon.accelMax,
+<span class="lineNum">     149 </span>                :            :                                                         vehicleState.dynamics.alphaLon.accelMax,
+<span class="lineNum">     150 </span>                :            :                                                         speed,
+<span class="lineNum">     151 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                                         accelMaxDistance);</span>
+<span class="lineNum">     152 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (!result)</span>
+<span class="lineNum">     153 </span>                :            :     {
+<span class="lineNum">     154 </span>                :<span class="lineNoCov">          0 :       spdlog::debug(&quot;TrajectoryPedestrian::calculateTrajectorySets&gt;&gt; Could not calculate speed and distance offset for &quot;</span>
+<span class="lineNum">     155 </span>                :            :                     &quot;t={} and accelMax={}.&quot;,
+<span class="lineNum">     156 </span>                :            :                     timeAfterResponseTime,
+<span class="lineNum">     157 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                     vehicleState.dynamics.alphaLon.accelMax);</span>
+<span class="lineNum">     158 </span>                :            :     }
+<span class="lineNum">     159 </span>                :            :   }
+<span class="lineNum">     160 </span>                :            : 
+<span class="lineNum">     161 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto finalRightMinBrakeDistance = calculateFinalPoint(responseTimeFrontSide.right.front(), minBrakeDistance);</span>
+<span class="lineNum">     162 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto finalLeftMinBrakeDistance = calculateFinalPoint(responseTimeFrontSide.left.back(), minBrakeDistance);</span>
+<span class="lineNum">     163 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto finalRightMaxBrakeDistance = calculateFinalPoint(responseTimeBackSide.right.front(), maxBrakeDistance);</span>
+<span class="lineNum">     164 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto finalLeftMaxBrakeDistance = calculateFinalPoint(responseTimeBackSide.left.back(), maxBrakeDistance);</span>
+<span class="lineNum">     165 </span>                :            :   //=======================
+<span class="lineNum">     166 </span>                :            :   // calculate brakePolygon
+<span class="lineNum">     167 </span>                :            :   //=======================
+<span class="lineNum">     168 </span>                :            :   //-------------
+<span class="lineNum">     169 </span>                :            :   // brake front
+<span class="lineNum">     170 </span>                :            :   //-------------
+<span class="lineNum">     171 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
+<span class="lineNum">     172 </span>                :            :   {
+<span class="lineNum">     173 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     result = calculateStepPolygon(vehicleState,</span>
+<span class="lineNum">     174 </span>                :            :                                   minBrakeDistance,
+<span class="lineNum">     175 </span>                :            :                                   responseTimeFrontSide,
+<span class="lineNum">     176 </span>                :            :                                   &quot;&quot;, //&quot;brake_front&quot;,
+<span class="lineNum">     177 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                   brakePolygon);</span>
+<span class="lineNum">     178 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (!result)</span>
+<span class="lineNum">     179 </span>                :            :     {
+<span class="lineNum">     180 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       spdlog::debug(&quot;TrajectoryPedestrian::calculateTrajectorySets&gt;&gt; Could not calculate brake max step polygon.&quot;);</span>
+<span class="lineNum">     181 </span>                :            :     }
 <span class="lineNum">     182 </span>                :            :   }
 <span class="lineNum">     183 </span>                :            : 
-<span class="lineNum">     184 </span>                :            : #if DEBUG_DRAWING
-<span class="lineNum">     185 </span>                :            :   DEBUG_DRAWING_LINE(linePts, &quot;orange&quot;, debugNamespace + &quot;trajectory&quot;);
-<span class="lineNum">     186 </span>                :            : #else
-<span class="lineNum">     187 </span>                :            :   (void)debugNamespace;
-<span class="lineNum">     188 </span>                :            : #endif
-<span class="lineNum">     189 </span>                :            : 
-<span class="lineNum">     190 </span>                :<span class="lineNoCov">          0 :   return TrajectoryPoint(finalPoint, finalAngle, speed, physics::AngularVelocity(0.));</span>
-<a name="191"><span class="lineNum">     191 </span>                :            : }</a>
-<span class="lineNum">     192 </span>                :            : 
-<span class="lineNum">     193 </span>                :<span class="lineNoCov">          0 : Polygon TrajectoryPedestrian::calculateFrontWithDimension(Trajectory const &amp;trajectory,</span>
-<span class="lineNum">     194 </span>                :            :                                                           ad::physics::Dimension2D const &amp;vehicleDimension)
-<span class="lineNum">     195 </span>                :            : {
-<span class="lineNum">     196 </span>                :            :   // create lines through lefts, rights, centers
-<span class="lineNum">     197 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   Polygon frontPts;</span>
-<span class="lineNum">     198 </span>        [<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   for (auto const &amp;pt : trajectory)</span>
-<span class="lineNum">     199 </span>                :            :   {
-<span class="lineNum">     200 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     boost::geometry::append(frontPts, getVehicleCorner(pt, vehicleDimension, VehicleCorner::frontLeft));</span>
-<span class="lineNum">     201 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     boost::geometry::append(frontPts, getVehicleCorner(pt, vehicleDimension, VehicleCorner::frontRight));</span>
-<span class="lineNum">     202 </span>                :            :   }
-<span class="lineNum">     203 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   Polygon frontPolygon;</span>
-<span class="lineNum">     204 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   boost::geometry::convex_hull(frontPts, frontPolygon);</span>
-<span class="lineNum">     205 </span>                :<span class="lineNoCov">          0 :   return frontPolygon;</span>
-<a name="206"><span class="lineNum">     206 </span>                :            : }</a>
-<span class="lineNum">     207 </span>                :            : 
-<span class="lineNum">     208 </span>                :<span class="lineNoCov">          0 : Polygon TrajectoryPedestrian::calculateBackWithDimension(situation::VehicleState const &amp;vehicleState,</span>
-<span class="lineNum">     209 </span>                :            :                                                          ad::physics::Duration const &amp;duration,
-<span class="lineNum">     210 </span>                :            :                                                          ad::physics::Acceleration const &amp;aAfterResponseTime)
-<span class="lineNum">     211 </span>                :            : {
-<span class="lineNum">     212 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   Polygon backPolygon;</span>
-<span class="lineNum">     213 </span>                :            :   // the polygon contains of the vehicle corners for max brake and aAfterResponseTime with max left and max right
-<span class="lineNum">     214 </span>                :            : 
-<span class="lineNum">     215 </span>                :            :   auto accelLeft = getFinalTrajectoryPoint(vehicleState,
-<span class="lineNum">     216 </span>                :            :                                            duration,
-<span class="lineNum">     217 </span>                :            :                                            vehicleState.dynamics.alphaLon.accelMax,
-<span class="lineNum">     218 </span>                :            :                                            aAfterResponseTime,
-<span class="lineNum">     219 </span>                :            :                                            ad::physics::RatioValue(-1.0),
-<span class="lineNum">     220 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                            std::to_string(aAfterResponseTime) + &quot;_back_accelLeft_&quot;);</span>
-<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
-<span class="lineNum">     221 </span>                :            : 
-<span class="lineNum">     222 </span>                :            :   boost::geometry::append(backPolygon,
-<span class="lineNum">     223 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :                           getVehicleCorner(accelLeft, vehicleState.objectState.dimension, VehicleCorner::frontRight));</span>
-<span class="lineNum">     224 </span>                :            : #if DEBUG_DRAWING
-<span class="lineNum">     225 </span>                :            :   DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(accelLeft, vehicleState).toPolygon(),
-<span class="lineNum">     226 </span>                :            :                         &quot;yellow&quot;,
-<span class="lineNum">     227 </span>                :            :                         std::to_string(aAfterResponseTime) + &quot;_back_accelLeft_vehicle_final_position_right&quot;);
-<span class="lineNum">     228 </span>                :            : #endif
-<span class="lineNum">     229 </span>                :            : 
-<span class="lineNum">     230 </span>                :            :   auto accelRight = getFinalTrajectoryPoint(vehicleState,
-<span class="lineNum">     231 </span>                :            :                                             duration,
-<span class="lineNum">     232 </span>                :            :                                             vehicleState.dynamics.alphaLon.accelMax,
-<span class="lineNum">     233 </span>                :            :                                             aAfterResponseTime,
-<span class="lineNum">     234 </span>                :            :                                             ad::physics::RatioValue(1.0),
-<span class="lineNum">     235 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                             std::to_string(aAfterResponseTime) + &quot;_back_accelRight_&quot;);</span>
-<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
-<span class="lineNum">     236 </span>                :            : 
-<span class="lineNum">     237 </span>                :            :   boost::geometry::append(backPolygon,
-<span class="lineNum">     238 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :                           getVehicleCorner(accelRight, vehicleState.objectState.dimension, VehicleCorner::frontLeft));</span>
-<span class="lineNum">     239 </span>                :            : #if DEBUG_DRAWING
-<span class="lineNum">     240 </span>                :            :   DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(accelRight, vehicleState).toPolygon(),
-<span class="lineNum">     241 </span>                :            :                         &quot;yellow&quot;,
-<span class="lineNum">     242 </span>                :            :                         std::to_string(aAfterResponseTime) + &quot;_back_accelRight_vehicle_final_position_right&quot;);
-<span class="lineNum">     243 </span>                :            : #endif
-<span class="lineNum">     244 </span>                :            :   auto brakeMaxRight = getFinalTrajectoryPoint(vehicleState,
-<span class="lineNum">     245 </span>                :            :                                                duration,
-<span class="lineNum">     246 </span>                :            :                                                vehicleState.dynamics.alphaLon.brakeMax,
-<span class="lineNum">     247 </span>                :            :                                                vehicleState.dynamics.alphaLon.brakeMax,
-<span class="lineNum">     248 </span>                :            :                                                ad::physics::RatioValue(1.0),
-<span class="lineNum">     249 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                                std::to_string(aAfterResponseTime) + &quot;_back_brakeMaxRight_&quot;);</span>
-<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
-<span class="lineNum">     250 </span>                :            : 
-<span class="lineNum">     251 </span>                :            :   boost::geometry::append(backPolygon,
-<span class="lineNum">     252 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :                           getVehicleCorner(brakeMaxRight, vehicleState.objectState.dimension, VehicleCorner::backLeft));</span>
-<span class="lineNum">     253 </span>                :            : #if DEBUG_DRAWING
-<span class="lineNum">     254 </span>                :            :   DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(brakeMaxRight, vehicleState).toPolygon(),
-<span class="lineNum">     255 </span>                :            :                         &quot;yellow&quot;,
-<span class="lineNum">     256 </span>                :            :                         std::to_string(aAfterResponseTime) + &quot;_back_brakeMaxRight_vehicle_final_position_right&quot;);
-<span class="lineNum">     257 </span>                :            : #endif
-<span class="lineNum">     258 </span>                :            :   auto brakeMaxLeft = getFinalTrajectoryPoint(vehicleState,
-<span class="lineNum">     259 </span>                :            :                                               duration,
-<span class="lineNum">     260 </span>                :            :                                               vehicleState.dynamics.alphaLon.brakeMax,
-<span class="lineNum">     261 </span>                :            :                                               vehicleState.dynamics.alphaLon.brakeMax,
-<span class="lineNum">     262 </span>                :            :                                               ad::physics::RatioValue(-1.0),
-<span class="lineNum">     263 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                               std::to_string(aAfterResponseTime) + &quot;_back_brakeMaxLeft_&quot;);</span>
-<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
-<span class="lineNum">     264 </span>                :            : 
-<span class="lineNum">     265 </span>                :            :   boost::geometry::append(backPolygon,
-<span class="lineNum">     266 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :                           getVehicleCorner(brakeMaxLeft, vehicleState.objectState.dimension, VehicleCorner::backRight));</span>
-<span class="lineNum">     267 </span>                :            : #if DEBUG_DRAWING
-<span class="lineNum">     268 </span>                :            :   DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(brakeMaxLeft, vehicleState).toPolygon(),
-<span class="lineNum">     269 </span>                :            :                         &quot;yellow&quot;,
-<span class="lineNum">     270 </span>                :            :                         std::to_string(aAfterResponseTime) + &quot;_back_brakeMaxLeft_vehicle_final_position_left&quot;);
-<span class="lineNum">     271 </span>                :            : #endif
-<span class="lineNum">     272 </span>                :            : 
-<span class="lineNum">     273 </span>        [<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   boost::geometry::append(backPolygon, backPolygon.outer().front());</span>
-<span class="lineNum">     274 </span>                :<span class="lineNoCov">          0 :   return backPolygon;</span>
-<span class="lineNum">     275 </span>                :            : }
-<span class="lineNum">     276 </span>                :            : 
-<a name="277"><span class="lineNum">     277 </span>                :            : } // namespace unstructured</a>
-<span class="lineNum">     278 </span>                :            : } // namespace rss
-<span class="lineNum">     279 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
+<span class="lineNum">     184 </span>                :            :   //-------------
+<span class="lineNum">     185 </span>                :            :   // brake sides
+<span class="lineNum">     186 </span>                :            :   //-------------
+<span class="lineNum">     187 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   Polygon brakeMaxBrakeMinLeftSidePolygon;</span>
+<span class="lineNum">     188 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   Polygon brakeMaxBrakeMinRightSidePolygon;</span>
+<span class="lineNum">     189 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
+<span class="lineNum">     190 </span>                :            :   {
+<span class="lineNum">     191 </span>                :            :     brakeMaxBrakeMinLeftSidePolygon
+<span class="lineNum">     192 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       = calculateSidePolygon(vehicleState, finalLeftMaxBrakeDistance, finalLeftMinBrakeDistance);</span>
+<span class="lineNum">     193 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     result = combinePolygon(brakeMaxBrakeMinLeftSidePolygon, brakePolygon, brakePolygon);</span>
+<span class="lineNum">     194 </span>                :            :   }
+<span class="lineNum">     195 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
+<span class="lineNum">     196 </span>                :            :   {
+<span class="lineNum">     197 </span>                :            :     brakeMaxBrakeMinRightSidePolygon
+<span class="lineNum">     198 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       = calculateSidePolygon(vehicleState, finalRightMaxBrakeDistance, finalRightMinBrakeDistance);</span>
+<span class="lineNum">     199 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     result = combinePolygon(brakeMaxBrakeMinRightSidePolygon, brakePolygon, brakePolygon);</span>
+<span class="lineNum">     200 </span>                :            :   }
+<span class="lineNum">     201 </span>                :            : 
+<span class="lineNum">     202 </span>                :            :   //-------------
+<span class="lineNum">     203 </span>                :            :   // brake back
+<span class="lineNum">     204 </span>                :            :   //-------------
+<span class="lineNum">     205 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   Polygon maxBrakePolygon;</span>
+<span class="lineNum">     206 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
+<span class="lineNum">     207 </span>                :            :   {
+<span class="lineNum">     208 </span>                :<span class="lineNoCov">          0 :     MultiPoint back;</span>
+<span class="lineNum">     209 </span>                :            :     boost::geometry::append(
+<span class="lineNum">     210 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :       back, getVehicleCorner(finalRightMaxBrakeDistance, vehicleState.objectState.dimension, VehicleCorner::backRight));</span>
+<span class="lineNum">     211 </span>                :            :     boost::geometry::append(
+<span class="lineNum">     212 </span>                :            :       back,
+<span class="lineNum">     213 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :       getVehicleCorner(finalRightMaxBrakeDistance, vehicleState.objectState.dimension, VehicleCorner::frontRight));</span>
+<span class="lineNum">     214 </span>                :            :     boost::geometry::append(
+<span class="lineNum">     215 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :       back, getVehicleCorner(finalLeftMaxBrakeDistance, vehicleState.objectState.dimension, VehicleCorner::backLeft));</span>
+<span class="lineNum">     216 </span>                :            :     boost::geometry::append(
+<span class="lineNum">     217 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :       back, getVehicleCorner(finalLeftMaxBrakeDistance, vehicleState.objectState.dimension, VehicleCorner::frontLeft));</span>
+<span class="lineNum">     218 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     boost::geometry::convex_hull(back, maxBrakePolygon);</span>
+<span class="lineNum">     219 </span>                :            : #if DEBUG_DRAWING
+<span class="lineNum">     220 </span>                :            :     DEBUG_DRAWING_POLYGON(maxBrakePolygon, &quot;red&quot;, &quot;brake_back&quot;);
+<span class="lineNum">     221 </span>                :            : #endif
+<span class="lineNum">     222 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     combinePolygon(maxBrakePolygon, brakePolygon, brakePolygon);</span>
+<span class="lineNum">     223 </span>                :            :   }
+<span class="lineNum">     224 </span>                :            : 
+<span class="lineNum">     225 </span>                :            :   //=================================
+<span class="lineNum">     226 </span>                :            :   // calculate continueForwardPolygon
+<span class="lineNum">     227 </span>                :            :   //=================================
+<span class="lineNum">     228 </span>                :            :   //-------------
+<span class="lineNum">     229 </span>                :            :   // continueForward front
+<span class="lineNum">     230 </span>                :            :   //-------------
+<span class="lineNum">     231 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
+<span class="lineNum">     232 </span>                :            :   {
+<span class="lineNum">     233 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     result = calculateStepPolygon(</span>
+<span class="lineNum">     234 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       vehicleState, accelMaxDistance, responseTimeFrontSide, &quot;continueForward_front&quot;, continueForwardPolygon);</span>
+<span class="lineNum">     235 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (!result)</span>
+<span class="lineNum">     236 </span>                :            :     {
+<span class="lineNum">     237 </span>                :            :       spdlog::debug(
+<span class="lineNum">     238 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :         &quot;TrajectoryPedestrian::calculateTrajectorySets&gt;&gt; Could not calculate continueForward front polygon.&quot;);</span>
+<span class="lineNum">     239 </span>                :            :     }
+<span class="lineNum">     240 </span>                :            :   }
+<span class="lineNum">     241 </span>                :            : 
+<span class="lineNum">     242 </span>                :            :   //-------------
+<span class="lineNum">     243 </span>                :            :   // continueForward sides
+<span class="lineNum">     244 </span>                :            :   //-------------
+<span class="lineNum">     245 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
+<span class="lineNum">     246 </span>                :            :   {
+<span class="lineNum">     247 </span>                :            :     auto accelMaxLeftSidePolygon
+<span class="lineNum">     248 </span>                :            :       = calculateSidePolygon(vehicleState,
+<span class="lineNum">     249 </span>                :            :                              finalLeftMinBrakeDistance,
+<span class="lineNum">     250 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :                              calculateFinalPoint(responseTimeFrontSide.left.back(), accelMaxDistance));</span>
+<span class="lineNum">     251 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     result = combinePolygon(accelMaxLeftSidePolygon, continueForwardPolygon, continueForwardPolygon);</span>
+<span class="lineNum">     252 </span>                :            :   }
+<span class="lineNum">     253 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
+<span class="lineNum">     254 </span>                :            :   {
+<span class="lineNum">     255 </span>                :            :     auto accelMaxRightSidePolygon
+<span class="lineNum">     256 </span>                :            :       = calculateSidePolygon(vehicleState,
+<span class="lineNum">     257 </span>                :            :                              finalRightMinBrakeDistance,
+<span class="lineNum">     258 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :                              calculateFinalPoint(responseTimeFrontSide.right.front(), accelMaxDistance));</span>
+<span class="lineNum">     259 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     result = combinePolygon(accelMaxRightSidePolygon, continueForwardPolygon, continueForwardPolygon);</span>
+<span class="lineNum">     260 </span>                :            :   }
+<span class="lineNum">     261 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
+<span class="lineNum">     262 </span>                :            :   {
+<span class="lineNum">     263 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     result = combinePolygon(brakeMaxBrakeMinLeftSidePolygon, continueForwardPolygon, continueForwardPolygon);</span>
+<span class="lineNum">     264 </span>                :            :   }
+<span class="lineNum">     265 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
+<span class="lineNum">     266 </span>                :            :   {
+<span class="lineNum">     267 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     result = combinePolygon(brakeMaxBrakeMinRightSidePolygon, continueForwardPolygon, continueForwardPolygon);</span>
+<span class="lineNum">     268 </span>                :            :   }
+<span class="lineNum">     269 </span>                :            : 
+<span class="lineNum">     270 </span>                :            :   //---------------------
+<span class="lineNum">     271 </span>                :            :   // continueForward back
+<span class="lineNum">     272 </span>                :            :   //---------------------
+<span class="lineNum">     273 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
+<span class="lineNum">     274 </span>                :            :   {
+<span class="lineNum">     275 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     combinePolygon(maxBrakePolygon, continueForwardPolygon, continueForwardPolygon);</span>
+<span class="lineNum">     276 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (!result)</span>
+<span class="lineNum">     277 </span>                :            :     {
+<span class="lineNum">     278 </span>                :            :       spdlog::debug(
+<span class="lineNum">     279 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :         &quot;TrajectoryPedestrian::calculateTrajectorySets&gt;&gt; Error while combining back with continueForwardPolygon.&quot;);</span>
+<span class="lineNum">     280 </span>                :            :     }
+<span class="lineNum">     281 </span>                :            :   }
+<span class="lineNum">     282 </span>                :            : 
+<span class="lineNum">     283 </span>                :<span class="lineNoCov">          0 :   return result;</span>
+<a name="284"><span class="lineNum">     284 </span>                :            : }</a>
+<span class="lineNum">     285 </span>                :            : 
+<span class="lineNum">     286 </span>                :<span class="lineNoCov">          0 : bool TrajectoryPedestrian::calculateTrajectorySetsStandingStill(situation::VehicleState const &amp;vehicleState,</span>
+<span class="lineNum">     287 </span>                :            :                                                                 physics::Duration const &amp;timeToStop,
+<span class="lineNum">     288 </span>                :            :                                                                 Polygon &amp;brakePolygon,
+<span class="lineNum">     289 </span>                :            :                                                                 Polygon &amp;continueForwardPolygon) const
+<span class="lineNum">     290 </span>                :            : {
+<span class="lineNum">     291 </span>                :            :   // If pedestrian is standing, he might start walking in any direction
+<span class="lineNum">     292 </span>                :<span class="lineNoCov">          0 :   ad::physics::Speed speed;</span>
+<span class="lineNum">     293 </span>                :<span class="lineNoCov">          0 :   ad::physics::Distance brakeMinMaxDistance;</span>
+<span class="lineNum">     294 </span>                :            :   auto result = situation::calculateSpeedAndDistanceOffset(timeToStop,
+<span class="lineNum">     295 </span>                :            :                                                            vehicleState.objectState.speed,
+<span class="lineNum">     296 </span>                :            :                                                            vehicleState.dynamics.responseTime,
+<span class="lineNum">     297 </span>                :            :                                                            vehicleState.dynamics.maxSpeedOnAcceleration,
+<span class="lineNum">     298 </span>                :            :                                                            vehicleState.dynamics.alphaLon.accelMax,
+<span class="lineNum">     299 </span>                :            :                                                            vehicleState.dynamics.alphaLon.brakeMin,
+<span class="lineNum">     300 </span>                :            :                                                            speed,
+<span class="lineNum">     301 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                                            brakeMinMaxDistance);</span>
+<span class="lineNum">     302 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   calculateCircleArc(toPoint(vehicleState.objectState.centerPoint),</span>
+<span class="lineNum">     303 </span>                :            :                      brakeMinMaxDistance,
+<span class="lineNum">     304 </span>                :            :                      ad::physics::Angle(0.),
+<span class="lineNum">     305 </span>                :            :                      ad::physics::c2PI,
+<span class="lineNum">     306 </span>                :            :                      circleStepWidth,
+<span class="lineNum">     307 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                      brakePolygon);</span>
+<span class="lineNum">     308 </span>                :            : 
+<span class="lineNum">     309 </span>                :<span class="lineNoCov">          0 :   ad::physics::Distance accelMaxMaxDistance;</span>
+<span class="lineNum">     310 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
+<span class="lineNum">     311 </span>                :            :   {
+<span class="lineNum">     312 </span>                :            :     result = situation::calculateSpeedAndDistanceOffset(timeToStop,
+<span class="lineNum">     313 </span>                :            :                                                         vehicleState.objectState.speed,
+<span class="lineNum">     314 </span>                :            :                                                         vehicleState.dynamics.responseTime,
+<span class="lineNum">     315 </span>                :            :                                                         vehicleState.dynamics.maxSpeedOnAcceleration,
+<span class="lineNum">     316 </span>                :            :                                                         vehicleState.dynamics.alphaLon.accelMax,
+<span class="lineNum">     317 </span>                :            :                                                         vehicleState.dynamics.alphaLon.accelMax,
+<span class="lineNum">     318 </span>                :            :                                                         speed,
+<span class="lineNum">     319 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                                         accelMaxMaxDistance);</span>
+<span class="lineNum">     320 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     calculateCircleArc(toPoint(vehicleState.objectState.centerPoint),</span>
+<span class="lineNum">     321 </span>                :            :                        accelMaxMaxDistance,
+<span class="lineNum">     322 </span>                :            :                        ad::physics::Angle(0.),
+<span class="lineNum">     323 </span>                :            :                        ad::physics::c2PI,
+<span class="lineNum">     324 </span>                :            :                        circleStepWidth,
+<span class="lineNum">     325 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                        continueForwardPolygon);</span>
+<span class="lineNum">     326 </span>                :            :   }
+<span class="lineNum">     327 </span>                :            : 
+<span class="lineNum">     328 </span>                :<span class="lineNoCov">          0 :   return result;</span>
+<a name="329"><span class="lineNum">     329 </span>                :            : }</a>
+<span class="lineNum">     330 </span>                :            : 
+<span class="lineNum">     331 </span>                :<span class="lineNoCov">          0 : Polygon TrajectoryPedestrian::calculateSidePolygon(situation::VehicleState const &amp;vehicleState,</span>
+<span class="lineNum">     332 </span>                :            :                                                    TrajectoryPoint const &amp;finalPointMin,
+<span class="lineNum">     333 </span>                :            :                                                    TrajectoryPoint const &amp;finalPointMax) const
+<span class="lineNum">     334 </span>                :            : {
+<span class="lineNum">     335 </span>                :<span class="lineNoCov">          0 :   MultiPoint side;</span>
+<span class="lineNum">     336 </span>                :            :   boost::geometry::append(
+<span class="lineNum">     337 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     side, getVehicleCorner(finalPointMax, vehicleState.objectState.dimension, VehicleCorner::frontRight));</span>
+<span class="lineNum">     338 </span>                :            :   boost::geometry::append(
+<span class="lineNum">     339 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     side, getVehicleCorner(finalPointMax, vehicleState.objectState.dimension, VehicleCorner::frontLeft));</span>
+<span class="lineNum">     340 </span>                :            :   boost::geometry::append(side,
+<span class="lineNum">     341 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :                           getVehicleCorner(finalPointMin, vehicleState.objectState.dimension, VehicleCorner::backLeft));</span>
+<span class="lineNum">     342 </span>                :            :   boost::geometry::append(
+<span class="lineNum">     343 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     side, getVehicleCorner(finalPointMin, vehicleState.objectState.dimension, VehicleCorner::backRight));</span>
+<span class="lineNum">     344 </span>                :            : 
+<span class="lineNum">     345 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   Polygon hull;</span>
+<span class="lineNum">     346 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   boost::geometry::convex_hull(side, hull);</span>
+<span class="lineNum">     347 </span>                :<span class="lineNoCov">          0 :   return hull;</span>
+<a name="348"><span class="lineNum">     348 </span>                :            : }</a>
+<span class="lineNum">     349 </span>                :            : 
+<span class="lineNum">     350 </span>                :<span class="lineNoCov">          0 : TrajectoryPoint TrajectoryPedestrian::calculateFinalPoint(TrajectoryPoint const &amp;pointAfterResponseTime,</span>
+<span class="lineNum">     351 </span>                :            :                                                           physics::Distance const &amp;distance) const
+<span class="lineNum">     352 </span>                :            : {
+<span class="lineNum">     353 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (distance &gt; physics::Distance(0.))</span>
+<span class="lineNum">     354 </span>                :            :   {
+<span class="lineNum">     355 </span>                :<span class="lineNoCov">          0 :     auto finalPoint = pointAfterResponseTime;</span>
+<span class="lineNum">     356 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     auto headingAngle = pointAfterResponseTime.angle - ad::physics::cPI_2;</span>
+<span class="lineNum">     357 </span>                :            :     finalPoint.position = pointAfterResponseTime.position
+<span class="lineNum">     358 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :       + toPoint(-std::sin(headingAngle) * distance, std::cos(headingAngle) * distance);</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>][<span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 13 was not executed"> # </span><span class="branchNoExec" title="Branch 14 was not executed"> # </span>][<span class="branchNoExec" title="Branch 16 was not executed"> # </span><span class="branchNoExec" title="Branch 17 was not executed"> # </span>]
+<span class="lineNum">     359 </span>                :<span class="lineNoCov">          0 :     return finalPoint;</span>
+<span class="lineNum">     360 </span>                :            :   }
+<span class="lineNum">     361 </span>                :            :   else
+<span class="lineNum">     362 </span>                :            :   {
+<span class="lineNum">     363 </span>                :<span class="lineNoCov">          0 :     return pointAfterResponseTime;</span>
+<span class="lineNum">     364 </span>                :            :   }
+<a name="365"><span class="lineNum">     365 </span>                :            : }</a>
+<span class="lineNum">     366 </span>                :            : 
+<span class="lineNum">     367 </span>                :<span class="lineNoCov">          0 : bool TrajectoryPedestrian::calculateStepPolygon(situation::VehicleState const &amp;vehicleState,</span>
+<span class="lineNum">     368 </span>                :            :                                                 physics::Distance const &amp;distance,
+<span class="lineNum">     369 </span>                :            :                                                 TrajectorySetStep const &amp;step,
+<span class="lineNum">     370 </span>                :            :                                                 std::string const &amp;debugNamespace,
+<span class="lineNum">     371 </span>                :            :                                                 Polygon &amp;polygon) const
+<span class="lineNum">     372 </span>                :            : {
+<span class="lineNum">     373 </span>                :<span class="lineNoCov">          0 :   auto result = true;</span>
+<span class="lineNum">     374 </span>                :            : 
+<span class="lineNum">     375 </span>                :            :   // calculate final points
+<span class="lineNum">     376 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   TrajectorySetStep finalStep;</span>
+<span class="lineNum">     377 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (distance &gt; physics::Distance(0.))</span>
+<span class="lineNum">     378 </span>                :            :   {
+<span class="lineNum">     379 </span>        [<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :     for (auto const &amp;left : step.left)</span>
+<span class="lineNum">     380 </span>                :            :     {
+<span class="lineNum">     381 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :       finalStep.left.push_back(calculateFinalPoint(left, distance));</span>
+<span class="lineNum">     382 </span>                :            :     }
+<span class="lineNum">     383 </span>        [<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :     for (auto const &amp;right : step.right)</span>
+<span class="lineNum">     384 </span>                :            :     {
+<span class="lineNum">     385 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :       finalStep.right.push_back(calculateFinalPoint(right, distance));</span>
+<span class="lineNum">     386 </span>                :            :     }
+<span class="lineNum">     387 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     finalStep.center = calculateFinalPoint(step.center, distance);</span>
+<span class="lineNum">     388 </span>                :            :   }
+<span class="lineNum">     389 </span>                :            :   else
+<span class="lineNum">     390 </span>                :            :   {
+<span class="lineNum">     391 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     finalStep = step;</span>
+<span class="lineNum">     392 </span>                :            :   }
+<span class="lineNum">     393 </span>                :            : 
+<span class="lineNum">     394 </span>                :<span class="lineNoCov">          0 :   MultiPoint ptsLeft;</span>
+<span class="lineNum">     395 </span>                :<span class="lineNoCov">          0 :   MultiPoint ptsRight;</span>
+<span class="lineNum">     396 </span>                :            : 
+<span class="lineNum">     397 </span>                :            :   auto finalCenterFrontLeft
+<span class="lineNum">     398 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     = getVehicleCorner(finalStep.center, vehicleState.objectState.dimension, VehicleCorner::frontLeft);</span>
+<span class="lineNum">     399 </span>                :            :   auto finalCenterFrontRight
+<span class="lineNum">     400 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     = getVehicleCorner(finalStep.center, vehicleState.objectState.dimension, VehicleCorner::frontRight);</span>
+<span class="lineNum">     401 </span>                :            : 
+<span class="lineNum">     402 </span>                :            : //----
+<span class="lineNum">     403 </span>                :            : // left
+<span class="lineNum">     404 </span>                :            : //----
+<span class="lineNum">     405 </span>                :            : #if DEBUG_DRAWING
+<span class="lineNum">     406 </span>                :            :   int idx = 0;
+<span class="lineNum">     407 </span>                :            : #endif
+<span class="lineNum">     408 </span>[<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :   for (auto it = finalStep.left.begin(); (it != finalStep.left.end()) &amp;&amp; result; ++it)</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>][<span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>]
+<span class="lineNum">     409 </span>                :            :   {
+<span class="lineNum">     410 </span>                :            : #if DEBUG_DRAWING
+<span class="lineNum">     411 </span>                :            :     auto vehicleLocation = TrafficParticipantLocation(*it, vehicleState);
+<span class="lineNum">     412 </span>                :            :     DEBUG_DRAWING_POLYGON(vehicleLocation.toPolygon(), &quot;black&quot;, debugNamespace + &quot;_left_&quot; + std::to_string(idx));
+<span class="lineNum">     413 </span>                :            :     ++idx;
+<span class="lineNum">     414 </span>                :            : #else
+<span class="lineNum">     415 </span>                :            :     (void)debugNamespace;
+<span class="lineNum">     416 </span>                :            : #endif
+<span class="lineNum">     417 </span>                :            :     boost::geometry::append(ptsLeft,
+<span class="lineNum">     418 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :                             getVehicleCorner(*it, vehicleState.objectState.dimension, VehicleCorner::frontRight));</span>
+<span class="lineNum">     419 </span>                :            :     boost::geometry::append(ptsLeft,
+<span class="lineNum">     420 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :                             getVehicleCorner(*it, vehicleState.objectState.dimension, VehicleCorner::frontLeft));</span>
+<span class="lineNum">     421 </span>                :            :   }
+<span class="lineNum">     422 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   boost::geometry::append(ptsLeft, finalCenterFrontLeft);</span>
+<span class="lineNum">     423 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   boost::geometry::append(ptsLeft, finalCenterFrontRight);</span>
+<span class="lineNum">     424 </span>                :            : 
+<span class="lineNum">     425 </span>                :            : //-----
+<span class="lineNum">     426 </span>                :            : // right
+<span class="lineNum">     427 </span>                :            : //-----
+<span class="lineNum">     428 </span>                :            : #if DEBUG_DRAWING
+<span class="lineNum">     429 </span>                :            :   idx = 0;
+<span class="lineNum">     430 </span>                :            : #endif
+<span class="lineNum">     431 </span>[<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :   for (auto it = finalStep.right.begin(); (it != finalStep.right.end()) &amp;&amp; result; ++it)</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>][<span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>]
+<span class="lineNum">     432 </span>                :            :   {
+<span class="lineNum">     433 </span>                :            : #if DEBUG_DRAWING
+<span class="lineNum">     434 </span>                :            :     auto vehicleLocation = TrafficParticipantLocation(*it, vehicleState);
+<span class="lineNum">     435 </span>                :            :     DEBUG_DRAWING_POLYGON(vehicleLocation.toPolygon(), &quot;black&quot;, debugNamespace + &quot;_right_&quot; + std::to_string(idx));
+<span class="lineNum">     436 </span>                :            :     ++idx;
+<span class="lineNum">     437 </span>                :            : #else
+<span class="lineNum">     438 </span>                :            :     (void)debugNamespace;
+<span class="lineNum">     439 </span>                :            : #endif
+<span class="lineNum">     440 </span>                :            :     boost::geometry::append(ptsRight,
+<span class="lineNum">     441 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :                             getVehicleCorner(*it, vehicleState.objectState.dimension, VehicleCorner::frontLeft));</span>
+<span class="lineNum">     442 </span>                :            :     boost::geometry::append(ptsRight,
+<span class="lineNum">     443 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :                             getVehicleCorner(*it, vehicleState.objectState.dimension, VehicleCorner::frontRight));</span>
+<span class="lineNum">     444 </span>                :            :   }
+<span class="lineNum">     445 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   boost::geometry::append(ptsRight, finalCenterFrontLeft);</span>
+<span class="lineNum">     446 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   boost::geometry::append(ptsRight, finalCenterFrontRight);</span>
+<span class="lineNum">     447 </span>                :            : 
+<span class="lineNum">     448 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (result)</span>
+<span class="lineNum">     449 </span>                :            :   {
+<span class="lineNum">     450 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     Polygon hullLeft;</span>
+<span class="lineNum">     451 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     Polygon hullRight;</span>
+<span class="lineNum">     452 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     boost::geometry::convex_hull(ptsLeft, hullLeft);</span>
+<span class="lineNum">     453 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     boost::geometry::convex_hull(ptsRight, hullRight);</span>
+<span class="lineNum">     454 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     result = combinePolygon(hullLeft, hullRight, polygon);</span>
+<span class="lineNum">     455 </span>                :            :   }
+<span class="lineNum">     456 </span>                :<span class="lineNoCov">          0 :   return result;</span>
+<a name="457"><span class="lineNum">     457 </span>                :            : }</a>
+<span class="lineNum">     458 </span>                :            : 
+<span class="lineNum">     459 </span>                :<span class="lineNoCov">          0 : bool TrajectoryPedestrian::getResponseTimeTrajectoryPoints(situation::VehicleState const &amp;vehicleState,</span>
+<span class="lineNum">     460 </span>                :            :                                                            TrajectorySetStep &amp;frontSide,
+<span class="lineNum">     461 </span>                :            :                                                            TrajectorySetStep &amp;backSide) const
+<span class="lineNum">     462 </span>                :            : {
+<span class="lineNum">     463 </span>                :<span class="lineNoCov">          0 :   auto result = true;</span>
+<span class="lineNum">     464 </span>                :            :   //-------------
+<span class="lineNum">     465 </span>                :            :   // back
+<span class="lineNum">     466 </span>                :            :   //-------------
+<span class="lineNum">     467 </span>[<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :   for (auto ratioValue = physics::RatioValue(-1.0); (ratioValue &lt;= physics::RatioValue(1.0)) &amp;&amp; result;</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>][<span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>]
+<span class="lineNum">         </span>  [<span class="branchNoExec" title="Branch 11 was not executed"> # </span><span class="branchNoExec" title="Branch 12 was not executed"> # </span><span class="branchNoExec" title="Branch 14 was not executed"> # </span><span class="branchNoExec" title="Branch 15 was not executed"> # </span>]
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 16 was not executed"> # </span><span class="branchNoExec" title="Branch 17 was not executed"> # </span>]
+<span class="lineNum">     468 </span>                :<span class="lineNoCov">          0 :        ratioValue += physics::RatioValue(0.1))</span>
+<span class="lineNum">     469 </span>                :            :   {
+<span class="lineNum">     470 </span>                :<span class="lineNoCov">          0 :     auto accel = vehicleState.dynamics.alphaLon.brakeMax;</span>
+<span class="lineNum">     471 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     TrajectoryPoint pt;</span>
+<span class="lineNum">     472 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     result = getResponseTimeTrajectoryPoint(vehicleState, accel, ratioValue, pt);</span>
+<span class="lineNum">     473 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (ratioValue == physics::RatioValue(0.))</span>
+<span class="lineNum">     474 </span>                :            :     {
+<span class="lineNum">     475 </span>                :<span class="lineNoCov">          0 :       backSide.center = pt;</span>
+<span class="lineNum">     476 </span>                :            :     }
+<span class="lineNum">     477 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     else if (ratioValue &gt; physics::RatioValue(0.))</span>
+<span class="lineNum">     478 </span>                :            :     {
+<span class="lineNum">     479 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       backSide.left.push_back(pt);</span>
+<span class="lineNum">     480 </span>                :            :     }
+<span class="lineNum">     481 </span>                :            :     else
+<span class="lineNum">     482 </span>                :            :     {
+<span class="lineNum">     483 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       backSide.right.push_back(pt);</span>
+<span class="lineNum">     484 </span>                :            :     }
+<span class="lineNum">     485 </span>                :            :   }
+<span class="lineNum">     486 </span>                :            : 
+<span class="lineNum">     487 </span>                :            :   //-------------
+<span class="lineNum">     488 </span>                :            :   // front
+<span class="lineNum">     489 </span>                :            :   //-------------
+<span class="lineNum">     490 </span>[<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :   for (auto ratioValue = physics::RatioValue(-1.0); (ratioValue &lt;= physics::RatioValue(1.0)) &amp;&amp; result;</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>][<span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>]
+<span class="lineNum">         </span>  [<span class="branchNoExec" title="Branch 11 was not executed"> # </span><span class="branchNoExec" title="Branch 12 was not executed"> # </span><span class="branchNoExec" title="Branch 14 was not executed"> # </span><span class="branchNoExec" title="Branch 15 was not executed"> # </span>]
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 16 was not executed"> # </span><span class="branchNoExec" title="Branch 17 was not executed"> # </span>]
+<span class="lineNum">     491 </span>                :<span class="lineNoCov">          0 :        ratioValue += physics::RatioValue(0.1))</span>
+<span class="lineNum">     492 </span>                :            :   {
+<span class="lineNum">     493 </span>                :<span class="lineNoCov">          0 :     auto accel = vehicleState.dynamics.alphaLon.accelMax;</span>
+<span class="lineNum">     494 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     TrajectoryPoint pt;</span>
+<span class="lineNum">     495 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     result = getResponseTimeTrajectoryPoint(vehicleState, accel, ratioValue, pt);</span>
+<span class="lineNum">     496 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (ratioValue == physics::RatioValue(0.))</span>
+<span class="lineNum">     497 </span>                :            :     {
+<span class="lineNum">     498 </span>                :<span class="lineNoCov">          0 :       frontSide.center = pt;</span>
+<span class="lineNum">     499 </span>                :            :     }
+<span class="lineNum">     500 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     else if (ratioValue &gt; physics::RatioValue(0.))</span>
+<span class="lineNum">     501 </span>                :            :     {
+<span class="lineNum">     502 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       frontSide.left.push_back(pt);</span>
+<span class="lineNum">     503 </span>                :            :     }
+<span class="lineNum">     504 </span>                :            :     else
+<span class="lineNum">     505 </span>                :            :     {
+<span class="lineNum">     506 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       frontSide.right.push_back(pt);</span>
+<span class="lineNum">     507 </span>                :            :     }
+<span class="lineNum">     508 </span>                :            :   }
+<span class="lineNum">     509 </span>                :            : 
+<span class="lineNum">     510 </span>                :<span class="lineNoCov">          0 :   return result;</span>
+<a name="511"><span class="lineNum">     511 </span>                :            : }</a>
+<span class="lineNum">     512 </span>                :            : 
+<span class="lineNum">     513 </span>                :<span class="lineNoCov">          0 : bool TrajectoryPedestrian::getResponseTimeTrajectoryPoint(situation::VehicleState const &amp;vehicleState,</span>
+<span class="lineNum">     514 </span>                :            :                                                           ad::physics::Acceleration const &amp;aUntilResponseTime,
+<span class="lineNum">     515 </span>                :            :                                                           ad::physics::RatioValue const &amp;angleChangeRatio,
+<span class="lineNum">     516 </span>                :            :                                                           TrajectoryPoint &amp;resultTrajectoryPoint) const
+<span class="lineNum">     517 </span>                :            : {
+<span class="lineNum">     518 </span>                :<span class="lineNoCov">          0 :   auto result = true;</span>
+<span class="lineNum">     519 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto startingAngle = vehicleState.objectState.yaw - ad::physics::cPI_2;</span>
+<span class="lineNum">     520 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   auto startingPoint = toPoint(vehicleState.objectState.centerPoint);</span>
+<span class="lineNum">     521 </span>                :<span class="lineNoCov">          0 :   ad::physics::Speed speed;</span>
+<span class="lineNum">     522 </span>                :<span class="lineNoCov">          0 :   ad::physics::Distance maxDistance;</span>
+<span class="lineNum">     523 </span>                :            :   situation::calculateSpeedAndDistanceOffset(vehicleState.dynamics.responseTime,
+<span class="lineNum">     524 </span>                :            :                                              vehicleState.objectState.speed,
+<span class="lineNum">     525 </span>                :            :                                              vehicleState.dynamics.responseTime,
+<span class="lineNum">     526 </span>                :            :                                              vehicleState.dynamics.maxSpeedOnAcceleration,
+<span class="lineNum">     527 </span>                :            :                                              aUntilResponseTime,
+<span class="lineNum">     528 </span>                :            :                                              aUntilResponseTime,
+<span class="lineNum">     529 </span>                :            :                                              speed,
+<span class="lineNum">     530 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                              maxDistance);</span>
+<span class="lineNum">     531 </span>                :            : 
+<span class="lineNum">     532 </span>                :            : #if DEBUG_DRAWING
+<span class="lineNum">     533 </span>                :            :   Line linePts;
+<span class="lineNum">     534 </span>                :            :   boost::geometry::append(linePts, startingPoint);
+<span class="lineNum">     535 </span>                :            : #endif
+<span class="lineNum">     536 </span>                :            : 
+<span class="lineNum">     537 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   TrajectoryPoint currentPoint(vehicleState);</span>
+<span class="lineNum">     538 </span>                :            : 
+<span class="lineNum">     539 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   Point pointAfterResponseTime;</span>
+<span class="lineNum">     540 </span>                :<span class="lineNoCov">          0 :   auto angleChange = physics::Angle(0.);</span>
+<span class="lineNum">     541 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (static_cast&lt;double&gt;(std::fabs(angleChangeRatio))</span>
+<span class="lineNum">     542 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       &gt; vehicleState.dynamics.unstructuredSettings.pedestrianTurningRadius / maxRadius)</span>
+<span class="lineNum">     543 </span>                :            :   {
+<span class="lineNum">     544 </span>                :            :     // move on circle
+<span class="lineNum">     545 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     auto radius = vehicleState.dynamics.unstructuredSettings.pedestrianTurningRadius / angleChangeRatio;</span>
+<span class="lineNum">     546 </span>                :            : 
+<span class="lineNum">     547 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     auto circleOrigin = getCircleOrigin(startingPoint, radius, startingAngle);</span>
+<span class="lineNum">     548 </span>                :<span class="lineNoCov">          0 :     ad::physics::Distance distanceUntilReponseTime;</span>
+<span class="lineNum">     549 </span>                :            : 
+<span class="lineNum">     550 </span>                :            :     situation::calculateAcceleratedLimitedMovement(vehicleState.objectState.speed,
+<span class="lineNum">     551 </span>                :            :                                                    vehicleState.dynamics.maxSpeedOnAcceleration,
+<span class="lineNum">     552 </span>                :            :                                                    aUntilResponseTime,
+<span class="lineNum">     553 </span>                :            :                                                    vehicleState.dynamics.responseTime,
+<span class="lineNum">     554 </span>                :            :                                                    speed,
+<span class="lineNum">     555 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                                                    distanceUntilReponseTime);</span>
+<span class="lineNum">     556 </span>                :            : 
+<span class="lineNum">     557 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     angleChange = ad::physics::Angle(distanceUntilReponseTime / radius);</span>
+<span class="lineNum">     558 </span>                :            : 
+<span class="lineNum">     559 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :     pointAfterResponseTime = getPointOnCircle(circleOrigin, radius, startingAngle + angleChange);</span>
+<span class="lineNum">     560 </span>                :            :   }
+<span class="lineNum">     561 </span>                :            :   else
+<span class="lineNum">     562 </span>                :            :   {
+<span class="lineNum">     563 </span>                :            :     // straight line
+<span class="lineNum">     564 </span>                :            :     pointAfterResponseTime
+<span class="lineNum">     565 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :       = startingPoint + toPoint(-std::sin(startingAngle) * maxDistance, std::cos(startingAngle) * maxDistance);</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>][<span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 13 was not executed"> # </span><span class="branchNoExec" title="Branch 14 was not executed"> # </span>][<span class="branchNoExec" title="Branch 16 was not executed"> # </span><span class="branchNoExec" title="Branch 17 was not executed"> # </span>]
+<span class="lineNum">     566 </span>                :            :   }
+<span class="lineNum">     567 </span>                :            : #if DEBUG_DRAWING
+<span class="lineNum">     568 </span>                :            :   boost::geometry::append(linePts, pointAfterResponseTime);
+<span class="lineNum">     569 </span>                :            : #endif
+<span class="lineNum">     570 </span>                :            : 
+<span class="lineNum">     571 </span>                :            :   resultTrajectoryPoint = TrajectoryPoint(
+<span class="lineNum">     572 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     pointAfterResponseTime, vehicleState.objectState.yaw + angleChange, speed, physics::AngularVelocity(0.));</span>
+<span class="lineNum">     573 </span>                :            : #if DEBUG_DRAWING
+<span class="lineNum">     574 </span>                :            :   DEBUG_DRAWING_LINE(
+<span class="lineNum">     575 </span>                :            :     linePts, &quot;orange&quot;, std::to_string(aUntilResponseTime) + &quot;_&quot; + std::to_string(angleChangeRatio) + &quot;_trajectory&quot;);
+<span class="lineNum">     576 </span>                :            : #endif
+<span class="lineNum">     577 </span>                :<span class="lineNoCov">          0 :   return result;</span>
+<span class="lineNum">     578 </span>                :            : }
+<span class="lineNum">     579 </span>                :            : 
+<a name="580"><span class="lineNum">     580 </span>                :            : } // namespace unstructured</a>
+<span class="lineNum">     581 </span>                :            : } // namespace rss
+<span class="lineNum">     582 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
 </pre>
       </td>
     </tr>
