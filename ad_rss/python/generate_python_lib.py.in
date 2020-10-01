@@ -23,48 +23,82 @@ def main():
     """
     Main function to generate Python-C++ binding code
     """
-    header_dirs = {
-        "${CMAKE_CURRENT_LIST_DIR}/../generated/include/",
-        "${CMAKE_CURRENT_LIST_DIR}/../impl/include/"
-    }
     include_dirs = {
-        "${GENPY_INCLUDE_DIRS}"
-    }
-    # currently ignored files
-    ignore_files = {
-        "unstructured/DebugDrawing.hpp",
+        "@GENPY_INCLUDE_DIRS@",
+        "@CMAKE_CURRENT_LIST_DIR@/../generated/include/",
+        "@CMAKE_CURRENT_LIST_DIR@/../impl/include/"
     }
 
-    generate_python_wrapper(library_name="libad_rss_python",
-                            cpp_filename="AdRssPythonWrapper.cpp.in",
-                            header_directories=header_dirs,
-                            include_paths=include_dirs,
-                            declarations={
-                                "ad", "toString", "fromString", "std::to_string", "std::sqrt", "std::fabs", "std::numeric_limits"},
-                            ignore_files=ignore_files)
+    declarations={"toString", "fromString", "std::to_string", "std::sqrt", "std::fabs", "std::numeric_limits"}
 
-    # these are additional replacements that have to be done...
     additional_replacements = {
         # RoadSegment: vector<vector>>, set name manually, tool doesn't understand correctly
         ("\"vector_less__ad_scope_rss_scope_world_scope_LaneSegment__greater_\"", "\"RoadSegment\"")
     }
 
-    additional_replacements_python2=additional_replacements.copy()
-    additional_replacements_python2.add(("libad_rss_python", "libad_rss_python2"))
-    post_process_python_wrapper(header_directories=header_dirs,
-                                cpp_filename_in="AdRssPythonWrapper.cpp.in",
-                                cpp_filename_out="AdRssPythonWrapperPYTHON2.cpp",
-                                additional_replacements=additional_replacements_python2,
-                                spdx_license="LGPL-2.1-only")
+    for component in ["core", "situation", "state", "unstructured", "world"]:
+        main_namespace="ad::rss::{}".format(component)
 
-    additional_replacements_python3=additional_replacements.copy()
-    additional_replacements_python3.add(("libad_rss_python", "libad_rss_python3"))
-    post_process_python_wrapper(header_directories=header_dirs,
-                                cpp_filename_in="AdRssPythonWrapper.cpp.in",
-                                cpp_filename_out="AdRssPythonWrapperPYTHON3.cpp",
-                                additional_replacements=additional_replacements_python3,
-                                spdx_license="LGPL-2.1-only")
+        declarations_component=declarations.copy()
+        declarations_component.add(main_namespace)
 
+        ignore_files={}
+        ignore_declarations={}
+        additional_includes={}
+        if component == "state":
+            ignore_declarations={
+                # alias is not matched by the namespace magic
+                "ObjectIdVector"
+            }
+
+        if component == "core":
+            header_dirs = {
+                "@CMAKE_CURRENT_LIST_DIR@/../impl/include/ad/rss/{}".format(component)
+            }
+        elif component == "world":
+            header_dirs = {
+                "@CMAKE_CURRENT_LIST_DIR@/../generated/include/ad/rss/{}".format(component),
+            }
+        elif component == "unstructured":
+            header_dirs = {
+                "@CMAKE_CURRENT_LIST_DIR@/../impl/include/ad/rss/{}".format(component)
+            }
+            ignore_files={
+                # leave out DebugDrawing having errors
+                "DebugDrawing.hpp"
+            }
+        else:
+            header_dirs = {
+                "@CMAKE_CURRENT_LIST_DIR@/../generated/include/ad/rss/{}".format(component),
+                "@CMAKE_CURRENT_LIST_DIR@/../impl/include/ad/rss/{}".format(component)
+            }
+
+        generate_python_wrapper(library_name=component,
+                                cpp_filename="AdRss-{}-PythonWrapper.cpp.in".format(component),
+                                header_directories=header_dirs,
+                                include_paths=include_dirs,
+                                main_namespace=main_namespace,
+                                declarations=declarations_component,
+                                ignore_declarations=ignore_declarations,
+                                ignore_files=ignore_files)
+
+        additional_replacements_component = additional_replacements.copy()
+        additional_replacements_component.add(
+                ("BOOST_PYTHON_MODULE({}){{".format(component),
+                 "void export_ad_rss_{}(){{\n\n".format(component) +
+                 "  bp::object ad_rss_{}_module(bp::handle<>(bp::borrowed(PyImport_AddModule(\"{}\"))));\n".format(component, component) +
+                 "  bp::scope().attr(\"{}\") = ad_rss_{}_module;\n".format(component, component) +
+                 "  bp::scope submodule_scope = ad_rss_{}_module;\n\n".format(component) +
+                 "  bp::scope().attr(\"__doc__\") = \"Python binding of ad_rss ad::rss::{} namespace C++ code for @binding_string@\";".format(component) +
+                 "  bp::scope().attr(\"__copyright__\") = \"Copyright (C) 2019-2020 Intel Corporation\";" +
+                 "  bp::scope().attr(\"__license__\") = \"LGPL-2.1-only\";"
+                ))
+        post_process_python_wrapper(header_directories=header_dirs,
+                                    cpp_filename_in="AdRss-{}-PythonWrapper.cpp.in".format(component),
+                                    cpp_filename_out="AdRss-{}-PythonWrapper.cpp".format(component),
+                                    additional_replacements=additional_replacements_component,
+                                    spdx_license="LGPL-2.1-only"
+        )
 
 if __name__ == '__main__':
     main()

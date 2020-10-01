@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1988
+ * Generator Version : 11.0.0-1997
  */
 
 #pragma once
@@ -25,7 +25,7 @@
 /*!
  * The minor version of ad_rss
  */
-#define AD_RSS_VERSION_MINOR 1
+#define AD_RSS_VERSION_MINOR 2
 
 /*!
  * The revision of ad_rss
@@ -35,4 +35,4 @@
 /*!
  * The version of ad_rss as string
  */
-#define AD_RSS_VERSION_STRING "4.1.0"
+#define AD_RSS_VERSION_STRING "4.2.0"

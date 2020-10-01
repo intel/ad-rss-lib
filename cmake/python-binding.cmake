@@ -39,73 +39,70 @@ function(find_python_binding_packages)
     set(BOOST_PYTHON_SHORT_NAME ON)
   endif()
 
-  #python2
-  unset(PYTHON_INCLUDE_DIR)
-  unset(PYTHON_INCLUDE_DIR CACHE)
-  unset(PYTHON_LIBRARY)
-  unset(PYTHON_LIBRARY CACHE)
-  find_package(PythonLibs 2)
-  if (PYTHONLIBS_FOUND)
-    string(REGEX REPLACE "^([0-9]+)\\.([0-9]+).*" "\\1\\2" PYTHON_MAJ_MIN ${PYTHONLIBS_VERSION_STRING})
-    if(BOOST_PYTHON_SHORT_NAME)
-      set(BOOST_COMPONENT_PYTHON2 python${PYTHON_MAJ_MIN})
-    else()
-      set(BOOST_COMPONENT_PYTHON2 python-py${PYTHON_MAJ_MIN})
-    endif()
-    find_package(Boost COMPONENTS REQUIRED ${BOOST_COMPONENT_PYTHON2})
-    message(STATUS "PythonLib 2 found. ${PYTHON_INCLUDE_DIRS}, ${PYTHON_LIBRARIES}")
-    list(APPEND LOCAL_PYTHON_BINDINGS PYTHON2)
-    set(LOCAL_PYTHON_BINDING_PACKAGE_INCLUDE_DIRS_PYTHON2
-      ${PYTHON_INCLUDE_DIRS})
-    set(LOCAL_PYTHON_BINDING_PACKAGE_LIBRARIES_PYTHON2
-      Boost::${BOOST_COMPONENT_PYTHON2}
-      ${PYTHON_LIBRARIES})
-    set(PYTHON_BINDING_PACKAGE_INCLUDE_DIRS_PYTHON2
-      ${LOCAL_PYTHON_BINDING_PACKAGE_INCLUDE_DIRS_PYTHON2}
-      PARENT_SCOPE)
-    set(PYTHON_BINDING_PACKAGE_LIBRARIES_PYTHON2
-      ${LOCAL_PYTHON_BINDING_PACKAGE_LIBRARIES_PYTHON2}
-      PARENT_SCOPE)
+  if ("${PYTHON_BINDING_VERSIONS}" STREQUAL "")
+    set(PYTHON_BINDING_VERSIONS 2.7 3.5 3.6 3.7 3.8)
   endif()
-
-  #python3
-  unset(PYTHON_INCLUDE_DIR)
-  unset(PYTHON_INCLUDE_DIR CACHE)
-  unset(PYTHON_LIBRARY)
-  unset(PYTHON_LIBRARY CACHE)
-  find_package(PythonLibs 3)
-  if (PYTHONLIBS_FOUND)
-    string(REGEX REPLACE "^([0-9]+)\\.([0-9]+).*" "\\1\\2" PYTHON_MAJ_MIN ${PYTHONLIBS_VERSION_STRING})
-    if(BOOST_PYTHON_SHORT_NAME)
-      set(BOOST_COMPONENT_PYTHON3 python${PYTHON_MAJ_MIN})
-    else()
-      set(BOOST_COMPONENT_PYTHON3 python-py${PYTHON_MAJ_MIN})
+  foreach(PYTHON_VERSION_SEARCH ${PYTHON_BINDING_VERSIONS})
+    unset(PYTHON_INCLUDE_DIR)
+    unset(PYTHON_INCLUDE_DIR CACHE)
+    unset(PYTHON_LIBRARY)
+    unset(PYTHON_LIBRARY CACHE)
+    #message(STATUS "Trying python version ${PYTHON_VERSION_SEARCH}...")
+    find_package(PythonLibs EXACT ${PYTHON_VERSION_SEARCH} QUIET)
+    if (PYTHONLIBS_FOUND)
+      #message(STATUS "Trying boost python for ${PYTHON_VERSION_SEARCH}...")
+      string(REGEX REPLACE "^([0-9]+)\\.([0-9]+).*" "\\1\\2" PYTHON_MAJ_MIN ${PYTHONLIBS_VERSION_STRING})
+      string(REGEX REPLACE "^([0-9]+\.[0-9]+).*" "\\1" PYTHON_MAJ_DOT_MIN ${PYTHONLIBS_VERSION_STRING})
+      set(BINDING_NAME "python${PYTHON_MAJ_DOT_MIN}")
+      if(BOOST_PYTHON_SHORT_NAME)
+        if (REPORT_FIND_PACKAGE_ERROR)
+          message(FATAL_ERROR "Newer boost python versions (verified for 1.71.0/1.72.0 for now) don't support search for multiple versions,"
+            " because in the first run the Boost::python target is created and the detailed python-sub versions are scanned once."
+            " Consecutive runs don't scan the sub versions anymore and therefore the Boost::python IMPORTED_LOCATION_RELEASE is"
+            " not touched. A second scan is impossible.\n"
+            "Please provide your desired boost_python version via PYTHON_BINDING_VERSIONS cmake variable (e.g. one out of: ${PYTHON_BINDING_VERSIONS})")
+        endif()
+        set(REPORT_FIND_PACKAGE_ERROR 1)
+        set(BOOST_COMPONENT_${BINDING_NAME} python${PYTHON_MAJ_MIN})
+      else()
+        set(BOOST_COMPONENT_${BINDING_NAME} python-py${PYTHON_MAJ_MIN})
+      endif()
+      find_package(Boost COMPONENTS REQUIRED ${BOOST_COMPONENT_${BINDING_NAME}})
+      message(STATUS "Found Boost version '${Boost_VERSION}' includes '${Boost_INCLUDE_DIRS}' link-target 'Boost::${BOOST_COMPONENT_${BINDING_NAME}}'\n: using Python includes '${PYTHON_INCLUDE_DIRS}' and lib '${PYTHON_LIBRARIES}'")
+      list(APPEND LOCAL_PYTHON_BINDINGS ${BINDING_NAME})
+      set(LOCAL_PYTHON_BINDING_PACKAGE_INCLUDE_DIRS_${BINDING_NAME}
+        ${Boost_INCLUDE_DIRS}
+        ${PYTHON_INCLUDE_DIRS})
+      set(LOCAL_PYTHON_BINDING_PACKAGE_LIBRARIES_${BINDING_NAME}
+        Boost::${BOOST_COMPONENT_${BINDING_NAME}}
+        ${PYTHON_LIBRARIES})
+      set(PYTHON_BINDING_PACKAGE_INCLUDE_DIRS_${BINDING_NAME}
+        ${LOCAL_PYTHON_BINDING_PACKAGE_INCLUDE_DIRS_${BINDING_NAME}}
+        PARENT_SCOPE)
+      set(PYTHON_BINDING_PACKAGE_LIBRARIES_${BINDING_NAME}
+        ${LOCAL_PYTHON_BINDING_PACKAGE_LIBRARIES_${BINDING_NAME}}
+        PARENT_SCOPE)
     endif()
-    find_package(Boost COMPONENTS REQUIRED ${BOOST_COMPONENT_PYTHON3})
-    list(APPEND LOCAL_PYTHON_BINDINGS PYTHON3)
-    set(LOCAL_PYTHON_BINDING_PACKAGE_INCLUDE_DIRS_PYTHON3
-      ${PYTHON_INCLUDE_DIRS})
-    set(LOCAL_PYTHON_BINDING_PACKAGE_LIBRARIES_PYTHON3
-      Boost::${BOOST_COMPONENT_PYTHON3}
-      ${PYTHON_LIBRARIES})
-    set(PYTHON_BINDING_PACKAGE_INCLUDE_DIRS_PYTHON3
-      ${LOCAL_PYTHON_BINDING_PACKAGE_INCLUDE_DIRS_PYTHON3}
-      PARENT_SCOPE)
-    set(PYTHON_BINDING_PACKAGE_LIBRARIES_PYTHON3
-      ${LOCAL_PYTHON_BINDING_PACKAGE_LIBRARIES_PYTHON3}
-      PARENT_SCOPE)
-  endif()
+  endforeach()
 
   set(PYTHON_BINDINGS ${LOCAL_PYTHON_BINDINGS} PARENT_SCOPE)
 
-  #message(STATUS "Boost_VERSION: ${Boost_VERSION}; Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}; Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
+  set(LOCAL_PYTHON_BINDING_STRING_LIST)
   foreach(binding ${LOCAL_PYTHON_BINDINGS})
     message(STATUS "  ${binding}: Includes: ${LOCAL_PYTHON_BINDING_PACKAGE_INCLUDE_DIRS_${binding}}; Libs: ${LOCAL_PYTHON_BINDING_PACKAGE_LIBRARIES_${binding}}")
+    string(REPLACE "." "" binding_string ${binding})
+    if("${LOCAL_PYTHON_BINDING_STRING_LIST}" STREQUAL "")
+      set(LOCAL_PYTHON_BINDING_STRING_LIST "\"${binding_string}\"")
+    else()
+      set(LOCAL_PYTHON_BINDING_STRING_LIST "${LOCAL_PYTHON_BINDING_STRING_LIST}, \"${binding_string}\"")
+    endif()
   endforeach()
+  set(PYTHON_BINDING_STRING_LIST ${LOCAL_PYTHON_BINDING_STRING_LIST} PARENT_SCOPE)
 endfunction()
 
-function(get_python_test_environment)
-  set(TEST_DEPS_LOCATION "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
+function(get_python_test_environment python_binding)
+  set(TEST_LD_LIBRARY_PATH "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
+  set(TEST_PYTHONPATH "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/${python_binding}")
   foreach(dep ${ARGN})
     get_target_property(dep_configurations ${dep} IMPORTED_CONFIGURATIONS)
     set(TEST_${dep}_LOCATION False)
@@ -117,10 +114,11 @@ function(get_python_test_environment)
       endif()
     endforeach()
     if(TEST_${dep}_LOCATION)
-      set(TEST_DEPS_LOCATION "${TEST_DEPS_LOCATION}:${TEST_${dep}_LOCATION}")
+      set(TEST_LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:${TEST_${dep}_LOCATION}")
+      set(TEST_PYTHONPATH "${TEST_PYTHONPATH}:${TEST_${dep}_LOCATION}/${python_binding}")
     else()
       message(WARNING "Failed to query mandatory location of dependency ${dep}")
     endif()
   endforeach()
-  set(PYTHON_TEST_ENVIRONMENT "PYTHONPATH=${TEST_DEPS_LOCATION}; LD_LIBRARY_PATH=${TEST_DEPS_LOCATION}" PARENT_SCOPE)
+  set(PYTHON_TEST_ENVIRONMENT "PYTHONPATH=${TEST_PYTHONPATH}; LD_LIBRARY_PATH=${TEST_LD_LIBRARY_PATH}" PARENT_SCOPE)
 endfunction()

@@ -4,3 +4,6 @@
 [submodule "dependencies/map"]
 	path = dependencies/map
 	url = https://github.com/carla-simulator/map.git
+[submodule "dependencies/PROJ"]
+	path = dependencies/PROJ
+	url = https://github.com/OSGeo/PROJ.git

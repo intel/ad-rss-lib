@@ -39,7 +39,7 @@ protected:
     valueHeadingRange.end = valueHeadingRangeEnd;
     value.headingRange = valueHeadingRange;
     ::ad::rss::state::UnstructuredSceneStateInformation valueRssStateInformation;
-    ::ad::rss::world::UnstructuredTrajectorySet valueRssStateInformationBrakeTrajectorySet;
+    ::ad::physics::Distance2DList valueRssStateInformationBrakeTrajectorySet;
     ::ad::physics::Distance2D valueRssStateInformationBrakeTrajectorySetElement;
     ::ad::physics::Distance valueRssStateInformationBrakeTrajectorySetElementX(-1e9);
     valueRssStateInformationBrakeTrajectorySetElement.x = valueRssStateInformationBrakeTrajectorySetElementX;
@@ -47,7 +47,7 @@ protected:
     valueRssStateInformationBrakeTrajectorySetElement.y = valueRssStateInformationBrakeTrajectorySetElementY;
     valueRssStateInformationBrakeTrajectorySet.resize(1, valueRssStateInformationBrakeTrajectorySetElement);
     valueRssStateInformation.brakeTrajectorySet = valueRssStateInformationBrakeTrajectorySet;
-    ::ad::rss::world::UnstructuredTrajectorySet valueRssStateInformationContinueForwardTrajectorySet;
+    ::ad::physics::Distance2DList valueRssStateInformationContinueForwardTrajectorySet;
     ::ad::physics::Distance2D valueRssStateInformationContinueForwardTrajectorySetElement;
     ::ad::physics::Distance valueRssStateInformationContinueForwardTrajectorySetElementX(-1e9);
     valueRssStateInformationContinueForwardTrajectorySetElement.x
@@ -167,7 +167,7 @@ TEST_F(UnstructuredSceneRssStateTests, comparisonOperatorRssStateInformationDiff
 {
   ::ad::rss::state::UnstructuredSceneRssState valueA = mValue;
   ::ad::rss::state::UnstructuredSceneStateInformation rssStateInformation;
-  ::ad::rss::world::UnstructuredTrajectorySet rssStateInformationBrakeTrajectorySet;
+  ::ad::physics::Distance2DList rssStateInformationBrakeTrajectorySet;
   ::ad::physics::Distance2D rssStateInformationBrakeTrajectorySetElement;
   ::ad::physics::Distance rssStateInformationBrakeTrajectorySetElementX(1e9);
   rssStateInformationBrakeTrajectorySetElement.x = rssStateInformationBrakeTrajectorySetElementX;
@@ -175,7 +175,7 @@ TEST_F(UnstructuredSceneRssStateTests, comparisonOperatorRssStateInformationDiff
   rssStateInformationBrakeTrajectorySetElement.y = rssStateInformationBrakeTrajectorySetElementY;
   rssStateInformationBrakeTrajectorySet.resize(2, rssStateInformationBrakeTrajectorySetElement);
   rssStateInformation.brakeTrajectorySet = rssStateInformationBrakeTrajectorySet;
-  ::ad::rss::world::UnstructuredTrajectorySet rssStateInformationContinueForwardTrajectorySet;
+  ::ad::physics::Distance2DList rssStateInformationContinueForwardTrajectorySet;
   ::ad::physics::Distance2D rssStateInformationContinueForwardTrajectorySetElement;
   ::ad::physics::Distance rssStateInformationContinueForwardTrajectorySetElementX(1e9);
   rssStateInformationContinueForwardTrajectorySetElement.x = rssStateInformationContinueForwardTrajectorySetElementX;

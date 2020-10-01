@@ -83,6 +83,24 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRange)
   ::ad::physics::Duration valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   valueDynamics.unstructuredSettings = valueDynamicsUnstructuredSettings;
   value.dynamics = valueDynamics;
   bool valueHasPriority{true};
@@ -188,6 +206,24 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeVelocityTooSmall)
   ::ad::physics::Duration valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   valueDynamics.unstructuredSettings = valueDynamicsUnstructuredSettings;
   value.dynamics = valueDynamics;
   bool valueHasPriority{true};
@@ -301,6 +337,24 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeVelocityTooBig)
   ::ad::physics::Duration valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   valueDynamics.unstructuredSettings = valueDynamicsUnstructuredSettings;
   value.dynamics = valueDynamics;
   bool valueHasPriority{true};
@@ -414,6 +468,24 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsTooSmall)
   ::ad::physics::Duration valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   valueDynamics.unstructuredSettings = valueDynamicsUnstructuredSettings;
   value.dynamics = valueDynamics;
   bool valueHasPriority{true};
@@ -527,6 +599,24 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDynamicsTooBig)
   ::ad::physics::Duration valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   valueDynamics.unstructuredSettings = valueDynamicsUnstructuredSettings;
   value.dynamics = valueDynamics;
   bool valueHasPriority{true};
@@ -640,6 +730,24 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterInterse
   ::ad::physics::Duration valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   valueDynamics.unstructuredSettings = valueDynamicsUnstructuredSettings;
   value.dynamics = valueDynamics;
   bool valueHasPriority{true};
@@ -755,6 +863,24 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToEnterInterse
   ::ad::physics::Duration valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   valueDynamics.unstructuredSettings = valueDynamicsUnstructuredSettings;
   value.dynamics = valueDynamics;
   bool valueHasPriority{true};
@@ -872,6 +998,24 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveInterse
   ::ad::physics::Duration valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   valueDynamics.unstructuredSettings = valueDynamicsUnstructuredSettings;
   value.dynamics = valueDynamics;
   bool valueHasPriority{true};
@@ -981,6 +1125,24 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeDistanceToLeaveInterse
   ::ad::physics::Duration valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   valueDynamics.unstructuredSettings = valueDynamicsUnstructuredSettings;
   value.dynamics = valueDynamics;
   bool valueHasPriority{true};
@@ -1103,6 +1265,24 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeObjectTypeTooSmall)
   ::ad::physics::Duration valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   valueDynamics.unstructuredSettings = valueDynamicsUnstructuredSettings;
   value.dynamics = valueDynamics;
   bool valueHasPriority{true};
@@ -1212,6 +1392,24 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeObjectTypeTooBig)
   ::ad::physics::Duration valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   valueDynamics.unstructuredSettings = valueDynamicsUnstructuredSettings;
   value.dynamics = valueDynamics;
   bool valueHasPriority{true};
@@ -1321,6 +1519,24 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeObjectStateTooSmall)
   ::ad::physics::Duration valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   valueDynamics.unstructuredSettings = valueDynamicsUnstructuredSettings;
   value.dynamics = valueDynamics;
   bool valueHasPriority{true};
@@ -1432,6 +1648,24 @@ TEST(VehicleStateValidInputRangeTests, testValidInputRangeObjectStateTooBig)
   ::ad::physics::Duration valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
   valueDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = valueDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
+    = valueDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  uint32_t valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::min()};
+  valueDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
+    = valueDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
   valueDynamics.unstructuredSettings = valueDynamicsUnstructuredSettings;
   value.dynamics = valueDynamics;
   bool valueHasPriority{true};

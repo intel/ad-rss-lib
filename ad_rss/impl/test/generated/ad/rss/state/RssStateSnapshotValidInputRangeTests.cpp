@@ -229,7 +229,7 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRange)
     = valueIndividualResponsesElementUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation
     valueIndividualResponsesElementUnstructuredSceneStateRssStateInformation;
-  ::ad::rss::world::UnstructuredTrajectorySet
+  ::ad::physics::Distance2DList
     valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
   ::ad::physics::Distance2D
     valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
@@ -245,7 +245,7 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRange)
     1, valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
   valueIndividualResponsesElementUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
     = valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::rss::world::UnstructuredTrajectorySet
+  ::ad::physics::Distance2DList
     valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
   ::ad::physics::Distance2D
     valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
@@ -295,7 +295,7 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRange)
   valueIndividualResponses.resize(1, valueIndividualResponsesElement);
   value.individualResponses = valueIndividualResponses;
   ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneEgoInformation;
-  ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneEgoInformationBrakeTrajectorySet;
+  ::ad::physics::Distance2DList valueUnstructuredSceneEgoInformationBrakeTrajectorySet;
   ::ad::physics::Distance2D valueUnstructuredSceneEgoInformationBrakeTrajectorySetElement;
   ::ad::physics::Distance valueUnstructuredSceneEgoInformationBrakeTrajectorySetElementX(-1e9);
   valueUnstructuredSceneEgoInformationBrakeTrajectorySetElement.x
@@ -306,7 +306,7 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRange)
   valueUnstructuredSceneEgoInformationBrakeTrajectorySet.resize(
     1, valueUnstructuredSceneEgoInformationBrakeTrajectorySetElement);
   valueUnstructuredSceneEgoInformation.brakeTrajectorySet = valueUnstructuredSceneEgoInformationBrakeTrajectorySet;
-  ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneEgoInformationContinueForwardTrajectorySet;
+  ::ad::physics::Distance2DList valueUnstructuredSceneEgoInformationContinueForwardTrajectorySet;
   ::ad::physics::Distance2D valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElement;
   ::ad::physics::Distance valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElementX(-1e9);
   valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElement.x
@@ -533,7 +533,7 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicleR
     = valueIndividualResponsesElementUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation
     valueIndividualResponsesElementUnstructuredSceneStateRssStateInformation;
-  ::ad::rss::world::UnstructuredTrajectorySet
+  ::ad::physics::Distance2DList
     valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
   ::ad::physics::Distance2D
     valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
@@ -549,7 +549,7 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicleR
     1, valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
   valueIndividualResponsesElementUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
     = valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::rss::world::UnstructuredTrajectorySet
+  ::ad::physics::Distance2DList
     valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
   ::ad::physics::Distance2D
     valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
@@ -599,7 +599,7 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicleR
   valueIndividualResponses.resize(1, valueIndividualResponsesElement);
   value.individualResponses = valueIndividualResponses;
   ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneEgoInformation;
-  ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneEgoInformationBrakeTrajectorySet;
+  ::ad::physics::Distance2DList valueUnstructuredSceneEgoInformationBrakeTrajectorySet;
   ::ad::physics::Distance2D valueUnstructuredSceneEgoInformationBrakeTrajectorySetElement;
   ::ad::physics::Distance valueUnstructuredSceneEgoInformationBrakeTrajectorySetElementX(-1e9);
   valueUnstructuredSceneEgoInformationBrakeTrajectorySetElement.x
@@ -610,7 +610,7 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicleR
   valueUnstructuredSceneEgoInformationBrakeTrajectorySet.resize(
     1, valueUnstructuredSceneEgoInformationBrakeTrajectorySetElement);
   valueUnstructuredSceneEgoInformation.brakeTrajectorySet = valueUnstructuredSceneEgoInformationBrakeTrajectorySet;
-  ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneEgoInformationContinueForwardTrajectorySet;
+  ::ad::physics::Distance2DList valueUnstructuredSceneEgoInformationContinueForwardTrajectorySet;
   ::ad::physics::Distance2D valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElement;
   ::ad::physics::Distance valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElementX(-1e9);
   valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElement.x
@@ -845,7 +845,7 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicleR
     = valueIndividualResponsesElementUnstructuredSceneStateHeadingRange;
   ::ad::rss::state::UnstructuredSceneStateInformation
     valueIndividualResponsesElementUnstructuredSceneStateRssStateInformation;
-  ::ad::rss::world::UnstructuredTrajectorySet
+  ::ad::physics::Distance2DList
     valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
   ::ad::physics::Distance2D
     valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
@@ -861,7 +861,7 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicleR
     1, valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
   valueIndividualResponsesElementUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
     = valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::rss::world::UnstructuredTrajectorySet
+  ::ad::physics::Distance2DList
     valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
   ::ad::physics::Distance2D
     valueIndividualResponsesElementUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
@@ -911,7 +911,7 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicleR
   valueIndividualResponses.resize(1, valueIndividualResponsesElement);
   value.individualResponses = valueIndividualResponses;
   ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneEgoInformation;
-  ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneEgoInformationBrakeTrajectorySet;
+  ::ad::physics::Distance2DList valueUnstructuredSceneEgoInformationBrakeTrajectorySet;
   ::ad::physics::Distance2D valueUnstructuredSceneEgoInformationBrakeTrajectorySetElement;
   ::ad::physics::Distance valueUnstructuredSceneEgoInformationBrakeTrajectorySetElementX(-1e9);
   valueUnstructuredSceneEgoInformationBrakeTrajectorySetElement.x
@@ -922,7 +922,7 @@ TEST(RssStateSnapshotValidInputRangeTests, testValidInputRangeDefaultEgoVehicleR
   valueUnstructuredSceneEgoInformationBrakeTrajectorySet.resize(
     1, valueUnstructuredSceneEgoInformationBrakeTrajectorySetElement);
   valueUnstructuredSceneEgoInformation.brakeTrajectorySet = valueUnstructuredSceneEgoInformationBrakeTrajectorySet;
-  ::ad::rss::world::UnstructuredTrajectorySet valueUnstructuredSceneEgoInformationContinueForwardTrajectorySet;
+  ::ad::physics::Distance2DList valueUnstructuredSceneEgoInformationContinueForwardTrajectorySet;
   ::ad::physics::Distance2D valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElement;
   ::ad::physics::Distance valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElementX(-1e9);
   valueUnstructuredSceneEgoInformationContinueForwardTrajectorySetElement.x

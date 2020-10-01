@@ -18,16 +18,7 @@ import math
 import sys
 import os
 
-if sys.version_info.major == 3:
-    import libad_physics_python3 as physics
-    import libad_rss_python3 as rss
-    import libad_map_access_python3 as admap
-    import libad_rss_map_integration_python3 as rssmap
-else:
-    import libad_physics_python2 as physics
-    import libad_rss_python2 as rss
-    import libad_map_access_python2 as admap
-    import libad_rss_map_integration_python2 as rssmap
+import ad_rss_map_integration as ad
 
 
 class AdRssMapIntegrationPythonTest(unittest.TestCase):
@@ -39,157 +30,157 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
     world_model = None
 
     egoVehicleId = 123
-    egoPosition = admap.ENUObjectPosition()
-    egoSpeed = physics.Speed()
-    egoYawRate = physics.AngularVelocity()
-    egoObject = admap.Object()
-    egoRoute = admap.FullRoute()
+    egoPosition = ad.map.match.ENUObjectPosition()
+    egoSpeed = ad.physics.Speed()
+    egoYawRate = ad.physics.AngularVelocity()
+    egoObject = ad.map.match.Object()
+    egoRoute = ad.map.route.FullRoute()
 
     def _getUnstructuedSettings(self):
-        unstructuredSettings = rss.UnstructuredSettings()
-        unstructuredSettings.pedestrianTurningRadius = physics.Distance(2.0)
-        unstructuredSettings.driveAwayMaxAngle = physics.Angle(2.4)
-        unstructuredSettings.vehicleYawRateChange = physics.AngularAcceleration(0.3)
-        unstructuredSettings.vehicleMinRadius = physics.Distance(3.5)
-        unstructuredSettings.vehicleTrajectoryCalculationStep = physics.Duration(0.2)
+        unstructuredSettings = ad.rss.world.UnstructuredSettings()
+        unstructuredSettings.pedestrianTurningRadius = ad.physics.Distance(2.0)
+        unstructuredSettings.driveAwayMaxAngle = ad.physics.Angle(2.4)
+        unstructuredSettings.vehicleYawRateChange = ad.physics.AngularAcceleration(0.3)
+        unstructuredSettings.vehicleMinRadius = ad.physics.Distance(3.5)
+        unstructuredSettings.vehicleTrajectoryCalculationStep = ad.physics.Duration(0.2)
         return unstructuredSettings
 
     def _get_object_vehicle_dynamics(self):
-        objectRssDynamics = rss.RssDynamics()
-        objectRssDynamics.responseTime = physics.Duration(0.5)
-        objectRssDynamics.maxSpeedOnAcceleration = physics.Speed(0.)
-        objectRssDynamics.alphaLat.accelMax = physics.Acceleration(1.)
-        objectRssDynamics.alphaLat.brakeMin = physics.Acceleration(-1.)
-        objectRssDynamics.alphaLon.accelMax = physics.Acceleration(4.)
-        objectRssDynamics.alphaLon.brakeMax = physics.Acceleration(-8.)
-        objectRssDynamics.alphaLon.brakeMinCorrect = physics.Acceleration(-4.)
-        objectRssDynamics.alphaLon.brakeMin = physics.Acceleration(-4.)
-        objectRssDynamics.lateralFluctuationMargin = physics.Distance(0.)
+        objectRssDynamics = ad.rss.world.RssDynamics()
+        objectRssDynamics.responseTime = ad.physics.Duration(0.5)
+        objectRssDynamics.maxSpeedOnAcceleration = ad.physics.Speed(0.)
+        objectRssDynamics.alphaLat.accelMax = ad.physics.Acceleration(1.)
+        objectRssDynamics.alphaLat.brakeMin = ad.physics.Acceleration(-1.)
+        objectRssDynamics.alphaLon.accelMax = ad.physics.Acceleration(4.)
+        objectRssDynamics.alphaLon.brakeMax = ad.physics.Acceleration(-8.)
+        objectRssDynamics.alphaLon.brakeMinCorrect = ad.physics.Acceleration(-4.)
+        objectRssDynamics.alphaLon.brakeMin = ad.physics.Acceleration(-4.)
+        objectRssDynamics.lateralFluctuationMargin = ad.physics.Distance(0.)
         objectRssDynamics.unstructuredSettings = self._getUnstructuedSettings()
         return objectRssDynamics
 
     def _get_ego_vehicle_dynamics(self):
-        egoRssDynamics = rss.RssDynamics()
-        egoRssDynamics.responseTime = physics.Duration(0.2)
-        egoRssDynamics.maxSpeedOnAcceleration = physics.Speed(0.)
-        egoRssDynamics.alphaLat.accelMax = physics.Acceleration(0.1)
-        egoRssDynamics.alphaLat.brakeMin = physics.Acceleration(-0.1)
-        egoRssDynamics.alphaLon.accelMax = physics.Acceleration(0.1)
-        egoRssDynamics.alphaLon.brakeMax = physics.Acceleration(-8.)
-        egoRssDynamics.alphaLon.brakeMinCorrect = physics.Acceleration(-4.)
-        egoRssDynamics.alphaLon.brakeMin = physics.Acceleration(-4.)
-        egoRssDynamics.lateralFluctuationMargin = physics.Distance(0.)
+        egoRssDynamics = ad.rss.world.RssDynamics()
+        egoRssDynamics.responseTime = ad.physics.Duration(0.2)
+        egoRssDynamics.maxSpeedOnAcceleration = ad.physics.Speed(0.)
+        egoRssDynamics.alphaLat.accelMax = ad.physics.Acceleration(0.1)
+        egoRssDynamics.alphaLat.brakeMin = ad.physics.Acceleration(-0.1)
+        egoRssDynamics.alphaLon.accelMax = ad.physics.Acceleration(0.1)
+        egoRssDynamics.alphaLon.brakeMax = ad.physics.Acceleration(-8.)
+        egoRssDynamics.alphaLon.brakeMinCorrect = ad.physics.Acceleration(-4.)
+        egoRssDynamics.alphaLon.brakeMin = ad.physics.Acceleration(-4.)
+        egoRssDynamics.lateralFluctuationMargin = ad.physics.Distance(0.)
         egoRssDynamics.unstructuredSettings = self._getUnstructuedSettings()
         return egoRssDynamics
 
     def _initialize_object(self, lon, lat, yawAngle, resultObject):
-        positionGeo = admap.createGeoPoint(lon, lat, admap.Altitude(0.))
+        positionGeo = ad.map.point.createGeoPoint(lon, lat, ad.map.point.Altitude(0.))
 
         # fill the result position
-        resultObject.enuPosition.centerPoint = admap.toENU(positionGeo)
-        resultObject.enuPosition.heading = admap.createENUHeading(yawAngle)
-        resultObject.enuPosition.dimension.length = physics.Distance(4.5)
-        resultObject.enuPosition.dimension.width = physics.Distance(2.)
-        resultObject.enuPosition.dimension.height = physics.Distance(1.5)
-        resultObject.enuPosition.enuReferencePoint = admap.getENUReferencePoint()
+        resultObject.enuPosition.centerPoint = ad.map.point.toENU(positionGeo)
+        resultObject.enuPosition.heading = ad.map.point.createENUHeading(yawAngle)
+        resultObject.enuPosition.dimension.length = ad.physics.Distance(4.5)
+        resultObject.enuPosition.dimension.width = ad.physics.Distance(2.)
+        resultObject.enuPosition.dimension.height = ad.physics.Distance(1.5)
+        resultObject.enuPosition.enuReferencePoint = ad.map.access.getENUReferencePoint()
 
-        mapMatching = admap.AdMapMatching()
+        mapMatching = ad.map.match.AdMapMatching()
         resultObject.mapMatchedBoundingBox = mapMatching.getMapMatchedBoundingBox(
-            resultObject.enuPosition, physics.Distance(0.1))
+            resultObject.enuPosition, ad.physics.Distance(0.1))
 
         self.assertGreaterEqual(len(resultObject.mapMatchedBoundingBox.referencePointPositions),
-                                admap.ObjectReferencePoints.Center)
+                                ad.map.match.ObjectReferencePoints.Center)
         self.assertGreaterEqual(len(resultObject.mapMatchedBoundingBox
-                                    .referencePointPositions[admap.ObjectReferencePoints.Center]), 0)
+                                    .referencePointPositions[ad.map.match.ObjectReferencePoints.Center]), 0)
 
     def _initialize_ego_vehicle(self):
         # laneId: offset 240151:0.55
-        self._initialize_object(admap.Longitude(8.00125444865324766),
-                                admap.Latitude(48.99758627528235877),
+        self._initialize_object(ad.map.point.Longitude(8.00125444865324766),
+                                ad.map.point.Latitude(48.99758627528235877),
                                 math.pi / 2,
                                 self.egoObject)
 
-        self.egoSpeed = physics.Speed(5.)
-        self.egoYawRate = physics.AngularVelocity(0.)
+        self.egoSpeed = ad.physics.Speed(5.)
+        self.egoYawRate = ad.physics.AngularVelocity(0.)
 
         # laneId: offset  120149:0.16
-        positionEndGeo = admap.createGeoPoint(admap.Longitude(8.00188527300496979),
-                                              admap.Latitude(48.99821051747871792),
-                                              admap.Altitude(0.))
+        positionEndGeo = ad.map.point.createGeoPoint(ad.map.point.Longitude(8.00188527300496979),
+                                                     ad.map.point.Latitude(48.99821051747871792),
+                                                     ad.map.point.Altitude(0.))
 
-        self.egoRoute = admap.planRoute(
+        self.egoRoute = ad.map.route.planRoute(
             self.egoObject.mapMatchedBoundingBox.referencePointPositions[
-                admap.ObjectReferencePoints.Center][0].lanePoint.paraPoint,
+                ad.map.match.ObjectReferencePoints.Center][0].lanePoint.paraPoint,
             positionEndGeo)
 
     def test_interface(self):
         """
         Main test part
         """
-        self.assertTrue(admap.init("resources/Town01.txt"))
+        self.assertTrue(ad.map.access.init("resources/Town01.txt"))
         print("== Map Loaded ==")
 
         self._initialize_ego_vehicle()
 
-        scene_creation = rssmap.RssSceneCreation(1, self._get_ego_vehicle_dynamics())
+        scene_creation = ad.rss.map.RssSceneCreation(1, self._get_ego_vehicle_dynamics())
 
         otherVehicleId = 20
-        otherVehicleSpeed = physics.Speed(10.)
-        otherVehicleYawRate = physics.AngularVelocity(0.)
+        otherVehicleSpeed = ad.physics.Speed(10.)
+        otherVehicleYawRate = ad.physics.AngularVelocity(0.)
 
-        otherVehicleObject = admap.Object()
+        otherVehicleObject = ad.map.match.Object()
 
         # laneId: offset  120149:0.16  around the intersection in front same direction on ego route
         self._initialize_object(
-            admap.Longitude(8.00188527300496979),
-            admap.Latitude(48.99821051747871792),
+            ad.map.point.Longitude(8.00188527300496979),
+            ad.map.point.Latitude(48.99821051747871792),
             0,
             otherVehicleObject)
 
-        egoObjectData = rssmap.RssObjectData()
+        egoObjectData = ad.rss.map.RssObjectData()
         egoObjectData.id = self.egoVehicleId
-        egoObjectData.type = rss.ObjectType.EgoVehicle
+        egoObjectData.type = ad.rss.world.ObjectType.EgoVehicle
         egoObjectData.matchObject = self.egoObject
         egoObjectData.speed = self.egoSpeed
         egoObjectData.yawRate = self.egoYawRate
-        egoObjectData.steeringAngle = physics.Angle(0.)
+        egoObjectData.steeringAngle = ad.physics.Angle(0.)
         egoObjectData.rssDynamics = self._get_ego_vehicle_dynamics()
 
-        otherObjectData = rssmap.RssObjectData()
+        otherObjectData = ad.rss.map.RssObjectData()
         otherObjectData.id = otherVehicleId
-        otherObjectData.type = rss.ObjectType.OtherVehicle
+        otherObjectData.type = ad.rss.world.ObjectType.OtherVehicle
         otherObjectData.matchObject = otherVehicleObject
         otherObjectData.speed = otherVehicleSpeed
         otherObjectData.yawRate = otherVehicleYawRate
-        otherObjectData.steeringAngle = physics.Angle(0.)
+        otherObjectData.steeringAngle = ad.physics.Angle(0.)
         otherObjectData.rssDynamics = self._get_object_vehicle_dynamics()
 
         self.assertTrue(scene_creation.appendScenes(
             egoObjectData,
             self.egoRoute,
             otherObjectData,
-            rssmap.RssSceneCreation.RestrictSpeedLimitMode.IncreasedSpeedLimit10,
-            admap.LandmarkIdSet(),
-            rssmap.RssMode.Structured))
+            ad.rss.map.RssSceneCreation.RestrictSpeedLimitMode.IncreasedSpeedLimit10,
+            ad.map.landmark.LandmarkIdSet(),
+            ad.rss.map.RssMode.Structured))
 
         self.world_model = scene_creation.getWorldModel()
         print("== Final world model ==")
         print(self.world_model)
 
-        rss_response_resolving = rss.RssResponseResolving()
-        rss_situation_checking = rss.RssSituationChecking()
-        rss_sitation_extraction = rss.RssSituationExtraction()
+        rss_response_resolving = ad.rss.core.RssResponseResolving()
+        rss_situation_checking = ad.rss.core.RssSituationChecking()
+        rss_sitation_extraction = ad.rss.core.RssSituationExtraction()
 
-        rss_situation_snapshot = rss.SituationSnapshot()
+        rss_situation_snapshot = ad.rss.situation.SituationSnapshot()
         self.assertTrue(rss_sitation_extraction.extractSituations(self.world_model, rss_situation_snapshot))
 
         print("== Situation Snaphost ==")
         print(rss_situation_snapshot)
 
-        rss_state_snapshot = rss.RssStateSnapshot()
+        rss_state_snapshot = ad.rss.state.RssStateSnapshot()
         self.assertTrue(rss_situation_checking.checkSituations(rss_situation_snapshot, rss_state_snapshot))
 
-        rss_proper_response = rss.ProperResponse()
+        rss_proper_response = ad.rss.state.ProperResponse()
         self.assertTrue(rss_response_resolving.provideProperResponse(rss_state_snapshot, rss_proper_response))
 
         print("== Proper Response ==")
@@ -198,7 +189,7 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
         longitudinal_distance = rss_situation_snapshot.situations[0].relativePosition.longitudinalDistance
 
         self.assertTrue(rss_proper_response.isSafe)
-        self.assertEqual(longitudinal_distance, physics.Distance(104.413))
+        self.assertEqual(longitudinal_distance, ad.physics.Distance(104.413))
 
         self.world_model.timeIndex += 1
 

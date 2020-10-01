@@ -10,11 +10,11 @@
 ##
 # Generated file
 #
-# Generator Version : 11.0.0-1988
+# Generator Version : 11.0.0-1997
 ##
 
 cmake_minimum_required(VERSION 3.5)
-project(ad_rss VERSION 4.1.0)
+project(ad_rss VERSION 4.2.0)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -38,7 +38,7 @@ find_package(Boost REQUIRED)
 list(APPEND INCLUDE_DIRS ${Boost_INCLUDE_DIRS})
 list(APPEND LIBRARIES ${Boost_LIBRARIES})
 
-find_package(ad_physics 2.1.0 REQUIRED CONFIG)
+find_package(ad_physics 2.3.0 REQUIRED CONFIG)
 find_package(spdlog REQUIRED CONFIG)
 
 add_library(${PROJECT_NAME}

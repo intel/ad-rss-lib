@@ -1,0 +1,17 @@
+# ----------------- BEGIN LICENSE BLOCK ---------------------------------
+#
+# Copyright (c) 2020 Intel Corporation
+#
+# SPDX-License-Identifier: LGPL-2.1-only
+#
+# ----------------- END LICENSE BLOCK -----------------------------------
+
+"""
+Import ad_rss_map_integration module for @binding_string@
+"""
+
+import sys
+import os.path
+sys.path.append(os.path.dirname(__file__))
+
+from ad_rss_map_integration_@binding_string@_module import *

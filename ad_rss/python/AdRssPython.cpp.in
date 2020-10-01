@@ -1,0 +1,35 @@
+// ----------------- BEGIN LICENSE BLOCK ---------------------------------
+//
+// Copyright (C) 2019-2020 Intel Corporation
+//
+// SPDX-License-Identifier: LGPL-2.1-only
+//
+// ----------------- END LICENSE BLOCK -----------------------------------
+
+#include <boost/python.hpp>
+
+extern void export_ad_rss_core();
+extern void export_ad_rss_situation();
+extern void export_ad_rss_state();
+extern void export_ad_rss_unstructured();
+extern void export_ad_rss_world();
+
+namespace bp = boost::python;
+
+void export_ad_rss_python()
+{
+  // create/import the rss module scope
+  bp::object ad_rss_module(bp::handle<>(bp::borrowed(PyImport_AddModule("rss"))));
+  bp::scope().attr("rss") = ad_rss_module;
+  bp::scope submodule_scope = ad_rss_module;
+  bp::scope().attr("__doc__") = "Python binding of ad::rss namespace C++ code for @binding_string@";
+  bp::scope().attr("__copyright__") = "Copyright (C) 2019-2020 Intel Corporation";
+  bp::scope().attr("__license__") = "LGPL-2.1-only";
+
+  // fix the order to ensure depedencies are met
+  export_ad_rss_situation();
+  export_ad_rss_state();
+  export_ad_rss_world();
+  export_ad_rss_unstructured();
+  export_ad_rss_core();
+}

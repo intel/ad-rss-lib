@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1988
+ * Generator Version : 11.0.0-1997
  */
 
 #pragma once
@@ -21,7 +21,6 @@
 #include <limits>
 #include "ad/rss/state/RssStateSnapshot.hpp"
 #include "ad/rss/state/RssStateVectorValidInputRange.hpp"
-#include "ad/rss/state/UnstructuredSceneStateInformationValidInputRange.hpp"
 #include "ad/rss/world/RssDynamicsValidInputRange.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
@@ -42,8 +41,7 @@ inline bool withinValidInputRange(::ad::rss::state::RssStateSnapshot const &inpu
   // check for generic member input ranges
   bool inValidInputRange = true;
   inValidInputRange = withinValidInputRange(input.defaultEgoVehicleRssDynamics, logErrors)
-    && withinValidInputRange(input.individualResponses, logErrors)
-    && withinValidInputRange(input.unstructuredSceneEgoInformation, logErrors);
+    && withinValidInputRange(input.individualResponses, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::state::RssStateSnapshot)>> {} has invalid member",

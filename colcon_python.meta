@@ -1,13 +1,25 @@
 {
     "names": {
+        "ad_physics": {
+            "cmake-args": ["-DBUILD_SHARED_LIBS=OFF", "-DCMAKE_POSITION_INDEPENDENT_CODE=ON", "-DCMAKE_BUILD_TYPE=RelWithDebInfo", "-DBUILD_PYTHON_BINDING=ON"]
+        },
+        "ad_map_access": {
+            "cmake-args": ["-DBUILD_SHARED_LIBS=OFF", "-DCMAKE_POSITION_INDEPENDENT_CODE=ON", "-DCMAKE_BUILD_TYPE=RelWithDebInfo", "-DBUILD_PYTHON_BINDING=ON"]
+        },
+        "ad_map_opendrive_reader": {
+            "cmake-args": ["-DBUILD_SHARED_LIBS=OFF", "-DCMAKE_POSITION_INDEPENDENT_CODE=ON", "-DCMAKE_BUILD_TYPE=RelWithDebInfo"]
+        },
         "ad_rss": {
-            "cmake-args": ["-DBUILD_PYTHON_BINDING=ON"]
+            "cmake-args": ["-DBUILD_SHARED_LIBS=OFF", "-DCMAKE_POSITION_INDEPENDENT_CODE=ON", "-DCMAKE_BUILD_TYPE=RelWithDebInfo", "-DBUILD_PYTHON_BINDING=ON"]
         },
         "ad_rss_map_integration": {
-            "cmake-args": ["-DBUILD_PYTHON_BINDING=ON"]
+            "cmake-args": ["-DBUILD_SHARED_LIBS=OFF", "-DCMAKE_POSITION_INDEPENDENT_CODE=ON", "-DCMAKE_BUILD_TYPE=RelWithDebInfo", "-DBUILD_PYTHON_BINDING=ON"]
+        },
+        "PROJ4": {
+            "cmake-args": ["-DBUILD_SHARED_LIBS=OFF", "-DCMAKE_POSITION_INDEPENDENT_CODE=ON"]
         },
         "spdlog": {
-            "cmake-args": ["-DCMAKE_POSITION_INDEPENDENT_CODE=ON", "-DSPDLOG_BUILD_TESTS=OFF", "-DSPDLOG_BUILD_EXAMPLE=Off"]
+            "cmake-args": ["-DBUILD_SHARED_LIBS=OFF", "-DCMAKE_POSITION_INDEPENDENT_CODE=ON", "-DSPDLOG_BUILD_TESTS=OFF", "-DSPDLOG_BUILD_EXAMPLE=Off"]
         }
     }
 }

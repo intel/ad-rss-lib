@@ -13,18 +13,20 @@ namespace ad {
 namespace rss {
 namespace unstructured {
 
+auto epsilon = 1.e-5;
+
 TEST(GeometryTests, toPoint)
 {
   ad::physics::Distance2D distance;
   distance.x = ad::physics::Distance(1.0);
   distance.y = ad::physics::Distance(2.0);
   auto point = toPoint(distance);
-  ASSERT_EQ(1.0, point.x());
-  ASSERT_EQ(2.0, point.y());
+  ASSERT_DOUBLE_EQ(1.0, point.x());
+  ASSERT_DOUBLE_EQ(2.0, point.y());
 
   point = toPoint(ad::physics::Distance(2.0), ad::physics::Distance(1.0));
-  ASSERT_EQ(2.0, point.x());
-  ASSERT_EQ(1.0, point.y());
+  ASSERT_DOUBLE_EQ(2.0, point.x());
+  ASSERT_DOUBLE_EQ(1.0, point.y());
 }
 
 TEST(GeometryTests, toDistance)
@@ -45,10 +47,10 @@ TEST(GeometryTests, toPolygon)
 
   Polygon polygon;
   toPolygon(trajectorySet, polygon);
-  ASSERT_EQ(1.0, polygon.outer()[0].x());
-  ASSERT_EQ(2.0, polygon.outer()[0].y());
-  ASSERT_EQ(1.0, polygon.outer()[1].x());
-  ASSERT_EQ(2.0, polygon.outer()[1].y());
+  ASSERT_NEAR(1.0, polygon.outer()[0].x(), epsilon);
+  ASSERT_NEAR(2.0, polygon.outer()[0].y(), epsilon);
+  ASSERT_NEAR(1.0, polygon.outer()[1].x(), epsilon);
+  ASSERT_NEAR(2.0, polygon.outer()[1].y(), epsilon);
 }
 
 TEST(GeometryTests, toTrajectorySet)
@@ -95,7 +97,7 @@ TEST(GeometryTests, getHeadingOverlap)
   b.begin = ad::physics::Angle(0.0);
   b.end = ad::physics::c2PI;
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(a, b, overlapRanges));
-  ASSERT_EQ(1, overlapRanges.size());
+  ASSERT_EQ(1u, overlapRanges.size());
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRanges[0].begin);
   ASSERT_EQ(ad::physics::cPI, overlapRanges[0].end);
 
@@ -105,7 +107,7 @@ TEST(GeometryTests, getHeadingOverlap)
   b.end = ad::physics::cPI / 4.;
   overlapRanges.clear();
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(a, b, overlapRanges));
-  ASSERT_EQ(2, overlapRanges.size());
+  ASSERT_EQ(2u, overlapRanges.size());
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRanges[0].begin);
   ASSERT_EQ(ad::physics::cPI / 4., overlapRanges[0].end);
   ASSERT_EQ(ad::physics::cPI / 2., overlapRanges[1].begin);
@@ -127,7 +129,7 @@ TEST(GeometryTests, overlapHeadingRange)
   resultRange.end = 1. / 2. * physics::cPI;
   overlapRanges.push_back(resultRange);
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(headingRange, overlapRanges));
-  ASSERT_EQ(2, overlapRanges.size());
+  ASSERT_EQ(2u, overlapRanges.size());
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRanges[0].begin);
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRanges[0].end);
   ASSERT_EQ(1. / 4. * physics::cPI, overlapRanges[1].begin);
@@ -141,7 +143,7 @@ TEST(GeometryTests, overlapHeadingRange)
   resultRange.end = physics::cPI;
   overlapRanges.push_back(resultRange);
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(headingRange, overlapRanges));
-  ASSERT_EQ(1, overlapRanges.size());
+  ASSERT_EQ(1u, overlapRanges.size());
   ASSERT_EQ(1. / 4. * physics::cPI, overlapRanges[0].begin);
   ASSERT_EQ(1. / 2. * physics::cPI, overlapRanges[0].end);
 
@@ -153,7 +155,7 @@ TEST(GeometryTests, overlapHeadingRange)
   resultRange.end = physics::cPI;
   overlapRanges.push_back(resultRange);
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(headingRange, overlapRanges));
-  ASSERT_EQ(1, overlapRanges.size());
+  ASSERT_EQ(1u, overlapRanges.size());
   ASSERT_EQ(1. / 2. * physics::cPI, overlapRanges[0].begin);
   ASSERT_EQ(physics::cPI, overlapRanges[0].end);
 
@@ -165,7 +167,7 @@ TEST(GeometryTests, overlapHeadingRange)
   resultRange.end = ad::physics::Angle(0.0);
   overlapRanges.push_back(resultRange);
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(headingRange, overlapRanges));
-  ASSERT_EQ(1, overlapRanges.size());
+  ASSERT_EQ(1u, overlapRanges.size());
   ASSERT_EQ(physics::cPI, overlapRanges[0].begin);
   ASSERT_EQ(3. / 2. * physics::cPI, overlapRanges[0].end);
 
@@ -177,7 +179,7 @@ TEST(GeometryTests, overlapHeadingRange)
   resultRange.end = 7. / 8. * physics::cPI;
   overlapRanges.push_back(resultRange);
   ASSERT_FALSE(ad::rss::unstructured::getHeadingOverlap(headingRange, overlapRanges));
-  ASSERT_EQ(0, overlapRanges.size());
+  ASSERT_EQ(0u, overlapRanges.size());
 
   // intersection, two ranges
   overlapRanges.clear();
@@ -187,7 +189,7 @@ TEST(GeometryTests, overlapHeadingRange)
   resultRange.end = 1. / 4. * physics::cPI;
   overlapRanges.push_back(resultRange);
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(headingRange, overlapRanges));
-  ASSERT_EQ(2, overlapRanges.size());
+  ASSERT_EQ(2u, overlapRanges.size());
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRanges[0].begin);
   ASSERT_EQ(1. / 4. * physics::cPI, overlapRanges[0].end);
   ASSERT_EQ(3. / 4. * physics::cPI, overlapRanges[1].begin);
@@ -207,7 +209,7 @@ TEST(GeometryTests, overlapHeadingRange)
   resultRange.end = 7. / 4. * physics::cPI;
   overlapRanges.push_back(resultRange);
   ASSERT_FALSE(ad::rss::unstructured::getHeadingOverlap(headingRange, overlapRanges));
-  ASSERT_EQ(0, overlapRanges.size());
+  ASSERT_EQ(0u, overlapRanges.size());
 
   // intersects, one resulting range (the lower one)
   overlapRanges.clear();
@@ -220,7 +222,7 @@ TEST(GeometryTests, overlapHeadingRange)
   resultRange.end = physics::cPI;
   overlapRanges.push_back(resultRange);
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(headingRange, overlapRanges));
-  ASSERT_EQ(1, overlapRanges.size());
+  ASSERT_EQ(1u, overlapRanges.size());
   ASSERT_EQ(ad::physics::Angle(0.0), overlapRanges[0].begin);
   ASSERT_EQ(1. / 4. * physics::cPI, overlapRanges[0].end);
 
@@ -235,7 +237,7 @@ TEST(GeometryTests, overlapHeadingRange)
   resultRange.end = physics::cPI;
   overlapRanges.push_back(resultRange);
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(headingRange, overlapRanges));
-  ASSERT_EQ(1, overlapRanges.size());
+  ASSERT_EQ(1u, overlapRanges.size());
   ASSERT_EQ(3. / 4. * physics::cPI, overlapRanges[0].begin);
   ASSERT_EQ(7. / 8. * physics::cPI, overlapRanges[0].end);
 
@@ -250,7 +252,7 @@ TEST(GeometryTests, overlapHeadingRange)
   resultRange.end = 3. / 2. * physics::cPI;
   overlapRanges.push_back(resultRange);
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(headingRange, overlapRanges));
-  ASSERT_EQ(1, overlapRanges.size());
+  ASSERT_EQ(1u, overlapRanges.size());
   ASSERT_EQ(1. / 4. * physics::cPI, overlapRanges[0].begin);
   ASSERT_EQ(1. / 2. * physics::cPI, overlapRanges[0].end);
 
@@ -262,7 +264,7 @@ TEST(GeometryTests, overlapHeadingRange)
   resultRange.end = 1. / 2. * physics::cPI;
   overlapRanges.push_back(resultRange);
   ASSERT_TRUE(ad::rss::unstructured::getHeadingOverlap(headingRange, overlapRanges));
-  ASSERT_EQ(1, overlapRanges.size());
+  ASSERT_EQ(1u, overlapRanges.size());
   ASSERT_EQ(-1. / 4. * physics::cPI, overlapRanges[0].begin);
   ASSERT_EQ(1. / 2. * physics::cPI, overlapRanges[0].end);
 }
@@ -297,8 +299,7 @@ TEST(GeometryTests, calculateCircleArc)
                      3. / 2. * ad::physics::cPI,
                      ad::physics::cPI_2,
                      polygon);
-  ASSERT_EQ(4, polygon.outer().size());
-  auto epsilon = 1.e-5;
+  ASSERT_EQ(4u, polygon.outer().size());
   ASSERT_NEAR(1., polygon.outer()[0].x(), epsilon);
   ASSERT_NEAR(0., polygon.outer()[0].y(), epsilon);
   ASSERT_NEAR(0., polygon.outer()[1].x(), epsilon);
