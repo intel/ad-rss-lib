@@ -228,31 +228,38 @@
             <div class="section">
               
                 <h1>Usage of Python binding for ad_rss_map_integration</h1>
-<p>Compilation of ad_rss_map_integration_python will create a libad_rss_map_integration_python.so shared library inside
-the install/ad_rss_map_integration/lib folder.
-The shared library can now be used inside any Python code to use
-datatypes or call methods defined in ad_rss.</p>
+<p>Compilation of ad_rss_map_integration_python (build option <em>BUILD_PYTHON_BINDING</em>
+and ideally <em>-DBUILD_SHARED_LIBS=OFF</em>) will create an <em>ad</em> python package
+inside the install/ad_rss_map_integration/lib/pythonMaj.Min folder.
+The packages can be used inside any Python code to use
+datatypes or call methods defined in ad_rss_map_integration and its dependencies ad_physics, ad_map_access and ad_rss.</p>
 <h2 id="usage-of-python-binding">Usage of Python binding<a class="headerlink" href="#usage-of-python-binding" title="Permanent link">&para;</a></h2>
 <p>To use the compiled Python binding, one has to extend the current environment
 to be able to use the newly created library. Afterwards, one can import the
-Python library as module and use it as any other Python module.</p>
-<pre><code class="bash"> ad_rss_map_integration_python$&gt;  export PYTHONPATH=$PYTHONPATH:&lt;path/to/&gt;install/ad_rss_map_integration/lib:&lt;path/to/&gt;install/ad_rss/lib:&lt;path/to/&gt;install/ad_map_access/lib:&lt;path/to/&gt;install/ad_physics/lib
- ad_rss_map_integration_python$&gt;  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:&lt;path/to/&gt;install/ad_rss_map_integration/lib:&lt;path/to/&gt;install/ad_rss/lib:&lt;path/to/&gt;install/ad_map_access/lib:&lt;path/to/&gt;install/ad_map_opendrive_reader/lib:&lt;path/to/&gt;install/ad_physics/lib
- ad_rss_map_integration_python$&gt;  python
- &gt;&gt;&gt; import libad_physics_python3 as physics
- &gt;&gt;&gt; import libad_map_access_python3 as admap
- &gt;&gt;&gt; import libad_rss_python3 as rss
- &gt;&gt;&gt; import libad_rss_map_integration_python3 as rssmap
- &gt;&gt;&gt; admap.init(&quot;tests/resources/Town01.txt&quot;)
- &gt;&gt;&gt; lanes = admap.getLanes()
- &gt;&gt;&gt; print(len(lanes))
- &gt;&gt;&gt; scene_creation = rssmap.RssSceneCreation(1, rss.RssDynamics())
+Python package and use it as any other Python module.</p>
+<pre><code class="bash"> ad_rss_map_integration_python$&gt;  export PYTHONPATH=$PYTHONPATH:&lt;path/to/&gt;install/ad_rss_map_integration/lib/python3.6
+ ad_rss_map_integration_python$&gt;  python3.6
+ &gt;&gt;&gt; import ad_rss_map_integration as ad
+ &gt;&gt;&gt; scene_creation = ad.rss.map.RssSceneCreation(1, ad.rss.world.RssDynamics())
  &gt;&gt;&gt; world_model = scene_creation.getWorldModel()
  &gt;&gt;&gt; print(world_model)
 </code></pre>
 
-<p>When using python2 you have to import libad_physics_python2, libad_rss_python2, lib_ad_map_access_python2 and libda_rss_map_integration_python2 instead.
-For some simple examples, you might also want to spot into the ad_rss_map_integration_python/tests folder.</p>
+<p>Also the interface of the dependencies can be accessed directly, since ad_rss_map_integration is relying on those
+(e.g. the type of the above returned world_model is actually ad.rss.world.WorldModel() provided by ad_rss):</p>
+<pre><code class="bash"> &gt;&gt;&gt; ad.map.access.init(&quot;tests/resources/Town01.txt&quot;)
+ &gt;&gt;&gt; lanes = ad.map.lane.getLanes()
+ &gt;&gt;&gt; print(len(lanes))
+ &gt;&gt;&gt; distance = ad.physics.Distance(2.0)
+ &gt;&gt;&gt; print(distance)
+</code></pre>
+
+<p>When using other python versions you have to set PYTHONPATH accordingly.
+If not enforcing static linking, you require to set the LD_LIBRARY_PATH upfront, too:</p>
+<pre><code class="bash"> ad_rss_map_integration_python$&gt;  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:&lt;path/to/&gt;install/ad_rss_map_integration/lib:&lt;path/to/&gt;install/ad_rss/lib:&lt;path/to/&gt;install/ad_map_access/lib:&lt;path/to/&gt;install/ad_map_opendrive_reader/lib:&lt;path/to/&gt;install/ad_physics/lib
+</code></pre>
+
+<p>For some simple examples, you might also want to spot into the ad_rss_map_integration_python/tests folder.</p>
               
             </div>
           </div>

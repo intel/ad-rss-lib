@@ -87,17 +87,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <div class="title">UnstructuredTrajectorySet.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;iostream&gt;</code><br />
-<code>#include &lt;sstream&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &quot;ad/physics/Distance2D.hpp&quot;</code><br />
+<div class="textblock"><code>#include &quot;ad/physics/Distance2DList.hpp&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for UnstructuredTrajectorySet.hpp:</div>
 <div class="dyncontent">
@@ -108,23 +103,21 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="UnstructuredTrajectorySet_8hpp__dep__incl.png" border="0" usemap="#generated_2include_2ad_2rss_2world_2UnstructuredTrajectorySet_8hppdep" alt=""/></div>
 <map name="generated_2include_2ad_2rss_2world_2UnstructuredTrajectorySet_8hppdep" id="generated_2include_2ad_2rss_2world_2UnstructuredTrajectorySet_8hppdep">
-<area shape="rect" id="node2" href="UnstructuredSceneStateInformation_8hpp.html" title="generated/include/ad\l/rss/state/UnstructuredScene\lStateInformation.hpp" alt="" coords="444,109,655,165"/>
-<area shape="rect" id="node16" href="UnstructuredTrajectorySetValidInputRange_8hpp.html" title="generated/include/ad\l/rss/world/UnstructuredTrajectory\lSetValidInputRange.hpp" alt="" coords="686,109,917,165"/>
-<area shape="rect" id="node17" href="Geometry_8hpp.html" title="impl/include/ad/rss\l/unstructured/Geometry.hpp" alt="" coords="956,117,1159,158"/>
-<area shape="rect" id="node3" href="RssStateSnapshot_8hpp.html" title="generated/include/ad\l/rss/state/RssStateSnapshot.hpp" alt="" coords="180,533,412,574"/>
-<area shape="rect" id="node8" href="UnstructuredSceneRssState_8hpp.html" title="generated/include/ad\l/rss/state/UnstructuredScene\lRssState.hpp" alt="" coords="437,213,648,269"/>
-<area shape="rect" id="node15" href="UnstructuredSceneStateInformationValidInputRange_8hpp.html" title="generated/include/ad\l/rss/state/UnstructuredScene\lStateInformationValidInputRange.hpp" alt="" coords="671,213,931,269"/>
-<area shape="rect" id="node4" href="RssStateSnapshotValidInputRange_8hpp.html" title="generated/include/ad\l/rss/state/RssStateSnapshot\lValidInputRange.hpp" alt="" coords="675,629,879,685"/>
-<area shape="rect" id="node5" href="RssCheck_8hpp.html" title="impl/include/ad/rss\l/core/RssCheck.hpp" alt="" coords="5,637,152,678"/>
-<area shape="rect" id="node6" href="RssResponseResolving_8hpp.html" title="impl/include/ad/rss\l/core/RssResponseResolving.hpp" alt="" coords="177,637,405,678"/>
-<area shape="rect" id="node7" href="RssSituationChecking_8hpp.html" title="impl/include/ad/rss\l/core/RssSituationChecking.hpp" alt="" coords="429,637,651,678"/>
-<area shape="rect" id="node9" href="RssState_8hpp.html" title="generated/include/ad\l/rss/state/RssState.hpp" alt="" coords="457,325,628,366"/>
-<area shape="rect" id="node14" href="UnstructuredSceneRssStateValidInputRange_8hpp.html" title="generated/include/ad\l/rss/state/UnstructuredScene\lRssStateValidInputRange.hpp" alt="" coords="668,317,879,373"/>
-<area shape="rect" id="node10" href="RssStateValidInputRange_8hpp.html" title="generated/include/ad\l/rss/state/RssStateValidInput\lRange.hpp" alt="" coords="672,421,877,477"/>
-<area shape="rect" id="node12" href="RssStateVector_8hpp.html" title="generated/include/ad\l/rss/state/RssStateVector.hpp" alt="" coords="203,429,413,470"/>
-<area shape="rect" id="node13" href="RssStateOperation_8hpp.html" title="impl/include/ad/rss\l/state/RssStateOperation.hpp" alt="" coords="437,429,648,470"/>
-<area shape="rect" id="node11" href="RssStateVectorValidInputRange_8hpp.html" title="generated/include/ad\l/rss/state/RssStateVectorValid\lInputRange.hpp" alt="" coords="663,525,878,581"/>
-<area shape="rect" id="node18" href="DebugDrawing_8hpp.html" title="impl/include/ad/rss\l/unstructured/DebugDrawing.hpp" alt="" coords="955,221,1189,262"/>
+<area shape="rect" id="node2" href="UnstructuredSceneStateInformation_8hpp.html" title="generated/include/ad\l/rss/state/UnstructuredScene\lStateInformation.hpp" alt="" coords="573,109,784,165"/>
+<area shape="rect" id="node15" href="Geometry_8hpp.html" title="impl/include/ad/rss\l/unstructured/Geometry.hpp" alt="" coords="808,117,1011,158"/>
+<area shape="rect" id="node3" href="RssStateSnapshot_8hpp.html" title="generated/include/ad\l/rss/state/RssStateSnapshot.hpp" alt="" coords="529,533,761,574"/>
+<area shape="rect" id="node8" href="UnstructuredSceneRssState_8hpp.html" title="generated/include/ad\l/rss/state/UnstructuredScene\lRssState.hpp" alt="" coords="235,213,445,269"/>
+<area shape="rect" id="node4" href="RssStateSnapshotValidInputRange_8hpp.html" title="generated/include/ad\l/rss/state/RssStateSnapshot\lValidInputRange.hpp" alt="" coords="186,629,390,685"/>
+<area shape="rect" id="node5" href="RssCheck_8hpp.html" title="impl/include/ad/rss\l/core/RssCheck.hpp" alt="" coords="913,637,1060,678"/>
+<area shape="rect" id="node6" href="RssResponseResolving_8hpp.html" title="impl/include/ad/rss\l/core/RssResponseResolving.hpp" alt="" coords="414,637,642,678"/>
+<area shape="rect" id="node7" href="RssSituationChecking_8hpp.html" title="impl/include/ad/rss\l/core/RssSituationChecking.hpp" alt="" coords="666,637,889,678"/>
+<area shape="rect" id="node9" href="RssState_8hpp.html" title="generated/include/ad\l/rss/state/RssState.hpp" alt="" coords="255,325,425,366"/>
+<area shape="rect" id="node14" href="UnstructuredSceneRssStateValidInputRange_8hpp.html" title="generated/include/ad\l/rss/state/UnstructuredScene\lRssStateValidInputRange.hpp" alt="" coords="11,317,221,373"/>
+<area shape="rect" id="node10" href="RssStateValidInputRange_8hpp.html" title="generated/include/ad\l/rss/state/RssStateValidInput\lRange.hpp" alt="" coords="5,421,211,477"/>
+<area shape="rect" id="node12" href="RssStateVector_8hpp.html" title="generated/include/ad\l/rss/state/RssStateVector.hpp" alt="" coords="469,429,680,470"/>
+<area shape="rect" id="node13" href="RssStateOperation_8hpp.html" title="impl/include/ad/rss\l/state/RssStateOperation.hpp" alt="" coords="235,429,445,470"/>
+<area shape="rect" id="node11" href="RssStateVectorValidInputRange_8hpp.html" title="generated/include/ad\l/rss/state/RssStateVectorValid\lInputRange.hpp" alt="" coords="181,525,395,581"/>
+<area shape="rect" id="node16" href="DebugDrawing_8hpp.html" title="impl/include/ad/rss\l/unstructured/DebugDrawing.hpp" alt="" coords="793,221,1026,262"/>
 </map>
 </div>
 </div>
@@ -142,111 +135,16 @@ Namespaces</h2></td></tr>
 <tr class="memdesc:namespacead_1_1rss_1_1world"><td class="mdescLeft">&#160;</td><td class="mdescRight">namespace world <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a237fa9bce32d4857d69098ea31cc048f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a237fa9bce32d4857d69098ea31cc048f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UnstructuredTrajectorySet_8hpp.html#a237fa9bce32d4857d69098ea31cc048f">GEN_GUARD_VECTOR_AD_PHYSICS_DISTANCE2D</a></td></tr>
-<tr class="memdesc:a237fa9bce32d4857d69098ea31cc048f"><td class="mdescLeft">&#160;</td><td class="mdescRight">protect the definition of functions from duplicates by typedef usage within other data types <br /></td></tr>
-<tr class="separator:a237fa9bce32d4857d69098ea31cc048f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:aacc0460b854a547da2790778846c07d3"><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt;::ad::physics::Distance2D &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1world.html#aacc0460b854a547da2790778846c07d3">ad::rss::world::UnstructuredTrajectorySet</a></td></tr>
-<tr class="memdesc:aacc0460b854a547da2790778846c07d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType UnstructuredTrajectorySet.  <a href="namespacead_1_1rss_1_1world.html#aacc0460b854a547da2790778846c07d3">More...</a><br /></td></tr>
-<tr class="separator:aacc0460b854a547da2790778846c07d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:aa59c90950597c8f530eb6359a369b348"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UnstructuredTrajectorySet_8hpp.html#aa59c90950597c8f530eb6359a369b348">std::operator&lt;&lt;</a> (std::ostream &amp;os, vector&lt;::ad::physics::Distance2D &gt; const &amp;_value)</td></tr>
-<tr class="memdesc:aa59c90950597c8f530eb6359a369b348"><td class="mdescLeft">&#160;</td><td class="mdescRight">standard ostream operator  <a href="UnstructuredTrajectorySet_8hpp.html#aa59c90950597c8f530eb6359a369b348">More...</a><br /></td></tr>
-<tr class="separator:aa59c90950597c8f530eb6359a369b348"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9e4352af712d9f04bdf659e40e2480f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="SituationVector_8hpp.html#ab9e4352af712d9f04bdf659e40e2480f">std::to_string</a> (::<a class="el" href="namespacead_1_1rss_1_1situation.html#ad8ebf8ce9900082976aecaa2f582897d">ad::rss::situation::SituationVector</a> const &amp;value)</td></tr>
-<tr class="memdesc:ab9e4352af712d9f04bdf659e40e2480f"><td class="mdescLeft">&#160;</td><td class="mdescRight">overload of the std::to_string for SituationVector  <a href="SituationVector_8hpp.html#ab9e4352af712d9f04bdf659e40e2480f">More...</a><br /></td></tr>
-<tr class="separator:ab9e4352af712d9f04bdf659e40e2480f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82d17eb878af61a1362d67c8fabe3fc9"><td class="memItemLeft" align="right" valign="top">typedef ::ad::physics::Distance2DList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1world.html#a82d17eb878af61a1362d67c8fabe3fc9">ad::rss::world::UnstructuredTrajectorySet</a></td></tr>
+<tr class="memdesc:a82d17eb878af61a1362d67c8fabe3fc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType UnstructuredTrajectorySet.  <a href="namespacead_1_1rss_1_1world.html#a82d17eb878af61a1362d67c8fabe3fc9">More...</a><br /></td></tr>
+<tr class="separator:a82d17eb878af61a1362d67c8fabe3fc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Generated file</p>
-<p>Generator Version : 11.0.0-1988 </p>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="file_aa59c90950597c8f530eb6359a369b348"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream&amp; std::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">vector&lt;::ad::physics::Distance2D &gt; const &amp;&#160;</td>
-          <td class="paramname"><em>_value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>standard ostream operator </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">os</td><td>The output stream to write to </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">_value</td><td>UnstructuredTrajectorySet value</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The stream object. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="file_ab9e4352af712d9f04bdf659e40e2480f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string std::to_string </td>
-          <td>(</td>
-          <td class="paramtype">::<a class="el" href="namespacead_1_1rss_1_1situation.html#ad8ebf8ce9900082976aecaa2f582897d">ad::rss::situation::SituationVector</a> const &amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>overload of the std::to_string for SituationVector </p>
-<p>overload of the std::to_string for UnstructuredTrajectorySet</p>
-<p>overload of the std::to_string for SceneVector</p>
-<p>overload of the std::to_string for RoadSegment</p>
-<p>overload of the std::to_string for RoadArea</p>
-<p>overload of the std::to_string for OccupiedRegionVector</p>
-<p>overload of the std::to_string for ObjectIdVector</p>
-<p>overload of the std::to_string for RssStateVector</p>
-<p>overload of the std::to_string for HeadingRangeVector </p>
-
-</div>
-</div>
-</div><!-- contents -->
+<p>Generator Version : 11.0.0-1997 </p>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

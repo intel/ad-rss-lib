@@ -228,27 +228,33 @@
             <div class="section">
               
                 <h1>Usage of Python binding for ad_rss</h1>
-<p>Compilation of ad_rss_python will create a libad_rss_python.so shared library inside
-the install/ad_rss/lib folder.
-The shared library can now be used inside any Python code to use
-datatypes or call methods defined in ad_rss.</p>
+<p>Compilation of ad_rss_python (build option <em>BUILD_PYTHON_BINDING</em>
+and ideally <em>-DBUILD_SHARED_LIBS=OFF</em>) will create an <em>ad</em> python package
+inside the install/ad_rss/lib/pythonMaj.Min folder.
+The packages can be used inside any Python code to use
+datatypes or call methods defined in ad_rss and its dependency ad_physics.</p>
 <h2 id="usage-of-python-binding">Usage of Python binding<a class="headerlink" href="#usage-of-python-binding" title="Permanent link">&para;</a></h2>
 <p>To use the compiled Python binding, one has to extend the current environment
-to be able to use the newly created library. Afterwards, one can import the
-Python library as module and use it as any other Python module.</p>
-<pre><code class="bash"> ad_rss_python$&gt;  export PYTHONPATH=$PYTHONPATH:&lt;path/to/&gt;install/ad_rss/lib:&lt;path/to/&gt;install/ad_physics/lib
- ad_rss_python$&gt;  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:&lt;path/to/&gt;install/ad_rss/lib:&lt;path/to/&gt;install/ad_physics/lib
- ad_rss_python$&gt;  python
- &gt;&gt;&gt; import libad_physics_python3 as physics
- &gt;&gt;&gt; import libad_rss_python3 as rss
- &gt;&gt;&gt; distance = physics.Distance(2.0)
- &gt;&gt;&gt; print(distance)
- &gt;&gt;&gt; world_model = rss.WorldModel()
+to be able to use the newly created packages. Afterwards, one can import the
+Python package and use it as any other Python module.</p>
+<pre><code class="bash"> ad_rss_python$&gt;  export PYTHONPATH=$PYTHONPATH:&lt;path/to/&gt;install/ad_rss/lib/python3.6
+ ad_rss_python$&gt;  python3.6
+ &gt;&gt;&gt; import ad_rss as ad
+ &gt;&gt;&gt; world_model = ad.rss.world.WorldModel()
  &gt;&gt;&gt; print(world_model)
 </code></pre>
 
-<p>When using python2 you have to import libad_physics_python2 and libad_rss_python2 instead.
-For some simple examples, you might also want to spot into the ad_rss_python/tests folder.</p>
+<p>Also the interface of the dependency can be accessed directly, since ad_rss is relying on those:</p>
+<pre><code class="bash"> &gt;&gt;&gt; distance = ad.physics.Distance(2.0)
+ &gt;&gt;&gt; print(distance)
+</code></pre>
+
+<p>When using other python versions you have to set PYTHONPATH accordingly.
+If not enforcing static linking, you require to set the LD_LIBRARY_PATH upfront, too:</p>
+<pre><code class="bash"> ad_rss_python$&gt;  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:&lt;path/to/&gt;install/ad_physics/lib:&lt;path/to/&gt;install/ad_rss/lib
+</code></pre>
+
+<p>For some simple examples, you might also want to spot into the ad_rss_python/tests folder.</p>
               
             </div>
           </div>

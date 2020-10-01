@@ -36,7 +36,6 @@ var searchData=
   ['gen_5fguard_5fad_5frss_5fworld_5funstructuredsettings',['GEN_GUARD_AD_RSS_WORLD_UNSTRUCTUREDSETTINGS',['../UnstructuredSettings_8hpp.html#a08dab719ca68f1c6447be59e6827e7f8',1,'UnstructuredSettings.hpp']]],
   ['gen_5fguard_5fad_5frss_5fworld_5fvelocity',['GEN_GUARD_AD_RSS_WORLD_VELOCITY',['../Velocity_8hpp.html#a5449233c2e895f4063edc55186981a1a',1,'Velocity.hpp']]],
   ['gen_5fguard_5fad_5frss_5fworld_5fworldmodel',['GEN_GUARD_AD_RSS_WORLD_WORLDMODEL',['../WorldModel_8hpp.html#accaaf396833b399e14a3eca79363a715',1,'WorldModel.hpp']]],
-  ['gen_5fguard_5fvector_5fad_5fphysics_5fdistance2d',['GEN_GUARD_VECTOR_AD_PHYSICS_DISTANCE2D',['../UnstructuredTrajectorySet_8hpp.html#a237fa9bce32d4857d69098ea31cc048f',1,'UnstructuredTrajectorySet.hpp']]],
   ['gen_5fguard_5fvector_5fad_5frss_5fsituation_5fsituation',['GEN_GUARD_VECTOR_AD_RSS_SITUATION_SITUATION',['../SituationVector_8hpp.html#ae4bd65863c5e1e7943e68ab4821a4239',1,'SituationVector.hpp']]],
   ['gen_5fguard_5fvector_5fad_5frss_5fstate_5fheadingrange',['GEN_GUARD_VECTOR_AD_RSS_STATE_HEADINGRANGE',['../HeadingRangeVector_8hpp.html#a6788080da9a57f4e3e7a9ed07c3b9d9d',1,'HeadingRangeVector.hpp']]],
   ['gen_5fguard_5fvector_5fad_5frss_5fstate_5frssstate',['GEN_GUARD_VECTOR_AD_RSS_STATE_RSSSTATE',['../RssStateVector_8hpp.html#ab36e19180edee121f5282f928948e5fb',1,'RssStateVector.hpp']]],
