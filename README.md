@@ -23,25 +23,24 @@
 
 
 ## Introduction <a name="introduction"></a>
-This library intends to provide a C++ implementation of the Responsibility Sensitive Safety model (RSS) for Autonomous Vehicles.
+This library intends to provide a C++ implementation of the Responsibility Sensitive Safety model (RSS) for Automated Vehicles.
 
-RSS is described in the following papers. Potential users of this C++ library are encouraged to read these papers in order to become familiar with the concepts and functions provided by the library.
+RSS is described in the following paper. Potential users of this C++ library are encouraged to read these papers in order to become familiar with the concepts and functions provided by the library.
 
 * On a Formal Model of Safe and Scalable Self-driving Cars, S. Shalev-Shwartz, S. Shammah, A. Shashua, Mobileye, arXiv:1708.06374, [https://arxiv.org/abs/1708.06374](https://arxiv.org/abs/1708.06374)
-* Implementing the RSS Model on NHTSA Pre-Crash Scenarios, Mobileye, July 2018, [https://www.mobileye.com/responsibility-sensitive-safety/rss_on_nhtsa.pdf](https://www.mobileye.com/responsibility-sensitive-safety/rss_on_nhtsa.pdf)
 
 The RSS module in this library receives (processed) sensor information as input and provides actuator command restrictions as output. The input to the RSS module is an object list, with information about all objects (road agents) in the surrounding environment of the ego vehicle. For each object, the RSS module creates a description of the object-ego vehicle pair and their properties, called a "situation". For each situation, the relevant RSS safety checks are performed and a proper response is calculated. Finally, one overall response is obtained by combining the responses calculated for each object-ego vehicle situation. The resulting actuation command restrictions, in the form of longitudinal and lateral limits on acceleration are provided as output.
 
-This library contains a stand-alone C++ implementation of the RSS module.
+The ad_rss library contains a stand-alone C++ implementation of the RSS module.
 
-* Conversion of AV sensor data to the input object list required by the RSS module is outside the scope of this library. This includes conversion of object location and motion in a Cartesian world coordinate system into a situation based coordinate system.
-* Conversion of the output acceleration restrictions to real AV actuation commands (enforcing the restrictions) is outside the scope of this library. This conversion depends strongly on the software and hardware setup of the actual (or simulated)vehicle.
+* Conversion of AV sensor data to the input object list required by the RSS module is outside the scope of the ad_rss library. This includes conversion of object location and motion in a Cartesian world coordinate system into a constellation based coordinate system.
+* Conversion of the output proper response and acceleration restrictions to real AV actuation commands (enforcing the restrictions) is outside the scope of this library. This conversion depends strongly on the software and hardware setup of the actual (or simulated) vehicle.
 
-The scope, design and architecture of this C++ library for RSS is described in more detail in the following document packaged with this release. This documentation includes guidance on the usage of the RSS library and its integration into an autonomous driving system. Users of this library are strongly encouraged to read this documentation prior to integration of the library.
+The scope, design and architecture of this C++ library for RSS is described in more detail in the following document packaged with this release. This documentation includes guidance on the usage of the RSS library and its integration into a automated driving system. Users of this library are strongly encouraged to read this documentation prior to integration of the library.
 
 ### Integrating RSS with automated driving maps
 When RSS is to be integrated into a larger system it is usually up to the user implementation to provide the required input into RSS based on the environment information
-available within the system. The [*ad_rss_map_integration*](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/Main/) library provides a C++ implementation
+available within the system. The [*ad_rss_map_integration*](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/Main/) library provides an example C++ implementation
 for integrating RSS with automated driving maps.
 
 ### Usage of ad-rss-lib
@@ -91,13 +90,13 @@ General release notes and changes can be found in the [Changelog](https://intel.
 These releases extends the 3.x version with handling of unstructured roads and pedestrians.
 
 #### Release 3.x.x <a name="release_3"></a>
-These releases improve the 2.x version capabilities on scene creation.
+These releases improve the 2.x version capabilities on constellation creation.
 
 #### Release 2.x.x <a name="release_2"></a>
 These releases extend the 1.x version with map integration for extended usability.
 
 #### Release 1.x.x <a name="release_1"></a>
-The initial release of the C++ software library for RSS implements a subset of the rules and calculations specified in the published RSS paper. This means that this release handles a subset of autonomous driving scenarios, described below. Scenarios other than this subset cannot be handled.
+The initial release of the C++ software library for RSS implements a subset of the rules and calculations specified in the published RSS paper. This means that this release handles a subset of automated driving scenarios, described below. Scenarios other than this subset cannot be handled.
 
 ##### Features & Limitations
 This release implements the RSS calculations and rules corresponding to the following scenarios:
@@ -117,8 +116,8 @@ Note: The RSS module in this library does not initiate evasive manuevers. At the
 ## Getting started <a name="started"></a>
 
 #### Installation of dependencies
-Currently, the focused operating system is Ubuntu 16.04. Nevertheless, the library should work in a similar way for any other Linux OS.
-To install the dependencies for Ubuntu 16.04 execute the following command:
+Currently, the focused operating systems are Ubuntu 16.04 and Ubuntu 18.04. Nevertheless, the library should work in a similar way for any other Linux OS.
+To install the basic dependencies for Ubuntu 16.04/18.04 execute the following command:
 ```bash
  user$> sudo apt-get install git build-essential cmake libboost-dev
 ```

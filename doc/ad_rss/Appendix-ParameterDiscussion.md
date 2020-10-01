@@ -96,8 +96,8 @@ more likely than for deceleration.
 
 ##### Restricting velocity to the current speed limit
 
-| ![](../images/accelSafety.svg) | 
-|:--:| 
+| ![](../images/accelSafety.svg) |
+|:--:|
 | *Required safety distance for cars driving at 50 km/h (city speed) in same direction with $\alpha_{brake,min} = 4m/s^2$ and $\alpha_{brake,max} = 8m/s^2$ and $\rho_{ego} = \rho_{other} = 2s$* |
 
 The assumption that a car can always accelerate at $\alpha_{accel,max}$
@@ -143,8 +143,8 @@ between the border of the car and the adjacent lane is bigger than the distance
 that the vehicle will cover when accelerating laterally at maximum during its
 response time and then decelerating to zero lateral velocity.
 
-| ![](../images/accelLat.svg) | 
-|:--:| 
+| ![](../images/accelLat.svg) |
+|:--:|
 | *Distance a vehicle will cover when applying the "Stated Braking Pattern" with $\rho_{vehicle} = 2s$* |
 
 The figure above shows the required safety distance, without
@@ -178,7 +178,7 @@ fluctuations, but will not have a big impact on the safety distance.
 
 
 !!! note
-    As a starting point the values are set to:
+    As a conservative starting point the values can be set to:
 
     | Parameter                       | Value         |
     |:-------------------------------:|:-------------:|
