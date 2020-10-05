@@ -4,8 +4,9 @@
 ## Release 4.2.0
 
 #### :ghost: Maintenance
-* Update unstructured trajectory set calculation for pedestrians
 * Improved user interface of python binding
+* Updated ad_map_access to v2.3.0
+* Update unstructured trajectory set calculation for pedestrians
 * Suppressed python code generation build output
 
 ## Release 4.1.0

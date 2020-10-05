@@ -6,6 +6,7 @@ The components within this repository have some dependencies:
  - **ad_rss**:
    - ad_physics: <https://github.com/carla-simulator/map.git>
    - spdlog: <https://github.com/gabime/spdlog.git>
+   - Boost
    - **ad_rss_python** (if Python binding build enabled):
      - Python lib
      - castxml, pygccxml and py++
@@ -26,12 +27,14 @@ The components within this repository have some dependencies:
 
 Dependencies provided by Ubunutu (>= 16.04):
 
+ - Boost
+ - pugixml
  - gtest
  - libpython-dev
 
 Those can be installed by calling:
 ```bash
-$>  sudo apt-get install libgtest-dev libpython-dev
+$>  sudo apt-get install libboost-all-dev libpugixml-dev libgtest-dev libpython-dev
 ```
 
 Additional dependencies for the python bindings:
@@ -40,9 +43,10 @@ $>  sudo apt-get install castxml
 $>  pip install --user pygccxml pyplusplus xmlrunner
 ```
 
-Remaining dependencies:
+Remaining dependencies are present as GIT submodules; also to fix the version of these:
 
  - ad_map_access
+ - ad_map_opendrive_reader
  - ad_physics
  - spdlog
  - proj
@@ -73,7 +77,7 @@ When activating the Unit tests, they all can be executed with:
  ad_rss$> colcon test
 ```
 
-The python bindings are disable by default. To integrate them into the build you can make use of the prepared
+The python bindings are disabled by default. To integrate them into the build you can make use of the prepared
 colcon meta file:
 ```bash
  ad_rss$> colcon build --metas colcon_python.meta
@@ -92,7 +96,7 @@ Therefore, a full list of step by step calls could look like e.g.:
  ad_rss$> cd build/proj
  ad_rss/build/proj$> cmake ../../dependencies/PROJ -DCMAKE_INSTALL_PREFIX=../../install/proj -DCMAKE_POSITION_INDEPENDENT_CODE=ON
  ad_rss/build/proj$> make install
- ad_rss$> cd build/spdlog
+ ad_rss/build/proj$> cd ../spdlog
  ad_rss/build/spdlog$> cmake ../../dependencies/spdlog -DCMAKE_INSTALL_PREFIX=../../install/spdlog -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DSPDLOG_BUILD_TESTS=OFF -DSPDLOG_BUILD_EXAMPLE=Off
  ad_rss/build/spdlog$> make install
  ad_rss/build/spdlog$> cd ../ad_physics
