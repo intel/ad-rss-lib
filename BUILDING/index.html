@@ -248,6 +248,7 @@
 <li><strong>ad_rss</strong>:<ul>
 <li>ad_physics: <a href="https://github.com/carla-simulator/map.git">https://github.com/carla-simulator/map.git</a></li>
 <li>spdlog: <a href="https://github.com/gabime/spdlog.git">https://github.com/gabime/spdlog.git</a></li>
+<li>Boost</li>
 <li><strong>ad_rss_python</strong> (if Python binding build enabled):<ul>
 <li>Python lib</li>
 <li>castxml, pygccxml and py++</li>
@@ -279,11 +280,13 @@
 </ul>
 <p>Dependencies provided by Ubunutu (&gt;= 16.04):</p>
 <ul>
+<li>Boost</li>
+<li>pugixml</li>
 <li>gtest</li>
 <li>libpython-dev</li>
 </ul>
 <p>Those can be installed by calling:</p>
-<pre><code class="bash">$&gt;  sudo apt-get install libgtest-dev libpython-dev
+<pre><code class="bash">$&gt;  sudo apt-get install libboost-all-dev libpugixml-dev libgtest-dev libpython-dev
 </code></pre>
 
 <p>Additional dependencies for the python bindings:</p>
@@ -291,9 +294,10 @@
 $&gt;  pip install --user pygccxml pyplusplus xmlrunner
 </code></pre>
 
-<p>Remaining dependencies:</p>
+<p>Remaining dependencies are present as GIT submodules; also to fix the version of these:</p>
 <ul>
 <li>ad_map_access</li>
+<li>ad_map_opendrive_reader</li>
 <li>ad_physics</li>
 <li>spdlog</li>
 <li>proj</li>
@@ -321,7 +325,7 @@ These can be applied to all components by appending them to the call (together w
 <pre><code class="bash"> ad_rss$&gt; colcon test
 </code></pre>
 
-<p>The python bindings are disable by default. To integrate them into the build you can make use of the prepared
+<p>The python bindings are disabled by default. To integrate them into the build you can make use of the prepared
 colcon meta file:</p>
 <pre><code class="bash"> ad_rss$&gt; colcon build --metas colcon_python.meta
 </code></pre>
@@ -337,7 +341,7 @@ Therefore, a full list of step by step calls could look like e.g.:</p>
  ad_rss$&gt; cd build/proj
  ad_rss/build/proj$&gt; cmake ../../dependencies/PROJ -DCMAKE_INSTALL_PREFIX=../../install/proj -DCMAKE_POSITION_INDEPENDENT_CODE=ON
  ad_rss/build/proj$&gt; make install
- ad_rss$&gt; cd build/spdlog
+ ad_rss/build/proj$&gt; cd ../spdlog
  ad_rss/build/spdlog$&gt; cmake ../../dependencies/spdlog -DCMAKE_INSTALL_PREFIX=../../install/spdlog -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DSPDLOG_BUILD_TESTS=OFF -DSPDLOG_BUILD_EXAMPLE=Off
  ad_rss/build/spdlog$&gt; make install
  ad_rss/build/spdlog$&gt; cd ../ad_physics
