@@ -77,10 +77,6 @@ protected:
     uint32_t valueUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
     valueUnstructuredSettings.vehicleBackIntermediateRatioSteps
       = valueUnstructuredSettingsVehicleBackIntermediateRatioSteps;
-    uint32_t valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
-      std::numeric_limits<uint32_t>::min()};
-    valueUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
-      = valueUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
     uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
     valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
       = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
@@ -232,9 +228,6 @@ TEST_F(RssDynamicsTests, comparisonOperatorUnstructuredSettingsDiffers)
   unstructuredSettings.vehicleFrontIntermediateRatioSteps = unstructuredSettingsVehicleFrontIntermediateRatioSteps;
   uint32_t unstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::max()};
   unstructuredSettings.vehicleBackIntermediateRatioSteps = unstructuredSettingsVehicleBackIntermediateRatioSteps;
-  uint32_t unstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::max()};
-  unstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
-    = unstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
   uint32_t unstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::max()};
   unstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
     = unstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;

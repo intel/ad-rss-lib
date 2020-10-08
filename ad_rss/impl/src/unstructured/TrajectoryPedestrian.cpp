@@ -12,6 +12,7 @@
 #include "TrajectoryPedestrian.hpp"
 #include <ad/physics/Operation.hpp>
 #include "ad/rss/situation/Physics.hpp"
+#include "ad/rss/unstructured/DebugDrawing.hpp"
 
 /*!
  * @brief namespace ad
@@ -52,10 +53,8 @@ bool TrajectoryPedestrian::calculateTrajectorySets(situation::VehicleState const
       result = calculateTrajectorySetsMoving(vehicleState, timeToStop, brakePolygon, continueForwardPolygon);
     }
   }
-#if DEBUG_DRAWING
-  DEBUG_DRAWING_POLYGON(brakePolygon, "red", "brake_pedestrian");
-  DEBUG_DRAWING_POLYGON(continueForwardPolygon, "green", "continueForward_pedestrian");
-#endif
+  DEBUG_DRAWING_POLYGON(brakePolygon, "red", "pedestrian_brake");
+  DEBUG_DRAWING_POLYGON(continueForwardPolygon, "green", "pedestrian_continueForward");
   return result;
 }
 
@@ -170,11 +169,8 @@ bool TrajectoryPedestrian::calculateTrajectorySetsMoving(situation::VehicleState
   //-------------
   if (result)
   {
-    result = calculateStepPolygon(vehicleState,
-                                  minBrakeDistance,
-                                  responseTimeFrontSide,
-                                  "", //"brake_front",
-                                  brakePolygon);
+    result = calculateStepPolygon(
+      vehicleState, minBrakeDistance, responseTimeFrontSide, "pedestrian_brake_front", brakePolygon);
     if (!result)
     {
       spdlog::debug("TrajectoryPedestrian::calculateTrajectorySets>> Could not calculate brake max step polygon.");
@@ -216,9 +212,7 @@ bool TrajectoryPedestrian::calculateTrajectorySetsMoving(situation::VehicleState
     boost::geometry::append(
       back, getVehicleCorner(finalLeftMaxBrakeDistance, vehicleState.objectState.dimension, VehicleCorner::frontLeft));
     boost::geometry::convex_hull(back, maxBrakePolygon);
-#if DEBUG_DRAWING
-    DEBUG_DRAWING_POLYGON(maxBrakePolygon, "red", "brake_back");
-#endif
+    DEBUG_DRAWING_POLYGON(maxBrakePolygon, "red", "pedestrian_brake_back");
     combinePolygon(maxBrakePolygon, brakePolygon, brakePolygon);
   }
 
@@ -230,8 +224,11 @@ bool TrajectoryPedestrian::calculateTrajectorySetsMoving(situation::VehicleState
   //-------------
   if (result)
   {
-    result = calculateStepPolygon(
-      vehicleState, accelMaxDistance, responseTimeFrontSide, "continueForward_front", continueForwardPolygon);
+    result = calculateStepPolygon(vehicleState,
+                                  accelMaxDistance,
+                                  responseTimeFrontSide,
+                                  "pedestrian_continueForward_front",
+                                  continueForwardPolygon);
     if (!result)
     {
       spdlog::debug(
@@ -399,21 +396,18 @@ bool TrajectoryPedestrian::calculateStepPolygon(situation::VehicleState const &v
   auto finalCenterFrontRight
     = getVehicleCorner(finalStep.center, vehicleState.objectState.dimension, VehicleCorner::frontRight);
 
-//----
-// left
-//----
-#if DEBUG_DRAWING
+  //----
+  // left
+  //----
   int idx = 0;
-#endif
   for (auto it = finalStep.left.begin(); (it != finalStep.left.end()) && result; ++it)
   {
-#if DEBUG_DRAWING
-    auto vehicleLocation = TrafficParticipantLocation(*it, vehicleState);
-    DEBUG_DRAWING_POLYGON(vehicleLocation.toPolygon(), "black", debugNamespace + "_left_" + std::to_string(idx));
+    if (DEBUG_DRAWING_IS_ENABLED())
+    {
+      auto vehicleLocation = TrafficParticipantLocation(*it, vehicleState);
+      DEBUG_DRAWING_POLYGON(vehicleLocation.toPolygon(), "black", debugNamespace + "_left_" + std::to_string(idx));
+    }
     ++idx;
-#else
-    (void)debugNamespace;
-#endif
     boost::geometry::append(ptsLeft,
                             getVehicleCorner(*it, vehicleState.objectState.dimension, VehicleCorner::frontRight));
     boost::geometry::append(ptsLeft,
@@ -422,21 +416,18 @@ bool TrajectoryPedestrian::calculateStepPolygon(situation::VehicleState const &v
   boost::geometry::append(ptsLeft, finalCenterFrontLeft);
   boost::geometry::append(ptsLeft, finalCenterFrontRight);
 
-//-----
-// right
-//-----
-#if DEBUG_DRAWING
+  //-----
+  // right
+  //-----
   idx = 0;
-#endif
   for (auto it = finalStep.right.begin(); (it != finalStep.right.end()) && result; ++it)
   {
-#if DEBUG_DRAWING
-    auto vehicleLocation = TrafficParticipantLocation(*it, vehicleState);
-    DEBUG_DRAWING_POLYGON(vehicleLocation.toPolygon(), "black", debugNamespace + "_right_" + std::to_string(idx));
+    if (DEBUG_DRAWING_IS_ENABLED())
+    {
+      auto vehicleLocation = TrafficParticipantLocation(*it, vehicleState);
+      DEBUG_DRAWING_POLYGON(vehicleLocation.toPolygon(), "black", debugNamespace + "_right_" + std::to_string(idx));
+    }
     ++idx;
-#else
-    (void)debugNamespace;
-#endif
     boost::geometry::append(ptsRight,
                             getVehicleCorner(*it, vehicleState.objectState.dimension, VehicleCorner::frontLeft));
     boost::geometry::append(ptsRight,
@@ -529,10 +520,8 @@ bool TrajectoryPedestrian::getResponseTimeTrajectoryPoint(situation::VehicleStat
                                              speed,
                                              maxDistance);
 
-#if DEBUG_DRAWING
   Line linePts;
   boost::geometry::append(linePts, startingPoint);
-#endif
 
   TrajectoryPoint currentPoint(vehicleState);
 
@@ -564,16 +553,12 @@ bool TrajectoryPedestrian::getResponseTimeTrajectoryPoint(situation::VehicleStat
     pointAfterResponseTime
       = startingPoint + toPoint(-std::sin(startingAngle) * maxDistance, std::cos(startingAngle) * maxDistance);
   }
-#if DEBUG_DRAWING
   boost::geometry::append(linePts, pointAfterResponseTime);
-#endif
 
   resultTrajectoryPoint = TrajectoryPoint(
     pointAfterResponseTime, vehicleState.objectState.yaw + angleChange, speed, physics::AngularVelocity(0.));
-#if DEBUG_DRAWING
   DEBUG_DRAWING_LINE(
     linePts, "orange", std::to_string(aUntilResponseTime) + "_" + std::to_string(angleChangeRatio) + "_trajectory");
-#endif
   return result;
 }
 

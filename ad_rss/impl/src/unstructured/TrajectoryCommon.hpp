@@ -17,12 +17,6 @@
 #include "ad/rss/situation/VehicleState.hpp"
 #include "ad/rss/unstructured/Geometry.hpp"
 
-#define DEBUG_DRAWING 0
-
-#if DEBUG_DRAWING
-#include "ad/rss/unstructured/DebugDrawing.hpp"
-#endif
-
 /*!
  * @brief namespace ad
  */

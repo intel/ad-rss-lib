@@ -82,14 +82,12 @@ private:
    * @brief Calculate all trajectory points at response time
    *
    * @param[in]  vehicleState current state of the vehicle
-   * @param[out] trajectorySetSteps intermediate steps between back and front
    * @param[out] frontSide the trajectory points defining the front
    * @param[out] backSide the trajectory points defining the back
    *
    * @returns false if a failure occurred during calculations, true otherwise
    */
   bool getResponseTimeTrajectoryPoints(situation::VehicleState const &vehicleState,
-                                       std::vector<TrajectorySetStep> &trajectorySetSteps,
                                        TrajectorySetStep &frontSide,
                                        TrajectorySetStep &backSide) const;
 
@@ -117,15 +115,13 @@ private:
    * @param[in]  acceleration          acceleration to use
    * @param[in]  duration              duration of accelerated movement
    * @param[in]  dynamics              dynamics to use
-   * @param[in]  afterResponseTime     is the movement happening after response time (no more heading change)
    *
    * @returns false if a failure occurred during calculations, true otherwise
    */
   bool calculateNextTrajectoryPoint(TrajectoryPoint &currentPoint,
                                     physics::Acceleration const &acceleration,
                                     physics::Duration const &duration,
-                                    ::ad::rss::world::RssDynamics const &dynamics,
-                                    bool afterResponseTime) const;
+                                    ::ad::rss::world::RssDynamics const &dynamics) const;
 
   /**
    * @brief Calculate a time in movement until response time
@@ -145,7 +141,6 @@ private:
    *
    * @param[in]  vehicleState                      current state of the vehicle
    * @param[in]  timeAfterResponseTime             time after the response time to move
-   * @param[in]  responseTimeTrajectorySetSteps    intermediate steps between back and front
    * @param[in]  responseTimeFrontSide             the trajectory points defining the front
    * @param[in]  responseTimeBackSide              the trajectory points defining the back
    * @param[out] resultPolygon                     the resulting brake polygon
@@ -155,7 +150,6 @@ private:
    */
   bool calculateBrake(situation::VehicleState const &vehicleState,
                       ad::physics::Duration const &timeAfterResponseTime,
-                      std::vector<TrajectorySetStep> const &responseTimeTrajectorySetSteps,
                       TrajectorySetStep const &responseTimeFrontSide,
                       TrajectorySetStep const &responseTimeBackSide,
                       Polygon &resultPolygon,
@@ -166,7 +160,6 @@ private:
    *
    * @param[in]  vehicleState                      current state of the vehicle
    * @param[in]  timeAfterResponseTime             time after the response time to move
-   * @param[in]  responseTimeTrajectorySetSteps    intermediate steps between back and front
    * @param[in]  responseTimeFrontSide             the trajectory points defining the front
    * @param[in]  brakePolygon                      the polygon defining the brake trajectory set
    * @param[in]  brakeMinStepVehicleLocation       the vehicle locations for brakeMin after response time
@@ -176,7 +169,6 @@ private:
    */
   bool calculateContinueForward(situation::VehicleState const &vehicleState,
                                 physics::Duration const &timeAfterResponseTime,
-                                std::vector<TrajectorySetStep> const &responseTimeTrajectorySetSteps,
                                 TrajectorySetStep const &responseTimeFrontSide,
                                 Polygon const &brakePolygon,
                                 TrajectorySetStepVehicleLocation const &brakeMinStepVehicleLocation,
@@ -202,7 +194,6 @@ private:
    *
    * @param[in]  vehicleState                      current state of the vehicle
    * @param[in]  timeAfterResponseTime             time after the response time to move
-   * @param[in]  responseTimeTrajectorySetSteps    intermediate steps between back and front
    * @param[in]  responseTimeFrontSide             the trajectory points defining the front
    * @param[in]  initialStepVehicleLocation        the vehicle locations for the initial calculation step
    * @param[in]  accelerations                     accelerations to calculate
@@ -214,7 +205,6 @@ private:
    */
   bool calculateTrajectorySetFrontAndSide(situation::VehicleState const &vehicleState,
                                           physics::Duration const &timeAfterResponseTime,
-                                          std::vector<TrajectorySetStep> const &responseTimeTrajectorySetSteps,
                                           TrajectorySetStep const &responseTimeFrontSide,
                                           TrajectorySetStepVehicleLocation const &initialStepVehicleLocation,
                                           std::vector<physics::Acceleration> const &accelerations,
