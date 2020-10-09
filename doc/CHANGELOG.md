@@ -1,6 +1,9 @@
 
 ## Latest changes
 
+## Release 4.3.0
+
+#### :ghost: Maintenance
 * Unstructured constellation polygon creation: Fix vehicle curvature calculation after response time, make DebugDrawing accessible from python
 
 
