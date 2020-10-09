@@ -18,6 +18,7 @@
 
 #define DEBUG_DRAWING_POLYGON(polygon, color, ns) (DebugDrawing::getInstance()->drawPolygon(polygon, color, ns))
 #define DEBUG_DRAWING_LINE(line, color, ns) (DebugDrawing::getInstance()->drawLine(line, color, ns))
+#define DEBUG_DRAWING_IS_ENABLED() (DebugDrawing::getInstance()->isEnabled())
 
 /*!
  * @brief namespace ad
@@ -35,6 +36,21 @@ namespace unstructured {
 class DebugDrawing
 {
 public:
+  struct NullDeleter
+  {
+    void operator()(const void *)
+    {
+    }
+  };
+  struct DebugPoint
+  {
+    DebugPoint(double inX, double inY)
+      : x(inX)
+      , y(inY){};
+    double x;
+    double y;
+  };
+
   struct DebugLine
   {
     DebugLine(Line const &iLine, std::string const &iColor, std::string const &iNs)
@@ -46,6 +62,16 @@ public:
     Line line;
     std::string color{"white"};
     std::string ns;
+
+    std::vector<DebugPoint> getVector()
+    {
+      std::vector<DebugPoint> vectorLine;
+      for (auto const &pt : line)
+      {
+        vectorLine.push_back(DebugPoint(pt.x(), pt.y()));
+      }
+      return vectorLine;
+    }
   };
 
   struct DebugPolygon
@@ -59,6 +85,16 @@ public:
     Polygon polygon;
     std::string color{"white"};
     std::string ns;
+
+    std::vector<DebugPoint> getVector()
+    {
+      std::vector<DebugPoint> vectorPolygon;
+      for (auto const &pt : polygon.outer())
+      {
+        vectorPolygon.push_back(DebugPoint(pt.x(), pt.y()));
+      }
+      return vectorPolygon;
+    }
   };
 
   explicit DebugDrawing() = default;
@@ -66,10 +102,10 @@ public:
   /**
    * @brief singelton instance getter
    */
-  static DebugDrawing *getInstance()
+  static std::shared_ptr<DebugDrawing> getInstance()
   {
     static DebugDrawing *mSingleton = new DebugDrawing();
-    return mSingleton;
+    return std::shared_ptr<DebugDrawing>(mSingleton, NullDeleter());
   }
 
   /**
@@ -77,8 +113,28 @@ public:
    */
   void reset()
   {
+    if (!mEnabled)
+    {
+      return;
+    }
     mLines.clear();
     mPolygons.clear();
+  }
+
+  /**
+   * @brief enable/disable debug drawing
+   */
+  void enable(bool value)
+  {
+    mEnabled = value;
+  }
+
+  /**
+   * @brief enable/disable debug drawing
+   */
+  bool isEnabled()
+  {
+    return mEnabled;
   }
 
   /**
@@ -90,6 +146,10 @@ public:
    */
   void drawLine(Line const &line, std::string const &color = "white", std::string const &ns = "")
   {
+    if (!mEnabled)
+    {
+      return;
+    }
     mLines.push_back(DebugLine(line, color, ns));
 
     spdlog::trace("DRAW;{};{};{};LINE", ns, color, std::to_string(line));
@@ -104,13 +164,16 @@ public:
    */
   void drawPolygon(Polygon const &polygon, std::string const &color = "white", std::string const &ns = "")
   {
+    if (!mEnabled)
+    {
+      return;
+    }
     mPolygons.push_back(DebugPolygon(polygon, color, ns));
-
-    spdlog::trace("DRAW;{};{};{};POLYGON", ns, color, std::to_string(polygon));
   }
 
   std::vector<DebugLine> mLines;
   std::vector<DebugPolygon> mPolygons;
+  bool mEnabled{false};
 };
 
 } // namespace unstructured

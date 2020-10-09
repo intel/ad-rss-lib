@@ -42,7 +42,6 @@ def main():
         declarations_component=declarations.copy()
         declarations_component.add(main_namespace)
 
-        ignore_files={}
         ignore_declarations={}
         additional_includes={}
         if component == "state":
@@ -63,10 +62,6 @@ def main():
             header_dirs = {
                 "@CMAKE_CURRENT_LIST_DIR@/../impl/include/ad/rss/{}".format(component)
             }
-            ignore_files={
-                # leave out DebugDrawing having errors
-                "DebugDrawing.hpp"
-            }
         else:
             header_dirs = {
                 "@CMAKE_CURRENT_LIST_DIR@/../generated/include/ad/rss/{}".format(component),
@@ -79,8 +74,7 @@ def main():
                                 include_paths=include_dirs,
                                 main_namespace=main_namespace,
                                 declarations=declarations_component,
-                                ignore_declarations=ignore_declarations,
-                                ignore_files=ignore_files)
+                                ignore_declarations=ignore_declarations)
 
         additional_replacements_component = additional_replacements.copy()
         additional_replacements_component.add(

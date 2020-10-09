@@ -108,7 +108,6 @@ struct UnstructuredSettings
       && (vehicleTrajectoryCalculationStep == other.vehicleTrajectoryCalculationStep)
       && (vehicleFrontIntermediateRatioSteps == other.vehicleFrontIntermediateRatioSteps)
       && (vehicleBackIntermediateRatioSteps == other.vehicleBackIntermediateRatioSteps)
-      && (vehicleResponseTimeIntermediateAccelerationSteps == other.vehicleResponseTimeIntermediateAccelerationSteps)
       && (vehicleBrakeIntermediateAccelerationSteps == other.vehicleBrakeIntermediateAccelerationSteps)
       && (vehicleContinueForwardIntermediateAccelerationSteps
           == other.vehicleContinueForwardIntermediateAccelerationSteps);
@@ -174,12 +173,6 @@ struct UnstructuredSettings
    * used for the back of the trajectory set.
    */
   uint32_t vehicleBackIntermediateRatioSteps{0};
-
-  /*!
-   * Specifies the intermediate acceleration steps (between brakeMax and accelMax) used while calculating the states at
-   * response time. These are later used for calculating the trajectory sets.
-   */
-  uint32_t vehicleResponseTimeIntermediateAccelerationSteps{0};
 
   /*!
    * Specifies the intermediate acceleration steps (between brakeMax and brakeMin) used while calculating the cbrake
@@ -250,9 +243,6 @@ inline std::ostream &operator<<(std::ostream &os, UnstructuredSettings const &_v
   os << ",";
   os << "vehicleBackIntermediateRatioSteps:";
   os << _value.vehicleBackIntermediateRatioSteps;
-  os << ",";
-  os << "vehicleResponseTimeIntermediateAccelerationSteps:";
-  os << _value.vehicleResponseTimeIntermediateAccelerationSteps;
   os << ",";
   os << "vehicleBrakeIntermediateAccelerationSteps:";
   os << _value.vehicleBrakeIntermediateAccelerationSteps;

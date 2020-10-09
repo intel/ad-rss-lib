@@ -153,10 +153,6 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
     std::numeric_limits<uint32_t>::min()};
   elementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
     = elementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
-  uint32_t elementEgoVehicleRssDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  elementEgoVehicleRssDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
-    = elementEgoVehicleRssDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
   uint32_t elementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
     std::numeric_limits<uint32_t>::min()};
   elementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
@@ -289,10 +285,6 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)
     std::numeric_limits<uint32_t>::min()};
   elementObjectRssDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
     = elementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
-  uint32_t elementObjectRssDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  elementObjectRssDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
-    = elementObjectRssDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
   uint32_t elementObjectRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
     std::numeric_limits<uint32_t>::min()};
   elementObjectRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
@@ -501,10 +493,6 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax
     std::numeric_limits<uint32_t>::min()};
   elementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
     = elementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
-  uint32_t elementEgoVehicleRssDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  elementEgoVehicleRssDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
-    = elementEgoVehicleRssDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
   uint32_t elementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
     std::numeric_limits<uint32_t>::min()};
   elementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
@@ -637,10 +625,6 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax
     std::numeric_limits<uint32_t>::min()};
   elementObjectRssDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
     = elementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
-  uint32_t elementObjectRssDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  elementObjectRssDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
-    = elementObjectRssDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
   uint32_t elementObjectRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
     std::numeric_limits<uint32_t>::min()};
   elementObjectRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
@@ -859,10 +843,6 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeElementValid)
     std::numeric_limits<uint32_t>::min()};
   elementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
     = elementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
-  uint32_t elementEgoVehicleRssDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  elementEgoVehicleRssDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
-    = elementEgoVehicleRssDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
   uint32_t elementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
     std::numeric_limits<uint32_t>::min()};
   elementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
@@ -995,10 +975,6 @@ TEST(SceneVectorValidInputRangeTests, testValidInputRangeElementValid)
     std::numeric_limits<uint32_t>::min()};
   elementObjectRssDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
     = elementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
-  uint32_t elementObjectRssDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  elementObjectRssDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
-    = elementObjectRssDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
   uint32_t elementObjectRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
     std::numeric_limits<uint32_t>::min()};
   elementObjectRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
