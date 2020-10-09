@@ -112,7 +112,11 @@ Collaboration diagram for ad::rss::unstructured::DebugDrawing:</div>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1unstructured_1_1DebugDrawing_1_1DebugLine.html">DebugLine</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1unstructured_1_1DebugDrawing_1_1DebugPoint.html">DebugPoint</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1unstructured_1_1DebugDrawing_1_1DebugPolygon.html">DebugPolygon</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structad_1_1rss_1_1unstructured_1_1DebugDrawing_1_1NullDeleter.html">NullDeleter</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -121,6 +125,14 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#a101914a556cb354d4700aaa772a8bd1b">reset</a> ()</td></tr>
 <tr class="memdesc:a101914a556cb354d4700aaa772a8bd1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">clean up all geometries to draw (before a new cycle) <br /></td></tr>
 <tr class="separator:a101914a556cb354d4700aaa772a8bd1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a01468514b998d82a035e8d08a07632"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7a01468514b998d82a035e8d08a07632"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#a7a01468514b998d82a035e8d08a07632">enable</a> (bool value)</td></tr>
+<tr class="memdesc:a7a01468514b998d82a035e8d08a07632"><td class="mdescLeft">&#160;</td><td class="mdescRight">enable/disable debug drawing <br /></td></tr>
+<tr class="separator:a7a01468514b998d82a035e8d08a07632"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cf634430de37fa73e52cfd3ec8f0947"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0cf634430de37fa73e52cfd3ec8f0947"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#a0cf634430de37fa73e52cfd3ec8f0947">isEnabled</a> ()</td></tr>
+<tr class="memdesc:a0cf634430de37fa73e52cfd3ec8f0947"><td class="mdescLeft">&#160;</td><td class="mdescRight">enable/disable debug drawing <br /></td></tr>
+<tr class="separator:a0cf634430de37fa73e52cfd3ec8f0947"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a867f15b54b6bfa5c27ac5b2ff34f8c19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#a867f15b54b6bfa5c27ac5b2ff34f8c19">drawLine</a> (Line const &amp;line, std::string const &amp;color=&quot;white&quot;, std::string const &amp;ns=&quot;&quot;)</td></tr>
 <tr class="memdesc:a867f15b54b6bfa5c27ac5b2ff34f8c19"><td class="mdescLeft">&#160;</td><td class="mdescRight">draw a line  <a href="#a867f15b54b6bfa5c27ac5b2ff34f8c19">More...</a><br /></td></tr>
 <tr class="separator:a867f15b54b6bfa5c27ac5b2ff34f8c19"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,10 +142,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a9feeaac48706c6a31cf4692d72f4859f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9feeaac48706c6a31cf4692d72f4859f"></a>
-static <a class="el" href="classad_1_1rss_1_1unstructured_1_1DebugDrawing.html">DebugDrawing</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#a9feeaac48706c6a31cf4692d72f4859f">getInstance</a> ()</td></tr>
-<tr class="memdesc:a9feeaac48706c6a31cf4692d72f4859f"><td class="mdescLeft">&#160;</td><td class="mdescRight">singelton instance getter <br /></td></tr>
-<tr class="separator:a9feeaac48706c6a31cf4692d72f4859f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92db28d81720e00f27d197cd73e95d62"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a92db28d81720e00f27d197cd73e95d62"></a>
+static std::shared_ptr&lt; <a class="el" href="classad_1_1rss_1_1unstructured_1_1DebugDrawing.html">DebugDrawing</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#a92db28d81720e00f27d197cd73e95d62">getInstance</a> ()</td></tr>
+<tr class="memdesc:a92db28d81720e00f27d197cd73e95d62"><td class="mdescLeft">&#160;</td><td class="mdescRight">singelton instance getter <br /></td></tr>
+<tr class="separator:a92db28d81720e00f27d197cd73e95d62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -143,6 +155,9 @@ std::vector&lt; <a class="el" href="structad_1_1rss_1_1unstructured_1_1DebugDraw
 <tr class="memitem:a4780e588e71ef5ed250c901e55d45d01"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4780e588e71ef5ed250c901e55d45d01"></a>
 std::vector&lt; <a class="el" href="structad_1_1rss_1_1unstructured_1_1DebugDrawing_1_1DebugPolygon.html">DebugPolygon</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mPolygons</b></td></tr>
 <tr class="separator:a4780e588e71ef5ed250c901e55d45d01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53b19e6391eb6d553f298ac4a4c894cc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a53b19e6391eb6d553f298ac4a4c894cc"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>mEnabled</b> {false}</td></tr>
+<tr class="separator:a53b19e6391eb6d553f298ac4a4c894cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a867f15b54b6bfa5c27ac5b2ff34f8c19"></a>

@@ -15,6 +15,7 @@ var searchData=
   ['intersectionsamepriority',['IntersectionSamePriority',['../namespacead_1_1rss_1_1situation.html#abc84e194db29a5fe35e669411b480470a4e8dce2021de5f30ffaf93a17a3281ce',1,'ad::rss::situation']]],
   ['invalid',['Invalid',['../namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625a4bbb8f967da6d1a610596d7257179c2b',1,'ad::rss::world']]],
   ['isdangerous',['isDangerous',['../namespacead_1_1rss_1_1state.html#a9957d98aafa3149b34e759a401cafc79',1,'ad::rss::state']]],
+  ['isenabled',['isEnabled',['../classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#a0cf634430de37fa73e52cfd3ec8f0947',1,'ad::rss::unstructured::DebugDrawing']]],
   ['isincorrectlane',['isInCorrectLane',['../structad_1_1rss_1_1situation_1_1VehicleState.html#a70ee66bdad53fe2bb78b4d512b4dd78d',1,'ad::rss::situation::VehicleState']]],
   ['isinsideheadingrange',['isInsideHeadingRange',['../namespacead_1_1rss_1_1unstructured.html#a43fc7500001d7b1d177f1897695cfd3c',1,'ad::rss::unstructured']]],
   ['islateralsafe',['isLateralSafe',['../namespacead_1_1rss_1_1state.html#abc095182f2e1cf2f7b1fd18eb59f0ee4',1,'ad::rss::state']]],

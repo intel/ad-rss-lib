@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-10-05 08:09:20</td>
+            <td class="headerValue">2020-10-09 13:51:12</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -91,17 +91,17 @@
 <span class="lineNum">      20 </span>                :            : 
 <span class="lineNum">      21 </span>                :<span class="lineCov">    4023441 : std::string toString(::ad::rss::world::ObjectType const e)</span>
 <span class="lineNum">      22 </span>                :            : {
-<span class="lineNum">      23 </span>  [<span class="branchCov" title="Branch 0 was taken 3004096 times"> + </span><span class="branchCov" title="Branch 1 was taken 586 times"> + </span><span class="branchCov" title="Branch 2 was taken 18656 times"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span> :<span class="lineCov">    4023441 :   switch (e)</span>
+<span class="lineNum">      23 </span>  [<span class="branchCov" title="Branch 0 was taken 2004094 times"> + </span><span class="branchCov" title="Branch 1 was taken 586 times"> + </span><span class="branchCov" title="Branch 2 was taken 18656 times"> + </span><span class="branchCov" title="Branch 3 was taken 1000005 times"> + </span> :<span class="lineCov">    4023441 :   switch (e)</span>
 <span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 3 times"> + </span><span class="branchCov" title="Branch 5 was taken 1000097 times"> + </span>]
 <span class="lineNum">      24 </span>                :            :   {
 <span class="lineNum">      25 </span>                :            :     case ::ad::rss::world::ObjectType::Invalid:
-<span class="lineNum">      26 </span>                :<span class="lineCov">    3004096 :       return std::string(&quot;::ad::rss::world::ObjectType::Invalid&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      26 </span>                :<span class="lineCov">    2004094 :       return std::string(&quot;::ad::rss::world::ObjectType::Invalid&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      27 </span>                :            :     case ::ad::rss::world::ObjectType::EgoVehicle:
 <span class="lineNum">      28 </span>                :<span class="lineCov">        586 :       return std::string(&quot;::ad::rss::world::ObjectType::EgoVehicle&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      29 </span>                :            :     case ::ad::rss::world::ObjectType::OtherVehicle:
 <span class="lineNum">      30 </span>                :<span class="lineCov">      18656 :       return std::string(&quot;::ad::rss::world::ObjectType::OtherVehicle&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      31 </span>                :            :     case ::ad::rss::world::ObjectType::Pedestrian:
-<span class="lineNum">      32 </span>                :<span class="lineCov">          3 :       return std::string(&quot;::ad::rss::world::ObjectType::Pedestrian&quot;); // LCOV_EXCL_BR_LINE</span>
+<span class="lineNum">      32 </span>                :<span class="lineCov">    1000005 :       return std::string(&quot;::ad::rss::world::ObjectType::Pedestrian&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      33 </span>                :            :     case ::ad::rss::world::ObjectType::ArtificialObject:
 <span class="lineNum">      34 </span>                :<span class="lineCov">          3 :       return std::string(&quot;::ad::rss::world::ObjectType::ArtificialObject&quot;); // LCOV_EXCL_BR_LINE</span>
 <span class="lineNum">      35 </span>                :            :     default:

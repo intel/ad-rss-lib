@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['unstructuredscenerssstate',['UnstructuredSceneRssState',['../structad_1_1rss_1_1state_1_1UnstructuredSceneRssState.html',1,'ad::rss::state']]],
-  ['unstructuredscenestateinformation',['UnstructuredSceneStateInformation',['../structad_1_1rss_1_1state_1_1UnstructuredSceneStateInformation.html',1,'ad::rss::state']]],
-  ['unstructuredsettings',['UnstructuredSettings',['../structad_1_1rss_1_1world_1_1UnstructuredSettings.html',1,'ad::rss::world']]]
+  ['scene',['Scene',['../structad_1_1rss_1_1world_1_1Scene.html',1,'ad::rss::world']]],
+  ['situation',['Situation',['../structad_1_1rss_1_1situation_1_1Situation.html',1,'ad::rss::situation']]],
+  ['situationsnapshot',['SituationSnapshot',['../structad_1_1rss_1_1situation_1_1SituationSnapshot.html',1,'ad::rss::situation']]]
 ];
