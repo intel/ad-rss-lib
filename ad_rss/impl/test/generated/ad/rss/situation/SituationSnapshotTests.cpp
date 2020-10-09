@@ -92,10 +92,6 @@ protected:
       std::numeric_limits<uint32_t>::min()};
     valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
       = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
-    uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
-      std::numeric_limits<uint32_t>::min()};
-    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
-      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
     uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
       std::numeric_limits<uint32_t>::min()};
     valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
@@ -220,11 +216,6 @@ protected:
       std::numeric_limits<uint32_t>::min()};
     valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
       = valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
-    uint32_t
-      valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
-        std::numeric_limits<uint32_t>::min()};
-    valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
-      = valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
     uint32_t valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
       std::numeric_limits<uint32_t>::min()};
     valueSituationsElementEgoVehicleStateDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
@@ -389,11 +380,6 @@ protected:
       std::numeric_limits<uint32_t>::min()};
     valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
       = valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
-    uint32_t
-      valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
-        std::numeric_limits<uint32_t>::min()};
-    valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
-      = valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
     uint32_t
       valueSituationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
         std::numeric_limits<uint32_t>::min()};
@@ -598,10 +584,6 @@ TEST_F(SituationSnapshotTests, comparisonOperatorDefaultEgoVehicleRssDynamicsDif
     std::numeric_limits<uint32_t>::max()};
   defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
     = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
-  uint32_t defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::max()};
-  defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
-    = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
   uint32_t defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
     std::numeric_limits<uint32_t>::max()};
   defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
@@ -715,10 +697,6 @@ TEST_F(SituationSnapshotTests, comparisonOperatorSituationsDiffers)
     std::numeric_limits<uint32_t>::max()};
   situationsElementEgoVehicleStateDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
     = situationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
-  uint32_t situationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::max()};
-  situationsElementEgoVehicleStateDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
-    = situationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
   uint32_t situationsElementEgoVehicleStateDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
     std::numeric_limits<uint32_t>::max()};
   situationsElementEgoVehicleStateDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
@@ -875,11 +853,6 @@ TEST_F(SituationSnapshotTests, comparisonOperatorSituationsDiffers)
     std::numeric_limits<uint32_t>::max()};
   situationsElementOtherVehicleStateDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
     = situationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
-  uint32_t
-    situationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps{
-      std::numeric_limits<uint32_t>::max()};
-  situationsElementOtherVehicleStateDynamicsUnstructuredSettings.vehicleResponseTimeIntermediateAccelerationSteps
-    = situationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleResponseTimeIntermediateAccelerationSteps;
   uint32_t situationsElementOtherVehicleStateDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
     std::numeric_limits<uint32_t>::max()};
   situationsElementOtherVehicleStateDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
