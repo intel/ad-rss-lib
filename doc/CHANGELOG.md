@@ -1,11 +1,15 @@
 
 ## Latest changes
 
+## Release 4.4.0
+
+#### :ghost: Maintenance
+* Unstructured constellation polygon creation: Add several parameters to adjust polygon calculation. Fix issues, refactor code.
+
 ## Release 4.3.0
 
 #### :ghost: Maintenance
 * Unstructured constellation polygon creation: Fix vehicle curvature calculation after response time, make DebugDrawing accessible from python
-
 
 ## Release 4.2.0
 

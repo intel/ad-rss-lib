@@ -64,21 +64,6 @@ public:
 
 private:
   /**
-   * @brief calculate step polygon
-   *
-   * @param[in] step              the front points
-   * @param[in] vehicleDimension   vehicle dimension
-   * @param[out] resultPolygon     polygon describing the front
-   *
-   * @returns false if a failure occurred during calculations, true otherwise
-   */
-  bool calculateStepPolygon(situation::VehicleState const &vehicleState,
-                            physics::Distance const &distance,
-                            TrajectorySetStep const &step,
-                            std::string const &debugNamespace,
-                            Polygon &polygon) const;
-
-  /**
    * @brief Calculate all trajectory points at response time
    *
    * @param[in]  vehicleState current state of the vehicle
@@ -92,30 +77,58 @@ private:
                                        TrajectorySetStep &backSide) const;
 
   /**
-   * @brief Calculate a single trajectory point at response time
+   * @brief Calculate a single trajectory point
    *
-   * @param[in]  vehicleState          current state of the vehicle
-   * @param[in]  aUntilResponseTime    acceleration until response time
-   * @param[in]  yawRateChangeRatio    yaw rate change ratio
-   * @param[out] resultTrajectoryPoint resulting trajectory point
+   * @param[inout] currentPoint     point to use for calculation
+   * @param[in]  dynamics           current dynamics of the vehicle
+   * @param[in]  duration           duration of movement
+   * @param[in]  acceleration       acceleration to apply
+   * @param[in]  yawRateChangeRatio heading change ratio
    *
    * @returns false if a failure occurred during calculations, true otherwise
    */
-  bool getResponseTimeTrajectoryPoint(situation::VehicleState const &vehicleState,
-                                      ad::physics::Acceleration const &aUntilResponseTime,
-                                      ad::physics::RatioValue const &yawRateChangeRatio,
-                                      TrajectoryPoint &resultTrajectoryPoint) const;
+  bool calculateTrajectoryPoint(TrajectoryPoint &currentPoint,
+                                world::RssDynamics const &dynamics,
+                                physics::Duration const &duration,
+                                ad::physics::Acceleration const &acceleration,
+                                ad::physics::RatioValue const &yawRateChangeRatio) const;
 
   /**
-   * @brief Calculate the final point after response time
+   * @brief Calculate a single trajectory point
    *
-   * @param[in]  pointAfterResponseTime point at response time
-   * @param[in]  distance               distance of the final point
+   * @param[inout] currentPoint     point to use for calculation
+   * @param[in]  dynamics           current dynamics of the vehicle
+   * @param[in]  distance           distance to move
+   * @param[in]  yawRateChangeRatio heading change ratio
    *
-   * @returns final point
+   * @returns false if a failure occurred during calculations, true otherwise
    */
-  TrajectoryPoint calculateFinalPoint(TrajectoryPoint const &pointAfterResponseTime,
-                                      physics::Distance const &distance) const;
+  void calculateTrajectoryPoint(TrajectoryPoint &currentPoint,
+                                world::RssDynamics const &dynamics,
+                                physics::Distance const &distance,
+                                ad::physics::RatioValue const &angleChangeRatio) const;
+
+  /**
+   * @brief Calculate a point on a straight line
+   *
+   * @param[in]  currentPoint point at response time
+   * @param[in]  distance     distance of the final point
+   * @param[out] resultPoint  resulting point
+   */
+  void calculateTrajectoryPointStraight(TrajectoryPoint const &currentPoint,
+                                        physics::Distance const &distance,
+                                        TrajectoryPoint &resultPoint) const;
+
+  /**
+   * @brief Calculate points of trajectory set step on a straight line
+   *
+   * @param[in]  distance     distance of the final points
+   * @param[in]  step         current step
+   * @param[out] resultStep   resulting step
+   */
+  void calculateTrajectoryPointsStraight(physics::Distance const &distance,
+                                         TrajectorySetStep const &step,
+                                         TrajectorySetStep &resultStep) const;
 
   /**
    * @brief Calculate a side polygon

@@ -188,9 +188,42 @@ bool combinePolygon(Polygon const &a, Polygon const &b, Polygon &result)
     boost::geometry::union_(a.outer(), b.outer(), unionPolygons);
     if (unionPolygons.size() != 1)
     {
-      spdlog::debug("Could not calculate combined polygon. Expected 1 polygon after union, found {}",
-                    unionPolygons.size());
-      return false;
+      auto fixed = false;
+      if (unionPolygons.size() == 0)
+      {
+        //if union reports zero polygons, it might happen that one polygon is covered by the other
+        auto aCoveredByB = true;
+        for (auto it = a.outer().cbegin(); (it != a.outer().cend()) && aCoveredByB; ++it)
+        {
+          aCoveredByB &= boost::geometry::covered_by(*it, b.outer());
+        }
+        if (aCoveredByB)
+        {
+          fixed = true;
+          result = b;
+        }
+        if (!fixed)
+        {
+          auto bCoveredByA = true;
+          for (auto it = b.outer().cbegin(); (it != b.outer().cend()) && bCoveredByA; ++it)
+          {
+            bCoveredByA &= boost::geometry::covered_by(*it, a.outer());
+          }
+          if (bCoveredByA)
+          {
+            fixed = true;
+            result = a;
+          }
+        }
+      }
+      if (!fixed)
+      {
+        spdlog::warn("Could not calculate combined polygon. Expected 1 polygon after union, found {}. A:\n{}\nB:\n{}",
+                      unionPolygons.size(),
+                        std::to_string(a),
+                        std::to_string(b));
+        return false;
+      }
     }
     else
     {

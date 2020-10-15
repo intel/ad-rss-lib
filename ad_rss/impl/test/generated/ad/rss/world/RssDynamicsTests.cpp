@@ -71,12 +71,14 @@ protected:
     ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
     valueUnstructuredSettings.vehicleTrajectoryCalculationStep
       = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
-    uint32_t valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-    valueUnstructuredSettings.vehicleFrontIntermediateRatioSteps
-      = valueUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
-    uint32_t valueUnstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-    valueUnstructuredSettings.vehicleBackIntermediateRatioSteps
-      = valueUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+    uint32_t valueUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
+      = valueUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
+    uint32_t valueUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
+      = valueUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
     uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
     valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
       = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
@@ -84,6 +86,30 @@ protected:
       std::numeric_limits<uint32_t>::min()};
     valueUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
       = valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
+    uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueUnstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+      = valueUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+    uint32_t valueUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueUnstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+      = valueUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+    uint32_t valueUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
+      = valueUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
+    uint32_t valueUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
+      = valueUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
+    uint32_t valueUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
+      = valueUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
+    uint32_t valueUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
+      = valueUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
     value.unstructuredSettings = valueUnstructuredSettings;
     mValue = value;
   }
@@ -224,10 +250,12 @@ TEST_F(RssDynamicsTests, comparisonOperatorUnstructuredSettingsDiffers)
   unstructuredSettings.vehicleMinRadius = unstructuredSettingsVehicleMinRadius;
   ::ad::physics::Duration unstructuredSettingsVehicleTrajectoryCalculationStep(1e6);
   unstructuredSettings.vehicleTrajectoryCalculationStep = unstructuredSettingsVehicleTrajectoryCalculationStep;
-  uint32_t unstructuredSettingsVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::max()};
-  unstructuredSettings.vehicleFrontIntermediateRatioSteps = unstructuredSettingsVehicleFrontIntermediateRatioSteps;
-  uint32_t unstructuredSettingsVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::max()};
-  unstructuredSettings.vehicleBackIntermediateRatioSteps = unstructuredSettingsVehicleBackIntermediateRatioSteps;
+  uint32_t unstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::max()};
+  unstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
+    = unstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
+  uint32_t unstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::max()};
+  unstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
+    = unstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
   uint32_t unstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::max()};
   unstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
     = unstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
@@ -235,6 +263,27 @@ TEST_F(RssDynamicsTests, comparisonOperatorUnstructuredSettingsDiffers)
     std::numeric_limits<uint32_t>::max()};
   unstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
     = unstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
+  uint32_t unstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
+    std::numeric_limits<uint32_t>::max()};
+  unstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+    = unstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  uint32_t unstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
+    std::numeric_limits<uint32_t>::max()};
+  unstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+    = unstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  uint32_t unstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::max()};
+  unstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
+    = unstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
+  uint32_t unstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::max()};
+  unstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
+    = unstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
+  uint32_t unstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::max()};
+  unstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
+    = unstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
+  uint32_t unstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::max()};
+  unstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
+    = unstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
   valueA.unstructuredSettings = unstructuredSettings;
   ::ad::rss::world::RssDynamics valueB = mValue;
 
