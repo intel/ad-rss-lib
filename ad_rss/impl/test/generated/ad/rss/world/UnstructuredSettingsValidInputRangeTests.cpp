@@ -31,14 +31,29 @@ TEST(UnstructuredSettingsValidInputRangeTests, testValidInputRange)
   value.vehicleMinRadius = valueVehicleMinRadius;
   ::ad::physics::Duration valueVehicleTrajectoryCalculationStep(0.);
   value.vehicleTrajectoryCalculationStep = valueVehicleTrajectoryCalculationStep;
-  uint32_t valueVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleFrontIntermediateRatioSteps = valueVehicleFrontIntermediateRatioSteps;
-  uint32_t valueVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleBackIntermediateRatioSteps = valueVehicleBackIntermediateRatioSteps;
+  uint32_t valueVehicleFrontIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleFrontIntermediateYawRateChangeRatioSteps = valueVehicleFrontIntermediateYawRateChangeRatioSteps;
+  uint32_t valueVehicleBackIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleBackIntermediateYawRateChangeRatioSteps = valueVehicleBackIntermediateYawRateChangeRatioSteps;
   uint32_t valueVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleBrakeIntermediateAccelerationSteps = valueVehicleBrakeIntermediateAccelerationSteps;
   uint32_t valueVehicleContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleContinueForwardIntermediateAccelerationSteps = valueVehicleContinueForwardIntermediateAccelerationSteps;
+  uint32_t valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+    = valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+    = valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateAccelerationSteps
+    = valuePedestrianContinueForwardIntermediateAccelerationSteps;
+  uint32_t valuePedestrianBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBrakeIntermediateAccelerationSteps = valuePedestrianBrakeIntermediateAccelerationSteps;
+  uint32_t valuePedestrianFrontIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianFrontIntermediateHeadingChangeRatioSteps = valuePedestrianFrontIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianBackIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBackIntermediateHeadingChangeRatioSteps = valuePedestrianBackIntermediateHeadingChangeRatioSteps;
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
@@ -55,14 +70,29 @@ TEST(UnstructuredSettingsValidInputRangeTests, testValidInputRangePedestrianTurn
   value.vehicleMinRadius = valueVehicleMinRadius;
   ::ad::physics::Duration valueVehicleTrajectoryCalculationStep(0.);
   value.vehicleTrajectoryCalculationStep = valueVehicleTrajectoryCalculationStep;
-  uint32_t valueVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleFrontIntermediateRatioSteps = valueVehicleFrontIntermediateRatioSteps;
-  uint32_t valueVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleBackIntermediateRatioSteps = valueVehicleBackIntermediateRatioSteps;
+  uint32_t valueVehicleFrontIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleFrontIntermediateYawRateChangeRatioSteps = valueVehicleFrontIntermediateYawRateChangeRatioSteps;
+  uint32_t valueVehicleBackIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleBackIntermediateYawRateChangeRatioSteps = valueVehicleBackIntermediateYawRateChangeRatioSteps;
   uint32_t valueVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleBrakeIntermediateAccelerationSteps = valueVehicleBrakeIntermediateAccelerationSteps;
   uint32_t valueVehicleContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleContinueForwardIntermediateAccelerationSteps = valueVehicleContinueForwardIntermediateAccelerationSteps;
+  uint32_t valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+    = valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+    = valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateAccelerationSteps
+    = valuePedestrianContinueForwardIntermediateAccelerationSteps;
+  uint32_t valuePedestrianBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBrakeIntermediateAccelerationSteps = valuePedestrianBrakeIntermediateAccelerationSteps;
+  uint32_t valuePedestrianFrontIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianFrontIntermediateHeadingChangeRatioSteps = valuePedestrianFrontIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianBackIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBackIntermediateHeadingChangeRatioSteps = valuePedestrianBackIntermediateHeadingChangeRatioSteps;
 
   // override member with data type value below input range minimum
   ::ad::physics::Distance invalidInitializedMember(-1e9 * 1.1);
@@ -83,14 +113,29 @@ TEST(UnstructuredSettingsValidInputRangeTests, testValidInputRangePedestrianTurn
   value.vehicleMinRadius = valueVehicleMinRadius;
   ::ad::physics::Duration valueVehicleTrajectoryCalculationStep(0.);
   value.vehicleTrajectoryCalculationStep = valueVehicleTrajectoryCalculationStep;
-  uint32_t valueVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleFrontIntermediateRatioSteps = valueVehicleFrontIntermediateRatioSteps;
-  uint32_t valueVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleBackIntermediateRatioSteps = valueVehicleBackIntermediateRatioSteps;
+  uint32_t valueVehicleFrontIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleFrontIntermediateYawRateChangeRatioSteps = valueVehicleFrontIntermediateYawRateChangeRatioSteps;
+  uint32_t valueVehicleBackIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleBackIntermediateYawRateChangeRatioSteps = valueVehicleBackIntermediateYawRateChangeRatioSteps;
   uint32_t valueVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleBrakeIntermediateAccelerationSteps = valueVehicleBrakeIntermediateAccelerationSteps;
   uint32_t valueVehicleContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleContinueForwardIntermediateAccelerationSteps = valueVehicleContinueForwardIntermediateAccelerationSteps;
+  uint32_t valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+    = valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+    = valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateAccelerationSteps
+    = valuePedestrianContinueForwardIntermediateAccelerationSteps;
+  uint32_t valuePedestrianBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBrakeIntermediateAccelerationSteps = valuePedestrianBrakeIntermediateAccelerationSteps;
+  uint32_t valuePedestrianFrontIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianFrontIntermediateHeadingChangeRatioSteps = valuePedestrianFrontIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianBackIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBackIntermediateHeadingChangeRatioSteps = valuePedestrianBackIntermediateHeadingChangeRatioSteps;
 
   // override member with data type value above input range maximum
   ::ad::physics::Distance invalidInitializedMember(1e9 * 1.1);
@@ -119,14 +164,29 @@ TEST(UnstructuredSettingsValidInputRangeTests, testValidInputRangeDriveAwayMaxAn
   value.vehicleMinRadius = valueVehicleMinRadius;
   ::ad::physics::Duration valueVehicleTrajectoryCalculationStep(0.);
   value.vehicleTrajectoryCalculationStep = valueVehicleTrajectoryCalculationStep;
-  uint32_t valueVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleFrontIntermediateRatioSteps = valueVehicleFrontIntermediateRatioSteps;
-  uint32_t valueVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleBackIntermediateRatioSteps = valueVehicleBackIntermediateRatioSteps;
+  uint32_t valueVehicleFrontIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleFrontIntermediateYawRateChangeRatioSteps = valueVehicleFrontIntermediateYawRateChangeRatioSteps;
+  uint32_t valueVehicleBackIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleBackIntermediateYawRateChangeRatioSteps = valueVehicleBackIntermediateYawRateChangeRatioSteps;
   uint32_t valueVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleBrakeIntermediateAccelerationSteps = valueVehicleBrakeIntermediateAccelerationSteps;
   uint32_t valueVehicleContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleContinueForwardIntermediateAccelerationSteps = valueVehicleContinueForwardIntermediateAccelerationSteps;
+  uint32_t valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+    = valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+    = valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateAccelerationSteps
+    = valuePedestrianContinueForwardIntermediateAccelerationSteps;
+  uint32_t valuePedestrianBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBrakeIntermediateAccelerationSteps = valuePedestrianBrakeIntermediateAccelerationSteps;
+  uint32_t valuePedestrianFrontIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianFrontIntermediateHeadingChangeRatioSteps = valuePedestrianFrontIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianBackIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBackIntermediateHeadingChangeRatioSteps = valuePedestrianBackIntermediateHeadingChangeRatioSteps;
 
   // override member with data type value below input range minimum
   ::ad::physics::Angle invalidInitializedMember(-6.283185308 * 1.1);
@@ -147,14 +207,29 @@ TEST(UnstructuredSettingsValidInputRangeTests, testValidInputRangeDriveAwayMaxAn
   value.vehicleMinRadius = valueVehicleMinRadius;
   ::ad::physics::Duration valueVehicleTrajectoryCalculationStep(0.);
   value.vehicleTrajectoryCalculationStep = valueVehicleTrajectoryCalculationStep;
-  uint32_t valueVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleFrontIntermediateRatioSteps = valueVehicleFrontIntermediateRatioSteps;
-  uint32_t valueVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleBackIntermediateRatioSteps = valueVehicleBackIntermediateRatioSteps;
+  uint32_t valueVehicleFrontIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleFrontIntermediateYawRateChangeRatioSteps = valueVehicleFrontIntermediateYawRateChangeRatioSteps;
+  uint32_t valueVehicleBackIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleBackIntermediateYawRateChangeRatioSteps = valueVehicleBackIntermediateYawRateChangeRatioSteps;
   uint32_t valueVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleBrakeIntermediateAccelerationSteps = valueVehicleBrakeIntermediateAccelerationSteps;
   uint32_t valueVehicleContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleContinueForwardIntermediateAccelerationSteps = valueVehicleContinueForwardIntermediateAccelerationSteps;
+  uint32_t valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+    = valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+    = valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateAccelerationSteps
+    = valuePedestrianContinueForwardIntermediateAccelerationSteps;
+  uint32_t valuePedestrianBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBrakeIntermediateAccelerationSteps = valuePedestrianBrakeIntermediateAccelerationSteps;
+  uint32_t valuePedestrianFrontIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianFrontIntermediateHeadingChangeRatioSteps = valuePedestrianFrontIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianBackIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBackIntermediateHeadingChangeRatioSteps = valuePedestrianBackIntermediateHeadingChangeRatioSteps;
 
   // override member with data type value above input range maximum
   ::ad::physics::Angle invalidInitializedMember(6.283185308 * 1.1);
@@ -183,14 +258,29 @@ TEST(UnstructuredSettingsValidInputRangeTests, testValidInputRangeVehicleYawRate
   value.vehicleMinRadius = valueVehicleMinRadius;
   ::ad::physics::Duration valueVehicleTrajectoryCalculationStep(0.);
   value.vehicleTrajectoryCalculationStep = valueVehicleTrajectoryCalculationStep;
-  uint32_t valueVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleFrontIntermediateRatioSteps = valueVehicleFrontIntermediateRatioSteps;
-  uint32_t valueVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleBackIntermediateRatioSteps = valueVehicleBackIntermediateRatioSteps;
+  uint32_t valueVehicleFrontIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleFrontIntermediateYawRateChangeRatioSteps = valueVehicleFrontIntermediateYawRateChangeRatioSteps;
+  uint32_t valueVehicleBackIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleBackIntermediateYawRateChangeRatioSteps = valueVehicleBackIntermediateYawRateChangeRatioSteps;
   uint32_t valueVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleBrakeIntermediateAccelerationSteps = valueVehicleBrakeIntermediateAccelerationSteps;
   uint32_t valueVehicleContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleContinueForwardIntermediateAccelerationSteps = valueVehicleContinueForwardIntermediateAccelerationSteps;
+  uint32_t valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+    = valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+    = valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateAccelerationSteps
+    = valuePedestrianContinueForwardIntermediateAccelerationSteps;
+  uint32_t valuePedestrianBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBrakeIntermediateAccelerationSteps = valuePedestrianBrakeIntermediateAccelerationSteps;
+  uint32_t valuePedestrianFrontIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianFrontIntermediateHeadingChangeRatioSteps = valuePedestrianFrontIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianBackIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBackIntermediateHeadingChangeRatioSteps = valuePedestrianBackIntermediateHeadingChangeRatioSteps;
 
   // override member with data type value below input range minimum
   ::ad::physics::AngularAcceleration invalidInitializedMember(-1e2 * 1.1);
@@ -211,14 +301,29 @@ TEST(UnstructuredSettingsValidInputRangeTests, testValidInputRangeVehicleYawRate
   value.vehicleMinRadius = valueVehicleMinRadius;
   ::ad::physics::Duration valueVehicleTrajectoryCalculationStep(0.);
   value.vehicleTrajectoryCalculationStep = valueVehicleTrajectoryCalculationStep;
-  uint32_t valueVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleFrontIntermediateRatioSteps = valueVehicleFrontIntermediateRatioSteps;
-  uint32_t valueVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleBackIntermediateRatioSteps = valueVehicleBackIntermediateRatioSteps;
+  uint32_t valueVehicleFrontIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleFrontIntermediateYawRateChangeRatioSteps = valueVehicleFrontIntermediateYawRateChangeRatioSteps;
+  uint32_t valueVehicleBackIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleBackIntermediateYawRateChangeRatioSteps = valueVehicleBackIntermediateYawRateChangeRatioSteps;
   uint32_t valueVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleBrakeIntermediateAccelerationSteps = valueVehicleBrakeIntermediateAccelerationSteps;
   uint32_t valueVehicleContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleContinueForwardIntermediateAccelerationSteps = valueVehicleContinueForwardIntermediateAccelerationSteps;
+  uint32_t valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+    = valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+    = valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateAccelerationSteps
+    = valuePedestrianContinueForwardIntermediateAccelerationSteps;
+  uint32_t valuePedestrianBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBrakeIntermediateAccelerationSteps = valuePedestrianBrakeIntermediateAccelerationSteps;
+  uint32_t valuePedestrianFrontIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianFrontIntermediateHeadingChangeRatioSteps = valuePedestrianFrontIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianBackIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBackIntermediateHeadingChangeRatioSteps = valuePedestrianBackIntermediateHeadingChangeRatioSteps;
 
   // override member with data type value above input range maximum
   ::ad::physics::AngularAcceleration invalidInitializedMember(1e2 * 1.1);
@@ -247,14 +352,29 @@ TEST(UnstructuredSettingsValidInputRangeTests, testValidInputRangeVehicleMinRadi
   value.vehicleMinRadius = valueVehicleMinRadius;
   ::ad::physics::Duration valueVehicleTrajectoryCalculationStep(0.);
   value.vehicleTrajectoryCalculationStep = valueVehicleTrajectoryCalculationStep;
-  uint32_t valueVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleFrontIntermediateRatioSteps = valueVehicleFrontIntermediateRatioSteps;
-  uint32_t valueVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleBackIntermediateRatioSteps = valueVehicleBackIntermediateRatioSteps;
+  uint32_t valueVehicleFrontIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleFrontIntermediateYawRateChangeRatioSteps = valueVehicleFrontIntermediateYawRateChangeRatioSteps;
+  uint32_t valueVehicleBackIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleBackIntermediateYawRateChangeRatioSteps = valueVehicleBackIntermediateYawRateChangeRatioSteps;
   uint32_t valueVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleBrakeIntermediateAccelerationSteps = valueVehicleBrakeIntermediateAccelerationSteps;
   uint32_t valueVehicleContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleContinueForwardIntermediateAccelerationSteps = valueVehicleContinueForwardIntermediateAccelerationSteps;
+  uint32_t valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+    = valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+    = valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateAccelerationSteps
+    = valuePedestrianContinueForwardIntermediateAccelerationSteps;
+  uint32_t valuePedestrianBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBrakeIntermediateAccelerationSteps = valuePedestrianBrakeIntermediateAccelerationSteps;
+  uint32_t valuePedestrianFrontIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianFrontIntermediateHeadingChangeRatioSteps = valuePedestrianFrontIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianBackIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBackIntermediateHeadingChangeRatioSteps = valuePedestrianBackIntermediateHeadingChangeRatioSteps;
 
   // override member with data type value below input range minimum
   ::ad::physics::Distance invalidInitializedMember(-1e9 * 1.1);
@@ -275,14 +395,29 @@ TEST(UnstructuredSettingsValidInputRangeTests, testValidInputRangeVehicleMinRadi
   value.vehicleMinRadius = valueVehicleMinRadius;
   ::ad::physics::Duration valueVehicleTrajectoryCalculationStep(0.);
   value.vehicleTrajectoryCalculationStep = valueVehicleTrajectoryCalculationStep;
-  uint32_t valueVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleFrontIntermediateRatioSteps = valueVehicleFrontIntermediateRatioSteps;
-  uint32_t valueVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleBackIntermediateRatioSteps = valueVehicleBackIntermediateRatioSteps;
+  uint32_t valueVehicleFrontIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleFrontIntermediateYawRateChangeRatioSteps = valueVehicleFrontIntermediateYawRateChangeRatioSteps;
+  uint32_t valueVehicleBackIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleBackIntermediateYawRateChangeRatioSteps = valueVehicleBackIntermediateYawRateChangeRatioSteps;
   uint32_t valueVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleBrakeIntermediateAccelerationSteps = valueVehicleBrakeIntermediateAccelerationSteps;
   uint32_t valueVehicleContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleContinueForwardIntermediateAccelerationSteps = valueVehicleContinueForwardIntermediateAccelerationSteps;
+  uint32_t valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+    = valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+    = valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateAccelerationSteps
+    = valuePedestrianContinueForwardIntermediateAccelerationSteps;
+  uint32_t valuePedestrianBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBrakeIntermediateAccelerationSteps = valuePedestrianBrakeIntermediateAccelerationSteps;
+  uint32_t valuePedestrianFrontIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianFrontIntermediateHeadingChangeRatioSteps = valuePedestrianFrontIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianBackIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBackIntermediateHeadingChangeRatioSteps = valuePedestrianBackIntermediateHeadingChangeRatioSteps;
 
   // override member with data type value above input range maximum
   ::ad::physics::Distance invalidInitializedMember(1e9 * 1.1);
@@ -311,14 +446,29 @@ TEST(UnstructuredSettingsValidInputRangeTests, testValidInputRangeVehicleTraject
   value.vehicleMinRadius = valueVehicleMinRadius;
   ::ad::physics::Duration valueVehicleTrajectoryCalculationStep(0.);
   value.vehicleTrajectoryCalculationStep = valueVehicleTrajectoryCalculationStep;
-  uint32_t valueVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleFrontIntermediateRatioSteps = valueVehicleFrontIntermediateRatioSteps;
-  uint32_t valueVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleBackIntermediateRatioSteps = valueVehicleBackIntermediateRatioSteps;
+  uint32_t valueVehicleFrontIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleFrontIntermediateYawRateChangeRatioSteps = valueVehicleFrontIntermediateYawRateChangeRatioSteps;
+  uint32_t valueVehicleBackIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleBackIntermediateYawRateChangeRatioSteps = valueVehicleBackIntermediateYawRateChangeRatioSteps;
   uint32_t valueVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleBrakeIntermediateAccelerationSteps = valueVehicleBrakeIntermediateAccelerationSteps;
   uint32_t valueVehicleContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleContinueForwardIntermediateAccelerationSteps = valueVehicleContinueForwardIntermediateAccelerationSteps;
+  uint32_t valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+    = valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+    = valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateAccelerationSteps
+    = valuePedestrianContinueForwardIntermediateAccelerationSteps;
+  uint32_t valuePedestrianBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBrakeIntermediateAccelerationSteps = valuePedestrianBrakeIntermediateAccelerationSteps;
+  uint32_t valuePedestrianFrontIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianFrontIntermediateHeadingChangeRatioSteps = valuePedestrianFrontIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianBackIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBackIntermediateHeadingChangeRatioSteps = valuePedestrianBackIntermediateHeadingChangeRatioSteps;
 
   // override member with data type value below input range minimum
   ::ad::physics::Duration invalidInitializedMember(0. - ::ad::physics::Duration::cPrecisionValue);
@@ -339,14 +489,29 @@ TEST(UnstructuredSettingsValidInputRangeTests, testValidInputRangeVehicleTraject
   value.vehicleMinRadius = valueVehicleMinRadius;
   ::ad::physics::Duration valueVehicleTrajectoryCalculationStep(0.);
   value.vehicleTrajectoryCalculationStep = valueVehicleTrajectoryCalculationStep;
-  uint32_t valueVehicleFrontIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleFrontIntermediateRatioSteps = valueVehicleFrontIntermediateRatioSteps;
-  uint32_t valueVehicleBackIntermediateRatioSteps{std::numeric_limits<uint32_t>::min()};
-  value.vehicleBackIntermediateRatioSteps = valueVehicleBackIntermediateRatioSteps;
+  uint32_t valueVehicleFrontIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleFrontIntermediateYawRateChangeRatioSteps = valueVehicleFrontIntermediateYawRateChangeRatioSteps;
+  uint32_t valueVehicleBackIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleBackIntermediateYawRateChangeRatioSteps = valueVehicleBackIntermediateYawRateChangeRatioSteps;
   uint32_t valueVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleBrakeIntermediateAccelerationSteps = valueVehicleBrakeIntermediateAccelerationSteps;
   uint32_t valueVehicleContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
   value.vehicleContinueForwardIntermediateAccelerationSteps = valueVehicleContinueForwardIntermediateAccelerationSteps;
+  uint32_t valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+    = valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+    = valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianContinueForwardIntermediateAccelerationSteps
+    = valuePedestrianContinueForwardIntermediateAccelerationSteps;
+  uint32_t valuePedestrianBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBrakeIntermediateAccelerationSteps = valuePedestrianBrakeIntermediateAccelerationSteps;
+  uint32_t valuePedestrianFrontIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianFrontIntermediateHeadingChangeRatioSteps = valuePedestrianFrontIntermediateHeadingChangeRatioSteps;
+  uint32_t valuePedestrianBackIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
+  value.pedestrianBackIntermediateHeadingChangeRatioSteps = valuePedestrianBackIntermediateHeadingChangeRatioSteps;
 
   // override member with data type value above input range maximum
   ::ad::physics::Duration invalidInitializedMember(1e6 * 1.1);

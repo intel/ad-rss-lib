@@ -92,6 +92,17 @@ world::RssDynamics getObjectRssDynamics()
   rssDynamics.unstructuredSettings.vehicleMinRadius = ad::physics::Distance(3.5);
   rssDynamics.unstructuredSettings.vehicleTrajectoryCalculationStep = ad::physics::Duration(0.2);
 
+  rssDynamics.unstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps = 3;
+  rssDynamics.unstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps = 0;
+  rssDynamics.unstructuredSettings.vehicleBrakeIntermediateAccelerationSteps = 1;
+  rssDynamics.unstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps = 0;
+  rssDynamics.unstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps = 3;
+  rssDynamics.unstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps = 3;
+  rssDynamics.unstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps = 0;
+  rssDynamics.unstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps = 3;
+  rssDynamics.unstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps = 4;
+  rssDynamics.unstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps = 0;
+
   return rssDynamics;
 }
 
@@ -115,6 +126,16 @@ world::RssDynamics getEgoRssDynamics()
   rssDynamics.unstructuredSettings.vehicleMinRadius = ad::physics::Distance(3.5);
   rssDynamics.unstructuredSettings.vehicleTrajectoryCalculationStep = ad::physics::Duration(0.2);
 
+  rssDynamics.unstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps = 3;
+  rssDynamics.unstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps = 0;
+  rssDynamics.unstructuredSettings.vehicleBrakeIntermediateAccelerationSteps = 1;
+  rssDynamics.unstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps = 0;
+  rssDynamics.unstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps = 3;
+  rssDynamics.unstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps = 3;
+  rssDynamics.unstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps = 0;
+  rssDynamics.unstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps = 3;
+  rssDynamics.unstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps = 4;
+  rssDynamics.unstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps = 0;
   return rssDynamics;
 }
 
