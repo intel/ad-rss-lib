@@ -31,18 +31,18 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">10</td>
-            <td class="headerCovTableEntry">25</td>
-            <td class="headerCovTableEntryLo">40.0 %</td>
+            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntryMed">75.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-10-09 13:51:12</td>
+            <td class="headerValue">2020-10-16 15:41:36</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">4</td>
-            <td class="headerCovTableEntry">12</td>
-            <td class="headerCovTableEntryLo">33.3 %</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntryLo">62.5 %</td>
           </tr>
           <tr>
             <td></td>
@@ -50,8 +50,8 @@
             <td></td>
             <td class="headerItem">Branches:</td>
             <td class="headerCovTableEntry">6</td>
-            <td class="headerCovTableEntry">30</td>
-            <td class="headerCovTableEntryLo">20.0 %</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntryLo">33.3 %</td>
           </tr>
           <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -109,9 +109,9 @@
 <span class="lineNum">      38 </span>                :            : public:
 <a name="39"><span class="lineNum">      39 </span>                :            :   struct NullDeleter</a>
 <span class="lineNum">      40 </span>                :            :   {
-<span class="lineNum">      41 </span>                :<span class="lineCov">        426 :     void operator()(const void *)</span>
+<span class="lineNum">      41 </span>                :<span class="lineCov">       1080 :     void operator()(const void *)</span>
 <span class="lineNum">      42 </span>                :            :     {
-<span class="lineNum">      43 </span>                :<span class="lineCov">        426 :     }</span>
+<span class="lineNum">      43 </span>                :<span class="lineCov">       1080 :     }</span>
 <span class="lineNum">      44 </span>                :            :   };
 <span class="lineNum">      45 </span>                :            :   struct DebugPoint
 <span class="lineNum">      46 </span>                :            :   {
@@ -120,16 +120,16 @@
 <span class="lineNum">      49 </span>                :            :       , y(inY){};
 <span class="lineNum">      50 </span>                :            :     double x;
 <span class="lineNum">      51 </span>                :            :     double y;
-<a name="52"><span class="lineNum">      52 </span>                :            :   };</a>
+<span class="lineNum">      52 </span>                :            :   };
 <span class="lineNum">      53 </span>                :            : 
-<a name="54"><span class="lineNum">      54 </span>                :<span class="lineNoCov">          0 :   struct DebugLine</span></a>
+<span class="lineNum">      54 </span>                :            :   struct DebugLine
 <span class="lineNum">      55 </span>                :            :   {
-<span class="lineNum">      56 </span>                :<span class="lineNoCov">          0 :     DebugLine(Line const &amp;iLine, std::string const &amp;iColor, std::string const &amp;iNs)</span>
+<span class="lineNum">      56 </span>                :            :     DebugLine(Line const &amp;iLine, std::string const &amp;iColor, std::string const &amp;iNs)
 <span class="lineNum">      57 </span>                :            :       : line(iLine)
 <span class="lineNum">      58 </span>                :            :       , color(iColor)
-<span class="lineNum">      59 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :       , ns(iNs)</span>
+<span class="lineNum">      59 </span>                :            :       , ns(iNs)
 <span class="lineNum">      60 </span>                :            :     {
-<span class="lineNum">      61 </span>                :<span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">      61 </span>                :            :     }
 <span class="lineNum">      62 </span>                :            :     Line line;
 <span class="lineNum">      63 </span>                :            :     std::string color{&quot;white&quot;};
 <span class="lineNum">      64 </span>                :            :     std::string ns;
@@ -173,11 +173,11 @@
 <span class="lineNum">     102 </span>                :            :   /**
 <a name="103"><span class="lineNum">     103 </span>                :            :    * @brief singelton instance getter</a>
 <span class="lineNum">     104 </span>                :            :    */
-<span class="lineNum">     105 </span>                :<span class="lineCov">        426 :   static std::shared_ptr&lt;DebugDrawing&gt; getInstance()</span>
+<span class="lineNum">     105 </span>                :<span class="lineCov">       1080 :   static std::shared_ptr&lt;DebugDrawing&gt; getInstance()</span>
 <span class="lineNum">     106 </span>                :            :   {
-<span class="lineNum">     107 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 425 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        426 :     static DebugDrawing *mSingleton = new DebugDrawing();</span>
+<span class="lineNum">     107 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1079 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">       1080 :     static DebugDrawing *mSingleton = new DebugDrawing();</span>
 <span class="lineNum">         </span>[<span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>][<span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
-<span class="lineNum">     108 </span>        [<span class="branchCov" title="Branch 1 was taken 426 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        426 :     return std::shared_ptr&lt;DebugDrawing&gt;(mSingleton, NullDeleter());</span>
+<span class="lineNum">     108 </span>        [<span class="branchCov" title="Branch 1 was taken 1080 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1080 :     return std::shared_ptr&lt;DebugDrawing&gt;(mSingleton, NullDeleter());</span>
 <span class="lineNum">     109 </span>                :            :   }
 <span class="lineNum">     110 </span>                :            : 
 <span class="lineNum">     111 </span>                :            :   /**
@@ -204,9 +204,9 @@
 <span class="lineNum">     132 </span>                :            :   /**
 <a name="133"><span class="lineNum">     133 </span>                :            :    * @brief enable/disable debug drawing</a>
 <span class="lineNum">     134 </span>                :            :    */
-<span class="lineNum">     135 </span>                :<span class="lineNoCov">          0 :   bool isEnabled()</span>
+<span class="lineNum">     135 </span>                :<span class="lineCov">        220 :   bool isEnabled()</span>
 <span class="lineNum">     136 </span>                :            :   {
-<span class="lineNum">     137 </span>                :<span class="lineNoCov">          0 :     return mEnabled;</span>
+<span class="lineNum">     137 </span>                :<span class="lineCov">        220 :     return mEnabled;</span>
 <span class="lineNum">     138 </span>                :            :   }
 <span class="lineNum">     139 </span>                :            : 
 <span class="lineNum">     140 </span>                :            :   /**
@@ -214,17 +214,17 @@
 <span class="lineNum">     142 </span>                :            :    *
 <span class="lineNum">     143 </span>                :            :    * @param[in] line line to draw
 <span class="lineNum">     144 </span>                :            :    * @param[in] color line color
-<a name="145"><span class="lineNum">     145 </span>                :            :    * @param[in] ns namespace to identify geometry</a>
+<span class="lineNum">     145 </span>                :            :    * @param[in] ns namespace to identify geometry
 <span class="lineNum">     146 </span>                :            :    */
-<span class="lineNum">     147 </span>                :<span class="lineNoCov">          0 :   void drawLine(Line const &amp;line, std::string const &amp;color = &quot;white&quot;, std::string const &amp;ns = &quot;&quot;)</span>
+<span class="lineNum">     147 </span>                :            :   void drawLine(Line const &amp;line, std::string const &amp;color = &quot;white&quot;, std::string const &amp;ns = &quot;&quot;)
 <span class="lineNum">     148 </span>                :            :   {
-<span class="lineNum">     149 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (!mEnabled)</span>
+<span class="lineNum">     149 </span>                :            :     if (!mEnabled)
 <span class="lineNum">     150 </span>                :            :     {
-<span class="lineNum">     151 </span>                :<span class="lineNoCov">          0 :       return;</span>
+<span class="lineNum">     151 </span>                :            :       return;
 <span class="lineNum">     152 </span>                :            :     }
-<span class="lineNum">     153 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     mLines.push_back(DebugLine(line, color, ns));</span>
+<span class="lineNum">     153 </span>                :            :     mLines.push_back(DebugLine(line, color, ns));
 <span class="lineNum">     154 </span>                :            : 
-<span class="lineNum">     155 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]:<span class="lineNoCov">          0 :     spdlog::trace(&quot;DRAW;{};{};{};LINE&quot;, ns, color, std::to_string(line));</span>
+<span class="lineNum">     155 </span>                :            :     spdlog::trace(&quot;DRAW;{};{};{};LINE&quot;, ns, color, std::to_string(line));
 <span class="lineNum">     156 </span>                :            :   }
 <span class="lineNum">     157 </span>                :            : 
 <span class="lineNum">     158 </span>                :            :   /**
@@ -234,13 +234,13 @@
 <span class="lineNum">     162 </span>                :            :    * @param[in] color line color
 <a name="163"><span class="lineNum">     163 </span>                :            :    * @param[in] ns namespace to identify geometry</a>
 <span class="lineNum">     164 </span>                :            :    */
-<span class="lineNum">     165 </span>                :<span class="lineCov">        426 :   void drawPolygon(Polygon const &amp;polygon, std::string const &amp;color = &quot;white&quot;, std::string const &amp;ns = &quot;&quot;)</span>
+<span class="lineNum">     165 </span>                :<span class="lineCov">        860 :   void drawPolygon(Polygon const &amp;polygon, std::string const &amp;color = &quot;white&quot;, std::string const &amp;ns = &quot;&quot;)</span>
 <span class="lineNum">     166 </span>                :            :   {
-<span class="lineNum">     167 </span>        [<span class="branchCov" title="Branch 0 was taken 426 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        426 :     if (!mEnabled)</span>
+<span class="lineNum">     167 </span>        [<span class="branchCov" title="Branch 0 was taken 860 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        860 :     if (!mEnabled)</span>
 <span class="lineNum">     168 </span>                :            :     {
-<span class="lineNum">     169 </span>                :<span class="lineCov">        426 :       return;</span>
+<span class="lineNum">     169 </span>                :<span class="lineCov">        860 :       return;</span>
 <span class="lineNum">     170 </span>                :            :     }
-<span class="lineNum">     171 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineCov">        426 :     mPolygons.push_back(DebugPolygon(polygon, color, ns));</span>
+<span class="lineNum">     171 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineCov">        860 :     mPolygons.push_back(DebugPolygon(polygon, color, ns));</span>
 <span class="lineNum">     172 </span>                :            :   }
 <span class="lineNum">     173 </span>                :            : 
 <span class="lineNum">     174 </span>                :            :   std::vector&lt;DebugLine&gt; mLines;

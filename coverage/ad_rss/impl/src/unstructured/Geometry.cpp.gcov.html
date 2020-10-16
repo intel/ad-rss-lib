@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">76</td>
-            <td class="headerCovTableEntry">85</td>
-            <td class="headerCovTableEntryMed">89.4 %</td>
+            <td class="headerCovTableEntry">103</td>
+            <td class="headerCovTableEntryLo">73.8 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-10-09 13:51:12</td>
+            <td class="headerValue">2020-10-16 15:41:36</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">12</td>
@@ -50,8 +50,8 @@
             <td></td>
             <td class="headerItem">Branches:</td>
             <td class="headerCovTableEntry">96</td>
-            <td class="headerCovTableEntry">156</td>
-            <td class="headerCovTableEntryLo">61.5 %</td>
+            <td class="headerCovTableEntry">194</td>
+            <td class="headerCovTableEntryLo">49.5 %</td>
           </tr>
           <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -99,19 +99,19 @@
 <span class="lineNum">      28 </span>                :            :  */
 <a name="29"><span class="lineNum">      29 </span>                :            : namespace unstructured {</a>
 <span class="lineNum">      30 </span>                :            : 
-<span class="lineNum">      31 </span>                :<span class="lineCov">       2641 : ad::rss::unstructured::Point rotateAroundPoint(ad::rss::unstructured::Point const &amp;origin,</span>
+<span class="lineNum">      31 </span>                :<span class="lineCov">       7461 : ad::rss::unstructured::Point rotateAroundPoint(ad::rss::unstructured::Point const &amp;origin,</span>
 <span class="lineNum">      32 </span>                :            :                                                ad::rss::unstructured::Point const &amp;relativePoint,
 <span class="lineNum">      33 </span>                :            :                                                ad::physics::Angle const &amp;angle)
 <span class="lineNum">      34 </span>                :            : {
-<span class="lineNum">      35 </span>                :<span class="lineCov">       2641 :   ad::rss::unstructured::Point resultPoint = relativePoint;</span>
+<span class="lineNum">      35 </span>                :<span class="lineCov">       7461 :   ad::rss::unstructured::Point resultPoint = relativePoint;</span>
 <span class="lineNum">      36 </span>                :            : 
 <span class="lineNum">      37 </span>                :            :   boost::geometry::strategy::transform::rotate_transformer&lt;boost::geometry::radian, double, 2, 2&gt; rotate(
-<span class="lineNum">      38 </span>[<span class="branchCov" title="Branch 1 was taken 2641 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 2641 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">       5282 :     static_cast&lt;double&gt;(-angle));</span>
-<span class="lineNum">      39 </span>[<span class="branchCov" title="Branch 1 was taken 2641 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 2641 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">       5282 :   boost::geometry::strategy::transform::translate_transformer&lt;double, 2, 2&gt; translate(origin.x(), origin.y());</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 7 was taken 2641 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>]
-<span class="lineNum">      40 </span>        [<span class="branchCov" title="Branch 1 was taken 2641 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2641 :   boost::geometry::transform(resultPoint, resultPoint, rotate);</span>
-<span class="lineNum">      41 </span>        [<span class="branchCov" title="Branch 1 was taken 2641 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       2641 :   boost::geometry::transform(resultPoint, resultPoint, translate);</span>
-<span class="lineNum">      42 </span>                :<span class="lineCov">       2641 :   return resultPoint;</span>
+<span class="lineNum">      38 </span>[<span class="branchCov" title="Branch 1 was taken 7461 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 7461 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">      14922 :     static_cast&lt;double&gt;(-angle));</span>
+<span class="lineNum">      39 </span>[<span class="branchCov" title="Branch 1 was taken 7461 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 7461 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">      14922 :   boost::geometry::strategy::transform::translate_transformer&lt;double, 2, 2&gt; translate(origin.x(), origin.y());</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 7 was taken 7461 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>]
+<span class="lineNum">      40 </span>        [<span class="branchCov" title="Branch 1 was taken 7461 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       7461 :   boost::geometry::transform(resultPoint, resultPoint, rotate);</span>
+<span class="lineNum">      41 </span>        [<span class="branchCov" title="Branch 1 was taken 7461 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       7461 :   boost::geometry::transform(resultPoint, resultPoint, translate);</span>
+<span class="lineNum">      42 </span>                :<span class="lineCov">       7461 :   return resultPoint;</span>
 <a name="43"><span class="lineNum">      43 </span>                :            : }</a>
 <span class="lineNum">      44 </span>                :            : 
 <span class="lineNum">      45 </span>                :<span class="lineCov">          5 : ad::rss::unstructured::Point getPointOnCircle(ad::rss::unstructured::Point const &amp;origin,</span>
@@ -123,13 +123,13 @@
 <span class="lineNum">         </span>        [<span class="branchCov" title="Branch 14 was taken 5 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span>]
 <a name="50"><span class="lineNum">      50 </span>                :            : }</a>
 <span class="lineNum">      51 </span>                :            : 
-<span class="lineNum">      52 </span>                :<span class="lineCov">       1441 : ad::rss::unstructured::Point getCircleOrigin(ad::rss::unstructured::Point const &amp;point,</span>
+<span class="lineNum">      52 </span>                :<span class="lineCov">       4421 : ad::rss::unstructured::Point getCircleOrigin(ad::rss::unstructured::Point const &amp;point,</span>
 <span class="lineNum">      53 </span>                :            :                                              ad::physics::Distance const &amp;radius,
 <span class="lineNum">      54 </span>                :            :                                              ad::physics::Angle const &amp;angle)
 <span class="lineNum">      55 </span>                :            : {
-<span class="lineNum">      56 </span>[<span class="branchCov" title="Branch 2 was taken 1441 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 1441 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">       1441 :   return point - toPoint(std::cos(angle) * radius, std::sin(angle) * radius);</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 1441 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>][<span class="branchCov" title="Branch 11 was taken 1441 times"> + </span><span class="branchNoCov" title="Branch 12 was not taken"> - </span>]
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 14 was taken 1441 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span>]
+<span class="lineNum">      56 </span>[<span class="branchCov" title="Branch 2 was taken 4421 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 4421 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">       4421 :   return point - toPoint(std::cos(angle) * radius, std::sin(angle) * radius);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 8 was taken 4421 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>][<span class="branchCov" title="Branch 11 was taken 4421 times"> + </span><span class="branchNoCov" title="Branch 12 was not taken"> - </span>]
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 14 was taken 4421 times"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span>]
 <a name="57"><span class="lineNum">      57 </span>                :            : }</a>
 <span class="lineNum">      58 </span>                :            : 
 <span class="lineNum">      59 </span>                :<span class="lineNoCov">          0 : ad::physics::Distance getDistance(ad::rss::unstructured::Point const &amp;point1,</span>
@@ -141,17 +141,17 @@
 <span class="lineNum">      65 </span>                :            : 
 <span class="lineNum">      66 </span>                :<span class="lineCov">         91 : void toPolygon(ad::rss::world::UnstructuredTrajectorySet const &amp;trajectorySet, ad::rss::unstructured::Polygon &amp;polygon)</span>
 <span class="lineNum">      67 </span>                :            : {
-<span class="lineNum">      68 </span>        [<span class="branchCov" title="Branch 3 was taken 2648 times"> + </span><span class="branchCov" title="Branch 4 was taken 91 times"> + </span>]:<span class="lineCov">       2739 :   for (auto const &amp;distance : trajectorySet)</span>
+<span class="lineNum">      68 </span>        [<span class="branchCov" title="Branch 3 was taken 3668 times"> + </span><span class="branchCov" title="Branch 4 was taken 91 times"> + </span>]:<span class="lineCov">       3759 :   for (auto const &amp;distance : trajectorySet)</span>
 <span class="lineNum">      69 </span>                :            :   {
-<span class="lineNum">      70 </span>[<span class="branchCov" title="Branch 1 was taken 2648 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 2648 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">       2648 :     ::boost::geometry::append(polygon, toPoint(distance));</span>
+<span class="lineNum">      70 </span>[<span class="branchCov" title="Branch 1 was taken 3668 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 3668 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">       3668 :     ::boost::geometry::append(polygon, toPoint(distance));</span>
 <span class="lineNum">      71 </span>                :            :   }
 <a name="72"><span class="lineNum">      72 </span>                :<span class="lineCov">         91 : }</span></a>
 <span class="lineNum">      73 </span>                :            : 
 <span class="lineNum">      74 </span>                :<span class="lineCov">         41 : void toTrajectorySet(unstructured::Polygon const &amp;polygon, world::UnstructuredTrajectorySet &amp;trajectorySet)</span>
 <span class="lineNum">      75 </span>                :            : {
-<span class="lineNum">      76 </span>        [<span class="branchCov" title="Branch 4 was taken 676 times"> + </span><span class="branchCov" title="Branch 5 was taken 41 times"> + </span>]:<span class="lineCov">        717 :   for (auto const &amp;point : polygon.outer())</span>
+<span class="lineNum">      76 </span>        [<span class="branchCov" title="Branch 4 was taken 947 times"> + </span><span class="branchCov" title="Branch 5 was taken 41 times"> + </span>]:<span class="lineCov">        988 :   for (auto const &amp;point : polygon.outer())</span>
 <span class="lineNum">      77 </span>                :            :   {
-<span class="lineNum">      78 </span>[<span class="branchCov" title="Branch 1 was taken 676 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 676 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        676 :     trajectorySet.push_back(toDistance(point));</span>
+<span class="lineNum">      78 </span>[<span class="branchCov" title="Branch 1 was taken 947 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 947 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        947 :     trajectorySet.push_back(toDistance(point));</span>
 <span class="lineNum">      79 </span>                :            :   }
 <a name="80"><span class="lineNum">      80 </span>                :<span class="lineCov">         41 : }</span></a>
 <span class="lineNum">      81 </span>                :            : 
@@ -252,39 +252,74 @@
 <span class="lineNum">     172 </span>                :<span class="lineCov">         22 :   return !overlapRanges.empty();</span>
 <a name="173"><span class="lineNum">     173 </span>                :            : }</a>
 <span class="lineNum">     174 </span>                :            : 
-<span class="lineNum">     175 </span>                :<span class="lineCov">        352 : bool combinePolygon(Polygon const &amp;a, Polygon const &amp;b, Polygon &amp;result)</span>
+<span class="lineNum">     175 </span>                :<span class="lineCov">        340 : bool combinePolygon(Polygon const &amp;a, Polygon const &amp;b, Polygon &amp;result)</span>
 <span class="lineNum">     176 </span>                :            : {
-<span class="lineNum">     177 </span>[<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 352 times"> + </span>][<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]:<span class="lineCov">        352 :   if (a.outer().empty() &amp;&amp; !b.outer().empty())</span>
-<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 352 times"> + </span>]
+<span class="lineNum">     177 </span>[<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 340 times"> + </span>][<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]:<span class="lineCov">        340 :   if (a.outer().empty() &amp;&amp; !b.outer().empty())</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 340 times"> + </span>]
 <span class="lineNum">     178 </span>                :            :   {
 <span class="lineNum">     179 </span>                :<span class="lineNoCov">          0 :     result = b;</span>
 <span class="lineNum">     180 </span>                :            :   }
-<span class="lineNum">     181 </span>[<span class="branchCov" title="Branch 2 was taken 352 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 352 times"> + </span>]:<span class="lineCov">        352 :   else if (!a.outer().empty() &amp;&amp; b.outer().empty())</span>
-<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 352 times"> + </span>]
+<span class="lineNum">     181 </span>[<span class="branchCov" title="Branch 2 was taken 340 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 340 times"> + </span>]:<span class="lineCov">        340 :   else if (!a.outer().empty() &amp;&amp; b.outer().empty())</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 340 times"> + </span>]
 <span class="lineNum">     182 </span>                :            :   {
 <span class="lineNum">     183 </span>                :<span class="lineNoCov">          0 :     result = a;</span>
 <span class="lineNum">     184 </span>                :            :   }
 <span class="lineNum">     185 </span>                :            :   else
 <span class="lineNum">     186 </span>                :            :   {
-<span class="lineNum">     187 </span>                :<span class="lineCov">        704 :     std::vector&lt;Polygon&gt; unionPolygons;</span>
-<span class="lineNum">     188 </span>        [<span class="branchCov" title="Branch 3 was taken 352 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        352 :     boost::geometry::union_(a.outer(), b.outer(), unionPolygons);</span>
-<span class="lineNum">     189 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 352 times"> + </span>]:<span class="lineCov">        352 :     if (unionPolygons.size() != 1)</span>
+<span class="lineNum">     187 </span>                :<span class="lineCov">        680 :     std::vector&lt;Polygon&gt; unionPolygons;</span>
+<span class="lineNum">     188 </span>        [<span class="branchCov" title="Branch 3 was taken 340 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        340 :     boost::geometry::union_(a.outer(), b.outer(), unionPolygons);</span>
+<span class="lineNum">     189 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 340 times"> + </span>]:<span class="lineCov">        340 :     if (unionPolygons.size() != 1)</span>
 <span class="lineNum">     190 </span>                :            :     {
-<span class="lineNum">     191 </span>                :<span class="lineNoCov">          0 :       spdlog::debug(&quot;Could not calculate combined polygon. Expected 1 polygon after union, found {}&quot;,</span>
-<span class="lineNum">     192 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :                     unionPolygons.size());</span>
-<span class="lineNum">     193 </span>                :<span class="lineNoCov">          0 :       return false;</span>
-<span class="lineNum">     194 </span>                :            :     }
-<span class="lineNum">     195 </span>                :            :     else
-<span class="lineNum">     196 </span>                :            :     {
-<span class="lineNum">     197 </span>        [<span class="branchCov" title="Branch 4 was taken 352 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        352 :       result = std::move(unionPolygons[0]);</span>
-<span class="lineNum">     198 </span>                :            :     }
-<span class="lineNum">     199 </span>                :            :   }
-<span class="lineNum">     200 </span>                :<span class="lineCov">        352 :   return true;</span>
-<span class="lineNum">     201 </span>                :            : }
-<span class="lineNum">     202 </span>                :            : 
-<a name="203"><span class="lineNum">     203 </span>                :            : } // namespace unstructured</a>
-<span class="lineNum">     204 </span>                :            : } // namespace rss
-<span class="lineNum">     205 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
+<span class="lineNum">     191 </span>                :<span class="lineNoCov">          0 :       auto fixed = false;</span>
+<span class="lineNum">     192 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :       if (unionPolygons.size() == 0)</span>
+<span class="lineNum">     193 </span>                :            :       {
+<span class="lineNum">     194 </span>                :            :         // if union reports zero polygons, it might happen that one polygon is covered by the other
+<span class="lineNum">     195 </span>                :<span class="lineNoCov">          0 :         auto aCoveredByB = true;</span>
+<span class="lineNum">     196 </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>]:<span class="lineNoCov">          0 :         for (auto it = a.outer().cbegin(); (it != a.outer().cend()) &amp;&amp; aCoveredByB; ++it)</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>][<span class="branchNoExec" title="Branch 11 was not executed"> # </span><span class="branchNoExec" title="Branch 12 was not executed"> # </span>]
+<span class="lineNum">     197 </span>                :            :         {
+<span class="lineNum">     198 </span>        [<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :           aCoveredByB &amp;= boost::geometry::covered_by(*it, b.outer());</span>
+<span class="lineNum">     199 </span>                :            :         }
+<span class="lineNum">     200 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         if (aCoveredByB)</span>
+<span class="lineNum">     201 </span>                :            :         {
+<span class="lineNum">     202 </span>                :<span class="lineNoCov">          0 :           fixed = true;</span>
+<span class="lineNum">     203 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :           result = b;</span>
+<span class="lineNum">     204 </span>                :            :         }
+<span class="lineNum">     205 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         if (!fixed)</span>
+<span class="lineNum">     206 </span>                :            :         {
+<span class="lineNum">     207 </span>                :<span class="lineNoCov">          0 :           auto bCoveredByA = true;</span>
+<span class="lineNum">     208 </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>]:<span class="lineNoCov">          0 :           for (auto it = b.outer().cbegin(); (it != b.outer().cend()) &amp;&amp; bCoveredByA; ++it)</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>][<span class="branchNoExec" title="Branch 11 was not executed"> # </span><span class="branchNoExec" title="Branch 12 was not executed"> # </span>]
+<span class="lineNum">     209 </span>                :            :           {
+<span class="lineNum">     210 </span>        [<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :             bCoveredByA &amp;= boost::geometry::covered_by(*it, a.outer());</span>
+<span class="lineNum">     211 </span>                :            :           }
+<span class="lineNum">     212 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :           if (bCoveredByA)</span>
+<span class="lineNum">     213 </span>                :            :           {
+<span class="lineNum">     214 </span>                :<span class="lineNoCov">          0 :             fixed = true;</span>
+<span class="lineNum">     215 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :             result = a;</span>
+<span class="lineNum">     216 </span>                :            :           }
+<span class="lineNum">     217 </span>                :            :         }
+<span class="lineNum">     218 </span>                :            :       }
+<span class="lineNum">     219 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       if (!fixed)</span>
+<span class="lineNum">     220 </span>                :            :       {
+<span class="lineNum">     221 </span>                :<span class="lineNoCov">          0 :         spdlog::warn(&quot;Could not calculate combined polygon. Expected 1 polygon after union, found {}. A:\n{}\nB:\n{}&quot;,</span>
+<span class="lineNum">     222 </span>                :<span class="lineNoCov">          0 :                      unionPolygons.size(),</span>
+<span class="lineNum">     223 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :                      std::to_string(a),</span>
+<span class="lineNum">     224 </span>  [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :                      std::to_string(b));</span>
+<span class="lineNum">     225 </span>                :<span class="lineNoCov">          0 :         return false;</span>
+<span class="lineNum">     226 </span>                :            :       }
+<span class="lineNum">     227 </span>                :            :     }
+<span class="lineNum">     228 </span>                :            :     else
+<span class="lineNum">     229 </span>                :            :     {
+<span class="lineNum">     230 </span>        [<span class="branchCov" title="Branch 4 was taken 340 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        340 :       result = std::move(unionPolygons[0]);</span>
+<span class="lineNum">     231 </span>                :            :     }
+<span class="lineNum">     232 </span>                :            :   }
+<span class="lineNum">     233 </span>                :<span class="lineCov">        340 :   return true;</span>
+<span class="lineNum">     234 </span>                :            : }
+<span class="lineNum">     235 </span>                :            : 
+<a name="236"><span class="lineNum">     236 </span>                :            : } // namespace unstructured</a>
+<span class="lineNum">     237 </span>                :            : } // namespace rss
+<span class="lineNum">     238 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          8 : } // namespace ad</span>
 </pre>
       </td>
     </tr>

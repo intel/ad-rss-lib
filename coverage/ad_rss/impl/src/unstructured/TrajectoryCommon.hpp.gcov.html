@@ -31,27 +31,27 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">40</td>
-            <td class="headerCovTableEntry">43</td>
-            <td class="headerCovTableEntryHi">93.0 %</td>
+            <td class="headerCovTableEntry">46</td>
+            <td class="headerCovTableEntry">46</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-10-09 13:51:12</td>
+            <td class="headerValue">2020-10-16 15:41:36</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">8</td>
-            <td class="headerCovTableEntry">10</td>
-            <td class="headerCovTableEntryMed">80.0 %</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntryHi">92.9 %</td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">11</td>
-            <td class="headerCovTableEntry">22</td>
-            <td class="headerCovTableEntryLo">50.0 %</td>
+            <td class="headerCovTableEntry">21</td>
+            <td class="headerCovTableEntry">38</td>
+            <td class="headerCovTableEntryLo">55.3 %</td>
           </tr>
           <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -117,28 +117,28 @@
 <span class="lineNum">      46 </span>                :            :  */
 <a name="47"><span class="lineNum">      47 </span>                :            : struct TrajectoryPoint</a>
 <span class="lineNum">      48 </span>                :            : {
-<span class="lineNum">      49 </span>                :<span class="lineCov">        200 :   TrajectoryPoint()</span>
-<span class="lineNum">      50 </span>                :<span class="lineCov">        200 :   {</span>
-<a name="51"><span class="lineNum">      51 </span>                :<span class="lineCov">        200 :   }</span></a>
+<span class="lineNum">      49 </span>                :<span class="lineCov">        500 :   TrajectoryPoint()</span>
+<span class="lineNum">      50 </span>                :<span class="lineCov">        500 :   {</span>
+<a name="51"><span class="lineNum">      51 </span>                :<span class="lineCov">        500 :   }</span></a>
 <span class="lineNum">      52 </span>                :            : 
-<span class="lineNum">      53 </span>                :<span class="lineCov">        120 :   TrajectoryPoint(situation::VehicleState const &amp;vehicleState)</span>
-<span class="lineNum">      54 </span>                :<span class="lineCov">        120 :   {</span>
-<span class="lineNum">      55 </span>                :<span class="lineCov">        120 :     position = toPoint(vehicleState.objectState.centerPoint);</span>
-<span class="lineNum">      56 </span>                :<span class="lineCov">        120 :     angle = vehicleState.objectState.yaw;</span>
-<span class="lineNum">      57 </span>                :<span class="lineCov">        120 :     speed = vehicleState.objectState.speed;</span>
-<span class="lineNum">      58 </span>                :<span class="lineCov">        120 :     yawRate = vehicleState.objectState.yawRate;</span>
-<a name="59"><span class="lineNum">      59 </span>                :<span class="lineCov">        120 :   }</span></a>
+<span class="lineNum">      53 </span>                :<span class="lineCov">        240 :   TrajectoryPoint(situation::VehicleState const &amp;vehicleState)</span>
+<span class="lineNum">      54 </span>                :<span class="lineCov">        240 :   {</span>
+<span class="lineNum">      55 </span>                :<span class="lineCov">        240 :     position = toPoint(vehicleState.objectState.centerPoint);</span>
+<span class="lineNum">      56 </span>                :<span class="lineCov">        240 :     angle = vehicleState.objectState.yaw;</span>
+<span class="lineNum">      57 </span>                :<span class="lineCov">        240 :     speed = vehicleState.objectState.speed;</span>
+<span class="lineNum">      58 </span>                :<span class="lineCov">        240 :     yawRate = vehicleState.objectState.yawRate;</span>
+<span class="lineNum">      59 </span>                :<span class="lineCov">        240 :   }</span>
 <span class="lineNum">      60 </span>                :            : 
-<span class="lineNum">      61 </span>                :<span class="lineNoCov">          0 :   TrajectoryPoint(Point const &amp;inPoint,</span>
+<span class="lineNum">      61 </span>                :            :   TrajectoryPoint(Point const &amp;inPoint,
 <span class="lineNum">      62 </span>                :            :                   ad::physics::Angle const &amp;inAngle,
 <span class="lineNum">      63 </span>                :            :                   ad::physics::Speed const &amp;inSpeed,
 <span class="lineNum">      64 </span>                :            :                   physics::AngularVelocity const &amp;inYawRate)
 <span class="lineNum">      65 </span>                :            :     : position(inPoint)
 <span class="lineNum">      66 </span>                :            :     , speed(inSpeed)
 <span class="lineNum">      67 </span>                :            :     , angle(inAngle)
-<span class="lineNum">      68 </span>                :<span class="lineNoCov">          0 :     , yawRate(inYawRate)</span>
+<span class="lineNum">      68 </span>                :            :     , yawRate(inYawRate)
 <span class="lineNum">      69 </span>                :            :   {
-<span class="lineNum">      70 </span>                :<span class="lineNoCov">          0 :   }</span>
+<span class="lineNum">      70 </span>                :            :   }
 <span class="lineNum">      71 </span>                :            : 
 <span class="lineNum">      72 </span>                :            :   /*!
 <span class="lineNum">      73 </span>                :            :    * The current position
@@ -161,11 +161,11 @@
 <span class="lineNum">      90 </span>                :            :   physics::AngularVelocity yawRate;
 <a name="91"><span class="lineNum">      91 </span>                :            : };</a>
 <span class="lineNum">      92 </span>                :            : 
-<a name="93"><span class="lineNum">      93 </span>                :<span class="lineCov">        160 : struct TrajectorySetStep</span></a>
+<a name="93"><span class="lineNum">      93 </span>        [<span class="branchCov" title="Branch 4 was taken 120 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        640 : struct TrajectorySetStep</span></a>
 <span class="lineNum">      94 </span>                :            : {
-<span class="lineNum">      95 </span>                :<span class="lineCov">         80 :   TrajectorySetStep()</span>
-<span class="lineNum">      96 </span>        [<span class="branchCov" title="Branch 3 was taken 80 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         80 :   {</span>
-<span class="lineNum">      97 </span>                :<span class="lineCov">         80 :   }</span>
+<span class="lineNum">      95 </span>                :<span class="lineCov">        100 :   TrajectorySetStep()</span>
+<span class="lineNum">      96 </span>        [<span class="branchCov" title="Branch 3 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        100 :   {</span>
+<span class="lineNum">      97 </span>                :<span class="lineCov">        100 :   }</span>
 <span class="lineNum">      98 </span>                :            : 
 <span class="lineNum">      99 </span>                :            :   TrajectorySetStep(TrajectoryPoint const &amp;inLeft, TrajectoryPoint const &amp;inRight, TrajectoryPoint const &amp;inCenter)
 <span class="lineNum">     100 </span>                :            :     : center(inCenter)
@@ -173,73 +173,153 @@
 <span class="lineNum">     102 </span>                :            :     left.push_back(inLeft);
 <span class="lineNum">     103 </span>                :            :     right.push_back(inRight);
 <span class="lineNum">     104 </span>                :            :   }
-<span class="lineNum">     105 </span>                :            :   std::vector&lt;TrajectoryPoint&gt; left;  // with positive yaw rate ratio
-<span class="lineNum">     106 </span>                :            :   std::vector&lt;TrajectoryPoint&gt; right; // with negative yaw rate ratio
-<span class="lineNum">     107 </span>                :            :   TrajectoryPoint center;
-<span class="lineNum">     108 </span>                :            : };
-<span class="lineNum">     109 </span>                :            : 
-<span class="lineNum">     110 </span>                :            : /**
-<span class="lineNum">     111 </span>                :            :  * @brief get the point describing the corner of a vehicle
-<span class="lineNum">     112 </span>                :            :  *
-<span class="lineNum">     113 </span>                :            :  * @param[in] point            trajectory point
-<span class="lineNum">     114 </span>                :            :  * @param[in] vehicleDimension vehicle dimension
-<span class="lineNum">     115 </span>                :            :  * @param[in] corner           which corner to calculate
-<span class="lineNum">     116 </span>                :            :  *
-<span class="lineNum">     117 </span>                :            :  * @returns corner point of the vehicle
-<span class="lineNum">     118 </span>                :            :  */
-<span class="lineNum">     119 </span>                :            : Point getVehicleCorner(TrajectoryPoint const &amp;point,
-<span class="lineNum">     120 </span>                :            :                        ad::physics::Dimension2D const &amp;vehicleDimension,
-<span class="lineNum">     121 </span>                :            :                        VehicleCorner const corner);
-<span class="lineNum">     122 </span>                :            : 
-<a name="123"><span class="lineNum">     123 </span>                :            : struct TrafficParticipantLocation</a>
-<span class="lineNum">     124 </span>                :            : {
-<span class="lineNum">     125 </span>                :<span class="lineCov">        300 :   TrafficParticipantLocation()</span>
-<span class="lineNum">     126 </span>                :<span class="lineCov">        300 :   {</span>
-<a name="127"><span class="lineNum">     127 </span>                :<span class="lineCov">        300 :   }</span></a>
-<span class="lineNum">     128 </span>                :            : 
-<span class="lineNum">     129 </span>                :<span class="lineCov">        300 :   TrafficParticipantLocation(TrajectoryPoint const &amp;pt, situation::VehicleState const &amp;vehicleState)</span>
-<span class="lineNum">     130 </span>                :<span class="lineCov">        300 :   {</span>
-<span class="lineNum">     131 </span>                :<span class="lineCov">        300 :     frontLeft = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::frontLeft);</span>
-<span class="lineNum">     132 </span>                :<span class="lineCov">        300 :     frontRight = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::frontRight);</span>
-<span class="lineNum">     133 </span>                :<span class="lineCov">        300 :     backLeft = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::backLeft);</span>
-<span class="lineNum">     134 </span>                :<span class="lineCov">        300 :     backRight = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::backRight);</span>
-<a name="135"><span class="lineNum">     135 </span>                :<span class="lineCov">        300 :   }</span></a>
-<span class="lineNum">     136 </span>                :            : 
-<span class="lineNum">     137 </span>                :<span class="lineCov">        300 :   Polygon toPolygon()</span>
-<span class="lineNum">     138 </span>                :            :   {
-<span class="lineNum">     139 </span>                :<span class="lineCov">        300 :     Polygon vehiclePolygon;</span>
-<span class="lineNum">     140 </span>        [<span class="branchCov" title="Branch 1 was taken 300 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        300 :     boost::geometry::append(vehiclePolygon, frontRight);</span>
-<span class="lineNum">     141 </span>        [<span class="branchCov" title="Branch 1 was taken 300 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        300 :     boost::geometry::append(vehiclePolygon, frontLeft);</span>
-<span class="lineNum">     142 </span>        [<span class="branchCov" title="Branch 1 was taken 300 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        300 :     boost::geometry::append(vehiclePolygon, backLeft);</span>
-<span class="lineNum">     143 </span>        [<span class="branchCov" title="Branch 1 was taken 300 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        300 :     boost::geometry::append(vehiclePolygon, backRight);</span>
-<span class="lineNum">     144 </span>        [<span class="branchCov" title="Branch 1 was taken 300 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        300 :     boost::geometry::append(vehiclePolygon, frontRight);</span>
-<a name="145"><span class="lineNum">     145 </span>                :<span class="lineCov">        300 :     return vehiclePolygon;</span></a>
-<span class="lineNum">     146 </span>                :            :   }
-<span class="lineNum">     147 </span>                :<span class="lineCov">        400 :   MultiPoint toMultiPoint()</span>
-<span class="lineNum">     148 </span>                :            :   {
-<span class="lineNum">     149 </span>                :<span class="lineCov">        400 :     MultiPoint geometry;</span>
-<span class="lineNum">     150 </span>        [<span class="branchCov" title="Branch 1 was taken 400 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        400 :     boost::geometry::append(geometry, frontRight);</span>
-<span class="lineNum">     151 </span>        [<span class="branchCov" title="Branch 1 was taken 400 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        400 :     boost::geometry::append(geometry, frontLeft);</span>
-<span class="lineNum">     152 </span>        [<span class="branchCov" title="Branch 1 was taken 400 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        400 :     boost::geometry::append(geometry, backLeft);</span>
-<span class="lineNum">     153 </span>        [<span class="branchCov" title="Branch 1 was taken 400 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        400 :     boost::geometry::append(geometry, backRight);</span>
-<span class="lineNum">     154 </span>        [<span class="branchCov" title="Branch 1 was taken 400 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        400 :     boost::geometry::append(geometry, frontRight);</span>
-<span class="lineNum">     155 </span>                :<span class="lineCov">        400 :     return geometry;</span>
-<span class="lineNum">     156 </span>                :            :   }
-<span class="lineNum">     157 </span>                :            : 
-<span class="lineNum">     158 </span>                :            :   Point frontLeft;
-<span class="lineNum">     159 </span>                :            :   Point frontRight;
-<span class="lineNum">     160 </span>                :            :   Point backLeft;
-<span class="lineNum">     161 </span>                :            :   Point backRight;
-<span class="lineNum">     162 </span>                :            : };
-<span class="lineNum">     163 </span>                :            : 
-<span class="lineNum">     164 </span>                :            : /*!
-<span class="lineNum">     165 </span>                :            :   * a trajectory
-<span class="lineNum">     166 </span>                :            :   */
-<span class="lineNum">     167 </span>                :            : using Trajectory = std::vector&lt;TrajectoryPoint&gt;;
-<span class="lineNum">     168 </span>                :            : 
-<span class="lineNum">     169 </span>                :            : } // namespace unstructured
-<span class="lineNum">     170 </span>                :            : } // namespace rss
-<span class="lineNum">     171 </span>                :            : } // namespace ad
+<span class="lineNum">     105 </span>                :            : 
+<span class="lineNum">     106 </span>                :            :   std::vector&lt;TrajectoryPoint&gt; left;  // with positive yaw rate ratio
+<span class="lineNum">     107 </span>                :            :   std::vector&lt;TrajectoryPoint&gt; right; // with negative yaw rate ratio
+<span class="lineNum">     108 </span>                :            :   TrajectoryPoint center;
+<span class="lineNum">     109 </span>                :            : };
+<span class="lineNum">     110 </span>                :            : 
+<span class="lineNum">     111 </span>                :            : /**
+<span class="lineNum">     112 </span>                :            :  * @brief get the point describing the corner of a vehicle
+<span class="lineNum">     113 </span>                :            :  *
+<span class="lineNum">     114 </span>                :            :  * @param[in] point            trajectory point
+<span class="lineNum">     115 </span>                :            :  * @param[in] vehicleDimension vehicle dimension
+<span class="lineNum">     116 </span>                :            :  * @param[in] corner           which corner to calculate
+<span class="lineNum">     117 </span>                :            :  *
+<span class="lineNum">     118 </span>                :            :  * @returns corner point of the vehicle
+<span class="lineNum">     119 </span>                :            :  */
+<span class="lineNum">     120 </span>                :            : Point getVehicleCorner(TrajectoryPoint const &amp;point,
+<span class="lineNum">     121 </span>                :            :                        ad::physics::Dimension2D const &amp;vehicleDimension,
+<span class="lineNum">     122 </span>                :            :                        VehicleCorner const corner);
+<span class="lineNum">     123 </span>                :            : 
+<a name="124"><span class="lineNum">     124 </span>                :            : struct TrafficParticipantLocation</a>
+<span class="lineNum">     125 </span>                :            : {
+<span class="lineNum">     126 </span>                :<span class="lineCov">        360 :   TrafficParticipantLocation()</span>
+<span class="lineNum">     127 </span>                :<span class="lineCov">        360 :   {</span>
+<a name="128"><span class="lineNum">     128 </span>                :<span class="lineCov">        360 :   }</span></a>
+<span class="lineNum">     129 </span>                :            : 
+<span class="lineNum">     130 </span>                :<span class="lineCov">        760 :   TrafficParticipantLocation(TrajectoryPoint const &amp;pt, situation::VehicleState const &amp;vehicleState)</span>
+<span class="lineNum">     131 </span>                :<span class="lineCov">        760 :   {</span>
+<span class="lineNum">     132 </span>                :<span class="lineCov">        760 :     frontLeft = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::frontLeft);</span>
+<span class="lineNum">     133 </span>                :<span class="lineCov">        760 :     frontRight = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::frontRight);</span>
+<span class="lineNum">     134 </span>                :<span class="lineCov">        760 :     backLeft = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::backLeft);</span>
+<span class="lineNum">     135 </span>                :<span class="lineCov">        760 :     backRight = getVehicleCorner(pt, vehicleState.objectState.dimension, VehicleCorner::backRight);</span>
+<a name="136"><span class="lineNum">     136 </span>                :<span class="lineCov">        760 :   }</span></a>
+<span class="lineNum">     137 </span>                :            : 
+<span class="lineNum">     138 </span>                :<span class="lineCov">        760 :   Polygon toPolygon() const</span>
+<span class="lineNum">     139 </span>                :            :   {
+<span class="lineNum">     140 </span>                :<span class="lineCov">        760 :     Polygon vehiclePolygon;</span>
+<span class="lineNum">     141 </span>        [<span class="branchCov" title="Branch 1 was taken 760 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        760 :     boost::geometry::append(vehiclePolygon, frontRight);</span>
+<span class="lineNum">     142 </span>        [<span class="branchCov" title="Branch 1 was taken 760 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        760 :     boost::geometry::append(vehiclePolygon, frontLeft);</span>
+<span class="lineNum">     143 </span>        [<span class="branchCov" title="Branch 1 was taken 760 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        760 :     boost::geometry::append(vehiclePolygon, backLeft);</span>
+<span class="lineNum">     144 </span>        [<span class="branchCov" title="Branch 1 was taken 760 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        760 :     boost::geometry::append(vehiclePolygon, backRight);</span>
+<span class="lineNum">     145 </span>        [<span class="branchCov" title="Branch 1 was taken 760 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">        760 :     boost::geometry::append(vehiclePolygon, frontRight);</span>
+<a name="146"><span class="lineNum">     146 </span>                :<span class="lineCov">        760 :     return vehiclePolygon;</span></a>
+<span class="lineNum">     147 </span>                :            :   }
+<span class="lineNum">     148 </span>                :<span class="lineCov">       1360 :   MultiPoint toMultiPoint() const</span>
+<span class="lineNum">     149 </span>                :            :   {
+<span class="lineNum">     150 </span>                :<span class="lineCov">       1360 :     MultiPoint geometry;</span>
+<span class="lineNum">     151 </span>        [<span class="branchCov" title="Branch 1 was taken 1360 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1360 :     boost::geometry::append(geometry, frontRight);</span>
+<span class="lineNum">     152 </span>        [<span class="branchCov" title="Branch 1 was taken 1360 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1360 :     boost::geometry::append(geometry, frontLeft);</span>
+<span class="lineNum">     153 </span>        [<span class="branchCov" title="Branch 1 was taken 1360 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1360 :     boost::geometry::append(geometry, backLeft);</span>
+<span class="lineNum">     154 </span>        [<span class="branchCov" title="Branch 1 was taken 1360 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1360 :     boost::geometry::append(geometry, backRight);</span>
+<span class="lineNum">     155 </span>        [<span class="branchCov" title="Branch 1 was taken 1360 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">       1360 :     boost::geometry::append(geometry, frontRight);</span>
+<span class="lineNum">     156 </span>                :<span class="lineCov">       1360 :     return geometry;</span>
+<a name="157"><span class="lineNum">     157 </span>                :            :   }</a>
+<span class="lineNum">     158 </span>                :            : 
+<span class="lineNum">     159 </span>                :<span class="lineCov">        180 :   bool operator==(TrafficParticipantLocation const &amp;other) const</span>
+<span class="lineNum">     160 </span>                :            :   {
+<span class="lineNum">     161 </span>[<span class="branchCov" title="Branch 2 was taken 120 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 120 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">        300 :     return (frontLeft == other.frontLeft) &amp;&amp; (frontRight == other.frontRight) &amp;&amp; (backLeft == other.backLeft)</span>
+<span class="lineNum">     162 </span>[<span class="branchCov" title="Branch 0 was taken 120 times"> + </span><span class="branchCov" title="Branch 1 was taken 60 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 120 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        300 :       &amp;&amp; (backRight == other.backRight);</span>
+<span class="lineNum">     163 </span>                :            :   }
+<span class="lineNum">     164 </span>                :            :   bool operator!=(TrafficParticipantLocation const &amp;other) const
+<span class="lineNum">     165 </span>                :            :   {
+<span class="lineNum">     166 </span>                :            :     return !(*this == other);
+<span class="lineNum">     167 </span>                :            :   }
+<span class="lineNum">     168 </span>                :            :   Point frontLeft;
+<span class="lineNum">     169 </span>                :            :   Point frontRight;
+<span class="lineNum">     170 </span>                :            :   Point backLeft;
+<span class="lineNum">     171 </span>                :            :   Point backRight;
+<span class="lineNum">     172 </span>                :            : };
+<span class="lineNum">     173 </span>                :            : 
+<span class="lineNum">     174 </span>                :            : /*!
+<span class="lineNum">     175 </span>                :            :   * a trajectory
+<span class="lineNum">     176 </span>                :            :   */
+<a name="177"><span class="lineNum">     177 </span>                :            : using Trajectory = std::vector&lt;TrajectoryPoint&gt;;</a>
+<span class="lineNum">     178 </span>                :            : 
+<span class="lineNum">     179 </span>                :<span class="lineCov">        240 : struct TrajectorySetStepVehicleLocation</span>
+<span class="lineNum">     180 </span>                :            : {
+<span class="lineNum">     181 </span>                :            :   TrafficParticipantLocation left;
+<span class="lineNum">     182 </span>                :            :   TrafficParticipantLocation right;
+<a name="183"><span class="lineNum">     183 </span>                :            :   TrafficParticipantLocation center;</a>
+<span class="lineNum">     184 </span>                :            : 
+<span class="lineNum">     185 </span>                :<span class="lineCov">        100 :   bool operator==(TrajectorySetStepVehicleLocation const &amp;other) const</span>
+<span class="lineNum">     186 </span>                :            :   {
+<span class="lineNum">     187 </span>[<span class="branchCov" title="Branch 1 was taken 40 times"> + </span><span class="branchCov" title="Branch 2 was taken 60 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">        100 :     return (left == other.left) &amp;&amp; (right == other.right) &amp;&amp; (center == other.center);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 7 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span>]
+<span class="lineNum">     188 </span>                :            :   }
+<span class="lineNum">     189 </span>                :            : 
+<span class="lineNum">     190 </span>                :            :   bool operator!=(TrajectorySetStepVehicleLocation const &amp;other) const
+<span class="lineNum">     191 </span>                :            :   {
+<span class="lineNum">     192 </span>                :            :     return !(*this == other);
+<span class="lineNum">     193 </span>                :            :   }
+<span class="lineNum">     194 </span>                :            : };
+<span class="lineNum">     195 </span>                :            : 
+<span class="lineNum">     196 </span>                :            : /**
+<span class="lineNum">     197 </span>                :            :  * @brief Calculate a trajectory set estimation between two steps
+<span class="lineNum">     198 </span>                :            :  *
+<span class="lineNum">     199 </span>                :            :  * @param[inout] polygon               polygon to work on
+<span class="lineNum">     200 </span>                :            :  * @param[in]  previousVehicleLocation the previous possible vehicle locations
+<span class="lineNum">     201 </span>                :            :  * @param[in]  currentVehicleLocation  the current possible vehicle locations
+<span class="lineNum">     202 </span>                :            :  * @param[in]  debugNamespace          namespace for debugging purposes
+<span class="lineNum">     203 </span>                :            :  *
+<span class="lineNum">     204 </span>                :            :  * @returns false if a failure occurred during calculations, true otherwise
+<span class="lineNum">     205 </span>                :            :  */
+<span class="lineNum">     206 </span>                :            : bool calculateEstimationBetweenSteps(Polygon &amp;polygon,
+<span class="lineNum">     207 </span>                :            :                                      TrajectorySetStepVehicleLocation const &amp;previousVehicleLocation,
+<span class="lineNum">     208 </span>                :            :                                      TrajectorySetStepVehicleLocation const &amp;currentVehicleLocation,
+<span class="lineNum">     209 </span>                :            :                                      std::string const &amp;debugNamespace);
+<span class="lineNum">     210 </span>                :            : /**
+<span class="lineNum">     211 </span>                :            :  * @brief Calculate a polygon for one step
+<span class="lineNum">     212 </span>                :            :  *
+<span class="lineNum">     213 </span>                :            :  * @param[in]  vehicleState          current state of the vehicle
+<span class="lineNum">     214 </span>                :            :  * @param[in]  step                  step to use for calculations
+<span class="lineNum">     215 </span>                :            :  * @param[in]  debugNamespace        namespace for debugging purposes
+<span class="lineNum">     216 </span>                :            :  * @param[out] polygon               the resulting polygon
+<span class="lineNum">     217 </span>                :            :  * @param[out] stepVehicleLocation   vehicle locations after calculation
+<span class="lineNum">     218 </span>                :            :  *
+<span class="lineNum">     219 </span>                :            :  * @returns false if a failure occurred during calculations, true otherwise
+<span class="lineNum">     220 </span>                :            :  */
+<span class="lineNum">     221 </span>                :            : bool calculateStepPolygon(situation::VehicleState const &amp;vehicleState,
+<span class="lineNum">     222 </span>                :            :                           TrajectorySetStep const &amp;step,
+<span class="lineNum">     223 </span>                :            :                           std::string const &amp;debugNamespace,
+<span class="lineNum">     224 </span>                :            :                           Polygon &amp;polygon,
+<span class="lineNum">     225 </span>                :            :                           TrajectorySetStepVehicleLocation &amp;stepVehicleLocation);
+<span class="lineNum">     226 </span>                :            : 
+<span class="lineNum">     227 </span>                :            : /**
+<span class="lineNum">     228 </span>                :            :  * @brief Calculate the front and side polygon
+<span class="lineNum">     229 </span>                :            :  *
+<span class="lineNum">     230 </span>                :            :  * @param[in]  vehicleState                      current state of the vehicle
+<span class="lineNum">     231 </span>                :            :  * @param[in]  initialStepVehicleLocation        the vehicle locations for the initial calculation step
+<span class="lineNum">     232 </span>                :            :  * @param[in]  sideSteps                         trajectory set steps that define the sides of the polygon
+<span class="lineNum">     233 </span>                :            :  * @param[in]  front                             trajectory set step that define the front of the polygon
+<span class="lineNum">     234 </span>                :            :  * @param[in]  debugNamespace                    namespace for debugging purposes
+<span class="lineNum">     235 </span>                :            :  * @param[out] resultPolygon                     the resulting polygon
+<span class="lineNum">     236 </span>                :            :  * @param[out] frontSideStepVehicleLocation      vehicle locations of the front side
+<span class="lineNum">     237 </span>                :            :  *
+<span class="lineNum">     238 </span>                :            :  * @returns false if a failure occurred during calculations, true otherwise
+<span class="lineNum">     239 </span>                :            :  */
+<span class="lineNum">     240 </span>                :            : bool calculateFrontAndSidePolygon(situation::VehicleState const &amp;vehicleState,
+<span class="lineNum">     241 </span>                :            :                                   TrajectorySetStepVehicleLocation const &amp;initialStepVehicleLocation,
+<span class="lineNum">     242 </span>                :            :                                   std::vector&lt;TrajectorySetStep&gt; const &amp;sideSteps,
+<span class="lineNum">     243 </span>                :            :                                   TrajectorySetStep const &amp;front,
+<span class="lineNum">     244 </span>                :            :                                   std::string const &amp;debugNamespace,
+<span class="lineNum">     245 </span>                :            :                                   Polygon &amp;resultPolygon,
+<span class="lineNum">     246 </span>                :            :                                   TrajectorySetStepVehicleLocation &amp;frontSideStepVehicleLocation);
+<span class="lineNum">     247 </span>                :            : 
+<span class="lineNum">     248 </span>                :            : } // namespace unstructured
+<span class="lineNum">     249 </span>                :            : } // namespace rss
+<span class="lineNum">     250 </span>                :            : } // namespace ad
 </pre>
       </td>
     </tr>
