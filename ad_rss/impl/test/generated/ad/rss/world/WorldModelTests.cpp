@@ -84,14 +84,14 @@ protected:
     ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
     valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
       = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
-    uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{
+    uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
       std::numeric_limits<uint32_t>::min()};
-    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
-      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
-    uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
+    uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
       std::numeric_limits<uint32_t>::min()};
-    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
-      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
     uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
       std::numeric_limits<uint32_t>::min()};
     valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
@@ -100,6 +100,33 @@ protected:
       std::numeric_limits<uint32_t>::min()};
     valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
       = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
+    uint32_t
+      valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
+        std::numeric_limits<uint32_t>::min()};
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+    uint32_t
+      valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
+        std::numeric_limits<uint32_t>::min()};
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+    uint32_t
+      valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
+        std::numeric_limits<uint32_t>::min()};
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
+    uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
+    uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
+    uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
+      = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
     valueDefaultEgoVehicleRssDynamics.unstructuredSettings = valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
     value.defaultEgoVehicleRssDynamics = valueDefaultEgoVehicleRssDynamics;
     ::ad::rss::world::SceneVector valueScenes;
@@ -243,14 +270,14 @@ protected:
       0.);
     valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
       = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
-    uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{
+    uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
       std::numeric_limits<uint32_t>::min()};
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
-      = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
-    uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{
+    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
+      = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
+    uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
       std::numeric_limits<uint32_t>::min()};
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
-      = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
+      = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
     uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
       std::numeric_limits<uint32_t>::min()};
     valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
@@ -260,6 +287,37 @@ protected:
         std::numeric_limits<uint32_t>::min()};
     valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
       = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
+    uint32_t
+      valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
+        std::numeric_limits<uint32_t>::min()};
+    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings
+      .vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+      = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+    uint32_t
+      valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
+        std::numeric_limits<uint32_t>::min()};
+    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings
+      .pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+      = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+    uint32_t
+      valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
+        std::numeric_limits<uint32_t>::min()};
+    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
+      = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
+    uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
+      = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
+    uint32_t
+      valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
+        std::numeric_limits<uint32_t>::min()};
+    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
+      = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
+    uint32_t
+      valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
+        std::numeric_limits<uint32_t>::min()};
+    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
+      = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
     valueScenesElementEgoVehicleRssDynamics.unstructuredSettings
       = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings;
     valueScenesElement.egoVehicleRssDynamics = valueScenesElementEgoVehicleRssDynamics;
@@ -393,14 +451,14 @@ protected:
     ::ad::physics::Duration valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
     valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
       = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
-    uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{
+    uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
       std::numeric_limits<uint32_t>::min()};
-    valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
-      = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
-    uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{
+    valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
+      = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
+    uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
       std::numeric_limits<uint32_t>::min()};
-    valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
-      = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+    valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
+      = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
     uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
       std::numeric_limits<uint32_t>::min()};
     valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
@@ -409,6 +467,33 @@ protected:
       std::numeric_limits<uint32_t>::min()};
     valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
       = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
+    uint32_t
+      valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
+        std::numeric_limits<uint32_t>::min()};
+    valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+      = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+    uint32_t
+      valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
+        std::numeric_limits<uint32_t>::min()};
+    valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+      = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+    uint32_t
+      valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
+        std::numeric_limits<uint32_t>::min()};
+    valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
+      = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
+    uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
+      = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
+    uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
+      = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
+    uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
+      std::numeric_limits<uint32_t>::min()};
+    valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
+      = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
     valueScenesElementObjectRssDynamics.unstructuredSettings = valueScenesElementObjectRssDynamicsUnstructuredSettings;
     valueScenesElement.objectRssDynamics = valueScenesElementObjectRssDynamics;
     ::ad::rss::world::RoadArea valueScenesElementIntersectingRoad;
@@ -617,14 +702,14 @@ TEST_F(WorldModelTests, comparisonOperatorDefaultEgoVehicleRssDynamicsDiffers)
   ::ad::physics::Duration defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(1e6);
   defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
-  uint32_t defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{
+  uint32_t defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
     std::numeric_limits<uint32_t>::max()};
-  defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
-    = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
-  uint32_t defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
+  uint32_t defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
     std::numeric_limits<uint32_t>::max()};
-  defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
-    = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
   uint32_t defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
     std::numeric_limits<uint32_t>::max()};
   defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
@@ -633,6 +718,30 @@ TEST_F(WorldModelTests, comparisonOperatorDefaultEgoVehicleRssDynamicsDiffers)
     std::numeric_limits<uint32_t>::max()};
   defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
     = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
+  uint32_t defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
+    std::numeric_limits<uint32_t>::max()};
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  uint32_t defaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
+    std::numeric_limits<uint32_t>::max()};
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  uint32_t defaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::max()};
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
+  uint32_t defaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::max()};
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
+  uint32_t defaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
+    std::numeric_limits<uint32_t>::max()};
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
+  uint32_t defaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
+    std::numeric_limits<uint32_t>::max()};
+  defaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
+    = defaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
   defaultEgoVehicleRssDynamics.unstructuredSettings = defaultEgoVehicleRssDynamicsUnstructuredSettings;
   valueA.defaultEgoVehicleRssDynamics = defaultEgoVehicleRssDynamics;
   ::ad::rss::world::WorldModel valueB = mValue;
@@ -773,14 +882,14 @@ TEST_F(WorldModelTests, comparisonOperatorScenesDiffers)
   ::ad::physics::Duration scenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(1e6);
   scenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = scenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
-  uint32_t scenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{
+  uint32_t scenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
     std::numeric_limits<uint32_t>::max()};
-  scenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
-    = scenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
-  uint32_t scenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{
+  scenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
+    = scenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
+  uint32_t scenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
     std::numeric_limits<uint32_t>::max()};
-  scenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
-    = scenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  scenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
+    = scenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
   uint32_t scenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
     std::numeric_limits<uint32_t>::max()};
   scenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
@@ -789,6 +898,27 @@ TEST_F(WorldModelTests, comparisonOperatorScenesDiffers)
     std::numeric_limits<uint32_t>::max()};
   scenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
     = scenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
+  uint32_t
+    scenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
+      std::numeric_limits<uint32_t>::max()};
+  scenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+    = scenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  uint32_t scenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::max()};
+  scenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
+    = scenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
+  uint32_t scenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::max()};
+  scenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
+    = scenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
+  uint32_t scenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
+    std::numeric_limits<uint32_t>::max()};
+  scenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
+    = scenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
+  uint32_t scenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
+    std::numeric_limits<uint32_t>::max()};
+  scenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
+    = scenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
   scenesElementEgoVehicleRssDynamics.unstructuredSettings = scenesElementEgoVehicleRssDynamicsUnstructuredSettings;
   scenesElement.egoVehicleRssDynamics = scenesElementEgoVehicleRssDynamics;
   ::ad::rss::world::Object scenesElementObject;
@@ -906,14 +1036,14 @@ TEST_F(WorldModelTests, comparisonOperatorScenesDiffers)
   ::ad::physics::Duration scenesElementObjectRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(1e6);
   scenesElementObjectRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
     = scenesElementObjectRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
-  uint32_t scenesElementObjectRssDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps{
+  uint32_t scenesElementObjectRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
     std::numeric_limits<uint32_t>::max()};
-  scenesElementObjectRssDynamicsUnstructuredSettings.vehicleFrontIntermediateRatioSteps
-    = scenesElementObjectRssDynamicsUnstructuredSettingsVehicleFrontIntermediateRatioSteps;
-  uint32_t scenesElementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps{
+  scenesElementObjectRssDynamicsUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
+    = scenesElementObjectRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
+  uint32_t scenesElementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
     std::numeric_limits<uint32_t>::max()};
-  scenesElementObjectRssDynamicsUnstructuredSettings.vehicleBackIntermediateRatioSteps
-    = scenesElementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateRatioSteps;
+  scenesElementObjectRssDynamicsUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
+    = scenesElementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
   uint32_t scenesElementObjectRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
     std::numeric_limits<uint32_t>::max()};
   scenesElementObjectRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
@@ -922,6 +1052,31 @@ TEST_F(WorldModelTests, comparisonOperatorScenesDiffers)
     std::numeric_limits<uint32_t>::max()};
   scenesElementObjectRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
     = scenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
+  uint32_t scenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
+    std::numeric_limits<uint32_t>::max()};
+  scenesElementObjectRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+    = scenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  uint32_t
+    scenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
+      std::numeric_limits<uint32_t>::max()};
+  scenesElementObjectRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+    = scenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  uint32_t scenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::max()};
+  scenesElementObjectRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
+    = scenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
+  uint32_t scenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
+    std::numeric_limits<uint32_t>::max()};
+  scenesElementObjectRssDynamicsUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
+    = scenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
+  uint32_t scenesElementObjectRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
+    std::numeric_limits<uint32_t>::max()};
+  scenesElementObjectRssDynamicsUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
+    = scenesElementObjectRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
+  uint32_t scenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
+    std::numeric_limits<uint32_t>::max()};
+  scenesElementObjectRssDynamicsUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
+    = scenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
   scenesElementObjectRssDynamics.unstructuredSettings = scenesElementObjectRssDynamicsUnstructuredSettings;
   scenesElement.objectRssDynamics = scenesElementObjectRssDynamics;
   ::ad::rss::world::RoadArea scenesElementIntersectingRoad;

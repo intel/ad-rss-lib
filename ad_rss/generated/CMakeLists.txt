@@ -14,7 +14,7 @@
 ##
 
 cmake_minimum_required(VERSION 3.5)
-project(ad_rss VERSION 4.3.0)
+project(ad_rss VERSION 4.4.0)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)

@@ -106,11 +106,21 @@ struct UnstructuredSettings
     return (pedestrianTurningRadius == other.pedestrianTurningRadius) && (driveAwayMaxAngle == other.driveAwayMaxAngle)
       && (vehicleYawRateChange == other.vehicleYawRateChange) && (vehicleMinRadius == other.vehicleMinRadius)
       && (vehicleTrajectoryCalculationStep == other.vehicleTrajectoryCalculationStep)
-      && (vehicleFrontIntermediateRatioSteps == other.vehicleFrontIntermediateRatioSteps)
-      && (vehicleBackIntermediateRatioSteps == other.vehicleBackIntermediateRatioSteps)
+      && (vehicleFrontIntermediateYawRateChangeRatioSteps == other.vehicleFrontIntermediateYawRateChangeRatioSteps)
+      && (vehicleBackIntermediateYawRateChangeRatioSteps == other.vehicleBackIntermediateYawRateChangeRatioSteps)
       && (vehicleBrakeIntermediateAccelerationSteps == other.vehicleBrakeIntermediateAccelerationSteps)
       && (vehicleContinueForwardIntermediateAccelerationSteps
-          == other.vehicleContinueForwardIntermediateAccelerationSteps);
+          == other.vehicleContinueForwardIntermediateAccelerationSteps)
+      && (vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+          == other.vehicleContinueForwardIntermediateYawRateChangeRatioSteps)
+      && (pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
+          == other.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps)
+      && (pedestrianContinueForwardIntermediateAccelerationSteps
+          == other.pedestrianContinueForwardIntermediateAccelerationSteps)
+      && (pedestrianBrakeIntermediateAccelerationSteps == other.pedestrianBrakeIntermediateAccelerationSteps)
+      && (pedestrianFrontIntermediateHeadingChangeRatioSteps
+          == other.pedestrianFrontIntermediateHeadingChangeRatioSteps)
+      && (pedestrianBackIntermediateHeadingChangeRatioSteps == other.pedestrianBackIntermediateHeadingChangeRatioSteps);
   }
 
   /**
@@ -164,7 +174,7 @@ struct UnstructuredSettings
    * specifying the steps on one side, therefore the resulting intermedate steps are twice this value. This value is
    * used for the front of the trajectory set.
    */
-  uint32_t vehicleFrontIntermediateRatioSteps{0};
+  uint32_t vehicleFrontIntermediateYawRateChangeRatioSteps{0};
 
   /*!
    * During calculation of the trajectory set, multiple yaw rate ratios are used. The default is max left, max right and
@@ -172,21 +182,55 @@ struct UnstructuredSettings
    * specifying the steps on one side, therefore the resulting intermedate steps are twice this value. This value is
    * used for the back of the trajectory set.
    */
-  uint32_t vehicleBackIntermediateRatioSteps{0};
+  uint32_t vehicleBackIntermediateYawRateChangeRatioSteps{0};
 
   /*!
    * Specifies the intermediate acceleration steps (between brakeMax and brakeMin) used while calculating the cbrake
-   * trajectory set. This is applied to all vehicleResponseIntermediateAccelerationSteps, therefore it has only an
-   * effect if that value is >0.
+   * trajectory set.
    */
   uint32_t vehicleBrakeIntermediateAccelerationSteps{0};
 
   /*!
    * Specifies the intermediate acceleration steps (between brakeMin and accelMax) used while calculating the continue
-   * forward trajectory set. This is applied to all vehicleResponseIntermediateAccelerationSteps, therefore it has only
-   * an effect if that value is >0.
+   * forward trajectory set.
    */
   uint32_t vehicleContinueForwardIntermediateAccelerationSteps{0};
+
+  /*!
+   * Specifies the intermediate yaw rate change ratio steps used while calculating the continue forward trajectory set.
+   */
+  uint32_t vehicleContinueForwardIntermediateYawRateChangeRatioSteps{0};
+
+  /*!
+   * Specifies the intermediate heading change ratio steps used while calculating the continue forward trajectory set.
+   */
+  uint32_t pedestrianContinueForwardIntermediateHeadingChangeRatioSteps{0};
+
+  /*!
+   * Specifies the intermediate steps used while calculating the continue forward trajectory set.
+   */
+  uint32_t pedestrianContinueForwardIntermediateAccelerationSteps{0};
+
+  /*!
+   * Specifies the intermediate steps used while calculating the brake trajectory set.
+   */
+  uint32_t pedestrianBrakeIntermediateAccelerationSteps{0};
+
+  /*!
+   * During calculation of the trajectory set, multiple heading change ratios are used. The default is max left, max
+   * right and no heading change. By specifying a value larger than zero more intermediate steps are used. The value is
+   * specifying the steps on one side, therefore the resulting intermedate steps are twice this value. This value is
+   * used for the front of the trajectory set.
+   */
+  uint32_t pedestrianFrontIntermediateHeadingChangeRatioSteps{0};
+
+  /*!
+   * During calculation of the trajectory set, multiple heading change ratios are used. The default is max left, max
+   * right and no yaw rate change. By specifying a value larger than zero more intermediate steps are used. The value is
+   * specifying the steps on one side, therefore the resulting intermedate steps are twice this value. This value is
+   * used for the back of the trajectory set.
+   */
+  uint32_t pedestrianBackIntermediateHeadingChangeRatioSteps{0};
 };
 
 } // namespace world
@@ -238,17 +282,35 @@ inline std::ostream &operator<<(std::ostream &os, UnstructuredSettings const &_v
   os << "vehicleTrajectoryCalculationStep:";
   os << _value.vehicleTrajectoryCalculationStep;
   os << ",";
-  os << "vehicleFrontIntermediateRatioSteps:";
-  os << _value.vehicleFrontIntermediateRatioSteps;
+  os << "vehicleFrontIntermediateYawRateChangeRatioSteps:";
+  os << _value.vehicleFrontIntermediateYawRateChangeRatioSteps;
   os << ",";
-  os << "vehicleBackIntermediateRatioSteps:";
-  os << _value.vehicleBackIntermediateRatioSteps;
+  os << "vehicleBackIntermediateYawRateChangeRatioSteps:";
+  os << _value.vehicleBackIntermediateYawRateChangeRatioSteps;
   os << ",";
   os << "vehicleBrakeIntermediateAccelerationSteps:";
   os << _value.vehicleBrakeIntermediateAccelerationSteps;
   os << ",";
   os << "vehicleContinueForwardIntermediateAccelerationSteps:";
   os << _value.vehicleContinueForwardIntermediateAccelerationSteps;
+  os << ",";
+  os << "vehicleContinueForwardIntermediateYawRateChangeRatioSteps:";
+  os << _value.vehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  os << ",";
+  os << "pedestrianContinueForwardIntermediateHeadingChangeRatioSteps:";
+  os << _value.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  os << ",";
+  os << "pedestrianContinueForwardIntermediateAccelerationSteps:";
+  os << _value.pedestrianContinueForwardIntermediateAccelerationSteps;
+  os << ",";
+  os << "pedestrianBrakeIntermediateAccelerationSteps:";
+  os << _value.pedestrianBrakeIntermediateAccelerationSteps;
+  os << ",";
+  os << "pedestrianFrontIntermediateHeadingChangeRatioSteps:";
+  os << _value.pedestrianFrontIntermediateHeadingChangeRatioSteps;
+  os << ",";
+  os << "pedestrianBackIntermediateHeadingChangeRatioSteps:";
+  os << _value.pedestrianBackIntermediateHeadingChangeRatioSteps;
   os << ")";
   return os;
 }
