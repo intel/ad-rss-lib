@@ -15,8 +15,13 @@ function(generate_python_binding_source_code WORKING_DIR)
   message(STATUS "Generating python binding source code at ${WORKING_DIR}" )
   configure_file(${PYTHON_WRAPPER_HELPER_DIR}/python_wrapper_helper.py python_wrapper_helper.py COPYONLY)
 
+  set(PYTHON_CMD python)
+  if ( PYTHON_BINDINGS )
+    list(GET PYTHON_BINDINGS 0 PYTHON_CMD)
+  endif()
+
   execute_process(
-    COMMAND python generate_python_lib.py
+    COMMAND ${PYTHON_CMD} generate_python_lib.py
     WORKING_DIRECTORY ${WORKING_DIR}
     RESULT_VARIABLE GENERATE_PYTHON_RESULT
     OUTPUT_VARIABLE GENERATE_PYTHON_STDOUT_STDERR
@@ -27,6 +32,7 @@ function(generate_python_binding_source_code WORKING_DIR)
   if ( ${GENERATE_PYTHON_RESULT} )
     set(message_level WARNING)
   endif()
+  message(${message_level} "Generator call: ${PYTHON_CMD} generate_python_lib.py")
   message(${message_level} "Generating result: ${GENERATE_PYTHON_RESULT}")
   message(${message_level} "Generator output: ${GENERATE_PYTHON_STDOUT_STDERR}")
 endfunction()

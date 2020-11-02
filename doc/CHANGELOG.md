@@ -1,5 +1,6 @@
 
 ## Latest changes
+* Use target python version for build
 
 ## Release 4.4.0
 
