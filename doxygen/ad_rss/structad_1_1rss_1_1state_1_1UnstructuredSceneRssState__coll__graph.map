@@ -1,5 +1,5 @@
 <map id="ad::rss::state::UnstructuredSceneRssState" name="ad::rss::state::UnstructuredSceneRssState">
-<area shape="rect" id="node2" href="$structad_1_1rss_1_1state_1_1HeadingRange.html" title="DataType HeadingRange. " alt="" coords="5,5,212,32"/>
-<area shape="rect" id="node3" href="$structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="13,57,204,98"/>
-<area shape="rect" id="node4" href="$structad_1_1rss_1_1state_1_1UnstructuredSceneStateInformation.html" title="DataType UnstructuredSceneStateInformation. " alt="" coords="9,122,208,163"/>
+<area shape="rect" id="node2" href="$structad_1_1rss_1_1state_1_1HeadingRange.html" title="DataType HeadingRange. " alt="" coords="5,5,199,32"/>
+<area shape="rect" id="node3" href="$structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="13,57,191,98"/>
+<area shape="rect" id="node4" href="$structad_1_1rss_1_1state_1_1UnstructuredSceneStateInformation.html" title="DataType UnstructuredSceneStateInformation. " alt="" coords="11,122,193,163"/>
 </map>

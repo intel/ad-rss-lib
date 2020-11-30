@@ -1,11 +1,11 @@
 <map id="ad::rss::world::Scene" name="ad::rss::world::Scene">
-<area shape="rect" id="node3" title="STL class. " alt="" coords="328,7,455,33"/>
-<area shape="rect" id="node5" href="$structad_1_1rss_1_1world_1_1Object.html" title="DataType Object. " alt="" coords="701,124,855,151"/>
-<area shape="rect" id="node7" href="$structad_1_1rss_1_1world_1_1OccupiedRegion.html" title="DataType OccupiedRegion. " alt="" coords="5,58,179,99"/>
-<area shape="rect" id="node8" href="$structad_1_1rss_1_1world_1_1ObjectState.html" title="DataType ObjectState. " alt="" coords="296,124,487,151"/>
-<area shape="rect" id="node9" href="$structad_1_1rss_1_1world_1_1Velocity.html" title="DataType Velocity. " alt="" coords="310,175,473,201"/>
-<area shape="rect" id="node10" href="$structad_1_1rss_1_1world_1_1RssDynamics.html" title="DataType RssDynamics. " alt="" coords="679,271,877,297"/>
-<area shape="rect" id="node11" href="$structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="301,226,481,267"/>
-<area shape="rect" id="node12" href="$structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="296,291,487,333"/>
-<area shape="rect" id="node13" href="$structad_1_1rss_1_1world_1_1UnstructuredSettings.html" title="DataType UnstructuredSettings. " alt="" coords="292,357,491,398"/>
+<area shape="rect" id="node3" title="STL class. " alt="" coords="309,7,425,33"/>
+<area shape="rect" id="node5" href="$structad_1_1rss_1_1world_1_1Object.html" title="DataType Object. " alt="" coords="655,124,801,151"/>
+<area shape="rect" id="node7" href="$structad_1_1rss_1_1world_1_1OccupiedRegion.html" title="DataType OccupiedRegion. " alt="" coords="5,58,169,99"/>
+<area shape="rect" id="node8" href="$structad_1_1rss_1_1world_1_1ObjectState.html" title="DataType ObjectState. " alt="" coords="277,124,456,151"/>
+<area shape="rect" id="node9" href="$structad_1_1rss_1_1world_1_1Velocity.html" title="DataType Velocity. " alt="" coords="289,175,445,201"/>
+<area shape="rect" id="node10" href="$structad_1_1rss_1_1world_1_1RssDynamics.html" title="DataType RssDynamics. " alt="" coords="632,271,824,297"/>
+<area shape="rect" id="node11" href="$structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="281,226,453,267"/>
+<area shape="rect" id="node12" href="$structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="277,291,456,333"/>
+<area shape="rect" id="node13" href="$structad_1_1rss_1_1world_1_1UnstructuredSettings.html" title="DataType UnstructuredSettings. " alt="" coords="275,357,459,398"/>
 </map>
