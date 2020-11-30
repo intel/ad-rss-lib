@@ -98,3 +98,33 @@ jobs:
         sudo apt-get install ${EXTRA_PACKAGES}
         rm -rf log build install
         eval CC=${CC} CXX=${CXX} ${BUILDCMD}
+
+  ubuntu20job:
+    name: Ubuntu 20.04
+    runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+       include:
+         - compiler: gcc9
+           EXTRA_PACKAGES: ""
+           CC: ""
+           CXX: ""
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+          submodules: true
+
+    - name: Install Dependencies
+      run: bash .github/workflows/install_dependencies.sh
+
+    - name: Build and Test
+      env:
+          CC: ${{ matrix.CC }}
+          CXX: ${{ matrix.CXX }}
+          EXTRA_PACKAGES: ${{ matrix.EXTRA_PACKAGES }}
+      run: |
+        sudo apt-get install ${EXTRA_PACKAGES}
+        rm -rf log build install
+        eval CC=${CC} CXX=${CXX} ${BUILDCMD}
