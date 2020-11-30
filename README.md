@@ -2,8 +2,8 @@
 =====
 
 [![License](https://img.shields.io/badge/License-LGPL%202.1--Clause-blue.svg)](https://opensource.org/licenses/LGPL-2.1)
-![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/intel/ad-rss-lib.svg)
-[![Build Status](https://travis-ci.com/intel/ad-rss-lib.svg?branch=master)](https://travis-ci.com/intel/ad-rss-lib)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/intel/ad-rss-lib.svg)](https://github.com/intel/ad-rss-lib/releases/latest)
+[![Build Status](https://github.com/intel/ad-rss-lib/workflows/Build%20and%20Test%20of%20AD-RSS%20Library/badge.svg?branch=master)](https://github.com/intel/ad-rss-lib/actions?query=workflow%3A%22Build+and+Test+of+AD-RSS+Library%22)
 [![Code Coverage](https://codecov.io/gh/intel/ad-rss-lib/branch/master/graph/badge.svg)](https://codecov.io/gh/intel/ad-rss-lib)
 
 

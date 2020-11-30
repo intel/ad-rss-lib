@@ -1,0 +1,38 @@
+name: Build and Test Documentation
+
+on:
+  push:
+    branches: master
+  pull_request:
+    branches: master
+
+jobs:
+  documentationjob:
+
+    name: Build and Test Documentation
+    runs-on: ubuntu-16.04
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodules: true
+
+    - name: Install Dependencies
+      run: bash .github/workflows/install_dependencies.sh && sudo apt-get install doxygen graphviz lcov && sudo pip3 install --upgrade six>=1.11.0 Markdown==3.2.1 mkdocs markdown-include pymdown-extensions pygments mdx_truly_sane_lists
+
+    - name: Build Documentation and Test
+      run: |
+        GTEST_OUTPUT="xml:test_results"
+        colcon build --event-handlers console_direct+ --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DBUILD_COVERAGE=ON -DBUILD_APIDOC=ON
+        colcon test --event-handlers console_direct+ --packages-select ad_rss ad_rss_map_integration
+        colcon test-result
+        
+    - name: Code Coverage and CodeCov
+      run: |
+        bash .github/workflows/code_coverage.sh
+
+    - name: Documentation Deployment (Test)
+      run: |
+        mkdocs build
+        if [ ${{ github.event_name }} != 'pull_request' ]; then bash .github/workflows/deploy_documentation.sh true; else bash .github/workflows/deploy_documentation.sh false; fi

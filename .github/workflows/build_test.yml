@@ -1,0 +1,100 @@
+name: Build and Test of AD-RSS Library
+
+on:
+  push:
+    branches: master
+  pull_request:
+    branches: master
+
+env:
+  GTEST_OUTPUT: "xml:test_results"
+  BUILDCMD: "colcon build --event-handlers console_direct+ --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DBUILD_HARDENING=ON -DBUILD_TESTING=ON -DBUILD_PYTHON_BINDING=ON && colcon test --event-handlers console_direct+ --packages-select ad_rss ad_rss_map_integration && colcon test-result"
+
+jobs:
+  ubuntu16job:
+    name: Ubuntu 16.04
+    runs-on: ubuntu-16.04
+
+    strategy:
+      matrix:
+       include:
+         - compiler: gcc5
+           EXTRA_PACKAGES: ""
+           CC: ""
+           CXX: ""
+         - compiler: gcc6
+           EXTRA_PACKAGES: g++-6
+           CC: /usr/bin/gcc-6
+           CXX: /usr/bin/g++-6
+         - compiler: clang5
+           EXTRA_PACKAGES: clang-5.0
+           CC: /usr/bin/clang-5.0
+           CXX: /usr/bin/clang++-5.0
+         - compiler: clang6
+           EXTRA_PACKAGES: clang-6.0
+           CC: /usr/bin/clang-6.0
+           CXX: /usr/bin/clang++-6.0
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+          submodules: true
+
+    - name: Install Dependencies
+      run: bash .github/workflows/install_dependencies.sh
+
+    - name: Build and Test
+      env:
+          CC: ${{ matrix.CC }}
+          CXX: ${{ matrix.CXX }}
+          EXTRA_PACKAGES: ${{ matrix.EXTRA_PACKAGES }}
+      run: |
+        sudo apt-get install ${EXTRA_PACKAGES}
+        rm -rf log build install
+        eval CC=${CC} CXX=${CXX} ${BUILDCMD}
+
+  ubuntu18job:
+    name: Ubuntu 18.04
+    runs-on: ubuntu-18.04
+
+    strategy:
+      matrix:
+       include:
+         - compiler: gcc7
+           EXTRA_PACKAGES: ""
+           CC: ""
+           CXX: ""
+         - compiler: gcc8
+           EXTRA_PACKAGES: g++-8
+           CC: /usr/bin/gcc-8
+           CXX: /usr/bin/g++-8
+         - compiler: gcc9
+           EXTRA_PACKAGES: g++-9
+           CC: /usr/bin/gcc-9
+           CXX: /usr/bin/g++-9
+         - compiler: clang7
+           EXTRA_PACKAGES: clang-7
+           CC: /usr/bin/clang-7
+           CXX: /usr/bin/clang++-7
+         - compiler: clang8
+           EXTRA_PACKAGES: clang-8
+           CC: /usr/bin/clang-8
+           CXX: /usr/bin/clang++-8
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+          submodules: true
+
+    - name: Install Dependencies
+      run: bash .github/workflows/install_dependencies.sh
+
+    - name: Build and Test
+      env:
+          CC: ${{ matrix.CC }}
+          CXX: ${{ matrix.CXX }}
+          EXTRA_PACKAGES: ${{ matrix.EXTRA_PACKAGES }}
+      run: |
+        sudo apt-get install ${EXTRA_PACKAGES}
+        rm -rf log build install
+        eval CC=${CC} CXX=${CXX} ${BUILDCMD}
