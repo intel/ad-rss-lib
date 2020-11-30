@@ -9,9 +9,13 @@
 # ----------------- END LICENSE BLOCK -----------------------------------
 ##
 
+# initial cleanup to be able to switch to gh-pages branch
 mv coverage/ coverage_tmp/
+rm -rf =1.11.0 *.info
 
+# switch to gh-pages branch
 git checkout origin/gh-pages
+if [ $? -ne 0 ]; then echo "GIT checkout failure"; exit 1; fi
 git checkout -b gh-pages
 
 
