@@ -1,5 +1,5 @@
 <map id="ad::rss::world::RssDynamics" name="ad::rss::world::RssDynamics">
-<area shape="rect" id="node2" href="$structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="11,5,183,47"/>
-<area shape="rect" id="node3" href="$structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="8,71,187,112"/>
-<area shape="rect" id="node4" href="$structad_1_1rss_1_1world_1_1UnstructuredSettings.html" title="DataType UnstructuredSettings. " alt="" coords="5,136,189,177"/>
+<area shape="rect" id="node2" href="$structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="15,5,195,47"/>
+<area shape="rect" id="node3" href="$structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="9,71,200,112"/>
+<area shape="rect" id="node4" href="$structad_1_1rss_1_1world_1_1UnstructuredSettings.html" title="DataType UnstructuredSettings. " alt="" coords="5,136,204,177"/>
 </map>

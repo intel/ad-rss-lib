@@ -1,5 +1,5 @@
 <map id="ad::rss::world::Object" name="ad::rss::world::Object">
-<area shape="rect" id="node3" href="$structad_1_1rss_1_1world_1_1OccupiedRegion.html" title="DataType OccupiedRegion. " alt="" coords="5,5,169,47"/>
-<area shape="rect" id="node4" href="$structad_1_1rss_1_1world_1_1ObjectState.html" title="DataType ObjectState. " alt="" coords="275,71,453,98"/>
-<area shape="rect" id="node5" href="$structad_1_1rss_1_1world_1_1Velocity.html" title="DataType Velocity. " alt="" coords="286,122,442,149"/>
+<area shape="rect" id="node3" href="$structad_1_1rss_1_1world_1_1OccupiedRegion.html" title="DataType OccupiedRegion. " alt="" coords="5,5,179,47"/>
+<area shape="rect" id="node4" href="$structad_1_1rss_1_1world_1_1ObjectState.html" title="DataType ObjectState. " alt="" coords="292,71,483,98"/>
+<area shape="rect" id="node5" href="$structad_1_1rss_1_1world_1_1Velocity.html" title="DataType Velocity. " alt="" coords="306,122,469,149"/>
 </map>

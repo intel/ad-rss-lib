@@ -1,9 +1,9 @@
 <map id="generated/include/ad/rss/world/Object.hpp" name="generated/include/ad/rss/world/Object.hpp">
-<area shape="rect" id="node6" href="$ObjectId_8hpp.html" title="ad/rss/world/ObjectId.hpp" alt="" coords="1521,102,1692,129"/>
-<area shape="rect" id="node8" href="$ObjectState_8hpp.html" title="ad/rss/world/ObjectState.hpp" alt="" coords="1043,184,1234,211"/>
-<area shape="rect" id="node14" href="$ObjectType_8hpp.html" title="ad/rss/world/ObjectType.hpp" alt="" coords="5,184,195,211"/>
-<area shape="rect" id="node16" href="$OccupiedRegionVector_8hpp.html" title="ad/rss/world/OccupiedRegion\lVector.hpp" alt="" coords="478,95,671,136"/>
-<area shape="rect" id="node21" href="$Velocity_8hpp.html" title="ad/rss/world/Velocity.hpp" alt="" coords="798,184,967,211"/>
-<area shape="rect" id="node18" href="$OccupiedRegion_8hpp.html" title="ad/rss/world/OccupiedRegion.hpp" alt="" coords="320,184,539,211"/>
-<area shape="rect" id="node20" href="$LaneSegmentId_8hpp.html" title="ad/rss/world/LaneSegment\lId.hpp" alt="" coords="231,259,409,300"/>
+<area shape="rect" id="node6" href="$ObjectId_8hpp.html" title="ad/rss/world/ObjectId.hpp" alt="" coords="1589,102,1772,129"/>
+<area shape="rect" id="node8" href="$ObjectState_8hpp.html" title="ad/rss/world/ObjectState.hpp" alt="" coords="1077,184,1284,211"/>
+<area shape="rect" id="node14" href="$ObjectType_8hpp.html" title="ad/rss/world/ObjectType.hpp" alt="" coords="5,184,204,211"/>
+<area shape="rect" id="node16" href="$OccupiedRegionVector_8hpp.html" title="ad/rss/world/OccupiedRegion\lVector.hpp" alt="" coords="495,95,698,136"/>
+<area shape="rect" id="node21" href="$Velocity_8hpp.html" title="ad/rss/world/Velocity.hpp" alt="" coords="824,184,1001,211"/>
+<area shape="rect" id="node18" href="$OccupiedRegion_8hpp.html" title="ad/rss/world/OccupiedRegion.hpp" alt="" coords="329,184,560,211"/>
+<area shape="rect" id="node20" href="$LaneSegmentId_8hpp.html" title="ad/rss/world/LaneSegment\lId.hpp" alt="" coords="221,259,413,300"/>
 </map>
