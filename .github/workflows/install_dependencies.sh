@@ -9,7 +9,8 @@ if [ `lsb_release -a | grep Release | grep 20.04 | wc -l` == 1 ]; then
 else
   sudo apt-get install -y --no-install-recommends python-pip python-wheel
 fi
-sudo pip3 install --upgrade setuptools==50.3.2
+sudo pip3 install --upgrade setuptools==51.1.2
+sudo pip3 install --upgrade six>=1.11.0 Markdown==3.2.1 mkdocs markdown-include pymdown-extensions pygments mdx_truly_sane_lists
 sudo pip3 install colcon-common-extensions xmlrunner
 
 if [ `lsb_release -a | grep Release | grep 20.04 | wc -l` == 1 ]; then
