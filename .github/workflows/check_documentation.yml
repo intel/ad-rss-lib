@@ -19,7 +19,15 @@ jobs:
         submodules: true
 
     - name: Install Dependencies
-      run: bash .github/workflows/install_dependencies.sh && sudo apt-get install doxygen graphviz lcov && sudo pip3 install --upgrade six>=1.11.0 Markdown==3.2.1 mkdocs markdown-include pymdown-extensions pygments mdx_truly_sane_lists
+      run: |
+        bash .github/workflows/install_dependencies.sh
+        sudo apt-get install doxygen graphviz lcov
+        sudo pip3 install --upgrade six>=1.11.0
+        sudo pip3 install Markdown==3.2.1
+        sudo pip3 install mkdocs
+        sudo pip3 install markdown-include
+        sudo pip3 install pymdown-extensions==8.0.1
+        sudo pip3 install pygments mdx_truly_sane_lists
 
     - name: Build Documentation and Test
       run: |

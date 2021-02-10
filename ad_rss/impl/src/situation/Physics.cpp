@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2020 Intel Corporation
+// Copyright (C) 2018-2021 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -165,7 +165,9 @@ bool calculateTimeForDistance(Speed const currentSpeed,
 
   bool result = true;
 
-  if ((acceleration == Acceleration(0.)) || (currentSpeed >= maxSpeedOnAcceleration))
+  if ((acceleration == Acceleration(0.)) ||
+      // actual accelerations > 0 are dismissed, if current speed already exceeds maxSpeedOnAcceleration
+      ((currentSpeed >= maxSpeedOnAcceleration) && (acceleration > Acceleration(0.))))
   {
     // non-accelerated constant movement:
     // t = s/v
@@ -266,8 +268,12 @@ bool calculateTimeToCoverDistance(Speed const currentSpeed,
           // already too far after stopping
           Distance const remainingDistance = distanceToCover - distanceAfterResponseTime;
 
-          result = calculateTimeForDistance(
-            speedAfterResponseTime, maxSpeedOnAcceleration, aAfterResponseTime, remainingDistance, requiredTime);
+          // maxSpeedOnAcceleration not relevant anymore, because we are AFTER the response time
+          result = calculateTimeForDistance(speedAfterResponseTime,
+                                            std::numeric_limits<Speed>::max(),
+                                            aAfterResponseTime,
+                                            remainingDistance,
+                                            requiredTime);
           requiredTime += responseTime;
         }
         else

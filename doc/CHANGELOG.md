@@ -1,6 +1,7 @@
 
 ## Latest changes
 * Use target python version for build
+* Fix: Ensure maxSpeedOnAcceleration only limits the actual acceleration while reponse time.
 
 ## Release 4.4.0
 

@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2020 Intel Corporation
+// Copyright (C) 2018-2021 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -103,6 +103,14 @@ TEST(PhysicsUnitTestsTimeToCoverDistance, max_speed_reached_before_response_time
   EXPECT_TRUE(calculateTimeToCoverDistance(
     Speed(1.0), Speed(2.0), Duration(1.5), Acceleration(2.), Acceleration(-0.5), Distance(1.75), requiredTime));
   EXPECT_NEAR(1.0, static_cast<double>(requiredTime), cDoubleNear);
+}
+
+TEST(PhysicsUnitTestsTimeToCoverDistance, max_speed_still_exceeded_after_response_time)
+{
+  Duration requiredTime(0.);
+  EXPECT_TRUE(calculateTimeToCoverDistance(
+    Speed(2.0), Speed(1.0), Duration(1.), Acceleration(1.), Acceleration(-1.), Distance(3.), requiredTime));
+  EXPECT_NEAR(1.585786, static_cast<double>(requiredTime), cDoubleNear);
 }
 
 } // namespace situation
