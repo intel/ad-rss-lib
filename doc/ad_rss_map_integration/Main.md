@@ -1,4 +1,4 @@
-# C++ library for integrating Responsible Sensitive Safety (RSS) with automated driving maps
+# C++ library for integrating Responsibility Sensitive Safety (RSS) with automated driving maps
 
 #### Table of contents
 1. [Introduction](#introduction)
@@ -7,7 +7,7 @@
 4. [Python Binding](#python)
 
 ## Introduction <a name="introduction"></a>
-This *ad_rss_map_integration* library provides a C++ implementation for integrating Responsible Sensitive Safety (RSS)
+This *ad_rss_map_integration* library provides a C++ implementation for integrating Responsibility Sensitive Safety (RSS)
 with automated driving maps. When RSS is to be integrated into a larger system it is usually up to
 the user implementation to provide the required input into RSS based on the environment information
 available within the system.
