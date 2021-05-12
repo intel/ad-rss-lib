@@ -80,6 +80,7 @@ def generate_python_wrapper(header_directories, include_paths, library_name, cpp
 
     # Set include dirs and cflags to avoid warnings and errors
     xml_generator_config.append_cflags("-std=c++@CMAKE_CXX_STANDARD@")
+    xml_generator_config.append_cflags("-Wno-error=invalid-constexpr")
 
     for inc_dir in include_paths:
         xml_generator_config.include_paths.append(inc_dir)
