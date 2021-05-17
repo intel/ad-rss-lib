@@ -13,7 +13,11 @@ set(PYTHON_WRAPPER_HELPER_DIR ${CMAKE_CURRENT_LIST_DIR}/python)
 function(generate_python_binding_source_code WORKING_DIR)
 
   message(STATUS "Generating python binding source code at ${WORKING_DIR}" )
-  configure_file(${PYTHON_WRAPPER_HELPER_DIR}/python_wrapper_helper.py python_wrapper_helper.py COPYONLY)
+  configure_file(
+    ${PYTHON_WRAPPER_HELPER_DIR}/python_wrapper_helper.py.in
+    python_wrapper_helper.py
+    @ONLY
+  )
 
   set(PYTHON_CMD python)
   if ( PYTHON_BINDINGS )
