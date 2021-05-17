@@ -10,7 +10,7 @@ jobs:
   documentationjob:
 
     name: Build and Test Documentation
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v2
@@ -22,7 +22,6 @@ jobs:
       run: |
         bash .github/workflows/install_dependencies.sh
         sudo apt-get install doxygen graphviz lcov
-        sudo pip3 install --upgrade pip "pip < 21.0"
         sudo pip3 install --upgrade six>=1.11.0
         sudo pip3 install Markdown==3.2.1
         sudo pip3 install mkdocs
