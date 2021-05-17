@@ -1,4 +1,12 @@
 <map id="generated/include/ad/rss/world/OccupiedRegionVector.hpp" name="generated/include/ad/rss/world/OccupiedRegionVector.hpp">
-<area shape="rect" id="node5" href="$OccupiedRegion_8hpp.html" title="ad/rss/world/OccupiedRegion.hpp" alt="" coords="201,95,432,121"/>
-<area shape="rect" id="node9" href="$LaneSegmentId_8hpp.html" title="ad/rss/world/LaneSegment\lId.hpp" alt="" coords="463,169,655,211"/>
+<area shape="rect" id="node1" title=" " alt="" coords="99,5,362,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,177,85,203"/>
+<area shape="rect" id="node3" title=" " alt="" coords="109,177,184,203"/>
+<area shape="rect" id="node4" title=" " alt="" coords="463,95,526,121"/>
+<area shape="rect" id="node5" href="$OccupiedRegion_8hpp.html" title=" " alt="" coords="201,95,439,121"/>
+<area shape="rect" id="node6" title=" " alt="" coords="685,177,744,203"/>
+<area shape="rect" id="node7" title=" " alt="" coords="768,177,845,203"/>
+<area shape="rect" id="node8" title=" " alt="" coords="208,177,443,203"/>
+<area shape="rect" id="node9" href="$LaneSegmentId_8hpp.html" title=" " alt="" coords="467,169,661,211"/>
+<area shape="rect" id="node10" title=" " alt="" coords="531,259,597,285"/>
 </map>

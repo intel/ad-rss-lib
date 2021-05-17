@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-03-02 15:37:39</td>
+            <td class="headerValue">2021-05-17 10:19:55</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -70,217 +70,217 @@
 <pre class="sourceHeading">           Branch data     Line data    Source code</pre>
 <pre class="source">
 <a name="1"><span class="lineNum">       1 </span>                :            : /*</a>
-<span class="lineNum">       2 </span>                :            :  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
-<span class="lineNum">       3 </span>                :            :  *
-<span class="lineNum">       4 </span>                :            :  * Copyright (C) 2018-2020 Intel Corporation
-<span class="lineNum">       5 </span>                :            :  *
-<span class="lineNum">       6 </span>                :            :  * SPDX-License-Identifier: LGPL-2.1-only
-<span class="lineNum">       7 </span>                :            :  *
-<span class="lineNum">       8 </span>                :            :  * ----------------- END LICENSE BLOCK -----------------------------------
-<span class="lineNum">       9 </span>                :            :  */
-<span class="lineNum">      10 </span>                :            : 
-<span class="lineNum">      11 </span>                :            : /**
-<span class="lineNum">      12 </span>                :            :  * Generated file
-<span class="lineNum">      13 </span>                :            :  * @file
-<span class="lineNum">      14 </span>                :            :  *
-<span class="lineNum">      15 </span>                :            :  * Generator Version : 11.0.0-1997
-<span class="lineNum">      16 </span>                :            :  */
-<span class="lineNum">      17 </span>                :            : 
-<span class="lineNum">      18 </span>                :            : #pragma once
-<span class="lineNum">      19 </span>                :            : 
-<span class="lineNum">      20 </span>                :            : #include &lt;iostream&gt;
-<span class="lineNum">      21 </span>                :            : #include &lt;memory&gt;
-<span class="lineNum">      22 </span>                :            : #include &lt;sstream&gt;
-<span class="lineNum">      23 </span>                :            : #include &quot;ad/rss/state/HeadingRange.hpp&quot;
-<span class="lineNum">      24 </span>                :            : #include &quot;ad/rss/state/UnstructuredSceneResponse.hpp&quot;
-<span class="lineNum">      25 </span>                :            : #include &quot;ad/rss/state/UnstructuredSceneStateInformation.hpp&quot;
-<span class="lineNum">      26 </span>                :            : #include &quot;ad/rss/world/LongitudinalRssAccelerationValues.hpp&quot;
-<span class="lineNum">      27 </span>                :            : /*!
-<span class="lineNum">      28 </span>                :            :  * @brief namespace ad
-<span class="lineNum">      29 </span>                :            :  */
-<span class="lineNum">      30 </span>                :            : namespace ad {
-<span class="lineNum">      31 </span>                :            : /*!
-<span class="lineNum">      32 </span>                :            :  * @brief namespace rss
-<span class="lineNum">      33 </span>                :            :  */
-<span class="lineNum">      34 </span>                :            : namespace rss {
-<span class="lineNum">      35 </span>                :            : /*!
-<span class="lineNum">      36 </span>                :            :  * @brief namespace state
-<span class="lineNum">      37 </span>                :            :  */
-<span class="lineNum">      38 </span>                :            : namespace state {
-<span class="lineNum">      39 </span>                :            : 
-<span class="lineNum">      40 </span>                :            : /*!
+<a name="2"><span class="lineNum">       2 </span>                :            :  * ----------------- BEGIN LICENSE BLOCK ---------------------------------</a>
+<a name="3"><span class="lineNum">       3 </span>                :            :  *</a>
+<a name="4"><span class="lineNum">       4 </span>                :            :  * Copyright (C) 2018-2020 Intel Corporation</a>
+<a name="5"><span class="lineNum">       5 </span>                :            :  *</a>
+<a name="6"><span class="lineNum">       6 </span>                :            :  * SPDX-License-Identifier: LGPL-2.1-only</a>
+<a name="7"><span class="lineNum">       7 </span>                :            :  *</a>
+<a name="8"><span class="lineNum">       8 </span>                :            :  * ----------------- END LICENSE BLOCK -----------------------------------</a>
+<a name="9"><span class="lineNum">       9 </span>                :            :  */</a>
+<a name="10"><span class="lineNum">      10 </span>                :            : </a>
+<a name="11"><span class="lineNum">      11 </span>                :            : /**</a>
+<a name="12"><span class="lineNum">      12 </span>                :            :  * Generated file</a>
+<a name="13"><span class="lineNum">      13 </span>                :            :  * @file</a>
+<a name="14"><span class="lineNum">      14 </span>                :            :  *</a>
+<a name="15"><span class="lineNum">      15 </span>                :            :  * Generator Version : 11.0.0-1997</a>
+<a name="16"><span class="lineNum">      16 </span>                :            :  */</a>
+<a name="17"><span class="lineNum">      17 </span>                :            : </a>
+<a name="18"><span class="lineNum">      18 </span>                :            : #pragma once</a>
+<a name="19"><span class="lineNum">      19 </span>                :            : </a>
+<a name="20"><span class="lineNum">      20 </span>                :            : #include &lt;iostream&gt;</a>
+<a name="21"><span class="lineNum">      21 </span>                :            : #include &lt;memory&gt;</a>
+<a name="22"><span class="lineNum">      22 </span>                :            : #include &lt;sstream&gt;</a>
+<a name="23"><span class="lineNum">      23 </span>                :            : #include &quot;ad/rss/state/HeadingRange.hpp&quot;</a>
+<a name="24"><span class="lineNum">      24 </span>                :            : #include &quot;ad/rss/state/UnstructuredSceneResponse.hpp&quot;</a>
+<a name="25"><span class="lineNum">      25 </span>                :            : #include &quot;ad/rss/state/UnstructuredSceneStateInformation.hpp&quot;</a>
+<a name="26"><span class="lineNum">      26 </span>                :            : #include &quot;ad/rss/world/LongitudinalRssAccelerationValues.hpp&quot;</a>
+<a name="27"><span class="lineNum">      27 </span>                :            : /*!</a>
+<a name="28"><span class="lineNum">      28 </span>                :            :  * @brief namespace ad</a>
+<a name="29"><span class="lineNum">      29 </span>                :            :  */</a>
+<a name="30"><span class="lineNum">      30 </span>                :            : namespace ad {</a>
+<a name="31"><span class="lineNum">      31 </span>                :            : /*!</a>
+<a name="32"><span class="lineNum">      32 </span>                :            :  * @brief namespace rss</a>
+<a name="33"><span class="lineNum">      33 </span>                :            :  */</a>
+<a name="34"><span class="lineNum">      34 </span>                :            : namespace rss {</a>
+<a name="35"><span class="lineNum">      35 </span>                :            : /*!</a>
+<a name="36"><span class="lineNum">      36 </span>                :            :  * @brief namespace state</a>
+<a name="37"><span class="lineNum">      37 </span>                :            :  */</a>
+<a name="38"><span class="lineNum">      38 </span>                :            : namespace state {</a>
+<a name="39"><span class="lineNum">      39 </span>                :            : </a>
+<a name="40"><span class="lineNum">      40 </span>                :            : /*!</a>
 <a name="41"><span class="lineNum">      41 </span>                :            :  * \brief DataType UnstructuredSceneRssState</a>
-<span class="lineNum">      42 </span>                :            :  */
-<span class="lineNum">      43 </span>                :<span class="lineCov">        430 : struct UnstructuredSceneRssState</span>
-<span class="lineNum">      44 </span>                :            : {
-<span class="lineNum">      45 </span>                :            :   /*!
-<span class="lineNum">      46 </span>                :            :    * \brief Smart pointer on UnstructuredSceneRssState
-<span class="lineNum">      47 </span>                :            :    */
-<span class="lineNum">      48 </span>                :            :   typedef std::shared_ptr&lt;UnstructuredSceneRssState&gt; Ptr;
-<span class="lineNum">      49 </span>                :            : 
-<span class="lineNum">      50 </span>                :            :   /*!
-<span class="lineNum">      51 </span>                :            :    * \brief Smart pointer on constant UnstructuredSceneRssState
-<span class="lineNum">      52 </span>                :            :    */
-<span class="lineNum">      53 </span>                :            :   typedef std::shared_ptr&lt;UnstructuredSceneRssState const&gt; ConstPtr;
-<span class="lineNum">      54 </span>                :            : 
-<span class="lineNum">      55 </span>                :            :   /*!
+<a name="42"><span class="lineNum">      42 </span>                :            :  */</a>
+<a name="43"><span class="lineNum">      43 </span>                :<span class="lineCov">        215 : struct UnstructuredSceneRssState</span></a>
+<a name="44"><span class="lineNum">      44 </span>                :            : {</a>
+<a name="45"><span class="lineNum">      45 </span>                :            :   /*!</a>
+<a name="46"><span class="lineNum">      46 </span>                :            :    * \brief Smart pointer on UnstructuredSceneRssState</a>
+<a name="47"><span class="lineNum">      47 </span>                :            :    */</a>
+<a name="48"><span class="lineNum">      48 </span>                :            :   typedef std::shared_ptr&lt;UnstructuredSceneRssState&gt; Ptr;</a>
+<a name="49"><span class="lineNum">      49 </span>                :            : </a>
+<a name="50"><span class="lineNum">      50 </span>                :            :   /*!</a>
+<a name="51"><span class="lineNum">      51 </span>                :            :    * \brief Smart pointer on constant UnstructuredSceneRssState</a>
+<a name="52"><span class="lineNum">      52 </span>                :            :    */</a>
+<a name="53"><span class="lineNum">      53 </span>                :            :   typedef std::shared_ptr&lt;UnstructuredSceneRssState const&gt; ConstPtr;</a>
+<a name="54"><span class="lineNum">      54 </span>                :            : </a>
+<a name="55"><span class="lineNum">      55 </span>                :            :   /*!</a>
 <a name="56"><span class="lineNum">      56 </span>                :            :    * \brief standard constructor</a>
-<span class="lineNum">      57 </span>                :            :    */
-<span class="lineNum">      58 </span>        [<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">     134881 :   UnstructuredSceneRssState() = default;</span>
-<span class="lineNum">      59 </span>                :            : 
-<span class="lineNum">      60 </span>                :            :   /*!
+<a name="57"><span class="lineNum">      57 </span>                :            :    */</a>
+<a name="58"><span class="lineNum">      58 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      67441 :   UnstructuredSceneRssState() = default;</span></a>
+<a name="59"><span class="lineNum">      59 </span>                :            : </a>
+<a name="60"><span class="lineNum">      60 </span>                :            :   /*!</a>
 <a name="61"><span class="lineNum">      61 </span>                :            :    * \brief standard destructor</a>
-<span class="lineNum">      62 </span>                :            :    */
-<span class="lineNum">      63 </span>                :<span class="lineCov">     388194 :   ~UnstructuredSceneRssState() = default;</span>
-<span class="lineNum">      64 </span>                :            : 
-<span class="lineNum">      65 </span>                :            :   /*!
+<a name="62"><span class="lineNum">      62 </span>                :            :    */</a>
+<a name="63"><span class="lineNum">      63 </span>                :<span class="lineCov">     194097 :   ~UnstructuredSceneRssState() = default;</span></a>
+<a name="64"><span class="lineNum">      64 </span>                :            : </a>
+<a name="65"><span class="lineNum">      65 </span>                :            :   /*!</a>
 <a name="66"><span class="lineNum">      66 </span>                :            :    * \brief standard copy constructor</a>
-<span class="lineNum">      67 </span>                :            :    */
-<span class="lineNum">      68 </span>                :<span class="lineCov">     116334 :   UnstructuredSceneRssState(const UnstructuredSceneRssState &amp;other) = default;</span>
-<span class="lineNum">      69 </span>                :            : 
-<span class="lineNum">      70 </span>                :            :   /*!
+<a name="67"><span class="lineNum">      67 </span>                :            :    */</a>
+<a name="68"><span class="lineNum">      68 </span>                :<span class="lineCov">      58167 :   UnstructuredSceneRssState(const UnstructuredSceneRssState &amp;other) = default;</span></a>
+<a name="69"><span class="lineNum">      69 </span>                :            : </a>
+<a name="70"><span class="lineNum">      70 </span>                :            :   /*!</a>
 <a name="71"><span class="lineNum">      71 </span>                :            :    * \brief standard move constructor</a>
-<span class="lineNum">      72 </span>                :            :    */
-<span class="lineNum">      73 </span>                :<span class="lineCov">     136982 :   UnstructuredSceneRssState(UnstructuredSceneRssState &amp;&amp;other) = default;</span>
-<span class="lineNum">      74 </span>                :            : 
-<span class="lineNum">      75 </span>                :            :   /**
-<span class="lineNum">      76 </span>                :            :    * \brief standard assignment operator
-<span class="lineNum">      77 </span>                :            :    *
-<span class="lineNum">      78 </span>                :            :    * \param[in] other Other UnstructuredSceneRssState
-<span class="lineNum">      79 </span>                :            :    *
-<span class="lineNum">      80 </span>                :            :    * \returns Reference to this UnstructuredSceneRssState.
-<span class="lineNum">      81 </span>                :            :    */
-<span class="lineNum">      82 </span>                :            :   UnstructuredSceneRssState &amp;operator=(const UnstructuredSceneRssState &amp;other) = default;
-<span class="lineNum">      83 </span>                :            : 
-<span class="lineNum">      84 </span>                :            :   /**
-<span class="lineNum">      85 </span>                :            :    * \brief standard move operator
-<span class="lineNum">      86 </span>                :            :    *
-<span class="lineNum">      87 </span>                :            :    * \param[in] other Other UnstructuredSceneRssState
-<span class="lineNum">      88 </span>                :            :    *
-<span class="lineNum">      89 </span>                :            :    * \returns Reference to this UnstructuredSceneRssState.
-<span class="lineNum">      90 </span>                :            :    */
-<span class="lineNum">      91 </span>                :            :   UnstructuredSceneRssState &amp;operator=(UnstructuredSceneRssState &amp;&amp;other) = default;
-<span class="lineNum">      92 </span>                :            : 
-<span class="lineNum">      93 </span>                :            :   /**
-<span class="lineNum">      94 </span>                :            :    * \brief standard comparison operator
-<span class="lineNum">      95 </span>                :            :    *
-<span class="lineNum">      96 </span>                :            :    * \param[in] other Other UnstructuredSceneRssState
-<span class="lineNum">      97 </span>                :            :    *
+<a name="72"><span class="lineNum">      72 </span>                :            :    */</a>
+<a name="73"><span class="lineNum">      73 </span>                :<span class="lineCov">      68491 :   UnstructuredSceneRssState(UnstructuredSceneRssState &amp;&amp;other) = default;</span></a>
+<a name="74"><span class="lineNum">      74 </span>                :            : </a>
+<a name="75"><span class="lineNum">      75 </span>                :            :   /**</a>
+<a name="76"><span class="lineNum">      76 </span>                :            :    * \brief standard assignment operator</a>
+<a name="77"><span class="lineNum">      77 </span>                :            :    *</a>
+<a name="78"><span class="lineNum">      78 </span>                :            :    * \param[in] other Other UnstructuredSceneRssState</a>
+<a name="79"><span class="lineNum">      79 </span>                :            :    *</a>
+<a name="80"><span class="lineNum">      80 </span>                :            :    * \returns Reference to this UnstructuredSceneRssState.</a>
+<a name="81"><span class="lineNum">      81 </span>                :            :    */</a>
+<a name="82"><span class="lineNum">      82 </span>                :            :   UnstructuredSceneRssState &amp;operator=(const UnstructuredSceneRssState &amp;other) = default;</a>
+<a name="83"><span class="lineNum">      83 </span>                :            : </a>
+<a name="84"><span class="lineNum">      84 </span>                :            :   /**</a>
+<a name="85"><span class="lineNum">      85 </span>                :            :    * \brief standard move operator</a>
+<a name="86"><span class="lineNum">      86 </span>                :            :    *</a>
+<a name="87"><span class="lineNum">      87 </span>                :            :    * \param[in] other Other UnstructuredSceneRssState</a>
+<a name="88"><span class="lineNum">      88 </span>                :            :    *</a>
+<a name="89"><span class="lineNum">      89 </span>                :            :    * \returns Reference to this UnstructuredSceneRssState.</a>
+<a name="90"><span class="lineNum">      90 </span>                :            :    */</a>
+<a name="91"><span class="lineNum">      91 </span>                :            :   UnstructuredSceneRssState &amp;operator=(UnstructuredSceneRssState &amp;&amp;other) = default;</a>
+<a name="92"><span class="lineNum">      92 </span>                :            : </a>
+<a name="93"><span class="lineNum">      93 </span>                :            :   /**</a>
+<a name="94"><span class="lineNum">      94 </span>                :            :    * \brief standard comparison operator</a>
+<a name="95"><span class="lineNum">      95 </span>                :            :    *</a>
+<a name="96"><span class="lineNum">      96 </span>                :            :    * \param[in] other Other UnstructuredSceneRssState</a>
+<a name="97"><span class="lineNum">      97 </span>                :            :    *</a>
 <a name="98"><span class="lineNum">      98 </span>                :            :    * \returns \c true if both UnstructuredSceneRssState are equal</a>
-<span class="lineNum">      99 </span>                :            :    */
-<span class="lineNum">     100 </span>                :<span class="lineCov">         34 :   bool operator==(const UnstructuredSceneRssState &amp;other) const</span>
-<span class="lineNum">     101 </span>                :            :   {
-<span class="lineNum">     102 </span>[<span class="branchCov" title="Branch 0 was taken 28 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 26 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">         30 :     return (isSafe == other.isSafe) &amp;&amp; (response == other.response) &amp;&amp; (headingRange == other.headingRange)</span>
-<span class="lineNum">     103 </span>[<span class="branchCov" title="Branch 0 was taken 30 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 24 times"> + </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span>]:<span class="lineCov">         64 :       &amp;&amp; (rssStateInformation == other.rssStateInformation) &amp;&amp; (alphaLon == other.alphaLon);</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 22 times"> + </span><span class="branchCov" title="Branch 7 was taken 2 times"> + </span>]
-<span class="lineNum">     104 </span>                :            :   }
-<span class="lineNum">     105 </span>                :            : 
-<span class="lineNum">     106 </span>                :            :   /**
-<span class="lineNum">     107 </span>                :            :    * \brief standard comparison operator
-<span class="lineNum">     108 </span>                :            :    *
-<span class="lineNum">     109 </span>                :            :    * \param[in] other Other UnstructuredSceneRssState.
-<span class="lineNum">     110 </span>                :            :    *
+<a name="99"><span class="lineNum">      99 </span>                :            :    */</a>
+<a name="100"><span class="lineNum">     100 </span>                :<span class="lineCov">         34 :   bool operator==(const UnstructuredSceneRssState &amp;other) const</span></a>
+<a name="101"><span class="lineNum">     101 </span>                :            :   {</a>
+<a name="102"><span class="lineNum">     102 </span>  [<span class="branchCov" title="Branch 0 was taken 28 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchCov" title="Branch 2 was taken 26 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">         30 :     return (isSafe == other.isSafe) &amp;&amp; (response == other.response) &amp;&amp; (headingRange == other.headingRange)</span></a>
+<a name="103"><span class="lineNum">     103 </span>  [<span class="branchCov" title="Branch 0 was taken 30 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchCov" title="Branch 2 was taken 24 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span> :<span class="lineCov">         64 :       &amp;&amp; (rssStateInformation == other.rssStateInformation) &amp;&amp; (alphaLon == other.alphaLon);</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 22 times"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>]
+<a name="104"><span class="lineNum">     104 </span>                :            :   }</a>
+<a name="105"><span class="lineNum">     105 </span>                :            : </a>
+<a name="106"><span class="lineNum">     106 </span>                :            :   /**</a>
+<a name="107"><span class="lineNum">     107 </span>                :            :    * \brief standard comparison operator</a>
+<a name="108"><span class="lineNum">     108 </span>                :            :    *</a>
+<a name="109"><span class="lineNum">     109 </span>                :            :    * \param[in] other Other UnstructuredSceneRssState.</a>
+<a name="110"><span class="lineNum">     110 </span>                :            :    *</a>
 <a name="111"><span class="lineNum">     111 </span>                :            :    * \returns \c true if both UnstructuredSceneRssState are different</a>
-<span class="lineNum">     112 </span>                :            :    */
-<span class="lineNum">     113 </span>                :<span class="lineCov">          6 :   bool operator!=(const UnstructuredSceneRssState &amp;other) const</span>
-<span class="lineNum">     114 </span>                :            :   {
-<span class="lineNum">     115 </span>                :<span class="lineCov">          6 :     return !operator==(other);</span>
-<span class="lineNum">     116 </span>                :            :   }
-<span class="lineNum">     117 </span>                :            : 
-<span class="lineNum">     118 </span>                :            :   /*!
-<span class="lineNum">     119 </span>                :            :    * Determines if the unstructured scene is safe.
-<span class="lineNum">     120 </span>                :            :    */
-<span class="lineNum">     121 </span>                :            :   bool isSafe;
-<span class="lineNum">     122 </span>                :            : 
-<span class="lineNum">     123 </span>                :            :   /*!
-<span class="lineNum">     124 </span>                :            :    * The response resulting from an unstructured scene constellation.
-<span class="lineNum">     125 </span>                :            :    */
-<span class="lineNum">     126 </span>                :            :   ::ad::rss::state::UnstructuredSceneResponse response;
-<span class="lineNum">     127 </span>                :            : 
-<span class="lineNum">     128 </span>                :            :   /*!
-<span class="lineNum">     129 </span>                :            :    * The allowed heading range resulting from a unstructured scene drive away response.
-<span class="lineNum">     130 </span>                :            :    */
-<span class="lineNum">     131 </span>                :            :   ::ad::rss::state::HeadingRange headingRange;
-<span class="lineNum">     132 </span>                :            : 
-<span class="lineNum">     133 </span>                :            :   /*!
-<span class="lineNum">     134 </span>                :            :    * Additional information on the creation of the RSS state.
-<span class="lineNum">     135 </span>                :            :    */
-<span class="lineNum">     136 </span>                :            :   ::ad::rss::state::UnstructuredSceneStateInformation rssStateInformation;
-<span class="lineNum">     137 </span>                :            : 
-<span class="lineNum">     138 </span>                :            :   /*!
-<span class="lineNum">     139 </span>                :            :    * RSS dynamics values along longitudinal coordinate system axis.
-<span class="lineNum">     140 </span>                :            :    */
-<span class="lineNum">     141 </span>                :            :   ::ad::rss::world::LongitudinalRssAccelerationValues alphaLon;
-<span class="lineNum">     142 </span>                :            : };
-<span class="lineNum">     143 </span>                :            : 
-<span class="lineNum">     144 </span>                :            : } // namespace state
-<span class="lineNum">     145 </span>                :            : } // namespace rss
-<span class="lineNum">     146 </span>                :            : } // namespace ad
-<span class="lineNum">     147 </span>                :            : 
-<span class="lineNum">     148 </span>                :            : /*!
-<span class="lineNum">     149 </span>                :            :  * \brief protect the definition of functions from duplicates by typedef usage within other data types
-<span class="lineNum">     150 </span>                :            :  */
-<span class="lineNum">     151 </span>                :            : #ifndef GEN_GUARD_AD_RSS_STATE_UNSTRUCTUREDSCENERSSSTATE
-<span class="lineNum">     152 </span>                :            : #define GEN_GUARD_AD_RSS_STATE_UNSTRUCTUREDSCENERSSSTATE
-<span class="lineNum">     153 </span>                :            : /*!
-<span class="lineNum">     154 </span>                :            :  * @brief namespace ad
-<span class="lineNum">     155 </span>                :            :  */
-<span class="lineNum">     156 </span>                :            : namespace ad {
-<span class="lineNum">     157 </span>                :            : /*!
-<span class="lineNum">     158 </span>                :            :  * @brief namespace rss
-<span class="lineNum">     159 </span>                :            :  */
-<span class="lineNum">     160 </span>                :            : namespace rss {
-<span class="lineNum">     161 </span>                :            : /*!
-<span class="lineNum">     162 </span>                :            :  * @brief namespace state
-<span class="lineNum">     163 </span>                :            :  */
-<span class="lineNum">     164 </span>                :            : namespace state {
-<span class="lineNum">     165 </span>                :            : 
-<span class="lineNum">     166 </span>                :            : /**
-<span class="lineNum">     167 </span>                :            :  * \brief standard ostream operator
-<span class="lineNum">     168 </span>                :            :  *
-<span class="lineNum">     169 </span>                :            :  * \param[in] os The output stream to write to
-<span class="lineNum">     170 </span>                :            :  * \param[in] _value UnstructuredSceneRssState value
-<span class="lineNum">     171 </span>                :            :  *
-<span class="lineNum">     172 </span>                :            :  * \returns The stream object.
+<a name="112"><span class="lineNum">     112 </span>                :            :    */</a>
+<a name="113"><span class="lineNum">     113 </span>                :<span class="lineCov">          6 :   bool operator!=(const UnstructuredSceneRssState &amp;other) const</span></a>
+<a name="114"><span class="lineNum">     114 </span>                :            :   {</a>
+<a name="115"><span class="lineNum">     115 </span>                :<span class="lineCov">          6 :     return !operator==(other);</span></a>
+<a name="116"><span class="lineNum">     116 </span>                :            :   }</a>
+<a name="117"><span class="lineNum">     117 </span>                :            : </a>
+<a name="118"><span class="lineNum">     118 </span>                :            :   /*!</a>
+<a name="119"><span class="lineNum">     119 </span>                :            :    * Determines if the unstructured scene is safe.</a>
+<a name="120"><span class="lineNum">     120 </span>                :            :    */</a>
+<a name="121"><span class="lineNum">     121 </span>                :            :   bool isSafe;</a>
+<a name="122"><span class="lineNum">     122 </span>                :            : </a>
+<a name="123"><span class="lineNum">     123 </span>                :            :   /*!</a>
+<a name="124"><span class="lineNum">     124 </span>                :            :    * The response resulting from an unstructured scene constellation.</a>
+<a name="125"><span class="lineNum">     125 </span>                :            :    */</a>
+<a name="126"><span class="lineNum">     126 </span>                :            :   ::ad::rss::state::UnstructuredSceneResponse response;</a>
+<a name="127"><span class="lineNum">     127 </span>                :            : </a>
+<a name="128"><span class="lineNum">     128 </span>                :            :   /*!</a>
+<a name="129"><span class="lineNum">     129 </span>                :            :    * The allowed heading range resulting from a unstructured scene drive away response.</a>
+<a name="130"><span class="lineNum">     130 </span>                :            :    */</a>
+<a name="131"><span class="lineNum">     131 </span>                :            :   ::ad::rss::state::HeadingRange headingRange;</a>
+<a name="132"><span class="lineNum">     132 </span>                :            : </a>
+<a name="133"><span class="lineNum">     133 </span>                :            :   /*!</a>
+<a name="134"><span class="lineNum">     134 </span>                :            :    * Additional information on the creation of the RSS state.</a>
+<a name="135"><span class="lineNum">     135 </span>                :            :    */</a>
+<a name="136"><span class="lineNum">     136 </span>                :            :   ::ad::rss::state::UnstructuredSceneStateInformation rssStateInformation;</a>
+<a name="137"><span class="lineNum">     137 </span>                :            : </a>
+<a name="138"><span class="lineNum">     138 </span>                :            :   /*!</a>
+<a name="139"><span class="lineNum">     139 </span>                :            :    * RSS dynamics values along longitudinal coordinate system axis.</a>
+<a name="140"><span class="lineNum">     140 </span>                :            :    */</a>
+<a name="141"><span class="lineNum">     141 </span>                :            :   ::ad::rss::world::LongitudinalRssAccelerationValues alphaLon;</a>
+<a name="142"><span class="lineNum">     142 </span>                :            : };</a>
+<a name="143"><span class="lineNum">     143 </span>                :            : </a>
+<a name="144"><span class="lineNum">     144 </span>                :            : } // namespace state</a>
+<a name="145"><span class="lineNum">     145 </span>                :            : } // namespace rss</a>
+<a name="146"><span class="lineNum">     146 </span>                :            : } // namespace ad</a>
+<a name="147"><span class="lineNum">     147 </span>                :            : </a>
+<a name="148"><span class="lineNum">     148 </span>                :            : /*!</a>
+<a name="149"><span class="lineNum">     149 </span>                :            :  * \brief protect the definition of functions from duplicates by typedef usage within other data types</a>
+<a name="150"><span class="lineNum">     150 </span>                :            :  */</a>
+<a name="151"><span class="lineNum">     151 </span>                :            : #ifndef GEN_GUARD_AD_RSS_STATE_UNSTRUCTUREDSCENERSSSTATE</a>
+<a name="152"><span class="lineNum">     152 </span>                :            : #define GEN_GUARD_AD_RSS_STATE_UNSTRUCTUREDSCENERSSSTATE</a>
+<a name="153"><span class="lineNum">     153 </span>                :            : /*!</a>
+<a name="154"><span class="lineNum">     154 </span>                :            :  * @brief namespace ad</a>
+<a name="155"><span class="lineNum">     155 </span>                :            :  */</a>
+<a name="156"><span class="lineNum">     156 </span>                :            : namespace ad {</a>
+<a name="157"><span class="lineNum">     157 </span>                :            : /*!</a>
+<a name="158"><span class="lineNum">     158 </span>                :            :  * @brief namespace rss</a>
+<a name="159"><span class="lineNum">     159 </span>                :            :  */</a>
+<a name="160"><span class="lineNum">     160 </span>                :            : namespace rss {</a>
+<a name="161"><span class="lineNum">     161 </span>                :            : /*!</a>
+<a name="162"><span class="lineNum">     162 </span>                :            :  * @brief namespace state</a>
+<a name="163"><span class="lineNum">     163 </span>                :            :  */</a>
+<a name="164"><span class="lineNum">     164 </span>                :            : namespace state {</a>
+<a name="165"><span class="lineNum">     165 </span>                :            : </a>
+<a name="166"><span class="lineNum">     166 </span>                :            : /**</a>
+<a name="167"><span class="lineNum">     167 </span>                :            :  * \brief standard ostream operator</a>
+<a name="168"><span class="lineNum">     168 </span>                :            :  *</a>
+<a name="169"><span class="lineNum">     169 </span>                :            :  * \param[in] os The output stream to write to</a>
+<a name="170"><span class="lineNum">     170 </span>                :            :  * \param[in] _value UnstructuredSceneRssState value</a>
+<a name="171"><span class="lineNum">     171 </span>                :            :  *</a>
+<a name="172"><span class="lineNum">     172 </span>                :            :  * \returns The stream object.</a>
 <a name="173"><span class="lineNum">     173 </span>                :            :  *</a>
-<span class="lineNum">     174 </span>                :            :  */
-<span class="lineNum">     175 </span>                :<span class="lineCov">    1015722 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, UnstructuredSceneRssState const &amp;_value)</span>
-<span class="lineNum">     176 </span>                :            : {
-<span class="lineNum">     177 </span>                :<span class="lineCov">    1015722 :   os &lt;&lt; &quot;UnstructuredSceneRssState(&quot;;</span>
-<span class="lineNum">     178 </span>                :<span class="lineCov">    1015722 :   os &lt;&lt; &quot;isSafe:&quot;;</span>
-<span class="lineNum">     179 </span>                :<span class="lineCov">    1015722 :   os &lt;&lt; _value.isSafe;</span>
-<span class="lineNum">     180 </span>                :<span class="lineCov">    1015722 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     181 </span>                :<span class="lineCov">    1015722 :   os &lt;&lt; &quot;response:&quot;;</span>
-<span class="lineNum">     182 </span>                :<span class="lineCov">    1015722 :   os &lt;&lt; _value.response;</span>
-<span class="lineNum">     183 </span>                :<span class="lineCov">    1015722 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     184 </span>                :<span class="lineCov">    1015722 :   os &lt;&lt; &quot;headingRange:&quot;;</span>
-<span class="lineNum">     185 </span>                :<span class="lineCov">    1015722 :   os &lt;&lt; _value.headingRange;</span>
-<span class="lineNum">     186 </span>                :<span class="lineCov">    1015722 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     187 </span>                :<span class="lineCov">    1015722 :   os &lt;&lt; &quot;rssStateInformation:&quot;;</span>
-<span class="lineNum">     188 </span>                :<span class="lineCov">    1015722 :   os &lt;&lt; _value.rssStateInformation;</span>
-<span class="lineNum">     189 </span>                :<span class="lineCov">    1015722 :   os &lt;&lt; &quot;,&quot;;</span>
-<span class="lineNum">     190 </span>                :<span class="lineCov">    1015722 :   os &lt;&lt; &quot;alphaLon:&quot;;</span>
-<span class="lineNum">     191 </span>                :<span class="lineCov">    1015722 :   os &lt;&lt; _value.alphaLon;</span>
-<span class="lineNum">     192 </span>                :<span class="lineCov">    1015722 :   os &lt;&lt; &quot;)&quot;;</span>
-<span class="lineNum">     193 </span>                :<span class="lineCov">    1015722 :   return os;</span>
-<span class="lineNum">     194 </span>                :            : }
-<span class="lineNum">     195 </span>                :            : 
-<span class="lineNum">     196 </span>                :            : } // namespace state
-<span class="lineNum">     197 </span>                :            : } // namespace rss
-<span class="lineNum">     198 </span>                :            : } // namespace ad
-<span class="lineNum">     199 </span>                :            : 
-<span class="lineNum">     200 </span>                :            : namespace std {
-<span class="lineNum">     201 </span>                :            : /*!
+<a name="174"><span class="lineNum">     174 </span>                :            :  */</a>
+<a name="175"><span class="lineNum">     175 </span>                :<span class="lineCov">    1015720 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, UnstructuredSceneRssState const &amp;_value)</span></a>
+<a name="176"><span class="lineNum">     176 </span>                :            : {</a>
+<a name="177"><span class="lineNum">     177 </span>                :<span class="lineCov">    1015720 :   os &lt;&lt; &quot;UnstructuredSceneRssState(&quot;;</span></a>
+<a name="178"><span class="lineNum">     178 </span>                :<span class="lineCov">    1015720 :   os &lt;&lt; &quot;isSafe:&quot;;</span></a>
+<a name="179"><span class="lineNum">     179 </span>                :<span class="lineCov">    1015720 :   os &lt;&lt; _value.isSafe;</span></a>
+<a name="180"><span class="lineNum">     180 </span>                :<span class="lineCov">    1015720 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="181"><span class="lineNum">     181 </span>                :<span class="lineCov">    1015720 :   os &lt;&lt; &quot;response:&quot;;</span></a>
+<a name="182"><span class="lineNum">     182 </span>                :<span class="lineCov">    1015720 :   os &lt;&lt; _value.response;</span></a>
+<a name="183"><span class="lineNum">     183 </span>                :<span class="lineCov">    1015720 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="184"><span class="lineNum">     184 </span>                :<span class="lineCov">    1015720 :   os &lt;&lt; &quot;headingRange:&quot;;</span></a>
+<a name="185"><span class="lineNum">     185 </span>                :<span class="lineCov">    1015720 :   os &lt;&lt; _value.headingRange;</span></a>
+<a name="186"><span class="lineNum">     186 </span>                :<span class="lineCov">    1015720 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="187"><span class="lineNum">     187 </span>                :<span class="lineCov">    1015720 :   os &lt;&lt; &quot;rssStateInformation:&quot;;</span></a>
+<a name="188"><span class="lineNum">     188 </span>                :<span class="lineCov">    1015720 :   os &lt;&lt; _value.rssStateInformation;</span></a>
+<a name="189"><span class="lineNum">     189 </span>                :<span class="lineCov">    1015720 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="190"><span class="lineNum">     190 </span>                :<span class="lineCov">    1015720 :   os &lt;&lt; &quot;alphaLon:&quot;;</span></a>
+<a name="191"><span class="lineNum">     191 </span>                :<span class="lineCov">    1015720 :   os &lt;&lt; _value.alphaLon;</span></a>
+<a name="192"><span class="lineNum">     192 </span>                :<span class="lineCov">    1015720 :   os &lt;&lt; &quot;)&quot;;</span></a>
+<a name="193"><span class="lineNum">     193 </span>                :<span class="lineCov">    1015720 :   return os;</span></a>
+<a name="194"><span class="lineNum">     194 </span>                :            : }</a>
+<a name="195"><span class="lineNum">     195 </span>                :            : </a>
+<a name="196"><span class="lineNum">     196 </span>                :            : } // namespace state</a>
+<a name="197"><span class="lineNum">     197 </span>                :            : } // namespace rss</a>
+<a name="198"><span class="lineNum">     198 </span>                :            : } // namespace ad</a>
+<a name="199"><span class="lineNum">     199 </span>                :            : </a>
+<a name="200"><span class="lineNum">     200 </span>                :            : namespace std {</a>
+<a name="201"><span class="lineNum">     201 </span>                :            : /*!</a>
 <a name="202"><span class="lineNum">     202 </span>                :            :  * \brief overload of the std::to_string for UnstructuredSceneRssState</a>
-<span class="lineNum">     203 </span>                :            :  */
-<span class="lineNum">     204 </span>                :<span class="lineCov">          1 : inline std::string to_string(::ad::rss::state::UnstructuredSceneRssState const &amp;value)</span>
-<span class="lineNum">     205 </span>                :            : {
-<span class="lineNum">     206 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          2 :   stringstream sstream;</span>
-<span class="lineNum">     207 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :   sstream &lt;&lt; value;</span>
-<span class="lineNum">     208 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          2 :   return sstream.str();</span>
-<span class="lineNum">     209 </span>                :            : }
-<span class="lineNum">     210 </span>                :            : } // namespace std
-<span class="lineNum">     211 </span>                :            : #endif // GEN_GUARD_AD_RSS_STATE_UNSTRUCTUREDSCENERSSSTATE
+<a name="203"><span class="lineNum">     203 </span>                :            :  */</a>
+<a name="204"><span class="lineNum">     204 </span>                :<span class="lineCov">          1 : inline std::string to_string(::ad::rss::state::UnstructuredSceneRssState const &amp;value)</span></a>
+<a name="205"><span class="lineNum">     205 </span>                :            : {</a>
+<a name="206"><span class="lineNum">     206 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   stringstream sstream;</span></a>
+<a name="207"><span class="lineNum">     207 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   sstream &lt;&lt; value;</span></a>
+<a name="208"><span class="lineNum">     208 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   return sstream.str();</span></a>
+<a name="209"><span class="lineNum">     209 </span>                :            : }</a>
+<a name="210"><span class="lineNum">     210 </span>                :            : } // namespace std</a>
+<a name="211"><span class="lineNum">     211 </span>                :            : #endif // GEN_GUARD_AD_RSS_STATE_UNSTRUCTUREDSCENERSSSTATE</a>
 </pre>
       </td>
     </tr>
@@ -289,7 +289,7 @@
 
   <table width="100%" border=0 cellspacing=0 cellpadding=0>
     <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
-    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.12</a></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.14</a></td></tr>
   </table>
   <br>
 

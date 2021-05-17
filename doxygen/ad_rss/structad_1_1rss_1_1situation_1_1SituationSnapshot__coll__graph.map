@@ -1,11 +1,13 @@
 <map id="ad::rss::situation::SituationSnapshot" name="ad::rss::situation::SituationSnapshot">
-<area shape="rect" id="node3" href="$structad_1_1rss_1_1situation_1_1Situation.html" title="DataType Situation. " alt="" coords="1047,79,1175,120"/>
-<area shape="rect" id="node4" href="$structad_1_1rss_1_1situation_1_1RelativePosition.html" title="DataType RelativePosition. " alt="" coords="717,13,847,55"/>
-<area shape="rect" id="node5" href="$structad_1_1rss_1_1situation_1_1VehicleState.html" title="DataType VehicleState. " alt="" coords="718,79,846,120"/>
-<area shape="rect" id="node6" href="$structad_1_1rss_1_1situation_1_1VelocityRange.html" title="DataType VelocityRange. " alt="" coords="427,5,555,47"/>
-<area shape="rect" id="node7" href="$structad_1_1rss_1_1world_1_1ObjectState.html" title="DataType ObjectState. " alt="" coords="396,71,587,98"/>
-<area shape="rect" id="node8" href="$structad_1_1rss_1_1world_1_1RssDynamics.html" title="DataType RssDynamics. " alt="" coords="392,142,591,169"/>
-<area shape="rect" id="node9" href="$structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues. " alt="" coords="15,69,195,111"/>
-<area shape="rect" id="node10" href="$structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues. " alt="" coords="9,135,200,176"/>
-<area shape="rect" id="node11" href="$structad_1_1rss_1_1world_1_1UnstructuredSettings.html" title="DataType UnstructuredSettings. " alt="" coords="5,200,204,241"/>
+<area shape="rect" id="node1" title="DataType SituationSnapshot." alt="" coords="1635,132,1783,173"/>
+<area shape="rect" id="node2" title=" " alt="" coords="1349,95,1517,136"/>
+<area shape="rect" id="node3" href="$structad_1_1rss_1_1situation_1_1Situation.html" title="DataType Situation." alt="" coords="1066,79,1197,120"/>
+<area shape="rect" id="node4" href="$structad_1_1rss_1_1situation_1_1RelativePosition.html" title="DataType RelativePosition." alt="" coords="727,13,863,55"/>
+<area shape="rect" id="node5" href="$structad_1_1rss_1_1situation_1_1VehicleState.html" title="DataType VehicleState." alt="" coords="729,79,860,120"/>
+<area shape="rect" id="node6" href="$structad_1_1rss_1_1situation_1_1VelocityRange.html" title="DataType VelocityRange." alt="" coords="432,5,563,47"/>
+<area shape="rect" id="node7" href="$structad_1_1rss_1_1world_1_1ObjectState.html" title="DataType ObjectState." alt="" coords="401,71,594,98"/>
+<area shape="rect" id="node8" href="$structad_1_1rss_1_1world_1_1RssDynamics.html" title="DataType RssDynamics." alt="" coords="395,141,600,167"/>
+<area shape="rect" id="node9" href="$structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues." alt="" coords="13,68,199,109"/>
+<area shape="rect" id="node10" href="$structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues." alt="" coords="7,133,205,175"/>
+<area shape="rect" id="node11" href="$structad_1_1rss_1_1world_1_1UnstructuredSettings.html" title="DataType UnstructuredSettings." alt="" coords="5,199,207,240"/>
 </map>
