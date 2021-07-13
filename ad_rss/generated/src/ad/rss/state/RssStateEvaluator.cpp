@@ -68,7 +68,7 @@ template <>::ad::rss::state::RssStateEvaluator fromString(std::string const &str
   if (
     str
     == std::string(
-         "::ad::rss::state::RssStateEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane")) // LCOV_EXCL_BR_LINE
+      "::ad::rss::state::RssStateEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane")) // LCOV_EXCL_BR_LINE
   {
     return ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane;
   }
@@ -85,8 +85,9 @@ template <>::ad::rss::state::RssStateEvaluator fromString(std::string const &str
   {
     return ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceOppositeDirection;
   }
-  if (str == std::string(
-               "::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionEgoFront")) // LCOV_EXCL_BR_LINE
+  if (str
+      == std::string(
+        "::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionEgoFront")) // LCOV_EXCL_BR_LINE
   {
     return ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionEgoFront;
   }
@@ -96,7 +97,7 @@ template <>::ad::rss::state::RssStateEvaluator fromString(std::string const &str
   }
   if (str
       == std::string(
-           "::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionOtherInFront")) // LCOV_EXCL_BR_LINE
+        "::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionOtherInFront")) // LCOV_EXCL_BR_LINE
   {
     return ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionOtherInFront;
   }
@@ -112,8 +113,9 @@ template <>::ad::rss::state::RssStateEvaluator fromString(std::string const &str
   {
     return ::ad::rss::state::RssStateEvaluator::LateralDistance;
   }
-  if (str == std::string(
-               "::ad::rss::state::RssStateEvaluator::IntersectionOtherPriorityEgoAbleToStop")) // LCOV_EXCL_BR_LINE
+  if (str
+      == std::string(
+        "::ad::rss::state::RssStateEvaluator::IntersectionOtherPriorityEgoAbleToStop")) // LCOV_EXCL_BR_LINE
   {
     return ::ad::rss::state::RssStateEvaluator::IntersectionOtherPriorityEgoAbleToStop;
   }
@@ -121,8 +123,9 @@ template <>::ad::rss::state::RssStateEvaluator fromString(std::string const &str
   {
     return ::ad::rss::state::RssStateEvaluator::IntersectionOtherPriorityEgoAbleToStop;
   }
-  if (str == std::string(
-               "::ad::rss::state::RssStateEvaluator::IntersectionEgoPriorityOtherAbleToStop")) // LCOV_EXCL_BR_LINE
+  if (str
+      == std::string(
+        "::ad::rss::state::RssStateEvaluator::IntersectionEgoPriorityOtherAbleToStop")) // LCOV_EXCL_BR_LINE
   {
     return ::ad::rss::state::RssStateEvaluator::IntersectionEgoPriorityOtherAbleToStop;
   }

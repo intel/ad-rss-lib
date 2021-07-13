@@ -31,7 +31,7 @@ TEST(RssFormulaTestsCalculateSafeLateralDistance, same_lateral_speed)
 {
   Distance safeDistance(0.);
 
-  std::vector<double> expectedSafeDistance = {1., 1.09, 1.09, 2.8, 2.8};
+  std::vector<double> expectedSafeDistance = {1.1, 1.19, 1.19, 2.9, 2.9};
   uint32_t expectedSafeDistanceIndex = 0u;
   for (auto lateralSpeed : {0., 1., -1., 5., -5.})
   {
@@ -52,8 +52,8 @@ TEST(RssFormulaTestsCalculateSafeLateralDistance, one_zero_lateral_speed)
 {
   Distance safeDistance(0.);
 
-  std::vector<double> expectedSafeDistanceLeft = {1.74, 0.35, 5.67, 0.};
-  std::vector<double> expectedSafeDistanceRight = {0.35, 1.74, 0., 5.67};
+  std::vector<double> expectedSafeDistanceLeft = {1.84, 0.45, 5.77, 0.};
+  std::vector<double> expectedSafeDistanceRight = {0.45, 1.84, 0., 5.77};
   uint32_t expectedSafeDistanceIndex = 0u;
   for (auto lateralSpeed : {1., -1., 5., -5.})
   {
@@ -65,6 +65,34 @@ TEST(RssFormulaTestsCalculateSafeLateralDistance, one_zero_lateral_speed)
 
     ASSERT_TRUE(calculateSafeLateralDistance(rightVehicle, leftVehicle, safeDistance));
     ASSERT_NEAR(static_cast<double>(safeDistance), expectedSafeDistanceRight[expectedSafeDistanceIndex], 0.01);
+
+    expectedSafeDistanceIndex++;
+  }
+}
+
+TEST(RssFormulaTestsCalculateSafeLateralDistance, lateral_fluctuation_margin_is_considered)
+{
+  Distance safeDistance(0.);
+
+  std::vector<double> expectedSafeDistance = {1.1, 1.19, 1.19, 2.9, 2.9};
+  uint32_t expectedSafeDistanceIndex = 0u;
+  for (auto lateralSpeed : {0., 1., -1., 5., -5.})
+  {
+    VehicleState leftVehicle = createVehicleStateForLateralMotion(lateralSpeed);
+    VehicleState rightVehicle = createVehicleStateForLateralMotion(lateralSpeed);
+
+    ASSERT_TRUE(calculateSafeLateralDistance(leftVehicle, rightVehicle, safeDistance));
+    ASSERT_NEAR(static_cast<double>(safeDistance), expectedSafeDistance[expectedSafeDistanceIndex], 0.01);
+
+    leftVehicle.dynamics.lateralFluctuationMargin += ad::physics::Distance(0.5);
+
+    ASSERT_TRUE(calculateSafeLateralDistance(rightVehicle, leftVehicle, safeDistance));
+    ASSERT_NEAR(static_cast<double>(safeDistance), expectedSafeDistance[expectedSafeDistanceIndex] + 0.25, 0.01);
+
+    rightVehicle.dynamics.lateralFluctuationMargin += ad::physics::Distance(0.5);
+
+    ASSERT_TRUE(calculateSafeLateralDistance(rightVehicle, leftVehicle, safeDistance));
+    ASSERT_NEAR(static_cast<double>(safeDistance), expectedSafeDistance[expectedSafeDistanceIndex] + 0.5, 0.01);
 
     expectedSafeDistanceIndex++;
   }

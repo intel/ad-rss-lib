@@ -74,8 +74,9 @@ bool calculateLateralDistanceOffsetAfterStatedBrakingPattern(Speed const &curren
   Distance distanceOffsetAfterResponseTime = Distance(0.);
 
   bool result = calculateSpeedInAcceleratedMovement(currentSpeed, acceleration, responseTime, resultingSpeed);
-  result = result && calculateDistanceOffsetInAcceleratedMovement(
-                       currentSpeed, acceleration, responseTime, distanceOffsetAfterResponseTime);
+  result = result
+    && calculateDistanceOffsetInAcceleratedMovement(
+             currentSpeed, acceleration, responseTime, distanceOffsetAfterResponseTime);
 
   Distance distanceToStop = Distance(0.);
   if (std::signbit(static_cast<double>(resultingSpeed)) != std::signbit(static_cast<double>(deceleration)))
@@ -112,9 +113,9 @@ bool calculateSafeLongitudinalDistanceSameDirection(VehicleState const &leadingV
     followingVehicle.dynamics.alphaLon.brakeMin,
     distanceStatedBraking);
   Distance distanceMaxBrake = Distance(0.);
-  result = result && calculateStoppingDistance(leadingVehicle.velocity.speedLon.minimum,
-                                               leadingVehicle.dynamics.alphaLon.brakeMax,
-                                               distanceMaxBrake);
+  result = result
+    && calculateStoppingDistance(
+             leadingVehicle.velocity.speedLon.minimum, leadingVehicle.dynamics.alphaLon.brakeMax, distanceMaxBrake);
 
   if (result)
   {
@@ -256,18 +257,21 @@ bool calculateSafeLateralDistance(VehicleState const &leftVehicle,
     leftVehicle.dynamics.alphaLat.brakeMin,
     distanceOffsetStatedBrakingLeft);
 
-  result = result && calculateLateralDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
-                       rightVehicle.velocity.speedLat.minimum,
-                       rightVehicle.dynamics.responseTime,
-                       -rightVehicle.dynamics.alphaLat.accelMax,
-                       -rightVehicle.dynamics.alphaLat.brakeMin,
-                       distanceOffsetStatedBrakingRight);
+  result = result
+    && calculateLateralDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection
+             rightVehicle.velocity.speedLat.minimum,
+             rightVehicle.dynamics.responseTime,
+             -rightVehicle.dynamics.alphaLat.accelMax,
+             -rightVehicle.dynamics.alphaLat.brakeMin,
+             distanceOffsetStatedBrakingRight);
 
   if (result)
   {
     // safe distance is the difference of both distances
-    // Note: The fluctuation margin is already considered in the vehicle bounding boxes
     safeDistance = distanceOffsetStatedBrakingLeft - distanceOffsetStatedBrakingRight;
+    //  plus the lateral fluctuation margin: here we use the 0.5*my of both
+    safeDistance
+      += 0.5 * (leftVehicle.dynamics.lateralFluctuationMargin + rightVehicle.dynamics.lateralFluctuationMargin);
     safeDistance = std::max(safeDistance, Distance(0.));
   }
   return result;

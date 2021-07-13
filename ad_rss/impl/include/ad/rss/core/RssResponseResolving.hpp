@@ -57,18 +57,18 @@ public:
 
 private:
   /*!
-  * @brief updateAccelerationRestriction
-  *
-  * Updates the longitudinal accelerationRestriction
-  *
-  * @param[in] state - The unstructured scene state to update the acceleration restrictions with
- *  @param[inout] driveAwayBrakeMin -- the minimal brakeMin of all drive-away states
- *  @param[inout] driveAwayToBrakeTransition -- a transition from drive-Away to Brake happened
- *  @param[inout] response -- the combined RSS response to become RSS safe.
- *  @param[inout] responseHeadingRanges -- the combined RSS response heading ranges (for driving away)
-  * @param[inout] accelerationRange - The combined restrictions on the vehicle acceleration to become RSS safe.
-  *
-  */
+   * @brief updateAccelerationRestriction
+   *
+   * Updates the longitudinal accelerationRestriction
+   *
+   * @param[in] state - The unstructured scene state to update the acceleration restrictions with
+   *  @param[inout] driveAwayBrakeMin -- the minimal brakeMin of all drive-away states
+   *  @param[inout] driveAwayToBrakeTransition -- a transition from drive-Away to Brake happened
+   *  @param[inout] response -- the combined RSS response to become RSS safe.
+   *  @param[inout] responseHeadingRanges -- the combined RSS response heading ranges (for driving away)
+   * @param[inout] accelerationRange - The combined restrictions on the vehicle acceleration to become RSS safe.
+   *
+   */
   void combineState(state::UnstructuredSceneRssState const &state,
                     physics::Acceleration &driveAwayBrakeMin,
                     bool &driveAwayToBrakeTransition,
@@ -77,29 +77,29 @@ private:
                     physics::AccelerationRange &accelerationRange);
 
   /*!
-  * @brief updateAccelerationRestriction
-  *
-  * Updates the longitudinal accelerationRestriction
-  *
-  * @param[in] state - The longitudinal state to update the acceleration restrictions with
- *  @param[inout] response -- the combined RSS response to become RSS safe.
-  * @param[inout] accelerationRange - The combined restrictions on the vehicle acceleration to become RSS safe.
-  *
-  */
+   * @brief updateAccelerationRestriction
+   *
+   * Updates the longitudinal accelerationRestriction
+   *
+   * @param[in] state - The longitudinal state to update the acceleration restrictions with
+   *  @param[inout] response -- the combined RSS response to become RSS safe.
+   * @param[inout] accelerationRange - The combined restrictions on the vehicle acceleration to become RSS safe.
+   *
+   */
   void combineState(state::LongitudinalRssState const &state,
                     state::LongitudinalResponse &response,
                     physics::AccelerationRange &accelerationRange);
 
   /*!
-  * @brief updateAccelerationRestriction
-  *
-  * Updates the lateral accelerationRestrictions
-  *
-  * @param[in] state - The lateral state to update the acceleration restrictions with
-  * @param[inout] response -- the combined RSS response to become RSS safe.
-  * @param[inout] accelerationRange - The restrictions on the vehicle acceleration to become RSS safe.
-  *
-  */
+   * @brief updateAccelerationRestriction
+   *
+   * Updates the lateral accelerationRestrictions
+   *
+   * @param[in] state - The lateral state to update the acceleration restrictions with
+   * @param[inout] response -- the combined RSS response to become RSS safe.
+   * @param[inout] accelerationRange - The restrictions on the vehicle acceleration to become RSS safe.
+   *
+   */
   void combineState(state::LateralRssState const &state,
                     state::LateralResponse &response,
                     physics::AccelerationRange &accelerationRange);

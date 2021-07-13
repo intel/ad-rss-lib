@@ -410,8 +410,9 @@ bool TrajectoryVehicle::calculateContinueForward(situation::VehicleState const &
   // Front
   //-----------
   auto ratioDiffFront = physics::RatioValue(
-    2.0 / (2.0 * vehicleState.dynamics.unstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
-           + 2.0));
+    2.0
+    / (2.0 * vehicleState.dynamics.unstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
+       + 2.0));
   auto front = responseTimeFrontSide;
   // center-front, with no change of the current yaw rate
   auto result = calculateTrajectorySetStepOnCircle(
@@ -442,8 +443,7 @@ bool TrajectoryVehicle::calculateContinueForward(situation::VehicleState const &
   // center-left, with maximum changing of the yaw rate
   front.left.reserve(
     front.left.size()
-    + vehicleState.dynamics.unstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
-    + 1);
+    + vehicleState.dynamics.unstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps + 1);
   for (auto ratioValue = ratioDiffFront; (ratioValue <= physics::RatioValue(1.0)) && result;
        ratioValue += ratioDiffFront)
   {

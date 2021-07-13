@@ -49,26 +49,26 @@ public:
   physics::MetricRange longitudinalDimensions;
 
   /**
-    * @brief range of lateral object position
-    */
+   * @brief range of lateral object position
+   */
   physics::MetricRange lateralDimensions;
 
   /**
-    * @brief flag to indicate if the object is on the positive driving lane
-    */
+   * @brief flag to indicate if the object is on the positive driving lane
+   */
   bool onPositiveLane{false};
 
   /**
-    * @brief flag to indicate if the object is on the negative driving lane
-    */
+   * @brief flag to indicate if the object is on the negative driving lane
+   */
   bool onNegativeLane{false};
 
   /**
-      * @brief range of intersection position
-      *
-      * minimum: minimal distance to intersection entry
-      * maximum: maximum distance to intersection exit
-      */
+   * @brief range of intersection position
+   *
+   * minimum: minimal distance to intersection entry
+   * maximum: maximum distance to intersection exit
+   */
   physics::MetricRange intersectionPosition;
 };
 
