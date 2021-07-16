@@ -29,7 +29,7 @@ namespace rss {
 namespace map {
 
 /**
- *  @brief struct describing the object input data
+ * @brief struct describing the object input data
  */
 struct RssObjectData
 {

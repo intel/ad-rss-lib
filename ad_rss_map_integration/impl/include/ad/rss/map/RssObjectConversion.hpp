@@ -139,10 +139,10 @@ public:
    * for later analysis.
    *  This function can be used to check for an acceptable speed.
    *
-   *  @param[in] acceptableNegativeSpeed a small negative speed value that should be allowed to be mapped to zero
+   * @param[in] acceptableNegativeSpeed a small negative speed value that should be allowed to be mapped to zero
    * without error (default -0.5m/s).
    *
-   *  @returns \c true if the original speed equals the current internal object speed.
+   * @returns \c true if the original speed equals the current internal object speed.
    *  It also returns \c true if the original speed is equal or larger than the provided acceptableNegativeSpeed.
    */
   bool isOriginalSpeedAcceptable(::ad::physics::Speed const acceptableNegativeSpeed = ::ad::physics::Speed(-0.5)) const;
