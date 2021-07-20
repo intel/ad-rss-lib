@@ -164,8 +164,6 @@ class AdRssPythonTest(unittest.TestCase):
         self.assertEqual(1. / 4. * ad.physics.cPI, overlap_ranges[1].begin)
         self.assertEqual(1. / 2. * ad.physics.cPI, overlap_ranges[1].end)
 
-
-
     def test_interface(self):
         """
         Main test part

@@ -38,8 +38,8 @@ TEST(PhysicsUnitTestsTimeToCoverDistance, no_brake_required_zero_acceleration_is
 {
   for (size_t i = 0; i < 10u; ++i)
   {
-    Acceleration acceleration(
-      (static_cast<double>(i) - 5.) * static_cast<double>(std::numeric_limits<Acceleration>::epsilon()) * 0.9);
+    Acceleration acceleration((static_cast<double>(i) - 5.)
+                              * static_cast<double>(std::numeric_limits<Acceleration>::epsilon()) * 0.9);
     Duration requiredTime(0.);
     EXPECT_TRUE(calculateTimeToCoverDistance(
       Speed(2.), cMaxSpeedOnAcceleration, Duration(1.), acceleration, Acceleration(-1.), Distance(1.), requiredTime));

@@ -84,6 +84,7 @@ world::RssDynamics getObjectRssDynamics()
   rssDynamics.alphaLat.accelMax = cMaximumLateralAcceleration;
   rssDynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
 
+  rssDynamics.lateralFluctuationMargin = ad::physics::Distance(0.1);
   rssDynamics.responseTime = cResponseTimeOtherVehicles;
 
   rssDynamics.unstructuredSettings.pedestrianTurningRadius = ad::physics::Distance(2.0);
@@ -118,6 +119,7 @@ world::RssDynamics getEgoRssDynamics()
   rssDynamics.alphaLat.accelMax = cMaximumLateralAcceleration;
   rssDynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
 
+  rssDynamics.lateralFluctuationMargin = ad::physics::Distance(0.1);
   rssDynamics.responseTime = cResponseTimeEgoVehicle;
 
   rssDynamics.unstructuredSettings.pedestrianTurningRadius = ad::physics::Distance(2.0);
@@ -296,7 +298,7 @@ Distance calculateLateralMinSafeDistance(physics::Speed const &leftObjectSpeed,
   {
     dMin += rObjectVelAfterResTime * rObjectVelAfterResTime / (2. * -rightObjectRssDynamics.alphaLat.brakeMin);
   }
-
+  dMin += 0.5 * (rightObjectRssDynamics.lateralFluctuationMargin + leftObjectRssDynamics.lateralFluctuationMargin);
   return std::max(dMin, Distance(0.));
 }
 TestSupport::TestSupport()

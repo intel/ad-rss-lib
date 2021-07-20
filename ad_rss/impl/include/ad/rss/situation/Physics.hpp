@@ -39,7 +39,7 @@ namespace situation {
  * @param[in]  speed           is the current speed
  * @param[in]  acceleration    is the acceleration value to be considered
  * @param[in]  duration        is the (positive) period of time the acceleration is performed
-*  @param[out] distanceOffset  is the distance offset from the current position.
+ * @param[out] distanceOffset  is the distance offset from the current position.
  *
  * @return true on success, false otherwise
  */

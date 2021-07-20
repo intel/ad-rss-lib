@@ -148,6 +148,9 @@ TEST_F(RssCheckLateralEgoLeftTest, Lateral_Velocity_Towards_Each_Other)
   state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
+  // increase lateral speed to enforce unsafe cases
+  worldModel.scenes[0].egoVehicle.velocity.speedLatMax += ad::physics::Speed(0.5);
+  worldModel.scenes[0].object.velocity.speedLatMin -= ad::physics::Speed(0.5);
   for (uint32_t i = 0; i <= 90; i++)
   {
     worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.01 * i);
@@ -156,7 +159,7 @@ TEST_F(RssCheckLateralEgoLeftTest, Lateral_Velocity_Towards_Each_Other)
 
     Distance const dMin = calculateLateralMinSafeDistance(worldModel.scenes[0].egoVehicle.velocity.speedLatMax,
                                                           worldModel.scenes[0].egoVehicleRssDynamics,
-                                                          worldModel.scenes[0].object.velocity.speedLatMax,
+                                                          worldModel.scenes[0].object.velocity.speedLatMin,
                                                           worldModel.scenes[0].objectRssDynamics);
 
     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
@@ -167,7 +170,6 @@ TEST_F(RssCheckLateralEgoLeftTest, Lateral_Velocity_Towards_Each_Other)
     }
     else
     {
-      // TODO: never reached
       testRestrictions(properResponse.accelerationRestrictions,
                        state::LongitudinalResponse::None,
                        state::LateralResponse::None,
@@ -179,8 +181,8 @@ TEST_F(RssCheckLateralEgoLeftTest, Lateral_Velocity_Towards_Each_Other)
 template <class TESTBASE> class RssCheckLateralEgoInTheMiddleTestBase : public TESTBASE
 {
 protected:
-  using TESTBASE::worldModel;
   using TESTBASE::testRestrictions;
+  using TESTBASE::worldModel;
 
   void SetUp() override
   {

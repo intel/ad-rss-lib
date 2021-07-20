@@ -208,8 +208,9 @@ TEST_F(RssSceneCreationTestWithRouteEgoSouth2EastOtherEast2South, e3_o1)
     std::initializer_list<ExpectedResultTuple>{
       // since the other is besides us, we still find the route from within the intersection
       // as it is the shortest one
-      // we get still 2 object predictions
+      // we get still 3 object predictions
       // route length is zero, but consists of 2 segments here
+      std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 2u, 0u, ::ad::physics::Speed(15.2778)),
       std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 2u, 0u, ::ad::physics::Speed(15.2778)),
       std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 2u, 0u, ::ad::physics::Speed(15.2778))});
 }
@@ -323,19 +324,12 @@ TEST_F(RssSceneCreationTestWithoutRouteEgoSouth2EastOtherEast2South, e0_o0)
       // ego-turn-right: all 2 object predictions lead to the opposite direction case
       std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 3u, 0u, ::ad::physics::Speed(100.)),
       std::make_tuple(::ad::rss::situation::SituationType::OppositeDirection, 3u, 0u, ::ad::physics::Speed(100.)),
-      // ego-straight-then-right: object prediction 1
-      // object coming form right has prio
+      // ego-straight: object prediction 1
+      // object coming from right has prio
       std::make_tuple(
         ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 3u, 2u, ::ad::physics::Speed(100.)),
-      // ego-straight-then-right: object prediction 2
-      // object coming form right has prio
-      std::make_tuple(
-        ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 3u, 2u, ::ad::physics::Speed(100.)),
-      // ego-straight-then-straight: object prediction 1
-      // object coming form right has prio
-      std::make_tuple(
-        ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 3u, 2u, ::ad::physics::Speed(100.)),
-      // ego-straight-then-straight: object prediction 2
+      // ego-straight: object prediction 2
+      // object coming from right has prio
       std::make_tuple(
         ::ad::rss::situation::SituationType::IntersectionObjectHasPriority, 3u, 2u, ::ad::physics::Speed(100.))});
 }

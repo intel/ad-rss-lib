@@ -240,6 +240,6 @@ TEST(RssSituationCheckingTestsUnstructuredSceneChecker, calculateState_other_in_
   ASSERT_EQ(rssState.unstructuredSceneState.response, state::UnstructuredSceneResponse::Brake);
 }
 
-} // namespace unstructured
+} // namespace situation
 } // namespace rss
 } // namespace ad

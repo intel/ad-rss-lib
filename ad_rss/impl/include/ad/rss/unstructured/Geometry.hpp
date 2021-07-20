@@ -331,4 +331,4 @@ inline std::string to_string(ad::rss::unstructured::Line value)
   stream << "]";
   return stream.str();
 }
-}
+} // namespace std

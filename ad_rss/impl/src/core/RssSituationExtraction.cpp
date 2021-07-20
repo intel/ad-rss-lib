@@ -435,7 +435,7 @@ bool RssSituationExtraction::mergeSituations(situation::Situation const &otherSi
     || (otherSituation.situationType != mergedSituation.situationType)
     || !mergeVehicleStates(MergeMode::EgoVehicle, otherSituation.egoVehicleState, mergedSituation.egoVehicleState)
     || !mergeVehicleStates(
-         MergeMode::OtherVehicle, otherSituation.otherVehicleState, mergedSituation.otherVehicleState))
+      MergeMode::OtherVehicle, otherSituation.otherVehicleState, mergedSituation.otherVehicleState))
   {
     return false;
   }

@@ -172,8 +172,8 @@ struct TrafficParticipantLocation
 };
 
 /*!
-  * a trajectory
-  */
+ * a trajectory
+ */
 using Trajectory = std::vector<TrajectoryPoint>;
 
 struct TrajectorySetStepVehicleLocation

@@ -189,7 +189,7 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
         longitudinal_distance = rss_situation_snapshot.situations[0].relativePosition.longitudinalDistance
 
         self.assertTrue(rss_proper_response.isSafe)
-        self.assertEqual(longitudinal_distance, ad.physics.Distance(104.413))
+        self.assertEqual(longitudinal_distance, ad.physics.Distance(104.415))
 
         self.world_model.timeIndex += 1
 
