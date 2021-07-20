@@ -31,13 +31,13 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">52</td>
-            <td class="headerCovTableEntry">52</td>
+            <td class="headerCovTableEntry">53</td>
+            <td class="headerCovTableEntry">53</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-05-17 10:19:55</td>
+            <td class="headerValue">2021-07-20 11:02:10</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">16</td>
@@ -117,8 +117,8 @@
 <a name="38"><span class="lineNum">      38 </span>                :            : {</a>
 <a name="39"><span class="lineNum">      39 </span>        [<span class="branchCov" title="Branch 0 was taken 10 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">         11 :   for (size_t i = 0; i &lt; 10u; ++i)</span></a>
 <a name="40"><span class="lineNum">      40 </span>                :            :   {</a>
-<a name="41"><span class="lineNum">      41 </span>                :            :     Acceleration acceleration(</a>
-<a name="42"><span class="lineNum">      42 </span>                :<span class="lineCov">         10 :       (static_cast&lt;double&gt;(i) - 5.) * static_cast&lt;double&gt;(std::numeric_limits&lt;Acceleration&gt;::epsilon()) * 0.9);</span></a>
+<a name="41"><span class="lineNum">      41 </span>                :<span class="lineCov">         10 :     Acceleration acceleration((static_cast&lt;double&gt;(i) - 5.)</span></a>
+<a name="42"><span class="lineNum">      42 </span>                :<span class="lineCov">         10 :                               * static_cast&lt;double&gt;(std::numeric_limits&lt;Acceleration&gt;::epsilon()) * 0.9);</span></a>
 <a name="43"><span class="lineNum">      43 </span>                :<span class="lineCov">         10 :     Duration requiredTime(0.);</span></a>
 <a name="44"><span class="lineNum">      44 </span>  [<span class="branchCov" title="Branch 0 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 10 times"> + </span> :<span class="lineCov">         10 :     EXPECT_TRUE(calculateTimeToCoverDistance(</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 

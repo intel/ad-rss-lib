@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-05-17 10:19:55</td>
+            <td class="headerValue">2021-07-20 11:02:10</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -107,7 +107,7 @@
 <a name="36"><span class="lineNum">      36 </span>                :<span class="lineCov">      11186 : inline bool withinValidInputRange(::ad::rss::state::LateralResponse const &amp;input, bool const logErrors = true)</span></a>
 <a name="37"><span class="lineNum">      37 </span>                :            : {</a>
 <a name="38"><span class="lineNum">      38 </span>                :<span class="lineCov">      11186 :   bool inValidInputRange</span></a>
-<a name="39"><span class="lineNum">      39 </span>  [<span class="branchCov" title="Branch 0 was taken 209 times"> + </span><span class="branchCov" title="Branch 1 was taken 10977 times"> + </span><span class="branchCov" title="Branch 2 was taken 198 times"> + </span><span class="branchCov" title="Branch 3 was taken 11 times"> + </span>]:<span class="lineCov">      11186 :     = (input == ::ad::rss::state::LateralResponse::None) || (input == ::ad::rss::state::LateralResponse::BrakeMin);</span></a>
+<a name="39"><span class="lineNum">      39 </span>  [<span class="branchCov" title="Branch 0 was taken 273 times"> + </span><span class="branchCov" title="Branch 1 was taken 10913 times"> + </span><span class="branchCov" title="Branch 2 was taken 262 times"> + </span><span class="branchCov" title="Branch 3 was taken 11 times"> + </span>]:<span class="lineCov">      11186 :     = (input == ::ad::rss::state::LateralResponse::None) || (input == ::ad::rss::state::LateralResponse::BrakeMin);</span></a>
 <a name="40"><span class="lineNum">      40 </span>  [<span class="branchCov" title="Branch 0 was taken 11 times"> + </span><span class="branchCov" title="Branch 1 was taken 11175 times"> + </span><span class="branchCov" title="Branch 2 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">      11186 :   if (!inValidInputRange &amp;&amp; logErrors)</span></a>
 <a name="41"><span class="lineNum">      41 </span>                :            :   {</a>
 <a name="42"><span class="lineNum">      42 </span>        [<span class="branchCov" title="Branch 0 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         11 :     spdlog::error(&quot;withinValidInputRange(::ad::rss::state::LateralResponse)&gt;&gt; {}, raw value: {} &quot;,</span></a>

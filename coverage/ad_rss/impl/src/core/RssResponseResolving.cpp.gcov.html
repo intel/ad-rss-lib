@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-05-17 10:19:55</td>
+            <td class="headerValue">2021-07-20 11:02:10</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">6</td>
@@ -156,16 +156,16 @@
 <a name="85"><span class="lineNum">      85 </span>                :            : </a>
 <a name="86"><span class="lineNum">      86 </span>        [<span class="branchCov" title="Branch 0 was taken 4569 times"> + </span><span class="branchCov" title="Branch 1 was taken 3866 times"> + </span>]:<span class="lineCov">       8435 :     for (auto const &amp;currentState : currentStateSnapshot.individualResponses)</span></a>
 <a name="87"><span class="lineNum">      87 </span>                :            :     {</a>
-<a name="88"><span class="lineNum">      88 </span>        [<span class="branchCov" title="Branch 0 was taken 1452 times"> + </span><span class="branchCov" title="Branch 1 was taken 3117 times"> + </span>]:<span class="lineCov">       4569 :       if (isDangerous(currentState))</span></a>
+<a name="88"><span class="lineNum">      88 </span>        [<span class="branchCov" title="Branch 0 was taken 1516 times"> + </span><span class="branchCov" title="Branch 1 was taken 3053 times"> + </span>]:<span class="lineCov">       4569 :       if (isDangerous(currentState))</span></a>
 <a name="89"><span class="lineNum">      89 </span>                :            :       {</a>
-<a name="90"><span class="lineNum">      90 </span>                :<span class="lineCov">       1452 :         response.isSafe = false;</span></a>
-<a name="91"><span class="lineNum">      91 </span>        [<span class="branchCov" title="Branch 0 was taken 1452 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1452 :         if (std::find(response.dangerousObjects.begin(), response.dangerousObjects.end(), currentState.objectId)</span></a>
-<a name="92"><span class="lineNum">      92 </span>        [<span class="branchCov" title="Branch 0 was taken 1452 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2904 :             == response.dangerousObjects.end())</span></a>
+<a name="90"><span class="lineNum">      90 </span>                :<span class="lineCov">       1516 :         response.isSafe = false;</span></a>
+<a name="91"><span class="lineNum">      91 </span>        [<span class="branchCov" title="Branch 0 was taken 1516 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1516 :         if (std::find(response.dangerousObjects.begin(), response.dangerousObjects.end(), currentState.objectId)</span></a>
+<a name="92"><span class="lineNum">      92 </span>        [<span class="branchCov" title="Branch 0 was taken 1516 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3032 :             == response.dangerousObjects.end())</span></a>
 <a name="93"><span class="lineNum">      93 </span>                :            :         {</a>
-<a name="94"><span class="lineNum">      94 </span>        [<span class="branchCov" title="Branch 0 was taken 1452 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1452 :           response.dangerousObjects.push_back(currentState.objectId);</span></a>
+<a name="94"><span class="lineNum">      94 </span>        [<span class="branchCov" title="Branch 0 was taken 1516 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1516 :           response.dangerousObjects.push_back(currentState.objectId);</span></a>
 <a name="95"><span class="lineNum">      95 </span>                :            :         }</a>
 <a name="96"><span class="lineNum">      96 </span>                :            : </a>
-<a name="97"><span class="lineNum">      97 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1452 times"> + </span>]:<span class="lineCov">       1452 :         if (currentState.situationType == situation::SituationType::Unstructured)</span></a>
+<a name="97"><span class="lineNum">      97 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1516 times"> + </span>]:<span class="lineCov">       1516 :         if (currentState.situationType == situation::SituationType::Unstructured)</span></a>
 <a name="98"><span class="lineNum">      98 </span>                :            :         {</a>
 <a name="99"><span class="lineNum">      99 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :           spdlog::info(&quot;RssResponseResolving::provideProperResponse&gt;&gt; Unstructured state is dangerous: {}&quot;,</span></a>
 <a name="100"><span class="lineNum">     100 </span>                :            :                        currentState);</a>
@@ -178,22 +178,22 @@
 <a name="107"><span class="lineNum">     107 </span>                :            :         }</a>
 <a name="108"><span class="lineNum">     108 </span>                :            :         else // structured</a>
 <a name="109"><span class="lineNum">     109 </span>                :            :         {</a>
-<a name="110"><span class="lineNum">     110 </span>        [<span class="branchCov" title="Branch 0 was taken 1452 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1452 :           spdlog::info(&quot;RssResponseResolving::provideProperResponse&gt;&gt; Structured state is dangerous: {}&quot;, currentState);</span></a>
+<a name="110"><span class="lineNum">     110 </span>        [<span class="branchCov" title="Branch 0 was taken 1516 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1516 :           spdlog::info(&quot;RssResponseResolving::provideProperResponse&gt;&gt; Structured state is dangerous: {}&quot;, currentState);</span></a>
 <a name="111"><span class="lineNum">     111 </span>                :            : </a>
-<a name="112"><span class="lineNum">     112 </span>                :<span class="lineCov">       1452 :           combineState(currentState.longitudinalState,</span></a>
-<a name="113"><span class="lineNum">     113 </span>                :<span class="lineCov">       1452 :                        response.longitudinalResponse,</span></a>
-<a name="114"><span class="lineNum">     114 </span>        [<span class="branchCov" title="Branch 0 was taken 1452 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1452 :                        response.accelerationRestrictions.longitudinalRange);</span></a>
+<a name="112"><span class="lineNum">     112 </span>                :<span class="lineCov">       1516 :           combineState(currentState.longitudinalState,</span></a>
+<a name="113"><span class="lineNum">     113 </span>                :<span class="lineCov">       1516 :                        response.longitudinalResponse,</span></a>
+<a name="114"><span class="lineNum">     114 </span>        [<span class="branchCov" title="Branch 0 was taken 1516 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1516 :                        response.accelerationRestrictions.longitudinalRange);</span></a>
 <a name="115"><span class="lineNum">     115 </span>                :            : </a>
 <a name="116"><span class="lineNum">     116 </span>                :            :           // we might need to check here if left or right is the dangerous side</a>
 <a name="117"><span class="lineNum">     117 </span>                :            :           // but for the combineLateralResponse will only respect the more severe response</a>
 <a name="118"><span class="lineNum">     118 </span>                :            :           // omitting the check should have the same result</a>
-<a name="119"><span class="lineNum">     119 </span>                :<span class="lineCov">       1452 :           combineState(currentState.lateralStateLeft,</span></a>
-<a name="120"><span class="lineNum">     120 </span>                :<span class="lineCov">       1452 :                        response.lateralResponseLeft,</span></a>
-<a name="121"><span class="lineNum">     121 </span>        [<span class="branchCov" title="Branch 0 was taken 1452 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1452 :                        response.accelerationRestrictions.lateralLeftRange);</span></a>
+<a name="119"><span class="lineNum">     119 </span>                :<span class="lineCov">       1516 :           combineState(currentState.lateralStateLeft,</span></a>
+<a name="120"><span class="lineNum">     120 </span>                :<span class="lineCov">       1516 :                        response.lateralResponseLeft,</span></a>
+<a name="121"><span class="lineNum">     121 </span>        [<span class="branchCov" title="Branch 0 was taken 1516 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1516 :                        response.accelerationRestrictions.lateralLeftRange);</span></a>
 <a name="122"><span class="lineNum">     122 </span>                :            : </a>
-<a name="123"><span class="lineNum">     123 </span>                :<span class="lineCov">       1452 :           combineState(currentState.lateralStateRight,</span></a>
-<a name="124"><span class="lineNum">     124 </span>                :<span class="lineCov">       1452 :                        response.lateralResponseRight,</span></a>
-<a name="125"><span class="lineNum">     125 </span>        [<span class="branchCov" title="Branch 0 was taken 1452 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1452 :                        response.accelerationRestrictions.lateralRightRange);</span></a>
+<a name="123"><span class="lineNum">     123 </span>                :<span class="lineCov">       1516 :           combineState(currentState.lateralStateRight,</span></a>
+<a name="124"><span class="lineNum">     124 </span>                :<span class="lineCov">       1516 :                        response.lateralResponseRight,</span></a>
+<a name="125"><span class="lineNum">     125 </span>        [<span class="branchCov" title="Branch 0 was taken 1516 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1516 :                        response.accelerationRestrictions.lateralRightRange);</span></a>
 <a name="126"><span class="lineNum">     126 </span>                :            :         }</a>
 <a name="127"><span class="lineNum">     127 </span>                :            :       }</a>
 <a name="128"><span class="lineNum">     128 </span>                :            :     }</a>
@@ -233,13 +233,13 @@
 <a name="162"><span class="lineNum">     162 </span>                :            :  *</a>
 <a name="163"><span class="lineNum">     163 </span>                :            :  * @returns the resulting RSS response</a>
 <a name="164"><span class="lineNum">     164 </span>                :            :  */</a>
-<a name="165"><span class="lineNum">     165 </span>                :<span class="lineCov">       4356 : template &lt;typename Response&gt; Response combineResponse(Response const &amp;previousResponse, Response const &amp;newResponse)</span></a>
+<a name="165"><span class="lineNum">     165 </span>                :<span class="lineCov">       4548 : template &lt;typename Response&gt; Response combineResponse(Response const &amp;previousResponse, Response const &amp;newResponse)</span></a>
 <a name="166"><span class="lineNum">     166 </span>                :            : {</a>
-<a name="167"><span class="lineNum">     167 </span>        [<span class="branchCov" title="Branch 0 was taken 1237 times"> + </span><span class="branchCov" title="Branch 1 was taken 3119 times"> + </span>]:<span class="lineCov">       4356 :   if (previousResponse &gt; newResponse)</span></a>
+<a name="167"><span class="lineNum">     167 </span>        [<span class="branchCov" title="Branch 0 was taken 1302 times"> + </span><span class="branchCov" title="Branch 1 was taken 3246 times"> + </span>]:<span class="lineCov">       4548 :   if (previousResponse &gt; newResponse)</span></a>
 <a name="168"><span class="lineNum">     168 </span>                :            :   {</a>
-<a name="169"><span class="lineNum">     169 </span>                :<span class="lineCov">       1237 :     return previousResponse;</span></a>
+<a name="169"><span class="lineNum">     169 </span>                :<span class="lineCov">       1302 :     return previousResponse;</span></a>
 <a name="170"><span class="lineNum">     170 </span>                :            :   }</a>
-<a name="171"><span class="lineNum">     171 </span>                :<span class="lineCov">       3119 :   return newResponse;</span></a>
+<a name="171"><span class="lineNum">     171 </span>                :<span class="lineCov">       3246 :   return newResponse;</span></a>
 <a name="172"><span class="lineNum">     172 </span>                :            : }</a>
 <a name="173"><span class="lineNum">     173 </span>                :            : </a>
 <a name="174"><span class="lineNum">     174 </span>                :<span class="lineNoCov">          0 : void RssResponseResolving::combineState(state::UnstructuredSceneRssState const &amp;state,</span></a>
@@ -282,25 +282,25 @@
 <a name="211"><span class="lineNum">     211 </span>                :            :   // LCOV_EXCL_BR_STOP</a>
 <a name="212"><span class="lineNum">     212 </span>                :<span class="lineNoCov">          0 : }</span></a>
 <a name="213"><span class="lineNum">     213 </span>                :            : </a>
-<a name="214"><span class="lineNum">     214 </span>                :<span class="lineCov">       1452 : void RssResponseResolving::combineState(state::LongitudinalRssState const &amp;state,</span></a>
+<a name="214"><span class="lineNum">     214 </span>                :<span class="lineCov">       1516 : void RssResponseResolving::combineState(state::LongitudinalRssState const &amp;state,</span></a>
 <a name="215"><span class="lineNum">     215 </span>                :            :                                         state::LongitudinalResponse &amp;response,</a>
 <a name="216"><span class="lineNum">     216 </span>                :            :                                         physics::AccelerationRange &amp;accelerationRange)</a>
 <a name="217"><span class="lineNum">     217 </span>                :            : {</a>
-<a name="218"><span class="lineNum">     218 </span>                :<span class="lineCov">       1452 :   response = combineResponse(state.response, response);</span></a>
+<a name="218"><span class="lineNum">     218 </span>                :<span class="lineCov">       1516 :   response = combineResponse(state.response, response);</span></a>
 <a name="219"><span class="lineNum">     219 </span>                :            : </a>
 <a name="220"><span class="lineNum">     220 </span>                :            :   // LCOV_EXCL_BR_START: unreachable exceptions due to valid input range checks</a>
-<a name="221"><span class="lineNum">     221 </span>                :<span class="lineCov">       1452 :   accelerationRange.minimum = std::max(accelerationRange.minimum, state.alphaLon.brakeMax);</span></a>
-<a name="222"><span class="lineNum">     222 </span>                :<span class="lineCov">       1452 :   switch (state.response)</span></a>
+<a name="221"><span class="lineNum">     221 </span>                :<span class="lineCov">       1516 :   accelerationRange.minimum = std::max(accelerationRange.minimum, state.alphaLon.brakeMax);</span></a>
+<a name="222"><span class="lineNum">     222 </span>                :<span class="lineCov">       1516 :   switch (state.response)</span></a>
 <a name="223"><span class="lineNum">     223 </span>                :            :   {</a>
-<a name="224"><span class="lineNum">     224 </span>                :<span class="lineCov">        644 :     case state::LongitudinalResponse::BrakeMin:</span></a>
-<a name="225"><span class="lineNum">     225 </span>                :<span class="lineCov">        644 :       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLon.brakeMin);</span></a>
-<a name="226"><span class="lineNum">     226 </span>                :<span class="lineCov">        644 :       break;</span></a>
+<a name="224"><span class="lineNum">     224 </span>                :<span class="lineCov">        645 :     case state::LongitudinalResponse::BrakeMin:</span></a>
+<a name="225"><span class="lineNum">     225 </span>                :<span class="lineCov">        645 :       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLon.brakeMin);</span></a>
+<a name="226"><span class="lineNum">     226 </span>                :<span class="lineCov">        645 :       break;</span></a>
 <a name="227"><span class="lineNum">     227 </span>                :<span class="lineCov">        399 :     case state::LongitudinalResponse::BrakeMinCorrect:</span></a>
 <a name="228"><span class="lineNum">     228 </span>                :<span class="lineCov">        399 :       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLon.brakeMinCorrect);</span></a>
 <a name="229"><span class="lineNum">     229 </span>                :<span class="lineCov">        399 :       break;</span></a>
-<a name="230"><span class="lineNum">     230 </span>                :<span class="lineCov">        409 :     case state::LongitudinalResponse::None:</span></a>
-<a name="231"><span class="lineNum">     231 </span>                :<span class="lineCov">        409 :       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLon.accelMax);</span></a>
-<a name="232"><span class="lineNum">     232 </span>                :<span class="lineCov">        409 :       break;</span></a>
+<a name="230"><span class="lineNum">     230 </span>                :<span class="lineCov">        472 :     case state::LongitudinalResponse::None:</span></a>
+<a name="231"><span class="lineNum">     231 </span>                :<span class="lineCov">        472 :       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLon.accelMax);</span></a>
+<a name="232"><span class="lineNum">     232 </span>                :<span class="lineCov">        472 :       break;</span></a>
 <a name="233"><span class="lineNum">     233 </span>                :<span class="lineNoCov">          0 :     default:</span></a>
 <a name="234"><span class="lineNum">     234 </span>                :<span class="lineNoCov">          0 :       spdlog::error(&quot;RssResponseTransformation::updateAccelerationRestriction&gt;&gt; Invalid longitudinal response {}&quot;,</span></a>
 <a name="235"><span class="lineNum">     235 </span>                :<span class="lineNoCov">          0 :                     state.response);</span></a>
@@ -308,24 +308,24 @@
 <a name="237"><span class="lineNum">     237 </span>                :<span class="lineNoCov">          0 :       break;</span></a>
 <a name="238"><span class="lineNum">     238 </span>                :            :   }</a>
 <a name="239"><span class="lineNum">     239 </span>                :            :   // LCOV_EXCL_BR_STOP</a>
-<a name="240"><span class="lineNum">     240 </span>                :<span class="lineCov">       1452 : }</span></a>
+<a name="240"><span class="lineNum">     240 </span>                :<span class="lineCov">       1516 : }</span></a>
 <a name="241"><span class="lineNum">     241 </span>                :            : </a>
-<a name="242"><span class="lineNum">     242 </span>                :<span class="lineCov">       2904 : void RssResponseResolving::combineState(state::LateralRssState const &amp;state,</span></a>
+<a name="242"><span class="lineNum">     242 </span>                :<span class="lineCov">       3032 : void RssResponseResolving::combineState(state::LateralRssState const &amp;state,</span></a>
 <a name="243"><span class="lineNum">     243 </span>                :            :                                         state::LateralResponse &amp;response,</a>
 <a name="244"><span class="lineNum">     244 </span>                :            :                                         physics::AccelerationRange &amp;accelerationRange)</a>
 <a name="245"><span class="lineNum">     245 </span>                :            : {</a>
-<a name="246"><span class="lineNum">     246 </span>                :<span class="lineCov">       2904 :   response = combineResponse(state.response, response);</span></a>
+<a name="246"><span class="lineNum">     246 </span>                :<span class="lineCov">       3032 :   response = combineResponse(state.response, response);</span></a>
 <a name="247"><span class="lineNum">     247 </span>                :            : </a>
 <a name="248"><span class="lineNum">     248 </span>                :            :   // LCOV_EXCL_BR_START: unreachable exceptions due to valid input range checks</a>
-<a name="249"><span class="lineNum">     249 </span>                :<span class="lineCov">       2904 :   accelerationRange.minimum = std::numeric_limits&lt;physics::Acceleration&gt;::lowest();</span></a>
-<a name="250"><span class="lineNum">     250 </span>                :<span class="lineCov">       2904 :   switch (state.response)</span></a>
+<a name="249"><span class="lineNum">     249 </span>                :<span class="lineCov">       3032 :   accelerationRange.minimum = std::numeric_limits&lt;physics::Acceleration&gt;::lowest();</span></a>
+<a name="250"><span class="lineNum">     250 </span>                :<span class="lineCov">       3032 :   switch (state.response)</span></a>
 <a name="251"><span class="lineNum">     251 </span>                :            :   {</a>
-<a name="252"><span class="lineNum">     252 </span>                :<span class="lineCov">        194 :     case state::LateralResponse::BrakeMin:</span></a>
-<a name="253"><span class="lineNum">     253 </span>                :<span class="lineCov">        194 :       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLat.brakeMin);</span></a>
-<a name="254"><span class="lineNum">     254 </span>                :<span class="lineCov">        194 :       break;</span></a>
-<a name="255"><span class="lineNum">     255 </span>                :<span class="lineCov">       2710 :     case state::LateralResponse::None:</span></a>
-<a name="256"><span class="lineNum">     256 </span>                :<span class="lineCov">       2710 :       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLat.accelMax);</span></a>
-<a name="257"><span class="lineNum">     257 </span>                :<span class="lineCov">       2710 :       break;</span></a>
+<a name="252"><span class="lineNum">     252 </span>                :<span class="lineCov">        258 :     case state::LateralResponse::BrakeMin:</span></a>
+<a name="253"><span class="lineNum">     253 </span>                :<span class="lineCov">        258 :       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLat.brakeMin);</span></a>
+<a name="254"><span class="lineNum">     254 </span>                :<span class="lineCov">        258 :       break;</span></a>
+<a name="255"><span class="lineNum">     255 </span>                :<span class="lineCov">       2774 :     case state::LateralResponse::None:</span></a>
+<a name="256"><span class="lineNum">     256 </span>                :<span class="lineCov">       2774 :       accelerationRange.maximum = std::min(accelerationRange.maximum, state.alphaLat.accelMax);</span></a>
+<a name="257"><span class="lineNum">     257 </span>                :<span class="lineCov">       2774 :       break;</span></a>
 <a name="258"><span class="lineNum">     258 </span>                :<span class="lineNoCov">          0 :     default:</span></a>
 <a name="259"><span class="lineNum">     259 </span>                :<span class="lineNoCov">          0 :       spdlog::error(&quot;RssResponseTransformation::updateAccelerationRestriction&gt;&gt; Invalid lateral response {}&quot;,</span></a>
 <a name="260"><span class="lineNum">     260 </span>                :<span class="lineNoCov">          0 :                     state.response);</span></a>
@@ -333,7 +333,7 @@
 <a name="262"><span class="lineNum">     262 </span>                :<span class="lineNoCov">          0 :       break;</span></a>
 <a name="263"><span class="lineNum">     263 </span>                :            :   }</a>
 <a name="264"><span class="lineNum">     264 </span>                :            :   // LCOV_EXCL_BR_STOP</a>
-<a name="265"><span class="lineNum">     265 </span>                :<span class="lineCov">       2904 : }</span></a>
+<a name="265"><span class="lineNum">     265 </span>                :<span class="lineCov">       3032 : }</span></a>
 <a name="266"><span class="lineNum">     266 </span>                :            : </a>
 <a name="267"><span class="lineNum">     267 </span>                :            : } // namespace core</a>
 <a name="268"><span class="lineNum">     268 </span>                :            : } // namespace rss</a>

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-05-17 10:19:55</td>
+            <td class="headerValue">2021-07-20 11:02:10</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -107,8 +107,8 @@
 <a name="36"><span class="lineNum">      36 </span>                :<span class="lineCov">       6606 : inline bool withinValidInputRange(::ad::rss::state::LongitudinalResponse const &amp;input, bool const logErrors = true)</span></a>
 <a name="37"><span class="lineNum">      37 </span>                :            : {</a>
 <a name="38"><span class="lineNum">      38 </span>                :<span class="lineCov">      13212 :   bool inValidInputRange = (input == ::ad::rss::state::LongitudinalResponse::None)</span></a>
-<a name="39"><span class="lineNum">      39 </span>        [<span class="branchCov" title="Branch 0 was taken 1654 times"> + </span><span class="branchCov" title="Branch 1 was taken 400 times"> + </span>]:<span class="lineCov">       2054 :     || (input == ::ad::rss::state::LongitudinalResponse::BrakeMinCorrect)</span></a>
-<a name="40"><span class="lineNum">      40 </span>  [<span class="branchCov" title="Branch 0 was taken 2054 times"> + </span><span class="branchCov" title="Branch 1 was taken 4552 times"> + </span><span class="branchCov" title="Branch 2 was taken 646 times"> + </span><span class="branchCov" title="Branch 3 was taken 1008 times"> + </span>]:<span class="lineCov">       8660 :     || (input == ::ad::rss::state::LongitudinalResponse::BrakeMin);</span></a>
+<a name="39"><span class="lineNum">      39 </span>        [<span class="branchCov" title="Branch 0 was taken 1655 times"> + </span><span class="branchCov" title="Branch 1 was taken 400 times"> + </span>]:<span class="lineCov">       2055 :     || (input == ::ad::rss::state::LongitudinalResponse::BrakeMinCorrect)</span></a>
+<a name="40"><span class="lineNum">      40 </span>  [<span class="branchCov" title="Branch 0 was taken 2055 times"> + </span><span class="branchCov" title="Branch 1 was taken 4551 times"> + </span><span class="branchCov" title="Branch 2 was taken 647 times"> + </span><span class="branchCov" title="Branch 3 was taken 1008 times"> + </span>]:<span class="lineCov">       8661 :     || (input == ::ad::rss::state::LongitudinalResponse::BrakeMin);</span></a>
 <a name="41"><span class="lineNum">      41 </span>  [<span class="branchCov" title="Branch 0 was taken 1008 times"> + </span><span class="branchCov" title="Branch 1 was taken 5598 times"> + </span><span class="branchCov" title="Branch 2 was taken 1008 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       6606 :   if (!inValidInputRange &amp;&amp; logErrors)</span></a>
 <a name="42"><span class="lineNum">      42 </span>                :            :   {</a>
 <a name="43"><span class="lineNum">      43 </span>        [<span class="branchCov" title="Branch 0 was taken 1008 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1008 :     spdlog::error(&quot;withinValidInputRange(::ad::rss::state::LongitudinalResponse)&gt;&gt; {}, raw value: {} &quot;,</span></a>

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-05-17 10:20:12</td>
+            <td class="headerValue">2021-07-20 11:02:27</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">3</td>
@@ -135,7 +135,7 @@
 <a name="64"><span class="lineNum">      64 </span>                :            :   /*!</a>
 <a name="65"><span class="lineNum">      65 </span>                :            :    * \brief standard copy constructor</a>
 <a name="66"><span class="lineNum">      66 </span>                :            :    */</a>
-<a name="67"><span class="lineNum">      67 </span>                :<span class="lineCov">        559 :   RssObjectConversion(const RssObjectConversion &amp;other) = default;</span></a>
+<a name="67"><span class="lineNum">      67 </span>                :<span class="lineCov">        555 :   RssObjectConversion(const RssObjectConversion &amp;other) = default;</span></a>
 <a name="68"><span class="lineNum">      68 </span>                :            : </a>
 <a name="69"><span class="lineNum">      69 </span>                :            :   /*!</a>
 <a name="70"><span class="lineNum">      70 </span>                :            :    * \brief standard move constructor</a>
@@ -145,7 +145,7 @@
 <a name="74"><span class="lineNum">      74 </span>                :            :   /*!</a>
 <a name="75"><span class="lineNum">      75 </span>                :            :    * \brief standard destructor</a>
 <a name="76"><span class="lineNum">      76 </span>                :            :    */</a>
-<a name="77"><span class="lineNum">      77 </span>                :<span class="lineCov">        994 :   ~RssObjectConversion() = default;</span></a>
+<a name="77"><span class="lineNum">      77 </span>                :<span class="lineCov">        990 :   ~RssObjectConversion() = default;</span></a>
 <a name="78"><span class="lineNum">      78 </span>                :            : </a>
 <a name="79"><span class="lineNum">      79 </span>                :            :   /*!</a>
 <a name="80"><span class="lineNum">      80 </span>                :            :    * \brief delete standard assignment operator</a>
@@ -210,10 +210,10 @@
 <a name="139"><span class="lineNum">     139 </span>                :            :    * for later analysis.</a>
 <a name="140"><span class="lineNum">     140 </span>                :            :    *  This function can be used to check for an acceptable speed.</a>
 <a name="141"><span class="lineNum">     141 </span>                :            :    *</a>
-<a name="142"><span class="lineNum">     142 </span>                :            :    *  @param[in] acceptableNegativeSpeed a small negative speed value that should be allowed to be mapped to zero</a>
+<a name="142"><span class="lineNum">     142 </span>                :            :    * @param[in] acceptableNegativeSpeed a small negative speed value that should be allowed to be mapped to zero</a>
 <a name="143"><span class="lineNum">     143 </span>                :            :    * without error (default -0.5m/s).</a>
 <a name="144"><span class="lineNum">     144 </span>                :            :    *</a>
-<a name="145"><span class="lineNum">     145 </span>                :            :    *  @returns \c true if the original speed equals the current internal object speed.</a>
+<a name="145"><span class="lineNum">     145 </span>                :            :    * @returns \c true if the original speed equals the current internal object speed.</a>
 <a name="146"><span class="lineNum">     146 </span>                :            :    *  It also returns \c true if the original speed is equal or larger than the provided acceptableNegativeSpeed.</a>
 <a name="147"><span class="lineNum">     147 </span>                :            :    */</a>
 <a name="148"><span class="lineNum">     148 </span>                :            :   bool isOriginalSpeedAcceptable(::ad::physics::Speed const acceptableNegativeSpeed = ::ad::physics::Speed(-0.5)) const;</a>

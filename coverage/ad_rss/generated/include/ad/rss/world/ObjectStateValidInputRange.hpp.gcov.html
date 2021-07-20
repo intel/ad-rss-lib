@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-05-17 10:19:55</td>
+            <td class="headerValue">2021-07-20 11:02:10</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -109,21 +109,21 @@
 <a name="38"><span class="lineNum">      38 </span>                :            :  *</a>
 <a name="39"><span class="lineNum">      39 </span>                :            :  * \note the specified input range is defined by the ranges of all members</a>
 <a name="40"><span class="lineNum">      40 </span>                :            :  */</a>
-<a name="41"><span class="lineNum">      41 </span>                :<span class="lineCov">     245556 : inline bool withinValidInputRange(::ad::rss::world::ObjectState const &amp;input, bool const logErrors = true)</span></a>
+<a name="41"><span class="lineNum">      41 </span>                :<span class="lineCov">     245586 : inline bool withinValidInputRange(::ad::rss::world::ObjectState const &amp;input, bool const logErrors = true)</span></a>
 <a name="42"><span class="lineNum">      42 </span>                :            : {</a>
 <a name="43"><span class="lineNum">      43 </span>                :            :   // check for generic member input ranges</a>
-<a name="44"><span class="lineNum">      44 </span>                :<span class="lineCov">     245556 :   bool inValidInputRange = true;</span></a>
-<a name="45"><span class="lineNum">      45 </span>        [<span class="branchCov" title="Branch 0 was taken 245544 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">     491102 :   inValidInputRange = withinValidInputRange(input.yaw, logErrors) &amp;&amp; withinValidInputRange(input.dimension, logErrors)</span></a>
-<a name="46"><span class="lineNum">      46 </span>  [<span class="branchCov" title="Branch 0 was taken 245542 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchCov" title="Branch 2 was taken 245540 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">     245544 :     &amp;&amp; withinValidInputRange(input.yawRate, logErrors) &amp;&amp; withinValidInputRange(input.centerPoint, logErrors)</span></a>
-<a name="47"><span class="lineNum">      47 </span>  [<span class="branchCov" title="Branch 0 was taken 245546 times"> + </span><span class="branchCov" title="Branch 1 was taken 10 times"> + </span><span class="branchCov" title="Branch 2 was taken 245538 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span> :<span class="lineCov">     491102 :     &amp;&amp; withinValidInputRange(input.speed, logErrors) &amp;&amp; withinValidInputRange(input.steeringAngle, logErrors);</span></a>
-<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 245536 times"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>]
-<a name="48"><span class="lineNum">      48 </span>  [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchCov" title="Branch 1 was taken 245536 times"> + </span><span class="branchCov" title="Branch 2 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     245556 :   if (!inValidInputRange &amp;&amp; logErrors)</span></a>
+<a name="44"><span class="lineNum">      44 </span>                :<span class="lineCov">     245586 :   bool inValidInputRange = true;</span></a>
+<a name="45"><span class="lineNum">      45 </span>        [<span class="branchCov" title="Branch 0 was taken 245574 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">     491162 :   inValidInputRange = withinValidInputRange(input.yaw, logErrors) &amp;&amp; withinValidInputRange(input.dimension, logErrors)</span></a>
+<a name="46"><span class="lineNum">      46 </span>  [<span class="branchCov" title="Branch 0 was taken 245572 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchCov" title="Branch 2 was taken 245570 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">     245574 :     &amp;&amp; withinValidInputRange(input.yawRate, logErrors) &amp;&amp; withinValidInputRange(input.centerPoint, logErrors)</span></a>
+<a name="47"><span class="lineNum">      47 </span>  [<span class="branchCov" title="Branch 0 was taken 245576 times"> + </span><span class="branchCov" title="Branch 1 was taken 10 times"> + </span><span class="branchCov" title="Branch 2 was taken 245568 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span> :<span class="lineCov">     491162 :     &amp;&amp; withinValidInputRange(input.speed, logErrors) &amp;&amp; withinValidInputRange(input.steeringAngle, logErrors);</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 245566 times"> + </span><span class="branchCov" title="Branch 5 was taken 2 times"> + </span>]
+<a name="48"><span class="lineNum">      48 </span>  [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchCov" title="Branch 1 was taken 245566 times"> + </span><span class="branchCov" title="Branch 2 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     245586 :   if (!inValidInputRange &amp;&amp; logErrors)</span></a>
 <a name="49"><span class="lineNum">      49 </span>                :            :   {</a>
 <a name="50"><span class="lineNum">      50 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :     spdlog::error(&quot;withinValidInputRange(::ad::rss::world::ObjectState)&gt;&gt; {} has invalid member&quot;,</span></a>
 <a name="51"><span class="lineNum">      51 </span>                :            :                   input); // LCOV_EXCL_BR_LINE</a>
 <a name="52"><span class="lineNum">      52 </span>                :            :   }</a>
 <a name="53"><span class="lineNum">      53 </span>                :            : </a>
-<a name="54"><span class="lineNum">      54 </span>                :<span class="lineCov">     245556 :   return inValidInputRange;</span></a>
+<a name="54"><span class="lineNum">      54 </span>                :<span class="lineCov">     245586 :   return inValidInputRange;</span></a>
 <a name="55"><span class="lineNum">      55 </span>                :            : }</a>
 </pre>
       </td>

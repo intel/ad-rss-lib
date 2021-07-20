@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-05-17 10:19:55</td>
+            <td class="headerValue">2021-07-20 11:02:10</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -489,48 +489,48 @@
 <a name="410"><span class="lineNum">     410 </span>                :            :   // Front</a>
 <a name="411"><span class="lineNum">     411 </span>                :            :   //-----------</a>
 <a name="412"><span class="lineNum">     412 </span>                :            :   auto ratioDiffFront = physics::RatioValue(</a>
-<a name="413"><span class="lineNum">     413 </span>                :<span class="lineCov">         20 :     2.0 / (2.0 * vehicleState.dynamics.unstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps</span></a>
-<a name="414"><span class="lineNum">     414 </span>                :<span class="lineCov">         20 :            + 2.0));</span></a>
-<a name="415"><span class="lineNum">     415 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :   auto front = responseTimeFrontSide;</span></a>
-<a name="416"><span class="lineNum">     416 </span>                :            :   // center-front, with no change of the current yaw rate</a>
-<a name="417"><span class="lineNum">     417 </span>                :<span class="lineCov">         40 :   auto result = calculateTrajectorySetStepOnCircle(</span></a>
-<a name="418"><span class="lineNum">     418 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :     vehicleState, timeAfterResponseTime, vehicleState.dynamics.alphaLon.accelMax, front);</span></a>
-<a name="419"><span class="lineNum">     419 </span>  [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 20 times"> + </span>]:<span class="lineCov">         20 :   if (DEBUG_DRAWING_IS_ENABLED())</span></a>
-<a name="420"><span class="lineNum">     420 </span>                :            :   {</a>
-<a name="421"><span class="lineNum">     421 </span>                :<span class="lineNoCov">          0 :     int idx = 0;</span></a>
-<a name="422"><span class="lineNum">     422 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     for (auto const &amp;pt : front.left)</span></a>
-<a name="423"><span class="lineNum">     423 </span>                :            :     {</a>
-<a name="424"><span class="lineNum">     424 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :       DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(pt, vehicleState).toPolygon(),</span></a>
+<a name="413"><span class="lineNum">     413 </span>                :            :     2.0</a>
+<a name="414"><span class="lineNum">     414 </span>                :<span class="lineCov">         20 :     / (2.0 * vehicleState.dynamics.unstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps</span></a>
+<a name="415"><span class="lineNum">     415 </span>                :<span class="lineCov">         20 :        + 2.0));</span></a>
+<a name="416"><span class="lineNum">     416 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :   auto front = responseTimeFrontSide;</span></a>
+<a name="417"><span class="lineNum">     417 </span>                :            :   // center-front, with no change of the current yaw rate</a>
+<a name="418"><span class="lineNum">     418 </span>                :<span class="lineCov">         40 :   auto result = calculateTrajectorySetStepOnCircle(</span></a>
+<a name="419"><span class="lineNum">     419 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :     vehicleState, timeAfterResponseTime, vehicleState.dynamics.alphaLon.accelMax, front);</span></a>
+<a name="420"><span class="lineNum">     420 </span>  [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 20 times"> + </span>]:<span class="lineCov">         20 :   if (DEBUG_DRAWING_IS_ENABLED())</span></a>
+<a name="421"><span class="lineNum">     421 </span>                :            :   {</a>
+<a name="422"><span class="lineNum">     422 </span>                :<span class="lineNoCov">          0 :     int idx = 0;</span></a>
+<a name="423"><span class="lineNum">     423 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     for (auto const &amp;pt : front.left)</span></a>
+<a name="424"><span class="lineNum">     424 </span>                :            :     {</a>
+<a name="425"><span class="lineNum">     425 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :       DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(pt, vehicleState).toPolygon(),</span></a>
 <span class="lineNum">         </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span> 
 <span class="lineNum">         </span>   <span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span><span class="branchNoExec" title="Branch 12 was not executed"> # </span> 
 <span class="lineNum">         </span>            <span class="branchNoExec" title="Branch 13 was not executed"> # </span>]
-<a name="425"><span class="lineNum">     425 </span>                :            :                             &quot;blue&quot;,</a>
-<a name="426"><span class="lineNum">     426 </span>                :            :                             &quot;vehicle_continue_forward_front_left_&quot; + std::to_string(idx));</a>
-<a name="427"><span class="lineNum">     427 </span>                :<span class="lineNoCov">          0 :       idx++;</span></a>
-<a name="428"><span class="lineNum">     428 </span>                :            :     }</a>
-<a name="429"><span class="lineNum">     429 </span>                :<span class="lineNoCov">          0 :     idx = 0;</span></a>
-<a name="430"><span class="lineNum">     430 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     for (auto const &amp;pt : front.right)</span></a>
-<a name="431"><span class="lineNum">     431 </span>                :            :     {</a>
-<a name="432"><span class="lineNum">     432 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :       DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(pt, vehicleState).toPolygon(),</span></a>
+<a name="426"><span class="lineNum">     426 </span>                :            :                             &quot;blue&quot;,</a>
+<a name="427"><span class="lineNum">     427 </span>                :            :                             &quot;vehicle_continue_forward_front_left_&quot; + std::to_string(idx));</a>
+<a name="428"><span class="lineNum">     428 </span>                :<span class="lineNoCov">          0 :       idx++;</span></a>
+<a name="429"><span class="lineNum">     429 </span>                :            :     }</a>
+<a name="430"><span class="lineNum">     430 </span>                :<span class="lineNoCov">          0 :     idx = 0;</span></a>
+<a name="431"><span class="lineNum">     431 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     for (auto const &amp;pt : front.right)</span></a>
+<a name="432"><span class="lineNum">     432 </span>                :            :     {</a>
+<a name="433"><span class="lineNum">     433 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :       DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(pt, vehicleState).toPolygon(),</span></a>
 <span class="lineNum">         </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span> 
 <span class="lineNum">         </span>   <span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span><span class="branchNoExec" title="Branch 12 was not executed"> # </span> 
 <span class="lineNum">         </span>            <span class="branchNoExec" title="Branch 13 was not executed"> # </span>]
-<a name="433"><span class="lineNum">     433 </span>                :            :                             &quot;blue&quot;,</a>
-<a name="434"><span class="lineNum">     434 </span>                :            :                             &quot;vehicle_continue_forward_front_right_&quot; + std::to_string(idx));</a>
-<a name="435"><span class="lineNum">     435 </span>                :<span class="lineNoCov">          0 :       idx++;</span></a>
-<a name="436"><span class="lineNum">     436 </span>                :            :     }</a>
-<a name="437"><span class="lineNum">     437 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :     DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(front.center, vehicleState).toPolygon(),</span></a>
+<a name="434"><span class="lineNum">     434 </span>                :            :                             &quot;blue&quot;,</a>
+<a name="435"><span class="lineNum">     435 </span>                :            :                             &quot;vehicle_continue_forward_front_right_&quot; + std::to_string(idx));</a>
+<a name="436"><span class="lineNum">     436 </span>                :<span class="lineNoCov">          0 :       idx++;</span></a>
+<a name="437"><span class="lineNum">     437 </span>                :            :     }</a>
+<a name="438"><span class="lineNum">     438 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :     DEBUG_DRAWING_POLYGON(TrafficParticipantLocation(front.center, vehicleState).toPolygon(),</span></a>
 <span class="lineNum">         </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span> 
 <span class="lineNum">         </span>      <span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
-<a name="438"><span class="lineNum">     438 </span>                :            :                           &quot;blue&quot;,</a>
-<a name="439"><span class="lineNum">     439 </span>                :            :                           &quot;vehicle_continue_forward_front_center&quot;);</a>
-<a name="440"><span class="lineNum">     440 </span>                :            :   }</a>
-<a name="441"><span class="lineNum">     441 </span>                :            : </a>
-<a name="442"><span class="lineNum">     442 </span>                :            :   // center-left, with maximum changing of the yaw rate</a>
-<a name="443"><span class="lineNum">     443 </span>                :<span class="lineCov">         20 :   front.left.reserve(</span></a>
-<a name="444"><span class="lineNum">     444 </span>                :<span class="lineCov">         20 :     front.left.size()</span></a>
-<a name="445"><span class="lineNum">     445 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :     + vehicleState.dynamics.unstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps</span></a>
-<a name="446"><span class="lineNum">     446 </span>                :            :     + 1);</a>
+<a name="439"><span class="lineNum">     439 </span>                :            :                           &quot;blue&quot;,</a>
+<a name="440"><span class="lineNum">     440 </span>                :            :                           &quot;vehicle_continue_forward_front_center&quot;);</a>
+<a name="441"><span class="lineNum">     441 </span>                :            :   }</a>
+<a name="442"><span class="lineNum">     442 </span>                :            : </a>
+<a name="443"><span class="lineNum">     443 </span>                :            :   // center-left, with maximum changing of the yaw rate</a>
+<a name="444"><span class="lineNum">     444 </span>                :<span class="lineCov">         20 :   front.left.reserve(</span></a>
+<a name="445"><span class="lineNum">     445 </span>                :<span class="lineCov">         20 :     front.left.size()</span></a>
+<a name="446"><span class="lineNum">     446 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :     + vehicleState.dynamics.unstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps + 1);</span></a>
 <a name="447"><span class="lineNum">     447 </span>  [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 80 times"> + </span><span class="branchCov" title="Branch 3 was taken 20 times"> + </span> :<span class="lineCov">        100 :   for (auto ratioValue = ratioDiffFront; (ratioValue &lt;= physics::RatioValue(1.0)) &amp;&amp; result;</span></a>
 <span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 80 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 80 times"> + </span><span class="branchCov" title="Branch 7 was taken 20 times"> + </span>]
 <a name="448"><span class="lineNum">     448 </span>        [<span class="branchCov" title="Branch 0 was taken 80 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         80 :        ratioValue += ratioDiffFront)</span></a>
