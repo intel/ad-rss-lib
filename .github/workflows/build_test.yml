@@ -8,7 +8,7 @@ on:
 
 env:
   GTEST_OUTPUT: "xml:test_results"
-  BUILDCMD: "colcon build --event-handlers console_direct+ --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DBUILD_HARDENING=ON -DBUILD_TESTING=ON -DBUILD_PYTHON_BINDING=ON && colcon test --event-handlers console_direct+ --packages-select ad_rss ad_rss_map_integration && colcon test-result"
+  BUILDCMD: "colcon build --event-handlers console_direct+ --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DBUILD_HARDENING=ON -DBUILD_TESTING=ON -DBUILD_PYTHON_BINDING=ON -DPYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION} && colcon test --event-handlers console_direct+ --packages-select ad_rss ad_rss_map_integration && colcon test-result"
 
 jobs:
   ubuntu16job:
@@ -22,18 +22,22 @@ jobs:
            EXTRA_PACKAGES: ""
            CC: ""
            CXX: ""
+           PYTHON_BINDING_VERSION: "2.7"
          - compiler: gcc6
            EXTRA_PACKAGES: g++-6
            CC: /usr/bin/gcc-6
            CXX: /usr/bin/g++-6
+           PYTHON_BINDING_VERSION: "2.7"
          - compiler: clang5
            EXTRA_PACKAGES: clang-5.0
            CC: /usr/bin/clang-5.0
            CXX: /usr/bin/clang++-5.0
+           PYTHON_BINDING_VERSION: "2.7"
          - compiler: clang6
            EXTRA_PACKAGES: clang-6.0
            CC: /usr/bin/clang-6.0
            CXX: /usr/bin/clang++-6.0
+           PYTHON_BINDING_VERSION: "2.7"
 
     steps:
     - uses: actions/checkout@v2
@@ -64,22 +68,27 @@ jobs:
            EXTRA_PACKAGES: ""
            CC: ""
            CXX: ""
+           PYTHON_BINDING_VERSION: "2.7"
          - compiler: gcc8
            EXTRA_PACKAGES: g++-8
            CC: /usr/bin/gcc-8
            CXX: /usr/bin/g++-8
+           PYTHON_BINDING_VERSION: "3.6"
          - compiler: gcc9
            EXTRA_PACKAGES: g++-9
            CC: /usr/bin/gcc-9
            CXX: /usr/bin/g++-9
+           PYTHON_BINDING_VERSION: "3.6"
          - compiler: clang7
            EXTRA_PACKAGES: clang-7
            CC: /usr/bin/clang-7
            CXX: /usr/bin/clang++-7
+           PYTHON_BINDING_VERSION: "3.6"
          - compiler: clang8
            EXTRA_PACKAGES: clang-8
            CC: /usr/bin/clang-8
            CXX: /usr/bin/clang++-8
+           PYTHON_BINDING_VERSION: "3.6"
 
     steps:
     - uses: actions/checkout@v2
@@ -110,6 +119,7 @@ jobs:
            EXTRA_PACKAGES: ""
            CC: ""
            CXX: ""
+           PYTHON_BINDING_VERSION: "3.8"
 
     steps:
     - uses: actions/checkout@v2

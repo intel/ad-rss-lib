@@ -1,0 +1,71 @@
+# ----------------- BEGIN LICENSE BLOCK ---------------------------------
+#
+# Copyright (C) 2021 Intel Corporation
+#
+# SPDX-License-Identifier: LGPL-2.1-only
+#
+# ----------------- END LICENSE BLOCK -----------------------------------
+
+import sys
+
+from setuptools import setup
+from setuptools.command.install import install as _install
+from setuptools.dist import Distribution
+
+
+class BinaryDistribution(Distribution):
+    """Distribution which always forces a binary package with platform name"""
+
+    def has_ext_modules(self):
+        return True
+
+
+class Install(_install):
+    def finalize_options(self):
+        _install.finalize_options(self)
+        if self.distribution.has_ext_modules():
+            self.install_lib = self.install_platlib
+
+
+programming_language_classifier = "Programming Language :: Python :: {}".format(sys.version_info.major)
+
+setup(
+    name="ad-rss",
+    packages=["ad_rss"],
+    package_dir={"": sys.argv.pop(-1)},
+    package_data={"ad_rss": ["*.so"]},
+    version="@AD-RSS-LIB_VERSION@",
+    author='Intel Corporation',
+    author_email='todo@todo.todo',
+    license="LGPL-2.1-only",
+    classifiers=[
+        programming_language_classifier,
+        "License :: OSI Approved :: GNU Lesser General Public License v2.1",
+        "Operating System :: OS Independent",
+    ],
+    url="https://intel.github.io/ad-rss-lib/",
+    description="python binding of the C++ Library implementation of the Responsibility Sensitive Safety model",
+    long_description="ad-rss intends to provide a python binding of the C++ implementation of the Responsibility Sensitive Safety model (RSS) for Automated Vehicles. \
+\
+RSS is described in the following paper. Potential users of this C++ library are encouraged to read these papers in order to become familiar with the concepts and functions provided by the library. \
+On a Formal Model of Safe and Scalable Self-driving Cars, S. Shalev-Shwartz, S. Shammah, A. Shashua, Mobileye, arXiv:1708.06374, [https://arxiv.org/abs/1708.06374](https://arxiv.org/abs/1708.06374) \
+\
+The RSS module in this library receives (processed) sensor information as input and provides a proper response including actuator command restrictions as output. \
+The input to the RSS module is an object list, with information about all objects (road agents) in the surrounding environment of the ego vehicle. \
+For each object, the RSS module creates a description of the object-ego vehicle pair and their properties, called a constellation. \
+For each constellation, the relevant RSS safety checks are performed and a proper response is calculated. \
+Finally, one overall response is obtained by combining the responses calculated for each object-ego vehicle constellation. \
+The proper response provided as output also contains the resulting actuation command restrictions, in the form of longitudinal and lateral limits on acceleration. \
+\
+ad-rss contains a stand-alone implementation of the RSS module. \
+Conversion of AV sensor data to the input object list required by the RSS module is outside the scope of the ad-rss library. \
+This includes conversion of object location and motion in a Cartesian world coordinate system into a constellation based coordinate system. \
+Conversion of the output proper response and acceleration restrictions to real AV actuation commands (enforcing the restrictions) is outside the scope of this library. \
+This conversion depends strongly on the software and hardware setup of the actual (or simulated) vehicle. \
+\
+See [project webpage](https://intel.github.io/ad-rss-lib/) for a detailed description.",
+    long_description_content_type="text/markdown",
+    install_requires=["ad_physics>=@CARLA-MAP_VERSION@"],
+    distclass=BinaryDistribution,
+    cmdclass={'install': Install}
+)

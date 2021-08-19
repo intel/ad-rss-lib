@@ -52,116 +52,66 @@ Remaining dependencies are present as GIT submodules; also to fix the version of
  - proj
 
 ## Building
-For compiling all libraries (and potentially also some dependencies), it is suggested to use [colcon](https://colcon.readthedocs.io/).
+For compiling all libraries and the dependencies, colcon is used [colcon](https://colcon.readthedocs.io/).
 Please use the link above for installation instructions.
 
 This repository is prepared as colcon workspace including all dependencies not provided as installable packages by the OS.
 Those dependencies are part of the __dependencies__ folder as GIT submodules. To properly fetch these, the submodules have to be updated and initialized.
 ```bash
- ad_rss$>  git submodule update --init
+ ad-rss-lib$>  git submodule update --init
 ```
-### Colcon build
 Once this is done, the full set of dependencies and components can be built calling:
 ```bash
- ad_rss$> colcon build
+ ad-rss-lib$> colcon build
 ```
 All components will be compiled respecting the dependencies between them.
-
-There are some CMake options affecting what or how the components are built.
-These can be applied to all components by appending them to the call (together with the additional --cmake-args):
-```bash
- ad_rss$> colcon build --cmake-args -DBUILD_TESTING=ON
-```
-When activating the Unit tests, they all can be executed with:
-```bash
- ad_rss$> colcon test
-```
 
 The python bindings are disabled by default. To integrate them into the build you can make use of the prepared
 colcon meta file:
 ```bash
- ad_rss$> colcon build --metas colcon_python.meta
+ ad-rss-lib$> colcon build --metas colcon_python.meta
 ```
-__colcon_python.meta__ enables python build (-DBUILD_PYTHON_BINDING=ON) and
-as well static build (-DBUILD_SHARED_LIBS=OFF) to ease the usage of the python modules
-as they don't require extending the LD_LIBRARY_PATH when linked statically against its non-system dependencies.
 
-
-### Plain CMake build
-The ad_rss (same applies to the other libraries) library is built with a standard cmake toolchain.
-Therefore, a full list of step by step calls could look like e.g.:
+__colcon_python.meta__ enables python build (-DBUILD_PYTHON_BINDING=ON). To specify the python version to be used you call e.g.:
 ```bash
- ad_rss$> mkdir install
- ad_rss$> mkdir -p build/{proj,spdlog,ad_physics,ad_map_opendrive_reader,ad_map_access,ad_rss,ad_rss_map_integration}
- ad_rss$> cd build/proj
- ad_rss/build/proj$> cmake ../../dependencies/PROJ -DCMAKE_INSTALL_PREFIX=../../install/proj -DCMAKE_POSITION_INDEPENDENT_CODE=ON
- ad_rss/build/proj$> make install
- ad_rss/build/proj$> cd ../spdlog
- ad_rss/build/spdlog$> cmake ../../dependencies/spdlog -DCMAKE_INSTALL_PREFIX=../../install/spdlog -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DSPDLOG_BUILD_TESTS=OFF -DSPDLOG_BUILD_EXAMPLE=Off
- ad_rss/build/spdlog$> make install
- ad_rss/build/spdlog$> cd ../ad_physics
- ad_rss/build/ad_physics$> cmake ../../dependencies/map/ad_physics -DCMAKE_INSTALL_PREFIX=../../install/ad_physics -DCMAKE_PREFIX_PATH=../../install/spdlog
- ad_rss/build/ad_physics$> make install
- ad_rss/build/ad_physics$> cd ../ad_map_opendrive_reader
- ad_rss/build/ad_map_opendrive_reader$> cmake ../../dependencies/map/ad_map_opendrive_reader -DCMAKE_INSTALL_PREFIX=../../install/ad_map_opendrive_reader -DCMAKE_PREFIX_PATH="../../install/proj;../../install/spdlog;../../install/ad_physics"
- ad_rss/build/ad_map_opendrive_reader$> make install
- ad_rss/build/ad_map_opendrive_reader$> cd ../ad_map_access
- ad_rss/build/ad_map_access$> cmake ../../dependencies/map/ad_map_access -DCMAKE_INSTALL_PREFIX=../../install/ad_map_access -DCMAKE_PREFIX_PATH="../../install/proj;../../install/spdlog;../../install/ad_physics;../../install/ad_map_opendrive_reader"
- ad_rss/build/ad_map_access$> make install
- ad_rss/build/ad_map_access$> cd ../ad_rss
- ad_rss/build/ad_rss$> cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install/ad_rss -DCMAKE_PREFIX_PATH="../../install/spdlog;../../install/ad_physics"
- ad_rss/build/ad_rss$> make install
- ad_rss/build/ad_rss$> cd ../ad_rss_map_integration
- ad_rss/build/ad_rss_map_integration$> cmake ../../ad_rss_map_integration -DCMAKE_INSTALL_PREFIX=../../install/ad_rss_map_integration -DCMAKE_PREFIX_PATH="../../install/proj;../../install/spdlog;../../install/ad_physics;../../install/ad_map_opendrive_reader;../../install/ad_map_access;../../install/ad_rss"
- ad_rss/build/ad_rss_map_integration$> make install
- ad_rss/build/ad_rss_map_integration$> cd ../..
- ad_rss$> echo "Hurray, all built!"
+ ad-rss-lib$> colcon build --metas colcon_python.meta --cmake-args -DPYTHON_BINDING_VERSION=3.8
 ```
 
-
-## CMake options
-There are some build options available:
+## Build options
+There are some CMake options affecting what or how the components are built.
 
  - BUILD_TESTING: Enables unit tests compilation
  - BUILD_APIDOC: Enables API documentation building
  - BUILD_HARDENING: Enables hardening compiler and linker flags
  - BUILD_PYTHON_BINDING: Enables the build of the respective python bindings
- - PYTHON_BINDING_VERSIONS: standard search for python boost bindings is for multiple versions e.g. "2.7 3.5 3.6. 3.7" (see cmake/python-binding.cmake for details); this search can be restricted from outside if this variable is set (Default not-set).
+ - PYTHON_BINDING_VERSION: Select the python version to use explicitly e.g. "3.8". (Note: If that's not one of the system installed python versions,
+   you have to ensure that the boost-python binding for that python version is available!)
 
-By default, all options are set to off. Any of these could be activate by adding them to the initial cmake call above as "-D<OPTION>=[ON|OFF]",
-e.g. "-DBUILD_TESTING=ON -DBUILD_APIDOC=ON".
-
-#### Unit tests
-When BUILD_TESTING is enabled, the "make" call will automatically compile the Unit tests.
-They can be executed using CMake's ctest application.
+By default, all options are set to off. Any of these could be activate by adding them via the colcon call above as "--cmake-args -D&lt;OPTION&gt;=[ON|OFF]",
+e.g.:
 ```bash
- ad_rss/build/ad_rss$> cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install/ad_rss -DCMAKE_PREFIX_PATH="../../install/spdlog;../../install/ad_physics" -DBUILD_TESTING=ON
- ad_rss/build/ad_rss$> make install
- ad_rss/build/ad_rss$> ctest
+ ad-rss-lib$> colcon build --cmake-args -DBUILD_TESTING=ON -DBUILD_APIDOC=ON -DBUILD_PYTHON_BINDING=ON -DPYTHON_BINDING_VERSION=3.8
 ```
-#### API documentation
-When BUILD_APIDOC is enabled, the "make" call will automatically generate the API documentation.
+
+### Unit tests
 ```bash
- ad_rss/build/ad_rss$> cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install/ad_rss -DCMAKE_PREFIX_PATH="../../install/spdlog;../../install/ad_physics" -DBUILD_APIDOC=ON
- ad_rss/build/ad_rss$> make install
+ ad-rss-lib$> colcon build --cmake-args -DBUILD_TESTING=ON
+```
+When activating the Unit tests, they all can be executed with:
+```bash
+ ad-rss-lib$> colcon test
+```
+
+### API documentation
+When BUILD_APIDOC is enabled, the "colcon" call will automatically generate the API documentation.
+```bash
+ ad-rss-lib$> colcon build --cmake-args -DBUILD_APIDOC=ON
 ```
 The API documentation is written to the _apidoc_ folder within the _build_ directory.
 
-#### Build hardening
+### Build hardening
 Usually, build hardening is injected by the surrounding build system. Nevertheless, the CMakeLists.txt defines
 hardening flags to ensure the code is compatible to respective flags. To enable hardening compiler and linker flags:
 ```bash
- ad_rss/build/ad_rss$> cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install/ad_rss -DCMAKE_PREFIX_PATH="../../install/spdlog;../../install/ad_physics" -DBUILD_HARDENING=ON
- ad_rss/build/ad_rss$> make install
-```
-
-#### Python binding
-With this option enabled, Python bindings are generated and compiled.
-When compiling Python bindings it's recommended to build and link the other
-libraries statically to prevent from dependencies on the LD_LIBRARY_PATH at execution time.
-This option is disabled by default.
-You have to enable the python binding also on the respective dependent component. ad_physics in this case.
-```bash
- ad_rss/build/ad_rss$> cmake ../../ad_rss -DCMAKE_INSTALL_PREFIX=../../install/ad_rss -DCMAKE_PREFIX_PATH="../../install/spdlog;../../install/ad_physics" -DBUILD_PYTHON_BINDING=ON -DBUILD_SHARED_LIBS=OFF
- ad_rss/build/ad_rss$> make install
+ ad-rss-lib$> colcon build --cmake-args -DBUILD_HARDENING=ON
 ```

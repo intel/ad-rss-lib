@@ -8,9 +8,6 @@
         },
         "ad_map_opendrive_reader": {
             "dependencies": ["PROJ4"]
-        },
-        "ad_map_access_qgis": {
-            "dependencies": ["ad_map_access"]
-        },
+        }
     }
 }
