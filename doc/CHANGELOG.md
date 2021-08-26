@@ -4,6 +4,7 @@
 
 #### :ghost: Maintenance
 * Fix: Consider lateral fluctuation margin correctly.
+* Fix: ad_rss_map_integration don't shorten route too much within intersections
 * Updated ad_map_access to v2.4.5
 * Use target python version for build
 * Fix: Ensure maxSpeedOnAcceleration only limits the actual acceleration while reponse time.
