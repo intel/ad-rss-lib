@@ -157,7 +157,8 @@ bool RssSceneCreation::appendStructuredScenes(::ad::rss::map::RssSceneCreator &s
     {
       // for the analysis we are only interested in the near term route
       auto shortenedRoute = egoRouteInput;
-      ::ad::map::route::shortenRouteToDistance(shortenedRoute, predictionLength);
+      ::ad::map::route::shortenRouteToDistance(shortenedRoute,
+                                               std::max(predictionLength, ::ad::physics::Distance(100.)));
       egoPredictedRoutes.push_back(shortenedRoute);
     }
 
