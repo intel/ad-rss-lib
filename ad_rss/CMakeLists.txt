@@ -23,9 +23,12 @@ string (REPLACE ";" " " TARGET_LINK_FLAGS "${TARGET_LINK_OPTIONS}")
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
+set(ad_rss_TARGET_INCLUDE_DIRECTORIES)
+set(ad_rss_TARGET_LINK_LIBRARIES)
+
 find_package(Boost REQUIRED)
-list(APPEND INCLUDE_DIRS ${Boost_INCLUDE_DIRS})
-list(APPEND LIBRARIES ${Boost_LIBRARIES})
+list(APPEND ad_rss_TARGET_INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIRS})
+list(APPEND ad_rss_TARGET_LINK_LIBRARIES ${Boost_LIBRARIES})
 
 find_package(ad_physics ${CARLA-MAP_VERSION} REQUIRED CONFIG)
 find_package(spdlog REQUIRED CONFIG)
@@ -63,14 +66,14 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/generated/include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-  ${INCLUDE_DIRS}
+  ${ad_rss_TARGET_INCLUDE_DIRECTORIES}
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
   ad_physics
   spdlog::spdlog
   PRIVATE
-  ${LIBRARIES}
+  ${ad_rss_TARGET_LINK_LIBRARIES}
 )
 
 
