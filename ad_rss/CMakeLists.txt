@@ -34,22 +34,22 @@ include(generated/ad_rss.cmake)
 
 add_library(${PROJECT_NAME}
   ${ad_rss_GENERATED_SOURCES}
-  src/core/RssCheck.cpp
-  src/core/RssResponseResolving.cpp
-  src/core/RssSituationChecking.cpp
-  src/core/RssSituationExtraction.cpp
-  src/situation/Physics.cpp
-  src/situation/RssFormulas.cpp
-  src/situation/RssStructuredSceneIntersectionChecker.cpp
-  src/situation/RssStructuredSceneNonIntersectionChecker.cpp
-  src/situation/RssUnstructuredSceneChecker.cpp
-  src/world/RssSituationCoordinateSystemConversion.cpp
-  src/world/RssSituationIdProvider.cpp
-  src/world/RssObjectPositionExtractor.cpp
-  src/unstructured/Geometry.cpp
-  src/unstructured/TrajectoryCommon.cpp
-  src/unstructured/TrajectoryPedestrian.cpp
-  src/unstructured/TrajectoryVehicle.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/core/RssCheck.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/core/RssResponseResolving.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/core/RssSituationChecking.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/core/RssSituationExtraction.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/situation/Physics.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/situation/RssFormulas.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/situation/RssStructuredSceneIntersectionChecker.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/situation/RssStructuredSceneNonIntersectionChecker.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/situation/RssUnstructuredSceneChecker.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/world/RssSituationCoordinateSystemConversion.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/world/RssSituationIdProvider.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/world/RssObjectPositionExtractor.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/unstructured/Geometry.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/unstructured/TrajectoryCommon.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/unstructured/TrajectoryPedestrian.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/unstructured/TrajectoryVehicle.cpp
 )
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${TARGET_COMPILE_DEFINITIONS})
