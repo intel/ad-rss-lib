@@ -1,26 +1,22 @@
 # ----------------- BEGIN LICENSE BLOCK ---------------------------------
 #
-# Copyright (c) 2019-2020 Intel Corporation
+# Copyright (c) 2019-2021 Intel Corporation
 #
 # SPDX-License-Identifier: LGPL-2.1-only
 #
 # ----------------- END LICENSE BLOCK -----------------------------------
 
-project(ad_rss_map_integration_python)
+project(ad_rss_map_integration_python VERSION ${AD-RSS-LIB_VERSION})
 
 include(GNUInstallDirs)
 
-set(CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD 14)
-
-
-find_package(ad_rss REQUIRED CONFIG)
+find_package(ad_rss ${AD-RSS-LIB_VERSION} EXACT REQUIRED CONFIG)
 get_target_property(AD_RSS_INCLUDES ad_rss INTERFACE_INCLUDE_DIRECTORIES)
 
-find_package(ad_map_access REQUIRED CONFIG)
+find_package(ad_map_access ${CARLA-MAP_VERSION} REQUIRED CONFIG)
 get_target_property(AD_MAP_ACCESS_INCLUDES ad_map_access INTERFACE_INCLUDE_DIRECTORIES)
 
-find_package(ad_physics REQUIRED CONFIG)
+find_package(ad_physics ${CARLA-MAP_VERSION} REQUIRED CONFIG)
 get_target_property(AD_PHYSICS_INCLUDES ad_physics INTERFACE_INCLUDE_DIRECTORIES)
 
 find_package(spdlog REQUIRED CONFIG)

@@ -1,0 +1,38 @@
+/*
+ * ----------------- BEGIN LICENSE BLOCK ---------------------------------
+ *
+ * Copyright (C) 2018-2021 Intel Corporation
+ *
+ * SPDX-License-Identifier: LGPL-2.1-only
+ *
+ * ----------------- END LICENSE BLOCK -----------------------------------
+ */
+
+/**
+ * Generated file
+ * @file
+ *
+ * Generator Version : 11.0.0-1988
+ */
+
+#pragma once
+
+/*!
+ * The major version of ad_rss_map_integration
+ */
+#define AD_RSS_MAP_INTEGRATION_VERSION_MAJOR @AD-RSS-LIB_VERSION_MAJOR@
+
+/*!
+ * The minor version of ad_rss_map_integration
+ */
+#define AD_RSS_MAP_INTEGRATION_VERSION_MINOR @AD-RSS-LIB_VERSION_MINOR@
+
+/*!
+ * The revision of ad_rss_map_integration
+ */
+#define AD_RSS_MAP_INTEGRATION_VERSION_REVISION @AD-RSS-LIB_VERSION_REVISION@
+
+/*!
+ * The version of ad_rss_map_integration as string
+ */
+#define AD_RSS_MAP_INTEGRATION_VERSION_STRING "@AD-RSS-LIB_VERSION@"
