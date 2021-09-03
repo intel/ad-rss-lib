@@ -2,7 +2,7 @@
 
 # ----------------- BEGIN LICENSE BLOCK ---------------------------------
 #
-# Copyright (c) 2019-2020 Intel Corporation
+# Copyright (c) 2019-2021 Intel Corporation
 #
 # SPDX-License-Identifier: LGPL-2.1-only
 #
@@ -26,7 +26,7 @@ def main():
     include_dirs = {
         "@GENPY_INCLUDE_DIRS@",
         "@CMAKE_CURRENT_LIST_DIR@/../generated/include/",
-        "@CMAKE_CURRENT_LIST_DIR@/../impl/include/"
+        "@CMAKE_CURRENT_LIST_DIR@/../include/"
     }
 
     declarations={"toString", "fromString", "std::to_string", "std::sqrt", "std::fabs", "std::numeric_limits"}
@@ -52,7 +52,7 @@ def main():
 
         if component == "core":
             header_dirs = {
-                "@CMAKE_CURRENT_LIST_DIR@/../impl/include/ad/rss/{}".format(component)
+                "@CMAKE_CURRENT_LIST_DIR@/../include/ad/rss/{}".format(component)
             }
         elif component == "world":
             header_dirs = {
@@ -60,12 +60,12 @@ def main():
             }
         elif component == "unstructured":
             header_dirs = {
-                "@CMAKE_CURRENT_LIST_DIR@/../impl/include/ad/rss/{}".format(component)
+                "@CMAKE_CURRENT_LIST_DIR@/../include/ad/rss/{}".format(component)
             }
         else:
             header_dirs = {
                 "@CMAKE_CURRENT_LIST_DIR@/../generated/include/ad/rss/{}".format(component),
-                "@CMAKE_CURRENT_LIST_DIR@/../impl/include/ad/rss/{}".format(component)
+                "@CMAKE_CURRENT_LIST_DIR@/../include/ad/rss/{}".format(component)
             }
 
         generate_python_wrapper(library_name=component,
@@ -84,7 +84,7 @@ def main():
                  "  bp::scope().attr(\"{}\") = ad_rss_{}_module;\n".format(component, component) +
                  "  bp::scope submodule_scope = ad_rss_{}_module;\n\n".format(component) +
                  "  bp::scope().attr(\"__doc__\") = \"Python binding of ad_rss ad::rss::{} namespace C++ code for @binding_string@\";".format(component) +
-                 "  bp::scope().attr(\"__copyright__\") = \"Copyright (C) 2019-2020 Intel Corporation\";" +
+                 "  bp::scope().attr(\"__copyright__\") = \"Copyright (C) 2019-2021 Intel Corporation\";" +
                  "  bp::scope().attr(\"__license__\") = \"LGPL-2.1-only\";"
                 ))
         post_process_python_wrapper(header_directories=header_dirs,
