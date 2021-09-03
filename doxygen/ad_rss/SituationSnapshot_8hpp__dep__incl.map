@@ -1,7 +1,4 @@
 <map id="generated/include/ad/rss/situation/SituationSnapshot.hpp" name="generated/include/ad/rss/situation/SituationSnapshot.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="310,5,566,47"/>
-<area shape="rect" id="node2" href="$SituationSnapshotValidInputRange_8hpp.html" title=" " alt="" coords="5,95,233,151"/>
-<area shape="rect" id="node3" href="$RssCheck_8hpp.html" title=" " alt="" coords="258,102,407,143"/>
-<area shape="rect" id="node4" href="$RssSituationChecking_8hpp.html" title=" " alt="" coords="431,102,658,143"/>
-<area shape="rect" id="node5" href="$RssSituationExtraction_8hpp.html" title=" " alt="" coords="683,102,916,143"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,261,47"/>
+<area shape="rect" id="node2" href="$SituationSnapshotValidInputRange_8hpp.html" title=" " alt="" coords="19,95,247,151"/>
 </map>

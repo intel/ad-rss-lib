@@ -1,8 +1,6 @@
 <map id="generated/include/ad/rss/world/SceneVector.hpp" name="generated/include/ad/rss/world/SceneVector.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="129,5,325,47"/>
-<area shape="rect" id="node2" href="$SceneVectorValidInputRange_8hpp.html" title=" " alt="" coords="16,95,217,151"/>
-<area shape="rect" id="node4" href="$WorldModel_8hpp.html" title=" " alt="" coords="242,102,437,143"/>
-<area shape="rect" id="node3" href="$WorldModelValidInputRange_8hpp.html" title=" " alt="" coords="5,199,236,255"/>
-<area shape="rect" id="node5" href="$RssCheck_8hpp.html" title=" " alt="" coords="262,206,411,247"/>
-<area shape="rect" id="node6" href="$RssSituationExtraction_8hpp.html" title=" " alt="" coords="436,206,669,247"/>
+<area shape="rect" id="node1" title=" " alt="" coords="119,5,315,47"/>
+<area shape="rect" id="node2" href="$SceneVectorValidInputRange_8hpp.html" title=" " alt="" coords="5,95,207,151"/>
+<area shape="rect" id="node4" href="$WorldModel_8hpp.html" title=" " alt="" coords="231,102,426,143"/>
+<area shape="rect" id="node3" href="$WorldModelValidInputRange_8hpp.html" title=" " alt="" coords="101,199,332,255"/>
 </map>
