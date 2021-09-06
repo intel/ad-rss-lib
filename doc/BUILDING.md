@@ -77,6 +77,11 @@ __colcon_python.meta__ enables python build (-DBUILD_PYTHON_BINDING=ON). To spec
  ad-rss-lib$> colcon build --metas colcon_python.meta --cmake-args -DPYTHON_BINDING_VERSION=3.8
 ```
 
+If cmake isn't able to find the requested python version you can try to specify the python executable explicitly (e.g. under Ubuntu18.04):
+```bash
+ ad-rss-lib$> colcon build --metas colcon_python.meta --cmake-args -DPYTHON_BINDING_VERSION=3.6 -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3.6
+```
+
 ## Build options
 There are some CMake options affecting what or how the components are built.
 
