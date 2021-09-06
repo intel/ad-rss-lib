@@ -158,18 +158,19 @@
           <div role="main">
             <div class="section">
               
-                <h1>Usage of Python binding for ad_rss_map_integration</h1>
-<p>Compilation of ad_rss_map_integration_python (build option <em>BUILD_PYTHON_BINDING</em>
-and ideally <em>-DBUILD_SHARED_LIBS=OFF</em>) will create an <em>ad</em> python package
-inside the install/ad_rss_map_integration/lib/pythonMaj.Min folder.
-The packages can be used inside any Python code to use
+                <h1>Usage of python binding for ad_rss_map_integration</h1>
+<p>Compilation of ad_rss_map_integration_python (build option <em>-DBUILD_PYTHON_BINDING=ON</em>)
+will create an <em>ad_rss_map_integration</em> python package
+inside the install/ad_rss_map_integration/lib/pythonMaj.Min/site-packages folder.
+The packages can be used inside any python code to use
 datatypes or call methods defined in ad_rss_map_integration and its dependencies ad_physics, ad_map_access and ad_rss.</p>
-<h2 id="usage-of-python-binding">Usage of Python binding<a class="headerlink" href="#usage-of-python-binding" title="Permanent link">&para;</a></h2>
-<p>To use the compiled Python binding, one has to extend the current environment
+<h2 id="usage-of-python-binding">Usage of python binding<a class="headerlink" href="#usage-of-python-binding" title="Permanent link">&para;</a></h2>
+<p>To use the compiled python binding, one has to extend the current environment
 to be able to use the newly created library. Afterwards, one can import the
-Python package and use it as any other Python module.</p>
-<pre><code class="bash"> ad_rss_map_integration_python$&gt;  export PYTHONPATH=$PYTHONPATH:&lt;path/to/&gt;install/ad_rss_map_integration/lib/python3.6
- ad_rss_map_integration_python$&gt;  python3.6
+python package and use it as any other python module.</p>
+<pre><code class="bash"> ad-rss-lib$&gt; echo &quot;Setting PYTHONPATH and LD_LIBRARY_PATH:&quot;
+ ad-rss-lib$&gt; source install/setup.bash
+ ad-rss-lib$&gt; python3.8
  &gt;&gt;&gt; import ad_rss_map_integration as ad
  &gt;&gt;&gt; scene_creation = ad.rss.map.RssSceneCreation(1, ad.rss.world.RssDynamics())
  &gt;&gt;&gt; world_model = scene_creation.getWorldModel()
@@ -178,19 +179,14 @@ Python package and use it as any other Python module.</p>
 
 <p>Also the interface of the dependencies can be accessed directly, since ad_rss_map_integration is relying on those
 (e.g. the type of the above returned world_model is actually ad.rss.world.WorldModel() provided by ad_rss):</p>
-<pre><code class="bash"> &gt;&gt;&gt; ad.map.access.init(&quot;tests/resources/Town01.txt&quot;)
+<pre><code class="bash"> &gt;&gt;&gt; ad.map.access.init(&quot;ad_rss_map_integration/python/tests/resources/Town01.txt&quot;)
  &gt;&gt;&gt; lanes = ad.map.lane.getLanes()
  &gt;&gt;&gt; print(len(lanes))
  &gt;&gt;&gt; distance = ad.physics.Distance(2.0)
  &gt;&gt;&gt; print(distance)
 </code></pre>
 
-<p>When using other python versions you have to set PYTHONPATH accordingly.
-If not enforcing static linking, you require to set the LD_LIBRARY_PATH upfront, too:</p>
-<pre><code class="bash"> ad_rss_map_integration_python$&gt;  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:&lt;path/to/&gt;install/ad_rss_map_integration/lib:&lt;path/to/&gt;install/ad_rss/lib:&lt;path/to/&gt;install/ad_map_access/lib:&lt;path/to/&gt;install/ad_map_opendrive_reader/lib:&lt;path/to/&gt;install/ad_physics/lib
-</code></pre>
-
-<p>For some simple examples, you might also want to spot into the ad_rss_map_integration_python/tests folder.</p>
+<p>For some simple examples, you might also want to spot into the ad_rss_map_integration/python/tests folder.</p>
               
             </div>
           </div>

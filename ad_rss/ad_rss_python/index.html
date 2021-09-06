@@ -158,18 +158,19 @@
           <div role="main">
             <div class="section">
               
-                <h1>Usage of Python binding for ad_rss</h1>
-<p>Compilation of ad_rss_python (build option <em>BUILD_PYTHON_BINDING</em>
-and ideally <em>-DBUILD_SHARED_LIBS=OFF</em>) will create an <em>ad</em> python package
-inside the install/ad_rss/lib/pythonMaj.Min folder.
-The packages can be used inside any Python code to use
+                <h1>Usage of python binding for ad_rss</h1>
+<p>Compilation of ad_rss_python (build option <em>-DBUILD_PYTHON_BINDING=ON</em>)
+will create an <em>ad_rss</em> python package
+inside the install/ad_rss/lib/pythonMaj.Min/site-packages folder.
+The packages can be used inside any python code to use
 datatypes or call methods defined in ad_rss and its dependency ad_physics.</p>
-<h2 id="usage-of-python-binding">Usage of Python binding<a class="headerlink" href="#usage-of-python-binding" title="Permanent link">&para;</a></h2>
-<p>To use the compiled Python binding, one has to extend the current environment
+<h2 id="usage-of-python-binding">Usage of python binding<a class="headerlink" href="#usage-of-python-binding" title="Permanent link">&para;</a></h2>
+<p>To use the compiled python binding, one has to extend the current environment
 to be able to use the newly created packages. Afterwards, one can import the
-Python package and use it as any other Python module.</p>
-<pre><code class="bash"> ad_rss_python$&gt;  export PYTHONPATH=$PYTHONPATH:&lt;path/to/&gt;install/ad_rss/lib/python3.6
- ad_rss_python$&gt;  python3.6
+python package and use it as any other python module.</p>
+<pre><code class="bash"> ad-rss-lib$&gt; echo &quot;Setting PYTHONPATH and LD_LIBRARY_PATH:&quot;
+ ad-rss-lib$&gt; source install/setup.bash
+ ad-rss-lib$&gt; python3.8
  &gt;&gt;&gt; import ad_rss as ad
  &gt;&gt;&gt; world_model = ad.rss.world.WorldModel()
  &gt;&gt;&gt; print(world_model)
@@ -180,12 +181,7 @@ Python package and use it as any other Python module.</p>
  &gt;&gt;&gt; print(distance)
 </code></pre>
 
-<p>When using other python versions you have to set PYTHONPATH accordingly.
-If not enforcing static linking, you require to set the LD_LIBRARY_PATH upfront, too:</p>
-<pre><code class="bash"> ad_rss_python$&gt;  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:&lt;path/to/&gt;install/ad_physics/lib:&lt;path/to/&gt;install/ad_rss/lib
-</code></pre>
-
-<p>For some simple examples, you might also want to spot into the ad_rss_python/tests folder.</p>
+<p>For some simple examples, you might also want to spot into the ad_rss/python/tests folder.</p>
               
             </div>
           </div>
