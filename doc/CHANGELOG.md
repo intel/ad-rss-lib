@@ -1,5 +1,11 @@
 ## Latest changes
 
+## Release 4.4.2
+
+#### :ghost: Maintenance
+* Ease version number handling and folder layout
+* Update map to latest v2.4.5_hotfix commit
+
 ## Release 4.4.1
 
 #### :ghost: Maintenance
