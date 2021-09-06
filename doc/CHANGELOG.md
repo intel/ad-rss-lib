@@ -1,5 +1,11 @@
 ## Latest changes
 
+## Release 4.5.0
+
+#### :rocket: New Features
+* Add creation of python wheels
+* Update map to v2.5.0
+
 ## Release 4.4.2
 
 #### :ghost: Maintenance

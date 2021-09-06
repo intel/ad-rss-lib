@@ -1,18 +1,19 @@
-# Usage of Python binding for ad_rss
+# Usage of python binding for ad_rss
 
-Compilation of ad_rss_python (build option *BUILD_PYTHON_BINDING*
-and ideally *-DBUILD_SHARED_LIBS=OFF*) will create an *ad* python package
-inside the install/ad_rss/lib/pythonMaj.Min folder.
-The packages can be used inside any Python code to use
+Compilation of ad_rss_python (build option *-DBUILD_PYTHON_BINDING=ON*)
+will create an *ad_rss* python package
+inside the install/ad_rss/lib/pythonMaj.Min/site-packages folder.
+The packages can be used inside any python code to use
 datatypes or call methods defined in ad_rss and its dependency ad_physics.
 
-## Usage of Python binding
-To use the compiled Python binding, one has to extend the current environment
+## Usage of python binding
+To use the compiled python binding, one has to extend the current environment
 to be able to use the newly created packages. Afterwards, one can import the
-Python package and use it as any other Python module.
+python package and use it as any other python module.
 ```bash
- ad_rss_python$>  export PYTHONPATH=$PYTHONPATH:<path/to/>install/ad_rss/lib/python3.6
- ad_rss_python$>  python3.6
+ ad-rss-lib$> echo "Setting PYTHONPATH and LD_LIBRARY_PATH:"
+ ad-rss-lib$> source install/setup.bash
+ ad-rss-lib$> python3.8
  >>> import ad_rss as ad
  >>> world_model = ad.rss.world.WorldModel()
  >>> print(world_model)
@@ -23,10 +24,4 @@ Also the interface of the dependency can be accessed directly, since ad_rss is r
  >>> print(distance)
 ```
 
-When using other python versions you have to set PYTHONPATH accordingly.
-If not enforcing static linking, you require to set the LD_LIBRARY_PATH upfront, too:
-```bash
- ad_rss_python$>  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<path/to/>install/ad_physics/lib:<path/to/>install/ad_rss/lib
-```
-
-For some simple examples, you might also want to spot into the ad_rss_python/tests folder.
+For some simple examples, you might also want to spot into the ad_rss/python/tests folder.

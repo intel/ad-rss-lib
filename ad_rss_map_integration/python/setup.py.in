@@ -1,0 +1,57 @@
+# ----------------- BEGIN LICENSE BLOCK ---------------------------------
+#
+# Copyright (C) 2021 Intel Corporation
+#
+# SPDX-License-Identifier: LGPL-2.1-only
+#
+# ----------------- END LICENSE BLOCK -----------------------------------
+
+import sys
+
+from setuptools import setup
+from setuptools.command.install import install as _install
+from setuptools.dist import Distribution
+
+
+class BinaryDistribution(Distribution):
+    """Distribution which always forces a binary package with platform name"""
+
+    def has_ext_modules(self):
+        return True
+
+
+class Install(_install):
+    def finalize_options(self):
+        _install.finalize_options(self)
+        if self.distribution.has_ext_modules():
+            self.install_lib = self.install_platlib
+
+
+programming_language_classifier = "Programming Language :: Python :: {}".format(sys.version_info.major)
+
+setup(
+    name="ad-rss-map-integration",
+    packages=["ad_rss_map_integration"],
+    package_dir={"": sys.argv.pop(-1)},
+    package_data={"ad_rss_map_integration": ["*.so"]},
+    version="@AD-RSS-LIB_VERSION@",
+    author='Intel Corporation',
+    author_email='todo@todo.todo',
+    license="LGPL-2.1-only",
+    classifiers=[
+        programming_language_classifier,
+        "License :: OSI Approved :: GNU Lesser General Public License v2.1",
+        "Operating System :: OS Independent",
+    ],
+    url="https://intel.github.io/ad-rss-lib/",
+    description="python binding of the C++ Library example implementation for integrating Responsibility Sensitive Safety model (RSS) with automated driving maps",
+    long_description="ad-rss-map-integration provides a python binding of the C++ example implementation for integrating Responsibility Sensitive Safety model (RSS) with automated driving maps. \
+\
+When RSS is to be integrated into a larger system it is usually up to the user implementation to provide the required input into RSS based on the environment information \
+available within the system. The [*ad_rss_map_integration*](https://intel.github.io/ad-rss-lib/ad_rss_map_integration/Main/) library provides an example C++ implementation \
+for integrating RSS with automated driving maps.",
+    long_description_content_type="text/markdown",
+    install_requires=["ad_rss>=@AD-RSS-LIB_VERSION@", "ad_map_access>=@CARLA-MAP_VERSION@"],
+    distclass=BinaryDistribution,
+    cmdclass={'install': Install}
+)
