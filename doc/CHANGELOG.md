@@ -1,5 +1,10 @@
 ## Latest changes
 
+## Release 4.4.3
+
+#### :ghost: Maintenance
+* Fix: ad_rss_map_integration python binding build
+
 ## Release 4.4.2
 
 #### :ghost: Maintenance

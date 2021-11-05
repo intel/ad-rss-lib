@@ -6,8 +6,8 @@
 
 set(AD-RSS-LIB_VERSION_MAJOR 4)
 set(AD-RSS-LIB_VERSION_MINOR 4)
-set(AD-RSS-LIB_VERSION_REVISION 2)
-set(AD-RSS-LIB_VERSION 4.4.2)
+set(AD-RSS-LIB_VERSION_REVISION 3)
+set(AD-RSS-LIB_VERSION 4.4.3)
 
 if (EXISTS ${CURRENT_LISTS_DIR}/../dependencies/map/cmake/carla-map-version.cmake)
   include(${CURRENT_LISTS_DIR}/../dependencies/map/cmake/carla-map-version.cmake)
