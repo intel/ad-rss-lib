@@ -116,10 +116,10 @@ Note: The RSS module in this library does not initiate evasive manuevers. At the
 ## Getting started <a name="started"></a>
 
 #### Installation of dependencies
-Currently, the focused operating systems are Ubuntu 16.04 and Ubuntu 18.04. Nevertheless, the library should work in a similar way for any other Linux OS.
-To install the basic dependencies for Ubuntu 16.04/18.04 execute the following command:
+Currently, the focused operating systems are Ubuntu 18.04 and Ubuntu 20.04. Nevertheless, the library should work in a similar way for any other Linux OS.
+To install the basic dependencies for Ubuntu 18.04/20.04 execute the following command:
 ```bash
- user$> sudo apt-get install git build-essential cmake libboost-dev
+ user$> sudo apt-get install git build-essential cmake libboost-dev libpugixml-dev libgtest-dev libpython-dev libproj-dev
 ```
 
 If you want to use doxygen for API documentation, please also install:
@@ -135,20 +135,16 @@ To download the library, you may run:
 ```
 
 #### Supported systems <a name="systems"></a>
-Development systems are Ubuntu 16.04 and Ubuntu 18.04.
+Development systems are Ubuntu 18.04 and Ubuntu 20.04.
 Following compiler combinations are [tested continously](https://github.com/intel/ad-rss-lib/blob/master/.travis.yml):
 
-|                 | Ubuntu 16.04 | Ubuntu 18.04 | Ubuntu 20.04 |
-|:---------------:|:------------:|:------------:|:------------:|
-|  Clang 5.0      |      x       |              |              |
-|  Clang 6.0      |      x       |              |              |
-|  Clang 7        |              |       x      |              |
-|  Clang 8        |              |       x      |              |
-|   GCC 5         |      x       |              |              |
-|   GCC 6         |      x       |              |              |
-|   GCC 7         |              |       x      |              |
-|   GCC 8         |              |       x      |              |
-|   GCC 9         |              |       x      |       x      |
+|                 | Ubuntu 18.04 | Ubuntu 20.04 |
+|:---------------:|:------------:|:------------:|
+|  Clang 7        |       x      |              |
+|  Clang 8        |       x      |              |
+|   GCC 7         |       x      |              |
+|   GCC 8         |       x      |              |
+|   GCC 9         |       x      |       x      |
 
 Important: cmake is required to be at least version 3.5!
 
@@ -161,15 +157,15 @@ Contibutions are very welcome!
 Before submitting a pull request, please ensure that your code compiles successfully and that the tests run successfully.
 Please also check that your code formatting complies to the provided clang style. To do so, you can run:
 ```bash
-ad_rss$> sudo apt-get install clang-format-3.9
-ad_rss$> find -iname *.cpp -o -iname *.hpp | xargs clang-format-3.9 -style=file -i
+ad-rss-lib$> sudo apt-get install clang-format-10
+ad-rss-lib$> find -iname *.cpp -o -iname *.hpp | xargs clang-format-10 -style=file -i
 ```
 This command will automatically update the code formatting to be compliant with our style.
 
 In addition, please perform a static code analysis, if possible.
 ```bash
-ad_rss$> sudo apt-get install clang-tidy
-ad_rss$> cmake -DBUILD_STATIC_ANALYSIS=ON
-ad_rss$> make clang-tidy
+ad-rss-lib$> sudo apt-get install clang-tidy
+ad-rss-lib$> cmake -DBUILD_STATIC_ANALYSIS=ON
+ad-rss-lib$> make clang-tidy
 ```
 This may provide a list of possible improvements that you would like to consider in your pull request.

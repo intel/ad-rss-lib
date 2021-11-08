@@ -3,8 +3,14 @@
 ## Release 4.5.0
 
 #### :rocket: New Features
+* Remove Ubuntu 16.04 support
 * Add creation of python wheels
 * Update map to v2.5.0
+
+## Release 4.4.3
+
+#### :ghost: Maintenance
+* Fix: ad_rss_map_integration python binding build
 
 ## Release 4.4.2
 
