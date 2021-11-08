@@ -176,7 +176,12 @@
 <li><strong>ad_rss_map_integration</strong>:<ul>
 <li><em>ad_rss</em></li>
 <li>ad_map_access: <a href="https://github.com/carla-simulator/map.git">https://github.com/carla-simulator/map.git</a>
-    - proj: <a href="https://www.osgeo.org/projects/proj/">https://www.osgeo.org/projects/proj/</a></li>
+    - Boost (including components filesystem and  program_options)</li>
+<li>ad_map_opendrive_reader: <a href="https://github.com/carla-simulator/map.git">https://github.com/carla-simulator/map.git</a><ul>
+<li>pugixml</li>
+<li>proj: <a href="https://www.osgeo.org/projects/proj/">https://www.osgeo.org/projects/proj/</a></li>
+</ul>
+</li>
 <li>spdlog: <a href="https://github.com/gabime/spdlog.git">https://github.com/gabime/spdlog.git</a></li>
 <li><strong>ad_rss_map_integration_python</strong> (if Python binding build enabled):<ul>
 <li>ad_map_access_python: <a href="https://github.com/carla-simulator/map.git">https://github.com/carla-simulator/map.git</a></li>
@@ -195,15 +200,16 @@
 </ul>
 </li>
 </ul>
-<p>Dependencies provided by Ubunutu (&gt;= 16.04):</p>
+<p>Dependencies provided by Ubunutu (&gt;= 18.04):</p>
 <ul>
 <li>Boost</li>
 <li>pugixml</li>
+<li>libproj-dev</li>
 <li>gtest</li>
 <li>libpython-dev</li>
 </ul>
 <p>Those can be installed by calling:</p>
-<pre><code class="bash">$&gt;  sudo apt-get install libboost-all-dev libpugixml-dev libgtest-dev libpython-dev
+<pre><code class="bash">$&gt;  sudo apt-get install libboost-all-dev libpugixml-dev libgtest-dev libpython-dev libproj-dev
 </code></pre>
 
 <p>Additional dependencies for the python bindings:</p>
@@ -217,7 +223,6 @@ $&gt;  pip install --user pygccxml pyplusplus xmlrunner
 <li>ad_map_opendrive_reader</li>
 <li>ad_physics</li>
 <li>spdlog</li>
-<li>proj</li>
 </ul>
 <h2 id="building">Building<a class="headerlink" href="#building" title="Permanent link">&para;</a></h2>
 <p>For compiling all libraries and the dependencies, colcon is used <a href="https://colcon.readthedocs.io/">colcon</a>.
