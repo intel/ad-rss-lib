@@ -3,6 +3,7 @@
 ## Release 4.5.0
 
 #### :rocket: New Features
+* Remove Ubuntu 16.04 support
 * Add creation of python wheels
 * Update map to v2.5.0
 

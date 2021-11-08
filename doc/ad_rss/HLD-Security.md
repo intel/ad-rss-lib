@@ -172,12 +172,12 @@ Unit testing achieved code coverage can be retrieved via [github deployment](htt
 
 #### Compiler and compiler security flags
 
-The development platforms are Ubuntu Linux 16.04 Xenial and Ubuntu Linux 18.04 Bionic.
+The development platforms are Ubuntu Linux 18.04 Bionic and 20.04 Focal Fossa.
 
 A standard cmake toolchain has been used to compile the library. Other supported compilers are listed at the [main page](../../#systems)
 
 The following, strict, [compilation flags](https://github.com/intel/ad-rss-lib/blob/master/cmake/warnings.cmake) are used:
-C++11, -Werror, -Wall, -Wextra, -pedantic, -Wconversion, -Wsign-conversion, -Wfloat-equal -Wshadow -Wswitch-default -Wenum-compare -Wformat -Wformat-security.
+C++14, -Werror, -Wall, -Wextra, -pedantic, -Wconversion, -Wsign-conversion, -Wfloat-equal -Wshadow -Wswitch-default -Wenum-compare -Wformat -Wformat-security.
 
 * -Werror turns all warnings into errors
 * -Wall enables many warnings about code constructs that are questionable

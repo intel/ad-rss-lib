@@ -11,53 +11,6 @@ env:
   BUILDCMD: "colcon build --event-handlers console_direct+ --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DBUILD_HARDENING=ON -DBUILD_TESTING=ON -DBUILD_PYTHON_BINDING=ON -DPYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION} && colcon test --event-handlers console_direct+ --packages-select ad_rss ad_rss_map_integration && colcon test-result"
 
 jobs:
-  ubuntu16job:
-    name: Ubuntu 16.04
-    runs-on: ubuntu-16.04
-
-    strategy:
-      matrix:
-       include:
-         - compiler: gcc5
-           EXTRA_PACKAGES: ""
-           CC: ""
-           CXX: ""
-           PYTHON_BINDING_VERSION: "2.7"
-         - compiler: gcc6
-           EXTRA_PACKAGES: g++-6
-           CC: /usr/bin/gcc-6
-           CXX: /usr/bin/g++-6
-           PYTHON_BINDING_VERSION: "2.7"
-         - compiler: clang5
-           EXTRA_PACKAGES: clang-5.0
-           CC: /usr/bin/clang-5.0
-           CXX: /usr/bin/clang++-5.0
-           PYTHON_BINDING_VERSION: "2.7"
-         - compiler: clang6
-           EXTRA_PACKAGES: clang-6.0
-           CC: /usr/bin/clang-6.0
-           CXX: /usr/bin/clang++-6.0
-           PYTHON_BINDING_VERSION: "2.7"
-
-    steps:
-    - uses: actions/checkout@v2
-      with:
-          submodules: true
-
-    - name: Install Dependencies
-      run: bash .github/workflows/install_dependencies.sh
-
-    - name: Build and Test
-      env:
-          CC: ${{ matrix.CC }}
-          CXX: ${{ matrix.CXX }}
-          EXTRA_PACKAGES: ${{ matrix.EXTRA_PACKAGES }}
-          PYTHON_BINDING_VERSION: ${{ matrix.PYTHON_BINDING_VERSION }}
-      run: |
-        sudo apt-get install ${EXTRA_PACKAGES}
-        rm -rf log build install
-        eval CC=${CC} CXX=${CXX} ${BUILDCMD}
-
   ubuntu18job:
     name: Ubuntu 18.04
     runs-on: ubuntu-18.04

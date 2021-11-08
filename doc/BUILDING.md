@@ -13,7 +13,10 @@ The components within this repository have some dependencies:
  - **ad_rss_map_integration**:
    - *ad_rss*
    - ad_map_access: <https://github.com/carla-simulator/map.git>
-      - proj: <https://www.osgeo.org/projects/proj/>
+      - Boost (including components filesystem and  program_options)
+   - ad_map_opendrive_reader: <https://github.com/carla-simulator/map.git>
+     - pugixml
+     - proj: <https://www.osgeo.org/projects/proj/>
    - spdlog: <https://github.com/gabime/spdlog.git>
    - **ad_rss_map_integration_python** (if Python binding build enabled):
      - ad_map_access_python: <https://github.com/carla-simulator/map.git>
@@ -25,16 +28,17 @@ The components within this repository have some dependencies:
    - gtest aka. googletests < 1.10 : <https://github.com/google/googletest>
    - xmlrunner
 
-Dependencies provided by Ubunutu (>= 16.04):
+Dependencies provided by Ubunutu (>= 18.04):
 
  - Boost
  - pugixml
+ - libproj-dev
  - gtest
  - libpython-dev
 
 Those can be installed by calling:
 ```bash
-$>  sudo apt-get install libboost-all-dev libpugixml-dev libgtest-dev libpython-dev
+$>  sudo apt-get install libboost-all-dev libpugixml-dev libgtest-dev libpython-dev libproj-dev
 ```
 
 Additional dependencies for the python bindings:
@@ -49,7 +53,6 @@ Remaining dependencies are present as GIT submodules; also to fix the version of
  - ad_map_opendrive_reader
  - ad_physics
  - spdlog
- - proj
 
 ## Building
 For compiling all libraries and the dependencies, colcon is used [colcon](https://colcon.readthedocs.io/).
