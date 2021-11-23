@@ -47,7 +47,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-          submodules: true
+          submodules: recursive
 
     - name: Install Dependencies
       run: bash .github/workflows/install_dependencies.sh
@@ -79,7 +79,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-          submodules: true
+          submodules: recursive
 
     - name: Install Dependencies
       run: bash .github/workflows/install_dependencies.sh
