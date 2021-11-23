@@ -1,5 +1,8 @@
 ## Latest changes
 
+#### :ghost: Maintenance
+* Fix: removed duplicated spdlog dependency
+
 ## Release 4.5.0
 
 #### :rocket: New Features
