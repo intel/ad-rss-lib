@@ -1,5 +1,7 @@
 ## Latest changes
 
+## Release 4.5.1
+
 #### :ghost: Maintenance
 * Fix: removed duplicated spdlog dependency
 * Update map to v2.6.0
