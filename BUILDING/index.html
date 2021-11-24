@@ -229,7 +229,7 @@ $&gt;  pip install --user pygccxml pyplusplus xmlrunner
 Please use the link above for installation instructions.</p>
 <p>This repository is prepared as colcon workspace including all dependencies not provided as installable packages by the OS.
 Those dependencies are part of the <strong>dependencies</strong> folder as GIT submodules. To properly fetch these, the submodules have to be updated and initialized.</p>
-<pre><code class="bash"> ad-rss-lib$&gt;  git submodule update --init
+<pre><code class="bash"> ad-rss-lib$&gt;  git submodule update --init --recursive
 </code></pre>
 
 <p>Once this is done, the full set of dependencies and components can be built calling:</p>
