@@ -61,7 +61,7 @@ Please use the link above for installation instructions.
 This repository is prepared as colcon workspace including all dependencies not provided as installable packages by the OS.
 Those dependencies are part of the __dependencies__ folder as GIT submodules. To properly fetch these, the submodules have to be updated and initialized.
 ```bash
- ad-rss-lib$>  git submodule update --init
+ ad-rss-lib$>  git submodule update --init --recursive
 ```
 Once this is done, the full set of dependencies and components can be built calling:
 ```bash
