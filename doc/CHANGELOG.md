@@ -1,5 +1,8 @@
 ## Latest changes
 
+#### :ghost: Maintenance
+* Update map to v2.6.0
+
 ## Release 4.5.0
 
 #### :rocket: New Features
