@@ -14,7 +14,7 @@
 #include <spdlog/logger.h>
 
 /*!
- * @brief namespace rss
+ * @brief namespace ad
  */
 namespace ad {
 /*!

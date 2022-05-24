@@ -20,7 +20,7 @@
 #include <string>
 
 /*!
- * @brief namespace rss
+ * @brief namespace ad
  */
 namespace ad {
 /*!
