@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['properresponse_490',['ProperResponse',['../structad_1_1rss_1_1state_1_1ProperResponse.html#aa5b1eaff95f4939ac699861af940c93b',1,'ad::rss::state::ProperResponse::ProperResponse()=default'],['../structad_1_1rss_1_1state_1_1ProperResponse.html#ae5e8ba194f825b75334c07645498eef1',1,'ad::rss::state::ProperResponse::ProperResponse(const ProperResponse &amp;other)=default'],['../structad_1_1rss_1_1state_1_1ProperResponse.html#ab62862da42552625ee3b502220b0e950',1,'ad::rss::state::ProperResponse::ProperResponse(ProperResponse &amp;&amp;other)=default']]]
+  ['getcircleorigin_588',['getCircleOrigin',['../namespacead_1_1rss_1_1unstructured.html#aabdd209f060ee2b9f99b0f900f06cd18',1,'ad::rss::unstructured']]],
+  ['getheadingoverlap_589',['getHeadingOverlap',['../namespacead_1_1rss_1_1unstructured.html#ada549175155d4dbfa34677530408f38c',1,'ad::rss::unstructured::getHeadingOverlap(state::HeadingRange const &amp;a, state::HeadingRange const &amp;b, std::vector&lt; state::HeadingRange &gt; &amp;overlapRanges)'],['../namespacead_1_1rss_1_1unstructured.html#a395493c2e84d92914cf79e5d08e7fb98',1,'ad::rss::unstructured::getHeadingOverlap(state::HeadingRange const &amp;headingRange, std::vector&lt; state::HeadingRange &gt; &amp;overlapRanges)']]],
+  ['getinstance_590',['getInstance',['../classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#a92db28d81720e00f27d197cd73e95d62',1,'ad::rss::unstructured::DebugDrawing']]],
+  ['getpointoncircle_591',['getPointOnCircle',['../namespacead_1_1rss_1_1unstructured.html#a661824d0448907aa60f8a0fca31d7195',1,'ad::rss::unstructured']]]
 ];

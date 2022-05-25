@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['object_359',['Object',['../structad_1_1rss_1_1world_1_1Object.html',1,'ad::rss::world']]],
-  ['objectstate_360',['ObjectState',['../structad_1_1rss_1_1world_1_1ObjectState.html',1,'ad::rss::world']]],
-  ['occupiedregion_361',['OccupiedRegion',['../structad_1_1rss_1_1world_1_1OccupiedRegion.html',1,'ad::rss::world']]]
+  ['lanesegment_424',['LaneSegment',['../structad_1_1rss_1_1world_1_1LaneSegment.html',1,'ad::rss::world']]],
+  ['lateralrssaccelerationvalues_425',['LateralRssAccelerationValues',['../structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html',1,'ad::rss::world']]],
+  ['lateralrssstate_426',['LateralRssState',['../structad_1_1rss_1_1state_1_1LateralRssState.html',1,'ad::rss::state']]],
+  ['longitudinalrssaccelerationvalues_427',['LongitudinalRssAccelerationValues',['../structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html',1,'ad::rss::world']]],
+  ['longitudinalrssstate_428',['LongitudinalRssState',['../structad_1_1rss_1_1state_1_1LongitudinalRssState.html',1,'ad::rss::state']]]
 ];

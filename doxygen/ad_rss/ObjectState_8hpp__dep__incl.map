@@ -1,20 +1,24 @@
 <map id="generated/include/ad/rss/world/ObjectState.hpp" name="generated/include/ad/rss/world/ObjectState.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="418,5,611,47"/>
-<area shape="rect" id="node2" href="$VehicleState_8hpp.html" title=" " alt="" coords="173,102,392,143"/>
-<area shape="rect" id="node10" href="$Object_8hpp.html" title=" " alt="" coords="638,102,797,143"/>
-<area shape="rect" id="node18" href="$ObjectStateValidInputRange_8hpp.html" title=" " alt="" coords="416,95,613,151"/>
-<area shape="rect" id="node3" href="$Situation_8hpp.html" title=" " alt="" coords="85,206,281,247"/>
-<area shape="rect" id="node9" href="$VehicleStateValidInputRange_8hpp.html" title=" " alt="" coords="305,199,495,255"/>
-<area shape="rect" id="node4" href="$SituationValidInputRange_8hpp.html" title=" " alt="" coords="291,303,491,359"/>
-<area shape="rect" id="node7" href="$SituationVector_8hpp.html" title=" " alt="" coords="31,310,267,351"/>
-<area shape="rect" id="node5" href="$SituationVectorValidInputRange_8hpp.html" title=" " alt="" coords="286,407,495,463"/>
-<area shape="rect" id="node6" href="$SituationSnapshotValidInputRange_8hpp.html" title=" " alt="" coords="149,511,377,567"/>
-<area shape="rect" id="node8" href="$SituationSnapshot_8hpp.html" title=" " alt="" coords="5,414,261,455"/>
-<area shape="rect" id="node11" href="$ObjectValidInputRange_8hpp.html" title=" " alt="" coords="538,199,734,255"/>
-<area shape="rect" id="node15" href="$Scene_8hpp.html" title=" " alt="" coords="758,206,917,247"/>
-<area shape="rect" id="node12" href="$SceneValidInputRange_8hpp.html" title=" " alt="" coords="515,310,778,351"/>
-<area shape="rect" id="node13" href="$SceneVectorValidInputRange_8hpp.html" title=" " alt="" coords="577,407,778,463"/>
-<area shape="rect" id="node14" href="$WorldModelValidInputRange_8hpp.html" title=" " alt="" coords="673,511,903,567"/>
-<area shape="rect" id="node16" href="$SceneVector_8hpp.html" title=" " alt="" coords="802,310,998,351"/>
-<area shape="rect" id="node17" href="$WorldModel_8hpp.html" title=" " alt="" coords="803,414,997,455"/>
+<area shape="rect" id="node1" title=" " alt="" coords="437,5,630,47"/>
+<area shape="rect" id="node2" href="$VehicleState_8hpp.html" title=" " alt="" coords="192,102,411,143"/>
+<area shape="rect" id="node14" href="$Object_8hpp.html" title=" " alt="" coords="657,102,815,143"/>
+<area shape="rect" id="node22" href="$ObjectStateValidInputRange_8hpp.html" title=" " alt="" coords="435,95,632,151"/>
+<area shape="rect" id="node3" href="$Situation_8hpp.html" title=" " alt="" coords="203,206,399,247"/>
+<area shape="rect" id="node12" href="$VehicleStateValidInputRange_8hpp.html" title=" " alt="" coords="423,199,614,255"/>
+<area shape="rect" id="node13" href="$RssFormulas_8hpp.html" title=" " alt="" coords="5,206,179,247"/>
+<area shape="rect" id="node4" href="$SituationValidInputRange_8hpp.html" title=" " alt="" coords="388,303,588,359"/>
+<area shape="rect" id="node7" href="$SituationVector_8hpp.html" title=" " alt="" coords="129,310,365,351"/>
+<area shape="rect" id="node5" href="$SituationVectorValidInputRange_8hpp.html" title=" " alt="" coords="129,407,338,463"/>
+<area shape="rect" id="node6" href="$SituationSnapshotValidInputRange_8hpp.html" title=" " alt="" coords="70,511,298,567"/>
+<area shape="rect" id="node8" href="$SituationSnapshot_8hpp.html" title=" " alt="" coords="363,414,619,455"/>
+<area shape="rect" id="node9" href="$RssCheck_8hpp.html" title=" " alt="" coords="541,518,685,559"/>
+<area shape="rect" id="node10" href="$RssSituationChecking_8hpp.html" title=" " alt="" coords="323,518,517,559"/>
+<area shape="rect" id="node11" href="$RssSituationExtraction_8hpp.html" title=" " alt="" coords="710,518,911,559"/>
+<area shape="rect" id="node15" href="$ObjectValidInputRange_8hpp.html" title=" " alt="" coords="638,199,834,255"/>
+<area shape="rect" id="node19" href="$Scene_8hpp.html" title=" " alt="" coords="858,206,1017,247"/>
+<area shape="rect" id="node16" href="$SceneValidInputRange_8hpp.html" title=" " alt="" coords="637,310,899,351"/>
+<area shape="rect" id="node17" href="$SceneVectorValidInputRange_8hpp.html" title=" " alt="" coords="933,407,1134,463"/>
+<area shape="rect" id="node18" href="$WorldModelValidInputRange_8hpp.html" title=" " alt="" coords="935,511,1166,567"/>
+<area shape="rect" id="node20" href="$SceneVector_8hpp.html" title=" " alt="" coords="923,310,1119,351"/>
+<area shape="rect" id="node21" href="$WorldModel_8hpp.html" title=" " alt="" coords="713,414,908,455"/>
 </map>

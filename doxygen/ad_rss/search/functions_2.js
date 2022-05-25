@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['headingrange_477',['HeadingRange',['../structad_1_1rss_1_1state_1_1HeadingRange.html#aaff81fc9596ed51f758eb22ab5cc0f02',1,'ad::rss::state::HeadingRange::HeadingRange()=default'],['../structad_1_1rss_1_1state_1_1HeadingRange.html#ab97881c6c639d212a108dac208af6395',1,'ad::rss::state::HeadingRange::HeadingRange(const HeadingRange &amp;other)=default'],['../structad_1_1rss_1_1state_1_1HeadingRange.html#ac00e44276737465845b6f95946eaa2ca',1,'ad::rss::state::HeadingRange::HeadingRange(HeadingRange &amp;&amp;other)=default']]]
+  ['drawline_583',['drawLine',['../classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#a867f15b54b6bfa5c27ac5b2ff34f8c19',1,'ad::rss::unstructured::DebugDrawing']]],
+  ['drawpolygon_584',['drawPolygon',['../classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#ab18baaa2a05e8d85ff189391c00ebf16',1,'ad::rss::unstructured::DebugDrawing']]]
 ];

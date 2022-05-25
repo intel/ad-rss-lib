@@ -169,9 +169,58 @@ Functions</h2></td></tr>
 <tr class="memitem:a60df383faf799b44de81da992aa7e9f6"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a60df383faf799b44de81da992aa7e9f6">operator&lt;&lt;</a> (std::ostream &amp;os, <a class="el" href="structad_1_1rss_1_1situation_1_1VelocityRange.html">VelocityRange</a> const &amp;_value)</td></tr>
 <tr class="memdesc:a60df383faf799b44de81da992aa7e9f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">standard ostream operator  <a href="namespacead_1_1rss_1_1situation.html#a60df383faf799b44de81da992aa7e9f6">More...</a><br /></td></tr>
 <tr class="separator:a60df383faf799b44de81da992aa7e9f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8af514064e43657e33f9ccaad996da1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#ae8af514064e43657e33f9ccaad996da1">calculateDistanceOffsetInAcceleratedMovement</a> (physics::Speed const speed, physics::Acceleration const acceleration, physics::Duration const duration, physics::Distance &amp;distanceOffset)</td></tr>
+<tr class="memdesc:ae8af514064e43657e33f9ccaad996da1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the distance traveled after a given period of time on a constant accelerated movement.  <a href="namespacead_1_1rss_1_1situation.html#ae8af514064e43657e33f9ccaad996da1">More...</a><br /></td></tr>
+<tr class="separator:ae8af514064e43657e33f9ccaad996da1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ed8bcab8741f84a28cd2f4d624b968d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a1ed8bcab8741f84a28cd2f4d624b968d">calculateSpeedInAcceleratedMovement</a> (physics::Speed const speed, physics::Acceleration const acceleration, physics::Duration const duration, physics::Speed &amp;resultingSpeed)</td></tr>
+<tr class="memdesc:a1ed8bcab8741f84a28cd2f4d624b968d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the speed after a given period of time on a constant accelerated movement.  <a href="namespacead_1_1rss_1_1situation.html#a1ed8bcab8741f84a28cd2f4d624b968d">More...</a><br /></td></tr>
+<tr class="separator:a1ed8bcab8741f84a28cd2f4d624b968d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66dd4c7a777c2a996b95c7dd7435b543"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a66dd4c7a777c2a996b95c7dd7435b543">calculateStoppingDistance</a> (physics::Speed const currentSpeed, physics::Acceleration const deceleration, physics::Distance &amp;stoppingDistance)</td></tr>
+<tr class="memdesc:a66dd4c7a777c2a996b95c7dd7435b543"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the stopping distance for a given speed and deceleration on a constant accelerated movement.  <a href="namespacead_1_1rss_1_1situation.html#a66dd4c7a777c2a996b95c7dd7435b543">More...</a><br /></td></tr>
+<tr class="separator:a66dd4c7a777c2a996b95c7dd7435b543"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afacb7252f1fc654b56b34c58e6254b10"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#afacb7252f1fc654b56b34c58e6254b10">calculateAcceleratedLimitedMovement</a> (physics::Speed const currentSpeed, physics::Speed const maxSpeedOnAcceleration, physics::Acceleration const acceleration, physics::Duration const duration, physics::Speed &amp;resultingSpeed, physics::Distance &amp;distanceOffset)</td></tr>
+<tr class="memdesc:afacb7252f1fc654b56b34c58e6254b10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the vehicle speed after a given period of time on a constant accelerated movement.  <a href="namespacead_1_1rss_1_1situation.html#afacb7252f1fc654b56b34c58e6254b10">More...</a><br /></td></tr>
+<tr class="separator:afacb7252f1fc654b56b34c58e6254b10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7feefda4d53c6ecac7717672e55775e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#ab7feefda4d53c6ecac7717672e55775e">calculateTimeToCoverDistance</a> (physics::Speed const currentSpeed, physics::Speed const maxSpeedOnAcceleration, physics::Duration const responseTime, physics::Acceleration const aUntilResponseTime, physics::Acceleration const aAfterResponseTime, physics::Distance const distanceToCover, physics::Duration &amp;requiredTime)</td></tr>
+<tr class="memdesc:ab7feefda4d53c6ecac7717672e55775e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the time needed to cover a given distance.  <a href="namespacead_1_1rss_1_1situation.html#ab7feefda4d53c6ecac7717672e55775e">More...</a><br /></td></tr>
+<tr class="separator:ab7feefda4d53c6ecac7717672e55775e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5369b8e2105c93972af49116a69f986"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#ae5369b8e2105c93972af49116a69f986">calculateSpeedAndDistanceOffset</a> (physics::Duration const duration, physics::Speed const currentSpeed, physics::Duration const responseTime, physics::Speed const maxSpeedOnAcceleration, physics::Acceleration const aUntilReponseTime, physics::Acceleration const aAfterResponseTime, physics::Speed &amp;resultingSpeed, physics::Distance &amp;distanceOffset)</td></tr>
+<tr class="memdesc:ae5369b8e2105c93972af49116a69f986"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the speed and distance offset after a given duration in a two phased limited constant accelerated movement.  <a href="namespacead_1_1rss_1_1situation.html#ae5369b8e2105c93972af49116a69f986">More...</a><br /></td></tr>
+<tr class="separator:ae5369b8e2105c93972af49116a69f986"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a784fc6c80df97167d68ba5e78b30418b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a784fc6c80df97167d68ba5e78b30418b">calculateTimeToStop</a> (physics::Speed const currentSpeed, physics::Duration const responseTime, physics::Speed const maxSpeedOnAcceleration, physics::Acceleration const aUntilResponseTime, physics::Acceleration const aAfterResponseTime, physics::Duration &amp;stopDuration)</td></tr>
+<tr class="memdesc:a784fc6c80df97167d68ba5e78b30418b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the stopping time in a two phased limited constant accelerated movement.  <a href="namespacead_1_1rss_1_1situation.html#a784fc6c80df97167d68ba5e78b30418b">More...</a><br /></td></tr>
+<tr class="separator:a784fc6c80df97167d68ba5e78b30418b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68f8908de89e09d7d0a6addc19373068"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a68f8908de89e09d7d0a6addc19373068">calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern</a> (physics::Speed const &amp;currentLongitudinalSpeed, physics::Speed const &amp;maxSpeedOnAcceleration, physics::Duration const &amp;responseTime, physics::Acceleration const &amp;acceleration, physics::Acceleration const &amp;deceleration, physics::Distance &amp;distanceOffset)</td></tr>
+<tr class="memdesc:a68f8908de89e09d7d0a6addc19373068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the longitudinal distance offset of a vehicle when applying the <em>"stated braking pattern"</em> with given deceleration.  <a href="namespacead_1_1rss_1_1situation.html#a68f8908de89e09d7d0a6addc19373068">More...</a><br /></td></tr>
+<tr class="separator:a68f8908de89e09d7d0a6addc19373068"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b6ab4ec2415e65f24b6d41c5513e506"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a2b6ab4ec2415e65f24b6d41c5513e506">calculateLateralDistanceOffsetAfterStatedBrakingPattern</a> (physics::Speed const &amp;currentLateralSpeed, physics::Duration const &amp;responseTime, physics::Acceleration const &amp;acceleration, physics::Acceleration const &amp;deceleration, physics::Distance &amp;distanceOffset)</td></tr>
+<tr class="memdesc:a2b6ab4ec2415e65f24b6d41c5513e506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the lateral distance offset of a vehicle when applying the <em>"stated braking pattern"</em> with given deceleration.  <a href="namespacead_1_1rss_1_1situation.html#a2b6ab4ec2415e65f24b6d41c5513e506">More...</a><br /></td></tr>
+<tr class="separator:a2b6ab4ec2415e65f24b6d41c5513e506"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53d848312dde71c5a74ddccbadd94d31"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a53d848312dde71c5a74ddccbadd94d31">calculateSafeLongitudinalDistanceSameDirection</a> (<a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;leadingVehicle, <a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;followingVehicle, physics::Distance &amp;safeDistance)</td></tr>
+<tr class="memdesc:a53d848312dde71c5a74ddccbadd94d31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the <em>"safe longitudinal distance"</em> between the two vehicles, Assuming: Maximum deceleration for leading vehicle, and <em>"stated breaking pattern"</em> for following vehicle.  <a href="namespacead_1_1rss_1_1situation.html#a53d848312dde71c5a74ddccbadd94d31">More...</a><br /></td></tr>
+<tr class="separator:a53d848312dde71c5a74ddccbadd94d31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa22a133657a672bc20c0309120c698ee"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#aa22a133657a672bc20c0309120c698ee">checkSafeLongitudinalDistanceSameDirection</a> (<a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;leadingVehicle, <a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;followingVehicle, physics::Distance const &amp;vehicleDistance, physics::Distance &amp;safeDistance, bool &amp;isDistanceSafe)</td></tr>
+<tr class="memdesc:aa22a133657a672bc20c0309120c698ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the longitudinal distance between the two vehicles is safe. Assuming: Maximum deceleration for leading vehicle, and <em>"stated breaking pattern"</em> for following vehicle.  <a href="namespacead_1_1rss_1_1situation.html#aa22a133657a672bc20c0309120c698ee">More...</a><br /></td></tr>
+<tr class="separator:aa22a133657a672bc20c0309120c698ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9cbff930eca8d7ac482aeb7c607e386"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#aa9cbff930eca8d7ac482aeb7c607e386">calculateSafeLongitudinalDistanceOppositeDirection</a> (<a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;correctVehicle, <a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;oppositeVehicle, physics::Distance &amp;safeDistance)</td></tr>
+<tr class="memdesc:aa9cbff930eca8d7ac482aeb7c607e386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the safe longitudinal distance between to vehicles driving in opposite direction The calculation will assume that the correctVehicle is on the correct lane and oppositeVehicle on an opposite lane.  <a href="namespacead_1_1rss_1_1situation.html#aa9cbff930eca8d7ac482aeb7c607e386">More...</a><br /></td></tr>
+<tr class="separator:aa9cbff930eca8d7ac482aeb7c607e386"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a232c10899b09b9ebf3a04b73e01d7b18"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a232c10899b09b9ebf3a04b73e01d7b18">checkSafeLongitudinalDistanceOppositeDirection</a> (<a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;correctVehicle, <a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;oppositeVehicle, physics::Distance const &amp;vehicleDistance, physics::Distance &amp;safeDistance, bool &amp;isDistanceSafe)</td></tr>
+<tr class="memdesc:a232c10899b09b9ebf3a04b73e01d7b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the longitudinal distance between to vehicles driving in opposite direction is safe. The check will assume that the correctVehicle is on the correct lane and oppositeVehicle on an opposite lane.  <a href="namespacead_1_1rss_1_1situation.html#a232c10899b09b9ebf3a04b73e01d7b18">More...</a><br /></td></tr>
+<tr class="separator:a232c10899b09b9ebf3a04b73e01d7b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a6e68c8f080ab8d2fcaa9c00af81445"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a6a6e68c8f080ab8d2fcaa9c00af81445">checkStopInFrontIntersection</a> (<a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;vehicle, physics::Distance &amp;safeDistance, bool &amp;isDistanceSafe)</td></tr>
+<tr class="memdesc:a6a6e68c8f080ab8d2fcaa9c00af81445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the vehicle can safely break longitudinaly in front of the intersection. Assuming: Using <em>"stated breaking pattern"</em> for breaking.  <a href="namespacead_1_1rss_1_1situation.html#a6a6e68c8f080ab8d2fcaa9c00af81445">More...</a><br /></td></tr>
+<tr class="separator:a6a6e68c8f080ab8d2fcaa9c00af81445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fcfb42dca6a86f9cc8f53a03c10fb2e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a4fcfb42dca6a86f9cc8f53a03c10fb2e">calculateSafeLateralDistance</a> (<a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;leftVehicle, <a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;rightVehicle, physics::Distance &amp;safeDistance)</td></tr>
+<tr class="memdesc:a4fcfb42dca6a86f9cc8f53a03c10fb2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the <em>"safe lateral distance"</em> between the two vehicles, Assuming: Both vehicles apply <em>"stated breaking pattern"</em>.  <a href="namespacead_1_1rss_1_1situation.html#a4fcfb42dca6a86f9cc8f53a03c10fb2e">More...</a><br /></td></tr>
+<tr class="separator:a4fcfb42dca6a86f9cc8f53a03c10fb2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5841567473c32176c7b3d24b104bf082"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a5841567473c32176c7b3d24b104bf082">checkSafeLateralDistance</a> (<a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;leftVehicle, <a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;rightVehicle, physics::Distance const &amp;vehicleDistance, physics::Distance &amp;safeDistance, bool &amp;isDistanceSafe)</td></tr>
+<tr class="memdesc:a5841567473c32176c7b3d24b104bf082"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the lateral distance between to vehicles is safe Assuming: Both vehicles apply <em>"stated breaking pattern"</em>.  <a href="namespacead_1_1rss_1_1situation.html#a5841567473c32176c7b3d24b104bf082">More...</a><br /></td></tr>
+<tr class="separator:a5841567473c32176c7b3d24b104bf082"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>namespace situation </p>
+<p>Forward declaration. </p>
 </div><h2 class="groupheader">Typedef Documentation</h2>
 <a id="a2befdc031cf3cff6fe4868dd806e57e7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2befdc031cf3cff6fe4868dd806e57e7">&#9670;&nbsp;</a></span>SituationId</h2>
@@ -324,6 +373,965 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="afacb7252f1fc654b56b34c58e6254b10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afacb7252f1fc654b56b34c58e6254b10">&#9670;&nbsp;</a></span>calculateAcceleratedLimitedMovement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::calculateAcceleratedLimitedMovement </td>
+          <td>(</td>
+          <td class="paramtype">physics::Speed const&#160;</td>
+          <td class="paramname"><em>currentSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Speed const&#160;</td>
+          <td class="paramname"><em>maxSpeedOnAcceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const&#160;</td>
+          <td class="paramname"><em>acceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Duration const&#160;</td>
+          <td class="paramname"><em>duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Speed &amp;&#160;</td>
+          <td class="paramname"><em>resultingSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance &amp;&#160;</td>
+          <td class="paramname"><em>distanceOffset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the vehicle speed after a given period of time on a constant accelerated movement. </p>
+<p>The accelerated movement (acceleration&gt;0) is limited: The acceleration stops if the speed reaches a limiting maximum speed. The decelerated movement (acceleration&lt;0) is limited: The deceleration stops if the speed reaches zero. Especially, the vehicle is not starting to drive in reverse direction after standing still (In this case, it's equal to the stopping distance)</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">currentSpeed</td><td>is the current speed of the vehicle (has to be always positive) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">maxSpeedOnAcceleration</td><td>is the maximum speed of the vehicle (e.g. restricted by a limit) to be considered while accelerating (if acceleration &gt;0) (has to be always positive) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">acceleration</td><td>is the acceleration of the vehicle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">duration</td><td>is the (positive) period of time the vehicle keeps accelerating </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">resultingSpeed</td><td>is the resulting speed after <em>duration</em> (resultingSpeed &gt;= 0) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">distanceOffset</td><td>is the distance offset from the current position (distanceOffset &gt;= 0)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="ae8af514064e43657e33f9ccaad996da1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8af514064e43657e33f9ccaad996da1">&#9670;&nbsp;</a></span>calculateDistanceOffsetInAcceleratedMovement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::calculateDistanceOffsetInAcceleratedMovement </td>
+          <td>(</td>
+          <td class="paramtype">physics::Speed const&#160;</td>
+          <td class="paramname"><em>speed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const&#160;</td>
+          <td class="paramname"><em>acceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Duration const&#160;</td>
+          <td class="paramname"><em>duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance &amp;&#160;</td>
+          <td class="paramname"><em>distanceOffset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the distance traveled after a given period of time on a constant accelerated movement. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">speed</td><td>is the current speed </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">acceleration</td><td>is the acceleration value to be considered </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">duration</td><td>is the (positive) period of time the acceleration is performed </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">distanceOffset</td><td>is the distance offset from the current position.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a2b6ab4ec2415e65f24b6d41c5513e506"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b6ab4ec2415e65f24b6d41c5513e506">&#9670;&nbsp;</a></span>calculateLateralDistanceOffsetAfterStatedBrakingPattern()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::calculateLateralDistanceOffsetAfterStatedBrakingPattern </td>
+          <td>(</td>
+          <td class="paramtype">physics::Speed const &amp;&#160;</td>
+          <td class="paramname"><em>currentLateralSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Duration const &amp;&#160;</td>
+          <td class="paramname"><em>responseTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const &amp;&#160;</td>
+          <td class="paramname"><em>acceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const &amp;&#160;</td>
+          <td class="paramname"><em>deceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance &amp;&#160;</td>
+          <td class="paramname"><em>distanceOffset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the lateral distance offset of a vehicle when applying the <em>"stated braking pattern"</em> with given deceleration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">currentLateralSpeed</td><td>is the current lateral vehicle speed </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">responseTime</td><td>is the response time of the vehicle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">acceleration</td><td>the acceleration of the vehicle during responseTime </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">deceleration</td><td>is the applied breaking deceleration </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">distanceOffset</td><td>is the distance offset of the vehicle from the current position after <em>"the stated braking pattern"</em> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on successful calculation, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a68f8908de89e09d7d0a6addc19373068"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68f8908de89e09d7d0a6addc19373068">&#9670;&nbsp;</a></span>calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern </td>
+          <td>(</td>
+          <td class="paramtype">physics::Speed const &amp;&#160;</td>
+          <td class="paramname"><em>currentLongitudinalSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Speed const &amp;&#160;</td>
+          <td class="paramname"><em>maxSpeedOnAcceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Duration const &amp;&#160;</td>
+          <td class="paramname"><em>responseTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const &amp;&#160;</td>
+          <td class="paramname"><em>acceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const &amp;&#160;</td>
+          <td class="paramname"><em>deceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance &amp;&#160;</td>
+          <td class="paramname"><em>distanceOffset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the longitudinal distance offset of a vehicle when applying the <em>"stated braking pattern"</em> with given deceleration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">currentLongitudinalSpeed</td><td>is the current longitudinal vehicle speed </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">maxSpeedOnAcceleration</td><td>is the maximum vehicle speed to be considered in accelerated movement </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">responseTime</td><td>is the response time of the vehicle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">acceleration</td><td>the acceleration of the vehicle during responseTime </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">deceleration</td><td>is the applied breaking deceleration </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">distanceOffset</td><td>is the distance offset of the vehicle from the current position after <em>"the stated braking pattern"</em> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on successful calculation, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a4fcfb42dca6a86f9cc8f53a03c10fb2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fcfb42dca6a86f9cc8f53a03c10fb2e">&#9670;&nbsp;</a></span>calculateSafeLateralDistance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::calculateSafeLateralDistance </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>leftVehicle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>rightVehicle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance &amp;&#160;</td>
+          <td class="paramname"><em>safeDistance</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the <em>"safe lateral distance"</em> between the two vehicles, Assuming: Both vehicles apply <em>"stated breaking pattern"</em>. </p>
+<hr  />
+ <pre class="fragment"> Left vehicle  --&gt;
+     |
+     |
+     v
+
+     ^
+     |
+     |
+ Right vehicle --&gt;
+</pre><p>======================================================</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">leftVehicle</td><td>is the state of the left vehicle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rightVehicle</td><td>is the state of the right vehicle </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">safeDistance</td><td>is the calculated safe lateral distance</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on successful calculation, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="aa9cbff930eca8d7ac482aeb7c607e386"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9cbff930eca8d7ac482aeb7c607e386">&#9670;&nbsp;</a></span>calculateSafeLongitudinalDistanceOppositeDirection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::calculateSafeLongitudinalDistanceOppositeDirection </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>correctVehicle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>oppositeVehicle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance &amp;&#160;</td>
+          <td class="paramname"><em>safeDistance</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the safe longitudinal distance between to vehicles driving in opposite direction The calculation will assume that the correctVehicle is on the correct lane and oppositeVehicle on an opposite lane. </p>
+<p>So calculation for the correctVehicle is performed with brakeMinCorrect and performed with brakeMin for the oppositeVehicle</p>
+<hr  />
+ <pre class="fragment"> correctVehicle ---&gt;        &lt;---  oppositeVehicle
+</pre><p>======================================================</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">correctVehicle</td><td>is the state of the vehicle driving in the correct lane </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">oppositeVehicle</td><td>is the state of the vehicle driving in the wrong lane </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">isDistanceSafe</td><td>true if the distance is safe, false otherwise</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on successful calculation, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a53d848312dde71c5a74ddccbadd94d31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53d848312dde71c5a74ddccbadd94d31">&#9670;&nbsp;</a></span>calculateSafeLongitudinalDistanceSameDirection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::calculateSafeLongitudinalDistanceSameDirection </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>leadingVehicle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>followingVehicle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance &amp;&#160;</td>
+          <td class="paramname"><em>safeDistance</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the <em>"safe longitudinal distance"</em> between the two vehicles, Assuming: Maximum deceleration for leading vehicle, and <em>"stated breaking pattern"</em> for following vehicle. </p>
+<hr  />
+ <pre class="fragment"> FollowingVehicle ---&gt;          LeadingVehicle ---&gt;
+</pre><p>======================================================</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">leadingVehicle</td><td>is the state of the leading vehicle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">followingVehicle</td><td>is the state of the following vehicle </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">safeDistance</td><td>is the calculated safe longitudinal distance</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on successful calculation, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="ae5369b8e2105c93972af49116a69f986"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5369b8e2105c93972af49116a69f986">&#9670;&nbsp;</a></span>calculateSpeedAndDistanceOffset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::calculateSpeedAndDistanceOffset </td>
+          <td>(</td>
+          <td class="paramtype">physics::Duration const&#160;</td>
+          <td class="paramname"><em>duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Speed const&#160;</td>
+          <td class="paramname"><em>currentSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Duration const&#160;</td>
+          <td class="paramname"><em>responseTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Speed const&#160;</td>
+          <td class="paramname"><em>maxSpeedOnAcceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const&#160;</td>
+          <td class="paramname"><em>aUntilReponseTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const&#160;</td>
+          <td class="paramname"><em>aAfterResponseTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Speed &amp;&#160;</td>
+          <td class="paramname"><em>resultingSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance &amp;&#160;</td>
+          <td class="paramname"><em>distanceOffset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the speed and distance offset after a given duration in a two phased limited constant accelerated movement. </p>
+<p>The function will use two values for acceleration, one until reaching the response time, the second one afterwards.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">duration</td><td>the duration for which the speed gets calculated </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">currentSpeed</td><td>starting velocity </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">responseTime</td><td>the time after which <em>aAfterResponseTime</em> is used instead of <em>aUntilResponseTime</em> as acceleration </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">maxSpeedOnAcceleration</td><td>is the maximum speed of the vehicle (has to be always positive) to be considered while accelerating </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aUntilResponseTime</td><td>acceleration until response time </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aAfterResponseTime</td><td>acceleration after response time </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">resultingSpeed</td><td>resulting speed after <em>duration</em> </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">distanceOffset</td><td>resulting distance </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a1ed8bcab8741f84a28cd2f4d624b968d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ed8bcab8741f84a28cd2f4d624b968d">&#9670;&nbsp;</a></span>calculateSpeedInAcceleratedMovement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::calculateSpeedInAcceleratedMovement </td>
+          <td>(</td>
+          <td class="paramtype">physics::Speed const&#160;</td>
+          <td class="paramname"><em>speed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const&#160;</td>
+          <td class="paramname"><em>acceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Duration const&#160;</td>
+          <td class="paramname"><em>duration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Speed &amp;&#160;</td>
+          <td class="paramname"><em>resultingSpeed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the speed after a given period of time on a constant accelerated movement. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">speed</td><td>is the current speed </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">acceleration</td><td>is the acceleration value to be considered </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">duration</td><td>is the (positive) period of time the acceleration is performed </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">resultingSpeed</td><td>is the resulting speed after <em>duration</em> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a66dd4c7a777c2a996b95c7dd7435b543"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66dd4c7a777c2a996b95c7dd7435b543">&#9670;&nbsp;</a></span>calculateStoppingDistance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::calculateStoppingDistance </td>
+          <td>(</td>
+          <td class="paramtype">physics::Speed const&#160;</td>
+          <td class="paramname"><em>currentSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const&#160;</td>
+          <td class="paramname"><em>deceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance &amp;&#160;</td>
+          <td class="paramname"><em>stoppingDistance</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the stopping distance for a given speed and deceleration on a constant accelerated movement. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">currentSpeed</td><td>is the current speed of the vehicle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">deceleration</td><td>is the applied deceleration </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">stoppingDistance</td><td>is the resulting stopping distance The sign of the stoppingDistance equals the sign of the currentSpeed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success, false if a stop cannot be reached </dd></dl>
+
+</div>
+</div>
+<a id="ab7feefda4d53c6ecac7717672e55775e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7feefda4d53c6ecac7717672e55775e">&#9670;&nbsp;</a></span>calculateTimeToCoverDistance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::calculateTimeToCoverDistance </td>
+          <td>(</td>
+          <td class="paramtype">physics::Speed const&#160;</td>
+          <td class="paramname"><em>currentSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Speed const&#160;</td>
+          <td class="paramname"><em>maxSpeedOnAcceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Duration const&#160;</td>
+          <td class="paramname"><em>responseTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const&#160;</td>
+          <td class="paramname"><em>aUntilResponseTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const&#160;</td>
+          <td class="paramname"><em>aAfterResponseTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance const&#160;</td>
+          <td class="paramname"><em>distanceToCover</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Duration &amp;&#160;</td>
+          <td class="paramname"><em>requiredTime</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the time needed to cover a given distance. </p>
+<p>The function will use two values for acceleration, one until reaching the response time, the second one afterwards. If the distance is not covered when then velocity reaches zero, infinite time will be returned</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">currentSpeed</td><td>starting velocity </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">maxSpeedOnAcceleration</td><td>is the maximum speed of the vehicle (has to be always positive) to be considered while accelerating </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">responseTime</td><td>the time after which <em>aAfterResponseTime</em> is used instead of <em>aUntilResponseTime</em> as acceleration </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aUntilResponseTime</td><td>during response time </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aAfterResponseTime</td><td>after response time </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">distanceToCover</td><td>distance that should be covered </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">requiredTime</td><td>time needed to cover the distance</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on, success, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a784fc6c80df97167d68ba5e78b30418b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a784fc6c80df97167d68ba5e78b30418b">&#9670;&nbsp;</a></span>calculateTimeToStop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::calculateTimeToStop </td>
+          <td>(</td>
+          <td class="paramtype">physics::Speed const&#160;</td>
+          <td class="paramname"><em>currentSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Duration const&#160;</td>
+          <td class="paramname"><em>responseTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Speed const&#160;</td>
+          <td class="paramname"><em>maxSpeedOnAcceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const&#160;</td>
+          <td class="paramname"><em>aUntilResponseTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Acceleration const&#160;</td>
+          <td class="paramname"><em>aAfterResponseTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Duration &amp;&#160;</td>
+          <td class="paramname"><em>stopDuration</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the stopping time in a two phased limited constant accelerated movement. </p>
+<p>The function will use two values for acceleration, one until reaching the response time, the second one afterwards.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">currentSpeed</td><td>starting velocity </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">responseTime</td><td>the time after which <em>aAfterResponseTime</em> is used instead of <em>aUntilResponseTime</em> as acceleration </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">maxSpeedOnAcceleration</td><td>is the maximum speed of the vehicle (has to be always positive) to be considered while accelerating </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aUntilResponseTime</td><td>acceleration until response time </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aAfterResponseTime</td><td>acceleration after response time </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">stopDuration</td><td>resulting duration</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on, success, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a5841567473c32176c7b3d24b104bf082"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5841567473c32176c7b3d24b104bf082">&#9670;&nbsp;</a></span>checkSafeLateralDistance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::checkSafeLateralDistance </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>leftVehicle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>rightVehicle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance const &amp;&#160;</td>
+          <td class="paramname"><em>vehicleDistance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance &amp;&#160;</td>
+          <td class="paramname"><em>safeDistance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>isDistanceSafe</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if the lateral distance between to vehicles is safe Assuming: Both vehicles apply <em>"stated breaking pattern"</em>. </p>
+<hr  />
+ <pre class="fragment"> Left vehicle  --&gt;
+     |
+     |
+     v
+
+     ^
+     |
+     |
+ Right vehicle --&gt;
+</pre><p>======================================================</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">leftVehicle</td><td>is the state of the left vehicle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rightVehicle</td><td>is the state of the right vehicle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">vehicleDistance</td><td>the (positive) lateral distance between the two vehicles </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">safeDistance</td><td>is the calculated safe lateral distance </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">isDistanceSafe</td><td>is true if the distance is safe, false otherwise</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on successful calculation, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a232c10899b09b9ebf3a04b73e01d7b18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a232c10899b09b9ebf3a04b73e01d7b18">&#9670;&nbsp;</a></span>checkSafeLongitudinalDistanceOppositeDirection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::checkSafeLongitudinalDistanceOppositeDirection </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>correctVehicle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>oppositeVehicle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance const &amp;&#160;</td>
+          <td class="paramname"><em>vehicleDistance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance &amp;&#160;</td>
+          <td class="paramname"><em>safeDistance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>isDistanceSafe</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if the longitudinal distance between to vehicles driving in opposite direction is safe. The check will assume that the correctVehicle is on the correct lane and oppositeVehicle on an opposite lane. </p>
+<p>So check for the correctVehcile is performed with brakeMinCorrect and performed with brakeMin for the oppositeVehicle</p>
+<hr  />
+ <pre class="fragment"> correctVehicle ---&gt;        &lt;---  oppositeVehicle
+</pre><p>======================================================</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">correctVehicle</td><td>is the state of the vehicle driving in the correct lane </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">oppositeVehicle</td><td>is the state of the vehicle driving in the wrong lane </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">vehicleDistance</td><td>the (positive) longitudinal distance between the two vehicles </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">safeDistance</td><td>is the calculated safe longitudinal distance </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">isDistanceSafe</td><td>true if the distance is safe, false otherwise</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on successful calculation, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="aa22a133657a672bc20c0309120c698ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa22a133657a672bc20c0309120c698ee">&#9670;&nbsp;</a></span>checkSafeLongitudinalDistanceSameDirection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::checkSafeLongitudinalDistanceSameDirection </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>leadingVehicle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>followingVehicle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance const &amp;&#160;</td>
+          <td class="paramname"><em>vehicleDistance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance &amp;&#160;</td>
+          <td class="paramname"><em>safeDistance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>isDistanceSafe</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if the longitudinal distance between the two vehicles is safe. Assuming: Maximum deceleration for leading vehicle, and <em>"stated breaking pattern"</em> for following vehicle. </p>
+<hr  />
+ <pre class="fragment"> FollowingVehicle ---&gt;          LeadingVehicle ---&gt;
+</pre><p>======================================================</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">leadingVehicle</td><td>is the state of the leading vehicle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">followingVehicle</td><td>is the state of the following vehicle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">vehicleDistance</td><td>the (positive) longitudinal distance between the two vehicles </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">safeDistance</td><td>is the calculated safe longitudinal distance </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">isDistanceSafe</td><td>true if the distance is safe, false otherwise</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on successful calculation, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a6a6e68c8f080ab8d2fcaa9c00af81445"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a6e68c8f080ab8d2fcaa9c00af81445">&#9670;&nbsp;</a></span>checkStopInFrontIntersection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::situation::checkStopInFrontIntersection </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1situation_1_1VehicleState.html">VehicleState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>vehicle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">physics::Distance &amp;&#160;</td>
+          <td class="paramname"><em>safeDistance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>isDistanceSafe</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if the vehicle can safely break longitudinaly in front of the intersection. Assuming: Using <em>"stated breaking pattern"</em> for breaking. </p>
+<hr  />
+ <pre class="fragment"> vehicle ---&gt;             |  Intersection
+                          |
+</pre><p> ============================== =============== | | | |</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">vehicle</td><td>is the state of the vehicle </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">safeDistance</td><td>the safe distance according to the stated braking pattern </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">isDistanceSafe</td><td>true if the distance is safe, false otherwise</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on successful calculation, false otherwise </dd></dl>
+
+</div>
+</div>
 <a id="ad34de1fee1f0ba7a32a3ee717965f322"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad34de1fee1f0ba7a32a3ee717965f322">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[1/8]</span></h2>
 

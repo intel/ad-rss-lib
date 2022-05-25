@@ -1,4 +1,7 @@
 <map id="generated/include/ad/rss/state/RssStateSnapshot.hpp" name="generated/include/ad/rss/state/RssStateSnapshot.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,236,47"/>
-<area shape="rect" id="node2" href="$RssStateSnapshotValidInputRange_8hpp.html" title=" " alt="" coords="19,95,222,151"/>
+<area shape="rect" id="node1" title=" " alt="" coords="287,5,518,47"/>
+<area shape="rect" id="node2" href="$RssStateSnapshotValidInputRange_8hpp.html" title=" " alt="" coords="5,95,208,151"/>
+<area shape="rect" id="node3" href="$RssCheck_8hpp.html" title=" " alt="" coords="232,102,376,143"/>
+<area shape="rect" id="node4" href="$RssResponseResolving_8hpp.html" title=" " alt="" coords="401,102,605,143"/>
+<area shape="rect" id="node5" href="$RssSituationChecking_8hpp.html" title=" " alt="" coords="629,102,824,143"/>
 </map>

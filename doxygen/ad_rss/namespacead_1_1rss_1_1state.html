@@ -203,9 +203,22 @@ Functions</h2></td></tr>
 <tr class="memitem:ad1e53258694e15f397660a049329d08c"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1state.html#ad1e53258694e15f397660a049329d08c">operator&lt;&lt;</a> (std::ostream &amp;os, <a class="el" href="structad_1_1rss_1_1state_1_1UnstructuredSceneStateInformation.html">UnstructuredSceneStateInformation</a> const &amp;_value)</td></tr>
 <tr class="memdesc:ad1e53258694e15f397660a049329d08c"><td class="mdescLeft">&#160;</td><td class="mdescRight">standard ostream operator  <a href="namespacead_1_1rss_1_1state.html#ad1e53258694e15f397660a049329d08c">More...</a><br /></td></tr>
 <tr class="separator:ad1e53258694e15f397660a049329d08c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0d56e3ac8fba521ad617fc9aed06f7a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1state.html#aa0d56e3ac8fba521ad617fc9aed06f7a">isLongitudinalSafe</a> (<a class="el" href="structad_1_1rss_1_1state_1_1RssState.html">RssState</a> const &amp;rssState)</td></tr>
+<tr class="memdesc:aa0d56e3ac8fba521ad617fc9aed06f7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">is rss state longitudinal safe  <a href="namespacead_1_1rss_1_1state.html#aa0d56e3ac8fba521ad617fc9aed06f7a">More...</a><br /></td></tr>
+<tr class="separator:aa0d56e3ac8fba521ad617fc9aed06f7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc095182f2e1cf2f7b1fd18eb59f0ee4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1state.html#abc095182f2e1cf2f7b1fd18eb59f0ee4">isLateralSafe</a> (<a class="el" href="structad_1_1rss_1_1state_1_1RssState.html">RssState</a> const &amp;rssState)</td></tr>
+<tr class="memdesc:abc095182f2e1cf2f7b1fd18eb59f0ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">is rss state lateral safe  <a href="namespacead_1_1rss_1_1state.html#abc095182f2e1cf2f7b1fd18eb59f0ee4">More...</a><br /></td></tr>
+<tr class="separator:abc095182f2e1cf2f7b1fd18eb59f0ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4db32efd7f39cf305e39e34e0c3cc42"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1state.html#aa4db32efd7f39cf305e39e34e0c3cc42">isUnstructuredSceneSafe</a> (<a class="el" href="structad_1_1rss_1_1state_1_1RssState.html">RssState</a> const &amp;rssState)</td></tr>
+<tr class="memdesc:aa4db32efd7f39cf305e39e34e0c3cc42"><td class="mdescLeft">&#160;</td><td class="mdescRight">is rss unstructured scene state safe  <a href="namespacead_1_1rss_1_1state.html#aa4db32efd7f39cf305e39e34e0c3cc42">More...</a><br /></td></tr>
+<tr class="separator:aa4db32efd7f39cf305e39e34e0c3cc42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9957d98aafa3149b34e759a401cafc79"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1state.html#a9957d98aafa3149b34e759a401cafc79">isDangerous</a> (<a class="el" href="structad_1_1rss_1_1state_1_1RssState.html">RssState</a> const &amp;rssState)</td></tr>
+<tr class="memdesc:a9957d98aafa3149b34e759a401cafc79"><td class="mdescLeft">&#160;</td><td class="mdescRight">is rss state dangerous  <a href="namespacead_1_1rss_1_1state.html#a9957d98aafa3149b34e759a401cafc79">More...</a><br /></td></tr>
+<tr class="separator:a9957d98aafa3149b34e759a401cafc79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>namespace state </p>
+<p>namespace for RSS state datatypes and operations </p>
 </div><h2 class="groupheader">Typedef Documentation</h2>
 <a id="ab1d444b87b49693b8d2e98e0c766d169"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab1d444b87b49693b8d2e98e0c766d169">&#9670;&nbsp;</a></span>HeadingRangeVector</h2>
@@ -390,6 +403,146 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a9957d98aafa3149b34e759a401cafc79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9957d98aafa3149b34e759a401cafc79">&#9670;&nbsp;</a></span>isDangerous()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::state::isDangerous </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1state_1_1RssState.html">RssState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>rssState</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>is rss state dangerous </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rssState</td><td>to check</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>true if dangerous, false if not </p>
+
+</div>
+</div>
+<a id="abc095182f2e1cf2f7b1fd18eb59f0ee4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc095182f2e1cf2f7b1fd18eb59f0ee4">&#9670;&nbsp;</a></span>isLateralSafe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::state::isLateralSafe </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1state_1_1RssState.html">RssState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>rssState</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>is rss state lateral safe </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rssState</td><td>to check</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>true if safe, false if not </p>
+
+</div>
+</div>
+<a id="aa0d56e3ac8fba521ad617fc9aed06f7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0d56e3ac8fba521ad617fc9aed06f7a">&#9670;&nbsp;</a></span>isLongitudinalSafe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::state::isLongitudinalSafe </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1state_1_1RssState.html">RssState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>rssState</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>is rss state longitudinal safe </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rssState</td><td>to check</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>true if safe, false if not </p>
+
+</div>
+</div>
+<a id="aa4db32efd7f39cf305e39e34e0c3cc42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4db32efd7f39cf305e39e34e0c3cc42">&#9670;&nbsp;</a></span>isUnstructuredSceneSafe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ad::rss::state::isUnstructuredSceneSafe </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structad_1_1rss_1_1state_1_1RssState.html">RssState</a> const &amp;&#160;</td>
+          <td class="paramname"><em>rssState</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>is rss unstructured scene state safe </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rssState</td><td>to check</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>true if safe, false if not </p>
+
+</div>
+</div>
 <a id="abfd72a8b98d9be6ce688d67d4f098899"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abfd72a8b98d9be6ce688d67d4f098899">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[1/14]</span></h2>
 

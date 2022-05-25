@@ -1,6 +1,9 @@
 <map id="generated/include/ad/rss/state/RssStateVector.hpp" name="generated/include/ad/rss/state/RssStateVector.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="139,5,350,47"/>
-<area shape="rect" id="node2" href="$RssStateSnapshot_8hpp.html" title=" " alt="" coords="5,102,236,143"/>
-<area shape="rect" id="node4" href="$RssStateVectorValidInputRange_8hpp.html" title=" " alt="" coords="261,95,477,151"/>
-<area shape="rect" id="node3" href="$RssStateSnapshotValidInputRange_8hpp.html" title=" " alt="" coords="143,199,346,255"/>
+<area shape="rect" id="node1" title=" " alt="" coords="132,5,343,47"/>
+<area shape="rect" id="node2" href="$RssStateSnapshot_8hpp.html" title=" " alt="" coords="246,102,477,143"/>
+<area shape="rect" id="node7" href="$RssStateVectorValidInputRange_8hpp.html" title=" " alt="" coords="5,95,221,151"/>
+<area shape="rect" id="node3" href="$RssStateSnapshotValidInputRange_8hpp.html" title=" " alt="" coords="12,199,215,255"/>
+<area shape="rect" id="node4" href="$RssCheck_8hpp.html" title=" " alt="" coords="239,206,383,247"/>
+<area shape="rect" id="node5" href="$RssResponseResolving_8hpp.html" title=" " alt="" coords="407,206,611,247"/>
+<area shape="rect" id="node6" href="$RssSituationChecking_8hpp.html" title=" " alt="" coords="636,206,831,247"/>
 </map>
