@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2019-2021 Intel Corporation
+// Copyright (C) 2019-2022 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -14,7 +14,7 @@
 #include <spdlog/logger.h>
 
 /*!
- * @brief namespace rss
+ * @brief namespace ad
  */
 namespace ad {
 /*!
