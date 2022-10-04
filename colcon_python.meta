@@ -6,6 +6,9 @@
         "ad_physics": {
             "cmake-args": ["-DBUILD_PYTHON_BINDING=ON"]
         },
+        "ad_map_opendrive_reader": {
+            "dependencies": ["odrSpiral"]
+        },
         "ad_map_access": {
             "cmake-args": ["-DBUILD_PYTHON_BINDING=ON"]
         },
