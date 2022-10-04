@@ -1,5 +1,11 @@
 ## Latest changes
 
+
+## Release 4.5.2
+
+#### :ghost: Maintenance
+* Update map to v2.6.2
+
 ## Release 4.5.1
 
 #### :ghost: Maintenance
