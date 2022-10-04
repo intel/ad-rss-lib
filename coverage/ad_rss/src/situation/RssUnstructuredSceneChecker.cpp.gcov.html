@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-05-25 16:10:30</td>
+            <td class="headerValue">2022-10-04 14:27:15</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -243,7 +243,7 @@
 <span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 14 times"> + </span><span class="branchCov" title="Branch 8 was taken 1 time"> + </span> 
 <span class="lineNum">         </span>            <span class="branchCov" title="Branch 9 was taken 14 times"> + </span>]
 <a name="171"><span class="lineNum">     171 </span>                :            :   {</a>
-<a name="172"><span class="lineNum">     172 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     spdlog::warn(&quot;Situation {} refers to empty trajectory sets&quot;, situation.situationId);</span></a>
+<a name="172"><span class="lineNum">     172 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :     spdlog::warn(&quot;Situation {} refers to empty trajectory sets&quot;, situation.situationId);</span></a>
 <a name="173"><span class="lineNum">     173 </span>                :<span class="lineCov">          1 :     return false;</span></a>
 <a name="174"><span class="lineNum">     174 </span>                :            :   }</a>
 <a name="175"><span class="lineNum">     175 </span>                :            : </a>
@@ -290,7 +290,7 @@
 <a name="215"><span class="lineNum">     215 </span>  [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 5 times"> + </span><span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">          9 :          &amp;&amp; (situation.otherVehicleState.objectState.speed == physics::Speed(0.))))</span></a>
 <span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 3 times"> + </span><span class="branchCov" title="Branch 5 was taken 1 time"> + </span><span class="branchCov" title="Branch 6 was taken 3 times"> + </span><span class="branchCov" title="Branch 7 was taken 6 times"> + </span>]
 <a name="216"><span class="lineNum">     216 </span>                :            :     {</a>
-<a name="217"><span class="lineNum">     217 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          3 :       spdlog::debug(&quot;Situation {} Rule 1: both stopped, unsafe distance -&gt; drive away.&quot;, situation.situationId);</span></a>
+<a name="217"><span class="lineNum">     217 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          6 :       spdlog::debug(&quot;Situation {} Rule 1: both stopped, unsafe distance -&gt; drive away.&quot;, situation.situationId);</span></a>
 <a name="218"><span class="lineNum">     218 </span>                :<span class="lineCov">          3 :       mode = DrivingMode::DriveAway;</span></a>
 <a name="219"><span class="lineNum">     219 </span>                :            :     }</a>
 <a name="220"><span class="lineNum">     220 </span>                :            : </a>
@@ -302,12 +302,12 @@
 <a name="226"><span class="lineNum">     226 </span>                :            :     {</a>
 <a name="227"><span class="lineNum">     227 </span>  [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">          2 :       if (situation.egoVehicleState.objectState.speed &gt; physics::Speed(0.))</span></a>
 <a name="228"><span class="lineNum">     228 </span>                :            :       {</a>
-<a name="229"><span class="lineNum">     229 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :         spdlog::debug(&quot;Situation {} Rule 2: opponent is moving -&gt; continue forward&quot;, situation.situationId);</span></a>
+<a name="229"><span class="lineNum">     229 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :         spdlog::debug(&quot;Situation {} Rule 2: opponent is moving -&gt; continue forward&quot;, situation.situationId);</span></a>
 <a name="230"><span class="lineNum">     230 </span>                :<span class="lineCov">          1 :         mode = DrivingMode::ContinueForward;</span></a>
 <a name="231"><span class="lineNum">     231 </span>                :            :       }</a>
 <a name="232"><span class="lineNum">     232 </span>                :            :       else</a>
 <a name="233"><span class="lineNum">     233 </span>                :            :       {</a>
-<a name="234"><span class="lineNum">     234 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :         spdlog::debug(&quot;Situation {} Rule 2: opponent is stopped -&gt; drive away&quot;, situation.situationId);</span></a>
+<a name="234"><span class="lineNum">     234 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :         spdlog::debug(&quot;Situation {} Rule 2: opponent is stopped -&gt; drive away&quot;, situation.situationId);</span></a>
 <a name="235"><span class="lineNum">     235 </span>                :<span class="lineCov">          1 :         mode = DrivingMode::DriveAway;</span></a>
 <a name="236"><span class="lineNum">     236 </span>                :            :       }</a>
 <a name="237"><span class="lineNum">     237 </span>                :            :     }</a>
@@ -315,7 +315,7 @@
 <a name="239"><span class="lineNum">     239 </span>                :            :     // Rule 3: Brake</a>
 <a name="240"><span class="lineNum">     240 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 5 times"> + </span>]:<span class="lineCov">          9 :     if (mode == DrivingMode::Invalid)</span></a>
 <a name="241"><span class="lineNum">     241 </span>                :            :     {</a>
-<a name="242"><span class="lineNum">     242 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          4 :       spdlog::debug(&quot;Situation {} Rule 3: brake (brake collides with other brake)&quot;, situation.situationId);</span></a>
+<a name="242"><span class="lineNum">     242 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          8 :       spdlog::debug(&quot;Situation {} Rule 3: brake (brake collides with other brake)&quot;, situation.situationId);</span></a>
 <a name="243"><span class="lineNum">     243 </span>                :<span class="lineCov">          4 :       mode = DrivingMode::Brake;</span></a>
 <a name="244"><span class="lineNum">     244 </span>                :            :     }</a>
 <a name="245"><span class="lineNum">     245 </span>                :            :   }</a>
