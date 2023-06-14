@@ -1,10 +1,11 @@
 # ----------------- BEGIN LICENSE BLOCK ---------------------------------
 #
-# Copyright (C) 2018-2021 Intel Corporation
+# Copyright (C) 2018-2023 Intel Corporation
 #
 # SPDX-License-Identifier: LGPL-2.1-only
 #
 # ----------------- END LICENSE BLOCK -----------------------------------
+
 cmake_minimum_required(VERSION 3.5)
 
 include(../cmake/ad-rss-lib-version.cmake)
@@ -17,8 +18,8 @@ include(../cmake/warnings.cmake)
 include(../cmake/apidoc.cmake)
 include(../cmake/python-binding.cmake)
 
-#convert list to string
-string (REPLACE ";" " " TARGET_LINK_FLAGS "${TARGET_LINK_OPTIONS}")
+# Convert list to string
+string(REPLACE ";" " " TARGET_LINK_FLAGS "${TARGET_LINK_OPTIONS}")
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -35,7 +36,7 @@ find_package(spdlog REQUIRED CONFIG)
 
 include(generated/ad_rss.cmake)
 
-add_library(${PROJECT_NAME}
+set(ad_rss_SOURCES
   ${ad_rss_GENERATED_SOURCES}
   ${CMAKE_CURRENT_SOURCE_DIR}/src/core/RssCheck.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/core/RssResponseResolving.cpp
@@ -54,6 +55,8 @@ add_library(${PROJECT_NAME}
   ${CMAKE_CURRENT_SOURCE_DIR}/src/unstructured/TrajectoryPedestrian.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/unstructured/TrajectoryVehicle.cpp
 )
+
+add_library(${PROJECT_NAME} ${ad_rss_SOURCES})
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC ${TARGET_COMPILE_DEFINITIONS})
 target_compile_options(${PROJECT_NAME} PRIVATE ${TARGET_COMPILE_OPTIONS})
@@ -75,7 +78,6 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
   PRIVATE
   ${ad_rss_TARGET_LINK_LIBRARIES}
 )
-
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
@@ -122,7 +124,7 @@ install(FILES
 #####################################################################
 # Tests
 #####################################################################
-if (BUILD_TESTING)
+if(BUILD_TESTING)
   add_subdirectory(tests)
 endif()
 
