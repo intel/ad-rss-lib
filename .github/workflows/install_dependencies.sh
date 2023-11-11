@@ -12,7 +12,7 @@ fi
 sudo pip3 install --upgrade setuptools==51.1.2
 sudo pip3 install colcon-common-extensions xmlrunner pygccxml pyplusplus
 
-if [ `lsb_release -a | grep Release | grep 20.04 | wc -l` != 1 ]; then
+if [ `lsb_release -a | grep Release | grep 18.04 | wc -l` == 1 ]; then
   sudo pip2 install --upgrade setuptools==41.1.0
   sudo pip2 install pygccxml pyplusplus xmlrunner
 fi
