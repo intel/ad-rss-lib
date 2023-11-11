@@ -116,8 +116,8 @@ Note: The RSS module in this library does not initiate evasive manuevers. At the
 ## Getting started <a name="started"></a>
 
 #### Installation of dependencies
-Currently, the focused operating systems are Ubuntu 18.04 and Ubuntu 20.04. Nevertheless, the library should work in a similar way for any other Linux OS.
-To install the basic dependencies for Ubuntu 18.04/20.04 execute the following command:
+Currently, the focused operating systems are Ubuntu 18.04, Ubuntu 20.04 and Ubuntu 22.04. Nevertheless, the library should work in a similar way for any other Linux OS.
+To install the basic dependencies for Ubuntu 18.04/20.04/22.04 execute the following command:
 ```bash
  user$> sudo apt-get install git build-essential cmake libboost-dev libpugixml-dev libgtest-dev libpython-dev libproj-dev
 ```
@@ -135,16 +135,19 @@ To download the library, you may run:
 ```
 
 #### Supported systems <a name="systems"></a>
-Development systems are Ubuntu 18.04 and Ubuntu 20.04.
+Development systems are Ubuntu 18.04, Ubuntu 20.04 and Ubuntu 22.04
 Following compiler combinations are [tested continously](https://github.com/intel/ad-rss-lib/blob/master/.travis.yml):
 
-|                 | Ubuntu 18.04 | Ubuntu 20.04 |
-|:---------------:|:------------:|:------------:|
-|  Clang 7        |       x      |              |
-|  Clang 8        |       x      |              |
-|   GCC 7         |       x      |              |
-|   GCC 8         |       x      |              |
-|   GCC 9         |       x      |       x      |
+|                 | Ubuntu 18.04 | Ubuntu 20.04 | Ubuntu 22.04 |
+|:---------------:|:------------:|:------------:|:------------:|
+|  Clang 7        |       x      |              |              |
+|  Clang 8        |       x      |              |              |
+|   GCC 7         |       x      |              |              |
+|   GCC 8         |       x      |              |              |
+|   GCC 9         |              |       x      |              |
+|  Clang 10       |              |       x      |              |
+|   GCC 11        |              |              |       x      |
+|  Clang 14       |              |              |       x      |
 
 Important: cmake is required to be at least version 3.5!
 

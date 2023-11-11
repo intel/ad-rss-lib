@@ -13,7 +13,7 @@ env:
 jobs:
   ubuntu18job:
     name: Ubuntu 18.04
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -28,11 +28,6 @@ jobs:
            CC: /usr/bin/gcc-8
            CXX: /usr/bin/g++-8
            PYTHON_BINDING_VERSION: "3.6 -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3.6"
-         - compiler: gcc9
-           EXTRA_PACKAGES: g++-9
-           CC: /usr/bin/gcc-9
-           CXX: /usr/bin/g++-9
-           PYTHON_BINDING_VERSION: "3.6 -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3.6"
          - compiler: clang7
            EXTRA_PACKAGES: clang-7
            CC: /usr/bin/clang-7
@@ -44,9 +39,16 @@ jobs:
            CXX: /usr/bin/clang++-8
            PYTHON_BINDING_VERSION: "3.6 -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3.6"
 
+    container:
+      image: ubuntu:18.04
+
     steps:
-    - uses: actions/checkout@v2
+    - name: Install base packages
+      run: apt update && apt install -y git sudo
+
+    - uses: actions/checkout@v1
       with:
+          depth: 
           submodules: recursive
 
     - name: Install Dependencies
@@ -59,9 +61,10 @@ jobs:
           EXTRA_PACKAGES: ${{ matrix.EXTRA_PACKAGES }}
           PYTHON_BINDING_VERSION: ${{ matrix.PYTHON_BINDING_VERSION }}
       run: |
-        sudo apt-get install ${EXTRA_PACKAGES}
+        sudo apt-get install -y ${EXTRA_PACKAGES}
         rm -rf log build install
         eval CC=${CC} CXX=${CXX} ${BUILDCMD}
+
 
   ubuntu20job:
     name: Ubuntu 20.04

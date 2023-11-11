@@ -7,7 +7,7 @@
             "cmake-args": ["-DBUILD_PYTHON_BINDING=ON"]
         },
         "ad_map_opendrive_reader": {
-            "dependencies": ["odrSpiral"]
+            "dependencies": ["odrSpiral", "PROJ4"]
         },
         "ad_map_access": {
             "cmake-args": ["-DBUILD_PYTHON_BINDING=ON"]
