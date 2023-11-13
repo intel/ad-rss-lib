@@ -19,6 +19,7 @@
 #include <ad/rss/world/WorldModelValidInputRange.hpp>
 #include <gtest/gtest.h>
 
+#include <algorithm>
 #include <fstream>
 #include <streambuf>
 
