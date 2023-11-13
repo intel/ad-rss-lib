@@ -8,7 +8,7 @@
     <title>Intel ad-rss-lib</title>
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
@@ -17,12 +17,11 @@
         var mkdocs_page_url = null;
       </script>
     
-    <script src="js/jquery-3.6.0.min.js" defer></script>
     <!--[if lt IE 9]>
       <script src="js/html5shiv.min.js"></script>
     <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
@@ -34,7 +33,7 @@
           <a href="." class="icon icon-home"> Intel ad-rss-lib
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
@@ -129,8 +128,8 @@
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-      <li>Home</li>
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Home</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/intel/ad-rss-lib/edit/master/doc/index.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -238,8 +237,8 @@ Please see the <a href="https://intel.github.io/ad-rss-lib/ad_rss/ad_rss_python/
 <p>Note: The RSS module in this library does not initiate evasive manuevers. At the same time, it would not hinder an evasive manuever being executed by the AV driving policy and planning modules, as long as it is compliant with the required RSS proper response.</p>
 <h2 id="getting-started">Getting started <a name="started"></a><a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
 <h4>Installation of dependencies</h4>
-<p>Currently, the focused operating systems are Ubuntu 18.04 and Ubuntu 20.04. Nevertheless, the library should work in a similar way for any other Linux OS.
-To install the basic dependencies for Ubuntu 18.04/20.04 execute the following command:</p>
+<p>Currently, the focused operating systems are Ubuntu 18.04, Ubuntu 20.04 and Ubuntu 22.04. Nevertheless, the library should work in a similar way for any other Linux OS.
+To install the basic dependencies for Ubuntu 18.04/20.04/22.04 execute the following command:</p>
 <pre><code class="bash"> user$&gt; sudo apt-get install git build-essential cmake libboost-dev libpugixml-dev libgtest-dev libpython-dev libproj-dev
 </code></pre>
 
@@ -254,14 +253,15 @@ To install the basic dependencies for Ubuntu 18.04/20.04 execute the following c
 </code></pre>
 
 <h4>Supported systems <a name="systems"></a></h4>
-<p>Development systems are Ubuntu 18.04 and Ubuntu 20.04.
-Following compiler combinations are <a href="https://github.com/intel/ad-rss-lib/blob/master/.travis.yml">tested continously</a>:</p>
+<p>Development systems are Ubuntu 18.04, Ubuntu 20.04 and Ubuntu 22.04
+Following compiler and Python combinations are <a href="https://github.com/intel/ad-rss-lib/blob/master/.travis.yml">tested continously</a>:</p>
 <table>
 <thead>
 <tr>
 <th align="center"></th>
 <th align="center">Ubuntu 18.04</th>
 <th align="center">Ubuntu 20.04</th>
+<th align="center">Ubuntu 22.04</th>
 </tr>
 </thead>
 <tbody>
@@ -269,25 +269,72 @@ Following compiler combinations are <a href="https://github.com/intel/ad-rss-lib
 <td align="center">Clang 7</td>
 <td align="center">x</td>
 <td align="center"></td>
+<td align="center"></td>
 </tr>
 <tr>
 <td align="center">Clang 8</td>
 <td align="center">x</td>
+<td align="center"></td>
 <td align="center"></td>
 </tr>
 <tr>
 <td align="center">GCC 7</td>
 <td align="center">x</td>
 <td align="center"></td>
+<td align="center"></td>
 </tr>
 <tr>
 <td align="center">GCC 8</td>
 <td align="center">x</td>
 <td align="center"></td>
+<td align="center"></td>
 </tr>
 <tr>
 <td align="center">GCC 9</td>
+<td align="center"></td>
 <td align="center">x</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Clang 10</td>
+<td align="center"></td>
+<td align="center">x</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">GCC 11</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">x</td>
+</tr>
+<tr>
+<td align="center">Clang 14</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">x</td>
+</tr>
+<tr>
+<td align="center">Python 2.7</td>
+<td align="center">x</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Python 3.6</td>
+<td align="center">x</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Python 3.8</td>
+<td align="center"></td>
+<td align="center">x</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Python 3.10</td>
+<td align="center"></td>
+<td align="center"></td>
 <td align="center">x</td>
 </tr>
 </tbody>
@@ -347,21 +394,22 @@ ad-rss-lib$&gt; make clang-tidy
     
   </span>
 </div>
-    <script>var base_url = '.';</script>
-    <script src="js/theme_extra.js" defer></script>
-    <script src="js/theme.js" defer></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
-      <script src="search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);
-        };
+        });
     </script>
 
 </body>
 </html>
 
 <!--
-MkDocs version : 1.4.0
-Build Date UTC : 2022-10-04 14:27:40.544549+00:00
+MkDocs version : 1.5.3
+Build Date UTC : 2023-11-13 10:49:14.531125+00:00
 -->
