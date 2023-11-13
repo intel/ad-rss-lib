@@ -33,7 +33,8 @@ def main():
 
     additional_replacements = {
         # RoadSegment: vector<vector>>, set name manually, tool doesn't understand correctly
-        ("\"vector_less__ad_scope_rss_scope_world_scope_LaneSegment__greater_\"", "\"RoadSegment\"")
+        ("\"vector_less__ad_scope_rss_scope_world_scope_LaneSegment__greater_\"", "\"RoadSegment\""),
+        ("\"vector_less_ad_scope_rss_scope_world_scope_LaneSegment_greater_\"", "\"RoadSegment\"")
     }
 
     for component in ["core", "situation", "state", "unstructured", "world"]:
