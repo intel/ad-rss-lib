@@ -1,5 +1,9 @@
 ## Latest changes
 
+## Release 4.5.3
+#### :ghost: Maintenance
+* Enable Ubuntu 22.04 builds
+* Update map to v2.6.3
 
 ## Release 4.5.2
 
