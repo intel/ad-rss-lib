@@ -10,6 +10,9 @@ env:
   GTEST_OUTPUT: "xml:test_results"
   BUILDCMD: "colcon build --event-handlers console_direct+ --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DBUILD_HARDENING=ON -DBUILD_TESTING=ON -DBUILD_PYTHON_BINDING=ON -DPYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION} && colcon test --event-handlers console_direct+ --packages-select ad_rss ad_rss_map_integration && colcon test-result"
 
+permissions:
+  contents: read
+
 jobs:
   ubuntu18job:
     name: Ubuntu 18.04
@@ -43,10 +46,15 @@ jobs:
       image: ubuntu:18.04
 
     steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@eb238b55efaa70779f274895e782ed17c84f2895 # v2.6.1
+      with:
+        egress-policy: audit
+
     - name: Install base packages
       run: apt update && apt install -y git sudo
 
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@50fbc622fc4ef5163becd7fab6573eac35f8462e # v1.2.0
       with:
           depth: 
           submodules: recursive
@@ -85,7 +93,12 @@ jobs:
            PYTHON_BINDING_VERSION: "3.8"
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Harden Runner
+      uses: step-security/harden-runner@eb238b55efaa70779f274895e782ed17c84f2895 # v2.6.1
+      with:
+        egress-policy: audit
+
+    - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
       with:
           submodules: recursive
 
@@ -122,7 +135,12 @@ jobs:
            PYTHON_BINDING_VERSION: "3.10"
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Harden Runner
+      uses: step-security/harden-runner@eb238b55efaa70779f274895e782ed17c84f2895 # v2.6.1
+      with:
+        egress-policy: audit
+
+    - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
       with:
           submodules: recursive
 

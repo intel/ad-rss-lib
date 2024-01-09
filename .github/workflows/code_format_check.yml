@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: master
 
+permissions:
+  contents: read
+
 jobs:
   check_cpp:
 
@@ -14,7 +17,12 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Harden Runner
+      uses: step-security/harden-runner@eb238b55efaa70779f274895e782ed17c84f2895 # v2.6.1
+      with:
+        egress-policy: audit
+
+    - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
       with:
           submodules: true
 
