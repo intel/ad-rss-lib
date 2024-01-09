@@ -54,7 +54,7 @@ jobs:
     - name: Install base packages
       run: apt update && apt install -y git sudo
 
-    - uses: actions/checkout@50fbc622fc4ef5163becd7fab6573eac35f8462e # v1.2.0
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       with:
           depth: 
           submodules: recursive
@@ -98,7 +98,7 @@ jobs:
       with:
         egress-policy: audit
 
-    - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       with:
           submodules: recursive
 
@@ -140,7 +140,7 @@ jobs:
       with:
         egress-policy: audit
 
-    - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       with:
           submodules: recursive
 
