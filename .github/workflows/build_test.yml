@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: master
 
+# Declare default permissions as read only.
+permissions: read-all
+
 env:
   GTEST_OUTPUT: "xml:test_results"
   BUILDCMD: "colcon build --event-handlers console_direct+ --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DBUILD_HARDENING=ON -DBUILD_TESTING=ON -DBUILD_PYTHON_BINDING=ON -DPYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION} && colcon test --event-handlers console_direct+ --packages-select ad_rss ad_rss_map_integration && colcon test-result"
