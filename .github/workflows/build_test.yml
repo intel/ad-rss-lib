@@ -14,66 +14,6 @@ permissions:
   contents: read
 
 jobs:
-  ubuntu18job:
-    name: Ubuntu 18.04
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-       include:
-         - compiler: gcc7
-           EXTRA_PACKAGES: ""
-           CC: ""
-           CXX: ""
-           PYTHON_BINDING_VERSION: "2.7"
-         - compiler: gcc8
-           EXTRA_PACKAGES: g++-8
-           CC: /usr/bin/gcc-8
-           CXX: /usr/bin/g++-8
-           PYTHON_BINDING_VERSION: "3.6 -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3.6"
-         - compiler: clang7
-           EXTRA_PACKAGES: clang-7
-           CC: /usr/bin/clang-7
-           CXX: /usr/bin/clang++-7
-           PYTHON_BINDING_VERSION: "3.6 -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3.6"
-         - compiler: clang8
-           EXTRA_PACKAGES: clang-8
-           CC: /usr/bin/clang-8
-           CXX: /usr/bin/clang++-8
-           PYTHON_BINDING_VERSION: "3.6 -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3.6"
-
-    container:
-      image: ubuntu:18.04
-
-    steps:
-    - name: Harden Runner
-      uses: step-security/harden-runner@eb238b55efaa70779f274895e782ed17c84f2895 # v2.6.1
-      with:
-        egress-policy: audit
-
-    - name: Install base packages
-      run: apt update && apt install -y git sudo
-
-    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      with:
-          depth: 
-          submodules: recursive
-
-    - name: Install Dependencies
-      run: bash .github/workflows/install_dependencies.sh
-
-    - name: Build and Test
-      env:
-          CC: ${{ matrix.CC }}
-          CXX: ${{ matrix.CXX }}
-          EXTRA_PACKAGES: ${{ matrix.EXTRA_PACKAGES }}
-          PYTHON_BINDING_VERSION: ${{ matrix.PYTHON_BINDING_VERSION }}
-      run: |
-        sudo apt-get install -y ${EXTRA_PACKAGES}
-        rm -rf log build install
-        eval CC=${CC} CXX=${CXX} ${BUILDCMD}
-
-
   ubuntu20job:
     name: Ubuntu 20.04
     runs-on: ubuntu-20.04
