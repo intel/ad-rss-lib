@@ -96,4 +96,21 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@e5f05b81d5b6ff8cfa111c80c22c5fd02a384118 # v3.23.0
         with:
+          upload: false # disable the upload here - we will upload in a different action
           category: "/language:${{matrix.language}}"
+          output: sarif-results
+
+      - name: filter-sarif
+        uses: advanced-security/filter-sarif@v1
+        with:
+          # filter out all dependencies of map
+          patterns: |
+            -dependencies/map/dependencies/*
+          input: sarif-results/${{ matrix.language }}.sarif
+          output: sarif-results/${{ matrix.language }}.sarif
+  
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: sarif-results/${{ matrix.language }}.sarif
+  
