@@ -8,6 +8,9 @@ on:
   pull_request:
     branches: master
 
+permissions:
+  contents: read
+
 jobs:
   wheels:
     runs-on: ubuntu-20.04
@@ -21,7 +24,12 @@ jobs:
       PYTHON_BINDING_VERSION: ${{ matrix.python_binding_version }}
     steps:
       # We currently cannot use checkout@v2 because git version on the docker images is below 2.18
-      - uses: actions/checkout@v1
+      - name: Harden Runner
+        uses: step-security/harden-runner@eb238b55efaa70779f274895e782ed17c84f2895 # v2.6.1
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@50fbc622fc4ef5163becd7fab6573eac35f8462e # v1.2.0
         with:
           fetch-depth: 1
           submodules: recursive
