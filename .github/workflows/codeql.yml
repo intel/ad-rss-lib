@@ -105,7 +105,7 @@ jobs:
         with:
           # filter out all dependencies of map
           patterns: |
-            -dependencies/map/dependencies/*
+            -dependencies/map/dependencies/**/*
           input: sarif-results/${{ matrix.language }}.sarif
           output: sarif-results/${{ matrix.language }}.sarif
   
