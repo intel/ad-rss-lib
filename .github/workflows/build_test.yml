@@ -86,7 +86,7 @@ jobs:
 
     - name: Install Dependencies
       run: bash .github/workflows/install_dependencies.sh
-
+      
     - name: Build and Test
       env:
           CC: ${{ matrix.CC }}
