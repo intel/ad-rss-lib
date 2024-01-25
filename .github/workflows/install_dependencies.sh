@@ -10,9 +10,7 @@ sudo apt-get install -y --no-install-recommends ${other_pkgs} ${python3_pkgs}
 sudo pip3 install colcon-common-extensions xmlrunner pygccxml pyplusplus
 
 if [ `lsb_release -a | grep Release | grep 22.04 | wc -l` == 1 ]; then
-  TMPFILE=$(mktemp)
-  echo "deb https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu/ jammy main" > ${TMPFILE}
-  sudo mv ${TMPFILE} /etc/apt/sources.list.d/deadsnakes-ubuntu-ppa-jammy.list
+  sudo add-apt-repository ppa:deadsnakes/ppa
   sudo apt-get update
   sudo apt-get install -y libpython3.8-dev python3.8
   sudo python3.8 -m ensurepip --upgrade
