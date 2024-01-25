@@ -33,15 +33,14 @@ jobs:
 
       - name: Install Dependencies
         run: bash .github/workflows/install_dependencies.sh
-        
+
       - name: Build wheels
         shell: bash
         run: |
-          sudo apt-get update && sudo apt-get install sqlite3 -y
           colcon build --packages-select PROJ4 --event-handlers console_direct+ --cmake-args -DCMAKE_POSITION_INDEPENDENT_CODE=ON
           source install/setup.bash
           colcon build --packages-up-to ad_rss_map_integration --meta colcon_python.meta --event-handlers console_direct+ --cmake-args -DPYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION}
-      
+
       - name: Repair wheels
         shell: bash
         run: |

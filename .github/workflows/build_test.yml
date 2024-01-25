@@ -67,7 +67,7 @@ jobs:
            EXTRA_PACKAGES: ""
            CC: ""
            CXX: ""
-           PYTHON_BINDING_VERSION: "3.10"
+           PYTHON_BINDING_VERSION: "3.8"
          - compiler: clang14
            EXTRA_PACKAGES: clang-14
            CC: /usr/bin/clang-14
@@ -86,7 +86,7 @@ jobs:
 
     - name: Install Dependencies
       run: bash .github/workflows/install_dependencies.sh
-      
+
     - name: Build and Test
       env:
           CC: ${{ matrix.CC }}
@@ -97,4 +97,3 @@ jobs:
         sudo apt-get install ${EXTRA_PACKAGES}
         rm -rf log build install
         eval CC=${CC} CXX=${CXX} ${BUILDCMD}
-
