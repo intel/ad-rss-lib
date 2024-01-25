@@ -18,7 +18,7 @@ jobs:
       matrix:
         python_binding_version: [3.8, 3.10]
     env:
-      WHEEL_PLATFORM: manylinux_2_27_x86_64
+      WHEEL_PLATFORM: manylinux_2_28_x86_64
       PYTHON_BINDING_VERSION: ${{ matrix.python_binding_version }}
     steps:
       - name: Harden Runner
