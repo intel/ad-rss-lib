@@ -11,7 +11,9 @@ sudo apt-get install -y --no-install-recommends ${other_pkgs} ${python3_pkgs}
 sudo pip3 install colcon-common-extensions xmlrunner pygccxml pyplusplus
 
 if [ `lsb_release -a | grep Release | grep 22.04 | wc -l` == 1 ]; then
-  sudo echo "deb https://ppa.launchpadcontent.net/ubuntu-toolchain-r/test/ubuntu/ jammy main" >> /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-jammy.list
+  TMPFILE=$(mktemp)
+  echo "deb https://ppa.launchpadcontent.net/ubuntu-toolchain-r/test/ubuntu/ jammy main" > ${TMPFILE}
+  sudo mv ${TMPFILE} /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-jammy.list
   sudo apt-get update
   sudo apt-get install -y --no-install-recommends ${python3_8_pkgs}
   sudo pip3.8 install colcon-common-extensions xmlrunner pygccxml pyplusplus
