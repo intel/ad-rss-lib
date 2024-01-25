@@ -31,6 +31,9 @@ jobs:
           fetch-depth: 1
           submodules: recursive
 
+      - name: Install Dependencies
+        run: bash .github/workflows/install_dependencies.sh
+        
       - name: Build wheels
         shell: bash
         run: |
