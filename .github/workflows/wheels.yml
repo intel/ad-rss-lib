@@ -17,11 +17,13 @@ jobs:
     strategy:
       matrix:
         include:
-         - python_binding_version: 3.8
-         - python_binding_version: 3.10
+         - python3.8
+           PYTHON_BINDING_VERSION: "3.8"
+         - python3.10
+           PYTHON_BINDING_VERSION: "3.10"
     env:
       WHEEL_PLATFORM: manylinux_2_28_x86_64
-      PYTHON_BINDING_VERSION: ${{ matrix.python_binding_version }}
+      PYTHON_BINDING_VERSION: ${{ matrix.PYTHON_BINDING_VERSION }}
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@eb238b55efaa70779f274895e782ed17c84f2895 # v2.6.1
