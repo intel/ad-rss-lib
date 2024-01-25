@@ -12,7 +12,7 @@ sudo pip3 install colcon-common-extensions xmlrunner pygccxml pyplusplus
 if [ `lsb_release -a | grep Release | grep 22.04 | wc -l` == 1 ]; then
   sudo add-apt-repository ppa:deadsnakes/ppa
   sudo apt-get update
-  sudo apt-get install -y python3.8-full
+  sudo apt-get install -y python3.8-full libpython3.8-dev python3.8-dev
   sudo python3.8 -m pip install --upgrade pip
   sudo pip3.8 install colcon-common-extensions xmlrunner pygccxml pyplusplus
   sudo pip3.8 install --upgrade setuptools==59.6.0
