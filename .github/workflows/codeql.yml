@@ -41,7 +41,7 @@ jobs:
 
     steps:
       - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # main
         with:
           # this might remove tools that are actually needed,
           # if set to "true" but frees about 6 GB
@@ -69,7 +69,7 @@ jobs:
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@8b7fcbfac2aae0e6c24d9f9ebd5830b1290b18e4 # v2.23.0
+        uses: github/codeql-action/init@0b21cf2492b6b02c465a3e5d7c473717ad7721ba # v3.23.1
         with:
           languages: ${{ matrix.language }}
           # If you wish to specify custom queries, you can do so here or in a config file.
@@ -94,6 +94,23 @@ jobs:
           colcon build --event-handlers console_direct+ --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DBUILD_HARDENING=ON -DBUILD_TESTING=ON -DBUILD_PYTHON_BINDING=ON
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@8b7fcbfac2aae0e6c24d9f9ebd5830b1290b18e4 # v2.23.0
+        uses: github/codeql-action/analyze@0b21cf2492b6b02c465a3e5d7c473717ad7721ba # v3.23.1
         with:
+          upload: false # disable the upload here - we will upload in a different action
           category: "/language:${{matrix.language}}"
+          output: sarif-results
+
+      - name: filter-sarif
+        uses: advanced-security/filter-sarif@f3b8118a9349d88f7b1c0c488476411145b6270d # v1.0.1
+        with:
+          # filter out all dependencies of map
+          patterns: |
+            -dependencies/map/dependencies/**/*
+          input: sarif-results/${{ matrix.language }}.sarif
+          output: sarif-results/${{ matrix.language }}.sarif
+  
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@0b21cf2492b6b02c465a3e5d7c473717ad7721ba # v3.23.1
+        with:
+          sarif_file: sarif-results/${{ matrix.language }}.sarif
+  
