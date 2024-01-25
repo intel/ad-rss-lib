@@ -10,7 +10,8 @@ fi
 
 sudo apt-get update
 sudo apt-get install -y lsb-core
-sudo apt-get install -y --no-install-recommends ${other_pkgs} ${python3_pkgs} ${python3_8_pkgs}
+sudo apt-get install -y --no-install-recommends ${other_pkgs} ${python3_pkgs}
+sudo apt-get install -y --no-install-recommends ${python3_8_pkgs}
 
 sudo pip3 install colcon-common-extensions xmlrunner pygccxml pyplusplus
 
