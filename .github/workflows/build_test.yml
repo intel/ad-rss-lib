@@ -1,4 +1,4 @@
-name: Build and Test of AD-RSS Library
+name: Test
 
 on:
   push:
@@ -43,7 +43,7 @@ jobs:
             CXX: /usr/bin/clang++-14
             PYTHON_BINDING_VERSION: "3.10"
 
-    name: ${{ matrix.os }}, python-${{ matrix.PYTHON_BINDING_VERSION }}
+    name: [${{ matrix.os }}]: ${{ matrix.compiler }}, python-${{ matrix.PYTHON_BINDING_VERSION }}
     runs-on: ${{ matrix.os }}
 
     steps:
