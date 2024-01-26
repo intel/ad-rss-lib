@@ -1,4 +1,4 @@
-name: Build and Test Documentation
+name: Documentation
 
 on:
   push:
@@ -12,7 +12,6 @@ permissions:
 jobs:
   documentationjob:
 
-    name: Build and Test Documentation
     runs-on: ubuntu-20.04
 
     steps:
@@ -43,7 +42,7 @@ jobs:
         colcon build --event-handlers console_direct+ --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DBUILD_COVERAGE=ON -DBUILD_APIDOC=ON
         colcon test --event-handlers console_direct+ --packages-select ad_rss ad_rss_map_integration
         colcon test-result
-        
+
     - name: Code Coverage and CodeCov
       run: |
         bash .github/workflows/code_coverage.sh
