@@ -13,14 +13,14 @@ permissions:
 
 jobs:
   wheels:
-    runs-on: ubuntu-22.04
     strategy:
       matrix:
         include:
-          - python: v3.8
-            PYTHON_BINDING_VERSION: "3.8"
-          - python: v3.10
+          - os: ubuntu-22.04
             PYTHON_BINDING_VERSION: "3.10"
+          - os: ubuntu-20.04
+            PYTHON_BINDING_VERSION: "3.8"
+    name: python-${{ matrix.PYTHON_BINDING_VERSION }}
     env:
       WHEEL_PLATFORM: manylinux_2_28_x86_64
       PYTHON_BINDING_VERSION: ${{ matrix.PYTHON_BINDING_VERSION }}
@@ -56,10 +56,10 @@ jobs:
             auditwheel repair $whl --plat ${WHEEL_PLATFORM} --wheel-dir wheelhouse
           done
 
-#      - name: Publish wheels to PyPI
-#        uses: pypa/gh-action-pypi-publish@release/v1
-#        if: ${{ github.event_name == 'release'}}
-#        with:
-#          user: __token__
-#          password: ${{ secrets.PYPI_API_TOKEN }}
-#          packages_dir: wheelhouse/
+      - name: Publish wheels to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        if: ${{ github.event_name == 'release'}}
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          packages_dir: wheelhouse/
