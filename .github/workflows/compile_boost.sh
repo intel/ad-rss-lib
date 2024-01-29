@@ -6,6 +6,12 @@ ROOT_DIR="$PWD"
 
 
 if [[ "${PYTHON_BINDING_VERSION}" == "3.10" ]]; then
+  sudo add-apt-repository ppa:deadsnakes/ppa -y
+  sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}-full python${PYTHON_BINDING_VERSION}-dev libpython${PYTHON_BINDING_VERSION}-dev
+  sudo python${PYTHON_BINDING_VERSION} -m pip install --upgrade pip
+  sudo pip${PYTHON_BINDING_VERSION} install colcon-common-extensions xmlrunner pygccxml pyplusplus
+  sudo pip${PYTHON_BINDING_VERSION} install --upgrade setuptools=59.6.0
+  sudo pip${PYTHON_BINDING_VERSION} install python${PYTHON_BINDING_VERSION}-wheel
 
   pushd dependencies
   wget "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/${BOOST_PACKAGE}.tar.gz"
