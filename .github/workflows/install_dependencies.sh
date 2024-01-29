@@ -14,10 +14,13 @@ if [ "${BOOST_VERSION}" != "" -a `lsb_release -a | grep Release | grep 20.04 | w
   sudo apt-get update
   COMPILE_BOOST=1
   sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}-full
+else
+  sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}
 fi
 
 sudo apt-get install -y --no-install-recommends python-is-python3 python${PYTHON_BINDING_VERSION}-dev libpython${PYTHON_BINDING_VERSION}-dev
-sudo python${PYTHON_BINDING_VERSION} -m pip install --upgrade pip
+curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python${PYTHON_BINDING_VERSION}
+#sudo python${PYTHON_BINDING_VERSION} -m pip install --upgrade pip
 sudo pip${PYTHON_BINDING_VERSION} install --upgrade setuptools==59.6.0
 sudo pip${PYTHON_BINDING_VERSION} install python-wheel
 sudo pip${PYTHON_BINDING_VERSION} install colcon-common-extensions xmlrunner pygccxml pyplusplus
