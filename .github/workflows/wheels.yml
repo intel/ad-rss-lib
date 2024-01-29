@@ -45,9 +45,8 @@ jobs:
       - name: Build boost
         shell: bash
         run: |
-            # we need to compile boost on our own for support of 3.10 python
-             source .github/workflows/compile_boost.sh 1.74.0
-          fi
+          # we need to compile boost on our own for support of 3.10 python
+          source .github/workflows/compile_boost.sh 1.74.0
 
       - name: Build wheels
         shell: bash
