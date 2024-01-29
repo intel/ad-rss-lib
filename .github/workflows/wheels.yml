@@ -38,7 +38,9 @@ jobs:
           submodules: recursive
 
       - name: Install Dependencies
-        run: bash .github/workflows/install_dependencies.sh
+        run: |
+          bash .github/workflows/install_dependencies.sh
+          sudo pip3 install auditwheel
 
       - name: Build wheels
         shell: bash
