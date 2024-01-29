@@ -47,7 +47,7 @@ jobs:
         run: |
           if [[ "${PYTHON_BINDING_VERSION}" == "3.10" ]]; then
             # we need to compile boost on our own for support of 3.10 python
-             .github/workflows/compile_boost.sh 1.74.0
+             source .github/workflows/compile_boost.sh 1.74.0
           fi
 
       - name: Build wheels
