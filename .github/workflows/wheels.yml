@@ -41,7 +41,8 @@ jobs:
       - name: Install Dependencies
         run: |
           bash .github/workflows/install_dependencies.sh
-          sudo pip3 install auditwheel
+          sudo pip${PYTHON_BINDING_VERSION} install auditwheel
+          sudo pip${PYTHON_BINDING_VERSION} install --upgrade patchelf>=0.14
 
       - name: Build wheels
         shell: bash
