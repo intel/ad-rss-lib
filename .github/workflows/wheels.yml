@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-22.04
+          - os: ubuntu-20.04
             PYTHON_BINDING_VERSION: "3.10"
           - os: ubuntu-20.04
             PYTHON_BINDING_VERSION: "3.8"
@@ -41,6 +41,14 @@ jobs:
         run: |
           bash .github/workflows/install_dependencies.sh
           sudo pip3 install auditwheel
+
+      - name: Build boost
+        shell: bash
+        run: |
+          if [[ "${PYTHON_BINDING_VERSION}" == "3.10" ]]; then
+            # we need to compile boost on our own for support of 3.10 python
+             .github/workflows/compile_boost.sh 1.74.0
+          fi
 
       - name: Build wheels
         shell: bash
