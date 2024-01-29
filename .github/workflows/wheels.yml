@@ -45,7 +45,6 @@ jobs:
       - name: Build boost
         shell: bash
         run: |
-          if [[ "${PYTHON_BINDING_VERSION}" == "3.10" ]]; then
             # we need to compile boost on our own for support of 3.10 python
              source .github/workflows/compile_boost.sh 1.74.0
           fi
@@ -55,7 +54,7 @@ jobs:
         run: |
           colcon build --packages-select PROJ4 --event-handlers console_direct+ --cmake-args -DCMAKE_POSITION_INDEPENDENT_CODE=ON
           source install/setup.bash
-          colcon build --packages-up-to ad_rss_map_integration --meta colcon_python.meta --event-handlers console_direct+ --cmake-args -DPYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION}
+          colcon build --packages-up-to ad_rss_map_integration --event-handlers console_direct+ --cmake-args -DPYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION}  --metas colcon_python.meta colcon_boost.meta
 
       - name: Repair wheels
         shell: bash
