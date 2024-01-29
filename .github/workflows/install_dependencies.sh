@@ -7,11 +7,22 @@ sudo apt-get update
 sudo apt-get install -y lsb-core
 sudo apt-get install -y --no-install-recommends build-essential castxml cmake libboost-all-dev libgtest-dev liblapacke-dev libopenblas-dev libpugixml-dev sqlite3
 
+COMPILE_BOOST=0
+
 if [ "${BOOST_VERSION}" != "" -a `lsb_release -a | grep Release | grep 20.04 | wc -l` == 1 -a "${PYTHON_BINDING_VERSION}" == "3.10" ]; then
   sudo add-apt-repository ppa:deadsnakes/ppa -y
-  sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}-full python${PYTHON_BINDING_VERSION}-dev libpython${PYTHON_BINDING_VERSION}-dev
-  sudo python${PYTHON_BINDING_VERSION} -m pip install --upgrade pip
+  sudo apt-get update
+  COMPILE_BOOST=1
+  sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}-full
+fi
 
+sudo apt-get install -y --no-install-recommends python-is-python3 python${PYTHON_BINDING_VERSION}-dev libpython${PYTHON_BINDING_VERSION}-dev
+sudo python${PYTHON_BINDING_VERSION} -m pip install --upgrade pip
+sudo pip${PYTHON_BINDING_VERSION} install --upgrade setuptools==59.6.0
+sudo pip${PYTHON_BINDING_VERSION} install python-wheel
+sudo pip${PYTHON_BINDING_VERSION} install colcon-common-extensions xmlrunner pygccxml pyplusplus
+
+if (( COMPILE_BOOST )); then
   pushd dependencies
   wget "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/${BOOST_PACKAGE}.tar.gz"
   tar -xzf ${BOOST_PACKAGE}.tar.gz
@@ -54,13 +65,7 @@ if [ "${BOOST_VERSION}" != "" -a `lsb_release -a | grep Release | grep 20.04 | w
 }
 EOF
 else
-  sudo apt-get install -y --no-install-recommends libpython${PYTHON_BINDING_VERSION}-dev python${PYTHON_BINDING_VERSION} python${PYTHON_BINDING_VERSION}-pip python${PYTHON_BINDING_VERSION}-setuptools python-is-python3
 
   # ensure colon_boost.meta exists
   touch colcon_boost.meta
 fi
-
-sudo apt-get install -y python-is-python3
-sudo pip${PYTHON_BINDING_VERSION} install colcon-common-extensions xmlrunner pygccxml pyplusplus
-sudo pip${PYTHON_BINDING_VERSION} install --upgrade setuptools==59.6.0
-sudo pip${PYTHON_BINDING_VERSION} install python-wheel
