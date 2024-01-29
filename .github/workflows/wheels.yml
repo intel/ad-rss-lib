@@ -25,6 +25,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       WHEEL_PLATFORM: manylinux_2_27_x86_64
+      BOOST_VERSION: 1.74.0
       PYTHON_BINDING_VERSION: ${{ matrix.PYTHON_BINDING_VERSION }}
     steps:
       - name: Harden Runner
@@ -41,12 +42,6 @@ jobs:
         run: |
           bash .github/workflows/install_dependencies.sh
           sudo pip3 install auditwheel
-
-      - name: Build boost
-        shell: bash
-        run: |
-          # we need to compile boost on our own for support of 3.10 python
-          source .github/workflows/compile_boost.sh 1.74.0
 
       - name: Build wheels
         shell: bash
