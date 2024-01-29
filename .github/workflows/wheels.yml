@@ -24,7 +24,7 @@ jobs:
     name: ${{ matrix.os }}, python-${{ matrix.PYTHON_BINDING_VERSION }}
     runs-on: ${{ matrix.os }}
     env:
-      WHEEL_PLATFORM: manylinux_2_27_x86_64
+      WHEEL_PLATFORM: manylinux_2_31_x86_64
       BOOST_VERSION: 1.74.0
       PYTHON_BINDING_VERSION: ${{ matrix.PYTHON_BINDING_VERSION }}
     steps:
