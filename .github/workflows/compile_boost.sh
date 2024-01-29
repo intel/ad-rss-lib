@@ -1,13 +1,13 @@
 #!/bin/bash
 
 BOOST_VERSION="$1"
-BOOST_PACKAGE=boost_${BOOST_VERSION//./_}
+BOOST_PACKAGE="boost_${BOOST_VERSION//./_}"
 ROOT_DIR="$PWD"
 
 pushd dependencies
-wget "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/{BOOST_PACKAGE}.tar.gz"
-tar -xzf {BOOST_PACKAGE}.tar.gz
-pushd {BOOST_PACKAGE}
+wget "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/${BOOST_PACKAGE}.tar.gz"
+tar -xzf ${BOOST_PACKAGE}.tar.gz
+pushd ${BOOST_PACKAGE}
 
 py3="/usr/bin/env python${PYTHON_BINDING_VERSION}"
 py3_root=`${py3} -c "import sys; print(sys.prefix)"`
