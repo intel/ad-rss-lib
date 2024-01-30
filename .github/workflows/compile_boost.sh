@@ -24,10 +24,10 @@ if [[ "${PYTHON_BINDING_VERSION}" == "3.10" ]]; then
 
   ./bootstrap.sh \
     --prefix=/usr
-  --with-libraries=python,filesystem,system,program_options \
-                  --with-python=${py3} --with-python-root=${py3_root}
+    --with-libraries=python,filesystem,system,program_options \
+    --with-python=${py3} --with-python-root=${py3_root}
 
-  ./b2 --prefix="${ROOT_DIR}/install/boost" cxxflags="-fPIC" -j 10 stage release
+  ./b2 --prefix="/usr" cxxflags="-fPIC" -j 10 stage release
   sudo ./b2 --prefix="/usr" cxxflags="-fPIC" -j 10 install
 
   popd
