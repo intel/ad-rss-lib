@@ -1,19 +1,11 @@
 #!/bin/bash
 
 function is_ubuntu_version() {
-  if [ `lsb_release -a | grep Release | grep "$1" | wc -l` == 1 ]; then
-    return 0
-  else
-    return 1
-  fi
+  return [ `lsb_release -a | grep Release | grep "$1" | wc -l` == 1 ]
 }
 
 function is_python_version() {
-  if [ "${PYTHON_BINDING_VERSION}" == "$1" ]; then
-    return 0
-  else
-    return 1
-  fi
+  return [ "${PYTHON_BINDING_VERSION}" == "$1" ]
 }
 
 sudo apt-get update
