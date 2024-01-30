@@ -19,11 +19,11 @@ function is_python_version() {
 echo "################################################"
 echo "### INSTALL DEPENDENCIES                ########"
 echo "################################################"
-echo PYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION}
+echo "PYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION}"
 echo "is_python_version 3.10=$(is_python_version '3.10')"
 echo "is_python_version 3.8=$(is_python_version '3.8')"
-echo "is_ubuntu_version 20.04=$(is_ubunut_version '20.04')"
-echo "is_ubuntu_version 22.04=$(is_ubunut_version '22.04')"
+echo "is_ubuntu_version 20.04=$(is_ubuntu_version '20.04')"
+echo "is_ubuntu_version 22.04=$(is_ubuntu_version '22.04')"
 
 sudo apt-get update
 sudo apt-get install -y lsb-core
