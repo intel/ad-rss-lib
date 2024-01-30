@@ -1,13 +1,10 @@
 #!/bin/bash
 
-BOOST_PACKAGE="boost_${BOOST_VERSION//./_}"
 ROOT_DIR="$PWD"
 
 sudo apt-get update
 sudo apt-get install -y lsb-core
 sudo apt-get install -y --no-install-recommends build-essential castxml cmake libgtest-dev liblapacke-dev libopenblas-dev libpugixml-dev sqlite3
-
-COMPILE_BOOST=0
 
 function is_ubuntu_version() {
   if [ `lsb_release -a | grep Release | grep "$1" | wc -l` == 1 ]; then
@@ -35,7 +32,6 @@ if [ $(is_ubuntu_version "20.04") -a $(is_python_version "3.10") ]; then
   sudo apt-get update
   sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}-full
   sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10 10
-  COMPILE_BOOST=1
   sudo apt autoremove libboost-all-dev -y
 else
   sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}
@@ -50,11 +46,14 @@ sudo pip${PYTHON_BINDING_VERSION} install testresources
 sudo pip${PYTHON_BINDING_VERSION} install --upgrade setuptools==59.6.0
 sudo pip${PYTHON_BINDING_VERSION} install colcon-common-extensions xmlrunner pygccxml pyplusplus
 
-if (( COMPILE_BOOST )); then
+if [ $(is_ubuntu_version "20.04") -a $(is_python_version "3.10") ]; then
   pushd dependencies
-  wget "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/${BOOST_PACKAGE}.tar.gz"
-  tar -xzf ${BOOST_PACKAGE}.tar.gz
-  pushd ${BOOST_PACKAGE}
+
+  # boost 1.71 needs some patches for python3.10
+  sudo add-apt-repository ppa:savoury1/boost-defaults-1.71
+  sudo apt update
+  sudo apt-get source boost1.71=1.71.0-6ubuntu6+20.04.sav0
+  pushd boost1.71-1.71.0-6ubuntu6+20.04.sav0
 
   py3=`which python3.10`
   py3_root=`${py3} -c "import sys; print(sys.prefix)"`
