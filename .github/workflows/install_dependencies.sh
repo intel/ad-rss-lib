@@ -22,11 +22,6 @@ fi
 
 sudo apt-get install -y --no-install-recommends python-is-python3 python${PYTHON_BINDING_VERSION}-dev libpython${PYTHON_BINDING_VERSION}-dev
 curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python${PYTHON_BINDING_VERSION}
-# to handle some error on missing pip dependencies
-sudo pip${PYTHON_BINDING_VERSION} install testresources
-#sudo python${PYTHON_BINDING_VERSION} -m pip install --upgrade pip
-sudo pip${PYTHON_BINDING_VERSION} install --upgrade setuptools==59.6.0
-sudo pip${PYTHON_BINDING_VERSION} install colcon-common-extensions xmlrunner pygccxml pyplusplus
 
 if [ `lsb_release -a | grep Release | grep 20.04 | wc -l` == 1 ]; then
   sudo apt autoremove python2 -y
@@ -34,9 +29,16 @@ if [ `lsb_release -a | grep Release | grep 20.04 | wc -l` == 1 ]; then
     # for some reason boost bootstrap is not able to derive the correct python version from the python binary;
     # it always reports python3.8
     # therefore try the hammer methon and remove standard python version from the system
-    sudo apt autoremove python3.8 -y
+    sudo apt autoremove python3 -y
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10
   fi
 fi
+
+# to handle some error on missing pip dependencies
+sudo pip${PYTHON_BINDING_VERSION} install testresources
+#sudo python${PYTHON_BINDING_VERSION} -m pip install --upgrade pip
+sudo pip${PYTHON_BINDING_VERSION} install --upgrade setuptools==59.6.0
+sudo pip${PYTHON_BINDING_VERSION} install colcon-common-extensions xmlrunner pygccxml pyplusplus
 
 if (( COMPILE_BOOST )); then
   pushd dependencies
