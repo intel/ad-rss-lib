@@ -10,19 +10,27 @@ sudo apt-get install -y --no-install-recommends build-essential castxml cmake li
 COMPILE_BOOST=0
 
 function is_ubuntu_version() {
-  return `lsb_release -a | grep Release | grep "$1" | wc -l` == 1
+  if [ `lsb_release -a | grep Release | grep "$1" | wc -l` == 1 ]; then
+    return 1
+  else
+    return 0
+  fi
 }
 
 function is_python_version() {
-  return "${PYTHON_BINDING_VERSION}" == "$1"
+  if [ "${PYTHON_BINDING_VERSION}" == "$1" ]; then
+    return 1
+  else
+    return 0
+  fi
 }
 
-if [ is_ubuntu_version("20.04") ]; then
+if [ $(is_ubuntu_version "20.04") ]; then
   sudo apt autoremove python2 -y
   sudo apt-get install -y --no-install-recommends python-is-python3
 fi
 
-if [ is_ubuntu_version("20.04") -a is_python_version("3.10") ]; then
+if [ $(is_ubuntu_version "20.04") -a $(is_python_version "3.10") ]; then
   sudo add-apt-repository ppa:deadsnakes/ppa -y
   sudo apt-get update
   sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}-full
