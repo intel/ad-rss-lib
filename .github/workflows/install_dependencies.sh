@@ -51,9 +51,11 @@ if [ $(is_ubuntu_version "20.04") -a $(is_python_version "3.10") ]; then
 
   # boost 1.71 needs some patches for python3.10
   sudo add-apt-repository ppa:savoury1/boost-defaults-1.71
+  # uncomment source packages
+  sed -i -e "s/# //" /etc/apt/sources.list.d/savoury1-ubuntu-boost-defaults-1_71-focal.list
   sudo apt update
   sudo apt-get source boost1.71=1.71.0-6ubuntu6+20.04.sav0
-  pushd boost1.71-1.71.0-6ubuntu6+20.04.sav0
+  pushd boost1.71-1.71.0
 
   py3=`which python3.10`
   py3_root=`${py3} -c "import sys; print(sys.prefix)"`
