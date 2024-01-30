@@ -43,7 +43,7 @@ if (( $(is_ubuntu_version "20.04") )); then
   sudo apt-get install -y --no-install-recommends python-is-python3
 fi
 
-if (( $(is_ubuntu_version "20.04") -a $(is_python_version "3.10") )); then
+if (( $(is_ubuntu_version "20.04") && $(is_python_version "3.10") )); then
   sudo add-apt-repository ppa:deadsnakes/ppa -y
   sudo apt-get update
   sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}-full
@@ -62,7 +62,7 @@ sudo pip${PYTHON_BINDING_VERSION} install testresources
 sudo pip${PYTHON_BINDING_VERSION} install --upgrade setuptools==59.6.0
 sudo pip${PYTHON_BINDING_VERSION} install colcon-common-extensions xmlrunner pygccxml pyplusplus
 
-if (( $(is_ubuntu_version "20.04") -a $(is_python_version "3.10") )); then
+if (( $(is_ubuntu_version "20.04") && $(is_python_version "3.10") )); then
   pushd dependencies
 
   # boost 1.71 needs some patches for python3.10
