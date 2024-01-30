@@ -1,11 +1,5 @@
 #!/bin/bash
 
-ROOT_DIR="$PWD"
-
-sudo apt-get update
-sudo apt-get install -y lsb-core
-sudo apt-get install -y --no-install-recommends build-essential castxml cmake libgtest-dev liblapacke-dev libopenblas-dev libpugixml-dev sqlite3
-
 function is_ubuntu_version() {
   if [ `lsb_release -a | grep Release | grep "$1" | wc -l` == 1 ]; then
     return 1
@@ -21,6 +15,19 @@ function is_python_version() {
     return 0
   fi
 }
+
+echo "################################################"
+echo "### INSTALL DEPENDENCIES                ########"
+echo "################################################"
+echo PYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION}
+echo "is_python_version 3.10=$(is_python_version '3.10')"
+echo "is_python_version 3.8=$(is_python_version '3.8')"
+echo "is_ubuntu_version 20.04=$(is_ubunut_version '20.04')"
+echo "is_ubuntu_version 22.04=$(is_ubunut_version '22.04')"
+
+sudo apt-get update
+sudo apt-get install -y lsb-core
+sudo apt-get install -y --no-install-recommends build-essential castxml cmake libgtest-dev liblapacke-dev libopenblas-dev libpugixml-dev sqlite3
 
 if [ $(is_ubuntu_version "20.04") ]; then
   sudo apt autoremove python2 -y
