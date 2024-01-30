@@ -9,8 +9,15 @@ sudo apt-get install -y --no-install-recommends build-essential castxml cmake li
 
 COMPILE_BOOST=0
 
+function is_ubuntu_version() {
+  return `lsb_release -a | grep Release | grep "$1" | wc -l` == 1
+}
 
-if [ "${BOOST_VERSION}" != "" -a `lsb_release -a | grep Release | grep 20.04 | wc -l` == 1 -a "${PYTHON_BINDING_VERSION}" == "3.10" ]; then
+function is_python_version() {
+  return "${PYTHON_BINDING_VERSION}" == "$1"
+}
+
+if [ "${BOOST_VERSION}" != "" -a is_ubuntu_version("20.04") -a is_python_version("3.10") ]; then
   sudo add-apt-repository ppa:deadsnakes/ppa -y
   sudo apt-get update
   COMPILE_BOOST=1
@@ -23,20 +30,15 @@ fi
 sudo apt-get install -y --no-install-recommends python-is-python3 python${PYTHON_BINDING_VERSION}-dev libpython${PYTHON_BINDING_VERSION}-dev
 curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python${PYTHON_BINDING_VERSION}
 
-if [ `lsb_release -a | grep Release | grep 20.04 | wc -l` == 1 ]; then
+if [ is_ubuntu_version("20.04") ]; then
   sudo apt autoremove python2 -y
   if [ "${BOOST_VERSION}" != "" -a "${PYTHON_BINDING_VERSION}" == "3.10" ]; then
-    # for some reason boost bootstrap is not able to derive the correct python version from the python binary;
-    # it always reports python3.8
-    # therefore try the hammer methon and remove standard python version from the system
-    sudo apt autoremove python3 -y
     sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10 10
   fi
 fi
 
 # to handle some error on missing pip dependencies
 sudo pip${PYTHON_BINDING_VERSION} install testresources
-#sudo python${PYTHON_BINDING_VERSION} -m pip install --upgrade pip
 sudo pip${PYTHON_BINDING_VERSION} install --upgrade setuptools==59.6.0
 sudo pip${PYTHON_BINDING_VERSION} install colcon-common-extensions xmlrunner pygccxml pyplusplus
 

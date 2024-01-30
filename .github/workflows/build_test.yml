@@ -29,7 +29,7 @@ jobs:
             EXTRA_PACKAGES: clang-10
             CC: /usr/bin/clang-10
             CXX: /usr/bin/clang++-10
-            BOOST_VERSION: 1.74.0
+            BOOST_VERSION: "1.74.0"
             PYTHON_BINDING_VERSION: "3.10"
           - os: ubuntu-22.04
             compiler: gcc11
