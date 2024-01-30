@@ -49,7 +49,7 @@ jobs:
         run: |
           colcon build --packages-select PROJ4 --event-handlers console_direct+ --cmake-args -DCMAKE_POSITION_INDEPENDENT_CODE=ON
           source install/setup.bash
-          colcon build --packages-up-to ad_rss_map_integration --event-handlers console_direct+ --cmake-args -DPYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION}  --metas colcon_python.meta colcon_boost.meta
+          colcon build --packages-up-to ad_rss_map_integration --event-handlers console_direct+ --cmake-args -DPYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION}  --metas colcon_python.meta
 
       - name: Repair wheels
         shell: bash

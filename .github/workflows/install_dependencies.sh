@@ -66,29 +66,4 @@ if (( COMPILE_BOOST )); then
   popd
   popd
 
-  cat >colcon_boost.meta <<EOF
-{
-    "names": {
-        "ad_physics": {
-            "cmake-args": ["-DCMAKE_MODULE_PATH=${ROOT_DIR}/install/boost;${CMAKE_MODULE_PATH}"]
-        },
-        "ad_map_opendrive_reader": {
-            "cmake-args": ["-DCMAKE_MODULE_PATH=${ROOT_DIR}/install/boost;${CMAKE_MODULE_PATH}"]
-        },
-        "ad_map_access": {
-            "cmake-args": ["-DCMAKE_MODULE_PATH=${ROOT_DIR}/install/boost;${CMAKE_MODULE_PATH}"]
-        },
-        "ad_rss": {
-            "cmake-args": ["-DCMAKE_MODULE_PATH=${ROOT_DIR}/install/boost;${CMAKE_MODULE_PATH}"]
-        },
-        "ad_rss_map_integration": {
-            "cmake-args": ["-DCMAKE_MODULE_PATH=${ROOT_DIR}/install/boost;${CMAKE_MODULE_PATH}"]
-        }
-    }
-}
-EOF
-else
-
-  # ensure colon_boost.meta exists
-  touch colcon_boost.meta
 fi
