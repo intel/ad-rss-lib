@@ -51,12 +51,12 @@ if (( COMPILE_BOOST )); then
   pyv=`$py3 -c "import sys;x='{v[0]}.{v[1]}'.format(v=list(sys.version_info[:2]));sys.stdout.write(x)";`
 
   ./bootstrap.sh \
-    --prefix="/usr"
+    --prefix="/usr" \
     --with-libraries=python,filesystem,system,program_options \
     --with-python=${py3} --with-python-version=${pyv} --with-python-root=${py3_root}
 
   ./b2 --prefix="/usr" cxxflags="-fPIC" -j 10 stage release
-  ./b2 --prefix="/usr" cxxflags="-fPIC" -j 10 install
+  sudo ./b2 --prefix="/usr" cxxflags="-fPIC" -j 10 install
 
   popd
   popd
