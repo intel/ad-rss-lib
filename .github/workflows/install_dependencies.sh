@@ -23,15 +23,21 @@ $(is_ubuntu_version "20.04")
 is_ubuntu_version_20_04=$?
 $(is_ubuntu_version "22.04")
 is_ubuntu_version_22_04=$?
-echo "is_python_version_3_10=${is_python_version_3_10}"
-echo "is_python_version_3_8=${is_python_version_3_8}"
-echo "is_ubuntu_version_20_04=${is_ubuntu_version_20_04}"
-echo "is_ubuntu_version_22_04=${is_ubuntu_version_22_04}"
+echo "is_python_version_3_10=${is_python_version_3_10} [0, success!]"
+echo "is_python_version_3_8=${is_python_version_3_8} [0, success!]"
+echo "is_ubuntu_version_20_04=${is_ubuntu_version_20_04} [0, success!]"
+echo "is_ubuntu_version_22_04=${is_ubuntu_version_22_04} [0, success!]"
 if (( $(is_ubuntu_version "20.04") )); then
-  echo "20.04"
+  echo "(( 20.04 ))"
+fi
+if [[ $(is_ubuntu_version "20.04") ]]; then
+  echo "[[ 20.04 ]]"
 fi
 if (( $(is_ubuntu_version "20.04") && $(is_python_version "3.10") )); then
-  echo "20.04 and 3.10"
+  echo "((20.04 and 3.10))"
+fi
+if [[ $(is_ubuntu_version "20.04") -a $(is_python_version "3.10") ]]; then
+  echo "[[20.04 and 3.10}}"
 fi
 
 sudo apt-get install -y --no-install-recommends build-essential castxml cmake libgtest-dev liblapacke-dev libopenblas-dev libpugixml-dev sqlite3
