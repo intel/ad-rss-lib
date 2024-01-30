@@ -17,25 +17,25 @@ function is_python_version() {
   return "${PYTHON_BINDING_VERSION}" == "$1"
 }
 
-if [ "${BOOST_VERSION}" != "" -a is_ubuntu_version("20.04") -a is_python_version("3.10") ]; then
+if [ is_ubuntu_version("20.04") ]; then
+  sudo apt autoremove python2 -y
+  sudo apt-get install -y --no-install-recommends python-is-python3
+fi
+
+if [ is_ubuntu_version("20.04") -a is_python_version("3.10") ]; then
   sudo add-apt-repository ppa:deadsnakes/ppa -y
   sudo apt-get update
-  COMPILE_BOOST=1
   sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}-full
+  sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10 10
+  COMPILE_BOOST=1
+  sudo apt autoremove libboost-all-dev -y
 else
   sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}
   sudo apt-get install -y --no-install-recommends libboost-all-dev
 fi
 
-sudo apt-get install -y --no-install-recommends python-is-python3 python${PYTHON_BINDING_VERSION}-dev libpython${PYTHON_BINDING_VERSION}-dev
+sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}-dev libpython${PYTHON_BINDING_VERSION}-dev
 curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python${PYTHON_BINDING_VERSION}
-
-if [ is_ubuntu_version("20.04") ]; then
-  sudo apt autoremove python2 -y
-  if [ "${BOOST_VERSION}" != "" -a "${PYTHON_BINDING_VERSION}" == "3.10" ]; then
-    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10 10
-  fi
-fi
 
 # to handle some error on missing pip dependencies
 sudo pip${PYTHON_BINDING_VERSION} install testresources
