@@ -50,15 +50,10 @@ if (( COMPILE_BOOST )); then
   py3_root=`${py3} -c "import sys; print(sys.prefix)"`
   pyv=`$py3 -c "import sys;x='{v[0]}.{v[1]}'.format(v=list(sys.version_info[:2]));sys.stdout.write(x)";`
 
-  echo "$pyv  ./bootstrap.sh \
-    --prefix=${ROOT_DIR}/install/boost
-    --with-libraries=python,filesystem,system,program_options \
-                  --with-python=${py3} --with-python-version=${PYTHON_BINDING_VERSION} --with-python-root=${py3_root}"
-
   ./bootstrap.sh \
     --prefix=${ROOT_DIR}/install/boost
     --with-libraries=python,filesystem,system,program_options \
-                  --with-python=${py3} --with-python-root=${py3_root}
+    --with-python=${py3} --with-python-version=${pyv} --with-python-root=${py3_root}
 
   ./b2 --prefix="${ROOT_DIR}/install/boost" cxxflags="-fPIC" -j 10 stage release
   ./b2 --prefix="${ROOT_DIR}/install/boost" cxxflags="-fPIC" -j 10 install
