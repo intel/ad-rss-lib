@@ -53,7 +53,7 @@ if (( COMPILE_BOOST )); then
   echo "$pyv  ./bootstrap.sh \
     --prefix=${ROOT_DIR}/install/boost
     --with-libraries=python,filesystem,system,program_options \
-                  --with-python=${py3} --with-python-root=${py3_root}"
+                  --with-python=${py3} --with-python-version=${PYTHON_BINDING_VERSION} --with-python-root=${py3_root}"
 
   ./bootstrap.sh \
     --prefix=${ROOT_DIR}/install/boost
