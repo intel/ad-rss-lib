@@ -16,17 +16,22 @@ function is_python_version() {
   fi
 }
 
+sudo apt-get update
+sudo apt-get install -y lsb-core
+
 echo "################################################"
 echo "### INSTALL DEPENDENCIES                ########"
 echo "################################################"
 echo "PYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION}"
-echo "is_python_version 3.10=$(is_python_version '3.10')"
-echo "is_python_version 3.8=$(is_python_version '3.8')"
-echo "is_ubuntu_version 20.04=$(is_ubuntu_version '20.04')"
-echo "is_ubuntu_version 22.04=$(is_ubuntu_version '22.04')"
+is_python_version_3_10=$(is_python_version "3.10")
+is_python_version_3_8=$(is_python_version "3.8")
+is_ubuntu_version_20_04=$(is_ubuntu_version "20.04")
+is_ubuntu_version_22_04=$(is_ubuntu_version "22.04")
+echo "is_python_version_3_10=$(is_python_version_3_10)"
+echo "is_python_version_3_8=$(is_python_version_3_8)"
+echo "is_ubuntu_version_20_04=$(is_ubuntu_version_20_04)"
+echo "is_ubuntu_version_22_04=$(is_ubuntu_version_22_04)"
 
-sudo apt-get update
-sudo apt-get install -y lsb-core
 sudo apt-get install -y --no-install-recommends build-essential castxml cmake libgtest-dev liblapacke-dev libopenblas-dev libpugixml-dev sqlite3
 
 if [ $(is_ubuntu_version "20.04") ]; then
