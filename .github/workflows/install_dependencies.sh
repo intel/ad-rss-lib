@@ -30,7 +30,7 @@ if [ `lsb_release -a | grep Release | grep 20.04 | wc -l` == 1 ]; then
     # it always reports python3.8
     # therefore try the hammer methon and remove standard python version from the system
     sudo apt autoremove python3 -y
-    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10 10
   fi
 fi
 
