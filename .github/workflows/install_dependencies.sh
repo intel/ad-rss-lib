@@ -4,12 +4,12 @@ sudo apt-get update
 sudo apt-get install -y lsb-core
 sudo apt-get install -y --no-install-recommends build-essential castxml cmake libgtest-dev liblapacke-dev libopenblas-dev libpugixml-dev sqlite3
 
-if [[ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 ]]; then
+if [ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 ]; then
   sudo apt autoremove python2 -y
   sudo apt-get install -y --no-install-recommends python-is-python3
 fi
 
-if  [[ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 -a "${PYTHON_BINDING_VERSION}" == "3.10" ]]; then
+if  [ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 -a "${PYTHON_BINDING_VERSION}" == "3.10" ]; then
   sudo add-apt-repository ppa:deadsnakes/ppa -y
   sudo apt-get update
   sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}-full
@@ -28,7 +28,7 @@ sudo pip${PYTHON_BINDING_VERSION} install testresources
 sudo pip${PYTHON_BINDING_VERSION} install --upgrade setuptools==59.6.0
 sudo pip${PYTHON_BINDING_VERSION} install colcon-common-extensions xmlrunner pygccxml pyplusplus
 
-if  [[ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 -a "${PYTHON_BINDING_VERSION}" == "3.10" ]]; then
+if [ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 -a "${PYTHON_BINDING_VERSION}" == "3.10" ]; then
   pushd dependencies
 
   # boost 1.71 needs some patches for python3.10
