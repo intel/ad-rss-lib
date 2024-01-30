@@ -5,7 +5,7 @@ ROOT_DIR="$PWD"
 
 sudo apt-get update
 sudo apt-get install -y lsb-core
-sudo apt-get install -y --no-install-recommends build-essential castxml cmake libboost-all-dev libgtest-dev liblapacke-dev libopenblas-dev libpugixml-dev sqlite3
+sudo apt-get install -y --no-install-recommends build-essential castxml cmake libgtest-dev liblapacke-dev libopenblas-dev libpugixml-dev sqlite3
 
 COMPILE_BOOST=0
 
@@ -14,8 +14,10 @@ if [ "${BOOST_VERSION}" != "" -a `lsb_release -a | grep Release | grep 20.04 | w
   sudo apt-get update
   COMPILE_BOOST=1
   sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}-full
+  sudo apt autoremove python3.8 -y
 else
   sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}
+  sudo apt-get install -y --no-install-recommends libboost-all-dev
 fi
 
 sudo apt-get install -y --no-install-recommends python-is-python3 python${PYTHON_BINDING_VERSION}-dev libpython${PYTHON_BINDING_VERSION}-dev
