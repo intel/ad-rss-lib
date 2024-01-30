@@ -2,17 +2,17 @@
 
 function is_ubuntu_version() {
   if [ `lsb_release -a | grep Release | grep "$1" | wc -l` == 1 ]; then
-    return 1
-  else
     return 0
+  else
+    return 1
   fi
 }
 
 function is_python_version() {
   if [ "${PYTHON_BINDING_VERSION}" == "$1" ]; then
-    return 1
-  else
     return 0
+  else
+    return 1
   fi
 }
 
@@ -35,6 +35,12 @@ echo "is_python_version_3_10=${is_python_version_3_10}"
 echo "is_python_version_3_8=${is_python_version_3_8}"
 echo "is_ubuntu_version_20_04=${is_ubuntu_version_20_04}"
 echo "is_ubuntu_version_22_04=${is_ubuntu_version_22_04}"
+if (( $(is_ubuntu_version "20.04") )); then
+  echo "20.04"
+fi
+if (( $(is_ubuntu_version "20.04") && $(is_python_version "3.10") )); then
+  echo "20.04 and 3.10"
+fi
 
 sudo apt-get install -y --no-install-recommends build-essential castxml cmake libgtest-dev liblapacke-dev libopenblas-dev libpugixml-dev sqlite3
 
