@@ -1,53 +1,15 @@
 #!/bin/bash
 
-function is_ubuntu_version() {
-  return [[ `lsb_release -a | grep Release | grep "$1" | wc -l` == 1 ]];
-}
-
-function is_python_version() {
-  return [[ "${PYTHON_BINDING_VERSION}" == "$1" ]];
-}
-
 sudo apt-get update
 sudo apt-get install -y lsb-core
-
-echo "################################################"
-echo "### INSTALL DEPENDENCIES                ########"
-echo "################################################"
-echo "PYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION}"
-$(is_python_version "3.10")
-is_python_version_3_10=$?
-$(is_python_version "3.8")
-is_python_version_3_8=$?
-$(is_ubuntu_version "20.04")
-is_ubuntu_version_20_04=$?
-$(is_ubuntu_version "22.04")
-is_ubuntu_version_22_04=$?
-echo "is_python_version_3_10=${is_python_version_3_10} [0, success!]"
-echo "is_python_version_3_8=${is_python_version_3_8} [0, success!]"
-echo "is_ubuntu_version_20_04=${is_ubuntu_version_20_04} [0, success!]"
-echo "is_ubuntu_version_22_04=${is_ubuntu_version_22_04} [0, success!]"
-if (( $(is_ubuntu_version "20.04") )); then
-  echo "(( 20.04 ))"
-fi
-if [[ $(is_ubuntu_version "20.04") ]]; then
-  echo "[[ 20.04 ]]"
-fi
-if (( $(is_ubuntu_version "20.04") && $(is_python_version "3.10") )); then
-  echo "((20.04 and 3.10))"
-fi
-if [[ $(is_ubuntu_version "20.04") -a $(is_python_version "3.10") ]]; then
-  echo "[[20.04 and 3.10]]"
-fi
-
 sudo apt-get install -y --no-install-recommends build-essential castxml cmake libgtest-dev liblapacke-dev libopenblas-dev libpugixml-dev sqlite3
 
-if (( $(is_ubuntu_version "20.04") )); then
+if [[ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 ]]; then
   sudo apt autoremove python2 -y
   sudo apt-get install -y --no-install-recommends python-is-python3
 fi
 
-if (( $(is_ubuntu_version "20.04") && $(is_python_version "3.10") )); then
+if  [[ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 -a "${PYTHON_BINDING_VERSION}" == "3.10"]]; then
   sudo add-apt-repository ppa:deadsnakes/ppa -y
   sudo apt-get update
   sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}-full
@@ -66,7 +28,7 @@ sudo pip${PYTHON_BINDING_VERSION} install testresources
 sudo pip${PYTHON_BINDING_VERSION} install --upgrade setuptools==59.6.0
 sudo pip${PYTHON_BINDING_VERSION} install colcon-common-extensions xmlrunner pygccxml pyplusplus
 
-if (( $(is_ubuntu_version "20.04") && $(is_python_version "3.10") )); then
+if  [[ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 -a "${PYTHON_BINDING_VERSION}" == "3.10"]]; then
   pushd dependencies
 
   # boost 1.71 needs some patches for python3.10
