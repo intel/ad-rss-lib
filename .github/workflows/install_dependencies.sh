@@ -5,17 +5,19 @@ sudo apt-get install -y lsb-core
 sudo apt-get install -y --no-install-recommends build-essential castxml cmake libgtest-dev liblapacke-dev libopenblas-dev libpugixml-dev sqlite3
 
 if [ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 ]; then
-  sudo apt autoremove python2 -y
-  sudo apt-get install -y --no-install-recommends python-is-python3
+  echo "!!!!!!! Ubunut 20.04: remove python2 !!!!!!!"
+  sudo apt autoremove python2 python2-dev -y
 fi
 
-if  [ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 -a "${PYTHON_BINDING_VERSION}" == "3.10" ]; then
+if  [ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 ] -a [ "${PYTHON_BINDING_VERSION}" == "3.10" ]; then
+  echo "!!!!!!! Ubunut 20.04 and python 3.10: install python 3.10 and remove boost !!!!!!!"
   sudo add-apt-repository ppa:deadsnakes/ppa -y
   sudo apt-get update
   sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}-full
   sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10 10
   sudo apt autoremove libboost-all-dev -y
 else
+  echo "!!!!!!! Not Ubuntu 20.04 or not python 3.10: install python${PYTHON_BINDING_VERSION} and boost !!!!!!!"
   sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}
   sudo apt-get install -y --no-install-recommends libboost-all-dev
 fi
@@ -28,7 +30,8 @@ sudo pip${PYTHON_BINDING_VERSION} install testresources
 sudo pip${PYTHON_BINDING_VERSION} install --upgrade setuptools==59.6.0
 sudo pip${PYTHON_BINDING_VERSION} install colcon-common-extensions xmlrunner pygccxml pyplusplus
 
-if [ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 -a "${PYTHON_BINDING_VERSION}" == "3.10" ]; then
+if [ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 ] -a [ "${PYTHON_BINDING_VERSION}" == "3.10" ]; then
+  echo "!!!!!!! Ubunut 20.04 and python 3.10: compile boost !!!!!!!"
   pushd dependencies
 
   # boost 1.71 needs some patches for python3.10
