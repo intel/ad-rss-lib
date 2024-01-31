@@ -40,16 +40,16 @@ sudo pip${PYTHON_BINDING_VERSION} install --upgrade setuptools==59.6.0
 sudo pip${PYTHON_BINDING_VERSION} install colcon-common-extensions xmlrunner pygccxml pyplusplus
 
 if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
-  echo "!!!!!!! Ubunut 20.04 and python 3.10: compile boost !!!!!!!"
+  echo "!!!!!!! Ubunut 20.04 and python 3.10: compile boost 1.80 !!!!!!!"
   pushd dependencies
 
-  # boost 1.71 needs some patches for python3.10
-  sudo add-apt-repository ppa:savoury1/boost-defaults-1.71
-  # uncomment source packages
-  sudo sed -i -e "s/# //" /etc/apt/sources.list.d/savoury1-ubuntu-boost-defaults-1_71-focal.list
-  sudo apt update
-  apt-get source boost1.71=1.71.0-6ubuntu6+20.04.sav0
-  pushd boost1.71-1.71.0
+  BOOST_VERSION=1.80.0
+  BOOST_PACKAGE_BASENAME=boost_${BOOST_VERSION//./_}
+  wget "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/${BOOST_PACKAGE_BASENAME}.tar.gz"
+  
+  tar -xzf ${BOOST_PACKAGE_BASENAME}.tar.gz
+  mv ${BOOST_PACKAGE_BASENAME} ${BOOST_BASENAME}-source
+  pushd ${BOOST_BASENAME}-source
 
   py3=`which python3.10`
   py3_root=`${py3} -c "import sys; print(sys.prefix)"`
