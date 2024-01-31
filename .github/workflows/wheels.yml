@@ -1,4 +1,4 @@
-name: Build and Publish wheels for ad-rss-lib Library
+name: Wheels
 
 on:
   release:
@@ -13,33 +13,43 @@ permissions:
 
 jobs:
   wheels:
-    runs-on: ubuntu-20.04
     strategy:
       matrix:
-        python_binding_version: [2.7, 3.6, 3.7, 3.8]
-    container:
-      image: joelmb/map:${{ matrix.python_binding_version }}
+        include:
+          - os: ubuntu-20.04
+            PYTHON_BINDING_VERSION: "3.10"
+          - os: ubuntu-20.04
+            PYTHON_BINDING_VERSION: "3.8"
+
+    name: ${{ matrix.os }}, python-${{ matrix.PYTHON_BINDING_VERSION }}
+    runs-on: ${{ matrix.os }}
     env:
-      WHEEL_PLATFORM: manylinux_2_27_x86_64
-      PYTHON_BINDING_VERSION: ${{ matrix.python_binding_version }}
+      WHEEL_PLATFORM: manylinux_2_31_x86_64
+      PYTHON_BINDING_VERSION: ${{ matrix.PYTHON_BINDING_VERSION }}
     steps:
-      # We currently cannot use checkout@v2 because git version on the docker images is below 2.18
       - name: Harden Runner
         uses: step-security/harden-runner@eb238b55efaa70779f274895e782ed17c84f2895 # v2.6.1
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@50fbc622fc4ef5163becd7fab6573eac35f8462e # v1.2.0
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: 1
           submodules: recursive
+
+      - name: Install Dependencies
+        run: |
+          bash .github/workflows/install_dependencies.sh
+          sudo pip${PYTHON_BINDING_VERSION} install auditwheel
+          sudo pip${PYTHON_BINDING_VERSION} install --upgrade patchelf>=0.14
+
       - name: Build wheels
         shell: bash
         run: |
-          apt-get update && apt-get install sqlite3 -y
           colcon build --packages-select PROJ4 --event-handlers console_direct+ --cmake-args -DCMAKE_POSITION_INDEPENDENT_CODE=ON
           source install/setup.bash
-          colcon build --packages-up-to ad_rss_map_integration --meta colcon_python.meta --event-handlers console_direct+ --cmake-args -DPYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION}
+          colcon build --packages-up-to ad_rss_map_integration --event-handlers console_direct+ --cmake-args -DPYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION}  --metas colcon_python.meta
+
       - name: Repair wheels
         shell: bash
         run: |
@@ -50,10 +60,11 @@ jobs:
           for whl in install/ad_rss_map_integration/dist/*.whl; do
             auditwheel repair $whl --plat ${WHEEL_PLATFORM} --wheel-dir wheelhouse
           done
-#      - name: Publish wheels to PyPI
-#        uses: pypa/gh-action-pypi-publish@release/v1
-#        if: ${{ github.event_name == 'release'}}
-#        with:
-#          user: __token__
-#          password: ${{ secrets.PYPI_API_TOKEN }}
-#          packages_dir: wheelhouse/
+
+      - name: Publish wheels to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        if: ${{ github.event_name == 'release'}}
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          packages_dir: wheelhouse/

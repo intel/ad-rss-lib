@@ -1,4 +1,7 @@
 ## Latest changes
+#### :ghost: Maintenance
+* Improve security of github actions
+* Disable Ubuntu 18.04 builds
 
 ## Release 4.5.3
 #### :ghost: Maintenance

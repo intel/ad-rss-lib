@@ -14,7 +14,7 @@ jobs:
 
     name: Check Code Formatting
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Harden Runner
@@ -22,12 +22,12 @@ jobs:
       with:
         egress-policy: audit
 
-    - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       with:
           submodules: true
 
     - name: Install Dependencies
-      run: sudo apt-get update && sudo apt-get install clang-format-10
+      run: sudo apt-get update && sudo apt-get install clang-format-14
 
     - name: Check Formatting
-      run: failed=0; for file in `find . -path ./dependencies -prune -false -o -iname *.cpp -o -iname *.hpp`; do if [ `clang-format-10 $file -output-replacements-xml | grep -c "<replacement "` -ne 0 ]; then echo "$file does not match codeing style. Please run clang-format-10"; failed=1; fi; if [ $failed -ne 0 ]; then exit 1; fi; done
+      run: failed=0; for file in `find . -path ./dependencies -prune -false -o -iname *.cpp -o -iname *.hpp`; do if [ `clang-format-14 $file -output-replacements-xml | grep -c "<replacement "` -ne 0 ]; then echo "$file does not match codeing style. Please run clang-format-14"; failed=1; fi; if [ $failed -ne 0 ]; then exit 1; fi; done
