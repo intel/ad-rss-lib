@@ -4,12 +4,21 @@ sudo apt-get update
 sudo apt-get install -y lsb-core
 sudo apt-get install -y --no-install-recommends build-essential castxml cmake libgtest-dev liblapacke-dev libopenblas-dev libpugixml-dev sqlite3
 
-if [ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 ]; then
-  echo "!!!!!!! Ubunut 20.04: remove python2 !!!!!!!"
-  sudo apt autoremove python2 python2-dev -y
+IS_PYTHON_3_10=0
+echo "!!!!!!! Python version: ${PYTHON_BINDING_VERSION} !!!!!!!"
+if [ "${PYTHON_BINDING_VERSION}" == "3.10" ]; then
+  echo "!!!!!!! Python version is 3.10 detected !!!!!!!"
+  IS_PYTHON_3_10=1
 fi
 
-if  [ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 ] -a [ "${PYTHON_BINDING_VERSION}" == "3.10" ]; then
+IS_UBUNTU_20_04=0
+if [ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 ]; then
+  echo "!!!!!!! Ubuntu 20.04: remove python2 !!!!!!!"
+  sudo apt autoremove python2 python2-dev -y
+  IS_UBUNTU_20_04=1
+fi
+
+if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
   echo "!!!!!!! Ubunut 20.04 and python 3.10: install python 3.10 and remove boost !!!!!!!"
   sudo add-apt-repository ppa:deadsnakes/ppa -y
   sudo apt-get update
@@ -30,7 +39,7 @@ sudo pip${PYTHON_BINDING_VERSION} install testresources
 sudo pip${PYTHON_BINDING_VERSION} install --upgrade setuptools==59.6.0
 sudo pip${PYTHON_BINDING_VERSION} install colcon-common-extensions xmlrunner pygccxml pyplusplus
 
-if [ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 ] -a [ "${PYTHON_BINDING_VERSION}" == "3.10" ]; then
+if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
   echo "!!!!!!! Ubunut 20.04 and python 3.10: compile boost !!!!!!!"
   pushd dependencies
 
