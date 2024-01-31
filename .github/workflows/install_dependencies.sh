@@ -51,6 +51,9 @@ if [ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 -a "${PYTHON_BI
   ./b2 --prefix="/usr" cxxflags="-fPIC" -j 10 stage release
   sudo ./b2 --prefix="/usr" cxxflags="-fPIC" -j 10 install
 
+  # ensure our colcon build process ignores boost sources
+  touch COLCON_IGNORE
+
   popd
   popd
 
