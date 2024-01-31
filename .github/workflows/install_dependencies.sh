@@ -59,7 +59,11 @@ if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
     --prefix="/usr" \
     --with-libraries=python,filesystem,system,program_options \
     --with-python=${py3} --with-python-version=${pyv} --with-python-root=${py3_root}
-
+  if (( $? )); then
+    echo "!!!!!!! boost bootstrap failed !!!!!!!"
+    cat bootstrap.log
+  fi
+  
   ./b2 --prefix="/usr" cxxflags="-fPIC" -j 10 stage release
   sudo ./b2 --prefix="/usr" cxxflags="-fPIC" -j 10 install
 
