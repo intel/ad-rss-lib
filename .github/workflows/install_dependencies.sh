@@ -48,23 +48,23 @@ if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
   # uncomment source packages
   sudo sed -i -e "s/# //" /etc/apt/sources.list.d/savoury1-ubuntu-boost-defaults-1_71-focal.list
   sudo apt update
-  sudo apt-get source boost1.71=1.71.0-6ubuntu6+20.04.sav0
+  apt-get source boost1.71=1.71.0-6ubuntu6+20.04.sav0
   pushd boost1.71-1.71.0
 
   py3=`which python3.10`
   py3_root=`${py3} -c "import sys; print(sys.prefix)"`
   pyv=`$py3 -c "import sys;x='{v[0]}.{v[1]}'.format(v=list(sys.version_info[:2]));sys.stdout.write(x)";`
 
-  sudo ./bootstrap.sh \
+  ./bootstrap.sh \
     --prefix="/usr" \
     --with-libraries=python,filesystem,system,program_options \
     --with-python=${py3} --with-python-version=${pyv} --with-python-root=${py3_root}
 
-  sudo ./b2 --prefix="/usr" cxxflags="-fPIC" -j 10 stage release
+  ./b2 --prefix="/usr" cxxflags="-fPIC" -j 10 stage release
   sudo ./b2 --prefix="/usr" cxxflags="-fPIC" -j 10 install
 
   # ensure our colcon build process ignores boost sources
-  sudo touch COLCON_IGNORE
+  touch COLCON_IGNORE
 
   popd
   popd
