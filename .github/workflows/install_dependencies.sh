@@ -16,6 +16,17 @@ if [ `lsb_release -a | grep Release | grep "20.04" | wc -l` == 1 ]; then
   echo "!!!!!!! Ubuntu 20.04: remove python2 !!!!!!!"
   sudo apt autoremove python2 python2-dev -y
   IS_UBUNTU_20_04=1
+  if [ "${PYTHON_BINDING_VERSION}" == "" ]; then
+    echo "!!!!!!! Setting default python version for Ubuntu20.04 !!!!!!!"
+    IS_PYTHON_3_10=0
+    PYTHON_BINDING_VERSION="3.8"
+  fi
+elif [ `lsb_release -a | grep Release | grep "22.04" | wc -l` == 1 ]; then
+  if [ "${PYTHON_BINDING_VERSION}" == "" ]; then
+    echo "!!!!!!! Setting default python version for Ubuntu22.04 !!!!!!!"
+    IS_PYTHON_3_10=1
+    PYTHON_BINDING_VERSION="3.10"
+  fi
 fi
 
 if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
