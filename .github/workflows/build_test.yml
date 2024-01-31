@@ -45,6 +45,9 @@ jobs:
 
     name: ${{ matrix.os }}, ${{ matrix.compiler }}, python-${{ matrix.PYTHON_BINDING_VERSION }}
     runs-on: ${{ matrix.os }}
+    env:
+      PYTHON_BINDING_VERSION: ${{ matrix.PYTHON_BINDING_VERSION }}
+      EXTRA_PACKAGES: ${{ matrix.EXTRA_PACKAGES }}
 
     steps:
     - name: Harden Runner
@@ -63,8 +66,6 @@ jobs:
       env:
           CC: ${{ matrix.CC }}
           CXX: ${{ matrix.CXX }}
-          EXTRA_PACKAGES: ${{ matrix.EXTRA_PACKAGES }}
-          PYTHON_BINDING_VERSION: ${{ matrix.PYTHON_BINDING_VERSION }}
       run: |
         sudo apt-get install ${EXTRA_PACKAGES}
         rm -rf log build install

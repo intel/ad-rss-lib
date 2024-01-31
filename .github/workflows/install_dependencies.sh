@@ -43,7 +43,7 @@ if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
   echo "!!!!!!! Ubunut 20.04 and python 3.10: compile boost 1.80 !!!!!!!"
   pushd dependencies
 
-  BOOST_VERSION=1.75.0
+  BOOST_VERSION=1.78.0
   BOOST_PACKAGE_BASENAME=boost_${BOOST_VERSION//./_}
   wget "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/${BOOST_PACKAGE_BASENAME}.tar.gz"
   
