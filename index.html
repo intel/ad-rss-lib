@@ -237,8 +237,8 @@ Please see the <a href="https://intel.github.io/ad-rss-lib/ad_rss/ad_rss_python/
 <p>Note: The RSS module in this library does not initiate evasive manuevers. At the same time, it would not hinder an evasive manuever being executed by the AV driving policy and planning modules, as long as it is compliant with the required RSS proper response.</p>
 <h2 id="getting-started">Getting started <a name="started"></a><a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
 <h4>Installation of dependencies</h4>
-<p>Currently, the focused operating systems are Ubuntu 18.04, Ubuntu 20.04 and Ubuntu 22.04. Nevertheless, the library should work in a similar way for any other Linux OS.
-To install the basic dependencies for Ubuntu 18.04/20.04/22.04 execute the following command:</p>
+<p>Currently, the focused operating systems are Ubuntu 20.04 and Ubuntu 22.04. Nevertheless, the library should work in a similar way for any other Linux OS.
+To install the basic dependencies for Ubuntu 20.04/22.04 execute the following command:</p>
 <pre><code class="bash"> user$&gt; sudo apt-get install git build-essential cmake libboost-dev libpugixml-dev libgtest-dev libpython-dev libproj-dev
 </code></pre>
 
@@ -253,88 +253,45 @@ To install the basic dependencies for Ubuntu 18.04/20.04/22.04 execute the follo
 </code></pre>
 
 <h4>Supported systems <a name="systems"></a></h4>
-<p>Development systems are Ubuntu 18.04, Ubuntu 20.04 and Ubuntu 22.04
-Following compiler and Python combinations are <a href="https://github.com/intel/ad-rss-lib/blob/master/.travis.yml">tested continously</a>:</p>
+<p>Development systems are Ubuntu 20.04 and Ubuntu 22.04
+Following compiler and Python combinations are <a href="https://github.com/intel/ad-rss-lib/blob/master/.github/workflows/build_test.yml">tested continously</a>:</p>
 <table>
 <thead>
 <tr>
 <th align="center"></th>
-<th align="center">Ubuntu 18.04</th>
 <th align="center">Ubuntu 20.04</th>
 <th align="center">Ubuntu 22.04</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">Clang 7</td>
-<td align="center">x</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">Clang 8</td>
-<td align="center">x</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GCC 7</td>
-<td align="center">x</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">GCC 8</td>
-<td align="center">x</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr>
 <td align="center">GCC 9</td>
-<td align="center"></td>
 <td align="center">x</td>
 <td align="center"></td>
 </tr>
 <tr>
 <td align="center">Clang 10</td>
-<td align="center"></td>
 <td align="center">x</td>
 <td align="center"></td>
 </tr>
 <tr>
 <td align="center">GCC 11</td>
 <td align="center"></td>
-<td align="center"></td>
 <td align="center">x</td>
 </tr>
 <tr>
 <td align="center">Clang 14</td>
 <td align="center"></td>
-<td align="center"></td>
 <td align="center">x</td>
-</tr>
-<tr>
-<td align="center">Python 2.7</td>
-<td align="center">x</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">Python 3.6</td>
-<td align="center">x</td>
-<td align="center"></td>
-<td align="center"></td>
 </tr>
 <tr>
 <td align="center">Python 3.8</td>
-<td align="center"></td>
 <td align="center">x</td>
 <td align="center"></td>
 </tr>
 <tr>
 <td align="center">Python 3.10</td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">x</td>
 <td align="center">x</td>
 </tr>
 </tbody>
@@ -346,8 +303,8 @@ Following compiler and Python combinations are <a href="https://github.com/intel
 <p>Contibutions are very welcome!</p>
 <p>Before submitting a pull request, please ensure that your code compiles successfully and that the tests run successfully.
 Please also check that your code formatting complies to the provided clang style. To do so, you can run:</p>
-<pre><code class="bash">ad-rss-lib$&gt; sudo apt-get install clang-format-10
-ad-rss-lib$&gt; find -iname *.cpp -o -iname *.hpp | xargs clang-format-10 -style=file -i
+<pre><code class="bash">ad-rss-lib$&gt; sudo apt-get install clang-format-14
+ad-rss-lib$&gt; find -iname *.cpp -o -iname *.hpp | xargs clang-format-14 -style=file -i
 </code></pre>
 
 <p>This command will automatically update the code formatting to be compliant with our style.</p>
@@ -411,5 +368,5 @@ ad-rss-lib$&gt; make clang-tidy
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2024-01-29 10:22:53.389958+00:00
+Build Date UTC : 2024-01-31 18:58:06.213904+00:00
 -->
