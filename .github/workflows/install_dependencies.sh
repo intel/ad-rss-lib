@@ -48,8 +48,7 @@ if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
   wget "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/${BOOST_PACKAGE_BASENAME}.tar.gz"
   
   tar -xzf ${BOOST_PACKAGE_BASENAME}.tar.gz
-  mv ${BOOST_PACKAGE_BASENAME} ${BOOST_BASENAME}-source
-  pushd ${BOOST_BASENAME}-source
+  pushd ${BOOST_PACKAGE_BASENAME}
 
   py3=`which python3.10`
   py3_root=`${py3} -c "import sys; print(sys.prefix)"`
