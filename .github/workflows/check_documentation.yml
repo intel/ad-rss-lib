@@ -7,10 +7,12 @@ on:
     branches: master
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   documentationjob:
+    permissions:
+      contents: write
 
     runs-on: ubuntu-20.04
 
