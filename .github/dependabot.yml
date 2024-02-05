@@ -5,6 +5,6 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: pip
-    directory: /
+    directory: /.github/
     schedule:
       interval: daily
