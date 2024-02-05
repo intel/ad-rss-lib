@@ -156,6 +156,8 @@ See the detailed [Build instructions](https://intel.github.io/ad-rss-lib/BUILDIN
 Contibutions are very welcome!
 
 Before submitting a pull request, please ensure that your code compiles successfully and that the tests run successfully.
+In case new functionality is added, please also take care on adding appropriate unit tests. The reported code coverage should not fall below 80%.
+
 Please also check that your code formatting complies to the provided clang style. To do so, you can run:
 ```bash
 ad-rss-lib$> sudo apt-get install clang-format-14
