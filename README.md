@@ -5,7 +5,7 @@
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/intel/ad-rss-lib.svg)](https://github.com/intel/ad-rss-lib/releases/latest)
 [![Build Status](https://github.com/intel/ad-rss-lib/workflows/Build%20and%20Test%20of%20AD-RSS%20Library/badge.svg?branch=master)](https://github.com/intel/ad-rss-lib/actions?query=workflow%3A%22Build+and+Test+of+AD-RSS+Library%22)
 [![Code Coverage](https://codecov.io/gh/intel/ad-rss-lib/branch/master/graph/badge.svg)](https://codecov.io/gh/intel/ad-rss-lib)
-
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/8374/badge)](https://www.bestpractices.dev/projects/8374)
 
 # Table of contents
 1. [Introduction](#introduction)
@@ -156,6 +156,8 @@ See the detailed [Build instructions](https://intel.github.io/ad-rss-lib/BUILDIN
 Contibutions are very welcome!
 
 Before submitting a pull request, please ensure that your code compiles successfully and that the tests run successfully.
+In case new functionality is added, please also take care on adding appropriate unit tests. The reported code coverage should not fall below 80%.
+
 Please also check that your code formatting complies to the provided clang style. To do so, you can run:
 ```bash
 ad-rss-lib$> sudo apt-get install clang-format-14
