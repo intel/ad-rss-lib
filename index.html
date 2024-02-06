@@ -143,7 +143,8 @@
 <p><a href="https://opensource.org/licenses/LGPL-2.1"><img alt="License" src="https://img.shields.io/badge/License-LGPL%202.1--Clause-blue.svg" /></a>
 <a href="https://github.com/intel/ad-rss-lib/releases/latest"><img alt="GitHub tag (latest SemVer)" src="https://img.shields.io/github/tag/intel/ad-rss-lib.svg" /></a>
 <a href="https://github.com/intel/ad-rss-lib/actions?query=workflow%3A%22Build+and+Test+of+AD-RSS+Library%22"><img alt="Build Status" src="https://github.com/intel/ad-rss-lib/workflows/Build%20and%20Test%20of%20AD-RSS%20Library/badge.svg?branch=master" /></a>
-<a href="https://codecov.io/gh/intel/ad-rss-lib"><img alt="Code Coverage" src="https://codecov.io/gh/intel/ad-rss-lib/branch/master/graph/badge.svg" /></a></p>
+<a href="https://codecov.io/gh/intel/ad-rss-lib"><img alt="Code Coverage" src="https://codecov.io/gh/intel/ad-rss-lib/branch/master/graph/badge.svg" /></a>
+<a href="https://www.bestpractices.dev/projects/8374"><img alt="OpenSSF Best Practices" src="https://www.bestpractices.dev/projects/8374/badge" /></a></p>
 <h1>Table of contents</h1>
 <ol>
 <li><a href="#introduction">Introduction</a></li>
@@ -302,7 +303,8 @@ Following compiler and Python combinations are <a href="https://github.com/intel
 <h2 id="contributing">Contributing <a name="contributing"></a><a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
 <p>Contibutions are very welcome!</p>
 <p>Before submitting a pull request, please ensure that your code compiles successfully and that the tests run successfully.
-Please also check that your code formatting complies to the provided clang style. To do so, you can run:</p>
+In case new functionality is added, please also take care on adding appropriate unit tests. The reported code coverage should not fall below 80%.</p>
+<p>Please also check that your code formatting complies to the provided clang style. To do so, you can run:</p>
 <pre><code class="bash">ad-rss-lib$&gt; sudo apt-get install clang-format-14
 ad-rss-lib$&gt; find -iname *.cpp -o -iname *.hpp | xargs clang-format-14 -style=file -i
 </code></pre>
@@ -368,5 +370,5 @@ ad-rss-lib$&gt; make clang-tidy
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2024-02-06 13:09:04.270004+00:00
+Build Date UTC : 2024-02-06 13:25:50.251556+00:00
 -->
