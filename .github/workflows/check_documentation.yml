@@ -42,15 +42,14 @@ jobs:
     - name: Code Coverage and CodeCov
       run: |
         bash .github/workflows/code_coverage.sh
-    
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v4
+
+    - name: Upload coverage as artifact
+      uses: actions/upload-artifact@v4
       with:
-        fail_ci_if_error: true
-        files: ./cleanedCoverage_as_rss.info,./cleanedCoverage_as_rss_map_integration.info
-        flags: unittests
-        token: ${{ secrets.CODECOV_TOKEN }} 
-        verbose: true
+        name: coverage_report
+        path: ./coverage
+        if-no-files-found: error
+        overwrite: true
 
     - name: Documentation Deployment (Test)
       run: |
