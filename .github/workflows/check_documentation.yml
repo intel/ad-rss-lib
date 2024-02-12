@@ -29,7 +29,8 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        bash eval BUILD_DOCU=true .github/workflows/install_dependencies.sh
+        export BUILD_DOCU=true
+        bash .github/workflows/install_dependencies.sh
 
     - name: Build Documentation and Test
       run: |
