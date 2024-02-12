@@ -86,7 +86,7 @@ if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
 fi
 
 
-if [[ "${BUILD_DOCU}x" != "x" ]; then
+if [[ "${BUILD_DOCU}x" != "x" ]]; then
   sudo apt-get install doxygen graphviz lcov
   sudo pip3 install --upgrade six>=1.11.0
   sudo pip3 install Markdown==3.2.1
