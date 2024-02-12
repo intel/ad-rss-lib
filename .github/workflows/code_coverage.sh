@@ -21,7 +21,6 @@ get_coverage() {
     grep -v -E 'D0Ev|D1Ev|C1Ev|C1Eb' coverage_${PACKAGE_NAME}.info > cleanedCoverage_${PACKAGE_NAME}.info
     lcov --summary cleanedCoverage_${PACKAGE_NAME}.info --rc lcov_branch_coverage=1
     genhtml -t ${PACKAGE_NAME} -p ${PWD}/${SRC_DIR} --branch-coverage -o coverage/${SRC_DIR} cleanedCoverage_${PACKAGE_NAME}.info
-    bash <(curl -s https://codecov.io/bash) -f cleanedCoverage_${PACKAGE_NAME}.info || echo "Codecov did not collect coverage reports"
 }
 
 get_coverage build/ad_rss ad_rss ad_rss
