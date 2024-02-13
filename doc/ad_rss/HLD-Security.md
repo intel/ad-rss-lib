@@ -176,7 +176,7 @@ The development platforms are Ubuntu Linux 20.04 Focal Fossa and 22.04 Jammy Jel
 
 A standard cmake toolchain has been used to compile the library. Other supported compilers are listed at the [main page](../../#systems)
 
-The following, strict, [compilation flags](https://github.com/intel/ad-rss-lib/blob/master/cmake/warnings.cmake) are used:
+The following, strict, [compilation flags](https://github.com/intel/ad-rss-lib/blob/main/cmake/warnings.cmake) are used:
 C++14, -Werror, -Wall, -Wextra, -pedantic, -Wconversion, -Wsign-conversion, -Wfloat-equal -Wshadow -Wswitch-default -Wenum-compare -Wformat -Wformat-security.
 
 * -Werror turns all warnings into errors
@@ -191,7 +191,7 @@ C++14, -Werror, -Wall, -Wextra, -pedantic, -Wconversion, -Wsign-conversion, -Wfl
 * -Wenum-compare warn about a comparison between values of different enumerated types
 * -Wformat* warns about errors within format strings
 
-In addition, there are [hardening compiler flags](https://github.com/intel/ad-rss-lib/blob/master/cmake/hardening.cmake)
+In addition, there are [hardening compiler flags](https://github.com/intel/ad-rss-lib/blob/main/cmake/hardening.cmake)
 * -fstack-protector-all -fasynchronous-unwind-tables -fno-omit-frame-pointer -fno-delete-null-pointer-checks -fno-strict-overflow -fwrapv -fPIE -fPIC -D_FORTIFY_SOURCE=2
 and linker flags
 * -Wl,-z,now -Wl,-z,relro -pie
