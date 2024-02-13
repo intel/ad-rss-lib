@@ -167,7 +167,7 @@ input data (implemented by <em>ad::rss::world::WorldModel</em>), output data (im
 by <em>ad::rss::world::AccelerationRestrictions</em>), and the RSS function itself (implemented
 by <em>ad::rss::core::RssCheck</em>` and supporting library classes).</p>
 <h3 id="rss-input-data-adrssworldworldmodel">RSS input data (<em>ad::rss::world::WorldModel</em>)<a class="headerlink" href="#rss-input-data-adrssworldworldmodel" title="Permanent link">&para;</a></h3>
-<h4>Input data source</h4>
+<h4 id="input-data-source">Input data source<a class="headerlink" href="#input-data-source" title="Permanent link">&para;</a></h4>
 <p>The input data is contained in <em>ad::rss::world::WorldModel</em>. This data includes distances to
 other road agents (vehicles and other) and velocities of other road agents. This
 data also includes description of the geometry of the road (and road lanes).</p>
@@ -178,7 +178,7 @@ responsibility of the calling routine to receive, convert, and provide
 this sensing-derived data to the RSS function in the correct format.
 The calling routine must ensure the integrity of the input data
 provided to the RSS library functions.</p>
-<h4>Validity of input data and error handling</h4>
+<h4 id="validity-of-input-data-and-error-handling">Validity of input data and error handling<a class="headerlink" href="#validity-of-input-data-and-error-handling" title="Permanent link">&para;</a></h4>
 <p>The library attempts to ensure the validity of the input data, and handle cases of improper or invalid input data, in several ways.</p>
 <p>Several explicit checks of the input data validity are performed, including the following.</p>
 <ul>
@@ -205,7 +205,7 @@ flag set to <em>fail</em>.</p>
 <p>Logging: The top-level routine in the library returns a success/fail flag that can
 be recorded by logging functions that may be available in the overall AD system
 (external to the library). The reason for the failure is logged using the global logger defined by <a href="https://github.com/gabime/spdlog">spdlog</a>.</p>
-<h4>Non-functional requirements</h4>
+<h4 id="non-functional-requirements">Non-functional requirements<a class="headerlink" href="#non-functional-requirements" title="Permanent link">&para;</a></h4>
 <p>The size of the input data <em>ad::rss::world::WorldModel</em> provided to <em>ad::rss::core::RssCheck</em> is determined by the number of other objects (other vehicles or road agents) that the ego-vehicle is interacting with, and the size of the description of each object and associated road areas.  Based on this, it is straightforward to bound the size of data that must be consumed by the <em>ad::rss::core::RssCheck</em> in a single call, based on the sizes of individual datatypes and by bounding the number of objects.</p>
 <p>It is the responsibility of the system integrator to determine the number of objects the system can handle and to bound the size of the input data.</p>
 <p>It is the responsibility of the system integrator to determine an appropriate rate or a maximum rate at which the top-level routine,
@@ -230,7 +230,7 @@ ranges of acceleration allowed by RSS:</p>
 bound. The lower bound and upper bound simply specify an interval of allowable
 acceleration. Note that a negative value of acceleration implies deceleration,
 i.e. braking.</p>
-<h4>Output data destination</h4>
+<h4 id="output-data-destination">Output data destination<a class="headerlink" href="#output-data-destination" title="Permanent link">&para;</a></h4>
 <p>These three ranges (in <em>ad::rss::world::AccelerationRestriction</em>) are provided to the system
 that calls the RSS top-level routine, and indicate the range of acceleration
 that the AD system must ultimately achieve within its respective lane in order to comply to RSS. In other
@@ -242,7 +242,7 @@ subsystem, external to the RSS library, should enforce the lower and upper
 bounds of lateral and longitudinal acceleration in respect to the lane provided by the RSS function. Implementation of this process is external to the RSS library, and the system
 integrator must ensure that this is implemented properly and that RSS output
 values are used correctly.</p>
-<h4>Bounds on the output data values</h4>
+<h4 id="bounds-on-the-output-data-values">Bounds on the output data values<a class="headerlink" href="#bounds-on-the-output-data-values" title="Permanent link">&para;</a></h4>
 <p>As discussed above, the output values of the RSS function are lower and upper
 bounds on acceleration. The lower and upper bounds determined by the RSS
 function originate from the input provided to the RSS function. Namely,
@@ -259,19 +259,19 @@ that the acceleration and deceleration actually achieved by the vehicle always
 remain within the limits calculated by the RSS function, and remain within other
 limits unrelated to RSS (e.g. physical limits imposed by the vehicle
 dynamics and the environment).</p>
-<h4>Bounds on the output data size</h4>
+<h4 id="bounds-on-the-output-data-size">Bounds on the output data size<a class="headerlink" href="#bounds-on-the-output-data-size" title="Permanent link">&para;</a></h4>
 <p>The output data of the RSS calculations is a fixed sized structure.
 As such, the size of the output data is strictly bounded already.</p>
 <p>It is the responsibility of the system integrator to determine an appropriate
 rate or maximum rate at which to invoke the RSS library function.</p>
 <h3 id="rss-library-code-validation">RSS library code validation<a class="headerlink" href="#rss-library-code-validation" title="Permanent link">&para;</a></h3>
-<h4>Dependencies</h4>
+<h4 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h4>
 <p>The RSS library has no dependency on any external library (except for the
 C++ Standard Library and the logging library).</p>
-<h4>Coding standards</h4>
+<h4 id="coding-standards">Coding standards<a class="headerlink" href="#coding-standards" title="Permanent link">&para;</a></h4>
 <p>Code quality has been ensured through unit testing.</p>
 <p>Unit testing achieved code coverage can be retrieved via <a href="https://intel.github.io/ad-rss-lib/coverage/index.html">github deployment</a>.</p>
-<h4>Compiler and compiler security flags</h4>
+<h4 id="compiler-and-compiler-security-flags">Compiler and compiler security flags<a class="headerlink" href="#compiler-and-compiler-security-flags" title="Permanent link">&para;</a></h4>
 <p>The development platforms are Ubuntu Linux 20.04 Focal Fossa and 22.04 Jammy Jellyfish.</p>
 <p>A standard cmake toolchain has been used to compile the library. Other supported compilers are listed at the <a href="../../#systems">main page</a></p>
 <p>The following, strict, <a href="https://github.com/intel/ad-rss-lib/blob/main/cmake/warnings.cmake">compilation flags</a> are used:
@@ -295,9 +295,9 @@ and linker flags
 * -Wl,-z,now -Wl,-z,relro -pie
 defined to harden the resulting binaries. Hardening is disabled by default, as build hardening is usually injected by the surrounding build system.</p>
 <p>Compilation with these flags completes without any error or warning.</p>
-<h4>Code analysis</h4>
+<h4 id="code-analysis">Code analysis<a class="headerlink" href="#code-analysis" title="Permanent link">&para;</a></h4>
 <p>The code analysis tool <code>cppcheck</code> was run on the library code, and no relevant issues found.</p>
-<h4>Critical assets</h4>
+<h4 id="critical-assets">Critical assets<a class="headerlink" href="#critical-assets" title="Permanent link">&para;</a></h4>
 <p>The library does not contain critical assets from a security perspective, other than the library code itself.</p>
               
             </div>

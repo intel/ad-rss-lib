@@ -136,7 +136,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1>Usage of python binding for ad_rss_map_integration</h1>
+                <h1 id="usage-of-python-binding-for-ad_rss_map_integration">Usage of python binding for ad_rss_map_integration<a class="headerlink" href="#usage-of-python-binding-for-ad_rss_map_integration" title="Permanent link">&para;</a></h1>
 <p>Compilation of ad_rss_map_integration_python (build option <em>-DBUILD_PYTHON_BINDING=ON</em>)
 will create an <em>ad_rss_map_integration</em> python package
 inside the install/ad_rss_map_integration/lib/pythonMaj.Min/site-packages folder.
@@ -146,7 +146,7 @@ datatypes or call methods defined in ad_rss_map_integration and its dependencies
 <p>To use the compiled python binding, one has to extend the current environment
 to be able to use the newly created library. Afterwards, one can import the
 python package and use it as any other python module.</p>
-<pre><code class="bash"> ad-rss-lib$&gt; echo &quot;Setting PYTHONPATH and LD_LIBRARY_PATH:&quot;
+<pre><code class="language-bash"> ad-rss-lib$&gt; echo &quot;Setting PYTHONPATH and LD_LIBRARY_PATH:&quot;
  ad-rss-lib$&gt; source install/setup.bash
  ad-rss-lib$&gt; python3.8
  &gt;&gt;&gt; import ad_rss_map_integration as ad
@@ -154,16 +154,14 @@ python package and use it as any other python module.</p>
  &gt;&gt;&gt; world_model = scene_creation.getWorldModel()
  &gt;&gt;&gt; print(world_model)
 </code></pre>
-
 <p>Also the interface of the dependencies can be accessed directly, since ad_rss_map_integration is relying on those
 (e.g. the type of the above returned world_model is actually ad.rss.world.WorldModel() provided by ad_rss):</p>
-<pre><code class="bash"> &gt;&gt;&gt; ad.map.access.init(&quot;ad_rss_map_integration/python/tests/resources/Town01.txt&quot;)
+<pre><code class="language-bash"> &gt;&gt;&gt; ad.map.access.init(&quot;ad_rss_map_integration/python/tests/resources/Town01.txt&quot;)
  &gt;&gt;&gt; lanes = ad.map.lane.getLanes()
  &gt;&gt;&gt; print(len(lanes))
  &gt;&gt;&gt; distance = ad.physics.Distance(2.0)
  &gt;&gt;&gt; print(distance)
 </code></pre>
-
 <p>For some simple examples, you might also want to spot into the ad_rss_map_integration/python/tests folder.</p>
               
             </div>

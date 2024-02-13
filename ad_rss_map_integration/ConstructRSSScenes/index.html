@@ -136,7 +136,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1>Construction of the RSS Scenes between two vehicles <a name="rssscenes"></a></h1>
+                <h1 id="construction-of-the-rss-scenes-between-two-vehicles">Construction of the RSS Scenes between two vehicles <a name="rssscenes"></a><a class="headerlink" href="#construction-of-the-rss-scenes-between-two-vehicles" title="Permanent link">&para;</a></h1>
 <p>The RSS core implementation (<em>ad_rss</em>) proposes a situation based coordinate system to
 perform the RSS calculations between two vehicles. This library provides an exemplary
 implementation on how a real-world situation can be transformed into such
@@ -147,7 +147,7 @@ coordinate system.</p>
 configurations between two vehicles that may happen. In reality, many corner-cases have to be
 considered to cover all of that (e.g. a backward driving car).</p>
 </div>
-<h4>Table of contents</h4>
+<h4 id="table-of-contents">Table of contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h4>
 <ol>
 <li><a href="#constructsituations">Construct situations</a></li>
 <li><a href="#constructroadarea">Construct Road Area</a></li>
@@ -164,14 +164,14 @@ Situation Based Coordinate System. As a result of this there might be multiple
 situations at the same time to be considered between two vehicles.</p>
 <p>Before the actual road area of the vehicles can be calculated, the type of situation
 has to be determined, which is performed within <code>ad::rss::map::RssSceneCreation::appendScenes()</code> as follows:</p>
-<h4>Calculate the connecting route</h4>
+<h4 id="calculate-the-connecting-route">Calculate the connecting route<a class="headerlink" href="#calculate-the-connecting-route" title="Permanent link">&para;</a></h4>
 <p>Based on road network data, the vehicle position and the object position, the shortest connecting route
 between these two is calculated (<code>ad::map::route::planning::calculateConnectingRoute()</code>).
 To cover also opposite direction and intersection use-cases, the nominal driving direction
 on the lanes is disregarded when the connecting route is calculated.
 Furthermore, as the map matched positions of vehicle and object might span over multiple
 lanes, all possible combinations are taken into account.</p>
-<h4>Decide on the kind of situation: same direction, opposite direction or intersection</h4>
+<h4 id="decide-on-the-kind-of-situation-same-direction-opposite-direction-or-intersection">Decide on the kind of situation: same direction, opposite direction or intersection<a class="headerlink" href="#decide-on-the-kind-of-situation-same-direction-opposite-direction-or-intersection" title="Permanent link">&para;</a></h4>
 <ol>
 <li>
 <p>If both vehicles are driving in the same direction with respect to the connecting route
@@ -232,7 +232,7 @@ routes of these combinations might result in a new situation to be considered:</
 </ul>
 </li>
 </ol>
-<h4>Handling of similar situations</h4>
+<h4 id="handling-of-similar-situations">Handling of similar situations<a class="headerlink" href="#handling-of-similar-situations" title="Permanent link">&para;</a></h4>
 <p>The consideration of intersections with all the possible routes leads to an increase in the number
 of situations. Therefore, to reduce the computational effort of the actual safety analysis,
 within the <em>ad_rss</em> core implementation situations that represent the same scene are merged
@@ -304,7 +304,7 @@ of the road area have to be preserved to allow RSS to decide if a vehicle is dri
 <p>Having the situations and the respective Road Area(s) constructed, the vehicle data has to be
 converted into the desired RSS object format <code>ad::rss::world::Object</code>. The main aspects of this
 are the conversion of the velocity and of the bounding box.</p>
-<h4>Conversion of the vehicle velocity within the road area</h4>
+<h4 id="conversion-of-the-vehicle-velocity-within-the-road-area">Conversion of the vehicle velocity within the road area<a class="headerlink" href="#conversion-of-the-vehicle-velocity-within-the-road-area" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -320,7 +320,7 @@ are the conversion of the velocity and of the bounding box.</p>
 <p>To convert the velocity of a vehicle within the situation, one can take the center point of the vehicle and the vehicle orientation in respect to the road area driving direction
 as basis to split the vehicle speed into its lateral and longitudinal components in respect to the borders of the road area.</p>
 <p>Having a detailed look at the left vehicle within the above sketched scene. Let it drive with 10m/s
-in parallel to the lanes. The split of the velocity leads to longitudinal velocity component of <span><span class="MathJax_Preview">v_{lon} = 10 m/s</span><script type="math/tex">v_{lon} = 10 m/s</script></span> and a lateral velocity component of <span><span class="MathJax_Preview">v_{lat} = 0 m/s</span><script type="math/tex">v_{lat} = 0 m/s</script></span>.</p>
+in parallel to the lanes. The split of the velocity leads to longitudinal velocity component of <span class="arithmatex"><span class="MathJax_Preview">v_{lon} = 10 m/s</span><script type="math/tex">v_{lon} = 10 m/s</script></span> and a lateral velocity component of <span class="arithmatex"><span class="MathJax_Preview">v_{lat} = 0 m/s</span><script type="math/tex">v_{lat} = 0 m/s</script></span>.</p>
 <table>
 <thead>
 <tr>
@@ -333,9 +333,9 @@ in parallel to the lanes. The split of the velocity leads to longitudinal veloci
 </tr>
 </tbody>
 </table>
-<p>This becomes different, when the lane is not straight anymore. When driving with <span><span class="MathJax_Preview">20\circ</span><script type="math/tex">20\circ</script></span> in
-respect to the lane at the center point. For the center point one gets a longitudinal velocity component of <span><span class="MathJax_Preview">v_{lon} = \cos(20\circ) * 10 m/s = 9.4 m/s</span><script type="math/tex">v_{lon} = \cos(20\circ) * 10 m/s = 9.4 m/s</script></span> and a lateral velocity component
-of <span><span class="MathJax_Preview">v_{lat} = \sin(20\circ) * 10 m/s = 3.4 m/s</span><script type="math/tex">v_{lat} = \sin(20\circ) * 10 m/s = 3.4 m/s</script></span>.</p>
+<p>This becomes different, when the lane is not straight anymore. When driving with <span class="arithmatex"><span class="MathJax_Preview">20\circ</span><script type="math/tex">20\circ</script></span> in
+respect to the lane at the center point. For the center point one gets a longitudinal velocity component of <span class="arithmatex"><span class="MathJax_Preview">v_{lon} = \cos(20\circ) * 10 m/s = 9.4 m/s</span><script type="math/tex">v_{lon} = \cos(20\circ) * 10 m/s = 9.4 m/s</script></span> and a lateral velocity component
+of <span class="arithmatex"><span class="MathJax_Preview">v_{lat} = \sin(20\circ) * 10 m/s = 3.4 m/s</span><script type="math/tex">v_{lat} = \sin(20\circ) * 10 m/s = 3.4 m/s</script></span>.</p>
 <table>
 <thead>
 <tr>
@@ -348,7 +348,7 @@ of <span><span class="MathJax_Preview">v_{lat} = \sin(20\circ) * 10 m/s = 3.4 m/
 </tr>
 </tbody>
 </table>
-<h4>Construction of the situation based bounding box of the vehicles within the road area</h4>
+<h4 id="construction-of-the-situation-based-bounding-box-of-the-vehicles-within-the-road-area">Construction of the situation based bounding box of the vehicles within the road area<a class="headerlink" href="#construction-of-the-situation-based-bounding-box-of-the-vehicles-within-the-road-area" title="Permanent link">&para;</a></h4>
 <p>Based on the Road Area, the individual bounding box of the vehicles are calculated.</p>
 <table>
 <thead>
@@ -398,18 +398,18 @@ the following image:</p>
 </tr>
 </tbody>
 </table>
-<h4>Calculation of Metric distances within the Road Area</h4>
-<p>The minimal (maximal) metric position <span><span class="MathJax_Preview">p^{lon}_{min}</span><script type="math/tex">p^{lon}_{min}</script></span> (<span><span class="MathJax_Preview">p^{lon}_{max}</span><script type="math/tex">p^{lon}_{max}</script></span>) in longitudinal direction of a vehicle within the road area
+<h4 id="calculation-of-metric-distances-within-the-road-area">Calculation of Metric distances within the Road Area<a class="headerlink" href="#calculation-of-metric-distances-within-the-road-area" title="Permanent link">&para;</a></h4>
+<p>The minimal (maximal) metric position <span class="arithmatex"><span class="MathJax_Preview">p^{lon}_{min}</span><script type="math/tex">p^{lon}_{min}</script></span> (<span class="arithmatex"><span class="MathJax_Preview">p^{lon}_{max}</span><script type="math/tex">p^{lon}_{max}</script></span>) in longitudinal direction of a vehicle within the road area
 is calculated by taking the sum of all minimal (maximal) metric lengths of all previous road segments,
 plus the parametric scaled minimal (maximal) length of the first road segment it touches (explained in detail in the subsections below).
-Like this, the <span><span class="MathJax_Preview">\Delta</span><script type="math/tex">\Delta</script></span> of every part of the road segment up to the vehicle is finally incorporated into it's
-metric length within the road area <span><span class="MathJax_Preview">l = p^{lon}_{max} - p^{lon}_{min}</span><script type="math/tex">l = p^{lon}_{max} - p^{lon}_{min}</script></span>: The vehicle gets stretched by each of the <span><span class="MathJax_Preview">\Delta</span><script type="math/tex">\Delta</script></span>.</p>
+Like this, the <span class="arithmatex"><span class="MathJax_Preview">\Delta</span><script type="math/tex">\Delta</script></span> of every part of the road segment up to the vehicle is finally incorporated into it's
+metric length within the road area <span class="arithmatex"><span class="MathJax_Preview">l = p^{lon}_{max} - p^{lon}_{min}</span><script type="math/tex">l = p^{lon}_{max} - p^{lon}_{min}</script></span>: The vehicle gets stretched by each of the <span class="arithmatex"><span class="MathJax_Preview">\Delta</span><script type="math/tex">\Delta</script></span>.</p>
 <p>To calculate the longitudinal distance of two vehicles towards each other the maximum position of the vehicle at the back is
-subtracted from the minimum position of the vehicle in front: <span><span class="MathJax_Preview">d^{lon} = p^{lon}_{front,min} - p^{lon}_{back,max}</span><script type="math/tex">d^{lon} = p^{lon}_{front,min} - p^{lon}_{back,max}</script></span>
+subtracted from the minimum position of the vehicle in front: <span class="arithmatex"><span class="MathJax_Preview">d^{lon} = p^{lon}_{front,min} - p^{lon}_{back,max}</span><script type="math/tex">d^{lon} = p^{lon}_{front,min} - p^{lon}_{back,max}</script></span>
 This happens in a similar way in lateral direction and with the distance towards the intersection.
 Because the <em>ad_rss</em> implementation takes all parts of the road area into account as
 provided from outside (i.e. does <em>not</em> cut-off the road area before the first car),
-the <span><span class="MathJax_Preview">\Delta</span><script type="math/tex">\Delta</script></span> is incorporated as negative component into <span><span class="MathJax_Preview">d^{lon}</span><script type="math/tex">d^{lon}</script></span>.
+the <span class="arithmatex"><span class="MathJax_Preview">\Delta</span><script type="math/tex">\Delta</script></span> is incorporated as negative component into <span class="arithmatex"><span class="MathJax_Preview">d^{lon}</span><script type="math/tex">d^{lon}</script></span>.
 The following Figure provides an example:</p>
 <table>
 <thead>
@@ -419,40 +419,40 @@ The following Figure provides an example:</p>
 </thead>
 <tbody>
 <tr>
-<td><em>Example: Let the actual distance of the two cars be <span><span class="MathJax_Preview">d^{lon}_{real} = 17\,m</span><script type="math/tex">d^{lon}_{real} = 17\,m</script></span>. Further let the right border of the road area curve within the intersection be <span><span class="MathJax_Preview">15\,m</span><script type="math/tex">15\,m</script></span> and the outer border be <span><span class="MathJax_Preview">23\,m</span><script type="math/tex">23\,m</script></span>. With the transformation into </em>ad_rss<em> situation based coordinate system the information on the actual road geometry gets lost, so that the difference of the border length of <span><span class="MathJax_Preview">6\,m</span><script type="math/tex">6\,m</script></span> in a road segment at the beginning leads to a decreased metric distance of the two cars of <span><span class="MathJax_Preview">d^{lon}_{RoadArea} = 11\,m</span><script type="math/tex">d^{lon}_{RoadArea} = 11\,m</script></span>. Cutting the road area after the (red) vehicle in the back would lead to <span><span class="MathJax_Preview">d^{lon}_{RoadArea} = d^{lon}_{real} = 17\,m</span><script type="math/tex">d^{lon}_{RoadArea} = d^{lon}_{real} = 17\,m</script></span>.</em></td>
+<td><em>Example: Let the actual distance of the two cars be <span class="arithmatex"><span class="MathJax_Preview">d^{lon}_{real} = 17\,m</span><script type="math/tex">d^{lon}_{real} = 17\,m</script></span>. Further let the right border of the road area curve within the intersection be <span class="arithmatex"><span class="MathJax_Preview">15\,m</span><script type="math/tex">15\,m</script></span> and the outer border be <span class="arithmatex"><span class="MathJax_Preview">23\,m</span><script type="math/tex">23\,m</script></span>. With the transformation into </em>ad_rss<em> situation based coordinate system the information on the actual road geometry gets lost, so that the difference of the border length of <span class="arithmatex"><span class="MathJax_Preview">6\,m</span><script type="math/tex">6\,m</script></span> in a road segment at the beginning leads to a decreased metric distance of the two cars of <span class="arithmatex"><span class="MathJax_Preview">d^{lon}_{RoadArea} = 11\,m</span><script type="math/tex">d^{lon}_{RoadArea} = 11\,m</script></span>. Cutting the road area after the (red) vehicle in the back would lead to <span class="arithmatex"><span class="MathJax_Preview">d^{lon}_{RoadArea} = d^{lon}_{real} = 17\,m</span><script type="math/tex">d^{lon}_{RoadArea} = d^{lon}_{real} = 17\,m</script></span>.</em></td>
 </tr>
 </tbody>
 </table>
 <p>To understand the details of why it is important to restrict the road area in its extend,
 the actual realized calculation of metric bounding box and metric distances within the road area within <em>ad_rss</em> are sketched in the following sections.</p>
-<h5>Metrics of road segments within Road Area</h5>
-<p>The overall metric minima/maxima of the road segment at index r (<span><span class="MathJax_Preview">RS_{min}^r, RS_{max}^r</span><script type="math/tex">RS_{min}^r, RS_{max}^r</script></span>) is calculated by combination of the minima/maxima (<span><span class="MathJax_Preview">LS_{min},LS_{max}</span><script type="math/tex">LS_{min},LS_{max}</script></span>) of the contained lane segments:</p>
-<p><span><span class="MathJax_Preview">RS_{lon,min}^r = \min\limits_{l}⁡(LS_{lon,min}^{r,l})</span><script type="math/tex">RS_{lon,min}^r = \min\limits_{l}⁡(LS_{lon,min}^{r,l})</script></span></p>
-<p><span><span class="MathJax_Preview">RS_{lon,max}^r= \max\limits_{l}⁡(LS_{lon,max}^{r,l})</span><script type="math/tex">RS_{lon,max}^r= \max\limits_{l}⁡(LS_{lon,max}^{r,l})</script></span></p>
-<p><span><span class="MathJax_Preview">RS_{lat,min}^r=0</span><script type="math/tex">RS_{lat,min}^r=0</script></span></p>
-<p><span><span class="MathJax_Preview">RS_{lat,max}^r= \sum_{l}LS_{lat,max}^{r,l}</span><script type="math/tex">RS_{lat,max}^r= \sum_{l}LS_{lat,max}^{r,l}</script></span> ⁡</p>
-<p>The overall minima/maxima dimensions of the road area (<span><span class="MathJax_Preview">RA_{min}, RA_{max}</span><script type="math/tex">RA_{min}, RA_{max}</script></span>) are calculated by the combinations of the minima/maxima of the road segments:</p>
-<p><span><span class="MathJax_Preview">RA_{lon,min} = \sum_r RS_{lon,min}^r</span><script type="math/tex">RA_{lon,min} = \sum_r RS_{lon,min}^r</script></span></p>
-<p><span><span class="MathJax_Preview">RA_{lon,max} = \sum_r RS_{lon,max}^r</span><script type="math/tex">RA_{lon,max} = \sum_r RS_{lon,max}^r</script></span></p>
-<p><span><span class="MathJax_Preview">RA_{lat,min} = \min\limits_{r}⁡ (RS_{lat,min}^r)=0</span><script type="math/tex">RA_{lat,min} = \min\limits_{r}⁡ (RS_{lat,min}^r)=0</script></span></p>
-<p><span><span class="MathJax_Preview">RA_{lat,max} = \max\limits_{r}⁡ (RS_{lat,max}^r)</span><script type="math/tex">RA_{lat,max} = \max\limits_{r}⁡ (RS_{lat,max}^r)</script></span></p>
-<h5>Metrics bounding box of vehicles within Road Area</h5>
-<p>In a similar manner the vehicle parametric bounding box definitions (<span><span class="MathJax_Preview">PBB</span><script type="math/tex">PBB</script></span>) can be used to calculate
-the minimal and maximal metric position in longitudinal direction of the vehicle within of the whole road area: the minimal longitudinal position of a vehicle (<span><span class="MathJax_Preview">BB_{min}^{lon}</span><script type="math/tex">BB_{min}^{lon}</script></span>) is calculated by taking the sum of all minimal metric lengths of all previous road segments, plus the parametric scaled minimal length of the first road segment it touches.</p>
-<p><span><span class="MathJax_Preview">BB_{lon,min} = \sum_{r=0}^{i-1} RS_{lon,min}^r + \min\limits_{l}⁡ ( PBB_{lon,min}^{i,l} * LS_{lon,min}^{i,l} )</span><script type="math/tex">BB_{lon,min} = \sum_{r=0}^{i-1} RS_{lon,min}^r + \min\limits_{l}⁡ ( PBB_{lon,min}^{i,l} * LS_{lon,min}^{i,l} )</script></span> , with i: first road segment the vehicle touches.</p>
-<p><span><span class="MathJax_Preview">BB_{lon,max} = \sum_{r=0}^{i-1} RS_{lon,max}^r + \max\limits_{l} ( PBB_{lon,max}^{i,l} * LS_{(lon,max}^{i,l})</span><script type="math/tex">BB_{lon,max} = \sum_{r=0}^{i-1} RS_{lon,max}^r + \max\limits_{l} ( PBB_{lon,max}^{i,l} * LS_{(lon,max}^{i,l})</script></span> , with i: last road segment the vehicle touches.</p>
-<p><span><span class="MathJax_Preview">BB_{lat,min} = \min\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,min}^{r,l} + (PBB_{lat,min}^{r,i}* LS_{lat,min}^{r,i}) )</span><script type="math/tex">BB_{lat,min} = \min\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,min}^{r,l} + (PBB_{lat,min}^{r,i}* LS_{lat,min}^{r,i}) )</script></span> , with i: first lane segment within road segment r the vehicle touches.</p>
-<p><span><span class="MathJax_Preview">BB_{lat,max} = \max\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,max}^{r,l} + (PBB_{lat,max}^{r,i} * LS_{lat,max}^{r,i})</span><script type="math/tex">BB_{lat,max} = \max\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,max}^{r,l} + (PBB_{lat,max}^{r,i} * LS_{lat,max}^{r,i})</script></span>, with i: last lane segment within road segment r the vehicle touches.</p>
-<h5>Metrics distances between vehicles</h5>
+<h5 id="metrics-of-road-segments-within-road-area">Metrics of road segments within Road Area<a class="headerlink" href="#metrics-of-road-segments-within-road-area" title="Permanent link">&para;</a></h5>
+<p>The overall metric minima/maxima of the road segment at index r (<span class="arithmatex"><span class="MathJax_Preview">RS_{min}^r, RS_{max}^r</span><script type="math/tex">RS_{min}^r, RS_{max}^r</script></span>) is calculated by combination of the minima/maxima (<span class="arithmatex"><span class="MathJax_Preview">LS_{min},LS_{max}</span><script type="math/tex">LS_{min},LS_{max}</script></span>) of the contained lane segments:</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">RS_{lon,min}^r = \min\limits_{l}⁡(LS_{lon,min}^{r,l})</span><script type="math/tex">RS_{lon,min}^r = \min\limits_{l}⁡(LS_{lon,min}^{r,l})</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">RS_{lon,max}^r= \max\limits_{l}⁡(LS_{lon,max}^{r,l})</span><script type="math/tex">RS_{lon,max}^r= \max\limits_{l}⁡(LS_{lon,max}^{r,l})</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">RS_{lat,min}^r=0</span><script type="math/tex">RS_{lat,min}^r=0</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">RS_{lat,max}^r= \sum_{l}LS_{lat,max}^{r,l}</span><script type="math/tex">RS_{lat,max}^r= \sum_{l}LS_{lat,max}^{r,l}</script></span> ⁡</p>
+<p>The overall minima/maxima dimensions of the road area (<span class="arithmatex"><span class="MathJax_Preview">RA_{min}, RA_{max}</span><script type="math/tex">RA_{min}, RA_{max}</script></span>) are calculated by the combinations of the minima/maxima of the road segments:</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">RA_{lon,min} = \sum_r RS_{lon,min}^r</span><script type="math/tex">RA_{lon,min} = \sum_r RS_{lon,min}^r</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">RA_{lon,max} = \sum_r RS_{lon,max}^r</span><script type="math/tex">RA_{lon,max} = \sum_r RS_{lon,max}^r</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">RA_{lat,min} = \min\limits_{r}⁡ (RS_{lat,min}^r)=0</span><script type="math/tex">RA_{lat,min} = \min\limits_{r}⁡ (RS_{lat,min}^r)=0</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">RA_{lat,max} = \max\limits_{r}⁡ (RS_{lat,max}^r)</span><script type="math/tex">RA_{lat,max} = \max\limits_{r}⁡ (RS_{lat,max}^r)</script></span></p>
+<h5 id="metrics-bounding-box-of-vehicles-within-road-area">Metrics bounding box of vehicles within Road Area<a class="headerlink" href="#metrics-bounding-box-of-vehicles-within-road-area" title="Permanent link">&para;</a></h5>
+<p>In a similar manner the vehicle parametric bounding box definitions (<span class="arithmatex"><span class="MathJax_Preview">PBB</span><script type="math/tex">PBB</script></span>) can be used to calculate
+the minimal and maximal metric position in longitudinal direction of the vehicle within of the whole road area: the minimal longitudinal position of a vehicle (<span class="arithmatex"><span class="MathJax_Preview">BB_{min}^{lon}</span><script type="math/tex">BB_{min}^{lon}</script></span>) is calculated by taking the sum of all minimal metric lengths of all previous road segments, plus the parametric scaled minimal length of the first road segment it touches.</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">BB_{lon,min} = \sum_{r=0}^{i-1} RS_{lon,min}^r + \min\limits_{l}⁡ ( PBB_{lon,min}^{i,l} * LS_{lon,min}^{i,l} )</span><script type="math/tex">BB_{lon,min} = \sum_{r=0}^{i-1} RS_{lon,min}^r + \min\limits_{l}⁡ ( PBB_{lon,min}^{i,l} * LS_{lon,min}^{i,l} )</script></span> , with i: first road segment the vehicle touches.</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">BB_{lon,max} = \sum_{r=0}^{i-1} RS_{lon,max}^r + \max\limits_{l} ( PBB_{lon,max}^{i,l} * LS_{(lon,max}^{i,l})</span><script type="math/tex">BB_{lon,max} = \sum_{r=0}^{i-1} RS_{lon,max}^r + \max\limits_{l} ( PBB_{lon,max}^{i,l} * LS_{(lon,max}^{i,l})</script></span> , with i: last road segment the vehicle touches.</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">BB_{lat,min} = \min\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,min}^{r,l} + (PBB_{lat,min}^{r,i}* LS_{lat,min}^{r,i}) )</span><script type="math/tex">BB_{lat,min} = \min\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,min}^{r,l} + (PBB_{lat,min}^{r,i}* LS_{lat,min}^{r,i}) )</script></span> , with i: first lane segment within road segment r the vehicle touches.</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">BB_{lat,max} = \max\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,max}^{r,l} + (PBB_{lat,max}^{r,i} * LS_{lat,max}^{r,i})</span><script type="math/tex">BB_{lat,max} = \max\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,max}^{r,l} + (PBB_{lat,max}^{r,i} * LS_{lat,max}^{r,i})</script></span>, with i: last lane segment within road segment r the vehicle touches.</p>
+<h5 id="metrics-distances-between-vehicles">Metrics distances between vehicles<a class="headerlink" href="#metrics-distances-between-vehicles" title="Permanent link">&para;</a></h5>
 <p>Having the vehicles metric bounding boxes within the road area at hand, it is straight forward to calculate the current longitudinal and lateral distances of the vehicles towards each other. Let A be the upper left vehicle and B the lower right vehicle in the sketched road area above, then the distances are defined by:</p>
-<p><span><span class="MathJax_Preview">d_{lon} = BB_{lon,min}^B - BB_{lon,max}^A</span><script type="math/tex">d_{lon} = BB_{lon,min}^B - BB_{lon,max}^A</script></span></p>
-<p><span><span class="MathJax_Preview">d_{lat} = BB_{lat,min}^B - BB_{lat,max}^A</span><script type="math/tex">d_{lat} = BB_{lat,min}^B - BB_{lat,max}^A</script></span></p>
-<h5>Metrics distances in respect to the intersection</h5>
+<p><span class="arithmatex"><span class="MathJax_Preview">d_{lon} = BB_{lon,min}^B - BB_{lon,max}^A</span><script type="math/tex">d_{lon} = BB_{lon,min}^B - BB_{lon,max}^A</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">d_{lat} = BB_{lat,min}^B - BB_{lat,max}^A</span><script type="math/tex">d_{lat} = BB_{lat,min}^B - BB_{lat,max}^A</script></span></p>
+<h5 id="metrics-distances-in-respect-to-the-intersection">Metrics distances in respect to the intersection<a class="headerlink" href="#metrics-distances-in-respect-to-the-intersection" title="Permanent link">&para;</a></h5>
 <p>The calculation of the intersection distance of a vehicle can then be performed in the following way:</p>
-<p><span><span class="MathJax_Preview">d_{enter} = \sum_{r=0}^{i-1} RS_{lon,min}^r -BB_{lon,max}</span><script type="math/tex">d_{enter} = \sum_{r=0}^{i-1} RS_{lon,min}^r -BB_{lon,max}</script></span> , with i: first road segment within the intersection.</p>
-<p><span><span class="MathJax_Preview">d_{exit} = \sum_{r=0}^i RS_{lon,max}^r - BB_{lon,min}</span><script type="math/tex">d_{exit} = \sum_{r=0}^i RS_{lon,max}^r - BB_{lon,min}</script></span> , with i: last road segment within the intersection.</p>
-<p>Having the vehicles metric bounding boxes and the distances to the intersection at hand, it is straight forward to calculate the current longitudinal distance of the vehicles towards each other in respect to the intersection. Let A be the vehicle coming from west and B the vehicle coming from south in the figure above with <span><span class="MathJax_Preview">d_{enter}^A &gt; d_{enter}^B</span><script type="math/tex">d_{enter}^A > d_{enter}^B</script></span>, then the distance can be calculated by:</p>
-<p><span><span class="MathJax_Preview">d_{lon} = \max⁡ (0, d_{enter}^A - d_{enter}^B - (BB_{lon,max}^B -BB_{lon,min}^B))</span><script type="math/tex">d_{lon} = \max⁡ (0, d_{enter}^A - d_{enter}^B - (BB_{lon,max}^B -BB_{lon,min}^B))</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">d_{enter} = \sum_{r=0}^{i-1} RS_{lon,min}^r -BB_{lon,max}</span><script type="math/tex">d_{enter} = \sum_{r=0}^{i-1} RS_{lon,min}^r -BB_{lon,max}</script></span> , with i: first road segment within the intersection.</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">d_{exit} = \sum_{r=0}^i RS_{lon,max}^r - BB_{lon,min}</span><script type="math/tex">d_{exit} = \sum_{r=0}^i RS_{lon,max}^r - BB_{lon,min}</script></span> , with i: last road segment within the intersection.</p>
+<p>Having the vehicles metric bounding boxes and the distances to the intersection at hand, it is straight forward to calculate the current longitudinal distance of the vehicles towards each other in respect to the intersection. Let A be the vehicle coming from west and B the vehicle coming from south in the figure above with <span class="arithmatex"><span class="MathJax_Preview">d_{enter}^A &gt; d_{enter}^B</span><script type="math/tex">d_{enter}^A > d_{enter}^B</script></span>, then the distance can be calculated by:</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">d_{lon} = \max⁡ (0, d_{enter}^A - d_{enter}^B - (BB_{lon,max}^B -BB_{lon,min}^B))</span><script type="math/tex">d_{lon} = \max⁡ (0, d_{enter}^A - d_{enter}^B - (BB_{lon,max}^B -BB_{lon,min}^B))</script></span></p>
 <h3 id="consider-speed-limits">Consider speed limits <a name="considerspeedlimits"></a><a class="headerlink" href="#consider-speed-limits" title="Permanent link">&para;</a></h3>
 <p>The <a href="https://arxiv.org/abs/1708.06374">RSS paper</a> is assuming reasonable behavior of
 other traffic participants. By the general RSS formulas, vehicles are allowed to accelerate with maximum possible acceleration

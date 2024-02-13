@@ -136,7 +136,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1>RSS System Architecture Overview</h1>
+                <h1 id="rss-system-architecture-overview">RSS System Architecture Overview<a class="headerlink" href="#rss-system-architecture-overview" title="Permanent link">&para;</a></h1>
 <p>This section sketches the integration of RSS into a exisiting system architecture.</p>
 <h2 id="overview-sense-plan-act-rss">Overview: Sense, Plan, Act, RSS<a class="headerlink" href="#overview-sense-plan-act-rss" title="Permanent link">&para;</a></h2>
 <p>From high level view the architecture of an Automated Driving System (ADS) consists of three main subsystems: Sense, Plan, Act. The world model data
@@ -145,12 +145,12 @@ provided by the <em>Sense Subsystem</em> is used by the <em>Plan Subsystem</em> 
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="" src="../../images/ad-rss-lib-Integrate_Into_Sense-Plan-Act.png" /></th>
+<th style="text-align: center;"><img alt="" src="../../images/ad-rss-lib-Integrate_Into_Sense-Plan-Act.png" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>Integration of RSS into a generic system architecture of an Automated Driving System</em></td>
+<td style="text-align: center;"><em>Integration of RSS into a generic system architecture of an Automated Driving System</em></td>
 </tr>
 </tbody>
 </table>
@@ -164,12 +164,12 @@ high-level architecture overview the <em>Sense Subsystem</em> takes over this ta
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="" src="../../images/ad-rss-lib-Integrate_Into_Sense-Plan-Act-2.png" /></th>
+<th style="text-align: center;"><img alt="" src="../../images/ad-rss-lib-Integrate_Into_Sense-Plan-Act-2.png" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>RSS foccussed view on the Integration of RSS into a ADS architecture</em></td>
+<td style="text-align: center;"><em>RSS foccussed view on the Integration of RSS into a ADS architecture</em></td>
 </tr>
 </tbody>
 </table>
@@ -185,12 +185,12 @@ If RSS determines it is safe, the ADS can act upon it. If not,</li>
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="" src="../../images/ad-rss-lib-DoerChecker.png" /></th>
+<th style="text-align: center;"><img alt="" src="../../images/ad-rss-lib-DoerChecker.png" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>RSS acting as a Doer-Checker on the planning module</em></td>
+<td style="text-align: center;"><em>RSS acting as a Doer-Checker on the planning module</em></td>
 </tr>
 </tbody>
 </table>
@@ -227,7 +227,7 @@ AD map data. To account for this the <em>Sense Subsystem</em> provides separate 
 </tr>
 </tbody>
 </table>
-<h4>Extract RSS World Model</h4>
+<h4 id="extract-rss-world-model">Extract RSS World Model<a class="headerlink" href="#extract-rss-world-model" title="Permanent link">&para;</a></h4>
 <p>The <em>Extract RSS World Model</em> entity is responsible to transform the internal world model data of the <em>Sense subsytem</em> into the input world model data rssWorldModelData <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html">ad::rss::world::WorldModel</a> required by the <em>RSS Subsystem</em>.
 The user has to implement this functionality as part of the RSS integration efforts into the ADS system.
 The <a href="../../ad_rss_map_integration/Main/"><em>ad_rss_map_integration</em> library</a> provides an example implementation based on automated driving maps on how such might be
@@ -271,7 +271,7 @@ of the <em>Plan Subsystem</em>.</p>
 </tr>
 </tbody>
 </table>
-<h4>Extract Situations</h4>
+<h4 id="extract-situations">Extract Situations<a class="headerlink" href="#extract-situations" title="Permanent link">&para;</a></h4>
 <p>The <em>Extract Situations</em> entity transforms the world model data into individual RssSituations between
 the ego vehicle and each of the objects. For every scene <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1Scene.html">ad::rss::world::Scene</a> of the input world model data the individual
 (relative) situation <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1situation_1_1Situation.html">ad::rss::situation::Situation</a> is calculated.</p>
@@ -296,7 +296,7 @@ the ego vehicle and each of the objects. For every scene <a href="https://intel.
 </tr>
 </tbody>
 </table>
-<h4>Check Situations</h4>
+<h4 id="check-situations">Check Situations<a class="headerlink" href="#check-situations" title="Permanent link">&para;</a></h4>
 <p>The <em>Check Situations</em> entity performs the RSS check on all incoming individual RssSituations and creates the
 RssStates <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1RssState.html">ad::rss::state::RssState</a> containing the required responses if dangerous situations are detected.</p>
 <table>
@@ -320,7 +320,7 @@ RssStates <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_
 </tr>
 </tbody>
 </table>
-<h4>Resolve and Transform Responses</h4>
+<h4 id="resolve-and-transform-responses">Resolve and Transform Responses<a class="headerlink" href="#resolve-and-transform-responses" title="Permanent link">&para;</a></h4>
 <p>The <em>Resolve and Transform Responses</em> entity handles conflicts of the incoming RssStates. It combines the individual
 situation specific responses into one single overall RssProperResponse <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html">ad::rss::state::ProperResponse</a> and transforms
 these into RssAccelerationRestrictions <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1AccelerationRestriction.html">ad::rss::world::AccelerationRestriction</a> for the actuator commands.</p>
@@ -404,7 +404,7 @@ acceleration, braking and steering to execute the plan.</p>
 </tr>
 </tbody>
 </table>
-<h4>Enforce RSS Restrictions</h4>
+<h4 id="enforce-rss-restrictions">Enforce RSS Restrictions<a class="headerlink" href="#enforce-rss-restrictions" title="Permanent link">&para;</a></h4>
 <p>The <em>Enforce RSS Restrictions</em> entity receives the actuator control commands from the <em>Plan Subsystem</em> and restricts
 the control values according to the restrictions calculated by RSS. The resulting actuator control commands are safe in
 respect to RSS rules. This calculation heavily depends on the actual representation of the ActuatorControlCommands data.

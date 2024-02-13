@@ -136,7 +136,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1>General build instructions</h1>
+                <h1 id="general-build-instructions">General build instructions<a class="headerlink" href="#general-build-instructions" title="Permanent link">&para;</a></h1>
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
 <p>The components within this repository have some dependencies:</p>
 <ul>
@@ -187,14 +187,12 @@
 <li>libpython-dev</li>
 </ul>
 <p>Those can be installed by calling:</p>
-<pre><code class="bash">$&gt;  sudo apt-get install libboost-all-dev libpugixml-dev libgtest-dev libpython-dev libproj-dev
+<pre><code class="language-bash">$&gt;  sudo apt-get install libboost-all-dev libpugixml-dev libgtest-dev libpython-dev libproj-dev
 </code></pre>
-
 <p>Additional dependencies for the python bindings:</p>
-<pre><code class="bash">$&gt;  sudo apt-get install castxml
+<pre><code class="language-bash">$&gt;  sudo apt-get install castxml
 $&gt;  pip install --user pygccxml pyplusplus xmlrunner
 </code></pre>
-
 <p>Remaining dependencies are present as GIT submodules; also to fix the version of these:</p>
 <ul>
 <li>ad_map_access</li>
@@ -207,27 +205,22 @@ $&gt;  pip install --user pygccxml pyplusplus xmlrunner
 Please use the link above for installation instructions.</p>
 <p>This repository is prepared as colcon workspace including all dependencies not provided as installable packages by the OS.
 Those dependencies are part of the <strong>dependencies</strong> folder as GIT submodules. To properly fetch these, the submodules have to be updated and initialized.</p>
-<pre><code class="bash"> ad-rss-lib$&gt;  git submodule update --init --recursive
+<pre><code class="language-bash"> ad-rss-lib$&gt;  git submodule update --init --recursive
 </code></pre>
-
 <p>Once this is done, the full set of dependencies and components can be built calling:</p>
-<pre><code class="bash"> ad-rss-lib$&gt; colcon build
+<pre><code class="language-bash"> ad-rss-lib$&gt; colcon build
 </code></pre>
-
 <p>All components will be compiled respecting the dependencies between them.</p>
 <p>The python bindings are disabled by default. To integrate them into the build you can make use of the prepared
 colcon meta file:</p>
-<pre><code class="bash"> ad-rss-lib$&gt; colcon build --metas colcon_python.meta
+<pre><code class="language-bash"> ad-rss-lib$&gt; colcon build --metas colcon_python.meta
 </code></pre>
-
 <p><strong>colcon_python.meta</strong> enables python build (-DBUILD_PYTHON_BINDING=ON). To specify the python version to be used you call e.g.:</p>
-<pre><code class="bash"> ad-rss-lib$&gt; colcon build --metas colcon_python.meta --cmake-args -DPYTHON_BINDING_VERSION=3.8
+<pre><code class="language-bash"> ad-rss-lib$&gt; colcon build --metas colcon_python.meta --cmake-args -DPYTHON_BINDING_VERSION=3.8
 </code></pre>
-
 <p>If cmake isn't able to find the requested python version you can try to specify the python executable explicitly (e.g. under Ubuntu22.04):</p>
-<pre><code class="bash"> ad-rss-lib$&gt; colcon build --metas colcon_python.meta --cmake-args -DPYTHON_BINDING_VERSION=3.10 -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3.10
+<pre><code class="language-bash"> ad-rss-lib$&gt; colcon build --metas colcon_python.meta --cmake-args -DPYTHON_BINDING_VERSION=3.10 -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3.10
 </code></pre>
-
 <h2 id="build-options">Build options<a class="headerlink" href="#build-options" title="Permanent link">&para;</a></h2>
 <p>There are some CMake options affecting what or how the components are built.</p>
 <ul>
@@ -240,27 +233,23 @@ colcon meta file:</p>
 </ul>
 <p>By default, all options are set to off. Any of these could be activate by adding them via the colcon call above as "--cmake-args -D&lt;OPTION&gt;=[ON|OFF]",
 e.g.:</p>
-<pre><code class="bash"> ad-rss-lib$&gt; colcon build --cmake-args -DBUILD_TESTING=ON -DBUILD_APIDOC=ON -DBUILD_PYTHON_BINDING=ON -DPYTHON_BINDING_VERSION=3.8
+<pre><code class="language-bash"> ad-rss-lib$&gt; colcon build --cmake-args -DBUILD_TESTING=ON -DBUILD_APIDOC=ON -DBUILD_PYTHON_BINDING=ON -DPYTHON_BINDING_VERSION=3.8
 </code></pre>
-
 <h3 id="unit-tests">Unit tests<a class="headerlink" href="#unit-tests" title="Permanent link">&para;</a></h3>
-<pre><code class="bash"> ad-rss-lib$&gt; colcon build --cmake-args -DBUILD_TESTING=ON
+<pre><code class="language-bash"> ad-rss-lib$&gt; colcon build --cmake-args -DBUILD_TESTING=ON
 </code></pre>
-
 <p>When activating the Unit tests, they all can be executed with:</p>
-<pre><code class="bash"> ad-rss-lib$&gt; colcon test
+<pre><code class="language-bash"> ad-rss-lib$&gt; colcon test
 </code></pre>
-
 <h3 id="api-documentation">API documentation<a class="headerlink" href="#api-documentation" title="Permanent link">&para;</a></h3>
 <p>When BUILD_APIDOC is enabled, the "colcon" call will automatically generate the API documentation.</p>
-<pre><code class="bash"> ad-rss-lib$&gt; colcon build --cmake-args -DBUILD_APIDOC=ON
+<pre><code class="language-bash"> ad-rss-lib$&gt; colcon build --cmake-args -DBUILD_APIDOC=ON
 </code></pre>
-
 <p>The API documentation is written to the <em>apidoc</em> folder within the <em>build</em> directory.</p>
 <h3 id="build-hardening">Build hardening<a class="headerlink" href="#build-hardening" title="Permanent link">&para;</a></h3>
 <p>Usually, build hardening is injected by the surrounding build system. Nevertheless, the CMakeLists.txt defines
 hardening flags to ensure the code is compatible to respective flags. To enable hardening compiler and linker flags:</p>
-<pre><code class="bash"> ad-rss-lib$&gt; colcon build --cmake-args -DBUILD_HARDENING=ON
+<pre><code class="language-bash"> ad-rss-lib$&gt; colcon build --cmake-args -DBUILD_HARDENING=ON
 </code></pre>
               
             </div>

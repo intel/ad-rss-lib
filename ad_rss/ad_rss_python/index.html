@@ -136,7 +136,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1>Usage of python binding for ad_rss</h1>
+                <h1 id="usage-of-python-binding-for-ad_rss">Usage of python binding for ad_rss<a class="headerlink" href="#usage-of-python-binding-for-ad_rss" title="Permanent link">&para;</a></h1>
 <p>Compilation of ad_rss_python (build option <em>-DBUILD_PYTHON_BINDING=ON</em>)
 will create an <em>ad_rss</em> python package
 inside the install/ad_rss/lib/pythonMaj.Min/site-packages folder.
@@ -146,19 +146,17 @@ datatypes or call methods defined in ad_rss and its dependency ad_physics.</p>
 <p>To use the compiled python binding, one has to extend the current environment
 to be able to use the newly created packages. Afterwards, one can import the
 python package and use it as any other python module.</p>
-<pre><code class="bash"> ad-rss-lib$&gt; echo &quot;Setting PYTHONPATH and LD_LIBRARY_PATH:&quot;
+<pre><code class="language-bash"> ad-rss-lib$&gt; echo &quot;Setting PYTHONPATH and LD_LIBRARY_PATH:&quot;
  ad-rss-lib$&gt; source install/setup.bash
  ad-rss-lib$&gt; python3.8
  &gt;&gt;&gt; import ad_rss as ad
  &gt;&gt;&gt; world_model = ad.rss.world.WorldModel()
  &gt;&gt;&gt; print(world_model)
 </code></pre>
-
 <p>Also the interface of the dependency can be accessed directly, since ad_rss is relying on those:</p>
-<pre><code class="bash"> &gt;&gt;&gt; distance = ad.physics.Distance(2.0)
+<pre><code class="language-bash"> &gt;&gt;&gt; distance = ad.physics.Distance(2.0)
  &gt;&gt;&gt; print(distance)
 </code></pre>
-
 <p>For some simple examples, you might also want to spot into the ad_rss/python/tests folder.</p>
               
             </div>

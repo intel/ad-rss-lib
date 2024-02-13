@@ -143,7 +143,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1>FAQ</h1>
+                <h1 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h1>
 <h2 id="integrating-ad-rss-lib-into-a-system">Integrating ad-rss-lib into a system<a class="headerlink" href="#integrating-ad-rss-lib-into-a-system" title="Permanent link">&para;</a></h2>
 <p>This section tries to give answers to the questions that came up while people were integrating <em>ad-rss-lib</em> into their systems.</p>
 <h3 id="integration-examples">Integration examples<a class="headerlink" href="#integration-examples" title="Permanent link">&para;</a></h3>
@@ -153,7 +153,7 @@
 <li><a href="https://github.com/carla-simulator/carla/blob/master/Docs/adv_rss.md">CARLA Driving Simulator</a>: In <em>CARLA</em> Open-source simulator for autonomous driving research <em>RSS</em> is integrated as <em>Checker</em> in form of a virtual <em>RssSensor</em> and as a simple (optional) <em>Doer</em> in form of a <em>RssRestrictor</em>.</li>
 </ul>
 <h3 id="classes-rsscheck-rsssituationchecking-and-rssresponseresolving">Classes: RssCheck, RssSituationChecking and RssResponseResolving<a class="headerlink" href="#classes-rsscheck-rsssituationchecking-and-rssresponseresolving" title="Permanent link">&para;</a></h3>
-<h6>How can I perform the checks?</h6>
+<h6 id="how-can-i-perform-the-checks">How can I perform the checks?<a class="headerlink" href="#how-can-i-perform-the-checks" title="Permanent link">&para;</a></h6>
 <p>The <em>ad-rss-lib</em> provides more or less two ways of integrating the functionality into a system.</p>
 <ol>
 <li>The <em>ad::rss::core::RssCheck</em> class performs all required steps one after another. Create a permanent object instance of this class and call <em>calculateAccelerationRestriction()</em> for every step in time continuously. You have to provide the world model data as input and get the acceleration restrictions to be applied as output.</li>
@@ -167,19 +167,19 @@
 </li>
 </ol>
 <p>Regardless which solution you prefer, you always have to respect the return value of the functions, before you further make use of the information!</p>
-<h6>Why are the functions realized within classes?</h6>
+<h6 id="why-are-the-functions-realized-within-classes">Why are the functions realized within classes?<a class="headerlink" href="#why-are-the-functions-realized-within-classes" title="Permanent link">&para;</a></h6>
 <p>The observed situations are analyzed by <em>RSS</em> over time. Therefore, the processing steps have to store the state of previous time steps. As a consequence, the object instances of the classes have to exist over time and must not be deleted!</p>
 <h3 id="input-world-model-data">Input: world model data<a class="headerlink" href="#input-world-model-data" title="Permanent link">&para;</a></h3>
 <p>The <em>worldModel</em> is the input to the <em>RSS</em> calculations.
 It is derived from the <a href="../ad_rss/HLD-ArchitectureOverview/#sense-subsystem"><em>Sense Subsystem</em></a>.</p>
-<h6>How do I get to the information required for the input <em>worldModel</em>?</h6>
+<h6 id="how-do-i-get-to-the-information-required-for-the-input-worldmodel">How do I get to the information required for the input <em>worldModel</em>?<a class="headerlink" href="#how-do-i-get-to-the-information-required-for-the-input-worldmodel" title="Permanent link">&para;</a></h6>
 <p>The world model data heavily depends on the system the <em>ad-rss-lib</em> is going to be integrated. Therefore, there is no single answer to this question. Simple scenarios can be derived using basic object data, integration of <em>RSS</em> to the full extend demand more sophisticated a-priori information, usually provided by means of an <a href="../ad_rss_map_integration/Main/">AD-Map</a>. The <a href="https://github.com/intel/ad-rss-lib/blob/main/ad_rss/tests/test_support/RssCheckTestBaseT.hpp">unit tests</a> provided with the <em>ad-rss-lib</em> build some basic <em>worldModel</em> structures that might be taken as a starting point. Better examples can be found in the section on <a href="#integration-examples">Integration examples</a>.</p>
 <h3 id="output-rssaccelerationrestrictions">Output: rssAccelerationRestrictions<a class="headerlink" href="#output-rssaccelerationrestrictions" title="Permanent link">&para;</a></h3>
 <p>The <em>rssAccelerationRestrictions</em> is the output of the <em>RSS</em> calculations.
 It is given as input of the <a href="../ad_rss/HLD-ArchitectureOverview/#act-subsystem"><em>Act Subsystem</em></a>.</p>
-<h6>If a RSS restricted acceleration is applied on the actuators, does it mean that RSS is not only a checker?</h6>
+<h6 id="if-a-rss-restricted-acceleration-is-applied-on-the-actuators-does-it-mean-that-rss-is-not-only-a-checker">If a RSS restricted acceleration is applied on the actuators, does it mean that RSS is not only a checker?<a class="headerlink" href="#if-a-rss-restricted-acceleration-is-applied-on-the-actuators-does-it-mean-that-rss-is-not-only-a-checker" title="Permanent link">&para;</a></h6>
 <p>Yes, indeed. At one hand side RSS performs an analysis of the situation over time which detects if a situation is becoming dangerous. In addition, RSS derives also a proper response for the ego-vehicle on how to get out of such. If finally the resulting acceleration restrictions in longitudinal, lateral left and right directions are considered by the actuation system, the situation will become safe again.</p>
-<h6>Is there any impact on the <em>Plan Subsystem</em>? Should it be adapted since it undergoes RSS acceleration restrictions?</h6>
+<h6 id="is-there-any-impact-on-the-plan-subsystem-should-it-be-adapted-since-it-undergoes-rss-acceleration-restrictions">Is there any impact on the <em>Plan Subsystem</em>? Should it be adapted since it undergoes RSS acceleration restrictions?<a class="headerlink" href="#is-there-any-impact-on-the-plan-subsystem-should-it-be-adapted-since-it-undergoes-rss-acceleration-restrictions" title="Permanent link">&para;</a></h6>
 <p>There are many possibilities on how the information on the <em>RSS</em> situation analysis can be deployed within a system. It can be used as a plain safety checking and enforcing entity being totally independent from the <em>Plan Subsystem</em>.
 Then, the <em>Plan Subsystem</em> will only indirectly be influenced in a way, that the vehicle is not following the planing output. But for sure the planning algorithms might directly benefit when feeding back the information from <em>RSS</em>.
 Even beyond, if the planning algorithms evaluate different driving strategies, <em>RSS</em> can be applied directly within the planning algorithm to influence the rating. This includes also learning algorithms of AI-based planning approaches.</p>

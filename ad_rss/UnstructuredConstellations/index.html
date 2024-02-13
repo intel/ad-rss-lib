@@ -189,25 +189,25 @@ In contrast to the structured constellations, two dimensional trajectories with 
 <p class="admonition-title">Important</p>
 <p>The current implementation uses simplifications that might not calculate valid trajectory sets for certain parameters.</p>
 </div>
-<p>There are two relevant trajectory sets: for braking <span><span class="MathJax_Preview">T(C_{b})</span><script type="math/tex">T(C_{b})</script></span> and continue-forward <span><span class="MathJax_Preview">T(C_{f})</span><script type="math/tex">T(C_{f})</script></span>. The difference is the longitudinal acceleration after response time:</p>
+<p>There are two relevant trajectory sets: for braking <span class="arithmatex"><span class="MathJax_Preview">T(C_{b})</span><script type="math/tex">T(C_{b})</script></span> and continue-forward <span class="arithmatex"><span class="MathJax_Preview">T(C_{f})</span><script type="math/tex">T(C_{f})</script></span>. The difference is the longitudinal acceleration after response time:</p>
 <table>
 <thead>
 <tr>
 <th></th>
-<th><span><span class="MathJax_Preview">\alpha_{\rho,min}</span><script type="math/tex">\alpha_{\rho,min}</script></span></th>
-<th><span><span class="MathJax_Preview">\alpha_{\rho,max}</span><script type="math/tex">\alpha_{\rho,max}</script></span></th>
+<th><span class="arithmatex"><span class="MathJax_Preview">\alpha_{\rho,min}</span><script type="math/tex">\alpha_{\rho,min}</script></span></th>
+<th><span class="arithmatex"><span class="MathJax_Preview">\alpha_{\rho,max}</span><script type="math/tex">\alpha_{\rho,max}</script></span></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><span><span class="MathJax_Preview">T(C_{b})</span><script type="math/tex">T(C_{b})</script></span></td>
-<td><span><span class="MathJax_Preview">\alpha_{brake,max}</span><script type="math/tex">\alpha_{brake,max}</script></span></td>
-<td><span><span class="MathJax_Preview">\alpha_{brake,min}</span><script type="math/tex">\alpha_{brake,min}</script></span></td>
+<td><span class="arithmatex"><span class="MathJax_Preview">T(C_{b})</span><script type="math/tex">T(C_{b})</script></span></td>
+<td><span class="arithmatex"><span class="MathJax_Preview">\alpha_{brake,max}</span><script type="math/tex">\alpha_{brake,max}</script></span></td>
+<td><span class="arithmatex"><span class="MathJax_Preview">\alpha_{brake,min}</span><script type="math/tex">\alpha_{brake,min}</script></span></td>
 </tr>
 <tr>
-<td><span><span class="MathJax_Preview">T(C_{f})</span><script type="math/tex">T(C_{f})</script></span></td>
-<td><span><span class="MathJax_Preview">\alpha_{brake,max}</span><script type="math/tex">\alpha_{brake,max}</script></span></td>
-<td><span><span class="MathJax_Preview">\alpha_{accel,max}</span><script type="math/tex">\alpha_{accel,max}</script></span></td>
+<td><span class="arithmatex"><span class="MathJax_Preview">T(C_{f})</span><script type="math/tex">T(C_{f})</script></span></td>
+<td><span class="arithmatex"><span class="MathJax_Preview">\alpha_{brake,max}</span><script type="math/tex">\alpha_{brake,max}</script></span></td>
+<td><span class="arithmatex"><span class="MathJax_Preview">\alpha_{accel,max}</span><script type="math/tex">\alpha_{accel,max}</script></span></td>
 </tr>
 </tbody>
 </table>
@@ -216,20 +216,20 @@ In contrast to the structured constellations, two dimensional trajectories with 
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="" src="../../images/unstructured_trajectory_sets.png" /></th>
+<th style="text-align: center;"><img alt="" src="../../images/unstructured_trajectory_sets.png" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>Example trajectory sets for car and pedestrian (red: brake-, green: continue-forward-trajectory)</em></td>
+<td style="text-align: center;"><em>Example trajectory sets for car and pedestrian (red: brake-, green: continue-forward-trajectory)</em></td>
 </tr>
 </tbody>
 </table>
 <p>There are two different behavior models, for vehicles and pedestrians.</p>
-<h4>Vehicle</h4>
+<h4 id="vehicle">Vehicle<a class="headerlink" href="#vehicle" title="Permanent link">&para;</a></h4>
 <ul>
-<li>The change of the yaw rate <span><span class="MathJax_Preview">h'(t)</span><script type="math/tex">h'(t)</script></span> is limited: The maximum change of the yaw rate until response time can be specified by <code>UnstructuredSettings::vehicleYawRateChange</code>.</li>
-<li>The radius of the circle, the vehicle is driving on is <span><span class="MathJax_Preview">r(t) = v(t)/h'(t)</span><script type="math/tex">r(t) = v(t)/h'(t)</script></span></li>
+<li>The change of the yaw rate <span class="arithmatex"><span class="MathJax_Preview">h'(t)</span><script type="math/tex">h'(t)</script></span> is limited: The maximum change of the yaw rate until response time can be specified by <code>UnstructuredSettings::vehicleYawRateChange</code>.</li>
+<li>The radius of the circle, the vehicle is driving on is <span class="arithmatex"><span class="MathJax_Preview">r(t) = v(t)/h'(t)</span><script type="math/tex">r(t) = v(t)/h'(t)</script></span></li>
 <li>At emergency, after the response time, the vehicle continues driving on a circle (i.e. no further yaw rate change)</li>
 <li>The minimum radius <code>UnstructuredSettings::vehicleMinRadius</code> defines the minimal radius a vehicle is able to drive on</li>
 </ul>
@@ -251,9 +251,9 @@ In contrast to the structured constellations, two dimensional trajectories with 
 <li><code>UnstructuredSettings::vehicleContinueForwardIntermediateYawRateChangeRatioSteps</code> specifies the intermediate yaw rate change ratio steps used while calculating the continue forward trajectory set.</li>
 </ul>
 <p>In the third step the final trajectory sets are calculated. To reach an acceptable calculation time some simplification are applied. Keep in mind, that this might cause invalid responses! For each value of acceleration a final state is calculated. This contains of at least three vehicles states: two with maximum yaw rate change to left and right and one with no yaw rate change. For the back and front of the trajectory set there might also be intermediate values for the yaw rate change. For the front a convex hull of all states (including vehicle dimensions) is calculated. For the ones defining the sides of the trajectory set (where only max left/right and center vehicle state are available) a polygon is calculated by merging the convex hull of left+center and right+center. To create the trajectory set all polygons are merged together, including polygons for the linear estimation between the steps.</p>
-<h4>Pedestrian</h4>
+<h4 id="pedestrian">Pedestrian<a class="headerlink" href="#pedestrian" title="Permanent link">&para;</a></h4>
 <ul>
-<li>The change of heading <span><span class="MathJax_Preview">|h'(t)|</span><script type="math/tex">|h'(t)|</script></span> is limited. That means, the maximum trajectory is defined by a circle until response time. The radius of this circle can be specified by <code>UnstructuredSettings::pedestrianTurningRadius</code>.</li>
+<li>The change of heading <span class="arithmatex"><span class="MathJax_Preview">|h'(t)|</span><script type="math/tex">|h'(t)|</script></span> is limited. That means, the maximum trajectory is defined by a circle until response time. The radius of this circle can be specified by <code>UnstructuredSettings::pedestrianTurningRadius</code>.</li>
 <li>At emergency, after the response time, the pedestrian will continue at a straight line</li>
 <li>If the pedestrian is standing, we assign it to all possible lines originating from his current position.</li>
 </ul>
@@ -275,44 +275,44 @@ In contrast to the structured constellations, two dimensional trajectories with 
 </ul>
 <p>The conditions are based on the brake and continue-forward trajectory sets for the ego vehicle and another traffic participant.</p>
 <p>Condition 22.1</p>
-<p>a.) <span><span class="MathJax_Preview">T_{ego, brake} \cap T_{other, forward} = 0</span><script type="math/tex">T_{ego, brake} \cap T_{other, forward} = 0</script></span> and <span><span class="MathJax_Preview">T_{other, brake} \cap T_{ego, forward} \ne 0</span><script type="math/tex">T_{other, brake} \cap T_{ego, forward} \ne 0</script></span></p>
-<p>b.) <span><span class="MathJax_Preview">T_{other, brake} \cap T_{ego, forward} = 0</span><script type="math/tex">T_{other, brake} \cap T_{ego, forward} = 0</script></span> and <span><span class="MathJax_Preview">T_{ego, brake} \cap T_{other, forward} \ne 0</span><script type="math/tex">T_{ego, brake} \cap T_{other, forward} \ne 0</script></span></p>
+<p>a.) <span class="arithmatex"><span class="MathJax_Preview">T_{ego, brake} \cap T_{other, forward} = 0</span><script type="math/tex">T_{ego, brake} \cap T_{other, forward} = 0</script></span> and <span class="arithmatex"><span class="MathJax_Preview">T_{other, brake} \cap T_{ego, forward} \ne 0</span><script type="math/tex">T_{other, brake} \cap T_{ego, forward} \ne 0</script></span></p>
+<p>b.) <span class="arithmatex"><span class="MathJax_Preview">T_{other, brake} \cap T_{ego, forward} = 0</span><script type="math/tex">T_{other, brake} \cap T_{ego, forward} = 0</script></span> and <span class="arithmatex"><span class="MathJax_Preview">T_{ego, brake} \cap T_{other, forward} \ne 0</span><script type="math/tex">T_{ego, brake} \cap T_{other, forward} \ne 0</script></span></p>
 <p>Condition 22.2</p>
-<p><span><span class="MathJax_Preview">T_{ego, brake} \cap T_{other, brake} = 0</span><script type="math/tex">T_{ego, brake} \cap T_{other, brake} = 0</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">T_{ego, brake} \cap T_{other, brake} = 0</span><script type="math/tex">T_{ego, brake} \cap T_{other, brake} = 0</script></span></p>
 <p>The following diagram describes the decision making.</p>
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="" src="../../images/unstructured_decision.png" /></th>
+<th style="text-align: center;"><img alt="" src="../../images/unstructured_decision.png" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>Decision making</em></td>
+<td style="text-align: center;"><em>Decision making</em></td>
 </tr>
 </tbody>
 </table>
 <p>The condition 22.1.b at the last safe point in time might lead to the behavior "Continue Forward" although the constellation is dangerous. The reason is, that the conditions 22.1 define, which traffic participant has to brake and which one can continue.</p>
 <h3 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h3>
-<h4>Continue Forward</h4>
+<h4 id="continue-forward">Continue Forward<a class="headerlink" href="#continue-forward" title="Permanent link">&para;</a></h4>
 <p>If the result is <em>continue_forward</em> no acceleration restrictions are applied.</p>
-<h4>Brake</h4>
+<h4 id="brake">Brake<a class="headerlink" href="#brake" title="Permanent link">&para;</a></h4>
 <p>If the result is <em>brake</em>, the longitudinal acceleration restriction is set to <code>alphaLon.brakeMin</code> of the state.</p>
-<h4>Driving away</h4>
+<h4 id="driving-away">Driving away<a class="headerlink" href="#driving-away" title="Permanent link">&para;</a></h4>
 <p>In certain situations the ego vehicle might be allowed to drive away from a dangerous constellation using a given heading range.</p>
 <p>The heading range is calculated using the position vectors of the traffic participants and the velocity vector of the ego.</p>
-<p>The angle between <span><span class="MathJax_Preview">\tau_{ego}(t) − \tau_{other}(t)</span><script type="math/tex">\tau_{ego}(t) − \tau_{other}(t)</script></span>  and <span><span class="MathJax_Preview">\tau'_{ego}(t)</span><script type="math/tex">\tau'_{ego}(t)</script></span> needs to be <span><span class="MathJax_Preview">\le \theta</span><script type="math/tex">\le \theta</script></span></p>
-<p><span><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span> can be specified by <code>UnstructuredSettings::driveAwayMaxAngle</code></p>
+<p>The angle between <span class="arithmatex"><span class="MathJax_Preview">\tau_{ego}(t) − \tau_{other}(t)</span><script type="math/tex">\tau_{ego}(t) − \tau_{other}(t)</script></span>  and <span class="arithmatex"><span class="MathJax_Preview">\tau'_{ego}(t)</span><script type="math/tex">\tau'_{ego}(t)</script></span> needs to be <span class="arithmatex"><span class="MathJax_Preview">\le \theta</span><script type="math/tex">\le \theta</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span> can be specified by <code>UnstructuredSettings::driveAwayMaxAngle</code></p>
 <p>As multiple constellations might allow different ranges to drive away, the <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html"><code>ad::rss::state::ProperResponse</code></a> provides a vector of <code>headingRanges</code>. Together with the steering range of the vehicle the allowed heading range can be calculated.</p>
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="" src="../../images/unstructured_drive_away.png" /></th>
+<th style="text-align: center;"><img alt="" src="../../images/unstructured_drive_away.png" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>Allowed heading ranges in blue</em></td>
+<td style="text-align: center;"><em>Allowed heading ranges in blue</em></td>
 </tr>
 </tbody>
 </table>

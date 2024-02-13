@@ -139,12 +139,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1>﻿C++ Library for Responsibility Sensitive Safety</h1>
+                <h1 id="c-library-for-responsibility-sensitive-safety">﻿C++ Library for Responsibility Sensitive Safety<a class="headerlink" href="#c-library-for-responsibility-sensitive-safety" title="Permanent link">&para;</a></h1>
 <p><a href="https://opensource.org/licenses/LGPL-2.1"><img alt="License" src="https://img.shields.io/badge/License-LGPL%202.1--Clause-blue.svg" /></a>
 <a href="https://github.com/intel/ad-rss-lib/releases/latest"><img alt="GitHub tag (latest SemVer)" src="https://img.shields.io/github/tag/intel/ad-rss-lib.svg" /></a>
-<a href="https://github.com/intel/ad-rss-lib/actions?query=workflow%3A%22Test%22"><img alt="Build Status" src="https://github.com/intel/ad-rss-lib/workflows/Test/badge.svg?branch=main" /></a>
-<a href="https://www.bestpractices.dev/projects/8374"><img alt="OpenSSF Best Practices" src="https://www.bestpractices.dev/projects/8374/badge" /></a></p>
-<h1>Table of contents</h1>
+<a href="https://github.com/intel/ad-rss-lib/actions/workflows/build_test.yml/badge.svg?branch=main"><img alt="Build Status" src="https://github.com/intel/ad-rss-lib/actions/workflows/build_test.yml/badge.svg?branch=main" /></a>
+<a href="https://www.bestpractices.dev/projects/8374"><img alt="OpenSSF Best Practices" src="https://www.bestpractices.dev/projects/8374/badge" /></a>
+<a href="https://securityscorecards.dev/viewer/?uri=github.com/intel/ad-rss-lib"><img alt="OpenSSF Scorecard" src="https://api.securityscorecards.dev/projects/github.com/intel/ad-rss-lib/badge" /></a></p>
+<h1 id="table-of-contents">Table of contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h1>
 <ol>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#license">License</a></li>
@@ -189,14 +190,13 @@ for integrating RSS with automated driving maps.</p>
    year={2019}
 }
 </code></pre>
-
-<h4>Usage with Python</h4>
+<h4 id="usage-with-python">Usage with Python<a class="headerlink" href="#usage-with-python" title="Permanent link">&para;</a></h4>
 <p>Starting with Release v1.6, it is possible to use the ad-rss-lib library also with Python.
 Please see the <a href="https://intel.github.io/ad-rss-lib/ad_rss/ad_rss_python/index.html">Documentation on the Python binding for ad_rss</a> or <a href="https://intel.github.io/ad-rss-lib/ad_rss_map_integration/ad_rss_map_integration_python/index.html">ad_rss_map_integration_python</a> for further information.</p>
-<h4>Usage within CARLA</h4>
+<h4 id="usage-within-carla">Usage within CARLA<a class="headerlink" href="#usage-within-carla" title="Permanent link">&para;</a></h4>
 <p>This library can be used together with the open-source driving simulator <a href="https://github.com/carla-simulator/carla">CARLA</a> to investigate the behavior of RSS. A first version is shown in the following video sequence:
 <a href="https://www.youtube.com/watch?v=UxKPXPT2T8Q"><img alt="RSS safety sensor in CARLA" src="https://raw.githubusercontent.com/intel/ad-rss-lib/main/doc/images/carla_integration.png" /></a></p>
-<h4>Usage within Baidu Apollo</h4>
+<h4 id="usage-within-baidu-apollo">Usage within Baidu Apollo<a class="headerlink" href="#usage-within-baidu-apollo" title="Permanent link">&para;</a></h4>
 <p>In addition, the library is already integrated and used in Baidu's <a href="https://github.com/ApolloAuto/apollo">Apollo Open Platform stack</a>:</p>
 <p><img alt="RSS integration in Apollo" src="https://raw.githubusercontent.com/intel/ad-rss-lib/main/doc/images/apollo_integration.png" /></p>
 <h2 id="license">License <a name="license"></a><a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
@@ -213,15 +213,15 @@ Please see the <a href="https://intel.github.io/ad-rss-lib/ad_rss/ad_rss_python/
 <p>If you have any additional question not answered therein, you might find more in the <a href="https://intel.github.io/ad-rss-lib/FAQ/index.html">FAQ</a></p>
 <h2 id="releases">Releases <a name="releases"></a><a class="headerlink" href="#releases" title="Permanent link">&para;</a></h2>
 <p>General release notes and changes can be found in the <a href="https://intel.github.io/ad-rss-lib/CHANGELOG/index.html">Changelog</a></p>
-<h4>Release 4.x.x <a name="release_4"></a></h4>
+<h4 id="release-4xx">Release 4.x.x <a name="release_4"></a><a class="headerlink" href="#release-4xx" title="Permanent link">&para;</a></h4>
 <p>These releases extends the 3.x version with handling of unstructured roads and pedestrians.</p>
-<h4>Release 3.x.x <a name="release_3"></a></h4>
+<h4 id="release-3xx">Release 3.x.x <a name="release_3"></a><a class="headerlink" href="#release-3xx" title="Permanent link">&para;</a></h4>
 <p>These releases improve the 2.x version capabilities on constellation creation.</p>
-<h4>Release 2.x.x <a name="release_2"></a></h4>
+<h4 id="release-2xx">Release 2.x.x <a name="release_2"></a><a class="headerlink" href="#release-2xx" title="Permanent link">&para;</a></h4>
 <p>These releases extend the 1.x version with map integration for extended usability.</p>
-<h4>Release 1.x.x <a name="release_1"></a></h4>
+<h4 id="release-1xx">Release 1.x.x <a name="release_1"></a><a class="headerlink" href="#release-1xx" title="Permanent link">&para;</a></h4>
 <p>The initial release of the C++ software library for RSS implements a subset of the rules and calculations specified in the published RSS paper. This means that this release handles a subset of automated driving scenarios, described below. Scenarios other than this subset cannot be handled.</p>
-<h5>Features &amp; Limitations</h5>
+<h5 id="features-limitations">Features &amp; Limitations<a class="headerlink" href="#features-limitations" title="Permanent link">&para;</a></h5>
 <p>This release implements the RSS calculations and rules corresponding to the following scenarios:</p>
 <ul>
 <li>Multi-lane roads, i.e. longitudinal and lateral safe distance and proper response determination; and</li>
@@ -236,63 +236,60 @@ Please see the <a href="https://intel.github.io/ad-rss-lib/ad_rss/ad_rss_python/
 </ul>
 <p>Note: The RSS module in this library does not initiate evasive manuevers. At the same time, it would not hinder an evasive manuever being executed by the AV driving policy and planning modules, as long as it is compliant with the required RSS proper response.</p>
 <h2 id="getting-started">Getting started <a name="started"></a><a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
-<h4>Installation of dependencies</h4>
+<h4 id="installation-of-dependencies">Installation of dependencies<a class="headerlink" href="#installation-of-dependencies" title="Permanent link">&para;</a></h4>
 <p>Currently, the focused operating systems are Ubuntu 20.04 and Ubuntu 22.04. Nevertheless, the library should work in a similar way for any other Linux OS.
 To install the basic dependencies for Ubuntu 20.04/22.04 execute the following command:</p>
-<pre><code class="bash"> user$&gt; sudo apt-get install git build-essential cmake libboost-dev libpugixml-dev libgtest-dev libpython-dev libproj-dev
+<pre><code class="language-bash"> user$&gt; sudo apt-get install git build-essential cmake libboost-dev libpugixml-dev libgtest-dev libpython-dev libproj-dev
 </code></pre>
-
 <p>If you want to use doxygen for API documentation, please also install:</p>
-<pre><code class="bash"> user$&gt; sudo apt-get install doxygen graphviz
+<pre><code class="language-bash"> user$&gt; sudo apt-get install doxygen graphviz
 </code></pre>
-
-<h4>Get the library</h4>
+<h4 id="get-the-library">Get the library<a class="headerlink" href="#get-the-library" title="Permanent link">&para;</a></h4>
 <p>To download the library, you may run:</p>
-<pre><code class="bash"> user$&gt; git clone https://github.com/intel/ad-rss-lib.git
+<pre><code class="language-bash"> user$&gt; git clone https://github.com/intel/ad-rss-lib.git
  user$&gt; cd ad-rss-lib
 </code></pre>
-
-<h4>Supported systems <a name="systems"></a></h4>
+<h4 id="supported-systems">Supported systems <a name="systems"></a><a class="headerlink" href="#supported-systems" title="Permanent link">&para;</a></h4>
 <p>Development systems are Ubuntu 20.04 and Ubuntu 22.04
 Following compiler and Python combinations are <a href="https://github.com/intel/ad-rss-lib/blob/main/.github/workflows/build_test.yml">tested continously</a>:</p>
 <table>
 <thead>
 <tr>
-<th align="center"></th>
-<th align="center">Ubuntu 20.04</th>
-<th align="center">Ubuntu 22.04</th>
+<th style="text-align: center;"></th>
+<th style="text-align: center;">Ubuntu 20.04</th>
+<th style="text-align: center;">Ubuntu 22.04</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">GCC 9</td>
-<td align="center">x</td>
-<td align="center"></td>
+<td style="text-align: center;">GCC 9</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
 </tr>
 <tr>
-<td align="center">Clang 10</td>
-<td align="center">x</td>
-<td align="center"></td>
+<td style="text-align: center;">Clang 10</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
 </tr>
 <tr>
-<td align="center">GCC 11</td>
-<td align="center"></td>
-<td align="center">x</td>
+<td style="text-align: center;">GCC 11</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
 </tr>
 <tr>
-<td align="center">Clang 14</td>
-<td align="center"></td>
-<td align="center">x</td>
+<td style="text-align: center;">Clang 14</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
 </tr>
 <tr>
-<td align="center">Python 3.8</td>
-<td align="center">x</td>
-<td align="center"></td>
+<td style="text-align: center;">Python 3.8</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
 </tr>
 <tr>
-<td align="center">Python 3.10</td>
-<td align="center">x</td>
-<td align="center">x</td>
+<td style="text-align: center;">Python 3.10</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
 </tr>
 </tbody>
 </table>
@@ -304,17 +301,15 @@ Following compiler and Python combinations are <a href="https://github.com/intel
 <p>Before submitting a pull request, please ensure that your code compiles successfully and that the tests run successfully.
 In case new functionality is added, please also take care on adding appropriate unit tests. The reported code coverage should not fall below 80%.</p>
 <p>Please also check that your code formatting complies to the provided clang style. To do so, you can run:</p>
-<pre><code class="bash">ad-rss-lib$&gt; sudo apt-get install clang-format-14
+<pre><code class="language-bash">ad-rss-lib$&gt; sudo apt-get install clang-format-14
 ad-rss-lib$&gt; find -iname *.cpp -o -iname *.hpp | xargs clang-format-14 -style=file -i
 </code></pre>
-
 <p>This command will automatically update the code formatting to be compliant with our style.</p>
 <p>In addition, please perform a static code analysis, if possible.</p>
-<pre><code class="bash">ad-rss-lib$&gt; sudo apt-get install clang-tidy
+<pre><code class="language-bash">ad-rss-lib$&gt; sudo apt-get install clang-tidy
 ad-rss-lib$&gt; cmake -DBUILD_STATIC_ANALYSIS=ON
 ad-rss-lib$&gt; make clang-tidy
 </code></pre>
-
 <p>This may provide a list of possible improvements that you would like to consider in your pull request.</p>
               
             </div>
@@ -369,5 +364,5 @@ ad-rss-lib$&gt; make clang-tidy
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2024-02-13 15:54:01.908400+00:00
+Build Date UTC : 2024-02-13 18:29:12.228449+00:00
 -->

@@ -61,6 +61,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#combining-all-situations-of-a-given-point-in-time">Combining all situations of a given point in time</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#evasive-maneuvers">Evasive maneuvers</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#handling-of-intersections">Handling of Intersections</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#response-time-and-other-parameters">Response Time and Other Parameters</a>
@@ -148,7 +150,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1>ad-rss-lib Realization</h1>
+                <h1 id="ad-rss-lib-realization">ad-rss-lib Realization<a class="headerlink" href="#ad-rss-lib-realization" title="Permanent link">&para;</a></h1>
 <h2 id="rss-checks-and-response">RSS checks and response<a class="headerlink" href="#rss-checks-and-response" title="Permanent link">&para;</a></h2>
 <p>To check whether the ego vehicle is in a safe state, all the objects in the
 surrounding must be respected. To do so the ad-rss-lib will perform an analysis
@@ -187,23 +189,23 @@ driving in the same direction are implemented as described in the definitions 1,
 in opposite directions, the implementation follows the definitions 2, 3 and 4 of
 the paper.</p>
 <p>In detail, the current realization looks as follows:</p>
-<h4>Same direction</h4>
+<h4 id="same-direction">Same direction<a class="headerlink" href="#same-direction" title="Permanent link">&para;</a></h4>
 <p>If the longitudinal distance is not safe and</p>
 <ol>
 <li>if the ego vehicle is in front, the other vehicle
    has to break longitudinally. There is
    no longitudinal response for the ego vehicle issued.</li>
 <li>otherwise, the ego vehicle has to break longitudinally with at
-   least <span><span class="MathJax_Preview">\alpha_{min,brake}</span><script type="math/tex">\alpha_{min,brake}</script></span>.</li>
+   least <span class="arithmatex"><span class="MathJax_Preview">\alpha_{min,brake}</span><script type="math/tex">\alpha_{min,brake}</script></span>.</li>
 </ol>
-<h4>Opposite direction</h4>
+<h4 id="opposite-direction">Opposite direction<a class="headerlink" href="#opposite-direction" title="Permanent link">&para;</a></h4>
 <p>If the longitudinal distance is not safe and</p>
 <ol>
 <li>if the ego vehicle is driving in the correct direction,
    the ego vehicle has to break longitudinally with at
-   least <span><span class="MathJax_Preview">\alpha_{min,brake,correct}</span><script type="math/tex">\alpha_{min,brake,correct}</script></span>.</li>
+   least <span class="arithmatex"><span class="MathJax_Preview">\alpha_{min,brake,correct}</span><script type="math/tex">\alpha_{min,brake,correct}</script></span>.</li>
 <li>otherwise, the ego vehicle has to break longitudinally with at
-   least <span><span class="MathJax_Preview">\alpha_{min,brake}</span><script type="math/tex">\alpha_{min,brake}</script></span>.</li>
+   least <span class="arithmatex"><span class="MathJax_Preview">\alpha_{min,brake}</span><script type="math/tex">\alpha_{min,brake}</script></span>.</li>
 </ol>
 <h3 id="lateral-conflicts">Lateral conflicts<a class="headerlink" href="#lateral-conflicts" title="Permanent link">&para;</a></h3>
 <p>The lateral checks and the proper response follow the definitions 5, 6, 7 and 8
@@ -212,11 +214,11 @@ of the <a href="https://arxiv.org/abs/1708.06374">RSS paper</a>.</p>
 If the lateral distance is not safe and</p>
 <ol>
 <li>if the ego vehicle is on the left side, the ego vehicle has to break
-   laterally with at least <span><span class="MathJax_Preview">\alpha^{lat}_{brake,min}</span><script type="math/tex">\alpha^{lat}_{brake,min}</script></span> on the right side</li>
+   laterally with at least <span class="arithmatex"><span class="MathJax_Preview">\alpha^{lat}_{brake,min}</span><script type="math/tex">\alpha^{lat}_{brake,min}</script></span> on the right side</li>
 <li>if the ego vehicle is on the right side, the ego vehicle has to break
-   laterally with at least <span><span class="MathJax_Preview">\alpha^{lat}_{brake,min}</span><script type="math/tex">\alpha^{lat}_{brake,min}</script></span> on the left side</li>
+   laterally with at least <span class="arithmatex"><span class="MathJax_Preview">\alpha^{lat}_{brake,min}</span><script type="math/tex">\alpha^{lat}_{brake,min}</script></span> on the left side</li>
 <li>otherwise, the ego vehicle has to break
-   laterally with at least <span><span class="MathJax_Preview">\alpha^{lat}_{brake,min}</span><script type="math/tex">\alpha^{lat}_{brake,min}</script></span> on both sides</li>
+   laterally with at least <span class="arithmatex"><span class="MathJax_Preview">\alpha^{lat}_{brake,min}</span><script type="math/tex">\alpha^{lat}_{brake,min}</script></span> on both sides</li>
 </ol>
 <h3 id="combining-longitudinal-and-lateral-response">Combining longitudinal and lateral response<a class="headerlink" href="#combining-longitudinal-and-lateral-response" title="Permanent link">&para;</a></h3>
 <p>The combination of longitudinal and lateral response of a single situation
@@ -238,6 +240,7 @@ all individual situations of the current scene.</p>
 <p>The current realization loops over all situations and combines the lateral left,
 the lateral right and the longitudinal response states of these by selecting
 the most severe response of each component respectively.</p>
+<h3 id="evasive-maneuvers">Evasive maneuvers<a class="headerlink" href="#evasive-maneuvers" title="Permanent link">&para;</a></h3>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>This initial implementation does not yet cover evasive maneuvers to
@@ -283,7 +286,7 @@ implemented as described in the definitions 16, 17 and 18 of the <a href="https:
 <li>If 1. and 2. do not hold, there is a time period in which both vehicles may
    be crossing the intersection. In this case Definition 18.3 of the <a href="https://arxiv.org/abs/1708.06374">RSS paper</a>
    applies, i.e. both cars have to brake laterally and longitudinally with at
-   least <span><span class="MathJax_Preview">\alpha_{min,brake}</span><script type="math/tex">\alpha_{min,brake}</script></span>.</li>
+   least <span class="arithmatex"><span class="MathJax_Preview">\alpha_{min,brake}</span><script type="math/tex">\alpha_{min,brake}</script></span>.</li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -302,12 +305,12 @@ in future.</p>
 <h3 id="response-time-and-other-parameters">Response Time and Other Parameters<a class="headerlink" href="#response-time-and-other-parameters" title="Permanent link">&para;</a></h3>
 <p>According to the papers each traffic participant has a response time, and is
 objected to respect certain acceleration limits (e.g. maximum acceleration
-<span><span class="MathJax_Preview">\alpha_{accel,max}</span><script type="math/tex">\alpha_{accel,max}</script></span>, maximum deceleration <span><span class="MathJax_Preview">\alpha_{brake,max}</span><script type="math/tex">\alpha_{brake,max}</script></span>, etc.). Within
+<span class="arithmatex"><span class="MathJax_Preview">\alpha_{accel,max}</span><script type="math/tex">\alpha_{accel,max}</script></span>, maximum deceleration <span class="arithmatex"><span class="MathJax_Preview">\alpha_{brake,max}</span><script type="math/tex">\alpha_{brake,max}</script></span>, etc.). Within
 this response time the participants (including the ego vehicle) are allowed to
-accelerate with at most <span><span class="MathJax_Preview">\alpha_{accel,max}</span><script type="math/tex">\alpha_{accel,max}</script></span>, and thus increase their velocity.
+accelerate with at most <span class="arithmatex"><span class="MathJax_Preview">\alpha_{accel,max}</span><script type="math/tex">\alpha_{accel,max}</script></span>, and thus increase their velocity.
 The distance covered during the response time is part of the safe distance, as
 defined by RSS. Hence, upon entering a dangerous situation, it would be
-possible to accelerate with up to <span><span class="MathJax_Preview">\alpha_{accel,max}</span><script type="math/tex">\alpha_{accel,max}</script></span> for at most t &lt; response
+possible to accelerate with up to <span class="arithmatex"><span class="MathJax_Preview">\alpha_{accel,max}</span><script type="math/tex">\alpha_{accel,max}</script></span> for at most t &lt; response
 time, as this acceleration is already considered.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -339,57 +342,57 @@ transformed. As a matter of fact, the resulting values depend on the actual
 lane geometry, and thus, velocities and accelerations of different lane-based
 coordinate systems cannot be compared to each other anymore (ego vehicle - object pair). To illustrate this
 problems, let us consider the following examples:</p>
-<h4>Discontinuity Problem: Two parallel lanes, different width</h4>
+<h4 id="discontinuity-problem-two-parallel-lanes-different-width">Discontinuity Problem: Two parallel lanes, different width<a class="headerlink" href="#discontinuity-problem-two-parallel-lanes-different-width" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="" src="../../images/lanes_with_different_width.svg" /></th>
+<th style="text-align: center;"><img alt="" src="../../images/lanes_with_different_width.svg" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>Figure 1: Two parallel lanes with different width causing a discontinuity in lateral acceleration</em></td>
+<td style="text-align: center;"><em>Figure 1: Two parallel lanes with different width causing a discontinuity in lateral acceleration</em></td>
 </tr>
 </tbody>
 </table>
 <p>Let us illustrate this on a simple example with two parallel lanes of different
 width. Let the left lane A have a constant width of <em>4 m</em> where the right lane
 B only has a constant width of <em>2 m</em>. If both lanes define their own lane-based
-coordinate system <span><span class="MathJax_Preview">LCS_A</span><script type="math/tex">LCS_A</script></span> and <span><span class="MathJax_Preview">LCS_B</span><script type="math/tex">LCS_B</script></span>, a Cartesian lateral acceleration value
-of <em>1 m/<span><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> becomes <em>0.25 lat/<span><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> in <span><span class="MathJax_Preview">LCS_A</span><script type="math/tex">LCS_A</script></span> and <em>0.5 lat/<span><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> in
-<span><span class="MathJax_Preview">LCS_B</span><script type="math/tex">LCS_B</script></span>. Therefore, the formula for constant accelerated movement has to use
+coordinate system <span class="arithmatex"><span class="MathJax_Preview">LCS_A</span><script type="math/tex">LCS_A</script></span> and <span class="arithmatex"><span class="MathJax_Preview">LCS_B</span><script type="math/tex">LCS_B</script></span>, a Cartesian lateral acceleration value
+of <em>1 m/<span class="arithmatex"><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> becomes <em>0.25 lat/<span class="arithmatex"><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> in <span class="arithmatex"><span class="MathJax_Preview">LCS_A</span><script type="math/tex">LCS_A</script></span> and <em>0.5 lat/<span class="arithmatex"><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> in
+<span class="arithmatex"><span class="MathJax_Preview">LCS_B</span><script type="math/tex">LCS_B</script></span>. Therefore, the formula for constant accelerated movement has to use
 different acceleration constants in different lanes. This situation is getting
 even worse, if a car is changing the lane from lane A to lane B: then the
 closed formula for constant accelerated movement to calculate the lateral
 distance over time cannot be applied anymore directly.</p>
-<h4>Changing Acceleration Problem: Lane is widening/narrowing</h4>
+<h4 id="changing-acceleration-problem-lane-is-wideningnarrowing">Changing Acceleration Problem: Lane is widening/narrowing<a class="headerlink" href="#changing-acceleration-problem-lane-is-wideningnarrowing" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="" src="../../images/lane_width_narrowing.svg" /></th>
+<th style="text-align: center;"><img alt="" src="../../images/lane_width_narrowing.svg" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>Figure 2: Changing lane width and its impact on the lateral acceleration</em></td>
+<td style="text-align: center;"><em>Figure 2: Changing lane width and its impact on the lateral acceleration</em></td>
 </tr>
 </tbody>
 </table>
 <p>Let us consider a lane with changing width in another example. If the lane's
 width at the beginning is <em>4 m</em> and <em>100 m</em> away the lane is narrowing to <em>2 m</em>.
-In such a case the Cartesian lateral acceleration value of <em>1 m/<span><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> is
-changing from <em>0.25 lat/<span><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> at the beginning towards <em>0.5 lat/<span><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> while
+In such a case the Cartesian lateral acceleration value of <em>1 m/<span class="arithmatex"><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> is
+changing from <em>0.25 lat/<span class="arithmatex"><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> at the beginning towards <em>0.5 lat/<span class="arithmatex"><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> while
 advancing within the lane.</p>
-<h4>Changing Distances Problem: Lane with a narrow curve</h4>
+<h4 id="changing-distances-problem-lane-with-a-narrow-curve">Changing Distances Problem: Lane with a narrow curve<a class="headerlink" href="#changing-distances-problem-lane-with-a-narrow-curve" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="" src="../../images/lane_constant_curve.svg" /></th>
+<th style="text-align: center;"><img alt="" src="../../images/lane_constant_curve.svg" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>Figure 3: Lane describing a narrow 180° curve and its impact on driven distances</em></td>
+<td style="text-align: center;"><em>Figure 3: Lane describing a narrow 180° curve and its impact on driven distances</em></td>
 </tr>
 </tbody>
 </table>
@@ -398,10 +401,10 @@ example. Let us assume the lane has a constant width of <em>4 m</em> describing 
 curve with inner radius of <em>50 m</em> covering <em>180°</em>. The inner border of the lane
 has a length of about <em>157.1 m</em>, the center line <em>163.4 m</em> the outer border
 <em>169.7 m</em>. In that situation a longitudinal acceleration value will evaluate
-to <em>1.0 lon/<span><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> for the center line, <em>0.96 lon/<span><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> for the outer border and
-<em>1.04 lon/<span><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> for the inner border. Therefore, the longitudinal acceleration
+to <em>1.0 lon/<span class="arithmatex"><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> for the center line, <em>0.96 lon/<span class="arithmatex"><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> for the outer border and
+<em>1.04 lon/<span class="arithmatex"><span class="MathJax_Preview">s^2</span><script type="math/tex">s^2</script></span></em> for the inner border. Therefore, the longitudinal acceleration
 changes over time, if the vehicle changes its lateral position within the lane.</p>
-<h4>Summary</h4>
+<h4 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h4>
 <p>As sketched in the previous sections both the longitudinal as well as the
 lateral acceleration values, as well as velocities within the lane-based
 coordinate system cannot be considered as constant anymore. Moreover, these
@@ -410,7 +413,7 @@ from one lane-based system to another one. To overcome this issue, we use a
 <em>"Situation-Based Coordinate System"</em>, that is described in detail in the next
 section. This system is unique for each situation (ego vehicle - object pair)
 and comprises <em>all</em> lanes required to describe this situation.</p>
-<h4>Chosen Design: Individual Situation-Based Coordinate System</h4>
+<h4 id="chosen-design-individual-situation-based-coordinate-system">Chosen Design: Individual Situation-Based Coordinate System<a class="headerlink" href="#chosen-design-individual-situation-based-coordinate-system" title="Permanent link">&para;</a></h4>
 <p>As RSS performs a worst case assessment, the idea followed by the ad-rss-lib
 implementation is to calculate the min/max position values of the vehicles
 within the situation specific coordinate system. According to the constellation of the
@@ -419,25 +422,25 @@ border values are selected and processed by the RSS formulas.
 Like this, it is assured that the calculations are sound, nevertheless this
 might lead to a more cautious behavior of the vehicle.
 The following subsections describe the selected approach in more detail.</p>
-<h4>Two parallel lanes, different width</h4>
+<h4 id="two-parallel-lanes-different-width">Two parallel lanes, different width<a class="headerlink" href="#two-parallel-lanes-different-width" title="Permanent link">&para;</a></h4>
 <p>As described in the previous section, the border between neighboring lanes
 of different width introduces discontinuities of the lateral acceleration values
 (see Figure 1).</p>
 <p>As the ad-rss-lib judges the relative situation between the ego vehicle
 and the other objects one by one individually, it is not required to distinguish
 between the actual lanes within the individual distance calculations.
-Combining all lanes relevant for the individual situation <span><span class="MathJax_Preview">s_i</span><script type="math/tex">s_i</script></span>
-between ego vehicle and object <span><span class="MathJax_Preview">o_i</span><script type="math/tex">o_i</script></span> into one single situation-based
-coordinate system <span><span class="MathJax_Preview">SCS_i</span><script type="math/tex">SCS_i</script></span> resolves all discontinuities, as depicted in Figure 4.</p>
+Combining all lanes relevant for the individual situation <span class="arithmatex"><span class="MathJax_Preview">s_i</span><script type="math/tex">s_i</script></span>
+between ego vehicle and object <span class="arithmatex"><span class="MathJax_Preview">o_i</span><script type="math/tex">o_i</script></span> into one single situation-based
+coordinate system <span class="arithmatex"><span class="MathJax_Preview">SCS_i</span><script type="math/tex">SCS_i</script></span> resolves all discontinuities, as depicted in Figure 4.</p>
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="" src="../../images/lanes_with_different_width_same_cs.svg" /></th>
+<th style="text-align: center;"><img alt="" src="../../images/lanes_with_different_width_same_cs.svg" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>Figure 4: Avoid discontinuities by using one single situation-based coordinate system</em></td>
+<td style="text-align: center;"><em>Figure 4: Avoid discontinuities by using one single situation-based coordinate system</em></td>
 </tr>
 </tbody>
 </table>
@@ -446,33 +449,33 @@ left lane A having a constant width of <em>4 m</em> and right lane B having a co
 width of <em>2 m</em>, both lanes together have a resulting width of <em>6 m</em> and form
 an area with continuous lateral acceleration (see also
 illustration in Figure 4).</p>
-<p>The check of the ego vehicle with another object <span><span class="MathJax_Preview">o_j</span><script type="math/tex">o_j</script></span> which is two lanes at the
+<p>The check of the ego vehicle with another object <span class="arithmatex"><span class="MathJax_Preview">o_j</span><script type="math/tex">o_j</script></span> which is two lanes at the
 right of the ego vehicle in a lane C having a constant width of <em>3 m</em>, has to
 take all three lanes into account with resulting width of <em>9 m</em>. Therefore, a
-different situation-based coordinate system <span><span class="MathJax_Preview">SCS_j</span><script type="math/tex">SCS_j</script></span> is required, when checking
+different situation-based coordinate system <span class="arithmatex"><span class="MathJax_Preview">SCS_j</span><script type="math/tex">SCS_j</script></span> is required, when checking
 another object.</p>
-<h4>Lane is widening or has a narrow curve</h4>
-<p>The individual situation specific coordinate system <span><span class="MathJax_Preview">SCS</span><script type="math/tex">SCS</script></span> does not yet cover
+<h4 id="lane-is-widening-or-has-a-narrow-curve">Lane is widening or has a narrow curve<a class="headerlink" href="#lane-is-widening-or-has-a-narrow-curve" title="Permanent link">&para;</a></h4>
+<p>The individual situation specific coordinate system <span class="arithmatex"><span class="MathJax_Preview">SCS</span><script type="math/tex">SCS</script></span> does not yet cover
 the situations of widening lanes or narrow curves. To take the variation of the
 lane width and length into account, it is required to apply the extrema
-within the respective <span><span class="MathJax_Preview">SCS</span><script type="math/tex">SCS</script></span> accordingly.</p>
+within the respective <span class="arithmatex"><span class="MathJax_Preview">SCS</span><script type="math/tex">SCS</script></span> accordingly.</p>
 <p>Again, coming back to the examples from above, let us have a lane with non
 constant width between <em>2 m</em> and <em>4 m</em>. Then the transformation of the maximal
 possible lateral position value of the vehicle into the situation coordinate system
-<span><span class="MathJax_Preview">SCS</span><script type="math/tex">SCS</script></span> has to take the maximum width of <em>4 m</em> into account,
+<span class="arithmatex"><span class="MathJax_Preview">SCS</span><script type="math/tex">SCS</script></span> has to take the maximum width of <em>4 m</em> into account,
 while the transformation of the minimal possible lateral position has to
 be transformed with the minimum width of the lane of <em>2 m</em>.
 Like this it is guaranteed that we don't underestimate the distances of the vehicles
 towards each other. As a result, it is ensured that under all conditions, the safety
 distances are calculated in a conservative manner.</p>
 <p>In a similar way, it is possible to transform the longitudinal position
-values into the situation-based coordinate system <span><span class="MathJax_Preview">SCS_k</span><script type="math/tex">SCS_k</script></span>.</p>
+values into the situation-based coordinate system <span class="arithmatex"><span class="MathJax_Preview">SCS_k</span><script type="math/tex">SCS_k</script></span>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The performed operations can be interpreted as enlarging the vehicles
 bounding boxes to ensure the worst case is covered.</p>
 </div>
-<h4>Road area</h4>
+<h4 id="road-area">Road area<a class="headerlink" href="#road-area" title="Permanent link">&para;</a></h4>
 <p>To overcome the problems of discontinuities, changing lateral and
 longitudinal distances resulting in not comparable velocities and accelerations
 the situation based coordinate system merges in a first step all lanes segments
@@ -488,24 +491,24 @@ Figure 5 and Figure 6).</p>
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="" src="../../images/rss_situation_based_coordinate_system_creation_road_area.svg" /></th>
+<th style="text-align: center;"><img alt="" src="../../images/rss_situation_based_coordinate_system_creation_road_area.svg" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>Figure 5: Creation of the situation-based coordinate system: The road area (red) consists of all lane segments along the road relevant for the situation between the two vehicles</em></td>
+<td style="text-align: center;"><em>Figure 5: Creation of the situation-based coordinate system: The road area (red) consists of all lane segments along the road relevant for the situation between the two vehicles</em></td>
 </tr>
 </tbody>
 </table>
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="" src="../../images/rss_situation_based_coordinate_system_creation_vehicle_bounding_box.svg" /></th>
+<th style="text-align: center;"><img alt="" src="../../images/rss_situation_based_coordinate_system_creation_vehicle_bounding_box.svg" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>Figure 6: Creation of the situation-based coordinate system: Worst-case transformation of the vehicle bounding box. The metric road on the left leads to transformed vehicles and their bounding boxes (red) on the right, sketched for a narrowing road area at the top and a curve at the bottom.</em></td>
+<td style="text-align: center;"><em>Figure 6: Creation of the situation-based coordinate system: Worst-case transformation of the vehicle bounding box. The metric road on the left leads to transformed vehicles and their bounding boxes (red) on the right, sketched for a narrowing road area at the top and a curve at the bottom.</em></td>
 </tr>
 </tbody>
 </table>
@@ -522,7 +525,7 @@ intersecting parts. The case that a lane is ending or two lanes are
 merged into one single lane have to be treated like intersections since
 a lateral conflict is unavoidable.</p>
 </div>
-<h4>Considerations on reverse transformation of the proper response</h4>
+<h4 id="considerations-on-reverse-transformation-of-the-proper-response">Considerations on reverse transformation of the proper response<a class="headerlink" href="#considerations-on-reverse-transformation-of-the-proper-response" title="Permanent link">&para;</a></h4>
 <p>As the proper response is referring to the situation-based coordinate
 systems, the response has to be transformed back considering the actual
 lane geometry. Therefore, first the transformation into the
@@ -536,12 +539,12 @@ lane-based system the lateral acceleration will be 0.</p>
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="" src="../../images/lane_constant_curve_response_transform.svg" /></th>
+<th style="text-align: center;"><img alt="" src="../../images/lane_constant_curve_response_transform.svg" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>Figure 7: Constant drive around a curve will result in a zero lateral acceleration in a lane-based coordinate system and in a non-zero acceleration in a cartesian system</em></td>
+<td style="text-align: center;"><em>Figure 7: Constant drive around a curve will result in a zero lateral acceleration in a lane-based coordinate system and in a non-zero acceleration in a cartesian system</em></td>
 </tr>
 </tbody>
 </table>
@@ -558,12 +561,12 @@ definition of a lateral velocity of 0 in lane A/lane B in Cartesian space.</p>
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="" src="../../images/lane_width_narrowing_response_transform.svg" /></th>
+<th style="text-align: center;"><img alt="" src="../../images/lane_width_narrowing_response_transform.svg" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>Figure 8: Different lateral accelerations in a lane-based system and Cartesian system for a vehicle following the centerline of lane B</em></td>
+<td style="text-align: center;"><em>Figure 8: Different lateral accelerations in a lane-based system and Cartesian system for a vehicle following the centerline of lane B</em></td>
 </tr>
 </tbody>
 </table>
@@ -574,7 +577,7 @@ the library at hand, the reverse transformation from the situation-specific
 into a vehicle-centric lane coordinate system is not required, as the RSS
 response is defined such that it is independent of these two coordinate system.</p>
 </div>
-<h4>Summary</h4>
+<h4 id="summary_1">Summary<a class="headerlink" href="#summary_1" title="Permanent link">&para;</a></h4>
 <p>The presented construction of a continuous situation-based coordinates system
 will allow the pairwise calculation of the safe distances between ego vehicle
 and objects with the assumption of constant acceleration. Still, the worst case
@@ -600,18 +603,18 @@ system to assure that always the worst case is considered.</p>
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="" src="../../images/lanes_with_different_width_iterative.svg" /></th>
+<th style="text-align: center;"><img alt="" src="../../images/lanes_with_different_width_iterative.svg" /></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>Figure 9: Illustration of an iterative approach to calculate non-constant acceleration, velocity etc.</em></td>
+<td style="text-align: center;"><em>Figure 9: Illustration of an iterative approach to calculate non-constant acceleration, velocity etc.</em></td>
 </tr>
 </tbody>
 </table>
 <p>Another possible way to handle the non-constant acceleration values would be an
 iterative approach: based on the position, the velocity and the acceleration
-values at the given position at time <span><span class="MathJax_Preview">t_0</span><script type="math/tex">t_0</script></span>, the position at time <span><span class="MathJax_Preview">t_1</span><script type="math/tex">t_1</script></span> is
+values at the given position at time <span class="arithmatex"><span class="MathJax_Preview">t_0</span><script type="math/tex">t_0</script></span>, the position at time <span class="arithmatex"><span class="MathJax_Preview">t_1</span><script type="math/tex">t_1</script></span> is
 calculated. The smaller the time interval between the iteration steps is
 chosen, the smaller the calculation error gets (see figure above).</p>
 <p>One drawback of the iterative approach is that the RSS implementation has to get
@@ -619,7 +622,7 @@ to know the lane geometries in detail to be able to calculate the acceleration
 values to be used for every position within the situation-based coordinate
 systems. Therefore, this design approach is not selected by this ad-rss-lib
 implementation.</p>
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<h2 id="summary_2">Summary<a class="headerlink" href="#summary_2" title="Permanent link">&para;</a></h2>
 <div class="admonition summary">
 <p class="admonition-title">Summary</p>
 <ul>
