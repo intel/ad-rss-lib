@@ -84,4 +84,4 @@ if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
 
 fi
 
-sudo pip${PYTHON_BINDING_VERSION} install -r requirements.txt
+sudo pip${PYTHON_BINDING_VERSION} install -r .github/workflows/requirements.txt
