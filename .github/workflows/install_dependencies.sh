@@ -45,10 +45,9 @@ fi
 sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}-dev libpython${PYTHON_BINDING_VERSION}-dev
 curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python${PYTHON_BINDING_VERSION}
 
-# to handle some error on missing pip dependencies
-sudo pip${PYTHON_BINDING_VERSION} install testresources
-sudo pip${PYTHON_BINDING_VERSION} install --upgrade setuptools==59.6.0
-sudo pip${PYTHON_BINDING_VERSION} install colcon-common-extensions xmlrunner pygccxml pyplusplus
+if [[ "${BUILD_DOCU}x" != "x" ]]; then
+  sudo apt-get install doxygen graphviz lcov
+fi
 
 if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
   echo "!!!!!!! Ubunut 20.04 and python 3.10: compile boost 1.80 !!!!!!!"
@@ -85,13 +84,4 @@ if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
 
 fi
 
-
-if [[ "${BUILD_DOCU}x" != "x" ]]; then
-  sudo apt-get install doxygen graphviz lcov
-  sudo pip3 install --upgrade six>=1.11.0
-  sudo pip3 install Markdown==3.2.1
-  sudo pip3 install mkdocs
-  sudo pip3 install markdown-include
-  sudo pip3 install pymdown-extensions==8.0.1
-  sudo pip3 install pygments mdx_truly_sane_lists
-fi
+sudo pip${PYTHON_BINDING_VERSION} install -r requirements.txt
