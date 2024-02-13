@@ -3,7 +3,7 @@
 
 [![License](https://img.shields.io/badge/License-LGPL%202.1--Clause-blue.svg)](https://opensource.org/licenses/LGPL-2.1)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/intel/ad-rss-lib.svg)](https://github.com/intel/ad-rss-lib/releases/latest)
-[![Build Status](https://github.com/intel/ad-rss-lib/workflows/Test/badge.svg?branch=master)](https://github.com/intel/ad-rss-lib/actions?query=workflow%3A%22Test%22)
+[![Build Status](https://github.com/intel/ad-rss-lib/workflows/Test/badge.svg?branch=main)](https://github.com/intel/ad-rss-lib/actions?query=workflow%3A%22Test%22)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/8374/badge)](https://www.bestpractices.dev/projects/8374)
 
 # Table of contents
@@ -59,12 +59,12 @@ Please see the [Documentation on the Python binding for ad_rss](https://intel.gi
 
 #### Usage within CARLA
 This library can be used together with the open-source driving simulator [CARLA](https://github.com/carla-simulator/carla) to investigate the behavior of RSS. A first version is shown in the following video sequence:
-[![RSS safety sensor in CARLA](https://raw.githubusercontent.com/intel/ad-rss-lib/master/doc/images/carla_integration.png)](https://www.youtube.com/watch?v=UxKPXPT2T8Q)
+[![RSS safety sensor in CARLA](https://raw.githubusercontent.com/intel/ad-rss-lib/main/doc/images/carla_integration.png)](https://www.youtube.com/watch?v=UxKPXPT2T8Q)
 
 #### Usage within Baidu Apollo
 In addition, the library is already integrated and used in Baidu's [Apollo Open Platform stack](https://github.com/ApolloAuto/apollo):
 
-![RSS integration in Apollo](https://raw.githubusercontent.com/intel/ad-rss-lib/master/doc/images/apollo_integration.png)
+![RSS integration in Apollo](https://raw.githubusercontent.com/intel/ad-rss-lib/main/doc/images/apollo_integration.png)
 
 
 ## License <a name="license"></a>
@@ -135,7 +135,7 @@ To download the library, you may run:
 
 #### Supported systems <a name="systems"></a>
 Development systems are Ubuntu 20.04 and Ubuntu 22.04
-Following compiler and Python combinations are [tested continously](https://github.com/intel/ad-rss-lib/blob/master/.github/workflows/build_test.yml):
+Following compiler and Python combinations are [tested continously](https://github.com/intel/ad-rss-lib/blob/main/.github/workflows/build_test.yml):
 
 |                 | Ubuntu 20.04 | Ubuntu 22.04 |
 |:---------------:|:------------:|:------------:|

@@ -5,7 +5,7 @@ view the contribution guidelines, then fill out the blanks below.
 
 Checklist:
 
-  - [ ] Your branch is up-to-date with the `master` branch and tested with latest changes
+  - [ ] Your branch is up-to-date with the `main` branch and tested with latest changes
   - [ ] Extended the README / documentation, if necessary
   - [ ] Code compiles correctly and runs
   - [ ] Code is formatted using clang-3.9 and the provided format file
