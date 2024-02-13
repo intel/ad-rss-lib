@@ -57,7 +57,7 @@ if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
   BOOST_VERSION=1.78.0
   BOOST_PACKAGE_BASENAME=boost_${BOOST_VERSION//./_}
   wget "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/${BOOST_PACKAGE_BASENAME}.tar.gz"
-  
+
   tar -xzf ${BOOST_PACKAGE_BASENAME}.tar.gz
   pushd ${BOOST_PACKAGE_BASENAME}
 
@@ -73,7 +73,7 @@ if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
     echo "!!!!!!! boost bootstrap failed !!!!!!!"
     cat bootstrap.log
   fi
-  
+
   ./b2 --prefix="/usr" cxxflags="-fPIC" -j 10 stage release
   sudo ./b2 --prefix="/usr" cxxflags="-fPIC" -j 10 install
 
@@ -83,4 +83,15 @@ if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
   popd
   popd
 
+fi
+
+
+if [[ "${BUILD_DOCU}x" != "x" ]]; then
+  sudo apt-get install doxygen graphviz lcov
+  sudo pip3 install --upgrade six>=1.11.0
+  sudo pip3 install Markdown==3.2.1
+  sudo pip3 install mkdocs
+  sudo pip3 install markdown-include
+  sudo pip3 install pymdown-extensions==8.0.1
+  sudo pip3 install pygments mdx_truly_sane_lists
 fi

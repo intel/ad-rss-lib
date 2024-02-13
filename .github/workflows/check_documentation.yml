@@ -29,14 +29,8 @@ jobs:
 
     - name: Install Dependencies
       run: |
+        export BUILD_DOCU=true
         bash .github/workflows/install_dependencies.sh
-        sudo apt-get install doxygen graphviz lcov
-        sudo pip3 install --upgrade six>=1.11.0
-        sudo pip3 install Markdown==3.2.1
-        sudo pip3 install mkdocs
-        sudo pip3 install markdown-include
-        sudo pip3 install pymdown-extensions==8.0.1
-        sudo pip3 install pygments mdx_truly_sane_lists
 
     - name: Build Documentation and Test
       run: |
@@ -48,6 +42,14 @@ jobs:
     - name: Code Coverage and CodeCov
       run: |
         bash .github/workflows/code_coverage.sh
+
+    - name: Upload coverage as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage_report
+        path: ./coverage
+        if-no-files-found: error
+        overwrite: true
 
     - name: Documentation Deployment (Test)
       run: |
