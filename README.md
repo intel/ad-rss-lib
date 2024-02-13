@@ -3,7 +3,7 @@
 
 [![License](https://img.shields.io/badge/License-LGPL%202.1--Clause-blue.svg)](https://opensource.org/licenses/LGPL-2.1)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/intel/ad-rss-lib.svg)](https://github.com/intel/ad-rss-lib/releases/latest)
-[![Build Status](https://github.com/intel/ad-rss-lib/workflows/Test/badge.svg?branch=main)](https://github.com/intel/ad-rss-lib/actions?query=workflow%3A%22Test%22)
+[![Build Status](https://github.com/intel/ad-rss-lib/actions/workflows/build_test.yml/badge.svg?branch=main)](https://github.com/intel/ad-rss-lib/actions/workflows/build_test.yml/badge.svg?branch=main)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/8374/badge)](https://www.bestpractices.dev/projects/8374)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/intel/ad-rss-lib/badge)](https://securityscorecards.dev/viewer/?uri=github.com/intel/ad-rss-lib)
 
