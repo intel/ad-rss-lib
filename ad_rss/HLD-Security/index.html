@@ -136,7 +136,7 @@
           <li class="breadcrumb-item">Background</li>
       <li class="breadcrumb-item active">Security</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/intel/ad-rss-lib/edit/master/doc/ad_rss/HLD-Security.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/intel/ad-rss-lib/edit/main/doc/ad_rss/HLD-Security.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -274,7 +274,7 @@ C++ Standard Library and the logging library).</p>
 <h4>Compiler and compiler security flags</h4>
 <p>The development platforms are Ubuntu Linux 20.04 Focal Fossa and 22.04 Jammy Jellyfish.</p>
 <p>A standard cmake toolchain has been used to compile the library. Other supported compilers are listed at the <a href="../../#systems">main page</a></p>
-<p>The following, strict, <a href="https://github.com/intel/ad-rss-lib/blob/master/cmake/warnings.cmake">compilation flags</a> are used:
+<p>The following, strict, <a href="https://github.com/intel/ad-rss-lib/blob/main/cmake/warnings.cmake">compilation flags</a> are used:
 C++14, -Werror, -Wall, -Wextra, -pedantic, -Wconversion, -Wsign-conversion, -Wfloat-equal -Wshadow -Wswitch-default -Wenum-compare -Wformat -Wformat-security.</p>
 <ul>
 <li>-Werror turns all warnings into errors</li>
@@ -289,7 +289,7 @@ C++14, -Werror, -Wall, -Wextra, -pedantic, -Wconversion, -Wsign-conversion, -Wfl
 <li>-Wenum-compare warn about a comparison between values of different enumerated types</li>
 <li>-Wformat* warns about errors within format strings</li>
 </ul>
-<p>In addition, there are <a href="https://github.com/intel/ad-rss-lib/blob/master/cmake/hardening.cmake">hardening compiler flags</a>
+<p>In addition, there are <a href="https://github.com/intel/ad-rss-lib/blob/main/cmake/hardening.cmake">hardening compiler flags</a>
 * -fstack-protector-all -fasynchronous-unwind-tables -fno-omit-frame-pointer -fno-delete-null-pointer-checks -fno-strict-overflow -fwrapv -fPIE -fPIC -D_FORTIFY_SOURCE=2
 and linker flags
 * -Wl,-z,now -Wl,-z,relro -pie
