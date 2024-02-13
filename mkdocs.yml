@@ -1,7 +1,7 @@
 site_name: Intel ad-rss-lib
 repo_url: https://github.com/intel/ad-rss-lib
 docs_dir: doc
-edit_uri: 'edit/master/doc/'
+edit_uri: 'edit/main/doc/'
 theme: readthedocs
 
 nav:

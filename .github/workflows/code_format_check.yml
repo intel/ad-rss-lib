@@ -2,9 +2,9 @@ name: Check Code Formatting for AD-RSS Library
 
 on:
   push:
-    branches: master
+    branches: main
   pull_request:
-    branches: master
+    branches: main
 
 permissions:
   contents: read

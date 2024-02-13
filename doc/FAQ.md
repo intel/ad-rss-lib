@@ -32,7 +32,7 @@ The *worldModel* is the input to the *RSS* calculations.
 It is derived from the [_Sense Subsystem_](ad_rss/HLD-ArchitectureOverview.md#sense-subsystem).
 
 ###### How do I get to the information required for the input *worldModel*?
-The world model data heavily depends on the system the *ad-rss-lib* is going to be integrated. Therefore, there is no single answer to this question. Simple scenarios can be derived using basic object data, integration of *RSS* to the full extend demand more sophisticated a-priori information, usually provided by means of an [AD-Map](ad_rss_map_integration/Main.md). The [unit tests](https://github.com/intel/ad-rss-lib/blob/master/ad_rss/impl/test/test_support/RssCheckTestBaseT.hpp) provided with the *ad-rss-lib* build some basic *worldModel* structures that might be taken as a starting point. Better examples can be found in the section on [Integration examples](#integration-examples).
+The world model data heavily depends on the system the *ad-rss-lib* is going to be integrated. Therefore, there is no single answer to this question. Simple scenarios can be derived using basic object data, integration of *RSS* to the full extend demand more sophisticated a-priori information, usually provided by means of an [AD-Map](ad_rss_map_integration/Main.md). The [unit tests](https://github.com/intel/ad-rss-lib/blob/main/ad_rss/tests/test_support/RssCheckTestBaseT.hpp) provided with the *ad-rss-lib* build some basic *worldModel* structures that might be taken as a starting point. Better examples can be found in the section on [Integration examples](#integration-examples).
 
 ### Output: rssAccelerationRestrictions
 
