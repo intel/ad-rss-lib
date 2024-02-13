@@ -11,7 +11,7 @@
 
 # initial cleanup to be able to switch to gh-pages branch
 mv coverage/ coverage_tmp/
-rm -rf =1.11.0 *.info
+rm -rf =1.11.0 *.info dependencies/
 
 # switch to gh-pages branch
 git checkout origin/gh-pages
