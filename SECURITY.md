@@ -7,6 +7,7 @@ The latest version of this software will be updated with security fixes if requi
 ## Reporting a Vulnerability
 
 Reporting of a vulneribility is performed via the standard github private vulnerability reporting mechanism.
+https://github.com/intel/ad-rss-lib/security/advisories
 
 ## Design for Security
 
