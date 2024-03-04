@@ -62,7 +62,7 @@ jobs:
           done
 
       - name: Publish wheels to PyPI
-        uses: pypa/gh-action-pypi-publish@2f6f737ca5f74c637829c0f5c3acd0e29ea5e8bf # release/v1
+        uses: pypa/gh-action-pypi-publish@e53eb8b103ffcb59469888563dc324e3c8ba6f06 # release/v1
         if: ${{ github.event_name == 'release'}}
         with:
           user: __token__
