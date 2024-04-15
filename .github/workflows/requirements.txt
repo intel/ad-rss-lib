@@ -7,7 +7,7 @@ pygccxml==2.4.0
 Pygments==2.17.2
 pymdown-extensions==10.7.1
 pyplusplus==1.8.5
-setuptools==69.2.0
+setuptools==69.5.1
 six==1.16.0
 testresources==2.0.1
 xmlrunner==1.7.7
