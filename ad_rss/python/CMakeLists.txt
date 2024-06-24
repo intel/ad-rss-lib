@@ -16,7 +16,7 @@ get_target_property(AD_PHYSICS_INCLUDES ad_physics INTERFACE_INCLUDE_DIRECTORIES
 find_package(spdlog REQUIRED CONFIG)
 get_target_property(SPDLOG_INCLUDES spdlog::spdlog INTERFACE_INCLUDE_DIRECTORIES)
 
-find_package(Boost REQUIRED)
+find_package(Boost 1.80 REQUIRED)
 
 list(APPEND INCLUDE_DIRS ${Boost_INCLUDE_DIRS} ${AD_PHYSICS_INCLUDES} ${SPDLOG_INCLUDES})
 

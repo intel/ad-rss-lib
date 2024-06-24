@@ -26,7 +26,7 @@ include(CMakePackageConfigHelpers)
 set(ad_rss_TARGET_INCLUDE_DIRECTORIES)
 set(ad_rss_TARGET_LINK_LIBRARIES)
 
-find_package(Boost REQUIRED)
+find_package(Boost 1.80 REQUIRED)
 list(APPEND ad_rss_TARGET_INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIRS})
 list(APPEND ad_rss_TARGET_LINK_LIBRARIES ${Boost_LIBRARIES})
 

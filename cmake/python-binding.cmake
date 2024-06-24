@@ -44,7 +44,7 @@ endfunction()
 
 function(find_python_binding_packages)
 
-  find_package(Boost REQUIRED)
+  find_package(Boost 1.80 REQUIRED)
   if(${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION} VERSION_GREATER 1.66)
     set(BOOST_PYTHON_SHORT_NAME ON)
   endif()
@@ -78,7 +78,7 @@ function(find_python_binding_packages)
       else()
         set(BOOST_COMPONENT_${BINDING_NAME} python-py${PYTHON_MAJ_MIN})
       endif()
-      find_package(Boost COMPONENTS REQUIRED ${BOOST_COMPONENT_${BINDING_NAME}})
+      find_package(Boost 1.80 COMPONENTS REQUIRED ${BOOST_COMPONENT_${BINDING_NAME}})
       message(STATUS "Found Boost version '${Boost_VERSION}' includes '${Boost_INCLUDE_DIRS}' link-target 'Boost::${BOOST_COMPONENT_${BINDING_NAME}}'\n: using Python includes '${PYTHON_INCLUDE_DIRS}' and lib '${PYTHON_LIBRARIES}'")
       list(APPEND LOCAL_PYTHON_BINDINGS ${BINDING_NAME})
       set(LOCAL_PYTHON_BINDING_PACKAGE_INCLUDE_DIRS_${BINDING_NAME}
