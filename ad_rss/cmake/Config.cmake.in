@@ -17,7 +17,7 @@
 
 include(CMakeFindDependencyMacro)
 
-find_package(Boost REQUIRED)
+find_package(Boost 1.80 REQUIRED)
 list(APPEND INCLUDE_DIRS ${Boost_INCLUDE_DIRS})
 list(APPEND LIBRARIES ${Boost_LIBRARIES})
 
