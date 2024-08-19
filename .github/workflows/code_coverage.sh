@@ -17,7 +17,7 @@ get_coverage() {
     lcov -q -i -c -d ${BUILD_DIR} -b ${SRC_DIR} --no-external -o initialCoverage_${PACKAGE_NAME}.info
     lcov -q -c -d ${BUILD_DIR} -b ${SRC_DIR} --no-external -o testCoverage_${PACKAGE_NAME}.info --rc lcov_branch_coverage=1
     lcov -q -a initialCoverage_${PACKAGE_NAME}.info -a testCoverage_${PACKAGE_NAME}.info -o coverage_${PACKAGE_NAME}.info --rc lcov_branch_coverage=1
-    lcov -q -r coverage_${PACKAGE_NAME}.info "impl/test*" -o coverage_${PACKAGE_NAME}.info --rc lcov_branch_coverage=1
+    lcov -q -r coverage_${PACKAGE_NAME}.info "tests/*" -o coverage_${PACKAGE_NAME}.info --rc lcov_branch_coverage=1
     grep -v -E 'D0Ev|D1Ev|C1Ev|C1Eb' coverage_${PACKAGE_NAME}.info > cleanedCoverage_${PACKAGE_NAME}.info
     lcov --summary cleanedCoverage_${PACKAGE_NAME}.info --rc lcov_branch_coverage=1
     genhtml -t ${PACKAGE_NAME} -p ${PWD}/${SRC_DIR} --branch-coverage -o coverage/${SRC_DIR} cleanedCoverage_${PACKAGE_NAME}.info
