@@ -3,7 +3,6 @@
 sudo apt-get update
 sudo apt-get install -y lsb-core
 sudo apt-get install -y --no-install-recommends build-essential castxml cmake libgtest-dev liblapacke-dev libopenblas-dev libpugixml-dev sqlite3
-sudo apt remove python-pygments
 
 IS_PYTHON_3_10=0
 echo "!!!!!!! Python version: ${PYTHON_BINDING_VERSION} !!!!!!!"
@@ -85,4 +84,5 @@ if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
 
 fi
 
+sudo apt remove python3-pygments
 sudo pip${PYTHON_BINDING_VERSION} install -r .github/workflows/requirements.txt
