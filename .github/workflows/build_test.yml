@@ -24,24 +24,21 @@ jobs:
             CC: /usr/bin/clang-10
             CXX: /usr/bin/clang++-10
             PYTHON_BINDING_VERSION: "3.10"
+            PYTHON_PACKAGE_FOLDER_NAME: "site-packages"
           - os: ubuntu-22.04
             compiler: gcc11
             EXTRA_PACKAGES: ""
             CC: ""
             CXX: ""
             PYTHON_BINDING_VERSION: "3.10"
+            PYTHON_PACKAGE_FOLDER_NAME: "site-packages"
           - os: ubuntu-22.04
             compiler: clang14
             EXTRA_PACKAGES: clang-14
             CC: /usr/bin/clang-14
             CXX: /usr/bin/clang++-14
             PYTHON_BINDING_VERSION: "3.10"
-          - os: ubuntu-24.04
-            compiler: gcc-13
-            EXTRA_PACKAGES: ""
-            CC: ""
-            CXX: ""
-            PYTHON_BINDING_VERSION: "3.12"
+            PYTHON_PACKAGE_FOLDER_NAME: "site-packages"
 
     name: ${{ matrix.os }}, ${{ matrix.compiler }}, python-${{ matrix.PYTHON_BINDING_VERSION }}
     runs-on: ${{ matrix.os }}
