@@ -8,7 +8,7 @@ on:
 
 env:
   GTEST_OUTPUT: "xml:test_results"
-  BUILDCMD: "colcon build --event-handlers console_direct+ --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DBUILD_HARDENING=ON -DBUILD_TESTING=ON -DBUILD_PYTHON_BINDING=ON -DPYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION} && colcon test --event-handlers console_direct+ --packages-select ad_rss ad_rss_map_integration && colcon test-result"
+  BUILDCMD: "colcon build --event-handlers console_direct+ --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DBUILD_HARDENING=ON -DBUILD_TESTING=ON -DBUILD_PYTHON_BINDING=ON -DPYTHON_BINDING_VERSION=${PYTHON_BINDING_VERSION} -DPYTHON_PACKAGE_FOLDER_NAME=${PYTHON_PACKAGE_FOLDER_NAME} && colcon test --event-handlers console_direct+ --packages-select ad_rss ad_rss_map_integration && colcon test-result"
 
 permissions:
   contents: read
@@ -44,6 +44,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       PYTHON_BINDING_VERSION: ${{ matrix.PYTHON_BINDING_VERSION }}
+      PYTHON_PACKAGE_FOLDER_NAME: ${{ matrix.PYTHON_PACKAGE_FOLDER_NAME }}
       EXTRA_PACKAGES: ${{ matrix.EXTRA_PACKAGES }}
 
     steps:
