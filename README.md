@@ -136,16 +136,14 @@ To download the library, you may run:
 ```
 
 #### Supported systems <a name="systems"></a>
-Development systems are Ubuntu 20.04 and Ubuntu 22.04
+Development systems are Ubuntu 20.04 and 22.04
 Following compiler and Python combinations are [tested continously](https://github.com/intel/ad-rss-lib/blob/main/.github/workflows/build_test.yml):
 
 |                 | Ubuntu 20.04 | Ubuntu 22.04 |
 |:---------------:|:------------:|:------------:|
-|   GCC 9         |       x      |              |
 |  Clang 10       |       x      |              |
 |   GCC 11        |              |       x      |
 |  Clang 14       |              |       x      |
-|  Python 3.8     |       x      |              |
 |  Python 3.10    |       x      |       x      |
 
 Important: cmake is required to be at least version 3.5!

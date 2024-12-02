@@ -84,4 +84,5 @@ if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
 
 fi
 
+sudo apt remove python3-pygments
 sudo pip${PYTHON_BINDING_VERSION} install -r .github/workflows/requirements.txt

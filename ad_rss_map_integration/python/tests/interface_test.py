@@ -197,9 +197,6 @@ class AdRssMapIntegrationPythonTest(unittest.TestCase):
 if __name__ == '__main__':
     if os.environ.get('GTEST_OUTPUT') and os.environ['GTEST_OUTPUT'].startswith('xml:'):
         base_folder = os.environ['GTEST_OUTPUT'][4:]
-        result_filename = base_folder + 'ad_rss_map_integration_interface_test_python' + \
-            str(sys.version_info.major) + ".xml"
-        with open(result_filename, "w+") as result_file:
-            unittest.main(testRunner=xmlrunner.XMLTestRunner(output=result_file))
+        unittest.main(testRunner=xmlrunner.XMLTestRunner(output=base_folder))
     else:
         unittest.main()

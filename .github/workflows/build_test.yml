@@ -19,12 +19,6 @@ jobs:
       matrix:
         include:
           - os: ubuntu-20.04
-            compiler: gcc9
-            EXTRA_PACKAGES: ""
-            CC: ""
-            CXX: ""
-            PYTHON_BINDING_VERSION: "3.8"
-          - os: ubuntu-20.04
             compiler: clang10
             EXTRA_PACKAGES: clang-10
             CC: /usr/bin/clang-10
