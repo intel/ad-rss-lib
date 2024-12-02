@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # ----------------- BEGIN LICENSE BLOCK ---------------------------------
 #
-# Copyright (c) 2019-2020 Intel Corporation
+# Copyright (c) 2019-2022 Intel Corporation
 #
 # ----------------- END LICENSE BLOCK -----------------------------------
 
@@ -33,7 +33,7 @@ def get_list_of_files(directory, ignore_files):
             for ignore_file in ignore_files:
                 if full_path.find(ignore_file) != -1:
                     skip = True
-                    print ("Skipping file: " + full_path)
+                    print("Skipping file: " + full_path)
             if not skip:
                 if full_path.endswith(".h") or full_path.endswith(".hpp"):
                     all_files.append(full_path)
@@ -41,7 +41,7 @@ def get_list_of_files(directory, ignore_files):
     return all_files
 
 
-def generate_python_wrapper(header_directories, include_paths, library_name, cpp_filename, declarations, main_namespace="", ignore_declarations={}, ignore_files={}):
+def generate_python_wrapper(header_directories, include_paths, library_name, cpp_filename, declarations, main_namespace="", ignore_declarations={}, ignore_files={}, add_declarations={}):
     """
     Function to generate Python-C++ binding code by calling pygccxml and py++
 
@@ -60,6 +60,10 @@ def generate_python_wrapper(header_directories, include_paths, library_name, cpp
     :type ignore_declarations: list<string>
     :param ignore_files: a list of files to be ignored
     :type ignore_files: list<string>
+    :param add_declarations: a list of declarations to be explicitly enabled searched for in
+      against the full declaration string resulting from '"{}".format(decl)' output
+     (useful e.g. for typedefs to template types which are not as such visible in the delcarations)
+    :type add_declarations: list<string>
     :return:
     """
 
@@ -67,20 +71,19 @@ def generate_python_wrapper(header_directories, include_paths, library_name, cpp
 
     # Find out the xml generator (gccxml or castxml)
     generator_path, generator_name = utils.find_xml_generator()
-    compiler = "g++"
-    compiler_path = "/usr/bin/g++"
+    compiler = "@CXX@"
 
     # Create configuration for CastXML
     xml_generator_config = parser.xml_generator_configuration_t(
         xml_generator_path=generator_path,
         xml_generator=generator_name,
         compiler=compiler,
-        compiler_path=compiler_path,
         start_with_declarations=declarations)
 
     # Set include dirs and cflags to avoid warnings and errors
     xml_generator_config.append_cflags("-std=c++@CMAKE_CXX_STANDARD@")
     xml_generator_config.append_cflags("-Wno-error=invalid-constexpr")
+    xml_generator_config.append_cflags("-DSAFE_DATATYPES_EXPLICIT_CONVERSION=1")
 
     for inc_dir in include_paths:
         xml_generator_config.include_paths.append(inc_dir)
@@ -124,32 +127,57 @@ def generate_python_wrapper(header_directories, include_paths, library_name, cpp
             top_namespace, main_namespace))
 
     for decl in builder.decls():
+        decl_full_string_and_type = "{}".format(decl)
+        # print("declaration {} (alias {}, full {})".format(decl.name, decl.alias, decl_full_string_and_type))
+        if main_namespace != "":
+            if isinstance(decl, decl_wrappers.class_wrapper.class_t) or isinstance(decl, decl_wrappers.class_wrapper.class_declaration_t) or isinstance(decl, decl_wrappers.typedef_wrapper.typedef_t) or isinstance(decl, decl_wrappers.enumeration_wrapper.enumeration_t):
+                decl_full_string = decl_full_string_and_type.split(" ")[0]
+                if main_namespace in decl_full_string:
+                    # namespace present, ok
+                    # print("typedef/class/enum main namespace found [ignore-{},exposed-{}]:
+                    # {}".format(decl.ignore, decl.already_exposed,
+                    # decl_full_string_and_type))
+                    pass
+                elif decl_full_string in main_namespace:
+                    # declaration is a parent of main namespace, ok
+                    # print("typedef/class/enum declaration of upper level namespace found
+                    # [ignore{},exposed{}]: {}".format(decl.ignore, decl.already_exposed,
+                    # decl_full_string_and_type))
+                    pass
+                elif top_namespace != "" and not top_namespace in decl_full_string:
+                    # global or std defaults, ok
+                    # print("typedef/class/enum outside top namespace found
+                    # [ignore-{},exposed-{}]: {}".format(decl.ignore, decl.already_exposed,
+                    # decl_full_string_and_type))
+                    pass
+                else:
+                    # print("typedef/class/enum outside of main namespace found
+                    # [ignore-{},exposed-{}]. Ignoring: {}".format(decl.ignore,
+                    # decl.already_exposed, decl_full_string_and_type))
+                    decl.exclude()
+                    decl.ignore = True
+                    # try to enforce that it's not exported anymore
+                    decl.already_exposed = True
+
+                if decl.ignore:
+                    if decl_full_string in declarations:
+                        decl.ignore = False
+                        decl.already_exposed = False
+                        # print("Ignored typedef/class/enum explicitly listed in delclarations
+                        # found. Reenable {}".format(decl_full_string_and_type))
+                    for add_declaration in add_declarations:
+                        if (add_declaration in decl.name) or (add_declaration in decl.alias) or (add_declaration in decl_full_string_and_type):
+                            decl.ignore = False
+                            decl.already_exposed = False
+                            # print("declaration to explicitly add found: {} (alias {})".format(decl, decl.alias))
+                            break
         for ignore_declaration in ignore_declarations:
-            if ignore_declaration in decl.name or ignore_declaration in decl.alias:
+            if (ignore_declaration in decl.name) or (ignore_declaration in decl.alias) or (ignore_declaration in decl_full_string_and_type):
                 decl.exclude()
                 decl.ignore = True
                 decl.already_exposed = True
                 # print("declaration to ignore found: {} (alias {})".format(decl, decl.alias))
                 break
-        if main_namespace != "":
-            if isinstance(decl, decl_wrappers.class_wrapper.class_t) or isinstance(decl, decl_wrappers.class_wrapper.class_declaration_t) or isinstance(decl, decl_wrappers.typedef_wrapper.typedef_t):
-                decl_full_string = "{}".format(decl)
-                if main_namespace in decl_full_string:
-                    # namespace present, ok
-                    # print("typedef/class main namespace found: {}".format(decl_full_string))
-                    continue
-                if decl_full_string in main_namespace:
-                    # declaration is a parent of main namespace, ok
-                    # print("typedef/class declaration of upper level namespace found: {}".format(decl_full_string))
-                    continue
-                if top_namespace != "" and not top_namespace in decl_full_string:
-                    # global or std defaults, ok
-                    # print("typedef/class outside top namespace found: {}".format(decl_full_string))
-                    continue
-                # print("typedef/class outside of main namespace found. Ignoring: {}".format(decl_full_string))
-                decl.exclude()
-                decl.ignore = True
-                decl.already_exposed = True
 
     # debug declarations
     # builder.print_declarations()
@@ -168,7 +196,7 @@ def generate_python_wrapper(header_directories, include_paths, library_name, cpp
     print("generate_python_wrapper(): {} written.".format(cpp_filename))
 
 
-def post_process_python_wrapper(header_directories, cpp_filename_in, cpp_filename_out, additional_replacements={}, additional_includes={}, spdx_license="MIT", fix_include_directives=True, fix_enum_class=True):
+def post_process_python_wrapper(header_directories, cpp_filename_in, cpp_filename_out, additional_replacements=[], additional_includes={}, spdx_license="MIT", fix_include_directives=True, fix_enum_class=True):
     """
     Post process generated binding code
 
@@ -204,7 +232,7 @@ def post_process_python_wrapper(header_directories, cpp_filename_in, cpp_filenam
             file_output.write("/*\n"
                               " * ----------------- BEGIN LICENSE BLOCK ---------------------------------\n"
                               " *\n"
-                              " * Copyright (c) 2020 Intel Corporation\n"
+                              " * Copyright (c) 2020-2021 Intel Corporation\n"
                               " *\n"
                               " * SPDX-License-Identifier: " + spdx_license + "\n"
                               " *\n"
@@ -228,7 +256,7 @@ def post_process_python_wrapper(header_directories, cpp_filename_in, cpp_filenam
             for header_dir in header_directories:
                 if not header_dir.endswith("/"):
                     header_dir = header_dir + "/"
-                line = line.replace(header_dir, "")
+                line = str.replace(line, header_dir, "")
 
         # Fix C++ enum classes
         if fix_enum_class:
@@ -236,7 +264,7 @@ def post_process_python_wrapper(header_directories, cpp_filename_in, cpp_filenam
                 if line.find("export_values()") != -1:
                     enum_started = False
                 else:
-                    line = line.replace(enum_namespace, enum_namespace_full)
+                    line = str.replace(line, enum_namespace, enum_namespace_full)
             else:
                 match = enum_declaration_start.match(line)
                 if match:
@@ -246,7 +274,7 @@ def post_process_python_wrapper(header_directories, cpp_filename_in, cpp_filenam
                     enum_namespace_full = match.group(1) + "::"
 
         for replacement in additional_replacements:
-            line = line.replace(replacement[0], replacement[1])
+            line = str.replace(line, replacement[0], replacement[1])
 
         file_output.write(line)
 
