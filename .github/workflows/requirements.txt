@@ -10,5 +10,5 @@ pyplusplus==1.8.5
 setuptools==75.1.0
 six==1.16.0
 testresources==2.0.1
-xmlrunner==1.7.7
+unittest-xml-reporting==3.2.0
 
