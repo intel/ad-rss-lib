@@ -18,8 +18,6 @@ jobs:
         include:
           - os: ubuntu-20.04
             PYTHON_BINDING_VERSION: "3.10"
-          - os: ubuntu-20.04
-            PYTHON_BINDING_VERSION: "3.8"
 
     name: ${{ matrix.os }}, python-${{ matrix.PYTHON_BINDING_VERSION }}
     runs-on: ${{ matrix.os }}
