@@ -15,6 +15,8 @@ jobs:
       contents: write
 
     runs-on: ubuntu-20.04
+    env:
+      PYTHON_BINDING_VERSION: "3.10"
 
     steps:
     - name: Harden Runner
