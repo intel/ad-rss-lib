@@ -7,7 +7,7 @@ pygccxml==2.6.1
 Pygments==2.18.0
 pymdown-extensions==10.13
 pyplusplus==1.8.5
-setuptools==75.6.0
+setuptools==75.7.0
 six==1.17.0
 testresources==2.0.1
 unittest-xml-reporting==3.2.0
