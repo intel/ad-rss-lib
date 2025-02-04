@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: LGPL-2.1-only
 #
 # ----------------- END LICENSE BLOCK -----------------------------------
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
 
 include(../cmake/ad-rss-lib-version.cmake)
 project(ad_rss VERSION ${AD-RSS-LIB_VERSION})
@@ -26,7 +26,7 @@ include(CMakePackageConfigHelpers)
 set(ad_rss_TARGET_INCLUDE_DIRECTORIES)
 set(ad_rss_TARGET_LINK_LIBRARIES)
 
-find_package(Boost REQUIRED)
+find_package(Boost CONFIG REQUIRED)
 list(APPEND ad_rss_TARGET_INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIRS})
 list(APPEND ad_rss_TARGET_LINK_LIBRARIES ${Boost_LIBRARIES})
 

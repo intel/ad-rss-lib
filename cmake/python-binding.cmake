@@ -43,13 +43,13 @@ function(find_python_binding_packages)
     find_package(PythonLibs EXACT "${PYTHON_BINDING_VERSION}" REQUIRED)
   endif()
 
-  find_package(Boost REQUIRED)
+  find_package(Boost CONFIG REQUIRED)
   if(${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION} VERSION_GREATER 1.66)
     set(BOOST_PYTHON_COMPONENT python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
   else()
     set(BOOST_PYTHON_COMPONENT python-py${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
   endif()
-  find_package(Boost COMPONENTS REQUIRED ${BOOST_PYTHON_COMPONENT})
+  find_package(Boost CONFIG COMPONENTS REQUIRED ${BOOST_PYTHON_COMPONENT})
 
   set(PYTHON_BINDING_NAME
     "python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}"
