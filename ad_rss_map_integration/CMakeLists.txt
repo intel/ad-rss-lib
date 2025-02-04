@@ -6,7 +6,7 @@
 #
 # ----------------- END LICENSE BLOCK -----------------------------------
 
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
 
 include(../cmake/ad-rss-lib-version.cmake)
 project(ad_rss_map_integration VERSION ${AD-RSS-LIB_VERSION})

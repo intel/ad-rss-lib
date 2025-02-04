@@ -50,12 +50,12 @@ if [[ "${BUILD_DOCU}x" != "x" ]]; then
 fi
 
 if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
-  echo "!!!!!!! Ubunut 20.04 and python 3.10: compile boost 1.80 !!!!!!!"
+  echo "!!!!!!! Ubunut 20.04 and python 3.10: compile boost 1.78 !!!!!!!"
   pushd dependencies
 
   BOOST_VERSION=1.78.0
   BOOST_PACKAGE_BASENAME=boost_${BOOST_VERSION//./_}
-  wget "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/${BOOST_PACKAGE_BASENAME}.tar.gz"
+  wget "https://archives.boost.io/release/${BOOST_VERSION}/source/${BOOST_PACKAGE_BASENAME}.tar.gz"
 
   tar -xzf ${BOOST_PACKAGE_BASENAME}.tar.gz
   pushd ${BOOST_PACKAGE_BASENAME}
@@ -85,4 +85,4 @@ if (( IS_UBUNTU_20_04 && IS_PYTHON_3_10 )); then
 fi
 
 sudo apt remove python3-pygments
-sudo pip${PYTHON_BINDING_VERSION} install -r .github/workflows/requirements.txt
+sudo python${PYTHON_BINDING_VERSION} -m pip install -r .github/workflows/requirements.txt
