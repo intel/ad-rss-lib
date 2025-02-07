@@ -6,7 +6,7 @@ mkdocs==1.6.1
 pygccxml==2.6.1
 Pygments==2.19.1
 pymdown-extensions==10.14.3
-pyplusplus==1.8.5
+pyplusplus==1.8.7
 setuptools==75.8.0
 six==1.17.0
 testresources==2.0.1
