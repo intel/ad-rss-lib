@@ -145,7 +145,7 @@ Following compiler and Python combinations are [tested continously](https://gith
 |  Clang 14       |       x      |
 |  Python 3.10    |       x      |
 
-Important: cmake is required to be at least version 3.5!
+Important: cmake is required to be at least version 3.10!
 
 ## Building the library <a name="building"></a>
 See the detailed [Build instructions](https://intel.github.io/ad-rss-lib/BUILDING/index.html).
