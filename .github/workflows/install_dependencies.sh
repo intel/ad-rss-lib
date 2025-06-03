@@ -19,11 +19,7 @@ if [ `lsb_release -a | grep Release | grep "22.04" | wc -l` == 1 ]; then
   fi
 fi
 
-if (( IS_PYTHON_3_10==0 )); then
-  echo "!!!!!!! Not python 3.10: install python${PYTHON_BINDING_VERSION} and boost !!!!!!!"
-  sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}
-  sudo apt-get install -y --no-install-recommends libboost-all-dev
-fi
+sudo apt-get install -y --no-install-recommends libboost-all-dev
 
 sudo apt-get install -y --no-install-recommends python${PYTHON_BINDING_VERSION}-dev libpython${PYTHON_BINDING_VERSION}-dev
 curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python${PYTHON_BINDING_VERSION}
