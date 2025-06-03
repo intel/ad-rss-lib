@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>ad_rss_map_integration</name>
+  <version>5.0.0</version>
+  <description>ad_rss_map_integration</description>
+  <maintainer email="bernd.gassmann@intel.com">Intel Corporation</maintainer>
+  <license>LGPL-2.1-only</license>
+
+  <exec_depend>ad_map_access</exec_depend>
+  <exec_depend>ad_rss</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
