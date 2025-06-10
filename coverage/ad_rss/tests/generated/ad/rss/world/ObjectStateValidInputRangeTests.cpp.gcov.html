@@ -37,11 +37,11 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">34</td>
-            <td class="headerCovTableEntry">34</td>
+            <td class="headerCovTableEntry">51</td>
+            <td class="headerCovTableEntry">51</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">34</td>
-            <td class="headerCovTableEntry">204</td>
-            <td class="headerCovTableEntryLo">16.7 %</td>
+            <td class="headerCovTableEntry">51</td>
+            <td class="headerCovTableEntry">238</td>
+            <td class="headerCovTableEntryLo">21.4 %</td>
           </tr>
           <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -89,7 +89,7 @@
 <a name="18"><span class="lineNum">      18 </span>                :            : </a>
 <a name="19"><span class="lineNum">      19 </span>                :            : #include &quot;ad/rss/world/ObjectStateValidInputRange.hpp&quot;</a>
 <a name="20"><span class="lineNum">      20 </span>                :            : </a>
-<a name="21"><span class="lineNum">      21 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRange)</span></a>
+<a name="21"><span class="lineNum">      21 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRange)</span></a>
 <a name="22"><span class="lineNum">      22 </span>                :            : {</a>
 <a name="23"><span class="lineNum">      23 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="24"><span class="lineNum">      24 </span>                :<span class="lineCov">          1 :   ::ad::physics::Angle valueYaw(-6.283185308);</span></a>
@@ -114,10 +114,11 @@
 <a name="43"><span class="lineNum">      43 </span>                :<span class="lineCov">          1 :   value.steeringAngle = valueSteeringAngle;</span></a>
 <a name="44"><span class="lineNum">      44 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_TRUE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="45"><span class="lineNum">      45 </span>                :            : }</a>
 <a name="46"><span class="lineNum">      46 </span>                :            : </a>
-<a name="47"><span class="lineNum">      47 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeYawTooSmall)</span></a>
+<a name="47"><span class="lineNum">      47 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeYawTooSmall)</span></a>
 <a name="48"><span class="lineNum">      48 </span>                :            : {</a>
 <a name="49"><span class="lineNum">      49 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="50"><span class="lineNum">      50 </span>                :<span class="lineCov">          1 :   ::ad::physics::Angle valueYaw(-6.283185308);</span></a>
@@ -146,10 +147,11 @@
 <a name="73"><span class="lineNum">      73 </span>                :<span class="lineCov">          1 :   value.yaw = invalidInitializedMember;</span></a>
 <a name="74"><span class="lineNum">      74 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="75"><span class="lineNum">      75 </span>                :            : }</a>
 <a name="76"><span class="lineNum">      76 </span>                :            : </a>
-<a name="77"><span class="lineNum">      77 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeYawTooBig)</span></a>
+<a name="77"><span class="lineNum">      77 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeYawTooBig)</span></a>
 <a name="78"><span class="lineNum">      78 </span>                :            : {</a>
 <a name="79"><span class="lineNum">      79 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="80"><span class="lineNum">      80 </span>                :<span class="lineCov">          1 :   ::ad::physics::Angle valueYaw(-6.283185308);</span></a>
@@ -178,20 +180,22 @@
 <a name="103"><span class="lineNum">     103 </span>                :<span class="lineCov">          1 :   value.yaw = invalidInitializedMember;</span></a>
 <a name="104"><span class="lineNum">     104 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="105"><span class="lineNum">     105 </span>                :            : }</a>
 <a name="106"><span class="lineNum">     106 </span>                :            : </a>
-<a name="107"><span class="lineNum">     107 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeyawDefault)</span></a>
+<a name="107"><span class="lineNum">     107 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeyawDefault)</span></a>
 <a name="108"><span class="lineNum">     108 </span>                :            : {</a>
 <a name="109"><span class="lineNum">     109 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="110"><span class="lineNum">     110 </span>                :<span class="lineCov">          1 :   ::ad::physics::Angle valueDefault;</span></a>
 <a name="111"><span class="lineNum">     111 </span>                :<span class="lineCov">          1 :   value.yaw = valueDefault;</span></a>
 <a name="112"><span class="lineNum">     112 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="113"><span class="lineNum">     113 </span>                :            : }</a>
 <a name="114"><span class="lineNum">     114 </span>                :            : </a>
-<a name="115"><span class="lineNum">     115 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeDimensionTooSmall)</span></a>
+<a name="115"><span class="lineNum">     115 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeDimensionTooSmall)</span></a>
 <a name="116"><span class="lineNum">     116 </span>                :            : {</a>
 <a name="117"><span class="lineNum">     117 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="118"><span class="lineNum">     118 </span>                :<span class="lineCov">          1 :   ::ad::physics::Angle valueYaw(-6.283185308);</span></a>
@@ -222,10 +226,11 @@
 <a name="143"><span class="lineNum">     143 </span>                :<span class="lineCov">          1 :   value.dimension = invalidInitializedMember;</span></a>
 <a name="144"><span class="lineNum">     144 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="145"><span class="lineNum">     145 </span>                :            : }</a>
 <a name="146"><span class="lineNum">     146 </span>                :            : </a>
-<a name="147"><span class="lineNum">     147 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeDimensionTooBig)</span></a>
+<a name="147"><span class="lineNum">     147 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeDimensionTooBig)</span></a>
 <a name="148"><span class="lineNum">     148 </span>                :            : {</a>
 <a name="149"><span class="lineNum">     149 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="150"><span class="lineNum">     150 </span>                :<span class="lineCov">          1 :   ::ad::physics::Angle valueYaw(-6.283185308);</span></a>
@@ -256,10 +261,11 @@
 <a name="175"><span class="lineNum">     175 </span>                :<span class="lineCov">          1 :   value.dimension = invalidInitializedMember;</span></a>
 <a name="176"><span class="lineNum">     176 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="177"><span class="lineNum">     177 </span>                :            : }</a>
 <a name="178"><span class="lineNum">     178 </span>                :            : </a>
-<a name="179"><span class="lineNum">     179 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeYawRateTooSmall)</span></a>
+<a name="179"><span class="lineNum">     179 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeYawRateTooSmall)</span></a>
 <a name="180"><span class="lineNum">     180 </span>                :            : {</a>
 <a name="181"><span class="lineNum">     181 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="182"><span class="lineNum">     182 </span>                :<span class="lineCov">          1 :   ::ad::physics::Angle valueYaw(-6.283185308);</span></a>
@@ -288,10 +294,11 @@
 <a name="205"><span class="lineNum">     205 </span>                :<span class="lineCov">          1 :   value.yawRate = invalidInitializedMember;</span></a>
 <a name="206"><span class="lineNum">     206 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="207"><span class="lineNum">     207 </span>                :            : }</a>
 <a name="208"><span class="lineNum">     208 </span>                :            : </a>
-<a name="209"><span class="lineNum">     209 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeYawRateTooBig)</span></a>
+<a name="209"><span class="lineNum">     209 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeYawRateTooBig)</span></a>
 <a name="210"><span class="lineNum">     210 </span>                :            : {</a>
 <a name="211"><span class="lineNum">     211 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="212"><span class="lineNum">     212 </span>                :<span class="lineCov">          1 :   ::ad::physics::Angle valueYaw(-6.283185308);</span></a>
@@ -320,20 +327,22 @@
 <a name="235"><span class="lineNum">     235 </span>                :<span class="lineCov">          1 :   value.yawRate = invalidInitializedMember;</span></a>
 <a name="236"><span class="lineNum">     236 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="237"><span class="lineNum">     237 </span>                :            : }</a>
 <a name="238"><span class="lineNum">     238 </span>                :            : </a>
-<a name="239"><span class="lineNum">     239 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeyawRateDefault)</span></a>
+<a name="239"><span class="lineNum">     239 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeyawRateDefault)</span></a>
 <a name="240"><span class="lineNum">     240 </span>                :            : {</a>
 <a name="241"><span class="lineNum">     241 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="242"><span class="lineNum">     242 </span>                :<span class="lineCov">          1 :   ::ad::physics::AngularVelocity valueDefault;</span></a>
 <a name="243"><span class="lineNum">     243 </span>                :<span class="lineCov">          1 :   value.yawRate = valueDefault;</span></a>
 <a name="244"><span class="lineNum">     244 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="245"><span class="lineNum">     245 </span>                :            : }</a>
 <a name="246"><span class="lineNum">     246 </span>                :            : </a>
-<a name="247"><span class="lineNum">     247 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeCenterPointTooSmall)</span></a>
+<a name="247"><span class="lineNum">     247 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeCenterPointTooSmall)</span></a>
 <a name="248"><span class="lineNum">     248 </span>                :            : {</a>
 <a name="249"><span class="lineNum">     249 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="250"><span class="lineNum">     250 </span>                :<span class="lineCov">          1 :   ::ad::physics::Angle valueYaw(-6.283185308);</span></a>
@@ -364,10 +373,11 @@
 <a name="275"><span class="lineNum">     275 </span>                :<span class="lineCov">          1 :   value.centerPoint = invalidInitializedMember;</span></a>
 <a name="276"><span class="lineNum">     276 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="277"><span class="lineNum">     277 </span>                :            : }</a>
 <a name="278"><span class="lineNum">     278 </span>                :            : </a>
-<a name="279"><span class="lineNum">     279 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeCenterPointTooBig)</span></a>
+<a name="279"><span class="lineNum">     279 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeCenterPointTooBig)</span></a>
 <a name="280"><span class="lineNum">     280 </span>                :            : {</a>
 <a name="281"><span class="lineNum">     281 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="282"><span class="lineNum">     282 </span>                :<span class="lineCov">          1 :   ::ad::physics::Angle valueYaw(-6.283185308);</span></a>
@@ -398,10 +408,11 @@
 <a name="307"><span class="lineNum">     307 </span>                :<span class="lineCov">          1 :   value.centerPoint = invalidInitializedMember;</span></a>
 <a name="308"><span class="lineNum">     308 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="309"><span class="lineNum">     309 </span>                :            : }</a>
 <a name="310"><span class="lineNum">     310 </span>                :            : </a>
-<a name="311"><span class="lineNum">     311 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeSpeedTooSmall)</span></a>
+<a name="311"><span class="lineNum">     311 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeSpeedTooSmall)</span></a>
 <a name="312"><span class="lineNum">     312 </span>                :            : {</a>
 <a name="313"><span class="lineNum">     313 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="314"><span class="lineNum">     314 </span>                :<span class="lineCov">          1 :   ::ad::physics::Angle valueYaw(-6.283185308);</span></a>
@@ -430,10 +441,11 @@
 <a name="337"><span class="lineNum">     337 </span>                :<span class="lineCov">          1 :   value.speed = invalidInitializedMember;</span></a>
 <a name="338"><span class="lineNum">     338 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="339"><span class="lineNum">     339 </span>                :            : }</a>
 <a name="340"><span class="lineNum">     340 </span>                :            : </a>
-<a name="341"><span class="lineNum">     341 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeSpeedTooBig)</span></a>
+<a name="341"><span class="lineNum">     341 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeSpeedTooBig)</span></a>
 <a name="342"><span class="lineNum">     342 </span>                :            : {</a>
 <a name="343"><span class="lineNum">     343 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="344"><span class="lineNum">     344 </span>                :<span class="lineCov">          1 :   ::ad::physics::Angle valueYaw(-6.283185308);</span></a>
@@ -462,20 +474,22 @@
 <a name="367"><span class="lineNum">     367 </span>                :<span class="lineCov">          1 :   value.speed = invalidInitializedMember;</span></a>
 <a name="368"><span class="lineNum">     368 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="369"><span class="lineNum">     369 </span>                :            : }</a>
 <a name="370"><span class="lineNum">     370 </span>                :            : </a>
-<a name="371"><span class="lineNum">     371 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRangespeedDefault)</span></a>
+<a name="371"><span class="lineNum">     371 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRangespeedDefault)</span></a>
 <a name="372"><span class="lineNum">     372 </span>                :            : {</a>
 <a name="373"><span class="lineNum">     373 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="374"><span class="lineNum">     374 </span>                :<span class="lineCov">          1 :   ::ad::physics::Speed valueDefault;</span></a>
 <a name="375"><span class="lineNum">     375 </span>                :<span class="lineCov">          1 :   value.speed = valueDefault;</span></a>
 <a name="376"><span class="lineNum">     376 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="377"><span class="lineNum">     377 </span>                :            : }</a>
 <a name="378"><span class="lineNum">     378 </span>                :            : </a>
-<a name="379"><span class="lineNum">     379 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeSteeringAngleTooSmall)</span></a>
+<a name="379"><span class="lineNum">     379 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeSteeringAngleTooSmall)</span></a>
 <a name="380"><span class="lineNum">     380 </span>                :            : {</a>
 <a name="381"><span class="lineNum">     381 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="382"><span class="lineNum">     382 </span>                :<span class="lineCov">          1 :   ::ad::physics::Angle valueYaw(-6.283185308);</span></a>
@@ -504,10 +518,11 @@
 <a name="405"><span class="lineNum">     405 </span>                :<span class="lineCov">          1 :   value.steeringAngle = invalidInitializedMember;</span></a>
 <a name="406"><span class="lineNum">     406 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="407"><span class="lineNum">     407 </span>                :            : }</a>
 <a name="408"><span class="lineNum">     408 </span>                :            : </a>
-<a name="409"><span class="lineNum">     409 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeSteeringAngleTooBig)</span></a>
+<a name="409"><span class="lineNum">     409 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRangeSteeringAngleTooBig)</span></a>
 <a name="410"><span class="lineNum">     410 </span>                :            : {</a>
 <a name="411"><span class="lineNum">     411 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="412"><span class="lineNum">     412 </span>                :<span class="lineCov">          1 :   ::ad::physics::Angle valueYaw(-6.283185308);</span></a>
@@ -536,17 +551,19 @@
 <a name="435"><span class="lineNum">     435 </span>                :<span class="lineCov">          1 :   value.steeringAngle = invalidInitializedMember;</span></a>
 <a name="436"><span class="lineNum">     436 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="437"><span class="lineNum">     437 </span>                :            : }</a>
 <a name="438"><span class="lineNum">     438 </span>                :            : </a>
-<a name="439"><span class="lineNum">     439 </span>                :<span class="lineCov">          2 : TEST(ObjectStateValidInputRangeTests, testValidInputRangesteeringAngleDefault)</span></a>
+<a name="439"><span class="lineNum">     439 </span>                :<span class="lineCov">          4 : TEST(ObjectStateValidInputRangeTests, testValidInputRangesteeringAngleDefault)</span></a>
 <a name="440"><span class="lineNum">     440 </span>                :            : {</a>
 <a name="441"><span class="lineNum">     441 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectState value;</span></a>
 <a name="442"><span class="lineNum">     442 </span>                :<span class="lineCov">          1 :   ::ad::physics::Angle valueDefault;</span></a>
 <a name="443"><span class="lineNum">     443 </span>                :<span class="lineCov">          1 :   value.steeringAngle = valueDefault;</span></a>
 <a name="444"><span class="lineNum">     444 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="445"><span class="lineNum">     445 </span>                :            : }</a>
 </pre>
       </td>

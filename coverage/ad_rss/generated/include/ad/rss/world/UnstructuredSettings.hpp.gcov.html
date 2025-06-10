@@ -31,13 +31,13 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">74</td>
-            <td class="headerCovTableEntry">74</td>
+            <td class="headerCovTableEntry">75</td>
+            <td class="headerCovTableEntry">75</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -335,55 +335,55 @@
 <a name="264"><span class="lineNum">     264 </span>                :            :  * \returns The stream object.</a>
 <a name="265"><span class="lineNum">     265 </span>                :            :  *</a>
 <a name="266"><span class="lineNum">     266 </span>                :            :  */</a>
-<a name="267"><span class="lineNum">     267 </span>                :<span class="lineCov">    4035520 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, UnstructuredSettings const &amp;_value)</span></a>
+<a name="267"><span class="lineNum">     267 </span>                :<span class="lineCov">    4035517 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, UnstructuredSettings const &amp;_value)</span></a>
 <a name="268"><span class="lineNum">     268 </span>                :            : {</a>
-<a name="269"><span class="lineNum">     269 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;UnstructuredSettings(&quot;;</span></a>
-<a name="270"><span class="lineNum">     270 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;pedestrianTurningRadius:&quot;;</span></a>
-<a name="271"><span class="lineNum">     271 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; _value.pedestrianTurningRadius;</span></a>
-<a name="272"><span class="lineNum">     272 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="273"><span class="lineNum">     273 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;driveAwayMaxAngle:&quot;;</span></a>
-<a name="274"><span class="lineNum">     274 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; _value.driveAwayMaxAngle;</span></a>
-<a name="275"><span class="lineNum">     275 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="276"><span class="lineNum">     276 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;vehicleYawRateChange:&quot;;</span></a>
-<a name="277"><span class="lineNum">     277 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; _value.vehicleYawRateChange;</span></a>
-<a name="278"><span class="lineNum">     278 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="279"><span class="lineNum">     279 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;vehicleMinRadius:&quot;;</span></a>
-<a name="280"><span class="lineNum">     280 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; _value.vehicleMinRadius;</span></a>
-<a name="281"><span class="lineNum">     281 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="282"><span class="lineNum">     282 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;vehicleTrajectoryCalculationStep:&quot;;</span></a>
-<a name="283"><span class="lineNum">     283 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; _value.vehicleTrajectoryCalculationStep;</span></a>
-<a name="284"><span class="lineNum">     284 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="285"><span class="lineNum">     285 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;vehicleFrontIntermediateYawRateChangeRatioSteps:&quot;;</span></a>
-<a name="286"><span class="lineNum">     286 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; _value.vehicleFrontIntermediateYawRateChangeRatioSteps;</span></a>
-<a name="287"><span class="lineNum">     287 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="288"><span class="lineNum">     288 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;vehicleBackIntermediateYawRateChangeRatioSteps:&quot;;</span></a>
-<a name="289"><span class="lineNum">     289 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; _value.vehicleBackIntermediateYawRateChangeRatioSteps;</span></a>
-<a name="290"><span class="lineNum">     290 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="291"><span class="lineNum">     291 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;vehicleBrakeIntermediateAccelerationSteps:&quot;;</span></a>
-<a name="292"><span class="lineNum">     292 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; _value.vehicleBrakeIntermediateAccelerationSteps;</span></a>
-<a name="293"><span class="lineNum">     293 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="294"><span class="lineNum">     294 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;vehicleContinueForwardIntermediateAccelerationSteps:&quot;;</span></a>
-<a name="295"><span class="lineNum">     295 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; _value.vehicleContinueForwardIntermediateAccelerationSteps;</span></a>
-<a name="296"><span class="lineNum">     296 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="297"><span class="lineNum">     297 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;vehicleContinueForwardIntermediateYawRateChangeRatioSteps:&quot;;</span></a>
-<a name="298"><span class="lineNum">     298 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; _value.vehicleContinueForwardIntermediateYawRateChangeRatioSteps;</span></a>
-<a name="299"><span class="lineNum">     299 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="300"><span class="lineNum">     300 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;pedestrianContinueForwardIntermediateHeadingChangeRatioSteps:&quot;;</span></a>
-<a name="301"><span class="lineNum">     301 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; _value.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps;</span></a>
-<a name="302"><span class="lineNum">     302 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="303"><span class="lineNum">     303 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;pedestrianContinueForwardIntermediateAccelerationSteps:&quot;;</span></a>
-<a name="304"><span class="lineNum">     304 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; _value.pedestrianContinueForwardIntermediateAccelerationSteps;</span></a>
-<a name="305"><span class="lineNum">     305 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="306"><span class="lineNum">     306 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;pedestrianBrakeIntermediateAccelerationSteps:&quot;;</span></a>
-<a name="307"><span class="lineNum">     307 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; _value.pedestrianBrakeIntermediateAccelerationSteps;</span></a>
-<a name="308"><span class="lineNum">     308 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="309"><span class="lineNum">     309 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;pedestrianFrontIntermediateHeadingChangeRatioSteps:&quot;;</span></a>
-<a name="310"><span class="lineNum">     310 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; _value.pedestrianFrontIntermediateHeadingChangeRatioSteps;</span></a>
-<a name="311"><span class="lineNum">     311 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="312"><span class="lineNum">     312 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;pedestrianBackIntermediateHeadingChangeRatioSteps:&quot;;</span></a>
-<a name="313"><span class="lineNum">     313 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; _value.pedestrianBackIntermediateHeadingChangeRatioSteps;</span></a>
-<a name="314"><span class="lineNum">     314 </span>                :<span class="lineCov">    4035520 :   os &lt;&lt; &quot;)&quot;;</span></a>
-<a name="315"><span class="lineNum">     315 </span>                :<span class="lineCov">    4035520 :   return os;</span></a>
+<a name="269"><span class="lineNum">     269 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;UnstructuredSettings(&quot;;</span></a>
+<a name="270"><span class="lineNum">     270 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;pedestrianTurningRadius:&quot;;</span></a>
+<a name="271"><span class="lineNum">     271 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.pedestrianTurningRadius;</span></a>
+<a name="272"><span class="lineNum">     272 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="273"><span class="lineNum">     273 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;driveAwayMaxAngle:&quot;;</span></a>
+<a name="274"><span class="lineNum">     274 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.driveAwayMaxAngle;</span></a>
+<a name="275"><span class="lineNum">     275 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="276"><span class="lineNum">     276 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;vehicleYawRateChange:&quot;;</span></a>
+<a name="277"><span class="lineNum">     277 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.vehicleYawRateChange;</span></a>
+<a name="278"><span class="lineNum">     278 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="279"><span class="lineNum">     279 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;vehicleMinRadius:&quot;;</span></a>
+<a name="280"><span class="lineNum">     280 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.vehicleMinRadius;</span></a>
+<a name="281"><span class="lineNum">     281 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="282"><span class="lineNum">     282 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;vehicleTrajectoryCalculationStep:&quot;;</span></a>
+<a name="283"><span class="lineNum">     283 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.vehicleTrajectoryCalculationStep;</span></a>
+<a name="284"><span class="lineNum">     284 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="285"><span class="lineNum">     285 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;vehicleFrontIntermediateYawRateChangeRatioSteps:&quot;;</span></a>
+<a name="286"><span class="lineNum">     286 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.vehicleFrontIntermediateYawRateChangeRatioSteps;</span></a>
+<a name="287"><span class="lineNum">     287 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="288"><span class="lineNum">     288 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;vehicleBackIntermediateYawRateChangeRatioSteps:&quot;;</span></a>
+<a name="289"><span class="lineNum">     289 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.vehicleBackIntermediateYawRateChangeRatioSteps;</span></a>
+<a name="290"><span class="lineNum">     290 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="291"><span class="lineNum">     291 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;vehicleBrakeIntermediateAccelerationSteps:&quot;;</span></a>
+<a name="292"><span class="lineNum">     292 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.vehicleBrakeIntermediateAccelerationSteps;</span></a>
+<a name="293"><span class="lineNum">     293 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="294"><span class="lineNum">     294 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;vehicleContinueForwardIntermediateAccelerationSteps:&quot;;</span></a>
+<a name="295"><span class="lineNum">     295 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.vehicleContinueForwardIntermediateAccelerationSteps;</span></a>
+<a name="296"><span class="lineNum">     296 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="297"><span class="lineNum">     297 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;vehicleContinueForwardIntermediateYawRateChangeRatioSteps:&quot;;</span></a>
+<a name="298"><span class="lineNum">     298 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.vehicleContinueForwardIntermediateYawRateChangeRatioSteps;</span></a>
+<a name="299"><span class="lineNum">     299 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="300"><span class="lineNum">     300 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;pedestrianContinueForwardIntermediateHeadingChangeRatioSteps:&quot;;</span></a>
+<a name="301"><span class="lineNum">     301 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps;</span></a>
+<a name="302"><span class="lineNum">     302 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="303"><span class="lineNum">     303 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;pedestrianContinueForwardIntermediateAccelerationSteps:&quot;;</span></a>
+<a name="304"><span class="lineNum">     304 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.pedestrianContinueForwardIntermediateAccelerationSteps;</span></a>
+<a name="305"><span class="lineNum">     305 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="306"><span class="lineNum">     306 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;pedestrianBrakeIntermediateAccelerationSteps:&quot;;</span></a>
+<a name="307"><span class="lineNum">     307 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.pedestrianBrakeIntermediateAccelerationSteps;</span></a>
+<a name="308"><span class="lineNum">     308 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="309"><span class="lineNum">     309 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;pedestrianFrontIntermediateHeadingChangeRatioSteps:&quot;;</span></a>
+<a name="310"><span class="lineNum">     310 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.pedestrianFrontIntermediateHeadingChangeRatioSteps;</span></a>
+<a name="311"><span class="lineNum">     311 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="312"><span class="lineNum">     312 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;pedestrianBackIntermediateHeadingChangeRatioSteps:&quot;;</span></a>
+<a name="313"><span class="lineNum">     313 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; _value.pedestrianBackIntermediateHeadingChangeRatioSteps;</span></a>
+<a name="314"><span class="lineNum">     314 </span>                :<span class="lineCov">    4035517 :   os &lt;&lt; &quot;)&quot;;</span></a>
+<a name="315"><span class="lineNum">     315 </span>                :<span class="lineCov">    4035517 :   return os;</span></a>
 <a name="316"><span class="lineNum">     316 </span>                :            : }</a>
 <a name="317"><span class="lineNum">     317 </span>                :            : </a>
 <a name="318"><span class="lineNum">     318 </span>                :            : } // namespace world</a>
@@ -396,10 +396,10 @@
 <a name="325"><span class="lineNum">     325 </span>                :            :  */</a>
 <a name="326"><span class="lineNum">     326 </span>                :<span class="lineCov">          1 : inline std::string to_string(::ad::rss::world::UnstructuredSettings const &amp;value)</span></a>
 <a name="327"><span class="lineNum">     327 </span>                :            : {</a>
-<a name="328"><span class="lineNum">     328 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   stringstream sstream;</span></a>
+<a name="328"><span class="lineNum">     328 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   stringstream sstream;</span></a>
 <a name="329"><span class="lineNum">     329 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   sstream &lt;&lt; value;</span></a>
 <a name="330"><span class="lineNum">     330 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   return sstream.str();</span></a>
-<a name="331"><span class="lineNum">     331 </span>                :            : }</a>
+<a name="331"><span class="lineNum">     331 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="332"><span class="lineNum">     332 </span>                :            : } // namespace std</a>
 <a name="333"><span class="lineNum">     333 </span>                :            : #endif // GEN_GUARD_AD_RSS_WORLD_UNSTRUCTUREDSETTINGS</a>
 </pre>

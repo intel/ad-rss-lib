@@ -31,13 +31,13 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">21</td>
-            <td class="headerCovTableEntry">21</td>
+            <td class="headerCovTableEntry">22</td>
+            <td class="headerCovTableEntry">22</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -236,19 +236,19 @@
 <a name="164"><span class="lineNum">     164 </span>                :            :  * \returns The stream object.</a>
 <a name="165"><span class="lineNum">     165 </span>                :            :  *</a>
 <a name="166"><span class="lineNum">     166 </span>                :            :  */</a>
-<a name="167"><span class="lineNum">     167 </span>                :<span class="lineCov">    1004230 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, OccupiedRegion const &amp;_value)</span></a>
+<a name="167"><span class="lineNum">     167 </span>                :<span class="lineCov">    1004231 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, OccupiedRegion const &amp;_value)</span></a>
 <a name="168"><span class="lineNum">     168 </span>                :            : {</a>
-<a name="169"><span class="lineNum">     169 </span>                :<span class="lineCov">    1004230 :   os &lt;&lt; &quot;OccupiedRegion(&quot;;</span></a>
-<a name="170"><span class="lineNum">     170 </span>                :<span class="lineCov">    1004230 :   os &lt;&lt; &quot;segmentId:&quot;;</span></a>
-<a name="171"><span class="lineNum">     171 </span>                :<span class="lineCov">    1004230 :   os &lt;&lt; _value.segmentId;</span></a>
-<a name="172"><span class="lineNum">     172 </span>                :<span class="lineCov">    1004230 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="173"><span class="lineNum">     173 </span>                :<span class="lineCov">    1004230 :   os &lt;&lt; &quot;lonRange:&quot;;</span></a>
-<a name="174"><span class="lineNum">     174 </span>                :<span class="lineCov">    1004230 :   os &lt;&lt; _value.lonRange;</span></a>
-<a name="175"><span class="lineNum">     175 </span>                :<span class="lineCov">    1004230 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="176"><span class="lineNum">     176 </span>                :<span class="lineCov">    1004230 :   os &lt;&lt; &quot;latRange:&quot;;</span></a>
-<a name="177"><span class="lineNum">     177 </span>                :<span class="lineCov">    1004230 :   os &lt;&lt; _value.latRange;</span></a>
-<a name="178"><span class="lineNum">     178 </span>                :<span class="lineCov">    1004230 :   os &lt;&lt; &quot;)&quot;;</span></a>
-<a name="179"><span class="lineNum">     179 </span>                :<span class="lineCov">    1004230 :   return os;</span></a>
+<a name="169"><span class="lineNum">     169 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; &quot;OccupiedRegion(&quot;;</span></a>
+<a name="170"><span class="lineNum">     170 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; &quot;segmentId:&quot;;</span></a>
+<a name="171"><span class="lineNum">     171 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; _value.segmentId;</span></a>
+<a name="172"><span class="lineNum">     172 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="173"><span class="lineNum">     173 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; &quot;lonRange:&quot;;</span></a>
+<a name="174"><span class="lineNum">     174 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; _value.lonRange;</span></a>
+<a name="175"><span class="lineNum">     175 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="176"><span class="lineNum">     176 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; &quot;latRange:&quot;;</span></a>
+<a name="177"><span class="lineNum">     177 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; _value.latRange;</span></a>
+<a name="178"><span class="lineNum">     178 </span>                :<span class="lineCov">    1004231 :   os &lt;&lt; &quot;)&quot;;</span></a>
+<a name="179"><span class="lineNum">     179 </span>                :<span class="lineCov">    1004231 :   return os;</span></a>
 <a name="180"><span class="lineNum">     180 </span>                :            : }</a>
 <a name="181"><span class="lineNum">     181 </span>                :            : </a>
 <a name="182"><span class="lineNum">     182 </span>                :            : } // namespace world</a>
@@ -261,10 +261,10 @@
 <a name="189"><span class="lineNum">     189 </span>                :            :  */</a>
 <a name="190"><span class="lineNum">     190 </span>                :<span class="lineCov">          1 : inline std::string to_string(::ad::rss::world::OccupiedRegion const &amp;value)</span></a>
 <a name="191"><span class="lineNum">     191 </span>                :            : {</a>
-<a name="192"><span class="lineNum">     192 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   stringstream sstream;</span></a>
+<a name="192"><span class="lineNum">     192 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   stringstream sstream;</span></a>
 <a name="193"><span class="lineNum">     193 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   sstream &lt;&lt; value;</span></a>
 <a name="194"><span class="lineNum">     194 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   return sstream.str();</span></a>
-<a name="195"><span class="lineNum">     195 </span>                :            : }</a>
+<a name="195"><span class="lineNum">     195 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="196"><span class="lineNum">     196 </span>                :            : } // namespace std</a>
 <a name="197"><span class="lineNum">     197 </span>                :            : #endif // GEN_GUARD_AD_RSS_WORLD_OCCUPIEDREGION</a>
 </pre>

@@ -31,17 +31,17 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">831</td>
-            <td class="headerCovTableEntry">831</td>
+            <td class="headerCovTableEntry">832</td>
+            <td class="headerCovTableEntry">832</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">19</td>
-            <td class="headerCovTableEntry">19</td>
+            <td class="headerCovTableEntry">28</td>
+            <td class="headerCovTableEntry">28</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">71</td>
-            <td class="headerCovTableEntry">236</td>
-            <td class="headerCovTableEntryLo">30.1 %</td>
+            <td class="headerCovTableEntry">75</td>
+            <td class="headerCovTableEntry">244</td>
+            <td class="headerCovTableEntryLo">30.7 %</td>
           </tr>
           <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -98,7 +98,7 @@
 <a name="27"><span class="lineNum">      27 </span>                :<span class="lineCov">          9 :   virtual void SetUp() override</span></a>
 <a name="28"><span class="lineNum">      28 </span>                :            :   {</a>
 <a name="29"><span class="lineNum">      29 </span>                :            :     // valid initialization</a>
-<a name="30"><span class="lineNum">      30 </span>                :<span class="lineCov">         18 :     ::ad::rss::world::WorldModel value;</span></a>
+<a name="30"><span class="lineNum">      30 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::WorldModel value;</span></a>
 <a name="31"><span class="lineNum">      31 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits&lt;::ad::rss::world::TimeIndex&gt;::lowest());</span></a>
 <a name="32"><span class="lineNum">      32 </span>                :<span class="lineCov">          9 :     valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct</span></a>
 <a name="33"><span class="lineNum">      33 </span>                :<span class="lineCov">          9 :     value.timeIndex = valueTimeIndex;</span></a>
@@ -200,18 +200,18 @@
 <a name="129"><span class="lineNum">     129 </span>                :<span class="lineCov">          9 :       = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;</span></a>
 <a name="130"><span class="lineNum">     130 </span>                :<span class="lineCov">          9 :     valueDefaultEgoVehicleRssDynamics.unstructuredSettings = valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;</span></a>
 <a name="131"><span class="lineNum">     131 </span>                :<span class="lineCov">          9 :     value.defaultEgoVehicleRssDynamics = valueDefaultEgoVehicleRssDynamics;</span></a>
-<a name="132"><span class="lineNum">     132 </span>                :<span class="lineCov">         18 :     ::ad::rss::world::SceneVector valueScenes;</span></a>
-<a name="133"><span class="lineNum">     133 </span>                :<span class="lineCov">         18 :     ::ad::rss::world::Scene valueScenesElement;</span></a>
+<a name="132"><span class="lineNum">     132 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::SceneVector valueScenes;</span></a>
+<a name="133"><span class="lineNum">     133 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::Scene valueScenesElement;</span></a>
 <a name="134"><span class="lineNum">     134 </span>                :<span class="lineCov">          9 :     ::ad::rss::situation::SituationType valueScenesElementSituationType(</span></a>
 <a name="135"><span class="lineNum">     135 </span>                :            :       ::ad::rss::situation::SituationType::NotRelevant);</a>
 <a name="136"><span class="lineNum">     136 </span>                :<span class="lineCov">          9 :     valueScenesElement.situationType = valueScenesElementSituationType;</span></a>
-<a name="137"><span class="lineNum">     137 </span>                :<span class="lineCov">         18 :     ::ad::rss::world::Object valueScenesElementEgoVehicle;</span></a>
+<a name="137"><span class="lineNum">     137 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::Object valueScenesElementEgoVehicle;</span></a>
 <a name="138"><span class="lineNum">     138 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::ObjectId valueScenesElementEgoVehicleObjectId(</span></a>
 <a name="139"><span class="lineNum">     139 </span>                :            :       std::numeric_limits&lt;::ad::rss::world::ObjectId&gt;::lowest());</a>
 <a name="140"><span class="lineNum">     140 </span>                :<span class="lineCov">          9 :     valueScenesElementEgoVehicle.objectId = valueScenesElementEgoVehicleObjectId;</span></a>
 <a name="141"><span class="lineNum">     141 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::ObjectType valueScenesElementEgoVehicleObjectType(::ad::rss::world::ObjectType::Invalid);</span></a>
 <a name="142"><span class="lineNum">     142 </span>                :<span class="lineCov">          9 :     valueScenesElementEgoVehicle.objectType = valueScenesElementEgoVehicleObjectType;</span></a>
-<a name="143"><span class="lineNum">     143 </span>                :<span class="lineCov">         18 :     ::ad::rss::world::OccupiedRegionVector valueScenesElementEgoVehicleOccupiedRegions;</span></a>
+<a name="143"><span class="lineNum">     143 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::OccupiedRegionVector valueScenesElementEgoVehicleOccupiedRegions;</span></a>
 <a name="144"><span class="lineNum">     144 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::OccupiedRegion valueScenesElementEgoVehicleOccupiedRegionsElement;</span></a>
 <a name="145"><span class="lineNum">     145 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::LaneSegmentId valueScenesElementEgoVehicleOccupiedRegionsElementSegmentId(</span></a>
 <a name="146"><span class="lineNum">     146 </span>                :            :       std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::lowest());</a>
@@ -392,13 +392,13 @@
 <a name="321"><span class="lineNum">     321 </span>                :            :     valueScenesElementEgoVehicleRssDynamics.unstructuredSettings</a>
 <a name="322"><span class="lineNum">     322 </span>                :<span class="lineCov">          9 :       = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings;</span></a>
 <a name="323"><span class="lineNum">     323 </span>                :<span class="lineCov">          9 :     valueScenesElement.egoVehicleRssDynamics = valueScenesElementEgoVehicleRssDynamics;</span></a>
-<a name="324"><span class="lineNum">     324 </span>                :<span class="lineCov">         18 :     ::ad::rss::world::Object valueScenesElementObject;</span></a>
+<a name="324"><span class="lineNum">     324 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::Object valueScenesElementObject;</span></a>
 <a name="325"><span class="lineNum">     325 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::ObjectId valueScenesElementObjectObjectId(</span></a>
 <a name="326"><span class="lineNum">     326 </span>                :            :       std::numeric_limits&lt;::ad::rss::world::ObjectId&gt;::lowest());</a>
 <a name="327"><span class="lineNum">     327 </span>                :<span class="lineCov">          9 :     valueScenesElementObject.objectId = valueScenesElementObjectObjectId;</span></a>
 <a name="328"><span class="lineNum">     328 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::ObjectType valueScenesElementObjectObjectType(::ad::rss::world::ObjectType::Invalid);</span></a>
 <a name="329"><span class="lineNum">     329 </span>                :<span class="lineCov">          9 :     valueScenesElementObject.objectType = valueScenesElementObjectObjectType;</span></a>
-<a name="330"><span class="lineNum">     330 </span>                :<span class="lineCov">         18 :     ::ad::rss::world::OccupiedRegionVector valueScenesElementObjectOccupiedRegions;</span></a>
+<a name="330"><span class="lineNum">     330 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::OccupiedRegionVector valueScenesElementObjectOccupiedRegions;</span></a>
 <a name="331"><span class="lineNum">     331 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::OccupiedRegion valueScenesElementObjectOccupiedRegionsElement;</span></a>
 <a name="332"><span class="lineNum">     332 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::LaneSegmentId valueScenesElementObjectOccupiedRegionsElementSegmentId(</span></a>
 <a name="333"><span class="lineNum">     333 </span>                :            :       std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::lowest());</a>
@@ -567,8 +567,8 @@
 <a name="496"><span class="lineNum">     496 </span>                :<span class="lineCov">          9 :       = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;</span></a>
 <a name="497"><span class="lineNum">     497 </span>                :<span class="lineCov">          9 :     valueScenesElementObjectRssDynamics.unstructuredSettings = valueScenesElementObjectRssDynamicsUnstructuredSettings;</span></a>
 <a name="498"><span class="lineNum">     498 </span>                :<span class="lineCov">          9 :     valueScenesElement.objectRssDynamics = valueScenesElementObjectRssDynamics;</span></a>
-<a name="499"><span class="lineNum">     499 </span>                :<span class="lineCov">         18 :     ::ad::rss::world::RoadArea valueScenesElementIntersectingRoad;</span></a>
-<a name="500"><span class="lineNum">     500 </span>                :<span class="lineCov">         18 :     ::ad::rss::world::RoadSegment valueScenesElementIntersectingRoadElement;</span></a>
+<a name="499"><span class="lineNum">     499 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::RoadArea valueScenesElementIntersectingRoad;</span></a>
+<a name="500"><span class="lineNum">     500 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::RoadSegment valueScenesElementIntersectingRoadElement;</span></a>
 <a name="501"><span class="lineNum">     501 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::LaneSegment valueScenesElementIntersectingRoadElementElement;</span></a>
 <a name="502"><span class="lineNum">     502 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::LaneSegmentId valueScenesElementIntersectingRoadElementElementId(</span></a>
 <a name="503"><span class="lineNum">     503 </span>                :            :       std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::lowest());</a>
@@ -611,8 +611,8 @@
 <a name="540"><span class="lineNum">     540 </span>        [<span class="branchCov" title="Branch 0 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          9 :     valueScenesElementIntersectingRoadElement.resize(1, valueScenesElementIntersectingRoadElementElement);</span></a>
 <a name="541"><span class="lineNum">     541 </span>        [<span class="branchCov" title="Branch 0 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          9 :     valueScenesElementIntersectingRoad.resize(1, valueScenesElementIntersectingRoadElement);</span></a>
 <a name="542"><span class="lineNum">     542 </span>        [<span class="branchCov" title="Branch 0 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          9 :     valueScenesElement.intersectingRoad = valueScenesElementIntersectingRoad;</span></a>
-<a name="543"><span class="lineNum">     543 </span>                :<span class="lineCov">         18 :     ::ad::rss::world::RoadArea valueScenesElementEgoVehicleRoad;</span></a>
-<a name="544"><span class="lineNum">     544 </span>                :<span class="lineCov">         18 :     ::ad::rss::world::RoadSegment valueScenesElementEgoVehicleRoadElement;</span></a>
+<a name="543"><span class="lineNum">     543 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::RoadArea valueScenesElementEgoVehicleRoad;</span></a>
+<a name="544"><span class="lineNum">     544 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::RoadSegment valueScenesElementEgoVehicleRoadElement;</span></a>
 <a name="545"><span class="lineNum">     545 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::LaneSegment valueScenesElementEgoVehicleRoadElementElement;</span></a>
 <a name="546"><span class="lineNum">     546 </span>                :<span class="lineCov">          9 :     ::ad::rss::world::LaneSegmentId valueScenesElementEgoVehicleRoadElementElementId(</span></a>
 <a name="547"><span class="lineNum">     547 </span>                :            :       std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::lowest());</a>
@@ -663,46 +663,46 @@
 <a name="592"><span class="lineNum">     592 </span>                :            :   ::ad::rss::world::WorldModel mValue;</a>
 <a name="593"><span class="lineNum">     593 </span>                :            : };</a>
 <a name="594"><span class="lineNum">     594 </span>                :            : </a>
-<a name="595"><span class="lineNum">     595 </span>                :<span class="lineCov">          2 : TEST_F(WorldModelTests, copyConstruction)</span></a>
+<a name="595"><span class="lineNum">     595 </span>                :<span class="lineCov">          4 : TEST_F(WorldModelTests, copyConstruction)</span></a>
 <a name="596"><span class="lineNum">     596 </span>                :            : {</a>
-<a name="597"><span class="lineNum">     597 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::world::WorldModel value(mValue);</span></a>
+<a name="597"><span class="lineNum">     597 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::world::WorldModel value(mValue);</span></a>
 <a name="598"><span class="lineNum">     598 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_EQ(mValue, value);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
 <a name="599"><span class="lineNum">     599 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="600"><span class="lineNum">     600 </span>                :            : </a>
-<a name="601"><span class="lineNum">     601 </span>                :<span class="lineCov">          2 : TEST_F(WorldModelTests, moveConstruction)</span></a>
+<a name="601"><span class="lineNum">     601 </span>                :<span class="lineCov">          4 : TEST_F(WorldModelTests, moveConstruction)</span></a>
 <a name="602"><span class="lineNum">     602 </span>                :            : {</a>
-<a name="603"><span class="lineNum">     603 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::world::WorldModel tmpValue(mValue);</span></a>
-<a name="604"><span class="lineNum">     604 </span>                :<span class="lineCov">          2 :   ::ad::rss::world::WorldModel value(std::move(tmpValue));</span></a>
+<a name="603"><span class="lineNum">     603 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::world::WorldModel tmpValue(mValue);</span></a>
+<a name="604"><span class="lineNum">     604 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::WorldModel value(std::move(tmpValue));</span></a>
 <a name="605"><span class="lineNum">     605 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_EQ(mValue, value);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
 <a name="606"><span class="lineNum">     606 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="607"><span class="lineNum">     607 </span>                :            : </a>
-<a name="608"><span class="lineNum">     608 </span>                :<span class="lineCov">          2 : TEST_F(WorldModelTests, copyAssignment)</span></a>
+<a name="608"><span class="lineNum">     608 </span>                :<span class="lineCov">          4 : TEST_F(WorldModelTests, copyAssignment)</span></a>
 <a name="609"><span class="lineNum">     609 </span>                :            : {</a>
-<a name="610"><span class="lineNum">     610 </span>                :<span class="lineCov">          2 :   ::ad::rss::world::WorldModel value;</span></a>
+<a name="610"><span class="lineNum">     610 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::WorldModel value;</span></a>
 <a name="611"><span class="lineNum">     611 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   value = mValue;</span></a>
 <a name="612"><span class="lineNum">     612 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_EQ(mValue, value);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
 <a name="613"><span class="lineNum">     613 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="614"><span class="lineNum">     614 </span>                :            : </a>
-<a name="615"><span class="lineNum">     615 </span>                :<span class="lineCov">          2 : TEST_F(WorldModelTests, moveAssignment)</span></a>
+<a name="615"><span class="lineNum">     615 </span>                :<span class="lineCov">          4 : TEST_F(WorldModelTests, moveAssignment)</span></a>
 <a name="616"><span class="lineNum">     616 </span>                :            : {</a>
-<a name="617"><span class="lineNum">     617 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::world::WorldModel tmpValue(mValue);</span></a>
-<a name="618"><span class="lineNum">     618 </span>                :<span class="lineCov">          2 :   ::ad::rss::world::WorldModel value;</span></a>
+<a name="617"><span class="lineNum">     617 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::world::WorldModel tmpValue(mValue);</span></a>
+<a name="618"><span class="lineNum">     618 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::WorldModel value;</span></a>
 <a name="619"><span class="lineNum">     619 </span>                :<span class="lineCov">          1 :   value = std::move(tmpValue);</span></a>
 <a name="620"><span class="lineNum">     620 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_EQ(mValue, value);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
 <a name="621"><span class="lineNum">     621 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="622"><span class="lineNum">     622 </span>                :            : </a>
-<a name="623"><span class="lineNum">     623 </span>                :<span class="lineCov">          2 : TEST_F(WorldModelTests, comparisonOperatorEqual)</span></a>
+<a name="623"><span class="lineNum">     623 </span>                :<span class="lineCov">          4 : TEST_F(WorldModelTests, comparisonOperatorEqual)</span></a>
 <a name="624"><span class="lineNum">     624 </span>                :            : {</a>
-<a name="625"><span class="lineNum">     625 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::world::WorldModel valueA = mValue;</span></a>
-<a name="626"><span class="lineNum">     626 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::world::WorldModel valueB = mValue;</span></a>
+<a name="625"><span class="lineNum">     625 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::world::WorldModel valueA = mValue;</span></a>
+<a name="626"><span class="lineNum">     626 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::world::WorldModel valueB = mValue;</span></a>
 <a name="627"><span class="lineNum">     627 </span>                :            : </a>
 <a name="628"><span class="lineNum">     628 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_TRUE(valueA == valueB);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
@@ -712,7 +712,7 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="630"><span class="lineNum">     630 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="631"><span class="lineNum">     631 </span>                :            : </a>
-<a name="632"><span class="lineNum">     632 </span>                :<span class="lineCov">          2 : TEST_F(WorldModelTests, stringConversionTest)</span></a>
+<a name="632"><span class="lineNum">     632 </span>                :<span class="lineCov">          4 : TEST_F(WorldModelTests, stringConversionTest)</span></a>
 <a name="633"><span class="lineNum">     633 </span>                :            : {</a>
 <a name="634"><span class="lineNum">     634 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   std::stringstream stream;</span></a>
 <a name="635"><span class="lineNum">     635 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   stream &lt;&lt; mValue;</span></a>
@@ -720,15 +720,16 @@
 <a name="637"><span class="lineNum">     637 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   std::string toStr = std::to_string(mValue);</span></a>
 <a name="638"><span class="lineNum">     638 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_EQ(ostreamStr, toStr);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
-<a name="639"><span class="lineNum">     639 </span>                :            : }</a>
+<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<a name="639"><span class="lineNum">     639 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">          1 : }</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]
 <a name="640"><span class="lineNum">     640 </span>                :            : </a>
-<a name="641"><span class="lineNum">     641 </span>                :<span class="lineCov">          2 : TEST_F(WorldModelTests, comparisonOperatorTimeIndexDiffers)</span></a>
+<a name="641"><span class="lineNum">     641 </span>                :<span class="lineCov">          4 : TEST_F(WorldModelTests, comparisonOperatorTimeIndexDiffers)</span></a>
 <a name="642"><span class="lineNum">     642 </span>                :            : {</a>
-<a name="643"><span class="lineNum">     643 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::world::WorldModel valueA = mValue;</span></a>
+<a name="643"><span class="lineNum">     643 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::world::WorldModel valueA = mValue;</span></a>
 <a name="644"><span class="lineNum">     644 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::TimeIndex timeIndex(std::numeric_limits&lt;::ad::rss::world::TimeIndex&gt;::max());</span></a>
 <a name="645"><span class="lineNum">     645 </span>                :<span class="lineCov">          1 :   valueA.timeIndex = timeIndex;</span></a>
-<a name="646"><span class="lineNum">     646 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::world::WorldModel valueB = mValue;</span></a>
+<a name="646"><span class="lineNum">     646 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::world::WorldModel valueB = mValue;</span></a>
 <a name="647"><span class="lineNum">     647 </span>                :            : </a>
 <a name="648"><span class="lineNum">     648 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_FALSE(valueA == valueB);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
@@ -738,9 +739,9 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="650"><span class="lineNum">     650 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="651"><span class="lineNum">     651 </span>                :            : </a>
-<a name="652"><span class="lineNum">     652 </span>                :<span class="lineCov">          2 : TEST_F(WorldModelTests, comparisonOperatorDefaultEgoVehicleRssDynamicsDiffers)</span></a>
+<a name="652"><span class="lineNum">     652 </span>                :<span class="lineCov">          4 : TEST_F(WorldModelTests, comparisonOperatorDefaultEgoVehicleRssDynamicsDiffers)</span></a>
 <a name="653"><span class="lineNum">     653 </span>                :            : {</a>
-<a name="654"><span class="lineNum">     654 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::world::WorldModel valueA = mValue;</span></a>
+<a name="654"><span class="lineNum">     654 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::world::WorldModel valueA = mValue;</span></a>
 <a name="655"><span class="lineNum">     655 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RssDynamics defaultEgoVehicleRssDynamics;</span></a>
 <a name="656"><span class="lineNum">     656 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LongitudinalRssAccelerationValues defaultEgoVehicleRssDynamicsAlphaLon;</span></a>
 <a name="657"><span class="lineNum">     657 </span>                :<span class="lineCov">          1 :   ::ad::physics::Acceleration defaultEgoVehicleRssDynamicsAlphaLonAccelMax(1e2);</span></a>
@@ -833,7 +834,7 @@
 <a name="744"><span class="lineNum">     744 </span>                :<span class="lineCov">          1 :     = defaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;</span></a>
 <a name="745"><span class="lineNum">     745 </span>                :<span class="lineCov">          1 :   defaultEgoVehicleRssDynamics.unstructuredSettings = defaultEgoVehicleRssDynamicsUnstructuredSettings;</span></a>
 <a name="746"><span class="lineNum">     746 </span>                :<span class="lineCov">          1 :   valueA.defaultEgoVehicleRssDynamics = defaultEgoVehicleRssDynamics;</span></a>
-<a name="747"><span class="lineNum">     747 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::world::WorldModel valueB = mValue;</span></a>
+<a name="747"><span class="lineNum">     747 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::world::WorldModel valueB = mValue;</span></a>
 <a name="748"><span class="lineNum">     748 </span>                :            : </a>
 <a name="749"><span class="lineNum">     749 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_FALSE(valueA == valueB);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
@@ -843,19 +844,19 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="751"><span class="lineNum">     751 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="752"><span class="lineNum">     752 </span>                :            : </a>
-<a name="753"><span class="lineNum">     753 </span>                :<span class="lineCov">          2 : TEST_F(WorldModelTests, comparisonOperatorScenesDiffers)</span></a>
+<a name="753"><span class="lineNum">     753 </span>                :<span class="lineCov">          4 : TEST_F(WorldModelTests, comparisonOperatorScenesDiffers)</span></a>
 <a name="754"><span class="lineNum">     754 </span>                :            : {</a>
-<a name="755"><span class="lineNum">     755 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::world::WorldModel valueA = mValue;</span></a>
-<a name="756"><span class="lineNum">     756 </span>                :<span class="lineCov">          2 :   ::ad::rss::world::SceneVector scenes;</span></a>
-<a name="757"><span class="lineNum">     757 </span>                :<span class="lineCov">          2 :   ::ad::rss::world::Scene scenesElement;</span></a>
+<a name="755"><span class="lineNum">     755 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::world::WorldModel valueA = mValue;</span></a>
+<a name="756"><span class="lineNum">     756 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::SceneVector scenes;</span></a>
+<a name="757"><span class="lineNum">     757 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::Scene scenesElement;</span></a>
 <a name="758"><span class="lineNum">     758 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::SituationType scenesElementSituationType(::ad::rss::situation::SituationType::Unstructured);</span></a>
 <a name="759"><span class="lineNum">     759 </span>                :<span class="lineCov">          1 :   scenesElement.situationType = scenesElementSituationType;</span></a>
-<a name="760"><span class="lineNum">     760 </span>                :<span class="lineCov">          2 :   ::ad::rss::world::Object scenesElementEgoVehicle;</span></a>
+<a name="760"><span class="lineNum">     760 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::Object scenesElementEgoVehicle;</span></a>
 <a name="761"><span class="lineNum">     761 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectId scenesElementEgoVehicleObjectId(std::numeric_limits&lt;::ad::rss::world::ObjectId&gt;::max());</span></a>
 <a name="762"><span class="lineNum">     762 </span>                :<span class="lineCov">          1 :   scenesElementEgoVehicle.objectId = scenesElementEgoVehicleObjectId;</span></a>
 <a name="763"><span class="lineNum">     763 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectType scenesElementEgoVehicleObjectType(::ad::rss::world::ObjectType::ArtificialObject);</span></a>
 <a name="764"><span class="lineNum">     764 </span>                :<span class="lineCov">          1 :   scenesElementEgoVehicle.objectType = scenesElementEgoVehicleObjectType;</span></a>
-<a name="765"><span class="lineNum">     765 </span>                :<span class="lineCov">          2 :   ::ad::rss::world::OccupiedRegionVector scenesElementEgoVehicleOccupiedRegions;</span></a>
+<a name="765"><span class="lineNum">     765 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::OccupiedRegionVector scenesElementEgoVehicleOccupiedRegions;</span></a>
 <a name="766"><span class="lineNum">     766 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::OccupiedRegion scenesElementEgoVehicleOccupiedRegionsElement;</span></a>
 <a name="767"><span class="lineNum">     767 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegmentId scenesElementEgoVehicleOccupiedRegionsElementSegmentId(</span></a>
 <a name="768"><span class="lineNum">     768 </span>                :            :     std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::max());</a>
@@ -1014,12 +1015,12 @@
 <a name="921"><span class="lineNum">     921 </span>                :<span class="lineCov">          1 :     = scenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;</span></a>
 <a name="922"><span class="lineNum">     922 </span>                :<span class="lineCov">          1 :   scenesElementEgoVehicleRssDynamics.unstructuredSettings = scenesElementEgoVehicleRssDynamicsUnstructuredSettings;</span></a>
 <a name="923"><span class="lineNum">     923 </span>                :<span class="lineCov">          1 :   scenesElement.egoVehicleRssDynamics = scenesElementEgoVehicleRssDynamics;</span></a>
-<a name="924"><span class="lineNum">     924 </span>                :<span class="lineCov">          2 :   ::ad::rss::world::Object scenesElementObject;</span></a>
+<a name="924"><span class="lineNum">     924 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::Object scenesElementObject;</span></a>
 <a name="925"><span class="lineNum">     925 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectId scenesElementObjectObjectId(std::numeric_limits&lt;::ad::rss::world::ObjectId&gt;::max());</span></a>
 <a name="926"><span class="lineNum">     926 </span>                :<span class="lineCov">          1 :   scenesElementObject.objectId = scenesElementObjectObjectId;</span></a>
 <a name="927"><span class="lineNum">     927 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectType scenesElementObjectObjectType(::ad::rss::world::ObjectType::ArtificialObject);</span></a>
 <a name="928"><span class="lineNum">     928 </span>                :<span class="lineCov">          1 :   scenesElementObject.objectType = scenesElementObjectObjectType;</span></a>
-<a name="929"><span class="lineNum">     929 </span>                :<span class="lineCov">          2 :   ::ad::rss::world::OccupiedRegionVector scenesElementObjectOccupiedRegions;</span></a>
+<a name="929"><span class="lineNum">     929 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::OccupiedRegionVector scenesElementObjectOccupiedRegions;</span></a>
 <a name="930"><span class="lineNum">     930 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::OccupiedRegion scenesElementObjectOccupiedRegionsElement;</span></a>
 <a name="931"><span class="lineNum">     931 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegmentId scenesElementObjectOccupiedRegionsElementSegmentId(</span></a>
 <a name="932"><span class="lineNum">     932 </span>                :            :     std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::max());</a>
@@ -1172,8 +1173,8 @@
 <a name="1079"><span class="lineNum">    1079 </span>                :<span class="lineCov">          1 :     = scenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;</span></a>
 <a name="1080"><span class="lineNum">    1080 </span>                :<span class="lineCov">          1 :   scenesElementObjectRssDynamics.unstructuredSettings = scenesElementObjectRssDynamicsUnstructuredSettings;</span></a>
 <a name="1081"><span class="lineNum">    1081 </span>                :<span class="lineCov">          1 :   scenesElement.objectRssDynamics = scenesElementObjectRssDynamics;</span></a>
-<a name="1082"><span class="lineNum">    1082 </span>                :<span class="lineCov">          2 :   ::ad::rss::world::RoadArea scenesElementIntersectingRoad;</span></a>
-<a name="1083"><span class="lineNum">    1083 </span>                :<span class="lineCov">          2 :   ::ad::rss::world::RoadSegment scenesElementIntersectingRoadElement;</span></a>
+<a name="1082"><span class="lineNum">    1082 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RoadArea scenesElementIntersectingRoad;</span></a>
+<a name="1083"><span class="lineNum">    1083 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RoadSegment scenesElementIntersectingRoadElement;</span></a>
 <a name="1084"><span class="lineNum">    1084 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegment scenesElementIntersectingRoadElementElement;</span></a>
 <a name="1085"><span class="lineNum">    1085 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegmentId scenesElementIntersectingRoadElementElementId(</span></a>
 <a name="1086"><span class="lineNum">    1086 </span>                :            :     std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::max());</a>
@@ -1208,8 +1209,8 @@
 <a name="1115"><span class="lineNum">    1115 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   scenesElementIntersectingRoadElement.resize(1 + 1, scenesElementIntersectingRoadElementElement);</span></a>
 <a name="1116"><span class="lineNum">    1116 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   scenesElementIntersectingRoad.resize(0 + 1, scenesElementIntersectingRoadElement);</span></a>
 <a name="1117"><span class="lineNum">    1117 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   scenesElement.intersectingRoad = scenesElementIntersectingRoad;</span></a>
-<a name="1118"><span class="lineNum">    1118 </span>                :<span class="lineCov">          2 :   ::ad::rss::world::RoadArea scenesElementEgoVehicleRoad;</span></a>
-<a name="1119"><span class="lineNum">    1119 </span>                :<span class="lineCov">          2 :   ::ad::rss::world::RoadSegment scenesElementEgoVehicleRoadElement;</span></a>
+<a name="1118"><span class="lineNum">    1118 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RoadArea scenesElementEgoVehicleRoad;</span></a>
+<a name="1119"><span class="lineNum">    1119 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RoadSegment scenesElementEgoVehicleRoadElement;</span></a>
 <a name="1120"><span class="lineNum">    1120 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegment scenesElementEgoVehicleRoadElementElement;</span></a>
 <a name="1121"><span class="lineNum">    1121 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegmentId scenesElementEgoVehicleRoadElementElementId(</span></a>
 <a name="1122"><span class="lineNum">    1122 </span>                :            :     std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::max());</a>
@@ -1246,7 +1247,7 @@
 <a name="1153"><span class="lineNum">    1153 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   scenesElement.egoVehicleRoad = scenesElementEgoVehicleRoad;</span></a>
 <a name="1154"><span class="lineNum">    1154 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   scenes.resize(0 + 1, scenesElement);</span></a>
 <a name="1155"><span class="lineNum">    1155 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   valueA.scenes = scenes;</span></a>
-<a name="1156"><span class="lineNum">    1156 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::world::WorldModel valueB = mValue;</span></a>
+<a name="1156"><span class="lineNum">    1156 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::world::WorldModel valueB = mValue;</span></a>
 <a name="1157"><span class="lineNum">    1157 </span>                :            : </a>
 <a name="1158"><span class="lineNum">    1158 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_FALSE(valueA == valueB);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 

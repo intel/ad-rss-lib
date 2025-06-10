@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">11</td>
-            <td class="headerCovTableEntry">16</td>
-            <td class="headerCovTableEntryLo">68.8 %</td>
+            <td class="headerCovTableEntry">17</td>
+            <td class="headerCovTableEntryLo">64.7 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">6</td>
-            <td class="headerCovTableEntry">18</td>
-            <td class="headerCovTableEntryLo">33.3 %</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntryLo">31.2 %</td>
           </tr>
           <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -149,8 +149,8 @@
 <a name="78"><span class="lineNum">      78 </span>                :            :   {</a>
 <a name="79"><span class="lineNum">      79 </span>                :<span class="lineNoCov">          0 :     DebugPolygon(Polygon const &amp;iPolygon, std::string const &amp;iColor, std::string const &amp;iNs)</span></a>
 <a name="80"><span class="lineNum">      80 </span>                :<span class="lineNoCov">          0 :       : polygon(iPolygon)</span></a>
-<a name="81"><span class="lineNum">      81 </span>                :            :       , color(iColor)</a>
-<a name="82"><span class="lineNum">      82 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :       , ns(iNs)</span></a>
+<a name="81"><span class="lineNum">      81 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       , color(iColor)</span></a>
+<a name="82"><span class="lineNum">      82 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       , ns(iNs)</span></a>
 <a name="83"><span class="lineNum">      83 </span>                :            :     {</a>
 <a name="84"><span class="lineNum">      84 </span>                :<span class="lineNoCov">          0 :     }</span></a>
 <a name="85"><span class="lineNum">      85 </span>                :            :     Polygon polygon;</a>
@@ -177,7 +177,7 @@
 <a name="106"><span class="lineNum">     106 </span>                :            :   {</a>
 <a name="107"><span class="lineNum">     107 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1079 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">       1080 :     static DebugDrawing *mSingleton = new DebugDrawing();</span></a>
 <span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
-<a name="108"><span class="lineNum">     108 </span>        [<span class="branchCov" title="Branch 0 was taken 1080 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2160 :     return std::shared_ptr&lt;DebugDrawing&gt;(mSingleton, NullDeleter());</span></a>
+<a name="108"><span class="lineNum">     108 </span>                :<span class="lineCov">       1080 :     return std::shared_ptr&lt;DebugDrawing&gt;(mSingleton, NullDeleter());</span></a>
 <a name="109"><span class="lineNum">     109 </span>                :            :   }</a>
 <a name="110"><span class="lineNum">     110 </span>                :            : </a>
 <a name="111"><span class="lineNum">     111 </span>                :            :   /**</a>

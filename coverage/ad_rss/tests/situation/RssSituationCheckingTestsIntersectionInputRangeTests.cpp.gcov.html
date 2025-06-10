@@ -31,17 +31,17 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">67</td>
-            <td class="headerCovTableEntry">67</td>
+            <td class="headerCovTableEntry">68</td>
+            <td class="headerCovTableEntry">68</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">10</td>
-            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntry">14</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">10</td>
-            <td class="headerCovTableEntry">36</td>
-            <td class="headerCovTableEntryLo">27.8 %</td>
+            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntry">40</td>
+            <td class="headerCovTableEntryLo">30.0 %</td>
           </tr>
           <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -94,7 +94,7 @@
 <a name="23"><span class="lineNum">      23 </span>                :            : </a>
 <a name="24"><span class="lineNum">      24 </span>                :<span class="lineCov">          3 :   void performTestRun()</span></a>
 <a name="25"><span class="lineNum">      25 </span>                :            :   {</a>
-<a name="26"><span class="lineNum">      26 </span>                :<span class="lineCov">          6 :     RssStructuredSceneIntersectionChecker checker;</span></a>
+<a name="26"><span class="lineNum">      26 </span>                :<span class="lineCov">          3 :     RssStructuredSceneIntersectionChecker checker;</span></a>
 <a name="27"><span class="lineNum">      27 </span>  [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span> :<span class="lineCov">          3 :     EXPECT_FALSE(checker.calculateRssStateIntersection(timeIndex++, situation, rssState));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
@@ -106,7 +106,7 @@
 <a name="33"><span class="lineNum">      33 </span>                :            :   world::TimeIndex timeIndex{1u};</a>
 <a name="34"><span class="lineNum">      34 </span>                :            : };</a>
 <a name="35"><span class="lineNum">      35 </span>                :            : </a>
-<a name="36"><span class="lineNum">      36 </span>                :<span class="lineCov">          2 : TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, no_priority_vehicle)</span></a>
+<a name="36"><span class="lineNum">      36 </span>                :<span class="lineCov">          4 : TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, no_priority_vehicle)</span></a>
 <a name="37"><span class="lineNum">      37 </span>                :            : {</a>
 <a name="38"><span class="lineNum">      38 </span>                :<span class="lineCov">          1 :   RssStructuredSceneIntersectionChecker checker;</span></a>
 <a name="39"><span class="lineNum">      39 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   leadingVehicle = createVehicleStateForLongitudinalMotion(50);</span></a>
@@ -124,10 +124,11 @@
 <a name="51"><span class="lineNum">      51 </span>                :            : </a>
 <a name="52"><span class="lineNum">      52 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_TRUE(checker.calculateRssStateIntersection(timeIndex++, situation, rssState));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
-<a name="53"><span class="lineNum">      53 </span>                :            : }</a>
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
+<a name="53"><span class="lineNum">      53 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 : }</span></a>
 <a name="54"><span class="lineNum">      54 </span>                :            : </a>
-<a name="55"><span class="lineNum">      55 </span>                :<span class="lineCov">          2 : TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, distanceToLeaveSmallerEgo)</span></a>
+<a name="55"><span class="lineNum">      55 </span>                :<span class="lineCov">          4 : TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, distanceToLeaveSmallerEgo)</span></a>
 <a name="56"><span class="lineNum">      56 </span>                :            : {</a>
 <a name="57"><span class="lineNum">      57 </span>                :<span class="lineCov">          1 :   situation.egoVehicleState = createVehicleStateForLongitudinalMotion(120);</span></a>
 <a name="58"><span class="lineNum">      58 </span>                :<span class="lineCov">          1 :   situation.egoVehicleState.distanceToEnterIntersection = Distance(15.);</span></a>
@@ -148,7 +149,7 @@
 <a name="73"><span class="lineNum">      73 </span>                :<span class="lineCov">          1 :   performTestRun();</span></a>
 <a name="74"><span class="lineNum">      74 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="75"><span class="lineNum">      75 </span>                :            : </a>
-<a name="76"><span class="lineNum">      76 </span>                :<span class="lineCov">          2 : TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, distanceToLeaveSmallerOther)</span></a>
+<a name="76"><span class="lineNum">      76 </span>                :<span class="lineCov">          4 : TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, distanceToLeaveSmallerOther)</span></a>
 <a name="77"><span class="lineNum">      77 </span>                :            : {</a>
 <a name="78"><span class="lineNum">      78 </span>                :<span class="lineCov">          1 :   situation.egoVehicleState = createVehicleStateForLongitudinalMotion(120);</span></a>
 <a name="79"><span class="lineNum">      79 </span>                :<span class="lineCov">          1 :   situation.egoVehicleState.distanceToEnterIntersection = Distance(15.);</span></a>
@@ -169,7 +170,7 @@
 <a name="94"><span class="lineNum">      94 </span>                :<span class="lineCov">          1 :   performTestRun();</span></a>
 <a name="95"><span class="lineNum">      95 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="96"><span class="lineNum">      96 </span>                :            : </a>
-<a name="97"><span class="lineNum">      97 </span>                :<span class="lineCov">          2 : TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, both_priority_vehicle)</span></a>
+<a name="97"><span class="lineNum">      97 </span>                :<span class="lineCov">          4 : TEST_F(RssSituationCheckingTestsIntersectionInputRangeTests, both_priority_vehicle)</span></a>
 <a name="98"><span class="lineNum">      98 </span>                :            : {</a>
 <a name="99"><span class="lineNum">      99 </span>                :<span class="lineCov">          1 :   leadingVehicle = createVehicleStateForLongitudinalMotion(50);</span></a>
 <a name="100"><span class="lineNum">     100 </span>                :<span class="lineCov">          1 :   leadingVehicle.distanceToEnterIntersection = Distance(10.);</span></a>

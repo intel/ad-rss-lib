@@ -31,13 +31,13 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">75</td>
-            <td class="headerCovTableEntry">102</td>
-            <td class="headerCovTableEntryLo">73.5 %</td>
+            <td class="headerCovTableEntry">79</td>
+            <td class="headerCovTableEntry">106</td>
+            <td class="headerCovTableEntryLo">74.5 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -49,8 +49,8 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">93</td>
-            <td class="headerCovTableEntry">184</td>
+            <td class="headerCovTableEntry">94</td>
+            <td class="headerCovTableEntry">186</td>
             <td class="headerCovTableEntryLo">50.5 %</td>
           </tr>
           <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
@@ -158,12 +158,12 @@
 <a name="82"><span class="lineNum">      82 </span>                :<span class="lineCov">         45 : bool collides(ad::rss::world::UnstructuredTrajectorySet const &amp;trajectorySet1,</span></a>
 <a name="83"><span class="lineNum">      83 </span>                :            :               ad::rss::world::UnstructuredTrajectorySet const &amp;trajectorySet2)</a>
 <a name="84"><span class="lineNum">      84 </span>                :            : {</a>
-<a name="85"><span class="lineNum">      85 </span>        [<span class="branchCov" title="Branch 0 was taken 45 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         90 :   ad::rss::unstructured::Polygon polygon1;</span></a>
+<a name="85"><span class="lineNum">      85 </span>        [<span class="branchCov" title="Branch 0 was taken 45 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         45 :   ad::rss::unstructured::Polygon polygon1;</span></a>
 <a name="86"><span class="lineNum">      86 </span>        [<span class="branchCov" title="Branch 0 was taken 45 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         45 :   ad::rss::unstructured::Polygon polygon2;</span></a>
 <a name="87"><span class="lineNum">      87 </span>        [<span class="branchCov" title="Branch 0 was taken 45 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         45 :   toPolygon(trajectorySet1, polygon1);</span></a>
 <a name="88"><span class="lineNum">      88 </span>        [<span class="branchCov" title="Branch 0 was taken 45 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         45 :   toPolygon(trajectorySet2, polygon2);</span></a>
 <a name="89"><span class="lineNum">      89 </span>        [<span class="branchCov" title="Branch 0 was taken 45 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         90 :   return !boost::geometry::disjoint(polygon1, polygon2);</span></a>
-<a name="90"><span class="lineNum">      90 </span>                :            : }</a>
+<a name="90"><span class="lineNum">      90 </span>                :<span class="lineCov">         45 : }</span></a>
 <a name="91"><span class="lineNum">      91 </span>                :            : </a>
 <a name="92"><span class="lineNum">      92 </span>                :<span class="lineCov">         80 : bool isInsideHeadingRange(ad::physics::Angle const &amp;angle, ad::rss::state::HeadingRange const &amp;range)</span></a>
 <a name="93"><span class="lineNum">      93 </span>                :            : {</a>
@@ -206,7 +206,7 @@
 <a name="126"><span class="lineNum">     126 </span>                :            :       }</a>
 <a name="127"><span class="lineNum">     127 </span>                :<span class="lineCov">          3 :       range.begin = b.begin;</span></a>
 <a name="128"><span class="lineNum">     128 </span>                :<span class="lineCov">          3 :       range.end = a.end;</span></a>
-<a name="129"><span class="lineNum">     129 </span>                :            :     }</a>
+<a name="129"><span class="lineNum">     129 </span>                :<span class="lineCov">          3 :     }</span></a>
 <a name="130"><span class="lineNum">     130 </span>  [<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span>]:<span class="lineCov">          9 :     else if (aStartsInB &amp;&amp; aEndsInB)</span></a>
 <a name="131"><span class="lineNum">     131 </span>                :            :     {</a>
 <a name="132"><span class="lineNum">     132 </span>                :<span class="lineCov">          3 :       range.begin = a.begin;</span></a>
@@ -250,7 +250,7 @@
 <a name="170"><span class="lineNum">     170 </span>                :            :   }</a>
 <a name="171"><span class="lineNum">     171 </span>        [<span class="branchCov" title="Branch 0 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         11 :   overlapRanges = newOverlapRanges;</span></a>
 <a name="172"><span class="lineNum">     172 </span>                :<span class="lineCov">         22 :   return !overlapRanges.empty();</span></a>
-<a name="173"><span class="lineNum">     173 </span>                :            : }</a>
+<a name="173"><span class="lineNum">     173 </span>                :<span class="lineCov">         11 : }</span></a>
 <a name="174"><span class="lineNum">     174 </span>                :            : </a>
 <a name="175"><span class="lineNum">     175 </span>                :<span class="lineCov">        340 : bool combinePolygon(Polygon const &amp;a, Polygon const &amp;b, Polygon &amp;result)</span></a>
 <a name="176"><span class="lineNum">     176 </span>                :            : {</a>
@@ -313,7 +313,7 @@
 <a name="229"><span class="lineNum">     229 </span>                :            :     {</a>
 <a name="230"><span class="lineNum">     230 </span>                :<span class="lineCov">        340 :       result = std::move(unionPolygons[0]);</span></a>
 <a name="231"><span class="lineNum">     231 </span>                :            :     }</a>
-<a name="232"><span class="lineNum">     232 </span>                :            :   }</a>
+<a name="232"><span class="lineNum">     232 </span>        [<span class="branchCov" title="Branch 0 was taken 340 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        340 :   }</span></a>
 <a name="233"><span class="lineNum">     233 </span>                :<span class="lineCov">        340 :   return true;</span></a>
 <a name="234"><span class="lineNum">     234 </span>                :            : }</a>
 <a name="235"><span class="lineNum">     235 </span>                :            : </a>

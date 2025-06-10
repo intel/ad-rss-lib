@@ -31,17 +31,17 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">992</td>
-            <td class="headerCovTableEntry">992</td>
+            <td class="headerCovTableEntry">998</td>
+            <td class="headerCovTableEntry">998</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">12</td>
-            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntry">18</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">53</td>
-            <td class="headerCovTableEntry">154</td>
-            <td class="headerCovTableEntryLo">34.4 %</td>
+            <td class="headerCovTableEntry">94</td>
+            <td class="headerCovTableEntry">236</td>
+            <td class="headerCovTableEntryLo">39.8 %</td>
           </tr>
           <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -89,15 +89,16 @@
 <a name="18"><span class="lineNum">      18 </span>                :            : </a>
 <a name="19"><span class="lineNum">      19 </span>                :            : #include &quot;ad/rss/world/SceneVectorValidInputRange.hpp&quot;</a>
 <a name="20"><span class="lineNum">      20 </span>                :            : </a>
-<a name="21"><span class="lineNum">      21 </span>                :<span class="lineCov">          2 : TEST(SceneVectorValidInputRangeTests, testValidInputRangeValidInputRangeMin)</span></a>
+<a name="21"><span class="lineNum">      21 </span>                :<span class="lineCov">          4 : TEST(SceneVectorValidInputRangeTests, testValidInputRangeValidInputRangeMin)</span></a>
 <a name="22"><span class="lineNum">      22 </span>                :            : {</a>
 <a name="23"><span class="lineNum">      23 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::SceneVector value;</span></a>
 <a name="24"><span class="lineNum">      24 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_TRUE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
-<a name="25"><span class="lineNum">      25 </span>                :            : }</a>
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
+<a name="25"><span class="lineNum">      25 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 : }</span></a>
 <a name="26"><span class="lineNum">      26 </span>                :            : </a>
-<a name="27"><span class="lineNum">      27 </span>                :<span class="lineCov">          2 : TEST(SceneVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)</span></a>
+<a name="27"><span class="lineNum">      27 </span>                :<span class="lineCov">          4 : TEST(SceneVectorValidInputRangeTests, testValidInputRangeValidInputRangeMax)</span></a>
 <a name="28"><span class="lineNum">      28 </span>                :            : {</a>
 <a name="29"><span class="lineNum">      29 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::SceneVector value;</span></a>
 <a name="30"><span class="lineNum">      30 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::Scene element;</span></a>
@@ -484,10 +485,15 @@
 <a name="411"><span class="lineNum">     411 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   value.resize(1000, element);</span></a>
 <a name="412"><span class="lineNum">     412 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_TRUE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
-<a name="413"><span class="lineNum">     413 </span>                :            : }</a>
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
+<a name="413"><span class="lineNum">     413 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">          1 : }</span></a>
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchCov" title="Branch 8 was taken 1 time"> + </span> 
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span> 
+<span class="lineNum">         </span><span class="branchCov" title="Branch 14 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span><span class="branchCov" title="Branch 16 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span><span class="branchCov" title="Branch 18 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 19 was not taken"> - </span>]
 <a name="414"><span class="lineNum">     414 </span>                :            : </a>
-<a name="415"><span class="lineNum">     415 </span>                :<span class="lineCov">          2 : TEST(SceneVectorValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax)</span></a>
+<a name="415"><span class="lineNum">     415 </span>                :<span class="lineCov">          4 : TEST(SceneVectorValidInputRangeTests, testValidInputRangeHigherThanInputRangeMax)</span></a>
 <a name="416"><span class="lineNum">     416 </span>                :            : {</a>
 <a name="417"><span class="lineNum">     417 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::SceneVector value;</span></a>
 <a name="418"><span class="lineNum">     418 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::Scene element;</span></a>
@@ -874,10 +880,15 @@
 <a name="799"><span class="lineNum">     799 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   value.resize(1001, element);</span></a>
 <a name="800"><span class="lineNum">     800 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
-<a name="801"><span class="lineNum">     801 </span>                :            : }</a>
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
+<a name="801"><span class="lineNum">     801 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">          1 : }</span></a>
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchCov" title="Branch 8 was taken 1 time"> + </span> 
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span> 
+<span class="lineNum">         </span><span class="branchCov" title="Branch 14 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span><span class="branchCov" title="Branch 16 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span><span class="branchCov" title="Branch 18 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 19 was not taken"> - </span>]
 <a name="802"><span class="lineNum">     802 </span>                :            : </a>
-<a name="803"><span class="lineNum">     803 </span>                :<span class="lineCov">          2 : TEST(SceneVectorValidInputRangeTests, testValidInputRangeElementTypeInvalid)</span></a>
+<a name="803"><span class="lineNum">     803 </span>                :<span class="lineCov">          4 : TEST(SceneVectorValidInputRangeTests, testValidInputRangeElementTypeInvalid)</span></a>
 <a name="804"><span class="lineNum">     804 </span>                :            : {</a>
 <a name="805"><span class="lineNum">     805 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::SceneVector value;</span></a>
 <a name="806"><span class="lineNum">     806 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::Scene element;</span></a>
@@ -886,10 +897,11 @@
 <a name="809"><span class="lineNum">     809 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   value.resize(999, element);</span></a>
 <a name="810"><span class="lineNum">     810 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
-<a name="811"><span class="lineNum">     811 </span>                :            : }</a>
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
+<a name="811"><span class="lineNum">     811 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 : }</span></a>
 <a name="812"><span class="lineNum">     812 </span>                :            : </a>
-<a name="813"><span class="lineNum">     813 </span>                :<span class="lineCov">          2 : TEST(SceneVectorValidInputRangeTests, testValidInputRangeElementValid)</span></a>
+<a name="813"><span class="lineNum">     813 </span>                :<span class="lineCov">          4 : TEST(SceneVectorValidInputRangeTests, testValidInputRangeElementValid)</span></a>
 <a name="814"><span class="lineNum">     814 </span>                :            : {</a>
 <a name="815"><span class="lineNum">     815 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::SceneVector value;</span></a>
 <a name="816"><span class="lineNum">     816 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::Scene element;</span></a>
@@ -1276,10 +1288,15 @@
 <a name="1197"><span class="lineNum">    1197 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   value.push_back(element);</span></a>
 <a name="1198"><span class="lineNum">    1198 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_TRUE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
-<a name="1199"><span class="lineNum">    1199 </span>                :            : }</a>
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
+<a name="1199"><span class="lineNum">    1199 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">          1 : }</span></a>
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchCov" title="Branch 8 was taken 1 time"> + </span> 
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span> 
+<span class="lineNum">         </span><span class="branchCov" title="Branch 14 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span><span class="branchCov" title="Branch 16 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span><span class="branchCov" title="Branch 18 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 19 was not taken"> - </span>]
 <a name="1200"><span class="lineNum">    1200 </span>                :            : </a>
-<a name="1201"><span class="lineNum">    1201 </span>                :<span class="lineCov">          2 : TEST(SceneVectorValidInputRangeTests, testValidInputRangeElementInvalid)</span></a>
+<a name="1201"><span class="lineNum">    1201 </span>                :<span class="lineCov">          4 : TEST(SceneVectorValidInputRangeTests, testValidInputRangeElementInvalid)</span></a>
 <a name="1202"><span class="lineNum">    1202 </span>                :            : {</a>
 <a name="1203"><span class="lineNum">    1203 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::SceneVector value;</span></a>
 <a name="1204"><span class="lineNum">    1204 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::Scene element;</span></a>
@@ -1288,8 +1305,9 @@
 <a name="1207"><span class="lineNum">    1207 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   value.push_back(element);</span></a>
 <a name="1208"><span class="lineNum">    1208 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
-<a name="1209"><span class="lineNum">    1209 </span>                :            : }</a>
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
+<a name="1209"><span class="lineNum">    1209 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 : }</span></a>
 </pre>
       </td>
     </tr>

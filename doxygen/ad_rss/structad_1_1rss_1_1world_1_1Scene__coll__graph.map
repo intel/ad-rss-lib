@@ -1,7 +1,7 @@
 <map id="ad::rss::world::Scene" name="ad::rss::world::Scene">
 <area shape="rect" id="node1" title="DataType Scene." alt="" coords="1103,124,1259,151"/>
 <area shape="rect" id="node2" title=" " alt="" coords="698,26,878,67"/>
-<area shape="rect" id="node3" title="STL class." alt="" coords="332,7,461,33"/>
+<area shape="rect" id="node3" title=" " alt="" coords="332,7,461,33"/>
 <area shape="rect" id="node4" title=" " alt="" coords="75,7,113,33"/>
 <area shape="rect" id="node5" href="$structad_1_1rss_1_1world_1_1Object.html" title="DataType Object." alt="" coords="709,124,867,151"/>
 <area shape="rect" id="node6" title=" " alt="" coords="299,58,494,99"/>

@@ -31,13 +31,13 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">221</td>
-            <td class="headerCovTableEntry">253</td>
-            <td class="headerCovTableEntryMed">87.4 %</td>
+            <td class="headerCovTableEntry">228</td>
+            <td class="headerCovTableEntry">260</td>
+            <td class="headerCovTableEntryMed">87.7 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -110,7 +110,7 @@
 <a name="39"><span class="lineNum">      39 </span>                :            :                                                vehicleState.dynamics.alphaLon.brakeMin,</a>
 <a name="40"><span class="lineNum">      40 </span>                :            :                                                timeToStop);</a>
 <a name="41"><span class="lineNum">      41 </span>                :            : </a>
-<a name="42"><span class="lineNum">      42 </span>                :<span class="lineCov">         40 :   TrajectorySetStep responseTimeFrontSide;</span></a>
+<a name="42"><span class="lineNum">      42 </span>                :<span class="lineCov">         20 :   TrajectorySetStep responseTimeFrontSide;</span></a>
 <a name="43"><span class="lineNum">      43 </span>                :<span class="lineCov">         20 :   TrajectorySetStep responseTimeBackSide;</span></a>
 <a name="44"><span class="lineNum">      44 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :   if (result)</span></a>
 <a name="45"><span class="lineNum">      45 </span>                :            :   {</a>
@@ -166,8 +166,8 @@
 <span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
 <a name="95"><span class="lineNum">      95 </span>  [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         20 :   DEBUG_DRAWING_POLYGON(continueForwardPolygon, &quot;green&quot;, &quot;vehicle_continue_forward&quot;);</span></a>
 <span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
-<a name="96"><span class="lineNum">      96 </span>                :<span class="lineCov">         40 :   return result;</span></a>
-<a name="97"><span class="lineNum">      97 </span>                :            : }</a>
+<a name="96"><span class="lineNum">      96 </span>                :<span class="lineCov">         20 :   return result;</span></a>
+<a name="97"><span class="lineNum">      97 </span>                :<span class="lineCov">         20 : }</span></a>
 <a name="98"><span class="lineNum">      98 </span>                :            : </a>
 <a name="99"><span class="lineNum">      99 </span>                :            : ad::physics::AngularVelocity</a>
 <a name="100"><span class="lineNum">     100 </span>                :<span class="lineCov">       3920 : TrajectoryVehicle::calculateYawRate(ad::physics::AngularVelocity const &amp;yawRate,</span></a>
@@ -230,9 +230,9 @@
 <a name="156"><span class="lineNum">     156 </span>                :            :   }</a>
 <a name="157"><span class="lineNum">     157 </span>                :            : </a>
 <a name="158"><span class="lineNum">     158 </span>                :            :   // left</a>
-<a name="159"><span class="lineNum">     159 </span>  [<span class="branchCov" title="Branch 0 was taken 140 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 100 times"> + </span><span class="branchCov" title="Branch 3 was taken 40 times"> + </span> :<span class="lineCov">        140 :   for (auto ratioValue = ratioDiff; (ratioValue &lt;= physics::RatioValue(1.0)) &amp;&amp; result; ratioValue += ratioDiff)</span></a>
-<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 100 times"> + </span><span class="branchCov" title="Branch 7 was taken 40 times"> + </span><span class="branchCov" title="Branch 8 was taken 100 times"> + </span> 
-<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
+<a name="159"><span class="lineNum">     159 </span>  [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 140 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">        140 :   for (auto ratioValue = ratioDiff; (ratioValue &lt;= physics::RatioValue(1.0)) &amp;&amp; result; ratioValue += ratioDiff)</span></a>
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 100 times"> + </span><span class="branchCov" title="Branch 5 was taken 40 times"> + </span><span class="branchCov" title="Branch 6 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchCov" title="Branch 8 was taken 100 times"> + </span> 
+<span class="lineNum">         </span>            <span class="branchCov" title="Branch 9 was taken 40 times"> + </span>]
 <a name="160"><span class="lineNum">     160 </span>                :            :   {</a>
 <a name="161"><span class="lineNum">     161 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        100 :     auto currentPoint = TrajectoryPoint(vehicleState);</span></a>
 <a name="162"><span class="lineNum">     162 </span>                :<span class="lineCov">        100 :     TrajectoryPoint pt;</span></a>
@@ -305,7 +305,7 @@
 <a name="227"><span class="lineNum">     227 </span>                :<span class="lineCov">        203 :       currentTime = duration;</span></a>
 <a name="228"><span class="lineNum">     228 </span>                :            :     }</a>
 <a name="229"><span class="lineNum">     229 </span>                :            : </a>
-<a name="230"><span class="lineNum">     230 </span>                :            :     resultTrajectoryPoint.yawRate = calculateYawRate(</a>
+<a name="230"><span class="lineNum">     230 </span>                :<span class="lineCov">       3920 :     resultTrajectoryPoint.yawRate = calculateYawRate(</span></a>
 <a name="231"><span class="lineNum">     231 </span>        [<span class="branchCov" title="Branch 0 was taken 3920 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3920 :       currentPoint.yawRate, currentTime, dynamics.unstructuredSettings.vehicleYawRateChange, yawRateChangeRatio);</span></a>
 <a name="232"><span class="lineNum">     232 </span>                :            : </a>
 <a name="233"><span class="lineNum">     233 </span>        [<span class="branchCov" title="Branch 0 was taken 3920 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3920 :     result = calculateTrajectoryPointOnCircle(resultTrajectoryPoint, acceleration, timeStep, dynamics);</span></a>
@@ -416,7 +416,7 @@
 <a name="338"><span class="lineNum">     338 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :   if (result)</span></a>
 <a name="339"><span class="lineNum">     339 </span>                :            :   {</a>
 <a name="340"><span class="lineNum">     340 </span>                :            :     // front</a>
-<a name="341"><span class="lineNum">     341 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :     auto front = responseTimeFrontSide;</span></a>
+<a name="341"><span class="lineNum">     341 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :     auto front = responseTimeFrontSide;</span></a>
 <a name="342"><span class="lineNum">     342 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :     if (result)</span></a>
 <a name="343"><span class="lineNum">     343 </span>                :            :     {</a>
 <a name="344"><span class="lineNum">     344 </span>                :<span class="lineCov">         20 :       result = calculateTrajectorySetStepOnCircle(</span></a>
@@ -424,10 +424,10 @@
 <a name="346"><span class="lineNum">     346 </span>                :            :     }</a>
 <a name="347"><span class="lineNum">     347 </span>                :            : </a>
 <a name="348"><span class="lineNum">     348 </span>                :            :     // sides</a>
-<a name="349"><span class="lineNum">     349 </span>                :<span class="lineCov">         40 :     std::vector&lt;physics::Acceleration&gt; accelerations;</span></a>
+<a name="349"><span class="lineNum">     349 </span>                :<span class="lineCov">         20 :     std::vector&lt;physics::Acceleration&gt; accelerations;</span></a>
 <a name="350"><span class="lineNum">     350 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :     auto accelStepSize = (-vehicleState.dynamics.alphaLon.brakeMax + vehicleState.dynamics.alphaLon.brakeMin)</span></a>
 <a name="351"><span class="lineNum">     351 </span>  [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         40 :       / (1.0 + vehicleState.dynamics.unstructuredSettings.vehicleBrakeIntermediateAccelerationSteps);</span></a>
-<a name="352"><span class="lineNum">     352 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :     for (auto acceleration = vehicleState.dynamics.alphaLon.brakeMax + accelStepSize;</span></a>
+<a name="352"><span class="lineNum">     352 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :     for (auto acceleration = vehicleState.dynamics.alphaLon.brakeMax + accelStepSize;</span></a>
 <a name="353"><span class="lineNum">     353 </span>  [<span class="branchCov" title="Branch 0 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 20 times"> + </span><span class="branchCov" title="Branch 3 was taken 20 times"> + </span>]:<span class="lineCov">         40 :          acceleration &lt; vehicleState.dynamics.alphaLon.brakeMin;</span></a>
 <a name="354"><span class="lineNum">     354 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :          acceleration += accelStepSize)</span></a>
 <a name="355"><span class="lineNum">     355 </span>                :            :     {</a>
@@ -435,7 +435,7 @@
 <a name="357"><span class="lineNum">     357 </span>                :            :     }</a>
 <a name="358"><span class="lineNum">     358 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :     accelerations.push_back(vehicleState.dynamics.alphaLon.brakeMin);</span></a>
 <a name="359"><span class="lineNum">     359 </span>                :            : </a>
-<a name="360"><span class="lineNum">     360 </span>                :<span class="lineCov">         40 :     std::vector&lt;TrajectorySetStep&gt; sideSteps;</span></a>
+<a name="360"><span class="lineNum">     360 </span>                :<span class="lineCov">         20 :     std::vector&lt;TrajectorySetStep&gt; sideSteps;</span></a>
 <a name="361"><span class="lineNum">     361 </span>  [<span class="branchCov" title="Branch 0 was taken 40 times"> + </span><span class="branchCov" title="Branch 1 was taken 20 times"> + </span><span class="branchCov" title="Branch 2 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         60 :     for (auto itAcceleration = accelerations.cbegin(); (itAcceleration != accelerations.cend()) &amp;&amp; result;</span></a>
 <span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 40 times"> + </span><span class="branchCov" title="Branch 5 was taken 20 times"> + </span>]
 <a name="362"><span class="lineNum">     362 </span>                :<span class="lineCov">         40 :          ++itAcceleration)</span></a>
@@ -445,14 +445,14 @@
 <a name="366"><span class="lineNum">     366 </span>                :            : </a>
 <a name="367"><span class="lineNum">     367 </span>        [<span class="branchCov" title="Branch 0 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :       if (result)</span></a>
 <a name="368"><span class="lineNum">     368 </span>                :            :       {</a>
-<a name="369"><span class="lineNum">     369 </span>                :<span class="lineCov">         80 :         TrajectorySetStep sideStep;</span></a>
+<a name="369"><span class="lineNum">     369 </span>                :<span class="lineCov">         40 :         TrajectorySetStep sideStep;</span></a>
 <a name="370"><span class="lineNum">     370 </span>                :<span class="lineCov">         40 :         sideStep.center = responseTimeFrontSide.center;</span></a>
 <a name="371"><span class="lineNum">     371 </span>        [<span class="branchCov" title="Branch 0 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :         sideStep.left.push_back(responseTimeFrontSide.left.back());</span></a>
 <a name="372"><span class="lineNum">     372 </span>        [<span class="branchCov" title="Branch 0 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :         sideStep.right.push_back(responseTimeFrontSide.right.front());</span></a>
 <a name="373"><span class="lineNum">     373 </span>                :            : </a>
 <a name="374"><span class="lineNum">     374 </span>        [<span class="branchCov" title="Branch 0 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :         result = calculateTrajectorySetStepOnCircle(vehicleState, calculationTime, *itAcceleration, sideStep);</span></a>
 <a name="375"><span class="lineNum">     375 </span>        [<span class="branchCov" title="Branch 0 was taken 40 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :         sideSteps.push_back(sideStep);</span></a>
-<a name="376"><span class="lineNum">     376 </span>                :            :       }</a>
+<a name="376"><span class="lineNum">     376 </span>                :<span class="lineCov">         40 :       }</span></a>
 <a name="377"><span class="lineNum">     377 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 40 times"> + </span>]:<span class="lineCov">         40 :       if (!result)</span></a>
 <a name="378"><span class="lineNum">     378 </span>                :            :       {</a>
 <a name="379"><span class="lineNum">     379 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         spdlog::debug(&quot;TrajectoryVehicle::calculateFrontAndSidePolygon&gt;&gt; Could not calculate step polygon for &quot;</span></a>
@@ -474,9 +474,9 @@
 <a name="395"><span class="lineNum">     395 </span>                :            :     {</a>
 <a name="396"><span class="lineNum">     396 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       spdlog::debug(&quot;TrajectoryVehicle::calculateBrake&gt;&gt; Could not calculate front and side polygon.&quot;);</span></a>
 <a name="397"><span class="lineNum">     397 </span>                :            :     }</a>
-<a name="398"><span class="lineNum">     398 </span>                :            :   }</a>
-<a name="399"><span class="lineNum">     399 </span>                :<span class="lineCov">         40 :   return result;</span></a>
-<a name="400"><span class="lineNum">     400 </span>                :            : }</a>
+<a name="398"><span class="lineNum">     398 </span>                :<span class="lineCov">         20 :   }</span></a>
+<a name="399"><span class="lineNum">     399 </span>                :<span class="lineCov">         20 :   return result;</span></a>
+<a name="400"><span class="lineNum">     400 </span>                :<span class="lineCov">         20 : }</span></a>
 <a name="401"><span class="lineNum">     401 </span>                :            : </a>
 <a name="402"><span class="lineNum">     402 </span>                :<span class="lineCov">         20 : bool TrajectoryVehicle::calculateContinueForward(situation::VehicleState const &amp;vehicleState,</span></a>
 <a name="403"><span class="lineNum">     403 </span>                :            :                                                  physics::Duration const &amp;timeAfterResponseTime,</a>
@@ -492,7 +492,7 @@
 <a name="413"><span class="lineNum">     413 </span>                :            :     2.0</a>
 <a name="414"><span class="lineNum">     414 </span>                :<span class="lineCov">         20 :     / (2.0 * vehicleState.dynamics.unstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps</span></a>
 <a name="415"><span class="lineNum">     415 </span>                :<span class="lineCov">         20 :        + 2.0));</span></a>
-<a name="416"><span class="lineNum">     416 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         40 :   auto front = responseTimeFrontSide;</span></a>
+<a name="416"><span class="lineNum">     416 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :   auto front = responseTimeFrontSide;</span></a>
 <a name="417"><span class="lineNum">     417 </span>                :            :   // center-front, with no change of the current yaw rate</a>
 <a name="418"><span class="lineNum">     418 </span>                :<span class="lineCov">         40 :   auto result = calculateTrajectorySetStepOnCircle(</span></a>
 <a name="419"><span class="lineNum">     419 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :     vehicleState, timeAfterResponseTime, vehicleState.dynamics.alphaLon.accelMax, front);</span></a>
@@ -555,7 +555,7 @@
 <a name="464"><span class="lineNum">     464 </span>                :            :   }</a>
 <a name="465"><span class="lineNum">     465 </span>                :            : </a>
 <a name="466"><span class="lineNum">     466 </span>                :            :   // center-right, with maximum changing of the yaw rate</a>
-<a name="467"><span class="lineNum">     467 </span>                :<span class="lineCov">         40 :   std::vector&lt;TrajectoryPoint&gt; right;</span></a>
+<a name="467"><span class="lineNum">     467 </span>                :<span class="lineCov">         20 :   std::vector&lt;TrajectoryPoint&gt; right;</span></a>
 <a name="468"><span class="lineNum">     468 </span>                :<span class="lineCov">         20 :   right.reserve(vehicleState.dynamics.unstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps</span></a>
 <a name="469"><span class="lineNum">     469 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :                 + 1);</span></a>
 <a name="470"><span class="lineNum">     470 </span>  [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 80 times"> + </span><span class="branchCov" title="Branch 3 was taken 20 times"> + </span> :<span class="lineCov">        100 :   for (auto ratioValue = physics::RatioValue(-1.0); (ratioValue &lt; physics::RatioValue(0.0)) &amp;&amp; result;</span></a>
@@ -580,14 +580,14 @@
 <a name="485"><span class="lineNum">     485 </span>                :            :                             std::string(&quot;vehicle_continue_forward_maxRight_&quot; + std::to_string(ratioValue)));</a>
 <a name="486"><span class="lineNum">     486 </span>                :            :     }</a>
 <a name="487"><span class="lineNum">     487 </span>                :            :   }</a>
-<a name="488"><span class="lineNum">     488 </span>                :<span class="lineCov">         40 :   auto previousRight = std::move(front.right);</span></a>
+<a name="488"><span class="lineNum">     488 </span>                :<span class="lineCov">         20 :   auto previousRight = std::move(front.right);</span></a>
 <a name="489"><span class="lineNum">     489 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :   front.right = right;</span></a>
 <a name="490"><span class="lineNum">     490 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :   front.right.insert(front.right.end(), previousRight.begin(), previousRight.end());</span></a>
 <a name="491"><span class="lineNum">     491 </span>                :            : </a>
 <a name="492"><span class="lineNum">     492 </span>                :            :   //-----------</a>
 <a name="493"><span class="lineNum">     493 </span>                :            :   // Sides</a>
 <a name="494"><span class="lineNum">     494 </span>                :            :   //-----------</a>
-<a name="495"><span class="lineNum">     495 </span>                :<span class="lineCov">         40 :   std::vector&lt;physics::Acceleration&gt; accelerations;</span></a>
+<a name="495"><span class="lineNum">     495 </span>                :<span class="lineCov">         20 :   std::vector&lt;physics::Acceleration&gt; accelerations;</span></a>
 <a name="496"><span class="lineNum">     496 </span>                :<span class="lineNoCov">          0 :   auto accelStepSize = (vehicleState.dynamics.alphaLon.accelMax - vehicleState.dynamics.alphaLon.brakeMin)</span></a>
 <a name="497"><span class="lineNum">     497 </span>  [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         20 :     / (1.0 + vehicleState.dynamics.unstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps);</span></a>
 <a name="498"><span class="lineNum">     498 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :   for (auto acceleration = vehicleState.dynamics.alphaLon.brakeMin + accelStepSize;</span></a>
@@ -604,7 +604,7 @@
 <a name="508"><span class="lineNum">     508 </span>                :<span class="lineCov">         20 :     physics::Duration calculationTime = timeAfterResponseTime;</span></a>
 <a name="509"><span class="lineNum">     509 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :     result = getTimeInMovement(responseTimeFrontSide.center.speed, *itAcceleration, calculationTime);</span></a>
 <a name="510"><span class="lineNum">     510 </span>                :            : </a>
-<a name="511"><span class="lineNum">     511 </span>                :<span class="lineCov">         40 :     TrajectorySetStep sideStep;</span></a>
+<a name="511"><span class="lineNum">     511 </span>                :<span class="lineCov">         20 :     TrajectorySetStep sideStep;</span></a>
 <a name="512"><span class="lineNum">     512 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :     if (result)</span></a>
 <a name="513"><span class="lineNum">     513 </span>                :            :     {</a>
 <a name="514"><span class="lineNum">     514 </span>                :            :       // left</a>
@@ -659,7 +659,7 @@
 <a name="557"><span class="lineNum">     557 </span>                :            :       }</a>
 <a name="558"><span class="lineNum">     558 </span>                :            :     }</a>
 <a name="559"><span class="lineNum">     559 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :     sideSteps.push_back(sideStep);</span></a>
-<a name="560"><span class="lineNum">     560 </span>                :            :   }</a>
+<a name="560"><span class="lineNum">     560 </span>                :<span class="lineCov">         20 :   }</span></a>
 <a name="561"><span class="lineNum">     561 </span>                :            : </a>
 <a name="562"><span class="lineNum">     562 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         20 :   resultPolygon = brakePolygon;</span></a>
 <a name="563"><span class="lineNum">     563 </span>                :<span class="lineCov">         20 :   TrajectorySetStepVehicleLocation unusedStepVehicleLocation;</span></a>
@@ -674,8 +674,8 @@
 <a name="572"><span class="lineNum">     572 </span>                :            :   {</a>
 <a name="573"><span class="lineNum">     573 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     spdlog::debug(&quot;TrajectoryVehicle::calculateContinueForward&gt;&gt; Could not calculate front and side polygon.&quot;);</span></a>
 <a name="574"><span class="lineNum">     574 </span>                :            :   }</a>
-<a name="575"><span class="lineNum">     575 </span>                :<span class="lineCov">         40 :   return result;</span></a>
-<a name="576"><span class="lineNum">     576 </span>                :            : }</a>
+<a name="575"><span class="lineNum">     575 </span>                :<span class="lineCov">         20 :   return result;</span></a>
+<a name="576"><span class="lineNum">     576 </span>                :<span class="lineCov">         20 : }</span></a>
 <a name="577"><span class="lineNum">     577 </span>                :            : </a>
 <a name="578"><span class="lineNum">     578 </span>                :<span class="lineCov">        100 : bool TrajectoryVehicle::calculateTrajectorySetStepOnCircle(situation::VehicleState const &amp;vehicleState,</span></a>
 <a name="579"><span class="lineNum">     579 </span>                :            :                                                            physics::Duration const &amp;timeAfterResponseTime,</a>

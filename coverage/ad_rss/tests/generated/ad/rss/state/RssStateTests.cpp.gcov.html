@@ -31,17 +31,17 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">322</td>
-            <td class="headerCovTableEntry">322</td>
+            <td class="headerCovTableEntry">323</td>
+            <td class="headerCovTableEntry">323</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">27</td>
-            <td class="headerCovTableEntry">27</td>
+            <td class="headerCovTableEntry">40</td>
+            <td class="headerCovTableEntry">40</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">79</td>
-            <td class="headerCovTableEntry">316</td>
-            <td class="headerCovTableEntryLo">25.0 %</td>
+            <td class="headerCovTableEntry">83</td>
+            <td class="headerCovTableEntry">324</td>
+            <td class="headerCovTableEntryLo">25.6 %</td>
           </tr>
           <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -98,7 +98,7 @@
 <a name="27"><span class="lineNum">      27 </span>                :<span class="lineCov">         13 :   virtual void SetUp() override</span></a>
 <a name="28"><span class="lineNum">      28 </span>                :            :   {</a>
 <a name="29"><span class="lineNum">      29 </span>                :            :     // valid initialization</a>
-<a name="30"><span class="lineNum">      30 </span>                :<span class="lineCov">         26 :     ::ad::rss::state::RssState value;</span></a>
+<a name="30"><span class="lineNum">      30 </span>                :<span class="lineCov">         13 :     ::ad::rss::state::RssState value;</span></a>
 <a name="31"><span class="lineNum">      31 </span>                :<span class="lineCov">         13 :     ::ad::rss::world::ObjectId valueObjectId(std::numeric_limits&lt;::ad::rss::world::ObjectId&gt;::lowest());</span></a>
 <a name="32"><span class="lineNum">      32 </span>                :<span class="lineCov">         13 :     value.objectId = valueObjectId;</span></a>
 <a name="33"><span class="lineNum">      33 </span>                :<span class="lineCov">         13 :     ::ad::rss::situation::SituationId valueSituationId(</span></a>
@@ -180,7 +180,7 @@
 <a name="109"><span class="lineNum">     109 </span>                :<span class="lineCov">         13 :     valueLateralStateLeftRssStateInformation.evaluator = valueLateralStateLeftRssStateInformationEvaluator;</span></a>
 <a name="110"><span class="lineNum">     110 </span>                :<span class="lineCov">         13 :     valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;</span></a>
 <a name="111"><span class="lineNum">     111 </span>                :<span class="lineCov">         13 :     value.lateralStateLeft = valueLateralStateLeft;</span></a>
-<a name="112"><span class="lineNum">     112 </span>                :<span class="lineCov">         26 :     ::ad::rss::state::UnstructuredSceneRssState valueUnstructuredSceneState;</span></a>
+<a name="112"><span class="lineNum">     112 </span>                :<span class="lineCov">         13 :     ::ad::rss::state::UnstructuredSceneRssState valueUnstructuredSceneState;</span></a>
 <a name="113"><span class="lineNum">     113 </span>                :<span class="lineCov">         13 :     bool valueUnstructuredSceneStateIsSafe{true};</span></a>
 <a name="114"><span class="lineNum">     114 </span>                :<span class="lineCov">         13 :     valueUnstructuredSceneState.isSafe = valueUnstructuredSceneStateIsSafe;</span></a>
 <a name="115"><span class="lineNum">     115 </span>                :<span class="lineCov">         13 :     ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(</span></a>
@@ -192,8 +192,8 @@
 <a name="121"><span class="lineNum">     121 </span>                :<span class="lineCov">         13 :     ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);</span></a>
 <a name="122"><span class="lineNum">     122 </span>                :<span class="lineCov">         13 :     valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;</span></a>
 <a name="123"><span class="lineNum">     123 </span>                :<span class="lineCov">         13 :     valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;</span></a>
-<a name="124"><span class="lineNum">     124 </span>                :<span class="lineCov">         26 :     ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;</span></a>
-<a name="125"><span class="lineNum">     125 </span>                :<span class="lineCov">         26 :     ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;</span></a>
+<a name="124"><span class="lineNum">     124 </span>                :<span class="lineCov">         13 :     ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;</span></a>
+<a name="125"><span class="lineNum">     125 </span>                :<span class="lineCov">         13 :     ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;</span></a>
 <a name="126"><span class="lineNum">     126 </span>                :<span class="lineCov">         13 :     ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;</span></a>
 <a name="127"><span class="lineNum">     127 </span>                :<span class="lineCov">         13 :     ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);</span></a>
 <a name="128"><span class="lineNum">     128 </span>                :            :     valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x</a>
@@ -205,7 +205,7 @@
 <a name="134"><span class="lineNum">     134 </span>                :            :       1, valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);</a>
 <a name="135"><span class="lineNum">     135 </span>                :            :     valueUnstructuredSceneStateRssStateInformation.brakeTrajectorySet</a>
 <a name="136"><span class="lineNum">     136 </span>        [<span class="branchCov" title="Branch 0 was taken 13 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         13 :       = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;</span></a>
-<a name="137"><span class="lineNum">     137 </span>                :<span class="lineCov">         26 :     ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;</span></a>
+<a name="137"><span class="lineNum">     137 </span>                :<span class="lineCov">         13 :     ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;</span></a>
 <a name="138"><span class="lineNum">     138 </span>                :<span class="lineCov">         13 :     ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;</span></a>
 <a name="139"><span class="lineNum">     139 </span>                :<span class="lineCov">         13 :     ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(-1e9);</span></a>
 <a name="140"><span class="lineNum">     140 </span>                :            :     valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x</a>
@@ -242,46 +242,46 @@
 <a name="171"><span class="lineNum">     171 </span>                :            :   ::ad::rss::state::RssState mValue;</a>
 <a name="172"><span class="lineNum">     172 </span>                :            : };</a>
 <a name="173"><span class="lineNum">     173 </span>                :            : </a>
-<a name="174"><span class="lineNum">     174 </span>                :<span class="lineCov">          2 : TEST_F(RssStateTests, copyConstruction)</span></a>
+<a name="174"><span class="lineNum">     174 </span>                :<span class="lineCov">          4 : TEST_F(RssStateTests, copyConstruction)</span></a>
 <a name="175"><span class="lineNum">     175 </span>                :            : {</a>
-<a name="176"><span class="lineNum">     176 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState value(mValue);</span></a>
+<a name="176"><span class="lineNum">     176 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState value(mValue);</span></a>
 <a name="177"><span class="lineNum">     177 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_EQ(mValue, value);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
 <a name="178"><span class="lineNum">     178 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="179"><span class="lineNum">     179 </span>                :            : </a>
-<a name="180"><span class="lineNum">     180 </span>                :<span class="lineCov">          2 : TEST_F(RssStateTests, moveConstruction)</span></a>
+<a name="180"><span class="lineNum">     180 </span>                :<span class="lineCov">          4 : TEST_F(RssStateTests, moveConstruction)</span></a>
 <a name="181"><span class="lineNum">     181 </span>                :            : {</a>
-<a name="182"><span class="lineNum">     182 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState tmpValue(mValue);</span></a>
-<a name="183"><span class="lineNum">     183 </span>                :<span class="lineCov">          2 :   ::ad::rss::state::RssState value(std::move(tmpValue));</span></a>
+<a name="182"><span class="lineNum">     182 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState tmpValue(mValue);</span></a>
+<a name="183"><span class="lineNum">     183 </span>                :<span class="lineCov">          1 :   ::ad::rss::state::RssState value(std::move(tmpValue));</span></a>
 <a name="184"><span class="lineNum">     184 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_EQ(mValue, value);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
 <a name="185"><span class="lineNum">     185 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="186"><span class="lineNum">     186 </span>                :            : </a>
-<a name="187"><span class="lineNum">     187 </span>                :<span class="lineCov">          2 : TEST_F(RssStateTests, copyAssignment)</span></a>
+<a name="187"><span class="lineNum">     187 </span>                :<span class="lineCov">          4 : TEST_F(RssStateTests, copyAssignment)</span></a>
 <a name="188"><span class="lineNum">     188 </span>                :            : {</a>
-<a name="189"><span class="lineNum">     189 </span>                :<span class="lineCov">          2 :   ::ad::rss::state::RssState value;</span></a>
+<a name="189"><span class="lineNum">     189 </span>                :<span class="lineCov">          1 :   ::ad::rss::state::RssState value;</span></a>
 <a name="190"><span class="lineNum">     190 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   value = mValue;</span></a>
 <a name="191"><span class="lineNum">     191 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_EQ(mValue, value);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
 <a name="192"><span class="lineNum">     192 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="193"><span class="lineNum">     193 </span>                :            : </a>
-<a name="194"><span class="lineNum">     194 </span>                :<span class="lineCov">          2 : TEST_F(RssStateTests, moveAssignment)</span></a>
+<a name="194"><span class="lineNum">     194 </span>                :<span class="lineCov">          4 : TEST_F(RssStateTests, moveAssignment)</span></a>
 <a name="195"><span class="lineNum">     195 </span>                :            : {</a>
-<a name="196"><span class="lineNum">     196 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState tmpValue(mValue);</span></a>
-<a name="197"><span class="lineNum">     197 </span>                :<span class="lineCov">          2 :   ::ad::rss::state::RssState value;</span></a>
+<a name="196"><span class="lineNum">     196 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState tmpValue(mValue);</span></a>
+<a name="197"><span class="lineNum">     197 </span>                :<span class="lineCov">          1 :   ::ad::rss::state::RssState value;</span></a>
 <a name="198"><span class="lineNum">     198 </span>                :<span class="lineCov">          1 :   value = std::move(tmpValue);</span></a>
 <a name="199"><span class="lineNum">     199 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_EQ(mValue, value);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
 <a name="200"><span class="lineNum">     200 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="201"><span class="lineNum">     201 </span>                :            : </a>
-<a name="202"><span class="lineNum">     202 </span>                :<span class="lineCov">          2 : TEST_F(RssStateTests, comparisonOperatorEqual)</span></a>
+<a name="202"><span class="lineNum">     202 </span>                :<span class="lineCov">          4 : TEST_F(RssStateTests, comparisonOperatorEqual)</span></a>
 <a name="203"><span class="lineNum">     203 </span>                :            : {</a>
-<a name="204"><span class="lineNum">     204 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState valueA = mValue;</span></a>
-<a name="205"><span class="lineNum">     205 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState valueB = mValue;</span></a>
+<a name="204"><span class="lineNum">     204 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState valueA = mValue;</span></a>
+<a name="205"><span class="lineNum">     205 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState valueB = mValue;</span></a>
 <a name="206"><span class="lineNum">     206 </span>                :            : </a>
 <a name="207"><span class="lineNum">     207 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_TRUE(valueA == valueB);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
@@ -291,7 +291,7 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="209"><span class="lineNum">     209 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="210"><span class="lineNum">     210 </span>                :            : </a>
-<a name="211"><span class="lineNum">     211 </span>                :<span class="lineCov">          2 : TEST_F(RssStateTests, stringConversionTest)</span></a>
+<a name="211"><span class="lineNum">     211 </span>                :<span class="lineCov">          4 : TEST_F(RssStateTests, stringConversionTest)</span></a>
 <a name="212"><span class="lineNum">     212 </span>                :            : {</a>
 <a name="213"><span class="lineNum">     213 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   std::stringstream stream;</span></a>
 <a name="214"><span class="lineNum">     214 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   stream &lt;&lt; mValue;</span></a>
@@ -299,15 +299,16 @@
 <a name="216"><span class="lineNum">     216 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   std::string toStr = std::to_string(mValue);</span></a>
 <a name="217"><span class="lineNum">     217 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_EQ(ostreamStr, toStr);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
-<a name="218"><span class="lineNum">     218 </span>                :            : }</a>
+<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<a name="218"><span class="lineNum">     218 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">          1 : }</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]
 <a name="219"><span class="lineNum">     219 </span>                :            : </a>
-<a name="220"><span class="lineNum">     220 </span>                :<span class="lineCov">          2 : TEST_F(RssStateTests, comparisonOperatorObjectIdDiffers)</span></a>
+<a name="220"><span class="lineNum">     220 </span>                :<span class="lineCov">          4 : TEST_F(RssStateTests, comparisonOperatorObjectIdDiffers)</span></a>
 <a name="221"><span class="lineNum">     221 </span>                :            : {</a>
-<a name="222"><span class="lineNum">     222 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState valueA = mValue;</span></a>
+<a name="222"><span class="lineNum">     222 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState valueA = mValue;</span></a>
 <a name="223"><span class="lineNum">     223 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::ObjectId objectId(std::numeric_limits&lt;::ad::rss::world::ObjectId&gt;::max());</span></a>
 <a name="224"><span class="lineNum">     224 </span>                :<span class="lineCov">          1 :   valueA.objectId = objectId;</span></a>
-<a name="225"><span class="lineNum">     225 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState valueB = mValue;</span></a>
+<a name="225"><span class="lineNum">     225 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState valueB = mValue;</span></a>
 <a name="226"><span class="lineNum">     226 </span>                :            : </a>
 <a name="227"><span class="lineNum">     227 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_FALSE(valueA == valueB);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
@@ -317,12 +318,12 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="229"><span class="lineNum">     229 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="230"><span class="lineNum">     230 </span>                :            : </a>
-<a name="231"><span class="lineNum">     231 </span>                :<span class="lineCov">          2 : TEST_F(RssStateTests, comparisonOperatorSituationIdDiffers)</span></a>
+<a name="231"><span class="lineNum">     231 </span>                :<span class="lineCov">          4 : TEST_F(RssStateTests, comparisonOperatorSituationIdDiffers)</span></a>
 <a name="232"><span class="lineNum">     232 </span>                :            : {</a>
-<a name="233"><span class="lineNum">     233 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState valueA = mValue;</span></a>
+<a name="233"><span class="lineNum">     233 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState valueA = mValue;</span></a>
 <a name="234"><span class="lineNum">     234 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::SituationId situationId(std::numeric_limits&lt;::ad::rss::situation::SituationId&gt;::max());</span></a>
 <a name="235"><span class="lineNum">     235 </span>                :<span class="lineCov">          1 :   valueA.situationId = situationId;</span></a>
-<a name="236"><span class="lineNum">     236 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState valueB = mValue;</span></a>
+<a name="236"><span class="lineNum">     236 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState valueB = mValue;</span></a>
 <a name="237"><span class="lineNum">     237 </span>                :            : </a>
 <a name="238"><span class="lineNum">     238 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_FALSE(valueA == valueB);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
@@ -332,9 +333,9 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="240"><span class="lineNum">     240 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="241"><span class="lineNum">     241 </span>                :            : </a>
-<a name="242"><span class="lineNum">     242 </span>                :<span class="lineCov">          2 : TEST_F(RssStateTests, comparisonOperatorLongitudinalStateDiffers)</span></a>
+<a name="242"><span class="lineNum">     242 </span>                :<span class="lineCov">          4 : TEST_F(RssStateTests, comparisonOperatorLongitudinalStateDiffers)</span></a>
 <a name="243"><span class="lineNum">     243 </span>                :            : {</a>
-<a name="244"><span class="lineNum">     244 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState valueA = mValue;</span></a>
+<a name="244"><span class="lineNum">     244 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState valueA = mValue;</span></a>
 <a name="245"><span class="lineNum">     245 </span>                :<span class="lineCov">          1 :   ::ad::rss::state::LongitudinalRssState longitudinalState;</span></a>
 <a name="246"><span class="lineNum">     246 </span>                :<span class="lineCov">          1 :   bool longitudinalStateIsSafe{false};</span></a>
 <a name="247"><span class="lineNum">     247 </span>                :<span class="lineCov">          1 :   longitudinalState.isSafe = longitudinalStateIsSafe;</span></a>
@@ -365,7 +366,7 @@
 <a name="272"><span class="lineNum">     272 </span>                :<span class="lineCov">          1 :   longitudinalStateRssStateInformation.evaluator = longitudinalStateRssStateInformationEvaluator;</span></a>
 <a name="273"><span class="lineNum">     273 </span>                :<span class="lineCov">          1 :   longitudinalState.rssStateInformation = longitudinalStateRssStateInformation;</span></a>
 <a name="274"><span class="lineNum">     274 </span>                :<span class="lineCov">          1 :   valueA.longitudinalState = longitudinalState;</span></a>
-<a name="275"><span class="lineNum">     275 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState valueB = mValue;</span></a>
+<a name="275"><span class="lineNum">     275 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState valueB = mValue;</span></a>
 <a name="276"><span class="lineNum">     276 </span>                :            : </a>
 <a name="277"><span class="lineNum">     277 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_FALSE(valueA == valueB);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
@@ -375,9 +376,9 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="279"><span class="lineNum">     279 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="280"><span class="lineNum">     280 </span>                :            : </a>
-<a name="281"><span class="lineNum">     281 </span>                :<span class="lineCov">          2 : TEST_F(RssStateTests, comparisonOperatorLateralStateRightDiffers)</span></a>
+<a name="281"><span class="lineNum">     281 </span>                :<span class="lineCov">          4 : TEST_F(RssStateTests, comparisonOperatorLateralStateRightDiffers)</span></a>
 <a name="282"><span class="lineNum">     282 </span>                :            : {</a>
-<a name="283"><span class="lineNum">     283 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState valueA = mValue;</span></a>
+<a name="283"><span class="lineNum">     283 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState valueA = mValue;</span></a>
 <a name="284"><span class="lineNum">     284 </span>                :<span class="lineCov">          1 :   ::ad::rss::state::LateralRssState lateralStateRight;</span></a>
 <a name="285"><span class="lineNum">     285 </span>                :<span class="lineCov">          1 :   bool lateralStateRightIsSafe{false};</span></a>
 <a name="286"><span class="lineNum">     286 </span>                :<span class="lineCov">          1 :   lateralStateRight.isSafe = lateralStateRightIsSafe;</span></a>
@@ -400,7 +401,7 @@
 <a name="303"><span class="lineNum">     303 </span>                :<span class="lineCov">          1 :   lateralStateRightRssStateInformation.evaluator = lateralStateRightRssStateInformationEvaluator;</span></a>
 <a name="304"><span class="lineNum">     304 </span>                :<span class="lineCov">          1 :   lateralStateRight.rssStateInformation = lateralStateRightRssStateInformation;</span></a>
 <a name="305"><span class="lineNum">     305 </span>                :<span class="lineCov">          1 :   valueA.lateralStateRight = lateralStateRight;</span></a>
-<a name="306"><span class="lineNum">     306 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState valueB = mValue;</span></a>
+<a name="306"><span class="lineNum">     306 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState valueB = mValue;</span></a>
 <a name="307"><span class="lineNum">     307 </span>                :            : </a>
 <a name="308"><span class="lineNum">     308 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_FALSE(valueA == valueB);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
@@ -410,9 +411,9 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="310"><span class="lineNum">     310 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="311"><span class="lineNum">     311 </span>                :            : </a>
-<a name="312"><span class="lineNum">     312 </span>                :<span class="lineCov">          2 : TEST_F(RssStateTests, comparisonOperatorLateralStateLeftDiffers)</span></a>
+<a name="312"><span class="lineNum">     312 </span>                :<span class="lineCov">          4 : TEST_F(RssStateTests, comparisonOperatorLateralStateLeftDiffers)</span></a>
 <a name="313"><span class="lineNum">     313 </span>                :            : {</a>
-<a name="314"><span class="lineNum">     314 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState valueA = mValue;</span></a>
+<a name="314"><span class="lineNum">     314 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState valueA = mValue;</span></a>
 <a name="315"><span class="lineNum">     315 </span>                :<span class="lineCov">          1 :   ::ad::rss::state::LateralRssState lateralStateLeft;</span></a>
 <a name="316"><span class="lineNum">     316 </span>                :<span class="lineCov">          1 :   bool lateralStateLeftIsSafe{false};</span></a>
 <a name="317"><span class="lineNum">     317 </span>                :<span class="lineCov">          1 :   lateralStateLeft.isSafe = lateralStateLeftIsSafe;</span></a>
@@ -435,7 +436,7 @@
 <a name="334"><span class="lineNum">     334 </span>                :<span class="lineCov">          1 :   lateralStateLeftRssStateInformation.evaluator = lateralStateLeftRssStateInformationEvaluator;</span></a>
 <a name="335"><span class="lineNum">     335 </span>                :<span class="lineCov">          1 :   lateralStateLeft.rssStateInformation = lateralStateLeftRssStateInformation;</span></a>
 <a name="336"><span class="lineNum">     336 </span>                :<span class="lineCov">          1 :   valueA.lateralStateLeft = lateralStateLeft;</span></a>
-<a name="337"><span class="lineNum">     337 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState valueB = mValue;</span></a>
+<a name="337"><span class="lineNum">     337 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState valueB = mValue;</span></a>
 <a name="338"><span class="lineNum">     338 </span>                :            : </a>
 <a name="339"><span class="lineNum">     339 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_FALSE(valueA == valueB);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
@@ -445,10 +446,10 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="341"><span class="lineNum">     341 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="342"><span class="lineNum">     342 </span>                :            : </a>
-<a name="343"><span class="lineNum">     343 </span>                :<span class="lineCov">          2 : TEST_F(RssStateTests, comparisonOperatorUnstructuredSceneStateDiffers)</span></a>
+<a name="343"><span class="lineNum">     343 </span>                :<span class="lineCov">          4 : TEST_F(RssStateTests, comparisonOperatorUnstructuredSceneStateDiffers)</span></a>
 <a name="344"><span class="lineNum">     344 </span>                :            : {</a>
-<a name="345"><span class="lineNum">     345 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState valueA = mValue;</span></a>
-<a name="346"><span class="lineNum">     346 </span>                :<span class="lineCov">          2 :   ::ad::rss::state::UnstructuredSceneRssState unstructuredSceneState;</span></a>
+<a name="345"><span class="lineNum">     345 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState valueA = mValue;</span></a>
+<a name="346"><span class="lineNum">     346 </span>                :<span class="lineCov">          1 :   ::ad::rss::state::UnstructuredSceneRssState unstructuredSceneState;</span></a>
 <a name="347"><span class="lineNum">     347 </span>                :<span class="lineCov">          1 :   bool unstructuredSceneStateIsSafe{false};</span></a>
 <a name="348"><span class="lineNum">     348 </span>                :<span class="lineCov">          1 :   unstructuredSceneState.isSafe = unstructuredSceneStateIsSafe;</span></a>
 <a name="349"><span class="lineNum">     349 </span>                :<span class="lineCov">          1 :   ::ad::rss::state::UnstructuredSceneResponse unstructuredSceneStateResponse(</span></a>
@@ -460,8 +461,8 @@
 <a name="355"><span class="lineNum">     355 </span>                :<span class="lineCov">          1 :   ::ad::physics::Angle unstructuredSceneStateHeadingRangeEnd(6.283185308);</span></a>
 <a name="356"><span class="lineNum">     356 </span>                :<span class="lineCov">          1 :   unstructuredSceneStateHeadingRange.end = unstructuredSceneStateHeadingRangeEnd;</span></a>
 <a name="357"><span class="lineNum">     357 </span>                :<span class="lineCov">          1 :   unstructuredSceneState.headingRange = unstructuredSceneStateHeadingRange;</span></a>
-<a name="358"><span class="lineNum">     358 </span>                :<span class="lineCov">          2 :   ::ad::rss::state::UnstructuredSceneStateInformation unstructuredSceneStateRssStateInformation;</span></a>
-<a name="359"><span class="lineNum">     359 </span>                :<span class="lineCov">          2 :   ::ad::physics::Distance2DList unstructuredSceneStateRssStateInformationBrakeTrajectorySet;</span></a>
+<a name="358"><span class="lineNum">     358 </span>                :<span class="lineCov">          1 :   ::ad::rss::state::UnstructuredSceneStateInformation unstructuredSceneStateRssStateInformation;</span></a>
+<a name="359"><span class="lineNum">     359 </span>                :<span class="lineCov">          1 :   ::ad::physics::Distance2DList unstructuredSceneStateRssStateInformationBrakeTrajectorySet;</span></a>
 <a name="360"><span class="lineNum">     360 </span>                :<span class="lineCov">          1 :   ::ad::physics::Distance2D unstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;</span></a>
 <a name="361"><span class="lineNum">     361 </span>                :<span class="lineCov">          1 :   ::ad::physics::Distance unstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(1e9);</span></a>
 <a name="362"><span class="lineNum">     362 </span>                :            :   unstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x</a>
@@ -473,7 +474,7 @@
 <a name="368"><span class="lineNum">     368 </span>                :            :     2, unstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);</a>
 <a name="369"><span class="lineNum">     369 </span>                :            :   unstructuredSceneStateRssStateInformation.brakeTrajectorySet</a>
 <a name="370"><span class="lineNum">     370 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     = unstructuredSceneStateRssStateInformationBrakeTrajectorySet;</span></a>
-<a name="371"><span class="lineNum">     371 </span>                :<span class="lineCov">          2 :   ::ad::physics::Distance2DList unstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;</span></a>
+<a name="371"><span class="lineNum">     371 </span>                :<span class="lineCov">          1 :   ::ad::physics::Distance2DList unstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;</span></a>
 <a name="372"><span class="lineNum">     372 </span>                :<span class="lineCov">          1 :   ::ad::physics::Distance2D unstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;</span></a>
 <a name="373"><span class="lineNum">     373 </span>                :<span class="lineCov">          1 :   ::ad::physics::Distance unstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(1e9);</span></a>
 <a name="374"><span class="lineNum">     374 </span>                :            :   unstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x</a>
@@ -503,7 +504,7 @@
 <a name="398"><span class="lineNum">     398 </span>                :<span class="lineCov">          1 :   unstructuredSceneStateAlphaLon.brakeMin = unstructuredSceneStateAlphaLon.brakeMinCorrect;</span></a>
 <a name="399"><span class="lineNum">     399 </span>                :<span class="lineCov">          1 :   unstructuredSceneState.alphaLon = unstructuredSceneStateAlphaLon;</span></a>
 <a name="400"><span class="lineNum">     400 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   valueA.unstructuredSceneState = unstructuredSceneState;</span></a>
-<a name="401"><span class="lineNum">     401 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState valueB = mValue;</span></a>
+<a name="401"><span class="lineNum">     401 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState valueB = mValue;</span></a>
 <a name="402"><span class="lineNum">     402 </span>                :            : </a>
 <a name="403"><span class="lineNum">     403 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_FALSE(valueA == valueB);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
@@ -513,12 +514,12 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="405"><span class="lineNum">     405 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="406"><span class="lineNum">     406 </span>                :            : </a>
-<a name="407"><span class="lineNum">     407 </span>                :<span class="lineCov">          2 : TEST_F(RssStateTests, comparisonOperatorSituationTypeDiffers)</span></a>
+<a name="407"><span class="lineNum">     407 </span>                :<span class="lineCov">          4 : TEST_F(RssStateTests, comparisonOperatorSituationTypeDiffers)</span></a>
 <a name="408"><span class="lineNum">     408 </span>                :            : {</a>
-<a name="409"><span class="lineNum">     409 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState valueA = mValue;</span></a>
+<a name="409"><span class="lineNum">     409 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState valueA = mValue;</span></a>
 <a name="410"><span class="lineNum">     410 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::SituationType situationType(::ad::rss::situation::SituationType::Unstructured);</span></a>
 <a name="411"><span class="lineNum">     411 </span>                :<span class="lineCov">          1 :   valueA.situationType = situationType;</span></a>
-<a name="412"><span class="lineNum">     412 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   ::ad::rss::state::RssState valueB = mValue;</span></a>
+<a name="412"><span class="lineNum">     412 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   ::ad::rss::state::RssState valueB = mValue;</span></a>
 <a name="413"><span class="lineNum">     413 </span>                :            : </a>
 <a name="414"><span class="lineNum">     414 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_FALSE(valueA == valueB);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 

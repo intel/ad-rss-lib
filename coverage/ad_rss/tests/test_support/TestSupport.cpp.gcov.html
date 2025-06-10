@@ -31,13 +31,13 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">365</td>
-            <td class="headerCovTableEntry">374</td>
-            <td class="headerCovTableEntryHi">97.6 %</td>
+            <td class="headerCovTableEntry">369</td>
+            <td class="headerCovTableEntry">379</td>
+            <td class="headerCovTableEntryHi">97.4 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">20</td>
@@ -223,7 +223,7 @@
 <a name="152"><span class="lineNum">     152 </span>                :<span class="lineCov">       5870 :   object.velocity.speedLatMax = kmhToMeterPerSec(latVelocity);</span></a>
 <a name="153"><span class="lineNum">     153 </span>        [<span class="branchCov" title="Branch 0 was taken 5870 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       5870 :   object.state = createObjectState(lonVelocity, latVelocity);</span></a>
 <a name="154"><span class="lineNum">     154 </span>                :<span class="lineCov">       5870 :   return object;</span></a>
-<a name="155"><span class="lineNum">     155 </span>                :            : }</a>
+<a name="155"><span class="lineNum">     155 </span>                :<span class="lineNoCov">          0 : }</span></a>
 <a name="156"><span class="lineNum">     156 </span>                :            : </a>
 <a name="157"><span class="lineNum">     157 </span>                :<span class="lineCov">       6081 : world::ObjectState createObjectState(double const lonVelocity, double const latVelocity)</span></a>
 <a name="158"><span class="lineNum">     158 </span>                :            : {</a>
@@ -235,9 +235,9 @@
 <a name="164"><span class="lineNum">     164 </span>                :<span class="lineCov">       6081 :   state.yawRate = ad::physics::AngularVelocity(0.0);</span></a>
 <a name="165"><span class="lineNum">     165 </span>                :<span class="lineCov">       6081 :   state.centerPoint.x = ad::physics::Distance(0.0);</span></a>
 <a name="166"><span class="lineNum">     166 </span>                :<span class="lineCov">       6081 :   state.centerPoint.y = ad::physics::Distance(0.0);</span></a>
-<a name="167"><span class="lineNum">     167 </span>        [<span class="branchCov" title="Branch 0 was taken 6081 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       6081 :   state.speed = ad::physics::Speed(std::sqrt(kmhToMeterPerSec(lonVelocity) * kmhToMeterPerSec(lonVelocity)</span></a>
-<a name="168"><span class="lineNum">     168 </span>  [<span class="branchCov" title="Branch 0 was taken 6081 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 6081 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">      12162 :                                              + kmhToMeterPerSec(latVelocity) * kmhToMeterPerSec(latVelocity)));</span></a>
+<a name="167"><span class="lineNum">     167 </span>  [<span class="branchCov" title="Branch 0 was taken 6081 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 6081 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">       6081 :   state.speed = ad::physics::Speed(std::sqrt(kmhToMeterPerSec(lonVelocity) * kmhToMeterPerSec(lonVelocity)</span></a>
 <span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 6081 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]
+<a name="168"><span class="lineNum">     168 </span>        [<span class="branchCov" title="Branch 0 was taken 6081 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       6081 :                                              + kmhToMeterPerSec(latVelocity) * kmhToMeterPerSec(latVelocity)));</span></a>
 <a name="169"><span class="lineNum">     169 </span>                :<span class="lineCov">       6081 :   return state;</span></a>
 <a name="170"><span class="lineNum">     170 </span>                :            : }</a>
 <a name="171"><span class="lineNum">     171 </span>                :            : </a>
@@ -320,17 +320,17 @@
 <a name="242"><span class="lineNum">     242 </span>                :            :                                               world::RssDynamics const &amp;leadingObjectRssDynamics)</a>
 <a name="243"><span class="lineNum">     243 </span>                :            : {</a>
 <a name="244"><span class="lineNum">     244 </span>                :            :   Distance const followingStoppingDistance</a>
-<a name="245"><span class="lineNum">     245 </span>                :            :     = calculateLongitudinalStoppingDistance(followingObjectSpeed,</a>
+<a name="245"><span class="lineNum">     245 </span>                :<span class="lineCov">        663 :     = calculateLongitudinalStoppingDistance(followingObjectSpeed,</span></a>
 <a name="246"><span class="lineNum">     246 </span>                :<span class="lineCov">        663 :                                             followingObjectRssDynamics.maxSpeedOnAcceleration,</span></a>
 <a name="247"><span class="lineNum">     247 </span>                :<span class="lineCov">        663 :                                             followingObjectRssDynamics.alphaLon.accelMax,</span></a>
 <a name="248"><span class="lineNum">     248 </span>                :<span class="lineCov">        663 :                                             followingObjectRssDynamics.alphaLon.brakeMin,</span></a>
 <a name="249"><span class="lineNum">     249 </span>        [<span class="branchCov" title="Branch 0 was taken 663 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        663 :                                             followingObjectRssDynamics.responseTime);</span></a>
 <a name="250"><span class="lineNum">     250 </span>                :            :   Distance const leadingStoppingDistance</a>
-<a name="251"><span class="lineNum">     251 </span>                :            :     = calculateLongitudinalStoppingDistance(leadingObjectSpeed,</a>
+<a name="251"><span class="lineNum">     251 </span>                :<span class="lineCov">        663 :     = calculateLongitudinalStoppingDistance(leadingObjectSpeed,</span></a>
 <a name="252"><span class="lineNum">     252 </span>                :<span class="lineCov">        663 :                                             leadingObjectRssDynamics.maxSpeedOnAcceleration,</span></a>
 <a name="253"><span class="lineNum">     253 </span>                :<span class="lineCov">        663 :                                             leadingObjectRssDynamics.alphaLon.accelMax,</span></a>
-<a name="254"><span class="lineNum">     254 </span>                :<span class="lineCov">        663 :                                             leadingObjectRssDynamics.alphaLon.brakeMax,</span></a>
-<a name="255"><span class="lineNum">     255 </span>        [<span class="branchCov" title="Branch 0 was taken 663 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        663 :                                             Duration(0));</span></a>
+<a name="254"><span class="lineNum">     254 </span>        [<span class="branchCov" title="Branch 0 was taken 663 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        663 :                                             leadingObjectRssDynamics.alphaLon.brakeMax,</span></a>
+<a name="255"><span class="lineNum">     255 </span>                :<span class="lineCov">        663 :                                             Duration(0));</span></a>
 <a name="256"><span class="lineNum">     256 </span>        [<span class="branchCov" title="Branch 0 was taken 663 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        663 :   Distance const dMin = followingStoppingDistance - leadingStoppingDistance;</span></a>
 <a name="257"><span class="lineNum">     257 </span>        [<span class="branchCov" title="Branch 0 was taken 663 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        663 :   return std::max(dMin, Distance(0.));</span></a>
 <a name="258"><span class="lineNum">     258 </span>                :            : }</a>
@@ -342,13 +342,13 @@
 <a name="264"><span class="lineNum">     264 </span>                :            :                                                       world::RssDynamics const &amp;objectNotInCorrectLaneRssDynamics)</a>
 <a name="265"><span class="lineNum">     265 </span>                :            : {</a>
 <a name="266"><span class="lineNum">     266 </span>                :            :   Distance const correctStoppingDistance</a>
-<a name="267"><span class="lineNum">     267 </span>                :            :     = calculateLongitudinalStoppingDistance(objectInCorrectLaneSpeed,</a>
+<a name="267"><span class="lineNum">     267 </span>                :<span class="lineCov">        882 :     = calculateLongitudinalStoppingDistance(objectInCorrectLaneSpeed,</span></a>
 <a name="268"><span class="lineNum">     268 </span>                :<span class="lineCov">        882 :                                             objectInCorrectLaneRssDynamics.maxSpeedOnAcceleration,</span></a>
 <a name="269"><span class="lineNum">     269 </span>                :<span class="lineCov">        882 :                                             objectInCorrectLaneRssDynamics.alphaLon.accelMax,</span></a>
 <a name="270"><span class="lineNum">     270 </span>                :<span class="lineCov">        882 :                                             objectInCorrectLaneRssDynamics.alphaLon.brakeMinCorrect,</span></a>
 <a name="271"><span class="lineNum">     271 </span>        [<span class="branchCov" title="Branch 0 was taken 882 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        882 :                                             objectInCorrectLaneRssDynamics.responseTime);</span></a>
 <a name="272"><span class="lineNum">     272 </span>                :            :   Distance const notCorrectStoppingDistance</a>
-<a name="273"><span class="lineNum">     273 </span>                :            :     = calculateLongitudinalStoppingDistance(objectNotInCorrectLaneSpeed,</a>
+<a name="273"><span class="lineNum">     273 </span>                :<span class="lineCov">        882 :     = calculateLongitudinalStoppingDistance(objectNotInCorrectLaneSpeed,</span></a>
 <a name="274"><span class="lineNum">     274 </span>                :<span class="lineCov">        882 :                                             objectNotInCorrectLaneRssDynamics.maxSpeedOnAcceleration,</span></a>
 <a name="275"><span class="lineNum">     275 </span>                :<span class="lineCov">        882 :                                             objectNotInCorrectLaneRssDynamics.alphaLon.accelMax,</span></a>
 <a name="276"><span class="lineNum">     276 </span>                :<span class="lineCov">        882 :                                             objectNotInCorrectLaneRssDynamics.alphaLon.brakeMin,</span></a>

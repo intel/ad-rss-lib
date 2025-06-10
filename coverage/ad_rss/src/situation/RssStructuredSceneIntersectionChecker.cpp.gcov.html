@@ -31,13 +31,13 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">112</td>
-            <td class="headerCovTableEntry">113</td>
+            <td class="headerCovTableEntry">114</td>
+            <td class="headerCovTableEntry">115</td>
             <td class="headerCovTableEntryHi">99.1 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">3</td>
@@ -350,8 +350,8 @@
 <a name="272"><span class="lineNum">     272 </span>                :            :           /**</a>
 <a name="273"><span class="lineNum">     273 </span>                :            :            * Store the last safe intersection state for next time step</a>
 <a name="274"><span class="lineNum">     274 </span>                :            :            */</a>
-<a name="275"><span class="lineNum">     275 </span>                :            :           mNewSafeStateMap.insert(</a>
-<a name="276"><span class="lineNum">     276 </span>        [<span class="branchCov" title="Branch 0 was taken 238 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        238 :             RssIntersectionStateMap::value_type(situation.situationId, previousIntersectionState-&gt;second));</span></a>
+<a name="275"><span class="lineNum">     275 </span>        [<span class="branchCov" title="Branch 0 was taken 238 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        238 :           mNewSafeStateMap.insert(</span></a>
+<a name="276"><span class="lineNum">     276 </span>                :<span class="lineCov">        476 :             RssIntersectionStateMap::value_type(situation.situationId, previousIntersectionState-&gt;second));</span></a>
 <a name="277"><span class="lineNum">     277 </span>                :            :         }</a>
 <a name="278"><span class="lineNum">     278 </span>                :            :         else</a>
 <a name="279"><span class="lineNum">     279 </span>                :            :         {</a>
@@ -376,7 +376,7 @@
 <a name="298"><span class="lineNum">     298 </span>                :<span class="lineCov">          3 :   catch (...)</span></a>
 <a name="299"><span class="lineNum">     299 </span>                :            :   {</a>
 <a name="300"><span class="lineNum">     300 </span>                :<span class="lineCov">          3 :     result = false;</span></a>
-<a name="301"><span class="lineNum">     301 </span>                :            :   }</a>
+<a name="301"><span class="lineNum">     301 </span>                :<span class="lineCov">          3 :   }</span></a>
 <a name="302"><span class="lineNum">     302 </span>                :<span class="lineCov">        804 :   return result;</span></a>
 <a name="303"><span class="lineNum">     303 </span>                :            : }</a>
 <a name="304"><span class="lineNum">     304 </span>                :            : </a>

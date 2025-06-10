@@ -37,11 +37,11 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">4</td>
-            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">6</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
@@ -90,7 +90,7 @@
 <a name="19"><span class="lineNum">      19 </span>                :            :                               Distance const distanceToCover,</a>
 <a name="20"><span class="lineNum">      20 </span>                :            :                               Duration &amp;requiredTime);</a>
 <a name="21"><span class="lineNum">      21 </span>                :            : </a>
-<a name="22"><span class="lineNum">      22 </span>                :<span class="lineCov">          2 : TEST(PhysicsUnitTestsInputRangeChecks, negative_speed)</span></a>
+<a name="22"><span class="lineNum">      22 </span>                :<span class="lineCov">          4 : TEST(PhysicsUnitTestsInputRangeChecks, negative_speed)</span></a>
 <a name="23"><span class="lineNum">      23 </span>                :            : {</a>
 <a name="24"><span class="lineNum">      24 </span>                :<span class="lineCov">          1 :   Duration requiredTime(0.);</span></a>
 <a name="25"><span class="lineNum">      25 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_FALSE(calculateTimeForDistance(Speed(-1.), Speed(2.), Acceleration(0.), Distance(1.), requiredTime));</span></a>
@@ -98,7 +98,7 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="26"><span class="lineNum">      26 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="27"><span class="lineNum">      27 </span>                :            : </a>
-<a name="28"><span class="lineNum">      28 </span>                :<span class="lineCov">          2 : TEST(PhysicsUnitTestsInputRangeChecks, speed_and_acceleration_zero)</span></a>
+<a name="28"><span class="lineNum">      28 </span>                :<span class="lineCov">          4 : TEST(PhysicsUnitTestsInputRangeChecks, speed_and_acceleration_zero)</span></a>
 <a name="29"><span class="lineNum">      29 </span>                :            : {</a>
 <a name="30"><span class="lineNum">      30 </span>                :<span class="lineCov">          1 :   Duration requiredTime(0.);</span></a>
 <a name="31"><span class="lineNum">      31 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_TRUE(calculateTimeForDistance(Speed(0.), Speed(2.), Acceleration(0.), Distance(1.), requiredTime));</span></a>

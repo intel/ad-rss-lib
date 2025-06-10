@@ -37,11 +37,11 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">18</td>
-            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntry">27</td>
+            <td class="headerCovTableEntry">27</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">18</td>
-            <td class="headerCovTableEntry">108</td>
-            <td class="headerCovTableEntryLo">16.7 %</td>
+            <td class="headerCovTableEntry">27</td>
+            <td class="headerCovTableEntry">126</td>
+            <td class="headerCovTableEntryLo">21.4 %</td>
           </tr>
           <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -89,7 +89,7 @@
 <a name="18"><span class="lineNum">      18 </span>                :            : </a>
 <a name="19"><span class="lineNum">      19 </span>                :            : #include &quot;ad/rss/world/LaneSegmentValidInputRange.hpp&quot;</a>
 <a name="20"><span class="lineNum">      20 </span>                :            : </a>
-<a name="21"><span class="lineNum">      21 </span>                :<span class="lineCov">          2 : TEST(LaneSegmentValidInputRangeTests, testValidInputRange)</span></a>
+<a name="21"><span class="lineNum">      21 </span>                :<span class="lineCov">          4 : TEST(LaneSegmentValidInputRangeTests, testValidInputRange)</span></a>
 <a name="22"><span class="lineNum">      22 </span>                :            : {</a>
 <a name="23"><span class="lineNum">      23 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegment value;</span></a>
 <a name="24"><span class="lineNum">      24 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::lowest());</span></a>
@@ -118,10 +118,11 @@
 <a name="47"><span class="lineNum">      47 </span>                :<span class="lineCov">          1 :   value.width = valueWidth;</span></a>
 <a name="48"><span class="lineNum">      48 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_TRUE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="49"><span class="lineNum">      49 </span>                :            : }</a>
 <a name="50"><span class="lineNum">      50 </span>                :            : </a>
-<a name="51"><span class="lineNum">      51 </span>                :<span class="lineCov">          2 : TEST(LaneSegmentValidInputRangeTests, testValidInputRangeTypeTooSmall)</span></a>
+<a name="51"><span class="lineNum">      51 </span>                :<span class="lineCov">          4 : TEST(LaneSegmentValidInputRangeTests, testValidInputRangeTypeTooSmall)</span></a>
 <a name="52"><span class="lineNum">      52 </span>                :            : {</a>
 <a name="53"><span class="lineNum">      53 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegment value;</span></a>
 <a name="54"><span class="lineNum">      54 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::lowest());</span></a>
@@ -154,10 +155,11 @@
 <a name="81"><span class="lineNum">      81 </span>                :<span class="lineCov">          1 :   value.type = invalidInitializedMember;</span></a>
 <a name="82"><span class="lineNum">      82 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="83"><span class="lineNum">      83 </span>                :            : }</a>
 <a name="84"><span class="lineNum">      84 </span>                :            : </a>
-<a name="85"><span class="lineNum">      85 </span>                :<span class="lineCov">          2 : TEST(LaneSegmentValidInputRangeTests, testValidInputRangeTypeTooBig)</span></a>
+<a name="85"><span class="lineNum">      85 </span>                :<span class="lineCov">          4 : TEST(LaneSegmentValidInputRangeTests, testValidInputRangeTypeTooBig)</span></a>
 <a name="86"><span class="lineNum">      86 </span>                :            : {</a>
 <a name="87"><span class="lineNum">      87 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegment value;</span></a>
 <a name="88"><span class="lineNum">      88 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::lowest());</span></a>
@@ -190,10 +192,11 @@
 <a name="115"><span class="lineNum">     115 </span>                :<span class="lineCov">          1 :   value.type = invalidInitializedMember;</span></a>
 <a name="116"><span class="lineNum">     116 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="117"><span class="lineNum">     117 </span>                :            : }</a>
 <a name="118"><span class="lineNum">     118 </span>                :            : </a>
-<a name="119"><span class="lineNum">     119 </span>                :<span class="lineCov">          2 : TEST(LaneSegmentValidInputRangeTests, testValidInputRangeDrivingDirectionTooSmall)</span></a>
+<a name="119"><span class="lineNum">     119 </span>                :<span class="lineCov">          4 : TEST(LaneSegmentValidInputRangeTests, testValidInputRangeDrivingDirectionTooSmall)</span></a>
 <a name="120"><span class="lineNum">     120 </span>                :            : {</a>
 <a name="121"><span class="lineNum">     121 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegment value;</span></a>
 <a name="122"><span class="lineNum">     122 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::lowest());</span></a>
@@ -227,10 +230,11 @@
 <a name="150"><span class="lineNum">     150 </span>                :<span class="lineCov">          1 :   value.drivingDirection = invalidInitializedMember;</span></a>
 <a name="151"><span class="lineNum">     151 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="152"><span class="lineNum">     152 </span>                :            : }</a>
 <a name="153"><span class="lineNum">     153 </span>                :            : </a>
-<a name="154"><span class="lineNum">     154 </span>                :<span class="lineCov">          2 : TEST(LaneSegmentValidInputRangeTests, testValidInputRangeDrivingDirectionTooBig)</span></a>
+<a name="154"><span class="lineNum">     154 </span>                :<span class="lineCov">          4 : TEST(LaneSegmentValidInputRangeTests, testValidInputRangeDrivingDirectionTooBig)</span></a>
 <a name="155"><span class="lineNum">     155 </span>                :            : {</a>
 <a name="156"><span class="lineNum">     156 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegment value;</span></a>
 <a name="157"><span class="lineNum">     157 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::lowest());</span></a>
@@ -264,10 +268,11 @@
 <a name="185"><span class="lineNum">     185 </span>                :<span class="lineCov">          1 :   value.drivingDirection = invalidInitializedMember;</span></a>
 <a name="186"><span class="lineNum">     186 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="187"><span class="lineNum">     187 </span>                :            : }</a>
 <a name="188"><span class="lineNum">     188 </span>                :            : </a>
-<a name="189"><span class="lineNum">     189 </span>                :<span class="lineCov">          2 : TEST(LaneSegmentValidInputRangeTests, testValidInputRangeLengthTooSmall)</span></a>
+<a name="189"><span class="lineNum">     189 </span>                :<span class="lineCov">          4 : TEST(LaneSegmentValidInputRangeTests, testValidInputRangeLengthTooSmall)</span></a>
 <a name="190"><span class="lineNum">     190 </span>                :            : {</a>
 <a name="191"><span class="lineNum">     191 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegment value;</span></a>
 <a name="192"><span class="lineNum">     192 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::lowest());</span></a>
@@ -302,10 +307,11 @@
 <a name="221"><span class="lineNum">     221 </span>                :<span class="lineCov">          1 :   value.length = invalidInitializedMember;</span></a>
 <a name="222"><span class="lineNum">     222 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="223"><span class="lineNum">     223 </span>                :            : }</a>
 <a name="224"><span class="lineNum">     224 </span>                :            : </a>
-<a name="225"><span class="lineNum">     225 </span>                :<span class="lineCov">          2 : TEST(LaneSegmentValidInputRangeTests, testValidInputRangeLengthTooBig)</span></a>
+<a name="225"><span class="lineNum">     225 </span>                :<span class="lineCov">          4 : TEST(LaneSegmentValidInputRangeTests, testValidInputRangeLengthTooBig)</span></a>
 <a name="226"><span class="lineNum">     226 </span>                :            : {</a>
 <a name="227"><span class="lineNum">     227 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegment value;</span></a>
 <a name="228"><span class="lineNum">     228 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::lowest());</span></a>
@@ -340,10 +346,11 @@
 <a name="257"><span class="lineNum">     257 </span>                :<span class="lineCov">          1 :   value.length = invalidInitializedMember;</span></a>
 <a name="258"><span class="lineNum">     258 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="259"><span class="lineNum">     259 </span>                :            : }</a>
 <a name="260"><span class="lineNum">     260 </span>                :            : </a>
-<a name="261"><span class="lineNum">     261 </span>                :<span class="lineCov">          2 : TEST(LaneSegmentValidInputRangeTests, testValidInputRangeWidthTooSmall)</span></a>
+<a name="261"><span class="lineNum">     261 </span>                :<span class="lineCov">          4 : TEST(LaneSegmentValidInputRangeTests, testValidInputRangeWidthTooSmall)</span></a>
 <a name="262"><span class="lineNum">     262 </span>                :            : {</a>
 <a name="263"><span class="lineNum">     263 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegment value;</span></a>
 <a name="264"><span class="lineNum">     264 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::lowest());</span></a>
@@ -378,10 +385,11 @@
 <a name="293"><span class="lineNum">     293 </span>                :<span class="lineCov">          1 :   value.width = invalidInitializedMember;</span></a>
 <a name="294"><span class="lineNum">     294 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="295"><span class="lineNum">     295 </span>                :            : }</a>
 <a name="296"><span class="lineNum">     296 </span>                :            : </a>
-<a name="297"><span class="lineNum">     297 </span>                :<span class="lineCov">          2 : TEST(LaneSegmentValidInputRangeTests, testValidInputRangeWidthTooBig)</span></a>
+<a name="297"><span class="lineNum">     297 </span>                :<span class="lineCov">          4 : TEST(LaneSegmentValidInputRangeTests, testValidInputRangeWidthTooBig)</span></a>
 <a name="298"><span class="lineNum">     298 </span>                :            : {</a>
 <a name="299"><span class="lineNum">     299 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegment value;</span></a>
 <a name="300"><span class="lineNum">     300 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits&lt;::ad::rss::world::LaneSegmentId&gt;::lowest());</span></a>
@@ -416,7 +424,8 @@
 <a name="329"><span class="lineNum">     329 </span>                :<span class="lineCov">          1 :   value.width = invalidInitializedMember;</span></a>
 <a name="330"><span class="lineNum">     330 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="331"><span class="lineNum">     331 </span>                :            : }</a>
 </pre>
       </td>

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">2</td>
@@ -89,13 +89,13 @@
 <a name="18"><span class="lineNum">      18 </span>                :            : #include &quot;ad/rss/situation/SituationType.hpp&quot;</a>
 <a name="19"><span class="lineNum">      19 </span>                :            : #include &lt;stdexcept&gt;</a>
 <a name="20"><span class="lineNum">      20 </span>                :            : </a>
-<a name="21"><span class="lineNum">      21 </span>                :<span class="lineCov">    3023530 : std::string toString(::ad::rss::situation::SituationType const e)</span></a>
+<a name="21"><span class="lineNum">      21 </span>                :<span class="lineCov">    3023531 : std::string toString(::ad::rss::situation::SituationType const e)</span></a>
 <a name="22"><span class="lineNum">      22 </span>                :            : {</a>
-<a name="23"><span class="lineNum">      23 </span>  [<span class="branchCov" title="Branch 0 was taken 3050 times"> + </span><span class="branchCov" title="Branch 1 was taken 16801 times"> + </span><span class="branchCov" title="Branch 2 was taken 1301 times"> + </span><span class="branchCov" title="Branch 3 was taken 203 times"> + </span> :<span class="lineCov">    3023530 :   switch (e)</span></a>
-<span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 76 times"> + </span><span class="branchCov" title="Branch 5 was taken 76 times"> + </span><span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchCov" title="Branch 7 was taken 3002020 times"> + </span>]
+<a name="23"><span class="lineNum">      23 </span>  [<span class="branchCov" title="Branch 0 was taken 1003052 times"> + </span><span class="branchCov" title="Branch 1 was taken 16801 times"> + </span><span class="branchCov" title="Branch 2 was taken 1301 times"> + </span><span class="branchCov" title="Branch 3 was taken 203 times"> + </span> :<span class="lineCov">    3023531 :   switch (e)</span></a>
+<span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 76 times"> + </span><span class="branchCov" title="Branch 5 was taken 76 times"> + </span><span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchCov" title="Branch 7 was taken 2002021 times"> + </span>]
 <a name="24"><span class="lineNum">      24 </span>                :            :   {</a>
-<a name="25"><span class="lineNum">      25 </span>                :<span class="lineCov">       3050 :     case ::ad::rss::situation::SituationType::NotRelevant:</span></a>
-<a name="26"><span class="lineNum">      26 </span>                :<span class="lineCov">       3050 :       return std::string(&quot;::ad::rss::situation::SituationType::NotRelevant&quot;); // LCOV_EXCL_BR_LINE</span></a>
+<a name="25"><span class="lineNum">      25 </span>                :<span class="lineCov">    1003052 :     case ::ad::rss::situation::SituationType::NotRelevant:</span></a>
+<a name="26"><span class="lineNum">      26 </span>                :<span class="lineCov">    1003052 :       return std::string(&quot;::ad::rss::situation::SituationType::NotRelevant&quot;); // LCOV_EXCL_BR_LINE</span></a>
 <a name="27"><span class="lineNum">      27 </span>                :<span class="lineCov">      16801 :     case ::ad::rss::situation::SituationType::SameDirection:</span></a>
 <a name="28"><span class="lineNum">      28 </span>                :<span class="lineCov">      16801 :       return std::string(&quot;::ad::rss::situation::SituationType::SameDirection&quot;); // LCOV_EXCL_BR_LINE</span></a>
 <a name="29"><span class="lineNum">      29 </span>                :<span class="lineCov">       1301 :     case ::ad::rss::situation::SituationType::OppositeDirection:</span></a>
@@ -108,8 +108,8 @@
 <a name="36"><span class="lineNum">      36 </span>                :<span class="lineCov">         76 :       return std::string(&quot;::ad::rss::situation::SituationType::IntersectionSamePriority&quot;); // LCOV_EXCL_BR_LINE</span></a>
 <a name="37"><span class="lineNum">      37 </span>                :<span class="lineCov">          1 :     case ::ad::rss::situation::SituationType::Unstructured:</span></a>
 <a name="38"><span class="lineNum">      38 </span>                :<span class="lineCov">          1 :       return std::string(&quot;::ad::rss::situation::SituationType::Unstructured&quot;); // LCOV_EXCL_BR_LINE</span></a>
-<a name="39"><span class="lineNum">      39 </span>                :<span class="lineCov">    3002020 :     default:</span></a>
-<a name="40"><span class="lineNum">      40 </span>                :<span class="lineCov">    3002020 :       return std::string(&quot;UNKNOWN ENUM VALUE&quot;); // LCOV_EXCL_BR_LINE</span></a>
+<a name="39"><span class="lineNum">      39 </span>                :<span class="lineCov">    2002021 :     default:</span></a>
+<a name="40"><span class="lineNum">      40 </span>                :<span class="lineCov">    2002021 :       return std::string(&quot;UNKNOWN ENUM VALUE&quot;); // LCOV_EXCL_BR_LINE</span></a>
 <a name="41"><span class="lineNum">      41 </span>                :            :   }</a>
 <a name="42"><span class="lineNum">      42 </span>                :            : }</a>
 <a name="43"><span class="lineNum">      43 </span>                :            : </a>

@@ -31,13 +31,13 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">18</td>
-            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntry">19</td>
+            <td class="headerCovTableEntry">19</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -227,16 +227,16 @@
 <a name="156"><span class="lineNum">     156 </span>                :            :  * \returns The stream object.</a>
 <a name="157"><span class="lineNum">     157 </span>                :            :  *</a>
 <a name="158"><span class="lineNum">     158 </span>                :            :  */</a>
-<a name="159"><span class="lineNum">     159 </span>                :<span class="lineCov">    6070210 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, LateralRssAccelerationValues const &amp;_value)</span></a>
+<a name="159"><span class="lineNum">     159 </span>                :<span class="lineCov">    6070207 : inline std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, LateralRssAccelerationValues const &amp;_value)</span></a>
 <a name="160"><span class="lineNum">     160 </span>                :            : {</a>
-<a name="161"><span class="lineNum">     161 </span>                :<span class="lineCov">    6070210 :   os &lt;&lt; &quot;LateralRssAccelerationValues(&quot;;</span></a>
-<a name="162"><span class="lineNum">     162 </span>                :<span class="lineCov">    6070210 :   os &lt;&lt; &quot;accelMax:&quot;;</span></a>
-<a name="163"><span class="lineNum">     163 </span>                :<span class="lineCov">    6070210 :   os &lt;&lt; _value.accelMax;</span></a>
-<a name="164"><span class="lineNum">     164 </span>                :<span class="lineCov">    6070210 :   os &lt;&lt; &quot;,&quot;;</span></a>
-<a name="165"><span class="lineNum">     165 </span>                :<span class="lineCov">    6070210 :   os &lt;&lt; &quot;brakeMin:&quot;;</span></a>
-<a name="166"><span class="lineNum">     166 </span>                :<span class="lineCov">    6070210 :   os &lt;&lt; _value.brakeMin;</span></a>
-<a name="167"><span class="lineNum">     167 </span>                :<span class="lineCov">    6070210 :   os &lt;&lt; &quot;)&quot;;</span></a>
-<a name="168"><span class="lineNum">     168 </span>                :<span class="lineCov">    6070210 :   return os;</span></a>
+<a name="161"><span class="lineNum">     161 </span>                :<span class="lineCov">    6070207 :   os &lt;&lt; &quot;LateralRssAccelerationValues(&quot;;</span></a>
+<a name="162"><span class="lineNum">     162 </span>                :<span class="lineCov">    6070207 :   os &lt;&lt; &quot;accelMax:&quot;;</span></a>
+<a name="163"><span class="lineNum">     163 </span>                :<span class="lineCov">    6070207 :   os &lt;&lt; _value.accelMax;</span></a>
+<a name="164"><span class="lineNum">     164 </span>                :<span class="lineCov">    6070207 :   os &lt;&lt; &quot;,&quot;;</span></a>
+<a name="165"><span class="lineNum">     165 </span>                :<span class="lineCov">    6070207 :   os &lt;&lt; &quot;brakeMin:&quot;;</span></a>
+<a name="166"><span class="lineNum">     166 </span>                :<span class="lineCov">    6070207 :   os &lt;&lt; _value.brakeMin;</span></a>
+<a name="167"><span class="lineNum">     167 </span>                :<span class="lineCov">    6070207 :   os &lt;&lt; &quot;)&quot;;</span></a>
+<a name="168"><span class="lineNum">     168 </span>                :<span class="lineCov">    6070207 :   return os;</span></a>
 <a name="169"><span class="lineNum">     169 </span>                :            : }</a>
 <a name="170"><span class="lineNum">     170 </span>                :            : </a>
 <a name="171"><span class="lineNum">     171 </span>                :            : } // namespace world</a>
@@ -249,10 +249,10 @@
 <a name="178"><span class="lineNum">     178 </span>                :            :  */</a>
 <a name="179"><span class="lineNum">     179 </span>                :<span class="lineCov">          1 : inline std::string to_string(::ad::rss::world::LateralRssAccelerationValues const &amp;value)</span></a>
 <a name="180"><span class="lineNum">     180 </span>                :            : {</a>
-<a name="181"><span class="lineNum">     181 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   stringstream sstream;</span></a>
+<a name="181"><span class="lineNum">     181 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   stringstream sstream;</span></a>
 <a name="182"><span class="lineNum">     182 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   sstream &lt;&lt; value;</span></a>
 <a name="183"><span class="lineNum">     183 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   return sstream.str();</span></a>
-<a name="184"><span class="lineNum">     184 </span>                :            : }</a>
+<a name="184"><span class="lineNum">     184 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="185"><span class="lineNum">     185 </span>                :            : } // namespace std</a>
 <a name="186"><span class="lineNum">     186 </span>                :            : #endif // GEN_GUARD_AD_RSS_WORLD_LATERALRSSACCELERATIONVALUES</a>
 </pre>

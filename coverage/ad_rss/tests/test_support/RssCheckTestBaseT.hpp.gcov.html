@@ -31,13 +31,13 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">351</td>
-            <td class="headerCovTableEntry">374</td>
-            <td class="headerCovTableEntryHi">93.9 %</td>
+            <td class="headerCovTableEntry">362</td>
+            <td class="headerCovTableEntry">385</td>
+            <td class="headerCovTableEntryHi">94.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">35</td>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">176</td>
-            <td class="headerCovTableEntry">434</td>
-            <td class="headerCovTableEntryLo">40.6 %</td>
+            <td class="headerCovTableEntry">186</td>
+            <td class="headerCovTableEntry">454</td>
+            <td class="headerCovTableEntryLo">41.0 %</td>
           </tr>
           <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -211,7 +211,7 @@
 <a name="139"><span class="lineNum">     139 </span>                :<span class="lineCov">        731 :     worldModel.defaultEgoVehicleRssDynamics = getEgoRssDynamics();</span></a>
 <a name="140"><span class="lineNum">     140 </span>        [<span class="branchCov" title="Branch 0 was taken 836 times"> + </span><span class="branchCov" title="Branch 1 was taken 731 times"> + </span>]:<span class="lineCov">       1567 :     for (uint32_t index = 0u; index &lt; getNumberOfSceneObjects(); index++)</span></a>
 <a name="141"><span class="lineNum">     141 </span>                :            :     {</a>
-<a name="142"><span class="lineNum">     142 </span>                :<span class="lineCov">       1672 :       world::Scene scene;</span></a>
+<a name="142"><span class="lineNum">     142 </span>                :<span class="lineCov">        836 :       world::Scene scene;</span></a>
 <a name="143"><span class="lineNum">     143 </span>        [<span class="branchCov" title="Branch 0 was taken 836 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        836 :       scene.situationType = getSituationType();</span></a>
 <a name="144"><span class="lineNum">     144 </span>  [<span class="branchCov" title="Branch 0 was taken 836 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 836 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        836 :       scene.object = getSceneObject(index);</span></a>
 <a name="145"><span class="lineNum">     145 </span>        [<span class="branchCov" title="Branch 0 was taken 836 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        836 :       scene.objectRssDynamics = getObjectRssDynamics();</span></a>
@@ -349,7 +349,7 @@
 <a name="273"><span class="lineNum">     273 </span>                :            :     //   |  0  |  1  |  2  |</a>
 <a name="274"><span class="lineNum">     274 </span>                :            : </a>
 <a name="275"><span class="lineNum">     275 </span>                :            :     {</a>
-<a name="276"><span class="lineNum">     276 </span>                :<span class="lineCov">       1134 :       world::RoadSegment roadSegment;</span></a>
+<a name="276"><span class="lineNum">     276 </span>                :<span class="lineCov">        567 :       world::RoadSegment roadSegment;</span></a>
 <a name="277"><span class="lineNum">     277 </span>                :<span class="lineCov">        567 :       world::LaneSegment laneSegment;</span></a>
 <a name="278"><span class="lineNum">     278 </span>        [<span class="branchCov" title="Branch 0 was taken 567 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        567 :       laneSegment.drivingDirection = getDrivingDirection();</span></a>
 <a name="279"><span class="lineNum">     279 </span>                :            : </a>
@@ -373,10 +373,10 @@
 <a name="297"><span class="lineNum">     297 </span>        [<span class="branchCov" title="Branch 0 was taken 567 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        567 :       roadSegment.push_back(laneSegment);</span></a>
 <a name="298"><span class="lineNum">     298 </span>                :            : </a>
 <a name="299"><span class="lineNum">     299 </span>        [<span class="branchCov" title="Branch 0 was taken 567 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        567 :       roadArea.push_back(roadSegment);</span></a>
-<a name="300"><span class="lineNum">     300 </span>                :            :     }</a>
+<a name="300"><span class="lineNum">     300 </span>                :<span class="lineCov">        567 :     }</span></a>
 <a name="301"><span class="lineNum">     301 </span>                :            : </a>
 <a name="302"><span class="lineNum">     302 </span>                :            :     {</a>
-<a name="303"><span class="lineNum">     303 </span>                :<span class="lineCov">       1134 :       world::RoadSegment roadSegment;</span></a>
+<a name="303"><span class="lineNum">     303 </span>                :<span class="lineCov">        567 :       world::RoadSegment roadSegment;</span></a>
 <a name="304"><span class="lineNum">     304 </span>                :<span class="lineCov">        567 :       world::LaneSegment laneSegment;</span></a>
 <a name="305"><span class="lineNum">     305 </span>        [<span class="branchCov" title="Branch 0 was taken 567 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        567 :       laneSegment.drivingDirection = getDrivingDirection();</span></a>
 <a name="306"><span class="lineNum">     306 </span>                :            : </a>
@@ -400,10 +400,10 @@
 <a name="324"><span class="lineNum">     324 </span>        [<span class="branchCov" title="Branch 0 was taken 567 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        567 :       roadSegment.push_back(laneSegment);</span></a>
 <a name="325"><span class="lineNum">     325 </span>                :            : </a>
 <a name="326"><span class="lineNum">     326 </span>        [<span class="branchCov" title="Branch 0 was taken 567 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        567 :       roadArea.push_back(roadSegment);</span></a>
-<a name="327"><span class="lineNum">     327 </span>                :            :     }</a>
+<a name="327"><span class="lineNum">     327 </span>                :<span class="lineCov">        567 :     }</span></a>
 <a name="328"><span class="lineNum">     328 </span>                :            : </a>
 <a name="329"><span class="lineNum">     329 </span>                :            :     {</a>
-<a name="330"><span class="lineNum">     330 </span>                :<span class="lineCov">       1134 :       world::RoadSegment roadSegment;</span></a>
+<a name="330"><span class="lineNum">     330 </span>                :<span class="lineCov">        567 :       world::RoadSegment roadSegment;</span></a>
 <a name="331"><span class="lineNum">     331 </span>                :<span class="lineCov">        567 :       world::LaneSegment laneSegment;</span></a>
 <a name="332"><span class="lineNum">     332 </span>        [<span class="branchCov" title="Branch 0 was taken 567 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        567 :       laneSegment.drivingDirection = getDrivingDirection();</span></a>
 <a name="333"><span class="lineNum">     333 </span>                :            : </a>
@@ -427,7 +427,7 @@
 <a name="351"><span class="lineNum">     351 </span>        [<span class="branchCov" title="Branch 0 was taken 567 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        567 :       roadSegment.push_back(laneSegment);</span></a>
 <a name="352"><span class="lineNum">     352 </span>                :            : </a>
 <a name="353"><span class="lineNum">     353 </span>        [<span class="branchCov" title="Branch 0 was taken 567 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        567 :       roadArea.push_back(roadSegment);</span></a>
-<a name="354"><span class="lineNum">     354 </span>                :            :     }</a>
+<a name="354"><span class="lineNum">     354 </span>                :<span class="lineCov">        567 :     }</span></a>
 <a name="355"><span class="lineNum">     355 </span>                :<span class="lineCov">        567 :   }</span></a>
 <a name="356"><span class="lineNum">     356 </span>                :            : </a>
 <a name="357"><span class="lineNum">     357 </span>                :<span class="lineCov">        164 :   void createRoadAreaIntersection()</span></a>
@@ -437,7 +437,7 @@
 <a name="361"><span class="lineNum">     361 </span>                :            :     //   | 3 |</a>
 <a name="362"><span class="lineNum">     362 </span>                :            :     //   | 0 |</a>
 <a name="363"><span class="lineNum">     363 </span>                :            :     {</a>
-<a name="364"><span class="lineNum">     364 </span>                :<span class="lineCov">        328 :       world::RoadSegment roadSegment;</span></a>
+<a name="364"><span class="lineNum">     364 </span>                :<span class="lineCov">        164 :       world::RoadSegment roadSegment;</span></a>
 <a name="365"><span class="lineNum">     365 </span>                :<span class="lineCov">        164 :       world::LaneSegment laneSegment;</span></a>
 <a name="366"><span class="lineNum">     366 </span>        [<span class="branchCov" title="Branch 0 was taken 164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        164 :       laneSegment.drivingDirection = getDrivingDirection();</span></a>
 <a name="367"><span class="lineNum">     367 </span>                :            : </a>
@@ -448,10 +448,10 @@
 <a name="372"><span class="lineNum">     372 </span>                :<span class="lineCov">        164 :       laneSegment.width.maximum = Distance(5);</span></a>
 <a name="373"><span class="lineNum">     373 </span>        [<span class="branchCov" title="Branch 0 was taken 164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        164 :       roadSegment.push_back(laneSegment);</span></a>
 <a name="374"><span class="lineNum">     374 </span>        [<span class="branchCov" title="Branch 0 was taken 164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        164 :       roadArea.push_back(roadSegment);</span></a>
-<a name="375"><span class="lineNum">     375 </span>                :            :     }</a>
+<a name="375"><span class="lineNum">     375 </span>                :<span class="lineCov">        164 :     }</span></a>
 <a name="376"><span class="lineNum">     376 </span>                :            : </a>
 <a name="377"><span class="lineNum">     377 </span>                :            :     {</a>
-<a name="378"><span class="lineNum">     378 </span>                :<span class="lineCov">        328 :       world::RoadSegment roadSegment;</span></a>
+<a name="378"><span class="lineNum">     378 </span>                :<span class="lineCov">        164 :       world::RoadSegment roadSegment;</span></a>
 <a name="379"><span class="lineNum">     379 </span>                :<span class="lineCov">        164 :       world::LaneSegment laneSegment;</span></a>
 <a name="380"><span class="lineNum">     380 </span>        [<span class="branchCov" title="Branch 0 was taken 164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        164 :       laneSegment.drivingDirection = getDrivingDirection();</span></a>
 <a name="381"><span class="lineNum">     381 </span>                :            : </a>
@@ -462,10 +462,10 @@
 <a name="386"><span class="lineNum">     386 </span>                :<span class="lineCov">        164 :       laneSegment.width.maximum = Distance(5);</span></a>
 <a name="387"><span class="lineNum">     387 </span>        [<span class="branchCov" title="Branch 0 was taken 164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        164 :       roadSegment.push_back(laneSegment);</span></a>
 <a name="388"><span class="lineNum">     388 </span>        [<span class="branchCov" title="Branch 0 was taken 164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        164 :       roadArea.push_back(roadSegment);</span></a>
-<a name="389"><span class="lineNum">     389 </span>                :            :     }</a>
+<a name="389"><span class="lineNum">     389 </span>                :<span class="lineCov">        164 :     }</span></a>
 <a name="390"><span class="lineNum">     390 </span>                :            : </a>
 <a name="391"><span class="lineNum">     391 </span>                :            :     {</a>
-<a name="392"><span class="lineNum">     392 </span>                :<span class="lineCov">        328 :       world::RoadSegment roadSegment;</span></a>
+<a name="392"><span class="lineNum">     392 </span>                :<span class="lineCov">        164 :       world::RoadSegment roadSegment;</span></a>
 <a name="393"><span class="lineNum">     393 </span>                :<span class="lineCov">        164 :       world::LaneSegment laneSegment;</span></a>
 <a name="394"><span class="lineNum">     394 </span>        [<span class="branchCov" title="Branch 0 was taken 164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        164 :       laneSegment.drivingDirection = getDrivingDirection();</span></a>
 <a name="395"><span class="lineNum">     395 </span>                :            : </a>
@@ -476,10 +476,10 @@
 <a name="400"><span class="lineNum">     400 </span>                :<span class="lineCov">        164 :       laneSegment.width.maximum = Distance(5);</span></a>
 <a name="401"><span class="lineNum">     401 </span>        [<span class="branchCov" title="Branch 0 was taken 164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        164 :       roadSegment.push_back(laneSegment);</span></a>
 <a name="402"><span class="lineNum">     402 </span>        [<span class="branchCov" title="Branch 0 was taken 164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        164 :       otherRoadArea.push_back(roadSegment);</span></a>
-<a name="403"><span class="lineNum">     403 </span>                :            :     }</a>
+<a name="403"><span class="lineNum">     403 </span>                :<span class="lineCov">        164 :     }</span></a>
 <a name="404"><span class="lineNum">     404 </span>                :            : </a>
 <a name="405"><span class="lineNum">     405 </span>                :            :     {</a>
-<a name="406"><span class="lineNum">     406 </span>                :<span class="lineCov">        328 :       world::RoadSegment roadSegment;</span></a>
+<a name="406"><span class="lineNum">     406 </span>                :<span class="lineCov">        164 :       world::RoadSegment roadSegment;</span></a>
 <a name="407"><span class="lineNum">     407 </span>                :<span class="lineCov">        164 :       world::LaneSegment laneSegment;</span></a>
 <a name="408"><span class="lineNum">     408 </span>        [<span class="branchCov" title="Branch 0 was taken 164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        164 :       laneSegment.drivingDirection = getDrivingDirection();</span></a>
 <a name="409"><span class="lineNum">     409 </span>                :            : </a>
@@ -490,10 +490,10 @@
 <a name="414"><span class="lineNum">     414 </span>                :<span class="lineCov">        164 :       laneSegment.width.maximum = Distance(5);</span></a>
 <a name="415"><span class="lineNum">     415 </span>        [<span class="branchCov" title="Branch 0 was taken 164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        164 :       roadSegment.push_back(laneSegment);</span></a>
 <a name="416"><span class="lineNum">     416 </span>        [<span class="branchCov" title="Branch 0 was taken 164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        164 :       otherRoadArea.push_back(roadSegment);</span></a>
-<a name="417"><span class="lineNum">     417 </span>                :            :     }</a>
+<a name="417"><span class="lineNum">     417 </span>                :<span class="lineCov">        164 :     }</span></a>
 <a name="418"><span class="lineNum">     418 </span>                :            : </a>
 <a name="419"><span class="lineNum">     419 </span>                :            :     {</a>
-<a name="420"><span class="lineNum">     420 </span>                :<span class="lineCov">        328 :       world::RoadSegment roadSegment;</span></a>
+<a name="420"><span class="lineNum">     420 </span>                :<span class="lineCov">        164 :       world::RoadSegment roadSegment;</span></a>
 <a name="421"><span class="lineNum">     421 </span>                :<span class="lineCov">        164 :       world::LaneSegment laneSegment;</span></a>
 <a name="422"><span class="lineNum">     422 </span>                :            : </a>
 <a name="423"><span class="lineNum">     423 </span>                :<span class="lineCov">        164 :       laneSegment.id = 6;</span></a>
@@ -505,7 +505,7 @@
 <a name="429"><span class="lineNum">     429 </span>        [<span class="branchCov" title="Branch 0 was taken 164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        164 :       roadSegment.push_back(laneSegment);</span></a>
 <a name="430"><span class="lineNum">     430 </span>        [<span class="branchCov" title="Branch 0 was taken 164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        164 :       roadArea.push_back(roadSegment);</span></a>
 <a name="431"><span class="lineNum">     431 </span>        [<span class="branchCov" title="Branch 0 was taken 164 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        164 :       otherRoadArea.push_back(roadSegment);</span></a>
-<a name="432"><span class="lineNum">     432 </span>                :            :     }</a>
+<a name="432"><span class="lineNum">     432 </span>                :<span class="lineCov">        164 :     }</span></a>
 <a name="433"><span class="lineNum">     433 </span>                :<span class="lineCov">        164 :   }</span></a>
 <a name="434"><span class="lineNum">     434 </span>                :            : </a>
 <a name="435"><span class="lineNum">     435 </span>                :<span class="lineCov">       3839 :   void testRestriction(physics::AccelerationRange const &amp;longitudinalRange,</span></a>
@@ -681,7 +681,8 @@
 <a name="581"><span class="lineNum">     581 </span>                :            : </a>
 <a name="582"><span class="lineNum">     582 </span>  [<span class="branchCov" title="Branch 0 was taken 900 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 900 times"> + </span> :<span class="lineCov">        900 :       ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 900 times"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="583"><span class="lineNum">     583 </span>                :            : </a>
 <a name="584"><span class="lineNum">     584 </span>                :            : #if RSS_CHECK_TEST_DEBUG_OUT</a>
 <a name="585"><span class="lineNum">     585 </span>                :            :       std::cout &lt;&lt; &quot;TestingVelocity[i=&quot; &lt;&lt; i &lt;&lt; &quot;]: lonSafe=&quot; &lt;&lt; isDistanceSafeLongitudinal() &lt;&lt; std::endl;</a>
@@ -695,7 +696,7 @@
 <a name="593"><span class="lineNum">     593 </span>        [<span class="branchCov" title="Branch 0 was taken 599 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        599 :         testRestrictions(properResponse.accelerationRestrictions, expectedLonResponse);</span></a>
 <a name="594"><span class="lineNum">     594 </span>                :            :       }</a>
 <a name="595"><span class="lineNum">     595 </span>                :            :     }</a>
-<a name="596"><span class="lineNum">     596 </span>                :            :   }</a>
+<a name="596"><span class="lineNum">     596 </span>  [<span class="branchCov" title="Branch 0 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 9 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          9 :   }</span></a>
 <a name="597"><span class="lineNum">     597 </span>                :            : </a>
 <a name="598"><span class="lineNum">     598 </span>                :<span class="lineCov">          5 :   virtual void performDifferentDistancesTest(state::LongitudinalResponse expectedLonResponse)</span></a>
 <a name="599"><span class="lineNum">     599 </span>                :            :   {</a>
@@ -713,7 +714,8 @@
 <a name="611"><span class="lineNum">     611 </span>                :            : </a>
 <a name="612"><span class="lineNum">     612 </span>  [<span class="branchCov" title="Branch 0 was taken 455 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 455 times"> + </span> :<span class="lineCov">        455 :       ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 455 times"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="613"><span class="lineNum">     613 </span>                :            : </a>
 <a name="614"><span class="lineNum">     614 </span>                :            : #if RSS_CHECK_TEST_DEBUG_OUT</a>
 <a name="615"><span class="lineNum">     615 </span>                :            :       std::cout &lt;&lt; &quot;TestingDistance[i=&quot; &lt;&lt; i &lt;&lt; &quot;]: lonSafe=&quot; &lt;&lt; isDistanceSafeLongitudinal() &lt;&lt; std::endl;</a>
@@ -727,7 +729,7 @@
 <a name="623"><span class="lineNum">     623 </span>        [<span class="branchCov" title="Branch 0 was taken 203 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        203 :         testRestrictions(properResponse.accelerationRestrictions, expectedLonResponse);</span></a>
 <a name="624"><span class="lineNum">     624 </span>                :            :       }</a>
 <a name="625"><span class="lineNum">     625 </span>                :            :     }</a>
-<a name="626"><span class="lineNum">     626 </span>                :            :   }</a>
+<a name="626"><span class="lineNum">     626 </span>  [<span class="branchCov" title="Branch 0 was taken 5 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 5 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          5 :   }</span></a>
 <a name="627"><span class="lineNum">     627 </span>                :            : </a>
 <a name="628"><span class="lineNum">     628 </span>                :            :   world::WorldModel worldModel;</a>
 <a name="629"><span class="lineNum">     629 </span>                :            :   world::Object objectOnSegment0;</a>
@@ -764,16 +766,16 @@
 <a name="659"><span class="lineNum">     659 </span>                :            :       // the test returns also true</a>
 <a name="660"><span class="lineNum">     660 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 285 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">        285 :       ASSERT_TRUE(checkResult);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
+<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 285 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="661"><span class="lineNum">     661 </span>        [<span class="branchCov" title="Branch 0 was taken 285 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        285 :       testRestrictions(properResponse.accelerationRestrictions);</span></a>
 <a name="662"><span class="lineNum">     662 </span>                :            :     }</a>
 <a name="663"><span class="lineNum">     663 </span>                :            :     else</a>
 <a name="664"><span class="lineNum">     664 </span>                :            :     {</a>
 <a name="665"><span class="lineNum">     665 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 365 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">        365 :       ASSERT_FALSE(checkResult);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
+<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 365 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="666"><span class="lineNum">     666 </span>                :            :     }</a>
-<a name="667"><span class="lineNum">     667 </span>                :            :   }</a>
+<a name="667"><span class="lineNum">     667 </span>  [<span class="branchCov" title="Branch 0 was taken 650 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 650 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        650 :   }</span></a>
 <a name="668"><span class="lineNum">     668 </span>                :            : };</a>
 <a name="669"><span class="lineNum">     669 </span>                :            : </a>
 <a name="670"><span class="lineNum">     670 </span>                :            : } // namespace core</a>

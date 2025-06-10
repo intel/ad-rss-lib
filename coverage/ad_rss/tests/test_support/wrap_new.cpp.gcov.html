@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -85,9 +85,9 @@
 <a name="14"><span class="lineNum">      14 </span>                :            : uint64_t gNewThrowCounter{0u};</a>
 <a name="15"><span class="lineNum">      15 </span>                :            : uint64_t gNewThrowSize{0u};</a>
 <a name="16"><span class="lineNum">      16 </span>                :            : </a>
-<a name="17"><span class="lineNum">      17 </span>                :<span class="lineCov">   16757000 : void *operator new(std::size_t count)</span></a>
+<a name="17"><span class="lineNum">      17 </span>                :<span class="lineCov">   16761624 : void *operator new(std::size_t count)</span></a>
 <a name="18"><span class="lineNum">      18 </span>                :            : {</a>
-<a name="19"><span class="lineNum">      19 </span>        [<span class="branchCov" title="Branch 0 was taken 12483 times"> + </span><span class="branchCov" title="Branch 1 was taken 16744500 times"> + </span>]:<span class="lineCov">   16757000 :   if (gNewThrowCounter &gt; 0u)</span></a>
+<a name="19"><span class="lineNum">      19 </span>        [<span class="branchCov" title="Branch 0 was taken 12483 times"> + </span><span class="branchCov" title="Branch 1 was taken 16749141 times"> + </span>]:<span class="lineCov">   16761624 :   if (gNewThrowCounter &gt; 0u)</span></a>
 <a name="20"><span class="lineNum">      20 </span>                :            :   {</a>
 <a name="21"><span class="lineNum">      21 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 12483 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">      12483 :     if ((gNewThrowSize == 0u) || (gNewThrowSize == count))</span></a>
 <a name="22"><span class="lineNum">      22 </span>                :            :     {</a>
@@ -98,7 +98,7 @@
 <a name="27"><span class="lineNum">      27 </span>                :<span class="lineCov">        365 :       throw std::bad_alloc();</span></a>
 <a name="28"><span class="lineNum">      28 </span>                :            :     }</a>
 <a name="29"><span class="lineNum">      29 </span>                :            :   }</a>
-<a name="30"><span class="lineNum">      30 </span>                :<span class="lineCov">   16756600 :   return malloc(count);</span></a>
+<a name="30"><span class="lineNum">      30 </span>                :<span class="lineCov">   16761259 :   return malloc(count);</span></a>
 <a name="31"><span class="lineNum">      31 </span>                :            : }</a>
 </pre>
       </td>

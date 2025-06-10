@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">71</td>
-            <td class="headerCovTableEntry">110</td>
-            <td class="headerCovTableEntryLo">64.5 %</td>
+            <td class="headerCovTableEntry">112</td>
+            <td class="headerCovTableEntryLo">63.4 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">6</td>
@@ -50,8 +50,8 @@
             <td></td>
             <td class="headerItem">Branches:</td>
             <td class="headerCovTableEntry">17</td>
-            <td class="headerCovTableEntry">48</td>
-            <td class="headerCovTableEntryLo">35.4 %</td>
+            <td class="headerCovTableEntry">50</td>
+            <td class="headerCovTableEntryLo">34.0 %</td>
           </tr>
           <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -206,17 +206,17 @@
 <a name="135"><span class="lineNum">     135 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         = std::min(response.accelerationRestrictions.longitudinalRange.maximum, driveAwayBrakeMin);</span></a>
 <a name="136"><span class="lineNum">     136 </span>                :            :     }</a>
 <a name="137"><span class="lineNum">     137 </span>                :            :   }</a>
-<a name="138"><span class="lineNum">     138 </span>                :<span class="lineNoCov">          0 :   catch (std::exception &amp;e)</span></a>
+<a name="138"><span class="lineNum">     138 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :   catch (std::exception &amp;e)</span></a>
 <a name="139"><span class="lineNum">     139 </span>                :            :   {</a>
 <a name="140"><span class="lineNum">     140 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     spdlog::critical(</span></a>
 <a name="141"><span class="lineNum">     141 </span>                :<span class="lineNoCov">          0 :       &quot;RssResponseResolving::provideProperResponse&gt;&gt; Exception caught'{}' {}&quot;, e.what(), currentStateSnapshot);</span></a>
 <a name="142"><span class="lineNum">     142 </span>                :<span class="lineNoCov">          0 :     result = false;</span></a>
-<a name="143"><span class="lineNum">     143 </span>                :            :   }</a>
+<a name="143"><span class="lineNum">     143 </span>                :<span class="lineNoCov">          0 :   }</span></a>
 <a name="144"><span class="lineNum">     144 </span>                :<span class="lineNoCov">          0 :   catch (...)</span></a>
 <a name="145"><span class="lineNum">     145 </span>                :            :   {</a>
 <a name="146"><span class="lineNum">     146 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineNoCov">          0 :     spdlog::critical(&quot;RssResponseResolving::provideProperResponse&gt;&gt; Exception caught {}&quot;, currentStateSnapshot);</span></a>
 <a name="147"><span class="lineNum">     147 </span>                :<span class="lineNoCov">          0 :     result = false;</span></a>
-<a name="148"><span class="lineNum">     148 </span>                :            :   }</a>
+<a name="148"><span class="lineNum">     148 </span>                :<span class="lineNoCov">          0 :   }</span></a>
 <a name="149"><span class="lineNum">     149 </span>                :            : </a>
 <a name="150"><span class="lineNum">     150 </span>                :<span class="lineCov">       3866 :   return result;</span></a>
 <a name="151"><span class="lineNum">     151 </span>                :            : }</a>

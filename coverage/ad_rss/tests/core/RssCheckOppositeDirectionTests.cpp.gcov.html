@@ -31,17 +31,17 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">77</td>
-            <td class="headerCovTableEntry">77</td>
+            <td class="headerCovTableEntry">78</td>
+            <td class="headerCovTableEntry">78</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">57</td>
-            <td class="headerCovTableEntry">57</td>
+            <td class="headerCovTableEntry">67</td>
+            <td class="headerCovTableEntry">67</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">27</td>
-            <td class="headerCovTableEntry">72</td>
-            <td class="headerCovTableEntryLo">37.5 %</td>
+            <td class="headerCovTableEntry">36</td>
+            <td class="headerCovTableEntry">90</td>
+            <td class="headerCovTableEntryLo">40.0 %</td>
           </tr>
           <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -102,17 +102,17 @@
 <a name="31"><span class="lineNum">      31 </span>                :            : };</a>
 <a name="32"><span class="lineNum">      32 </span>                :            : </a>
 <a name="33"><span class="lineNum">      33 </span>                :            : using RssCheckOppositeDirectionEgoCorrectTest = RssCheckOppositeDirectionEgoCorrectTestBase&lt;RssCheckTestBase&gt;;</a>
-<a name="34"><span class="lineNum">      34 </span>                :<span class="lineCov">          2 : TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentDistances)</span></a>
+<a name="34"><span class="lineNum">      34 </span>                :<span class="lineCov">          4 : TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentDistances)</span></a>
 <a name="35"><span class="lineNum">      35 </span>                :            : {</a>
 <a name="36"><span class="lineNum">      36 </span>                :<span class="lineCov">          1 :   performDifferentDistancesTest(state::LongitudinalResponse::BrakeMinCorrect);</span></a>
 <a name="37"><span class="lineNum">      37 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="38"><span class="lineNum">      38 </span>                :            : </a>
-<a name="39"><span class="lineNum">      39 </span>                :<span class="lineCov">          2 : TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities)</span></a>
+<a name="39"><span class="lineNum">      39 </span>                :<span class="lineCov">          4 : TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities)</span></a>
 <a name="40"><span class="lineNum">      40 </span>                :            : {</a>
 <a name="41"><span class="lineNum">      41 </span>                :<span class="lineCov">          1 :   performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMinCorrect);</span></a>
 <a name="42"><span class="lineNum">      42 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="43"><span class="lineNum">      43 </span>                :            : </a>
-<a name="44"><span class="lineNum">      44 </span>                :<span class="lineCov">          2 : TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities_DifferentLaneSegements)</span></a>
+<a name="44"><span class="lineNum">      44 </span>                :<span class="lineCov">          4 : TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities_DifferentLaneSegements)</span></a>
 <a name="45"><span class="lineNum">      45 </span>                :            : {</a>
 <a name="46"><span class="lineNum">      46 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 2;</span></a>
 <a name="47"><span class="lineNum">      47 </span>                :<span class="lineCov">          1 :   performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMinCorrect);</span></a>
@@ -122,7 +122,8 @@
 <a name="51"><span class="lineNum">      51 </span>                :            :   = RssCheckOppositeDirectionEgoCorrectTestBase&lt;RssCheckOutOfMemoryTestBase&gt;;</a>
 <a name="52"><span class="lineNum">      52 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">        101 : TEST_P(RssCheckOppositeDirectionEgoCorrectOutOfMemoryTest, outOfMemoryAnyTime)</span></a>
 <span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchCov" title="Branch 8 was taken 1 time"> + </span> 
-<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="53"><span class="lineNum">      53 </span>                :            : {</a>
 <a name="54"><span class="lineNum">      54 </span>        [<span class="branchCov" title="Branch 0 was taken 50 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         50 :   performOutOfMemoryTest();</span></a>
 <a name="55"><span class="lineNum">      55 </span>                :<span class="lineCov">         50 : }</span></a>
@@ -131,7 +132,7 @@
 <a name="57"><span class="lineNum">      57 </span>                :            :                         RssCheckOppositeDirectionEgoCorrectOutOfMemoryTest,</a>
 <a name="58"><span class="lineNum">      58 </span>                :            :                         ::testing::Range(uint64_t(0u), uint64_t(50u), 1u));</a>
 <a name="59"><span class="lineNum">      59 </span>                :            : </a>
-<a name="60"><span class="lineNum">      60 </span>                :<span class="lineCov">          2 : TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities_NoLateralConflict)</span></a>
+<a name="60"><span class="lineNum">      60 </span>                :<span class="lineCov">          4 : TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities_NoLateralConflict)</span></a>
 <a name="61"><span class="lineNum">      61 </span>                :            : {</a>
 <a name="62"><span class="lineNum">      62 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 0;</span></a>
 <a name="63"><span class="lineNum">      63 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);</span></a>
@@ -150,11 +151,12 @@
 <a name="76"><span class="lineNum">      76 </span>                :            : </a>
 <a name="77"><span class="lineNum">      77 </span>  [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 100 times"> + </span> :<span class="lineCov">        100 :     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 100 times"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="78"><span class="lineNum">      78 </span>                :            : </a>
 <a name="79"><span class="lineNum">      79 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        100 :     testRestrictions(properResponse.accelerationRestrictions);</span></a>
 <a name="80"><span class="lineNum">      80 </span>                :            :   }</a>
-<a name="81"><span class="lineNum">      81 </span>                :            : }</a>
+<a name="81"><span class="lineNum">      81 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 : }</span></a>
 <a name="82"><span class="lineNum">      82 </span>                :            : </a>
 <a name="83"><span class="lineNum">      83 </span>                :            : template &lt;class TESTBASE&gt; class RssCheckOppositeDirectionOtherCorrectTestBase : public TESTBASE</a>
 <a name="84"><span class="lineNum">      84 </span>                :            : {</a>
@@ -180,17 +182,17 @@
 <a name="104"><span class="lineNum">     104 </span>                :            : };</a>
 <a name="105"><span class="lineNum">     105 </span>                :            : </a>
 <a name="106"><span class="lineNum">     106 </span>                :            : using RssCheckOppositeDirectionOtherCorrectTest = RssCheckOppositeDirectionOtherCorrectTestBase&lt;RssCheckTestBase&gt;;</a>
-<a name="107"><span class="lineNum">     107 </span>                :<span class="lineCov">          2 : TEST_F(RssCheckOppositeDirectionOtherCorrectTest, DifferentDistances)</span></a>
+<a name="107"><span class="lineNum">     107 </span>                :<span class="lineCov">          4 : TEST_F(RssCheckOppositeDirectionOtherCorrectTest, DifferentDistances)</span></a>
 <a name="108"><span class="lineNum">     108 </span>                :            : {</a>
 <a name="109"><span class="lineNum">     109 </span>                :<span class="lineCov">          1 :   performDifferentDistancesTest(state::LongitudinalResponse::BrakeMin);</span></a>
 <a name="110"><span class="lineNum">     110 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="111"><span class="lineNum">     111 </span>                :            : </a>
-<a name="112"><span class="lineNum">     112 </span>                :<span class="lineCov">          2 : TEST_F(RssCheckOppositeDirectionOtherCorrectTest, DifferentVelocities)</span></a>
+<a name="112"><span class="lineNum">     112 </span>                :<span class="lineCov">          4 : TEST_F(RssCheckOppositeDirectionOtherCorrectTest, DifferentVelocities)</span></a>
 <a name="113"><span class="lineNum">     113 </span>                :            : {</a>
 <a name="114"><span class="lineNum">     114 </span>                :<span class="lineCov">          1 :   performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMin);</span></a>
 <a name="115"><span class="lineNum">     115 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="116"><span class="lineNum">     116 </span>                :            : </a>
-<a name="117"><span class="lineNum">     117 </span>                :<span class="lineCov">          2 : TEST_F(RssCheckOppositeDirectionOtherCorrectTest, DifferentVelocities_DifferentLaneSegements)</span></a>
+<a name="117"><span class="lineNum">     117 </span>                :<span class="lineCov">          4 : TEST_F(RssCheckOppositeDirectionOtherCorrectTest, DifferentVelocities_DifferentLaneSegements)</span></a>
 <a name="118"><span class="lineNum">     118 </span>                :            : {</a>
 <a name="119"><span class="lineNum">     119 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 2;</span></a>
 <a name="120"><span class="lineNum">     120 </span>                :<span class="lineCov">          1 :   performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMin);</span></a>
@@ -200,7 +202,8 @@
 <a name="124"><span class="lineNum">     124 </span>                :            :   = RssCheckOppositeDirectionOtherCorrectTestBase&lt;RssCheckOutOfMemoryTestBase&gt;;</a>
 <a name="125"><span class="lineNum">     125 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">        101 : TEST_P(RssCheckOppositeDirectionOtherCorrectOutOfMemoryTest, outOfMemoryAnyTime)</span></a>
 <span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchCov" title="Branch 8 was taken 1 time"> + </span> 
-<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="126"><span class="lineNum">     126 </span>                :            : {</a>
 <a name="127"><span class="lineNum">     127 </span>        [<span class="branchCov" title="Branch 0 was taken 50 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         50 :   performOutOfMemoryTest();</span></a>
 <a name="128"><span class="lineNum">     128 </span>                :<span class="lineCov">         50 : }</span></a>
@@ -233,17 +236,17 @@
 <a name="154"><span class="lineNum">     154 </span>                :            : };</a>
 <a name="155"><span class="lineNum">     155 </span>                :            : </a>
 <a name="156"><span class="lineNum">     156 </span>                :            : using RssCheckOppositeDirectionBothCorrectTest = RssCheckOppositeDirectionBothCorrectTestBase&lt;RssCheckTestBase&gt;;</a>
-<a name="157"><span class="lineNum">     157 </span>                :<span class="lineCov">          2 : TEST_F(RssCheckOppositeDirectionBothCorrectTest, DifferentDistances)</span></a>
+<a name="157"><span class="lineNum">     157 </span>                :<span class="lineCov">          4 : TEST_F(RssCheckOppositeDirectionBothCorrectTest, DifferentDistances)</span></a>
 <a name="158"><span class="lineNum">     158 </span>                :            : {</a>
 <a name="159"><span class="lineNum">     159 </span>                :<span class="lineCov">          1 :   performDifferentDistancesTest(state::LongitudinalResponse::BrakeMinCorrect);</span></a>
 <a name="160"><span class="lineNum">     160 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="161"><span class="lineNum">     161 </span>                :            : </a>
-<a name="162"><span class="lineNum">     162 </span>                :<span class="lineCov">          2 : TEST_F(RssCheckOppositeDirectionBothCorrectTest, DifferentVelocities)</span></a>
+<a name="162"><span class="lineNum">     162 </span>                :<span class="lineCov">          4 : TEST_F(RssCheckOppositeDirectionBothCorrectTest, DifferentVelocities)</span></a>
 <a name="163"><span class="lineNum">     163 </span>                :            : {</a>
 <a name="164"><span class="lineNum">     164 </span>                :<span class="lineCov">          1 :   performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMinCorrect);</span></a>
 <a name="165"><span class="lineNum">     165 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="166"><span class="lineNum">     166 </span>                :            : </a>
-<a name="167"><span class="lineNum">     167 </span>                :<span class="lineCov">          2 : TEST_F(RssCheckOppositeDirectionBothCorrectTest, DifferentVelocities_DifferentLaneSegements)</span></a>
+<a name="167"><span class="lineNum">     167 </span>                :<span class="lineCov">          4 : TEST_F(RssCheckOppositeDirectionBothCorrectTest, DifferentVelocities_DifferentLaneSegements)</span></a>
 <a name="168"><span class="lineNum">     168 </span>                :            : {</a>
 <a name="169"><span class="lineNum">     169 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 2;</span></a>
 <a name="170"><span class="lineNum">     170 </span>                :<span class="lineCov">          1 :   performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMinCorrect);</span></a>
@@ -253,7 +256,8 @@
 <a name="174"><span class="lineNum">     174 </span>                :            :   = RssCheckOppositeDirectionBothCorrectTestBase&lt;RssCheckOutOfMemoryTestBase&gt;;</a>
 <a name="175"><span class="lineNum">     175 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">        101 : TEST_P(RssCheckOppositeDirectionBothCorrectOutOfMemoryTest, outOfMemoryAnyTime)</span></a>
 <span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchCov" title="Branch 8 was taken 1 time"> + </span> 
-<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="176"><span class="lineNum">     176 </span>                :            : {</a>
 <a name="177"><span class="lineNum">     177 </span>        [<span class="branchCov" title="Branch 0 was taken 50 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         50 :   performOutOfMemoryTest();</span></a>
 <a name="178"><span class="lineNum">     178 </span>                :<span class="lineCov">         50 : }</span></a>

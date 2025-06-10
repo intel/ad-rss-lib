@@ -31,17 +31,17 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">194</td>
-            <td class="headerCovTableEntry">194</td>
+            <td class="headerCovTableEntry">195</td>
+            <td class="headerCovTableEntry">195</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">25</td>
-            <td class="headerCovTableEntry">25</td>
+            <td class="headerCovTableEntry">37</td>
+            <td class="headerCovTableEntry">37</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">42</td>
-            <td class="headerCovTableEntry">226</td>
-            <td class="headerCovTableEntryLo">18.6 %</td>
+            <td class="headerCovTableEntry">46</td>
+            <td class="headerCovTableEntry">234</td>
+            <td class="headerCovTableEntryLo">19.7 %</td>
           </tr>
           <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -188,7 +188,7 @@
 <a name="117"><span class="lineNum">     117 </span>                :            :   ::ad::rss::world::RssDynamics mValue;</a>
 <a name="118"><span class="lineNum">     118 </span>                :            : };</a>
 <a name="119"><span class="lineNum">     119 </span>                :            : </a>
-<a name="120"><span class="lineNum">     120 </span>                :<span class="lineCov">          2 : TEST_F(RssDynamicsTests, copyConstruction)</span></a>
+<a name="120"><span class="lineNum">     120 </span>                :<span class="lineCov">          4 : TEST_F(RssDynamicsTests, copyConstruction)</span></a>
 <a name="121"><span class="lineNum">     121 </span>                :            : {</a>
 <a name="122"><span class="lineNum">     122 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RssDynamics value(mValue);</span></a>
 <a name="123"><span class="lineNum">     123 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   EXPECT_EQ(mValue, value);</span></a>
@@ -196,7 +196,7 @@
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
 <a name="124"><span class="lineNum">     124 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="125"><span class="lineNum">     125 </span>                :            : </a>
-<a name="126"><span class="lineNum">     126 </span>                :<span class="lineCov">          2 : TEST_F(RssDynamicsTests, moveConstruction)</span></a>
+<a name="126"><span class="lineNum">     126 </span>                :<span class="lineCov">          4 : TEST_F(RssDynamicsTests, moveConstruction)</span></a>
 <a name="127"><span class="lineNum">     127 </span>                :            : {</a>
 <a name="128"><span class="lineNum">     128 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RssDynamics tmpValue(mValue);</span></a>
 <a name="129"><span class="lineNum">     129 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RssDynamics value(std::move(tmpValue));</span></a>
@@ -205,7 +205,7 @@
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
 <a name="131"><span class="lineNum">     131 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="132"><span class="lineNum">     132 </span>                :            : </a>
-<a name="133"><span class="lineNum">     133 </span>                :<span class="lineCov">          2 : TEST_F(RssDynamicsTests, copyAssignment)</span></a>
+<a name="133"><span class="lineNum">     133 </span>                :<span class="lineCov">          4 : TEST_F(RssDynamicsTests, copyAssignment)</span></a>
 <a name="134"><span class="lineNum">     134 </span>                :            : {</a>
 <a name="135"><span class="lineNum">     135 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RssDynamics value;</span></a>
 <a name="136"><span class="lineNum">     136 </span>                :<span class="lineCov">          1 :   value = mValue;</span></a>
@@ -214,7 +214,7 @@
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
 <a name="138"><span class="lineNum">     138 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="139"><span class="lineNum">     139 </span>                :            : </a>
-<a name="140"><span class="lineNum">     140 </span>                :<span class="lineCov">          2 : TEST_F(RssDynamicsTests, moveAssignment)</span></a>
+<a name="140"><span class="lineNum">     140 </span>                :<span class="lineCov">          4 : TEST_F(RssDynamicsTests, moveAssignment)</span></a>
 <a name="141"><span class="lineNum">     141 </span>                :            : {</a>
 <a name="142"><span class="lineNum">     142 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RssDynamics tmpValue(mValue);</span></a>
 <a name="143"><span class="lineNum">     143 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RssDynamics value;</span></a>
@@ -224,7 +224,7 @@
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
 <a name="146"><span class="lineNum">     146 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="147"><span class="lineNum">     147 </span>                :            : </a>
-<a name="148"><span class="lineNum">     148 </span>                :<span class="lineCov">          2 : TEST_F(RssDynamicsTests, comparisonOperatorEqual)</span></a>
+<a name="148"><span class="lineNum">     148 </span>                :<span class="lineCov">          4 : TEST_F(RssDynamicsTests, comparisonOperatorEqual)</span></a>
 <a name="149"><span class="lineNum">     149 </span>                :            : {</a>
 <a name="150"><span class="lineNum">     150 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RssDynamics valueA = mValue;</span></a>
 <a name="151"><span class="lineNum">     151 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RssDynamics valueB = mValue;</span></a>
@@ -237,7 +237,7 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="155"><span class="lineNum">     155 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="156"><span class="lineNum">     156 </span>                :            : </a>
-<a name="157"><span class="lineNum">     157 </span>                :<span class="lineCov">          2 : TEST_F(RssDynamicsTests, stringConversionTest)</span></a>
+<a name="157"><span class="lineNum">     157 </span>                :<span class="lineCov">          4 : TEST_F(RssDynamicsTests, stringConversionTest)</span></a>
 <a name="158"><span class="lineNum">     158 </span>                :            : {</a>
 <a name="159"><span class="lineNum">     159 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   std::stringstream stream;</span></a>
 <a name="160"><span class="lineNum">     160 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   stream &lt;&lt; mValue;</span></a>
@@ -245,10 +245,11 @@
 <a name="162"><span class="lineNum">     162 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   std::string toStr = std::to_string(mValue);</span></a>
 <a name="163"><span class="lineNum">     163 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_EQ(ostreamStr, toStr);</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
-<a name="164"><span class="lineNum">     164 </span>                :            : }</a>
+<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<a name="164"><span class="lineNum">     164 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">          1 : }</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]
 <a name="165"><span class="lineNum">     165 </span>                :            : </a>
-<a name="166"><span class="lineNum">     166 </span>                :<span class="lineCov">          2 : TEST_F(RssDynamicsTests, comparisonOperatorAlphaLonDiffers)</span></a>
+<a name="166"><span class="lineNum">     166 </span>                :<span class="lineCov">          4 : TEST_F(RssDynamicsTests, comparisonOperatorAlphaLonDiffers)</span></a>
 <a name="167"><span class="lineNum">     167 </span>                :            : {</a>
 <a name="168"><span class="lineNum">     168 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RssDynamics valueA = mValue;</span></a>
 <a name="169"><span class="lineNum">     169 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LongitudinalRssAccelerationValues alphaLon;</span></a>
@@ -276,7 +277,7 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="188"><span class="lineNum">     188 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="189"><span class="lineNum">     189 </span>                :            : </a>
-<a name="190"><span class="lineNum">     190 </span>                :<span class="lineCov">          2 : TEST_F(RssDynamicsTests, comparisonOperatorAlphaLatDiffers)</span></a>
+<a name="190"><span class="lineNum">     190 </span>                :<span class="lineCov">          4 : TEST_F(RssDynamicsTests, comparisonOperatorAlphaLatDiffers)</span></a>
 <a name="191"><span class="lineNum">     191 </span>                :            : {</a>
 <a name="192"><span class="lineNum">     192 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RssDynamics valueA = mValue;</span></a>
 <a name="193"><span class="lineNum">     193 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::LateralRssAccelerationValues alphaLat;</span></a>
@@ -296,7 +297,7 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="204"><span class="lineNum">     204 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="205"><span class="lineNum">     205 </span>                :            : </a>
-<a name="206"><span class="lineNum">     206 </span>                :<span class="lineCov">          2 : TEST_F(RssDynamicsTests, comparisonOperatorLateralFluctuationMarginDiffers)</span></a>
+<a name="206"><span class="lineNum">     206 </span>                :<span class="lineCov">          4 : TEST_F(RssDynamicsTests, comparisonOperatorLateralFluctuationMarginDiffers)</span></a>
 <a name="207"><span class="lineNum">     207 </span>                :            : {</a>
 <a name="208"><span class="lineNum">     208 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RssDynamics valueA = mValue;</span></a>
 <a name="209"><span class="lineNum">     209 </span>                :<span class="lineCov">          1 :   ::ad::physics::Distance lateralFluctuationMargin(1e9);</span></a>
@@ -311,7 +312,7 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="215"><span class="lineNum">     215 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="216"><span class="lineNum">     216 </span>                :            : </a>
-<a name="217"><span class="lineNum">     217 </span>                :<span class="lineCov">          2 : TEST_F(RssDynamicsTests, comparisonOperatorResponseTimeDiffers)</span></a>
+<a name="217"><span class="lineNum">     217 </span>                :<span class="lineCov">          4 : TEST_F(RssDynamicsTests, comparisonOperatorResponseTimeDiffers)</span></a>
 <a name="218"><span class="lineNum">     218 </span>                :            : {</a>
 <a name="219"><span class="lineNum">     219 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RssDynamics valueA = mValue;</span></a>
 <a name="220"><span class="lineNum">     220 </span>                :<span class="lineCov">          1 :   ::ad::physics::Duration responseTime(1e6);</span></a>
@@ -326,7 +327,7 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="226"><span class="lineNum">     226 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="227"><span class="lineNum">     227 </span>                :            : </a>
-<a name="228"><span class="lineNum">     228 </span>                :<span class="lineCov">          2 : TEST_F(RssDynamicsTests, comparisonOperatorMaxSpeedOnAccelerationDiffers)</span></a>
+<a name="228"><span class="lineNum">     228 </span>                :<span class="lineCov">          4 : TEST_F(RssDynamicsTests, comparisonOperatorMaxSpeedOnAccelerationDiffers)</span></a>
 <a name="229"><span class="lineNum">     229 </span>                :            : {</a>
 <a name="230"><span class="lineNum">     230 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RssDynamics valueA = mValue;</span></a>
 <a name="231"><span class="lineNum">     231 </span>                :<span class="lineCov">          1 :   ::ad::physics::Speed maxSpeedOnAcceleration(100.);</span></a>
@@ -341,7 +342,7 @@
 <span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <a name="237"><span class="lineNum">     237 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="238"><span class="lineNum">     238 </span>                :            : </a>
-<a name="239"><span class="lineNum">     239 </span>                :<span class="lineCov">          2 : TEST_F(RssDynamicsTests, comparisonOperatorUnstructuredSettingsDiffers)</span></a>
+<a name="239"><span class="lineNum">     239 </span>                :<span class="lineCov">          4 : TEST_F(RssDynamicsTests, comparisonOperatorUnstructuredSettingsDiffers)</span></a>
 <a name="240"><span class="lineNum">     240 </span>                :            : {</a>
 <a name="241"><span class="lineNum">     241 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::RssDynamics valueA = mValue;</span></a>
 <a name="242"><span class="lineNum">     242 </span>                :<span class="lineCov">          1 :   ::ad::rss::world::UnstructuredSettings unstructuredSettings;</span></a>

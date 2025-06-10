@@ -37,11 +37,11 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-02-25 10:50:23</td>
+            <td class="headerValue">2025-06-10 15:14:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">18</td>
-            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntry">27</td>
+            <td class="headerCovTableEntry">27</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">18</td>
-            <td class="headerCovTableEntry">108</td>
-            <td class="headerCovTableEntryLo">16.7 %</td>
+            <td class="headerCovTableEntry">27</td>
+            <td class="headerCovTableEntry">126</td>
+            <td class="headerCovTableEntryLo">21.4 %</td>
           </tr>
           <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -89,7 +89,7 @@
 <a name="18"><span class="lineNum">      18 </span>                :            : </a>
 <a name="19"><span class="lineNum">      19 </span>                :            : #include &quot;ad/rss/situation/SituationValidInputRange.hpp&quot;</a>
 <a name="20"><span class="lineNum">      20 </span>                :            : </a>
-<a name="21"><span class="lineNum">      21 </span>                :<span class="lineCov">          2 : TEST(SituationValidInputRangeTests, testValidInputRange)</span></a>
+<a name="21"><span class="lineNum">      21 </span>                :<span class="lineCov">          4 : TEST(SituationValidInputRangeTests, testValidInputRange)</span></a>
 <a name="22"><span class="lineNum">      22 </span>                :            : {</a>
 <a name="23"><span class="lineNum">      23 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::Situation value;</span></a>
 <a name="24"><span class="lineNum">      24 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits&lt;::ad::rss::situation::SituationId&gt;::lowest());</span></a>
@@ -356,10 +356,11 @@
 <a name="285"><span class="lineNum">     285 </span>                :<span class="lineCov">          1 :   value.relativePosition = valueRelativePosition;</span></a>
 <a name="286"><span class="lineNum">     286 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_TRUE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="287"><span class="lineNum">     287 </span>                :            : }</a>
 <a name="288"><span class="lineNum">     288 </span>                :            : </a>
-<a name="289"><span class="lineNum">     289 </span>                :<span class="lineCov">          2 : TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)</span></a>
+<a name="289"><span class="lineNum">     289 </span>                :<span class="lineCov">          4 : TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)</span></a>
 <a name="290"><span class="lineNum">     290 </span>                :            : {</a>
 <a name="291"><span class="lineNum">     291 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::Situation value;</span></a>
 <a name="292"><span class="lineNum">     292 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits&lt;::ad::rss::situation::SituationId&gt;::lowest());</span></a>
@@ -630,10 +631,11 @@
 <a name="557"><span class="lineNum">     557 </span>                :<span class="lineCov">          1 :   value.situationType = invalidInitializedMember;</span></a>
 <a name="558"><span class="lineNum">     558 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="559"><span class="lineNum">     559 </span>                :            : }</a>
 <a name="560"><span class="lineNum">     560 </span>                :            : </a>
-<a name="561"><span class="lineNum">     561 </span>                :<span class="lineCov">          2 : TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooBig)</span></a>
+<a name="561"><span class="lineNum">     561 </span>                :<span class="lineCov">          4 : TEST(SituationValidInputRangeTests, testValidInputRangeSituationTypeTooBig)</span></a>
 <a name="562"><span class="lineNum">     562 </span>                :            : {</a>
 <a name="563"><span class="lineNum">     563 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::Situation value;</span></a>
 <a name="564"><span class="lineNum">     564 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits&lt;::ad::rss::situation::SituationId&gt;::lowest());</span></a>
@@ -904,10 +906,11 @@
 <a name="829"><span class="lineNum">     829 </span>                :<span class="lineCov">          1 :   value.situationType = invalidInitializedMember;</span></a>
 <a name="830"><span class="lineNum">     830 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="831"><span class="lineNum">     831 </span>                :            : }</a>
 <a name="832"><span class="lineNum">     832 </span>                :            : </a>
-<a name="833"><span class="lineNum">     833 </span>                :<span class="lineCov">          2 : TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooSmall)</span></a>
+<a name="833"><span class="lineNum">     833 </span>                :<span class="lineCov">          4 : TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooSmall)</span></a>
 <a name="834"><span class="lineNum">     834 </span>                :            : {</a>
 <a name="835"><span class="lineNum">     835 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::Situation value;</span></a>
 <a name="836"><span class="lineNum">     836 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits&lt;::ad::rss::situation::SituationId&gt;::lowest());</span></a>
@@ -1184,10 +1187,11 @@
 <a name="1107"><span class="lineNum">    1107 </span>                :<span class="lineCov">          1 :   value.egoVehicleState = invalidInitializedMember;</span></a>
 <a name="1108"><span class="lineNum">    1108 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="1109"><span class="lineNum">    1109 </span>                :            : }</a>
 <a name="1110"><span class="lineNum">    1110 </span>                :            : </a>
-<a name="1111"><span class="lineNum">    1111 </span>                :<span class="lineCov">          2 : TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooBig)</span></a>
+<a name="1111"><span class="lineNum">    1111 </span>                :<span class="lineCov">          4 : TEST(SituationValidInputRangeTests, testValidInputRangeEgoVehicleStateTooBig)</span></a>
 <a name="1112"><span class="lineNum">    1112 </span>                :            : {</a>
 <a name="1113"><span class="lineNum">    1113 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::Situation value;</span></a>
 <a name="1114"><span class="lineNum">    1114 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits&lt;::ad::rss::situation::SituationId&gt;::lowest());</span></a>
@@ -1464,10 +1468,11 @@
 <a name="1385"><span class="lineNum">    1385 </span>                :<span class="lineCov">          1 :   value.egoVehicleState = invalidInitializedMember;</span></a>
 <a name="1386"><span class="lineNum">    1386 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="1387"><span class="lineNum">    1387 </span>                :            : }</a>
 <a name="1388"><span class="lineNum">    1388 </span>                :            : </a>
-<a name="1389"><span class="lineNum">    1389 </span>                :<span class="lineCov">          2 : TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooSmall)</span></a>
+<a name="1389"><span class="lineNum">    1389 </span>                :<span class="lineCov">          4 : TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooSmall)</span></a>
 <a name="1390"><span class="lineNum">    1390 </span>                :            : {</a>
 <a name="1391"><span class="lineNum">    1391 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::Situation value;</span></a>
 <a name="1392"><span class="lineNum">    1392 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits&lt;::ad::rss::situation::SituationId&gt;::lowest());</span></a>
@@ -1744,10 +1749,11 @@
 <a name="1663"><span class="lineNum">    1663 </span>                :<span class="lineCov">          1 :   value.otherVehicleState = invalidInitializedMember;</span></a>
 <a name="1664"><span class="lineNum">    1664 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="1665"><span class="lineNum">    1665 </span>                :            : }</a>
 <a name="1666"><span class="lineNum">    1666 </span>                :            : </a>
-<a name="1667"><span class="lineNum">    1667 </span>                :<span class="lineCov">          2 : TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooBig)</span></a>
+<a name="1667"><span class="lineNum">    1667 </span>                :<span class="lineCov">          4 : TEST(SituationValidInputRangeTests, testValidInputRangeOtherVehicleStateTooBig)</span></a>
 <a name="1668"><span class="lineNum">    1668 </span>                :            : {</a>
 <a name="1669"><span class="lineNum">    1669 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::Situation value;</span></a>
 <a name="1670"><span class="lineNum">    1670 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits&lt;::ad::rss::situation::SituationId&gt;::lowest());</span></a>
@@ -2024,10 +2030,11 @@
 <a name="1941"><span class="lineNum">    1941 </span>                :<span class="lineCov">          1 :   value.otherVehicleState = invalidInitializedMember;</span></a>
 <a name="1942"><span class="lineNum">    1942 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="1943"><span class="lineNum">    1943 </span>                :            : }</a>
 <a name="1944"><span class="lineNum">    1944 </span>                :            : </a>
-<a name="1945"><span class="lineNum">    1945 </span>                :<span class="lineCov">          2 : TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooSmall)</span></a>
+<a name="1945"><span class="lineNum">    1945 </span>                :<span class="lineCov">          4 : TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooSmall)</span></a>
 <a name="1946"><span class="lineNum">    1946 </span>                :            : {</a>
 <a name="1947"><span class="lineNum">    1947 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::Situation value;</span></a>
 <a name="1948"><span class="lineNum">    1948 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits&lt;::ad::rss::situation::SituationId&gt;::lowest());</span></a>
@@ -2301,10 +2308,11 @@
 <a name="2216"><span class="lineNum">    2216 </span>                :<span class="lineCov">          1 :   value.relativePosition = invalidInitializedMember;</span></a>
 <a name="2217"><span class="lineNum">    2217 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="2218"><span class="lineNum">    2218 </span>                :            : }</a>
 <a name="2219"><span class="lineNum">    2219 </span>                :            : </a>
-<a name="2220"><span class="lineNum">    2220 </span>                :<span class="lineCov">          2 : TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooBig)</span></a>
+<a name="2220"><span class="lineNum">    2220 </span>                :<span class="lineCov">          4 : TEST(SituationValidInputRangeTests, testValidInputRangeRelativePositionTooBig)</span></a>
 <a name="2221"><span class="lineNum">    2221 </span>                :            : {</a>
 <a name="2222"><span class="lineNum">    2222 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::Situation value;</span></a>
 <a name="2223"><span class="lineNum">    2223 </span>                :<span class="lineCov">          1 :   ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits&lt;::ad::rss::situation::SituationId&gt;::lowest());</span></a>
@@ -2578,7 +2586,8 @@
 <a name="2491"><span class="lineNum">    2491 </span>                :<span class="lineCov">          1 :   value.relativePosition = invalidInitializedMember;</span></a>
 <a name="2492"><span class="lineNum">    2492 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">          1 :   ASSERT_FALSE(withinValidInputRange(value));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 1 time"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="2493"><span class="lineNum">    2493 </span>                :            : }</a>
 </pre>
       </td>
