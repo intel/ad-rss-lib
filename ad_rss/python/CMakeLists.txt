@@ -62,6 +62,12 @@ target_link_libraries(${target} PRIVATE
 )
 
 configure_file(setup.py.in ${CMAKE_CURRENT_BINARY_DIR}/setup.py)
+# fake the ament_cmake_python local_setup.bash file
+configure_file(local_setup.bash.in ${CMAKE_CURRENT_BINARY_DIR}/local_setup.bash @ONLY)
+install(FILES 
+        ${CMAKE_CURRENT_BINARY_DIR}/local_setup.bash
+        DESTINATION
+        ${CMAKE_INSTALL_PREFIX}/share/ad_rss)
 
 install(CODE "\
   EXECUTE_PROCESS(\
