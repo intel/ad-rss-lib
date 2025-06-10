@@ -117,8 +117,8 @@ Note: The RSS module in this library does not initiate evasive manuevers. At the
 ## Getting started <a name="started"></a>
 
 #### Installation of dependencies
-Currently, the focused operating systems are Ubuntu 20.04 and Ubuntu 22.04. Nevertheless, the library should work in a similar way for any other Linux OS.
-To install the basic dependencies for Ubuntu 20.04/22.04 execute the following command:
+Currently, the focused operating systems is Ubuntu 22.04. Nevertheless, the library should work in a similar way for any other Linux OS.
+To install the basic dependencies for Ubuntu 22.04 execute the following command:
 ```bash
  user$> sudo apt-get install git build-essential cmake libboost-dev libpugixml-dev libgtest-dev libpython-dev libproj-dev
 ```
@@ -136,17 +136,16 @@ To download the library, you may run:
 ```
 
 #### Supported systems <a name="systems"></a>
-Development systems are Ubuntu 20.04 and 22.04
+Development system is Ubuntu 22.04
 Following compiler and Python combinations are [tested continously](https://github.com/intel/ad-rss-lib/blob/main/.github/workflows/build_test.yml):
 
-|                 | Ubuntu 20.04 | Ubuntu 22.04 |
-|:---------------:|:------------:|:------------:|
-|  Clang 10       |       x      |              |
-|   GCC 11        |              |       x      |
-|  Clang 14       |              |       x      |
-|  Python 3.10    |       x      |       x      |
+|                 | Ubuntu 22.04 |
+|:---------------:|:------------:|
+|   GCC 11        |       x      |
+|  Clang 14       |       x      |
+|  Python 3.10    |       x      |
 
-Important: cmake is required to be at least version 3.5!
+Important: cmake is required to be at least version 3.10!
 
 ## Building the library <a name="building"></a>
 See the detailed [Build instructions](https://intel.github.io/ad-rss-lib/BUILDING/index.html).
