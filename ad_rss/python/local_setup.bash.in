@@ -1,0 +1,5 @@
+#!/bin/bash
+
+CURRENT_PREFIX=$(builtin cd "`dirname "${BASH_SOURCE[0]}"`/../.." && pwd)
+
+export PYTHONPATH=${PYTHONPATH}:${CURRENT_PREFIX}/local/lib/@PYTHON_BINDING_FOLDER_NAME@/dist-packages

@@ -18,12 +18,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-20.04
-            compiler: clang10
-            EXTRA_PACKAGES: clang-10
-            CC: /usr/bin/clang-10
-            CXX: /usr/bin/clang++-10
-            PYTHON_BINDING_VERSION: "3.10"
           - os: ubuntu-22.04
             compiler: gcc11
             EXTRA_PACKAGES: ""

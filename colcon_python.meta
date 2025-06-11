@@ -4,13 +4,15 @@
             "cmake-args": ["-DCMAKE_POSITION_INDEPENDENT_CODE=ON", "-DSPDLOG_BUILD_TESTS=OFF", "-DSPDLOG_BUILD_EXAMPLE=Off"]
         },
         "ad_physics": {
-            "cmake-args": ["-DBUILD_PYTHON_BINDING=ON"]
+            "cmake-args": ["-DBUILD_PYTHON_BINDING=ON"],
+            "dependencies": ["spdlog"]
         },
         "ad_map_opendrive_reader": {
             "dependencies": ["odrSpiral", "PROJ4"]
         },
         "ad_map_access": {
-            "cmake-args": ["-DBUILD_PYTHON_BINDING=ON"]
+            "cmake-args": ["-DBUILD_PYTHON_BINDING=ON"],
+            "dependencies": ["ad_map_opendrive_reader"]
         },
         "ad_map_access_qgis": {
             "cmake-args": ["-DBUILD_PYTHON_BINDING=ON"],
