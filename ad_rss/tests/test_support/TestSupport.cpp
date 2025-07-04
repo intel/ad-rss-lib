@@ -5,8 +5,8 @@
 // SPDX-License-Identifier: LGPL-2.1-only
 //
 // ----------------- END LICENSE BLOCK -----------------------------------
-
 #include "TestSupport.hpp"
+#include <ad/geometry/HeadingRange.hpp>
 
 namespace ad {
 namespace rss {
@@ -16,93 +16,95 @@ const TestSupport cTestSupport;
 void resetRssState(state::LongitudinalRssState &state)
 {
   state.response = state::LongitudinalResponse::None;
-  state.alphaLon = getEgoRssDynamics().alphaLon;
-  state.isSafe = true;
-  state.rssStateInformation.currentDistance = physics::Distance::getMax();
-  state.rssStateInformation.safeDistance = physics::Distance::getMax();
-  state.rssStateInformation.evaluator = state::RssStateEvaluator::None;
+  state.alpha_lon = getEgoRssDynamics().alpha_lon;
+  state.is_safe = true;
+  state.rss_state_information.current_distance = physics::Distance::getMax();
+  state.rss_state_information.safe_distance = physics::Distance::getMax();
+  state.rss_state_information.evaluator = state::RssStateEvaluator::None;
 }
 
 void resetRssState(state::LateralRssState &state)
 {
   state.response = state::LateralResponse::None;
-  state.alphaLat = getEgoRssDynamics().alphaLat;
-  state.isSafe = true;
-  state.rssStateInformation.currentDistance = physics::Distance::getMax();
-  state.rssStateInformation.safeDistance = physics::Distance::getMax();
-  state.rssStateInformation.evaluator = state::RssStateEvaluator::None;
+  state.alpha_lat = getEgoRssDynamics().alpha_lat;
+  state.is_safe = true;
+  state.rss_state_information.current_distance = physics::Distance::getMax();
+  state.rss_state_information.safe_distance = physics::Distance::getMax();
+  state.rss_state_information.evaluator = state::RssStateEvaluator::None;
 }
 
-void resetRssState(state::UnstructuredSceneRssState &state)
+void resetRssState(state::UnstructuredConstellationRssState &state)
 {
-  state.response = state::UnstructuredSceneResponse::None;
-  state.alphaLon = getEgoRssDynamics().alphaLon;
-  state.headingRange.begin = ad::physics::Angle(0.0);
-  state.headingRange.end = ad::physics::c2PI;
-  state.isSafe = true;
+  state.response = state::UnstructuredConstellationResponse::None;
+  state.alpha_lon = getEgoRssDynamics().alpha_lon;
+  state.heading_range.begin = ad::physics::Angle(0.0);
+  state.heading_range.end = ad::physics::c2PI;
+  state.is_safe = true;
 }
 
 void resetRssState(state::RssState &rssState,
-                   situation::SituationId const situationId,
-                   world::ObjectId const objectId,
-                   situation::SituationType const situationType)
+                   core::RelativeConstellationId const constellation_id,
+                   world::ObjectId const object_id,
+                   world::ConstellationType const constellation_type)
 {
-  rssState.situationId = situationId;
-  rssState.objectId = objectId;
-  rssState.situationType = situationType;
-  resetRssState(rssState.longitudinalState);
-  resetRssState(rssState.lateralStateLeft);
-  resetRssState(rssState.lateralStateRight);
-  resetRssState(rssState.unstructuredSceneState);
+  rssState.constellation_id = constellation_id;
+  rssState.object_id = object_id;
+  rssState.constellation_type = constellation_type;
+  resetRssState(rssState.longitudinal_state);
+  resetRssState(rssState.lateral_state_left);
+  resetRssState(rssState.lateral_state_right);
+  resetRssState(rssState.unstructured_constellation_state);
 }
 
 void resetRssState(state::ProperResponse &properResponse)
 {
-  properResponse.isSafe = true;
-  properResponse.timeIndex = 1u;
-  properResponse.dangerousObjects.clear();
-  properResponse.longitudinalResponse = state::LongitudinalResponse::None;
-  properResponse.lateralResponseLeft = state::LateralResponse::None;
-  properResponse.lateralResponseRight = state::LateralResponse::None;
+  properResponse.is_safe = true;
+  properResponse.time_index = 1u;
+  properResponse.dangerous_objects.clear();
+  properResponse.longitudinal_response = state::LongitudinalResponse::None;
+  properResponse.lateral_response_left = state::LateralResponse::None;
+  properResponse.lateral_response_right = state::LateralResponse::None;
 
-  properResponse.headingRanges.clear();
-  state::HeadingRange initialHeadingRange;
+  properResponse.heading_ranges.clear();
+  ::ad::geometry::HeadingRange initialHeadingRange;
   initialHeadingRange.begin = ad::physics::Angle(0.0);
   initialHeadingRange.end = ad::physics::c2PI;
-  properResponse.headingRanges.push_back(initialHeadingRange);
+  properResponse.heading_ranges.push_back(initialHeadingRange);
 }
 
 world::RssDynamics getObjectRssDynamics()
 {
   world::RssDynamics rssDynamics;
 
-  rssDynamics.alphaLon.accelMax = cMaximumLongitudinalAcceleration;
-  rssDynamics.alphaLon.brakeMax = cMaximumLongitudinalBrakingDeceleleration;
-  rssDynamics.alphaLon.brakeMin = cMinimumLongitudinalBrakingDeceleleration;
-  rssDynamics.alphaLon.brakeMinCorrect = cMinimumLongitudinalBrakingDecelelerationCorrect;
+  rssDynamics.alpha_lon.accel_max = cMaximumLongitudinalAcceleration;
+  rssDynamics.alpha_lon.brake_max = cMaximumLongitudinalBrakingDeceleleration;
+  rssDynamics.alpha_lon.brake_min = cMinimumLongitudinalBrakingDeceleleration;
+  rssDynamics.alpha_lon.brake_min_correct = cMinimumLongitudinalBrakingDecelelerationCorrect;
 
-  rssDynamics.alphaLat.accelMax = cMaximumLateralAcceleration;
-  rssDynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
+  rssDynamics.alpha_lat.accel_max = cMaximumLateralAcceleration;
+  rssDynamics.alpha_lat.brake_min = cMinimumLateralBrakingDeceleleration;
 
-  rssDynamics.lateralFluctuationMargin = ad::physics::Distance(0.1);
-  rssDynamics.responseTime = cResponseTimeOtherVehicles;
+  rssDynamics.lateral_fluctuation_margin = ad::physics::Distance(0.1);
+  rssDynamics.response_time = cResponseTimeOtherVehicles;
 
-  rssDynamics.unstructuredSettings.pedestrianTurningRadius = ad::physics::Distance(2.0);
-  rssDynamics.unstructuredSettings.driveAwayMaxAngle = ad::physics::Angle(2.4);
-  rssDynamics.unstructuredSettings.vehicleYawRateChange = ad::physics::AngularAcceleration(0.3);
-  rssDynamics.unstructuredSettings.vehicleMinRadius = ad::physics::Distance(3.5);
-  rssDynamics.unstructuredSettings.vehicleTrajectoryCalculationStep = ad::physics::Duration(0.2);
+  rssDynamics.min_longitudinal_safety_distance = ad::physics::Distance(0.);
 
-  rssDynamics.unstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps = 3;
-  rssDynamics.unstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps = 0;
-  rssDynamics.unstructuredSettings.vehicleBrakeIntermediateAccelerationSteps = 1;
-  rssDynamics.unstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps = 0;
-  rssDynamics.unstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps = 3;
-  rssDynamics.unstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps = 3;
-  rssDynamics.unstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps = 0;
-  rssDynamics.unstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps = 3;
-  rssDynamics.unstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps = 4;
-  rssDynamics.unstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps = 0;
+  rssDynamics.unstructured_settings.pedestrian_turning_radius = ad::physics::Distance(2.0);
+  rssDynamics.unstructured_settings.drive_away_max_angle = ad::physics::Angle(2.4);
+  rssDynamics.unstructured_settings.vehicle_yaw_rate_change = ad::physics::AngularAcceleration(0.3);
+  rssDynamics.unstructured_settings.vehicle_min_radius = ad::physics::Distance(3.5);
+  rssDynamics.unstructured_settings.vehicle_trajectory_calculation_step = ad::physics::Duration(0.2);
+
+  rssDynamics.unstructured_settings.vehicle_front_intermediate_yaw_rate_change_ratio_steps = 3;
+  rssDynamics.unstructured_settings.vehicle_back_intermediate_yaw_rate_change_ratio_steps = 0;
+  rssDynamics.unstructured_settings.vehicle_brake_intermediate_acceleration_steps = 1;
+  rssDynamics.unstructured_settings.vehicle_continue_forward_intermediate_acceleration_steps = 0;
+  rssDynamics.unstructured_settings.vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps = 3;
+  rssDynamics.unstructured_settings.pedestrian_continue_forward_intermediate_heading_change_ratio_steps = 3;
+  rssDynamics.unstructured_settings.pedestrian_continue_forward_intermediate_acceleration_steps = 0;
+  rssDynamics.unstructured_settings.pedestrian_brake_intermediate_acceleration_steps = 3;
+  rssDynamics.unstructured_settings.pedestrian_front_intermediate_heading_change_ratio_steps = 4;
+  rssDynamics.unstructured_settings.pedestrian_back_intermediate_heading_change_ratio_steps = 0;
 
   return rssDynamics;
 }
@@ -111,33 +113,35 @@ world::RssDynamics getEgoRssDynamics()
 {
   world::RssDynamics rssDynamics;
 
-  rssDynamics.alphaLon.accelMax = cMaximumLongitudinalAcceleration;
-  rssDynamics.alphaLon.brakeMax = cMaximumLongitudinalBrakingDeceleleration;
-  rssDynamics.alphaLon.brakeMin = cMinimumLongitudinalBrakingDeceleleration;
-  rssDynamics.alphaLon.brakeMinCorrect = cMinimumLongitudinalBrakingDecelelerationCorrect;
+  rssDynamics.alpha_lon.accel_max = cMaximumLongitudinalAcceleration;
+  rssDynamics.alpha_lon.brake_max = cMaximumLongitudinalBrakingDeceleleration;
+  rssDynamics.alpha_lon.brake_min = cMinimumLongitudinalBrakingDeceleleration;
+  rssDynamics.alpha_lon.brake_min_correct = cMinimumLongitudinalBrakingDecelelerationCorrect;
 
-  rssDynamics.alphaLat.accelMax = cMaximumLateralAcceleration;
-  rssDynamics.alphaLat.brakeMin = cMinimumLateralBrakingDeceleleration;
+  rssDynamics.alpha_lat.accel_max = cMaximumLateralAcceleration;
+  rssDynamics.alpha_lat.brake_min = cMinimumLateralBrakingDeceleleration;
 
-  rssDynamics.lateralFluctuationMargin = ad::physics::Distance(0.1);
-  rssDynamics.responseTime = cResponseTimeEgoVehicle;
+  rssDynamics.lateral_fluctuation_margin = ad::physics::Distance(0.1);
+  rssDynamics.response_time = cResponseTimeEgoVehicle;
 
-  rssDynamics.unstructuredSettings.pedestrianTurningRadius = ad::physics::Distance(2.0);
-  rssDynamics.unstructuredSettings.driveAwayMaxAngle = ad::physics::Angle(2.4);
-  rssDynamics.unstructuredSettings.vehicleYawRateChange = ad::physics::AngularAcceleration(0.3);
-  rssDynamics.unstructuredSettings.vehicleMinRadius = ad::physics::Distance(3.5);
-  rssDynamics.unstructuredSettings.vehicleTrajectoryCalculationStep = ad::physics::Duration(0.2);
+  rssDynamics.min_longitudinal_safety_distance = ad::physics::Distance(0.);
 
-  rssDynamics.unstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps = 3;
-  rssDynamics.unstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps = 0;
-  rssDynamics.unstructuredSettings.vehicleBrakeIntermediateAccelerationSteps = 1;
-  rssDynamics.unstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps = 0;
-  rssDynamics.unstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps = 3;
-  rssDynamics.unstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps = 3;
-  rssDynamics.unstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps = 0;
-  rssDynamics.unstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps = 3;
-  rssDynamics.unstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps = 4;
-  rssDynamics.unstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps = 0;
+  rssDynamics.unstructured_settings.pedestrian_turning_radius = ad::physics::Distance(2.0);
+  rssDynamics.unstructured_settings.drive_away_max_angle = ad::physics::Angle(2.4);
+  rssDynamics.unstructured_settings.vehicle_yaw_rate_change = ad::physics::AngularAcceleration(0.3);
+  rssDynamics.unstructured_settings.vehicle_min_radius = ad::physics::Distance(3.5);
+  rssDynamics.unstructured_settings.vehicle_trajectory_calculation_step = ad::physics::Duration(0.2);
+
+  rssDynamics.unstructured_settings.vehicle_front_intermediate_yaw_rate_change_ratio_steps = 3;
+  rssDynamics.unstructured_settings.vehicle_back_intermediate_yaw_rate_change_ratio_steps = 0;
+  rssDynamics.unstructured_settings.vehicle_brake_intermediate_acceleration_steps = 1;
+  rssDynamics.unstructured_settings.vehicle_continue_forward_intermediate_acceleration_steps = 0;
+  rssDynamics.unstructured_settings.vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps = 3;
+  rssDynamics.unstructured_settings.pedestrian_continue_forward_intermediate_heading_change_ratio_steps = 3;
+  rssDynamics.unstructured_settings.pedestrian_continue_forward_intermediate_acceleration_steps = 0;
+  rssDynamics.unstructured_settings.pedestrian_brake_intermediate_acceleration_steps = 3;
+  rssDynamics.unstructured_settings.pedestrian_front_intermediate_heading_change_ratio_steps = 4;
+  rssDynamics.unstructured_settings.pedestrian_back_intermediate_heading_change_ratio_steps = 0;
   return rssDynamics;
 }
 
@@ -145,11 +149,11 @@ world::Object createObject(double const lonVelocity, double const latVelocity)
 {
   world::Object object;
 
-  object.objectType = world::ObjectType::OtherVehicle;
-  object.velocity.speedLonMin = kmhToMeterPerSec(lonVelocity);
-  object.velocity.speedLonMax = kmhToMeterPerSec(lonVelocity);
-  object.velocity.speedLatMin = kmhToMeterPerSec(latVelocity);
-  object.velocity.speedLatMax = kmhToMeterPerSec(latVelocity);
+  object.object_type = world::ObjectType::OtherVehicle;
+  object.velocity.speed_lon_min = kmhToMeterPerSec(lonVelocity);
+  object.velocity.speed_lon_max = kmhToMeterPerSec(lonVelocity);
+  object.velocity.speed_lat_min = kmhToMeterPerSec(latVelocity);
+  object.velocity.speed_lat_max = kmhToMeterPerSec(latVelocity);
   object.state = createObjectState(lonVelocity, latVelocity);
   return object;
 }
@@ -158,80 +162,82 @@ world::ObjectState createObjectState(double const lonVelocity, double const latV
 {
   world::ObjectState state;
   state.yaw = ad::physics::Angle(0.0);
-  state.steeringAngle = ad::physics::Angle(0.0);
+  state.steering_angle = ad::physics::Angle(0.0);
   state.dimension.length = ad::physics::Distance(4.0);
   state.dimension.width = ad::physics::Distance(2.0);
-  state.yawRate = ad::physics::AngularVelocity(0.0);
-  state.centerPoint.x = ad::physics::Distance(0.0);
-  state.centerPoint.y = ad::physics::Distance(0.0);
-  state.speed = ad::physics::Speed(std::sqrt(kmhToMeterPerSec(lonVelocity) * kmhToMeterPerSec(lonVelocity)
-                                             + kmhToMeterPerSec(latVelocity) * kmhToMeterPerSec(latVelocity)));
+  state.yaw_rate = ad::physics::AngularVelocity(0.0);
+  state.center_point.x = ad::physics::Distance(0.0);
+  state.center_point.y = ad::physics::Distance(0.0);
+  auto const speed = ad::physics::Speed(std::sqrt(kmhToMeterPerSec(lonVelocity) * kmhToMeterPerSec(lonVelocity)
+                                                  + kmhToMeterPerSec(latVelocity) * kmhToMeterPerSec(latVelocity)));
+  state.speed_range.minimum = speed;
+  state.speed_range.maximum = speed;
   return state;
 }
 
-situation::VehicleState
-createVehicleState(world::ObjectType const objectType, double const lonVelocity, double const latVelocity)
+core::RelativeObjectState
+createRelativeVehicleState(world::ObjectType const object_type, double const lonVelocity, double const latVelocity)
 {
-  situation::VehicleState state;
+  core::RelativeObjectState state;
 
-  state.velocity.speedLon.minimum = kmhToMeterPerSec(lonVelocity);
-  state.velocity.speedLon.maximum = state.velocity.speedLon.minimum;
-  state.velocity.speedLat.minimum = kmhToMeterPerSec(latVelocity);
-  state.velocity.speedLat.maximum = state.velocity.speedLat.minimum;
+  state.object_type = object_type;
   state.dynamics = getObjectRssDynamics();
-  state.distanceToEnterIntersection = Distance(0.);
-  state.distanceToLeaveIntersection = Distance(1000.);
-  state.hasPriority = false;
-  state.isInCorrectLane = true;
-  state.objectType = objectType;
-  state.objectState = createObjectState(lonVelocity, latVelocity);
+  state.structured_object_state.velocity.speed_lon_min = kmhToMeterPerSec(lonVelocity);
+  state.structured_object_state.velocity.speed_lon_max = state.structured_object_state.velocity.speed_lon_min;
+  state.structured_object_state.velocity.speed_lat_min = kmhToMeterPerSec(latVelocity);
+  state.structured_object_state.velocity.speed_lat_max = state.structured_object_state.velocity.speed_lat_min;
+  state.structured_object_state.distance_to_enter_intersection = Distance(0.);
+  state.structured_object_state.distance_to_leave_intersection = Distance(1000.);
+  state.structured_object_state.has_priority = false;
+  state.structured_object_state.is_in_correct_lane = true;
+  state.unstructured_object_state = createObjectState(lonVelocity, latVelocity);
   return state;
 }
 
-situation::RelativePosition createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition const &position,
-                                                               Distance const &distance)
-{
-  situation::RelativePosition relativePosition;
-  relativePosition.lateralDistance = Distance(0.);
-  relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
-  relativePosition.longitudinalDistance = distance;
-  relativePosition.longitudinalPosition = position;
-  return relativePosition;
-}
-
-situation::RelativePosition createRelativeLateralPosition(situation::LateralRelativePosition const &position,
+core::RelativePosition createRelativeLongitudinalPosition(core::LongitudinalRelativePosition const &position,
                                                           Distance const &distance)
 {
-  situation::RelativePosition relativePosition;
-  relativePosition.lateralDistance = distance;
-  relativePosition.lateralPosition = position;
-  relativePosition.longitudinalDistance = Distance(0.);
-  relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;
-  return relativePosition;
+  core::RelativePosition relative_position;
+  relative_position.lateral_distance = Distance(0.);
+  relative_position.lateral_position = core::LateralRelativePosition::Overlap;
+  relative_position.longitudinal_distance = distance;
+  relative_position.longitudinal_position = position;
+  return relative_position;
+}
+
+core::RelativePosition createRelativeLateralPosition(core::LateralRelativePosition const &position,
+                                                     Distance const &distance)
+{
+  core::RelativePosition relative_position;
+  relative_position.lateral_distance = distance;
+  relative_position.lateral_position = position;
+  relative_position.longitudinal_distance = Distance(0.);
+  relative_position.longitudinal_position = core::LongitudinalRelativePosition::Overlap;
+  return relative_position;
 }
 
 Distance calculateLongitudinalStoppingDistance(Speed const &objectSpeed,
                                                Speed const &objectMaxSpeedOnAcceleration,
                                                Acceleration const &acceleration,
                                                Acceleration const &deceleration,
-                                               Duration const &responseTime)
+                                               Duration const &response_time)
 {
-  Duration accelerationTime = responseTime;
-  Speed speedMax = std::min(objectMaxSpeedOnAcceleration, objectSpeed + responseTime * acceleration);
+  Duration accelerationTime = response_time;
+  Speed speedMax = std::min(objectMaxSpeedOnAcceleration, objectSpeed + response_time * acceleration);
   if (objectSpeed >= objectMaxSpeedOnAcceleration)
   {
-    // no acceleration if already faster than maxSpeedOnAcceleration
+    // no acceleration if already faster than max_speed_on_acceleration
     accelerationTime = Duration(0.);
     speedMax = objectSpeed;
   }
   else if (acceleration != Acceleration(0.))
   {
-    // maybe the acceleration time is less, if maxSpeedOnAcceleration is reached before response time
+    // maybe the acceleration time is less, if max_speed_on_acceleration is reached before response time
     accelerationTime = std::min(accelerationTime, std::fabs(objectMaxSpeedOnAcceleration - objectSpeed) / acceleration);
   }
   Distance dMin = objectSpeed * accelerationTime;
   dMin += 0.5 * acceleration * accelerationTime * accelerationTime;
-  dMin += speedMax * (responseTime - accelerationTime);
+  dMin += speedMax * (response_time - accelerationTime);
   dMin += (speedMax * speedMax) / (2. * -deceleration);
   return dMin;
 }
@@ -243,18 +249,20 @@ Distance calculateLongitudinalMinSafeDistance(physics::Speed const &followingObj
 {
   Distance const followingStoppingDistance
     = calculateLongitudinalStoppingDistance(followingObjectSpeed,
-                                            followingObjectRssDynamics.maxSpeedOnAcceleration,
-                                            followingObjectRssDynamics.alphaLon.accelMax,
-                                            followingObjectRssDynamics.alphaLon.brakeMin,
-                                            followingObjectRssDynamics.responseTime);
+                                            followingObjectRssDynamics.max_speed_on_acceleration,
+                                            followingObjectRssDynamics.alpha_lon.accel_max,
+                                            followingObjectRssDynamics.alpha_lon.brake_min,
+                                            followingObjectRssDynamics.response_time);
   Distance const leadingStoppingDistance
     = calculateLongitudinalStoppingDistance(leadingObjectSpeed,
-                                            leadingObjectRssDynamics.maxSpeedOnAcceleration,
-                                            leadingObjectRssDynamics.alphaLon.accelMax,
-                                            leadingObjectRssDynamics.alphaLon.brakeMax,
+                                            leadingObjectRssDynamics.max_speed_on_acceleration,
+                                            leadingObjectRssDynamics.alpha_lon.accel_max,
+                                            leadingObjectRssDynamics.alpha_lon.brake_max,
                                             Duration(0));
-  Distance const dMin = followingStoppingDistance - leadingStoppingDistance;
-  return std::max(dMin, Distance(0.));
+  Distance dMin = followingStoppingDistance - leadingStoppingDistance;
+  dMin = std::max(dMin, Distance(0.));
+  dMin += Distance(followingObjectRssDynamics.min_longitudinal_safety_distance);
+  return dMin;
 }
 
 Distance
@@ -265,17 +273,19 @@ calculateLongitudinalMinSafeDistanceOppositeDirection(physics::Speed const &obje
 {
   Distance const correctStoppingDistance
     = calculateLongitudinalStoppingDistance(objectInCorrectLaneSpeed,
-                                            objectInCorrectLaneRssDynamics.maxSpeedOnAcceleration,
-                                            objectInCorrectLaneRssDynamics.alphaLon.accelMax,
-                                            objectInCorrectLaneRssDynamics.alphaLon.brakeMinCorrect,
-                                            objectInCorrectLaneRssDynamics.responseTime);
+                                            objectInCorrectLaneRssDynamics.max_speed_on_acceleration,
+                                            objectInCorrectLaneRssDynamics.alpha_lon.accel_max,
+                                            objectInCorrectLaneRssDynamics.alpha_lon.brake_min_correct,
+                                            objectInCorrectLaneRssDynamics.response_time);
   Distance const notCorrectStoppingDistance
     = calculateLongitudinalStoppingDistance(objectNotInCorrectLaneSpeed,
-                                            objectNotInCorrectLaneRssDynamics.maxSpeedOnAcceleration,
-                                            objectNotInCorrectLaneRssDynamics.alphaLon.accelMax,
-                                            objectNotInCorrectLaneRssDynamics.alphaLon.brakeMin,
-                                            objectNotInCorrectLaneRssDynamics.responseTime);
-  Distance const dMin = correctStoppingDistance + notCorrectStoppingDistance;
+                                            objectNotInCorrectLaneRssDynamics.max_speed_on_acceleration,
+                                            objectNotInCorrectLaneRssDynamics.alpha_lon.accel_max,
+                                            objectNotInCorrectLaneRssDynamics.alpha_lon.brake_min,
+                                            objectNotInCorrectLaneRssDynamics.response_time);
+  Distance dMin = correctStoppingDistance + notCorrectStoppingDistance;
+  dMin += std::max(objectInCorrectLaneRssDynamics.min_longitudinal_safety_distance,
+                   objectNotInCorrectLaneRssDynamics.min_longitudinal_safety_distance);
   return dMin;
 }
 
@@ -285,295 +295,305 @@ Distance calculateLateralMinSafeDistance(physics::Speed const &leftObjectSpeed,
                                          world::RssDynamics const &rightObjectRssDynamics)
 {
   Speed lObjectVelAfterResTime
-    = leftObjectSpeed + leftObjectRssDynamics.responseTime * leftObjectRssDynamics.alphaLat.accelMax;
+    = leftObjectSpeed + leftObjectRssDynamics.response_time * leftObjectRssDynamics.alpha_lat.accel_max;
   Speed rObjectVelAfterResTime
-    = rightObjectSpeed - rightObjectRssDynamics.responseTime * rightObjectRssDynamics.alphaLat.accelMax;
-  Distance dMin = (leftObjectSpeed + lObjectVelAfterResTime) / 2. * leftObjectRssDynamics.responseTime;
+    = rightObjectSpeed - rightObjectRssDynamics.response_time * rightObjectRssDynamics.alpha_lat.accel_max;
+  Distance dMin = (leftObjectSpeed + lObjectVelAfterResTime) / 2. * leftObjectRssDynamics.response_time;
   if (lObjectVelAfterResTime > Speed(0.))
   {
-    dMin += lObjectVelAfterResTime * lObjectVelAfterResTime / (2. * -leftObjectRssDynamics.alphaLat.brakeMin);
+    dMin += lObjectVelAfterResTime * lObjectVelAfterResTime / (2. * -leftObjectRssDynamics.alpha_lat.brake_min);
   }
-  dMin -= (rightObjectSpeed + rObjectVelAfterResTime) / 2. * rightObjectRssDynamics.responseTime;
+  dMin -= (rightObjectSpeed + rObjectVelAfterResTime) / 2. * rightObjectRssDynamics.response_time;
   if (rObjectVelAfterResTime < Speed(0.))
   {
-    dMin += rObjectVelAfterResTime * rObjectVelAfterResTime / (2. * -rightObjectRssDynamics.alphaLat.brakeMin);
+    dMin += rObjectVelAfterResTime * rObjectVelAfterResTime / (2. * -rightObjectRssDynamics.alpha_lat.brake_min);
   }
-  dMin += 0.5 * (rightObjectRssDynamics.lateralFluctuationMargin + leftObjectRssDynamics.lateralFluctuationMargin);
+  dMin += 0.5 * (rightObjectRssDynamics.lateral_fluctuation_margin + leftObjectRssDynamics.lateral_fluctuation_margin);
   return std::max(dMin, Distance(0.));
 }
 TestSupport::TestSupport()
 {
   resetRssState(cLongitudinalSafe);
-  cLongitudinalSafe.isSafe = true;
+  cLongitudinalSafe.is_safe = true;
   cLongitudinalSafe.response = state::LongitudinalResponse::None;
   resetRssState(cLongitudinalNone);
-  cLongitudinalNone.isSafe = false;
+  cLongitudinalNone.is_safe = false;
   cLongitudinalNone.response = state::LongitudinalResponse::None;
   resetRssState(cLongitudinalBrakeMin);
-  cLongitudinalBrakeMin.isSafe = false;
+  cLongitudinalBrakeMin.is_safe = false;
   cLongitudinalBrakeMin.response = state::LongitudinalResponse::BrakeMin;
   resetRssState(cLongitudinalBrakeMinCorrect);
-  cLongitudinalBrakeMinCorrect.isSafe = false;
+  cLongitudinalBrakeMinCorrect.is_safe = false;
   cLongitudinalBrakeMinCorrect.response = state::LongitudinalResponse::BrakeMinCorrect;
   resetRssState(cLateralSafe);
-  cLateralSafe.isSafe = true;
+  cLateralSafe.is_safe = true;
   cLateralSafe.response = state::LateralResponse::None;
   resetRssState(cLateralNone);
-  cLateralNone.isSafe = false;
+  cLateralNone.is_safe = false;
   cLateralNone.response = state::LateralResponse::None;
   resetRssState(cLateralBrakeMin);
-  cLateralBrakeMin.isSafe = false;
+  cLateralBrakeMin.is_safe = false;
   cLateralBrakeMin.response = state::LateralResponse::BrakeMin;
 }
 
 state::LateralRssState TestSupport::stateWithInformation(state::LateralRssState const &lateralState,
-                                                         situation::Situation const &situation)
+                                                         core::RelativeConstellation const &constellation)
 {
   state::LateralRssState resultState = lateralState;
 
-  resultState.alphaLat = situation.egoVehicleState.dynamics.alphaLat;
-  resultState.rssStateInformation.evaluator = state::RssStateEvaluator::LateralDistance;
-  resultState.rssStateInformation.currentDistance = situation.relativePosition.lateralDistance;
-  switch (situation.situationType)
+  resultState.alpha_lat = constellation.ego_state.dynamics.alpha_lat;
+  resultState.rss_state_information.evaluator = state::RssStateEvaluator::LateralDistance;
+  resultState.rss_state_information.current_distance = constellation.relative_position.lateral_distance;
+  switch (constellation.constellation_type)
   {
-    case situation::SituationType::OppositeDirection:
-    case situation::SituationType::SameDirection:
-      if (situation.relativePosition.lateralPosition == situation::LateralRelativePosition::AtLeft)
+    case world::ConstellationType::OppositeDirection:
+    case world::ConstellationType::SameDirection:
+      if (constellation.relative_position.lateral_position == core::LateralRelativePosition::AtLeft)
       {
-        resultState.rssStateInformation.safeDistance
-          = calculateLateralMinSafeDistance(situation.egoVehicleState.velocity.speedLat.maximum,
-                                            situation.egoVehicleState.dynamics,
-                                            situation.otherVehicleState.velocity.speedLat.minimum,
-                                            situation.otherVehicleState.dynamics);
+        resultState.rss_state_information.safe_distance
+          = calculateLateralMinSafeDistance(constellation.ego_state.structured_object_state.velocity.speed_lat_max,
+                                            constellation.ego_state.dynamics,
+                                            constellation.other_state.structured_object_state.velocity.speed_lat_min,
+                                            constellation.other_state.dynamics);
       }
-      else if (situation.relativePosition.lateralPosition == situation::LateralRelativePosition::AtRight)
+      else if (constellation.relative_position.lateral_position == core::LateralRelativePosition::AtRight)
       {
-        resultState.rssStateInformation.safeDistance
-          = calculateLateralMinSafeDistance(situation.otherVehicleState.velocity.speedLat.maximum,
-                                            situation.otherVehicleState.dynamics,
-                                            situation.egoVehicleState.velocity.speedLat.minimum,
-                                            situation.egoVehicleState.dynamics);
+        resultState.rss_state_information.safe_distance
+          = calculateLateralMinSafeDistance(constellation.other_state.structured_object_state.velocity.speed_lat_max,
+                                            constellation.other_state.dynamics,
+                                            constellation.ego_state.structured_object_state.velocity.speed_lat_min,
+                                            constellation.ego_state.dynamics);
       }
       else
       {
-        resultState.rssStateInformation.safeDistance = Distance(0.);
+        resultState.rss_state_information.safe_distance = Distance(0.);
       }
       break;
-    case situation::SituationType::IntersectionEgoHasPriority:
-    case situation::SituationType::IntersectionObjectHasPriority:
-    case situation::SituationType::IntersectionSamePriority:
-      resultState.rssStateInformation.safeDistance = Distance(0.);
+    case world::ConstellationType::IntersectionEgoHasPriority:
+    case world::ConstellationType::IntersectionObjectHasPriority:
+    case world::ConstellationType::IntersectionSamePriority:
+      resultState.rss_state_information.safe_distance = Distance(0.);
       break;
-    case situation::SituationType::NotRelevant:
-      resultState.rssStateInformation.evaluator = state::RssStateEvaluator::None;
-      resultState.rssStateInformation.currentDistance = Distance::getMax();
-      resultState.rssStateInformation.safeDistance = Distance::getMax();
+    case world::ConstellationType::NotRelevant:
+      resultState.rss_state_information.evaluator = state::RssStateEvaluator::None;
+      resultState.rss_state_information.current_distance = Distance::getMax();
+      resultState.rss_state_information.safe_distance = Distance::getMax();
       break;
     default:
-      resultState.rssStateInformation.currentDistance = Distance(-1.);
-      resultState.rssStateInformation.safeDistance = Distance(-1.);
+      resultState.rss_state_information.current_distance = Distance(-1.);
+      resultState.rss_state_information.safe_distance = Distance(-1.);
       break;
   }
 
   return resultState;
 }
 
-state::LongitudinalRssState TestSupport::stateWithInformation(state::LongitudinalRssState const &longitudinalState,
-                                                              situation::Situation const &situation)
+state::LongitudinalRssState TestSupport::stateWithInformation(state::LongitudinalRssState const &longitudinal_state,
+                                                              core::RelativeConstellation const &constellation)
 {
-  state::LongitudinalRssState resultState = longitudinalState;
+  state::LongitudinalRssState resultState = longitudinal_state;
 
-  resultState.alphaLon = situation.egoVehicleState.dynamics.alphaLon;
-  resultState.rssStateInformation.currentDistance = situation.relativePosition.longitudinalDistance;
+  resultState.alpha_lon = constellation.ego_state.dynamics.alpha_lon;
+  resultState.rss_state_information.current_distance = constellation.relative_position.longitudinal_distance;
 
-  switch (situation.situationType)
+  switch (constellation.constellation_type)
   {
-    case situation::SituationType::SameDirection:
-      if ((situation.relativePosition.longitudinalPosition == situation::LongitudinalRelativePosition::InFront)
-          || (situation.relativePosition.longitudinalPosition == situation::LongitudinalRelativePosition::OverlapFront))
+    case world::ConstellationType::SameDirection:
+      if ((constellation.relative_position.longitudinal_position == core::LongitudinalRelativePosition::InFront)
+          || (constellation.relative_position.longitudinal_position
+              == core::LongitudinalRelativePosition::OverlapFront))
       {
-        resultState.rssStateInformation.evaluator = state::RssStateEvaluator::LongitudinalDistanceSameDirectionEgoFront;
-        resultState.rssStateInformation.safeDistance
-          = calculateLongitudinalMinSafeDistance(situation.otherVehicleState.velocity.speedLon.maximum,
-                                                 situation.otherVehicleState.dynamics,
-                                                 situation.egoVehicleState.velocity.speedLon.minimum,
-                                                 situation.egoVehicleState.dynamics);
+        resultState.rss_state_information.evaluator
+          = state::RssStateEvaluator::LongitudinalDistanceSameDirectionEgoFront;
+        resultState.rss_state_information.safe_distance = calculateLongitudinalMinSafeDistance(
+          constellation.other_state.structured_object_state.velocity.speed_lon_max,
+          constellation.other_state.dynamics,
+          constellation.ego_state.structured_object_state.velocity.speed_lon_min,
+          constellation.ego_state.dynamics);
       }
       else
       {
-        resultState.rssStateInformation.evaluator
+        resultState.rss_state_information.evaluator
           = state::RssStateEvaluator::LongitudinalDistanceSameDirectionOtherInFront;
-        resultState.rssStateInformation.safeDistance
-          = calculateLongitudinalMinSafeDistance(situation.egoVehicleState.velocity.speedLon.maximum,
-                                                 situation.egoVehicleState.dynamics,
-                                                 situation.otherVehicleState.velocity.speedLon.minimum,
-                                                 situation.otherVehicleState.dynamics);
+        resultState.rss_state_information.safe_distance = calculateLongitudinalMinSafeDistance(
+          constellation.ego_state.structured_object_state.velocity.speed_lon_max,
+          constellation.ego_state.dynamics,
+          constellation.other_state.structured_object_state.velocity.speed_lon_min,
+          constellation.other_state.dynamics);
       }
       break;
-    case situation::SituationType::OppositeDirection:
-      if (situation.egoVehicleState.isInCorrectLane)
+    case world::ConstellationType::OppositeDirection:
+      if (constellation.ego_state.structured_object_state.is_in_correct_lane)
       {
-        resultState.rssStateInformation.evaluator
+        resultState.rss_state_information.evaluator
           = state::RssStateEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane;
-        resultState.rssStateInformation.safeDistance
-          = calculateLongitudinalMinSafeDistanceOppositeDirection(situation.egoVehicleState.velocity.speedLon.maximum,
-                                                                  situation.egoVehicleState.dynamics,
-                                                                  situation.otherVehicleState.velocity.speedLon.maximum,
-                                                                  situation.otherVehicleState.dynamics);
+        resultState.rss_state_information.safe_distance = calculateLongitudinalMinSafeDistanceOppositeDirection(
+          constellation.ego_state.structured_object_state.velocity.speed_lon_max,
+          constellation.ego_state.dynamics,
+          constellation.other_state.structured_object_state.velocity.speed_lon_max,
+          constellation.other_state.dynamics);
       }
       else
       {
-        resultState.rssStateInformation.evaluator = state::RssStateEvaluator::LongitudinalDistanceOppositeDirection;
-        resultState.rssStateInformation.safeDistance
-          = calculateLongitudinalMinSafeDistanceOppositeDirection(situation.otherVehicleState.velocity.speedLon.maximum,
-                                                                  situation.otherVehicleState.dynamics,
-                                                                  situation.egoVehicleState.velocity.speedLon.maximum,
-                                                                  situation.egoVehicleState.dynamics);
+        resultState.rss_state_information.evaluator = state::RssStateEvaluator::LongitudinalDistanceOppositeDirection;
+        resultState.rss_state_information.safe_distance = calculateLongitudinalMinSafeDistanceOppositeDirection(
+          constellation.other_state.structured_object_state.velocity.speed_lon_max,
+          constellation.other_state.dynamics,
+          constellation.ego_state.structured_object_state.velocity.speed_lon_max,
+          constellation.ego_state.dynamics);
       }
       break;
-    case situation::SituationType::IntersectionEgoHasPriority:
-    case situation::SituationType::IntersectionObjectHasPriority:
-    case situation::SituationType::IntersectionSamePriority:
-      if (!situation.egoVehicleState.hasPriority)
+    case world::ConstellationType::IntersectionEgoHasPriority:
+    case world::ConstellationType::IntersectionObjectHasPriority:
+    case world::ConstellationType::IntersectionSamePriority:
+      if (!constellation.ego_state.structured_object_state.has_priority)
       {
-        resultState.rssStateInformation.currentDistance = situation.egoVehicleState.distanceToEnterIntersection;
-        resultState.rssStateInformation.safeDistance
-          = calculateLongitudinalStoppingDistance(situation.egoVehicleState.velocity.speedLon.maximum,
-                                                  situation.egoVehicleState.dynamics.maxSpeedOnAcceleration,
-                                                  situation.egoVehicleState.dynamics.alphaLon.accelMax,
-                                                  situation.egoVehicleState.dynamics.alphaLon.brakeMin,
-                                                  situation.egoVehicleState.dynamics.responseTime);
-        resultState.rssStateInformation.evaluator = state::RssStateEvaluator::IntersectionOtherPriorityEgoAbleToStop;
-        if (resultState.rssStateInformation.currentDistance > resultState.rssStateInformation.safeDistance)
+        resultState.rss_state_information.current_distance
+          = constellation.ego_state.structured_object_state.distance_to_enter_intersection;
+        resultState.rss_state_information.safe_distance = calculateLongitudinalStoppingDistance(
+          constellation.ego_state.structured_object_state.velocity.speed_lon_max,
+          constellation.ego_state.dynamics.max_speed_on_acceleration,
+          constellation.ego_state.dynamics.alpha_lon.accel_max,
+          constellation.ego_state.dynamics.alpha_lon.brake_min,
+          constellation.ego_state.dynamics.response_time);
+        resultState.rss_state_information.safe_distance
+          = std::max(resultState.rss_state_information.safe_distance,
+                     constellation.ego_state.dynamics.min_longitudinal_safety_distance);
+        resultState.rss_state_information.evaluator = state::RssStateEvaluator::IntersectionOtherPriorityEgoAbleToStop;
+        if (resultState.rss_state_information.current_distance > resultState.rss_state_information.safe_distance)
         {
           break;
         }
       }
-      if (!situation.otherVehicleState.hasPriority)
+      if (!constellation.other_state.structured_object_state.has_priority)
       {
-        resultState.rssStateInformation.currentDistance = situation.otherVehicleState.distanceToEnterIntersection;
-        resultState.rssStateInformation.safeDistance
-          = calculateLongitudinalStoppingDistance(situation.otherVehicleState.velocity.speedLon.maximum,
-                                                  situation.otherVehicleState.dynamics.maxSpeedOnAcceleration,
-                                                  situation.otherVehicleState.dynamics.alphaLon.accelMax,
-                                                  situation.otherVehicleState.dynamics.alphaLon.brakeMin,
-                                                  situation.otherVehicleState.dynamics.responseTime);
-        resultState.rssStateInformation.evaluator = state::RssStateEvaluator::IntersectionEgoPriorityOtherAbleToStop;
-        if (resultState.rssStateInformation.currentDistance > resultState.rssStateInformation.safeDistance)
+        resultState.rss_state_information.current_distance
+          = constellation.other_state.structured_object_state.distance_to_enter_intersection;
+        resultState.rss_state_information.safe_distance = calculateLongitudinalStoppingDistance(
+          constellation.other_state.structured_object_state.velocity.speed_lon_max,
+          constellation.other_state.dynamics.max_speed_on_acceleration,
+          constellation.other_state.dynamics.alpha_lon.accel_max,
+          constellation.other_state.dynamics.alpha_lon.brake_min,
+          constellation.other_state.dynamics.response_time);
+        resultState.rss_state_information.safe_distance
+          = std::max(resultState.rss_state_information.safe_distance,
+                     constellation.other_state.dynamics.min_longitudinal_safety_distance);
+        resultState.rss_state_information.evaluator = state::RssStateEvaluator::IntersectionEgoPriorityOtherAbleToStop;
+        if (resultState.rss_state_information.current_distance > resultState.rss_state_information.safe_distance)
         {
           break;
         }
       }
-      resultState.rssStateInformation.currentDistance = situation.relativePosition.longitudinalDistance;
-      if (situation.relativePosition.longitudinalPosition == situation::LongitudinalRelativePosition::InFront)
+      resultState.rss_state_information.current_distance = constellation.relative_position.longitudinal_distance;
+      if (constellation.relative_position.longitudinal_position == core::LongitudinalRelativePosition::InFront)
       {
-        resultState.rssStateInformation.evaluator = state::RssStateEvaluator::IntersectionEgoInFront;
-        resultState.rssStateInformation.safeDistance
-          = calculateLongitudinalMinSafeDistance(situation.otherVehicleState.velocity.speedLon.maximum,
-                                                 situation.otherVehicleState.dynamics,
-                                                 situation.egoVehicleState.velocity.speedLon.minimum,
-                                                 situation.egoVehicleState.dynamics);
+        resultState.rss_state_information.evaluator = state::RssStateEvaluator::IntersectionEgoInFront;
+        resultState.rss_state_information.safe_distance = calculateLongitudinalMinSafeDistance(
+          constellation.other_state.structured_object_state.velocity.speed_lon_max,
+          constellation.other_state.dynamics,
+          constellation.ego_state.structured_object_state.velocity.speed_lon_min,
+          constellation.ego_state.dynamics);
       }
-      else if (situation.relativePosition.longitudinalPosition == situation::LongitudinalRelativePosition::AtBack)
+      else if (constellation.relative_position.longitudinal_position == core::LongitudinalRelativePosition::AtBack)
       {
-        resultState.rssStateInformation.evaluator = state::RssStateEvaluator::IntersectionOtherInFront;
-        resultState.rssStateInformation.safeDistance
-          = calculateLongitudinalMinSafeDistance(situation.egoVehicleState.velocity.speedLon.maximum,
-                                                 situation.egoVehicleState.dynamics,
-                                                 situation.otherVehicleState.velocity.speedLon.minimum,
-                                                 situation.otherVehicleState.dynamics);
+        resultState.rss_state_information.evaluator = state::RssStateEvaluator::IntersectionOtherInFront;
+        resultState.rss_state_information.safe_distance = calculateLongitudinalMinSafeDistance(
+          constellation.ego_state.structured_object_state.velocity.speed_lon_max,
+          constellation.ego_state.dynamics,
+          constellation.other_state.structured_object_state.velocity.speed_lon_min,
+          constellation.other_state.dynamics);
       }
-      if (resultState.rssStateInformation.currentDistance > resultState.rssStateInformation.safeDistance)
+      if (resultState.rss_state_information.current_distance > resultState.rss_state_information.safe_distance)
       {
         break;
       }
       else
       {
-        resultState.rssStateInformation.evaluator = state::RssStateEvaluator::IntersectionOverlap;
-        resultState.rssStateInformation.currentDistance = Distance(0.);
-        resultState.rssStateInformation.safeDistance = Distance(0.);
+        resultState.rss_state_information.evaluator = state::RssStateEvaluator::IntersectionOverlap;
+        resultState.rss_state_information.current_distance = Distance(0.);
+        resultState.rss_state_information.safe_distance = Distance(0.);
       }
       break;
-    case situation::SituationType::NotRelevant:
-      resultState.rssStateInformation.evaluator = state::RssStateEvaluator::None;
-      resultState.rssStateInformation.currentDistance = Distance::getMax();
-      resultState.rssStateInformation.safeDistance = Distance::getMax();
+    case world::ConstellationType::NotRelevant:
+      resultState.rss_state_information.evaluator = state::RssStateEvaluator::None;
+      resultState.rss_state_information.current_distance = Distance::getMax();
+      resultState.rss_state_information.safe_distance = Distance::getMax();
       break;
     default:
-      resultState.rssStateInformation.evaluator = state::RssStateEvaluator::None;
-      resultState.rssStateInformation.currentDistance = Distance(-1.);
-      resultState.rssStateInformation.safeDistance = Distance(-1.);
+      resultState.rss_state_information.evaluator = state::RssStateEvaluator::None;
+      resultState.rss_state_information.current_distance = Distance(-1.);
+      resultState.rss_state_information.safe_distance = Distance(-1.);
       break;
   }
 
   return resultState;
 }
 
-void getUnstructuredVehicle(unstructured::Point const &centerPoint,
+void getUnstructuredVehicle(::ad::geometry::Point const &center_point,
                             bool positiveDirection,
-                            state::UnstructuredSceneStateInformation &stateInfo,
-                            situation::VehicleState &vehicleState)
+                            state::UnstructuredConstellationStateInformation &stateInfo,
+                            core::RelativeObjectState &vehicleState)
 {
-  vehicleState.objectState.centerPoint.x = ad::physics::Distance(centerPoint.x());
-  vehicleState.objectState.centerPoint.y = ad::physics::Distance(centerPoint.y());
+  vehicleState.unstructured_object_state.center_point.x = ad::physics::Distance(center_point.x());
+  vehicleState.unstructured_object_state.center_point.y = ad::physics::Distance(center_point.y());
   if (positiveDirection)
   {
-    vehicleState.objectState.yaw = ad::physics::cPI_2;
+    vehicleState.unstructured_object_state.yaw = ad::physics::cPI_2;
   }
   else
   {
-    vehicleState.objectState.yaw = 3. * ad::physics::cPI_2;
+    vehicleState.unstructured_object_state.yaw = 3. * ad::physics::cPI_2;
   }
 
-  stateInfo.brakeTrajectorySet.clear();
-  stateInfo.continueForwardTrajectorySet.clear();
+  stateInfo.brake_trajectory_set.clear();
+  stateInfo.continue_forward_trajectory_set.clear();
   // brake
   if (positiveDirection)
   {
-    stateInfo.brakeTrajectorySet.push_back(
-      unstructured::toDistance(unstructured::Point(centerPoint.x() - 0.5, centerPoint.y() - 0.5)));
-    stateInfo.continueForwardTrajectorySet.push_back(
-      unstructured::toDistance(unstructured::Point(centerPoint.x() - 0.5, centerPoint.y() - 0.5)));
+    stateInfo.brake_trajectory_set.push_back(
+      ::ad::geometry::toDistance(::ad::geometry::Point(center_point.x() - 0.5, center_point.y() - 0.5)));
+    stateInfo.continue_forward_trajectory_set.push_back(
+      ::ad::geometry::toDistance(::ad::geometry::Point(center_point.x() - 0.5, center_point.y() - 0.5)));
 
-    stateInfo.brakeTrajectorySet.push_back(
-      unstructured::toDistance(unstructured::Point(centerPoint.x() + 0.5, centerPoint.y() - 0.5)));
-    stateInfo.continueForwardTrajectorySet.push_back(
-      unstructured::toDistance(unstructured::Point(centerPoint.x() + 0.5, centerPoint.y() - 0.5)));
+    stateInfo.brake_trajectory_set.push_back(
+      ::ad::geometry::toDistance(::ad::geometry::Point(center_point.x() + 0.5, center_point.y() - 0.5)));
+    stateInfo.continue_forward_trajectory_set.push_back(
+      ::ad::geometry::toDistance(::ad::geometry::Point(center_point.x() + 0.5, center_point.y() - 0.5)));
 
-    stateInfo.brakeTrajectorySet.push_back(
-      unstructured::toDistance(unstructured::Point(centerPoint.x() + 0.5, centerPoint.y() + 1.5)));
-    stateInfo.continueForwardTrajectorySet.push_back(
-      unstructured::toDistance(unstructured::Point(centerPoint.x() + 0.5, centerPoint.y() + 2.5)));
+    stateInfo.brake_trajectory_set.push_back(
+      ::ad::geometry::toDistance(::ad::geometry::Point(center_point.x() + 0.5, center_point.y() + 1.5)));
+    stateInfo.continue_forward_trajectory_set.push_back(
+      ::ad::geometry::toDistance(::ad::geometry::Point(center_point.x() + 0.5, center_point.y() + 2.5)));
 
-    stateInfo.brakeTrajectorySet.push_back(
-      unstructured::toDistance(unstructured::Point(centerPoint.x() - 0.5, centerPoint.y() + 1.5)));
-    stateInfo.continueForwardTrajectorySet.push_back(
-      unstructured::toDistance(unstructured::Point(centerPoint.x() - 0.5, centerPoint.y() + 2.5)));
+    stateInfo.brake_trajectory_set.push_back(
+      ::ad::geometry::toDistance(::ad::geometry::Point(center_point.x() - 0.5, center_point.y() + 1.5)));
+    stateInfo.continue_forward_trajectory_set.push_back(
+      ::ad::geometry::toDistance(::ad::geometry::Point(center_point.x() - 0.5, center_point.y() + 2.5)));
   }
   else
   {
-    stateInfo.brakeTrajectorySet.push_back(
-      unstructured::toDistance(unstructured::Point(centerPoint.x() + 0.5, centerPoint.y() + 0.5)));
-    stateInfo.continueForwardTrajectorySet.push_back(
-      unstructured::toDistance(unstructured::Point(centerPoint.x() + 0.5, centerPoint.y() + 0.5)));
+    stateInfo.brake_trajectory_set.push_back(
+      ::ad::geometry::toDistance(::ad::geometry::Point(center_point.x() + 0.5, center_point.y() + 0.5)));
+    stateInfo.continue_forward_trajectory_set.push_back(
+      ::ad::geometry::toDistance(::ad::geometry::Point(center_point.x() + 0.5, center_point.y() + 0.5)));
 
-    stateInfo.brakeTrajectorySet.push_back(
-      unstructured::toDistance(unstructured::Point(centerPoint.x() - 0.5, centerPoint.y() + 0.5)));
-    stateInfo.continueForwardTrajectorySet.push_back(
-      unstructured::toDistance(unstructured::Point(centerPoint.x() - 0.5, centerPoint.y() + 0.5)));
+    stateInfo.brake_trajectory_set.push_back(
+      ::ad::geometry::toDistance(::ad::geometry::Point(center_point.x() - 0.5, center_point.y() + 0.5)));
+    stateInfo.continue_forward_trajectory_set.push_back(
+      ::ad::geometry::toDistance(::ad::geometry::Point(center_point.x() - 0.5, center_point.y() + 0.5)));
 
-    stateInfo.brakeTrajectorySet.push_back(
-      unstructured::toDistance(unstructured::Point(centerPoint.x() - 0.5, centerPoint.y() - 1.5)));
-    stateInfo.continueForwardTrajectorySet.push_back(
-      unstructured::toDistance(unstructured::Point(centerPoint.x() - 0.5, centerPoint.y() - 2.5)));
+    stateInfo.brake_trajectory_set.push_back(
+      ::ad::geometry::toDistance(::ad::geometry::Point(center_point.x() - 0.5, center_point.y() - 1.5)));
+    stateInfo.continue_forward_trajectory_set.push_back(
+      ::ad::geometry::toDistance(::ad::geometry::Point(center_point.x() - 0.5, center_point.y() - 2.5)));
 
-    stateInfo.brakeTrajectorySet.push_back(
-      unstructured::toDistance(unstructured::Point(centerPoint.x() + 0.5, centerPoint.y() - 1.5)));
-    stateInfo.continueForwardTrajectorySet.push_back(
-      unstructured::toDistance(unstructured::Point(centerPoint.x() + 0.5, centerPoint.y() - 2.5)));
+    stateInfo.brake_trajectory_set.push_back(
+      ::ad::geometry::toDistance(::ad::geometry::Point(center_point.x() + 0.5, center_point.y() - 1.5)));
+    stateInfo.continue_forward_trajectory_set.push_back(
+      ::ad::geometry::toDistance(::ad::geometry::Point(center_point.x() + 0.5, center_point.y() - 2.5)));
   }
-  stateInfo.brakeTrajectorySet.push_back(stateInfo.brakeTrajectorySet.front());
-  stateInfo.continueForwardTrajectorySet.push_back(stateInfo.continueForwardTrajectorySet.front());
+  stateInfo.brake_trajectory_set.push_back(stateInfo.brake_trajectory_set.front());
+  stateInfo.continue_forward_trajectory_set.push_back(stateInfo.continue_forward_trajectory_set.front());
 }
 
 } // namespace rss

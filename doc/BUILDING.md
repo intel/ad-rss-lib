@@ -13,11 +13,14 @@ The components within this repository have some dependencies:
  - **ad_rss_map_integration**:
    - *ad_rss*
    - ad_map_access: <https://github.com/carla-simulator/map.git>
-      - Boost (including components filesystem and  program_options)
+     - Boost (including components filesystem and  program_options)
    - ad_map_opendrive_reader: <https://github.com/carla-simulator/map.git>
+     - Boost
      - pugixml
      - proj: <https://www.osgeo.org/projects/proj/>
+     - odrSpiral:  <https://github.com/DLR-TS/odrSpiral/>
    - spdlog: <https://github.com/gabime/spdlog.git>
+   - libtbb
    - **ad_rss_map_integration_python** (if Python binding build enabled):
      - ad_map_access_python: <https://github.com/carla-simulator/map.git>
      - ad_physics_python: <https://github.com/carla-simulator/map.git>
@@ -28,31 +31,37 @@ The components within this repository have some dependencies:
    - gtest aka. googletests < 1.10 : <https://github.com/google/googletest>
    - unittest-xml-reporting
 
-Dependencies provided by Ubunutu (>= 18.04):
+Dependencies provided by Ubunutu (>= 22.04):
 
  - Boost
  - pugixml
  - libproj-dev
  - gtest
  - libpython-dev
+ - libtbb-dev
+ - libspdlog-dev
 
 Those can be installed by calling:
 ```bash
-$>  sudo apt-get install libboost-all-dev libpugixml-dev libgtest-dev libpython-dev libproj-dev
+$>  sudo apt-get install libboost-all-dev libpugixml-dev libgtest-dev libpython-dev libproj-dev libtbb-dev libspdlog-dev
 ```
 
 Additional dependencies for the python bindings:
 ```bash
-$>  sudo apt-get install castxml
-$>  pip install --user pygccxml pyplusplus unittest-xml-reporting
+ ad-rss-lib$>  sudo apt-get install castxml
+ ad-rss-lib$>  mkdir -p ad-rss-build-venv
+ ad-rss-lib$>  python -m venv ad-rss-build-venv
+ ad-rss-lib$>  source ad-rss-build-venv/bin/activate
+ (ad-rss-build-venv)ad-rss-lib$>  pip install setuptools pygccxml pyplusplus unittest-xml-reporting
 ```
 
-Remaining dependencies are present as GIT submodules; also to fix the version of these:
+Remaining dependencies are present as GIT submodules reccursively; also to fix the version of these:
 
- - ad_map_access
- - ad_map_opendrive_reader
- - ad_physics
- - spdlog
+ - map
+   - ad_map_access
+   - ad_map_opendrive_reader
+   - ad_physics
+   - odrSpiral
 
 ## Building
 For compiling all libraries and the dependencies, colcon is used [colcon](https://colcon.readthedocs.io/).
@@ -72,17 +81,18 @@ All components will be compiled respecting the dependencies between them.
 The python bindings are disabled by default. To integrate them into the build you can make use of the prepared
 colcon meta file:
 ```bash
- ad-rss-lib$> colcon build --metas colcon_python.meta
+ ad-rss-lib$>  source ad-rss-build-venv/bin/activate
+ (ad-rss-build-venv)ad-rss-lib$> colcon build --metas colcon_python.meta
 ```
 
 __colcon_python.meta__ enables python build (-DBUILD_PYTHON_BINDING=ON). To specify the python version to be used you call e.g.:
 ```bash
- ad-rss-lib$> colcon build --metas colcon_python.meta --cmake-args -DPYTHON_BINDING_VERSION=3.8
+ (ad-rss-build-venv)ad-rss-lib$> colcon build --metas colcon_python.meta --cmake-args -DPYTHON_BINDING_VERSION=3.8
 ```
 
 If cmake isn't able to find the requested python version you can try to specify the python executable explicitly (e.g. under Ubuntu22.04):
 ```bash
- ad-rss-lib$> colcon build --metas colcon_python.meta --cmake-args -DPYTHON_BINDING_VERSION=3.10 -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3.10
+ (ad-rss-build-venv)ad-rss-lib$> colcon build --metas colcon_python.meta --cmake-args -DPYTHON_BINDING_VERSION=3.10 -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3.10
 ```
 
 ## Build options
@@ -98,7 +108,7 @@ There are some CMake options affecting what or how the components are built.
 By default, all options are set to off. Any of these could be activate by adding them via the colcon call above as "--cmake-args -D&lt;OPTION&gt;=[ON|OFF]",
 e.g.:
 ```bash
- ad-rss-lib$> colcon build --cmake-args -DBUILD_TESTING=ON -DBUILD_APIDOC=ON -DBUILD_PYTHON_BINDING=ON -DPYTHON_BINDING_VERSION=3.8
+ (ad-rss-build-venv)ad-rss-lib$> colcon build --cmake-args -DBUILD_TESTING=ON -DBUILD_APIDOC=ON -DBUILD_PYTHON_BINDING=ON -DPYTHON_BINDING_VERSION=3.8
 ```
 
 ### Unit tests

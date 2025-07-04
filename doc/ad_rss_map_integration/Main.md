@@ -20,9 +20,9 @@ To calculate such input to RSS, the `ad::rss::world::WorldModel`, usually a-prio
 and especially on map information is required: Given the positions of all of the traffic participants,
 a map matched position has to be calculated and a combination of route planning and prediction based
 on the road topology has to be performed. Then, the route connecting the ego-vehicle and the
-other vehicle has to be analyzed to deduce the kind of RSS-situation between those two: driving on same road in same direction,
+other vehicle has to be analyzed to deduce the kind of RSS-constellation between those two: driving on same road in same direction,
 in opposite direction or being faced with an intersection with respective priority rules.
-If the kind of situation is derived, the relevant road areas and object/vehicle information have to be
+If the kind of constellation is derived, the relevant road areas and object/vehicle information have to be
 transformed into the suitable world model format expected by the ‘C++ library for RSS’ (*ad_rss*) for further analysis.
 
 These steps are not trivial. To enable the community to understand and evaluate RSS further,
@@ -41,7 +41,7 @@ perform required matching, planning and analysis operations.
 The high level design documentation provides more insights on the architecture and functionality
 of this library.
 
-1. [Construction of the RSS Scenes](./ConstructRSSScenes.md)
+1. [Construction of the RSS Constellations](./ConstructRSSConstellations.md)
 2. [Handling of road boundaries](./HandleRoadBoundaries.md)
 
 ## API documentation <a name="apidoc"></a>

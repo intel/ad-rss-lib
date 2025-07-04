@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -99,7 +99,7 @@ struct LateralRssAccelerationValues
    */
   bool operator==(const LateralRssAccelerationValues &other) const
   {
-    return (accelMax == other.accelMax) && (brakeMin == other.brakeMin);
+    return (accel_max == other.accel_max) && (brake_min == other.brake_min);
   }
 
   /**
@@ -117,12 +117,12 @@ struct LateralRssAccelerationValues
   /*!
    * Absolute amount of the maximum allowed acceleration. This value has always to be positive, zero is allowed.
    */
-  ::ad::physics::Acceleration accelMax{0.0};
+  ::ad::physics::Acceleration accel_max{0.0};
 
   /*!
-   * Absolute amount of the minimum allowed breaking deceleration. This value has always to be positive.
+   * Absolute amount of the minimum allowed braking deceleration. This value has always to be positive.
    */
-  ::ad::physics::Acceleration brakeMin{0.0};
+  ::ad::physics::Acceleration brake_min{0.0};
 };
 
 } // namespace world
@@ -159,11 +159,11 @@ namespace world {
 inline std::ostream &operator<<(std::ostream &os, LateralRssAccelerationValues const &_value)
 {
   os << "LateralRssAccelerationValues(";
-  os << "accelMax:";
-  os << _value.accelMax;
+  os << "accel_max:";
+  os << _value.accel_max;
   os << ",";
-  os << "brakeMin:";
-  os << _value.brakeMin;
+  os << "brake_min:";
+  os << _value.brake_min;
   os << ")";
   return os;
 }
@@ -183,4 +183,17 @@ inline std::string to_string(::ad::rss::world::LateralRssAccelerationValues cons
   return sstream.str();
 }
 } // namespace std
+
+/*!
+ * \brief overload of fmt::formatter calling std::to_string
+ */
+template <> struct fmt::formatter<::ad::rss::world::LateralRssAccelerationValues> : formatter<string_view>
+{
+  template <typename FormatContext>
+  auto format(::ad::rss::world::LateralRssAccelerationValues const &value, FormatContext &ctx)
+  {
+    return formatter<string_view>::format(std::to_string(value), ctx);
+  }
+};
+
 #endif // GEN_GUARD_AD_RSS_WORLD_LATERALRSSACCELERATIONVALUES

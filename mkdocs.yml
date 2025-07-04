@@ -18,7 +18,7 @@ nav:
   - Supported RSS Features: ad_rss/SupportedRssFeatures.md
 - Map Integration:
   - Overview: ad_rss_map_integration/Main.md
-  - Construction of the RSS Scenes: ad_rss_map_integration/ConstructRSSScenes.md
+  - Construction of the RSS Constellations: ad_rss_map_integration/ConstructRSSConstellations.md
   - Handling of road boundaries: ad_rss_map_integration/HandleRoadBoundaries.md
 - Building:
   - BUILDING.md

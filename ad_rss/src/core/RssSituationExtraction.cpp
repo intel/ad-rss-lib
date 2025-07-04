@@ -8,11 +8,10 @@
 
 #include "ad/rss/core/RssSituationExtraction.hpp"
 #include <algorithm>
-#include "../world/RssSituationCoordinateSystemConversion.hpp"
-#include "../world/RssSituationIdProvider.hpp"
+#include "ad/rss/core/Logging.hpp"
+#include "ad/rss/structured/RssConstellationIdProvider.hpp"
+#include "ad/rss/structured/RssLaneCoordinateSystemConversion.hpp"
 #include "ad/rss/world/WorldModelValidInputRange.hpp"
-#include "spdlog/fmt/ostr.h"
-#include "spdlog/spdlog.h"
 
 namespace ad {
 namespace rss {
@@ -21,53 +20,40 @@ namespace core {
 using physics::Distance;
 using physics::MetricRange;
 
-RssSituationExtraction::RssSituationExtraction()
+void RssSituationExtraction::dropObjectHistory(world::ObjectId const &object_id)
 {
-  try
-  {
-    mSituationIdProvider = std::unique_ptr<world::RssSituationIdProvider>(new world::RssSituationIdProvider());
-  }
-  catch (...)
-  {
-    spdlog::critical("RssSituationExtraction object initialization failed");
-    mSituationIdProvider = nullptr;
-  }
+  mConstellationIdProvider.dropConstellationIds(object_id);
 }
 
-RssSituationExtraction::~RssSituationExtraction()
-{
-}
-
-void RssSituationExtraction::calcluateRelativeLongitudinalPosition(
-  MetricRange const &egoMetricRange,
-  MetricRange const &otherMetricRange,
-  situation::LongitudinalRelativePosition &longitudinalPosition,
-  Distance &longitudinalDistance)
+void RssSituationExtraction::calcluateRelativeLongitudinalPosition(MetricRange const &egoMetricRange,
+                                                                   MetricRange const &otherMetricRange,
+                                                                   LongitudinalRelativePosition &longitudinal_position,
+                                                                   Distance &longitudinal_distance)
 {
   if (egoMetricRange.minimum > otherMetricRange.maximum)
   {
-    longitudinalPosition = situation::LongitudinalRelativePosition::InFront;
-    longitudinalDistance = egoMetricRange.minimum - otherMetricRange.maximum;
+    longitudinal_position = LongitudinalRelativePosition::InFront;
+    longitudinal_distance = egoMetricRange.minimum - otherMetricRange.maximum;
   }
   else if (otherMetricRange.minimum > egoMetricRange.maximum)
   {
-    longitudinalPosition = situation::LongitudinalRelativePosition::AtBack;
-    longitudinalDistance = otherMetricRange.minimum - egoMetricRange.maximum;
+    longitudinal_position = LongitudinalRelativePosition::AtBack;
+    longitudinal_distance = otherMetricRange.minimum - egoMetricRange.maximum;
   }
   else
   {
-    longitudinalDistance = Distance(0.);
+    longitudinal_distance = Distance(0.);
     if ((egoMetricRange.minimum > otherMetricRange.minimum) && (egoMetricRange.maximum > otherMetricRange.maximum))
     {
-      longitudinalPosition = situation::LongitudinalRelativePosition::OverlapFront;
+      longitudinal_position = LongitudinalRelativePosition::OverlapFront;
     }
     else if ((egoMetricRange.minimum < otherMetricRange.minimum) && (egoMetricRange.maximum < otherMetricRange.maximum))
     {
-      longitudinalPosition = situation::LongitudinalRelativePosition::OverlapBack;
+      longitudinal_position = LongitudinalRelativePosition::OverlapBack;
     }
     else
     {
-      longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;
+      longitudinal_position = LongitudinalRelativePosition::Overlap;
     }
   }
 }
@@ -75,105 +61,108 @@ void RssSituationExtraction::calcluateRelativeLongitudinalPosition(
 void RssSituationExtraction::calcluateRelativeLongitudinalPositionIntersection(
   MetricRange const &egoMetricRange,
   MetricRange const &otherMetricRange,
-  situation::LongitudinalRelativePosition &longitudinalPosition,
-  Distance &longitudinalDistance)
+  LongitudinalRelativePosition &longitudinal_position,
+  Distance &longitudinal_distance)
 {
   if (egoMetricRange.maximum < otherMetricRange.minimum)
   {
-    longitudinalPosition = situation::LongitudinalRelativePosition::InFront;
-    longitudinalDistance = otherMetricRange.minimum - egoMetricRange.maximum;
+    longitudinal_position = LongitudinalRelativePosition::InFront;
+    longitudinal_distance = otherMetricRange.minimum - egoMetricRange.maximum;
   }
   else if (otherMetricRange.maximum < egoMetricRange.minimum)
   {
-    longitudinalPosition = situation::LongitudinalRelativePosition::AtBack;
-    longitudinalDistance = egoMetricRange.minimum - otherMetricRange.maximum;
+    longitudinal_position = LongitudinalRelativePosition::AtBack;
+    longitudinal_distance = egoMetricRange.minimum - otherMetricRange.maximum;
   }
   else
   {
-    longitudinalDistance = Distance(0.);
+    longitudinal_distance = Distance(0.);
     if ((egoMetricRange.minimum < otherMetricRange.minimum) && (egoMetricRange.maximum < otherMetricRange.maximum))
     {
-      longitudinalPosition = situation::LongitudinalRelativePosition::OverlapFront;
+      longitudinal_position = LongitudinalRelativePosition::OverlapFront;
     }
     else if ((egoMetricRange.minimum > otherMetricRange.minimum) && (egoMetricRange.maximum > otherMetricRange.maximum))
     {
-      longitudinalPosition = situation::LongitudinalRelativePosition::OverlapBack;
+      longitudinal_position = LongitudinalRelativePosition::OverlapBack;
     }
     else
     {
-      longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;
+      longitudinal_position = LongitudinalRelativePosition::Overlap;
     }
   }
 }
 
 void RssSituationExtraction::calcluateRelativeLateralPosition(MetricRange const &egoMetricRange,
                                                               MetricRange const &otherMetricRange,
-                                                              situation::LateralRelativePosition &lateralPosition,
-                                                              Distance &lateralDistance)
+                                                              LateralRelativePosition &lateral_position,
+                                                              Distance &lateral_distance)
 {
   if (egoMetricRange.minimum > otherMetricRange.maximum)
   {
-    lateralPosition = situation::LateralRelativePosition::AtRight;
-    lateralDistance = egoMetricRange.minimum - otherMetricRange.maximum;
+    lateral_position = LateralRelativePosition::AtRight;
+    lateral_distance = egoMetricRange.minimum - otherMetricRange.maximum;
   }
   else if (otherMetricRange.minimum > egoMetricRange.maximum)
   {
-    lateralPosition = situation::LateralRelativePosition::AtLeft;
-    lateralDistance = otherMetricRange.minimum - egoMetricRange.maximum;
+    lateral_position = LateralRelativePosition::AtLeft;
+    lateral_distance = otherMetricRange.minimum - egoMetricRange.maximum;
   }
   else
   {
-    lateralDistance = Distance(0.);
+    lateral_distance = Distance(0.);
     if ((egoMetricRange.minimum > otherMetricRange.minimum) && (egoMetricRange.maximum > otherMetricRange.maximum))
     {
-      lateralPosition = situation::LateralRelativePosition::OverlapRight;
+      lateral_position = LateralRelativePosition::OverlapRight;
     }
     else if ((egoMetricRange.minimum < otherMetricRange.minimum) && (egoMetricRange.maximum < otherMetricRange.maximum))
     {
-      lateralPosition = situation::LateralRelativePosition::OverlapLeft;
+      lateral_position = LateralRelativePosition::OverlapLeft;
     }
     else
     {
-      lateralPosition = situation::LateralRelativePosition::Overlap;
+      lateral_position = LateralRelativePosition::Overlap;
     }
   }
 }
 
-bool RssSituationExtraction::convertObjectsNonIntersection(world::Scene const &currentScene,
-                                                           situation::Situation &situation)
+bool RssSituationExtraction::convertObjectsNonIntersection(world::Constellation const &currentConstellation,
+                                                           core::RelativeConstellation &constellation)
 {
-  if (!currentScene.intersectingRoad.empty())
+  if (!currentConstellation.intersecting_road.empty())
   {
-    spdlog::error("RssSituationExtraction::convertObjectsNonIntersection>> Intersecting road not empty {}",
-                  currentScene);
+    core::getLogger()->error(
+      "RssSituationExtraction::convertObjectsNonIntersection[{}->{}]>> Intersecting road not empty {}",
+      currentConstellation.ego_vehicle.object_id,
+      currentConstellation.object.object_id,
+      currentConstellation);
     return false;
   }
 
   bool result = true;
 
-  world::ObjectDimensions egoVehicleDimension;
-  world::ObjectDimensions objectToBeCheckedDimension;
-  result = calculateObjectDimensions(currentScene, egoVehicleDimension, objectToBeCheckedDimension);
+  structured::ObjectDimensions egoVehicleDimension;
+  structured::ObjectDimensions objectToBeCheckedDimension;
+  result = structured::calculateObjectDimensions(currentConstellation, egoVehicleDimension, objectToBeCheckedDimension);
 
-  situation::LongitudinalRelativePosition longitudinalPosition;
-  Distance longitudinalDistance;
+  LongitudinalRelativePosition longitudinal_position;
+  Distance longitudinal_distance;
   calcluateRelativeLongitudinalPosition(egoVehicleDimension.longitudinalDimensions,
                                         objectToBeCheckedDimension.longitudinalDimensions,
-                                        longitudinalPosition,
-                                        longitudinalDistance);
+                                        longitudinal_position,
+                                        longitudinal_distance);
 
-  situation.relativePosition.longitudinalPosition = longitudinalPosition;
-  situation.relativePosition.longitudinalDistance = longitudinalDistance;
+  constellation.relative_position.longitudinal_position = longitudinal_position;
+  constellation.relative_position.longitudinal_distance = longitudinal_distance;
 
-  situation.egoVehicleState.isInCorrectLane = !egoVehicleDimension.onNegativeLane;
+  constellation.ego_state.structured_object_state.is_in_correct_lane = !egoVehicleDimension.onNegativeLane;
 
-  if (currentScene.situationType == ::ad::rss::situation::SituationType::OppositeDirection)
+  if (currentConstellation.constellation_type == ::ad::rss::world::ConstellationType::OppositeDirection)
   {
-    situation.otherVehicleState.isInCorrectLane = !objectToBeCheckedDimension.onPositiveLane;
+    constellation.other_state.structured_object_state.is_in_correct_lane = !objectToBeCheckedDimension.onPositiveLane;
   }
   else
   {
-    situation.otherVehicleState.isInCorrectLane = !objectToBeCheckedDimension.onNegativeLane;
+    constellation.other_state.structured_object_state.is_in_correct_lane = !objectToBeCheckedDimension.onNegativeLane;
   }
 
   /**
@@ -181,15 +170,15 @@ bool RssSituationExtraction::convertObjectsNonIntersection(world::Scene const &c
    */
   if (result)
   {
-    situation::LateralRelativePosition lateralPosition;
-    Distance lateralDistance;
+    LateralRelativePosition lateral_position;
+    Distance lateral_distance;
     calcluateRelativeLateralPosition(egoVehicleDimension.lateralDimensions,
                                      objectToBeCheckedDimension.lateralDimensions,
-                                     lateralPosition,
-                                     lateralDistance);
+                                     lateral_position,
+                                     lateral_distance);
 
-    situation.relativePosition.lateralPosition = lateralPosition;
-    situation.relativePosition.lateralDistance = lateralDistance;
+    constellation.relative_position.lateral_position = lateral_position;
+    constellation.relative_position.lateral_distance = lateral_distance;
   }
   return result;
 }
@@ -202,20 +191,23 @@ void RssSituationExtraction::convertToIntersectionCentric(MetricRange const &obj
   dimensionsIntersection.minimum = intersectionPosition.minimum - objectDimension.maximum;
 }
 
-bool RssSituationExtraction::convertObjectsIntersection(world::Scene const &currentScene,
-                                                        situation::Situation &situation)
+bool RssSituationExtraction::convertObjectsIntersection(world::Constellation const &currentConstellation,
+                                                        core::RelativeConstellation &constellation)
 {
-  world::ObjectDimensions egoVehicleDimension;
-  world::ObjectDimensions objectDimension;
+  structured::ObjectDimensions egoVehicleDimension;
+  structured::ObjectDimensions objectDimension;
 
-  bool result = calculateObjectDimensions(currentScene.egoVehicle, currentScene.egoVehicleRoad, egoVehicleDimension);
+  bool result = structured::calculateObjectDimensions(
+    currentConstellation.ego_vehicle, currentConstellation.ego_vehicle_road, egoVehicleDimension);
 
-  result = result && calculateObjectDimensions(currentScene.object, currentScene.intersectingRoad, objectDimension);
+  result = result
+    && structured::calculateObjectDimensions(
+             currentConstellation.object, currentConstellation.intersecting_road, objectDimension);
 
   if (result)
   {
-    situation.egoVehicleState.isInCorrectLane = !egoVehicleDimension.onNegativeLane;
-    situation.otherVehicleState.isInCorrectLane = !objectDimension.onNegativeLane;
+    constellation.ego_state.structured_object_state.is_in_correct_lane = !egoVehicleDimension.onNegativeLane;
+    constellation.other_state.structured_object_state.is_in_correct_lane = !objectDimension.onNegativeLane;
 
     // For intersection the lanes don't have the same origin so the positions cannot be directly compared
     // Intersection entry should be the common point so convert the positions to this reference point
@@ -228,137 +220,156 @@ bool RssSituationExtraction::convertObjectsIntersection(world::Scene const &curr
     convertToIntersectionCentric(
       objectDimension.longitudinalDimensions, objectDimension.intersectionPosition, objectDimensionsIntersection);
 
-    situation.egoVehicleState.distanceToEnterIntersection = std::max(Distance(0.), egoDimensionsIntersection.minimum);
-    situation.egoVehicleState.distanceToLeaveIntersection
-      = egoVehicleDimension.intersectionPosition.maximum - egoVehicleDimension.longitudinalDimensions.minimum;
+    constellation.ego_state.structured_object_state.distance_to_enter_intersection
+      = std::max(Distance(0.), egoDimensionsIntersection.minimum);
+    constellation.ego_state.structured_object_state.distance_to_leave_intersection
+      = std::max(Distance(0.),
+                 egoVehicleDimension.intersectionPosition.maximum - egoVehicleDimension.longitudinalDimensions.minimum);
 
-    situation.otherVehicleState.distanceToEnterIntersection
+    constellation.other_state.structured_object_state.distance_to_enter_intersection
       = std::max(Distance(0.), objectDimensionsIntersection.minimum);
-    situation.otherVehicleState.distanceToLeaveIntersection
-      = objectDimension.intersectionPosition.maximum - objectDimension.longitudinalDimensions.minimum;
+    constellation.other_state.structured_object_state.distance_to_leave_intersection = std::max(
+      Distance(0.), objectDimension.intersectionPosition.maximum - objectDimension.longitudinalDimensions.minimum);
 
-    situation::LongitudinalRelativePosition longitudinalPosition;
-    Distance longitudinalDistance;
+    LongitudinalRelativePosition longitudinal_position;
+    Distance longitudinal_distance;
     calcluateRelativeLongitudinalPositionIntersection(
-      egoDimensionsIntersection, objectDimensionsIntersection, longitudinalPosition, longitudinalDistance);
+      egoDimensionsIntersection, objectDimensionsIntersection, longitudinal_position, longitudinal_distance);
 
-    situation.relativePosition.longitudinalPosition = longitudinalPosition;
-    situation.relativePosition.longitudinalDistance = longitudinalDistance;
+    constellation.relative_position.longitudinal_position = longitudinal_position;
+    constellation.relative_position.longitudinal_distance = longitudinal_distance;
 
-    situation.relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
-    situation.relativePosition.lateralDistance = Distance(0.);
+    constellation.relative_position.lateral_position = LateralRelativePosition::Overlap;
+    constellation.relative_position.lateral_distance = Distance(0.);
   }
 
-  if (currentScene.situationType == situation::SituationType::IntersectionEgoHasPriority)
+  if (currentConstellation.constellation_type == world::ConstellationType::IntersectionEgoHasPriority)
   {
-    situation.egoVehicleState.hasPriority = true;
-    situation.otherVehicleState.hasPriority = false;
+    constellation.ego_state.structured_object_state.has_priority = true;
+    constellation.other_state.structured_object_state.has_priority = false;
   }
-  else if (currentScene.situationType == situation::SituationType::IntersectionObjectHasPriority)
+  else if (currentConstellation.constellation_type == world::ConstellationType::IntersectionObjectHasPriority)
   {
-    situation.egoVehicleState.hasPriority = false;
-    situation.otherVehicleState.hasPriority = true;
+    constellation.ego_state.structured_object_state.has_priority = false;
+    constellation.other_state.structured_object_state.has_priority = true;
   }
-  else if (currentScene.situationType == situation::SituationType::IntersectionSamePriority)
+  else if (currentConstellation.constellation_type == world::ConstellationType::IntersectionSamePriority)
   {
-    situation.egoVehicleState.hasPriority = false;
-    situation.otherVehicleState.hasPriority = false;
+    constellation.ego_state.structured_object_state.has_priority = false;
+    constellation.other_state.structured_object_state.has_priority = false;
   }
   else
   {
-    // This function should never be called if we are not in intersection situation
-    spdlog::error("RssSituationExtraction::convertObjectsIntersection>> Unexpected situationType {}", currentScene);
+    // This function should never be called if we are not in intersection constellation
+    core::getLogger()->error(
+      "RssSituationExtraction::convertObjectsIntersection[{}->{}]>> Unexpected constellation_type {}",
+      currentConstellation.ego_vehicle.object_id,
+      currentConstellation.object.object_id,
+      currentConstellation);
     result = false; // LCOV_EXCL_LINE: unreachable code, keep to be on the safe side
   }
 
   return result;
 }
 
-bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex const &timeIndex,
-                                                               world::Scene const &currentScene,
-                                                               situation::Situation &situation)
+bool RssSituationExtraction::extractConstellationInputRangeChecked(world::TimeIndex const &time_index,
+                                                                   world::Constellation const &worldConstellation,
+                                                                   core::RelativeConstellation &relativeConstellation)
 {
   // ensure the object types are semantically correct
   // @toDo: add this restriction to the data type model
   //       and extend generated withinValidInputRange by these
-  if (((currentScene.object.objectType != world::ObjectType::OtherVehicle)
-       && (currentScene.object.objectType != world::ObjectType::ArtificialObject)
-       && (currentScene.object.objectType != world::ObjectType::Pedestrian))
-      || (currentScene.egoVehicle.objectType != world::ObjectType::EgoVehicle))
+  if (((worldConstellation.object.object_type != world::ObjectType::OtherVehicle)
+       && (worldConstellation.object.object_type != world::ObjectType::ArtificialObject)
+       && (worldConstellation.object.object_type != world::ObjectType::ArtificialPedestrian)
+       && (worldConstellation.object.object_type != world::ObjectType::ArtificialVehicle)
+       && (worldConstellation.object.object_type != world::ObjectType::Pedestrian)
+       && (worldConstellation.object.object_type != world::ObjectType::Bicycle)
+       && (worldConstellation.object.object_type != world::ObjectType::OtherObject))
+      || (worldConstellation.ego_vehicle.object_type != world::ObjectType::EgoVehicle))
   {
-    spdlog::error("RssSituationExtraction::extractSituationInputRangeChecked>> Invalid object type. Ego: {} Object: {}",
-                  currentScene.egoVehicle,
-                  currentScene.object);
+    core::getLogger()->error(
+      "RssSituationExtraction::extractConstellationInputRangeChecked[{}->{}]>> Invalid object type. Ego: "
+      "{} Object: {}",
+      worldConstellation.ego_vehicle.object_id,
+      worldConstellation.object.object_id,
+      worldConstellation.ego_vehicle,
+      worldConstellation.object);
     return false;
   }
-  if (currentScene.object.objectId == currentScene.egoVehicle.objectId)
+  if (worldConstellation.object.object_id == worldConstellation.ego_vehicle.object_id)
   {
-    spdlog::error("RssSituationExtraction::extractSituationInputRangeChecked>> Object and ego vehicle must not have "
-                  "the same id. Ego: {} Object: {}",
-                  currentScene.egoVehicle,
-                  currentScene.object);
+    core::getLogger()->error(
+      "RssSituationExtraction::extractConstellationInputRangeChecked[{}->{}]>> Object and ego vehicle must not have "
+      "the same id. Ego: {} Object: {}",
+      worldConstellation.ego_vehicle.object_id,
+      worldConstellation.object.object_id,
+      worldConstellation.ego_vehicle,
+      worldConstellation.object);
     return false;
   }
-  if (!static_cast<bool>(mSituationIdProvider))
-  {
-    return false;
-  }
-
   bool result = false;
 
   try
   {
-    situation.situationId = mSituationIdProvider->getSituationId(timeIndex, currentScene);
-    situation.objectId = currentScene.object.objectId;
-    situation.situationType = currentScene.situationType;
+    relativeConstellation.constellation_id
+      = mConstellationIdProvider.getConstellationId(time_index, worldConstellation);
+    relativeConstellation.ego_id = worldConstellation.ego_vehicle.object_id;
+    relativeConstellation.object_id = worldConstellation.object.object_id;
+    relativeConstellation.constellation_type = worldConstellation.constellation_type;
 
-    situation.egoVehicleState.objectType = currentScene.egoVehicle.objectType;
-    situation.otherVehicleState.objectType = currentScene.object.objectType;
+    relativeConstellation.ego_state.object_type = worldConstellation.ego_vehicle.object_type;
+    relativeConstellation.other_state.object_type = worldConstellation.object.object_type;
 
-    situation.egoVehicleState.objectState = currentScene.egoVehicle.state;
-    situation.otherVehicleState.objectState = currentScene.object.state;
+    relativeConstellation.ego_state.unstructured_object_state = worldConstellation.ego_vehicle.state;
+    relativeConstellation.other_state.unstructured_object_state = worldConstellation.object.state;
 
-    situation.egoVehicleState.hasPriority = false;
-    situation.otherVehicleState.hasPriority = false;
+    relativeConstellation.ego_state.structured_object_state.has_priority = false;
+    relativeConstellation.other_state.structured_object_state.has_priority = false;
 
-    situation.egoVehicleState.isInCorrectLane = true;
-    situation.otherVehicleState.isInCorrectLane = true;
+    relativeConstellation.ego_state.structured_object_state.is_in_correct_lane = true;
+    relativeConstellation.other_state.structured_object_state.is_in_correct_lane = true;
 
-    situation.egoVehicleState.distanceToEnterIntersection = Distance(0.);
-    situation.egoVehicleState.distanceToLeaveIntersection = Distance(1000.);
+    relativeConstellation.ego_state.structured_object_state.distance_to_enter_intersection = Distance(0.);
+    relativeConstellation.ego_state.structured_object_state.distance_to_leave_intersection = Distance(1000.);
 
-    situation.otherVehicleState.distanceToEnterIntersection = Distance(0.);
-    situation.otherVehicleState.distanceToLeaveIntersection = Distance(1000.);
+    relativeConstellation.other_state.structured_object_state.distance_to_enter_intersection = Distance(0.);
+    relativeConstellation.other_state.structured_object_state.distance_to_leave_intersection = Distance(1000.);
 
-    convertVehicleStateDynamics(currentScene.egoVehicle, currentScene.egoVehicleRssDynamics, situation.egoVehicleState);
-    convertVehicleStateDynamics(currentScene.object, currentScene.objectRssDynamics, situation.otherVehicleState);
+    structured::convertVehicleStateDynamics(
+      worldConstellation.ego_vehicle, worldConstellation.ego_vehicle_rss_dynamics, relativeConstellation.ego_state);
+    structured::convertVehicleStateDynamics(
+      worldConstellation.object, worldConstellation.object_rss_dynamics, relativeConstellation.other_state);
 
-    switch (currentScene.situationType)
+    switch (worldConstellation.constellation_type)
     {
-      case ad::rss::situation::SituationType::SameDirection:
-      case ad::rss::situation::SituationType::OppositeDirection:
+      case ad::rss::world::ConstellationType::SameDirection:
+      case ad::rss::world::ConstellationType::OppositeDirection:
       {
-        result = convertObjectsNonIntersection(currentScene, situation);
+        result = convertObjectsNonIntersection(worldConstellation, relativeConstellation);
 
         break;
       }
-      case ad::rss::situation::SituationType::IntersectionEgoHasPriority:
-      case ad::rss::situation::SituationType::IntersectionObjectHasPriority:
-      case ad::rss::situation::SituationType::IntersectionSamePriority:
+      case ad::rss::world::ConstellationType::IntersectionEgoHasPriority:
+      case ad::rss::world::ConstellationType::IntersectionObjectHasPriority:
+      case ad::rss::world::ConstellationType::IntersectionSamePriority:
       {
-        result = convertObjectsIntersection(currentScene, situation);
+        result = convertObjectsIntersection(worldConstellation, relativeConstellation);
         break;
       }
-      case ad::rss::situation::SituationType::NotRelevant:
-      case ad::rss::situation::SituationType::Unstructured:
+      case ad::rss::world::ConstellationType::NotRelevant:
+      case ad::rss::world::ConstellationType::Unstructured:
       {
         result = true;
         break;
       }
       default:
       {
-        spdlog::error("RssSituationExtraction::extractSituationInputRangeChecked>> Invalid situation type {}",
-                      currentScene);
+        core::getLogger()->error(
+          "RssSituationExtraction::extractConstellationInputRangeChecked[{}->{}]>> Invalid constellation type {}",
+          worldConstellation.ego_vehicle.object_id,
+          worldConstellation.object.object_id,
+          worldConstellation);
         result = false;
         break;
       }
@@ -366,16 +377,23 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex 
   }
   catch (std::exception &e)
   {
-    spdlog::critical("RssSituationExtraction::extractSituationInputRangeChecked>> Exception caught '{}' {} {}",
-                     e.what(),
-                     timeIndex,
-                     currentScene);
+    core::getLogger()->critical(
+      "RssSituationExtraction::extractConstellationInputRangeChecked[{}->{}]>> Exception caught '{}' {} {}",
+      worldConstellation.ego_vehicle.object_id,
+      worldConstellation.object.object_id,
+      e.what(),
+      time_index,
+      worldConstellation);
     result = false;
   }
   catch (...)
   {
-    spdlog::critical(
-      "RssSituationExtraction::extractSituationInputRangeChecked>> Exception caught {} {}", timeIndex, currentScene);
+    core::getLogger()->critical(
+      "RssSituationExtraction::extractConstellationInputRangeChecked[{}->{}]>> Exception caught {} {}",
+      worldConstellation.ego_vehicle.object_id,
+      worldConstellation.object.object_id,
+      time_index,
+      worldConstellation);
     result = false;
   }
 
@@ -383,19 +401,19 @@ bool RssSituationExtraction::extractSituationInputRangeChecked(world::TimeIndex 
 }
 
 bool RssSituationExtraction::mergeVehicleStates(MergeMode const &mergeMode,
-                                                situation::VehicleState const &otherVehicleState,
-                                                situation::VehicleState &mergedVehicleState)
+                                                core::RelativeObjectState const &other_state,
+                                                core::RelativeObjectState &mergedVehicleState)
 {
   // on vehicle states there are only differences in intersection distances allowed due to different road definitions
-  if ((otherVehicleState.dynamics.alphaLat.accelMax != mergedVehicleState.dynamics.alphaLat.accelMax)
-      || (otherVehicleState.dynamics.alphaLat.brakeMin != mergedVehicleState.dynamics.alphaLat.brakeMin)
-      || (otherVehicleState.dynamics.alphaLon.accelMax != mergedVehicleState.dynamics.alphaLon.accelMax)
-      || (otherVehicleState.dynamics.alphaLon.brakeMinCorrect != mergedVehicleState.dynamics.alphaLon.brakeMinCorrect)
-      || (otherVehicleState.dynamics.alphaLon.brakeMin != mergedVehicleState.dynamics.alphaLon.brakeMin)
-      || (otherVehicleState.dynamics.alphaLon.brakeMax != mergedVehicleState.dynamics.alphaLon.brakeMax)
-      || (otherVehicleState.dynamics.lateralFluctuationMargin != mergedVehicleState.dynamics.lateralFluctuationMargin)
-      || (otherVehicleState.dynamics.responseTime != mergedVehicleState.dynamics.responseTime)
-      || (otherVehicleState.hasPriority != mergedVehicleState.hasPriority))
+  if ((other_state.dynamics.alpha_lat.accel_max != mergedVehicleState.dynamics.alpha_lat.accel_max)
+      || (other_state.dynamics.alpha_lat.brake_min != mergedVehicleState.dynamics.alpha_lat.brake_min)
+      || (other_state.dynamics.alpha_lon.accel_max != mergedVehicleState.dynamics.alpha_lon.accel_max)
+      || (other_state.dynamics.alpha_lon.brake_min_correct != mergedVehicleState.dynamics.alpha_lon.brake_min_correct)
+      || (other_state.dynamics.alpha_lon.brake_min != mergedVehicleState.dynamics.alpha_lon.brake_min)
+      || (other_state.dynamics.alpha_lon.brake_max != mergedVehicleState.dynamics.alpha_lon.brake_max)
+      || (other_state.dynamics.lateral_fluctuation_margin != mergedVehicleState.dynamics.lateral_fluctuation_margin)
+      || (other_state.dynamics.response_time != mergedVehicleState.dynamics.response_time)
+      || (other_state.structured_object_state.has_priority != mergedVehicleState.structured_object_state.has_priority))
   {
     return false;
   }
@@ -403,179 +421,198 @@ bool RssSituationExtraction::mergeVehicleStates(MergeMode const &mergeMode,
   if (mergeMode == MergeMode::EgoVehicle)
   {
     // worst case for ego vehicle is not driving in correct lane
-    mergedVehicleState.isInCorrectLane = mergedVehicleState.isInCorrectLane && otherVehicleState.isInCorrectLane;
+    mergedVehicleState.structured_object_state.is_in_correct_lane
+      = mergedVehicleState.structured_object_state.is_in_correct_lane
+      && other_state.structured_object_state.is_in_correct_lane;
   }
   else
   {
     // worst case for other vehicle is driving in correct lane
-    mergedVehicleState.isInCorrectLane = mergedVehicleState.isInCorrectLane || otherVehicleState.isInCorrectLane;
+    mergedVehicleState.structured_object_state.is_in_correct_lane
+      = mergedVehicleState.structured_object_state.is_in_correct_lane
+      || other_state.structured_object_state.is_in_correct_lane;
   }
 
-  mergedVehicleState.distanceToEnterIntersection
-    = std::min(mergedVehicleState.distanceToEnterIntersection, otherVehicleState.distanceToEnterIntersection);
-  mergedVehicleState.distanceToLeaveIntersection
-    = std::max(mergedVehicleState.distanceToLeaveIntersection, otherVehicleState.distanceToLeaveIntersection);
-  mergedVehicleState.velocity.speedLon.minimum
-    = std::min(mergedVehicleState.velocity.speedLon.minimum, otherVehicleState.velocity.speedLon.minimum);
-  mergedVehicleState.velocity.speedLon.maximum
-    = std::max(mergedVehicleState.velocity.speedLon.maximum, otherVehicleState.velocity.speedLon.maximum);
-  mergedVehicleState.velocity.speedLat.minimum
-    = std::min(mergedVehicleState.velocity.speedLat.minimum, otherVehicleState.velocity.speedLat.minimum);
-  mergedVehicleState.velocity.speedLat.maximum
-    = std::max(mergedVehicleState.velocity.speedLat.maximum, otherVehicleState.velocity.speedLat.maximum);
+  mergedVehicleState.structured_object_state.distance_to_enter_intersection
+    = std::min(mergedVehicleState.structured_object_state.distance_to_enter_intersection,
+               other_state.structured_object_state.distance_to_enter_intersection);
+  mergedVehicleState.structured_object_state.distance_to_leave_intersection
+    = std::max(mergedVehicleState.structured_object_state.distance_to_leave_intersection,
+               other_state.structured_object_state.distance_to_leave_intersection);
+  mergedVehicleState.structured_object_state.velocity.speed_lon_min
+    = std::min(mergedVehicleState.structured_object_state.velocity.speed_lon_min,
+               other_state.structured_object_state.velocity.speed_lon_min);
+  mergedVehicleState.structured_object_state.velocity.speed_lon_max
+    = std::max(mergedVehicleState.structured_object_state.velocity.speed_lon_max,
+               other_state.structured_object_state.velocity.speed_lon_max);
+  mergedVehicleState.structured_object_state.velocity.speed_lat_min
+    = std::min(mergedVehicleState.structured_object_state.velocity.speed_lat_min,
+               other_state.structured_object_state.velocity.speed_lat_min);
+  mergedVehicleState.structured_object_state.velocity.speed_lat_max
+    = std::max(mergedVehicleState.structured_object_state.velocity.speed_lat_max,
+               other_state.structured_object_state.velocity.speed_lat_max);
 
   return true;
 }
 
-bool RssSituationExtraction::mergeSituations(situation::Situation const &otherSituation,
-                                             situation::Situation &mergedSituation)
+bool RssSituationExtraction::mergeConstellations(core::RelativeConstellation const &otherConstellation,
+                                                 core::RelativeConstellation &mergedConstellation)
 {
   if ( // basic data has to match
-    (otherSituation.situationId != mergedSituation.situationId) || (otherSituation.objectId != mergedSituation.objectId)
-    || (otherSituation.situationType != mergedSituation.situationType)
-    || !mergeVehicleStates(MergeMode::EgoVehicle, otherSituation.egoVehicleState, mergedSituation.egoVehicleState)
-    || !mergeVehicleStates(
-      MergeMode::OtherVehicle, otherSituation.otherVehicleState, mergedSituation.otherVehicleState))
+    (otherConstellation.constellation_id != mergedConstellation.constellation_id)
+    || (otherConstellation.ego_id != mergedConstellation.ego_id)
+    || (otherConstellation.object_id != mergedConstellation.object_id)
+    || (otherConstellation.constellation_type != mergedConstellation.constellation_type)
+    || !mergeVehicleStates(MergeMode::EgoVehicle, otherConstellation.ego_state, mergedConstellation.ego_state)
+    || !mergeVehicleStates(MergeMode::OtherVehicle, otherConstellation.other_state, mergedConstellation.other_state))
   {
     return false;
   }
 
   // worst case
-  mergedSituation.relativePosition.longitudinalDistance = std::min(
-    mergedSituation.relativePosition.longitudinalDistance, otherSituation.relativePosition.longitudinalDistance);
-  if (otherSituation.relativePosition.longitudinalPosition != mergedSituation.relativePosition.longitudinalPosition)
+  mergedConstellation.relative_position.longitudinal_distance
+    = std::min(mergedConstellation.relative_position.longitudinal_distance,
+               otherConstellation.relative_position.longitudinal_distance);
+  if (otherConstellation.relative_position.longitudinal_position
+      != mergedConstellation.relative_position.longitudinal_position)
   {
-    if ((mergedSituation.relativePosition.longitudinalPosition == situation::LongitudinalRelativePosition::Overlap)
-        || (otherSituation.relativePosition.longitudinalPosition == situation::LongitudinalRelativePosition::Overlap)
-        || ((mergedSituation.relativePosition.longitudinalPosition < situation::LongitudinalRelativePosition::Overlap)
-            && (otherSituation.relativePosition.longitudinalPosition
-                > situation::LongitudinalRelativePosition::Overlap))
-        || ((mergedSituation.relativePosition.longitudinalPosition > situation::LongitudinalRelativePosition::Overlap)
-            && (otherSituation.relativePosition.longitudinalPosition
-                < situation::LongitudinalRelativePosition::Overlap)))
+    if ((mergedConstellation.relative_position.longitudinal_position == LongitudinalRelativePosition::Overlap)
+        || (otherConstellation.relative_position.longitudinal_position == LongitudinalRelativePosition::Overlap)
+        || ((mergedConstellation.relative_position.longitudinal_position < LongitudinalRelativePosition::Overlap)
+            && (otherConstellation.relative_position.longitudinal_position > LongitudinalRelativePosition::Overlap))
+        || ((mergedConstellation.relative_position.longitudinal_position > LongitudinalRelativePosition::Overlap)
+            && (otherConstellation.relative_position.longitudinal_position < LongitudinalRelativePosition::Overlap)))
     {
       // overlap is also worst case for contradicting input, ensure the longitudinal distance becomes 0.
-      mergedSituation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;
-      mergedSituation.relativePosition.longitudinalDistance = Distance(0.);
+      mergedConstellation.relative_position.longitudinal_position = LongitudinalRelativePosition::Overlap;
+      mergedConstellation.relative_position.longitudinal_distance = Distance(0.);
     }
-    else if ((mergedSituation.relativePosition.longitudinalPosition
-              == situation::LongitudinalRelativePosition::OverlapFront)
-             || (otherSituation.relativePosition.longitudinalPosition
-                 == situation::LongitudinalRelativePosition::OverlapFront))
+    else if ((mergedConstellation.relative_position.longitudinal_position == LongitudinalRelativePosition::OverlapFront)
+             || (otherConstellation.relative_position.longitudinal_position
+                 == LongitudinalRelativePosition::OverlapFront))
     {
       // one of the both is overlap font (the other then only can be InFront in here)
-      mergedSituation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::OverlapFront;
+      mergedConstellation.relative_position.longitudinal_position = LongitudinalRelativePosition::OverlapFront;
     }
-    else if ((mergedSituation.relativePosition.longitudinalPosition
-              == situation::LongitudinalRelativePosition::OverlapBack)
-             || (otherSituation.relativePosition.longitudinalPosition
-                 == situation::LongitudinalRelativePosition::OverlapBack))
+    else if ((mergedConstellation.relative_position.longitudinal_position == LongitudinalRelativePosition::OverlapBack)
+             || (otherConstellation.relative_position.longitudinal_position
+                 == LongitudinalRelativePosition::OverlapBack))
     {
       // one of the both is overlap back (the other then only can be AtBack in here)
-      mergedSituation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::OverlapBack;
+      mergedConstellation.relative_position.longitudinal_position = LongitudinalRelativePosition::OverlapBack;
     }
     else
     {
       // LCOV_EXCL_START: unreachable code, keep to be on the safe side
       // this is impossible to reach, set to overlap having longitudinal distance to 0. to be on the safe side
-      mergedSituation.relativePosition.longitudinalPosition = situation::LongitudinalRelativePosition::Overlap;
-      mergedSituation.relativePosition.longitudinalDistance = Distance(0.);
+      mergedConstellation.relative_position.longitudinal_position = LongitudinalRelativePosition::Overlap;
+      mergedConstellation.relative_position.longitudinal_distance = Distance(0.);
       // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
     }
   }
 
-  mergedSituation.relativePosition.lateralDistance
-    = std::min(mergedSituation.relativePosition.lateralDistance, otherSituation.relativePosition.lateralDistance);
-  if (otherSituation.relativePosition.lateralPosition != mergedSituation.relativePosition.lateralPosition)
+  mergedConstellation.relative_position.lateral_distance = std::min(
+    mergedConstellation.relative_position.lateral_distance, otherConstellation.relative_position.lateral_distance);
+  if (otherConstellation.relative_position.lateral_position != mergedConstellation.relative_position.lateral_position)
   {
-    if ((mergedSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::Overlap)
-        || (otherSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::Overlap)
-        || ((mergedSituation.relativePosition.lateralPosition < situation::LateralRelativePosition::Overlap)
-            && (otherSituation.relativePosition.lateralPosition > situation::LateralRelativePosition::Overlap))
-        || ((mergedSituation.relativePosition.lateralPosition > situation::LateralRelativePosition::Overlap)
-            && (otherSituation.relativePosition.lateralPosition < situation::LateralRelativePosition::Overlap)))
+    if ((mergedConstellation.relative_position.lateral_position == LateralRelativePosition::Overlap)
+        || (otherConstellation.relative_position.lateral_position == LateralRelativePosition::Overlap)
+        || ((mergedConstellation.relative_position.lateral_position < LateralRelativePosition::Overlap)
+            && (otherConstellation.relative_position.lateral_position > LateralRelativePosition::Overlap))
+        || ((mergedConstellation.relative_position.lateral_position > LateralRelativePosition::Overlap)
+            && (otherConstellation.relative_position.lateral_position < LateralRelativePosition::Overlap)))
     {
       // overlap is also worst case for contradicting input, ensure the lateral distance becomes 0.
-      mergedSituation.relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
-      mergedSituation.relativePosition.lateralDistance = Distance(0.);
+      mergedConstellation.relative_position.lateral_position = LateralRelativePosition::Overlap;
+      mergedConstellation.relative_position.lateral_distance = Distance(0.);
     }
-    else if ((mergedSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::OverlapLeft)
-             || (otherSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::OverlapLeft))
+    else if ((mergedConstellation.relative_position.lateral_position == LateralRelativePosition::OverlapLeft)
+             || (otherConstellation.relative_position.lateral_position == LateralRelativePosition::OverlapLeft))
     {
       // one of the both is overlap left (the other then only can be AtLeft in here)
-      mergedSituation.relativePosition.lateralPosition = situation::LateralRelativePosition::OverlapLeft;
+      mergedConstellation.relative_position.lateral_position = LateralRelativePosition::OverlapLeft;
     }
-    else if ((mergedSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::OverlapRight)
-             || (otherSituation.relativePosition.lateralPosition == situation::LateralRelativePosition::OverlapRight))
+    else if ((mergedConstellation.relative_position.lateral_position == LateralRelativePosition::OverlapRight)
+             || (otherConstellation.relative_position.lateral_position == LateralRelativePosition::OverlapRight))
     {
       // one of the both is overlap right (the other then only can be AtRight in here)
-      mergedSituation.relativePosition.lateralPosition = situation::LateralRelativePosition::OverlapRight;
+      mergedConstellation.relative_position.lateral_position = LateralRelativePosition::OverlapRight;
     }
     else
     {
       // LCOV_EXCL_START: unreachable code, keep to be on the safe side
       // this is impossible to reach, set to overlap having lateral distance to 0. to be on the safe side
-      mergedSituation.relativePosition.lateralPosition = situation::LateralRelativePosition::Overlap;
-      mergedSituation.relativePosition.lateralDistance = Distance(0.);
+      mergedConstellation.relative_position.lateral_position = LateralRelativePosition::Overlap;
+      mergedConstellation.relative_position.lateral_distance = Distance(0.);
       // LCOV_EXCL_STOP: unreachable code, keep to be on the safe side
     }
   }
 
+  mergedConstellation.world_model_indices.insert(mergedConstellation.world_model_indices.end(),
+                                                 otherConstellation.world_model_indices.begin(),
+                                                 otherConstellation.world_model_indices.end());
+
   return true;
 }
 
-bool RssSituationExtraction::extractSituations(world::WorldModel const &worldModel,
-                                               situation::SituationSnapshot &situationSnapshot)
+bool RssSituationExtraction::extractSituation(world::WorldModel const &worldModel,
+                                              core::RssSituationSnapshot &situationSnapshot)
 {
   if (!withinValidInputRange(worldModel))
   {
-    spdlog::error("RssSituationExtraction::extractSituation>> Invalid input {}", worldModel);
+    core::getLogger()->error("RssSituationExtraction::extractSituation>> Invalid input {}", worldModel);
     return false;
   }
 
   bool result = true;
   try
   {
-    situationSnapshot.timeIndex = worldModel.timeIndex;
-    situationSnapshot.defaultEgoVehicleRssDynamics = worldModel.defaultEgoVehicleRssDynamics;
-    situationSnapshot.situations.clear();
-    for (auto const &scene : worldModel.scenes)
+    situationSnapshot.time_index = worldModel.time_index;
+    situationSnapshot.default_ego_vehicle_rss_dynamics = worldModel.default_ego_vehicle_rss_dynamics;
+    situationSnapshot.constellations.clear();
+    for (uint64_t world_model_index = 0u; world_model_index < worldModel.constellations.size(); world_model_index++)
     {
-      situation::Situation situation;
-      bool const extractResult = extractSituationInputRangeChecked(worldModel.timeIndex, scene, situation);
+      auto const worldConstellation = worldModel.constellations[world_model_index];
+      core::RelativeConstellation relativeConstellation;
+      relativeConstellation.world_model_indices.push_back(world_model_index);
+      bool const extractResult
+        = extractConstellationInputRangeChecked(worldModel.time_index, worldConstellation, relativeConstellation);
       if (extractResult)
       {
-        // situation id creation might detect that different scenes are representing identical situations
-        // ensure the situationSnapshot is unique while containing the worst-case situation
-        auto findResult = std::find_if(situationSnapshot.situations.begin(),
-                                       situationSnapshot.situations.end(),
-                                       [&situation](ad::rss::situation::Situation const &checkSituation) {
-                                         return checkSituation.situationId == situation.situationId;
-                                       });
-        if (findResult == situationSnapshot.situations.end())
+        // constellation id creation might detect that different world constellations are representing identical
+        // relative constellations
+        // ensure the situationSnapshot is unique while containing the merged constellation
+        auto findResult
+          = std::find_if(situationSnapshot.constellations.begin(),
+                         situationSnapshot.constellations.end(),
+                         [&relativeConstellation](core::RelativeConstellation const &checkConstellation) {
+                           return checkConstellation.constellation_id == relativeConstellation.constellation_id;
+                         });
+        if (findResult == situationSnapshot.constellations.end())
         {
-          situationSnapshot.situations.push_back(situation);
+          situationSnapshot.constellations.push_back(relativeConstellation);
         }
-        else if (!mergeSituations(situation, *findResult))
+        else if (!mergeConstellations(relativeConstellation, *findResult))
         {
           result = false;
         }
       }
       else
       {
-        spdlog::error("RssSituationExtraction::extractSituations>> Extraction failed {}", scene);
+        core::getLogger()->error("RssSituationExtraction::extractSituation>> Extraction failed {}", worldConstellation);
         result = false;
       }
     }
   }
   catch (std::exception &e)
   {
-    spdlog::critical("RssSituationExtraction::extractSituations>> Exception caught '{}' {}", e.what(), worldModel);
+    core::getLogger()->critical(
+      "RssSituationExtraction::extractSituation>> Exception caught '{}' {}", e.what(), worldModel);
     result = false;
   }
   catch (...)
   {
-    spdlog::critical("RssSituationExtraction::extractSituations>> Exception caught {}", worldModel);
+    core::getLogger()->critical("RssSituationExtraction::extractSituation>> Exception caught {}", worldModel);
     result = false;
   }
   return result;

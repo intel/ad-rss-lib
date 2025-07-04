@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -21,245 +21,245 @@
 TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRange)
 {
   ::ad::rss::state::AccelerationRestriction value;
-  ::ad::physics::AccelerationRange valueLateralLeftRange;
-  ::ad::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
-  valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
-  ::ad::physics::Acceleration valueLateralLeftRangeMaximum(-1e2);
-  valueLateralLeftRange.maximum = valueLateralLeftRangeMaximum;
-  valueLateralLeftRange.maximum = valueLateralLeftRange.minimum;
-  valueLateralLeftRange.minimum = valueLateralLeftRange.maximum;
-  value.lateralLeftRange = valueLateralLeftRange;
-  ::ad::physics::AccelerationRange valueLongitudinalRange;
-  ::ad::physics::Acceleration valueLongitudinalRangeMinimum(-1e2);
-  valueLongitudinalRange.minimum = valueLongitudinalRangeMinimum;
-  ::ad::physics::Acceleration valueLongitudinalRangeMaximum(-1e2);
-  valueLongitudinalRange.maximum = valueLongitudinalRangeMaximum;
-  valueLongitudinalRange.maximum = valueLongitudinalRange.minimum;
-  valueLongitudinalRange.minimum = valueLongitudinalRange.maximum;
-  value.longitudinalRange = valueLongitudinalRange;
-  ::ad::physics::AccelerationRange valueLateralRightRange;
-  ::ad::physics::Acceleration valueLateralRightRangeMinimum(-1e2);
-  valueLateralRightRange.minimum = valueLateralRightRangeMinimum;
-  ::ad::physics::Acceleration valueLateralRightRangeMaximum(-1e2);
-  valueLateralRightRange.maximum = valueLateralRightRangeMaximum;
-  valueLateralRightRange.maximum = valueLateralRightRange.minimum;
-  valueLateralRightRange.minimum = valueLateralRightRange.maximum;
-  value.lateralRightRange = valueLateralRightRange;
+  ::ad::physics::AccelerationRange valueLateral_left_range;
+  ::ad::physics::Acceleration valueLateral_left_rangeMinimum(-1e2);
+  valueLateral_left_range.minimum = valueLateral_left_rangeMinimum;
+  ::ad::physics::Acceleration valueLateral_left_rangeMaximum(-1e2);
+  valueLateral_left_range.maximum = valueLateral_left_rangeMaximum;
+  valueLateral_left_range.maximum = valueLateral_left_range.minimum;
+  valueLateral_left_range.minimum = valueLateral_left_range.maximum;
+  value.lateral_left_range = valueLateral_left_range;
+  ::ad::physics::AccelerationRange valueLongitudinal_range;
+  ::ad::physics::Acceleration valueLongitudinal_rangeMinimum(-1e2);
+  valueLongitudinal_range.minimum = valueLongitudinal_rangeMinimum;
+  ::ad::physics::Acceleration valueLongitudinal_rangeMaximum(-1e2);
+  valueLongitudinal_range.maximum = valueLongitudinal_rangeMaximum;
+  valueLongitudinal_range.maximum = valueLongitudinal_range.minimum;
+  valueLongitudinal_range.minimum = valueLongitudinal_range.maximum;
+  value.longitudinal_range = valueLongitudinal_range;
+  ::ad::physics::AccelerationRange valueLateral_right_range;
+  ::ad::physics::Acceleration valueLateral_right_rangeMinimum(-1e2);
+  valueLateral_right_range.minimum = valueLateral_right_rangeMinimum;
+  ::ad::physics::Acceleration valueLateral_right_rangeMaximum(-1e2);
+  valueLateral_right_range.maximum = valueLateral_right_rangeMaximum;
+  valueLateral_right_range.maximum = valueLateral_right_range.minimum;
+  valueLateral_right_range.minimum = valueLateral_right_range.maximum;
+  value.lateral_right_range = valueLateral_right_range;
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
-TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeftRangeTooSmall)
+TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateral_left_rangeTooSmall)
 {
   ::ad::rss::state::AccelerationRestriction value;
-  ::ad::physics::AccelerationRange valueLateralLeftRange;
-  ::ad::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
-  valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
-  ::ad::physics::Acceleration valueLateralLeftRangeMaximum(-1e2);
-  valueLateralLeftRange.maximum = valueLateralLeftRangeMaximum;
-  valueLateralLeftRange.maximum = valueLateralLeftRange.minimum;
-  valueLateralLeftRange.minimum = valueLateralLeftRange.maximum;
-  value.lateralLeftRange = valueLateralLeftRange;
-  ::ad::physics::AccelerationRange valueLongitudinalRange;
-  ::ad::physics::Acceleration valueLongitudinalRangeMinimum(-1e2);
-  valueLongitudinalRange.minimum = valueLongitudinalRangeMinimum;
-  ::ad::physics::Acceleration valueLongitudinalRangeMaximum(-1e2);
-  valueLongitudinalRange.maximum = valueLongitudinalRangeMaximum;
-  valueLongitudinalRange.maximum = valueLongitudinalRange.minimum;
-  valueLongitudinalRange.minimum = valueLongitudinalRange.maximum;
-  value.longitudinalRange = valueLongitudinalRange;
-  ::ad::physics::AccelerationRange valueLateralRightRange;
-  ::ad::physics::Acceleration valueLateralRightRangeMinimum(-1e2);
-  valueLateralRightRange.minimum = valueLateralRightRangeMinimum;
-  ::ad::physics::Acceleration valueLateralRightRangeMaximum(-1e2);
-  valueLateralRightRange.maximum = valueLateralRightRangeMaximum;
-  valueLateralRightRange.maximum = valueLateralRightRange.minimum;
-  valueLateralRightRange.minimum = valueLateralRightRange.maximum;
-  value.lateralRightRange = valueLateralRightRange;
+  ::ad::physics::AccelerationRange valueLateral_left_range;
+  ::ad::physics::Acceleration valueLateral_left_rangeMinimum(-1e2);
+  valueLateral_left_range.minimum = valueLateral_left_rangeMinimum;
+  ::ad::physics::Acceleration valueLateral_left_rangeMaximum(-1e2);
+  valueLateral_left_range.maximum = valueLateral_left_rangeMaximum;
+  valueLateral_left_range.maximum = valueLateral_left_range.minimum;
+  valueLateral_left_range.minimum = valueLateral_left_range.maximum;
+  value.lateral_left_range = valueLateral_left_range;
+  ::ad::physics::AccelerationRange valueLongitudinal_range;
+  ::ad::physics::Acceleration valueLongitudinal_rangeMinimum(-1e2);
+  valueLongitudinal_range.minimum = valueLongitudinal_rangeMinimum;
+  ::ad::physics::Acceleration valueLongitudinal_rangeMaximum(-1e2);
+  valueLongitudinal_range.maximum = valueLongitudinal_rangeMaximum;
+  valueLongitudinal_range.maximum = valueLongitudinal_range.minimum;
+  valueLongitudinal_range.minimum = valueLongitudinal_range.maximum;
+  value.longitudinal_range = valueLongitudinal_range;
+  ::ad::physics::AccelerationRange valueLateral_right_range;
+  ::ad::physics::Acceleration valueLateral_right_rangeMinimum(-1e2);
+  valueLateral_right_range.minimum = valueLateral_right_rangeMinimum;
+  ::ad::physics::Acceleration valueLateral_right_rangeMaximum(-1e2);
+  valueLateral_right_range.maximum = valueLateral_right_rangeMaximum;
+  valueLateral_right_range.maximum = valueLateral_right_range.minimum;
+  valueLateral_right_range.minimum = valueLateral_right_range.maximum;
+  value.lateral_right_range = valueLateral_right_range;
 
   // override member with data type value below input range minimum
   ::ad::physics::AccelerationRange invalidInitializedMember;
   ::ad::physics::Acceleration invalidInitializedMemberMinimum(-1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
-  value.lateralLeftRange = invalidInitializedMember;
+  value.lateral_left_range = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralLeftRangeTooBig)
+TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateral_left_rangeTooBig)
 {
   ::ad::rss::state::AccelerationRestriction value;
-  ::ad::physics::AccelerationRange valueLateralLeftRange;
-  ::ad::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
-  valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
-  ::ad::physics::Acceleration valueLateralLeftRangeMaximum(-1e2);
-  valueLateralLeftRange.maximum = valueLateralLeftRangeMaximum;
-  valueLateralLeftRange.maximum = valueLateralLeftRange.minimum;
-  valueLateralLeftRange.minimum = valueLateralLeftRange.maximum;
-  value.lateralLeftRange = valueLateralLeftRange;
-  ::ad::physics::AccelerationRange valueLongitudinalRange;
-  ::ad::physics::Acceleration valueLongitudinalRangeMinimum(-1e2);
-  valueLongitudinalRange.minimum = valueLongitudinalRangeMinimum;
-  ::ad::physics::Acceleration valueLongitudinalRangeMaximum(-1e2);
-  valueLongitudinalRange.maximum = valueLongitudinalRangeMaximum;
-  valueLongitudinalRange.maximum = valueLongitudinalRange.minimum;
-  valueLongitudinalRange.minimum = valueLongitudinalRange.maximum;
-  value.longitudinalRange = valueLongitudinalRange;
-  ::ad::physics::AccelerationRange valueLateralRightRange;
-  ::ad::physics::Acceleration valueLateralRightRangeMinimum(-1e2);
-  valueLateralRightRange.minimum = valueLateralRightRangeMinimum;
-  ::ad::physics::Acceleration valueLateralRightRangeMaximum(-1e2);
-  valueLateralRightRange.maximum = valueLateralRightRangeMaximum;
-  valueLateralRightRange.maximum = valueLateralRightRange.minimum;
-  valueLateralRightRange.minimum = valueLateralRightRange.maximum;
-  value.lateralRightRange = valueLateralRightRange;
+  ::ad::physics::AccelerationRange valueLateral_left_range;
+  ::ad::physics::Acceleration valueLateral_left_rangeMinimum(-1e2);
+  valueLateral_left_range.minimum = valueLateral_left_rangeMinimum;
+  ::ad::physics::Acceleration valueLateral_left_rangeMaximum(-1e2);
+  valueLateral_left_range.maximum = valueLateral_left_rangeMaximum;
+  valueLateral_left_range.maximum = valueLateral_left_range.minimum;
+  valueLateral_left_range.minimum = valueLateral_left_range.maximum;
+  value.lateral_left_range = valueLateral_left_range;
+  ::ad::physics::AccelerationRange valueLongitudinal_range;
+  ::ad::physics::Acceleration valueLongitudinal_rangeMinimum(-1e2);
+  valueLongitudinal_range.minimum = valueLongitudinal_rangeMinimum;
+  ::ad::physics::Acceleration valueLongitudinal_rangeMaximum(-1e2);
+  valueLongitudinal_range.maximum = valueLongitudinal_rangeMaximum;
+  valueLongitudinal_range.maximum = valueLongitudinal_range.minimum;
+  valueLongitudinal_range.minimum = valueLongitudinal_range.maximum;
+  value.longitudinal_range = valueLongitudinal_range;
+  ::ad::physics::AccelerationRange valueLateral_right_range;
+  ::ad::physics::Acceleration valueLateral_right_rangeMinimum(-1e2);
+  valueLateral_right_range.minimum = valueLateral_right_rangeMinimum;
+  ::ad::physics::Acceleration valueLateral_right_rangeMaximum(-1e2);
+  valueLateral_right_range.maximum = valueLateral_right_rangeMaximum;
+  valueLateral_right_range.maximum = valueLateral_right_range.minimum;
+  valueLateral_right_range.minimum = valueLateral_right_range.maximum;
+  value.lateral_right_range = valueLateral_right_range;
 
   // override member with data type value above input range maximum
   ::ad::physics::AccelerationRange invalidInitializedMember;
   ::ad::physics::Acceleration invalidInitializedMemberMinimum(1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
-  value.lateralLeftRange = invalidInitializedMember;
+  value.lateral_left_range = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudinalRangeTooSmall)
+TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudinal_rangeTooSmall)
 {
   ::ad::rss::state::AccelerationRestriction value;
-  ::ad::physics::AccelerationRange valueLateralLeftRange;
-  ::ad::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
-  valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
-  ::ad::physics::Acceleration valueLateralLeftRangeMaximum(-1e2);
-  valueLateralLeftRange.maximum = valueLateralLeftRangeMaximum;
-  valueLateralLeftRange.maximum = valueLateralLeftRange.minimum;
-  valueLateralLeftRange.minimum = valueLateralLeftRange.maximum;
-  value.lateralLeftRange = valueLateralLeftRange;
-  ::ad::physics::AccelerationRange valueLongitudinalRange;
-  ::ad::physics::Acceleration valueLongitudinalRangeMinimum(-1e2);
-  valueLongitudinalRange.minimum = valueLongitudinalRangeMinimum;
-  ::ad::physics::Acceleration valueLongitudinalRangeMaximum(-1e2);
-  valueLongitudinalRange.maximum = valueLongitudinalRangeMaximum;
-  valueLongitudinalRange.maximum = valueLongitudinalRange.minimum;
-  valueLongitudinalRange.minimum = valueLongitudinalRange.maximum;
-  value.longitudinalRange = valueLongitudinalRange;
-  ::ad::physics::AccelerationRange valueLateralRightRange;
-  ::ad::physics::Acceleration valueLateralRightRangeMinimum(-1e2);
-  valueLateralRightRange.minimum = valueLateralRightRangeMinimum;
-  ::ad::physics::Acceleration valueLateralRightRangeMaximum(-1e2);
-  valueLateralRightRange.maximum = valueLateralRightRangeMaximum;
-  valueLateralRightRange.maximum = valueLateralRightRange.minimum;
-  valueLateralRightRange.minimum = valueLateralRightRange.maximum;
-  value.lateralRightRange = valueLateralRightRange;
+  ::ad::physics::AccelerationRange valueLateral_left_range;
+  ::ad::physics::Acceleration valueLateral_left_rangeMinimum(-1e2);
+  valueLateral_left_range.minimum = valueLateral_left_rangeMinimum;
+  ::ad::physics::Acceleration valueLateral_left_rangeMaximum(-1e2);
+  valueLateral_left_range.maximum = valueLateral_left_rangeMaximum;
+  valueLateral_left_range.maximum = valueLateral_left_range.minimum;
+  valueLateral_left_range.minimum = valueLateral_left_range.maximum;
+  value.lateral_left_range = valueLateral_left_range;
+  ::ad::physics::AccelerationRange valueLongitudinal_range;
+  ::ad::physics::Acceleration valueLongitudinal_rangeMinimum(-1e2);
+  valueLongitudinal_range.minimum = valueLongitudinal_rangeMinimum;
+  ::ad::physics::Acceleration valueLongitudinal_rangeMaximum(-1e2);
+  valueLongitudinal_range.maximum = valueLongitudinal_rangeMaximum;
+  valueLongitudinal_range.maximum = valueLongitudinal_range.minimum;
+  valueLongitudinal_range.minimum = valueLongitudinal_range.maximum;
+  value.longitudinal_range = valueLongitudinal_range;
+  ::ad::physics::AccelerationRange valueLateral_right_range;
+  ::ad::physics::Acceleration valueLateral_right_rangeMinimum(-1e2);
+  valueLateral_right_range.minimum = valueLateral_right_rangeMinimum;
+  ::ad::physics::Acceleration valueLateral_right_rangeMaximum(-1e2);
+  valueLateral_right_range.maximum = valueLateral_right_rangeMaximum;
+  valueLateral_right_range.maximum = valueLateral_right_range.minimum;
+  valueLateral_right_range.minimum = valueLateral_right_range.maximum;
+  value.lateral_right_range = valueLateral_right_range;
 
   // override member with data type value below input range minimum
   ::ad::physics::AccelerationRange invalidInitializedMember;
   ::ad::physics::Acceleration invalidInitializedMemberMinimum(-1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
-  value.longitudinalRange = invalidInitializedMember;
+  value.longitudinal_range = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudinalRangeTooBig)
+TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLongitudinal_rangeTooBig)
 {
   ::ad::rss::state::AccelerationRestriction value;
-  ::ad::physics::AccelerationRange valueLateralLeftRange;
-  ::ad::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
-  valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
-  ::ad::physics::Acceleration valueLateralLeftRangeMaximum(-1e2);
-  valueLateralLeftRange.maximum = valueLateralLeftRangeMaximum;
-  valueLateralLeftRange.maximum = valueLateralLeftRange.minimum;
-  valueLateralLeftRange.minimum = valueLateralLeftRange.maximum;
-  value.lateralLeftRange = valueLateralLeftRange;
-  ::ad::physics::AccelerationRange valueLongitudinalRange;
-  ::ad::physics::Acceleration valueLongitudinalRangeMinimum(-1e2);
-  valueLongitudinalRange.minimum = valueLongitudinalRangeMinimum;
-  ::ad::physics::Acceleration valueLongitudinalRangeMaximum(-1e2);
-  valueLongitudinalRange.maximum = valueLongitudinalRangeMaximum;
-  valueLongitudinalRange.maximum = valueLongitudinalRange.minimum;
-  valueLongitudinalRange.minimum = valueLongitudinalRange.maximum;
-  value.longitudinalRange = valueLongitudinalRange;
-  ::ad::physics::AccelerationRange valueLateralRightRange;
-  ::ad::physics::Acceleration valueLateralRightRangeMinimum(-1e2);
-  valueLateralRightRange.minimum = valueLateralRightRangeMinimum;
-  ::ad::physics::Acceleration valueLateralRightRangeMaximum(-1e2);
-  valueLateralRightRange.maximum = valueLateralRightRangeMaximum;
-  valueLateralRightRange.maximum = valueLateralRightRange.minimum;
-  valueLateralRightRange.minimum = valueLateralRightRange.maximum;
-  value.lateralRightRange = valueLateralRightRange;
+  ::ad::physics::AccelerationRange valueLateral_left_range;
+  ::ad::physics::Acceleration valueLateral_left_rangeMinimum(-1e2);
+  valueLateral_left_range.minimum = valueLateral_left_rangeMinimum;
+  ::ad::physics::Acceleration valueLateral_left_rangeMaximum(-1e2);
+  valueLateral_left_range.maximum = valueLateral_left_rangeMaximum;
+  valueLateral_left_range.maximum = valueLateral_left_range.minimum;
+  valueLateral_left_range.minimum = valueLateral_left_range.maximum;
+  value.lateral_left_range = valueLateral_left_range;
+  ::ad::physics::AccelerationRange valueLongitudinal_range;
+  ::ad::physics::Acceleration valueLongitudinal_rangeMinimum(-1e2);
+  valueLongitudinal_range.minimum = valueLongitudinal_rangeMinimum;
+  ::ad::physics::Acceleration valueLongitudinal_rangeMaximum(-1e2);
+  valueLongitudinal_range.maximum = valueLongitudinal_rangeMaximum;
+  valueLongitudinal_range.maximum = valueLongitudinal_range.minimum;
+  valueLongitudinal_range.minimum = valueLongitudinal_range.maximum;
+  value.longitudinal_range = valueLongitudinal_range;
+  ::ad::physics::AccelerationRange valueLateral_right_range;
+  ::ad::physics::Acceleration valueLateral_right_rangeMinimum(-1e2);
+  valueLateral_right_range.minimum = valueLateral_right_rangeMinimum;
+  ::ad::physics::Acceleration valueLateral_right_rangeMaximum(-1e2);
+  valueLateral_right_range.maximum = valueLateral_right_rangeMaximum;
+  valueLateral_right_range.maximum = valueLateral_right_range.minimum;
+  valueLateral_right_range.minimum = valueLateral_right_range.maximum;
+  value.lateral_right_range = valueLateral_right_range;
 
   // override member with data type value above input range maximum
   ::ad::physics::AccelerationRange invalidInitializedMember;
   ::ad::physics::Acceleration invalidInitializedMemberMinimum(1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
-  value.longitudinalRange = invalidInitializedMember;
+  value.longitudinal_range = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRightRangeTooSmall)
+TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateral_right_rangeTooSmall)
 {
   ::ad::rss::state::AccelerationRestriction value;
-  ::ad::physics::AccelerationRange valueLateralLeftRange;
-  ::ad::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
-  valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
-  ::ad::physics::Acceleration valueLateralLeftRangeMaximum(-1e2);
-  valueLateralLeftRange.maximum = valueLateralLeftRangeMaximum;
-  valueLateralLeftRange.maximum = valueLateralLeftRange.minimum;
-  valueLateralLeftRange.minimum = valueLateralLeftRange.maximum;
-  value.lateralLeftRange = valueLateralLeftRange;
-  ::ad::physics::AccelerationRange valueLongitudinalRange;
-  ::ad::physics::Acceleration valueLongitudinalRangeMinimum(-1e2);
-  valueLongitudinalRange.minimum = valueLongitudinalRangeMinimum;
-  ::ad::physics::Acceleration valueLongitudinalRangeMaximum(-1e2);
-  valueLongitudinalRange.maximum = valueLongitudinalRangeMaximum;
-  valueLongitudinalRange.maximum = valueLongitudinalRange.minimum;
-  valueLongitudinalRange.minimum = valueLongitudinalRange.maximum;
-  value.longitudinalRange = valueLongitudinalRange;
-  ::ad::physics::AccelerationRange valueLateralRightRange;
-  ::ad::physics::Acceleration valueLateralRightRangeMinimum(-1e2);
-  valueLateralRightRange.minimum = valueLateralRightRangeMinimum;
-  ::ad::physics::Acceleration valueLateralRightRangeMaximum(-1e2);
-  valueLateralRightRange.maximum = valueLateralRightRangeMaximum;
-  valueLateralRightRange.maximum = valueLateralRightRange.minimum;
-  valueLateralRightRange.minimum = valueLateralRightRange.maximum;
-  value.lateralRightRange = valueLateralRightRange;
+  ::ad::physics::AccelerationRange valueLateral_left_range;
+  ::ad::physics::Acceleration valueLateral_left_rangeMinimum(-1e2);
+  valueLateral_left_range.minimum = valueLateral_left_rangeMinimum;
+  ::ad::physics::Acceleration valueLateral_left_rangeMaximum(-1e2);
+  valueLateral_left_range.maximum = valueLateral_left_rangeMaximum;
+  valueLateral_left_range.maximum = valueLateral_left_range.minimum;
+  valueLateral_left_range.minimum = valueLateral_left_range.maximum;
+  value.lateral_left_range = valueLateral_left_range;
+  ::ad::physics::AccelerationRange valueLongitudinal_range;
+  ::ad::physics::Acceleration valueLongitudinal_rangeMinimum(-1e2);
+  valueLongitudinal_range.minimum = valueLongitudinal_rangeMinimum;
+  ::ad::physics::Acceleration valueLongitudinal_rangeMaximum(-1e2);
+  valueLongitudinal_range.maximum = valueLongitudinal_rangeMaximum;
+  valueLongitudinal_range.maximum = valueLongitudinal_range.minimum;
+  valueLongitudinal_range.minimum = valueLongitudinal_range.maximum;
+  value.longitudinal_range = valueLongitudinal_range;
+  ::ad::physics::AccelerationRange valueLateral_right_range;
+  ::ad::physics::Acceleration valueLateral_right_rangeMinimum(-1e2);
+  valueLateral_right_range.minimum = valueLateral_right_rangeMinimum;
+  ::ad::physics::Acceleration valueLateral_right_rangeMaximum(-1e2);
+  valueLateral_right_range.maximum = valueLateral_right_rangeMaximum;
+  valueLateral_right_range.maximum = valueLateral_right_range.minimum;
+  valueLateral_right_range.minimum = valueLateral_right_range.maximum;
+  value.lateral_right_range = valueLateral_right_range;
 
   // override member with data type value below input range minimum
   ::ad::physics::AccelerationRange invalidInitializedMember;
   ::ad::physics::Acceleration invalidInitializedMemberMinimum(-1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
-  value.lateralRightRange = invalidInitializedMember;
+  value.lateral_right_range = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateralRightRangeTooBig)
+TEST(AccelerationRestrictionValidInputRangeTests, testValidInputRangeLateral_right_rangeTooBig)
 {
   ::ad::rss::state::AccelerationRestriction value;
-  ::ad::physics::AccelerationRange valueLateralLeftRange;
-  ::ad::physics::Acceleration valueLateralLeftRangeMinimum(-1e2);
-  valueLateralLeftRange.minimum = valueLateralLeftRangeMinimum;
-  ::ad::physics::Acceleration valueLateralLeftRangeMaximum(-1e2);
-  valueLateralLeftRange.maximum = valueLateralLeftRangeMaximum;
-  valueLateralLeftRange.maximum = valueLateralLeftRange.minimum;
-  valueLateralLeftRange.minimum = valueLateralLeftRange.maximum;
-  value.lateralLeftRange = valueLateralLeftRange;
-  ::ad::physics::AccelerationRange valueLongitudinalRange;
-  ::ad::physics::Acceleration valueLongitudinalRangeMinimum(-1e2);
-  valueLongitudinalRange.minimum = valueLongitudinalRangeMinimum;
-  ::ad::physics::Acceleration valueLongitudinalRangeMaximum(-1e2);
-  valueLongitudinalRange.maximum = valueLongitudinalRangeMaximum;
-  valueLongitudinalRange.maximum = valueLongitudinalRange.minimum;
-  valueLongitudinalRange.minimum = valueLongitudinalRange.maximum;
-  value.longitudinalRange = valueLongitudinalRange;
-  ::ad::physics::AccelerationRange valueLateralRightRange;
-  ::ad::physics::Acceleration valueLateralRightRangeMinimum(-1e2);
-  valueLateralRightRange.minimum = valueLateralRightRangeMinimum;
-  ::ad::physics::Acceleration valueLateralRightRangeMaximum(-1e2);
-  valueLateralRightRange.maximum = valueLateralRightRangeMaximum;
-  valueLateralRightRange.maximum = valueLateralRightRange.minimum;
-  valueLateralRightRange.minimum = valueLateralRightRange.maximum;
-  value.lateralRightRange = valueLateralRightRange;
+  ::ad::physics::AccelerationRange valueLateral_left_range;
+  ::ad::physics::Acceleration valueLateral_left_rangeMinimum(-1e2);
+  valueLateral_left_range.minimum = valueLateral_left_rangeMinimum;
+  ::ad::physics::Acceleration valueLateral_left_rangeMaximum(-1e2);
+  valueLateral_left_range.maximum = valueLateral_left_rangeMaximum;
+  valueLateral_left_range.maximum = valueLateral_left_range.minimum;
+  valueLateral_left_range.minimum = valueLateral_left_range.maximum;
+  value.lateral_left_range = valueLateral_left_range;
+  ::ad::physics::AccelerationRange valueLongitudinal_range;
+  ::ad::physics::Acceleration valueLongitudinal_rangeMinimum(-1e2);
+  valueLongitudinal_range.minimum = valueLongitudinal_rangeMinimum;
+  ::ad::physics::Acceleration valueLongitudinal_rangeMaximum(-1e2);
+  valueLongitudinal_range.maximum = valueLongitudinal_rangeMaximum;
+  valueLongitudinal_range.maximum = valueLongitudinal_range.minimum;
+  valueLongitudinal_range.minimum = valueLongitudinal_range.maximum;
+  value.longitudinal_range = valueLongitudinal_range;
+  ::ad::physics::AccelerationRange valueLateral_right_range;
+  ::ad::physics::Acceleration valueLateral_right_rangeMinimum(-1e2);
+  valueLateral_right_range.minimum = valueLateral_right_rangeMinimum;
+  ::ad::physics::Acceleration valueLateral_right_rangeMaximum(-1e2);
+  valueLateral_right_range.maximum = valueLateral_right_rangeMaximum;
+  valueLateral_right_range.maximum = valueLateral_right_range.minimum;
+  valueLateral_right_range.minimum = valueLateral_right_range.maximum;
+  value.lateral_right_range = valueLateral_right_range;
 
   // override member with data type value above input range maximum
   ::ad::physics::AccelerationRange invalidInitializedMember;
   ::ad::physics::Acceleration invalidInitializedMemberMinimum(1e2 * 1.1);
   invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
-  value.lateralRightRange = invalidInitializedMember;
+  value.lateral_right_range = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }

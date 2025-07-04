@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -28,11 +28,11 @@ protected:
   {
     // valid initialization
     ::ad::rss::world::LateralRssAccelerationValues value;
-    ::ad::physics::Acceleration valueAccelMax(-1e2);
-    valueAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-    value.accelMax = valueAccelMax;
-    ::ad::physics::Acceleration valueBrakeMin(-1e2);
-    value.brakeMin = valueBrakeMin;
+    ::ad::physics::Acceleration valueAccel_max(-1e2);
+    valueAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    value.accel_max = valueAccel_max;
+    ::ad::physics::Acceleration valueBrake_min(-1e2);
+    value.brake_min = valueBrake_min;
     mValue = value;
   }
 
@@ -85,22 +85,22 @@ TEST_F(LateralRssAccelerationValuesTests, stringConversionTest)
   ASSERT_EQ(ostreamStr, toStr);
 }
 
-TEST_F(LateralRssAccelerationValuesTests, comparisonOperatorAccelMaxDiffers)
+TEST_F(LateralRssAccelerationValuesTests, comparisonOperatorAccel_maxDiffers)
 {
   ::ad::rss::world::LateralRssAccelerationValues valueA = mValue;
-  ::ad::physics::Acceleration accelMax(1e2);
-  valueA.accelMax = accelMax;
+  ::ad::physics::Acceleration accel_max(1e2);
+  valueA.accel_max = accel_max;
   ::ad::rss::world::LateralRssAccelerationValues valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(LateralRssAccelerationValuesTests, comparisonOperatorBrakeMinDiffers)
+TEST_F(LateralRssAccelerationValuesTests, comparisonOperatorBrake_minDiffers)
 {
   ::ad::rss::world::LateralRssAccelerationValues valueA = mValue;
-  ::ad::physics::Acceleration brakeMin(1e2);
-  valueA.brakeMin = brakeMin;
+  ::ad::physics::Acceleration brake_min(1e2);
+  valueA.brake_min = brake_min;
   ::ad::rss::world::LateralRssAccelerationValues valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

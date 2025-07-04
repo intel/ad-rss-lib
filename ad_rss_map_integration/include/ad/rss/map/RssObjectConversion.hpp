@@ -11,9 +11,9 @@
 
 #pragma once
 
-#include <ad/rss/map/RssObjectData.hpp>
-
 #include <ad/map/route/FullRoute.hpp>
+#include <ad/rss/map/RssObjectData.hpp>
+#include <ad/rss/world/Object.hpp>
 #include <memory>
 
 /*!
@@ -48,17 +48,17 @@ public:
   /*!
    * @brief constructor
    *
-   * @param[in] objectData the object data
+   * @param[in] object_data the object data
    */
-  explicit RssObjectConversion(RssObjectData const &objectData);
+  explicit RssObjectConversion(RssObjectData const &object_data);
 
   /*!
    * @brief constructor with explicit occupied regions
    *
-   * @param[in] objectData the object data
+   * @param[in] object_data the object data
    * @param[in] objectOccupiedRegions the object's occupied regions explicitly
    */
-  RssObjectConversion(RssObjectData const &objectData,
+  RssObjectConversion(RssObjectData const &object_data,
                       ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions);
 
   /*!
@@ -88,14 +88,14 @@ public:
 
   /** @returns RssDynamics of the object
    *
-   * If updateSpeedLimit() was called in between the maxSpeedOnAcceleration value of the dynamics will be adapted to
+   * If updateSpeedLimit() was called in between the max_speed_on_acceleration value of the dynamics will be adapted to
    * these.
    */
   ::ad::rss::world::RssDynamics getRssDynamics() const;
 
   /** @returns RSS Object description
    *
-   * If laneIntervalAdded() or fillNotRelevantSceneBoundingBox() was called in between the
+   * If laneIntervalAdded() or fillNotRelevantConstellationBoundingBox() was called in between the
    * occupied regions have been filled accordingly. If not, these are empty (which is an invalid object!)
    */
   ::ad::rss::world::Object const &getRssObject() const;
@@ -103,23 +103,60 @@ public:
   /** @returns Object id */
   ::ad::rss::world::ObjectId getId() const;
 
-  /** @returns the minimum distance for the object to stop
-   *  This is an estimate, that can be used to calculate the connecting route calculation distance to be taken into
-   * account.
+  /**
+   * This is an estimate, that can be used to calculate the route calculation distances to be taken into account.
+   * It uses conservative expectations, i.e. brake_min_correct and no limitation of speed on acceleration.
+   *
+   * @param[in] object_id the object_id (for debug messages only)
+   * @param[in] current_speed the objects current speed
+   * @param[in] rss_dynamics the RssDynamics to consider
+   * @param[out] conservativeMinStoppingDistance the minimum distance for the object to stop calculated in a
+   * conservative way
+   *
+   * @returns boolean indicating success(\a true)/failure(\a  false) of the calculation
    */
-  bool calculateMinStoppingDistance(::ad::physics::Distance &minStoppingDistance) const;
+  static bool calculateConservativeMinStoppingDistance(::ad::rss::world::ObjectId const &object_id,
+                                                       ::ad::physics::Speed const &current_speed,
+                                                       ::ad::rss::world::RssDynamics const &rss_dynamics,
+                                                       ::ad::physics::Distance &conservativeMinStoppingDistance);
+  /**
+   * This is an estimate, that can be used to calculate the route calculation distance to be taken into account.
+   * It uses conservative expectations, i.e. brake_min_correct and no limitation of speed on acceleration.
+   *
+   * @param[out] conservativeMinStoppingDistance the minimum distance for the object to stop calculated in a
+   * conservative way
+   *
+   * @returns boolean indicating success(\a true)/failure(\a  false) of the calculation
+   */
+  bool calculateConservativeMinStoppingDistance(::ad::physics::Distance &conservativeMinStoppingDistance) const;
 
   /** @brief update the max speed content
    */
-  void updateSpeedLimit(::ad::physics::Speed const &maxSpeedOnAcceleration);
+  void updateSpeedLimit(::ad::physics::Speed const &max_speed_on_acceleration);
 
   /** @brief lane interval was added to the object route, so append relevant occupied regions
    */
-  void laneIntervalAdded(::ad::map::route::LaneInterval const &laneInterval);
+  void laneIntervalAdded(::ad::map::route::LaneInterval const &lane_interval);
+
+  /** @brief update the objects current velocity on the route considering the provided route_heading
+   *
+   *  Use this overload if the route is derived from a ad::map::route::ConnectingRoute by using the heading calculations
+   *  from the ConnectingRoute type, as the object bounding boxes are usually removed from the connecting route.
+   *  Like this, the object is more or less touching the route and the other overload taking the route as parameter
+   *  might not be able to extract the heading.
+   */
+  void updateVelocityOnRoute(::ad::map::point::ENUHeading const &route_heading);
 
   /** @brief update the objects current velocity on the route
+   *
+   *  The bounding box of the object has to be part of the provided route to be able to extract the route heading
+   * correctly. Therefore, use this overload if the route was calculated by the ad::map::route::planning::planRoute() or
+   * ad::map::route::planning::predictRoute() functions and no heading information is available yet by other means. If
+   * the route is derived from a ad::map::route::ConnectingRoute use the overload with the pre-calcuated heading.
+   *
+   *  @returns \c true if the operation succeeded
    */
-  void updateVelocityOnRoute(::ad::map::route::FullRoute const &route);
+  bool updateVelocityOnRoute(::ad::map::route::FullRoute const &route);
 
   /** @brief return the map matched position object this was created with (might be nullptr)
    */
@@ -150,28 +187,50 @@ public:
   /**
    * @returns the original object speed provided as input
    */
-  ::ad::physics::Speed const &getOriginalObjectSpeed() const
+  ::ad::physics::SpeedRange const &getOriginalObjectSpeed() const
   {
     return mOriginalObjectSpeed;
+  }
+
+  /**
+   * @returns the distance estimate towards the other object
+   * The distance uses Euclidian distance of the center points as an estimate.
+   */
+  ::ad::physics::Distance getDistanceEstimate(RssObjectConversion::ConstPtr other) const;
+
+  /**
+   * @returns the length of the vehicle
+   */
+  ::ad::physics::Distance getVehicleLength() const
+  {
+    return getRssObject().state.dimension.length;
+  }
+
+  /**
+   * @returns the width of the vehicle
+   */
+  ::ad::physics::Distance getVehicleWidth() const
+  {
+    return getRssObject().state.dimension.width;
   }
 
 private:
   ::ad::rss::world::Object mRssObject;
   ::ad::map::match::Object const *mObjectMapMatchedPosition;
   ::ad::physics::Speed mMaxSpeedOnAcceleration;
-  ::ad::physics::Speed const mOriginalObjectSpeed;
+  ::ad::physics::SpeedRange const mOriginalObjectSpeed;
   ::ad::rss::world::RssDynamics const &mRssDynamics;
 
-  void initializeRssObject(::ad::rss::world::ObjectId const &objectId,
-                           ::ad::rss::world::ObjectType const &objectType,
+  void initializeRssObject(::ad::rss::world::ObjectId const &object_id,
+                           ::ad::rss::world::ObjectType const &object_type,
                            ::ad::rss::world::OccupiedRegionVector const &objectOccupiedRegions,
                            ::ad::map::match::ENUObjectPosition const &objectEnuPosition,
-                           ::ad::physics::Speed const &objectSpeed,
+                           ::ad::physics::SpeedRange const &objectSpeed,
                            ::ad::physics::AngularVelocity const &objectYawRate,
                            ::ad::physics::Angle const &objectSteeringAngle);
 
   void addRestrictedOccupiedRegion(::ad::map::match::LaneOccupiedRegion const &laneOccupiedRegion,
-                                   ::ad::map::route::LaneInterval const &laneInterval);
+                                   ::ad::map::route::LaneInterval const &lane_interval);
 };
 
 } // namespace map

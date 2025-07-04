@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -103,8 +103,8 @@ struct Velocity
    */
   bool operator==(const Velocity &other) const
   {
-    return (speedLonMin == other.speedLonMin) && (speedLonMax == other.speedLonMax)
-      && (speedLatMin == other.speedLatMin) && (speedLatMax == other.speedLatMax);
+    return (speed_lon_min == other.speed_lon_min) && (speed_lon_max == other.speed_lon_max)
+      && (speed_lat_min == other.speed_lat_min) && (speed_lat_max == other.speed_lat_max);
   }
 
   /**
@@ -124,28 +124,28 @@ struct Velocity
    * The longitudinal component of the velocity is always measured tangential to the
    * center line of the current lane.
    */
-  ::ad::physics::Speed speedLonMin{0.};
+  ::ad::physics::Speed speed_lon_min{0.};
 
   /*!
    * The range maximum of the longitudinal speed component of the velocity vector.
    * The longitudinal component of the velocity is always measured tangential to the
    * center line of the current lane.
    */
-  ::ad::physics::Speed speedLonMax{100.};
+  ::ad::physics::Speed speed_lon_max{100.};
 
   /*!
    * The range minimum of the lateral speed component of the velocity vector.
    * The lateral component of the velocity is always measured orthogonal to the center
    * line of the current lane.
    */
-  ::ad::physics::Speed speedLatMin{-100.};
+  ::ad::physics::Speed speed_lat_min{-100.};
 
   /*!
    * The range maximum of the lateral speed component of the velocity vector.
    * The lateral component of the velocity is always measured orthogonal to the center
    * line of the current lane.
    */
-  ::ad::physics::Speed speedLatMax{100.};
+  ::ad::physics::Speed speed_lat_max{100.};
 };
 
 } // namespace world
@@ -182,17 +182,17 @@ namespace world {
 inline std::ostream &operator<<(std::ostream &os, Velocity const &_value)
 {
   os << "Velocity(";
-  os << "speedLonMin:";
-  os << _value.speedLonMin;
+  os << "speed_lon_min:";
+  os << _value.speed_lon_min;
   os << ",";
-  os << "speedLonMax:";
-  os << _value.speedLonMax;
+  os << "speed_lon_max:";
+  os << _value.speed_lon_max;
   os << ",";
-  os << "speedLatMin:";
-  os << _value.speedLatMin;
+  os << "speed_lat_min:";
+  os << _value.speed_lat_min;
   os << ",";
-  os << "speedLatMax:";
-  os << _value.speedLatMax;
+  os << "speed_lat_max:";
+  os << _value.speed_lat_max;
   os << ")";
   return os;
 }
@@ -212,4 +212,16 @@ inline std::string to_string(::ad::rss::world::Velocity const &value)
   return sstream.str();
 }
 } // namespace std
+
+/*!
+ * \brief overload of fmt::formatter calling std::to_string
+ */
+template <> struct fmt::formatter<::ad::rss::world::Velocity> : formatter<string_view>
+{
+  template <typename FormatContext> auto format(::ad::rss::world::Velocity const &value, FormatContext &ctx)
+  {
+    return formatter<string_view>::format(std::to_string(value), ctx);
+  }
+};
+
 #endif // GEN_GUARD_AD_RSS_WORLD_VELOCITY

@@ -1,0 +1,118 @@
+// ----------------- BEGIN LICENSE BLOCK ---------------------------------
+//
+// Copyright (C) 2018-2021 Intel Corporation
+//
+// SPDX-License-Identifier: LGPL-2.1-only
+//
+// ----------------- END LICENSE BLOCK -----------------------------------
+
+#include "TestSupport.hpp"
+#include "ad/rss/core/Physics.hpp"
+
+namespace ad {
+namespace rss {
+namespace core {
+
+TEST(PhysicsUnitTestsTimeToCoverDistance, no_brake_required_2_brake_required_is_continuous)
+{
+  for (size_t i = 0; i <= 10u; ++i)
+  {
+    Speed speed(1 - (static_cast<double>(i) - 5.) * 0.01);
+    Duration requiredTime(0.);
+    double expectedDuration = 1. / speed.mSpeed;
+    EXPECT_TRUE(calculateTimeToCoverDistance(
+      speed, cMaxSpeedOnAcceleration, Duration(1.), Acceleration(0.), Acceleration(-1.), Distance(1.), requiredTime));
+    EXPECT_NEAR(expectedDuration, requiredTime.mDuration, cDoubleNear);
+  }
+}
+
+TEST(PhysicsUnitTestsTimeToCoverDistance, no_brake_required_zero_acceleration_zero_speed)
+{
+  Duration requiredTime(0.);
+  EXPECT_TRUE(calculateTimeToCoverDistance(
+    Speed(0.), cMaxSpeedOnAcceleration, Duration(1.), Acceleration(0.), Acceleration(-1.), Distance(1.), requiredTime));
+  EXPECT_EQ(requiredTime, std::numeric_limits<Duration>::max());
+}
+
+TEST(PhysicsUnitTestsTimeToCoverDistance, no_brake_required_zero_acceleration_is_continuous)
+{
+  for (size_t i = 0; i < 10u; ++i)
+  {
+    Acceleration acceleration((static_cast<double>(i) - 5.) * std::numeric_limits<Acceleration>::epsilon().mAcceleration
+                              * 0.9);
+    Duration requiredTime(0.);
+    EXPECT_TRUE(calculateTimeToCoverDistance(
+      Speed(2.), cMaxSpeedOnAcceleration, Duration(1.), acceleration, Acceleration(-1.), Distance(1.), requiredTime));
+    EXPECT_NEAR(.5, requiredTime.mDuration, cDoubleNear);
+  }
+}
+
+TEST(PhysicsUnitTestsTimeToCoverDistance, brake_required_negative_or_zero_deceleration)
+{
+  Acceleration decelerationValue(1.);
+  Duration requiredTime(0.);
+  for (size_t i = 0u; i < 10u; ++i)
+  {
+    decelerationValue = decelerationValue * 0.1;
+    EXPECT_TRUE(calculateTimeToCoverDistance(Speed(0.),
+                                             cMaxSpeedOnAcceleration,
+                                             Duration(0.),
+                                             Acceleration(0.),
+                                             decelerationValue,
+                                             Distance(1.),
+                                             requiredTime));
+    EXPECT_EQ(requiredTime, std::numeric_limits<Duration>::max());
+  }
+  EXPECT_TRUE(calculateTimeToCoverDistance(
+    Speed(0.), cMaxSpeedOnAcceleration, Duration(0.), Acceleration(0.), Acceleration(0.), Distance(1.), requiredTime));
+  EXPECT_EQ(requiredTime, std::numeric_limits<Duration>::max());
+  EXPECT_TRUE(calculateTimeToCoverDistance(Speed(0.),
+                                           cMaxSpeedOnAcceleration,
+                                           Duration(0.),
+                                           Acceleration(0.),
+                                           std::numeric_limits<Acceleration>::epsilon() * 0.99,
+                                           Distance(1.),
+                                           requiredTime));
+  EXPECT_EQ(requiredTime, std::numeric_limits<Duration>::max());
+}
+
+TEST(PhysicsUnitTestsTimeToCoverDistance, brake_required_positive_deceleration)
+{
+  Duration requiredTime(0.);
+  EXPECT_TRUE(calculateTimeToCoverDistance(Speed(0.),
+                                           cMaxSpeedOnAcceleration,
+                                           Duration(0.),
+                                           Acceleration(0.),
+                                           -std::numeric_limits<Acceleration>::epsilon(),
+                                           Distance(1.),
+                                           requiredTime));
+  EXPECT_EQ(requiredTime, std::numeric_limits<Duration>::max());
+}
+
+TEST(PhysicsUnitTestsTimeToCoverDistance, test_zero_distance)
+{
+  Duration requiredTime(0.);
+  EXPECT_TRUE(calculateTimeToCoverDistance(
+    Speed(1.), cMaxSpeedOnAcceleration, Duration(1.), Acceleration(1.), Acceleration(-1.), Distance(0.), requiredTime));
+  EXPECT_EQ(requiredTime, Duration(0.));
+}
+
+TEST(PhysicsUnitTestsTimeToCoverDistance, max_speed_reached_before_response_time)
+{
+  Duration requiredTime(0.);
+  EXPECT_TRUE(calculateTimeToCoverDistance(
+    Speed(1.0), Speed(2.0), Duration(1.5), Acceleration(2.), Acceleration(-0.5), Distance(1.75), requiredTime));
+  EXPECT_NEAR(1.0, requiredTime.mDuration, cDoubleNear);
+}
+
+TEST(PhysicsUnitTestsTimeToCoverDistance, max_speed_still_exceeded_after_response_time)
+{
+  Duration requiredTime(0.);
+  EXPECT_TRUE(calculateTimeToCoverDistance(
+    Speed(2.0), Speed(1.0), Duration(1.), Acceleration(1.), Acceleration(-1.), Distance(3.), requiredTime));
+  EXPECT_EQ(Duration(1.585786), requiredTime);
+}
+
+} // namespace core
+} // namespace rss
+} // namespace ad

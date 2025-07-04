@@ -18,42 +18,42 @@ class RssSituationExtractionSameDirectionTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    worldModel.defaultEgoVehicleRssDynamics = getEgoRssDynamics();
-    scene.situationType = situation::SituationType::SameDirection;
-    scene.objectRssDynamics = getObjectRssDynamics();
-    scene.egoVehicleRssDynamics = getEgoRssDynamics();
+    worldModel.default_ego_vehicle_rss_dynamics = getEgoRssDynamics();
+    constellation.constellation_type = world::ConstellationType::SameDirection;
+    constellation.object_rss_dynamics = getObjectRssDynamics();
+    constellation.ego_vehicle_rss_dynamics = getEgoRssDynamics();
     leadingObject = createObject(36., 0.);
-    leadingObject.objectId = 0;
+    leadingObject.object_id = 0;
 
     {
       world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = ParametricValue(0.8);
-      occupiedRegion.lonRange.maximum = ParametricValue(1.0);
-      occupiedRegion.segmentId = 1.;
-      occupiedRegion.latRange.minimum = ParametricValue(0.2);
-      occupiedRegion.latRange.maximum = ParametricValue(0.4);
+      occupiedRegion.lon_range.minimum = ParametricValue(0.8);
+      occupiedRegion.lon_range.maximum = ParametricValue(1.0);
+      occupiedRegion.segment_id = 1.;
+      occupiedRegion.lat_range.minimum = ParametricValue(0.2);
+      occupiedRegion.lat_range.maximum = ParametricValue(0.4);
 
-      leadingObject.occupiedRegions.push_back(occupiedRegion);
+      leadingObject.occupied_regions.push_back(occupiedRegion);
     }
 
     followingObject = createObject(36., 0.);
-    followingObject.objectId = 1;
+    followingObject.object_id = 1;
     {
       world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = ParametricValue(0.1);
-      occupiedRegion.lonRange.maximum = ParametricValue(0.2);
-      occupiedRegion.segmentId = 1.;
-      occupiedRegion.latRange.minimum = ParametricValue(0.6);
-      occupiedRegion.latRange.maximum = ParametricValue(0.8);
-      followingObject.occupiedRegions.push_back(occupiedRegion);
+      occupiedRegion.lon_range.minimum = ParametricValue(0.1);
+      occupiedRegion.lon_range.maximum = ParametricValue(0.2);
+      occupiedRegion.segment_id = 1.;
+      occupiedRegion.lat_range.minimum = ParametricValue(0.6);
+      occupiedRegion.lat_range.maximum = ParametricValue(0.8);
+      followingObject.occupied_regions.push_back(occupiedRegion);
     }
   }
 
   virtual void TearDown()
   {
-    followingObject.occupiedRegions.clear();
-    leadingObject.occupiedRegions.clear();
-    scene.egoVehicleRoad.clear();
+    followingObject.occupied_regions.clear();
+    leadingObject.occupied_regions.clear();
+    constellation.ego_vehicle_road.clear();
   }
 
   world::RoadSegment longitudinalNoDifferenceRoadSegment()
@@ -68,7 +68,7 @@ protected:
     laneSegment.width.minimum = Distance(5);
     laneSegment.width.maximum = Distance(5);
 
-    roadSegment.push_back(laneSegment);
+    roadSegment.lane_segments.push_back(laneSegment);
     return roadSegment;
   }
 
@@ -83,365 +83,373 @@ protected:
 
     laneSegment.width.minimum = Distance(5);
     laneSegment.width.maximum = Distance(5);
-    roadSegment.push_back(laneSegment);
+    roadSegment.lane_segments.push_back(laneSegment);
     return roadSegment;
   }
 
   world::Object followingObject;
   world::Object leadingObject;
   world::WorldModel worldModel;
-  world::Scene scene;
-  RssSituationExtraction situationExtraction;
+  world::Constellation constellation;
+  RssSituationExtraction constellationExtraction;
 };
 
 TEST_F(RssSituationExtractionSameDirectionTests, noLongitudinalDifference)
 {
-  situation::SituationSnapshot situationSnapshot;
+  core::RssSituationSnapshot situationSnapshot;
 
-  scene.egoVehicle = objectAsEgo(leadingObject);
-  scene.object = followingObject;
+  constellation.ego_vehicle = objectAsEgo(leadingObject);
+  constellation.object = followingObject;
 
-  scene.egoVehicleRoad.push_back(longitudinalNoDifferenceRoadSegment());
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
+  constellation.ego_vehicle_road.push_back(longitudinalNoDifferenceRoadSegment());
+  worldModel.constellations.push_back(constellation);
+  worldModel.time_index = 1;
 
-  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
+  ASSERT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  ASSERT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  ASSERT_EQ(situationSnapshot.constellations.size(), 1u);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalDistance, Distance(6));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            scene.egoVehicleRssDynamics.alphaLon.accelMax);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_distance, Distance(6));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lon_min, Speed(10));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lon_max, Speed(10));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.dynamics.alpha_lon.accel_max,
+            constellation.ego_vehicle_rss_dynamics.alpha_lon.accel_max);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
-            situation::LateralRelativePosition::AtLeft);
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(1));
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.lateral_position,
+            core::LateralRelativePosition::AtLeft);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.lateral_distance, Distance(1));
 }
 
 TEST_F(RssSituationExtractionSameDirectionTests, longitudinalDifferenceEgoLeading)
 {
-  situation::SituationSnapshot situationSnapshot;
+  core::RssSituationSnapshot situationSnapshot;
 
-  scene.egoVehicle = objectAsEgo(leadingObject);
-  scene.object = followingObject;
-  scene.object.objectType = world::ObjectType::ArtificialObject;
-  scene.egoVehicleRoad.push_back(longitudinalDifferenceRoadSegment());
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
+  constellation.ego_vehicle = objectAsEgo(leadingObject);
+  constellation.object = followingObject;
+  constellation.object.object_type = world::ObjectType::ArtificialObject;
+  constellation.ego_vehicle_road.push_back(longitudinalDifferenceRoadSegment());
+  worldModel.constellations.push_back(constellation);
+  worldModel.time_index = 1;
 
-  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
+  ASSERT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  ASSERT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  ASSERT_EQ(situationSnapshot.constellations.size(), 1u);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalDistance, Distance(2));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            scene.egoVehicleRssDynamics.alphaLon.accelMax);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_distance, Distance(2));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lon_min, Speed(10));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lon_max, Speed(10));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.dynamics.alpha_lon.accel_max,
+            constellation.ego_vehicle_rss_dynamics.alpha_lon.accel_max);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
-            situation::LateralRelativePosition::AtLeft);
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(1));
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.lateral_position,
+            core::LateralRelativePosition::AtLeft);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.lateral_distance, Distance(1));
 }
 
 TEST_F(RssSituationExtractionSameDirectionTests, longitudinalDifferenceEgoFollowing)
 {
-  situation::SituationSnapshot situationSnapshot;
+  core::RssSituationSnapshot situationSnapshot;
 
-  scene.egoVehicle = objectAsEgo(followingObject);
-  scene.object = leadingObject;
-  scene.egoVehicleRoad.push_back(longitudinalDifferenceRoadSegment());
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
+  constellation.ego_vehicle = objectAsEgo(followingObject);
+  constellation.object = leadingObject;
+  constellation.ego_vehicle_road.push_back(longitudinalDifferenceRoadSegment());
+  worldModel.constellations.push_back(constellation);
+  worldModel.time_index = 1;
 
-  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
+  ASSERT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  ASSERT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  ASSERT_EQ(situationSnapshot.constellations.size(), 1u);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalDistance, Distance(2));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            scene.objectRssDynamics.alphaLon.accelMax);
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.brakeMin,
-            scene.objectRssDynamics.alphaLon.brakeMin);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_distance, Distance(2));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lon_min, Speed(10));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lon_max, Speed(10));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.dynamics.alpha_lon.accel_max,
+            constellation.object_rss_dynamics.alpha_lon.accel_max);
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.dynamics.alpha_lon.brake_min,
+            constellation.object_rss_dynamics.alpha_lon.brake_min);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
-            situation::LateralRelativePosition::AtRight);
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(1));
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.lateral_position,
+            core::LateralRelativePosition::AtRight);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.lateral_distance, Distance(1));
 }
 
 TEST_F(RssSituationExtractionSameDirectionTests, mergeWorstCase)
 {
-  situation::SituationSnapshot situationSnapshot;
+  core::RssSituationSnapshot situationSnapshot;
 
-  scene.egoVehicle = objectAsEgo(followingObject);
-  scene.object = leadingObject;
+  constellation.ego_vehicle = objectAsEgo(followingObject);
+  constellation.object = leadingObject;
 
-  scene.egoVehicleRoad.push_back(longitudinalDifferenceRoadSegment());
-  worldModel.scenes.push_back(scene);
-  scene.egoVehicleRoad.clear();
-  scene.egoVehicleRoad.push_back(longitudinalNoDifferenceRoadSegment());
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
+  constellation.ego_vehicle_road.push_back(longitudinalDifferenceRoadSegment());
+  worldModel.constellations.push_back(constellation);
+  constellation.ego_vehicle_road.clear();
+  constellation.ego_vehicle_road.push_back(longitudinalNoDifferenceRoadSegment());
+  worldModel.constellations.push_back(constellation);
+  worldModel.time_index = 1;
 
-  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
+  ASSERT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  ASSERT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  ASSERT_EQ(situationSnapshot.constellations.size(), 1u);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
-            situation::LongitudinalRelativePosition::AtBack);
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalDistance, Distance(2));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            scene.objectRssDynamics.alphaLon.accelMax);
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.brakeMin,
-            scene.objectRssDynamics.alphaLon.brakeMin);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_position,
+            core::LongitudinalRelativePosition::AtBack);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_distance, Distance(2));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lon_min, Speed(10));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lon_max, Speed(10));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.dynamics.alpha_lon.accel_max,
+            constellation.object_rss_dynamics.alpha_lon.accel_max);
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.dynamics.alpha_lon.brake_min,
+            constellation.object_rss_dynamics.alpha_lon.brake_min);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
-            situation::LateralRelativePosition::AtRight);
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(1));
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.lateral_position,
+            core::LateralRelativePosition::AtRight);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.lateral_distance, Distance(1));
 
   // adapt velocities
-  auto originalObject = worldModel.scenes[1].egoVehicle;
+  auto originalObject = worldModel.constellations[1].ego_vehicle;
 
-  worldModel.scenes[1].egoVehicle.velocity.speedLatMin = Speed(2.0);
-  worldModel.scenes[1].egoVehicle.velocity.speedLatMax = Speed(2.2);
-  worldModel.timeIndex++;
-  EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
-  EXPECT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLat.minimum, Speed(0.));
-  EXPECT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLat.maximum, Speed(2.2));
-  worldModel.scenes[1].egoVehicle = originalObject;
+  worldModel.constellations[1].ego_vehicle.velocity.speed_lat_min = Speed(2.0);
+  worldModel.constellations[1].ego_vehicle.velocity.speed_lat_max = Speed(2.2);
+  worldModel.time_index++;
+  EXPECT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  EXPECT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  EXPECT_EQ(situationSnapshot.constellations.size(), 1u);
+  EXPECT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lat_min, Speed(0.));
+  EXPECT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lat_max, Speed(2.2));
+  worldModel.constellations[1].ego_vehicle = originalObject;
 
-  worldModel.scenes[1].egoVehicle.velocity.speedLonMin = Speed(10.1);
-  worldModel.scenes[1].egoVehicle.velocity.speedLonMax = Speed(10.2);
-  worldModel.timeIndex++;
-  EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
-  EXPECT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10.));
-  EXPECT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10.2));
-  worldModel.scenes[1].egoVehicle = originalObject;
+  worldModel.constellations[1].ego_vehicle.velocity.speed_lon_min = Speed(10.1);
+  worldModel.constellations[1].ego_vehicle.velocity.speed_lon_max = Speed(10.2);
+  worldModel.time_index++;
+  EXPECT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  EXPECT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  EXPECT_EQ(situationSnapshot.constellations.size(), 1u);
+  EXPECT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lon_min, Speed(10.));
+  EXPECT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lon_max, Speed(10.2));
+  worldModel.constellations[1].ego_vehicle = originalObject;
 
-  originalObject = worldModel.scenes[1].object;
-  worldModel.scenes[1].object.velocity.speedLatMin = Speed(2.0);
-  worldModel.scenes[1].object.velocity.speedLatMax = Speed(2.2);
-  worldModel.timeIndex++;
-  EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
-  EXPECT_EQ(situationSnapshot.situations[0].otherVehicleState.velocity.speedLat.minimum, Speed(0.));
-  EXPECT_EQ(situationSnapshot.situations[0].otherVehicleState.velocity.speedLat.maximum, Speed(2.2));
-  worldModel.scenes[1].object = originalObject;
+  originalObject = worldModel.constellations[1].object;
+  worldModel.constellations[1].object.velocity.speed_lat_min = Speed(2.0);
+  worldModel.constellations[1].object.velocity.speed_lat_max = Speed(2.2);
+  worldModel.time_index++;
+  EXPECT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  EXPECT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  EXPECT_EQ(situationSnapshot.constellations.size(), 1u);
+  EXPECT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.velocity.speed_lat_min, Speed(0.));
+  EXPECT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.velocity.speed_lat_max, Speed(2.2));
+  worldModel.constellations[1].object = originalObject;
 
-  worldModel.scenes[1].object.velocity.speedLonMin = Speed(10.1);
-  worldModel.scenes[1].object.velocity.speedLonMax = Speed(10.2);
-  worldModel.timeIndex++;
-  EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
-  EXPECT_EQ(situationSnapshot.situations[0].otherVehicleState.velocity.speedLon.minimum, Speed(10.0));
-  EXPECT_EQ(situationSnapshot.situations[0].otherVehicleState.velocity.speedLon.maximum, Speed(10.2));
-  worldModel.scenes[1].object = originalObject;
+  worldModel.constellations[1].object.velocity.speed_lon_min = Speed(10.1);
+  worldModel.constellations[1].object.velocity.speed_lon_max = Speed(10.2);
+  worldModel.time_index++;
+  EXPECT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  EXPECT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  EXPECT_EQ(situationSnapshot.constellations.size(), 1u);
+  EXPECT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.velocity.speed_lon_min,
+            Speed(10.0));
+  EXPECT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.velocity.speed_lon_max,
+            Speed(10.2));
+  worldModel.constellations[1].object = originalObject;
 
   // adapt lane correctness
-  worldModel.scenes[1].egoVehicleRoad.front().front().drivingDirection = world::LaneDrivingDirection::Negative;
-  worldModel.timeIndex++;
-  EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
-  EXPECT_EQ(situationSnapshot.situations[0].egoVehicleState.isInCorrectLane, false);
-  EXPECT_EQ(situationSnapshot.situations[0].otherVehicleState.isInCorrectLane, true);
-  worldModel.scenes[1].egoVehicleRoad.front().front().drivingDirection = world::LaneDrivingDirection::Positive;
+  worldModel.constellations[1].ego_vehicle_road.front().lane_segments.front().driving_direction
+    = world::LaneDrivingDirection::Negative;
+  worldModel.time_index++;
+  EXPECT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  EXPECT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  EXPECT_EQ(situationSnapshot.constellations.size(), 1u);
+  EXPECT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.is_in_correct_lane, false);
+  EXPECT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.is_in_correct_lane, true);
+  worldModel.constellations[1].ego_vehicle_road.front().lane_segments.front().driving_direction
+    = world::LaneDrivingDirection::Positive;
 
   // influence relative position
-  auto const originalEgoOccupiedRegion = worldModel.scenes[1].egoVehicle.occupiedRegions;
-  auto const originalObjectOccupiedRegion = worldModel.scenes[1].object.occupiedRegions;
-  worldModel.scenes[1].egoVehicle.occupiedRegions.front().latRange.minimum = ParametricValue(0.);
-  worldModel.scenes[1].egoVehicle.occupiedRegions.front().lonRange.maximum = ParametricValue(1.);
-  worldModel.timeIndex++;
-  EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
-            situation::LateralRelativePosition::Overlap);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(0.));
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
-            situation::LongitudinalRelativePosition::Overlap);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalDistance, Distance(0.));
-  worldModel.scenes[1].egoVehicle.occupiedRegions = originalEgoOccupiedRegion;
+  auto const originalEgoOccupiedRegion = worldModel.constellations[1].ego_vehicle.occupied_regions;
+  auto const originalObjectOccupiedRegion = worldModel.constellations[1].object.occupied_regions;
+  worldModel.constellations[1].ego_vehicle.occupied_regions.front().lat_range.minimum = ParametricValue(0.);
+  worldModel.constellations[1].ego_vehicle.occupied_regions.front().lon_range.maximum = ParametricValue(1.);
+  worldModel.time_index++;
+  EXPECT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  EXPECT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  EXPECT_EQ(situationSnapshot.constellations.size(), 1u);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.lateral_position,
+            core::LateralRelativePosition::Overlap);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.lateral_distance, Distance(0.));
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_position,
+            core::LongitudinalRelativePosition::Overlap);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_distance, Distance(0.));
+  worldModel.constellations[1].ego_vehicle.occupied_regions = originalEgoOccupiedRegion;
 
-  worldModel.scenes[0].egoVehicle.occupiedRegions.front().latRange.minimum = ParametricValue(0.);
-  worldModel.scenes[0].egoVehicle.occupiedRegions.front().lonRange.maximum = ParametricValue(1.);
-  worldModel.timeIndex++;
-  EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
-            situation::LateralRelativePosition::Overlap);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(0.));
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
-            situation::LongitudinalRelativePosition::Overlap);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalDistance, Distance(0.));
-  worldModel.scenes[0].egoVehicle.occupiedRegions = originalEgoOccupiedRegion;
+  worldModel.constellations[0].ego_vehicle.occupied_regions.front().lat_range.minimum = ParametricValue(0.);
+  worldModel.constellations[0].ego_vehicle.occupied_regions.front().lon_range.maximum = ParametricValue(1.);
+  worldModel.time_index++;
+  EXPECT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  EXPECT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  EXPECT_EQ(situationSnapshot.constellations.size(), 1u);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.lateral_position,
+            core::LateralRelativePosition::Overlap);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.lateral_distance, Distance(0.));
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_position,
+            core::LongitudinalRelativePosition::Overlap);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_distance, Distance(0.));
+  worldModel.constellations[0].ego_vehicle.occupied_regions = originalEgoOccupiedRegion;
 
-  worldModel.scenes[1].egoVehicle.occupiedRegions.front() = worldModel.scenes[0].object.occupiedRegions.front();
-  worldModel.scenes[1].object.occupiedRegions.front() = worldModel.scenes[0].egoVehicle.occupiedRegions.front();
-  worldModel.timeIndex++;
-  EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
-            situation::LateralRelativePosition::Overlap);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(0.));
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
-            situation::LongitudinalRelativePosition::Overlap);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalDistance, Distance(0.));
-  worldModel.scenes[1].egoVehicle.occupiedRegions = originalEgoOccupiedRegion;
-  worldModel.scenes[1].object.occupiedRegions = originalObjectOccupiedRegion;
+  worldModel.constellations[1].ego_vehicle.occupied_regions.front()
+    = worldModel.constellations[0].object.occupied_regions.front();
+  worldModel.constellations[1].object.occupied_regions.front()
+    = worldModel.constellations[0].ego_vehicle.occupied_regions.front();
+  worldModel.time_index++;
+  EXPECT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  EXPECT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  EXPECT_EQ(situationSnapshot.constellations.size(), 1u);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.lateral_position,
+            core::LateralRelativePosition::Overlap);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.lateral_distance, Distance(0.));
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_position,
+            core::LongitudinalRelativePosition::Overlap);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_distance, Distance(0.));
+  worldModel.constellations[1].ego_vehicle.occupied_regions = originalEgoOccupiedRegion;
+  worldModel.constellations[1].object.occupied_regions = originalObjectOccupiedRegion;
 
-  worldModel.scenes[0].egoVehicle.occupiedRegions.front() = worldModel.scenes[1].object.occupiedRegions.front();
-  worldModel.scenes[0].object.occupiedRegions.front() = worldModel.scenes[1].egoVehicle.occupiedRegions.front();
-  worldModel.timeIndex++;
-  EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
-            situation::LateralRelativePosition::Overlap);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(0.));
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
-            situation::LongitudinalRelativePosition::Overlap);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalDistance, Distance(0.));
-  worldModel.scenes[0].egoVehicle.occupiedRegions = originalEgoOccupiedRegion;
-  worldModel.scenes[0].object.occupiedRegions = originalObjectOccupiedRegion;
+  worldModel.constellations[0].ego_vehicle.occupied_regions.front()
+    = worldModel.constellations[1].object.occupied_regions.front();
+  worldModel.constellations[0].object.occupied_regions.front()
+    = worldModel.constellations[1].ego_vehicle.occupied_regions.front();
+  worldModel.time_index++;
+  EXPECT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  EXPECT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  EXPECT_EQ(situationSnapshot.constellations.size(), 1u);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.lateral_position,
+            core::LateralRelativePosition::Overlap);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.lateral_distance, Distance(0.));
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_position,
+            core::LongitudinalRelativePosition::Overlap);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_distance, Distance(0.));
+  worldModel.constellations[0].ego_vehicle.occupied_regions = originalEgoOccupiedRegion;
+  worldModel.constellations[0].object.occupied_regions = originalObjectOccupiedRegion;
 
-  worldModel.scenes[1].egoVehicle.occupiedRegions.front().latRange.minimum = ParametricValue(0.3);
-  worldModel.scenes[1].egoVehicle.occupiedRegions.front().lonRange.maximum = ParametricValue(0.9);
-  worldModel.timeIndex++;
-  EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
-            situation::LateralRelativePosition::OverlapRight);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
-            situation::LongitudinalRelativePosition::OverlapBack);
-  worldModel.scenes[1].egoVehicle.occupiedRegions = originalEgoOccupiedRegion;
+  worldModel.constellations[1].ego_vehicle.occupied_regions.front().lat_range.minimum = ParametricValue(0.3);
+  worldModel.constellations[1].ego_vehicle.occupied_regions.front().lon_range.maximum = ParametricValue(0.9);
+  worldModel.time_index++;
+  EXPECT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  EXPECT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  EXPECT_EQ(situationSnapshot.constellations.size(), 1u);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.lateral_position,
+            core::LateralRelativePosition::OverlapRight);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_position,
+            core::LongitudinalRelativePosition::OverlapBack);
+  worldModel.constellations[1].ego_vehicle.occupied_regions = originalEgoOccupiedRegion;
 
-  worldModel.scenes[0].egoVehicle.occupiedRegions.front().latRange.minimum = ParametricValue(0.3);
-  worldModel.scenes[0].egoVehicle.occupiedRegions.front().lonRange.maximum = ParametricValue(0.9);
-  worldModel.timeIndex++;
-  EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
-            situation::LateralRelativePosition::OverlapRight);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
-            situation::LongitudinalRelativePosition::OverlapBack);
-  worldModel.scenes[0].egoVehicle.occupiedRegions = originalEgoOccupiedRegion;
+  worldModel.constellations[0].ego_vehicle.occupied_regions.front().lat_range.minimum = ParametricValue(0.3);
+  worldModel.constellations[0].ego_vehicle.occupied_regions.front().lon_range.maximum = ParametricValue(0.9);
+  worldModel.time_index++;
+  EXPECT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  EXPECT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  EXPECT_EQ(situationSnapshot.constellations.size(), 1u);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.lateral_position,
+            core::LateralRelativePosition::OverlapRight);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_position,
+            core::LongitudinalRelativePosition::OverlapBack);
+  worldModel.constellations[0].ego_vehicle.occupied_regions = originalEgoOccupiedRegion;
 
-  worldModel.scenes[0].egoVehicle.occupiedRegions = originalObjectOccupiedRegion;
-  worldModel.scenes[1].egoVehicle.occupiedRegions = originalObjectOccupiedRegion;
-  worldModel.scenes[0].object.occupiedRegions = originalEgoOccupiedRegion;
-  worldModel.scenes[1].object.occupiedRegions = originalEgoOccupiedRegion;
-  worldModel.scenes[1].object.occupiedRegions.front().latRange.minimum = ParametricValue(0.3);
-  worldModel.scenes[1].object.occupiedRegions.front().lonRange.maximum = ParametricValue(0.9);
-  worldModel.timeIndex++;
-  EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
-            situation::LateralRelativePosition::OverlapLeft);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
-            situation::LongitudinalRelativePosition::OverlapFront);
-  worldModel.scenes[1].object.occupiedRegions = originalEgoOccupiedRegion;
+  worldModel.constellations[0].ego_vehicle.occupied_regions = originalObjectOccupiedRegion;
+  worldModel.constellations[1].ego_vehicle.occupied_regions = originalObjectOccupiedRegion;
+  worldModel.constellations[0].object.occupied_regions = originalEgoOccupiedRegion;
+  worldModel.constellations[1].object.occupied_regions = originalEgoOccupiedRegion;
+  worldModel.constellations[1].object.occupied_regions.front().lat_range.minimum = ParametricValue(0.3);
+  worldModel.constellations[1].object.occupied_regions.front().lon_range.maximum = ParametricValue(0.9);
+  worldModel.time_index++;
+  EXPECT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  EXPECT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  EXPECT_EQ(situationSnapshot.constellations.size(), 1u);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.lateral_position,
+            core::LateralRelativePosition::OverlapLeft);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_position,
+            core::LongitudinalRelativePosition::OverlapFront);
+  worldModel.constellations[1].object.occupied_regions = originalEgoOccupiedRegion;
 
-  worldModel.scenes[0].object.occupiedRegions.front().latRange.minimum = ParametricValue(0.3);
-  worldModel.scenes[0].object.occupiedRegions.front().lonRange.maximum = ParametricValue(0.9);
-  worldModel.timeIndex++;
-  EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
-            situation::LateralRelativePosition::OverlapLeft);
-  EXPECT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
-            situation::LongitudinalRelativePosition::OverlapFront);
-  worldModel.scenes[0].object.occupiedRegions = originalEgoOccupiedRegion;
+  worldModel.constellations[0].object.occupied_regions.front().lat_range.minimum = ParametricValue(0.3);
+  worldModel.constellations[0].object.occupied_regions.front().lon_range.maximum = ParametricValue(0.9);
+  worldModel.time_index++;
+  EXPECT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  EXPECT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  EXPECT_EQ(situationSnapshot.constellations.size(), 1u);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.lateral_position,
+            core::LateralRelativePosition::OverlapLeft);
+  EXPECT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_position,
+            core::LongitudinalRelativePosition::OverlapFront);
+  worldModel.constellations[0].object.occupied_regions = originalEgoOccupiedRegion;
 }
 
 TEST_F(RssSituationExtractionSameDirectionTests, mergeFails)
 {
-  situation::SituationSnapshot situationSnapshot;
+  core::RssSituationSnapshot situationSnapshot;
 
-  scene.egoVehicle = objectAsEgo(followingObject);
-  scene.object = leadingObject;
+  constellation.ego_vehicle = objectAsEgo(followingObject);
+  constellation.object = leadingObject;
 
-  scene.egoVehicleRoad.push_back(longitudinalDifferenceRoadSegment());
-  worldModel.scenes.push_back(scene);
-  scene.egoVehicleRoad.clear();
-  scene.egoVehicleRoad.push_back(longitudinalNoDifferenceRoadSegment());
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
+  constellation.ego_vehicle_road.push_back(longitudinalDifferenceRoadSegment());
+  worldModel.constellations.push_back(constellation);
+  constellation.ego_vehicle_road.clear();
+  constellation.ego_vehicle_road.push_back(longitudinalNoDifferenceRoadSegment());
+  worldModel.constellations.push_back(constellation);
+  worldModel.time_index = 1;
 
   // validate setup
-  EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  EXPECT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
+  EXPECT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  EXPECT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  EXPECT_EQ(situationSnapshot.constellations.size(), 1u);
 
   // adapt dynamics
-  auto originalRssDynamics = worldModel.scenes[1].objectRssDynamics;
-  worldModel.scenes[1].objectRssDynamics.alphaLat.accelMax = Acceleration(3.33);
-  worldModel.timeIndex++;
-  EXPECT_FALSE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  worldModel.scenes[1].objectRssDynamics = originalRssDynamics;
+  auto originalRssDynamics = worldModel.constellations[1].object_rss_dynamics;
+  worldModel.constellations[1].object_rss_dynamics.alpha_lat.accel_max = Acceleration(3.33);
+  worldModel.time_index++;
+  EXPECT_FALSE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  worldModel.constellations[1].object_rss_dynamics = originalRssDynamics;
 
-  worldModel.scenes[1].objectRssDynamics.alphaLat.brakeMin = Acceleration(-3.33);
-  worldModel.timeIndex++;
-  EXPECT_FALSE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  worldModel.scenes[1].objectRssDynamics = originalRssDynamics;
+  worldModel.constellations[1].object_rss_dynamics.alpha_lat.brake_min = Acceleration(-3.33);
+  worldModel.time_index++;
+  EXPECT_FALSE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  worldModel.constellations[1].object_rss_dynamics = originalRssDynamics;
 
-  worldModel.scenes[1].objectRssDynamics.alphaLon.accelMax = Acceleration(3.33);
-  worldModel.timeIndex++;
-  EXPECT_FALSE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  worldModel.scenes[1].objectRssDynamics = originalRssDynamics;
+  worldModel.constellations[1].object_rss_dynamics.alpha_lon.accel_max = Acceleration(3.33);
+  worldModel.time_index++;
+  EXPECT_FALSE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  worldModel.constellations[1].object_rss_dynamics = originalRssDynamics;
 
-  worldModel.scenes[1].objectRssDynamics.alphaLon.brakeMax
-    = worldModel.scenes[1].objectRssDynamics.alphaLon.brakeMax + Acceleration(-1.);
-  worldModel.timeIndex++;
-  EXPECT_FALSE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  worldModel.scenes[1].objectRssDynamics = originalRssDynamics;
+  worldModel.constellations[1].object_rss_dynamics.alpha_lon.brake_max
+    = worldModel.constellations[1].object_rss_dynamics.alpha_lon.brake_max + Acceleration(-1.);
+  worldModel.time_index++;
+  EXPECT_FALSE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  worldModel.constellations[1].object_rss_dynamics = originalRssDynamics;
 
-  worldModel.scenes[1].objectRssDynamics.alphaLon.brakeMin
-    = worldModel.scenes[1].objectRssDynamics.alphaLon.brakeMin - Acceleration(-1.);
-  worldModel.timeIndex++;
-  EXPECT_FALSE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  worldModel.scenes[1].objectRssDynamics = originalRssDynamics;
+  worldModel.constellations[1].object_rss_dynamics.alpha_lon.brake_min
+    = worldModel.constellations[1].object_rss_dynamics.alpha_lon.brake_min - Acceleration(-1.);
+  worldModel.time_index++;
+  EXPECT_FALSE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  worldModel.constellations[1].object_rss_dynamics = originalRssDynamics;
 
-  worldModel.scenes[1].objectRssDynamics.alphaLon.brakeMinCorrect
-    = worldModel.scenes[1].objectRssDynamics.alphaLon.brakeMinCorrect + Acceleration(-.5);
-  worldModel.timeIndex++;
-  EXPECT_FALSE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  worldModel.scenes[1].objectRssDynamics = originalRssDynamics;
+  worldModel.constellations[1].object_rss_dynamics.alpha_lon.brake_min_correct
+    = worldModel.constellations[1].object_rss_dynamics.alpha_lon.brake_min_correct + Acceleration(-.5);
+  worldModel.time_index++;
+  EXPECT_FALSE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  worldModel.constellations[1].object_rss_dynamics = originalRssDynamics;
 
-  worldModel.scenes[1].objectRssDynamics.lateralFluctuationMargin = Distance(1.);
-  worldModel.timeIndex++;
-  EXPECT_FALSE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  worldModel.scenes[1].objectRssDynamics = originalRssDynamics;
+  worldModel.constellations[1].object_rss_dynamics.lateral_fluctuation_margin = Distance(1.);
+  worldModel.time_index++;
+  EXPECT_FALSE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  worldModel.constellations[1].object_rss_dynamics = originalRssDynamics;
 
-  worldModel.scenes[1].objectRssDynamics.responseTime = Duration(5.);
-  worldModel.timeIndex++;
-  EXPECT_FALSE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  worldModel.scenes[1].objectRssDynamics = originalRssDynamics;
+  worldModel.constellations[1].object_rss_dynamics.response_time = Duration(5.);
+  worldModel.time_index++;
+  EXPECT_FALSE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  worldModel.constellations[1].object_rss_dynamics = originalRssDynamics;
 
   // validate resetting of error setup in the above test code
-  worldModel.scenes.resize(1);
-  worldModel.timeIndex++;
-  EXPECT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  EXPECT_EQ(situationSnapshot.situations.size(), 1u);
+  worldModel.constellations.resize(1);
+  worldModel.time_index++;
+  EXPECT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  EXPECT_EQ(situationSnapshot.constellations.size(), 1u);
 }
 
 } // namespace core

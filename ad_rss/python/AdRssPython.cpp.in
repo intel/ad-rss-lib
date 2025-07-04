@@ -9,8 +9,8 @@
 #include <boost/python.hpp>
 
 extern void export_ad_rss_core();
-extern void export_ad_rss_situation();
 extern void export_ad_rss_state();
+extern void export_ad_rss_structured();
 extern void export_ad_rss_unstructured();
 extern void export_ad_rss_world();
 
@@ -27,9 +27,9 @@ BOOST_PYTHON_MODULE(ad_rss_@PYTHON_BINDING_NAME@)
   bp::scope().attr("__license__") = "LGPL-2.1-only";
 
   // fix the order to ensure depedencies are met
-  export_ad_rss_situation();
   export_ad_rss_state();
   export_ad_rss_world();
+  export_ad_rss_structured();
   export_ad_rss_unstructured();
   export_ad_rss_core();
 }

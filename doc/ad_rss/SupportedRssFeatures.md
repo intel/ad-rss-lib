@@ -1,6 +1,10 @@
+## Release 5.x
+
+These releases extends the 4.x version with extended capabilities for system integration
+
 ## Release 4.x
 
-The release version 4.x extends the core features by unstructured constellation calculation. 
+The release version 4.x extends the core features by unstructured constellation calculation.
 
 ## Release 3.x
 
@@ -8,7 +12,7 @@ The release versions 3.x do not extend the core features. Only some interface ch
 
 ## Release 2.x
 
-The release versions 2.x extend the core features only to support [speed limits](../ad_rss_map_integration/ConstructRSSScenes.md#considerspeedlimits).
+The release versions 2.x extend the core features only to support [speed limits](../ad_rss_map_integration/ConstructRSSConstellations.md#considerspeedlimits).
 Furthermore some interface changes were applied to support the integration with [AD map data](../ad_rss_map_integration/Main.md#introduction).
 
 ## Release 1.x

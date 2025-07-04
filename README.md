@@ -13,10 +13,11 @@
 2. [License](#license)
 3. [Documentation](#documentation)
 4. [Releases](#releases)
-   1. [Release 4.x](#release_4)
-   2. [Release 3.x](#release_3)
-   3. [Release 2.x](#release_2)
-   4. [Release 1.x](#release_1)
+   1. [Release 5.x](#release_5)
+   2. [Release 4.x](#release_4)
+   3. [Release 3.x](#release_3)
+   4. [Release 2.x](#release_2)
+   5. [Release 1.x](#release_1)
 5. [Getting Started](#started)
    1. [Supported Systems](#systems)
 6. [Building the library](#building)
@@ -30,7 +31,7 @@ RSS is described in the following paper. Potential users of this C++ library are
 
 * On a Formal Model of Safe and Scalable Self-driving Cars, S. Shalev-Shwartz, S. Shammah, A. Shashua, Mobileye, arXiv:1708.06374, [https://arxiv.org/abs/1708.06374](https://arxiv.org/abs/1708.06374)
 
-The RSS module in this library receives (processed) sensor information as input and provides actuator command restrictions as output. The input to the RSS module is an object list, with information about all objects (road agents) in the surrounding environment of the ego vehicle. For each object, the RSS module creates a description of the object-ego vehicle pair and their properties, called a "situation". For each situation, the relevant RSS safety checks are performed and a proper response is calculated. Finally, one overall response is obtained by combining the responses calculated for each object-ego vehicle situation. The resulting actuation command restrictions, in the form of longitudinal and lateral limits on acceleration are provided as output.
+The RSS module in this library receives (processed) sensor information as input and provides a proper response including actuator command restrictions as output. The input to the RSS module is an object list, with information about all objects (road agents) in the surrounding environment of the ego vehicle. For each object, the RSS module creates a description of the object-ego vehicle pair and their properties, called a "constellation". For each constellation, the relevant RSS safety checks are performed and a proper response is calculated. Finally, one overall response is obtained by combining the responses calculated for each object-ego vehicle constellation. The proper response provided as output also contains the resulting actuation command restrictions, in the form of longitudinal and lateral limits on acceleration.
 
 The ad_rss library contains a stand-alone C++ implementation of the RSS module.
 
@@ -86,6 +87,9 @@ If you have any additional question not answered therein, you might find more in
 
 ## Releases <a name="releases"></a>
 General release notes and changes can be found in the [Changelog](https://intel.github.io/ad-rss-lib/CHANGELOG/index.html)
+
+#### Release 5.x.x <a name="release_5"></a>
+These releases extends the 4.x version with extended capabilities for system integration
 
 #### Release 4.x.x <a name="release_4"></a>
 These releases extends the 3.x version with handling of unstructured roads and pedestrians.

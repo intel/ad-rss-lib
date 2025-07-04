@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -21,8 +21,8 @@
 #include <limits>
 #include <memory>
 #include <sstream>
+#include "ad/rss/world/ConstellationVector.hpp"
 #include "ad/rss/world/RssDynamics.hpp"
-#include "ad/rss/world/SceneVector.hpp"
 #include "ad/rss/world/TimeIndex.hpp"
 /*!
  * @brief namespace ad
@@ -40,8 +40,8 @@ namespace world {
 /*!
  * \brief DataType WorldModel
  *
- * The world model, RSS requires as input, consists of a timeIndex, the egoVehicleDynamics and object description as
- * well as the list of relevant scenes.
+ * The world model RSS requires as input describing a situation consisting of a time_index, the ego_vehicle_dynamics and
+ * object description as well as the list of relevant constellations.
  */
 struct WorldModel
 {
@@ -102,8 +102,9 @@ struct WorldModel
    */
   bool operator==(const WorldModel &other) const
   {
-    return (timeIndex == other.timeIndex) && (defaultEgoVehicleRssDynamics == other.defaultEgoVehicleRssDynamics)
-      && (scenes == other.scenes);
+    return (time_index == other.time_index)
+      && (default_ego_vehicle_rss_dynamics == other.default_ego_vehicle_rss_dynamics)
+      && (constellations == other.constellations);
   }
 
   /**
@@ -123,20 +124,20 @@ struct WorldModel
    * back. Each world model referring to another point in time should get another time index. The time index of the
    * world model must not be zero.
    */
-  ::ad::rss::world::TimeIndex timeIndex{0u};
+  ::ad::rss::world::TimeIndex time_index{0u};
 
   /*!
    * Defines the standard ego vehicle dynamics to be applied i.e. when there is no  dangerous
-   * scene.
-   * This parameters are provided in addtion on a per situation basis to be able to adapt
-   * these e.g. in respect to object type or the weather conditions
+   * constellation.
+   * This parameters are provided in addtion on a per constellation basis to be able
+   * to adapt these e.g. in respect to object type or the weather conditions
    */
-  ::ad::rss::world::RssDynamics defaultEgoVehicleRssDynamics;
+  ::ad::rss::world::RssDynamics default_ego_vehicle_rss_dynamics;
 
   /*!
-   * All scenes
+   * All constellations.
    */
-  ::ad::rss::world::SceneVector scenes;
+  ::ad::rss::world::ConstellationVector constellations;
 };
 
 } // namespace world
@@ -173,14 +174,14 @@ namespace world {
 inline std::ostream &operator<<(std::ostream &os, WorldModel const &_value)
 {
   os << "WorldModel(";
-  os << "timeIndex:";
-  os << _value.timeIndex;
+  os << "time_index:";
+  os << _value.time_index;
   os << ",";
-  os << "defaultEgoVehicleRssDynamics:";
-  os << _value.defaultEgoVehicleRssDynamics;
+  os << "default_ego_vehicle_rss_dynamics:";
+  os << _value.default_ego_vehicle_rss_dynamics;
   os << ",";
-  os << "scenes:";
-  os << _value.scenes;
+  os << "constellations:";
+  os << _value.constellations;
   os << ")";
   return os;
 }
@@ -200,4 +201,16 @@ inline std::string to_string(::ad::rss::world::WorldModel const &value)
   return sstream.str();
 }
 } // namespace std
+
+/*!
+ * \brief overload of fmt::formatter calling std::to_string
+ */
+template <> struct fmt::formatter<::ad::rss::world::WorldModel> : formatter<string_view>
+{
+  template <typename FormatContext> auto format(::ad::rss::world::WorldModel const &value, FormatContext &ctx)
+  {
+    return formatter<string_view>::format(std::to_string(value), ctx);
+  }
+};
+
 #endif // GEN_GUARD_AD_RSS_WORLD_WORLDMODEL

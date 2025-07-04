@@ -18,42 +18,42 @@ class RssSituationExtractionIntersectionTests : public testing::Test
 protected:
   virtual void SetUp()
   {
-    worldModel.defaultEgoVehicleRssDynamics = getEgoRssDynamics();
+    worldModel.default_ego_vehicle_rss_dynamics = getEgoRssDynamics();
     leadingObject = createObject(36., 0.);
-    leadingObject.objectId = 0;
-    scene.situationType = situation::SituationType::IntersectionEgoHasPriority;
-    scene.objectRssDynamics = getObjectRssDynamics();
-    scene.egoVehicleRssDynamics = getEgoRssDynamics();
+    leadingObject.object_id = 0;
+    constellation.constellation_type = world::ConstellationType::IntersectionEgoHasPriority;
+    constellation.object_rss_dynamics = getObjectRssDynamics();
+    constellation.ego_vehicle_rss_dynamics = getEgoRssDynamics();
 
     {
       world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = ParametricValue(0.8);
-      occupiedRegion.lonRange.maximum = ParametricValue(1.0);
-      occupiedRegion.segmentId = 1.;
-      occupiedRegion.latRange.minimum = ParametricValue(0.2);
-      occupiedRegion.latRange.maximum = ParametricValue(0.4);
+      occupiedRegion.lon_range.minimum = ParametricValue(0.8);
+      occupiedRegion.lon_range.maximum = ParametricValue(1.0);
+      occupiedRegion.segment_id = 1.;
+      occupiedRegion.lat_range.minimum = ParametricValue(0.2);
+      occupiedRegion.lat_range.maximum = ParametricValue(0.4);
 
-      leadingObject.occupiedRegions.push_back(occupiedRegion);
+      leadingObject.occupied_regions.push_back(occupiedRegion);
     }
 
     followingObject = createObject(36., 0.);
-    followingObject.objectId = 1;
+    followingObject.object_id = 1;
     {
       world::OccupiedRegion occupiedRegion;
-      occupiedRegion.lonRange.minimum = ParametricValue(0.1);
-      occupiedRegion.lonRange.maximum = ParametricValue(0.2);
-      occupiedRegion.segmentId = 1.;
-      occupiedRegion.latRange.minimum = ParametricValue(0.6);
-      occupiedRegion.latRange.maximum = ParametricValue(0.8);
-      followingObject.occupiedRegions.push_back(occupiedRegion);
+      occupiedRegion.lon_range.minimum = ParametricValue(0.1);
+      occupiedRegion.lon_range.maximum = ParametricValue(0.2);
+      occupiedRegion.segment_id = 1.;
+      occupiedRegion.lat_range.minimum = ParametricValue(0.6);
+      occupiedRegion.lat_range.maximum = ParametricValue(0.8);
+      followingObject.occupied_regions.push_back(occupiedRegion);
     }
   }
 
   virtual void TearDown()
   {
-    followingObject.occupiedRegions.clear();
-    leadingObject.occupiedRegions.clear();
-    scene.egoVehicleRoad.clear();
+    followingObject.occupied_regions.clear();
+    leadingObject.occupied_regions.clear();
+    constellation.ego_vehicle_road.clear();
   }
 
   world::RoadArea longitudinalNoDifferenceRoadArea()
@@ -69,9 +69,9 @@ protected:
 
       laneSegment.width.minimum = Distance(5);
       laneSegment.width.maximum = Distance(5);
-      laneSegment.type = world::LaneSegmentType::Normal;
 
-      roadSegment.push_back(laneSegment);
+      roadSegment.type = world::RoadSegmentType::Normal;
+      roadSegment.lane_segments.push_back(laneSegment);
       roadArea.push_back(roadSegment);
     }
 
@@ -85,9 +85,9 @@ protected:
 
       laneSegment.width.minimum = Distance(5);
       laneSegment.width.maximum = Distance(5);
-      laneSegment.type = world::LaneSegmentType::Intersection;
 
-      roadSegment.push_back(laneSegment);
+      roadSegment.type = world::RoadSegmentType::Intersection;
+      roadSegment.lane_segments.push_back(laneSegment);
 
       roadArea.push_back(roadSegment);
     }
@@ -107,9 +107,10 @@ protected:
 
       laneSegment.width.minimum = Distance(5);
       laneSegment.width.maximum = Distance(5);
-      laneSegment.type = world::LaneSegmentType::Normal;
 
-      roadSegment.push_back(laneSegment);
+      roadSegment.type = world::RoadSegmentType::Normal;
+      roadSegment.lane_segments.push_back(laneSegment);
+
       roadArea.push_back(roadSegment);
     }
 
@@ -123,9 +124,11 @@ protected:
 
       laneSegment.width.minimum = Distance(5);
       laneSegment.width.maximum = Distance(5);
-      laneSegment.type = world::LaneSegmentType::Intersection;
 
-      roadSegment.push_back(laneSegment);
+      roadSegment.type = world::RoadSegmentType::Intersection;
+      roadSegment.minimum_length_before_intersecting_area = Distance(0.5);
+      roadSegment.minimum_length_after_intersecting_area = Distance(0.3);
+      roadSegment.lane_segments.push_back(laneSegment);
 
       roadArea.push_back(roadSegment);
     }
@@ -135,184 +138,212 @@ protected:
   world::Object followingObject;
   world::Object leadingObject;
   world::WorldModel worldModel;
-  world::Scene scene;
-  RssSituationExtraction situationExtraction;
+  world::Constellation constellation;
+  RssSituationExtraction constellationExtraction;
 };
 
 TEST_F(RssSituationExtractionIntersectionTests, noLongitudinalDifference)
 {
-  situation::SituationSnapshot situationSnapshot;
+  core::RssSituationSnapshot situationSnapshot;
 
-  scene.egoVehicle = objectAsEgo(leadingObject);
-  scene.object = followingObject;
+  constellation.ego_vehicle = objectAsEgo(leadingObject);
+  constellation.object = followingObject;
 
-  scene.egoVehicleRoad = longitudinalNoDifferenceRoadArea();
-  scene.intersectingRoad = scene.egoVehicleRoad;
+  constellation.ego_vehicle_road = longitudinalNoDifferenceRoadArea();
+  constellation.intersecting_road = constellation.ego_vehicle_road;
 
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
+  worldModel.constellations.push_back(constellation);
+  worldModel.time_index = 1;
 
-  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
+  ASSERT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  ASSERT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  ASSERT_EQ(situationSnapshot.constellations.size(), 1u);
+  ASSERT_EQ(situationSnapshot.constellations[0].world_model_indices.size(), 1u);
+  ASSERT_EQ(situationSnapshot.constellations[0].world_model_indices[0], 0u);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalDistance, Distance(6.));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10.));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10.));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            scene.egoVehicleRssDynamics.alphaLon.accelMax);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_distance, Distance(6.));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lon_max, Speed(10.));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lon_min, Speed(10.));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.dynamics.alpha_lon.accel_max,
+            constellation.ego_vehicle_rss_dynamics.alpha_lon.accel_max);
 
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.distanceToEnterIntersection, Distance(0));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.distanceToLeaveIntersection, Distance(7));
-  ASSERT_TRUE(situationSnapshot.situations[0].egoVehicleState.hasPriority);
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.distance_to_enter_intersection,
+            Distance(0));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.distance_to_leave_intersection,
+            Distance(7));
+  ASSERT_TRUE(situationSnapshot.constellations[0].ego_state.structured_object_state.has_priority);
 
-  ASSERT_EQ(situationSnapshot.situations[0].otherVehicleState.distanceToEnterIntersection, Distance(8));
-  ASSERT_EQ(situationSnapshot.situations[0].otherVehicleState.distanceToLeaveIntersection, Distance(14));
-  ASSERT_FALSE(situationSnapshot.situations[0].otherVehicleState.hasPriority);
+  ASSERT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.distance_to_enter_intersection,
+            Distance(8));
+  ASSERT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.distance_to_leave_intersection,
+            Distance(14));
+  ASSERT_FALSE(situationSnapshot.constellations[0].other_state.structured_object_state.has_priority);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
-            situation::LongitudinalRelativePosition::InFront);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_position,
+            core::LongitudinalRelativePosition::InFront);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
-            situation::LateralRelativePosition::Overlap);
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(0));
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.lateral_position,
+            core::LateralRelativePosition::Overlap);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.lateral_distance, Distance(0));
 }
 
 TEST_F(RssSituationExtractionIntersectionTests, longitudinalDifference)
 {
-  situation::SituationSnapshot situationSnapshot;
+  core::RssSituationSnapshot situationSnapshot;
 
-  scene.egoVehicle = objectAsEgo(leadingObject);
-  scene.object = followingObject;
+  constellation.ego_vehicle = objectAsEgo(leadingObject);
+  constellation.object = followingObject;
 
-  scene.egoVehicleRoad = longitudinalDifferenceRoadArea();
-  scene.intersectingRoad = scene.egoVehicleRoad;
+  constellation.ego_vehicle_road = longitudinalDifferenceRoadArea();
+  constellation.intersecting_road = constellation.ego_vehicle_road;
 
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
+  worldModel.constellations.push_back(constellation);
+  worldModel.time_index = 1;
 
-  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
+  ASSERT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  ASSERT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  ASSERT_EQ(situationSnapshot.constellations.size(), 1u);
+  ASSERT_EQ(situationSnapshot.constellations[0].world_model_indices.size(), 1u);
+  ASSERT_EQ(situationSnapshot.constellations[0].world_model_indices[0], 0u);
 
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10.));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(10.));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            scene.egoVehicleRssDynamics.alphaLon.accelMax);
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lon_max, Speed(10.));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lon_min, Speed(10.));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.dynamics.alpha_lon.accel_max,
+            constellation.ego_vehicle_rss_dynamics.alpha_lon.accel_max);
 
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.distanceToEnterIntersection, Distance(0.));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.distanceToLeaveIntersection, Distance(8.6));
-  ASSERT_TRUE(situationSnapshot.situations[0].egoVehicleState.hasPriority);
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.distance_to_enter_intersection,
+            Distance(0.));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.distance_to_leave_intersection,
+            Distance(8.3));
+  ASSERT_TRUE(situationSnapshot.constellations[0].ego_state.structured_object_state.has_priority);
 
-  ASSERT_EQ(situationSnapshot.situations[0].otherVehicleState.distanceToEnterIntersection, Distance(6.));
-  ASSERT_EQ(situationSnapshot.situations[0].otherVehicleState.distanceToLeaveIntersection, Distance(14.2));
-  ASSERT_FALSE(situationSnapshot.situations[0].otherVehicleState.hasPriority);
+  ASSERT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.distance_to_enter_intersection,
+            Distance(6.5));
+  ASSERT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.distance_to_leave_intersection,
+            Distance(13.9));
+  ASSERT_FALSE(situationSnapshot.constellations[0].other_state.structured_object_state.has_priority);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
-            situation::LongitudinalRelativePosition::InFront);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_position,
+            core::LongitudinalRelativePosition::InFront);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
-            situation::LateralRelativePosition::Overlap);
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(0));
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.lateral_position,
+            core::LateralRelativePosition::Overlap);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.lateral_distance, Distance(0));
 }
 
 TEST_F(RssSituationExtractionIntersectionTests, mergeWorstCaseInFront)
 {
-  situation::SituationSnapshot situationSnapshot;
+  core::RssSituationSnapshot situationSnapshot;
 
-  scene.egoVehicle = objectAsEgo(leadingObject);
-  scene.object = followingObject;
+  constellation.ego_vehicle = objectAsEgo(leadingObject);
+  constellation.object = followingObject;
 
-  scene.egoVehicleRoad = longitudinalDifferenceRoadArea();
-  scene.intersectingRoad = scene.egoVehicleRoad;
-  worldModel.scenes.push_back(scene);
+  constellation.ego_vehicle_road = longitudinalDifferenceRoadArea();
+  constellation.intersecting_road = constellation.ego_vehicle_road;
+  worldModel.constellations.push_back(constellation);
 
-  scene.egoVehicleRoad = longitudinalNoDifferenceRoadArea();
-  scene.intersectingRoad = scene.egoVehicleRoad;
-  worldModel.scenes.push_back(scene);
+  constellation.ego_vehicle_road = longitudinalNoDifferenceRoadArea();
+  constellation.intersecting_road = constellation.ego_vehicle_road;
+  worldModel.constellations.push_back(constellation);
 
-  scene.object.velocity.speedLonMin = Speed(9.0);
-  scene.object.velocity.speedLonMax = Speed(9.0);
-  scene.object.velocity.speedLatMin = Speed(-1.);
-  scene.object.velocity.speedLatMax = Speed(-1.);
+  constellation.object.velocity.speed_lon_min = Speed(9.0);
+  constellation.object.velocity.speed_lon_max = Speed(9.0);
+  constellation.object.velocity.speed_lat_min = Speed(-1.);
+  constellation.object.velocity.speed_lat_max = Speed(-1.);
 
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
+  worldModel.constellations.push_back(constellation);
+  worldModel.time_index = 1;
 
-  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
+  ASSERT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  ASSERT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  ASSERT_EQ(situationSnapshot.constellations.size(), 1u);
+  ASSERT_EQ(situationSnapshot.constellations[0].world_model_indices.size(), 3u);
+  ASSERT_EQ(situationSnapshot.constellations[0].world_model_indices[0], 0u);
+  ASSERT_EQ(situationSnapshot.constellations[0].world_model_indices[1], 1u);
+  ASSERT_EQ(situationSnapshot.constellations[0].world_model_indices[2], 2u);
 
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            scene.egoVehicleRssDynamics.alphaLon.accelMax);
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.dynamics.alpha_lon.accel_max,
+            constellation.ego_vehicle_rss_dynamics.alpha_lon.accel_max);
 
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.distanceToEnterIntersection, Distance(0.));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.distanceToLeaveIntersection, Distance(8.6));
-  ASSERT_TRUE(situationSnapshot.situations[0].egoVehicleState.hasPriority);
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.distance_to_enter_intersection,
+            Distance(0.));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.distance_to_leave_intersection,
+            Distance(8.3));
+  ASSERT_TRUE(situationSnapshot.constellations[0].ego_state.structured_object_state.has_priority);
 
-  ASSERT_EQ(situationSnapshot.situations[0].otherVehicleState.velocity.speedLon.minimum, Speed(9.));
-  ASSERT_EQ(situationSnapshot.situations[0].otherVehicleState.velocity.speedLon.maximum, Speed(10.));
-  ASSERT_EQ(situationSnapshot.situations[0].otherVehicleState.velocity.speedLat.minimum, Speed(-1.));
-  ASSERT_EQ(situationSnapshot.situations[0].otherVehicleState.velocity.speedLat.maximum, Speed(0.));
-  ASSERT_EQ(situationSnapshot.situations[0].otherVehicleState.distanceToEnterIntersection, Distance(6.));
-  ASSERT_EQ(situationSnapshot.situations[0].otherVehicleState.distanceToLeaveIntersection, Distance(14.2));
-  ASSERT_FALSE(situationSnapshot.situations[0].otherVehicleState.hasPriority);
+  ASSERT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.velocity.speed_lon_min, Speed(9.));
+  ASSERT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.velocity.speed_lon_max, Speed(10.));
+  ASSERT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.velocity.speed_lat_min, Speed(-1.));
+  ASSERT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.velocity.speed_lat_max, Speed(0.));
+  ASSERT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.distance_to_enter_intersection,
+            Distance(6.5));
+  ASSERT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.distance_to_leave_intersection,
+            Distance(14.));
+  ASSERT_FALSE(situationSnapshot.constellations[0].other_state.structured_object_state.has_priority);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
-            situation::LongitudinalRelativePosition::InFront);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_position,
+            core::LongitudinalRelativePosition::InFront);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
-            situation::LateralRelativePosition::Overlap);
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(0));
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.lateral_position,
+            core::LateralRelativePosition::Overlap);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.lateral_distance, Distance(0));
 }
 
 TEST_F(RssSituationExtractionIntersectionTests, mergeWorstCaseAtBack)
 {
-  situation::SituationSnapshot situationSnapshot;
+  core::RssSituationSnapshot situationSnapshot;
 
-  scene.egoVehicle = objectAsEgo(followingObject);
-  scene.object = leadingObject;
+  constellation.ego_vehicle = objectAsEgo(followingObject);
+  constellation.object = leadingObject;
 
-  scene.egoVehicleRoad = longitudinalDifferenceRoadArea();
-  scene.intersectingRoad = scene.egoVehicleRoad;
-  worldModel.scenes.push_back(scene);
+  constellation.ego_vehicle_road = longitudinalDifferenceRoadArea();
+  constellation.intersecting_road = constellation.ego_vehicle_road;
+  worldModel.constellations.push_back(constellation);
 
-  scene.egoVehicleRoad = longitudinalNoDifferenceRoadArea();
-  scene.intersectingRoad = scene.egoVehicleRoad;
-  worldModel.scenes.push_back(scene);
+  constellation.ego_vehicle_road = longitudinalNoDifferenceRoadArea();
+  constellation.intersecting_road = constellation.ego_vehicle_road;
+  worldModel.constellations.push_back(constellation);
 
-  scene.egoVehicle.velocity.speedLonMin = Speed(8.0);
-  scene.egoVehicle.velocity.speedLonMax = Speed(9.0);
-  scene.egoVehicle.velocity.speedLatMin = Speed(-1.);
-  scene.egoVehicle.velocity.speedLatMax = Speed(-0.5);
-  worldModel.scenes.push_back(scene);
-  worldModel.timeIndex = 1;
+  constellation.ego_vehicle.velocity.speed_lon_min = Speed(8.0);
+  constellation.ego_vehicle.velocity.speed_lon_max = Speed(9.0);
+  constellation.ego_vehicle.velocity.speed_lat_min = Speed(-1.);
+  constellation.ego_vehicle.velocity.speed_lat_max = Speed(-0.5);
+  worldModel.constellations.push_back(constellation);
+  worldModel.time_index = 1;
 
-  ASSERT_TRUE(situationExtraction.extractSituations(worldModel, situationSnapshot));
-  ASSERT_EQ(situationSnapshot.timeIndex, worldModel.timeIndex);
-  ASSERT_EQ(situationSnapshot.situations.size(), 1u);
+  ASSERT_TRUE(constellationExtraction.extractSituation(worldModel, situationSnapshot));
+  ASSERT_EQ(situationSnapshot.time_index, worldModel.time_index);
+  ASSERT_EQ(situationSnapshot.constellations.size(), 1u);
+  ASSERT_EQ(situationSnapshot.constellations[0].world_model_indices.size(), 3u);
+  ASSERT_EQ(situationSnapshot.constellations[0].world_model_indices[0], 0u);
+  ASSERT_EQ(situationSnapshot.constellations[0].world_model_indices[1], 1u);
+  ASSERT_EQ(situationSnapshot.constellations[0].world_model_indices[2], 2u);
 
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.minimum, Speed(8.));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLon.maximum, Speed(10.));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLat.minimum, Speed(-1.));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.velocity.speedLat.maximum, Speed(0.));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.dynamics.alphaLon.accelMax,
-            scene.egoVehicleRssDynamics.alphaLon.accelMax);
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lon_min, Speed(8.));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lon_max, Speed(10.));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lat_min, Speed(-1.));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.velocity.speed_lat_max, Speed(0.));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.dynamics.alpha_lon.accel_max,
+            constellation.ego_vehicle_rss_dynamics.alpha_lon.accel_max);
 
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.distanceToEnterIntersection, Distance(6.));
-  ASSERT_EQ(situationSnapshot.situations[0].egoVehicleState.distanceToLeaveIntersection, Distance(14.2));
-  ASSERT_TRUE(situationSnapshot.situations[0].egoVehicleState.hasPriority);
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.distance_to_enter_intersection,
+            Distance(6.5));
+  ASSERT_EQ(situationSnapshot.constellations[0].ego_state.structured_object_state.distance_to_leave_intersection,
+            Distance(14.));
+  ASSERT_TRUE(situationSnapshot.constellations[0].ego_state.structured_object_state.has_priority);
 
-  ASSERT_EQ(situationSnapshot.situations[0].otherVehicleState.distanceToEnterIntersection, Distance(0.));
-  ASSERT_EQ(situationSnapshot.situations[0].otherVehicleState.distanceToLeaveIntersection, Distance(8.6));
-  ASSERT_FALSE(situationSnapshot.situations[0].otherVehicleState.hasPriority);
+  ASSERT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.distance_to_enter_intersection,
+            Distance(0.));
+  ASSERT_EQ(situationSnapshot.constellations[0].other_state.structured_object_state.distance_to_leave_intersection,
+            Distance(8.3));
+  ASSERT_FALSE(situationSnapshot.constellations[0].other_state.structured_object_state.has_priority);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.longitudinalPosition,
-            situation::LongitudinalRelativePosition::AtBack);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.longitudinal_position,
+            core::LongitudinalRelativePosition::AtBack);
 
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralPosition,
-            situation::LateralRelativePosition::Overlap);
-  ASSERT_EQ(situationSnapshot.situations[0].relativePosition.lateralDistance, Distance(0));
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.lateral_position,
+            core::LateralRelativePosition::Overlap);
+  ASSERT_EQ(situationSnapshot.constellations[0].relative_position.lateral_distance, Distance(0));
 }
 
 } // namespace core

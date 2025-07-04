@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -41,11 +41,11 @@ inline bool withinValidInputRange(::ad::rss::world::UnstructuredSettings const &
 {
   // check for generic member input ranges
   bool inValidInputRange = true;
-  inValidInputRange = withinValidInputRange(input.pedestrianTurningRadius, logErrors)
-    && withinValidInputRange(input.driveAwayMaxAngle, logErrors)
-    && withinValidInputRange(input.vehicleYawRateChange, logErrors)
-    && withinValidInputRange(input.vehicleMinRadius, logErrors)
-    && withinValidInputRange(input.vehicleTrajectoryCalculationStep, logErrors);
+  inValidInputRange = withinValidInputRange(input.pedestrian_turning_radius, logErrors)
+    && withinValidInputRange(input.drive_away_max_angle, logErrors)
+    && withinValidInputRange(input.vehicle_yaw_rate_change, logErrors)
+    && withinValidInputRange(input.vehicle_min_radius, logErrors)
+    && withinValidInputRange(input.vehicle_trajectory_calculation_step, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::world::UnstructuredSettings)>> {} has invalid member",

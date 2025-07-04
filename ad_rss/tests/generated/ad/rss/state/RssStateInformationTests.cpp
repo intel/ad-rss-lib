@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -28,10 +28,10 @@ protected:
   {
     // valid initialization
     ::ad::rss::state::RssStateInformation value;
-    ::ad::physics::Distance valueSafeDistance(-1e9);
-    value.safeDistance = valueSafeDistance;
-    ::ad::physics::Distance valueCurrentDistance(-1e9);
-    value.currentDistance = valueCurrentDistance;
+    ::ad::physics::Distance valueSafe_distance(-1e9);
+    value.safe_distance = valueSafe_distance;
+    ::ad::physics::Distance valueCurrent_distance(-1e9);
+    value.current_distance = valueCurrent_distance;
     ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
     value.evaluator = valueEvaluator;
     mValue = value;
@@ -86,22 +86,22 @@ TEST_F(RssStateInformationTests, stringConversionTest)
   ASSERT_EQ(ostreamStr, toStr);
 }
 
-TEST_F(RssStateInformationTests, comparisonOperatorSafeDistanceDiffers)
+TEST_F(RssStateInformationTests, comparisonOperatorSafe_distanceDiffers)
 {
   ::ad::rss::state::RssStateInformation valueA = mValue;
-  ::ad::physics::Distance safeDistance(1e9);
-  valueA.safeDistance = safeDistance;
+  ::ad::physics::Distance safe_distance(1e9);
+  valueA.safe_distance = safe_distance;
   ::ad::rss::state::RssStateInformation valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(RssStateInformationTests, comparisonOperatorCurrentDistanceDiffers)
+TEST_F(RssStateInformationTests, comparisonOperatorCurrent_distanceDiffers)
 {
   ::ad::rss::state::RssStateInformation valueA = mValue;
-  ::ad::physics::Distance currentDistance(1e9);
-  valueA.currentDistance = currentDistance;
+  ::ad::physics::Distance current_distance(1e9);
+  valueA.current_distance = current_distance;
   ::ad::rss::state::RssStateInformation valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

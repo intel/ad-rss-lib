@@ -133,7 +133,7 @@ As discussed above, the output values of the RSS function are lower and upper
 bounds on acceleration. The lower and upper bounds determined by the RSS
 function originate from the input provided to the RSS function. Namely,
 acceleration values are provided as dynamics properties of each vehicle
-acting as road agent/object in the situation. Hence, in the current
+acting as road agent/object within a constellation. Hence, in the current
 implementation, the set of possible output data values is a very small
 set of values that are provided as input.
 

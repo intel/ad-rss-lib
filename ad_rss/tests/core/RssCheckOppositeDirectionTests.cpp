@@ -14,9 +14,9 @@ namespace core {
 
 template <class TESTBASE> class RssCheckOppositeDirectionEgoCorrectTestBase : public TESTBASE
 {
-  situation::SituationType getSituationType() override
+  world::ConstellationType getConstellationType() override
   {
-    return situation::SituationType::OppositeDirection;
+    return world::ConstellationType::OppositeDirection;
   }
 
   world::Object &getEgoObject() override
@@ -24,7 +24,7 @@ template <class TESTBASE> class RssCheckOppositeDirectionEgoCorrectTestBase : pu
     return TESTBASE::objectOnSegment1;
   }
 
-  world::Object &getSceneObject(uint32_t) override
+  world::Object &getConstellationObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment7;
   }
@@ -43,7 +43,7 @@ TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities)
 
 TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities_DifferentLaneSegements)
 {
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 2;
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 2;
   performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMinCorrect);
 }
 
@@ -59,24 +59,24 @@ INSTANTIATE_TEST_CASE_P(Range,
 
 TEST_F(RssCheckOppositeDirectionEgoCorrectTest, DifferentVelocities_NoLateralConflict)
 {
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 0;
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 0;
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.minimum = ParametricValue(0.0);
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.maximum = ParametricValue(0.1);
 
-  worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;
+  worldModel.constellations[0].object.occupied_regions[0].segment_id = 8;
 
   state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
-    worldModel.scenes[0].egoVehicle.velocity.speedLonMin = kmhToMeterPerSec(i);
-    worldModel.scenes[0].egoVehicle.velocity.speedLonMax = kmhToMeterPerSec(i);
-    worldModel.timeIndex++;
+    worldModel.constellations[0].ego_vehicle.velocity.speed_lon_min = kmhToMeterPerSec(i);
+    worldModel.constellations[0].ego_vehicle.velocity.speed_lon_max = kmhToMeterPerSec(i);
+    worldModel.time_index++;
 
     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
-    testRestrictions(properResponse.accelerationRestrictions);
+    testRestrictions(properResponse.acceleration_restrictions);
   }
 }
 
@@ -87,9 +87,9 @@ template <class TESTBASE> class RssCheckOppositeDirectionOtherCorrectTestBase : 
     return world::LaneDrivingDirection::Negative;
   }
 
-  situation::SituationType getSituationType() override
+  world::ConstellationType getConstellationType() override
   {
-    return situation::SituationType::OppositeDirection;
+    return world::ConstellationType::OppositeDirection;
   }
 
   world::Object &getEgoObject() override
@@ -97,7 +97,7 @@ template <class TESTBASE> class RssCheckOppositeDirectionOtherCorrectTestBase : 
     return TESTBASE::objectOnSegment1;
   }
 
-  world::Object &getSceneObject(uint32_t) override
+  world::Object &getConstellationObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment7;
   }
@@ -116,7 +116,7 @@ TEST_F(RssCheckOppositeDirectionOtherCorrectTest, DifferentVelocities)
 
 TEST_F(RssCheckOppositeDirectionOtherCorrectTest, DifferentVelocities_DifferentLaneSegements)
 {
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 2;
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 2;
   performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMin);
 }
 
@@ -137,9 +137,9 @@ template <class TESTBASE> class RssCheckOppositeDirectionBothCorrectTestBase : p
     return world::LaneDrivingDirection::Bidirectional;
   }
 
-  situation::SituationType getSituationType() override
+  world::ConstellationType getConstellationType() override
   {
-    return situation::SituationType::OppositeDirection;
+    return world::ConstellationType::OppositeDirection;
   }
 
   world::Object &getEgoObject() override
@@ -147,7 +147,7 @@ template <class TESTBASE> class RssCheckOppositeDirectionBothCorrectTestBase : p
     return TESTBASE::objectOnSegment1;
   }
 
-  world::Object &getSceneObject(uint32_t) override
+  world::Object &getConstellationObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment7;
   }
@@ -166,7 +166,7 @@ TEST_F(RssCheckOppositeDirectionBothCorrectTest, DifferentVelocities)
 
 TEST_F(RssCheckOppositeDirectionBothCorrectTest, DifferentVelocities_DifferentLaneSegements)
 {
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 2;
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 2;
   performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMinCorrect);
 }
 

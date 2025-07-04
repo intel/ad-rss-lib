@@ -6,7 +6,7 @@ In contrast to the structured constellations, two dimensional trajectories with 
 
 ### World Modeling
 
-To allow customization, every constellations within the [`ad::rss::world::WorldModel`](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html) can be calculated as unstructured, depending on the `situationType`.
+To allow customization, every constellation within the [`ad::rss::world::WorldModel`](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html) can be calculated as unstructured, depending on the `constellationType`.
 
 ### Behavior Model/Trajectory Set Calculation
 
@@ -16,8 +16,8 @@ The longitudinal boundaries of a trajectory set are defined by the minimum/maxim
 
 | Side | Longitudinal | Lateral |
 |------|--------------|---------|
-|Front | max acceleration | max left .. max right |  
-|Back  | max braking | max left .. max right |  
+|Front | max acceleration | max left .. max right |
+|Back  | max braking | max left .. max right |
 |Left  | max braking .. max acceleration | max left |
 |Right | max braking .. max acceleration | max right |
 
@@ -81,7 +81,7 @@ Similar to the vehicle calculations the following settings can be used to improv
 
 * `UnstructuredSettings::pedestrianContinueForwardIntermediateHeadingChangeRatioSteps` specifies the intermediate heading change ratio steps used while calculating the continue forward trajectory set.
 * `UnstructuredSettings::pedestrianContinueForwardIntermediateAccelerationSteps` specifies the intermediate steps used while calculating the continue forward trajectory set. (As the pedestrian at max moves on a circle, this value specifies how many points on the circle arc are used)
-* `UnstructuredSettings::pedestrianBrakeIntermediateAccelerationSteps` specifies the intermediate steps used while calculating the brake trajectory set. 
+* `UnstructuredSettings::pedestrianBrakeIntermediateAccelerationSteps` specifies the intermediate steps used while calculating the brake trajectory set.
 * `UnstructuredSettings::pedestrianFrontIntermediateHeadingChangeRatioSteps` specifies the intermediate steps that are used. The value is specifying the steps on one side, therefore the resulting intermediate steps are twice this value. This value is used for the front of the trajectory set.
 * `UnstructuredSettings::pedestrianBackIntermediateHeadingChangeRatioSteps` specifies the intermediate steps that are used. The value is specifying the steps on one side, therefore the resulting intermediate steps are twice this value. This value is used for the front of the trajectory set.
 
@@ -127,7 +127,7 @@ If the result is _brake_, the longitudinal acceleration restriction is set to `a
 
 #### Driving away
 
-In certain situations the ego vehicle might be allowed to drive away from a dangerous constellation using a given heading range.
+In certain constellations the ego vehicle might be allowed to drive away from a dangerous constellation using a given heading range.
 
 The heading range is calculated using the position vectors of the traffic participants and the velocity vector of the ego.
 
@@ -147,4 +147,3 @@ The _drive_away_ mode remains active as long as:
 
 1. The ego vehicle moves with a steering angle that is within the allowed heading range
 2. The other vehicle doesn't move
-

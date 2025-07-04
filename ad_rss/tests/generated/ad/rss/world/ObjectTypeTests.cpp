@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -44,6 +44,24 @@ TEST(ObjectTypeTests, testFromString)
   ASSERT_EQ(fromString<::ad::rss::world::ObjectType>("::ad::rss::world::ObjectType::ArtificialObject"),
             ::ad::rss::world::ObjectType::ArtificialObject);
 
+  ASSERT_EQ(fromString<::ad::rss::world::ObjectType>("ArtificialVehicle"),
+            ::ad::rss::world::ObjectType::ArtificialVehicle);
+  ASSERT_EQ(fromString<::ad::rss::world::ObjectType>("::ad::rss::world::ObjectType::ArtificialVehicle"),
+            ::ad::rss::world::ObjectType::ArtificialVehicle);
+
+  ASSERT_EQ(fromString<::ad::rss::world::ObjectType>("ArtificialPedestrian"),
+            ::ad::rss::world::ObjectType::ArtificialPedestrian);
+  ASSERT_EQ(fromString<::ad::rss::world::ObjectType>("::ad::rss::world::ObjectType::ArtificialPedestrian"),
+            ::ad::rss::world::ObjectType::ArtificialPedestrian);
+
+  ASSERT_EQ(fromString<::ad::rss::world::ObjectType>("Bicycle"), ::ad::rss::world::ObjectType::Bicycle);
+  ASSERT_EQ(fromString<::ad::rss::world::ObjectType>("::ad::rss::world::ObjectType::Bicycle"),
+            ::ad::rss::world::ObjectType::Bicycle);
+
+  ASSERT_EQ(fromString<::ad::rss::world::ObjectType>("OtherObject"), ::ad::rss::world::ObjectType::OtherObject);
+  ASSERT_EQ(fromString<::ad::rss::world::ObjectType>("::ad::rss::world::ObjectType::OtherObject"),
+            ::ad::rss::world::ObjectType::OtherObject);
+
   EXPECT_ANY_THROW({ fromString<::ad::rss::world::ObjectType>("NOT A VALID ENUM LITERAL"); });
 }
 
@@ -71,6 +89,24 @@ TEST(ObjectTypeTests, testToString)
   ASSERT_EQ(toString(::ad::rss::world::ObjectType::ArtificialObject), "::ad::rss::world::ObjectType::ArtificialObject");
   minValue = std::min(minValue, static_cast<int32_t>(::ad::rss::world::ObjectType::ArtificialObject));
   maxValue = std::max(maxValue, static_cast<int32_t>(::ad::rss::world::ObjectType::ArtificialObject));
+
+  ASSERT_EQ(toString(::ad::rss::world::ObjectType::ArtificialVehicle),
+            "::ad::rss::world::ObjectType::ArtificialVehicle");
+  minValue = std::min(minValue, static_cast<int32_t>(::ad::rss::world::ObjectType::ArtificialVehicle));
+  maxValue = std::max(maxValue, static_cast<int32_t>(::ad::rss::world::ObjectType::ArtificialVehicle));
+
+  ASSERT_EQ(toString(::ad::rss::world::ObjectType::ArtificialPedestrian),
+            "::ad::rss::world::ObjectType::ArtificialPedestrian");
+  minValue = std::min(minValue, static_cast<int32_t>(::ad::rss::world::ObjectType::ArtificialPedestrian));
+  maxValue = std::max(maxValue, static_cast<int32_t>(::ad::rss::world::ObjectType::ArtificialPedestrian));
+
+  ASSERT_EQ(toString(::ad::rss::world::ObjectType::Bicycle), "::ad::rss::world::ObjectType::Bicycle");
+  minValue = std::min(minValue, static_cast<int32_t>(::ad::rss::world::ObjectType::Bicycle));
+  maxValue = std::max(maxValue, static_cast<int32_t>(::ad::rss::world::ObjectType::Bicycle));
+
+  ASSERT_EQ(toString(::ad::rss::world::ObjectType::OtherObject), "::ad::rss::world::ObjectType::OtherObject");
+  minValue = std::min(minValue, static_cast<int32_t>(::ad::rss::world::ObjectType::OtherObject));
+  maxValue = std::max(maxValue, static_cast<int32_t>(::ad::rss::world::ObjectType::OtherObject));
 
   ASSERT_EQ(toString(static_cast<::ad::rss::world::ObjectType>(minValue - 1)), "UNKNOWN ENUM VALUE");
   ASSERT_EQ(toString(static_cast<::ad::rss::world::ObjectType>(maxValue + 1)), "UNKNOWN ENUM VALUE");

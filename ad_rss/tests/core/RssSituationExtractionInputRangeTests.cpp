@@ -16,56 +16,56 @@ namespace core {
 class RssSituationExtractionInputRangeTests : public RssCheckTestBase
 {
 protected:
-  situation::Situation situation;
-  RssSituationExtraction situationExtraction;
+  core::RelativeConstellation constellation;
+  RssSituationExtraction constellationExtraction;
 
   void performTestRun()
   {
-    EXPECT_FALSE(
-      situationExtraction.extractSituationInputRangeChecked(worldModel.timeIndex, worldModel.scenes[0], situation));
+    EXPECT_FALSE(constellationExtraction.extractConstellationInputRangeChecked(
+      worldModel.time_index, worldModel.constellations[0], constellation));
   }
 };
 
 TEST_F(RssSituationExtractionInputRangeTests, validateTestSetup)
 {
-  ASSERT_TRUE(
-    situationExtraction.extractSituationInputRangeChecked(worldModel.timeIndex, worldModel.scenes[0], situation));
+  ASSERT_TRUE(constellationExtraction.extractConstellationInputRangeChecked(
+    worldModel.time_index, worldModel.constellations[0], constellation));
 }
 
 TEST_F(RssSituationExtractionInputRangeTests, egoVehicleDataInvalid)
 {
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].lonRange.minimum = physics::ParametricValue();
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].lon_range.minimum = physics::ParametricValue();
   performTestRun();
 }
 
 TEST_F(RssSituationExtractionInputRangeTests, objectDataInvalid)
 {
-  worldModel.scenes[0].object.occupiedRegions[0].lonRange.minimum = physics::ParametricValue();
+  worldModel.constellations[0].object.occupied_regions[0].lon_range.minimum = physics::ParametricValue();
   performTestRun();
 }
 
 TEST_F(RssSituationExtractionInputRangeTests, egoVehicleAsObject)
 {
-  worldModel.scenes[0].object.objectType = world::ObjectType::EgoVehicle;
+  worldModel.constellations[0].object.object_type = world::ObjectType::EgoVehicle;
   performTestRun();
 }
 
 TEST_F(RssSituationExtractionInputRangeTests, objectAsEgoVehicle)
 {
-  worldModel.scenes[0].egoVehicle.objectType = world::ObjectType::OtherVehicle;
+  worldModel.constellations[0].ego_vehicle.object_type = world::ObjectType::OtherVehicle;
   performTestRun();
 }
 
-TEST_F(RssSituationExtractionInputRangeTests, situationNotRelevant)
+TEST_F(RssSituationExtractionInputRangeTests, constellationNotRelevant)
 {
-  worldModel.scenes[0].situationType = situation::SituationType::NotRelevant;
-  ASSERT_TRUE(
-    situationExtraction.extractSituationInputRangeChecked(worldModel.timeIndex, worldModel.scenes[0], situation));
+  worldModel.constellations[0].constellation_type = world::ConstellationType::NotRelevant;
+  ASSERT_TRUE(constellationExtraction.extractConstellationInputRangeChecked(
+    worldModel.time_index, worldModel.constellations[0], constellation));
 }
 
-TEST_F(RssSituationExtractionInputRangeTests, situationTypeInvalid)
+TEST_F(RssSituationExtractionInputRangeTests, constellationTypeInvalid)
 {
-  worldModel.scenes[0].situationType = situation::SituationType(-1);
+  worldModel.constellations[0].constellation_type = world::ConstellationType(-1);
   performTestRun();
 }
 

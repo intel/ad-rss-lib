@@ -33,23 +33,24 @@ list(APPEND ad_rss_TARGET_LINK_LIBRARIES ${Boost_LIBRARIES})
 find_package(ad_physics ${CARLA-MAP_VERSION} REQUIRED CONFIG)
 find_package(spdlog REQUIRED CONFIG)
 
-include(generated/ad_rss.cmake)
+file(GLOB_RECURSE ad_rss_GENERATED_SOURCES "${CMAKE_CURRENT_LIST_DIR}/generated/*.cpp")
 
 add_library(${PROJECT_NAME}
   ${ad_rss_GENERATED_SOURCES}
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/core/Logging.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/core/Physics.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/core/RssCheck.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/core/RssResponseResolving.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/core/RssSituationChecking.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/core/RssSituationExtraction.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/situation/Physics.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/situation/RssFormulas.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/situation/RssStructuredSceneIntersectionChecker.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/situation/RssStructuredSceneNonIntersectionChecker.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/situation/RssUnstructuredSceneChecker.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/world/RssSituationCoordinateSystemConversion.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/world/RssSituationIdProvider.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/world/RssObjectPositionExtractor.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/unstructured/Geometry.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/state/RssStateOperation.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/structured/RssConstellationIdProvider.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/structured/RssFormulas.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/structured/RssIntersectionConstellationChecker.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/structured/RssLaneCoordinateSystemConversion.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/structured/RssNonIntersectionConstellationChecker.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/structured/RssObjectPositionExtractor.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/unstructured/RssUnstructuredConstellationChecker.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/unstructured/TrajectoryCommon.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/unstructured/TrajectoryPedestrian.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/unstructured/TrajectoryVehicle.cpp

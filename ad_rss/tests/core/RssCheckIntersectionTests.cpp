@@ -21,7 +21,7 @@ protected:
     return TESTBASE::objectOnSegment0;
   }
 
-  world::Object &getSceneObject(uint32_t) override
+  world::Object &getConstellationObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment8;
   }
@@ -34,18 +34,18 @@ protected:
     core::RssCheck rssCheck;
     for (auto egoVehicleSegmentId : {world::LaneSegmentId(0), world::LaneSegmentId(3)})
     {
-      for (auto &scene : worldModel.scenes)
+      for (auto &constellation : worldModel.constellations)
       {
-        scene.egoVehicle.occupiedRegions[0].segmentId = egoVehicleSegmentId;
+        constellation.ego_vehicle.occupied_regions[0].segment_id = egoVehicleSegmentId;
       }
       for (uint32_t i = 0; i <= 90; i++)
       {
-        for (auto &scene : worldModel.scenes)
+        for (auto &constellation : worldModel.constellations)
         {
-          scene.egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.01 * i);
-          scene.egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.01 * i + 0.1);
+          constellation.ego_vehicle.occupied_regions[0].lon_range.minimum = ParametricValue(0.01 * i);
+          constellation.ego_vehicle.occupied_regions[0].lon_range.maximum = ParametricValue(0.01 * i + 0.1);
         }
-        worldModel.timeIndex++;
+        worldModel.time_index++;
 
         ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
@@ -55,11 +55,11 @@ protected:
 #endif
         if (isBrakeExpected(i))
         {
-          TESTBASE::testRestrictions(properResponse.accelerationRestrictions, state::LongitudinalResponse::BrakeMin);
+          TESTBASE::testRestrictions(properResponse.acceleration_restrictions, state::LongitudinalResponse::BrakeMin);
         }
         else
         {
-          TESTBASE::testRestrictions(properResponse.accelerationRestrictions);
+          TESTBASE::testRestrictions(properResponse.acceleration_restrictions);
         }
       }
     }
@@ -70,17 +70,17 @@ template <class TESTBASE>
 class RssCheckIntersectionEgoHasPriorityTestBase : public RssCheckIntersectionTestBase<TESTBASE>
 {
 protected:
-  situation::SituationType getSituationType() override
+  world::ConstellationType getConstellationType() override
   {
-    return situation::SituationType::IntersectionEgoHasPriority;
+    return world::ConstellationType::IntersectionEgoHasPriority;
   }
 
   bool isBrakeExpected(uint32_t i) override
   {
-    bool const egoVehicleFaraway
-      = (i < 11) || (TESTBASE::worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(0));
-    bool const egoVehicleInFront
-      = (i > 64) && (TESTBASE::worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(3));
+    bool const egoVehicleFaraway = (i < 11)
+      || (TESTBASE::worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id == world::LaneSegmentId(0));
+    bool const egoVehicleInFront = (i > 64)
+      && (TESTBASE::worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id == world::LaneSegmentId(3));
 
     return !egoVehicleFaraway && !egoVehicleInFront;
   }
@@ -105,7 +105,7 @@ TEST_F(RssCheckIntersectionEgoHasPriorityTest, IntersectionTest)
 
 TEST_F(RssCheckIntersectionEgoHasPriorityTest, IntersectionDescriptionIsExtended)
 {
-  worldModel.scenes[0].egoVehicleRoad.push_back(worldModel.scenes[0].egoVehicleRoad.front());
+  worldModel.constellations[0].ego_vehicle_road.push_back(worldModel.constellations[0].ego_vehicle_road.front());
   performIntersectionTest();
 }
 
@@ -113,15 +113,16 @@ template <class TESTBASE>
 class RssCheckIntersectionObjectHasPriorityTestBase : public RssCheckIntersectionTestBase<TESTBASE>
 {
 protected:
-  situation::SituationType getSituationType() override
+  world::ConstellationType getConstellationType() override
   {
-    return situation::SituationType::IntersectionObjectHasPriority;
+    return world::ConstellationType::IntersectionObjectHasPriority;
   }
 
   bool isBrakeExpected(uint32_t i) override
   {
     bool const egoVehicleNearEnough
-      = (TESTBASE::worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(3)) && (i > 54);
+      = (TESTBASE::worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id == world::LaneSegmentId(3))
+      && (i > 54);
 
     return egoVehicleNearEnough;
   }
@@ -147,14 +148,15 @@ TEST_F(RssCheckIntersectionObjectHasPriorityTest, IntersectionTest)
 template <class TESTBASE> class RssCheckIntersectionSamePriorityTestBase : public RssCheckIntersectionTestBase<TESTBASE>
 {
 protected:
-  situation::SituationType getSituationType() override
+  world::ConstellationType getConstellationType() override
   {
-    return situation::SituationType::IntersectionSamePriority;
+    return world::ConstellationType::IntersectionSamePriority;
   }
 
   bool isBrakeExpected(uint32_t i) override
   {
-    return (TESTBASE::worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId == world::LaneSegmentId(3))
+    return (TESTBASE::worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id
+            == world::LaneSegmentId(3))
       && (i > 54);
   }
 };

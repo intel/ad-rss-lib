@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -28,19 +28,19 @@ protected:
   {
     // valid initialization
     ::ad::rss::world::LongitudinalRssAccelerationValues value;
-    ::ad::physics::Acceleration valueAccelMax(-1e2);
-    valueAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-    value.accelMax = valueAccelMax;
-    ::ad::physics::Acceleration valueBrakeMax(-1e2);
-    value.brakeMax = valueBrakeMax;
-    ::ad::physics::Acceleration valueBrakeMin(-1e2);
-    value.brakeMin = valueBrakeMin;
-    ::ad::physics::Acceleration valueBrakeMinCorrect(-1e2);
-    value.brakeMinCorrect = valueBrakeMinCorrect;
-    value.brakeMin = value.brakeMax;
-    value.brakeMinCorrect = value.brakeMin;
-    value.brakeMin = value.brakeMinCorrect;
-    value.brakeMax = value.brakeMin;
+    ::ad::physics::Acceleration valueAccel_max(-1e2);
+    valueAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    value.accel_max = valueAccel_max;
+    ::ad::physics::Acceleration valueBrake_max(-1e2);
+    value.brake_max = valueBrake_max;
+    ::ad::physics::Acceleration valueBrake_min(-1e2);
+    value.brake_min = valueBrake_min;
+    ::ad::physics::Acceleration valueBrake_min_correct(-1e2);
+    value.brake_min_correct = valueBrake_min_correct;
+    value.brake_min = value.brake_max;
+    value.brake_min_correct = value.brake_min;
+    value.brake_min = value.brake_min_correct;
+    value.brake_max = value.brake_min;
     mValue = value;
   }
 
@@ -93,44 +93,44 @@ TEST_F(LongitudinalRssAccelerationValuesTests, stringConversionTest)
   ASSERT_EQ(ostreamStr, toStr);
 }
 
-TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorAccelMaxDiffers)
+TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorAccel_maxDiffers)
 {
   ::ad::rss::world::LongitudinalRssAccelerationValues valueA = mValue;
-  ::ad::physics::Acceleration accelMax(1e2);
-  valueA.accelMax = accelMax;
+  ::ad::physics::Acceleration accel_max(1e2);
+  valueA.accel_max = accel_max;
   ::ad::rss::world::LongitudinalRssAccelerationValues valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorBrakeMaxDiffers)
+TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorBrake_maxDiffers)
 {
   ::ad::rss::world::LongitudinalRssAccelerationValues valueA = mValue;
-  ::ad::physics::Acceleration brakeMax(1e2);
-  valueA.brakeMax = brakeMax;
+  ::ad::physics::Acceleration brake_max(1e2);
+  valueA.brake_max = brake_max;
   ::ad::rss::world::LongitudinalRssAccelerationValues valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorBrakeMinDiffers)
+TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorBrake_minDiffers)
 {
   ::ad::rss::world::LongitudinalRssAccelerationValues valueA = mValue;
-  ::ad::physics::Acceleration brakeMin(1e2);
-  valueA.brakeMin = brakeMin;
+  ::ad::physics::Acceleration brake_min(1e2);
+  valueA.brake_min = brake_min;
   ::ad::rss::world::LongitudinalRssAccelerationValues valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorBrakeMinCorrectDiffers)
+TEST_F(LongitudinalRssAccelerationValuesTests, comparisonOperatorBrake_min_correctDiffers)
 {
   ::ad::rss::world::LongitudinalRssAccelerationValues valueA = mValue;
-  ::ad::physics::Acceleration brakeMinCorrect(1e2);
-  valueA.brakeMinCorrect = brakeMinCorrect;
+  ::ad::physics::Acceleration brake_min_correct(1e2);
+  valueA.brake_min_correct = brake_min_correct;
   ::ad::rss::world::LongitudinalRssAccelerationValues valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -28,40 +28,46 @@ protected:
   {
     // valid initialization
     ::ad::rss::world::UnstructuredSettings value;
-    ::ad::physics::Distance valuePedestrianTurningRadius(-1e9);
-    value.pedestrianTurningRadius = valuePedestrianTurningRadius;
-    ::ad::physics::Angle valueDriveAwayMaxAngle(-6.283185308);
-    value.driveAwayMaxAngle = valueDriveAwayMaxAngle;
-    ::ad::physics::AngularAcceleration valueVehicleYawRateChange(-1e2);
-    value.vehicleYawRateChange = valueVehicleYawRateChange;
-    ::ad::physics::Distance valueVehicleMinRadius(-1e9);
-    value.vehicleMinRadius = valueVehicleMinRadius;
-    ::ad::physics::Duration valueVehicleTrajectoryCalculationStep(0.);
-    value.vehicleTrajectoryCalculationStep = valueVehicleTrajectoryCalculationStep;
-    uint32_t valueVehicleFrontIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
-    value.vehicleFrontIntermediateYawRateChangeRatioSteps = valueVehicleFrontIntermediateYawRateChangeRatioSteps;
-    uint32_t valueVehicleBackIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
-    value.vehicleBackIntermediateYawRateChangeRatioSteps = valueVehicleBackIntermediateYawRateChangeRatioSteps;
-    uint32_t valueVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
-    value.vehicleBrakeIntermediateAccelerationSteps = valueVehicleBrakeIntermediateAccelerationSteps;
-    uint32_t valueVehicleContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
-    value.vehicleContinueForwardIntermediateAccelerationSteps
-      = valueVehicleContinueForwardIntermediateAccelerationSteps;
-    uint32_t valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
-    value.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
-      = valueVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
-    uint32_t valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
-    value.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
-      = valuePedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
-    uint32_t valuePedestrianContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
-    value.pedestrianContinueForwardIntermediateAccelerationSteps
-      = valuePedestrianContinueForwardIntermediateAccelerationSteps;
-    uint32_t valuePedestrianBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
-    value.pedestrianBrakeIntermediateAccelerationSteps = valuePedestrianBrakeIntermediateAccelerationSteps;
-    uint32_t valuePedestrianFrontIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
-    value.pedestrianFrontIntermediateHeadingChangeRatioSteps = valuePedestrianFrontIntermediateHeadingChangeRatioSteps;
-    uint32_t valuePedestrianBackIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::min()};
-    value.pedestrianBackIntermediateHeadingChangeRatioSteps = valuePedestrianBackIntermediateHeadingChangeRatioSteps;
+    ::ad::physics::Distance valuePedestrian_turning_radius(-1e9);
+    value.pedestrian_turning_radius = valuePedestrian_turning_radius;
+    ::ad::physics::Angle valueDrive_away_max_angle(-6.283185308);
+    value.drive_away_max_angle = valueDrive_away_max_angle;
+    ::ad::physics::AngularAcceleration valueVehicle_yaw_rate_change(-1e2);
+    value.vehicle_yaw_rate_change = valueVehicle_yaw_rate_change;
+    ::ad::physics::Distance valueVehicle_min_radius(-1e9);
+    value.vehicle_min_radius = valueVehicle_min_radius;
+    ::ad::physics::Duration valueVehicle_trajectory_calculation_step(0.);
+    value.vehicle_trajectory_calculation_step = valueVehicle_trajectory_calculation_step;
+    uint32_t valueVehicle_front_intermediate_yaw_rate_change_ratio_steps{std::numeric_limits<uint32_t>::min()};
+    value.vehicle_front_intermediate_yaw_rate_change_ratio_steps
+      = valueVehicle_front_intermediate_yaw_rate_change_ratio_steps;
+    uint32_t valueVehicle_back_intermediate_yaw_rate_change_ratio_steps{std::numeric_limits<uint32_t>::min()};
+    value.vehicle_back_intermediate_yaw_rate_change_ratio_steps
+      = valueVehicle_back_intermediate_yaw_rate_change_ratio_steps;
+    uint32_t valueVehicle_brake_intermediate_acceleration_steps{std::numeric_limits<uint32_t>::min()};
+    value.vehicle_brake_intermediate_acceleration_steps = valueVehicle_brake_intermediate_acceleration_steps;
+    uint32_t valueVehicle_continue_forward_intermediate_acceleration_steps{std::numeric_limits<uint32_t>::min()};
+    value.vehicle_continue_forward_intermediate_acceleration_steps
+      = valueVehicle_continue_forward_intermediate_acceleration_steps;
+    uint32_t valueVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+    value.vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps
+      = valueVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps;
+    uint32_t valuePedestrian_continue_forward_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+    value.pedestrian_continue_forward_intermediate_heading_change_ratio_steps
+      = valuePedestrian_continue_forward_intermediate_heading_change_ratio_steps;
+    uint32_t valuePedestrian_continue_forward_intermediate_acceleration_steps{std::numeric_limits<uint32_t>::min()};
+    value.pedestrian_continue_forward_intermediate_acceleration_steps
+      = valuePedestrian_continue_forward_intermediate_acceleration_steps;
+    uint32_t valuePedestrian_brake_intermediate_acceleration_steps{std::numeric_limits<uint32_t>::min()};
+    value.pedestrian_brake_intermediate_acceleration_steps = valuePedestrian_brake_intermediate_acceleration_steps;
+    uint32_t valuePedestrian_front_intermediate_heading_change_ratio_steps{std::numeric_limits<uint32_t>::min()};
+    value.pedestrian_front_intermediate_heading_change_ratio_steps
+      = valuePedestrian_front_intermediate_heading_change_ratio_steps;
+    uint32_t valuePedestrian_back_intermediate_heading_change_ratio_steps{std::numeric_limits<uint32_t>::min()};
+    value.pedestrian_back_intermediate_heading_change_ratio_steps
+      = valuePedestrian_back_intermediate_heading_change_ratio_steps;
     mValue = value;
   }
 
@@ -114,168 +120,174 @@ TEST_F(UnstructuredSettingsTests, stringConversionTest)
   ASSERT_EQ(ostreamStr, toStr);
 }
 
-TEST_F(UnstructuredSettingsTests, comparisonOperatorPedestrianTurningRadiusDiffers)
+TEST_F(UnstructuredSettingsTests, comparisonOperatorPedestrian_turning_radiusDiffers)
 {
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
-  ::ad::physics::Distance pedestrianTurningRadius(1e9);
-  valueA.pedestrianTurningRadius = pedestrianTurningRadius;
+  ::ad::physics::Distance pedestrian_turning_radius(1e9);
+  valueA.pedestrian_turning_radius = pedestrian_turning_radius;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(UnstructuredSettingsTests, comparisonOperatorDriveAwayMaxAngleDiffers)
+TEST_F(UnstructuredSettingsTests, comparisonOperatorDrive_away_max_angleDiffers)
 {
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
-  ::ad::physics::Angle driveAwayMaxAngle(6.283185308);
-  valueA.driveAwayMaxAngle = driveAwayMaxAngle;
+  ::ad::physics::Angle drive_away_max_angle(6.283185308);
+  valueA.drive_away_max_angle = drive_away_max_angle;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleYawRateChangeDiffers)
+TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicle_yaw_rate_changeDiffers)
 {
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
-  ::ad::physics::AngularAcceleration vehicleYawRateChange(1e2);
-  valueA.vehicleYawRateChange = vehicleYawRateChange;
+  ::ad::physics::AngularAcceleration vehicle_yaw_rate_change(1e2);
+  valueA.vehicle_yaw_rate_change = vehicle_yaw_rate_change;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleMinRadiusDiffers)
+TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicle_min_radiusDiffers)
 {
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
-  ::ad::physics::Distance vehicleMinRadius(1e9);
-  valueA.vehicleMinRadius = vehicleMinRadius;
+  ::ad::physics::Distance vehicle_min_radius(1e9);
+  valueA.vehicle_min_radius = vehicle_min_radius;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleTrajectoryCalculationStepDiffers)
+TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicle_trajectory_calculation_stepDiffers)
 {
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
-  ::ad::physics::Duration vehicleTrajectoryCalculationStep(1e6);
-  valueA.vehicleTrajectoryCalculationStep = vehicleTrajectoryCalculationStep;
+  ::ad::physics::Duration vehicle_trajectory_calculation_step(1e6);
+  valueA.vehicle_trajectory_calculation_step = vehicle_trajectory_calculation_step;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleFrontIntermediateYawRateChangeRatioStepsDiffers)
+TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicle_front_intermediate_yaw_rate_change_ratio_stepsDiffers)
 {
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
-  uint32_t vehicleFrontIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::max()};
-  valueA.vehicleFrontIntermediateYawRateChangeRatioSteps = vehicleFrontIntermediateYawRateChangeRatioSteps;
+  uint32_t vehicle_front_intermediate_yaw_rate_change_ratio_steps{std::numeric_limits<uint32_t>::max()};
+  valueA.vehicle_front_intermediate_yaw_rate_change_ratio_steps
+    = vehicle_front_intermediate_yaw_rate_change_ratio_steps;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleBackIntermediateYawRateChangeRatioStepsDiffers)
+TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicle_back_intermediate_yaw_rate_change_ratio_stepsDiffers)
 {
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
-  uint32_t vehicleBackIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::max()};
-  valueA.vehicleBackIntermediateYawRateChangeRatioSteps = vehicleBackIntermediateYawRateChangeRatioSteps;
+  uint32_t vehicle_back_intermediate_yaw_rate_change_ratio_steps{std::numeric_limits<uint32_t>::max()};
+  valueA.vehicle_back_intermediate_yaw_rate_change_ratio_steps = vehicle_back_intermediate_yaw_rate_change_ratio_steps;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleBrakeIntermediateAccelerationStepsDiffers)
+TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicle_brake_intermediate_acceleration_stepsDiffers)
 {
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
-  uint32_t vehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::max()};
-  valueA.vehicleBrakeIntermediateAccelerationSteps = vehicleBrakeIntermediateAccelerationSteps;
+  uint32_t vehicle_brake_intermediate_acceleration_steps{std::numeric_limits<uint32_t>::max()};
+  valueA.vehicle_brake_intermediate_acceleration_steps = vehicle_brake_intermediate_acceleration_steps;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleContinueForwardIntermediateAccelerationStepsDiffers)
+TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicle_continue_forward_intermediate_acceleration_stepsDiffers)
 {
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
-  uint32_t vehicleContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::max()};
-  valueA.vehicleContinueForwardIntermediateAccelerationSteps = vehicleContinueForwardIntermediateAccelerationSteps;
+  uint32_t vehicle_continue_forward_intermediate_acceleration_steps{std::numeric_limits<uint32_t>::max()};
+  valueA.vehicle_continue_forward_intermediate_acceleration_steps
+    = vehicle_continue_forward_intermediate_acceleration_steps;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(UnstructuredSettingsTests, comparisonOperatorVehicleContinueForwardIntermediateYawRateChangeRatioStepsDiffers)
+TEST_F(UnstructuredSettingsTests,
+       comparisonOperatorVehicle_continue_forward_intermediate_yaw_rate_change_ratio_stepsDiffers)
 {
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
-  uint32_t vehicleContinueForwardIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::max()};
-  valueA.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
-    = vehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  uint32_t vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps{std::numeric_limits<uint32_t>::max()};
+  valueA.vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps
+    = vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(UnstructuredSettingsTests, comparisonOperatorPedestrianContinueForwardIntermediateHeadingChangeRatioStepsDiffers)
+TEST_F(UnstructuredSettingsTests,
+       comparisonOperatorPedestrian_continue_forward_intermediate_heading_change_ratio_stepsDiffers)
 {
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
-  uint32_t pedestrianContinueForwardIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::max()};
-  valueA.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
-    = pedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  uint32_t pedestrian_continue_forward_intermediate_heading_change_ratio_steps{std::numeric_limits<uint32_t>::max()};
+  valueA.pedestrian_continue_forward_intermediate_heading_change_ratio_steps
+    = pedestrian_continue_forward_intermediate_heading_change_ratio_steps;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(UnstructuredSettingsTests, comparisonOperatorPedestrianContinueForwardIntermediateAccelerationStepsDiffers)
+TEST_F(UnstructuredSettingsTests, comparisonOperatorPedestrian_continue_forward_intermediate_acceleration_stepsDiffers)
 {
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
-  uint32_t pedestrianContinueForwardIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::max()};
-  valueA.pedestrianContinueForwardIntermediateAccelerationSteps
-    = pedestrianContinueForwardIntermediateAccelerationSteps;
+  uint32_t pedestrian_continue_forward_intermediate_acceleration_steps{std::numeric_limits<uint32_t>::max()};
+  valueA.pedestrian_continue_forward_intermediate_acceleration_steps
+    = pedestrian_continue_forward_intermediate_acceleration_steps;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(UnstructuredSettingsTests, comparisonOperatorPedestrianBrakeIntermediateAccelerationStepsDiffers)
+TEST_F(UnstructuredSettingsTests, comparisonOperatorPedestrian_brake_intermediate_acceleration_stepsDiffers)
 {
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
-  uint32_t pedestrianBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::max()};
-  valueA.pedestrianBrakeIntermediateAccelerationSteps = pedestrianBrakeIntermediateAccelerationSteps;
+  uint32_t pedestrian_brake_intermediate_acceleration_steps{std::numeric_limits<uint32_t>::max()};
+  valueA.pedestrian_brake_intermediate_acceleration_steps = pedestrian_brake_intermediate_acceleration_steps;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(UnstructuredSettingsTests, comparisonOperatorPedestrianFrontIntermediateHeadingChangeRatioStepsDiffers)
+TEST_F(UnstructuredSettingsTests, comparisonOperatorPedestrian_front_intermediate_heading_change_ratio_stepsDiffers)
 {
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
-  uint32_t pedestrianFrontIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::max()};
-  valueA.pedestrianFrontIntermediateHeadingChangeRatioSteps = pedestrianFrontIntermediateHeadingChangeRatioSteps;
+  uint32_t pedestrian_front_intermediate_heading_change_ratio_steps{std::numeric_limits<uint32_t>::max()};
+  valueA.pedestrian_front_intermediate_heading_change_ratio_steps
+    = pedestrian_front_intermediate_heading_change_ratio_steps;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(UnstructuredSettingsTests, comparisonOperatorPedestrianBackIntermediateHeadingChangeRatioStepsDiffers)
+TEST_F(UnstructuredSettingsTests, comparisonOperatorPedestrian_back_intermediate_heading_change_ratio_stepsDiffers)
 {
   ::ad::rss::world::UnstructuredSettings valueA = mValue;
-  uint32_t pedestrianBackIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::max()};
-  valueA.pedestrianBackIntermediateHeadingChangeRatioSteps = pedestrianBackIntermediateHeadingChangeRatioSteps;
+  uint32_t pedestrian_back_intermediate_heading_change_ratio_steps{std::numeric_limits<uint32_t>::max()};
+  valueA.pedestrian_back_intermediate_heading_change_ratio_steps
+    = pedestrian_back_intermediate_heading_change_ratio_steps;
   ::ad::rss::world::UnstructuredSettings valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

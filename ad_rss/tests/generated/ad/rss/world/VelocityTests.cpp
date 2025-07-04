@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -28,19 +28,19 @@ protected:
   {
     // valid initialization
     ::ad::rss::world::Velocity value;
-    ::ad::physics::Speed valueSpeedLonMin(-100.);
-    valueSpeedLonMin = ::ad::physics::Speed(0.); // set to valid value within struct
-    value.speedLonMin = valueSpeedLonMin;
-    ::ad::physics::Speed valueSpeedLonMax(-100.);
-    value.speedLonMax = valueSpeedLonMax;
-    ::ad::physics::Speed valueSpeedLatMin(-100.);
-    value.speedLatMin = valueSpeedLatMin;
-    ::ad::physics::Speed valueSpeedLatMax(-100.);
-    value.speedLatMax = valueSpeedLatMax;
-    value.speedLonMax = value.speedLonMin;
-    value.speedLatMax = value.speedLatMin;
-    value.speedLonMin = value.speedLonMax;
-    value.speedLatMin = value.speedLatMax;
+    ::ad::physics::Speed valueSpeed_lon_min(-100.);
+    valueSpeed_lon_min = ::ad::physics::Speed(0.); // set to valid value within struct
+    value.speed_lon_min = valueSpeed_lon_min;
+    ::ad::physics::Speed valueSpeed_lon_max(-100.);
+    value.speed_lon_max = valueSpeed_lon_max;
+    ::ad::physics::Speed valueSpeed_lat_min(-100.);
+    value.speed_lat_min = valueSpeed_lat_min;
+    ::ad::physics::Speed valueSpeed_lat_max(-100.);
+    value.speed_lat_max = valueSpeed_lat_max;
+    value.speed_lon_max = value.speed_lon_min;
+    value.speed_lat_max = value.speed_lat_min;
+    value.speed_lon_min = value.speed_lon_max;
+    value.speed_lat_min = value.speed_lat_max;
     mValue = value;
   }
 
@@ -93,44 +93,44 @@ TEST_F(VelocityTests, stringConversionTest)
   ASSERT_EQ(ostreamStr, toStr);
 }
 
-TEST_F(VelocityTests, comparisonOperatorSpeedLonMinDiffers)
+TEST_F(VelocityTests, comparisonOperatorSpeed_lon_minDiffers)
 {
   ::ad::rss::world::Velocity valueA = mValue;
-  ::ad::physics::Speed speedLonMin(100.);
-  valueA.speedLonMin = speedLonMin;
+  ::ad::physics::Speed speed_lon_min(100.);
+  valueA.speed_lon_min = speed_lon_min;
   ::ad::rss::world::Velocity valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(VelocityTests, comparisonOperatorSpeedLonMaxDiffers)
+TEST_F(VelocityTests, comparisonOperatorSpeed_lon_maxDiffers)
 {
   ::ad::rss::world::Velocity valueA = mValue;
-  ::ad::physics::Speed speedLonMax(100.);
-  valueA.speedLonMax = speedLonMax;
+  ::ad::physics::Speed speed_lon_max(100.);
+  valueA.speed_lon_max = speed_lon_max;
   ::ad::rss::world::Velocity valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(VelocityTests, comparisonOperatorSpeedLatMinDiffers)
+TEST_F(VelocityTests, comparisonOperatorSpeed_lat_minDiffers)
 {
   ::ad::rss::world::Velocity valueA = mValue;
-  ::ad::physics::Speed speedLatMin(100.);
-  valueA.speedLatMin = speedLatMin;
+  ::ad::physics::Speed speed_lat_min(100.);
+  valueA.speed_lat_min = speed_lat_min;
   ::ad::rss::world::Velocity valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(VelocityTests, comparisonOperatorSpeedLatMaxDiffers)
+TEST_F(VelocityTests, comparisonOperatorSpeed_lat_maxDiffers)
 {
   ::ad::rss::world::Velocity valueA = mValue;
-  ::ad::physics::Speed speedLatMax(100.);
-  valueA.speedLatMax = speedLatMax;
+  ::ad::physics::Speed speed_lat_max(100.);
+  valueA.speed_lat_max = speed_lat_max;
   ::ad::rss::world::Velocity valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

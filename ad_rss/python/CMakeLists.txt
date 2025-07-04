@@ -16,9 +16,7 @@ get_target_property(AD_PHYSICS_INCLUDES ad_physics INTERFACE_INCLUDE_DIRECTORIES
 find_package(spdlog REQUIRED CONFIG)
 get_target_property(SPDLOG_INCLUDES spdlog::spdlog INTERFACE_INCLUDE_DIRECTORIES)
 
-find_package(Boost CONFIG REQUIRED)
-
-list(APPEND INCLUDE_DIRS ${Boost_INCLUDE_DIRS} ${AD_PHYSICS_INCLUDES} ${SPDLOG_INCLUDES})
+list(APPEND INCLUDE_DIRS ${AD_PHYSICS_INCLUDES} ${SPDLOG_INCLUDES})
 
 string (REPLACE ";" "\", \"" GENPY_INCLUDE_DIRS "${INCLUDE_DIRS}")
 
@@ -36,8 +34,8 @@ configure_file(AdRssPython.cpp.in ${CMAKE_CURRENT_BINARY_DIR}/AdRssPython-${PYTH
 
 add_library(${target} SHARED
   ${CMAKE_CURRENT_BINARY_DIR}/AdRss-core-PythonWrapper.cpp
-  ${CMAKE_CURRENT_BINARY_DIR}/AdRss-situation-PythonWrapper.cpp
   ${CMAKE_CURRENT_BINARY_DIR}/AdRss-state-PythonWrapper.cpp
+  ${CMAKE_CURRENT_BINARY_DIR}/AdRss-structured-PythonWrapper.cpp
   ${CMAKE_CURRENT_BINARY_DIR}/AdRss-unstructured-PythonWrapper.cpp
   ${CMAKE_CURRENT_BINARY_DIR}/AdRss-world-PythonWrapper.cpp
   ${CMAKE_CURRENT_BINARY_DIR}/AdRssPython-${PYTHON_BINDING_NAME}.cpp
@@ -61,6 +59,7 @@ target_link_libraries(${target} PRIVATE
   ${PYTHON_BINDING_PACKAGE_LIBRARIES}
 )
 
+
 configure_file(setup.py.in ${CMAKE_CURRENT_BINARY_DIR}/setup.py)
 # fake the ament_cmake_python local_setup.bash file
 configure_file(local_setup.bash.in ${CMAKE_CURRENT_BINARY_DIR}/local_setup.bash @ONLY)
@@ -71,7 +70,7 @@ install(FILES
 
 install(CODE "\
   EXECUTE_PROCESS(\
-    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/setup.py egg_info --egg-base ${CMAKE_CURRENT_BINARY_DIR} build --build-base ${CMAKE_CURRENT_BINARY_DIR} install --prefix ${CMAKE_INSTALL_PREFIX} --record ${CMAKE_CURRENT_BINARY_DIR}/install.log --single-version-externally-managed bdist_wheel --dist-dir ${CMAKE_INSTALL_PREFIX}/dist ${CMAKE_CURRENT_BINARY_DIR}/${PYTHON_BINDING_NAME}\
+    COMMAND ${PYTHON_BINDING_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/setup.py egg_info --egg-base ${CMAKE_CURRENT_BINARY_DIR} build --build-base ${CMAKE_CURRENT_BINARY_DIR} install --prefix ${CMAKE_INSTALL_PREFIX} --record ${CMAKE_CURRENT_BINARY_DIR}/install.log --single-version-externally-managed bdist_wheel --dist-dir ${CMAKE_INSTALL_PREFIX}/dist ${CMAKE_CURRENT_BINARY_DIR}/${PYTHON_BINDING_NAME}\
     WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}\
   )"
 )
@@ -81,7 +80,7 @@ install(CODE "\
 #####################################################################
 if (BUILD_TESTING)
   add_test(NAME ${PROJECT_NAME}_test_${PYTHON_BINDING_NAME}
-    COMMAND ${PYTHON_EXECUTABLE} -m interface_test
+    COMMAND ${PYTHON_BINDING_EXECUTABLE} -m interface_test
     WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/tests
     )
   get_python_test_environment(ad_physics)

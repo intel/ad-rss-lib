@@ -29,16 +29,16 @@ and stays on the drivable road.
 
 | ![Stay on road](../images/road_boundaries.png) |
 | -- |
-| *By adding the left and right border of the drivable road as artificial objects to the RSS scenes, RSS will ensure a safety distance to these virtual 'walls' and though make the vehicle to stay on its road.* |
+| *By adding the left and right border of the drivable road as artificial objects to the RSS constellations, RSS will ensure a safety distance to these virtual 'walls' and though make the vehicle to stay on its road.* |
 
 #### Virtual road border objects
-When adding the road boundaries to the list of RSS scenes, there is still the question
+When adding the road boundaries to the list of RSS constellations, there is still the question
 which borders to actually use. Do we want to restrict the vehicle to it's currently planned
 route? Do we want to allow the vehicle to be able to enter the opposite lanes where
 the speed difference towards other cars is expected to be much higher? Do we even want to
 allow the vehicle to enter non-drivable lanes like shoulder lanes or even pedestrian ways?
-As these questions may be answered differently in respect to the kind of road, the situation, etc.
-*ad_rss_map_integration* allows the user to select between different modes  (`ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode`) when calling
-`ad::rss::map::RssSceneCreation::AppendRoadBoundaries()`.
+As these questions may be answered differently in respect to the kind of road, the constellation, etc.
+*ad_rss_map_integration* allows the user to select between different modes  (`ad::rss::map::RssAppendRoadBoundariesMode`) when calling
+`ad::rss::map::RssWorldModelCreation::appendRoadBoundaries()`.
 
 On the other hand, since the virtual objects are of static nature, the current implementation sets the `ad::rss::world::RssDynamics` of the road boundary objects to some fixed values: no acceleration, minimal response time, etc. The same is true for the breadth of the road boundaries, which are just fixed to 0.001 of the respective lane segment.

@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -102,7 +102,7 @@ struct OccupiedRegion
    */
   bool operator==(const OccupiedRegion &other) const
   {
-    return (segmentId == other.segmentId) && (lonRange == other.lonRange) && (latRange == other.latRange);
+    return (segment_id == other.segment_id) && (lon_range == other.lon_range) && (lat_range == other.lat_range);
   }
 
   /**
@@ -120,17 +120,17 @@ struct OccupiedRegion
   /*!
    * The id of the lane segment this region refers to.
    */
-  ::ad::rss::world::LaneSegmentId segmentId;
+  ::ad::rss::world::LaneSegmentId segment_id;
 
   /*!
    * The parametric range an object spans in longitudinal direction within a lane segment.
    */
-  ::ad::physics::ParametricRange lonRange;
+  ::ad::physics::ParametricRange lon_range;
 
   /*!
    * The parametric range an object spans in lateral direction within a lane segment.
    */
-  ::ad::physics::ParametricRange latRange;
+  ::ad::physics::ParametricRange lat_range;
 };
 
 } // namespace world
@@ -167,14 +167,14 @@ namespace world {
 inline std::ostream &operator<<(std::ostream &os, OccupiedRegion const &_value)
 {
   os << "OccupiedRegion(";
-  os << "segmentId:";
-  os << _value.segmentId;
+  os << "segment_id:";
+  os << _value.segment_id;
   os << ",";
-  os << "lonRange:";
-  os << _value.lonRange;
+  os << "lon_range:";
+  os << _value.lon_range;
   os << ",";
-  os << "latRange:";
-  os << _value.latRange;
+  os << "lat_range:";
+  os << _value.lat_range;
   os << ")";
   return os;
 }
@@ -194,4 +194,16 @@ inline std::string to_string(::ad::rss::world::OccupiedRegion const &value)
   return sstream.str();
 }
 } // namespace std
+
+/*!
+ * \brief overload of fmt::formatter calling std::to_string
+ */
+template <> struct fmt::formatter<::ad::rss::world::OccupiedRegion> : formatter<string_view>
+{
+  template <typename FormatContext> auto format(::ad::rss::world::OccupiedRegion const &value, FormatContext &ctx)
+  {
+    return formatter<string_view>::format(std::to_string(value), ctx);
+  }
+};
+
 #endif // GEN_GUARD_AD_RSS_WORLD_OCCUPIEDREGION

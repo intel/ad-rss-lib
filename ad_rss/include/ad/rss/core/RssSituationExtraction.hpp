@@ -11,7 +11,8 @@
 
 #pragma once
 
-#include "ad/rss/situation/SituationSnapshot.hpp"
+#include "ad/rss/core/RssSituationSnapshot.hpp"
+#include "ad/rss/structured/RssConstellationIdProvider.hpp"
 #include "ad/rss/world/WorldModel.hpp"
 
 /*!
@@ -22,15 +23,6 @@ namespace ad {
  * @brief namespace rss
  */
 namespace rss {
-/*!
- * @brief namespace world
- */
-namespace world {
-/*!
- * @brief forward declaration of class RssSituationIdProvider
- */
-class RssSituationIdProvider;
-} // namespace world
 
 /*!
  * @brief namespace core
@@ -40,73 +32,97 @@ namespace core {
 /*!
  * @brief class RssSituationExtraction
  *
- * Class providing functions required for the extraction of the RSS situations from the RSS world model.
+ * Class providing functions required for the extraction of the RSS situation from the RSS world model.
  */
 class RssSituationExtraction
 {
 public:
   /*!
+   * \brief Smart pointer on RssSituationExtraction
+   */
+  typedef std::shared_ptr<RssSituationExtraction> Ptr;
+
+  /*!
+   * \brief Smart pointer on constant RssSituationExtraction
+   */
+  typedef std::shared_ptr<RssSituationExtraction const> ConstPtr;
+
+  /*!
    * @brief constructor
    */
-  RssSituationExtraction();
+  RssSituationExtraction() = default;
 
   /*!
    * @brief destructor
    */
-  ~RssSituationExtraction();
+  ~RssSituationExtraction() = default;
 
   /**
-   * @brief Extract all RSS situations to be checked from the world model.
+   * @brief Transform all RSS constellations from the world model into relative constellations within their
+   * constellation lane coordinate system.
    *
    * @param [in] worldModel - the current world model information
-   * @param [out] situationSnapshot - the vector of situations to be analyzed with RSS
+   * @param [out] situationSnapshot - the situation to be analyzed by RSS with its vector of constellations
    *
-   * @return true if the situations could be created, false if there was an error during the operation.
+   * @return true if the situation snapshot could be extracted, false if there was an error during the operation.
    */
-  bool extractSituations(world::WorldModel const &worldModel, situation::SituationSnapshot &situationSnapshot);
+  bool extractSituation(world::WorldModel const &worldModel, core::RssSituationSnapshot &situationSnapshot);
+
+  /*!
+   * @brief drop the history associated with a given object_id
+   *
+   * This function might be used to drop previous states referred to a certain object id in case the object id is reused
+   *
+   * @param[in] object_id the object_id previous history should be dropped
+   */
+  void dropObjectHistory(world::ObjectId const &object_id);
 
 private:
   void calcluateRelativeLongitudinalPosition(physics::MetricRange const &egoMetricRange,
                                              physics::MetricRange const &otherMetricRange,
-                                             situation::LongitudinalRelativePosition &longitudinalPosition,
-                                             physics::Distance &longitudinalDistance);
+                                             LongitudinalRelativePosition &longitudinal_position,
+                                             physics::Distance &longitudinal_distance);
   void calcluateRelativeLongitudinalPositionIntersection(physics::MetricRange const &egoMetricRange,
                                                          physics::MetricRange const &otherMetricRange,
-                                                         situation::LongitudinalRelativePosition &longitudinalPosition,
-                                                         physics::Distance &longitudinalDistance);
+                                                         LongitudinalRelativePosition &longitudinal_position,
+                                                         physics::Distance &longitudinal_distance);
   void calcluateRelativeLateralPosition(physics::MetricRange const &egoMetricRange,
                                         physics::MetricRange const &otherMetricRange,
-                                        situation::LateralRelativePosition &lateralPosition,
-                                        physics::Distance &lateralDistance);
-  bool convertObjectsNonIntersection(world::Scene const &currentScene, situation::Situation &situation);
+                                        LateralRelativePosition &lateral_position,
+                                        physics::Distance &lateral_distance);
+  bool convertObjectsNonIntersection(world::Constellation const &currentConstellation,
+                                     core::RelativeConstellation &constellation);
   void convertToIntersectionCentric(physics::MetricRange const &objectDimension,
                                     physics::MetricRange const &intersectionPosition,
                                     physics::MetricRange &dimensionsIntersection);
-  bool convertObjectsIntersection(world::Scene const &currentScene, situation::Situation &situation);
+  bool convertObjectsIntersection(world::Constellation const &currentConstellation,
+                                  core::RelativeConstellation &constellation);
 
   /**
-   * @brief Extract the RSS situation of the ego vehicle and the object to be checked.
+   * @brief Transform the RSS constellation of the ego vehicle and the object to be checked.
    *
-   * @param [in] timeIndex the time index of the current situation
-   * @param [in] currentScene the information on the current scene with the object to be checked
-   * @param [out] situation the situation to be analyzed with RSS
+   * @param [in] time_index the time index of the current constellation
+   * @param [in] worldConstellation the information on the current constellation with the object to be checked in
+   * outside world format
+   * @param [out] relativeConstellation the relative constellation to be analyzed by RSS in internal relative format
    *
-   * @return true if the situation could be created, false if there was an error during the operation.
+   * @return true if the constellation could be created, false if there was an error during the operation.
    */
-  bool extractSituationInputRangeChecked(world::TimeIndex const &timeIndex,
-                                         world::Scene const &currentScene,
-                                         situation::Situation &situation);
+  bool extractConstellationInputRangeChecked(world::TimeIndex const &time_index,
+                                             world::Constellation const &worldConstellation,
+                                             RelativeConstellation &relativeConstellation);
   enum class MergeMode
   {
     EgoVehicle,
     OtherVehicle
   };
   bool mergeVehicleStates(MergeMode const &mergeMode,
-                          situation::VehicleState const &otherVehicleState,
-                          situation::VehicleState &mergedVehicleState);
-  bool mergeSituations(situation::Situation const &otherSituation, situation::Situation &mergedSituation);
+                          RelativeObjectState const &other_state,
+                          RelativeObjectState &mergedVehicleState);
+  bool mergeConstellations(core::RelativeConstellation const &otherConstellation,
+                           core::RelativeConstellation &mergedConstellation);
 
-  std::unique_ptr<ad::rss::world::RssSituationIdProvider> mSituationIdProvider;
+  structured::RssConstellationIdProvider mConstellationIdProvider;
 };
 
 } // namespace core

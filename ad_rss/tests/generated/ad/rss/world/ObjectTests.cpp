@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -28,47 +28,47 @@ protected:
   {
     // valid initialization
     ::ad::rss::world::Object value;
-    ::ad::rss::world::ObjectId valueObjectId(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-    value.objectId = valueObjectId;
-    ::ad::rss::world::ObjectType valueObjectType(::ad::rss::world::ObjectType::Invalid);
-    value.objectType = valueObjectType;
-    ::ad::rss::world::OccupiedRegionVector valueOccupiedRegions;
-    ::ad::rss::world::OccupiedRegion valueOccupiedRegionsElement;
-    ::ad::rss::world::LaneSegmentId valueOccupiedRegionsElementSegmentId(
+    ::ad::rss::world::ObjectId valueObject_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+    value.object_id = valueObject_id;
+    ::ad::rss::world::ObjectType valueObject_type(::ad::rss::world::ObjectType::Invalid);
+    value.object_type = valueObject_type;
+    ::ad::rss::world::OccupiedRegionVector valueOccupied_regions;
+    ::ad::rss::world::OccupiedRegion valueOccupied_regionsElement;
+    ::ad::rss::world::LaneSegmentId valueOccupied_regionsElementSegment_id(
       std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
-    valueOccupiedRegionsElement.segmentId = valueOccupiedRegionsElementSegmentId;
-    ::ad::physics::ParametricRange valueOccupiedRegionsElementLonRange;
-    ::ad::physics::ParametricValue valueOccupiedRegionsElementLonRangeMinimum(0.);
-    valueOccupiedRegionsElementLonRange.minimum = valueOccupiedRegionsElementLonRangeMinimum;
-    ::ad::physics::ParametricValue valueOccupiedRegionsElementLonRangeMaximum(0.);
-    valueOccupiedRegionsElementLonRange.maximum = valueOccupiedRegionsElementLonRangeMaximum;
-    valueOccupiedRegionsElementLonRange.maximum = valueOccupiedRegionsElementLonRange.minimum;
-    valueOccupiedRegionsElementLonRange.minimum = valueOccupiedRegionsElementLonRange.maximum;
-    valueOccupiedRegionsElement.lonRange = valueOccupiedRegionsElementLonRange;
-    ::ad::physics::ParametricRange valueOccupiedRegionsElementLatRange;
-    ::ad::physics::ParametricValue valueOccupiedRegionsElementLatRangeMinimum(0.);
-    valueOccupiedRegionsElementLatRange.minimum = valueOccupiedRegionsElementLatRangeMinimum;
-    ::ad::physics::ParametricValue valueOccupiedRegionsElementLatRangeMaximum(0.);
-    valueOccupiedRegionsElementLatRange.maximum = valueOccupiedRegionsElementLatRangeMaximum;
-    valueOccupiedRegionsElementLatRange.maximum = valueOccupiedRegionsElementLatRange.minimum;
-    valueOccupiedRegionsElementLatRange.minimum = valueOccupiedRegionsElementLatRange.maximum;
-    valueOccupiedRegionsElement.latRange = valueOccupiedRegionsElementLatRange;
-    valueOccupiedRegions.resize(1, valueOccupiedRegionsElement);
-    value.occupiedRegions = valueOccupiedRegions;
+    valueOccupied_regionsElement.segment_id = valueOccupied_regionsElementSegment_id;
+    ::ad::physics::ParametricRange valueOccupied_regionsElementLon_range;
+    ::ad::physics::ParametricValue valueOccupied_regionsElementLon_rangeMinimum(0.);
+    valueOccupied_regionsElementLon_range.minimum = valueOccupied_regionsElementLon_rangeMinimum;
+    ::ad::physics::ParametricValue valueOccupied_regionsElementLon_rangeMaximum(0.);
+    valueOccupied_regionsElementLon_range.maximum = valueOccupied_regionsElementLon_rangeMaximum;
+    valueOccupied_regionsElementLon_range.maximum = valueOccupied_regionsElementLon_range.minimum;
+    valueOccupied_regionsElementLon_range.minimum = valueOccupied_regionsElementLon_range.maximum;
+    valueOccupied_regionsElement.lon_range = valueOccupied_regionsElementLon_range;
+    ::ad::physics::ParametricRange valueOccupied_regionsElementLat_range;
+    ::ad::physics::ParametricValue valueOccupied_regionsElementLat_rangeMinimum(0.);
+    valueOccupied_regionsElementLat_range.minimum = valueOccupied_regionsElementLat_rangeMinimum;
+    ::ad::physics::ParametricValue valueOccupied_regionsElementLat_rangeMaximum(0.);
+    valueOccupied_regionsElementLat_range.maximum = valueOccupied_regionsElementLat_rangeMaximum;
+    valueOccupied_regionsElementLat_range.maximum = valueOccupied_regionsElementLat_range.minimum;
+    valueOccupied_regionsElementLat_range.minimum = valueOccupied_regionsElementLat_range.maximum;
+    valueOccupied_regionsElement.lat_range = valueOccupied_regionsElementLat_range;
+    valueOccupied_regions.resize(1, valueOccupied_regionsElement);
+    value.occupied_regions = valueOccupied_regions;
     ::ad::rss::world::Velocity valueVelocity;
-    ::ad::physics::Speed valueVelocitySpeedLonMin(-100.);
-    valueVelocitySpeedLonMin = ::ad::physics::Speed(0.); // set to valid value within struct
-    valueVelocity.speedLonMin = valueVelocitySpeedLonMin;
-    ::ad::physics::Speed valueVelocitySpeedLonMax(-100.);
-    valueVelocity.speedLonMax = valueVelocitySpeedLonMax;
-    ::ad::physics::Speed valueVelocitySpeedLatMin(-100.);
-    valueVelocity.speedLatMin = valueVelocitySpeedLatMin;
-    ::ad::physics::Speed valueVelocitySpeedLatMax(-100.);
-    valueVelocity.speedLatMax = valueVelocitySpeedLatMax;
-    valueVelocity.speedLonMax = valueVelocity.speedLonMin;
-    valueVelocity.speedLatMax = valueVelocity.speedLatMin;
-    valueVelocity.speedLonMin = valueVelocity.speedLonMax;
-    valueVelocity.speedLatMin = valueVelocity.speedLatMax;
+    ::ad::physics::Speed valueVelocitySpeed_lon_min(-100.);
+    valueVelocitySpeed_lon_min = ::ad::physics::Speed(0.); // set to valid value within struct
+    valueVelocity.speed_lon_min = valueVelocitySpeed_lon_min;
+    ::ad::physics::Speed valueVelocitySpeed_lon_max(-100.);
+    valueVelocity.speed_lon_max = valueVelocitySpeed_lon_max;
+    ::ad::physics::Speed valueVelocitySpeed_lat_min(-100.);
+    valueVelocity.speed_lat_min = valueVelocitySpeed_lat_min;
+    ::ad::physics::Speed valueVelocitySpeed_lat_max(-100.);
+    valueVelocity.speed_lat_max = valueVelocitySpeed_lat_max;
+    valueVelocity.speed_lon_max = valueVelocity.speed_lon_min;
+    valueVelocity.speed_lat_max = valueVelocity.speed_lat_min;
+    valueVelocity.speed_lon_min = valueVelocity.speed_lon_max;
+    valueVelocity.speed_lat_min = valueVelocity.speed_lat_max;
     value.velocity = valueVelocity;
     ::ad::rss::world::ObjectState valueState;
     ::ad::physics::Angle valueStateYaw(-6.283185308);
@@ -79,18 +79,24 @@ protected:
     ::ad::physics::Distance valueStateDimensionWidth(-1e9);
     valueStateDimension.width = valueStateDimensionWidth;
     valueState.dimension = valueStateDimension;
-    ::ad::physics::AngularVelocity valueStateYawRate(-100.);
-    valueState.yawRate = valueStateYawRate;
-    ::ad::physics::Distance2D valueStateCenterPoint;
-    ::ad::physics::Distance valueStateCenterPointX(-1e9);
-    valueStateCenterPoint.x = valueStateCenterPointX;
-    ::ad::physics::Distance valueStateCenterPointY(-1e9);
-    valueStateCenterPoint.y = valueStateCenterPointY;
-    valueState.centerPoint = valueStateCenterPoint;
-    ::ad::physics::Speed valueStateSpeed(-100.);
-    valueState.speed = valueStateSpeed;
-    ::ad::physics::Angle valueStateSteeringAngle(-6.283185308);
-    valueState.steeringAngle = valueStateSteeringAngle;
+    ::ad::physics::AngularVelocity valueStateYaw_rate(-100.);
+    valueState.yaw_rate = valueStateYaw_rate;
+    ::ad::physics::Distance2D valueStateCenter_point;
+    ::ad::physics::Distance valueStateCenter_pointX(-1e9);
+    valueStateCenter_point.x = valueStateCenter_pointX;
+    ::ad::physics::Distance valueStateCenter_pointY(-1e9);
+    valueStateCenter_point.y = valueStateCenter_pointY;
+    valueState.center_point = valueStateCenter_point;
+    ::ad::physics::SpeedRange valueStateSpeed_range;
+    ::ad::physics::Speed valueStateSpeed_rangeMinimum(-100.);
+    valueStateSpeed_range.minimum = valueStateSpeed_rangeMinimum;
+    ::ad::physics::Speed valueStateSpeed_rangeMaximum(-100.);
+    valueStateSpeed_range.maximum = valueStateSpeed_rangeMaximum;
+    valueStateSpeed_range.maximum = valueStateSpeed_range.minimum;
+    valueStateSpeed_range.minimum = valueStateSpeed_range.maximum;
+    valueState.speed_range = valueStateSpeed_range;
+    ::ad::physics::Angle valueStateSteering_angle(-6.283185308);
+    valueState.steering_angle = valueStateSteering_angle;
     value.state = valueState;
     mValue = value;
   }
@@ -144,54 +150,54 @@ TEST_F(ObjectTests, stringConversionTest)
   ASSERT_EQ(ostreamStr, toStr);
 }
 
-TEST_F(ObjectTests, comparisonOperatorObjectIdDiffers)
+TEST_F(ObjectTests, comparisonOperatorObject_idDiffers)
 {
   ::ad::rss::world::Object valueA = mValue;
-  ::ad::rss::world::ObjectId objectId(std::numeric_limits<::ad::rss::world::ObjectId>::max());
-  valueA.objectId = objectId;
+  ::ad::rss::world::ObjectId object_id(std::numeric_limits<::ad::rss::world::ObjectId>::max());
+  valueA.object_id = object_id;
   ::ad::rss::world::Object valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(ObjectTests, comparisonOperatorObjectTypeDiffers)
+TEST_F(ObjectTests, comparisonOperatorObject_typeDiffers)
 {
   ::ad::rss::world::Object valueA = mValue;
-  ::ad::rss::world::ObjectType objectType(::ad::rss::world::ObjectType::ArtificialObject);
-  valueA.objectType = objectType;
+  ::ad::rss::world::ObjectType object_type(::ad::rss::world::ObjectType::OtherObject);
+  valueA.object_type = object_type;
   ::ad::rss::world::Object valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(ObjectTests, comparisonOperatorOccupiedRegionsDiffers)
+TEST_F(ObjectTests, comparisonOperatorOccupied_regionsDiffers)
 {
   ::ad::rss::world::Object valueA = mValue;
-  ::ad::rss::world::OccupiedRegionVector occupiedRegions;
-  ::ad::rss::world::OccupiedRegion occupiedRegionsElement;
-  ::ad::rss::world::LaneSegmentId occupiedRegionsElementSegmentId(
+  ::ad::rss::world::OccupiedRegionVector occupied_regions;
+  ::ad::rss::world::OccupiedRegion occupied_regionsElement;
+  ::ad::rss::world::LaneSegmentId occupied_regionsElementSegment_id(
     std::numeric_limits<::ad::rss::world::LaneSegmentId>::max());
-  occupiedRegionsElement.segmentId = occupiedRegionsElementSegmentId;
-  ::ad::physics::ParametricRange occupiedRegionsElementLonRange;
-  ::ad::physics::ParametricValue occupiedRegionsElementLonRangeMinimum(1.);
-  occupiedRegionsElementLonRange.minimum = occupiedRegionsElementLonRangeMinimum;
-  ::ad::physics::ParametricValue occupiedRegionsElementLonRangeMaximum(1.);
-  occupiedRegionsElementLonRange.maximum = occupiedRegionsElementLonRangeMaximum;
-  occupiedRegionsElementLonRange.maximum = occupiedRegionsElementLonRange.minimum;
-  occupiedRegionsElementLonRange.minimum = occupiedRegionsElementLonRange.maximum;
-  occupiedRegionsElement.lonRange = occupiedRegionsElementLonRange;
-  ::ad::physics::ParametricRange occupiedRegionsElementLatRange;
-  ::ad::physics::ParametricValue occupiedRegionsElementLatRangeMinimum(1.);
-  occupiedRegionsElementLatRange.minimum = occupiedRegionsElementLatRangeMinimum;
-  ::ad::physics::ParametricValue occupiedRegionsElementLatRangeMaximum(1.);
-  occupiedRegionsElementLatRange.maximum = occupiedRegionsElementLatRangeMaximum;
-  occupiedRegionsElementLatRange.maximum = occupiedRegionsElementLatRange.minimum;
-  occupiedRegionsElementLatRange.minimum = occupiedRegionsElementLatRange.maximum;
-  occupiedRegionsElement.latRange = occupiedRegionsElementLatRange;
-  occupiedRegions.resize(0 + 1, occupiedRegionsElement);
-  valueA.occupiedRegions = occupiedRegions;
+  occupied_regionsElement.segment_id = occupied_regionsElementSegment_id;
+  ::ad::physics::ParametricRange occupied_regionsElementLon_range;
+  ::ad::physics::ParametricValue occupied_regionsElementLon_rangeMinimum(1.);
+  occupied_regionsElementLon_range.minimum = occupied_regionsElementLon_rangeMinimum;
+  ::ad::physics::ParametricValue occupied_regionsElementLon_rangeMaximum(1.);
+  occupied_regionsElementLon_range.maximum = occupied_regionsElementLon_rangeMaximum;
+  occupied_regionsElementLon_range.maximum = occupied_regionsElementLon_range.minimum;
+  occupied_regionsElementLon_range.minimum = occupied_regionsElementLon_range.maximum;
+  occupied_regionsElement.lon_range = occupied_regionsElementLon_range;
+  ::ad::physics::ParametricRange occupied_regionsElementLat_range;
+  ::ad::physics::ParametricValue occupied_regionsElementLat_rangeMinimum(1.);
+  occupied_regionsElementLat_range.minimum = occupied_regionsElementLat_rangeMinimum;
+  ::ad::physics::ParametricValue occupied_regionsElementLat_rangeMaximum(1.);
+  occupied_regionsElementLat_range.maximum = occupied_regionsElementLat_rangeMaximum;
+  occupied_regionsElementLat_range.maximum = occupied_regionsElementLat_range.minimum;
+  occupied_regionsElementLat_range.minimum = occupied_regionsElementLat_range.maximum;
+  occupied_regionsElement.lat_range = occupied_regionsElementLat_range;
+  occupied_regions.resize(0 + 1, occupied_regionsElement);
+  valueA.occupied_regions = occupied_regions;
   ::ad::rss::world::Object valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
@@ -202,18 +208,18 @@ TEST_F(ObjectTests, comparisonOperatorVelocityDiffers)
 {
   ::ad::rss::world::Object valueA = mValue;
   ::ad::rss::world::Velocity velocity;
-  ::ad::physics::Speed velocitySpeedLonMin(100.);
-  velocity.speedLonMin = velocitySpeedLonMin;
-  ::ad::physics::Speed velocitySpeedLonMax(100.);
-  velocity.speedLonMax = velocitySpeedLonMax;
-  ::ad::physics::Speed velocitySpeedLatMin(100.);
-  velocity.speedLatMin = velocitySpeedLatMin;
-  ::ad::physics::Speed velocitySpeedLatMax(100.);
-  velocity.speedLatMax = velocitySpeedLatMax;
-  velocity.speedLatMax = velocity.speedLatMin;
-  velocity.speedLonMax = velocity.speedLonMin;
-  velocity.speedLatMin = velocity.speedLatMax;
-  velocity.speedLonMin = velocity.speedLonMax;
+  ::ad::physics::Speed velocitySpeed_lon_min(100.);
+  velocity.speed_lon_min = velocitySpeed_lon_min;
+  ::ad::physics::Speed velocitySpeed_lon_max(100.);
+  velocity.speed_lon_max = velocitySpeed_lon_max;
+  ::ad::physics::Speed velocitySpeed_lat_min(100.);
+  velocity.speed_lat_min = velocitySpeed_lat_min;
+  ::ad::physics::Speed velocitySpeed_lat_max(100.);
+  velocity.speed_lat_max = velocitySpeed_lat_max;
+  velocity.speed_lat_max = velocity.speed_lat_min;
+  velocity.speed_lon_max = velocity.speed_lon_min;
+  velocity.speed_lat_min = velocity.speed_lat_max;
+  velocity.speed_lon_min = velocity.speed_lon_max;
   valueA.velocity = velocity;
   ::ad::rss::world::Object valueB = mValue;
 
@@ -233,18 +239,24 @@ TEST_F(ObjectTests, comparisonOperatorStateDiffers)
   ::ad::physics::Distance stateDimensionWidth(1e9);
   stateDimension.width = stateDimensionWidth;
   state.dimension = stateDimension;
-  ::ad::physics::AngularVelocity stateYawRate(100.);
-  state.yawRate = stateYawRate;
-  ::ad::physics::Distance2D stateCenterPoint;
-  ::ad::physics::Distance stateCenterPointX(1e9);
-  stateCenterPoint.x = stateCenterPointX;
-  ::ad::physics::Distance stateCenterPointY(1e9);
-  stateCenterPoint.y = stateCenterPointY;
-  state.centerPoint = stateCenterPoint;
-  ::ad::physics::Speed stateSpeed(100.);
-  state.speed = stateSpeed;
-  ::ad::physics::Angle stateSteeringAngle(6.283185308);
-  state.steeringAngle = stateSteeringAngle;
+  ::ad::physics::AngularVelocity stateYaw_rate(100.);
+  state.yaw_rate = stateYaw_rate;
+  ::ad::physics::Distance2D stateCenter_point;
+  ::ad::physics::Distance stateCenter_pointX(1e9);
+  stateCenter_point.x = stateCenter_pointX;
+  ::ad::physics::Distance stateCenter_pointY(1e9);
+  stateCenter_point.y = stateCenter_pointY;
+  state.center_point = stateCenter_point;
+  ::ad::physics::SpeedRange stateSpeed_range;
+  ::ad::physics::Speed stateSpeed_rangeMinimum(100.);
+  stateSpeed_range.minimum = stateSpeed_rangeMinimum;
+  ::ad::physics::Speed stateSpeed_rangeMaximum(100.);
+  stateSpeed_range.maximum = stateSpeed_rangeMaximum;
+  stateSpeed_range.maximum = stateSpeed_range.minimum;
+  stateSpeed_range.minimum = stateSpeed_range.maximum;
+  state.speed_range = stateSpeed_range;
+  ::ad::physics::Angle stateSteering_angle(6.283185308);
+  state.steering_angle = stateSteering_angle;
   valueA.state = state;
   ::ad::rss::world::Object valueB = mValue;
 

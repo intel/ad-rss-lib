@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -29,18 +29,24 @@ TEST(ObjectStateValidInputRangeTests, testValidInputRange)
   ::ad::physics::Distance valueDimensionWidth(-1e9);
   valueDimension.width = valueDimensionWidth;
   value.dimension = valueDimension;
-  ::ad::physics::AngularVelocity valueYawRate(-100.);
-  value.yawRate = valueYawRate;
-  ::ad::physics::Distance2D valueCenterPoint;
-  ::ad::physics::Distance valueCenterPointX(-1e9);
-  valueCenterPoint.x = valueCenterPointX;
-  ::ad::physics::Distance valueCenterPointY(-1e9);
-  valueCenterPoint.y = valueCenterPointY;
-  value.centerPoint = valueCenterPoint;
-  ::ad::physics::Speed valueSpeed(-100.);
-  value.speed = valueSpeed;
-  ::ad::physics::Angle valueSteeringAngle(-6.283185308);
-  value.steeringAngle = valueSteeringAngle;
+  ::ad::physics::AngularVelocity valueYaw_rate(-100.);
+  value.yaw_rate = valueYaw_rate;
+  ::ad::physics::Distance2D valueCenter_point;
+  ::ad::physics::Distance valueCenter_pointX(-1e9);
+  valueCenter_point.x = valueCenter_pointX;
+  ::ad::physics::Distance valueCenter_pointY(-1e9);
+  valueCenter_point.y = valueCenter_pointY;
+  value.center_point = valueCenter_point;
+  ::ad::physics::SpeedRange valueSpeed_range;
+  ::ad::physics::Speed valueSpeed_rangeMinimum(-100.);
+  valueSpeed_range.minimum = valueSpeed_rangeMinimum;
+  ::ad::physics::Speed valueSpeed_rangeMaximum(-100.);
+  valueSpeed_range.maximum = valueSpeed_rangeMaximum;
+  valueSpeed_range.maximum = valueSpeed_range.minimum;
+  valueSpeed_range.minimum = valueSpeed_range.maximum;
+  value.speed_range = valueSpeed_range;
+  ::ad::physics::Angle valueSteering_angle(-6.283185308);
+  value.steering_angle = valueSteering_angle;
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
@@ -55,18 +61,24 @@ TEST(ObjectStateValidInputRangeTests, testValidInputRangeYawTooSmall)
   ::ad::physics::Distance valueDimensionWidth(-1e9);
   valueDimension.width = valueDimensionWidth;
   value.dimension = valueDimension;
-  ::ad::physics::AngularVelocity valueYawRate(-100.);
-  value.yawRate = valueYawRate;
-  ::ad::physics::Distance2D valueCenterPoint;
-  ::ad::physics::Distance valueCenterPointX(-1e9);
-  valueCenterPoint.x = valueCenterPointX;
-  ::ad::physics::Distance valueCenterPointY(-1e9);
-  valueCenterPoint.y = valueCenterPointY;
-  value.centerPoint = valueCenterPoint;
-  ::ad::physics::Speed valueSpeed(-100.);
-  value.speed = valueSpeed;
-  ::ad::physics::Angle valueSteeringAngle(-6.283185308);
-  value.steeringAngle = valueSteeringAngle;
+  ::ad::physics::AngularVelocity valueYaw_rate(-100.);
+  value.yaw_rate = valueYaw_rate;
+  ::ad::physics::Distance2D valueCenter_point;
+  ::ad::physics::Distance valueCenter_pointX(-1e9);
+  valueCenter_point.x = valueCenter_pointX;
+  ::ad::physics::Distance valueCenter_pointY(-1e9);
+  valueCenter_point.y = valueCenter_pointY;
+  value.center_point = valueCenter_point;
+  ::ad::physics::SpeedRange valueSpeed_range;
+  ::ad::physics::Speed valueSpeed_rangeMinimum(-100.);
+  valueSpeed_range.minimum = valueSpeed_rangeMinimum;
+  ::ad::physics::Speed valueSpeed_rangeMaximum(-100.);
+  valueSpeed_range.maximum = valueSpeed_rangeMaximum;
+  valueSpeed_range.maximum = valueSpeed_range.minimum;
+  valueSpeed_range.minimum = valueSpeed_range.maximum;
+  value.speed_range = valueSpeed_range;
+  ::ad::physics::Angle valueSteering_angle(-6.283185308);
+  value.steering_angle = valueSteering_angle;
 
   // override member with data type value below input range minimum
   ::ad::physics::Angle invalidInitializedMember(-6.283185308 * 1.1);
@@ -85,18 +97,24 @@ TEST(ObjectStateValidInputRangeTests, testValidInputRangeYawTooBig)
   ::ad::physics::Distance valueDimensionWidth(-1e9);
   valueDimension.width = valueDimensionWidth;
   value.dimension = valueDimension;
-  ::ad::physics::AngularVelocity valueYawRate(-100.);
-  value.yawRate = valueYawRate;
-  ::ad::physics::Distance2D valueCenterPoint;
-  ::ad::physics::Distance valueCenterPointX(-1e9);
-  valueCenterPoint.x = valueCenterPointX;
-  ::ad::physics::Distance valueCenterPointY(-1e9);
-  valueCenterPoint.y = valueCenterPointY;
-  value.centerPoint = valueCenterPoint;
-  ::ad::physics::Speed valueSpeed(-100.);
-  value.speed = valueSpeed;
-  ::ad::physics::Angle valueSteeringAngle(-6.283185308);
-  value.steeringAngle = valueSteeringAngle;
+  ::ad::physics::AngularVelocity valueYaw_rate(-100.);
+  value.yaw_rate = valueYaw_rate;
+  ::ad::physics::Distance2D valueCenter_point;
+  ::ad::physics::Distance valueCenter_pointX(-1e9);
+  valueCenter_point.x = valueCenter_pointX;
+  ::ad::physics::Distance valueCenter_pointY(-1e9);
+  valueCenter_point.y = valueCenter_pointY;
+  value.center_point = valueCenter_point;
+  ::ad::physics::SpeedRange valueSpeed_range;
+  ::ad::physics::Speed valueSpeed_rangeMinimum(-100.);
+  valueSpeed_range.minimum = valueSpeed_rangeMinimum;
+  ::ad::physics::Speed valueSpeed_rangeMaximum(-100.);
+  valueSpeed_range.maximum = valueSpeed_rangeMaximum;
+  valueSpeed_range.maximum = valueSpeed_range.minimum;
+  valueSpeed_range.minimum = valueSpeed_range.maximum;
+  value.speed_range = valueSpeed_range;
+  ::ad::physics::Angle valueSteering_angle(-6.283185308);
+  value.steering_angle = valueSteering_angle;
 
   // override member with data type value above input range maximum
   ::ad::physics::Angle invalidInitializedMember(6.283185308 * 1.1);
@@ -123,18 +141,24 @@ TEST(ObjectStateValidInputRangeTests, testValidInputRangeDimensionTooSmall)
   ::ad::physics::Distance valueDimensionWidth(-1e9);
   valueDimension.width = valueDimensionWidth;
   value.dimension = valueDimension;
-  ::ad::physics::AngularVelocity valueYawRate(-100.);
-  value.yawRate = valueYawRate;
-  ::ad::physics::Distance2D valueCenterPoint;
-  ::ad::physics::Distance valueCenterPointX(-1e9);
-  valueCenterPoint.x = valueCenterPointX;
-  ::ad::physics::Distance valueCenterPointY(-1e9);
-  valueCenterPoint.y = valueCenterPointY;
-  value.centerPoint = valueCenterPoint;
-  ::ad::physics::Speed valueSpeed(-100.);
-  value.speed = valueSpeed;
-  ::ad::physics::Angle valueSteeringAngle(-6.283185308);
-  value.steeringAngle = valueSteeringAngle;
+  ::ad::physics::AngularVelocity valueYaw_rate(-100.);
+  value.yaw_rate = valueYaw_rate;
+  ::ad::physics::Distance2D valueCenter_point;
+  ::ad::physics::Distance valueCenter_pointX(-1e9);
+  valueCenter_point.x = valueCenter_pointX;
+  ::ad::physics::Distance valueCenter_pointY(-1e9);
+  valueCenter_point.y = valueCenter_pointY;
+  value.center_point = valueCenter_point;
+  ::ad::physics::SpeedRange valueSpeed_range;
+  ::ad::physics::Speed valueSpeed_rangeMinimum(-100.);
+  valueSpeed_range.minimum = valueSpeed_rangeMinimum;
+  ::ad::physics::Speed valueSpeed_rangeMaximum(-100.);
+  valueSpeed_range.maximum = valueSpeed_rangeMaximum;
+  valueSpeed_range.maximum = valueSpeed_range.minimum;
+  valueSpeed_range.minimum = valueSpeed_range.maximum;
+  value.speed_range = valueSpeed_range;
+  ::ad::physics::Angle valueSteering_angle(-6.283185308);
+  value.steering_angle = valueSteering_angle;
 
   // override member with data type value below input range minimum
   ::ad::physics::Dimension2D invalidInitializedMember;
@@ -155,18 +179,24 @@ TEST(ObjectStateValidInputRangeTests, testValidInputRangeDimensionTooBig)
   ::ad::physics::Distance valueDimensionWidth(-1e9);
   valueDimension.width = valueDimensionWidth;
   value.dimension = valueDimension;
-  ::ad::physics::AngularVelocity valueYawRate(-100.);
-  value.yawRate = valueYawRate;
-  ::ad::physics::Distance2D valueCenterPoint;
-  ::ad::physics::Distance valueCenterPointX(-1e9);
-  valueCenterPoint.x = valueCenterPointX;
-  ::ad::physics::Distance valueCenterPointY(-1e9);
-  valueCenterPoint.y = valueCenterPointY;
-  value.centerPoint = valueCenterPoint;
-  ::ad::physics::Speed valueSpeed(-100.);
-  value.speed = valueSpeed;
-  ::ad::physics::Angle valueSteeringAngle(-6.283185308);
-  value.steeringAngle = valueSteeringAngle;
+  ::ad::physics::AngularVelocity valueYaw_rate(-100.);
+  value.yaw_rate = valueYaw_rate;
+  ::ad::physics::Distance2D valueCenter_point;
+  ::ad::physics::Distance valueCenter_pointX(-1e9);
+  valueCenter_point.x = valueCenter_pointX;
+  ::ad::physics::Distance valueCenter_pointY(-1e9);
+  valueCenter_point.y = valueCenter_pointY;
+  value.center_point = valueCenter_point;
+  ::ad::physics::SpeedRange valueSpeed_range;
+  ::ad::physics::Speed valueSpeed_rangeMinimum(-100.);
+  valueSpeed_range.minimum = valueSpeed_rangeMinimum;
+  ::ad::physics::Speed valueSpeed_rangeMaximum(-100.);
+  valueSpeed_range.maximum = valueSpeed_rangeMaximum;
+  valueSpeed_range.maximum = valueSpeed_range.minimum;
+  valueSpeed_range.minimum = valueSpeed_range.maximum;
+  value.speed_range = valueSpeed_range;
+  ::ad::physics::Angle valueSteering_angle(-6.283185308);
+  value.steering_angle = valueSteering_angle;
 
   // override member with data type value above input range maximum
   ::ad::physics::Dimension2D invalidInitializedMember;
@@ -176,7 +206,7 @@ TEST(ObjectStateValidInputRangeTests, testValidInputRangeDimensionTooBig)
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(ObjectStateValidInputRangeTests, testValidInputRangeYawRateTooSmall)
+TEST(ObjectStateValidInputRangeTests, testValidInputRangeYaw_rateTooSmall)
 {
   ::ad::rss::world::ObjectState value;
   ::ad::physics::Angle valueYaw(-6.283185308);
@@ -187,26 +217,32 @@ TEST(ObjectStateValidInputRangeTests, testValidInputRangeYawRateTooSmall)
   ::ad::physics::Distance valueDimensionWidth(-1e9);
   valueDimension.width = valueDimensionWidth;
   value.dimension = valueDimension;
-  ::ad::physics::AngularVelocity valueYawRate(-100.);
-  value.yawRate = valueYawRate;
-  ::ad::physics::Distance2D valueCenterPoint;
-  ::ad::physics::Distance valueCenterPointX(-1e9);
-  valueCenterPoint.x = valueCenterPointX;
-  ::ad::physics::Distance valueCenterPointY(-1e9);
-  valueCenterPoint.y = valueCenterPointY;
-  value.centerPoint = valueCenterPoint;
-  ::ad::physics::Speed valueSpeed(-100.);
-  value.speed = valueSpeed;
-  ::ad::physics::Angle valueSteeringAngle(-6.283185308);
-  value.steeringAngle = valueSteeringAngle;
+  ::ad::physics::AngularVelocity valueYaw_rate(-100.);
+  value.yaw_rate = valueYaw_rate;
+  ::ad::physics::Distance2D valueCenter_point;
+  ::ad::physics::Distance valueCenter_pointX(-1e9);
+  valueCenter_point.x = valueCenter_pointX;
+  ::ad::physics::Distance valueCenter_pointY(-1e9);
+  valueCenter_point.y = valueCenter_pointY;
+  value.center_point = valueCenter_point;
+  ::ad::physics::SpeedRange valueSpeed_range;
+  ::ad::physics::Speed valueSpeed_rangeMinimum(-100.);
+  valueSpeed_range.minimum = valueSpeed_rangeMinimum;
+  ::ad::physics::Speed valueSpeed_rangeMaximum(-100.);
+  valueSpeed_range.maximum = valueSpeed_rangeMaximum;
+  valueSpeed_range.maximum = valueSpeed_range.minimum;
+  valueSpeed_range.minimum = valueSpeed_range.maximum;
+  value.speed_range = valueSpeed_range;
+  ::ad::physics::Angle valueSteering_angle(-6.283185308);
+  value.steering_angle = valueSteering_angle;
 
   // override member with data type value below input range minimum
   ::ad::physics::AngularVelocity invalidInitializedMember(-100. * 1.1);
-  value.yawRate = invalidInitializedMember;
+  value.yaw_rate = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(ObjectStateValidInputRangeTests, testValidInputRangeYawRateTooBig)
+TEST(ObjectStateValidInputRangeTests, testValidInputRangeYaw_rateTooBig)
 {
   ::ad::rss::world::ObjectState value;
   ::ad::physics::Angle valueYaw(-6.283185308);
@@ -217,34 +253,40 @@ TEST(ObjectStateValidInputRangeTests, testValidInputRangeYawRateTooBig)
   ::ad::physics::Distance valueDimensionWidth(-1e9);
   valueDimension.width = valueDimensionWidth;
   value.dimension = valueDimension;
-  ::ad::physics::AngularVelocity valueYawRate(-100.);
-  value.yawRate = valueYawRate;
-  ::ad::physics::Distance2D valueCenterPoint;
-  ::ad::physics::Distance valueCenterPointX(-1e9);
-  valueCenterPoint.x = valueCenterPointX;
-  ::ad::physics::Distance valueCenterPointY(-1e9);
-  valueCenterPoint.y = valueCenterPointY;
-  value.centerPoint = valueCenterPoint;
-  ::ad::physics::Speed valueSpeed(-100.);
-  value.speed = valueSpeed;
-  ::ad::physics::Angle valueSteeringAngle(-6.283185308);
-  value.steeringAngle = valueSteeringAngle;
+  ::ad::physics::AngularVelocity valueYaw_rate(-100.);
+  value.yaw_rate = valueYaw_rate;
+  ::ad::physics::Distance2D valueCenter_point;
+  ::ad::physics::Distance valueCenter_pointX(-1e9);
+  valueCenter_point.x = valueCenter_pointX;
+  ::ad::physics::Distance valueCenter_pointY(-1e9);
+  valueCenter_point.y = valueCenter_pointY;
+  value.center_point = valueCenter_point;
+  ::ad::physics::SpeedRange valueSpeed_range;
+  ::ad::physics::Speed valueSpeed_rangeMinimum(-100.);
+  valueSpeed_range.minimum = valueSpeed_rangeMinimum;
+  ::ad::physics::Speed valueSpeed_rangeMaximum(-100.);
+  valueSpeed_range.maximum = valueSpeed_rangeMaximum;
+  valueSpeed_range.maximum = valueSpeed_range.minimum;
+  valueSpeed_range.minimum = valueSpeed_range.maximum;
+  value.speed_range = valueSpeed_range;
+  ::ad::physics::Angle valueSteering_angle(-6.283185308);
+  value.steering_angle = valueSteering_angle;
 
   // override member with data type value above input range maximum
   ::ad::physics::AngularVelocity invalidInitializedMember(100. * 1.1);
-  value.yawRate = invalidInitializedMember;
+  value.yaw_rate = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(ObjectStateValidInputRangeTests, testValidInputRangeyawRateDefault)
+TEST(ObjectStateValidInputRangeTests, testValidInputRangeyaw_rateDefault)
 {
   ::ad::rss::world::ObjectState value;
   ::ad::physics::AngularVelocity valueDefault;
-  value.yawRate = valueDefault;
+  value.yaw_rate = valueDefault;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(ObjectStateValidInputRangeTests, testValidInputRangeCenterPointTooSmall)
+TEST(ObjectStateValidInputRangeTests, testValidInputRangeCenter_pointTooSmall)
 {
   ::ad::rss::world::ObjectState value;
   ::ad::physics::Angle valueYaw(-6.283185308);
@@ -255,28 +297,34 @@ TEST(ObjectStateValidInputRangeTests, testValidInputRangeCenterPointTooSmall)
   ::ad::physics::Distance valueDimensionWidth(-1e9);
   valueDimension.width = valueDimensionWidth;
   value.dimension = valueDimension;
-  ::ad::physics::AngularVelocity valueYawRate(-100.);
-  value.yawRate = valueYawRate;
-  ::ad::physics::Distance2D valueCenterPoint;
-  ::ad::physics::Distance valueCenterPointX(-1e9);
-  valueCenterPoint.x = valueCenterPointX;
-  ::ad::physics::Distance valueCenterPointY(-1e9);
-  valueCenterPoint.y = valueCenterPointY;
-  value.centerPoint = valueCenterPoint;
-  ::ad::physics::Speed valueSpeed(-100.);
-  value.speed = valueSpeed;
-  ::ad::physics::Angle valueSteeringAngle(-6.283185308);
-  value.steeringAngle = valueSteeringAngle;
+  ::ad::physics::AngularVelocity valueYaw_rate(-100.);
+  value.yaw_rate = valueYaw_rate;
+  ::ad::physics::Distance2D valueCenter_point;
+  ::ad::physics::Distance valueCenter_pointX(-1e9);
+  valueCenter_point.x = valueCenter_pointX;
+  ::ad::physics::Distance valueCenter_pointY(-1e9);
+  valueCenter_point.y = valueCenter_pointY;
+  value.center_point = valueCenter_point;
+  ::ad::physics::SpeedRange valueSpeed_range;
+  ::ad::physics::Speed valueSpeed_rangeMinimum(-100.);
+  valueSpeed_range.minimum = valueSpeed_rangeMinimum;
+  ::ad::physics::Speed valueSpeed_rangeMaximum(-100.);
+  valueSpeed_range.maximum = valueSpeed_rangeMaximum;
+  valueSpeed_range.maximum = valueSpeed_range.minimum;
+  valueSpeed_range.minimum = valueSpeed_range.maximum;
+  value.speed_range = valueSpeed_range;
+  ::ad::physics::Angle valueSteering_angle(-6.283185308);
+  value.steering_angle = valueSteering_angle;
 
   // override member with data type value below input range minimum
   ::ad::physics::Distance2D invalidInitializedMember;
   ::ad::physics::Distance invalidInitializedMemberX(-1e9 * 1.1);
   invalidInitializedMember.x = invalidInitializedMemberX;
-  value.centerPoint = invalidInitializedMember;
+  value.center_point = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(ObjectStateValidInputRangeTests, testValidInputRangeCenterPointTooBig)
+TEST(ObjectStateValidInputRangeTests, testValidInputRangeCenter_pointTooBig)
 {
   ::ad::rss::world::ObjectState value;
   ::ad::physics::Angle valueYaw(-6.283185308);
@@ -287,28 +335,34 @@ TEST(ObjectStateValidInputRangeTests, testValidInputRangeCenterPointTooBig)
   ::ad::physics::Distance valueDimensionWidth(-1e9);
   valueDimension.width = valueDimensionWidth;
   value.dimension = valueDimension;
-  ::ad::physics::AngularVelocity valueYawRate(-100.);
-  value.yawRate = valueYawRate;
-  ::ad::physics::Distance2D valueCenterPoint;
-  ::ad::physics::Distance valueCenterPointX(-1e9);
-  valueCenterPoint.x = valueCenterPointX;
-  ::ad::physics::Distance valueCenterPointY(-1e9);
-  valueCenterPoint.y = valueCenterPointY;
-  value.centerPoint = valueCenterPoint;
-  ::ad::physics::Speed valueSpeed(-100.);
-  value.speed = valueSpeed;
-  ::ad::physics::Angle valueSteeringAngle(-6.283185308);
-  value.steeringAngle = valueSteeringAngle;
+  ::ad::physics::AngularVelocity valueYaw_rate(-100.);
+  value.yaw_rate = valueYaw_rate;
+  ::ad::physics::Distance2D valueCenter_point;
+  ::ad::physics::Distance valueCenter_pointX(-1e9);
+  valueCenter_point.x = valueCenter_pointX;
+  ::ad::physics::Distance valueCenter_pointY(-1e9);
+  valueCenter_point.y = valueCenter_pointY;
+  value.center_point = valueCenter_point;
+  ::ad::physics::SpeedRange valueSpeed_range;
+  ::ad::physics::Speed valueSpeed_rangeMinimum(-100.);
+  valueSpeed_range.minimum = valueSpeed_rangeMinimum;
+  ::ad::physics::Speed valueSpeed_rangeMaximum(-100.);
+  valueSpeed_range.maximum = valueSpeed_rangeMaximum;
+  valueSpeed_range.maximum = valueSpeed_range.minimum;
+  valueSpeed_range.minimum = valueSpeed_range.maximum;
+  value.speed_range = valueSpeed_range;
+  ::ad::physics::Angle valueSteering_angle(-6.283185308);
+  value.steering_angle = valueSteering_angle;
 
   // override member with data type value above input range maximum
   ::ad::physics::Distance2D invalidInitializedMember;
   ::ad::physics::Distance invalidInitializedMemberX(1e9 * 1.1);
   invalidInitializedMember.x = invalidInitializedMemberX;
-  value.centerPoint = invalidInitializedMember;
+  value.center_point = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(ObjectStateValidInputRangeTests, testValidInputRangeSpeedTooSmall)
+TEST(ObjectStateValidInputRangeTests, testValidInputRangeSpeed_rangeTooSmall)
 {
   ::ad::rss::world::ObjectState value;
   ::ad::physics::Angle valueYaw(-6.283185308);
@@ -319,26 +373,34 @@ TEST(ObjectStateValidInputRangeTests, testValidInputRangeSpeedTooSmall)
   ::ad::physics::Distance valueDimensionWidth(-1e9);
   valueDimension.width = valueDimensionWidth;
   value.dimension = valueDimension;
-  ::ad::physics::AngularVelocity valueYawRate(-100.);
-  value.yawRate = valueYawRate;
-  ::ad::physics::Distance2D valueCenterPoint;
-  ::ad::physics::Distance valueCenterPointX(-1e9);
-  valueCenterPoint.x = valueCenterPointX;
-  ::ad::physics::Distance valueCenterPointY(-1e9);
-  valueCenterPoint.y = valueCenterPointY;
-  value.centerPoint = valueCenterPoint;
-  ::ad::physics::Speed valueSpeed(-100.);
-  value.speed = valueSpeed;
-  ::ad::physics::Angle valueSteeringAngle(-6.283185308);
-  value.steeringAngle = valueSteeringAngle;
+  ::ad::physics::AngularVelocity valueYaw_rate(-100.);
+  value.yaw_rate = valueYaw_rate;
+  ::ad::physics::Distance2D valueCenter_point;
+  ::ad::physics::Distance valueCenter_pointX(-1e9);
+  valueCenter_point.x = valueCenter_pointX;
+  ::ad::physics::Distance valueCenter_pointY(-1e9);
+  valueCenter_point.y = valueCenter_pointY;
+  value.center_point = valueCenter_point;
+  ::ad::physics::SpeedRange valueSpeed_range;
+  ::ad::physics::Speed valueSpeed_rangeMinimum(-100.);
+  valueSpeed_range.minimum = valueSpeed_rangeMinimum;
+  ::ad::physics::Speed valueSpeed_rangeMaximum(-100.);
+  valueSpeed_range.maximum = valueSpeed_rangeMaximum;
+  valueSpeed_range.maximum = valueSpeed_range.minimum;
+  valueSpeed_range.minimum = valueSpeed_range.maximum;
+  value.speed_range = valueSpeed_range;
+  ::ad::physics::Angle valueSteering_angle(-6.283185308);
+  value.steering_angle = valueSteering_angle;
 
   // override member with data type value below input range minimum
-  ::ad::physics::Speed invalidInitializedMember(-100. * 1.1);
-  value.speed = invalidInitializedMember;
+  ::ad::physics::SpeedRange invalidInitializedMember;
+  ::ad::physics::Speed invalidInitializedMemberMinimum(-100. * 1.1);
+  invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
+  value.speed_range = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(ObjectStateValidInputRangeTests, testValidInputRangeSpeedTooBig)
+TEST(ObjectStateValidInputRangeTests, testValidInputRangeSpeed_rangeTooBig)
 {
   ::ad::rss::world::ObjectState value;
   ::ad::physics::Angle valueYaw(-6.283185308);
@@ -349,34 +411,34 @@ TEST(ObjectStateValidInputRangeTests, testValidInputRangeSpeedTooBig)
   ::ad::physics::Distance valueDimensionWidth(-1e9);
   valueDimension.width = valueDimensionWidth;
   value.dimension = valueDimension;
-  ::ad::physics::AngularVelocity valueYawRate(-100.);
-  value.yawRate = valueYawRate;
-  ::ad::physics::Distance2D valueCenterPoint;
-  ::ad::physics::Distance valueCenterPointX(-1e9);
-  valueCenterPoint.x = valueCenterPointX;
-  ::ad::physics::Distance valueCenterPointY(-1e9);
-  valueCenterPoint.y = valueCenterPointY;
-  value.centerPoint = valueCenterPoint;
-  ::ad::physics::Speed valueSpeed(-100.);
-  value.speed = valueSpeed;
-  ::ad::physics::Angle valueSteeringAngle(-6.283185308);
-  value.steeringAngle = valueSteeringAngle;
+  ::ad::physics::AngularVelocity valueYaw_rate(-100.);
+  value.yaw_rate = valueYaw_rate;
+  ::ad::physics::Distance2D valueCenter_point;
+  ::ad::physics::Distance valueCenter_pointX(-1e9);
+  valueCenter_point.x = valueCenter_pointX;
+  ::ad::physics::Distance valueCenter_pointY(-1e9);
+  valueCenter_point.y = valueCenter_pointY;
+  value.center_point = valueCenter_point;
+  ::ad::physics::SpeedRange valueSpeed_range;
+  ::ad::physics::Speed valueSpeed_rangeMinimum(-100.);
+  valueSpeed_range.minimum = valueSpeed_rangeMinimum;
+  ::ad::physics::Speed valueSpeed_rangeMaximum(-100.);
+  valueSpeed_range.maximum = valueSpeed_rangeMaximum;
+  valueSpeed_range.maximum = valueSpeed_range.minimum;
+  valueSpeed_range.minimum = valueSpeed_range.maximum;
+  value.speed_range = valueSpeed_range;
+  ::ad::physics::Angle valueSteering_angle(-6.283185308);
+  value.steering_angle = valueSteering_angle;
 
   // override member with data type value above input range maximum
-  ::ad::physics::Speed invalidInitializedMember(100. * 1.1);
-  value.speed = invalidInitializedMember;
+  ::ad::physics::SpeedRange invalidInitializedMember;
+  ::ad::physics::Speed invalidInitializedMemberMinimum(100. * 1.1);
+  invalidInitializedMember.minimum = invalidInitializedMemberMinimum;
+  value.speed_range = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(ObjectStateValidInputRangeTests, testValidInputRangespeedDefault)
-{
-  ::ad::rss::world::ObjectState value;
-  ::ad::physics::Speed valueDefault;
-  value.speed = valueDefault;
-  ASSERT_FALSE(withinValidInputRange(value));
-}
-
-TEST(ObjectStateValidInputRangeTests, testValidInputRangeSteeringAngleTooSmall)
+TEST(ObjectStateValidInputRangeTests, testValidInputRangeSteering_angleTooSmall)
 {
   ::ad::rss::world::ObjectState value;
   ::ad::physics::Angle valueYaw(-6.283185308);
@@ -387,26 +449,32 @@ TEST(ObjectStateValidInputRangeTests, testValidInputRangeSteeringAngleTooSmall)
   ::ad::physics::Distance valueDimensionWidth(-1e9);
   valueDimension.width = valueDimensionWidth;
   value.dimension = valueDimension;
-  ::ad::physics::AngularVelocity valueYawRate(-100.);
-  value.yawRate = valueYawRate;
-  ::ad::physics::Distance2D valueCenterPoint;
-  ::ad::physics::Distance valueCenterPointX(-1e9);
-  valueCenterPoint.x = valueCenterPointX;
-  ::ad::physics::Distance valueCenterPointY(-1e9);
-  valueCenterPoint.y = valueCenterPointY;
-  value.centerPoint = valueCenterPoint;
-  ::ad::physics::Speed valueSpeed(-100.);
-  value.speed = valueSpeed;
-  ::ad::physics::Angle valueSteeringAngle(-6.283185308);
-  value.steeringAngle = valueSteeringAngle;
+  ::ad::physics::AngularVelocity valueYaw_rate(-100.);
+  value.yaw_rate = valueYaw_rate;
+  ::ad::physics::Distance2D valueCenter_point;
+  ::ad::physics::Distance valueCenter_pointX(-1e9);
+  valueCenter_point.x = valueCenter_pointX;
+  ::ad::physics::Distance valueCenter_pointY(-1e9);
+  valueCenter_point.y = valueCenter_pointY;
+  value.center_point = valueCenter_point;
+  ::ad::physics::SpeedRange valueSpeed_range;
+  ::ad::physics::Speed valueSpeed_rangeMinimum(-100.);
+  valueSpeed_range.minimum = valueSpeed_rangeMinimum;
+  ::ad::physics::Speed valueSpeed_rangeMaximum(-100.);
+  valueSpeed_range.maximum = valueSpeed_rangeMaximum;
+  valueSpeed_range.maximum = valueSpeed_range.minimum;
+  valueSpeed_range.minimum = valueSpeed_range.maximum;
+  value.speed_range = valueSpeed_range;
+  ::ad::physics::Angle valueSteering_angle(-6.283185308);
+  value.steering_angle = valueSteering_angle;
 
   // override member with data type value below input range minimum
   ::ad::physics::Angle invalidInitializedMember(-6.283185308 * 1.1);
-  value.steeringAngle = invalidInitializedMember;
+  value.steering_angle = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(ObjectStateValidInputRangeTests, testValidInputRangeSteeringAngleTooBig)
+TEST(ObjectStateValidInputRangeTests, testValidInputRangeSteering_angleTooBig)
 {
   ::ad::rss::world::ObjectState value;
   ::ad::physics::Angle valueYaw(-6.283185308);
@@ -417,29 +485,35 @@ TEST(ObjectStateValidInputRangeTests, testValidInputRangeSteeringAngleTooBig)
   ::ad::physics::Distance valueDimensionWidth(-1e9);
   valueDimension.width = valueDimensionWidth;
   value.dimension = valueDimension;
-  ::ad::physics::AngularVelocity valueYawRate(-100.);
-  value.yawRate = valueYawRate;
-  ::ad::physics::Distance2D valueCenterPoint;
-  ::ad::physics::Distance valueCenterPointX(-1e9);
-  valueCenterPoint.x = valueCenterPointX;
-  ::ad::physics::Distance valueCenterPointY(-1e9);
-  valueCenterPoint.y = valueCenterPointY;
-  value.centerPoint = valueCenterPoint;
-  ::ad::physics::Speed valueSpeed(-100.);
-  value.speed = valueSpeed;
-  ::ad::physics::Angle valueSteeringAngle(-6.283185308);
-  value.steeringAngle = valueSteeringAngle;
+  ::ad::physics::AngularVelocity valueYaw_rate(-100.);
+  value.yaw_rate = valueYaw_rate;
+  ::ad::physics::Distance2D valueCenter_point;
+  ::ad::physics::Distance valueCenter_pointX(-1e9);
+  valueCenter_point.x = valueCenter_pointX;
+  ::ad::physics::Distance valueCenter_pointY(-1e9);
+  valueCenter_point.y = valueCenter_pointY;
+  value.center_point = valueCenter_point;
+  ::ad::physics::SpeedRange valueSpeed_range;
+  ::ad::physics::Speed valueSpeed_rangeMinimum(-100.);
+  valueSpeed_range.minimum = valueSpeed_rangeMinimum;
+  ::ad::physics::Speed valueSpeed_rangeMaximum(-100.);
+  valueSpeed_range.maximum = valueSpeed_rangeMaximum;
+  valueSpeed_range.maximum = valueSpeed_range.minimum;
+  valueSpeed_range.minimum = valueSpeed_range.maximum;
+  value.speed_range = valueSpeed_range;
+  ::ad::physics::Angle valueSteering_angle(-6.283185308);
+  value.steering_angle = valueSteering_angle;
 
   // override member with data type value above input range maximum
   ::ad::physics::Angle invalidInitializedMember(6.283185308 * 1.1);
-  value.steeringAngle = invalidInitializedMember;
+  value.steering_angle = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(ObjectStateValidInputRangeTests, testValidInputRangesteeringAngleDefault)
+TEST(ObjectStateValidInputRangeTests, testValidInputRangesteering_angleDefault)
 {
   ::ad::rss::world::ObjectState value;
   ::ad::physics::Angle valueDefault;
-  value.steeringAngle = valueDefault;
+  value.steering_angle = valueDefault;
   ASSERT_FALSE(withinValidInputRange(value));
 }

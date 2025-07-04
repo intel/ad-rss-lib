@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -41,7 +41,8 @@ inline bool withinValidInputRange(::ad::rss::state::LongitudinalRssState const &
   // check for generic member input ranges
   bool inValidInputRange = true;
   inValidInputRange = withinValidInputRange(input.response, logErrors)
-    && withinValidInputRange(input.alphaLon, logErrors) && withinValidInputRange(input.rssStateInformation, logErrors);
+    && withinValidInputRange(input.alpha_lon, logErrors)
+    && withinValidInputRange(input.rss_state_information, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::state::LongitudinalRssState)>> {} has invalid member",

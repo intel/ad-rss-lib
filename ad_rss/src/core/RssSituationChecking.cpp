@@ -9,12 +9,8 @@
 #include "ad/rss/core/RssSituationChecking.hpp"
 #include <algorithm>
 #include <memory>
-#include "../situation/RssStructuredSceneIntersectionChecker.hpp"
-#include "../situation/RssStructuredSceneNonIntersectionChecker.hpp"
-#include "../situation/RssUnstructuredSceneChecker.hpp"
-#include "ad/rss/situation/SituationSnapshotValidInputRange.hpp"
-#include "spdlog/fmt/ostr.h"
-#include "spdlog/spdlog.h"
+#include "ad/rss/core/Logging.hpp"
+#include "ad/rss/core/RssSituationSnapshotValidInputRange.hpp"
 
 namespace ad {
 namespace rss {
@@ -26,176 +22,154 @@ enum class IsSafe
   No
 };
 
-inline state::RssState createRssState(situation::SituationId const &situationId,
-                                      situation::SituationType const &situationType,
-                                      world::ObjectId const &objectId,
+inline state::RssState createRssState(RelativeConstellationId const &constellation_id,
+                                      world::ConstellationType const &constellation_type,
+                                      world::ObjectId const &object_id,
+                                      world::ObjectId const &ego_id,
                                       world::RssDynamics const &egoDynamics,
                                       IsSafe const &isSafeValue)
 {
-  bool const isSafe = (isSafeValue == IsSafe::Yes);
+  bool const is_safe = (isSafeValue == IsSafe::Yes);
   state::RssStateInformation emptyRssStateInfo;
-  emptyRssStateInfo.currentDistance = std::numeric_limits<physics::Distance>::max();
-  emptyRssStateInfo.safeDistance = std::numeric_limits<physics::Distance>::max();
+  emptyRssStateInfo.current_distance = std::numeric_limits<physics::Distance>::max();
+  emptyRssStateInfo.safe_distance = std::numeric_limits<physics::Distance>::max();
   emptyRssStateInfo.evaluator = state::RssStateEvaluator::None;
 
   state::RssState resultRssState;
-  resultRssState.situationId = situationId;
-  resultRssState.situationType = situationType;
-  resultRssState.objectId = objectId;
-  resultRssState.lateralStateLeft.isSafe = isSafe;
-  resultRssState.lateralStateLeft.response
-    = isSafe ? (::ad::rss::state::LateralResponse::None) : (::ad::rss::state::LateralResponse::BrakeMin);
-  resultRssState.lateralStateLeft.alphaLat = egoDynamics.alphaLat;
-  resultRssState.lateralStateLeft.rssStateInformation = emptyRssStateInfo;
-  resultRssState.lateralStateRight.isSafe = isSafe;
-  resultRssState.lateralStateRight.response
-    = isSafe ? (::ad::rss::state::LateralResponse::None) : (::ad::rss::state::LateralResponse::BrakeMin);
-  resultRssState.lateralStateRight.alphaLat = egoDynamics.alphaLat;
-  resultRssState.lateralStateRight.rssStateInformation = emptyRssStateInfo;
-  resultRssState.longitudinalState.isSafe = isSafe;
-  resultRssState.longitudinalState.response
-    = isSafe ? (::ad::rss::state::LongitudinalResponse::None) : (::ad::rss::state::LongitudinalResponse::BrakeMin);
-  resultRssState.longitudinalState.alphaLon = egoDynamics.alphaLon;
-  resultRssState.longitudinalState.rssStateInformation = emptyRssStateInfo;
-  resultRssState.unstructuredSceneState.headingRange.begin = ad::physics::Angle(0.0);
-  resultRssState.unstructuredSceneState.headingRange.end = ad::physics::c2PI;
-  resultRssState.unstructuredSceneState.alphaLon = egoDynamics.alphaLon;
-  resultRssState.unstructuredSceneState.isSafe = isSafe;
-  resultRssState.unstructuredSceneState.response = isSafe ? (::ad::rss::state::UnstructuredSceneResponse::None)
-                                                          : (::ad::rss::state::UnstructuredSceneResponse::Brake);
+  resultRssState.constellation_id = constellation_id;
+  resultRssState.constellation_type = constellation_type;
+  resultRssState.ego_id = ego_id;
+  resultRssState.object_id = object_id;
+  resultRssState.lateral_state_left.is_safe = is_safe;
+  resultRssState.lateral_state_left.response
+    = is_safe ? (::ad::rss::state::LateralResponse::None) : (::ad::rss::state::LateralResponse::BrakeMin);
+  resultRssState.lateral_state_left.alpha_lat = egoDynamics.alpha_lat;
+  resultRssState.lateral_state_left.rss_state_information = emptyRssStateInfo;
+  resultRssState.lateral_state_right.is_safe = is_safe;
+  resultRssState.lateral_state_right.response
+    = is_safe ? (::ad::rss::state::LateralResponse::None) : (::ad::rss::state::LateralResponse::BrakeMin);
+  resultRssState.lateral_state_right.alpha_lat = egoDynamics.alpha_lat;
+  resultRssState.lateral_state_right.rss_state_information = emptyRssStateInfo;
+  resultRssState.longitudinal_state.is_safe = is_safe;
+  resultRssState.longitudinal_state.response
+    = is_safe ? (::ad::rss::state::LongitudinalResponse::None) : (::ad::rss::state::LongitudinalResponse::BrakeMin);
+  resultRssState.longitudinal_state.alpha_lon = egoDynamics.alpha_lon;
+  resultRssState.longitudinal_state.rss_state_information = emptyRssStateInfo;
+  resultRssState.unstructured_constellation_state.heading_range.begin = ad::physics::Angle(0.0);
+  resultRssState.unstructured_constellation_state.heading_range.end = ad::physics::c2PI;
+  resultRssState.unstructured_constellation_state.alpha_lon = egoDynamics.alpha_lon;
+  resultRssState.unstructured_constellation_state.is_safe = is_safe;
+  resultRssState.unstructured_constellation_state.response = is_safe
+    ? (::ad::rss::state::UnstructuredConstellationResponse::None)
+    : (::ad::rss::state::UnstructuredConstellationResponse::Brake);
   return resultRssState;
 }
 
-RssSituationChecking::RssSituationChecking()
-{
-  try
-  {
-    mNonIntersectionChecker = std::unique_ptr<situation::RssStructuredSceneNonIntersectionChecker>(
-      new situation::RssStructuredSceneNonIntersectionChecker());
-    mIntersectionChecker = std::unique_ptr<situation::RssStructuredSceneIntersectionChecker>(
-      new situation::RssStructuredSceneIntersectionChecker());
-    mUnstructuredSceneChecker
-      = std::unique_ptr<situation::RssUnstructuredSceneChecker>(new situation::RssUnstructuredSceneChecker());
-  }
-  catch (...)
-  {
-    spdlog::critical("RssSituationChecking object initialization failed");
-    mNonIntersectionChecker = nullptr;
-    mIntersectionChecker = nullptr;
-    mUnstructuredSceneChecker = nullptr;
-  }
-}
-
-RssSituationChecking::~RssSituationChecking()
-{
-}
-
-bool RssSituationChecking::checkSituationInputRangeChecked(situation::Situation const &situation,
-                                                           state::RssStateSnapshot &rssStateSnapshot)
+bool RssSituationChecking::checkConstellationInputRangeChecked(RelativeConstellation const &constellation,
+                                                               state::RssStateSnapshot &rssStateSnapshot)
 {
   bool result = false;
   // global try catch block to ensure this library call doesn't throw an exception
   try
   {
-    if ((!static_cast<bool>(mNonIntersectionChecker)) || (!static_cast<bool>(mIntersectionChecker))
-        || (!static_cast<bool>(mUnstructuredSceneChecker)))
-    {
-      spdlog::critical("RssSituationChecking::checkSituationInputRangeChecked>> object not properly initialized");
-      return false;
-    }
-
-    auto rssState = createRssState(situation.situationId,
-                                   situation.situationType,
-                                   situation.objectId,
-                                   situation.egoVehicleState.dynamics,
+    auto rssState = createRssState(constellation.constellation_id,
+                                   constellation.constellation_type,
+                                   constellation.object_id,
+                                   constellation.ego_id,
+                                   constellation.ego_state.dynamics,
                                    IsSafe::No);
 
-    switch (situation.situationType)
+    switch (constellation.constellation_type)
     {
-      case situation::SituationType::NotRelevant:
-        rssState = createRssState(situation.situationId,
-                                  situation.situationType,
-                                  situation.objectId,
-                                  situation.egoVehicleState.dynamics,
+      case world::ConstellationType::NotRelevant:
+        rssState = createRssState(constellation.constellation_id,
+                                  constellation.constellation_type,
+                                  constellation.object_id,
+                                  constellation.ego_id,
+                                  constellation.ego_state.dynamics,
                                   IsSafe::Yes);
         result = true;
         break;
-      case situation::SituationType::SameDirection:
-      case situation::SituationType::OppositeDirection:
-        result = mNonIntersectionChecker->calculateRssStateNonIntersection(mCurrentTimeIndex, situation, rssState);
+      case world::ConstellationType::SameDirection:
+      case world::ConstellationType::OppositeDirection:
+        result = mNonIntersectionChecker.calculateRssStateNonIntersection(mCurrentTimeIndex, constellation, rssState);
         break;
 
-      case situation::SituationType::IntersectionEgoHasPriority:
-      case situation::SituationType::IntersectionObjectHasPriority:
-      case situation::SituationType::IntersectionSamePriority:
-        result = mIntersectionChecker->calculateRssStateIntersection(mCurrentTimeIndex, situation, rssState);
+      case world::ConstellationType::IntersectionEgoHasPriority:
+      case world::ConstellationType::IntersectionObjectHasPriority:
+      case world::ConstellationType::IntersectionSamePriority:
+        result = mIntersectionChecker.calculateRssStateIntersection(mCurrentTimeIndex, constellation, rssState);
         break;
-      case situation::SituationType::Unstructured:
-        result = mUnstructuredSceneChecker->calculateRssStateUnstructured(
-          mCurrentTimeIndex, situation, rssStateSnapshot.unstructuredSceneEgoInformation, rssState);
+      case world::ConstellationType::Unstructured:
+        result = mUnstructuredConstellationChecker.calculateRssStateUnstructured(
+          mCurrentTimeIndex, constellation, rssStateSnapshot.unstructured_constellation_ego_information, rssState);
         break;
       default:
-        spdlog::error("RssSituationChecking::checkSituationInputRangeChecked>> Invalid situation type {}", situation);
+        core::getLogger()->error(
+          "RssSituationChecking::checkConstellationInputRangeChecked>> Invalid constellation type {}", constellation);
         result = false;
         break;
     }
 
     if (result)
     {
-      rssStateSnapshot.individualResponses.push_back(rssState);
+      rssStateSnapshot.individual_responses.push_back(rssState);
     }
   }
   catch (std::exception &e)
   {
-    spdlog::critical(
-      "RssSituationChecking::checkSituationInputRangeChecked>> Exception caught '{}' {}", e.what(), situation);
+    core::getLogger()->critical(
+      "RssSituationChecking::checkConstellationInputRangeChecked>> Exception caught '{}' {}", e.what(), constellation);
     result = false;
   }
   catch (...)
   {
-    spdlog::critical("RssSituationChecking::checkSituationInputRangeChecked>> Exception caught {}", situation);
+    core::getLogger()->critical("RssSituationChecking::checkConstellationInputRangeChecked>> Exception caught {}",
+                                constellation);
     result = false;
   }
 
   return result;
 }
 
-bool RssSituationChecking::checkSituations(situation::SituationSnapshot const &situationSnapshot,
-                                           state::RssStateSnapshot &rssStateSnapshot)
+bool RssSituationChecking::checkSituation(RssSituationSnapshot const &situationSnapshot,
+                                          state::RssStateSnapshot &rssStateSnapshot)
 {
   if (!withinValidInputRange(situationSnapshot))
   {
-    spdlog::error("RssSituationChecking::checkSituations>> Invalid input {}", situationSnapshot);
+    core::getLogger()->error("RssSituationChecking::checkConstellations>> Invalid input {}", situationSnapshot);
     return false;
   }
-  if (!checkTimeIncreasingConsistently(situationSnapshot.timeIndex))
+  if (!checkTimeIncreasingConsistently(situationSnapshot.time_index))
   {
-    spdlog::error("RssSituationChecking::checkSituations>> Inconsistent time {}", situationSnapshot.timeIndex);
+    core::getLogger()->error("RssSituationChecking::checkConstellations>> Inconsistent time {}",
+                             situationSnapshot.time_index);
     return false;
   }
   bool result = true;
   // global try catch block to ensure this library call doesn't throw an exception
   try
   {
-    rssStateSnapshot.timeIndex = situationSnapshot.timeIndex;
-    rssStateSnapshot.defaultEgoVehicleRssDynamics = situationSnapshot.defaultEgoVehicleRssDynamics;
-    rssStateSnapshot.individualResponses.clear();
-    rssStateSnapshot.unstructuredSceneEgoInformation.brakeTrajectorySet.clear();
-    rssStateSnapshot.unstructuredSceneEgoInformation.continueForwardTrajectorySet.clear();
+    rssStateSnapshot.time_index = situationSnapshot.time_index;
+    rssStateSnapshot.default_ego_vehicle_rss_dynamics = situationSnapshot.default_ego_vehicle_rss_dynamics;
+    rssStateSnapshot.individual_responses.clear();
+    rssStateSnapshot.unstructured_constellation_ego_information.brake_trajectory_set.clear();
+    rssStateSnapshot.unstructured_constellation_ego_information.continue_forward_trajectory_set.clear();
 
-    for (auto it = situationSnapshot.situations.begin(); (it != situationSnapshot.situations.end()) && result; ++it)
+    for (auto it = situationSnapshot.constellations.begin(); (it != situationSnapshot.constellations.end()) && result;
+         ++it)
     {
-      result = checkSituationInputRangeChecked(*it, rssStateSnapshot);
+      result = checkConstellationInputRangeChecked(*it, rssStateSnapshot);
     }
   }
   catch (...)
   {
-    spdlog::critical("RssSituationChecking::checkSituations>> Exception caught {}", situationSnapshot);
+    core::getLogger()->critical("RssSituationChecking::checkConstellations>> Exception caught {}", situationSnapshot);
     result = false;
   }
   if (!result)
   {
-    rssStateSnapshot.individualResponses.clear();
+    rssStateSnapshot.individual_responses.clear();
   }
   return result;
 }

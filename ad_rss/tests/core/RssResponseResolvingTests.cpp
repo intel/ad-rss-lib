@@ -27,26 +27,26 @@ protected:
     state::RssState rssStateT2O2;
     state::RssState rssStateT3O1;
     state::RssState rssStateT3O2;
-    resetRssState(rssStateT1O1, 1u, 1u, situation::SituationType::SameDirection);
-    resetRssState(rssStateT1O2, 2u, 2u, situation::SituationType::SameDirection);
-    resetRssState(rssStateT2O1, 1u, 1u, situation::SituationType::SameDirection);
-    resetRssState(rssStateT2O2, 2u, 2u, situation::SituationType::SameDirection);
-    resetRssState(rssStateT3O1, 1u, 1u, situation::SituationType::SameDirection);
-    resetRssState(rssStateT3O2, 2u, 2u, situation::SituationType::SameDirection);
-    rssStateSnapshotT1.timeIndex = 1u;
-    rssStateSnapshotT1.defaultEgoVehicleRssDynamics = getEgoRssDynamics();
-    rssStateSnapshotT1.individualResponses.push_back(rssStateT1O1);
-    rssStateSnapshotT1.individualResponses.push_back(rssStateT1O2);
+    resetRssState(rssStateT1O1, 1u, 1u, world::ConstellationType::SameDirection);
+    resetRssState(rssStateT1O2, 2u, 2u, world::ConstellationType::SameDirection);
+    resetRssState(rssStateT2O1, 1u, 1u, world::ConstellationType::SameDirection);
+    resetRssState(rssStateT2O2, 2u, 2u, world::ConstellationType::SameDirection);
+    resetRssState(rssStateT3O1, 1u, 1u, world::ConstellationType::SameDirection);
+    resetRssState(rssStateT3O2, 2u, 2u, world::ConstellationType::SameDirection);
+    rssStateSnapshotT1.time_index = 1u;
+    rssStateSnapshotT1.default_ego_vehicle_rss_dynamics = getEgoRssDynamics();
+    rssStateSnapshotT1.individual_responses.push_back(rssStateT1O1);
+    rssStateSnapshotT1.individual_responses.push_back(rssStateT1O2);
 
-    rssStateSnapshotT2.timeIndex = 2u;
-    rssStateSnapshotT2.defaultEgoVehicleRssDynamics = getEgoRssDynamics();
-    rssStateSnapshotT2.individualResponses.push_back(rssStateT2O1);
-    rssStateSnapshotT2.individualResponses.push_back(rssStateT2O2);
+    rssStateSnapshotT2.time_index = 2u;
+    rssStateSnapshotT2.default_ego_vehicle_rss_dynamics = getEgoRssDynamics();
+    rssStateSnapshotT2.individual_responses.push_back(rssStateT2O1);
+    rssStateSnapshotT2.individual_responses.push_back(rssStateT2O2);
 
-    rssStateSnapshotT3.timeIndex = 3u;
-    rssStateSnapshotT3.defaultEgoVehicleRssDynamics = getEgoRssDynamics();
-    rssStateSnapshotT3.individualResponses.push_back(rssStateT3O1);
-    rssStateSnapshotT3.individualResponses.push_back(rssStateT3O2);
+    rssStateSnapshotT3.time_index = 3u;
+    rssStateSnapshotT3.default_ego_vehicle_rss_dynamics = getEgoRssDynamics();
+    rssStateSnapshotT3.individual_responses.push_back(rssStateT3O1);
+    rssStateSnapshotT3.individual_responses.push_back(rssStateT3O2);
 
     resetRssState(resultProperResponseT1);
     resetRssState(resultProperResponseT2);
@@ -64,17 +64,17 @@ protected:
   }
 
   void testResultState(state::ProperResponse &resultProperResponse,
-                       bool isSafe,
+                       bool is_safe,
                        LongitudinalResponse lonResponse,
                        LateralResponse latResponseLeft,
                        LateralResponse latResponseRight,
-                       world::ObjectIdVector dangerousObjects = world::ObjectIdVector())
+                       world::ObjectIdVector dangerous_objects = world::ObjectIdVector())
   {
-    EXPECT_EQ(isSafe, resultProperResponse.isSafe);
-    EXPECT_EQ(lonResponse, resultProperResponse.longitudinalResponse);
-    EXPECT_EQ(latResponseLeft, resultProperResponse.lateralResponseLeft);
-    EXPECT_EQ(latResponseRight, resultProperResponse.lateralResponseRight);
-    EXPECT_EQ(dangerousObjects, resultProperResponse.dangerousObjects);
+    EXPECT_EQ(is_safe, resultProperResponse.is_safe);
+    EXPECT_EQ(lonResponse, resultProperResponse.longitudinal_response);
+    EXPECT_EQ(latResponseLeft, resultProperResponse.lateral_response_left);
+    EXPECT_EQ(latResponseRight, resultProperResponse.lateral_response_right);
+    EXPECT_EQ(dangerous_objects, resultProperResponse.dangerous_objects);
   }
 
   void performTest(bool expectedResultT1 = true, bool expectedResultT2 = true, bool expectedResultT3 = true)
@@ -105,15 +105,15 @@ TEST_F(RssResponseResolvingTests, validateTestSetup)
 
 TEST_F(RssResponseResolvingTests, invalidState)
 {
-  rssStateSnapshotT1.individualResponses[0].longitudinalState.response = LongitudinalResponse(-1);
+  rssStateSnapshotT1.individual_responses[0].longitudinal_state.response = LongitudinalResponse(-1);
   performTest(false);
 }
 
 TEST_F(RssResponseResolvingTests, provideProperResponseLateralLeft)
 {
-  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].longitudinalState, LongitudinalResponse::None);
-  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].longitudinalState, LongitudinalResponse::None);
-  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].lateralStateLeft, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individual_responses[0].longitudinal_state, LongitudinalResponse::None);
+  setRssStateUnsafe(rssStateSnapshotT2.individual_responses[0].longitudinal_state, LongitudinalResponse::None);
+  setRssStateUnsafe(rssStateSnapshotT2.individual_responses[0].lateral_state_left, LateralResponse::BrakeMin);
 
   performTest();
   testResultStateNone(resultProperResponseT1);
@@ -124,9 +124,9 @@ TEST_F(RssResponseResolvingTests, provideProperResponseLateralLeft)
 
 TEST_F(RssResponseResolvingTests, provideProperResponseLateralRight)
 {
-  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMin);
-  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMin);
-  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individual_responses[0].longitudinal_state, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individual_responses[0].longitudinal_state, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individual_responses[0].lateral_state_right, LateralResponse::BrakeMin);
 
   performTest();
   testResultStateNone(resultProperResponseT1);
@@ -141,9 +141,9 @@ TEST_F(RssResponseResolvingTests, provideProperResponseLateralRight)
 
 TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinal)
 {
-  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
-  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMin);
-  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individual_responses[0].lateral_state_right, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individual_responses[0].longitudinal_state, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individual_responses[0].lateral_state_right, LateralResponse::BrakeMin);
 
   performTest();
   testResultStateNone(resultProperResponseT1);
@@ -158,9 +158,9 @@ TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinal)
 
 TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinal_None)
 {
-  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
-  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].longitudinalState, LongitudinalResponse::None);
-  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individual_responses[0].lateral_state_right, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individual_responses[0].longitudinal_state, LongitudinalResponse::None);
+  setRssStateUnsafe(rssStateSnapshotT2.individual_responses[0].lateral_state_right, LateralResponse::BrakeMin);
 
   performTest();
   testResultStateNone(resultProperResponseT1);
@@ -170,8 +170,8 @@ TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinal_None)
 
 TEST_F(RssResponseResolvingTests, provideProperResponseBothDirections)
 {
-  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMin);
-  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individual_responses[0].longitudinal_state, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individual_responses[0].lateral_state_right, LateralResponse::BrakeMin);
 
   performTest();
   testResultState(resultProperResponseT1,
@@ -186,11 +186,12 @@ TEST_F(RssResponseResolvingTests, provideProperResponseBothDirections)
 
 TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinalMoreSevere)
 {
-  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
-  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMinCorrect);
-  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
-  setRssStateUnsafe(rssStateSnapshotT3.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMin);
-  setRssStateUnsafe(rssStateSnapshotT3.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individual_responses[0].lateral_state_right, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individual_responses[0].longitudinal_state,
+                    LongitudinalResponse::BrakeMinCorrect);
+  setRssStateUnsafe(rssStateSnapshotT2.individual_responses[0].lateral_state_right, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT3.individual_responses[0].longitudinal_state, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT3.individual_responses[0].lateral_state_right, LateralResponse::BrakeMin);
 
   performTest();
   testResultStateNone(resultProperResponseT1);
@@ -210,10 +211,10 @@ TEST_F(RssResponseResolvingTests, provideProperResponseLongitudinalMoreSevere)
 
 TEST_F(RssResponseResolvingTests, provideProperResponseDangerousInitialState)
 {
-  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
-  setRssStateUnsafe(rssStateSnapshotT1.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMin);
-  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].lateralStateRight, LateralResponse::BrakeMin);
-  setRssStateUnsafe(rssStateSnapshotT2.individualResponses[0].longitudinalState, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individual_responses[0].lateral_state_right, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT1.individual_responses[0].longitudinal_state, LongitudinalResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individual_responses[0].lateral_state_right, LateralResponse::BrakeMin);
+  setRssStateUnsafe(rssStateSnapshotT2.individual_responses[0].longitudinal_state, LongitudinalResponse::BrakeMin);
 
   performTest();
   testResultState(resultProperResponseT1,

@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -21,102 +21,102 @@
 TEST(RssStateInformationValidInputRangeTests, testValidInputRange)
 {
   ::ad::rss::state::RssStateInformation value;
-  ::ad::physics::Distance valueSafeDistance(-1e9);
-  value.safeDistance = valueSafeDistance;
-  ::ad::physics::Distance valueCurrentDistance(-1e9);
-  value.currentDistance = valueCurrentDistance;
+  ::ad::physics::Distance valueSafe_distance(-1e9);
+  value.safe_distance = valueSafe_distance;
+  ::ad::physics::Distance valueCurrent_distance(-1e9);
+  value.current_distance = valueCurrent_distance;
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
-TEST(RssStateInformationValidInputRangeTests, testValidInputRangeSafeDistanceTooSmall)
+TEST(RssStateInformationValidInputRangeTests, testValidInputRangeSafe_distanceTooSmall)
 {
   ::ad::rss::state::RssStateInformation value;
-  ::ad::physics::Distance valueSafeDistance(-1e9);
-  value.safeDistance = valueSafeDistance;
-  ::ad::physics::Distance valueCurrentDistance(-1e9);
-  value.currentDistance = valueCurrentDistance;
+  ::ad::physics::Distance valueSafe_distance(-1e9);
+  value.safe_distance = valueSafe_distance;
+  ::ad::physics::Distance valueCurrent_distance(-1e9);
+  value.current_distance = valueCurrent_distance;
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
 
   // override member with data type value below input range minimum
   ::ad::physics::Distance invalidInitializedMember(-1e9 * 1.1);
-  value.safeDistance = invalidInitializedMember;
+  value.safe_distance = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(RssStateInformationValidInputRangeTests, testValidInputRangeSafeDistanceTooBig)
+TEST(RssStateInformationValidInputRangeTests, testValidInputRangeSafe_distanceTooBig)
 {
   ::ad::rss::state::RssStateInformation value;
-  ::ad::physics::Distance valueSafeDistance(-1e9);
-  value.safeDistance = valueSafeDistance;
-  ::ad::physics::Distance valueCurrentDistance(-1e9);
-  value.currentDistance = valueCurrentDistance;
+  ::ad::physics::Distance valueSafe_distance(-1e9);
+  value.safe_distance = valueSafe_distance;
+  ::ad::physics::Distance valueCurrent_distance(-1e9);
+  value.current_distance = valueCurrent_distance;
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
 
   // override member with data type value above input range maximum
   ::ad::physics::Distance invalidInitializedMember(1e9 * 1.1);
-  value.safeDistance = invalidInitializedMember;
+  value.safe_distance = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(RssStateInformationValidInputRangeTests, testValidInputRangesafeDistanceDefault)
+TEST(RssStateInformationValidInputRangeTests, testValidInputRangesafe_distanceDefault)
 {
   ::ad::rss::state::RssStateInformation value;
   ::ad::physics::Distance valueDefault;
-  value.safeDistance = valueDefault;
+  value.safe_distance = valueDefault;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(RssStateInformationValidInputRangeTests, testValidInputRangeCurrentDistanceTooSmall)
+TEST(RssStateInformationValidInputRangeTests, testValidInputRangeCurrent_distanceTooSmall)
 {
   ::ad::rss::state::RssStateInformation value;
-  ::ad::physics::Distance valueSafeDistance(-1e9);
-  value.safeDistance = valueSafeDistance;
-  ::ad::physics::Distance valueCurrentDistance(-1e9);
-  value.currentDistance = valueCurrentDistance;
+  ::ad::physics::Distance valueSafe_distance(-1e9);
+  value.safe_distance = valueSafe_distance;
+  ::ad::physics::Distance valueCurrent_distance(-1e9);
+  value.current_distance = valueCurrent_distance;
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
 
   // override member with data type value below input range minimum
   ::ad::physics::Distance invalidInitializedMember(-1e9 * 1.1);
-  value.currentDistance = invalidInitializedMember;
+  value.current_distance = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(RssStateInformationValidInputRangeTests, testValidInputRangeCurrentDistanceTooBig)
+TEST(RssStateInformationValidInputRangeTests, testValidInputRangeCurrent_distanceTooBig)
 {
   ::ad::rss::state::RssStateInformation value;
-  ::ad::physics::Distance valueSafeDistance(-1e9);
-  value.safeDistance = valueSafeDistance;
-  ::ad::physics::Distance valueCurrentDistance(-1e9);
-  value.currentDistance = valueCurrentDistance;
+  ::ad::physics::Distance valueSafe_distance(-1e9);
+  value.safe_distance = valueSafe_distance;
+  ::ad::physics::Distance valueCurrent_distance(-1e9);
+  value.current_distance = valueCurrent_distance;
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
 
   // override member with data type value above input range maximum
   ::ad::physics::Distance invalidInitializedMember(1e9 * 1.1);
-  value.currentDistance = invalidInitializedMember;
+  value.current_distance = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(RssStateInformationValidInputRangeTests, testValidInputRangecurrentDistanceDefault)
+TEST(RssStateInformationValidInputRangeTests, testValidInputRangecurrent_distanceDefault)
 {
   ::ad::rss::state::RssStateInformation value;
   ::ad::physics::Distance valueDefault;
-  value.currentDistance = valueDefault;
+  value.current_distance = valueDefault;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
 TEST(RssStateInformationValidInputRangeTests, testValidInputRangeEvaluatorTooSmall)
 {
   ::ad::rss::state::RssStateInformation value;
-  ::ad::physics::Distance valueSafeDistance(-1e9);
-  value.safeDistance = valueSafeDistance;
-  ::ad::physics::Distance valueCurrentDistance(-1e9);
-  value.currentDistance = valueCurrentDistance;
+  ::ad::physics::Distance valueSafe_distance(-1e9);
+  value.safe_distance = valueSafe_distance;
+  ::ad::physics::Distance valueCurrent_distance(-1e9);
+  value.current_distance = valueCurrent_distance;
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
 
@@ -129,10 +129,10 @@ TEST(RssStateInformationValidInputRangeTests, testValidInputRangeEvaluatorTooSma
 TEST(RssStateInformationValidInputRangeTests, testValidInputRangeEvaluatorTooBig)
 {
   ::ad::rss::state::RssStateInformation value;
-  ::ad::physics::Distance valueSafeDistance(-1e9);
-  value.safeDistance = valueSafeDistance;
-  ::ad::physics::Distance valueCurrentDistance(-1e9);
-  value.currentDistance = valueCurrentDistance;
+  ::ad::physics::Distance valueSafe_distance(-1e9);
+  value.safe_distance = valueSafe_distance;
+  ::ad::physics::Distance valueCurrent_distance(-1e9);
+  value.current_distance = valueCurrent_distance;
   ::ad::rss::state::RssStateEvaluator valueEvaluator(::ad::rss::state::RssStateEvaluator::None);
   value.evaluator = valueEvaluator;
 

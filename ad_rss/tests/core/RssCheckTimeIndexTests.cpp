@@ -24,11 +24,11 @@ TEST_F(RssCheckTimeIndexTests, ZeroTimeIndex)
   world::TimeIndex timeIndexArray[] = {0u, 1u, 0u, 0u, 3u};
   for (size_t i = 0; i < ARRAYLEN(timeIndexArray); ++i)
   {
-    worldModel.timeIndex = timeIndexArray[i];
-    if (worldModel.timeIndex != 0u)
+    worldModel.time_index = timeIndexArray[i];
+    if (worldModel.time_index != 0u)
     {
       ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
-      testRestrictions(properResponse.accelerationRestrictions);
+      testRestrictions(properResponse.acceleration_restrictions);
     }
     else
     {
@@ -59,9 +59,9 @@ TEST_F(RssCheckTimeIndexTests, TimeIndexIncrementValidity)
     (void)j;
     for (size_t i = 0; i < ARRAYLEN(timeIndexArray); ++i)
     {
-      worldModel.timeIndex = timeIndexArray[i];
+      worldModel.time_index = timeIndexArray[i];
       ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
-      testRestrictions(properResponse.accelerationRestrictions);
+      testRestrictions(properResponse.acceleration_restrictions);
     }
   }
   for (auto j : {1, 2})
@@ -70,7 +70,7 @@ TEST_F(RssCheckTimeIndexTests, TimeIndexIncrementValidity)
     (void)j;
     for (size_t i = 0; i < ARRAYLEN(timeIndexArray); ++i)
     {
-      worldModel.timeIndex = timeIndexArray[ARRAYLEN(timeIndexArray) - i - 1];
+      worldModel.time_index = timeIndexArray[ARRAYLEN(timeIndexArray) - i - 1];
       ASSERT_FALSE(rssCheck.calculateProperResponse(worldModel, properResponse));
     }
   }
@@ -85,11 +85,11 @@ TEST_F(RssCheckTimeIndexTests, FixedTimeIndexValidity)
   for (size_t i = 0; i < ARRAYLEN(timeIndexArray); ++i)
   {
     {
-      worldModel.timeIndex = timeIndexArray[i];
+      worldModel.time_index = timeIndexArray[i];
       if ((i % 2) == 0)
       {
         ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
-        testRestrictions(properResponse.accelerationRestrictions);
+        testRestrictions(properResponse.acceleration_restrictions);
       }
       else
       {

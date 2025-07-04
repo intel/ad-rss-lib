@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -20,6 +20,8 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include "spdlog/fmt/ostr.h"
+#include "spdlog/spdlog.h"
 /*!
  * @brief namespace ad
  */
@@ -63,7 +65,26 @@ enum class ObjectType : int32_t
   /*!
    * The object is an artificial one.
    */
-  ArtificialObject = 4
+  ArtificialObject = 4,
+
+  /*!
+   * The vehicle is an artificial one.
+   */
+  ArtificialVehicle = 5,
+
+  /*!
+   * The pedestrian is an artificial one.
+   */
+  ArtificialPedestrian = 6,
+  /*!
+   Bicycle
+   */
+  Bicycle = 7,
+
+  /*!
+   * A not further classified other object.
+   */
+  OtherObject = 8
 };
 
 } // namespace world
@@ -159,4 +180,16 @@ inline std::string to_string(::ad::rss::world::ObjectType const &value)
   return ::toString(value);
 }
 } // namespace std
+
+/*!
+ * \brief overload of fmt::formatter calling std::to_string
+ */
+template <> struct fmt::formatter<::ad::rss::world::ObjectType> : formatter<string_view>
+{
+  template <typename FormatContext> auto format(::ad::rss::world::ObjectType const &value, FormatContext &ctx)
+  {
+    return formatter<string_view>::format(std::to_string(value), ctx);
+  }
+};
+
 #endif // GEN_GUARD_AD_RSS_WORLD_OBJECTTYPE

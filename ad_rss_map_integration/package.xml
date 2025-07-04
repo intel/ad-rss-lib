@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>ad_rss_map_integration</name>
-  <version>4.5.3</version>
+  <version>5.0.0</version>
   <description>ad_rss_map_integration</description>
   <maintainer email="bernd.gassmann@intel.com">Intel Corporation</maintainer>
   <license>LGPL-2.1-only</license>

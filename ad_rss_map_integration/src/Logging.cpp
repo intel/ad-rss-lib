@@ -52,6 +52,21 @@ std::shared_ptr<spdlog::logger> getLogger()
   return Logging::instance().mLogger;
 }
 
+spdlog::level::level_enum getLogLevel()
+{
+  return getLogger()->level();
+}
+
+void setLogLevel(spdlog::level::level_enum const logLevel)
+{
+  getLogger()->set_level(logLevel);
+}
+
+void setLogLevel(std::string const &logLevel)
+{
+  getLogger()->set_level(spdlog::level::from_str(logLevel));
+}
+
 } // namespace map
 } // namespace rss
 } // namespace ad

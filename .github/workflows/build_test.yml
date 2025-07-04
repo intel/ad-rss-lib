@@ -29,7 +29,19 @@ jobs:
             EXTRA_PACKAGES: clang-14
             CC: /usr/bin/clang-14
             CXX: /usr/bin/clang++-14
-            PYTHON_BINDING_VERSION: "3.10"
+            PYTHON_BINDING_VERSION: "3.11"
+          - os: ubuntu-24.04
+            compiler: gcc13
+            EXTRA_PACKAGES: ""
+            CC: ""
+            CXX: ""
+            PYTHON_BINDING_VERSION: "3.12"
+          - os: ubuntu-24.04
+            compiler: clang18
+            EXTRA_PACKAGES: clang-18
+            CC: /usr/bin/clang-18
+            CXX: /usr/bin/clang++-18
+            PYTHON_BINDING_VERSION: "3.13"
 
     name: ${{ matrix.os }}, ${{ matrix.compiler }}, python-${{ matrix.PYTHON_BINDING_VERSION }}
     runs-on: ${{ matrix.os }}
@@ -57,4 +69,4 @@ jobs:
       run: |
         sudo apt-get install ${EXTRA_PACKAGES}
         rm -rf log build install
-        eval CC=${CC} CXX=${CXX} ${BUILDCMD}
+        source ad-rss-build-venv/bin/activate && eval CC=${CC} CXX=${CXX} ${BUILDCMD}
