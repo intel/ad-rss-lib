@@ -69,4 +69,5 @@ jobs:
       run: |
         sudo apt-get install ${EXTRA_PACKAGES}
         rm -rf log build install
-        source ad-rss-build-venv/bin/activate && eval CC=${CC} CXX=${CXX} ${BUILDCMD}
+        source ad-rss-build-venv/bin/activate
+        eval CC=${CC} CXX=${CXX} ${BUILDCMD}
