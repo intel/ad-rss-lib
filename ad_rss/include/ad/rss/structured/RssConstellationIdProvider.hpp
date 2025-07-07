@@ -96,7 +96,7 @@ private:
     /*!
      * @brief extract the intersection area from the RoadArea
      */
-    IntersectionArea getIntersectionArea(world::RoadArea roadArea);
+    IntersectionArea getIntersectionArea(world::RoadArea const &roadArea);
 
     world::TimeIndex mTimeIndex;
     world::ConstellationType mConstellationType;

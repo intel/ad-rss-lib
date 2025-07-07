@@ -28,7 +28,7 @@ bool calculateLateralDimensions(world::RoadArea const &roadArea, std::vector<Met
   if (roadArea.empty())
   {
     core::getLogger()->error(
-      "RssConstellationCoordinateSystemConversion::calculateLateralDimensions>> road area empty");
+      "RssLaneCoordinateSystemConversion::calculateLateralDimensions>> road area empty");
     return false;
   }
 
@@ -53,7 +53,7 @@ bool calculateLateralDimensions(world::RoadArea const &roadArea, std::vector<Met
         if (roadSegment.lane_segments.empty())
         {
           core::getLogger()->error(
-            "RssConstellationCoordinateSystemConversion::calculateLateralDimensions>> road segment empty");
+            "RssLaneCoordinateSystemConversion::calculateLateralDimensions>> road segment empty");
           return false;
         }
         if (roadSegment.lane_segments.size() > currentLateralIndex)
@@ -155,7 +155,7 @@ bool calculateObjectDimensions(std::vector<world::Object> const &objects,
         if (object.occupied_regions.empty())
         {
           core::getLogger()->error(
-            "RssConstellationCoordinateSystemConversion::calculateObjectDimensions>> occupied region of "
+            "RssLaneCoordinateSystemConversion::calculateObjectDimensions>> occupied region of "
             "object {} empty",
             object.object_id);
           return false;
@@ -212,7 +212,7 @@ bool calculateObjectDimensions(std::vector<world::Object> const &objects,
     else
     {
       core::getLogger()->error(
-        "RssConstellationCoordinateSystemConversion::calculateObjectDimensions>> calculateLateralDimensions of "
+        "RssLaneCoordinateSystemConversion::calculateObjectDimensions>> calculateLateralDimensions of "
         "object {} failed",
         objects.front().object_id);
     }

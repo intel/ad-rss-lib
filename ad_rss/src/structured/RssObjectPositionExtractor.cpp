@@ -31,7 +31,6 @@ RssObjectPositionExtractor::RssObjectPositionExtractor(world::OccupiedRegionVect
 bool RssObjectPositionExtractor::newRoadSegment(physics::MetricRange const &longitudinalStart,
                                                 world::RoadSegment const &roadSegment)
 {
-  bool result = true;
   mCurrentLongitudinalRoadSegmentStart = longitudinalStart;
   mRoadSegmentMinLengthAfterIntersectingArea = roadSegment.minimum_length_after_intersecting_area;
 
@@ -60,13 +59,11 @@ bool RssObjectPositionExtractor::newRoadSegment(physics::MetricRange const &long
       break;
   }
 
-  return result;
+  return true;
 }
 
 bool RssObjectPositionExtractor::newLaneSegment(MetricRange lateral_distance, world::LaneSegment const &laneSegment)
 {
-  bool result = true;
-
   bool noAdditionalObjects = false;
   while (!noAdditionalObjects && !mOccupiedRegions.empty())
   {
@@ -123,7 +120,7 @@ bool RssObjectPositionExtractor::newLaneSegment(MetricRange lateral_distance, wo
       mCurrentLongitudinalRoadSegmentStart.maximum + laneSegmentMax, mObjectDimensions.intersectionPosition.maximum);
   }
 
-  return result;
+  return true;
 }
 
 bool RssObjectPositionExtractor::getObjectDimensions(ObjectDimensions &objectDimensions)

@@ -30,7 +30,7 @@ RssConstellationIdProvider::ConstellationData::ConstellationData(world::TimeInde
 }
 
 RssConstellationIdProvider::ConstellationData::IntersectionArea
-RssConstellationIdProvider::ConstellationData::getIntersectionArea(world::RoadArea roadArea)
+RssConstellationIdProvider::ConstellationData::getIntersectionArea(world::RoadArea const &roadArea)
 {
   IntersectionArea intersectionArea;
   for (auto &roadSegment : roadArea)
