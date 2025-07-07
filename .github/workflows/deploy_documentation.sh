@@ -14,10 +14,9 @@ mv coverage/ coverage_tmp/
 sudo rm -rf =1.11.0 *.info dependencies/
 
 # switch to gh-pages branch
-git checkout origin/gh-pages
+git fetch origin/gh-pages
+git checkout origin/gh-pages -b gh-pages
 if [ $? -ne 0 ]; then echo "GIT checkout failure"; exit 1; fi
-git checkout -b gh-pages
-
 
 # docu website
 cp -r site/* .
