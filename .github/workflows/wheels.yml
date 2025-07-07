@@ -31,6 +31,10 @@ jobs:
       WHEEL_PLATFORM: manylinux_2_35_x86_64
       PYTHON_BINDING_VERSION: ${{ matrix.PYTHON_BINDING_VERSION }}
       PYTHONNOUSERSITE: 1
+    environment:
+      name: pypi
+    permissions:
+      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
@@ -61,17 +65,23 @@ jobs:
         run: |
           source ad-rss-build-venv/bin/activate
           source install/setup.bash
-          for whl in install/ad_physics/dist/*.whl; do
-             auditwheel repair $whl --plat ${WHEEL_PLATFORM} --wheel-dir wheelhouse
+          for whl in install/ad_rss/dist/*.whl; do
+             auditwheel repair $whl --plat ${WHEEL_PLATFORM} --wheel-dir wheelhouse/ad_rss
           done
-          for whl in install/ad_map_access/dist/*.whl; do
-            auditwheel repair $whl --plat ${WHEEL_PLATFORM} --wheel-dir wheelhouse
+          for whl in install/ad_rss_map_integration/dist/*.whl; do
+            auditwheel repair $whl --plat ${WHEEL_PLATFORM} --wheel-dir wheelhouse/ad_rss_map_integration
           done
 
-      - name: Publish wheels to PyPI
+      - name: Publish ad-rss wheel to PyPI
         uses: pypa/gh-action-pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # release/v1
         if: ${{ github.event_name == 'release'}}
         with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          packages_dir: wheelhouse/
+          packages-dir: wheelhouse/ad_rss
+          repository-url: https://pypi.org/p/ad-rss
+
+      - name: Publish ad-rss-map-integration wheel to PyPI
+        uses: pypa/gh-action-pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # release/v1
+        if: ${{ github.event_name == 'release'}}
+        with:
+          packages-dir: wheelhouse/ad_rss_map_integration
+          repository-url: https://pypi.org/p/ad-rss-map-integration
