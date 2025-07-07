@@ -27,8 +27,7 @@ bool calculateLateralDimensions(world::RoadArea const &roadArea, std::vector<Met
   bool result = true;
   if (roadArea.empty())
   {
-    core::getLogger()->error(
-      "RssLaneCoordinateSystemConversion::calculateLateralDimensions>> road area empty");
+    core::getLogger()->error("RssLaneCoordinateSystemConversion::calculateLateralDimensions>> road area empty");
     return false;
   }
 
@@ -154,10 +153,9 @@ bool calculateObjectDimensions(std::vector<world::Object> const &objects,
       {
         if (object.occupied_regions.empty())
         {
-          core::getLogger()->error(
-            "RssLaneCoordinateSystemConversion::calculateObjectDimensions>> occupied region of "
-            "object {} empty",
-            object.object_id);
+          core::getLogger()->error("RssLaneCoordinateSystemConversion::calculateObjectDimensions>> occupied region of "
+                                   "object {} empty",
+                                   object.object_id);
           return false;
         }
         extractors.push_back(RssObjectPositionExtractor(object.occupied_regions));
