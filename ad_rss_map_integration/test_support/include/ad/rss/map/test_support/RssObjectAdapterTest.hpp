@@ -163,6 +163,8 @@ public:
   {
   }
 
+  virtual ~RssObjectInstanceTest() = default;
+
   ::ad::rss::world::ObjectType getObjectType() const override
   {
     return mObjectType;

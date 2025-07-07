@@ -40,7 +40,7 @@ struct RssWorldModelCreationTest : public virtual RssMapIntegrationTestBase
       auto findResult
         = std::find_if(notMatchedResults.begin(),
                        notMatchedResults.end(),
-                       [this, constellation](ExpectedResultTuple const &expectedResultTuple) {
+                       [constellation](ExpectedResultTuple const &expectedResultTuple) {
                          return (std::get<0>(expectedResultTuple) == constellation.constellation_type)
                            && (std::get<1>(expectedResultTuple) == constellation.ego_vehicle_road.size())
                            && (std::get<2>(expectedResultTuple) == constellation.intersecting_road.size())

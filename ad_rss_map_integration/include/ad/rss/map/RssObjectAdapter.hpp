@@ -308,6 +308,8 @@ protected:
     {
     }
 
+    virtual ~RssObjectInstanceDummy()= default;
+
     /*! @brief get the object type
      *
      *  Reimplemented from RssObjectInstance.
