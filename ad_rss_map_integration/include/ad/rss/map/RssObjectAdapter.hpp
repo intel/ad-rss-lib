@@ -308,7 +308,7 @@ protected:
     {
     }
 
-    virtual ~RssObjectInstanceDummy()= default;
+    virtual ~RssObjectInstanceDummy() = default;
 
     /*! @brief get the object type
      *
