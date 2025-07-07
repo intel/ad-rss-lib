@@ -31,6 +31,10 @@ jobs:
       WHEEL_PLATFORM: manylinux_2_35_x86_64
       PYTHON_BINDING_VERSION: ${{ matrix.PYTHON_BINDING_VERSION }}
       PYTHONNOUSERSITE: 1
+    environment:
+      name: pypi
+    permissions:
+      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
@@ -74,10 +78,6 @@ jobs:
         with:
           packages-dir: wheelhouse/ad_rss
           repository-url: https://pypi.org/p/ad-rss
-          environment:
-            name: pypi
-          permissions:
-            id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
 
       - name: Publish ad-rss-map-integration wheel to PyPI
         uses: pypa/gh-action-pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # release/v1
@@ -85,7 +85,3 @@ jobs:
         with:
           packages-dir: wheelhouse/ad_rss_map_integration
           repository-url: https://pypi.org/p/ad-rss-map-integration
-          environment:
-            name: pypi
-          permissions:
-            id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
