@@ -1,4 +1,4 @@
-name: Wheels
+name: Wheel ad-rss-map-integration
 
 on:
   release:
@@ -65,19 +65,9 @@ jobs:
         run: |
           source ad-rss-build-venv/bin/activate
           source install/setup.bash
-          for whl in install/ad_rss/dist/*.whl; do
-             auditwheel repair $whl --plat ${WHEEL_PLATFORM} --wheel-dir wheelhouse/ad_rss
-          done
           for whl in install/ad_rss_map_integration/dist/*.whl; do
             auditwheel repair $whl --plat ${WHEEL_PLATFORM} --wheel-dir wheelhouse/ad_rss_map_integration
           done
-
-      - name: Publish ad-rss wheel to PyPI
-        uses: pypa/gh-action-pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # release/v1
-        if: ${{ github.event_name == 'release'}}
-        with:
-          packages-dir: wheelhouse/ad_rss
-          repository-url: https://pypi.org/p/ad-rss
 
       - name: Publish ad-rss-map-integration wheel to PyPI
         uses: pypa/gh-action-pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # release/v1
