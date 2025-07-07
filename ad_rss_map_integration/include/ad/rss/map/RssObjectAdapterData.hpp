@@ -77,7 +77,7 @@ struct RssObjectAdapterData
   /*!
    * \brief standard destructor
    */
-  ~RssObjectAdapterData() = default;
+  virtual ~RssObjectAdapterData() = default;
 
   /*!
    * \brief standard copy constructor

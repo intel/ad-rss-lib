@@ -30,6 +30,8 @@ struct RssCheckResult
 {
   RssCheckResult() = default;
 
+  RssCheckResult(RssCheckResult const &other) = default;
+
   RssCheckResult(ad::rss::map::RssRouteCheckResult const &route_check_result, ad::physics::Duration const &v2x_latency)
     : v2x_latency(v2x_latency)
     , proper_response(route_check_result.proper_response)
