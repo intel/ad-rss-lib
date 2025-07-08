@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-07-08 06:31:49</td>
+            <td class="headerValue">2025-07-08 14:29:35</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">9</td>
@@ -158,12 +158,12 @@
 <a name="85"><span class="lineNum">      85 </span>                :            :                                          Speed &amp;resultingSpeed,</a>
 <a name="86"><span class="lineNum">      86 </span>                :            :                                          Distance &amp;distanceOffset)</a>
 <a name="87"><span class="lineNum">      87 </span>                :            : {</a>
-<a name="88"><span class="lineNum">      88 </span>  [<span class="branchCov" title="Branch 0 was taken 63265 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchCov" title="Branch 3 was taken 63263 times"> + </span>]:<span class="lineCov">      63265 :   if (duration &lt; Duration(0.))</span></a>
+<a name="88"><span class="lineNum">      88 </span>  [<span class="branchCov" title="Branch 0 was taken 63264 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchCov" title="Branch 3 was taken 63262 times"> + </span>]:<span class="lineCov">      63265 :   if (duration &lt; Duration(0.))</span></a>
 <a name="89"><span class="lineNum">      89 </span>                :            :   {</a>
 <a name="90"><span class="lineNum">      90 </span>                :            :     // time must not be negative</a>
 <a name="91"><span class="lineNum">      91 </span>                :<span class="lineCov">          2 :     return false;</span></a>
 <a name="92"><span class="lineNum">      92 </span>                :            :   }</a>
-<a name="93"><span class="lineNum">      93 </span>  [<span class="branchCov" title="Branch 0 was taken 63263 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchCov" title="Branch 3 was taken 63261 times"> + </span>]:<span class="lineCov">      63263 :   if (currentSpeed &lt; Speed(0.))</span></a>
+<a name="93"><span class="lineNum">      93 </span>  [<span class="branchCov" title="Branch 0 was taken 63263 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchCov" title="Branch 3 was taken 63261 times"> + </span>]:<span class="lineCov">      63262 :   if (currentSpeed &lt; Speed(0.))</span></a>
 <a name="94"><span class="lineNum">      94 </span>                :            :   {</a>
 <a name="95"><span class="lineNum">      95 </span>                :            :     // the speed has to be always &gt;= 0.</a>
 <a name="96"><span class="lineNum">      96 </span>                :<span class="lineCov">          2 :     return false;</span></a>
@@ -187,15 +187,15 @@
 <a name="114"><span class="lineNum">     114 </span>                :<span class="lineCov">      63261 :     Duration accelDuration = Duration(0.);</span></a>
 <a name="115"><span class="lineNum">     115 </span>  [<span class="branchCov" title="Branch 0 was taken 63261 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 63228 times"> + </span><span class="branchCov" title="Branch 3 was taken 33 times"> + </span>]:<span class="lineCov">      63261 :     if (acceleration != Acceleration(0.))</span></a>
 <a name="116"><span class="lineNum">     116 </span>                :            :     {</a>
-<a name="117"><span class="lineNum">     117 </span>  [<span class="branchCov" title="Branch 0 was taken 63228 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 63228 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">      63228 :       accelDuration = (resultingSpeed - currentSpeed) / acceleration;</span></a>
+<a name="117"><span class="lineNum">     117 </span>  [<span class="branchCov" title="Branch 0 was taken 63227 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 63228 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">      63228 :       accelDuration = (resultingSpeed - currentSpeed) / acceleration;</span></a>
 <a name="118"><span class="lineNum">     118 </span>                :            :     }</a>
 <a name="119"><span class="lineNum">     119 </span>                :            : </a>
 <a name="120"><span class="lineNum">     120 </span>        [<span class="branchCov" title="Branch 0 was taken 63261 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      63261 :     Duration resultingSpeedDuration = duration - accelDuration;</span></a>
 <a name="121"><span class="lineNum">     121 </span>                :            : </a>
 <a name="122"><span class="lineNum">     122 </span>        [<span class="branchCov" title="Branch 0 was taken 63261 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      63261 :     distanceOffset = currentSpeed * duration;</span></a>
 <a name="123"><span class="lineNum">     123 </span>  [<span class="branchCov" title="Branch 0 was taken 63261 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 63261 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">      63261 :     distanceOffset += 0.5 * acceleration * accelDuration * accelDuration;</span></a>
-<span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 63261 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 63261 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
-<a name="124"><span class="lineNum">     124 </span>  [<span class="branchCov" title="Branch 0 was taken 63261 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 63261 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">      63261 :     distanceOffset += (resultingSpeed - currentSpeed) * resultingSpeedDuration;</span></a>
+<span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 63260 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 63260 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
+<a name="124"><span class="lineNum">     124 </span>  [<span class="branchCov" title="Branch 0 was taken 63260 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 63261 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">      63260 :     distanceOffset += (resultingSpeed - currentSpeed) * resultingSpeedDuration;</span></a>
 <span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 63261 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]
 <a name="125"><span class="lineNum">     125 </span>                :            :   }</a>
 <a name="126"><span class="lineNum">     126 </span>                :            : </a>

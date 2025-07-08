@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-07-08 06:31:49</td>
+            <td class="headerValue">2025-07-08 14:29:35</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -92,9 +92,9 @@
 <a name="21"><span class="lineNum">      21 </span>                :            : using physics::Duration;</a>
 <a name="22"><span class="lineNum">      22 </span>                :            : using physics::Speed;</a>
 <a name="23"><span class="lineNum">      23 </span>                :            : </a>
-<a name="24"><span class="lineNum">      24 </span>                :<span class="lineCov">     133240 : inline bool objectStateWithinVaildInputRange(core::RelativeObjectState const &amp;objectState)</span></a>
+<a name="24"><span class="lineNum">      24 </span>                :<span class="lineCov">     133239 : inline bool objectStateWithinVaildInputRange(core::RelativeObjectState const &amp;objectState)</span></a>
 <a name="25"><span class="lineNum">      25 </span>                :            : {</a>
-<a name="26"><span class="lineNum">      26 </span>        [<span class="branchCov" title="Branch 0 was taken 12010 times"> + </span><span class="branchCov" title="Branch 1 was taken 121230 times"> + </span>]:<span class="lineCov">     133240 :   if (!withinValidInputRange(objectState))</span></a>
+<a name="26"><span class="lineNum">      26 </span>        [<span class="branchCov" title="Branch 0 was taken 12010 times"> + </span><span class="branchCov" title="Branch 1 was taken 121230 times"> + </span>]:<span class="lineCov">     133239 :   if (!withinValidInputRange(objectState))</span></a>
 <a name="27"><span class="lineNum">      27 </span>                :            :   {</a>
 <a name="28"><span class="lineNum">      28 </span>                :<span class="lineCov">      12010 :     return false;</span></a>
 <a name="29"><span class="lineNum">      29 </span>                :            :   }</a>
@@ -114,7 +114,7 @@
 <a name="43"><span class="lineNum">      43 </span>                :            : {</a>
 <a name="44"><span class="lineNum">      44 </span>                :<span class="lineCov">      57137 :   Speed resultingSpeed = Speed(0.);</span></a>
 <a name="45"><span class="lineNum">      45 </span>                :<span class="lineCov">      57137 :   Distance distanceOffsetAfterResponseTime = Distance(0.);</span></a>
-<a name="46"><span class="lineNum">      46 </span>        [<span class="branchCov" title="Branch 0 was taken 57137 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      57137 :   bool result = core::calculateAcceleratedLimitedMovement(currentSpeed,</span></a>
+<a name="46"><span class="lineNum">      46 </span>        [<span class="branchCov" title="Branch 0 was taken 57137 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      57136 :   bool result = core::calculateAcceleratedLimitedMovement(currentSpeed,</span></a>
 <a name="47"><span class="lineNum">      47 </span>                :            :                                                           max_speed_on_acceleration,</a>
 <a name="48"><span class="lineNum">      48 </span>                :            :                                                           acceleration,</a>
 <a name="49"><span class="lineNum">      49 </span>                :            :                                                           response_time,</a>
@@ -130,9 +130,9 @@
 <span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 57135 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]
 <a name="59"><span class="lineNum">      59 </span>                :            :   }</a>
 <a name="60"><span class="lineNum">      60 </span>                :            : </a>
-<a name="61"><span class="lineNum">      61 </span>        [<span class="branchCov" title="Branch 0 was taken 57135 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">      57137 :   if (result)</span></a>
+<a name="61"><span class="lineNum">      61 </span>        [<span class="branchCov" title="Branch 0 was taken 57134 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">      57137 :   if (result)</span></a>
 <a name="62"><span class="lineNum">      62 </span>                :            :   {</a>
-<a name="63"><span class="lineNum">      63 </span>        [<span class="branchCov" title="Branch 0 was taken 57135 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      57135 :     distanceOffset = distanceOffsetAfterResponseTime + distanceToStop;</span></a>
+<a name="63"><span class="lineNum">      63 </span>        [<span class="branchCov" title="Branch 0 was taken 57134 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      57134 :     distanceOffset = distanceOffsetAfterResponseTime + distanceToStop;</span></a>
 <a name="64"><span class="lineNum">      64 </span>                :            :   }</a>
 <a name="65"><span class="lineNum">      65 </span>                :            : </a>
 <a name="66"><span class="lineNum">      66 </span>                :<span class="lineCov">      57137 :   return result;</span></a>
@@ -175,13 +175,13 @@
 <a name="101"><span class="lineNum">     101 </span>                :            :                                                     Distance &amp;safe_distance)</a>
 <a name="102"><span class="lineNum">     102 </span>                :            : {</a>
 <a name="103"><span class="lineNum">     103 </span>  [<span class="branchCov" title="Branch 0 was taken 65598 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 60594 times"> + </span><span class="branchCov" title="Branch 3 was taken 5004 times"> + </span> :<span class="lineCov">      65597 :   if (!objectStateWithinVaildInputRange(leadingObject) || !objectStateWithinVaildInputRange(followingObject))</span></a>
-<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 60594 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 6998 times"> + </span><span class="branchCov" title="Branch 7 was taken 53596 times"> + </span><span class="branchCov" title="Branch 8 was taken 12002 times"> + </span> 
-<span class="lineNum">         </span>            <span class="branchCov" title="Branch 9 was taken 53596 times"> + </span>]
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 60593 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 6997 times"> + </span><span class="branchCov" title="Branch 7 was taken 53596 times"> + </span><span class="branchCov" title="Branch 8 was taken 12002 times"> + </span> 
+<span class="lineNum">         </span>            <span class="branchCov" title="Branch 9 was taken 53595 times"> + </span>]
 <a name="104"><span class="lineNum">     104 </span>                :            :   {</a>
 <a name="105"><span class="lineNum">     105 </span>                :<span class="lineCov">      12002 :     return false;</span></a>
 <a name="106"><span class="lineNum">     106 </span>                :            :   }</a>
 <a name="107"><span class="lineNum">     107 </span>                :            : </a>
-<a name="108"><span class="lineNum">     108 </span>                :<span class="lineCov">      53596 :   Distance distanceStatedBraking = Distance(0.);</span></a>
+<a name="108"><span class="lineNum">     108 </span>                :<span class="lineCov">      53595 :   Distance distanceStatedBraking = Distance(0.);</span></a>
 <a name="109"><span class="lineNum">     109 </span>                :            : </a>
 <a name="110"><span class="lineNum">     110 </span>                :            :   bool result = calculateLongitudinalDistanceOffsetAfterStatedBrakingPattern( // LCOV_EXCL_LINE: wrong detection</a>
 <a name="111"><span class="lineNum">     111 </span>                :<span class="lineCov">      53596 :     followingObject.structured_object_state.velocity.speed_lon_max,</span></a>
@@ -207,13 +207,13 @@
 <a name="130"><span class="lineNum">     130 </span>                :<span class="lineCov">      53596 :   return result;</span></a>
 <a name="131"><span class="lineNum">     131 </span>                :            : }</a>
 <a name="132"><span class="lineNum">     132 </span>                :            : </a>
-<a name="133"><span class="lineNum">     133 </span>                :<span class="lineCov">      65595 : bool checkSafeLongitudinalDistanceSameDirection(core::RelativeObjectState const &amp;leadingObject,</span></a>
+<a name="133"><span class="lineNum">     133 </span>                :<span class="lineCov">      65596 : bool checkSafeLongitudinalDistanceSameDirection(core::RelativeObjectState const &amp;leadingObject,</span></a>
 <a name="134"><span class="lineNum">     134 </span>                :            :                                                 core::RelativeObjectState const &amp;followingObject,</a>
 <a name="135"><span class="lineNum">     135 </span>                :            :                                                 Distance const &amp;objectDistance,</a>
 <a name="136"><span class="lineNum">     136 </span>                :            :                                                 Distance &amp;safe_distance,</a>
 <a name="137"><span class="lineNum">     137 </span>                :            :                                                 bool &amp;isDistanceSafe)</a>
 <a name="138"><span class="lineNum">     138 </span>                :            : {</a>
-<a name="139"><span class="lineNum">     139 </span>  [<span class="branchCov" title="Branch 0 was taken 65595 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 65594 times"> + </span>]:<span class="lineCov">      65595 :   if (objectDistance &lt; Distance(0.))</span></a>
+<a name="139"><span class="lineNum">     139 </span>  [<span class="branchCov" title="Branch 0 was taken 65595 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 65594 times"> + </span>]:<span class="lineCov">      65596 :   if (objectDistance &lt; Distance(0.))</span></a>
 <a name="140"><span class="lineNum">     140 </span>                :            :   {</a>
 <a name="141"><span class="lineNum">     141 </span>                :<span class="lineCov">          1 :     return false;</span></a>
 <a name="142"><span class="lineNum">     142 </span>                :            :   }</a>
